@@ -65,6 +65,7 @@ To enable automatic buffer formatting on save, set the variable =rust-format-on-
 | ~SPC m c t~ | run the current test with Cargo             |
 | ~SPC m c u~ | update dependencies with Cargo              |
 | ~SPC m c x~ | execute a project with Cargo                |
+| ~SPC m c v~ | check (verify) a project with Cargo         |
 | ~SPC m g g~ | jump to definition                          |
 | ~SPC m h h~ | describe symbol at point                    |
 | ~SPC m t~   | run tests with Cargo                        |

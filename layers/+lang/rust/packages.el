@@ -33,8 +33,7 @@
         "c." 'cargo-process-repeat
         "cC" 'cargo-process-clean
         "cX" 'cargo-process-run-example
-        "cc" 'cargo-process-check
-        "cb" 'cargo-process-build
+        "cc" 'cargo-process-build
         "cd" 'cargo-process-doc
         "cD" 'cargo-process-doc-open
         "ce" 'cargo-process-bench
@@ -47,6 +46,7 @@
         "ct" 'cargo-process-current-test
         "cu" 'cargo-process-update
         "cx" 'cargo-process-run
+        "cv" 'cargo-process-check
         "t" 'cargo-process-test))))
 
 (defun rust/post-init-flycheck ()
