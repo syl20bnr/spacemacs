@@ -21,8 +21,9 @@
     :defer t
     :config
     (progn
-      (add-to-list 'semantic-default-submodes
-                   'global-semantic-stickyfunc-mode)
+      (if (not (eq nil global-semantic-stickyfunc-mode-turned-on))
+          (add-to-list 'semantic-default-submodes
+                       'global-semantic-stickyfunc-mode))
       (add-to-list 'semantic-default-submodes
                    'global-semantic-idle-summary-mode))))
 
