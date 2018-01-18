@@ -41,9 +41,13 @@ Emacs, we will use Emacs conventions for keybinding notation. The most important
 modifier keys are:
 
 ~SPC~ = ~Space~, used as the leader key in Vim editing style.
+
 ~RET~ = ~Return~ (also known as ~Enter~)
+
 ~C-~ = ~Ctrl~
+
 ~M-~ (for "meta") = ~Alt~
+
 ~S-~ = ~Shift~
 
 The modifier keys can be used either in a sequence or as key chords by pressing
