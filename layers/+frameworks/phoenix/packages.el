@@ -14,15 +14,15 @@
 
 (defun phoenix/post-init-alchemist ()
   (progn
-    (spacemacs/declare-prefix-for-mode 'elixir-mode "mp" "phoenix")
-    (spacemacs/declare-prefix-for-mode 'elixir-mode "mpf" "find")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "mf" "phoenix")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "mff" "find")
     (spacemacs/set-leader-keys-for-major-mode 'elixir-mode
-      "pfw" 'alchemist-phoenix-find-web
-      "pfv" 'alchemist-phoenix-find-views
-      "pfc" 'alchemist-phoenix-find-controllers
-      "pfC" 'alchemist-phoenix-find-channels
-      "pft" 'alchemist-phoenix-find-templates
-      "pfm" 'alchemist-phoenix-find-models
-      "pfs" 'alchemist-phoenix-find-static
-      "pfr" 'alchemist-phoenix-router
-      "pr" 'alchemist-phoenix-routes)))
+      "ffw" 'alchemist-phoenix-find-web
+      "ffv" 'alchemist-phoenix-find-views
+      "ffc" 'alchemist-phoenix-find-controllers
+      "ffC" 'alchemist-phoenix-find-channels
+      "fft" 'alchemist-phoenix-find-templates
+      "ffm" 'alchemist-phoenix-find-models
+      "ffs" 'alchemist-phoenix-find-static
+      "ffr" 'alchemist-phoenix-router
+      "fr" 'alchemist-phoenix-routes)))
