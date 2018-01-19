@@ -2,13 +2,17 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-command-log can be used to demo Emacs to an audience. When activated,
-keystrokes get logged into a designated buffer, along with the command
-bound to them. For more info check [[https://github.com/lewang/command-log-mode][command-log-mode]].
+This layer adds a handy command demonstration mode to Spacemacs.
+
+** Features:
+- Support for logging all entered keys and triggered commands in a designated buffer via [[https://github.com/lewang/command-log-mode][command-log-mode]].
+- Provides the best way to demonstrate the connection between keystrokes and commands in emacs.
+- Provides an easy way to create command logs for training classes.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
