@@ -4,27 +4,27 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
-- [[#requirements][Requirements]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This simple layer adds support for the [[http://dlang.org/][D language]].
-It adds =d-mode= as well as integrating it with =auto-completion= and =syntax-checking=.
+This simple layer adds support for the [[http://dlang.org/][D language]] to Spacemacs.
+
+** Features:
+- Syntax highlighting
+- Auto completion via =company=
+- Syntax checking via =flycheck=
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =d= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-To enable smart D completion, you need to install [[https://github.com/Hackerpilot/DCD][DCD]]. Here are [[https://github.com/Hackerpilot/DCD#setup][installation
-instructions]]. After successfully built DCD, you need to copy the binary
-=dcd-server= and  =dcd-client= in =bin/= directory to somewhere in your $PATH e.g.
-=/usr/local/bin= on Linux.
+To enable auto completion, you need to [[https://github.com/Hackerpilot/DCD#setup][install]] [[https://github.com/Hackerpilot/DCD][DCD]]. After successfully building DCD,
+you need to copy the binary =dcd-server= and =dcd-client= in your path.
 
-* Requirements
-- [[https://github.com/Hackerpilot/DCD][DCD]] (completion)
-- [[https://github.com/dlang/dub][DUB]] (dub projects)
+It is also recommended to install [[https://github.com/dlang/dub][DUB]] a =D language= package manager.
 
 * Key bindings
 
@@ -32,5 +32,6 @@ instructions]]. After successfully built DCD, you need to copy the binary
 |-------------+-------------------------------------------------------|
 | ~SPC m g g~ | Go to definition                                      |
 | ~SPC m g b~ | Jump back (after go to definition with above command) |
-| ~SPC m g r~ | find references to all symbol at point                |
+| ~SPC m g r~ | Find references to all symbol at point                |
+| ~SPC m h h~ | Display documentation of symbol under point           |
 |-------------+-------------------------------------------------------|

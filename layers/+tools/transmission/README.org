@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#faq][FAQ]]
   - [[#how-to-enable-status-auto-refresh][How to enable status auto refresh?]]
@@ -15,7 +16,10 @@
   - [[#transmission-peers-mode][=transmission-peers-mode=]]
 
 * Description
-An interface to a Transmission session for GNU Emacs.
+This layer integrates a BitTorrent client into Spacemacs.
+
+** Features:
+- Integration of [[https://transmissionbt.com/][Transmission]] into emacs.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

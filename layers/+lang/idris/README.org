@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#idris][Idris]]
@@ -16,7 +17,13 @@
   - [[#build-system][Build system]]
 
 * Description
-This layer adds support for the [[https://www.idris-lang.org/][Idris]] language.
+This layer adds support for the [[https://www.idris-lang.org/][Idris]] language to Spacemacs.
+
+** Features:
+- Syntax highlighting
+- Syntax checking via =flycheck=
+- Integration of the =Idris= REPL
+- Integration of the =Idris= build system
 
 * Install
 ** Layer
