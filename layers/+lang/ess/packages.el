@@ -92,16 +92,16 @@
         "ss" 'ess-switch-to-inferior-or-script-buffer
         "sS" 'ess-switch-process
         ;; REPL
-        "sb" 'ess-eval-buffer-and-go
-        "eb" 'ess-eval-buffer
+        "sB" 'ess-eval-buffer-and-go
+        "sb" 'ess-eval-buffer
         "sd" 'ess-eval-region-or-line-and-step
         "sD" 'ess-eval-function-or-paragraph-and-step
-        "sl" 'ess-eval-line-and-go
-        "el" 'ess-eval-line
-        "sr" 'ess-eval-region-and-go
-        "er" 'ess-eval-region
-        "sf" 'ess-eval-function-and-go
-        "ef" 'ess-eval-function
+        "sL" 'ess-eval-line-and-go
+        "sl" 'ess-eval-line
+        "sR" 'ess-eval-region-and-go
+        "sr" 'ess-eval-region
+        "sF" 'ess-eval-function-and-go
+        "sf" 'ess-eval-function
         ;; predefined keymaps
         "h" 'ess-doc-map
         "r" 'ess-extra-map
