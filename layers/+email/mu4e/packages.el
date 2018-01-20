@@ -14,7 +14,7 @@
         (mu4e :location site)
         mu4e-alert
         mu4e-maildirs-extension
-        helm-mu
+        (helm-mu :requires helm)
         org
         persp-mode
         ))
@@ -41,7 +41,7 @@
     :commands (mu4e mu4e-compose-new)
     :init
     (progn
-      (spacemacs/set-leader-keys "a m m" 'mu4e)
+      (spacemacs/set-leader-keys "a M" 'mu4e)
       (global-set-key (kbd "C-x m") 'mu4e-compose-new))
     :config
     (progn
@@ -93,14 +93,16 @@
               (mu4e-alert-enable-mode-line-display)))))
 
 (defun mu4e/init-helm-mu ()
-  (spacemacs/set-leader-keys
-    "a m s" 'helm-mu
-    "a m c" 'helm-mu-contacts))
-
-(defun mu4e/post-init-helm ()
-  (require 'helm-config)
-  (autoload 'helm-mu "helm-mu" "" t)
-  (autoload 'helm-mu-contacts "helm-mu" "" t))
+  (use-package helm-mu
+    :defer t
+    :init (dolist (m '(mu4e-main-mode-hook
+                       mu4e-headers-mode-hook
+                       mu4e-view-mode-hook
+                       mu4e-compose-mode-hook))
+            (spacemacs/set-leader-keys-for-major-mode m
+              "S" 'helm-mu
+              "/" 'helm-mu
+              "C" 'helm-mu-contacts))))
 
 (defun mu4e/init-mu4e-maildirs-extension ()
   (use-package mu4e-maildirs-extension

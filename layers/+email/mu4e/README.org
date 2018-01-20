@@ -26,6 +26,7 @@ This layer adds support for the Mu4e email client.
   - Search-based: no folders, only queries.
   - UI optimized for speed: quick keystrokes for common actions.
   - Very extendable and costumizable.
+  - Integration with Helm.
 
 * Install
 In order to use this layer you must install mu and mu4e separately. Typically
@@ -54,9 +55,11 @@ existing =dotspacemacs-configuration-layers= list in this file.
 * Commands
 ** Global bindings
 
-| Keybinding | Command    |
-|------------+------------|
-| ~SPC a M~  | Start mu4e |
+| Keybinding             | Command                         |
+|------------------------+---------------------------------|
+| ~SPC a M~              | Start mu4e                      |
+| ~SPC m S~ or ~SPC m /~ | Search emails (requires helm)   |
+| ~SPC m C~              | Search contacts (requires helm) |
 
 ** Headers mode
 
