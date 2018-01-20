@@ -103,10 +103,10 @@ above.
 
 Instead you should use directory local variables in order to enable the flycheck
 checker only for certain projects. Directory local variables are stored in a
-file named =.dir-local.el= usually at the root of a project. To easily add a
+file named =.dir-locals.el= usually at the root of a project. To easily add a
 directory local variable use the key binding ~SPC f v d~ then choose the
 =elixir-mode= and the variable name =elixir-enable-compilation-checking= with a
-value of t. The result is a new file =.dir-local.el= with the following
+value of t. The result is a new file =.dir-locals.el= with the following
 contents:
 
 #+BEGIN_SRC elisp
