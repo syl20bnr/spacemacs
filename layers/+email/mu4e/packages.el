@@ -28,10 +28,11 @@
         (persp-add-buffer (current-buffer)
                           (persp-get-by-name
                            mu4e-spacemacs-layout-name)))
-      (add-hook 'mu4e-main-mode    #'spacemacs-layouts/add-mu4e-buffer-to-persp)
-      (add-hook 'mu4e-headers-mode #'spacemacs-layouts/add-mu4e-buffer-to-persp)
-      (add-hook 'mu4e-view-mode    #'spacemacs-layouts/add-mu4e-buffer-to-persp)
-      (add-hook 'mu4e-compose-mode #'spacemacs-layouts/add-mu4e-buffer-to-persp)
+      (spacemacs/add-to-hooks 'spacemacs-layouts/add-mu4e-buffer-to-persp
+                       '(mu4e-main-mode-hook
+                         mu4e-headers-mode-hook
+                         mu4e-view-mode-hook
+                         mu4e-compose-mode-hook))
       (call-interactively 'mu4e)
       (call-interactively 'mu4e-update-index))))
 
