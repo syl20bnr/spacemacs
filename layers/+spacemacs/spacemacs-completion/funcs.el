@@ -104,7 +104,7 @@
 
 ;; Helm Window position
 
-(defun spacemacs//display-helm-window (buffer)
+(defun spacemacs//display-helm-window (buffer &optional resume)
   "Display the Helm window respecting `helm-position'."
   (let ((display-buffer-alist
          (list spacemacs-helm-display-help-buffer-regexp
