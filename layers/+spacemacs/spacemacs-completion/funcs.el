@@ -112,7 +112,7 @@
     (window-height . 0.4)))
 (defvar spacemacs-display-buffer-alist nil)
 
-(defun spacemacs//display-helm-window (buffer)
+(defun spacemacs//display-helm-window (buffer &optional resume)
   "Display the Helm window respecting `dotspacemacs-helm-position'."
   (let ((display-buffer-alist
          (list spacemacs-helm-display-help-buffer-regexp
