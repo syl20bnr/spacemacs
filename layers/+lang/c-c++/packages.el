@@ -14,8 +14,6 @@
     cc-mode
     disaster
     clang-format
-    cmake-ide
-    cmake-mode
     company
     (company-c-headers :requires company)
     (company-rtags :requires company rtags)
@@ -80,23 +78,6 @@
         (spacemacs/set-leader-keys-for-major-mode mode
           "==" 'spacemacs/clang-format-region-or-buffer
           "=f" 'spacemacs/clang-format-function)))))
-
-(defun c-c++/init-cmake-ide ()
-  (use-package cmake-ide
-    :if c-c++-enable-cmake-ide-support
-    :config
-    (progn
-      (cmake-ide-setup)
-      (dolist (mode c-c++-modes)
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "cc" 'cmake-ide-compile
-          "pc" 'cmake-ide-run-cmake
-          "pC" 'cmake-ide-maybe-run-cmake
-          "pd" 'cmake-ide-delete-file)))))
-
-(defun c-c++/init-cmake-mode ()
-  (use-package cmake-mode
-    :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))))
 
 (defun c-c++/post-init-company ()
   (when (configuration-layer/package-used-p 'cmake-mode)
