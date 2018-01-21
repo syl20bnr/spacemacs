@@ -119,7 +119,7 @@ extension.
 #+END_SRC
 
 In order to be able to use org-reveal, download =reveal.js= from its
-[[http://lab.hakim.se/reveal-js/#/][homepage]] and set =org-reveal-js= to the
+[[http://lab.hakim.se/reveal-js/#/][homepage]] and set =org-reveal-root= to the
 download path, as described in the [[https://github.com/yjwen/org-reveal#user-content-revealjs-and-org-reveal][manual]]. Alternatively, add the following line
 to each =.org= file you want to process:
 
