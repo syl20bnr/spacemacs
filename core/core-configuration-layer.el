@@ -435,7 +435,11 @@ cache folder.")
                             configuration-layer-elpa-archives))
     ;; optimization, no need to activate all the packages so early
     (setq package-enable-at-startup nil)
-    (package-initialize 'noactivate)))
+    (package-initialize 'noactivate)
+    ;; hack to be sure to enable insalled org from Org ELPA repository
+    (when (package-installed-p 'org-plus-contrib)
+      (message "Initializing Org early...")
+      (configuration-layer//activate-package 'org-plus-contrib))))
 
 (defun configuration-layer//configure-quelpa ()
   "Configure `quelpa' package."
