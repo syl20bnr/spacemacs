@@ -495,6 +495,9 @@ Headline^^            Visit entry^^               Filter^^                    Da
       :bindings
       "j" 'org-agenda-next-line
       "k" 'org-agenda-previous-line
+      ;; C-h should not be rebound by evilification so we unshadow it manually
+      ;; TODO add the rule in auto-evilification to ignore C-h (like we do
+      ;; with C-g)
       (kbd "C-h") nil
       (kbd "M-j") 'org-agenda-next-item
       (kbd "M-k") 'org-agenda-previous-item
