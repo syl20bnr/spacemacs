@@ -545,10 +545,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
 (defun org/init-org-mime ()
   (use-package org-mime
     :defer t
-    :commands (org-mime-htmlize org-mime-org-buffer-htmlize)
     :init
     (progn
-      ;; move this key bindings to an `init-message' function
       (spacemacs/set-leader-keys-for-major-mode 'message-mode
         "em" 'org-mime-htmlize)
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
