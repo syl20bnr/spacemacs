@@ -65,7 +65,7 @@ The default is =nil= (do not show source control information), which is recommen
 For example,
 
 #+BEGIN_SRC emacs-lisp
-(setq neo-vc-integration 'face)
+(setq neo-vc-integration '(face))
 #+END_SRC
 
 *Note*: At this time, it is not recommended to set this to anything other
