@@ -784,16 +784,10 @@
     (should (equal '(("melpa" . "http://melpa.org/packages/"))
                    (configuration-layer//resolve-package-archives input)))))
 
-(ert-deftest test-resolve-package-archives--org-supports-http ()
+(ert-deftest test-resolve-package-archives--org-supports-https ()
   (let ((input '(("org"   . "orgmode.org/elpa/")))
         dotspacemacs-elpa-https)
-    (should (equal '(("org" . "http://orgmode.org/elpa/"))
-                   (configuration-layer//resolve-package-archives input)))))
-
-(ert-deftest test-resolve-package-archives--org-does-not-support-https ()
-  (let ((input '(("org"   . "orgmode.org/elpa/")))
-        (dotspacemacs-elpa-https t))
-    (should (equal '(("org" . "http://orgmode.org/elpa/"))
+    (should (equal '(("org" . "https://orgmode.org/elpa/"))
                    (configuration-layer//resolve-package-archives input)))))
 
 (ert-deftest test-resolve-package-archives--idempotent-when-already-http-prefix ()
