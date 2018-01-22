@@ -78,7 +78,6 @@
     (define-key ess-doc-map "t" 'ess-R-dv-ctable)
     (dolist (mode '(ess-julia-mode ess-mode))
       (spacemacs/declare-prefix-for-mode mode "ms" "repl")
-      (spacemacs/declare-prefix-for-mode mode "me" "eval")
       (spacemacs/declare-prefix-for-mode mode "mh" "help")
       (spacemacs/declare-prefix-for-mode mode "mr" "extra")
       (spacemacs/declare-prefix-for-mode mode "mw" "pkg")
