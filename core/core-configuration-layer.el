@@ -1693,10 +1693,18 @@ RNAME is the name symbol of another existing layer."
           (configuration-layer/retrieve-package-archives)
           (setq installed-count 0)
           (spacemacs//redisplay)
+          ;; bootstrap and pre step packages first
           (dolist (pkg-name upkg-names)
-            (setq installed-count (1+ installed-count))
-            (configuration-layer//install-package
-             (configuration-layer/get-package pkg-name)))
+            (let ((pkg (configuration-layer/get-package pkg-name)))
+              (when (and pkg (memq (oref pkg :step) '(bootstrap pre)))
+                (setq installed-count (1+ installed-count))
+                (configuration-layer//install-package pkg))))
+          ;; then all other packages
+          (dolist (pkg-name upkg-names)
+            (let ((pkg (configuration-layer/get-package pkg-name)))
+              (unless (and pkg (memq (oref pkg :step) '(bootstrap pre)))
+                (setq installed-count (1+ installed-count))
+                (configuration-layer//install-package pkg))))
           (spacemacs-buffer/append "\n")
           (unless init-file-debug
             ;; get rid of all delayed warnings when byte-compiling packages
