@@ -418,7 +418,6 @@ perspectives does."
                       (projectile-relevant-known-projects))
               projectile-known-projects)
             :action counsel-projectile-switch-project-action
-            :require-match t
             :caller 'spacemacs/ivy-persp-switch-project))
 
 
