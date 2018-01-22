@@ -25,6 +25,8 @@
       (push 'nimsuggest-find-definition spacemacs-jump-handlers-nim-mode))
     :config
     (progn
+      (evil-make-intercept-map nimsuggest-doc-mode-map)
+
       (defun spacemacs/nim-compile-run ()
         (interactive)
         (shell-command "nim compile --run main.nim"))
