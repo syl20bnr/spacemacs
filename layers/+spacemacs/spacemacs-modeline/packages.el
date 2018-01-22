@@ -141,6 +141,10 @@
       :pre-config
       (progn
         (require 'spaceline-all-the-icons)
+        ;; responsivness does not play well with all-the-icons theme
+        ;; let's disable it for now
+        ;; https://github.com/domtronn/spaceline-all-the-icons.el/issues/51#issuecomment-316686790
+        (setq spaceline-responsive nil)
         (spaceline-all-the-icons--setup-git-ahead)))))
 
 (defun spacemacs-modeline/init-spaceline-all-the-icons ()
