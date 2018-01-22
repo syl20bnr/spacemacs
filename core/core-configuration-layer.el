@@ -336,13 +336,7 @@ The returned list has a `package-archives' compliant format."
                  apath
                (concat
                 (if (and dotspacemacs-elpa-https
-                         (not spacemacs-insecure)
-                         ;; for now org ELPA repository does
-                         ;; not support HTTPS
-                         ;; TODO when org ELPA repo support
-                         ;; HTTPS remove the check
-                         ;; `(not (equal "org" aname))'
-                         (not (equal "org" aname)))
+                         (not spacemacs-insecure))
                     "https://"
                   "http://")
                 apath)))))
@@ -2180,7 +2174,7 @@ Original code from dochang at https://github.com/dochang/elpa-clone"
   (configuration-layer/make-all-packages 'no-discover)
   (let (package-archive-contents
         (package-archives '(("melpa" . "https://melpa.org/packages/")
-                            ("org"   . "http://orgmode.org/elpa/")
+                            ("org"   . "https://orgmode.org/elpa/")
                             ("gnu"   . "https://elpa.gnu.org/packages/"))))
     (package-refresh-contents)
     (package-read-all-archive-contents)
