@@ -313,7 +313,11 @@
 (defun clojure/pre-init-evil-cleverparens ()
   (spacemacs|use-package-add-hook evil-cleverparens
     :pre-init
-    (add-to-list 'evil-lisp-safe-structural-editing-modes 'clojure-mode)))
+    (dolist (m '(clojure-mode
+                 clojurec-mode
+                 clojurescript-mode
+                 clojurex-mode))
+      (add-to-list 'evil-lisp-safe-structural-editing-modes m))))
 
 (defun clojure/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
