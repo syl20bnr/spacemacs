@@ -66,11 +66,11 @@ Send code to inferior process with these commands:
 
 | Key Binding | Description                                          |
 |-------------+------------------------------------------------------|
-| ~SPC m '~   | start REPL                                           |
+| ~SPC m '​~   | start REPL                                           |
 | ~SPC m s i~ | start REPL                                           |
 | ~SPC m s s~ | switch between file and REPL                         |
 | ~SPC m s S~ | switch the process associate with file               |
-| ~SPC m ,~   | send region, current function, or paragraph and step |
+| ~SPC m ,​~   | send region, current function, or paragraph and step |
 |-------------+------------------------------------------------------|
 | ~SPC m s b~ | send buffer and keep code buffer focused             |
 | ~SPC m s B~ | send buffer and switch to REPL in insert mode        |
