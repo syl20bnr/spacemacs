@@ -92,17 +92,18 @@ done according to the value of `dotspacemacs-elpa-subdirectory'.
 This function also appends the name of the current branch of Spacemacs.
 If `dotspacemacs-elpa-subdirectory' is nil, then ROOT is used. Otherwise the
 subdirectory of ROOT is used."
-  (expand-file-name
-   configuration-layer-elpa-subdirectory
-   (if (not dotspacemacs-elpa-subdirectory)
-       root
-     (let ((subdir (if (eq 'emacs-version dotspacemacs-elpa-subdirectory)
-                       (format "%d%s%d"
-                               emacs-major-version
-                               version-separator
-                               emacs-minor-version)
-                     (eval dotspacemacs-elpa-subdirectory))))
-       (file-name-as-directory (expand-file-name subdir root))))))
+  (file-name-as-directory
+   (expand-file-name
+    configuration-layer-elpa-subdirectory
+    (if (not dotspacemacs-elpa-subdirectory)
+        root
+      (let ((subdir (if (eq 'emacs-version dotspacemacs-elpa-subdirectory)
+                        (format "%d%s%d"
+                                emacs-major-version
+                                version-separator
+                                emacs-minor-version)
+                      (eval dotspacemacs-elpa-subdirectory))))
+        (expand-file-name subdir root))))))
 
 (defun configuration-layer/get-elpa-package-install-directory (pkg)
   "Return the install directory of elpa PKG. Return nil if it is not found."
