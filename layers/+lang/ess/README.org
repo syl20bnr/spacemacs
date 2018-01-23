@@ -67,39 +67,39 @@ Send code to inferior process with these commands:
 | Key Binding | Description                                          |
 |-------------+------------------------------------------------------|
 | ~SPC m '​~   | start REPL                                           |
+| ~SPC m ,​~   | send region, current function, or paragraph and step |
 | ~SPC m s i~ | start REPL                                           |
 | ~SPC m s s~ | switch between file and REPL                         |
 | ~SPC m s S~ | switch the process associate with file               |
-| ~SPC m ,​~   | send region, current function, or paragraph and step |
 |-------------+------------------------------------------------------|
 | ~SPC m s b~ | send buffer and keep code buffer focused             |
 | ~SPC m s B~ | send buffer and switch to REPL in insert mode        |
 | ~SPC m s d~ | send region or line and step                         |
 | ~SPC m s D~ | send function or paragraph and step                  |
+| ~SPC m s f~ | send function and keep code buffer focused           |
+| ~SPC m s F~ | send function and focus REPL                         |
 | ~SPC m s l~ | send line and keep code buffer focused               |
 | ~SPC m s L~ | send line and focus REPL                             |
 | ~SPC m s r~ | send region and keep code buffer focused             |
 | ~SPC m s R~ | send region and focus REPL                           |
-| ~SPC m s f~ | send function and keep code buffer focused           |
-| ~SPC m s F~ | send function and focus REPL                         |
 
 ** Help
 Get help and helpers for inspecting objects at point are available in R buffers only.
 
 | Key Binding | Description                                                    |
 |-------------+----------------------------------------------------------------|
-| ~SPC m h h~ | display help on object                                         |
+| ~SPC m h a~ | help apropos                                                   |
 | ~SPC m h d~ | display help on object                                         |
 | ~SPC m h e~ | describe object                                                |
+| ~SPC m h h~ | display help on object                                         |
+| ~SPC m h i~ | display index for package                                      |
 | ~SPC m h m~ | manual lookup                                                  |
 | ~SPC m h o~ | display demos                                                  |
-| ~SPC m h r~ | lookup reference                                               |
-| ~SPC m h w~ | help web search                                                |
-| ~SPC m h v~ | display vignettes                                              |
-| ~SPC m h i~ | display index for package                                      |
-| ~SPC m h a~ | help apropos                                                   |
 | ~SPC m h p~ | view data under point using [ess-R-data-view][ess-R-data-view] |
+| ~SPC m h r~ | lookup reference                                               |
 | ~SPC m h t~ | view table using [ess-R-data-view][ess-R-data-view]            |
+| ~SPC m h v~ | display vignettes                                              |
+| ~SPC m h w~ | help web search                                                |
 | ~C-j~       | next item in REPL history                                      |
 | ~C-k~       | previous item in REPL history                                  |
 
@@ -108,12 +108,12 @@ Helpers that provide further interaction with the REPL.
 
 | Key Binding   | Description                                           |
 |---------------+-------------------------------------------------------|
-| ~SPC m r TAB~ | install package                                       |
-| ~SPC m r i~   | install package                                       |
-| ~SPC m r l~   | load installed package                                |
 | ~SPC m r /~   | set working directory                                 |
+| ~SPC m r TAB~ | install package                                       |
 | ~SPC m r d~   | edit object source or dump() object into a new buffer |
 | ~SPC m r e~   | execute a command in the ESS process                  |
+| ~SPC m r i~   | install package                                       |
+| ~SPC m r l~   | load installed package                                |
 | ~SPC m r r~   | reload ESS process                                    |
 | ~SPC m r s~   | set source style                                      |
 | ~SPC m r t~   | build tags for directory                              |
@@ -125,15 +125,15 @@ Interaction with the =R= =devtools= package.
 | Key Binding   | Description                              |
 |---------------+------------------------------------------|
 | ~SPC m w TAB~ | interface for =devtools::install()=      |
-| ~SPC m w i~   | interface for =devtools::install()=      |
 | ~SPC m w a~   | ask for a devtools command and runs it   |
 | ~SPC m w c~   | interface for =devtools::check()=        |
 | ~SPC m w d~   | interface for =devtools::document()=     |
+| ~SPC m w i~   | interface for =devtools::install()=      |
 | ~SPC m w l~   | interface for =devtools::load_all()=     |
-| ~SPC m w t~   | interface for =devtools::tests()=        |
-| ~SPC m w u~   | interface for =devtools::unload()=       |
 | ~SPC m w r~   | interface for =devtools::revdep_check()= |
 | ~SPC m w s~   | set a package for ESS r-package commands |
+| ~SPC m w t~   | interface for =devtools::tests()=        |
+| ~SPC m w u~   | interface for =devtools::unload()=       |
 
 ** Debugging
 Tools for debugging
@@ -165,9 +165,9 @@ Edit Markdown files
 
 | Key Binding | Description                                               |
 |-------------+-----------------------------------------------------------|
-| ~SPC m c m~ | mark knitr/sweave chunk around point                      |
-| ~SPC m c n~ | next knitr/sweave chunk                                   |
-| ~SPC m c N~ | previous knitr/sweave chunk                               |
 | ~SPC m c C~ | send knitr/sweave chunk and switch to REPL in insert mode |
 | ~SPC m c c~ | send knitr/sweave chunk and keep buffer focused           |
 | ~SPC m c d~ | send knitr/sweave chunk and step to next chunk            |
+| ~SPC m c m~ | mark knitr/sweave chunk around point                      |
+| ~SPC m c n~ | next knitr/sweave chunk                                   |
+| ~SPC m c N~ | previous knitr/sweave chunk                               |
