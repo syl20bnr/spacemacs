@@ -446,29 +446,29 @@ are also available.
 
 | Key Binding | Description                              |
 |-------------+------------------------------------------|
-| ~SPC m b p~ | org-babel-previous-src-block             |
-| ~SPC m b n~ | org-babel-next-src-block                 |
-| ~SPC m b e~ | org-babel-execute-maybe                  |
-| ~SPC m b o~ | org-babel-open-src-block-result          |
-| ~SPC m b v~ | org-babel-expand-src-block               |
-| ~SPC m b u~ | org-babel-goto-src-block-head            |
-| ~SPC m b g~ | org-babel-goto-named-src-block           |
-| ~SPC m b r~ | org-babel-goto-named-result              |
+| ~SPC m b .~ | Enter Babel Transient State              |
+| ~SPC m b a~ | org-babel-sha1-hash                      |
 | ~SPC m b b~ | org-babel-execute-buffer                 |
-| ~SPC m b s~ | org-babel-execute-subtree                |
-| ~SPC m b d~ | org-babel-demarcate-block                |
-| ~SPC m b t~ | org-babel-tangle                         |
-| ~SPC m b f~ | org-babel-tangle-file                    |
 | ~SPC m b c~ | org-babel-check-src-block                |
-| ~SPC m b j~ | org-babel-insert-header-arg              |
-| ~SPC m b l~ | org-babel-load-in-session                |
+| ~SPC m b d~ | org-babel-demarcate-block                |
+| ~SPC m b e~ | org-babel-execute-maybe                  |
+| ~SPC m b f~ | org-babel-tangle-file                    |
+| ~SPC m b g~ | org-babel-goto-named-src-block           |
 | ~SPC m b i~ | org-babel-lob-ingest                     |
 | ~SPC m b I~ | org-babel-view-src-block-info            |
+| ~SPC m b j~ | org-babel-insert-header-arg              |
+| ~SPC m b l~ | org-babel-load-in-session                |
+| ~SPC m b n~ | org-babel-next-src-block                 |
+| ~SPC m b o~ | org-babel-open-src-block-result          |
+| ~SPC m b p~ | org-babel-previous-src-block             |
+| ~SPC m b r~ | org-babel-goto-named-result              |
+| ~SPC m b s~ | org-babel-execute-subtree                |
+| ~SPC m b t~ | org-babel-tangle                         |
+| ~SPC m b u~ | org-babel-goto-src-block-head            |
+| ~SPC m b v~ | org-babel-expand-src-block               |
+| ~SPC m b x~ | org-babel-do-key-sequence-in-edit-buffer |
 | ~SPC m b z~ | org-babel-switch-to-session              |
 | ~SPC m b Z~ | org-babel-switch-to-session-with-code    |
-| ~SPC m b a~ | org-babel-sha1-hash                      |
-| ~SPC m b x~ | org-babel-do-key-sequence-in-edit-buffer |
-| ~SPC m b .~ | Enter Babel Transient State              |
 
 *** Org Babel Transient State
 Use ~SPC m b .~ to enter a transient state for quick source block navigation and
@@ -476,11 +476,11 @@ execution.  During that state, the following bindings are active:
 
 | Key Binding | Description                   |
 |-------------+-------------------------------|
+| ~'~         | edit source block             |
+| ~e~         | execute source block          |
+| ~g~         | jump to named source block    |
 | ~j~         | jump to next source block     |
 | ~k~         | jump to previous source block |
-| ~g~         | jump to named source block    |
-| ~e~         | execute source block          |
-| ~'~         | edit source block             |
 | ~q~         | leave transient state         |
 
 ** Emphasis
