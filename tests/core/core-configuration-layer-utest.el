@@ -291,7 +291,7 @@
 
 (ert-deftest test-resolve-package-archives--org-supports-https ()
   (let ((input '(("org"   . "orgmode.org/elpa/")))
-        dotspacemacs-elpa-https)
+        (dotspacemacs-elpa-https t))
     (should (equal '(("org" . "https://orgmode.org/elpa/"))
                    (configuration-layer//resolve-package-archives input)))))
 
