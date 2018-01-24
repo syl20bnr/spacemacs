@@ -1,0 +1,52 @@
+#+TITLE: lsp-python layer
+
+# The maximum height of the logo should be 200 pixels.
+[[img/lsp-python.png]]
+
+# TOC links should be GitHub style anchors.
+* Table of Contents                                        :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support for python mode based on lsp languange server.
+
+** Features:
+  - Autocomplete
+  - Lint
+  - import sorting
+  - REPL
+  - auto formatting
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =lsp-python= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+For the layer to function, you have to install python languange server.
+#+BEGIN_SRC shell
+# mandatory
+pip install python-language-server
+# for import sorting
+pip install pyls-isort
+# for mypy checking
+pip install pyls-mypy
+#+END_SRC
+
+* Key bindings
+
+| Key Binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC m a~   | activate virtual environment   |
+| ~SPC m d~   | deactivate virtual environment |
+| ~SPC m e~   | execute current script         |
+| ~SPC m k~   | kill python interpreter        |
+| ~SPC m r~   | find references                |
+| ~SPC m d~   | find definitions               |
+
+# Use GitHub URLs if you wish to link a Spacemacs documentation file or its heading.
+# Examples:
+# [[https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org#sessions]]
+# [[https://github.com/syl20bnr/spacemacs/blob/master/layers/%2Bfun/emoji/README.org][Link to Emoji layer README.org]]
+# If space-doc-mode is enabled, Spacemacs will open a local copy of the linked file.
