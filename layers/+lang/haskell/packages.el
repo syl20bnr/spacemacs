@@ -176,7 +176,9 @@
           "dp"  'haskell-debug/previous
           "dr"  'haskell-debug/refresh
           "ds"  'haskell-debug/step
-          "dt"  'haskell-debug/trace))
+          "dt"  'haskell-debug/trace
+
+          "ri"  'spacemacs/haskell-format-imports))
 
       (evilified-state-evilify haskell-debug-mode haskell-debug-mode-map
         "RET" 'haskell-debug/select
