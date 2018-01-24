@@ -7,6 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
+  - [[#using-merlin-for-error-reporting][Using merlin for error reporting]]
   - [[#opam-packages][OPAM packages]]
 - [[#key-bindings][Key Bindings]]
   - [[#repl-utop][REPL (utop)]]
@@ -22,13 +23,23 @@ This is a very basic layer for editing ocaml files.
 - Syntax highlighting (major-mode) via [[https://github.com/ocaml/tuareg][tuareg-mode]]
 - Error reporting, completion and type display via [[https://github.com/ocaml/merlin][merlin]]
 - auto-completion with company mode via [[https://github.com/ocaml/merlin][merlin]]
-- syntax-checking via [[https://github.com/diml/utop][flycheck-ocaml]]
+- syntax-checking via [[https://github.com/flycheck/flycheck-ocaml][flycheck-ocaml]] (or alternatively [[https://github.com/ocaml/merlin][merlin]])
 
 * Install
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ocaml= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+** Using merlin for error reporting
+By default [[https://github.com/flycheck/flycheck-ocaml][flycheck-ocaml]] is used for error reporting when the
+=syntax-checking= layer is also enabled as this is common throughout spacemacs.
+You can disable this and switch back to [[https://github.com/ocaml/merlin][merlin]]'s default error reporting method
+by adding [[https://github.com/flycheck/flycheck-ocaml][flycheck-ocaml]] to your excluded packages list in =.spacemacs=:
+
+#+BEGIN_SRC emacs-lisp
+dotspacemacs-excluded-packages '(... flycheck-ocaml ... )
+#+END_SRC
 
 ** OPAM packages
 This layer requires some [[http://opam.ocaml.org][opam]] packages:
