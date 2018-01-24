@@ -1,5 +1,6 @@
                                  HOT FIX RELEASE
 
+- Use HTTPS instead of HTTP for ORG ELPA repository (thanks to aaronjensen)
 - Fix =helm= display function (thanks to jackkamm)
 - Fix =anaconda-mode= variable names in Python layer (thanks to nixmaniack)
 - Fix typo in =helm-cscope-find-calling-this-function= (thanks to dubnde)

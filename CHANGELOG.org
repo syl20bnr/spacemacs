@@ -1,4 +1,7 @@
 * Release 0.200.x
+** 0.200.12 (2018/01/23)
+*** Fixes
+- Use HTTPS instead of HTTP for ORG ELPA repository (thanks to aaronjensen)
 ** 0.200.11 (2018/01/22)
 *** Fixes
 - Fix =helm= display function (thanks to jackkamm)
