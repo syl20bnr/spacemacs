@@ -1028,12 +1028,15 @@ return both used and unused packages."
    packages
    (lambda (x)
      (let ((pkg (configuration-layer/get-package x)))
-       (and (not (memq (oref pkg :location) '(built-in site local)))
-            (not (stringp (oref pkg :location)))
-            (or (null usedp)
-                (and (not (null (oref pkg :owners)))
-                     (not (oref pkg :excluded))
-                     (cfgl-package-enabledp pkg t))))))))
+       (if pkg
+           (and (not (memq (oref pkg :location) '(built-in site local)))
+                (not (stringp (oref pkg :location)))
+                (or (null usedp)
+                    (and (not (null (oref pkg :owners)))
+                         (not (oref pkg :excluded))
+                         (cfgl-package-enabledp pkg t))))
+         (spacemacs-buffer/warning "Cannot find package for %s" x)
+         nil)))))
 
 (defun configuration-layer//get-private-layer-dir (name)
   "Return an absolute path to the private configuration layer string NAME."
