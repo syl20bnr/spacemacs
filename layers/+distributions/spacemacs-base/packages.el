@@ -31,7 +31,7 @@
                               :toggle (or (spacemacs/system-is-mac)
                                           (spacemacs/system-is-linux)
                                           (eq window-system 'x)))
-        help-fns+
+        (help-fns+ :location local)
         (hi-lock :location built-in)
         (holy-mode :location local :step pre)
         (hybrid-mode :location local :step pre)
