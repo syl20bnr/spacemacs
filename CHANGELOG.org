@@ -1,4 +1,12 @@
 * Release 0.200.x
+** 0.200.13 (2018/01/25)
+*** Fixes
+- Remove =ess-R-object-popup= from =ess= layer (thanks to NGaffney)
+- Remove =wolfram-mode= package from =extra-langs= (thanks to bennofs)
+- Import =info+.el= as local package
+- Import =help-fns+.el= as local package
+- Import =hide-comnt.el= as local package
+- core: fix not found packages with =dotspacemacs-install-packages= all
 ** 0.200.12 (2018/01/23)
 *** Fixes
 - Use HTTPS instead of HTTP for ORG ELPA repository (thanks to aaronjensen)
