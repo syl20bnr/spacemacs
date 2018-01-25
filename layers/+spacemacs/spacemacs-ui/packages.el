@@ -15,7 +15,7 @@
         desktop
         (doc-view :location built-in)
         flx-ido
-        info+
+        (info+ :location local)
         open-junk-file
         paradox
         restart-emacs
