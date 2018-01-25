@@ -18,7 +18,7 @@
         flx-ido
         golden-ratio
         (grep :location built-in)
-        info+
+        (info+ :location local)
         open-junk-file
         paradox
         restart-emacs
