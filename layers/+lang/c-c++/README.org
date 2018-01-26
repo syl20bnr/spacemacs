@@ -52,8 +52,7 @@ by setting the variable =c-c++-default-mode-for-headers= to =c++-mode=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '((c-c++ :variables
-             c-c++-default-mode-for-headers 'c++-mode)))
+    '((c-c++ :variables c-c++-default-mode-for-headers 'c++-mode)))
 #+END_SRC
 
 *Note:* To set the variable for a given project, create a directory local

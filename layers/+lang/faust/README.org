@@ -4,12 +4,16 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This simple layer adds support for the [[https://en.wikipedia.org/wiki/FAUST_(programming_language)][faust language]].
-It adds =faust-mode= as well as integrating it with =auto-completion= layer.
+This layer adds support for the [[https://en.wikipedia.org/wiki/FAUST_(programming_language)][faust language]] to Spacemacs.
+
+** Features:
+- Syntax highlighting
+- Auto-completion
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
