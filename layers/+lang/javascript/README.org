@@ -98,7 +98,6 @@ or when adding the =javascript= configuration layer:
   (javascript :variables js2-basic-offset 2)
 #+END_SRC
 
-
 Similarly, to change how js-mode indents JSON files, set the variable
 =js-indent-level=, as such:
 
