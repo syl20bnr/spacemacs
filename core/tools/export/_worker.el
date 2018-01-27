@@ -212,7 +212,7 @@ contextual information."
   "Transcode a CENTER-BLOCK element From Org to Spacemacs EDN.))
 CONTENTS holds the contents of the block.  INFO is a plist
 holding contextual information."
-  (format "{:tag :center-block :children [%s]}" contents))
+  (format "{:tag :center :children [%s]}" contents))
 
 ;;;; Clock
 
@@ -277,7 +277,7 @@ contextual information."
   "Transcode a EXAMPLE-BLOCK element From Org to Spacemacs EDN.
 CONTENTS is nil.  INFO is a plist holding contextual
 information."
-  (format "{:tag :example-block :value \"%s\"}"
+  (format "{:tag :example :value \"%s\"}"
           (spacemacs/org-edn-escape-string
            (org-element-property :value example-block))))
 
@@ -729,7 +729,7 @@ holding contextual information."
   "Transcode a QUOTE-BLOCK element From Org to Spacemacs EDN.
 CONTENTS holds the contents of the block.  INFO is a plist
 holding contextual information."
-  (format "{:tag :quote-block :children [%s]}" contents))
+  (format "{:tag :quote :children [%s]}" contents))
 
 ;;;; Radio Target
 
@@ -764,7 +764,7 @@ holding contextual information."
 (defun spacemacs//org-edn-src-block (src-block _contents _info)
   "Transcode a SRC-BLOCK element From Org to Spacemacs EDN.
 CONTENTS is nil. INFO is a plist holding contextual information."
-  (format "{:tag :src-block :language \"%s\" :value \"%s\"}"
+  (format "{:tag :src :language \"%s\" :value \"%s\"}"
           (spacemacs/org-edn-escape-string
            (org-element-property :language src-block))
           (spacemacs/org-edn-escape-string
@@ -945,7 +945,7 @@ information."
   "Transcode a VERSE-BLOCK element From Org to Spacemacs EDN.
 CONTENTS is verse block contents.  INFO is a plist holding
 contextual information."
-  (format "{:tag :verse-block :children [%s]}" contents))
+  (format "{:tag :verse :children [%s]}" contents))
 
 
 ;;; Filter Functions
