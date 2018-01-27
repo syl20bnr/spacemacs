@@ -15,7 +15,7 @@
   - [[#evaluation][Evaluation]]
 
 * Description
-This layer adds support for Scheme via [[http://www.nongnu.org/geiser/][Geiser]]. Note that combined usage of racket-mode and geiser has not been tested.
+This layer adds support for Scheme via [[http://geiser.nongnu.org][Geiser]]. Note that combined usage of racket-mode and geiser has not been tested.
 
 ** Features:
 - Support the Scheme compiler [[https://www.call-cc.org/][Chicken]]
