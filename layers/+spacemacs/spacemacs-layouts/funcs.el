@@ -422,7 +422,7 @@ perspectives does."
                 (cons (abbreviate-file-name (projectile-project-root))
                       (projectile-relevant-known-projects))
               projectile-known-projects)
-            :action counsel-projectile-switch-project-action
+            :action #'counsel-projectile-switch-project-action
             :caller 'spacemacs/ivy-persp-switch-project)
   (advice-remove 'counsel-projectile-switch-project-action
                  'spacemacs/ivy-persp-switch-project-advice))
