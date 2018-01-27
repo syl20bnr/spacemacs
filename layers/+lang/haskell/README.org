@@ -285,6 +285,7 @@ Refactor commands are prefixed by ~SPC m r~:
 | ~SPC m r b~ | apply all HLint suggestions in the current buffer |
 | ~SPC m r r~ | apply the HLint suggestion under the cursor       |
 | ~SPC m r s~ | list all Intero suggestions                       |
+| ~SPC m r i~ | reformat imports from anywhere in the buffer      |
 
 Only some of the HLint suggestions can be applied.
 
