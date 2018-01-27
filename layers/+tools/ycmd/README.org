@@ -87,7 +87,6 @@ you can use tools such as [[https://github.com/rizsotto/Bear][Bear]] or [[https:
 with almost any build system.
 
 * Functions
-
 If ~company-ycmd~ is used, then a function
 ~ycmd/manual-semantic-company-completer~ is defined. This function is
 useful if you want to get semantic completions only when you press a

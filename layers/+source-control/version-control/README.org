@@ -123,7 +123,6 @@ Navigation and interaction commands in the VC Directory buffer:
 In a commit message buffer press ~C-c C-c~ to commit the changes with the entered message.
 Pressing ~C-c C-k~ will discard the commit message and close this buffer.
 
-
 ** Diff buffer
 
 | Key Bindings           | Description                                    |
@@ -137,7 +136,6 @@ Pressing ~C-c C-k~ will discard the commit message and close this buffer.
 | ~S~                    | split the current hunk at point into two hunks |
 | ~D~                    | kill a hunk                                    |
 | ~u~                    | undo killing or splitting                      |
-
 
 ** Log view buffer
 
@@ -207,6 +205,7 @@ Pressing ~C-c C-k~ will discard the commit message and close this buffer.
 | ~SPC g r q~ | Quit transient state     |
 
 ** Toggles
+
 | Key Binding | Description                  |
 |-------------+------------------------------|
 | ~SPC T d~   | toggle diff margins          |

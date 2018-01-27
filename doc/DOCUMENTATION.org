@@ -1287,24 +1287,24 @@ Supported separators and preview:
 
 | Separator    | Spacemacs | All-the-icons | Screenshot                        |
 |--------------+-----------+---------------+-----------------------------------|
-| =alternate=  |     X     |               | [[file:img/powerline-alternate.png]]  |
-| =arrow=      |     X     |      X        | [[file:img/powerline-arrow.png]]      |
-| =arrow-fade= |     X     |               | [[file:img/powerline-arrow-fade.png]] |
-| =bar=        |     X     |               | [[file:img/powerline-bar.png]]        |
-| =box=        |     X     |               | [[file:img/powerline-box.png]]        |
-| =brace=      |     X     |               | [[file:img/powerline-brace.png]]      |
-| =butt=       |     X     |               | [[file:img/powerline-butt.png]]       |
-| =chamfer=    |     X     |               | [[file:img/powerline-chamfer.png]]    |
-| =contour=    |     X     |               | [[file:img/powerline-contour.png]]    |
-| =cup=        |           |      X        |                                   |
-| =curve=      |     X     |               | [[file:img/powerline-curve.png]]      |
-| =rounded=    |     X     |               | [[file:img/powerline-rounded.png]]    |
-| =roundstub=  |     X     |               | [[file:img/powerline-roundstub.png]]  |
-| =slant=      |     X     |      X        | [[file:img/powerline-slant.png]]      |
-| =wave=       |     X     |      X        | [[file:img/powerline-wave.png]]       |
-| =zigzag=     |     X     |               | [[file:img/powerline-zigzag.png]]     |
-| =nil=        |     X     |               | [[file:img/powerline-nil.png]]        |
-| =none=       |           |      X        |                                   |
+| =alternate=  | X         |               | [[file:img/powerline-alternate.png]]  |
+| =arrow=      | X         | X             | [[file:img/powerline-arrow.png]]      |
+| =arrow-fade= | X         |               | [[file:img/powerline-arrow-fade.png]] |
+| =bar=        | X         |               | [[file:img/powerline-bar.png]]        |
+| =box=        | X         |               | [[file:img/powerline-box.png]]        |
+| =brace=      | X         |               | [[file:img/powerline-brace.png]]      |
+| =butt=       | X         |               | [[file:img/powerline-butt.png]]       |
+| =chamfer=    | X         |               | [[file:img/powerline-chamfer.png]]    |
+| =contour=    | X         |               | [[file:img/powerline-contour.png]]    |
+| =cup=        |           | X             |                                   |
+| =curve=      | X         |               | [[file:img/powerline-curve.png]]      |
+| =rounded=    | X         |               | [[file:img/powerline-rounded.png]]    |
+| =roundstub=  | X         |               | [[file:img/powerline-roundstub.png]]  |
+| =slant=      | X         | X             | [[file:img/powerline-slant.png]]      |
+| =wave=       | X         | X             | [[file:img/powerline-wave.png]]       |
+| =zigzag=     | X         |               | [[file:img/powerline-zigzag.png]]     |
+| =nil=        | X         |               | [[file:img/powerline-nil.png]]        |
+| =none=       |           | X             |                                   |
 
 A last special separator is supported, it is =utf-8= which uses actual font
 glyphs so it can be rendered in a terminal. You'll need a font patched for the
@@ -1473,7 +1473,6 @@ squared symbols like =🅿=.
 | ~SPC t W~   | =Ⓦ=     | W     | automatic whitespace cleanup (see =dotspacemacs-whitespace-cleanup=) |
 | ~SPC t C-W~ | =Ⓦ=     | W     | automatic whitespace cleanup globally                                |
 | ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
-
 
 ** Frame title
 Default frame title displays name of current process and hostname of system. You

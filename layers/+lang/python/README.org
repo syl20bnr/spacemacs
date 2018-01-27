@@ -350,4 +350,3 @@ Send code to hy REPL commands:
 | ~SPC m V w~ | work on virtual environment in =WORKON_HOME=                                 |
 | ~SPC m V a~ | activate a virtual environment in any directory                              |
 | ~SPC m V d~ | deactivate active virtual environment                                        |
-
