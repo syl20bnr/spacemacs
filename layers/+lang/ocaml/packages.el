@@ -13,8 +13,8 @@
   '(
     ;; auto-complete
     company
-   ;; flycheck
-   ;; flycheck-ocaml
+    flycheck
+    flycheck-ocaml
     ggtags
     counsel-gtags
     helm-gtags
