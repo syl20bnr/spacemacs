@@ -2,6 +2,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#ycmd][YCMD]]
@@ -13,8 +14,11 @@
 - [[#key-bindings][Key Bindings]]
 
 * Description
-This layer adds [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]] support, including its integrations with company,
-flycheck, and eldoc.
+This layer adds [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]] support.
+
+** Features:
+- [[https://github.com/Valloric/YouCompleteMe][YouCompleteMe]] based code-completion
+- Integrations with company, flycheck, and eldoc
 
 * Install
 ** Layer
