@@ -12,7 +12,7 @@
 (setq spacemacs-navigation-packages
       '(ace-link
         auto-highlight-symbol
-        (centered-cursor :location local)
+        centered-cursor-mode
         (compile :location built-in)
         (doc-view :location built-in)
         flx-ido
@@ -122,7 +122,7 @@
         ("r" ahs-change-range)
         ("q" nil :exit t)))))
 
-(defun spacemacs-navigation/init-centered-cursor ()
+(defun spacemacs-navigation/init-centered-cursor-mode ()
   (use-package centered-cursor-mode
     :commands (centered-cursor-mode
                global-centered-cursor-mode)
