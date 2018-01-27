@@ -47,7 +47,8 @@
     :defer t))
 
 (defun docker/init-dockerfile-mode ()
-  (use-package docker-mode
+  (use-package dockerfile-mode
     :defer t
-    :config (evil-leader/set-key-for-mode 'dockerfile-mode
-              "mcb" 'dockerfile-build-buffer)))
+    :config (progn
+              (spacemacs/set-leader-keys-for-major-mode 'dockerfile-mode "cb" 'dockerfile-build-buffer)
+              (spacemacs/declare-prefix-for-mode 'dockerfile-mode "mc" "compile"))))
