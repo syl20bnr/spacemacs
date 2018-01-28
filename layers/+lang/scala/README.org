@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#layer-installation][Layer Installation]]
 - [[#ensime][Ensime]]
 - [[#scalastyle][Scalastyle]]
@@ -15,8 +16,20 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for the Scala language using the excellent [[http://ensime.org/][ENSIME]]
-client/server.
+This layer adds support for the Scala language to Spacemacs.
+
+** Features:
+- Syntax highlighting
+- Auto-completion
+- Syntax-checking
+- Refactoring
+- Incremental compilation
+- Scala Repl
+- Style linting
+- Eldoc integration
+- Test execution directly from emacs
+- Automatic replacement of ASCII arrows with unicode ones
+- Automatic starting/stopping of [[http://ensime.org/][ENSIME]] IDE server
 
 * Layer Installation
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
