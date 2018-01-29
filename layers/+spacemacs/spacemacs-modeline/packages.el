@@ -71,6 +71,7 @@
                            '(spacemacs custom))
                      (spacemacs/mode-line-separator))
                 'wave)
+            powerline-image-apple-rgb (spacemacs/system-is-mac)
             powerline-scale (or (spacemacs/mode-line-separator-scale) 1.5)
             powerline-height (spacemacs/compute-mode-line-height))
       (spacemacs|do-after-display-system-init
