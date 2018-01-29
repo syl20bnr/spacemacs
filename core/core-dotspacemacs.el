@@ -55,6 +55,11 @@ exists. Otherwise, fallback to ~/.spacemacs"))
 `+distributions'. For now available distributions are `spacemacs-base'
 or `spacemacs'.")
 
+(defvar dotspacemacs-gc-cons '(100000000 0.1)
+  "Set `gc-cons-threshold' and `gc-cons-percentage' when startup finishes.
+This is an advanced option and should not be changed unless you suspect
+performance issues due to garbage collection operations.")
+
 (defvar dotspacemacs-elpa-https t
   "If non nil ELPA repositories are contacted via HTTPS whenever it's
 possible. Set it to nil if you have no way to use HTTPS in your
