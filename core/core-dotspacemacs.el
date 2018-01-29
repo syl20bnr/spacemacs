@@ -367,11 +367,6 @@ whitespace for changed lines or `nil' to disable cleanup.")
   "List of search tool executable names. Spacemacs uses the first installed
 tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.")
 
-(defvar dotspacemacs-default-package-repository 'melpa-stable
-  "The default package repository used if no explicit repository has been
-specified with an installed package.
-NOT USED FOR NOW :-)")
-
 (defvar dotspacemacs-startup-lists '((recents  . 5)
                                     (projects . 7))
   "Association list of items to show in the startup buffer of the form
