@@ -3,4 +3,4 @@
 # condition: (looking-back "^:")
 # --
 : $1 ( $2 -- $3 )
- $0;
+ $0
