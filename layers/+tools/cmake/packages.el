@@ -12,6 +12,7 @@
       '(
         cmake-mode
         cmake-ide
+        company
         (helm-ctest :requires helm)
         ))
 
@@ -40,3 +41,7 @@
     (dolist (mode cmake-modes)
       (spacemacs/set-leader-keys-for-major-mode mode
         "pt" 'helm-ctest))))
+
+(defun cmake/post-init-company ()
+  (when (configuration-layer/package-used-p 'cmake-mode)
+    (spacemacs|add-company-backends :backends company-cmake :modes cmake-mode)))
