@@ -115,7 +115,11 @@
         "cn" 'ess-noweb-next-chunk))
     (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
     (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
-    (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input)))
+    (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input))
+
+  ;; xref integration added with #96ef5a6
+  (spacemacs|define-jump-handlers ess-mode 'xref-find-definitions)
+  )
 
 (defun ess/init-ess-R-data-view ())
 
