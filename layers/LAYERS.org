@@ -127,6 +127,9 @@
 - [[file:+lang/yaml/README.org][yaml]]
 
 * Misc
+- [[file:+misc/nlinum/README.org][nlinum]]
+- [[file:+misc/parinfer/README.org][parinfer]]
+
 * Operating systems
 - [[file:+os/nixos/README.org][nixos]]
 - [[file:+os/osx/README.org][osx]]
