@@ -157,6 +157,7 @@
 - [[file:+tools/ansible/README.org][ansible]]
 - [[file:+tools/cfengine/README.org][cfengine]]
 - [[file:+tools/chrome/README.org][chrome]]
+- [[file:+tools/cmake/README.org][cmake]]
 - [[file:+tools/command-log/README.org][command-log]]
 - [[file:+tools/dash/README.org][dash]]
 - [[file:+tools/deft/README.org][deft]]
