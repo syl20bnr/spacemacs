@@ -3,6 +3,7 @@
 
 * Table of Contents                                       :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key Bindings]]
   - [[#factor-mode-editing-source-files][factor-mode (editing source files)]]
@@ -11,6 +12,13 @@
 
 * Description
 A spacemacs layer for Factor language support.
+
+** Features:
+- Syntax Highlighting
+- Factor REPL integration
+- Auto-Completion in REPL
+- Scaffolding support
+- Refactoring support
 
 * Install
 This layer depends on the elisp files that are bundled with factor.  To use this
