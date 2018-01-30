@@ -85,7 +85,6 @@
 - [[file:+lang/emacs-lisp/README.org][emacs-lisp]]
 - [[file:+lang/erlang/README.org][erlang]]
 - [[file:+lang/ess/README.org][ess]]
-- [[file:+lang/extra-langs/README.org][extra-langs]]
 - [[file:+lang/faust/README.org][faust]]
 - [[file:+lang/forth/README.org][forth]]
 - [[file:+lang/fsharp/README.org][fsharp]]
