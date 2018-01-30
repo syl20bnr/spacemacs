@@ -251,6 +251,11 @@ to be called for each testrunner. "
       (user-error "This test function is not available with the `%S' runner."
                   test-runner))))
 
+(defun spacemacs/python-test-last (arg)
+  "Re-run the last test command"
+  (interactive "P")
+  (spacemacs//python-call-correct-test-function arg '((nose . nosetests-again))))
+
 (defun spacemacs/python-test-all (arg)
   "Run all tests."
   (interactive "P")
@@ -307,6 +312,7 @@ to be called for each testrunner. "
     "ta" 'spacemacs/python-test-all
     "tB" 'spacemacs/python-test-pdb-module
     "tb" 'spacemacs/python-test-module
+    "tl" 'spacemacs/python-test-last
     "tT" 'spacemacs/python-test-pdb-one
     "tt" 'spacemacs/python-test-one
     "tM" 'spacemacs/python-test-pdb-module
