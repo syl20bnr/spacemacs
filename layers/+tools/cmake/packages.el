@@ -21,7 +21,6 @@
     :if cmake-enable-cmake-ide-support
     :config
     (progn
-      (cmake-ide-setup)
       (dolist (mode cmake-modes)
         (spacemacs/declare-prefix-for-mode mode "mc" "compile")
         (spacemacs/declare-prefix-for-mode mode "mp" "project")
@@ -30,6 +29,10 @@
           "pc" 'cmake-ide-run-cmake
           "pC" 'cmake-ide-maybe-run-cmake
           "pd" 'cmake-ide-delete-file)))))
+
+(defun cmake/post-init-cmake-ide ()
+  ;; We need to be sure that rtags was initialized before
+  (cmake-ide-setup))
 
 (defun cmake/init-cmake-mode ()
   (use-package cmake-mode
