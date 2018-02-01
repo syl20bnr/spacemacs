@@ -2,28 +2,19 @@
 
 * Table of Content                                          :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#differences-from-default][Differences from default]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#configuration][Configuration]]
 - [[#key-bindings][Key Bindings]]
 
 * Description
-[[http://jblevins.org/projects/deft/][Deft]] is an Emacs mode inspired by =Notational Velocity= for quickly
-browsing and creating notes.
+This layer adds a search driven note taking system into Spacemacs.
 
-** Differences from default
-This layer sets the default to use filenames for note titles as well as
-=org-mode= for editing. The default extension is =org=. The default
-configuration is set to recognize =org=, =md=, and =txt= extensions. If
-you prefer that =Deft= recognize other extensions set an alternate
-configuration by adding the following in your config file:
-
-#+Begin_SRC emacs-lisp
-  (setq deft-extensions '("org" "md" "txt"))
-#+END_SRC
-
-Just add or substitute your preferred extension.
+** Features:
+- Browsing and creating notes with a powerfull search function via [[http://jblevins.org/projects/deft/][Deft]].
+- Integration of =org-mode= as note editor.
+- Configurable list of extensions to recognize as notes.
 
 * Install
 ** Layer
@@ -33,11 +24,22 @@ file.
 
 ** Configuration
 By default deft tries to put notes in =~/.deft= but you can change
-this like so in your =dotspacemacs/user-config= function:
+this in your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-(setq deft-directory "~/Dropbox/notes")
+   (setq deft-directory "~/Dropbox/notes")
 #+END_SRC
+
+By default =Deft= uses filenames for note titles and =org-mode= for editing.
+The default extension for new notes is =org=. However also =md= and =txt=
+files are recognized as notes. Which extensions are used for notes discovery
+can be configured in your =dotfile=:
+
+#+Begin_SRC emacs-lisp
+  (setq deft-extensions '("org" "md" "txt"))
+#+END_SRC
+
+Just add or substitute your preferred extension.
 
 * Key Bindings
 

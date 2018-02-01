@@ -4,20 +4,27 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This contains a forked version of [[https://github.com/ppareit/graphviz-dot-mode][graphviz-dot-mode]] that enables a live-reload
-type work flow for editing `.dot` files. When live-preview is enabled, saving
-the file will automatically trigger a compilation and reload of the image buffer
-associated with the file.
+This layer adds support for the open-source graph declaration system graphviz to Spacemacs.
+
+** Features:
+- Syntax highlighting for =.dot= files
+- Integration of a live-preview of =.dot= files via [[https://github.com/ppareit/graphviz-dot-mode][graphviz-dot-mode]].
+- Control of the graphviz compiler directly from emacs.
+- Support for formatting =.dot= files automatically.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =graphviz= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+To get the compilation working, you will also need the native package [[http://graphviz.org/][graphviz]] installed
+in your system.
 
 * Configuration
 If the live preview is not always updating the rendered image properly, you can

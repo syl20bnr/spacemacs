@@ -1,7 +1,10 @@
 #+TITLE: Finance layer
 
+[[file:img/ledger.png]]
+
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
 - [[#configuration][Configuration]]
@@ -11,16 +14,21 @@
   - [[#ledger-reconcile][Ledger-Reconcile]]
 
 * Description
-This layer adds finance related packages:
-- [[https://github.com/ledger/ledger][ledger]] support via [[https://www.emacswiki.org/emacs/LedgerMode][ledger-mode]]
+This layer integrates a full fledged accounting system into Spacemacs.
 
-[[file:img/ledger.png]]
+** Features:
+- Support for maintaining a double-entry accounting system run by text files via [[https://www.emacswiki.org/emacs/LedgerMode][ledger-mode]].
+- Display of finance reports directly within emacs.
+- Integration of emacs calculator mode for editing post amounts.
+- Support for easy account reconciliation via =Ledger-Reconcile=.
 
 * Install
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =finance= to the existing =dotspacemacs-configuration-layers= list in this
-file. This layer adds support for [[http://ledger-cli.org/download.html][ledger]], which must be installed separately.
+file.
+
+For this layer to work properly you also need to install the native package [[https://github.com/ledger/ledger][ledger]].
 
 * Configuration
 ** Ledger
