@@ -3,7 +3,7 @@
 [[file:img/git.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
-- [[#descriptions][Descriptions]]
+- [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
@@ -25,8 +25,8 @@
   - [[#git-links-to-web-services][Git links to web services]]
   - [[#repository-list][Repository list]]
 
-* Descriptions
-This layers adds extensive support for [[http://git-scm.com/][git]].
+* Description
+This layers adds extensive support for [[http://git-scm.com/][git]] to Spacemacs.
 
 ** Features:
 - git repository management the indispensable [[http://magit.vc/][magit]] package
