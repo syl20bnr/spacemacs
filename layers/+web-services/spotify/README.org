@@ -4,11 +4,15 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds key bindings for controlling Spotify from inside Emacs.
+This layer integrates an online music service into Spacemacs.
+
+** Features:
+- Support for listening to music from within Emacs via [[https://www.spotify.com][Spotify]].
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

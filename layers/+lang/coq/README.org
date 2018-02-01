@@ -4,21 +4,29 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#coq][Coq]]
+- [[#troubleshooting][Troubleshooting]]
+  - [[#there-are-empty-square-boxes-in-place-of-math-operators][There are empty square boxes in place of math operators]]
 - [[#key-bindings][Key bindings]]
   - [[#laying-out-windows][Laying out windows]]
   - [[#managing-prover-process][Managing prover process]]
   - [[#prover-queries][Prover queries]]
   - [[#moving-the-point][Moving the point]]
   - [[#inserting][Inserting]]
-- [[#faq][FAQ]]
-  - [[#there-are-empty-square-boxes-in-place-of-math-operators][There are empty square boxes in place of math operators]]
 
 * Description
-This layer adds support for the [[https://coq.inria.fr/][Coq]] proof assistant (adapted from
-[[https://github.com/tchajed/spacemacs-coq]]).
+This layer adds support for the [[https://coq.inria.fr/][Coq]] proof assistant (adapted from [[https://github.com/tchajed/spacemacs-coq][spacemacs-coq]]) to Spacemacs.
+
+** Features:
+- Syntax highlighting
+- Syntax-checking
+- Auto-completion
+- Debugging of mathematical proofs from within emacs using a special proof layout
+- Replacement of certain constants with the correct mathematical signs
+- Inserting of certain preconfigured proof elements
 
 * Install
 ** Layer
@@ -30,6 +38,19 @@ Official installers for MacOS and Windows are available from:
 [[https://coq.inria.fr/download]].
 
 Linux users can build from source or consult with their own package managers.
+
+* Troubleshooting
+** There are empty square boxes in place of math operators
+Math symbols present in your buffer (e.g. forall exists) will attempt to be
+prettified, if you are seeing empty square boxes this means an appropriate math
+symbol cannot be found in your *font*. You can either install a appropriate math
+font, or disable the feature by adding the following snippet to the your
+=dotspacemacs/user-config=.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'company-coq
+  (add-to-list 'company-coq-disabled-features 'prettify-symbols))
+#+END_SRC
 
 * Key bindings
 ** Laying out windows
@@ -89,16 +110,3 @@ Note the last two are regular =company-coq= bindings, left alone since they are
 most useful in insert mode. The full =company-coq= tutorial showcasing all
 available =company-coq= keybindings can be accessed at any time using =SPC SPC
 company-coq-tutorial=.
-
-* FAQ
-** There are empty square boxes in place of math operators
-Math symbols present in your buffer (e.g. forall exists) will attempt to be
-prettified, if you are seeing empty square boxes this means an appropriate math
-symbol cannot be found in your *font*. You can either install a appropriate math
-font, or disable the feature by adding the following snippet to the your
-=dotspacemacs/user-config=.
-
-#+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'company-coq
-  (add-to-list 'company-coq-disabled-features 'prettify-symbols))
-#+END_SRC
