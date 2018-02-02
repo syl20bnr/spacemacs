@@ -103,6 +103,7 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
 
       (spacemacs/set-leader-keys
         "ft" 'neotree-toggle
+        "fT" 'neotree-show
         "pt" 'neotree-find-project-root))
     :config
     (spacemacs//neotree-key-bindings)))
@@ -110,9 +111,7 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
 (defun neotree/pre-init-winum ()
   (spacemacs|use-package-add-hook winum
     :post-config
-    (add-to-list 'winum-assign-functions #'spacemacs//winum-neotree-assign-func)))
-
-(defun neotree/post-init-winum ()
-  (spacemacs/set-leader-keys
     ;; window 0 is reserved for file trees
-    "0" 'neotree-show))
+    (spacemacs/set-leader-keys "0" #'neotree-show)
+    (define-key winum-keymap (kbd "M-0") #'neotree-show)
+    (add-to-list 'winum-assign-functions #'spacemacs//winum-neotree-assign-func)))
