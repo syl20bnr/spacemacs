@@ -24,13 +24,15 @@
     (error (concat "Your version of Emacs (%s) is too old. "
                    "Spacemacs requires Emacs version %s or above.")
            emacs-version spacemacs-emacs-min-version)
-  (require 'core-spacemacs)
-  (configuration-layer/load-lock-file)
-  (spacemacs/init)
-  (configuration-layer/stable-elpa-download-tarball)
-  (configuration-layer/load)
-  (spacemacs-buffer/display-startup-note)
-  (spacemacs/setup-startup-hook)
-  (when dotspacemacs-enable-server
-    (require 'server)
-    (unless (server-running-p) (server-start))))
+  ;; Disable file-name-handlers for a speed boost during init
+  (let ((file-name-handler-alist nil))
+    (require 'core-spacemacs)
+    (configuration-layer/load-lock-file)
+    (spacemacs/init)
+    (configuration-layer/stable-elpa-download-tarball)
+    (configuration-layer/load)
+    (spacemacs-buffer/display-startup-note)
+    (spacemacs/setup-startup-hook)
+    (when dotspacemacs-enable-server
+      (require 'server)
+      (unless (server-running-p) (server-start)))))
