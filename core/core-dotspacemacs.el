@@ -70,7 +70,7 @@ environment, otherwise it is strongly recommended to let it set to t.")
 
 (defvar dotspacemacs-use-spacelpa nil
   "If non-nil then Spacelpa repository is the primary source to install
-a locked version of packages. If nil then Spacemacs will install the lastest
+a locked version of packages. If nil then Spacemacs will install the latest
 version of packages from MELPA.")
 
 (defvar dotspacemacs-verify-spacelpa-archives nil
