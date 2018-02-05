@@ -18,6 +18,7 @@
         (evil :step bootstrap)
         (hydra :step bootstrap)
         (use-package :step bootstrap)
+        (use-package-chords :step bootstrap)
         (which-key :step bootstrap)
         ))
 
@@ -283,6 +284,9 @@
         ;; inject use-package hooks for easy customization of stock package
         ;; configuration
         use-package-inject-hooks t))
+
+(defun spacemacs-bootstrap/init-use-package-chords ()
+  (require 'use-package-chords))
 
 (defun spacemacs-bootstrap/init-which-key ()
   (require 'which-key)
