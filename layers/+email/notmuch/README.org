@@ -65,7 +65,7 @@ Configure =~/.mailrc= with the path where =msmtp= is found.
 
 For example:
 #+srcname: contents of ~/.mailrc
-#+BEGIN_SRC
+#+BEGIN_SRC rc
 set sendmail="/usr/local/bin/msmtp"
 #+END_SRC
 
@@ -78,7 +78,7 @@ setting the layer variable =notmuch-message-deleted-tags=.
 Default value is to add the =deleted= tag and remove both =inbox= and
 =unread= tags.
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers
   '((notmuch :variables notmuch-message-deleted-tags '("+deleted" "-inbox" "-unread"))))
 #+END_SRC
