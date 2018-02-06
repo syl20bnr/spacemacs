@@ -29,6 +29,7 @@
     (lsp-python :requires lsp-mode)
     (nose :location local)
     org
+    pipenv
     pip-requirements
     pippel
     py-isort
@@ -185,6 +186,24 @@
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(python . t))))
 
+(defun python/init-pipenv ()
+  (use-package pipenv
+    :commands (pipenv-activate
+               pipenv-deactivate
+               pipenv-shell
+               pipenv-open
+               pipenv-install
+               pipenv-uninstall)
+    :init
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode
+        "vpa" 'pipenv-activate
+        "vpd" 'pipenv-deactivate
+        "vps" 'pipenv-shell
+        "vpo" 'pipenv-open
+        "vpi" 'pipenv-install
+        "vpu" 'pipenv-uninstall))))
+
 (defun python/init-pip-requirements ()
   (use-package pip-requirements
     :defer t))
@@ -243,9 +262,9 @@
                    'spacemacs//pyvenv-mode-set-local-virtualenv)))
       (dolist (mode '(python-mode hy-mode))
         (spacemacs/set-leader-keys-for-major-mode mode
-          "Va" 'pyvenv-activate
-          "Vd" 'pyvenv-deactivate
-          "Vw" 'pyvenv-workon))
+          "va" 'pyvenv-activate
+          "vd" 'pyvenv-deactivate
+          "vw" 'pyvenv-workon))
       ;; setup shell correctly on environment switch
       (dolist (func '(pyvenv-activate pyvenv-deactivate pyvenv-workon))
         (advice-add func :after 'spacemacs/python-setup-everything)))))
@@ -305,8 +324,8 @@
       (spacemacs/declare-prefix-for-mode 'python-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'python-mode "ms" "REPL")
       (spacemacs/declare-prefix-for-mode 'python-mode "mr" "refactor")
-      (spacemacs/declare-prefix-for-mode 'python-mode "mv" "pyenv")
-      (spacemacs/declare-prefix-for-mode 'python-mode "mV" "pyvenv")
+      (spacemacs/declare-prefix-for-mode 'python-mode "mv" "virtualenv")
+      (spacemacs/declare-prefix-for-mode 'python-mode "mvp" "pipenv")
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "'"  'spacemacs/python-start-or-switch-repl
         "cc" 'spacemacs/python-execute-file
