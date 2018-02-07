@@ -29,7 +29,7 @@
   (interactive)
   (highlight-lines-matching-regexp "import \\(pdb\\|ipdb\\|pudb\\|wdb\\)")
   (highlight-lines-matching-regexp "\\(pdb\\|ipdb\\|pudb\\|wdb\\).set_trace()")
-  (highlight-lines-matching-regexp "trepan.api.debug()")))
+  (highlight-lines-matching-regexp "trepan.api.debug()"))
 
 (defun spacemacs/pyenv-executable-find (command)
   "Find executable taking pyenv shims into account.
@@ -338,7 +338,7 @@ to be called for each testrunner. "
   (advice-add 'wisent-python-default-setup :after
               #'spacemacs//python-imenu-create-index-use-semantic-maybe))
 
-
+
 ;; Eldoc
 
 (defun spacemacs//init-eldoc-python-mode ()
