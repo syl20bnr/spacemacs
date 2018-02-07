@@ -104,7 +104,8 @@ when this mode is enabled since the minibuffer is cleared all the time."
   "Highlight break point lines."
   (interactive)
   (highlight-lines-matching-regexp "import \\(pdb\\|ipdb\\|pudb\\|wdb\\)")
-  (highlight-lines-matching-regexp "\\(pdb\\|ipdb\\|pudb\\|wdb\\).set_trace()"))
+  (highlight-lines-matching-regexp "\\(pdb\\|ipdb\\|pudb\\|wdb\\).set_trace()")
+  (highlight-lines-matching-regexp "trepan.api.debug()"))
 
 (defun spacemacs/pyenv-executable-find (command)
   "Find executable taking pyenv shims into account.
@@ -152,7 +153,8 @@ as the pyenv version then also return nil. This works around https://github.com/
 (defun spacemacs/python-toggle-breakpoint ()
   "Add a break point, highlight it."
   (interactive)
-  (let ((trace (cond ((spacemacs/pyenv-executable-find "wdb") "import wdb; wdb.set_trace()")
+  (let ((trace (cond ((spacemacs/pyenv-executable-find "trepan3k") "import trepan.api; trepan.api.debug()")
+                     ((spacemacs/pyenv-executable-find "wdb") "import wdb; wdb.set_trace()")
                      ((spacemacs/pyenv-executable-find "ipdb") "import ipdb; ipdb.set_trace()")
                      ((spacemacs/pyenv-executable-find "pudb") "import pudb; pudb.set_trace()")
                      ((spacemacs/pyenv-executable-find "ipdb3") "import ipdb; ipdb.set_trace()")
@@ -403,4 +405,3 @@ to be called for each testrunner. "
 (when (version< emacs-version "25")
   (advice-add 'wisent-python-default-setup :after
               #'spacemacs//python-imenu-create-index-use-semantic-maybe))
-
