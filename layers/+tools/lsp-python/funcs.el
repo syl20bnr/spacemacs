@@ -28,24 +28,16 @@
   (add-hook 'before-save-hook 'lsp-format-buffer)
   )
 
-(defun spacemacs/run-current-file-in-python ()
-  (interactive)
-  (unless (member "#<buffer *Python*>" (buffer-list))
-    (run-python))
-  (python-shell-send-file buffer-file-name)
-  (display-buffer "*Python*")
-  )
-
 (defun spacemacs/kill-python-interpreter ()
   (interactive)
   (when (member "#<buffer *Python*>" (buffer-list))
     (kill-buffer "*Python*"))
   )
 
-;; from https://www.snip2code.com/Snippet/127022/Emacs-auto-remove-unused-import-statemen
+;; from https://www.snip2code.com/snippet/127022/emacs-auto-remove-unused-import-statemen
 ;; from spacemacs python layer
 (defun spacemacs/python-remove-unused-imports()
-  "Use Autoflake to remove unused function"
+  "use autoflake to remove unused function"
   "autoflake --remove-all-unused-imports -i unused_imports.py"
   (interactive)
   (if (executable-find "autoflake")

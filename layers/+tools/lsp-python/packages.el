@@ -12,6 +12,7 @@
 (defconst lsp-python-packages
   '(lsp-python
     pyvenv
+    quickrun
     ))
 
 (defun lsp-python/init-lsp-python ()
@@ -34,6 +35,10 @@
 (defun lsp-python/init-pyvenv ()
   (use-package pyvenv
     ))
+
+(defun lsp-python/init-quickrun ()
+  (use-package quickrun
+    :commands (quickrun)))
 
 
 ;;; packages.el ends here

@@ -1,5 +1,9 @@
 #+TITLE: lsp-python layer
 
+# The maximum height of the logo should be 200 pixels.
+[[img/lsp-python.png]]
+
+# TOC links should be GitHub style anchors.
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]

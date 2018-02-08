@@ -11,7 +11,7 @@
 
 (spacemacs/set-leader-keys-for-major-mode 'python-mode (kbd "a") #'pyvenv-activate)
 (spacemacs/set-leader-keys-for-major-mode 'python-mode (kbd "d") #'pyvenv-deactivate)
-(spacemacs/set-leader-keys-for-major-mode 'python-mode (kbd "e") #'spacemacs/run-current-file-in-python)
+(spacemacs/set-leader-keys-for-major-mode 'python-mode (kbd "e") #'quickrun)
 (spacemacs/set-leader-keys-for-major-mode 'python-mode (kbd "k") #'spacemacs/kill-python-interpreter)
 (spacemacs/set-leader-keys-for-major-mode 'python-mode (kbd "r") #'xref-find-references)
 (spacemacs/set-leader-keys-for-major-mode 'python-mode (kbd "d") #'xref-find-definitions)
