@@ -27,7 +27,7 @@
         "J" 'prodigy-next-with-status
         "K" 'prodigy-prev-with-status
         "L" 'prodigy-start
-        "d" 'prodigy-jump-dired
+        "d" 'prodigy-jump-file-manager
         "g" 'prodigy-jump-magit
         "Y" 'prodigy-copy-cmd
         "R" 'revert-buffer)
