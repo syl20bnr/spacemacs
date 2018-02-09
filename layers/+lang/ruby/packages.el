@@ -160,6 +160,7 @@
           "hh" 'robe-doc
           "rsr" 'robe-rails-refresh
           ;; inf-enh-ruby-mode
+          "sb" 'ruby-send-buffer
           "sf" 'ruby-send-definition
           "sF" 'ruby-send-definition-and-go
           "si" 'robe-start
