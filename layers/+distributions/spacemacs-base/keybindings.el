@@ -440,6 +440,7 @@
   "wu"  'winner-undo
   "wv"  'split-window-right
   "wV"  'split-window-right-and-focus
+  "w|"  'split-window-right
   "ww"  'other-window
   "wx"  'kill-buffer-and-window
   "w/"  'split-window-right
