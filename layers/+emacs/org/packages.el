@@ -188,6 +188,7 @@ Will work on both org-mode and any mode that accepts plain html."
 
         "a" 'org-agenda
 
+        "Tc" 'org-toggle-checkbox
         "Te" 'org-toggle-pretty-entities
         "Ti" 'org-toggle-inline-images
         "Tl" 'org-toggle-link-display
