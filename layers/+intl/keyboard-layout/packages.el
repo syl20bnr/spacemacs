@@ -19,6 +19,7 @@
     evil
     evil-escape
     evil-evilified-state
+    evil-magit
     evil-surround
     eyebrowse
     flycheck
@@ -227,6 +228,24 @@
       "k"
       "l")))
 
+(defun keyboard-layout/pre-init-evil-magit ()
+  (kl|config evil-magit
+    :description
+    "Remap `evil-magit' bindings."
+    :loader
+    (with-eval-after-load 'evil-magit BODY)
+    :common
+    (dolist (state (if evil-magit-use-y-for-yank
+                       (list evil-magit-state 'visual)
+                     (list evil-magit-state)))
+      (kl/evil-correct-keys state magit-mode-map
+        "j"
+        "k"
+        "C-j"
+        "C-k"))
+    (kl/evil-correct-keys 'normal evil-magit-toggle-text-minor-mode-map
+      "C-j")))
+
 (defun keyboard-layout/pre-init-evil-surround ()
   (kl|config evil-surround
     :description
@@ -357,46 +376,34 @@
     :loader
     (spacemacs|use-package-add-hook magit :post-config BODY)
     :common
-    (progn
-      (dolist (state (if evil-magit-use-y-for-yank
-                         (list evil-magit-state 'visual)
-                       (list evil-magit-state)))
-        (kl/evil-correct-keys state magit-mode-map
-          "j"
-          "k"
-          "C-j"
-          "C-k"))
-      (kl/evil-correct-keys 'normal evil-magit-toggle-text-minor-mode-map
-        "C-j")
-      (dolist (map (list magit-branch-section-map
-                         magit-commit-section-map
-                         magit-file-section-map
-                         magit-hunk-section-map
-                         magit-remote-section-map
-                         magit-staged-section-map
-                         magit-unstaged-section-map
-                         magit-module-commit-section-map
-                         magit-stash-section-map
-                         magit-stashes-section-map
-                         magit-tag-section-map
-                         magit-unpulled-section-map
-                         magit-unpushed-section-map
-                         magit-untracked-section-map))
-        (kl/correct-keys map
-          "j"
-          "k"
-          "C-j"
-          "C-k")))
+    (dolist (map (list magit-branch-section-map
+                       magit-commit-section-map
+                       magit-file-section-map
+                       magit-hunk-section-map
+                       magit-remote-section-map
+                       magit-staged-section-map
+                       magit-unstaged-section-map
+                       magit-module-commit-section-map
+                       magit-stash-section-map
+                       magit-stashes-section-map
+                       magit-tag-section-map
+                       magit-unpulled-section-map
+                       magit-unpushed-section-map
+                       magit-untracked-section-map))
+      (kl/correct-keys map
+        "j"
+        "k"
+        "C-j"
+        "C-k"))
     :bepo
     (progn
       (magit-change-popup-key 'magit-dispatch-popup :actions ?t ?j)
       (magit-change-popup-key 'magit-dispatch-popup :actions ?s ?k)
       (magit-change-popup-key 'magit-dispatch-popup :actions ?S ?K))
     :colemak-jkhl
-    (progn
-      (kl/evil-correct-keys 'visual magit-mode-map
-        "j"
-        "k"))))
+    (kl/evil-correct-keys 'visual magit-mode-map
+      "j"
+      "k")))
 
 (defun keyboard-layout/pre-init-mu4e ()
   (kl|config mu4e
