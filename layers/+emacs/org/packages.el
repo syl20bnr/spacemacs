@@ -317,6 +317,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "aoc" 'org-capture
         "aoe" 'org-store-agenda-views
         "aoki" 'org-clock-in-last
+        "aokg" 'org-clock-goto
         "aokj" 'org-clock-jump-to-current-clock
         "aoko" 'org-clock-out
         "aokr" 'org-resolve-clocks
