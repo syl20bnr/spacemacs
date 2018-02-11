@@ -122,13 +122,7 @@
 
       ;; automatically truncate buffer after output
       (when (boundp 'eshell-output-filter-functions)
-        (push 'eshell-truncate-buffer eshell-output-filter-functions))
-
-      ;; These don't work well in normal state
-      ;; due to evil/emacs cursor incompatibility
-      (evil-define-key 'insert eshell-mode-map
-        (kbd "C-k") 'eshell-previous-matching-input-from-input
-        (kbd "C-j") 'eshell-next-matching-input-from-input))))
+        (push 'eshell-truncate-buffer eshell-output-filter-functions)))))
 
 (defun shell/init-eshell-prompt-extras ()
   (use-package eshell-prompt-extras
