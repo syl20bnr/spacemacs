@@ -152,7 +152,6 @@ font:
 ```sh
 brew tap d12frosted/emacs-plus
 brew install emacs-plus
-brew linkapps emacs-plus
 brew tap caskroom/fonts
 brew cask install font-source-code-pro
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
