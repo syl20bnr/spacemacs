@@ -85,6 +85,9 @@ layer:
   (javascript :variables tern-command '("node" "/path/to/tern/bin/tern"))
 #+END_SRC
 
+If you don't use tern and/or do not wish to install it, you can disable the
+spacemacs initialization warning by setting =javascript-disable-tern-warning=.
+
 ** Indentation
 To change how js2-mode indents code, set the variable =js2-basic-offset=, as
 such:

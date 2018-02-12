@@ -95,8 +95,11 @@
     "ht" 'tern-get-type))
 
 (defun spacemacs//tern-detect ()
-  "Detect tern binary and warn if not found."
+  "Detect tern binary and warn if not found. Setting
+`javascript-disable-tern-warning' to true disables the warning."
   (let ((found (executable-find "tern")))
-    (unless found
+    (unless (or found
+                ;; dotspacemacs-disable-tern-warning
+                javascript-disable-tern-warning)
       (spacemacs-buffer/warning "tern binary not found!"))
     found))

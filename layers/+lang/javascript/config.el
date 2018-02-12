@@ -15,3 +15,7 @@
 
 (defvar javascript-disable-tern-port-files t
   "Stops tern from creating tern port files.")
+
+(defvar javascript-disable-tern-warning nil
+  "If true, disables the warning at init time if you don't wish to install tern
+when using the javascript layer.")
