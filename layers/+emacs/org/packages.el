@@ -158,10 +158,10 @@ Will work on both org-mode and any mode that accepts plain html."
             (forward-char -8))))
 
       (dolist (prefix '(
+                        ("mb" . "babel")
                         ("mC" . "clocks")
                         ("md" . "dates")
                         ("me" . "export")
-                        ("mh" . "headings")
                         ("mi" . "insert")
                         ("miD" . "download")
                         ("ms" . "trees/subtrees")
@@ -171,7 +171,6 @@ Will work on both org-mode and any mode that accepts plain html."
                         ("mti" . "insert")
                         ("mtt" . "toggle")
                         ("mx" . "text")
-                        ("mb" . "src-blocks/babel")
                         ))
         (spacemacs/declare-prefix-for-mode 'org-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
