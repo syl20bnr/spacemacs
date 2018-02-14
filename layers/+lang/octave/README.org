@@ -4,14 +4,20 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
   - [[#inferior-repl-process][Inferior REPL process]]
   - [[#helpers][Helpers]]
 
 * Description
-This layer activates [[https://www.gnu.org/software/emacs/manual/html_mono/octave-mode.html][octave-mode]] for files with =.m=
-extensions and configures spacemacs-style key bindings.
+This layer adds support for =GNU Octave= files to Spacemacs.
+
+** Features:
+- Syntax highlighting for =.m= files via [[https://www.gnu.org/software/emacs/manual/html_mono/octave-mode.html][octave-mode]].
+- REPL support
+- Support for directly running =Octave= scripts from emacs.
+- Integration with =Octaves= documentation search function.
 
 * Install
 Make sure that [[https://www.gnu.org/software/octave/][GNU Octave]] is installed and
@@ -28,9 +34,10 @@ Send code to inferior process with these commands:
 
 | Key         | Description                           |
 |-------------+---------------------------------------|
+| ~SPC m '~   | start/switch to REPL inferior process |
+| ~SPC m s i~ |                                       |
 | ~SPC m s b~ | send buffer                           |
 | ~SPC m s f~ | send function                         |
-| ~SPC m s i~ | start/switch to REPL inferior process |
 | ~SPC m s l~ | send line                             |
 | ~SPC m s r~ | send region                           |
 
