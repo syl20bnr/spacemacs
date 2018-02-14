@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#sql-keywords-capitalization][SQL Keywords Capitalization]]
     - [[#sql-interactive-mode][SQL Interactive Mode]]
@@ -16,13 +17,39 @@
   - [[#code-formating][Code Formating]]
 
 * Description
-This layer adds key bindings and configuration for =sql-mode=, which manages
-interactive SQL buffers and highlights a wide range of SQL dialects.
+This layer adds support for a wide range of SQL dialects to Spacemacs.
+
+** Features:
+- Syntax highlighting for the following SQL dialects
+  - ANSI
+  - DB2
+  - Informix
+  - Ingres
+  - Interbase
+  - Linter
+  - Microsoft
+  - MySQL
+  - Oracle
+  - Postgres
+  - Solid
+  - SQLite
+  - Sybase
+  - Vertica
+- Syntax-checking via [[https://github.com/purcell/sqlint][sqlint]] for ANSI SQL.
+- Snippet insertion for the more general SQL constructs.
+- REPL support via =SQLi= buffer.
+- Automatic capitalization of keywords.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =sql= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+For syntax-checking you also need to install [[https://www.ruby-lang.org/en/about/][ruby]] as well as =sqlint=.
+
+#+BEGIN_SRC ruby
+	gem install sqlint
+#+END_SRC
 
 ** SQL Keywords Capitalization
 SQL, by convention, uses upper-case keywords, although lower-case works just as
