@@ -19,7 +19,7 @@
   - [[#refactoring][Refactoring]]
 
 * Description
-This layer adds extensive support for go.
+This layer adds extensive support for go to Spacemacs.
 
 ** Features:
 - gofmt/goimports on file save
@@ -32,7 +32,7 @@ This layer adds extensive support for go.
 
 * Install
 ** Pre-requisites
-You will need =gocode=, =godef= and =godoctor=:
+You will need =gocode=, =gogetdoc=, =godef= and =godoctor=:
 
 #+BEGIN_SRC sh
   go get -u -v github.com/nsf/gocode
@@ -40,6 +40,7 @@ You will need =gocode=, =godef= and =godoctor=:
   go get -u -v golang.org/x/tools/cmd/guru
   go get -u -v golang.org/x/tools/cmd/gorename
   go get -u -v golang.org/x/tools/cmd/goimports
+  go get -u -v github.com/zmb3/gogetdoc
 #+END_SRC
 
 If you wish to use =gometalinter= set the value of =go-use-gometalinter= to t:
@@ -135,7 +136,25 @@ searching.
 In addition, =GOPATH= must be set prior to =go-guru= initialization.
 
 ** Autocomplete
-=gocode= uses the output from installed binary files to provide its suggestions.
+For auto-completion there are actually two choices. First there is the classic =gocode=.
+This has been around for quite a long time now, however =gocode= has many shortcomings like
+not being able to show documentation for build-in objects or being fully dependent on installed binary
+files to provide its suggestions.
+
+A more modern and complete solution is provided by =gogetdoc= which is able to
+precisely detect all documentations in your go projects independent on where
+they have been added. This is also the choice recommended from =go-mode.el=.
+
+To choose =gocode= nothing more needs to be done. To use =gogetdoc= you need to set
+
+#+begin_src emacs-lisp
+  (go :variables godoc-at-point-function 'godoc-gogetdoc)
+#+end_src
+
+in your =dotfile=.
+
+If you choose to use =gocode= there are some suggestions to improve its results.
+As =gocode= uses the output from installed binary files to provide its suggestions.
 You have a few options to ensure you always get up to date suggestions:
 
 - Run =go install ./...= in your package directory when you make a file change.
