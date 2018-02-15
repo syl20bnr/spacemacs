@@ -2,6 +2,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#key-bindings][Key bindings]]
@@ -30,6 +31,11 @@ The following completion engines are supported:
 Snippets are supported via [[https://github.com/capitaomorte/yasnippet][yasnippet]] and [[https://github.com/abo-abo/auto-yasnippet][auto-yasnippet]].
 
 This layer also configures =hippie-expand=.
+
+** Features:
+- Completion with =company= or =auto-complete=
+- Frequency-based suggestions via =company-statistics=
+- Integration with =yasnippets=
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -61,6 +67,9 @@ layer variables:
    to wait for the auto-completion key sequence to be entered. The default value
    is 0.1 seconds.
 
+5. =auto-completion-idle-delay= is the number of seconds to wait before
+   suggesting completions. The default value is 0.2 seconds.
+
 The default configuration of the layer is:
 
 #+BEGIN_SRC emacs-lisp
@@ -70,6 +79,7 @@ The default configuration of the layer is:
                    auto-completion-tab-key-behavior 'cycle
                    auto-completion-complete-with-key-sequence nil
                    auto-completion-complete-with-key-sequence-delay 0.1
+                   auto-completion-idle-delay 0.2
                    auto-completion-private-snippets-directory nil)
                    ))
 #+END_SRC
@@ -218,7 +228,6 @@ Emacs style:
 
 | Key Binding | Description                                    |
 |-------------+------------------------------------------------|
-| ~C-f~       | (emacs style) complete selection               |
 | ~C-n~       | (emacs style) go down in company dropdown menu |
 | ~C-p~       | (emacs style) go up in company dropdown menu   |
 

@@ -14,6 +14,7 @@
     - [[#more-details][More details]]
 - [[#usage][Usage]]
   - [[#cheatsheet][Cheatsheet]]
+  - [[#structuraly-safe-editing][Structuraly safe editing]]
 - [[#key-bindings][Key Bindings]]
   - [[#working-with-clojure-files-barfage-slurpage--more][Working with clojure files (barfage, slurpage & more)]]
   - [[#leader][Leader]]
@@ -48,6 +49,7 @@ This layer adds support for [[https://clojure.org/][Clojure]] language using [[h
 - Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
 - Debugging with [[https://bpiel.github.io/sayid/][sayid]]
 - Clojure cheatsheet
+- Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
 * Install
 ** Layer
@@ -126,6 +128,28 @@ This layers installs the [[https://github.com/clojure-emacs/clojure-cheatsheet][
 Type ~SPC m h c~ to display the cheatsheet then type in some terms (space
 separated) to narrow down the list. For example, try typing in sort map to see
 some functions that deal with sorting maps.
+
+** Structuraly safe editing
+This layer adds support for =evil-cleverparens= which allows to safely edit
+lisp code by keeping the s-expressions balanced.
+
+By default this mode is not activated. You can turn it on locally on the active
+buffer with ~SPC m T s~ (=s= for safe).
+
+To turn it on automatically for all =clojure= buffers call the following
+function in your =dotspacemacs/user-config= function:
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-clojure-mode)
+#+END_SRC
+
+or to enable it for all supported modes:
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+#+END_SRC
+
+When enabled the symbol =🆂= should be displayed in the mode-line.
 
 * Key Bindings
 ** Working with clojure files (barfage, slurpage & more)

@@ -19,7 +19,7 @@ Nil if Pupo splits the entire frame."
   "Mapping of popwin positions to purposes.")
 
 (defconst pupo--purposes
-  (loop for (direction . purpose) in pupo--direction-to-purpose collect purpose)
+  (cl-loop for (direction . purpose) in pupo--direction-to-purpose collect purpose)
   "List of purposes used to present popwin positions.")
 
 (defvar pupo--windows nil
@@ -177,7 +177,7 @@ This command can be used repeatedly to close all popup windows."
 Return a `purpose-conf' object.
 Popwin's settings are taken from `popwin:special-display-config'."
   (let (mode-purposes name-purposes regexp-purposes)
-    (loop for config-entry in popwin:special-display-config
+    (cl-loop for config-entry in popwin:special-display-config
           for (pattern . settings) = (popwin:listify config-entry)
           do
           (push (cons pattern
@@ -228,12 +228,12 @@ The windows were saved in `pupo/before-popwin-create'.
 Note that the windows themselves aren't restored, but some internal
 variables are updated instead."
   (setq pupo--windows nil)
-  (loop for buffer in pupo--saved-buffers
+  (cl-loop for buffer in pupo--saved-buffers
         do (setq pupo--windows
               (append pupo--windows
                       (get-buffer-window-list buffer))))
   (setq pupo--auto-windows nil)
-  (loop for buffer in pupo--saved-auto-buffers
+  (cl-loop for buffer in pupo--saved-auto-buffers
         do (setq pupo--auto-windows
                  (append pupo--auto-windows
                          (get-buffer-window-list buffer)))))

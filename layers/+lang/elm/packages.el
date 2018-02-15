@@ -1,6 +1,6 @@
 ;;; packages.el --- elm Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -48,8 +48,6 @@
       (add-hook 'elm-mode-hook 'spacemacs/init-elm-mode))
     :config
     (progn
-      (push "\\*elm\\*" spacemacs-useful-buffers-regexp)
-
       (spacemacs/set-leader-keys-for-major-mode 'elm-mode
         ;; format
         "=b" 'elm-mode-format-buffer

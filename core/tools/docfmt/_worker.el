@@ -1,6 +1,6 @@
 ;;; _worker.el --- Spacemacs doc formatter worker -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;;         Eugene "JAremko" Yaremenko <w3techplayground@gmail.com>
@@ -77,7 +77,7 @@
 (defsubst spacemacs//docfmt-goto-next-table ()
   "Goto next org table.
 Returns nil if no more tables left."
-  (loop
+  (cl-loop
    ;; Skip current table.
    (goto-char (point-at-bol))
    (while (and (looking-at-p org-table-any-line-regexp)
@@ -182,7 +182,7 @@ Returns nil if no more tables left."
   "Format current `org-mode' buffer."
   (let ((old-buff-str (buffer-string))
         (new-buff-str ""))
-    (loop
+    (cl-loop
      (spacemacs//docfmt-rm-empty-lines-at-beg)
      (spacemacs//docfmt-rm-empty-lines-at-end)
      (spacemacs//docfmt-remove-readtheorg-meta)

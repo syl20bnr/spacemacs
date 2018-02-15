@@ -1,6 +1,6 @@
 ;;; funcs.el --- Helm Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -152,8 +152,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
     (set-text-properties 0 (length input) nil input)
     (helm-find-files-1 input)))
 
-
-;; Key bindings
+ ;; Key bindings
 
 (defmacro spacemacs||set-helm-key (keys func)
   "Define a key bindings for FUNC using KEYS.
@@ -167,6 +166,8 @@ Ensure that helm is required before calling FUNC."
          (require 'helm)
          (call-interactively ',func))
        (spacemacs/set-leader-keys ,keys ',func-name))))
+
+ ;; Find files tweaks
 
 (defun spacemacs//helm-find-files-edit (candidate)
   "Opens a dired buffer and immediately switches to editable mode."
@@ -186,6 +187,41 @@ Ensure that helm is required before calling FUNC."
    (cond
     ((eq major-mode 'org-mode) 'helm-org-in-buffer-headings)
     (t 'helm-semantic-or-imenu))))
+
+(defun spacemacs//helm-open-buffers-in-windows (buffers)
+  "This function allows a different default action, on marking multiple
+candidate buffers/files for helm. By default, helm either opens all
+files/buffers in the same window, or creates splits. This function instead
+opens the buffers (or files) across different already-open windows. The first
+selected buffer is opened in the current window, the next is opened in the
+window with higher number, etc. This will make a loop around, so with 4
+windows, and window 2 active, opening 4 buffers will open them in windows
+2 3 4 1. If more buffers are opened than windows available, the remainder are
+not set to any window (but in the case of files, they are still opened
+to buffers)."
+  (let ((num-buffers (length buffers))
+        (num-windows (length (winum--window-list)))
+        (cur-win (winum-get-number))
+        (num-buffers-placed 0))
+    (cl-loop for buffer in buffers do
+             (when (>= num-buffers-placed num-windows) cl-return)
+             (set-window-buffer (winum-get-window-by-number cur-win) buffer)
+             (setq cur-win (+ 1 (mod cur-win num-windows)))
+             (incf num-buffers-placed))))
+
+(defun spacemacs/helm-find-buffers-windows ()
+  (interactive)
+  (helm-exit-and-execute-action
+   (lambda (candidate)
+     (spacemacs//helm-open-buffers-in-windows (helm-marked-candidates)))))
+
+(defun spacemacs/helm-find-files-windows ()
+  (interactive)
+  (helm-exit-and-execute-action
+   (lambda (candidate)
+     (let* ((files (helm-marked-candidates))
+            (buffers (mapcar 'find-file-noselect files)))
+       (spacemacs//helm-open-buffers-in-windows buffers)))))
 
 
 ;; Generalized next-error interface

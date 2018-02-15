@@ -4,18 +4,22 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for [[https://www.perforce.com/][Perforce]] (p4).
+This layer integrates =Perforce= SCM system into spacemacs.
+
+** Features:
+- Support for running [[https://www.perforce.com/][Perforce]] (p4) SCM commands directly from emacs.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =perforce= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-You'll have to install the =p4== command line tool from the [[https://www.perforce.com/downloads/helix][download page]].
+You'll have to install the =p4= command line tool from the [[https://www.perforce.com/downloads/helix][download page]].
 
 Don't forget to setup the environment variables:
 - =P4_PORT=

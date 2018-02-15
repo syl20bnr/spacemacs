@@ -1,6 +1,6 @@
 ;;; packages.el --- sml Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Keith Simmons <keith@the-simmons.net>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -63,8 +63,9 @@
     (sp-local-pair 'sml-mode "'" nil :actions nil)
     (sp-local-pair 'sml-mode "`" nil :actions nil)))
 
-(defun sml/init-ob-sml ()
-  (use-package ob-sml
-    :defer t
-    :init
-    (org-babel-do-load-languages 'org-babel-do-load-languages '(sml . t))))
+(defun sml/pre-init-ob-sml ()
+  (spacemacs|use-package-add-hook org
+    :post-config
+    (use-package ob-sml
+      :init (add-to-list 'org-babel-load-languages '(sml . t)))))
+(defun sml/init-ob-sml ())

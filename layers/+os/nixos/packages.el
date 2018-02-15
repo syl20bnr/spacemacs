@@ -1,4 +1,4 @@
-(setq nixos-packages
+(defconst nixos-packages
       '(
         company
         flycheck
@@ -29,8 +29,12 @@
         "h>" 'helm-nixos-options))))
 
 (defun nixos/init-nix-mode ()
-  (use-package nix-mode)
-  (add-to-list 'spacemacs-indent-sensitive-modes 'nix-mode))
+  (use-package nix-mode
+    :defer t
+    :init
+    (add-to-list 'spacemacs-indent-sensitive-modes 'nix-mode)
+    :config
+    (electric-indent-mode -1)))
 
 (defun nixos/init-nixos-options ()
   (use-package nixos-options :defer t))

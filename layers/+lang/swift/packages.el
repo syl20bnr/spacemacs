@@ -1,6 +1,6 @@
 ;;; packages.el --- swift Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Uri Sharf <uri.sharf@me.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -15,7 +15,7 @@
       swift-mode
       ))
 
-(defun swift/post-init-flycheck ()
+(defun swift/pre-init-flycheck ()
   (spacemacs|use-package-add-hook flycheck
     :post-config (add-to-list 'flycheck-checkers 'swift)))
 

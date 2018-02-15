@@ -1,6 +1,6 @@
 ;;; core-funcs.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -265,7 +265,7 @@ buffer."
 
 ;; http://stackoverflow.com/questions/11847547/emacs-regexp-count-occurrences
 (defun spacemacs/how-many-str (regexp str)
-  (loop with start = 0
+  (cl-loop with start = 0
         for count from 0
         while (string-match regexp str start)
         do (setq start (match-end 0))

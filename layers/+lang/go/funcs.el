@@ -1,6 +1,6 @@
 ;;; funcs.el --- Go Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -14,7 +14,7 @@
   (let* ((sep (if (spacemacs/system-is-mswindows) ";" ":"))
          (paths (split-string gopath sep))
          found)
-    (loop for p in paths
+    (cl-loop for p in paths
           for file = (concat p name) when (file-exists-p file)
           do
           (load-file file)

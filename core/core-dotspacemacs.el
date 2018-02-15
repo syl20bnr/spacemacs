@@ -1,6 +1,6 @@
 ;;; core-dotspacemacs.el --- Spacemacs Core File
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -146,6 +146,13 @@ whenever you start Emacs.")
   "List of themes, the first of the list is loaded when spacemacs starts.
 Press `SPC T n' to cycle to the next theme in the list (works great
 with 2 themes variants, one dark and one light")
+
+(defvar dotspacemacs-mode-line-theme 'spacemacs
+  "Set the theme for the Spaceline. Supported themes are `spacemacs',
+`all-the-icons', `custom', `vim-powerline' and `vanilla'. The first three
+are spaceline themes. `vanilla' is default Emacs mode-line. `custom' is a
+user defined themes, refer to the DOCUMENTATION.org for more info on how
+to create your own spaceline theme.")
 
 (defvar dotspacemacs-frame-title-format "%I@%S"
   "Default format string for a frame title bar, using the
@@ -649,8 +656,8 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
               ?n "%n"
               ?z "%z"
               ?Z "%Z"
-              ?[ "%["
-              ?] "%]"
+              ?\[ "%["
+              ?\] "%]"
               ?% "%%"
               ?- "%-"
               )))
@@ -741,11 +748,24 @@ error recovery."
   (dotspacemacs||let-init-test
    (dotspacemacs/init)
    (spacemacs//test-var
-    (lambda (x) (or (member x '(vim emacs hybrid))
-                    (and (listp x)
-                         (spacemacs/mplist-get x :variables))))
+    (lambda (x)
+      (or (member x '(vim
+                      emacs
+                      hybrid))
+          (and (listp x)
+               (eq 'hybrid (car x))
+               (spacemacs/mplist-get x :variables))))
     'dotspacemacs-editing-style
     "is \'vim, \'emacs or \'hybrid or and list with `:variable' keyword")
+   (spacemacs//test-var
+    (lambda (x)
+      (member x '(spacemacs
+                  all-the-icons
+                  custom
+                  vim-powerline
+                  vanilla)))
+    'dotspacemacs-mode-line-theme
+    "is \'spacemacs, \'all-the-icons, \'custom, \'vim-powerline or 'vanilla")
    (spacemacs//test-var
     (lambda (x) (member x '(original cache nil)))
     'dotspacemacs-auto-save-file-location (concat "is one of \'original, "

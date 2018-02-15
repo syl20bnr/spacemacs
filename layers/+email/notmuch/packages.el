@@ -1,6 +1,6 @@
-;;; packages.el --- mu4e Layer packages File for Spacemacs
+;;; packages.el --- Notmuch Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,7 +9,26 @@
 ;;
 ;;; License: GPLv3
 
-(setq notmuch-packages '(notmuch helm-notmuch))
+(setq notmuch-packages
+      '(
+        (counsel-notmuch :requires ivy
+                         :location (recipe :fetcher github
+                                           :repo "fuxialexander/counsel-notmuch"))
+        (helm-notmuch :requires helm)
+        notmuch
+        org
+        persp-mode)
+      )
+
+(defun notmuch/init-counsel-notmuch ()
+  (use-package counsel-notmuch
+    :defer t
+    :init (spacemacs/set-leader-keys "aNn" 'counsel-notmuch)))
+
+(defun notmuch/init-helm-notmuch ()
+  (use-package helm-notmuch
+    :defer t
+    :init (spacemacs/set-leader-keys "aNn" 'helm-notmuch)))
 
 (defun notmuch/init-notmuch ()
   (use-package notmuch
@@ -18,30 +37,24 @@
     :init
     (progn
       (spacemacs/declare-prefix "aN" "notmuch")
-      (spacemacs/set-leader-keys "aNN" 'notmuch)
-      (spacemacs/set-leader-keys "aNi" 'spacemacs/notmuch-inbox)
-      (spacemacs/set-leader-keys "aNj" 'notmuch-jump-search)
-      (spacemacs/set-leader-keys "aNs" 'notmuch-search)
-      (spacemacs/set-leader-keys "aNn" 'helm-notmuch)
-      (load-library "org-notmuch"))
+      (spacemacs/set-leader-keys
+        "aNN" 'notmuch
+        "aNi" 'spacemacs/notmuch-inbox
+        "aNj" 'notmuch-jump-search
+        "aNs" 'notmuch-search))
     :config
     (progn
       (dolist (prefix '(("ms" . "stash")
                         ("mp" . "part")
                         ("mP" . "patch")))
         (spacemacs/declare-prefix-for-mode 'notmuch-show-mode
-          (car prefix)
-          (cdr prefix)))
-
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      ;; notmuch-hello-mode-map ;;
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      (evilified-state-evilify-map notmuch-hello-mode-map
-        :mode notmuch-hello-mode)
-
-      ;;;;;;;;;;;;;;;;;;;;;;;
-      ;; notmuch-show mode ;;
-      ;;;;;;;;;;;;;;;;;;;;;;;
+          (car prefix) (cdr prefix)))
+      ;; key bindings
+      (evil-define-key 'visual notmuch-search-mode-map
+        "*" 'notmuch-search-tag-all
+        "a" 'notmuch-search-archive-thread
+        "-" 'notmuch-search-remove-tag
+        "+" 'notmuch-search-add-tag)
       (spacemacs/set-leader-keys-for-major-mode 'notmuch-show-mode
         "a" 'notmuch-show-save-attachments
         ;; part
@@ -66,9 +79,10 @@
         ;; patch
         "Po" 'spacemacs/notmuch-show-open-github-patch
         "Pa" 'spacemacs/notmuch-git-apply-patch
-        "PA" 'spacemacs/notmuch-git-apply-patch-part
-        )
-
+        "PA" 'spacemacs/notmuch-git-apply-patch-part)
+      ;; evilified maps
+      (evilified-state-evilify-map notmuch-hello-mode-map
+        :mode notmuch-hello-mode)
       (evilified-state-evilify-map notmuch-show-mode-map
         :mode notmuch-show-mode
         :bindings
@@ -80,22 +94,13 @@
         (kbd "C-p")   'notmuch-show-previous-message
         (kbd "n")   'notmuch-show-next-open-message
         (kbd "o")   'notmuch-show-open-or-close-all
-        (kbd "O")   'spacemacs/notmuch-show-close-all
-        )
-
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      ;; notmuch-tree-mode-map ;;
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        (kbd "O")   'spacemacs/notmuch-show-close-all)
       (evilified-state-evilify-map notmuch-tree-mode-map
         :mode notmuch-tree-mode
         :bindings
         (kbd "d") 'spacemacs/notmuch-message-delete-down
         (kbd "D") 'spacemacs/notmuch-message-delete-up
         (kbd "M") 'compose-mail-other-frame)
-
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      ;; notmuch-search-mode-map ;;
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       (evilified-state-evilify-map notmuch-search-mode-map
         :mode notmuch-search-mode
         :bindings
@@ -109,20 +114,23 @@
         (kbd "gr") 'notmuch-refresh-this-buffer
         (kbd "gR") 'notmuch-refresh-all-buffers
         (kbd "G") 'notmuch-search-last-thread
-        (kbd "M") 'compose-mail-other-frame)
+        (kbd "M") 'compose-mail-other-frame))))
 
-      (evil-define-key 'visual notmuch-search-mode-map
-        "*" 'notmuch-search-tag-all
-        "a" 'notmuch-search-archive-thread
-        "-" 'notmuch-search-remove-tag
-        "+" 'notmuch-search-add-tag)
-      ))
+(defun notmuch/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (require 'org-notmuch)))
 
-  ;; fixes: killing a notmuch buffer does not show the previous buffer
-  (push "\\*notmuch.+\\*" spacemacs-useful-buffers-regexp)
-  )
-
-(defun notmuch/init-helm-notmuch ()
-  (use-package helm-notmuch
-    :defer t
-    :init (with-eval-after-load 'notmuch)))
+(defun notmuch/pre-init-persp-mode ()
+  (spacemacs|use-package-add-hook persp-mode
+    :post-config
+    (progn
+      (add-to-list 'persp-filter-save-buffers-functions
+                   'spacemacs//notmuch-persp-filter-save-buffers-function)
+      (spacemacs|define-custom-layout notmuch-spacemacs-layout-name
+        :binding notmuch-spacemacs-layout-binding
+        :body
+        (progn
+          (dolist (mode notmuch-modes)
+            (let ((hook (intern (concat (symbol-name mode) "-hook"))))
+              (add-hook hook #'spacemacs//notmuch-buffer-to-persp)))
+          (call-interactively 'notmuch))))))

@@ -1,6 +1,6 @@
 ;;; packages.el --- Emacs Lisp Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -19,6 +19,7 @@
         elisp-slime-nav
         (emacs-lisp :location built-in)
         evil
+        evil-cleverparens
         flycheck
         ggtags
         counsel-gtags
@@ -184,8 +185,6 @@
     :defer t
     :init
     (progn
-      (when emacs-lisp-hide-namespace-prefix
-        (add-hook 'emacs-lisp-mode-hook 'nameless-mode-from-hook))
       (setq
        ;; always show the separator since it can have a semantic purpose
        ;; like in Spacemacs where - is variable and / is a function.
@@ -197,15 +196,18 @@
       ;; some default aliases for Spacemacs source code
       (setq nameless-global-aliases '(("SB" . "spacemacs-buffer")
                                       ("S"  . "spacemacs")
+                                      (".S"  . "dotspacemacs")
                                       ("CL" . "configuration-layer")))
       ;; make `nameless-current-name' safe as a local variable for string values
       (put 'nameless-current-name 'safe-local-variable #'stringp)
-      (spacemacs|diminish nameless-mode " ⧁" " >")
+      (spacemacs|diminish nameless-mode " 🅽" " [n]")
       (spacemacs|add-toggle nameless
         :status nameless-mode
         :on (nameless-mode)
         :off (nameless-mode -1)
-        :evil-leader-for-mode (emacs-lisp-mode . ">")))))
+        :evil-leader-for-mode (emacs-lisp-mode . "Tn"))
+      (when emacs-lisp-hide-namespace-prefix
+        (spacemacs/toggle-nameless-on-register-hook-emacs-lisp-mode)))))
 
 (defun emacs-lisp/init-overseer ()
   (use-package overseer
@@ -226,6 +228,11 @@
   (add-hook 'emacs-lisp-mode-hook
             (lambda ()
               (spacemacs|define-text-object ";" "elisp-comment" ";; " ""))))
+
+(defun emacs-lisp/pre-init-evil-cleverparens ()
+  (spacemacs|use-package-add-hook evil-cleverparens
+    :pre-init
+    (add-to-list 'evil-lisp-safe-structural-editing-modes 'emacs-lisp-mode)))
 
 (defun emacs-lisp/post-init-flycheck ()
   ;; Don't activate flycheck by default in elisp

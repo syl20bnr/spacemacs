@@ -1,6 +1,6 @@
 ;;; funcs.el --- Spacemacs Mode-line Layer functions File
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -51,3 +51,15 @@
                             unicode
                           (if ascii ascii unicode))))
               (diminish mode dim))))))))
+
+
+;; Vim powerline
+
+(defun spacemacs//set-vimish-powerline-for-startup-buffers ()
+  "Set the powerline for buffers created when Emacs starts."
+  (dolist (buffer '("*Messages*" "*spacemacs*" "*Compile-Log*"))
+    (when (get-buffer buffer)
+      (with-current-buffer buffer
+        (setq-local mode-line-format (default-value 'mode-line-format))
+        (powerline-set-selected-window)
+        (powerline-reset)))))

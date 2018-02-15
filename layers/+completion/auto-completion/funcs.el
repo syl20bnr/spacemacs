@@ -1,6 +1,6 @@
 ;;; funcs.el --- Auto-completion functions File
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -284,8 +284,7 @@ MODE parameter must match the :modes values used in the call to
    (t
     (let ((map company-active-map))
       (define-key map (kbd "C-n") 'company-select-next)
-      (define-key map (kbd "C-p") 'company-select-previous)
-      (define-key map (kbd "C-f") 'company-complete-selection)))))
+      (define-key map (kbd "C-p") 'company-select-previous)))))
 
 
 ;; Transformers

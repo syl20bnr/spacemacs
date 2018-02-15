@@ -1,6 +1,6 @@
 ;;; funcs.el --- Colors Layer functions File
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -70,3 +70,19 @@
                    (car git-timemachine-revision))))
         (call-interactively 'git-link-commit))
     (call-interactively 'git-link-commit)))
+
+
+(defun spacemacs//support-evilified-buffer-p (style)
+  "Return non-nil if evil navigation should be enabled for STYLE."
+  (or (eq style 'vim)
+      (and (eq style 'hybrid)
+           hybrid-mode-enable-evilified-state)))
+
+(defun spacemacs//magit-evil-magit-bindings (style)
+  "Set `evil-magit' bindings for the given editing STYLE."
+  (cond
+   ((spacemacs//support-evilified-buffer-p style)
+    (evil-magit-init))
+   (t
+    (when (featurep 'evil-magit)
+      (evil-magit-revert)))))

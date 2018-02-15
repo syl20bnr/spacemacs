@@ -1,6 +1,6 @@
 ;;; packages.el --- Scheme Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,6 +12,7 @@
 (setq scheme-packages
       '(
         company
+        evil-cleverparens
         geiser
         ggtags
         counsel-gtags
@@ -21,6 +22,11 @@
 (defun scheme/post-init-company ()
   ;; Geiser provides completion as long as company mode is loaded.
   (spacemacs|add-company-backends :modes scheme-mode))
+
+(defun scheme/pre-init-evil-cleverparens ()
+  (spacemacs|use-package-add-hook evil-cleverparens
+    :pre-init
+    (add-to-list 'evil-lisp-safe-structural-editing-modes 'scheme-mode)))
 
 (defun scheme/init-geiser ()
   (use-package geiser

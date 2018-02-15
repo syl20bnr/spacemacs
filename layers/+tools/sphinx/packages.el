@@ -1,6 +1,6 @@
 ;;; packages.el --- Sphinx layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author:  <wwguo@hiGDP>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -18,7 +18,7 @@
 (defun sphinx/init-rst-sphinx ()
   (use-package rst-sphinx))
 
-(defun sphinx/post-init-rst ()
+(defun sphinx/pre-init-rst ()
   (spacemacs|use-package-add-hook rst
     :post-config (spacemacs/set-leader-keys-for-major-mode 'rst-mode
                    "cc" 'rst-sphinx-compile

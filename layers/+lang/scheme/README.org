@@ -4,6 +4,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+- [[#structuraly-safe-editing][Structuraly safe editing]]
 - [[#key-bindings][Key Bindings]]
   - [[#compiling][Compiling]]
   - [[#navigation][Navigation]]
@@ -19,6 +20,7 @@ This layer adds support for Scheme via [[http://www.nongnu.org/geiser/][Geiser]]
 ** Features:
 - Support the Scheme compiler [[https://www.call-cc.org/][Chicken]]
 - Support for the extension language platform [[https://www.gnu.org/software/guile/][Guile]]
+- Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -32,6 +34,28 @@ For full Chicken support, the following commands should be run:
   $ cd `csi -p '(chicken-home)'`
   $ curl https://3e8.org/pub/chicken-doc/chicken-doc-repo.tgz | sudo tar zx
 #+END_SRC
+
+* Structuraly safe editing
+This layer adds support for =evil-cleverparens= which allows to safely edit
+lisp code by keeping the s-expressions balanced.
+
+By default this mode is not activated. You can turn it on locally on the active
+buffer with ~SPC m T s~ (=s= for safe).
+
+To turn it on automatically for all =scheme= buffers call the following
+function in your =dotspacemacs/user-config= function:
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-scheme-mode)
+#+END_SRC
+
+or to enable it for all supported modes:
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+#+END_SRC
+
+When enabled the symbol =🆂= should be displayed in the mode-line.
 
 * Key Bindings
 ** Compiling

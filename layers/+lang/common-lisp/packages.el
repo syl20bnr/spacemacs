@@ -1,6 +1,6 @@
 ;;; packages.el --- Common Lisp Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -13,6 +13,7 @@
       '(auto-highlight-symbol
         (common-lisp-snippets :requires yasnippet)
         evil
+        evil-cleverparens
         ggtags
         counsel
         helm
@@ -38,6 +39,13 @@
           ad-do-it)
       ad-do-it)))
 
+(defun common-lisp/pre-init-evil-cleverparens ()
+  (spacemacs|use-package-add-hook evil-cleverparens
+    :pre-init
+    (progn
+      (add-to-list 'evil-lisp-safe-structural-editing-modes 'common-lisp-mode)
+      (add-to-list 'evil-lisp-safe-structural-editing-modes 'lisp-mode))))
+
 (defun common-lisp/post-init-helm ()
   (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
     "sI" 'spacemacs/helm-slime))
@@ -54,12 +62,13 @@
 (defun common-lisp/post-init-parinfer ()
   (add-hook 'lisp-mode-hook 'parinfer-mode))
 
-(defun common-lisp/init-slime-company ()
+(defun common-lisp/pre-init-slime-company ()
   (spacemacs|use-package-add-hook slime
     :pre-config
     (progn
       (setq slime-company-completion 'fuzzy)
       (add-to-list 'slime-contribs 'slime-company))))
+(defun common-lisp/init-slime-company ())
 
 (defun common-lisp/init-slime ()
   (use-package slime

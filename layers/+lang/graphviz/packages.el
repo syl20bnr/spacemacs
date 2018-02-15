@@ -1,6 +1,6 @@
 ;;; packages.el --- graphviz layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: luxbock <opieppo@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -42,7 +42,7 @@
         (spacemacs/set-leader-keys-for-major-mode 'graphviz-dot-mode
           dotspacemacs-major-mode-leader-key 'graphviz-dot-preview)))))
 
-(defun graphviz/post-init-smartparens ()
+(defun graphviz/pre-init-smartparens ()
   (spacemacs|use-package-add-hook graphviz-dot-mode
     :post-config
     (progn

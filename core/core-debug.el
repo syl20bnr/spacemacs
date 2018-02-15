@@ -1,6 +1,6 @@
 ;;; core-debug.el --- Spacemacs Core File  -*- lexical-binding: t; -*-
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -195,7 +195,7 @@ seconds to load")
 
 (defun spacemacs//describe-last-keys-string ()
   "Gathers info about your Emacs last keys and returns it as a string."
-  (loop
+  (cl-loop
    for key
    across (recent-keys)
    collect (if (or (integerp key) (symbolp key) (listp key))
@@ -258,7 +258,7 @@ seconds to load")
       (overlay-put ov 'after-string prop-val))
     (insert-file-contents
      (concat configuration-layer-template-directory "REPORTING.template"))
-    (loop
+    (cl-loop
      for (placeholder replacement)
      in `(("%SYSTEM_INFO%" ,system-info)
           ("%BACKTRACE%" ,backtrace)

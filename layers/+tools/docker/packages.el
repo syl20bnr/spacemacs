@@ -1,6 +1,6 @@
 ;;; packages.el --- docker Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner
+;; Copyright (c) 2012-2018 Sylvain Benner
 ;; Copyright (c) 2015 Alan Zimmerman & Contributors
 ;;
 ;; Author: Alan Zimmerman <alan.zimm@gmail.com>
@@ -22,20 +22,19 @@
     :defer t
     :init
     (progn
-      (spacemacs/declare-prefix "D" "Docker")
+      (spacemacs/declare-prefix "aD" "Docker")
       (evil-leader/set-key
-        "Dc" 'docker-containers
-        "Dd" 'docker-rmi
-        "De" 'docker-unpause
-        "DF" 'docker-pull
-        "Dk" 'docker-rm
-        "Di" 'docker-images
-        "Do" 'docker-stop
-        "DP" 'docker-push
-        "Dp" 'docker-pause
-        "Dr" 'docker-restart
-        "Ds" 'docker-start)
-      (push "\\*docker.+\\*" spacemacs-useful-buffers-regexp)))
+        "aDc" 'docker-containers
+        "aDd" 'docker-rmi
+        "aDe" 'docker-unpause
+        "aDF" 'docker-pull
+        "aDk" 'docker-rm
+        "aDi" 'docker-images
+        "aDo" 'docker-stop
+        "aDP" 'docker-push
+        "aDp" 'docker-pause
+        "aDr" 'docker-restart
+        "aDs" 'docker-start)))
   (with-eval-after-load 'docker-containers
     (evilified-state-evilify-map docker-containers-mode-map
       :mode docker-containers-mode))

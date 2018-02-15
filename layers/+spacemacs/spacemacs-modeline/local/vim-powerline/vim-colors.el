@@ -74,7 +74,7 @@
 
            (("state_indicator")
             (normal       ,darkestgreen    ,brightgreen  t)
-            ;;(inactive    ,gray6           ,gray2      t)
+            (inactive     ,gray6           ,gray2        t)
             (insert       ,darkestcyan     ,white        t)
             (visual       ,darkred         ,brightorange t)
             (replace      ,white           ,brightred    t)
@@ -82,7 +82,8 @@
             (motion       ,brightpurple    ,mediumpurple t)
             (emacs        ,darkestcyan     ,white        t)
             (iedit        ,darkred         ,brightestred t)
-            (lisp         ,brightpurple    ,mediumpurple t))
+            (lisp         ,brightpurple    ,mediumpurple t)
+            (hybrid       ,darkestblue     ,mediumcyan   t))
 
            (("branch" "scrollpercent" "raw" "filesize")
             (normal      ,gray9           ,gray4)

@@ -1,6 +1,6 @@
 ;;; config.el --- C/C++ Layer config File for Spacemacs
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -27,6 +27,9 @@
 (defvar c-c++-enable-google-newline nil
   "If non-nil `google-make-newline-indent' will be added as as
   `c-mode-common-hook'.")
+
+(defvar c-c++-enable-rtags-support nil
+  "If non nil Rtags related packages and configuration are enabled.")
 
 (defvar c-c++-enable-cmake-ide-support nil
   "If non nil CMake related packages and configuration are enabled.")

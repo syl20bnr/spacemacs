@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs Completion Layer packages File
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -172,7 +172,7 @@ Current Action: %s(ivy-action-name)
       ("c" ivy-call)
       ("C-m" ivy-done :exit t)
       ("C" ivy-toggle-calling)
-      ("m" ivy-toggle-fuzzy)
+      ("m" ivy-rotate-preferred-builders)
       (">" ivy-minibuffer-grow)
       ("<" ivy-minibuffer-shrink)
       ("w" ivy-prev-action)

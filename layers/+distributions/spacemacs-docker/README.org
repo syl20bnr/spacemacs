@@ -86,7 +86,7 @@ Get [[https://www.cygwin.com][Cygwin]] with =xinit=, =xorg-server= and optionaly
  #+END_SRC
  #+BEGIN_SRC sh
  docker run --name spacemacs \
-  -e DISPLAY="unix$DISPLAY" \
+  -e DISPLAY="$DISPLAY" \
   -v <path_to_your_workspace>:/mnt/workspace \
   spacemacs/emacs25:develop
 #+END_SRC
@@ -94,12 +94,12 @@ Get [[https://www.cygwin.com][Cygwin]] with =xinit=, =xorg-server= and optionaly
  Or with =-ti= via =winpty=
 #+BEGIN_SRC sh
 winpty docker run -ti --name spacemacs \
- -e DISPLAY="unix$DISPLAY" \
+ -e DISPLAY="$DISPLAY" \
  -v <path_to_your_workspace>:/mnt/workspace \
  spacemacs/emacs25:develop
 #+END_SRC
 [[http://manomarks.github.io/2015/12/03/docker-gui-windows.html][source]]
-Also You can use [[https://github.com/JAremko/docker-emacs/issues/2#issuecomment-260047233][@ninrod 's vagrant setup]]
+Also You can use [[https://www.reddit.com/r/emacs/comments/7a63r4/emacs_in_win10linuxdockerxserver_combo/][@ninrod 's setup]]
 
 ** GNU/Linux
 Make sure that =$DISPLAY= variable is set
@@ -192,6 +192,7 @@ Now visit http://localhost:10000/index.html?encoding=png&password=<PASSWORD>
 - =docker ps -a= - list all containers
 - =docker run ... spacemacs/emacs25:develop= - run the [[https://github.com/JAremko/docker-emacs/blob/master/Dockerfile.emacs25#L63][default command]]
 - =docker run -ti ... spacemacs/emacs25:develop /bin/bash= - start bash
+- =docker run --network=host ...= - less overhead and no need to map ports
 - =docker exec spacemacs /usr/bin/emacs= - start =/usr/bin/emacs=
 With the running =spacemacs= container
 - =docker logs spacemacs= - print =spacemacs= container's logs

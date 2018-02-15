@@ -1,6 +1,6 @@
 ;;; config.el --- Auto-completion configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -37,6 +37,9 @@ selection.")
 (defvar auto-completion-complete-with-key-sequence-delay 0.1
   "Timeout (seconds) when waiting for the second key of
 `auto-completion-complete-with-key-sequence'.")
+
+(defvar auto-completion-idle-delay 0.2
+  "Delay (seconds) before completions are shown.")
 
 (defvar auto-completion-enable-snippets-in-popup nil
   "If non nil show snippets in the auto-completion popup.")

@@ -6,6 +6,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+- [[#structuraly-safe-editing][Structuraly safe editing]]
 - [[#key-bindings][Key Bindings]]
   - [[#navigation][Navigation]]
   - [[#documentation][Documentation]]
@@ -17,10 +18,11 @@
 Adds support for the [[http://racket-lang.org/][Racket]] programming language.
 
 ** Features:
-   - Syntax highlighting with =racket-mode=
-   - Test runner
-   - Interactive REPL
-   - Code navigation with =gtags=
+- Syntax highlighting with =racket-mode=
+- Test runner
+- Interactive REPL
+- Code navigation with =gtags=
+- Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -31,6 +33,28 @@ file. You will also need DrRacket installed. Alternatively, one can use the
 #+BEGIN_SRC Bash
 raco pkg install drracket
 #+END_SRC
+
+* Structuraly safe editing
+This layer adds support for =evil-cleverparens= which allows to safely edit
+lisp code by keeping the s-expressions balanced.
+
+By default this mode is not activated. You can turn it on locally on the
+active buffer with ~SPC m T s~ (=s= for safe).
+
+To turn it on automatically for all =racket= buffers call the following
+function in your =dotspacemacs/user-config= function:
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-racket-mode)
+#+END_SRC
+
+or to enable it for all supported modes:
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+#+END_SRC
+
+When enabled the symbol =🆂= should be displayed in the mode-line.
 
 * Key Bindings
 ** Navigation

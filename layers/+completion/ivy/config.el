@@ -1,6 +1,6 @@
 ;;; config.el --- Ivy Layer Configuration File for Spacemacs
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,8 +9,15 @@
 ;;
 ;;; License: GPLv3
 
+
 
-;; Variables
+;; Layer Variables
+
+(defvar ivy-enable-advanced-buffer-information nil
+  "If non-nil, enable `ivy-rich' which adds information on buffers.")
+
+
+;; Private Variables
 
 (defvar spacemacs--counsel-commands
   '(;; --line-number forces line numbers (disabled by default on windows)
@@ -41,7 +48,7 @@ than this amount.")
   "Default ivy actions for files.")
 
 (defvar spacemacs--ivy-grep-actions
-  (loop for j in spacemacs--ivy-file-actions
+  (cl-loop for j in spacemacs--ivy-file-actions
         for key = (nth 0 j)
         for func = (nth 1 j)
         for desc = (nth 2 j)

@@ -1,6 +1,6 @@
 ;;; funcs.el --- Spacemacs Base Layer functions File
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -115,13 +115,23 @@ automatically applied to."
 
 ;; https://tsdh.wordpress.com/2007/03/28/deleting-windows-vertically-or-horizontally/
 (defun spacemacs/maximize-horizontally ()
-  "Delete all windows left or right of the current window."
+  "Delete all windows to the left and right of the current window."
   (interactive)
   (require 'windmove)
   (save-excursion
     (while (condition-case nil (windmove-left) (error nil))
       (delete-window))
     (while (condition-case nil (windmove-right) (error nil))
+      (delete-window))))
+
+(defun spacemacs/maximize-vertically ()
+  "Delete all windows above and below the current window."
+  (interactive)
+  (require 'windmove)
+  (save-excursion
+    (while (condition-case nil (windmove-up) (error nil))
+      (delete-window))
+    (while (condition-case nil (windmove-down) (error nil))
       (delete-window))))
 
 (defun spacemacs/toggle-centered-buffer-mode ()
@@ -1143,6 +1153,13 @@ a split-side entry, its value must be usable as the SIDE argument for
   (interactive "FFind file (split): ")
   (let ((buffer (find-file-noselect file)))
     (pop-to-buffer buffer '(spacemacs//display-in-split (split-side . below)))))
+
+(defun spacemacs/switch-to-help-buffer ()
+  "Open or select the `*Help*' buffer, if it exists."
+  (interactive)
+  (if (get-buffer "*Help*")
+      (switch-to-buffer (help-buffer))
+    (message "No previous Help buffer found")))
 
 (defun spacemacs/switch-to-scratch-buffer (&optional arg)
   "Switch to the `*scratch*' buffer, creating it first if needed.

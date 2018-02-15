@@ -1,6 +1,6 @@
 ;;; packages.el --- Mandatory Bootstrap Layer packages File
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -470,6 +470,7 @@
         which-key-max-description-length 32
         which-key-sort-order 'which-key-key-order-alpha
         which-key-idle-delay dotspacemacs-which-key-delay
+        which-key-idle-secondary-delay 0.01
         which-key-allow-evil-operators t)
 
   (which-key-mode)

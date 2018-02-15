@@ -4,21 +4,22 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-BibTeX and BibLaTeX files are a common way to manage bibliographies.  The format
+BibTeX and BibLaTeX files are a common way to manage bibliographies. The format
 was original designed to work with LaTeX files and subsequently has been adopted
 by other markup formats such as MarkDown and Org mode.
 
-This layer adds support to manipulate BibTeX and BibLaTeX files and offer
-utilities to automatically add new entries by DOI, arXiv identifier, ISBN, and
-more.
+This layer adds support to manipulate BibTeX and BibLaTeX files in Spacemacs.
 
-Once enabled, this layer also introduces additional shortcuts in other modes to
-easily insert citations.
+** Features:
+- Syntax highlighting for BibTeX and BibLaTeX files.
+- Utilities for automatically adding entries from different data sources.
+- Support for inserting citations in various other modes.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -26,7 +27,7 @@ add =bibtex= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Configuration
-This layer also supports having a global BibTeX file.  For a basic
+This layer also supports having a global BibTeX file. For a basic
 configuration, add this to your =~/.spacemacs= inside
 =dotspacemacs/user-config=:
 
@@ -38,10 +39,10 @@ configuration, add this to your =~/.spacemacs= inside
 
 Certain modes, such as =latex-mode= with AucTeX, will automatically lookup
 references in a document if any of the recognized bibliography commands are
-used.  Other modes may have a similar feature, or one could always set
+used. Other modes may have a similar feature, or one could always set
 file-local variables (through ~SPC f v f~).
 
-You can also customize which program is used to display the PDFs.  For example,
+You can also customize which program is used to display the PDFs. For example,
 to use Zathura:
 
 #+begin_src emacs-lisp

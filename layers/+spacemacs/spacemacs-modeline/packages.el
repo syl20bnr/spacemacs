@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs Mode-line Visual Layer packages File
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -11,10 +11,18 @@
 
 (setq spacemacs-modeline-packages
       '(
+        anzu
         fancy-battery
+        neotree
         spaceline
+        spaceline-all-the-icons
         symon
+        (vim-powerline :location local)
         ))
+
+(defun spacemacs-modeline/post-init-anzu ()
+  (when (eq 'all-the-icons dotspacemacs-mode-line-theme)
+    (spaceline-all-the-icons--setup-anzu)))
 
 (defun spacemacs-modeline/init-fancy-battery ()
   (use-package fancy-battery
@@ -27,8 +35,13 @@
         :evil-leader "tmb")
       (setq-default fancy-battery-show-percentage t))))
 
+(defun spacemacs-modeline/post-init-neotree ()
+  (when (eq 'all-the-icons dotspacemacs-mode-line-theme)
+    (spaceline-all-the-icons--setup-neotree)))
+
 (defun spacemacs-modeline/init-spaceline ()
   (use-package spaceline-config
+    :if (memq dotspacemacs-mode-line-theme '(spacemacs all-the-icons custom))
     :init
     (progn
       (add-hook 'spacemacs-post-user-config-hook 'spaceline-compile)
@@ -97,8 +110,9 @@
           (spacemacs-powerline-new-version
            (spacemacs/get-new-version-lighter-face
             spacemacs-version spacemacs-new-version))))
-      (apply #'spaceline-spacemacs-theme
-             spacemacs-spaceline-additional-segments)
+      (let ((theme (intern (format "spaceline-%S-theme"
+                                   dotspacemacs-mode-line-theme))))
+        (apply theme spacemacs-spaceline-additional-segments))
       ;; Additional spacelines
       (when (package-installed-p 'helm)
         (spaceline-helm-mode t))
@@ -107,6 +121,19 @@
       ;; Enable spaceline for buffers created before the configuration of
       ;; spaceline
       (spacemacs//set-powerline-for-startup-buffers))))
+
+(defun spacemacs-modeline/pre-init-spaceline-all-the-icons ()
+  (when (eq 'all-the-icons dotspacemacs-mode-line-theme)
+    (spacemacs|use-package-add-hook spaceline-config
+      :pre-config
+      (progn
+        (require 'spaceline-all-the-icons)
+        (spaceline-all-the-icons--setup-git-ahead)))))
+
+(defun spacemacs-modeline/init-spaceline-all-the-icons ()
+  (use-package spaceline-all-the-icons
+    :defer t
+    :init (setq spaceline-all-the-icons-separator-type 'cup)))
 
 (defun spacemacs-modeline/init-symon ()
   (use-package symon
@@ -118,3 +145,29 @@
       (spacemacs|add-toggle minibuffer-system-monitor
         :mode symon-mode
         :evil-leader "tms"))))
+
+(defun spacemacs-modeline/init-vim-powerline ()
+  (when (eq 'vim-powerline dotspacemacs-mode-line-theme)
+    (require 'powerline)
+    (if (display-graphic-p)
+        (setq powerline-default-separator 'arrow)
+      (setq powerline-default-separator 'utf-8))
+    (defun powerline-raw (str &optional face pad)
+      "Render STR as mode-line data using FACE and optionally
+PAD import on left (l) or right (r) or left-right (lr)."
+      (when str
+        (let* ((rendered-str (format-mode-line str))
+               (padded-str (concat
+                            (when (and (> (length rendered-str) 0)
+                                       (or (eq pad 'l) (eq pad 'lr))) " ")
+                            (if (listp str) rendered-str str)
+                            (when (and (> (length rendered-str) 0)
+                                       (or (eq pad 'r) (eq pad 'lr))) " "))))
+
+          (if face
+              (pl/add-text-property padded-str 'face face)
+            padded-str))))
+    (require 'vim-powerline-theme)
+    (powerline-vimish-theme)
+    (add-hook 'emacs-startup-hook
+              'spacemacs//set-vimish-powerline-for-startup-buffers)))

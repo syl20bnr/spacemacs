@@ -1,7 +1,7 @@
 #!/usr/bin/emacs --script
 ;;; install.el --- clojure layer dependencies installation script
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Eugene "JAremko" Yaremenko <w3techplayground@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -25,7 +25,7 @@
      "su - ${UNAME} -c 'echo exit | lein repl'")
   (! "Installing Boot...")
   (cp ".boot" (dir $UHOME))
-  (set-glob-envs '("BOOT_CLOJURE_VERSION" . "1.8.0")
+  (set-glob-envs '("BOOT_CLOJURE_VERSION" . "1.9.0")
                  `("BOOT_LOCAL_REPO" . ,(concat (dir $UHOME) ".m2/repository")))
   ($ ["curl -Lo /usr/local/bin/boot"
       "https://github.com/boot-clj/boot-bin/releases/download/latest/boot.sh"]

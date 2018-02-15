@@ -92,11 +92,22 @@ such:
   (setq-default js2-basic-offset 2)
 #+END_SRC
 
+or when adding the =javascript= configuration layer:
+#+BEGIN_SRC emacs-lisp
+  (javascript :variables js2-basic-offset 2)
+#+END_SRC
+
+
 Similarly, to change how js-mode indents JSON files, set the variable
 =js-indent-level=, as such:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default js-indent-level 2)
+#+END_SRC
+
+or when adding the =javascript= configuration layer:
+#+BEGIN_SRC emacs-lisp
+  (javascript :variables js-indent-level 2)
 #+END_SRC
 
 ** REPL

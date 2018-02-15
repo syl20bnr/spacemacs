@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs Evil Layer packages File
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,6 +12,7 @@
 (setq spacemacs-evil-packages
       '(evil-anzu
         evil-args
+        evil-cleverparens
         evil-ediff
         evil-exchange
         evil-iedit-state
@@ -68,6 +69,21 @@
       ;; bind evil-args text objects
       (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
       (define-key evil-outer-text-objects-map "a" 'evil-outer-arg))))
+
+(defun spacemacs-evil/init-evil-cleverparens ()
+  (use-package evil-cleverparens
+    :defer t
+    :init
+    (progn
+      (setq evil-cleverparens-use-regular-insert t)
+      (eval `(spacemacs|add-toggle evil-safe-lisp-structural-editing
+               :if (memq dotspacemacs-editing-style '(vim hybrid))
+               :mode evil-cleverparens-mode
+               :documentation "Enable evil-cleverparens."
+               :evil-leader-for-mode
+               ,@(mapcar (lambda (x) (cons x "Ts"))
+                         evil-lisp-safe-structural-editing-modes)))
+      (spacemacs|diminish evil-cleverparens-mode " 🆂" " [s]"))))
 
 (defun spacemacs-evil/init-evil-ediff ()
   (use-package evil-ediff

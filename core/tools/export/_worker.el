@@ -175,7 +175,7 @@ without unification and \"#\" prefix."
   (let* ((res nil)
          (cur-node headline)
          (parent-node (org-export-get-parent cur-node)))
-    (loop
+    (cl-loop
      t
      (when (eq 'headline (car-safe cur-node))
        (push (string-remove-prefix

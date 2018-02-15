@@ -1,7 +1,7 @@
 #!/usr/bin/emacs --script
 ;;; install.el --- gtags layer dependencies installation script
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Eugene "JAremko" Yaremenko <w3techplayground@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -14,7 +14,7 @@
                         (file-name-directory
                          load-file-name)) nil t)
 
-(let ((global-version "6.5.5"))
+(let ((global-version "6.5.6"))
   (install python-pygments libncurses-dev)
   (with-installed (git tar curl gzip autotools-dev
                        pkg-config libtool dh-autoreconf)

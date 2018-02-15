@@ -1,6 +1,6 @@
 ;;; packages.el --- slack layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Kosta Harlan <kosta@kostaharlan.net>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -39,21 +39,20 @@
 (defun slack/post-init-linum ()
   (add-hook 'slack-mode-hook 'spacemacs/no-linum))
 
-(defun slack/post-init-persp-mode ()
-  (spacemacs|define-custom-layout slack-spacemacs-layout-name
-    :binding slack-spacemacs-layout-binding
-    :body
-    (progn
-      (add-hook 'slack-mode #'(lambda ()
-                                (persp-add-buffer (current-buffer))))
-      ;; TODO: We don't want to slack-start every time someone types `SPC l o s`
-      (call-interactively 'slack-start)
-      (call-interactively 'slack-channel-select)))
-  ;; Do not save slack buffers
+(defun slack/pre-init-persp-mode ()
   (spacemacs|use-package-add-hook persp-mode
     :post-config
-    (push (lambda (b) (with-current-buffer b (eq major-mode 'slack-mode)))
-          persp-filter-save-buffers-functions)))
+    (progn
+      (add-to-list 'persp-filter-save-buffers-functions
+                   'spacemacs//slack-persp-filter-save-buffers-function)
+      (spacemacs|define-custom-layout slack-spacemacs-layout-name
+        :binding slack-spacemacs-layout-binding
+        :body
+        (progn
+          (add-hook 'slack-mode #'spacemacs//slack-buffer-to-persp)
+          ;; TODO: We don't want to slack-start every time someone types `SPC l o s`
+          (call-interactively 'slack-start)
+          (call-interactively 'slack-channel-select))))))
 
 (defun slack/init-slack ()
   "Initialize Slack"

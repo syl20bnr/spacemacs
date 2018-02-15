@@ -1,6 +1,6 @@
 #+TITLE: Notmuch layer
 
-[[file:notmuch-logo.png]]
+[[file:img/notmuch.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
@@ -10,17 +10,16 @@
     - [[#receiving-emails][Receiving emails]]
     - [[#sending-emails-with-thunderbird][Sending emails with Thunderbird]]
     - [[#sending-emails-with-msmtp][Sending emails with msmtp]]
+  - [[#see-also][See also]]
 - [[#key-bindings][Key bindings]]
   - [[#global-bindings][Global bindings]]
-  - [[#hello-mode][Hello mode]]
-      - [[#evilified-state][Evilified state]]
-  - [[#search-mode][Search mode]]
-      - [[#evilified-state-1][Evilified state]]
-  - [[#tree-mode][Tree mode]]
-      - [[#evilified-state-2][Evilified state]]
   - [[#show-mode][Show mode]]
-      - [[#evilified-state-3][Evilified state]]
-- [[#see-also][See also]]
+  - [[#evilified-key-bindings][Evilified key bindings]]
+    - [[#hello-mode][Hello mode]]
+    - [[#search-mode][Search mode]]
+    - [[#show-mode-1][Show mode]]
+    - [[#tree-mode][Tree mode]]
+- [[#spacemacs-layout-integration][Spacemacs layout integration]]
 
 * Description
 Notmuch offers a fast, global-search and tag-based email system to
@@ -69,44 +68,20 @@ set sendmail="/usr/local/bin/msmtp"
 
 Configure =~/.msmtprc= [[http://msmtp.sourceforge.net/doc/msmtprc.txt][example]]
 
+** See also
+Refer to the official notmuch website for more information:
+https://notmuchmail.org/
+
 * Key bindings
 ** Global bindings
 
-| Keybinding  | Command                     |
-|-------------+-----------------------------|
-| ~SPC a N N~ | Start notmuch               |
-| ~SPC a N n~ | Start helm notmuch          |
-| ~SPC a N j~ | Start a notmuch jump search |
-| ~SPC a N s~ | Start a notmuch search      |
-
-** Hello mode
-**** Evilified state
-
-| Keybinding | Command                     |
-|------------+-----------------------------|
-| ~J~        | Jump to a saved search      |
-| ~s~        | Show threads matching QUERY |
-
-** Search mode
-**** Evilified state
-
-| Keybinding | Command                   |
-|------------+---------------------------|
-| ~J~        | Jump to saved search      |
-| ~*~        | [Thread]  Add/Remove tags |
-| ~+~        | [Message] Add tags        |
-| ~-~        | [Message] Remove tags     |
-| ~a~        | [Message] Archive         |
-
-** Tree mode
-**** Evilified state
-
-| Keybinding | Command                   |
-|------------+---------------------------|
-| ~*~        | [Thread]  Add/Remove tags |
-| ~+~        | [Message] Add tags        |
-| ~-~        | [Message] Remove tags     |
-| ~a~        | [Message] Archive         |
+| Keybinding  | Command                                      |
+|-------------+----------------------------------------------|
+| ~SPC a N N~ | Start notmuch                                |
+| ~SPC a N n~ | Start helm notmuch                           |
+| ~SPC a N j~ | Start a notmuch jump search                  |
+| ~SPC a N s~ | Start a notmuch search                       |
+| ~SPC l o n~ | Start notmuch in a custom layout, "@Notmuch" |
 
 ** Show mode
 
@@ -135,7 +110,25 @@ Configure =~/.msmtprc= [[http://msmtp.sourceforge.net/doc/msmtprc.txt][example]]
 | ~SPC m s t~     | [STASH] Copy =To address= to kill-ring                                         |
 | ~SPC m s T~     | [STASH] Copy =tags= to kill-ring                                               |
 
-**** Evilified state
+** Evilified key bindings
+*** Hello mode
+
+| Keybinding | Command                     |
+|------------+-----------------------------|
+| ~J~        | Jump to a saved search      |
+| ~s~        | Show threads matching QUERY |
+
+*** Search mode
+
+| Keybinding | Command                   |
+|------------+---------------------------|
+| ~J~        | Jump to saved search      |
+| ~*~        | [Thread]  Add/Remove tags |
+| ~+~        | [Message] Add tags        |
+| ~-~        | [Message] Remove tags     |
+| ~a~        | [Message] Archive         |
+
+*** Show mode
 
 | Keybinding | Description                |
 |------------+----------------------------|
@@ -158,7 +151,27 @@ Configure =~/.msmtprc= [[http://msmtp.sourceforge.net/doc/msmtprc.txt][example]]
 | ~gR~       | Refresh all buffers        |
 | ~m~        | Compose mail               |
 
-* See also
-Refer to the official notmuch website for more information.
+*** Tree mode
 
-- https://notmuchmail.org/
+| Keybinding | Command                   |
+|------------+---------------------------|
+| ~*~        | [Thread]  Add/Remove tags |
+| ~+~        | [Message] Add tags        |
+| ~-~        | [Message] Remove tags     |
+| ~a~        | [Message] Archive         |
+
+* Spacemacs layout integration
+
+This layer defines a [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces][Spacemacs custom layout]] and automatically adds notmuch
+buffers to this layout.  The name and the key binding for the layout can be
+customized with the following layer variables:
+- =notmuch-spacemacs-layout-name= for the layout name,
+- =notmuch-spacemacs-layout-binding= for the key binding.
+
+The following example configures the layout with the default name and binding:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(
+  (notmuch :variables notmuch-spacemacs-layout-name "@Notmuch"
+                      notmuch-spacemacs-layout-binding "n")))
+#+END_SRC

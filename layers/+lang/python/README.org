@@ -12,9 +12,13 @@
     - [[#syntax-checking][Syntax checking]]
   - [[#test-runner][Test runner]]
   - [[#automatic-buffer-formatting-on-save][Automatic buffer formatting on save]]
+  - [[#automatic-save-of-buffer-when-testing][Automatic save of buffer when testing]]
   - [[#autoflake][autoflake]]
   - [[#pylookup][pylookup]]
   - [[#hy-mode][Hy-mode]]
+- [[#configuration][Configuration]]
+  - [[#fill-column][Fill column]]
+  - [[#sort-imports][Sort imports]]
 - [[#management-of-python-versions-and-virtual-environments][Management of Python versions and virtual environments]]
   - [[#manage-virtual-environments-with-pyvenv][Manage virtual environments with pyvenv]]
   - [[#manage-multiple-python-versions-with-pyenv][Manage multiple Python versions with pyenv]]
@@ -24,12 +28,10 @@
   - [[#running-python-script-in-shell][Running Python Script in shell]]
   - [[#testing][Testing]]
   - [[#refactoring][Refactoring]]
+  - [[#pip-package-management][Pip package management]]
   - [[#live-coding][Live coding]]
   - [[#hy-repl-process][Hy REPL process]]
   - [[#other-python-commands][Other Python commands]]
-- [[#configuration][Configuration]]
-  - [[#fill-column][Fill column]]
-  - [[#sort-imports][Sort imports]]
 
 * Description
 This layer adds support for the Python language.
@@ -46,6 +48,8 @@ This layer adds support for the Python language.
 - Suppression of unused import with [[https://github.com/myint/autoflake][autoflake]]
 - Use the ~%~ key to jump between blocks with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Sort imports with [[https://pypi.python.org/pypi/isort][isort]]
+- Fix a missing import statement with [[https://github.com/anachronic/importmagic.el][importmagic]]
+- Pip package manager with [[https://github.com/brotzeit/pippel][pippel]]
 
 * Install
 ** Layer
@@ -120,6 +124,15 @@ To enable automatic buffer formatting on save with  [[https://github.com/google/
     (python :variables python-enable-yapf-format-on-save t)))
 #+END_SRC
 
+** Automatic save of buffer when testing
+By default a buffer is automatically saved before tests are executed upon it,
+you can disable this feature by setting =python-save-before-test= to =nil=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (python :variables python-save-before-test nil)))
+#+END_SRC
+
 ** autoflake
 To be able to suppress unused imports easily, install [[https://github.com/myint/autoflake][autoflake]]:
 
@@ -138,6 +151,28 @@ that hy is installed.
 #+BEGIN_SRC sh
   pip install hy
 #+END_SRC
+
+* Configuration
+** Fill column
+If you want to customize the fill column value, use something like this inside
+the =user-init= function in your =.spacemacs=:
+
+#+BEGIN_SRC elisp
+(setq-default dotspacemacs-configuration-layers '(
+    (python :variables python-fill-column 99)))
+#+END_SRC
+
+** Sort imports
+If you want imports to be automatically sorted when you save a file (using
+[[https://pypi.python.org/pypi/isort][isort]]), set the =python-sort-imports-on-save= variable in the python layer
+config section:
+
+#+BEGIN_SRC elisp
+(setq-default dotspacemacs-configuration-layers
+  '((python :variables python-sort-imports-on-save t)))
+#+END_SRC
+
+or as a directory-local variable (for per-project settings).
 
 * Management of Python versions and virtual environments
 ** Manage virtual environments with pyvenv
@@ -245,10 +280,31 @@ function with a prefix argument, for example ~SPC u SPC m t a~.
 
 ** Refactoring
 
-| Key Binding | Description                          |
-|-------------+--------------------------------------|
-| ~SPC m r i~ | remove unused imports with [[https://github.com/myint/autoflake][autoflake]] |
-| ~SPC m r I~ | sort imports with [[https://pypi.python.org/pypi/isort][isort]]              |
+| Key Binding | Description                                     |
+|-------------+-------------------------------------------------|
+| ~SPC m r f~ | fix a missing import statement with [[https://pypi.python.org/pypi/importmagic][importmagic]] |
+| ~SPC m r i~ | remove unused imports with [[https://github.com/myint/autoflake][autoflake]]            |
+| ~SPC m r I~ | sort imports with [[https://pypi.python.org/pypi/isort][isort]]                         |
+
+** Pip package management
+In python buffer type ~SPC m P~ to open buffer listing all installed =pip=
+packages in the currently activated virtual environment.
+
+*Note:* To open this menu from outside a python buffer type
+~SPC SPC pippel-list-packages RET~ .
+
+In the package list buffer:
+
+| Key Binding | Description                                                 |
+|-------------+-------------------------------------------------------------|
+| ~RET~       | follow link (=pippel-menu-visit-homepage=)                  |
+| ~d~         | mark for deletion (=pippel-menu-mark-delete=)               |
+| ~i~         | prompt user for packages (=pippel-install-package=)         |
+| ~m~         | remove mark (=pippel-menu-mark-unmark=)                     |
+| ~r~         | refresh package list (=pippel-list-packages=)               |
+| ~U~         | mark all upgradable (=pippel-menu-mark-all-upgrades=)       |
+| ~u~         | mark for upgrade (=pippel-menu-mark-upgrade=)               |
+| ~x~         | perform marked package menu actions (=pippel-menu-execute=) |
 
 ** Live coding
 Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][live-py-plugin.]]
@@ -295,24 +351,3 @@ Send code to hy REPL commands:
 | ~SPC m V a~ | activate a virtual environment in any directory                              |
 | ~SPC m V d~ | deactivate active virtual environment                                        |
 
-* Configuration
-** Fill column
-If you want to customize the fill column value, use something like this inside
-the =user-init= function in your =.spacemacs=:
-
-#+BEGIN_SRC elisp
-(setq-default dotspacemacs-configuration-layers '(
-    (python :variables python-fill-column 99)))
-#+END_SRC
-
-** Sort imports
-If you want imports to be automatically sorted when you save a file (using
-[[https://pypi.python.org/pypi/isort][isort]]), set the =python-sort-imports-on-save= variable in the python layer
-config section:
-
-#+BEGIN_SRC elisp
-(setq-default dotspacemacs-configuration-layers
-  '((python :variables python-sort-imports-on-save t)))
-#+END_SRC
-
-or as a directory-local variable (for per-project settings).

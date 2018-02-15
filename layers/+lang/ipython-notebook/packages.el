@@ -1,6 +1,6 @@
 ;;; packages.el --- ipython Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -10,7 +10,9 @@
 ;;; License: GPLv3
 
 (setq ipython-notebook-packages '(company
-                                  ein))
+                                  ein
+                                  ob-ipython
+                                  ))
 
 (defun ipython-notebook/post-init-company ()
   (spacemacs|add-company-backends
@@ -99,6 +101,11 @@
         (kbd "<C-return>") 'ein:worksheet-execute-cell
         (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next)
 
+      ;; keybindings mirror ipython web interface behavior
+      (evil-define-key 'hybrid ein:notebook-multilang-mode-map
+        (kbd "<C-return>") 'ein:worksheet-execute-cell
+        (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next)
+
       (evil-define-key 'normal ein:notebook-multilang-mode-map
         ;; keybindings mirror ipython web interface behavior
         (kbd "<C-return>") 'ein:worksheet-execute-cell
@@ -167,4 +174,12 @@
         ("9" ein:notebook-worksheet-open-last)
         ("+" ein:notebook-worksheet-insert-next)
         ("-" ein:notebook-worksheet-delete)
-        ("x" ein:notebook-close)))))
+        ("x" ein:notebook-close))
+      (spacemacs/set-leader-keys "ein" 'spacemacs/ipython-notebook-transient-state/body))))
+
+(defun ipython-notebook/pre-init-ob-ipython ()
+  (spacemacs|use-package-add-hook org
+    :post-config
+    (use-package ob-ipython
+      :init (add-to-list 'org-babel-load-languages '(ipython . t)))))
+(defun ipython-notebook/init-ob-ipython ())

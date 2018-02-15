@@ -61,6 +61,7 @@ now this is required.
 | Key Binding | Description                                   |
 |-------------+-----------------------------------------------|
 | ~SPC m g c~ | Go to member in current file                  |
+| ~SPC m g e~ | List errors and warnings in solution          |
 | ~SPC m g f~ | Go to solution file                           |
 | ~SPC m g F~ | Go to solution file then member               |
 | ~SPC m g g~ | Go to definition                              |

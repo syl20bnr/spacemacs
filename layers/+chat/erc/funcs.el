@@ -1,6 +1,6 @@
 ;;; funcs.el --- Spacemacs ERC Layer functions File
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -25,3 +25,16 @@
   (if erc-server-list
       (erc//servers erc-server-list)
     (message "You must define erc-server-list")))
+
+
+;; persp
+
+(defun spacemacs//erc-persp-filter-save-buffers-function (buffer)
+  "Filter for erc layout."
+  (with-current-buffer buffer
+    (eq major-mode 'erc-mode)))
+
+(defun spacemacs//erc-buffer-to-persp ()
+  "Add buffer to erc layout."
+  (persp-add-buffer (current-buffer) (persp-get-by-name
+                                      erc-spacemacs-layout-name)))

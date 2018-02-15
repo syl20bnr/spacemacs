@@ -1,6 +1,6 @@
 ;;; packages.el --- erc Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -107,13 +107,13 @@
     :config
     (add-to-list 'erc-modules 'gitter)))
 
-
-(defun erc/init-erc-hl-nicks ()
+(defun erc/pre-init-erc-hl-nicks ()
   (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-hl-nicks)))
+(defun erc/init-erc-hl-nicks ())
 
-(defun erc/init-erc-sasl ()
+(defun erc/pre-init-erc-sasl ()
   (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-sasl
@@ -147,8 +147,9 @@
                    "0" "*"
                    erc-session-user-full-name))
           (erc-update-mode-line))))))
+(defun erc/init-erc-sasl ())
 
-(defun erc/init-erc-social-graph ()
+(defun erc/pre-init-erc-social-graph ()
   (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-social-graph
@@ -159,25 +160,29 @@
         (setq erc-social-graph-dynamic-graph t)
         (spacemacs/set-leader-keys-for-major-mode 'erc-mode
           "D" 'erc-social-graph-draw)))))
+(defun erc/init-erc-social-graph ())
 
-(defun erc/init-erc-tex ()
+(defun erc/pre-init-erc-tex ()
   (spacemacs|use-package-add-hook erc
     :post-config
     (require 'erc-tex)))
+(defun erc/init-erc-tex ())
 
-(defun erc/init-erc-yt ()
+(defun erc/pre-init-erc-yt ()
   (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-yt
       :init (with-eval-after-load 'erc
               (add-to-list 'erc-modules 'youtube)))))
+(defun erc/init-erc-yt ())
 
-(defun erc/init-erc-yank ()
+(defun erc/pre-init-erc-yank ()
   (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-yank
       :if (configuration-layer/package-used-p 'gist)
       :init (evil-define-key 'normal erc-mode-map "p" 'erc-yank))))
+(defun erc/init-erc-yank ())
 
 (defun erc/init-erc-view-log ()
   (use-package erc-view-log
@@ -227,21 +232,18 @@
   (spacemacs/add-to-hooks 'spacemacs/no-linum '(erc-mode-hook
                                                 erc-insert-pre-hook)))
 
-(defun erc/post-init-persp-mode ()
-  ;; do not save erc buffers
-  (with-eval-after-load 'persp-mode
-    (push (lambda (b) (with-current-buffer b (eq major-mode 'erc-mode)))
-          persp-filter-save-buffers-functions))
-
-  (spacemacs|define-custom-layout erc-spacemacs-layout-name
-    :binding erc-spacemacs-layout-binding
-    :body
+(defun erc/pre-init-persp-mode ()
+  (spacemacs|use-package-add-hook persp-mode
+    :post-config
     (progn
-      (defun spacemacs-layouts/add-erc-buffer-to-persp ()
-        (persp-add-buffer (current-buffer)
-                          (persp-get-by-name
-                           erc-spacemacs-layout-name)))
-      (add-hook 'erc-mode-hook #'spacemacs-layouts/add-erc-buffer-to-persp)
-      (if erc-server-list
-          (erc/default-servers)
-        (call-interactively 'erc)))))
+      (add-to-list 'persp-filter-save-buffers-functions
+                   'spacemacs//erc-persp-filter-save-buffers-function)
+      (spacemacs|define-custom-layout erc-spacemacs-layout-name
+        :binding erc-spacemacs-layout-binding
+        :body
+        (progn
+          (add-hook 'erc-mode-hook #'spacemacs//erc-buffer-to-persp)
+          (if erc-server-list
+              (erc/default-servers)
+            (call-interactively 'erc)))))))
+
