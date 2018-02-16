@@ -396,7 +396,15 @@
     (progn
       (kl/evil-correct-keys 'visual magit-mode-map
         "j"
-        "k"))))
+        "k"))
+    :dvp
+    (progn
+      (dolist (state (if evil-magit-use-y-for-yank
+                         (list evil-magit-state 'visual)
+                       (list evil-magit-state)))
+        (evil-define-key state magit-mode-map "h" 'evil-next-line)
+        (evil-define-key state dired-mode-map "t" 'evil-previous-line)
+        ))))
 
 (defun keyboard-layout/pre-init-mu4e ()
   (kl|config mu4e
