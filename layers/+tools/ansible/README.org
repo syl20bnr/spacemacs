@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#ansible-vault][ansible-vault]]
@@ -12,7 +13,12 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for Ansible-flavored YAML buffers and Jinja2 templates.
+This layer adds support for editing Ansible configuration files in Spacemacs.
+
+** Features:
+- Syntax highlighting for Ansible-flavored YAML and Jinja2 templates.
+- Auto-completion via =company-ansible=.
+- Integration of =ansible-vault= into emacs for automatic encryption/decryption of files.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
