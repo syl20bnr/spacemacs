@@ -4,16 +4,29 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer aims at providing support for the Puppet DSL using [[https://github.com/voxpupuli/puppet-mode][puppet-mode]].
+This layer provides support for the Puppet DSL to Spacemacs.
+
+** Features:
+- Syntax highlighting via [[https://github.com/voxpupuli/puppet-mode][puppet-mode]]
+- Syntax-checking via [[http://puppet-lint.com/][puppet-lint]]
+- Navigation commands to jump between blocks
+- Applying the content of the current manifest directly from emacs
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =puppet= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+To get syntax checking to work you will also need to install =puppet-lint= by executing:
+
+#+BEGIN_SRC sh
+  $ gem install puppet-lint
+#+END_SRC
 
 * Key bindings
 The following key bindings are available in Puppet Mode:

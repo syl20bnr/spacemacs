@@ -167,28 +167,6 @@ After completing the Spacemacs [install process](#install), then it's also
 recommended to add the [osx layer][] to your [dotfile][]. Installation
 instructions are available in the documentation for the [osx layer][].
 
-If the powerline separators on the spaceline have a different (less saturated)
-color than the rest of the line, then you can add the following snippet to the
-`dotspacemacs/user-config` section in your `~/.spacemacs` file:
-
-```elisp
-(setq ns-use-srgb-colorspace nil)
-```
-
-Keep in mind that this is not an ideal solution as it affects all colours in
-Emacs. Another option is to change the powerline separators. For example to
-`alternate` or `bar`, they diminish the color difference. Or change them to
-`utf-8`, which makes them go away completely, without having to change colour
-space. In order to change the powerline separators, put the following snippet in
-the `dotspacemacs/user-config` section of your `~/.spacemacs` file:
-
-```eslip
-(setq powerline-default-separator 'utf-8)
-```
-
-For more information about powerline separators, please refer to the
-[powerline documentation][]
-
 ### Windows
 You can download good quality builds from the [emacs-w64 project][emacs-for-windows].
 It is recommended to install the most recent [stable build][emacs-for-windows-stable].

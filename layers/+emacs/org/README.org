@@ -28,6 +28,8 @@
   - [[#trees][Trees]]
   - [[#element-insertion][Element insertion]]
   - [[#links][Links]]
+  - [[#babel--source-blocks][Babel / Source Blocks]]
+    - [[#org-babel-transient-state][Org Babel Transient State]]
   - [[#emphasis][Emphasis]]
   - [[#navigating-in-calendar][Navigating in calendar]]
   - [[#capture-buffers-and-src-blocks][Capture buffers and src blocks]]
@@ -119,7 +121,7 @@ extension.
 #+END_SRC
 
 In order to be able to use org-reveal, download =reveal.js= from its
-[[http://lab.hakim.se/reveal-js/#/][homepage]] and set =org-reveal-js= to the
+[[http://lab.hakim.se/reveal-js/#/][homepage]] and set =org-reveal-root= to the
 download path, as described in the [[https://github.com/yjwen/org-reveal#user-content-revealjs-and-org-reveal][manual]]. Alternatively, add the following line
 to each =.org= file you want to process:
 
@@ -404,7 +406,8 @@ are also available.
 | ~M-H~ / ~M-L~ | Promote or demote subtree       |
 | ~>>~ / ~<<~   | Promote or demote heading       |
 | ~TAB~         | org-cycle                       |
-| ~SPC m s a~   | org-archive-subtree             |
+| ~SPC m s a~   | Toggle archive tag for subtree  |
+| ~SPC m s A~   | Archive subtree                 |
 | ~SPC m s b~   | org-tree-to-indirect-buffer     |
 | ~SPC m s l~   | org-demote-subtree              |
 | ~SPC m s h~   | org-promote-subtree             |
@@ -438,6 +441,47 @@ are also available.
 | Key Binding | Description       |
 |-------------+-------------------|
 | ~SPC m x o~ | org-open-at-point |
+
+** Babel / Source Blocks
+
+| Key Binding | Description                              |
+|-------------+------------------------------------------|
+| ~SPC m b .~ | Enter Babel Transient State              |
+| ~SPC m b a~ | org-babel-sha1-hash                      |
+| ~SPC m b b~ | org-babel-execute-buffer                 |
+| ~SPC m b c~ | org-babel-check-src-block                |
+| ~SPC m b d~ | org-babel-demarcate-block                |
+| ~SPC m b e~ | org-babel-execute-maybe                  |
+| ~SPC m b f~ | org-babel-tangle-file                    |
+| ~SPC m b g~ | org-babel-goto-named-src-block           |
+| ~SPC m b i~ | org-babel-lob-ingest                     |
+| ~SPC m b I~ | org-babel-view-src-block-info            |
+| ~SPC m b j~ | org-babel-insert-header-arg              |
+| ~SPC m b l~ | org-babel-load-in-session                |
+| ~SPC m b n~ | org-babel-next-src-block                 |
+| ~SPC m b o~ | org-babel-open-src-block-result          |
+| ~SPC m b p~ | org-babel-previous-src-block             |
+| ~SPC m b r~ | org-babel-goto-named-result              |
+| ~SPC m b s~ | org-babel-execute-subtree                |
+| ~SPC m b t~ | org-babel-tangle                         |
+| ~SPC m b u~ | org-babel-goto-src-block-head            |
+| ~SPC m b v~ | org-babel-expand-src-block               |
+| ~SPC m b x~ | org-babel-do-key-sequence-in-edit-buffer |
+| ~SPC m b z~ | org-babel-switch-to-session              |
+| ~SPC m b Z~ | org-babel-switch-to-session-with-code    |
+
+*** Org Babel Transient State
+Use ~SPC m b .~ to enter a transient state for quick source block navigation and
+execution.  During that state, the following bindings are active:
+
+| Key Binding | Description                   |
+|-------------+-------------------------------|
+| ~'~         | edit source block             |
+| ~e~         | execute source block          |
+| ~g~         | jump to named source block    |
+| ~j~         | jump to next source block     |
+| ~k~         | jump to previous source block |
+| ~q~         | leave transient state         |
 
 ** Emphasis
 
@@ -610,8 +654,8 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 | ~SPC a o j j~ | New journal entry      |
 | ~SPC a o j s~ | Search journal entries |
 
-Journal entries are highlighted in the calander. The following key bindings are
-available for =calander-mode= for navigating and manipulating the journal.
+Journal entries are highlighted in the calendar. The following key bindings are
+available for =calendar-mode= for navigating and manipulating the journal.
 
 | Key Binding | Description                           |
 |-------------+---------------------------------------|

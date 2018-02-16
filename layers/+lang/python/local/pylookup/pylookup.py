@@ -24,12 +24,12 @@ except:
     import pickle
 
 if sys.version_info[0] == 3:
-    import html.parser as htmllib
+    from html.parser import HTMLParser
     import urllib.parse as urlparse
     import urllib.request as urllib
 else:
-    import htmllib
-    import urllib
+    from HTMLParser import HTMLParser
+    import urllib2 as urllib
     import urlparse
     import formatter
 
@@ -122,49 +122,47 @@ def get_matcher(insensitive=True, desc=True):
     return getattr(Element, "match{0}{1}".format(_in_entry, _sensitive))
 
 
-class IndexProcessor(htmllib.HTMLParser):
+class IndexProcessor(HTMLParser):
     """
     Extract the index links from a Python HTML documentation index.
     """
 
     def __init__(self, writer, dirn):
         try:
-            htmllib.HTMLParser.__init__(self)
+            HTMLParser.__init__(self)
         except TypeError:
-            htmllib.HTMLParser.__init__(self, formatter.NullFormatter())
+            HTMLParser.__init__(self, formatter.NullFormatter())
         self.writer = writer
         self.dirn = dirn
         self.entry = ""
         self.desc = ""
-        self.list_entry = False
-        self.do_entry = False
+        self.level = 0
         self.one_entry = False
         self.num_of_a = 0
         self.desc_cnt = 0
         self.tag = None
 
-    def handle_starttag(self, tag, *args):
-        if sys.version_info[0] == 3:
-            attrs = args[0]
-        else:
-            attrs = args[1]
+    def handle_starttag(self, tag, attrs):
         self.tag = tag
         attrs = dict(attrs)
-        if self.tag == 'dd':
-            self.list_entry = True
-        elif self.tag == 'dt':
+        if tag in ['dd', 'dl', 'ul']:
+            self.level += 1
+        elif tag in ['dt', 'li']:
             self.one_entry = True
             self.num_of_a = 0
-        elif self.tag == 'a':
+        elif tag == 'a':
             if self.one_entry:
                 self.url = join(self.dirn, attrs['href'])
 
+    def handle_endtag(self, tag):
+        self.tag = None
+        if tag in ['dd', 'dl', 'ul']:
+            self.level -= 1
+        elif tag in ['dt', 'li']:
+            self.one_entry = False
+
     def handle_data(self, data):
-        if self.tag == 'dd':
-            self.list_entry = False
-        elif self.tag == 'dt':
-            self.do_entry = False
-        elif self.tag == 'a':
+        if self.tag == 'a':
             global VERBOSE
             if self.one_entry:
                 if self.num_of_a == 0:
@@ -178,7 +176,7 @@ class IndexProcessor(htmllib.HTMLParser):
                                               self.desc.ljust(80)))
                     # extract fist element
                     #  ex) __and__() (in module operator)
-                    if not self.list_entry:
+                    if self.level == 1:
                         self.entry = re.sub("\([^)]+\)", "", self.desc)
 
                         # clean up PEP
@@ -231,9 +229,11 @@ def update(db, urls, append=False):
                 # guess index URLs
                 # for stdlib, this is genindex-all.html
                 # for django, numpy, etc. it's genindex.html
+                # for flask, requests, it's genindex/
                 url = url.rstrip("/")
                 potential_urls.append(url + "/genindex-all.html")
                 potential_urls.append(url + "/genindex.html")
+                potential_urls.append(url + "/genindex/")
 
             success = False
             for index_url in potential_urls:

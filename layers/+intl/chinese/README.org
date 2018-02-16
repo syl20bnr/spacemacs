@@ -4,6 +4,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#configuration][Configuration]]
@@ -19,15 +20,17 @@
   - [[#find-by-pinyin-dired][Find-by-pinyin-dired]]
 
 * Description
-This Layer adds Chinese related packages:
-- [[https://github.com/tumashu/chinese-pyim][chinese-pyim]] : The best Chinese Pinyin(拼音) input method.
-- [[https://github.com/andyque/chinese-wbim][chinese-wbim]]: The best Chinese Wubi(五笔) input method.
-- [[https://github.com/cute-jumper/fcitx.el][cute-jumper/fcitx.el]]: This package provides a set of functions to make fcitx work better in Emacs.
-- [[https://github.com/xuchunyang/youdao-dictionary.el][youdao-dictionary]]: The Youdao(有道) Dictionary interface for Emacs.
-- [[https://github.com/redguardtoo/find-by-pinyin-dired][find-by-pinyin-dired]]: Find file by first Pinyin characters of Chinese Hanzi.
-- [[https://github.com/cute-jumper/ace-pinyin][ace-pinyin]]: Jump to Chinese character by pinyin with =ace-jump-mode=.
-- [[https://github.com/coldnew/pangu-spacing][coldnew/pangu-spacing]] : emacs minor-mode to add space between Chinese and English characters.
-- Join consecutive Chinese lines into a single long line without unwanted space when exporting org-mode to html.
+This layer adds support for traditional Chinese script to Spacemacs.
+
+** Features:
+- Support for the [[https://en.wikipedia.org/wiki/Pinyin][Pinyin(拼音)]] input method via [[https://github.com/tumashu/chinese-pyim][chinese-pyim]].
+- Support for the [[https://en.wikipedia.org/wiki/Wubi_method][Wubi(五笔)]] input method via [[https://github.com/andyque/chinese-wbim][chinese-wbim]].
+- Integration of the native input method framework [[https://en.wikipedia.org/wiki/Fcitx][fcitx]] via [[https://github.com/cute-jumper/fcitx.el][cute-jumper/fcitx.el]].
+- Integration of the [[https://en.wikipedia.org/wiki/Youdao][Youdao(有道) Dictionary]] via [[https://github.com/xuchunyang/youdao-dictionary.el][youdao-dictionary]].
+- Support for file searches in =dired= using Chinese Pinyin characters via [[https://github.com/redguardtoo/find-by-pinyin-dired][find-by-pinyin-dired]].
+- Support for jumping to Chinese Pinyin characters with =ace-jump-mode= via [[https://github.com/cute-jumper/ace-pinyin][ace-pinyin]].
+- Automatic visual separation of Chinese and Latin characters via [[https://github.com/coldnew/pangu-spacing][coldnew/pangu-spacing]].
+- Automatic joining of consecutive Chinese lines into a single long line without unwanted space when exporting org-mode to html.
 
 * Install
 ** Layer
@@ -45,9 +48,9 @@ you could set the variable =chinese-default-input-method= to =wubi=:
 #+end_src
 
 *** Configure the =Chinese-pyim= Input Method(配置中文拼音输入法)
-When the first time you use =Chinese-pyim=, you should install the lexicon(词库)
-file. You could call =pyim-dicts-manager= to open up the settings buffer and
-press =i e= to install the default lexicon. The lexicon is about 20M, so you
+The first time you use =Chinese-pyim=, you need to install the lexicon(词库)
+file. Call =pyim-dicts-manager= to open up the settings buffer and
+press =i e= to install the default lexicon. The lexicon is about 20MB, so you
 should be patient when downloading starts. After the lexicon file is downloaded,
 just press =s= to save and =R= to restart configuration.
 
@@ -56,7 +59,7 @@ just press =s= to save and =R= to restart configuration.
   (setq-default dotspacemacs-configuration-layers '((chinese :variables
                                                              chinese-enable-fcitx t)))
 #+END_SRC
-If you don’t need to type Chinese in minibuffer, you could temporarily disable fcitx in minibuffer
+If you don’t need to type Chinese in minibuffer, you can temporarily disable fcitx in the minibuffer
 with the following configuration.
 
 #+BEGIN_SRC emacs-lisp
@@ -65,7 +68,7 @@ with the following configuration.
 
 **** Requirement
 ***** Linux
-You need use this with =fcitx= and make sure =fcitx-remote= is in your search path.
+You need to install =fcitx= and =fcitx-remote= on your machine.
 
 ***** Mac OS X
 We don't have a =fcitx= in OS X yet but we already added an emulation called
@@ -97,13 +100,12 @@ You should set =chinese-enable-youdao-dict= to =t=.
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '((chinese :variables
                                                              chinese-enable-youdao-dict t)))
-
 #+END_SRC
 
 *** Set monospaced font size(设置等宽字体）
-If you are mixing Chinese words with English words, the text is not perfectly
+If you are mixing Chinese script with Latin script, the text is not perfectly
 aligned in org table. That's because normally the Chinese font size is not equal
-to the English font size. You could call =spacemacs//set-monospaced-font= with
+to the Latin font size. You could call =spacemacs//set-monospaced-font= with
 your own Chinese font name in =dotspacemacs/user-config= function.
 
 Example configuration:
@@ -115,7 +117,7 @@ Example configuration:
 
 *** Enable/Disable ace-pinyin in =avy-goto-char=
 You can use =avy-goto-char= with pinyin supported by default, if you want to
-disable it.You can set =chinese-enable-avy-pinyin= to =nil=.
+disable it. You can set =chinese-enable-avy-pinyin= to =nil=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '((chinese :variables

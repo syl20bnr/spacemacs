@@ -4,8 +4,10 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key Bindings]]
+  - [[#general-managment][General Managment]]
   - [[#fabric][Fabric]]
   - [[#files][Files]]
   - [[#interactive][Interactive]]
@@ -14,7 +16,15 @@
   - [[#test][Test]]
 
 * Description
-This layer adds support for the Python [[https://www.djangoproject.com/][Django]] framework via [[https://github.com/davidmiller/pony-mode][pony-mode]].
+This layer adds support for the Python web framework [[https://www.djangoproject.com/][Django]] to Spacemacs.
+
+** Features:
+- Test execution directly from emacs
+- Starting/stopping of the Django test server
+- Starting of an interactive Python shell in the current project for debugging
+- Fixed commands to open various Django specific settings files
+- Automatic deployment with [[http://www.fabfile.org][Fabric]] directly from emacs
+- Control of [[http://south.aeracode.org/][South]] database migration tool
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -22,12 +32,14 @@ add =django= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Key Bindings
-Django related key bindings uses  [[https://github.com/davidmiller/pony-mode][pony-mode]] and are behind the prefix ~SPC m j~.
+Django related key bindings uses [[https://github.com/davidmiller/pony-mode][pony-mode]] and are behind the prefix ~SPC m j~ in =Python-mode=.
+Various configuration options for =pony-mode= are documented at [[http://www.deadpansincerity.com/docs/pony/configuration.html][deadpansincerity.com]].
 
-Configuration options for pony-mode are documented at
-[[http://www.deadpansincerity.com/docs/pony/configuration.html][deadpansincerity.com]]
+** General Managment
 
-Manage Django with ~SPC m j m~.
+| Key Binding | Description                           |
+|-------------+---------------------------------------|
+| ~SPC m j m~ | Start a =pony-mode= managment session |
 
 ** Fabric
 
@@ -47,10 +59,12 @@ Manage Django with ~SPC m j m~.
 
 ** Interactive
 
-| Key Binding   | Description                                                                                                                                                                                                        |
-|---------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ~SPC m j i d~ | Run interpreter for this project's default database as an inferior process                                                                                                                                         |
-| ~SPC m j i s~ | Open a Python shell with the current pony project's context loaded. If the project has the django_extras package installed, then use the excellent =shell_plus= command. Otherwise, fall back to =manage.py shell= |
+| Key Binding   | Description                                                                |
+|---------------+----------------------------------------------------------------------------|
+| ~SPC m j i d~ | Run interpreter for this project's default database as an inferior process |
+| ~SPC m j i s~ | Open a Python shell with the current pony project's context loaded.        |
+|               | If the project has the django_extras package installed, then use the       |
+|               | excellent =shell_plus= command. Otherwise, fall back to =manage.py shell=  |
 
 ** Server
 

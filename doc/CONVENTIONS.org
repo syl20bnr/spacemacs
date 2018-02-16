@@ -35,6 +35,7 @@
   - [[#toggles][Toggles]]
   - [[#refactoring][Refactoring]]
   - [[#code-formatting][Code Formatting]]
+  - [[#web-frameworks][Web frameworks]]
   - [[#help-or-documentation][Help or Documentation]]
 - [[#writing-documentation][Writing documentation]]
   - [[#spacing-in-documentation][Spacing in documentation]]
@@ -351,6 +352,9 @@ Major-mode code formatting is under prefix ~SPC m =~.
 | ~m = =~     | format thing under point |
 | ~m = b~     | format current buffer    |
 | ~m = f~     | format current function  |
+
+** Web frameworks
+Web frameworks key bindings should go under ~SPC m f~.
 
 ** Help or Documentation
 The base prefix for help commands is ~SPC m h~. Documentation is considered

@@ -34,7 +34,7 @@
 
 (defun spacemacs//notmuch-message-delete (go-next)
   "Delete message and select GO-NEXT message."
-  (notmuch-search-tag '("+deleted" "-inbox" "-unread"))
+  (notmuch-search-tag notmuch-message-deleted-tags)
   (if (eq 'up go-next )
       (notmuch-search-previous-thread)
     (notmuch-search-next-thread)))

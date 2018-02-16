@@ -46,6 +46,7 @@
         "ct" 'cargo-process-current-test
         "cu" 'cargo-process-update
         "cx" 'cargo-process-run
+        "cv" 'cargo-process-check
         "t" 'cargo-process-test))))
 
 (defun rust/post-init-flycheck ()

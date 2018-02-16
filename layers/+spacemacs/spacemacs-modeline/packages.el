@@ -13,6 +13,13 @@
       '(
         anzu
         fancy-battery
+        ;; dependency of spaceline-all-the-icons which came from
+        ;; the emacs wiki, we fetch it from Emacs Mirror for now.
+        ;; TODO eventually remove this if font-lock+ is available
+        ;; in an ELPA repository.
+        (font-lock+ :step pre
+                    :location (recipe :fetcher github
+                                      :repo emacsmirror/font-lock-plus))
         neotree
         spaceline
         spaceline-all-the-icons
@@ -21,7 +28,7 @@
         ))
 
 (defun spacemacs-modeline/post-init-anzu ()
-  (when (eq 'all-the-icons dotspacemacs-mode-line-theme)
+  (when (eq 'all-the-icons (spacemacs/get-mode-line-theme-name))
     (spaceline-all-the-icons--setup-anzu)))
 
 (defun spacemacs-modeline/init-fancy-battery ()
@@ -35,23 +42,39 @@
         :evil-leader "tmb")
       (setq-default fancy-battery-show-percentage t))))
 
+(defun spacemacs-modeline/init-font-lock+ ())
+
 (defun spacemacs-modeline/post-init-neotree ()
-  (when (eq 'all-the-icons dotspacemacs-mode-line-theme)
+  (when (eq 'all-the-icons (spacemacs/get-mode-line-theme-name))
     (spaceline-all-the-icons--setup-neotree)))
 
 (defun spacemacs-modeline/init-spaceline ()
   (use-package spaceline-config
-    :if (memq dotspacemacs-mode-line-theme '(spacemacs all-the-icons custom))
+    :if (memq (spacemacs/get-mode-line-theme-name) '(spacemacs all-the-icons custom))
     :init
     (progn
       (add-hook 'spacemacs-post-user-config-hook 'spaceline-compile)
       (add-hook 'spacemacs-post-theme-change-hook
                 'spacemacs/customize-powerline-faces)
       (add-hook 'spacemacs-post-theme-change-hook 'powerline-reset)
-      (setq-default powerline-default-separator 'utf-8)
+      (spacemacs|add-toggle mode-line-responsive
+        :status spaceline-responsive
+        :on (progn (setq spaceline-responsive t)
+                   (powerline-reset))
+        :off (progn (setq spaceline-responsive nil)
+                    ;; seems necessary to recompile when turning off
+                    (spaceline-compile))
+        :documentation "Make the mode-line responsive."
+        :evil-leader "tmr")
+      (setq powerline-default-separator
+            (or (and (memq (spacemacs/get-mode-line-theme-name)
+                           '(spacemacs custom))
+                     (spacemacs/mode-line-separator))
+                'wave)
+            powerline-image-apple-rgb (spacemacs/system-is-mac)
+            powerline-scale (or (spacemacs/mode-line-separator-scale) 1.5)
+            powerline-height (spacemacs/compute-mode-line-height))
       (spacemacs|do-after-display-system-init
-       (when (and (eq 'utf-8 powerline-default-separator))
-         (setq-default powerline-default-separator 'wave))
        ;; seems to be needed to avoid weird graphical artefacts with the
        ;; first graphical client
        (require 'spaceline)
@@ -111,7 +134,7 @@
            (spacemacs/get-new-version-lighter-face
             spacemacs-version spacemacs-new-version))))
       (let ((theme (intern (format "spaceline-%S-theme"
-                                   dotspacemacs-mode-line-theme))))
+                                   (spacemacs/get-mode-line-theme-name)))))
         (apply theme spacemacs-spaceline-additional-segments))
       ;; Additional spacelines
       (when (package-installed-p 'helm)
@@ -123,17 +146,27 @@
       (spacemacs//set-powerline-for-startup-buffers))))
 
 (defun spacemacs-modeline/pre-init-spaceline-all-the-icons ()
-  (when (eq 'all-the-icons dotspacemacs-mode-line-theme)
+  (when (eq 'all-the-icons (spacemacs/get-mode-line-theme-name))
     (spacemacs|use-package-add-hook spaceline-config
       :pre-config
       (progn
         (require 'spaceline-all-the-icons)
+        ;; responsivness does not play well with all-the-icons theme
+        ;; let's disable it for now
+        ;; https://github.com/domtronn/spaceline-all-the-icons.el/issues/51#issuecomment-316686790
+        (setq spaceline-responsive nil)
         (spaceline-all-the-icons--setup-git-ahead)))))
 
 (defun spacemacs-modeline/init-spaceline-all-the-icons ()
   (use-package spaceline-all-the-icons
     :defer t
-    :init (setq spaceline-all-the-icons-separator-type 'cup)))
+    :init
+    (progn
+      (setq
+       spaceline-all-the-icons-separator-type
+       (or (spacemacs/mode-line-separator) 'wave)
+       spaceline-all-the-icons-separator-scale
+       (or (spacemacs/mode-line-separator-scale) 1.6)))))
 
 (defun spacemacs-modeline/init-symon ()
   (use-package symon
@@ -147,7 +180,7 @@
         :evil-leader "tms"))))
 
 (defun spacemacs-modeline/init-vim-powerline ()
-  (when (eq 'vim-powerline dotspacemacs-mode-line-theme)
+  (when (eq 'vim-powerline (spacemacs/get-mode-line-theme-name))
     (require 'powerline)
     (if (display-graphic-p)
         (setq powerline-default-separator 'arrow)

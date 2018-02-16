@@ -32,7 +32,7 @@
 
 (defun spacemacs//zoom-frm-powerline-reset ()
   (when (fboundp 'powerline-reset)
-    (setq-default powerline-height (spacemacs/compute-powerline-height))
+    (setq-default powerline-height (spacemacs/compute-mode-line-height))
     (powerline-reset)))
 
 (defun spacemacs//zoom-frm-do (arg)

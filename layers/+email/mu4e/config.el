@@ -18,11 +18,21 @@
 (defvar mu4e-spacemacs-layout-binding "m"
   "Binding used in the setup for `spacemacs-layouts' micro-state")
 
+(defvar mu4e-enable-async-operations nil
+  "Prefer async operations when sending emails.")
+
 (defvar mu4e-enable-notifications nil
   "If non-nil, enable desktop notifications for unread emails.")
 
 (defvar mu4e-enable-mode-line nil
   "If non-nil, enable display of unread emails in mode-line.")
+
+(defvar mu4e-use-maildirs-extension nil
+  "Use mu4e-maildirs-extension package if value is non-nil.")
+
+(defvar mu4e-modes
+  '(mu4e-main-mode mu4e-headers-mode mu4e-view-mode mu4e-compose-mode)
+  "Modes that are associated with mu4e buffers.")
 
 (when mu4e-installation-path
   (push mu4e-installation-path load-path))

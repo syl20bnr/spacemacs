@@ -31,4 +31,5 @@
 
       (spacemacs/set-leader-keys-for-major-mode 'nim-mode
         "cr" 'spacemacs/nim-compile-run
-        "gb" 'pop-tag-mark))))
+        "gb" 'pop-tag-mark
+        "hh" 'nimsuggest-show-doc))))

@@ -261,7 +261,7 @@
     (semantic-default-elisp-setup)))
 
 (defun emacs-lisp/post-init-srefactor ()
-  (add-hook 'emacs-lisp-mode-hook 'spacemacs/lazy-load-srefactor)
+  (add-hook 'emacs-lisp-mode-hook 'spacemacs/load-srefactor)
   (use-package srefactor-lisp
     :commands (srefactor-lisp-format-buffer
                srefactor-lisp-format-defun

@@ -14,7 +14,7 @@
         auto-highlight-symbol
         bookmark
         counsel
-        (counsel-projectile :requires projectile)
+        counsel-projectile
         evil
         flx
         helm-make
@@ -153,8 +153,6 @@
         "pd"    'counsel-projectile-find-dir
         "pp"    'counsel-projectile-switch-project
         "pf"    'counsel-projectile-find-file))))
-(defun ivy/init-counsel-projectile ()
-  (use-package counsel-projectile :defer t))
 
 (defun ivy/post-init-evil ()
   (spacemacs/set-leader-keys

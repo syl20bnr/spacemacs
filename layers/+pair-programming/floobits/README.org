@@ -4,12 +4,19 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
 - [[#key-bindings][Key Bindings]]
 
 * Description
-This layer adds support for peer programming tool [[https://github.com/Floobits/floobits-emacs][floobits]].
+This layer adds support for the peer programming tool [[https://github.com/Floobits/floobits-emacs][floobits]] to Spacemacs.
+
+** Features:
+- Loading of floobits configuration files with fixed commands
+- Creation of floobits workspaces and populating it with content
+- Marking of the current cursor position for all users within the current workspace
+- Follow recent changes by other users
 
 * Install
 ** Layer
@@ -27,6 +34,8 @@ file.
 | ~SPC P j~   | Join an existing floobits workspace.                                                     |
 | ~SPC P l~   | Leave the current workspace.                                                             |
 | ~SPC P R~   | Create a workspace and populate it with the contents of the directory, DIR (or make it). |
+|             | The workspace will be shared privately.                                                  |
 | ~SPC P s~   | Summon everyone in the workspace to your cursor position.                                |
 | ~SPC P t~   | Toggle following of recent changes.                                                      |
 | ~SPC P U~   | Create a workspace and populate it with the contents of the directory, DIR (or make it). |
+|             | The workspace will be shared publicly.                                                   |

@@ -9,6 +9,10 @@
 ;;
 ;;; License: GPLv3
 
+;; TODO see if we can replace this layer variable with `notmuch-tagging-keys'
+(defvar notmuch-message-deleted-tags '("+deleted" "-inbox" "-unread")
+  "Tags applied when deleting a message.")
+
 (defvar notmuch-spacemacs-layout-name "@Notmuch"
   "Name used in the setup for `spacemacs-layouts' micro-state")
 

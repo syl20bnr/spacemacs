@@ -103,6 +103,13 @@
   (if (fboundp 'electric-indent-local-mode)
       (electric-indent-local-mode -1)))
 
+(defun spacemacs/haskell-format-imports ()
+  "Sort and align import statements from anywhere in the source file."
+  (interactive)
+  (save-excursion
+    (haskell-navigate-imports)
+    (haskell-mode-format-imports)))
+
 ;; Dante Functions
 
 (defun spacemacs-haskell//dante-insert-type ()

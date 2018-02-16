@@ -80,7 +80,8 @@
       (push '("*ert*"                  :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
       (push '("*grep*"                 :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
       (push '("*nosetests*"            :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
-      (push '("^\*WoMan.+\*$" :regexp t             :position bottom                                   ) popwin:special-display-config))))
+      (push '("^\*WoMan.+\*$" :regexp t             :position bottom                                   ) popwin:special-display-config)
+      (push '("*Google Translate*"     :dedicated t :position bottom :stick t :noselect t   :height 0.4) popwin:special-display-config))))
 
 (defun spacemacs-visual/init-zoom-frm ()
   (use-package zoom-frm

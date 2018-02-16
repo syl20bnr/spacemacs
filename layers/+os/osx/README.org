@@ -21,6 +21,7 @@ globally defines common OSX keybindings.
 ** Features:
   - ~⌘~ is set to ~hyper~ and ~⌥~ is set to ~meta~
   - In =dired= use =gls= instead of =ls=
+  - Fix separator colors of Spaceline mode-line
 
 * Philosophy
 While this layer enables common OSX bindings, it does not implement OSX

@@ -4,13 +4,19 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key Bindings]]
   - [[#form-completion][Form Completion]]
   - [[#repl][REPL]]
 
 * Description
-Adds support for the [[http://www.smlnj.org][SML]] programming language.
+Adds support for the [[http://www.smlnj.org][SML]] programming language to Spacemacs.
+
+** Features:
+- Syntax highlighting
+- Integration of the =SML Repl= into emacs
+- Basic completion of SML forms via =sml-electric-space=
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -23,7 +29,7 @@ file.
 | Key Binding | Description                                                                               |
 |-------------+-------------------------------------------------------------------------------------------|
 | ~M-SPC~     | Inserts a space and completes the form before the cursor.                                 |
-| ~\vert~     | Inserts a pipe and adds a double arrow or copies the function name. Generally just works. |
+| ~\vert{}~   | Inserts a pipe and adds a double arrow or copies the function name. Generally just works. |
 
 ** REPL
 

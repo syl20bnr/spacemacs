@@ -31,9 +31,6 @@
 (defvar c-c++-enable-rtags-support nil
   "If non nil Rtags related packages and configuration are enabled.")
 
-(defvar c-c++-enable-cmake-ide-support nil
-  "If non nil CMake related packages and configuration are enabled.")
-
 (defvar c-c++-enable-clang-format-on-save nil
   "If non-nil, automatically format code with ClangFormat on
   save. Clang support has to be enabled for this to work.")

@@ -1,0 +1,66 @@
+#+TITLE: CMake layer
+[[file:img/cmake.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#cmake-ide-configuration][CMake-ide configuration]]
+- [[#key-bindings][Key Bindings]]
+
+* Description
+This layer adds support [[https://cmake.org/][CMake]] scripts.
+
+** Features:
+- Support for CMake configure/build (with limited support for other build systems),
+  automatic generation of =compile_commands.json= (compile flags), on-the-fly configuration
+  of flycheck, company-clang and RTags (if installed) with [[https://github.com/atilaneves/cmake-ide][cmake-ide]] .
+- Run selected test using =Helm= interface via =helm-ctest=.
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =cmake= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+** CMake-ide configuration
+To enable CMake projects support set the layer variable =cmake-enable-cmake-ide-support=
+to =t= in the dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((cmake :variables cmake-enable-cmake-ide-support t)))
+#+END_SRC
+
+=cmake-ide= plugin has several useful configuration options.
+
+To configure project you need to create =.dir-locals.el= file. In case of using
+make as CMake backend you can use =helm-make= to select required build target.
+
+Here is a sample configuration. This configuration forces =cmake-ide= to use the
+local directory and pass that directory to =helm-make=. Such config allows to
+build your project with ~SPC c c~ key binding.
+
+Additionally it's possible to configure =helm-ctest= in the same way via defining ~helm-ctest-dir~.
+Trailing slash is required.
+
+#+BEGIN_SRC emacs-lisp
+  ((nil .
+        ((cmake-ide-project-dir . "~/Project")
+         (cmake-ide-build-dir . "~/Project/build")
+         (cmake-ide-cmake-opts . "-DCMAKE_BUILD_TYPE=Debug")
+         (helm-make-build-dir . "build")
+         (helm-make-arguments . "-j7")
+         (helm-ctest-dir . "~/Project/build/")
+         )))
+#+END_SRC
+
+* Key Bindings
+
+| Key Binding | Description                                                             |
+|-------------+-------------------------------------------------------------------------|
+| ~SPC m p c~ | Run CMake and set compiler flags for auto-completion and flycheck       |
+| ~SPC m p C~ | Run CMake if compilation database JSON file is not found                |
+| ~SPC m p d~ | Remove file connected to current buffer and kill buffer, then run CMake |
+| ~SPC m p t~ | Run CTest                                                               |

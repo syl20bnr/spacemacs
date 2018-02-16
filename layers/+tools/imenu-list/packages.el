@@ -27,10 +27,10 @@
     (progn
       (setq imenu-list-focus-after-activation t
             imenu-list-auto-resize t)
-      (spacemacs/set-leader-keys "bi" #'imenu-list-minor-mode))
+      (spacemacs/set-leader-keys "bi" #'imenu-list-smart-toggle))
     :config
     (evilified-state-evilify-map imenu-list-major-mode-map
       :mode imenu-list-major-mode
       :bindings
       "d" #'imenu-list-display-entry
-      "q" #'imenu-list-minor-mode)))
+      "r" #'imenu-list-refresh)))

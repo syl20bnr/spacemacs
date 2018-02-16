@@ -11,6 +11,8 @@
 - [[#configuration][Configuration]]
   - [[#maildirs-extension][Maildirs extension]]
   - [[#multiple-accounts][Multiple Accounts]]
+  - [[#async-mode][Async mode]]
+  - [[#attachment-directory][Attachment directory]]
   - [[#example-configuration][Example configuration]]
   - [[#notifications][Notifications]]
     - [[#os-notifications][OS notifications]]
@@ -26,6 +28,9 @@ This layer adds support for the Mu4e email client.
   - Search-based: no folders, only queries.
   - UI optimized for speed: quick keystrokes for common actions.
   - Very extendable and costumizable.
+  - Integration with Helm.
+  - Maildir summary using [[https://github.com/agpchil/mu4e-maildirs-extension][mu4e-mailidrs-extension]]
+  - Notifications using [[https://github.com/iqbalansari/mu4e-alert][mu4e-alert]]
 
 * Install
 In order to use this layer you must install mu and mu4e separately. Typically
@@ -54,9 +59,12 @@ existing =dotspacemacs-configuration-layers= list in this file.
 * Commands
 ** Global bindings
 
-| Keybinding | Command    |
-|------------+------------|
-| ~SPC a M~  | Start mu4e |
+| Keybinding             | Command                         |
+|------------------------+---------------------------------|
+| ~SPC a M~              | Start mu4e                      |
+| ~SPC m S~ or ~SPC m /~ | Search emails (requires helm)   |
+| ~SPC m C~              | Search contacts (requires helm) |
+| C-x m                  | Compose new message             |
 
 ** Headers mode
 
@@ -80,13 +88,18 @@ example configuration.  Refer to mu4e's manual for more detailed configuration
 instructions.
 
 ** Maildirs extension
-The maildirs extension adds a list of all your maildirs to the main mu4e view
+The [[https://github.com/agpchil/mu4e-maildirs-extension][maildirs extension]] adds a list of all your maildirs to the main mu4e view
 that by default shows the unread and total mail counts for all your mail under
 your base mail directory.
 
-This extension is enabled by default, you can deactivate (and uninstall) it by
-adding the package =mu4e-maildirs-extension= to your dotfile variable
-=dotspacemacs-excluded-packages=.
+The maildirs extension is not enabled by default. To activate it, change the
+variable =mu4e-use-maildirs-extension= to a non-nil value:
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((mu4e :variables
+                        mu4e-use-maildirs-extension t)))
+#+end_src
 
 ** Multiple Accounts
 With `mu 0.9.16`, mu4e comes with a native contexts feature for managing
@@ -140,6 +153,26 @@ The following example is taken from the manual:
 Note: We used to have a hack to support multiple accounts with older version of
 `mu` but we removed it to encourage people to update their version and use the
 new contexts feature.
+
+** Async mode
+mu4e can send mails in async mode, which speeds up sending as you do not have
+to wait for the email to be sent. This is off by default but you can enable
+it by setting the ~mu4e-enable-async-operations~ variable when including the
+layer.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((mu4e :variables
+                        mu4e-enable-async-operations t)))
+#+END_SRC
+
+** Attachment directory
+By default mu4e will save attachment files to $HOME, but this layer changes
+that to $HOME/Downloads if it exists. You can override this in your user-config:
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-attachment-dir "~/files")
+#+END_SRC
 
 ** Example configuration
 #+BEGIN_SRC emacs-lisp

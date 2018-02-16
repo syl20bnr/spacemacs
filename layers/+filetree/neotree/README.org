@@ -65,7 +65,7 @@ The default is =nil= (do not show source control information), which is recommen
 For example,
 
 #+BEGIN_SRC emacs-lisp
-(setq neo-vc-integration 'face)
+(setq neo-vc-integration '(face))
 #+END_SRC
 
 *Note*: At this time, it is not recommended to set this to anything other
@@ -76,11 +76,11 @@ See https://github.com/jaypei/emacs-neotree/issues/126 for more information.
 This layer provides a quick and simple way to navigate in an unknown project
 file tree with [[https://github.com/jaypei/emacs-neotree][NeoTree]].
 
-To toggle the =NeoTree= buffer press ~SPC f t~ or ~SPC p t~ (the latter open
+To toggle the =NeoTree= buffer, press ~SPC f t~ or ~SPC p t~ (the latter opens
 NeoTree with the root set to the projectile project root).
 
-The NeoTree window always has the number =0= so it does not shift the current
-number of the other windows. To select the NeoTree window you then use ~SPC 0~.
+To select the NeoTree window, press ~SPC 0~. The NeoTree window always has the
+number =0= so it does not shift the current number of the other windows.
 
 VCS integration is supported, the file color will change depending on its
 current state. With default =spacemacs-dark= theme:

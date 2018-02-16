@@ -6,10 +6,12 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+- [[#configuration][Configuration]]
   - [[#sending-and-receiving-emails][Sending and Receiving emails]]
     - [[#receiving-emails][Receiving emails]]
     - [[#sending-emails-with-thunderbird][Sending emails with Thunderbird]]
     - [[#sending-emails-with-msmtp][Sending emails with msmtp]]
+  - [[#tags-to-apply-when-deleting][Tags to apply when deleting]]
   - [[#see-also][See also]]
 - [[#key-bindings][Key bindings]]
   - [[#global-bindings][Global bindings]]
@@ -39,6 +41,7 @@ To install not much follow the instructions in [[https://notmuchmail.org/notmuch
 Then add this layer to your =~/.spacemacs=. You will need to add =notmuch= to
 the existing =dotspacemacs-configuration-layers= list in this file.
 
+* Configuration
 ** Sending and Receiving emails
 For this you will need an external program.
 
@@ -62,11 +65,23 @@ Configure =~/.mailrc= with the path where =msmtp= is found.
 
 For example:
 #+srcname: contents of ~/.mailrc
-#+BEGIN_SRC
+#+BEGIN_SRC rc
 set sendmail="/usr/local/bin/msmtp"
 #+END_SRC
 
 Configure =~/.msmtprc= [[http://msmtp.sourceforge.net/doc/msmtprc.txt][example]]
+
+** Tags to apply when deleting
+You can specifiy which tags you want to apply when you delete an email by
+setting the layer variable =notmuch-message-deleted-tags=.
+
+Default value is to add the =deleted= tag and remove both =inbox= and
+=unread= tags.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '((notmuch :variables notmuch-message-deleted-tags '("+deleted" "-inbox" "-unread"))))
+#+END_SRC
 
 ** See also
 Refer to the official notmuch website for more information:
@@ -161,7 +176,6 @@ https://notmuchmail.org/
 | ~a~        | [Message] Archive         |
 
 * Spacemacs layout integration
-
 This layer defines a [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces][Spacemacs custom layout]] and automatically adds notmuch
 buffers to this layout.  The name and the key binding for the layout can be
 customized with the following layer variables:

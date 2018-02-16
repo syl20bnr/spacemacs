@@ -24,7 +24,7 @@
 
 (defun treemacs/init-treemacs ()
   (use-package treemacs
-    :commands treemacs--window-number-ten
+    :commands (treemacs-select-window treemacs--window-number-ten)
     :defer t
     :init
     (spacemacs/set-leader-keys
@@ -76,4 +76,7 @@
 (defun treemacs/pre-init-winum ()
   (spacemacs|use-package-add-hook winum
     :post-config
-    (add-to-list 'winum-assign-functions #'treemacs--window-number-ten)))
+    (progn
+      ;; window 0 is reserved for file trees
+      (spacemacs/set-leader-keys "0" #'treemacs-select-window)
+      (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))))

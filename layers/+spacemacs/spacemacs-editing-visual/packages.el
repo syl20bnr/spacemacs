@@ -14,7 +14,7 @@
         ;; default
         adaptive-wrap
         column-enforce-mode
-        hide-comnt
+        (hide-comnt :location local)
         highlight-indentation
         highlight-numbers
         highlight-parentheses

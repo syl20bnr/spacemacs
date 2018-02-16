@@ -58,7 +58,7 @@ time.
 You need to install [[https://github.com/rrrene/credo][credo]] into your project. For this, add the following snippet
 to dependencies of your project (in file =mix.exs=):
 
-#+BEGIN_SRC
+#+BEGIN_SRC elixir
 {:credo, "~> 0.5", only: [:dev, :test]}
 #+END_SRC
 
@@ -80,7 +80,7 @@ You can tell flycheck-credo to call credo with the '--strict' argument.
 In order to lint your code, you also need to install [[https://github.com/lpil/dogma][dogma]] into your project.
 For this, add the following snippet to the dependencies in your =mix.exs= file:
 
-#+BEGIN_SRC
+#+BEGIN_SRC elixir
 {:dogma, "~> 0.1", only: [:dev]}
 #+END_SRC
 
@@ -103,10 +103,10 @@ above.
 
 Instead you should use directory local variables in order to enable the flycheck
 checker only for certain projects. Directory local variables are stored in a
-file named =.dir-local.el= usually at the root of a project. To easily add a
+file named =.dir-locals.el= usually at the root of a project. To easily add a
 directory local variable use the key binding ~SPC f v d~ then choose the
 =elixir-mode= and the variable name =elixir-enable-compilation-checking= with a
-value of t. The result is a new file =.dir-local.el= with the following
+value of t. The result is a new file =.dir-locals.el= with the following
 contents:
 
 #+BEGIN_SRC elisp

@@ -370,7 +370,7 @@ fix this issue."
         (call-interactively 'sp-backward-delete-char)))))
 
 (defun python/post-init-stickyfunc-enhance ()
-  (add-hook 'python-mode-hook 'spacemacs/lazy-load-stickyfunc-enhance))
+  (add-hook 'python-mode-hook 'spacemacs/load-stickyfunc-enhance))
 
 (defun python/pre-init-xcscope ()
   (spacemacs|use-package-add-hook xcscope

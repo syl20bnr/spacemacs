@@ -13,8 +13,8 @@
   '(
     ;; auto-complete
     company
-   ;; flycheck
-   ;; flycheck-ocaml
+    flycheck
+    flycheck-ocaml
     ggtags
     counsel-gtags
     helm-gtags
@@ -34,7 +34,7 @@
 
 (when (configuration-layer/layer-used-p 'syntax-checking)
   (defun ocaml/post-init-flycheck ()
-    (spacemacs/enable-flycheck 'merlin-mode))
+    (spacemacs/enable-flycheck 'tuareg-mode))
   (defun ocaml/init-flycheck-ocaml ()
     (use-package flycheck-ocaml
       :if (configuration-layer/package-used-p 'flycheck)

@@ -9,11 +9,11 @@
 ;;
 ;;; License: GPLv3
 
-(setq neotree-packages
-      '(
-        neotree
-        winum
-        ))
+(defconst neotree-packages
+  '(
+    neotree
+    winum
+    ))
 
 (defun neotree/init-neotree ()
   (use-package neotree
@@ -111,4 +111,7 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
 (defun neotree/pre-init-winum ()
   (spacemacs|use-package-add-hook winum
     :post-config
+    ;; window 0 is reserved for file trees
+    (spacemacs/set-leader-keys "0" #'neotree-show)
+    (define-key winum-keymap (kbd "M-0") #'neotree-show)
     (add-to-list 'winum-assign-functions #'spacemacs//winum-neotree-assign-func)))

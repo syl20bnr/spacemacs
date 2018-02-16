@@ -7,7 +7,8 @@ contributors to follow.
 You can only consider reading the sections relevant to what you are going to do:
 - [[#asking-for-help][Asking for help]] if you are about to open an issue to ask a question.
 - [[#reporting-issues][Reporting issues]] if you are about to open a new issue.
-- [[#contributing-code][Contributing code]] if you are about to send a Pull-Request.
+- [[#contributing-code][Contributing code]] if you are about to send a PR.
+- [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#reviewing-pull-requests][Reviewing Pull Requests]] if you are about to review a PR.
 
 Thanks! :heart: :heart: :heart:
 
@@ -18,7 +19,8 @@ Thanks! :heart: :heart: :heart:
   - [[#general-contribution-guidelines][General contribution guidelines]]
     - [[#license][License]]
     - [[#conventions][Conventions]]
-    - [[#pull-request][Pull-Request]]
+    - [[#changelog-entry][Changelog entry]]
+    - [[#pull-request][Pull Request]]
       - [[#ideally-for-simple-prs-most-of-them][Ideally for /simple/ PRs (most of them):]]
       - [[#for-complex-prs-big-refactoring-etc][For complex PRs (big refactoring, etc):]]
     - [[#commit-messages][Commit messages]]
@@ -28,6 +30,8 @@ Thanks! :heart: :heart: :heart:
     - [[#contributor-to-an-existing-layer][Contributor to an existing layer]]
   - [[#contributing-a-keybinding][Contributing a keybinding]]
   - [[#contributing-a-banner][Contributing a banner]]
+- [[#reviewing-pull-requests][Reviewing Pull Requests]]
+  - [[#using-magit-to-quickly-test-prs][Using Magit to quickly test PRs]]
 - [[#additional-information][Additional information]]
   - [[#testing][Testing]]
 - [[#credits][Credits]]
@@ -83,14 +87,22 @@ Spacemacs is based on conventions, mainly for naming functions, keybindings
 definition and writing documentation. Please read the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/CONVENTIONS.org][CONVENTIONS.org]] file
 before your first contribution to get to know them.
 
-*** Pull-Request
+*** Changelog entry
+Add a short entry describing your proposed change under a suitable subheading in
+[[https://github.com/syl20bnr/spacemacs/blob/develop/CHANGELOG.develop][CHANGELOG.develop]]. Use the previous entries and [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#commit-messages][commit messages instructions]] as
+guidelines. You can add your name or github username in parentheses at the end
+of the entry if you want to. If an entry already exists describing your PR
+(small documentation improvements etc.), you can omit the changelog entry or add
+your name at the end of the pre-existing one.
+
+*** Pull Request
 Submit your contribution against the =develop= branch. You should not use
 your =master= branch to modify Spacemacs, this branch is considered to be
 read-only.
 
 You may want to [[https://github.com/syl20bnr/spacemacs/wiki/Beginner%27s-Guide-to-Contributing-a-Pull-Request-to-Spacemacs][read our beginner’s guide for Pull Requests]].
 
-/PR = Pull-Request/
+/PR = Pull Request/
 
 **** Ideally for /simple/ PRs (most of them):
 -  Branch from =develop=
@@ -206,7 +218,7 @@ file and don't require any contribution to Spacemacs.
 
 If you think it worth contributing a new key bindings then be sure to read
 the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/CONVENTIONS.org][CONVENTIONS.org]] file to find the best key bindings, then create a
-Pull-Request with your changes.
+PR with your changes.
 
 *ALWAYS* document your new keybindings or keybindings changes inside the
 relevant documentation file. It should be the layer's =README.org= file for
@@ -221,6 +233,71 @@ If you have some ASCII skills you can submit your artwork!
 
 You are free to choose a reasonable height size but the width size should be
 around 75 characters.
+
+* Reviewing Pull Requests
+You can contribute by reviewing PRs created by others. This will help share the
+workload of the project maintainers by letting them know that a PR has been
+tested by an independent reviewer. The steps:
+
+- Check that the PR complies with the guidelines in [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#contributing-code][Contributing code]].
+- Check that the PR complies with [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/CONVENTIONS.org][CONVENTIONS.org]].
+- Check out the PR branch and test it. Remember to update your packages and your
+  =~/.spacemacs= file. Testing means that you actually use the features touched
+  by the PR, and the more complex or feature-rich the proposed changes are, the
+  more testing is required. Be creative in trying to find bugs! Preferably, use
+  the PR branch for hours or days to help stumble on unforeseen issues. Of
+  course, common sense can be used and typo fixes do not need to be tested
+  against bugs, but be thorough in actual code changes. Testing with a fresh
+  spacemacs installation might be a good idea as well.
+- Step back and think if the proposed changes could cause any other problems not
+  covered by your testing. You should also ask yourself whether or not you feel
+  that your testing is adequate to confidently state that this PR introduces no
+  new bugs. If you feel that additional testing by more community members could
+  be helpful, state so in your review.
+
+If you find something to improve, [[https://help.github.com/articles/reviewing-proposed-changes-in-a-pull-request/][report]] it constructively and politely so the
+contributor can update the PR accordingly. When you find that the PR is ready to
+merge, you can leave an approving [[https://help.github.com/articles/reviewing-proposed-changes-in-a-pull-request/][review]]. Please report explicitly how you
+tested the PR for bugs, and confirm that you have checked its compliance with
+the code conventions. Copy the following line to your approving review to notify
+the collaborators:
+
+#+BEGIN_EXAMPLE
+Ready to be merged! (@syl20bnr @TheBB @d12frosted @bmag @JAremko)
+#+END_EXAMPLE
+
+Now the collaborators who have write access to the repository will use their
+judgement to either merge the PR or require further review from another
+reviewer. This is done to ensure a thorough cross-referencing in case of complex
+changes, your review is very valuable in these cases as well!
+
+** Using Magit to quickly test PRs
+It is possible to manage PRs directly inside the Magit status buffer ~SPC g s~.
+First add the =github= layer to your dotfile which will pull the package
+=magit-gh-pulls=. Since we have a high number of PRs in Spacemacs you also need
+to set the variable =magit-gh-pulls-pull-detail-limit= to a higher number, it
+is recommended to set it to something like 200.
+
+#+BEGIN_SRC elisp
+(setq-default dotspacemacs-configuration-layers
+  '((github :variables magit-gh-pulls-pull-detail-limit 200)))
+#+END_SRC
+
+You can also set the variable in your =dotspacemacs/user-init= function.
+
+Now you are all set open the Magit status buffer of your =.emacs.d= repository
+and press ~#g~. It will fetch all the PRs which may take a few seconds as we
+have lot of PRs. Note also that all your Magit actions will get some additional
+delay due to the refresh of the PRs list.
+
+Search for the line of the PR you are interested in and press ~#f~ to actually
+fetch its commits.
+
+From here you have several possibilities:
+- you can select all the commits of a PR and do ~AA RET~ to cherry-pick them
+  on top of your current branche,
+- you can create a branch pointing on the PR branch HEAD using ~#b~,
+- you can merge the PR branch with ~#m~.
 
 * Additional information
 ** Testing

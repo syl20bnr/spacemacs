@@ -2,6 +2,7 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 
 * Description
@@ -14,6 +15,10 @@ overlaid in within the buffer as in =vim=, and not in the fringe. The indicator
 behaviour with trailing empty lines matches =vim='s behaviour.
 
 For details, see the [[https://github.com/jmickelin/vim-empty-lines-mode][vim-empty-lines-mode]] repository.
+
+** Features:
+- Emulation of original vim behaviour.
+- Brings you as close to vim as one can be without using vim itself.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

@@ -1,7 +1,6 @@
 #+TITLE: C/C++ layer
 
 [[file:img/ccpp.jpg]]
-[[file:img/cmake.png]]
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
@@ -12,7 +11,6 @@
   - [[#clang-configuration][Clang Configuration]]
     - [[#clang-format][clang-format]]
     - [[#company-clang-and-flycheck][Company-clang and flycheck]]
-  - [[#cmake-configuration][CMake configuration]]
   - [[#rtags-configuration][RTags configuration]]
   - [[#enable-google-set-c-style][Enable google-set-c-style]]
 - [[#key-bindings][Key Bindings]]
@@ -21,8 +19,7 @@
   - [[#rtags][RTags]]
 
 * Description
-This layer adds configuration for C/C++ language as well support for [[https://cmake.org/][CMake]]
-scripts.
+This layer adds configuration for C/C++ language.
 
 ** Features:
 - Support syntax checking via flycheck with Clang.
@@ -39,10 +36,7 @@ scripts.
   company-clang (when =c-c++-enable-clang-support= is turned on), or
   company-ycmd (when =ycmd= layer is included).
 - Support for [[https://github.com/realgud/realgud][realgud]] debugger.
-- Support for [[https://github.com/Andersbakken/rtags][rtags]]
-- Support for CMake configure/build (with limited support for other build systems),
-  automatic generation of =compile_commands.json= (compile flags), on-the-fly configuration
-  of flycheck, company-clang and RTags (if installed) with [[https://github.com/atilaneves/cmake-ide][cmake-ide]] .
+- Support for [[https://github.com/Andersbakken/rtags][rtags]].
 
 * Install
 ** Layer
@@ -58,8 +52,7 @@ by setting the variable =c-c++-default-mode-for-headers= to =c++-mode=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '((c-c++ :variables
-             c-c++-default-mode-for-headers 'c++-mode)))
+    '((c-c++ :variables c-c++-default-mode-for-headers 'c++-mode)))
 #+END_SRC
 
 *Note:* To set the variable for a given project, create a directory local
@@ -99,33 +92,6 @@ clang flag per line, a format also used by other text editor clang plugins.
 Not only does this allow proper autocomplete on projects with extra includes and
 flags, but there is also support for flycheck so that it doesn't complain about
 missing header files.
-
-** CMake configuration
-To enable CMake projects support set the layer variable =c-c++-enable-cmake-ide-support=
-to =t= in the dotfile:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-    '((c-c++ :variables c-c++-enable-cmake-ide-support t)))
-#+END_SRC
-
-=cmake-ide= plugin has several useful configuration options.
-
-To configure project you need to create =.dir-locals.el= file. In case of using
-make as CMake backend you can use =helm-make= to select required build target.
-
-Here is a sample configuration. This configuration forces =cmake-ide= to use the
-local directory and pass that directory to =helm-make=. Such config allows to
-build your project with ~SPC c c~ key binding.
-
-#+BEGIN_SRC emacs-lisp
-((nil .
-      ((cmake-ide-project-dir . "~/Project")
-       (cmake-ide-build-dir . "~/Project/build")
-       (cmake-ide-cmake-opts . "-DCMAKE_BUILD_TYPE=Debug")
-       (helm-make-build-dir . "build")
-       (helm-make-arguments . "-j7"))))
-#+END_SRC
 
 ** RTags configuration
 To enable support for =rtags=, set the layer variable
@@ -168,18 +134,14 @@ set that up like this:
 
 * Key Bindings
 
-| Key Binding | Description                                                             |
-|-------------+-------------------------------------------------------------------------|
-| ~SPC m g a~ | open matching file                                                      |
-|             | (e.g. switch between .cpp and .h, requires a project to work)           |
-| ~SPC m g A~ | open matching file in another window                                    |
-|             | (e.g. switch between .cpp and .h, requires a project to work)           |
-| ~SPC m D~   | disaster: disassemble c/c++ code                                        |
-| ~SPC m r~   | srefactor: refactor thing at point.                                     |
-| ~SPC m p c~ | Run CMake and set compiler flags for auto-completion and flycheck       |
-| ~SPC m p C~ | Run CMake if compilation database JSON file is not found                |
-| ~SPC m p d~ | Remove file connected to current buffer and kill buffer, then run CMake |
-| ~SPC m c c~ | Compile project                                                         |
+| Key Binding | Description                                                   |
+|-------------+---------------------------------------------------------------|
+| ~SPC m g a~ | open matching file                                            |
+|             | (e.g. switch between .cpp and .h, requires a project to work) |
+| ~SPC m g A~ | open matching file in another window                          |
+|             | (e.g. switch between .cpp and .h, requires a project to work) |
+| ~SPC m D~   | disaster: disassemble c/c++ code                              |
+| ~SPC m r~   | srefactor: refactor thing at point.                           |
 
 *Note:*  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+.
 

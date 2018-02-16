@@ -408,19 +408,24 @@ perspectives does."
 
 
 ;; Ivy integration
+(defun spacemacs/ivy-persp-switch-project-advice (project)
+  (let ((persp-reset-windows-on-nil-window-conf t))
+    (persp-switch project)))
 
 (defun spacemacs/ivy-persp-switch-project (arg)
   (interactive "P")
+  (require 'counsel-projectile)
+  (advice-add 'counsel-projectile-switch-project-action
+              :before #'spacemacs/ivy-persp-switch-project-advice)
   (ivy-read "Switch to Project Perspective: "
             (if (projectile-project-p)
                 (cons (abbreviate-file-name (projectile-project-root))
                       (projectile-relevant-known-projects))
               projectile-known-projects)
-            :action (lambda (project)
-                      (let ((persp-reset-windows-on-nil-window-conf t))
-                        (persp-switch project)
-                        (let ((projectile-completion-system 'ivy))
-                          (projectile-switch-project-by-name project))))))
+            :action #'counsel-projectile-switch-project-action
+            :caller 'spacemacs/ivy-persp-switch-project)
+  (advice-remove 'counsel-projectile-switch-project-action
+                 'spacemacs/ivy-persp-switch-project-advice))
 
 
 ;; Eyebrowse
