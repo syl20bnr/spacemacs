@@ -19,8 +19,12 @@
 (defun cmake/init-cmake-ide ()
   (use-package cmake-ide
     :if cmake-enable-cmake-ide-support
+    :defer t
+    :init (spacemacs/add-to-hooks 'cmake-ide--mode-hook '(c-mode-hook
+                                                          c++-mode-hook))
     :config
     (progn
+      (cmake-ide-setup)
       (dolist (mode cmake-modes)
         (spacemacs/declare-prefix-for-mode mode "mc" "compile")
         (spacemacs/declare-prefix-for-mode mode "mp" "project")
@@ -30,16 +34,14 @@
           "pC" 'cmake-ide-maybe-run-cmake
           "pd" 'cmake-ide-delete-file)))))
 
-(defun cmake/post-init-cmake-ide ()
-  ;; We need to be sure that rtags was initialized before
-  (cmake-ide-setup))
-
 (defun cmake/init-cmake-mode ()
   (use-package cmake-mode
+    :defer t
     :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))))
 
 (defun cmake/init-helm-ctest ()
   (use-package helm-ctest
+    :defer t
     :config
     (dolist (mode cmake-modes)
       (spacemacs/set-leader-keys-for-major-mode mode
