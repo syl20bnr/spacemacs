@@ -2,7 +2,14 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#describe-spacemacs-evil-layer-in-this-file][describe spacemacs-evil layer in this file]]
+  - [[#features][Features:]]
 
 * Description
-** TODO describe spacemacs-evil layer in this file
+This layer adds various adjustments to packages to create an evilified experience
+througout the entirety of Spacemacs.
+
+** Features:
+- Support for additional vim movements via =evil-args=
+- Support for surrounding the marked area with a given character via =evil-surround=
+- Evilification of various modes if the editing style is =vim= or =hybrid=
+- Improves the comment function to be able to also do the inverse operation
