@@ -100,7 +100,7 @@
             "gb" 'cider-pop-back
             "gc" 'cider-classpath
             "ge" 'cider-jump-to-compilation-error
-            "gr" 'cider-jump-to-resource
+            "gr" 'cider-find-resource
             "gn" 'cider-browse-ns
             "gN" 'cider-browse-ns-all
 
