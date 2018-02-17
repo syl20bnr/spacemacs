@@ -10,8 +10,8 @@
 ;;; License: GPLv3
 (setq cmake-packages
       '(
-        cmake-mode
         cmake-ide
+        cmake-mode
         company
         (helm-ctest :requires helm)
         ))
@@ -39,6 +39,10 @@
     :defer t
     :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))))
 
+(defun cmake/post-init-company ()
+  (when (configuration-layer/package-used-p 'cmake-mode)
+    (spacemacs|add-company-backends :backends company-cmake :modes cmake-mode)))
+
 (defun cmake/init-helm-ctest ()
   (use-package helm-ctest
     :defer t
@@ -46,7 +50,3 @@
     (dolist (mode cmake-modes)
       (spacemacs/set-leader-keys-for-major-mode mode
         "pt" 'helm-ctest))))
-
-(defun cmake/post-init-company ()
-  (when (configuration-layer/package-used-p 'cmake-mode)
-    (spacemacs|add-company-backends :backends company-cmake :modes cmake-mode)))
