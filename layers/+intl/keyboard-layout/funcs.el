@@ -16,13 +16,20 @@
 ;; PRIVATE FUNCTIONS
 ;;------------------------------------------------------------------------------
 
+(defun kl//upcase (c)
+  (cond ((equal c ";") ":")
+        ((equal c "[") "{")
+        ((equal c "]") "}")
+        ((equal c "\\") "|")
+        (t (upcase c))))
+
 (defun kl//generate-full-rebinding-map (basemap)
   "Generate the full rebinding map from a base map."
   (mapcan (lambda (binding)
             (let ((key1 (car binding))
                   (key2 (cdr binding)))
               (append
-               (list  (cons (upcase key1) (upcase key2))
+               (list  (cons (kl//upcase key1) (kl//upcase key2))
                       (cons key1 key2))
                (mapcar
                 (lambda (modifier)
