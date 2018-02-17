@@ -168,7 +168,7 @@ be sent as the source of request (useful for debugging)"
     ""))
 
 (defsubst spacemacs/org-edn-headline-make-path-id (headline)
-  "Make id for org HEADLINE by chaining headlines from parent to)
+  "Make id for org HEADLINE by chaining headlines from parent to
 child headline.
 NOTE: Each headline is converted with `toc-org-hrefify-gh' but
 without unification and \"#\" prefix."
