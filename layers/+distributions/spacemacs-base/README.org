@@ -2,7 +2,51 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#describe-spacemacs-base-distribution-in-this-file][describe spacemacs-base distribution in this file]]
+  - [[#features][Features:]]
 
 * Description
-** TODO describe spacemacs-base distribution in this file
+This is the base distribution for Spacemacs.
+
+** Features:
+- Minimalistic approach to Spacemacs, contains only the core packages. Good starting
+  point to make something completely new. This distribution should not be used for
+  a new standalone Spacemacs installation except you have very good reasons to.
+  It contains the following packages:
+  - abbrev
+  - ace-window
+  - archive-mode
+  - bookmark
+  - centered-buffer-mode
+  - conf-mode
+  - dired
+  - electric-indent-mode
+  - ediff
+  - eldoc
+  - evil-escape
+  - evil-evilified-state
+  - evil-visualstar
+  - help-fns+
+  - hi-lock
+  - holy-mode
+  - hybrid-mode
+  - image-mode
+  - imenu
+  - linum
+  - occur-mode
+  - package-menu
+  - page-break-lines
+  - pcre2el
+  - process-menu
+  - projectile
+  - recentf
+  - savehist
+  - saveplace
+  - spacemacs-theme
+  - subword
+  - tar-mode
+  - uniquify
+  - url
+  - visual-line-mode
+  - whitespace
+  - winner
+  - zone
