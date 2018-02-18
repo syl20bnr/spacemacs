@@ -21,3 +21,4 @@ Currently avaliable 'tide (default)
 and 'typescript-formatter .")
 
 (spacemacs|define-jump-handlers typescript-mode)
+(spacemacs|define-jump-handlers typescript-tsx-mode)
