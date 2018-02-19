@@ -12,6 +12,11 @@
 (defconst lsp-packages
   '(
     (company-lsp :requires company)
+    ;; `flycheck-lsp' does not exist so we defined it as built-in to avoid
+    ;; fetching it from ELPA repositories.
+    ;; this logical package serves to hook all flycheck related configuration
+    ;; for LSP.
+    (flycheck-lsp :requires flycheck :location built-in)
     lsp-mode
     lsp-ui
     ))
@@ -26,13 +31,15 @@
           company-lsp-async t
           company-lsp-cache-candidates nil)))
 
+(defun lsp/init-flycheck-lsp ()
+  ;; Disable lsp-flycheck.el in favor of lsp-ui-flycheck.el
+  (setq lsp-enable-flycheck nil))
+
 (defun lsp/init-lsp-mode ()
   (use-package lsp-mode
     :config
     (progn
       (add-hook 'lsp-mode-hook #'lsp-ui-mode)
-      ;; Disable lsp-flycheck.el in favor of lsp-ui-flycheck.el
-      (setq lsp-enable-flycheck nil)
       (spacemacs|hide-lighter lsp-mode))))
 
 (defun lsp/init-lsp-ui ()
