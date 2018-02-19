@@ -9,6 +9,82 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//python-setup-backend ()
+  "Conditionally setup python backend."
+  (pcase python-backend
+    (`anaconda (spacemacs//python-setup-anaconda))
+    (`lsp (spacemacs//python-setup-lsp))))
+
+(defun spacemacs//python-setup-company ()
+  "Conditionally setup company based on backend."
+  (pcase python-backend
+    (`anaconda (spacemacs//python-setup-anaconda-company))
+    (`lsp (spacemacs//python-setup-lsp-company))))
+
+(defun spacemacs//python-setup-eldoc ()
+  "Conditionally setup eldoc based on backend."
+  (pcase python-backend
+    ;; lsp setup eldoc on its own
+    (`anaconda (spacemacs//python-setup-anaconda-eldoc))))
+
+
+;; anaconda
+
+(defun spacemacs//python-setup-anaconda ()
+  "Setup anaconda backend."
+  (anaconda-mode)
+  (add-to-list 'spacemacs-jump-handlers-python-mode
+               '(anaconda-mode-find-definitions :async t)))
+
+(defun spacemacs//python-setup-anaconda-company ()
+  "Setup anaconda auto-completion."
+  (spacemacs|add-company-backends
+    :backends company-anaconda
+    :modes python-mode)
+  (company-mode))
+
+(defun spacemacs//python-setup-anaconda-eldoc ()
+  "Setup anaconda eldoc."
+  (eldoc-mode)
+  (when (configuration-layer/package-used-p 'anaconda-mode)
+    (anaconda-eldoc-mode)))
+
+(defun spacemacs/anaconda-view-forward-and-push ()
+  "Find next button and hit RET"
+  (interactive)
+  (forward-button 1)
+  (call-interactively #'push-button))
+
+(defun spacemacs//disable-semantic-idle-summary-mode ()
+  "Disable semantic-idle-summary in Python mode.
+Anaconda provides more useful information but can not do it properly
+when this mode is enabled since the minibuffer is cleared all the time."
+  (semantic-idle-summary-mode 0))
+
+
+;; lsp
+
+(defun spacemacs//python-setup-lsp ()
+  "Setup lsp backend."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (require 'lsp-python)
+        (lsp-python-enable))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
+
+(defun spacemacs//python-setup-lsp-company ()
+  "Setup lsp auto-completion."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (spacemacs|add-company-backends
+          :backends company-lsp
+          :modes python-mode)
+        (company-mode))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
+
+
+;; others
+
 (defun spacemacs//python-default ()
   "Defaut settings for python buffers"
   (setq mode-name "Python"
@@ -138,12 +214,6 @@ as the pyenv version then also return nil. This works around https://github.com/
 
 ;; Tests
 
-(defun spacemacs//disable-semantic-idle-summary-mode ()
-  "Disable semantic-idle-summary in Python mode.
-Anaconda provides more useful information but can not do it properly
-when this mode is enabled since the minibuffer is cleared all the time."
-  (semantic-idle-summary-mode 0))
-
 (defun spacemacs//python-imenu-create-index-use-semantic-maybe ()
   "Use semantic if the layer is enabled."
   (setq imenu-create-index-function 'spacemacs/python-imenu-create-index))
@@ -252,14 +322,6 @@ to be called for each testrunner. "
     (py-isort-before-save)))
 
 
-;;* Anaconda
-(defun spacemacs/anaconda-view-forward-and-push ()
-  "Find next button and hit RET"
-  (interactive)
-  (forward-button 1)
-  (call-interactively #'push-button))
-
-
 ;; REPL
 
 (defun spacemacs//inferior-python-setup-hook ()
@@ -336,11 +398,3 @@ to be called for each testrunner. "
   (advice-add 'wisent-python-default-setup :after
               #'spacemacs//python-imenu-create-index-use-semantic-maybe))
 
-
-;; Eldoc
-
-(defun spacemacs//init-eldoc-python-mode ()
-  "Initialize elddoc for python buffers"
-  (eldoc-mode)
-  (when (configuration-layer/package-used-p 'anaconda-mode)
-    (anaconda-eldoc-mode)))
