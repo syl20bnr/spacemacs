@@ -36,6 +36,7 @@
     - [[#sayid-traced-mode][sayid-traced-mode]]
     - [[#sayid-pprint][sayid-pprint]]
     - [[#cider-repl-mode][cider-repl-mode]]
+    - [[#profiling][Profiling...]]
 - [[#development-notes][Development Notes]]
   - [[#indentation][Indentation]]
 
@@ -198,6 +199,8 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m g r~ | goto resource         |
 | ~SPC m g n~ | browse namespaces     |
 | ~SPC m g N~ | browse all namespaces |
+| ~SPC m g s~ | browse spec           |
+| ~SPC m g S~ | browse all specs      |
 
 *** REPL
 
@@ -435,6 +438,16 @@ In general, ~q~ should always quit the popped up buffer.
 |-------------+----------------|
 | ~C-j~       | next input     |
 | ~C-k~       | previous input |
+
+*** Profiling...
+
+| Key Binding | Description       |
+|-------------+-------------------|
+| ~SPC m p t~ | toggle profile    |
+| ~SPC m p c~ | clear profile     |
+| ~SPC m p s~ | profile summary   |
+| ~SPC m p S~ | summary for all   |
+| ~SPC m p n~ | toggle profile ns |
 
 * Development Notes
 ** Indentation
