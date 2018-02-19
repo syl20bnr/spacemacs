@@ -33,7 +33,7 @@
       (add-hook 'lsp-mode-hook #'lsp-ui-mode)
       ;; Disable lsp-flycheck.el in favor of lsp-ui-flycheck.el
       (setq lsp-enable-flycheck nil)
-      (spacemacs|diminish lsp-mode " Ⓛ" " L"))))
+      (spacemacs|hide-lighter lsp-mode))))
 
 (defun lsp/init-lsp-ui ()
   (use-package lsp-ui
