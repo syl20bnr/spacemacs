@@ -65,7 +65,9 @@
                ("ms" . "repl")
                ("mt" . "test")
                ("mT" . "toggle")
-               ("mf" . "format"))))
+               ("mf" . "format")
+               ("mp" . "profile")
+               )))
         (dolist (m '(clojure-mode
                      clojurec-mode
                      clojurescript-mode
@@ -103,6 +105,8 @@
             "gr" 'cider-find-resource
             "gn" 'cider-browse-ns
             "gN" 'cider-browse-ns-all
+            "gs" 'cider-browse-spec
+            "gS" 'cider-browse-spec-all
 
             "'"  'cider-jack-in
             "\"" 'cider-jack-in-clojurescript
@@ -146,6 +150,15 @@
             "db" 'cider-debug-defun-at-point
             "de" 'spacemacs/cider-display-error-buffer
             "dv" 'cider-inspect
+
+            ;; profile
+            "pt" 'cider-profile-toggle
+            "pc" 'cider-profile-clear
+            "pS" 'cider-profile-summary
+            "ps" 'cider-profile-var-summary
+            "pn" 'cider-profile-ns-toggle
+            "pv" 'cider-profile-var-profiled-p
+            "p+" 'cider-profile-samples
 
             ;; refactorings from clojure-mode
             "rc{" 'clojure-convert-collection-to-map
