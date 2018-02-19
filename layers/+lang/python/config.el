@@ -14,6 +14,10 @@
 (spacemacs|define-jump-handlers python-mode)
 (spacemacs|define-jump-handlers cython-mode anaconda-mode-goto)
 
+(defvar python-backend 'anaconda
+  "The backend to use for IDE features. Possible values are `anaconda'
+and `lsp'.")
+
 (defvar python-enable-yapf-format-on-save nil
   "If non-nil, automatically format code with YAPF on save.")
 
