@@ -25,6 +25,7 @@
         helm-themes
         (helm-spacemacs-help :location local)
         (helm-spacemacs-faq :location local)
+        helm-xref
         imenu
         persp-mode
         popwin
@@ -708,6 +709,25 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :init
     (spacemacs/set-leader-keys
       "Ts" 'spacemacs/helm-themes)))
+
+(defun helm/init-helm-xref ()
+  (use-package helm-xref
+    :defer t
+    :init
+    (progn
+      ;; This is required to make `xref-find-references' not give a prompt.
+      ;; `xref-find-references' asks the identifier (which has no text property)
+      ;; and then passes it to `lsp-mode', which requires the text property at
+      ;; point to locate the references.
+      ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=29619
+      (setq xref-prompt-for-identifier '(not xref-find-definitions
+                                             xref-find-definitions-other-window
+                                             xref-find-definitions-other-frame
+                                             xref-find-references
+                                             spacemacs/jump-to-definition))
+      ;; Use helm-xref to display `xref.el' results.
+      (setq xref-show-xrefs-function #'helm-xref-show-xrefs))))
+
 
 (defun helm/post-init-imenu ()
   (spacemacs/set-leader-keys "ji" 'spacemacs/helm-jump-in-buffer))
