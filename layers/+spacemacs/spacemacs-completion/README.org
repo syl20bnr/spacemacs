@@ -2,7 +2,12 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#describe-spacemacs-completion-layer-in-this-file][describe spacemacs-completion layer in this file]]
+  - [[#features][Features:]]
 
 * Description
-** TODO describe spacemacs-completion layer in this file
+This layer adds basics for providing code-completion for various major modes
+to Spacemacs.
+
+** Features:
+- Preconfiguration of =helm= and =ivy= for other layers to use.
+- Adding of =ido-navigation= configuration and transient state.
