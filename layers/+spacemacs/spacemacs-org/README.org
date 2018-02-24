@@ -2,7 +2,13 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#describe-spacemacs-org-layer-in-this-file][describe spacemacs-org layer in this file]]
+  - [[#features][Features:]]
 
 * Description
-** TODO describe spacemacs-org layer in this file
+This layer tweaks =org-mode= to integrate nicely into Spacemacs.
+
+** Features:
+- Configuration for =flyspell= to check =org-buffers= for typos.
+- Support for automatically generated Table-Of-Contents via =toc-org=.
+- Support for custom bullet markers via =org-bullets=.
+- Support for a special view mode for org documents via =space-doc=.
