@@ -2,7 +2,20 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#describe-spacemacs-navigation-layer-in-this-file][describe spacemacs-navigation layer in this file]]
+  - [[#features][Features:]]
 
 * Description
-** TODO describe spacemacs-navigation layer in this file
+This layer adds general navigation functions to all supported layers.
+
+** Features:
+- Support for ace-links in
+  - =spacemacs= buffer
+  - =info-mode=
+  - =help-mode=
+  - =eww-mode=
+- Support for keeping the cursor centered on the screen
+- Evilified version of =doc-view-mode=
+- Tweaks for =golden-ratio-mode=
+- Support for =paradox= a modern emacs package manager
+- Shortcuts for restarting =emacs=
+- Shortcuts for easily switching between windows

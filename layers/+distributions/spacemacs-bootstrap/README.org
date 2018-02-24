@@ -2,7 +2,16 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#describe-spacemacs-bootstrap-distribution-in-this-file][describe spacemacs-bootstrap distribution in this file]]
+  - [[#features][Features:]]
 
 * Description
-** TODO describe spacemacs-bootstrap distribution in this file
+This layer loads the necessary packages for spacemacs to start-up.
+
+** Features:
+- Loads =evil= key bindings
+- Loads =use-package= which is used to load other packages more easily
+- Loads =hydra= which is used to create transient modes
+- Loads =which-key= which is used to show keybindings in other modes
+- Loads =async= which is used to run background processes
+- Loads =bind-map= and =bind-key= which are used to realise various
+  spacemacs specific keybinding commands
