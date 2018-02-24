@@ -2,7 +2,17 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#describe-spacemacs-visual-layer-in-this-file][describe spacemacs-visual layer in this file]]
+  - [[#features][Features:]]
 
 * Description
-** TODO describe spacemacs-visual layer in this file
+This layer adds various modes to enhance Spacemacs visual appearance.
+
+** Features:
+- Automatic colorization of compilation buffers via =ansi-colors=.
+- Support for resuming the last layout when starting Spacemacs via =desktop=.
+- Support for showing a thin vertical line to indicate the fill column
+  via =fill-column-indicator=.
+- Automatic highlighting of =TODO-tags= in programming and text modes
+  via =hl-todo=.
+- Support for temporary windows which close automatically via =popwin=.
+- Support for text zooming via =zoom-frm=.
