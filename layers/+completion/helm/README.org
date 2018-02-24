@@ -12,6 +12,7 @@
   - [[#disable-helm-header][Disable Helm header]]
   - [[#define-helm-position][Define Helm position]]
   - [[#enable-fuzzy-searching-in-helm-buffers][Enable fuzzy searching in Helm buffers]]
+  - [[#ripgrep-maximum-number-of-column][Ripgrep: maximum number of column]]
 - [[#key-bindings][Key bindings]]
   - [[#hjkl-navigation][hjkl navigation]]
   - [[#transient-state][Transient state]]
@@ -111,6 +112,15 @@ variable =helm-use-fuzzy= to the value ='source=.
 #+END_SRC
 
 Default value is =always=.
+
+** Ripgrep: maximum number of column
+If you use =ripgrep= the default value for =--max-columns= is =512=. To change
+if set the layer variable =spacemacs-helm-rg-max-column-number=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (helm :variables spacemacs-helm-rg-max-column-number 1024)))
+#+END_SRC
 
 * Key bindings
 ** hjkl navigation
