@@ -122,7 +122,7 @@ More info regarding installation of nREPL middleware can be found here:
 
 * Usage
 ** Cheatsheet
-This layers installs the [[https://github.com/clojure-emacs/clojure-cheatsheet][clojure-cheathseet]] package which embeds this useful
+This layers installs the [[https://github.com/clojure-emacs/clojure-cheatsheet][clojure-cheatsheet]] package which embeds this useful
 [[https://clojure.org/api/cheatsheet][cheatsheet]] into Emacs.
 
 Type ~SPC m h c~ to display the cheatsheet then type in some terms (space

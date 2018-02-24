@@ -2,7 +2,32 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#describe-spacemacs-modeline-layer-in-this-file][describe spacemacs-modeline layer in this file]]
+  - [[#features][Features:]]
+- [[#key-bindings][Key bindings]]
 
 * Description
-** TODO describe spacemacs-modeline layer in this file
+This layer adds various mode-lines to Spacemacs.
+
+** Features:
+- Display of a vim-powerline like mode-line being able to show various information like
+  - Current battery status
+  - All active minor modes displayed as unicode symbols
+  - The active major mode
+  - The current branch if the file is in version control
+  - The current cursor position
+  - The system clock
+- Display of a small system monitor in a separate mode-line.
+
+* Key bindings
+
+ | Key Binding | Description                                            |
+ |-------------+--------------------------------------------------------|
+ | ~SPC t m b~ | Display battery state in mode-line                     |
+ | ~SPC t m r~ | Make the mode-line responsive                          |
+ | ~SPC t m m~ | Display active minor modes in mode-line                |
+ | ~SPC t m M~ | Display active major mode in mode-line                 |
+ | ~SPC t m v~ | Display version control information in mode-line       |
+ | ~SPC t m V~ | Display new mode-line version                          |
+ | ~SPC t m p~ | Display cursor position in mode-line                   |
+ | ~SPC t m c~ | Display a clock in mode-line                           |
+ | ~SPC t m s~ | Display a small system monitor in a separate mode-line |

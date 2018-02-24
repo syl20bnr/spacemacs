@@ -26,6 +26,7 @@
     hy-mode
     importmagic
     live-py-mode
+    (lsp-python :requires lsp-mode)
     (nose :location local)
     org
     pip-requirements
@@ -46,13 +47,8 @@
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
     :defer t
-    :init
-    (progn
-      (setq anaconda-mode-installation-directory
-            (concat spacemacs-cache-directory "anaconda-mode"))
-      (add-hook 'python-mode-hook 'anaconda-mode)
-      (add-to-list 'spacemacs-jump-handlers-python-mode
-                '(anaconda-mode-find-definitions :async t)))
+    :init (setq anaconda-mode-installation-directory
+                (concat spacemacs-cache-directory "anaconda-mode"))
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
@@ -75,6 +71,8 @@
         (evil--jumps-push)))))
 
 (defun python/post-init-company ()
+  ;; backend specific
+  (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-company)
   (spacemacs|add-company-backends
     :backends (company-files company-capf)
     :modes inferior-python-mode
@@ -89,9 +87,8 @@
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
     :defer t
-    :init (spacemacs|add-company-backends
-            :backends company-anaconda
-            :modes python-mode)))
+    ;; see `spacemacs//python-setup-anaconda-company'
+    ))
 
 (defun python/init-cython-mode ()
   (use-package cython-mode
@@ -103,7 +100,7 @@
         "gu" 'anaconda-mode-find-references))))
 
 (defun python/post-init-eldoc ()
-  (add-hook 'python-mode-hook 'spacemacs//init-eldoc-python-mode))
+  (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-eldoc))
 
 (defun python/post-init-evil-matchit ()
   (add-hook `python-mode-hook `turn-on-evil-matchit-mode))
@@ -163,6 +160,10 @@
     :init
     (spacemacs/set-leader-keys-for-major-mode 'python-mode
       "l" 'live-py-mode)))
+
+(defun python/init-lsp-python ()
+  (use-package lsp-python
+    :commands lsp-python-enable))
 
 (defun python/init-nose ()
   (use-package nose
@@ -282,10 +283,13 @@
     :mode (("SConstruct\\'" . python-mode) ("SConscript\\'" . python-mode))
     :init
     (progn
-      (spacemacs/register-repl 'python 'spacemacs/python-start-or-switch-repl "python")
+      (spacemacs/register-repl 'python
+                               'spacemacs/python-start-or-switch-repl "python")
       (add-hook 'inferior-python-mode-hook
-                #'spacemacs//inferior-python-setup-hook)
-      (add-hook 'python-mode-hook #'spacemacs//python-default)
+                'spacemacs//inferior-python-setup-hook)
+      (spacemacs/add-to-hook 'python-mode-hook
+                             '(spacemacs//python-setup-backend
+                               spacemacs//python-default))
       ;; call `spacemacs//python-setup-shell' once, don't put it in a hook
       ;; (see issue #5988)
       (spacemacs//python-setup-shell))

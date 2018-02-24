@@ -4,11 +4,15 @@
 
 * Table of Contents                                       :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 
 * Description
 This layer adds syntax highlighting for the [[http://web.cs.ucdavis.edu/~olsson/research/jr/][JR Concurrent Programming Language]].
 JR is the implementation of the [[https://www2.cs.arizona.edu/sr/][SR]] language for Java.
+
+** Features:
+- Syntax highlighting
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

@@ -1,0 +1,41 @@
+#+TITLE: LSP layer
+
+* Table of Contents                      :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#configuration][Configuration]]
+
+* Description
+This layer adds support for basic language server protocol packages speaking
+[[https://microsoft.github.io/language-server-protocol/specification][language server protocol]].
+
+** Features:
+- Cross references (definitions, references, document symbol, workspace symbol
+  search and others)
+- Workspace-wide symbol rename
+- Symbol highlighting
+- Flycheck
+- Completion with =company-lsp=
+- Signature help with eldoc
+- Symbol documentation in a child frame (=lsp-ui-doc=)
+
+Each language server may support the language server protocol in varying degree
+and they may also provide extensions, check the language server's website for
+details.
+=M-x lsp-capabilities= in a LSP buffer to list capabilities of the server.
+
+* Configuration
+The LSP ecosystem is based on two packages: [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] and [[https://github.com/emacs-lsp/lsp-ui][lsp-ui]].
+Please check out their documentation.
+
+If you add =lsp-*-enable= to major mode hooks for auto initialization of
+language clients, customize =lsp-project-whitelist= =lsp-project-blacklist= to
+disable projects you don't want to enable LSP.
+
+If some features doe not work as intended, here is a common check list.
+
+- =M-x lsp-capabilities= If the LSP workspace is initialized correctly
+- =M-: xref-backend-functions= should be =(lsp--xref-backend)= for cross
+  references
+- =M-: completion-at-point-functions= should be =(lsp-completion-at-point)= for
+  completion

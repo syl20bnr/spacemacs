@@ -168,7 +168,7 @@ be sent as the source of request (useful for debugging)"
     ""))
 
 (defsubst spacemacs/org-edn-headline-make-path-id (headline)
-  "Make id for org HEADLINE by chaining headlines from parent to)
+  "Make id for org HEADLINE by chaining headlines from parent to
 child headline.
 NOTE: Each headline is converted with `toc-org-hrefify-gh' but
 without unification and \"#\" prefix."
@@ -431,7 +431,9 @@ CONTENTS holds the contents of the item.  INFO is a plist holding
 contextual information."
   (let ((type (org-element-property
                :type
-               (org-export-get-parent item))))
+               (org-export-get-parent item)))
+        (item-tag (org-element-property :tag item))
+        (checkbox (org-element-property :checkbox item)))
     (unless (or (eq 'ordered type)
                 (eq 'unordered type)
                 (eq 'descriptive type))
@@ -443,19 +445,20 @@ contextual information."
     (format (concat "{:tag :list-item "
                     ":type :%s "
                     ":bullet %s "
-                    ":counter %s "
                     ":checkbox %s "
-                    ":item-tag \"%s\" "
+                    ":item-tag %s "
                     ":children [%s]}")
             type
             (format
              "\"%s\""
              (spacemacs/org-edn-escape-string
               (org-element-property :bullet item)))
-            (org-element-property :counter item)
-            (org-element-property :checkbox item)
-            (spacemacs/org-edn-escape-string
-             (format "%s" (org-element-property :tag item)))
+            (when checkbox (format ":%s" (symbol-name checkbox)))
+            (when item-tag
+              (if (char-or-string-p item-tag)
+                  (format "{:tag :plain-text :value \"%s\"}"
+                          (spacemacs/org-edn-escape-string item-tag))
+                (org-export-data-with-backend item-tag 'spacemacs-edn info)))
             contents)))
 
 ;;;; Keyword

@@ -4,11 +4,16 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 
 * Description
-[[https://github.com/ajc/nginx-mode][nginx-mode]] for editing [[http://nginx.org][nginx]] configuration files.
-It adds basic syntax highlighting and syntax-aware tabbing.
+This layer adds support for configuring [[http://nginx.org][nginx]] a powerful alternative for
+the apache web server.
+
+** Features:
+- Syntax highlighting of nginx configuration files via [[https://github.com/ajc/nginx-mode][nginx-mode]].
+- Syntax-aware indentation
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

@@ -2,7 +2,11 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#describe-spacemacs-layouts-layer-in-this-file][describe spacemacs-layouts layer in this file]]
+  - [[#features][Features:]]
 
 * Description
-** TODO describe spacemacs-layouts layer in this file
+This layer adds support for distinct layouts/workspaces to Spacemacs.
+
+** Features:
+- Support for distinct layouts via =eyebrowse=
+- Integration with =helm= and =ivy= to search for buffers within layouts

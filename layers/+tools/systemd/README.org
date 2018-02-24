@@ -2,12 +2,17 @@
 
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer provides syntax highlighting for systemd files and completion through
-=company= if the =auto-completion= layer is used.
+This layer adds support for editing =systemd= configuration files in Spacemacs.
+
+** Features:
+- Syntax highlighting
+- Auto completion
+- Syntax checking via =systemd-analyze=
 
 * Install
 To use this contribution add it to your =~/.spacemacs=

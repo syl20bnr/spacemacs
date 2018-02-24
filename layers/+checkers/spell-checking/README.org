@@ -14,14 +14,13 @@
 - [[#known-issues][Known issues]]
 
 * Description
-This layer provides spell checking using [[http://www-sop.inria.fr/members/Manuel.Serrano/flyspell/flyspell.html][Flyspell]] and [[https://github.com/nschum/auto-dictionary-mode][auto-dictionary-mode]].
+This layer provides spell checking capabilities to Spacemacs.
 
 ** Features:
- - Buffer-wide spell checking via external command (ispell, hunspell, aspell)
- - Spell as you type
- - Optional corrections popup controlled with enable-flyspell-auto-completion
-   variable.
- - Auto dictionary mode for some languages.
+- Buffer-wide spell checking via external command (ispell, hunspell, aspell) run through [[http://www-sop.inria.fr/members/Manuel.Serrano/flyspell/flyspell.html][Flyspell]].
+- Spell as you type
+- Optional correction popups, controlled by =enable-flyspell-auto-completion= variable.
+- [[https://github.com/nschum/auto-dictionary-mode][Auto dictionary mode]] for some languages.
 
 * Install
 ** Layer
