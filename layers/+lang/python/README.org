@@ -309,6 +309,7 @@ function with a prefix argument, for example ~SPC u SPC m t a~.
 |-------------+----------------------------------------------------------|
 | ~SPC m t a~ | launch all tests of the project                          |
 | ~SPC m t b~ | launch all tests of the current buffer (same as module)  |
+| ~SPC m t l~ | launch last tests                                        |
 | ~SPC m t m~ | launch all tests of the current module                   |
 | ~SPC m t s~ | launch all tests of the current suite (only with =nose=) |
 | ~SPC m t t~ | launch the current test (function)                       |
