@@ -31,5 +31,6 @@
   (configuration-layer/load)
   (spacemacs-buffer/display-startup-note)
   (spacemacs/setup-startup-hook)
-  (require 'server)
-  (unless (server-running-p) (server-start)))
+  (when dotspacemacs-enable-server
+    (require 'server)
+    (unless (server-running-p) (server-start))))
