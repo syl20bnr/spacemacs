@@ -60,13 +60,13 @@
       (let ((cider--key-binding-prefixes
              '(("md" . "debug")
                ("me" . "evaluation")
+               ("mf" . "format")
                ("mg" . "goto")
                ("mh" . "documentation")
+               ("mp" . "profile")
                ("ms" . "repl")
                ("mt" . "test")
                ("mT" . "toggle")
-               ("mf" . "format")
-               ("mp" . "profile")
                )))
         (dolist (m '(clojure-mode
                      clojurec-mode
@@ -80,11 +80,11 @@
 
           (spacemacs/set-leader-keys-for-major-mode m
             "ha" 'cider-apropos
-            "hh" 'cider-doc
+            "hc" 'clojure-cheatsheet
             "hg" 'cider-grimoire
+            "hh" 'cider-doc
             "hj" 'cider-javadoc
             "hn" 'cider-browse-ns
-            "hc" 'clojure-cheatsheet
 
             "e;" 'cider-eval-defun-to-comment
             "eb" 'cider-eval-buffer
@@ -92,8 +92,8 @@
             "ef" 'cider-eval-defun-at-point
             "em" 'cider-macroexpand-1
             "eM" 'cider-macroexpand-all
-            "er" 'cider-eval-region
             "eP" 'cider-pprint-eval-last-sexp
+            "er" 'cider-eval-region
             "ew" 'cider-eval-last-sexp-and-replace
 
             "="  'cider-format-buffer
@@ -102,9 +102,9 @@
             "gb" 'cider-pop-back
             "gc" 'cider-classpath
             "ge" 'cider-jump-to-compilation-error
-            "gr" 'cider-find-resource
             "gn" 'cider-browse-ns
             "gN" 'cider-browse-ns-all
+            "gr" 'cider-find-resource
             "gs" 'cider-browse-spec
             "gS" 'cider-browse-spec-all
 
@@ -142,8 +142,8 @@
             "ta" 'spacemacs/cider-test-run-all-tests
             "tb" 'cider-test-show-report
             "tl" 'spacemacs/cider-test-run-loaded-tests
-            "tp" 'spacemacs/cider-test-run-project-tests
             "tn" 'spacemacs/cider-test-run-ns-tests
+            "tp" 'spacemacs/cider-test-run-project-tests
             "tr" 'spacemacs/cider-test-rerun-failed-tests
             "tt" 'spacemacs/cider-test-run-focused-test
 
@@ -152,21 +152,22 @@
             "dv" 'cider-inspect
 
             ;; profile
-            "pt" 'cider-profile-toggle
-            "pc" 'cider-profile-clear
-            "pS" 'cider-profile-summary
-            "ps" 'cider-profile-var-summary
-            "pn" 'cider-profile-ns-toggle
-            "pv" 'cider-profile-var-profiled-p
             "p+" 'cider-profile-samples
+            "pc" 'cider-profile-clear
+            "pn" 'cider-profile-ns-toggle
+            "ps" 'cider-profile-var-summary
+            "pS" 'cider-profile-summary
+            "pt" 'cider-profile-toggle
+            "pv" 'cider-profile-var-profiled-p
 
             ;; refactorings from clojure-mode
-            "rc{" 'clojure-convert-collection-to-map
-            "rc(" 'clojure-convert-collection-to-list
-            "rc'" 'clojure-convert-collection-to-quoted-list
             "rc#" 'clojure-convert-collection-to-set
+            "rc'" 'clojure-convert-collection-to-quoted-list
+            "rc(" 'clojure-convert-collection-to-list
+            "rc:" 'clojure-toggle-keyword-string
             "rc[" 'clojure-convert-collection-to-vector
-            "rc:" 'clojure-toggle-keyword-string)))
+            "rc{" 'clojure-convert-collection-to-map
+            )))
 
       ;; cider-repl-mode only
       (spacemacs/set-leader-keys-for-major-mode 'cider-repl-mode
@@ -394,27 +395,28 @@
               sayid--key-binding-prefixes)
         (spacemacs/set-leader-keys-for-major-mode m
           ;;These keybindings mostly preserved from the default sayid bindings
-          "df" 'sayid-query-form-at-point
-          "dw" 'sayid-get-workspace
-          "dE" 'sayid-eval-last-sexp ;in default sayid bindings this is lowercase e, but that was already used in clojure mode
           "d!" 'sayid-load-enable-clear
+          "dE" 'sayid-eval-last-sexp ;in default sayid bindings this is lowercase e, but that was already used in clojure mode
           "dc" 'sayid-clear-log
-          "dx" 'sayid-reset-workspace
+          "df" 'sayid-query-form-at-point
+          "dh" 'sayid-show-help
           "ds" 'sayid-show-traced
           "dS" 'sayid-show-traced-ns
-          "dV" 'sayid-set-view
-          "dh" 'sayid-show-help
-          "dty" 'sayid-trace-all-ns-in-dir
-          "dtp" 'sayid-trace-ns-by-pattern
           "dtb" 'sayid-trace-ns-in-file
-          "dte" 'sayid-trace-fn-enable
-          "dtE" 'sayid-trace-enable-all
           "dtd" 'sayid-trace-fn-disable
           "dtD" 'sayid-trace-disable-all
+          "dte" 'sayid-trace-fn-enable
+          "dtE" 'sayid-trace-enable-all
+          "dtK" 'sayid-kill-all-traces
           "dtn" 'sayid-inner-trace-fn
           "dto" 'sayid-outer-trace-fn
+          "dtp" 'sayid-trace-ns-by-pattern
           "dtr" 'sayid-remove-trace-fn
-          "dtK" 'sayid-kill-all-traces))
+          "dty" 'sayid-trace-all-ns-in-dir
+          "dV" 'sayid-set-view
+          "dw" 'sayid-get-workspace
+          "dx" 'sayid-reset-workspace
+          ))
 
       (evilified-state-evilify sayid-mode sayid-mode-map
         (kbd "H") 'sayid-buf-show-help
