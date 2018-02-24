@@ -196,9 +196,9 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m g C~ | browse classpath      |
 | ~SPC m g g~ | goto var              |
 | ~SPC m g e~ | goto error            |
-| ~SPC m g r~ | goto resource         |
 | ~SPC m g n~ | browse namespaces     |
 | ~SPC m g N~ | browse all namespaces |
+| ~SPC m g r~ | goto resource         |
 | ~SPC m g s~ | browse spec           |
 | ~SPC m g S~ | browse all specs      |
 
@@ -241,41 +241,40 @@ As this state works the same for all files, the documentation is in global
 |-------------+-----------------------------|
 | ~SPC m T e~ | toggle englighten mode      |
 | ~SPC m T f~ | toggle REPL font-locking    |
-| ~SPC m T e~ | toggle cider-enlighten-mode |
-| ~SPC m T p~ | toggle REPL pretty-printing |
 | ~SPC m T i~ | toggle indentation style    |
+| ~SPC m T p~ | toggle REPL pretty-printing |
 | ~SPC m T t~ | toggle auto test mode       |
 
 *** Debugging
 
 | Key Binding   | Description                                        |
 |---------------+----------------------------------------------------|
-| ~SPC m d b~   | instrument expression at point                     |
-| ~SPC m d e~   | display last stacktrace                            |
-| ~SPC m d r~   | reload namespaces                                  |
-| ~SPC m d v~   | inspect expression at point                        |
-| ~SPC m d i~   | inspect expression at point                        |
-| ~SPC m d f~   | query form at point                                |
-| ~SPC m d w~   | open sayid workspace window                        |
-| ~SPC m d E~   | one time display of value at cursor                |
 | ~SPC m d !~   | reload traces and clear sayid workspace            |
+| ~SPC m d b~   | instrument expression at point                     |
 | ~SPC m d c~   | clear workspace trace log                          |
-| ~SPC m d x~   | clear workspace traces and log                     |
+| ~SPC m d e~   | display last stacktrace                            |
+| ~SPC m d E~   | one time display of value at cursor                |
+| ~SPC m d f~   | query form at point                                |
+| ~SPC m d h~   | show sayid help (keybindings may not be accurate)  |
+| ~SPC m d i~   | inspect expression at point                        |
+| ~SPC m d r~   | reload namespaces                                  |
 | ~SPC m d s~   | show what is currently traced                      |
 | ~SPC m d S~   | show what is currently traced in current namespace |
-| ~SPC m d V~   | set the view                                       |
-| ~SPC m d h~   | show sayid help (keybindings may not be accurate)  |
-| ~SPC m d t y~ | recursively trace every namespace in given dir     |
-| ~SPC m d t p~ | trace namespaces by regex                          |
 | ~SPC m d t b~ | trace current file's namespace                     |
-| ~SPC m d t e~ | enable existing trace on current function          |
-| ~SPC m d t E~ | enable existing trace on all functions             |
 | ~SPC m d t d~ | disable existing trace on current function         |
 | ~SPC m d t D~ | disable existing trace on all functions            |
+| ~SPC m d t e~ | enable existing trace on current function          |
+| ~SPC m d t E~ | enable existing trace on all functions             |
+| ~SPC m d t K~ | remove all traces                                  |
 | ~SPC m d t n~ | create inner trace on function                     |
 | ~SPC m d t o~ | create outer trace on function                     |
+| ~SPC m d t p~ | trace namespaces by regex                          |
 | ~SPC m d t r~ | remove trace on function                           |
-| ~SPC m d t K~ | remove all traces                                  |
+| ~SPC m d t y~ | recursively trace every namespace in given dir     |
+| ~SPC m d v~   | inspect expression at point                        |
+| ~SPC m d V~   | set the view                                       |
+| ~SPC m d w~   | open sayid workspace window                        |
+| ~SPC m d x~   | clear workspace traces and log                     |
 
 *** Refactoring
 
@@ -332,8 +331,8 @@ As this state works the same for all files, the documentation is in global
 
 | Key Binding               | Description             |
 |---------------------------+-------------------------|
-| ~SPC m f l~               | realign current form    |
 | ~SPC m f b~ or  ~SPC m =~ | reformat current buffer |
+| ~SPC m f l~               | realign current form    |
 
 ** CIDER Buffers
 In general, ~q~ should always quit the popped up buffer.
@@ -389,21 +388,21 @@ In general, ~q~ should always quit the popped up buffer.
 
 | Key Binding        | Description                                       |
 |--------------------+---------------------------------------------------|
+| ~Shift-Backspace~  | forward buffer state                              |
 | ~enter~            | pop to function                                   |
 | ~d~                | def value to $s/*                                 |
 | ~f~                | query for calls to function                       |
 | ~F~                | query to calls to function with modifier          |
 | ~i~                | show only this instance                           |
 | ~I~                | show only this instance with modifier             |
-| ~w~                | show full workspace trace                         |
+| ~L~ or ~Backspace~ | previous buffer state                             |
 | ~n~                | jump to next call                                 |
 | ~N~                | jump to previous call                             |
 | ~P~                | pretty print value                                |
 | ~C~                | clear workspace trace log                         |
-| ~L~ or ~Backspace~ | previous buffer state                             |
-| ~Shift-Backspace~  | forward buffer state                              |
 | ~e~                | generate instance expression and put in kill ring |
 | ~H~                | display help (keybindings may not be accurate)    |
+| ~w~                | show full workspace trace                         |
 | ~C-s v~            | toggle view                                       |
 | ~C-s V~            | set view                                          |
 
@@ -411,16 +410,16 @@ In general, ~q~ should always quit the popped up buffer.
 
 | Key Binding | Description                                    |
 |-------------+------------------------------------------------|
+| ~backspace~ | go back to trace overview                      |
 | ~enter~     | drill into ns at point                         |
 | ~e~         | enable trace                                   |
-| ~d~         | disable trace                                  |
 | ~E~         | enable all traces                              |
+| ~d~         | disable trace                                  |
 | ~D~         | disable all traces                             |
+| ~h~         | display help (keybindings may not be accurate) |
 | ~i~         | apply inner trace to function at point         |
 | ~o~         | apply outer trace to function at point         |
 | ~r~         | remove trace at point                          |
-| ~backspace~ | go back to trace overview                      |
-| ~h~         | display help (keybindings may not be accurate) |
 
 *** sayid-pprint
 
@@ -441,13 +440,15 @@ In general, ~q~ should always quit the popped up buffer.
 
 *** Profiling...
 
-| Key Binding | Description       |
-|-------------+-------------------|
-| ~SPC m p t~ | toggle profile    |
-| ~SPC m p c~ | clear profile     |
-| ~SPC m p s~ | profile summary   |
-| ~SPC m p S~ | summary for all   |
-| ~SPC m p n~ | toggle profile ns |
+| Key Binding | Description          |
+|-------------+----------------------|
+| ~SPC m p +~ | profile samples      |
+| ~SPC m p c~ | clear profile        |
+| ~SPC m p n~ | toggle profile ns    |
+| ~SPC m p s~ | profile summary      |
+| ~SPC m p S~ | summary for all      |
+| ~SPC m p t~ | toggle profile       |
+| ~SPC m p v~ | is variable profiled |
 
 * Development Notes
 ** Indentation
