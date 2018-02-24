@@ -37,8 +37,9 @@ values."
   in all non-asynchronous sources. If set to `source', preserve individual
   source settings. Else, disable fuzzy matching in all sources.")
 
-(defvar spacemacs-helm-rg-max-column-number 150
-  "Controls the maximum number of columns to display with ripgrep (otherwise omits a line)")
+(defvar spacemacs-helm-rg-max-column-number 512
+  "Controls the maximum number of columns to display with ripgrep (otherwise
+  omits a line)")
 
 ;; internals
 
