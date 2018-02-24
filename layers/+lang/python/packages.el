@@ -199,9 +199,9 @@
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "vpa" 'pipenv-activate
         "vpd" 'pipenv-deactivate
-        "vps" 'pipenv-shell
-        "vpo" 'pipenv-open
         "vpi" 'pipenv-install
+        "vpo" 'pipenv-open
+        "vps" 'pipenv-shell
         "vpu" 'pipenv-uninstall))))
 
 (defun python/init-pip-requirements ()
