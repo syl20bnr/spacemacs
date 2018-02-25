@@ -27,7 +27,9 @@
     - [[#debugging][Debugging]]
     - [[#refactoring][Refactoring]]
     - [[#reformatting][Reformatting]]
+    - [[#profiling][Profiling]]
   - [[#cider-buffers][CIDER Buffers]]
+    - [[#cider-repl-mode][cider-repl-mode]]
     - [[#stacktrace-mode][stacktrace-mode]]
     - [[#inspector-mode][inspector-mode]]
     - [[#test-report-mode][test-report-mode]]
@@ -35,8 +37,6 @@
     - [[#sayid-mode][sayid-mode]]
     - [[#sayid-traced-mode][sayid-traced-mode]]
     - [[#sayid-pprint][sayid-pprint]]
-    - [[#cider-repl-mode][cider-repl-mode]]
-    - [[#profiling][Profiling...]]
 - [[#development-notes][Development Notes]]
   - [[#indentation][Indentation]]
 
@@ -333,9 +333,29 @@ As this state works the same for all files, the documentation is in global
 |---------------------------+-------------------------|
 | ~SPC m f b~ or  ~SPC m =~ | reformat current buffer |
 | ~SPC m f l~               | realign current form    |
+|                           |                         |
+
+*** Profiling
+
+| Key Binding | Description          |
+|-------------+----------------------|
+| ~SPC m p +~ | profile samples      |
+| ~SPC m p c~ | clear profile        |
+| ~SPC m p n~ | toggle profile ns    |
+| ~SPC m p s~ | profile summary      |
+| ~SPC m p S~ | summary for all      |
+| ~SPC m p t~ | toggle profile       |
+| ~SPC m p v~ | is variable profiled |
 
 ** CIDER Buffers
 In general, ~q~ should always quit the popped up buffer.
+
+*** cider-repl-mode
+
+| Key Binding | Description    |
+|-------------+----------------|
+| ~C-j~       | next input     |
+| ~C-k~       | previous input |
 
 *** stacktrace-mode
 
@@ -431,24 +451,6 @@ In general, ~q~ should always quit the popped up buffer.
 | ~n~         | enter next sibling node     |
 | ~p~         | enter previous sibling node |
 
-*** cider-repl-mode
-
-| Key Binding | Description    |
-|-------------+----------------|
-| ~C-j~       | next input     |
-| ~C-k~       | previous input |
-
-*** Profiling...
-
-| Key Binding | Description          |
-|-------------+----------------------|
-| ~SPC m p +~ | profile samples      |
-| ~SPC m p c~ | clear profile        |
-| ~SPC m p n~ | toggle profile ns    |
-| ~SPC m p s~ | profile summary      |
-| ~SPC m p S~ | summary for all      |
-| ~SPC m p t~ | toggle profile       |
-| ~SPC m p v~ | is variable profiled |
 
 * Development Notes
 ** Indentation
