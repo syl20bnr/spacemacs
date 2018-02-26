@@ -2,7 +2,25 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#describe-spacemacs-editing-layer-in-this-file][describe spacemacs-editing layer in this file]]
+  - [[#features][Features:]]
 
 * Description
-** TODO describe spacemacs-editing layer in this file
+This layer adds packages to improve editing with Spacemacs.
+
+** Features:
+- Support for automatic indentation of code via =aggressive-indent=.
+- Support for jumping to chars using a decision tree via =avy=.
+- Improvements for evaluating sexps via =eval-sexp-fu=.
+- Selecting and editing of multiple text elements via =expand-region=.
+- Support for editing files in hex format via =hexl=.
+- Deletion of consecutive horizontal whitespace with a single key
+  via =hungry-delete=.
+- Support for selecting and opening links using =avy= via =link-hint=.
+- Adding of sample text via =lorem-ipsum=.
+- Transient state for moving text via =move-text=.
+- Support for folding of code via =origami=.
+- Support for password generation via =password-generator=.
+- Support for improving parenthesis handling via =smartparens=.
+- Automatic whitespace cleanup on save via =spacemacs-whitespace-cleanup=.
+- Support for converting definitions to certain styles via =string-inflection=.
+- Support for generating UUIDs via =uuidgen=.
