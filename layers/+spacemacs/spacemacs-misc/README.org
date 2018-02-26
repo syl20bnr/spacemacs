@@ -2,7 +2,11 @@
 
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#describe-spacemacs-misc-layer-in-this-file][describe spacemacs-misc layer in this file]]
+  - [[#features][Features:]]
 
 * Description
-** TODO describe spacemacs-misc layer in this file
+This layer adds some general packages into Spacemacs.
+
+** Features:
+- Support for jumping to definitions via =dumb-jump= or =evil-goto-definition=.
+- Support for an easy http request client via =request=.
