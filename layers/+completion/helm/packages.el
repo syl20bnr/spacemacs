@@ -707,6 +707,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
 (defun helm/init-helm-xref ()
   (use-package helm-xref
+    :commands (helm-xref-show-xrefs)
     :init
     (progn
       ;; This is required to make `xref-find-references' not give a prompt.
