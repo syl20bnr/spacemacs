@@ -442,14 +442,8 @@ around point as the initial input."
   "Run `swiper-all' with the selected region or the symbol
 around point as the initial input."
   (interactive)
-  (ivy-read "Swiper: " (swiper--multi-candidates
-                        (cl-remove-if-not
-                         #'buffer-file-name
-                         (buffer-list)))
-            :initial-input (if (region-active-p)
-                               (buffer-substring-no-properties
-                                (region-beginning) (region-end))
-                             (thing-at-point 'symbol t))
-            :action 'swiper-multi-action-2
-            :unwind #'swiper--cleanup
-            :caller 'swiper-multi))
+  (let ((input (if (region-active-p)
+                   (buffer-substring-no-properties
+                    (region-beginning) (region-end))
+                 (thing-at-point 'symbol t))))
+    (swiper-all input)))
