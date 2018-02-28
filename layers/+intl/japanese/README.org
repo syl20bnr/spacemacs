@@ -1,5 +1,6 @@
 #+TITLE: Japanese layer
 [[file:img/Japanese.png]]
+
 * Table of Contents                                       :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
