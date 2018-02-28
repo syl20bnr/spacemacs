@@ -115,9 +115,9 @@
       (when (eq version-control-diff-tool 'diff-hl)
         (when (configuration-layer/package-used-p 'magit)
           (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
-        (when version-control-global-margin
-          (global-diff-hl-mode))
-        (diff-hl-margin-mode)
+        (if version-control-global-margin
+            (run-with-idle-timer 1 nil 'global-diff-hl-mode)
+          (run-with-idle-timer 1 nil 'diff-hl-margin-mode))
         (spacemacs|do-after-display-system-init
          (setq diff-hl-side (if (eq version-control-diff-side 'left)
                                 'left 'right))
