@@ -451,7 +451,6 @@ In general, ~q~ should always quit the popped up buffer.
 | ~n~         | enter next sibling node     |
 | ~p~         | enter previous sibling node |
 
-
 * Development Notes
 ** Indentation
 With a [[https://github.com/clojure-emacs/cider/blob/master/doc/indent_spec.md][new]] functionality of Cider to read the custom indentation rules from the
