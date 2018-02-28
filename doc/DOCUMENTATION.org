@@ -3395,19 +3395,20 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 
 ** Special Titles
 
-| Achievements                                    | Account      |
-|-------------------------------------------------+--------------|
-| The Gunner (18 PRs in a row)                    | [[https://github.com/ralesi][ralesi]]       |
-| The Saint (unlocked the holy-mode)              | [[https://github.com/trishume][trishume]]     |
-| The Artist ([[https://github.com/nashamri/spacemacs-logo][logo]] and [[https://github.com/nashamri/spacemacs-theme][theme]])                     | [[https://github.com/nashamri][nashamri]]     |
-| The Meme Master (doge banner)                   | [[https://github.com/chrisbarrett][chrisbarrett]] |
-| The Helm captain ([[https://tuhdo.github.io/helm-intro.html][helm guide]])                   | [[https://github.com/tuhdo][tuhdo]]        |
-| The Master of the Keys ([[https://github.com/justbur/emacs-which-key][which-key]] and [[https://github.com/justbur/emacs-bind-map][bind-map]]) | [[https://github.com/justbur][justbur]]      |
-| The PR Patrol Officer                           | [[https://github.com/robbyoconnor][robbyoconnor]] |
-| The Expert in Latin Language ([[https://github.com/syl20bnr/spacemacs/pull/4043][PR]])               | [[https://github.com/vijaykiran][vijaykiran]]   |
-| The Tiler ([[https://github.com/syl20bnr/spacemacs/pull/4068][eyebrowse integration]])               | [[https://github.com/bmag][bmag]]         |
-| The Geometer ([[https://github.com/TheBB/spaceline][spaceline]])                        | [[https://github.com/TheBB][TheBB]]        |
-| The Librarian (doc-fmt tool and space-doc mode) | [[https://github.com/JAremko][JAremko]]      |
+| Achievements                                    | Account       |
+|-------------------------------------------------+---------------|
+| The Gunner (18 PRs in a row)                    | [[https://github.com/ralesi][ralesi]]        |
+| The Saint (unlocked the holy-mode)              | [[https://github.com/trishume][trishume]]      |
+| The Artist ([[https://github.com/nashamri/spacemacs-logo][logo]] and [[https://github.com/nashamri/spacemacs-theme][theme]])                     | [[https://github.com/nashamri][nashamri]]      |
+| The Meme Master (doge banner)                   | [[https://github.com/chrisbarrett][chrisbarrett]]  |
+| The Helm captain ([[https://tuhdo.github.io/helm-intro.html][helm guide]])                   | [[https://github.com/tuhdo][tuhdo]]         |
+| The Master of the Keys ([[https://github.com/justbur/emacs-which-key][which-key]] and [[https://github.com/justbur/emacs-bind-map][bind-map]]) | [[https://github.com/justbur][justbur]]       |
+| The PR Patrol Officer                           | [[https://github.com/robbyoconnor][robbyoconnor]]  |
+| The Expert in Latin Language ([[https://github.com/syl20bnr/spacemacs/pull/4043][PR]])               | [[https://github.com/vijaykiran][vijaykiran]]    |
+| The Tiler ([[https://github.com/syl20bnr/spacemacs/pull/4068][eyebrowse integration]])               | [[https://github.com/bmag][bmag]]          |
+| The Geometer ([[https://github.com/TheBB/spaceline][spaceline]])                        | [[https://github.com/TheBB][TheBB]]         |
+| The Librarian (doc-fmt tool and space-doc mode) | [[https://github.com/JAremko][JAremko]]       |
+| The Orgonaut ([[https://github.com/syl20bnr/spacemacs/issues/9476][fixed most of the Org READMEs]])    | [[https://github.com/smile13241324][smile13241324]] |
 
 * Thank you
 Thank you Richard for this great piece of software.
