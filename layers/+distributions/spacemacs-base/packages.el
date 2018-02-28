@@ -215,6 +215,7 @@
 
 (defun spacemacs-base/init-hybrid-mode ()
   (use-package hybrid-mode
+    :demand t
     :config
     (progn
       (when (eq 'hybrid dotspacemacs-editing-style) (hybrid-mode))
@@ -265,6 +266,7 @@
 
 (defun spacemacs-base/init-linum ()
   (use-package linum
+    :demand t
     :init
     (progn
       (setq linum-format "%4d")
