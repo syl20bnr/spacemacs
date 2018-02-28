@@ -11,26 +11,23 @@
 
 (setq python-packages
   '(
-    anaconda-mode
     company
-    (company-anaconda :requires company)
+    counsel-gtags
     cython-mode
     eldoc
     evil-matchit
     flycheck
     ggtags
     helm-cscope
-    counsel-gtags
     helm-gtags
     (helm-pydoc :requires helm)
     hy-mode
     importmagic
     live-py-mode
-    (lsp-python :requires lsp-mode)
     (nose :location local)
     org
-    pipenv
     pip-requirements
+    pipenv
     pippel
     py-isort
     pyenv-mode
@@ -43,11 +40,15 @@
     stickyfunc-enhance
     xcscope
     yapfify
+    ;; packages for anaconda backend
+    anaconda-mode
+    (company-anaconda :requires company)
+    ;; packages for lsp backend
+    (lsp-python :requires lsp-mode)
     ))
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
-    :defer t
     :init (setq anaconda-mode-installation-directory
                 (concat spacemacs-cache-directory "anaconda-mode"))
     :config
