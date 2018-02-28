@@ -14,7 +14,6 @@
 
 (defun forth/init-forth-mode ()
   (use-package forth-mode
-    :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'forth-mode
             "ds" 'forth-see
             "eE" 'forth-eval

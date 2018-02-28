@@ -30,7 +30,6 @@
 ;; to be moved to spell-checking layer as well
 (defun auto-completion/init-ac-ispell ()
   (use-package ac-ispell
-    :defer t
     :init
     (progn
       (setq ac-ispell-requires 4)
@@ -41,7 +40,6 @@
 
 (defun auto-completion/init-auto-complete ()
   (use-package auto-complete
-    :defer t
     :init
     (setq ac-auto-start 0
           ac-delay auto-completion-idle-delay
@@ -68,7 +66,6 @@
 
 (defun auto-completion/init-auto-yasnippet ()
   (use-package auto-yasnippet
-    :defer t
     :init
     (progn
       (setq aya-persist-snippets-dir
@@ -82,7 +79,6 @@
 
 (defun auto-completion/init-company ()
   (use-package company
-    :defer t
     :init
     (progn
       (setq company-idle-delay auto-completion-idle-delay
@@ -121,7 +117,6 @@
 (defun auto-completion/init-company-statistics ()
   (use-package company-statistics
     :if auto-completion-enable-sort-by-usage
-    :defer t
     :init
     (progn
       (setq company-statistics-file (concat spacemacs-cache-directory
@@ -129,7 +124,7 @@
       (add-hook 'company-mode-hook 'company-statistics-mode))))
 
 (defun auto-completion/init-fuzzy ()
-  (use-package fuzzy :defer t))
+  (use-package fuzzy))
 
 (defun auto-completion/init-company-quickhelp ()
   (use-package company-quickhelp
@@ -144,7 +139,6 @@
 
 (defun auto-completion/init-helm-c-yasnippet ()
   (use-package helm-c-yasnippet
-    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys "is" 'spacemacs/helm-yas)
@@ -153,7 +147,6 @@
 (defun auto-completion/init-helm-company ()
   (use-package helm-company
     :if (configuration-layer/package-used-p 'company)
-    :defer t
     :init
     (with-eval-after-load 'company
       (define-key company-active-map (kbd "C-/") 'helm-company))))

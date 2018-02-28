@@ -14,7 +14,6 @@
 
 (defun salt/init-salt-mode ()
   (use-package salt-mode
-    :defer t
     :config (spacemacs/set-leader-keys-for-major-mode 'salt-mode "pb" 'mmm-parse-buffer)))
 
 (defun salt/pre-init-smartparens ()

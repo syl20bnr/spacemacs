@@ -17,7 +17,6 @@
 
 (defun neotree/init-neotree ()
   (use-package neotree
-    :defer t
     :commands neo-global--window-exists-p
     :init
     (progn

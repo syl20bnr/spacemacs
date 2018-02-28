@@ -26,7 +26,6 @@
   ;; this should start the omnisharp server automatically
   (add-hook 'csharp-mode-hook 'omnisharp-mode)
   (use-package omnisharp
-    :defer t
     :init
     (add-to-list 'spacemacs-jump-handlers-csharp-mode
                  '(omnisharp-go-to-definition :async t))
@@ -103,7 +102,7 @@
 
 (defun csharp/init-csharp-mode ()
   (use-package csharp-mode
-    :defer t))
+   ))
 
 (defun csharp/post-init-evil-matchit ()
   (with-eval-after-load 'evil-matchit

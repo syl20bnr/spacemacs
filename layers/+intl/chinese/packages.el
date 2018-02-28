@@ -72,11 +72,10 @@
 
 (defun chinese/init-find-by-pinyin-dired ()
   (use-package find-by-pinyin-dired
-    :defer t))
+   ))
 
 (defun chinese/init-ace-pinyin ()
   (use-package ace-pinyin
-    :defer t
     :init
     (progn
       (if chinese-enable-avy-pinyin
@@ -86,7 +85,6 @@
 
 (defun chinese/init-pangu-spacing ()
   (use-package pangu-spacing
-    :defer t
     :init (progn (global-pangu-spacing-mode 1)
                  (spacemacs|hide-lighter pangu-spacing-mode)
                  ;; Always insert `real' space in org-mode.

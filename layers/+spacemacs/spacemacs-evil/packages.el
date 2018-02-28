@@ -41,6 +41,7 @@
 
 (defun spacemacs-evil/init-evil-anzu ()
   (use-package evil-anzu
+    :demand t
     :init
     (global-anzu-mode t)
     :config
@@ -74,7 +75,6 @@
 
 (defun spacemacs-evil/init-evil-cleverparens ()
   (use-package evil-cleverparens
-    :defer t
     :init
     (progn
       (setq evil-cleverparens-use-regular-insert t)
@@ -131,12 +131,12 @@
 
 (defun spacemacs-evil/init-evil-lisp-state ()
   (use-package evil-lisp-state
+    :demand t
     :init (setq evil-lisp-state-global t)
     :config (spacemacs/set-leader-keys "k" evil-lisp-state-map)))
 
 (defun spacemacs-evil/init-evil-mc ()
   (use-package evil-mc
-    :defer t
     :init
     (progn
       ;; evil-mc is not compatible with the paste transient state
@@ -211,7 +211,7 @@
 
 (defun spacemacs-evil/init-evil-matchit ()
   (use-package evil-matchit
-    :defer t))
+   ))
 
 (defun spacemacs-evil/init-evil-numbers ()
   (use-package evil-numbers
@@ -278,7 +278,6 @@
 
 (defun spacemacs-evil/init-evil-visual-mark-mode ()
   (use-package evil-visual-mark-mode
-    :defer t
     :init
     (spacemacs|add-toggle evil-visual-mark-mode
       :mode evil-visual-mark-mode

@@ -45,7 +45,6 @@
 (defun colors/init-color-identifiers-mode ()
   (use-package color-identifiers-mode
     :commands color-identifiers-mode
-    :defer t
     :init
     (progn
       (when (eq 'variables colors-colorize-identifiers)
@@ -121,6 +120,5 @@
 
 (defun colors/init-rainbow-mode ()
   (use-package rainbow-mode
-    :defer t
     :init (spacemacs/set-leader-keys "tCc" 'rainbow-mode)
     :config (spacemacs|hide-lighter rainbow-mode)))

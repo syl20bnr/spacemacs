@@ -18,7 +18,6 @@
 
 (defun nim/init-nim-mode ()
   (use-package nim-mode
-    :defer t
     :init
     (progn
       (add-hook 'nim-mode-hook 'nimsuggest-mode)

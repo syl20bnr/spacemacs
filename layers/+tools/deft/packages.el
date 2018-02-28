@@ -14,7 +14,6 @@
 
 (defun deft/init-deft ()
   (use-package deft
-    :defer t
     :init
     (progn
       (setq deft-extensions '("org" "md" "txt")

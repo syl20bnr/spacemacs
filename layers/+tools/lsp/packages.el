@@ -23,7 +23,6 @@
 
 (defun lsp/init-company-lsp ()
   (use-package company-lsp
-    :defer t
     :init
     ;; Language servers have better idea filtering and sorting,
     ;; don't filter results on the client side.

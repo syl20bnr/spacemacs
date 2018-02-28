@@ -14,7 +14,6 @@
 
 (defun parinfer/init-parinfer ()
   (use-package parinfer
-    :defer t
     :diminish parinfer-mode
     :init
     (progn

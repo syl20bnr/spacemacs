@@ -24,7 +24,6 @@
 
 (defun idris/init-idris-mode ()
   (use-package idris-mode
-    :defer t
     :init (spacemacs/register-repl 'idris-mode 'idris-repl "idris")
     :config
     (progn

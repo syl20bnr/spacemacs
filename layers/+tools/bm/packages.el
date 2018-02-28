@@ -14,7 +14,6 @@
 (defun bm/init-bm ()
   "initializes bm-emacs and adds a key binding to `SPC f z'"
   (use-package bm
-    :defer t
     :commands (bm-buffer-restore)
     :init (progn
             ;; Allow cross-buffer 'next'

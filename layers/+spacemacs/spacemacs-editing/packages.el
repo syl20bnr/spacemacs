@@ -35,7 +35,6 @@
 
 (defun spacemacs-editing/init-aggressive-indent ()
   (use-package aggressive-indent
-    :defer t
     :init
     (progn
       (spacemacs|add-toggle aggressive-indent
@@ -53,7 +52,6 @@
 
 (defun spacemacs-editing/init-avy ()
   (use-package avy
-    :defer t
     :commands (spacemacs/avy-open-url spacemacs/avy-goto-url avy-pop-mark)
     :init
     (progn
@@ -81,7 +79,6 @@
 
 (defun spacemacs-editing/init-bracketed-paste ()
   (use-package bracketed-paste
-    :defer t
     :init
     ;; Enable bracketed-paste for tty
     (add-hook 'tty-setup-hook 'bracketed-paste-enable)))
@@ -104,7 +101,6 @@
 
 (defun spacemacs-editing/init-expand-region ()
   (use-package expand-region
-    :defer t
     :init (spacemacs/set-leader-keys "v" 'er/expand-region)
     :config
     (progn
@@ -139,7 +135,6 @@
 
 (defun spacemacs-editing/init-hexl ()
   (use-package hexl
-    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys "fh" 'hexl-find-file)
@@ -162,7 +157,6 @@
 
 (defun spacemacs-editing/init-hungry-delete ()
   (use-package hungry-delete
-    :defer t
     :init
     (spacemacs|add-toggle hungry-delete
       :mode hungry-delete-mode
@@ -176,7 +170,6 @@
 
 (defun spacemacs-editing/init-link-hint ()
   (use-package link-hint
-    :defer t
     :init
     (spacemacs/set-leader-keys
       "xo" 'link-hint-open-link
@@ -197,7 +190,6 @@
 
 (defun spacemacs-editing/init-move-text ()
   (use-package move-text
-    :defer t
     :init
     (spacemacs|define-transient-state move-text
       :title "Move Text Transient State"
@@ -210,7 +202,6 @@
 
 (defun spacemacs-editing/init-origami ()
   (use-package origami
-    :defer t
     :init
     (progn
       (global-origami-mode)
@@ -262,7 +253,6 @@
 
 (defun spacemacs-editing/init-password-generator ()
   (use-package password-generator
-    :defer t
     :init
     (progn
       (spacemacs/declare-prefix "ip" "passwords")
@@ -275,7 +265,6 @@
 
 (defun spacemacs-editing/init-smartparens ()
   (use-package smartparens
-    :defer t
     :commands (sp-split-sexp sp-newline sp-up-sexp)
     :init
     (progn

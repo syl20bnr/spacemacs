@@ -21,7 +21,6 @@
 
 (defun ipython-notebook/init-ein ()
   (use-package ein
-    :defer t
     :commands (ein:notebooklist-open ein:notebooklist-login)
     :init
     (progn

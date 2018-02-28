@@ -36,7 +36,6 @@
 (defun spacemacs-org/init-default-org-config ()
   (use-package org
     :commands (org-clock-out org-occur-in-agenda-files org-agenda-files)
-    :defer t
     :init
     (progn
       ;; FIXME: This check has been disabled pending a resolution of
@@ -64,12 +63,10 @@
 
 (defun spacemacs-org/init-org-bullets ()
   (use-package org-bullets
-    :defer t
     :init (add-hook 'org-mode-hook 'org-bullets-mode)))
 
 (defun spacemacs-org/init-toc-org ()
   (use-package toc-org
-    :defer t
     :init
     (progn
       (setq toc-org-max-depth 10)

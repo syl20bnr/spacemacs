@@ -17,7 +17,6 @@
 (defun pandoc/init-pandoc-mode ()
   "Initialize my package"
   (use-package pandoc-mode
-    :defer t
     :commands spacemacs/run-pandoc
     :config
     (progn
@@ -28,6 +27,5 @@
 
 (defun pandoc/init-ox-pandoc ()
   (use-package ox-pandoc
-    :defer t
     :init
     (with-eval-after-load 'org (require 'ox-pandoc))))

@@ -27,7 +27,6 @@
 
 (defun slack/init-alert ()
   (use-package alert
-    :defer t
     :init (setq alert-default-style 'notifier)))
 
 (defun slack/post-init-emoji-cheat-sheet-plus ()
@@ -58,7 +57,6 @@
   "Initialize Slack"
   (use-package slack
     :commands (slack-start)
-    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys

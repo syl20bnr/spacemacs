@@ -280,6 +280,7 @@
 (defun spacemacs-bootstrap/init-use-package ()
   (require 'use-package)
   (setq use-package-verbose init-file-debug
+        use-package-always-defer t
         ;; inject use-package hooks for easy customization of stock package
         ;; configuration
         use-package-inject-hooks t))

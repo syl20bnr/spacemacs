@@ -35,7 +35,6 @@
 
 (defun emacs-lisp/init-ielm ()
   (use-package ielm
-    :defer t
     :init
     (progn
       (spacemacs/register-repl 'ielm 'ielm)
@@ -60,7 +59,6 @@
 
 (defun emacs-lisp/init-debug ()
   (use-package debug
-    :defer t
     :init (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
             (spacemacs/declare-prefix-for-mode mode "md" "debug")
             (spacemacs/set-leader-keys-for-major-mode mode
@@ -70,7 +68,6 @@
 
 (defun emacs-lisp/init-edebug ()
   (use-package edebug
-    :defer t
     :init
     (progn
       ;; key bindings
@@ -108,7 +105,6 @@
 
 (defun emacs-lisp/init-auto-compile ()
   (use-package auto-compile
-    :defer t
     :init
     (progn
       (setq auto-compile-display-buffer nil
@@ -125,7 +121,6 @@
 (defun emacs-lisp/init-elisp-slime-nav ()
   ;; Elisp go-to-definition with M-. and back again with M-,
   (use-package elisp-slime-nav
-    :defer t
     :init
     (progn
       (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
@@ -161,7 +156,6 @@
 
 (defun emacs-lisp/init-macrostep ()
   (use-package macrostep
-    :defer t
     :mode (("\\*.el\\'" . emacs-lisp-mode)
            ("Cask\\'" . emacs-lisp-mode))
     :init
@@ -182,7 +176,6 @@
 
 (defun emacs-lisp/init-nameless ()
   (use-package nameless
-    :defer t
     :init
     (progn
       (setq
@@ -211,7 +204,6 @@
 
 (defun emacs-lisp/init-overseer ()
   (use-package overseer
-    :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
             "ta" 'overseer-test
             "tt" 'overseer-test-run-test

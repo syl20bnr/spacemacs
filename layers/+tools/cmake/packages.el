@@ -19,7 +19,6 @@
 (defun cmake/init-cmake-ide ()
   (use-package cmake-ide
     :if cmake-enable-cmake-ide-support
-    :defer t
     :init (spacemacs/add-to-hooks 'cmake-ide--mode-hook '(c-mode-hook
                                                           c++-mode-hook))
     :config
@@ -36,7 +35,6 @@
 
 (defun cmake/init-cmake-mode ()
   (use-package cmake-mode
-    :defer t
     :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))))
 
 (defun cmake/post-init-company ()
@@ -45,7 +43,6 @@
 
 (defun cmake/init-helm-ctest ()
   (use-package helm-ctest
-    :defer t
     :config
     (dolist (mode cmake-modes)
       (spacemacs/set-leader-keys-for-major-mode mode

@@ -9,7 +9,6 @@
 
 (defun dash/init-helm-dash ()
   (use-package helm-dash
-    :defer t
     :init (spacemacs/set-leader-keys
             "dh" 'helm-dash-at-point
             "dH" 'helm-dash)
@@ -17,7 +16,6 @@
 
 (defun dash/init-counsel-dash ()
   (use-package counsel-dash
-    :defer t
     :init (spacemacs/set-leader-keys
             "dh" 'counsel-dash-at-point
             "dH" 'counsel-dash)
@@ -25,14 +23,12 @@
 
 (defun dash/init-dash-at-point ()
   (use-package dash-at-point
-    :defer t
     :init (spacemacs/set-leader-keys
             "dd" 'dash-at-point
             "dD" 'dash-at-point-with-docset)))
 
 (defun dash/init-zeal-at-point ()
   (use-package zeal-at-point
-    :defer t
     :init (spacemacs/set-leader-keys
             "dd" 'zeal-at-point
             "dD" 'zeal-at-point-set-docset)

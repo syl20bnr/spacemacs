@@ -19,7 +19,6 @@
 
 (defun perl5/init-company-plsense ()
   (use-package company-plsense
-    :defer t
     :init
     (spacemacs|add-company-backends
       :backends company-plsense
@@ -27,7 +26,6 @@
 
 (defun perl5/init-cperl-mode ()
   (use-package cperl-mode
-    :defer t
     :mode "\\.\\(p[lm]x?\\|P[LM]X?\\)\\'"
     :interpreter "perl"
     :interpreter "perl5"

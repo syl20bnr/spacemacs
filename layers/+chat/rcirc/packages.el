@@ -45,7 +45,6 @@
 
 (defun rcirc/init-rcirc ()
   (use-package rcirc
-    :defer t
     :init
     (progn
       (spacemacs/add-to-hook 'rcirc-mode-hook '(rcirc-omit-mode
@@ -91,11 +90,10 @@
       (require 'rcirc-color))))
 
 (defun rcirc/init-rcirc-color ()
-  (use-package rcirc-color :defer t))
+  (use-package rcirc-color))
 
 (defun rcirc/init-rcirc-notify ()
   (use-package rcirc-notify
-    :defer t
     :config
     (progn
       (add-hook 'rcirc-notify-page-me-hooks 'spacemacs/rcirc-notify-beep))))

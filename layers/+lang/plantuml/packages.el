@@ -25,7 +25,6 @@
 
 (defun plantuml/init-plantuml-mode ()
   (use-package plantuml-mode
-    :defer t
     :mode ("\\.pum\\'" . plantuml-mode)
     :config (spacemacs/set-leader-keys-for-major-mode 'plantuml-mode
               "cc" 'plantuml-preview

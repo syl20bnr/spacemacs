@@ -39,7 +39,6 @@
 
 (defun markdown/init-gh-md ()
   (use-package gh-md
-    :defer t
     :init
     (dolist (mode markdown--key-bindings-modes)
       (spacemacs/set-leader-keys-for-major-mode mode
@@ -53,7 +52,6 @@
     :mode
     (("\\.m[k]d" . markdown-mode)
      ("\\.mdk" . markdown-mode))
-    :defer t
     :config
     (progn
       (add-hook 'markdown-mode-hook 'orgtbl-mode)
@@ -150,7 +148,6 @@
 
 (defun markdown/init-markdown-toc ()
   (use-package markdown-toc
-    :defer t
     :init
     (dolist (mode markdown--key-bindings-modes)
       (spacemacs/set-leader-keys-for-major-mode mode
@@ -165,7 +162,6 @@
 
 (defun markdown/init-vmd-mode ()
   (use-package vmd-mode
-    :defer t
     :init
     (dolist (mode markdown--key-bindings-modes)
       (spacemacs/set-leader-keys-for-major-mode mode

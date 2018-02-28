@@ -121,7 +121,6 @@
 
 (defun ess/init-ess-smart-equals ()
   (use-package ess-smart-equals
-    :defer t
     :init
     (progn
       (add-hook 'ess-mode-hook 'ess-smart-equals-mode)

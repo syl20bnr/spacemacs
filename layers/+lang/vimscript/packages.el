@@ -23,7 +23,6 @@
   (use-package vimrc-mode
     :mode "\\.vim[rc]?\\'"
     :mode "_vimrc\\'"
-    :defer t
     :init
     (progn
     (defun spacemacs//vimrc-mode-hook ()
@@ -40,7 +39,7 @@
     :mode "_vimperatorrc\\'"
     :mode "\\.penta\\'"
     :mode "\\.vimp\\'"
-    :defer t))
+   ))
 
 (defun vimscript/post-init-ggtags ()
   (add-hook 'vimrc-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

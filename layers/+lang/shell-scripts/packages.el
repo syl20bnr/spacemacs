@@ -25,7 +25,6 @@
 
 (defun shell-scripts/init-company-shell ()
   (use-package company-shell
-    :defer t
     :init
     (progn
       (spacemacs|add-company-backends
@@ -40,16 +39,14 @@
 
 (defun shell-scripts/init-flycheck-bashate ()
   (use-package flycheck-bashate
-    :defer t
     :init (add-hook 'sh-mode-hook 'flycheck-bashate-setup)))
 
 (defun shell-scripts/init-fish-mode ()
   (use-package fish-mode
-    :defer t))
+   ))
 
 (defun shell-scripts/init-sh-script ()
   (use-package sh-script
-    :defer t
     :init
     (progn
       ;; Add meaningful names for prefix categories
@@ -101,7 +98,6 @@
 
 (defun shell-scripts/init-insert-shebang ()
   (use-package insert-shebang
-    :defer t
     :init
     (progn
       ;; Insert shebang must be available for non shell modes like python or

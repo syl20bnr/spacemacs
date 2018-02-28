@@ -41,7 +41,6 @@
 
 (defun spacemacs-navigation/init-auto-highlight-symbol ()
   (use-package auto-highlight-symbol
-    :defer t
     :init
     (progn
       (setq ahs-case-fold-search nil
@@ -150,13 +149,11 @@
 
 (defun spacemacs-navigation/init-compile ()
   (use-package compile
-    :defer t
     :config
     (define-key compilation-mode-map "h" nil)))
 
 (defun spacemacs-navigation/init-doc-view ()
   (use-package doc-view
-    :defer t
     :init
     (evilified-state-evilify doc-view-mode doc-view-mode-map
       "/"  'spacemacs/doc-view-search-new-query
@@ -193,7 +190,6 @@
 
 (defun spacemacs-navigation/init-golden-ratio ()
   (use-package golden-ratio
-    :defer t
     :init
     (progn
       (spacemacs/transient-state-register-add-bindings 'window-manipulation
@@ -289,13 +285,11 @@
 
 (defun spacemacs-navigation/init-grep ()
   (use-package grep
-    :defer t
     :config
     (define-key grep-mode-map "h" nil)))
 
 (defun spacemacs-navigation/init-info+ ()
   (use-package info+
-    :defer t
     :init
     (progn
       (with-eval-after-load 'info
@@ -304,7 +298,6 @@
 
 (defun spacemacs-navigation/init-open-junk-file ()
   (use-package open-junk-file
-    :defer t
     :commands (open-junk-file)
     :init
     (progn
@@ -328,7 +321,6 @@
 
 (defun spacemacs-navigation/init-restart-emacs ()
   (use-package restart-emacs
-    :defer t
     :init
     (spacemacs/set-leader-keys
       "qd" 'spacemacs/restart-emacs-debug-init
@@ -351,6 +343,7 @@
 
 (defun spacemacs-navigation/init-winum ()
   (use-package winum
+    :demand t
     :config
     (progn
       (setq winum-auto-assign-0-to-minibuffer nil
