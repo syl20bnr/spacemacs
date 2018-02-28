@@ -175,7 +175,6 @@ In the file =packages.el= of the python layer:
 
   (defun python/init-company-anaconda ()
     (use-package company-anaconda
-      :defer t
       :init
       (spacemacs|add-company-backends
          :backends company-anaconda

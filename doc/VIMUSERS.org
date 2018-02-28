@@ -386,14 +386,12 @@ that allows easy lazy-loading and configuration of packages. Here are the basics
 to using it:
 
 #+BEGIN_SRC emacs-lisp
-  ;; Basic form of use-package declaration. The :defer t tells use-package to
-  ;; try to lazy load the package.
-  (use-package package-name
-    :defer t)
+  ;; Basic form of use-package declaration. By default the package will be
+  ;; lazy loaded.
+  (use-package package-name)
   ;; The :init section is run before the package loads. The :config section is
   ;; run after the package loads
   (use-package package-name
-    :defer t
     :init
     (progn
       ;; Change some variables
