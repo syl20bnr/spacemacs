@@ -204,7 +204,7 @@ Find it with your favourite package manager, eg:
 or refer to [[http://www.scala-sbt.org/download.html][the sbt installation instructions]].
 
 *** Installation when using Gradle
-Refer to the [[https://ensime.org/build_tools/gradle/][Ensime installation instructions]] to install the =ensime-gradle=
+Refer to the [[https://ensime.github.io/build_tools/gradle/][Ensime installation instructions]] to install the =ensime-gradle=
 plugin.
 
 *** Configuration
