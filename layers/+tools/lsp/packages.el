@@ -39,11 +39,11 @@
   (use-package lsp-mode
     :config
     (progn
-      (add-hook 'lsp-mode-hook #'lsp-ui-mode)
       (spacemacs|hide-lighter lsp-mode))))
 
 (defun lsp/init-lsp-ui ()
   (use-package lsp-ui
+    :init (add-hook 'lsp-mode-hook #'lsp-ui-mode)
     :config
     (progn
       (spacemacs//lsp-sync-peek-face)
