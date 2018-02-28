@@ -39,7 +39,6 @@
 
 (defun git/init-evil-magit ()
   (use-package evil-magit
-    :defer t
     :init (add-hook 'spacemacs-editing-style-hook
                     'spacemacs//magit-evil-magit-bindings)))
 
@@ -48,16 +47,14 @@
 
 (defun git/init-helm-gitignore ()
   (use-package helm-gitignore
-    :defer t
     :init (spacemacs/set-leader-keys "gI" 'helm-gitignore)))
 
 (defun git/init-git-commit ()
   (use-package git-commit
-    :defer t))
+   ))
 
 (defun git/init-git-link ()
   (use-package git-link
-    :defer t
     :init
     (progn
       (spacemacs/declare-prefix "gl" "links")
@@ -71,13 +68,11 @@
 
 (defun git/init-git-messenger ()
   (use-package git-messenger
-    :defer t
     :init (spacemacs/set-leader-keys "gM" 'git-messenger:popup-message)
     :config (define-key git-messenger-map [escape] 'git-messenger:popup-close)))
 
 (defun git/init-git-timemachine ()
   (use-package git-timemachine
-    :defer t
     :commands spacemacs/time-machine-transient-state/body
     :init
     (spacemacs/set-leader-keys
@@ -105,19 +100,18 @@
 
 (defun git/init-gitattributes-mode ()
   (use-package gitattributes-mode
-    :defer t))
+   ))
 
 (defun git/init-gitconfig-mode ()
   (use-package gitconfig-mode
-    :defer t))
+   ))
 
 (defun git/init-gitignore-mode ()
   (use-package gitignore-mode
-    :defer t))
+   ))
 
 (defun git/init-magit ()
   (use-package magit
-    :defer t
     :init
     (progn
       (setq magit-completing-read-function
@@ -214,7 +208,6 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
 
 (defun git/init-smeargle ()
   (use-package smeargle
-    :defer t
     :init
     (progn
       (spacemacs/declare-prefix "gH" "highlight")

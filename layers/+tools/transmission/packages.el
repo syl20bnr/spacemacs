@@ -14,7 +14,6 @@
 
 (defun transmission/init-transmission ()
   (use-package transmission
-    :defer t
     :init (progn
             (spacemacs/set-leader-keys "at" 'transmission)
             (spacemacs/declare-prefix-for-mode 'transmission-mode "ma" "add")

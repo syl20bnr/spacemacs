@@ -36,7 +36,6 @@
 
 (defun go/init-company-go ()
   (use-package company-go
-    :defer t
     :init
     (spacemacs|add-company-backends
       :backends company-go
@@ -55,7 +54,6 @@
 
 (defun go/init-go-mode()
   (use-package go-mode
-    :defer t
     :init
     (progn
       (defun spacemacs//go-set-tab-width ()
@@ -115,7 +113,6 @@
 
 (defun go/init-godoctor ()
   (use-package godoctor
-    :defer t
     :init
     (progn
       (spacemacs/declare-prefix-for-mode 'go-mode "mr" "refactoring")
@@ -135,7 +132,6 @@
 
 (defun go/init-flycheck-gometalinter ()
   (use-package flycheck-gometalinter
-    :defer t
     :init
     (add-hook 'go-mode-hook 'spacemacs//go-enable-gometalinter t)))
 

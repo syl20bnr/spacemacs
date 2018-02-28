@@ -66,7 +66,6 @@
 
 (defun spacemacs-base/init-ace-window ()
   (use-package ace-window
-    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys
@@ -86,7 +85,6 @@
 
 (defun spacemacs-base/init-bookmark ()
   (use-package bookmark
-    :defer t
     :init
     (progn
       (setq bookmark-default-file (concat spacemacs-cache-directory "bookmarks")
@@ -137,7 +135,6 @@
 ;; ```
 (defun spacemacs-base/init-ediff ()
   (use-package ediff
-    :defer t
     :init
     (progn
       ;; first we set some sane defaults
@@ -154,7 +151,6 @@
 
 (defun spacemacs-base/init-eldoc ()
   (use-package eldoc
-    :defer t
     :config
     (progn
       ;; enable eldoc in `eval-expression'
@@ -170,7 +166,8 @@
     :config (spacemacs|hide-lighter evil-escape-mode)))
 
 (defun spacemacs-base/init-evil-evilified-state ()
-  (use-package evil-evilified-state)
+  (use-package evil-evilified-state
+    :demand t)
   (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
     spacemacs-default-map))
 
@@ -264,7 +261,6 @@
 
 (defun spacemacs-base/init-imenu ()
   (use-package imenu
-    :defer t
     :init (spacemacs/set-leader-keys "ji" 'imenu)))
 
 (defun spacemacs-base/init-linum ()
@@ -303,7 +299,6 @@
 
 (defun spacemacs-base/init-pcre2el ()
   (use-package pcre2el
-    :defer t
     :init
     (progn
       (spacemacs/declare-prefix "xr" "regular expressions")
@@ -393,7 +388,6 @@
 
 (defun spacemacs-base/init-recentf ()
   (use-package recentf
-    :defer t
     :init
     (progn
       ;; lazy load recentf
@@ -441,7 +435,6 @@
 
 (defun spacemacs-base/init-spacemacs-theme ()
   (use-package spacemacs-theme
-    :defer t
     :init
     (progn
       (setq spacemacs-theme-comment-bg t)
@@ -449,7 +442,6 @@
 
 (defun spacemacs-base/init-subword ()
   (use-package subword
-    :defer t
     :init
     (progn
       (unless (category-docstring ?U)
@@ -495,7 +487,6 @@
 
 (defun spacemacs-base/init-whitespace ()
   (use-package whitespace
-    :defer t
     :init
     (progn
       (setq spacemacs-show-trailing-whitespace t)

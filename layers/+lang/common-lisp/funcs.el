@@ -32,3 +32,11 @@
   (interactive)
   (move-end-of-line 1)
   (slime-eval-last-expression))
+
+
+;; smartparens
+
+(defun spacemacs/slime-disable-smartparens ()
+  "Disable smartparens."
+  (smartparens-strict-mode -1)
+  (turn-off-smartparens-mode))

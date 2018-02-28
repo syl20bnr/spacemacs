@@ -33,7 +33,6 @@
 
 (defun spacemacs-modeline/init-fancy-battery ()
   (use-package fancy-battery
-    :defer t
     :init
     (progn
       (spacemacs|add-toggle mode-line-battery
@@ -51,6 +50,7 @@
 (defun spacemacs-modeline/init-spaceline ()
   (use-package spaceline-config
     :if (memq (spacemacs/get-mode-line-theme-name) '(spacemacs all-the-icons custom))
+    :demand t
     :init
     (progn
       (add-hook 'spacemacs-post-user-config-hook 'spaceline-compile)
@@ -159,7 +159,6 @@
 
 (defun spacemacs-modeline/init-spaceline-all-the-icons ()
   (use-package spaceline-all-the-icons
-    :defer t
     :init
     (progn
       (setq
@@ -170,7 +169,6 @@
 
 (defun spacemacs-modeline/init-symon ()
   (use-package symon
-    :defer t
     :init
     (progn
       (setq symon-delay 0

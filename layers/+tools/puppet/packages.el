@@ -18,7 +18,6 @@
 
 (defun puppet/init-puppet-mode ()
   (use-package puppet-mode
-    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'puppet-mode

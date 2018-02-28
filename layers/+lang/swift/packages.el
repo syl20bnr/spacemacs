@@ -22,7 +22,6 @@
 (defun swift/init-swift-mode ()
   (use-package swift-mode
     :mode ("\\.swift\\'" . swift-mode)
-    :defer t
     :init
     (progn
       (spacemacs|advise-commands "store-initial-buffer-name"

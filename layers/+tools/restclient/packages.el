@@ -41,7 +41,6 @@
 
 (defun restclient/init-restclient ()
   (use-package restclient
-    :defer t
     :init
     (progn
       (unless restclient-use-org
@@ -57,13 +56,11 @@
 
 (defun restclient/init-company-restclient ()
   (use-package company-restclient
-    :defer t
     :init (spacemacs|add-company-backends
             :backends company-restclient
             :modes restclient-mode)))
 
 (defun restclient/init-restclient-helm ()
   (use-package restclient-helm
-    :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'restclient-mode
             "ji" 'helm-restclient)))

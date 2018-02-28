@@ -17,7 +17,7 @@
 
 (defun unicode-fonts/init-persistent-soft ()
   (use-package persistent-soft
-    :defer t))
+   ))
 
 (defun unicode-fonts/init-unicode-fonts ()
   (use-package unicode-fonts

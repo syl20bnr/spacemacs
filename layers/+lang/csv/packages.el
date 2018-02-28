@@ -13,7 +13,6 @@
 
 (defun csv/init-csv-mode ()
   (use-package csv-mode
-    :defer t
     :init
     (progn
       (spacemacs/declare-prefix-for-mode 'csv-mode "ms" "sort")

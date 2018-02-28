@@ -19,12 +19,10 @@
 
 (defun ycmd/init-company-ycmd ()
   (use-package company-ycmd
-    :defer t
     :commands company-ycmd))
 
 (defun ycmd/init-flycheck-ycmd ()
   (use-package flycheck-ycmd
-    :defer t
     :init (add-hook 'ycmd-mode-hook 'flycheck-ycmd-setup)))
 
 (defun ycmd/post-init-eldoc ()
@@ -32,7 +30,6 @@
 
 (defun ycmd/init-ycmd ()
   (use-package ycmd
-    :defer t
     :init
     (progn
       (unless (boundp 'ycmd-global-config)

@@ -40,7 +40,6 @@
 
 (defun racket/init-racket-mode ()
   (use-package racket-mode
-    :defer t
     :init
     (progn
       (spacemacs/register-repl 'racket-mode 'racket-repl "racket"))

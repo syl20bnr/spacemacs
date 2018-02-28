@@ -13,7 +13,6 @@
 
 (defun pass/init-password-store ()
   (use-package password-store
-    :defer t
     :init
     (progn
       (spacemacs/declare-prefix "Ap" "pass")

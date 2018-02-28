@@ -13,7 +13,6 @@
 
 (defun xkcd/init-xkcd ()
   (use-package xkcd-mode
-    :defer t
     :init
     (progn
       (setq xkcd-cache-dir (concat spacemacs-cache-directory "xkcd/"))

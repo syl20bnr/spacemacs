@@ -13,7 +13,6 @@
 
 (defun vagrant/init-vagrant ()
   (use-package vagrant
-    :defer t
     :init
     (progn
       (spacemacs/declare-prefix "aV" "vagrant")
@@ -30,7 +29,6 @@
 
 (defun vagrant/init-vagrant-tramp ()
   (use-package vagrant-tramp
-    :defer t
     :init
     (progn
       (defvar spacemacs--vagrant-tramp-loaded nil)

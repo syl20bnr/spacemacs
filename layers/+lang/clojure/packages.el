@@ -33,7 +33,6 @@
 
 (defun clojure/init-cider ()
   (use-package cider
-    :defer t
     :init
     (progn
       (spacemacs/register-repl 'cider 'cider-jack-in "cider")
@@ -242,7 +241,6 @@
 
 (defun clojure/init-clj-refactor ()
   (use-package clj-refactor
-    :defer t
     :init
     (add-hook 'clojure-mode-hook 'clj-refactor-mode)
     :config
@@ -286,7 +284,6 @@
 
 (defun clojure/init-clojure-cheatsheet ()
   (use-package clojure-cheatsheet
-    :defer t
     :init
     (progn
       (setq sayid--key-binding-prefixes
@@ -305,7 +302,6 @@
 
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
-    :defer t
     :init
     (progn
       (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
@@ -341,13 +337,14 @@
     (push '("*cider-doc*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
           popwin:special-display-config)))
 
-(defun clojure/post-init-smartparens ()
-  (add-hook 'cider-repl-mode-hook
-            (if dotspacemacs-smartparens-strict-mode
-                #'smartparens-strict-mode
-              #'smartparens-mode))
-  (with-eval-after-load 'smartparens
-    (sp-local-pair 'clojure-mode "`" nil :actions nil)))
+(defun clojure/pre-init-smartparens ()
+  (spacemacs|use-package-add-hook smartparens
+    :post-config
+    (progn
+      (sp-local-pair 'clojure-mode "`" nil :actions nil)
+      (add-hook 'cider-repl-mode-hook (if dotspacemacs-smartparens-strict-mode
+                                          #'smartparens-strict-mode
+                                        #'smartparens-mode)))))
 
 (defun clojure/post-init-subword ()
   (add-hook 'cider-mode-hook 'subword-mode))
@@ -370,7 +367,7 @@
 
 (defun clojure/init-clojure-snippets ()
   (use-package clojure-snippets
-    :defer t))
+   ))
 
 (defun clojure/pre-init-org ()
   (spacemacs|use-package-add-hook org
@@ -379,7 +376,6 @@
 
 (defun clojure/init-sayid ()
   (use-package sayid
-    :defer t
     :init
     (progn
       (setq sayid--key-binding-prefixes

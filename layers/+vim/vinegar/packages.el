@@ -18,7 +18,6 @@
 
 (defun vinegar/init-dired+ ()
   (use-package dired+
-    :defer t
     :init
     (progn
       (setq diredp-hide-details-initially-flag t)
@@ -31,7 +30,6 @@
 
 (defun vinegar/post-init-diff-hl ()
   (use-package diff-hl
-    :defer t
     :init
     (progn
       (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
@@ -39,7 +37,6 @@
 
 (defun vinegar/post-init-dired ()
   (use-package dired
-    :defer t
     :config
     (evilified-state-evilify dired-mode dired-mode-map
       "j"         'vinegar/move-down

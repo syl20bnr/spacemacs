@@ -37,5 +37,4 @@
 
 (defun perl6/init-perl6-mode()
   (use-package perl6-mode
-    :defer t
     :mode (("/perl6/site/sources/" . perl6-mode))))

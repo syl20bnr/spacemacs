@@ -21,7 +21,6 @@
 
 (defun faust/init-faust-mode ()
   (use-package faust-mode
-    :defer t
     :mode "\\.\\(dsp\\|lib\\)\\'"
     :init
     (progn

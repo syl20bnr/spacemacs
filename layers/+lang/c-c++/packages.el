@@ -39,7 +39,6 @@
 
 (defun c-c++/init-cc-mode ()
   (use-package cc-mode
-    :defer t
     :init
     (progn
       (add-to-list 'auto-mode-alist
@@ -58,7 +57,6 @@
 
 (defun c-c++/init-disaster ()
   (use-package disaster
-    :defer t
     :commands (disaster)
     :init
     (progn
@@ -90,7 +88,6 @@
 
 (defun c-c++/init-company-c-headers ()
   (use-package company-c-headers
-    :defer t
     :init (spacemacs|add-company-backends
             :backends company-c-headers
             :modes c-mode-common)))
@@ -98,7 +95,6 @@
 (defun c-c++/init-company-rtags ()
   (use-package company-rtags
     :if c-c++-enable-rtags-support
-    :defer t
     :init
     (progn
       (setq rtags-completions-enabled t)
@@ -125,7 +121,6 @@
 
 (defun c-c++/init-gdb-mi ()
   (use-package gdb-mi
-    :defer t
     :init
     (setq
      ;; use gdb-many-windows by default when `M-x gdb'
@@ -203,7 +198,6 @@
 
 (defun c-c++/init-realgud()
   (use-package realgud
-    :defer t
     :commands (realgud:gdb)
     :init
     (progn

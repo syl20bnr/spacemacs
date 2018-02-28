@@ -38,7 +38,6 @@
   (defun ocaml/init-flycheck-ocaml ()
     (use-package flycheck-ocaml
       :if (configuration-layer/package-used-p 'flycheck)
-      :defer t
       :init
       (progn
         (with-eval-after-load 'merlin
@@ -56,7 +55,6 @@
 
 (defun ocaml/init-merlin ()
   (use-package merlin
-    :defer t
     :init
     (progn
       (add-to-list 'spacemacs-jump-handlers-tuareg-mode
@@ -86,7 +84,6 @@
 
 (defun ocaml/init-ocp-indent ()
   (use-package ocp-indent
-    :defer t
     :init
     (add-hook 'tuareg-mode-hook 'ocp-indent-caml-mode-setup)
     (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
@@ -102,7 +99,6 @@
   (use-package tuareg
     :mode (("\\.ml[ily]?$" . tuareg-mode)
            ("\\.topml$" . tuareg-mode))
-    :defer t
     :init
     (progn
       (spacemacs//init-ocaml-opam)
@@ -115,7 +111,6 @@
 
 (defun ocaml/init-utop ()
   (use-package utop
-    :defer t
     :init
     (progn
       (add-hook 'tuareg-mode-hook 'utop-minor-mode)

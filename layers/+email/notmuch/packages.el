@@ -22,17 +22,14 @@
 
 (defun notmuch/init-counsel-notmuch ()
   (use-package counsel-notmuch
-    :defer t
     :init (spacemacs/set-leader-keys "aNn" 'counsel-notmuch)))
 
 (defun notmuch/init-helm-notmuch ()
   (use-package helm-notmuch
-    :defer t
     :init (spacemacs/set-leader-keys "aNn" 'helm-notmuch)))
 
 (defun notmuch/init-notmuch ()
   (use-package notmuch
-    :defer t
     :commands notmuch
     :init
     (progn

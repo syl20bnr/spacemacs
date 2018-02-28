@@ -19,7 +19,6 @@
 
 (defun gtags/init-counsel-gtags ()
   (use-package counsel-gtags
-    :defer t
     :init
     (progn
       (setq counsel-gtags-ignore-case t
@@ -34,7 +33,6 @@
 
 (defun gtags/init-ggtags ()
   (use-package ggtags
-    :defer t
     :init
     (progn
       ;; modes that do not have a layer, add here.
@@ -103,7 +101,6 @@
 
 (defun gtags/init-helm-gtags ()
   (use-package helm-gtags
-    :defer t
     :init
     (progn
       (setq helm-gtags-ignore-case t

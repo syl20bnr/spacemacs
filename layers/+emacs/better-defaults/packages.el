@@ -16,7 +16,6 @@
 
 (defun better-defaults/init-mwim ()
   (use-package mwim
-    :defer t
     :init
     (progn
       (if better-defaults-move-to-beginning-of-code-first
@@ -29,7 +28,6 @@
 
 (defun better-defaults/init-unfill ()
   (use-package unfill
-    :defer t
     :commands (unfill-region unfill-paragraph unfill-toggle)
     :init
     (global-set-key [remap fill-paragraph] #'unfill-toggle)))

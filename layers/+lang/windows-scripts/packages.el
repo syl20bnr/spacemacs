@@ -60,7 +60,6 @@
   (use-package powershell
     :mode (("\\.ps1\\'"  . powershell-mode)
            ("\\.psm1\\'" . powershell-mode))
-    :defer t
     :init
     (progn
       (defun powershell/define-text-objects ()

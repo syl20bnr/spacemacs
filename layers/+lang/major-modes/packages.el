@@ -44,7 +44,6 @@
 
 (defun major-modes/init-matlab-mode ()
   (use-package matlab-mode
-    :defer t
     :init
     ;; Explicitly run prog-mode hooks since matlab-mode does not derive from
     ;; prog-mode major-mode
@@ -53,7 +52,6 @@
 (defun major-modes/init-pkgbuild-mode ()
   (use-package pkgbuild-mode
     :mode ("\\`PKGBUILD\\'" . pkgbuild-mode)
-    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'pkgbuild-mode
@@ -66,7 +64,6 @@
 
 (defun major-modes/init-qml-mode ()
   (use-package qml-mode
-    :defer t
     :mode "\\.qml\\'"))
 
 (defun major-modes/init-scad-mode ())
@@ -77,7 +74,6 @@
 
 (defun major-modes/init-vala-mode ()
   (use-package vala
-    :defer t
     :init
     ;; Explicitly run prog-mode hooks since vala-mode does not derive from
     ;; prog-mode major-mode
@@ -89,6 +85,5 @@
 ;; MATLAB/Octave, manually invoke for .m files.
 (defun major-modes/init-wolfram-mode ()
   (use-package wolfram-mode
-    :defer t
     :interpreter "\\(Wolfram\\|Mathematica\\)Script\\( -script\\)?"
     :mode "\\.wl\\'"))

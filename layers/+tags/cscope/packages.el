@@ -42,7 +42,6 @@
 
 (defun cscope/init-helm-cscope ()
   (use-package helm-cscope
-    :defer t
     :init
     (defun spacemacs/setup-helm-cscope (mode)
       "Setup `helm-cscope' for MODE"

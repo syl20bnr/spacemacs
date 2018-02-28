@@ -19,7 +19,6 @@
 
 (defun docker/init-docker ()
   (use-package docker
-    :defer t
     :init
     (progn
       (spacemacs/declare-prefix "aD" "Docker")
@@ -44,11 +43,10 @@
 
 (defun docker/init-docker-tramp ()
   (use-package docker-tramp
-    :defer t))
+   ))
 
 (defun docker/init-dockerfile-mode ()
   (use-package dockerfile-mode
-    :defer t
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'dockerfile-mode

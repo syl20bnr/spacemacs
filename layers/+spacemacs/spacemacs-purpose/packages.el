@@ -29,7 +29,6 @@
 
 (defun spacemacs-purpose/init-helm-purpose ()
   (use-package helm-purpose
-    :defer t
     :init
     (progn
       (setq purpose-preferred-prompt 'helm)
@@ -44,7 +43,6 @@
 (defun spacemacs-purpose/init-ivy-purpose ()
   ;; vanilla lets `ivy' take over
   (use-package ivy-purpose
-    :defer t
     :init
     (progn
       (setq purpose-preferred-prompt 'vanilla)

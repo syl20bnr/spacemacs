@@ -16,7 +16,6 @@
 
 (defun twitter/init-twittering-mode ()
   (use-package twittering-mode
-    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys "at" 'twit)

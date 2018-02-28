@@ -36,7 +36,6 @@
 
 (defun helm/init-ace-jump-helm-line ()
   (use-package ace-jump-helm-line
-    :defer t
     :init
     (with-eval-after-load 'helm
       (define-key helm-map (kbd "C-q") 'ace-jump-helm-line))))
@@ -59,7 +58,6 @@
 
 (defun helm/init-helm ()
   (use-package helm
-    :defer 1
     :commands (spacemacs/helm-find-files
                helm-current-directory)
     :init
@@ -148,7 +146,6 @@
 
 (defun helm/init-helm-ag ()
   (use-package helm-ag
-    :defer t
     :init
     (progn
       (defun spacemacs//helm-do-ag-region-or-symbol (func &optional dir)
@@ -581,7 +578,6 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
 (defun helm/init-helm-descbinds ()
   (use-package helm-descbinds
-    :defer t
     :init
     (progn
       (setq helm-descbinds-window-style 'split)
@@ -598,11 +594,10 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       (helm-flx-mode))))
 
 (defun helm/init-helm-flx ()
-  (use-package helm-flx :defer t))
+  (use-package helm-flx))
 
 (defun helm/init-helm-make ()
   (use-package helm-make
-    :defer t
     :init
     (spacemacs/set-leader-keys
       "cc" 'helm-make-projectile
@@ -610,7 +605,6 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
 (defun helm/init-helm-mode-manager ()
   (use-package helm-mode-manager
-    :defer t
     :init
     (spacemacs/set-leader-keys
       "hM"    'helm-switch-major-mode
@@ -678,7 +672,6 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
 (defun helm/init-helm-swoop ()
   (use-package helm-swoop
-    :defer t
     :init
     (progn
       (setq helm-swoop-split-with-multiple-windows t
@@ -708,14 +701,12 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
 (defun helm/init-helm-themes ()
   (use-package helm-themes
-    :defer t
     :init
     (spacemacs/set-leader-keys
       "Ts" 'spacemacs/helm-themes)))
 
 (defun helm/init-helm-xref ()
   (use-package helm-xref
-    :defer t
     :init
     (progn
       ;; This is required to make `xref-find-references' not give a prompt.

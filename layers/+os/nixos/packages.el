@@ -18,11 +18,10 @@
 
 (defun nixos/init-company-nixos-options ()
   (use-package company-nixos-options
-    :defer t))
+   ))
 
 (defun nixos/init-helm-nixos-options ()
   (use-package helm-nixos-options
-    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys
@@ -30,14 +29,13 @@
 
 (defun nixos/init-nix-mode ()
   (use-package nix-mode
-    :defer t
     :init
     (add-to-list 'spacemacs-indent-sensitive-modes 'nix-mode)
     :config
     (electric-indent-mode -1)))
 
 (defun nixos/init-nixos-options ()
-  (use-package nixos-options :defer t))
+  (use-package nixos-options))
 
 (defun nixos/post-init-flycheck ()
   (spacemacs/enable-flycheck 'nix-mode))

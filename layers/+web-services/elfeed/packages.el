@@ -18,7 +18,6 @@
 
 (defun elfeed/init-elfeed ()
   (use-package elfeed
-    :defer t
     :init (spacemacs/set-leader-keys "af" 'elfeed)
     :config
     (progn
@@ -65,12 +64,10 @@
 
 (defun elfeed/init-elfeed-org ()
   (use-package elfeed-org
-    :defer t
     :if (boundp 'rmh-elfeed-org-files)))
 
 (defun elfeed/init-elfeed-web ()
   (use-package elfeed-web
-    :defer t
     :commands elfeed-web-stop
     :init (when elfeed-enable-web-interface
             ;; TODO check if the port is already in use

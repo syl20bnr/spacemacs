@@ -30,7 +30,6 @@
 
 (defun d/init-company-dcd ()
   (use-package company-dcd
-    :defer t
     :init
     (progn
       (spacemacs|add-company-backends :backends company-dcd :modes d-mode)
@@ -41,13 +40,13 @@
         "gr" 'company-dcd-ivy-search-symbol))))
 
 (defun d/init-d-mode ()
-  (use-package d-mode :defer t))
+  (use-package d-mode))
 
 (defun d/post-init-flycheck ()
   (spacemacs/enable-flycheck 'd-mode))
 
 (defun d/init-flycheck-dmd-dub ()
-  (use-package flycheck-dmd-dub :defer t
+  (use-package flycheck-dmd-dub
     :init
     (progn
       (add-hook 'd-mode-hook 'flycheck-dmd-dub-set-include-path)

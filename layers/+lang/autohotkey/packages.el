@@ -16,7 +16,6 @@
 (defun autohotkey/init-ahk-mode ()
   (use-package ahk-mode
     :mode "\\.ahk\\'"
-    :defer t
     :init
     (spacemacs/set-leader-keys-for-major-mode 'ahk-mode
       "cb" 'ahk-comment-block-dwim

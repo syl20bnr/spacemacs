@@ -164,7 +164,6 @@
 
 (defun ivy/init-helm-make ()
   (use-package helm-make
-    :defer t
     :init
     (progn
       (setq helm-make-completion-method 'ivy)
@@ -218,7 +217,6 @@
 
 (defun ivy/init-ivy-rich ()
   (use-package ivy-rich
-    :defer t
     :init
     (progn
       (setq ivy-rich-abbreviate-paths t
@@ -247,7 +245,6 @@
 
 (defun ivy/init-ivy-xref ()
   (use-package ivy-xref
-    :defer t
     :init
     (progn
       (setq xref-prompt-for-identifier '(not xref-find-definitions
@@ -316,7 +313,6 @@
 
 (defun ivy/init-smex ()
   (use-package smex
-    :defer t
     :init (setq-default smex-history-length 32
                         smex-save-file (concat spacemacs-cache-directory
                                                ".smex-items"))))
