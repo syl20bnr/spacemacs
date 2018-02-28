@@ -50,6 +50,7 @@
 
 (defun ivy/init-counsel ()
   (use-package counsel
+    :demand t
     :init
     (progn
       (spacemacs/set-leader-keys
@@ -160,7 +161,7 @@
     "re" 'spacemacs/ivy-evil-registers))
 
 (defun ivy/init-flx ()
-  (use-package flx))
+  (use-package flx :demand t))
 
 (defun ivy/init-helm-make ()
   (use-package helm-make
@@ -176,6 +177,7 @@
 
 (defun ivy/init-ivy ()
   (use-package ivy
+    :demand t
     :init
     (progn
       ;; Key bindings
@@ -212,7 +214,7 @@
       (setq ivy-use-selectable-prompt t))))
 
 (defun ivy/init-ivy-hydra ()
-  (use-package ivy-hydra)
+  (use-package ivy-hydra :demand t)
   (define-key hydra-ivy/keymap [escape] 'hydra-ivy/keyboard-escape-quit-and-exit))
 
 (defun ivy/init-ivy-rich ()
@@ -319,6 +321,7 @@
 
 (defun ivy/init-swiper ()
   (use-package swiper
+    :demand t
     :config
     (progn
       (spacemacs/set-leader-keys
