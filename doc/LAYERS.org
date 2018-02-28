@@ -228,16 +228,16 @@ The aspiring layer author is recommended to have a look at the =use-package=
 This simply loads Helm. It is essentially equivalent to =(require 'helm)=.
 
 #+begin_src emacs-lisp
-(use-package helm
-  :defer t)
+(use-package helm)
 #+end_src
 
-This defers the loading of Helm using the auto-load facility and the auto-load
-commands provided by the Helm source code. It is, in fact, a no-op.
+By default =use-package= will try to defer the loading of the packages by using
+the auto-load facility and the auto-load commands provided by the package source
+code. So actually in the example above the code won't load =Helm= until one of
+the auto-loaded functions is called.
 
 #+begin_src emacs-lisp
 (use-package helm
-  :defer t
   :init
   ;; Code to execute before Helm is loaded
   :config
@@ -250,6 +250,15 @@ section can be executed immediately, but since Helm is deferred, the =:config=
 section is not executed until after loading, if ever. It is essentially
 equivalent to simply running the =:init= block, and then adding the =:config=
 block in an =with-eval-after-load=.
+
+#+begin_src emacs-lisp
+(use-package helm
+  :demand t)
+#+end_src
+
+=:demand t= will force the package to be fully loaded right away. It
+effectively disable lazy loading.
+
 
 #+begin_src emacs-lisp
 (use-package helm
