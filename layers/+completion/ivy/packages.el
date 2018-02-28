@@ -212,7 +212,8 @@
       (setq ivy-use-selectable-prompt t))))
 
 (defun ivy/init-ivy-hydra ()
-  (use-package ivy-hydra)
+  (use-package ivy-hydra
+    :demand t)
   (define-key hydra-ivy/keymap [escape] 'hydra-ivy/keyboard-escape-quit-and-exit))
 
 (defun ivy/init-ivy-rich ()
