@@ -274,7 +274,8 @@
 
 (defun spacemacs-evil/init-evil-unimpaired ()
   ;; No laziness here, unimpaired bindings should be available right away.
-  (use-package evil-unimpaired))
+  (use-package evil-unimpaired
+    :demand t))
 
 (defun spacemacs-evil/init-evil-visual-mark-mode ()
   (use-package evil-visual-mark-mode
