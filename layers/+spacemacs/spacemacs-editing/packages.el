@@ -403,4 +403,5 @@
   ;; not deferred on purpose, init-spacemacs-whitespace-cleanup need
   ;; it to be loaded.
   (use-package ws-butler
+    :demand t
     :config (spacemacs|hide-lighter ws-butler-mode)))
