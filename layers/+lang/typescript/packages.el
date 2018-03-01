@@ -75,6 +75,7 @@
                              "gu" tide-references
                              "hh" tide-documentation-at-point
                              "rr" tide-rename-symbol
+                             "rf" tide-fix
                              "sr" tide-restart-server)
             typescriptList (cons 'typescript-mode keybindingList)
             typescriptTsxList (cons 'typescript-tsx-mode
