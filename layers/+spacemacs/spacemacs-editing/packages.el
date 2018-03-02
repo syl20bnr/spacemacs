@@ -85,6 +85,7 @@
 
 (defun spacemacs-editing/init-clean-aindent-mode ()
   (use-package clean-aindent-mode
+    :demand t
     :config (clean-aindent-mode)))
 
 (defun spacemacs-editing/init-editorconfig ()
