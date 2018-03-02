@@ -43,6 +43,7 @@
 (defun lsp/init-lsp-ui ()
   (use-package lsp-ui
     :init (add-hook 'lsp-mode-hook #'lsp-ui-mode)
+    :commands (lsp-ui-mode)
     :config
     (progn
       (spacemacs//lsp-sync-peek-face)
