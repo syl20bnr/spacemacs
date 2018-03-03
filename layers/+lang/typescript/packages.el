@@ -30,7 +30,9 @@
     :modes typescript-mode typescript-tsx-mode))
 
 (defun typescript/pre-init-eldoc ()
-  (spacemacs|use-package-add-hook tide :post-config (eldoc-mode)))
+  (spacemacs|use-package-add-hook tide :post-init
+                           (add-hook 'typescript-tsx-mode-hook 'eldoc-mode t)
+                           (add-hook 'typescript-mode-hook 'eldoc-mode t)))
 
 (defun typescript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'typescript-mode)
