@@ -11,8 +11,8 @@
 
 (defun spacemacs//java-define-command-prefixes ()
   "Define command prefixes for java-mode."
-  (setq java/key-binding-prefixes '(("me" . "errors")
-                                    ("md" . "eclimd")
+  (setq java/key-binding-prefixes '(("md" . "eclimd")
+                                    ("mE" . "errors")
                                     ("mf" . "find")
                                     ("mg" . "goto")
                                     ("mr" . "refactor")

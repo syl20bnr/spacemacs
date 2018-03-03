@@ -22,6 +22,7 @@
     - [[#in-terminal][In terminal]]
   - [[#building-and-compilation][Building and Compilation]]
   - [[#debugging][Debugging]]
+  - [[#errors][Errors]]
   - [[#plain-text-markup-languages][Plain Text Markup Languages]]
     - [[#headers][Headers]]
     - [[#insertion-of-common-elements][Insertion of common elements]]
@@ -239,6 +240,15 @@ Notes:
   - If there is no toggle breakpoint function, then it should be implemented at
     the spacemacs level and ideally the function should be proposed as a patch
     upstream (major mode repository).
+
+** Errors
+Managment of errors should be put under ~SPC m E~.
+
+| Key Binding | Description                         |
+|-------------+-------------------------------------|
+| ~m E e~     | fix error around point              |
+| ~m E l~     | show errors                         |
+| ~m E L~     | show errors and jump to errors list |
 
 ** Plain Text Markup Languages
 For layers supporting markup languages please follow the following
