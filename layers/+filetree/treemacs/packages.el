@@ -61,6 +61,7 @@
 
 (defun treemacs/init-treemacs-evil ()
   (use-package treemacs-evil
+    :demand t
     :after treemacs
     :if (memq dotspacemacs-editing-style '(vim hybrid))))
 
