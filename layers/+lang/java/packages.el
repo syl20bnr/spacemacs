@@ -338,7 +338,7 @@
 (defun java/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'java-mode))
 
-(defun java/post-init-helm-gtags ()
+(defun ""java/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'java-mode))
 
 (defun java/pre-init-org ()
