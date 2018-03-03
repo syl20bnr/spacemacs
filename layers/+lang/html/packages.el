@@ -201,12 +201,12 @@
   (use-package web-mode
     :config
     (progn
-      (spacemacs/declare-prefix-for-mode 'web-mode "me" "errors")
+      (spacemacs/declare-prefix-for-mode 'web-mode "mE" "errors")
       (spacemacs/declare-prefix-for-mode 'web-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'web-mode "mh" "dom")
       (spacemacs/declare-prefix-for-mode 'web-mode "mr" "refactor")
       (spacemacs/set-leader-keys-for-major-mode 'web-mode
-        "eh" 'web-mode-dom-errors-show
+        "El" 'web-mode-dom-errors-show
         "gb" 'web-mode-element-beginning
         "gc" 'web-mode-element-child
         "gp" 'web-mode-element-parent

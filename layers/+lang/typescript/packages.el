@@ -57,6 +57,8 @@
                    '(tide-jump-to-definition :async t)))
     :config
     (progn
+      (spacemacs/declare-prefix-for-mode 'typescript-mode "mE" "errors")
+      (spacemacs/declare-prefix-for-mode 'typescript-tsx-mode "mE" "errors")
       (spacemacs/declare-prefix-for-mode 'typescript-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'typescript-tsx-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'typescript-mode "mh" "help")
@@ -70,12 +72,12 @@
       (spacemacs/declare-prefix-for-mode 'typescript-mode "ms" "send")
       (spacemacs/declare-prefix-for-mode 'typescript-tsx-mode "ms" "send")
 
-      (setq keybindingList '("gb" tide-jump-back
+      (setq keybindingList '("Ee" tide-fix
+                             "gb" tide-jump-back
                              "gt" typescript/jump-to-type-def
                              "gu" tide-references
                              "hh" tide-documentation-at-point
                              "rr" tide-rename-symbol
-                             "rf" tide-fix
                              "sr" tide-restart-server)
             typescriptList (cons 'typescript-mode keybindingList)
             typescriptTsxList (cons 'typescript-tsx-mode
