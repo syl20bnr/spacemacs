@@ -13,7 +13,6 @@
       '(
         add-node-modules-path
         company
-        eldoc
         flycheck
         tide
         typescript-mode
@@ -28,10 +27,6 @@
   (spacemacs|add-company-backends
     :backends company-tide
     :modes typescript-mode typescript-tsx-mode))
-
-(defun typescript/post-init-eldoc ()
-  (add-hook 'typescript-mode-hook 'eldoc-mode)
-  (add-hook 'typescript-tsx-mode-hook 'eldoc-mode))
 
 (defun typescript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'typescript-mode)
@@ -49,8 +44,8 @@
         (kbd "C-k") 'tide-find-previous-reference
         (kbd "C-j") 'tide-find-next-reference
         (kbd "C-l") 'tide-goto-reference)
-      (add-hook 'typescript-mode-hook 'tide-setup)
-      (add-hook 'typescript-tsx-mode-hook 'tide-setup)
+      (add-hook 'typescript-mode-hook #'spacemacs/typescript-setup-tide-mode)
+      (add-hook 'typescript-tsx-mode-hook #'spacemacs/typescript-setup-tide-mode)
       (add-to-list 'spacemacs-jump-handlers-typescript-tsx-mode
                    '(tide-jump-to-definition :async t))
       (add-to-list 'spacemacs-jump-handlers-typescript-mode
