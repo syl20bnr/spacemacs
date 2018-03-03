@@ -65,3 +65,9 @@
                  (list (point-min) (point-max))))
   (browse-url (concat "http://www.typescriptlang.org/Playground#src="
                       (url-hexify-string (buffer-substring-no-properties start end)))))
+
+(defun spacemacs/typescript-setup-tide-mode ()
+  (tide-setup)
+  ;; Enable eldoc-mode after tide-setup or it won't work
+  (when (configuration-layer/package-used-p 'eldoc)
+    (eldoc-mode)))
