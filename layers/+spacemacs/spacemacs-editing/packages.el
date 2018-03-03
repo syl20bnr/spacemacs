@@ -85,10 +85,12 @@
 
 (defun spacemacs-editing/init-clean-aindent-mode ()
   (use-package clean-aindent-mode
+    :demand t
     :config (clean-aindent-mode)))
 
 (defun spacemacs-editing/init-editorconfig ()
   (use-package editorconfig
+    :demand t
     :init
     (spacemacs|diminish editorconfig-mode)
     :config
@@ -403,4 +405,5 @@
   ;; not deferred on purpose, init-spacemacs-whitespace-cleanup need
   ;; it to be loaded.
   (use-package ws-butler
+    :demand t
     :config (spacemacs|hide-lighter ws-butler-mode)))

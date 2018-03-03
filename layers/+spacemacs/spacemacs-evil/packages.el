@@ -89,6 +89,7 @@
 
 (defun spacemacs-evil/init-evil-ediff ()
   (use-package evil-ediff
+    :demand t
     :after (ediff)
     :if (memq dotspacemacs-editing-style '(hybrid vim))))
 
@@ -215,6 +216,7 @@
 
 (defun spacemacs-evil/init-evil-numbers ()
   (use-package evil-numbers
+    :demand t
     :config
     (progn
       (spacemacs|define-transient-state evil-numbers
@@ -257,6 +259,7 @@
 
 (defun spacemacs-evil/init-evil-terminal-cursor-changer ()
   (use-package evil-terminal-cursor-changer
+    :demand t
     :if (not (display-graphic-p))
     :init (setq evil-visual-state-cursor 'box
                 evil-insert-state-cursor 'bar
@@ -274,7 +277,7 @@
 
 (defun spacemacs-evil/init-evil-unimpaired ()
   ;; No laziness here, unimpaired bindings should be available right away.
-  (use-package evil-unimpaired))
+  (use-package evil-unimpaired :demand t))
 
 (defun spacemacs-evil/init-evil-visual-mark-mode ()
   (use-package evil-visual-mark-mode
