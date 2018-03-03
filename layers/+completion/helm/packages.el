@@ -59,9 +59,7 @@
 
 (defun helm/init-helm ()
   (use-package helm
-    :defer 1
-    :commands (spacemacs/helm-find-files
-               helm-current-directory)
+    :defer t
     :init
     (progn
       (add-hook 'helm-cleanup-hook #'spacemacs//helm-cleanup)
@@ -121,10 +119,11 @@
                 (lambda ()
                   (unless (configuration-layer/package-used-p 'smex)
                     (spacemacs/set-leader-keys
-                      dotspacemacs-emacs-command-key 'helm-M-x)))))
+                      dotspacemacs-emacs-command-key 'helm-M-x))))
+      (helm-mode))
     :config
     (progn
-      (helm-mode)
+      (spacemacs|hide-lighter helm-mode)
       (advice-add 'helm-grep-save-results-1 :after 'spacemacs//gne-init-helm-grep)
       ;; helm-locate uses es (from everything on windows which doesnt like fuzzy)
       (helm-locate-set-command)
@@ -140,8 +139,6 @@
         (define-key helm-bookmark-map (kbd "C-/") 'helm-bookmark-help))
       (with-eval-after-load 'helm-bookmark
         (simpler-helm-bookmark-keybindings))
-      (with-eval-after-load 'helm-mode ; required
-        (spacemacs|hide-lighter helm-mode))
       (define-key helm-buffer-map (kbd "RET") 'spacemacs/helm-find-buffers-windows)
       (define-key helm-generic-files-map (kbd "RET") 'spacemacs/helm-find-files-windows)
       (define-key helm-find-files-map (kbd "RET") 'spacemacs/helm-find-files-windows))))
