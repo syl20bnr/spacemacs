@@ -27,7 +27,7 @@
 
 (defun php/init-drupal-mode ()
   (use-package drupal-mode
-   ))
+    :defer t))
 
 (defun php/post-init-eldoc ()
   (add-hook 'php-mode-hook 'eldoc-mode))
@@ -46,26 +46,28 @@
 
 (defun php/init-php-auto-yasnippets ()
   (use-package php-auto-yasnippets
-   ))
+    :defer t))
 
 (defun php/init-php-extras ()
   (use-package php-extras
-   ))
+    :defer t))
 
 (defun php/init-php-mode ()
   (use-package php-mode
+    :defer t
     :mode ("\\.php\\'" . php-mode)))
 
 (defun php/init-phpcbf ()
   (use-package phpcbf
-   ))
+    :defer t))
 
 (defun php/init-phpunit ()
   (use-package phpunit
-   ))
+    :defer t))
 
 (defun php/init-company-php ()
   (use-package company-php
+    :defer t
     :init
     (progn
       (push 'ac-php-find-symbol-at-point spacemacs-jump-handlers-php-mode)

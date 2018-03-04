@@ -19,6 +19,7 @@
 (defun sml/init-sml-mode ()
   (use-package sml-mode
     :mode ("\\.\\(sml\\|sig\\)\\'" . sml-mode)
+    :defer t
     :commands run-sml
     :init (spacemacs/register-repl 'sml-mode 'run-sml "sml")
     :config

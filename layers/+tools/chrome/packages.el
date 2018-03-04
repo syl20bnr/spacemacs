@@ -23,6 +23,7 @@
 
 (defun chrome/init-gmail-message-mode ()
   (use-package gmail-message-mode
+    :defer t
     :config
     (when (configuration-layer/layer-used-p 'markdown)
       (spacemacs/set-markdown-keybindings
@@ -30,6 +31,7 @@
 
 (defun chrome/init-flymd ()
   (use-package flymd
+    :defer t
     :init (setq flymd-browser-open-function
                 'spacemacs//flymd-browser-function)))
 

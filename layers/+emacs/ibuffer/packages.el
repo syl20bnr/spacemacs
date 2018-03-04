@@ -17,6 +17,7 @@
 
 (defun ibuffer/init-ibuffer()
   (use-package ibuffer
+    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys "bI" 'ibuffer)
@@ -39,6 +40,7 @@
 
 (defun ibuffer/init-ibuffer-projectile()
     (use-package ibuffer-projectile
+      :defer t
       :init
       (progn
         (defun spacemacs//ibuffer-group-by-projects ()

@@ -17,6 +17,7 @@
 
 (defun typography/init-typo ()
   (use-package typo
+    :defer t
     :init
     (progn
       (when typography-enable-typographic-editing
@@ -31,6 +32,7 @@
 
 (defun typography/init-tildify ()
   (use-package tildify
+    :defer t
     :init
     (progn
       (when typography-enable-typographic-editing

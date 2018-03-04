@@ -22,10 +22,11 @@
 
 (defun groovy/init-groovy-imports ()
   (use-package groovy-imports
-   ))
+    :defer t))
 
 (defun groovy/init-groovy-mode ()
   (use-package groovy-mode
+    :defer t
     :init
     (progn
       (spacemacs/declare-prefix-for-mode 'groovy-mode "ms" "REPL")

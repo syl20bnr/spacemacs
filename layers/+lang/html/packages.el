@@ -50,6 +50,7 @@
 
 (defun html/init-company-web ()
   (use-package company-web
+    :defer t
     :init
     (progn
       (spacemacs|add-company-backends
@@ -67,6 +68,7 @@
 
 (defun html/init-css-mode ()
   (use-package css-mode
+    :defer t
     :init
     (progn
       ;; Mark `css-indent-offset' as safe-local variable
@@ -106,6 +108,7 @@
 
 (defun html/init-emmet-mode ()
   (use-package emmet-mode
+    :defer t
     :init (spacemacs/add-to-hooks 'emmet-mode '(css-mode-hook
                                                 html-mode-hook
                                                 sass-mode-hook
@@ -136,10 +139,11 @@
 
 (defun html/init-haml-mode ()
   (use-package haml-mode
-   ))
+    :defer t))
 
 (defun html/init-counsel-css ()
   (use-package counsel-css
+    :defer t
     :init (cl-loop for (mode . mode-hook) in '((css-mode . css-mode-hook)
                                             (scss-mode . scss-mode-hook))
                 do (add-hook mode-hook 'counsel-css-imenu-setup)
@@ -147,12 +151,14 @@
 
 (defun html/init-helm-css-scss ()
   (use-package helm-css-scss
+    :defer t
     :init
     (dolist (mode '(css-mode scss-mode))
       (spacemacs/set-leader-keys-for-major-mode mode "gh" 'helm-css-scss))))
 
 (defun html/init-impatient-mode ()
   (use-package impatient-mode
+    :defer t
     :init
     (progn
       (dolist (mode '(web-mode css-mode))
@@ -160,37 +166,40 @@
 
 (defun html/init-less-css-mode ()
   (use-package less-css-mode
+    :defer t
     :mode ("\\.less\\'" . less-css-mode)))
 
 (defun html/init-pug-mode ()
   (use-package pug-mode
+    :defer t
     :mode ("\\.pug$" . pug-mode)))
 
 (defun html/init-sass-mode ()
   (use-package sass-mode
+    :defer t
     :mode ("\\.sass\\'" . sass-mode)))
 
 (defun html/init-scss-mode ()
   (use-package scss-mode
+    :defer t
     :mode ("\\.scss\\'" . scss-mode)))
 
 (defun html/init-slim-mode ()
   (use-package slim-mode
-   ))
+    :defer t))
 
-(defun html/pre-init-smartparens ()
-  (spacemacs|use-package-add-hook smartparens
-    :post-config
-    (spacemacs/add-to-hooks
-     (if dotspacemacs-smartparens-strict-mode
-         'smartparens-strict-mode
-       'smartparens-mode)
-     '(css-mode-hook scss-mode-hook sass-mode-hook less-css-mode-hook)))
+(defun html/post-init-smartparens ()
+  (spacemacs/add-to-hooks
+   (if dotspacemacs-smartparens-strict-mode
+       'smartparens-strict-mode
+     'smartparens-mode)
+   '(css-mode-hook scss-mode-hook sass-mode-hook less-css-mode-hook))
 
   (add-hook 'web-mode-hook 'spacemacs/toggle-smartparens-off))
 
 (defun html/init-tagedit ()
   (use-package tagedit
+    :defer t
     :config
     (progn
       (tagedit-add-experimental-features)
@@ -199,6 +208,7 @@
 
 (defun html/init-web-mode ()
   (use-package web-mode
+    :defer t
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'web-mode "mE" "errors")

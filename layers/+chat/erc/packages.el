@@ -46,6 +46,7 @@
 (defun erc/init-erc ()
   "Initialize ERC"
   (use-package erc
+    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys
@@ -58,6 +59,7 @@
     :config
     (progn
       (use-package erc-autoaway
+        :defer t
         :init
         (setq erc-auto-discard-away t
               erc-autoaway-idle-seconds 600
@@ -115,6 +117,7 @@
   (spacemacs|use-package-add-hook erc
     :post-config
     (use-package erc-sasl
+      :defer t
       :if erc-enable-sasl-auth
       ;; Following http://www.emacswiki.org/emacs/ErcSASL
       ;; Maybe an advice would be better?
@@ -183,6 +186,7 @@
 
 (defun erc/init-erc-view-log ()
   (use-package erc-view-log
+    :defer t
     :init
     (progn
       (setq erc-log-channels-directory
@@ -215,6 +219,7 @@
 
 (defun erc/init-erc-image ()
   (use-package erc-image
+    :defer t
     :init (with-eval-after-load 'erc
             (require 'erc-image)
             (add-to-list 'erc-modules 'image))))

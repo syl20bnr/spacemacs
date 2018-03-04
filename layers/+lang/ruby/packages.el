@@ -39,6 +39,7 @@
 
 (defun ruby/init-bundler ()
   (use-package bundler
+    :defer t
     :init (dolist (mode '(ruby-mode enh-ruby-mode))
             (spacemacs/declare-prefix-for-mode mode "mb" "ruby/bundle")
             (spacemacs/set-leader-keys-for-major-mode mode
@@ -62,6 +63,7 @@
   (use-package chruby
     :if (equal ruby-version-manager 'chruby)
     :commands chruby-use-corresponding
+    :defer t
     :init (spacemacs/add-to-hooks 'chruby-use-corresponding
                                   '(ruby-mode-hook enh-ruby-mode-hook))))
 
@@ -98,6 +100,7 @@
 
 (defun ruby/init-minitest ()
   (use-package minitest
+    :defer t
     :init
     (progn
       (spacemacs/add-to-hooks 'spacemacs//ruby-enable-minitest-mode
@@ -129,11 +132,13 @@
 (defun ruby/init-rbenv ()
   (use-package rbenv
     :if (equal ruby-version-manager 'rbenv)
+    :defer t
     :init (spacemacs/add-to-hooks 'spacemacs//enable-rbenv
                                   '(ruby-mode-hook enh-ruby-mode-hook))))
 
 (defun ruby/init-robe ()
   (use-package robe
+    :defer t
     :init
     (progn
       (spacemacs/register-repl 'robe 'robe-start "robe")
@@ -165,6 +170,7 @@
 
 (defun ruby/init-rspec-mode ()
   (use-package rspec-mode
+    :defer t
     :init
     (progn
       (spacemacs/add-to-hooks 'spacemacs//ruby-enable-rspec-mode
@@ -196,6 +202,7 @@
 
 (defun ruby/init-rubocop ()
   (use-package rubocop
+    :defer t
     :init (spacemacs/add-to-hooks 'rubocop-mode '(ruby-mode-hook
                                                   enh-ruby-mode-hook))
     :config (dolist (mode '(ruby-mode enh-ruby-mode))
@@ -210,6 +217,7 @@
 
 (defun ruby/init-ruby-mode ()
   (use-package ruby-mode
+    :defer t
     :mode (("Appraisals\\'" . ruby-mode)
            ("Puppetfile" . ruby-mode))
     :init
@@ -224,6 +232,7 @@
 
 (defun ruby/init-ruby-hash-syntax ()
   (use-package ruby-hash-syntax
+    :defer t
     :init
     (dolist (mode '(ruby-mode enh-ruby-mode))
       (spacemacs/set-leader-keys-for-major-mode mode
@@ -231,6 +240,7 @@
 
 (defun ruby/init-ruby-refactor ()
   (use-package ruby-refactor
+    :defer t
     :init (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
             (add-hook hook 'ruby-refactor-mode-launch))
     :config
@@ -245,6 +255,7 @@
 
 (defun ruby/init-ruby-tools ()
   (use-package ruby-tools
+    :defer t
     :init (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
             (add-hook hook 'ruby-tools-mode))
     :config
@@ -260,6 +271,7 @@
 (defun ruby/init-ruby-test-mode ()
   "Define keybindings for ruby test mode"
   (use-package ruby-test-mode)
+    :defer t
     :init (spacemacs/add-to-hooks 'spacemacs//ruby-enable-ruby-test-mode
                                   '(ruby-mode-local-vars-hook
                                     enh-ruby-mode-local-vars-hook))
@@ -278,6 +290,7 @@
 (defun ruby/init-rvm ()
   (use-package rvm
     :if (equal ruby-version-manager 'rvm)
+    :defer t
     :init
     (progn
       (setq rspec-use-rvm t)
@@ -297,6 +310,7 @@
 
 (defun ruby/init-rake ()
   (use-package rake
+    :defer t
     :init (setq rake-cache-file (concat spacemacs-cache-directory "rake.cache"))
     :config (dolist (mode '(ruby-mode enh-ruby-mode))
               (spacemacs/set-leader-keys-for-major-mode mode

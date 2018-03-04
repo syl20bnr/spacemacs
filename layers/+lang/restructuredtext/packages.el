@@ -49,6 +49,7 @@
 
 (defun restructuredtext/init-rst ()
   (use-package rst
+    :defer t
     :config (add-hook 'rst-adjust-hook 'rst-toc-update)))
 
 (defun restructuredtext/post-init-flyspell ()

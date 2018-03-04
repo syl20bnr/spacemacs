@@ -26,6 +26,7 @@
 
 (defun spacemacs-visual/init-desktop ()
   (use-package desktop
+    :defer t
     :init
     (setq desktop-dirname spacemacs-cache-directory)
     :config
@@ -33,6 +34,7 @@
 
 (defun spacemacs-visual/init-fill-column-indicator ()
   (use-package fill-column-indicator
+    :defer t
     :init
     (progn
       (setq fci-rule-width 1)
@@ -51,6 +53,7 @@
 
 (defun spacemacs-visual/init-hl-todo ()
   (use-package hl-todo
+    :defer t
     :init (spacemacs/add-to-hooks 'hl-todo-mode '(text-mode-hook
                                                   prog-mode-hook))))
 
@@ -58,7 +61,6 @@
 
 (defun spacemacs-visual/init-popwin ()
   (use-package popwin
-    :demand t
     :config
     (progn
       (popwin-mode 1)

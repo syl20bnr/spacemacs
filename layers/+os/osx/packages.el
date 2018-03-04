@@ -51,6 +51,7 @@
 (defun osx/init-launchctl ()
   (use-package launchctl
     :if (spacemacs/system-is-mac)
+    :defer t
     :init
     (progn
       (add-to-list 'auto-mode-alist '("\\.plist\\'" . nxml-mode))

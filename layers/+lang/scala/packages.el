@@ -34,6 +34,7 @@
 
 (defun scala/post-init-ensime ()
   (use-package ensime
+    :defer t
     :init
     (progn
       (add-hook 'scala-mode-hook #'spacemacs//scala-setup-ensime)
@@ -66,12 +67,14 @@
 
 (defun scala/init-sbt-mode ()
   (use-package sbt-mode
+    :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'scala-mode
             "b." 'sbt-hydra
             "bb" 'sbt-command)))
 
 (defun scala/init-scala-mode ()
   (use-package scala-mode
+    :defer t
     :init
     (progn
       (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))

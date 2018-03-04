@@ -13,6 +13,7 @@
 
 (defun rebox/init-rebox2 ()
   (use-package rebox2
+    :defer t
     :init
     (progn
       (when rebox-enable-in-text-mode

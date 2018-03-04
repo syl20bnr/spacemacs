@@ -17,6 +17,7 @@
 
 (defun spotify/init-spotify ()
   (use-package spotify
+    :defer t
     :init
     (progn
       (spacemacs/declare-prefix "am" "music")
@@ -29,4 +30,5 @@
 
 (defun spotify/init-helm-spotify-plus ()
   (use-package helm-spotify-plus
+    :defer t
     :init (spacemacs/set-leader-keys "amsg" 'helm-spotify-plus)))

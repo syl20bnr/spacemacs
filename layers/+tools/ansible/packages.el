@@ -18,6 +18,7 @@
 
 (defun ansible/init-ansible ()
   (use-package ansible
+    :defer t
     :commands ansible::auto-decrypt-encrypt
     :init
     (progn
@@ -36,6 +37,7 @@
 
 (defun ansible/init-ansible-doc ()
   (use-package ansible-doc
+    :defer t
     :init
     (progn
       (add-hook 'yaml-mode-hook 'spacemacs/ansible-doc-maybe-enable)
@@ -55,6 +57,7 @@
 
 (defun ansible/init-company-ansible ()
   (use-package company-ansible
+    :defer t
     :init
     ;; append this hook at the end to execute it last so `company-backends'
     ;; variable is buffer local
@@ -63,7 +66,7 @@
 (defun ansible/init-jinja2-mode ()
   (use-package jinja2-mode
     :mode ("\\.j2\\'" . jinja2-mode)
-   ))
+    :defer t))
 
 (defun ansible/post-init-yaml-mode ()
   ;; maybe move it to the layer owning `yaml-mode' at some point

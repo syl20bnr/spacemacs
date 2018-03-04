@@ -88,11 +88,13 @@
 
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
+    :defer t
     ;; see `spacemacs//python-setup-anaconda-company'
     ))
 
 (defun python/init-cython-mode ()
   (use-package cython-mode
+    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'cython-mode
@@ -124,11 +126,13 @@
 
 (defun python/init-helm-pydoc ()
   (use-package helm-pydoc
+    :defer t
     :init
     (spacemacs/set-leader-keys-for-major-mode 'python-mode "hd" 'helm-pydoc)))
 
 (defun python/init-hy-mode ()
   (use-package hy-mode
+    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'hy-mode
@@ -153,6 +157,7 @@
 
 (defun python/init-live-py-mode ()
   (use-package live-py-mode
+    :defer t
     :commands live-py-mode
     :init
     (spacemacs/set-leader-keys-for-major-mode 'python-mode
@@ -202,10 +207,11 @@
 
 (defun python/init-pip-requirements ()
   (use-package pip-requirements
-   ))
+    :defer t))
 
 (defun python/init-pippel ()
   (use-package pippel
+    :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'python-mode
             "P" 'pippel-list-packages)
     :config
@@ -214,6 +220,7 @@
 
 (defun python/init-py-isort ()
   (use-package py-isort
+    :defer t
     :init
     (progn
       (add-hook 'before-save-hook 'spacemacs//python-sort-imports)
@@ -243,6 +250,7 @@
 
 (defun python/init-pyvenv ()
   (use-package pyvenv
+    :defer t
     :init
     (progn
       (pcase python-auto-set-local-pyvenv-virtualenv
@@ -291,6 +299,7 @@
 
 (defun python/init-python ()
   (use-package python
+    :defer t
     :mode (("SConstruct\\'" . python-mode) ("SConscript\\'" . python-mode))
     :init
     (progn
@@ -395,6 +404,7 @@ fix this issue."
 
 (defun python/init-yapfify ()
   (use-package yapfify
+    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'python-mode

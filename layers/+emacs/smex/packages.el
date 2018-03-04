@@ -13,6 +13,7 @@
 
 (defun smex/init-smex ()
   (use-package smex
+    :defer t
     :init
     (progn
       (setq-default smex-history-length 32

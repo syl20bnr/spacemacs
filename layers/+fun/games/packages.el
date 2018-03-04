@@ -22,6 +22,7 @@
 
 (defun games/init-2048-game ()
   (use-package 2048-mode
+    :defer t
     :init
     (progn
       (push '("2048" . (2048-game :quit (kill-buffer-ask (get-buffer "2048"))
@@ -42,6 +43,7 @@
 
 (defun games/init-pacmacs ()
   (use-package pacmacs
+    :defer t
     :init
     (push '("pacmacs" . (pacmacs-start
                          :quit (kill-buffer-ask (get-buffer "*Pacmacs*"))
@@ -54,6 +56,7 @@
 
 (defun games/init-tetris ()
   (use-package tetris
+    :defer t
     :init
     (progn
       (push '("Tetris" . (tetris :quit spacemacs/tetris-quit-game
@@ -72,6 +75,7 @@
 
 (defun games/init-sudoku ()
   (use-package sudoku
+    :defer t
     :init
     (progn
       (push '("sudoku" . (sudoku :quit (kill-buffer-ask (get-buffer "*Sudoku*"))
@@ -117,6 +121,7 @@
 
 (defun games/init-typit ()
   (use-package typit
+    :defer t
     :init
     (progn
       (push '("typit (beginner)" .

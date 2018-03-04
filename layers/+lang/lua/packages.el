@@ -25,6 +25,7 @@
 
 (defun lua/init-lua-mode ()
   (use-package lua-mode
+    :defer t
     :mode ("\\.lua\\'" . lua-mode)
     :interpreter ("lua" . lua-mode)
     :init
@@ -43,6 +44,7 @@
 
 (defun lua/init-company-lua ()
   (use-package company-lua
+    :defer t
     :init (spacemacs|add-company-backends
             :backends company-lua
             :modes lua-mode)))

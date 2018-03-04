@@ -19,6 +19,7 @@
 
 (defun fsharp/init-fsharp-mode ()
   (use-package fsharp-mode
+    :defer t
     :init
     (progn
       (setq fsharp-doc-idle-delay .2)

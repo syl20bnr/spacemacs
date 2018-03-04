@@ -19,6 +19,7 @@
 
 (defun sql/init-sql ()
   (use-package sql
+    :defer t
     :init (spacemacs/register-repl 'sql 'spacemacs/sql-start "sql")
     :config
     (progn
@@ -125,10 +126,11 @@
 
 (defun sql/init-sql-indent ()
   (use-package sql-indent
-   ))
+    :defer t))
 
 (defun sql/init-sqlup-mode ()
   (use-package sqlup-mode
+    :defer t
     :init
     (progn
       (add-hook 'sql-mode-hook 'sqlup-mode)

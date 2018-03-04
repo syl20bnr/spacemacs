@@ -13,6 +13,7 @@
 
 (defun jabber/init-jabber ()
   (use-package jabber
+    :defer t
     :init
     (progn
       (add-hook 'jabber-post-connect-hooks 'spacemacs/jabber-connect-hook)

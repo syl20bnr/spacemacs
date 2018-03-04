@@ -18,15 +18,16 @@
 
 (defun semantic/init-semantic ()
   (use-package semantic
+    :defer t
     :config (add-to-list 'semantic-default-submodes
                          'global-semantic-idle-summary-mode)))
 
 (defun semantic/init-srefactor ()
-  (use-package srefactor))
+  (use-package srefactor :defer t))
 
 (defun semantic/pre-init-stickyfunc-enhance ()
   (spacemacs|use-package-add-hook semantic
     :post-init (add-to-list 'semantic-default-submodes
                             'global-semantic-stickyfunc-mode)))
 (defun semantic/init-stickyfunc-enhance ()
-  (use-package stickyfunc-enhance))
+  (use-package stickyfunc-enhance :defer t))

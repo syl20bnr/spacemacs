@@ -30,6 +30,7 @@
                              (shell-command-to-string "agda-mode locate"))))
 
     (use-package agda2-mode
+      :defer t
       :init (when agda-mode-path (load-file agda-mode-path))
       (progn
         (mapc

@@ -22,6 +22,7 @@
 
 (defun spell-checking/init-auto-dictionary ()
   (use-package auto-dictionary
+    :defer t
     :if spell-checking-enable-auto-dictionary
     :init
     (progn
@@ -39,6 +40,7 @@
 
 (defun spell-checking/init-flyspell ()
   (use-package flyspell
+    :defer t
     :commands (spell-checking/change-dictionary)
     :init
     (progn
@@ -92,6 +94,7 @@
 
 (defun spell-checking/init-flyspell-popup ()
   (use-package flyspell-popup
+    :defer t
     :init
     (progn
       (setq flyspell-popup-correct-delay 0.8)

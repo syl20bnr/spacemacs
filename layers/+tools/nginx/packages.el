@@ -12,4 +12,4 @@
 (defconst nginx-packages '(nginx-mode))
 
 (defun nginx/init-nginx-mode ()
-  (use-package nginx-mode))
+  (use-package nginx-mode :defer t))

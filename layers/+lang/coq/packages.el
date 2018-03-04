@@ -22,6 +22,7 @@
 
 (defun coq/init-company-coq ()
   (use-package company-coq
+    :defer t
     :init
     (progn
       (add-hook 'coq-mode-hook #'company-coq-mode)
@@ -41,6 +42,7 @@
 (defun coq/init-proof-general ()
   (use-package proof-site
     :mode ("\\.v\\'" . coq-mode)
+    :defer t
     :init
     (progn
       (setq coq/proof-general-load-path
@@ -95,13 +97,11 @@
         ;; Insertions
         "ie" 'coq-end-Section))))
 
-(defun coq/pre-init-smartparens ()
-  (spacemacs|use-package-add-hook smartparens
-    :post-config (spacemacs/add-to-hooks
-                  (if dotspacemacs-smartparens-strict-mode
-                      'smartparens-strict-mode
-                    'smartparens-mode)
-                  '(coq-mode-hook))))
+(defun coq/post-init-smartparens ()
+  (spacemacs/add-to-hooks (if dotspacemacs-smartparens-strict-mode
+                              'smartparens-strict-mode
+                            'smartparens-mode)
+                          '(coq-mode-hook)))
 
 (defun coq/post-init-vi-tilde-fringe ()
   (spacemacs/add-to-hooks 'spacemacs/disable-vi-tilde-fringe

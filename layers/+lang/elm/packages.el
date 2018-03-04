@@ -29,6 +29,7 @@
 (defun elm/init-flycheck-elm ()
   "Initialize flycheck-elm"
   (use-package flycheck-elm
+    :defer t
     :init (add-hook 'flycheck-mode-hook 'flycheck-elm-setup t)))
 
 (defun elm/init-elm-mode ()
@@ -97,8 +98,7 @@
     (push '("*elm*" :tail t :noselect t) popwin:special-display-config)
     (push '("*elm-make*" :tail t :noselect t) popwin:special-display-config)))
 
-(defun elm/pre-init-smartparens ()
-  (spacemacs|use-package-add-hook smartparens
-    :post-config (if dotspacemacs-smartparens-strict-mode
-                     (add-hook 'elm-mode-hook #'smartparens-strict-mode)
-                   (add-hook 'elm-mode-hook #'smartparens-mode))))
+(defun elm/post-init-smartparens ()
+  (if dotspacemacs-smartparens-strict-mode
+      (add-hook 'elm-mode-hook #'smartparens-strict-mode)
+    (add-hook 'elm-mode-hook #'smartparens-mode)))

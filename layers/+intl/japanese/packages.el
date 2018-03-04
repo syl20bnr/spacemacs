@@ -21,7 +21,7 @@
 
 (defun japanese/init-evil-tutor-ja ()
   (use-package evil-tutor-ja
-   ))
+    :defer t))
 
 (defun japanese/init-migemo ()
   (use-package migemo
@@ -41,6 +41,7 @@
 
 (defun japanese/init-ddskk ()
   (use-package ddskk
+    :defer t
     :bind (("C-x j" . skk-mode))))
 
 (defun japanese/init-japanese-holidays ()

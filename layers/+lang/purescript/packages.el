@@ -29,6 +29,7 @@
 
 (defun purescript/init-purescript-mode ()
   (use-package purescript-mode
+    :defer t
     :init
     (progn
       (add-hook 'purescript-mode-hook 'turn-on-purescript-indentation)
@@ -41,6 +42,7 @@
 
 (defun purescript/init-psci ()
   (use-package psci
+    :defer t
     :init
     (progn
       (spacemacs/register-repl 'psci 'psci "purescript")
@@ -54,6 +56,7 @@
 
 (defun purescript/init-psc-ide ()
   (use-package psc-ide
+    :defer t
     :init
     (progn
       (add-hook 'purescript-mode-hook 'psc-ide-mode)
