@@ -3368,6 +3368,12 @@ export EDITOR="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c"
 Tip: Remember to use ~:wq~ or ~C-x #~ after you are done editing the file in
 Emacs.
 
+You can set the location of the Emacs server socket by setting =dotspacemacs-server-socket-dir= in your =~./spacemacs=:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-server-socket-dir "~/.emacs/server")
+#+END_SRC
+
 See [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.html][Emacs as a Server]] in the official Emacs manual for more details.
 
 ** Keeping the server alive
