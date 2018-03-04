@@ -48,11 +48,13 @@
 
 (defun shell/init-esh-help ()
   (use-package esh-help
+    :defer t
     :init (add-hook 'eshell-mode-hook 'eldoc-mode)
     :config (setup-esh-help-eldoc)))
 
 (defun shell/init-eshell ()
   (use-package eshell
+    :defer t
     :init
     (progn
       (spacemacs/register-repl 'eshell 'eshell)
@@ -131,6 +133,7 @@
 
 (defun shell/init-eshell-z ()
   (use-package eshell-z
+    :defer t
     :init
     (with-eval-after-load 'eshell
       (require 'eshell-z))))
@@ -152,6 +155,7 @@
 
 (defun shell/init-multi-term ()
   (use-package multi-term
+    :defer t
     :init
     (progn
       (spacemacs/register-repl 'multi-term 'multi-term))
@@ -200,6 +204,7 @@
 
 (defun shell/init-shell-pop ()
   (use-package shell-pop
+    :defer t
     :init
     (progn
       (setq shell-pop-window-position shell-default-position

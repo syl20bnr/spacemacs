@@ -41,7 +41,6 @@
 
 (defun spacemacs-evil/init-evil-anzu ()
   (use-package evil-anzu
-    :demand t
     :init
     (global-anzu-mode t)
     :config
@@ -75,6 +74,7 @@
 
 (defun spacemacs-evil/init-evil-cleverparens ()
   (use-package evil-cleverparens
+    :defer t
     :init
     (progn
       (setq evil-cleverparens-use-regular-insert t)
@@ -89,7 +89,6 @@
 
 (defun spacemacs-evil/init-evil-ediff ()
   (use-package evil-ediff
-    :demand t
     :after (ediff)
     :if (memq dotspacemacs-editing-style '(hybrid vim))))
 
@@ -132,12 +131,12 @@
 
 (defun spacemacs-evil/init-evil-lisp-state ()
   (use-package evil-lisp-state
-    :demand t
     :init (setq evil-lisp-state-global t)
     :config (spacemacs/set-leader-keys "k" evil-lisp-state-map)))
 
 (defun spacemacs-evil/init-evil-mc ()
   (use-package evil-mc
+    :defer t
     :init
     (progn
       ;; evil-mc is not compatible with the paste transient state
@@ -212,11 +211,10 @@
 
 (defun spacemacs-evil/init-evil-matchit ()
   (use-package evil-matchit
-   ))
+    :defer t))
 
 (defun spacemacs-evil/init-evil-numbers ()
   (use-package evil-numbers
-    :demand t
     :config
     (progn
       (spacemacs|define-transient-state evil-numbers
@@ -259,7 +257,6 @@
 
 (defun spacemacs-evil/init-evil-terminal-cursor-changer ()
   (use-package evil-terminal-cursor-changer
-    :demand t
     :if (not (display-graphic-p))
     :init (setq evil-visual-state-cursor 'box
                 evil-insert-state-cursor 'bar
@@ -277,10 +274,11 @@
 
 (defun spacemacs-evil/init-evil-unimpaired ()
   ;; No laziness here, unimpaired bindings should be available right away.
-  (use-package evil-unimpaired :demand t))
+  (use-package evil-unimpaired))
 
 (defun spacemacs-evil/init-evil-visual-mark-mode ()
   (use-package evil-visual-mark-mode
+    :defer t
     :init
     (spacemacs|add-toggle evil-visual-mark-mode
       :mode evil-visual-mark-mode

@@ -21,6 +21,7 @@
 
 (defun systemd/init-systemd ()
   (use-package systemd
+    :defer t
     :init (setq systemd-use-company-p
                 (configuration-layer/package-used-p 'company))
     :config (spacemacs/set-leader-keys-for-major-mode 'systemd-mode

@@ -33,6 +33,7 @@
 
 (defun elixir/init-alchemist ()
   (use-package alchemist
+    :defer t
     :init
     (progn
       (spacemacs/register-repl 'alchemist 'alchemist-iex-run "alchemist")
@@ -158,11 +159,12 @@
 
 (defun elixir/init-flycheck-credo ()
   (use-package flycheck-credo
+    :defer t
     :init (add-hook 'flycheck-mode-hook #'flycheck-credo-setup)))
 
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
-   ))
+    :defer t))
 
 (defun elixir/post-init-flycheck ()
   (spacemacs/enable-flycheck 'elixir-mode))

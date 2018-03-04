@@ -18,6 +18,7 @@
 
 (defun syntax-checking/init-flycheck ()
   (use-package flycheck
+    :defer t
     :init
     (progn
       (setq flycheck-standard-error-navigation nil
@@ -99,6 +100,7 @@
 (defun syntax-checking/init-flycheck-pos-tip ()
   (use-package flycheck-pos-tip
     :if syntax-checking-enable-tooltips
+    :defer t
     :init
     (with-eval-after-load 'flycheck
       (flycheck-pos-tip-mode))))

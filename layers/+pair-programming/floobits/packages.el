@@ -16,6 +16,7 @@
 
 (defun floobits/init-floobits ()
   (use-package floobits
+    :defer t
     :init
     (progn
       (spacemacs/declare-prefix "P" "PP/floobits")

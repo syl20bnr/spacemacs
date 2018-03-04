@@ -45,11 +45,10 @@
   (add-hook 'react-mode-hook 'spacemacs/js-doc-require)
   (spacemacs/js-doc-set-key-bindings 'react-mode))
 
-(defun react/pre-init-smartparens ()
-  (spacemacs|use-package-add-hook smartparens
-    :post-config (if dotspacemacs-smartparens-strict-mode
-                     (add-hook 'react-mode-hook #'smartparens-strict-mode)
-                   (add-hook 'react-mode-hook #'smartparens-mode))))
+(defun react/post-init-smartparens ()
+  (if dotspacemacs-smartparens-strict-mode
+      (add-hook 'react-mode-hook #'smartparens-strict-mode)
+    (add-hook 'react-mode-hook #'smartparens-mode)))
 
 (defun react/post-init-tern ()
   (add-hook 'react-mode-hook 'tern-mode)

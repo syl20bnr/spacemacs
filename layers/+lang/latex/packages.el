@@ -30,6 +30,7 @@
 
 (defun latex/init-auctex ()
   (use-package tex
+    :defer t
     :init
     (progn
       (setq TeX-command-default latex-build-command
@@ -135,10 +136,12 @@
 
 (defun latex/init-auctex-latexmk ()
   (use-package auctex-latexmk
+    :defer t
     :init (setq auctex-latexmk-inherit-TeX-PDF-mode t)))
 
 (defun latex/init-company-auctex ()
   (use-package company-auctex
+    :defer t
     :init (spacemacs|add-company-backends
             :backends
             company-auctex-labels
@@ -204,6 +207,7 @@
 
 (defun latex/init-magic-latex-buffer ()
   (use-package magic-latex-buffer
+    :defer t
     :init
     (progn
       (add-hook 'LaTeX-mode-hook 'magic-latex-buffer)

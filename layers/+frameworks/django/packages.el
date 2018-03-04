@@ -16,6 +16,7 @@
 
 (defun django/init-pony-mode ()
   (use-package pony-mode
+    :defer t
     :init (progn
             (spacemacs/declare-prefix-for-mode 'python-mode "mj" "django")
             (spacemacs/declare-prefix-for-mode 'python-mode "mja" "fabric")

@@ -24,6 +24,7 @@
 
 (defun github/init-gist ()
   (use-package gist
+    :defer t
     :init
     (progn
       (spacemacs/declare-prefix "gg" "github gist")
@@ -48,6 +49,7 @@
 
 (defun github/init-github-clone ()
   (use-package github-clone
+    :defer t
     :init
     (progn
       (spacemacs/declare-prefix "ghc" "clone")
@@ -73,7 +75,6 @@
     :pre-config
     (progn
       (use-package magit-gh-pulls
-        :demand t
         :config
         (define-key magit-mode-map "#" 'spacemacs/load-gh-pulls-mode)
         (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))))
@@ -81,6 +82,7 @@
 
 (defun github/init-magithub ()
   (use-package magithub
+    :defer t
     :after magit
     :init
     (setq magithub-dir (concat spacemacs-cache-directory "magithub/"))

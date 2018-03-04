@@ -50,6 +50,7 @@
 
 (defun org/init-evil-org ()
   (use-package evil-org
+    :defer t
     :init
     (progn
       (add-hook 'org-mode-hook 'spacemacs//evil-org-mode)
@@ -69,15 +70,17 @@
 
 (defun org/init-gnuplot ()
   (use-package gnuplot
+    :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'org-mode
             "tp" 'org-plot/gnuplot)))
 
 (defun org/init-htmlize ()
   (use-package htmlize
-   ))
+    :defer t))
 
 (defun org/init-ob ()
   (use-package ob
+    :defer t
     :init
     (progn
       (defun spacemacs//org-babel-do-load-languages ()
@@ -90,6 +93,7 @@
 
 (defun org/init-org ()
   (use-package org
+    :defer t
     :commands (orgtbl-mode)
     :init
     (progn
@@ -381,6 +385,7 @@ Will work on both org-mode and any mode that accepts plain html."
 
 (defun org/init-org-agenda ()
   (use-package org-agenda
+    :defer t
     :init
     (progn
       (setq org-agenda-restore-windows-after-quit t)
@@ -507,6 +512,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-org-brain ()
   (use-package org-brain
+    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys
@@ -539,6 +545,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-org-mime ()
   (use-package org-mime
+    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'message-mode
@@ -548,6 +555,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-org-pomodoro ()
   (use-package org-pomodoro
+    :defer t
     :init
     (progn
       (when (spacemacs/system-is-mac)
@@ -559,6 +567,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-org-present ()
   (use-package org-present
+    :defer t
     :init
     (progn
       (evilified-state-evilify nil org-present-mode-keymap
@@ -624,6 +633,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-org-journal ()
   (use-package org-journal
+    :defer t
     :commands (org-journal-new-entry org-journal-search-forever)
     :init
     (progn

@@ -15,6 +15,7 @@
 
 (defun spacemacs-language/init-define-word ()
   (use-package define-word
+    :defer t
     :init
     (spacemacs/set-leader-keys
       "xwd" 'define-word-at-point)))

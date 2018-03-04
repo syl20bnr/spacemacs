@@ -14,6 +14,7 @@
 (defun gnus/init-gnus ()
   "Initialize my package"
   (use-package gnus
+    :defer t
     :commands gnus
     :init
     (spacemacs/set-leader-keys "ag" 'gnus)

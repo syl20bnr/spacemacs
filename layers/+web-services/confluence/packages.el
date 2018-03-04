@@ -16,6 +16,7 @@
 
 (defun confluence/init-confluence ()
   (use-package confluence
+    :defer t
     :config
     (progn
       ;; remove the hook on buffer save that automatically store the buffer

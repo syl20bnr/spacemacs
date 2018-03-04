@@ -24,6 +24,7 @@
 
 (defun erlang/init-erlang ()
   (use-package erlang
+    :defer t
     :init
     (progn
       ;; explicitly run prog-mode hooks since erlang mode does is not

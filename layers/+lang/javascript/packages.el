@@ -40,6 +40,7 @@
 
 (defun javascript/init-coffee-mode ()
   (use-package coffee-mode
+    :defer t
     :init
     (progn
       (spacemacs/register-repl 'coffee-mode 'coffee-repl "coffeescript")
@@ -65,6 +66,7 @@
   (use-package company-tern
     :if (and (configuration-layer/package-used-p 'company)
              (configuration-layer/package-used-p 'tern))
+    :defer t
     :init (spacemacs|add-company-backends
             :backends company-tern
             :modes js2-mode)))
@@ -92,10 +94,12 @@
 
 (defun javascript/init-js-doc ()
   (use-package js-doc
+    :defer t
     :init (spacemacs/js-doc-set-key-bindings 'js2-mode)))
 
 (defun javascript/init-js2-mode ()
   (use-package js2-mode
+    :defer t
     :init
     (progn
       (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
@@ -123,6 +127,7 @@
 
 (defun javascript/init-js2-refactor ()
   (use-package js2-refactor
+    :defer t
     :init
     (progn
       (add-hook 'js2-mode-hook 'spacemacs/js2-refactor-require)
@@ -177,16 +182,18 @@
 
 (defun javascript/init-json-mode ()
   (use-package json-mode
-   ))
+    :defer t))
 
 (defun javascript/init-json-snatcher ()
   (use-package json-snatcher
+    :defer t
     :config
     (spacemacs/set-leader-keys-for-major-mode 'json-mode
       "hp" 'jsons-print-path)))
 
 (defun javascript/init-tern ()
   (use-package tern
+    :defer t
     :init (add-hook 'js2-mode-hook 'tern-mode)
     :config
     (progn
@@ -197,6 +204,7 @@
 
 (defun javascript/init-web-beautify ()
   (use-package web-beautify
+    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'js2-mode
@@ -210,6 +218,7 @@
 
 (defun javascript/init-skewer-mode ()
   (use-package skewer-mode
+    :defer t
     :init
     (progn
       (spacemacs/register-repl 'skewer-mode
@@ -236,6 +245,7 @@
 
 (defun javascript/init-livid-mode ()
   (use-package livid-mode
+    :defer t
     :init
     (progn
       (spacemacs|add-toggle javascript-repl-live-evaluation

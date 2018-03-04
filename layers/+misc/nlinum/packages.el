@@ -19,7 +19,6 @@
 
 (defun nlinum/init-nlinum ()
   (use-package nlinum
-    :demand t
     :init
     (spacemacs|add-toggle line-numbers
       :mode nlinum-mode

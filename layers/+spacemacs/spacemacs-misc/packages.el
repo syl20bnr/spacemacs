@@ -17,6 +17,7 @@
 
 (defun spacemacs-misc/init-dumb-jump ()
   (use-package dumb-jump
+    :defer t
     :init
     (progn
       ;; not activating `dumb-jump-mode' because it only adds key bindings, and

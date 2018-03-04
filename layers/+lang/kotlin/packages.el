@@ -23,6 +23,7 @@
 
 (defun kotlin/init-flycheck-kotlin ()
   (use-package flycheck-kotlin
+    :defer t
     :init (add-hook 'flycheck-mode-hook #'flycheck-kotlin-setup)))
 
 (defun kotlin/post-init-ggtags ()
@@ -33,4 +34,4 @@
 
 (defun kotlin/init-kotlin-mode ()
   (use-package kotlin-mode
-   ))
+    :defer t))

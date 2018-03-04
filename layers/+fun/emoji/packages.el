@@ -39,11 +39,13 @@
 
 (defun emoji/init-emojify ()
   (use-package emojify
+    :defer t
     :init
     (setq emojify-emojis-dir (concat spacemacs-cache-directory "emojify/"))))
 
 (defun emoji/init-company-emoji ()
   (use-package company-emoji
+    :defer t
     :init
     (progn
       (setq company-emoji-insert-unicode nil)

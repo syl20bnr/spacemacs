@@ -22,6 +22,7 @@
 
 (defun imenu-list/init-imenu-list ()
   (use-package imenu-list
+    :defer t
     :init
     (progn
       (setq imenu-list-focus-after-activation t

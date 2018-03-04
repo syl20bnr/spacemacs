@@ -37,6 +37,7 @@
 
 (defun cmake/init-cmake-mode ()
   (use-package cmake-mode
+    :defer t
     :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))))
 
 (defun cmake/post-init-company ()
@@ -45,7 +46,6 @@
 
 (defun cmake/init-helm-ctest ()
   (use-package helm-ctest
-    :init
-    (dolist (mode cmake-modes)
-      (spacemacs/set-leader-keys-for-major-mode mode
-        "pt" 'helm-ctest))))
+    :init (dolist (mode cmake-modes)
+            (spacemacs/set-leader-keys-for-major-mode mode
+              "pt" 'helm-ctest))))

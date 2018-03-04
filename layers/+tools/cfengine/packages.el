@@ -21,6 +21,7 @@
 
 (defun cfengine/init-cfengine3-mode ()
   (use-package cfengine3-mode
+    :defer t
     :mode ("\\.cf\\'" . cfengine3-mode)
     :init (spacemacs/set-leader-keys-for-major-mode 'cfengine3-mode
             "j" 'cfengine3-reformat-json-string)))
@@ -36,7 +37,7 @@
 
 (defun cfengine/init-ob-cfengine3 ()
   (use-package ob-cfengine3
-   ))
+    :defer t))
 
 (defun cfengine/pre-init-org ()
   (when (configuration-layer/package-used-p 'org)

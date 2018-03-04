@@ -119,6 +119,7 @@
 
 (defun mu4e/init-mu4e-alert ()
   (use-package mu4e-alert
+    :defer t
     :init (with-eval-after-load 'mu4e
             (when mu4e-enable-notifications
               (mu4e-alert-enable-notifications))
@@ -127,6 +128,7 @@
 
 (defun mu4e/init-helm-mu ()
   (use-package helm-mu
+    :defer t
     :init (dolist (m mu4e-modes)
             (spacemacs/set-leader-keys-for-major-mode m
               "S" 'helm-mu

@@ -50,7 +50,6 @@
 
 (defun ivy/init-counsel ()
   (use-package counsel
-    :demand t
     :init
     (progn
       (spacemacs/set-leader-keys
@@ -161,10 +160,11 @@
     "re" 'spacemacs/ivy-evil-registers))
 
 (defun ivy/init-flx ()
-  (use-package flx :demand t))
+  (use-package flx))
 
 (defun ivy/init-helm-make ()
   (use-package helm-make
+    :defer t
     :init
     (progn
       (setq helm-make-completion-method 'ivy)
@@ -177,7 +177,6 @@
 
 (defun ivy/init-ivy ()
   (use-package ivy
-    :demand t
     :init
     (progn
       ;; Key bindings
@@ -214,11 +213,12 @@
       (setq ivy-use-selectable-prompt t))))
 
 (defun ivy/init-ivy-hydra ()
-  (use-package ivy-hydra :demand t)
+  (use-package ivy-hydra)
   (define-key hydra-ivy/keymap [escape] 'hydra-ivy/keyboard-escape-quit-and-exit))
 
 (defun ivy/init-ivy-rich ()
   (use-package ivy-rich
+    :defer t
     :init
     (progn
       (setq ivy-rich-abbreviate-paths t
@@ -247,6 +247,7 @@
 
 (defun ivy/init-ivy-xref ()
   (use-package ivy-xref
+    :defer t
     :init
     (progn
       (setq xref-prompt-for-identifier '(not xref-find-definitions
@@ -315,13 +316,13 @@
 
 (defun ivy/init-smex ()
   (use-package smex
+    :defer t
     :init (setq-default smex-history-length 32
                         smex-save-file (concat spacemacs-cache-directory
                                                ".smex-items"))))
 
 (defun ivy/init-swiper ()
   (use-package swiper
-    :demand t
     :config
     (progn
       (spacemacs/set-leader-keys

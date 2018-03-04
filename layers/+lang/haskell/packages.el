@@ -32,33 +32,35 @@
 
 (defun haskell/init-cmm-mode ()
   (use-package cmm-mode
-   ))
+    :defer t))
 
 (defun haskell/init-company-cabal ()
   (use-package company-cabal
+    :defer t
     :init (spacemacs|add-company-backends
             :backends company-cabal
             :modes haskell-cabal-mode)))
 
 (defun haskell/init-company-ghci ()
   (use-package company-ghci
-   ))
+    :defer t))
 
 (defun haskell/init-company-ghc ()
   (use-package company-ghc
-   ))
+    :defer t))
 
 (defun haskell/post-init-ggtags ()
   (add-hook 'haskell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun haskell/init-ghc ()
   (use-package ghc
-   ))
+    :defer t))
 
 (defun haskell/init-dante ())
 
 (defun haskell/init-intero ()
   (use-package intero
+    :defer t
     :config
     (progn
       (spacemacs|diminish intero-mode " λ" " \\")
@@ -67,6 +69,7 @@
 
 (defun haskell/init-helm-hoogle ()
   (use-package helm-hoogle
+    :defer t
     :init
     (dolist (mode haskell-modes)
       (spacemacs/set-leader-keys-for-major-mode mode "hf" 'helm-hoogle))))
@@ -81,6 +84,7 @@
 
 (defun haskell/init-haskell-mode ()
   (use-package haskell-mode
+    :defer t
     :init
     (progn
       (add-hook 'haskell-mode-local-vars-hook
@@ -268,6 +272,7 @@
 ;; doesn't support literate-haskell-mode :(
 (defun haskell/init-hindent ()
   (use-package hindent
+    :defer t
     :if haskell-enable-hindent
     :init
     (add-hook 'haskell-mode-hook #'hindent-mode)
@@ -278,6 +283,7 @@
 
 (defun haskell/init-hlint-refactor ()
   (use-package hlint-refactor
+    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'haskell-mode

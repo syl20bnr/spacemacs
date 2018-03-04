@@ -15,4 +15,4 @@
         ))
 
 (defun node/init-add-node-modules-path ()
-  (use-package add-node-modules-path))
+  (use-package add-node-modules-path :defer t))

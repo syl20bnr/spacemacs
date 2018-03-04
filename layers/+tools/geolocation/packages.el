@@ -23,6 +23,7 @@
 (defun geolocation/init-osx-location ()
   "Initialize osx-location"
   (use-package osx-location
+    :defer t
     :init
     (progn
       (add-hook 'osx-location-changed-hook 'spacemacs//osx-location-changed)
@@ -30,6 +31,7 @@
 
 (defun geolocation/init-rase ()
   (use-package rase
+    :defer t
     :init
     (progn
       (add-hook 'osx-location-changed-hook 'spacemacs//osx-location-changed-rase)

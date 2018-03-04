@@ -25,6 +25,7 @@
 
 (defun version-control/init-vc ()
   (use-package vc
+    :defer t
     :init
     (spacemacs/declare-prefix "gv" "version-control")
     :config
@@ -86,6 +87,7 @@
 
 (defun version-control/init-diff-mode ()
   (use-package diff-mode
+    :defer t
     :config
     (evilified-state-evilify diff-mode diff-mode-map
       (kbd "C-j") 'diff-hunk-next
@@ -247,6 +249,7 @@
 
 (defun version-control/init-smerge-mode ()
   (use-package smerge-mode
+    :defer t
     :diminish smerge-mode
     :commands spacemacs/smerge-transient-state/body
     :init
@@ -283,4 +286,5 @@
 
 (defun version-control/init-browse-at-remote ()
   (use-package browse-at-remote
+    :defer t
     :init (spacemacs/set-leader-keys "gho" 'browse-at-remote)))

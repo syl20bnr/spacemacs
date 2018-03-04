@@ -30,6 +30,7 @@
 
 (defun bibtex/init-org-ref ()
   (use-package org-ref
+    :defer t
     :commands (org-ref-bibtex-next-entry
                org-ref-bibtex-previous-entry
                org-ref-open-in-browser

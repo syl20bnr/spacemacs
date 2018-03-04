@@ -43,6 +43,7 @@
 
 (defun typescript/init-tide ()
   (use-package tide
+    :defer t
     :commands (typescript/jump-to-type-def)
     :init
     (progn
@@ -93,6 +94,7 @@
 
 (defun typescript/init-typescript-mode ()
   (use-package typescript-mode
+    :defer t
     :config
     (progn
       (when typescript-fmt-on-save

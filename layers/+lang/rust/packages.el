@@ -25,6 +25,7 @@
 
 (defun rust/init-cargo ()
   (use-package cargo
+    :defer t
     :init
     (progn
       (spacemacs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
@@ -53,6 +54,7 @@
 
 (defun rust/init-flycheck-rust ()
   (use-package flycheck-rust
+    :defer t
     :init (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
 (defun rust/post-init-ggtags ()
@@ -66,6 +68,7 @@
 
 (defun rust/init-rust-mode ()
   (use-package rust-mode
+    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
@@ -97,6 +100,7 @@
 
 (defun rust/init-racer ()
   (use-package racer
+    :defer t
     :init
     (progn
       (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode))
