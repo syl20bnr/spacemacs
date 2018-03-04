@@ -348,6 +348,12 @@ restricts line-number to the specified list of major-mode.")
 (defvar dotspacemacs-persistent-server nil
   "If non nil advises quit functions to keep server open when quitting.")
 
+(defvar dotspacemacs-server-socket-dir nil
+  "Set the emacs server socket location.
+If nil, uses whatever the Emacs default is,
+otherwise a directory path like \"~/.emacs.d/server\".
+Has no effect if `dotspacemacs-enable-server' is nil.")
+
 (defvar dotspacemacs-smartparens-strict-mode nil
   "If non-nil smartparens-strict-mode will be enabled in programming modes.")
 

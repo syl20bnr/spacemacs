@@ -47,6 +47,8 @@
       (winner-mode t))
     (when (and dotspacemacs-enable-server (not (spacemacs-is-dumping-p)))
       (require 'server)
+      (when dotspacemacs-server-socket-dir
+        (setq server-socket-dir dotspacemacs-server-socket-dir))
       (unless (server-running-p)
         (message "Starting a server...")
         (server-start)))
