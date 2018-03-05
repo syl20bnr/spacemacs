@@ -24,6 +24,7 @@
         move-text
         (origami :toggle (eq 'origami dotspacemacs-folding-method))
         password-generator
+        pcre2el
         smartparens
         (spacemacs-whitespace-cleanup :location local)
         string-inflection
@@ -272,6 +273,30 @@
         "ip3" 'password-generator-paranoid
         "ipp" 'password-generator-phonetic
         "ipn" 'password-generator-numeric))))
+
+(defun spacemacs-editing/init-pcre2el ()
+  (use-package pcre2el
+    :defer t
+    :init
+    (progn
+      (spacemacs/declare-prefix "xr" "regular expressions")
+      (spacemacs/declare-prefix "xre" "elisp")
+      (spacemacs/declare-prefix "xrp" "pcre")
+      (spacemacs/set-leader-keys
+        "xr/"  'rxt-explain
+        "xr'"  'rxt-convert-to-strings
+        "xrt"  'rxt-toggle-elisp-rx
+        "xrx"  'rxt-convert-to-rx
+        "xrc"  'rxt-convert-syntax
+        "xre/" 'rxt-explain-elisp
+        "xre'" 'rxt-elisp-to-strings
+        "xrep" 'rxt-elisp-to-pcre
+        "xret" 'rxt-toggle-elisp-rx
+        "xrex" 'rxt-elisp-to-rx
+        "xrp/" 'rxt-explain-pcre
+        "xrp'" 'rxt-pcre-to-strings
+        "xrpe" 'rxt-pcre-to-elisp
+        "xrpx" 'rxt-pcre-to-rx))))
 
 (defun spacemacs-editing/init-smartparens ()
   (use-package smartparens

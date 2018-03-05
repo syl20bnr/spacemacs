@@ -5,9 +5,16 @@
   - [[#features][Features:]]
 
 * Description
-This layer adds basics for providing code-completion for various major modes
-to Spacemacs.
+This layer does basic setup for completion frameworks like =helm=, =ivy= and
+=ido=.
+
+Its main role is to ensure sane defaults and consistent UI between =helm=
+and =ivy= because even when you are using only one of them you could still
+need to use the other (for instance a package that supports only =helm=).
+
+Advanced configuration of these packages can be found in their respective
+layers in =+completion= layer directory.
 
 ** Features:
-- Preconfiguration of =helm= and =ivy= for other layers to use.
-- Adding of =ido-navigation= configuration and transient state.
+- Base preconfiguration of =helm= and =ivy= for other layers to use.
+- Basic support for =ido-navigation= configuration and transient state.

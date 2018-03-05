@@ -1,4 +1,4 @@
-;;; keybindings.el --- Spacemacs Base Layer key-bindings File
+;;; keybindings.el --- Spacemacs Defaults Layer key-bindings File
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

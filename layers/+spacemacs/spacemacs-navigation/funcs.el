@@ -10,6 +10,34 @@
 ;;; License: GPLv3
 
 
+;; ace-window
+
+(defun spacemacs/ace-delete-window (&optional arg)
+  "Ace delete window.
+If the universal prefix argument is used then kill the buffer too."
+  (interactive "P")
+  (require 'ace-window)
+  (aw-select
+   " Ace - Delete Window"
+   (lambda (window)
+     (when (equal '(4) arg)
+       (with-selected-window window
+         (spacemacs/kill-this-buffer arg)))
+     (aw-delete-window window))))
+
+(defun spacemacs/ace-kill-this-buffer (&optional arg)
+  "Ace kill visible buffer in a window.
+If the universal prefix argument is used then kill also the window."
+  (interactive "P")
+  (require 'ace-window)
+  (let (golden-ratio-mode)
+    (aw-select
+     " Ace - Kill buffer in Window"
+     (lambda (window)
+       (with-selected-window window
+         (spacemacs/kill-this-buffer arg))))))
+
+
 ;; auto-highlight symbol
 
 (defun spacemacs/goto-last-searched-ahs-symbol ()

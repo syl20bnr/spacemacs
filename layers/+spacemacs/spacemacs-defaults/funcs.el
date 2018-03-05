@@ -1,4 +1,4 @@
-;;; funcs.el --- Spacemacs Base Layer functions File
+;;; funcs.el --- Spacemacs Defaults Layer functions File
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
@@ -133,37 +133,6 @@ automatically applied to."
       (delete-window))
     (while (condition-case nil (windmove-down) (error nil))
       (delete-window))))
-
-(defun spacemacs/toggle-centered-buffer-mode ()
-  "Toggle `spacemacs-centered-buffer-mode'."
-  (interactive)
-  (when (require 'centered-buffer-mode nil t)
-    (call-interactively 'spacemacs-centered-buffer-mode)))
-
-(defun spacemacs/toggle-centered-buffer-mode-frame ()
-  "Open current buffer in the new frame centered and without mode-line."
-  (interactive)
-  (when (require 'centered-buffer-mode nil t)
-    (switch-to-buffer-other-frame (current-buffer) t)
-    (toggle-frame-fullscreen)
-    (run-with-idle-timer
-     ;; FIXME: We need this delay to make sure that the
-     ;; `toggle-frame-fullscreen' fully "finished"
-     ;; it will be better to use something more reliable
-     ;; instead :)
-     1
-     nil
-     (lambda ()
-       (call-interactively 'spacemacs-centered-buffer-mode)
-       (setq mode-line-format nil)))))
-
-(defun spacemacs/centered-buffer-mode-full-width ()
-  "Center buffer in the frame."
-  ;; FIXME Needs new key-binding.
-  (interactive)
-  (when (require 'centered-buffer-mode nil t)
-    (spacemacs/maximize-horizontally)
-    (call-interactively 'spacemacs-centered-buffer-mode)))
 
 (defun spacemacs/useful-buffer-p (buffer)
   "Determines if a buffer is useful."
@@ -475,19 +444,6 @@ If the universal prefix argument is used then kill the buffer too."
       (kill-buffer-and-window)
     (delete-window)))
 
-(defun spacemacs/ace-delete-window (&optional arg)
-  "Ace delete window.
-If the universal prefix argument is used then kill the buffer too."
-  (interactive "P")
-  (require 'ace-window)
-  (aw-select
-   " Ace - Delete Window"
-   (lambda (window)
-     (when (equal '(4) arg)
-       (with-selected-window window
-         (spacemacs/kill-this-buffer arg)))
-     (aw-delete-window window))))
-
 ;; our own implementation of kill-this-buffer from menu-bar.el
 (defun spacemacs/kill-this-buffer (&optional arg)
   "Kill the current buffer.
@@ -498,18 +454,6 @@ If the universal prefix argument is used then kill also the window."
     (if (equal '(4) arg)
         (kill-buffer-and-window)
       (kill-buffer))))
-
-(defun spacemacs/ace-kill-this-buffer (&optional arg)
-  "Ace kill visible buffer in a window.
-If the universal prefix argument is used then kill also the window."
-  (interactive "P")
-  (require 'ace-window)
-  (let (golden-ratio-mode)
-    (aw-select
-     " Ace - Kill buffer in Window"
-     (lambda (window)
-       (with-selected-window window
-         (spacemacs/kill-this-buffer arg))))))
 
 ;; found at http://emacswiki.org/emacs/KillingBuffers
 (defun spacemacs/kill-other-buffers (&optional arg)
