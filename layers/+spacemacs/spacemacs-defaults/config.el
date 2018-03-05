@@ -1,4 +1,4 @@
-;;; config.el --- Spacemacs Base Layer configuration File
+;;; config.el --- Spacemacs Defaults Layer configuration File
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

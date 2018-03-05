@@ -11,17 +11,30 @@
 
 (setq spacemacs-bootstrap-packages
       '(
+        ;; bootstrap packages,
+        ;; `use-package' cannot be used for bootstrap packages configuration
         (async :step bootstrap)
         (bind-map :step bootstrap)
         (bind-key :step bootstrap)
         (diminish :step bootstrap)
         (evil :step bootstrap)
+        (exec-path-from-shell :step bootstrap
+                              :toggle (or (spacemacs/system-is-mac)
+                                          (spacemacs/system-is-linux)
+                                          (eq window-system 'x)))
         (hydra :step bootstrap)
         (use-package :step bootstrap)
         (which-key :step bootstrap)
+        ;; pre packages, initialized aftert the bootstrap packages
+        ;; these packages can use use-package
+        (evil-evilified-state :location local :step pre :protected t)
+        (holy-mode :location local :step pre)
+        (hybrid-mode :location local :step pre)
+        (spacemacs-theme :location built-in)
         ))
 
-;; Note: `use-package' cannot be used for bootstrap packages configuration
+
+;; bootstrap packages
 
 (defun spacemacs-bootstrap/init-async ())
 
@@ -272,6 +285,10 @@
   (evil-declare-ignore-repeat 'spacemacs/next-error)
   (evil-declare-ignore-repeat 'spacemacs/previous-error))
 
+(defun spacemacs-bootstrap/init-exec-path-from-shell ()
+  (require 'exec-path-from-shell)
+  (exec-path-from-shell-initialize))
+
 (defun spacemacs-bootstrap/init-hydra ()
   (require 'hydra)
   (setq hydra-key-doc-function 'spacemacs//hydra-key-doc-function
@@ -475,3 +492,50 @@
 
   (which-key-mode)
   (spacemacs|diminish which-key-mode " Ⓚ" " K"))
+
+;; pre packages
+
+(defun spacemacs-bootstrap/init-evil-evilified-state ()
+  (use-package evil-evilified-state)
+  (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
+    spacemacs-default-map))
+
+(defun spacemacs-bootstrap/init-holy-mode ()
+  (use-package holy-mode
+    :commands holy-mode
+    :init
+    (progn
+      (when (eq 'emacs dotspacemacs-editing-style)
+        (holy-mode))
+      (spacemacs|add-toggle holy-mode
+        :status holy-mode
+        :on (progn (when (bound-and-true-p hybrid-mode)
+                     (hybrid-mode -1))
+                   (holy-mode))
+        :off (holy-mode -1)
+        :documentation "Globally toggle holy mode."
+        :evil-leader "tEe")
+      (spacemacs|diminish holy-mode " Ⓔe" " Ee"))))
+
+(defun spacemacs-bootstrap/init-hybrid-mode ()
+  (use-package hybrid-mode
+    :config
+    (progn
+      (when (eq 'hybrid dotspacemacs-editing-style) (hybrid-mode))
+      (spacemacs|add-toggle hybrid-mode
+        :status hybrid-mode
+        :on (progn (when (bound-and-true-p holy-mode)
+                     (holy-mode -1))
+                   (hybrid-mode))
+        :off (hybrid-mode -1)
+        :documentation "Globally toggle hybrid mode."
+        :evil-leader "tEh")
+      (spacemacs|diminish hybrid-mode " Ⓔh" " Eh"))))
+
+(defun spacemacs-bootstrap/init-spacemacs-theme ()
+  (use-package spacemacs-theme
+    :defer t
+    :init
+    (progn
+      (setq spacemacs-theme-comment-bg t)
+      (setq spacemacs-theme-org-height t))))

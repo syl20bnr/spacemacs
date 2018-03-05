@@ -1,0 +1,13 @@
+#+TITLE: spacemacs-defaults
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+
+* Description
+This layer configures mostly Emacs built-in packages to given them better
+defaults.
+
+** Features:
+See [[file:packages.el][packages.el]] for a list of all configured packages or use Spacemacs help system
+with ~SPC h SPC spacemacs-defaults~ to browse all the configuration for this layer.
