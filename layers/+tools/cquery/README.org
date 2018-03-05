@@ -1,0 +1,47 @@
+#+TITLE: cquery layer
+
+* Table of Contents                      :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#cquery-server][cquery server]]
+  - [[#layer][Layer]]
+- [[#configuration][Configuration]]
+
+* Description
+This layer adds [[https://github.com/cquery-project/cquery][cquery]] support.
+
+** Features:
+- Cross references (definitions, references, base/derived classes/methods, type instances, ...)
+- Workspace symbol search
+- Workspace-wide symbol rename
+- Diagnostics
+- Completion with =company-lsp=
+- Rainbow semantic highlighting
+- Signature help and documentation
+- Code lens
+- See more on [[https://github.com/cquery-project/cquery/wiki/Emacs]]
+
+Some features are implemented on the server side but not available in the Emacs plugin, e.g. type hierarchy, member hierarchy, call tree.
+
+* Install
+** cquery server
+Install the =cquery= server. [[https://github.com/cquery-project/cquery/wiki/Getting-started][Instructions]].
+
+** Layer
+1) Add =cquery= to the =dotspacemacs-configuration-layers= list in =~/.spacemacs=.
+2)
+   #+BEGIN_SRC emacs-lisp
+   (setq cquery-executable "/path/to/bin/cquery")
+   #+END_SRC emacs-lisp
+   If you need to expand =~= in the path, you can use =file-truename= like
+   #+BEGIN_SRC emacs-lisp
+   (setq cquery-executable (file-truename "~/cquery/build/release/bin/cquery"))
+   #+END_SRC
+
+* Configuration
+cquery needs to know where to store index cache (=cquery-cache-dir=), which defaults to =.cquery_cached_index= in the project root.
+You may change it to an absolute path to have cache from different projects reside in the same directory.
+
+Many behaviors do not have correponding elisp variables and should be tuned via initialization options, such as the number of indexer threads, cache serialization format. They have good default values.
+Refer to [[https://github.com/cquery-project/cquery/wiki/Initialization-options][Initialization options]] and set =cquery-extra-init-params= for more customization.
