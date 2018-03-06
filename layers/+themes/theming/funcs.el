@@ -17,11 +17,6 @@
 theme."
   (unless no-enable
 
-    ;; Remove existing modifications
-    (dolist (face spacemacs--theming-modified-faces)
-      (custom-set-faces `(,face ((t ())))))
-    (setq spacemacs--theming-modified-faces nil)
-
     ;; Headings
     (let ((mods nil))
       (when (spacemacs//in-or-all theme theming-headings-inherit-from-default)
@@ -32,14 +27,12 @@ theme."
         (setq mods (plist-put mods :weight 'bold)))
       (when mods
         (dolist (face spacemacs--theming-header-faces)
-          (custom-set-faces `(,face ((t ,mods))))
-          (push face spacemacs--theming-modified-faces))))
+          (custom-theme-set-faces theme `(,face ((t ,mods)))))))
 
     ;; Add new modifications
     (dolist (spec (append (cdr (assq theme theming-modifications))
                           (cdr (assq t theming-modifications))))
-      (custom-set-faces `(,(car spec) ((t ,(cdr spec)))))
-      (push (car spec) spacemacs--theming-modified-faces))))
+      (custom-theme-set-faces theme `(,(car spec) ((t ,(cdr spec))))))))
 
 (defun spacemacs/update-theme ()
   (interactive)

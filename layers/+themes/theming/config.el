@@ -27,8 +27,6 @@ same size, or the symbol `all'.")
   "A list of themes where all headings should be bold,
 or the symbol `all'.")
 
-(defvar spacemacs--theming-modified-faces '())
-
 (defvar spacemacs--theming-header-faces
   '(font-latex-sectioning-0-face
     font-latex-sectioning-1-face
