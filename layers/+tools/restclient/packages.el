@@ -54,11 +54,18 @@
         "R" 'restclient-http-send-current-raw
         "y" 'restclient-copy-curl-command))))
 
+(defun restclient/post-init-company ()
+  "docstring"
+  (spacemacs|add-company-backends
+   :backends company-restclient
+   :modes restclient-mode)
+  )
+
 (defun restclient/init-company-restclient ()
   (use-package company-restclient
-    :init (spacemacs|add-company-backends
-            :backends company-restclient
-            :modes restclient-mode)))
+    :init (progn
+            
+            )))
 
 (defun restclient/init-restclient-helm ()
   (use-package restclient-helm

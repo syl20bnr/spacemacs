@@ -45,25 +45,27 @@
 
 (defun html/post-init-company ()
   (spacemacs|add-company-backends
-    :backends company-css
-    :modes css-mode))
+   :backends company-css
+   :modes css-mode)
+  (spacemacs|add-company-backends
+   :backends (company-web-html company-css)
+   :modes web-mode
+   :variables
+   ;; see https://github.com/osv/company-web/issues/4
+   company-minimum-prefix-length 0)
+  (spacemacs|add-company-backends
+   :backends company-web-jade
+   :modes pug-mode)
+  (spacemacs|add-company-backends
+   :backends company-web-slim
+   :modes slim-mode)
+  )
 
 (defun html/init-company-web ()
   (use-package company-web
     :init
     (progn
-      (spacemacs|add-company-backends
-        :backends (company-web-html company-css)
-        :modes web-mode
-        :variables
-        ;; see https://github.com/osv/company-web/issues/4
-        company-minimum-prefix-length 0)
-      (spacemacs|add-company-backends
-        :backends company-web-jade
-        :modes pug-mode)
-      (spacemacs|add-company-backends
-        :backends company-web-slim
-        :modes slim-mode))))
+      )))
 
 (defun html/init-css-mode ()
   (use-package css-mode

@@ -63,6 +63,12 @@
 (defun php/init-phpunit ()
   (use-package phpunit
    ))
+(defun php/post-init-company ()
+  "docstring"
+  (spacemacs|add-company-backends
+   :modes php-mode
+   :backends company-ac-php-backend)
+  )
 
 (defun php/init-company-php ()
   (use-package company-php
@@ -70,6 +76,5 @@
     (progn
       (push 'ac-php-find-symbol-at-point spacemacs-jump-handlers-php-mode)
       (add-hook 'php-mode-hook 'ac-php-core-eldoc-setup)
-      (spacemacs|add-company-backends
-        :modes php-mode
-        :backends company-ac-php-backend))))
+      
+      )))
