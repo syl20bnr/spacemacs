@@ -43,8 +43,7 @@
     :init
     (progn
       (add-to-list 'auto-mode-alist
-                   `("\\.h\\'" . ,c-c++-default-mode-for-headers))
-      (add-hook 'c-mode-common-hook 'spacemacs//c-toggle-auto-newline))
+                   `("\\.h\\'" . ,c-c++-default-mode-for-headers)))
     :config
     (progn
       (require 'compile)
