@@ -55,3 +55,12 @@ layout, the 4th for the 4th, and so on until the 10th (aka layout
 number 0). The first list is sepcial - it is a grab-bag for names
 in case none of the regular names can be used for a new layout.")
 
+(defvar layouts-enable-local-variables t
+  "Allow variables to be specified as layout-local (value local to a particular layout).")
+
+(defvar spacemacs--layout-local-variables nil
+  "List of variables that will be local to the current layout.")
+
+(defvar spacemacs--layout-local-map (ht-create)
+  "Map of layouts to their local variable values.")
+
