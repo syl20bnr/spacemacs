@@ -76,5 +76,4 @@
     (progn
       (push 'ac-php-find-symbol-at-point spacemacs-jump-handlers-php-mode)
       (add-hook 'php-mode-hook 'ac-php-core-eldoc-setup)
-      
       )))
