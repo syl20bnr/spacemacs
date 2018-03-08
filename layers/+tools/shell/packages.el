@@ -218,6 +218,8 @@
       (make-shell-pop-command multiterm)
       (make-shell-pop-command ansi-term shell-pop-term-shell)
 
+      (spacemacs/make-variable-layout-local 'shell-pop-last-shell-buffer-index 1
+                                            'shell-pop-last-shell-buffer-name "")
       (add-hook 'term-mode-hook 'ansi-term-handle-close)
       (add-hook 'term-mode-hook (lambda () (linum-mode -1)))
 
