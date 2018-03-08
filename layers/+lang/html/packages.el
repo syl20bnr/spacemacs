@@ -61,12 +61,6 @@
    :modes slim-mode)
   )
 
-(defun html/init-company-web ()
-  (use-package company-web
-    :init
-    (progn
-      )))
-
 (defun html/init-css-mode ()
   (use-package css-mode
     :init

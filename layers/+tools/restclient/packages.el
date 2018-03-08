@@ -61,12 +61,6 @@
    :modes restclient-mode)
   )
 
-(defun restclient/init-company-restclient ()
-  (use-package company-restclient
-    :init (progn
-            
-            )))
-
 (defun restclient/init-restclient-helm ()
   (use-package restclient-helm
     :init (spacemacs/set-leader-keys-for-major-mode 'restclient-mode

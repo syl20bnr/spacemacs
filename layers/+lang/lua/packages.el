@@ -45,14 +45,6 @@
    :modes lua-mode)
   )
 
-(defun lua/init-company-lua ()
-  (use-package company-lua
-    :init
-    (progn
-      
-      )
-    ))
-
 (defun lua/post-init-ggtags ()
   (add-hook 'lua-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
