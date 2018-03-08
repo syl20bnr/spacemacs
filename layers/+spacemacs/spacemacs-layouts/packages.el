@@ -223,9 +223,13 @@
       (add-hook 'persp-mode-hook 'spacemacs//layout-autosave)
       (advice-add 'persp-load-state-from-file
                   :before 'spacemacs//layout-wait-for-modeline)
+      (when layouts-enable-local-variables
+        (advice-add 'persp-switch :before #'spacemacs//load-layout-local-vars))
       (dolist (fn spacemacs-layouts-restricted-functions)
         (advice-add fn
                     :around 'spacemacs-layouts//advice-with-persp-buffer-list))
+      (spacemacs/declare-prefix "b" "persp-buffers")
+      ;; Override SPC TAB to only change buffers in perspective
       (spacemacs/set-leader-keys
         "ba"   'persp-add-buffer
         "br"   'persp-remove-buffer))))
