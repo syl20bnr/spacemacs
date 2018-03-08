@@ -240,6 +240,8 @@
              (initial-shell-mode (intern initial-shell-mode-name)))
         (evil-set-initial-state initial-shell-mode 'insert))
 
+      (spacemacs/make-variable-layout-local 'shell-pop-last-shell-buffer-index 1
+                                            'shell-pop-last-shell-buffer-name "")
       (add-hook 'term-mode-hook 'ansi-term-handle-close)
 
       (spacemacs/set-leader-keys
