@@ -27,7 +27,14 @@
 (defun chinese/init-fcitx ()
   (use-package fcitx
     :init
-    (fcitx-evil-turn-on)))
+    (fcitx-evil-turn-on)
+    :config
+    (setq fcitx-active-evil-states '(insert emacs hybrid))
+    (fcitx-default-setup)
+    (fcitx-prefix-keys-add "M-m" "C-M-m")
+    (if (eq system-type 'gnu/linux)
+        (setq fcitx-use-dbus t)))
+  )
 
 (defun chinese/init-chinese-wbim ()
   "Initialize chinese-wubi"

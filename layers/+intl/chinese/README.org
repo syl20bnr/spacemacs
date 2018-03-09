@@ -99,7 +99,7 @@ with the following configuration.
 
 **** Requirement
 ***** Linux
-You need to install =fcitx= and =fcitx-remote= on your machine.
+You need to install =fcitx= and dbus interface on your machine.
 
 ***** Mac OS X
 We don't have a =fcitx= in OS X yet but we already added an emulation called
