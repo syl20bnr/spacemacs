@@ -62,6 +62,8 @@
                         ("mh" . "markdown/header")
                         ("mi" . "markdown/insert")
                         ("ml" . "markdown/lists")
+                        ("mt" . "markdown/table")
+                        ("mT" . "markdown/toggle")
                         ("mx" . "markdown/text")))
         (dolist (mode markdown--key-bindings-modes)
           (spacemacs/declare-prefix-for-mode
@@ -110,19 +112,33 @@
           ;; List editing
           "li"  'markdown-insert-list-item
           ;; Toggles
-          "ti"  'markdown-toggle-inline-images
-          "tm"  'markdown-toggle-markup-hiding
-          "tl"  'markdown-toggle-url-hiding
-          "tt"  'markdown-toggle-gfm-checkbox
-          "tw"  'markdown-toggle-wiki-links
+          "Ti"  'markdown-toggle-inline-images
+          "Tl"  'markdown-toggle-url-hiding
+          "Tm"  'markdown-toggle-markup-hiding
+          "Tt"  'markdown-toggle-gfm-checkbox
+          "Tw"  'markdown-toggle-wiki-links
+          ;; Table
+          "tp"  'markdown-table-move-row-up
+          "tn"  'markdown-table-move-row-down
+          "tf"  'markdown-table-move-column-right
+          "tb"  'markdown-table-move-column-left
+          "tr"  'markdown-table-insert-row
+          "tR"  'markdown-table-delete-row
+          "tc"  'markdown-table-insert-column
+          "tC"  'markdown-table-delete-column
+          "ts"  'markdown-table-sort-lines
+          "td"  'markdown-table-convert-region
+          "tt"  'markdown-table-transpose
           ;; region manipulation
           "xb"  'markdown-insert-bold
-          "xi"  'markdown-insert-italic
+          "xB"  'markdown-insert-gfm-checkbox
           "xc"  'markdown-insert-code
           "xC"  'markdown-insert-gfm-code-block
-          "xq"  'markdown-insert-blockquote
-          "xQ"  'markdown-blockquote-region
+          "xi"  'markdown-insert-italic
           "xp"  'markdown-insert-pre
+          "xq"  'markdown-insert-blockquote
+          "xs"  'markdown-insert-strike-through
+          "xQ"  'markdown-blockquote-region
           "xP"  'markdown-pre-region
           ;; Following and Jumping
           "N"   'markdown-next-link

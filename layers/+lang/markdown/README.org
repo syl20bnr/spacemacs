@@ -18,6 +18,7 @@
 - [[#key-bindings][Key bindings]]
   - [[#element-insertion][Element insertion]]
   - [[#element-removal][Element removal]]
+  - [[#table-manipulation][Table manipulation]]
   - [[#completion][Completion]]
   - [[#following-and-jumping][Following and Jumping]]
   - [[#indentation][Indentation]]
@@ -119,6 +120,7 @@ In order to use =orgtabl-mode=, add =org= layer to your =~/.spacemacs=.
 | ~SPC m i i~ | insert image                                                      |
 | ~SPC m i t~ | insert Table of Contents (toc)                                    |
 | ~SPC m x b~ | make region bold or insert bold                                   |
+| ~SPC m x B~ | insert gfm checkbox                                               |
 | ~SPC m x i~ | make region italic or insert italic                               |
 | ~SPC m x c~ | make region code or insert code                                   |
 | ~SPC m x C~ | make region code or insert code (Github Flavored Markdown format) |
@@ -126,12 +128,29 @@ In order to use =orgtabl-mode=, add =org= layer to your =~/.spacemacs=.
 | ~SPC m x Q~ | blockquote region                                                 |
 | ~SPC m x p~ | make region or insert pre                                         |
 | ~SPC m x P~ | pre region                                                        |
+| ~SPC m x s~ | make region striked through or insert strikethrough               |
 
 ** Element removal
 
 | Key binding | Description         |
 |-------------+---------------------|
 | ~SPC m k~   | kill thing at point |
+
+** Table manipulation
+
+| Key Binding | Description             |
+|-------------+-------------------------|
+| ~SPC m t p~ | move row up             |
+| ~SPC m t n~ | move row down           |
+| ~SPC m t f~ | move column right       |
+| ~SPC m t b~ | move column left        |
+| ~SPC m t r~ | insert row              |
+| ~SPC m t R~ | delete row              |
+| ~SPC m t c~ | insert column           |
+| ~SPC m t C~ | delete column           |
+| ~SPC m t s~ | sort lines              |
+| ~SPC m t t~ | transpose table         |
+| ~SPC m t d~ | convert region to table |
 
 ** Completion
 
