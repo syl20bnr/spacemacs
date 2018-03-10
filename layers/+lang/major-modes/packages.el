@@ -14,9 +14,7 @@
         thrift
         vala-mode
         (vala-snippets :requires yasnippet)
-        ;; removed from MELPA (https://github.com/syl20bnr/spacemacs/issues/9795)
-        ;; TODO re-enable this mode when it is added back to MELPA
-        ;; wolfram-mode
+        wolfram-mode
         ))
 
 (defun major-modes/init-arduino-mode ())
