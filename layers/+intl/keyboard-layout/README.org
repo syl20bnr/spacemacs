@@ -97,7 +97,7 @@ default. If we want to follow the conventions, then it should be remapped to
 line, then there's no reason to move left, and we won't remap the ~c~ key.
 
 * Keyboard layouts
-The following keyboard-layouts are available with this layer:
+The following keyboard-layouts are available with this layer, and you can easily add your own configurations by editing the config.el file of this layer (you just need to set which keys to swap and the rest Just Works):
 
 ** Bepo
 [[file:img/bepo-logo.png]]
@@ -159,6 +159,10 @@ operating systems.
 
 [[file:img/dvorak-simplified-layout.png]]
 
+/Dvorak Right-Handed:/
+
+file:img/dvorak-right-handed-layout.png
+
 /Programmer Dvorak:/
 
 [[file:img/programmer-dvorak-layout.png]]
@@ -168,7 +172,7 @@ symbol keys, to make it easier to type common programming symbols, without
 having to hold down the shift key. The keys that differ from the /Dvorak
 Simplified Keyboard/ are shown in blue.
 
-This Spacemacs Keyboard Layout layer has two Dvorak movement key variants:
+This Spacemacs Keyboard Layout layer has 3 Dvorak movement key variants:
 
 The =dvp= variant: matches Vims movement keys:
 - ~d → h~
@@ -192,6 +196,17 @@ The lost keys are remapped as follows:
 - ~j → t~
 - ~k → n~
 - ~l → s~
+
+The =dvorak-right-handed= variant: matches Vims movement keys:
+- ~h → h~
+- ~t → j~
+- ~d → k~
+- ~c → l~
+
+The lost keys are remapped as follows:
+- ~j → t~
+- ~k → d~
+- ~l → c~
 
 ** Colemak
 Colemak is a modern alternative to the QWERTY and Dvorak layouts. It is designed

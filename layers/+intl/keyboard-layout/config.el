@@ -15,7 +15,7 @@
 
 (defvar kl-layout 'dvorak
   "The keyboard-layout to use. Possible values are `bepo', `dvp',
-`dvorak', `workman', `neo', `colemak-neio', `colemak-hnei' and
+`dvorak', `dvorak-right-handed', `workman', `neo', `colemak-neio', `colemak-hnei' and
 `colemak-jkhl'.")
 
 (defvar kl-enabled-configurations nil
@@ -53,6 +53,16 @@ case.")
         ("j" . "d")
         ("k" . "t")
         ("l" . "n")))
+    (dvorak-right-handed
+     . (("h" . "h")
+        ("t" . "j")
+        ("d" . "k")
+        ("c" . "l")
+        ;;
+        ("h" . "h")
+        ("j" . "t")
+        ("k" . "d")
+        ("l" . "c")))
     (dvorak
      . (("h" . "h")
         ("t" . "j")
