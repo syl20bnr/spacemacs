@@ -70,6 +70,8 @@
             mode (car prefix) (cdr prefix))))
       (dolist (mode markdown--key-bindings-modes)
         (spacemacs/set-leader-keys-for-major-mode mode
+          ;; rebind this so terminal users can use it
+          "M-RET" 'markdown-insert-list-item
           ;; Movement
           "{"   'markdown-backward-paragraph
           "}"   'markdown-forward-paragraph
