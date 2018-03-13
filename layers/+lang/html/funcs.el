@@ -11,9 +11,10 @@
 
 (defun spacemacs/emmet-expand ()
   (interactive)
-  (if (bound-and-true-p yas-minor-mode)
-      (call-interactively 'emmet-expand-yas)
-    (call-interactively 'emmet-expand-line)))
+  (unless (if (bound-and-true-p yas-minor-mode)
+              (call-interactively 'emmet-expand-yas)
+            (call-interactively 'emmet-expand-line))
+    (indent-for-tab-command)))
 
 (defun spacemacs/impatient-mode ()
   (interactive)
