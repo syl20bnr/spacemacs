@@ -61,6 +61,7 @@
     :defer t
     :init
     (progn
+      (spacemacs/declare-prefix "aC" "slack")
       (spacemacs/set-leader-keys
         "aCs" 'slack-start
         "aCj" 'slack-channel-select
