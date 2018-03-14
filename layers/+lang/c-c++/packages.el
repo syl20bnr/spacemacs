@@ -112,7 +112,7 @@
   (when c-c++-enable-clang-support
     (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)
     (when c-c++-enable-c++11
-      (setq flycheck-clang-language-standard "c++11"))))
+      (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11"))))))
 
 ;; TODO lazy load this package
 (defun c-c++/init-flycheck-rtags ()
