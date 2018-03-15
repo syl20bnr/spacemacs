@@ -19,6 +19,9 @@
     org
     ))
 
+(defun cfengine/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'cfengine3-mode))
+
 (defun cfengine/init-cfengine3-mode ()
   (use-package cfengine3-mode
     :defer t
@@ -31,9 +34,6 @@
 
 (defun cfengine/post-init-eldoc ()
   (add-hook 'cfengine3-mode-hook 'eldoc-mode))
-
-(defun cfengine/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'cfengine3-mode-hook))
 
 (defun cfengine/init-ob-cfengine3 ()
   (use-package ob-cfengine3
