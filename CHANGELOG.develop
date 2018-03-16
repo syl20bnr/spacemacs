@@ -93,7 +93,10 @@ This file containes the change log for the next major version of Spacemacs.
 - Add support for multiple backends. Supported backends are: =megahnada=,
   =eclim= and =ensime=. The default backend is =meghanada=.
 - ~SPC m e e~ is now to fix error around point. Use ~SPC e~ prefix to navigate
-  between errorsl
+  between errors.
+**** LSP
+- Added function =spacemacs/lsp-bind-keys-for-mode= to provide a consistent set of core keybindings across LSP layers.
+- Added a number of =lsp-ui= configuration variables to the layer - see [[file:./layers/+tools/lsp/README.org][LSP layer README]] for details.
 **** Org
 - Add package =org-journal= (Nick Anderson)
 - Move clock related key bindings to ~SPC a o k~
