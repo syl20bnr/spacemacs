@@ -110,6 +110,7 @@
 
 * Future additions/improvements
 ** Make =spacemacs/lsp-bind-keys-for-mode= bind conditionally
+** Make =spacemacs/lsp-bind/keys-for-mode= bind conditionally
    i.e. only bind keys if the language server supports the capability (queried using =lsp-capabilities=).
    =lsp-capabilities= uses current buffer to determine the language server, so this would probably entail adding the bindings dynamically in
    a mode hook.
