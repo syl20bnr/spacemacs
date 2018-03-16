@@ -9,7 +9,11 @@
   - [[#variables][Variables]]
   - [[#diagnostics][Diagnostics]]
 - [[#future-additionsimprovements][Future additions/improvements]]
+<<<<<<< HEAD
   - [[#make-spacemacslsp-bind-keys-for-mode-bind-conditionally][Make =spacemacs/lsp-bind-keys-for-mode= bind conditionally]]
+=======
+  - [[#make-spacemacslsp-bindkeys-for-mode-bind-conditionally][Make =spacemacs/lsp-bind/keys-for-mode= bind conditionally]]
+>>>>>>> lsp-layer configuration and building blocks for derived layers.
 - [[#references][References]]
 - [[#footnotes][Footnotes]]
 
