@@ -219,7 +219,8 @@
       (make-shell-pop-command ansi-term shell-pop-term-shell)
 
       (spacemacs/make-variable-layout-local 'shell-pop-last-shell-buffer-index 1
-                                            'shell-pop-last-shell-buffer-name "")
+                                            'shell-pop-last-shell-buffer-name ""
+                                            'shell-pop-last-buffer nil)
       (add-hook 'term-mode-hook 'ansi-term-handle-close)
       (add-hook 'term-mode-hook (lambda () (linum-mode -1)))
 
@@ -229,7 +230,9 @@
         "asi" 'spacemacs/shell-pop-shell
         "asm" 'spacemacs/shell-pop-multiterm
         "ast" 'spacemacs/shell-pop-ansi-term
-        "asT" 'spacemacs/shell-pop-term))))
+        "asT" 'spacemacs/shell-pop-term))
+    :config
+    (add-hook 'shell-pop-out-hook #'spacemacs//shell-pop-restore-window)))
 
 (defun shell/init-term ()
   (spacemacs/register-repl 'term 'term)
