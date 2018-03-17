@@ -241,7 +241,8 @@
         (evil-set-initial-state initial-shell-mode 'insert))
 
       (spacemacs/make-variable-layout-local 'shell-pop-last-shell-buffer-index 1
-                                            'shell-pop-last-shell-buffer-name "")
+                                            'shell-pop-last-shell-buffer-name ""
+                                            'shell-pop-last-buffer nil)
       (add-hook 'term-mode-hook 'ansi-term-handle-close)
 
       (spacemacs/set-leader-keys
@@ -252,7 +253,9 @@
         "ast" 'spacemacs/shell-pop-ansi-term
         "asT" 'spacemacs/shell-pop-term)
       (spacemacs/declare-prefix "'" "open shell")
-      (spacemacs/declare-prefix "as" "shells"))))
+      (spacemacs/declare-prefix "as" "shells"))
+    :config
+    (add-hook 'shell-pop-out-hook #'spacemacs//shell-pop-restore-window)))
 
 (defun shell/init-term ()
   (spacemacs/register-repl 'term 'term)
