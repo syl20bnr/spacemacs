@@ -225,3 +225,11 @@ is achieved by adding the relevant text properties."
               (centered-cursor-mode 0))
             :append
             :local))
+
+(defun spacemacs//shell-pop-restore-window ()
+  "Fixes an issue during `shell-pop-out' where it
+tries to restore a dead buffer or window."
+  (unless (buffer-live-p shell-pop-last-buffer)
+    (setq shell-pop-last-buffer (window-buffer (get-mru-window nil t t))))
+  (unless (window-live-p shell-pop-last-window)
+    (setq shell-pop-last-window (get-buffer-window shell-pop-last-buffer))))
