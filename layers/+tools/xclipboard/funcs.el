@@ -37,8 +37,6 @@
         printf \"clip.exe\"
     elif command_exists \"xsel\"; then
         printf \"xsel -ib\"
-    elif command_exists \"xclip\"; then
-        printf \"xclip -selection --clipboard\"
     elif command_exists \"putclip\"; then # cygwin clipboard command
         printf \"putclip\"
     fi")
@@ -61,8 +59,6 @@
         printf \"paste.exe\"
     elif command_exists \"xsel\"; then
         printf \"xsel -ob\"
-    elif command_exists \"xclip\"; then
-        printf \"xclip -o --clipboard\"
     elif command_exists \"getclip\"; then # cygwin clipboard command
         printf \"getclip\"
     fi")
