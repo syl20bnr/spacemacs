@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defconst xclipboard-packages '(xclipboard))
+(defconst xclipboard-packages '())
 
 (defun xclipboard/init-xclipboard ()
   (use-package xclipboard))
