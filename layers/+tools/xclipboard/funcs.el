@@ -1,15 +1,16 @@
 ;;; funcs.el --- xclipboard layer functions file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2017 Google Inc. & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
-;; Author: Charles Weill <weill@google.com>
+;; Authors: Charles Weill <weill@google.com>
+;;          Google LLC.
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
 
-(defun xclipboard/get-display ()
+(defun spacemacs//xclipboard-get-display ()
   (shell-command-to-string "if [[ -n $TMUX ]]; then
       export DISPLAY=$(tmux show-environment | grep -o '^DISPLAY.*$' | sed 's/DISPLAY=//')
     fi
@@ -19,7 +20,7 @@
     printf $DISPLAY")
   )
 
-(defun xclipboard/get-copy-command ()
+(defun spacemacs//xclipboard-get-copy-command ()
   (shell-command-to-string "command_exists() {
     local command=\"$1\"
     type \"$command\" >/dev/null 2>&1
@@ -41,7 +42,7 @@
   fi")
   )
 
-(defun xclipboard/get-paste-command ()
+(defun spacemacs//xclipboard-get-paste-command ()
   (shell-command-to-string "command_exists() {
     local command=\"$1\"
     type \"$command\" >/dev/null 2>&1
@@ -63,7 +64,7 @@ elif command_exists \"getclip\"; then # cygwin clipboard command
 fi")
   )
 
-(defun xclipboard/copy ()
+(defun spacemacs/xclipboard-copy ()
   "Copies selection to x-clipboard."
   (interactive)
   (if (display-graphic-p)
@@ -73,8 +74,8 @@ fi")
       )
     (if (region-active-p)
       (progn
-        (shell-command-on-region (region-beginning) (region-end) (format "DISPLAY=%s %s" (xclipboard/get-display) (xclipboard/get-copy-command)))
-        (message (format "Copied region to clipboard \"%s\"!" (xclipboard/get-display)))
+        (shell-command-on-region (region-beginning) (region-end) (format "DISPLAY=%s %s" (spacemacs//xclipboard-get-display) (spacemacs//xclipboard-get-copy-command)))
+        (message (format "Copied region to clipboard \"%s\"!" (spacemacs//xclipboard-get-display)))
         (deactivate-mark)
         )
       (message "No region active; can't copy to clipboard!")
@@ -82,7 +83,7 @@ fi")
     )
   )
 
-(defun xclipboard/paste ()
+(defun spacemacs/xclipboard-paste ()
   "Pastes from x-clipboard."
   (interactive)
   (if (display-graphic-p)
@@ -90,7 +91,7 @@ fi")
       (clipboard-yank)
       (message "graphics active")
       )
-    (insert (shell-command-to-string (format "DISPLAY=%s %s" (xclipboard/get-display) (xclipboard/get-paste-command))))
+    (insert (shell-command-to-string (format "DISPLAY=%s %s" (spacemacs//xclipboard-get-display) (spacemacs//xclipboard-get-paste-command))))
     )
-  (message (format "Pasted from clipboard \"%s\"!" (xclipboard/get-display)))
+  (message (format "Pasted from clipboard \"%s\"!" (spacemacs//xclipboard-get-display)))
   )
