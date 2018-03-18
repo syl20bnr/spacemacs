@@ -180,3 +180,11 @@ Example: (evil-map visual \"<\" \"<gv\")"
   "Custom hint documentation format for keys."
   (format (format "[%%%ds] %%%ds" key-width (- -1 doc-width))
           key doc))
+
+
+
+(defun spacemacs/copy-env-list (vars)
+  "Copy list of env. VARS using `exec-path-from-shell'."
+  (dolist (var vars)
+    (unless (getenv var)
+      (exec-path-from-shell-copy-env var))))

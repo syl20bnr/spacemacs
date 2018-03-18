@@ -18,7 +18,6 @@
     flycheck
     (flycheck-rust :requires flycheck)
     ggtags
-    exec-path-from-shell
     helm-gtags
     rust-mode
     smartparens
@@ -73,6 +72,7 @@
     :defer t
     :init
     (progn
+      (spacemacs/copy-env-list '("RUST_SRC_PATH"))
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "=" 'rust-format-buffer
         "q" 'spacemacs/rust-quick-run))))
@@ -91,14 +91,6 @@
   (with-eval-after-load 'smartparens
     ;; Don't pair lifetime specifiers
     (sp-local-pair 'rust-mode "'" nil :actions nil)))
-
-
-(defun rust/pre-init-exec-path-from-shell ()
-  (spacemacs|use-package-add-hook exec-path-from-shell
-    :pre-config
-    (let ((var "RUST_SRC_PATH"))
-      (unless (or (member var exec-path-from-shell-variables) (getenv var))
-        (add-to-list 'exec-path-from-shell-variables var)))))
 
 (defun rust/init-racer ()
   (use-package racer

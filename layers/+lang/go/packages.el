@@ -19,7 +19,6 @@
                                              'flycheck)))
         ggtags
         helm-gtags
-        exec-path-from-shell
         go-eldoc
         go-fill-struct
         go-gen-test
@@ -56,14 +55,6 @@
 
 (defun go/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'go-mode))
-
-(defun go/pre-init-exec-path-from-shell ()
-  (spacemacs|use-package-add-hook exec-path-from-shell
-    :pre-config
-    (dolist (var '("GOPATH" "GOROOT" "GO15VENDOREXPERIMENT")
-                 exec-path-from-shell-variables)
-      (unless (or (member var exec-path-from-shell-variables) (getenv var))
-        (add-to-list 'exec-path-from-shell-variables var)))))
 
 (defun go/init-go-eldoc ()
   (add-hook 'go-mode-hook 'go-eldoc-setup))
@@ -117,7 +108,8 @@
     (progn
       ;; get go packages much faster
       (setq go-packages-function 'spacemacs/go-packages-gopkgs)
-      (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width))
+      (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width)
+      (spacemacs/copy-env-list '("GOPATH" "GOROOT" "GO15VENDOREXPERIMENT")))
     :config
     (progn
       (add-hook 'before-save-hook 'gofmt-before-save)
