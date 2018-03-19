@@ -11,6 +11,7 @@
   - [[#indentation][Indentation]]
   - [[#repl][REPL]]
   - [[#node-modules][Node Modules]]
+  - [[#auto-formatting][Auto Formatting]]
 - [[#key-bindings][Key Bindings]]
   - [[#js2-mode][js2-mode]]
   - [[#folding-js2-mode][Folding (js2-mode)]]
@@ -126,6 +127,20 @@ doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472
 #+BEGIN_SRC elisp
 (setq-default dotspacemacs-configuration-layers
   '((javascript :variables node-add-modules-path t)))
+#+END_SRC
+
+** Auto Formatting
+If you would like to format your js on save, set the
+=javascript-eslint-fix-on-save= variable in the =javascript= config section.
+
+#+BEGIN_SRC elisp
+(setq-default dotspacemacs-configuration-layers
+  '((javascript :variables javascript-eslint-fix-on-save t)))
+#+END_SRC
+
+You'll need to install =eslint= somewhere that emacs can find it.
+#+BEGIN_SRC sh
+  $ npm install -g eslint
 #+END_SRC
 
 * Key Bindings

@@ -15,6 +15,7 @@
         coffee-mode
         company
         (company-tern :requires company)
+        eslint-fix
         evil-matchit
         flycheck
         ggtags
@@ -96,6 +97,16 @@
   (use-package js-doc
     :defer t
     :init (spacemacs/js-doc-set-key-bindings 'js2-mode)))
+
+(defun javascript/init-eslint-fix ()
+  (use-package eslint-fix
+    :if javascript-eslint-fix-on-save
+    :config
+    (progn
+      (add-hook
+       'js2-mode-hook
+       (lambda ()
+         (add-hook 'after-save-hook 'eslint-fix nil t))))))
 
 (defun javascript/init-js2-mode ()
   (use-package js2-mode
