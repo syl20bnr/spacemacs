@@ -1,0 +1,77 @@
+#+TITLE: LSP C-C++ Layer
+
+* Table of Contents                      :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#external-dependencies][External Dependencies]]
+  - [[#cquery-server][cquery server]]
+- [[#configuration][Configuration]]
+  - [[#basic][Basic]]
+  - [[#setting-path-to-cquery-executable][Setting path to cquery executable]]
+  - [[#additional-configuration-options][Additional configuration options]]
+- [[#keybindings][Keybindings]]
+  - [[#jump-browse--lsp-ui-peek][jump (browse / lsp-ui-peek)]]
+  - [[#hierarchy][hierarchy]]
+
+* Description
+This layer extends the [[../lsp/README.org][LSP layer]] to add [[https://github.com/cquery-project/cquery][cquery]] support.
+The generic naming reflects the intention to add support for ccls as an alternative backend implementation of the language server protocol at a later date.
+
+** Features:
+- Cross references (definitions, references, base/derived classes/methods, type instances, ...)
+- Diagnostics
+- Completion with =company-lsp=
+- Semantic highlighting
+- See more on [[https://github.com/cquery-project/cquery/wiki/Emacs]]
+- Cross-platform - cquery functional on Windows, Linux and OSX.
+
+* External Dependencies
+** cquery server
+Install the =cquery= server. [[https://github.com/cquery-project/cquery/wiki/Getting-started][Instructions]].
+
+
+* Configuration
+** Basic
+  Add =cquery= to the =dotspacemacs-configuration-layers= list in =~/.spacemacs=.
+
+** Setting path to cquery executable
+   The basic configuration above should work if the cquery executable folder is present in your path. If not, you can set the path explicitly.
+    #+BEGIN_SRC emacs-lisp
+      (cquery :variables cquery-executable "/path/to/bin/cquery")
+    #+END_SRC
+    If you need to expand =~= in the path, you can use =file-truename= like
+    #+BEGIN_SRC emacs-lisp
+      (cquery :variables cquery-executable (file-truename "~/bin/cquery"))
+    #+END_SRC
+
+** Additional configuration options
+   cquery needs to know where to store index cache (=cquery-cache-dir=).
+   There are other initialization options such as the number of indexer threads, cache serialization format.
+   They have good default values. Refer to [[https://github.com/cquery-project/cquery/wiki/Initialization-options][Initialization options]] and set =cquery-extra-init-params= for more customization.
+
+* Keybindings
+  The keybindings listed below are in addition to the default keybindings defined by the [[file:../lsp/README.org][LSP layer]].
+** jump (browse / lsp-ui-peek)
+   This layer defines the following additional bindings under the ~m j~ prefix:
+
+    | binding | function                      |
+    |---------+-------------------------------|
+    | ~m j &~ | find references (address)     |
+    | ~m j R~ | find references (read)        |
+    | ~m j W~ | find references (write)       |
+    | ~m j c~ | find callers                  |
+    | ~m j v~ | vars                          |
+
+** hierarchy
+   The layer defines the following additional bindings under ~m h~:
+
+    | binding | function                    |
+    |---------+-----------------------------|
+    | ~m h b~ | base class(es)              |
+    | ~m h d~ | derived class(es)           |
+    | ~m h c~ | call hierarchy              |
+    | ~m h C~ | call hierarchy (inv)        |
+    | ~m h i~ | inheritance hierarchy       |
+    | ~m h I~ | inheritance hierarchy (inv) |
+    | ~m h m~ | member hierarchy            |
+    | ~m h M~ | member hierarchy (inv)      |
