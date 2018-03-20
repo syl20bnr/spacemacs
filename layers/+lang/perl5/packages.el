@@ -105,9 +105,9 @@
       (add-hook 'cperl-mode-hook
                 (lambda () (local-set-key (kbd "<tab>") 'indent-for-tab-command)))
 
-      (spacemacs/declare-prefix "m=" "format")
-      (spacemacs/declare-prefix "mg" "find-symbol")
-      (spacemacs/declare-prefix "mh" "perldoc")
+      (spacemacs/declare-prefix-for-mode 'cperl-mode "m=" "format")
+      (spacemacs/declare-prefix-for-mode 'cperl-mode "mg" "find-symbol")
+      (spacemacs/declare-prefix-for-mode 'cperl-mode "mh" "perldoc")
       (spacemacs/set-leader-keys-for-major-mode 'cperl-mode
         "==" 'spacemacs/perltidy-format
         "=b" 'spacemacs/perltidy-format-buffer
