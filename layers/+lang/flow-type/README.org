@@ -1,0 +1,33 @@
+#+TITLE: flow-type layer
+
+* Description
+This layer adds some [[https://flowtype.org/][flow]] related functionality to Emacs:
+ - Show the flow-type of the object under the cursor using Eldoc
+ - Add flow checking to flycheck (based on the flycheck-flow package)
+ - company-mode completion using company-flow
+ - "compilation" using =flow status=
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =flow-type= to the existing =dotspacemacs-configuration-layers= list in this
+file. Please ensure you already have the flow binary installed, either in
+node_modules or in your PATH.
+
+The type under the cursor is shown automatically using eldoc.  You may find this
+a little sluggish, depending on your setup - if so, you can disable it by setting
+=flow-type-enable-eldoc-type-info= to =nil=.
+
+#+BEGIN_SRC emacs-lisp
+(flow-type :variables flow-type-enable-eldoc-type-info nil)
+#+END_SRC
+
+You can always show types manually using =flow-minor-type-at-pos=,
+bound to =,ft= by default.
+
+* flow-minor-mode key bindings
+  | ,fb | xref-pop-marker-stack         | jump back from definition                               |
+  | ,fc | flow-minor-status             | run `flow status' as a compiler                         |
+  | ,fd | flow-minor-jump-to-definition | jump to the definition of the variable under the cursor |
+  | ,ff | flow-minor-suggest            |                                                         |
+  | ,fo | flow-minor-coverage           | print coverage information                              |
+  | ,ft | flow-minor-type-at-pos        | print the type under the cursor to the message line     |
