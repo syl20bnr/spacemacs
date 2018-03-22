@@ -72,7 +72,7 @@
 (defun javascript/init-js2-mode ()
   (use-package js2-mode
     :defer t
-    :mode "\\.js\\'"
+    :mode "\\.[m]*js\\'"
     :init
     (progn
       (add-hook 'js2-mode-local-vars-hook
