@@ -572,6 +572,11 @@ in a split window to the right."
   (delete-other-windows)
   (split-window-right))
 
+(defun spacemacs/layout-single-column ()
+  " Set the layout to single column. "
+  (interactive)
+  (delete-other-windows))
+
 (defun spacemacs/insert-line-above-no-indent (count)
   "Insert a new line above with no indentation."
   (interactive "p")
