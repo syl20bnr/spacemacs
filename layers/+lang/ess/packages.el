@@ -113,6 +113,23 @@
         "cm" 'ess-noweb-mark-chunk
         "cN" 'ess-noweb-previous-chunk
         "cn" 'ess-noweb-next-chunk))
+    (dolist (mode '(inferior-ess-mode))
+      (spacemacs/declare-prefix-for-mode mode "ms" "repl")
+      (spacemacs/declare-prefix-for-mode mode "me" "eval")
+      (spacemacs/declare-prefix-for-mode mode "mg" "xref")
+      (spacemacs/declare-prefix-for-mode mode "mh" "help")
+      (spacemacs/declare-prefix-for-mode mode "mr" "extra")
+      (spacemacs/declare-prefix-for-mode mode "mw" "pkg")
+      (spacemacs/declare-prefix-for-mode mode "md" "dev")
+      (spacemacs/set-leader-keys-for-major-mode
+        mode
+        ","  'ess-smart-comma
+        "ss" 'ess-switch-to-inferior-or-script-buffer
+        ;; predefined keymaps
+        "h" 'ess-doc-map
+        "r" 'ess-extra-map
+        "w" 'ess-r-package-dev-map
+        "d" 'ess-dev-map))
     (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
     (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
     (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input))
