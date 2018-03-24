@@ -56,8 +56,6 @@ your =dotspacemacs/user-config=.  The default value, set in the layer, is =62=.
 | ~SPC m r~   | reconcile an account                          |
 | ~SPC m R~   | display a report                              |
 | ~SPC m t~   | append an effective date to a post            |
-| ~SPC m y~   | set the year for quicker entry                |
-| ~SPC m RET~ | set the month for quicker entry               |
 
 ** Ledger-Reconcile
 
