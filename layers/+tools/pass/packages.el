@@ -9,7 +9,14 @@
 ;;
 ;;; License: GPLv3
 
-(setq pass-packages '(password-store))
+(setq pass-packages
+      '(
+        (helm-pass :requires helm)
+        password-store
+        ))
+
+(defun pass/init-helm-pass ()
+  (use-package helm-pass :defer t))
 
 (defun pass/init-password-store ()
   (use-package password-store
@@ -18,6 +25,7 @@
     (progn
       (spacemacs/declare-prefix "Ap" "pass")
       (evil-leader/set-key
+        "Ap/" 'helm-pass
         "Apy" 'password-store-copy
         "Apg" 'password-store-generate
         "Api" 'password-store-insert
