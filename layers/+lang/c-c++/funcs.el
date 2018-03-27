@@ -40,7 +40,8 @@
 (defun spacemacs//clang-format-on-save ()
   "Format the current buffer with clang-format on save when
 `c-c++-enable-clang-format-on-save' is non-nil."
-  (when c-c++-enable-clang-format-on-save
+  (when (and c-c++-enable-clang-format-on-save
+             (locate-dominating-file (buffer-file-name) ".clang-format"))
     (spacemacs/clang-format-region-or-buffer)))
 
 (defun spacemacs/clang-format-on-save ()
