@@ -23,6 +23,9 @@
 (defvar chinese-enable-fcitx nil
   "Enable fcitx to help writing Chinese in Evil mode.")
 
+(defvar chinese-fcitx-use-dbus nil
+  "Use dbus interface for fcitx.el.")
+
 ;; Set the monospaced font size when mixed Chinese and English words
 (defun spacemacs//set-monospaced-font (english chinese english-size chinese-size)
   (set-face-attribute 'default nil :font

@@ -99,7 +99,17 @@ with the following configuration.
 
 **** Requirement
 ***** Linux
-You need to install =fcitx= and dbus interface on your machine.
+You need to install =fcitx=  on your machine.
+
+It's recommended to use dbus interface to speed up a little:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '((chinese :variables
+                                                             chinese-enable-fcitx t
+                                                             chinese-fcitx-use-dbus t)))
+#+END_SRC
+
+But notice that [[https://github.com/cute-jumper/fcitx.el/issues/30][this may lead to command lag]].
 
 ***** Mac OS X
 We don't have a =fcitx= in OS X yet but we already added an emulation called
