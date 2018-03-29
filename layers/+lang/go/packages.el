@@ -63,6 +63,7 @@
         "Set the tab width."
         (setq-local tab-width go-tab-width))
       (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width))
+    (customize-set-variable 'go-packages-function 'spacemacs/go-packages-gopkgs)
     :config
     (progn
       (add-hook 'before-save-hook 'gofmt-before-save)

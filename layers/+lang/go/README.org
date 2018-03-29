@@ -43,6 +43,7 @@ You will need =gocode=, =gogetdoc=, =godef= and =godoctor=:
   go get -u -v golang.org/x/tools/cmd/goimports
   go get -u -v github.com/zmb3/gogetdoc
   go get -u -v github.com/cweill/gotests/...
+  go get -u github.com/haya14busa/gopkgs/cmd/gopkgs
 #+END_SRC
 
 If you wish to use =gometalinter= set the value of =go-use-gometalinter= to t:
