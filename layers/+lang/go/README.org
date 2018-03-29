@@ -29,6 +29,7 @@ This layer adds extensive support for go to Spacemacs.
 - Edit struct field tag with [[https://github.com/fatih/gomodifytags][gomodifytags]]
 - Linting with flycheck's built-in checkers or flycheck-gometalinter
 - Coverage profile visualization
+- Test generation with [[https://github.com/s-kostyaev/go-gen-test][go-gen-test]]
 
 * Install
 ** Pre-requisites
@@ -41,6 +42,7 @@ You will need =gocode=, =gogetdoc=, =godef= and =godoctor=:
   go get -u -v golang.org/x/tools/cmd/gorename
   go get -u -v golang.org/x/tools/cmd/goimports
   go get -u -v github.com/zmb3/gogetdoc
+  go get -u -v github.com/cweill/gotests/...
 #+END_SRC
 
 If you wish to use =gometalinter= set the value of =go-use-gometalinter= to t:
@@ -179,6 +181,9 @@ You have a few options to ensure you always get up to date suggestions:
 | ~SPC m i r~ | remove unused import                                                                  |
 | ~SPC m h h~ | godoc at point                                                                        |
 | ~SPC m r n~ | go rename                                                                             |
+| ~SPC m t f~ | generate test for the function in the active region                                   |
+| ~SPC m t g~ | generate tests for all exported functions                                             |
+| ~SPC m t G~ | generate tests for all functions                                                      |
 | ~SPC m t p~ | run "go test" for the current package                                                 |
 | ~SPC m t P~ | run "go test" for the current package and all packages under it                       |
 | ~SPC m t s~ | run "go test" for the suite you're currently in (requires gocheck)                    |

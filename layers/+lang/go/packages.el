@@ -27,6 +27,7 @@
         godoctor
         go-tag
         popwin
+        go-gen-test
         ))
 
 
@@ -138,6 +139,15 @@
     :defer t
     :init
     (add-hook 'go-mode-hook 'spacemacs//go-enable-gometalinter t)))
+
+(defun go/init-go-gen-test()
+  (use-package go-gen-test
+    :init
+    (spacemacs/declare-prefix-for-mode 'go-mode "mt" "test")
+    (spacemacs/set-leader-keys-for-major-mode 'go-mode
+      "tf" 'go-gen-test-dwim
+      "tg" 'go-gen-test-exported
+      "tG" 'go-gen-test-all)))
 
 (defun go/post-init-ggtags ()
   (add-hook 'go-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
