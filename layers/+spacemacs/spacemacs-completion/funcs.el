@@ -141,7 +141,7 @@ See https://github.com/syl20bnr/spacemacs/issues/3700"
           (doc (format "Select helm action #%d" n)))
       (eval `(defun ,func ()
                ,doc
-               (intern)
+               (interactive)
                (helm-select-nth-action ,(1- n)))))))
 
 (defun spacemacs/helm-ts-edit ()
