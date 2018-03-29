@@ -71,3 +71,8 @@
    (format "go run %s"
            (shell-quote-argument (or (file-remote-p (buffer-file-name (buffer-base-buffer)) 'localname)
                                      (buffer-file-name (buffer-base-buffer)))))))
+(defun spacemacs/go-packages-gopkgs ()
+  "Return a list of all Go packages, using `gopkgs'."
+  (sort
+   (process-lines "gopkgs")
+   #'string<))
