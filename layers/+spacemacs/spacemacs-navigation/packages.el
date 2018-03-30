@@ -275,6 +275,8 @@
                    evil-window-move-far-left
                    evil-window-move-far-right
                    evil-window-move-very-bottom
+                   next-multiframe-window
+                   previous-multiframe-window
                    quit-window
                    winum-select-window-0-or-10
                    winum-select-window-1
