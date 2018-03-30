@@ -28,6 +28,7 @@
         godoctor
         go-tag
         popwin
+        go-fill-struct
         ))
 
 
@@ -132,6 +133,13 @@
     (spacemacs/set-leader-keys-for-major-mode 'go-mode
       "rf" 'go-tag-add
       "rF" 'go-tag-remove)))
+
+(defun go/init-go-fill-struct ()
+  (use-package go-fill-struct
+    :init
+    (spacemacs/declare-prefix-for-mode 'go-mode "mr" "refactoring")
+    (spacemacs/set-leader-keys-for-major-mode 'go-mode
+      "rs" 'go-fill-struct)))
 
 (defun go/init-flycheck-gometalinter ()
   (use-package flycheck-gometalinter
