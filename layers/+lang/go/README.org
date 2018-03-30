@@ -205,14 +205,14 @@ You have a few options to ensure you always get up to date suggestions:
 
 ** Refactoring
 
-| Key Binding | Description                         |
-|-------------+-------------------------------------|
-| ~SPC m r d~ | Add comment stubs                   |
-| ~SPC m r e~ | Extract code as new function        |
-| ~SPC m r f~ | Add field tags                      |
-| ~SPC m r F~ | Remove field tags                   |
-| ~SPC m r n~ | Rename (with =godoctor=)            |
-| ~SPC m r N~ | Rename (with =go-rename=)           |
-| ~SPC m r N~ | Rename (with =go-rename=)           |
-| ~SPC m r s~ | Fill structure with default values  |
-| ~SPC m r t~ | Toggle declaration and assignment   |
+| Key Binding | Description                        |
+|-------------+------------------------------------|
+| ~SPC m r d~ | Add comment stubs                  |
+| ~SPC m r e~ | Extract code as new function       |
+| ~SPC m r f~ | Add field tags                     |
+| ~SPC m r F~ | Remove field tags                  |
+| ~SPC m r n~ | Rename (with =godoctor=)           |
+| ~SPC m r N~ | Rename (with =go-rename=)          |
+| ~SPC m r N~ | Rename (with =go-rename=)          |
+| ~SPC m r s~ | Fill structure with default values |
+| ~SPC m r t~ | Toggle declaration and assignment  |
