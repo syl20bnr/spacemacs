@@ -103,9 +103,14 @@
              (not (boundp 'mac-system-move-file-to-trash-use-finder)))
     :init (osx-trash-setup)))
 
+;; TODO: find a way to enable it in terminal with a dumped Spacemacs
+;; if this package is activate while dumping it makes some action lag
+;; like 'dd' to delete a line etc...
 (defun osx/init-pbcopy ()
   (use-package pbcopy
-    :if (and (spacemacs/system-is-mac) (not (display-graphic-p)))
+    :if (and (spacemacs/system-is-mac)
+             (not (display-graphic-p))
+             (not (spacemacs-is-dumping-p)))
     :init (turn-on-pbcopy)))
 
 (defun osx/init-reveal-in-osx-finder ()
