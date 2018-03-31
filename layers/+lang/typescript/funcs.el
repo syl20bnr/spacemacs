@@ -45,7 +45,9 @@
   "Setup tide auto-completion."
   (spacemacs|add-company-backends
     :backends company-tide
-    :modes typescript-mode typescript-tsx-mode)
+    :modes typescript-mode typescript-tsx-mode
+    :variables
+    company-minimum-prefix-length 2)
   (company-mode))
 
 
@@ -78,7 +80,9 @@
 
         (spacemacs|add-company-backends
           :backends company-lsp
-          :modes typescript-mode typescript-tsx-mode)
+          :modes typescript-mode typescript-tsx-mode
+          :variables
+          company-minimum-prefix-length 2)
         (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
 
@@ -141,3 +145,6 @@
                  (list (point-min) (point-max))))
   (browse-url (concat "http://www.typescriptlang.org/Playground#src="
                       (url-hexify-string (buffer-substring-no-properties start end)))))
+
+(defun spacemacs/typescript-yasnippet-setup ()
+  (yas-activate-extra-mode 'js-mode))
