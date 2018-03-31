@@ -364,9 +364,9 @@
 
 (defun spacemacs-defaults/init-winner ()
   (use-package winner
+    :defer t
     :init
-    (progn
-      (winner-mode t)
+    (with-eval-after-load 'winner
       (setq spacemacs/winner-boring-buffers '("*Completions*"
                                               "*Compile-Log*"
                                               "*inferior-lisp*"
@@ -379,8 +379,7 @@
                                               "*esh command on file*"
                                               ))
       (setq winner-boring-buffers
-            (append winner-boring-buffers spacemacs/winner-boring-buffers))
-      (winner-mode t))))
+            (append winner-boring-buffers spacemacs/winner-boring-buffers)))))
 
 (defun spacemacs-defaults/init-zone ()
   (require 'zone)
