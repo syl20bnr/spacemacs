@@ -102,7 +102,7 @@
     :defer t
     :init
     (progn
-      (add-to-list 'auto-mode-alist '("\\.[m]*js\\'" . js2-mode))
+      (add-to-list 'auto-mode-alist '("\\.m?js\\'" . js2-mode))
       ;; Required to make imenu functions work correctly
       (add-hook 'js2-mode-hook 'js2-imenu-extras-mode))
     :config
