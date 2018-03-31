@@ -123,7 +123,8 @@
 
 (defun spacemacs-defaults/init-eldoc ()
   (use-package eldoc
-    :defer t
+    :defer (spacemacs/defer)
+    :init (spacemacs|require 'eldoc)
     :config
     (progn
       ;; enable eldoc in `eval-expression'
@@ -217,13 +218,14 @@
 
 (defun spacemacs-defaults/init-recentf ()
   (use-package recentf
-    :defer t
+    :defer (spacemacs/defer)
     :init
     (progn
-      ;; lazy load recentf
-      (add-hook 'find-file-hook (lambda () (unless recentf-mode
-                                             (recentf-mode)
-                                             (recentf-track-opened-file))))
+      (spacemacs|require 'recentf)
+      (when (spacemacs/defer)
+        (add-hook 'find-file-hook (lambda () (unless recentf-mode
+                                               (recentf-mode)
+                                               (recentf-track-opened-file)))))
       (setq recentf-save-file (concat spacemacs-cache-directory "recentf")
             recentf-max-saved-items 1000
             recentf-auto-cleanup 'never
