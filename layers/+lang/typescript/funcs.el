@@ -66,18 +66,8 @@
   (browse-url (concat "http://www.typescriptlang.org/Playground#src="
                       (url-hexify-string (buffer-substring-no-properties start end)))))
 
-(defun spacemacs//setup-typescript-mode ()
-  ;; Enable js-mode snippets
-  (yas-activate-extra-mode 'js-mode)
-  ;; See https://github.com/syl20bnr/spacemacs/issues/8222
-  (set (make-local-variable 'company-minimum-prefix-length) 2))
+(defun spacemacs/typescript-company-setup ()
+  (setq company-minimum-prefix-length 2))
 
-(defun spacemacs//setup-typescript-tsx-mode ()
-  ;; Enable js-mode snippets
-  (yas-activate-extra-mode 'js-mode)
-  ;; Force jsx content type
-  (web-mode-set-content-type "jsx")
-  ;; Don't auto-quote attribute values
-  (setq-local web-mode-enable-auto-quoting nil)
-  ;; See https://github.com/syl20bnr/spacemacs/issues/8222
-  (set (make-local-variable 'company-minimum-prefix-length) 2))
+(defun spacemacs/typescript-yasnippet-setup ()
+  (yas-activate-extra-mode 'js-mode))
