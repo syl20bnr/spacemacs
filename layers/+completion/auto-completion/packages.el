@@ -243,19 +243,19 @@
           (if (listp auto-completion-private-snippets-directory)
               (setq yas-snippet-dirs (append yas-snippet-dirs auto-completion-private-snippets-directory))
             (add-to-list 'yas-snippet-dirs auto-completion-private-snippets-directory))))
-
-      (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
-                                                          markdown-mode-hook
-                                                          org-mode-hook))
       (spacemacs|add-toggle yasnippet
         :mode yas-minor-mode
         :documentation "Enable snippets."
         :evil-leader "ty")
-
       (spacemacs/add-to-hooks
        'spacemacs/force-yasnippet-off '(term-mode-hook
                                         shell-mode-hook
-                                        eshell-mode-hook)))
+                                        eshell-mode-hook))
+      (spacemacs|require 'yasnippet)
+      (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
+                                                          markdown-mode-hook
+                                                          org-mode-hook))
+      )
     :config (spacemacs|diminish yas-minor-mode " ⓨ" " y")))
 
 (defun auto-completion/init-yasnippet-snippets ())
