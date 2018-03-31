@@ -90,7 +90,9 @@
 
 (defun typescript/post-init-web-mode ()
   (define-derived-mode typescript-tsx-mode web-mode "TypeScript-tsx")
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode)))
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
+  (add-hook 'typescript-mode-hook 'spacemacs//setup-typescript-mode)
+  (add-hook 'typescript-tsx-mode-hook 'spacemacs//setup-typescript-tsx-mode))
 
 (defun typescript/init-typescript-mode ()
   (use-package typescript-mode
