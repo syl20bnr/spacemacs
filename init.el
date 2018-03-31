@@ -14,6 +14,7 @@
 
 ;; Avoid garbage collection during startup.
 ;; see `SPC h . dotspacemacs-gc-cons' for more info
+(defconst emacs-start-time (current-time))
 (setq gc-cons-threshold 402653184 gc-cons-percentage 0.6)
 (load-file (concat (file-name-directory load-file-name)
                    "core/core-versions.el"))
@@ -27,12 +28,24 @@
   ;; Disable file-name-handlers for a speed boost during init
   (let ((file-name-handler-alist nil))
     (require 'core-spacemacs)
+    (spacemacs|unless-dumping
+      (when (boundp 'load-path-backup)
+        (setq load-path load-path-backup)))
     (configuration-layer/load-lock-file)
     (spacemacs/init)
     (configuration-layer/stable-elpa-download-tarball)
     (configuration-layer/load)
     (spacemacs-buffer/display-startup-note)
     (spacemacs/setup-startup-hook)
-    (when dotspacemacs-enable-server
-      (require 'server)
-      (unless (server-running-p) (server-start)))))
+    (spacemacs|unless-dumping
+      (global-font-lock-mode)
+      (global-undo-tree-mode 1))
+    ;; (when dotspacemacs-enable-server
+    ;;   (require 'server)
+    ;;   (unless (server-running-p) (server-start)))
+    (spacemacs|when-dumping-strict
+      (setq load-path-backup load-path)
+      ;; disable undo-tree to prevent from segfaulting when loading the dump
+      (global-undo-tree-mode -1)
+      (setq spacemacs-dump-mode 'dumped)
+      (garbage-collect))))

@@ -555,55 +555,57 @@ To prevent package from being installed or uninstalled set the variable
 `spacemacs-sync-packages' to nil."
   (run-hooks 'configuration-layer-pre-load-hook)
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
-  (setq dotspacemacs--configuration-layers-saved
-        dotspacemacs-configuration-layers)
-  (when (spacemacs-buffer//choose-banner)
-    (spacemacs-buffer//inject-version))
-  ;; declare used layers then packages as soon as possible to resolve
-  ;; usage and ownership
-  (configuration-layer/discover-layers 'refresh-index)
-  (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
-  (configuration-layer//declare-used-packages configuration-layer--used-layers)
-  ;; then load the functions and finally configure the layers
-  (configuration-layer//load-layers-files configuration-layer--used-layers
-                         '("funcs.el"))
-  (configuration-layer//configure-layers configuration-layer--used-layers)
-  ;; load layers lazy settings
-  (configuration-layer/load-auto-layer-file)
-  ;; install and/or uninstall packages
-  (when spacemacs-sync-packages
-    (let ((packages
-           (append
-            ;; install used packages
-            (configuration-layer//filter-distant-packages
-             configuration-layer--used-packages t
-             '(not (oref pkg :lazy-install)))
-            ;; also install all other packages if requested
-            (when (eq 'all dotspacemacs-install-packages)
-              (let (all-other-packages)
-                (dolist (layer (configuration-layer/get-layers-list))
-                  (let ((configuration-layer--declared-layers-usedp nil)
-                        (configuration-layer--load-packages-files t))
-                    (configuration-layer/declare-layer layer)
-                    (let* ((obj (configuration-layer/get-layer layer))
-                           (pkgs (when obj (oref obj :packages))))
-                      (configuration-layer/make-packages-from-layers
-                       (list layer))
-                      (dolist (pkg pkgs)
-                        (let ((pkg-name (if (listp pkg) (car pkg) pkg)))
-                          (add-to-list 'all-other-packages pkg-name))))))
-                (configuration-layer//filter-distant-packages
-                 all-other-packages nil))))))
-      (configuration-layer//install-packages packages)
-      (when (and (or (eq 'used dotspacemacs-install-packages)
-                     (eq 'used-only dotspacemacs-install-packages))
-                 (not configuration-layer-force-distribution)
-                 (not configuration-layer-exclude-all-layers))
-        (configuration-layer/delete-orphan-packages packages))))
-  ;; configure used packages
-  (configuration-layer//configure-packages configuration-layer--used-packages)
-  (configuration-layer//load-layers-files configuration-layer--used-layers
-                                          '("keybindings.el"))
+  (spacemacs|when-dumping
+    (setq dotspacemacs--configuration-layers-saved
+          dotspacemacs-configuration-layers)
+    (when (spacemacs-buffer//choose-banner)
+      (spacemacs-buffer//inject-version))
+    ;; declare used layers then packages as soon as possible to resolve
+    ;; usage and ownership
+    (configuration-layer/discover-layers 'refresh-index)
+    (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
+    (configuration-layer//declare-used-packages configuration-layer--used-layers)
+    ;; then load the functions and finally configure the layers
+    (configuration-layer//load-layers-files configuration-layer--used-layers
+                          '("funcs.el"))
+    (configuration-layer//configure-layers configuration-layer--used-layers)
+    ;; load layers lazy settings
+    (configuration-layer/load-auto-layer-file)
+    ;; install and/or uninstall packages
+    (when spacemacs-sync-packages
+      (let ((packages
+            (append
+              ;; install used packages
+              (configuration-layer//filter-distant-packages
+              configuration-layer--used-packages t
+              '(not (oref pkg :lazy-install)))
+              ;; also install all other packages if requested
+              (when (eq 'all dotspacemacs-install-packages)
+                (let (all-other-packages)
+                  (dolist (layer (configuration-layer/get-layers-list))
+                    (let ((configuration-layer--declared-layers-usedp nil)
+                          (configuration-layer--load-packages-files t))
+                      (configuration-layer/declare-layer layer)
+                      (let* ((obj (configuration-layer/get-layer layer))
+                            (pkgs (when obj (oref obj :packages))))
+                        (configuration-layer/make-packages-from-layers
+                        (list layer))
+                        (dolist (pkg pkgs)
+                          (let ((pkg-name (if (listp pkg) (car pkg) pkg)))
+                            (add-to-list 'all-other-packages pkg-name))))))
+                  (configuration-layer//filter-distant-packages
+                  all-other-packages nil))))))
+        (configuration-layer//install-packages packages)
+        (when (and (or (eq 'used dotspacemacs-install-packages)
+                      (eq 'used-only dotspacemacs-install-packages))
+                  (not configuration-layer-force-distribution)
+                  (not configuration-layer-exclude-all-layers))
+          (configuration-layer/delete-orphan-packages packages))))
+    ;; configure used packages
+    (configuration-layer//configure-packages configuration-layer--used-packages)
+    (configuration-layer//load-layers-files configuration-layer--used-layers
+                          '("keybindings.el"))
+    (dotspacemacs|call-func dotspacemacs/user-load "Calling dotfile user-load..."))
   (run-hooks 'configuration-layer-post-load-hook))
 
 (defun configuration-layer/load-auto-layer-file ()

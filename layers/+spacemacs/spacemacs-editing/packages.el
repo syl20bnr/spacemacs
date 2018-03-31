@@ -400,11 +400,9 @@
 
 (defun spacemacs-editing/init-undo-tree ()
   (use-package undo-tree
-    :init
-    (progn
-      (global-undo-tree-mode)
-      (setq undo-tree-visualizer-timestamps t
-            undo-tree-visualizer-diff t))
+    :defer t
+    :init (setq undo-tree-visualizer-timestamps t
+                undo-tree-visualizer-diff t)
     :config
     (progn
       ;; restore diff window after quit.  TODO fix upstream
