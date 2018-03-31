@@ -117,9 +117,10 @@
 
 (defun git/init-magit ()
   (use-package magit
-    :defer t
+    :defer (spacemacs/defer)
     :init
     (progn
+      (spacemacs|require 'magit)
       (setq magit-completing-read-function
             (if (configuration-layer/layer-used-p 'ivy)
                 'ivy-completing-read
