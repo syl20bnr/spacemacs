@@ -53,7 +53,6 @@
     :if (memq (spacemacs/get-mode-line-theme-name) '(spacemacs all-the-icons custom))
     :init
     (progn
-      (add-hook 'spacemacs-post-user-config-hook 'spaceline-compile)
       (add-hook 'spacemacs-post-theme-change-hook
                 'spacemacs/customize-powerline-faces)
       (add-hook 'spacemacs-post-theme-change-hook 'powerline-reset)
@@ -67,12 +66,15 @@
         :documentation "Make the mode-line responsive."
         :evil-leader "tmr")
       (setq powerline-default-separator
-            (or (and (memq (spacemacs/get-mode-line-theme-name)
-                           '(spacemacs custom))
-                     (spacemacs/mode-line-separator))
-                'wave)
+            (cond
+             ((spacemacs-is-dumping-p) 'utf-8)
+             ((memq (spacemacs/get-mode-line-theme-name)
+                    '(spacemacs custom))
+              (spacemacs/mode-line-separator))
+             (t 'wave))
             powerline-image-apple-rgb (eq window-system 'ns)
-            powerline-scale (or (spacemacs/mode-line-separator-scale) 1.5))
+            powerline-scale (or (spacemacs/mode-line-separator-scale) 1.5)
+            powerline-height (spacemacs/compute-mode-line-height))
       (spacemacs|do-after-display-system-init
        ;; seems to be needed to avoid weird graphical artefacts with the
        ;; first graphical client
