@@ -15,6 +15,7 @@
         company
         eldoc
         flycheck
+        smartparens
         tide
         typescript-mode
         web-mode
@@ -40,6 +41,14 @@
   (with-eval-after-load 'tide
     (flycheck-add-mode 'typescript-tide 'typescript-tsx-mode))
   (flycheck-add-mode 'typescript-tslint 'typescript-tsx-mode))
+
+(defun typescript/post-init-smartparens ()
+  (if dotspacemacs-smartparens-strict-mode
+      (add-hook 'typescript-tsx-mode-hook #'smartparens-strict-mode)
+    (add-hook 'typescript-tsx-mode-hook #'smartparens-mode))
+  (if dotspacemacs-smartparens-strict-mode
+      (add-hook 'typescript-mode-hook #'smartparens-strict-mode)
+    (add-hook 'typescript-mode-hook #'smartparens-mode)))
 
 (defun typescript/init-tide ()
   (use-package tide
