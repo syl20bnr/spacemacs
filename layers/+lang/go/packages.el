@@ -51,9 +51,8 @@
     :defer t
     :init
     (progn
-      (dolist (var '("GOPATH" "GOROOT" "GO15VENDOREXPERIMENT"))
-        (unless (getenv var)
-          (exec-path-from-shell-copy-env var))))
+      (spacemacs/copy-env-list '("GOPATH" "GOROOT" "GO15VENDOREXPERIMENT")))
+
     (progn
       (defun spacemacs//go-set-tab-width ()
         "Set the tab width."

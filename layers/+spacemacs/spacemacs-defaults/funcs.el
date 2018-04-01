@@ -1234,3 +1234,8 @@ Decision is based on `dotspacemacs-line-numbers'."
      ;; not explicitly specified by user (meaning if it isn't explicitly
      ;; disabled then it's enabled)
      (and (null enabled-for-modes) (not disabled-for-parent)))))
+
+(defun spacemacs/copy-env-list (vars)
+  (dolist (var vars)
+    (unless (getenv var)
+      (exec-path-from-shell-copy-env var))))

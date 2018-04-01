@@ -71,9 +71,8 @@
     :defer t
     :init
     (progn
-      (let ((var "RUST_SRC_PATH"))
-        (unless (getenv var)
-          (exec-path-from-shell-copy-env var))))
+      (spacemacs/copy-env-list '("RUST_SRC_PATH")))
+
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "=" 'rust-format-buffer
