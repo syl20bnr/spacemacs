@@ -26,11 +26,11 @@
   (add-hook 'typescript-tsx-mode-hook #'add-node-modules-path))
 
 (defun typescript/post-init-company ()
-  (add-hook 'typescript-mode-hook #'spacemacs/typescript-company-setup)
-  (add-hook 'typescript-tsx-mode-hook #'spacemacs/typescript-company-setup)
   (spacemacs|add-company-backends
     :backends company-tide
-    :modes typescript-mode typescript-tsx-mode))
+    :modes typescript-mode typescript-tsx-mode
+    :variables
+    company-minimum-prefix-length 2))
 
 (defun typescript/pre-init-eldoc ()
   (spacemacs|use-package-add-hook tide :post-init
