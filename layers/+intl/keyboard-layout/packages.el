@@ -20,6 +20,7 @@
     evil-escape
     evil-evilified-state
     evil-magit
+    evil-lisp-state
     evil-surround
     eyebrowse
     flycheck
@@ -245,6 +246,37 @@
         "C-k"))
     (kl/evil-correct-keys 'normal evil-magit-toggle-text-minor-mode-map
       "C-j")))
+
+(defun keyboard-layout/pre-init-evil-lisp-state ()
+  (kl|config evil-lisp-state
+    :description
+    "Remap `evil-lisp-state' bindings."
+    :loader
+    (with-eval-after-load 'evil-lisp-state BODY)
+    :common
+    (progn
+      ;; Should remap evil-lisp-state bindings in normal state
+      (kl/leader-correct-keys
+        "kh"
+        "kj"
+        "kk"
+        "kl"
+        ;;
+        "kH"
+        "kJ"
+        "kK"
+        "kL")
+      ;; Should remap evil-lisp-state bindings in lisp state
+      (kl/correct-keys evil-lisp-state-map
+        "h"
+        "j"
+        "k"
+        "l"
+        ;;
+        "H"
+        "J"
+        "K"
+        "L"))))
 
 (defun keyboard-layout/pre-init-evil-surround ()
   (kl|config evil-surround
