@@ -155,7 +155,7 @@
   (add-hook 'LaTeX-mode-hook 'evil-matchit-mode))
 
 (defun latex/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'LaTeX-mode))
+  (spacemacs/enable-flycheck 'latex-mode))
 
 (defun latex/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'LaTeX-mode-hook))
