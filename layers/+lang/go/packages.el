@@ -24,6 +24,7 @@
         go-fill-struct
         go-gen-test
         go-guru
+        go-impl
         go-mode
         go-rename
         go-tag
@@ -98,6 +99,11 @@
     "f<" 'go-guru-callers
     "f>" 'go-guru-callees
     "fo" 'go-guru-set-scope))
+
+(defun go/init-go-impl()
+  (use-package go-impl
+    :init (spacemacs/set-leader-keys-for-major-mode 'go-mode
+            "ri" 'go-impl)))
 
 (defun go/init-go-mode()
   (use-package go-mode

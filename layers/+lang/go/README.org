@@ -35,7 +35,8 @@ This layer adds extensive support for go to Spacemacs.
 
 * Install
 ** Pre-requisites
-You will need =gocode=, =gogetdoc=, =godef= and =godoctor=:
+You will need =gocode=, =gogetdoc=, =godef=, =godoctor= and many others
+to get all the goodies of this layer:
 
 #+BEGIN_SRC sh
   go get -u -v github.com/nsf/gocode
@@ -47,6 +48,7 @@ You will need =gocode=, =gogetdoc=, =godef= and =godoctor=:
   go get -u -v github.com/cweill/gotests/...
   go get -u github.com/haya14busa/gopkgs/cmd/gopkgs
   go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
+  go get -u github.com/josharian/impl
 #+END_SRC
 
 If you wish to use =gometalinter= set the value of =go-use-gometalinter= to t:
@@ -213,14 +215,14 @@ You have a few options to ensure you always get up to date suggestions:
 
 ** Refactoring
 
-| Key Binding | Description                        |
-|-------------+------------------------------------|
-| ~SPC m r d~ | Add comment stubs                  |
-| ~SPC m r e~ | Extract code as new function       |
-| ~SPC m r f~ | Add field tags                     |
-| ~SPC m r F~ | Remove field tags                  |
-| ~SPC m r n~ | Rename (with =godoctor=)           |
-| ~SPC m r N~ | Rename (with =go-rename=)          |
-| ~SPC m r N~ | Rename (with =go-rename=)          |
-| ~SPC m r s~ | Fill structure with default values |
-| ~SPC m r t~ | Toggle declaration and assignment  |
+| Key Binding | Description                                                    |
+|-------------+----------------------------------------------------------------|
+| ~SPC m r d~ | Add comment stubs                                              |
+| ~SPC m r e~ | Extract code as new function                                   |
+| ~SPC m r f~ | Add field tags                                                 |
+| ~SPC m r F~ | Remove field tags                                              |
+| ~SPC m r i~ | Generate method subs for implementing an interface (=go-impl=) |
+| ~SPC m r n~ | Rename (with =godoctor=)                                       |
+| ~SPC m r N~ | Rename (with =go-rename=)                                      |
+| ~SPC m r s~ | Fill structure with default values                             |
+| ~SPC m r t~ | Toggle declaration and assignment                              |
