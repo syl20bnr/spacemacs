@@ -207,11 +207,15 @@ as the pyenv version then also return nil. This works around https://github.com/
     (when root-path
       (let* ((file-path (expand-file-name ".venv" root-path))
              (virtualenv
-              (with-temp-buffer
-                (insert-file-contents-literally file-path)
-                (buffer-substring-no-properties (line-beginning-position)
-                                                (line-end-position)))))
-            (pyvenv-workon virtualenv)))))
+               (if (file-directory-p file-path)
+                 file-path
+                 (with-temp-buffer
+                   (insert-file-contents-literally file-path)
+                   (buffer-substring-no-properties (line-beginning-position)
+                     (line-end-position))))))
+        (if (file-directory-p virtualenv)
+          (pyvenv-activate virtualenv)
+          (pyvenv-workon virtualenv))))))
 
 
 ;; Tests
