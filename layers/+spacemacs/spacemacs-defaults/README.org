@@ -9,5 +9,33 @@ This layer configures mostly Emacs built-in packages to given them better
 defaults.
 
 ** Features:
-See [[file:packages.el][packages.el]] for a list of all configured packages or use Spacemacs help system
-with ~SPC h SPC spacemacs-defaults~ to browse all the configuration for this layer.
+-  Configures packags:
+ - abbrev
+ - archive-mode
+ - bookmark
+ - conf-mode
+ - dired
+ - dired-x
+ - electric-indent-mode
+ - ediff
+ - eldoc
+ - help-fns+
+ - hi-lock
+ - image-mode
+ - imenu
+ - linum
+ - occur-mode
+ - package-menu
+ - page-break-lines
+ - process-menu
+ - recentf
+ - savehist
+ - saveplace
+ - subword
+ - tar-mode
+ - uniquify
+ - url
+ - visual-line-mode
+ - whitespace
+ - winner
+ - zone

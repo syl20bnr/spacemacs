@@ -125,7 +125,7 @@ pip install pyls-mypy
 #+end_src
 
 * Additional tools
-*** Syntax checking
+** Syntax checking
 Syntax checking uses =flake8= package:
 
 #+begin_src sh
