@@ -20,6 +20,8 @@
         persp-mode
         rcirc
         rcirc-color
+        (rcirc-late-fix :location local
+                        :toggle rcirc-enable-late-fix)
         rcirc-notify
         ))
 
@@ -103,6 +105,12 @@
 
 (defun rcirc/init-rcirc-color ()
   (use-package rcirc-color :defer t))
+
+(defun rcirc/init-rcirc-late-fix ()
+  (spacemacs|use-package-add-hook rcirc
+    :post-config
+    (when rcirc-enable-late-fix
+      (use-package rcirc-late-fix))))
 
 (defun rcirc/init-rcirc-notify ()
   (use-package rcirc-notify
