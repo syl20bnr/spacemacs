@@ -47,14 +47,16 @@ in this file.
 
 ** Dependencies
 Install IPython Notebook > 3
+
+Note that IPython Notebook has now been renamed to [[https://jupyter.org/install][Jupyter Notebook]].
 #+begin_src sh
-  pip install ipython[notebook]
+  pip install jupyter
 #+end_src
 
 ** What needs to be run
 Have an IPython notebook running
 #+begin_src sh
-  ipython notebook
+  jupyter notebook
 #+end_src
 
 * Using the IPython notebook
