@@ -23,8 +23,7 @@
         (helm-gitignore :requires helm)
         magit
         magit-gitflow
-        ;; not compatible with magit 2.1 at the time of release
-        ;; magit-svn
+        magit-svn
         (orgit :requires org)
         smeargle
         ))
@@ -204,13 +203,12 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
 
 (defun git/init-magit-svn ()
   (use-package magit-svn
-    :if git-enable-magit-svn-plugin
     :commands turn-on-magit-svn
-    :init (add-hook 'magit-mode-hook 'turn-on-magit-svn)
-    :config
-    (progn
-      (evil-define-key 'emacs magit-status-mode-map
-        "N" 'magit-key-mode-popup-svn))))
+    :init (progn
+            (add-hook 'magit-mode-hook 'turn-on-magit-svn)
+            (with-eval-after-load 'magit
+              (define-key magit-mode-map "!" 'magit-svn-popup)))
+    :config (spacemacs|diminish magit-svn-mode "SVN")))
 
 (defun git/init-orgit ())
 
