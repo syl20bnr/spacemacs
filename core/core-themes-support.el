@@ -211,6 +211,9 @@
     (kaolin-aurora                    . kaolin-themes)
     (kaolin-valley-dark               . kaolin-themes)
     (kaolin-mono-dark                 . kaolin-themes)
+    (eziam-light                      . eziam-theme)
+    (eziam-dark                       . eziam-theme)
+    (eziam-dusk                       . eziam-theme)
     )
   "alist matching a theme name with its package name, required when
 package name does not match theme name + `-theme' suffix.")
