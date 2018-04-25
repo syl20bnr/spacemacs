@@ -203,6 +203,9 @@
     (gruvbox-light-soft               . gruvbox-theme)
     (gruvbox-light-medium             . gruvbox-theme)
     (gruvbox-light-hard               . gruvbox-theme)
+    (eziam-light                      . eziam-theme)
+    (eziam-dark                       . eziam-theme)
+    (eziam-dusk                       . eziam-theme)
     )
   "alist matching a theme name with its package name, required when
 package name does not match theme name + `-theme' suffix.")
