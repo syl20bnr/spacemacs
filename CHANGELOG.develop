@@ -1688,6 +1688,7 @@ Other:
   (thanks to Matt Kramer)
 - Enable auto indent when paste. Remove =latex-mode= from
   =spacemacs-yank-indent-modes= to disable it (thanks to bet4it)
+- Added support for =company-reftex= (thanks to et2010)
 **** Lua
 - Added support for auto-completion with =company= (thanks to halfcrazy)
 **** Language Server Protocol (LSP)
