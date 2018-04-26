@@ -15,3 +15,7 @@
 
 (defvar javascript-disable-tern-port-files t
   "Stops tern from creating tern port files.")
+
+(defvar javascript-backend 'tern
+  "The backend to use for IDE features. Possible values are `tern'
+and `lsp'.")

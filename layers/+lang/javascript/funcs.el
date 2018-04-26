@@ -81,12 +81,43 @@
   (evil-insert-state))
 
 
+;; backend
+
+(defun spacemacs//javascript-setup-backend ()
+  "Conditionally setup javascript backend."
+  (pcase javascript-backend
+    (`tern(spacemacs//javascript-setup-tern))
+    (`lsp (spacemacs//javascript-setup-lsp))))
+
+(defun spacemacs//javascript-setup-company ()
+  "Conditionally setup company based on backend."
+  (pcase javascript-backend
+    (`tern (spacemacs//javascript-setup-tern-company))
+    (`lsp (spacemacs//javascript-setup-lsp-company))))
+
+
 ;; tern
+
+(defun spacemacs//javascript-setup-tern ()
+  "Setup tern backend."
+  (add-hook 'js2-mode-hook 'tern-mode)
+  (progn
+    (spacemacs|hide-lighter tern-mode)
+    (when javascript-disable-tern-port-files
+      (add-to-list 'tern-command "--no-port-file" 'append))
+    (spacemacs//set-tern-key-bindings 'js2-mode)))
+
+(defun spacemacs//javascript-setup-tern-company ()
+  "Setup tern auto-completion."
+  (spacemacs|add-company-backends
+    :backends company-tern
+    :modes js2-mode)
+  (company-mode))
 
 (defun spacemacs//set-tern-key-bindings (mode)
   "Set the key bindings for tern and the given MODE."
   (add-to-list (intern (format "spacemacs-jump-handlers-%S" mode))
-            '(tern-find-definition :async t))
+               '(tern-find-definition :async t))
   (spacemacs/set-leader-keys-for-major-mode mode
     "rrV" 'tern-rename-variable
     "hd" 'tern-get-docs
@@ -100,3 +131,45 @@
     (unless found
       (spacemacs-buffer/warning "tern binary not found!"))
     found))
+
+
+;; lsp
+
+(defun spacemacs//javascript-setup-lsp ()
+  "Setup lsp backend."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (add-hook 'js-mode-hook #'lsp-javascript-typescript-enable)
+        (require 'lsp-javascript-flow)
+        (add-hook 'js-mode-hook #'lsp-javascript-flow-enable)
+        (add-hook 'js2-mode-hook #'lsp-javascript-flow-enable) ;; for js2-mode support
+        (require 'lsp-typescript)
+        (add-hook 'js-mode-hook #'lsp-typescript-enable)
+        (add-hook 'js2-mode-hook #'lsp-typescript-enable) ;; for js2-mode support
+        (spacemacs//set-lsp-key-bindings 'js2-mode))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
+
+(defun spacemacs//javascript-setup-lsp-company ()
+  "Setup lsp auto-completion."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        ;; fix lsp-javascript company prefix
+        ;; https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379
+        (defun my-company-transformer (candidates)
+          (let ((completion-ignore-case t))
+            (all-completions (company-grab-symbol) candidates)))
+        (defun my-js-hook nil
+          (make-local-variable 'company-transformers)
+          (push 'my-company-transformer company-transformers))
+        (add-hook 'js-mode-hook 'my-js-hook)
+
+        (spacemacs|add-company-backends
+          :backends company-lsp
+          :modes js2-mode)
+        (company-mode))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
+
+(defun spacemacs//set-lsp-key-bindings (mode)
+  "Set the key bindings for tern and the given MODE."
+  (add-to-list (intern (format "spacemacs-jump-handlers-%S" mode))
+               '(lsp-ui-peek-find-definitions)))
