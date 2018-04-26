@@ -8,20 +8,19 @@
 - [[#install][Install]]
 - [[#optional-configuration][Optional Configuration]]
 - [[#key-bindings][Key Bindings]]
+  - [[#rjsx-mode][rjsx-mode]]
   - [[#formatting-web-beautify][Formatting (web-beautify)]]
     - [[#documentation-js-doc][Documentation (js-doc)]]
   - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
 
 * Description
 ES6 and JSX ready configuration layer for React
-It will automatically recognize =.jsx= and =.react.js= files
-
-It will also recognize =/** @jsx React.DOM */= if it is the first line.
+It will automatically recognize =.jsx= files and files with =react= imported.
 
 ** Features:
 - on-the-fly syntax checking
 - proper syntax highlight and indentation with jsx
-- ternjs turbocharged autocompletion as in js2-mode
+- backend support for autocompletion as in rjsx-mode
 - jsfmt automatic formatting
 - js2-refactor
 - js-doc
@@ -31,11 +30,7 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =react= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-You will also need to install =tern= to use the auto-completion and
-documentation features:
-#+BEGIN_SRC sh
-  $ npm install -g tern
-#+END_SRC
+React layer uses the same backend defined in javascript layer. Options are =tern= and =lsp=.
 
 To use the on-the-fly syntax checking, install =eslint= with babel and react
 support:
@@ -116,6 +111,13 @@ concatenations and contiguous function calls:
 #+end_src
 
 * Key Bindings
+** rjsx-mode
+| Key Binding   | Description                                                                      |
+|---------------+----------------------------------------------------------------------------------|
+| ~<~           | inserts </> whenever it would start a new JSX node                               |
+| ~>~           | right before the slash in a self-closing tag automatically inserts a closing tag |
+| ~SPC m r r t~ | rename tag at point                                                              |
+
 ** Formatting (web-beautify)
 
 | Key Binding | Description                                                  |
