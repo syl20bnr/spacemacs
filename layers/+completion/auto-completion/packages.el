@@ -198,7 +198,7 @@
 
 (defun auto-completion/init-yasnippet ()
   (use-package yasnippet
-    :commands (yas-global-mode yas-minor-mode)
+    :commands (yas-global-mode yas-minor-mode yas-activate-extra-mode)
     :init
     (progn
       ;; We don't want undefined variable errors
