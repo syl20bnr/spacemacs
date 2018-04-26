@@ -6,8 +6,11 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#configuration][Configuration]]
+  - [[#choosing-a-backend][Choosing a backend]]
+- [[#backends][Backends]]
   - [[#tern][Tern]]
+  - [[#language-server-protocol][Language Server Protocol]]
+- [[#configuration][Configuration]]
   - [[#indentation][Indentation]]
   - [[#repl][REPL]]
   - [[#node-modules][Node Modules]]
@@ -39,12 +42,6 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =javascript= to the existing =dotspacemacs-configuration-layers= list in
 this file.
 
-You will also need to install =tern= to use the auto-completion and
-documentation features:
-#+BEGIN_SRC sh
-  $ npm install -g tern
-#+END_SRC
-
 To use the formatting features, install =js-beautify=:
 #+BEGIN_SRC sh
   $ npm install -g js-beautify
@@ -63,8 +60,33 @@ If you install these in non-standard locations, then add the following to your =
   (add-to-list 'exec-path "/path/to/node/bins" t)
 #+END_SRC
 
-* Configuration
+** Choosing a backend
+To choose a default backend set the layer variable =javascript-backend=:
+
+#+BEGIN_SRC elisp
+(javascript :variables javascript-backend 'tern)
+#+END_SRC
+
+Backend can be chosen on a per project basis using directory local variables
+(files named =.dir-locals.el= at the root of a project), an example to use the
+=lsp= backend:
+
+#+BEGIN_SRC elisp
+;;; Directory Local Variables
+;;; For more information see (info "(emacs) Directory Variables")
+
+((js2-mode (javascript-backend . lsp)))
+#+END_SRC
+
+*Note:* you can easily add a directory local variable with ~SPC f v d~.
+
+* Backends
 ** Tern
+Install =tern= to use the auto-completion and documentation features:
+#+BEGIN_SRC sh
+  $ npm install -g tern
+#+END_SRC
+
 To make tern re-use the server across multiple different editing sessions (thus
 creating multiple =.tern-port= files for each document you have open [[http://ternjs.net/doc/manual.html][see here
 for more details]]):
@@ -85,6 +107,14 @@ layer:
   (javascript :variables tern-command '("node" "/path/to/tern/bin/tern"))
 #+END_SRC
 
+** Language Server Protocol
+You just have to install python language server package:
+
+#+begin_src sh
+npm i -g typescript javascript-typescript-langserver flow-language-server typescript-language-server
+#+end_src
+
+* Configuration
 ** Indentation
 To change how js2-mode indents code, set the variable =js2-basic-offset=, as
 such:
