@@ -19,7 +19,7 @@ It will automatically recognize =.jsx= files and files with =react= imported.
 ** Features:
 - on-the-fly syntax checking
 - proper syntax highlight and indentation with jsx
-- ternjs turbocharged autocompletion as in js2-mode
+- backend support for autocompletion as in rjsx-mode
 - jsfmt automatic formatting
 - js2-refactor
 - js-doc
@@ -29,11 +29,7 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =react= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-You will also need to install =tern= to use the auto-completion and
-documentation features:
-#+BEGIN_SRC sh
-  $ npm install -g tern
-#+END_SRC
+React layer uses the same backend defined in javascript layer. Options are =tern= and =lsp=.
 
 To use the on-the-fly syntax checking, install =eslint= with babel and react
 support:

@@ -12,22 +12,21 @@
 (defconst react-packages
   '(
     add-node-modules-path
-    company-tern
+    company
     emmet-mode
     evil-matchit
     flycheck
     js-doc
     rjsx-mode
     smartparens
-    tern
     web-beautify
     ))
 
 (defun react/post-init-add-node-modules-path ()
   (add-hook 'rjsx-mode-hook #'add-node-modules-path))
 
-(defun react/post-init-company-tern ()
-  (spacemacs|add-company-backends :backends company-tern :modes react-mode))
+(defun react/post-init-company ()
+  (add-hook 'rjsx-mode-hook #'spacemacs//react-setup-company))
 
 (defun react/post-init-emmet-mode ()
   (add-hook 'rjsx-mode-hook 'emmet-mode))
@@ -64,6 +63,9 @@
 
     (push (cons #'+javascript-jsx-file-p 'rjsx-mode) magic-mode-alist)
 
+    ;; setup javascript backend
+    (add-hook 'js2-mode-hook 'spacemacs//react-setup-backend)
+
     :config
     ;; declare prefix
     (spacemacs/declare-prefix-for-mode 'rjsx-mode "mr" "refactor")
@@ -80,10 +82,6 @@
   (if dotspacemacs-smartparens-strict-mode
       (add-hook 'react-mode-hook #'smartparens-strict-mode)
     (add-hook 'react-mode-hook #'smartparens-mode)))
-
-(defun react/post-init-tern ()
-  (add-hook 'rjsx-mode-hook 'tern-mode)
-  (spacemacs//set-tern-key-bindings 'rjsx-mode))
 
 (defun react/post-init-web-beautify ()
   (spacemacs/set-leader-keys-for-major-mode 'react-mode  "=" 'web-beautify-js))
