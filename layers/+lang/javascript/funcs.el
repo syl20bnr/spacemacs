@@ -86,7 +86,7 @@
 (defun spacemacs//javascript-setup-backend ()
   "Conditionally setup javascript backend."
   (pcase javascript-backend
-    (`tern(spacemacs//javascript-setup-tern))
+    (`tern (spacemacs//javascript-setup-tern))
     (`lsp (spacemacs//javascript-setup-lsp))))
 
 (defun spacemacs//javascript-setup-company ()
@@ -142,10 +142,10 @@
         (add-hook 'js-mode-hook #'lsp-javascript-typescript-enable)
         (require 'lsp-javascript-flow)
         (add-hook 'js-mode-hook #'lsp-javascript-flow-enable)
-        (add-hook 'js2-mode-hook #'lsp-javascript-flow-enable) ;; for js2-mode support
+        (add-hook 'js2-mode-hook #'lsp-javascript-flow-enable)
         (require 'lsp-typescript)
         (add-hook 'js-mode-hook #'lsp-typescript-enable)
-        (add-hook 'js2-mode-hook #'lsp-typescript-enable) ;; for js2-mode support
+        (add-hook 'js2-mode-hook #'lsp-typescript-enable)
         (spacemacs//set-lsp-key-bindings 'js2-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
 
