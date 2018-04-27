@@ -8,6 +8,7 @@
 - [[#install][Install]]
 - [[#optional-configuration][Optional Configuration]]
 - [[#key-bindings][Key Bindings]]
+  - [[#rjsx-mode][rjsx-mode]]
   - [[#formatting-web-beautify][Formatting (web-beautify)]]
     - [[#documentation-js-doc][Documentation (js-doc)]]
   - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
@@ -110,6 +111,13 @@ concatenations and contiguous function calls:
 #+end_src
 
 * Key Bindings
+** rjsx-mode
+| Key Binding   | Description                                                                      |
+|---------------+----------------------------------------------------------------------------------|
+| ~<~           | inserts </> whenever it would start a new JSX node                               |
+| ~>~           | right before the slash in a self-closing tag automatically inserts a closing tag |
+| ~SPC m r r t~ | rename tag at point                                                              |
+
 ** Formatting (web-beautify)
 
 | Key Binding | Description                                                  |
@@ -136,4 +144,3 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m h d~   | find docs of the thing under the cursor. Press again to open the associated URL (if any) |
 | ~SPC m h t~   | find the type of the thing under the cursor                                              |
 | ~SPC m r r V~ | rename variable under the cursor using tern                                              |
-| ~SPC m r r t~ | rename tag at point                                                                      |
