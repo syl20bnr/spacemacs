@@ -20,5 +20,9 @@ for TypeScript source code formatting.
 Currently avaliable 'tide (default)
 and 'typescript-formatter .")
 
+(defvar typescript-backend 'tide
+  "The backend to use for IDE features. Possible values are `tide'
++and `lsp'.")
+
 (spacemacs|define-jump-handlers typescript-mode)
 (spacemacs|define-jump-handlers typescript-tsx-mode)

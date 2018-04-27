@@ -25,14 +25,13 @@
   (add-hook 'typescript-tsx-mode-hook #'add-node-modules-path))
 
 (defun typescript/post-init-company ()
-  (spacemacs|add-company-backends
-    :backends company-tide
-    :modes typescript-mode typescript-tsx-mode))
+  (add-hook 'typescript-mode-hook #'spacemacs//typescript-setup-company)
+  (add-hook 'typescript-tsx-mode-hook #'spacemacs//typescript-setup-company))
 
 (defun typescript/pre-init-eldoc ()
   (spacemacs|use-package-add-hook tide :post-init
-                           (add-hook 'typescript-tsx-mode-hook 'eldoc-mode t)
-                           (add-hook 'typescript-mode-hook 'eldoc-mode t)))
+                                  (add-hook 'typescript-tsx-mode-hook 'eldoc-mode t)
+                                  (add-hook 'typescript-mode-hook 'eldoc-mode t)))
 
 (defun typescript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'typescript-mode)
@@ -45,18 +44,6 @@
   (use-package tide
     :defer t
     :commands (typescript/jump-to-type-def)
-    :init
-    (progn
-      (evilified-state-evilify tide-references-mode tide-references-mode-map
-        (kbd "C-k") 'tide-find-previous-reference
-        (kbd "C-j") 'tide-find-next-reference
-        (kbd "C-l") 'tide-goto-reference)
-      (spacemacs/add-to-hooks 'tide-setup '(typescript-mode-hook
-                                            typescript-tsx-mode-hook))
-      (add-to-list 'spacemacs-jump-handlers-typescript-tsx-mode
-                   '(tide-jump-to-definition :async t))
-      (add-to-list 'spacemacs-jump-handlers-typescript-mode
-                   '(tide-jump-to-definition :async t)))
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'typescript-mode "mE" "errors")
@@ -95,6 +82,10 @@
 (defun typescript/init-typescript-mode ()
   (use-package typescript-mode
     :defer t
+    :init
+    ;; setup javascript backend
+    (add-hook 'typescript-mode-hook 'spacemacs//typescript-setup-backend)
+    (add-hook 'typescript-tsx-mode-hook 'spacemacs//typescript-setup-backend)
     :config
     (progn
       (when typescript-fmt-on-save
