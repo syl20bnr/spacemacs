@@ -155,13 +155,13 @@
       (progn
         ;; fix lsp-javascript company prefix
         ;; https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379
-        (defun my-company-transformer (candidates)
+        (defun lsp-prefix-company-transformer (candidates)
           (let ((completion-ignore-case t))
             (all-completions (company-grab-symbol) candidates)))
-        (defun my-js-hook nil
+        (defun lsp-prefix-js-hook nil
           (make-local-variable 'company-transformers)
-          (push 'my-company-transformer company-transformers))
-        (add-hook 'js-mode-hook 'my-js-hook)
+          (push 'lsp-prefix-company-transformer company-transformers))
+        (add-hook 'js-mode-hook 'lsp-prefix-js-hook)
 
         (spacemacs|add-company-backends
           :backends company-lsp
