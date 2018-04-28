@@ -108,7 +108,7 @@ layer:
 #+END_SRC
 
 ** Language Server Protocol
-You just have to install python language server package:
+You just have to install javascript and typescript language server packages:
 
 #+begin_src sh
 npm i -g typescript javascript-typescript-langserver flow-language-server typescript-language-server
