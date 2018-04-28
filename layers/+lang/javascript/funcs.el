@@ -168,8 +168,3 @@
           :modes js2-mode)
         (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
-
-(defun spacemacs//set-lsp-key-bindings (mode)
-  "Set the key bindings for tern and the given MODE."
-  (add-to-list (intern (format "spacemacs-jump-handlers-%S" mode))
-               '(lsp-ui-peek-find-definitions)))
