@@ -58,13 +58,15 @@
       (spacemacs/declare-prefix-for-mode 'typescript-mode "mr" "rename")
       (spacemacs/declare-prefix-for-mode 'typescript-mode "mS" "server")
       (spacemacs/declare-prefix-for-mode 'typescript-mode "ms" "send")
+      (spacemacs/declare-prefix-for-mode 'typescript-mode "mf" "fix")
 
       (setq keybindingList '("gb" tide-jump-back
                              "gt" typescript/jump-to-type-def
                              "gu" tide-references
                              "hh" tide-documentation-at-point
                              "rr" tide-rename-symbol
-                             "sr" tide-restart-server)
+                             "sr" tide-restart-server
+                             "ff" tide-fix)
             typescriptList (cons 'typescript-mode keybindingList)
             webList (cons 'web-mode (cons "gg" (cons 'tide-jump-to-definition
                                                      keybindingList ))))
