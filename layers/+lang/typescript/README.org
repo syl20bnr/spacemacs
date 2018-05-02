@@ -110,7 +110,7 @@ For example:
 | ~SPC m h h~ | documentation at point                                       |
 | ~SPC m r r~ | rename symbol                                                |
 | ~SPC m s p~ | send selected region or current buffer to the web playground |
-| ~SPC m S r~ | restart server                                               |
+| ~SPC m s r~ | restart server                                               |
 
 ** Reference Major Mode
 
