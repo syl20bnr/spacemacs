@@ -447,7 +447,7 @@ cache folder.")
     (package-initialize 'noactivate)
     ;; hack to be sure to enable insalled org from Org ELPA repository
     (when (package-installed-p 'org-plus-contrib)
-      (message "Initializing Org early...")
+      (configuration-layer/message "Initializing Org early...")
       (configuration-layer//activate-package 'org-plus-contrib))))
 
 (defun configuration-layer//configure-quelpa ()
@@ -557,12 +557,14 @@ refreshed during the current session."
   (run-hooks 'configuration-layer-pre-load-hook)
   (setq changed-since-last-dump-p nil)
   ;; check if layer list has changed since last dump
-  (when (file-exists-p configuration-layer--last-dotspacemacs-configuration-layers-file)
-    (load-file configuration-layer--last-dotspacemacs-configuration-layers-file))
+  (when (file-exists-p
+         configuration-layer--last-dotspacemacs-configuration-layers-file)
+    (load-file
+     configuration-layer--last-dotspacemacs-configuration-layers-file))
   (let ((layers dotspacemacs-configuration-layers))
     (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
-    (setq changed-since-last-dump-p (not (equal layers
-                                                dotspacemacs-configuration-layers)))
+    (setq changed-since-last-dump-p
+          (not (equal layers dotspacemacs-configuration-layers)))
     ;; save layers list to file
     (spacemacs/dump-vars-to-file
      '(dotspacemacs-configuration-layers)
@@ -571,7 +573,8 @@ refreshed during the current session."
    (changed-since-last-dump-p (configuration-layer//load t))
    ((and dotspacemacs-emacs-pdumper-executable-file
          (spacemacs-run-from-dump-p))
-    (message "Running from a dumped file. Skipping the loading process!"))
+    (configuration-layer/message
+     "Running from a dumped file. Skipping the loading process!"))
    (t (configuration-layer//load)))
   (run-hooks 'configuration-layer-post-load-hook))
 
@@ -633,12 +636,14 @@ To prevent package from being installed or uninstalled set the variable
            dotspacemacs-emacs-pdumper-executable-file
            (file-exists-p dotspacemacs-emacs-pdumper-executable-file))
       (progn
-        (message (concat
-                  "Dumping Emacs asynchronously, you should not quit this Emacs "
-                  "session until the dump is finished."))
+        (configuration-layer/message
+         (concat "Dumping Emacs asynchronously, "
+                 "you should not quit this Emacs "
+                 "session until the dump is finished."))
         (spacemacs/dump-emacs))
-    (message (concat "Layer list has not changed since last time. "
-                     "Skipping dumping process!"))))
+    (configuration-layer/message
+     (concat "Layer list has not changed since last time. "
+             "Skipping dumping process!"))))
 
 (defun configuration-layer/load-auto-layer-file ()
   "Load `auto-layer.el' file"
@@ -680,16 +685,19 @@ layer directory."
          (layer-dir (concat layer-path "/" name)))
     (cond
      ((string-equal "" name)
-      (message "Cannot create a configuration layer without a name."))
+      (configuration-layer/message
+       "Cannot create a configuration layer without a name."))
      ((file-exists-p layer-dir)
-      (message (concat "Cannot create configuration layer \"%s\", "
-                       "this layer already exists.") name))
+      (configuration-layer/message
+       (concat "Cannot create configuration layer \"%s\", "
+               "this layer already exists.") name))
      (t
       (make-directory layer-dir t)
       (configuration-layer//copy-template name "packages.el" layer-dir)
       (when (y-or-n-p "Create readme?")
         (configuration-layer//copy-template name "README.org" layer-dir))
-      (message "Configuration layer \"%s\" successfully created." name)))))
+      (configuration-layer/message
+       "Configuration layer \"%s\" successfully created." name)))))
 
 (defun configuration-layer//select-packages (layer-specs packages)
   "Return the selected packages of LAYER-SPECS from given PACKAGES list."
@@ -894,7 +902,7 @@ a new object."
       (if (re-search-forward (format "^[a-z\s\\(\\-]*%s" variable)
                              nil 'noerror)
           (beginning-of-line)
-        (message "Unable to find location in file"))))
+        (configuration-layer/message "Unable to find location in file"))))
   'help-echo
   (purecopy (concat "mouse-2, RET: "
                     "visit the Spacemacs dotfile where variable is defined.")))
@@ -2149,7 +2157,7 @@ to select one."
                                candidates))))))
   (spacemacs-buffer/insert-page-break)
   (if (not slot)
-      (message "No rollback slot available.")
+      (configuration-layer/message "No rollback slot available.")
     (string-match "^\\(.+?\\)\s.*$" slot)
     (let* ((slot-dir (match-string 1 slot))
            (rollback-dir (file-name-as-directory
@@ -2476,7 +2484,8 @@ Original code from dochang at https://github.com/dochang/elpa-clone"
 
 (defun configuration-layer//sync-elpa-packages-files (packages output-dir)
   "Synchronize PACKAGES files from remote ELPA directory to OUTPUT-DIR"
-  (message "Synchronizing files in ELPA repository at %s..." output-dir)
+  (configuration-layer/message
+   "Synchronizing files in ELPA repository at %s..." output-dir)
   (let (filenames
         (output-filenames (directory-files
                            output-dir nil "\\.\\(el\\|tar\\)$"))
@@ -2490,14 +2499,16 @@ Original code from dochang at https://github.com/dochang/elpa-clone"
                                      package-archives))))
         (push filename filenames)
         (if (member filename output-filenames)
-            (message "[%s/%s] Skip %s..." i pkg-count filename)
-          (message "[%s/%s] Download %s..." i pkg-count filename)
+            (configuration-layer/message
+             "[%s/%s] Skip %s..." i pkg-count filename)
+          (configuration-layer/message
+           "[%s/%s] Download %s..." i pkg-count filename)
           (configuration-layer//download-elpa-file
            pkg-name filename archive-url output-dir))
         (setq i (1+ i))))
     (dolist (ofilename output-filenames)
       (unless (member ofilename filenames)
-        (message "Remove outdated %s..." ofilename)
+        (configuration-layer/message "Remove outdated %s..." ofilename)
         (delete-file (concat output-dir ofilename))))))
 
 (defun configuration-layer/create-elpa-repository (name output-dir)
@@ -2580,7 +2591,8 @@ ELPA stable repository."
               (epg-import-keys-from-file
                context configuration-layer--stable-elpa-gpg-keyring)
             (error
-             (message "Cannot import keyring: %S" (cdr error))
+             (configuration-layer/message
+              "Cannot import keyring: %S" (cdr error))
              (setq untar nil)))
           (condition-case error
               (setf (epg-context-home-directory context) homedir)
@@ -2700,6 +2712,11 @@ install time in order to replace all `org' package installation by
       (setq configuration-layer-error-count
             (1+ configuration-layer-error-count))
     (setq configuration-layer-error-count 1)))
+
+(defun configuration-layer/message (msg &rest args)
+  "Display MSG in *Messages* prepended with '(Spacemacs)'.
+ARGS: format string arguments."
+  (message "(Spacemacs) %s" (apply 'format msg args)))
 
 (provide 'core-configuration-layer)
 
