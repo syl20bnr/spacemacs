@@ -11,7 +11,6 @@
 (setq message-log-max 16384)
 
 (require 'subr-x nil 'noerror)
-(require 'core-dump)
 (require 'core-emacs-backports)
 (require 'page-break-lines)
 (require 'core-debug)

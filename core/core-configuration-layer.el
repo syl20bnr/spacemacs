@@ -554,8 +554,11 @@ refreshed during the current session."
 To prevent package from being installed or uninstalled set the variable
 `spacemacs-sync-packages' to nil."
   (run-hooks 'configuration-layer-pre-load-hook)
-  (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
-  (spacemacs|when-dumping
+  (setq changedp nil)
+  (let ((layers dotspacemacs-configuration-layers))
+    (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
+    (setq changedp (not (equal layers dotspacemacs-configuration-layers))))
+  (when changedp
     (setq dotspacemacs--configuration-layers-saved
           dotspacemacs-configuration-layers)
     (when (spacemacs-buffer//choose-banner)
@@ -605,7 +608,8 @@ To prevent package from being installed or uninstalled set the variable
     (configuration-layer//configure-packages configuration-layer--used-packages)
     (configuration-layer//load-layers-files configuration-layer--used-layers
                           '("keybindings.el"))
-    (dotspacemacs|call-func dotspacemacs/user-load "Calling dotfile user-load..."))
+    (dotspacemacs|call-func dotspacemacs/user-load "Calling dotfile user-load...")
+    (spacemacs|unless-dumping (spacemacs/dump-emacs)))
   (run-hooks 'configuration-layer-post-load-hook))
 
 (defun configuration-layer/load-auto-layer-file ()

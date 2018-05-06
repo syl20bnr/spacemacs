@@ -20,6 +20,7 @@
                    "core/core-versions.el"))
 (load-file (concat (file-name-directory load-file-name)
                    "core/core-load-paths.el"))
+(load-file (concat spacemacs-core-directory "core-dumper.el"))
 
 (if (not (version<= spacemacs-emacs-min-version emacs-version))
     (error (concat "Your version of Emacs (%s) is too old. "

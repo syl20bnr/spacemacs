@@ -1,4 +1,4 @@
-;;; core-dump.el --- Spacemacs Core File
+;;; core-dumper.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
@@ -45,6 +45,14 @@ You should not used this function, it is reserved for some specific process."
   `(unless (eq 'dumping spacemacs-dump-mode)
      ,@body))
 
+(defun spacemacs/dump-emacs ()
+  "Dump emacs in a subprocess."
+  (let ((default-directory "~/dev/emacs/src"))
+    (make-process
+     :name "spacemacs-dump"
+     :buffer "*spacemacs-dumper*"
+     :command (list "~/dev/emacs/src/emacs" "--batch" "-l" "~/.emacs.d/dump-init.el" "-eval" "(dump-emacs-portable \"spacedump.pdmp\")"))))
+
 ;; ;; Brute-force load all .el files in ELPA packages
 ;; (dolist (d (directory-files package-user-dir t nil 'nosort))
 ;;   (unless (or (string-equal ".." (substring d -2))
@@ -56,4 +64,4 @@ You should not used this function, it is reserved for some specific process."
 ;;         (message "%s" f)
 ;;         (ignore-errors (load f t))))))
 
-(provide 'core-dump)
+(provide 'core-dumper)
