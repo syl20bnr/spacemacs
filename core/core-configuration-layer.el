@@ -563,6 +563,10 @@ refreshed during the current session."
      configuration-layer--last-dotspacemacs-configuration-layers-file))
   (let ((layers dotspacemacs-configuration-layers))
     (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
+    ;; `dotspacemacs--configuration-layers-saved' is used to detect if the layer
+    ;; list has been changed outside of function `dotspacemacs/layers'
+    (setq dotspacemacs--configuration-layers-saved
+          dotspacemacs-configuration-layers)
     (setq changed-since-last-dump-p
           (not (equal layers dotspacemacs-configuration-layers)))
     ;; save layers list to file
