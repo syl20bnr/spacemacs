@@ -24,6 +24,10 @@
   "Return non-nil if Spacemacs is dumping."
   (eq 'dumping spacemacs-dump-mode))
 
+(defun spacemacs-run-from-dump-p ()
+  "Return non-nil if Spacemacs is running from a dump."
+  (eq 'dumped spacemacs-dump-mode))
+
 (defmacro spacemacs|when-dumping (&rest body)
   "Execute body if dumping.
 This function considers that we are always dumping if dumping is not supported.
