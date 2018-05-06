@@ -47,11 +47,17 @@ You should not used this function, it is reserved for some specific process."
 
 (defun spacemacs/dump-emacs ()
   "Dump emacs in a subprocess."
-  (let ((default-directory "~/dev/emacs/src"))
+  (let ((default-directory (file-name-directory
+                            dotspacemacs-emacs-pdumper-executable-file)))
     (make-process
-     :name "spacemacs-dump"
+     :name "spacemacs-dumper"
      :buffer "*spacemacs-dumper*"
-     :command (list "~/dev/emacs/src/emacs" "--batch" "-l" "~/.emacs.d/dump-init.el" "-eval" "(dump-emacs-portable \"spacedump.pdmp\")"))))
+     :command (list dotspacemacs-emacs-pdumper-executable-file
+                    "--batch"
+                    "-l" "~/.emacs.d/dump-init.el"
+                    "-eval" (concat "(dump-emacs-portable \""
+                                    dotspacemacs-emacs-dumper-dump-file
+                                    "\")")))))
 
 ;; ;; Brute-force load all .el files in ELPA packages
 ;; (dolist (d (directory-files package-user-dir t nil 'nosort))

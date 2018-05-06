@@ -55,6 +55,19 @@ exists. Otherwise, fallback to ~/.spacemacs"))
 `+distributions'. For now available distributions are `spacemacs-base'
 or `spacemacs'.")
 
+(defvar dotspacemacs-emacs-pdumper-executable-file nil
+  "Absolute file path pointing to emacs 27.1 executable compiled with support
+for the portable dumper (this is currently the branch pdumper).
+If nil then automatic dump of emacs is disabled.")
+
+(defvar dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"
+  "File path of Spacemacs dump file. This is the file created by the portable
+dumper. To load it when starting Emacs add the parameter `--dump-file'
+when invoking Emacs 27.1 executable on the command line, for instance:
+./emacs --dump-file=spacedump.pdump
+If the file path is relative, it will be relative to the directory pointed
+by `dotspacemacs-emacs-pdumper-executable-file'.")
+
 (defvar dotspacemacs-gc-cons '(100000000 0.1)
   "Set `gc-cons-threshold' and `gc-cons-percentage' when startup finishes.
 This is an advanced option and should not be changed unless you suspect

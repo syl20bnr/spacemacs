@@ -609,7 +609,9 @@ To prevent package from being installed or uninstalled set the variable
     (configuration-layer//load-layers-files configuration-layer--used-layers
                           '("keybindings.el"))
     (dotspacemacs|call-func dotspacemacs/user-load "Calling dotfile user-load...")
-    (spacemacs|unless-dumping (spacemacs/dump-emacs)))
+    (when (and dotspacemacs-emacs-pdumper-executable-file
+               (file-exists-p dotspacemacs-emacs-pdumper-executable-file))
+      (spacemacs|unless-dumping (spacemacs/dump-emacs))))
   (run-hooks 'configuration-layer-post-load-hook))
 
 (defun configuration-layer/load-auto-layer-file ()
