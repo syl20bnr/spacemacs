@@ -64,7 +64,7 @@ If nil then automatic dump of emacs is disabled.")
   "File path of Spacemacs dump file. This is the file created by the portable
 dumper. To load it when starting Emacs add the parameter `--dump-file'
 when invoking Emacs 27.1 executable on the command line, for instance:
-./emacs --dump-file=spacedump.pdump
+./emacs --dump-file=spacemacs.pdump
 If the file path is relative, it will be relative to the directory pointed
 by `dotspacemacs-emacs-pdumper-executable-file'.")
 
