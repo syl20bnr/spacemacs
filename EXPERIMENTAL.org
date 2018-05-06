@@ -2,12 +2,14 @@
 
 * Table of contents                                       :TOC_4_gh:noexport:
 - [[#spacemacs-dumps-using-the-portable-dumper][Spacemacs dumps using the portable dumper]]
-  - [[#clone-emacs][Clone Emacs]]
-  - [[#compile-emacs-from-source][Compile Emacs from source]]
-    - [[#macos][MacOS]]
-  - [[#update-your-dotfile][Update your dotfile]]
-  - [[#test][Test]]
-  - [[#report-issues][Report issues]]
+  - [[#setup][Setup]]
+    - [[#clone-emacs][Clone Emacs]]
+    - [[#compile-emacs-from-source][Compile Emacs from source]]
+      - [[#macos][MacOS]]
+    - [[#update-your-dotfile][Update your dotfile]]
+    - [[#test][Test]]
+    - [[#report-issues][Report issues]]
+  - [[#usage][Usage]]
 
 * Spacemacs dumps using the portable dumper
 The portable dumper is a feature that may be availabe with Emacs 27.1, for now
@@ -17,9 +19,10 @@ merged to master yet.
 This should theoretically work on all the three major OSes: GNU/Linux, MacOS and
 Windows.
 
+** Setup
 To test the portable dumper with Spacemacs, follow these steps:
 
-** Clone Emacs
+*** Clone Emacs
 Clone Emacs from [[https://git.savannah.gnu.org/git/emacs.git]]:
 
 #+BEGIN_SRC shell
@@ -28,11 +31,11 @@ Clone Emacs from [[https://git.savannah.gnu.org/git/emacs.git]]:
   git checkout pdumper
 #+END_SRC
 
-** Compile Emacs from source
+*** Compile Emacs from source
 This step depends on your OS (please create a PR to add the instructions for
 your OS).
 
-*** MacOS
+**** MacOS
 In the root directory of your freshly cloned Emacs repository and with the
 =pdumper= branch as the current branch:
 
@@ -41,7 +44,7 @@ In the root directory of your freshly cloned Emacs repository and with the
   make -j 8
 #+END_SRC
 
-** Update your dotfile
+*** Update your dotfile
 A new user dotfile function has been added which is called before doing the
 dump. The function name is =dotspacemacs/user-load=.
 
@@ -74,7 +77,7 @@ in the dump."
    dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"))
 #+END_SRC
 
-** Test
+*** Test
 Checkout the =moon= branch in `.emacs.d` and launch your Emacs as you usually
 do. It can be Emacs 25.1 or later this is not important but obviously you can
 also use the compiled Emacs version.
@@ -93,8 +96,24 @@ on the command line in the =src= directory of the cloned Emacs source:
   ./emacs --dump-file=spacemacs.pdmp &
 #+END_SRC
 
-** Report issues
+*** Report issues
 If you want to report an issue regarding this new feature please use the label
 =Portable Dumper=.
 
 All the related issues can be found with [[https://github.com/syl20bnr/spacemacs/labels/Portable%20Dumper][this link]].
+
+** Usage
+Once =dotspacemacs-emacs-pdumper-executable-file= is set to a non-nil and valid
+file path to an Emacs 27.1 executable Emacs will be redumped automatically each
+time the layer list changes or the =--force-dump= parameter is passed on the
+command line.
+
+To use the created dump file, open a shell in the =src= directory of the cloned
+Emacs source and type:
+
+#+BEGIN_SRC shell
+  ./emacs --dump-file=spacemacs.pdmp &
+#+END_SRC
+
+=spacemacs.pdmp= corresponds the value of the variable
+=dotspacemacs-emacs-dumper-dump-file=.
