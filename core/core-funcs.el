@@ -76,11 +76,11 @@ and its values are removed."
 (defun spacemacs/dump-vars-to-file (varlist filename)
   "simplistic dumping of variables in VARLIST to a file FILENAME"
   (with-temp-file filename
-    (spacemacs/dump varlist (current-buffer))
+    (spacemacs/dump-vars varlist (current-buffer))
     (make-directory (file-name-directory filename) t)))
 
 ;; From http://stackoverflow.com/questions/2321904/elisp-how-to-save-data-in-a-file
-(defun spacemacs/dump (varlist buffer)
+(defun spacemacs/dump-vars (varlist buffer)
   "insert into buffer the setq statement to recreate the variables in VARLIST"
   (cl-loop for var in varlist do
         (print (list 'setq var (list 'quote (symbol-value var)))
