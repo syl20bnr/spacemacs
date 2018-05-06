@@ -574,15 +574,34 @@ refreshed during the current session."
      '(dotspacemacs-configuration-layers)
      configuration-layer--last-dotspacemacs-configuration-layers-file))
   (cond
-   (changed-since-last-dump-p (configuration-layer//load t))
+   ((or changed-since-last-dump-p
+        spacemacs-force-dump)
+    ;; dump
+    (configuration-layer//load)
+    (when (not (spacemacs-is-dumping-p))
+      (configuration-layer//dump-emacs)))
    ((and dotspacemacs-emacs-pdumper-executable-file
          (spacemacs-run-from-dump-p))
+    ;; dumped
     (configuration-layer/message
      "Running from a dumped file. Skipping the loading process!"))
-   (t (configuration-layer//load)))
+   (t
+    (configuration-layer//load)
+    (when dotspacemacs-emacs-pdumper-executable-file
+      (configuration-layer/message
+       (concat "Layer list has not changed since last time. "
+               "Skipping dumping process!")))))
   (run-hooks 'configuration-layer-post-load-hook))
 
-(defun configuration-layer//load (&optional changedp)
+(defun configuration-layer//dump-emacs ()
+  "Dump emacs."
+  (configuration-layer/message
+   (concat "Dumping Emacs asynchronously, "
+           "you should not quit this Emacs "
+           "session until the dump is finished."))
+  (spacemacs/dump-emacs))
+
+(defun configuration-layer//load ()
   "Actually load the layers.
 CHANGEDP non-nil means that layers list has changed since last dump
 To prevent package from being installed or uninstalled set the variable
@@ -634,20 +653,8 @@ To prevent package from being installed or uninstalled set the variable
   (configuration-layer//configure-packages configuration-layer--used-packages)
   (configuration-layer//load-layers-files configuration-layer--used-layers
                         '("keybindings.el"))
-  (dotspacemacs|call-func dotspacemacs/user-load "Calling dotfile user-load...")
-  (if (and changedp
-           (not (spacemacs-is-dumping-p))
-           dotspacemacs-emacs-pdumper-executable-file
-           (file-exists-p dotspacemacs-emacs-pdumper-executable-file))
-      (progn
-        (configuration-layer/message
-         (concat "Dumping Emacs asynchronously, "
-                 "you should not quit this Emacs "
-                 "session until the dump is finished."))
-        (spacemacs/dump-emacs))
-    (configuration-layer/message
-     (concat "Layer list has not changed since last time. "
-             "Skipping dumping process!"))))
+  (dotspacemacs|call-func dotspacemacs/user-load
+                          "Calling dotfile user-load..."))
 
 (defun configuration-layer/load-auto-layer-file ()
   "Load `auto-layer.el' file"
