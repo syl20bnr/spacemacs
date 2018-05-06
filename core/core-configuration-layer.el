@@ -25,6 +25,9 @@
 (defvar configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout
   "Timeout in seconds to reach a package archive page.")
 
+(defvar configuration-layer--last-dotspacemacs-configuration-layers-file
+  (concat spacemacs-cache-directory "last-configuration-layers"))
+
 (defconst configuration-layer-template-directory
   (expand-file-name (concat spacemacs-core-directory "templates/"))
   "Configuration layer templates directory.")
@@ -550,69 +553,92 @@ refreshed during the current session."
       (unless quiet (spacemacs-buffer/append "\n")))))
 
 (defun configuration-layer/load ()
-  "Load layers declared in dotfile and install associated packages.
-To prevent package from being installed or uninstalled set the variable
-`spacemacs-sync-packages' to nil."
+  "Load layers declared in dotfile if necessary."
   (run-hooks 'configuration-layer-pre-load-hook)
-  (setq changedp nil)
+  (setq changed-since-last-dump-p nil)
+  ;; check if layer list has changed since last dump
+  (when (file-exists-p configuration-layer--last-dotspacemacs-configuration-layers-file)
+    (load-file configuration-layer--last-dotspacemacs-configuration-layers-file))
   (let ((layers dotspacemacs-configuration-layers))
     (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
-    (setq changedp (not (equal layers dotspacemacs-configuration-layers))))
-  (when changedp
-    (setq dotspacemacs--configuration-layers-saved
-          dotspacemacs-configuration-layers)
-    (when (spacemacs-buffer//choose-banner)
-      (spacemacs-buffer//inject-version))
-    ;; declare used layers then packages as soon as possible to resolve
-    ;; usage and ownership
-    (configuration-layer/discover-layers 'refresh-index)
-    (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
-    (configuration-layer//declare-used-packages configuration-layer--used-layers)
-    ;; then load the functions and finally configure the layers
-    (configuration-layer//load-layers-files configuration-layer--used-layers
-                          '("funcs.el"))
-    (configuration-layer//configure-layers configuration-layer--used-layers)
-    ;; load layers lazy settings
-    (configuration-layer/load-auto-layer-file)
-    ;; install and/or uninstall packages
-    (when spacemacs-sync-packages
-      (let ((packages
-            (append
-              ;; install used packages
-              (configuration-layer//filter-distant-packages
-              configuration-layer--used-packages t
-              '(not (oref pkg :lazy-install)))
-              ;; also install all other packages if requested
-              (when (eq 'all dotspacemacs-install-packages)
-                (let (all-other-packages)
-                  (dolist (layer (configuration-layer/get-layers-list))
-                    (let ((configuration-layer--declared-layers-usedp nil)
-                          (configuration-layer--load-packages-files t))
-                      (configuration-layer/declare-layer layer)
-                      (let* ((obj (configuration-layer/get-layer layer))
-                            (pkgs (when obj (oref obj :packages))))
-                        (configuration-layer/make-packages-from-layers
-                        (list layer))
-                        (dolist (pkg pkgs)
-                          (let ((pkg-name (if (listp pkg) (car pkg) pkg)))
-                            (add-to-list 'all-other-packages pkg-name))))))
-                  (configuration-layer//filter-distant-packages
-                  all-other-packages nil))))))
-        (configuration-layer//install-packages packages)
-        (when (and (or (eq 'used dotspacemacs-install-packages)
-                      (eq 'used-only dotspacemacs-install-packages))
-                  (not configuration-layer-force-distribution)
-                  (not configuration-layer-exclude-all-layers))
-          (configuration-layer/delete-orphan-packages packages))))
-    ;; configure used packages
-    (configuration-layer//configure-packages configuration-layer--used-packages)
-    (configuration-layer//load-layers-files configuration-layer--used-layers
-                          '("keybindings.el"))
-    (dotspacemacs|call-func dotspacemacs/user-load "Calling dotfile user-load...")
-    (when (and dotspacemacs-emacs-pdumper-executable-file
-               (file-exists-p dotspacemacs-emacs-pdumper-executable-file))
-      (spacemacs|unless-dumping (spacemacs/dump-emacs))))
+    (setq changed-since-last-dump-p (not (equal layers
+                                                dotspacemacs-configuration-layers)))
+    ;; save layers list to file
+    (spacemacs/dump-vars-to-file
+     '(dotspacemacs-configuration-layers)
+     configuration-layer--last-dotspacemacs-configuration-layers-file))
+  (cond
+   (changed-since-last-dump-p (configuration-layer//load t))
+   ((and dotspacemacs-emacs-pdumper-executable-file
+         (spacemacs-run-from-dump-p))
+    (message "Running from a dumped file. Skipping the loading process!"))
+   (t (configuration-layer//load)))
   (run-hooks 'configuration-layer-post-load-hook))
+
+(defun configuration-layer//load (&optional changedp)
+  "Actually load the layers.
+CHANGEDP non-nil means that layers list has changed since last dump
+To prevent package from being installed or uninstalled set the variable
+`spacemacs-sync-packages' to nil."
+  (when (spacemacs-buffer//choose-banner)
+    (spacemacs-buffer//inject-version))
+  ;; declare used layers then packages as soon as possible to resolve
+  ;; usage and ownership
+  (configuration-layer/discover-layers 'refresh-index)
+  (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
+  (configuration-layer//declare-used-packages configuration-layer--used-layers)
+  ;; then load the functions and finally configure the layers
+  (configuration-layer//load-layers-files configuration-layer--used-layers
+                        '("funcs.el"))
+  (configuration-layer//configure-layers configuration-layer--used-layers)
+  ;; load layers lazy settings
+  (configuration-layer/load-auto-layer-file)
+  ;; install and/or uninstall packages
+  (when spacemacs-sync-packages
+    (let ((packages
+           (append
+            ;; install used packages
+            (configuration-layer//filter-distant-packages
+             configuration-layer--used-packages t
+             '(not (oref pkg :lazy-install)))
+            ;; also install all other packages if requested
+            (when (eq 'all dotspacemacs-install-packages)
+              (let (all-other-packages)
+                (dolist (layer (configuration-layer/get-layers-list))
+                  (let ((configuration-layer--declared-layers-usedp nil)
+                        (configuration-layer--load-packages-files t))
+                    (configuration-layer/declare-layer layer)
+                    (let* ((obj (configuration-layer/get-layer layer))
+                           (pkgs (when obj (oref obj :packages))))
+                      (configuration-layer/make-packages-from-layers
+                       (list layer))
+                      (dolist (pkg pkgs)
+                        (let ((pkg-name (if (listp pkg) (car pkg) pkg)))
+                          (add-to-list 'all-other-packages pkg-name))))))
+                (configuration-layer//filter-distant-packages
+                 all-other-packages nil))))))
+      (configuration-layer//install-packages packages)
+      (when (and (or (eq 'used dotspacemacs-install-packages)
+                     (eq 'used-only dotspacemacs-install-packages))
+                 (not configuration-layer-force-distribution)
+                 (not configuration-layer-exclude-all-layers))
+        (configuration-layer/delete-orphan-packages packages))))
+  ;; configure used packages
+  (configuration-layer//configure-packages configuration-layer--used-packages)
+  (configuration-layer//load-layers-files configuration-layer--used-layers
+                        '("keybindings.el"))
+  (dotspacemacs|call-func dotspacemacs/user-load "Calling dotfile user-load...")
+  (if (and changedp
+           (not (spacemacs-is-dumping-p))
+           dotspacemacs-emacs-pdumper-executable-file
+           (file-exists-p dotspacemacs-emacs-pdumper-executable-file))
+      (progn
+        (message (concat
+                  "Dumping Emacs asynchronously, you should not quit this Emacs "
+                  "session until the dump is finished."))
+        (spacemacs/dump-emacs))
+    (message (concat "Layer list has not changed since last time. "
+                     "Skipping dumping process!"))))
 
 (defun configuration-layer/load-auto-layer-file ()
   "Load `auto-layer.el' file"
