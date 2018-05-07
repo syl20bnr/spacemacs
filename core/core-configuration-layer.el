@@ -574,18 +574,29 @@ refreshed during the current session."
      '(dotspacemacs-configuration-layers)
      configuration-layer--last-dotspacemacs-configuration-layers-file))
   (cond
-   ((or changed-since-last-dump-p
-        spacemacs-force-dump)
+   (changed-since-last-dump-p
     ;; dump
     (configuration-layer//load)
-    (when (not (spacemacs-is-dumping-p))
+    (when dotspacemacs-emacs-pdumper-executable-file
+      (configuration-layer/message "Layer list has changed since last dump.")
       (configuration-layer//dump-emacs)))
+   (spacemacs-force-dump
+    ;; force dump
+    (configuration-layer//load)
+    (configuration-layer/message (concat "--force-dump passed on the command line, "
+                       "forcing a redump."))
+    (configuration-layer//dump-emacs))
+   ((spacemacs-is-dumping-p)
+    ;; dumping
+    (configuration-layer//load)
+    (configuration-layer/message "Dumping Emacs..."))
    ((and dotspacemacs-emacs-pdumper-executable-file
          (spacemacs-run-from-dump-p))
     ;; dumped
     (configuration-layer/message
      "Running from a dumped file. Skipping the loading process!"))
    (t
+    ;; standard loading
     (configuration-layer//load)
     (when dotspacemacs-emacs-pdumper-executable-file
       (configuration-layer/message
