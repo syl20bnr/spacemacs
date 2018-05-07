@@ -30,3 +30,8 @@
                       :background (face-attribute 'highlight :background nil t)
                       :foreground (face-attribute 'default :foreground nil t))
   )
+
+(defun spacemacs//set-lsp-key-bindings (mode)
+  "Set the key bindings for tern and the given MODE."
+  (add-to-list (intern (format "spacemacs-jump-handlers-%S" mode))
+               '(lsp-ui-peek-find-definitions)))
