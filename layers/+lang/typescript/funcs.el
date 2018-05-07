@@ -9,6 +9,82 @@
 ;;
 ;;; License: GPLv3
 
+
+;; backend
+
+(defun spacemacs//typescript-setup-backend ()
+  "Conditionally setup typescript backend."
+  (pcase typescript-backend
+    (`tide (spacemacs//typescript-setup-tide))
+    (`lsp (spacemacs//typescript-setup-lsp))))
+
+(defun spacemacs//typescript-setup-company ()
+  "Conditionally setup company based on backend."
+  (pcase typescript-backend
+    (`tide (spacemacs//typescript-setup-tide-company))
+    (`lsp (spacemacs//typescript-setup-lsp-company))))
+
+
+;; tide
+
+(defun spacemacs//typescript-setup-tide ()
+  "Setup tide backend."
+  (progn
+    (evilified-state-evilify tide-references-mode tide-references-mode-map
+      (kbd "C-k") 'tide-find-previous-reference
+      (kbd "C-j") 'tide-find-next-reference
+      (kbd "C-l") 'tide-goto-reference)
+    (spacemacs/add-to-hooks 'tide-setup '(typescript-mode-hook
+                                          typescript-tsx-mode-hook))
+    (add-to-list 'spacemacs-jump-handlers-typescript-tsx-mode
+                 '(tide-jump-to-definition :async t))
+    (add-to-list 'spacemacs-jump-handlers-typescript-mode
+                 '(tide-jump-to-definition :async t))))
+
+(defun spacemacs//typescript-setup-tide-company ()
+  "Setup tide auto-completion."
+  (spacemacs|add-company-backends
+    :backends company-tide
+    :modes typescript-mode typescript-tsx-mode)
+  (company-mode))
+
+
+;; lsp
+
+(defun spacemacs//typescript-setup-lsp ()
+  "Setup lsp backend."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (add-hook 'typescript-mode-hook #'lsp-javascript-typescript-enable)
+        (add-hook 'typescript-tsx-mode-hook #'lsp-javascript-typescript-enable)
+        (spacemacs//set-lsp-key-bindings 'typescript-mode)
+        (spacemacs//set-lsp-key-bindings 'typescript-tsx-mode))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
+
+(defun spacemacs//typescript-setup-lsp-company ()
+  "Setup lsp auto-completion."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        ;; fix lsp-typescript company prefix
+        ;; https://github.com/emacs-lsp/lsp-typescript/issues/9#issuecomment-379515379
+        (defun lsp-prefix-company-transformer (candidates)
+          (let ((completion-ignore-case t))
+            (all-completions (company-grab-symbol) candidates)))
+        (defun lsp-prefix-typescript-hook nil
+          (make-local-variable 'company-transformers)
+          (push 'lsp-prefix-company-transformer company-transformers))
+        (add-hook 'typescript-mode-hook 'lsp-prefix-typescript-hook)
+        (add-hook 'typescript-tsx-mode-hook 'lsp-prefix-typescript-hook)
+
+        (spacemacs|add-company-backends
+          :backends company-lsp
+          :modes typescript-mode typescript-tsx-mode)
+        (company-mode))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
+
+
+;; Others
+
 (defun spacemacs/typescript-tsfmt-format-buffer ()
   "Format buffer with tsfmt."
   (interactive)

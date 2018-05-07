@@ -7,6 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#pre-requisites][Pre-requisites]]
+    - [[#backend][Backend]]
   - [[#layer][Layer]]
   - [[#notes][Notes]]
 - [[#configuration][Configuration]]
@@ -38,6 +39,19 @@ If you want linting run:  =npm install -g typescript=  =npm install -g tslint=
 If you want to use typescript-formatter for formatting run:  =npm install -g typescript-formatter=
 
 For best results, make sure that the =auto-completion= (company) and =html= layers are enabled.
+
+*** Backend
+Pick the backend for typescript-mode. Options are =tide= and =lsp=.
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(
+  (typescript :variables
+              typescript-backend 'tide)))
+#+END_SRC
+
+If you pick =lsp=, you have to install the following dependencies with npm.
+#+BEGIN_SRC shell
+npm i -g typescript javascript-typescript-langserver flow-language-server typescript-language-server
+#+END_SRC
 
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
