@@ -4,6 +4,7 @@
 - [[#spacemacs-dumps-using-the-portable-dumper][Spacemacs dumps using the portable dumper]]
   - [[#setup][Setup]]
     - [[#clone-emacs][Clone Emacs]]
+    - [[#simple-patch-of-emacs-source-code][Simple patch of Emacs source code]]
     - [[#compile-emacs-from-source][Compile Emacs from source]]
       - [[#macos][MacOS]]
     - [[#update-your-dotfile][Update your dotfile]]
@@ -31,6 +32,18 @@ Clone Emacs from [[https://git.savannah.gnu.org/git/emacs.git]]:
   git checkout pdumper
 #+END_SRC
 
+*** Simple patch of Emacs source code
+We need to increase the number of =remember_data= slots in =src/pdumper.c=, we
+double the number of slots by replacing 32 with 64:
+
+#+BEGIN_SRC c
+static struct
+{
+  void *mem;
+  int sz;
+} remembered_data[64];
+#+END_SRC
+
 *** Compile Emacs from source
 This step depends on your OS (please create a PR to add the instructions for
 your OS).
@@ -40,8 +53,8 @@ In the root directory of your freshly cloned Emacs repository and with the
 =pdumper= branch as the current branch:
 
 #+BEGIN_SRC shell
+  ./autogen.sh
   ./configure --with-ns --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules
-  make -j 8
 #+END_SRC
 
 *** Update your dotfile
