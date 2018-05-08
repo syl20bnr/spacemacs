@@ -12,8 +12,13 @@
 (defvar spacemacs-dump-mode 'not-dumped
   "Spacemacs dump mode, can be `not-dumped', `dumped' or `dumping'.")
 
+(defvar spacemacs-dump-process nil
+  "The process object to dump Emacs.")
+
 (defconst spacemacs-dump-directory
   (concat spacemacs-cache-directory "dumps/"))
+
+(defconst spacemacs-dump-buffer-name "*spacemacs-dumper*")
 
 (defun spacemacs/defer ()
   "Return non-nil if dump is not supported."
@@ -59,20 +64,25 @@ You should not used this function, it is reserved for some specific process."
 
 (defun spacemacs/dump-emacs ()
   "Dump emacs in a subprocess."
+  (when spacemacs-dump-process
+    (message "Cancel running dumping process to start a new one.")
+    (delete-process spacemacs-dump-buffer-name)
+    (kill-buffer spacemacs-dump-buffer-name))
   (let ((default-directory (file-name-directory
                             dotspacemacs-emacs-pdumper-executable-file)))
     (make-directory spacemacs-dump-directory t)
-    (make-process
-     :name "spacemacs-dumper"
-     :buffer "*spacemacs-dumper*"
-     :command
-     (list dotspacemacs-emacs-pdumper-executable-file
-           "--batch"
-           "-l" "~/.emacs.d/dump-init.el"
-           "-eval" (concat "(dump-emacs-portable \""
-                           (concat spacemacs-dump-directory
-                                   dotspacemacs-emacs-dumper-dump-file)
-                           "\")")))))
+    (setq spacemacs-dump-process
+          (make-process
+           :name "spacemacs-dumper"
+           :buffer spacemacs-dump-buffer-name
+           :command
+           (list dotspacemacs-emacs-pdumper-executable-file
+                 "--batch"
+                 "-l" "~/.emacs.d/dump-init.el"
+                 "-eval" (concat "(dump-emacs-portable \""
+                                 (concat spacemacs-dump-directory
+                                         dotspacemacs-emacs-dumper-dump-file)
+                                 "\")"))))))
 
 ;; ;; Brute-force load all .el files in ELPA packages
 ;; (dolist (d (directory-files package-user-dir t nil 'nosort))

@@ -508,7 +508,9 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
                 (setq dotspacemacs-editing-style
                       (dotspacemacs//read-editing-style-config
                        dotspacemacs-editing-style))
-                (configuration-layer/load)
+                ;; try to force a redump when reloading the configuration
+                (let ((spacemacs-force-dump t))
+                  (configuration-layer/load))
                 (if (member arg '((4) (16)))
                     (message (concat "Done (`dotspacemacs/user-config' "
                                      "function has been skipped)."))
