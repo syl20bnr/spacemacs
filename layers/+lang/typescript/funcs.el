@@ -57,8 +57,8 @@
       (progn
         (add-hook 'typescript-mode-hook #'lsp-javascript-typescript-enable)
         (add-hook 'typescript-tsx-mode-hook #'lsp-javascript-typescript-enable)
-        (spacemacs//set-lsp-key-bindings 'typescript-mode)
-        (spacemacs//set-lsp-key-bindings 'typescript-tsx-mode))
+        (spacemacs//setup-lsp-jump-handler 'typescript-mode
+                                    'typescript-tsx-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
 
 (defun spacemacs//typescript-setup-lsp-company ()

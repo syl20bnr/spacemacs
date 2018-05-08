@@ -146,7 +146,7 @@
         (require 'lsp-typescript)
         (add-hook 'js-mode-hook #'lsp-typescript-enable)
         (add-hook 'js2-mode-hook #'lsp-typescript-enable)
-        (spacemacs//set-lsp-key-bindings 'js2-mode))
+        (spacemacs//setup-lsp-jump-handler 'js2-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
 
 (defun spacemacs//javascript-setup-lsp-company ()
