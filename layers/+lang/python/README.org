@@ -12,7 +12,7 @@
   - [[#anaconda][Anaconda]]
   - [[#language-server-protocol][Language Server Protocol]]
 - [[#additional-tools][Additional tools]]
-    - [[#syntax-checking][Syntax checking]]
+  - [[#syntax-checking][Syntax checking]]
   - [[#test-runner][Test runner]]
   - [[#automatic-buffer-formatting-on-save][Automatic buffer formatting on save]]
   - [[#automatic-save-of-buffer-when-testing][Automatic save of buffer when testing]]
