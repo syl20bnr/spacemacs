@@ -66,8 +66,9 @@ You should not used this function, it is reserved for some specific process."
   "Dump emacs in a subprocess."
   (when spacemacs-dump-process
     (message "Cancel running dumping process to start a new one.")
-    (delete-process spacemacs-dump-buffer-name)
-    (kill-buffer spacemacs-dump-buffer-name))
+    (delete-process spacemacs-dump-process)
+    (with-current-buffer spacemacs-dump-buffer-name
+      (erase-buffer)))
   (let ((default-directory (file-name-directory
                             dotspacemacs-emacs-pdumper-executable-file)))
     (make-directory spacemacs-dump-directory t)
