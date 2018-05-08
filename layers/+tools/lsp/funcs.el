@@ -32,6 +32,6 @@
   )
 
 (defun spacemacs//set-lsp-key-bindings (mode)
-  "Set the key bindings for tern and the given MODE."
+  "Set the key bindings for lsp and the given MODE."
   (add-to-list (intern (format "spacemacs-jump-handlers-%S" mode))
                '(lsp-ui-peek-find-definitions)))
