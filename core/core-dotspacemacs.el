@@ -61,12 +61,11 @@ for the portable dumper (this is currently the branch pdumper).
 If nil then automatic dump of emacs is disabled.")
 
 (defvar dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"
-  "File path of Spacemacs dump file. This is the file created by the portable
-dumper. To load it when starting Emacs add the parameter `--dump-file'
+  "Name of the Spacemacs dump file. This is the file will be created by the
+portable dumper in the cache directory under dumps sub-directory.
+To load it when starting Emacs add the parameter `--dump-file'
 when invoking Emacs 27.1 executable on the command line, for instance:
-./emacs --dump-file=spacemacs.pdump
-If the file path is relative, it will be relative to the directory pointed
-by `dotspacemacs-emacs-pdumper-executable-file'.")
+./emacs --dump-file=/Users/sylvain/.emacs.d/.cache/dumps/spacemacs.pdmp")
 
 (defvar dotspacemacs-gc-cons '(100000000 0.1)
   "Set `gc-cons-threshold' and `gc-cons-percentage' when startup finishes.

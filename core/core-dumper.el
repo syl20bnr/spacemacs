@@ -12,6 +12,9 @@
 (defvar spacemacs-dump-mode 'not-dumped
   "Spacemacs dump mode, can be `not-dumped', `dumped' or `dumping'.")
 
+(defconst spacemacs-dump-directory
+  (concat spacemacs-cache-directory "dumps/"))
+
 (defun spacemacs/defer ()
   "Return non-nil if dump is not supported."
   (eq 'not-dumped spacemacs-dump-mode))
@@ -58,15 +61,18 @@ You should not used this function, it is reserved for some specific process."
   "Dump emacs in a subprocess."
   (let ((default-directory (file-name-directory
                             dotspacemacs-emacs-pdumper-executable-file)))
+    (make-directory spacemacs-dump-directory t)
     (make-process
      :name "spacemacs-dumper"
      :buffer "*spacemacs-dumper*"
-     :command (list dotspacemacs-emacs-pdumper-executable-file
-                    "--batch"
-                    "-l" "~/.emacs.d/dump-init.el"
-                    "-eval" (concat "(dump-emacs-portable \""
-                                    dotspacemacs-emacs-dumper-dump-file
-                                    "\")")))))
+     :command
+     (list dotspacemacs-emacs-pdumper-executable-file
+           "--batch"
+           "-l" "~/.emacs.d/dump-init.el"
+           "-eval" (concat "(dump-emacs-portable \""
+                           (concat spacemacs-dump-directory
+                                   dotspacemacs-emacs-dumper-dump-file)
+                           "\")")))))
 
 ;; ;; Brute-force load all .el files in ELPA packages
 ;; (dolist (d (directory-files package-user-dir t nil 'nosort))

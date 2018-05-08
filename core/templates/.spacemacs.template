@@ -449,13 +449,12 @@ in the dump."
    ;; (default nil)
    dotspacemacs-emacs-pdumper-executable-file nil
 
-   ;; File path of Spacemacs dump file. This is the file created by the portable
-   ;; dumper. To load it when starting Emacs add the parameter `--dump-file'
+   ;; Name of the Spacemacs dump file. This is the file will be created by the
+   ;; portable dumper in the cache directory under dumps sub-directory.
+   ;; To load it when starting Emacs add the parameter `--dump-file'
    ;; when invoking Emacs 27.1 executable on the command line, for instance:
-   ;;   ./emacs --dump-file=spacedump.pdump
-   ;; If the file path is relative, it will be relative to the directory pointed
-   ;; by `dotspacemacs-emacs-pdumper-executable-file'.
-   ;; (default spacedump.pdmp)
+   ;;   ./emacs --dump-file=~/.emacs.d/.cache/dumps/spacedump.pdmp
+   ;; (default spacemacs.pdmp)
    dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"))
 
 (defun dotspacemacs/user-config ()
