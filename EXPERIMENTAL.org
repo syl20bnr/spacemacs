@@ -94,6 +94,9 @@ Checkout the =moon= branch in `.emacs.d` and launch your Emacs as you usually
 do. It can be Emacs 25.1 or later this is not important but obviously you can
 also use the compiled Emacs version.
 
+*Note:* the =moon= branch may be force-pushed regularly in order to rebase it
+against the =develop= branch.
+
 Each time Emacs starts, Spacemacs will check if the list of your layers has
 changed, if it has changed then Emacs will be automatically dumped for you in
 an asynchronous process. The buffer for the output of the process is named
@@ -127,5 +130,10 @@ Emacs source and type:
   ./emacs --dump-file=/Users/sylvain/.emacs.d/.cache/dumps/spacemacs.pdmp &
 #+END_SRC
 
-=spacemacs.pdmp= corresponds the value of the variable
+=spacemacs.pdmp= corresponds to the value of the variable
 =dotspacemacs-emacs-dumper-dump-file=.
+
+A forced dump is executed whenever the configuration is reloaded with
+~SPC f e R~. If a dump is already running then it is cancelled and a new on is
+started. Check the buffer =*spacemacs-dumper*= to see the progress of the
+dumping.
