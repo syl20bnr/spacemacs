@@ -69,7 +69,8 @@ when this mode is enabled since the minibuffer is cleared all the time."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
         (require 'lsp-python)
-        (lsp-python-enable))
+        (lsp-python-enable)
+        (spacemacs//set-lsp-key-bindings 'python-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
 
 (defun spacemacs//python-setup-lsp-company ()
