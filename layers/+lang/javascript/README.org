@@ -29,6 +29,7 @@
 This layer adds support for the JavaScript language using [[https://github.com/mooz/js2-mode][js2-mode]].
 
 ** Features:
+- Multiple backends support: Tern and LSP
 - Smart code folding
 - Refactoring: done using [[https://github.com/magnars/js2-refactor.el][js2-refactor]].
 - Auto-completion and documentation: provided by [[http://ternjs.net/][tern]]
@@ -104,7 +105,8 @@ details]]. The variable can be set when adding the =javascript= configuration
 layer:
 
 #+BEGIN_SRC emacs-lisp
-  (javascript :variables tern-command '("node" "/path/to/tern/bin/tern"))
+(setq-default dotspacemacs-configuration-layers '(
+  (javascript :variables tern-command '("node" "/path/to/tern/bin/tern")))
 #+END_SRC
 
 ** Language Server Protocol
