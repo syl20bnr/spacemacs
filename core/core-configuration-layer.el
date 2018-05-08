@@ -577,7 +577,7 @@ refreshed during the current session."
    (changed-since-last-dump-p
     ;; dump
     (configuration-layer//load)
-    (when dotspacemacs-emacs-pdumper-executable-file
+    (when (spacemacs/emacs-with-pdumper-set-p)
       (configuration-layer/message "Layer list has changed since last dump.")
       (configuration-layer//dump-emacs)))
    (spacemacs-force-dump
@@ -590,7 +590,7 @@ refreshed during the current session."
     ;; dumping
     (configuration-layer//load)
     (configuration-layer/message "Dumping Emacs..."))
-   ((and dotspacemacs-emacs-pdumper-executable-file
+   ((and (spacemacs/emacs-with-pdumper-set-p)
          (spacemacs-run-from-dump-p))
     ;; dumped
     (configuration-layer/message
@@ -598,7 +598,7 @@ refreshed during the current session."
    (t
     ;; standard loading
     (configuration-layer//load)
-    (when dotspacemacs-emacs-pdumper-executable-file
+    (when (spacemacs/emacs-with-pdumper-set-p)
       (configuration-layer/message
        (concat "Layer list has not changed since last time. "
                "Skipping dumping process!")))))

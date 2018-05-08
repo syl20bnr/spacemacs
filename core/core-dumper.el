@@ -49,6 +49,11 @@ You should not used this function, it is reserved for some specific process."
   `(unless (eq 'dumping spacemacs-dump-mode)
      ,@body))
 
+(defun spacemacs/emacs-with-pdumper-set-p ()
+  "Return non-nil if a portable dumper capable emacs executable is set."
+  (and dotspacemacs-emacs-pdumper-executable-file
+       (file-exists-p dotspacemacs-emacs-pdumper-executable-file)))
+
 (defun spacemacs/dump-emacs ()
   "Dump emacs in a subprocess."
   (let ((default-directory (file-name-directory
