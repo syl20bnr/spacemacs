@@ -58,7 +58,7 @@
         (add-hook 'rjsx-mode #'lsp-javascript-flow-enable)
         (require 'lsp-typescript)
         (add-hook 'rjsx-mode #'lsp-typescript-enable)
-        (spacemacs//set-lsp-key-bindings 'rjsx-mode))
+        (spacemacs//setup-lsp-jump-handler 'rjsx-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
 
 (defun spacemacs//react-setup-lsp-company ()
