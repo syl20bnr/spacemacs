@@ -1178,6 +1178,13 @@ Decision is based on `dotspacemacs-line-numbers'."
        (or (spacemacs//linum-backward-compabitility)
            (spacemacs//linum-enabled-for-current-major-mode))))
 
+(defun spacemacs/relative-line-numbers-p ()
+  "Return non-nil if line numbers should be relative.
+Decision is based on `dotspacemacs-line-numbers'."
+  (or (eq dotspacemacs-line-numbers 'relative)
+      (and (listp dotspacemacs-line-numbers)
+           (car (spacemacs/mplist-get dotspacemacs-line-numbers :relative)))))
+
 (defun spacemacs//linum-on (origfunc &rest args)
   "Advice function to improve `linum-on' function."
   (when (spacemacs/enable-line-numbers-p)
