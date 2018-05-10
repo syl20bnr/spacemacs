@@ -13,6 +13,7 @@
   '(
     (linum :excluded t)
     (linum-relative :excluded t)
+    (display-line-numbers :excluded t)
     nlinum
     nlinum-relative
     ))
@@ -41,10 +42,7 @@
     (progn
       (setq nlinum-relative-current-symbol ""
             nlinum-relative-redisplay-delay 0)
-      (when (or (eq dotspacemacs-line-numbers 'relative)
-                (and (listp dotspacemacs-line-numbers)
-                     (car (spacemacs/mplist-get dotspacemacs-line-numbers
-                                                :relative))))
+      (when (spacemacs/relative-line-numbers-p)
         (nlinum-relative-setup-evil)
         (add-hook 'nlinum-mode-hook 'nlinum-relative-on))
       (spacemacs/set-leader-keys "tr" 'spacemacs/nlinum-relative-toggle))))

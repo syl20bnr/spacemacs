@@ -16,6 +16,7 @@ defaults.
  - conf-mode
  - dired
  - dired-x
+ - display-line-numbers (only in Emacs 26.x and newer)
  - electric-indent-mode
  - ediff
  - eldoc
@@ -23,7 +24,7 @@ defaults.
  - hi-lock
  - image-mode
  - imenu
- - linum
+ - linum (only in Emacs 25.x and older)
  - occur-mode
  - package-menu
  - page-break-lines

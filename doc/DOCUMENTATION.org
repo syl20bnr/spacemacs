@@ -1213,6 +1213,13 @@ Available properties:
 | =:relative=           | if non-nil, line numbers are relative to the position of the cursor                          |
 | =:size-limit-kb=      | size limit in kilobytes after which line numbers are not activated                           |
 
+Note that if =:enabled-for-modes= is =nil= or not specified, then the default is
+to enable line numbers in any =prog-mode= and =text-mode= that wasn't explicitly
+disabled via =:disabled-for-modes=. To enable line numbers in a major mode that
+doesn't derive from =prog-mode= or =text-mode=, you must specify it directly in
+=:enabled-for-modes=. To enable line numbers even in non-prog-mode and
+non-text-mode buffers, set =:enabled-for-modes= to =all=.
+
 Examples:
 
 Disable line numbers in dired-mode, doc-view-mode, markdown-mode, org-mode,
@@ -1252,6 +1259,12 @@ Enable line numbers only in programming modes, except for c-mode and c++ mode:
                                              :enabled-for-modes prog-mode
                                              :disabled-for-modes c-mode c++-mode
                                              :size-limit-kb (* dotspacemacs-large-file-size 1000))
+#+END_SRC
+
+Enable line numbers everywhere, even in non-prog-mode and non-text-mode buffers:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-line-numbers '(:enabled-for-modes 'all))
 #+END_SRC
 
 ** Mode-line
