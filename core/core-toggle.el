@@ -56,6 +56,9 @@ Available PROPS:
 `:on-message EXPRESSION'
     EXPRESSION is evaluated and displayed when the \"on\" toggle is activated.
 
+`:off-message EXPRESSION'
+    EXPRESSION is evaluated and displayed when the \"off\" toggle is activated.
+
 `:mode SYMBOL'
     If given, must be a minor mode. This overrides `:on', `:off' and `:status'.
 
@@ -75,6 +78,7 @@ used."
          (off-body (if mode `((,mode -1)) (spacemacs/mplist-get props :off)))
          (prefix-arg-var (plist-get props :prefix))
          (on-message (plist-get props :on-message))
+         (off-message (plist-get props :off-message))
          (evil-leader-for-mode (spacemacs/mplist-get props :evil-leader-for-mode))
          (supported-modes-string (mapconcat (lambda (x) (symbol-name (car x)))
                                             evil-leader-for-mode ", "))
@@ -114,7 +118,7 @@ used."
                (if (,wrapper-func-status)
                    (progn ,@off-body
                           (when (called-interactively-p 'any)
-                            (message ,(format "%s disabled." name))))
+                            (message ,(or off-message (format "%s disabled." name)))))
                  ,@on-body
                  (when (called-interactively-p 'any)
                    (message ,(or on-message (format "%s enabled." name))))))
