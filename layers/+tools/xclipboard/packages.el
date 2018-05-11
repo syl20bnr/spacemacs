@@ -18,5 +18,5 @@
 (defun xclipboard/init-spacemacs-xclipboard ()
   (use-package spacemacs-xclipboard
     :init (spacemacs/set-leader-keys
-            "xp" 'spacemacs/xclipboard-copy
-            "xy" 'spacemacs/xclipboard-paste)))
+            "xp" 'spacemacs/xclipboard-paste
+            "xy" 'spacemacs/xclipboard-copy)))
