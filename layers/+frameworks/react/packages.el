@@ -26,7 +26,7 @@
   (add-hook 'rjsx-mode-hook #'add-node-modules-path))
 
 (defun react/post-init-company ()
-  (add-hook 'rjsx-mode-hook #'spacemacs//react-setup-company))
+  (spacemacs//react-setup-company))
 
 (defun react/post-init-emmet-mode ()
   (add-hook 'rjsx-mode-hook 'emmet-mode))
@@ -64,7 +64,7 @@
     (push (cons #'+javascript-jsx-file-p 'rjsx-mode) magic-mode-alist)
 
     ;; setup javascript backend
-    (add-hook 'js2-mode-hook 'spacemacs//react-setup-backend)
+    (spacemacs//react-setup-backend)
 
     :config
     ;; declare prefix
