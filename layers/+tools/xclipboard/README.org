@@ -1,0 +1,15 @@
+#+TITLE: xclipboard layer
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#key-bindings][Key Bindings]]
+
+* Description
+This layer adds copy/paste support to the X-clipboard from the terminal.
+
+* Key Bindings
+
+| Key Binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~SPC x y~   | Copy selection to clipboard                 |
+| ~SPC x p~   | Paste clipboard contents at cursor position |
