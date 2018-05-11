@@ -15,8 +15,8 @@
     (spacemacs-xclipboard :location local)
     ))
 
-(defun xclipboard/init-xclipboard ()
-  (use-package xclipboard
+(defun xclipboard/init-spacemacs-xclipboard ()
+  (use-package spacemacs-xclipboard
     :init (spacemacs/set-leader-keys
             "xp" 'spacemacs/xclipboard-copy
             "xy" 'spacemacs/xclipboard-paste)))
