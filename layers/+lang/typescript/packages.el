@@ -25,8 +25,7 @@
   (add-hook 'typescript-tsx-mode-hook #'add-node-modules-path))
 
 (defun typescript/post-init-company ()
-  (add-hook 'typescript-mode-hook #'spacemacs//typescript-setup-company)
-  (add-hook 'typescript-tsx-mode-hook #'spacemacs//typescript-setup-company))
+  (spacemacs//typescript-setup-company))
 
 (defun typescript/pre-init-eldoc ()
   (spacemacs|use-package-add-hook tide :post-init
@@ -84,8 +83,7 @@
     :defer t
     :init
     ;; setup javascript backend
-    (add-hook 'typescript-mode-hook 'spacemacs//typescript-setup-backend)
-    (add-hook 'typescript-tsx-mode-hook 'spacemacs//typescript-setup-backend)
+    (spacemacs//typescript-setup-backend)
     :config
     (progn
       (when typescript-fmt-on-save

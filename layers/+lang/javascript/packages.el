@@ -70,7 +70,7 @@
     :defer t))
 
 (defun javascript/post-init-company ()
-  (add-hook 'js2-mode-hook #'spacemacs//javascript-setup-company)
+  (spacemacs//javascript-setup-company)
   (spacemacs|add-company-backends
     :backends company-capf
     :modes coffee-mode))
@@ -105,7 +105,7 @@
       ;; Required to make imenu functions work correctly
       (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
       ;; setup javascript backend
-      (add-hook 'js2-mode-hook 'spacemacs//javascript-setup-backend))
+      (spacemacs//javascript-setup-backend))
     :config
     (progn
       ;; prefixes
