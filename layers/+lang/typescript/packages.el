@@ -82,7 +82,7 @@
   (use-package typescript-mode
     :defer t
     :init
-    ;; setup javascript backend
+    ;; setup typescript backend
     (spacemacs//typescript-setup-backend)
     :config
     (progn
