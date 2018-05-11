@@ -10,7 +10,13 @@
 ;;
 ;;; License: GPLv3
 
-(defconst xclipboard-packages '())
+(defconst xclipboard-packages
+  '(
+    (spacemacs-xclipboard :location local)
+    ))
 
 (defun xclipboard/init-xclipboard ()
-  (use-package xclipboard))
+  (use-package xclipboard
+    :init (spacemacs/set-leader-keys
+            "xp" 'spacemacs/xclipboard-copy
+            "xy" 'spacemacs/xclipboard-paste)))

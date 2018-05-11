@@ -1,16 +1,19 @@
-;;; funcs.el --- xclipboard layer functions file for Spacemacs.
+;;; spacemacs-xclipboard.el --- Add support for xclipboard in the terminal
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Authors: Charles Weill <weill@google.com>
 ;;          Google LLC.
+;;; Commentary:
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
+;;
+;;; Code:
 
-(defun spacemacs//xclipboard-get-display ()
+(defun spacemacs/xclipboard-get-display ()
   (shell-command-to-string "if [[ -n $TMUX ]]; then
       export DISPLAY=$(tmux show-environment | grep -o '^DISPLAY.*$' | sed 's/DISPLAY=//')
     fi
@@ -74,8 +77,8 @@
       )
     (if (region-active-p)
       (progn
-        (shell-command-on-region (region-beginning) (region-end) (format "DISPLAY=%s %s" (spacemacs//xclipboard-get-display) (spacemacs//xclipboard-get-copy-command)))
-        (message (format "Copied region to clipboard \"%s\"!" (spacemacs//xclipboard-get-display)))
+        (shell-command-on-region (region-beginning) (region-end) (format "DISPLAY=%s %s" (spacemacs/xclipboard-get-display) (spacemacs//xclipboard-get-copy-command)))
+        (message (format "Copied region to clipboard \"%s\"!" (spacemacs/xclipboard-get-display)))
         (deactivate-mark)
         )
       (message "No region active; can't copy to clipboard!")
@@ -91,7 +94,9 @@
       (clipboard-yank)
       (message "graphics active")
       )
-    (insert (shell-command-to-string (format "DISPLAY=%s %s" (spacemacs//xclipboard-get-display) (spacemacs//xclipboard-get-paste-command))))
+    (insert (shell-command-to-string (format "DISPLAY=%s %s" (spacemacs/xclipboard-get-display) (spacemacs//xclipboard-get-paste-command))))
     )
-  (message (format "Pasted from clipboard \"%s\"!" (spacemacs//xclipboard-get-display)))
+  (message (format "Pasted from clipboard \"%s\"!" (spacemacs/xclipboard-get-display)))
   )
+
+(provide 'spacemacs-xclipboard)
