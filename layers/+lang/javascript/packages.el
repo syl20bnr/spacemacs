@@ -26,7 +26,7 @@
         js2-refactor
         json-mode
         json-snatcher
-        (tern :toggle (spacemacs//tern-detect))
+        tern
         web-beautify
         skewer-mode
         livid-mode

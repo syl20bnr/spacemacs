@@ -100,19 +100,21 @@
 
 (defun spacemacs//javascript-setup-tern ()
   "Setup tern backend."
-  (add-hook 'js2-mode-hook 'tern-mode)
-  (progn
-    (spacemacs|hide-lighter tern-mode)
-    (when javascript-disable-tern-port-files
-      (add-to-list 'tern-command "--no-port-file" 'append))
-    (spacemacs//set-tern-key-bindings 'js2-mode)))
+  (when tern-command
+    (add-hook 'js2-mode-hook 'tern-mode)
+    (progn
+      (spacemacs|hide-lighter tern-mode)
+      (when javascript-disable-tern-port-files
+        (add-to-list 'tern-command "--no-port-file" 'append))
+      (spacemacs//set-tern-key-bindings 'js2-mode))))
 
 (defun spacemacs//javascript-setup-tern-company ()
   "Setup tern auto-completion."
-  (spacemacs|add-company-backends
-    :backends company-tern
-    :modes js2-mode)
-  (company-mode))
+  (when tern-command
+    (spacemacs|add-company-backends
+      :backends company-tern
+      :modes js2-mode)
+    (company-mode)))
 
 (defun spacemacs//set-tern-key-bindings (mode)
   "Set the key bindings for tern and the given MODE."
@@ -124,13 +126,6 @@
     "gG" 'tern-find-definition-by-name
     (kbd "C-g") 'tern-pop-find-definition
     "ht" 'tern-get-type))
-
-(defun spacemacs//tern-detect ()
-  "Detect tern binary and warn if not found."
-  (let ((found (executable-find "tern")))
-    (unless found
-      (spacemacs-buffer/warning "tern binary not found!"))
-    found))
 
 
 ;; lsp
