@@ -2067,6 +2067,9 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w =~              | balance split windows                                                       |
 | ~SPC w _~              | maximize window horizontally                                                |
 | ~SPC w \vert~          | maximize window vertically                                                  |
+| ~SPC w 1~              | make 1 window layout                                                        |
+| ~SPC w 2~              | make 2 windows layout (split vertically)                                    |
+| ~SPC w 3~              | make 3 windows layout  (split vertically)                                   |
 | ~SPC w b~              | force the focus back to the minibuffer                                      |
 | ~SPC w c~              | maximize/minimize a window and center it                                    |
 | ~SPC w C~              | maximize/minimize a window and center it using [[https://github.com/abo-abo/ace-window][ace-window]]                   |
