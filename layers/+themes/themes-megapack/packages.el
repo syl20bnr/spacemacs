@@ -37,6 +37,7 @@
     dracula-theme
     espresso-theme
     exotica-theme
+    eziam-theme
     farmhouse-theme
     flatland-theme
     flatui-theme
@@ -52,6 +53,7 @@
     ir-black-theme
     jazz-theme
     jbeans-theme
+    kaolin-themes
     light-soap-theme
     lush-theme
     madhat2r-theme
