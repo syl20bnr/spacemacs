@@ -23,16 +23,17 @@
         ))
 
 (defun typescript/post-init-add-node-modules-path ()
-  (add-hook 'typescript-mode-hook #'add-node-modules-path)
-  (add-hook 'typescript-tsx-mode-hook #'add-node-modules-path))
+  (spacemacs/add-to-hooks #'add-node-modules-path '(typescript-mode-hook
+                                             typescript-tsx-mode-hook)))
 
 (defun typescript/post-init-company ()
   (spacemacs//typescript-setup-company))
 
 (defun typescript/pre-init-eldoc ()
-  (spacemacs|use-package-add-hook tide :post-init
-                                  (add-hook 'typescript-tsx-mode-hook 'eldoc-mode t)
-                                  (add-hook 'typescript-mode-hook 'eldoc-mode t)))
+  (spacemacs|use-package-add-hook tide
+    :post-init
+    (spacemacs/add-to-hooks 'eldoc-mode '(typescript-mode-hook
+                                   typescript-tsx-mode-hook) t)))
 
 (defun typescript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'typescript-mode)
@@ -43,11 +44,10 @@
 
 (defun typescript/post-init-smartparens ()
   (if dotspacemacs-smartparens-strict-mode
-      (add-hook 'typescript-tsx-mode-hook #'smartparens-strict-mode)
-    (add-hook 'typescript-tsx-mode-hook #'smartparens-mode))
-  (if dotspacemacs-smartparens-strict-mode
-      (add-hook 'typescript-mode-hook #'smartparens-strict-mode)
-    (add-hook 'typescript-mode-hook #'smartparens-mode)))
+      (spacemacs/add-to-hooks #'smartparens-strict-mode '(typescript-mode-hook
+                                                   typescript-tsx-mode-hook))
+    (spacemacs/add-to-hooks #'smartparens-mode '(typescript-mode-hook
+                                          typescript-tsx-mode-hook))))
 
 (defun typescript/init-tide ()
   (use-package tide
@@ -89,8 +89,8 @@
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode)))
 
 (defun typescript/post-init-yasnippet ()
-  (add-hook 'typescript-mode-hook #'spacemacs/typescript-yasnippet-setup)
-  (add-hook 'typescript-tsx-mode-hook #'spacemacs/typescript-yasnippet-setup))
+  (spacemacs/add-to-hooks #'spacemacs/typescript-yasnippet-setup '(typescript-mode-hook
+                                                     typescript-tsx-mode-hook)))
 
 (defun typescript/init-typescript-mode ()
   (use-package typescript-mode
@@ -101,8 +101,8 @@
     :config
     (progn
       (when typescript-fmt-on-save
-        (add-hook 'typescript-mode-hook 'spacemacs/typescript-fmt-before-save-hook)
-        (add-hook 'typescript-tsx-mode-hook 'spacemacs/typescript-fmt-before-save-hook))
+        (spacemacs/add-to-hooks 'spacemacs/typescript-fmt-before-save-hook
+                         '(typescript-mode-hook typescript-tsx-mode-hook)))
       (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
         "="  'spacemacs/typescript-format
         "sp" 'spacemacs/typescript-open-region-in-playground)
