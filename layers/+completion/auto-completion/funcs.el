@@ -100,16 +100,17 @@ Available PROPS:
           (push `(add-hook ',mode-hook-name ',init-func-name t) result))
         ;; define variables hook function
         (when variables
-          (let ((vars-func `(defun ,vars-func-name ()
+          (let ((variables-copy variables)
+                (vars-func `(defun ,vars-func-name ()
                               ,(format "Define company local variables for %S."
                                        mode)))
                 vars)
-            (while variables
-              (let* ((var (pop variables))
+            (while variables-copy
+              (let* ((var (pop variables-copy))
                      (forms
-                      (when (consp variables)
+                      (when (consp variables-copy)
                         `(set (make-variable-buffer-local ',var)
-                              ,(eval (pop variables))))))
+                              ,(eval (pop variables-copy))))))
                 (when forms (push forms vars))))
             (push (append vars-func vars) result))
           (when hooks
