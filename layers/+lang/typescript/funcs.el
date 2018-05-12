@@ -80,8 +80,9 @@
         (spacemacs|add-company-backends
           :backends company-lsp
           :modes typescript-mode typescript-tsx-mode
-          :variables
-          company-minimum-prefix-length 2)
+          :variables company-minimum-prefix-length 2
+          :append-hooks nil
+          :call-hooks t)
         (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
 
