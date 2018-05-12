@@ -27,7 +27,9 @@
                                              typescript-tsx-mode-hook)))
 
 (defun typescript/post-init-company ()
-  (spacemacs//typescript-setup-company))
+  (spacemacs/add-to-hooks #'spacemacs//typescript-setup-company
+                   '(typescript-mode-local-vars-hook
+                   typescript-tsx-mode-local-vars-hook)))
 
 (defun typescript/pre-init-eldoc ()
   (spacemacs|use-package-add-hook tide
@@ -97,7 +99,9 @@
     :defer t
     :init
     ;; setup typescript backend
-    (spacemacs//typescript-setup-backend)
+    (spacemacs/add-to-hooks #'spacemacs//typescript-setup-backend
+                     '(typescript-mode-local-vars-hook
+                       typescript-tsx-mode-local-vars-hook))
     :config
     (progn
       (when typescript-fmt-on-save

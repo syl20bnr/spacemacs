@@ -57,8 +57,8 @@
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (add-hook 'typescript-mode-hook #'lsp-javascript-typescript-enable)
-        (add-hook 'typescript-tsx-mode-hook #'lsp-javascript-typescript-enable)
+        (spacemacs/add-to-hooks #'lsp-javascript-typescript-enable
+                         '(typescript-mode-hook typescript-tsx-mode-hook) t)
         (spacemacs//setup-lsp-jump-handler 'typescript-mode
                                     'typescript-tsx-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
@@ -75,9 +75,8 @@
         (defun lsp-prefix-typescript-hook nil
           (make-local-variable 'company-transformers)
           (push 'lsp-prefix-company-transformer company-transformers))
-        (add-hook 'typescript-mode-hook 'lsp-prefix-typescript-hook)
-        (add-hook 'typescript-tsx-mode-hook 'lsp-prefix-typescript-hook)
-
+        (spacemacs/add-to-hooks #'lsp-prefix-typescript-hook
+                         '(typescript-mode-hook typescript-tsx-mode-hook))
         (spacemacs|add-company-backends
           :backends company-lsp
           :modes typescript-mode typescript-tsx-mode
