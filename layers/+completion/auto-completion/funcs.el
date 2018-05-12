@@ -59,17 +59,22 @@ Available PROPS:
     `:variables' property is used in several calls to this macro for the same
     MODES.
 
-`:hook BOOLEAN'
+`:apppend-hook BOOLEAN'
     Advanced property to control whether hooks functions are hooked or not,
-    if non-nil hook functions are appended to modes hooks passed as `:modes'."
+    if non-nil hook functions are appended to modes hooks passed as `:modes'.
+
+`:call-hooks BOOLEAN'
+    if non-nil then hooked functions are called right away."
   (declare (indent 0))
   (let* ((backends (spacemacs/mplist-get props :backends))
          (modes (spacemacs/mplist-get props :modes))
          (variables (spacemacs/mplist-get props :variables))
          (from (plist-get props :from))
-         (hooks (if (memq :hooks props)
-                    (plist-get props :hooks)
+         (hooks (if (memq :append-hooks props)
+                    (plist-get props :append-hooks)
                   t))
+         (call-hooks (when (memq :call-hooks props)
+                       (plist-get props :call-hooks)))
          (result '(progn)))
     (dolist (mode modes)
       (let ((backends-var-name (intern (format "company-backends-%S" mode)))
@@ -100,6 +105,8 @@ Available PROPS:
                      'company)
                 (set (make-variable-buffer-local 'company-backends)
                      ,backends-var-name)) result)
+        (when call-hooks
+          (push `(,init-func-name) result))
         (when hooks
           (push `(add-hook ',mode-hook-name ',init-func-name t) result))
         ;; define variables hook function
@@ -117,6 +124,8 @@ Available PROPS:
                               ,(eval (pop variables-copy))))))
                 (when forms (push forms vars))))
             (push (append vars-func vars) result))
+          (when call-hooks
+            (push `(,vars-func-name) result))
           (when hooks
             (push `(add-hook ',mode-hook-name ',vars-func-name t) result)))
         (when hooks
