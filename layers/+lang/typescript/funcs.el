@@ -24,6 +24,12 @@
     (`tide (spacemacs//typescript-setup-tide-company))
     (`lsp (spacemacs//typescript-setup-lsp-company))))
 
+(defun spacemacs//typescript-setup-eldoc ()
+  "Conditionally setup eldoc based on backend."
+  (pcase java-backend
+    (`tide (spacemacs//typescript-setup-tide-eldoc))
+    (`lsp (spacemacs//typescript-setup-lsp-eldoc))))
+
 
 ;; tide
 
@@ -34,12 +40,11 @@
       (kbd "C-k") 'tide-find-previous-reference
       (kbd "C-j") 'tide-find-next-reference
       (kbd "C-l") 'tide-goto-reference)
-    (spacemacs/add-to-hooks 'tide-setup '(typescript-mode-hook
-                                          typescript-tsx-mode-hook))
     (add-to-list 'spacemacs-jump-handlers-typescript-tsx-mode
                  '(tide-jump-to-definition :async t))
     (add-to-list 'spacemacs-jump-handlers-typescript-mode
-                 '(tide-jump-to-definition :async t))))
+                 '(tide-jump-to-definition :async t))
+    (tide-setup)))
 
 (defun spacemacs//typescript-setup-tide-company ()
   "Setup tide auto-completion."
@@ -50,6 +55,10 @@
     company-minimum-prefix-length 2)
   (company-mode))
 
+(defun spacemacs//typescript-setup-tide-eldoc ()
+  "Setup eldoc for tide."
+  (eldoc-mode))
+
 
 ;; lsp
 
@@ -57,11 +66,11 @@
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (spacemacs/add-to-hooks #'lsp-javascript-typescript-enable
-                         '(typescript-mode-hook typescript-tsx-mode-hook) t)
         (spacemacs//setup-lsp-jump-handler 'typescript-mode
-                                    'typescript-tsx-mode))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
+                                    'typescript-tsx-mode)
+        (lsp-javascript-typescript-enable))
+    (message (concat "`lsp' layer is not installed, "
+                     "please add `lsp' layer to your dofile."))))
 
 (defun spacemacs//typescript-setup-lsp-company ()
   "Setup lsp auto-completion."
@@ -84,7 +93,12 @@
           :append-hooks nil
           :call-hooks t)
         (company-mode))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
+    (message (concat "`lsp' layer is not installed, "
+                     "please add `lsp' layer to your dofile."))))
+
+(defun spacemacs//typescript-setup-lsp-eldoc ()
+  "Setup eldoc for LSP."
+  (eldoc-mode))
 
 
 ;; Others

@@ -31,11 +31,10 @@
                    '(typescript-mode-local-vars-hook
                    typescript-tsx-mode-local-vars-hook)))
 
-(defun typescript/pre-init-eldoc ()
-  (spacemacs|use-package-add-hook tide
-    :post-init
-    (spacemacs/add-to-hooks 'eldoc-mode '(typescript-mode-hook
-                                   typescript-tsx-mode-hook) t)))
+(defun typescript/post-init-eldoc ()
+  (spacemacs/add-to-hooks #'spacemacs//typescript-setup-eldoc
+                   '(typescript-mode-local-vars-hook
+                     typescript-tsx-mode-local-vars-hook) t))
 
 (defun typescript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'typescript-mode)
