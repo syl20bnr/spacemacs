@@ -101,6 +101,12 @@
     (spacemacs/add-to-hooks #'spacemacs//typescript-setup-backend
                      '(typescript-mode-local-vars-hook
                        typescript-tsx-mode-local-vars-hook))
+
+    ;; safe values for backend to be used in directory file variables
+    (add-to-list 'safe-local-variable-values
+                 (cons 'typescript-backend 'lsp))
+    (add-to-list 'safe-local-variable-values
+                 (cons 'typescript-backend 'tide))
     :config
     (progn
       (when typescript-fmt-on-save
