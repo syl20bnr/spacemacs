@@ -73,25 +73,29 @@ Available PROPS:
          (result '(progn)))
     (dolist (mode modes)
       (let ((backends-var-name (intern (format "company-backends-%S" mode)))
+            (raw-backends-var-name (intern (format "company-backends-%S-raw"
+                                                   mode)))
             (init-func-name (intern (format "spacemacs//init-company-%S" mode)))
             (vars-func-name (intern
                              (format "spacemacs//init-company-vars-%S%s" mode
                                      (if from (format "-%S" from) ""))))
             (mode-hook-name (intern (format "%S-hook" mode))))
         ;; declare buffer local company-backends variable
-        (push `(defvar ,backends-var-name
+        (push `(defvar ,raw-backends-var-name
                  spacemacs-default-company-backends
+                 ,(format "Company backend list for %S." mode)) result)
+        (push `(defvar ,backends-var-name ,raw-backends-var-name
                  ,(format "Company backend list for %S." mode)) result)
         ;; add backends
         (dolist (backend backends)
-          (push `(add-to-list ',backends-var-name ',backend) result))
+          (push `(add-to-list ',raw-backends-var-name ',backend) result))
         ;; define initialization hook function
         (push `(defun ,init-func-name ()
                 ,(format "Initialize company for %S." mode)
                 (when auto-completion-enable-snippets-in-popup
                   (setq ,backends-var-name
                         (mapcar 'spacemacs//show-snippets-in-company
-                                ,backends-var-name)))
+                                ,raw-backends-var-name)))
                 (set (make-variable-buffer-local 'auto-completion-front-end)
                      'company)
                 (set (make-variable-buffer-local 'company-backends)
