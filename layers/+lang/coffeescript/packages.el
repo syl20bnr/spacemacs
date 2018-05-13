@@ -15,6 +15,7 @@
         coffee-mode
         company
         flycheck
+        ob-coffeescript
         ))
 
 (defun coffeescript/post-init-add-node-modules-path ()
@@ -48,3 +49,10 @@
 
 (defun coffeescript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'coffee-mode))
+
+(defun coffeescript/pre-init-ob-coffeescript ()
+  (spacemacs|use-package-add-hook org
+    :post-config
+    (use-package ob-coffeescript
+      :init (add-to-list 'org-babel-load-languages '(coffeescript . t)))))
+(defun coffeescript/init-ob-coffeescript ())
