@@ -12,7 +12,6 @@
 (setq javascript-packages
       '(
         add-node-modules-path
-        coffee-mode
         company
         (company-tern :requires company)
         counsel-gtags
@@ -39,33 +38,8 @@
 (defun javascript/post-init-add-node-modules-path ()
   (spacemacs/add-to-hooks #'add-node-modules-path
                    '(css-mode-hook
-                     coffee-mode-hook
                      js2-mode-hook
                      json-mode-hook)))
-
-(defun javascript/init-coffee-mode ()
-  (use-package coffee-mode
-    :defer t
-    :init
-    (progn
-      (spacemacs/register-repl 'coffee-mode 'coffee-repl "coffeescript")
-      ;; keybindings
-      (spacemacs/declare-prefix-for-mode 'coffee-mode "mc" "compile")
-      (spacemacs/declare-prefix-for-mode 'coffee-mode "ms" "REPL")
-      (spacemacs/set-leader-keys-for-major-mode 'coffee-mode
-        "'"  'coffee-repl
-        "cc" 'coffee-compile-buffer
-        "cr" 'coffee-compile-region
-        "sb" 'coffee-send-buffer
-        "sl" 'coffee-send-line
-        "si" 'coffee-repl
-        "sr" 'coffee-send-region
-        "Tc" 'coffee-cos-mode)
-      ;; indent to right position after `evil-open-below' and `evil-open-above'
-      (add-hook 'coffee-mode-hook
-                '(lambda ()
-                   (setq indent-line-function 'javascript/coffee-indent
-                         evil-shift-width coffee-tab-width))))))
 
 (defun javascript/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'js2-mode))
@@ -74,18 +48,14 @@
   (add-hook `js2-mode `turn-on-evil-matchit-mode))
 
 (defun javascript/post-init-company ()
-  (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-company)
-  (when (configuration-layer/package-used-p 'coffee-mode)
-    (spacemacs|add-company-backends
-      :backends company-capf
-      :modes coffee-mode)))
+  (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-company))
 
 (defun javascript/init-company-tern ()
   (use-package company-tern
     :defer t))
 
 (defun javascript/post-init-flycheck ()
-  (dolist (mode '(coffee-mode js2-mode json-mode))
+  (dolist (mode '(js2-mode json-mode))
     (spacemacs/enable-flycheck mode)))
 
 (defun javascript/post-init-ggtags ()

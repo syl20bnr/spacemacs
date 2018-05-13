@@ -32,7 +32,7 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 - Multiple backends support: Tern and LSP
 - Smart code folding
 - Refactoring: done using [[https://github.com/magnars/js2-refactor.el][js2-refactor]].
-- Auto-completion and documentation: provided by [[http://ternjs.net/][tern]]
+- Auto-completion and documentation
 - CoffeeScript support
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 - Get the path to a JSON value with [[https://github.com/Sterlingg/json-snatcher][json-snatcher]]

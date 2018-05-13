@@ -114,17 +114,6 @@
   (require 'js2-refactor))
 
 
-;; coffee
-
-(defun javascript/coffee-indent ()
-  (if (coffee-line-wants-indent)
-      ;; We need to insert an additional tab because
-      ;; the last line was special.
-      (coffee-insert-spaces (+ (coffee-previous-indent) coffee-tab-width))
-    ;; otherwise keep at the same indentation level
-    (coffee-insert-spaces (coffee-previous-indent))))
-
-
 ;; skewer
 
 (defun spacemacs/skewer-start-repl ()
