@@ -26,19 +26,17 @@
         :eval-after-load realgud
         :mode realgud-short-key-mode
         :bindings
-        "s" 'realgud:cmd-next
-        "i" 'realgud:cmd-step
-        "o" 'realgud:cmd-finish
-        "c" 'realgud:cmd-continue
-        "J" 'realgud:cmd-jump
-
         "bb" 'realgud:cmd-break
         "bc" 'realgud:cmd-clear
         "bd" 'realgud:cmd-delete
         "bs" 'realgud:cmd-disable
         "be" 'realgud:cmd-enable
-
-        "v" 'realgud:cmd-eval-dwim
-        "r" 'realgud:cmd-restart
+        "c" 'realgud:cmd-continue
+        "i" 'realgud:cmd-step
+        "J" 'realgud:cmd-jump
+        "o" 'realgud:cmd-finish
         "q" 'realgud:cmd-quit
-        "S" 'realgud-window-cmd-undisturb-src))))
+        "r" 'realgud:cmd-restart
+        "s" 'realgud:cmd-next
+        "S" 'realgud-window-cmd-undisturb-src
+        "v" 'realgud:cmd-eval-dwim))))

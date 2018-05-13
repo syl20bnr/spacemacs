@@ -46,17 +46,17 @@ Make sure that your debugger is compatible by checking [[https://github.com/real
 
  | Key Binding | Description          |
  |-------------+----------------------|
- | ~s~         | step over            |
- | ~i~         | step into            |
- | ~o~         | step out             |
- | ~c~         | continue             |
- | ~J~         | jump to current line |
- | ~e~         | eval variable        |
- | ~r~         | restart              |
- | ~q~         | quit debug           |
- | ~S~         | goto cmd buffer      |
  | ~bb~        | set break            |
  | ~bc~        | clear break          |
  | ~bd~        | delete break         |
  | ~bs~        | disable break        |
  | ~be~        | enable break         |
+ | ~c~         | continue             |
+ | ~i~         | step into            |
+ | ~J~         | jump to current line |
+ | ~o~         | step out             |
+ | ~q~         | quit debug           |
+ | ~r~         | restart              |
+ | ~s~         | step over            |
+ | ~S~         | goto cmd buffer      |
+ | ~v~         | eval variable        |
