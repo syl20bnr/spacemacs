@@ -94,7 +94,7 @@
 (defun javascript/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'js2-mode))
 
-(defun javascript/post-imenu ()
+(defun javascript/post-init-imenu ()
   ;; Required to make imenu functions work correctly
   (add-hook 'js2-mode-hook 'js2-imenu-extras-mode))
 
