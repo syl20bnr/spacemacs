@@ -99,7 +99,8 @@
   (add-hook 'js2-mode-hook 'js2-imenu-extras-mode))
 
 (defun javascript/post-init-impatient-mode ()
-  (spacemacs/set-leader-keys-for-major-mode 'js2-mode "i" 'spacemacs/impatient-mode))
+  (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+    "i" 'spacemacs/impatient-mode))
 
 (defun javascript/init-js-doc ()
   (use-package js-doc
@@ -110,8 +111,14 @@
   (use-package js2-mode
     :defer t
     :mode "\\.js\\'"
-    :init (add-hook 'js2-mode-local-vars-hook
-                    #'spacemacs//javascript-setup-backend)
+    :init
+    (progn
+      (add-hook 'js2-mode-local-vars-hook
+                #'spacemacs//javascript-setup-backend)
+      ;; safe values for backend to be used in directory file variables
+      (dolist (value '(lsp tern))
+        (add-to-list 'safe-local-variable-values
+                     (cons 'javascript-backend value))))
     :config
     (progn
       ;; prefixes
