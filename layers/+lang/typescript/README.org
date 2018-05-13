@@ -127,7 +127,7 @@ restart server after editing it.
 You have to install the following dependencies with npm.
 
 #+BEGIN_SRC shell
-npm i -g typescript javascript-typescript-langserver flow-language-server typescript-language-server
+npm i -g typescript typescript-language-server
 #+END_SRC
 
 * Key bindings

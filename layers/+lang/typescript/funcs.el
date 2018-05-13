@@ -81,11 +81,9 @@
         (defun lsp-prefix-company-transformer (candidates)
           (let ((completion-ignore-case t))
             (all-completions (company-grab-symbol) candidates)))
-        (defun lsp-prefix-typescript-hook nil
-          (make-local-variable 'company-transformers)
-          (push 'lsp-prefix-company-transformer company-transformers))
-        (spacemacs/add-to-hooks #'lsp-prefix-typescript-hook
-                         '(typescript-mode-hook typescript-tsx-mode-hook))
+        (make-local-variable 'company-transformers)
+        (add-to-list 'company-transformers 'lsp-prefix-company-transformer)
+
         (spacemacs|add-company-backends
           :backends company-lsp
           :modes typescript-mode typescript-tsx-mode

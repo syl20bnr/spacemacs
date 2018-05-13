@@ -20,6 +20,7 @@
         ggtags
         counsel-gtags
         helm-gtags
+        imenu
         impatient-mode
         js-doc
         js2-mode
@@ -66,17 +67,17 @@
                    (setq indent-line-function 'javascript/coffee-indent
                          evil-shift-width coffee-tab-width))))))
 
-(defun javascript/init-company-tern ()
-  (use-package company-tern
-    :if (and (configuration-layer/package-used-p 'company)
-             (configuration-layer/package-used-p 'tern))
-    :defer t))
 
 (defun javascript/post-init-company ()
-  (spacemacs//javascript-setup-company)
-  (spacemacs|add-company-backends
-    :backends company-capf
-    :modes coffee-mode))
+  (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-company)
+  (when (configuration-layer/package-used-p 'coffee-mode)
+    (spacemacs|add-company-backends
+      :backends company-capf
+      :modes coffee-mode)))
+
+(defun javascript/init-company-tern ()
+  (use-package company-tern
+    :defer t))
 
 (defun javascript/post-init-flycheck ()
   (dolist (mode '(coffee-mode js2-mode json-mode))
@@ -91,6 +92,10 @@
 (defun javascript/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'js2-mode))
 
+(defun javascript/post-imenu ()
+  ;; Required to make imenu functions work correctly
+  (add-hook 'js2-mode-hook 'js2-imenu-extras-mode))
+
 (defun javascript/post-init-impatient-mode ()
   (spacemacs/set-leader-keys-for-major-mode 'js2-mode "i" 'spacemacs/impatient-mode))
 
@@ -102,13 +107,9 @@
 (defun javascript/init-js2-mode ()
   (use-package js2-mode
     :defer t
-    :init
-    (progn
-      (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-      ;; Required to make imenu functions work correctly
-      (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
-      ;; setup javascript backend
-      (spacemacs//javascript-setup-backend))
+    :mode "\\.js\\'"
+    :init (add-hook 'js2-mode-local-vars-hook
+                    #'spacemacs//javascript-setup-backend)
     :config
     (progn
       ;; prefixes
@@ -197,7 +198,13 @@
 
 (defun javascript/init-tern ()
   (use-package tern
-    :defer t))
+    :defer t
+    :config
+    (progn
+      (spacemacs|hide-lighter tern-mode)
+      (when javascript-disable-tern-port-files
+        (add-to-list 'tern-command "--no-port-file" 'append))
+      (spacemacs//set-tern-key-bindings 'js2-mode))))
 
 (defun javascript/init-web-beautify ()
   (use-package web-beautify
@@ -254,4 +261,5 @@
 (defun javascript/init-lsp-javascript-typescript ()
   (use-package lsp-javascript-typescript
     :commands lsp-javascript-typescript-enable
-    :defer t))
+    :defer t
+    :config (require 'lsp-javascript-flow)))
