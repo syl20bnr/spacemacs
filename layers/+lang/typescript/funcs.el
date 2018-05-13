@@ -26,7 +26,7 @@
 
 (defun spacemacs//typescript-setup-eldoc ()
   "Conditionally setup eldoc based on backend."
-  (pcase java-backend
+  (pcase typescript-backend
     (`tide (spacemacs//typescript-setup-tide-eldoc))
     (`lsp (spacemacs//typescript-setup-lsp-eldoc))))
 
