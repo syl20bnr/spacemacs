@@ -407,6 +407,7 @@
   "w1"  'spacemacs/layout-single-column
   "w2"  'spacemacs/layout-double-columns
   "w3"  'spacemacs/layout-triple-columns
+  "w4"  'spacemacs/layout-grid
   "wb"  'spacemacs/switch-to-minibuffer-window
   "wd"  'spacemacs/delete-window
   "wt"  'spacemacs/toggle-current-window-dedication
