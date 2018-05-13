@@ -40,7 +40,10 @@
   "Setup anaconda auto-completion."
   (spacemacs|add-company-backends
     :backends company-anaconda
-    :modes python-mode)
+    :modes python-mode
+    :append-hooks nil
+    :call-hooks t
+    )
   (company-mode))
 
 (defun spacemacs//python-setup-anaconda-eldoc ()
@@ -78,7 +81,9 @@ when this mode is enabled since the minibuffer is cleared all the time."
       (progn
         (spacemacs|add-company-backends
           :backends company-lsp
-          :modes python-mode)
+          :modes python-mode
+          :append-hooks nil
+          :call-hooks)
         (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
 
