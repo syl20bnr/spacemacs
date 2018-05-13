@@ -16,30 +16,29 @@
   (use-package realgud
     :defer t
     :init
+    (progn
+      (dolist (debugger (mapcar 'spacemacs/debug-generate-symbol
+                                debug-additional-debuggers))
+        (autoload debugger "realgud" nil t))
+      (advice-add 'realgud-short-key-mode-setup
+                  :before #'spacemacs/debug-short-key-state)
+      (evilified-state-evilify-map realgud:shortkey-mode-map
+        :eval-after-load realgud
+        :mode realgud-short-key-mode
+        :bindings
+        "s" 'realgud:cmd-next
+        "i" 'realgud:cmd-step
+        "o" 'realgud:cmd-finish
+        "c" 'realgud:cmd-continue
+        "J" 'realgud:cmd-jump
 
-    (dolist (debugger (mapcar 'debug-generate-symbol debug-additional-debuggers))
-      (autoload debugger "realgud" nil t))
+        "bb" 'realgud:cmd-break
+        "bc" 'realgud:cmd-clear
+        "bd" 'realgud:cmd-delete
+        "bs" 'realgud:cmd-disable
+        "be" 'realgud:cmd-enable
 
-    (advice-add 'realgud-short-key-mode-setup
-                :before #'debug-short-key-state)
-
-    (evilified-state-evilify-map realgud:shortkey-mode-map
-      :eval-after-load realgud
-      :mode realgud-short-key-mode
-      :bindings
-      "s" 'realgud:cmd-next
-      "i" 'realgud:cmd-step
-      "o" 'realgud:cmd-finish
-      "c" 'realgud:cmd-continue
-      "J" 'realgud:cmd-jump
-
-      "bb" 'realgud:cmd-break
-      "bc" 'realgud:cmd-clear
-      "bd" 'realgud:cmd-delete
-      "bs" 'realgud:cmd-disable
-      "be" 'realgud:cmd-enable
-
-      "v" 'realgud:cmd-eval-dwim
-      "r" 'realgud:cmd-restart
-      "q" 'realgud:cmd-quit
-      "S" 'realgud-window-cmd-undisturb-src)))
+        "v" 'realgud:cmd-eval-dwim
+        "r" 'realgud:cmd-restart
+        "q" 'realgud:cmd-quit
+        "S" 'realgud-window-cmd-undisturb-src))))

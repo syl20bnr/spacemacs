@@ -14,8 +14,8 @@
         (company-plsense :requires company)
         (cperl-mode :location built-in)
         flycheck
-        smartparens
         realgud
+        smartparens
         ))
 
 (defun perl5/init-company-plsense ()
@@ -122,11 +122,11 @@
 (defun perl5/post-init-flycheck ()
   (spacemacs/enable-flycheck 'cperl-mode))
 
+(defun perl5/post-init-realgud()
+  (spacemacs/add-realgud-debugger 'cperl-mode "trepan.pl"))
+
 (defun perl5/post-init-smartparens ()
   ;; fixs a bug with electric mode and smartparens https://github.com/syl20bnr/spacemacs/issues/480
   (with-eval-after-load 'cperl-mode
     (add-hook 'smartparens-enabled-hook 'spacemacs//perl5-smartparens-enable)
     (add-hook 'smartparens-disabled-hook 'spacemacs//perl5-spartparens-disable)))
-
-(defun perl5/post-init-realgud()
-  (spacemacs/add-realgud-debugger 'cperl-mode "trepan.pl"))
