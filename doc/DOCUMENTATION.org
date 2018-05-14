@@ -2080,10 +2080,6 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w =~              | balance split windows                                                       |
 | ~SPC w _~              | maximize window horizontally                                                |
 | ~SPC w \vert~          | maximize window vertically                                                  |
-| ~SPC w 1~              | make 1 window layout                                                        |
-| ~SPC w 2~              | make 2 windows layout (split vertically)                                    |
-| ~SPC w 3~              | make 3 windows layout (split vertically)                                    |
-| ~SPC w 4~              | make 4 windows layout (split in 2x2 grid)                                   |
 | ~SPC w b~              | force the focus back to the minibuffer                                      |
 | ~SPC w c~              | maximize/minimize a window and center it                                    |
 | ~SPC w C~              | maximize/minimize a window and center it using [[https://github.com/abo-abo/ace-window][ace-window]]                   |
@@ -2118,6 +2114,50 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w w~              | cycle and focus between windows                                             |
 | ~SPC w W~              | select window using [[https://github.com/abo-abo/ace-window][ace-window]]                                              |
 | ~SPC w x~              | delete a window and its current buffer (does not delete the file)           |
+
+Split the current window into multiple ones, deleting all others using the
+following commands:
+
+| Key Binding | Description                               |
+|-------------+-------------------------------------------|
+| ~SPC w 1~   | make 1 window layout                      |
+| ~SPC w 2~   | make 2 windows layout (split vertically)  |
+| ~SPC w 3~   | make 3 windows layout (split vertically)  |
+| ~SPC w 4~   | make 4 windows layout (split in 2x2 grid) |
+
+By default, the commands above ignore some windows, like the filetrees (treemacs
+and neotree) but you can use a prefix argument to force delete them.
+
+| Key Binding     | Description                                                 |
+|-----------------+-------------------------------------------------------------|
+| ~SPC u SPC w 1~ | make 1 window layout with force delete                      |
+| ~SPC u SPC w 2~ | make 2 windows layout (split vertically) with force delete  |
+| ~SPC u SPC w 3~ | make 3 windows layout (split vertically) with force delete  |
+| ~SPC u SPC w 4~ | make 4 windows layout (split in 2x2 grid) with force delete |
+
+You can also configure which windows get ignored when executing the above
+commands by adding a prefix to the =spacemacs-window-split-ignore-prefixes=
+list:
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'spacemacs-window-split-ignore-prefixes "My Favourite Window")
+#+END_SRC
+
+Or if you want a certain ignored window to always be deleted you can remote it
+from the list:
+
+#+BEGIN_SRC emacs-lisp
+(setq spacemacs-window-split-ignore-prefixes
+  (remove treemacs--buffer-name-prefix spacemacs-window-split-ignore-prefixes))
+#+END_SRC
+
+And if you want even more control over the way windows are removed you can
+define your own deletion function:
+
+#+BEGIN_SRC emacs-lisp
+(defun my-delete-other-windows () (delete-other-windows))
+(setq spacemacs-window-split-delete-function 'my-delete-other-windows)
+#+END_SRC
 
 **** Window manipulation transient state
 A convenient window manipulation transient state allows performing most of the
