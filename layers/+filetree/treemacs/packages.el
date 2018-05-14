@@ -57,7 +57,9 @@
       ;; TODO remove this guard in a few weeks
       (when (boundp 'treemacs-git-mode)
         (when (memq treemacs-use-git-mode '(simple extended))
-          (treemacs-git-mode treemacs-use-git-mode))))))
+          (treemacs-git-mode treemacs-use-git-mode)))
+
+      (add-to-list 'spacemacs-window-split-ignore-prefixes treemacs--buffer-name-prefix))))
 
 (defun treemacs/init-treemacs-evil ()
   (use-package treemacs-evil
