@@ -36,11 +36,11 @@ npm install -g coffeelint
 
 * Key Bindings
 
-| Key Binding | Description                                        |
-|-------------+----------------------------------------------------|
-| ~SPC m c c~ | Compile buffer                                     |
-| ~SPC m c r~ | Compile region                                     |
-| ~SPC m T c~ | Toggle compile on save                             |
+| Key Binding | Description            |
+|-------------+------------------------|
+| ~SPC m c c~ | Compile buffer         |
+| ~SPC m c r~ | Compile region         |
+| ~SPC m T c~ | Toggle compile on save |
 
 ** REPL
 
