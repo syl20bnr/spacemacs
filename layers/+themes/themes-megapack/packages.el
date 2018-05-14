@@ -34,6 +34,7 @@
     darkokai-theme
     darktooth-theme
     django-theme
+    doom-themes
     dracula-theme
     espresso-theme
     exotica-theme
