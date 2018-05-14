@@ -24,8 +24,6 @@
         js-doc
         js2-mode
         js2-refactor
-        json-mode
-        json-snatcher
         livid-mode
         (lsp-javascript-typescript
          :requires lsp-mode
@@ -36,10 +34,8 @@
         web-beautify))
 
 (defun javascript/post-init-add-node-modules-path ()
-  (spacemacs/add-to-hooks #'add-node-modules-path
-                   '(css-mode-hook
-                     js2-mode-hook
-                     json-mode-hook)))
+  (spacemacs/add-to-hooks #'add-node-modules-path '(css-mode-hook
+                                             js2-mode-hook)))
 
 (defun javascript/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'js2-mode))
@@ -55,8 +51,7 @@
     :defer t))
 
 (defun javascript/post-init-flycheck ()
-  (dolist (mode '(js2-mode json-mode))
-    (spacemacs/enable-flycheck mode)))
+  (spacemacs/enable-flycheck 'js2-mode))
 
 (defun javascript/post-init-ggtags ()
   (add-hook 'js2-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
@@ -160,17 +155,6 @@
         "k" 'js2r-kill
         "xmj" 'js2r-move-line-down
         "xmk" 'js2r-move-line-up))))
-
-(defun javascript/init-json-mode ()
-  (use-package json-mode
-    :defer t))
-
-(defun javascript/init-json-snatcher ()
-  (use-package json-snatcher
-    :defer t
-    :config
-    (spacemacs/set-leader-keys-for-major-mode 'json-mode
-      "hp" 'jsons-print-path)))
 
 (defun javascript/init-livid-mode ()
   (use-package livid-mode

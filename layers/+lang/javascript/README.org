@@ -21,7 +21,6 @@
   - [[#formatting-web-beautify][Formatting (web-beautify)]]
     - [[#documentation-js-doc][Documentation (js-doc)]]
   - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
-  - [[#json][JSON]]
   - [[#repl-skewer-mode][REPL (skewer-mode)]]
 
 * Description
@@ -33,7 +32,6 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 - Refactoring: done using [[https://github.com/magnars/js2-refactor.el][js2-refactor]].
 - Auto-completion and documentation
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
-- Get the path to a JSON value with [[https://github.com/Sterlingg/json-snatcher][json-snatcher]]
 - REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
 
 * Install
@@ -239,12 +237,6 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m h d~   | find docs of the thing under the cursor. Press again to open the associated URL (if any) |
 | ~SPC m h t~   | find the type of the thing under the cursor                                              |
 | ~SPC m r r V~ | rename variable under the cursor using tern                                              |
-
-** JSON
-
-| Key Binding | Description                        |
-|-------------+------------------------------------|
-| ~SPC m h p~ | Get the path of the value at point |
 
 ** REPL (skewer-mode)
 

@@ -1,0 +1,74 @@
+#+TITLE: JSON layer
+
+[[file:img/json.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#configuration][Configuration]]
+- [[#usage][Usage]]
+  - [[#reformat][Reformat]]
+  - [[#display-navigable-hierarchy][Display navigable hierarchy]]
+- [[#key-bindings][Key Bindings]]
+  - [[#json-hierarchy][JSON hierarchy]]
+
+* Description
+This layer adds support for JSON files with [[https://github.com/joshwnj/json-mode][json-mode]]
+
+** Features:
+- Syntax highlighting
+- Auto-completion
+- Get the path to a JSON value with [[https://github.com/Sterlingg/json-snatcher][json-snatcher]]
+- Navigate JSON hierarchy with [[https://github.com/DamienCassou/json-navigator][json-nagivator]]
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =json= to the existing =dotspacemacs-configuration-layers= list in this file.
+
+** Configuration
+To define the default indentation set the variable =js-indent-level=.
+
+* Usage
+** Reformat
+~SPC m =~ will reformat the whole buffer or the active region. Use numerical
+prefix argument to specify a different indentation than =js-indent-level=.
+Use the universal prefix argument to print decoded strings, for instance:
+
+#+BEGIN_EXAMPLE json
+{"name":"foo\"bar","nick":"foo \u00e4 bar","description":"<pre>\nbaz\n</pre>","home":"/home/foobar"}
+
+Will be reformated:
+
+{
+  "name": "foo\"bar",
+  "nick": "foo ä bar",
+  "description": "<pre>
+  baz
+  </pre>",
+  "home": "/home/foobar"
+}
+
+#+END_EXAMPLE
+
+** Display navigable hierarchy
+~SPC m h h~ displays the hierarchy for the whole JSON document or the active
+region. Use the universal prefix argument ~SPC u SPC m h h~ to create the
+hierarchy for the JSON *after* the point.
+
+* Key Bindings
+
+| Key Binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~SPC m =~   | DWIM Reformat JSON                          |
+| ~SPC m h p~ | Get the path of the value at point          |
+| ~SPC m h h~ | DWIM navigate JSON hierarchy                |
+| ~SPC m h H~ | Navigate JSON hierarchy of the whole buffer |
+
+** JSON hierarchy
+
+| Key Binding | Description          |
+|-------------+----------------------|
+| ~RET~       | Expand/Collapse node |
+| ~TAB~       | Select next node     |
+| ~S-TAB~     | Select previous node |
