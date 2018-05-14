@@ -245,10 +245,10 @@
 
 (defun spacemacs//java-setup-meghanada-flycheck ()
   "Setup Meghanada syntax checking."
-  (spacemacs/enable-flycheck 'java-mode)
-  (require 'flycheck-meghanada)
-  (add-to-list 'flycheck-checkers 'meghanada)
-  (flycheck-mode))
+  (when (spacemacs/enable-flycheck 'java-mode)
+    (require 'flycheck-meghanada)
+    (add-to-list 'flycheck-checkers 'meghanada)
+    (flycheck-mode)))
 
 (defun spacemacs//java-meghanada-server-livep ()
   "Return non-nil if the Meghanada server is up."
