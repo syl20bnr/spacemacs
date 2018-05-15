@@ -14,7 +14,7 @@
                         (file-name-directory
                          load-file-name)) nil t)
 
-(let* ((pandoc-version "2.0.6")
+(let* ((pandoc-version "2.2.1")
        (pandoc-url (concat "https://github.com/jgm/pandoc/releases/download/"
                            (format "%s/pandoc-%s-1-amd64.deb"
                                    pandoc-version

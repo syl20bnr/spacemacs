@@ -14,7 +14,7 @@
                         (file-name-directory
                          load-file-name)) nil t)
 
-(let ((global-version "6.5.6"))
+(let ((global-version "6.6.2"))
   (install python-pygments libncurses-dev)
   (with-installed (git tar curl gzip autotools-dev
                        pkg-config libtool dh-autoreconf)

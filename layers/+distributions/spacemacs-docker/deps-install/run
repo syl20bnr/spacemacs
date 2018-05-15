@@ -44,8 +44,6 @@
 
 (cd spacemacs-docker-temp-deps-dir)
 
-;; FIXME: Replace `directory-files-recursively'
-;; If we need `spacemacs-docker' to be compatible with Emacs24.
 (dolist (installer-full-name (directory-files-recursively
                               spacemacs-docker-deps-installers-dir
                               "install\.el"))

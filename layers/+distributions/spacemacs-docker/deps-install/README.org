@@ -22,10 +22,8 @@ in Docker environment.
 6. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/html/README.org][html]]
 7. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/javascript/README.org][JavaScript]]
 8. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/pandoc/README.org][pandoc]]
-9. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/pdf-tools/README.org][pdf-tools]]
-10. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/spell-checking/README.org][spell-checking]]
-11. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/python/README.org][python]]
-12. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/typescript/README.org][TypeScript]]
+9. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/spell-checking/README.org][spell-checking]]
+11. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/typescript/README.org][TypeScript]]
 
 * How it works
 When .spacemacs file contains one of supported layers and its installation

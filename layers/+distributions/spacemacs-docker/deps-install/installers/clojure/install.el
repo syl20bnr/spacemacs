@@ -22,14 +22,4 @@
       "https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein"]
      "chown ${UID}:${GID} -R ${UHOME}"
      "chmod 755 /usr/local/bin/lein"
-     "su - ${UNAME} -c 'echo exit | lein repl'")
-  (! "Installing Boot...")
-  (cp ".boot" (dir $UHOME))
-  (set-glob-envs '("BOOT_CLOJURE_VERSION" . "1.9.0")
-                 `("BOOT_LOCAL_REPO" . ,(concat (dir $UHOME) ".m2/repository")))
-  ($ ["curl -Lo /usr/local/bin/boot"
-      "https://github.com/boot-clj/boot-bin/releases/download/latest/boot.sh"]
-     "chown ${UID}:${GID} -R ${UHOME}"
-     "chmod 755 /usr/local/bin/boot"
-     "su - ${UNAME} -c 'boot -u'"
-     "su - ${UNAME} -c boot"))
+     "su - ${UNAME} -c 'echo exit | lein repl'"))
