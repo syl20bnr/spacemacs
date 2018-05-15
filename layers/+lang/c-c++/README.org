@@ -102,6 +102,16 @@ To enable support for =rtags=, set the layer variable
     '((c-c++ :variables c-c++-enable-rtags-support t)))
 #+END_SRC
 
+This will also enable =company-rtags= to be used as a backend for
+auto-completion (when =auto-completion= layer is included).
+To prevent this, while retaining the rest of Rtags functionality,
+set the variable =c-c++-enable-rtags-support= to ='no-completion=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((c-c++ :variables c-c++-enable-rtags-support 'no-completion)))
+#+END_SRC
+
 ** Enable google-set-c-style
 If you have clang enabled with =clang-format= as described earlier in this page
 you may not have a lot of neeed for =google-set-c-style= if you are already
