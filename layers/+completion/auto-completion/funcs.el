@@ -97,10 +97,11 @@ Available PROPS:
         ;; define initialization hook function
         (push `(defun ,init-func-name ()
                 ,(format "Initialize company for %S." mode)
-                (when auto-completion-enable-snippets-in-popup
-                  (setq ,backends-var-name
-                        (mapcar 'spacemacs//show-snippets-in-company
-                                ,raw-backends-var-name)))
+                (if auto-completion-enable-snippets-in-popup
+                    (setq ,backends-var-name
+                          (mapcar 'spacemacs//show-snippets-in-company
+                                  ,raw-backends-var-name))
+                  (setq ,backends-var-name ,raw-backends-var-name))
                 (set (make-variable-buffer-local 'auto-completion-front-end)
                      'company)
                 (set (make-variable-buffer-local 'company-backends)
