@@ -26,7 +26,7 @@
   (add-hook 'rjsx-mode-hook #'add-node-modules-path))
 
 (defun react/post-init-company ()
-  (spacemacs//react-setup-company))
+  (add-hook 'rjsx-mode-local-vars-hook #'spacemacs//react-setup-company))
 
 (defun react/post-init-emmet-mode ()
   (add-hook 'rjsx-mode-hook 'emmet-mode))
