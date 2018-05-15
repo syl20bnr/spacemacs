@@ -54,4 +54,5 @@
       (spacemacs/declare-prefix-for-mode 'dockerfile-mode
         "mc" "compile")
       (spacemacs/set-leader-keys-for-major-mode 'dockerfile-mode
-        "cb" 'dockerfile-build-buffer))))
+        "cb" 'dockerfile-build-buffer
+        "cB" 'dockerfile-build-no-cache-buffer))))

@@ -12,85 +12,60 @@
 (setq javascript-packages
       '(
         add-node-modules-path
-        coffee-mode
         company
         (company-tern :requires company)
+        counsel-gtags
         evil-matchit
         flycheck
         ggtags
-        counsel-gtags
         helm-gtags
+        imenu
         impatient-mode
         js-doc
         js2-mode
         js2-refactor
-        json-mode
-        json-snatcher
-        (tern :toggle (spacemacs//tern-detect))
-        web-beautify
-        skewer-mode
         livid-mode
-        ))
+        (lsp-javascript-typescript
+         :requires lsp-mode
+         :location (recipe :fetcher github
+                           :repo "emacs-lsp/lsp-javascript"))
+        skewer-mode
+        tern
+        web-beautify))
 
 (defun javascript/post-init-add-node-modules-path ()
-  (add-hook 'css-mode-hook #'add-node-modules-path)
-  (add-hook 'coffee-mode-hook #'add-node-modules-path)
-  (add-hook 'js2-mode-hook #'add-node-modules-path)
-  (add-hook 'json-mode-hook #'add-node-modules-path))
-
-(defun javascript/init-coffee-mode ()
-  (use-package coffee-mode
-    :defer t
-    :init
-    (progn
-      (spacemacs/register-repl 'coffee-mode 'coffee-repl "coffeescript")
-      ;; keybindings
-      (spacemacs/declare-prefix-for-mode 'coffee-mode "mc" "compile")
-      (spacemacs/declare-prefix-for-mode 'coffee-mode "ms" "REPL")
-      (spacemacs/set-leader-keys-for-major-mode 'coffee-mode
-        "'"  'coffee-repl
-        "cc" 'coffee-compile-buffer
-        "cr" 'coffee-compile-region
-        "sb" 'coffee-send-buffer
-        "sl" 'coffee-send-line
-        "si" 'coffee-repl
-        "sr" 'coffee-send-region
-        "Tc" 'coffee-cos-mode)
-      ;; indent to right position after `evil-open-below' and `evil-open-above'
-      (add-hook 'coffee-mode-hook
-                '(lambda ()
-                   (setq indent-line-function 'javascript/coffee-indent
-                         evil-shift-width coffee-tab-width))))))
-
-(defun javascript/init-company-tern ()
-  (use-package company-tern
-    :if (and (configuration-layer/package-used-p 'company)
-             (configuration-layer/package-used-p 'tern))
-    :defer t
-    :init (spacemacs|add-company-backends
-            :backends company-tern
-            :modes js2-mode)))
-
-(defun javascript/post-init-company ()
-  (spacemacs|add-company-backends
-    :backends company-capf
-    :modes coffee-mode))
-
-(defun javascript/post-init-flycheck ()
-  (dolist (mode '(coffee-mode js2-mode json-mode))
-    (spacemacs/enable-flycheck mode)))
-
-(defun javascript/post-init-ggtags ()
-  (add-hook 'js2-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (spacemacs/add-to-hooks #'add-node-modules-path '(css-mode-hook
+                                             js2-mode-hook)))
 
 (defun javascript/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'js2-mode))
 
+(defun javascript/post-init-evil-matchit ()
+  (add-hook `js2-mode `turn-on-evil-matchit-mode))
+
+(defun javascript/post-init-company ()
+  (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-company))
+
+(defun javascript/init-company-tern ()
+  (use-package company-tern
+    :defer t))
+
+(defun javascript/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'js2-mode))
+
+(defun javascript/post-init-ggtags ()
+  (add-hook 'js2-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
 (defun javascript/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'js2-mode))
 
+(defun javascript/post-init-imenu ()
+  ;; Required to make imenu functions work correctly
+  (add-hook 'js2-mode-hook 'js2-imenu-extras-mode))
+
 (defun javascript/post-init-impatient-mode ()
-  (spacemacs/set-leader-keys-for-major-mode 'js2-mode "i" 'spacemacs/impatient-mode))
+  (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+    "i" 'spacemacs/impatient-mode))
 
 (defun javascript/init-js-doc ()
   (use-package js-doc
@@ -100,11 +75,15 @@
 (defun javascript/init-js2-mode ()
   (use-package js2-mode
     :defer t
+    :mode "\\.js\\'"
     :init
     (progn
-      (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-      ;; Required to make imenu functions work correctly
-      (add-hook 'js2-mode-hook 'js2-imenu-extras-mode))
+      (add-hook 'js2-mode-local-vars-hook
+                #'spacemacs//javascript-setup-backend)
+      ;; safe values for backend to be used in directory file variables
+      (dolist (value '(lsp tern))
+        (add-to-list 'safe-local-variable-values
+                     (cons 'javascript-backend value))))
     :config
     (progn
       ;; prefixes
@@ -121,9 +100,6 @@
         "ze" 'js2-mode-toggle-element
         "zF" 'js2-mode-toggle-hide-functions
         "zC" 'js2-mode-toggle-hide-comments))))
-
-(defun javascript/post-init-evil-matchit ()
-  (add-hook `js2-mode `turn-on-evil-matchit-mode))
 
 (defun javascript/init-js2-refactor ()
   (use-package js2-refactor
@@ -180,41 +156,22 @@
         "xmj" 'js2r-move-line-down
         "xmk" 'js2r-move-line-up))))
 
-(defun javascript/init-json-mode ()
-  (use-package json-mode
-    :defer t))
-
-(defun javascript/init-json-snatcher ()
-  (use-package json-snatcher
-    :defer t
-    :config
-    (spacemacs/set-leader-keys-for-major-mode 'json-mode
-      "hp" 'jsons-print-path)))
-
-(defun javascript/init-tern ()
-  (use-package tern
-    :defer t
-    :init (add-hook 'js2-mode-hook 'tern-mode)
-    :config
-    (progn
-      (spacemacs|hide-lighter tern-mode)
-      (when javascript-disable-tern-port-files
-        (add-to-list 'tern-command "--no-port-file" 'append))
-      (spacemacs//set-tern-key-bindings 'js2-mode))))
-
-(defun javascript/init-web-beautify ()
-  (use-package web-beautify
+(defun javascript/init-livid-mode ()
+  (use-package livid-mode
     :defer t
     :init
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'js2-mode
-        "=" 'web-beautify-js)
-      (spacemacs/set-leader-keys-for-major-mode 'json-mode
-        "=" 'web-beautify-js)
-      (spacemacs/set-leader-keys-for-major-mode 'web-mode
-        "=" 'web-beautify-html)
-      (spacemacs/set-leader-keys-for-major-mode 'css-mode
-        "=" 'web-beautify-css))))
+      (spacemacs|add-toggle javascript-repl-live-evaluation
+        :mode livid-mode
+        :documentation "Live evaluation of JS buffer change."
+        :evil-leader-for-mode (js2-mode . "Tl"))
+      (spacemacs|diminish livid-mode " 🅻" " [l]"))))
+
+(defun javascript/init-lsp-javascript-typescript ()
+  (use-package lsp-javascript-typescript
+    :commands lsp-javascript-typescript-enable
+    :defer t
+    :config (require 'lsp-javascript-flow)))
 
 (defun javascript/init-skewer-mode ()
   (use-package skewer-mode
@@ -243,13 +200,26 @@
         "sR" 'spacemacs/skewer-eval-region-and-focus
         "ss" 'skewer-repl))))
 
-(defun javascript/init-livid-mode ()
-  (use-package livid-mode
+(defun javascript/init-tern ()
+  (use-package tern
+    :defer t
+    :config
+    (progn
+      (spacemacs|hide-lighter tern-mode)
+      (when javascript-disable-tern-port-files
+        (add-to-list 'tern-command "--no-port-file" 'append))
+      (spacemacs//set-tern-key-bindings 'js2-mode))))
+
+(defun javascript/init-web-beautify ()
+  (use-package web-beautify
     :defer t
     :init
     (progn
-      (spacemacs|add-toggle javascript-repl-live-evaluation
-        :mode livid-mode
-        :documentation "Live evaluation of JS buffer change."
-        :evil-leader-for-mode (js2-mode . "Tl"))
-      (spacemacs|diminish livid-mode " 🅻" " [l]"))))
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+        "=" 'web-beautify-js)
+      (spacemacs/set-leader-keys-for-major-mode 'json-mode
+        "=" 'web-beautify-js)
+      (spacemacs/set-leader-keys-for-major-mode 'web-mode
+        "=" 'web-beautify-html)
+      (spacemacs/set-leader-keys-for-major-mode 'css-mode
+        "=" 'web-beautify-css))))

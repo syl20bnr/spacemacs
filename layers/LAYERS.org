@@ -162,6 +162,7 @@
 - [[file:+tools/cmake/README.org][cmake]]
 - [[file:+tools/command-log/README.org][command-log]]
 - [[file:+tools/dash/README.org][dash]]
+- [[file:+tools/debug/README.org][debug]]
 - [[file:+tools/deft/README.org][deft]]
 - [[file:+tools/docker/README.org][docker]]
 - [[file:+tools/fasd/README.org][fasd]]

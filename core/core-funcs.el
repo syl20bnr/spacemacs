@@ -272,10 +272,10 @@ buffer."
         finally return count))
 
 ;; from https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-util.el#L38
-(defun spacemacs/add-to-hooks (fun hooks)
+(defun spacemacs/add-to-hooks (fun hooks &optional append local)
   "Add function to hooks"
   (dolist (hook hooks)
-    (add-hook hook fun)))
+    (add-hook hook fun append local)))
 
 (defun spacemacs/add-all-to-hook (hook &rest funs)
   "Add functions to hook."

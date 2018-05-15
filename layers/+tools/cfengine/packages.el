@@ -33,7 +33,7 @@
   (add-hook 'cfengine3-mode-hook 'eldoc-mode))
 
 (defun cfengine/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'cfengine3-mode-hook))
+  (spacemacs/enable-flycheck 'cfengine3-mode))
 
 (defun cfengine/init-ob-cfengine3 ()
   (use-package ob-cfengine3

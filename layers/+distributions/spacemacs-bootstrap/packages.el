@@ -28,6 +28,7 @@
         ;; pre packages, initialized aftert the bootstrap packages
         ;; these packages can use use-package
         (evil-evilified-state :location local :step pre :protected t)
+        (pcre2el :step pre)
         (holy-mode :location local :step pre)
         (hybrid-mode :location local :step pre)
         (spacemacs-theme :location built-in)
@@ -499,6 +500,11 @@
   (use-package evil-evilified-state)
   (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
     spacemacs-default-map))
+
+;; we own pcre2el here, so that it's always available to ivy and helm
+;; (necessary when using spacemacs-base distribution)
+(defun spacemacs-bootstrap/init-pcre2el ()
+  (use-package pcre2el :defer t))
 
 (defun spacemacs-bootstrap/init-holy-mode ()
   (use-package holy-mode

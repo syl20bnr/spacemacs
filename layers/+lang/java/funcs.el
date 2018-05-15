@@ -191,11 +191,11 @@
   (spacemacs|add-company-backends
     :backends company-emacs-eclim
     :modes eclim-mode
-    :hooks nil)
-  ;; call manualy generated functions by the macro
-  (spacemacs//init-company-eclim-mode)
-  (set (make-variable-buffer-local 'company-idle-delay) 0.5)
-  (set (make-variable-buffer-local 'company-minimum-prefix-length) 1)
+    :variables
+    company-idle-delay 0.5
+    company-minimum-prefix-length 1
+    :append-hooks nil
+    :call-hooks t)
   (company-mode))
 
 (defun spacemacs//java-setup-eclim-flycheck ()
@@ -245,10 +245,10 @@
 
 (defun spacemacs//java-setup-meghanada-flycheck ()
   "Setup Meghanada syntax checking."
-  (spacemacs/enable-flycheck 'java-mode)
-  (require 'flycheck-meghanada)
-  (add-to-list 'flycheck-checkers 'meghanada)
-  (flycheck-mode))
+  (when (spacemacs/enable-flycheck 'java-mode)
+    (require 'flycheck-meghanada)
+    (add-to-list 'flycheck-checkers 'meghanada)
+    (flycheck-mode)))
 
 (defun spacemacs//java-meghanada-server-livep ()
   "Return non-nil if the Meghanada server is up."

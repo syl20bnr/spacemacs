@@ -14,7 +14,6 @@
   - [[#rtags-configuration][RTags configuration]]
   - [[#enable-google-set-c-style][Enable google-set-c-style]]
 - [[#key-bindings][Key Bindings]]
-  - [[#debugging-realgud][Debugging (realgud)]]
   - [[#formatting-clang-format][Formatting (clang-format)]]
   - [[#rtags][RTags]]
 
@@ -144,23 +143,6 @@ set that up like this:
 | ~SPC m r~   | srefactor: refactor thing at point.                           |
 
 *Note:*  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+.
-
-** Debugging (realgud)
-
- | Key Binding | Description     |
- |-------------+-----------------|
- | ~SPC m d d~ | open cmd buffer |
- | ~SPC m d e~ | eval variable   |
- | ~s~         | step over       |
- | ~i~         | step into       |
- | ~b~         | set break       |
- | ~B~         | unset break     |
- | ~o~         | step out        |
- | ~c~         | continue        |
- | ~e~         | eval variable   |
- | ~r~         | restart         |
- | ~q~         | quit debug      |
- | ~S~         | goto cmd buffer |
 
 ** Formatting (clang-format)
 

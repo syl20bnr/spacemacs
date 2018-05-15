@@ -7,6 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
+  - [[#imports][Imports]]
   - [[#repl][REPL]]
 
 * Description
@@ -23,6 +24,12 @@ add =groovy= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Key bindings
+** Imports
+
+| Key Binding | Description                        |
+|-------------+------------------------------------|
+| ~SPC m r i~ | Add import for symbol around point |
+
 ** REPL
 
 | Key Binding | Description                                           |

@@ -21,7 +21,8 @@
             (when neo-auto-indent-point
               (next-line)
               (neo-point-auto-indent)))
-        (call-interactively 'neotree-enter)))))
+        (let ((mru-winum (winum-get-number (get-mru-window))))
+          (apply 'neotree-enter (list mru-winum)))))))
 
 (defun spacemacs/neotree-collapse ()
   "Collapse a neotree node."

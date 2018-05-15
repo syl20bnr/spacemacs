@@ -59,59 +59,74 @@ Available PROPS:
     `:variables' property is used in several calls to this macro for the same
     MODES.
 
-`:hook BOOLEAN'
+`:apppend-hook BOOLEAN'
     Advanced property to control whether hooks functions are hooked or not,
-    if non-nil hook functions are appended to modes hooks passed as `:modes'."
+    if non-nil hook functions are appended to modes hooks passed as `:modes'.
+
+`:call-hooks BOOLEAN'
+    if non-nil then hooked functions are called right away."
   (declare (indent 0))
   (let* ((backends (spacemacs/mplist-get props :backends))
          (modes (spacemacs/mplist-get props :modes))
          (variables (spacemacs/mplist-get props :variables))
          (from (plist-get props :from))
-         (hooks (if (memq :hooks props)
-                    (plist-get props :hooks)
+         (hooks (if (memq :append-hooks props)
+                    (plist-get props :append-hooks)
                   t))
+         (call-hooks (when (memq :call-hooks props)
+                       (plist-get props :call-hooks)))
          (result '(progn)))
     (dolist (mode modes)
       (let ((backends-var-name (intern (format "company-backends-%S" mode)))
+            (raw-backends-var-name (intern (format "company-backends-%S-raw"
+                                                   mode)))
             (init-func-name (intern (format "spacemacs//init-company-%S" mode)))
             (vars-func-name (intern
                              (format "spacemacs//init-company-vars-%S%s" mode
                                      (if from (format "-%S" from) ""))))
             (mode-hook-name (intern (format "%S-hook" mode))))
         ;; declare buffer local company-backends variable
-        (push `(defvar ,backends-var-name
+        (push `(defvar ,raw-backends-var-name
                  spacemacs-default-company-backends
+                 ,(format "Company backend list for %S." mode)) result)
+        (push `(defvar ,backends-var-name ,raw-backends-var-name
                  ,(format "Company backend list for %S." mode)) result)
         ;; add backends
         (dolist (backend backends)
-          (push `(add-to-list ',backends-var-name ',backend) result))
+          (push `(add-to-list ',raw-backends-var-name ',backend) result))
         ;; define initialization hook function
         (push `(defun ,init-func-name ()
                 ,(format "Initialize company for %S." mode)
-                (when auto-completion-enable-snippets-in-popup
-                  (setq ,backends-var-name
-                        (mapcar 'spacemacs//show-snippets-in-company
-                                ,backends-var-name)))
+                (if auto-completion-enable-snippets-in-popup
+                    (setq ,backends-var-name
+                          (mapcar 'spacemacs//show-snippets-in-company
+                                  ,raw-backends-var-name))
+                  (setq ,backends-var-name ,raw-backends-var-name))
                 (set (make-variable-buffer-local 'auto-completion-front-end)
                      'company)
                 (set (make-variable-buffer-local 'company-backends)
                      ,backends-var-name)) result)
+        (when call-hooks
+          (push `(,init-func-name) result))
         (when hooks
           (push `(add-hook ',mode-hook-name ',init-func-name t) result))
         ;; define variables hook function
         (when variables
-          (let ((vars-func `(defun ,vars-func-name ()
+          (let ((variables-copy variables)
+                (vars-func `(defun ,vars-func-name ()
                               ,(format "Define company local variables for %S."
                                        mode)))
                 vars)
-            (while variables
-              (let* ((var (pop variables))
+            (while variables-copy
+              (let* ((var (pop variables-copy))
                      (forms
-                      (when (consp variables)
+                      (when (consp variables-copy)
                         `(set (make-variable-buffer-local ',var)
-                              ,(eval (pop variables))))))
+                              ,(eval (pop variables-copy))))))
                 (when forms (push forms vars))))
             (push (append vars-func vars) result))
+          (when call-hooks
+            (push `(,vars-func-name) result))
           (when hooks
             (push `(add-hook ',mode-hook-name ',vars-func-name t) result)))
         (when hooks

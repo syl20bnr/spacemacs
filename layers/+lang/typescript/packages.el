@@ -15,24 +15,26 @@
         company
         eldoc
         flycheck
+        smartparens
         tide
         typescript-mode
         web-mode
+        yasnippet
         ))
 
 (defun typescript/post-init-add-node-modules-path ()
-  (add-hook 'typescript-mode-hook #'add-node-modules-path)
-  (add-hook 'typescript-tsx-mode-hook #'add-node-modules-path))
+  (spacemacs/add-to-hooks #'add-node-modules-path '(typescript-mode-hook
+                                             typescript-tsx-mode-hook)))
 
 (defun typescript/post-init-company ()
-  (spacemacs|add-company-backends
-    :backends company-tide
-    :modes typescript-mode typescript-tsx-mode))
+  (spacemacs/add-to-hooks #'spacemacs//typescript-setup-company
+                   '(typescript-mode-local-vars-hook
+                   typescript-tsx-mode-local-vars-hook)))
 
-(defun typescript/pre-init-eldoc ()
-  (spacemacs|use-package-add-hook tide :post-init
-                           (add-hook 'typescript-tsx-mode-hook 'eldoc-mode t)
-                           (add-hook 'typescript-mode-hook 'eldoc-mode t)))
+(defun typescript/post-init-eldoc ()
+  (spacemacs/add-to-hooks #'spacemacs//typescript-setup-eldoc
+                   '(typescript-mode-local-vars-hook
+                     typescript-tsx-mode-local-vars-hook) t))
 
 (defun typescript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'typescript-mode)
@@ -41,22 +43,17 @@
     (flycheck-add-mode 'typescript-tide 'typescript-tsx-mode))
   (flycheck-add-mode 'typescript-tslint 'typescript-tsx-mode))
 
+(defun typescript/post-init-smartparens ()
+  (if dotspacemacs-smartparens-strict-mode
+      (spacemacs/add-to-hooks #'smartparens-strict-mode '(typescript-mode-hook
+                                                   typescript-tsx-mode-hook))
+    (spacemacs/add-to-hooks #'smartparens-mode '(typescript-mode-hook
+                                          typescript-tsx-mode-hook))))
+
 (defun typescript/init-tide ()
   (use-package tide
     :defer t
     :commands (typescript/jump-to-type-def)
-    :init
-    (progn
-      (evilified-state-evilify tide-references-mode tide-references-mode-map
-        (kbd "C-k") 'tide-find-previous-reference
-        (kbd "C-j") 'tide-find-next-reference
-        (kbd "C-l") 'tide-goto-reference)
-      (spacemacs/add-to-hooks 'tide-setup '(typescript-mode-hook
-                                            typescript-tsx-mode-hook))
-      (add-to-list 'spacemacs-jump-handlers-typescript-tsx-mode
-                   '(tide-jump-to-definition :async t))
-      (add-to-list 'spacemacs-jump-handlers-typescript-mode
-                   '(tide-jump-to-definition :async t)))
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'typescript-mode "mE" "errors")
@@ -92,14 +89,28 @@
   (define-derived-mode typescript-tsx-mode web-mode "TypeScript-tsx")
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode)))
 
+(defun typescript/post-init-yasnippet ()
+  (spacemacs/add-to-hooks #'spacemacs/typescript-yasnippet-setup '(typescript-mode-hook
+                                                     typescript-tsx-mode-hook)))
+
 (defun typescript/init-typescript-mode ()
   (use-package typescript-mode
     :defer t
+    :init
+    (progn
+      ;; setup typescript backend
+      (spacemacs/add-to-hooks #'spacemacs//typescript-setup-backend
+                       '(typescript-mode-local-vars-hook
+                         typescript-tsx-mode-local-vars-hook))
+      ;; safe values for backend to be used in directory file variables
+      (dolist (value '(lsp tide))
+        (add-to-list 'safe-local-variable-values
+                     (cons 'typescript-backend value))))
     :config
     (progn
       (when typescript-fmt-on-save
-        (add-hook 'typescript-mode-hook 'spacemacs/typescript-fmt-before-save-hook)
-        (add-hook 'typescript-tsx-mode-hook 'spacemacs/typescript-fmt-before-save-hook))
+        (spacemacs/add-to-hooks 'spacemacs/typescript-fmt-before-save-hook
+                         '(typescript-mode-hook typescript-tsx-mode-hook)))
       (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
         "="  'spacemacs/typescript-format
         "sp" 'spacemacs/typescript-open-region-in-playground)

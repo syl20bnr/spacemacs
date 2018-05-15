@@ -1,0 +1,62 @@
+#+TITLE: debug layer
+
+[[file:img/debug.png]]
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#enable-additional-debuggers][Enable additional debuggers]]
+- [[#key-bindings][Key bindings]]
+  - [[#major-mode][Major Mode]]
+  - [[#debugger][Debugger]]
+
+* Description
+This layer adds interactive debuggers for mulitple languages using [[https://github.com/realgud/realgud][realgud]].
+
+** Features:
+- Modern rewrite of the Emacs GUD debugger family
+- Visual interface including breakpoint and line indicators
+- Advanced features like stack frame navigation and mouse support
+- Extensible framework for [[https://github.com/realgud/realgud/wiki/How-to-add-a-new-debugger][adding]] your own external debuggers
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =debug= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+** Enable additional debuggers
+Language specific debuggers are added by the respective layers. If you want to
+add additional debuggers, add them to the =debug-additional-debuggers= variable.
+Make sure that your debugger is compatible by checking [[https://github.com/realgud/realgud/wiki/Debuggers-Supported][here]].
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((debug :variables debug-additional-debuggers '("remake"))))
+#+END_SRC
+
+* Key bindings
+** Major Mode
+
+ | Key Binding | Description     |
+ |-------------+-----------------|
+ | ~SPC m d d~ | open cmd buffer |
+
+** Debugger
+
+ | Key Binding | Description          |
+ |-------------+----------------------|
+ | ~bb~        | set break            |
+ | ~bc~        | clear break          |
+ | ~bd~        | delete break         |
+ | ~bs~        | disable break        |
+ | ~be~        | enable break         |
+ | ~c~         | continue             |
+ | ~i~         | step into            |
+ | ~J~         | jump to current line |
+ | ~o~         | step out             |
+ | ~q~         | quit debug           |
+ | ~r~         | restart              |
+ | ~s~         | step over            |
+ | ~S~         | goto cmd buffer      |
+ | ~v~         | eval variable        |

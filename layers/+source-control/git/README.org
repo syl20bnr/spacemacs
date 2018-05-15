@@ -106,7 +106,8 @@ Git commands (start with ~g~):
 |-------------+-----------------------------------------------------|
 | ~SPC g b~   | open a =magit= blame                                |
 | ~SPC g f f~ | view a file at a specific branch or commit          |
-| ~SPC g f h~ | show file commits history                           |
+| ~SPC g f l~ | commits log for current file                        |
+| ~SPC g f d~ | diff commands for current file                      |
 | ~SPC g H c~ | clear highlights                                    |
 | ~SPC g H h~ | highlight regions by age of commits                 |
 | ~SPC g H t~ | highlight regions by last updated time              |
