@@ -96,8 +96,10 @@
 
 (defun spacemacs-evil/init-evil-escape ()
   (use-package evil-escape
-    :init (evil-escape-mode)
-    :config (spacemacs|hide-lighter evil-escape-mode)))
+    :init (progn
+            (spacemacs|hide-lighter evil-escape-mode)
+            (spacemacs//evil-escape-deactivate-in-holy-mode dotspacemacs-editing-style)
+            (add-hook 'spacemacs-editing-style-hook #'spacemacs//evil-escape-deactivate-in-holy-mode))))
 
 (defun spacemacs-evil/init-evil-exchange ()
   (use-package evil-exchange
