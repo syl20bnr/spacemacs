@@ -17,6 +17,9 @@
 (defconst c-c++-mode-hooks '(c-mode-hook c++-mode-hook)
   "Primary hooks of the `c-c++' layer.")
 
+(defvar c-c++-enable-auto-newline nil
+  "If non nil then enables the `Auto-newline' minor mode.")
+
 (defvar c-c++-enable-clang-support nil
   "If non nil Clang related packages and configuration are enabled.")
 

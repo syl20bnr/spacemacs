@@ -13,6 +13,7 @@
     - [[#company-clang-and-flycheck][Company-clang and flycheck]]
   - [[#rtags-configuration][RTags configuration]]
   - [[#enable-google-set-c-style][Enable google-set-c-style]]
+  - [[#newlines][Newlines]]
 - [[#key-bindings][Key Bindings]]
   - [[#formatting-clang-format][Formatting (clang-format)]]
   - [[#rtags][RTags]]
@@ -129,6 +130,16 @@ set that up like this:
      (c-c++ :variables
             c-c++-enable-google-style t
             c-c++-enable-google-newline t)
+#+END_SRC emacs-lisp
+
+** Newlines
+
+You can enable the =Auto-newline= minor mode that automatically adds newlines
+after certain characters by setting the =c-c++-enable-auto-newline= vairable.
+
+#+BEGIN_SRC emacs-lisp
+     (c-c++ :variables
+            c-c++-enable-auto-newline t)
 #+END_SRC emacs-lisp
 
 * Key Bindings

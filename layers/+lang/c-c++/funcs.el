@@ -9,6 +9,10 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//c-toggle-auto-newline ()
+  "Toggle auto-newline."
+  (c-toggle-auto-newline 1))
+
 
 ;; clang
 
