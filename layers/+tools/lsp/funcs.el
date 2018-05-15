@@ -36,3 +36,13 @@
   (dolist (m modes)
     (add-to-list (intern (format "spacemacs-jump-handlers-%S" m))
                  '(lsp-ui-peek-find-definitions))))
+
+(defun fix-lsp-company-prefix ()
+  "fix lsp-javascript company prefix
+https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
+  (interactive)
+  (defun lsp-prefix-company-transformer (candidates)
+    (let ((completion-ignore-case t))
+      (all-completions (company-grab-symbol) candidates)))
+  (make-local-variable 'company-transformers)
+  (add-to-list 'company-transformers 'lsp-prefix-company-transformer))
