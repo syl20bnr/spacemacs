@@ -15,6 +15,7 @@
     clang-format
     company
     (company-c-headers :requires company)
+    (company-irony :requires company irony)
     (company-rtags :requires company rtags)
     company-ycmd
     counsel-gtags
@@ -27,6 +28,7 @@
     helm-cscope
     helm-gtags
     (helm-rtags :requires helm rtags)
+    irony
     (ivy-rtags :requires ivy rtags)
     org
     realgud
@@ -82,9 +84,19 @@
 
 (defun c-c++/init-company-c-headers ()
   (use-package company-c-headers
+    :defer t))
+
+(defun c-c++/post-init-company-c-headers ()
+  (spacemacs|add-company-backends
+    :backends company-c-headers
+    :modes c-mode-common))
+
+(defun c-c++/init-company-irony ()
+  (use-package company-irony
+    :if c-c++-enable-irony-support
     :defer t
     :init (spacemacs|add-company-backends
-            :backends company-c-headers
+            :backends company-irony
             :modes c-mode-common)))
 
 (defun c-c++/init-company-rtags ()
@@ -171,6 +183,21 @@
   (use-package ivy-rtags
     :if c-c++-enable-rtags-support
     :init (setq rtags-display-result-backend 'ivy)))
+
+;; TODO lazy load this package
+(defun c-c++/init-irony ()
+  (use-package irony
+    :if c-c++-enable-irony-support
+    :init
+    (progn
+      (add-hook 'c++-mode-hook 'irony-mode)
+      (add-hook 'c-mode-hook 'irony-mode)
+      (add-hook 'objc-mode-hook 'irony-mode)
+
+      (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+      (add-hook 'irony-mode-hook (lambda () (remove-hook 'completion-at-point-functions 'irony-completion-at-point t)) t)
+      (spacemacs|diminish irony-mode)
+      )))
 
 ;; TODO lazy load this package
 (defun c-c++/init-rtags ()

@@ -109,5 +109,6 @@ This file containes the change log for the next major version of Spacemacs.
 **** C-C++
 - Add possible value =no-completion= to =c-c++-enable-rtags-support= flag.
   This adds the option to opt-out of =company-rtags= while enabling Rtags.
+- Add support for =irony= with =c-c++-enable-irony-support=.
 *** Various improvements
 - Various documentation improvements (thanks Carl Lange, Diego Berrocal, Wieland Hoffmann)

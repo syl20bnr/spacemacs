@@ -12,6 +12,7 @@
     - [[#clang-format][clang-format]]
     - [[#company-clang-and-flycheck][Company-clang and flycheck]]
   - [[#rtags-configuration][RTags configuration]]
+  - [[#irony-configuration][Irony configuration]]
   - [[#enable-google-set-c-style][Enable google-set-c-style]]
   - [[#newlines][Newlines]]
 - [[#key-bindings][Key Bindings]]
@@ -37,6 +38,7 @@ This layer adds configuration for C/C++ language.
   company-ycmd (when =ycmd= layer is included).
 - Support for [[https://github.com/realgud/realgud][realgud]] debugger.
 - Support for [[https://github.com/Andersbakken/rtags][rtags]].
+- Support for [[https://github.com/Sarcasm/irony-mode][irony]].
 
 * Install
 ** Layer
@@ -110,6 +112,15 @@ set the variable =c-c++-enable-rtags-support= to ='no-completion=:
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
     '((c-c++ :variables c-c++-enable-rtags-support 'no-completion)))
+#+END_SRC
+
+** Irony configuration
+To enable support for =irony=, set the layer variable
+=c-c++-enable-irony-support= to =t= in your dotfile.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((c-c++ :variables c-c++-enable-irony-support t)))
 #+END_SRC
 
 ** Enable google-set-c-style
