@@ -194,9 +194,9 @@
       (spacemacs|add-toggle line-numbers
         :status (and (featurep 'display-line-numbers)
                      display-line-numbers-mode
-                     (eq display-line-numbers-type t))
-        :on (progn (setq display-line-numbers-type t)
-                   (display-line-numbers-mode))
+                     (eq display-line-numbers t))
+        :on (prog1 (display-line-numbers-mode)
+              (setq display-line-numbers t))
         :off (display-line-numbers-mode -1)
         :on-message "Absolute line numbers enabled."
         :off-message "Line numbers disabled."
@@ -205,9 +205,9 @@
       (spacemacs|add-toggle relative-line-numbers
         :status (and (featurep 'display-line-numbers)
                      display-line-numbers-mode
-                     (eq display-line-numbers-type 'relative))
-        :on (progn (setq display-line-numbers-type 'relative)
-                   (display-line-numbers-mode))
+                     (eq display-line-numbers 'relative))
+        :on (prog1 (display-line-numbers-mode)
+              (setq display-line-numbers 'relative))
         :off (display-line-numbers-mode -1)
         :documentation "Show relative line numbers."
         :on-message "Relative line numbers enabled."
