@@ -29,20 +29,16 @@
 
 (defun spacemacs//javascript-setup-tern ()
   "Setup tern backend."
-  (if tern-command
-      (tern-mode)
-    (message (concat "`tern-command' not defined, "
-                     "please define it to activate tern."))))
+  (tern-mode))
 
 (defun spacemacs//javascript-setup-tern-company ()
   "Setup tern auto-completion."
-  (when tern-command
-    (spacemacs|add-company-backends
-      :backends company-tern
-      :modes js2-mode
-      :append-hooks nil
-      :call-hooks t)
-    (company-mode)))
+  (spacemacs|add-company-backends
+    :backends company-tern
+    :modes js2-mode
+    :append-hooks nil
+    :call-hooks t)
+  (company-mode))
 
 (defun spacemacs//set-tern-key-bindings (mode)
   "Set the key bindings for tern and the given MODE."

@@ -20,5 +20,5 @@
   "The backend to use for IDE features. Possible values are `tern'
 and `lsp'.")
 
-(defvar tern-command nil
+(defvar tern-command "tern"
   "Path to the tern server. Used when `javascript-backend' is set to `tern'.")
