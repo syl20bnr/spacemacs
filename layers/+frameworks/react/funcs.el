@@ -37,14 +37,16 @@
 ;; Tern
 (defun spacemacs//react-setup-tern ()
   "Setup tern backend."
-  (add-hook 'rjsx-mode-hook 'tern-mode)
+  (tern-mode)
   (spacemacs//set-tern-key-bindings 'rjsx-mode))
 
 (defun spacemacs//react-setup-tern-company ()
   "Setup tern auto-completion."
   (spacemacs|add-company-backends
     :backends company-tern
-    :modes rjsx-mode)
+    :modes rjsx-mode
+    :append-hooks nil
+    :call-hooks t)
   (company-mode))
 
 
@@ -53,11 +55,8 @@
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (add-hook 'rjsx-mode #'lsp-javascript-typescript-enable)
-        (require 'lsp-javascript-flow)
-        (add-hook 'rjsx-mode #'lsp-javascript-flow-enable)
-        (require 'lsp-typescript)
-        (add-hook 'rjsx-mode #'lsp-typescript-enable)
+        (lsp-javascript-typescript-enable)
+        (lsp-javascript-flow-enable)
         (spacemacs//setup-lsp-jump-handler 'rjsx-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
 
@@ -65,9 +64,12 @@
   "Setup lsp auto-completion."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
+        (fix-lsp-company-prefix)
         (spacemacs|add-company-backends
           :backends company-lsp
-          :modes rjsx-mode)
+          :modes rjsx-mode
+          :append-hooks nil
+          :call-hooks t)
         (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
 

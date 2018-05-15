@@ -63,8 +63,8 @@
 
     (push (cons #'+javascript-jsx-file-p 'rjsx-mode) magic-mode-alist)
 
-    ;; setup javascript backend
-    (spacemacs//react-setup-backend)
+    ;; setup rjsx backend
+    (add-hook 'rjsx-mode-local-vars-hook #'spacemacs//react-setup-backend)
 
     :config
     ;; declare prefix
