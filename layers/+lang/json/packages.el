@@ -21,7 +21,7 @@
         ))
 
 (defun json/post-init-add-node-modules-path ()
-  (add-hook json-mode-hook #'add-node-modules-path))
+  (add-hook 'json-mode-hook #'add-node-modules-path))
 
 (defun json/post-init-flycheck ()
   (spacemacs/enable-flycheck 'json-mode))
