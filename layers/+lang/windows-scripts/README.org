@@ -16,7 +16,7 @@ as support for batch files.
 
 ** Features:
 - Syntax highlighting of powershell =.ps1= files via [[https://github.com/jschaf/powershell.el][powershell.el]]
-- Syntax highlighting of batch =.bat= files via [[http://www.emacswiki.org/emacs/dos.el][dos.el]]
+- Syntax highlighting of batch =.bat= files via [[https://www.emacswiki.org/emacs/DosMode][dos.el]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

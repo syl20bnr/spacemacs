@@ -23,7 +23,7 @@ process indicator.
   with [[https://github.com/Fanael/rainbow-identifiers][rainbow-identifiers]].
 - Colorize only identifiers recognized as variables with [[https://github.com/ankurdave/color-identifiers-mode][color-identifiers]].
 - Colorize strings representing colors with the color they represent as background with
-  [[https://julien.danjou.info/projects/emacs-packages][rainbow-mode]].
+  [[https://jblevins.org/log/rainbow-mode][rainbow-mode]].
 - Display a Nyan cat progress bar in the mode-line with [[https://github.com/syl20bnr/nyan-mode][nyan-mode]].
 
 * Install
