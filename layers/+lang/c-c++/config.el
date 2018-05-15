@@ -32,7 +32,8 @@
   `c-mode-common-hook'.")
 
 (defvar c-c++-enable-rtags-support nil
-  "If non nil Rtags related packages and configuration are enabled.")
+  "If non nil Rtags related packages and configuration are enabled.
+  If `no-completion', enable all but completion.")
 
 (defvar c-c++-enable-clang-format-on-save nil
   "If non-nil, automatically format code with ClangFormat on
