@@ -44,11 +44,11 @@ version (Stable). Please add the following lines to =dotspacemacs/user-init=:
 #+END_SRC
 
 * Ensime
-[[http://ensime.org/][ENSIME]] provides IDE-like features, such as refactoring, incremental compilation
+[[https://ensime.github.io/][ENSIME]] provides IDE-like features, such as refactoring, incremental compilation
 and project-wide type-checking.
 
 ENSIME requires a configuration file at the root of each Scala project. It
-provides an SBT plugin, a gradle plugin and others (see [[http://ensime.org/build_tools/][ensime.org]] for a full
+provides an SBT plugin, a gradle plugin and others (see [[https://ensime.github.io/build_tools/][ensime.org]] for a full
 list) to generate these files.
 
 Installation instructions and usage can be found in the =Java= layer

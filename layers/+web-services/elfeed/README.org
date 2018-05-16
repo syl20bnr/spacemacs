@@ -65,7 +65,6 @@ Here is an example of such a file (note the usage of org tags to tag your feeds)
  **** http://blog.eclipse-tips.com/feeds/posts/default?alt=rss
  **** http://ed-merks.blogspot.com/feeds/posts/default
  **** http://feeds.feedburner.com/eclipselive
- **** http://www.fosslc.org/drupal/rss.xml                             :video:
  #+END_SRC
 
 *** Manually
