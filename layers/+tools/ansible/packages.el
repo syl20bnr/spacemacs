@@ -31,20 +31,24 @@
                     'spacemacs/ansible-auto-decrypt-encrypt-vault)
         (remove-hook 'yaml-mode-local-vars-hook
                      'spacemacs/ansible-auto-decrypt-encrypt-vault))
+      )
+    :config
+    (progn
       (spacemacs/set-leader-keys-for-minor-mode 'ansible
-        "bd" 'ansible::decrypt-buffer
-        "be" 'ansible::encrypt-buffer))))
+       "bd" 'ansible::decrypt-buffer
+       "be" 'ansible::encrypt-buffer))))
 
 (defun ansible/init-ansible-doc ()
   (use-package ansible-doc
     :defer t
     :init
     (progn
-      (add-hook 'yaml-mode-hook 'spacemacs/ansible-doc-maybe-enable)
-      (with-eval-after-load 'ansible-doc
-        (spacemacs/set-leader-keys-for-minor-mode 'ansible-doc-mode
-          "ha" 'ansible-doc)))
-    :config (spacemacs|hide-lighter ansible-doc-mode)))
+      (add-hook 'yaml-mode-hook 'spacemacs/ansible-doc-maybe-enable))
+    :config
+    (progn
+      (spacemacs/set-leader-keys-for-minor-mode 'ansible-doc-mode
+        "ha" 'ansible-doc)
+      (spacemacs|hide-lighter ansible-doc-mode))))
 
 (defun ansible/post-init-company ()
   ;; ansible-mode requires ac-user-dictionary-files. If the
