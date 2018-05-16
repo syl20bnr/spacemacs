@@ -133,7 +133,6 @@ set that up like this:
 #+END_SRC emacs-lisp
 
 ** Newlines
-
 You can enable the =Auto-newline= minor mode that automatically adds newlines
 after certain characters by setting the =c-c++-enable-auto-newline= vairable.
 
