@@ -15,7 +15,6 @@
         gist
         github-clone
         github-search
-        magit-gh-pulls
         magithub
         ;; this package does not exits, we need it to wrap
         ;; the call to spacemacs/declare-prefix.
@@ -70,21 +69,6 @@
     :commands (github-search-clone-repo github-search-user-clone-repo)
     :init (spacemacs/set-leader-keys "ghc/" 'github-search-clone-repo)))
 
-;; magit-gh-pulls has to be loaded via a pre-config hook because the source code
-;; makes assumptions about the status of the magit-mode keymaps that are
-;; incompatible with the spacemacs' evilification feature.
-;; To avoid errors, magit-gh-pulls must be loaded after magit, but before magit
-;; is configured by spacemacs.
-
-(defun github/pre-init-magit-gh-pulls ()
-  (spacemacs|use-package-add-hook magit
-    :pre-config
-    (progn
-      (use-package magit-gh-pulls
-        :config
-        (define-key magit-mode-map "#" 'spacemacs/load-gh-pulls-mode)
-        (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))))
-(defun github/init-magit-gh-pulls ())
 
 (defun github/init-magithub ()
   (use-package magithub

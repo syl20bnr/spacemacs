@@ -11,7 +11,6 @@
   - [[#hub-configuration][Hub configuration]]
   - [[#magithub-configuration][Magithub configuration]]
 - [[#key-bindings][Key bindings]]
-  - [[#magit-gh-pulls][magit-gh-pulls]]
   - [[#magithub][magithub]]
   - [[#forge][forge]]
   - [[#gistel][gist.el]]
@@ -21,7 +20,6 @@
 This layers adds support for [[http://github.com][GitHub]].
 
 ** Features:
-- [[https://github.com/sigma/magit-gh-pulls][magit-gh-pulls]]: handy =magit= add-on to manage GitHub pull requests.
 - [[https://github.com/vermiculus/magithub][magithub]]: Magit-integrated interface to [[https://hub.github.com/][hub]] command line
 - [[https://github.com/magit/forge][forge]]: integration with various forges, such as GitHub and GitLab.
 - [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post GitHub gists.
@@ -77,22 +75,6 @@ Alternatively, use the following Emacs forms:
 #+END_SRC
 
 * Key bindings
-** magit-gh-pulls
-In a =magit status= buffer (~SPC g s~):
-
-| Key binding | Description                                                 |
-|-------------+-------------------------------------------------------------|
-| ~# c~       | create a pull request                                       |
-| ~# g~       | get a list of (or reload) all PRs in the current repository |
-| ~# f~       | fetch the commits associated with the current PR at point   |
-| ~# b~       | create a branch for the current PR at point                 |
-| ~# m~       | merge the PR with current branch at point                   |
-| ~# d~       | show a diff of the current pull request at point            |
-| ~# o~       | open PR at point in browser                                 |
-
-Note that =magit-gh-pulls= will try to fast-forward the PRs whenever it is
-possible.
-
 ** magithub
 
 | Key binding | Description                                      |

@@ -8,9 +8,3 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-
-(defun spacemacs/load-gh-pulls-mode ()
-  "Start `magit-gh-pulls-mode'."
-  (interactive)
-  (magit-gh-pulls-mode)
-  (magit-gh-pulls-popup))

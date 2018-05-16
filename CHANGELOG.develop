@@ -1153,13 +1153,13 @@ Benner and Paweł Siudak):
   - Add package =magithub=, it is enabled by default in offline mode.
   - Remove package =github-browse-file= which has been replaced by
    =browse-at-remote= in =version-control= layer
+  - Remove package =magit-gh-pulls= as it was deprecated in favor of =magithub=
+    and =forge= (thanks to Robby O'Connor )
 - Key bindings:
   - For Evil style users, the key-binding to pull commits is now on ~p~ instead
     of ~F~ which is taken by the new package =forge=
   - Add ~g r~ evilified binding to gist-list-mode (thanks to Jean-Sebastien A.
     Beaudry)
-  - Fix ~#~ key binding in =magit-status= for the =magit-gh-pulls= dispatch
-    popup (thanks to Diego Berrocal)
 - Replace =evilified-state-evilify= by =evilified-state-evilify-map= (thanks to
   Sylvain Benner)
 - Make magithub offline by default (thanks to Miciah Masters)

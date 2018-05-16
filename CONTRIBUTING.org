@@ -270,30 +270,18 @@ changes, your review is very valuable in these cases as well!
 ** Using Magit to quickly test PRs
 It is possible to manage PRs directly inside the Magit status buffer ~SPC g s~.
 First add the =github= layer to your dotfile which will pull the package
-=magit-gh-pulls=. Since we have a high number of PRs in Spacemacs you also need
-to set the variable =magit-gh-pulls-pull-detail-limit= to a higher number, it
-is recommended to set it to something like 200.
+=forge=. Once installed you need to set it up with a [[GitHub personal access
+token][https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started]] after
+which you can execute ~M-x forge-pull~. It will fetch all the PRs which may take
+a few seconds as we have lot of PRs. Note also that all your Magit actions will
+get some additional delay due to the refresh of the PRs list.
 
-#+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers
-    '((github :variables magit-gh-pulls-pull-detail-limit 200)))
-#+END_SRC
-
-You can also set the variable in your =dotspacemacs/user-init= function.
-
-Now you are all set open the Magit status buffer of your =.emacs.d= repository
-and press ~#g~. It will fetch all the PRs which may take a few seconds as we
-have lot of PRs. Note also that all your Magit actions will get some additional
-delay due to the refresh of the PRs list.
-
-Search for the line of the PR you are interested in and press ~#f~ to actually
-fetch its commits.
-
-From here you have several possibilities:
-- you can select all the commits of a PR and do ~AA RET~ to cherry-pick them
-  on top of your current branche,
-- you can create a branch pointing on the PR branch HEAD using ~#b~,
-- you can merge the PR branch with ~#m~.
+Now, from the magit status buffer you can:
+- checkout a PR with ~b y~ and searching it by name or ID
+- donate all commits to develop by doing ~A d~ and selecting your current branch
+  first and the develop branch second
+- switch to the develop branch by pressing ~b b~ and selecting it
+- delete the PR branch and remote by doing ~b x~ and selecting it
 
 * Additional information
 ** Testing
