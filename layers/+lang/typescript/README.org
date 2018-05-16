@@ -57,7 +57,7 @@ You can choose formatting tool:
               typescript-fmt-tool 'typescript-formatter)))
 #+END_SRC
 
-Default is 'tide .
+Supported formatter are 'tide, 'typescript-formatter and 'prettier. Default is 'tide .
 
 ** Pre-requisites
 You will need =node.js v0.12.0= or greater.
@@ -72,6 +72,12 @@ If you want to use typescript-formatter for formatting run:
 
 #+BEGIN_SRC shell
 npm install -g typescript-formatter
+#+END_SRC
+
+If you want to use prettier for formatting run:
+
+#+BEGIN_SRC shell
+npm install -g prettier
 #+END_SRC
 
 For best results, make sure that the =auto-completion= (company) and =html=

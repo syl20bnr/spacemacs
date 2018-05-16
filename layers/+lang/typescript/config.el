@@ -17,8 +17,8 @@
 (defvar typescript-fmt-tool 'tide
   "The name of the tool to be used
 for TypeScript source code formatting.
-Currently avaliable 'tide (default)
-and 'typescript-formatter .")
+Currently available 'tide (default),
+ 'typescript-formatter and 'prettier.")
 
 (defvar typescript-backend 'tide
   "The backend to use for IDE features. Possible values are `tide'

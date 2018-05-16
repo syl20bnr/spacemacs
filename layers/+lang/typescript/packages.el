@@ -15,6 +15,7 @@
         company
         eldoc
         flycheck
+        prettier-js
         smartparens
         tide
         typescript-mode
