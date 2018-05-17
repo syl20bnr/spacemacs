@@ -1,4 +1,4 @@
-;;; packages.el --- react Layer packages File for Spacemacs
+;;; packages.el --- react layer packages file for Spacemacs. -*- lexical-binding: t -*-
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
@@ -9,28 +9,31 @@
 ;;
 ;;; License: GPLv3
 
-(setq react-packages
-      '(
-        company-tern
-        emmet-mode
-        evil-matchit
-        flycheck
-        js-doc
-        smartparens
-        tern
-        web-beautify
-        web-mode
-        ))
+(defconst react-packages
+  '(
+    add-node-modules-path
+    company
+    emmet-mode
+    evil-matchit
+    flycheck
+    js-doc
+    rjsx-mode
+    smartparens
+    web-beautify
+    ))
 
-(defun react/post-init-company-tern ()
-  (spacemacs|add-company-backends :backends company-tern :modes react-mode))
+(defun react/post-init-add-node-modules-path ()
+  (add-hook 'rjsx-mode-hook #'add-node-modules-path))
+
+(defun react/post-init-company ()
+  (add-hook 'rjsx-mode-local-vars-hook #'spacemacs//react-setup-company))
 
 (defun react/post-init-emmet-mode ()
-  (add-hook 'react-mode-hook 'emmet-mode))
+  (add-hook 'rjsx-mode-hook 'emmet-mode))
 
 (defun react/post-init-evil-matchit ()
   (with-eval-after-load 'evil-matchit
-    (plist-put evilmi-plugins 'react-mode
+    (plist-put evilmi-plugins 'rjsx-mode
                '((evilmi-simple-get-tag evilmi-simple-jump)
                  (evilmi-javascript-get-tag evilmi-javascript-jump)
                  (evilmi-html-get-tag evilmi-html-jump)))))
@@ -38,31 +41,47 @@
 (defun react/post-init-flycheck ()
   (with-eval-after-load 'flycheck
     (dolist (checker '(javascript-eslint javascript-standard))
-      (flycheck-add-mode checker 'react-mode)))
-  (spacemacs/enable-flycheck 'react-mode))
+      (flycheck-add-mode checker 'rjsx-mode)))
+  (spacemacs/enable-flycheck 'rjsx-mode))
 
 (defun react/post-init-js-doc ()
-  (add-hook 'react-mode-hook 'spacemacs/js-doc-require)
-  (spacemacs/js-doc-set-key-bindings 'react-mode))
+  (add-hook 'rjsx-mode-hook 'spacemacs/js-doc-require)
+  (spacemacs/js-doc-set-key-bindings 'rjsx-mode))
+
+(defun react/init-rjsx-mode ()
+  (use-package rjsx-mode
+    :defer t
+    :init
+    ;; enable rjsx mode by using magic-mode-alist
+    (defun +javascript-jsx-file-p ()
+      (and buffer-file-name
+           (equal (file-name-extension buffer-file-name) "js")
+           (re-search-forward "\\(^\\s-*import React\\|\\( from \\|require(\\)[\"']react\\)"
+                              magic-mode-regexp-match-limit t)
+           (progn (goto-char (match-beginning 1))
+                  (not (inside-string-or-comment-q)))))
+
+    (push (cons #'+javascript-jsx-file-p 'rjsx-mode) magic-mode-alist)
+
+    ;; setup rjsx backend
+    (add-hook 'rjsx-mode-local-vars-hook #'spacemacs//react-setup-backend)
+
+    :config
+    ;; declare prefix
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mr" "refactor")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mrr" "rename")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mh" "documentation")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mg" "goto")
+
+    (spacemacs/set-leader-keys-for-major-mode 'rjsx-mode "rrt" 'rjsx-rename-tag-at-point)
+
+    (with-eval-after-load 'rjsx-mode
+      (define-key rjsx-mode-map (kbd "C-d") nil))))
 
 (defun react/post-init-smartparens ()
   (if dotspacemacs-smartparens-strict-mode
       (add-hook 'react-mode-hook #'smartparens-strict-mode)
     (add-hook 'react-mode-hook #'smartparens-mode)))
 
-(defun react/post-init-tern ()
-  (add-hook 'react-mode-hook 'tern-mode)
-  (spacemacs//set-tern-key-bindings 'react-mode))
-
 (defun react/post-init-web-beautify ()
   (spacemacs/set-leader-keys-for-major-mode 'react-mode  "=" 'web-beautify-js))
-
-(defun react/post-init-web-mode ()
-  (define-derived-mode react-mode web-mode "react")
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . react-mode))
-  (add-to-list 'auto-mode-alist '("\\.react.js\\'" . react-mode))
-  (add-to-list 'auto-mode-alist '("\\index.android.js\\'" . react-mode))
-  (add-to-list 'auto-mode-alist '("\\index.ios.js\\'" . react-mode))
-  (add-to-list 'magic-mode-alist '("/\\*\\* @jsx .*\\*/" . react-mode))
-  (add-to-list 'magic-mode-alist '("import\s+[^\s]+\s+from\s+['\"]react['\"]" . react-mode))
-  (add-hook 'react-mode-hook 'spacemacs//setup-react-mode))

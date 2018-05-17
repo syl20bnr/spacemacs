@@ -68,13 +68,7 @@
   "Setup lsp auto-completion."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        ;; fix lsp-javascript company prefix
-        ;; https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379
-        (defun lsp-prefix-company-transformer (candidates)
-          (let ((completion-ignore-case t))
-            (all-completions (company-grab-symbol) candidates)))
-        (make-local-variable 'company-transformers)
-        (add-to-list 'company-transformers 'lsp-prefix-company-transformer)
+        (fix-lsp-company-prefix)
         (spacemacs|add-company-backends
           :backends company-lsp
           :modes js2-mode
@@ -143,4 +137,3 @@
   (spacemacs/skewer-eval-region beg end)
   (skewer-repl)
   (evil-insert-state))
-
