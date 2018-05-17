@@ -88,7 +88,8 @@
 
 (defun c-c++/init-company-rtags ()
   (use-package company-rtags
-    :if c-c++-enable-rtags-support
+    :if (and c-c++-enable-rtags-support
+             (not (eq c-c++-enable-rtags-support 'no-completion)))
     :defer t
     :init
     (progn

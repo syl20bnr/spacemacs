@@ -104,5 +104,8 @@ This file containes the change log for the next major version of Spacemacs.
 - Move key bindings prefix to ~SPC a V~ (deb0ch)
 **** Version-control
 - Add package =browse-at-remote= which replaces =github-browse-file= (thanks JAremko)
+**** C-C++
+- Add possible value =no-completion= to =c-c++-enable-rtags-support= flag.
+  This adds the option to opt-out of =company-rtags= while enabling Rtags.
 *** Various improvements
 - Various documentation improvements (thanks Carl Lange, Diego Berrocal, Wieland Hoffmann)
