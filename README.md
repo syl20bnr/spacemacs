@@ -166,8 +166,9 @@ This installs a pre-built package from https://emacsformacosx.com/
 ```
 brew tap railwaycat/emacsmacport
 brew install emacs-mac
-copy and paste the ln from the install instructions if brew linkapps is deprecated
 ```
+
+Copy and paste the symlink (`ln`) from the install instructions if `brew linkapps` is deprecated.
 
 ##### Other ways
 
