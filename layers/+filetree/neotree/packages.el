@@ -51,7 +51,7 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
 [_RET_] open               ^^^^              [_?_]   close hints
 "
         :bindings
-        ("RET" neotree-enter)
+        ("RET" spacemacs/neotree-expand-or-open)
         ("TAB" neotree-stretch-toggle)
         ("|" neotree-enter-vertical-split)
         ("-" neotree-enter-horizontal-split)
@@ -79,7 +79,7 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
           :mode neotree-mode
           :bindings
           (kbd "TAB")  'neotree-stretch-toggle
-          (kbd "RET") 'neotree-enter
+          (kbd "RET") 'spacemacs/neotree-expand-or-open
           (kbd "|") 'neotree-enter-vertical-split
           (kbd "-") 'neotree-enter-horizontal-split
           (kbd "'") 'neotree-quick-look
