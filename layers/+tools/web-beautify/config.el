@@ -1,4 +1,4 @@
-;;; config.el --- Javascript Layer configuration File for Spacemacs
+;;; config.el --- web-beautify Layer configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
@@ -11,7 +11,5 @@
 
 ;; Variables
 
-(spacemacs|define-jump-handlers js2-mode)
-
-(defvar javascript-backend 'tern
-  "The backend to use for IDE features. Possible values are `tern' and `lsp'.")
+(defvar spacemacs-web-beautify--modes nil
+  "List of cons cell (mode . web-beautify-function).")

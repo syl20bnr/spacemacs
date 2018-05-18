@@ -88,4 +88,4 @@
   (add-to-list 'tern--key-bindings-modes 'rjsx-mode))
 
 (defun react/post-init-web-beautify ()
-  (spacemacs/set-leader-keys-for-major-mode 'react-mode  "=" 'web-beautify-js))
+  (add-to-list 'spacemacs-web-beautify--modes (cons 'rjsx-mode 'web-beautify-js)))

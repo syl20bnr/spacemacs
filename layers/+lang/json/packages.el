@@ -18,6 +18,7 @@
         json-navigator
         json-reformat
         json-snatcher
+        web-beautify
         ))
 
 (defun json/post-init-add-node-modules-path ()
@@ -53,3 +54,6 @@
     :config
     (spacemacs/set-leader-keys-for-major-mode 'json-mode
       "hp" 'jsons-print-path)))
+
+(defun json/post-init-web-beautify ()
+  (add-to-list 'spacemacs-web-beautify--modes (cons 'json-mode 'web-beautify-js)))

@@ -7,6 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#configuration][Configuration]]
+  - [[#web-beautify][web-beautify]]
 - [[#usage][Usage]]
   - [[#reformat][Reformat]]
   - [[#display-navigable-hierarchy][Display navigable hierarchy]]
@@ -21,6 +22,7 @@ This layer adds support for JSON files with [[https://github.com/joshwnj/json-mo
 - Auto-completion
 - Get the path to a JSON value with [[https://github.com/Sterlingg/json-snatcher][json-snatcher]]
 - Navigate JSON hierarchy with [[https://github.com/DamienCassou/json-navigator][json-nagivator]]
+- Formating with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -28,6 +30,9 @@ add =json= to the existing =dotspacemacs-configuration-layers= list in this file
 
 ** Configuration
 To define the default indentation set the variable =js-indent-level=.
+
+** web-beautify
+See [[file:+tools/web-beautify/README.org][web-beautify layer]] documentation.
 
 * Usage
 ** Reformat

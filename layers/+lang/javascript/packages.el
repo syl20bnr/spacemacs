@@ -200,19 +200,8 @@
 (defun javascript/post-init-tern ()
   (add-to-list 'tern--key-bindings-modes 'js2-mode))
 
-(defun javascript/init-web-beautify ()
-  (use-package web-beautify
-    :defer t
-    :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'js2-mode
-        "=" 'web-beautify-js)
-      (spacemacs/set-leader-keys-for-major-mode 'json-mode
-        "=" 'web-beautify-js)
-      (spacemacs/set-leader-keys-for-major-mode 'web-mode
-        "=" 'web-beautify-html)
-      (spacemacs/set-leader-keys-for-major-mode 'css-mode
-        "=" 'web-beautify-css))))
+(defun javascript/post-init-web-beautify ()
+  (add-to-list 'spacemacs-web-beautify--modes (cons 'js2-mode 'web-beautify-js)))
 
 (defun javascript/pre-init-yasnippet ()
   (spacemacs|use-package-add-hook yasnippet

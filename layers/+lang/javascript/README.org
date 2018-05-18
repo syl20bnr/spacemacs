@@ -6,6 +6,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#web-beautify][web-beautify]]
   - [[#choosing-a-backend][Choosing a backend]]
 - [[#backends][Backends]]
   - [[#tern][Tern]]
@@ -18,7 +19,6 @@
   - [[#js2-mode][js2-mode]]
   - [[#folding-js2-mode][Folding (js2-mode)]]
   - [[#refactoring-js2-refactor][Refactoring (js2-refactor)]]
-  - [[#formatting-web-beautify][Formatting (web-beautify)]]
     - [[#documentation-js-doc][Documentation (js-doc)]]
   - [[#repl-skewer-mode][REPL (skewer-mode)]]
 
@@ -30,18 +30,13 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 - Smart code folding
 - Refactoring: done using [[https://github.com/magnars/js2-refactor.el][js2-refactor]].
 - Auto-completion and documentation
-- Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 - REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
+- Formating with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =javascript= to the existing =dotspacemacs-configuration-layers= list in
 this file.
-
-To use the formatting features, install =js-beautify=:
-#+BEGIN_SRC sh
-  $ npm install -g js-beautify
-#+END_SRC
 
 To activate error checking using flycheck, install one of the [[http://www.flycheck.org/en/latest/languages.html#javascript][available linters]]
 such as =ESLint= or =JSHint=:
@@ -55,6 +50,9 @@ If you install these in non-standard locations, then add the following to your =
 #+BEGIN_SRC elisp
   (add-to-list 'exec-path "/path/to/node/bins" t)
 #+END_SRC
+
+** web-beautify
+See [[file:+tools/web-beautify/README.org][web-beautify layer]] documentation.
 
 ** Choosing a backend
 To choose a default backend set the layer variable =javascript-backend=:
@@ -185,12 +183,6 @@ Bindings should match the plain emacs assignments.
 | ~SPC m r w l~ | wraps the region in a for-loop                                                                                 |
 | ~SPC m x m j~ | move line down, while keeping commas correctly placed                                                          |
 | ~SPC m x m k~ | move line up, while keeping commas correctly placed                                                            |
-
-** Formatting (web-beautify)
-
-| Key Binding | Description                                                  |
-|-------------+--------------------------------------------------------------|
-| ~SPC m =~   | beautify code in js2-mode, json-mode, web-mode, and css-mode |
 
 *** Documentation (js-doc)
 You can check more [[https://github.com/mooz/js-doc/][here]]

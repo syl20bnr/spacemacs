@@ -1,4 +1,4 @@
-;;; layers.el --- Javascript Layer layers File for Spacemacs
+;;; layers.el --- JSON Layer layers File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layers '(json node tern web-beautify))
+(configuration-layer/declare-layers '(node web-beautify))

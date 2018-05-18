@@ -6,6 +6,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#web-beautify][web-beautify]]
 - [[#live-display-in-browser][Live display in browser]]
 - [[#key-bindings][Key Bindings]]
   - [[#web-mode][Web mode]]
@@ -22,6 +23,7 @@ This layer adds support for editing HTML and CSS.
 - Support for editing Slim and Pug templates using [[https://github.com/slim-template/emacs-slim][slim-mode]] and [[https://github.com/hlissner/emacs-pug-mode][pug-mode]]
 - See the effects of typed HTML using [[https://github.com/skeeto/impatient-mode][impatient-mode]]
 - imenu support for CSS and Sass through [[https://github.com/hlissner/emacs-counsel-css][counsel-css]]
+- Formating with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -35,6 +37,9 @@ gem install specific_install
 gem specific_install https://github.com/brigade/scss-lint.git
 gem specific_install https://github.com/Sweetchuck/scss_lint_reporter_checkstyle.git
 #+END_SRC
+
+** web-beautify
+See [[file:+tools/web-beautify/README.org][web-beautify layer]] documentation.
 
 * Live display in browser
 Use ~SPC m i~ to enable impatient mode, opening a live view of a HTML file in

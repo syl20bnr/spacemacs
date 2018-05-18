@@ -32,6 +32,7 @@
         tagedit
         web-mode
         yasnippet
+        web-beautify
         ))
 
 (defun html/post-init-add-node-modules-path ()
@@ -81,7 +82,7 @@
 
       (spacemacs/set-leader-keys-for-major-mode 'css-mode
         "zc" 'spacemacs/css-contract-statement
-        "zo" 'spacemacs/css-expand-statement)
+        "zo" 'spacemacs/css-expand-statement))))
 
 (defun html/init-emmet-mode ()
   (use-package emmet-mode
@@ -271,3 +272,6 @@
   (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(css-mode-hook
                                                       jade-mode
                                                       slim-mode)))
+(defun html/post-init-web-beautify ()
+  (add-to-list 'spacemacs-web-beautify--modes (cons 'css-mode 'web-beautify-css))
+  (add-to-list 'spacemacs-web-beautify--modes (cons 'web-mode 'web-beautify-html)))
