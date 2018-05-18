@@ -76,7 +76,7 @@ Backend can be chosen on a per project basis using directory local variables
 
 * Backends
 ** Tern
-See [[file:+tools/tern/README.org][tern layer]] documentation.
+See [[file:../../+tools/tern/README.org][tern layer]] documentation.
 
 ** Language Server Protocol
 You just have to install javascript and typescript language server packages:
