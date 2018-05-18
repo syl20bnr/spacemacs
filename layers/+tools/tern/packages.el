@@ -22,7 +22,7 @@
     :config
     (progn
       (spacemacs|hide-lighter tern-mode)
-      (dolist (mode tern-key-bindings-modes)
+      (dolist (mode tern--key-bindings-modes)
         (add-to-list (intern (format "spacemacs-jump-handlers-%S" mode))
                      '(tern-find-definition :async t))
         (spacemacs/set-leader-keys-for-major-mode mode

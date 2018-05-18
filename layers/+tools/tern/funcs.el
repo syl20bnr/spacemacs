@@ -12,7 +12,7 @@
 (defun spacemacs/tern-setup-tern ()
   "Setup tern backend.
 Must be called by a layer using tern."
-  (require tern)
+  (require 'tern)
   (when tern-disable-port-files
     (add-to-list 'tern-command "--no-port-file" 'append))
   (tern-mode))
@@ -22,7 +22,8 @@ Must be called by a layer using tern."
 Must be called by a layer using tern."
   (eval `(spacemacs|add-company-backends
            :backends company-tern
-           :modes ,@mode
+           :modes ,@modes
            :append-hooks nil
            :call-hooks t))
-  (company-mode))
+  (company-mode)
+  (tern-mode))
