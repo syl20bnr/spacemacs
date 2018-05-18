@@ -125,6 +125,7 @@
        spacemacs--ivy-file-actions)
 
       (define-key counsel-find-file-map (kbd "C-h") 'counsel-up-directory)
+      (define-key read-expression-map (kbd "C-r") 'counsel-minibuffer-history)
       ;; remaps built-in commands that have a counsel replacement
       (counsel-mode 1)
       (spacemacs|hide-lighter counsel-mode)
