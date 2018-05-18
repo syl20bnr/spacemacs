@@ -9,14 +9,6 @@
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//setup-rjsx-mode ()
-  "Adjust yas and emmet to accommodate rjsx-mode"
-  (emmet-mode 0)
-  ;; See https://github.com/CestDiego/emmet-mode/commit/3f2904196e856d31b9c95794d2682c4c7365db23
-  (setq-local emmet-expand-jsx-className? t)
-  ;; See https://github.com/syl20bnr/spacemacs/issues/8222
-  (set (make-local-variable 'company-minimum-prefix-length) 2))
-
 
 ;; Backend
 (defun spacemacs//react-setup-backend ()
@@ -50,6 +42,7 @@
         (spacemacs|add-company-backends
           :backends company-lsp
           :modes rjsx-mode
+          :variables company-minimum-prefix-length 2
           :append-hooks nil
           :call-hooks t)
         (company-mode))
