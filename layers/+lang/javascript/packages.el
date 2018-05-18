@@ -13,7 +13,6 @@
       '(
         add-node-modules-path
         company
-        (company-tern :requires company)
         counsel-gtags
         evil-matchit
         flycheck
@@ -45,10 +44,6 @@
 
 (defun javascript/post-init-company ()
   (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-company))
-
-(defun javascript/init-company-tern ()
-  (use-package company-tern
-    :defer t))
 
 (defun javascript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'js2-mode))
@@ -200,15 +195,8 @@
         "sR" 'spacemacs/skewer-eval-region-and-focus
         "ss" 'skewer-repl))))
 
-(defun javascript/init-tern ()
-  (use-package tern
-    :defer t
-    :config
-    (progn
-      (spacemacs|hide-lighter tern-mode)
-      (when javascript-disable-tern-port-files
-        (add-to-list 'tern-command "--no-port-file" 'append))
-      (spacemacs//set-tern-key-bindings 'js2-mode))))
+(defun javascript/post-init-tern ()
+  (add-to-list 'tern--key-bindings-modes 'js2-mode))
 
 (defun javascript/init-web-beautify ()
   (use-package web-beautify

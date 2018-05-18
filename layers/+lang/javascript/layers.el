@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layers '(node json))
+(configuration-layer/declare-layers '(json node tern))

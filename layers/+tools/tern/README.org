@@ -1,0 +1,65 @@
+#+TITLE: Tern layer
+
+[[file:img/tern.png]]
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#custom-tern-command][Custom tern command]]
+  - [[#re-use-the-server-across-multiple-different-editing-sessions][Re-use the server across multiple different editing sessions]]
+- [[#key-bindings][Key Bindings]]
+
+* Description
+This layer adds support for [[http://ternjs.net/][tern]] stand-alone code-analysis engine for
+JavaScript.
+
+** Features:
+- TODO: list the feature of tern supported by tern package
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =tern= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+You can install =tern= globally with the following command:
+#+BEGIN_SRC sh
+  $ npm install -g tern
+#+END_SRC
+
+* Configuration
+** Custom tern command
+Windows users may need to set the variable =tern-command= in order for emacs to
+locate and launch tern server successfully. See [[https://github.com/syl20bnr/spacemacs/issues/5733][this open issue for more
+details]]. The variable can be set by adding the =tern= layer with this
+configuration layer:
+
+#+BEGIN_SRC emacs-lisp
+(tern :variables tern-command '("node" "/path/to/tern/bin/tern"))
+#+END_SRC
+
+Note: =tern-command= must be a list of strings.
+
+** Re-use the server across multiple different editing sessions
+By default =tern= is setup to not create multiple =.tern-port= files in your
+repository.
+
+To make tern re-use the server across multiple different editing sessions (thus
+creating multiple =.tern-port= files for each document you have open [[http://ternjs.net/doc/manual.html][see here
+for more details]]) set the variable =tern-disable-port-files= to nil:
+
+#+BEGIN_SRC emacs-lisp
+  (tern :variables tern-disable-port-files nil)
+#+END_SRC
+
+* Key Bindings
+
+| Key Binding   | Description                                                                              |
+|---------------+------------------------------------------------------------------------------------------|
+| ~SPC m C-g~   | brings you back to last place you were when you pressed M-..                             |
+| ~SPC m g g~   | jump to the definition of the thing under the cursor                                     |
+| ~SPC m g G~   | jump to definition for the given name                                                    |
+| ~SPC m h d~   | find docs of the thing under the cursor. Press again to open the associated URL (if any) |
+| ~SPC m h t~   | find the type of the thing under the cursor                                              |
+| ~SPC m r r V~ | rename variable under the cursor using tern                                              |
