@@ -140,9 +140,13 @@
         (define-key helm-bookmark-map (kbd "C-/") 'helm-bookmark-help))
       (with-eval-after-load 'helm-bookmark
         (simpler-helm-bookmark-keybindings))
-      (define-key helm-buffer-map (kbd "RET") 'spacemacs/helm-find-buffers-windows)
-      (define-key helm-generic-files-map (kbd "RET") 'spacemacs/helm-find-files-windows)
-      (define-key helm-find-files-map (kbd "RET") 'spacemacs/helm-find-files-windows))))
+      (when (configuration-layer/package-used-p 'winum)
+        (define-key helm-buffer-map
+          (kbd "RET") 'spacemacs/helm-find-buffers-windows)
+        (define-key helm-generic-files-map
+          (kbd "RET") 'spacemacs/helm-find-files-windows)
+        (define-key helm-find-files-map
+          (kbd "RET") 'spacemacs/helm-find-files-windows)))))
 
 (defun helm/init-helm-ag ()
   (use-package helm-ag
