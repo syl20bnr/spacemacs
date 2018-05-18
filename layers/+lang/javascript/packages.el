@@ -30,7 +30,9 @@
                            :repo "emacs-lsp/lsp-javascript"))
         skewer-mode
         tern
-        web-beautify))
+        web-beautify
+        yasnippet
+        ))
 
 (defun javascript/post-init-add-node-modules-path ()
   (spacemacs/add-to-hooks #'add-node-modules-path '(css-mode-hook
@@ -211,3 +213,8 @@
         "=" 'web-beautify-html)
       (spacemacs/set-leader-keys-for-major-mode 'css-mode
         "=" 'web-beautify-css))))
+
+(defun javascript/pre-init-yasnippet ()
+  (spacemacs|use-package-add-hook yasnippet
+    :post-config
+    (yas-activate-extra-mode 'js-mode)))
