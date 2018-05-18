@@ -112,6 +112,7 @@ concatenations and contiguous function calls:
 
 * Key Bindings
 ** rjsx-mode
+
 | Key Binding   | Description                                                                      |
 |---------------+----------------------------------------------------------------------------------|
 | ~<~           | inserts </> whenever it would start a new JSX node                               |

@@ -23,6 +23,7 @@ To install =js-beautify= globally:
 #+END_SRC
 
 * Key Bindings
+
 | Key Binding | Description                       |
 |-------------+-----------------------------------|
 | ~SPC m =~   | beautify code in supported layers |
