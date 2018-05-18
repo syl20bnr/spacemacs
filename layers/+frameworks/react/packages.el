@@ -19,6 +19,7 @@
     js-doc
     rjsx-mode
     smartparens
+    tern
     web-beautify
     ))
 
@@ -82,6 +83,9 @@
   (if dotspacemacs-smartparens-strict-mode
       (add-hook 'react-mode-hook #'smartparens-strict-mode)
     (add-hook 'react-mode-hook #'smartparens-mode)))
+
+(defun react/post-init-tern ()
+  (add-to-list 'tern--key-bindings-modes 'rjsx-mode))
 
 (defun react/post-init-web-beautify ()
   (spacemacs/set-leader-keys-for-major-mode 'react-mode  "=" 'web-beautify-js))

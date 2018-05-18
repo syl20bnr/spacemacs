@@ -24,30 +24,14 @@
 (defun spacemacs//react-setup-backend ()
   "Conditionally setup react backend."
   (pcase javascript-backend
-    (`tern(spacemacs//react-setup-tern))
+    (`tern (spacemacs/tern-setup-tern))
     (`lsp (spacemacs//react-setup-lsp))))
 
 (defun spacemacs//react-setup-company ()
   "Conditionally setup company based on backend."
   (pcase javascript-backend
-    (`tern (spacemacs//react-setup-tern-company))
+    (`tern (spacemacs/tern-setup-tern-company 'rjsx-mode))
     (`lsp (spacemacs//react-setup-lsp-company))))
-
-
-;; Tern
-(defun spacemacs//react-setup-tern ()
-  "Setup tern backend."
-  (tern-mode)
-  (spacemacs//set-tern-key-bindings 'rjsx-mode))
-
-(defun spacemacs//react-setup-tern-company ()
-  "Setup tern auto-completion."
-  (spacemacs|add-company-backends
-    :backends company-tern
-    :modes rjsx-mode
-    :append-hooks nil
-    :call-hooks t)
-  (company-mode))
 
 
 ;; LSP

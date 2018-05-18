@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layers '(javascript))
+(configuration-layer/declare-layers '(javascript tern))
