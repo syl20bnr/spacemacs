@@ -79,32 +79,9 @@
       (when (version< emacs-version "25")
         (add-hook 'css-mode-hook 'spacemacs/run-prog-mode-hooks))
 
-      (defun css-expand-statement ()
-        "Expand CSS block"
-        (interactive)
-        (save-excursion
-          (end-of-line)
-          (search-backward "{")
-          (forward-char 1)
-          (while (or (eobp) (not (looking-at "}")))
-          (let ((beg (point)))
-            (newline)
-            (search-forward ";")
-            (indent-region beg (point))
-            ))
-          (newline)))
-
-      (defun css-contract-statement ()
-        "Contract CSS block"
-        (interactive)
-        (end-of-line)
-        (search-backward "{")
-        (while (not (looking-at "}"))
-          (join-line -1)))
-
       (spacemacs/set-leader-keys-for-major-mode 'css-mode
-        "zc" 'css-contract-statement
-        "zo" 'css-expand-statement))))
+        "zc" 'spacemacs/css-contract-statement
+        "zo" 'spacemacs/css-expand-statement)
 
 (defun html/init-emmet-mode ()
   (use-package emmet-mode
