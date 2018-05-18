@@ -71,7 +71,7 @@
                            '(spacemacs custom))
                      (spacemacs/mode-line-separator))
                 'wave)
-            powerline-image-apple-rgb (spacemacs/system-is-mac)
+            powerline-image-apple-rgb (eq window-system 'ns)
             powerline-scale (or (spacemacs/mode-line-separator-scale) 1.5))
       (spacemacs|do-after-display-system-init
        ;; seems to be needed to avoid weird graphical artefacts with the
