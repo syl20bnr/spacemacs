@@ -52,7 +52,7 @@ If you install these in non-standard locations, then add the following to your =
 #+END_SRC
 
 ** web-beautify
-See [[file:+tools/web-beautify/README.org][web-beautify layer]] documentation.
+See [[file:../../+tools/web-beautify/README.org][web-beautify layer]] documentation.
 
 ** Choosing a backend
 To choose a default backend set the layer variable =javascript-backend=:

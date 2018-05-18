@@ -32,7 +32,7 @@ add =json= to the existing =dotspacemacs-configuration-layers= list in this file
 To define the default indentation set the variable =js-indent-level=.
 
 ** web-beautify
-See [[file:+tools/web-beautify/README.org][web-beautify layer]] documentation.
+See [[file:../../+tools/web-beautify/README.org][web-beautify layer]] documentation.
 
 * Usage
 ** Reformat
