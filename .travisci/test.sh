@@ -2,7 +2,7 @@
 ## Test script for Travis CI integration
 ##
 ## Copyright (c) 2012-2014 Sylvain Benner
-## Copyright (c) 2014-2017 Sylvain Benner & Contributors
+## Copyright (c) 2014-2018 Sylvain Benner & Contributors
 ##
 ## Author: Eugene Yaremenko
 ## URL: https://github.com/syl20bnr/spacemacs
@@ -11,17 +11,53 @@
 ##
 ## License: GPLv3
 
-# Make sure that PR doesn't target master branch
-if  [ $TRAVIS_SECURE_ENV_VARS = false ] &&
-        [ $TRAVIS_PULL_REQUEST != false ] &&
-        [ "$TRAVIS_BRANCH" = "master" ]; then
+echo_headline () {
     printf '=%.0s' {1..70}
-    printf "\n       し(*･∀･)／   Thanks for the contribution!  ＼(･∀･*)ノ\n"
+    printf "\n$1\n"
     printf '=%.0s' {1..70}
-    printf "\n( ＾◡＾)っ Please submit your PR against the develop branch.\n"
-    echo   "You can read the contribution guidelines at:"
-    echo   "https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org"
-    exit 1
+    echo
+}
+
+echo_headline "FORMATTING DOCUMENTATION:"
+docker run --rm -v "${TRAVIS_BUILD_DIR}":/tmp/docs/ \
+       jare/spacedoc format /tmp/docs/
+if [ $? -ne 0 ]; then
+    echo "Formatting failed."
+    exit 2
 fi
 
-echo "Congratulations! It seems like you're PRing against the right branch!"
+git diff --color HEAD > /tmp/spacefmt_result
+if [[ -s /tmp/spacefmt_result ]]; then
+    echo_headline "PLEASE APPLY CHANGES BELOW:"
+    cat /tmp/spacefmt_result
+    exit 2
+fi
+echo "Done."
+
+echo_headline "TESTING DOCUMENTATION"
+docker run --rm -v "${TRAVIS_BUILD_DIR}":/tmp/docs/ \
+       -v /tmp/sdn-files/:/tmp/export/ \
+       jare/spacedoc export /tmp/docs/
+if [ $? -ne 0 ]; then
+    echo "Exporting failed."
+    exit 2
+fi
+echo "Done."
+
+echo_headline "VALIDATING DOCUMENTATION"
+docker run --rm -v /tmp/sdn-files/:/tmp/sdn-files/ \
+       jare/spacedoc validate -i /tmp/sdn-files/
+if [ $? -ne 0 ]; then
+    echo "Validation failed."
+    exit 2
+fi
+echo "Done."
+
+echo_headline "CHECKING FOR MISPLACED SPACES AND TABS"
+git diff --check --color > /tmp/space_test_result
+if [[ -s /tmp/space_test_result ]]; then
+    echo_headline "PLEASE FIX ISSUES BELOW:"
+    cat /tmp/space_test_result
+    exit 2
+fi
+echo "Done."

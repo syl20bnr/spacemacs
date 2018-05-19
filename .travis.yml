@@ -1,7 +1,9 @@
 ---
 # TravisCI YAML file
 language: generic
-sudo: false
+sudo: required
+services:
+  - docker
 branches:
   only:
   - master
@@ -13,11 +15,15 @@ env:
   - secure: "M8NF1Uw7VGkLdNmWiUF4T+VOJXwN8KCKVQb45/BWVpGm88Rcfom/9bxRTUme8VYuzIavph32QF+P9KyhX8aj2p2FMItNnxiEySzap5UrLrNiwB6ZxbQglMJj0yMQKASynNBai9KKI7mYlsM5jRpFJ9OSgj7Ko00RIFpO3EpJ+kE="
   - BOT_NAME=emacspace
   - BOT_EMAIL=emacspace@gmail.com
+before_script:
+- docker pull jare/spacedoc:latest
 script: ".travisci/test.sh"
+before_deploy:
+  - ".travisci/pub_prep.sh"
 deploy:
   skip_cleanup: true
   provider: script
   script: ".travisci/pub.sh"
   on:
     all_branches: true
-    condition: $TRAVIS_SECURE_ENV_VARS = true
+    condition: $TRAVIS_REPO_SLUG = "syl20bnr/spacemacs"
