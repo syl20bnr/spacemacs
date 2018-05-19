@@ -272,6 +272,6 @@
   (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(css-mode-hook
                                                       jade-mode
                                                       slim-mode)))
-(defun html/post-init-web-beautify ()
+(defun html/pre-init-web-beautify ()
   (add-to-list 'spacemacs-web-beautify--modes (cons 'css-mode 'web-beautify-css))
   (add-to-list 'spacemacs-web-beautify--modes (cons 'web-mode 'web-beautify-html)))

@@ -87,5 +87,5 @@
 (defun react/post-init-tern ()
   (add-to-list 'tern--key-bindings-modes 'rjsx-mode))
 
-(defun react/post-init-web-beautify ()
+(defun react/pre-init-web-beautify ()
   (add-to-list 'spacemacs-web-beautify--modes (cons 'rjsx-mode 'web-beautify-js)))

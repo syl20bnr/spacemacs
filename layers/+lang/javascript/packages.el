@@ -200,7 +200,7 @@
 (defun javascript/post-init-tern ()
   (add-to-list 'tern--key-bindings-modes 'js2-mode))
 
-(defun javascript/post-init-web-beautify ()
+(defun javascript/pre-init-web-beautify ()
   (add-to-list 'spacemacs-web-beautify--modes (cons 'js2-mode 'web-beautify-js)))
 
 (defun javascript/pre-init-yasnippet ()
