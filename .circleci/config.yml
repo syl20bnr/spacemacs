@@ -59,24 +59,6 @@ jobs:
       - run:
           name: Make sure that this isn't a PR to master
           command: ./.circleci/PR_base
-  # Emacs 24
-  "core Emacs24 (required)":
-    docker:
-      - image: jare/spacemacs-circleci:emacs24
-    working_directory: ~/.emacs.d
-    <<: *steps_core_steps
-
-  "spacemacs-base dist. Emacs24 (required)":
-    docker:
-      - image: jare/spacemacs-circleci:emacs24
-    working_directory: ~/.emacs.d
-    <<: *spacemacs_base_steps
-
-  "spacemacs dist. Emacs24 (required)":
-    docker:
-      - image: jare/spacemacs-circleci:emacs24
-    working_directory: ~/.emacs.d
-    <<: *spacemacs_steps
 
   # Emacs 25
   "core Emacs25 (required)":
@@ -132,15 +114,6 @@ workflows:
   build:
     jobs:
       - "Validate PR"
-      - "core Emacs24 (required)":
-          requires:
-            - "Validate PR"
-#      - "spacemacs-base dist. Emacs24 (required)":
-#          requires:
-#            - "Validate PR"
-#      - "spacemacs dist. Emacs24 (required)":
-#          requires:
-#            - "Validate PR"
       - "core Emacs25 (required)":
           requires:
             - "Validate PR"
