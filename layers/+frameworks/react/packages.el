@@ -60,7 +60,7 @@
            (re-search-forward "\\(^\\s-*import React\\|\\( from \\|require(\\)[\"']react\\)"
                               magic-mode-regexp-match-limit t)
            (progn (goto-char (match-beginning 1))
-                  (not (inside-string-or-comment-q)))))
+                  (not (spacemacs//react-inside-string-or-comment-q)))))
 
     (push (cons #'+javascript-jsx-file-p 'rjsx-mode) magic-mode-alist)
 
