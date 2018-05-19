@@ -28,10 +28,9 @@
     :defer t
     :init
     (spacemacs/set-leader-keys
-      "ft"    #'treemacs-toggle
-      "fT"    #'treemacs
-      "fB"    #'treemacs-bookmark
-      "f C-t" #'treemacs-find-file)
+      "fB" #'treemacs-bookmark
+      "ft" #'treemacs
+      "fT" #'treemacs-find-file)
     :config
     (progn
       (spacemacs/define-evil-state-face "treemacs" "MediumPurple1")
