@@ -387,7 +387,7 @@ fix this issue."
                                               hy-mode-hook))
   (defadvice python-indent-dedent-line-backspace
       (around python/sp-backward-delete-char activate)
-    (let ((pythonp (or (not smartparens-strict-mode)
+    (let ((pythonp (or (not (bound-and-true-p smartparens-strict-mode))
                        (char-equal (char-before) ?\s))))
       (if pythonp
           ad-do-it
