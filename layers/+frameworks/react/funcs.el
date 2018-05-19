@@ -49,6 +49,12 @@
     (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
 
 
+;; Emmet
+(defun spacemacs/react-emmet-mode ()
+  "Activate `emmet-mode' and configure it for local buffer."
+  (emmet-mode)
+  (setq-local emmet-expand-jsx-className? t))
+
 ;; Others
 (defun inside-string-q ()
   "Returns non-nil if inside string, else nil.

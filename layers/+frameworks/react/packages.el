@@ -30,7 +30,7 @@
   (add-hook 'rjsx-mode-local-vars-hook #'spacemacs//react-setup-company))
 
 (defun react/post-init-emmet-mode ()
-  (add-hook 'rjsx-mode-hook 'emmet-mode))
+  (add-hook 'rjsx-mode-hook 'spacemacs/react-emmet-mode))
 
 (defun react/post-init-evil-matchit ()
   (with-eval-after-load 'evil-matchit
