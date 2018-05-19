@@ -35,4 +35,6 @@
     (spacemacs/setup-startup-hook)
     (when dotspacemacs-enable-server
       (require 'server)
+      (when dotspacemacs-server-socket-dir
+        (setq server-socket-dir dotspacemacs-server-socket-dir))
       (unless (server-running-p) (server-start)))))
