@@ -164,6 +164,7 @@
           "sf" 'ruby-send-definition
           "sF" 'ruby-send-definition-and-go
           "si" 'robe-start
+          "sl" 'ruby-send-line
           "sr" 'ruby-send-region
           "sR" 'ruby-send-region-and-go
           "ss" 'ruby-switch-to-inf)))))
