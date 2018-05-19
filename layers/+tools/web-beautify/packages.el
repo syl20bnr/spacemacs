@@ -16,7 +16,7 @@
     :defer t
     :init
     (dolist (x spacemacs-web-beautify--modes)
-      (spacemacs/set-leader-keys-for-major-mode (car x) "=" (cadr x)))
+      (spacemacs/set-leader-keys-for-major-mode (car x) "=" (cdr x)))
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'js2-mode
         "=" 'web-beautify-js)
