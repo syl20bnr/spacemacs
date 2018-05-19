@@ -31,6 +31,7 @@ if [ $? -ne 0 ]; then
     echo "Installation failed"
     exit 2
 fi
+echo "DONE!"
 
 echo_headline "INSTALLING DEPENDENCIES:"
 cp ~/.emacs.d/.travisci/.spacemacs ~/
@@ -40,6 +41,15 @@ if [ $? -ne 0 ]; then
     echo "Dependencies installation failed."
     exit 2
 fi
-
 echo "DONE!"
+
+echo_headline "EXPORTING DOCUMENTATION:"
+emacs -batch -l init.el -l core/core-documentation.el \
+      -f spacemacs/publish-doc
+if [ $? -ne 0 ]; then
+    echo "spacemacs/publish-doc failed"
+    exit 2
+fi
+echo "DONE!"
+
 exit 0
