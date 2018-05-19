@@ -187,6 +187,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "ee" 'org-export-dispatch
 
         "a" 'org-agenda
+        "r" 'org-reveal
 
         "Tc" 'org-toggle-checkbox
         "Te" 'org-toggle-pretty-entities
