@@ -33,7 +33,7 @@ Clone Emacs from [[https://git.savannah.gnu.org/git/emacs.git]]:
 #+END_SRC
 
 *** Simple patch of Emacs source code
-We need to increase the number of =remember_data= slots in =src/pdumper.c=, we
+We need to increase the number of =remembered_data= slots in =src/pdumper.c=, we
 double the number of slots by replacing 32 with 64:
 
 #+BEGIN_SRC c
