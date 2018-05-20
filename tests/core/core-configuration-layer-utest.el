@@ -924,7 +924,7 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (mocker-let
      ((file-exists-p (f) ((:output t :occur 2)))
-      (load (f) ((:output nil :occur 1))))
+      (load (f &optional noerr nomsg) ((:output nil :occur 1))))
      (should (equal (cfgl-layer "layer"
                                 :name 'layer
                                 :disabled-for nil
@@ -943,7 +943,7 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (mocker-let
      ((file-exists-p (f) ((:output t :occur 2)))
-      (load (f) ((:output nil :occur 1))))
+      (load (f &optional noerr nomsg) ((:output nil :occur 1))))
      (should (equal (cfgl-layer "layer"
                                 :name 'layer
                                 :disabled-for nil
@@ -976,7 +976,7 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (mocker-let
      ((file-exists-p (f) ((:output t :occur 2)))
-      (load (f) ((:output nil :occur 1))))
+      (load (f &optional noerr nomsg) ((:output nil :occur 1))))
      (should (equal (cfgl-layer "layer"
                                 :name 'layer
                                 :disabled-for '(pkg8 pkg9)
@@ -1019,7 +1019,7 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (mocker-let
      ((file-exists-p (f) ((:output t :occur 2)))
-      (load (f) ((:output nil :occur 1))))
+      (load (f &optional noerr nomsg) ((:output nil :occur 1))))
      (should (equal (cfgl-layer "layer"
                                 :name 'layer
                                 :disabled-for '(pkg8 pkg9)
