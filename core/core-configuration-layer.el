@@ -179,7 +179,12 @@ subdirectory of ROOT is used."
    (can-shadow :initarg :can-shadow
                :initform 'unspecified
                :type (satisfies (lambda (x) (or (listp x) (eq 'unspecified x))))
-               :documentation "A list of layers this layer can shadow."))
+               :documentation "A list of layers this layer can shadow.")
+   (deps-loaded :initarg :deps-loaded
+                :initform nil
+                :type boolean
+                :documentation
+                "Boolean to track wether layers.el has been loaded."))
   "A configuration layer.")
 
 (defmethod cfgl-layer-owned-packages ((layer cfgl-layer) &optional props)
@@ -1406,7 +1411,9 @@ wether the declared layer is an used one or not."
                     usedp)))
           (configuration-layer//add-layer obj usedp)
           (configuration-layer//set-layer-variables obj)
-          (when (or usedp configuration-layer--load-packages-files)
+          (when (and (not (oref layer :deps-loaded))
+                     (or usedp configuration-layer--load-packages-files))
+            (oset layer :deps-loaded t)
             (configuration-layer//load-layer-files layer-name '("layers.el"))))
       (configuration-layer//warning "Unknown declared layer %s." layer-name))))
 
