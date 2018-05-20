@@ -15,7 +15,7 @@
         hy-mode
         ob-hy
         pyenv-mode
-        pyvenv-mode
+        pyvenv
         smartparens
         ))
 
@@ -39,7 +39,8 @@
       (spacemacs/declare-prefix-for-mode 'hy-mode "me" "eval")
       (spacemacs/declare-prefix-for-mode 'hy-mode "md" "debug")
       (spacemacs/declare-prefix-for-mode 'hy-mode "mt" "test")
-      (spacemacs/declare-prefix-for-mode 'hy-mode "mV" "pyvenv")
+      (spacemacs/declare-prefix-for-mode 'hy-mode "ms" "REPL")
+      (spacemacs/declare-prefix-for-mode 'hy-mode "mv" "pyvenv")
       (spacemacs/set-leader-keys-for-major-mode 'hy-mode
         "dd" 'hy-insert-pdb
         "dt" 'hy-insert-pdb-threaded
@@ -67,7 +68,7 @@
 (defun hy/pre-init-pyenv-mode ()
   (add-to-list 'spacemacs--python-pyenv-modes 'hy-mode))
 
-(defun hy/pre-init-pyvenv-mode ()
+(defun hy/pre-init-pyvenv ()
   (add-to-list 'spacemacs--python-pyvenv-modes 'hy-mode))
 
 (defun hy/post-init-smartparens ()
