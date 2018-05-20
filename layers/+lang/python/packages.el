@@ -382,16 +382,18 @@ fix this issue."
         ad-do-it
       (error nil))))
 
-(defun python/post-init-smartparens ()
+(defun python/pre-init-smartparens ()
   (spacemacs/add-to-hooks 'smartparens-mode '(inferior-python-mode-hook
                                               hy-mode-hook))
-  (defadvice python-indent-dedent-line-backspace
-      (around python/sp-backward-delete-char activate)
-    (let ((pythonp (or (not (bound-and-true-p smartparens-strict-mode))
-                       (char-equal (char-before) ?\s))))
-      (if pythonp
-          ad-do-it
-        (call-interactively 'sp-backward-delete-char)))))
+  (spacemacs|use-package-add-hook smartparens
+    :post-config
+    (defadvice python-indent-dedent-line-backspace
+        (around python/sp-backward-delete-char activate)
+      (let ((pythonp (or (not smartparens-strict-mode)
+                         (char-equal (char-before) ?\s))))
+        (if pythonp
+            ad-do-it
+          (call-interactively 'sp-backward-delete-char))))))
 
 (defun python/post-init-stickyfunc-enhance ()
   (add-hook 'python-mode-hook 'spacemacs/load-stickyfunc-enhance))
