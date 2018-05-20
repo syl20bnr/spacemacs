@@ -101,7 +101,7 @@ jobs:
   # Formatting
   "Formatting (optional)":
     docker:
-      - image: jare/spacemacs-circleci:emacs25
+      - image: jare/spacemacs-circleci:latest
     working_directory: ~/.emacs.d
     steps:
       - checkout
