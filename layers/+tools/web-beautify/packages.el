@@ -15,5 +15,5 @@
   (use-package web-beautify
     :defer t
     :init
-    (dolist (x spacemacs-web-beautify--modes)
+    (dolist (x spacemacs--web-beautify-modes)
       (spacemacs/set-leader-keys-for-major-mode (car x) "=" (cdr x)))))

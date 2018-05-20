@@ -11,5 +11,5 @@
 
 ;; Variables
 
-(defvar spacemacs-web-beautify--modes nil
+(defvar spacemacs--web-beautify-modes nil
   "List of cons cell (mode . web-beautify-function).")

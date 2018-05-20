@@ -56,4 +56,4 @@
       "hp" 'jsons-print-path)))
 
 (defun json/pre-init-web-beautify ()
-  (add-to-list 'spacemacs-web-beautify--modes (cons 'json-mode 'web-beautify-js)))
+  (add-to-list 'spacemacs--web-beautify-modes (cons 'json-mode 'web-beautify-js)))
