@@ -21,7 +21,6 @@
     helm-cscope
     helm-gtags
     (helm-pydoc :requires helm)
-    hy-mode
     importmagic
     live-py-mode
     (nose :location local)
@@ -130,22 +129,7 @@
     :init
     (spacemacs/set-leader-keys-for-major-mode 'python-mode "hd" 'helm-pydoc)))
 
-(defun python/init-hy-mode ()
-  (use-package hy-mode
-    :defer t
-    :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'hy-mode
-        "si" 'inferior-lisp
-        "sb" 'lisp-load-file
-        "sB" 'switch-to-lisp
-        "ee" 'lisp-eval-last-sexp
-        "ef" 'lisp-eval-defun
-        "eF" 'lisp-eval-defun-and-go
-        "er" 'lisp-eval-region
-        "eR" 'lisp-eval-region-and-go)
-      ;; call `spacemacs//python-setup-hy' once, don't put it in a hook (see issue #5988)
-      (spacemacs//python-setup-hy))))
+
 
 (defun python/init-importmagic ()
   (use-package importmagic
@@ -227,6 +211,8 @@
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "rI" 'py-isort-buffer))))
 
+(defun python/pre-init-pyenv-mode ()
+  (add-to-list 'spacemacs--python-pyenv-modes 'python-mode))
 (defun python/init-pyenv-mode ()
   (use-package pyenv-mode
     :if (executable-find "pyenv")
@@ -235,9 +221,9 @@
     (progn
       (pcase python-auto-set-local-pyenv-version
        (`on-visit
-        (spacemacs/add-to-hooks 'spacemacs//pyenv-mode-set-local-version
-                                '(python-mode-hook
-                                  hy-mode-hook)))
+        (dolist (m spacemacs--python-pyenv-modes)
+          (add-hook (intern (format "%s-hook" m))
+                    'spacemacs//pyenv-mode-set-local-version)))
        (`on-project-switch
         (add-hook 'projectile-after-switch-project-hook
                   'spacemacs//pyenv-mode-set-local-version)))
@@ -248,6 +234,8 @@
         "vu" 'pyenv-mode-unset
         "vs" 'pyenv-mode-set))))
 
+(defun python/pre-init-pyvenv-mode ()
+  (add-to-list 'spacemacs--python-pyvenv-modes 'python-mode))
 (defun python/init-pyvenv ()
   (use-package pyvenv
     :defer t
@@ -255,14 +243,14 @@
     (progn
       (pcase python-auto-set-local-pyvenv-virtualenv
         (`on-visit
-         (spacemacs/add-to-hooks 'spacemacs//pyvenv-mode-set-local-virtualenv
-                                 '(python-mode-hook
-                                   hy-mode-hook)))
+         (dolist (m spacemacs--python-pyvenv-modes)
+           (add-hook (intern (format "%s-hook" m))
+                     'spacemacs//pyvenv-mode-set-local-virtualenv)))
         (`on-project-switch
          (add-hook 'projectile-after-switch-project-hook
                    'spacemacs//pyvenv-mode-set-local-virtualenv)))
-      (dolist (mode '(python-mode hy-mode))
-        (spacemacs/set-leader-keys-for-major-mode mode
+      (dolist (m spacemacs--python-pyvenv-modes)
+        (spacemacs/set-leader-keys-for-major-mode m
           "va" 'pyvenv-activate
           "vd" 'pyvenv-deactivate
           "vw" 'pyvenv-workon))
@@ -383,8 +371,6 @@ fix this issue."
       (error nil))))
 
 (defun python/pre-init-smartparens ()
-  (spacemacs/add-to-hooks 'smartparens-mode '(inferior-python-mode-hook
-                                              hy-mode-hook))
   (spacemacs|use-package-add-hook smartparens
     :post-config
     (defadvice python-indent-dedent-line-backspace
@@ -394,6 +380,8 @@ fix this issue."
         (if pythonp
             ad-do-it
           (call-interactively 'sp-backward-delete-char))))))
+(defun python/post-init-smartparens ()
+  (add-hook 'inferior-python-mode-hook 'smartparens-mode))
 
 (defun python/post-init-stickyfunc-enhance ()
   (add-hook 'python-mode-hook 'spacemacs/load-stickyfunc-enhance))
