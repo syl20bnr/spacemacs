@@ -42,9 +42,11 @@
       (global-font-lock-mode)
       (global-undo-tree-mode t)
       (winner-mode t))
-    ;; (when dotspacemacs-enable-server
-    ;;   (require 'server)
-    ;;   (unless (server-running-p) (server-start)))
+    (when (and dotspacemacs-enable-server (not (spacemacs-is-dumping-p)))
+      (require 'server)
+      (unless (server-running-p)
+        (message "Starting a server...")
+        (server-start)))
     (spacemacs|when-dumping-strict
       (setq load-path-backup load-path)
       ;; disable undo-tree to prevent from segfaulting when loading the dump
