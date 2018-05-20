@@ -90,8 +90,8 @@ Otherwise does nothing."
     "gG" 'helm-gtags-dwim-other-window
     "gi" 'helm-gtags-tags-in-this-function
     "gl" 'helm-gtags-parse-file
-    "gn" 'helm-gtags-next-history
-    "gp" 'helm-gtags-previous-history
+    "gn" 'helm-gtags-go-forward
+    "gp" 'helm-gtags-go-backward
     "gr" 'helm-gtags-find-rtag
     "gR" 'helm-gtags-resume
     "gs" 'helm-gtags-select
