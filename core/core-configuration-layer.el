@@ -687,6 +687,7 @@ If USEDP or `configuration-layer--load-packages-files' is non-nil then the
   (let* ((layer-name (if (listp layer-specs) (car layer-specs) layer-specs))
          (obj (if obj obj (cfgl-layer (symbol-name layer-name)
                                       :name layer-name)))
+         (packages (oref obj :packages))
          (dir (or dir (oref obj :dir))))
     (if (or (null dir)
             (and dir (not (file-exists-p dir))))
@@ -708,13 +709,12 @@ If USEDP or `configuration-layer--load-packages-files' is non-nil then the
                   (spacemacs/mplist-get layer-specs :can-shadow)
                 'unspecified))
              (packages-file (concat dir "packages.el"))
-             (packages
-              (if (and (or usedp configuration-layer--load-packages-files)
-                       (file-exists-p packages-file))
-                  (progn
-                    (load packages-file)
-                    (symbol-value (intern (format "%S-packages" layer-name))))
-                (oref obj :packages)))
+             (packages (when (and (null packages)
+                                  (or usedp configuration-layer--load-packages-files)
+                                  (file-exists-p packages-file))
+                         (load packages-file)
+                         (symbol-value (intern (format "%S-packages"
+                                                       layer-name)))))
              (selected-packages (if packages
                                     (configuration-layer//select-packages
                                      layer-specs packages)
