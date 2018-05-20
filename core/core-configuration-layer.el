@@ -415,7 +415,7 @@ cache folder.")
 
 (defun configuration-layer/load-lock-file ()
   "Load the .lock file"
-  (load-file configuration-layer-lock-file))
+  (load configuration-layer-lock-file nil (not init-file-debug)))
 
 (defun configuration-layer/initialize ()
   "Initialize `package.el'."
@@ -611,7 +611,7 @@ To prevent package from being installed or uninstalled set the variable
   (let ((file (concat configuration-layer-directory "auto-layer.el")))
     (when (file-exists-p file)
       (spacemacs-buffer/message "Loading auto-layer file...")
-      (load-file file))))
+      (load file nil (not init-file-debug)))))
 
 (defun configuration-layer/create-layer ()
   "Ask the user for a configuration layer name and the layer
@@ -717,7 +717,7 @@ If USEDP or `configuration-layer--load-packages-files' is non-nil then the
              (packages (when (and (null packages)
                                   (or usedp configuration-layer--load-packages-files)
                                   (file-exists-p packages-file))
-                         (load packages-file)
+                         (load packages-file nil (not init-file-debug))
                          (symbol-value (intern (format "%S-packages"
                                                        layer-name)))))
              (selected-packages (if packages
@@ -1577,7 +1577,7 @@ RNAME is the name symbol of another existing layer."
     (when obj
       (dolist (file files)
         (let ((file (concat (oref obj :dir) file)))
-          (if (file-exists-p file) (load file)))))))
+          (if (file-exists-p file) (load file nil (not init-file-debug))))))))
 
 (defun configuration-layer/configured-packages-stats (packages)
   "Return a statistics alist regarding the number of configured PACKAGES."
@@ -2126,7 +2126,7 @@ to select one."
                                configuration-layer-rollback-info))))
       (spacemacs-buffer/append
        (format "\nRollbacking ELPA packages from slot %s...\n" slot-dir))
-      (load-file info-file)
+      (load info-file nil (not init-file-debug))
       (let ((rollback-count (length update-packages-alist))
             (rollbacked-count 0))
         (spacemacs-buffer/append
