@@ -58,13 +58,42 @@ In the root directory of your freshly cloned Emacs repository and with the
 #+END_SRC
 
 *** Update your dotfile
-A new user dotfile function has been added which is called before doing the
-dump. The function name is =dotspacemacs/user-load=.
+In the function =dotspacemacs/init= add the following variables if you have
+not them already and intialize them:
 
-You can copy/paste the following snippet in your dotfile and provide a
-value for =dotspacemacs-emacs-pdumper-executable-file= which must point to
-the Emacs executable you compiled at the previous step. For me it was:
-"~/dev/emacs/src/emacs"
+#+BEGIN_SRC emacs-lisp
+(defun dotspacemacs/init ()
+ "Initialization:
+  This function is called at the very beginning of Spacemacs startup,
+  before layer configuration.
+  It should only modify the values of Spacemacs settings."
+    (setq-default
+
+   ;; If non-nil then enable support for the portable dumper. You'll need
+   ;; to compile Emacs 27 from source following the instructions in file
+   ;; EXPERIMENTAL.org at to root of the git repository.
+   ;; (default nil)
+   dotspacemacs-enable-emacs-pdumper t
+
+   ;; File path pointing to emacs 27.1 executable compiled with support
+   ;; for the portable dumper (this is currently the branch pdumper).
+   ;; (default "emacs")
+   dotspacemacs-emacs-pdumper-executable-file "/path/to/emacs27"
+
+   ;; Name of the Spacemacs dump file. This is the file will be created by the
+   ;; portable dumper in the cache directory under dumps sub-directory.
+   ;; To load it when starting Emacs add the parameter `--dump-file'
+   ;; when invoking Emacs 27.1 executable on the command line, for instance:
+   ;;   ./emacs --dump-file=~/.emacs.d/.cache/dumps/spacemacs.pdmp
+   ;; (default spacemacs.pdmp)
+   dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"))
+#+END_SRC
+
+A new user dotfile function has been added which is called before doing the
+dump. The function name is =dotspacemacs/user-load=. You can require additional
+libraries before the dump so they won't need to be lazy loaded.
+
+Add this to your dotfile if you don't have it already.
 
 #+BEGIN_SRC emacs-lisp
 (defun dotspacemacs/user-load ()
@@ -72,35 +101,14 @@ the Emacs executable you compiled at the previous step. For me it was:
 This function is called while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included
 in the dump."
-  (setq-default
-
-   ;; Absolute file path pointing to emacs 27.1 executable compiled with support
-   ;; for the portable dumper (this is currently the branch pdumper)
-   ;; If nil then automatic Emacs dump is disabled.
-   ;; (default nil)
-   dotspacemacs-emacs-pdumper-executable-file nil
-
-   ;; Name of the Spacemacs dump file. This is the file will be created by the
-   ;; portable dumper in the cache directory under dumps sub-directory.
-   ;; To load it when starting Emacs add the parameter `--dump-file'
-   ;; when invoking Emacs 27.1 executable on the command line, for instance:
-   ;;   ./emacs --dump-file=/Users/sylvain/.emacs.d/.cache/dumps/spacemacs.pdmp
-   ;; (default spacemacs.pdmp)
-   dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"))
+  )
 #+END_SRC
 
 *** Test
-Checkout the =moon= branch in `.emacs.d` and launch your Emacs as you usually
-do. It can be Emacs 25.1 or later this is not important but obviously you can
-also use the compiled Emacs version.
-
-*Note:* the =moon= branch may be force-pushed regularly in order to rebase it
-against the =develop= branch.
-
-Each time Emacs starts, Spacemacs will check if the list of your layers has
-changed, if it has changed then Emacs will be automatically dumped for you in
-an asynchronous process. The buffer for the output of the process is named
-=*spacemacs dumper*=.
+Restart Emacs. Each time Emacs starts, Spacemacs will check if the list of your
+layers has changed, if it has changed then Emacs will be automatically dumped
+for you in an asynchronous process. The buffer for the output of the process is
+named =*spacemacs dumper*=.
 
 If you have no error during the dump you can test it out!
 
@@ -118,10 +126,10 @@ If you want to report an issue regarding this new feature please use the label
 All the related issues can be found with [[https://github.com/syl20bnr/spacemacs/labels/Portable%20Dumper][this link]].
 
 ** Usage
-Once =dotspacemacs-emacs-pdumper-executable-file= is set to a non-nil and valid
-file path to an Emacs 27.1 executable Emacs will be redumped automatically each
-time the layer list changes or the =--force-dump= parameter is passed on the
-command line.
+Once =dotspacemacs-enable-emacs-pdumper= is set to =t= and
+=dotspacemacs-emacs-pdumper-executable-file= is set to a valid file path to an
+Emacs 27.1 executable, Emacs will be redumped automatically each time the layer
+list changes or the =--force-dump= parameter is passed on the command line.
 
 To use the created dump file, open a shell in the =src= directory of the cloned
 Emacs source and type:

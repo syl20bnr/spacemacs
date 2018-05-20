@@ -59,7 +59,7 @@ You should not used this function, it is reserved for some specific process."
 
 (defun spacemacs/emacs-with-pdumper-set-p ()
   "Return non-nil if a portable dumper capable emacs executable is set."
-  (and dotspacemacs-emacs-pdumper-executable-file
+  (and dotspacemacs-enable-emacs-pdumper
        (file-exists-p dotspacemacs-emacs-pdumper-executable-file)))
 
 (defun spacemacs/dump-emacs ()
@@ -69,21 +69,19 @@ You should not used this function, it is reserved for some specific process."
     (delete-process spacemacs-dump-process)
     (with-current-buffer spacemacs-dump-buffer-name
       (erase-buffer)))
-  (let ((default-directory (file-name-directory
-                            dotspacemacs-emacs-pdumper-executable-file)))
-    (make-directory spacemacs-dump-directory t)
-    (setq spacemacs-dump-process
-          (make-process
-           :name "spacemacs-dumper"
-           :buffer spacemacs-dump-buffer-name
-           :command
-           (list dotspacemacs-emacs-pdumper-executable-file
-                 "--batch"
-                 "-l" "~/.emacs.d/dump-init.el"
-                 "-eval" (concat "(dump-emacs-portable \""
-                                 (concat spacemacs-dump-directory
-                                         dotspacemacs-emacs-dumper-dump-file)
-                                 "\")"))))))
+  (make-directory spacemacs-dump-directory t)
+  (setq spacemacs-dump-process
+        (make-process
+         :name "spacemacs-dumper"
+         :buffer spacemacs-dump-buffer-name
+         :command
+         (list dotspacemacs-emacs-pdumper-executable-file
+               "--batch"
+               "-l" "~/.emacs.d/dump-init.el"
+               "-eval" (concat "(dump-emacs-portable \""
+                               (concat spacemacs-dump-directory
+                                       dotspacemacs-emacs-dumper-dump-file)
+                               "\")")))))
 
 ;; ;; Brute-force load all .el files in ELPA packages
 ;; (dolist (d (directory-files package-user-dir t nil 'nosort))

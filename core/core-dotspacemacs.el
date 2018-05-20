@@ -55,10 +55,14 @@ exists. Otherwise, fallback to ~/.spacemacs"))
 `+distributions'. For now available distributions are `spacemacs-base'
 or `spacemacs'.")
 
-(defvar dotspacemacs-emacs-pdumper-executable-file nil
-  "Absolute file path pointing to emacs 27.1 executable compiled with support
-for the portable dumper (this is currently the branch pdumper).
-If nil then automatic dump of emacs is disabled.")
+(defvar dotspacemacs-enable-emacs-pdumper nil
+  "If non-nil then enable support for the portable dumper. You'll need
+to compile Emacs 27 from source following the instructions in file
+EXPERIMENTAL.org at to root of the git repository.")
+
+(defvar dotspacemacs-emacs-pdumper-executable-file "emacs"
+  "File path pointing to emacs 27.1 executable compiled with support for the
+portable dumper (this is currently the branch pdumper.")
 
 (defvar dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"
   "Name of the Spacemacs dump file. This is the file will be created by the
