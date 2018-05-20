@@ -35,7 +35,6 @@ To install =hy= globally:
 #+END_SRC
 
 * Key Bindings
-
 ** Debug
 
 | Key Binding | Description         |
