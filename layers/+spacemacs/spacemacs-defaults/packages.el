@@ -217,13 +217,12 @@
       (when (spacemacs//linum-backward-compabitility)
         (add-hook 'prog-mode-hook 'display-line-numbers-mode)
         (add-hook 'text-mode-hook 'display-line-numbers-mode))
-      (when dotspacemacs-line-numbers
-        (global-display-line-numbers-mode)))
 
-    :config
-    (progn
-      (advice-add #'display-line-numbers--turn-on
-                  :around #'spacemacs//linum-on))))
+      ;; it's ok to add an advice before the function is defined, and we must
+      ;; add this advice before calling `global-display-line-numbers-mode'
+      (advice-add #'display-line-numbers--turn-on :around #'spacemacs//linum-on)
+      (when dotspacemacs-line-numbers
+        (global-display-line-numbers-mode)))))
 
 (defun spacemacs-defaults/init-linum ()
   (use-package linum
