@@ -55,7 +55,7 @@ In the root directory of your freshly cloned Emacs repository and with the
 
 #+BEGIN_SRC shell
   ./autogen.sh
-  ./configure --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules --prefix="${HOME}/local"
+  ./configure --with-ns --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules
 #+END_SRC
 
 **** Ubuntu
@@ -64,7 +64,7 @@ In the root directory of your freshly cloned Emacs repository and with the
 
 #+BEGIN_SRC shell
   ./autogen.sh
-  ./configure --with-ns --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules
+  ./configure --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules --prefix="$HOME/.local"
 #+END_SRC
 
 If you have never compile Emacs from source on your machine then you probably
