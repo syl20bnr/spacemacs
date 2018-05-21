@@ -213,6 +213,7 @@
 
 (defun python/pre-init-pyenv-mode ()
   (add-to-list 'spacemacs--python-pyenv-modes 'python-mode))
+
 (defun python/init-pyenv-mode ()
   (use-package pyenv-mode
     :if (executable-find "pyenv")
@@ -234,8 +235,9 @@
         "vu" 'pyenv-mode-unset
         "vs" 'pyenv-mode-set))))
 
-(defun python/pre-init-pyvenv-mode ()
+(defun python/pre-init-pyvenv ()
   (add-to-list 'spacemacs--python-pyvenv-modes 'python-mode))
+
 (defun python/init-pyvenv ()
   (use-package pyvenv
     :defer t
