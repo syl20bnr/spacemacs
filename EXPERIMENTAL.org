@@ -7,6 +7,7 @@
     - [[#simple-patch-of-emacs-source-code][Simple patch of Emacs source code]]
     - [[#compile-emacs-from-source][Compile Emacs from source]]
       - [[#macos][MacOS]]
+      - [[#ubuntu][Ubuntu]]
     - [[#update-your-dotfile][Update your dotfile]]
     - [[#test][Test]]
     - [[#report-issues][Report issues]]
@@ -54,7 +55,24 @@ In the root directory of your freshly cloned Emacs repository and with the
 
 #+BEGIN_SRC shell
   ./autogen.sh
+  ./configure --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules --prefix="${HOME}/local"
+#+END_SRC
+
+**** Ubuntu
+In the root directory of your freshly cloned Emacs repository and with the
+=pdumper= branch as the current branch:
+
+#+BEGIN_SRC shell
+  ./autogen.sh
   ./configure --with-ns --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules
+#+END_SRC
+
+If you have never compile Emacs from source on your machine then you probably
+need to install the following packages:
+
+#+BEGIN_SRC shell
+   sudo apt-get install build-essential automake texinfo libjpeg-dev libncurses5-dev
+   sudo apt-get install libtiff5-dev libgif-dev libpng-dev libxpm-dev libgtk-3-dev libgnutls28-dev
 #+END_SRC
 
 *** Update your dotfile
