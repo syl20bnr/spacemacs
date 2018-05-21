@@ -471,7 +471,7 @@ Open all other links with `browse-url'."
                                  (or (match-string 2 path)
                                      "^")
                                  'subtree)
-      (browse-url (concat "https://" path)))))
+      (browse-url (concat "https:" path)))))
 
 (defun spacemacs//space-doc-find-regions-by-text-property
     (property value &optional start end)
