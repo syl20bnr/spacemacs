@@ -19,7 +19,7 @@
 
 ** Features:
 - =crystal tool format= on file save
-- integration [[https://play.crystal-lang.org ][play.crystal-lang.org]] using [[https://github.com/veelenga/play-crystal.el][play-crystal.el]]
+- integration [[https://play.crystal-lang.org][play.crystal-lang.org]] using [[https://github.com/veelenga/play-crystal.el][play-crystal.el]]
 - Linting with flycheck
 - test runner (=crystal spec=)
 - =crystal tool= integration
