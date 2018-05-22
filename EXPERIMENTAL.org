@@ -80,7 +80,7 @@ need to install the following packages:
    sudo apt-get install libtiff5-dev libgif-dev libpng-dev libxpm-dev libgtk-3-dev libgnutls28-dev
 #+END_SRC
 
-*** Install Emacs 
+*** Install Emacs
 After the compiling finished successfully, you will need to install Emacs.
 
 #+BEGIN_SRC shell
