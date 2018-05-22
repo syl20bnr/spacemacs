@@ -60,7 +60,7 @@ In the root directory of your freshly cloned Emacs repository and with the
 #+END_SRC
 
 **** Ubuntu
-/Note: This tested on Ubuntu 17.10./
+/Note: This is tested on Ubuntu 17.10./
 
 In the root directory of your freshly cloned Emacs repository and with the
 =pdumper= branch as the current branch:
@@ -189,5 +189,3 @@ command:
 #+BEGIN_SRC shell
   ./emacs --dump-file=/Users/sylvain/.emacs.d/.cache/dumps/spacemacs.pdmp &
 #+END_SRC
-
-
