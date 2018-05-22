@@ -43,8 +43,8 @@ Otherwise does nothing."
     ;; "gG" 'helm-gtags-dwim-other-window
     ;; "gi" 'helm-gtags-tags-in-this-function
     ;; "gl" 'helm-gtags-parse-file
-    "gn" 'counsel-gtags-next-history
-    "gp" 'counsel-gtags-previous-history
+    "gn" 'counsel-gtags-go-forward
+    "gp" 'counsel-gtags-go-backward
     "gr" 'counsel-gtags-find-reference
     ;; "gR" 'helm-gtags-resume
     ;; "gs" 'helm-gtags-select
@@ -90,8 +90,8 @@ Otherwise does nothing."
     "gG" 'helm-gtags-dwim-other-window
     "gi" 'helm-gtags-tags-in-this-function
     "gl" 'helm-gtags-parse-file
-    "gn" 'helm-gtags-go-forward
-    "gp" 'helm-gtags-go-backward
+    "gn" 'helm-gtags-next-history
+    "gp" 'helm-gtags-previous-history
     "gr" 'helm-gtags-find-rtag
     "gR" 'helm-gtags-resume
     "gs" 'helm-gtags-select
