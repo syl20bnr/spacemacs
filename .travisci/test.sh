@@ -18,6 +18,15 @@ echo_headline () {
     echo
 }
 
+echo_headline "CHECKING FOR MISPLACED SPACES AND TABS:"
+git diff --check --color > /tmp/space_test_result
+if [[ -s /tmp/space_test_result ]]; then
+    echo_headline "PLEASE FIX ISSUES BELOW:"
+    cat /tmp/space_test_result
+    exit 2
+fi
+echo "Done."
+
 echo_headline "FORMATTING DOCUMENTATION:"
 docker run --rm -v "${TRAVIS_BUILD_DIR}":/tmp/docs/ \
        jare/spacedoc format /tmp/docs/
@@ -47,15 +56,6 @@ docker run --rm -v /tmp/sdn-files/:/tmp/sdn-files/ \
        jare/spacedoc validate /tmp/sdn-files/
 if [ $? -ne 0 ]; then
     echo "Validation failed."
-    exit 2
-fi
-echo "Done."
-
-echo_headline "CHECKING FOR MISPLACED SPACES AND TABS:"
-git diff --check --color > /tmp/space_test_result
-if [[ -s /tmp/space_test_result ]]; then
-    echo_headline "PLEASE FIX ISSUES BELOW:"
-    cat /tmp/space_test_result
     exit 2
 fi
 echo "Done."

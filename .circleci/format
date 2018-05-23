@@ -52,6 +52,18 @@ do
     fi
 done </tmp/changed_files
 
+echo_headline "CHECKING FOR MISPLACED SPACES AND TABS:"
+old_head=$(git rev-parse --short HEAD)
+git reset -q "${first_commit}^"
+git add -N .
+git diff --check --color > space_test_result
+if [[ -s space_test_result ]]; then
+    cat space_test_result
+    exit 1
+fi
+git reset $old_head
+echo "Done."
+
 if [ ${#changed_f_as_args[@]} -ne 0 ]; then
 
     echo_headline "TESTING DOCUMENTATION FORMATTING:"
@@ -87,15 +99,5 @@ if [ ${#changed_f_as_args[@]} -ne 0 ]; then
 else
     echo "This commit doesn't change documentation files."
 fi
-
-echo_headline "CHECKING FOR MISPLACED SPACES AND TABS:"
-git reset -q "${first_commit}^"
-git add -N .
-git diff --check --color > space_test_result
-if [[ -s space_test_result ]]; then
-    cat space_test_result
-    exit 1
-fi
-echo "Done."
 
 echo "All test passed."
