@@ -77,7 +77,7 @@ if [ ${#changed_f_as_args[@]} -ne 0 ]; then
     fi
 
     echo_headline "VALIDATING DOCUMENTATION:"
-    sdn validate -i /opt/spacedoc/emacs-tools/export/target
+    sdn validate /opt/spacedoc/emacs-tools/export/target
     if [ $? -ne 0 ]; then
         echo "Validation failed."
         exit 2
