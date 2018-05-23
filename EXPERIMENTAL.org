@@ -7,6 +7,8 @@
     - [[#simple-patch-of-emacs-source-code][Simple patch of Emacs source code]]
     - [[#compile-emacs-from-source][Compile Emacs from source]]
       - [[#macos][MacOS]]
+      - [[#ubuntu][Ubuntu]]
+    - [[#install-emacs][Install Emacs]]
     - [[#update-your-dotfile][Update your dotfile]]
     - [[#test][Test]]
     - [[#report-issues][Report issues]]
@@ -36,7 +38,7 @@ Clone Emacs from [[https://git.savannah.gnu.org/git/emacs.git]]:
 We need to increase the number of =remembered_data= slots in =src/pdumper.c=, we
 double the number of slots by replacing 32 with 64:
 
-#+BEGIN_SRC c
+#+BEGIN_SRC C
 static struct
 {
   void *mem;
@@ -55,6 +57,36 @@ In the root directory of your freshly cloned Emacs repository and with the
 #+BEGIN_SRC shell
   ./autogen.sh
   ./configure --with-ns --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules
+#+END_SRC
+
+**** Ubuntu
+/Note: This is tested on Ubuntu 17.10./
+
+In the root directory of your freshly cloned Emacs repository and with the
+=pdumper= branch as the current branch:
+
+#+BEGIN_SRC shell
+  ./autogen.sh
+  # Pick one. The first one will install Emacs locally and the second one will install it globally.
+  ./configure --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules --prefix="$HOME/.local"
+  ./configure --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules
+#+END_SRC
+
+If you have never compile Emacs from source on your machine then you probably
+need to install the following packages:
+
+#+BEGIN_SRC shell
+   sudo apt-get install build-essential automake texinfo libjpeg-dev libncurses5-dev
+   sudo apt-get install libtiff5-dev libgif-dev libpng-dev libxpm-dev libgtk-3-dev libgnutls28-dev
+#+END_SRC
+
+*** Install Emacs
+After the compiling finished successfully, you will need to install Emacs.
+
+#+BEGIN_SRC shell
+  make
+  make install       # if you configure Emacs to install locally
+  sudo make install  # if globally
 #+END_SRC
 
 *** Update your dotfile
@@ -104,6 +136,10 @@ in the dump."
   )
 #+END_SRC
 
+*Friendly suggestions:* If you have a lot of personal configuration in =user-init= and
+=user-config=, you can try to move them into =user-load= as this can reduce the
+time to load those customized configurations.
+
 *** Test
 Restart Emacs. Each time Emacs starts, Spacemacs will check if the list of your
 layers has changed, if it has changed then Emacs will be automatically dumped
@@ -145,3 +181,11 @@ A forced dump is executed whenever the configuration is reloaded with
 ~SPC f e R~. If a dump is already running then it is cancelled and a new on is
 started. Check the buffer =*spacemacs-dumper*= to see the progress of the
 dumping.
+
+After you can generate a portable dumper of your Emacs and you can start that
+pdumper file successfully, you can alias the way you usually start Emacs to the
+command:
+
+#+BEGIN_SRC shell
+  ./emacs --dump-file=/Users/sylvain/.emacs.d/.cache/dumps/spacemacs.pdmp &
+#+END_SRC
