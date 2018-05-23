@@ -46,7 +46,7 @@ the existing =dotspacemacs-configuration-layers= list in this file.
 For this you will need an external program.
 
 *** Receiving emails
-To be able to receive email you will need to configure an external program to do
+To be able to receive email you will need to configure  an external program to do
 it. See the [[https://notmuchmail.org/howto/][receive mail]] section.
 
 After you configured your email fetcher program, maybe you would like to
