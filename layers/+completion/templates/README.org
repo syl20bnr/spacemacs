@@ -1,16 +1,20 @@
 #+TITLE: Templates layer
 
 * Table of Contents                                         :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#default-insertions][Default insertions]]
-   - [[#querying][Querying]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#default-insertions][Default insertions]]
+  - [[#querying][Querying]]
 
 * Description
 This layer provides templates to Spacemacs. A template consists of text that is
 automatically inserted into a new file when it is opened. This is done via
 [[https://github.com/mineo/yatemplate][yatemplate]], which leverages [[https://github.com/joaotavora/yasnippet][yasnippet]].
+
+** Features:
+- Auto-insert snippets when creating specific new files.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -18,13 +22,14 @@ add =templates= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Configuration
-The templates are collected from files in the directory specified by
-=templates-private-directory=, defaulting to =~/.emacs.d/private/templates= if
-unset. For example, to set it to somewhere else:
+Drop your templates in =~/.emacs.d/private/templates= or
+=~/.spacemacs.d/templates= depending on which method you are using.
+
+You can also specify a different location with =templates-private-directory=:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '((templates :variables templates-private-directory "~/.spacemacs.d/templates")))
+    '((templates :variables templates-private-directory "~/mytemplates")))
 #+END_SRC
 
 Each file in this directory must be of the form =XXX:regexp= where =regexp= is a
