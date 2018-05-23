@@ -67,7 +67,6 @@ if [ ${#changed_f_as_args[@]} -ne 0 ]; then
         cat spacefmt_result
         exit 1
     fi
-    echo "Done."
 
     echo_headline "TESTING DOCUMENTATION WITH SDN EXPORT:"
     emacs -batch -l /opt/spacedoc/emacs-tools/export/run.el -no-site-file \
@@ -76,7 +75,6 @@ if [ ${#changed_f_as_args[@]} -ne 0 ]; then
         echo "Documentation needs some fixing ;)"
         exit 1
     fi
-    echo "Done."
 
     echo_headline "VALIDATING DOCUMENTATION:"
     sdn validate -i /opt/spacedoc/emacs-tools/export/target
@@ -90,7 +88,7 @@ else
     echo "This commit doesn't change documentation files."
 fi
 
-echo_headline "Testing for trailing and all sorts of broken white spaces"
+echo_headline "CHECKING FOR MISPLACED SPACES AND TABS:"
 git reset -q "${first_commit}^"
 git add -N .
 git diff --check --color > space_test_result

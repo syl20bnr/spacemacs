@@ -32,9 +32,8 @@ if [[ -s /tmp/spacefmt_result ]]; then
     cat /tmp/spacefmt_result
     exit 2
 fi
-echo "Done."
 
-echo_headline "TESTING DOCUMENTATION"
+echo_headline "TESTING DOCUMENTATION WITH SDN EXPORT:"
 docker run --rm -v "${TRAVIS_BUILD_DIR}":/tmp/docs/ \
        -v /tmp/sdn-files/:/tmp/export/ \
        jare/spacedoc export /tmp/docs/
@@ -42,9 +41,8 @@ if [ $? -ne 0 ]; then
     echo "Exporting failed."
     exit 2
 fi
-echo "Done."
 
-echo_headline "VALIDATING DOCUMENTATION"
+echo_headline "VALIDATING DOCUMENTATION:"
 docker run --rm -v /tmp/sdn-files/:/tmp/sdn-files/ \
        jare/spacedoc validate -i /tmp/sdn-files/
 if [ $? -ne 0 ]; then
@@ -53,7 +51,7 @@ if [ $? -ne 0 ]; then
 fi
 echo "Done."
 
-echo_headline "CHECKING FOR MISPLACED SPACES AND TABS"
+echo_headline "CHECKING FOR MISPLACED SPACES AND TABS:"
 git diff --check --color > /tmp/space_test_result
 if [[ -s /tmp/space_test_result ]]; then
     echo_headline "PLEASE FIX ISSUES BELOW:"
