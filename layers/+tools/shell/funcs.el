@@ -82,7 +82,7 @@ connections the delay is often annoying, so it's better to let
 the user activate the completion manually."
   (if (file-remote-p default-directory)
       (setq-local company-idle-delay nil)
-    (setq-local company-idle-delay 0.2)))
+    (setq-local company-idle-delay auto-completion-idle-delay)))
 
 (defun spacemacs//eshell-switch-company-frontend ()
   "Sets the company frontend to `company-preview-frontend' in e-shell mode."
