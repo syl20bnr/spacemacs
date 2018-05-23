@@ -60,7 +60,9 @@ You should not used this function, it is reserved for some specific process."
 (defun spacemacs/emacs-with-pdumper-set-p ()
   "Return non-nil if a portable dumper capable emacs executable is set."
   (and dotspacemacs-enable-emacs-pdumper
-       (file-exists-p dotspacemacs-emacs-pdumper-executable-file)))
+       (file-exists-p
+        (locate-file dotspacemacs-emacs-pdumper-executable-file
+                     exec-path exec-suffixes 'file-executable-p))))
 
 (defun spacemacs/dump-emacs ()
   "Dump emacs in a subprocess."

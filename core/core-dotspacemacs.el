@@ -60,7 +60,7 @@ or `spacemacs'.")
 to compile Emacs 27 from source following the instructions in file
 EXPERIMENTAL.org at to root of the git repository.")
 
-(defvar dotspacemacs-emacs-pdumper-executable-file "emacs"
+(defvar dotspacemacs-emacs-pdumper-executable-file "emacs-27.0.50"
   "File path pointing to emacs 27.1 executable compiled with support for the
 portable dumper (this is currently the branch pdumper.")
 
