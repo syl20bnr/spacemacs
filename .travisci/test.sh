@@ -44,7 +44,7 @@ fi
 
 echo_headline "VALIDATING DOCUMENTATION:"
 docker run --rm -v /tmp/sdn-files/:/tmp/sdn-files/ \
-       jare/spacedoc validate -i /tmp/sdn-files/
+       jare/spacedoc validate /tmp/sdn-files/
 if [ $? -ne 0 ]; then
     echo "Validation failed."
     exit 2
