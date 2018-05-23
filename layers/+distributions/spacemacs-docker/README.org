@@ -40,7 +40,7 @@ with GUI support on all major platforms and even [[https://i.imgur.com/wDLDMZN.g
 - Automatically get Spacemacs layers dependency installed with [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/README.org][installer scripts]]
 - Reap the benefit of Emacs and other GNU/Linux tools on Windows/MacOS machines
 - Use [[https://hub.docker.com/][docker hub]] to auto-build your environment and store full backups for free
-- Build once and work with the same development environment everywhere
+- Build once and work with the same development environment s everywhere
 - Run untrusted/risky code in the tunable sandbox with CPU/network/disk quotas
 - Try new tools, experiment and roll back changes when something goes wrong
 - Share your setup with others or extend someone else's development environment
