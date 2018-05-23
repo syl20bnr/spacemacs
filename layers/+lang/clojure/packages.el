@@ -228,6 +228,10 @@
       (evil-define-key 'normal cider-repl-mode-map
         (kbd "C-j") 'cider-repl-next-input
         (kbd "C-k") 'cider-repl-previous-input)
+      
+      (evil-define-key 'insert cider-repl-mode-map
+        (kbd "C-j") 'cider-repl-next-input
+        (kbd "C-k") 'cider-repl-previous-input)
 
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)
