@@ -38,10 +38,10 @@ be used to enforce an ordering (templates that come first will have priority).
 It is not part of the final regexp. Therefore, more specific templates should
 come first. For example,
 
-#+BEGIN_SRC
+#+BEGIN_EXAMPLE
 00:test_*.py
 01:.*.py
-#+END_SRC
+#+END_EXAMPLE
 
 See the [[https://github.com/mineo/yatemplate][yatemplate]] documentation for specifics. Full yasnippet syntax is
 supported, so consult the [[http://joaotavora.github.io/yasnippet/snippet-development.html][yasnippet]] documentation for details.
