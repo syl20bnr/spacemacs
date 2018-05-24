@@ -92,7 +92,7 @@ After the compiliation finished successfully, you may need to install Emacs.
 
 *** Update your dotfile
 In the function =dotspacemacs/init= add the following variables if you don't
-have them already and intialize them:
+have them already and initialize them:
 
 #+BEGIN_SRC emacs-lisp
 (defun dotspacemacs/init ()
