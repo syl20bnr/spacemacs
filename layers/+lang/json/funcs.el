@@ -22,7 +22,7 @@ If ARG is a universal prefix argument then display the hierarchy after point."
 (defun spacemacs/json-reformat-dwim (arg &optional start end)
   "Reformat the whole buffer of the active region.
 If ARG is non-nil (universal prefix argument) then try to decode the strings.
-If ARG is a numerical prefix argument then specify the indendation level."
+If ARG is a numerical prefix argument then specify the indentation level."
   (interactive "P\nr")
   (let ((json-reformat:indent-width js-indent-level)
         (json-reformat:pretty-string? nil))
