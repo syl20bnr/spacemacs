@@ -252,4 +252,3 @@
     :post-init
     (dolist (mode c-c++-modes)
       (spacemacs/set-leader-keys-for-major-mode mode "gi" 'cscope-index-files))))
-

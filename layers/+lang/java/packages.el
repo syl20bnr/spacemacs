@@ -448,4 +448,3 @@
         "mcc" 'mvn-compile
         "mcC" 'mvn-clean
         "mcr" 'spacemacs/mvn-clean-compile))))
-
