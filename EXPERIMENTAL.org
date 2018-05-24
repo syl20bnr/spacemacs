@@ -15,7 +15,7 @@
   - [[#usage][Usage]]
 
 * Spacemacs dumps using the portable dumper
-The portable dumper is a feature that may be availabe with Emacs 27.1, for now
+The portable dumper is a feature that may be available with Emacs 27.1, for now
 its code is in the =pdumper= branch of the Emacs Git repository, it has not been
 merged to master yet.
 
@@ -91,8 +91,8 @@ After the compiliation finished successfully, you may need to install Emacs.
 #+END_SRC
 
 *** Update your dotfile
-In the function =dotspacemacs/init= add the following variables if you have
-not them already and intialize them:
+In the function =dotspacemacs/init= add the following variables if you don't
+have them already and intialize them:
 
 #+BEGIN_SRC emacs-lisp
 (defun dotspacemacs/init ()
@@ -179,7 +179,7 @@ Emacs source and type:
 =dotspacemacs-emacs-dumper-dump-file=.
 
 A forced dump is executed whenever the configuration is reloaded with
-~SPC f e R~. If a dump is already running then it is cancelled and a new on is
+~SPC f e R~. If a dump is already running then it is cancelled and a new one is
 started. Check the buffer =*spacemacs-dumper*= to see the progress of the
 dumping.
 

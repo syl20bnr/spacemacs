@@ -151,7 +151,7 @@ doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472
 ** Refactoring (js2-refactor)
 Bindings should match the plain emacs assignments.
 
-| Key Binding   | Descripti using ternon                                                                                         |
+| Key Binding   | Description                                                                                         |
 |---------------+----------------------------------------------------------------------------------------------------------------|
 | ~SPC m k~     | deletes to the end of the line, but does not cross semantic boundaries                                         |
 | ~SPC m r 3 i~ | converts ternary operator to if-statement                                                                      |

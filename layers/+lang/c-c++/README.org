@@ -144,7 +144,7 @@ set that up like this:
 
 ** Newlines
 You can enable the =Auto-newline= minor mode that automatically adds newlines
-after certain characters by setting the =c-c++-enable-auto-newline= vairable.
+after certain characters by setting the =c-c++-enable-auto-newline= variable.
 
 #+BEGIN_SRC emacs-lisp
      (c-c++ :variables

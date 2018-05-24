@@ -43,7 +43,7 @@ To install =hy= globally:
 | ~SPC m d t~ | insert pdb threaded |
 
 ** REPL
-Start a Hy inferior repel process with ~SPC m s i~. If =hy= is
+Start a Hy inferior REPL process with ~SPC m s i~. If =hy= is
 available in system executable search paths, =hy= will be used to
 launch the shell. You may change your system executable search path
 by activating a virtual environment.
