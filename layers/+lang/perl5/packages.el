@@ -11,10 +11,10 @@
 
 (setq perl5-packages
       '(
-        org
         (company-plsense :requires company)
         (cperl-mode :location built-in)
         flycheck
+        org
         realgud
         smartparens
         ))

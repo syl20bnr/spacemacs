@@ -28,6 +28,7 @@
     helm-gtags
     (helm-rtags :requires helm rtags)
     (ivy-rtags :requires ivy rtags)
+    org
     realgud
     rtags
     semantic
@@ -35,7 +36,6 @@
     stickyfunc-enhance
     xcscope
     ycmd
-    org
     ))
 
 (defun c-c++/init-cc-mode ()
@@ -243,12 +243,13 @@
     (spacemacs/set-leader-keys-for-major-mode mode
       "gG" 'ycmd-goto-imprecise)))
 
+(defun c-c++/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(C . t))))
+
 (defun c-c++/pre-init-xcscope ()
   (spacemacs|use-package-add-hook xcscope
     :post-init
     (dolist (mode c-c++-modes)
       (spacemacs/set-leader-keys-for-major-mode mode "gi" 'cscope-index-files))))
 
-(defun c-c++/pre-init-org ()
-  (spacemacs|use-package-add-hook org
-    :post-config (add-to-list 'org-babel-load-languages '(C . t))))

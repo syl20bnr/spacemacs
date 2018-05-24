@@ -11,7 +11,6 @@
 
 (setq java-packages
       '(
-        org
         company
         (company-emacs-eclim :toggle
                              (configuration-layer/package-used-p 'company))
@@ -30,6 +29,7 @@
         maven-test-mode
         (meghanada :toggle (not (version< emacs-version "25.1")))
         mvn
+        org
         ))
 
 (defun java/post-init-company ()
@@ -350,6 +350,10 @@
 (defun java/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'java-mode))
 
+(defun java/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(java . t))))
+
 (defun java/init-java-mode ()
   (use-package java-mode
     :defer t
@@ -445,6 +449,3 @@
         "mcC" 'mvn-clean
         "mcr" 'spacemacs/mvn-clean-compile))))
 
-(defun java/pre-init-org ()
-  (spacemacs|use-package-add-hook org
-    :post-config (add-to-list 'org-babel-load-languages '(java . t))))

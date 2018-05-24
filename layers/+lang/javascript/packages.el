@@ -11,7 +11,6 @@
 
 (setq javascript-packages
       '(
-        org
         add-node-modules-path
         company
         counsel-gtags
@@ -29,6 +28,7 @@
          :requires lsp-mode
          :location (recipe :fetcher github
                            :repo "emacs-lsp/lsp-javascript"))
+        org
         skewer-mode
         tern
         web-beautify
