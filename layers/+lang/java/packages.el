@@ -11,6 +11,7 @@
 
 (setq java-packages
       '(
+        org
         company
         (company-emacs-eclim :toggle
                              (configuration-layer/package-used-p 'company))
@@ -443,3 +444,7 @@
         "mcc" 'mvn-compile
         "mcC" 'mvn-clean
         "mcr" 'spacemacs/mvn-clean-compile))))
+
+(defun java/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(java . t))))

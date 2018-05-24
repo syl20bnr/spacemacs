@@ -35,6 +35,7 @@
     stickyfunc-enhance
     xcscope
     ycmd
+    org
     ))
 
 (defun c-c++/init-cc-mode ()
@@ -247,3 +248,7 @@
     :post-init
     (dolist (mode c-c++-modes)
       (spacemacs/set-leader-keys-for-major-mode mode "gi" 'cscope-index-files))))
+
+(defun c-c++/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(C . t))))
