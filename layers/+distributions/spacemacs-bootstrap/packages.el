@@ -247,7 +247,7 @@
   (spacemacs|define-text-object "“" "double-quotation-mark" "“" "”")
   (evil-define-text-object evil-pasted (count &rest args)
     (list (save-excursion (evil-goto-mark ?\[) (point))
-          (save-excursion (evil-goto-mark ?\]) (point))))
+          (save-excursion (evil-goto-mark ?\]) (1+ (point)))))
   (define-key evil-inner-text-objects-map "P" 'evil-pasted)
   ;; define text-object for entire buffer
   (evil-define-text-object evil-inner-buffer (count &optional beg end type)
