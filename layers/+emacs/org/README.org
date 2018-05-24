@@ -279,6 +279,8 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC a o a~   | org agenda list                                                           |
 | ~SPC a o c~   | org capture                                                               |
 | ~SPC a o e~   | org store agenda views                                                    |
+| ~SPC a o f i~ | org feed goto inbox                                                       |
+| ~SPC a o f u~ | org feed update all                                                       |
 | ~SPC a o k g~ | org goto last clocked-in clock (go to specific recent clock with ~SPC u~) |
 | ~SPC a o k i~ | org clock in last                                                         |
 | ~SPC a o k j~ | org jump to current clock                                                 |
@@ -327,6 +329,8 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC m d T~                                  | org-time-stamp-inactive                      |
 | ~SPC m e e~                                  | org-export-dispatch                          |
 | ~SPC m e m~                                  | send current buffer as HTML email message    |
+| ~SPC m f i~                                  | org-feed-goto-inbox                          |
+| ~SPC m f u~                                  | org-feed-update-all                          |
 | ~SPC m l~                                    | org-open-at-point                            |
 | ~SPC m L~                                    | org-shiftright                               |
 | ~SPC m H~                                    | org-shiftleft                                |
