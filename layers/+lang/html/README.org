@@ -23,7 +23,7 @@ This layer adds support for editing HTML and CSS.
 - Support for editing Slim and Pug templates using [[https://github.com/slim-template/emacs-slim][slim-mode]] and [[https://github.com/hlissner/emacs-pug-mode][pug-mode]]
 - See the effects of typed HTML using [[https://github.com/skeeto/impatient-mode][impatient-mode]]
 - imenu support for CSS and Sass through [[https://github.com/hlissner/emacs-counsel-css][counsel-css]]
-- Formating with [[https://github.com/yasuyk/web-beautify][web-beautify]]
+- Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

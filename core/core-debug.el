@@ -135,7 +135,7 @@ seconds to load")
     (advice-add 'require :around #'spacemacs//load-timer)
     (advice-add 'package-initialize
                 :around
-                (spacemacs||make-function-timer package-intialize))
+                (spacemacs||make-function-timer package-initialize))
     (advice-add 'configuration-layer/load
                 :around
                 (spacemacs||make-function-timer configuration-layer/load))

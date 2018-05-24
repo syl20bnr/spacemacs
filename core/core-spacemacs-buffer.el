@@ -266,7 +266,7 @@ Insert it in the first line of the buffer, right justified."
 
 (defun spacemacs-buffer//notes-render-framed-text
     (content &optional topcaption botcaption hpadding max-width min-width)
-  "Return a formated string framed with plained lines.
+  "Return a formatted string framed with curved lines.
 The width of the created frame is the width of the content, unless it does not
 satisfy max-width or min-width.  Note that max-width can be limited by the
 window's width.
@@ -350,7 +350,7 @@ WIDTH: current external width of the note's frame."
              ,caption-length 0))))
 
 (defun spacemacs-buffer//notes-render-framed-line (line width hpadding)
-  "Return a formated LINE with borders of a frame on each side.
+  "Return a formatted LINE with borders of a frame on each side.
 WIDTH: external width of the frame.  LINE should be shorter than WIDTH.
 HPADDING: horizontal padding on both sides of the framed string."
   (let ((fill (max 0 (- width 2 hpadding (length line)))))

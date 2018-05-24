@@ -14,7 +14,7 @@
   - [[#inferior-process-interactions-sqli][Inferior Process Interactions (SQLi)]]
     - [[#send-sql-queries-to-sqli][Send SQL queries to SQLi:]]
   - [[#sqli-buffer][SQLi buffer]]
-  - [[#code-formating][Code Formating]]
+  - [[#code-formatting][Code Formatting]]
 
 * Description
 This layer adds support for a wide range of SQL dialects to Spacemacs.
@@ -121,6 +121,6 @@ column and NAME is non-reserved SQL keyword.
 | ~SPC m b r~ | rename buffer (follow up in the SQL buffer with ~SPC m b s~) |
 | ~SPC m b S~ | save the current connection                                  |
 
-** Code Formating
+** Code Formatting
 
 | ~SPC m = c~ | capitalize SQL keywords in region (if capitalize is enabled) |

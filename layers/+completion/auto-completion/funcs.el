@@ -59,7 +59,7 @@ Available PROPS:
     `:variables' property is used in several calls to this macro for the same
     MODES.
 
-`:apppend-hook BOOLEAN'
+`:append-hook BOOLEAN'
     Advanced property to control whether hooks functions are hooked or not,
     if non-nil hook functions are appended to modes hooks passed as `:modes'.
 

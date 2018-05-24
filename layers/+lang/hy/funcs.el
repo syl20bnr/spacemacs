@@ -19,13 +19,13 @@
   (hy-shell-start-or-switch-to-shell))
 
 (defun spacemacs/hy-shell-eval-current-form-and-go ()
-  "Send current buffer to REPL and focus it."
+  "Send current form to REPL and focus it."
   (interactive)
   (hy-shell-eval-current-form)
   (hy-shell-start-or-switch-to-shell))
 
 (defun spacemacs/hy-shell-eval-region-and-go ()
-  "Send current buffer to REPL and focus it."
+  "Send region to REPL and focus it."
   (interactive)
   (hy-shell-eval-region)
   (hy-shell-start-or-switch-to-shell))

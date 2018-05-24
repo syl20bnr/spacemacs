@@ -493,7 +493,7 @@ different you need to reinstall ghc using the command =stack setup
 
 *** The Project root directory is not set properly
 Flycheck launches the GHC command not from the project root directory but from
-the the directory of the file being checked. This is normally not a problem as
+the directory of the file being checked. This is normally not a problem as
 all the paths are set properly, however it could be a problem if some template
 Haskell functions use relative paths (e.g. in Yesod scaffolded projects).
 

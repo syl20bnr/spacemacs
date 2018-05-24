@@ -9,7 +9,7 @@
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#set-file-permission-on-save][Set file permission on save]]
-  - [[#indendation][Indendation]]
+  - [[#indentation][Indentation]]
 - [[#execution-of-cfengine3-src-blocks][Execution of =cfengine3= SRC blocks]]
 - [[#key-bindings][Key bindings]]
 
@@ -43,7 +43,7 @@ errors like:
   (add-hook 'after-save-hook 'cfengine-permissions-policy-owner-only nil 'make-it-local)
 #+END_SRC
 
-** Indendation
+** Indentation
 If you like attributes to be intended from the promiser set =Indentation amount
 from anchor= to =2=. For example:
 

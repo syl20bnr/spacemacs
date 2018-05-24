@@ -12,7 +12,7 @@
   - [[#repl][REPL]]
 
 * Description
-This layer adds support for CoffeeScript language using [[https://github.com/defunkt/coffee-mode][coffee-mode]].
+This layer adds support for the CoffeeScript language using [[https://github.com/defunkt/coffee-mode][coffee-mode]].
 
 ** Features:
 - Syntax highlighting
@@ -23,12 +23,12 @@ This layer adds support for CoffeeScript language using [[https://github.com/def
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =javascript= to the existing =dotspacemacs-configuration-layers= list in
+add =coffeescript= to the existing =dotspacemacs-configuration-layers= list in
 this file.
 
 * Configuration
 ** Linting
-To enable linting install [http://www.coffeelint.org/][CoffeeLint] with:
+To enable linting, install [[http://www.coffeelint.org/][CoffeeLint]] with the following command:
 
 #+BEGIN_SRC sh
 npm install -g coffeelint

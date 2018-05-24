@@ -72,7 +72,7 @@ when this mode is enabled since the minibuffer is cleared all the time."
       (progn
         (require 'lsp-python)
         (lsp-python-enable))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//python-setup-lsp-company ()
   "Setup lsp auto-completion."
@@ -84,7 +84,7 @@ when this mode is enabled since the minibuffer is cleared all the time."
           :append-hooks nil
           :call-hooks t)
         (company-mode))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 
 ;; others

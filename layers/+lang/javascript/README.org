@@ -31,7 +31,7 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 - Refactoring: done using [[https://github.com/magnars/js2-refactor.el][js2-refactor]].
 - Auto-completion and documentation
 - REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
-- Formating with [[https://github.com/yasuyk/web-beautify][web-beautify]]
+- Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -151,7 +151,7 @@ doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472
 ** Refactoring (js2-refactor)
 Bindings should match the plain emacs assignments.
 
-| Key Binding   | Descripti using ternon                                                                                         |
+| Key Binding   | Description                                                                                         |
 |---------------+----------------------------------------------------------------------------------------------------------------|
 | ~SPC m k~     | deletes to the end of the line, but does not cross semantic boundaries                                         |
 | ~SPC m r 3 i~ | converts ternary operator to if-statement                                                                      |

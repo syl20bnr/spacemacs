@@ -101,7 +101,7 @@ run this command:
 =elm-format= can be used to format elm code according to a standard set of
 rules.
 
-To install =elm-format= follow the the instructions for the version of elm
+To install =elm-format= follow the instructions for the version of elm
 installed: https://github.com/avh4/elm-format
 
 Also, note that if you use homebrew to install =elm-format= the installed exe

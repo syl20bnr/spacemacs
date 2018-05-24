@@ -12,7 +12,7 @@
   - [[#perldoc][Perldoc]]
   - [[#pod-and-here-doc][POD and HERE doc]]
   - [[#find-symbol][Find Symbol]]
-  - [[#formating-code][Formating Code]]
+  - [[#formatting-code][Formatting Code]]
 
 * Description
 This layer adds support for the Perl5 language.
@@ -35,7 +35,7 @@ file.
 
 * Key Bindings
 ** Perldoc
-Browse formated perldocs.
+Browse formatted perldocs.
 
 | Key Binding | Description                     |
 |-------------+---------------------------------|
@@ -57,7 +57,7 @@ Jump to symbol definition.
 | ~SPC m g g~ | jump to symbol definition                 |
 | ~SPC m g G~ | jump to symbol definition in other window |
 
-** Formating Code
+** Formatting Code
 
 | Key Binding | Description                   |
 |-------------+-------------------------------|
