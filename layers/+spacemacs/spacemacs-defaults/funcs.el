@@ -1031,7 +1031,7 @@ using a visual block/rectangle selection."
   (interactive "r")
   (let (words
         alist_words_compare
-        (formated "")
+        (formatted "")
         (overview (call-interactively 'count-words)))
     (save-excursion
       (goto-char start)
@@ -1056,12 +1056,12 @@ Compare them on count first,and in case of tie sort them alphabetically."
       (let* ((word (pop words))
              (name (car word))
              (count (cdr word)))
-        (setq formated (concat formated (format "[%s: %d], " name count)))))
+        (setq formatted (concat formatted (format "[%s: %d], " name count)))))
     (when (interactive-p)
-      (if (> (length formated) 2)
+      (if (> (length formatted) 2)
           (message (format "%s\nWord count: %s"
                            overview
-                           (substring formated 0 -2)))
+                           (substring formatted 0 -2)))
         (message "No words.")))
     words))
 
