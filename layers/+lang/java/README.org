@@ -175,7 +175,7 @@ Eclim workspace (default value is =~/workspace=), as shown below:
    (setq
     ;; Specify the workspace to use by default
     eclimd-default-workspace "/path/to/default/eclipse/workspace"
-    ;; wether autostarting eclimd or not (default nil)
+    ;; whether autostarting eclimd or not (default nil)
     eclimd-autostart t
     ;; Whether or not to block emacs until eclimd is ready (default nil)
     eclimd-wait-for-process t)

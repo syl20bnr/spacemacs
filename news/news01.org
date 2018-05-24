@@ -364,7 +364,7 @@ configuration:
   =--debug-init= fed in for you
 - press ~SPC q D~ to restart Emacs with a selected list of packages to load,
   in this mode Spacemacs is completely disabled so you get the perfect way
-  to test wether a bug comes from Spacemacs configuration or not
+  to test whether a bug comes from Spacemacs configuration or not
 - press ~SPC h I~ to open an org buffer with an issue template, fill it then
   press ~C-c C-c~ to submit it with your default internet browser.
 
