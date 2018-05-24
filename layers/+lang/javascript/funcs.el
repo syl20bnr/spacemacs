@@ -35,7 +35,7 @@
         (lsp-javascript-typescript-enable)
         (lsp-javascript-flow-enable))
     (message (concat "`lsp' layer is not installed, "
-                     "please add `lsp' layer to your dofile."))))
+                     "please add `lsp' layer to your dotfile."))))
 
 (defun spacemacs//javascript-setup-lsp-company ()
   "Setup lsp auto-completion."
@@ -49,7 +49,7 @@
           :call-hooks t)
         (company-mode))
     (message (concat "`lsp' layer is not installed, "
-                     "please add `lsp' layer to your dofile."))))
+                     "please add `lsp' layer to your dotfile."))))
 
 
 ;; js-doc

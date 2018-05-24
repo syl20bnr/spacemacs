@@ -70,7 +70,7 @@
                                     'typescript-tsx-mode)
         (lsp-javascript-typescript-enable))
     (message (concat "`lsp' layer is not installed, "
-                     "please add `lsp' layer to your dofile."))))
+                     "please add `lsp' layer to your dotfile."))))
 
 (defun spacemacs//typescript-setup-lsp-company ()
   "Setup lsp auto-completion."
@@ -85,7 +85,7 @@
           :call-hooks t)
         (company-mode))
     (message (concat "`lsp' layer is not installed, "
-                     "please add `lsp' layer to your dofile."))))
+                     "please add `lsp' layer to your dotfile."))))
 
 (defun spacemacs//typescript-setup-lsp-eldoc ()
   "Setup eldoc for LSP."

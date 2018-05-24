@@ -32,7 +32,7 @@
         (lsp-javascript-typescript-enable)
         (lsp-javascript-flow-enable)
         (spacemacs//setup-lsp-jump-handler 'rjsx-mode))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//react-setup-lsp-company ()
   "Setup lsp auto-completion."
@@ -46,7 +46,7 @@
           :append-hooks nil
           :call-hooks t)
         (company-mode))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 
 ;; Emmet
