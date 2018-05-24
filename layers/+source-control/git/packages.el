@@ -201,12 +201,12 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
 
 (defun git/init-magit-svn ()
   (use-package magit-svn
+    :if git-enable-magit-svn-plugin
     :commands turn-on-magit-svn
-    :init (progn
-            (add-hook 'magit-mode-hook 'turn-on-magit-svn)
-            (with-eval-after-load 'magit
-              (define-key magit-mode-map "!" 'magit-svn-popup)))
-    :config (spacemacs|diminish magit-svn-mode "SVN")))
+    :init (add-hook 'magit-mode-hook 'turn-on-magit-svn)
+    :config (progn
+              (spacemacs|diminish magit-svn-mode "SVN")
+              (define-key magit-mode-map "!" 'magit-svn-popup))))
 
 (defun git/init-orgit ())
 

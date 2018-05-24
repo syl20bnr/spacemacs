@@ -11,5 +11,8 @@
 
 ;; Variables
 
+(defvar git-enable-magit-svn-plugin nil
+  "If non nil `magit-svn' plugin is enabled.")
+
 (defvar git-magit-status-fullscreen nil
   "If non nil magit-status buffer is displayed in fullscreen.")
