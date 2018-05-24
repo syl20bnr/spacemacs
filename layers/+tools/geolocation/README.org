@@ -61,7 +61,7 @@ activated.
 ** Theme-changer
 This layer implement a simple "theme changer" which, when enabled, will switch
 between first two themes the user has setup in ~dotspacemacs-themes~. First
-theme listed will be used as light variant, while the second as the the dark.
+theme listed will be used as the light variant, while the second as the dark.
 Other themes will be ignored by this layer, though they are still available for
 cycling, etc.
 

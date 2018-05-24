@@ -21,7 +21,7 @@ If `help-window-select' is non-nil, also select the help window."
   "Quickly run a Rust file using rustc.
 Meant for a quick-prototype flow only - use `spacemacs/open-junk-file' to
 open a junk Rust file, type in some code and quickly run it.
-If you want to use third-party crates, create a a new project using `cargo-process-new' and run
+If you want to use third-party crates, create a new project using `cargo-process-new' and run
 using `cargo-process-run'."
   (interactive)
   (let ((input-file-name (buffer-file-name))
