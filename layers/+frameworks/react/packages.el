@@ -21,6 +21,7 @@
     smartparens
     tern
     web-beautify
+    yasnippet
     ))
 
 (defun react/post-init-add-node-modules-path ()
@@ -89,3 +90,6 @@
 
 (defun react/pre-init-web-beautify ()
   (add-to-list 'spacemacs--web-beautify-modes (cons 'rjsx-mode 'web-beautify-js)))
+
+(defun react/post-init-yasnippet ()
+  (add-hook 'rjsx-mode-hook #'spacemacs//react-setup-yasnippet))
