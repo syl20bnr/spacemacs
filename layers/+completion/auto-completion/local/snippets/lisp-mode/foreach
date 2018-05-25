@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: do
+# key: foreach
+# --
+(dolist (${1:var} ${2:list-form})
+        ${3:body})
+$0

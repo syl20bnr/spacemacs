@@ -1,0 +1,4 @@
+#name : each_value { |val| ... }
+#group : collections
+# --
+each_value { |${val}| $0 }

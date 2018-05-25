@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: arrow function
+# key: af
+# group: es6
+# --
+(${1:arg}) => $0

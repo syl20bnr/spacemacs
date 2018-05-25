@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: USAMI Kenta <tadsan@zonu.me>
+# name: PHPDoc @license MPL
+# key: *license-mpl
+# group: annotation
+# --
+* @license https://www.mozilla.org/en-US/MPL/2.0/ MPL-2.0${0:
+*}

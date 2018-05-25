@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: <let> elements
+# key: l
+# condition: (progn (backward-char 1) (dix-transfer-enclosing-allows "let"))
+# binding: direct-keybinding
+# --
+<let>$0</let>

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: action
+# key: action
+# --
+action: ${0:nothing}

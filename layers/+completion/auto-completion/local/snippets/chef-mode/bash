@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: bash
+# key: bash
+# --
+bash "${1:install something}" do
+  user "${2:root}"
+  cwd "${3:/tmp}"
+  creates "${4:maybe}"
+  code <<-EOH
+    STATUS=0
+    $0 || STATUS=1
+    exit $STATUS
+  EOH
+end

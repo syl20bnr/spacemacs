@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: link
+# key: link
+# --
+link "${1:/tmp/passwd}" do
+  to "${2:/etc/passwd}"
+end

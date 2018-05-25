@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: <var> elements
+# key: v
+# condition: (progn (backward-char 1) (dix-transfer-enclosing-allows "var"))
+# binding: direct-keybinding
+# --
+<var n="$1"/>$0

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: fori
+# key: fori
+# --
+for (${1:auto }${2:it} = ${3:var}.begin(); $2 != $3.end(); ++$2) {
+    $0
+}

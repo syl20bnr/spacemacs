@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: moderncv-cvlanguage
+# key: cvlang
+# --
+\cvlanguage{${1:language}}{${2:skill-level}}{${3:comment}}
+$0

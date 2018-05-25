@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: alias
+# key: alias
+# --
+alias(
+    name = "$0",
+    actual = "$1"
+)

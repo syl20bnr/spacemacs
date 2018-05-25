@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: seq
+# key: se
+# --
+seq(${1:i}, ${2:Nr}, ${3:expression})$0

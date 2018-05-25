@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: checkPhase
+# key: ch
+# --
+checkPhase= ''
+$1
+'';
+$0

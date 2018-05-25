@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# contributor: USAMI Kenta <tadsan@zonu.me>
+# name: catch
+# key: catch
+# group : control structure
+# --
+catch (${1:\PDOException} ${2:$e}) {
+    ${3:
+    throw $e;}
+}

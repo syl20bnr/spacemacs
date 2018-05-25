@@ -1,0 +1,5 @@
+#contributor: Xah Lee (XahLee.org)
+#name: defalias
+#key: defalias
+# --
+(defalias '${1:symbol} '${2:alias}${3: "docstring"})

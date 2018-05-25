@@ -1,0 +1,7 @@
+# -*- coding: utf-8 -*-
+# name: whenl
+# key: whenl
+# --
+(when-let [$1 $2]
+  $3)$>
+  $0$>

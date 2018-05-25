@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: Jonas Kalderstam <jonas@kalderstam.se>
+# name: do ... end do ...
+# key: do
+# --
+do $1
+  $0
+end do

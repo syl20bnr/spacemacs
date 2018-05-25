@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: condition-case
+#key: condition-case
+#key: cc
+# --
+(condition-case $0)

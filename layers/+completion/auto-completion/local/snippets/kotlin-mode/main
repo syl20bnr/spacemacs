@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: main() function
+# key: main
+# --
+fun main(args: Array<string>) {
+    $0
+}

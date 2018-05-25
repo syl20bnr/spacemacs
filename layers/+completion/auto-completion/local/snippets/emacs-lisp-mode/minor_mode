@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: minor_mode
+# key: minor
+# --
+(defvar ${1:mode}-modeline-indicator " ${2:indicator}"
+  "call ($1-install-mode) again if this is changed")
+
+(defvar $1-mode nil)
+(make-variable-buffer-local '$1-mode)
+(put '$1-mode 'permanent-local t)
+
+(defun $1-mode (&optional arg)
+  "$0"
+  (interactive "P")
+  (setq $1-mode
+        (if (null arg) (not $1-mode)
+          (> (prefix-numeric-value arg) 0)))
+  (force-mode-line-update))
+
+(provide '$1-mode)

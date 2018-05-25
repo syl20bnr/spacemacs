@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: reverse
+# key: rvr
+# --
+std::reverse(std::begin(${1:container}), std::end($1));
+$0

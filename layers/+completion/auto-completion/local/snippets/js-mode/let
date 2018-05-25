@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: let declaration
+# key: let
+# group: es6
+# --
+let ${1:name} = ${2:initial};

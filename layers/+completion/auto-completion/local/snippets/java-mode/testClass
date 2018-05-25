@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: testClass
+# key: tc
+# --
+import junit.framework.*;
+import junit.textui.*;
+
+public class Test${1:Class} extends TestCase {
+       protected void setUp() {
+                 $0
+       }
+}

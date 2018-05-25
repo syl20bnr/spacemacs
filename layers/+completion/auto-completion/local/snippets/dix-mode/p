@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: <p> element
+# key: p
+# condition: (progn (backward-char 1) (equal (dix-enclosing-elt 'noerror) "e"))
+# binding: direct-keybinding
+# --
+<p><l>$1</l> <r>$1$0</r></p>

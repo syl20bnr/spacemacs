@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: USAMI Kenta <tadsan@zonu.me>
+# name: PHPDoc @license
+# key: *license
+# group: annotation
+# --
+* @license ${1:https://www.gnu.org/licenses/gpl-3.0.html} ${2:GPL-3.0}${0:
+*}

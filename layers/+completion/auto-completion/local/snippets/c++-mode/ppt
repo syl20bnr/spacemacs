@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: partition_point
+# key: ppt
+# --
+auto pos = std::partition_point(std::begin(${1:container}), std::end($1), []($2) {
+  $3
+});
+if (pos != std::end($1)) {
+  $4
+}
+$0

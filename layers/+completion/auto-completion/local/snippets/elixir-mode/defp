@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: defp
+# key: defp
+# --
+defp $1 do
+  $0
+end

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: if elseif
+# key: eif
+# --
+if $1 then
+	$2
+elseif $3 then
+	$0
+end

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: elisp
+# key: `
+# --
+\`$0\`

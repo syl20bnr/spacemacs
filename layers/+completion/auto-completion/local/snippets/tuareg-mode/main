@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: main
+# key: m
+# --
+let main =
+    $0

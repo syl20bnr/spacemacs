@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# contributor: USAMI Kenta <tadsan@zonu.me>
+# name: function statement
+# key: function
+# group: definitions
+# --
+${4:public }function ${1:name}(${2:$arg, ...})
+{
+    $0
+}

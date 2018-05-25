@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: event
+# key: event
+# --
+event ${1:void} ${2:On.Event}($3) {
+      $0
+}

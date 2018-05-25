@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Extension read-only property
+# key: exval
+# --
+val $1.$2: $3
+    get() {
+        $0
+    }

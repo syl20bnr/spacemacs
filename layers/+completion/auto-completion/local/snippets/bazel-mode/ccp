@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: cc_proto_library
+# key: ccp
+# --
+cc_proto_library(
+    name = "$0",
+    deps = ["$1"]
+)

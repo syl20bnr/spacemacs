@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: Jonas Kalderstam <jonas@kalderstam.se>
+# name: forall ... end forall ...
+# key: forall
+# --
+forall ($1)
+  $0
+end forall

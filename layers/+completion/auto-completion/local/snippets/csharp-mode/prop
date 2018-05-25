@@ -1,0 +1,17 @@
+#contributor : Alejandro Espinoza Esparza <aespinoza@structum.com.mx>
+#name : property ... ... { ... }
+# key: prop
+# --
+/// <summary>
+/// $5
+/// </summary>
+/// <value>$6</value>
+$1 $2 $3
+{
+    get {
+        return this.$4;
+    }
+    set {
+        this.$4 = value;
+    }
+}

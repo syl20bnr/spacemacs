@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: assert!(predicate);
+# key: ass
+# --
+assert!(${1:predicate});

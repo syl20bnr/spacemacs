@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: checkbox
+# key: ch
+# --
+checkbox("$1")$0

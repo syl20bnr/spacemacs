@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: repeat-while
+# --
+repeat while $1
+$0
+end repeat

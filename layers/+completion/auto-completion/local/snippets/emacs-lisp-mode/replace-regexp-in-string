@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: replace-regexp-in-string
+#key: replace-regexp-in-string
+#key: rris
+# --
+(replace-regexp-in-string ${1:regexp} ${2:rep} ${3:string}${4: fixedcase}${5: literal}${6: subexp}${7: start})

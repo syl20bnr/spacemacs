@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: accumulate
+# key: acl
+# --
+auto sum = std::accumulate(std::begin(${1:container}), std::end($1), 0, [](int total, $2) {
+  $3
+});
+$0

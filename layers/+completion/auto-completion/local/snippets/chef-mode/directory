@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: directory
+# key: directory
+# --
+directory "${1:name}" do
+  owner "root"
+  group "root"
+  mode "0755"
+
+  action :create
+end

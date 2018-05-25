@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: service
+# key: service
+# --
+service "${1:name}" do
+  supports :status => ${2:true}, :restart => ${3:true}, :truereload => ${4:true}
+  action ${5:[ :enable, :start ]}
+end

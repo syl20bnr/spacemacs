@@ -1,0 +1,5 @@
+# name: use
+# key: use
+# expand-env: ((yas-triggers-in-field nil))
+# --
+(:use [$1 :refer [$2]])$>

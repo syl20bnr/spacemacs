@@ -1,0 +1,7 @@
+# -*- coding: utf-8 -*-
+# name: ifl
+# key: ifl
+# --
+(if-let [$1 $2]
+  $3)$>
+$0

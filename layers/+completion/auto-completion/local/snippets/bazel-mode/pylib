@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: py_library
+# key: pylib
+# --
+py_library(
+    name = "$0",
+    deps = "$1",
+    srcs = "$2"
+)

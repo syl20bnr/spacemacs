@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: movie
+# key: movie
+# --
+\begin{center}
+\includemovie[
+  label=test,
+  controls=false,
+  text={\includegraphics[width=4in]{${1:image.pdf}}}
+]{4in}{4in}{${2:video file}}
+
+\movieref[rate=3]{test}{Play Fast}
+\movieref[rate=1]{test}{Play Normal Speed} 
+\movieref[rate=0.2]{test}{Play Slow}
+\movieref[resume]{test}{Pause/Resume}

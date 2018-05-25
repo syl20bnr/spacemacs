@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: move_backward
+# key: mpb
+# --
+std::move_backward(std::begin(${1:container}), std::end($1), std::end($1));
+$0

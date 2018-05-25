@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: py_binary
+# key: pybin
+# --
+py_binary(
+    name = "$0",
+    srcs = "$1",
+    data = "$2"
+    deps = [
+        "$3"
+    ]
+)

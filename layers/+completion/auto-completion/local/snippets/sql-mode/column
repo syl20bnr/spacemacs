@@ -1,0 +1,4 @@
+#contributor : Alejandro Espinoza Esparza <aespinoza@structum.com.mx>
+#name : , ColumnName ColumnType NOT NULL...
+# --
+	,	${1:Name}		${2:Type}			${3:NOT NULL}

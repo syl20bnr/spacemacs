@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: img
+# key: img_
+# --
+<img src="$1"
+ alt="$2" align="${3:left}"
+ title="${4:image title}"
+ class="img"
+</img>
+$0

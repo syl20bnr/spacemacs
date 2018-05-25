@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: module
+# key: mod
+# --
+module ${1:Module} where
+$0

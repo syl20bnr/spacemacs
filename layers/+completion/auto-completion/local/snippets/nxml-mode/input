@@ -1,0 +1,4 @@
+#contributor : Anders Bach Nielsen <abachn@abachn.net>
+#name : <input ... />
+# --
+<input type="$1" name="$2" value="$3" />

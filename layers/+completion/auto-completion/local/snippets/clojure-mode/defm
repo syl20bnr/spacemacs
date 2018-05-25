@@ -1,0 +1,7 @@
+# name: defmacro
+# key: defm
+# --
+(defmacro $1
+  "$2"$>
+  [$3]$>
+  $0)$>

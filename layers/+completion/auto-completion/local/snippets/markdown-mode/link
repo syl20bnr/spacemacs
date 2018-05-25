@@ -1,0 +1,5 @@
+#name : Link
+#contributor: Peng Deng <dengpeng@gmail.com>
+# key: link
+# --
+[${1:Link Text}](${2:URL} $3) $0

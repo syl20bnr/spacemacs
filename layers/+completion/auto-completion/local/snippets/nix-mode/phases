@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: phases
+# key: ph
+# --
+   phases="${1:\$prePhases unpackPhase patchPhase \$preConfigurePhases configurePhase \$preBuildPhases buildPhase checkPhase \$preInstallPhases installPhase fixupPhase installCheckPhase \$preDistPhases distPhase \$postPhases}";

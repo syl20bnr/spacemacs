@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: printf
+# key: pr
+# --
+printf("${1:format string}"${2: ,a0,a1});

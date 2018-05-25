@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: if
+# key: if
+# --
+${IF} ${1:cond}
+      $0
+${ElseIf} ${2:else_cond}
+
+${EndIf}

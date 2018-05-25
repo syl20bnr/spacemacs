@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: times
+# key: times
+# --
+${1:10}.times {
+              $0
+}                .

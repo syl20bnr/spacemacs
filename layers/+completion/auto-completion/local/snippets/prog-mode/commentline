@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# contributor: sh-ow <sh-ow@users.noreply.github.com>
+# name: commentline
+# key: col
+# --
+`(yas-trimmed-comment-start)` ${1:comment} ${1:$(let* ((start (yas-trimmed-comment-start))
+                                                       (lastcom (aref start (1- (length start))))
+                                                       (end (yas-trimmed-comment-end))
+                                                       (endpadlen (- 79 (+ (current-column) (length end)))))
+                                              (concat (make-string (max endpadlen 0) lastcom)
+                                                      end))}$0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# Author: Michael Pollmeier
+# name: value class
+# key: vc
+# --
+case class ${1:Name}(value: ${2:Type}) extends AnyVal

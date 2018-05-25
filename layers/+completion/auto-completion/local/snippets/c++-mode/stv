@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: vector
+# key: stv
+# --
+std::vector<$2> $3
+$0

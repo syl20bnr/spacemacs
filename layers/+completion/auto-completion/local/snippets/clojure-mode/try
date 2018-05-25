@@ -1,0 +1,7 @@
+# name: try
+# key: try
+# --
+(try
+$1$>
+(catch ${2:Exception} e$>
+$3$>))$>

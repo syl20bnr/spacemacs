@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# contributor: USAMI Kenta <tadsan@zonu.me>
+# name: switch
+# key: switch
+# group : control structure
+# --
+switch (${1:condition}) {
+    case ${2:expr}:
+        $0
+        break;
+    default:
+}

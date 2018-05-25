@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: USAMI Kenta <tadsan@zonu.me>
+# name: function expr (closure)
+# key: fn
+# group: definitions
+# --
+function (${2:$arg, ...}) ${3:use ($var) }{
+    $0
+}`(if (eq (point) (line-end-position)) ";" "")`

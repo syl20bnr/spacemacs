@@ -1,0 +1,42 @@
+# -*- mode: snippet; -*-
+#contributor: kchenphy <https://www.github.com/kchenphy>
+#name: package header
+#key: header
+# --
+;;; ${1:name}.el --- ${2:summary} -*- lexical-binding: t -*-
+
+;; Author: ${3:`(user-full-name)`}
+;; Maintainer: ${4:`(user-full-name)`}
+;; Version: ${5:version}
+;; Package-Requires: (${6:dependencies})
+;; Homepage: ${7:homepage}
+;; Keywords: ${8:keywords}
+
+${9:
+;; This file is not part of GNU Emacs
+
+;; This file is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 3, or (at your option)
+;; any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; For a full copy of the GNU General Public License
+;; see <http://www.gnu.org/licenses/>.
+}
+
+;;; Commentary:
+
+;; ${10:commentary}
+
+;;; Code:
+
+${11:(message "Hello World!")}
+
+(provide '$1)
+
+;;; $1.el ends here

@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: addprefix
+# contributor: gbalats
+# key: ap
+# --
+\$(addprefix ${1:\$(${2:dir})/},${3:\$(${4:items})})$0

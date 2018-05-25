@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: hgroup
+# key: hg
+# --
+hgroup("${1:name}", ${2:expression})$0

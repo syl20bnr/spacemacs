@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: sort_heap
+# key: sth
+# --
+std::sort_heap(std::begin(${1:container}), std::end($1));
+$0

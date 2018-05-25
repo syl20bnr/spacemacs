@@ -1,0 +1,5 @@
+#contributor: Xah Lee (XahLee.org)
+#name: grab word under cursor
+# key: x-grabthing
+# --
+(setq $0 (thing-at-point 'symbol))

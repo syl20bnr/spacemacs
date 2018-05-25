@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: matrix
+# key: matrix_
+# possible improvement, compute the number of lines from the argument to array
+# --
+\left \(
+\begin{array}{${1:ccc}}
+${2:v1 & v2} \\
+$0
+\end{array}
+\right \)

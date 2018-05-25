@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: code
+# key: code
+# --
+.. code:: ${1:python}

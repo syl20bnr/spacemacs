@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: type_type
+# key: type
+# --
+type ${1:expr} =
+     | $0

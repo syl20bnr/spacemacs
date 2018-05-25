@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: notifies
+# key: notifies
+# --
+notifies :${1:restart}, "${2:service}[${3:name}]"

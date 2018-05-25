@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: make
+# contributor: gbalats
+# key: make
+# --
+\$(MAKE) --directory=${1:\$@}
+$0

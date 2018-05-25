@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: addsuffix
+# contributor: gbalats
+# key: as
+# --
+\$(addsuffix ${1:.suffix},${2:\$(${3:items})})$0

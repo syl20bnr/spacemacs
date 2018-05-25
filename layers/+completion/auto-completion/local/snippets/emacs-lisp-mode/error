@@ -1,0 +1,5 @@
+#contributor: Xah Lee (XahLee.org)
+#name: error
+#key: error
+# --
+(error "${1:message}"${2: format-args})

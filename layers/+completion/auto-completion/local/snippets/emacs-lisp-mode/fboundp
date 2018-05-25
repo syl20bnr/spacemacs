@@ -1,0 +1,5 @@
+#contributor: Xah Lee (XahLee.org)
+#name: fboundp
+#key: fboundp
+# --
+(fboundp '$0)

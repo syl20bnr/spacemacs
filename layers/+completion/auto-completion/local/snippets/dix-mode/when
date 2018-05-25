@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: <when> elements
+# key: w
+# condition: (progn (backward-char 1) (dix-transfer-enclosing-allows "when"))
+# binding: direct-keybinding
+# --
+<when>$0</when>

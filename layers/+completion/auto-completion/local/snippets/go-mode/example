@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: example
+# key: example
+# contributor : @atotto
+# --
+func Example$1() {
+	$0
+}

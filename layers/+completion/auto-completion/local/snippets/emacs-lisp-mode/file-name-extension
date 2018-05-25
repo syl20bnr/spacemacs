@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: file-name-extension
+#key: file-name-extension
+#key: fne
+# --
+(file-name-extension ${1:filename}${2: period})

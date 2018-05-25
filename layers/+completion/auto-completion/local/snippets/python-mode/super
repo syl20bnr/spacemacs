@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: super
+# key: super
+# group: object oriented
+# --
+super(`(replace-regexp-in-string "\\([.]\\)[^.]+$" ", self)." (python-info-current-defun) nil nil 1)`($1)
+$0

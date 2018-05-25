@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: directoryf
+# key: directoryf
+# --
+directory "${1:name}" do
+  owner "$create{2:root}"
+  group "${3:root}"
+  mode "${4:0755}"
+  path "${5:name}"
+  recursive ${6:false}
+
+  action :${7:create}
+end

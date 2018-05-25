@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: setq
+#key: setq
+#key: s
+# --
+(setq $0)

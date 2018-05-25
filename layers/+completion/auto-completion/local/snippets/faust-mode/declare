@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: declare
+# key: de
+# --
+declare ${1:key} "${2:value}";
+$0

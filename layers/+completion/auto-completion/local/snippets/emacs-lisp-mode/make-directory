@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: make-directory
+#key: make-directory
+#key: md
+# --
+(make-directory ${1:directory}${2: parents})

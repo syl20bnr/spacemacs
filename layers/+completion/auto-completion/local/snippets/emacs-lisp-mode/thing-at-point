@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: thing-at-point
+#key: thing-at-point
+#key: tap
+# --
+(thing-at-point ${1:thing}${2: no-properties})

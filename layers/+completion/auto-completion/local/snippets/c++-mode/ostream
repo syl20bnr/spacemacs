@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ostream
+# key: os
+# --
+#include <ostream>

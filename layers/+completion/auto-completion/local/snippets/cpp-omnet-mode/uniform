@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: uniform
+# key: uni
+# uniform distribution
+# --
+uniform(${1:0}, ${2:1})

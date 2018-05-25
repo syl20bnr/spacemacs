@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: defconst
+# key: const
+# --
+(defconst ${1:name} ${2:value}${3: "${4:docstring}"})$0

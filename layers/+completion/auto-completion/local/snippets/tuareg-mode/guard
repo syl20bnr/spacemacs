@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: guard
+# key: |
+# --
+| ${1:match} -> $0

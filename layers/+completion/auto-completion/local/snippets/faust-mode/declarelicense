@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: declare license
+# key: dl
+# --
+declare license "${1:$$
+  (yas-choose-value '(
+    "AGPLv3"
+    "Apache"
+    "BSD 2-clause"
+    "BSD 3-clause"
+    "GPLv2"
+    "GPLv3"
+    "LGPLv3"
+    "MIT"
+  ))}";
+$0

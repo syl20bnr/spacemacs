@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: USAMI Kenta <tadsan@zonu.me>
+# name: PHPDoc @property
+# key: *property
+# group: annotation
+# --
+* @property ${1:type} ${2:$variable} ${3:description}${0:
+*}

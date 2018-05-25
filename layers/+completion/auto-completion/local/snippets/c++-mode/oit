@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: copy
+# key: oit
+# --
+std::copy(std::begin(${1:container}), std::end($1), std::ostream_iterator<$2>{
+%\istd::cout, "$3"
+});
+$0

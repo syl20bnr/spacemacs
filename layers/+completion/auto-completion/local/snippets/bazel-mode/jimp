@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: java_import
+# key: jimp
+# --
+java_import(
+    name = "$0",
+    jars = [
+        "$1"
+    ]
+)

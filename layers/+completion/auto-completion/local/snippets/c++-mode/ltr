@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: transform
+# key: ltr
+# --
+${1:container}.erase(0, $1.find_first_not_of(" \t\n\r"));
+$0

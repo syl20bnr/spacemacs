@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: section
+# key: --
+# --
+--- # ${1:section}
+$0

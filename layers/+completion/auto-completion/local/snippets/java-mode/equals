@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: equals
+# key: eq
+# --
+public boolean equals(${1:Class} other) {
+       $0
+}

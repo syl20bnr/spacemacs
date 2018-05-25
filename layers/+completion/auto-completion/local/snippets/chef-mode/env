@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: env
+# key: env
+# --
+env "${1:RAILS_ENV}" do
+  value "${2:production}"
+end

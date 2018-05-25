@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: wildcard
+# key: wl
+# --
+$(wildcard $0)

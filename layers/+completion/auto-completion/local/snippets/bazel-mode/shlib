@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: sh_library
+# key: shlib
+# --
+sh_library(
+    name = "$0",
+    data = [
+        "$1"
+    ]
+)

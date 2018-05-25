@@ -1,0 +1,5 @@
+#contributor: Xah Lee (XahLee.org)
+#name: interactive
+#key: interactive
+# --
+(interactive${1: "${2:P}"})

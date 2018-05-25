@@ -1,0 +1,5 @@
+# name: import
+# key: import
+# expand-env: ((yas-triggers-in-field nil))
+# --
+(:import ($1))$>

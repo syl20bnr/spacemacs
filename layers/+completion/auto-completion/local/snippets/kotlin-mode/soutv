@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Prints a value to System.out
+# key: soutv
+# --
+println("$0 = ${$0}")

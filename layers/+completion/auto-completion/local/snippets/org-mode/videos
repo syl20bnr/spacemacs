@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: videos
+# key: <vi
+# --
+##videos must be used with an image..so when image is clicked video starts
+[[${1:link of the video}][file:${2:link of the image}]

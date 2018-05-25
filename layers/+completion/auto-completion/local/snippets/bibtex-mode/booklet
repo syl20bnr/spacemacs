@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: booklet
+# key: booklet
+# --
+@booklet{ ${title},
+  author       = {${author}}${,
+  howpublished = {${howpublished}}}${,
+  address      = {${address}}}${,
+  year         = {${year}}}${,
+  month        = {${month}}}${,
+  volume       = {${volume}}}${,
+  note         = {${note}}}
+}
+
+$0

@@ -1,0 +1,5 @@
+#contributor : Anders Bach Nielsen <abachn@abachn.net>
+#name : <meta name="..." content="..." />
+#group : meta
+# --
+<meta name="${1:generator}" content="${2:content}" />

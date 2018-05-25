@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: <clip> elements
+# key: c
+# condition: (progn (backward-char 1) (dix-transfer-enclosing-allows "clip"))
+# binding: direct-keybinding
+# --
+<clip pos="$1" ${2:side="tl"} part="$3"/>$0

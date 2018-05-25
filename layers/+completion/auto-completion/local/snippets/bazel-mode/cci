@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: cc_import
+# key: cci
+# --
+cc_import(
+    name = "$0",
+    hdrs = ["$1"]
+)

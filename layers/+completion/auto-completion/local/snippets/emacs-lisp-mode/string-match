@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: string-match
+#key: string-match
+#key: sm
+# --
+(string-match "${1:regexp}" "${2:string}"${3: start})

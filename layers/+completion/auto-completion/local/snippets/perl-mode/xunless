@@ -1,0 +1,4 @@
+# name: ... unless ...
+# key: xunless
+# --
+${1:expression} unless ${2:condition}

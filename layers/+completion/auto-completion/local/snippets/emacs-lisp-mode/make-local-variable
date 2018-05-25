@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: make-local-variable
+#key: make-local-variable
+#key: mlv
+# --
+(make-local-variable $0)

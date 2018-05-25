@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: closure
+# key: ||
+# --
+|${1:arguments}| {
+       $0
+}

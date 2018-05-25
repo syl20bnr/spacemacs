@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: vbargraph
+# key: vb
+# --
+vbargraph("${1:name}", ${2:min}, ${3:max})$0

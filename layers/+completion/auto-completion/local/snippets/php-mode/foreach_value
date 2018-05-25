@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: USAMI Kenta <tadsan@zonu.me>
+# name: foreach (array as $key => $value)
+# key: foreach=>
+# group : control structure
+# --
+foreach (${1:$expression} as \$${2:key} => \$${3:value}) {
+    $0
+}

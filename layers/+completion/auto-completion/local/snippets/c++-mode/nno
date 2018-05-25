@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: none_of
+# key: nno
+# --
+if (std::none_of(std::begin(${1:container}), std::end($1), []($2) {
+  $3
+})) {
+  $4
+}
+$0

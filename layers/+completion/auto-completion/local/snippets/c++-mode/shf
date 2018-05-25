@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: random_shuffle
+# key: shf
+# --
+std::random_shuffle(std::begin(${1:container}), std::end($1));
+$0

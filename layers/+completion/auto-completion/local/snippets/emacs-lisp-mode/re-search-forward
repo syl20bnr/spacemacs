@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: re-search-forward
+#key: re-search-forward
+#key: rsf
+# --
+(re-search-forward ${1:regexp}${2: bound}${3: noerror}${4: count})

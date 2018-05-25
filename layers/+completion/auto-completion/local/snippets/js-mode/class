@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : Class
+# --
+var ${1:name} = new Class({
+  initialize: function($2) {
+    $0
+  }
+});

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#Author : Jonas Bonèr <jonas@jonasboner.com>
+#name : def f(arg: T): R = {...}
+# key: def
+# --
+def ${1:name}(${2:args}): ${3:Unit} = {
+  $0
+}

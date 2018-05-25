@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: malloc
+# key: malloc
+# --
+malloc(sizeof($1)${2: * ${3:3}});
+$0

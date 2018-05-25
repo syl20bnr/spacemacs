@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: function_docstring
+# key: fd
+# group: definitions
+# NOTE: Use minimum indentation, because Emacs 25+ doesn't dedent docstrings.
+# --
+def ${1:name}($2):
+ \"\"\"$3
+ ${2:$(python-args-to-docstring)}
+ \"\"\"
+ $0

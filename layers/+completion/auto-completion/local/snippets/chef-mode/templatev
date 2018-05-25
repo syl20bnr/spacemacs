@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: templatev
+# key: templatev
+# --
+template "${1:name}" do
+  source "${2:source}.erb"
+  owner "root"
+  group "root"
+  node "0644"
+  variables( ${3::config_var => node[:configs][:config_var]} 	)
+end

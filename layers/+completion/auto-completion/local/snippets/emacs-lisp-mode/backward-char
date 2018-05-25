@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: backward-char
+#key: backward-char
+#key: bc
+# --
+(backward-char $0)

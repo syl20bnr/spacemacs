@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: http_request
+# key: http_request
+# --
+http_request "${1:some message}" do
+  url "${2:http://example.com/check_in}"
+end

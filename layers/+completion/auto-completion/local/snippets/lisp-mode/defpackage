@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: defpackage
+# key: defp
+# --
+(defpackage #:${1:name}
+   (:nicknames #:${2:nick})
+   (:use #:cl #:closer-mop #:${3:package})
+   (:shadow :${4.symbol})
+   (:shadowing-import-from #:${5:package} #:${6:symbol})
+   (:export :$0))

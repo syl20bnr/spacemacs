@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: define-key
+#key: define-key
+#key: dk
+# --
+(define-key ${1:mode}-map (kbd "${2:key}") $0)

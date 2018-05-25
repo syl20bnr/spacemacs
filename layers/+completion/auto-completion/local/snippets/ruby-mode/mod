@@ -1,0 +1,13 @@
+# name: module ... end
+# contributor: hitesh <hitesh.jasani@gmail.com>, jimeh <contact@jimeh.me>
+# key: mod
+# --
+module ${1:`(let ((fn (capitalize (file-name-nondirectory
+                                 (file-name-sans-extension
+         (or (buffer-file-name)
+             (buffer-name (current-buffer))))))))
+           (while (string-match "_" fn)
+             (setq fn (replace-match "" nil nil fn)))
+           fn)`}
+  $0
+end

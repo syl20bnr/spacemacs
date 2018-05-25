@@ -1,0 +1,6 @@
+#name : when ... end
+#group : control structure
+# --
+when ${condition}
+  $0
+end

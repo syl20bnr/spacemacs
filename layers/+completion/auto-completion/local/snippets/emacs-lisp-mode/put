@@ -1,0 +1,5 @@
+#contributor: Xah Lee (XahLee.org)
+#name: put
+#key: put
+# --
+(put ${1:symbol} ${2:propname} ${3:value})

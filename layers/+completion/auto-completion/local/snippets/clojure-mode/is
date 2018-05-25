@@ -1,0 +1,5 @@
+# -*- coding: utf-8 -*-
+# name: is
+# key: is
+# --
+(is (= $1 $2))

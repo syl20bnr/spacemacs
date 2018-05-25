@@ -1,0 +1,7 @@
+# -*- coding: utf-8 -*-
+# name: when
+# key: when
+# --
+(when $1
+      $2)$>
+$0$>

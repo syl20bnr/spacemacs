@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: #!
+# key: #!
+# contributor : @avelino
+# --
+#!/usr/bin/env python

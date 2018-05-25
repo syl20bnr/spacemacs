@@ -1,0 +1,7 @@
+# name: bench
+# key: bench
+# --
+(dotimes [_ 5 ]$>
+  (time (dotimes [i 1000000]$>
+  $0$>
+  )))$>

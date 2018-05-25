@@ -1,0 +1,17 @@
+#name : a function that process a file
+#contributor : Xah Lee
+# --
+(defun doThisFile (fpath)
+  "Process the file at path FPATH ..."
+  (let ()
+    ;; create temp buffer without undo record or font lock. (more efficient)
+    ;; first space in temp buff name is necessary
+    (set-buffer (get-buffer-create " myTemp"))
+    (insert-file-contents fpath nil nil nil t)
+
+    ;; process it ...
+    ;; (goto-char 0) ; move to begining of file's content (in case it was open)
+    ;; ... do something here
+    ;; (write-file fpath) ;; write back to the file
+
+    (kill-buffer " myTemp")))

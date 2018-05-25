@@ -1,0 +1,10 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: switch
+# key: sw
+# --
+switch (${1:condition}) {
+  case ${2:expression}:
+    $0
+    break;
+  default:
+}

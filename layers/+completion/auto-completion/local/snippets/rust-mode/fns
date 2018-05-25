@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: fn name(&self) -> Type;
+# key: fns
+# --
+fn ${1:name}(${2:&self}) -> ${3:Type};

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: replace_if
+# key: rpi
+# --
+std::replace_if(std::begin(${1:container}), std::end($1), []($2) {
+$3
+}, $4);
+$0

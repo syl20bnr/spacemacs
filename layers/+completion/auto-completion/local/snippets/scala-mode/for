@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#Author : Sam Halliday
+#name : for { x <- xs } yield
+#key: for
+# --
+for {
+  ${1:x} <- ${2:xs}
+} yield ${3:x}

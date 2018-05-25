@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: graphviz
+# key: graph
+# --
+.. graphviz::
+
+   $0

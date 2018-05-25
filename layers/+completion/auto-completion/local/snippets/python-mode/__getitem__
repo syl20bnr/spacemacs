@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: __getitem__
+# key: getit
+# group: dunder methods
+# --
+def __getitem__(self, ${1:key}):
+    $0

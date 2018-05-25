@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: split-string
+#key: split-string
+#key: ss
+# --
+(split-string ${1:string}${2: separators}${3: omit-nulls})

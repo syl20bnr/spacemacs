@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: group
+# key: group
+# --
+group "${1:name}" do
+  gid ${2:999}
+  members [${3:'paco','vicente'}]
+
+  action :create
+end

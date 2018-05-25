@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: pragma
+# key: prag
+# --
+{-# ${1:PRAGMA} #-}

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: project
+# key: proj
+# --
+<project name="${1:test}" default="${2:compile}" basedir="${3:.}">
+
+$0
+</project>

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: string
+# key: str
+# --
+#include <string.h>

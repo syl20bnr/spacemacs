@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: workspace
+# key: ws
+# --
+workspace(name = "$0")

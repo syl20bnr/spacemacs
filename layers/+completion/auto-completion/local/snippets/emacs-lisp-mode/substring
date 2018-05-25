@@ -1,0 +1,5 @@
+#contributor: Xah Lee (XahLee.org)
+#name: substring
+#key: substring
+# --
+(substring ${1:string} ${2:from}${3: to})

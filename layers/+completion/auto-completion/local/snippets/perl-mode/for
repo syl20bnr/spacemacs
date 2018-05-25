@@ -1,0 +1,6 @@
+# name: for (...) { ... }
+# key: for
+# --
+for (my \$${1:var} = 0; \$$1 < ${2:expression}; \$$1++) {
+    ${3:# body...}
+}

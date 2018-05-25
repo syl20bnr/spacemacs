@@ -1,0 +1,5 @@
+#contributor: Xah Lee (XahLee.org)
+#name: aset
+#key: aset
+# --
+(aset ${1:array} ${2:index} ${3:element})

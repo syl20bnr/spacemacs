@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: includegraphics
+# key: ig
+# --
+\includegraphics${1:[$2]}{$0}

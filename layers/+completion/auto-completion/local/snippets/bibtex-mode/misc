@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: misc
+# key: misc
+# --
+@misc{ ${title}${,
+  author       = {${author}}}${,
+  title        = {${title}}}${,
+  howpublished = {${howpublished}}}${,
+  month        = {${month}}}${,
+  year         = {${year}}}${,
+  note         = {${note}}}
+}
+
+$0

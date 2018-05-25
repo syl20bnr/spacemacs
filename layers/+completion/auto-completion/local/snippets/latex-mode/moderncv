@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: full template of moderncv class
+# key: moderncv
+# --
+\documentclass[${1:options}]{moderncv}
+
+\firstname{$3}
+\familyname{$4}
+
+\moderncvstyle{${5:casual}}
+\moderncvcolor{${6:blue}}
+
+\begin{document}
+$0
+\end{document}

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: if let pattern = expression { ... };
+# key: ifl
+# --
+if let ${1:pattern} = ${2:expression} { $0 };

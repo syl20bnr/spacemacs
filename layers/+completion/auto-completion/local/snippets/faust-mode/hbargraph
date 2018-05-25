@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: hbargraph
+# key: hb
+# --
+hbargraph("${1:name}", ${2:min}, ${3:max})$0

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: d_operator[]
+# key: [
+# --
+${1:Type}& operator[](${2:int index});

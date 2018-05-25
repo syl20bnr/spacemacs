@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: target
+# key: target
+# --
+<target name="${1:compile}" ${2:other}>
+        $0
+</target>

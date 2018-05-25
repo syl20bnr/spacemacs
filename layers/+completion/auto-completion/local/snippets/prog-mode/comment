@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: sh-ow <sh-ow@users.noreply.github.com>
+# name: comment
+# key: co
+# --
+`(yas-trimmed-comment-start)` ${1:comment}`(unless (eq (length comment-end) 0) (concat " " (yas-trimmed-comment-end)))`$0

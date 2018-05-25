@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: formula
+# key: form
+# --
+require 'formula'
+
+class ${1:Name} <Formula
+  url '${2:url}'
+  homepage '${3:home}'
+  md5 '${4:md5}'
+
+  def install
+    ${5:system "./configure"}
+    $0
+  end
+end

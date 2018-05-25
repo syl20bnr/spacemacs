@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: int
+# key: int
+# --
+\int_{$1}^{$2}$0

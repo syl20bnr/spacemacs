@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: moderncv-cvline
+# key: cvline
+# --
+\cvline{${1:hobby}}{${2:Description}}
+$0

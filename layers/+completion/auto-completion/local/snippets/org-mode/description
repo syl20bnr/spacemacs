@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: description
+# key: desc
+# --
+#+DESCRIPTION: ${1:description of your org-mode file}

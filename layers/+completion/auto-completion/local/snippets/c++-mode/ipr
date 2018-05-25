@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: is_permutation
+# key: ipr
+# --
+if (std::is_permutation(std::begin(${1:container}), std::end($1), std::begin($2))) {
+  $3
+}
+$0

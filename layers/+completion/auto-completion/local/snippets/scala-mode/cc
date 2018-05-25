@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#Author : Sam Halliday
+#name : case class T(arg: A)
+# key: cc
+# --
+case class ${1:Name}(
+  ${2:arg}: ${3:Type}
+)

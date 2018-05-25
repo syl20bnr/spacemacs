@@ -1,0 +1,5 @@
+#contributor: Xah Lee (XahLee.org)
+#name: get
+#key: get
+# --
+(get ${1:symbol} {2:propname})

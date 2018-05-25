@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: impl Drop for Type { fn drop(...) }
+# key: drop
+# --
+impl Drop for ${1:Type} {
+     fn drop(&mut self) {
+          $0
+      }
+}

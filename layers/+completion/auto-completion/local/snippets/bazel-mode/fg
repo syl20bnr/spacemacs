@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: filegroup
+# key: fg
+# --
+filegroup(
+    name = "$0",
+    srcs = "$1"
+)

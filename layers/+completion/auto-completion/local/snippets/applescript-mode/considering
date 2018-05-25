@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: considering
+# --
+considering $1
+$0
+end considering

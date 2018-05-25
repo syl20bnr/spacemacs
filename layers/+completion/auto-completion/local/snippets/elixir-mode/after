@@ -1,0 +1,6 @@
+## -*- mode: snippet -*-
+# name : after
+# key: after
+# --
+after ${1:500} ->
+  $0

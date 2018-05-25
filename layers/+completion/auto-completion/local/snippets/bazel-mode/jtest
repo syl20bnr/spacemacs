@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: java_test
+# key: jtest
+# --
+java_test(
+    name = "$0",
+    size = "$1",
+    runtime_deps = [
+        "$2"
+    ]
+)

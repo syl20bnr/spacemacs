@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: verbatim
+# key: |
+# --
+| $0
+|

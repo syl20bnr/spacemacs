@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: export
+# key: exp
+# group: es6
+# --
+export${1: default} $0;

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: remove_copy_if
+# key: rmf
+# --
+std::remove_copy_if(std::begin(${1:container}), std::end($1),
+  std::begin($1), []($2) {
+    $3
+});
+$0

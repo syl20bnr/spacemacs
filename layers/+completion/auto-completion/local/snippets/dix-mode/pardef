@@ -1,0 +1,12 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: <pardef> element
+# key: <p
+# condition: (progn (backward-char 2) (not (equal (dix-enclosing-elt 'noerror) "e")))
+# binding: direct-keybinding
+# --
+<pardef n="${1:corp/us__n}">
+  <e>       <p><l>${1:$(dix-yas-pdname-to-suffix yas-text)}</l>      <r>${1:$(dix-yas-pdname-to-suffix yas-text)}${1:$(dix-yas-pdname-to-pos yas-text)}$2</r></p></e>
+  <e>       <p><l>${1:$(dix-yas-pdname-to-suffix yas-text)}$0</l>      <r>${1:$(dix-yas-pdname-to-suffix yas-text)}${1:$(dix-yas-pdname-to-pos yas-text)}$2</r></p></e>
+  <e>       <p><l>${1:$(dix-yas-pdname-to-suffix yas-text)}</l>      <r>${1:$(dix-yas-pdname-to-suffix yas-text)}${1:$(dix-yas-pdname-to-pos yas-text)}$2</r></p></e>
+  <e>       <p><l>${1:$(dix-yas-pdname-to-suffix yas-text)}</l>      <r>${1:$(dix-yas-pdname-to-suffix yas-text)}${1:$(dix-yas-pdname-to-pos yas-text)}$2</r></p></e>
+</pardef>

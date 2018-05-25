@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: main
+# key: main
+# --
+static void Main(string[] args)
+{
+    $0
+}

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: java_runtime
+# key: jrun
+# --
+java_runtime(
+    name = "$0",
+    srcs = "$1",
+    java_home = "$2"
+)

@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: filef
+# key: filef
+# --
+file "${1:name}" do
+  path "${3:path}"
+  backup ${4:5}
+  owner "${5:root}"
+  group "${6:root}"
+  mode "${7:0644}"
+  content "${8:content here}"
+
+  action :${2:create}
+end

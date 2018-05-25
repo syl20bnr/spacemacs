@@ -1,0 +1,5 @@
+#contributor : Jimmy Wu <frozenthrone88@gmail.com>
+#name : <th>...</th>
+#group : table
+# --
+<th$1>$2</th>

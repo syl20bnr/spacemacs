@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# name: pr
+# key: pr
+# --
+(prn $1)
+$0

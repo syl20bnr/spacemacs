@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: method_docstring
+# key: md
+# group: object oriented
+# --
+def ${1:name}(self$2):
+    \"\"\"$3
+    ${2:$(python-args-to-docstring)}
+    \"\"\"
+    $0

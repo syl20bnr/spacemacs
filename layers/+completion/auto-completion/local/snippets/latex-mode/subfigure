@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: subfigure
+# key: subfig
+# --
+\begin{figure}[ht]
+  \centering
+  \subfigure[$1]
+  {\label{fig:${2:label}} 
+    \includegraphics[width=.${3:5}\textwidth]{${4:path}}}
+
+  \caption{${5:caption}}
+\label{fig:${6:label}}
+\end{figure}

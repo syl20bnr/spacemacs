@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: delete-file
+#key: delete-file
+#key: df
+# --
+(delete-file $0)

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#Author : Jonas Bonèr <jonas@jonasboner.com>
+#name : case pattern => 
+# key: case
+# --
+case ${1:_} => $0

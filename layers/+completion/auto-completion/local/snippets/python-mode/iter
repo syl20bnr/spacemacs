@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: __iter__
+# key: iter
+# group: dunder methods
+# --
+def __iter__(self):
+    return ${1:iter($2)}

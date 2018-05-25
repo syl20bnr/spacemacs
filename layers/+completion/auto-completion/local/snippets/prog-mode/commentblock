@@ -1,0 +1,36 @@
+# -*- mode: snippet -*-
+# contributor: sh-ow <sh-ow@users.noreply.github.com>
+# name: commentblock
+# key: cob
+# --
+${1:$(let* ((col (current-column))
+           (str "")
+           (lastcom (substring (yas-trimmed-comment-start) -1))
+           (start (yas-trimmed-comment-start))
+           (end (yas-trimmed-comment-end))
+           (over (- (+ (string-width yas-text) (length start) (length end) col) 77)))
+         (while (< (length str) (+ (- 79 (length start) (length end) col) (if (> over 0) over 0)))
+                (setq str (concat str lastcom)))
+       (concat start str end))}
+${1:$(let* ((col (current-column))
+           (str "")
+           (start (yas-trimmed-comment-start))
+           (end (yas-trimmed-comment-end)))
+         (while (< (length str) (ffloor (/ (- 78.0 (+ col (length start) (string-width yas-text) (length end))) 2.0)))
+                (setq str (concat str " ")))
+        (concat start str))} ${1:comment} ${1:$(let* ((col (current-column))
+                                                     (str "")
+                                                     (start (yas-trimmed-comment-start))
+                                                     (end (yas-trimmed-comment-end)))
+                                                   (while (< (length str) (- 79.0 (if (eq (mod (string-width yas-text) 2) 1) (- col 1) col) (length end)))
+                                                          (setq str (concat str " ")))
+                                                 (concat str end))}
+${1:$(let* ((col (current-column))
+           (str "")
+           (lastcom (substring (yas-trimmed-comment-start) -1))
+           (start (yas-trimmed-comment-start))
+           (end (yas-trimmed-comment-end))
+           (over (- (+ (string-width yas-text) (length start) (length end) col) 77)))
+         (while (< (length str) (+ (- 79 (length start) (length end) col) (if (> over 0) over 0)))
+                (setq str (concat str lastcom)))
+       (concat start str end))}$0

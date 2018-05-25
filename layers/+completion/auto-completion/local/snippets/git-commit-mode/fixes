@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: fixes
+# key: fix
+# --
+fixes #${1:100}

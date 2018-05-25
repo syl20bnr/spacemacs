@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: par
+# key: pa
+# --
+par(${1:i}, ${2:Nr}, ${3:expression})$0

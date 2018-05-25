@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: assert
+# key: ass
+# --
+#include <assert.h>
+$0

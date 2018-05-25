@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: USAMI Kenta <tadsan@zonu.me>
+# name: PHPDoc @license GPLv2
+# key: *license-gplv2
+# group: annotation
+# --
+* @license https://www.gnu.org/licenses/old-licenses/gpl-2.0.html GPL-2.0${0:
+*}

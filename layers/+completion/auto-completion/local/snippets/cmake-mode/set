@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: set
+# key: set
+# --
+set(${1:var} ${2:value})

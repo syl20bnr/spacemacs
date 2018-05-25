@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: fixture
+# key: fixt
+# --
+BOOST_FIXTURE_TEST_SUITE( ${1:name}, ${2:Fixture} )
+
+$0
+
+BOOST_AUTO_TEST_SUITE_END()

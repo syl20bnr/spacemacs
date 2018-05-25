@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: considering-application-responses
+# --
+considering application responses
+$0
+end considering

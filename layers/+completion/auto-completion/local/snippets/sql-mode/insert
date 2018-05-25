@@ -1,0 +1,5 @@
+# -*- mode: snippet; -*-
+# name: insert
+# key: ins
+# --
+INSERT INTO ${table-name} (${col1, col2}) VALUES (${'val1', 'val2'});$0

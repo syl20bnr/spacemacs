@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: noinst_HEADERS
+# key: noinst
+# --
+noinst_HEADERS = $0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: copy_backward
+# key: cpb
+# --
+std::copy_backward(std::begin(${1:container}), std::end($1), std::end($1));
+$0

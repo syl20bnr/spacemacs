@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: cin
+# key: sti
+# --
+std::cin >>
+$0

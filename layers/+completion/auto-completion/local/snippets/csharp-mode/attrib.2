@@ -1,0 +1,22 @@
+#contributor : Alejandro Espinoza Esparza <aespinoza@structum.com.mx>
+#name : private _attribute ....; public Property ... ... { ... }
+# key: attrib
+# --
+/// <summary>
+/// $3
+/// </summary>
+private $1 ${2:$(if (> (length yas-text) 0) (format "_%s%s" (downcase (substring yas-text 0 1)) (substring yas-text 1 (length yas-text))) "")};
+
+/// <summary>
+/// ${3:Description}
+/// </summary>
+/// <value><c>$1</c></value>
+public ${1:Type} ${2:Name}
+{
+    get {
+        return this.${2:$(if (> (length yas-text) 0) (format "_%s%s" (downcase (substring yas-text 0 1)) (substring yas-text 1 (length yas-text))) "")};
+    }
+    set {
+        this.${2:$(if (> (length yas-text) 0) (format "_%s%s" (downcase (substring yas-text 0 1)) (substring yas-text 1 (length yas-text))) "")} = value;
+    }
+}

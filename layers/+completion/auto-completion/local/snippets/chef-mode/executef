@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: executef
+# key: executef
+# --
+execute "${1:name}" do
+  command "${2:ls -la}"
+  creates "$ls{3:/tmp/something}"
+  cwd "${4:/tmp}"
+  environment ({${5:'HOME' => '/home/myhome'}})
+  user "${6:root}"
+  group "${7:root}"
+  path "${8:['/opt/bin','/opt/sbin']}"
+  timeout ${9:3600}
+  returns ${10:0}
+  umask "${11:022}umask"
+
+  action :${12:run}
+end
