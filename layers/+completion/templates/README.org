@@ -39,7 +39,7 @@ It is not part of the final regexp. Therefore, more specific templates should
 come first. For example,
 
 #+BEGIN_EXAMPLE
-00:test_*.py
+00:test_.*.py
 01:.*.py
 #+END_EXAMPLE
 
