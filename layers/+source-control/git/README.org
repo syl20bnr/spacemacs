@@ -10,13 +10,17 @@
   - [[#magit-status-fullscreen][Magit status fullscreen]]
   - [[#magit-auto-complete][Magit auto-complete]]
   - [[#magit-svn-plugin][Magit SVN plugin]]
+  - [[#global-git-commit-mode][Global git commit mode]]
+  - [[#git][Git]]
+  - [[#git-flow][Git-Flow]]
+  - [[#org-integration][Org integration]]
 - [[#working-with-git][Working with Git]]
   - [[#magit][Magit]]
   - [[#staging-lines][Staging lines]]
   - [[#commit-message-editing-buffer][Commit message editing buffer]]
   - [[#interactive-rebase-buffer][Interactive rebase buffer]]
   - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
-  - [[#git-flow][Git-Flow]]
+  - [[#git-flow-1][Git-Flow]]
   - [[#git-time-machine][Git time machine]]
   - [[#git-links-to-web-services][Git links to web services]]
   - [[#repository-list][Repository list]]
@@ -63,18 +67,45 @@ function, this is the folder where you keep all your git-controlled projects
 For more information, see [[http://magit.vc/manual/magit.html#Status-buffer][Magit-User-Manual#Status-buffer]]
 
 ** Magit SVN plugin
+The magit SVN plugin shows commits which were not pushed to svn yet. 
+Press ~!~ in *Magit* buffer to open the magit-svn-popup.
+There you can push to or rebase from svn.
 
-The magit SVN plugin shows commits which were not pushed to svn yet in *Magit* buffer.
-Press ~!​~ *Magit* buffer to open the magit-svn-popup where you can dcommit to svn or rebase from svn.
+For convenience the magit SVN plugin can be activated directly in the Git
+layer by setting the variable =git-enable-magit-svn-plugin= to =t=.
 
 #+BEGIN_SRC emacs-lisp
   (defun dotspacemacs/user-init ()
     (setq-default git-enable-magit-svn-plugin t))
 #+END_SRC
 
-| Key Binding | Description         |
-|-------------+---------------------|
-| ~!~         | open magit-svn menu |
+| Key Binding | Description          |
+|-------------+----------------------|
+| ~~~         | open magit-svn-popup |
+
+** Global git commit mode
+Spacemacs can be used as the =$EDITOR= (or =$GIT_EDITOR=) for editing git
+commits messages. To enable this you have to add the following line to your
+=dotspacemacs/user-config=:
+
+#+begin_src emacs-lisp
+(global-git-commit-mode t)
+#+end_src
+
+** Git
+Of course if your OS does not ship with git (!) you'll have to install it
+on your machine. You can download it from the [[http://git-scm.com/downloads][download page]].
+
+** Git-Flow
+Git-flow is a standardized branching pattern for git repositories with the aim
+of making things more manageable. While there are tools to assist with making
+this easier, these do nothing you couldn't do manually.
+
+Support requires installation of the git-flow extensions. Please reference their
+[[https://github.com/petervanderdoes/gitflow/wiki][installation page]] for assistance.
+
+** Org integration
+See the commentary section of the package [[https://github.com/magit/orgit/blob/master/orgit.el#L28][here]].
 
 * Working with Git
 Git commands (start with ~g~):

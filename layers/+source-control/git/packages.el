@@ -206,7 +206,7 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
     :init (add-hook 'magit-mode-hook 'turn-on-magit-svn)
     :config (progn
               (spacemacs|diminish magit-svn-mode "SVN")
-              (define-key magit-mode-map "!" 'magit-svn-popup))))
+              (define-key magit-mode-map "~" 'magit-svn-popup))))
 
 (defun git/init-orgit ())
 
