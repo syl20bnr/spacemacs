@@ -8,7 +8,7 @@
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#default-shell][Default shell]]
-  - [[#default-shell-position-and-height][Default shell position and height]]
+  - [[#default-shell-position-width-and-height][Default shell position, width, and height]]
   - [[#set-shell-for-term-and-ansi-term][Set shell for term and ansi-term]]
   - [[#width-of-the-shell-popup-buffers][Width of the shell popup buffers]]
   - [[#enable-em-smart-in-eshell][Enable em-smart in Eshell]]
