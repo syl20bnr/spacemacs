@@ -59,6 +59,7 @@
         "a" 'notmuch-show-save-attachments
         ;; part
         "pm" 'notmuch-show-choose-mime-of-part
+        "pp" 'spacemacs/notmuch-show-as-patch
         "p|" 'notmuch-show-pipe-part
         "po" 'notmuch-show-interactively-view-part
         "pv" 'notmuch-show-view-part
