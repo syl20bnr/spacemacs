@@ -42,7 +42,7 @@ The different modifier keys can be set as follows:
      (osx :variables osx-command-as       'hyper
                      osx-option-as        'meta
                      osx-control-as       'control
-                     osx-function-as      'none
+                     osx-function-as      nil
                      osx-right-command-as 'left
                      osx-right-option-as  'left
                      osx-right-control-as 'left))
@@ -50,7 +50,7 @@ The different modifier keys can be set as follows:
 
 These are also the default values. Setting the right modifier to =left=
 will equal the left modifier. Allowed values are: =super=, =meta=, =control=,
-=alt= and =none=.
+=alt= and =nil=.
 Setting =nil= for modifiers will leave the left modifiers as emacs default.
 
 *** Use with non-US keyboard layouts

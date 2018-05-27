@@ -36,7 +36,7 @@
    For backwards compatibility the variable `osx-use-option-as-meta'
    takes precedence is set to t.")
 (defvar osx-function-as nil
-  "Sets the key binding of the `FUCTION' key on OSX.
+  "Sets the key binding of the `FUNCTION' key on OSX.
    Possible values are `super' `meta' `hyper' `alt' `nil'.
    Default: `nil'.")
 (defvar osx-control-as 'control
