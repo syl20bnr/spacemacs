@@ -34,6 +34,9 @@
             neo-modern-sidebar t
             neo-vc-integration nil)
 
+      (when (eq 'darwin system-type)
+       (setq neo-default-system-application "open"))
+
       (spacemacs|define-transient-state neotree
         :title "NeoTree Key Hints"
         :doc "
