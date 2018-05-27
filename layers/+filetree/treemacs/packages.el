@@ -28,9 +28,10 @@
     :defer t
     :init
     (spacemacs/set-leader-keys
-      "fB" #'treemacs-bookmark
-      "ft" #'treemacs
-      "fT" #'treemacs-find-file)
+      "ft"    #'treemacs
+      "fB"    #'treemacs-bookmark
+      "fT"    #'treemacs-find-file
+      "f M-t" #'treemacs-find-tag)
     :config
     (progn
       (spacemacs/define-evil-state-face "treemacs" "MediumPurple1")
@@ -53,11 +54,8 @@
       (when treemacs-use-filewatch-mode
         (treemacs-filewatch-mode t))
 
-      ;; this boundp check guards against a new feature that not all treemacs installations will have
-      ;; TODO remove this guard in a few weeks
-      (when (boundp 'treemacs-git-mode)
-        (when (memq treemacs-use-git-mode '(simple extended))
-          (treemacs-git-mode treemacs-use-git-mode))))))
+      (when (memq treemacs-use-git-mode '(simple extended))
+        (treemacs-git-mode treemacs-use-git-mode)))))
 
 (defun treemacs/init-treemacs-evil ()
   (use-package treemacs-evil
@@ -66,11 +64,8 @@
 
 (defun treemacs/init-treemacs-projectile ()
   (use-package treemacs-projectile
-    :defer t
-    :init
-    (spacemacs/set-leader-keys
-      "fp" #'treemacs-projectile-toggle
-      "fP" #'treemacs-projectile)))
+    :after treemacs
+    :defer t))
 
 (defun treemacs/pre-init-winum ()
   (spacemacs|use-package-add-hook winum
