@@ -71,6 +71,9 @@
     :defer t
     :init
     (progn
+      (spacemacs/copy-env-list '("RUST_SRC_PATH")))
+
+    (progn
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "=" 'rust-format-buffer
         "q" 'spacemacs/rust-quick-run))))
@@ -89,14 +92,6 @@
   (with-eval-after-load 'smartparens
     ;; Don't pair lifetime specifiers
     (sp-local-pair 'rust-mode "'" nil :actions nil)))
-
-
-(defun rust/pre-init-exec-path-from-shell ()
-  (spacemacs|use-package-add-hook exec-path-from-shell
-    :pre-config
-    (let ((var "RUST_SRC_PATH"))
-      (unless (or (member var exec-path-from-shell-variables) (getenv var))
-        (push var exec-path-from-shell-variables)))))
 
 (defun rust/init-racer ()
   (use-package racer

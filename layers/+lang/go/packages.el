@@ -46,17 +46,13 @@
 (defun go/post-init-flycheck ()
   (spacemacs/enable-flycheck 'go-mode))
 
-(defun go/pre-init-exec-path-from-shell ()
-  (spacemacs|use-package-add-hook exec-path-from-shell
-    :pre-config
-    (dolist (var '("GOPATH" "GOROOT" "GO15VENDOREXPERIMENT") exec-path-from-shell-variables)
-      (unless (or (member var exec-path-from-shell-variables) (getenv var))
-        (push var exec-path-from-shell-variables)))))
-
 (defun go/init-go-mode()
   (use-package go-mode
     :defer t
     :init
+    (progn
+      (spacemacs/copy-env-list '("GOPATH" "GOROOT" "GO15VENDOREXPERIMENT")))
+
     (progn
       (defun spacemacs//go-set-tab-width ()
         "Set the tab width."
