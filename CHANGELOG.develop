@@ -81,6 +81,8 @@ This file containes the change log for the next major version of Spacemacs.
 - Add new package =magithub=
 - Remove package =github-browse-file= which has been replaced by
   =browse-at-remote= in =version-control= layer
+**** Git
+- install magit-svn by default and activate with git-enable-magit-svn-plugin
 **** Gtags
 - Move key binding ~SPC m g c~ to ~SPC m g C~ (regenerate tags)
 **** Java

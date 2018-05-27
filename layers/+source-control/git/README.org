@@ -67,6 +67,10 @@ function, this is the folder where you keep all your git-controlled projects
 For more information, see [[http://magit.vc/manual/magit.html#Status-buffer][Magit-User-Manual#Status-buffer]]
 
 ** Magit SVN plugin
+The magit SVN plugin shows commits which were not pushed to svn yet. 
+Press ~!~ in *Magit* buffer to open the magit-svn-popup.
+There you can push to or rebase from svn.
+
 For convenience the magit SVN plugin can be activated directly in the Git
 layer by setting the variable =git-enable-magit-svn-plugin= to =t=.
 
@@ -74,6 +78,10 @@ layer by setting the variable =git-enable-magit-svn-plugin= to =t=.
   (defun dotspacemacs/user-init ()
     (setq-default git-enable-magit-svn-plugin t))
 #+END_SRC
+
+| Key Binding | Description          |
+|-------------+----------------------|
+| ~~~         | open magit-svn-popup |
 
 ** Global git commit mode
 Spacemacs can be used as the =$EDITOR= (or =$GIT_EDITOR=) for editing git
