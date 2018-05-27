@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: type_record
+# key: type
+# --
+type ${1:name} = {${2:var}: ${3:int}$0}

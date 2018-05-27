@@ -1,0 +1,4 @@
+# name: ... while ...
+# key: xwhile
+# --
+${1:expression} while ${2:condition};

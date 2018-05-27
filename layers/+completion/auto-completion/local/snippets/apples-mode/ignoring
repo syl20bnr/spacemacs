@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: ignoring
+# --
+ignoring $1
+$0
+end ignoring

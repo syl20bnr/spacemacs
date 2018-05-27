@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: parameter
+# key: par
+# --
+[Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)][string]\$${1:Foobar}

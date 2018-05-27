@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: init-es6
+# key: init
+# group: es6
+# --
+constructor(${1:arg}) {
+  ${2:super(${3:arg});}
+  $0
+}

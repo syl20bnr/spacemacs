@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: checkversion
+# key: checkversion
+# --
+#if swift(>=3.0)
+    $0
+#elseif swift(>=2.2)
+    $2
+#elseif swift(>=2.1)
+    $2
+#endif

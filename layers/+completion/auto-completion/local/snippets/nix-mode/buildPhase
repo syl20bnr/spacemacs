@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: buildPhase
+# key: bp
+# --
+buildPhase= ''
+$1
+'';
+$0

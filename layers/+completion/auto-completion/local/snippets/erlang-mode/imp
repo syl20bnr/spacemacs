@@ -1,0 +1,5 @@
+#name : -import([]).
+#contributor : hitesh <hitesh.jasani@gmail.com>
+# --
+-import(${1:lists}, [${2:map/2, sum/1}]).
+$0

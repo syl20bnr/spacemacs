@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: emit_signal
+# key: emit
+# --
+emit(${1:signal_id}, ${2:long});

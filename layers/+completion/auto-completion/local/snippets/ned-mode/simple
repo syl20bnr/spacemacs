@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: simple
+# key: simple
+# --
+simple ${1:Component}${2: extends ${3:Component}}
+{
+    $0
+}

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Prints a string to System.out
+# key: sout
+# --
+println($0)

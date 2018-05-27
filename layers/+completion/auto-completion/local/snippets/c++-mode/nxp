@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: next_permutation
+# key: nxp
+# --
+if (std::next_permutation(std::begin(${1:container}), std::end($1))) {
+  $2
+}
+$0

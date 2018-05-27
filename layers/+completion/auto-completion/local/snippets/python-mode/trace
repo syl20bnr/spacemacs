@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: trace
+# key: tr
+# group: debug
+# --
+import pdb; pdb.set_trace()

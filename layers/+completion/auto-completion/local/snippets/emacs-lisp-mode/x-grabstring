@@ -1,0 +1,5 @@
+#contributor: Xah Lee (XahLee.org)
+#name: grab buffer substring
+# key: x-grabstring
+# --
+(setq $0 (buffer-substring-no-properties myStartPos myEndPos))

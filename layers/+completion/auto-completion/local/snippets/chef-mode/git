@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: git
+# key: git
+# --
+git "${1:/home/user/deployment}" do
+  repository "${2:git@github.com:gitsite/deploymentployment.git}"
+  reference "${3:master}"
+  user "${4:user}"
+  group "${5:templateest}"
+  action :sync
+end

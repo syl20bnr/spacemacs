@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: spawn(proc() { ... });
+# key: spawn
+# --
+spawn(proc() {
+      $0
+});

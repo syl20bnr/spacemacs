@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: format
+# key: print
+# --
+(format t "~& $0 ~%")

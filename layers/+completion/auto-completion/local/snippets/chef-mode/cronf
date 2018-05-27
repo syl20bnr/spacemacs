@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: cronf
+# key: cronf
+# --
+cron "${1:name}" do
+  hour "${2:*}"
+  minute "${3:*}"
+  day "${4:*}"
+  weekday "${6:*}"
+  command "${7:/bin/true}"
+  user "${8:root}"
+  mailto "${9:root@example.com}"
+  path "${10:/bin:/usr/bin}"
+  home "${11:/tmp}"
+  shell "${12:/bin/bash}"
+end

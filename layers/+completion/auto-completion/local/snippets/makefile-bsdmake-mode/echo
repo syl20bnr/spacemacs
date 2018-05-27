@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: echo
+# key: echo
+# --
+@echo ${1:"message to output"}

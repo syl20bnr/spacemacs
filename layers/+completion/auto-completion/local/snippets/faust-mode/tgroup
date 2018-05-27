@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: tgroup
+# key: tg
+# --
+tgroup("${1:name}", ${2:expression})$0

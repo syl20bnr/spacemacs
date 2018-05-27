@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: tell-application
+# --
+tell application "$1"
+$0
+end tell

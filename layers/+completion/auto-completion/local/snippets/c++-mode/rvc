@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: reverse_copy
+# key: rvc
+# --
+std::reverse_copy(std::begin(${1:container}), std::end($1), std::begin($2));
+$0

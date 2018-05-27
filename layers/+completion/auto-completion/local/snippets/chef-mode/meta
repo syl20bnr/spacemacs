@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: meta
+# key: meta
+# --
+maintainer       "${1:YOUR_COMPANY_NAME}"
+maintainer_email "${2:YOUR_EMAIL}"
+license          "${3:All rights reserved}"
+description      "${4:Installs/Configures example}"
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
+version          "${5:0.0.1}"

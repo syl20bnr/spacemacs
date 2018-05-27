@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: slot
+# key: slot
+# --
+(${1:name} :initarg :${1:$(yas/substr yas-text "[^: ]*")}
+           :initform (error ":${1:$(yas/substr yas-text "[^: ]*")} must be specified")
+           ;; :accessor ${1:$(yas/substr yas-text "[^: ]*")}
+           :reader ${1:$(yas/substr yas-text "[^: ]*")}-changed
+           :writer set-${1:$(yas/substr yas-text "[^: ]*")}
+           :type
+           :allocation ${3::class :instance}
+           :documentation "${2:about-slot}")
+$0

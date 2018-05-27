@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: test
+# key: test
+# --
+@Test
+public void test_${1:Case}() {
+       $0
+}

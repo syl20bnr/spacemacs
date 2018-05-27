@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: cookbook_file
+# key: cookbook_file
+# --
+cookbook_file "${1:/tmp/file}" do
+  owner "${2:root}"
+  group "${3:root}"
+  mode "${4:0644}"
+  source "${5:my-filename}"
+end

@@ -1,0 +1,4 @@
+#contributor : Jimmy Wu <frozenthrone88@gmail.com>
+#name : <textarea ...></textarea>
+# --
+<textarea name="$1" id="$2" rows="$3" cols="$4" tabindex="$5"></textarea>

@@ -1,0 +1,56 @@
+# -*- mode: snippet -*-
+# name: package github
+# key: pg
+# --
+{ stdenv, fetchFromGitHub$1 }:
+stdenv.mkDerivation rec {
+  name = "$2-\$\{version\}";
+  version = "$3";
+
+  src = fetchFromGitHub {
+    owner = "$4";
+    repo = "$2";
+    rev = "${5:v\$\{version\}}";
+    sha256 = "$6";
+  };
+
+  buildInputs = [ $1];
+
+  meta = {
+    description = "$7";
+    homepage = https://${8:github.com/$4/$2};
+
+    license = stdenv.lib.licenses.${9:$$
+  (yas-choose-value '(
+    "agpl3"
+    "asl20"
+    "bsd2"
+    "bsd3"
+    "gpl2"
+    "gpl3"
+    "lgpl3"
+    "mit"
+  ))};
+    maintainers = [ stdenv.lib.maintainers.$10 ];
+    platforms = stdenv.lib.platforms.${11:$$
+  (yas-choose-value '(
+  "gnu"
+  "linux"
+  "darwin"
+  "freebsd"
+  "openbsd"
+  "netbsd"
+  "cygwin"
+  "illumos"
+  "unix"
+  "all"
+  "none"
+  "allBut"
+  "mesaPlatforms"
+  "x86"
+  "i686"
+  "arm"
+  "mips"
+  ))};
+  };
+}

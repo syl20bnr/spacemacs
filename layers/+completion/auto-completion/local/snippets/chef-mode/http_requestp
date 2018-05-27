@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: http_requestp
+# key: http_requestp
+# --
+http_request "${1:posting data}" do
+  action :post
+  url 		"${2:http://example.com/check_in}"
+  message ${3::some => "data"}
+  headers (${4:\{"AUTHORIZATION" => authorization\}})
+end

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : html
+# --
+new Request.HTML({
+  onSuccess: function(responseTree, responseElements, responseHTML, responseJavaScript) {
+    $0
+  }
+}).${1:get}(${2:url});

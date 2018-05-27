@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: submodules
+# key: sub
+# --
+submodules:
+   $0

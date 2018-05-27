@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: options
+# key: <op
+# --
+#+OPTIONS: H:${1:1} num:${2:t||nil} toc:${3:t||nil}

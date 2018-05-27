@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: if
+# key: if
+# --
+\IF {$${1:cond}$}
+    $0
+\ELSE
+\ENDIF 

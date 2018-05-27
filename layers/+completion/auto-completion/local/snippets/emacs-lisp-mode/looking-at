@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: looking-at
+#key: looking-at
+#key: la
+# --
+(looking-at $0)

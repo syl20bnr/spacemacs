@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: __enter__
+# key: ent
+# group: dunder methods
+# --
+def __enter__(self):
+    $0
+
+    return self

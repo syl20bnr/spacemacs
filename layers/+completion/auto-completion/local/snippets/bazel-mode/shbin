@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: sh_binary
+# key: shbin
+# --
+sh_binary(
+    name = "$0",
+    srcs = "$1",
+    data = "$2"
+)

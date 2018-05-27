@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: columns
+# key: cols
+# --
+\begin{columns}
+  \begin{column}{.${1:5}\textwidth}
+  $0
+  \end{column}
+
+  \begin{column}{.${2:5}\textwidth}
+
+  \end{column}
+\end{columns}

@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: python
+# key: python
+# --
+python "${1:install something}" do
+  user "${2:root}"
+  cwd "${3:/tmp}"
+  code <<-EOH
+    $0
+  EOH
+end

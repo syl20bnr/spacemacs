@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: test class
+# key: tc
+# --
+class TC_${1:Class} < Test::Unit::TestCase
+      $0
+end

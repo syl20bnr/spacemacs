@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: generate_n
+# key: trm
+# --
+${1:container}.erase($1.find_last_not_of(" \t\n\r") + 1);
+$0

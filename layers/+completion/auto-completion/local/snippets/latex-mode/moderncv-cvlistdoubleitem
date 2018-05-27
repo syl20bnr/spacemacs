@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: moderncv-cvlistdoubleitem
+# key: cvditem
+# --
+\cvlistdoubleitem{${1:item}}{${2:item}}
+$0

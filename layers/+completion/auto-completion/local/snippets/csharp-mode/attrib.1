@@ -1,0 +1,22 @@
+#contributor : Alejandro Espinoza Esparza <aespinoza@structum.com.mx>
+#name : private attribute ....; public property ... ... { ... }
+# key: attrib
+# --
+/// <summary>
+/// $3
+/// </summary>
+private $1 $2;
+
+/// <summary>
+/// $4
+/// </summary>
+/// <value>$5</value>
+public $1 $2
+{
+    get {
+        return this.$2;
+    }
+    set {
+        this.$2 = value;
+    }
+}

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: fixme dummy
+# key: efix
+# expand-env: ((yas-indent-line 'fixed))
+# --
+(error "FIXME: $0")

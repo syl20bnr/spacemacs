@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: import
+# key: imp
+# --
+import ned.${1:Package};

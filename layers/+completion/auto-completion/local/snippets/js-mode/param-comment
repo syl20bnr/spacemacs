@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name: param-comment
+#key: *@p
+#condition: (= (js2-node-type (js2-node-at-point)) js2-COMMENT)
+# --
+* @param {${type}} ${comment}.

@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: <e> in pardefs
+# key: <e
+# condition: (not (dix-enclosing-is-mono-section))
+# binding: direct-keybinding
+# --
+<e> <p><l>$1</l>  <r>$1$0</r></p> </e>

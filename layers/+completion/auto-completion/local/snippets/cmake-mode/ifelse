@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: ifelse
+# key: if
+# --
+if(${1:cond})
+        $2
+else(${3:cond})
+        $0
+endif($1)$0

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: USAMI Kenta <tadsan@zonu.me>
+# name: var_export()
+# key: ve
+# group: generic
+# --
+var_export(${1:$var}${2:, true});

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: nan
+# key: nan
+# --
+isnan(${1:x})

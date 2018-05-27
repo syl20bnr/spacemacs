@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: subclass
+# key: scls
+# group: object oriented
+# --
+class ${1:class}(${2:super-class}):
+    $0

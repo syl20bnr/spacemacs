@@ -1,0 +1,7 @@
+# -*- mode: snippet; -*-
+#contributor: Xah Lee (XahLee.org)
+#name: add-hook
+#key: add-hook
+#key: ah
+# --
+(add-hook '${1:name}-hook ${2:'${3:function}})$0

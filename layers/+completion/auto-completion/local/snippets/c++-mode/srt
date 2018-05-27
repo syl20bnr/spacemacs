@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: sort
+# key: srt
+# --
+std::sort(std::begin(${1:container}), std::end($1));
+$0

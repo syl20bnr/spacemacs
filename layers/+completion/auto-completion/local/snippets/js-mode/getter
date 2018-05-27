@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: getter
+# key: get
+# group: es6
+# --
+get ${1:prop}() {
+  return $0;
+}

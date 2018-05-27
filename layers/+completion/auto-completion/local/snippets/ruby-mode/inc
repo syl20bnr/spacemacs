@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: include Module
+# key: inc
+# group: general
+# --
+include ${1:Module}
+$0

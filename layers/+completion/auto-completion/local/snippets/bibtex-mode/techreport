@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: techreport
+# key: techreport
+# --
+@techreport{ ${title},
+  author       = {${author}},
+  title        = {${title}},
+  institution  = {${institution}},
+  year         = {${year}},
+  type         = {${type}}${,
+  address      = {${address}}}${,
+  month        = {${month}}}${,
+  note         = {${note}}}
+}
+
+$0

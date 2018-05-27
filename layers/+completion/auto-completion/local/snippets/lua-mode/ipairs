@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: for in ipairs
+# key: ipairs
+# --
+for ${1:idx}, ${2:val} in ipairs(${3:table_name}) do
+	$0
+end

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: newglossaryentry
+# key: gl
+# --
+\newglossaryentry{${1:AC}}{name=${2:Andrea Crotti}${3:, description=${4:description}}}

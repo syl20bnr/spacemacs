@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: fixPhase
+# key: fp
+# --
+fixPhase= ''
+$1
+'';
+$0

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: __repr__
+# key: repr
+# group: dunder methods
+# --
+def __repr__(self):
+    $0

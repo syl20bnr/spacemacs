@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: delete-region
+#key: delete-region
+#key: dr
+# --
+(delete-region $0)

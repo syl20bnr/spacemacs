@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: assertEqual
+# key: ae
+# group: testing
+# --
+self.assertEqual($1, $2)

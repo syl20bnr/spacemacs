@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: operator<<
+# key: <<
+# group: operator overloading
+# --
+std::ostream& operator<<(std::ostream& os, const ${1:Class}& ${2:c})
+{
+         $0
+         return os;
+}

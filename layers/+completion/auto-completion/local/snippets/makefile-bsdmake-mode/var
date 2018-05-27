@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: var
+# key: $
+# --
+$(${1:VAR})$0

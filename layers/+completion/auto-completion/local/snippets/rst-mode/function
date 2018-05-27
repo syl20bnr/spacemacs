@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: function
+# key: fun
+# --
+:function:\`$0\`

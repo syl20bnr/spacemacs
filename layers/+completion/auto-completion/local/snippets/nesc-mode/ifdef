@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: ifdef
+# key: ifdef
+# --
+#ifdef ${1:Macro}
+ $2
+${3:#else}
+ $4
+#endif

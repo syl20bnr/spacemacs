@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: data
+# key: da
+# --
+data ${1:Type} = $2

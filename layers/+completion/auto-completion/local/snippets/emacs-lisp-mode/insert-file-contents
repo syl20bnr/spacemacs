@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: insert-file-contents
+#key: insert-file-contents
+#key: ifc
+# --
+(insert-file-contents ${1:filename}${2: visit}${3: beg}${4: end}${5: replace})

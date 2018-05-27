@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: file-name-sans-extension
+#key: file-name-sans-extension
+#key: fnse
+# --
+(file-name-sans-extension $0)

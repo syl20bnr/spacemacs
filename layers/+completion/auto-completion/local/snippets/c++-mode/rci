@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: replace_copy_if
+# key: rci
+# --
+std::replace_copy_if(std::begin(${1:container}), std::end($1),
+  std::begin($1), []($2) {
+  $3
+}, $4);
+$0

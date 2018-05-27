@@ -1,0 +1,7 @@
+# -*- mode: snippet; -*-
+#contributor: Xah Lee (XahLee.org)
+#name: search-backward
+#key: search-backward
+#key: sb
+# --
+(search-backward "$1"${2: ${3:bound}${4: ${5:noerror}${6: count}}})$0

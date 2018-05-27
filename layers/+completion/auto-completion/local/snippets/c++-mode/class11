@@ -1,0 +1,44 @@
+# -*- mode: snippet -*-
+# name: class11
+# key: cls11
+# group: c++11
+# uuid: d7c41f87-9b8a-479d-bb12-89f4cbdd46a7
+# contributor: Ved Vyas
+# desc: Snippet for C++11 classes based on c++-mode/class. Allows for Rule of
+# [0, All]. A choice between ";", " = default;", and " = delete;" is presented
+# for each method. The methods and some of the optional keywords/specifiers are
+# exposed as fields that users can easily skip-and-clear.
+# Hackish query-replace-regexp to renumber non-mirror fields in the region
+# between public and protected (can use N as a field number in the snippet):
+# \${[0-9N]*:\([^\$]\) -> ${\,(+ 2 \#):\1
+# References:
+# 1. http://en.cppreference.com/w/cpp/language/rule_of_three#Rule_of_five
+# 2. https://en.wikipedia.org/wiki/Rule_of_three_%28C%2B%2B_programming%29#Example_in_C.2B.2B
+# 3. http://stackoverflow.com/a/4782927
+# --
+class ${1:Name}
+{
+public:
+${2:  ${3://! Default constructor
+  }${1:$(yas-c++-class-name yas-text)}()${4:;$(yas-c++-class-method-declare-choice)}
+
+}${5:  ${6://! Copy constructor
+  }${1:$(yas-c++-class-name yas-text)}(const ${1:$(yas-c++-class-name yas-text)} &other)${7:;$(yas-c++-class-method-declare-choice)}
+
+}${8:  ${9://! Move constructor
+  }${1:$(yas-c++-class-name yas-text)}(${1:$(yas-c++-class-name yas-text)} &&other)${10: noexcept}${11:;$(yas-c++-class-method-declare-choice)}
+
+}${12:  ${13://! Destructor
+  }${14:virtual }~${1:$(yas-c++-class-name yas-text)}()${15: noexcept}${16:;$(yas-c++-class-method-declare-choice)}
+
+}${17:  ${18://! Copy assignment operator
+  }${1:$(yas-c++-class-name yas-text)}& operator=(const ${1:$(yas-c++-class-name yas-text)} &other)${19:;$(yas-c++-class-method-declare-choice)}
+
+}${20:  ${21://! Move assignment operator
+  }${1:$(yas-c++-class-name yas-text)}& operator=(${1:$(yas-c++-class-name yas-text)} &&other)${22: noexcept}${23:;$(yas-c++-class-method-declare-choice)}
+
+}$0
+
+protected:
+private:
+};

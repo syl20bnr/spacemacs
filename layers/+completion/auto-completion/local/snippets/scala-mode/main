@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#Author : Jonas Bonèr <jonas@jonasboner.com>
+#name: def main(args: Array[String]) = { ... }
+# key: main
+# --
+def main(args: Array[String]) = {
+  $0
+}

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: moderncv-cventry
+# key: cventry
+# --
+\cventry{${1:year}}{${2:job}}{${3:employer}}{${4:city}}{${5:description}}
+$0

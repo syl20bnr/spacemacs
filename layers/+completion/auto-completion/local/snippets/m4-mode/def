@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: def
+# key: def
+# --
+define(\`${1:macro}',\`${2:subst}').
+$0

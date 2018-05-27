@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: java_library
+# key: jlib
+# --
+java_library(
+    name = "$0",
+    deps = "$1"
+)

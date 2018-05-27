@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: ruby
+# key: ruby
+# --
+ruby_block "${1:reload client config}" do
+  block do
+    ${0:Chef::Config.from_file("/Chefetc/chef/client.rb")}
+  end
+end

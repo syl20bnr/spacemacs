@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: fune
+# key: fune
+# --
+${1:function-name} :: ${2:type}
+$1 = $0error "Not implemented: $1"

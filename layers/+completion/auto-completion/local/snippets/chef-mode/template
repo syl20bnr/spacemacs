@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: template
+# key: template
+# --
+template "${1:name}" do
+  source "${2:source}.erb"
+  owner "root"
+  group "root"
+  mode "0644"
+end

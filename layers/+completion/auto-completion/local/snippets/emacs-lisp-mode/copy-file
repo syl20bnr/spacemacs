@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: copy-file
+#key: copy-file
+#key: cf
+# --
+(copy-file ${1:filename} ${2:newname}${3: ok-if-already-exists}${4: keep-time}{5: preserve-uid-gid})

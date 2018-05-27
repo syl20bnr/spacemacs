@@ -1,0 +1,4 @@
+#name : delete_if { |...| ... }
+#group : collections
+# --
+delete_if { |${e}| $0 }

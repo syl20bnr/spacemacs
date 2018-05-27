@@ -1,0 +1,4 @@
+#contributor : Vikrant Rathore <vikrant@vyomtech.com>
+#name : <link rel="import" />
+# --
+<link rel="import" href="${1:url}" />

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: let
+# key: let
+# --
+let ${1:var} $0

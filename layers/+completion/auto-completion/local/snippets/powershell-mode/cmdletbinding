@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: cmdletbinding
+# key: cmd
+# --
+[cmdletbinding()]
+Param (
+  $0
+)

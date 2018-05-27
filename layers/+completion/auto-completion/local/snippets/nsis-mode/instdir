@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: instdir
+# key: $
+# --
+$INSTDIR

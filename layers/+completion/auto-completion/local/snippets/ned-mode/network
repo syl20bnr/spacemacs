@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: network
+# key: net
+# --
+network ${1:Name}
+{
+        submodules:
+           $2
+        connections:
+           $3
+}

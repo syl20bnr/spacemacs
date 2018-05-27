@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: reveal_single_colored_background
+# key: <rsb
+# --
+
+:PROPERTIES:
+:reveal_background: ${1: #123456}
+:END:

@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name : Snippet header
+# contributor : joaotavora
+# key: vars
+# --
+# name : $1${2:
+# key : ${3:trigger-key}}${4:
+# keybinding : ${5:keybinding}}${6:
+# expand-env : (${7:})}
+# contributor : $6
+# key: vars
+# --
+$0

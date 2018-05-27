@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: cond
+# key: cond
+# --
+cond do
+  $0
+end

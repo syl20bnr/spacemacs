@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: url
+# key: url
+# --
+.. _${1:description}: $0

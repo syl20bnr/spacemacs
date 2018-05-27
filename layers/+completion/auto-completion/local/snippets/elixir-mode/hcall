@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: hcall
+# key: hcall
+# --
+def handle_call($1, _from, state) do
+  reply = $0
+  {:reply, reply, state}
+end

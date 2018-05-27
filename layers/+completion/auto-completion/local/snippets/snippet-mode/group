@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: group
+# key: group
+# --
+# group : ${1:group}

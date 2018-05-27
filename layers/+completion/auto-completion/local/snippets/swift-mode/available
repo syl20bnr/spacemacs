@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: available
+# key: available
+# --
+@available(iOS $1, *)

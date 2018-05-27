@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: USAMI Kenta <tadsan@zonu.me>
+# name: PHPDoc @license MIT
+# key: *license-mit
+# group: annotation
+# --
+* @license https://opensource.org/licenses/MIT MIT${0:
+*}

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: run
+# key: run
+# --
+RUN+="$0"

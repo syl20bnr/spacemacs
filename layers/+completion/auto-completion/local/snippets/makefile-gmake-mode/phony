@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: phony
+# key: ph
+# --
+.PHONY = $0

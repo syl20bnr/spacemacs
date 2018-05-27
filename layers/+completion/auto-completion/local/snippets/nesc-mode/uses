@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: uses
+# key: uses
+# --
+uses interface ${1:Interface}${2: as ${3:alias}};
+$0

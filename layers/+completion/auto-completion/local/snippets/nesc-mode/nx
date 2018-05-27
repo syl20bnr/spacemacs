@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: nx
+# key: nx
+# --
+nx_uint${1:8}_t ${2:var};
+$0

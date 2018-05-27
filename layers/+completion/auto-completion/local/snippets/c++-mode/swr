@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: swap_ranges
+# key: swr
+# --
+std::swap_ranges(std::begin(${1:container}), std::end($1), std::begin($2));
+$0

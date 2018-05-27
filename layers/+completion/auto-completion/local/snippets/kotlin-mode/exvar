@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: Extension read-write property
+# key: exvar
+# --
+var $1.$2: $3
+    get() {
+        $0
+    }
+    set(value) {
+
+    }

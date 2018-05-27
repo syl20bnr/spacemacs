@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: embedded
+# key: emb_
+# --
+src_${1:lang}${2:[${3:where}]}{${4:code}}

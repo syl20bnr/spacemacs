@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: if else
+# key: ife
+# --
+if $1 then
+	$2
+else
+	$0
+end

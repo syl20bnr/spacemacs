@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: fun
+# key: fun
+# --
+function ($1)
+	$0
+end

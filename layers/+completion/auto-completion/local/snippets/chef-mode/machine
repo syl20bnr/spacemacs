@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: machine
+# key: machine
+# --
+machine "${1:name}" do
+  role '${2:web}'
+  recipe '${3:web}'
+  chef_environment '${4:_default}'
+  converge true
+end

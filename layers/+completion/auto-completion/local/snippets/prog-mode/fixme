@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: fixme
+# key: fi
+# condition: (not (eq major-mode 'sh-mode))
+# --
+`comment-start`FIXME: $0`comment-end`

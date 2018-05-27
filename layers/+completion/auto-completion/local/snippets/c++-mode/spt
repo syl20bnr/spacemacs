@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: stable_partition
+# key: spt
+# --
+auto pos = std::stable_partition(std::begin(${1:container}), std::end($1), []($2) {
+  $3});
+if (pos != std::end($1)) {
+  $4
+}
+$0

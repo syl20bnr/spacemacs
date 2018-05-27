@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Inserts 'if not null' expression
+# key: inn
+# --
+if ($1 != null) {
+   $0
+}

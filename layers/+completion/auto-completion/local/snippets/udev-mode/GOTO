@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: GOTO
+# key: goto
+# --
+GOTO="$1"
+$0
+
+LABEL="$1"

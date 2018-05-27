@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: import member
+# key: imm
+# group: es6
+# --
+import { ${1:member1}, ${2:member2} } from '${3:module}';

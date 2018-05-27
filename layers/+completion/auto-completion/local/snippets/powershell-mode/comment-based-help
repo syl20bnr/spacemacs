@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: comment-based-help
+# key: cbh
+# --
+<#
+.SYNOPSIS
+${1:Brief description}
+
+.DESCRIPTION
+${2:Longer description}
+
+.PARAMETER Foobar
+${3:Descriptions of parameter Foobar}
+
+.EXAMPLE
+${4:Actual example}
+
+.NOTES
+${5:Additional notes}
+\#>

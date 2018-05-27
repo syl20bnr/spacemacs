@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: user
+# key: user
+# --
+user "${1:random}" do
+  action :create
+  comment "${2:Random User}"
+  uid ${3:1000}
+  gid "${4:users}"
+  home "${5:/home/random}"
+  shell "${6:/bin/zsh}"
+  password "${7:\$1\$JJsvHslV\$szsCjVEroftprNn4JHtDi.}"
+  supports :manage_home =>manage_home true 
+end

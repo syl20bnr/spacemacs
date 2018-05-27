@@ -1,0 +1,4 @@
+#name : detect { |...| ... }
+#group : collections
+# --
+detect { |${e}| $0 }

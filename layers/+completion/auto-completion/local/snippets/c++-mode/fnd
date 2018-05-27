@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: find
+# key: fnd
+# --
+auto pos = std::find(std::begin(${1:container}), std::end($1), $2);
+if (pos != std::end($1)) {
+  $3
+}
+$0

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: repeat util
+# key: repeat
+# --
+repeat
+	$0
+until $1

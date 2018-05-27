@@ -1,0 +1,9 @@
+# name: eval { ... } if ($@) { ... }
+# key: eval
+# --
+eval {
+    ${1:# do something risky...}
+};
+if (\$@) {
+    ${2:# handle failure...}
+}

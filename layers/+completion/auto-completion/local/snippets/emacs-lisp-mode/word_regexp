@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: word_regexp
+# key: <
+# --
+"\\_<${1:word}\\_>"

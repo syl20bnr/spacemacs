@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: forcase
+# key: forcase
+# --
+for case let $1 in $2 as $3 {
+    $0
+}

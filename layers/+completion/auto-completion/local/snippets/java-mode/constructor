@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: constructor
+# key: c
+# --
+public ${1:Class} (${2:args}) {
+       $0
+}

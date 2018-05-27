@@ -1,0 +1,21 @@
+# -*- mode: snippet -*-
+# name: inbook
+# key: inbook
+# --
+@inbook{ ${title},
+  author    = {${author}},
+  title     = {${title}},
+  chapter   = {${chapter}}${,
+  pages     = {${pages}}},
+  publisher = {${publisher}},
+  year      = {${year}},
+  volume    = {${volume}}${,
+  series    = {${series}}}${,
+  type      = {${type}}}${,
+  address   = {${addre}ss}}${,
+  edition   = {${edition}}}${,
+  month     = {${month}}}${,
+  note      = {${note}}}
+}
+
+$0

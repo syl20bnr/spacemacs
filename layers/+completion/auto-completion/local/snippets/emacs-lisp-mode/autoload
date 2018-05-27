@@ -1,0 +1,5 @@
+#contributor: Xah Lee (XahLee.org)
+#name: autoload
+#key: autoload
+# --
+(autoload ${1:function} "${2:filename}"${3: "docstring"}${4: interactive}${5: type})

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name : else { ... }
+# key: else
+# --
+else${1: {
+    $0
+}}

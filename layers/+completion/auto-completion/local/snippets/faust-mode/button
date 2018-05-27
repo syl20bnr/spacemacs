@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: button
+# key: bu
+# --
+button("$1")$0

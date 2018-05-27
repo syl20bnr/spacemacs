@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: fill
+# key: fil
+# --
+std::fill(std::begin(${1:container}), std::end($1), $2);
+$0

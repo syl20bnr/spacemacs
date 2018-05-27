@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: until loop
+# key: until
+# --
+until ${1:cond}; do
+    $0
+done

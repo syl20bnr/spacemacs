@@ -1,0 +1,6 @@
+# name: sub ... { ... }
+# key: sub
+# --
+sub ${1:function_name} {
+    $0
+}

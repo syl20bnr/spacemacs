@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: main function
+# key: main
+# expand-env: ((yas-indent-line 'fixed))
+# --
+main :: IO ()
+main = do $0

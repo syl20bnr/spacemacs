@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: is_heap
+# key: ihp
+# --
+if (std::is_heap(std::begin(${1:container}), std::end($1))) {
+  $2
+}
+$0

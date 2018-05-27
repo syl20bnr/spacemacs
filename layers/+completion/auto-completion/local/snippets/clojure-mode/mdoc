@@ -1,0 +1,5 @@
+# -*- coding: utf-8 -*-
+# name: mdoc
+# key: mdoc
+# --
+^{:doc "$1"}

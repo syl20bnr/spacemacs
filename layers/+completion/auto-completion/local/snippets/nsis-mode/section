@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: section
+# key: sec
+# --
+Section "${1:Program}"
+        $0
+SectionEnd

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: println
+# key: pr
+# --
+println ${1:"string"}
+$0

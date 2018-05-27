@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# contributor: Egor Panfilov <egor.v.panfilov[at]gmail[dot]com>
+# name: function_docstring_numpy
+# key: fdn
+# group: definitions
+# --
+def ${1:name}($2):
+ \"\"\"$3
+ ${2:$(python-args-to-docstring-numpy)}
+ \"\"\"
+ $0

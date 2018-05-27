@@ -1,0 +1,7 @@
+#contributor: Xah Lee (XahLee.org)
+#name: let
+#key: let
+#key: l
+# --
+(let${1:*} (${2:args})
+  $0)

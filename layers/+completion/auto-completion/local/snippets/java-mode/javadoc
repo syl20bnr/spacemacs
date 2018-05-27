@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: javadoc
+# key: doc
+# --
+/**
+ * $0
+ *
+ */

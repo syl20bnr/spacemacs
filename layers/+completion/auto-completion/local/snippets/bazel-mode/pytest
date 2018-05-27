@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: py_test
+# key: pytest
+# --
+py_test(
+    name = "$0",
+    srcs = [
+        "$1"
+    ],
+    main = "$2",
+)

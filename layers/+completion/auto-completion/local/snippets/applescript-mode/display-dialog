@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: display-dialog
+# --
+display dialog "$0"

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: property
+# key: prop
+# --
+<property name="${1:name}" value="${2:value}" />
+$0

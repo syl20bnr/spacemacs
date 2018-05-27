@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: sum
+# key: su
+# --
+sum(${1:i}, ${2:Nr}, ${3:expression})$0

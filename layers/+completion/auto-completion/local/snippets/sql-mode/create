@@ -1,0 +1,10 @@
+#contributor : Alejandro Espinoza Esparza <aespinoza@structum.com.mx>
+#name : create table ...
+# --
+CREATE TABLE [${1:dbo}].[${2:TableName}] 
+(
+		${3:Id}		${4:INT IDENTITY(1,1)}		${5:NOT NULL}
+$0
+	CONSTRAINT [${6:PK_}] PRIMARY KEY ${7:CLUSTERED} ([$3]) 
+)
+GO

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Closure (function without name)
+# key: closure
+# --
+{ $1 -> $0 }

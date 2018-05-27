@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: figure
+# key: fig_
+# --
+#+CAPTION: ${1:caption}
+#+ATTR_LaTeX: ${2:scale=0.75}
+#+LABEL: fig:${3:label}

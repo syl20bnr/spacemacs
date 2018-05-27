@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: method
+# key: met
+# group: es6
+# --
+${1:name}(${2:arg}) {
+  $0
+}

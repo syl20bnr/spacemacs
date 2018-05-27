@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: moderncv-cvcomputer
+# key: cvcomp
+# --
+\cvcomputer{${1:category}}{${2:programs}}{${3:category}}{${3:programs}}
+$0

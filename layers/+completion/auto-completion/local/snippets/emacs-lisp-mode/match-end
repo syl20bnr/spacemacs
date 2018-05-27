@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: match-end
+#key: match-end
+#key: me
+# --
+(match-end $0)

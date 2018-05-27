@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: caption
+# key: ca
+# --
+\caption{$0}

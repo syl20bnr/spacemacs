@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: header
+# key: he
+# --
+declare name "$1";
+declare version "${2:0.1}";
+declare author "$3";
+declare license "${4:$$
+  (yas-choose-value '(
+    "AGPLv3"
+    "Apache"
+    "BSD 2-clause"
+    "BSD 3-clause"
+    "GPLv2"
+    "GPLv3"
+    "LGPLv3"
+    "MIT"
+  ))}";
+$0

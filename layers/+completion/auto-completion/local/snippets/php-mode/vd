@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: USAMI Kenta <tadsan@zonu.me>
+# name: var_dump()
+# key: vd
+# group: generic
+# --
+var_dump(${1:$var});

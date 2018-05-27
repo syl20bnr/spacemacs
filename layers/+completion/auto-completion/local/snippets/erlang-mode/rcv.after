@@ -1,0 +1,6 @@
+#name : receive after ... -> ... end
+# --
+receive
+after
+    $1 -> $0
+end

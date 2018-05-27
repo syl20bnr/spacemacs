@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: <par> element
+# key: <p
+# condition: (progn (backward-char 2) (equal (dix-enclosing-elt 'noerror) "e"))
+# binding: direct-keybinding
+# --
+<par n="${1::$$(dix-yas-message-pardef (yas-choose-value (dix-pardef-suggest-for (dix-lemma-at-point))))`}"/>$0

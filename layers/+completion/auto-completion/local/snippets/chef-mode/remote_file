@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: remote_file
+# key: remote_file
+# --
+remote_file "${1:/tmp/remote_file}" do
+  owner "${2:root}"
+  group "${3:root}"
+  mode "${4:0644}"
+  source "${5:http://www.example.com/remote_file}"
+  checksum "${6:sha256checksum}"
+end

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: connections
+# key: conn
+# --
+connections${1: allowunconnected}:
+                $0

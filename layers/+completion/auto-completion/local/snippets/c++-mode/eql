@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: equal
+# key: eql
+# --
+if (std::equal(std::begin(${1:container}), std::end($1), std::begin($2))) {
+  $3
+}
+$0

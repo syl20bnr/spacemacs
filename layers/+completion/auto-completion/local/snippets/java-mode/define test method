@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: define test method
+# key: dt
+# --
+@Test
+public void test${1:Name}() throws Exception {
+    $0
+}

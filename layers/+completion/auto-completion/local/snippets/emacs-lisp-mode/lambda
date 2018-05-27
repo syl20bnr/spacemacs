@@ -1,0 +1,6 @@
+# -*- mode: snippet; -*-
+#contributor: Xah Lee (XahLee.org)
+#name: lambda
+#key: lam
+# --
+(lambda ($1) ${2:(interactive${3: "$4"}) }$0)

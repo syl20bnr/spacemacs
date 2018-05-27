@@ -1,0 +1,6 @@
+#contributor : Anders Bach Nielsen <abachn@abachn.net>
+#name : <body>...</body>
+# --
+<body$1>
+  $0
+</body>

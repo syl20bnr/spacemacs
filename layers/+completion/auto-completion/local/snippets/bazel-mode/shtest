@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: sh_test
+# key: shtest
+# --
+sh_test(
+    name = "$0",
+    size = "$1",
+    srcs = "$2",
+    deps = "$3",
+    data = "$4"
+)

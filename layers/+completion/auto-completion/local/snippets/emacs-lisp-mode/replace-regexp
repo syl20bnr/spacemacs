@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: replace-regexp
+#key: replace-regexp
+#key: rr
+# --
+(replace-regexp ${1:regexp}${2: delimited}${3: start}${4: end})

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#contributor: Raghav Kumar Gautam
+#name: ert-deftest
+#key: edt
+# --
+(ert-deftest ${1:test-name} ()
+  $0)

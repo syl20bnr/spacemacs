@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: docstring
+# key: d
+# --
+(* $0 *)

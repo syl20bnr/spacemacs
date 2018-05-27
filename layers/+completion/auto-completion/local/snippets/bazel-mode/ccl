@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: cc_library
+# key: ccl
+# --
+cc_library(
+    name = "$0",
+    srcs = ["$1"],
+    hdrs = ["$2"],
+    deps = ["$3"]
+)

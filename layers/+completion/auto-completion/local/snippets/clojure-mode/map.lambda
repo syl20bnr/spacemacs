@@ -1,0 +1,5 @@
+# -*- coding: utf-8 -*-
+# name: map lambda
+# key: map
+# --
+(map #($1) $2)$>

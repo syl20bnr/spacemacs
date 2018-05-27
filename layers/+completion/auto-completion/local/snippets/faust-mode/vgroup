@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: vgroup
+# key: vg
+# --
+vgroup("${1:name}", ${2:expression})$0

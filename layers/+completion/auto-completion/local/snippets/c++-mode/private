@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: private
+# key: pr
+# expand-env: ((yas-also-auto-indent-first-line t))
+# --
+private:
+        $0

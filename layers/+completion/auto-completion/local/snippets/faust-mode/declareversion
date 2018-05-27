@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: declare version
+# key: dv
+# --
+declare version "${1:0.1}";
+$0

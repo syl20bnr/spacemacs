@@ -1,0 +1,4 @@
+#name : map { |...| ... }
+#group : collections
+# --
+map { |${e}| $0 }

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: comment
+# key: /*
+# --
+#|${1:type the comment here}|#
+$0

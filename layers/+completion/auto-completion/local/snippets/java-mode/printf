@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: printf
+# key: printf
+# --
+System.out.printf("$0%n");

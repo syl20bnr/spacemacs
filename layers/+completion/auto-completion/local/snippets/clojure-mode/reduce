@@ -1,0 +1,5 @@
+# -*- coding: utf-8 -*-
+# name: reduce
+# key: reduce
+# --
+(reduce ${1:(fn [p n] $0)} $2)

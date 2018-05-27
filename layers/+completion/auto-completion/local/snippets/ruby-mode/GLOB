@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: GLOB
+# key: $
+# --
+$${1:GLOBAL} = $0

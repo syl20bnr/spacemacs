@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: fmt.Printf(...)
+# key: pr
+# --
+fmt.Printf("${1:%s}\n", ${2:args})
+$0

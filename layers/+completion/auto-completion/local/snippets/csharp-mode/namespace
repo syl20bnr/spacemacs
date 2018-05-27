@@ -1,0 +1,8 @@
+#contributor : Alejandro Espinoza Esparza <aespinoza@structum.com.mx>
+#name : namespace .. { ... }
+# key: namespace
+# --
+namespace $1
+{
+$0
+}

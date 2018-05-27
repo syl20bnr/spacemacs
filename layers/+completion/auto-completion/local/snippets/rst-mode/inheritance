@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: inheritance
+# key: inh
+# --
+.. inheritance-diagram:: $0

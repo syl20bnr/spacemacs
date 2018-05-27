@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: each
+# --
+${1:collection}.forEach(function (${2:elem}) {
+  $0
+});

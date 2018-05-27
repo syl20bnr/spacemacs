@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: moderncv-cvlistitem
+# key: cvitem
+# --
+\cvlistitem{${1:item}}
+$0

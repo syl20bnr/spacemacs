@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+# name: ns
+# key: ns
+# --
+(ns `(cl-flet ((try-src-prefix
+		(path src-pfx)
+		(let ((parts (split-string path src-pfx)))
+		  (if (= 2 (length parts))
+		      (cl-second parts)
+		    nil))))
+       (let* ((p (buffer-file-name))
+	      (p2 (cl-first
+		   (cl-remove-if-not '(lambda (x) x)
+				     (mapcar
+				      '(lambda (pfx)
+					 (try-src-prefix p pfx))
+				      '("/src/cljs/" "/src/clj/" "/src/" "/test/")))))
+	      (p3 (file-name-sans-extension p2))
+	      (p4 (mapconcat '(lambda (x) x)
+			     (split-string p3 "/")
+			     ".")))
+	 (replace-regexp-in-string "_" "-" p4)))`)

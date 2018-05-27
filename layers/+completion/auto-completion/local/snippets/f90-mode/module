@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# contributor: Jonas Kalderstam <jonas@kalderstam.se>
+# name: module ... end module ...
+# key: module
+# --
+module ${1:name}
+
+contains
+
+  $0
+
+end module $1

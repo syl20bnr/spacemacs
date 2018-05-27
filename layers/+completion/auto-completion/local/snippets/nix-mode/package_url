@@ -1,0 +1,54 @@
+# -*- mode: snippet -*-
+# name: package url
+# key: pu
+# --
+{ stdenv, fetchurl$1}:
+
+stdenv.mkDerivation rec {
+  version = "$2";
+  name = "$3-\$\{version\}";
+
+  src = fetchurl {
+    url = "$4";
+    sha256 = "$5";
+  };
+
+  buildInputs = [ $1 ];
+
+  meta = {
+    description = "$6";
+    homepage = https://$7;
+    license = stdenv.lib.licenses.${8:$$
+  (yas-choose-value '(
+    "agpl3"
+    "asl20"
+    "bsd2"
+    "bsd3"
+    "gpl2"
+    "gpl3"
+    "lgpl3"
+    "mit"
+  ))};
+    maintainers = [ stdenv.lib.maintainers.$9 ];
+    platforms = stdenv.lib.platforms.${10:$$
+  (yas-choose-value '(
+  "gnu"
+  "linux"
+  "darwin"
+  "freebsd"
+  "openbsd"
+  "netbsd"
+  "cygwin"
+  "illumos"
+  "unix"
+  "all"
+  "none"
+  "allBut"
+  "mesaPlatforms"
+  "x86"
+  "i686"
+  "arm"
+  "mips"
+  ))};
+  };
+}

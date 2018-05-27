@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: KERNEL
+# key: ker
+# --
+KERNEL!="$0"

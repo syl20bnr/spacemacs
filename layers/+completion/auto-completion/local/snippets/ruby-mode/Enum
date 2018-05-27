@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: include Enumerable
+# key: Enum
+# group: collections
+# --
+include Enumerable
+
+def each${1:(&block)}
+  $0
+end

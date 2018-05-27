@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: delete-char
+#key: delete-char
+#key: dc
+# --
+(delete-char $0)

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name: return-comment
+#key: *@r
+#condition: (= (js2-node-type (js2-node-at-point)) js2-COMMENT)
+# --
+* @return {${type}}

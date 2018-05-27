@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: log
+# key: log
+# --
+log ("${1:your string to log}") { level :${2:debug} }

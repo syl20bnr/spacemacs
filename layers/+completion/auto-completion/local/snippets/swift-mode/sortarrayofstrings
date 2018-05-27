@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: sortarrayofstrings
+# key: sortarrayofstrings
+# --
+$1.sorted { (a, b) -> Bool in
+    let comparisonResult = a.compare(b,
+                                     options: [],
+                                     range: a.range(of: a),
+                                     locale: Locale.current)
+    return comparisonResult == .orderedSame
+}

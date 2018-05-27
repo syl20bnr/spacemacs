@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: <section> element
+# key: <s
+# condition: (progn (backward-char 2) (and (not (dix-enclosing-is-mono-section)) (not (member (dix-enclosing-elt 'noerror) '("l" "r" "i" "g" "sdefs")))))
+# binding: direct-keybinding
+# --
+<section id="${1:main}" type="${2:$$(yas-choose-value '("standard" "inconditional" "postblank" "preblank"))}">
+$0
+</section>

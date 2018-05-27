@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: fn name() { ... }
+# key: fn
+# --
+fn ${1:name}($2) {
+    $0
+}

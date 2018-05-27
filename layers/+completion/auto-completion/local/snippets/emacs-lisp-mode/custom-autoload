@@ -1,0 +1,6 @@
+#contributor: Xah Lee (XahLee.org)
+#name: custom-autoload
+#key: custom-autoload
+#key: ca
+# --
+(custom-autoload ${1:symbol} ${2:load}${3: noset})

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: macro_rules! name { (..) => (..); }
+# key: macro
+# --
+macro_rules! ${1:name} {
+     ($2) => ($3);
+}

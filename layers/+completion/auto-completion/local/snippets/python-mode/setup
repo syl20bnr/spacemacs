@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: setup
+# key: setup
+# group: distribute
+# --
+from setuptools import setup
+
+package = '${1:name}'
+version = '${2:0.1}'
+
+setup(name=package,
+      version=version,
+      description="${3:description}",
+      url='${4:url}'$0)

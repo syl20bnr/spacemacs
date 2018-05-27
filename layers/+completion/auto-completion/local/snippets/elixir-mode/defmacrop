@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: defmacrop
+# key: defmacrop
+# --
+defmacrop $1 do
+  $0
+end

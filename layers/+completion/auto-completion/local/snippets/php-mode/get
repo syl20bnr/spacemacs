@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# contributor: Robin de Rooij <rderooij685@gmail.com>
+# name: get
+# key: get
+# group: definitions
+# --
+public function get${1:$(upcase-initials yas-text)}()
+{
+    return \$this->$1;
+}

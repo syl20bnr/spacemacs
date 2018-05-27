@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: uialertController
+# key: uialertController
+# --
+let alert =
+    UIAlertController(title: $1,
+                    message: $2,
+             preferredStyle: .alert)
+	alert.addAction(UIAlertAction(title: "",
+                                  style: .default,
+                                handler: { (action) in
+	alert.dismiss(animated: true, completion: {
+        $0
+    })
+}))
+
+self.presentViewController(alert, animated: true, completion: nil)

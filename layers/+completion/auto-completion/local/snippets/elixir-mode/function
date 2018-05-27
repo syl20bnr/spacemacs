@@ -1,0 +1,7 @@
+## -*- mode: snippet -*-
+# name : function
+# key: dfun
+# --
+def $1($2)${3:$$(when (and yas-moving-away-p yas-modified-p) (concat " when " yas-text))} do
+    $0
+end

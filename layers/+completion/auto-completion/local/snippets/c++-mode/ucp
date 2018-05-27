@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: unique_copy
+# key: ucp
+# --
+std::unique_copy(std::begin(${1:container}), std::end($1),
+  std::ostream_iterator<string>(std::cout, "\n"));
+$0

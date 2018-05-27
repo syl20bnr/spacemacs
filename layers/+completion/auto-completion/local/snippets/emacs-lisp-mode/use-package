@@ -1,0 +1,6 @@
+#contributor: Daniel Hitzel
+#name: use-package
+#key: up
+# --
+(use-package ${1:package-name}
+:ensure t$0)

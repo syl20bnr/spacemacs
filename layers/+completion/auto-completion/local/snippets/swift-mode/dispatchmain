@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: dispatchMain
+# key: dispatchMain
+# --
+DispatchQueue.main.async(execute: { () -> Void in
+    $0
+})

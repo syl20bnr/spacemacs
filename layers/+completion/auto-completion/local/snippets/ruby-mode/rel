@@ -1,0 +1,4 @@
+#name : require_relative
+#group : general
+# --
+require_relative '$0'
