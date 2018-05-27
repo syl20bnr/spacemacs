@@ -67,7 +67,7 @@ function, this is the folder where you keep all your git-controlled projects
 For more information, see [[http://magit.vc/manual/magit.html#Status-buffer][Magit-User-Manual#Status-buffer]]
 
 ** Magit SVN plugin
-The magit SVN plugin shows commits which were not pushed to svn yet. 
+The magit SVN plugin shows commits which were not pushed to svn yet.
 Press ~!~ in *Magit* buffer to open the magit-svn-popup.
 There you can push to or rebase from svn.
 
