@@ -161,10 +161,12 @@
           "rsr" 'robe-rails-refresh
           ;; inf-enh-ruby-mode
           "sb" 'ruby-send-buffer
+          "sB" 'ruby-send-buffer-and-go
           "sf" 'ruby-send-definition
           "sF" 'ruby-send-definition-and-go
           "si" 'robe-start
           "sl" 'ruby-send-line
+          "sL" 'ruby-send-line-and-go
           "sr" 'ruby-send-region
           "sR" 'ruby-send-region-and-go
           "ss" 'ruby-switch-to-inf)))))
