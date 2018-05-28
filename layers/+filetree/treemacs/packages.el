@@ -27,14 +27,7 @@
     :commands (treemacs-select-window treemacs--window-number-ten)
     :defer t
     :init
-    (spacemacs/set-leader-keys
-      "ft"    #'treemacs
-      "fB"    #'treemacs-bookmark
-      "fT"    #'treemacs-find-file
-      "f M-t" #'treemacs-find-tag)
-    :config
     (progn
-      (spacemacs/define-evil-state-face "treemacs" "MediumPurple1")
       (setq treemacs-follow-after-init t
             treemacs-width 35
             treemacs-position 'left
@@ -47,13 +40,18 @@
             treemacs-never-persist nil
             treemacs-goto-tag-strategy 'refetch-index
             treemacs-collapse-dirs treemacs-use-collapsed-directories)
-
+      (spacemacs/set-leader-keys
+        "ft"    #'treemacs
+        "fB"    #'treemacs-bookmark
+        "fT"    #'treemacs-find-file
+        "f M-t" #'treemacs-find-tag))
+    :config
+    (progn
+      (spacemacs/define-evil-state-face "treemacs" "MediumPurple1")
       (when treemacs-use-follow-mode
         (treemacs-follow-mode t))
-
       (when treemacs-use-filewatch-mode
         (treemacs-filewatch-mode t))
-
       (when (memq treemacs-use-git-mode '(simple extended))
         (treemacs-git-mode treemacs-use-git-mode)))))
 
