@@ -1173,7 +1173,6 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
   "Return non-nil if line numbers should be enabled for current buffer.
 Decision is based on `dotspacemacs-line-numbers'."
   (and dotspacemacs-line-numbers
-       (spacemacs//linum-current-buffer-is-not-special)
        (spacemacs//linum-curent-buffer-is-not-too-big)
        (or (spacemacs//linum-backward-compabitility)
            (and (listp dotspacemacs-line-numbers)
@@ -1214,10 +1213,6 @@ Decision is based on `dotspacemacs-line-numbers'."
        (or (eq dotspacemacs-line-numbers t)
            (eq dotspacemacs-line-numbers 'relative))
        (derived-mode-p 'prog-mode 'text-mode)))
-
-(defun spacemacs//linum-current-buffer-is-not-special ()
-  "Return non-nil if current buffer is not a special buffer."
-  (not (string-match-p "\\*.*\\*" (buffer-name))))
 
 (defun spacemacs//linum-curent-buffer-is-not-too-big ()
   "Return non-nil if buffer size is not too big."
