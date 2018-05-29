@@ -60,6 +60,7 @@ If the universal prefix argument is used then kill also the window."
                 evil-ex-search-pattern (evil-ex-make-search-pattern regexp)))
         ;; Next time "n" is hit, go the correct direction.
         (setq isearch-forward forward)
+        (setq evil-ex-search-direction (if forward 'forward 'backward))
         ;; ahs does a case sensitive search.  We could set
         ;; this, but it would break the user's current
         ;; sensitivity settings.  We could save the setting,
