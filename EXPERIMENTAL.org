@@ -3,6 +3,7 @@
 * Table of contents                                       :TOC_4_gh:noexport:
 - [[#spacemacs-dumps-using-the-portable-dumper][Spacemacs dumps using the portable dumper]]
   - [[#setup][Setup]]
+    - [[#emacs-plus-users][=emacs-plus= users]]
     - [[#clone-emacs][Clone Emacs]]
     - [[#simple-patch-of-emacs-source-code][Simple patch of Emacs source code]]
     - [[#compile-emacs-from-source][Compile Emacs from source]]
@@ -24,6 +25,15 @@ Windows.
 
 ** Setup
 To test the portable dumper with Spacemacs, follow these steps:
+
+*** =emacs-plus= users
+In case you are using =d12frosted/emacs-plus= on macOS, you can skip manual
+Emacs installation instructions and just use =--with-pdumper= option passed to
+=brew=.
+
+#+BEGIN_SRC shell
+  $ brew install emacs-plus --HEAD --with-pdumper
+#+END_SRC
 
 *** Clone Emacs
 Clone Emacs from [[https://git.savannah.gnu.org/git/emacs.git]]:
