@@ -1222,25 +1222,19 @@ Decision is based on `dotspacemacs-line-numbers'."
                (* 1000 (car (spacemacs/mplist-get dotspacemacs-line-numbers
                                                   :size-limit-kb)))))))
 
-;; if empty, :enabled defaults to '(prog-mode text-mode)
-;; if :enabled is 'all, all modes are considered to be in enabled (even Magit
-;; buffers, terminal buffers, etc.)
-;; mode in :enabled, not in :disabled ==> t
-;; mode not in :enabled, in :disabled ==> nil
-;; mode in :enabled, parent in :disabled ==> t
-;; parent in :enabled, mode in :disabled ==> nil
-;; mode both in :enabled and :disabled ==> nil
+;; see tests in tests/layers/+distribution/spacemacs-base/line-numbers-utest.el
+;; for the different possible cases
 (defun spacemacs//linum-enabled-for-current-major-mode ()
   "Return non-nil if line number is enabled for current major-mode."
   ;; default `enabled-for-modes' to '(prog-mode text-mode), because it is a more
   ;; sensible default than enabling in all buffers - including Magit buffers,
   ;; terminal buffers, etc.
-  (let* ((enabled-for-modes (or (spacemacs/mplist-get dotspacemacs-line-numbers
-                                                      :enabled-for-modes)
-                                '(prog-mode text-mode)))
+  (let* ((user-enabled-for-modes (spacemacs/mplist-get dotspacemacs-line-numbers
+                                                       :enabled-for-modes))
+         (enabled-for-modes (or user-enabled-for-modes '(prog-mode text-mode)))
          (disabled-for-modes (spacemacs/mplist-get dotspacemacs-line-numbers
                                                    :disabled-for-modes))
-         (enabled-for-parent (or (and (eq enabled-for-modes 'all) 'all)
+         (enabled-for-parent (or (and (equal enabled-for-modes '(all)) 'all)
                                  (apply #'derived-mode-p enabled-for-modes)))
          (disabled-for-parent (apply #'derived-mode-p disabled-for-modes)))
     (or
@@ -1249,10 +1243,14 @@ Decision is based on `dotspacemacs-line-numbers'."
      ;; current mode or a parent is in :enabled-for-modes, and there isn't a
      ;; more specific parent (or the mode itself) in :disabled-for-modes
      (and enabled-for-parent
-          ;; handles the case where current major-mode has a parent both in
-          ;; :enabled-for-modes and in :disabled-for-modes. Return non-nil if
-          ;; enabled-for-parent is the more specific parent (IOW doesn't derive
-          ;; from disabled-for-parent)
-          (not (spacemacs/derived-mode-p enabled-for-parent disabled-for-parent)))
+          (or (not disabled-for-parent)
+              ;; handles the case where current major-mode has a parent both in
+              ;; :enabled-for-modes and in :disabled-for-modes. Return non-nil
+              ;; if enabled-for-parent is the more specific parent (IOW derives
+              ;; from disabled-for-parent)
+              (spacemacs/derived-mode-p enabled-for-parent disabled-for-parent)))
      ;; current mode (or parent) not explicitly disabled
-     (not disabled-for-parent))))
+     (and (null user-enabled-for-modes)
+          enabled-for-parent            ; mode is one of default allowed modes
+          disabled-for-modes
+          (not disabled-for-parent)))))
