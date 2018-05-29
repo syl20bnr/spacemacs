@@ -72,7 +72,7 @@
 
 (defun spacemacs-defaults/init-dired ()
   (spacemacs/set-leader-keys
-    "ad" 'dired
+    "ad" 'spacemacs/dired
     "fj" 'dired-jump
     "jd" 'dired-jump
     "jD" 'dired-jump-other-window))
