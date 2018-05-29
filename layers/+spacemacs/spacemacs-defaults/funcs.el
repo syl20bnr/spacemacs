@@ -88,6 +88,18 @@ automatically applied to."
   :type '(list symbol))
 
 
+;; ido-mode remaps some commands to ido counterparts.  We want default Emacs key
+;; bindings (those under C-x) to use ido, but we want to use the original
+;; commands in Spacemacs key bindings (those under M-m or SPC) so that they use
+;; `read-file-name-function', `completing-read-function',
+;; `completion-in-region-function', etc. configured by Helm or Ivy etc.  The
+;; following aliases allow us to bind Spacemacs keys to the original commands.
+(defalias 'spacemacs/find-file-other-frame 'find-file-other-frame)
+(defalias 'spacemacs/dired 'dired)
+(defalias 'spacemacs/dired-other-frame 'dired-other-frame)
+(defalias 'spacemacs/switch-to-buffer-other-frame 'switch-to-buffer-other-frame)
+(defalias 'spacemacs/display-buffer-other-frame 'display-buffer-other-frame)
+
 (defun spacemacs/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."
   (interactive)

@@ -229,13 +229,13 @@
   "fyy" 'spacemacs/copy-file-path)
 ;; frame ----------------------------------------------------------------------
 (spacemacs/set-leader-keys
-  "Ff" 'find-file-other-frame
+  "Ff" 'spacemacs/find-file-other-frame
   "Fd" 'delete-frame
   "FD" 'delete-other-frames
-  "Fb" 'switch-to-buffer-other-frame
-  "FB" 'display-buffer-other-frame
+  "Fb" 'spacemacs/switch-to-buffer-other-frame
+  "FB" 'spacemacs/display-buffer-other-frame
   "Fo" 'other-frame
-  "FO" 'dired-other-frame
+  "FO" 'spacemacs/dired-other-frame
   "Fn" 'make-frame)
 ;; help -----------------------------------------------------------------------
 (spacemacs/set-leader-keys

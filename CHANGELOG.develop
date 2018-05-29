@@ -76,6 +76,9 @@ This file containes the change log for the next major version of Spacemacs.
   - Avoid importing already defined variables (except `PATH`/`MANPATH`).
 - Move all scrolling key bindings from ~SPC n~ to ~SPC N~ (Somelauw)
 - Overhaul the scroll transient state on ~SPC N~ prefix (Somelauw)
+- Use Helm or Ivy (if one of these is enabled) for ~SPC a d~ (=dired=),
+  ~SPC F f~ (=find-file-other-frame=), ~SPC F b~ (=switch-to-buffer-other-frame=),
+  ~SPC F B~ (=display-buffer-other-frame=), and ~SPC F O~ (=dired-other-frame=).
 *** Layer changes
 **** GitHub
 - Add new package =magithub=
