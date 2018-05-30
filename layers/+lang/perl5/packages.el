@@ -14,6 +14,7 @@
         (company-plsense :requires company)
         (cperl-mode :location built-in)
         flycheck
+        org
         realgud
         smartparens
         ))
@@ -130,3 +131,7 @@
   (with-eval-after-load 'cperl-mode
     (add-hook 'smartparens-enabled-hook 'spacemacs//perl5-smartparens-enable)
     (add-hook 'smartparens-disabled-hook 'spacemacs//perl5-spartparens-disable)))
+
+(defun perl5/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(perl . t))))

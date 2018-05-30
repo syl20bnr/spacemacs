@@ -28,6 +28,7 @@
          :requires lsp-mode
          :location (recipe :fetcher github
                            :repo "emacs-lsp/lsp-javascript"))
+        org
         skewer-mode
         tern
         web-beautify
@@ -63,6 +64,10 @@
 (defun javascript/post-init-impatient-mode ()
   (spacemacs/set-leader-keys-for-major-mode 'js2-mode
     "i" 'spacemacs/impatient-mode))
+
+(defun javascript/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(js . t))))
 
 (defun javascript/init-js-doc ()
   (use-package js-doc
