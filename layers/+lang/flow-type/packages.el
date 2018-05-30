@@ -17,7 +17,7 @@
     eldoc
     js2-mode
     web-mode
-    add-node-modules-path))
+    ))
 
 (defun flow-type/init-flow-minor-mode()
   (use-package flow-minor-mode)
@@ -27,9 +27,6 @@
     "fc" 'flow-minor-status
     "ft" 'flow-minor-type-at-pos
     ))
-
-(defun flow-type/init-add-node-modules-path()
-  (use-package add-node-modules-path))
 
 (defun flow-type/post-init-eldoc()
   (when (configuration-layer/package-usedp 'js2-mode)
