@@ -10,7 +10,7 @@
 ;;; License: GPLv3
 
 (defconst flow-type-packages
-  '((flow-minor-mode :location (recipe :fetcher github :repo "jdelStrother/flow-minor-mode"))
+  '(flow-minor-mode
     company
     (company-flow :toggle (configuration-layer/package-usedp 'company))
     (flycheck-flow :toggle (configuration-layer/package-usedp 'flycheck))
@@ -46,7 +46,7 @@
   (when (configuration-layer/layer-usedp 'react)
     (add-hook 'react-mode-hook 'flow-minor-enable-automatically)
     (add-hook 'react-mode-hook 'add-node-modules-path)
-    (add-to-list 'spacemacs-jump-handlers-react-mode 'flow-minor-jump-to-definition)
+    (add-to-list 'spacemacs-jump-handlers-rjsx-mode 'flow-minor-jump-to-definition)
     ))
 
 (defun flow-type/init-company-flow ()
