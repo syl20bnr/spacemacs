@@ -32,7 +32,7 @@ Emacs installation instructions and just use =--with-pdumper= option passed to
 =brew=.
 
 #+BEGIN_SRC shell
-  $ brew install emacs-plus --HEAD --with-pdumper
+  brew install emacs-plus --HEAD --with-pdumper
 #+END_SRC
 
 *** Clone Emacs
