@@ -42,8 +42,7 @@ for code, one for a terminal and one general-purpose window. The general window
 is selected and you want to open a code file. How do you ensure that the code
 file will be displayed in the code window? With window-purpose you don't
 need to worry about it - you open the file and window-purpose places it in
-the correct
-window.
+the correct window.
 
 Additionally, you can dedicate a window to a purpose - so that window is
 reserved only for buffers that share that purpose.
@@ -60,7 +59,7 @@ result is a better control over how buffers are displayed, since
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add spacemacs-purpose= to the existing =dotspacemacs-configuration-layers= list in
+add =spacemacs-purpose= to the existing =dotspacemacs-configuration-layers= list in
 this file.
 
 * Usage
