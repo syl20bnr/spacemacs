@@ -38,7 +38,6 @@
     :init
     (progn
       (setq fci-rule-width 1)
-      (setq fci-rule-color "#D0BF8F")
       ;; manually register the minor mode since it does not define any
       ;; lighter
       (push '(fci-mode "") minor-mode-alist)
