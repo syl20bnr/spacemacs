@@ -495,6 +495,7 @@
   "xtl" 'transpose-lines
   "xtp" 'transpose-paragraphs
   "xts" 'transpose-sentences
+  "xte" 'transpose-sexps
   "xtw" 'transpose-words
   "xU"  'upcase-region
   "xu"  'downcase-region
