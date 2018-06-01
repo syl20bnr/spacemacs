@@ -207,6 +207,7 @@
   "feU"  'configuration-layer/update-packages
   "fCd" 'spacemacs/unix2dos
   "fCu" 'spacemacs/dos2unix
+  "fi" 'spacemacs/insert-file
   "fg" 'rgrep
   "fl" 'find-file-literally
   "fE" 'spacemacs/sudo-edit
