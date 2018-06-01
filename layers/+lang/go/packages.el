@@ -51,7 +51,7 @@
     :pre-config
     (dolist (var '("GOPATH" "GOROOT" "GO15VENDOREXPERIMENT") exec-path-from-shell-variables)
       (unless (or (member var exec-path-from-shell-variables) (getenv var))
-        (push var exec-path-from-shell-variables)))))
+        (add-to-list 'exec-path-from-shell-variables var)))))
 
 (defun go/init-go-mode()
   (use-package go-mode

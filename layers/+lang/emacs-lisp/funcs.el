@@ -105,3 +105,11 @@ Requires smartparens because all movement is done using `sp-forward-symbol'."
     (save-excursion
       (sp-forward-symbol)
       (call-interactively 'eval-last-sexp))))
+
+
+;; elisp comment text-object definition
+
+(defun spacemacs//define-elisp-comment-text-object ()
+  "Define a text object and a surround pair for elisp comments.
+Intended for use in mode hooks."
+  (spacemacs|define-text-object ";" "elisp-comment" ";; " ""))

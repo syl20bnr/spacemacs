@@ -1428,7 +1428,7 @@ discovery."
                                  sub)))
                   (spacemacs-buffer/message "-> Discovered category: %S"
                                             category)
-                  (push category configuration-layer-categories)
+                  (add-to-list 'configuration-layer-categories category)
                   (setq search-paths (cons sub search-paths))))
                ((eq 'layer type)
                 (let* ((layer-name-str (file-name-nondirectory sub))

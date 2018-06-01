@@ -35,4 +35,4 @@
   "Modes that are associated with mu4e buffers.")
 
 (when mu4e-installation-path
-  (push mu4e-installation-path load-path))
+  (add-to-list 'load-path mu4e-installation-path))
