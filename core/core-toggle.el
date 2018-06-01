@@ -95,10 +95,12 @@ used."
                                    ,condition)
                            t)))
     `(progn
-       (push (append '(,name)
-                     '(:function ,wrapper-func :predicate ,wrapper-func-status)
-                     ',props)
-             spacemacs-toggles)
+       (let ((properties (append '(:function ,wrapper-func :predicate ,wrapper-func-status)
+                                 ',props))
+             (cell (assq ',name spacemacs-toggles)))
+         (if cell
+             (setcdr cell properties)
+           (push (cons ',name properties) spacemacs-toggles)))
        ;; toggle function
        (defun ,wrapper-func ,(if prefix-arg-var (list prefix-arg-var) ())
          ,(format "Toggle %s on and off." (symbol-name name))

@@ -119,10 +119,10 @@ loaded before their code runs.
 When loaded using =require=, Emacs looks for files in its /load path/. This is
 nothing more than a list of paths where elisp files can be found, and you can
 inspect it through ~SPC h d v load-path~ in Spacemacs. To add to the load path,
-simply push to this list, e.g.
+simply add to this list, e.g.
 
 #+begin_src emacs-lisp
-(push "/some/path/" load-path)
+(add-to-list 'load-path "/some/path/")
 #+end_src
 
 ** Auto-loading

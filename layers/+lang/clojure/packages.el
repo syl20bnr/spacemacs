@@ -178,7 +178,7 @@
     (progn
       ;; add support for golden-ratio
       (with-eval-after-load 'golden-ratio
-        (push 'cider-popup-buffer-quit-function golden-ratio-extra-commands))
+        (add-to-list 'golden-ratio-extra-commands 'cider-popup-buffer-quit-function))
       ;; add support for evil
       (evil-set-initial-state 'cider-stacktrace-mode 'motion)
       (evil-set-initial-state 'cider-popup-buffer-mode 'motion)

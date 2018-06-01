@@ -117,12 +117,12 @@
 
       ;; Visual commands
       (require 'em-term)
-      (mapc (lambda (x) (push x eshell-visual-commands))
+      (mapc (lambda (x) (add-to-list 'eshell-visual-commands x))
             '("el" "elinks" "htop" "less" "ssh" "tmux" "top"))
 
       ;; automatically truncate buffer after output
       (when (boundp 'eshell-output-filter-functions)
-        (push 'eshell-truncate-buffer eshell-output-filter-functions)))))
+        (add-hook 'eshell-output-filter-functions #'eshell-truncate-buffer)))))
 
 (defun shell/init-eshell-prompt-extras ()
   (use-package eshell-prompt-extras

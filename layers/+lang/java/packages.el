@@ -297,7 +297,7 @@
 ;;       (progn
 ;;         (spacemacs//ensime-init 'java-mode t nil)
 ;;         (when (configuration-layer/package-used-p 'company)
-;;           (push 'ensime-company company-backends-java-mode)))
+;;           (add-to-list 'company-backends-java-mode 'ensime-company)))
 ;;       :config
 ;;       (progn
 ;;         (spacemacs/ensime-configure-keybindings 'java-mode)))))

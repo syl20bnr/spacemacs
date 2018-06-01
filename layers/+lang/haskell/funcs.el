@@ -52,7 +52,7 @@
   (spacemacs|add-company-backends
     :backends (dante-company company-dabbrev-code company-yasnippet)
     :modes haskell-mode)
-  (push 'xref-find-definitions spacemacs-jump-handlers)
+  (add-to-list 'spacemacs-jump-handlers 'xref-find-definitions)
   (dante-mode)
   (dolist (mode haskell-modes)
     (spacemacs/set-leader-keys-for-major-mode mode
@@ -68,7 +68,7 @@
   (spacemacs|add-company-backends
     :backends (company-intero company-dabbrev-code company-yasnippet)
     :modes haskell-mode)
-  (push 'intero-goto-definition spacemacs-jump-handlers)
+  (add-to-list 'spacemacs-jump-handlers 'intero-goto-definition)
   (intero-mode)
   (dolist (mode haskell-modes)
     (spacemacs/set-leader-keys-for-major-mode mode
