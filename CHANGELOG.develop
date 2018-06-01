@@ -79,6 +79,7 @@ This file containes the change log for the next major version of Spacemacs.
 - Use Helm or Ivy (if one of these is enabled) for ~SPC a d~ (=dired=),
   ~SPC F f~ (=find-file-other-frame=), ~SPC F b~ (=switch-to-buffer-other-frame=),
   ~SPC F B~ (=display-buffer-other-frame=), and ~SPC F O~ (=dired-other-frame=).
+- New key binding ~SPC f i~ for =insert-file=.
 *** Layer changes
 **** GitHub
 - Add new package =magithub=
