@@ -15,7 +15,7 @@
         evil
         evil-cleverparens
         ggtags
-        counsel
+        counsel-gtags
         helm
         helm-gtags
         parinfer
