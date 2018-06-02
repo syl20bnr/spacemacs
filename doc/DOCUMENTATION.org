@@ -2783,6 +2783,7 @@ Text related commands (start with ~x~):
 | ~SPC x o~     | use avy to select a link in the frame and open it             |
 | ~SPC x O~     | use avy to select multiple links in the frame and open them   |
 | ~SPC x t c~   | swap (transpose) the current character with the previous one  |
+| ~SPC x t e~   | swap (transpose) the current sexp with the previous one       |
 | ~SPC x t l~   | swap (transpose) the current line with the previous one       |
 | ~SPC x t p~   | swap (transpose) the current paragraph with the previous one  |
 | ~SPC x t s~   | swap (transpose) the current sentence with the previous one   |
