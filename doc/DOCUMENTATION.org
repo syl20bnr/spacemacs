@@ -1227,6 +1227,7 @@ and ~T~):
 | ~SPC t L~   | toggle visual lines                                               |
 | ~SPC t n~   | toggle line numbers                                               |
 | ~SPC t v~   | toggle smooth scrolling                                           |
+| ~SPC t z~   | toggle 0/1 based column indexing                                  |
 
 | Key Binding | Description                                                      |
 |-------------+------------------------------------------------------------------|
@@ -2366,7 +2367,10 @@ Files manipulation commands (start with ~f~):
 | ~SPC f v d~ | add a directory variable                                                                               |
 | ~SPC f v f~ | add a local variable to the current file                                                               |
 | ~SPC f v p~ | add a local variable to the first line of the current file                                             |
-| ~SPC f y~   | show and copy current file absolute path in the minibuffer                                             |
+| ~SPC f y c~ | show and copy current file absolute path with line and column number in the minibuffer                 |
+| ~SPC f y d~ | show and copy current directory absolute path in the minibuffer                                        |
+| ~SPC f y l~ | show and copy current file absolute path with line number in the minibuffer                            |
+| ~SPC f y y~ | show and copy current file absolute path in the minibuffer                                             |
 
 **** Frame manipulation key bindings
 Frame manipulation commands (start with ~F~):
@@ -3255,39 +3259,43 @@ To search in a project see [[#searching-in-a-project][project searching]].
 
 =projectile= commands start with p:
 
-| Key Binding | Description                                             |
-|-------------+---------------------------------------------------------|
-| ~SPC p '​~   | open a shell in project's root (with the =shell= layer) |
-| ~SPC p !~   | run shell command in project's root                     |
-| ~SPC p &~   | run async shell command in project's root               |
-| ~SPC p %~   | replace a regexp                                        |
-| ~SPC p a~   | toggle between implementation and test                  |
-| ~SPC p b~   | switch to project buffer                                |
-| ~SPC p c~   | compile project using =projectile=                      |
-| ~SPC p d~   | find directory                                          |
-| ~SPC p D~   | open project root in =dired=                            |
-| ~SPC p e~   | edit dir-locals.el                                      |
-| ~SPC p f~   | find file                                               |
-| ~SPC p F~   | find file based on path around point                    |
-| ~SPC p g~   | find tags                                               |
-| ~SPC p G~   | regenerate the project's =etags= / =gtags=              |
-| ~SPC p h~   | find file                                               |
-| ~SPC p I~   | invalidate the projectile cache                         |
-| ~SPC p k~   | kill all project buffers                                |
-| ~SPC p o~   | run =multi-occur=                                       |
-| ~SPC p p~   | switch project                                          |
-| ~SPC p r~   | open a recent file                                      |
-| ~SPC p R~   | replace a string                                        |
-| ~SPC p t~   | open =NeoTree= in =projectile= root                     |
-| ~SPC p T~   | test project                                            |
-| ~SPC p v~   | open project root in =vc-dir= or =magit=                |
-| ~SPC /~     | search in project with the best search tool available   |
-| ~SPC s p~   | see [[#searching-in-a-project][searching in a project]]                              |
-| ~SPC s a p~ | run =ag=                                                |
-| ~SPC s g p~ | run =grep=                                              |
-| ~SPC s k p~ | run =ack=                                               |
-| ~SPC s t p~ | run =pt=                                                |
-| ~SPC s r p~ | run =rg=                                                |
+| Key Binding | Description                                                                              |
+|-------------+------------------------------------------------------------------------------------------|
+| ~SPC p '​~   | open a shell in project's root (with the =shell= layer)                                  |
+| ~SPC p !~   | run shell command in project's root                                                      |
+| ~SPC p &~   | run async shell command in project's root                                                |
+| ~SPC p %~   | replace a regexp                                                                         |
+| ~SPC p a~   | toggle between implementation and test                                                   |
+| ~SPC p b~   | switch to project buffer                                                                 |
+| ~SPC p c~   | compile project using =projectile=                                                       |
+| ~SPC p d~   | find directory                                                                           |
+| ~SPC p D~   | open project root in =dired=                                                             |
+| ~SPC p e~   | edit dir-locals.el                                                                       |
+| ~SPC p f~   | find file                                                                                |
+| ~SPC p F~   | find file based on path around point                                                     |
+| ~SPC p g~   | find tags                                                                                |
+| ~SPC p G~   | regenerate the project's =etags= / =gtags=                                               |
+| ~SPC p h~   | find file                                                                                |
+| ~SPC p I~   | invalidate the projectile cache                                                          |
+| ~SPC p k~   | kill all project buffers                                                                 |
+| ~SPC p o~   | run =multi-occur=                                                                        |
+| ~SPC p p~   | switch project                                                                           |
+| ~SPC p r~   | open a recent file                                                                       |
+| ~SPC p R~   | replace a string                                                                         |
+| ~SPC p t~   | open =NeoTree= in =projectile= root                                                      |
+| ~SPC p T~   | test project                                                                             |
+| ~SPC p v~   | open project root in =vc-dir= or =magit=                                                 |
+| ~SPC /~     | search in project with the best search tool available                                    |
+| ~SPC s p~   | see [[#searching-in-a-project][searching in a project]]                                                               |
+| ~SPC s a p~ | run =ag=                                                                                 |
+| ~SPC s g p~ | run =grep=                                                                               |
+| ~SPC s k p~ | run =ack=                                                                                |
+| ~SPC s t p~ | run =pt=                                                                                 |
+| ~SPC s r p~ | run =rg=                                                                                 |
+| ~SPC f y C~ | show and copy current file path relaitve to the project root with line and column number |
+| ~SPC f y D~ | show and copy current directory path relaitve to the project root                        |
+| ~SPC f y L~ | show and copy current file path relaitve to the project root with line number            |
+| ~SPC f y Y~ | show and copy current file path relaitve to the project root                             |
 
 *Note for Windows Users*: To enable fast indexing the GNU ~find~ or
 Cygwin ~find~ must be in your ~PATH~.
