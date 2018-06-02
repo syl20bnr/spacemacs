@@ -74,3 +74,6 @@ Result depends on syntax table's comment character."
 If optional argument P is present, test this instead of point."
   (or (spacemacs//react-inside-string-q)
       (spacemacs//react-inside-comment-q)))
+
+(defun spacemacs//react-setup-yasnippet ()
+  (yas-activate-extra-mode 'js-mode))

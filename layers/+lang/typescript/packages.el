@@ -19,6 +19,7 @@
         tide
         typescript-mode
         web-mode
+        yasnippet
         ))
 
 (defun typescript/post-init-add-node-modules-path ()
@@ -87,6 +88,10 @@
 (defun typescript/post-init-web-mode ()
   (define-derived-mode typescript-tsx-mode web-mode "TypeScript-tsx")
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode)))
+
+(defun typescript/post-init-yasnippet ()
+  (spacemacs/add-to-hooks #'spacemacs/typescript-yasnippet-setup '(typescript-mode-hook
+                                                     typescript-tsx-mode-hook)))
 
 (defun typescript/init-typescript-mode ()
   (use-package typescript-mode

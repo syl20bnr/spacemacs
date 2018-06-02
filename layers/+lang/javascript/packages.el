@@ -31,9 +31,7 @@
         org
         skewer-mode
         tern
-        web-beautify
-        yasnippet
-        ))
+        web-beautify))
 
 (defun javascript/post-init-add-node-modules-path ()
   (spacemacs/add-to-hooks #'add-node-modules-path '(css-mode-hook
@@ -207,8 +205,3 @@
 
 (defun javascript/pre-init-web-beautify ()
   (add-to-list 'spacemacs--web-beautify-modes (cons 'js2-mode 'web-beautify-js)))
-
-(defun javascript/pre-init-yasnippet ()
-  (spacemacs|use-package-add-hook yasnippet
-    :post-config
-    (yas-activate-extra-mode 'js-mode)))

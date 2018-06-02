@@ -150,3 +150,6 @@
                  (list (point-min) (point-max))))
   (browse-url (concat "http://www.typescriptlang.org/Playground#src="
                       (url-hexify-string (buffer-substring-no-properties start end)))))
+
+(defun spacemacs/typescript-yasnippet-setup ()
+  (yas-activate-extra-mode 'js-mode))
