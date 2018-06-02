@@ -186,7 +186,6 @@
     :defer t
     :init
     (progn
-      (setq-default display-line-numbers-width 4)
       (if (spacemacs/relative-line-numbers-p)
           (setq display-line-numbers-type 'relative)
         (setq display-line-numbers-type t))
