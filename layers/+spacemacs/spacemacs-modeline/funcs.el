@@ -24,8 +24,10 @@ Return nil if no separator is defined."
 (defun spacemacs/mode-line-separator-scale ()
   "Return the separator scale for the mode-line.
 Return nil if no scale is defined."
-  (when (listp dotspacemacs-mode-line-theme)
-    (plist-get (cdr dotspacemacs-mode-line-theme) :separator-scale)))
+  (if (eq 'utf-8 (spacemacs/mode-line-separator))
+      1
+    (when (listp dotspacemacs-mode-line-theme)
+      (plist-get (cdr dotspacemacs-mode-line-theme) :separator-scale))))
 
 
 ;; spaceline
