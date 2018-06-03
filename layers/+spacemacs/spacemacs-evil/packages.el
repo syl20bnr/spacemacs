@@ -112,7 +112,10 @@
   (use-package evil-goggles
     :init
     (progn
-      (setq evil-goggles-async-duration 0.2
+      ;; disable pulses as it is more distracting than useful and
+      ;; less readable.
+      (setq evil-goggles-pulse nil
+            evil-goggles-async-duration 0.2
             evil-goggles-blocking-duration 0.12)
       (evil-goggles-mode))
     :config
