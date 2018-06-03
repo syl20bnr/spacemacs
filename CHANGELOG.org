@@ -724,7 +724,7 @@
 - Overhaul the buffer transient state on ~SPC b .~ (thanks to quicknir)
 - Improve =spacemacs/count-word-analysis= by including information from
   =count-words= function
-- Use use =winum.el= instead of =window-numbering.el= for window numbers
+- Use =winum.el= instead of =window-numbering.el= for window numbers
   (thanks to deb0ch)
 - Add copy key to neotree under ~C~ (thanks to lanejo01)
 - Move generation of tags from ~SPC p C-g~ to easier ~SPC p G~ (thanks to TheBB)
