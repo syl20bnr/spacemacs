@@ -114,7 +114,9 @@
     (progn
       (setq evil-goggles-async-duration 0.2
             evil-goggles-blocking-duration 0.12)
-      (evil-goggles-mode))))
+      (evil-goggles-mode))
+    :config
+    (spacemacs|hide-lighter evil-goggles-mode)))
 
 (defun spacemacs-evil/init-evil-iedit-state ()
   (use-package evil-iedit-state
