@@ -58,13 +58,16 @@
         "gb" 'anaconda-mode-go-back
         "gu" 'anaconda-mode-find-references)
 
-      (evilified-state-evilify-map anaconda-view-mode-map
-        :mode anaconda-view-mode
-        :bindings
-        (kbd "q") 'quit-window
-        (kbd "C-j") 'next-error-no-select
-        (kbd "C-k") 'previous-error-no-select
-        (kbd "RET") 'spacemacs/anaconda-view-forward-and-push)
+      ;; new anaconda-mode (2018-06-03) removed `anaconda-view-mode-map' in
+      ;; favor of xref. Eventually we need to remove this part.
+      (when (boundp 'anaconda-view-mode-map)
+        (evilified-state-evilify-map anaconda-view-mode-map
+          :mode anaconda-view-mode
+          :bindings
+          (kbd "q") 'quit-window
+          (kbd "C-j") 'next-error-no-select
+          (kbd "C-k") 'previous-error-no-select
+          (kbd "RET") 'spacemacs/anaconda-view-forward-and-push))
 
       (spacemacs|hide-lighter anaconda-mode)
 
