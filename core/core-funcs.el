@@ -55,6 +55,29 @@ Currently this function infloops when the list is circular."
       (push (pop tail) result))
     (nreverse result)))
 
+(defun spacemacs/plist-get (plist prop)
+  "Get the value associated to PROP in PLIST, a modified plist.
+
+You should always use this function instread of builtin `plist-get'
+in Spacemacs.
+
+A modified plist is one where keys are keywords and values are
+all non-keywords elements that follow it.
+
+If there are multiple properties with the same keyword, only the first property
+and its values is returned.
+
+Currently this function infloops when the list is circular."
+  (let ((tail plist)
+        result)
+    (while (and (consp tail) (not (eq prop (car tail))))
+      (pop tail))
+    ;; pop the found keyword
+    (pop tail)
+    (when (and (consp tail) (not (keywordp (car tail))))
+      (setq result (pop tail)))
+    result))
+
 (defun spacemacs/mplist-remove (plist prop)
   "Return a copy of a modified PLIST without PROP and its values.
 

@@ -46,6 +46,50 @@
     (should (equal '(val1) result))))
 
 ;; ---------------------------------------------------------------------------
+;; spacemacs/plist-get
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-plist-get--one-property ()
+  (let* ((input '(dummy :property sym1))
+         (result (spacemacs/plist-get input :property)))
+    (should (equal 'sym1 result))))
+
+(ert-deftest test-plist-get--one-property-multiple-values-returns-first ()
+  (let* ((input '(dummy :property sym1 sym2 sym3))
+         (result (spacemacs/plist-get input :property)))
+    (should (equal 'sym1 result))))
+
+(ert-deftest test-plist-get--multiple-properties-get-first ()
+  (let* ((input '(dummy :prop1 sym1 :prop2 sym4 :prop3 sym5))
+         (result (spacemacs/plist-get input :prop1)))
+    (should (equal 'sym1 result))))
+
+(ert-deftest test-plist-get--multiple-properties-get-middle ()
+  (let* ((input '(dummy :prop1 sym1 :prop2 sym4 :prop3 sym5))
+         (result (spacemacs/plist-get input :prop2)))
+    (should (equal 'sym4 result))))
+
+(ert-deftest test-plist-get--multiple-properties-get-last ()
+  (let* ((input '(dummy :prop1 sym1 :prop2 sym4 :prop3 sym5))
+         (result (spacemacs/plist-get input :prop3)))
+    (should (equal 'sym5 result))))
+
+(ert-deftest test-plist-get--one-property-no-value ()
+  (let* ((input '(dummy :property))
+         (result (spacemacs/plist-get input :property)))
+    (should (null result))))
+
+(ert-deftest test-plist-get--one-property-no-value-next-is-another-property ()
+  (let* ((input '(dummy :property :property2 sym2))
+         (result (spacemacs/plist-get input :property)))
+    (should (null result))))
+
+(ert-deftest test-plist-get--multiple-same-poperty-ignore-all-but-first ()
+  (let* ((input '(dummy :property val1 :property val2))
+         (result (spacemacs/plist-get input :property)))
+    (should (equal 'val1 result))))
+
+;; ---------------------------------------------------------------------------
 ;; spacemacs/mplist-remove
 ;; ---------------------------------------------------------------------------
 
