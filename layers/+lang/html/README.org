@@ -67,11 +67,11 @@ Formatter can be chosen on a per project basis using directory local variables
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
 
 * Live display in browser
-Use ~SPC m i~ to enable impatient mode, opening a live view of a HTML file in
+Use ~SPC m I~ to enable impatient mode, opening a live view of a HTML file in
 your browser. You may wish to enable impatient mode in referenced CSS or JS
 files, too.
 
-When the underlying file is an HTML file, ~SPC m i~ automatically opens the page
+When the underlying file is an HTML file, ~SPC m I~ automatically opens the page
 in the browser. For other buffers, a list of available views can be found on
 [[http://localhost:8080/imp]].
 
@@ -84,7 +84,7 @@ For more information visit the [[https://github.com/skeeto/impatient-mode/blob/m
 |-------------+-----------------------------------------------------------|
 | ~SPC m g p~ | quickly navigate CSS rules using =helm=                   |
 | ~SPC m e h~ | highlight DOM errors                                      |
-| ~SPC m i~   | open live view in browser                                 |
+| ~SPC m I~   | open live view in browser                                 |
 | ~SPC m g b~ | go to the beginning of current element                    |
 | ~SPC m g c~ | go to the first child element                             |
 | ~SPC m g p~ | go to the parent element                                  |
