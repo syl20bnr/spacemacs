@@ -541,7 +541,6 @@
 (defun spacemacs-bootstrap/init-spacemacs-theme ()
   (use-package spacemacs-theme
     :defer t
-    :init
-    (progn
-      (setq spacemacs-theme-comment-bg t)
-      (setq spacemacs-theme-org-height t))))
+    :init (setq spacemacs-theme-keyword-italic t
+                spacemacs-theme-comment-bg t
+                spacemacs-theme-org-height t)))
