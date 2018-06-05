@@ -46,7 +46,8 @@
   (with-eval-after-load 'flycheck
     (dolist (checker '(javascript-eslint javascript-standard))
       (flycheck-add-mode checker 'rjsx-mode)))
-  (spacemacs/enable-flycheck 'rjsx-mode))
+  (spacemacs/enable-flycheck 'rjsx-mode)
+  (add-hook 'rjsx-mode-hook #'spacemacs//javascript-setup-eslint t))
 
 (defun react/post-init-js-doc ()
   (add-hook 'rjsx-mode-hook 'spacemacs/js-doc-require)

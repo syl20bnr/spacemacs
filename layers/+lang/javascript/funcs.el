@@ -65,6 +65,12 @@
     (message (concat "Tern was configured as the javascript backend but "
                      "the `tern' layer is not present in your `.spacemacs'!"))))
 
+
+;; flycheck
+
+(defun spacemacs//javascript-setup-eslint ()
+  (when-let ((found (executable-find "eslint_d")))
+    (set (make-local-variable 'flycheck-javascript-eslint-executable) found)))
 
 
 ;; js-doc
