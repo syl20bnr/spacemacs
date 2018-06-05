@@ -2,6 +2,7 @@
 
 [![MELPA](http://melpa.org/packages/spacemacs-theme-badge.svg)](http://melpa.org/#/spacemacs-theme) ![Made with Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/nashamri/spacemacs-theme?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ![spacemacs-theme](img/spacemacs-theme.png)
 
@@ -34,6 +35,7 @@ Some of the supported modes are:
 * company
 * ein
 * erc
+* ESS modes (users may want to customize the variables ess-R-font-lock-keywords and inferior-ess-r-font-lock-keywords)
 * gnus
 * helm
 * ido
@@ -57,6 +59,10 @@ This toggles a background color for the comment lines.
 
 This toggles italics for comments and will also add a lighter color to it. It is recommended to disable `spacemacs-theme-comment-bg` if you turn this option on for better contrast.
 
+* `spacemacs-theme-keyword-italic`:
+
+This toggles italics for keywords.
+
 * `spacemacs-theme-org-agenda-height`:
 
 This toggles the use of varying org agenda heights.
@@ -72,6 +78,10 @@ This toggles highlighting of org headings.
 * `spacemacs-theme-custom-colors`:
 
 This allows for specifying a list of custom colors to override spacemacs theme colors. More details in the next section.
+
+* `spacemacs-theme-underline-parens`:
+
+This toggles the underline of matching parens when using `show-paren-mode` or similar.
 
 ### Override theme's colors
 
@@ -137,12 +147,13 @@ There is also explicit colors variables that can be customized:
 * red-bg-s
 * blue
 * blue-bg
+* blue-bg-s
 * magenta
 * yellow
 * yellow-bg
 
 The `green` and `red` colors have two background versions. The `green-bg` and  `red-bg` are normal light background colors.
-The `green-bg-s` and `red-bg-s` are a stronger version and are used in `ediff` and places were text is added or deleted.
+The `green-bg-s`, `red-bg-s`, and `blue-bg-s` are a stronger version and are used in `ediff` and places were text is added, deleted or changed.
 
 Here are some screenshots of the various variables:
 
