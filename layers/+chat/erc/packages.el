@@ -9,30 +9,28 @@
 ;;
 ;;; License: GPLv3
 
-(setq erc-packages
-      '(
-        company
-        company-emoji
-        emoji-cheat-sheet-plus
-        erc
-        (erc-gitter :location (recipe
-                               :fetcher github
-                               :repo "jleechpe/erc-gitter")
-                    :excluded t)
-        erc-hl-nicks
-        erc-image
-        (erc-sasl :location local)
-        erc-social-graph
-        (erc-tex :location local)
-        erc-view-log
-        (erc-yank :location local :excluded t)
-        erc-yt
-        linum
-        persp-mode
-        ))
-
-(when (spacemacs/system-is-mac)
-  (push 'erc-terminal-notifier erc-packages))
+(defconst erc-packages
+  '(
+    company
+    company-emoji
+    emoji-cheat-sheet-plus
+    erc
+    (erc-gitter :location (recipe
+                           :fetcher github
+                           :repo "jleechpe/erc-gitter")
+                :excluded t)
+    erc-hl-nicks
+    erc-image
+    (erc-sasl :location local)
+    erc-social-graph
+    (erc-terminal-notifier :toggle (spacemacs/system-is-mac))
+    (erc-tex :location local)
+    erc-view-log
+    (erc-yank :location local :excluded t)
+    erc-yt
+    linum
+    persp-mode
+    ))
 
 (defun erc/post-init-company ()
   (spacemacs|add-company-backends :backends company-capf :modes erc-mode))

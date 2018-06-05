@@ -63,7 +63,7 @@
            (progn (goto-char (match-beginning 1))
                   (not (spacemacs//react-inside-string-or-comment-q)))))
 
-    (push (cons #'+javascript-jsx-file-p 'rjsx-mode) magic-mode-alist)
+    (add-to-list 'magic-mode-alist (cons #'+javascript-jsx-file-p 'rjsx-mode))
 
     ;; setup rjsx backend
     (add-hook 'rjsx-mode-local-vars-hook #'spacemacs//react-setup-backend)

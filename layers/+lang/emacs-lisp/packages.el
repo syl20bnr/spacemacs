@@ -231,9 +231,7 @@
             "th" 'overseer-help)))
 
 (defun emacs-lisp/post-init-evil ()
-  (add-hook 'emacs-lisp-mode-hook
-            (lambda ()
-              (spacemacs|define-text-object ";" "elisp-comment" ";; " ""))))
+  (add-hook 'emacs-lisp-mode-hook #'spacemacs//define-elisp-comment-text-object))
 
 (defun emacs-lisp/pre-init-evil-cleverparens ()
   (spacemacs|use-package-add-hook evil-cleverparens

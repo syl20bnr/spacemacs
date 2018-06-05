@@ -70,7 +70,7 @@
     :defer t
     :init
     (progn
-      (push 'ac-php-find-symbol-at-point spacemacs-jump-handlers-php-mode)
+      (add-to-list 'spacemacs-jump-handlers-php-mode 'ac-php-find-symbol-at-point)
       (add-hook 'php-mode-hook 'ac-php-core-eldoc-setup)
       (spacemacs|add-company-backends
         :modes php-mode

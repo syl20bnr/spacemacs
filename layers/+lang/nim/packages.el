@@ -22,7 +22,7 @@
     :init
     (progn
       (add-hook 'nim-mode-hook 'nimsuggest-mode)
-      (push 'nimsuggest-find-definition spacemacs-jump-handlers-nim-mode))
+      (add-to-list 'spacemacs-jump-handlers-nim-mode 'nimsuggest-find-definition))
     :config
     (progn
       (defun spacemacs/nim-compile-run ()

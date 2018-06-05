@@ -57,7 +57,7 @@
       :modes ruby-mode enh-ruby-mode))
   (with-eval-after-load 'company-dabbrev-code
     (dolist (mode '(ruby-mode enh-ruby-mode))
-      (push mode company-dabbrev-code-modes))))
+      (add-to-list 'company-dabbrev-code-modes mode))))
 
 (defun ruby/init-chruby ()
   (use-package chruby
