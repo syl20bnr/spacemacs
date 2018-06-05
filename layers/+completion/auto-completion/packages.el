@@ -17,6 +17,7 @@
         company
         (company-quickhelp :toggle auto-completion-enable-help-tooltip)
         company-statistics
+        counsel
         fuzzy
         (helm-company :requires helm)
         (helm-c-yasnippet :requires helm)
@@ -128,6 +129,11 @@
       (setq company-statistics-file (concat spacemacs-cache-directory
                                             "company-statistics-cache.el"))
       (add-hook 'company-mode-hook 'company-statistics-mode))))
+
+(defun auto-completion/post-init-counsel ()
+    (spacemacs|use-package-add-hook company
+      :post-config
+      (define-key company-active-map (kbd "C-/") 'counsel-company)))
 
 (defun auto-completion/init-fuzzy ()
   (use-package fuzzy :defer t))
