@@ -131,7 +131,9 @@
       "oi" 'alchemist-macroexpand-once-region
       "oI" 'alchemist-macroexpand-once-print-region
       "or" 'alchemist-macroexpand-region
-      "oR" 'alchemist-macroexpand-print-region)
+      "oR" 'alchemist-macroexpand-print-region
+
+      "=" 'elixir-format)
 
     (dolist (mode (list alchemist-compile-mode-map
                         alchemist-eval-mode-map
