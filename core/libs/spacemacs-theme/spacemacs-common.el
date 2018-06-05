@@ -1,6 +1,6 @@
 ;;; spacemacs-common.el --- Color theme with a dark and light versions.
 
-;; Copyright (C) 2015-2016 Nasser Alshammari
+;; Copyright (C) 2015-2018 Nasser Alshammari
 
 ;; Author: Nasser Alshammari
 ;; URL: <https://github.com/nashamri/spacemacs-theme>
@@ -51,6 +51,11 @@
   :type 'boolean
   :group 'spacemacs-theme)
 
+(defcustom spacemacs-theme-keyword-italic nil
+  "Enable italics for keywords."
+  :type 'boolean
+  :group 'spacemacs-theme)
+
 (defcustom spacemacs-theme-org-agenda-height nil
   "If non-nil, use varying text heights for agenda items.
 
@@ -73,6 +78,11 @@ to 'auto, tags may not be properly aligned. "
 (defcustom spacemacs-theme-custom-colors nil
   "Specify a list of custom colors."
   :type 'alist
+  :group 'spacemacs-theme)
+
+(defcustom spacemacs-theme-underline-parens t
+  "If non-nil, underline matching parens when using `show-paren-mode' or similar."
+  :type 'boolean
   :group 'spacemacs-theme)
 
 (defun true-color-p ()
@@ -168,7 +178,7 @@ to 'auto, tags may not be properly aligned. "
      `(font-lock-constant-face ((,class (:foreground ,const))))
      `(font-lock-doc-face ((,class (:foreground ,meta))))
      `(font-lock-function-name-face ((,class (:foreground ,func :inherit bold))))
-     `(font-lock-keyword-face ((,class (:inherit bold :foreground ,keyword))))
+     `(font-lock-keyword-face ((,class (:inherit bold :foreground ,keyword :slant ,(if spacemacs-theme-keyword-italic 'italic 'normal)))))
      `(font-lock-negation-char-face ((,class (:foreground ,const))))
      `(font-lock-preprocessor-face ((,class (:foreground ,func))))
      `(font-lock-reference-face ((,class (:foreground ,const))))
@@ -350,9 +360,42 @@ to 'auto, tags may not be properly aligned. "
      `(eshell-ls-unreadable ((,class (:foreground ,base))))
      `(eshell-prompt ((,class (:foreground ,keyword :inherit bold))))
 
+;;;;; ESS
+     `(ess-assignment-face ((,class (:foreground ,type :inherit bold))))
+     `(ess-backquoted-face ((,class (:foreground ,var))))
+     `(ess-constant-face ((,class (:inherit font-lock-constant-face))))
+     `(ess-f-t-face ((,class (:inherit font-lock-constant-face))))
+     `(ess-function-call-face ((,class (:foreground ,func))))
+     `(ess-keyword-face ((,class (:inherit font-lock-keyword-face))))
+     `(ess-matrix-face ((,class (:foreground ,base-dim))))
+     `(ess-modifiers-face ((,class (:foreground ,keyword))))
+     `(ess-numbers-face ((,class (:inherit font-lock-constant-face))))
+     `(ess-operator-face ((,class (:foreground ,var))))
+     `(ess-paren-face ((,class (:foreground ,blue))))
+
 ;;;;; evil
      `(evil-ex-substitute-matches ((,class (:background ,red-bg :foreground ,red))))
      `(evil-ex-substitute-replacement ((,class (:background ,green-bg :foreground ,green))))
+
+;;;;; evil-goggles
+      `(evil-goggles--pulse-face ((,class (:background ,yellow-bg :foreground ,yellow))))
+      `(evil-goggles-change-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+      `(evil-goggles-commentary-face ((,class (:background ,aqua-bg :foreground ,aqua))))
+      `(evil-goggles-delete-face ((,class (:background ,red-bg-s :foreground ,red))))
+      `(evil-goggles-fill-and-move-face ((,class (:background ,green-bg-s :foreground ,green))))
+      `(evil-goggles-indent-face ((,class (:background ,green-bg-s :foreground ,green))))
+      `(evil-goggles-join-face ((,class (:background ,green-bg-s :foreground ,green))))
+      `(evil-goggles-nerd-commenter-face ((,class (:background ,aqua-bg :foreground ,aqua))))
+      `(evil-goggles-paste-face ((,class (:background ,green-bg-s :foreground ,green))))
+      `(evil-goggles-record-macro-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+      `(evil-goggles-replace-with-register-face ((,class (:background ,yellow-bg :foreground ,yellow))))
+      `(evil-goggles-set-marker-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+      `(evil-goggles-shift-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+      `(evil-goggles-surround-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+      `(evil-goggles-yank-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+      `(evil-goggles-undo-redo-add-face ((,class (:background ,green-bg-s :foreground ,green))))
+      `(evil-goggles-undo-redo-change-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+      `(evil-goggles-undo-redo-remove-face ((,class (:background ,red-bg-s :foreground ,red))))
 
 ;;;;; flycheck
      `(flycheck-error
@@ -382,6 +425,14 @@ to 'auto, tags may not be properly aligned. "
      `(flymake-warning ((,(append '((supports :underline (:style line))) class)
                          (:underline (:style line :color ,war)))
                         (,class (:foreground ,base :background ,war :inherit bold :underline t))))
+
+;;;;; flyspell
+     `(flyspell-incorrect ((,(append '((supports :underline (:style line))) class)
+                            (:underline (:style wave :color ,war)))
+                           (,class (:foreground ,base :background ,war :inherit bold :underline t))))
+     `(flyspell-duplicate ((,(append '((supports :underline (:style line))) class)
+                            (:underline (:style wave :color ,keyword)))
+                           (,class (:foreground ,base :background ,keyword :inherit bold :underline t))))
 
 ;;;;; jabber
      `(jabber-activity-face ((,class (:inherit bold :foreground ,red))))
@@ -530,9 +581,10 @@ to 'auto, tags may not be properly aligned. "
 ;;;;; linum-mode
      `(linum ((,class (:foreground ,lnum :background ,bg2 :inherit default))))
 
-;;;;; line-numbers-mode (Emacs 26+)
+;;;;; display-line-numbers-mode (Emacs 26+)
      (when (>= emacs-major-version 26)
-       `(line-number ((,class (:foreground ,lnum :background ,bg2)))))
+       `(line-number ((,class (:foreground ,lnum :background ,bg2))))
+       `(line-number-current-line ((,class (:foreground ,base :background ,bg2)))))
 
 ;;;;; linum-relative
      `(linum-relative-current-face ((,class (:foreground ,comp))))
@@ -620,7 +672,7 @@ to 'auto, tags may not be properly aligned. "
      `(mu4e-highlight-face ((,class (:foreground ,comp))))
      `(mu4e-title-face ((,class (:foreground ,head2 :inherit bold))))
      `(mu4e-replied-face ((,class (:foreground ,green))))
-     `(mu4e-modeline-face ((,class (:foreground ,func))))
+     `(mu4e-modeline-face ((,class (:foreground ,yellow))))
      `(mu4e-special-header-value-face ((,class (:foreground ,green))))
      `(mu4e-unread-face ((,class (:foreground ,head1 :inherit bold))))
      `(mu4e-view-url-number-face ((,class (:foreground ,comp))))
@@ -688,9 +740,10 @@ to 'auto, tags may not be properly aligned. "
      `(org-time-grid ((,class (:foreground ,str))))
      `(org-todo ((,class (:foreground ,war :inherit bold :background ,yellow-bg))))
      `(org-upcoming-deadline ((,class (:foreground ,war :inherit org-priority))))
+     `(org-upcoming-distant-deadline ((,class (:foreground ,suc :inherit org-priority))))
      `(org-verbatim ((,class (:foreground ,keyword))))
      `(org-verse ((,class (:inherit org-block :slant italic))))
-     `(org-warning ((,class (:foreground ,err))))
+     `(org-warning ((,class (:foreground ,err :inherit org-priority))))
 
 ;;;;; perspective
      `(persp-selected-face ((,class (:inherit bold :foreground ,func))))
@@ -736,12 +789,13 @@ to 'auto, tags may not be properly aligned. "
      `(shm-quarantine-face ((,class (:background ,red-bg-s))))
 
 ;;;;; show-paren
-     `(show-paren-match ((,class (:background ,green-bg-s))))
-     `(show-paren-mismatch ((,class (:background ,red-bg-s))))
+     `(show-paren-match ((,class (:foreground ,mat :inherit bold  :underline ,(when spacemacs-theme-underline-parens t)))))
+     `(show-paren-match-expression ((,class (:background ,green-bg-s))))
+     `(show-paren-mismatch ((,class (:foreground ,err :inherit bold :underline ,(when spacemacs-theme-underline-parens t)))))
 
 ;;;;; smartparens
      `(sp-pair-overlay-face ((,class (:background ,highlight :foreground nil))))
-     `(sp-show-pair-match-face ((,class (:foreground ,mat :inherit bold :underline t))))
+     `(sp-show-pair-match-face ((,class (:foreground ,mat :inherit bold  :underline ,(when spacemacs-theme-underline-parens t)))))
 
 ;;;;; smerge
      `(smerge-base ((,class (:background ,yellow-bg))))
