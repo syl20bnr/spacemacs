@@ -20,6 +20,7 @@
         helm-gtags
         imenu
         impatient-mode
+        import-js
         js-doc
         js2-mode
         js2-refactor
@@ -59,7 +60,15 @@
 
 (defun javascript/post-init-impatient-mode ()
   (spacemacs/set-leader-keys-for-major-mode 'js2-mode
-    "i" 'spacemacs/impatient-mode))
+    "I" 'spacemacs/impatient-mode))
+
+(defun javascript/init-import-js ()
+  (use-package import-js
+    :defer t
+    :init
+    (progn
+      (add-hook 'js2-mode-hook #'run-import-js)
+      (spacemacs/import-js-set-key-bindings 'js2-mode))))
 
 (defun javascript/pre-init-org ()
   (spacemacs|use-package-add-hook org
