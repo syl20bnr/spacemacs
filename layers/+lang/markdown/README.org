@@ -188,12 +188,12 @@ To generate a table of contents type on top of the buffer:
 
 ** Promotion, Demotion
 
-| Key Binding | Description        |
-|-------------+--------------------|
-| ~M-k~       | markdown-move-up   |
-| ~M-j~       | markdown-move-down |
-| ~M-h~       | markdown-promote   |
-| ~M-l~       | markdown-demote    |
+| Evil  | Holy        | Command            |
+|-------+-------------+--------------------|
+| ~M-k~ | ~C-c C-x u~ | markdown-move-up   |
+| ~M-j~ | ~C-c C-x d~ | markdown-move-down |
+| ~M-h~ | ~C-c C-x l~ | markdown-promote   |
+| ~M-l~ | ~C-c C-x r~ | markdown-demote    |
 
 ** Toggles
 
