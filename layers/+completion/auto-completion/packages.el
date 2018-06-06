@@ -21,6 +21,7 @@
         (helm-company :requires helm)
         (helm-c-yasnippet :requires helm)
         hippie-exp
+        (ivy-yasnippet :requires ivy)
         smartparens
         yasnippet
         yasnippet-snippets
@@ -188,6 +189,14 @@
   (when (configuration-layer/package-used-p 'yasnippet)
     ;; Try to expand yasnippet snippets based on prefix
     (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand)))
+
+(defun auto-completion/init-ivy-yasnippet ()
+  (use-package ivy-yasnippet
+    :defer t
+    :init
+    (progn
+      (setq ivy-yasnippet-expand-keys nil)
+      (spacemacs/set-leader-keys "is" 'spacemacs/ivy-yas))))
 
 (defun auto-completion/post-init-smartparens ()
   (with-eval-after-load 'smartparens

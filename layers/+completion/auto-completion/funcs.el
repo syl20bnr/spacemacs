@@ -333,6 +333,16 @@ MODE parameter must match the :modes values used in the call to
   (call-interactively 'helm-yas-complete))
 
 
+;; ivy-yas
+
+(defun spacemacs/ivy-yas ()
+  "Lazy load ivy-yasnippet"
+  (interactive)
+  (spacemacs/load-yasnippet)
+  (require 'ivy-yasnippet)
+  (call-interactively 'ivy-yasnippet))
+
+
 ;; Yasnippet
 
 (defun spacemacs/load-yasnippet ()
