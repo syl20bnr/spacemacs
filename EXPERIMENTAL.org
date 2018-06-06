@@ -101,7 +101,7 @@ Quit the msys2 shell and run mingw64.exe in the msys64 install directory.
 In the mingw prompt run:
 
 #+BEGIN_SRC shell
-  ./autogen.sh  
+  ./autogen.sh
   ./configure --without-ns --without-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules
   make
 #+END_SRC
