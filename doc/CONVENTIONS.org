@@ -301,7 +301,8 @@ In normal mode Vim style movement should be enabled with these keybindings:
 
 *** Promotion, Demotion and element movement
 Promotion, demotion and movement of headings or list elements (whatever is
-possible) should be enabled with the following keys in any mode
+possible) should be enabled with the following keys when in Vim style or
+Hybrid with hjkl movements enabled:
 
 | Key Binding | Description                  |
 |-------------+------------------------------|
@@ -309,6 +310,16 @@ possible) should be enabled with the following keys in any mode
 | ~M-j~       | Move element down            |
 | ~M-k~       | Move element up              |
 | ~M-l~       | Demote heading by one level  |
+
+In all editing styles promotion and demotion can be done with the following
+keys:
+
+| Key Binding | Description                  |
+|-------------+------------------------------|
+| ~M-down~    | Move element down            |
+| ~M-left~    | Promote heading by one level |
+| ~M-right~   | Demote heading by one level  |
+| ~M-up~      | Move element up              |
 
 *** Table editing
 If table specific commands are available the they are grouped under the
