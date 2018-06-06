@@ -1,11 +1,12 @@
 #+TITLE: epub layer
 
+[[file:img/epub.png]]
+
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
-- [[#layer-variables][Layer Variables]]
 
 * Description
 This layer provides support for reading EPUB-formatted eBooks in Spacemacs using the
@@ -31,19 +32,14 @@ file.
 
 | Key Binding | Description         |
 |-------------+---------------------|
-| ~SPC m n~   | Next chapter        |
-| ~SPC m p~   | Previous chapter    |
-| ~SPC m t~   | Table of contents   |
-| ~SPC m g~   | Re-render document  |
-| ~SPC m v~   | View source         |
-| ~SPC m V~   | View content source |
-| ~SPC m m~   | Display metadata    |
 | ~<TAB>~     | Next link           |
 | ~<BACKTAB>~ | Previous link       |
+| ~H~ or ~[~  | Previous chapter    |
+| ~L~ or ~]~  | Next chapter        |
+| ~g m~       | Display metadata    |
+| ~g r~       | Re-render document  |
+| ~g t~       | Table of contents   |
+| ~g v~       | View source         |
+| ~g V~       | View content source |
 
-* Layer Variables
-The following variables can be set set using the :variables option in the layer declaration:
-
-| Variable            | Description                          |
-|---------------------+--------------------------------------|
-| epub-nov-text-width | Width of eBook text. Defaults to 80. |
+Hint: use ~SPC w c~ to center the buffer.
