@@ -18,6 +18,7 @@
         evil
         flx
         helm-make
+        imenu
         ivy
         ivy-hydra
         (ivy-rich :toggle ivy-enable-advanced-buffer-information)
