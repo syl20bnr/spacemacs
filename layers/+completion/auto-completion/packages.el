@@ -130,7 +130,7 @@
                                             "company-statistics-cache.el"))
       (add-hook 'company-mode-hook 'company-statistics-mode))))
 
-(defun auto-completion/post-init-counsel ()
+(defun auto-completion/pre-init-counsel ()
     (spacemacs|use-package-add-hook company
       :post-config
       (define-key company-active-map (kbd "C-/") 'counsel-company)))
