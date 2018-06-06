@@ -7,7 +7,7 @@
 - [[#notes][Notes:]]
 
 * Description
-Dependency installation script for [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Btools/dash/README.org][Dash layer.]]
+Dependency installation script for [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Breaders/dash/README.org][Dash layer.]]
 
 ** Features:
 - Dash support for Docker
