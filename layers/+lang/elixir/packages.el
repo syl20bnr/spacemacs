@@ -131,9 +131,7 @@
       "oi" 'alchemist-macroexpand-once-region
       "oI" 'alchemist-macroexpand-once-print-region
       "or" 'alchemist-macroexpand-region
-      "oR" 'alchemist-macroexpand-print-region
-
-      "=" 'elixir-format)
+      "oR" 'alchemist-macroexpand-print-region)
 
     (dolist (mode (list alchemist-compile-mode-map
                         alchemist-eval-mode-map
@@ -166,7 +164,10 @@
 
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
-    :defer t))
+    :defer t
+    :config
+    (spacemacs/set-leader-keys-for-major-mode 'elixir-mode
+      "=" 'elixir-format)))
 
 (defun elixir/post-init-flycheck ()
   (spacemacs/enable-flycheck 'elixir-mode))
