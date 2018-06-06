@@ -1,4 +1,4 @@
-;;; packages.el --- pdf-tools Layer packages File for Spacemacs
+;;; packages.el --- PDF Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner
 ;; Copyright (c) 2014-2016 Sylvain Benner & Contributors
@@ -10,9 +10,9 @@
 ;;
 ;;; License: GPLv3
 
-(setq pdf-tools-packages '(pdf-tools))
+(setq pdf-packages '(pdf-tools))
 
-(defun pdf-tools/init-pdf-tools ()
+(defun pdf/init-pdf-tools ()
   (use-package pdf-tools
     :defer t
     :mode (("\\.pdf\\'" . pdf-view-mode))
