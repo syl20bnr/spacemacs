@@ -164,7 +164,10 @@
 
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
-    :defer t))
+    :defer t
+    :config
+    (spacemacs/set-leader-keys-for-major-mode 'elixir-mode
+      "=" 'elixir-format)))
 
 (defun elixir/post-init-flycheck ()
   (spacemacs/enable-flycheck 'elixir-mode))

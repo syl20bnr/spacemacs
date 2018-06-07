@@ -24,6 +24,7 @@
   - [[#code-definition-jump][Code Definition Jump]]
   - [[#hex-packages][Hex (packages)]]
   - [[#macro-expand][Macro expand]]
+  - [[#formatting][Formatting]]
 
 * Description
 This layer adds support for [[http://elixir-lang.org/][Elixir]] .
@@ -243,3 +244,9 @@ Hex is the package manager for Elixir & Erlang ecosystem. See https://hex.pm .
 | ~SPC m o I~ | Macro expand once the Elixir code on marked region once and insert the result     |
 | ~SPC m o r~ | Macro expand completely the Elixir code on marked region                          |
 | ~SPC m o R~ | Macro expand completely the Elixir code on marked region and insert the result    |
+
+** Formatting
+
+| Key Binding | Description               |
+|-------------+---------------------------|
+| ~SPC m =~   | Format the current buffer |
