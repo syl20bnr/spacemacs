@@ -49,10 +49,10 @@
     (call-interactively (intern (format "spacemacs/shell-pop-%S" shell)))))
 
 (defun spacemacs/resize-shell-to-desired-width ()
+  (if (string= (buffer-name) shell-pop-last-shell-buffer-name)
   (enlarge-window-horizontally (-
                                 (/ (* (frame-width) shell-default-width) 100)
-                                (window-width)))
-)
+                                (window-width)))))
 
 (defmacro make-shell-pop-command (func &optional shell)
   "Create a function to open a shell via the function FUNC.
