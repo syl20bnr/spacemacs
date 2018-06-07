@@ -58,7 +58,7 @@ Currently this function infloops when the list is circular."
 (defun spacemacs/plist-get (plist prop)
   "Get the value associated to PROP in PLIST, a modified plist.
 
-You should always use this function instread of builtin `plist-get'
+You should always use this function instead of builtin `plist-get'
 in Spacemacs.
 
 A modified plist is one where keys are keywords and values are
