@@ -259,11 +259,11 @@ Available PROPS:
                    (symbol-value name)
                  name))
          (func (spacemacs//custom-layout-func-name name))
-         (binding-prop (car (spacemacs/mplist-get props :binding)))
+         (binding-prop (car (spacemacs/mplist-get-values props :binding)))
          (binding (if (symbolp binding-prop)
                       (symbol-value binding-prop)
                     binding-prop))
-         (body (spacemacs/mplist-get props :body))
+         (body (spacemacs/mplist-get-values props :body))
          (already-defined? (cdr (assoc binding
                                        spacemacs--custom-layout-alist))))
     `(progn

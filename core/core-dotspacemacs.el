@@ -445,7 +445,7 @@ the symbol of an editing style and the cdr is a list of keyword arguments like
   (cond
    ((symbolp config) config)
    ((listp config)
-    (let ((variables (spacemacs/mplist-get config :variables)))
+    (let ((variables (spacemacs/mplist-get-values config :variables)))
       (while variables
         (let ((var (pop variables)))
           (if (consp variables)
@@ -764,7 +764,7 @@ error recovery."
                       hybrid))
           (and (listp x)
                (member (car x) '(vim emacs hybrid))
-               (spacemacs/mplist-get x :variables))))
+               (spacemacs/mplist-get-values x :variables))))
     'dotspacemacs-editing-style
     "is \'vim, \'emacs or \'hybrid or and list with `:variables' keyword")
    (spacemacs//test-var
