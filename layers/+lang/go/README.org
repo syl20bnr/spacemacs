@@ -53,6 +53,8 @@ to get all the goodies of this layer:
   go get -u github.com/josharian/impl
 #+END_SRC
 
+If you with to use a linters aggregator tool, you can enable =gometalinter= or =golangci-lint=.
+
 If you wish to use =gometalinter= set the value of =go-use-gometalinter= to t:
 
 #+begin_src emacs-lisp
@@ -68,6 +70,21 @@ and install the tool:
 
 For more information read [[https://github.com/alecthomas/gometalinter/blob/master/README.md][gometalinter README.md]]
 and [[https://github.com/favadi/flycheck-gometalinter/blob/master/README.md][flycheck-gometalinter README.md]]
+
+If you wish to use =golangci-lint= set the value of =go-use-golangci-lint= to t:
+
+#+begin_src emacs-lisp
+  (go :variables go-use-golangci-lint t)
+#+end_src
+
+and install the tool:
+
+#+BEGIN_SRC sh
+  go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+#+END_SRC
+
+For more information read [[https://github.com/golangci/golangci-lint][golangci-lint README.md]]
+and [[https://github.com/weijiangan/flycheck-golangci-lint][flycheck-golangci-lint README.md]]
 
 If you wish to use =godoctor= for refactoring, install it too:
 
