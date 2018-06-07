@@ -41,6 +41,20 @@ Otherwise, revert to the default behavior (i.e. enable `evil-insert-state')."
     (evil-put-property 'evil-state-properties 'iedit-insert
                        :enable states)))
 
+(defun spacemacs//iedit-state-TAB-key-bindings (style)
+  "Set the action for TAB key in iedit state."
+  (if (memq style '(vim hybrid))
+      (progn
+        (define-key iedit-occurrence-keymap-default
+          (kbd "TAB") 'iedit-toggle-selection)
+        (define-key iedit-occurrence-keymap-default
+          [tab] 'iedit-toggle-selection))
+    (progn
+      (define-key iedit-occurrence-keymap-default
+        (kbd "TAB") 'iedit-next-occurrence)
+      (define-key iedit-occurrence-keymap-default
+        [tab] 'iedit-next-occurrence))))
+
 (defun spacemacs//evil-escape-deactivate-in-holy-mode  (style)
   "Deactivate `evil-escape' if STYLE is `emacs' otherwise enable it."
   (if (memq style '(vim hybrid))

@@ -131,12 +131,17 @@
             iedit-toggle-key-default nil)
       (spacemacs/set-leader-keys "se" 'evil-iedit-state/iedit-mode))
     :config
-    ;; activate leader in iedit and iedit-insert states
-    (define-key evil-iedit-state-map
-      (kbd dotspacemacs-leader-key) spacemacs-default-map)
-    (spacemacs//iedit-insert-state-hybrid dotspacemacs-editing-style)
-    (add-hook 'spacemacs-editing-style-hook
-              #'spacemacs//iedit-insert-state-hybrid)))
+    (progn
+      ;; set TAB action
+      (add-hook 'spacemacs-editing-style-hook
+                #'spacemacs//iedit-state-TAB-key-bindings)
+      (spacemacs//iedit-state-TAB-key-bindings dotspacemacs-editing-style)
+      ;; activate leader in iedit and iedit-insert states
+      (define-key evil-iedit-state-map
+        (kbd dotspacemacs-leader-key) spacemacs-default-map)
+      (spacemacs//iedit-insert-state-hybrid dotspacemacs-editing-style)
+      (add-hook 'spacemacs-editing-style-hook
+                #'spacemacs//iedit-insert-state-hybrid))))
 
 (defun spacemacs-evil/init-evil-indent-plus ()
   (use-package evil-indent-plus
