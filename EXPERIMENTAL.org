@@ -9,7 +9,9 @@
     - [[#compile-emacs-from-source][Compile Emacs from source]]
       - [[#macos][MacOS]]
       - [[#ubuntu][Ubuntu]]
+      - [[#windows][Windows]]
     - [[#install-emacs][Install Emacs]]
+      - [[#windows-1][Windows]]
     - [[#update-your-dotfile][Update your dotfile]]
     - [[#test][Test]]
     - [[#report-issues][Report issues]]
@@ -127,7 +129,6 @@ After the compiliation finished successfully, you may need to install Emacs.
 #+END_SRC
 
 **** Windows
-
 In the mingw shell run:
 
 #+BEGIN_SRC shell
