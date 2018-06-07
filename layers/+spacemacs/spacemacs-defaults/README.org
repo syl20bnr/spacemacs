@@ -9,7 +9,7 @@ This layer configures mostly Emacs built-in packages to given them better
 defaults.
 
 ** Features:
--  Configures packages:
+-  Configures packags:
  - abbrev
  - archive-mode
  - bookmark
