@@ -20,6 +20,7 @@
     exec-path-from-shell
     helm-gtags
     rust-mode
+    smartparens
     toml-mode
     ))
 
