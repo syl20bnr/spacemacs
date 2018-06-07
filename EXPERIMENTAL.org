@@ -92,12 +92,60 @@ need to install the following packages:
    sudo apt-get install libtiff5-dev libgif-dev libpng-dev libxpm-dev libgtk-3-dev libgnutls28-dev
 #+END_SRC
 
+**** Windows
+/Note: This is tested on Windows 10/
+
+Install MSYS2 x86_64 from [[http://repo.msys2.org/distrib/x86_64/][here]].
+
+Run msys2_shell.bat and in the msys2 prompt run:
+#+BEGIN_SRC shell
+  pacman -S base-devel mingw-w64-x86_64-toolchain \
+  mingw-w64-x86_64-xpm-nox mingw-w64-x86_64-libtiff \
+  mingw-w64-x86_64-giflib mingw-w64-x86_64-jbigkit \
+  mingw-w64-x86_64-libpng mingw-w64-x86_64-libjpeg-turbo \
+  mingw-w64-x86_64-librsvg mingw-w64-x86_64-libxml2 \
+  mingw-w64-x86_64-gnutls
+#+END_SRC
+
+Quit the msys2 shell and run mingw64.exe in the msys64 install directory.
+In the mingw prompt run:
+
+#+BEGIN_SRC shell
+  ./autogen.sh
+  ./configure --without-ns --without-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules
+  make
+#+END_SRC
+
+Instructions from [[https://sourceforge.net/p/emacsbinw64/wiki/Build%20guideline%20for%20MSYS2-MinGW-w64%20system/][here]].
+
 *** Install Emacs
 After the compiliation finished successfully, you may need to install Emacs.
 
 #+BEGIN_SRC shell
   make install       # if you configure Emacs to install locally
   sudo make install  # if globally
+#+END_SRC
+
+**** Windows
+
+In the mingw shell run:
+
+#+BEGIN_SRC shell
+  make install prefix=/c/emacs
+  cp /mingw64/bin/{libwinpthread-*.dll,libXpm-noX*.dll,libdbus-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libgomp-*.dll,libgcc_s_seh-*.dll,libglib-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libintl-*.dll,libiconv-*.dll,libgobject-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libffi-*.dll,libgdk_pixbuf-*.dll,libgio-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libgmodule-*.dll,zlib*.dll,librsvg-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libcairo-*.dll,libcroco-*.dll,libpango-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libpangocairo-*.dll,libxml2-*.dll,libfontconfig-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libfreetype-*.dll,libpixman-*.dll,libpng*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libpangoft*.dll,libpangowin32-*.dll,liblzma-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libexpat-*.dll,libharfbuzz-*.dll,libgnutls-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libgnutlsxx-*.dll,libtiff-*.dll,libtiffxx-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libjpeg-*.dll,libgif-*.dll,libbz2-*.dll,libjbig-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libgmp-*.dll,libhogweed-*.dll,libnettle-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libp11-kit-*.dll,libtasn1-*.dll} /c/emacs/bin
 #+END_SRC
 
 *** Update your dotfile
