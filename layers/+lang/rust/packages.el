@@ -13,6 +13,7 @@
   '(
     cargo
     company
+    counsel-gtags
     racer
     flycheck
     (flycheck-rust :requires flycheck)
