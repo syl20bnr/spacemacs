@@ -51,7 +51,7 @@ automatically all dependencies using =apt-get=.
 After installing the dependencies, add this to your =~/.spacemacs=.
 
 #+begin_src emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(pdf-tools))
+  (setq-default dotspacemacs-configuration-layers '(pdf))
 #+end_src
 
 After that, syncronize your configuration with ~SPC f e R~. This will pop up a
