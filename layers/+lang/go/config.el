@@ -28,6 +28,9 @@
 (defvar go-use-gometalinter nil
   "Use gometalinter if the variable has non-nil value.")
 
+(defvar go-use-golangci-lint nil
+  "Use golangci-lint if the variable has non-nil value.")
+
 (defvar go-test-buffer-name "*go test*"
   "Name of the buffer for go test output. Default is *go test*.")
 
