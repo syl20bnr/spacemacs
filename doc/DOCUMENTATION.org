@@ -737,6 +737,10 @@ Three styles are available:
 - Emacs,
 - Hybrid (a mix between Vim and Emacs).
 
+To set the editing style set the variable =dotspacemacs-editing-style= to
+either =vim=, =hybrid=, or =emacs=. It possible to pass a list of variables
+as well with the keyword =:variables=, just like for layer variables.
+
 *** Vim
 Spacemacs behaves like in Vim using the [[https://github.com/emacs-evil/evil/][Evil]] mode package to emulate Vim key
 bindings. This is the default style of Spacemacs; it can be set explicitly by
@@ -746,6 +750,21 @@ To bind keys in Vim editing style (=insert state=):
 
 #+BEGIN_SRC emacs-lisp
 (define-key evil-insert-state-map (kbd "C-]") 'forward-char)
+#+END_SRC
+
+When setting the Vim style you can pass any variable supported by =evil-mode=
+with the keyword =:variables=. Spacemacs also supports the followgin editing
+style variables for Vim:
+
+| Variable                    | Description                                 |
+|-----------------------------+---------------------------------------------|
+| =vim-style-visual-feedback= | If non-nil then brief highlights on objects |
+
+Default configuration is:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-editing-style '(vim :variables
+                                                  vim-style-visual-feedback t)
 #+END_SRC
 
 *** Emacs
