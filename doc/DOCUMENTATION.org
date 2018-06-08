@@ -756,15 +756,23 @@ When setting the Vim style you can pass any variable supported by =evil-mode=
 with the keyword =:variables=. Spacemacs also supports the followgin editing
 style variables for Vim:
 
-| Variable                    | Description                                 |
-|-----------------------------+---------------------------------------------|
-| =vim-style-visual-feedback= | If non-nil then brief highlights on objects |
+| Variables                                | Description                                                             |
+|------------------------------------------+-------------------------------------------------------------------------|
+| =vim-style-visual-feedback=              | If non-nil then objects are briefly highlighted                         |
+| =vim-style-remap-Y-to-y$=                | If non-nil ~Y~ is remapped to ~y$~ in Evil states                       |
+| =vim-style-retain-visual-state-on-shift= | If non-nil, the shift mappings ~<~ and ~>~ retain visual state          |
+| =vim-style-visual-line-move-text=        | If non-nil, ~J~ and ~K~ move lines up and down when in visual mode      |
+| =vim-style-ex-substitute-global=         | If non-nil, inverse the meaning of ~g~ in =:substitute= Evil ex-command |
 
 Default configuration is:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-editing-style '(vim :variables
-                                                  vim-style-visual-feedback t)
+  (setq-default dotspacemacs-editing-style '(vim :variables
+                                                 vim-style-visual-feedback t
+                                                 vim-style-remap-Y-to-y$ nil
+                                                 vim-style-retain-visual-state-on-shift t
+                                                 vim-style-visual-line-move-text nil
+                                                 vim-style-ex-substitute-global nil)
 #+END_SRC
 
 *** Emacs

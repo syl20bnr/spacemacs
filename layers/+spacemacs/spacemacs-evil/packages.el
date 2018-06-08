@@ -119,7 +119,7 @@
             evil-goggles-blocking-duration 0.05)
       (if vim-style-visual-feedback
           (evil-goggles-mode)
-        (evil-googles-mode -1)))
+        (evil-goggles-mode -1)))
     :config
     (spacemacs|hide-lighter evil-goggles-mode)))
 
