@@ -807,6 +807,7 @@ style configuration:
 
 | Variables                             | Description                                                                            |
 |---------------------------------------+----------------------------------------------------------------------------------------|
+| =hybrid-style-visual-feedback=        | If non-nil then objects are briefly highlighted                                        |
 | =hybrid-style-default-state=          | The default state when opening a new buffer. Set it to =emacs= for a more emacsy style |
 | =hybrid-style-enable-hjkl-bindings=   | If non-nil then packages will configure =h j k l= key bindings for navigation          |
 | =hybrid-style-enable-evilified-state= | If non-nil buffer are =evilified= when supported, if nil then =emacs= state is enabled |
@@ -816,6 +817,7 @@ Default configuration is:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-editing-style '(hybrid :variables
+                                                  hybrid-style-visual-feedback nil
                                                   hybrid-style-enable-evilified-state t
                                                   hybrid-style-enable-hjkl-bindings nil
                                                   hybrid-style-use-evil-search-module nil

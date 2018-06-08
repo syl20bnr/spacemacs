@@ -117,7 +117,8 @@
       (setq evil-goggles-pulse nil
             evil-goggles-async-duration 0.1
             evil-goggles-blocking-duration 0.05)
-      (if vim-style-visual-feedback
+      (if (or vim-style-visual-feedback
+              hybrid-style-visual-feedback)
           (evil-goggles-mode)
         (evil-goggles-mode -1)))
     :config
