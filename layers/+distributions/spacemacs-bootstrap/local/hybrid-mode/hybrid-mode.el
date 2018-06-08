@@ -1,6 +1,6 @@
 ;;; hybrid-mode.el --- Put one foot in the church of Emacs
 
-;; Copyright (C) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (C) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Authors: Justin Burkett <justin@burkett.cc>
 ;;          Chris Ewald <chrisewald@gmail.com>
@@ -35,22 +35,29 @@
   "Value of `evil-default-state' for hybrid-mode."
   :group 'spacemacs
   :type 'symbol)
+(defvaralias 'hybrid-style-default-state 'hybrid-mode-default-state)
 
 (defcustom hybrid-mode-enable-hjkl-bindings nil
   "If non-nil then packages configuration should enable hjkl navigation."
   :group 'spacemacs
   :type 'boolean)
+(defvaralias 'hybrid-style-enable-hjkl-bindings
+  'hybrid-mode-enable-hjkl-bindings)
 
 (defcustom hybrid-mode-enable-evilified-state t
   "If non-nil then evilified states is enabled in buffer supporting it."
   :group 'spacemacs
   :type 'boolean)
+(defvaralias 'hybrid-style-enable-evilified-state
+  'hybrid-mode-enable-evilified-state)
 
 (defcustom hybrid-mode-use-evil-search-module nil
   "If non-nil then use evil own search module which is closer to Vim search
 behavior (for instance it support C-r pasting)."
   :group 'spacemacs
   :type 'boolean)
+(defvaralias 'hybrid-style-use-evil-search-module
+  'hybrid-mode-use-evil-search-module)
 
 (defvar hybrid-mode-default-state-backup evil-default-state
   "Backup of `evil-default-state'.")

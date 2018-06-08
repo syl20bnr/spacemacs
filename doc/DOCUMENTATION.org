@@ -805,23 +805,21 @@ This style can be tweaked to be more like Emacs or more like Vim depending
 on the user preferences. The following variables are available to change the
 style configuration:
 
-- =hybrid-mode-default-state= The default state when opening a new buffer,
-  default is =normal=. Set it to =emacs= for a more emacsy style.
-- =hybrid-mode-enable-hjkl-bindings= If non-nil then packages will configure
-  =h j k l= key bindings for navigation.
-- =hybrid-mode-enable-evilified-state= If non-nil buffer are =evilified= when
-  supported, if nil then =emacs= state is enabled in those buffers instead.
-- =hybrid-mode-use-evil-search-module= If non-nil then use evil own search
-  module which is closer to Vim search behavior.
+| Variables                             | Description                                                                            |
+|---------------------------------------+----------------------------------------------------------------------------------------|
+| =hybrid-style-default-state=          | The default state when opening a new buffer. Set it to =emacs= for a more emacsy style |
+| =hybrid-style-enable-hjkl-bindings=   | If non-nil then packages will configure =h j k l= key bindings for navigation          |
+| =hybrid-style-enable-evilified-state= | If non-nil buffer are =evilified= when supported, if nil then =emacs= state is enabled |
+| =hybrid-style-use-evil-search-module= | If non-nil then use evil own search module which is closer to Vim search behavior      |
 
 Default configuration is:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-editing-style '(hybrid :variables
-                                                  hybrid-mode-enable-evilified-state t
-                                                  hybrid-mode-enable-hjkl-bindings nil
-                                                  hybrid-mode-use-evil-search-module nil
-                                                  hybrid-mode-default-state 'normal)
+                                                  hybrid-style-enable-evilified-state t
+                                                  hybrid-style-enable-hjkl-bindings nil
+                                                  hybrid-style-use-evil-search-module nil
+                                                  hybrid-style-default-state 'normal)
 #+END_SRC
 
 To toggle the hybrid style on and off use ~SPC t E h~ and ~M-m t E h~. When
