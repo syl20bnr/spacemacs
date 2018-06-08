@@ -1301,7 +1301,7 @@ Decision is based on `dotspacemacs-line-numbers'."
 Decision is based on `dotspacemacs-line-numbers'."
   (or (eq dotspacemacs-line-numbers 'relative)
       (and (listp dotspacemacs-line-numbers)
-           (car (spacemacs/mplist-get dotspacemacs-line-numbers :relative)))))
+           (car (spacemacs/mplist-get-values dotspacemacs-line-numbers :relative)))))
 
 (defun spacemacs//linum-on (origfunc &rest args)
   "Advice function to improve `linum-on' function."
@@ -1335,9 +1335,9 @@ Decision is based on `dotspacemacs-line-numbers'."
 (defun spacemacs//linum-curent-buffer-is-not-too-big ()
   "Return non-nil if buffer size is not too big."
   (not (and (listp dotspacemacs-line-numbers)
-            (spacemacs/mplist-get dotspacemacs-line-numbers :size-limit-kb)
+            (spacemacs/mplist-get-values dotspacemacs-line-numbers :size-limit-kb)
             (> (buffer-size)
-               (* 1000 (car (spacemacs/mplist-get dotspacemacs-line-numbers
+               (* 1000 (car (spacemacs/mplist-get-values dotspacemacs-line-numbers
                                                   :size-limit-kb)))))))
 
 ;; see tests in tests/layers/+distribution/spacemacs-base/line-numbers-utest.el
@@ -1347,10 +1347,10 @@ Decision is based on `dotspacemacs-line-numbers'."
   ;; default `enabled-for-modes' to '(prog-mode text-mode), because it is a more
   ;; sensible default than enabling in all buffers - including Magit buffers,
   ;; terminal buffers, etc.
-  (let* ((user-enabled-for-modes (spacemacs/mplist-get dotspacemacs-line-numbers
+  (let* ((user-enabled-for-modes (spacemacs/mplist-get-values dotspacemacs-line-numbers
                                                        :enabled-for-modes))
          (enabled-for-modes (or user-enabled-for-modes '(prog-mode text-mode)))
-         (disabled-for-modes (spacemacs/mplist-get dotspacemacs-line-numbers
+         (disabled-for-modes (spacemacs/mplist-get-values dotspacemacs-line-numbers
                                                    :disabled-for-modes))
          (enabled-for-parent (or (and (equal enabled-for-modes '(all)) 'all)
                                  (apply #'derived-mode-p enabled-for-modes)))
