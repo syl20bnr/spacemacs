@@ -761,10 +761,10 @@ error recovery."
                       emacs
                       hybrid))
           (and (listp x)
-               (eq 'hybrid (car x))
+               (member (car x) '(vim emacs hybrid))
                (spacemacs/mplist-get x :variables))))
     'dotspacemacs-editing-style
-    "is \'vim, \'emacs or \'hybrid or and list with `:variable' keyword")
+    "is \'vim, \'emacs or \'hybrid or and list with `:variables' keyword")
    (spacemacs//test-var
     (lambda (x)
       (let ((themes '(spacemacs
