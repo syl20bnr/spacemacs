@@ -56,7 +56,7 @@ Will work on both org-mode and any mode that accepts plain html."
   "Set promotion/demotiion on 'hjkl' for the given editing STYLE."
   (when (or (eq 'vim style)
             (and (eq 'hybrid style)
-                 hybrid-mode-enable-hjkl-bindings))
+                 hybrid-style-enable-hjkl-bindings))
     (dolist (s '(normal insert))
       (evil-define-key s markdown-mode-map
         (kbd "M-h") 'markdown-promote

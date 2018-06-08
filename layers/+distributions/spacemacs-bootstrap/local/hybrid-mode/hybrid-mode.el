@@ -31,33 +31,35 @@
 
 (require 'evil)
 
-(defcustom hybrid-mode-default-state 'normal
+
+(defcustom hybrid-style-default-state
+  (spacemacs|dotspacemacs-backward-compatibility
+   hybrid-mode-default-state normal)
   "Value of `evil-default-state' for hybrid-mode."
   :group 'spacemacs
   :type 'symbol)
-(defvaralias 'hybrid-style-default-state 'hybrid-mode-default-state)
 
-(defcustom hybrid-mode-enable-hjkl-bindings nil
+(defcustom hybrid-style-enable-hjkl-bindings
+  (spacemacs|dotspacemacs-backward-compatibility
+   hybrid-mode-enable-hjkl-bindings nil)
   "If non-nil then packages configuration should enable hjkl navigation."
   :group 'spacemacs
   :type 'boolean)
-(defvaralias 'hybrid-style-enable-hjkl-bindings
-  'hybrid-mode-enable-hjkl-bindings)
 
-(defcustom hybrid-mode-enable-evilified-state t
+(defcustom hybrid-style-enable-evilified-state
+  (spacemacs|dotspacemacs-backward-compatibility
+   hybrid-mode-enable-evilified-state t)
   "If non-nil then evilified states is enabled in buffer supporting it."
   :group 'spacemacs
   :type 'boolean)
-(defvaralias 'hybrid-style-enable-evilified-state
-  'hybrid-mode-enable-evilified-state)
 
-(defcustom hybrid-mode-use-evil-search-module nil
+(defcustom hybrid-style-use-evil-search-module
+  (spacemacs|dotspacemacs-backward-compatibility
+   hybrid-mode-use-evil-search-module nil)
   "If non-nil then use evil own search module which is closer to Vim search
 behavior (for instance it support C-r pasting)."
   :group 'spacemacs
   :type 'boolean)
-(defvaralias 'hybrid-style-use-evil-search-module
-  'hybrid-mode-use-evil-search-module)
 
 (defvar hybrid-mode-default-state-backup evil-default-state
   "Backup of `evil-default-state'.")
@@ -70,7 +72,7 @@ behavior (for instance it support C-r pasting)."
   "Forces Hybrid state."
   (if (equal -1 (ad-get-arg 0))
       ad-do-it
-    (if hybrid-mode-enable-evilified-state
+    (if hybrid-style-enable-evilified-state
         ad-do-it
       ;; seems better to set the emacs state instead of hybrid for evilified
       ;; buffers
@@ -89,7 +91,7 @@ behavior (for instance it support C-r pasting)."
 (defun enable-hybrid-editing-style ()
   "Enable the hybrid editing style."
   (setq hybrid-mode-default-state-backup evil-default-state
-        evil-default-state hybrid-mode-default-state)
+        evil-default-state hybrid-style-default-state)
   ;; replace evil states by `hybrid state'
   (ad-enable-advice 'evil-insert-state
                     'around 'hybrid-insert-to-hybrid-state)
@@ -165,7 +167,7 @@ behavior (for instance it support C-r pasting)."
         (if (memq major-mode evil-evilified-state-modes)
             (evil-evilified-state)
           (funcall (intern (format "evil-%S-state"
-                                   hybrid-mode-default-state)))))
+                                   hybrid-style-default-state)))))
        ((and (eq 'vim style)
              (memq evil-state '(hybrid emacs)))
         (cond

@@ -62,7 +62,7 @@ Unlike `eval-defun', this does not go to topmost function."
   "Additional processing when `edebug-mode' is activated or deactivated."
   (let ((evilified (or (eq 'vim dotspacemacs-editing-style)
                        (and (eq 'hybrid dotspacemacs-editing-style)
-                            hybrid-mode-enable-evilified-state))))
+                            hybrid-style-enable-evilified-state))))
     (if (not edebug-mode)
         ;; disable edebug-mode
         (when evilified (evil-normal-state))

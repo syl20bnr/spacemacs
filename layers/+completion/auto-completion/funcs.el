@@ -289,7 +289,7 @@ MODE parameter must match the :modes values used in the call to
   (cond
    ((or (eq 'vim style)
         (and (eq 'hybrid style)
-             hybrid-mode-enable-hjkl-bindings))
+             hybrid-style-enable-hjkl-bindings))
     (let ((map company-active-map))
       (define-key map (kbd "C-j") 'company-select-next)
       (define-key map (kbd "C-k") 'company-select-previous)

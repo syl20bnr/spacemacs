@@ -81,7 +81,7 @@
   (cond
    ((or (eq 'vim style)
         (and (eq 'hybrid style)
-             hybrid-mode-enable-hjkl-bindings))
+             hybrid-style-enable-hjkl-bindings))
     (define-key helm-map (kbd "C-j") 'helm-next-line)
     (define-key helm-map (kbd "C-k") 'helm-previous-line)
     (define-key helm-map (kbd "C-S-j") 'helm-follow-action-forward)
@@ -194,7 +194,7 @@ See https://github.com/syl20bnr/spacemacs/issues/3700"
   (cond
    ((or (eq 'vim style)
         (and (eq 'hybrid style)
-             hybrid-mode-enable-hjkl-bindings))
+             hybrid-style-enable-hjkl-bindings))
     (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
     (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
     (define-key ivy-minibuffer-map (kbd "C-h") (kbd "DEL"))

@@ -77,7 +77,7 @@ For evil states that also need an entry to `spacemacs-evil-cursors' use
   (cond
    ((or (eq 'vim style)
         (and (eq 'hybrid style)
-             (bound-and-true-p hybrid-mode-use-evil-search-module)))
+             (bound-and-true-p hybrid-style-use-evil-search-module)))
     ;; if Evil is loaded already, just setting `evil-search-module' isn't
     ;; enough, we need to call `evil-select-search-module' as well (this is done
     ;; automatically when `evil-search-module' is changed via customize)

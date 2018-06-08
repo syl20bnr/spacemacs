@@ -46,23 +46,26 @@ to a major mode, a list of such symbols, or the symbol t,
 acting as default. The values are either integers, symbols
 or lists of these.")
 
-(defvar vim-style-remap-Y-to-y$ nil
+(defvar vim-style-remap-Y-to-y$
+  (spacemacs|dotspacemacs-backward-compatibility
+   dotspacemacs-remap-Y-to-y$ nil)
   "If non nil `Y' is remapped to `y$' in Evil states.")
-(defvaralias 'dotspacemacs-remap-Y-to-y$ 'vim-style-remap-Y-to-y$)
 
-(defvar vim-style-retain-visual-state-on-shift t
+(defvar vim-style-retain-visual-state-on-shift
+  (spacemacs|dotspacemacs-backward-compatibility
+   dotspacemacs-retain-visual-state-on-shift t)
   "If non-nil, the shift mappings `<' and `>' retain visual state
 if used there.")
-(defvaralias 'dotspacemacs-retain-visual-state-on-shift
-  'vim-style-retain-visual-state-on-shift)
 
-(defvar vim-style-visual-line-move-text nil
+(defvar vim-style-visual-line-move-text
+  (spacemacs|dotspacemacs-backward-compatibility
+   dotspacemacs-visual-line-move-text nil)
   "If non-nil, J and K move lines up and down when in visual mode.")
-(defvaralias 'dotspacemacs-visual-line-move-text 'vim-style-visual-line-move-text)
 
-(defvar vim-style-ex-substitute-global nil
+(defvar vim-style-ex-substitute-global
+  (spacemacs|dotspacemacs-backward-compatibility
+   dotspacemacs-ex-substitute-global nil)
   "If non nil, inverse the meaning of `g' in `:substitute' Evil ex-command.")
-(defvaralias 'dotspacemacs-ex-substitute-global 'vim-style-ex-substitute-global)
 
 ;; State cursors
 (defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)

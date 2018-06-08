@@ -14,6 +14,11 @@
 (defvar spacemacs-repl-list '()
   "List of all registered REPLs.")
 
+(defmacro spacemacs|dotspacemacs-backward-compatibility (variable default)
+  "Return `if' sexp for backward compatibility with old dotspacemacs
+values."
+  `(if (boundp ',variable) ,variable ',default))
+
 (defun spacemacs/system-is-mac ()
   (eq system-type 'darwin))
 (defun spacemacs/system-is-linux ()

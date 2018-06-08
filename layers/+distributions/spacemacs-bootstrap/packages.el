@@ -79,10 +79,10 @@
   (define-key evil-normal-state-map (kbd dotspacemacs-ex-command-key) 'evil-ex)
   (define-key evil-visual-state-map (kbd dotspacemacs-ex-command-key) 'evil-ex)
   (define-key evil-motion-state-map (kbd dotspacemacs-ex-command-key) 'evil-ex)
-  (setq evil-ex-substitute-global dotspacemacs-ex-substitute-global)
+  (setq evil-ex-substitute-global vim-style-ex-substitute-global)
 
   ;; evil-want-Y-yank-to-eol must be set via customize to have an effect
-  (customize-set-variable 'evil-want-Y-yank-to-eol dotspacemacs-remap-Y-to-y$)
+  (customize-set-variable 'evil-want-Y-yank-to-eol vim-style-remap-Y-to-y$)
 
   ;; bind evil-jump-forward for GUI only.
   (define-key evil-motion-state-map [C-i] 'evil-jump-forward)
@@ -114,12 +114,12 @@
   (add-hook 'after-change-major-mode-hook 'spacemacs//set-evil-shift-width 'append)
 
   ;; Keep the region active when shifting
-  (when dotspacemacs-retain-visual-state-on-shift
+  (when vim-style-retain-visual-state-on-shift
     (evil-map visual "<" "<gv")
     (evil-map visual ">" ">gv"))
 
   ;; move selection up and down
-  (when dotspacemacs-visual-line-move-text
+  (when vim-style-visual-line-move-text
     (define-key evil-visual-state-map "J" (concat ":m '>+1" (kbd "RET") "gv=gv"))
     (define-key evil-visual-state-map "K" (concat ":m '<-2" (kbd "RET") "gv=gv")))
 

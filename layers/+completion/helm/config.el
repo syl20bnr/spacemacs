@@ -14,24 +14,19 @@
 ;; TODO: remove dotspacemacs variables backward compatbility in version
 ;;       0.400 or later
 
-(defmacro spacemacs|helm-backward-compatibility (variable default)
-  "Return `or' sexp for backward compatibility with old dotspacemacs
-values."
-  `(or (and (boundp ',variable) ,variable) ',default))
-
-(defvar helm-enable-auto-resize (spacemacs|helm-backward-compatibility
+(defvar helm-enable-auto-resize (spacemacs|dotspacemacs-backward-compatibility
                                  dotspacemacs-helm-resize nil)
   "If non nil, `helm' will try to minimize the space it uses.")
 
-(defvar helm-no-header (spacemacs|helm-backward-compatibility
+(defvar helm-no-header (spacemacs|dotspacemacs-backward-compatibility
                         dotspacemacs-helm-no-header nil)
   "if non nil, the helm header is hidden when there is only one source.")
 
-(defvar helm-position (spacemacs|helm-backward-compatibility
+(defvar helm-position (spacemacs|dotspacemacs-backward-compatibility
                        dotspacemacs-helm-position bottom)
   "Position in which to show the `helm' mini-buffer.")
 
-(defvar helm-use-fuzzy (spacemacs|helm-backward-compatibility
+(defvar helm-use-fuzzy (spacemacs|dotspacemacs-backward-compatibility
                         dotspacemacs-helm-use-fuzzy always)
   "Controls fuzzy matching in helm. If set to `always', force fuzzy matching
   in all non-asynchronous sources. If set to `source', preserve individual

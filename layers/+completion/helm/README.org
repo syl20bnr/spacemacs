@@ -125,7 +125,7 @@ if set the layer variable =spacemacs-helm-rg-max-column-number=.
 * Key bindings
 ** hjkl navigation
 When using the Vim style or Hybrid style with the variable
-=hybrid-mode-enable-hjkl-bindings= set to =t=, Spacemacs adds navigation in the
+=hybrid-style-enable-hjkl-bindings= set to =t=, Spacemacs adds navigation in the
 Helm buffers with ~hjkl~.
 
 | Key Binding | Description                  |
