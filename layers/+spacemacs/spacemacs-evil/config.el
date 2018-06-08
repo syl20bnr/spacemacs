@@ -10,7 +10,7 @@
 ;;; License: GPLv3
 
 
-(defvar vim-style-visual-feedback t
+(defvar vim-style-visual-feedback nil
   "If non-nil objects are briefly highlighted performing an action.")
 
 (defvar evil-lisp-safe-structural-editing-modes '()

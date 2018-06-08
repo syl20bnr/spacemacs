@@ -768,7 +768,7 @@ Default configuration is:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-editing-style '(vim :variables
-                                                 vim-style-visual-feedback t
+                                                 vim-style-visual-feedback nil
                                                  vim-style-remap-Y-to-y$ nil
                                                  vim-style-retain-visual-state-on-shift t
                                                  vim-style-visual-line-move-text nil
