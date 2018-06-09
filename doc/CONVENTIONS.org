@@ -329,6 +329,7 @@ If table specific commands are available the they are grouped under the
 A lot of languages have their own test frameworks. These frameworks
 share common actions that we can unite under the same key bindings:
  - ~SPC m t~ is the prefix for test execution.
+ - ~SPC m t g~ is the prefix for test generation.
  - ~SPC m t X~ is used to execute ~SPC m t x~ but in debug mode (if supported).
 
 *** All languages
