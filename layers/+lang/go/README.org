@@ -30,6 +30,7 @@ This layer adds extensive support for go to Spacemacs.
 - Linting with flycheck's built-in checkers or flycheck-gometalinter
 - Coverage profile visualization
 - Test generation with [[https://github.com/s-kostyaev/go-gen-test][go-gen-test]]
+- Get packages faster with [[https://github.com/haya14busa/gopkgs][gopkgs]]
 
 * Install
 ** Pre-requisites
