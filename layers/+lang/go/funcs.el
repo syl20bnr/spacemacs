@@ -9,7 +9,11 @@
 ;;
 ;;; License: GPLv3
 
-(defun load-gopath-file(gopath name)
+(defun spacemacs//go-set-tab-width ()
+  "Set the tab width."
+  (setq-local tab-width go-tab-width))
+
+(defun load-gopath-file (gopath name)
   "Search for NAME file in all paths referenced in GOPATH."
   (let* ((sep (if (spacemacs/system-is-mswindows) ";" ":"))
          (paths (split-string gopath sep))
@@ -73,6 +77,4 @@
                                      (buffer-file-name (buffer-base-buffer)))))))
 (defun spacemacs/go-packages-gopkgs ()
   "Return a list of all Go packages, using `gopkgs'."
-  (sort
-   (process-lines "gopkgs")
-   #'string<))
+  (sort (process-lines "gopkgs") #'string<))

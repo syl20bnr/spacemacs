@@ -59,11 +59,9 @@
     :defer t
     :init
     (progn
-      (defun spacemacs//go-set-tab-width ()
-        "Set the tab width."
-        (setq-local tab-width go-tab-width))
+      ;; get go packages much faster
+      (setq 'go-packages-function 'spacemacs/go-packages-gopkgs)
       (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width))
-    (customize-set-variable 'go-packages-function 'spacemacs/go-packages-gopkgs)
     :config
     (progn
       (add-hook 'before-save-hook 'gofmt-before-save)
