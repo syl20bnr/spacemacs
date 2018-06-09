@@ -242,6 +242,10 @@
   (evil-define-key 'insert term-raw-map (kbd "C-c C-z") 'term-stop-subjob)
   (evil-define-key 'insert term-raw-map (kbd "<tab>") 'term-send-tab)
 
+  (when (not (eq dotspacemacs-editing-style 'emacs))
+    (setq term-char-mode-point-at-process-mark nil)
+    (add-hook 'term-mode-hook 'spacemacs//init-term-vim-hybrid))
+
   (when (eq dotspacemacs-editing-style 'vim)
     (evil-define-key 'insert term-raw-map
       (kbd "C-k") 'term-send-up

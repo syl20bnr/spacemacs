@@ -182,3 +182,29 @@ is achieved by adding the relevant text properties."
   "Send tab in term mode."
   (interactive)
   (term-send-raw-string "\t"))
+
+(defun spacemacs//term-enable-line-mode ()
+  "Enable `term-line-mode' when in `term-mode' buffer."
+  (when (eq major-mode 'term-mode)
+    (term-line-mode)))
+
+(defun spacemacs//term-enable-char-mode-maby-goto-prompt ()
+  "Enable `term-char-mode' when in a `term-mode' buffer.
+
+Will also put cursor on prompt position if called when cursor is not on the same
+line as prompt."
+  (when (eq major-mode 'term-mode)
+    (when (get-buffer-process (current-buffer))
+      (term-char-mode)
+      (if (not (eq (line-number-at-pos (point))
+                   (line-number-at-pos (marker-position (term-process-mark)))))
+          (goto-char (term-process-mark))))))
+
+(defun spacemacs//init-term-vim-hybrid ()
+  "Enable term support for vim and hybrid editing-styles."
+  (add-hook 'evil-insert-state-entry-hook
+            'spacemacs//term-enable-char-mode-maby-goto-prompt)
+  (add-hook 'evil-hybrid-state-entry-hook
+            'spacemacs//term-enable-char-mode-maby-goto-prompt)
+  (add-hook 'evil-normal-state-entry-hook
+            'spacemacs//term-enable-line-mode))
