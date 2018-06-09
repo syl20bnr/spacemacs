@@ -35,11 +35,10 @@
 (defun go/init-company-go ()
   (use-package company-go
     :defer t
-    :init
-    (spacemacs|add-company-backends
-      :backends company-go
-      :modes go-mode
-      :variables company-go-show-annotation t)))
+    :init (spacemacs|add-company-backends
+            :backends company-go
+            :modes go-mode
+            :variables company-go-show-annotation t)))
 
 (defun go/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'go-mode))
@@ -50,8 +49,7 @@
 (defun go/init-flycheck-gometalinter ()
   (use-package flycheck-gometalinter
     :defer t
-    :init
-    (add-hook 'go-mode-hook 'spacemacs//go-enable-gometalinter t)))
+    :init (add-hook 'go-mode-hook 'spacemacs//go-enable-gometalinter t)))
 
 (defun go/post-init-ggtags ()
   (add-hook 'go-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
@@ -62,7 +60,8 @@
 (defun go/pre-init-exec-path-from-shell ()
   (spacemacs|use-package-add-hook exec-path-from-shell
     :pre-config
-    (dolist (var '("GOPATH" "GOROOT" "GO15VENDOREXPERIMENT") exec-path-from-shell-variables)
+    (dolist (var '("GOPATH" "GOROOT" "GO15VENDOREXPERIMENT")
+                 exec-path-from-shell-variables)
       (unless (or (member var exec-path-from-shell-variables) (getenv var))
         (add-to-list 'exec-path-from-shell-variables var)))))
 
@@ -71,37 +70,41 @@
 
 (defun go/init-go-fill-struct ()
   (use-package go-fill-struct
-    :init
-    (spacemacs/set-leader-keys-for-major-mode 'go-mode
-      "rs" 'go-fill-struct)))
+    :init (spacemacs/set-leader-keys-for-major-mode 'go-mode
+            "rs" 'go-fill-struct)))
 
 (defun go/init-go-gen-test()
   (use-package go-gen-test
     :init
-    (spacemacs/declare-prefix-for-mode 'go-mode "mt" "test")
-    (spacemacs/set-leader-keys-for-major-mode 'go-mode
-      "tgg" 'go-gen-test-dwim
-      "tgf" 'go-gen-test-exported
-      "tgF" 'go-gen-test-all)))
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'go-mode
+        "tgg" 'go-gen-test-dwim
+        "tgf" 'go-gen-test-exported
+        "tgF" 'go-gen-test-all))))
 
 (defun go/init-go-guru ()
-  (spacemacs/declare-prefix-for-mode 'go-mode "mf" "guru")
-  (spacemacs/set-leader-keys-for-major-mode 'go-mode
-    "fd" 'go-guru-describe
-    "ff" 'go-guru-freevars
-    "fi" 'go-guru-implements
-    "fc" 'go-guru-peers
-    "fr" 'go-guru-referrers
-    "fj" 'go-guru-definition
-    "fp" 'go-guru-pointsto
-    "fs" 'go-guru-callstack
-    "fe" 'go-guru-whicherrs
-    "f<" 'go-guru-callers
-    "f>" 'go-guru-callees
-    "fo" 'go-guru-set-scope))
+  (use-package go-impl
+    :defer t
+    :init
+    (progn
+      (spacemacs/declare-prefix-for-mode 'go-mode "mf" "guru")
+      (spacemacs/set-leader-keys-for-major-mode 'go-mode
+        "f<" 'go-guru-callers
+        "f>" 'go-guru-callees
+        "fc" 'go-guru-peers
+        "fd" 'go-guru-describe
+        "fe" 'go-guru-whicherrs
+        "ff" 'go-guru-freevars
+        "fi" 'go-guru-implements
+        "fj" 'go-guru-definition
+        "fo" 'go-guru-set-scope
+        "fp" 'go-guru-pointsto
+        "fr" 'go-guru-referrers
+        "fs" 'go-guru-callstack))))
 
 (defun go/init-go-impl()
   (use-package go-impl
+    :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'go-mode
             "ri" 'go-impl)))
 
@@ -124,43 +127,40 @@
       (spacemacs/declare-prefix-for-mode 'go-mode "mt" "test")
       (spacemacs/declare-prefix-for-mode 'go-mode "mx" "execute")
       (spacemacs/set-leader-keys-for-major-mode 'go-mode
-        "hh" 'godoc-at-point
-        "ig" 'go-goto-imports
-        "ia" 'go-import-add
-        "ir" 'go-remove-unused-imports
         "eb" 'go-play-buffer
-        "er" 'go-play-region
         "ed" 'go-download-play
-        "xx" 'spacemacs/go-run-main
+        "er" 'go-play-region
         "ga" 'ff-find-other-file
         "gc" 'go-coverage
-        "tt" 'spacemacs/go-run-test-current-function
-        "ts" 'spacemacs/go-run-test-current-suite
+        "hh" 'godoc-at-point
+        "ia" 'go-import-add
+        "ig" 'go-goto-imports
+        "ir" 'go-remove-unused-imports
+        "tP" 'spacemacs/go-run-package-tests-nested
         "tp" 'spacemacs/go-run-package-tests
-        "tP" 'spacemacs/go-run-package-tests-nested))))
+        "ts" 'spacemacs/go-run-test-current-suite
+        "tt" 'spacemacs/go-run-test-current-function
+        "xx" 'spacemacs/go-run-main))))
 
 (defun go/init-go-rename ()
   (use-package go-rename
-    :init
-    (spacemacs/set-leader-keys-for-major-mode 'go-mode "rN" 'go-rename)))
+    :init (spacemacs/set-leader-keys-for-major-mode 'go-mode
+            "rN" 'go-rename)))
 
 (defun go/init-go-tag ()
   (use-package go-tag
-    :init
-    (spacemacs/set-leader-keys-for-major-mode 'go-mode
-      "rf" 'go-tag-add
-      "rF" 'go-tag-remove)))
+    :init (spacemacs/set-leader-keys-for-major-mode 'go-mode
+            "rf" 'go-tag-add
+            "rF" 'go-tag-remove)))
 
 (defun go/init-godoctor ()
   (use-package godoctor
     :defer t
-    :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'go-mode
-        "rn" 'godoctor-rename
-        "re" 'godoctor-extract
-        "rt" 'godoctor-toggle
-        "rd" 'godoctor-godoc))))
+    :init (spacemacs/set-leader-keys-for-major-mode 'go-mode
+            "rd" 'godoctor-godoc
+            "re" 'godoctor-extract
+            "rn" 'godoctor-rename
+            "rt" 'godoctor-toggle)))
 
 (defun go/post-init-popwin ()
   (push (cons go-test-buffer-name '(:dedicated t :position bottom :stick t :noselect t :height 0.4))
