@@ -168,27 +168,27 @@ You have a few options to ensure you always get up to date suggestions:
 * Working with Go
 ** Go commands (start with =m=):
 
-| Key Binding | Description                                                                           |
-|-------------+---------------------------------------------------------------------------------------|
-| ~SPC m e b~ | go-play buffer                                                                        |
-| ~SPC m e d~ | download go-play snippet                                                              |
-| ~SPC m e r~ | go-play region                                                                        |
-| ~SPC m g a~ | jump to matching test file or back from test to code file                             |
-| ~SPC m g c~ | open a clone of the current buffer with a coverage info (=go tool cover -h= for help) |
-| ~SPC m g g~ | go jump to definition                                                                 |
-| ~SPC m i a~ | add import                                                                            |
-| ~SPC m i g~ | goto imports                                                                          |
-| ~SPC m i r~ | remove unused import                                                                  |
-| ~SPC m h h~ | godoc at point                                                                        |
-| ~SPC m r n~ | go rename                                                                             |
-| ~SPC m t f~ | generate test for the function in the active region                                   |
-| ~SPC m t g~ | generate tests for all exported functions                                             |
-| ~SPC m t G~ | generate tests for all functions                                                      |
-| ~SPC m t p~ | run "go test" for the current package                                                 |
-| ~SPC m t P~ | run "go test" for the current package and all packages under it                       |
-| ~SPC m t s~ | run "go test" for the suite you're currently in (requires gocheck)                    |
-| ~SPC m t t~ | run "go test" for the function you're currently in (while you're in a _.test.go file) |
-| ~SPC m x x~ | run "go run" for the current 'main' package                                           |
+| Key Binding   | Description                                                                           |
+|---------------+---------------------------------------------------------------------------------------|
+| ~SPC m e b~   | go-play buffer                                                                        |
+| ~SPC m e d~   | download go-play snippet                                                              |
+| ~SPC m e r~   | go-play region                                                                        |
+| ~SPC m g a~   | jump to matching test file or back from test to code file                             |
+| ~SPC m g c~   | open a clone of the current buffer with a coverage info (=go tool cover -h= for help) |
+| ~SPC m g g~   | go jump to definition                                                                 |
+| ~SPC m i a~   | add import                                                                            |
+| ~SPC m i g~   | goto imports                                                                          |
+| ~SPC m i r~   | remove unused import                                                                  |
+| ~SPC m h h~   | godoc at point                                                                        |
+| ~SPC m r n~   | go rename                                                                             |
+| ~SPC m t g g~ | DWIM generate test for the function in the active region                              |
+| ~SPC m t g f~ | generate tests for all exported functions                                             |
+| ~SPC m t g F~ | generate tests for all functions                                                      |
+| ~SPC m t p~   | run "go test" for the current package                                                 |
+| ~SPC m t P~   | run "go test" for the current package and all packages under it                       |
+| ~SPC m t s~   | run "go test" for the suite you're currently in (requires gocheck)                    |
+| ~SPC m t t~   | run "go test" for the function you're currently in (while you're in a _.test.go file) |
+| ~SPC m x x~   | run "go run" for the current 'main' package                                           |
 
 ** Go Guru
 

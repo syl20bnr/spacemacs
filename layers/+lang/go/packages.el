@@ -22,12 +22,12 @@
         exec-path-from-shell
         go-eldoc
         go-mode
+        go-gen-test
         go-guru
         go-rename
         godoctor
         go-tag
         popwin
-        go-gen-test
         ))
 
 
@@ -145,9 +145,9 @@
     :init
     (spacemacs/declare-prefix-for-mode 'go-mode "mt" "test")
     (spacemacs/set-leader-keys-for-major-mode 'go-mode
-      "tf" 'go-gen-test-dwim
-      "tg" 'go-gen-test-exported
-      "tG" 'go-gen-test-all)))
+      "tgg" 'go-gen-test-dwim
+      "tgf" 'go-gen-test-exported
+      "tgF" 'go-gen-test-all)))
 
 (defun go/post-init-ggtags ()
   (add-hook 'go-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
