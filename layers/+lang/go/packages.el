@@ -70,11 +70,13 @@
 
 (defun go/init-go-fill-struct ()
   (use-package go-fill-struct
+    :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'go-mode
             "rs" 'go-fill-struct)))
 
 (defun go/init-go-gen-test()
   (use-package go-gen-test
+    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'go-mode
@@ -144,11 +146,13 @@
 
 (defun go/init-go-rename ()
   (use-package go-rename
+    :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'go-mode
             "rN" 'go-rename)))
 
 (defun go/init-go-tag ()
   (use-package go-tag
+    :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'go-mode
             "rf" 'go-tag-add
             "rF" 'go-tag-remove)))
