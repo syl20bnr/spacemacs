@@ -31,6 +31,7 @@ This layer adds extensive support for go to Spacemacs.
 - Coverage profile visualization
 - Test generation with [[https://github.com/s-kostyaev/go-gen-test][go-gen-test]]
 - Get packages faster with [[https://github.com/haya14busa/gopkgs][gopkgs]]
+- Fill a structure with default values using the [[https://github.com/davidrjenni/reftools/tree/master/cmd/fillstruct][fillstruct]]
 
 * Install
 ** Pre-requisites
