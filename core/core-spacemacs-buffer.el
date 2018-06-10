@@ -133,7 +133,7 @@ Cate special text banner can de reachable via `998', `cat' or `random*'.
 (defun spacemacs-buffer/display-startup-note ()
   "Decide of the startup note and display it if relevant."
   (when (file-exists-p spacemacs-buffer--cache-file)
-    (load spacemacs-buffer--cache-file))
+    (load spacemacs-buffer--cache-file nil (not init-file-debug)))
   (cond
    (spacemacs-buffer--fresh-install
     ;; we assume the user is  new to spacemacs and open the quickhelp

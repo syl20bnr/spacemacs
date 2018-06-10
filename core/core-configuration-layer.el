@@ -448,7 +448,7 @@ cache folder.")
     (package-initialize 'noactivate)
     ;; hack to be sure to enable insalled org from Org ELPA repository
     (when (package-installed-p 'org-plus-contrib)
-      (configuration-layer/message "Initializing Org early...")
+      (spacemacs-buffer/message "Initializing Org early...")
       (configuration-layer//activate-package 'org-plus-contrib))))
 
 (defun configuration-layer//configure-quelpa ()

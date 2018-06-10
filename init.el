@@ -16,11 +16,14 @@
 ;; see `SPC h . dotspacemacs-gc-cons' for more info
 (defconst emacs-start-time (current-time))
 (setq gc-cons-threshold 402653184 gc-cons-percentage 0.6)
-(load-file (concat (file-name-directory load-file-name)
-                   "core/core-versions.el"))
-(load-file (concat (file-name-directory load-file-name)
-                   "core/core-load-paths.el"))
-(load-file (concat spacemacs-core-directory "core-dumper.el"))
+(load (concat (file-name-directory load-file-name)
+              "core/core-versions.el")
+      nil (not init-file-debug))
+(load (concat (file-name-directory load-file-name)
+              "core/core-load-paths.el")
+      nil (not init-file-debug))
+(load (concat spacemacs-core-directory "core-dumper.el")
+      nil (not init-file-debug))
 
 (if (not (version<= spacemacs-emacs-min-version emacs-version))
     (error (concat "Your version of Emacs (%s) is too old. "
