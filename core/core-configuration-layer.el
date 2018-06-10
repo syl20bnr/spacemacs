@@ -1564,8 +1564,10 @@ RNAME is the name symbol of another existing layer."
 
 (defun configuration-layer//set-layers-variables (layer-names)
   "Set the configuration variables for the passed LAYER-NAMES."
-  (mapc 'configuration-layer//set-layer-variables (mapcar '(lambda (lname) (configuration-layer/get-layer lname))
-                                        layer-names)))
+  (mapc 'configuration-layer//set-layer-variables
+        (mapcar (lambda (lname)
+                  (configuration-layer/get-layer lname))
+                layer-names)))
 
 (defun configuration-layer//set-layer-variables (layer)
   "Set the configuration variables for the passed LAYER."
