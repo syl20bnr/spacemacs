@@ -63,6 +63,8 @@
     :if c-c++-enable-clang-support
     :init
     (progn
+      (when c-c++-enable-clang-format-on-save
+        (spacemacs/add-to-hooks 'spacemacs/clang-format-on-save c-c++-mode-hooks))
       (dolist (mode c-c++-modes)
         (spacemacs/declare-prefix-for-mode mode "m=" "format")
         (spacemacs/set-leader-keys-for-major-mode mode
