@@ -975,7 +975,8 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
   (with-current-buffer spacemacs-buffer-name
     (goto-char (point-min))
     (with-demoted-errors "spacemacs buffer error: %s"
-      (widget-forward 1))))
+      (search-forward "[")
+      (left-char 2))))
 
 (defun spacemacs-buffer//startup-hook ()
   "Code executed when Emacs has finished loading."
