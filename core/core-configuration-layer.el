@@ -20,6 +20,7 @@
 (require 'ht)
 (require 'core-dotspacemacs)
 (require 'core-funcs)
+(require 'core-progress-bar)
 (require 'core-spacemacs-buffer)
 
 (defvar configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout
@@ -559,8 +560,8 @@ refreshed during the current session."
   ;; check if layer list has changed since last dump
   (when (file-exists-p
          configuration-layer--last-dotspacemacs-configuration-layers-file)
-    (load-file
-     configuration-layer--last-dotspacemacs-configuration-layers-file))
+    (load configuration-layer--last-dotspacemacs-configuration-layers-file
+          nil (not init-file-debug)))
   (let ((layers dotspacemacs-configuration-layers))
     (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
     ;; `dotspacemacs--configuration-layers-saved' is used to detect if the layer
@@ -1884,9 +1885,7 @@ RNAME is the name symbol of another existing layer."
 
 (defun configuration-layer//configure-packages (packages)
   "Configure all passed PACKAGES honoring the steps order."
-  (setq spacemacs-loading-dots-chunk-threshold
-        (/ (length configuration-layer--used-packages)
-           spacemacs-loading-dots-chunk-count))
+  (spacemacs/init-progress-bar (length packages))
   (spacemacs-buffer/message "+ Configuring bootstrap packages...")
   (configuration-layer//configure-packages-2
    (configuration-layer/filter-objects
@@ -1910,7 +1909,6 @@ RNAME is the name symbol of another existing layer."
   "Configure all passed PACKAGES."
   (let (packages-to-configure)
     (dolist (pkg-name packages)
-      (spacemacs-buffer/loading-animation)
       (let ((pkg (configuration-layer/get-package pkg-name)))
         (cond
          ((oref pkg :lazy-install)
@@ -2022,6 +2020,7 @@ LAYER must not be the owner of PKG."
 
 (defun configuration-layer//configure-package (pkg)
   "Configure PKG object, i.e. call its post-init function."
+  (spacemacs/update-progress-bar)
   (let* ((pkg-name (oref pkg :name))
          (owner (car (oref pkg :owners))))
     ;; init

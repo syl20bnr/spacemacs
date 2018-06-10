@@ -571,28 +571,6 @@ If MESSAGEBUF is not nil then MSG is also written in message buffer."
       (when messagebuf
         (message "(Spacemacs) %s" msg)))))
 
-(defun spacemacs-buffer/loading-animation ()
-  "Display the progress bar by chunks of size `spacemacs--loading-dots-chunk-threshold'."
-  (when (and (not noninteractive)
-             dotspacemacs-loading-progress-bar)
-    (setq spacemacs-loading-counter (1+ spacemacs-loading-counter))
-    (setq spacemacs-loading-value (1+ spacemacs-loading-value))
-    (when (>= spacemacs-loading-counter spacemacs-loading-dots-chunk-threshold)
-      (let ((suffix (format "> %s/%s" spacemacs-loading-value
-                            (length configuration-layer--used-packages))))
-        (setq spacemacs-loading-counter 0)
-        (setq spacemacs-loading-string
-              (make-string
-               (max 0
-                    (- (* spacemacs-loading-dots-chunk-size
-                          (floor (/ spacemacs-loading-value
-                                    spacemacs-loading-dots-chunk-threshold)))
-                       (length suffix)))
-               spacemacs-loading-char))
-        (spacemacs-buffer/set-mode-line
-         (concat spacemacs-loading-string suffix)))
-      (spacemacs//redisplay))))
-
 (defmacro spacemacs-buffer||add-shortcut
     (shortcut-char search-label &optional no-next-line)
   "Add a single-key keybinding for quick navigation in the home buffer.
