@@ -46,6 +46,7 @@
 
 (defun cmake/init-helm-ctest ()
   (use-package helm-ctest
+    :defer t
     :init (dolist (mode cmake-modes)
             (spacemacs/set-leader-keys-for-major-mode mode
               "pt" 'helm-ctest))))
