@@ -67,6 +67,7 @@
 
 (defun crystal/init-flycheck-crystal ()
   (use-package flycheck-crystal
+    :defer t
     :init (add-hook 'crystal-mode-hook 'flycheck-mode)))
 
 (defun crystal/init-inf-crystal()
