@@ -101,7 +101,7 @@
 (defun crystal/init-play-crystal()
   (use-package play-crystal
     :defer t
-    :config
+    :init
     (progn
       (spacemacs/declare-prefix-for-mode 'crystal-mode "me" "play")
       (spacemacs/set-leader-keys-for-major-mode 'crystal-mode
