@@ -137,6 +137,7 @@
 
 (defun python/init-importmagic ()
   (use-package importmagic
+    :defer t
     :init
     (progn
       (add-hook 'python-mode-hook 'importmagic-mode)
