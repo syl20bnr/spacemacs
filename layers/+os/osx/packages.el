@@ -16,7 +16,9 @@
         launchctl
         (osx-dictionary :toggle osx-use-dictionary-app)
         osx-trash
-        pbcopy
+        ;; disabled because it introduces input latency with some
+        ;; actions when using emacs -daemon and opening a GUI client
+        ;; pbcopy
         reveal-in-osx-finder
         term
         ))
@@ -106,12 +108,12 @@
 ;; TODO: find a way to enable it in terminal with a dumped Spacemacs
 ;; if this package is activate while dumping it makes some action lag
 ;; like 'dd' to delete a line etc...
-(defun osx/init-pbcopy ()
-  (use-package pbcopy
-    :if (and (spacemacs/system-is-mac)
-             (not (display-graphic-p))
-             (not (spacemacs-is-dumping-p)))
-    :init (turn-on-pbcopy)))
+;; (defun osx/init-pbcopy ()
+;;   (use-package pbcopy
+;;     :if (and (spacemacs/system-is-mac)
+;;              (not (display-graphic-p))
+;;              (not (spacemacs-is-dumping-p)))
+;;     :init (turn-on-pbcopy)))
 
 (defun osx/init-reveal-in-osx-finder ()
   (use-package reveal-in-osx-finder
