@@ -44,9 +44,6 @@
 (defun restructuredtext/init-rst-lists ()
   (use-package rst-lists))
 
-(defun restructuredtext/init-rst-sphinx ()
-  (use-package rst-sphinx))
-
 (defun restructuredtext/init-rst ()
   (use-package rst
     :defer t
