@@ -64,7 +64,9 @@
     :init
     (progn
       (spacemacs|add-transient-hook pre-command-hook
-        (lambda () (require 'helm-mode))
+        (lambda ()
+          (require 'helm-mode)
+          (spacemacs|hide-lighter helm-mode))
         lazy-load-helm)
       (add-hook 'helm-cleanup-hook #'spacemacs//helm-cleanup)
       ;; key bindings
@@ -124,7 +126,6 @@
     :config
     (progn
       (helm-mode)
-      (spacemacs|hide-lighter helm-mode)
       (advice-add 'helm-grep-save-results-1 :after 'spacemacs//gne-init-helm-grep)
       ;; helm-locate uses es (from everything on windows which doesnt like fuzzy)
       (helm-locate-set-command)
