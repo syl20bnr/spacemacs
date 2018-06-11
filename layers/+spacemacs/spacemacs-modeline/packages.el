@@ -75,7 +75,9 @@
              (t 'wave))
             powerline-image-apple-rgb (eq window-system 'ns)
             powerline-scale (or (spacemacs/mode-line-separator-scale) 1.5)
-            powerline-height (spacemacs/compute-mode-line-height))
+            powerline-height (spacemacs/compute-mode-line-height)))
+    :config
+    (progn
       (spacemacs|do-after-display-system-init
        ;; seems to be needed to avoid weird graphical artefacts with the
        ;; first graphical client
@@ -86,9 +88,7 @@
        ;; is computed here
        (setq powerline-height (spacemacs/compute-mode-line-height))
        (require 'spaceline)
-       (spaceline-compile)))
-    :config
-    (progn
+       (spaceline-compile))
       (spacemacs/customize-powerline-faces)
       (setq spaceline-org-clock-p nil
             spaceline-highlight-face-func 'spacemacs//evil-state-face)
