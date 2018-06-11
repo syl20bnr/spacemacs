@@ -12,6 +12,16 @@
 
 ;; Helm
 
+(defvar helm-use-fuzzy (spacemacs|dotspacemacs-backward-compatibility
+                        dotspacemacs-helm-use-fuzzy always)
+  "Controls fuzzy matching in helm. If set to `always', force fuzzy matching
+  in all non-asynchronous sources. If set to `source', preserve individual
+  source settings. Else, disable fuzzy matching in all sources.")
+
+(defvar helm-enable-auto-resize (spacemacs|dotspacemacs-backward-compatibility
+                                 dotspacemacs-helm-resize nil)
+  "If non nil, `helm' will try to minimize the space it uses.")
+
 (defface spacemacs-helm-navigation-ts-face
   `((t :background ,(face-attribute 'error :foreground)
        :foreground "black"))

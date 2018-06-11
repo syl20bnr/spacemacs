@@ -14,10 +14,6 @@
 ;; TODO: remove dotspacemacs variables backward compatbility in version
 ;;       0.400 or later
 
-(defvar helm-enable-auto-resize (spacemacs|dotspacemacs-backward-compatibility
-                                 dotspacemacs-helm-resize nil)
-  "If non nil, `helm' will try to minimize the space it uses.")
-
 (defvar helm-no-header (spacemacs|dotspacemacs-backward-compatibility
                         dotspacemacs-helm-no-header nil)
   "if non nil, the helm header is hidden when there is only one source.")
@@ -25,12 +21,6 @@
 (defvar helm-position (spacemacs|dotspacemacs-backward-compatibility
                        dotspacemacs-helm-position bottom)
   "Position in which to show the `helm' mini-buffer.")
-
-(defvar helm-use-fuzzy (spacemacs|dotspacemacs-backward-compatibility
-                        dotspacemacs-helm-use-fuzzy always)
-  "Controls fuzzy matching in helm. If set to `always', force fuzzy matching
-  in all non-asynchronous sources. If set to `source', preserve individual
-  source settings. Else, disable fuzzy matching in all sources.")
 
 (defvar spacemacs-helm-rg-max-column-number 512
   "Controls the maximum number of columns to display with ripgrep (otherwise
