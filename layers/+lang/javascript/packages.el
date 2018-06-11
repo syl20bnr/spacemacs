@@ -171,6 +171,7 @@
   (use-package lsp-javascript-typescript
     :commands lsp-javascript-typescript-enable
     :defer t
+    :init (add-hook 'js2-mode-hook 'lsp-mode)
     :config (require 'lsp-javascript-flow)))
 
 (defun javascript/init-skewer-mode ()

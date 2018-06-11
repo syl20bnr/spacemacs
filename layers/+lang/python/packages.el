@@ -152,7 +152,8 @@
 
 (defun python/init-lsp-python ()
   (use-package lsp-python
-    :commands lsp-python-enable))
+    :commands lsp-python-enable
+    :init (add-hook 'python-mode-hook 'lsp-mode)))
 
 (defun python/init-nose ()
   (use-package nose

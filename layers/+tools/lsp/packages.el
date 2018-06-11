@@ -37,6 +37,7 @@
 
 (defun lsp/init-lsp-mode ()
   (use-package lsp-mode
+    :defer t
     :config
     (progn
       (spacemacs|hide-lighter lsp-mode))))
