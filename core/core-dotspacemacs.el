@@ -316,7 +316,9 @@ can be toggled through `toggle-transparency'.")
   "If non nil show the color guide hint for transient state keys.")
 
 (defvar dotspacemacs-mode-line-unicode-symbols t
-  "If non nil unicode symbols are displayed in the mode-line (eg. for lighters)")
+  "If non nil unicode symbols are displayed in the mode-line (eg. for lighters).
+If you use Emacs as a daemon and wants unicode characters only in GUI set
+the value to quoted `display-graphic-p'. (default t)")
 
 (defvar dotspacemacs-smooth-scrolling t
   "If non nil smooth scrolling (native-scrolling) is enabled.
