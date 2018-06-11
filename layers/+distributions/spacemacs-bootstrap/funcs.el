@@ -183,8 +183,38 @@ Example: (evil-map visual \"<\" \"<gv\")"
 
 
 
+;; exec-path-from-shell
+
+(defun spacemacs//initialize-exec-path-from-shell (&optional force)
+  "Initialize exec-path and cache its value.
+Load from cache file if cache file exists and FORCE is nil."
+  (when (display-graphic-p)
+    (when force (delete-file spacemacs-env-vars-file))
+    (if (file-exists-p spacemacs-env-vars-file)
+        (load spacemacs-env-vars-file nil (not init-file-debug))
+      (require 'exec-path-from-shell)
+      (exec-path-from-shell-initialize)
+      (spacemacs/dump-vars-to-file '(exec-path) spacemacs-env-vars-file))))
+
+(defun spacemacs/import-path ()
+  "Import value of PATH."
+  (interactive)
+  (spacemacs//initialize-exec-path-from-shell t))
+
 (defun spacemacs/copy-env-list (vars)
-  "Copy list of env. VARS using `exec-path-from-shell'."
+  "Copy list of env. VARS using `exec-path-from-shell'.
+Cache the found value in `spacemacs-env-vars-file'."
   (dolist (var vars)
-    (unless (getenv var)
-      (exec-path-from-shell-copy-env var))))
+    (unless (or (getenv var)
+                (null (configuration-layer/package-used-p
+                       'exec-path-from-shell)))
+      (require 'exec-path-from-shell)
+      (exec-path-from-shell-copy-env var)
+      (with-temp-file spacemacs-env-vars-file
+        (insert-file-contents spacemacs-env-vars-file)
+        (print (list 'setenv var
+                     (if (getenv var)
+                         (getenv var)
+                       (format "%s-NOTFOUND-PLEASE-DEFINE-IN-YOUR-SHELL"
+                               var)))
+               (current-buffer))))))
