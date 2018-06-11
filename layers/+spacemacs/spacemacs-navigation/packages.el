@@ -317,9 +317,8 @@
     :defer t
     :init
     (progn
-      (with-eval-after-load 'info
-        (require 'info+))
-      (setq Info-fontify-angle-bracketed-flag nil))))
+      (setq Info-fontify-angle-bracketed-flag nil)
+      (add-hook 'Info-mode-hook (lambda () (require 'info+))))))
 
 (defun spacemacs-navigation/init-open-junk-file ()
   (use-package open-junk-file
