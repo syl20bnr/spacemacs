@@ -63,14 +63,14 @@
     :defer (spacemacs/defer)
     :init
     (progn
+      (spacemacs|add-transient-hook pre-command-hook
+        (lambda () (require 'helm-mode))
+        lazy-load-helm)
       (add-hook 'helm-cleanup-hook #'spacemacs//helm-cleanup)
       ;; key bindings
       ;; Use helm to provide :ls, unless ibuffer is used
       (unless (configuration-layer/package-used-p 'ibuffer)
         (evil-ex-define-cmd "buffers" 'helm-buffers-list))
-      ;; use helm by default for M-x, C-x C-f, and C-x b
-      (unless (configuration-layer/layer-usedp 'smex)
-        (global-set-key (kbd "M-x") 'helm-M-x))
       (global-set-key (kbd "C-x C-f") 'spacemacs/helm-find-files)
       (global-set-key (kbd "C-x b") 'helm-buffers-list)
       ;; use helm everywhere
@@ -120,10 +120,10 @@
                 (lambda ()
                   (unless (configuration-layer/layer-usedp 'smex)
                     (spacemacs/set-leader-keys
-                      dotspacemacs-emacs-command-key 'helm-M-x))))
-      (helm-mode))
+                      dotspacemacs-emacs-command-key 'helm-M-x)))))
     :config
     (progn
+      (helm-mode)
       (spacemacs|hide-lighter helm-mode)
       (advice-add 'helm-grep-save-results-1 :after 'spacemacs//gne-init-helm-grep)
       ;; helm-locate uses es (from everything on windows which doesnt like fuzzy)
