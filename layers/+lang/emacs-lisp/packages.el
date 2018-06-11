@@ -20,6 +20,7 @@
         (emacs-lisp :location built-in)
         evil
         evil-cleverparens
+        eval-sexp-fu
         flycheck
         ggtags
         counsel-gtags
@@ -237,6 +238,9 @@
   (spacemacs|use-package-add-hook evil-cleverparens
     :pre-init
     (add-to-list 'evil-lisp-safe-structural-editing-modes 'emacs-lisp-mode)))
+
+(defun emacs-lisp/post-init-eval-sexp-fu ()
+  (add-hook 'emacs-lisp-mode-hook 'eval-sexp-fu-flash-mode))
 
 (defun emacs-lisp/post-init-flycheck ()
   ;; Don't activate flycheck by default in elisp

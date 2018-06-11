@@ -99,9 +99,12 @@
     (editorconfig-mode t)))
 
 (defun spacemacs-editing/init-eval-sexp-fu ()
-  ;; ignore obsolete function warning generated on startup
-  (let ((byte-compile-not-obsolete-funcs (append byte-compile-not-obsolete-funcs '(preceding-sexp))))
-    (require 'eval-sexp-fu)))
+  (use-package eval-sexp-fu
+    :commands eval-sexp-fu-flash-mode))
+
+  ;; ;; ignore obsolete function warning generated on startup
+  ;; (let ((byte-compile-not-obsolete-funcs (append byte-compile-not-obsolete-funcs '(preceding-sexp))))
+  ;;   (require 'eval-sexp-fu)))
 
 (defun spacemacs-editing/init-expand-region ()
   (use-package expand-region
