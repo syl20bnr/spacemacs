@@ -60,7 +60,7 @@
 
 (defun helm/init-helm ()
   (use-package helm
-    :defer (spacemacs/defer)
+    :defer (spacemacs/defer 1)
     :init
     (progn
       (spacemacs|add-transient-hook pre-command-hook

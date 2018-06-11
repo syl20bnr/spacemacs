@@ -20,9 +20,10 @@
 
 (defconst spacemacs-dump-buffer-name "*spacemacs-dumper*")
 
-(defun spacemacs/defer ()
-  "Return non-nil if dump is not supported."
-  (eq 'not-dumped spacemacs-dump-mode))
+(defun spacemacs/defer (&optional idle-time)
+  "Return t or IDLE-TIME when Spacemacs is not running from a dump."
+  (when (eq 'not-dumped spacemacs-dump-mode)
+    (or idle-time t)))
 
 (defmacro spacemacs|require (&rest args)
   "Require feature if dumping."
