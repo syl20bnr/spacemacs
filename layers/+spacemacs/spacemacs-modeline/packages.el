@@ -78,17 +78,6 @@
             powerline-height (spacemacs/compute-mode-line-height)))
     :config
     (progn
-      (spacemacs|do-after-display-system-init
-       ;; seems to be needed to avoid weird graphical artefacts with the
-       ;; first graphical client
-       ;;
-       ;; It is important that no functions that do font measurements are
-       ;; called outside of this hook or the results will be wrong if spacemacs
-       ;; is started in daemon mode (emacs --daemon). This is why the height
-       ;; is computed here
-       (setq powerline-height (spacemacs/compute-mode-line-height))
-       (require 'spaceline)
-       (spaceline-compile))
       (spacemacs/customize-powerline-faces)
       (setq spaceline-org-clock-p nil
             spaceline-highlight-face-func 'spacemacs//evil-state-face)
