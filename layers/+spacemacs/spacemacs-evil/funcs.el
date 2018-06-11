@@ -118,3 +118,10 @@ Otherwise, revert to the default behavior (i.e. enable `evil-insert-state')."
   (if (spacemacs//paste-transient-state-p)
       (spacemacs/paste-transient-state/evil-paste-before)
     (evil-paste-before count (or register evil-this-register))))
+
+
+;; lisp state
+
+(defun spacemacs//load-evil-lisp-state ()
+  "Load evil-lisp-state lazily"
+  (require 'evil-lisp-state))

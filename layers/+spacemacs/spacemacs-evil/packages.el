@@ -163,8 +163,13 @@
 
 (defun spacemacs-evil/init-evil-lisp-state ()
   (use-package evil-lisp-state
-    :init (setq evil-lisp-state-global t)
+    :defer t
+    :init
+    (progn
+      (add-hook 'prog-mode-hook 'spacemacs//load-evil-lisp-state)
+      (setq evil-lisp-state-global t))
     :config (spacemacs/set-leader-keys "k" evil-lisp-state-map)))
+
 
 (defun spacemacs-evil/init-evil-mc ()
   (use-package evil-mc
