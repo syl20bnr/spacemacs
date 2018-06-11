@@ -21,19 +21,30 @@
     :defer t
     :init
     (progn
+      (spacemacs|add-transient-hook prog-mode-hook
+        (lambda () (when syntax-checking-enable-by-default
+                     (global-flycheck-mode 1)))
+        lazy-load-flycheck)
       (setq flycheck-standard-error-navigation nil
             flycheck-global-modes nil)
-
+      ;; key bindings
+      (spacemacs/set-leader-keys
+        "eb" 'flycheck-buffer
+        "ec" 'flycheck-clear
+        "eh" 'flycheck-describe-checker
+        "el" 'spacemacs/toggle-flycheck-error-list
+        "eL" 'spacemacs/goto-flycheck-error-list
+        "es" 'flycheck-select-checker
+        "eS" 'flycheck-set-checker-executable
+        "ev" 'flycheck-verify-setup
+        "ex" 'flycheck-explain-error-at-point)
       (spacemacs|add-toggle syntax-checking
         :mode flycheck-mode
         :documentation "Enable error and syntax checking."
-        :evil-leader "ts")
-
+        :evil-leader "ts"))
+    :config
+    (progn
       (spacemacs|diminish flycheck-mode " ⓢ" " s")
-
-      (when syntax-checking-enable-by-default
-        (global-flycheck-mode 1))
-
       ;; Custom fringe indicator
       (when (and (fboundp 'define-fringe-bitmap)
                  (not syntax-checking-use-original-bitmaps))
@@ -55,7 +66,6 @@
                   #b00000000
                   #b00000000
                   #b00000000)))
-
       (let ((bitmap (if syntax-checking-use-original-bitmaps
                         'flycheck-fringe-bitmap-double-arrow
                       'my-flycheck-fringe-indicator)))
@@ -83,19 +93,7 @@
         :bindings
         "RET" 'flycheck-error-list-goto-error
         "j" 'flycheck-error-list-next-error
-        "k" 'flycheck-error-list-previous-error)
-
-      ;; key bindings
-      (spacemacs/set-leader-keys
-        "eb" 'flycheck-buffer
-        "ec" 'flycheck-clear
-        "eh" 'flycheck-describe-checker
-        "el" 'spacemacs/toggle-flycheck-error-list
-        "eL" 'spacemacs/goto-flycheck-error-list
-        "es" 'flycheck-select-checker
-        "eS" 'flycheck-set-checker-executable
-        "ev" 'flycheck-verify-setup
-        "ex" 'flycheck-explain-error-at-point))))
+        "k" 'flycheck-error-list-previous-error))))
 
 (defun syntax-checking/init-flycheck-pos-tip ()
   (use-package flycheck-pos-tip
