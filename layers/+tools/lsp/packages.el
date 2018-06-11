@@ -43,6 +43,7 @@
 
 (defun lsp/init-lsp-ui ()
   (use-package lsp-ui
+    :defer t
     :init (add-hook 'lsp-mode-hook #'lsp-ui-mode)
     :config
     (progn
