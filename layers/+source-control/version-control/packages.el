@@ -108,20 +108,23 @@
 
 (defun version-control/init-diff-hl ()
   (use-package diff-hl
+    :defer 1
     :init
     (progn
       (spacemacs/set-leader-keys "gv=" 'diff-hl-diff-goto-hunk)
       (setq diff-hl-side 'left)
       (when (eq version-control-diff-tool 'diff-hl)
         (when (configuration-layer/package-used-p 'magit)
-          (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
-        (if version-control-global-margin
-            (run-with-idle-timer 1 nil 'global-diff-hl-mode)
-          (run-with-idle-timer 1 nil 'diff-hl-margin-mode))
-        (spacemacs|do-after-display-system-init
-         (setq diff-hl-side (if (eq version-control-diff-side 'left)
-                                'left 'right))
-         (diff-hl-margin-mode -1))))))
+          (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))))
+    :config
+    (when (eq version-control-diff-tool 'diff-hl)
+      (if version-control-global-margin
+          (run-with-idle-timer 1 nil 'global-diff-hl-mode)
+        (run-with-idle-timer 1 nil 'diff-hl-margin-mode))
+      (spacemacs|do-after-display-system-init
+       (setq diff-hl-side (if (eq version-control-diff-side 'left)
+                              'left 'right))
+       (diff-hl-margin-mode -1)))))
 
 (defun version-control/post-init-evil-unimpaired ()
   (define-key evil-normal-state-map (kbd "[ h") 'spacemacs/vcs-previous-hunk)
