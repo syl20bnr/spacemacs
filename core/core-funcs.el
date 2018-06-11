@@ -30,16 +30,6 @@ values."
   ;; ns is returned instead of mac on Emacs 25+
   (memq (window-system) '(mac ns)))
 
-(defun spacemacs/run-prog-mode-hooks ()
-  "Runs `prog-mode-hook'. Useful for modes that don't derive from
-`prog-mode' but should."
-  (run-hooks 'prog-mode-hook))
-
-(defun spacemacs/run-text-mode-hooks ()
-  "Runs `text-mode-hook'. Useful for modes that don't derive from
-`text-mode' but should."
-  (run-hooks 'text-mode-hook))
-
 (defun spacemacs/mplist-get (plist prop)
   "Get the values associated to PROP in PLIST, a modified plist.
 
@@ -298,21 +288,6 @@ buffer."
         while (string-match regexp str start)
         do (setq start (match-end 0))
         finally return count))
-
-;; from https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-util.el#L38
-(defun spacemacs/add-to-hooks (fun hooks &optional append local)
-  "Add function to hooks"
-  (dolist (hook hooks)
-    (add-hook hook fun append local)))
-
-(defun spacemacs/add-all-to-hook (hook &rest funs)
-  "Add functions to hook."
-  (spacemacs/add-to-hook hook funs))
-
-(defun spacemacs/add-to-hook (hook funs)
-  "Add list of functions to hook."
-  (dolist (fun funs)
-    (add-hook hook fun)))
 
 (defun spacemacs/echo (msg &rest args)
   "Display MSG in echo-area without logging it in *Messages* buffer."

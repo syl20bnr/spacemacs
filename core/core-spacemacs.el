@@ -13,6 +13,7 @@
 (require 'subr-x nil 'noerror)
 (require 'core-emacs-backports)
 (require 'page-break-lines)
+(require 'core-hooks)
 (require 'core-debug)
 (require 'core-command-line)
 (require 'core-configuration-layer)
