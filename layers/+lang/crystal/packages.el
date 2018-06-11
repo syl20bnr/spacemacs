@@ -71,6 +71,7 @@
 
 (defun crystal/init-inf-crystal()
   (use-package inf-crystal
+    :defer t
     :init
     (progn
       (spacemacs/register-repl 'inf-crystal 'inf-crystal "inf-crystal")
