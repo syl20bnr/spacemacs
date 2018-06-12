@@ -211,7 +211,8 @@ Cache the found value in `spacemacs-env-vars-file'."
       (require 'exec-path-from-shell)
       (exec-path-from-shell-copy-env var)
       (with-temp-file spacemacs-env-vars-file
-        (insert-file-contents spacemacs-env-vars-file)
+        (when (file-exists-p spacemacs-env-vars-file)
+          (insert-file-contents spacemacs-env-vars-file))
         (print (list 'setenv var
                      (if (getenv var)
                          (getenv var)
