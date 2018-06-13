@@ -85,6 +85,7 @@
             "hh" 'cider-doc
             "hj" 'cider-javadoc
             "hn" 'cider-browse-ns
+            "hN" 'cider-browse-ns-all
 
             "e;" 'cider-eval-defun-to-comment
             "eb" 'cider-eval-buffer
@@ -102,8 +103,7 @@
             "gb" 'cider-pop-back
             "gc" 'cider-classpath
             "ge" 'cider-jump-to-compilation-error
-            "gn" 'cider-browse-ns
-            "gN" 'cider-browse-ns-all
+            "gn" 'cider-find-ns
             "gr" 'cider-find-resource
             "gs" 'cider-browse-spec
             "gS" 'cider-browse-spec-all
