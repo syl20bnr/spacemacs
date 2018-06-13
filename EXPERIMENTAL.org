@@ -86,7 +86,7 @@ In the root directory of your freshly cloned Emacs repository and with the
   make
 #+END_SRC
 
-If you have never compile Emacs from source on your machine then you probably
+If you have never compiled Emacs from source on your machine then you probably
 need to install the following packages:
 
 #+BEGIN_SRC shell
