@@ -468,7 +468,9 @@ If the universal prefix argument is used then will the windows too."
 
 ;; from http://dfan.org/blog/2009/02/19/emacs-dedicated-windows/
 (defun spacemacs/toggle-current-window-dedication ()
-  "Toggle dedication state of a window."
+  "Toggle dedication state of a window. Commands that change the buffer that a
+  window is displaying will not typically change the buffer displayed by
+  a dedicated window."
  (interactive)
  (let* ((window    (selected-window))
         (dedicated (window-dedicated-p window)))
