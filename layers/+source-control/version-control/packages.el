@@ -108,7 +108,7 @@
 
 (defun version-control/init-diff-hl ()
   (use-package diff-hl
-    :defer 1
+    :defer (spacemacs/defer 5)
     :init
     (progn
       (spacemacs/set-leader-keys "gv=" 'diff-hl-diff-goto-hunk)
