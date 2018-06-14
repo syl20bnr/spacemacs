@@ -108,19 +108,17 @@
 
 (defun version-control/init-diff-hl ()
   (use-package diff-hl
-    :defer (spacemacs/defer 5)
+    :if (eq version-control-diff-tool 'diff-hl)
     :init
     (progn
       (spacemacs/set-leader-keys "gv=" 'diff-hl-diff-goto-hunk)
-      (setq diff-hl-side 'left)
-      (when (eq version-control-diff-tool 'diff-hl)
-        (when (configuration-layer/package-used-p 'magit)
-          (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))))
-    :config
-    (when (eq version-control-diff-tool 'diff-hl)
       (if version-control-global-margin
-          (run-with-idle-timer 1 nil 'global-diff-hl-mode)
-        (run-with-idle-timer 1 nil 'diff-hl-margin-mode))
+          (progn
+            (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+            (run-with-idle-timer 1 nil 'global-diff-hl-mode))
+        (run-with-idle-timer 1 nil 'diff-hl-margin-mode)))
+    :config
+    (progn
       (spacemacs|do-after-display-system-init
        (setq diff-hl-side (if (eq version-control-diff-side 'left)
                               'left 'right))
@@ -132,12 +130,11 @@
 
 (defun version-control/init-git-gutter ()
   (use-package git-gutter
-    :commands (global-git-gutter-mode git-gutter-mode)
+    :if (eq version-control-diff-tool 'git-gutter)
     :init
     (progn
       ;; If you enable global minor mode
-      (when (and (eq version-control-diff-tool 'git-gutter)
-                 version-control-global-margin)
+      (when version-control-global-margin
         (run-with-idle-timer 1 nil 'global-git-gutter-mode))
       (setq git-gutter:update-interval 2
             git-gutter:modified-sign " "
@@ -189,12 +186,11 @@
 
 (defun version-control/init-git-gutter+ ()
   (use-package git-gutter+
-    :commands (global-git-gutter+-mode git-gutter+-mode git-gutter+-refresh)
+    :if (eq version-control-diff-tool 'git-gutter+)
     :init
     (progn
       ;; If you enable global minor mode
-      (when (and (eq version-control-diff-tool 'git-gutter+)
-                 version-control-global-margin)
+      (when version-control-global-margin
         (add-hook 'magit-pre-refresh-hook 'git-gutter+-refresh)
         (run-with-idle-timer 1 nil 'global-git-gutter+-mode))
       (setq
@@ -206,17 +202,11 @@
     ;; identify magit changes
     :config
     (spacemacs|hide-lighter git-gutter+-mode)
-    ;; (set-face-foreground 'git-gutter+-modified "black")
-    ;; (set-face-foreground 'git-gutter+-added    "black")
-    ;; (set-face-foreground 'git-gutter+-deleted  "black")
-    ;; (set-face-background 'git-gutter+-modified "orange1")
-    ;; (set-face-background 'git-gutter+-added    "green4")
-    ;; (set-face-background 'git-gutter+-deleted  "red3")
     ))
 
 (defun version-control/init-git-gutter-fringe+ ()
   (use-package git-gutter-fringe+
-    :commands git-gutter+-mode
+    :if (eq version-control-diff-tool 'git-gutter+)
     :init
     (progn
       (spacemacs|do-after-display-system-init
