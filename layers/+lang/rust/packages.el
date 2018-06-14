@@ -72,7 +72,6 @@
     :defer t
     :init
     (progn
-      (spacemacs/copy-env-list '("RUST_SRC_PATH"))
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "=" 'rust-format-buffer
         "q" 'spacemacs/rust-quick-run))))
