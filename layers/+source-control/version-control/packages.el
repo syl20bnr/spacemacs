@@ -109,6 +109,7 @@
 (defun version-control/init-diff-hl ()
   (use-package diff-hl
     :if (eq version-control-diff-tool 'diff-hl)
+    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys "gv=" 'diff-hl-diff-goto-hunk)
@@ -131,6 +132,7 @@
 (defun version-control/init-git-gutter ()
   (use-package git-gutter
     :if (eq version-control-diff-tool 'git-gutter)
+    :defer t
     :init
     (progn
       ;; If you enable global minor mode
@@ -151,7 +153,8 @@
 
 (defun version-control/init-git-gutter-fringe ()
   (use-package git-gutter-fringe
-    :commands git-gutter-mode
+    :if (eq version-control-diff-tool 'git-gutter)
+    :defer t
     :init
     (progn
       (spacemacs|do-after-display-system-init
@@ -187,6 +190,7 @@
 (defun version-control/init-git-gutter+ ()
   (use-package git-gutter+
     :if (eq version-control-diff-tool 'git-gutter+)
+    :defer t
     :init
     (progn
       ;; If you enable global minor mode
@@ -207,6 +211,7 @@
 (defun version-control/init-git-gutter-fringe+ ()
   (use-package git-gutter-fringe+
     :if (eq version-control-diff-tool 'git-gutter+)
+    :defer t
     :init
     (progn
       (spacemacs|do-after-display-system-init
