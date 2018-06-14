@@ -50,9 +50,15 @@
 
 (defun spacemacs-modeline/init-spaceline ()
   (use-package spaceline-config
-    :defer 0.1
     :if (memq (spacemacs/get-mode-line-theme-name) '(spacemacs all-the-icons custom))
     :init
+    (add-hook 'emacs-startup-hook
+              (lambda ()
+                (spacemacs|add-transient-hook window-configuration-change-hook
+                  (lambda ()
+                    (setq spaceline-byte-compile t)
+                    (spaceline-compile))
+                  lazy-load-window-purpose)))
     (progn
       (add-hook 'spacemacs-post-theme-change-hook
                 'spacemacs/customize-powerline-faces)
@@ -92,7 +98,8 @@
              (t 'wave))
             powerline-image-apple-rgb (eq window-system 'ns)
             powerline-scale (or (spacemacs/mode-line-separator-scale) 1.5)
-            powerline-height (spacemacs/compute-mode-line-height)))
+            powerline-height (spacemacs/compute-mode-line-height)
+            spaceline-byte-compile nil))
     :config
     (progn
       (spacemacs/customize-powerline-faces)
