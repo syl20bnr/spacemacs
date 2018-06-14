@@ -140,7 +140,7 @@
         (spaceline-info-mode t))
       ;; Enable spaceline for buffers created before the configuration of
       ;; spaceline
-      (spacemacs//set-powerline-for-startup-buffers))))
+      (spacemacs//restore-buffers-powerline))))
 
 (defun spacemacs-modeline/pre-init-spaceline-all-the-icons ()
   (when (eq 'all-the-icons (spacemacs/get-mode-line-theme-name))

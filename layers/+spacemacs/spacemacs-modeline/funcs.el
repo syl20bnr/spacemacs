@@ -49,12 +49,10 @@ Return nil if no scale is defined."
     (powerline-set-selected-window)
     (powerline-reset)))
 
-(defun spacemacs//set-powerline-for-startup-buffers ()
-  "Set the powerline for buffers created when Emacs starts."
-  (dolist (buffer '("*Messages*" "*spacemacs*" "*Compile-Log*"))
-    (when (and (get-buffer buffer)
-               (configuration-layer/package-used-p 'spaceline))
-      (spacemacs//restore-powerline buffer))))
+(defun spacemacs//restore-buffers-powerline ()
+  "Restore the powerline in all buffers."
+  (dolist (buffer (buffer-list))
+    (spacemacs//restore-powerline buffer)))
 
 (defun spacemacs//prepare-diminish ()
   (when spaceline-minor-modes-p
