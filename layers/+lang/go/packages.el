@@ -108,8 +108,7 @@
     (progn
       ;; get go packages much faster
       (setq go-packages-function 'spacemacs/go-packages-gopkgs)
-      (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width)
-      (spacemacs/copy-env-list '("GOPATH" "GOROOT" "GO15VENDOREXPERIMENT")))
+      (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width))
     :config
     (progn
       (add-hook 'before-save-hook 'gofmt-before-save)
