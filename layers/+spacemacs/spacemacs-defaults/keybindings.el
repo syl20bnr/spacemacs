@@ -388,9 +388,6 @@
   "qq" 'spacemacs/prompt-kill-emacs
   "qQ" 'spacemacs/kill-emacs
   "qf" 'spacemacs/frame-killer)
-;; search/symbol --------------------------------------------------------------
-(spacemacs/set-leader-keys
-  "sc" 'spacemacs/evil-search-clear-highlight)
 ;; window ---------------------------------------------------------------------
 (defun split-window-below-and-focus ()
   "Split the window vertically and focus the new window."

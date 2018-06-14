@@ -1373,8 +1373,3 @@ Decision is based on `dotspacemacs-line-numbers'."
           disabled-for-modes
           (not disabled-for-parent)))))
 
-
-(defun spacemacs/evil-search-clear-highlight ()
-  "Clear evil-search or evil-ex-search persistent highlights."
-  (interactive)
-  (evil-ex-nohighlight)) ; `/' highlights
