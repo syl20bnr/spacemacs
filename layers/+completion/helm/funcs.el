@@ -518,7 +518,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
 (defmacro spacemacs||set-helm-key (keys func)
   "Define a key bindings for FUNC using KEYS.
 Ensure that helm is required before calling FUNC."
-  (let ((func-name (intern (format "spacemacs/%s" (symbol-name func)))))
+  (let ((func-name (intern (format "lazy-helm/%s" (symbol-name func)))))
     `(progn
        (defun ,func-name ()
          ,(format "Wrapper to ensure that `helm' is loaded before calling %s."

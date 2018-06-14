@@ -60,14 +60,14 @@
 
 (defun helm/init-helm ()
   (use-package helm
-    :defer (spacemacs/defer 1)
+    :defer (spacemacs/defer)
     :init
     (progn
-      (spacemacs|add-transient-hook pre-command-hook
-        (lambda ()
-          (require 'helm-mode)
-          (spacemacs|hide-lighter helm-mode))
-        lazy-load-helm)
+      ;; (spacemacs|add-transient-hook minibuffer-setup-hook
+      ;;   (lambda ()
+      ;;     (require 'helm-mode)
+      ;;     (spacemacs|hide-lighter helm-mode))
+      ;;   lazy-load-helm)
       (add-hook 'helm-cleanup-hook #'spacemacs//helm-cleanup)
       ;; key bindings
       ;; Use helm to provide :ls, unless ibuffer is used
@@ -79,38 +79,36 @@
       (global-set-key (kbd "C-x C-f") 'spacemacs/helm-find-files)
       (global-set-key (kbd "C-x b") 'helm-buffers-list)
       ;; use helm everywhere
-      (spacemacs/set-leader-keys
-        "<f1>" 'helm-apropos
-        "a'"   'helm-available-repls
-        "bb"   'helm-mini
-        "Cl"   'helm-colors
-        "ff"   'spacemacs/helm-find-files
-        "fF"   'helm-find-files
-        "fL"   'helm-locate
-        "fr"   'helm-recentf
-        "hdd"  'helm-apropos
-        "hdF"  'spacemacs/helm-faces
-        "hi"   'helm-info-at-point
-        "hm"   'helm-man-woman
-        "iu"   'helm-ucs
-        "jI"   'helm-imenu-in-all-buffers
-        "rm"   'helm-all-mark-rings
-        "rl"   'helm-resume
-        "rr"   'helm-register
-        "rs"   'spacemacs/resume-last-search-buffer
-        "ry"   'helm-show-kill-ring
-        "sl"   'spacemacs/resume-last-search-buffer
-        "sj"   'spacemacs/helm-jump-in-buffer)
+      (spacemacs||set-helm-key "<f1>" helm-apropos)
+      (spacemacs||set-helm-key "a'"   helm-available-repls)
+      (spacemacs||set-helm-key "bb"   helm-mini)
+      (spacemacs||set-helm-key "Cl"   helm-colors)
+      (spacemacs||set-helm-key "ff"   spacemacs/helm-find-files)
+      (spacemacs||set-helm-key "fF"   helm-find-files)
+      (spacemacs||set-helm-key "fL"   helm-locate)
+      (spacemacs||set-helm-key "fr"   helm-recentf)
+      (spacemacs||set-helm-key "hdd"  helm-apropos)
+      (spacemacs||set-helm-key "hdF"  spacemacs/helm-faces)
+      (spacemacs||set-helm-key "hi"   helm-info-at-point)
+      (spacemacs||set-helm-key "hm"   helm-man-woman)
+      (spacemacs||set-helm-key "iu"   helm-ucs)
+      (spacemacs||set-helm-key "jI"   helm-imenu-in-all-buffers)
+      (spacemacs||set-helm-key "rm"   helm-all-mark-rings)
+      (spacemacs||set-helm-key "rl"   helm-resume)
+      (spacemacs||set-helm-key "rr"   helm-register)
+      (spacemacs||set-helm-key "rs"   spacemacs/resume-last-search-buffer)
+      (spacemacs||set-helm-key "ry"   helm-show-kill-ring)
+      (spacemacs||set-helm-key "sl"   spacemacs/resume-last-search-buffer)
+      (spacemacs||set-helm-key "sj"   spacemacs/helm-jump-in-buffer)
       ;; search with grep
-      (spacemacs/set-leader-keys
-        "sgb"  'spacemacs/helm-buffers-do-grep
-        "sgB"  'spacemacs/helm-buffers-do-grep-region-or-symbol
-        "sgf"  'spacemacs/helm-files-do-grep
-        "sgF"  'spacemacs/helm-files-do-grep-region-or-symbol
-        "sgg"  'spacemacs/helm-file-do-grep
-        "sgG"  'spacemacs/helm-file-do-grep-region-or-symbol)
+      (spacemacs||set-helm-key "sgb"  spacemacs/helm-buffers-do-grep)
+      (spacemacs||set-helm-key "sgB"  spacemacs/helm-buffers-do-grep-region-or-symbol)
+      (spacemacs||set-helm-key "sgf"  spacemacs/helm-files-do-grep)
+      (spacemacs||set-helm-key "sgF"  spacemacs/helm-files-do-grep-region-or-symbol)
+      (spacemacs||set-helm-key "sgg"  spacemacs/helm-file-do-grep)
+      (spacemacs||set-helm-key "sgG"  spacemacs/helm-file-do-grep-region-or-symbol)
       ;; various key bindings
-      (spacemacs||set-helm-key "fel"  helm-locate-library)
+      (spacemacs||set-helm-key "fel" helm-locate-library)
       (spacemacs||set-helm-key "hdm" describe-mode)
       (spacemacs||set-helm-key "sww" helm-wikipedia-suggest)
       (spacemacs||set-helm-key "swg" helm-google-suggest)
@@ -119,10 +117,27 @@
           (kbd "C-c C-e") 'spacemacs/helm-find-files-edit))
       ;; Add minibuffer history with `helm-minibuffer-history'
       (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
-      ;; define the key binding at the very end in order to allow the user
-      ;; to overwrite any key binding
+      ;; Delay this key bindings to override the defaults
       (add-hook 'emacs-startup-hook
                 (lambda ()
+                  (spacemacs||set-helm-key "hdb" describe-bindings)
+                  (spacemacs||set-helm-key "hdc" describe-char)
+                  (spacemacs||set-helm-key "hdf" describe-function)
+                  (spacemacs||set-helm-key "hdk" describe-key)
+                  (spacemacs||set-helm-key "hdl" spacemacs/describe-last-keys)
+                  (spacemacs||set-helm-key "hdp" describe-package)
+                  (spacemacs||set-helm-key "hdP" configuration-layer/describe-package)
+                  (spacemacs||set-helm-key "hds" spacemacs/describe-system-info)
+                  (spacemacs||set-helm-key "hdt" describe-theme)
+                  (spacemacs||set-helm-key "hdv" describe-variable)
+                  (spacemacs||set-helm-key "hI"  spacemacs/report-issue)
+                  (spacemacs||set-helm-key "hn"  view-emacs-news)
+                  (spacemacs||set-helm-key "hPs" profiler-start)
+                  (spacemacs||set-helm-key "hPk" profiler-stop)
+                  (spacemacs||set-helm-key "hPr" profiler-report)
+                  (spacemacs||set-helm-key "hPw" profiler-report-write-profile)
+                  ;; define the key binding at the very end in order to allow the user
+                  ;; to overwrite any key binding
                   (unless (configuration-layer/layer-usedp 'smex)
                     (spacemacs/set-leader-keys
                       dotspacemacs-emacs-command-key 'helm-M-x)))))

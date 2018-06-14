@@ -327,6 +327,7 @@
            ("spacemacs/toggle-\\(.+\\)" . "\\1")
            ("spacemacs/alternate-buffer" . "last buffer")
            ("spacemacs/toggle-mode-line-\\(.+\\)" . "\\1")
+           ("lazy-helm/\\(.+\\)" . "\\1")
            ("avy-goto-word-or-subword-1" . "avy word")
            ("shell-command" . "shell cmd")
            ("spacemacs/default-pop-shell" . "open shell")
