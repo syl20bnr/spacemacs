@@ -108,9 +108,11 @@
     :defer (spacemacs/defer 1)
     :init
     (progn
-      (spacemacs|add-transient-hook pre-command-hook
-        (lambda () (require 'window-purpose))
-        lazy-load-window-purpose)
+      (add-hook 'emacs-startup-hook
+                (lambda ()
+                  (spacemacs|add-transient-hook window-configuration-change-hook
+                    (lambda () (require 'window-purpose))
+                    lazy-load-window-purpose)))
       ;; 'r' is for "puRpose" ('w', 'p' are crowded, 'W', 'P' aren't
       ;; comfortable)
       (spacemacs/set-leader-keys

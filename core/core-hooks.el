@@ -47,8 +47,8 @@ If FUNC is a lambda you must give it a name with FNAME. "
         result)
     (setq result
           (append (when fname
-                    `((fset ',fname (lambda () (funcall #',func)))))
-                  `((fset ',hfunc (lambda ()
+                    `((fset ',fname (lambda (&rest _) (funcall #',func)))))
+                  `((fset ',hfunc (lambda (&rest _)
                                     ,(if fname (list fname) (list func))
                                     ,(if (functionp hook)
                                          `(advice-remove ',hook ',hfunc)
