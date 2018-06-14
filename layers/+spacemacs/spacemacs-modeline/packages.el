@@ -66,21 +66,6 @@
                     (spaceline-compile))
         :documentation "Make the mode-line responsive."
         :evil-leader "tmr")
-      (setq powerline-default-separator
-            (cond
-             ((spacemacs-is-dumping-p) 'utf-8)
-             ((memq (spacemacs/get-mode-line-theme-name)
-                    '(spacemacs custom))
-              (spacemacs/mode-line-separator))
-             (t 'wave))
-            powerline-image-apple-rgb (eq window-system 'ns)
-            powerline-scale (or (spacemacs/mode-line-separator-scale) 1.5)
-            powerline-height (spacemacs/compute-mode-line-height)))
-    :config
-    (progn
-      (spacemacs/customize-powerline-faces)
-      (setq spaceline-org-clock-p nil
-            spaceline-highlight-face-func 'spacemacs//evil-state-face)
       ;; Segment toggles
       (dolist (spec '((minor-modes "tmm")
                       (major-mode "tmM")
@@ -98,6 +83,21 @@
                                            (replace-regexp-in-string
                                             "-" " " (format "%S" segment)))
                    :evil-leader ,(cadr spec)))))
+      (setq powerline-default-separator
+            (cond
+             ((spacemacs-is-dumping-p) 'utf-8)
+             ((memq (spacemacs/get-mode-line-theme-name)
+                    '(spacemacs custom))
+              (spacemacs/mode-line-separator))
+             (t 'wave))
+            powerline-image-apple-rgb (eq window-system 'ns)
+            powerline-scale (or (spacemacs/mode-line-separator-scale) 1.5)
+            powerline-height (spacemacs/compute-mode-line-height)))
+    :config
+    (progn
+      (spacemacs/customize-powerline-faces)
+      (setq spaceline-org-clock-p nil
+            spaceline-highlight-face-func 'spacemacs//evil-state-face)
       ;; unicode
       (let ((unicodep (dotspacemacs|symbol-value
                        dotspacemacs-mode-line-unicode-symbols)))
