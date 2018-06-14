@@ -146,12 +146,9 @@
 (defun spacemacs-editing-visual/init-volatile-highlights ()
   (use-package volatile-highlights
     :defer (spacemacs/defer 2)
-    :init
-    (spacemacs|add-transient-hook pre-command-hook
-      (lambda () (require 'volatile-highlights))
-      lazy-load-volatile-highlights)
     :config
     (progn
+      (require 'volatile-highlights)
       ;; additional extensions
       ;; evil
       (vhl/define-extension 'evil
