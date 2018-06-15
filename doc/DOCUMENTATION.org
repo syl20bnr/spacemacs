@@ -1733,12 +1733,13 @@ build of Emacs.
 At anytime you can import the environment variables by calling the function
 =spacemacs/loadenv=.
 
-You can define a different shell than the default shell by setting the variable
-=shell-file-name= in the =dotspacemacs/user-init= function of your dotfile.
+You can define a different shell than the default shell to look for environment
+variables by setting the variable =dotspacemacs-import-env-vars-shell-file-name=
+in your dotfile. Note that =shell-file-name= is not modified by this value.
 
 #+BEGIN_EXAMPLE emacs-lisp
-(defun dotspacemacs/user-init ()
-  (setq shell-file-name "/usr/local/bin/fish"))
+(defun dotspacemacs/init ()
+  (setq dotspacemacs-import-env-vars-shell-file-name "/usr/local/bin/fish"))
 #+END_EXAMPLE
 
 * Commands

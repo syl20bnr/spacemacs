@@ -62,6 +62,13 @@ or `spacemacs'.")
 from your default shell on startup. This is enabled by default for macOS users
 and X11 users.")
 
+(defvar dotspacemacs-import-env-vars-shell-file-name nil
+  "If nil then use the default shell is used to fetch the environment variables.
+Set this variable to a different shell executable path to import the environment
+variables from this shell. Note that `file-shell-name' is preserved and always
+points to the default shell. For instance to use your fish shell environment
+variables set this variable to `/usr/local/bin/fish'.")
+
 (defvar dotspacemacs-enable-emacs-pdumper nil
   "If non-nil then enable support for the portable dumper. You'll need
 to compile Emacs 27 from source following the instructions in file
