@@ -11,6 +11,29 @@
 
 
 
+(defun spacemacs/loadenv ()
+  "Gets and sets all the environment variables from user shell."
+  (interactive)
+  (spacemacs-buffer/message "Importing environment variables..")
+  (require 'async nil t)
+  (async-start
+   `(lambda ()
+     ,(async-inject-variables "\\`shell-file-name\\'")
+     (split-string (shell-command-to-string "env") "\n"))
+   (lambda (envvars)
+     (spacemacs-buffer/message "Imported environment variables:")
+     (dolist (env envvars)
+       (if (string-match "^[a-zA-Z_]+[a-zA-Z0-9_]*=" env)
+           (let* ((var (split-string env "="))
+                  (k (car var))
+                  (v (cadr var)))
+             (spacemacs-buffer/message "  - %s=%s" k v)
+             (if (string-equal "PATH" k)
+                 (setq exec-path (split-string v path-separator))
+               (setenv k v))))))))
+
+
+
 (defun spacemacs/state-color-face (state)
   "Return the symbol of the face for the given STATE."
   (intern (format "spacemacs-%s-face" (symbol-name state))))

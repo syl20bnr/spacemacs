@@ -18,11 +18,7 @@
         (bind-key :step bootstrap)
         (diminish :step bootstrap)
         (evil :step bootstrap)
-        (spacemacs-environment :step bootstrap
-                               :location local
-                               :toggle (or (spacemacs/system-is-mac)
-                                           (spacemacs/system-is-linux)
-                                           (eq window-system 'x)))
+        (spacemacs-environment :step bootstrap :location built-in)
         (hydra :step bootstrap)
         (use-package :step bootstrap)
         (which-key :step bootstrap)
@@ -498,8 +494,8 @@
   (spacemacs|diminish which-key-mode " Ⓚ" " K"))
 
 (defun spacemacs-bootstrap/init-spacemacs-environment ()
-  (require 'spacemacs-environment)
-  (spacemacs//loadenv))
+  (when dotspacemacs-import-env-vars-from-shell
+    (spacemacs/loadenv)))
 
 ;; pre packages
 

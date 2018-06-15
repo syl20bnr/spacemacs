@@ -1718,22 +1718,28 @@ There are also some handy globally available key bindings related to workspaces:
 | ~SPC b W~   | go to workspace and window by buffer |
 
 * Environment variables and PATH from the shell
-When using the Emacs GUI environment variables defined by your shell may not
-be available to the Emacs process. This is especially true for macOS.
+To import your environment variable and =PATH= at startup set the variable
+=dotspacemacs-import-env-vars-from-shell=  to non-nil.
 
-The command to fetch the environment variables from your shell is very expensive
-and increases the startup time quite a lot.
+This should be necessary only to macOS users and X11 users using the GNU
+build of Emacs.
 
-For this reason, Spacemacs caches the PATH value and some environment variables
-in the file located at =~/.emacs.d/.cache/.env-vars=.
+#+BEGIN_EXAMPLE emacs-lisp
+(setq-default  dotspacemacs-import-env-vars-from-shell (and (display-graphic-p)
+                                                (or (eq system-type 'darwin)
+                                                    (eq window-system 'x))))
+#+END_EXAMPLE
 
-Any environment variables that are not found are still written to the cache file
-with the value =<VAR>-NOTFOUND-PLEASE-DEFINE-IN-YOUR-SHELL=.
+At anytime you can import the environment variables by calling the function
+=spacemacs/loadenv=.
 
-Spacemacs won't update the cached values by itself, if you want to update your
-shell variables then either delete the cache file or execute the interactive
-function =spacemacs/import-path= and restart Emacs to fetch any updated
-environment variables.
+You can define a different shell than the default shell by setting the variable
+=shell-file-name= in the =dotspacemacs/user-init= function of your dotfile.
+
+#+BEGIN_EXAMPLE emacs-lisp
+(defun dotspacemacs/user-init ()
+  (setq shell-file-name "/usr/local/bin/fish"))
+#+END_EXAMPLE
 
 * Commands
 ** Vim key bindings

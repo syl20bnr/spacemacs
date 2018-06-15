@@ -55,6 +55,13 @@ exists. Otherwise, fallback to ~/.spacemacs"))
 `+distributions'. For now available distributions are `spacemacs-base'
 or `spacemacs'.")
 
+(defvar dotspacemacs-import-env-vars-from-shell (and (display-graphic-p)
+                                           (or (eq system-type 'darwin)
+                                               (eq window-system 'x)))
+  "If non-nil then Spacemacs will import your PATH and environment variables
+from your default shell on startup. This is enabled by default for macOS users
+and X11 users.")
+
 (defvar dotspacemacs-enable-emacs-pdumper nil
   "If non-nil then enable support for the portable dumper. You'll need
 to compile Emacs 27 from source following the instructions in file
