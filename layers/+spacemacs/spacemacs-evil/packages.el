@@ -281,7 +281,8 @@
 
 (defun spacemacs-evil/init-evil-numbers ()
   (use-package evil-numbers
-    :config
+    :defer t
+    :init
     (progn
       (spacemacs|define-transient-state evil-numbers
         :title "Evil Numbers Transient State"
