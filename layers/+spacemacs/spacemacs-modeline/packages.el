@@ -46,7 +46,11 @@
 
 (defun spacemacs-modeline/post-init-neotree ()
   (when (eq 'all-the-icons (spacemacs/get-mode-line-theme-name))
-    (spaceline-all-the-icons--setup-neotree)))
+    (spacemacs|use-package-add-hook spaceline-config
+      :pre-config
+      (progn
+        (require 'spaceline-all-the-icons)
+        (spaceline-all-the-icons--setup-neotree)))))
 
 (defun spacemacs-modeline/init-spaceline ()
   (use-package spaceline-config
