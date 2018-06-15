@@ -16,7 +16,6 @@
         centered-cursor-mode
         (compile :location built-in)
         (doc-view :location built-in)
-        flx-ido
         golden-ratio
         (grep :location built-in)
         (info+ :location local)
@@ -203,10 +202,6 @@
               (text-mode)
               (doc-view-minor-mode))
           ad-do-it)))))
-
-(defun spacemacs-navigation/init-flx-ido ()
-  (use-package flx-ido
-    :init (flx-ido-mode 1)))
 
 (defun spacemacs-navigation/init-golden-ratio ()
   (use-package golden-ratio

@@ -13,6 +13,7 @@
       '(
         (default-helm-config :location built-in)
         (default-ivy-config :location built-in)
+        flx-ido
         (ido :location built-in)
         (ido-vertical-mode :location built-in)
         ))
@@ -187,6 +188,11 @@ Current Action: %s(ivy-action-name)
     (define-key ivy-minibuffer-map (kbd "s-M-SPC")
       'spacemacs/ivy-transient-state/body)
     ))
+
+(defun spacemacs-completion/init-flx-ido ()
+  (use-package flx-ido
+    :defer t
+    :init (add-hook 'ido-vertical-mode-hook 'flx-ido-mode)))
 
 (defun spacemacs-completion/init-ido ()
   (setq ido-save-directory-list-file
