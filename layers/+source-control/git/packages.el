@@ -16,6 +16,7 @@
         gitattributes-mode
         gitconfig-mode
         gitignore-mode
+        gitignore-templates
         git-commit
         git-link
         git-messenger
@@ -113,6 +114,15 @@
 (defun git/init-gitignore-mode ()
   (use-package gitignore-mode
     :defer t))
+
+(defun git/init-gitignore-templates ()
+  (use-package gitignore-templates
+    :defer t
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'gitignore-mode
+      "i" 'gitignore-templates-insert)
+    (spacemacs/set-leader-keys
+      "gfi" 'gitignore-templates-new-file)))
 
 (defun git/init-magit ()
   (use-package magit
