@@ -68,6 +68,7 @@
 
 (defun spacemacs-evil/init-evil-args ()
   (use-package evil-args
+    :defer t
     :init
     (progn
       ;; bind evil-args text objects
