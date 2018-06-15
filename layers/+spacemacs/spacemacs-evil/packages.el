@@ -97,12 +97,17 @@
 
 (defun spacemacs-evil/init-evil-escape ()
   (use-package evil-escape
+    :defer t
     :init
+    (spacemacs|add-transient-hook evil-normal-state-exit-hook
+      (lambda () (require 'evil-escape))
+      lazy-load-evil-escape)
+    :config
     (progn
       (add-hook 'spacemacs-editing-style-hook #'spacemacs//evil-escape-deactivate-in-holy-mode)
       ;; apply once when emacs starts
-      (spacemacs//evil-escape-deactivate-in-holy-mode dotspacemacs-editing-style))
-    :config (spacemacs|hide-lighter evil-escape-mode)))
+      (spacemacs//evil-escape-deactivate-in-holy-mode dotspacemacs-editing-style)
+      (spacemacs|hide-lighter evil-escape-mode))))
 
 (defun spacemacs-evil/init-evil-exchange ()
   (use-package evil-exchange
