@@ -99,9 +99,14 @@
   (use-package evil-escape
     :defer t
     :init
-    (spacemacs|add-transient-hook evil-normal-state-exit-hook
-      (lambda () (require 'evil-escape))
-      lazy-load-evil-escape)
+    (add-hook 'emacs-startup-hook
+              (lambda ()
+                (spacemacs|add-transient-hook evil-normal-state-exit-hook
+                  (lambda () (require 'evil-escape))
+                  lazy-load-evil-escape-1)
+                (spacemacs|add-transient-hook window-configuration-change-hook
+                  (lambda () (require 'evil-escape))
+                  lazy-load-evil-escape-2)))
     :config
     (progn
       (add-hook 'spacemacs-editing-style-hook #'spacemacs//evil-escape-deactivate-in-holy-mode)
