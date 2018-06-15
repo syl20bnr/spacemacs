@@ -33,11 +33,11 @@
                   (k (car var))
                   (v (cadr var)))
              (spacemacs-buffer/message "  - %s=%s" k v)
-             (if (string-equal "PATH" k)
-                 (let ((paths (split-string v path-separator)))
-                   (dolist (p paths)
-                     (add-to-list 'exec-path p)))
-               (setenv k v)))))
+             (when (string-equal "PATH" k)
+               (let ((paths (split-string v path-separator)))
+                 (dolist (p paths)
+                   (add-to-list 'exec-path p))))
+             (setenv k v))))
      ;; be sure we keep the default shell in this Emacs session
      ;; this is to prevent potential issues with packages which could
      ;; expect a default shell
