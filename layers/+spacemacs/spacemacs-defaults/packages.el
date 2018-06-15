@@ -147,6 +147,7 @@
 
 (defun spacemacs-defaults/init-image-mode ()
   (use-package image-mode
+    :defer t
     :init
     (progn
       (setq image-animate-loop t)
@@ -221,7 +222,17 @@
       ;; add this advice before calling `global-display-line-numbers-mode'
       (advice-add #'display-line-numbers--turn-on :around #'spacemacs//linum-on)
       (when dotspacemacs-line-numbers
-        (global-display-line-numbers-mode)))))
+        ;; delay the initialization of number lines when opening Spacemacs
+        ;; normally. If opened via the command line with a file to visit then
+        ;; load it immediatly
+        (add-hook 'emacs-startup-hook
+                  (lambda ()
+                    (if (string-equal "*scratch*" (buffer-name))
+                        (spacemacs|add-transient-hook window-configuration-change-hook
+                          (lambda ()
+                            (global-display-line-numbers-mode))
+                          lazy-loading-line-numbers)
+                      (global-display-line-numbers-mode))))))))
 
 (defun spacemacs-defaults/init-linum ()
   (use-package linum
