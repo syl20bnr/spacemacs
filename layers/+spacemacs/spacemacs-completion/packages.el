@@ -203,9 +203,10 @@ Current Action: %s(ivy-action-name)
 
 (defun spacemacs-completion/init-ido-vertical-mode ()
   (use-package ido-vertical-mode
+    :defer t
     :init
     (progn
-      (ido-vertical-mode t)
+      (add-hook 'ido-minibuffer-setup-hook ido-vertical-mode)
       (add-hook 'ido-minibuffer-setup-hook 'spacemacs//ido-minibuffer-setup)
       (add-hook 'ido-setup-hook 'spacemacs//ido-setup)
 
