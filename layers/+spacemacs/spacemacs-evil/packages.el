@@ -109,6 +109,7 @@
 
 (defun spacemacs-evil/init-evil-goggles ()
   (use-package evil-goggles
+    :defer t
     :init
     (progn
       ;; disable pulses as it is more distracting than useful and
@@ -116,12 +117,18 @@
       (setq evil-goggles-pulse nil
             evil-goggles-async-duration 0.1
             evil-goggles-blocking-duration 0.05)
+      (when (or vim-style-visual-feedback
+              hybrid-style-visual-feedback)
+        (spacemacs|add-transient-hook evil-operator-state-entry-hook
+          (lambda () (require 'evil-goggles))
+          lazy-load-evil-googles)))
+    :config
+    (progn
       (if (or vim-style-visual-feedback
               hybrid-style-visual-feedback)
           (evil-goggles-mode)
-        (evil-goggles-mode -1)))
-    :config
-    (spacemacs|hide-lighter evil-goggles-mode)))
+        (evil-goggles-mode -1))
+      (spacemacs|hide-lighter evil-goggles-mode))))
 
 (defun spacemacs-evil/init-evil-iedit-state ()
   (use-package evil-iedit-state
