@@ -106,7 +106,17 @@
 
 (defun spacemacs-evil/init-evil-exchange ()
   (use-package evil-exchange
-    :init (evil-exchange-install)))
+    :defer t
+    :init
+    (progn
+      (let ((evil-exchange-key (kbd "gx"))
+            (evil-exchange-cancel-key (kbd "gX")))
+        (define-key evil-normal-state-map evil-exchange-key 'evil-exchange)
+        (define-key evil-visual-state-map evil-exchange-key 'evil-exchange)
+        (define-key evil-normal-state-map evil-exchange-cancel-key
+          'evil-exchange-cancel)
+        (define-key evil-visual-state-map evil-exchange-cancel-key
+          'evil-exchange-cancel)))))
 
 (defun spacemacs-evil/init-evil-goggles ()
   (use-package evil-goggles
