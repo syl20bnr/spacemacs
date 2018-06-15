@@ -3388,7 +3388,8 @@ your Emacs windows.
 ** Connecting to the Emacs server
 You can open a file in Emacs from the terminal using =emacsclient=. Use
 =emacsclient -c= to open the file in Emacs GUI. Use =emacsclient -t= to open the
-file in Emacs within the terminal.
+file in Emacs within the terminal. If you set Emacs server socket by setting =dotspacemacs-server-socket-dir=,
+then pass its location as =-s ~/.emacs.d/server/server= additionally.
 
 If you want your Linux/OS X system to use Emacs by default for any prompt, you
 need to set it in your shell configuration, e.g. =~/.bashrc= or =~/.zshrc=:
