@@ -669,8 +669,9 @@ To prevent package from being installed or uninstalled set the variable
   (configuration-layer//set-layers-variables configuration-layer--used-layers)
   (configuration-layer//load-layers-files configuration-layer--used-layers
                         '("keybindings.el"))
-  (dotspacemacs|call-func dotspacemacs/user-load
-                          "Calling dotfile user-load..."))
+  (when (spacemacs-is-dumping-p)
+    (dotspacemacs|call-func dotspacemacs/user-load
+                            "Calling dotfile user-load...")))
 
 (defun configuration-layer/load-auto-layer-file ()
   "Load `auto-layer.el' file"
