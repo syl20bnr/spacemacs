@@ -134,8 +134,9 @@
 
 (defun sql/init-sql-indent ()
   (use-package sql-indent
-    :init (progn (add-hook 'sql-mode-hook 'sqlind-minor-mode))
-    :config (spacemacs|diminish 'sqlind-minor-mode)))
+    :defer t
+    :init (add-hook 'sql-mode-hook 'sqlind-minor-mode)
+    :config (spacemacs|hide-lighter sqlind-minor-mode)))
 
 (defun sql/init-sqlup-mode ()
   (use-package sqlup-mode
@@ -149,7 +150,7 @@
         "=c" 'sqlup-capitalize-keywords-in-region))
     :config
     (progn
-      (spacemacs|diminish sqlup-mode)
+      (spacemacs|hide-lighter sqlup-mode)
       (setq sqlup-blacklist (append sqlup-blacklist
                                     sql-capitalize-keywords-blacklist)))))
 
