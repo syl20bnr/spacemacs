@@ -1,14 +1,21 @@
 #+TITLE: jsonnet layer
 
-# TOC links should be GitHub style anchors.
-* Table of Contents                                        :TOC_4_gh:noexport:
+[[file:img/jsonnet.png]]
+
+* Table of Contents                                       :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer provides basic syntax highlighting and formatting as provided by 
-[[https://github.com/mgyucht/jsonnet-mode][jsonnet-mode]]
+This layer provides support for [[https://jsonnet.org/][Jsonnet template]] provided by [[https://github.com/mgyucht/jsonnet-mode][jsonnet-mode]].
+
+** Features:
+- syntax highlighting
+- buffer formatting
+- jump to definition
+- buffer evaluation
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -20,8 +27,8 @@ to [[http://jsonnet.org/index.html][the jsonnet binary]]
 
 * Key bindings
 
-| Key Binding | Description                                              |
-|-------------+----------------------------------------------------------|
-| ~SPC m j ~  | jump to the definition of a given identifier             |
-| ~SPC m e ~  | show the result of running jsonnet on the current buffer |
-| ~SPC m f ~  | format the buffer using `jsonnet fmt`                    |
+| Key Binding  | Description                                              |
+|--------------+----------------------------------------------------------|
+| ~SPC m = ~   | format the buffer using `jsonnet fmt`                    |
+| ~SPC m g g ~ | jump to the definition of a given identifier             |
+| ~SPC m s b ~ | show the result of running jsonnet on the current buffer |
