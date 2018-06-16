@@ -13,7 +13,7 @@
       '(
         company
         sql
-        sql-indent
+        (sql-indent :location elpa)
         (sqlup-mode :toggle sql-capitalize-keywords)
         ))
 
@@ -126,7 +126,9 @@
 
 (defun sql/init-sql-indent ()
   (use-package sql-indent
-    :defer t))
+    :defer t
+    :init (progn (add-hook 'sql-mode-hook 'sqlind-minor-mode))
+    :config (progn (spacemacs|diminish sqlind-minor-mode))))
 
 (defun sql/init-sqlup-mode ()
   (use-package sqlup-mode
