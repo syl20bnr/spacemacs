@@ -63,10 +63,7 @@
     (spacemacs|hide-lighter evil-org-mode)))
 
 (defun org/post-init-evil-surround ()
-  (defun spacemacs/add-org-surrounds ()
-    (push '(?: . spacemacs//surround-drawer) evil-surround-pairs-alist)
-    (push '(?# . spacemacs//surround-code) evil-surround-pairs-alist))
-  (add-hook 'org-mode-hook 'spacemacs/add-org-surrounds))
+  (add-hook 'org-mode-hook 'spacemacs/org-setup-evil-surround))
 
 (defun org/init-gnuplot ()
   (use-package gnuplot
