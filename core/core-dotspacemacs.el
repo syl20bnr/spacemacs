@@ -15,6 +15,11 @@
 (defconst dotspacemacs-test-results-buffer "*dotfile-test-results*"
   "Name of the buffer to display dotfile test results.")
 
+(defvar dotspacemacs--user-config-elapsed-time 0
+  "Time spent in `dotspacemacs/user-config' function.
+Useful for users in order to given them a hint of potential bottleneck in
+their configuration.")
+
 (let* ((env (getenv "SPACEMACSDIR"))
        (env-dir (when env (expand-file-name (concat env "/"))))
        (env-init (and env-dir (expand-file-name "init.el" env-dir)))
@@ -500,6 +505,14 @@ Returns non nil if the layer has been effectively inserted."
     (load-file (dotspacemacs/location))
     t))
 
+(defun dotspacemacs//profile-user-config (f &rest args)
+  "Compute time taken by the `dotspacemacs/user-config' function.
+Set the variable"
+  (let ((stime (current-time)))
+    (apply f args)
+    (setq dotspacemacs--user-config-elapsed-time
+          (float-time (time-subtract (current-time) stime)))))
+
 (defun dotspacemacs/sync-configuration-layers (&optional arg)
   "Synchronize declared layers in dotfile with spacemacs.
 
@@ -644,7 +657,8 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
     (if (file-exists-p dotspacemacs)
         (unless (with-demoted-errors "Error loading .spacemacs: %S"
                   (load dotspacemacs))
-          (dotspacemacs/safe-load)))))
+          (dotspacemacs/safe-load))))
+  (advice-add 'dotspacemacs/user-config :around 'dotspacemacs//profile-user-config))
 
 (defun spacemacs/title-prepare (title-format)
   "A string is printed verbatim except for %-constructs.
