@@ -160,6 +160,7 @@ It should only modify the values of Spacemacs settings."
    ;; users and X11 users.
    dotspacemacs-import-env-vars-from-shell (and (display-graphic-p)
                                                 (or (eq system-type 'darwin)
+                                                    (eq system-type 'gnu/linux)
                                                     (eq window-system 'x)))
 
    ;; If nil then use the default shell is used to fetch the environment
