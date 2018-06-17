@@ -2851,6 +2851,7 @@ Other:
   - Prevent ~C-l~ clearing cycle
   - Prevent ~clear RET~ inserting a page of white-space
   - Prevent duplicate insert lines from ~clear RET~
+- Make =eshell auto jump= more intelligent (thanks to Kalle Lindqvist)
 - Require company in =eshell-switch-company-frontend=
   (thanks to Benjamin Reynolds)
 - Fixed docs for "Fish shell and ansi-term" and explicitly enable

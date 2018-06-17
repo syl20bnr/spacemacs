@@ -103,7 +103,12 @@ the user activate the completion manually."
   "Move point to end of current prompt when switching to insert state."
   (when (and (eq major-mode 'eshell-mode)
              ;; Not on last line, we might want to edit within it.
-             (not (eq (line-end-position) (point-max))))
+             (not (eq (line-end-position) (point-max)))
+             ;; Not on the last sent command if we use smart-eshell so we can
+             ;; edit it.
+             (not (and shell-enable-smart-eshell
+                       (>= (point) eshell-last-input-start)
+                       (< (point) eshell-last-input-end))))
     (end-of-buffer)))
 
 (defun spacemacs//protect-eshell-prompt ()
@@ -125,14 +130,11 @@ is achieved by adding the relevant text properties."
   "Stuff to do when enabling eshell."
   (setq pcomplete-cycle-completions nil)
   (if (bound-and-true-p linum-mode) (linum-mode -1))
-  (unless shell-enable-smart-eshell
-    ;; we don't want auto-jump to prompt when smart eshell is enabled.
-    ;; Idea: maybe we could make auto-jump smarter and jump only if
-    ;; point is not on a prompt line
-    (add-hook 'evil-insert-state-entry-hook
-              'spacemacs//eshell-auto-end nil t)
-    (add-hook 'evil-hybrid-state-entry-hook
-              'spacemacs//eshell-auto-end nil t))
+  ;; autojump to prompt line if not on one already
+  (add-hook 'evil-insert-state-entry-hook
+            'spacemacs//eshell-auto-end nil t)
+  (add-hook 'evil-hybrid-state-entry-hook
+            'spacemacs//eshell-auto-end nil t)
   (when (configuration-layer/package-used-p 'semantic)
     (semantic-mode -1))
   ;; This is an eshell alias
