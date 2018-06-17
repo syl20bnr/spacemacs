@@ -31,7 +31,7 @@
        (if (string-match "^[a-zA-Z_]+[a-zA-Z0-9_]*=" env)
            (let* ((var (split-string env "="))
                   (k (car var))
-                  (v (cadr var)))
+                  (v (mapconcat #'identity (cdr var) "=")))
              (spacemacs-buffer/message "  - %s=%s" k v)
              (when (string-equal "PATH" k)
                (let ((paths (split-string v path-separator)))
