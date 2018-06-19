@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layers '(json node tern web-beautify))
+(configuration-layer/declare-layers '(json node prettier tern web-beautify))

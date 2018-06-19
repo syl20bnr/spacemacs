@@ -133,6 +133,8 @@
     (call-interactively 'spacemacs/typescript-tsfmt-format-buffer))
    ((eq typescript-fmt-tool 'tide)
     (call-interactively 'tide-format))
+   ((eq typescript-fmt-tool 'prettier)
+    (call-interactively 'prettier-js))
    (t (error (concat "%s isn't valid typescript-fmt-tool value."
                      " It should be 'tide or 'typescript-formatter."
                      (symbol-name typescript-fmt-tool))))))

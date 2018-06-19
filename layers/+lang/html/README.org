@@ -7,6 +7,8 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#web-beautify][web-beautify]]
+  - [[#prettier][prettier]]
+  - [[#choosing-a-formatter][Choosing a formatter]]
 - [[#live-display-in-browser][Live display in browser]]
 - [[#key-bindings][Key Bindings]]
   - [[#web-mode][Web mode]]
@@ -40,6 +42,29 @@ gem specific_install https://github.com/Sweetchuck/scss_lint_reporter_checkstyle
 
 ** web-beautify
 See [[file:../../+tools/web-beautify/README.org][web-beautify layer]] documentation.
+
+** prettier
+See [[file:../../+tools/prettier/README.org][prettier layer]] documentation.
+
+** Choosing a formatter
+To choose a formatter, set the layer variable =web-fmt-tool=:
+
+#+BEGIN_SRC elisp
+(html :variables web-fmt-tool 'web-beautify)
+#+END_SRC
+
+Formatter can be chosen on a per project basis using directory local variables
+(files named =.dir-locals.el= at the root of a project), an example to use the
+=prettier= formatter:
+
+#+BEGIN_SRC elisp
+;;; Directory Local Variables
+;;; For more information see (info "(emacs) Directory Variables")
+
+((html-mode (web-fmt-tool . prettier)))
+#+END_SRC
+
+*Note:* you can easily add a directory local variable with ~SPC f v d~.
 
 * Live display in browser
 Use ~SPC m i~ to enable impatient mode, opening a live view of a HTML file in
