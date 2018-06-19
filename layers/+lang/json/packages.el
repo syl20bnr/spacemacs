@@ -18,6 +18,7 @@
         json-navigator
         json-reformat
         json-snatcher
+        prettier-js
         web-beautify
         ))
 
@@ -55,5 +56,11 @@
     (spacemacs/set-leader-keys-for-major-mode 'json-mode
       "hp" 'jsons-print-path)))
 
+(defun json/pre-init-prettier-js ()
+  (if (eq json-fmt-tool 'prettier)
+      (add-to-list 'spacemacs--prettier-modes 'json-mode)))
+
 (defun json/pre-init-web-beautify ()
-  (add-to-list 'spacemacs--web-beautify-modes (cons 'json-mode 'web-beautify-js)))
+  (if (eq json-fmt-tool 'web-beautify)
+      (add-to-list 'spacemacs--web-beautify-modes
+                   (cons 'json-mode 'web-beautify-js))))
