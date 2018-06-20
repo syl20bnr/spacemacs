@@ -58,7 +58,7 @@
                   (lambda ()
                     (setq spaceline-byte-compile t)
                     (spaceline-compile))
-                  lazy-load-window-purpose)))
+                  lazy-load-spaceline)))
     (progn
       (add-hook 'spacemacs-post-theme-change-hook
                 'spacemacs/customize-powerline-faces)
