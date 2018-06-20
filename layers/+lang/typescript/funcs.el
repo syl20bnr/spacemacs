@@ -153,3 +153,7 @@
 
 (defun spacemacs/typescript-yasnippet-setup ()
   (yas-activate-extra-mode 'js-mode))
+
+(defun spacemacs/typescript-jump-to-type-def ()
+  (interactive)
+  (tide-jump-to-definition t))
