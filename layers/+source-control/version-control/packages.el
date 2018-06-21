@@ -89,22 +89,35 @@
   (use-package diff-mode
     :defer t
     :config
-    (evilified-state-evilify diff-mode diff-mode-map
-      (kbd "C-j") 'diff-hunk-next
-      (kbd "C-k") 'diff-hunk-prev
-      (kbd "M-n") 'diff-hunk-next
-      (kbd "M-p") 'diff-hunk-prev
-      "J" 'diff-file-next
-      (kbd "<tab>") 'diff-file-next
-      "gj" 'diff-file-next
-      "K" 'diff-file-prev
-      (kbd "<backtab>") 'diff-file-prev
-      "gk" 'diff-file-prev
-      "a" 'diff-apply-hunk
-      "r" 'spacemacs/diff-mode-revert-hunk
-      "S" 'diff-split-hunk
-      "D" 'diff-hunk-kill
-      "u" 'diff-undo)))
+    (progn
+      (spacemacs/declare-prefix-for-mode 'diff-mode "mf" "format")
+      (spacemacs/set-leader-keys-for-major-mode 'diff-mode
+        "a" 'diff-apply-hunk
+        "d" 'diff-hunk-kill
+        "D" 'diff-file-kill
+        "e" 'diff-ediff-patch
+        "fc" 'diff-unified->context
+        "fr" 'diff-reverse-direction
+        "fu" 'diff-context->unified
+        "g" 'diff-goto-source
+        "j" 'diff-hunk-next
+        "J" 'diff-file-next
+        "k" 'diff-hunk-prev
+        "K" 'diff-file-prev
+        "r" 'spacemacs/diff-mode-revert-hunk
+        "s" 'diff-split-hunk
+        "u" 'diff-undo
+        "q" 'quit-window)
+      (spacemacs|define-transient-state diff-mode
+        :title "Diff-mode Transient State"
+        :evil-leader-for-mode (diff-mode . ".")
+        :bindings
+        ("j" diff-hunk-next "next hunk")
+        ("J" diff-file-next "next file")
+        ("k" diff-hunk-prev "previous hunk")
+        ("K" diff-file-prev "previous file")
+        ("q" nil "quit" :exit t)
+        ("<escape>" nil nil :exit t)))))
 
 (defun version-control/init-diff-hl ()
   (use-package diff-hl
