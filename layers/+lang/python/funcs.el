@@ -168,15 +168,18 @@ as the pyenv version then also return nil. This works around https://github.com/
         (insert "\n")
         (python-indent-line)))))
 
-;; from https://www.snip2code.com/Snippet/127022/Emacs-auto-remove-unused-import-statemen
+;; based on https://www.snip2code.com/Snippet/127022/Emacs-auto-remove-unused-import-statemen
 (defun spacemacs/python-remove-unused-imports()
   "Use Autoflake to remove unused function"
   "autoflake --remove-all-unused-imports -i unused_imports.py"
   (interactive)
   (if (executable-find "autoflake")
-      (progn
+      (let ((file-name (if (tramp-tramp-file-p (buffer-file-name))
+                           (with-parsed-tramp-file-name (buffer-file-name) file
+                             file-localname)
+                         (buffer-file-name))))
         (shell-command (format "autoflake --remove-all-unused-imports -i %s"
-                               (shell-quote-argument (buffer-file-name))))
+                               (shell-quote-argument  file-name)))
         (revert-buffer t t t))
     (message "Error: Cannot find autoflake executable.")))
 

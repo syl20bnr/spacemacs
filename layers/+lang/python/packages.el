@@ -37,6 +37,7 @@
     semantic
     smartparens
     stickyfunc-enhance
+    (tramp :location built-in)
     xcscope
     yapfify
     ;; packages for anaconda backend
