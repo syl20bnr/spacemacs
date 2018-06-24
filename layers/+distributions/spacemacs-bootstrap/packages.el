@@ -289,7 +289,8 @@
   (evil-declare-ignore-repeat 'spacemacs/previous-error))
 
 (defun spacemacs-bootstrap/init-exec-path-from-shell ()
-  (spacemacs//initialize-exec-path-from-shell))
+  (require 'exec-path-from-shell)
+  (exec-path-from-shell-initialize))
 
 (defun spacemacs-bootstrap/init-hydra ()
   (require 'hydra)
