@@ -35,7 +35,7 @@
              (spacemacs-buffer/message "  - %s=%s" k v)
              (when (string-equal "PATH" k)
                (let ((paths (split-string v path-separator)))
-                 (dolist (p paths)
+                 (dolist (p (reverse paths))
                    (add-to-list 'exec-path p))))
              (setenv k v))))
      ;; be sure we keep the default shell in this Emacs session
