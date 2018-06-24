@@ -18,13 +18,8 @@
   (require 'async nil t)
   (async-start
    `(lambda ()
-      ,(async-inject-variables
-        "\\`dotspacemacs-import-env-vars-shell-file-name\\'")
-      (if dotspacemacs-import-env-vars-shell-file-name
-          (let ((shell-file-name
-                 dotspacemacs-import-env-vars-shell-file-name))
-            (split-string (shell-command-to-string "env") "\n"))
-        (split-string (shell-command-to-string "env") "\n")))
+     ,(async-inject-variables "\\`shell-file-name\\'")
+     (split-string (shell-command-to-string "env") "\n"))
    (lambda (envvars)
      (spacemacs-buffer/message "Imported environment variables:")
      (dolist (env envvars)
@@ -34,14 +29,8 @@
                   (v (cadr var)))
              (spacemacs-buffer/message "  - %s=%s" k v)
              (if (string-equal "PATH" k)
-                 (let ((paths (split-string v path-separator)))
-                   (dolist (p paths)
-                     (add-to-list 'exec-path p)))
-               (setenv k v)))))
-     ;; be sure we keep the default shell in this Emacs session
-     ;; this is to prevent potential issues with packages which could
-     ;; expect a default shell
-     (setenv "SHELL" shell-file-name))))
+                 (setq exec-path (split-string v path-separator))
+               (setenv k v))))))))
 
 
 
