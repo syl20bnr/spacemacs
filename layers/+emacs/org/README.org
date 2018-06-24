@@ -93,7 +93,7 @@ flavored markdown set the variable =org-enable-github-support= to =t=.
 #+END_SRC
 
 ** Twitter Bootstrap support
-To install the Twitter Boostrap extension (from [[https://github.com/marsmining/ox-twbs][ox-twbs]]), which enables twitter
+To install the Twitter Bootstrap extension (from [[https://github.com/marsmining/ox-twbs][ox-twbs]]), which enables twitter
 bootstrap formatted html, then set the variable =org-enable-bootstrap-support=
 to =t=.
 
