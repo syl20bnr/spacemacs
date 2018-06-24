@@ -94,7 +94,6 @@
     - [[#layout-key-bindings][Layout key bindings]]
   - [[#workspaces][Workspaces]]
     - [[#workspace-key-bindings][Workspace key bindings]]
-- [[#environment-variables-and-path-from-the-shell][Environment variables and PATH from the shell]]
 - [[#commands][Commands]]
   - [[#vim-key-bindings][Vim key bindings]]
     - [[#escaping][Escaping]]
@@ -1716,31 +1715,6 @@ There are also some handy globally available key bindings related to workspaces:
 | ~gt~        | go to next workspace                 |
 | ~gT~        | go to previous workspace             |
 | ~SPC b W~   | go to workspace and window by buffer |
-
-* Environment variables and PATH from the shell
-To import your environment variable and =PATH= at startup set the variable
-=dotspacemacs-import-env-vars-from-shell=  to non-nil.
-
-This should be necessary only to macOS users and X11 users using the GNU
-build of Emacs.
-
-#+BEGIN_EXAMPLE emacs-lisp
-(setq-default  dotspacemacs-import-env-vars-from-shell (and (display-graphic-p)
-                                                (or (eq system-type 'darwin)
-                                                    (eq window-system 'x))))
-#+END_EXAMPLE
-
-At anytime you can import the environment variables by calling the function
-=spacemacs/loadenv=.
-
-You can define a different shell than the default shell to look for environment
-variables by setting the variable =dotspacemacs-import-env-vars-shell-file-name=
-in your dotfile. Note that =shell-file-name= is not modified by this value.
-
-#+BEGIN_EXAMPLE emacs-lisp
-(defun dotspacemacs/init ()
-  (setq dotspacemacs-import-env-vars-shell-file-name "/usr/local/bin/fish"))
-#+END_EXAMPLE
 
 * Commands
 ** Vim key bindings

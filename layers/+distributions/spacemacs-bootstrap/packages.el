@@ -18,7 +18,10 @@
         (bind-key :step bootstrap)
         (diminish :step bootstrap)
         (evil :step bootstrap)
-        (spacemacs-environment :step bootstrap :location built-in)
+        (exec-path-from-shell :step bootstrap
+                              :toggle (or (spacemacs/system-is-mac)
+                                          (spacemacs/system-is-linux)
+                                          (eq window-system 'x)))
         (hydra :step bootstrap)
         (use-package :step bootstrap)
         (which-key :step bootstrap)
@@ -285,6 +288,10 @@
   (evil-declare-ignore-repeat 'spacemacs/next-error)
   (evil-declare-ignore-repeat 'spacemacs/previous-error))
 
+(defun spacemacs-bootstrap/init-exec-path-from-shell ()
+  (require 'exec-path-from-shell)
+  (exec-path-from-shell-initialize))
+
 (defun spacemacs-bootstrap/init-hydra ()
   (require 'hydra)
   (setq hydra-key-doc-function 'spacemacs//hydra-key-doc-function
@@ -492,10 +499,6 @@
 
   (which-key-mode)
   (spacemacs|diminish which-key-mode " Ⓚ" " K"))
-
-(defun spacemacs-bootstrap/init-spacemacs-environment ()
-  (when dotspacemacs-import-env-vars-from-shell
-    (spacemacs/loadenv)))
 
 ;; pre packages
 
