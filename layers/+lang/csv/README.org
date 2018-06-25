@@ -35,6 +35,7 @@ To use this contribution add it to your =~/.spacemacs=
 |-------------+----------------------------------|
 | ~SPC m a~   | Align fields                     |
 | ~SPC m d~   | Kill fields                      |
+| ~SPC m h~   | Shows/unshows a header line.     |
 | ~SPC m i~   | Toggle delimiter invisibility    |
 | ~SPC m n~   | Move forward 1 field             |
 | ~SPC m p~   | Move backwards 1 field           |

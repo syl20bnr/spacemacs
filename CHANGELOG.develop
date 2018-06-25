@@ -1120,6 +1120,9 @@ Other:
 - Fixes:
   - Disabled functions not present in the latest =omnisharp= package
     (thanks to Saulius Menkevičius)
+**** CSV
+- Key bindings:
+  - ~SPC m h~ to =csv-header-line= (thanks to Francesc Elies Henar)
 **** D
 - Fixes:
   - Fixed =d-mode= flycheck imports on dub projects (thanks to Dietrich Daroch)
