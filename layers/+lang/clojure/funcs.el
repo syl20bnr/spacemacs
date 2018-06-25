@@ -33,7 +33,7 @@
   "Insert FORM in the REPL buffer and eval it."
   (while (string-match "\\`[ \t\n\r]+\\|[ \t\n\r]+\\'" form)
     (setq form (replace-match "" t t form)))
-  (with-current-buffer (cider-current-repl-buffer)
+  (with-current-buffer (cider-current-repl)
     (let ((pt-max (point-max)))
       (goto-char pt-max)
       (insert form)
