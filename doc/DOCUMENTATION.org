@@ -61,6 +61,7 @@
 - [[#differences-between-vim-evil-and-spacemacs][Differences between Vim, Evil and Spacemacs]]
   - [[#the-vim-surround-case][The vim-surround case]]
 - [[#evil-plugins][Evil plugins]]
+- [[#environment-variables-and-path][Environment variables and PATH]]
 - [[#binding-keys][Binding keys]]
 - [[#gui-elements][GUI Elements]]
   - [[#color-themes][Color themes]]
@@ -94,7 +95,6 @@
     - [[#layout-key-bindings][Layout key bindings]]
   - [[#workspaces][Workspaces]]
     - [[#workspace-key-bindings][Workspace key bindings]]
-- [[#environment-variables-and-path-from-the-shell][Environment variables and PATH from the shell]]
 - [[#commands][Commands]]
   - [[#vim-key-bindings][Vim key bindings]]
     - [[#escaping][Escaping]]
@@ -1000,6 +1000,32 @@ Spacemacs ships with the following evil plugins:
 | [[https://github.com/bling/evil-visualstar][evil-visualstar]]               | search for current selection with ~*~      |
 | [[https://github.com/jaypei/emacs-neotree][NeoTree]]                       | mimic [[https://github.com/scrooloose/nerdtree][NERD Tree]]                            |
 
+* Environment variables and PATH
+If you launch Emacs from a shell then Emacs process will inherit the environment
+variables from your shell so you won't get any issue.
+
+On the other hand if you launch Emacs from a launcher without using a shell then
+Emacs may not see your environment variables. This is especially true for macOS
+users but it can happen to GNU/Linux too.
+
+To fix this issue Spacemacs first tries to import your shell environment
+variable by calling =<shell> -ic env=. It then writes the result to the
+=spacemacs.env= file whose location is =~/.emacs.d/private/env= or
+=~/.spacemacs.d/env= directory depending on what you are using.
+
+Then Spacemacs loads the environment variables from the =spacemacs.env= file
+directly. It won't call your shell anymore at startup. If you need to add new
+environment variables or modify them you'll need to edit the =spacemacs.env=
+file. You can open this file with ~SPC f e e~ or call the function
+=spacemacs/edit-env=.
+
+At any point in time you can force an import of your shell environment variables
+with ~SPC f e C-e~. Note that this function will overwrite the contents of your
+=spacemacs.env= file.
+
+You can reload the environment variables from the =spacemacs.env= file with ~SPC
+f e E~.
+
 * Binding keys
 Key sequences are bound to commands in Emacs in various keymaps. The most basic
 map is the =global-map=. Setting a key binding in the =global-map= is achieved
@@ -1717,31 +1743,6 @@ There are also some handy globally available key bindings related to workspaces:
 | ~gT~        | go to previous workspace             |
 | ~SPC b W~   | go to workspace and window by buffer |
 
-* Environment variables and PATH from the shell
-To import your environment variable and =PATH= at startup set the variable
-=dotspacemacs-import-env-vars-from-shell=  to non-nil.
-
-This should be necessary only to macOS users and X11 users using the GNU
-build of Emacs.
-
-#+BEGIN_EXAMPLE emacs-lisp
-(setq-default  dotspacemacs-import-env-vars-from-shell (and (display-graphic-p)
-                                                (or (eq system-type 'darwin)
-                                                    (eq window-system 'x))))
-#+END_EXAMPLE
-
-At anytime you can import the environment variables by calling the function
-=spacemacs/loadenv=.
-
-You can define a different shell than the default shell to look for environment
-variables by setting the variable =dotspacemacs-import-env-vars-shell-file-name=
-in your dotfile. Note that =shell-file-name= is not modified by this value.
-
-#+BEGIN_EXAMPLE emacs-lisp
-(defun dotspacemacs/init ()
-  (setq dotspacemacs-import-env-vars-shell-file-name "/usr/local/bin/fish"))
-#+END_EXAMPLE
-
 * Commands
 ** Vim key bindings
 Spacemacs is based on =Vim= modal user interface to navigate and edit text. If
@@ -2385,16 +2386,19 @@ Frame manipulation commands (start with ~F~):
 Convenient key bindings are located under the prefix ~SPC f e~ to quickly
 navigate between =Emacs= and Spacemacs specific files.
 
-| Key Binding | Description                                                     |
-|-------------+-----------------------------------------------------------------|
-| ~SPC f e d~ | open the spacemacs dotfile (=~/.spacemacs=)                     |
-| ~SPC f e D~ | open =ediff= buffer of =~/.spacemacs= and =.spacemacs.template= |
-| ~SPC f e f~ | discover the =FAQ=                                              |
-| ~SPC f e i~ | open the all mighty =init.el=                                   |
-| ~SPC f e l~ | locate an Emacs library                                         |
-| ~SPC f e R~ | resync the dotfile with spacemacs                               |
-| ~SPC f e U~ | update packages                                                 |
-| ~SPC f e v~ | display and copy the spacemacs version                          |
+| Key Binding   | Description                                                          |
+|---------------+----------------------------------------------------------------------|
+| ~SPC f e d~   | open the spacemacs dotfile (=~/.spacemacs=)                          |
+| ~SPC f e D~   | open =ediff= buffer of =~/.spacemacs= and =.spacemacs.template=      |
+| ~SPC f e e~   | open the =spacemacs.env= file where environment variables are set    |
+| ~SPC f e E~   | reload the environment variables by reading the =spacemacs.env= file |
+| ~SPC f e C-e~ | reinitialize the =spacemacs.env= file from shell                     |
+| ~SPC f e f~   | discover the =FAQ=                                                   |
+| ~SPC f e i~   | open the all mighty =init.el=                                        |
+| ~SPC f e l~   | locate an Emacs library                                              |
+| ~SPC f e R~   | resync the dotfile with spacemacs                                    |
+| ~SPC f e U~   | update packages                                                      |
+| ~SPC f e v~   | display and copy the spacemacs version                               |
 
 **** Browsing files in completion buffer
 In =vim= style and  =hybrid= style with the variable

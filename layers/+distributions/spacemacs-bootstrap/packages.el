@@ -18,12 +18,12 @@
         (bind-key :step bootstrap)
         (diminish :step bootstrap)
         (evil :step bootstrap)
-        (spacemacs-environment :step bootstrap :location built-in)
         (hydra :step bootstrap)
         (use-package :step bootstrap)
         (which-key :step bootstrap)
         ;; pre packages, initialized aftert the bootstrap packages
         ;; these packages can use use-package
+        (dotenv-mode :step pre)
         (evil-evilified-state :location local :step pre :protected t)
         (pcre2el :step pre)
         (holy-mode :location local :step pre)
@@ -41,6 +41,10 @@
 (defun spacemacs-bootstrap/init-diminish ()
   (when (not (configuration-layer/package-used-p 'spaceline))
     (add-hook 'after-load-functions 'spacemacs/diminish-hook)))
+
+(defun spacemacs-bootstrap/init-dotenv-mode ()
+  (use-package dotenv-mode
+    :defer t))
 
 (defun spacemacs-bootstrap/init-bind-map ()
   (require 'bind-map)
@@ -492,10 +496,6 @@
 
   (which-key-mode)
   (spacemacs|diminish which-key-mode " Ⓚ" " K"))
-
-(defun spacemacs-bootstrap/init-spacemacs-environment ()
-  (when dotspacemacs-import-env-vars-from-shell
-    (spacemacs/loadenv)))
 
 ;; pre packages
 

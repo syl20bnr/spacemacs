@@ -75,7 +75,7 @@
     (progn
       (setq aya-persist-snippets-dir
             (or auto-completion-private-snippets-directory
-                (concat configuration-layer-private-directory "snippets/")))
+                (concat spacemacs-private-directory "snippets/")))
       (spacemacs/declare-prefix "iS" "auto-yasnippet")
       (spacemacs/set-leader-keys
         "iSc" 'aya-create
@@ -234,7 +234,7 @@
       (let* ((spacemacs--auto-completion-dir
               (configuration-layer/get-layer-local-dir 'auto-completion))
              (emacs-directory-snippets-dir (concat
-                                          configuration-layer-private-directory
+                                          spacemacs-private-directory
                                           "snippets/"))
              (spacemacs-layer-snippets-dir (expand-file-name
                                       "snippets"

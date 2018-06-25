@@ -10,7 +10,7 @@
 ;;; License: GPLv3
 
 (defvar templates-private-directory
-  (concat configuration-layer-private-directory "templates")
+  (concat spacemacs-private-directory "templates")
   "Configurable private templates directory.")
 
 (defvar templates-use-default-templates t

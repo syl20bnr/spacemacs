@@ -22,6 +22,9 @@
 (defconst spacemacs-core-directory
   (expand-file-name (concat spacemacs-start-directory "core/"))
   "Spacemacs core directory.")
+(defconst spacemacs-private-directory
+  (expand-file-name (concat spacemacs-start-directory "private/"))
+  "Spacemacs private directory.")
 (defconst spacemacs-info-directory
   (expand-file-name (concat spacemacs-core-directory "info/"))
   "Spacemacs info files directory")

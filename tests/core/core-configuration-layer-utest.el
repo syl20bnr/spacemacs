@@ -2389,7 +2389,7 @@
      ((spacemacs/update-progress-bar nil ((:output nil))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
      (push (file-name-as-directory
-            (concat configuration-layer-private-directory "local/pkg"))
+            (concat spacemacs-private-directory "local/pkg"))
            expected-load-path)
      (should (equal expected-load-path load-path)))))
 

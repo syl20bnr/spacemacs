@@ -81,6 +81,3 @@ if used there.")
                                  ("iedit-insert" "firebrick1" (bar . 2)))
   "Colors assigned to evil states with cursor definitions.
 To add your own, use `spacemacs/add-evil-curosr'.")
-
-(defvar spacemacs-env-vars-file (concat spacemacs-cache-directory ".env-vars")
-  "Cache file for exec-path variable.")

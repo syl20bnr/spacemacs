@@ -37,10 +37,6 @@
   (expand-file-name (concat spacemacs-start-directory "layers/"))
   "Spacemacs layers directory.")
 
-(defconst configuration-layer-private-directory
-  (expand-file-name (concat spacemacs-start-directory "private/"))
-  "Spacemacs private layers base directory.")
-
 (defconst configuration-layer-private-layer-directory
   (let ((dotspacemacs-layer-dir
          (when dotspacemacs-directory
@@ -49,7 +45,7 @@
     (if (and dotspacemacs-directory
              (file-exists-p dotspacemacs-layer-dir))
         dotspacemacs-layer-dir
-      configuration-layer-private-directory))
+      spacemacs-private-directory))
   "Spacemacs default directory for private layers.")
 
 (defconst configuration-layer-lock-file
@@ -1395,7 +1391,7 @@ discovery."
                        ;; layers shipped with spacemacs
                        (list configuration-layer-directory)
                        ;; layers in private folder ~/.emacs.d/private
-                       (list configuration-layer-private-directory)
+                       (list spacemacs-private-directory)
                        ;; layers in dotdirectory
                        ;; this path may not exist, so check if it does
                        (when dotspacemacs-directory
@@ -1976,7 +1972,7 @@ RNAME is the name symbol of another existing layer."
       nil))
    ((eq 'local location)
     (let ((dir (if (eq 'dotfile owner)
-                   configuration-layer-private-directory
+                   spacemacs-private-directory
                  (let* ((owner (configuration-layer/get-layer owner)))
                    (when owner (oref owner :dir))))))
       (if dir
