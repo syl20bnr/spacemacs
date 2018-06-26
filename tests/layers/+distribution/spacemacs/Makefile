@@ -12,7 +12,7 @@
 TEST_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 LOAD_FILES = init.el
-UNIT_TEST_FILES =
-FUNC_TEST_FILES =
+UNIT_TEST_FILES = ../../../../layers/+emacs/org/README.org
+FUNC_TEST_FILES = ../../../../layers/+emacs/org/README.org
 
 include ../../../../spacemacs.mk
