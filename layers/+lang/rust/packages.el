@@ -14,7 +14,6 @@
     cargo
     company
     counsel-gtags
-    eldoc
     racer
     flycheck
     (flycheck-rust :requires flycheck)
