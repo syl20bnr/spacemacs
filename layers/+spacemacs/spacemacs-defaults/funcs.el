@@ -1346,14 +1346,18 @@ Decision is based on `dotspacemacs-line-numbers'."
 ;; for the different possible cases
 (defun spacemacs//linum-enabled-for-current-major-mode ()
   "Return non-nil if line number is enabled for current major-mode."
-  ;; default `enabled-for-modes' to '(prog-mode text-mode), because it is a more
-  ;; sensible default than enabling in all buffers - including Magit buffers,
-  ;; terminal buffers, etc.
-  (let* ((user-enabled-for-modes (spacemacs/mplist-get-values dotspacemacs-line-numbers
-                                                       :enabled-for-modes))
-         (enabled-for-modes (or user-enabled-for-modes '(prog-mode text-mode)))
-         (disabled-for-modes (spacemacs/mplist-get-values dotspacemacs-line-numbers
-                                                   :disabled-for-modes))
+  (let* ((disabled-for-modes (spacemacs/mplist-get-values dotspacemacs-line-numbers
+                                                          :disabled-for-modes))
+         (user-enabled-for-modes (spacemacs/mplist-get-values dotspacemacs-line-numbers
+                                                              :enabled-for-modes))
+         ;; default `enabled-for-modes' to '(prog-mode text-mode), because it is
+         ;; a more sensible default than enabling in all buffers - including
+         ;; Magit buffers, terminal buffers, etc. But don't include prog-mode or
+         ;; text-mode if they're explicitly disabled by user
+         (enabled-for-modes (or user-enabled-for-modes
+                                (seq-difference '(prog-mode text-mode)
+                                                disabled-for-modes
+                                                #'eq)))
          (enabled-for-parent (or (and (equal enabled-for-modes '(all)) 'all)
                                  (apply #'derived-mode-p enabled-for-modes)))
          (disabled-for-parent (apply #'derived-mode-p disabled-for-modes)))

@@ -51,3 +51,8 @@
                                      :disabled-for-modes linum-test-parent1)))
     (should-not (test--enable-linum-for-mode 'linum-test-mode1))
     (should (test--enable-linum-for-mode 'linum-test-mode2))))
+
+(ert-deftest test-enable-linum-for-mode--9 ()
+  (let ((dotspacemacs-line-numbers '(:disabled-for-modes text-mode)))
+    (should-not (test--enable-linum-for-mode 'text-mode))
+    (should (test--enable-linum-for-mode 'prog-mode))))
