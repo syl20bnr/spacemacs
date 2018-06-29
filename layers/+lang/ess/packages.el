@@ -55,9 +55,6 @@
       (spacemacs/register-repl 'ess-site 'R)
       (spacemacs/register-repl 'ess-site 'SAS)
       (spacemacs/register-repl 'ess-site 'stata)
-      ;; Explicitly run prog-mode hooks since ess-mode does not derive from
-      ;; prog-mode major-mode
-      (add-hook 'ess-mode-hook 'spacemacs/run-prog-mode-hooks)
       (add-hook 'inferior-ess-mode-hook
                 'spacemacs//ess-fix-read-only-inferior-ess-mode)
       (when (configuration-layer/package-used-p 'company)
