@@ -80,7 +80,10 @@
 Needed to bypass keymaps set as text properties."
   (unless (bound-and-true-p isearch-mode)
     (when (memq evil-state '(evilified visual))
-      (let* ((map (get-char-property (point) 'keymap))
+      (let* ((map-or-symbol (get-char-property (point) 'keymap))
+             (map (if (and (symbolp map-or-symbol) (boundp map-or-symbol))
+                      (symbol-value map-or-symbol)
+                    map-or-symbol))
              (evilified-map (when map (cdr (assq 'evilified-state map))))
              (command (when (and evilified-map
                                  (eq 1 (length (this-command-keys))))
