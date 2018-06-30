@@ -17,8 +17,8 @@
     :init
     (progn
       (setq yatemplate-dir
-            (or (concat dotspacemacs-directory "templates/")
-                templates-private-directory))
+            (or templates-private-directory
+                (concat dotspacemacs-directory "templates/")))
       (unless templates-use-default-templates
         (setq auto-insert-alist nil)))
     :config
