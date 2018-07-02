@@ -436,6 +436,23 @@ FILENAME is deleted using `spacemacs/delete-file' function.."
       (buffer-disable-undo)
       (fundamental-mode))))
 
+;; get nth line length
+(defun spacemacs/get-nth-line-length (n)
+  "Length of the Nth line."
+  (save-excursion
+    (goto-char (point-min))
+    (if (zerop (forward-line (1- n)))
+        (- (line-end-position)
+           (line-beginning-position)))))
+
+;; check if the file has been minified
+;; disable for text-mode files
+(defun spacemacs/check-minified-file ()
+  (and
+   (not (member (file-name-extension (buffer-file-name))
+                '("org" "md" "markdown" "txt" "rtf")))
+   (> (spacemacs/get-nth-line-length 1) 500)))
+
 (defun spacemacs/delete-window (&optional arg)
   "Delete the current window.
 If the universal prefix argument is used then kill the buffer too."
@@ -1378,4 +1395,3 @@ Decision is based on `dotspacemacs-line-numbers'."
           enabled-for-parent            ; mode is one of default allowed modes
           disabled-for-modes
           (not disabled-for-parent)))))
-
