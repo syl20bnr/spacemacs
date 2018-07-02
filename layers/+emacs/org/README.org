@@ -60,7 +60,7 @@ For more extensive support of references through BibTeX files, have a look at
 the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+lang/bibtex/README.org][BibTeX layer]].
 
 ** Important Note
-Since version 0.104, spacemacs uses the =org= version from the org ELPA
+Since version 0.104, spacemacs uses the =org= version from the =org= ELPA
 repository instead of the one shipped with emacs. Then, any =org= related code
 should not be loaded before =dotspacemacs/user-config=, otherwise both versions
 will be loaded and will conflict.
@@ -76,6 +76,12 @@ One way to avoid conflict is to wrap your =org= config code in a
     ;; ....
     )
 #+END_SRC
+
+Please also note that everything described here only applies if you install this
+layer instead of manually loading =org= as separate emacs package.
+
+If this is not done you will encounter a lot of unbind key exceptions while working with org.
+More details can be found [[https://github.com/syl20bnr/spacemacs/issues/8106][here]].
 
 * Install
 ** Layer
