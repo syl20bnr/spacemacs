@@ -77,6 +77,7 @@
       (spacemacs/declare-prefix-for-mode 'typescript-tsx-mode "ms" "send")
 
       (setq keybindingList '("Ee" tide-fix
+                             "Ed" tide-add-tslint-disable-next-line
                              "gb" tide-jump-back
                              "gt" typescript/jump-to-type-def
                              "gu" tide-references
