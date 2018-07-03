@@ -69,7 +69,7 @@ current contents of the file will be overwritten."
     (spacemacs-buffer/warning
      (concat "Spacemacs has imported your environment variables from "
              "your shell and saved them to `%s'.\n"
-             "Open this file for more info (SPC e e) or call "
+             "Open this file for more info (SPC f e e) or call "
              "`spacemacs/edit-env' function.")
      spacemacs-env-vars-file)))
 
