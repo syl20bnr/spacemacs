@@ -81,7 +81,7 @@
       (when (string-equal "PATH" key)
         (let ((paths (split-string value path-separator)))
           (dolist (p paths)
-            (add-to-list 'exec-path p))))
+            (add-to-list 'exec-path p 'append))))
       (setenv key value))))
 
 ;;;###autoload

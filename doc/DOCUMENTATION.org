@@ -62,6 +62,9 @@
   - [[#the-vim-surround-case][The vim-surround case]]
 - [[#evil-plugins][Evil plugins]]
 - [[#environment-variables-and-path][Environment variables and PATH]]
+  - [[#default-behavior][Default behavior]]
+  - [[#managing-environment-variables-by-yourself][Managing environment variables by yourself]]
+  - [[#note-about-the-function-dotspacemacsuser-env][Note about the function dotspacemacs/user-env]]
 - [[#binding-keys][Binding keys]]
 - [[#gui-elements][GUI Elements]]
   - [[#color-themes][Color themes]]
@@ -559,6 +562,8 @@ configuration at the beginning and end of Spacemacs loading process:
 - =dotspacemacs/user-init= is called immediately after =dotspacemacs/init=,
   before layer configuration. This function is mostly useful for variables
   that need to be set before packages are loaded.
+- =dotspacemacs/user-env= is called before the layers and packages configuration
+  and it is responsible to setup environment variables.
 - =dotspacemacs/user-config= is called at the very end of Spacemacs
   initialization after layers configuration. This is the place where most of
   your configurations should be done. Unless it is explicitly specified that a
@@ -1001,30 +1006,45 @@ Spacemacs ships with the following evil plugins:
 | [[https://github.com/jaypei/emacs-neotree][NeoTree]]                       | mimic [[https://github.com/scrooloose/nerdtree][NERD Tree]]                            |
 
 * Environment variables and PATH
-If you launch Emacs from a shell then Emacs process will inherit the environment
-variables from your shell so you won't get any issue.
+Environment variables are handled by the function =dotspacemacs/user-env= of
+your dotfile.
 
-On the other hand if you launch Emacs from a launcher without using a shell then
-Emacs may not see your environment variables. This is especially true for macOS
-users but it can happen to GNU/Linux too.
+** Default behavior
+By default, the function =dotspacemacs/user-env= only calls the function
+=spacemacs/load-spacemacs-env= which loads the environment variables from
+the file =~/.spacemacs.env=. This file is automatically created for you by
+Spacemacs and it is initialized with the environment variables of your
+system as well as the environment variables of your default shell.
 
-To fix this issue Spacemacs first tries to import your shell environment
-variable by calling =<shell> -ic env=. It then writes the result to the
-=spacemacs.env= file whose location is =~/.emacs.d/private/env= or
-=~/.spacemacs.d/env= directory depending on what you are using.
+To open this file use ~SPC f e e~. You can edit it to change or add/remove
+environment variables. Use ~SPC f e E~ to reload it.
 
-Then Spacemacs loads the environment variables from the =spacemacs.env= file
-directly. It won't call your shell anymore at startup. If you need to add new
-environment variables or modify them you'll need to edit the =spacemacs.env=
-file. You can open this file with ~SPC f e e~ or call the function
-=spacemacs/edit-env=.
+Some dynamic environment variables are ignored by Spacemacs when it first
+creates the =~/.spacemacs.env= file. These ignored variables are listed in
+the variable =spacemacs-ignored-environment-variables=.
 
-At any point in time you can force an import of your shell environment variables
-with ~SPC f e C-e~. Note that this function will overwrite the contents of your
-=spacemacs.env= file.
+It is possible to for a new import of system and shell environment variables
+with ~SPC f e C-e~. Note that this action will overwrite =~/.spacemacs.env=.
 
-You can reload the environment variables from the =spacemacs.env= file with ~SPC
-f e E~.
+** Managing environment variables by yourself
+For full flexibility you can bypass the default behavior simply by removing
+the call to =spacemacs/load-spacemacs-env= from your =dotspacemacs/user-env=
+function.
+
+From there you can choose to use the popular package =exec-path-from-shell=
+or just call built-in functions like =setenv= or =(add-to-list 'exec-path ...)=.
+
+If you choose to handle the environment variables by yourself then ~SPC f e e~
+will go to the function =dotspacemacs/user-env= instead of opening the file
+=~/.spacemacs.env=. In all cases ~SPC f e E~ calls the function
+=dotspacemacs/user-env= so you can update your variables in place.
+
+** Note about the function dotspacemacs/user-env
+Its possible that you don't have this function defined if you have an older
+dotfile. It is recommended to update your dotfile by adding this function,
+see the file =~/.emacs.d/core/template/.spacemacs.template= to copy it.
+If you don't create such function then Spacemacs assumes you are using the
+default behavior described above.
 
 * Binding keys
 Key sequences are bound to commands in Emacs in various keymaps. The most basic
@@ -2390,19 +2410,19 @@ Frame manipulation commands (start with ~F~):
 Convenient key bindings are located under the prefix ~SPC f e~ to quickly
 navigate between =Emacs= and Spacemacs specific files.
 
-| Key Binding   | Description                                                          |
-|---------------+----------------------------------------------------------------------|
-| ~SPC f e d~   | open the spacemacs dotfile (=~/.spacemacs=)                          |
-| ~SPC f e D~   | open =ediff= buffer of =~/.spacemacs= and =.spacemacs.template=      |
-| ~SPC f e e~   | open the =spacemacs.env= file where environment variables are set    |
-| ~SPC f e E~   | reload the environment variables by reading the =spacemacs.env= file |
-| ~SPC f e C-e~ | reinitialize the =spacemacs.env= file from shell                     |
-| ~SPC f e f~   | discover the =FAQ=                                                   |
-| ~SPC f e i~   | open the all mighty =init.el=                                        |
-| ~SPC f e l~   | locate an Emacs library                                              |
-| ~SPC f e R~   | resync the dotfile with spacemacs                                    |
-| ~SPC f e U~   | update packages                                                      |
-| ~SPC f e v~   | display and copy the spacemacs version                               |
+| Key Binding   | Description                                                                                             |
+|---------------+---------------------------------------------------------------------------------------------------------|
+| ~SPC f e d~   | open the spacemacs dotfile (=~/.spacemacs=)                                                             |
+| ~SPC f e D~   | open =ediff= buffer of =~/.spacemacs= and =.spacemacs.template=                                         |
+| ~SPC f e e~   | open the =~/.spacemacs.env= file where environment variables are set or goes to =dotspacemacs/user-env= |
+| ~SPC f e E~   | reload the environment variables by executing the function =dotspacemacs/user-env=                      |
+| ~SPC f e C-e~ | reinitialize the =~/.spacemacs.env= file by importing system and shell environment variables            |
+| ~SPC f e f~   | discover the =FAQ=                                                                                      |
+| ~SPC f e i~   | open the all mighty =init.el=                                                                           |
+| ~SPC f e l~   | locate an Emacs library                                                                                 |
+| ~SPC f e R~   | resync the dotfile with spacemacs                                                                       |
+| ~SPC f e U~   | update packages                                                                                         |
+| ~SPC f e v~   | display and copy the spacemacs version                                                                  |
 
 **** Browsing files in completion buffer
 In =vim= style and  =hybrid= style with the variable

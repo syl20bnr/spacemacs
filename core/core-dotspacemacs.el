@@ -438,6 +438,21 @@ are caught and signaled to user in spacemacs buffer."
                                            (error-message-string err))
                                    t))))))
 
+(defun dotspacemacs/call-user-env ()
+  "Call the function `dotspacemacs/user-env'."
+  (interactive)
+  (dotspacemacs|call-func dotspacemacs/user-env "Calling dotfile user env..."))
+
+(defun dotspacemacs/go-to-function (func)
+  "Open the dotfile and goes to FUNC function."
+  (interactive)
+  (find-function func))
+
+(defun dotspacemacs/go-to-user-env ()
+  "Go to the `dotspacemacs/user-env' function."
+  (interactive)
+  (dotspacemacs/go-to-function 'dotspacemacs/user-env))
+
 (defun dotspacemacs//check-layers-changed ()
   "Check if the value of `dotspacemacs-configuration-layers'
 changed, and issue a warning if it did."
@@ -520,8 +535,7 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
                 (setq dotspacemacs-editing-style
                       (dotspacemacs//read-editing-style-config
                        dotspacemacs-editing-style))
-                ;; reload environment variables
-                (spacemacs/load-env)
+                (dotspacemacs/call-user-env)
                 ;; try to force a redump when reloading the configuration
                 (let ((spacemacs-force-dump t))
                   (configuration-layer/load))

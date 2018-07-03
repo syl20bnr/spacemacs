@@ -205,8 +205,8 @@
   "fed" 'spacemacs/find-dotfile
   "feD" 'spacemacs/ediff-dotfile-and-template
   "fee" 'spacemacs/edit-env
-  "feE" 'spacemacs/load-env
-  "fe C-e" 'spacemacs/force-init-env
+  "feE" 'dotspacemacs/call-user-env
+  "fe C-e" 'spacemacs/force-init-spacemacs-env
   "feR" 'dotspacemacs/sync-configuration-layers
   "fev" 'spacemacs/display-and-copy-version
   "feU"  'configuration-layer/update-packages
