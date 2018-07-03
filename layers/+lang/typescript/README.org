@@ -136,6 +136,8 @@ npm i -g typescript typescript-language-server
 | Key Binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC m =~   | reformat the buffer                                          |
+| ~SPC m E d~ | add =tslitn-disable-next-line= at point                      |
+| ~SPC m E e~ | fix thing at point                                           |
 | ~SPC m g b~ | jump back                                                    |
 | ~SPC m g g~ | jump to entity's definition                                  |
 | ~SPC m g t~ | jump to entity's type definition                             |
