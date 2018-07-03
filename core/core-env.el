@@ -41,7 +41,7 @@ current contents of the file will be overwritten."
       (let ((shell-command-switch (cond
                                    ((or(eq system-type 'darwin)
                                        (eq system-type 'gnu/linux))
-                                    "-ic")
+                                    "-ilc")
                                    ((eq system-type 'windows-nt) "-c")))
             (executable (cond ((or(eq system-type 'darwin)
                                   (eq system-type 'gnu/linux)) "env")
