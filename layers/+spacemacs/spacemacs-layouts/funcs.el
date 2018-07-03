@@ -19,7 +19,7 @@
   (unless (bound-and-true-p persp-mode)
     (persp-mode)))
 
-(defun spacemacs//layout-wait-for-modeline ()
+(defun spacemacs//layout-wait-for-modeline (&rest _)
   "Assure the mode-line is loaded before restoring the layouts."
   (advice-remove 'persp-load-state-from-file 'spacemacs//layout-wait-for-modeline)
   (when (and (configuration-layer/package-used-p 'spaceline)
