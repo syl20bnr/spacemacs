@@ -34,7 +34,14 @@ If FORCE is non-nil then force the initialization of the file, note that the
 current contents of the file will be overwritten."
   (when (or force (not (file-exists-p spacemacs-env-vars-file)))
     (with-temp-file spacemacs-env-vars-file
-      (let ((shell-command-switch "-ic"))
+      (let ((shell-command-switch (cond
+                                   ((or(eq system-type 'darwin)
+                                       (eq system-type 'gnu/linux))
+                                    "-ic")
+                                   ((eq system-type 'windows-nt) "-c")))
+            (executable (cond ((or(eq system-type 'darwin)
+                                  (eq system-type 'gnu/linux)) "env")
+                              ((eq system-type 'windows-nt) "set"))))
         (insert
          (concat
           "# ---------------------------------------------------------------------------\n"
@@ -61,7 +68,7 @@ current contents of the file will be overwritten."
           "# Environment variables:\n"
           "# ----------------------\n"))
         (insert (string-join
-                 (sort (split-string (shell-command-to-string "env") "\n")
+                 (sort (split-string (shell-command-to-string executable) "\n")
                        'string-lessp)
                  "\n"))
         (dolist (v spacemacs-ignored-environment-variables)
@@ -95,14 +102,9 @@ current contents of the file will be overwritten."
 If FORCE is non-nil then force the loading of environment variables from env.
 file."
   (interactive "P")
-  ;; TODO make it work on Microsoft Windows as well
-  ;; it should work everywhere
-  (when (or force (and (display-graphic-p)
-                       (or (eq system-type 'darwin)
-                           (eq system-type 'gnu/linux)
-                           (eq window-system 'x)))))
-  (spacemacs//init-spacemacs-env)
   (setq spacemacs--spacemacs-env-loaded t)
-  (load-env-vars spacemacs-env-vars-file))
+  (when (or force (display-graphic-p))
+    (spacemacs//init-spacemacs-env)
+    (load-env-vars spacemacs-env-vars-file)))
 
 (provide 'core-env)
