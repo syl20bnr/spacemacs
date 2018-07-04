@@ -17,8 +17,12 @@
   "Absolute path to the env file where environment variables are set.")
 
 (defvar spacemacs-ignored-environment-variables
-  '("SSH_AUTH_SOCK"
-    "DBUS_SESSION_BUS_ADDRESS")
+  '(
+    "DBUS_SESSION_BUS_ADDRESS"
+    "GPG_AGENT_INFO"
+    "SSH_AGENT_PID"
+    "SSH_AUTH_SOCK"
+    )
   "Ignored environments variables. This env. vars are not import in the
 `.spacemacs.env' file.")
 
