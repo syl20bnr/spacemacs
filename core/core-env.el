@@ -34,7 +34,7 @@ If FORCE is non-nil then force the initialization of the file, note that the
 current contents of the file will be overwritten."
   (when (or force (not (file-exists-p spacemacs-env-vars-file)))
     (with-temp-file spacemacs-env-vars-file
-      (let ((shell-command-switch "-ic"))
+      (let ((shell-command-switch "-ilc"))
         (insert
          (concat
           "# ---------------------------------------------------------------------------\n"
