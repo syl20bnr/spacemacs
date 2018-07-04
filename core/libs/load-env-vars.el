@@ -50,6 +50,7 @@
     (and (0+ space) "=" (0+ space))
     (and ":" (1+ space))) ;; separator
    (or
+    line-start
     (and "'" (group (0+ (or "\\'" (not (any "'"))))) "'") ;; single quoted value
     (and ?\" (group (0+ (or "\\\"" (not (any "\""))))) ?\") ;; double quoted value
     (group (1+ (not (in "#" "\n")))) ;; unquoted value
