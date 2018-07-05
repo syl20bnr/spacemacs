@@ -2116,7 +2116,8 @@
     (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)) t)
     (defun layer1/init-pkg nil)
     (mocker-let
-     ((spacemacs-buffer/message (m) ((:output nil)))
+     ((spacemacs/update-progress-bar nil ((:output nil)))
+      (spacemacs-buffer/message (m) ((:output nil)))
       (layer1/init-pkg nil ((:output nil :occur 1))))
      (configuration-layer//configure-package pkg))))
 
@@ -2136,7 +2137,8 @@
     (defun layer2/pre-init-pkg () (push 'pre-init witness))
     (defun layer3/post-init-pkg () (push 'post-init witness))
     (mocker-let
-     ((spacemacs-buffer/message (m) ((:output nil))))
+     ((spacemacs/update-progress-bar nil ((:output nil)))
+      (spacemacs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-package pkg)
      (should (equal '(init) witness)))))
 
@@ -2156,7 +2158,8 @@
     (defun layer2/pre-init-pkg () (push 'pre-init witness))
     (defun layer3/post-init-pkg () (push 'post-init witness))
     (mocker-let
-     ((spacemacs-buffer/message (m) ((:output nil))))
+     ((spacemacs/update-progress-bar nil ((:output nil)))
+      (spacemacs-buffer/message (m) ((:output nil))))
      (configuration-layer//pre-configure-package pkg)
      (configuration-layer//configure-package pkg)
      (configuration-layer//post-configure-package pkg)
@@ -2178,7 +2181,8 @@
     (defun layer2/pre-init-pkg () (push 'pre-init witness))
     (defun layer3/post-init-pkg () (push 'post-init witness))
     (mocker-let
-     ((spacemacs-buffer/message (m) ((:output nil))))
+     ((spacemacs/update-progress-bar nil ((:output nil)))
+      (spacemacs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-package pkg)
      (should (equal '(init) witness)))))
 
@@ -2198,7 +2202,8 @@
     (defun layer2/pre-init-pkg () (push 'pre-init witness))
     (defun layer3/post-init-pkg () (push 'post-init witness))
     (mocker-let
-     ((spacemacs-buffer/message (m) ((:output nil))))
+     ((spacemacs/update-progress-bar nil ((:output nil)))
+      (spacemacs-buffer/message (m) ((:output nil))))
      (configuration-layer//pre-configure-package pkg)
      (configuration-layer//configure-package pkg)
      (should (equal '(init pre-init) witness)))))
@@ -2220,11 +2225,8 @@
     (helper--add-packages (list pkg) t)
     (defun layer1/init-pkg () (push 'init witness))
     (defun layer2/pre-init-pkg () (push 'pre-init witness))
-    (mocker-let
-     (;; (spacemacs/update-progress-bar nil ((:output nil)))
-       )
-     (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
-     (should (equal '(init pre-init) witness)))))
+    (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
+    (should (equal '(init pre-init) witness))))
 
 (ert-deftest test-configure-packages-2--post-init-is-evaluated-after-init ()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1) :post-layers '(layer2)))
@@ -2239,11 +2241,8 @@
     (helper--add-packages (list pkg) t)
     (defun layer1/init-pkg () (push 'init witness))
     (defun layer2/post-init-pkg () (push 'post-init witness))
-    (mocker-let
-     (;; (spacemacs/update-progress-bar nil ((:output nil)))
-       )
-     (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
-     (should (equal '(post-init init) witness)))))
+    (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
+    (should (equal '(post-init init) witness))))
 
 (ert-deftest test-configure-packages-2--package-w/-layer-owner-is-configured()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owners '(layer1)))
@@ -2252,9 +2251,7 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((configuration-layer//configure-package (p) ((:occur 1)))
-      ;; (spacemacs/update-progress-bar nil ((:output nil)))
-       )
+     ((configuration-layer//configure-package (p) ((:occur 1))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest test-configure-packages-2--site-package-is-configured()
@@ -2264,9 +2261,7 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((configuration-layer//configure-package (p) ((:occur 1)))
-      ;; (spacemacs/update-progress-bar nil ((:output nil)))
-       )
+     ((configuration-layer//configure-package (p) ((:occur 1))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest test-configure-packages-2--toggle-t-is-configured ()
@@ -2276,9 +2271,7 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((configuration-layer//configure-package (p) ((:occur 1)))
-      ;; (spacemacs/update-progress-bar nil ((:output nil)))
-       )
+     ((configuration-layer//configure-package (p) ((:occur 1))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest test-configure-packages-2--toggle-nil-is-not-configured ()
@@ -2289,7 +2282,6 @@
     (helper--add-packages (list pkg) t)
     (mocker-let
      ((configuration-layer//configure-package (p) nil)
-      ;; (spacemacs/update-progress-bar nil ((:output nil)))
       (spacemacs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
@@ -2300,9 +2292,7 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((configuration-layer//configure-package (p) ((:occur 1)))
-      ;; (spacemacs/update-progress-bar nil ((:output nil)))
-       )
+     ((configuration-layer//configure-package (p) ((:occur 1))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest test-configure-packages-2--protected-excluded-package-is-configured()
@@ -2312,9 +2302,7 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((configuration-layer//configure-package (p) ((:occur 1)))
-      ;; (spacemacs/update-progress-bar nil ((:output nil)))
-       )
+     ((configuration-layer//configure-package (p) ((:occur 1))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest test-configure-packages-2--excluded-package-is-not-configured()
@@ -2325,7 +2313,6 @@
     (helper--add-packages (list pkg) t)
     (mocker-let
      ((configuration-layer//configure-package (p) nil)
-      ;; (spacemacs/update-progress-bar nil ((:output nil)))
       (spacemacs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
@@ -2337,7 +2324,6 @@
     (helper--add-packages (list pkg) t)
     (mocker-let
      ((configuration-layer//configure-package (p) nil)
-      ;; (spacemacs/update-progress-bar nil ((:output nil)))
       (spacemacs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
@@ -2350,7 +2336,6 @@
     (helper--add-packages (list pkg) t)
     (mocker-let
      ((configuration-layer//configure-package (p) nil)
-      ;; (spacemacs/update-progress-bar nil ((:output nil)))
       (spacemacs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
@@ -2362,7 +2347,6 @@
     (helper--add-packages (list pkg) t)
     (mocker-let
      ((configuration-layer//configure-package (p) nil)
-      ;; (spacemacs/update-progress-bar nil ((:output nil)))
       (spacemacs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
@@ -2378,8 +2362,7 @@
     (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1 :dir "/path/")) t)
     (helper--add-packages (list pkg) t)
     (mocker-let
-     (;; (spacemacs/update-progress-bar nil ((:output nil)))
-      (configuration-layer//configure-package (p) ((:occur 1))))
+     ((configuration-layer//configure-package (p) ((:occur 1))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
      (push "/path/local/pkg/" expected-load-path)
      (should (equal expected-load-path load-path)))))
@@ -2392,14 +2375,11 @@
         (expected-load-path load-path)
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
-    (mocker-let
-     (;; (spacemacs/update-progress-bar nil ((:output nil)))
-       )
-     (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
-     (push (file-name-as-directory
-            (concat spacemacs-private-directory "local/pkg"))
-           expected-load-path)
-     (should (equal expected-load-path load-path)))))
+    (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
+    (push (file-name-as-directory
+           (concat spacemacs-private-directory "local/pkg"))
+          expected-load-path)
+    (should (equal expected-load-path load-path))))
 
 (ert-deftest
     test-configure-packages-2--local-package-w/o-owner-doesnt-update-load-path()
@@ -2410,8 +2390,7 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     (;; (spacemacs/update-progress-bar nil ((:output nil)))
-      (spacemacs-buffer/message (m) ((:output nil))))
+     ((spacemacs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
      (should (equal load-path old-load-path)))))
 
@@ -2426,12 +2405,9 @@
         (expected-load-path load-path)
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
-    (mocker-let
-     (;; (spacemacs/update-progress-bar nil ((:output nil)))
-       )
-     (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
-     (push spacemacs-docs-directory expected-load-path)
-     (should (equal expected-load-path load-path)))))
+    (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
+    (push spacemacs-docs-directory expected-load-path)
+    (should (equal expected-load-path load-path))))
 
 (ert-deftest
     test-configure-packages-2--local-package-w/-bad-string-location-gives-warning()
@@ -2444,8 +2420,7 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     (;; (spacemacs/update-progress-bar nil ((:output nil)))
-      (configuration-layer//warning
+     ((configuration-layer//warning
        (msg &rest args)
        ((:record-cls 'mocker-stub-record :output nil :occur 1))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
