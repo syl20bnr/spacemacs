@@ -31,6 +31,24 @@
   "Regexp used to define buffers that are useful despite matching
 `spacemacs-useless-buffers-regexp'.")
 
+;; Variables to control saving of minibuffer history
+(defvar spacemacs-minibuffer-history-length t
+  "Minibuffer history length. Value of `t' means no limit while `nil' disables
+  history saving. A numerical value limits the history length.")
+(defvar spacemacs-minibuffer-history-objects '(mark-ring
+                                               global-mark-ring
+                                               search-ring
+                                               regexp-search-ring
+                                               extended-command-history)
+  "List of minbuffer history objects that will be saved and reloaded across
+sessions. Possible values:
+`mark-ring', `global-mark-ring' > https://www.gnu.org/software/emacs/manual/html_node/emacs/Mark-Ring.html,
+`search-ring', `regexp-search-ring' > Search history,
+`extended-command-history' > `M-x' history,
+`kill-ring' > Clipboard history")
+(defvar spacemacs-minibuffer-history-save-interval 60
+  "Minibuffer history save interval in seconds.")
+
 ;; no beep pleeeeeease ! (and no visual blinking too please)
 (setq ring-bell-function 'ignore
       visible-bell nil)
