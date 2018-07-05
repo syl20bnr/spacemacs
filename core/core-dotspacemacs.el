@@ -262,8 +262,9 @@ auto-save the file in-place, `cache' to auto-save the file to another
 file stored in the cache directory and `nil' to disable auto-saving.")
 
 (defvar dotspacemacs-enable-paste-transient-state nil
-  "If non-nil, the paste transient-state is enabled. While enabled, pressing
-`p' several times cycles through the elements in the `kill-ring'.")
+  "If non-nil, the paste transient-state is enabled. While enabled, after you
+paste something, pressing `C-j' and `C-k' several times cycles through the
+elements in the `kill-ring'.")
 (defvaralias
   'dotspacemacs-enable-paste-micro-state
   'dotspacemacs-enable-paste-transient-state

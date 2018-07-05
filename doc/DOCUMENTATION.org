@@ -1922,6 +1922,7 @@ Other help key bindings:
 | Key Binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~SPC h SPC~ | discover Spacemacs documentation, layers and packages |
+| ~SPC h f~   | discover the =FAQ=                                    |
 | ~SPC h i~   | search in info pages with the symbol at point         |
 | ~SPC h k~   | show top-level bindings with =which-key=              |
 | ~SPC h m~   | search available man pages                            |
@@ -2420,7 +2421,6 @@ navigate between =Emacs= and Spacemacs specific files.
 | ~SPC f e e~   | open the =~/.spacemacs.env= file where environment variables are set or goes to =dotspacemacs/user-env= |
 | ~SPC f e E~   | reload the environment variables by executing the function =dotspacemacs/user-env=                      |
 | ~SPC f e C-e~ | reinitialize the =~/.spacemacs.env= file by importing system and shell environment variables            |
-| ~SPC f e f~   | discover the =FAQ=                                                                                      |
 | ~SPC f e i~   | open the all mighty =init.el=                                                                           |
 | ~SPC f e l~   | locate an Emacs library                                                                                 |
 | ~SPC f e R~   | resync the dotfile with spacemacs                                                                       |
@@ -2792,14 +2792,15 @@ To list all the symbols of a buffer press ~SPC s j~
 ** Editing
 *** Paste text
 **** Paste Transient-state
-The paste transient state can be enabled by settings the variable
+The paste transient state can be enabled by setting the variable
 =dotspacemacs-enable-paste-transient-state= to =t=. By default it is disabled.
 
-When the transient state is enabled, pressing ~p~ again will replace the pasted text
-with the previous yanked (copied) text on the kill ring.
+When the transient state is enabled, after you paste something, pressing ~C-j~
+or ~C-k~ will replace the pasted text with the previous or next yanked (copied)
+text on the kill ring.
 
 For example if you copy =foo= and =bar= then press ~p~ the text =bar= will
-be pasted, pressing ~p~ again will replace =bar= with =foo=.
+be pasted, pressing ~C-j~ will replace =bar= with =foo=.
 
 | Key Binding   | Description                                                                   |
 |---------------+-------------------------------------------------------------------------------|
