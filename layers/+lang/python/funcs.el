@@ -32,9 +32,7 @@
 
 (defun spacemacs//python-setup-anaconda ()
   "Setup anaconda backend."
-  (anaconda-mode)
-  (add-to-list 'spacemacs-jump-handlers-python-mode
-               '(anaconda-mode-find-definitions :async t)))
+  (anaconda-mode))
 
 (defun spacemacs//python-setup-anaconda-company ()
   "Setup anaconda auto-completion."
@@ -70,7 +68,6 @@ when this mode is enabled since the minibuffer is cleared all the time."
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (require 'lsp-python)
         (lsp-python-enable))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 

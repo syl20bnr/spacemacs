@@ -51,7 +51,6 @@
     :defer t
     :init
     (progn
-      (add-hook 'python-mode-hook 'anaconda-mode)
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "hh" 'anaconda-mode-show-doc
         "ga" 'anaconda-mode-find-assignments
@@ -73,7 +72,9 @@
           (kbd "RET") 'spacemacs/anaconda-view-forward-and-push))
       (spacemacs|hide-lighter anaconda-mode)
       (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
-        (evil--jumps-push)))))
+        (evil--jumps-push))
+      (add-to-list 'spacemacs-jump-handlers-python-mode
+                   '(anaconda-mode-find-definitions :async t)))))
 
 (defun python/post-init-company ()
   ;; backend specific
@@ -133,8 +134,6 @@
     :init
     (spacemacs/set-leader-keys-for-major-mode 'python-mode "hd" 'helm-pydoc)))
 
-
-
 (defun python/init-importmagic ()
   (use-package importmagic
     :defer t
@@ -155,7 +154,7 @@
 (defun python/init-lsp-python ()
   (use-package lsp-python
     :commands lsp-python-enable
-    :init (add-hook 'python-mode-hook 'lsp-mode)))
+    :config (spacemacs//setup-lsp-jump-handler 'python-mode)))
 
 (defun python/init-nose ()
   (use-package nose
