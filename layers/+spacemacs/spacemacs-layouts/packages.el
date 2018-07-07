@@ -95,7 +95,16 @@
         (add-hook 'persp-before-save-state-to-file-functions
                   #'spacemacs/update-eyebrowse-for-perspective)
         (add-hook 'persp-after-load-state-functions
-                  #'spacemacs/load-eyebrowse-after-loading-layout))
+                  #'spacemacs/load-eyebrowse-after-loading-layout)
+        ;; eyebrowse's advice for rename-buffer only updates workspace window
+        ;; configurations that are stored in frame properties, but Spacemacs's
+        ;; persp-mode integration saves workspace window configurations in
+        ;; perspective parameters.  We need to replace eyebrowse's advice with
+        ;; perspective-aware advice in order to ensure that window
+        ;; configurations for inactive perspectives get updated.
+        (ad-disable-advice 'rename-buffer 'around 'eyebrowse-fixup-window-configs)
+        (ad-activate 'rename-buffer)
+        (advice-add 'rename-buffer :around #'spacemacs//fixup-window-configs))
       ;; vim-style tab switching
       (define-key evil-motion-state-map "gt" 'eyebrowse-next-window-config)
       (define-key evil-motion-state-map "gT" 'eyebrowse-prev-window-config))))
