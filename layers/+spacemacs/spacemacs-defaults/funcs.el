@@ -451,7 +451,7 @@ FILENAME is deleted using `spacemacs/delete-file' function.."
   (and
    (not (member (file-name-extension (buffer-file-name))
                 '("org" "md" "markdown" "txt" "rtf")))
-   (> (spacemacs/get-nth-line-length 1) 500)))
+   (> (spacemacs/get-nth-line-length 1) 1000)))
 
 (defun spacemacs/delete-window (&optional arg)
   "Delete the current window.
