@@ -28,6 +28,14 @@
   (compilation-start (concat "go test " args " " go-use-test-args)
                      nil (lambda (n) go-test-buffer-name) nil))
 
+(defun spacemacs/go-run-package-benchmarks (count &optional args)
+  (interactive "P")
+  (spacemacs/go-run-tests (concat "-bench . "
+                                  (if (and current-prefix-arg (> (prefix-numeric-value count) 0))
+                                      (concat "-count " (number-to-string (prefix-numeric-value current-prefix-arg)))
+                                    "")
+                                  args)))
+
 (defun spacemacs/go-run-package-tests ()
   (interactive)
   (spacemacs/go-run-tests ""))

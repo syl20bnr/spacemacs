@@ -129,6 +129,7 @@
         "ia" 'go-import-add
         "ig" 'go-goto-imports
         "ir" 'go-remove-unused-imports
+        "tb" 'spacemacs/go-run-package-benchmarks
         "tP" 'spacemacs/go-run-package-tests-nested
         "tp" 'spacemacs/go-run-package-tests
         "ts" 'spacemacs/go-run-test-current-suite
