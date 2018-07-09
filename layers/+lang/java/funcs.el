@@ -169,12 +169,12 @@
 (defun spacemacs/ensime-yank-type-at-point ()
   "Yank to kill ring and print short type name at point to the minibuffer."
   (interactive)
-  (ensime-type-at-point t nil))
+  (ensime-type-at-point '(4)))
 
 (defun spacemacs/ensime-yank-type-at-point-full-name ()
   "Yank to kill ring and print full type name at point to the minibuffer."
   (interactive)
-  (ensime-type-at-point t t))
+  (ensime-type-at-point '(4) t))
 
 
 ;; eclim
