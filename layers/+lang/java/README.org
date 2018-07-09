@@ -426,10 +426,9 @@ particular refactoring doesn't work.
 
 *** Typecheck
 
-| Key Binding | Description                     |
-|-------------+---------------------------------|
-| ~SPC m c t~ | type check the current file     |
-| ~SPC m c T~ | type check all the open buffers |
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m c t~ | type check the current file |
 
 *** Debug
 
@@ -455,16 +454,13 @@ particular refactoring doesn't work.
 | Key Binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC m e e~ | print error at point                               |
-| ~SPC m e l~ | show all errors and warnings                       |
 | ~SPC m e s~ | switch to buffer containing the stack trace parser |
 
 *** Goto
 
-| Key Binding | Description          |
-|-------------+----------------------|
-| ~SPC m g g~ | go to definition     |
-| ~SPC m g i~ | go to implementation |
-| ~SPC m g t~ | go to test           |
+| Key Binding | Description      |
+|-------------+------------------|
+| ~SPC m g g~ | go to definition |
 
 *** Print and yank types
 
@@ -480,9 +476,6 @@ particular refactoring doesn't work.
 |-------------+----------------------------------------|
 | ~SPC m h h~ | show documentation for symbol at point |
 | ~SPC m h u~ | show uses for symbol at point          |
-| ~SPC m i i~ | inspect type at point                  |
-| ~SPC m i I~ | inspect type in other frame            |
-| ~SPC m i p~ | inspect project package                |
 
 *** Server
 
@@ -497,7 +490,6 @@ particular refactoring doesn't work.
 | Key Binding | Description                                                          |
 |-------------+----------------------------------------------------------------------|
 | ~SPC m r a~ | add type annotation                                                  |
-| ~SPC m r f~ | format source                                                        |
 | ~SPC m r d~ | get rid of an intermediate variable (=ensime-refactor-inline-local=) |
 | ~SPC m r D~ | get rid of an intermediate variable (=ensime-undo-peek=)             |
 | ~SPC m r i~ | organize imports                                                     |

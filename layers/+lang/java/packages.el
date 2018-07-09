@@ -198,7 +198,6 @@
           "br"     'ensime-sbt-do-run
 
           "ct"     'ensime-typecheck-current-buffer
-          "cT"     'ensime-typecheck-all
 
           "dA"     'ensime-db-attach
           "db"     'ensime-db-set-break
@@ -218,26 +217,18 @@
           "Ds"     'ensime
 
           "Ee"     'ensime-print-errors-at-point
-          "El"     'ensime-show-all-errors-and-warnings
           "Es"     'ensime-stacktrace-switch
 
           "gp"     'ensime-pop-find-definition-stack
-          "gi"     'ensime-goto-impl
-          "gt"     'ensime-goto-test
 
           "hh"     'ensime-show-doc-for-symbol-at-point
           "hT"     'ensime-type-at-point-full-name
           "ht"     'ensime-type-at-point
           "hu"     'ensime-show-uses-of-symbol-at-point
 
-          "ii"     'ensime-inspect-type-at-point
-          "iI"     'ensime-inspect-type-at-point-other-frame
-          "ip"     'ensime-inspect-project-package
-
           "ra"     'ensime-refactor-add-type-annotation
           "rd"     'ensime-refactor-diff-inline-local
           "rD"     'ensime-undo-peek
-          "rf"     'ensime-format-source
           "ri"     'ensime-refactor-diff-organize-imports
           "rm"     'ensime-refactor-diff-extract-method
           "rr"     'ensime-refactor-diff-rename
