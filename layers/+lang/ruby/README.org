@@ -108,8 +108,6 @@ directory local variables.
 
 | Key binding | Description                                          |
 |-------------+------------------------------------------------------|
-| ~SPC m '​~   | toggle quotes of current string (only built-in mode) |
-| ~SPC m {~   | toggle style of current block (only built-in mode)   |
 | ~SPC m g g~ | go to definition (robe-jump)                         |
 | ~SPC m h h~ | show documentation for method at point (robe-doc)    |
 | ~SPC m s b~ | send buffer                                          |
@@ -189,10 +187,10 @@ When =ruby-test-runner= equals =minitest=.
 
 ** Toggles
 
-| Key binding | Description          |
-|-------------+----------------------|
-| ~SPC m T '~ | Toggle string quotes |
-| ~SPC m T {~ | Toggle block         |
+| Key binding | Description                                          |
+|-------------+------------------------------------------------------|
+| ~SPC m T '~ | Toggle quotes of current string (only built-in mode) |
+| ~SPC m T {~ | Toggle style of current block (only built-in mode)   |
 
 ** Rake
 
