@@ -17,6 +17,7 @@
     - [[#rspec-mode][RSpec-mode]]
     - [[#ruby-test-mode][Ruby-test-mode]]
     - [[#minitest-mode][minitest-mode]]
+  - [[#toggles][Toggles]]
   - [[#rake][Rake]]
   - [[#refactor][Refactor]]
 - [[#layer-options][Layer options]]
@@ -185,6 +186,13 @@ When =ruby-test-runner= equals =minitest=.
 | ~SPC m t b~ | run current file          |
 | ~SPC m t r~ | repeat last test command  |
 | ~SPC m t s~ | run test for current file |
+
+** Toggles
+
+| Key binding | Description          |
+|-------------+----------------------|
+| ~SPC m T '~ | Toggle string quotes |
+| ~SPC m T {~ | Toggle block         |
 
 ** Rake
 
