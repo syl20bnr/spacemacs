@@ -155,6 +155,7 @@
         (spacemacs/declare-prefix-for-mode mode "mh" "ruby/docs")
         (spacemacs/declare-prefix-for-mode mode "ms" "ruby/repl")
         (spacemacs/set-leader-keys-for-major-mode mode
+          "'" 'robe-start
           ;; robe mode specific
           "hh" 'robe-doc
           "rsr" 'robe-rails-refresh
