@@ -366,10 +366,11 @@
   :mode font-lock-mode
   :documentation "Toggle syntax highlighting."
   :evil-leader "ths")
-(spacemacs|add-toggle column-indexing
-  :documentation "Toggle column indexing starting at 1."
-  :on (setq column-number-indicator-zero-based nil)
-  :off (setq column-number-indicator-zero-based t)
+(spacemacs|add-toggle zero-based-column-indexing
+  :documentation "Toggle column indexing starting at 0 versus 1."
+  :status (bound-and-true-p column-number-indicator-zero-based)
+  :on (setq column-number-indicator-zero-based t)
+  :off (setq column-number-indicator-zero-based nil)
   :evil-leader "tz")
 
 (spacemacs|add-toggle transparent-frame
