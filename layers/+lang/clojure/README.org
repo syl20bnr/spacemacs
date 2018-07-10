@@ -70,6 +70,7 @@ To enable this feature, add the following snippet to the
 #+END_SRC
 
 Or set this variable when loading the configuration layer:
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
   '((clojure :variables clojure-enable-fancify-symbols t)))

@@ -33,6 +33,7 @@ only if the variable =go-use-gometalinter= is =t=.
 Set  =<LAYER_NAME>-spacemacs-docker-disable-deps-install= to =t=
 if you want to disable dependency installation for the =<LAYER_NAME>= layer.
 Example:
+
 #+BEGIN_SRC emacs-lisp
   (pandoc :variables pandoc-spacemacs-docker-disable-deps-install t)
 #+END_SRC

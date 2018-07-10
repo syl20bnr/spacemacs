@@ -141,6 +141,7 @@ either =nose= or =pytest=.
 #+END_SRC
 
 If you need both then you can set =python-test-runner= to a list like this:
+
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers
   '((python :variables python-test-runner '(pytest nose))))

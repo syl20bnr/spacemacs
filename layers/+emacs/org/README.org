@@ -198,6 +198,7 @@ or defined along side the layer itself.
 For example:
 
 #+Caption: Configure org-journal with the layer
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
                                                     (org :variables

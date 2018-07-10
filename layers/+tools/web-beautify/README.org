@@ -18,6 +18,7 @@ add =web-beautify= to the existing =dotspacemacs-configuration-layers= list in
 this file.
 
 To install =js-beautify= globally:
+
 #+BEGIN_SRC sh
   $ npm install -g js-beautify
 #+END_SRC

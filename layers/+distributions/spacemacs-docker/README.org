@@ -65,6 +65,7 @@ the same machine.
 ** MacOS
 Get [[https://www.xquartz.org][XQuartz]] and =open -a XQuartz= In the XQuartz preferences go to the "Security"
 tab and make sure you’ve got "Allow connections from network clients" ticked
+
 #+BEGIN_SRC sh
  ip=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
  xhost + $ip
@@ -74,11 +75,13 @@ tab and make sure you’ve got "Allow connections from network clients" ticked
   -v <path_to_your_workspace>:/mnt/workspace \
   spacemacs/emacs25:develop
 #+END_SRC
+
 [[https://fredrikaverpil.github.io/2016/07/31/docker-for-mac-and-gui-applications][source]],
 [[https://github.com/chanezon/docker-tips/blob/master/x11/README.md][another method]]
 
 ** Windows
 Get [[https://www.cygwin.com][Cygwin]] with =xinit=, =xorg-server= and optionaly [[https://github.com/rprichard/winpty][winpty]](to run Emacs container with =-t=)
+
 #+BEGIN_SRC sh
  export DISPLAY=<your-machine-ip>:0.0
  startxwin -- -listen tcp &
@@ -92,17 +95,20 @@ Get [[https://www.cygwin.com][Cygwin]] with =xinit=, =xorg-server= and optionaly
 #+END_SRC
 
  Or with =-ti= via =winpty=
+
 #+BEGIN_SRC sh
 winpty docker run -ti --name spacemacs \
  -e DISPLAY="$DISPLAY" \
  -v <path_to_your_workspace>:/mnt/workspace \
  spacemacs/emacs25:develop
 #+END_SRC
+
 [[http://manomarks.github.io/2015/12/03/docker-gui-windows.html][source]]
 Also You can use [[https://www.reddit.com/r/emacs/comments/7a63r4/emacs_in_win10linuxdockerxserver_combo/][@ninrod 's setup]]
 
 ** GNU/Linux
 Make sure that =$DISPLAY= variable is set
+
 #+BEGIN_SRC sh
  docker run -ti --name spacemacs \
   -e DISPLAY="unix$DISPLAY" \
@@ -116,17 +122,22 @@ Make sure that =$DISPLAY= variable is set
   -v <path_to_your_workspace>:/mnt/workspace \
   spacemacs/emacs25:develop
 #+END_SRC
+
 =UID= and preferably =UNAME= should match the host's user id. You can set them
 in your Dockerfile with [[https://docs.docker.com/engine/reference/builder/#env][ENV statements]].
 That's it! Now you should see Emacs window.
 But if it doesn't work You may need to allow local connection for the user
+
 #+BEGIN_SRC sh
  xhost +si:localuser:<UNAME>
 #+END_SRC
+
 Or allow local connection from the container's host-name
+
 #+BEGIN_SRC sh
  xhost +local:`docker inspect --format='{{ .Config.Hostname }}' spacemacs`
 #+END_SRC
+
 [[http://stackoverflow.com/questions/25281992/alternatives-to-ssh-x11-forwarding-for-docker-containers][source]]
 
 ** With Xpra on any of the OSes and via web-browser
@@ -145,6 +156,7 @@ here is a short instruction:
 
 **** With Xpra desktop client
 Get [[https://xpra.org/][Xpra]] client for your OS. then
+
 #+BEGIN_SRC sh
  docker run -ti --rm --name x11-bridge \
   -e MODE="ssh" \
@@ -159,7 +171,9 @@ Get [[https://xpra.org/][Xpra]] client for your OS. then
   -e TZ=<your_time_zone> \
   spacemacs/emacs25:develop
 #+END_SRC
+
 Now you can connect to it with Xpra desktop client
+
 #+BEGIN_SRC sh
  <XPRA EXECUTABLE> attach --encoding=rgb \
   --ssh="ssh -o StrictHostKeyChecking=no -p 22" \
@@ -181,6 +195,7 @@ Now you can connect to it with Xpra desktop client
   -e DISPLAY=:14 \
   spacemacs/emacs25:develop
 #+END_SRC
+
 Now visit http://localhost:10000/index.html?encoding=png&password=<PASSWORD>
 
 * Some basic docker commands to get you going
