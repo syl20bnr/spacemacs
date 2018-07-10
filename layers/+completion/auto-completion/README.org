@@ -189,6 +189,7 @@ backends to provide mode-specific completion. These modes will include
 completion backends specified in the `spacemacs-default-company-backends`
 variable. The defaults should work well, but you can configure this variable in
 your =.spacemacs= file with (e.g.)
+
 #+BEGIN_SRC emacs-lisp
   (setq-default
    dotspacemacs-configuration-layers

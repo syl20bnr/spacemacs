@@ -40,6 +40,7 @@ this file.
 
 To activate error checking using flycheck, install one of the [[http://www.flycheck.org/en/latest/languages.html#javascript][available linters]]
 such as =ESLint= or =JSHint=:
+
 #+BEGIN_SRC sh
   $ npm install -g eslint
   # or
@@ -47,6 +48,7 @@ such as =ESLint= or =JSHint=:
 #+END_SRC
 
 If you install these in non-standard locations, then add the following to your =dotspacemacs/user-init= function:
+
 #+BEGIN_SRC elisp
   (add-to-list 'exec-path "/path/to/node/bins" t)
 #+END_SRC
@@ -95,6 +97,7 @@ such:
 #+END_SRC
 
 or when adding the =javascript= configuration layer:
+
 #+BEGIN_SRC emacs-lisp
   (javascript :variables js2-basic-offset 2)
 #+END_SRC
@@ -107,6 +110,7 @@ Similarly, to change how js-mode indents JSON files, set the variable
 #+END_SRC
 
 or when adding the =javascript= configuration layer:
+
 #+BEGIN_SRC emacs-lisp
   (javascript :variables js-indent-level 2)
 #+END_SRC

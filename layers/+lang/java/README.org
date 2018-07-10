@@ -103,6 +103,7 @@ Backend can be chosen on a per project basis using directory local variables
 If you want to use the Ensime backend, you should modify your =~/.spacemacs= to
 use the recommended Ensime version (Stable). Please add the following lines to
 =dotspacemacs/user-init=:
+
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'configuration-layer-elpa-archives '("melpa-stable" . "stable.melpa.org/packages/"))
   (add-to-list 'package-pinned-packages '(ensime . "melpa-stable"))
@@ -198,9 +199,11 @@ Java projects as well.
 
 *** Installation when using SBT
 Find it with your favourite package manager, eg:
+
 #+BEGIN_SRC shell
   nix-env --install sbt
 #+END_SRC
+
 or refer to [[http://www.scala-sbt.org/download.html][the sbt installation instructions]].
 
 *** Installation when using Gradle
@@ -214,6 +217,7 @@ the development version of Ensime so follow the appropriate steps.
 To use the build functions under ~SPC m b~ you need to use version =0.13.5= or
 newer of =sbt=, and specify that in your project's =project/build.properties=.
 For example,
+
 #+BEGIN_SRC scala
   sbt.version=0.13.11
 #+END_SRC

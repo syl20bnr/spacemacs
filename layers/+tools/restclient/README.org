@@ -36,9 +36,11 @@ Also there is an [[http://emacsrocks.com/e15.html][Emacs Rocks!]] episode of it.
 There is support for =org-babel= and =restclient= code blocks, for instance:
 
 #+BEGIN_EXAMPLE
+
 #+BEGIN_SRC restclient
   GET http://example.com
 #+END_SRC
+
 #+END_EXAMPLE
 
 ** Keybindings

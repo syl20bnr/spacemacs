@@ -323,6 +323,7 @@ useless. The variable =spacemacs-useful-buffers-regexp= marks buffers matching
 the regexp as useful buffers. Both can be customized the same way.
 
 Examples:
+
 #+BEGIN_SRC emacs-lisp
 ;; Only mark helm buffers as useless
 (setq spacemacs-useless-buffers-regexp '("\\*helm\.\+\\*"))
@@ -544,6 +545,7 @@ arguments of the =ag= program.
 
 ** Modify spacemacs documentation look (space-doc-mode)
 You can modify the list of visual enhancements applied by the =space-doc-mode=:
+
 #+BEGIN_SRC emacs-lisp
 (setq spacemacs-space-doc-modificators
       '(center-buffer-mode
@@ -557,6 +559,7 @@ You can modify the list of visual enhancements applied by the =space-doc-mode=:
         org-kbd-face-remap
         resize-inline-images))
 #+END_SRC
+
 By default only =center-buffer-mode= is disabled.
 Both =space-doc-mode= and =center-buffer-mode= can be customized
 with "Easy Customization Interface".
@@ -566,6 +569,7 @@ In vim and evil, pasting over a text would cause it to be copied, hence making i
 the same text multiple times.
 
 To fix this, add the following snippet to your ~user-config~:
+
 #+BEGIN_SRC emacs-lisp
 (defun evil-paste-after-from-0 ()
   (interactive)

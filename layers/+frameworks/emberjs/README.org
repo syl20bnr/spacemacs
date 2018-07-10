@@ -1,4 +1,5 @@
 #+TITLE: emberjs layer
+
 #+CAPTION: logo
 [[file:img/ember.png]]
 

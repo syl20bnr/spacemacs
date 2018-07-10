@@ -431,6 +431,7 @@ You can install such packages by adding them to the variable
 =dotspacemacs-additional-packages= under the =dotspacemacs/layers= function in your dotfile.
 
 For example, to install =llvm-mode= and =dts-mode=:
+
 #+BEGIN_SRC emacs-lisp
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration..."

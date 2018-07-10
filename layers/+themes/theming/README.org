@@ -54,6 +54,7 @@ It should be a list of the following form:
                                       :style released-button)
                                 :background "#5a5a5a")))))
 #+end_src
+
 Source: [[https://gist.github.com/TheBB/f25a607b9bda4d5861f2#file-init-el-L274][gist]]
 
 This will apply the given attributes to the relevant faces whenever the
