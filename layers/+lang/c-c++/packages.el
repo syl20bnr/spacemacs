@@ -218,7 +218,7 @@
           "gv" 'rtags-find-virtuals-at-point
           "gV" 'rtags-print-enum-value-at-point
           "gX" 'rtags-fix-fixit-at-point
-          "gY" 'rtags-cycle-overlays-on-screen)))))
+          "gY" 'rtags-cycle-through-diagnostics)))))
 
 (defun c-c++/post-init-realgud()
   (dolist (mode c-c++-modes)
