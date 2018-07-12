@@ -235,7 +235,15 @@
 
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)
-        (clojure/fancify-symbols 'cider-clojure-interaction-mode)))
+        (clojure/fancify-symbols 'cider-clojure-interaction-mode))
+
+      (spacemacs/set-leader-keys-for-major-mode 'cider-connections-buffer-mode
+        "RET" 'cider-connections-goto-connection
+        "?"   'describe-mode
+        "d"   'cider-connections-make-default
+        "g"   'cider-connection-browser
+        "h"   'describe-mode
+        "k"   'cider-connections-close-connection))
 
     (defadvice cider-jump-to-var (before add-evil-jump activate)
       (evil-set-jump))))

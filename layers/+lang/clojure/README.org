@@ -33,6 +33,7 @@
     - [[#stacktrace-mode][stacktrace-mode]]
     - [[#inspector-mode][inspector-mode]]
     - [[#test-report-mode][test-report-mode]]
+    - [[#cider-connection-browser][cider-connection-browser]]
   - [[#sayid-buffers][Sayid Buffers]]
     - [[#sayid-mode][sayid-mode]]
     - [[#sayid-traced-mode][sayid-traced-mode]]
@@ -402,6 +403,15 @@ In general, ~q~ should always quit the popped up buffer.
 | ~r~         | rerun failed tests |
 | ~t~         | run test           |
 | ~T~         | run tests          |
+
+*** cider-connection-browser
+
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m k~   | close connection            |
+| ~SPC m RET~ | go to connection            |
+| ~SPC m d~   | make connection the default |
+| ~SPC m g~   | refresh                     |
 
 ** Sayid Buffers
 *** sayid-mode
