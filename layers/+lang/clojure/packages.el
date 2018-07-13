@@ -131,7 +131,7 @@
             "ss" (if (eq m 'cider-repl-mode)
                      'cider-switch-to-last-clojure-buffer
                    'cider-switch-to-repl-buffer)
-            "sx" 'cider-refresh
+            "sx" 'cider-ns-refresh
             "sX" 'cider-restart
 
             "Te" 'cider-enlighten-mode
