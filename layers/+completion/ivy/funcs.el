@@ -122,6 +122,16 @@
     (define-key map (kbd "C-c C-e") 'spacemacs//counsel-edit)
     map))
 
+(defun spacemacs/ivy--regex-plus (str)
+  "spacemacs/ivy--regex-plus allows users to set ivy-re-builders-alist
+to ((t . spacemacs/ivy--regex-plus)), to build the search pattern and
+get correct highlighting in the search results with using
+spacemacs/counsel-search"
+  (if (and (eq (ivy-state-caller ivy-last) 'spacemacs/counsel-search)
+           (string-match-p " -- " str))
+      (ivy--regex-plus (car (last (split-string str " -- "))))
+    (ivy--regex-plus str)))
+
 ;; see `counsel-ag'
 (defun spacemacs/counsel-search
       (&optional tools use-initial-input initial-directory)
