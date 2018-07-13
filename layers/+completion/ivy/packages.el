@@ -195,7 +195,7 @@
        spacemacs--ivy-file-actions)
 
       ;; add spacemacs/counsel-search command to ivy-highlight-grep-commands
-      (cl-pushnew #'spacemacs/counsel-search ivy-highlight-grep-commands)
+      (add-to-list 'ivy-highlight-grep-commands 'spacemacs/counsel-search)
 
       ;; mappings to quit minibuffer or enter transient state
       (define-key ivy-minibuffer-map [escape] 'minibuffer-keyboard-quit)

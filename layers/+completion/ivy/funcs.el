@@ -122,7 +122,7 @@
     map))
 
 (defun spacemacs/ivy--regex-plus (str)
-  (if (and (memq (ivy-state-caller ivy-last) '(spacemacs/counsel-search))
+  (if (and (eq (ivy-state-caller ivy-last) 'spacemacs/counsel-search)
            (string-match-p " -- " str))
       (ivy--regex-plus (car (last (split-string str " -- "))))
     (ivy--regex-plus str)))
