@@ -121,6 +121,12 @@
     (define-key map (kbd "C-c C-e") 'spacemacs//counsel-edit)
     map))
 
+(defun spacemacs/ivy--regex-plus (str)
+  (if (and (memq (ivy-state-caller ivy-last) '(spacemacs/counsel-search))
+           (string-match-p " -- " str))
+      (ivy--regex-plus (car (last (split-string str " -- "))))
+    (ivy--regex-plus str)))
+
 ;; see `counsel-ag'
 (defun spacemacs/counsel-search
       (&optional tools use-initial-input initial-directory)
