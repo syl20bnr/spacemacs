@@ -13,15 +13,15 @@
   "Pretty symbols for Clojure's anonymous functions and sets,
    like (λ [a] (+ a 5)), ƒ(+ % 5), and ∈{2 4 6}."
   (font-lock-add-keywords mode
-    `(("(\\(fn\\)[\[[:space:]]"
+    `(("(\\(fn\\)[[[:space:]]"
        (0 (progn (compose-region (match-beginning 1)
                                  (match-end 1) "λ")
                  nil)))
-      ("(\\(partial\\)[\[[:space:]]"
+      ("(\\(partial\\)[[[:space:]]"
        (0 (progn (compose-region (match-beginning 1)
                                  (match-end 1) "Ƥ")
                  nil)))
-      ("(\\(comp\\)[\[[:space:]]"
+      ("(\\(comp\\)[[[:space:]]"
        (0 (progn (compose-region (match-beginning 1)
                                  (match-end 1) "∘")
                  nil)))
