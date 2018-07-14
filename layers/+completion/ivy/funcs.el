@@ -70,20 +70,21 @@
                    (cdr (assoc-string tool spacemacs--counsel-commands))))
       (lambda (string &optional _pred &rest _unused)
         "Grep in the current directory for STRING."
-        (if (< (length string) 3)
-            (counsel-more-chars 3)
-          (let* ((default-directory (ivy-state-directory ivy-last))
-                 (args (if (string-match-p " -- " string)
-                           (let ((split (split-string string " -- ")))
-                             (prog1 (pop split)
-                               (setq string (mapconcat #'identity split " -- "))))
-                         ""))
-                 (regex (counsel-unquote-regex-parens
-                         (setq ivy--old-re
-                               (ivy--regex string)))))
-            (setq spacemacs--counsel-search-cmd (format base-cmd args regex))
-            (spacemacs//counsel-async-command spacemacs--counsel-search-cmd)
-            nil)))))
+        ;; `counsel-more-chars' returns non-nil when more chars are needed,
+        ;; minimal chars count is configurable via `counsel-more-chars-alist'
+        (or (counsel-more-chars)
+            (let* ((default-directory (ivy-state-directory ivy-last))
+                   (args (if (string-match-p " -- " string)
+                             (let ((split (split-string string " -- ")))
+                               (prog1 (pop split)
+                                 (setq string (mapconcat #'identity split " -- "))))
+                           ""))
+                   (regex (counsel-unquote-regex-parens
+                           (setq ivy--old-re
+                                 (ivy--regex string)))))
+              (setq spacemacs--counsel-search-cmd (format base-cmd args regex))
+              (spacemacs//counsel-async-command spacemacs--counsel-search-cmd)
+              nil)))))
 
 (defun spacemacs//counsel-save-in-buffer ()
   (interactive)
