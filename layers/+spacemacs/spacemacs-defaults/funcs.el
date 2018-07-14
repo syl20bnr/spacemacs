@@ -106,9 +106,14 @@ automatically applied to."
 (defun spacemacs/toggle-maximize-buffer ()
   "Maximize buffer"
   (interactive)
-  (if (and (= 1 (length (window-list)))
-           (assoc ?_ register-alist))
-      (jump-to-register ?_)
+  (if (let ((window-count (length (window-list))))
+        (and
+         (or ( = 1 window-count)
+             (and
+              ( = 2 window-count)
+              (neo-global--window-exists-p)))
+         (assoc ?_ register-alist)))
+      (jump-to-register ?_) ;; This will restore neotree state as well.
     (progn
       (window-configuration-to-register ?_)
       (delete-other-windows))))
@@ -1459,4 +1464,3 @@ Decision is based on `dotspacemacs-line-numbers'."
           enabled-for-parent            ; mode is one of default allowed modes
           disabled-for-modes
           (not disabled-for-parent)))))
-
