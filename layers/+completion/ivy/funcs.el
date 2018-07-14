@@ -71,7 +71,7 @@
       (lambda (string &optional _pred &rest _unused)
         "Grep in the current directory for STRING."
         (if (< (length string) 3)
-            (counsel-more-chars 3)
+            (counsel-more-chars)
           (let* ((default-directory (ivy-state-directory ivy-last))
                  (args (if (string-match-p " -- " string)
                            (let ((split (split-string string " -- ")))
