@@ -65,6 +65,7 @@ This file containes the change log for the next major version of Spacemacs.
   the =*Messages*= buffer in another window (thanks to deb0ch)
 *** Core changes
 - 39667d3 | * Don't suggest `SPC q r` if restart-emacs is missing (Keshav Kini)
+- toggle-maximize-window now works with neotree, treemacs and frames
 *** Distribution changes
 - Enable =evil-search= search module in evil state.
 - Partially tame =exec-path-from-shell= (Steven Allen):

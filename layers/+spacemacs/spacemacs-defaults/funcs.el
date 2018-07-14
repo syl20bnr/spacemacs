@@ -102,16 +102,19 @@ automatically applied to."
           (message "Indented buffer.")))
       (whitespace-cleanup))))
 
-;; from https://gist.github.com/3402786
 (defun spacemacs/toggle-maximize-buffer ()
   "Maximize buffer"
   (interactive)
-  (if (and (= 1 (length (window-list)))
-           (assoc ?_ register-alist))
-      (jump-to-register ?_)
+  (let ((starting-layout (current-window-configuration))
+        (window-count (length (window-list))))
     (progn
-      (window-configuration-to-register ?_)
-      (delete-other-windows))))
+      (funcall spacemacs-window-split-delete-function)
+      ;; Were we already maximized?
+      ;; We use window count in case window order has changed
+      (if (= window-count (length (window-list)))
+          (let ((saved-layout (frame-parameter nil 'spacemacs--saved-layout)))
+            (when saved-layout (set-window-configuration saved-layout)))
+        (set-frame-parameter nil 'spacemacs--saved-layout starting-layout)))))
 
 ;; https://tsdh.wordpress.com/2007/03/28/deleting-windows-vertically-or-horizontally/
 (defun spacemacs/maximize-horizontally ()
@@ -1459,4 +1462,3 @@ Decision is based on `dotspacemacs-line-numbers'."
           enabled-for-parent            ; mode is one of default allowed modes
           disabled-for-modes
           (not disabled-for-parent)))))
-
