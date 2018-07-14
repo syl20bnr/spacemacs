@@ -123,10 +123,13 @@
     map))
 
 (defun spacemacs/ivy--regex-plus (str)
-  "spacemacs/ivy--regex-plus allows users to set ivy-re-builders-alist
-to ((t . spacemacs/ivy--regex-plus)), to build the search pattern and
-get correct highlighting in the search results with using
-spacemacs/counsel-search"
+  "Build a regex sequence from STR.
+Same as `ivy--regex-plus', but with special consideration for
+`spacemacs/counsel-search', thus providing correct highlighting
+in the search results. Can be used in `ivy-re-builders-alist',
+for example by setting the variable's value to:
+  ((t . spacemacs/ivy--regex-plus))
+"
   (if (and (eq (ivy-state-caller ivy-last) 'spacemacs/counsel-search)
            (string-match-p " -- " str))
       (ivy--regex-plus (car (last (split-string str " -- "))))
