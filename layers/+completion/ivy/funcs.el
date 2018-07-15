@@ -352,7 +352,7 @@ To prevent this error we just wrap `describe-mode' to defeat the
                          (call-interactively 'counsel-org-tag)) t)))))
 
 (defun spacemacs/counsel-jump-in-buffer ()
-  "Jump in buffer with `counsel-imenu' or `counsel-org-goto' if in in org-mode"
+  "Jump in buffer with `counsel-imenu' or `counsel-org-goto' if in org-mode"
   (interactive)
   (call-interactively
    (cond
