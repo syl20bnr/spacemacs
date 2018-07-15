@@ -22,14 +22,37 @@
   (indent-according-to-mode))
 
 (defun spacemacs/smart-closing-parenthesis ()
+  "Insert a closing pair delimiter or move point past existing delimiter.
+
+If the expression at point is already balanced and there is a
+closing delimiter for that expression on the current line, move
+point forward past the closing delimiter.
+
+If the expression is balanced but there is no closing delimiter
+on the current line, insert a literal ')' character.
+
+If the expression is not balanced, insert a closing delimiter for
+the current expression.
+
+This command uses Smartparens navigation commands and therefore
+recognizes pair delimiters that have been defined using `sp-pair'
+or `sp-local-pair'."
   (interactive)
   (let* ((sp-navigate-close-if-unbalanced t)
          (current-pos (point))
          (current-line (line-number-at-pos current-pos))
-         (next-pos (save-excursion
-                     (sp-up-sexp)
-                     (point)))
-         (next-line (line-number-at-pos next-pos)))
+         next-pos next-line)
+    (save-excursion
+      (let ((buffer-undo-list)
+            (modified (buffer-modified-p)))
+        (unwind-protect
+            (progn
+              (sp-up-sexp)
+              (setq next-pos (point)
+                    next-line (line-number-at-pos)))
+          (primitive-undo (length buffer-undo-list)
+                          buffer-undo-list)
+          (set-buffer-modified-p modified))))
     (cond
      ((and (= current-line next-line)
            (not (= current-pos next-pos)))
