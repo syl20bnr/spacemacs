@@ -94,14 +94,15 @@ Available PROPS:
         ;; add backends
         (dolist (backend backends)
           (push `(add-to-list ',raw-backends-var-name ',backend) result))
+        ;; define mode-local backends with `defvar' so they can be overwritten
+        (if auto-completion-enable-snippets-in-popup
+            (push
+             `(defvar ,backends-var-name (mapcar 'spacemacs//show-snippets-in-company ,raw-backends-var-name))
+             result)
+          (push `(defvar ,backends-var-name ,raw-backends-var-name) result))
         ;; define initialization hook function
         (push `(defun ,init-func-name ()
                 ,(format "Initialize company for %S." mode)
-                (if auto-completion-enable-snippets-in-popup
-                    (setq ,backends-var-name
-                          (mapcar 'spacemacs//show-snippets-in-company
-                                  ,raw-backends-var-name))
-                  (setq ,backends-var-name ,raw-backends-var-name))
                 (set (make-variable-buffer-local 'auto-completion-front-end)
                      'company)
                 (set (make-variable-buffer-local 'company-backends)
