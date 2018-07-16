@@ -211,7 +211,8 @@
       (ivy-set-occur 'spacemacs/counsel-search
                      'spacemacs//counsel-occur)
       (spacemacs/set-leader-keys-for-major-mode 'ivy-occur-grep-mode
-        "w" 'ivy-wgrep-change-to-wgrep-mode)
+        "w" 'spacemacs/ivy-wgrep-change-to-wgrep-mode
+        "s" 'wgrep-save-all-buffers)
       ;; Why do we do this ?
       (ido-mode -1)
 
