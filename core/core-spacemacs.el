@@ -115,8 +115,8 @@ the final step of executing code in `emacs-startup-hook'.")
    ;; emacsclient, at least if different than their system font. You don't
    ;; believe me? Go ahead, try it. After you'll have notice that this was true,
    ;; increase the counter bellow so next people will give it more confidence.
-   ;; Counter = 1
-   (spacemacs-buffer/message "Setting the font...")
+   ;; Counter = 2
+   (message "Setting the font...")
    (unless (spacemacs/set-default-font dotspacemacs-default-font)
      (spacemacs-buffer/warning
       "Cannot find any of the specified fonts (%s)! Font settings may not be correct."
