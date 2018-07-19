@@ -24,6 +24,7 @@ add =tern= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 You can install =tern= globally with the following command:
+
 #+BEGIN_SRC sh
   $ npm install -g tern
 #+END_SRC

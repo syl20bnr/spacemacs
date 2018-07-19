@@ -69,6 +69,7 @@ configuration by yourself*. =<NAME>= is the name of the configuration you want
 to customize, they are listed under the [[#configuration][Configuration]] section.
 
 Example:
+
 #+begin_src emacs-lisp
 (defun kl/post-config-company ()
   "Company delete backward."

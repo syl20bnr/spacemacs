@@ -100,6 +100,7 @@ need to install the following packages:
 Install MSYS2 x86_64 from [[http://repo.msys2.org/distrib/x86_64/][here]].
 
 Run msys2_shell.bat and in the msys2 prompt run:
+
 #+BEGIN_SRC shell
   pacman -S base-devel mingw-w64-x86_64-toolchain \
   mingw-w64-x86_64-xpm-nox mingw-w64-x86_64-libtiff \

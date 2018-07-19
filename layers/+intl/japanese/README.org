@@ -1,4 +1,5 @@
 #+TITLE: Japanese layer
+
 [[file:img/Japanese.png]]
 
 * Table of Contents                                       :TOC_4_gh:noexport:
@@ -64,10 +65,12 @@ inside ~dotspacemacs/user-config~.
 
 *** helm-with-migemo
 If you want to use helm with migemo, you should add:
+
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load "helm"
     (helm-migemo-mode 1))
 #+END_SRC
+
 inside ~dotspacemacs/user-config~. Note that you may find in a package called
 ~helm-migemo.el~ in MELPA. However, this package is deprecated and not supported
 by helm.
