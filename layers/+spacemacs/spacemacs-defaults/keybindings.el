@@ -138,6 +138,7 @@
   "b N j" 'spacemacs/new-empty-buffer-below
   "b N k" 'spacemacs/new-empty-buffer-above
   "b N l" 'spacemacs/new-empty-buffer-right
+  "b N f" 'spacemacs/new-empty-buffer-new-frame
   "b N n" 'spacemacs/new-empty-buffer
   "bP"    'spacemacs/copy-clipboard-to-whole-buffer
   "bp"    'previous-buffer

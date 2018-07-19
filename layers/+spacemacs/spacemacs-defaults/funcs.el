@@ -599,7 +599,8 @@ buffer in a split window."
       ('left  (split-window-horizontally))
       ('below (spacemacs/split-window-vertically-and-switch))
       ('above (split-window-vertically))
-      ('right (spacemacs/split-window-horizontally-and-switch)))
+      ('right (spacemacs/split-window-horizontally-and-switch))
+      ('frame (select-frame (make-frame))))
     ;; Prompt to save on `save-some-buffers' with positive PRED
     (with-current-buffer newbuf
       (setq-local buffer-offer-save t))
@@ -630,6 +631,12 @@ in a split window above."
 in a split window to the right."
   (interactive)
   (spacemacs/new-empty-buffer 'right))
+
+(defun spacemacs/new-empty-buffer-new-frame ()
+  "Create a new buffer called untitled(<n>),
+in a new frame."
+  (interactive)
+  (spacemacs/new-empty-buffer 'frame))
 
 ;; from https://gist.github.com/timcharper/493269
 (defun spacemacs/split-window-vertically-and-switch ()
