@@ -17,40 +17,17 @@
   '(ember-mode
     ember-yasnippets))
 
-
 (defun emberjs/init-ember-mode ()
   (use-package ember-mode
     :defer t
-    :init
-    (spacemacs/declare-prefix-for-mode 'ember-mode "ff" "file")
-    (spacemacs/declare-prefix-for-mode 'ember-mode "fg" "generate")
+    :config
+    (spacemacs/declare-prefix-for-mode 'ember-mode "f"  "framework")
     (spacemacs/declare-prefix-for-mode 'ember-mode "fd" "destroy")
+    (spacemacs/declare-prefix-for-mode 'ember-mode "ff" "find")
+    (spacemacs/declare-prefix-for-mode 'ember-mode "fg" "generate")
     (spacemacs/declare-prefix-for-mode 'ember-mode "fr" "run")
-    ;; key bindings
     (spacemacs/set-leader-keys-for-minor-mode 'ember-mode
-      "ffc" 'ember-open-controller
-      "ffm" 'ember-open-model
-      "ffo" 'ember-open-router
-      "ffp" 'ember-open-component
-      "ffr" 'ember-open-route
-      "ffj" 'ember-open-javascript
-      "fft" 'ember-open-template
-      "ffx" 'ember-open-mixin
-      "ffi" 'ember-open-initializer
-      "ffu" 'ember-open-util
-      "ffs" 'ember-open-service
-      "fgc" 'ember-generate-controller
-      "fgm" 'ember-generate-model
-      "fgo" 'ember-generate-router
-      "fgp" 'ember-generate-component
-      "fgr" 'ember-generate-route
-      "fgj" 'ember-generate-javascript
-      "fgt" 'ember-generate-template
-      "fgx" 'ember-generate-mixin
-      "fgi" 'ember-generate-initializer
-      "fgu" 'ember-generate-util
-      "fgs" 'ember-generate-service
-      "fgg" 'ember-generate
+      ;; Destroy
       "fdc" 'ember-destroy-controller
       "fdm" 'ember-destroy-model
       "fdo" 'ember-destroy-router
@@ -63,12 +40,35 @@
       "fdu" 'ember-destroy-util
       "fds" 'ember-destroy-service
       "fdd" 'ember-destroy
+      ;; Find
+      "ffc" 'ember-open-controller
+      "ffm" 'ember-open-model
+      "ffo" 'ember-open-router
+      "ffp" 'ember-open-component
+      "ffr" 'ember-open-route
+      "ffj" 'ember-open-javascript
+      "fft" 'ember-open-template
+      "ffx" 'ember-open-mixin
+      "ffi" 'ember-open-initializer
+      "ffu" 'ember-open-util
+      "ffs" 'ember-open-service
+      ;; Generate
+      "fgc" 'ember-generate-controller
+      "fgm" 'ember-generate-model
+      "fgo" 'ember-generate-router
+      "fgp" 'ember-generate-component
+      "fgr" 'ember-generate-route
+      "fgj" 'ember-generate-javascript
+      "fgt" 'ember-generate-template
+      "fgx" 'ember-generate-mixin
+      "fgi" 'ember-generate-initializer
+      "fgu" 'ember-generate-util
+      "fgs" 'ember-generate-service
+      "fgg" 'ember-generate
+      ;; Run
       "frb" 'ember-build
       "frs" 'ember-serve-or-display
       "frt" 'ember-test)))
-
-
-
 
 (defun emberjs/init-ember-yasnippets ()
   (use-package ember-yasnippets
