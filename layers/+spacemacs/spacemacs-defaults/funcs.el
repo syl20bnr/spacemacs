@@ -1217,7 +1217,9 @@ In case of errors, show the key binding for spacemacs/next-error."
             (string-match "FAILED" (buffer-string)))
 
         ;; there were errors
-        (message "There were errors. SPC-e-n to visit.")
+        (message "%s"
+                 (substitute-command-keys
+                  "There were errors. Use \\[spacemacs/next-error] to visit."))
       (unless (or (string-match "Grep finished" (buffer-string))
                   (string-match "Ag finished" (buffer-string))
                   (string-match "nosetests" (buffer-name)))
