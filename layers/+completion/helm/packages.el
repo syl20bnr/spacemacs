@@ -319,8 +319,9 @@
       (defalias
         'spacemacs/helm-project-do-grep-region-or-symbol
         'helm-projectile-grep))
-    :config (define-key helm-projectile-find-file-map
-              (kbd "RET") 'spacemacs/helm-find-files-windows)))
+    :config (when (configuration-layer/package-used-p 'winum)
+              (define-key helm-projectile-find-file-map
+                (kbd "RET") 'spacemacs/helm-find-files-windows))))
 
 (defun helm/init-helm-spacemacs-help ()
   (use-package helm-spacemacs-help
