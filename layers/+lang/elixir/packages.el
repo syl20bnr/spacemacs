@@ -68,7 +68,6 @@
       "ev" 'alchemist-eval-quoted-buffer
       "eV" 'alchemist-eval-print-quoted-buffer
 
-      "pt" 'alchemist-project-find-test
       "gt" 'alchemist-project-toggle-file-and-tests
       "gT" 'alchemist-project-toggle-file-and-tests-other-window
 
@@ -95,6 +94,7 @@
       "tb" 'alchemist-mix-test-this-buffer
       "tB" 'alchemist-project-run-tests-for-current-file
       "tt" 'alchemist-mix-test-at-point
+      "tF" 'alchemist-project-find-test
       "tf" 'alchemist-mix-test-file
       "tn" 'alchemist-test-mode-jump-to-next-test
       "tN" 'alchemist-test-mode-jump-to-previous-test

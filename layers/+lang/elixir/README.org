@@ -149,7 +149,6 @@ You find and overview of all the key-bindings on the [[https://github.com/tonini
 
 | Key Binding | Description                                                |
 |-------------+------------------------------------------------------------|
-| ~SPC m p t~ | Open project test directory and list all test files.       |
 | ~SPC m g t~ | Toggle between a file and its tests in the current window. |
 | ~SPC m g T~ | Toggle between a file and its tests in other window.       |
 
@@ -192,6 +191,7 @@ You find and overview of all the key-bindings on the [[https://github.com/tonini
 | ~SPC m t N~ | Jump to previous test                                                                 |
 | ~SPC m t s~ | Run stale tests (~mix test --stale~)                                                  |
 | ~SPC m t R~ | Toggle test report window                                                             |
+| ~SPC m t F~ | Open project test directory and list all test files.                                  |
 
 ** Compile
 
