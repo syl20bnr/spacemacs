@@ -26,6 +26,7 @@
       ;; Find files
       (spacemacs/set-leader-keys-for-minor-mode 'projectile-rails-mode
         "ffa" 'projectile-rails-find-locale
+        "ffb" 'projectile-rails-find-job
         "ffc" 'projectile-rails-find-controller
         "ffe" 'projectile-rails-find-environment
         "fff" 'projectile-rails-find-feature
@@ -42,6 +43,7 @@
         "fft" 'projectile-rails-find-test
         "ffu" 'projectile-rails-find-fixture
         "ffv" 'projectile-rails-find-view
+        "ffw" 'projectile-rails-find-webpack
         "ffy" 'projectile-rails-find-layout
         "ff@" 'projectile-rails-find-mailer
         ;f Goto file
@@ -64,6 +66,7 @@
         ;; Rails external commands
         "f:" 'projectile-rails-rake
         "fcc" 'projectile-rails-generate
+        "fcd" 'projectile-rails-destroy
         "fi" 'projectile-rails-console
         "fxs" 'projectile-rails-server
         ;; Refactoring 'projectile-rails-mode

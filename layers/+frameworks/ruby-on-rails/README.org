@@ -33,6 +33,7 @@ file.
 | Key binding   | Description                                                     |
 |---------------+-----------------------------------------------------------------|
 | ~SPC m f f a~ | find localization file                                          |
+| ~SPC m f f b~ | find job                                                        |
 | ~SPC m f f c~ | find controller                                                 |
 | ~SPC m f f e~ | find environment file                                           |
 | ~SPC m f f f~ | find feature                                                    |
@@ -50,6 +51,7 @@ file.
 | ~SPC m f f t~ | find test                                                       |
 | ~SPC m f f u~ | find fixture                                                    |
 | ~SPC m f f v~ | find view                                                       |
+| ~SPC m f f w~ | find webpack config                                             |
 | ~SPC m f f y~ | find layout                                                     |
 | ~SPC m f f @~ | find mailer                                                     |
 | ~SPC m f g c~ | go to current controller                                        |
@@ -81,6 +83,7 @@ file.
 |---------------+----------------------|
 | ~SPC m f :~   | run rake task        |
 | ~SPC m f c c~ | run rails generator  |
+| ~SPC m f c d~ | run rails destroy    |
 | ~SPC m f i~   | start rails console  |
 | ~SPC m f s r~ | reload Rails project |
 | ~SPC m f x s~ | start rails server   |
