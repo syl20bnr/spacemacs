@@ -110,11 +110,12 @@ This would install the [[https://github.com/marsmining/ox-twbs][ox-twbs]] extens
 #+END_SRC
 
 ** Gnuplot support
-Org-mode support the plotting of data within tables through [[http://www.gnuplot.info/][Gnuplot]] as
-demonstrated [[http://orgmode.org/worg/org-tutorials/org-plot.html][here]]; unfortunately, this is [[https://github.com/bruceravel/gnuplot-mode/issues/15][not terribly well supported]] on Windows
-at this stage.  It is possible to disable the configuration of gnuplot support
-as usual by adding the package =gnuplot= to your =dotspacemacs-excluded-packages=
-variable.
+Org-mode supports the plotting of data within tables through [[http://www.gnuplot.info/][Gnuplot]] as
+demonstrated [[http://orgmode.org/worg/org-tutorials/org-plot.html][here]].
+
+Unfortunately, this is [[https://github.com/bruceravel/gnuplot-mode/issues/15][not terribly well supported]] on Windows,
+at this stage. To disable the configuration of gnuplot support - add
+the =gnuplot= package to your =dotspacemacs-excluded-packages= variable.
 
 ** Reveal.js support
 To enable the export of your org file as a [[http://lab.hakim.se/reveal-js/][reveal.js]] presentation, set the
