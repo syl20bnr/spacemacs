@@ -85,9 +85,9 @@ More details can be found [[https://github.com/syl20bnr/spacemacs/issues/8106][h
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =org= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+To use this configuration layer: in the main Spacemacs configuration
+file (=~/.spacemacs=), to the existing =dotspacemacs-configuration-layers= list
+add the =org= entry.
 
 ** Github support
 To install Github related extensions like [[https://github.com/larstvei/ox-gfm][ox-gfm]] to export to Github
