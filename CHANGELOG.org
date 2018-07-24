@@ -1,4 +1,30 @@
 * Release 0.200.x
+** 0.200.13 (2018/01/25)
+*** Fixes
+- Remove =ess-R-object-popup= from =ess= layer (thanks to NGaffney)
+- Remove =wolfram-mode= package from =extra-langs= (thanks to bennofs)
+- Import =info+.el= as local package
+- Import =help-fns+.el= as local package
+- Import =hide-comnt.el= as local package
+- core: fix not found packages with =dotspacemacs-install-packages= all
+** 0.200.12 (2018/01/23)
+*** Fixes
+- Use HTTPS instead of HTTP for ORG ELPA repository (thanks to aaronjensen)
+** 0.200.11 (2018/01/22)
+*** Fixes
+- Fix =helm= display function (thanks to jackkamm)
+- Fix =anaconda-mode= variable names in Python layer (thanks to nixmaniack)
+- Fix typo in =helm-cscope-find-calling-this-function= (thanks to dubnde)
+- Use =org=mime= package from MELPA (thanks to jackkamm)
+- Replace broken =helm-spotify= package by =helm-spotify-plus= (thanks to leezu)
+- Update =Quelpa= library
+- Backport up to date list of themes in core and themes-megapack layer.
+- Fix =pyim= package name in Chinese layer (thanks to James Wang)
+** 0.200.10 (2017/11/01)
+*** Fixes
+- Fix error: (void-variable helm-bookmark-map) when selecting a candidate from
+  a Helm buffer (thanks to bmag)
+- Fix window number assignation for Neotree buffer window (thanks to duianto)
 ** 0.200.9 (2017/04/06)
 *** Fixes
 - Fix theme loading with terminal Emacs (thanks to wang0z)

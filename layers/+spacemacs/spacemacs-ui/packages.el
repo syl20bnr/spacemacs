@@ -15,7 +15,7 @@
         desktop
         (doc-view :location built-in)
         flx-ido
-        info+
+        (info+ :location local)
         open-junk-file
         paradox
         restart-emacs
@@ -281,8 +281,8 @@ debug-init and load the given list of packages."
                    ;; assigning 0 only to the top-left window
                    (eq (selected-window) (frame-first-window)))
           0))
+      (add-to-list 'winum-assign-functions #'spacemacs//winum-assign-func)
       (setq winum-auto-assign-0-to-minibuffer nil
-            winum-assign-func 'spacemacs//winum-assign-func
             winum-auto-setup-mode-line nil
             winum-ignored-buffers '(" *which-key*"))
       (spacemacs/set-leader-keys

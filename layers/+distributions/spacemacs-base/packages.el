@@ -28,7 +28,7 @@
         ;; some packages need to look for binaries,
         ;; which means the path must be ready by then
         (exec-path-from-shell :step pre)
-        help-fns+
+        (help-fns+ :location local)
         (hi-lock :location built-in)
         (holy-mode :location local :step pre)
         (hybrid-mode :location local :step pre)

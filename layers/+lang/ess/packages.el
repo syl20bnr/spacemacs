@@ -13,7 +13,6 @@
   '(
     ess
     ess-R-data-view
-    ess-R-object-popup
     ess-smart-equals
     golden-ratio
     org))
@@ -104,7 +103,6 @@
       "st" 'ess-eval-function
       ;; R helpers
       "hd" 'ess-R-dv-pprint
-      "hi" 'ess-R-object-popup
       "ht" 'ess-R-dv-ctable
       )
     (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
@@ -112,8 +110,6 @@
     (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input)))
 
 (defun ess/init-ess-R-data-view ())
-
-(defun ess/init-ess-R-object-popup ())
 
 (defun ess/init-ess-smart-equals ()
   (use-package ess-smart-equals

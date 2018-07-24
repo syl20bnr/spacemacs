@@ -1,0 +1,7 @@
+                             MELPA HOT FIX RELEASE
+
+- Fixes removed packages from MELPA.
+
+Essentially Emacs WIKI packages are concerned. They have been imported as local
+packages from Emacsmirror GitHub organization (thanks to tarsius for maintaining
+it)

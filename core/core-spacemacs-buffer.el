@@ -13,7 +13,7 @@
 ;;
 ;;; Code:
 
-(defconst spacemacs-buffer-version-info "0.200.9"
+(defconst spacemacs-buffer-version-info "0.200.13"
   "Current version used to display addition release information.")
 
 (defconst spacemacs-buffer-name "*spacemacs*"
