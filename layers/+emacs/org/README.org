@@ -99,9 +99,9 @@ flavored markdown set the variable =org-enable-github-support= to =t=.
 #+END_SRC
 
 ** Twitter Bootstrap support
-To install the Twitter Bootstrap extension (from [[https://github.com/marsmining/ox-twbs][ox-twbs]]), which enables twitter
-bootstrap formatted html, then set the variable =org-enable-bootstrap-support=
-to =t=.
+To enable the export to Twitter Bootstrap-formatted HTML - set
+the variable =org-enable-bootstrap-support= to =t=.
+This would install the [[https://github.com/marsmining/ox-twbs][ox-twbs]] extension.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
