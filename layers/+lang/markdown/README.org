@@ -103,13 +103,11 @@ To generate a table of contents type on top of the buffer:
 | ~SPC m h 6~ | insert header atx 6                                               |
 | ~SPC m h !~ | insert header setext 1                                            |
 | ~SPC m h @~ | insert header setext 2                                            |
-| ~SPC m i l~ | insert inline link dwim                                           |
-| ~SPC m i L~ | insert reference link dwim                                        |
+| ~SPC m i l~ | insert link                                                       |
 | ~SPC m i u~ | insert uri                                                        |
 | ~SPC m i f~ | insert footnote                                                   |
 | ~SPC m i w~ | insert wiki link                                                  |
 | ~SPC m i i~ | insert image                                                      |
-| ~SPC m i I~ | insert reference image                                            |
 | ~SPC m i t~ | insert Table of Contents (toc)                                    |
 | ~SPC m x b~ | make region bold or insert bold                                   |
 | ~SPC m x i~ | make region italic or insert italic                               |
@@ -137,14 +135,14 @@ To generate a table of contents type on top of the buffer:
 | Key Binding | Description           |
 |-------------+-----------------------|
 | ~SPC m o~   | follow thing at point |
-| ~SPC m j~   | jump                  |
+| ~RET~       | jump (markdown-do)    |
 
 ** Indentation
 
-| Key Binding | Description   |
-|-------------+---------------|
-| ~SPC m \>~  | indent region |
-| ~SPC m \<~  | exdent region |
+| Key Binding | Description    |
+|-------------+----------------|
+| ~SPC m \>~  | indent region  |
+| ~SPC m \<~  | outdent region |
 
 ** Header navigation
 
@@ -201,5 +199,6 @@ To generate a table of contents type on top of the buffer:
 |-------------+----------------------|
 | ~SPC m t i~ | toggle inline images |
 | ~SPC m t l~ | toggle hidden urls   |
+| ~SPC m t m~ | toggle markup hiding |
 | ~SPC m t t~ | toggle checkbox      |
 | ~SPC m t w~ | toggle wiki links    |
