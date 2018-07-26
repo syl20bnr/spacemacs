@@ -1,6 +1,6 @@
 #+TITLE: copy-as-format layer
 
-* Table of Contents
+* Table of Contents                      :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -20,16 +20,19 @@ file.
 
 * Configuration
 You can choose default formatter.
+
 #+BEGIN_SRC elisp
 (setq copy-as-format-default "markdown")
 #+END_SRC
 
 Also, you can enable copying of buffer's file name for asciidoc formatter.
+
 #+BEGIN_SRC elisp
 (setq copy-as-format-asciidoc-include-file-name t)
 #+END_SRC
 
 And you can add alist of file name patterns to language names used for asciidoc syntax highlighting.
+
 #+BEGIN_SRC elisp
 (setq copy-as-format-asciidoc-language-alist '(("^.*\\.java$" "java")
                                                ("^.*\\.clj[cs]?$" "clojure")))
@@ -54,4 +57,3 @@ And you can add alist of file name patterns to language names used for asciidoc 
 | ~SPC x f p~ | copy-as-format-pod       |
 | ~SPC x f r~ | copy-as-format-rst       |
 | ~SPC x f s~ | copy-as-format-slack     |
-
