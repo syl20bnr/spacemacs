@@ -22,7 +22,7 @@
 This layer adds extensive support for go to Spacemacs.
 
 ** Features:
-- gofmt/goimports on file save
+- gofmt/goimports on file save (to enable, see [[#configuration][Configuration]])
 - Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete]] (with the =auto-completion= layer)
 - Source analysis using [[https://docs.google.com/document/d/1_Y9xCEMj5S-7rv2ooHpZNH15JgRT5iM742gJkw5LtmQ][go-guru]]
 - Refactoring with [[http://gorefactor.org/][godoctor]]
@@ -93,8 +93,13 @@ add =go= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Configuration
-By default, go buffers are run through =gofmt= on save. To use a different
-formatter, set the value of =gofmt-command=, e.g.
+To run =gofmt= before save, set the value to a non-nil, e.g.
+
+#+begin_src emacs-lisp
+  (setq go-format-before-save t)
+#+end_src
+
+To use a different formatter, set the value of =gofmt-command=, e.g.
 
 #+begin_src emacs-lisp
   (setq gofmt-command "goimports")
