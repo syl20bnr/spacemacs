@@ -16,6 +16,9 @@
 (defvar go-use-gocheck-for-testing nil
   "If using gocheck for testing when running the tests -check.f will be used instead of -run to specify the test that will be ran. Gocheck is mandatory for testing suites.")
 
+(defvar go-format-before-save nil
+  "Use gofmt before save. Set to non-nil to enable gofmt before saving. Default is nil.")
+
 (defvar go-tab-width 8
   "Set the `tab-width' in Go mode. Default is 8.")
 
