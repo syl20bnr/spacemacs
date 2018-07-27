@@ -121,6 +121,7 @@
       (spacemacs/declare-prefix-for-mode 'go-mode "mt" "test")
       (spacemacs/declare-prefix-for-mode 'go-mode "mx" "execute")
       (spacemacs/set-leader-keys-for-major-mode 'go-mode
+        "="  'gofmt
         "eb" 'go-play-buffer
         "ed" 'go-download-play
         "er" 'go-play-region
