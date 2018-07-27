@@ -58,7 +58,7 @@ For evil states that also need an entry to `spacemacs-evil-cursors' use
   ;; visibly flashing in treemacs buffers
   (eval `(defface ,(intern (format "spacemacs-%s-face" state))
            `((t (:background ,color
-                             :foreground ,(face-background 'mode-line)
+                             :foreground ,(or (face-background 'mode-line) "black")
                              :inherit 'mode-line)))
            (format "%s state face." state)
            :group 'spacemacs)))
