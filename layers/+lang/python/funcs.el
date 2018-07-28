@@ -387,7 +387,7 @@ to be called for each testrunner. "
   (let ((universal-argument t)
         (compile-command (format "%s %s"
                                  (spacemacs/pyenv-executable-find python-shell-interpreter)
-                                 (file-name-nondirectory buffer-file-name))))
+                                 (shell-quote-argument (file-name-nondirectory buffer-file-name)))))
     (if arg
         (call-interactively 'compile)
       (compile compile-command t)
