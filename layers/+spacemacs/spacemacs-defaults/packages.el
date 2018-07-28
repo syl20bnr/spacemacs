@@ -438,12 +438,14 @@
 
 (defun spacemacs-defaults/init-zone ()
   (use-package zone
-    :defer t
+    :commands (zone zone-when-idle)
     :init
     (progn
-      (when (and dotspacemacs-zone-out-when-idle
+      (if (and dotspacemacs-zone-out-when-idle
                  (numberp dotspacemacs-zone-out-when-idle))
-        (zone-when-idle dotspacemacs-zone-out-when-idle))
+          (zone-when-idle dotspacemacs-zone-out-when-idle)
+        ;; disable zone
+        (zone-leave-me-alone))
       ;; remove not interesting programs
       (setq zone-programs [
                            ;; zone-pgm-jitter
