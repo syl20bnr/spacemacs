@@ -124,9 +124,9 @@
 (defun idris/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
     :post-config
-    (push '("*idris-notes*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
+    (push '("*idris-notes*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
           popwin:special-display-config)
-    (push '("*idris-holes*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
+    (push '("*idris-holes*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
           popwin:special-display-config)
-    (push '("*idris-info*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
+    (push '("*idris-info*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
           popwin:special-display-config)))
