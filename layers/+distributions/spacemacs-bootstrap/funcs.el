@@ -35,19 +35,19 @@
                   evil-state)))
     (spacemacs/state-color-face state)))
 
-(defun spacemacs/add-evil-cursor (state color shape)
+(defun spacemacs/add-evil-cursor (state bg-color fg-color shape)
   "Define a cursor and face for a new evil state.
 An appropriate entry is added to `spacemacs-evil-cursors', as well.
 
 For evil states that do not need an evil cursor use
 `spacemacs/define-evil-state-face' instead."
-  (add-to-list 'spacemacs-evil-cursors (list state color shape))
-  (spacemacs/define-evil-state-face state color)
+  (add-to-list 'spacemacs-evil-cursors (list state bg-color fg-color shape))
+  (spacemacs/define-evil-state-face state bg-color fg-color)
   (set (intern (format "evil-%s-state-cursor" state))
-       (list (when dotspacemacs-colorize-cursor-according-to-state color)
+       (list (when dotspacemacs-colorize-cursor-according-to-state bg-color)
              shape)))
 
-(defun spacemacs/define-evil-state-face (state color)
+(defun spacemacs/define-evil-state-face (state bg-color fg-color)
   "Define a face for an evil state.
 For evil states that also need an entry to `spacemacs-evil-cursors' use
 `spacemacs/add-evil-cursor' instead."
@@ -57,14 +57,14 @@ For evil states that also need an entry to `spacemacs-evil-cursors' use
   ;; and having an evil cursor defined anyway leads to the cursor sometimes
   ;; visibly flashing in treemacs buffers
   (eval `(defface ,(intern (format "spacemacs-%s-face" state))
-           `((t (:background ,color
-                             :foreground ,(or (face-background 'mode-line) "black")
+           `((t (:background ,bg-color
+                             :foreground ,(or fg-color (face-background 'mode-line))
                              :inherit 'mode-line)))
            (format "%s state face." state)
            :group 'spacemacs)))
 
 (defun spacemacs/set-state-faces ()
-  (cl-loop for (state color cursor) in spacemacs-evil-cursors
+  (cl-loop for (state bg-color fg-color cursor) in spacemacs-evil-cursors
            do
            (set-face-attribute (intern (format "spacemacs-%s-face" state))
                                nil

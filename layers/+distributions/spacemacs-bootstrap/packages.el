@@ -72,8 +72,8 @@
 
   (require 'cl)
   ;; State cursors
-  (cl-loop for (state color shape) in spacemacs-evil-cursors
-           do (spacemacs/add-evil-cursor state color shape))
+  (cl-loop for (state bg-color fg-color shape) in spacemacs-evil-cursors
+           do (spacemacs/add-evil-cursor state bg-color fg-color shape))
   (add-hook 'spacemacs-post-theme-change-hook 'spacemacs/set-state-faces)
 
   ;; evil ex-command
