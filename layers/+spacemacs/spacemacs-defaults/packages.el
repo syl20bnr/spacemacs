@@ -438,14 +438,12 @@
 
 (defun spacemacs-defaults/init-zone ()
   (use-package zone
-    :commands (zone zone-when-idle zone-leave-me-alone)
+    :commands (zone zone-when-idle)
     :init
     (progn
-      (if (and dotspacemacs-zone-out-when-idle
+      (when (and dotspacemacs-zone-out-when-idle
                  (numberp dotspacemacs-zone-out-when-idle))
-          (zone-when-idle dotspacemacs-zone-out-when-idle)
-        ;; disable zone
-        (zone-leave-me-alone))
+        (zone-when-idle dotspacemacs-zone-out-when-idle))
       ;; remove not interesting programs
       (setq zone-programs [
                            ;; zone-pgm-jitter
@@ -468,4 +466,8 @@
                            ;; zone-pgm-stress-destress
                            ;; zone-pgm-random-life
                            ])
-      (spacemacs/set-leader-keys "TZ" 'zone))))
+      (spacemacs/set-leader-keys "TZ" 'zone))
+    :config
+    ;; be sure to disable running zone if the user does not want it
+    (unless dotspacemacs-zone-out-when-idle
+      (zone-leave-me-alone))))
