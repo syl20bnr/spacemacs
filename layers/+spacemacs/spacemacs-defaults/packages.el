@@ -438,7 +438,7 @@
 
 (defun spacemacs-defaults/init-zone ()
   (use-package zone
-    :commands (zone zone-when-idle)
+    :commands (zone zone-when-idle zone-leave-me-alone)
     :init
     (progn
       (if (and dotspacemacs-zone-out-when-idle
