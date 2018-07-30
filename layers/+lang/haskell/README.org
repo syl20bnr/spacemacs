@@ -28,6 +28,7 @@
   - [[#refactor][Refactor]]
   - [[#ghc-mod-1][Ghc-mod]]
     - [[#insert-template][Insert template]]
+  - [[#intero-1][Intero]]
 - [[#syntax-checking][Syntax checking]]
   - [[#flycheck][Flycheck]]
   - [[#hlint][HLint]]
@@ -319,6 +320,15 @@ inferred type is inserted. On a symbol =foo= without definition, =foo =
 undefined= is inserted or a proper module is imported. ~SPC m m u~ inserts a
 hole in this case. On a variable, the case is split. When checking with hlint,
 original code is replaced with hlint's suggestion if possible.
+
+** Intero
+This command is only available when intero is enabled.
+
+This top-level command is prefixed by ~SPC m~:
+
+| Key Binding | Description            |
+|-------------+------------------------|
+| ~SPC m g b~ | return from definition |
 
 * Syntax checking
 At the moment there are four components which can check the syntax and indicates

@@ -85,6 +85,7 @@
             "hh" 'cider-doc
             "hj" 'cider-javadoc
             "hn" 'cider-browse-ns
+            "hN" 'cider-browse-ns-all
 
             "e;" 'cider-eval-defun-to-comment
             "eb" 'cider-eval-buffer
@@ -102,8 +103,7 @@
             "gb" 'cider-pop-back
             "gc" 'cider-classpath
             "ge" 'cider-jump-to-compilation-error
-            "gn" 'cider-browse-ns
-            "gN" 'cider-browse-ns-all
+            "gn" 'cider-find-ns
             "gr" 'cider-find-resource
             "gs" 'cider-browse-spec
             "gS" 'cider-browse-spec-all
@@ -131,7 +131,7 @@
             "ss" (if (eq m 'cider-repl-mode)
                      'cider-switch-to-last-clojure-buffer
                    'cider-switch-to-repl-buffer)
-            "sx" 'cider-refresh
+            "sx" 'cider-ns-refresh
             "sX" 'cider-restart
 
             "Te" 'cider-enlighten-mode

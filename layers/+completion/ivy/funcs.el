@@ -70,20 +70,21 @@
                    (cdr (assoc-string tool spacemacs--counsel-commands))))
       (lambda (string &optional _pred &rest _unused)
         "Grep in the current directory for STRING."
-        (if (< (length string) 3)
-            (counsel-more-chars 3)
-          (let* ((default-directory (ivy-state-directory ivy-last))
-                 (args (if (string-match-p " -- " string)
-                           (let ((split (split-string string " -- ")))
-                             (prog1 (pop split)
-                               (setq string (mapconcat #'identity split " -- "))))
-                         ""))
-                 (regex (counsel-unquote-regex-parens
-                         (setq ivy--old-re
-                               (ivy--regex string)))))
-            (setq spacemacs--counsel-search-cmd (format base-cmd args regex))
-            (spacemacs//counsel-async-command spacemacs--counsel-search-cmd)
-            nil)))))
+        ;; `counsel-more-chars' returns non-nil when more chars are needed,
+        ;; minimal chars count is configurable via `counsel-more-chars-alist'
+        (or (counsel-more-chars)
+            (let* ((default-directory (ivy-state-directory ivy-last))
+                   (args (if (string-match-p " -- " string)
+                             (let ((split (split-string string " -- ")))
+                               (prog1 (pop split)
+                                 (setq string (mapconcat #'identity split " -- "))))
+                           ""))
+                   (regex (counsel-unquote-regex-parens
+                           (setq ivy--old-re
+                                 (ivy--regex string)))))
+              (setq spacemacs--counsel-search-cmd (format base-cmd args regex))
+              (spacemacs//counsel-async-command spacemacs--counsel-search-cmd)
+              nil)))))
 
 (defun spacemacs//counsel-save-in-buffer ()
   (interactive)
@@ -121,6 +122,19 @@
     (define-key map (kbd "C-c C-e") 'spacemacs//counsel-edit)
     map))
 
+(defun spacemacs/ivy--regex-plus (str)
+  "Build a regex sequence from STR.
+Same as `ivy--regex-plus', but with special consideration for
+`spacemacs/counsel-search', thus providing correct highlighting
+in the search results. Can be used in `ivy-re-builders-alist',
+for example by setting the variable's value to:
+  ((t . spacemacs/ivy--regex-plus))
+"
+  (if (and (eq (ivy-state-caller ivy-last) 'spacemacs/counsel-search)
+           (string-match-p " -- " str))
+      (ivy--regex-plus (car (last (split-string str " -- "))))
+    (ivy--regex-plus str)))
+
 ;; see `counsel-ag'
 (defun spacemacs/counsel-search
       (&optional tools use-initial-input initial-directory)
@@ -157,7 +171,7 @@ that directory."
                                               spacemacs--counsel-search-max-path-length)
                                            (length default-directory))))))
        (spacemacs//make-counsel-search-function tool)
-       :initial-input (rxt-quote-pcre initial-input)
+       :initial-input (when initial-input (rxt-quote-pcre initial-input))
        :dynamic-collection t
        :history 'counsel-git-grep-history
        :action #'counsel-git-grep-action
@@ -336,6 +350,15 @@ To prevent this error we just wrap `describe-mode' to defeat the
         ((headline inlinetask)
          (save-excursion (goto-char (org-element-property :begin context))
                          (call-interactively 'counsel-org-tag)) t)))))
+
+(defun spacemacs/counsel-jump-in-buffer ()
+  "Jump in buffer with `counsel-imenu' or `counsel-org-goto' if in org-mode"
+  (interactive)
+  (call-interactively
+   (cond
+    ((eq major-mode 'org-mode) 'counsel-org-goto)
+    (t 'counsel-imenu))))
+
 
 ;; Ivy
 

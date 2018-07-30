@@ -431,6 +431,7 @@ You can install such packages by adding them to the variable
 =dotspacemacs-additional-packages= under the =dotspacemacs/layers= function in your dotfile.
 
 For example, to install =llvm-mode= and =dts-mode=:
+
 #+BEGIN_SRC emacs-lisp
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration..."
@@ -3344,6 +3345,7 @@ Errors management commands (start with ~e~):
 | ~SPC e l~   | toggle the display of the =flycheck= list of errors/warnings          |
 | ~SPC e n~   | go to the next error                                                  |
 | ~SPC e p~   | go to the previous error                                              |
+| ~SPC e y~   | copy each error at cursor position into kill ring                     |
 | ~SPC e v~   | verify flycheck setup (useful to debug 3rd party tools configuration) |
 | ~SPC e .~   | error transient state                                                 |
 

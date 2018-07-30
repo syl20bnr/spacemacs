@@ -82,5 +82,5 @@
         "pv" 'projectile-vc))
     :config
     (progn
-      (projectile-global-mode)
+      (projectile-mode)
       (spacemacs|hide-lighter projectile-mode))))

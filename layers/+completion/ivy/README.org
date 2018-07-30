@@ -47,6 +47,11 @@ You can customize ivy with the following variables:
 - =ivy-height= The height of the minibuffer. The Spacemacs default is 15.
 - =ivy-use-selectable-prompt= When non-nil, make the prompt line selectable like
   a candidate. The Spacemacs default value is =t=.
+- =ivy-re-builders-alist= An alist of regex building functions for each
+  collection function. See ivy documentation for possible choices. Use
+  =spacemacs/ivy--regex-plus= instead of =ivy--regex-plus= to get correct
+  highlighting in the search results of =spacemacs/search-project-auto= and
+  similar search commands provided by Spacemacs.
 
 ** Advanced buffer information
 To display more information about buffers set the layer variable

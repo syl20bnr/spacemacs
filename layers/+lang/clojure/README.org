@@ -70,6 +70,7 @@ To enable this feature, add the following snippet to the
 #+END_SRC
 
 Or set this variable when loading the configuration layer:
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
   '((clojure :variables clojure-enable-fancify-symbols t)))
@@ -164,14 +165,15 @@ As this state works the same for all files, the documentation is in global
 ** Leader
 *** Documentation
 
-| Key Binding | Description        |
-|-------------+--------------------|
-| ~SPC m h a~ | cider apropos      |
-| ~SPC m h c~ | clojure cheatsheet |
-| ~SPC m h g~ | cider grimoire     |
-| ~SPC m h h~ | cider doc          |
-| ~SPC m h j~ | cider javadoc      |
-| ~SPC m h n~ | cider browse ns    |
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m h a~ | cider apropos               |
+| ~SPC m h c~ | clojure cheatsheet          |
+| ~SPC m h g~ | cider grimoire              |
+| ~SPC m h h~ | cider doc                   |
+| ~SPC m h j~ | cider javadoc               |
+| ~SPC m h n~ | cider browse namespace      |
+| ~SPC m h N~ | cider browse all namespaces |
 
 *** Evaluation
 
@@ -190,17 +192,16 @@ As this state works the same for all files, the documentation is in global
 
 *** Goto
 
-| Key Binding | Description           |
-|-------------+-----------------------|
-| ~SPC m g b~ | go back               |
-| ~SPC m g C~ | browse classpath      |
-| ~SPC m g g~ | goto var              |
-| ~SPC m g e~ | goto error            |
-| ~SPC m g n~ | browse namespaces     |
-| ~SPC m g N~ | browse all namespaces |
-| ~SPC m g r~ | goto resource         |
-| ~SPC m g s~ | browse spec           |
-| ~SPC m g S~ | browse all specs      |
+| Key Binding | Description      |
+|-------------+------------------|
+| ~SPC m g b~ | go back          |
+| ~SPC m g C~ | browse classpath |
+| ~SPC m g g~ | goto var         |
+| ~SPC m g e~ | goto error       |
+| ~SPC m g n~ | goto namespace   |
+| ~SPC m g r~ | goto resource    |
+| ~SPC m g s~ | browse spec      |
+| ~SPC m g S~ | browse all specs |
 
 *** REPL
 

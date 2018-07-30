@@ -21,6 +21,7 @@ This layer integrates a full fledged accounting system into Spacemacs.
 - Display of finance reports directly within emacs.
 - Integration of emacs calculator mode for editing post amounts.
 - Support for easy account reconciliation via =Ledger-Reconcile=.
+- Extended support for ~evil~ style editing with [[https://github.com/atheriel/evil-ledger][evil-ledger]].
 
 * Install
 ** Layer
@@ -56,6 +57,11 @@ your =dotspacemacs/user-config=.  The default value, set in the layer, is =62=.
 | ~SPC m r~   | reconcile an account                          |
 | ~SPC m R~   | display a report                              |
 | ~SPC m t~   | append an effective date to a post            |
+| ~g j~       | go to the next transaction                    |
+| ~g k~       | go to the previous transaction                |
+
+evil-ledger additionally adds a transaction text object, bound to ~x~, so you
+can for example use ~dix~ or ~vax~ to delete or mark the transaction at point.
 
 ** Ledger-Reconcile
 

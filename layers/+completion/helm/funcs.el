@@ -444,9 +444,10 @@ If DEFAULT-INPUTP is non nil then the current region or symbol at point
                     (helm-read-file-name
                      "Search in file(s): "
                      :marked-candidates t
-                     :preselect (if helm-ff-transformer-show-only-basename
-                                    (helm-basename preselection)
-                                  preselection)))))
+                     :preselect (when preselection
+                                  (if helm-ff-transformer-show-only-basename
+                                      (helm-basename preselection)
+                                    preselection))))))
     (helm-do-grep-1 targets nil nil nil nil use-region-or-symbol-p)))
 
 (defun spacemacs/helm-file-do-grep ()

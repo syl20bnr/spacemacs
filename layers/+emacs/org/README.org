@@ -85,9 +85,9 @@ More details can be found [[https://github.com/syl20bnr/spacemacs/issues/8106][h
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =org= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+To use this configuration layer: in the main Spacemacs configuration
+file (=~/.spacemacs=), to the existing =dotspacemacs-configuration-layers= list
+add the =org= entry.
 
 ** Github support
 To install Github related extensions like [[https://github.com/larstvei/ox-gfm][ox-gfm]] to export to Github
@@ -99,9 +99,9 @@ flavored markdown set the variable =org-enable-github-support= to =t=.
 #+END_SRC
 
 ** Twitter Bootstrap support
-To install the Twitter Bootstrap extension (from [[https://github.com/marsmining/ox-twbs][ox-twbs]]), which enables twitter
-bootstrap formatted html, then set the variable =org-enable-bootstrap-support=
-to =t=.
+To enable the export to Twitter Bootstrap-formatted HTML - set
+the variable =org-enable-bootstrap-support= to =t=.
+This would install the [[https://github.com/marsmining/ox-twbs][ox-twbs]] extension.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
@@ -110,36 +110,43 @@ to =t=.
 #+END_SRC
 
 ** Gnuplot support
-Org-mode support the plotting of data within tables through [[http://www.gnuplot.info/][Gnuplot]] as
-demonstrated [[http://orgmode.org/worg/org-tutorials/org-plot.html][here]]; unfortunately, this is [[https://github.com/bruceravel/gnuplot-mode/issues/15][not terribly well supported]] on Windows
-at this stage.  It is possible to disable the configuration of gnuplot support
-as usual by adding the package =gnuplot= to your =dotspacemacs-excluded-packages=
-variable.
+Org-mode supports the plotting of data within tables through [[http://www.gnuplot.info/][Gnuplot]] as
+demonstrated [[http://orgmode.org/worg/org-tutorials/org-plot.html][here]].
+
+Unfortunately, this is [[https://github.com/bruceravel/gnuplot-mode/issues/15][not terribly well supported]] on Windows,
+at this stage. To disable the configuration of gnuplot support - add
+the =gnuplot= package to your =dotspacemacs-excluded-packages= variable.
 
 ** Reveal.js support
-To enable the export of your org file as a [[http://lab.hakim.se/reveal-js/][reveal.js]] presentation, set the
-variable =org-enable-reveal-js-support= to =t=. This will install the [[https://github.com/yjwen/org-reveal/][org-reveal]]
-extension.
+To enable the export of org files as a [[http://lab.hakim.se/reveal-js/][reveal.js]] presentation - set the
+variable =org-enable-reveal-js-support= to =t=.
+This would install the [[https://github.com/yjwen/org-reveal/][org-reveal]] Emacs extension.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
    '((org :variables org-enable-reveal-js-support t)))
 #+END_SRC
 
-In order to be able to use org-reveal, download =reveal.js= from its
-[[http://lab.hakim.se/reveal-js/#/][homepage]] and set =org-reveal-root= to the
-download path, as described in the [[https://github.com/yjwen/org-reveal#user-content-revealjs-and-org-reveal][manual]]. Alternatively, add the following line
-to each =.org= file you want to process:
+Then the extension needs to be pointed to the =reveal.js= itself.
+So [[https://github.com/hakimel/reveal.js/releases][download]] =reveal.js= and point =org-reveal-root= to the path,
+as it described in the [[https://github.com/yjwen/org-reveal#set-the-location-of-revealjs][manual]].
+
+Alternatively, add the following line to each =.org= file you want to process:
 
 #+BEGIN_EXAMPLE
 #+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
 #+END_EXAMPLE
 
 ** Org-journal support
-[[https://github.com/bastibe/org-journal][org-journal]] is a simple journal management system for keeping a seperate journal
-file for each day inside a directory.
+[[https://github.com/bastibe/org-journal][org-journal]] is a simple journal management system that:
+  * Keeps a separate journal file for each day inside a directory
+  * New daily file would always migrate entries with chosen TODO states
+  * Has journal encryption functionality
+  * Easily integrates with org-agenda and Emacs calendar, iCalendar,
+    allows scheduling
+  * Easily integrates with org-capture
 
-To install org-journal set the variable =org-enable-org-journal-support= to =t=.
+To install org-journal - set the variable =org-enable-org-journal-support= to =t=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
@@ -147,35 +154,33 @@ To install org-journal set the variable =org-enable-org-journal-support= to =t=.
          org-enable-org-journal-support t)))
 #+END_SRC
 
-By default journal files are stored in =~/Documents/journal/=. You can override
-this by setting =org-journal-dir= in =dotspacemacs/user-config=
+By default, journal files are stored in =~/Documents/journal/=. To override
+this - set =org-journal-dir= variable in the =dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
     (setq org-journal-dir "~/org/journal/")
 #+END_SRC
 
-You can change the journal file name format by altering
-=org-journal-file-format=.
+To change the journal file name format - alter =org-journal-file-format=:
 
 #+BEGIN_SRC emacs-lisp
     (setq org-journal-file-format "%Y-%m-%d")
 #+END_SRC
 
 *Warning:* setting =org-journal-file-format= to include a file extension like
-=%Y-%m-%d.org= breaks calender search functionality.
+=%Y-%m-%d.org= would break the calendar search functionality.
 
-By default journal files are started with a first level heading (=*=) followed
-by the date formatted for the locale. If you prefer that your journal files are
-formatted differently you can alter =org-journal-date-prefix= and
-=org-journal-date-format=.
+By default, journal files are started with a first level heading (=*=) followed
+by the date in the form set by locale. To format journal files differently
+- alter =org-journal-date-prefix= and =org-journal-date-format=.
 
-For example, to have your new journal files created with this header:
+For example, to have new journal files created with this header:
 
 #+BEGIN_EXAMPLE
 #+TITLE: Tuesday, September 06 2016
 #+END_EXAMPLE
 
-Simply define the following in =dotspacemacs/user-config=
+- define the following in =dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
     (setq org-journal-date-prefix "#+TITLE: ")
@@ -193,22 +198,23 @@ the timestamp.
 #+END_SRC
 
 Any of the org-journal settings can be configured in =dotspacemacs/user-config=
-or defined along side the layer itself.
+or defined alongside the layer itself.
 
 For example:
 
 #+Caption: Configure org-journal with the layer
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-                                                    (org :variables
-                                                         org-enable-org-journal-support t
-                                                         org-journal-dir "~/org/journal/"
-                                                         org-journal-file-format "%Y-%m-%d"
-                                                         org-journal-date-prefix "#+TITLE: "
-                                                         org-journal-date-format "%A, %B %d %Y"
-                                                         org-journal-time-prefix "* "
-                                                         org-journal-time-format "")
-                                                    )
+    (org :variables
+        org-enable-org-journal-support t
+        org-journal-dir "~/org/journal/"
+        org-journal-file-format "%Y-%m-%d"
+        org-journal-date-prefix "#+TITLE: "
+        org-journal-date-format "%A, %B %d %Y"
+        org-journal-time-prefix "* "
+        org-journal-time-format "")
+  )
 #+END_SRC
 
 ** Hugo support

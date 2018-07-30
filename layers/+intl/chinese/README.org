@@ -42,6 +42,7 @@ file.
 *** Configure the Default Input Method(配置默认中文输入法)
 The default Chinese input method is =Chinese-pyim=, if you are a Wubi(五笔) user,
 you could set the variable =chinese-default-input-method= to =wubi=:
+
 #+begin_src emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (chinese :variables chinese-default-input-method 'wubi)))
@@ -59,6 +60,7 @@ just press =s= to save and =R= to restart configuration.
   (setq-default dotspacemacs-configuration-layers '((chinese :variables
                                                              chinese-enable-fcitx t)))
 #+END_SRC
+
 If you don’t need to type Chinese in minibuffer, you can temporarily disable fcitx in the minibuffer
 with the following configuration.
 
@@ -109,6 +111,7 @@ to the Latin font size. You could call =spacemacs//set-monospaced-font= with
 your own Chinese font name in =dotspacemacs/user-config= function.
 
 Example configuration:
+
 #+BEGIN_SRC emacs-lisp
 ;; Note: The Hiragino Sans GB is bundled with MacOS X.
 ;; If you are not using MacOS X, you should change it to another Chinese font name.

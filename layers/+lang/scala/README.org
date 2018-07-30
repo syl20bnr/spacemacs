@@ -38,6 +38,7 @@ file.
 
 Then, you should modify your =~/.spacemacs= to use the recommended Ensime
 version (Stable). Please add the following lines to =dotspacemacs/user-init=:
+
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'configuration-layer-elpa-archives '("melpa-stable" . "stable.melpa.org/packages/"))
   (add-to-list 'package-pinned-packages '(ensime . "melpa-stable"))
@@ -65,6 +66,7 @@ To use scalastyle, it must be present as an executable in your =PATH=.
 
 To test if =scalastyle= executable is in your path, run =scalastyle= in a new
 terminal, it should output something like:
+
 #+BEGIN_SRC bash
 $ scalastyle
 scalastyle 0.8.0
@@ -74,6 +76,7 @@ Usage: scalastyle [options] <source directory>
 
 Finally, enable the =syntax-checking= layer and set the =flycheck-scalastylerc=
 variable to a valid location.
+
 #+BEGIN_SRC emacs-lisp
   (setq-default flycheck-scalastylerc "/usr/local/etc/scalastyle_config.xml")
 #+END_SRC

@@ -14,6 +14,7 @@
     company
     (flycheck-ledger :requires flycheck)
     ledger-mode
+    (evil-ledger :toggle (memq dotspacemacs-editing-style '(vim hybrid)))
     ))
 
 (defun finance/post-init-company ()
@@ -24,6 +25,12 @@
 (defun finance/init-flycheck-ledger ()
   (with-eval-after-load 'flycheck
     (require 'flycheck-ledger)))
+
+(defun finance/init-evil-ledger ()
+  (use-package evil-ledger
+    :after ledger-mode
+    :if (memq dotspacemacs-editing-style '(vim hybrid))
+    :hook (ledger-mode . evil-ledger-mode)))
 
 (defun finance/init-ledger-mode ()
   (use-package ledger-mode

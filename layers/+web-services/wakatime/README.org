@@ -30,11 +30,13 @@ You can follow wakatime installation instructions here
 https://github.com/wakatime/wakatime-mode.
 
 In short it's just:
+
 #+BEGIN_SRC sh
 pip install wakatime
 #+END_SRC
 
 And for some linux users
+
 #+BEGIN_SRC sh
 sudo pip install wakatime
 #+END_SRC
@@ -45,6 +47,7 @@ add =wakatime= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 Example:
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '(

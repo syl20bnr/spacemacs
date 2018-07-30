@@ -17,6 +17,7 @@
     - [[#rspec-mode][RSpec-mode]]
     - [[#ruby-test-mode][Ruby-test-mode]]
     - [[#minitest-mode][minitest-mode]]
+  - [[#toggles][Toggles]]
   - [[#rake][Rake]]
   - [[#refactor][Refactor]]
 - [[#layer-options][Layer options]]
@@ -105,27 +106,25 @@ directory local variables.
 * Key bindings
 ** Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)
 
-| Key binding | Description                                          |
-|-------------+------------------------------------------------------|
-| ~SPC m '​~   | toggle quotes of current string (only built-in mode) |
-| ~SPC m {~   | toggle style of current block (only built-in mode)   |
-| ~SPC m g g~ | go to definition (robe-jump)                         |
-| ~SPC m h h~ | show documentation for method at point (robe-doc)    |
-| ~SPC m s b~ | send buffer                                          |
-| ~SPC m s B~ | send buffer and switch to REPL                       |
-| ~SPC m s f~ | send function definition                             |
-| ~SPC m s F~ | send function definition and switch to REPL          |
-| ~SPC m s i~ | start REPL                                           |
-| ~SPC m s l~ | send line                                            |
-| ~SPC m s L~ | send line and switch to REPL                         |
-| ~SPC m s r~ | send region                                          |
-| ~SPC m s R~ | send region and switch to REPL                       |
-| ~SPC m s s~ | switch to REPL                                       |
-| ~SPC m x '​~ | Change symbol or " string to '                       |
-| ~SPC m x "​~ | Change symbol or ' string to "                       |
-| ~SPC m x :~ | Change string to symbol                              |
-| ~SPC m x h~ | toggle hash syntax in active region                  |
-| ~%~         | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] jumps between blocks                    |
+| Key binding | Description                                       |
+|-------------+---------------------------------------------------|
+| ~SPC m g g~ | go to definition (robe-jump)                      |
+| ~SPC m h h~ | show documentation for method at point (robe-doc) |
+| ~SPC m s b~ | send buffer                                       |
+| ~SPC m s B~ | send buffer and switch to REPL                    |
+| ~SPC m s f~ | send function definition                          |
+| ~SPC m s F~ | send function definition and switch to REPL       |
+| ~SPC m s i~ | start REPL                                        |
+| ~SPC m s l~ | send line                                         |
+| ~SPC m s L~ | send line and switch to REPL                      |
+| ~SPC m s r~ | send region                                       |
+| ~SPC m s R~ | send region and switch to REPL                    |
+| ~SPC m s s~ | switch to REPL                                    |
+| ~SPC m x '​~ | Change symbol or " string to '                    |
+| ~SPC m x "​~ | Change symbol or ' string to "                    |
+| ~SPC m x :~ | Change string to symbol                           |
+| ~SPC m x h~ | toggle hash syntax in active region               |
+| ~%~         | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] jumps between blocks                 |
 
 ** Bundler
 
@@ -185,6 +184,13 @@ When =ruby-test-runner= equals =minitest=.
 | ~SPC m t b~ | run current file          |
 | ~SPC m t r~ | repeat last test command  |
 | ~SPC m t s~ | run test for current file |
+
+** Toggles
+
+| Key binding | Description                                          |
+|-------------+------------------------------------------------------|
+| ~SPC m T '~ | Toggle quotes of current string (only built-in mode) |
+| ~SPC m T {~ | Toggle style of current block (only built-in mode)   |
 
 ** Rake
 

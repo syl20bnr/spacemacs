@@ -66,9 +66,11 @@ Official installers for these operating systems are available from:
 *** Universal installer using npm
 A npm based installer is available to, and provides pre-compiled binaries for
 certain operating system and architectures.
+
 #+BEGIN_SRC sh
   npm install --global elm
 #+END_SRC
+
 Also, note that you might need to set the =ELM_HOME= environment variables to
 the corresponding directory created by the installer.
 

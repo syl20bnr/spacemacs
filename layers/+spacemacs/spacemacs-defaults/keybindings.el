@@ -138,6 +138,7 @@
   "b N j" 'spacemacs/new-empty-buffer-below
   "b N k" 'spacemacs/new-empty-buffer-above
   "b N l" 'spacemacs/new-empty-buffer-right
+  "b N f" 'spacemacs/new-empty-buffer-new-frame
   "b N n" 'spacemacs/new-empty-buffer
   "bP"    'spacemacs/copy-clipboard-to-whole-buffer
   "bp"    'previous-buffer
@@ -366,10 +367,24 @@
   :mode font-lock-mode
   :documentation "Toggle syntax highlighting."
   :evil-leader "ths")
-(spacemacs|add-toggle column-indexing
-  :documentation "Toggle column indexing starting at 1."
-  :on (setq column-number-indicator-zero-based nil)
-  :off (setq column-number-indicator-zero-based t)
+(spacemacs|add-toggle zero-based-column-indexing
+  :documentation "Toggle column indexing starting at 0 versus 1.
+
+This is achieved by the built in functionality available in emacs 26 by changing
+the value of the `column-number-indicator-zero-based' variable. Functionality
+that does not take into acount `column-number-indicator-zero-based' will not
+respond to this toggle."
+  :status (bound-and-true-p column-number-indicator-zero-based)
+  :on (setq column-number-indicator-zero-based t)
+  :off (setq column-number-indicator-zero-based nil)
+  :on-message (concat
+                "Column indexing starts at 0 (current column is "
+                (number-to-string (current-column))
+                ")")
+  :off-message (concat
+                 "Column indexing starts at 1 (current column is "
+                 (number-to-string (1+ (current-column)))
+                 ")")
   :evil-leader "tz")
 
 (spacemacs|add-toggle transparent-frame
