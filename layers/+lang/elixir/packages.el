@@ -41,7 +41,7 @@
       (setq alchemist-project-compile-when-needed t
             alchemist-test-status-modeline nil)
       (add-to-list 'spacemacs-jump-handlers-elixir-mode
-                'alchemist-goto-definition-at-point))
+                '(alchemist-goto-definition-at-point :async t)))
     :config
     (spacemacs/declare-prefix-for-mode 'elixir-mode "mX" "hex")
     (spacemacs/declare-prefix-for-mode 'elixir-mode "mc" "compile")
