@@ -100,6 +100,7 @@ automatically applied to."
 (defalias 'spacemacs/switch-to-buffer-other-frame 'switch-to-buffer-other-frame)
 (defalias 'spacemacs/insert-file 'insert-file)
 (defalias 'spacemacs/display-buffer-other-frame 'display-buffer-other-frame)
+(defalias 'spacemacs/find-file-and-replace-buffer 'find-alternate-file)
 
 (defun spacemacs/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."
