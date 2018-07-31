@@ -55,7 +55,7 @@
 (defun spacemacs-editing/init-avy ()
   (use-package avy
     :defer t
-    :commands (spacemacs/avy-open-url spacemacs/avy-goto-url avy-pop-mark)
+    :commands (spacemacs/avy-open-url spacemacs/avy-goto-url avy-pop-mark avy-with)
     :init
     (progn
       (setq avy-all-windows 'all-frames)
