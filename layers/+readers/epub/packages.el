@@ -23,6 +23,8 @@
       (kbd "L") 'nov-next-document
       (kbd "[") 'nov-previous-document
       (kbd "]") 'nov-next-document
+      (kbd "d") 'nov-scroll-up
+      (kbd "u") 'nov-scroll-down
       (kbd "gm") 'nov-display-metadata
       (kbd "gr") 'nov-render-document
       (kbd "gt") 'nov-goto-toc
