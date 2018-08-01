@@ -182,7 +182,7 @@ You have a few options to ensure you always get up to date suggestions:
 
 | Key Binding   | Description                                                                           |
 |---------------+---------------------------------------------------------------------------------------|
-| ~SPC m =  ~   | run "go fmt"                                                                          |
+| ~SPC m =~     | run "go fmt"                                                                          |
 | ~SPC m e b~   | go-play buffer                                                                        |
 | ~SPC m e d~   | download go-play snippet                                                              |
 | ~SPC m e r~   | go-play region                                                                        |
