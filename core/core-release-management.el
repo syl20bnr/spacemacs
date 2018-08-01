@@ -244,7 +244,7 @@ OWNER REPO."
       (kill-buffer proc-buffer))))
 
 (defun spacemacs//git-hard-reset-to-tag (tag)
-  "Hard reset the current branch to specifed TAG."
+  "Hard reset the current branch to specified TAG."
   (let ((proc-buffer "git-hard-reset")
        (default-directory (file-truename spacemacs-start-directory)))
     (prog1

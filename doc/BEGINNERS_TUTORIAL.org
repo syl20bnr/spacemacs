@@ -230,7 +230,7 @@ folder your file is in. You will be prompted whether you want to create a
 repository in the folder. Select yes. You will see a list of "Untracked files":
 navigate to the file you want to track and press s to "stage changes". You might
 be prompted to save the file: save it if necessary. Now the new file needs to be
-commited: press c and c again. Two windows pop up: one showing the changes
+committed: press c and c again. Two windows pop up: one showing the changes
 you've made since the last edit (in this case, the whole document) and another
 prompting for a commit message. Write "Initial commit", press ESC to exit back
 to normal mode and press ~, c~ confirm and quit the commit
