@@ -509,7 +509,7 @@ The =shadow= operator is a binary operator accepting two layer names, it is not
 commutative and the order of the operands is determined by the order of the
 layers in the dotfile (like the ownership stealing mechanism).
 
-If =:can-shadow= property is set explicity to =nil= in the dotfile then the
+If =:can-shadow= property is set explicitly to =nil= in the dotfile then the
 layer won't shadow any layer.
 
 For instance to install both ivy and helm layer:

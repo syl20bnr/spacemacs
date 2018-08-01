@@ -242,7 +242,7 @@ Notes:
     upstream (major mode repository).
 
 ** Errors
-Managment of errors should be put under ~SPC m E~.
+Management of errors should be put under ~SPC m E~.
 
 | Key Binding | Description                         |
 |-------------+-------------------------------------|

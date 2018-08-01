@@ -395,7 +395,7 @@ file.")
   "If non-nil then warning messages emitted by the layer system are ignored.")
 
 (defvar configuration-layer--package-properties-read-onlyp nil
-  "If non-nil then package properties are read only and cannot be overriden by
+  "If non-nil then package properties are read only and cannot be overridden by
 `configuration-layer/make-package'.")
 
 (defvar configuration-layer--declared-layers-usedp nil
@@ -872,7 +872,7 @@ a new object."
       (when protected
         (push pkg-name configuration-layer--protected-packages)))
     (when ownerp
-      ;; warn about mutliple owners
+      ;; warn about multiple owners
       (when (and (oref obj :owners)
                  (not (memq layer-name (oref obj :owners))))
         (configuration-layer//warning
@@ -1216,7 +1216,7 @@ USEDP if non-nil indicates that made packages are used packages."
              obj (and (cfgl-package-get-safe-owner obj) usedp))))))))
 
 (defun configuration-layer/make-packages-from-dotfile (&optional usedp)
-  "Read the additonal packages declared in the dotfile and create packages.
+  "Read the additional packages declared in the dotfile and create packages.
 USEDP if non-nil indicates that made packages are used packages."
   (dolist (pkg (append dotspacemacs-additional-packages
                        dotspacemacs--additional-theme-packages))
@@ -1381,7 +1381,7 @@ Returns nil if the directory is not a category."
   "Initialize `configuration-layer--indexed-layers' with layer directories.
 If REFRESH-INDEX is non-nil, the layer index is cleared before
 discovery."
-  ;; load private layers at the end on purpose we asume that the user layers
+  ;; load private layers at the end on purpose we assume that the user layers
   ;; must have the final word on configuration choices. Let
   ;; `dotspacemacs-directory' override the private directory if it exists.
   (when refresh-index
@@ -2237,7 +2237,7 @@ to select one."
     (package-activate pkg)))
 
 (defun configuration-layer//get-packages-upstream-dependencies-from-alist ()
-  "Returns upsteam dependencies hash map for all packages in `package-alist'.
+  "Returns upstream dependencies hash map for all packages in `package-alist'.
 The keys are package names and the values are lists of package names that
 depends on it."
   (let ((result (make-hash-table :size 1024)))

@@ -135,7 +135,7 @@ packages then consider to create a layer, you can also put the
 configuration in `dotspacemacs/user-config'.")
 
 (defvar dotspacemacs--additional-theme-packages '()
-  "Same as `dotspacemacs-additonal-packages' but reserved for themes declared
+  "Same as `dotspacemacs-additional-packages' but reserved for themes declared
 in `dotspacemacs-themes'.")
 
 (defvar dotspacemacs-editing-style 'vim
@@ -517,7 +517,7 @@ Set the variable"
   "Synchronize declared layers in dotfile with spacemacs.
 
 Called with `C-u' skips `dotspacemacs/user-config'.
-Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
+Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preliminary tests."
   (interactive "P")
   (when (file-exists-p dotspacemacs-filepath)
     (with-current-buffer (find-file-noselect dotspacemacs-filepath)
