@@ -61,7 +61,7 @@ Available PROPS:
     A STRING or a SEXP that evaluates to a string.
 
 `:use-minibuffer BOOLEAN'
-    If non nil then the minibuffer is used to display the documenation
+    If non nil then the minibuffer is used to display the documentation
     strings. Default is nil.
 
 `:disable-evil-leader BOOLEAN'
