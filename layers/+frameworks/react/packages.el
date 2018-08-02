@@ -61,7 +61,8 @@
     ;; enable rjsx mode by using magic-mode-alist
     (defun +javascript-jsx-file-p ()
       (and buffer-file-name
-           (equal (file-name-extension buffer-file-name) "js")
+           (or (equal (file-name-extension buffer-file-name) "js")
+               (equal (file-name-extension buffer-file-name) "jsx"))
            (re-search-forward "\\(^\\s-*import React\\|\\( from \\|require(\\)[\"']react\\)"
                               magic-mode-regexp-match-limit t)
            (progn (goto-char (match-beginning 1))
