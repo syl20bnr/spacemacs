@@ -134,6 +134,7 @@
 
 (defun sql/init-sql-indent ()
   (use-package sql-indent
+    :if sql-auto-indent
     :defer t
     :init (add-hook 'sql-mode-hook 'sqlind-minor-mode)
     :config (spacemacs|hide-lighter sqlind-minor-mode)))

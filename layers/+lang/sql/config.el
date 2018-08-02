@@ -17,3 +17,6 @@
 
 (defvar sql-capitalize-keywords-blacklist '("name")
   "List of keywords to ignore during capitalization.")
+
+(defvar sql-auto-indent t
+  "If non nil use sql-indent.")
