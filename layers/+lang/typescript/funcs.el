@@ -66,8 +66,6 @@
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (spacemacs//setup-lsp-jump-handler 'typescript-mode
-                                    'typescript-tsx-mode)
         (lsp-javascript-typescript-enable))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
@@ -76,14 +74,14 @@
   "Setup lsp auto-completion."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (fix-lsp-company-prefix)
         (spacemacs|add-company-backends
           :backends company-lsp
           :modes typescript-mode typescript-tsx-mode
           :variables company-minimum-prefix-length 2
           :append-hooks nil
           :call-hooks t)
-        (company-mode))
+        (company-mode)
+        (fix-lsp-company-prefix))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
 

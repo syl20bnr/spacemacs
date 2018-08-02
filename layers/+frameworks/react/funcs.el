@@ -29,23 +29,21 @@
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (lsp-javascript-typescript-enable)
-        (lsp-javascript-flow-enable)
-        (spacemacs//setup-lsp-jump-handler 'rjsx-mode))
+        (lsp-javascript-typescript-enable))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//react-setup-lsp-company ()
   "Setup lsp auto-completion."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (fix-lsp-company-prefix)
         (spacemacs|add-company-backends
           :backends company-lsp
           :modes rjsx-mode
           :variables company-minimum-prefix-length 2
           :append-hooks nil
           :call-hooks t)
-        (company-mode))
+        (company-mode)
+        (fix-lsp-company-prefix))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 

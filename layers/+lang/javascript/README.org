@@ -84,7 +84,7 @@ See [[file:../../+tools/tern/README.org][tern layer]] documentation.
 You just have to install javascript and typescript language server packages:
 
 #+begin_src sh
-npm i -g typescript javascript-typescript-langserver flow-language-server
+npm i -g typescript javascript-typescript-langserver
 #+end_src
 
 * Configuration

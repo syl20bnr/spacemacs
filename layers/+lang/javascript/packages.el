@@ -24,10 +24,7 @@
         js2-mode
         js2-refactor
         livid-mode
-        (lsp-javascript-typescript
-         :requires lsp-mode
-         :location (recipe :fetcher github
-                           :repo "emacs-lsp/lsp-javascript"))
+        (lsp-javascript-typescript :requires lsp-mode)
         org
         skewer-mode
         tern
@@ -78,8 +75,7 @@
     :mode "\\.m?js\\'"
     :init
     (progn
-      (add-hook 'js2-mode-local-vars-hook
-                #'spacemacs//javascript-setup-backend)
+      (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-backend)
       ;; safe values for backend to be used in directory file variables
       (dolist (value '(lsp tern))
         (add-to-list 'safe-local-variable-values
@@ -171,8 +167,7 @@
   (use-package lsp-javascript-typescript
     :commands lsp-javascript-typescript-enable
     :defer t
-    :init (add-hook 'js2-mode-hook 'lsp-mode)
-    :config (require 'lsp-javascript-flow)))
+    :config (spacemacs//setup-lsp-jump-handler 'js2-mode)))
 
 (defun javascript/init-skewer-mode ()
   (use-package skewer-mode
