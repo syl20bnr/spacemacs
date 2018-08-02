@@ -13,7 +13,11 @@
       '(
         auto-yasnippet
         auto-complete
-        ac-ispell
+        ;; Disabled since tha package was missing from melpa
+        ;; TODO: Enable it when the issue is cloded.
+        ;; https://github.com/melpa/melpa/issues/5657
+        ;;
+        ;; ac-ispell
         company
         (company-quickhelp :toggle auto-completion-enable-help-tooltip)
         company-statistics
