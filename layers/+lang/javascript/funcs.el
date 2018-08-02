@@ -15,8 +15,8 @@
 (defun spacemacs//javascript-setup-backend ()
   "Conditionally setup javascript backend."
   (pcase javascript-backend
-    (`tern (add-hook 'js2-mode-hook #'spacemacs//javascript-setup-tern))
-    (`lsp (add-hook 'js-mode-hook #'spacemacs//javascript-setup-lsp))))
+    (`tern (spacemacs//javascript-setup-tern))
+    (`lsp (spacemacs//javascript-setup-lsp))))
 
 (defun spacemacs//javascript-setup-company ()
   "Conditionally setup company based on backend."
