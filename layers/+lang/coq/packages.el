@@ -95,7 +95,13 @@
         "gl" 'proof-goto-end-of-locked
         "gs" 'proof-goto-command-start
         ;; Insertions
-        "ie" 'coq-end-Section))))
+        "ic" 'coq-insert-command
+        "ie" 'coq-end-Section
+        "ii" 'coq-insert-intros
+        "ir" 'coq-insert-requires
+        "is" 'coq-insert-section-or-module
+        "it" 'coq-insert-tactic
+        "iT" 'coq-insert-tactical))))
 
 (defun coq/post-init-smartparens ()
   (spacemacs/add-to-hooks (if dotspacemacs-smartparens-strict-mode
