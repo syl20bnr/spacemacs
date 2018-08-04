@@ -119,7 +119,8 @@
   (use-package persp-mode
     :init
     (progn
-      (setq persp-auto-resume-time (if (or dotspacemacs-auto-resume-layouts
+      (setq persp-add-buffer-on-after-change-major-mode 'free
+            persp-auto-resume-time (if (or dotspacemacs-auto-resume-layouts
                                            spacemacs-force-resume-layouts)
                                        1 -1)
             persp-is-ibc-as-f-supported nil
