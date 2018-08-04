@@ -48,11 +48,11 @@ supported, so consult the [[http://joaotavora.github.io/yasnippet/snippet-develo
 
 ** Default insertions
 Note that Emacs ships with some default templates. If these are not to your
-liking, set the layer variable =templates-use-defaults= to =nil=.
+liking, set the layer variable =templates-use-default-templates= to =nil=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '((templates :variables templates-use-defaults nil)))
+    '((templates :variables templates-use-default-templates nil)))
 #+END_SRC
 
 ** Querying
