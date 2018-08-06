@@ -139,3 +139,17 @@
   "Set the tab width."
   (when go-tab-width
     (setq-local tab-width go-tab-width)))
+
+(defun spacemacs/go-install-after-save ()
+  "Install current package to pkg."
+  (interactive)
+  (when (eq major-mode 'go-mode)
+    (let ((errbuf (get-buffer-create "*GoInstall*"))
+          (install-args (list "install" "--buildmode=archive")))
+      (with-current-buffer errbuf
+        (erase-buffer))
+      (if (eq go-install-after-save 'sync)
+          (if (zerop (apply #'call-process "go" nil errbuf nil install-args))
+              (message "Applied go install")
+            (message "Apply go install failed"))
+        (apply #'start-process "go-install" errbuf "go" install-args)))))

@@ -199,6 +199,18 @@ You have a few options to ensure you always get up to date suggestions:
   for you.
 - You can configure your task runner to run the =go install ./...= command on every
   file change.
+- Set =go-install-after-save= to have spacemacs run =go install --buildmode=archive= for
+  current pacakge after you saved a file:
+  #+begin_src emacs-lisp
+    (go :variables go-install-after-save t)
+  #+end_src
+  this behavier is asynchronous and slicent as default, you can choose the synchronous way to
+  get some result hint showed by message:
+  #+begin_src emacs-lisp
+    (go :variables go-install-after-save 'sync)
+  #+end_src
+  it also creates a buffer named `*GoInstall*` to record the command output details, both in
+  synchronous and asynchronous.
 
 ** LSP backend
 To enable the LSP backend, ensure that the =lsp= layer is enabled, and set the

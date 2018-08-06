@@ -128,6 +128,8 @@
     (progn
       (when go-format-before-save
         (add-hook 'before-save-hook 'gofmt-before-save))
+      (when go-install-after-save
+        (add-hook 'after-save-hook 'spacemacs/go-install-after-save))
       (spacemacs/declare-prefix-for-mode 'go-mode "me" "playground")
       (spacemacs/declare-prefix-for-mode 'go-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'go-mode "mh" "help")

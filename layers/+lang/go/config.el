@@ -44,3 +44,6 @@ If `nil' then `go-mode' is the default backend unless `lsp' layer is used.")
 
 (defvar go-run-args ""
   "Additional arguments to by supplied to `go run` during runtime.")
+
+(defvar go-install-after-save nil
+  "Run `go install --buildmode=archive` after save. Possible values are `t' `sync' `nil'.")
