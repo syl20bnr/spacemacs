@@ -110,12 +110,12 @@ the focus."
   (cider-insert-ns-form-in-repl t)
   (evil-insert-state))
 
-(defun spacemacs/cider-send-buffer-in-repl-and-focus ()
+(defun spacemacs/cider-send-buffer-in-repl-and-focus (&optional set-namespace)
   "Send the current buffer in the REPL and switch to the REPL in
-`insert state'."
-  (interactive)
+`insert state'. When set-namespace, also change into the namespace of the buffer."
+  (interactive "P")
   (cider-load-buffer)
-  (cider-switch-to-repl-buffer)
+  (cider-switch-to-repl-buffer set-namespace)
   (evil-insert-state))
 
 (defun spacemacs/cider-test-run-focused-test ()
