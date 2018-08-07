@@ -11,7 +11,8 @@
 
 (defun spacemacs//go-set-tab-width ()
   "Set the tab width."
-  (setq-local tab-width go-tab-width))
+  (when go-tab-width
+    (setq-local tab-width go-tab-width)))
 
 (defun spacemacs//go-enable-gometalinter ()
    "Enable `flycheck-gometalinter' and disable overlapping `flycheck' linters."
