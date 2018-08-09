@@ -58,6 +58,7 @@
 (defun exwm/init-exwm ()
   (use-package exwm-randr)
   (use-package exwm-systemtray)
+  (use-package exwm-config)
   (use-package exwm
     :init
     ;; Disable dialog boxes since they are unusable in EXWM
@@ -77,36 +78,27 @@
       (add-hook 'exwm-mode-hook #'hidden-mode-line-mode))
 
     :config
-    (when dotspacemacs-use-ido
-      (exwm-enable-ido-workaround))
+    (add-hook 'exwm-update-title-hook
+              (lambda ()
+                (exwm-workspace-rename-buffer exwm-title)))
+
+    (when 'dotspacemacs-use-ido
+      (exwm-config-ido)
+      ;; Only rename windows intelligently when using ido.
+      ;; When using helm-exwm, the source distinguishes title and class.
+      (add-hook 'exwm-update-class-hook
+                (lambda ()
+                  (unless (or (string-prefix-p "sun-awt-X11-" exwm-instance-name)
+                              (string= "gimp" exwm-instance-name))
+                    (exwm-workspace-rename-buffer exwm-class-name))))
+      (add-hook 'exwm-update-title-hook
+                (lambda ()
+                  (when (or (not exwm-instance-name)
+                            (string-prefix-p "sun-awt-X11-" exwm-instance-name)
+                            (string= "gimp" exwm-instance-name))
+                    (exwm-workspace-rename-buffer exwm-title)))))
 
     (exwm/exwm-bind-command "s-'"  exwm/terminal-command)
-
-    ;; All buffers created in EXWM mode are named "*EXWM*". You may want to change
-    ;; it in `exwm-update-class-hook' and `exwm-update-title-hook', which are run
-    ;; when a new window class name or title is available. Here's some advice on
-    ;; this subject:
-    ;; + Always use `exwm-workspace-rename-buffer` to avoid naming conflict.
-    ;; + Only renaming buffer in one hook and avoid it in the other. There's no
-    ;;   guarantee on the order in which they are run.
-    ;; + For applications with multiple windows (e.g. GIMP), the class names of all
-    ;;   windows are probably the same. Using window titles for them makes more
-    ;;   sense.
-    ;; + Some application change its title frequently (e.g. browser, terminal).
-    ;;   Its class name may be more suitable for such case.
-    ;; In the following example, we use class names for all windows expect for
-    ;; Java applications and GIMP.
-    (add-hook 'exwm-update-class-hook
-       (lambda ()
-         (unless (or (string-prefix-p "sun-awt-X11-" exwm-instance-name)
-                     (string= "gimp" exwm-instance-name))
-           (exwm-workspace-rename-buffer exwm-class-name))))
-    (add-hook 'exwm-update-title-hook
-       (lambda ()
-         (when (or (not exwm-instance-name)
-                   (string-prefix-p "sun-awt-X11-" exwm-instance-name)
-                   (string= "gimp" exwm-instance-name))
-           (exwm-workspace-rename-buffer exwm-title))))
 
     ;; Pass all keypresses to emacs in line mode.
     (setq exwm-input-line-mode-passthrough t)
