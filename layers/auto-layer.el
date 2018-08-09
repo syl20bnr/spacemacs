@@ -74,6 +74,7 @@
 (configuration-layer/lazy-install 'sml :extensions '("\\(\\.s\\(ml\\|ig\\)\\'\\|\\.\\(sml\\|sig\\)\\'\\)" sml-mode))
 (configuration-layer/lazy-install 'sql :extensions '("\\(\\.sql\\'\\)" sql-mode))
 (configuration-layer/lazy-install 'swift :extensions '("\\(\\.swift\\'\\)" swift-mode))
+(configuration-layer/lazy-install 'systemd :extensions'("\\(\\.\\(nspawn\\|automount\\|busname\\|mount\\|service\\|slice\\|socket\\|swap\\|target\\|timer\\|link\\|netdev\\|network\\)\\'\\)" systemd-mode))
 (configuration-layer/lazy-install 'shell-scripts :extensions '("\\(\\.fish\\'\\|/fish_funced\\..*\\'\\)" fish-mode))
 (configuration-layer/lazy-install 'typescript :extensions '("\\(\\.ts$\\)" typescript-mode))
 (configuration-layer/lazy-install 'vimscript :extensions '("\\(\\.vim\\'\\|[._]?g?vimrc\\'\\|\\.exrc\\'\\|_vimrc\\'\\|\\.vim[rc]?\\'\\)" vimrc-mode))
