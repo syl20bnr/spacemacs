@@ -99,6 +99,18 @@
                     (exwm-workspace-rename-buffer exwm-title)))))
 
     (exwm/exwm-bind-command "s-'"  exwm/terminal-command)
+    (exwm/exwm-bind-command "<XF86MonBrightnessUp>"
+                                 "light -A 5")
+    (exwm/exwm-bind-command "<XF86MonBrightnessDown>"
+                                 "light -U 5")
+    (exwm/exwm-bind-command "<XF86AudioLowerVolume>"
+                                 "amixer -D pulse -- sset Master unmute 3%-")
+    (exwm/exwm-bind-command "<XF86AudioRaiseVolume>"
+                                 "amixer -D pulse -- sset Master unmute 3%+")
+    (exwm/exwm-bind-command "<XF86AudioMute>"
+                                 "amixer -D pulse -- sset Master toggle")
+    (exwm/exwm-bind-command "<XF86AudioMicMute>"
+                                 "amixer -D pulse -- sset Capture toggle")
 
     ;; Pass all keypresses to emacs in line mode.
     (setq exwm-input-line-mode-passthrough t)
