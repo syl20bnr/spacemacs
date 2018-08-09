@@ -915,7 +915,10 @@ to 'auto, tags may not be properly aligned. "
 
     (custom-theme-set-variables
      theme-name
-     `(ansi-color-names-vector [,bg4 ,red ,green ,yellow ,blue ,magenta ,cyan ,base]))
+     `(ansi-color-names-vector [,bg4 ,red ,green ,yellow ,blue ,magenta ,cyan ,base])
+
+;;;;; pdf-tools
+     `(pdf-view-midnight-colors '(,base . ,bg1)))
 
     ))
 
