@@ -257,4 +257,5 @@ Can show completions at point for COMMAND using helm or ido"
 
     ;; Do not forget to enable EXWM. It will start by itself when things are ready.
     ;; (exwm-enable)
+    (server-start)
     ))
