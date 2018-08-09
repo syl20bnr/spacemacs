@@ -187,26 +187,21 @@
     ;; Undo window configurations
     (exwm-input-set-key (kbd "s-u") #'winner-undo)
     (exwm-input-set-key (kbd "S-s-U") #'winner-redo)
-    ;; Focusing windows
-    (exwm-input-set-key (kbd "s-h") #'evil-window-left)
-    (exwm-input-set-key (kbd "s-j") #'evil-window-down)
-    (exwm-input-set-key (kbd "s-k") #'evil-window-up)
-    (exwm-input-set-key (kbd "s-l") #'evil-window-right)
-    ;; Moving Windows
-    (exwm-input-set-key (kbd "s-H") #'evil-window-move-far-left)
-    (exwm-input-set-key (kbd "s-J") #'evil-window-move-very-bottom)
-    (exwm-input-set-key (kbd "s-K") #'evil-window-move-very-top)
-    (exwm-input-set-key (kbd "s-L") #'evil-window-move-far-right)
-    ;; Resize
-    (exwm-input-set-key (kbd "M-s-h") #'spacemacs/shrink-window-horizontally)
-    (exwm-input-set-key (kbd "M-s-j") #'spacemacs/shrink-window)
-    (exwm-input-set-key (kbd "M-s-k") #'spacemacs/enlarge-window)
-    (exwm-input-set-key (kbd "M-s-l") #'spacemacs/enlarge-window-horizontally)
     ;; Workspaces
     (exwm-input-set-key (kbd "s-]") #'exwm/exwm-workspace-next)
     (exwm-input-set-key (kbd "s-[") #'exwm/exwm-workspace-prev)
 
     (spacemacs/declare-prefix "W" "EXWM")
+    (spacemacs/set-leader-keys
+      "Wp" 'exwm/exwm-workspace-prev
+      "Wn" 'exwm/exwm-workspace-next
+      "Wf" 'exwm-layout-set-fullscreen
+      "WA" 'exwm-workspace-add
+      "Wd" 'exwm-workspace-delete
+      "WR" 'exwm-restart
+      "Wr" 'exwm-reset
+      "Wl" 'exwm/exwm-lock
+      "Wa" 'exwm/exwm-app-launcher)
     (exwm-randr-enable)
     (exwm-systemtray-enable)
     ;; The following example demonstrates how to use simulation keys to mimic the
