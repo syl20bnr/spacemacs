@@ -118,6 +118,10 @@
 
     ;; `exwm-input-set-key' allows you to set a global key binding (available in
     ;; any case). Following are a few examples.
+
+    (exwm-input-set-key (kbd "s-i") 'exwm-input-toggle-keyboard)
+    (exwm-input-set-key (kbd "M-m") 'spacemacs-cmds)
+    (exwm-input-set-key (kbd "C-q") 'exwm-input-send-next-key)
     ;; + We always need a way to go back to line-mode from char-mode
     (exwm-input-set-key (kbd "s-r") 'exwm-reset)
 
@@ -125,65 +129,12 @@
     (exwm-input-set-key (kbd "<s-tab>") #'exwm/jump-to-last-exwm)
     ;; + Bind a key to switch workspace interactively
     (exwm-input-set-key (kbd "s-w") 'exwm-workspace-switch)
-    ;; + Set shortcuts to switch to a certain workspace.
-    (exwm-input-set-key (kbd "s-1")
-                        (lambda () (interactive) (exwm-workspace-switch 0)))
-    (exwm-input-set-key (kbd "s-2")
-                        (lambda () (interactive) (exwm-workspace-switch 1)))
-    (exwm-input-set-key (kbd "s-3")
-                        (lambda () (interactive) (exwm-workspace-switch 2)))
-    (exwm-input-set-key (kbd "s-4")
-                        (lambda () (interactive) (exwm-workspace-switch 3)))
-    (exwm-input-set-key (kbd "s-5")
-                        (lambda () (interactive) (exwm-workspace-switch 4)))
-    (exwm-input-set-key (kbd "s-6")
-                        (lambda () (interactive) (exwm-workspace-switch 5)))
-    (exwm-input-set-key (kbd "s-7")
-                        (lambda () (interactive) (exwm-workspace-switch 6)))
-    (exwm-input-set-key (kbd "s-8")
-                        (lambda () (interactive) (exwm-workspace-switch 7)))
-    (exwm-input-set-key (kbd "s-9")
-                        (lambda () (interactive) (exwm-workspace-switch 8)))
-    (exwm-input-set-key (kbd "s-0")
-                        (lambda () (interactive) (exwm-workspace-switch 9)))
-    ;; The following example demonstrates how to set a key binding only available
-    ;; in line mode. It's simply done by first push the prefix key to
-    ;; `exwm-input-prefix-keys' and then add the key sequence to `exwm-mode-map'.
-    ;; The example shorten 'C-c q' to 'C-q'.
-    (push ?\C-q exwm-input-prefix-keys)
-    (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
     (exwm-input-set-key (kbd "s-SPC") #'exwm/exwm-app-launcher)
     (exwm-input-set-key (kbd "s-l") 'exwm/exwm-lock)
 
-    ;; M-m leader, sorry Space Folks
-    (push ?\M-m exwm-input-prefix-keys)
-    ;; Universal Get-me-outta-here
-    (push ?\C-g exwm-input-prefix-keys)
-    ;; Universal Arguments
-    (push ?\C-u exwm-input-prefix-keys)
-    (push ?\C-0 exwm-input-prefix-keys)
-    (push ?\C-1 exwm-input-prefix-keys)
-    (push ?\C-2 exwm-input-prefix-keys)
-    (push ?\C-3 exwm-input-prefix-keys)
-    (push ?\C-4 exwm-input-prefix-keys)
-    (push ?\C-5 exwm-input-prefix-keys)
-    (push ?\C-6 exwm-input-prefix-keys)
-    (push ?\C-7 exwm-input-prefix-keys)
-    (push ?\C-8 exwm-input-prefix-keys)
-    (push ?\C-9 exwm-input-prefix-keys)
-    ;; C-c, C-x are needed for copying and pasting
-    (delete ?\C-x exwm-input-prefix-keys)
-    (delete ?\C-c exwm-input-prefix-keys)
-    ;; We can use `M-m h' to access help
-    (delete ?\C-h exwm-input-prefix-keys)
     ;; set up evil escape
     (exwm-input-set-key [escape] 'evil-escape)
 
-    ;; Preserve the habit
-    (exwm-input-set-key (kbd "s-:") 'helm-M-x)
-    (exwm-input-set-key (kbd "s-;") 'evil-ex)
-    ;; Shell (not a real one for the moment)
-    (exwm-input-set-key (kbd "C-'") #'spacemacs/default-pop-shell)
     ;; Undo window configurations
     (exwm-input-set-key (kbd "s-u") #'winner-undo)
     (exwm-input-set-key (kbd "S-s-U") #'winner-redo)
