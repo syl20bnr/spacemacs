@@ -168,8 +168,6 @@
     ;;    ([?\C-n] . down)
     ;;    ([?\M-v] . prior)
     ;;    ))
-
-    ;; Do not forget to enable EXWM. It will start by itself when things are ready.
-    ;; (exwm-enable)
+    (exwm-init)
     (server-start)
     ))
