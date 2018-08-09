@@ -14,6 +14,7 @@
 ;; which require an initialization must be listed explicitly in the list.
 (defconst exwm-packages
     '(cl-generic
+      helm-exwm
       (evil-exwm-state :location (recipe :fetcher github
                                          :repo "domenzain/evil-exwm-state"))
       (xelb :location (recipe :fetcher github
@@ -22,6 +23,24 @@
       (exwm :location (recipe :fetcher github
                               :repo "ch11ng/exwm")
             :step pre)))
+
+(defun exwm/init-helm-exwm ()
+  ;; when helm is used activate extra EXWM features
+  (spacemacs|use-package-add-hook helm
+    :post-config
+    (use-package helm-exwm
+      :config
+      (progn
+        ;; Add EXWM buffers to a specific section in helm mini
+        (setq exwm/helm-exwm-emacs-buffers-source
+              (helm-exwm-build-emacs-buffers-source))
+        (setq exwm/helm-exwm-source (helm-exwm-build-source))
+        (setq helm-mini-default-sources `(exwm/helm-exwm-emacs-buffers-source
+                                          exwm/helm-exwm-source
+                                          helm-source-recentf
+                                          helm-source-buffer-not-found))
+        ;; Add a prefix command to choose among EXWM buffers only
+        (spacemacs/set-leader-keys "WW" 'helm-exwm)))))
 
 (defun exwm/init-evil-exwm-state ()
   (use-package evil-exwm-state
@@ -155,8 +174,6 @@
     ;; Undo window configurations
     (exwm-input-set-key (kbd "s-u") #'winner-undo)
     (exwm-input-set-key (kbd "S-s-U") #'winner-redo)
-    ;; Change buffers
-    (exwm-input-set-key (kbd "s-b") #'helm-mini)
     ;; Focusing windows
     (exwm-input-set-key (kbd "s-h") #'evil-window-left)
     (exwm-input-set-key (kbd "s-j") #'evil-window-down)
@@ -178,6 +195,7 @@
 
     (require 'exwm-randr)
     (setq exwm-randr-workspace-output-plist '(0 "VGA1"))
+    (spacemacs/declare-prefix "W" "EXWM")
     (exwm-randr-enable)
     ;; The following example demonstrates how to use simulation keys to mimic the
     ;; behavior of Emacs. The argument to `exwm-input-set-simulation-keys' is a
