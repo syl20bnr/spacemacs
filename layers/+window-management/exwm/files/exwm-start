@@ -5,11 +5,10 @@ xhost +
 ## you might need to append the TTY you are working on
 xinit
 
-wmname LG3D
-
 # Remap caps lock to left control. This is not strictly speaking
 # exwm related, but it's handy
 setxkbmap -option 'ctrl:no caps'
+wmname EXWM
 
 # Set fallback cursor
 xsetroot -cursor_name left_ptr
