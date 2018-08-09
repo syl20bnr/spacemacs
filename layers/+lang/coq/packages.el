@@ -32,12 +32,18 @@
     :config
     (progn
       (spacemacs|hide-lighter company-coq-mode)
-      (spacemacs/declare-prefix-for-mode 'coq-mode
-        "mi" "coq/insert")
+      (dolist (prefix '(("mi" . "coq/insert")
+                        ("mh" . "coq/document")))
+        (spacemacs/declare-prefix-for-mode
+          'coq-mode
+          (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'coq-mode
         "il" 'company-coq-lemma-from-goal
         "im" 'company-coq-insert-match-construct
-        "ao" 'company-coq-occur))))
+        "ao" 'company-coq-occur
+        "he" 'company-coq-document-error
+        "hE" 'company-coq-browse-error-messages
+        "hh" 'company-coq-doc))))
 
 (defun coq/init-proof-general ()
   (use-package proof-site

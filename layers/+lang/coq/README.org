@@ -13,6 +13,7 @@
 - [[#key-bindings][Key bindings]]
   - [[#laying-out-windows][Laying out windows]]
   - [[#managing-prover-process][Managing prover process]]
+  - [[#getting-documentation][Getting documentation]]
   - [[#prover-queries][Prover queries]]
   - [[#moving-the-point][Moving the point]]
   - [[#inserting][Inserting]]
@@ -69,6 +70,14 @@ font, or disable the feature by adding the following snippet to the your
 | ~SPC m p p~ | Process buffer - processes and moves point to end of buffer     |
 | ~SPC m p q~ | Quit prover                                                     |
 | ~SPC m p r~ | Retract buffer - rewinds and moves point to beginning of buffer |
+
+** Getting documentation
+
+| Key Binding | Description                                                     |
+|-------------+-----------------------------------------------------------------|
+| ~SPC m h h~ | Show documentation for whatever is below the cursor             |
+| ~SPC m h e~ | Show documentation for the error in the `*response*` buffer     |
+| ~SPC m h E~ | Browse all available documentation for errors                   |
 
 ** Prover queries
 The mnemonic for =a= is "ask".
