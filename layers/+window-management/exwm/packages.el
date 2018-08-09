@@ -14,12 +14,20 @@
 ;; which require an initialization must be listed explicitly in the list.
 (defconst exwm-packages
     '(cl-generic
+      (evil-exwm-state :location (recipe :fetcher github
+                                         :repo "domenzain/evil-exwm-state"))
       (xelb :location (recipe :fetcher github
                               :repo "ch11ng/xelb")
             :step pre)
       (exwm :location (recipe :fetcher github
                               :repo "ch11ng/exwm")
             :step pre)))
+
+(defun exwm/init-evil-exwm-state ()
+  (use-package evil-exwm-state
+    :init
+    (spacemacs/define-evil-state-face "exwm" "firebrick1")
+    (spacemacs/define-evil-state-face "exwm-insert" "chartreuse3")))
 
 (defun exwm/init-cl-generic ()
   (use-package cl-generic
@@ -72,6 +80,8 @@
                    (string= "gimp" exwm-instance-name))
            (exwm-workspace-rename-buffer exwm-title))))
 
+    ;; Pass all keypresses to emacs in line mode.
+    (setq exwm-input-line-mode-passthrough t)
 
 
     ;; `exwm-input-set-key' allows you to set a global key binding (available in
@@ -134,6 +144,8 @@
     (delete ?\C-c exwm-input-prefix-keys)
     ;; We can use `M-m h' to access help
     (delete ?\C-h exwm-input-prefix-keys)
+    ;; set up evil escape
+    (exwm-input-set-key [escape] 'evil-escape)
 
     ;; Preserve the habit
     (exwm-input-set-key (kbd "s-:") 'helm-M-x)
