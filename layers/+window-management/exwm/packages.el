@@ -62,8 +62,15 @@
     :init
     ;; Disable dialog boxes since they are unusable in EXWM
     (setq use-dialog-box nil)
-    ;; 10 Worskpaces please
-    (setq exwm-workspace-number 10)
+    ;; Use as many workspaces as there are connected displays
+    ;; TODO: Is there a way of doing this with xelb?
+    (setq exwm-workspace-number
+          (list-length
+           (split-string
+            (shell-command-to-string
+             "xrandr | grep ' connected' | cut -d' ' -f1 "))))
+    ;; The workspaces will match the order in randr
+    (setq exwm-randr-workspace-output-plist '())
     ;; You may want Emacs to show you the time
     (display-time-mode t)
     (when exwm/hide-tiling-modeline
@@ -195,8 +202,6 @@
     (exwm-input-set-key (kbd "s-]") #'exwm/exwm-workspace-next)
     (exwm-input-set-key (kbd "s-[") #'exwm/exwm-workspace-prev)
 
-    (require 'exwm-randr)
-    (setq exwm-randr-workspace-output-plist '(0 "VGA1"))
     (spacemacs/declare-prefix "W" "EXWM")
     (exwm-randr-enable)
     (exwm-systemtray-enable)
