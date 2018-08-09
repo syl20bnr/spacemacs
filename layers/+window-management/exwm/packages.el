@@ -56,6 +56,8 @@
   (use-package xelb))
 
 (defun exwm/init-exwm ()
+  (use-package exwm-randr)
+  (use-package exwm-systemtray)
   (use-package exwm
     :init
     ;; Disable dialog boxes since they are unusable in EXWM
@@ -197,6 +199,7 @@
     (setq exwm-randr-workspace-output-plist '(0 "VGA1"))
     (spacemacs/declare-prefix "W" "EXWM")
     (exwm-randr-enable)
+    (exwm-systemtray-enable)
     ;; The following example demonstrates how to use simulation keys to mimic the
     ;; behavior of Emacs. The argument to `exwm-input-set-simulation-keys' is a
     ;; list of cons cells (SRC . DEST), where SRC is the key sequence you press and
