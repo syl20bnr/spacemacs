@@ -17,7 +17,7 @@
          (overflow? (= exwm-workspace-current-index (1- exwm-workspace-number))))
     (cond
      (only-workspace? nil)
-     (overflow? (when exwm/exwm-workspace-switch-wrap
+     (overflow? (when exwm-workspace-switch-wrap
                   (exwm-workspace-switch 0)))
      (t (exwm-workspace-switch (1+ exwm-workspace-current-index))))))
 
@@ -28,7 +28,7 @@
          (overflow? (= exwm-workspace-current-index 0)))
     (cond
      (only-workspace? nil)
-     (overflow? (when exwm/exwm-workspace-switch-wrap
+     (overflow? (when exwm-workspace-switch-wrap
                   (exwm-workspace-switch (1- exwm-workspace-number))))
      (t (exwm-workspace-switch (1- exwm-workspace-current-index))))))
 
@@ -60,7 +60,7 @@ Can show completions at point for COMMAND using helm"
 
 (defun exwm/exwm-lock ()
   (interactive)
-  (start-process "" nil exwm/locking-command))
+  (start-process "" nil exwm-locking-command))
 
 ;; Other utilities
 (defun exwm//flatenum (i ls)

@@ -65,23 +65,23 @@
     (setq use-dialog-box nil)
     ;; Use as many workspaces as there are connected displays
     ;; TODO: Is there a way of doing this with xelb?
-    (defvar exwm//randr-displays (split-string
+    (defvar exwm--randr-displays (split-string
                             (shell-command-to-string
                              "xrandr | grep ' connected' | cut -d' ' -f1 "))
       "The list of connected RandR displays")
     ;; Set at least as many workspaces as there are connected displays.
     ;; At the user's option, begin with even more workspaces
     (setq exwm-workspace-number
-          (if exwm/workspace-number
-              (max exwm/workspace-number (list-length exwm//randr-displays))
-              (list-length exwm//randr-displays)))
+          (if exwm-workspace-number
+              (max exwm-workspace-number (list-length exwm--randr-displays))
+              (list-length exwm--randr-displays)))
     ;; The first workspaces will match the order in RandR
     (setq exwm-randr-workspace-output-plist
-          (exwm//flatenum 0 exwm//randr-displays))
+          (exwm//flatenum 0 exwm--randr-displays))
 
     ;; You may want Emacs to show you the time
     (display-time-mode t)
-    (when exwm/hide-tiling-modeline
+    (when exwm-hide-tiling-modeline
       (add-hook 'exwm-mode-hook #'hidden-mode-line-mode))
 
     :config
@@ -105,7 +105,7 @@
                             (string= "gimp" exwm-instance-name))
                     (exwm-workspace-rename-buffer exwm-title)))))
 
-    (exwm/exwm-bind-command "s-'"  exwm/terminal-command)
+    (exwm/exwm-bind-command "s-'"  exwm-terminal-command)
     (exwm/exwm-bind-command "<XF86MonBrightnessUp>"
                                  "light -A 5")
     (exwm/exwm-bind-command "<XF86MonBrightnessDown>"
@@ -163,9 +163,9 @@
     (exwm-randr-enable)
     (exwm-systemtray-enable)
 
-    (if exwm/xrandr-command
+    (if exwm-randr-command
      (start-process-shell-command
-      "xrandr" nil exwm/xrandr-command))
+      "xrandr" nil exwm-randr-command))
     ;; The following example demonstrates how to use simulation keys to mimic the
     ;; behavior of Emacs. The argument to `exwm-input-set-simulation-keys' is a
     ;; list of cons cells (SRC . DEST), where SRC is the key sequence you press and
