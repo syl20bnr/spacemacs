@@ -56,7 +56,10 @@
   "Launches an application in your PATH.
 Can show completions at point for COMMAND using helm"
   (interactive)
-  (call-interactively 'helm-run-external-command))
+  (call-interactively
+   (if (configuration-layer/package-usedp 'helm)
+       'helm-run-external-command
+     'async-shell-command)))
 
 (defun exwm/exwm-lock ()
   (interactive)
