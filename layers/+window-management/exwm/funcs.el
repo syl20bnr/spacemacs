@@ -61,3 +61,7 @@ Can show completions at point for COMMAND using helm"
 (defun exwm/exwm-lock ()
   (interactive)
   (start-process "" nil exwm/locking-command))
+
+;; Other utilities
+(defun exwm//flatenum (i ls)
+  (if ls (cons i (cons (first ls) (exwm//flatenum  (1+ i) (cdr ls)))) (list)))

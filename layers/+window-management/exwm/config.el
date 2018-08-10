@@ -12,3 +12,9 @@
 
 (defvar exwm/exwm-workspace-switch-wrap t
   "Whether `exwm/exwm-workspace-next' and `exwm/exwm-workspace-prev' should wrap.")
+
+(defvar exwm/workspace-number nil
+  "Number of workspaces. Defaults to the number of connected displays if `nil'.")
+
+(defvar exwm/xrandr-command nil
+  "`xrandr' command to set up displays prior to EXWM init.")
