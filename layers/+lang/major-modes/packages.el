@@ -3,7 +3,6 @@
         arduino-mode
         (ebuild-mode :location (recipe :fetcher github :repo "emacsmirror/ebuild-mode"))
         (hoon-mode :location (recipe :fetcher github :repo "urbit/hoon-mode.el"))
-        julia-mode
         kivy-mode
         (logcat :location (recipe :fetcher github :repo "dcolascione/logcat-mode"))
         matlab-mode
@@ -31,8 +30,6 @@
         "a" 'ebuild-run-echangelog))))
 
 (defun major-modes/init-hoon-mode ())
-
-(defun major-modes/init-julia-mode ())
 
 (defun major-modes/init-logcat ()
   (use-package logcat

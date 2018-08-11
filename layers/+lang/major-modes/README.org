@@ -17,7 +17,6 @@ This layer adds a number of packages for less common languages and major modes.
   - Android Logcat (not associated with any file types by default)
   - Gentoo ebuilds
   - Hoon
-  - Julia
   - Kivy
   - MATLAB
   - QML
