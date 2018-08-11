@@ -36,7 +36,6 @@
            ("\\.do\\'"           . STA-mode)
            ("\\.ado\\'"          . STA-mode)
            ("\\.[Ss][Aa][Ss]\\'" . SAS-mode)
-           ;; ("\\.jl\\'"           . ess-julia-mode)
            ("\\.[Ss]t\\'"        . S-transcript-mode)
            ("\\.Sout"            . S-transcript-mode)
            ("\\.[Rr]out"         . R-transcript-mode)
@@ -47,11 +46,10 @@
            ("\\.[Jj][Aa][Gg]\\'" . ess-jags-mode)
            ("\\.[Jj][Oo][Gg]\\'" . ess-jags-mode)
            ("\\.[Jj][Mm][Dd]\\'" . ess-jags-mode))
-    ;; :commands (R stata julia SAS)
-    :commands (R stata SAS)
+    :commands (R stata julia SAS ess-julia-mode)
     :init
     (progn
-      ;; (spacemacs/register-repl 'ess-site 'julia)
+      (spacemacs/register-repl 'ess-site 'julia)
       (spacemacs/register-repl 'ess-site 'R)
       (spacemacs/register-repl 'ess-site 'SAS)
       (spacemacs/register-repl 'ess-site 'stata)
