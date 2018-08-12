@@ -113,5 +113,7 @@ This file containes the change log for the next major version of Spacemacs.
 **** C-C++
 - Add possible value =no-completion= to =c-c++-enable-rtags-support= flag.
   This adds the option to opt-out of =company-rtags= while enabling Rtags.
+**** Chinese
+- Add package =chinese-conv= for conversion between simplified and traditional Chinese texts (Xiang Ji)
 *** Various improvements
 - Various documentation improvements (thanks Carl Lange, Diego Berrocal, Wieland Hoffmann)
