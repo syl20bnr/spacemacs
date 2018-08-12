@@ -1952,6 +1952,8 @@ Reporting an issue:
 | ~SPC h I~       | Open Spacemacs GitHub issue page with pre-filled information                             |
 | ~SPC u SPC h I~ | Open Spacemacs GitHub issue page with pre-filled information - include last pressed keys |
 
+*Note*: To be able to report an issue you need to be logged into GitHub
+
 *Note*: If these two bindings are used with the =*Backtrace*= buffer open, the
 backtrace is automatically included
 
