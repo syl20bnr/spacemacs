@@ -123,7 +123,7 @@
       (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width)
       (add-hook 'go-mode-local-vars-hook
                 #'spacemacs//go-setup-backend)
-      (dolist (value '(lsp default))
+      (dolist (value '(lsp go-mode))
         (add-to-list 'safe-local-variable-values
                      (cons 'go-backend value))))
     :config
