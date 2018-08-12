@@ -13,17 +13,20 @@
 - [[#key-bindings][Key Bindings]]
 
 * Description
-This layer provides on the fly syntax checking using [[http://www.flycheck.org/][Flycheck]].
+This layer adds on the fly syntax checking to all supported language layers.
 
 ** Features:
-   - Automatic syntax checking with [[http://www.flycheck.org/][Flycheck]]
-   - Tooltip syntax errors with =popwin=
+- Support for automatic syntax checking with [[http://www.flycheck.org/][Flycheck]] for various language layers
+- Tooltip syntax errors with =popwin=
 
 * Install
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =syntax-checking= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+As this is a support layer you will also have to install at least one supported language
+layer for it to have any effect.
 
 ** Enabling/Disabling tooltips
 By default tooltips are enabled and used whenever it is possible.

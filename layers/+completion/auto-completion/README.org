@@ -22,25 +22,21 @@
   - [[#auto-yasnippet][Auto-yasnippet]]
 
 * Description
-This layer provides auto-completion to Spacemacs.
-
-The following completion engines are supported:
-- [[http://company-mode.github.io/][company]]
-- [[https://github.com/auto-complete/auto-complete][auto-complete]]
-
-Snippets are supported via [[https://github.com/capitaomorte/yasnippet][yasnippet]] and [[https://github.com/abo-abo/auto-yasnippet][auto-yasnippet]].
-
-This layer also configures =hippie-expand=.
+This layer adds auto-completion to all supported language layers.
 
 ** Features:
-- Completion with =company= or =auto-complete=
-- Frequency-based suggestions via =company-statistics=
-- Integration with =yasnippets=
+- Support for code completion with [[http://company-mode.github.io/][company]] or [[https://github.com/auto-complete/auto-complete][auto-complete]] for various language layers
+- Frequency-based suggestions via [[https://github.com/company-mode/company-statistics][company-statistics]] for =company=
+- Integration with [[https://github.com/capitaomorte/yasnippet][yasnippet]] and [[https://github.com/abo-abo/auto-yasnippet][auto-yasnippet]]
+- Automatic configuration of [[https://www.emacswiki.org/emacs/HippieExpand][hippie-expand]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =auto-completion= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+As this is a support layer you will also have to install at least one supported language
+layer for it to have any effect.
 
 * Configuration
 ** Key bindings
@@ -59,8 +55,8 @@ layer variables:
    - =nil= does nothing
 
 3. =auto-completion-complete-with-key-sequence= is a string of two characters
-   denoting a key sequence that will perform a =complete= action if the sequence
-   as been entered quickly enough. If its value is =nil= then the feature is
+   denoting a key sequence that will perform a =complete action= if the sequence
+   has been entered quickly enough. If its value is =nil= then the feature is
    disabled.
 
 4. =auto-completion-complete-with-key-sequence-delay= is the number of seconds
@@ -81,8 +77,10 @@ The default configuration of the layer is:
                    auto-completion-complete-with-key-sequence nil
                    auto-completion-complete-with-key-sequence-delay 0.1
                    auto-completion-idle-delay 0.2
-                   auto-completion-private-snippets-directory nil)
-                   ))
+                   auto-completion-private-snippets-directory nil
+                   auto-completion-enable-snippets-in-popup nil
+                   auto-completion-enable-help-tooltip nil
+                   auto-completion-enable-sort-by-usage nil)))
 #+END_SRC
 
 ~jk~ is a good candidate for =auto-completion-complete-with-key-sequence= if
@@ -95,9 +93,9 @@ The following directories are added by default:
 - =~/.emacs.d/private/snippets= (conditional to the value of =auto-completion-private-snippets-directory=)
 - =~/.spacemacs.d/snippets= (conditional to the existence of =~/.spacemacs.d= directory)
 
-You can provide additional directories by setting the variable
-=auto-completion-private-snippets-directory= which can take a string in case of
-a single path or a list of paths.
+You can provide additional directories by setting the variable =auto-completion-private-snippets-directory=
+which can either take a single path as string or a list of paths.
+
 If its value is =nil= then the path =~/.emacs.d/private/snippets= is used.
 
 ** Show snippets in auto-completion popup
@@ -133,8 +131,7 @@ To enable manual non-automatic invocation of docstring tooltips, set it to
 To enable sorting auto-completion results by their usage frequency set
 =auto-completion-enable-sort-by-usage= to =t=.
 This feature is provided by the [[https://github.com/company-mode/company-statistics][company-statistics]] package when =company=
-is used.
-The variable has no effect when =auto-complete= is used.
+is used. The variable has no effect when =auto-complete= is used.
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers
@@ -186,7 +183,7 @@ In the file =packages.el= of the python layer:
 ** Completion back ends
 Many spacemacs layers (e.g., python, html, haskell) configure company mode
 backends to provide mode-specific completion. These modes will include
-completion backends specified in the `spacemacs-default-company-backends`
+completion backends specified in the =spacemacs-default-company-backends=
 variable. The defaults should work well, but you can configure this variable in
 your =.spacemacs= file with (e.g.)
 
