@@ -17,16 +17,16 @@
 (defun spacemacs//go-setup-backend ()
   "Conditionally setup go backend"
   (pcase go-backend
-    ('default (spacemacs//go-setup-backend-default))
+    ('go-mode (spacemacs//go-setup-backend-go-mode))
     ('lsp (spacemacs//go-setup-backend-lsp))))
 
 (defun spacemacs//go-setup-company ()
   "Conditionally setup go company based on backend"
   (pcase go-backend
-    ('default (spacemacs//go-setup-company-go))
+    ('go-mode (spacemacs//go-setup-company-go))
     ('lsp (spacemacs//go-setup-company-lsp))))
 
-(defun spacemacs//go-setup-backend-default ()
+(defun spacemacs//go-setup-backend-go-mode ()
   (company-go))
 
 (defun spacemacs//go-setup-company-go ()
