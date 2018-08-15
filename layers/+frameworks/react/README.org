@@ -82,7 +82,8 @@ is my configuration as an example:
     "wrap_attributes": "auto",
     "wrap_attributes_indent_size": 2,
     "e4x": true,
-    "end_with_newline": true
+    "end_with_newline": true,
+    "brace_style": "collapse-preserve-inline"
   }
 #+END_SRC
 
