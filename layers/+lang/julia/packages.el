@@ -17,6 +17,7 @@
                                  :repo "non-Jedi/lsp-julia"))
     flycheck
     company-lsp
+    evil-surround
     ))
 
 (defun julia/init-julia-mode ()
@@ -63,6 +64,13 @@
                 "sl" 'julia-repl-send-line
                 "sr" 'julia-repl-send-region-or-line
                 "em" 'julia-repl-macroexpand))))
+
+(defun julia/post-init-evil-surround ()
+  (with-eval-after-load 'evil-surround
+    (add-to-list 'evil-surround-pairs-alist '(?b . ("begin " . " end")))
+    (add-to-list 'evil-surround-pairs-alist '(?q . ("quote " . " end")))
+    (add-to-list 'evil-surround-pairs-alist '(?: . (":("     .    ")")))
+    (add-to-list 'evil-surround-pairs-alist '(?l . ("let "   . " end")))))
 
 (defun julia/init-lsp-julia ()
   (use-package lsp-julia
