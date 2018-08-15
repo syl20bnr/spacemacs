@@ -13,6 +13,9 @@
 
 (spacemacs|define-jump-handlers go-mode godef-jump)
 
+(defvar go-backend 'go-mode
+  "The backend to use for IDE features. Possible values are `go-mode' and `lsp'.")
+
 (defvar go-use-gocheck-for-testing nil
   "If using gocheck for testing when running the tests -check.f will be used instead of -run to specify the test that will be ran. Gocheck is mandatory for testing suites.")
 

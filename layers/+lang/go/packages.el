@@ -11,6 +11,7 @@
 
 (setq go-packages
       '(
+        company
         (company-go :requires company)
         counsel-gtags
         flycheck
@@ -28,6 +29,10 @@
         go-rename
         go-tag
         godoctor
+        (lsp-go
+         :requires lsp-mode
+         :location (recipe :fetcher github
+                           :repo "emacs-lsp/lsp-go"))
         popwin
         ))
 
@@ -38,6 +43,13 @@
             :backends company-go
             :modes go-mode
             :variables company-go-show-annotation t)))
+
+(defun go/init-lsp-go ()
+  (use-package lsp-go
+    :commands lsp-go-enable))
+
+(defun go/post-init-company ()
+  (add-hook 'go-mode-local-vars-hook #'spacemacs//go-setup-company))
 
 (defun go/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'go-mode))
@@ -108,7 +120,12 @@
     (progn
       ;; get go packages much faster
       (setq go-packages-function 'spacemacs/go-packages-gopkgs)
-      (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width))
+      (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width)
+      (add-hook 'go-mode-local-vars-hook
+                #'spacemacs//go-setup-backend)
+      (dolist (value '(lsp go-mode))
+        (add-to-list 'safe-local-variable-values
+                     (cons 'go-backend value))))
     :config
     (progn
       (when go-format-before-save

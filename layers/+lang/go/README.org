@@ -7,6 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#pre-requisites][Pre-requisites]]
+  - [[#lsp-backend][LSP backend]]
   - [[#layer][Layer]]
 - [[#configuration][Configuration]]
   - [[#indentation][Indentation]]
@@ -32,6 +33,7 @@ This layer adds extensive support for go to Spacemacs.
 - Test generation with [[https://github.com/s-kostyaev/go-gen-test][go-gen-test]]
 - Get packages faster with [[https://github.com/haya14busa/gopkgs][gopkgs]]
 - Fill a structure with default values using the [[https://github.com/davidrjenni/reftools/tree/master/cmd/fillstruct][fillstruct]]
+- LSP backend
 
 * Install
 ** Pre-requisites
@@ -86,6 +88,32 @@ $PATH RET~).
 
 For best results, make sure that the =auto-completion= and =syntax-checking=
 layers are enabled as well.
+
+** LSP backend
+ To enable the LSP backend set the layer variable =go-backend=:
+
+#+BEGIN_SRC elisp
+(go :variables go-backend 'lsp)
+#+END_SRC
+
+You also need to install the Go Language Server:
+
+#+BEGIN_SRC sh
+  go get -u github.com/sourcegraph/go-langserver
+#+END_SRC
+
+Backend can be chosen on a per project basis using directory local variables
+(files named =.dir-locals.el= at the root of a project), an example to use the
+=go-mode= backend:
+
+#+BEGIN_SRC elisp
+;;; Directory Local Variables
+;;; For more information see (info "(emacs) Directory Variables")
+
+((go-mode (go-backend . go-mode)))
+#+END_SRC
+
+*Note:* you can easily add a directory local variable with ~SPC f v d~.
 
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
