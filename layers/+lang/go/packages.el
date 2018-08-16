@@ -18,6 +18,9 @@
         (flycheck-gometalinter :toggle (and go-use-gometalinter
                                             (configuration-layer/package-used-p
                                              'flycheck)))
+        (flycheck-golangci-lint :toggle (and go-use-golangci-lint
+                                            (configuration-layer/package-used-p
+                                             'flycheck)))
         ggtags
         helm-gtags
         go-eldoc
@@ -166,6 +169,15 @@
     :init (spacemacs/set-leader-keys-for-major-mode 'go-mode
             "rf" 'go-tag-add
             "rF" 'go-tag-remove)))
+
+(defun go/init-flycheck-golangci-lint ()
+  (use-package flycheck-golangci-lint
+    :defer t
+    :init
+    (add-hook 'go-mode-hook 'spacemacs//go-enable-golangci-lint t)))
+
+(defun go/post-init-ggtags ()
+  (add-hook 'go-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun go/init-godoctor ()
   (use-package godoctor
