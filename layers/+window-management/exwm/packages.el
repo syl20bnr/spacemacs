@@ -14,7 +14,7 @@
 ;; which require an initialization must be listed explicitly in the list.
 (defconst exwm-packages
     '(cl-generic
-      helm-exwm
+      (helm-exwm :requires helm)
       (evil-exwm-state :location (recipe :fetcher github
                                          :repo "domenzain/evil-exwm-state"))
       (xelb :location (recipe :fetcher github
@@ -26,21 +26,19 @@
 
 (defun exwm/init-helm-exwm ()
   ;; when helm is used activate extra EXWM features
-  (spacemacs|use-package-add-hook helm
-    :post-config
-    (use-package helm-exwm
-      :config
-      (progn
-        ;; Add EXWM buffers to a specific section in helm mini
-        (setq exwm/helm-exwm-emacs-buffers-source
-              (helm-exwm-build-emacs-buffers-source))
-        (setq exwm/helm-exwm-source (helm-exwm-build-source))
-        (setq helm-mini-default-sources `(exwm/helm-exwm-emacs-buffers-source
-                                          exwm/helm-exwm-source
-                                          helm-source-recentf
-                                          helm-source-buffer-not-found))
-        ;; Add a prefix command to choose among EXWM buffers only
-        (spacemacs/set-leader-keys "WW" 'helm-exwm)))))
+  (use-package helm-exwm
+    :config
+    (progn
+      ;; Add EXWM buffers to a specific section in helm mini
+      (setq exwm-helm-exwm-emacs-buffers-source
+            (helm-exwm-build-emacs-buffers-source))
+      (setq exwm-helm-exwm-source (helm-exwm-build-source))
+      (setq helm-mini-default-sources `(exwm-helm-exwm-emacs-buffers-source
+                                        exwm-helm-exwm-source
+                                        helm-source-recentf
+                                        helm-source-buffer-not-found))
+      ;; Add a prefix command to choose among EXWM buffers only
+      (spacemacs/set-leader-keys "WW" 'helm-exwm))))
 
 (defun exwm/init-evil-exwm-state ()
   (use-package evil-exwm-state
