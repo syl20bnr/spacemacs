@@ -86,6 +86,11 @@
     (setq magithub-dir (concat spacemacs-cache-directory "magithub/"))
     :config
     (progn
+      ;; Configure Magithub to be offline by default because loading data from
+      ;; projects with many pull requests or issues can be exorbitantly slow.
+      ;; See <https://github.com/syl20bnr/spacemacs/issues/11176>.
+      (when (null (magit-get "--global" "magithub.online"))
+        (magit-set "false" "--global" "magithub.online"))
       (magithub-feature-autoinject t)
       (define-key magit-status-mode-map "@" #'magithub-dispatch-popup))))
 
