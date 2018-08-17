@@ -32,15 +32,6 @@
                   (exwm-workspace-switch (1- exwm-workspace-number))))
      (t (exwm-workspace-switch (1- exwm-workspace-current-index))))))
 
-(defun exwm/exwm-layout-toggle-fullscreen ()
-  "Togggles full screen for Emacs and X windows"
-  (interactive)
-  (if exwm--id
-      (if exwm--fullscreen
-          (exwm-reset)
-        (exwm-layout-set-fullscreen))
-    (exwm/toggle-maximize-buffer)))
-
 ;; Quick swtiching between workspaces
 (defvar exwm//toggle-workspace 0 "Previously selected workspace. Used with `exwm/jump-to-last-exwm'.")
 
