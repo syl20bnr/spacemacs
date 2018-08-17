@@ -116,6 +116,19 @@
                                  "amixer -D pulse -- sset Master toggle")
     (exwm/exwm-bind-command "<XF86AudioMicMute>"
                                  "amixer -D pulse -- sset Capture toggle")
+    ;; Remove ALL bindings
+    (define-key exwm-mode-map "\C-c\C-f" nil)
+    (define-key exwm-mode-map "\C-c\C-h" nil)
+    (define-key exwm-mode-map "\C-c\C-k" nil)
+    (define-key exwm-mode-map "\C-c\C-m" nil)
+    (define-key exwm-mode-map "\C-c\C-q" nil)
+    (define-key exwm-mode-map "\C-c\C-t\C-f" nil)
+    (define-key exwm-mode-map "\C-c\C-t\C-m" nil)
+    ;; Let easy-menu figure out the keys
+    (easy-menu-add-item exwm-mode-menu '()
+                        ["Toggle mode-line" exwm-layout-toggle-mode-line])
+    (easy-menu-add-item exwm-mode-menu '()
+                        ["Move X window to" exwm-workspace-move-window])
 
     ;; Pass all keypresses to emacs in line mode.
     (setq exwm-input-line-mode-passthrough t)
