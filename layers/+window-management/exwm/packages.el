@@ -103,19 +103,6 @@
                             (string= "gimp" exwm-instance-name))
                     (exwm-workspace-rename-buffer exwm-title)))))
 
-    (exwm/exwm-bind-command "s-'"  exwm-terminal-command)
-    (exwm/exwm-bind-command "<XF86MonBrightnessUp>"
-                                 "light -A 5")
-    (exwm/exwm-bind-command "<XF86MonBrightnessDown>"
-                                 "light -U 5")
-    (exwm/exwm-bind-command "<XF86AudioLowerVolume>"
-                                 "amixer -D pulse -- sset Master unmute 3%-")
-    (exwm/exwm-bind-command "<XF86AudioRaiseVolume>"
-                                 "amixer -D pulse -- sset Master unmute 3%+")
-    (exwm/exwm-bind-command "<XF86AudioMute>"
-                                 "amixer -D pulse -- sset Master toggle")
-    (exwm/exwm-bind-command "<XF86AudioMicMute>"
-                                 "amixer -D pulse -- sset Capture toggle")
     ;; Remove ALL bindings
     (define-key exwm-mode-map "\C-c\C-f" nil)
     (define-key exwm-mode-map "\C-c\C-h" nil)
@@ -129,6 +116,16 @@
                         ["Toggle mode-line" exwm-layout-toggle-mode-line])
     (easy-menu-add-item exwm-mode-menu '()
                         ["Move X window to" exwm-workspace-move-window])
+
+    (exwm/exwm-bind-command
+     "s-'"  exwm-terminal-command
+     "<s-return>"  exwm-terminal-command
+     "<XF86MonBrightnessUp>"   "light -A 5"
+     "<XF86MonBrightnessDown>" "light -U 5"
+     "<XF86AudioLowerVolume>" "amixer -D pulse -- sset Master unmute 3%-"
+     "<XF86AudioRaiseVolume>" "amixer -D pulse -- sset Master unmute 3%+"
+     "<XF86AudioMute>"        "amixer -D pulse -- sset Master toggle"
+     "<XF86AudioMicMute>"     "amixer -D pulse -- sset Capture toggle")
 
     ;; Pass all keypresses to emacs in line mode.
     (setq exwm-input-line-mode-passthrough t)
