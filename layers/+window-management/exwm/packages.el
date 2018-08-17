@@ -150,13 +150,6 @@
     ;; set up evil escape
     (exwm-input-set-key [escape] 'evil-escape)
 
-    ;; Undo window configurations
-    (exwm-input-set-key (kbd "s-u") #'winner-undo)
-    (exwm-input-set-key (kbd "S-s-U") #'winner-redo)
-    ;; Workspaces
-    (exwm-input-set-key (kbd "s-]") #'exwm/exwm-workspace-next)
-    (exwm-input-set-key (kbd "s-[") #'exwm/exwm-workspace-prev)
-
     ;; Bindings available everywhere
     (spacemacs/declare-prefix "W" "EXWM")
     (spacemacs/set-leader-keys
@@ -164,7 +157,7 @@
       "Wn" 'exwm/exwm-workspace-next
       "WA" 'exwm-workspace-add
       "Wd" 'exwm-workspace-delete
-      "WR" 'exwm-restart
+      "Wr" 'exwm-restart
       "Wl" 'exwm/exwm-lock
       "Wa" 'exwm/exwm-app-launcher)
 
@@ -172,7 +165,6 @@
     (spacemacs/declare-prefix-for-mode 'exwm-mode
       "mT" "toggle")
     (spacemacs/set-leader-keys-for-major-mode 'exwm-mode
-      "a" 'exwm/exwm-app-launcher
       "r" 'exwm-reset
       "Tf" 'exwm-layout-toggle-fullscreen
       "Tt" 'exwm-floating-toggle-floating
