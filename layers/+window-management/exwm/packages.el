@@ -147,17 +147,27 @@
     (exwm-input-set-key (kbd "s-]") #'exwm/exwm-workspace-next)
     (exwm-input-set-key (kbd "s-[") #'exwm/exwm-workspace-prev)
 
+    ;; Bindings available everywhere
     (spacemacs/declare-prefix "W" "EXWM")
     (spacemacs/set-leader-keys
       "Wp" 'exwm/exwm-workspace-prev
       "Wn" 'exwm/exwm-workspace-next
-      "Wf" 'exwm-layout-set-fullscreen
       "WA" 'exwm-workspace-add
       "Wd" 'exwm-workspace-delete
       "WR" 'exwm-restart
-      "Wr" 'exwm-reset
       "Wl" 'exwm/exwm-lock
       "Wa" 'exwm/exwm-app-launcher)
+
+    ;; Bindings for use only on EXWM buffers
+    (spacemacs/declare-prefix-for-mode 'exwm-mode
+      "mT" "toggle")
+    (spacemacs/set-leader-keys-for-major-mode 'exwm-mode
+      "a" 'exwm/exwm-app-launcher
+      "r" 'exwm-reset
+      "Tf" 'exwm-layout-toggle-fullscreen
+      "Tt" 'exwm-floating-toggle-floating
+      "Tm" 'exwm-layout-toggle-mode-line)
+
     (exwm-randr-enable)
     (exwm-systemtray-enable)
 
