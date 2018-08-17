@@ -73,11 +73,11 @@ font, or disable the feature by adding the following snippet to the your
 
 ** Getting documentation
 
-| Key Binding | Description                                                     |
-|-------------+-----------------------------------------------------------------|
-| ~SPC m h h~ | Show documentation for whatever is below the cursor             |
-| ~SPC m h e~ | Show documentation for the error in the `*response*` buffer     |
-| ~SPC m h E~ | Browse all available documentation for errors                   |
+| Key Binding | Description                                                 |
+|-------------+-------------------------------------------------------------|
+| ~SPC m h h~ | Show documentation for whatever is below the cursor         |
+| ~SPC m h e~ | Show documentation for the error in the `*response*` buffer |
+| ~SPC m h E~ | Browse all available documentation for errors               |
 
 ** Prover queries
 The mnemonic for =a= is "ask".
