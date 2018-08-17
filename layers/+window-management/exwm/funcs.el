@@ -33,15 +33,15 @@
      (t (exwm-workspace-switch (1- exwm-workspace-current-index))))))
 
 ;; Quick swtiching between workspaces
-(defvar exwm//toggle-workspace 0 "Previously selected workspace. Used with `exwm/jump-to-last-exwm'.")
+(defvar exwm--toggle-workspace 0 "Previously selected workspace. Used with `exwm/jump-to-last-exwm'.")
 
 (defun exwm/jump-to-last-exwm ()
   (interactive)
-  (exwm-workspace-switch exwm//toggle-workspace))
+  (exwm-workspace-switch exwm--toggle-workspace))
 
 (defadvice exwm-workspace-switch
     (before save-toggle-workspace activate)
-  (setq exwm//toggle-workspace exwm-workspace-current-index))
+  (setq exwm--toggle-workspace exwm-workspace-current-index))
 
 (defun exwm/exwm-app-launcher ()
   "Launches an application in your PATH.
