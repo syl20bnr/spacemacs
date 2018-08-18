@@ -90,7 +90,10 @@
       ;; projects with many pull requests or issues can be exorbitantly slow.
       ;; See <https://github.com/syl20bnr/spacemacs/issues/11176>.
       (when (null (magit-get "--global" "magithub.online"))
-        (magit-set "false" "--global" "magithub.online"))
+        (magit-set "false" "--global" "magithub.online")
+        (magit-set "false" "--global" "magithub.status.includeStatusHeader")
+        (magit-set "false" "--global" "magithub.status.includePullRequestsSection")
+        (magit-set "false" "--global" "magithub.status.includeIssuesSection"))
       (magithub-feature-autoinject t)
       (define-key magit-status-mode-map "@" #'magithub-dispatch-popup))))
 
