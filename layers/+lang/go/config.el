@@ -25,6 +25,9 @@
 (defvar go-tab-width 8
   "Set the `tab-width' in Go mode. Default is 8.")
 
+(defvar go-use-golangci-lint nil
+  "Use golangci-lint if the variable has non-nil value.")
+
 (defvar go-use-gometalinter nil
   "Use gometalinter if the variable has non-nil value.")
 
