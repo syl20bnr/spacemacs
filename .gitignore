@@ -48,6 +48,8 @@ python-*-docs-html
 /recentf
 .mc-lists.el
 nov-places
+workspace
+eclipse.jdt.ls
 
 # Private directory
 private/

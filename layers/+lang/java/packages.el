@@ -29,6 +29,7 @@
         maven-test-mode
         (meghanada :toggle (not (version< emacs-version "25.1")))
         mvn
+        (lsp-java :requires lsp-mode lsp-ui company-lsp)
         org
         ))
 
@@ -427,6 +428,46 @@
         ;; meghanada-local-variable
 
         "x:" 'meghanada-run-task))))
+
+(defun java/init-lsp-java ()
+  (use-package lsp-java
+    :defer t
+    :config
+    (progn
+      ;; key bindings
+      (dolist (prefix '(("mc" . "compile")
+                        ("mg" . "goto")
+                        ("mr" . "refactor")
+                        ("mq" . "lsp")))
+      (spacemacs/set-leader-keys-for-major-mode 'java-mode
+        "gg"  'xref-find-definitions
+        "gr"  'xref-find-references
+        "gR"  'lsp-ui-peek-find-references
+        "ga"  'xref-find-apropos
+        "gA"  'lsp-ui-peek-find-workspace-symbol
+        "gd"  'lsp-goto-type-definition
+        "hh"  'lsp-describe-thing-at-point
+        "el"  'lsp-ui-flycheck-list
+        "pu"  'lsp-java-update-user-settings
+        "ea"  'lsp-execute-code-action
+        "qr"  'lsp-restart-workspace
+        "roi" 'lsp-java-organize-imports
+        "rr" 'lsp-rename
+        "rai" 'lsp-java-add-import
+        "ram" 'lsp-java-add-unimplemented-methods
+        "rcp" 'lsp-java-create-parameter
+        "rcf" 'lsp-java-create-field
+        "rec" 'lsp-java-extract-to-constant
+        "rel" 'lsp-java-extract-to-local-variable
+        "rem" 'lsp-java-extract-method
+        "cc"  'lsp-java-build-project
+        "an"  'lsp-java-actionable-notifications
+        "="   'lsp-format-buffer)
+
+      (setq lsp-highlight-symbol-at-point nil
+            lsp-ui-sideline-update-mode 'point
+            lsp-eldoc-render-all nil
+            lsp-java-completion-guess-arguments t)))))
 
 (defun java/init-mvn ()
   (use-package mvn
