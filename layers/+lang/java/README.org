@@ -24,6 +24,9 @@
     - [[#configuration-1][Configuration]]
     - [[#usage-1][Usage]]
     - [[#issues][Issues]]
+  - [[#lsp-java][LSP Java]]
+    - [[#instalation][Instalation]]
+    - [[#configuration-2][Configuration]]
 - [[#key-bindings][Key bindings]]
   - [[#meghanada-1][Meghanada]]
     - [[#server][Server]]
@@ -58,6 +61,7 @@
     - [[#refactoring-2][Refactoring]]
     - [[#tests-1][Tests]]
     - [[#repl][REPL]]
+  - [[#lsp-java-1][LSP Java]]
   - [[#maven][Maven]]
   - [[#gradle][Gradle]]
 
@@ -69,6 +73,7 @@ This layer adds support for the Java language.
   - [[https://github.com/mopemope/meghanada-emacs][Meghanada]] client/server (default),
   - [[http://eclim.org][Eclim]] client/server,
   - [[https://ensime.github.io/][ENSIME]] client/server.
+  - [[https://github.com/emacs-lsp/lsp-java][LSP Java]] client/server.
 - Each provides:
   - Auto-completion using company
   - Linting using flycheck integration
@@ -231,6 +236,40 @@ will suffice do the trick.
 ENSIME is originally built for Scala, so support for java is not complete, in
 particular refactoring doesn't work.
 
+** LSP Java
+LSP Java is the Java adapter for [[https://github.com/emacs-lsp/lsp-mode][LSP Mode]] which is the Emacs client for [[https://github.com/Microsoft/language-server-protocol][Language
+Server Protocol]].
+
+*** Instalation
+Download either [[http://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz][latest]] or [[http://download.eclipse.org/jdtls/snapshots/?d][a specific version]] of Eclipse JDT Language Server
+distribution to =~/.emacs.d/eclipse.jdt.ls/server/=
+
+If you choose to have the server installed in a different directory, set
+=lsp-java-server-install-dir=
+
+If you choose to have the server installed in a different directory, set
+=lsp-java-server-install-dir=
+On Linux/MacOS you could install/update Eclipse JDT Language Server via running the following commands:
+
+#+BEGIN_SRC bash
+  rm -rf ~/.emacs.d/eclipse.jdt.ls/server/
+  mkdir -p ~/.emacs.d/eclipse.jdt.ls/server/
+  wget http://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz -O /tmp/jdt-latest.tar
+  tar xf /tmp/jdt-latest.tar -C ~/.emacs.d/eclipse.jdt.ls/server/
+#+END_SRC
+
+*** Configuration
+Specify the list of projects which will be imported in the LSP server. Note that
+if project is not imported JDT server will provide only basic java support due
+to lack of classpath information.
+
+#+BEGIN_SRC emacs-lisp
+(java :variables java-backend 'lsp
+                 lsp-java--workspace-folders '(list "/path/to/project1"
+                                                    "/path/to/project2"
+                                                    ...))
+#+END_SRC
+
 * Key bindings
 ** Meghanada
 *** Server
@@ -243,7 +282,7 @@ particular refactoring doesn't work.
  | ~SPC m D k~ | Kill server                                  |
  | ~SPC m D l~ | Clear server cache                           |
  | ~SPC m D p~ | Ping server                                  |
- | ~SPC m D r~ | Restarrt server                              |
+ | ~SPC m D r~ | Restart server                               |
  | ~SPC m D s~ | Start server                                 |
  | ~SPC m D u~ | Update server                                |
  | ~SPC m D v~ | Print version of the server                  |
@@ -521,6 +560,34 @@ particular refactoring doesn't work.
 | ~SPC m s i~ | start or switch to the REPL inferior process                        |
 | ~SPC m s r~ | send region to the REPL                                             |
 | ~SPC m s R~ | send region to the REPL and focus the REPL buffer in =insert state= |
+
+** LSP Java
+
+| Key Binding   | Description                           |
+|---------------+---------------------------------------|
+| ~SPC m g g~   | Go to definition                      |
+| ~SPC m g r~   | Find references                       |
+| ~SPC m g R~   | Peek references using ~lsp-ui~        |
+| ~SPC m g d~   | Goto type definition                  |
+| ~SPC m g a~   | Search type in project                |
+| ~SPC m g A~   | Search type in project using ~lsp-ui~ |
+| ~SPC m h h~   | Describe thing at point               |
+| ~SPC m e l~   | List project errors/warnings          |
+| ~SPC m p u~   | Refresh user settings                 |
+| ~SPC m e a~   | Execute code action                   |
+| ~SPC m q r~   | Restart workspace                     |
+| ~SPC m r o i~ | Organize imports                      |
+| ~SPC m r r~   | Rename symbol                         |
+| ~SPC m r a i~ | Add import                            |
+| ~SPC m r a m~ | Add unimplemented methods             |
+| ~SPC m r c p~ | Create parameter                      |
+| ~SPC m r c f~ | Create field                          |
+| ~SPC m r e c~ | Extract constant                      |
+| ~SPC m r e l~ | Extract local                         |
+| ~SPC m r e m~ | Extract method                        |
+| ~SPC m c c~   | Build project                         |
+| ~SPC m a n~   | Actionable notifications              |
+| ~SPC m =~     | Format code                           |
 
 ** Maven
 

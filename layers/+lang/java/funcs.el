@@ -29,21 +29,24 @@
   (pcase java-backend
     (`meghanada (spacemacs//java-setup-meghanada))
     (`eclim (spacemacs//java-setup-eclim))
-    (`ensime (spacemacs//java-setup-ensime))))
+    (`ensime (spacemacs//java-setup-ensime))
+    (`lsp (spacemacs//java-setup-lsp))))
 
 (defun spacemacs//java-setup-company ()
   "Conditionally setup company based on backend."
   (pcase java-backend
     (`meghanada (spacemacs//java-setup-meghanada-company))
     (`eclim (spacemacs//java-setup-eclim-company))
-    (`ensime (spacemacs//java-setup-ensime-company))))
+    (`ensime (spacemacs//java-setup-ensime-company))
+    (`lsp (spacemacs//java-setup-lsp-company))))
 
 (defun spacemacs//java-setup-flycheck ()
   "Conditionally setup flycheck based on backend."
   (pcase java-backend
     (`meghanada (spacemacs//java-setup-meghanada-flycheck))
     (`eclim (spacemacs//java-setup-eclim-flycheck))
-    (`ensime (spacemacs//java-setup-ensime-flycheck))))
+    (`ensime (spacemacs//java-setup-ensime-flycheck))
+    (`lsp (spacemacs//java-setup-lsp-flycheck))))
 
 (defun spacemacs//java-setup-flyspell ()
   "Conditionally setup flyspell based on backend."
@@ -288,3 +291,36 @@
   (when (s-matches? (rx (+ (not space)))
                     (buffer-substring (line-beginning-position) (point)))
     (delete-horizontal-space t)))
+
+
+;; LSP Java
+
+(defun spacemacs//java-setup-lsp ()
+  "Setup LSP Java."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (require 'lsp-java)
+        (require 'company-lsp)
+        (lsp-java-enable))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs//java-setup-lsp-company ()
+  "Setup lsp auto-completion."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (spacemacs|add-company-backends
+          :backends company-lsp
+          :modes java-mode
+          :append-hooks nil
+          :call-hooks t)
+        (company-mode))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs//java-setup-lsp-flycheck ()
+  "Setup LSP Java syntax checking."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (when (spacemacs/enable-flycheck 'java-mode)
+        (require 'lsp-ui-flycheck)
+        (lsp-ui-flycheck-enable nil)
+        (flycheck-mode))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
