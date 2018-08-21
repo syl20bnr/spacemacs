@@ -100,7 +100,7 @@
 (defun spacemacs//counsel-edit ()
   "Edit the current search results in a buffer using wgrep."
   (interactive)
-  (run-with-idle-timer 0 nil 'ivy-wgrep-change-to-wgrep-mode)
+  (run-with-idle-timer 0 nil 'spacemacs/ivy-wgrep-change-to-wgrep-mode)
   (ivy-occur))
 
 (defun spacemacs//gne-init-counsel ()
@@ -380,6 +380,10 @@ To prevent this error we just wrap `describe-mode' to defeat the
                       (let ((repl (cdr (assoc candidate spacemacs-repl-list))))
                         (require (car repl))
                         (call-interactively (cdr repl))))))
+
+(defun spacemacs/ivy-wgrep-change-to-wgrep-mode ()
+  (ivy-wgrep-change-to-wgrep-mode)
+  (evil-normal-state))
 
 ;; Evil
 
