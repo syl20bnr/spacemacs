@@ -24,6 +24,7 @@
         (helm-css-scss :requires helm)
         impatient-mode
         less-css-mode
+        prettier-js
         pug-mode
         sass-mode
         scss-mode
@@ -144,6 +145,11 @@
   (use-package less-css-mode
     :defer t
     :mode ("\\.less\\'" . less-css-mode)))
+
+(defun html/pre-init-prettier-js ()
+  (if (eq web-fmt-tool 'prettier)
+      (dolist (mode '(css-mode less-css-mode scss-mode))
+        (add-to-list 'spacemacs--prettier-modes mode))))
 
 (defun html/init-pug-mode ()
   (use-package pug-mode
@@ -271,5 +277,7 @@
                                                       jade-mode
                                                       slim-mode)))
 (defun html/pre-init-web-beautify ()
-  (add-to-list 'spacemacs--web-beautify-modes (cons 'css-mode 'web-beautify-css))
+  (if (eq web-fmt-tool 'web-beautify)
+      (add-to-list 'spacemacs--web-beautify-modes (cons 'css-mode 'web-beautify-css)))
+  ;; always use web-beautify for a .html file
   (add-to-list 'spacemacs--web-beautify-modes (cons 'web-mode 'web-beautify-html)))
