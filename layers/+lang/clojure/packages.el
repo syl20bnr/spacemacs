@@ -26,7 +26,7 @@
         org
         parinfer
         popwin
-        sayid
+        (sayid :toggle clojure-enable-sayid)
         smartparens
         subword))
 
