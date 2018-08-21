@@ -176,19 +176,7 @@
     (if exwm-randr-command
      (start-process-shell-command
       "xrandr" nil exwm-randr-command))
-    ;; The following example demonstrates how to use simulation keys to mimic the
-    ;; behavior of Emacs. The argument to `exwm-input-set-simulation-keys' is a
-    ;; list of cons cells (SRC . DEST), where SRC is the key sequence you press and
-    ;; DEST is what EXWM actually sends to application. Note that SRC must be a key
-    ;; sequence (of type vector or string), while DEST can also be a single key.
 
-    ;; (exwm-input-set-simulation-keys
-    ;;  '(([?\C-b] . left)
-    ;;    ([?\C-f] . right)
-    ;;    ([?\C-p] . up)
-    ;;    ([?\C-n] . down)
-    ;;    ([?\M-v] . prior)
-    ;;    ))
     (exwm-init)
     (server-start)
     ))
