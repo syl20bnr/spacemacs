@@ -57,8 +57,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Make sure that this isn't a PR to master
+          name: Make sure that this PR targets develop branch
           command: ./.circleci/PR_base
+      - run:
+          name: Make sure that this PR doesn't need rebase
+          command: ./.circleci/PR_rebased
 
   # Emacs 25
   "core Emacs25 (required)":
