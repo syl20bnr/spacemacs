@@ -51,7 +51,7 @@ https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
   "Define key bindings for the specific MODE."
   (spacemacs/declare-prefix-for-mode mode "m=" "format")
   (spacemacs/declare-prefix-for-mode mode "mg" "goto")
-  (spacemacs/declare-prefix-for-mode mode "mh" "hierarchy")
+  (spacemacs/declare-prefix-for-mode mode "mh" "help/hierarchy")
   (spacemacs/declare-prefix-for-mode mode "ml" "lsp/backend")
   (spacemacs/declare-prefix-for-mode mode "mr" "refactor")
   (spacemacs/declare-prefix-for-mode mode "mT" "toggle")
@@ -62,9 +62,10 @@ https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
     ;;goto
     "gi" #'lsp-goto-implementation
     "gt" #'lsp-goto-type-definition
-    "ga" #'spacemacs/lsp-avy-document-symbol
+    "gk" #'spacemacs/lsp-avy-document-symbol
     "gm" #'lsp-ui-imenu
     "gd" #'lsp-ui-peek-find-definitions
+    "gi" #'lsp-ui-peek-find-implementation
     "gr" #'lsp-ui-peek-find-references
     "gs" #'lsp-ui-peek-find-workspace-symbol
     "gp" #'lsp-ui-peek-jump-backward
