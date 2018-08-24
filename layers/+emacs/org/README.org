@@ -15,6 +15,7 @@
   - [[#revealjs-support][Reveal.js support]]
   - [[#org-journal-support][Org-journal support]]
   - [[#hugo-support][Hugo support]]
+  - [[#trello-support][Trello support]]
   - [[#different-bullets][Different bullets]]
   - [[#project-support][Project support]]
   - [[#org-brain-support][Org-brain support]]
@@ -226,6 +227,15 @@ To install the Org exporter [[https://ox-hugo.scripter.co][ox-hugo]] that genera
   (setq-default dotspacemacs-configuration-layers '(
     (org :variables
          org-enable-hugo-support t)))
+#+END_SRC
+
+** Trello support
+To install Trello support set the variable =org-enable-trello-support= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (org :variables
+         org-enable-trello-support t)))
 #+END_SRC
 
 ** Different bullets
