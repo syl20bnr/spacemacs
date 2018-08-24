@@ -37,6 +37,7 @@
         (ox-reveal :toggle org-enable-reveal-js-support)
         persp-mode
         (ox-hugo :toggle org-enable-hugo-support)
+        (org-trello :toggle org-enable-trello-support)
         ))
 
 (defun org/post-init-company ()
@@ -664,3 +665,18 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-ox-hugo ()
   (use-package ox-hugo :after ox))
+
+(defun org/init-org-trello ()
+  (use-package org-trello
+    :after org
+    :config
+    (progn
+      (spacemacs/declare-prefix-for-mode 'org-mode "mo" "trello")
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "oI" 'org-trello-install-key-and-token
+        "oa" 'org-trello-archive-card
+        "oc" 'org-trello-create-board-and-install-metadata
+        "od" 'spacemacs/org-trello-pull-buffer
+        "oi" 'org-trello-install-board-metadata
+        "om" 'org-trello-update-board-metadata
+        "ou" 'spacemacs/org-trello-push-buffer))))

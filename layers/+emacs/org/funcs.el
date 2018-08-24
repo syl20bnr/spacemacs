@@ -49,3 +49,13 @@
   (with-eval-after-load 'evil-surround
     (add-to-list 'evil-surround-pairs-alist '(?: . spacemacs//surround-drawer))
     (add-to-list 'evil-surround-pairs-alist '(?# . spacemacs//surround-code))))
+
+
+
+(defun spacemacs/org-trello-pull-buffer ()
+  (interactive)
+  (org-trello-sync-buffer 1))
+
+(defun spacemacs/org-trello-push-buffer ()
+  (interactive)
+  (org-trello-sync-buffer))
