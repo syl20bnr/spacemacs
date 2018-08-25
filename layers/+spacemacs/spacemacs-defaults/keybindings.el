@@ -770,13 +770,16 @@ otherwise it is scaled down."
 
 (spacemacs|define-transient-state scale-font
   :title "Font Scaling Transient State"
-  :doc "\n[_+_/_=_] scale up [_-_] scale down [_0_] reset font [_q_] quit"
+  :doc "\n[_+_/_=_/_k_] scale up [_-_/_j_] scale down [_0_] reset font [_q_] quit"
   :bindings
   ("+" spacemacs/scale-up-font)
+  ("k" spacemacs/scale-up-font)
   ("=" spacemacs/scale-up-font)
   ("-" spacemacs/scale-down-font)
+  ("j" spacemacs/scale-down-font)
   ("0" spacemacs/reset-font-size)
   ("q" nil :exit t))
+
 (spacemacs/set-leader-keys "zx" 'spacemacs/scale-font-transient-state/body)
 
 ;; end of Text Manipulation Transient State
@@ -835,11 +838,13 @@ If FRAME is nil, it defaults to the selected frame."
 
 (spacemacs|define-transient-state scale-transparency
   :title "Frame Transparency Transient State"
-  :doc "\n[_+_/_=_] increase transparency [_-_] decrease [_T_] toggle [_q_] quit"
+  :doc "\n[_+_/_=_/_k_] increase transparency [_-_/_j_] decrease [_T_] toggle [_q_] quit"
   :bindings
   ("+" spacemacs/increase-transparency)
+  ("k" spacemacs/increase-transparency)
   ("=" spacemacs/increase-transparency)
   ("-" spacemacs/decrease-transparency)
+  ("j" spacemacs/decrease-transparency)
   ("T" spacemacs/toggle-transparency)
   ("q" nil :exit t))
 (spacemacs/set-leader-keys "TT"

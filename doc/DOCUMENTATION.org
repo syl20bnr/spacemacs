@@ -87,8 +87,10 @@
     - [[#all-the-icons-theme][All-the-Icons theme]]
     - [[#custom-spaceline-theme][Custom spaceline theme]]
     - [[#minor-modes][Minor Modes]]
-  - [[#frame-title][Frame title]]
-    - [[#iconified-tabified-title][Iconified (tabified) title]]
+  - [[#frame][Frame]]
+    - [[#title][Title]]
+      - [[#iconified-tabified-title][Iconified (tabified) title]]
+    - [[#transparency][Transparency]]
 - [[#layouts-and-workspaces][Layouts and workspaces]]
   - [[#layouts][Layouts]]
     - [[#the-default-layout][The default layout]]
@@ -167,7 +169,7 @@
     - [[#smartparens-strict-mode][Smartparens Strict mode]]
     - [[#zooming][Zooming]]
       - [[#text][Text]]
-      - [[#frame][Frame]]
+      - [[#frame-1][Frame]]
     - [[#increasedecrease-numbers][Increase/Decrease numbers]]
     - [[#spell-checking][Spell checking]]
     - [[#region-selection][Region selection]]
@@ -1570,38 +1572,53 @@ squared symbols like =🅿=.
 | ~SPC t C-W~ | =Ⓦ=     | W     | automatic whitespace cleanup globally                                |
 | ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
 
-** Frame title
-Default frame title displays name of current process and hostname of system. You
-can include more information (like name of current file, name of current project
-etc) by setting =dotspacemacs-frame-title-format= variable.
+** Frame
+*** Title
+ Default frame title displays name of current process and hostname of system. You
+ can include more information (like name of current file, name of current project
+ etc) by setting =dotspacemacs-frame-title-format= variable.
 
-Following format short codes are available:
+ Following format short codes are available:
 
-| Code | Description                                                                  |
-|------+------------------------------------------------------------------------------|
-| =%a= | the =abbreviated-file-name=, or =buffer-name=                                |
-| =%t= | =projectile-project-name=                                                    |
-| =%I= | =invocation-name=                                                            |
-| =%S= | =system-name=                                                                |
-| =%U= | contents of $USER                                                            |
-| =%b= | buffer name                                                                  |
-| =%f= | visited file name                                                            |
-| =%F= | frame name                                                                   |
-| =%s= | process status                                                               |
-| =%p= | percent of buffer above top of window, or Top, Bot or All                    |
-| =%P= | percent of buffer above bottom of window, perhaps plus Top, or Bottom or All |
-| =%m= | mode name                                                                    |
-| =%n= | Narrow if appropriate                                                        |
-| =%z= | mnemonics of buffer, terminal, and keyboard coding systems                   |
-| =%Z= | like %z, but including the end-of-line format“                               |
+ | Code | Description                                                                  |
+ |------+------------------------------------------------------------------------------|
+ | =%a= | the =abbreviated-file-name=, or =buffer-name=                                |
+ | =%t= | =projectile-project-name=                                                    |
+ | =%I= | =invocation-name=                                                            |
+ | =%S= | =system-name=                                                                |
+ | =%U= | contents of $USER                                                            |
+ | =%b= | buffer name                                                                  |
+ | =%f= | visited file name                                                            |
+ | =%F= | frame name                                                                   |
+ | =%s= | process status                                                               |
+ | =%p= | percent of buffer above top of window, or Top, Bot or All                    |
+ | =%P= | percent of buffer above bottom of window, perhaps plus Top, or Bottom or All |
+ | =%m= | mode name                                                                    |
+ | =%n= | Narrow if appropriate                                                        |
+ | =%z= | mnemonics of buffer, terminal, and keyboard coding systems                   |
+ | =%Z= | like %z, but including the end-of-line format“                               |
 
-*** Iconified (tabified) title
-If you are using tiling window manager with tab support you may want to display
-different title for inactive tabs with =dotspacemacs-icon-title-format=
-variable. Short codes are same as for frame title.
+**** Iconified (tabified) title
+ If you are using tiling window manager with tab support you may want to display
+ different title for inactive tabs with =dotspacemacs-icon-title-format=
+ variable. Short codes are same as for frame title.
 
-If this variable is set to =nil= (default) its value will be same as
-=dotspacemacs-frame-title-format=.
+ If this variable is set to =nil= (default) its value will be same as
+ =dotspacemacs-frame-title-format=.
+
+*** Transparency
+The Frame transparency can be toggled with: ~SPC T T~
+
+This also opens the Frame Transparency Transient State.
+
+In the transient state:
+
+| Key binding   | Description                    |
+|---------------+--------------------------------|
+| ~+~, ~=~, ~k~ | increase transparency          |
+| ~-~, ~j~      | decrease transparency          |
+| ~T~           | toggle transparency on and off |
+| ~q~           | quit transient state           |
 
 * Layouts and workspaces
 Layouts are window configurations with buffer isolation. Each layout can define
@@ -2943,21 +2960,19 @@ It is possible to enable it easily for /all programming modes/ with the variable
 **** Text
 The font size of the current buffer can be adjusted with the commands:
 
-| Key binding | Description                                                                    |
-|-------------+--------------------------------------------------------------------------------|
-| ~SPC z x +~ | scale up the font and initiate the font scaling transient state                |
-| ~SPC z x =~ | scale up the font and initiate the font scaling transient state                |
-| ~SPC z x -~ | scale down the font and initiate the font scaling transient state              |
-| ~SPC z x 0~ | reset the font size (no scaling) and initiate the font scaling transient state |
+| Key binding                           | Description                                                                    |
+|---------------------------------------+--------------------------------------------------------------------------------|
+| ~SPC z x +~, ~SPC z x =~, ~SPC z x k~ | scale up the font and initiate the font scaling transient state                |
+| ~SPC z x -~, ~SPC z x j~              | scale down the font and initiate the font scaling transient state              |
+| ~SPC z x 0~                           | reset the font size (no scaling) and initiate the font scaling transient state |
 
 In the transient state:
 
-| Key binding | Description            |
-|-------------+------------------------|
-| ~+~         | increase the font size |
-| ~=~         | increase the font size |
-| ~-~         | decrease the font size |
-| ~0~         | reset the font size    |
+| Key binding   | Description            |
+|---------------+------------------------|
+| ~+~, ~=~, ~k~ | increase the font size |
+| ~-~, ~j~      | decrease the font size |
+| ~0~           | reset the font size    |
 
 Note that /only/ the text of the current buffer is scaled, the other buffers,
 the mode-line and the minibuffer are not affected. To zoom the whole content of
@@ -2966,16 +2981,19 @@ a frame use the =zoom frame= bindings (see next section).
 **** Frame
 You can zoom in and out the whole content of the frame with the commands:
 
-| Key binding | Description                                                                 |
-|-------------+-----------------------------------------------------------------------------|
-| ~SPC z f +~ | zoom in the frame content and initiate the frame scaling transient state    |
-| ~SPC z f =~ | zoom in the frame content and initiate the frame scaling transient state    |
-| ~SPC z f -~ | zoom out the frame content and initiate the frame scaling transient state   |
-| ~SPC z f 0~ | reset the frame content size and initiate the frame scaling transient state |
-| ~+~         | zoom in                                                                     |
-| ~=~         | zoom in                                                                     |
-| ~-~         | zoom out                                                                    |
-| ~0~         | reset zoom                                                                  |
+| Key binding                           | Description                                                                 |
+|---------------------------------------+-----------------------------------------------------------------------------|
+| ~SPC z f +~, ~SPC z f =~, ~SPC z f k~ | zoom in the frame content and initiate the frame scaling transient state    |
+| ~SPC z f -~, ~SPC z f j~              | zoom out the frame content and initiate the frame scaling transient state   |
+| ~SPC z f 0~                           | reset the frame content size and initiate the frame scaling transient state |
+
+In the transient state:
+
+| Key binding   | Description      |
+|---------------+------------------|
+| ~+~, ~=~, ~k~ | zoom frame in    |
+| ~-~, ~j~      | zoom frame out   |
+| ~0~           | reset frame zoom |
 
 *** Increase/Decrease numbers
 Spacemacs uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily increase or decrease numbers.
