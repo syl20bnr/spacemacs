@@ -92,7 +92,7 @@ when this mode is enabled since the minibuffer is cleared all the time."
         tab-width python-tab-width
         fill-column python-fill-column)
 
-  ;; since we changed the tab-width we need to manually cally python-indent-guess-inden-offset herr
+  ;; since we changed the tab-width we need to manually call python-indent-guess-indent-offset here
   (when python-spacemacs-indent-guess
     (python-indent-guess-indent-offset))
 
