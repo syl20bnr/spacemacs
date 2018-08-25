@@ -91,6 +91,11 @@ when this mode is enabled since the minibuffer is cleared all the time."
   (setq mode-name "Python"
         tab-width python-tab-width
         fill-column python-fill-column)
+
+  ;; since we changed the tab-width we need to manually cally python-indent-guess-inden-offset herr
+  (when python-spacemacs-indent-guess
+    (python-indent-guess-indent-offset))
+
   (when (version< emacs-version "24.5")
     ;; auto-indent on colon doesn't work well with if statement
     ;; should be fixed in 24.5 and above
