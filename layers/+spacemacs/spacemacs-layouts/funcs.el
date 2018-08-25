@@ -24,8 +24,9 @@
     ;; perspective parameters.  We need to replace eyebrowse's advice with
     ;; perspective-aware advice in order to ensure that window
     ;; configurations for inactive perspectives get updated.
-    (ad-disable-advice 'rename-buffer 'around 'eyebrowse-fixup-window-configs)
-    (ad-activate 'rename-buffer)
+    (when (ad-find-advice 'rename-buffer 'around 'eyebrowse-fixup-window-configs)
+      (ad-disable-advice 'rename-buffer 'around 'eyebrowse-fixup-window-configs)
+      (ad-activate 'rename-buffer))
     (advice-add 'rename-buffer :around #'spacemacs//fixup-window-configs)))
 
 (defun spacemacs//layout-wait-for-modeline (&rest _)
