@@ -334,7 +334,8 @@
         "sR" 'spacemacs/python-shell-send-region-switch
         "sr" 'python-shell-send-region)
 
-      ;; we call python-indent-guess-indent-offset ourselves so set to nil to avoid duplicate work
+      ;; Set `python-indent-guess-indent-offset' to `nil' to prevent guessing `python-indent-offset
+      ;; (we call python-indent-guess-indent-offset manually so python-mode does not need to do it)
       (setq-default python-indent-guess-indent-offset nil)
 
       ;; Emacs users won't need these key bindings
