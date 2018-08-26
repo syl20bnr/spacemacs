@@ -44,6 +44,27 @@
     :commands (spell-checking/change-dictionary)
     :init
     (progn
+      (spacemacs|define-transient-state spell-checking
+        :title "Spell Checking Transient State"
+        :doc "
+Spell Commands^^             Other
+--------------^^             -----
+[_b_]  check whole buffer    [_t_]  toggle spell check
+[_d_]  change dictionary     [_q_]  exit
+[_n_]  next spell error      [_Q_]  exit and disable spell check
+[_c_]  correct word
+"
+        :on-enter (flyspell-mode)
+        :bindings
+        ("b" flyspell-buffer)
+        ("d" spell-checking/change-dictionary)
+        ("n" flyspell-goto-next-error)
+        ("c" flyspell-correct-previous-word-generic)
+        ("Q" flyspell-mode :exit t)
+        ("q" nil :exit t)
+        ("t" spacemacs/toggle-spelling-checking))
+
+      (spacemacs/set-leader-keys "S." 'spacemacs/spell-checking-transient-state/body)
       (spell-checking/add-flyspell-hook 'text-mode-hook)
       (when spell-checking-enable-by-default
         (add-hook 'prog-mode-hook 'flyspell-prog-mode))
