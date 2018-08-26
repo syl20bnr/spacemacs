@@ -1756,6 +1756,7 @@ Other:
   - Added key bindings to use ~command-1..9~ for selecting window
     (thanks to Liu Joey)
   - Added ~M-s-h~ to hide other windows (thanks to Bas Veeling)
+- Replace pbcopy by osx-clipboard (thanks to Minh Nguyen-Hue)
 **** Pandoc
 - Fixed =spacemacs/run-pandoc= not to reset =pandoc--local-settings= (thanks to
   martian-f)
