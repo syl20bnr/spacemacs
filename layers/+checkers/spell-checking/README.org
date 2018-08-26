@@ -11,6 +11,7 @@
   - [[#enabling-multi-dictionary-support-with-hunspell][Enabling multi-dictionary support with hunspell]]
   - [[#enable-auto-completion-popup][Enable auto-completion popup]]
 - [[#key-bindings][Key Bindings]]
+  - [[#spell-checking-transient-state][Spell Checking Transient-state]]
 - [[#known-issues][Known issues]]
 
 * Description
@@ -126,6 +127,18 @@ set the layer variable =enable-flyspell-auto-completion= to t:
 | ~SPC S d~   | change dictionary        |
 | ~SPC S n~   | flyspell goto next error |
 | ~SPC t S~   | toggle flyspell          |
+
+** Spell Checking Transient-state
+
+| Key Binding | Description                                      |
+|-------------+--------------------------------------------------|
+| ~SPC g . b~ | Rerun spell check for the whole buffer           |
+| ~SPC g . d~ | Change dictionary                                |
+| ~SPC g . n~ | Go to next spelling error                        |
+| ~SPC g . c~ | Correct word under cursor                        |
+| ~SPC g . t~ | Toggle spell check                               |
+| ~SPC g . q~ | Quit transient state                             |
+| ~SPC g . Q~ | Quit transient state and disable =flyspell-mode= |
 
 * Known issues
 Vim-empty-lines layer seems incompatible with spell-checking inside org-mode. If
