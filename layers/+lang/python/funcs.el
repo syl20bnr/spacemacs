@@ -129,6 +129,8 @@ as the pyenv version then also return nil. This works around https://github.com/
                           (< i (length pyenv-version-names)))
                 (if (string-match (elt pyenv-version-names i) (string-trim pyenv-string))
                     (setq executable (string-trim pyenv-string)))
+                (if (string-match (elt pyenv-version-names i) "system")
+                    (setq executable (string-trim (executable-find command))))
                 (setq i (1+ i))))
           executable))
     (executable-find command)))
