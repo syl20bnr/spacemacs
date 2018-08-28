@@ -1,7 +1,4 @@
-(setq fasd-packages
-  '(
-    fasd
-    ))
+(setq fasd-packages '(fasd))
 
 (defun fasd-find-file-only ()
   (interactive)
@@ -17,13 +14,10 @@
     :init
     (progn
       (global-fasd-mode 1)
-      (spacemacs/declare-prefix "fa" "fasd-find")
-      (spacemacs/set-leader-keys "fad" 'fasd-find-directory-only)
-      (spacemacs/set-leader-keys "faf" 'fasd-find-file-only)
-      (spacemacs/set-leader-keys "fas" 'fasd-find-file)
+      (spacemacs/declare-prefix "af" "fasd-find")
+      (spacemacs/set-leader-keys "afd" 'fasd-find-directory-only)
+      (spacemacs/set-leader-keys "afs" 'fasd-find-file-only)
+      (spacemacs/set-leader-keys "aff" 'fasd-find-file)
 
       ;; we will fall back to using the default completing-read function, which is helm once helm is loaded.
-      (setq fasd-completing-read-function 'nil)
-      )
-    )
-  )
+      (setq fasd-completing-read-function 'nil))))

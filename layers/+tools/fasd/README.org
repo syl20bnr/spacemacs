@@ -36,6 +36,6 @@ On OS X, it can be installed via [[https://github.com/Homebrew/legacy-homebrew][
 
 | Key Binding | Description                        |
 |-------------+------------------------------------|
-| ~SPC f a s~ | find a file or directory with fasd |
-| ~SPC f a d~ | find a directory with fasd         |
-| ~SPC f a f~ | find a file with fasd              |
+| ~SPC a f f~ | find a file or directory with fasd |
+| ~SPC a f d~ | find a directory with fasd         |
+| ~SPC a f s~ | find a file with fasd              |
