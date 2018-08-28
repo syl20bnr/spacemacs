@@ -31,7 +31,7 @@ This layer adds extensive support for go.
 You will need =gocode= and =godef=:
 
 #+BEGIN_SRC sh
-  go get -u -v github.com/nsf/gocode
+  go get -u -v github.com/mdempsky/gocode
   go get -u -v github.com/rogpeppe/godef
   go get -u -v golang.org/x/tools/cmd/guru
   go get -u -v golang.org/x/tools/cmd/gorename
