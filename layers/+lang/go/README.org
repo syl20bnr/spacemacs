@@ -41,7 +41,7 @@ You will need =gocode=, =gogetdoc=, =godef=, =godoctor= and many others
 to get all the goodies of this layer:
 
 #+BEGIN_SRC sh
-  go get -u -v github.com/nsf/gocode
+  go get -u -v github.com/mdempsky/gocode
   go get -u -v github.com/rogpeppe/godef
   go get -u -v golang.org/x/tools/cmd/guru
   go get -u -v golang.org/x/tools/cmd/gorename
