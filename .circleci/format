@@ -88,6 +88,7 @@ if [ ${#changed_f_as_args[@]} -ne 0 ]; then
             echo "git commit -m \"fixed formatting\""
             echo "git push"
             printf '=%.0s' {1..80}
+            echo
         fi
         exit 1
     fi
