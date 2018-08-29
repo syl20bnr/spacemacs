@@ -225,14 +225,16 @@
 
 (defun ivy/init-ivy-rich ()
   (use-package ivy-rich
-    :defer t
+    ;; if `counsel' loads after `ivy-rich', it overrides some of `ivy-rich''s
+    ;; transformers
+    :after counsel
     :init
     (progn
-      (setq ivy-rich-abbreviate-paths t
-            ivy-virtual-abbreviate 'full
-            ivy-rich-switch-buffer-align-virtual-buffer t)
-      (ivy-set-display-transformer 'ivy-switch-buffer
-                                   'ivy-rich-switch-buffer-transformer))))
+      (setq ivy-rich-path-style 'abbrev
+            ivy-virtual-abbreviate 'full))
+    :config
+    (progn
+      (ivy-rich-mode))))
 
 (defun ivy/init-ivy-spacemacs-help ()
   (use-package ivy-spacemacs-help
