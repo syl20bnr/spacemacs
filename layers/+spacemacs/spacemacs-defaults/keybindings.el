@@ -200,7 +200,7 @@
   :evil-leader "e.")
 ;; file -----------------------------------------------------------------------
 (spacemacs/set-leader-keys
-  "fa" 'spacemacs/find-file-and-replace-buffer
+  "fA" 'spacemacs/find-file-and-replace-buffer
   "fc" 'spacemacs/copy-file
   "fD" 'spacemacs/delete-current-buffer-file
   "fei" 'spacemacs/find-user-init-file
