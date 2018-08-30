@@ -13,6 +13,7 @@
     '(
       company
       elm-mode
+      elm-test-runner
       flycheck
       (flycheck-elm :requires flycheck)
       popwin
@@ -91,6 +92,21 @@
         "u" 'elm-package-unmark
         "x" 'elm-package-install
         "q" 'quit-window))))
+
+(defun elm/init-elm-test-runner ()
+  (use-package elm-test-runner
+    :after elm-mode
+    :init
+    (progn
+      (spacemacs/declare-prefix-for-mode 'elm-mode "mt" "test")
+      (spacemacs/set-leader-keys-for-major-mode 'elm-mode
+        "tb" 'elm-test-runner-run
+        "td" 'elm-test-runner-run-directory
+        "tp" 'elm-test-runner-run-project
+        "tr" 'elm-test-runner-rerun
+        "tw" 'elm-test-runner-watch
+        "t TAB" 'elm-test-runner-toggle-test-and-target
+        ))))
 
 (defun elm/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
