@@ -171,7 +171,6 @@ the automatic indentation level was not the one you expected simply hit TAB to
 cycle through the list (note that hitting any other key will cancel the cycle).
 
 ** Test runner settings
-
 You may want to customize the default suffix for test files. For example, if you
 prefer to put your tests in =HelloSpec.elm= instead of =HelloTest.elm=, set the
 following variable:
