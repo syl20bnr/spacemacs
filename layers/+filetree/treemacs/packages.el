@@ -63,8 +63,10 @@
 
 (defun treemacs/init-treemacs-projectile ()
   (use-package treemacs-projectile
-    :after treemacs
-    :defer t))
+    :defer t
+    :init
+    (spacemacs/set-leader-keys
+      "pt" 'treemacs-projectile)))
 
 (defun treemacs/pre-init-winum ()
   (spacemacs|use-package-add-hook winum
