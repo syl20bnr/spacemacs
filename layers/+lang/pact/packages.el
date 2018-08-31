@@ -12,16 +12,22 @@
 (defconst pact-packages
   '(
     ;; evil-cleverparens
-    ;; flycheck
-    ;; (flycheck-pact :requires flycheck)
+    flycheck
+    (flycheck-pact :requires flycheck
+                   :location (recipe
+                              :fetcher github
+                              :repo "kadena-io/flycheck-pact"))
     ;; pact-mode
     (pact-mode :location (recipe
                           :fetcher github
                           :repo "fosskers/pact-mode"))
     ))
 
-;; (defun pact/post-init-flycheck ()
-;;   (spacemacs/enable-flycheck 'pact-mode))
+(defun pact/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'pact-mode))
+
+(defun pact/init-flycheck-pact ()
+  (use-package flycheck-pact))
 
 (defun pact/init-pact-mode ()
   (use-package pact-mode
