@@ -669,14 +669,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
 (defun org/init-org-trello ()
   (use-package org-trello
     :defer t
-    :init
+    :config
     (progn
-      (defun spacemacs/org-trello-pull-buffer ()
-        (interactive)
-        (org-trello-sync-buffer 1))
-      (defun spacemacs/org-trello-push-buffer ()
-        (interactive)
-        (org-trello-sync-buffer))
       (spacemacs/declare-prefix-for-mode 'org-mode "mo" "trello")
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "oI" 'org-trello-install-key-and-token
