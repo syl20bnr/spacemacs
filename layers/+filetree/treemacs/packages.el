@@ -41,10 +41,10 @@
             treemacs-goto-tag-strategy 'refetch-index
             treemacs-collapse-dirs treemacs-use-collapsed-directories)
       (spacemacs/set-leader-keys
-        "ft"    #'treemacs
-        "fB"    #'treemacs-bookmark
-        "fT"    #'treemacs-find-file
-        "f M-t" #'treemacs-find-tag))
+        "ft"    'treemacs
+        "fB"    'treemacs-bookmark
+        "fT"    'treemacs-find-file
+        "f M-t" 'treemacs-find-tag))
     :config
     (progn
       (spacemacs/define-evil-state-face "treemacs" "MediumPurple1")
@@ -71,5 +71,5 @@
     :post-config
     (progn
       ;; window 0 is reserved for file trees
-      (spacemacs/set-leader-keys "0" #'treemacs-select-window)
-      (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))))
+      (spacemacs/set-leader-keys "0" 'treemacs-select-window)
+      (define-key winum-keymap (kbd "M-0") 'treemacs-select-window))))
