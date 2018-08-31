@@ -34,3 +34,6 @@ used.")
 
 (defvar org-enable-hugo-support nil
   "If non-nil, Hugo (https://gohugo.io) related packages are configured.")
+
+(defvar org-enable-trello-support nil
+  "If non-nil org-trello is configured")
