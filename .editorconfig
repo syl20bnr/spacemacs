@@ -1,0 +1,61 @@
+root = true
+
+# -------------------------------------------------------------------------------
+# Global config, to be enabled when everything is fixed.
+# -------------------------------------------------------------------------------
+# [*]
+# charset                  = utf-8
+# end_of_line              = lf
+# indent_size              = 2
+# indent_style             = space
+# insert_final_newline     = true
+# tab_width                = 2
+# trim_trailing_whitespace = true
+
+# -------------------------------------------------------------------------------
+# Emacs Lisp
+# -------------------------------------------------------------------------------
+[{core,layers,tests}/**.el]
+charset                  = utf-8
+end_of_line              = lf
+# indent_size              = 2
+# indent_style             = space
+insert_final_newline     = true
+# tab_width                = 2
+trim_trailing_whitespace = true
+
+# -------------------------------------------------------------------------------
+# Make
+# -------------------------------------------------------------------------------
+[**/{Makefile,**.mk}]
+charset                  = utf-8
+end_of_line              = lf
+indent_size              = 2
+indent_style             = tab
+insert_final_newline     = true
+tab_width                = 2
+trim_trailing_whitespace = true
+
+# -------------------------------------------------------------------------------
+# Markdown
+# -------------------------------------------------------------------------------
+[**.md]
+charset                  = utf-8
+end_of_line              = lf
+# indent_size              = 2
+indent_style             = space
+insert_final_newline     = true
+tab_width                = 2
+trim_trailing_whitespace = true
+
+# -------------------------------------------------------------------------------
+# Org
+# -------------------------------------------------------------------------------
+[{core,doc,layers,news,tests}/**.org]
+charset                  = utf-8
+end_of_line              = lf
+# indent_size              = 2
+# indent_style             = space
+insert_final_newline     = true
+# tab_width                = 2
+trim_trailing_whitespace = true

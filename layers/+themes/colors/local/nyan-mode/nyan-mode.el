@@ -79,7 +79,7 @@
 (defun nyan-start-music ()
   (interactive)
   (start-process-shell-command "nyan-music" "nyan-music" (concat "mplayer " +nyan-music+ " -loop 0")))
- 
+
 (defun nyan-stop-music ()
   (interactive)
   (kill-process "nyan-music"))
