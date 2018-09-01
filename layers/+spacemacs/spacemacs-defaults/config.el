@@ -63,6 +63,9 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Scroll compilation to first error or end
 (setq compilation-scroll-output 'first-error)
 
+;; Print the key binding for spacemacs/next-error on errors.
+(add-hook 'compilation-finish-functions #'spacemacs/compilation-finish-function)
+
 ;; Don't try to ping things that look like domain names
 (setq ffap-machine-p-known 'reject)
 

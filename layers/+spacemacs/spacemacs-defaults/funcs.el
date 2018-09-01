@@ -1230,21 +1230,15 @@ using a visual block/rectangle selection."
 ;; END linum mouse helpers
 
 ;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
-(setq compilation-finish-function
-      (lambda (buf str)
-
-        (let ((case-fold-search nil))
-          (if (or (string-match "exited abnormally" str)
-                  (string-match "FAILED" (buffer-string)))
-
-              ;; there were errors
-              (message "There were errors. SPC-e-n to visit.")
-            (unless (or (string-match "Grep finished" (buffer-string))
-                        (string-match "Ag finished" (buffer-string))
-                        (string-match "nosetests" (buffer-name)))
-
-              ;; no errors
-              (message "compilation ok."))))))
+(defun spacemacs/compilation-finish-function (buf str)
+  "Print a message if compilation encountered errors.
+In case of errors, show the key binding for spacemacs/next-error."
+  (let ((case-fold-search nil))
+    (when (or (string-match "exited abnormally" str)
+              (string-match "FAILED" (buffer-string)))
+      (message "%s"
+               (substitute-command-keys
+                "There were errors. Use \\[spacemacs/next-error] to visit.")))))
 
 ;; from http://www.emacswiki.org/emacs/WordCount
 (defun spacemacs/count-words-analysis (start end)
