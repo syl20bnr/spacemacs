@@ -107,7 +107,6 @@
    | =lsp-ui-doc-include-signature=  | nil     | When nil, signature omitted from lsp-ui-doc overlay (this is usually redundant)           |
    | =lsp-ui-sideline-enable=        | t       | When non-nil, the symbol information overlay is displayed                                 |
    | =lsp-ui-sideline-show-symbol=   | nil     | When non-nil, the symbol information overlay includes symbol name (redundant for c-modes) |
-   | =lsp-ui-peek-expand-by-default= | nil     | When non-nil, =lsp-ui-peek= expands file matches automatically (may degrade performance)  |
 
 ** Diagnostics
    If some features do not work as expected, here is a common check list.

@@ -11,7 +11,6 @@
 
 ;; ;; These all have toggles bound under 't' in spacemacs/lsp-define-keys-for-mode
 (defvar lsp-ui-remap-xref-keybindings nil "When non-nil, xref keybindings remapped to lsp-ui-peek-find-*")
-(defvar lsp-ui-peek-expand-by-default t "Expand lsp-ui-peek by default (may have performance implications)")
 (defvar lsp-ui-doc-enable t "Enable/disable lsp-ui-doc overlay")
 (defvar lsp-ui-doc-include-signature nil "When non-nil, type signature included in the lsp-ui-doc overlay")
 (defvar lsp-ui-sideline-enable t "Enable/disable lsp-ui-sideline overlay")
