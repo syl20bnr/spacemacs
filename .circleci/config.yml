@@ -101,6 +101,22 @@ jobs:
     working_directory: ~/.emacs.d
     <<: *spacemacs_steps
 
+  "Linters (required)":
+    docker:
+      - image: jare/spacemacs-circleci:latest
+    working_directory: ~/.emacs.d
+    steps:
+      - checkout
+      - run:
+          name: Install npm
+          command: apt-get update && apt-get install -y --no-install-recommends npm
+      - run:
+          name: Install eclint
+          command: npm install -g eclint
+      - run:
+          name: Run Linters
+          command: make ci
+
   # Emacs snapshot
   "core Emacs snapshot (optional)":
     docker:
@@ -149,6 +165,9 @@ workflows:
           requires:
             - "Validate PR"
       - "spacemacs dist. Emacs25 (required)":
+          requires:
+            - "Validate PR"
+      - "Linters (required)":
           requires:
             - "Validate PR"
       - "core Emacs snapshot (optional)":
