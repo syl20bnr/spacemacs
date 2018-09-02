@@ -55,9 +55,6 @@
       (spacemacs//lsp-sync-peek-face)
       (add-hook 'spacemacs-post-theme-change-hook #'spacemacs//lsp-sync-peek-face)
 
-      (if lsp-ui-peek-expand-by-default
-        (setq lsp-ui-peek-expand-function (lambda (xs) (mapcar #'car xs))))
-
       (if lsp-ui-remap-xref-keybindings
         (progn (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
           (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)))
