@@ -132,13 +132,13 @@ set the layer variable =enable-flyspell-auto-completion= to t:
 
 | Key Binding | Description                                      |
 |-------------+--------------------------------------------------|
-| ~SPC g . b~ | Rerun spell check for the whole buffer           |
-| ~SPC g . d~ | Change dictionary                                |
-| ~SPC g . n~ | Go to next spelling error                        |
-| ~SPC g . c~ | Correct word under cursor                        |
-| ~SPC g . t~ | Toggle spell check                               |
-| ~SPC g . q~ | Quit transient state                             |
-| ~SPC g . Q~ | Quit transient state and disable =flyspell-mode= |
+| ~SPC S . b~ | Rerun spell check for the whole buffer           |
+| ~SPC S . d~ | Change dictionary                                |
+| ~SPC S . n~ | Go to next spelling error                        |
+| ~SPC S . c~ | Correct word under cursor                        |
+| ~SPC S . t~ | Toggle spell check                               |
+| ~SPC S . q~ | Quit transient state                             |
+| ~SPC S . Q~ | Quit transient state and disable =flyspell-mode= |
 
 * Known issues
 Vim-empty-lines layer seems incompatible with spell-checking inside org-mode. If
