@@ -11,7 +11,7 @@
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//paste-transient-state-p ()
+(defun spacemacs//evil-mc-paste-transient-state-p ()
   "Return non-nil if the paste transient state is enabled."
   (and dotspacemacs-enable-paste-transient-state
     (or (not (fboundp 'evil-mc-get-cursor-count))
@@ -21,7 +21,7 @@
   "Disable paste transient state if there is more than 1 cursor."
   (interactive "p")
   (setq this-command 'evil-paste-after)
-  (if (spacemacs//paste-transient-state-p)
+  (if (spacemacs//evil-mc-paste-transient-state-p)
     (spacemacs/paste-transient-state/evil-paste-after)
     (evil-paste-after count (or register evil-this-register))))
 
@@ -29,6 +29,6 @@
   "Disable paste transient state if there is more than 1 cursor."
   (interactive "p")
   (setq this-command 'evil-paste-before)
-  (if (spacemacs//paste-transient-state-p)
+  (if (spacemacs//evil-mc-paste-transient-state-p)
     (spacemacs/paste-transient-state/evil-paste-before)
     (evil-paste-before count (or register evil-this-register))))
