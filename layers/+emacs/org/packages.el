@@ -164,6 +164,7 @@ Will work on both org-mode and any mode that accepts plain html."
                         ("mf" . "feeds")
                         ("mi" . "insert")
                         ("miD" . "download")
+                        ("mm" . "more")
                         ("ms" . "trees/subtrees")
                         ("mT" . "toggles")
                         ("mt" . "tables")
@@ -671,12 +672,12 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :after org
     :config
     (progn
-      (spacemacs/declare-prefix-for-mode 'org-mode "mo" "trello")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmt" "trello")
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
-        "oI" 'org-trello-install-key-and-token
-        "oa" 'org-trello-archive-card
-        "oc" 'org-trello-create-board-and-install-metadata
-        "od" 'spacemacs/org-trello-pull-buffer
-        "oi" 'org-trello-install-board-metadata
-        "om" 'org-trello-update-board-metadata
-        "ou" 'spacemacs/org-trello-push-buffer))))
+        "mtI" 'org-trello-install-key-and-token
+        "mta" 'org-trello-archive-card
+        "mtc" 'org-trello-create-board-and-install-metadata
+        "mti" 'org-trello-install-board-metadata
+        "mtm" 'org-trello-update-board-metadata
+        "mtd" 'spacemacs/org-trello-pull-buffer
+        "mtu" 'spacemacs/org-trello-push-buffer))))
