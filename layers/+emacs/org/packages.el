@@ -673,11 +673,15 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'org-mode "mmt" "trello")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmtd" "sync down")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmtu" "sync up")
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "mtI" 'org-trello-install-key-and-token
         "mta" 'org-trello-archive-card
         "mtc" 'org-trello-create-board-and-install-metadata
         "mti" 'org-trello-install-board-metadata
         "mtm" 'org-trello-update-board-metadata
-        "mtd" 'spacemacs/org-trello-pull-buffer
-        "mtu" 'spacemacs/org-trello-push-buffer))))
+        "mtdb" 'spacemacs/org-trello-pull-buffer
+        "mtdc" 'spacemacs/org-trello-pull-card
+        "mtub" 'spacemacs/org-trello-push-buffer
+        "mtuc" 'spacemacs/org-trello-push-card))))

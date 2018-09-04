@@ -59,3 +59,11 @@
 (defun spacemacs/org-trello-push-buffer ()
   (interactive)
   (org-trello-sync-buffer))
+
+(defun spacemacs/org-trello-pull-card ()
+  (interactive)
+  (org-trello-sync-card 1))
+
+(defun spacemacs/org-trello-push-card ()
+  (interactive)
+  (org-trello-sync-card))
