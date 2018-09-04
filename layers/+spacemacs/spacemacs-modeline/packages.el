@@ -12,6 +12,7 @@
 (setq spacemacs-modeline-packages
       '(
         anzu
+        doom-modeline
         fancy-battery
         ;; dependency of spaceline-all-the-icons which came from
         ;; the emacs wiki, we fetch it from Emacs Mirror for now.
@@ -30,6 +31,12 @@
 (defun spacemacs-modeline/post-init-anzu ()
   (when (eq 'all-the-icons (spacemacs/get-mode-line-theme-name))
     (spaceline-all-the-icons--setup-anzu)))
+
+(defun spacemacs-modeline/init-doom-modeline ()
+(use-package doom-modeline
+  :defer t
+  :if (eq (spacemacs/get-mode-line-theme-name) 'doom)
+  :init (add-hook 'after-init-hook 'doom-modeline-init)))
 
 (defun spacemacs-modeline/init-fancy-battery ()
   (use-package fancy-battery

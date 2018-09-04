@@ -178,11 +178,12 @@ with 2 themes variants, one dark and one light")
 
 (defvar dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
   "Set the theme for the Spaceline. Supported themes are `spacemacs',
-`all-the-icons', `custom', `vim-powerline' and `vanilla'. The first three
-are spaceline themes. `vanilla' is default Emacs mode-line. `custom' is a
-user defined themes, refer to the DOCUMENTATION.org for more info on how
-to create your own spaceline theme. Value can be a symbol or a list with
-additional properties like '(all-the-icons :separator-scale 1.5).")
+`all-the-icons', `custom', `doom',`vim-powerline' and `vanilla'. The first three
+are spaceline themes. `doom' is the doom-emacs mode-line. `vanilla' is default
+Emacs mode-line. `custom' is a user defined themes, refer to the
+DOCUMENTATION.org for more info on how to create your own spaceline theme. Value
+can be a symbol or a list with additional properties like '(all-the-icons
+:separator-scale 1.5).")
 
 (defvar dotspacemacs-frame-title-format "%I@%S"
   "Default format string for a frame title bar, using the
