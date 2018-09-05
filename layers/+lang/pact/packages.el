@@ -9,6 +9,10 @@
 ;;
 ;;; License: GPLv3
 
+;;; Commentary:
+
+;;; Code:
+
 (defconst pact-packages
   '(
     ;; evil-cleverparens
@@ -20,16 +24,19 @@
     ;; pact-mode
     (pact-mode :location (recipe
                           :fetcher github
-                          :repo "fosskers/pact-mode"))
+                          :repo "kadena-io/pact-mode"))
     ))
 
 (defun pact/post-init-flycheck ()
+  "Initialize flycheck."
   (spacemacs/enable-flycheck 'pact-mode))
 
 (defun pact/init-flycheck-pact ()
+  "Initialize flycheck-pact."
   (use-package flycheck-pact))
 
 (defun pact/init-pact-mode ()
+  "Initialize pact-mode."
   (use-package pact-mode
     :defer t
 
@@ -74,3 +81,5 @@ the repl if it hasn't yet been."
         ;; REPL
         "s'" 'spacemacs/pact-repl
         "sb" 'spacemacs/pact-load-file))))
+
+;;; packages.el ends here
