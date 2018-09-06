@@ -28,7 +28,6 @@
     :defer t
     :config
     (progn
-      (spacemacs|hide-lighter lsp-mode)
       (evil-set-command-property 'lsp-goto-type-definition :jump t)
       (evil-set-command-property 'lsp-goto-implementation :jump t))))
 
