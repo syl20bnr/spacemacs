@@ -146,7 +146,7 @@ The recommended way of installing Emacs on macOS is using [homebrew][]:
 ```sh
 $ brew tap d12frosted/emacs-plus
 $ brew install emacs-plus
-$ brew linkapps emacs-plus
+$ ln -s /usr/local/Cellar/emacs-plus/EMACS_VERSION/Emacs.app /Applications
 ```
 
 *Note:* these homebrew commands will install GNU Emacs, and link it to your
