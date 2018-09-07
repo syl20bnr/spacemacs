@@ -15,8 +15,8 @@
 
 (defvar kl-layout 'dvorak
   "The keyboard-layout to use. Possible values are `bepo', `dvp',
-`dvorak', `workman', `neo', `colemak-neio', `colemak-hnei' and
-`colemak-jkhl'.")
+`dvorak', `workman', `neo', `colemak-neio-literal', `colemak-neio-inverted',
+ `colemak-hnei' and `colemak-jkhl'.")
 
 (defvar kl-enabled-configurations nil
   "If non nil, `keyboard-layout' will enable configurations only
@@ -83,7 +83,7 @@ case.")
         ("j" . "n")
         ("h" . "r")
         ("k" . "t")))
-    (colemak-neio
+    (colemak-neio-literal
      . (("n" . "h")
         ("e" . "j")
         ("i" . "k")
@@ -91,8 +91,18 @@ case.")
         ;;
         ("h" . "n")
         ("j" . "e")
-        ("k" . "i")
-        ("l" . "o")))
+        ("k" . "i")   ;;
+        ("l" . "o"))) ;; easier access to "New Line Mode"
+    (colemak-neio-inverted
+     . (("n" . "h")
+        ("e" . "j")
+        ("i" . "k")
+        ("o" . "l")
+        ;;
+        ("h" . "n")
+        ("j" . "e")
+        ("l" . "i")   ;; easier access to "Insert Mode"
+        ("k" . "o"))) ;;
     (colemak-hnei
      . (("h" . "h")
         ("n" . "j")
