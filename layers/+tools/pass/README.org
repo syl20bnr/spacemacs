@@ -21,17 +21,17 @@ file.
 
 * Key Bindings
 
-| Key Bindings | Description                     |
-|--------------+---------------------------------|
-| ~SPC A p /~  | copy password using =helm-pass= |
-| ~SPC A p y~  | copy password                   |
-| ~SPC A p Y~  | copy and describe password      |
-| ~SPC A p ?~  | describe password               |
-| ~SPC A p g~  | generate new password           |
-| ~SPC A p i~  | insert new password             |
-| ~SPC A p c~  | edit password                   |
-| ~SPC A p r~  | rename password                 |
-| ~SPC A p d~  | remove from password store      |
-| ~SPC A p D~  | clear the password store        |
-| ~SPC A p I~  | initialize the password store   |
-| ~SPC A p w~  | open url                        |
+| Key Bindings | Description                                   |
+|--------------+-----------------------------------------------|
+| ~SPC A p /~  | copy password using =helm-pass= or =ivy-pass= |
+| ~SPC A p y~  | copy password                                 |
+| ~SPC A p Y~  | copy and describe password                    |
+| ~SPC A p ?~  | describe password                             |
+| ~SPC A p g~  | generate new password                         |
+| ~SPC A p i~  | insert new password                           |
+| ~SPC A p c~  | edit password                                 |
+| ~SPC A p r~  | rename password                               |
+| ~SPC A p d~  | remove from password store                    |
+| ~SPC A p D~  | clear the password store                      |
+| ~SPC A p I~  | initialize the password store                 |
+| ~SPC A p w~  | open url                                      |
