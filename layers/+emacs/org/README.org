@@ -39,6 +39,7 @@
     - [[#org-agenda-transient-state][Org agenda transient state]]
   - [[#pomodoro][Pomodoro]]
   - [[#presentation][Presentation]]
+  - [[#helm-org-rifle][Helm-org-rifle]]
   - [[#org-projectile][Org-projectile]]
   - [[#org-journal][Org-journal]]
   - [[#org-brain][Org-brain]]
@@ -676,6 +677,12 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 | ~h~         | previous slide |
 | ~l~         | next slide     |
 | ~q~         | quit           |
+
+** Helm-org-rifle
+
+| Key Binding | Description                                |
+|-------------+--------------------------------------------|
+| ~SPC m r~   | Search org files for keywords and headings |
 
 ** Org-projectile
 
