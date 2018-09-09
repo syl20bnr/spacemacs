@@ -371,12 +371,6 @@
           ("\\1C-M-0..9" . "digit-argument"))
         which-key-replacement-alist)
 
-  ;; Rename the entry for M-0 in the SPC h k Top-level bindings,
-  ;; and for 0 in the SPC- Spacemacs root
-  (push '(("\\(.*\\)0" . "winum-select-window-0-or-10") .
-          ("\\10" . "select window 0 or 10"))
-        which-key-replacement-alist)
-
   ;; Rename the entry for M-1 in the SPC h k Top-level bindings,
   ;; and for 1 in the SPC- Spacemacs root, to 1..9
   (push '(("\\(.*\\)1" . "winum-select-window-1") .
