@@ -72,4 +72,6 @@
     (progn
       ;; window 0 is reserved for file trees
       (spacemacs/set-leader-keys "0" 'treemacs-select-window)
-      (define-key winum-keymap (kbd "M-0") 'treemacs-select-window))))
+      (define-key winum-keymap [remap winum-select-window-0-or-10] 'treemacs-select-window)
+      (push '((nil . "winum-select-window-0-or-10") . (nil . "treemacs-select-window"))
+            which-key-replacement-alist))))
