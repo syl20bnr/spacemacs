@@ -1785,6 +1785,8 @@ Other:
   - ~SPC 0~ and ~M-0~ are consistent across Neotree and Treemacs
 - Fixed ~RET~ binding functionality (thanks to Lupco Kotev)
 - Use "open" instead of "xdg-open" on macos (thanks to Alexander-Miller)
+- Remapped =winum-select-window-0-or-10= to =neotree-show= so that ~C-x w 0~,
+  ~SPC 0~ and ~M-0~ call the same command (thanks to duianto and Miciah)
 **** NixOS
 - Enabled Flycheck (thanks to William Casarin)
 - Defer loading (thanks to Benno Fünfstück)
@@ -2307,6 +2309,8 @@ Other:
 **** Treemacs
 - =Treemacs= replaces =NeoTree= as the default sidebar
 - Add missing ~SPC p t~ to =readme.org= (thanks to oo6)
+- Remapped =winum-select-window-0-or-10= to =treemacs-select-window= so that
+  ~C-x w 0~, ~SPC 0~ and ~M-0~ call the same command (thanks to duianto, Miciah)
 **** Typescript
 - Call tsfmt with extension of current buffer for TSX formatting
   (thanks to Victor Andrée)
