@@ -12,7 +12,7 @@
 (setq go-packages
       '(
         company
-        (company-go :requires company)
+        (company-go :requires company :toggle (eq go-backend 'go-mode))
         counsel-gtags
         flycheck
         (flycheck-gometalinter :toggle (and go-use-gometalinter
@@ -23,7 +23,8 @@
                                               'flycheck)))
         ggtags
         helm-gtags
-        go-eldoc
+        ;; use 'ycmd-eldoc' when 'ycmd-mode' is enabled
+        (go-eldoc :toggle (not (eq go-backend 'ycmd)))
         go-fill-struct
         go-gen-test
         go-guru
@@ -34,22 +35,33 @@
         godoctor
         (lsp-go
          :requires lsp-mode
+         :toggle (eq go-backend 'lsp)
          :location (recipe :fetcher github
                            :repo "emacs-lsp/lsp-go"))
         popwin
         ))
 
 (defun go/init-company-go ()
-  (use-package company-go
-    :defer t
-    :init (spacemacs|add-company-backends
-            :backends company-go
-            :modes go-mode
-            :variables company-go-show-annotation t)))
+  (if (eq go-backend 'go-mode)
+    (use-package company-go
+      :defer t
+      :init (spacemacs|add-company-backends
+              :backends company-go
+              :modes go-mode
+              :variables company-go-show-annotation t))))
+
+(defun go/post-init-company-ycmd ()
+  (if (eq go-backend 'ycmd)
+    (use-package company-ycmd
+      :defer t
+      :init (spacemacs|add-company-backends
+              :backends company-ycmd
+              :modes go-mode))))
 
 (defun go/init-lsp-go ()
-  (use-package lsp-go
-    :commands lsp-go-enable))
+  (if (eq go-backend 'lsp)
+    (use-package lsp-go
+      :commands lsp-go-enable)))
 
 (defun go/post-init-company ()
   (add-hook 'go-mode-local-vars-hook #'spacemacs//go-setup-company))
@@ -77,7 +89,8 @@
   (spacemacs/helm-gtags-define-keys-for-mode 'go-mode))
 
 (defun go/init-go-eldoc ()
-  (add-hook 'go-mode-hook 'go-eldoc-setup))
+  (if (not (eq go-backend 'ycmd))
+    (add-hook 'go-mode-hook 'go-eldoc-setup)))
 
 (defun go/init-go-fill-struct ()
   (use-package go-fill-struct

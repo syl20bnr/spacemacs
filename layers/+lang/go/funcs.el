@@ -23,6 +23,7 @@
   "Conditionally setup go company based on backend"
   (pcase go-backend
     ('go-mode (spacemacs//go-setup-company-go))
+    ('ycmd (spacemacs//go-setup-company-ycmd))
     ('lsp (spacemacs//go-setup-company-lsp))))
 
 (defun spacemacs//go-setup-company-go ()
@@ -30,6 +31,14 @@
     :backends company-go
     :modes go-mode
     :variables company-go-show-annotation t
+    :append-hooks nil
+    :call-hooks t)
+  (company-mode))
+
+(defun spacemacs//go-setup-company-ycmd ()
+  (spacemacs|add-company-backends
+    :backends company-ycmd
+    :modes go-mode
     :append-hooks nil
     :call-hooks t)
   (company-mode))

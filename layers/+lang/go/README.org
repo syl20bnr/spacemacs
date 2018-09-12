@@ -7,6 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#pre-requisites][Pre-requisites]]
+  - [[#ycmd-backend][YCMD backend]]
   - [[#lsp-backend][LSP backend]]
   - [[#layer][Layer]]
 - [[#configuration][Configuration]]
@@ -105,6 +106,23 @@ $PATH RET~).
 
 For best results, make sure that the =auto-completion= and =syntax-checking=
 layers are enabled as well.
+
+** YCMD backend
+To enable the YCMD backend set the layer variable =go-backend=:
+
+#+BEGIN_SRC elisp
+(setq go-backend 'ycmd)
+#+END_SRC
+
+or
+
+#+BEGIN_SRC elisp
+(go :variables go-backend 'ycmd)
+#+END_SRC
+
+You also need to install [[https://github.com/Valloric/ycmd][YCMD]] with =go-completer= and add =ycmd= to =dotspacemacs-configuration-layers=.
+For more information read [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/ycmd][YCMD layer README.org]]
+and [[https://github.com/abingham/emacs-ycmd#company-ycmd][emacs-ycmd README.md]]
 
 ** LSP backend
  To enable the LSP backend set the layer variable =go-backend=:
