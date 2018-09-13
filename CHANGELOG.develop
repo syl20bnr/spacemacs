@@ -2220,6 +2220,14 @@ Other:
 - Added spell checking transient state (thanks to Francesc Elies Henar)
 - Update to flyspell-correct v0.5 (thanks to Boris Buliga)
 - Update spell checking ts to flyspell-correct v0.5 (thanks to Bruno Tavares)
+- Added key bindings (thanks to Kalle Lindqvist):
+  - ~SPC S a b~ Add word to dict (buffer)
+  - ~SPC S a g~ Add word to dict (global)
+  - ~SPC S a s~ Add word to dict (session)
+  Transient State:
+  - ~SPC S . B~ Add word to dict (buffer)
+  - ~SPC S . G~ Add word to dict (global)
+  - ~SPC S . S~ Add word to dict (session)
 **** Syntax-checking
 - Key bindings:
   - ~SPC e e~ is now for triggering a syntax check, the old action

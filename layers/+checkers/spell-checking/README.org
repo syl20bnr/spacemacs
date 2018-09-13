@@ -124,12 +124,15 @@ set the layer variable =enable-flyspell-auto-completion= to t:
 
 | Key binding     | Description                            |
 |-----------------+----------------------------------------|
-| ~SPC S b~       | flyspell whole buffer                  |
-| ~SPC S c~       | flyspell correct                       |
-| ~SPC u SPC S c~ | flyspell correct all errors one by one |
-| ~SPC S d~       | change dictionary                      |
-| ~SPC S n~       | flyspell goto next error               |
-| ~SPC t S~       | toggle flyspell                        |
+| ~SPC S a b~     | Add word to dict (buffer)              |
+| ~SPC S a g~     | Add word to dict (global)              |
+| ~SPC S a s~     | Add word to dict (session)             |
+| ~SPC S b~       | Flyspell whole buffer                  |
+| ~SPC S c~       | Flyspell correct                       |
+| ~SPC u SPC S c~ | Flyspell correct all errors one by one |
+| ~SPC S d~       | Change dictionary                      |
+| ~SPC S n~       | Flyspell goto next error               |
+| ~SPC t S~       | Toggle flyspell                        |
 
 ** Spell Checking Transient-state
 
@@ -142,6 +145,9 @@ set the layer variable =enable-flyspell-auto-completion= to t:
 | ~SPC S . t~ | Toggle spell check                               |
 | ~SPC S . q~ | Quit transient state                             |
 | ~SPC S . Q~ | Quit transient state and disable =flyspell-mode= |
+| ~SPC S . B~ | Add word to dict (buffer)                        |
+| ~SPC S . G~ | Add word to dict (global)                        |
+| ~SPC S . S~ | Add word to dict (session)                       |
 
 * Known issues
 Vim-empty-lines layer seems incompatible with spell-checking inside org-mode. If

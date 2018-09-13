@@ -48,21 +48,23 @@
       (spacemacs|define-transient-state spell-checking
         :title "Spell Checking Transient State"
         :doc "
-Spell Commands^^             Other
---------------^^             -----
-[_b_]  check whole buffer    [_t_]  toggle spell check
-[_d_]  change dictionary     [_q_]  exit
-[_n_]  next spell error      [_Q_]  exit and disable spell check
-[_c_]  correct word
-"
+Spell Commands^^          Add To Dictionary^^               Other
+--------------^^--------  -----------------^^-------------  -----^^---------------------------
+[_b_] check whole buffer  [_B_] add word to dict (buffer)   [_t_] toggle spell check
+[_d_] change dictionary   [_G_] add word to dict (global)   [_q_] exit
+[_n_] next spell error    [_S_] add word to dict (session)  [_Q_] exit and disable spell check
+[_c_] correct word"
         :on-enter (flyspell-mode)
         :bindings
+        ("B" spacemacs/add-word-to-dict-buffer)
         ("b" flyspell-buffer)
         ("d" spell-checking/change-dictionary)
+        ("G" spacemacs/add-word-to-dict-global)
         ("n" flyspell-goto-next-error)
         ("c" flyspell-correct-wrapper)
         ("Q" flyspell-mode :exit t)
         ("q" nil :exit t)
+        ("S" spacemacs/add-word-to-dict-session)
         ("t" spacemacs/toggle-spelling-checking))
 
       (spacemacs/set-leader-keys "S." 'spacemacs/spell-checking-transient-state/body)
@@ -83,7 +85,11 @@ Spell Commands^^             Other
         :evil-leader "tS")
 
       (spacemacs/declare-prefix "S" "spelling")
+      (spacemacs/declare-prefix "Sa" "add word to dict")
       (spacemacs/set-leader-keys
+        "Sab" 'spacemacs/add-word-to-dict-buffer
+        "Sag" 'spacemacs/add-word-to-dict-global
+        "Sas" 'spacemacs/add-word-to-dict-session
         "Sb" 'flyspell-buffer
         "Sd" 'spell-checking/change-dictionary
         "Sn" 'flyspell-goto-next-error))
