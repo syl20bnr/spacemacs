@@ -6,6 +6,8 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#lsp][LSP]]
+- [[#options][Options]]
 - [[#usage][Usage]]
   - [[#tramp-access-to-docker-containers][TRAMP access to docker containers]]
 - [[#key-bindings][Key bindings]]
@@ -28,6 +30,28 @@ file.
 
 You will also need the native package [[https://www.docker.com/][Docker]] for the actual container management.
 For syntax checking the external library =hadolint= is also necessary.
+
+** LSP
+This layer can be used with [[https://github.com/rcjsuen/dockerfile-language-server-nodejs][=dockerfile-language-server-nodejs=]] and emacs
+[[https://github.com/emacs-lsp/lsp-mode][=lsp-mode=]] to provide richer, IDE-like capabilities.
+To use this layer with lsp, you must do the following:
+
+1. Add =lsp= to =dotspacemacs-configuration-layers=.
+2. Install =dockerfile-language-server-nodejs= package by running
+   =npm i -g dockerfile-language-server-nodejs=
+3. Enable layer integration with lsp as described in section below.
+
+* Options
+This layer also includes experimental support for =lsp-mode=. To enable language
+server functionality with this layer, follow [[#lsp][the instructions for installation]],
+and then install this layer with:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default
+   dotspacemacs-configuration-layers
+   '(
+     (docker :variables dockerfile-mode-enable-lsp t)))
+#+END_SRC
 
 * Usage
 ** TRAMP access to docker containers

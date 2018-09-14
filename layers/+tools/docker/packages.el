@@ -12,10 +12,23 @@
 
 (defconst docker-packages
   '(
+    company-lsp
     docker
     docker-tramp
     dockerfile-mode
+    flycheck
+    (lsp-dockerfile
+     :requires lsp-mode
+     :location (recipe :fetcher github
+                       :repo "emacs-lsp/lsp-dockerfile"))
     ))
+
+(defun docker/post-init-company-lsp ()
+  (spacemacs|add-company-backends
+    :backends company-lsp
+    :modes dockerfile-mode
+    :append-hooks nil
+    :call-hooks t))
 
 (defun docker/init-docker ()
   (use-package docker
@@ -57,3 +70,17 @@
       (spacemacs/set-leader-keys-for-major-mode 'dockerfile-mode
         "cb" 'dockerfile-build-buffer
         "cB" 'dockerfile-build-no-cache-buffer))))
+
+(defun docker/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'dockerfile-mode))
+
+(defun docker/init-lsp-dockerfile ()
+  (use-package lsp-dockerfile
+    :commands lsp-dockerfile-enable
+    :init
+    (if dockerfile-mode-enable-lsp
+        (add-hook 'dockerfile-mode-local-vars-hook
+                  #'spacemacs//dockerfile-setup-lsp))
+    :config
+    (spacemacs/set-leader-keys-for-major-mode 'dockerfile-mode
+      "=" #'lsp-format-buffer)))
