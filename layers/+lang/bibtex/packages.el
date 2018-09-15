@@ -13,14 +13,19 @@
       '(
         auctex
         (helm-bibtex :requires helm)
+        (ivy-bibtex :requires ivy)
         markdown-mode
         org
         org-ref
         ))
 
 (defun bibtex/post-init-auctex ()
-  (spacemacs/set-leader-keys-for-major-mode 'latex-mode
-    "ic" 'org-ref-helm-insert-cite-link))
+  (cond ((configuration-layer/layer-used-p 'helm)
+         (spacemacs/set-leader-keys-for-major-mode 'latex-mode
+           "ic" 'org-ref-helm-insert-cite-link))
+        ((configuration-layer/layer-used-p 'ivy)
+         (spacemacs/set-leader-keys-for-major-mode 'latex-mode
+           "ic" 'org-ref-ivy-insert-cite-link))))
 
 (defun bibtex/init-helm-bibtex ()
   (use-package helm-bibtex
@@ -29,19 +34,35 @@
     (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
       "m" 'helm-bibtex)))
 
+(defun bibtex/init-ivy-bibtex ()
+  (use-package ivy-bibtex
+    :defer t
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
+      "m" 'ivy-bibtex)))
+
 (defun bibtex/post-init-markdown-mode ()
-  (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-    "ic" 'org-ref-helm-insert-cite-link))
+  (cond ((configuration-layer/layer-used-p 'helm)
+         (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
+           "ic" 'org-ref-helm-insert-cite-link))
+        ((configuration-layer/layer-used-p 'ivy)
+         (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
+           "ic" 'org-ref-ivy-insert-cite-link))))
 
 (defun bibtex/post-init-org ()
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode
-    "ic" 'org-ref-helm-insert-cite-link))
+  (cond ((configuration-layer/layer-used-p 'helm)
+         (spacemacs/set-leader-keys-for-major-mode 'org-mode
+           "ic" 'org-ref-helm-insert-cite-link))
+        ((configuration-layer/layer-used-p 'ivy)
+         (spacemacs/set-leader-keys-for-major-mode 'org-mode
+           "ic" 'org-ref-ivy-insert-cite-link))))
 
 (defun bibtex/init-org-ref ()
   (use-package org-ref
     :defer t
     :commands (org-ref-bibtex-next-entry
                org-ref-bibtex-previous-entry
+               org-ref-ivy-insert-cite-link
                org-ref-open-in-browser
                org-ref-open-bibtex-notes
                org-ref-open-bibtex-pdf
@@ -63,7 +84,6 @@
         "gj" 'org-ref-bibtex-next-entry
         "gk" 'org-ref-bibtex-previous-entry)
 
-      (spacemacs/declare-prefix-for-mode 'bibtex-mode "ml" "lookup utilities")
       (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
         ;; Navigation
         "j" 'org-ref-bibtex-next-entry
@@ -84,4 +104,8 @@
         "lA" 'arxiv-get-pdf-add-bibtex-entry
         "ld" 'doi-utils-add-bibtex-entry-from-doi
         "li" 'isbn-to-bibtex
-        "lp" 'pubmed-insert-bibtex-from-pmid))))
+        "lp" 'pubmed-insert-bibtex-from-pmid))
+    :config
+    ;; override org-ref's default helm completion with ivy
+    (when (configuration-layer/layer-used-p 'ivy)
+      (require 'org-ref-ivy))))
