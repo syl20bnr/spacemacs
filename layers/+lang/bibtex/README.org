@@ -67,6 +67,7 @@ In a Bib(La)TeX file, the following key bindings are added:
 | ~SPC m i~                 | Insert new entry                           |
 | ~SPC m s~                 | Sort entry                                 |
 | ~SPC m h~                 | Various actions on entry                   |
+| ~SPC m m~                 | Manage bibtex library with =helm-bibtex=   |
 | ~SPC m l a~               | Lookup and add arXiv paper (don't get PDF) |
 | ~SPC m l A~               | Lookup and add arXiv paper (download PDF)  |
 | ~SPC m l d~               | Lookup and add paper by DOI                |

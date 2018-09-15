@@ -12,16 +12,25 @@
 (setq bibtex-packages
       '(
         auctex
+        (helm-bibtex :requires helm)
+        markdown-mode
         org
         org-ref
-        markdown-mode
-        (helm-bibtex :requires helm)
-        biblio
-        biblio-core
         ))
 
 (defun bibtex/post-init-auctex ()
   (spacemacs/set-leader-keys-for-major-mode 'latex-mode
+    "ic" 'org-ref-helm-insert-cite-link))
+
+(defun bibtex/init-helm-bibtex ()
+  (use-package helm-bibtex
+    :defer t
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
+      "m" 'helm-bibtex)))
+
+(defun bibtex/post-init-markdown-mode ()
+  (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
     "ic" 'org-ref-helm-insert-cite-link))
 
 (defun bibtex/post-init-org ()
@@ -46,12 +55,15 @@
                pubmed-insert-bibtex-from-pmid)
     :init
     (progn
+      (add-hook 'org-mode-hook (lambda () (require 'org-ref)))
+
       (evil-define-key 'normal bibtex-mode-map
         (kbd "C-j") 'org-ref-bibtex-next-entry
         (kbd "C-k") 'org-ref-bibtex-previous-entry
         "gj" 'org-ref-bibtex-next-entry
         "gk" 'org-ref-bibtex-previous-entry)
 
+      (spacemacs/declare-prefix-for-mode 'bibtex-mode "ml" "lookup utilities")
       (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
         ;; Navigation
         "j" 'org-ref-bibtex-next-entry
@@ -73,15 +85,3 @@
         "ld" 'doi-utils-add-bibtex-entry-from-doi
         "li" 'isbn-to-bibtex
         "lp" 'pubmed-insert-bibtex-from-pmid))))
-
-(defun bibtex/pre-init-org-ref ()
-  (add-hook 'org-mode-hook (lambda () (require 'org-ref))))
-
-(defun bibtex/post-init-markdown-mode ()
-  (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-    "ic" 'org-ref-helm-insert-cite-link))
-
-(defun bibtex/init-helm-bibtex ())
-(defun bibtex/init-biblio ())
-(defun bibtex/init-biblio-core ())
-
