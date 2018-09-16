@@ -10,9 +10,19 @@
 ;;; License: GPLv3
 
 (defconst better-defaults-packages
-  '(mwim
+  '(helpful
+    mwim
     unfill)
   "The list of Lisp packages required by the mwim layer.")
+
+(defun better-defaults/init-helpful ()
+  (use-package helpful
+    :defer t
+    :init
+    (global-set-key (kbd "C-h f") #'helpful-callable)
+    (global-set-key (kbd "C-h C") #'helpful-command)
+    (global-set-key (kbd "C-h v") #'helpful-variable)
+    (global-set-key (kbd "C-h k") #'helpful-key)))
 
 (defun better-defaults/init-mwim ()
   (use-package mwim

@@ -245,14 +245,15 @@
 (spacemacs/set-leader-keys
   "hdb" 'describe-bindings
   "hdc" 'describe-char
-  "hdf" 'describe-function
-  "hdk" 'describe-key
+  "hdf" 'helpful-callable
+  "hdf" 'helpful-command
+  "hdk" 'helpful-key
   "hdl" 'spacemacs/describe-last-keys
   "hdp" 'describe-package
   "hdP" 'configuration-layer/describe-package
   "hds" 'spacemacs/describe-system-info
   "hdt" 'describe-theme
-  "hdv" 'describe-variable
+  "hdv" 'helpful-variable
   "hI"  'spacemacs/report-issue
   "hn"  'view-emacs-news
   "hPs" 'profiler-start
