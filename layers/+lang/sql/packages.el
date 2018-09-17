@@ -22,6 +22,7 @@
                                :fetcher github
                                :repo "alex-hhh/emacs-sql-indent"
                                :files ("sql-indent.el")))
+        (sqlfmt :location local)
         (sqlup-mode :toggle sql-capitalize-keywords)
         ))
 
@@ -138,6 +139,13 @@
     :defer t
     :init (add-hook 'sql-mode-hook 'sqlind-minor-mode)
     :config (spacemacs|hide-lighter sqlind-minor-mode)))
+
+(defun sql/init-sqlfmt ()
+  (use-package sqlfmt
+    :commands sqlfmt-buffer
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'sql-mode
+      "=" 'sqlfmt-buffer)))
 
 (defun sql/init-sqlup-mode ()
   (use-package sqlup-mode
