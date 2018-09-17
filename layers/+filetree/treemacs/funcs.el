@@ -1,4 +1,4 @@
-;;; packages.el --- Treemacs Layer functions File
+;;; funcs.el --- Treemacs Layer functions File
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
