@@ -105,6 +105,7 @@ Default is =nil=.
 | ~SPC f t~   | Hide/show existing treemacs buffer. Create one for the current directory if no buffer exists.                                                  |
 | ~SPC f T~   | Manually focus the treemacs view on the currently selected file. Not needed when =treemacs-follow-mode= is enabled.                            |
 | ~SPC f M-t~ | Manually focus the treemacs view on the currently selected file and tag.                                                                       |
+| ~SPC p t~   | Hide/show existing treemacs buffer. Add the current project to treemacs if not already added.                                                  |
 
 ** Inside Treemacs
 Treemacs will use either ~j/k~ or ~n/p~ to go to the next/previous line,

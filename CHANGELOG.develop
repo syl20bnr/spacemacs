@@ -2303,6 +2303,7 @@ Other:
   (thanks to Aaron Jensen)
 **** Treemacs
 - =Treemacs= replaces =NeoTree= as the default sidebar
+- Add missing ~SPC p t~ to =readme.org= (thanks to oo6)
 **** Typescript
 - Call tsfmt with extension of current buffer for TSX formatting
   (thanks to Victor Andrée)
