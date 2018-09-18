@@ -983,18 +983,6 @@ toggling fullscreen."
 		 'maximized)
 	   'fullboth)))))
 
-;; taken from Prelude: https://github.com/bbatsov/prelude
-(defmacro spacemacs|advise-commands (advice-name commands class &rest body)
-  "Apply advice named ADVICE-NAME to multiple COMMANDS.
-The body of the advice is in BODY."
-  `(progn
-     ,@(mapcar (lambda (command)
-                 `(defadvice ,command
-                      (,class ,(intern (format "%S-%s" command advice-name))
-                              activate)
-                    ,@body))
-               commands)))
-
 (defun spacemacs/safe-revert-buffer ()
   "Prompt before reverting the file."
   (interactive)

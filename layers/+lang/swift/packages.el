@@ -25,14 +25,14 @@
     :defer t
     :init
     (progn
-      (spacemacs|advise-commands "store-initial-buffer-name"
-                                 (swift-mode-run-repl) around
-       "Store current buffer bane in bufffer local variable,
+      (defun spacemacs//swift-store-initial-buffer-name (func &rest args)
+        "Store current buffer bane in bufffer local variable,
 before activiting or switching to REPL."
-       (let ((initial-buffer (current-buffer)))
-         ad-do-it
-         (with-current-buffer swift-repl-buffer
-           (setq swift-repl-mode-previous-buffer initial-buffer))))
+        (let ((initial-buffer (current-buffer)))
+          (apply func args)
+          (with-current-buffer swift-repl-buffer
+            (setq swift-repl-mode-previous-buffer initial-buffer))))
+      (advice-add 'swift-mode-run-repl :around #'spacemacs//swift-store-initial-buffer-name)
 
       (defun spacemacs/swift-repl-mode-hook ()
         "Hook to run when starting an interactive swift mode repl"
