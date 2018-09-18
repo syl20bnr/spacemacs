@@ -1313,21 +1313,25 @@ Compare them on count first,and in case of tie sort them alphabetically."
   (if (<= (- end beg) spacemacs-yank-indent-threshold)
       (indent-region beg end nil)))
 
-(spacemacs|advise-commands
- "indent" (yank yank-pop evil-paste-before evil-paste-after) around
- "If current mode is not one of spacemacs-indent-sensitive-modes
- indent yanked text (with universal arg don't indent)."
- (evil-start-undo-step)
- ad-do-it
- (if (and (not (equal '(4) (ad-get-arg 0)))
-          (not (member major-mode spacemacs-indent-sensitive-modes))
-          (or (derived-mode-p 'prog-mode)
-              (member major-mode spacemacs-indent-sensitive-modes)))
-     (let ((transient-mark-mode nil)
-           (save-undo buffer-undo-list))
-       (spacemacs/yank-advised-indent-function (region-beginning)
-                                               (region-end))))
- (evil-end-undo-step))
+(defun spacemacs//yank-indent-region (yank-func &rest args)
+  "If current mode is not one of spacemacs-indent-sensitive-modes
+indent yanked text (with universal arg don't indent)."
+  (evil-start-undo-step)
+  (let ((prefix (car args)))
+    (setcar args (unless (equal '(4) prefix) prefix))
+    (apply yank-func args)
+    (if (and (not (equal '(4) prefix))
+             (not (member major-mode spacemacs-indent-sensitive-modes))
+             (or (derived-mode-p 'prog-mode)
+                 (member major-mode spacemacs-indent-sensitive-modes)))
+        (let ((transient-mark-mode nil)
+              (save-undo buffer-undo-list))
+          (spacemacs/yank-advised-indent-function (region-beginning)
+                                                  (region-end)))))
+  (evil-end-undo-step))
+
+(dolist (func '(yank yank-pop evil-paste-before evil-paste-after))
+  (advice-add func :around #'spacemacs//yank-indent-region))
 
 ;; find file functions in split
 (defun spacemacs//display-in-split (buffer alist)
