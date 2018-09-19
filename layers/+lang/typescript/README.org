@@ -96,6 +96,9 @@ Backend can be chosen on a per project basis using directory local variables
 ((typescript-mode (typescript-backend . lsp)))
 #+END_SRC
 
+And you might need to add ="allowSyntheticDefaultImports": true= in `tsconfig.json`'s
+=compilerOptions= to Allow default imports from modules with no default export.
+
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
 
 * Backends
