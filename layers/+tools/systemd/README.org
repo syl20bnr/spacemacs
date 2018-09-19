@@ -1,6 +1,6 @@
 #+TITLE: systemd layer
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -17,9 +17,9 @@ This layer adds support for editing =systemd= configuration files in Spacemacs.
 * Install
 To use this contribution add it to your =~/.spacemacs=
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(systemd))
-#+end_src
+#+END_SRC
 
 * Key bindings
 

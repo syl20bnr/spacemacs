@@ -2,7 +2,7 @@
 
 [[file:img/terraform.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -28,6 +28,6 @@ You will also need a working native =terraform= installation on your system.
 If you want =terraform fmt= to be applied automatically on save then set the
 layer variable =terraform-auto-format-on-save= to =t=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (terraform :variables terraform-auto-format-on-save t)
-#+end_src
+#+END_SRC

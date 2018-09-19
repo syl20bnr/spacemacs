@@ -2,7 +2,7 @@
 
 [[file:img/logo.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -35,5 +35,5 @@ and =nimsuggest= binary must be in $PATH.
 | ~SPC m c r~          | =nim compile --run main.nim= |
 | ~SPC m g g~ or ~M-.~ | Jump to definition           |
 | ~SPC m g b~ or ~M-,~ | Jump back                    |
-| ~SPC m h h~          | Show symbol's documentation  |
+| ~SPC m h h~          | Show symbol’s documentation  |
 |----------------------+------------------------------|

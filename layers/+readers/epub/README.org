@@ -2,7 +2,7 @@
 
 [[file:img/epub.png]]
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -13,15 +13,15 @@ This layer provides support for reading EPUB-formatted eBooks in Spacemacs using
 excellent [[https://github.com/wasamasa/nov.el][nov.el]] package.
 
 ** Features:
-  - Basic navigation (jump to TOC, previous/next chapter)
-  - Remembering and restoring the last read position
-  - Jump to next chapter when scrolling beyond end
-  - Renders EPUB2 (.ncx) and EPUB3 (<nav>) TOCs
-  - Hyperlinks to internal and external targets
-  - Supports textual and image documents
-  - View source of document files
-  - Metadata display
-  - Image rescaling
+- Basic navigation (jump to TOC, previous/next chapter)
+- Remembering and restoring the last read position
+- Jump to next chapter when scrolling beyond end
+- Renders EPUB2 (.ncx) and EPUB3 (<nav>) TOCs
+- Hyperlinks to internal and external targets
+- Supports textual and image documents
+- View source of document files
+- Metadata display
+- Image rescaling
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

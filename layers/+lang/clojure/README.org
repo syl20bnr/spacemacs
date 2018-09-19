@@ -2,7 +2,7 @@
 
 [[file:img/clojure.png]] [[file:img/cider.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -120,55 +120,55 @@ sure the necessary dependencies are present, and the necessary nREPL middlewares
 are enabled.
 
 *** Quick Start with boot
-- Install =boot= (see https://github.com/boot-clj/boot#user-content-install)
+- Install =boot= (see [[https://github.com/boot-clj/boot#user-content-install]])
 - Create a file =~/.boot/profile.boot= with the following content:
 
-#+BEGIN_SRC clojure
-  (require 'boot.repl)
+  #+BEGIN_SRC clojure
+    (require 'boot.repl)
 
-  (swap! boot.repl/*default-dependencies* conj
-         ;; When running an older version of CIDER (pre 0.18), use the
-         ;; version that best matches M-x cider-version. For versions since
-         ;; 0.18.0 use whatever version is the most recent.
-         '[cider/cider-nrepl "0.19.0-SNAPSHOT"]
+    (swap! boot.repl/*default-dependencies* conj
+           ;; When running an older version of CIDER (pre 0.18), use the
+           ;; version that best matches M-x cider-version. For versions since
+           ;; 0.18.0 use whatever version is the most recent.
+           '[cider/cider-nrepl "0.19.0-SNAPSHOT"]
 
-         ;; Only necessary when using clj-refactor
-         '[refactor-nrepl "2.4.0"]
+           ;; Only necessary when using clj-refactor
+           '[refactor-nrepl "2.4.0"]
 
-         ;; Only necessary when using sayid
-         '[com.billpiel/sayid "0.0.17"])
+           ;; Only necessary when using sayid
+           '[com.billpiel/sayid "0.0.17"])
 
-  (swap! boot.repl/*default-middleware* conj
-         'cider.nrepl/cider-middleware
-         'refactor-nrepl.middleware/wrap-refactor
-         'com.billpiel.sayid.nrepl-middleware/wrap-sayid)
-#+END_SRC
+    (swap! boot.repl/*default-middleware* conj
+           'cider.nrepl/cider-middleware
+           'refactor-nrepl.middleware/wrap-refactor
+           'com.billpiel.sayid.nrepl-middleware/wrap-sayid)
+  #+END_SRC
 
 *** Quick Start with lein
-- Install =lein= version 2.5.2 or newer (see https://leiningen.org/#install)
+- Install =lein= version 2.5.2 or newer (see [[https://leiningen.org/#install]])
 - Create a file =~/.lein/profiles.clj= with the following content:
 
-#+BEGIN_SRC clojure
-  {:repl
-   {:plugins [;; When running an older version of CIDER (pre 0.18), use the
-              ;; version that best matches M-x cider-version. For versions since
-              ;; 0.18.0 use whatever version is the most recent.
-              [cider/cider-nrepl "0.19.0-SNAPSHOT"]
+  #+BEGIN_SRC clojure
+    {:repl
+     {:plugins [;; When running an older version of CIDER (pre 0.18), use the
+                ;; version that best matches M-x cider-version. For versions since
+                ;; 0.18.0 use whatever version is the most recent.
+                [cider/cider-nrepl "0.19.0-SNAPSHOT"]
 
-              ;; Only necessary when using clj-refactor
-              [refactor-nrepl "2.4.0"]
+                ;; Only necessary when using clj-refactor
+                [refactor-nrepl "2.4.0"]
 
-              ;; Only necessary when using sayid
-              [com.billpiel/sayid "0.0.17"]]
+                ;; Only necessary when using sayid
+                [com.billpiel/sayid "0.0.17"]]
 
-    :dependencies [[nrepl "0.4.5"]]
+      :dependencies [[nrepl "0.4.5"]]
 
-    :repl-options
-    {:nrepl-middleware [cider.nrepl/cider-middleware
-                        refactor-nrepl.middleware/wrap-refactor ;; clj-refactor
-                        com.billpiel.sayid.nrepl-middleware/wrap-sayid ;; sayid
-                        ]}}}
-#+END_SRC
+      :repl-options
+      {:nrepl-middleware [cider.nrepl/cider-middleware
+                          refactor-nrepl.middleware/wrap-refactor ;; clj-refactor
+                          com.billpiel.sayid.nrepl-middleware/wrap-sayid ;; sayid
+                          ]}}}
+  #+END_SRC
 
 *** More details
 More info regarding installation of nREPL middleware can be found here:
@@ -195,13 +195,13 @@ To turn it on automatically for all =clojure= buffers call the following
 function in your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-clojure-mode)
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-clojure-mode)
 #+END_SRC
 
 or to enable it for all supported modes:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 #+END_SRC
 
 When enabled the symbol =🆂= should be displayed in the mode-line.
@@ -209,7 +209,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 * Key Bindings
 ** Working with clojure files (barfage, slurpage & more)
 Spacemacs comes with a special =lisp-state= for working with lisp code that
-supports slurpage, barfage and more tools you'll likely want when working with
+supports slurpage, barfage and more tools you’ll likely want when working with
 lisp.
 
 As this state works the same for all files, the documentation is in global
@@ -314,7 +314,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m d r~   | reload namespaces                                  |
 | ~SPC m d s~   | show what is currently traced                      |
 | ~SPC m d S~   | show what is currently traced in current namespace |
-| ~SPC m d t b~ | trace current file's namespace                     |
+| ~SPC m d t b~ | trace current file’s namespace                     |
 | ~SPC m d t d~ | disable existing trace on current function         |
 | ~SPC m d t D~ | disable existing trace on all functions            |
 | ~SPC m d t e~ | enable existing trace on current function          |
@@ -508,6 +508,6 @@ In general, ~q~ should always quit the popped up buffer.
 * Development Notes
 ** Indentation
 With a [[https://github.com/clojure-emacs/cider/blob/master/doc/indent_spec.md][new]] functionality of Cider to read the custom indentation rules from the
-var's metadata, it is better for consistency reasons to not add the custom
+var’s metadata, it is better for consistency reasons to not add the custom
 indentation rules to Spacemacs, but to add them to the metadata of those
 specific vars.

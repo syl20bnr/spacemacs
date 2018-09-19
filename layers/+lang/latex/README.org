@@ -2,7 +2,7 @@
 
 [[file:img/latex.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
   - [[#bibtex][BibTeX]]
@@ -98,7 +98,6 @@ To enable “magic” symbols in latex buffers, set the variable
 
 The precise effect of this feature can be modified by adjusting the following
 variables:
-
 - =magic-latex-enable-block-highlight=: show font properties like =\large=
   (default =t=).
 - =magic-latex-enable-block-align=: reflect block alignment such as =\center=

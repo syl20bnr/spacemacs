@@ -2,7 +2,7 @@
 
 [[file:img/swift.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -12,15 +12,15 @@
   - [[#swift-repl-mode][swift-repl-mode]]
 
 * Description
-This layer adds support for Apple's Swift programming language, used as a
+This layer adds support for Apple’s Swift programming language, used as a
 general purpose scripting language.
 
 ** Features:
-   - Syntax highlighting with [[https://github.com/swift-emacs/swift-mode][swift-mode]]
-   - Indentation
-   - Code navigation using =imenu= (built-in)
-   - Automatic syntax checking with =flycheck= (available with the
-     =syntax-checking= layer)
+- Syntax highlighting with [[https://github.com/swift-emacs/swift-mode][swift-mode]]
+- Indentation
+- Code navigation using =imenu= (built-in)
+- Automatic syntax checking with =flycheck= (available with the
+  =syntax-checking= layer)
 
 * Install
 First check that you are able to run this from the command line:

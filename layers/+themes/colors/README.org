@@ -2,7 +2,7 @@
 
 [[file:img/rainbow_dash.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -107,7 +107,7 @@ You can do that by using a quasi-quoted list which checks the Emacs mode:
 | ~SPC t C v~   | colorize only variables in current buffer (color-identifiers mode)    |
 | ~SPC t C C-v~ | globally colorize only variables and all subsequent buffers           |
 
-The =saturation= and =lightness= of rainbow-identifier mode's colors
+The =saturation= and =lightness= of rainbow-identifier mode’s colors
 can be adjusted live via the following transient-state:
 
 | Key Binding     | Description                              |
@@ -127,15 +127,13 @@ It can be used together with either (or none) of the identifier colorizers.
 
 All detected color codes in the current buffer will be be highlighted as their
 actual color. However, for accurate display, this mode requires that you use
-GUI Emacs and that you haven't disabled sRGB mode (if your platform uses that).
+GUI Emacs and that you haven’t disabled sRGB mode (if your platform uses that).
 
 To enable, you must manually toggle it on and off on a per-buffer basis with:
-
-    ~SPC t C c~
+~SPC t C c~
 
 ** Nyan Mode
 =nyan-mode= mode can be toggled on and off with:
-
-    ~SPC t m n~
+~SPC t m n~
 
 Note that the toggle is local to the current buffer.

@@ -2,7 +2,7 @@
 
 [[file:img/cmake.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -16,7 +16,7 @@ This layer adds support [[https://cmake.org/][CMake]] scripts.
 ** Features:
 - Support for CMake configure/build (with limited support for other build systems),
   automatic generation of =compile_commands.json= (compile flags), on-the-fly configuration
-  of flycheck, company-clang and RTags (if installed) with [[https://github.com/atilaneves/cmake-ide][cmake-ide]] .
+  of flycheck, company-clang and RTags (if installed) with [[https://github.com/atilaneves/cmake-ide][cmake-ide]].
 - Run selected test using =Helm= interface via =helm-ctest=.
 
 * Install
@@ -43,7 +43,7 @@ Here is a sample configuration. This configuration forces =cmake-ide= to use the
 local directory and pass that directory to =helm-make=. Such config allows to
 build your project with ~SPC c c~ key binding.
 
-Additionally it's possible to configure =helm-ctest= in the same way via defining ~helm-ctest-dir~.
+Additionally it’s possible to configure =helm-ctest= in the same way via defining ~helm-ctest-dir~.
 Trailing slash is required.
 
 #+BEGIN_SRC emacs-lisp

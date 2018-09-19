@@ -1,6 +1,6 @@
 #+TITLE: IBuffer layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -51,6 +51,6 @@ Example:
 
 | Key Binding | Description                   |
 |-------------+-------------------------------|
-| ~g r~       | update IBuffer ("refresh")    |
+| ~g r~       | update IBuffer (“refresh”)    |
 | ~g j~       | move to next filter group     |
 | ~g k~       | move to previous filter group |

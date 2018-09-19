@@ -2,7 +2,7 @@
 
 [[file:img/crystal.png]]
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -15,7 +15,7 @@
   - [[#ameba-1][Ameba]]
 
 * Description
-  This layer provides support for the Crystal language.
+This layer provides support for the Crystal language.
 
 ** Features:
 - =crystal tool format= on file save
@@ -41,7 +41,7 @@ Although not in the installation instruction it seems that on macOS you can
 install it with Homebrew:
 
 #+BEGIN_SRC sh
-brew install crystal-icr
+  brew install crystal-icr
 #+END_SRC
 
 ** Ameba

@@ -2,7 +2,7 @@
 
 [[file:img/ansible.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -33,21 +33,21 @@ password to use somewhere in your =dotspacemacs/user-config= function.
 For instance:
 
 #+BEGIN_SRC emacs-lisp
-(setq ansible::vault-password-file "path/to/pwd/file")
+  (setq ansible::vault-password-file "path/to/pwd/file")
 #+END_SRC
 
 The default value is the ansible-vault default value: =~/.vault_pass.txt=.
 
 For now Ansible does not handle multiple passwords in the vault file
-(see https://github.com/ansible/ansible/issues/13243). To work around this
+(see [[https://github.com/ansible/ansible/issues/13243]]). To work around this
 limitation directory local variables can be used to define a different
 password file for a given environment. Example:
 
 #+BEGIN_SRC emacs-lisp
-;;; Directory Local Variables
-;;; For more information see (info "(emacs) Directory Variables")
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
 
-((yaml-mode . ((ansible::vault-password-file . "path/to/vault_file"))))
+  ((yaml-mode . ((ansible::vault-password-file . "path/to/vault_file"))))
 #+END_SRC
 
 *** Automatic encryption and decryption
@@ -59,7 +59,7 @@ If you want to disable this feature then set the layer variable
 =ansible-auto-encrypt-decrypt= to =nil=.
 
 #+BEGIN_SRC emacs-lisp
-(ansible :variables ansible-auto-encrypt-decrypt t)
+  (ansible :variables ansible-auto-encrypt-decrypt t)
 #+END_SRC
 
 * Key bindings

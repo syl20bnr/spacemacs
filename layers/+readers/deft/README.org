@@ -1,6 +1,6 @@
 #+TITLE: Deft layer
 
-* Table of Content                                          :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -27,7 +27,7 @@ By default deft tries to put notes in =~/.deft= but you can change
 this in your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-   (setq deft-directory "~/Dropbox/notes")
+  (setq deft-directory "~/Dropbox/notes")
 #+END_SRC
 
 By default =Deft= uses filenames for note titles and =org-mode= for editing.
@@ -35,7 +35,7 @@ The default extension for new notes is =org=. However also =md= and =txt=
 files are recognized as notes. Which extensions are used for notes discovery
 can be configured in your =dotfile=:
 
-#+Begin_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq deft-extensions '("org" "md" "txt"))
 #+END_SRC
 

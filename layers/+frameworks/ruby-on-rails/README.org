@@ -2,7 +2,7 @@
 
 [[file:img/ror.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -16,11 +16,11 @@
 This layer aims at providing support for the Ruby on Rails framework.
 
 ** Features:
-   - Quick file navigation with with [[https://github.com/asok/projectile-rails][projectile-rails]]
-   - Run server
-   - Run generators
-   - Rake runner
-   - Interactive Rails console
+- Quick file navigation with with [[https://github.com/asok/projectile-rails][projectile-rails]]
+- Run server
+- Run generators
+- Rake runner
+- Interactive Rails console
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

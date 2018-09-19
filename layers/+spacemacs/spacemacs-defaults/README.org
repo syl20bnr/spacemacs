@@ -1,6 +1,6 @@
 #+TITLE: spacemacs-defaults
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 
@@ -9,34 +9,34 @@ This layer configures mostly Emacs built-in packages to given them better
 defaults.
 
 ** Features:
--  Configures packages:
- - abbrev
- - archive-mode
- - bookmark
- - conf-mode
- - dired
- - dired-x
- - display-line-numbers (only in Emacs 26.x and newer)
- - electric-indent-mode
- - ediff
- - eldoc
- - help-fns+
- - hi-lock
- - image-mode
- - imenu
- - linum (only in Emacs 25.x and older)
- - occur-mode
- - package-menu
- - page-break-lines
- - process-menu
- - recentf
- - savehist
- - saveplace
- - subword
- - tar-mode
- - uniquify
- - url
- - visual-line-mode
- - whitespace
- - winner
- - zone
+- Configures packages:
+  - abbrev
+  - archive-mode
+  - bookmark
+  - conf-mode
+  - dired
+  - dired-x
+  - display-line-numbers (only in Emacs 26.x and newer)
+  - electric-indent-mode
+  - ediff
+  - eldoc
+  - help-fns+
+  - hi-lock
+  - image-mode
+  - imenu
+  - linum (only in Emacs 25.x and older)
+  - occur-mode
+  - package-menu
+  - page-break-lines
+  - process-menu
+  - recentf
+  - savehist
+  - saveplace
+  - subword
+  - tar-mode
+  - uniquify
+  - url
+  - visual-line-mode
+  - whitespace
+  - winner
+  - zone

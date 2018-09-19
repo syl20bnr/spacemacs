@@ -1,6 +1,6 @@
 #+TITLE: Geolocation layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -19,7 +19,7 @@ This layer offers location sensitive adjustments to Emacs.
 - Supports the following adjustments:
   - Automatic switching between light (day) and dark (night) themes via [[https://github.com/hadronzoo/theme-changer][theme-changer]]
   - Local weather forecast via [[https://github.com/aaronbieber/sunshine.el/blob/master/sunshine.el][sunshine]]
-  - Integration with OS X's CoreLocation service via [[https://github.com/purcell/osx-location][osx-location]]
+  - Integration with OS X’s CoreLocation service via [[https://github.com/purcell/osx-location][osx-location]]
   - Manual location setting via variables in your dotfile
 
 * Install
@@ -48,7 +48,7 @@ Set location manually by setting the following variables in your dotfile:
 #+END_SRC
 
 ** OSX-location
-Mac users can take adavantage of automatic geogrphical discovery using the OS'
+Mac users can take adavantage of automatic geogrphical discovery using the OS’s
 CoreLocation system service, implemented as a long running background process.
 In order to enable it, set =geolocation-enable-location-service= to =t= as
 explained in installation instructions.
@@ -59,7 +59,7 @@ activated.
 [[file:img/emacs-location-helper.jpg]]
 
 ** Theme-changer
-This layer implement a simple "theme changer" which, when enabled, will switch
+This layer implement a simple “theme changer” which, when enabled, will switch
 between first two themes the user has setup in ~dotspacemacs-themes~. First
 theme listed will be used as the light variant, while the second as the dark.
 Other themes will be ignored by this layer, though they are still available for
@@ -78,7 +78,7 @@ openweathermap website. You need to sign up to the website to get a API key.
 #+END_SRC
 
 Configure your location by setting the variable sunshine-location. You can
-provide a string, like "New York, NY" or a ZIP code, like "90210". This variable
+provide a string, like “New York, NY” or a ZIP code, like “90210”. This variable
 is available through the Customize facility.
 
 When specifying a ZIP code, you may receive results from a foreign country. This
@@ -87,7 +87,7 @@ and the country code after the ZIP code. Note the lack of a space in the example
 below.
 
 #+BEGIN_SRC emacs-lisp
-(setq sunshine-location "90210,USA")
+  (setq sunshine-location "90210,USA")
 #+END_SRC
 
 It will use the imperial unit system by default. To switch to metric, add
@@ -98,9 +98,9 @@ It will use the imperial unit system by default. To switch to metric, add
 #+END_SRC
 
 Weather forecast icons are disabled by default, and can be toggled by pressing
-`i' within this mode's main buffer.
+`i’ within this mode’s main buffer.
 
-To display weather forecast icons by default ("pretty mode"), add
+To display weather forecast icons by default (“pretty mode”), add
 ~sunshine-show-icons t~ to the variables list for this layer, or add this:
 
 #+BEGIN_SRC emacs-lisp

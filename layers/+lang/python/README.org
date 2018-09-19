@@ -2,7 +2,7 @@
 
 [[file:img/python.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -65,7 +65,7 @@ file.
 To choose a default backend set the layer variable =python-backend=:
 
 #+BEGIN_SRC elisp
-(python :variables python-backend 'anaconda)
+  (python :variables python-backend 'anaconda)
 #+END_SRC
 
 Backend can be chosen on a per project basis using directory local variables
@@ -73,10 +73,10 @@ Backend can be chosen on a per project basis using directory local variables
 =lsp= backend:
 
 #+BEGIN_SRC elisp
-;;; Directory Local Variables
-;;; For more information see (info "(emacs) Directory Variables")
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
 
-((python-mode (python-backend . lsp)))
+  ((python-mode (python-backend . lsp)))
 #+END_SRC
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
@@ -87,48 +87,48 @@ Backend can be chosen on a per project basis using directory local variables
 it does not work and you may encounter the following message when
 opening a python buffer:
 
-#+begin_example
-    Blocking call to accept-process-output with quit inhibited!!
-#+end_example
+#+BEGIN_EXAMPLE
+  Blocking call to accept-process-output with quit inhibited!!
+#+END_EXAMPLE
 
 To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anaconda-mode/wiki][anaconda-deps]] by hand:
 
-#+begin_src sh
-    pip install --upgrade "jedi>=0.9.0" "json-rpc>=1.8.1" "service_factory>=0.1.5"
-#+end_src
+#+BEGIN_SRC sh
+  pip install --upgrade "jedi>=0.9.0" "json-rpc>=1.8.1" "service_factory>=0.1.5"
+#+END_SRC
 
 If you encounter problems with Jedi 1.0 consider downgrading to 0.9.0. See [[https://github.com/davidhalter/jedi/issues/873][this
 issue]] for details.
 
-Source: https://github.com/proofit404/anaconda-mode#issues
+Source: [[https://github.com/proofit404/anaconda-mode#issues]]
 
-If you are facing errors such as "Unable to run anaconda-mode server", try
+If you are facing errors such as “Unable to run anaconda-mode server”, try
 setting your =PYTHONPATH= as explained at
-https://github.com/proofit404/anaconda-mode#pythonpath
+[[https://github.com/proofit404/anaconda-mode#pythonpath]]
 
 ** Language Server Protocol
 You just have to install python language server package:
 
-#+begin_src sh
-pip install python-language-server
-#+end_src
+#+BEGIN_SRC sh
+  pip install python-language-server
+#+END_SRC
 
 Additionally you can install the following other packages:
 
-#+begin_src sh
-# for import sorting
-pip install pyls-isort
-# for mypy checking (python 3.4+ is needed)
-pip install pyls-mypy
-#+end_src
+#+BEGIN_SRC sh
+  # for import sorting
+  pip install pyls-isort
+  # for mypy checking (python 3.4+ is needed)
+  pip install pyls-mypy
+#+END_SRC
 
 * Additional tools
 ** Syntax checking
 Syntax checking uses =flake8= package:
 
-#+begin_src sh
-    pip install flake8
-#+end_src
+#+BEGIN_SRC sh
+  pip install flake8
+#+END_SRC
 
 ** Test runner
 Both =nose= and =pytest= are supported. By default =nose= is used.
@@ -136,15 +136,15 @@ To choose your test runner set the layer variable =python-test-runner= to
 either =nose= or =pytest=.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((python :variables python-test-runner 'pytest)))
+  (setq-default dotspacemacs-configuration-layers
+    '((python :variables python-test-runner 'pytest)))
 #+END_SRC
 
 If you need both then you can set =python-test-runner= to a list like this:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((python :variables python-test-runner '(pytest nose))))
+  (setq-default dotspacemacs-configuration-layers
+    '((python :variables python-test-runner '(pytest nose))))
 #+END_SRC
 
 This means that =pytest= is your primary test runner. To use the secondary test
@@ -192,8 +192,8 @@ If you want to customize the fill column value, use something like this inside
 the =user-init= function in your =.spacemacs=:
 
 #+BEGIN_SRC elisp
-(setq-default dotspacemacs-configuration-layers '(
-    (python :variables python-fill-column 99)))
+  (setq-default dotspacemacs-configuration-layers '(
+      (python :variables python-fill-column 99)))
 #+END_SRC
 
 ** Sort imports
@@ -202,8 +202,8 @@ If you want imports to be automatically sorted when you save a file (using
 config section:
 
 #+BEGIN_SRC elisp
-(setq-default dotspacemacs-configuration-layers
-  '((python :variables python-sort-imports-on-save t)))
+  (setq-default dotspacemacs-configuration-layers
+    '((python :variables python-sort-imports-on-save t)))
 #+END_SRC
 
 or as a directory-local variable (for per-project settings).
@@ -326,7 +326,7 @@ In python buffer type ~SPC m P~ to open buffer listing all installed =pip=
 packages in the currently activated virtual environment.
 
 *Note:* To open this menu from outside a python buffer type
-~SPC SPC pippel-list-packages RET~ .
+~SPC SPC pippel-list-packages RET~.
 
 In the package list buffer:
 

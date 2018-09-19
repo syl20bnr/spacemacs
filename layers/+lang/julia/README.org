@@ -1,10 +1,8 @@
 #+TITLE: julia layer
 
-# The maximum height of the logo should be 200 pixels.
 [[file:img/julia.png]]
-# TOC links should be GitHub style anchors.
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -16,12 +14,12 @@
 This layer adds support for [[https://julialang.org][Julia]] to Spacemacs.
 
 ** Features:
-  - Syntax highlighting
-  - Repl support
-  - Linting
-  - Completion
-  - Jump-to-definition
-  - Documentation on hover
+- Syntax highlighting
+- Repl support
+- Linting
+- Completion
+- Jump-to-definition
+- Documentation on hover
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -36,7 +34,6 @@ using PackageCompiler.jl to mitigate this issue.
 This layer can be used with [[https://github.com/JuliaEditorSupport/LanguageServer.jl][ =LanguageServer.jl= ]] and emacs [[https://github.com/emacs-lsp/lsp-mode][ =lsp-mode= ]] to provide
 richer, IDE-like capabilities. To use this layer with lsp, you must do the
 following:
-
 1. Add =lsp= to =dotspacemacs-configuration-layers=.
 2. Install =LanguageServer.jl= by invoking =Pkg.add("LanguageServer")= in the
    Julia REPL.
@@ -58,7 +55,7 @@ julia> compile_package("LanguageServer")
 * Options
 While =julia-mode= is perfectly usable without configuration or other packages,
 you can choose to replace the default functionality of using [[https://github.com/tpapp/julia-repl/][=julia-repl=]] as the
-layer's interactive REPL with the ess REPL and other functionality that comes
+layer’s interactive REPL with the ess REPL and other functionality that comes
 with it. To do so, install this layer with:
 
 #+BEGIN_SRC emacs-lisp

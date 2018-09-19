@@ -2,7 +2,7 @@
 
 [[file:img/html.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -35,9 +35,9 @@ file.
 SCSS linting requires SCSS-Lint version >= 0.43.0. You can get it from GitHub:
 
 #+BEGIN_SRC command-line
-gem install specific_install
-gem specific_install https://github.com/brigade/scss-lint.git
-gem specific_install https://github.com/Sweetchuck/scss_lint_reporter_checkstyle.git
+  gem install specific_install
+  gem specific_install https://github.com/brigade/scss-lint.git
+  gem specific_install https://github.com/Sweetchuck/scss_lint_reporter_checkstyle.git
 #+END_SRC
 
 ** web-beautify
@@ -50,7 +50,7 @@ See [[file:../../+tools/prettier/README.org][prettier layer]] documentation.
 To choose a formatter, set the layer variable =web-fmt-tool=:
 
 #+BEGIN_SRC elisp
-(html :variables web-fmt-tool 'web-beautify)
+  (html :variables web-fmt-tool 'web-beautify)
 #+END_SRC
 
 Formatter can be chosen on a per project basis using directory local variables
@@ -58,10 +58,10 @@ Formatter can be chosen on a per project basis using directory local variables
 =prettier= formatter:
 
 #+BEGIN_SRC elisp
-;;; Directory Local Variables
-;;; For more information see (info "(emacs) Directory Variables")
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
 
-((html-mode (web-fmt-tool . prettier)))
+  ((html-mode (web-fmt-tool . prettier)))
 #+END_SRC
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
@@ -73,7 +73,7 @@ files, too.
 
 When the underlying file is an HTML file, ~SPC m i~ automatically opens the page
 in the browser. For other buffers, a list of available views can be found on
-http://localhost:8080/imp.
+[[http://localhost:8080/imp]].
 
 For more information visit the [[https://github.com/skeeto/impatient-mode/blob/master/README.md][help page on GitHub.]]
 

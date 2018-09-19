@@ -2,7 +2,7 @@
 
 [[file:img/git.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -89,18 +89,18 @@ Spacemacs can be used as the =$EDITOR= (or =$GIT_EDITOR=) for editing git
 commits messages. To enable this you have to add the following line to your
 =dotspacemacs/user-config=:
 
-#+begin_src emacs-lisp
-(global-git-commit-mode t)
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (global-git-commit-mode t)
+#+END_SRC
 
 ** Git
-Of course if your OS does not ship with git (!) you'll have to install it
+Of course if your OS does not ship with git (!) you’ll have to install it
 on your machine. You can download it from the [[http://git-scm.com/downloads][download page]].
 
 ** Git-Flow
 Git-flow is a standardized branching pattern for git repositories with the aim
 of making things more manageable. While there are tools to assist with making
-this easier, these do nothing you couldn't do manually.
+this easier, these do nothing you couldn’t do manually.
 
 Support requires installation of the git-flow extensions. Please reference their
 [[https://github.com/petervanderdoes/gitflow/wiki][installation page]] for assistance.
@@ -132,8 +132,9 @@ Git commands (start with ~g~):
 | ~SPC g t~   | launch the git time machine                         |
 | ~SPC g U~   | unstage current file                                |
 
+Notes:
 - Highlight by age of commit or last update time is provided by
- [[https://github.com/syohex/emacs-smeargle][smeargle]].
+  [[https://github.com/syohex/emacs-smeargle][smeargle]].
 - Git time machine is provided by [[https://melpa.org/#/git-timemachine][git-timemachine]].
 - Git last commit message per line is provided by [[https://github.com/syohex/emacs-git-messenger][git-messenger]].
 
@@ -287,8 +288,8 @@ configuration within your `.spacemacs` config. In the `dotspacemacs/user-config(
 stanza insert the following with the directories of your choice:
 
 #+BEGIN_SRC emacs-lisp
-(setq magit-repository-directories
-      '("~/Development"))
+  (setq magit-repository-directories
+        '("~/Development"))
 #+END_SRC
 
 | Key Binding | Description                                         |

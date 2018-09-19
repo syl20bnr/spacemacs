@@ -1,6 +1,6 @@
 #+TITLE: spacemacs-base distribution
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 

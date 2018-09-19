@@ -2,7 +2,7 @@
 
 [[file:img/ledger.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -49,11 +49,11 @@ your =dotspacemacs/user-config=.  The default value, set in the layer, is =62=.
 |-------------+-----------------------------------------------|
 | ~SPC m a~   | add a transaction                             |
 | ~SPC m b~   | edit a post amount with Emacs Calculator mode |
-| ~SPC m c~   | toggle 'cleared' flag on transaction or post  |
+| ~SPC m c~   | toggle ’cleared’ flag on transaction or post  |
 | ~SPC m C~   | sort and align the entire buffer              |
 | ~SPC m d~   | delete current transaction                    |
 | ~SPC m p~   | display balance at point                      |
-| ~SPC m q~   | align a single transaction's posts            |
+| ~SPC m q~   | align a single transaction’s posts            |
 | ~SPC m r~   | reconcile an account                          |
 | ~SPC m R~   | display a report                              |
 | ~SPC m t~   | append an effective date to a post            |

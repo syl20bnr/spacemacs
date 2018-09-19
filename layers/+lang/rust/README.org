@@ -2,7 +2,7 @@
 
 [[file:img/rust.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -40,7 +40,7 @@ instructions can be found on the main page of [[http://doc.crates.io/index.html]
 Format Rust code according to style guidelines using [[https://github.com/rust-lang-nursery/rustfmt][rustfmt]].
 
 #+BEGIN_SRC sh
-cargo install rustfmt
+  cargo install rustfmt
 #+END_SRC
 
 To enable automatic buffer formatting on save, set the variable =rust-format-on-save= to =t=.

@@ -1,6 +1,6 @@
 #+TITLE: ERC layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -37,7 +37,7 @@ add =erc= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** OS X
-It's recommended to install the [[https://github.com/alloy/terminal-notifier][terminal-notifier gem]] so that you get
+It’s recommended to install the [[https://github.com/alloy/terminal-notifier][terminal-notifier gem]] so that you get
 notifications via the OS X Notification Center.
 
 ** Social graph
@@ -47,19 +47,19 @@ notifications via the OS X Notification Center.
 By default D-BUS notifications are enabled, to disable them set the layer
 variable =erc-enable-notifications= to nil.
 
-#+BEGIN_EXAMPLE emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-             '((erc :variables erc-enable-notifications nil)))
-#+END_EXAMPLE
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+               '((erc :variables erc-enable-notifications nil)))
+#+END_SRC
 
 ** Enable SASL authentication
 To enable SASL authentication set the layer variable =erc-enable-sasl-auth= to
 non nil.
 
-#+BEGIN_EXAMPLE emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-             '((erc :variables erc-enable-sasl-auth t)))
-#+END_EXAMPLE
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+               '((erc :variables erc-enable-sasl-auth t)))
+#+END_SRC
 
 ** Default servers
 You can define the default servers in the ERC custom layout by setting the
@@ -68,18 +68,18 @@ You can also use =<leader>aiD= to connect to your default servers outside the
 custom layout.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-             '((erc :variables
-                    erc-server-list
-                    '(("irc.freenode.net"
-                       :port "6697"
-                       :ssl t
-                       :nick "some-user"
-                       :password "secret")
-                      ("irc.myworkirc.net"
-                       :port "1234"
-                       :nick "some-suit"
-                       :password "hunter2")))))
+  (setq-default dotspacemacs-configuration-layers
+               '((erc :variables
+                      erc-server-list
+                      '(("irc.freenode.net"
+                         :port "6697"
+                         :ssl t
+                         :nick "some-user"
+                         :password "secret")
+                        ("irc.myworkirc.net"
+                         :port "1234"
+                         :nick "some-suit"
+                         :password "hunter2")))))
 #+END_SRC
 
 *** Security Note
@@ -110,7 +110,7 @@ read that in =:password=.
 | ~SPC m d~   | Interactively input a user action and send it to IRC. |
 | ~SPC m D~   | Draw Social Graph using  [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]]             |
 | ~SPC m j~   | Join a channel, executes the /join command            |
-| ~SPC m n~   | Run "/names #channel" in the current channel.         |
+| ~SPC m n~   | Run “/names #channel” in the current channel.         |
 | ~SPC m l~   | Run the /list command                                 |
 | ~SPC m p~   | Part from the channel                                 |
 | ~SPC m q~   | Quit server                                           |
@@ -120,5 +120,5 @@ read that in =:password=.
 
 * Spacemacs Layout Support
 ERC buffers are added automatically to the default layout for ERC controlled by
-the variable =erc-spacemacs-layout-name= (defaults to "@ERC") and the default
-binding ("E") is controlled by =erc-spacemacs-layout-binding=
+the variable =erc-spacemacs-layout-name= (defaults to “@ERC”) and the default
+binding (“E”) is controlled by =erc-spacemacs-layout-binding=

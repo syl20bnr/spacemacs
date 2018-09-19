@@ -1,6 +1,6 @@
 #+TITLE: YCMD layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -29,26 +29,33 @@ file.
 ** YCMD
 1) Install the =ycm= server. Installation instructions can be found [[https://github.com/Valloric/ycmd#user-content-building][here]].
 2) Set the =ycmd-server-command= variable to reflect the path to the installation:
+
   #+BEGIN_SRC emacs-lisp
-  (setq ycmd-server-command '("python" "/path/to/YouCompleteMe/third_party/ycmd/ycmd"))
+    (setq ycmd-server-command '("python" "/path/to/YouCompleteMe/third_party/ycmd/ycmd"))
   #+END_SRC
-  Note that no filename expansions are done, so =~=-paths will not work out of the box.
-  If you need expansions, you can use Emacs's =file-truename= like this:
+
+  Note that no filename expansions are done, so =~= -paths will not work out of the box.
+  If you need expansions, you can use Emacs’s =file-truename= like this:
+
   #+BEGIN_SRC emacs-lisp
-  (setq ycmd-server-command (list "python" (file-truename "~/some/path")))
+    (setq ycmd-server-command (list "python" (file-truename "~/some/path")))
   #+END_SRC
+
 3) By default, spacemacs configures ycmd for getting the compilation flags from either
-   a compile_commands.json or a .clang_complete file and get additionnal flags from a
-   .ycm_extra_flags file. If you do not like this behaviour, you can write your own
-   [[https://github.com/Valloric/YouCompleteMe/blob/master/README.md#c-family-semantic-completion][.ycm_extra_conf.py file]]. See [[#configuration][Configuration]] for more details.
+  a compile_commands.json or a .clang_complete file and get additionnal flags from a
+  .ycm_extra_flags file. If you do not like this behaviour, you can write your own
+  [[https://github.com/Valloric/YouCompleteMe/blob/master/README.md#c-family-semantic-completion][.ycm_extra_conf.py file]]. See [[#configuration][Configuration]] for more details.
 4) Whitelist the file by adding the following to =.spacemacs=:
+
   #+BEGIN_SRC emacs-lisp
-  ;; In this example we whitelist everything in the Develop folder
-  (setq ycmd-extra-conf-whitelist '("~/Develop/*"))
+    ;; In this example we whitelist everything in the Develop folder
+    (setq ycmd-extra-conf-whitelist '("~/Develop/*"))
   #+END_SRC
+
 5) The completion is not going to work automatically until we actually force it:
+
   #+BEGIN_SRC emacs-lisp
-  (setq ycmd-force-semantic-completion t)
+    (setq ycmd-force-semantic-completion t)
   #+END_SRC
 
 ** Other Requirements
@@ -63,7 +70,7 @@ If you want ycmd support in other modes you might just want to add it for
 specific languages like:
 
 #+BEGIN_SRC emacs-lisp
-(add-hook 'c++-mode-hook 'ycmd-mode)
+  (add-hook 'c++-mode-hook 'ycmd-mode)
 #+END_SRC
 
 ** Getting the compilation flags
@@ -82,11 +89,11 @@ when cross-compiling.
 Example .ycm_extra_flags:
 
 #+BEGIN_SRC conf
-# Additionnal flags for ycmd
---sysroot="/path/to/your/toolchain/libc" # if you are cross-compiling
+  # Additionnal flags for ycmd
+  --sysroot="/path/to/your/toolchain/libc" # if you are cross-compiling
 #+END_SRC
 
-If your build system doesn't handle the creation of a compile_commands.json,
+If your build system doesn’t handle the creation of a compile_commands.json,
 you can use tools such as [[https://github.com/rizsotto/Bear][Bear]] or [[https://pypi.python.org/pypi/scan-build][scan-build]] to generate it, which both work
 with almost any build system.
 
@@ -98,7 +105,7 @@ keybinding; in larger projects ycmd may not be performant for as-you-type
 auto-completion to work well. You can bind it like so:
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "<C-tab>") 'ycmd/manual-semantic-company-completer)
+  (global-set-key (kbd "<C-tab>") 'ycmd/manual-semantic-company-completer)
 #+END_SRC
 
 This function will automatically cancel out of any active completers, and offer

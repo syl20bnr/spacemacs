@@ -2,7 +2,7 @@
 
 [[file:img/debug.png]]
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -38,25 +38,25 @@ Make sure that your debugger is compatible by checking [[https://github.com/real
 * Key bindings
 ** Major Mode
 
- | Key Binding | Description     |
- |-------------+-----------------|
- | ~SPC m d d~ | open cmd buffer |
+| Key Binding | Description     |
+|-------------+-----------------|
+| ~SPC m d d~ | open cmd buffer |
 
 ** Debugger
 
- | Key Binding | Description          |
- |-------------+----------------------|
- | ~bb~        | set break            |
- | ~bc~        | clear break          |
- | ~bd~        | delete break         |
- | ~bs~        | disable break        |
- | ~be~        | enable break         |
- | ~c~         | continue             |
- | ~i~         | step into            |
- | ~J~         | jump to current line |
- | ~o~         | step out             |
- | ~q~         | quit debug           |
- | ~r~         | restart              |
- | ~s~         | step over            |
- | ~S~         | goto cmd buffer      |
- | ~v~         | eval variable        |
+| Key Binding | Description          |
+|-------------+----------------------|
+| ~bb~        | set break            |
+| ~bc~        | clear break          |
+| ~bd~        | delete break         |
+| ~bs~        | disable break        |
+| ~be~        | enable break         |
+| ~c~         | continue             |
+| ~i~         | step into            |
+| ~J~         | jump to current line |
+| ~o~         | step out             |
+| ~q~         | quit debug           |
+| ~r~         | restart              |
+| ~s~         | step over            |
+| ~S~         | goto cmd buffer      |
+| ~v~         | eval variable        |

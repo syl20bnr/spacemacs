@@ -2,7 +2,7 @@
 
 [[file:img/coffee.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -31,7 +31,7 @@ this file.
 To enable linting, install [[http://www.coffeelint.org/][CoffeeLint]] with the following command:
 
 #+BEGIN_SRC sh
-npm install -g coffeelint
+  npm install -g coffeelint
 #+END_SRC
 
 * Key Bindings

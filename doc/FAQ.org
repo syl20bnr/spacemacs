@@ -1,6 +1,6 @@
 #+TITLE: Frequently Asked Questions
 
-* FAQ                                                       :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#common][Common]]
   - [[#which-version-of-spacemacs-am-i-running][Which version of Spacemacs am I running?]]
   - [[#what-is-the-official-pronunciation-of-spacemacs][What is the official pronunciation of Spacemacs?]]
@@ -61,7 +61,7 @@ may also just type ~SPC f e v~.
 As it is written, that is _space_ then _macs_.
 
 ** Why do you call this a "distribution", I don't see any "Spacemacs" executable?
-Although we could do it we don't package Emacs with Spacemacs. We allow users to
+Although we could do it we don’t package Emacs with Spacemacs. We allow users to
 choose whatever build of Emacs they want that works with their OS, this is more
 flexible and it saves us tons of issues. Spacemacs is more than a configuration
 of Emacs it comes with advanced feature, concepts and tooling. Roughly, think of
@@ -76,7 +76,6 @@ belonging to a layer explicitly listed in the variable
 =dotspacemacs-configuration-layers=).
 
 To install packages that does not belong to any Spacemacs layers, you can:
-
 - use the variable =dotspacemacs-additional-packages=.
 - or create a configuration layer configuring the package and add this layer to
   =dotspacemacs-configuration-layers=
@@ -87,7 +86,7 @@ To install packages that does not belong to any Spacemacs layers, you can:
 To create a new configuration layer see the [[https://github.com/syl20bnr/spacemacs/blob/master/doc/QUICK_START.org][quick start guide]] for more info.
 
 ** Environment variables or PATH are not set properly
-If you use Emacs GUI and don't launch if from a terminal then edit the
+If you use Emacs GUI and don’t launch if from a terminal then edit the
 environment variables in the =env= file. You can open this file with
 ~SPC f e e~. More information in the =Environment variables= section of the
 [[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org][documentation]].
@@ -102,10 +101,9 @@ dotfile to remove the need to start Emacs with =--insecure= argument.
 ** How to fix =Symbol's value as variable is void= errors on startup?
 If Emacs reports an error that the symbol =closed= or =-= is unbound as a
 variable, it is probably because you are using HTTPS to download packages, but
-you shouldn't be. Try deleting your packages (the =.emacs.d/elpa= folder), and
+you shouldn’t be. Try deleting your packages (the =.emacs.d/elpa= folder), and
 restart Emacs without HTTPS to download the packages again. There are two ways
 to do this:
-
 - Run Emacs with the =--insecure= command line argument: =emacs --insecure=. You
   will have to do this again the next time you update your packages.
 - Set the variable =dotspacemacs-elpa-https= to =nil= in your dotfile. This has
@@ -131,7 +129,7 @@ that by default the =utf8= separator is used in a terminal. See the powerline
 section in the font section of the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][documentation]].
 
 ** Why is after-init-hook not executed?
-Don't launch Spacemacs with =emacs -q -l init.el= command. This command will run
+Don’t launch Spacemacs with =emacs -q -l init.el= command. This command will run
 the hooked functions in =after-init-hook= before the evaluation of the passed
 =-l init.el= file.
 
@@ -151,7 +149,7 @@ Any variable that layer configuration code will *read* and *act on* must be set
 in =user-init=, and any variable that Spacemacs explicitly sets but you wish to
 *override* must be set in =user-config=.
 
-Anything that isn't just setting a variable should 99% be in =user-config=.
+Anything that isn’t just setting a variable should 99% be in =user-config=.
 
 ** Why do some of my =org=-related settings cause problems?
 Since version 0.104, spacemacs uses the =org= version from the org ELPA
@@ -180,18 +178,18 @@ Try using these settings in the ~user-init~ function in your ~.spacemacs~
 configuration:
 
 #+BEGIN_SRC emacs-lisp
-(setq tramp-ssh-controlmaster-options
-      "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
+  (setq tramp-ssh-controlmaster-options
+        "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 #+END_SRC
 
 See [[https://github.com/syl20bnr/spacemacs/issues/3422#issuecomment-148919047][issue #3422]] and [[https://github.com/emacs-helm/helm/issues/1000#issuecomment-119487649][helm issue #1000]] for details. If for any reason this code is
 not working, you can try to put these settings directly in =~/.ssh/config=:
 
 #+BEGIN_SRC ssh
-Host *
-ControlMaster auto
-ControlPath ~/.ssh/master -%r@%h:%p
-ControlPersist = no
+  Host *
+  ControlMaster auto
+  ControlPath ~/.ssh/master -%r@%h:%p
+  ControlPersist = no
 #+END_SRC
 
 ** Why does =helm-M-x= (~SPC SPC~) not accept the prefix argument?
@@ -199,7 +197,7 @@ If you try to run =helm-M-x= with the prefix argument (i.e. ~SPC u SPC SPC~) it
 will fail with this message:
 
 #+BEGIN_VERSE
-Error: Specifying a prefix arg before calling helm-M-x
+  Error: Specifying a prefix arg before calling helm-M-x
 #+END_VERSE
 
 Instead, call =helm-M-x= first, select the command you want to run, and press
@@ -218,7 +216,7 @@ situations, like escaping from =insert state= to =normal state=.
 The sequence of characters used can be customized. See the [[http://spacemacs.org/doc/DOCUMENTATION.html#escaping][documentation]] for
 more information.
 
-If you don't like this feature, you can deactivate it by adding =evil-escape= to
+If you don’t like this feature, you can deactivate it by adding =evil-escape= to
 =dotspacemacs-excluded-packages= in your init file.
 
 ** Why do I get files starting with .#?
@@ -227,7 +225,7 @@ when the same file is edited simultaneously by two different programs. To
 disable this behaviour:
 
 #+BEGIN_SRC emacs-lisp
-(setq create-lockfiles nil)
+  (setq create-lockfiles nil)
 #+END_SRC
 
 ** Why do I get '4m' characters inside ansi-term?
@@ -236,20 +234,20 @@ Ansi-term only has a subset of capabilities supported by xterm256. Your shell
 the =~/.terminfo= yourself.
 
 #+BEGIN_SRC fish
-tic -o ~/.terminfo $TERMINFO/e/eterm-color.ti
+  tic -o ~/.terminfo $TERMINFO/e/eterm-color.ti
 #+END_SRC
 
 Note that =eterm-color.ti= may be at a different location, to find out the exact
 location you may try to use =locate=:
 
 #+BEGIN_SRC fish
-locate eterm-color.ti
+  locate eterm-color.ti
 #+END_SRC
 
 ** Why are my font settings not being respected?
 The settings of =dotspacemacs-default-font= (such as size, weight, etc.) will
 only be applied if the name of the font exists on your system. Check to make
-sure that this is the case. If Spacemacs can't find the font, there should be a
+sure that this is the case. If Spacemacs can’t find the font, there should be a
 warning to this effect in the =*Messages*= buffer.
 
 ** Why am I getting a message about environment variables on startup?
@@ -291,7 +289,7 @@ part of your used layers, look for the variable =dotspacemacs-excluded-packages=
 in your dotfile and add the package name to it:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-excluded-packages '(package1 package2 ...))
+  (setq-default dotspacemacs-excluded-packages '(package1 package2 ...))
 #+END_SRC
 
 ** Disable a package only for a specific major-mode?
@@ -300,7 +298,7 @@ This is done by removing the hook added by Spacemacs. For example to remove
 =dotspacemacs/user-config= in your dotfile and add the following code:
 
 #+BEGIN_SRC emacs-lisp
-(remove-hook 'python-mode-hook 'flycheck-mode)
+  (remove-hook 'python-mode-hook 'flycheck-mode)
 #+END_SRC
 
 *Hint* to know the name of the major-mode of the current buffer press: ~SPC h d
@@ -313,7 +311,7 @@ It may be handy to disable =company= for a given mode if you plan on configuring
 dotfile. The following snippet disables company for =python-mode=:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs|disable-company python-mode)
+  (spacemacs|disable-company python-mode)
 #+END_SRC
 
 ** Change special buffer rules?
@@ -325,47 +323,47 @@ the regexp as useful buffers. Both can be customized the same way.
 Examples:
 
 #+BEGIN_SRC emacs-lisp
-;; Only mark helm buffers as useless
-(setq spacemacs-useless-buffers-regexp '("\\*helm\.\+\\*"))
+  ;; Only mark helm buffers as useless
+  (setq spacemacs-useless-buffers-regexp '("\\*helm\.\+\\*"))
 
-;; Marking the *Messages* buffer as useful
-(push "\\*Messages\\*" spacemacs-useful-buffers-regexp)
+  ;; Marking the *Messages* buffer as useful
+  (push "\\*Messages\\*" spacemacs-useful-buffers-regexp)
 #+END_SRC
 
 ** Enable navigation by visual lines?
 Add the following snippet to your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-;; Make evil-mode up/down operate in screen lines instead of logical lines
-(define-key evil-motion-state-map "j" 'evil-next-visual-line)
-(define-key evil-motion-state-map "k" 'evil-previous-visual-line)
-;; Also in visual mode
-(define-key evil-visual-state-map "j" 'evil-next-visual-line)
-(define-key evil-visual-state-map "k" 'evil-previous-visual-line)
+  ;; Make evil-mode up/down operate in screen lines instead of logical lines
+  (define-key evil-motion-state-map "j" 'evil-next-visual-line)
+  (define-key evil-motion-state-map "k" 'evil-previous-visual-line)
+  ;; Also in visual mode
+  (define-key evil-visual-state-map "j" 'evil-next-visual-line)
+  (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
 #+END_SRC
 
 ** Disable evilification of a mode?
 You can ensure a mode opens in emacs state by using =evil-set-initial-state=.
 
 #+BEGIN_SRC emacs-lisp
-(evil-set-initial-state 'magit-status-mode 'emacs)
+  (evil-set-initial-state 'magit-status-mode 'emacs)
 #+END_SRC
 
 You can also do this using buffer name regular expressions. E.g. for magit,
 which has a number of different major modes, you can catch them all with
 
 #+BEGIN_SRC emacs-lisp
-(push '("*magit" . emacs) evil-buffer-regexps)
+  (push '("*magit" . emacs) evil-buffer-regexps)
 #+END_SRC
 
 This should make all original magit bindings work in the major modes in
 question. To enable the leader key in this case, you may have to define a
-binding in the mode's map, e.g. for =magit-status-mode=,
+binding in the mode’s map, e.g. for =magit-status-mode=,
 
 #+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'magit
-  (define-key magit-status-mode-map
-    (kbd dotspacemacs-leader-key) spacemacs-default-map))
+  (with-eval-after-load 'magit
+    (define-key magit-status-mode-map
+      (kbd dotspacemacs-leader-key) spacemacs-default-map))
 #+END_SRC
 
 ** Include underscores in word motions?
@@ -373,14 +371,14 @@ You can modify the syntax table of the mode in question. To do so you can
 include this on your =dotspacemacs/user-config=.
 
 #+BEGIN_SRC emacs-lisp
-;; For python
-(add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-;; For ruby
-(add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-;; For Javascript
-(add-hook 'js2-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-;; For all programming modes
-(add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  ;; For python
+  (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  ;; For ruby
+  (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  ;; For Javascript
+  (add-hook 'js2-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  ;; For all programming modes
+  (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 #+END_SRC
 
 ** Setup =$PATH=?
@@ -390,11 +388,11 @@ example, if you have installed some tools to =~/.local/bin= and want them to be
 available in Spacemacs, you need to add =~/.local/bin= to your =$PATH=.
 
 Users of =bash=, =zsh=, =sh= and other similar shells should add following line
-to their =.bashrc= (=.zshrc=, =.profile= or your shell's equivalent). Note that
+to their =.bashrc= (=.zshrc=, =.profile= or your shell’s equivalent). Note that
 the =export= part is very important.
 
 #+BEGIN_SRC sh
-export PATH=~/.local/bin:$PATH
+  export PATH=~/.local/bin:$PATH
 #+END_SRC
 
 Users of =fish= should add following line to their =config.fish= file (should be
@@ -402,7 +400,7 @@ in =$XDG_CONFIG_HOME= or its default value - =~/.config/fish=). Note that =-x=
 part is very important.
 
 #+BEGIN_SRC fish
-set -x PATH ~/.local/bin $PATH
+  set -x PATH ~/.local/bin $PATH
 #+END_SRC
 
 Users of other shells should consult its documentation on how to setup =$PATH=
@@ -413,7 +411,7 @@ by calling =echo $PATH=. But you also should verify that =$PATH= is set properly
 in your environment. To do so call following command in your terminal.
 
 #+BEGIN_SRC sh
-env | grep "PATH"
+  env | grep "PATH"
 #+END_SRC
 
 This is the value that will be used by Emacs. So it must contain =~/.local/bin=.
@@ -421,14 +419,14 @@ This is the value that will be used by Emacs. So it must contain =~/.local/bin=.
 After that you can run Spacemacs and check that it properly gets the value of
 =$PATH= by running =M-: (getenv "PATH")=.
 
-Note that having =~/.local/bin= in your =$PATH= also means that it's possible to
+Note that having =~/.local/bin= in your =$PATH= also means that it’s possible to
 run terminal and call tools from =~/.local/bin= without specifying their full
 path. Under certain conditions you might want to avoid modifying your =$PATH=.
 In that case you have the option of updating the value of =exec-path= in the
 =dotspacemacs/user-config= function of your =.spacemacs= file.
 
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'exec-path "~/.local/bin/")
+  (add-to-list 'exec-path "~/.local/bin/")
 #+END_SRC
 
 ** Change or define an alias for a leader key?
@@ -444,15 +442,15 @@ dash) to make the former easier to reach, you can use:
   (dear-leader/swap-keys "S" "d")
 #+END_SRC
 
-If you want to define your own alias, like using ~SPC é~ (because it's a not
+If you want to define your own alias, like using ~SPC é~ (because it’s a not
 used key on your keyboard-layout for instance) for accessing ~SPC w~ (windows
 management), you can use this:
 
 #+BEGIN_SRC emacs-lisp
-(defun dear-leader/alias-of (key1 key2)
-  (let ((map (lookup-key spacemacs-default-map key2)))
-    (spacemacs/set-leader-keys key1 map)))
-(dear-leader/alias-of "é" "w")
+  (defun dear-leader/alias-of (key1 key2)
+    (let ((map (lookup-key spacemacs-default-map key2)))
+      (spacemacs/set-leader-keys key1 map)))
+  (dear-leader/alias-of "é" "w")
 #+END_SRC
 
 ** Restore the sentence delimiter to two spaces?
@@ -460,7 +458,7 @@ To restore the sentence delimiter to two spaces, add the following code to the
 =dotspacemacs/user-init= function of your =.spacemacs=:
 
 #+BEGIN_SRC emacs-lisp
-(setq sentence-end-double-space t)
+  (setq sentence-end-double-space t)
 #+END_SRC
 
 ** Prevent the visual selection overriding my system clipboard?
@@ -472,7 +470,7 @@ adding the following code to the =dotspacemacs/user-config= of your
 =.spacemacs=:
 
 #+BEGIN_SRC emacs-lisp
-(fset 'evil-visual-update-x-selection 'ignore)
+  (fset 'evil-visual-update-x-selection 'ignore)
 #+END_SRC
 
 ** Make spell-checking support curly quotes (or any other character)?
@@ -481,8 +479,8 @@ to add a new entry to =ispell-local-dictionary-alist=, by adding for example the
 following code in the =dotspacemacs/user-config= of your =.spacemacs=:
 
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'ispell-local-dictionary-alist
-  (quote ("my_english" "[[:alpha:]]" "[^[:alpha:]]" "['’]" t ("-d" "en_US") nil utf-8)))
+  (add-to-list 'ispell-local-dictionary-alist
+    (quote ("my_english" "[[:alpha:]]" "[^[:alpha:]]" "['’]" t ("-d" "en_US") nil utf-8)))
 #+END_SRC
 
 You can then add any regular expression you want in the fourth argument (i.e.
@@ -498,22 +496,22 @@ commits messages. To enable this you have to add the following line to your
 =dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
-(global-git-commit-mode t)
+  (global-git-commit-mode t)
 #+END_SRC
 
 ** Try Spacemacs without modifying my existing Emacs configuration?
-Emacs' ability to use any directory as the home for launching it allows us to
+Emacs’s ability to use any directory as the home for launching it allows us to
 try out Spacemacs (or any other Emacs configuration we desire) without having to
 go through the trouble of backing up our =~/.emacs.d= directory and then cloning
 the new configuration. This can be achieved easily using the following steps:
 
 #+BEGIN_SRC sh
-mkdir ~/spacemacs
-git clone https://github.com/syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
-HOME=~/spacemacs emacs
+  mkdir ~/spacemacs
+  git clone https://github.com/syl20bnr/spacemacs.git ~/spacemacs/.emacs.d
+  HOME=~/spacemacs emacs
 #+END_SRC
 
-If you're on Fish shell, you will need to modify the last command to:
+If you’re on Fish shell, you will need to modify the last command to:
 =env HOME=$HOME/spacemacs emacs=
 
 ** Make copy/paste working with the mouse in X11 terminals?
@@ -521,24 +519,22 @@ It is possible to disable the mouse support in X11 terminals in order to
 enable copying/pasting with the mouse. You need to add this line to your
 =dotspacemacs/user-config=:
 
-#+begin_src emacs-lisp
-(xterm-mouse-mode -1)
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (xterm-mouse-mode -1)
+#+END_SRC
 
 ** Use =helm-ag= to search only in files of a certain type?
 It is possible to restrict the scope of =helm-ag= to search only expressions in
 some specified file types. There are two ways of doing this, both by appending
 some expressions to the search input:
-
 - By using a regexp with =-G=, for instance =-G\.el$= will look for all files
   ending with =.el= which are emacs-lisp files.
-
 - By using a flag like =--python= which should be self-explaining. The list of
   available flags could be accessed from terminal with:
 
-  #+begin_src shell
-  ag --list-file-types
-  #+end_src
+  #+BEGIN_SRC shell
+    ag --list-file-types
+  #+END_SRC
 
 This is possible because =helm-ag= is treating the search input as command-line
 arguments of the =ag= program.
@@ -547,22 +543,22 @@ arguments of the =ag= program.
 You can modify the list of visual enhancements applied by the =space-doc-mode=:
 
 #+BEGIN_SRC emacs-lisp
-(setq spacemacs-space-doc-modificators
-      '(center-buffer-mode
-        org-indent-mode
-        view-mode
-        hide-line-numbers
-        alternative-emphasis
-        alternative-tags-look
-        link-protocol
-        org-block-line-face-remap
-        org-kbd-face-remap
-        resize-inline-images))
+  (setq spacemacs-space-doc-modificators
+        '(center-buffer-mode
+          org-indent-mode
+          view-mode
+          hide-line-numbers
+          alternative-emphasis
+          alternative-tags-look
+          link-protocol
+          org-block-line-face-remap
+          org-kbd-face-remap
+          resize-inline-images))
 #+END_SRC
 
 By default only =center-buffer-mode= is disabled.
 Both =space-doc-mode= and =center-buffer-mode= can be customized
-with "Easy Customization Interface".
+with “Easy Customization Interface”.
 
 ** Remap paste key to be able to paste copied text multiple times
 In vim and evil, pasting over a text would cause it to be copied, hence making it impossible to paste
@@ -571,12 +567,12 @@ the same text multiple times.
 To fix this, add the following snippet to your ~user-config~:
 
 #+BEGIN_SRC emacs-lisp
-(defun evil-paste-after-from-0 ()
-  (interactive)
-  (let ((evil-this-register ?0))
-    (call-interactively 'evil-paste-after)))
+  (defun evil-paste-after-from-0 ()
+    (interactive)
+    (let ((evil-this-register ?0))
+      (call-interactively 'evil-paste-after)))
 
-(define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+  (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
 #+END_SRC
 
 * Windows
