@@ -32,6 +32,21 @@ file.
 
 React layer uses the same backend defined in javascript layer. Options are =tern= and =lsp=.
 
+If you are using =lsp=, create =jsconfig.json= in the root folder of your project. =jsconfig.json= is =tsconfig.json= with =allowJs= attribute set to true. Here is an example file.
+
+#+BEGIN_SRC json
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true,
+    "checkJs": true,
+    "jsx": "react",
+    "lib": [ "dom", "es2017" ]
+  }
+}
+#+END_SRC
+
 To use the on-the-fly syntax checking, install =eslint= with babel and react
 support:
 
