@@ -2,17 +2,17 @@
 
 [[file:img/phoenix.png]] with [[file:img/alchemist.png]]
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds keybindings for [[https://github.com/tonini/alchemist.el][Alchemist]]'s already built in phoenix mode.
+This layer adds keybindings for [[https://github.com/tonini/alchemist.el][Alchemist]]’s already built in phoenix mode.
 
 ** Features:
-  - Key bindings for navigation to files
+- Key bindings for navigation to files
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

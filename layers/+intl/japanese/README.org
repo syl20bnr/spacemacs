@@ -2,7 +2,7 @@
 
 [[file:img/Japanese.png]]
 
-* Table of Contents                                       :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -38,8 +38,8 @@ add =japanese= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** Configuration
-   For a basic configuration, add this to your =~/.spacemacs= inside
-   ~dotspacemacs/user-config~:
+For a basic configuration, add this to your =~/.spacemacs= inside
+~dotspacemacs/user-config~:
 
 *** evil-tutor-ja
 By default, the variable ~evil-tutor-working-ja-directory~ is assigned =~.emacs.d/.tutor-ja=.
@@ -51,7 +51,7 @@ directory, you must re-set the variable. For example, if you install ~cmigemo~
 using
 
 #+BEGIN_SRC bash
-sudo apt-get install cmigemo
+  sudo apt-get install cmigemo
 #+END_SRC
 
 in ubuntu, you should add:
@@ -79,19 +79,19 @@ by helm.
 By default, you can use ~migemo~ for ~avy.el~. For ~ivy.el~, you should add:
 
 #+BEGIN_SRC emacs-lisp
-(require 'avy-migemo-e.g.ivy)
+  (require 'avy-migemo-e.g.ivy)
 #+END_SRC
 
 inside ~dotspacemacs/user-config~. For ~swiper.el~, you should add:
 
 #+BEGIN_SRC emacs-lisp
-(require 'avy-migemo-e.g.swiper)
+  (require 'avy-migemo-e.g.swiper)
 #+END_SRC
 
 inside ~dotspacemacs/user-config~. For ~counsel.el~, you should add:
 
 #+BEGIN_SRC emacs-lisp
-(require 'avy-migemo-e.g.counsel)
+  (require 'avy-migemo-e.g.counsel)
 #+END_SRC
 
 inside ~dotspacemacs/user-config~.
@@ -105,7 +105,7 @@ By default, ~pangu-spacing-mode~ is applied to ~text-mode~. If you prefer the
 mode globally, add:
 
 #+BEGIN_SRC emacs-lisp
-(global-pangu-spacing-mode 1)
+  (global-pangu-spacing-mode 1)
 #+END_SRC
 
 inside ~dotspacemacs/user-config~.

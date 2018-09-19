@@ -1,6 +1,6 @@
 #+TITLE: Spacemacs Community
 
-* Spacemacs Community                                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#philosophy][Philosophy]]
   - [[#for-contributors][For Contributors]]
   - [[#for-users][For Users]]
@@ -45,7 +45,7 @@ We want the community to be judged based on its moderation actions instead of
 telling people how to behave. The golden rules of the community are to have good
 intentions and stay focused on the project, for anything else that requires
 moderation any future user or contributor can refer to this section to know
-about our past moderation actions. So readers won't find any example or
+about our past moderation actions. So readers won’t find any example or
 definition of what collaborators judge offending or outrageous, instead they
 will find at the end of this section a log of all major moderation actions taken
 by the collaborators since the beginning of the project which started officially
@@ -84,10 +84,12 @@ These guidelines apply to all collaborators of the project, namely @syl20bnr,
   altering its meaning,
 - Any edition of a message is logged in the =edits log= located at the end of
   the edited message with the following format:
+
   #+BEGIN_EXAMPLE
-  EDIT: [@moderator] action (reason: xxx)
+    EDIT: [@moderator] action (reason: xxx)
   #+END_EXAMPLE
-- The reason is added only when needed (for instance we won't add a reason for
+
+- The reason is added only when needed (for instance we won’t add a reason for
   formatting edits)
 
 ** Interpretation
@@ -119,4 +121,4 @@ moderation actions have been taken:
 | Date       | Moderator | Action | Issue | Reason                                                          |
 |------------+-----------+--------+-------+-----------------------------------------------------------------|
 | 2016/01/27 | syl20bnr  | lock   | #3484 | comments judged to be offending towards the Spacemacs community |
-| 2016/01/27 | syl20bnr  | unlock | #3484 | let's make it happen, i.e. this document                        |
+| 2016/01/27 | syl20bnr  | unlock | #3484 | let’s make it happen, i.e. this document                        |

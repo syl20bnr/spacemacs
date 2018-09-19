@@ -1,6 +1,6 @@
 #+TITLE: xclipboard layer
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#key-bindings][Key Bindings]]
@@ -9,8 +9,8 @@
 =xclipboard= integration layer.
 
 ** Features:
- - adds copy support to the X-clipboard from the terminal.
- - adds paste support to the X-clipboard from the terminal.
+- adds copy support to the X-clipboard from the terminal.
+- adds paste support to the X-clipboard from the terminal.
 
 * Key Bindings
 

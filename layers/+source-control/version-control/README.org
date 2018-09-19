@@ -1,6 +1,6 @@
 #+TITLE: Version-Control layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -36,23 +36,23 @@ You can choose the package to facilitate the diff transient-state and show margi
 by setting =version-control-diff-tool=
 
 #+BEGIN_SRC emacs-lisp
-'(version-control :variables
-                  version-control-diff-tool 'diff-hl)
+  '(version-control :variables
+                    version-control-diff-tool 'diff-hl)
 #+END_SRC
 
-You can choose the side on which the diff appears (by default it's the right side)
+You can choose the side on which the diff appears (by default it’s the right side)
 
 #+BEGIN_SRC emacs-lisp
-'(version-control :variables
-                  version-control-diff-side 'left)
+  '(version-control :variables
+                    version-control-diff-side 'left)
 #+END_SRC
 
 To automatically enable diff margins in all buffers, set
 =version-control-global-margin=
 
 #+BEGIN_SRC emacs-lisp
-'(version-control :variables
-                  version-control-global-margin t)
+  '(version-control :variables
+                    version-control-global-margin t)
 #+END_SRC
 
 ** Differences between margin programs
@@ -129,7 +129,7 @@ Pressing ~C-c C-k~ will discard the commit message and close this buffer.
 |--------------+------------------------------------------------|
 | ~SPC m a~    | apply a hunk                                   |
 | ~SPC m d~    | kill the hunk at point                         |
-| ~SPC m D~    | kill the current file's hunk                   |
+| ~SPC m D~    | kill the current file’s hunk                   |
 | ~SPC m e~    | call =ediff-patch-file= on current buffer      |
 | ~SPC m f c~  | convert unified diffs to context diffs         |
 | ~SPC m f r~  | reverse the direction of the diffs             |

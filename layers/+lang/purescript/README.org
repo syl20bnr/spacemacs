@@ -2,7 +2,7 @@
 
 [[file:img/purescript-logo.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -30,7 +30,7 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =purescript= to the existing =dotspacemacs-configuration-layers= list in
 this file.
 
-You'll also need to make sure the PureScript compiler and its associated
+You’ll also need to make sure the PureScript compiler and its associated
 binaries (psc-ide-server, psci,...) are on your path. Installation instructions
 can be found [[https://github.com/purescript/documentation/blob/master/guides/Getting-Started.md][here]].
 

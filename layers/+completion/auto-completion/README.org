@@ -1,6 +1,6 @@
 #+TITLE: Auto-completion layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -42,49 +42,44 @@ layer for it to have any effect.
 ** Key bindings
 You can customize the user experience of auto-completion with the following
 layer variables:
-
 1. =auto-completion-return-key-behavior= set the action to perform when the
-   ~RET~ key is pressed, the possible values are:
-   - =complete= completes with the current selection
-   - =nil= does nothing
-
+  ~RET~ key is pressed, the possible values are:
+  - =complete= completes with the current selection
+  - =nil= does nothing
 2. =auto-completion-tab-key-behavior= set the action to perform when the ~TAB~
-   key is pressed, the possible values are:
-   - =complete= completes with the current selection
-   - =cycle= completes the common prefix and cycle between candidates
-   - =nil= does nothing
-
+  key is pressed, the possible values are:
+  - =complete= completes with the current selection
+  - =cycle= completes the common prefix and cycle between candidates
+  - =nil= does nothing
 3. =auto-completion-complete-with-key-sequence= is a string of two characters
-   denoting a key sequence that will perform a =complete action= if the sequence
-   has been entered quickly enough. If its value is =nil= then the feature is
-   disabled.
-
+  denoting a key sequence that will perform a =complete action= if the sequence
+  has been entered quickly enough. If its value is =nil= then the feature is
+  disabled.
 4. =auto-completion-complete-with-key-sequence-delay= is the number of seconds
-   to wait for the auto-completion key sequence to be entered. The default value
-   is 0.1 seconds.
-
+  to wait for the auto-completion key sequence to be entered. The default value
+  is 0.1 seconds.
 5. =auto-completion-idle-delay= is the number of seconds to wait before suggesting
-   completions. The default value is 0.2 seconds.  Set to =nil= to disable
-   automatic suggestions (the ~TAB~ key will still perform completion).
+  completions. The default value is 0.2 seconds.  Set to =nil= to disable
+  automatic suggestions (the ~TAB~ key will still perform completion).
 
 The default configuration of the layer is:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-  (auto-completion :variables
-                   auto-completion-return-key-behavior 'complete
-                   auto-completion-tab-key-behavior 'cycle
-                   auto-completion-complete-with-key-sequence nil
-                   auto-completion-complete-with-key-sequence-delay 0.1
-                   auto-completion-idle-delay 0.2
-                   auto-completion-private-snippets-directory nil
-                   auto-completion-enable-snippets-in-popup nil
-                   auto-completion-enable-help-tooltip nil
-                   auto-completion-enable-sort-by-usage nil)))
+  (setq-default dotspacemacs-configuration-layers '(
+    (auto-completion :variables
+                     auto-completion-return-key-behavior 'complete
+                     auto-completion-tab-key-behavior 'cycle
+                     auto-completion-complete-with-key-sequence nil
+                     auto-completion-complete-with-key-sequence-delay 0.1
+                     auto-completion-idle-delay 0.2
+                     auto-completion-private-snippets-directory nil
+                     auto-completion-enable-snippets-in-popup nil
+                     auto-completion-enable-help-tooltip nil
+                     auto-completion-enable-sort-by-usage nil)))
 #+END_SRC
 
 ~jk~ is a good candidate for =auto-completion-complete-with-key-sequence= if
-you don't use it already.
+you don’t use it already.
 
 ** Snippets directories
 The following directories are added by default:
@@ -113,18 +108,18 @@ To enable automatic docstring tooltips set =auto-completion-enable-help-tooltip=
 to =t=.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((auto-completion :variables
-                    auto-completion-enable-help-tooltip t)))
+  (setq-default dotspacemacs-configuration-layers
+    '((auto-completion :variables
+                      auto-completion-enable-help-tooltip t)))
 #+END_SRC
 
 To enable manual non-automatic invocation of docstring tooltips, set it to
 =manual=. The tooltip can be invoked manually by pressing ~M-h~.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((auto-completion :variables
-                    auto-completion-enable-help-tooltip 'manual)))
+  (setq-default dotspacemacs-configuration-layers
+    '((auto-completion :variables
+                      auto-completion-enable-help-tooltip 'manual)))
 #+END_SRC
 
 ** Sort results by usage
@@ -134,9 +129,9 @@ This feature is provided by the [[https://github.com/company-mode/company-statis
 is used. The variable has no effect when =auto-complete= is used.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((auto-completion :variables
-                    auto-completion-enable-sort-by-usage t)))
+  (setq-default dotspacemacs-configuration-layers
+    '((auto-completion :variables
+                      auto-completion-enable-sort-by-usage t)))
 #+END_SRC
 
 ** Enable company or auto-complete globally
@@ -198,11 +193,11 @@ your =.spacemacs= file with (e.g.)
 For nicer-looking faces, try adding the following to `custom-set-faces` in your dotspacemacs file.
 
 #+BEGIN_SRC emacs-lisp
-(custom-set-faces
- '(company-tooltip-common
-   ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection
-   ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+  (custom-set-faces
+   '(company-tooltip-common
+     ((t (:inherit company-tooltip :weight bold :underline nil))))
+   '(company-tooltip-common-selection
+     ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
 #+END_SRC
 
 * Key Bindings
@@ -213,7 +208,7 @@ For nicer-looking faces, try adding the following to `custom-set-faces` in your 
 | ~C-d~       | open minibuffer with documentation of thing at point in company dropdown                             |
 | ~C-/~       | show candidates in Helm or Ivy (for fuzzy searching)                                                 |
 | ~C-M-/~     | filter the company dropdown menu                                                                     |
-| ~M-h~       | show current candidate's documentation in a tooltip (requires =auto-completion-enable-help-tooltip=) |
+| ~M-h~       | show current candidate’s documentation in a tooltip (requires =auto-completion-enable-help-tooltip=) |
 
 Vim Style:
 

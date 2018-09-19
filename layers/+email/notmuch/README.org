@@ -2,7 +2,7 @@
 
 [[file:img/notmuch.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -30,8 +30,8 @@ use within your text editor or in a terminal.
 This layer integrates notmuch emacs package into spacemacs.
 
 ** Features:
-  - Email searching
-  - Email tagging
+- Email searching
+- Email tagging
 
 * Install
 In order to use this layer you must install notmuch separately.
@@ -56,7 +56,7 @@ that calls your email syncing utility.
 
 *** Sending emails with Thunderbird
 You could use thunderbird
-http://pragmaticemacs.com/emacs/use-emacs-for-thunderbird-emails/
+[[http://pragmaticemacs.com/emacs/use-emacs-for-thunderbird-emails/]]
 
 *** Sending emails with msmtp
 Download and Install [[http://msmtp.sourceforge.net/download.html][msmtp]]
@@ -64,10 +64,11 @@ Download and Install [[http://msmtp.sourceforge.net/download.html][msmtp]]
 Configure =~/.mailrc= with the path where =msmtp= is found.
 
 For example:
-#+srcname: contents of ~/.mailrc
+
+#+SRCNAME: contents of ~/.mailrc
 
 #+BEGIN_SRC rc
-set sendmail="/usr/local/bin/msmtp"
+  set sendmail="/usr/local/bin/msmtp"
 #+END_SRC
 
 Configure =~/.msmtprc= [[http://msmtp.sourceforge.net/doc/msmtprc.txt][example]]
@@ -80,13 +81,13 @@ Default value is to add the =deleted= tag and remove both =inbox= and
 =unread= tags.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((notmuch :variables notmuch-message-deleted-tags '("+deleted" "-inbox" "-unread"))))
+  (setq-default dotspacemacs-configuration-layers
+    '((notmuch :variables notmuch-message-deleted-tags '("+deleted" "-inbox" "-unread"))))
 #+END_SRC
 
 ** See also
 Refer to the official notmuch website for more information:
-https://notmuchmail.org/
+[[https://notmuchmail.org/]]
 
 * Key bindings
 ** Global bindings
@@ -97,7 +98,7 @@ https://notmuchmail.org/
 | ~SPC a N n~ | Start helm notmuch                           |
 | ~SPC a N j~ | Start a notmuch jump search                  |
 | ~SPC a N s~ | Start a notmuch search                       |
-| ~SPC l o n~ | Start notmuch in a custom layout, "@Notmuch" |
+| ~SPC l o n~ | Start notmuch in a custom layout, “@Notmuch” |
 
 ** Show mode
 
@@ -186,7 +187,7 @@ customized with the following layer variables:
 The following example configures the layout with the default name and binding:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-  (notmuch :variables notmuch-spacemacs-layout-name "@Notmuch"
-                      notmuch-spacemacs-layout-binding "n")))
+  (setq-default dotspacemacs-configuration-layers '(
+    (notmuch :variables notmuch-spacemacs-layout-name "@Notmuch"
+                        notmuch-spacemacs-layout-binding "n")))
 #+END_SRC

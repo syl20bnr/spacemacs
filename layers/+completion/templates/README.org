@@ -1,6 +1,6 @@
 #+TITLE: Templates layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -38,8 +38,8 @@ It is not part of the final regexp. Therefore, more specific templates should
 come first. For example,
 
 #+BEGIN_EXAMPLE
-00:test_.*.py
-01:.*.py
+  00:test_.*.py
+  01:.*.py
 #+END_EXAMPLE
 
 See the [[https://github.com/mineo/yatemplate][yatemplate]] documentation for specifics. Full yasnippet syntax is

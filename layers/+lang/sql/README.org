@@ -2,7 +2,7 @@
 
 [[file:img/sql.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -49,7 +49,7 @@ file.
 For syntax-checking you also need to install [[https://www.ruby-lang.org/en/about/][ruby]] as well as =sqlint=.
 
 #+BEGIN_SRC ruby
-	gem install sqlint
+  gem install sqlint
 #+END_SRC
 
 ** SQL Keywords Capitalization
@@ -86,8 +86,8 @@ This layer is blacklisting =name= by default as it is a very common name for
 column and NAME is non-reserved SQL keyword.
 
 ** Auto-Indent
-This mode use [[https://github.com/alex-hhh/emacs-sql-indent][sql-indent]] to indent the code. You can check the package's README
-to adjust the rules. If that's not what you want, you can also disable
+This mode use [[https://github.com/alex-hhh/emacs-sql-indent][sql-indent]] to indent the code. You can check the package’s README
+to adjust the rules. If that’s not what you want, you can also disable
 auto-indent by setting the variable =sql-auto-indent= to =nil=.
 
 #+BEGIN_SRC emacs-lisp

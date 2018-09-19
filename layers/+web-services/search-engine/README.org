@@ -2,7 +2,7 @@
 
 [[file:img/searchengine.jpg]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
   - [[#supported-search-engines][Supported search engines]]
@@ -14,7 +14,7 @@
 This layer adds support for the [[https://github.com/hrs/engine-mode][Search Engine]] package.
 
 ** Features:
-  - Browser search integration
+- Browser search integration
 
 ** Supported search engines
 - Amazon
@@ -46,7 +46,7 @@ file.
 | ~SPC a /~ | ~C-c /~ | Summon a Helm buffer to select any engine |
 
 * Customize it!
-If you'd rather have emacs use chrome, or firefox or any other thing (=eww=) you
+If you’d rather have emacs use chrome, or firefox or any other thing (=eww=) you
 can have that customization. For example for google chrome you can put this in
 your =dotspacemacs/user-config=:
 
@@ -60,13 +60,13 @@ Also if you want more search engines, just push them (do this in
 =dotspacemacs/user-config=)
 
 #+BEGIN_SRC emacs-lisp
-(push '(custom1
-         :name "Custom Search Engine 1"
-         :url "http://www.domain.com/s/stuff_sutff_remember_to_replace_search_candidate_with_%s")
-        search-engine-alist)
+  (push '(custom1
+           :name "Custom Search Engine 1"
+           :url "http://www.domain.com/s/stuff_sutff_remember_to_replace_search_candidate_with_%s")
+          search-engine-alist)
 #+END_SRC
 
-If you'd rather not use helm but would want a specific search engine, remember
+If you’d rather not use helm but would want a specific search engine, remember
 the function generated is always =engine/search-(the name of the search engine
 lower-case and hyphen instead-of-spaces-for-separation)= so you can bind that to
 any key binding you want.

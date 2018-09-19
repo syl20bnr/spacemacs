@@ -2,7 +2,7 @@
 
 [[file:img/treemacs.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -19,9 +19,8 @@ This layer brings in [[https://github.com/Alexander-Miller/treemacs][Treemacs]] 
 explorer:
 
 ** Features:
-An detailed overview over Treemacs' available features is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][its
+An detailed overview over Treemacs’ available features is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][its
 readme]]. In a short summary Treemacs offers the following:
-
 - Simple and powerful navigation and ability to detail exactly how and where a
   file should be opened
 - Good looking png icons.
@@ -29,7 +28,7 @@ readme]]. In a short summary Treemacs offers the following:
 - Ability to show tags contained in files. Tags are provided by imenu, so
   nearly every filetype is supported.
 - Mouse interface for single and double left clicks in line with modern GUI standards.
-  (Clicking on an icon will also display a file's tags)
+  (Clicking on an icon will also display a file’s tags)
 - Locational awareness: commands like ~find-file~ or ~magit-status~ will use the location
   of the node at point (with $HOME as fallback)
 - Optionally fontifying files based on their git status.
@@ -88,7 +87,7 @@ Default value is 3 (or 0 when python is not installed).
 |-------------+------------------------------------------------------------------------------------------------------------------------------------------------|
 | ~M-0~       | Selected the treemacs window. Actually selects window #10, which is always assigned to treemacs.                                               |
 | ~SPC 0~     | Open treemacs in the current directory. When not visiting a file use $HOME as fallback. With a prefix arg manually select the root instead.    |
-| ~SPC f B~   | Find and select a bookmark. If it cannot be found rebuild view with the bookmark's location as root. Also open the bookmark with a prefix arg. |
+| ~SPC f B~   | Find and select a bookmark. If it cannot be found rebuild view with the bookmark’s location as root. Also open the bookmark with a prefix arg. |
 | ~SPC f t~   | Hide/show existing treemacs buffer. Create one for the current directory if no buffer exists.                                                  |
 | ~SPC f T~   | Manually focus the treemacs view on the currently selected file. Not needed when =treemacs-follow-mode= is enabled.                            |
 | ~SPC f M-t~ | Manually focus the treemacs view on the currently selected file and tag.                                                                       |

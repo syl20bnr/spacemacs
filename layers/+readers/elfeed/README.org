@@ -2,7 +2,7 @@
 
 [[file:img/elfeed.png]]
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -38,8 +38,8 @@ It is recommended to manage your feeds list and tags via org files, this is
 possible thanks to [[https://github.com/remyhonig/elfeed-org][elfeed-org]] package. To define a list of org files:
 
 #+BEGIN_SRC emacs-lisp
-(elfeed :variables rmh-elfeed-org-files (list "~/.emacs.d/private/elfeed1.org"
-                                              "~/.emacs.d/private/elfeed2.org"))
+  (elfeed :variables rmh-elfeed-org-files (list "~/.emacs.d/private/elfeed1.org"
+                                                "~/.emacs.d/private/elfeed2.org"))
 #+END_SRC
 
 Checkout [[https://github.com/remyhonig/elfeed-org][elfeed-org]] documentation to see the format of that file.
@@ -47,35 +47,35 @@ Checkout [[https://github.com/remyhonig/elfeed-org][elfeed-org]] documentation t
 Here is an example of such a file (note the usage of org tags to tag your feeds)
 
 #+BEGIN_SRC org
- * Blogs                                                              :elfeed:
- ** entry-title: \(linux\|linus\|ubuntu\|kde\|gnome\)                  :linux:
- ** http://git-annex.branchable.com/design/assistant/blog/index.rss :mustread:
- ** http://feeds.feedburner.com/InformationIsBeautiful
- ** [[http://orgmode.org][Org Mode Links supported as well]]
- ** Software Development                                                 :dev:
- *** Emacs                                                    :emacs:mustread:
- **** http://www.terminally-incoherent.com/blog/feed/
- **** http://nullprogram.com/feed/
- **** entry-title: \(emacs\|org-mode\)
- **** http://planet.emacsen.org/atom.xml
- *** Web Development                                                     :web:
- **** http://feeds.feedburner.com/symfony/blog
- **** http://feeds.feedburner.com/qooxdoo/blog/content
- *** Eclipse                                                         :eclipse:
- **** http://blog.eclipse-tips.com/feeds/posts/default?alt=rss
- **** http://ed-merks.blogspot.com/feeds/posts/default
- **** http://feeds.feedburner.com/eclipselive
- #+END_SRC
+  * Blogs                                                              :elfeed:
+  ** entry-title: \(linux\|linus\|ubuntu\|kde\|gnome\)                  :linux:
+  ** http://git-annex.branchable.com/design/assistant/blog/index.rss :mustread:
+  ** http://feeds.feedburner.com/InformationIsBeautiful
+  ** [[http://orgmode.org][Org Mode Links supported as well]]
+  ** Software Development                                                 :dev:
+  *** Emacs                                                    :emacs:mustread:
+  **** http://www.terminally-incoherent.com/blog/feed/
+  **** http://nullprogram.com/feed/
+  **** entry-title: \(emacs\|org-mode\)
+  **** http://planet.emacsen.org/atom.xml
+  *** Web Development                                                     :web:
+  **** http://feeds.feedburner.com/symfony/blog
+  **** http://feeds.feedburner.com/qooxdoo/blog/content
+  *** Eclipse                                                         :eclipse:
+  **** http://blog.eclipse-tips.com/feeds/posts/default?alt=rss
+  **** http://ed-merks.blogspot.com/feeds/posts/default
+  **** http://feeds.feedburner.com/eclipselive
+#+END_SRC
 
 *** Manually
 To explicitly setup the list of feeds, set the value of =elfeed-feeds= variable
 in your =.spacemacs= file.
 
 #+BEGIN_SRC emacs-lisp
-(elfeed :variables
-   elfeed-feeds '(("http://nullprogram.com/feed/" blog emacs)
-                  "http://www.50ply.com/atom.xml"  ; no autotagging
-                  ("http://nedroid.com/feed/" webcomic)))
+  (elfeed :variables
+     elfeed-feeds '(("http://nullprogram.com/feed/" blog emacs)
+                    "http://www.50ply.com/atom.xml"  ; no autotagging
+                    ("http://nedroid.com/feed/" webcomic)))
 #+END_SRC
 
 Check documentation for =elfeed-feeds= for more information about this variable
@@ -87,7 +87,7 @@ start it by calling =elfeed-web-start= or by setting =elfeed-enable-web-interfac
 to =t= which will start the web automatically when Emacs starts.
 
 #+BEGIN_SRC emacs-lisp
-(elfeed :variables elfeed-enable-web-interface t)
+  (elfeed :variables elfeed-enable-web-interface t)
 #+END_SRC
 
 By default web interface is available on [[http://localhost:8080/elfeed/][localhost:8080/elfeed]]. You can change
@@ -126,9 +126,9 @@ Be sure that you added some feeds first then load your feeds with ~gr~
 in evilified buffer. Or ~M-x elfeed-update~.
 
 ** Queue timeout exceeded
-If you are getting "Queue timeout exceeded" errors, try increasing
+If you are getting “Queue timeout exceeded” errors, try increasing
 the value of =url-queue-timeout=.
 
 #+BEGIN_SRC emacs-lisp
-(elfeed :variables url-queue-timeout 30)
+  (elfeed :variables url-queue-timeout 30)
 #+END_SRC

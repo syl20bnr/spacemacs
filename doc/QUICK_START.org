@@ -1,6 +1,6 @@
 #+TITLE: Quick start
 
-* Configuration                                             :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#configuration-layers][Configuration layers]]
 - [[#dotfile-spacemacs][Dotfile (.spacemacs)]]
 - [[#dotdirectory-spacemacsd][Dotdirectory (~/.spacemacs.d)]]
@@ -32,7 +32,7 @@ own layer.
 The following command creates a layer in the =private= directory:
 
 #+BEGIN_EXAMPLE
-    SPC SPC configuration-layer/create-layer RET
+  SPC SPC configuration-layer/create-layer RET
 #+END_EXAMPLE
 
 Any configuration layers you create must be explicitly loaded in =~/.spacemacs=.
@@ -48,21 +48,21 @@ is also a means to customizing Spacemacs.
 The following command will create a =.spacemacs= file in your home directory:
 
 #+BEGIN_EXAMPLE
-    SPC SPC dotspacemacs/install RET
+  SPC SPC dotspacemacs/install RET
 #+END_EXAMPLE
 
 To open the installed dotfile:
 
 #+BEGIN_EXAMPLE
-    SPC f e d
+  SPC f e d
 #+END_EXAMPLE
 
 To load some configuration layers using the variable
 =dotspacemacs-configuration-layers=:
 
 #+BEGIN_SRC elisp
-;; List of configuration layers to load.
-dotspacemacs-configuration-layers '(auto-completion smex)
+  ;; List of configuration layers to load.
+  dotspacemacs-configuration-layers '(auto-completion smex)
 #+END_SRC
 
 Some configuration layers support configuration variables to expose granular
@@ -70,11 +70,11 @@ control over layer-specific features, [[https://github.com/syl20bnr/spacemacs/bl
 Variables can be directly set within =dotspacemacs-configuration-layers= like so:
 
 #+BEGIN_SRC elisp
-;; List of configuration layers to load.
-dotspacemacs-configuration-layers '(auto-completion
-                                    (git :variables
-                                         git-magit-status-fullscreen t)
-                                    smex)
+  ;; List of configuration layers to load.
+  dotspacemacs-configuration-layers '(auto-completion
+                                      (git :variables
+                                           git-magit-status-fullscreen t)
+                                      smex)
 #+END_SRC
 
 At anytime you can apply the changes made to the dotfile or layers
@@ -148,14 +148,14 @@ a buffer appears after one second listing the possible keys for this prefix.
 It is also possible to search for specific key bindings by pressing:
 
 #+BEGIN_EXAMPLE
-    SPC ?
+  SPC ?
 #+END_EXAMPLE
 
 To narrow the bindings list to those prefixed with =SPC=,
 type a pattern like this regular expression:
 
 #+BEGIN_EXAMPLE
-    SPC\ b
+  SPC\ b
 #+END_EXAMPLE
 
 which would list all =buffer= related bindings. *Note:* You are at the

@@ -1,6 +1,6 @@
 #+TITLE: Typography layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -12,11 +12,11 @@
 This layer provides support for typographic text editing in Spacemacs.
 
 ** Features:
-  - Modes to automatically insert and cycle among typographic characters
-  - [[https://github.com/jorgenschaefer/typoel][Typo Mode]] automatically inserts and cycles among typographic Unicode
-    characters on some keys.
-  - Tildify Mode automatically inserts non-breaking spaces where
-    required (Only available on Emacs 25).
+- Modes to automatically insert and cycle among typographic characters
+- [[https://github.com/jorgenschaefer/typoel][Typo Mode]] automatically inserts and cycles among typographic Unicode
+  characters on some keys.
+- Tildify Mode automatically inserts non-breaking spaces where
+  required (Only available on Emacs 25).
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

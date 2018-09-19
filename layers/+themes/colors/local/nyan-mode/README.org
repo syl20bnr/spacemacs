@@ -1,6 +1,6 @@
-#+TITLE:nyan-mode
+#+TITLE: nyan-mode
 
-* Table of Contents                      :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
   - [[#fork-modifications][Fork modifications]]
@@ -16,11 +16,11 @@ Cat should go from left to right in your mode-line, as you move your
 point from 0% to 100%.
 
 ** Features:
-  - Mind dumbing content included,
-  - Experimental animation (M-x nyan-start-animation, M-x nyan-stop-animation),
-  - Wavy rainbow (M-x set-variable <ret> nyan-wavy-trail <ret> t),
-  - Music, mplayer is needed (M-x nyan-start-music, M-x nyan-stop-music),
-  - Customizable properties.
+- Mind dumbing content included,
+- Experimental animation (M-x nyan-start-animation, M-x nyan-stop-animation),
+- Wavy rainbow (M-x set-variable <ret> nyan-wavy-trail <ret> t),
+- Music, mplayer is needed (M-x nyan-start-music, M-x nyan-stop-music),
+- Customizable properties.
 
 ** Fork modifications
 - the starting nyan cat image has no rainbow behind it,
@@ -28,9 +28,9 @@ point from 0% to 100%.
 - the animation loop is not endless and occurs only when nyan cat moves.
 
 ** Introduction
- *WARNING, MIND DUMBING CONTENT INSIDE.*
+*WARNING, MIND DUMBING CONTENT INSIDE.*
 
-"Nyan-mode. It's things like this that make me proud to be an emacs user." - [[http://twitter.com/#!/mitchellh/status/104931263479156736][mitchellh]]
+“Nyan-mode. It’s things like this that make me proud to be an emacs user.” - [[http://twitter.com/#!/mitchellh/status/104931263479156736][mitchellh]]
 
 Nyanmacs is expanding!! [[http://temporal.pr0.pl/devblog/2011/08/25/introducing-nyan-mode-el-turn-your-emacs-into-nyanmacs/][Read the story so far]]! :).
 
@@ -40,18 +40,18 @@ some tips on how to make nyan-mode work with custom modeline.
 
 He basically changed the mode-line-format to include:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (:eval (list (nyan-create)))
-#+end_src
+#+END_SRC
 
 ** Known issues
-It's my second attempt to write a minor mode in Emacs, so there will
+It’s my second attempt to write a minor mode in Emacs, so there will
 definiely be some bugs.
 
 This version uses XPM images, which should be supported by default by
-most Emacs 23 installations, Windows included. In case it doesn't
+most Emacs 23 installations, Windows included. In case it doesn’t
 work, try switching to master-png branch. This branch, however, may
-have it's own issues:
+have it’s own issues:
 
 There was a problem with displaying PNG images, which require libpng
 to be available for Emacs. The lib is sometimes missing (e.g. some
@@ -60,11 +60,11 @@ download a proper DLL and put it into emacs bin/ folder. To see which
 DLL is needed, do: M-x describe-variable <ret> image-library-alist
 <ret>.
 
-Customizing nyan-animate-nyancat is broken; don't do it.
+Customizing nyan-animate-nyancat is broken; don’t do it.
 
 ** Credits
 Code and idea inspired by sml-modeline.el, written by Lennart Borgman.
-See: http://bazaar.launchpad.net/~nxhtml/nxhtml/main/annotate/head%3A/util/sml-modeline.el
+See: [[http://bazaar.launchpad.net/~nxhtml/nxhtml/main/annotate/head%3A/util/sml-modeline.el]]
 
 For animated Nyan Cat, I used frames [[http://media.photobucket.com/image/nyan%20cat%20sprites/DryBowser455/th_NyanCatSprite.png?t=1304659408][by DryBowser455]].
 

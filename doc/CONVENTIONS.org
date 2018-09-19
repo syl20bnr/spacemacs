@@ -1,6 +1,6 @@
 #+TITLE: Spacemacs Conventions
 
-* Spacemacs conventions                                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#code-guidelines][Code guidelines]]
   - [[#spacemacs-core-and-layer][Spacemacs core and layer]]
   - [[#all-layers][All layers]]
@@ -44,25 +44,25 @@
 * Code guidelines
 ** Spacemacs core and layer
 Function names follow these conventions:
-  - =spacemacs/xxx= is an interactive function called =xxx=
-  - =spacemacs//xxx= is a private function called =xxx= (implementation details)
-  - =spacemacs|xxx= is a /macro/ called =xxx=
+- =spacemacs/xxx= is an interactive function called =xxx=
+- =spacemacs//xxx= is a private function called =xxx= (implementation details)
+- =spacemacs|xxx= is a /macro/ called =xxx=
 
 Variables follow these conventions:
-  - =spacemacs-xxx= is a variable
-  - =spacemacs--xxx= is a private variable (implementation details)
+- =spacemacs-xxx= is a variable
+- =spacemacs--xxx= is a private variable (implementation details)
 
 ** All layers
 A package is initialized in a function with name =<layer>/init-xxx= where:
-  - =<layer>= is the layer name
-  - =xxx= is the package name
+- =<layer>= is the layer name
+- =xxx= is the package name
 
 ** Use-package
 - Always use =progn= when a code block requires multiple lines for =:init= or
   =:config= keywords.
 - If there is only one line of code then try to keep =:init= or =:config=
   keywords on the same line.
-- Don't nest multiple =use-package= calls unless you have a very good reason
+- Don’t nest multiple =use-package= calls unless you have a very good reason
   to do it.
 
 * Key bindings conventions
@@ -173,10 +173,10 @@ Live evaluation of code is under the prefix ~SPC m e~.
 A lot of languages can interact with a REPL. To help keeping a
 consistent behavior between those languages the following conventions
 should be followed:
-  - ~SPC m s~ is the prefix for sending code. This allows fast interaction with
-    the REPL whenever it is possible
-  - lower case key bindings keep the focus on the current buffer
-  - upper case key bindings move the focus to the REPL buffer
+- ~SPC m s~ is the prefix for sending code. This allows fast interaction with
+  the REPL whenever it is possible
+- lower case key bindings keep the focus on the current buffer
+- upper case key bindings move the focus to the REPL buffer
 
 | Key     | Description                                                  |
 |---------+--------------------------------------------------------------|
@@ -192,30 +192,30 @@ should be followed:
 | ~m s r~ | send region                                                  |
 | ~m s R~ | send region and switch to REPL                               |
 
-Note: we don't distinguish between the file and the buffer.
+Note: we don’t distinguish between the file and the buffer.
 
 *** In terminal
 History navigation in shells or REPLs buffers should be bound as well to
 ~C-j~ and ~C-k~.
 
-    | Key   | Description                |
-    |-------+----------------------------|
-    | ~C-j~ | next item in history       |
-    | ~C-k~ | previous item in  history  |
-    | ~C-l~ | clear screen               |
-    | ~C-r~ | search backward in history |
+| Key   | Description                |
+|-------+----------------------------|
+| ~C-j~ | next item in history       |
+| ~C-k~ | previous item in  history  |
+| ~C-l~ | clear screen               |
+| ~C-r~ | search backward in history |
 
 ** Building and Compilation
 The base prefix for major mode specific compilation is ~SPC m c~.
 
-    | Key Binding | Description       |
-    |-------------+-------------------|
-    | ~m c b~     | compile buffer    |
-    | ~m c c~     | compile           |
-    | ~m c C~     | clean             |
-    | ~m c r~     | clean and compile |
+| Key Binding | Description       |
+|-------------+-------------------|
+| ~m c b~     | compile buffer    |
+| ~m c c~     | compile           |
+| ~m c C~     | clean             |
+| ~m c r~     | clean and compile |
 
-Note: we don't distinguish between the file and the buffer. We can
+Note: we don’t distinguish between the file and the buffer. We can
 implement an auto-save of the buffer before compiling the buffer.
 
 ** Debugging
@@ -236,10 +236,10 @@ The base prefix for debugging commands is ~SPC m d~.
 | ~m d v~     | inspect value at point  |
 
 Notes:
-  - Ideally a transient-state for breakpoint navigation should be provided.
-  - If there is no toggle breakpoint function, then it should be implemented at
-    the spacemacs level and ideally the function should be proposed as a patch
-    upstream (major mode repository).
+- Ideally a transient-state for breakpoint navigation should be provided.
+- If there is no toggle breakpoint function, then it should be implemented at
+  the spacemacs level and ideally the function should be proposed as a patch
+  upstream (major mode repository).
 
 ** Errors
 Management of errors should be put under ~SPC m E~.
@@ -328,9 +328,9 @@ If table specific commands are available the they are grouped under the
 ** Tests
 A lot of languages have their own test frameworks. These frameworks
 share common actions that we can unite under the same key bindings:
- - ~SPC m t~ is the prefix for test execution.
- - ~SPC m t g~ is the prefix for test generation.
- - ~SPC m t X~ is used to execute ~SPC m t x~ but in debug mode (if supported).
+- ~SPC m t~ is the prefix for test execution.
+- ~SPC m t g~ is the prefix for test generation.
+- ~SPC m t X~ is used to execute ~SPC m t x~ but in debug mode (if supported).
 
 *** All languages
 
@@ -343,7 +343,7 @@ share common actions that we can unite under the same key bindings:
 | ~m t t~ | execute the current test (thing at point, function)          |
 | ~m t T~ | execute the current test in debug (thing at point, function) |
 
-Note: we don't distinguish between the file and the buffer. We can
+Note: we don’t distinguish between the file and the buffer. We can
 implement an auto-save of the buffer before executing the tests of
 buffer.
 
@@ -400,6 +400,5 @@ Spacemacs provides an example layer =README.org= file in
   - At the end of each header node, there should be an empty line
   - Note: Many layer =READMEs= do not follow this convention yet. Please fix
     them if you can.
-
 - To keep things readable only mention the prefix ~SPC~ when documenting
-  key bindings, you don't need to mention ~M-m~.
+  key bindings, you don’t need to mention ~M-m~.

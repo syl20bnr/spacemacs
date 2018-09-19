@@ -2,7 +2,7 @@
 
 [[file:img/jsonnet.png]]
 
-* Table of Contents                                       :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -22,7 +22,7 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =jsonnet= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-To use some of the additional formatting and evaluation features, you'll need
+To use some of the additional formatting and evaluation features, you’ll need
 [[http://jsonnet.org/index.html][the jsonnet binary]]
 
 * Key bindings

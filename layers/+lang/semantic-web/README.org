@@ -2,7 +2,7 @@
 
 [[file:img/semweb.png]]
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -14,7 +14,7 @@ and for [[https://www.w3.org/TR/sparql11-query/][SPARQL]] queries using [[https:
 
 SPARQL-mode supports the execution of queries. When first called, you will be
 prompted for a SPARQL HTTP endpoint in the minibuffer, which defaults to
-http://localhost:2020/. Once set, it will be used for all subsequent queries in
+[[http://localhost:2020/]]. Once set, it will be used for all subsequent queries in
 that buffer. Results will be displayed in another buffer in CSV format.
 
 ** Features:

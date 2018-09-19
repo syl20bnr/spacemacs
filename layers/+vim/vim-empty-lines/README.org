@@ -1,18 +1,18 @@
 #+TITLE: Vim-empty-lines layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 
 * Description
 This layer is a drop-in replacement for the =vi-tilde-fringe= mode, for those
-who desire behaviour closer to =vim='s.
+who desire behaviour closer to =vim=’s.
 
 It has better compatibility with retina displays, as it uses a text overlay
 using your font, rather than a pixel-art tilde. The empty line indicators are
 overlaid in within the buffer as in =vim=, and not in the fringe. The indicator
-behaviour with trailing empty lines matches =vim='s behaviour.
+behaviour with trailing empty lines matches =vim=’s behaviour.
 
 For details, see the [[https://github.com/jmickelin/vim-empty-lines-mode][vim-empty-lines-mode]] repository.
 

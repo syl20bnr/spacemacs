@@ -2,7 +2,7 @@
 
 [[file:img/go.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -28,7 +28,7 @@ This layer adds extensive support for go to Spacemacs.
 - Source analysis using [[https://docs.google.com/document/d/1_Y9xCEMj5S-7rv2ooHpZNH15JgRT5iM742gJkw5LtmQ][go-guru]]
 - Refactoring with [[http://gorefactor.org/][godoctor]]
 - Edit struct field tag with [[https://github.com/fatih/gomodifytags][gomodifytags]]
-- Linting with flycheck's built-in checkers or flycheck-gometalinter
+- Linting with flycheck’s built-in checkers or flycheck-gometalinter
 - Coverage profile visualization
 - Test generation with [[https://github.com/s-kostyaev/go-gen-test][go-gen-test]]
 - Get packages faster with [[https://github.com/haya14busa/gopkgs][gopkgs]]
@@ -57,9 +57,9 @@ If you with to use a linters aggregator tool, you can enable =gometalinter= or =
 
 If you wish to use =gometalinter= set the value of =go-use-gometalinter= to t:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (go :variables go-use-gometalinter t)
-#+end_src
+#+END_SRC
 
 and install the tool:
 
@@ -73,9 +73,9 @@ and [[https://github.com/favadi/flycheck-gometalinter/blob/master/README.md][fly
 
 If you wish to use =golangci-lint= set the value of =go-use-golangci-lint= to t:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (go :variables go-use-golangci-lint t)
-#+end_src
+#+END_SRC
 
 and install the tool:
 
@@ -107,10 +107,10 @@ For best results, make sure that the =auto-completion= and =syntax-checking=
 layers are enabled as well.
 
 ** LSP backend
- To enable the LSP backend set the layer variable =go-backend=:
+To enable the LSP backend set the layer variable =go-backend=:
 
 #+BEGIN_SRC elisp
-(go :variables go-backend 'lsp)
+  (go :variables go-backend 'lsp)
 #+END_SRC
 
 You also need to install the Go Language Server:
@@ -124,10 +124,10 @@ Backend can be chosen on a per project basis using directory local variables
 =go-mode= backend:
 
 #+BEGIN_SRC elisp
-;;; Directory Local Variables
-;;; For more information see (info "(emacs) Directory Variables")
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
 
-((go-mode (go-backend . go-mode)))
+  ((go-mode (go-backend . go-mode)))
 #+END_SRC
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
@@ -140,39 +140,39 @@ file.
 * Configuration
 To run =gofmt= before save, set the value to a non-nil, e.g.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq go-format-before-save t)
-#+end_src
+#+END_SRC
 
 To use a different formatter, set the value of =gofmt-command=, e.g.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq gofmt-command "goimports")
-#+end_src
+#+END_SRC
 
 or
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (go :variables gofmt-command "goimports")
-#+end_src
+#+END_SRC
 
 ** Indentation
 By default, the tab width in Go mode is 8 spaces. To use a different value set
 the layer variable =go-tab-width=, e.g.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (go :variables go-tab-width 4)
-#+end_src
+#+END_SRC
 
-If you're using =.editorconfig= in your project, set the value to nil to avoid
+If you’re using =.editorconfig= in your project, set the value to nil to avoid
 confliction, e.g.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (go :variables go-tab-width nil)
-#+end_src
+#+END_SRC
 
 ** Tests
-If you're using =gocheck= in your project you can use the
+If you’re using =gocheck= in your project you can use the
 =go-use-gocheck-for-testing= variable to enable suite testing and to get single
 function testing to work.
 
@@ -186,16 +186,16 @@ closed by pressing ~C-g~ from any other window. The variable
 
 To provide additional arguments to go test, specify =go-use-test-args=.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (go :variables go-use-test-args "-race -timeout 10s"
-#+end_src
+#+END_SRC
 
 ** Guru
-Go Oracle has been deprecated as of October 1, 2016, it's replacement is =go-guru=.
+Go Oracle has been deprecated as of October 1, 2016, it’s replacement is =go-guru=.
 
 If you would like to use the =goguru= bindings in your work, you will need to
 install it, and in your project you will need to set the scope with ~SPC m f o~.
-The scope is a comma separated set of packages, and =go='s recursive operator is
+The scope is a comma separated set of packages, and =go=’s recursive operator is
 supported. In addition, you can prefix with =-= to exclude a package from
 searching.
 
@@ -213,19 +213,18 @@ they have been added. This is also the choice recommended from =go-mode.el=.
 
 To choose =gocode= nothing more needs to be done. To use =gogetdoc= you need to set
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (go :variables godoc-at-point-function 'godoc-gogetdoc)
-#+end_src
+#+END_SRC
 
 in your =dotfile=.
 
 If you choose to use =gocode= there are some suggestions to improve its results.
 As =gocode= uses the output from installed binary files to provide its suggestions.
 You have a few options to ensure you always get up to date suggestions:
-
 - Run =go install ./...= in your package directory when you make a file change.
-- Run =gocode set autobuild true= to have gocode attempt to run =go install
-  ./...= for you.
+- Run =gocode set autobuild true= to have gocode attempt to run =go install ./...=
+  for you.
 - You can configure your task runner to run =go install ./...= command on every
   file change.
 
@@ -234,7 +233,7 @@ You have a few options to ensure you always get up to date suggestions:
 
 | Key Binding   | Description                                                                           |
 |---------------+---------------------------------------------------------------------------------------|
-| ~SPC m =~     | run "go fmt"                                                                          |
+| ~SPC m =~     | run “go fmt”                                                                          |
 | ~SPC m e b~   | go-play buffer                                                                        |
 | ~SPC m e d~   | download go-play snippet                                                              |
 | ~SPC m e r~   | go-play region                                                                        |
@@ -246,14 +245,14 @@ You have a few options to ensure you always get up to date suggestions:
 | ~SPC m i g~   | goto imports                                                                          |
 | ~SPC m i r~   | remove unused import                                                                  |
 | ~SPC m r n~   | go rename                                                                             |
-| ~SPC m t P~   | run "go test" for the current package and all packages under it                       |
+| ~SPC m t P~   | run “go test” for the current package and all packages under it                       |
 | ~SPC m t g f~ | generate tests for all exported functions                                             |
 | ~SPC m t g F~ | generate tests for all functions                                                      |
 | ~SPC m t g g~ | DWIM generate test for the function in the active region                              |
-| ~SPC m t p~   | run "go test" for the current package                                                 |
-| ~SPC m t s~   | run "go test" for the suite you're currently in (requires gocheck)                    |
-| ~SPC m t t~   | run "go test" for the function you're currently in (while you're in a _.test.go file) |
-| ~SPC m x x~   | run "go run" for the current 'main' package                                           |
+| ~SPC m t p~   | run “go test” for the current package                                                 |
+| ~SPC m t s~   | run “go test” for the suite you’re currently in (requires gocheck)                    |
+| ~SPC m t t~   | run “go test” for the function you’re currently in (while you’re in a _.test.go file) |
+| ~SPC m x x~   | run “go run” for the current ’main’ package                                           |
 
 ** Go Guru
 
