@@ -15,16 +15,11 @@
 
 (defconst pact-packages
   '(
-    ;; evil-cleverparens
     flycheck
-    (flycheck-pact :requires flycheck
-                   :location (recipe
+    (flycheck-pact :location (recipe
                               :fetcher github
                               :repo "kadena-io/flycheck-pact"))
-    ;; pact-mode
-    (pact-mode :location (recipe
-                          :fetcher github
-                          :repo "kadena-io/pact-mode"))
+    pact-mode
     ))
 
 (defun pact/post-init-flycheck ()
@@ -33,7 +28,9 @@
 
 (defun pact/init-flycheck-pact ()
   "Initialize flycheck-pact."
-  (use-package flycheck-pact))
+  (use-package flycheck-pact
+    :commands flycheck-pact-interactive-buffer
+    :init (add-hook 'flycheck-mode-hook 'flycheck-pact-interactive-buffer)))
 
 (defun pact/init-pact-mode ()
   "Initialize pact-mode."
