@@ -162,7 +162,7 @@ Before using =gtags=, remember to create a GTAGS database by one of the followin
 methods:
 
 - From within Emacs, run either =counsel-gtags-create-tags= or
-  =helm-gtags-create-tags=, which are bound to ~SPC m g c~. If the language is
+  =helm-gtags-create-tags=, which are bound to ~SPC m g C~. If the language is
   not directly supported by GNU Global, you can choose =ctags= or =pygments= as
   a backend to generate the database.
 
