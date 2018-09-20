@@ -9,8 +9,14 @@
 ;;
 ;;; License: GPLv3
 
-;; ;; These all have toggles bound under 't' in spacemacs/lsp-define-keys-for-mode
-(defvar lsp-ui-remap-xref-keybindings nil "When non-nil, xref keybindings remapped to lsp-ui-peek-find-*")
+(defvar lsp-remap-xref-keybindings nil "When non-nil, xref keybindings remapped to lsp-ui-peek-find-*")
+(defvar lsp-navigation 'both
+  "If `simple' binds lightweight navigation functions under `SPC m g'.
+If `peek' binds lsp-ui navigation functions under `SPC m g'.
+If `both', binds lightweight navigation functions under `SPC m g' and lsp-ui functions under `SPC m G'")
+
+;; These are config variables exposed by the lsp-ui package
+;; They all have toggles bound under 't' in spacemacs/lsp-define-keys-for-mode
 (defvar lsp-ui-doc-enable t "Enable/disable lsp-ui-doc overlay")
 (defvar lsp-ui-doc-include-signature nil "When non-nil, type signature included in the lsp-ui-doc overlay")
 (defvar lsp-ui-sideline-enable t "Enable/disable lsp-ui-sideline overlay")
