@@ -810,6 +810,7 @@ error recovery."
       (let ((themes '(spacemacs
                       all-the-icons
                       custom
+                      doom
                       vim-powerline
                       vanilla)))
         (or (member x themes)

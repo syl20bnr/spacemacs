@@ -565,6 +565,21 @@ ones created by `magit' and `dired'."
       (message "%s" (kill-new file-path))
     (message "WARNING: Current buffer is not attached to a file!")))
 
+(defun spacemacs/copy-file-name ()
+  "Copy and show the file name of the current buffer."
+  (interactive)
+  (if-let (file-name (file-name-nondirectory (spacemacs--file-path)))
+      (message "%s" (kill-new file-name))
+    (message "WARNING: Current buffer is not attached to a file!")))
+
+(defun spacemacs/copy-file-name-base ()
+  "Copy and show the file name without its final extension of the current
+buffer."
+  (interactive)
+  (if-let (file-name (file-name-base (spacemacs--file-path)))
+      (message "%s" (kill-new file-name))
+    (message "WARNING: Current buffer is not attached to a file!")))
+
 (defun spacemacs/copy-file-path-with-line ()
   "Copy and show the file path of the current buffer, including line number."
   (interactive)

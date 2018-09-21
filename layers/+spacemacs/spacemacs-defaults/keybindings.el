@@ -228,6 +228,8 @@
   "fyc" 'spacemacs/copy-file-path-with-line-column
   "fyd" 'spacemacs/copy-directory-path
   "fyl" 'spacemacs/copy-file-path-with-line
+  "fyn" 'spacemacs/copy-file-name
+  "fyN" 'spacemacs/copy-file-name-base
   "fyy" 'spacemacs/copy-file-path)
 ;; frame ----------------------------------------------------------------------
 (spacemacs/set-leader-keys

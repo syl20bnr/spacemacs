@@ -34,13 +34,17 @@
 (defun spotify/init-counsel-spotify ()
   (use-package counsel-spotify
     :defer t
+    :commands (counsel-spotify-search-artist
+               counsel-spotify-search-album
+               counsel-spotify-search-track
+               counsel-spotify-search-tracks-by-artist
+               counsel-spotify-search-tracks-by-album)
     :init (progn
+            (spacemacs/declare-prefix "amss" "search")
+            (spacemacs/declare-prefix "amssT" "tracks")
             (spacemacs/set-leader-keys
               "amssa" 'counsel-spotify-search-artist
               "amssA" 'counsel-spotify-search-album
               "amsst" 'counsel-spotify-search-track
               "amssTa" 'counsel-spotify-search-tracks-by-artist
               "amssTA" 'counsel-spotify-search-tracks-by-album))))
-
-(defun spotify/post-init-counsel-spotify ()
-  (load-library "counsel-spotify"))

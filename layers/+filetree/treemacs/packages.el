@@ -24,7 +24,8 @@
 
 (defun treemacs/init-treemacs ()
   (use-package treemacs
-    :commands (treemacs-select-window treemacs--window-number-ten)
+    :commands (treemacs-select-window treemacs--window-number-ten
+               treemacs-current-visibility)
     :defer t
     :init
     (progn
@@ -44,7 +45,16 @@
         "ft"    'treemacs
         "fB"    'treemacs-bookmark
         "fT"    'treemacs-find-file
-        "f M-t" 'treemacs-find-tag))
+        "f M-t" 'treemacs-find-tag
+        "pt"    'spacemacs/treemacs-project-toggle)
+      (which-key-add-major-mode-key-based-replacements 'treemacs-mode
+        "c"     "treemacs-create"
+        "o"     "treemacs-visit-node"
+        "oa"    "treemacs-visit-node-ace"
+        "t"     "treemacs-toggles"
+        "y"     "treemacs-copy"
+        "C-p"   "treemacs-projects"
+        "C-p c" "treemacs-projects-collapse"))
     :config
     (progn
       (spacemacs/define-evil-state-face "treemacs" "MediumPurple1")

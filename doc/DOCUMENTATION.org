@@ -1298,7 +1298,7 @@ non-text-mode buffers, set =:enabled-for-modes= to =all=.
 
 Examples:
 
-Disable line numbers in dired-mode, doc-view-mode, markdown-mode, org-mode,
+Disable *line numbers* in dired-mode, doc-view-mode, markdown-mode, org-mode,
 pdf-view-mode, text-mode as well as buffers over 1Mb:
 
 #+BEGIN_SRC emacs-lisp
@@ -1312,7 +1312,7 @@ pdf-view-mode, text-mode as well as buffers over 1Mb:
                                            :size-limit-kb 1000))
 #+END_SRC
 
-Relative line numbers only in c-mode and c++ mode with a size limit of =dotspacemacs-large-file-size=:
+Enable *relative line numbers* only in c-mode and c++ mode with a size limit of =dotspacemacs-large-file-size=:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-line-numbers '(:relative t
@@ -1321,14 +1321,14 @@ Relative line numbers only in c-mode and c++ mode with a size limit of =dotspace
                                            :size-limit-kb (* dotspacemacs-large-file-size 1000))
 #+END_SRC
 
-Enable line numbers everywhere, except for buffers over 1Mb:
+Enable *line numbers* everywhere, except for buffers over 1Mb:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-line-numbers '(:relative nil
                                              :size-limit-kb 1000))
 #+END_SRC
 
-Enable line numbers only in programming modes, except for c-mode and c++ mode:
+Enable *line numbers* only in programming modes, except for c-mode and c++ mode:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-line-numbers '(:relative nil
@@ -1337,7 +1337,7 @@ Enable line numbers only in programming modes, except for c-mode and c++ mode:
                                              :size-limit-kb (* dotspacemacs-large-file-size 1000))
 #+END_SRC
 
-Enable line numbers everywhere, even in non-prog-mode and non-text-mode buffers:
+Enable *line numbers* everywhere, even in non-prog-mode and non-text-mode buffers:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-line-numbers '(:enabled-for-modes 'all))
@@ -2395,6 +2395,8 @@ Files manipulation commands (start with ~f~):
 | ~SPC f y c~ | show and copy current file absolute path with line and column number in the minibuffer                 |
 | ~SPC f y d~ | show and copy current directory absolute path in the minibuffer                                        |
 | ~SPC f y l~ | show and copy current file absolute path with line number in the minibuffer                            |
+| ~SPC f y n~ | show and copy current file name with extensionin the minibuffer                                        |
+| ~SPC f y N~ | show and copy current file name without extensionin the minibuffer                                     |
 | ~SPC f y y~ | show and copy current file absolute path in the minibuffer                                             |
 
 **** Frame manipulation key bindings
