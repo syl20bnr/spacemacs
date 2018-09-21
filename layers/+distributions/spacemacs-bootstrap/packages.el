@@ -88,6 +88,11 @@
   ;; bind evil-jump-forward for GUI only.
   (define-key evil-motion-state-map [C-i] 'evil-jump-forward)
 
+  ;; Use '[' and ']' for jumping backward and forward
+  (spacemacs/set-leader-keys
+    "[" 'evil-jump-backward
+    "]" 'evil-jump-forward)
+
   ;; Make the current definition and/or comment visible.
   (define-key evil-normal-state-map "zf" 'reposition-window)
   ;; toggle maximize buffer
