@@ -18,6 +18,7 @@ This layer integrates basic container management into Spacemacs.
 - =Docker= build integration
 - =TRAMP= access to running Docker containers
 - =Docker= container and image management via [[https://github.com/Silex/docker.el][docker.el]]
+- =docker-compose= integration via [[https://github.com/Silex/docker.el][docker.el]]
 - Syntax checking via [[https://github.com/hadolint/hadolint][hadolint]]
 
 * Install
@@ -39,18 +40,19 @@ auto-completion of the running containers.
 
 * Key bindings
 
-| Key Binding | Description                        |
-|-------------+------------------------------------|
-| ~SPC m c b~ | build current buffer               |
-| ~SPC m c B~ | build current buffer without cache |
-| ~SPC a D c~ | list docker containers             |
-| ~SPC a D d~ | delete image                       |
-| ~SPC a D e~ | unpause container                  |
-| ~SPC a D F~ | pull image                         |
-| ~SPC a D i~ | list docker images                 |
-| ~SPC a D k~ | delete container                   |
-| ~SPC a D o~ | stop container                     |
-| ~SPC a D p~ | pause container                    |
-| ~SPC a D P~ | push image                         |
-| ~SPC a D r~ | restart container                  |
-| ~SPC a D s~ | start container                    |
+| Key Binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~SPC m c b~ | build current buffer                        |
+| ~SPC m c B~ | build current buffer without cache          |
+| ~SPC a D c~ | list docker containers                      |
+| ~SPC a D C~ | docker-compose commands for current project |
+| ~SPC a D d~ | delete image                                |
+| ~SPC a D e~ | unpause container                           |
+| ~SPC a D F~ | pull image                                  |
+| ~SPC a D i~ | list docker images                          |
+| ~SPC a D k~ | delete container                            |
+| ~SPC a D o~ | stop container                              |
+| ~SPC a D p~ | pause container                             |
+| ~SPC a D P~ | push image                                  |
+| ~SPC a D r~ | restart container                           |
+| ~SPC a D s~ | start container                             |

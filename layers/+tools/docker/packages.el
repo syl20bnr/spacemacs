@@ -25,6 +25,7 @@
       (spacemacs/declare-prefix "aD" "Docker")
       (evil-leader/set-key
         "aDc" 'docker-containers
+        "aDC" 'docker-compose
         "aDd" 'docker-rmi
         "aDe" 'docker-unpause
         "aDF" 'docker-pull
