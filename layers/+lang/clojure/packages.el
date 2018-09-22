@@ -14,6 +14,7 @@
         cider
         cider-eval-sexp-fu
         (clj-refactor :toggle clojure-enable-clj-refactor)
+        (helm-cider :toggle (configuration-layer/layer-used-p 'helm))
         clojure-mode
         (clojure-snippets :toggle (configuration-layer/layer-used-p 'auto-completion))
         company
@@ -321,6 +322,20 @@
               (spacemacs/set-leader-keys-for-major-mode m
                 (concat "r" binding) func))))))))
 
+(defun clojure/init-helm-cider ()
+  (use-package helm-cider
+    :defer t
+    :init
+    (progn
+      (add-hook 'clojure-mode-hook 'helm-cider-mode)
+      (setq sayid--key-binding-prefixes
+            '(("mhc" . "helm-cider-cheatsheet")))
+      (spacemacs|forall-clojure-modes m
+        (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
+                            m (car x) (cdr x)))
+              sayid--key-binding-prefixes)
+        (spacemacs/set-leader-keys-for-major-mode m
+          "hc" 'helm-cider-cheatsheet)))))
 
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode

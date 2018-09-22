@@ -28,7 +28,7 @@
     - [[#quick-start-with-lein][Quick Start with lein]]
     - [[#more-details][More details]]
   - [[#managing-repl-connections][Managing REPL connections]]
-  - [[#cheatsheet][Cheatsheet]]
+  - [[#advanced-help][Advanced help]]
   - [[#structuraly-safe-editing][Structuraly safe editing]]
 - [[#key-bindings][Key bindings]]
   - [[#working-with-clojure-files-barfage-slurpage--more][Working with clojure files (barfage, slurpage & more)]]
@@ -67,7 +67,7 @@ and a full suite of tooling for Clojure development.
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
 - Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
 - Debugging with [[https://github.com/clojure-emacs/sayid][sayid]]
-- Clojure cheatsheet
+- Advanced help with [[https://github.com/clojure-emacs/helm-cider][helm-cider]]
 - Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 - Linting via [[https://github.com/borkdude/clj-kondo][clj-kondo]] ([[https://github.com/candid82/joker][joker]] and [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] also available)
 
@@ -398,13 +398,16 @@ multiple projects or have multiple connections opened for the same project
 
 See REPL connections in the key bindings section for all the commands.
 
-** Cheatsheet
-This layers installs the [[https://github.com/clojure-emacs/clojure-cheatsheet][clojure-cheatsheet]] package which embeds this useful
-[[https://clojure.org/api/cheatsheet][cheatsheet]] into Emacs.
+** Advanced help
+This layer installs the [[https://github.com/clojure-emacs/helm-cider][helm-cider]] package which provides helm integration
+with cider apropos. It also embeds cider cheatsheet.
 
+Type ~SPC m h a~ to display advanced apropos window.
 Type ~SPC m h c~ to display the cheatsheet then type in some terms (space
-separated) to narrow down the list. For example, try typing in sort map to see
+separated) to narrow down the list. For example, try typing in "sort map" to see
 some functions that deal with sorting maps.
+
+NOTE: If helm is not used, then =cider-apropos= and =cider-cheatsheet= are used.
 
 ** Structuraly safe editing
 The Clojure layer adds support for =evil-cleverparens= which allows to safely edit
@@ -468,7 +471,7 @@ Managing CIDER REPL connections and sessions
 | Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC m h a~ | cider apropos               |
-| ~SPC m h c~ | clojure cheatsheet          |
+| ~SPC m h c~ | cider cheatsheet            |
 | ~SPC m h d~ | cider clojuredocs           |
 | ~SPC m h h~ | cider doc                   |
 | ~SPC m h j~ | cider javadoc               |
