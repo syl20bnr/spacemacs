@@ -14,7 +14,7 @@
         cider
         cider-eval-sexp-fu
         clj-refactor
-        clojure-cheatsheet
+        (helm-cider :toggle (configuration-layer/layer-used-p 'helm))
         clojure-mode
         (clojure-snippets :toggle (configuration-layer/layer-used-p 'auto-completion))
         company
@@ -80,7 +80,6 @@
 
           (spacemacs/set-leader-keys-for-major-mode m
             "ha" 'cider-apropos
-            "hc" 'clojure-cheatsheet
             "hg" 'cider-grimoire
             "hh" 'cider-doc
             "hj" 'cider-javadoc
@@ -288,13 +287,14 @@
                 (spacemacs/set-leader-keys-for-major-mode m
                   (concat "r" binding) func)))))))))
 
-(defun clojure/init-clojure-cheatsheet ()
-  (use-package clojure-cheatsheet
+(defun clojure/init-helm-cider ()
+  (use-package helm-cider
     :defer t
     :init
     (progn
+      (add-hook 'clojure-mode-hook 'helm-cider-mode)
       (setq sayid--key-binding-prefixes
-            '(("mhc" . "clojure-cheatsheet")))
+            '(("mhc" . "helm-cider-cheatsheet")))
       (dolist (m '(clojure-mode
                    clojurec-mode
                    clojurescript-mode
@@ -305,7 +305,7 @@
                             m (car x) (cdr x)))
               sayid--key-binding-prefixes)
         (spacemacs/set-leader-keys-for-major-mode m
-          "hc" 'clojure-cheatsheet)))))
+          "hc" 'helm-cider-cheatsheet)))))
 
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
