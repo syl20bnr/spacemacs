@@ -1,0 +1,28 @@
+#+TITLE: pkgbuild layer
+
+* Table of Contents                                       :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support [[https://github.com/juergenhoetzel/pkgbuild-mode][pkgbuild-mode]].
+
+** Features:
+  - PKGBUILD edit capabilities
+  - PKGBUILD build, tar...
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =pkgbuild= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding | Description                                                |
+|-------------+------------------------------------------------------------|
+| ~SPC m b~   | Builds using makepkg                                       |
+| ~SPC m s~   | Udpate sums line                                           |
+| ~SPC m t~   | Creates a tarball of the package including all the sources |
+| ~SPC m i~   | Increases the pkgrel release tag                           |
