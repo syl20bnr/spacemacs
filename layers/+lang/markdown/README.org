@@ -8,6 +8,7 @@
   - [[#bibtex][BibTeX]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
+  - [[#formatting][Formatting]]
   - [[#live-preview][Live preview]]
   - [[#automatic-mmm-mode-generation][Automatic MMM-Mode Generation]]
 - [[#usage][Usage]]
@@ -45,6 +46,15 @@ add =markdown= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Configuration
+** Formatting
+To format markdown files, you need to set =markdown-fmt-tool=. By default, it
+uses =prettier=. You might need to check out prettier layer for more information.
+
+#+BEGIN_SRC emacs-lisp
+  dotspacemacs-configuration-layers '(
+    (markdown :variables markdown-fmt-tool 'prettier))
+#+END_SRC
+
 ** Live preview
 By default the built-in Emacs web browser is used to live preview a markdown
 buffer.
