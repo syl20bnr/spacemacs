@@ -1,0 +1,24 @@
+#+TITLE: elasticsearch layer
+
+[[file:img/elasticsearch.png]]
+
+* Table of Contents                                       :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds Elasticsearch queries support to Spacemacs.
+
+** Features:
+  - Autocompletion for Elasticsearch Query DSL
+  - Support for Org-Babel
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =elasticsearch= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+This layer makes use of [[https://github.com/dakrone/es-mode#keyboard-shortcuts][es-mode keybindings]]
