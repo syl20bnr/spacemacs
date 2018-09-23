@@ -101,14 +101,19 @@ Backend can be chosen on a per project basis using directory local variables
 * Backends
 ** Tide
 Tide comes with an embedded Typescript server, it is recommended to use the
-server intalled by =npm= instead. To do so set the variable
-=tide-tsserver-executable= to the path of the =tsserver= executable.
+server installed by =npm= instead.
+#+BEGIN_SRC sh
+  npm install -g typescript
+#+END_SRC
+
+To do so set the variable =tide-tsserver-executable= to the path of the
+=tsserver= executable.
 
 For example:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers '(
-  (typescript :variables
+  (tide :variables
               tide-tsserver-executable "/usr/local/bin/tsserver")))
 #+END_SRC
 
