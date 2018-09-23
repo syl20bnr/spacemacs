@@ -14,12 +14,14 @@
 (defun spacemacs//react-setup-backend ()
   "Conditionally setup react backend."
   (pcase javascript-backend
+    (`tide (spacemacs//tide-setup-tide))
     (`tern (spacemacs/tern-setup-tern))
     (`lsp (spacemacs//react-setup-lsp))))
 
 (defun spacemacs//react-setup-company ()
   "Conditionally setup company based on backend."
   (pcase javascript-backend
+    (`tide (spacemacs//tide-setup-tide-company 'rjsx-mode))
     (`tern (spacemacs/tern-setup-tern-company 'rjsx-mode))
     (`lsp (spacemacs//react-setup-lsp-company))))
 

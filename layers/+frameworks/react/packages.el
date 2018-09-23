@@ -22,6 +22,7 @@
     rjsx-mode
     smartparens
     tern
+    tide
     web-beautify
     yasnippet
     ))
@@ -46,6 +47,10 @@
   (with-eval-after-load 'flycheck
     (dolist (checker '(javascript-eslint javascript-standard))
       (flycheck-add-mode checker 'rjsx-mode)))
+  ;; configure jsx-tide checker to run after your default jsx checker
+  (with-eval-after-load 'tide
+    (with-eval-after-load 'flycheck
+      (flycheck-add-next-checker 'javascript-eslint 'jsx-tide 'append)))
   (spacemacs/enable-flycheck 'rjsx-mode)
   (add-hook 'rjsx-mode-hook #'spacemacs//javascript-setup-eslint t))
 
@@ -98,6 +103,10 @@
 
 (defun react/post-init-tern ()
   (add-to-list 'tern--key-bindings-modes 'rjsx-mode))
+
+(defun react/post-init-tide ()
+  (add-to-list 'tide--key-bindings-modes 'rjsx-mode)
+  (spacemacs//tide-set-leader-keys-for-major-modes 'rjsx-mode))
 
 (defun react/pre-init-web-beautify ()
   (if (eq javascript-fmt-tool 'web-beautify)

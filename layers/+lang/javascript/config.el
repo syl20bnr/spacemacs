@@ -13,8 +13,8 @@
 
 (spacemacs|define-jump-handlers js2-mode)
 
-(defvar javascript-backend 'tern
-  "The backend to use for IDE features. Possible values are `tern' and `lsp'.")
+(defvar javascript-backend 'tide
+  "The backend to use for IDE features. Possible values are `tide', `tern' and `lsp'.")
 
 (defvar javascript-fmt-tool 'web-beautify
   "The formatter to format a JavaScript file. Possible values are `web-beautify' and `prettier'.")

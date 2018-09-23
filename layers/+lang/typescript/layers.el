@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layers '(node javascript prettier))
+(configuration-layer/declare-layers '(node javascript prettier tide))

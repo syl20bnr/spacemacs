@@ -29,6 +29,7 @@
         prettier-js
         skewer-mode
         tern
+        tide
         web-beautify))
 
 (defun javascript/post-init-add-node-modules-path ()
@@ -46,7 +47,11 @@
 
 (defun javascript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'js2-mode)
-  (add-hook 'js2-mode-hook #'spacemacs//javascript-setup-eslint t))
+  (add-hook 'js2-mode-hook #'spacemacs//javascript-setup-eslint t)
+  ;; configure javascript-tide checker to run after your default javascript checker
+  (with-eval-after-load 'tide
+    (with-eval-after-load 'flycheck
+      (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append))))
 
 (defun javascript/post-init-ggtags ()
   (add-hook 'js2-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
@@ -79,7 +84,7 @@
     (progn
       (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-backend)
       ;; safe values for backend to be used in directory file variables
-      (dolist (value '(lsp tern))
+      (dolist (value '(lsp tern tide))
         (add-to-list 'safe-local-variable-values
                      (cons 'javascript-backend value))))
     :config
@@ -204,6 +209,10 @@
 
 (defun javascript/post-init-tern ()
   (add-to-list 'tern--key-bindings-modes 'js2-mode))
+
+(defun javascript/post-init-tide ()
+  (add-to-list 'tide--key-bindings-modes 'js2-mode)
+  (spacemacs//tide-set-leader-keys-for-major-modes 'js2-mode))
 
 (defun javascript/pre-init-web-beautify ()
   (if (eq javascript-fmt-tool 'web-beautify)

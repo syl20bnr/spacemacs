@@ -1,0 +1,106 @@
+#+TITLE: Tide layer
+
+
+* Table of Contents                                         :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#prerequisites][Prerequisites]]
+- [[#configuration][Configuration]]
+  - [[#custom-tsserver][Custom tsserver]]
+  - [[#xref-remap][Xref remap]]
+  - [[#jsx][JSX]]
+- [[#key-bindings][Key Bindings]]
+  - [[#tide-references-mode-map][=tide-references-mode-map=]]
+
+* Description
+This layer adds support for [[https://github.com/ananthakumaran/tide][tide]] stand-alone code-analysis engine for
+JavaScript and Typescript.
+
+** Features:
+- ElDoc
+- Auto complete
+- Flycheck
+- Jump to definition, Jump to type definition
+- Find occurrences
+- Rename symbol
+- Imenu
+- Compile On Save
+- Highlight Identifiers
+- Code Fixes
+- Code Refactor
+- Organize Imports
+
+* Install
+Tide layer is a necessity for Javascript, React, and Typescript layer. You don't
+need to define =tide= specifically in =dotspacemacs-configuration-layers=.
+
+** Prerequisites
+1. Install node.js v0.12.0 or greater.
+2. Make sure [[http://www.typescriptlang.org/docs/handbook/tsconfig-json.html][tsconfig.json]] or [[https://code.visualstudio.com/docs/languages/jsconfig][jsconfig.json]] is present in the root folder of the project.
+3. Install Typescript globally.
+   #+BEGIN_SRC sh
+     $ npm install -g typescript
+   #+END_SRC
+
+* Configuration
+** Custom tsserver
+Windows users may need to set the variable =tide-tsserver-executable= in order for emacs to
+locate and launch tsserver successfully. See [[https://github.com/ananthakumaran/tide#faq][this FAQ for more
+details]]. The variable can be set by adding the =tide= layer with this
+configuration layer:
+
+#+BEGIN_SRC emacs-lisp
+  (tide :variables tide-tsserver-executable "node_modules/typescript/bin/tsserver")
+#+END_SRC
+
+** Xref remap
+By setting =tide-remap-xref-keybindings= to =t=, xref keybindings remapped to =tide-jump-to-definition=
+and =tide-references=:
+
+#+BEGIN_SRC emacs-lisp
+  (tide :variables tide-remap-xref-keybindings t)
+#+END_SRC
+
+** JSX
+Create =jsconfig.json= in the root folder of your project. =jsconfig.json= is
+=tsconfig.json= with allowJs attribute set to true.
+
+="allowSyntheticDefaultImports": true= is necessary to enable synthetic imports
+for proper jumping to definition.
+
+Here is a =jsconfig.json= example file.
+
+#+BEGIN_SRC json
+  {
+    "compilerOptions": {
+      "target": "es2017",
+      "allowSyntheticDefaultImports": true,
+      "noEmit": true,
+      "checkJs": true,
+      "jsx": "react",
+      "lib": [ "dom", "es2017" ]
+
+    }
+  }
+#+END_SRC
+
+* Key Bindings
+
+| Key Binding   | Description                                                   |
+|---------------+---------------------------------------------------------------|
+| ~SPC m E e~   | apply code fix for the error at point                         |
+| ~SPC m E d~   | Add a tslint flag to disable rules generating errors at point |
+| ~SPC m g b~   | Pop back to where M-. was last invoked                        |
+| ~SPC m g g~   | jump to the definition of the thing under the cursor          |
+| ~SPC m g t~   | jump to the definition of the thing under the cursor          |
+| ~SPC m g u~   | List all references to the symbol at point                    |
+| ~SPC m r r s~ | Show documentation of the symbol at point                     |
+| ~SPC m s r~   | Restarts tsserver                                             |
+
+** =tide-references-mode-map=
+| Key Binding | Description                               |
+|-------------+-------------------------------------------|
+| ~C-k~       | tide find previous reference              |
+| ~C-j~       | tide find next reference                  |
+| ~C-l~       | tide go to the reference under the cursor |
