@@ -1,6 +1,5 @@
 #+TITLE: Tide layer
 
-
 * Table of Contents                                         :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
@@ -55,8 +54,8 @@ configuration layer:
 #+END_SRC
 
 ** Xref remap
-By setting =tide-remap-xref-keybindings= to =t=, xref keybindings remapped to =tide-jump-to-definition=
-and =tide-references=:
+By setting =tide-remap-xref-keybindings= to =t=, xref keybindings remapped to
+=tide-jump-to-definition= and =tide-references=:
 
 #+BEGIN_SRC emacs-lisp
   (tide :variables tide-remap-xref-keybindings t)
@@ -66,8 +65,8 @@ and =tide-references=:
 Create =jsconfig.json= in the root folder of your project. =jsconfig.json= is
 =tsconfig.json= with allowJs attribute set to true.
 
-="allowSyntheticDefaultImports": true= is necessary to enable synthetic imports
-for proper jumping to definition.
+=allowSyntheticDefaultImports= is necessary to enable synthetic imports for
+proper jumping to definition.
 
 Here is a =jsconfig.json= example file.
 
@@ -99,6 +98,7 @@ Here is a =jsconfig.json= example file.
 | ~SPC m s r~   | Restarts tsserver                                             |
 
 ** =tide-references-mode-map=
+
 | Key Binding | Description                               |
 |-------------+-------------------------------------------|
 | ~C-k~       | tide find previous reference              |

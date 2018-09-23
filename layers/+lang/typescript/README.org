@@ -102,6 +102,7 @@ Backend can be chosen on a per project basis using directory local variables
 ** Tide
 Tide comes with an embedded Typescript server, it is recommended to use the
 server installed by =npm= instead.
+
 #+BEGIN_SRC sh
   npm install -g typescript
 #+END_SRC
