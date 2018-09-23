@@ -37,3 +37,6 @@ generate mmm classes.")
 
 (defvar markdown--key-bindings-modes '(markdown-mode gfm-mode)
   "Modes using markdown key bindings.")
+
+(defvar markdown-fmt-tool 'prettier
+  "The formatter to format a JavaScript file.")

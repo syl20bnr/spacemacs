@@ -54,6 +54,11 @@
     (("\\.m[k]d" . markdown-mode)
      ("\\.mdk" . markdown-mode))
     :defer t
+    :init
+    (if (eq markdown-fmt-tool 'prettier)
+        (progn
+          (add-to-list 'spacemacs--prettier-modes 'markdown-mode)
+          (add-to-list 'spacemacs--prettier-modes 'gfm-mode)))
     :config
     (progn
       (add-hook 'markdown-mode-hook 'orgtbl-mode)
