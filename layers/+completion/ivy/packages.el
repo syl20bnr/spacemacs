@@ -15,9 +15,7 @@
         bookmark
         counsel
         counsel-projectile
-        evil
         flx
-        helm-make
         imenu
         ivy
         ivy-hydra
