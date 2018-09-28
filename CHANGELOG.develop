@@ -555,6 +555,7 @@ Other:
     refactored the latter function (thanks to Benjamin Reynolds)
   - Added =pupo-split-active-window= variable to split the active window or the
     entire frame (thanks to tddsg)
+  - New emacs banner: "100-banner.txt" (thanks to Robert Zaremba)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
