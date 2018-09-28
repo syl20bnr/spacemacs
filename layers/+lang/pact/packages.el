@@ -16,9 +16,7 @@
 (defconst pact-packages
   '(
     flycheck
-    (flycheck-pact :location (recipe
-                              :fetcher github
-                              :repo "kadena-io/flycheck-pact"))
+    flycheck-pact
     pact-mode
     ))
 
