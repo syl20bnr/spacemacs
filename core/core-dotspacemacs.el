@@ -682,9 +682,11 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
   %z -- prints mnemonics of buffer, terminal, and keyboard coding systems
   %Z -- like %z, but including the end-of-line format"
   (let* ((fs (format-spec-make
-              ?a (abbreviate-file-name (or (buffer-file-name)
-                                           (buffer-name)))
-              ?t (if (fboundp 'projectile-project-name)
+              ?a (when (string-match-p "%a" title-format)
+                   (abbreviate-file-name (or (buffer-file-name)
+                                             (buffer-name))))
+              ?t (if (and (string-match-p "%t" title-format)
+                          (fboundp 'projectile-project-name))
                      (projectile-project-name)
                    "-")
               ?S system-name
