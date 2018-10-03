@@ -969,6 +969,11 @@ Other:
     (thanks to Compro-Prasad)
   - Fixed =global-hl-todo-mode= prevents activation in =org=
     (thanks to Sam Pillsworth)
+  - Made =spacemacs-theme= variables user customizable from =user-init=
+    - =spacemacs-theme-keyword-italic=
+    - =spacemacs-theme-comment-bg=
+    - =spacemacs-theme-org-height=
+      (thanks to Dominik Schrempf)
 *** Layer changes and fixes
 **** Alda
 - Key bindings:
