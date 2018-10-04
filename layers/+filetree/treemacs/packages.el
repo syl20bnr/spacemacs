@@ -41,6 +41,9 @@
             treemacs-never-persist nil
             treemacs-goto-tag-strategy 'refetch-index
             treemacs-collapse-dirs treemacs-use-collapsed-directories)
+      (unless treemacs-lock-width
+        (add-hook 'treemacs-mode-hook
+                  'spacemacs/treemacs-toggle-locked-width-off))
       (spacemacs/set-leader-keys
         "ft"    'treemacs
         "fB"    'treemacs-bookmark
