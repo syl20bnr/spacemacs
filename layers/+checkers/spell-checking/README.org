@@ -120,13 +120,14 @@ set the layer variable =enable-flyspell-auto-completion= to t:
 
 * Key Bindings
 
-| Key Binding | Description              |
-|-------------+--------------------------|
-| ~SPC S b~   | flyspell whole buffer    |
-| ~SPC S c~   | flyspell correct         |
-| ~SPC S d~   | change dictionary        |
-| ~SPC S n~   | flyspell goto next error |
-| ~SPC t S~   | toggle flyspell          |
+| Key Binding     | Description                            |
+|-----------------+----------------------------------------|
+| ~SPC S b~       | flyspell whole buffer                  |
+| ~SPC S c~       | flyspell correct                       |
+| ~SPC u SPC S c~ | flyspell correct all errors one by one |
+| ~SPC S d~       | change dictionary                      |
+| ~SPC S n~       | flyspell goto next error               |
+| ~SPC t S~       | toggle flyspell                        |
 
 ** Spell Checking Transient-state
 
