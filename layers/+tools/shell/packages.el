@@ -188,7 +188,8 @@
              ;; Check for clear command and execute it.
              ((string-match "^[ \t]*clear[ \t]*$" command)
               (comint-send-string proc "\n")
-              (erase-buffer))
+              (let ((inhibit-read-only  t))
+                (erase-buffer)))
              ;; Check for man command and execute it.
              ((string-match "^[ \t]*man[ \t]*" command)
               (comint-send-string proc "\n")
