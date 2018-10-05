@@ -90,10 +90,10 @@ Spell Commands^^             Other
 
 (defun spell-checking/init-flyspell-correct ()
   (use-package flyspell-correct
-    :commands (flyspell-correct-word-generic
-               flyspell-correct-previous-word-generic)
+    :commands (flyspell-correct-at-point
+               flyspell-correct-wrapper)
     :init
-    (spacemacs/set-leader-keys "Sc" 'flyspell-correct-previous-word-generic)))
+    (spacemacs/set-leader-keys "Sc" #'flyspell-correct-wrapper)))
 
 (defun spell-checking/init-flyspell-correct-ivy ()
   (use-package flyspell-correct-ivy
