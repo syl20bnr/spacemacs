@@ -2395,8 +2395,8 @@ Files manipulation commands (start with ~f~):
 | ~SPC f y c~ | show and copy current file absolute path with line and column number in the minibuffer                 |
 | ~SPC f y d~ | show and copy current directory absolute path in the minibuffer                                        |
 | ~SPC f y l~ | show and copy current file absolute path with line number in the minibuffer                            |
-| ~SPC f y n~ | show and copy current file name with extensionin the minibuffer                                        |
-| ~SPC f y N~ | show and copy current file name without extensionin the minibuffer                                     |
+| ~SPC f y n~ | show and copy current file name with extension in the minibuffer                                       |
+| ~SPC f y N~ | show and copy current file name without extension in the minibuffer                                    |
 | ~SPC f y y~ | show and copy current file absolute path in the minibuffer                                             |
 
 **** Frame manipulation key bindings
