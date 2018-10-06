@@ -43,7 +43,10 @@ https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
   (interactive)
   (defun lsp-prefix-company-transformer (candidates)
     (let ((completion-ignore-case t))
-      (all-completions (company-grab-symbol) candidates)))
+      (if (and (car candidates)
+               (get-text-property 0 'lsp-completion-prefix (car candidates)))
+          (all-completions (company-grab-symbol) candidates)
+        candidates)))
   (make-local-variable 'company-transformers)
   (add-to-list 'company-transformers 'lsp-prefix-company-transformer))
 
