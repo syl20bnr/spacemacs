@@ -158,7 +158,19 @@ to 'auto, tags may not be properly aligned. "
         (magenta       (if (eq variant 'dark) (if (true-color-p) "#a31db1" "#af00df") (if (true-color-p) "#a31db1" "#800080")))
         (yellow        (if (eq variant 'dark) (if (true-color-p) "#b1951d" "#875f00") (if (true-color-p) "#b1951d" "#875f00")))
         (yellow-bg     (if (eq variant 'dark) (if (true-color-p) "#32322c" "#262626") (if (true-color-p) "#f6f1e1" "#ffffff")))
-        )
+
+        (magit-diff-added-fg  (if (eq variant 'dark) "#a3be8c" "#67963d"))
+        (magit-diff-added-bg  (if (eq variant 'dark) "#292b2e" "#e6ffed"))
+        (magit-diff-added-highlight-fg  (if (eq variant 'dark) "#a3be70" "#325e0b"))
+        (magit-diff-added-highlight-bg  (if (eq variant 'dark) "#292b2e" "#e6ffed"))
+        (diff-refine-added-fg  (if (eq variant 'dark) "#a3be70" "#325e0b"))
+        (diff-refine-added-bg  (if (eq variant 'dark) "#2b3b34" "#acf2bd"))
+        (magit-diff-removed-fg  (if (eq variant 'dark) "#bf616a" "#ef6160"))
+        (magit-diff-removed-bg  (if (eq variant 'dark) "#292b2e" "#ffeef0"))
+        (magit-diff-removed-highlight-fg  (if (eq variant 'dark) "#ef6160" "#d80d0d"))
+        (magit-diff-removed-highlight-bg  (if (eq variant 'dark) "#292b2e" "#ffeef0"))
+        (diff-refine-removed-fg  (if (eq variant 'dark) "#ef6160" "#d80d0d"))
+        (diff-refine-removed-bg  (if (eq variant 'dark) "#3b2c2b" "#fdb8c0")))
 
         custom-colors-override
 
@@ -278,9 +290,7 @@ to 'auto, tags may not be properly aligned. "
      `(diff-indicator-added   ((,class :background nil :foreground ,green)))
      `(diff-indicator-changed ((,class :background nil :foreground ,keyword)))
      `(diff-indicator-removed ((,class :background nil :foreground ,red)))
-     `(diff-refine-added      ((,class :background ,green :foreground ,bg4)))
      `(diff-refine-changed    ((,class :background ,keyword :foreground ,bg4)))
-     `(diff-refine-removed    ((,class :background ,red :foreground ,bg4)))
      `(diff-removed           ((,class :background nil :foreground ,red)))
 
 ;;;;; diff-hl
@@ -632,6 +642,19 @@ to 'auto, tags may not be properly aligned. "
      `(magit-section-heading        ((,class (:foreground ,keyword :inherit bold))))
      `(magit-section-highlight      ((,class (:background ,bg2))))
      `(magit-section-title ((,class (:background ,bg1 :foreground ,keyword :inherit bold))))
+
+     `(magit-diff-added  ((,class (:background ,magit-diff-added-bg
+                                   :foreground ,magit-diff-added-fg))))
+     `(magit-diff-removed  ((,class (:background ,magit-diff-removed-bg
+                                     :foreground ,magit-diff-removed-fg))))
+     `(magit-diff-added-highlight  ((,class (:background ,magit-diff-added-highlight-bg
+                                             :foreground ,magit-diff-added-highlight-fg))))
+     `(magit-diff-removed-highlight  ((,class (:background ,magit-diff-removed-highlight-bg
+                                               :foreground ,magit-diff-removed-highlight-fg))))
+     `(diff-refine-added  ((,class (:background ,diff-refine-added-bg
+                                    :foreground ,diff-refine-added-fg))))
+     `(diff-refine-removed ((,class (:background ,diff-refine-removed-bg
+                                     :foreground ,diff-refine-removed-fg))))
 
 ;;;;; man
      `(Man-overstrike ((,class (:foreground ,head1 :inherit bold))))
