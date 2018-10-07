@@ -128,6 +128,7 @@ set the layer variable =enable-flyspell-auto-completion= to t:
 | ~SPC S d~       | change dictionary                      |
 | ~SPC S n~       | flyspell goto next error               |
 | ~SPC t S~       | toggle flyspell                        |
+| ~SPC x x~       | correct word at point                  |
 
 ** Spell Checking Transient-state
 
