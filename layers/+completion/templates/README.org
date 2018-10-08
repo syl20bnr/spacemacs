@@ -22,14 +22,13 @@ add =templates= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Configuration
-Drop your templates in =~/.emacs.d/private/templates= or
-=~/.spacemacs.d/templates= depending on which method you are using.
+Drop your templates in =~/.emacs.d/private/templates=.
 
 You can also specify a different location with =templates-private-directory=:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '((templates :variables templates-private-directory "~/mytemplates")))
+    '((templates :variables templates-private-directory "~/.spacemacs.d/templates")))
 #+END_SRC
 
 Each file in this directory must be of the form =XXX:regexp= where =regexp= is a
@@ -48,11 +47,11 @@ supported, so consult the [[http://joaotavora.github.io/yasnippet/snippet-develo
 
 ** Default insertions
 Note that Emacs ships with some default templates. If these are not to your
-liking, set the layer variable =templates-use-defaults= to =nil=.
+liking, set the layer variable =templates-use-default-templates= to =nil=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '((templates :variables templates-use-defaults nil)))
+    '((templates :variables templates-use-default-templates nil)))
 #+END_SRC
 
 ** Querying

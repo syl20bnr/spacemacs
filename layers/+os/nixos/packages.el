@@ -31,6 +31,7 @@
 (defun nixos/init-nix-mode ()
   (use-package nix-mode
     :defer t
+    :mode "\\.nix\\'"
     :init
     (add-to-list 'spacemacs-indent-sensitive-modes 'nix-mode)
     :config

@@ -11,12 +11,16 @@
 
 (setq go-packages
       '(
+        company
         (company-go :requires company)
         counsel-gtags
         flycheck
         (flycheck-gometalinter :toggle (and go-use-gometalinter
                                             (configuration-layer/package-used-p
                                              'flycheck)))
+        (flycheck-golangci-lint :toggle (and go-use-golangci-lint
+                                             (configuration-layer/package-used-p
+                                              'flycheck)))
         ggtags
         helm-gtags
         go-eldoc
@@ -28,6 +32,10 @@
         go-rename
         go-tag
         godoctor
+        (lsp-go
+         :requires lsp-mode
+         :location (recipe :fetcher github
+                           :repo "emacs-lsp/lsp-go"))
         popwin
         ))
 
@@ -39,6 +47,13 @@
             :modes go-mode
             :variables company-go-show-annotation t)))
 
+(defun go/init-lsp-go ()
+  (use-package lsp-go
+    :commands lsp-go-enable))
+
+(defun go/post-init-company ()
+  (add-hook 'go-mode-local-vars-hook #'spacemacs//go-setup-company))
+
 (defun go/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'go-mode))
 
@@ -49,6 +64,11 @@
   (use-package flycheck-gometalinter
     :defer t
     :init (add-hook 'go-mode-hook 'spacemacs//go-enable-gometalinter t)))
+
+(defun go/init-flycheck-golangci-lint ()
+  (use-package flycheck-golangci-lint
+    :defer t
+    :init (add-hook 'go-mode-hook 'spacemacs//go-enable-golangci-lint t)))
 
 (defun go/post-init-ggtags ()
   (add-hook 'go-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
@@ -108,7 +128,12 @@
     (progn
       ;; get go packages much faster
       (setq go-packages-function 'spacemacs/go-packages-gopkgs)
-      (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width))
+      (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width)
+      (add-hook 'go-mode-local-vars-hook
+                #'spacemacs//go-setup-backend)
+      (dolist (value '(lsp go-mode))
+        (add-to-list 'safe-local-variable-values
+                     (cons 'go-backend value))))
     :config
     (progn
       (when go-format-before-save

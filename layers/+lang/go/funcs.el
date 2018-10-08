@@ -11,7 +11,48 @@
 
 (defun spacemacs//go-set-tab-width ()
   "Set the tab width."
-  (setq-local tab-width go-tab-width))
+  (when go-tab-width
+    (setq-local tab-width go-tab-width)))
+
+(defun spacemacs//go-setup-backend ()
+  "Conditionally setup go backend"
+  (pcase go-backend
+    ('lsp (spacemacs//go-setup-backend-lsp))))
+
+(defun spacemacs//go-setup-company ()
+  "Conditionally setup go company based on backend"
+  (pcase go-backend
+    ('go-mode (spacemacs//go-setup-company-go))
+    ('lsp (spacemacs//go-setup-company-lsp))))
+
+(defun spacemacs//go-setup-company-go ()
+  (spacemacs|add-company-backends
+    :backends company-go
+    :modes go-mode
+    :variables company-go-show-annotation t
+    :append-hooks nil
+    :call-hooks t)
+  (company-mode))
+
+(defun spacemacs//go-setup-backend-lsp ()
+  "Setup lsp backend"
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (require 'lsp-go)
+        (lsp-go-enable))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs//go-setup-company-lsp ()
+  "Setup lsp auto-completion"
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (spacemacs|add-company-backends
+          :backends company-lsp
+          :modes go-mode
+          :append-hooks nil
+          :call-hooks t)
+        (company-mode))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//go-enable-gometalinter ()
    "Enable `flycheck-gometalinter' and disable overlapping `flycheck' linters."
@@ -22,6 +63,16 @@
                                       go-test
                                       go-errcheck))
    (flycheck-gometalinter-setup))
+
+(defun spacemacs//go-enable-golangci-lint ()
+  "Enable `flycheck-golangci-lint' and disable overlapping `flycheck' linters."
+  (setq flycheck-disabled-checkers '(go-gofmt
+                                     go-golint
+                                     go-vet
+                                     go-build
+                                     go-test
+                                     go-errcheck))
+  (flycheck-golangci-lint-setup))
 
 (defun spacemacs/go-run-tests (args)
   (interactive)

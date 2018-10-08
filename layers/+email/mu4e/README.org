@@ -264,13 +264,15 @@ A [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#lay
 for it can be customized with the following layer variables:
 - =mu4e-spacemacs-layout-name= for the layout name,
 - =mu4e-spacemacs-layout-binding= for the key binding.
+- =mu4e-spacemacs-kill-layout-on-exit= for automatically removing layout when quitting mu4e.
 
 By default the values are:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-  (mu4e :variables mu4e-spacemacs-layout-name "@Mu4e"
-                   mu4e-spacemacs-layout-binding "m")))
+  (setq-default dotspacemacs-configuration-layers
+                '((mu4e :variables mu4e-spacemacs-layout-name "@Mu4e"
+                        mu4e-spacemacs-layout-binding "m"
+                        mu4e-spacemacs-kill-layout-on-exit t)))
 #+END_SRC
 
 * See also

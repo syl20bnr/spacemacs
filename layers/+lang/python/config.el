@@ -33,6 +33,9 @@ and `lsp'.")
 (defvar python-tab-width 4
   "Tab width value for python buffers")
 
+(defvar python-spacemacs-indent-guess t
+  "If non-nil, try to guess correct indentation settings for python buffers on opening")
+
 (defvar python-auto-set-local-pyenv-version 'on-visit
   "Automatically set pyenv version from \".python-version\".
 

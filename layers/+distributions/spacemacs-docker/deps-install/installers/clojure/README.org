@@ -14,6 +14,3 @@ Dependency installation script for [[https://github.com/syl20bnr/spacemacs/blob/
 * List of installed software:
 1. [[http://packages.ubuntu.com/en/xenial/default-jre-headless][default-jre-headless]]
 2. [[https://leiningen.org/][Leiningen]]
-4. [[https://github.com/clojure-emacs/refactor-nrepl][refactor-nrepl]]
-5. [[https://github.com/clojure-emacs/cider-nrepl][cider-nrepl]]
-6. [[https://github.com/weavejester/cljfmt][lein-cljfmt]]

@@ -17,7 +17,6 @@
 (install default-jre-headless)
 (with-installed (curl)
   (! "Installing Leiningen...")
-  (cp ".lein" (dir $UHOME))
   ($ ["curl -Lo /usr/local/bin/lein"
       "https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein"]
      "chown ${UID}:${GID} -R ${UHOME}"

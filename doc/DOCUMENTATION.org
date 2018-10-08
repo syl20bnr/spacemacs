@@ -1298,7 +1298,7 @@ non-text-mode buffers, set =:enabled-for-modes= to =all=.
 
 Examples:
 
-Disable line numbers in dired-mode, doc-view-mode, markdown-mode, org-mode,
+Disable *line numbers* in dired-mode, doc-view-mode, markdown-mode, org-mode,
 pdf-view-mode, text-mode as well as buffers over 1Mb:
 
 #+BEGIN_SRC emacs-lisp
@@ -1312,7 +1312,7 @@ pdf-view-mode, text-mode as well as buffers over 1Mb:
                                            :size-limit-kb 1000))
 #+END_SRC
 
-Relative line numbers only in c-mode and c++ mode with a size limit of =dotspacemacs-large-file-size=:
+Enable *relative line numbers* only in c-mode and c++ mode with a size limit of =dotspacemacs-large-file-size=:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-line-numbers '(:relative t
@@ -1321,14 +1321,14 @@ Relative line numbers only in c-mode and c++ mode with a size limit of =dotspace
                                            :size-limit-kb (* dotspacemacs-large-file-size 1000))
 #+END_SRC
 
-Enable line numbers everywhere, except for buffers over 1Mb:
+Enable *line numbers* everywhere, except for buffers over 1Mb:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-line-numbers '(:relative nil
                                              :size-limit-kb 1000))
 #+END_SRC
 
-Enable line numbers only in programming modes, except for c-mode and c++ mode:
+Enable *line numbers* only in programming modes, except for c-mode and c++ mode:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-line-numbers '(:relative nil
@@ -1337,7 +1337,7 @@ Enable line numbers only in programming modes, except for c-mode and c++ mode:
                                              :size-limit-kb (* dotspacemacs-large-file-size 1000))
 #+END_SRC
 
-Enable line numbers everywhere, even in non-prog-mode and non-text-mode buffers:
+Enable *line numbers* everywhere, even in non-prog-mode and non-text-mode buffers:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-line-numbers '(:enabled-for-modes 'all))
@@ -1922,6 +1922,7 @@ Other help key bindings:
 | Key Binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~SPC h SPC~ | discover Spacemacs documentation, layers and packages |
+| ~SPC h f~   | discover the =FAQ=                                    |
 | ~SPC h i~   | search in info pages with the symbol at point         |
 | ~SPC h k~   | show top-level bindings with =which-key=              |
 | ~SPC h m~   | search available man pages                            |
@@ -1951,6 +1952,8 @@ Reporting an issue:
 |-----------------+------------------------------------------------------------------------------------------|
 | ~SPC h I~       | Open Spacemacs GitHub issue page with pre-filled information                             |
 | ~SPC u SPC h I~ | Open Spacemacs GitHub issue page with pre-filled information - include last pressed keys |
+
+*Note*: To be able to report an issue you need to be logged into GitHub
 
 *Note*: If these two bindings are used with the =*Backtrace*= buffer open, the
 backtrace is automatically included
@@ -2366,6 +2369,7 @@ Files manipulation commands (start with ~f~):
 
 | Key Binding | Description                                                                                            |
 |-------------+--------------------------------------------------------------------------------------------------------|
+| ~SPC f A~   | open a file and replace the current buffer with the new file                                           |
 | ~SPC f b~   | go to file bookmarks                                                                                   |
 | ~SPC f c~   | copy current file to a different location                                                              |
 | ~SPC f C d~ | convert file from unix to dos encoding                                                                 |
@@ -2391,6 +2395,8 @@ Files manipulation commands (start with ~f~):
 | ~SPC f y c~ | show and copy current file absolute path with line and column number in the minibuffer                 |
 | ~SPC f y d~ | show and copy current directory absolute path in the minibuffer                                        |
 | ~SPC f y l~ | show and copy current file absolute path with line number in the minibuffer                            |
+| ~SPC f y n~ | show and copy current file name with extension in the minibuffer                                       |
+| ~SPC f y N~ | show and copy current file name without extension in the minibuffer                                    |
 | ~SPC f y y~ | show and copy current file absolute path in the minibuffer                                             |
 
 **** Frame manipulation key bindings
@@ -2418,7 +2424,6 @@ navigate between =Emacs= and Spacemacs specific files.
 | ~SPC f e e~   | open the =~/.spacemacs.env= file where environment variables are set or goes to =dotspacemacs/user-env= |
 | ~SPC f e E~   | reload the environment variables by executing the function =dotspacemacs/user-env=                      |
 | ~SPC f e C-e~ | reinitialize the =~/.spacemacs.env= file by importing system and shell environment variables            |
-| ~SPC f e f~   | discover the =FAQ=                                                                                      |
 | ~SPC f e i~   | open the all mighty =init.el=                                                                           |
 | ~SPC f e l~   | locate an Emacs library                                                                                 |
 | ~SPC f e R~   | resync the dotfile with spacemacs                                                                       |
@@ -2790,14 +2795,15 @@ To list all the symbols of a buffer press ~SPC s j~
 ** Editing
 *** Paste text
 **** Paste Transient-state
-The paste transient state can be enabled by settings the variable
+The paste transient state can be enabled by setting the variable
 =dotspacemacs-enable-paste-transient-state= to =t=. By default it is disabled.
 
-When the transient state is enabled, pressing ~p~ again will replace the pasted text
-with the previous yanked (copied) text on the kill ring.
+When the transient state is enabled, after you paste something, pressing ~C-j~
+or ~C-k~ will replace the pasted text with the previous or next yanked (copied)
+text on the kill ring.
 
 For example if you copy =foo= and =bar= then press ~p~ the text =bar= will
-be pasted, pressing ~p~ again will replace =bar= with =foo=.
+be pasted, pressing ~C-j~ will replace =bar= with =foo=.
 
 | Key Binding   | Description                                                                   |
 |---------------+-------------------------------------------------------------------------------|

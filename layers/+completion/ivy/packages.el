@@ -125,6 +125,7 @@
        spacemacs--ivy-file-actions)
 
       (define-key counsel-find-file-map (kbd "C-h") 'counsel-up-directory)
+      (define-key read-expression-map (kbd "C-r") 'counsel-minibuffer-history)
       ;; remaps built-in commands that have a counsel replacement
       (counsel-mode 1)
       (spacemacs|hide-lighter counsel-mode)
@@ -211,7 +212,8 @@
       (ivy-set-occur 'spacemacs/counsel-search
                      'spacemacs//counsel-occur)
       (spacemacs/set-leader-keys-for-major-mode 'ivy-occur-grep-mode
-        "w" 'ivy-wgrep-change-to-wgrep-mode)
+        "w" 'spacemacs/ivy-wgrep-change-to-wgrep-mode
+        "s" 'wgrep-save-all-buffers)
       ;; Why do we do this ?
       (ido-mode -1)
 
@@ -224,14 +226,16 @@
 
 (defun ivy/init-ivy-rich ()
   (use-package ivy-rich
-    :defer t
+    ;; if `counsel' loads after `ivy-rich', it overrides some of `ivy-rich''s
+    ;; transformers
+    :after counsel
     :init
     (progn
-      (setq ivy-rich-abbreviate-paths t
-            ivy-virtual-abbreviate 'full
-            ivy-rich-switch-buffer-align-virtual-buffer t)
-      (ivy-set-display-transformer 'ivy-switch-buffer
-                                   'ivy-rich-switch-buffer-transformer))))
+      (setq ivy-rich-path-style 'abbrev
+            ivy-virtual-abbreviate 'full))
+    :config
+    (progn
+      (ivy-rich-mode))))
 
 (defun ivy/init-ivy-spacemacs-help ()
   (use-package ivy-spacemacs-help

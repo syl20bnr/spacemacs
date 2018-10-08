@@ -10,6 +10,7 @@
   - [[#configuration][Configuration]]
     - [[#configure-the-default-input-method配置默认中文输入法][Configure the Default Input Method(配置默认中文输入法)]]
     - [[#configure-the-chinese-pyim-input-method配置中文拼音输入法][Configure the =Chinese-pyim= Input Method(配置中文拼音输入法)]]
+    - [[#configure-chinese-conv-配置简繁转换][Configure =chinese-conv= (配置简繁转换)]]
     - [[#enable-fcitx][Enable fcitx]]
       - [[#requirement][Requirement]]
     - [[#enable-youdao有道-dictionary激活有道字典][Enable YouDao(有道) Dictionary(激活有道字典)]]
@@ -29,6 +30,7 @@ This layer adds support for traditional Chinese script to Spacemacs.
 - Integration of the [[https://en.wikipedia.org/wiki/Youdao][Youdao(有道) Dictionary]] via [[https://github.com/xuchunyang/youdao-dictionary.el][youdao-dictionary]].
 - Support for file searches in =dired= using Chinese Pinyin characters via [[https://github.com/redguardtoo/find-by-pinyin-dired][find-by-pinyin-dired]].
 - Support for jumping to Chinese Pinyin characters with =ace-jump-mode= via [[https://github.com/cute-jumper/ace-pinyin][ace-pinyin]].
+- Support for conversion between simplified and traditional Chinese texts via [[https://github.com/gucong/emacs-chinese-conv/][chinese-conv]].
 - Automatic visual separation of Chinese and Latin characters via [[https://github.com/coldnew/pangu-spacing][coldnew/pangu-spacing]].
 - Automatic joining of consecutive Chinese lines into a single long line without unwanted space when exporting org-mode to html.
 
@@ -54,6 +56,28 @@ file. Call =pyim-dicts-manager= to open up the settings buffer and
 press =i e= to install the default lexicon. The lexicon is about 20MB, so you
 should be patient when downloading starts. After the lexicon file is downloaded,
 just press =s= to save and =R= to restart configuration.
+
+*** Configure =chinese-conv= (配置简繁转换)
+The =chinese-conv= package requires either [[https://github.com/BYVoid/OpenCC][opencc]] or [[https://github.com/xiaoyjy/cconv][cconv]] installed.
+
+By default, =opencc= will be used as the backend, set
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '((chinese :variables
+                                                             chinese-conv-backend "cconv")))
+#+END_SRC
+
+to use =cconv= as the backend.
+
+There is no default keybinding for the conversions. Run
+
+=M-x chinese-conv=
+
+to replace arbitrary input, or
+
+=M-x chinese-conv-replace=
+
+to replace the current selection in-place.
 
 *** Enable fcitx
 #+BEGIN_SRC emacs-lisp

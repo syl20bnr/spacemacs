@@ -504,6 +504,8 @@ If DEFAULT-INPUTP is non nil then the current region or symbol at point
   "Custom spacemacs implementation for calling helm-find-files-1.
 Removes the automatic guessing of the initial value based on thing at point. "
   (interactive "P")
+  ;; fixes #10882 and #11270
+  (require 'helm-files)
   (let* ((hist (and arg helm-ff-history (helm-find-files-history)))
          (default-input hist)
          (input (cond ((and (eq major-mode 'dired-mode) default-input)

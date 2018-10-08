@@ -33,6 +33,7 @@
         ruby-test-mode
         ruby-tools
         rvm
+        seeing-is-believing
         smartparens
         rake
         ))
@@ -41,7 +42,7 @@
   (use-package bundler
     :defer t
     :init (dolist (mode '(ruby-mode enh-ruby-mode))
-            (spacemacs/declare-prefix-for-mode mode "mb" "ruby/bundle")
+            (spacemacs/declare-prefix-for-mode mode "mb" "bundle")
             (spacemacs/set-leader-keys-for-major-mode mode
               "bc" 'bundle-check
               "bi" 'bundle-install
@@ -76,7 +77,13 @@
     :init
     (progn
       (setq enh-ruby-deep-indent-paren nil
-            enh-ruby-hanging-paren-deep-indent-level 2))))
+            enh-ruby-hanging-paren-deep-indent-level 2)
+      (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mr" "refactor/RuboCop/robe")
+      (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mt" "test")
+      (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mT" "toggle"))
+    :config
+    (spacemacs/set-leader-keys-for-major-mode 'enh-ruby-mode
+      "T{" 'enh-ruby-toggle-block)))
 
 (defun ruby/post-init-evil-matchit ()
   (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
@@ -159,9 +166,10 @@
     (progn
       (spacemacs|hide-lighter robe-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))
-        (spacemacs/declare-prefix-for-mode mode "mg" "ruby/goto")
-        (spacemacs/declare-prefix-for-mode mode "mh" "ruby/docs")
-        (spacemacs/declare-prefix-for-mode mode "ms" "ruby/repl")
+        (spacemacs/declare-prefix-for-mode mode "mg" "goto")
+        (spacemacs/declare-prefix-for-mode mode "mh" "docs")
+        (spacemacs/declare-prefix-for-mode mode "mrs" "robe")
+        (spacemacs/declare-prefix-for-mode mode "ms" "repl")
         (spacemacs/set-leader-keys-for-major-mode mode
           "'" 'robe-start
           ;; robe mode specific
@@ -217,7 +225,7 @@
     :init (spacemacs/add-to-hooks 'rubocop-mode '(ruby-mode-hook
                                                   enh-ruby-mode-hook))
     :config (dolist (mode '(ruby-mode enh-ruby-mode))
-              (spacemacs/declare-prefix-for-mode mode "mrr" "ruby/RuboCop")
+              (spacemacs/declare-prefix-for-mode mode "mrr" "RuboCop")
               (spacemacs/set-leader-keys-for-major-mode mode
                 "rrd" 'rubocop-check-directory
                 "rrD" 'rubocop-autocorrect-directory
@@ -233,8 +241,9 @@
            ("Puppetfile" . ruby-mode))
     :init
     (progn
-      (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "ruby/test")
-      (spacemacs/declare-prefix-for-mode 'ruby-mode "mT" "ruby/toggle")
+      (spacemacs/declare-prefix-for-mode 'ruby-mode "mr" "refactor/RuboCop/robe")
+      (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "test")
+      (spacemacs/declare-prefix-for-mode 'ruby-mode "mT" "toggle")
       (spacemacs/add-to-hooks
        'spacemacs/ruby-maybe-highlight-debugger-keywords
        '(ruby-mode-local-vars-hook enh-ruby-mode-local-vars-hook)))
@@ -258,7 +267,7 @@
     :config
     (progn
       (dolist (mode '(ruby-mode enh-ruby-mode))
-        (spacemacs/declare-prefix-for-mode mode "mrR" "ruby/refactor")
+        (spacemacs/declare-prefix-for-mode mode "mrR" "refactor")
         (spacemacs/set-leader-keys-for-major-mode mode
           "rRm" 'ruby-refactor-extract-to-method
           "rRv" 'ruby-refactor-extract-local-variable
@@ -274,7 +283,7 @@
     (progn
       (spacemacs|hide-lighter ruby-tools-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))
-        (spacemacs/declare-prefix-for-mode mode "mx" "ruby/text")
+        (spacemacs/declare-prefix-for-mode mode "mx" "text")
         (spacemacs/set-leader-keys-for-major-mode mode
           "x\'" 'ruby-tools-to-single-quote-string
           "x\"" 'ruby-tools-to-double-quote-string
@@ -325,8 +334,24 @@
     :defer t
     :init (setq rake-cache-file (concat spacemacs-cache-directory "rake.cache"))
     :config (dolist (mode '(ruby-mode enh-ruby-mode))
+              (spacemacs/declare-prefix-for-mode mode "mk" "rake")
               (spacemacs/set-leader-keys-for-major-mode mode
                 "kk"    'rake
                 "kr"    'rake-rerun
                 "kR"    'rake-regenerate-cache
                 "kf"    'rake-find-task))))
+
+(defun ruby/init-seeing-is-believing ()
+  (use-package seeing-is-believing
+    :defer t
+    :commands (seeing-is-believing seeing-is-believing-run seeing-is-believing-clear)
+    :if (executable-find "seeing_is_believing")
+    :init
+    (progn
+      (spacemacs|diminish seeing-is-believing " 👁" " @")
+      (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+        (add-hook hook 'seeing-is-believing))
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "@@" 'seeing-is-believing-run
+          "@c" 'seeing-is-believing-clear)))))

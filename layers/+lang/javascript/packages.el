@@ -26,6 +26,7 @@
         livid-mode
         (lsp-javascript-typescript :requires lsp-mode)
         org
+        prettier-js
         skewer-mode
         tern
         web-beautify))
@@ -44,7 +45,8 @@
   (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-company))
 
 (defun javascript/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'js2-mode))
+  (spacemacs/enable-flycheck 'js2-mode)
+  (add-hook 'js2-mode-hook #'spacemacs//javascript-setup-eslint t))
 
 (defun javascript/post-init-ggtags ()
   (add-hook 'js2-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
@@ -169,6 +171,10 @@
     :defer t
     :config (spacemacs//setup-lsp-jump-handler 'js2-mode)))
 
+(defun javascript/pre-init-prettier-js ()
+  (if (eq javascript-fmt-tool 'prettier)
+      (add-to-list 'spacemacs--prettier-modes 'js2-mode)))
+
 (defun javascript/init-skewer-mode ()
   (use-package skewer-mode
     :defer t
@@ -200,4 +206,6 @@
   (add-to-list 'tern--key-bindings-modes 'js2-mode))
 
 (defun javascript/pre-init-web-beautify ()
-  (add-to-list 'spacemacs--web-beautify-modes (cons 'js2-mode 'web-beautify-js)))
+  (if (eq javascript-fmt-tool 'web-beautify)
+      (add-to-list 'spacemacs--web-beautify-modes
+                   (cons 'js2-mode 'web-beautify-js))))

@@ -13,8 +13,7 @@
       '(evil-anzu
         evil-args
         evil-cleverparens
-        ;; this package has been moved, need to import it to Spacemacs
-        ;; evil-ediff
+        evil-ediff
         evil-escape
         evil-exchange
         evil-goggles

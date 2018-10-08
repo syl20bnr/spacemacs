@@ -17,7 +17,17 @@
  (e.g. don't re-activate during `dotspacemacs/sync-configuration-layers' -
  see issues #5925 and #3875)"
   (unless (bound-and-true-p persp-mode)
-    (persp-mode)))
+    (persp-mode)
+    ;; eyebrowse's advice for rename-buffer only updates workspace window
+    ;; configurations that are stored in frame properties, but Spacemacs's
+    ;; persp-mode integration saves workspace window configurations in
+    ;; perspective parameters.  We need to replace eyebrowse's advice with
+    ;; perspective-aware advice in order to ensure that window
+    ;; configurations for inactive perspectives get updated.
+    (when (ad-find-advice 'rename-buffer 'around 'eyebrowse-fixup-window-configs)
+      (ad-disable-advice 'rename-buffer 'around 'eyebrowse-fixup-window-configs)
+      (ad-activate 'rename-buffer))
+    (advice-add 'rename-buffer :around #'spacemacs//fixup-window-configs)))
 
 (defun spacemacs//layout-wait-for-modeline (&rest _)
   "Assure the mode-line is loaded before restoring the layouts."
@@ -668,3 +678,14 @@ FRAME defaults to the current frame."
                                         (eyebrowse--get 'last-slot frame))
                                   (get-frame-persp frame)
                                   frame))
+
+(defun spacemacs//fixup-window-configs (orig-fn newname &optional unique)
+  "Update the buffer's name in the eyebrowse window-configs of any perspectives
+containing the buffer."
+  (let* ((old (buffer-name))
+         (new (funcall orig-fn newname unique)))
+    (dolist (persp (persp--buffer-in-persps (current-buffer)))
+      (dolist (window-config
+               (append (persp-parameter 'gui-eyebrowse-window-configs persp)
+                       (persp-parameter 'term-eyebrowse-window-configs persp)))
+        (eyebrowse--rename-window-config-buffers window-config old new)))))

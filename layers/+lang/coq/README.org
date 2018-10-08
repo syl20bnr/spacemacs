@@ -13,6 +13,7 @@
 - [[#key-bindings][Key bindings]]
   - [[#laying-out-windows][Laying out windows]]
   - [[#managing-prover-process][Managing prover process]]
+  - [[#getting-documentation][Getting documentation]]
   - [[#prover-queries][Prover queries]]
   - [[#moving-the-point][Moving the point]]
   - [[#inserting][Inserting]]
@@ -70,6 +71,14 @@ font, or disable the feature by adding the following snippet to the your
 | ~SPC m p q~ | Quit prover                                                     |
 | ~SPC m p r~ | Retract buffer - rewinds and moves point to beginning of buffer |
 
+** Getting documentation
+
+| Key Binding | Description                                                 |
+|-------------+-------------------------------------------------------------|
+| ~SPC m h h~ | Show documentation for whatever is below the cursor         |
+| ~SPC m h e~ | Show documentation for the error in the `*response*` buffer |
+| ~SPC m h E~ | Browse all available documentation for errors               |
+
 ** Prover queries
 The mnemonic for =a= is "ask".
 
@@ -102,9 +111,15 @@ The mnemonic for =a= is "ask".
 |-----------------+-----------------------------------------------------------------|
 | ~SPC m M-RET~   | Insert regular match branch                                     |
 | ~SPC m M-S-RET~ | Insert =match goal with= branch                                 |
+| ~SPC m i c~     | Insert a vernacular command                                     |
 | ~SPC m i e~     | Insert =End <section-name>=                                     |
+| ~SPC m i i~     | Insert =intros= with default variable names                     |
 | ~SPC m i l~     | Extract lemma from current goal - exit with ~C-RET~ (not ~C-j~) |
 | ~SPC m i m~     | Insert =match= on a type                                        |
+| ~SPC m i r~     | Insert a =Require= statement                                    |
+| ~SPC m i s~     | Insert a =Section= or =Module=                                  |
+| ~SPC m i t~     | Insert a tactic                                                 |
+| ~SPC m i T~     | Insert a tactical                                               |
 
 Note the last two are regular =company-coq= bindings, left alone since they are
 most useful in insert mode. The full =company-coq= tutorial showcasing all

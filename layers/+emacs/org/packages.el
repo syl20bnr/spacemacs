@@ -38,6 +38,7 @@
         (ox-reveal :toggle org-enable-reveal-js-support)
         persp-mode
         (ox-hugo :toggle org-enable-hugo-support)
+        (org-trello :toggle org-enable-trello-support)
         ))
 
 (defun org/post-init-company ()
@@ -170,6 +171,7 @@ Will work on both org-mode and any mode that accepts plain html."
                         ("mf" . "feeds")
                         ("mi" . "insert")
                         ("miD" . "download")
+                        ("mm" . "more")
                         ("ms" . "trees/subtrees")
                         ("mT" . "toggles")
                         ("mt" . "tables")
@@ -182,10 +184,20 @@ Will work on both org-mode and any mode that accepts plain html."
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "'" 'org-edit-special
         "c" 'org-capture
+
+        ;; Clock
+        ;; These keybindings should match those under the "aoC" prefix (below)
         "Cc" 'org-clock-cancel
+        "Cd" 'org-clock-display
+        "Ce" 'org-evaluate-time-range
+        "Cg" 'org-clock-goto
         "Ci" 'org-clock-in
+        "CI" 'org-clock-in-last
+        "Cj" 'org-clock-jump-to-current-clock
         "Co" 'org-clock-out
+        "CR" 'org-clock-report
         "Cr" 'org-resolve-clocks
+
         "dd" 'org-deadline
         "ds" 'org-schedule
         "dt" 'org-time-stamp
@@ -195,6 +207,8 @@ Will work on both org-mode and any mode that accepts plain html."
         "fu" 'org-feed-update-all
 
         "a" 'org-agenda
+
+        "p" 'org-priority
 
         "Tc" 'org-toggle-checkbox
         "Te" 'org-toggle-pretty-entities
@@ -328,11 +342,17 @@ Will work on both org-mode and any mode that accepts plain html."
         "aoe" 'org-store-agenda-views
         "aofi" 'org-feed-goto-inbox
         "aofu" 'org-feed-update-all
-        "aokg" 'org-clock-goto
-        "aoki" 'org-clock-in-last
-        "aokj" 'org-clock-jump-to-current-clock
-        "aoko" 'org-clock-out
-        "aokr" 'org-resolve-clocks
+
+        ;; Clock
+        ;; These keybindings should match those under the "mC" prefix (above)
+        "aoCc" 'org-clock-cancel
+        "aoCg" 'org-clock-goto
+        "aoCi" 'org-clock-in
+        "aoCI" 'org-clock-in-last
+        "aoCj" 'org-clock-jump-to-current-clock
+        "aoCo" 'org-clock-out
+        "aoCr" 'org-resolve-clocks
+
         "aol" 'org-store-link
         "aom" 'org-tags-view
         "aoo" 'org-agenda
@@ -671,3 +691,22 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-ox-hugo ()
   (use-package ox-hugo :after ox))
+
+(defun org/init-org-trello ()
+  (use-package org-trello
+    :after org
+    :config
+    (progn
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmt" "trello")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmtd" "sync down")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmtu" "sync up")
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "mtI" 'org-trello-install-key-and-token
+        "mta" 'org-trello-archive-card
+        "mtc" 'org-trello-create-board-and-install-metadata
+        "mti" 'org-trello-install-board-metadata
+        "mtm" 'org-trello-update-board-metadata
+        "mtdb" 'spacemacs/org-trello-pull-buffer
+        "mtdc" 'spacemacs/org-trello-pull-card
+        "mtub" 'spacemacs/org-trello-push-buffer
+        "mtuc" 'spacemacs/org-trello-push-card))))

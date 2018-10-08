@@ -7,6 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#pre-requisites][Pre-requisites]]
+  - [[#lsp-backend][LSP backend]]
   - [[#layer][Layer]]
 - [[#configuration][Configuration]]
   - [[#indentation][Indentation]]
@@ -32,6 +33,7 @@ This layer adds extensive support for go to Spacemacs.
 - Test generation with [[https://github.com/s-kostyaev/go-gen-test][go-gen-test]]
 - Get packages faster with [[https://github.com/haya14busa/gopkgs][gopkgs]]
 - Fill a structure with default values using the [[https://github.com/davidrjenni/reftools/tree/master/cmd/fillstruct][fillstruct]]
+- LSP backend
 
 * Install
 ** Pre-requisites
@@ -39,7 +41,7 @@ You will need =gocode=, =gogetdoc=, =godef=, =godoctor= and many others
 to get all the goodies of this layer:
 
 #+BEGIN_SRC sh
-  go get -u -v github.com/nsf/gocode
+  go get -u -v github.com/mdempsky/gocode
   go get -u -v github.com/rogpeppe/godef
   go get -u -v golang.org/x/tools/cmd/guru
   go get -u -v golang.org/x/tools/cmd/gorename
@@ -50,6 +52,8 @@ to get all the goodies of this layer:
   go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
   go get -u github.com/josharian/impl
 #+END_SRC
+
+If you with to use a linters aggregator tool, you can enable =gometalinter= or =golangci-lint=.
 
 If you wish to use =gometalinter= set the value of =go-use-gometalinter= to t:
 
@@ -66,6 +70,21 @@ and install the tool:
 
 For more information read [[https://github.com/alecthomas/gometalinter/blob/master/README.md][gometalinter README.md]]
 and [[https://github.com/favadi/flycheck-gometalinter/blob/master/README.md][flycheck-gometalinter README.md]]
+
+If you wish to use =golangci-lint= set the value of =go-use-golangci-lint= to t:
+
+#+begin_src emacs-lisp
+  (go :variables go-use-golangci-lint t)
+#+end_src
+
+and install the tool:
+
+#+BEGIN_SRC sh
+  go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+#+END_SRC
+
+For more information read [[https://github.com/golangci/golangci-lint][golangci-lint README.md]]
+and [[https://github.com/weijiangan/flycheck-golangci-lint][flycheck-golangci-lint README.md]]
 
 If you wish to use =godoctor= for refactoring, install it too:
 
@@ -86,6 +105,32 @@ $PATH RET~).
 
 For best results, make sure that the =auto-completion= and =syntax-checking=
 layers are enabled as well.
+
+** LSP backend
+ To enable the LSP backend set the layer variable =go-backend=:
+
+#+BEGIN_SRC elisp
+(go :variables go-backend 'lsp)
+#+END_SRC
+
+You also need to install the Go Language Server:
+
+#+BEGIN_SRC sh
+  go get -u github.com/sourcegraph/go-langserver
+#+END_SRC
+
+Backend can be chosen on a per project basis using directory local variables
+(files named =.dir-locals.el= at the root of a project), an example to use the
+=go-mode= backend:
+
+#+BEGIN_SRC elisp
+;;; Directory Local Variables
+;;; For more information see (info "(emacs) Directory Variables")
+
+((go-mode (go-backend . go-mode)))
+#+END_SRC
+
+*Note:* you can easily add a directory local variable with ~SPC f v d~.
 
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -117,6 +162,13 @@ the layer variable =go-tab-width=, e.g.
 
 #+begin_src emacs-lisp
   (go :variables go-tab-width 4)
+#+end_src
+
+If you're using =.editorconfig= in your project, set the value to nil to avoid
+confliction, e.g.
+
+#+begin_src emacs-lisp
+  (go :variables go-tab-width nil)
 #+end_src
 
 ** Tests

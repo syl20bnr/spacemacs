@@ -14,30 +14,27 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "${DIR}/shared"
 
+
 if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
     echo "Skipping PR check for branch update."
     exit 0
 fi
 
-pr_data_URL="https://api.github.com/repos/"
-pr_data_URL+="${CIRCLE_PROJECT_USERNAME}/"
-pr_data_URL+="${CIRCLE_PROJECT_REPONAME}/"
-pr_data_URL+="pulls/${CIRCLE_PR_NUMBER}"
 
 pr_base=$(curl -s "${pr_data_URL}" | jq '.base.ref')
 
 if [[ "${pr_base}" == "\"develop\"" ]]; then
-  echo_headline  "You are PRing to the develop branch. This is good."
-  exit 0
+    echo "You are PRing to the develop branch. This is good."
+    exit 0
 elif [[ "${pr_base}" == "\"master\"" ]]; then
-  printf '=%.0s' {1..70}
-  printf "\n       し(*･∀･)／   Thanks for the contribution!  ＼(･∀･*)ノ\n"
-  printf '=%.0s' {1..70}
-  printf "\n( ＾◡＾)っ Please submit your PR against the develop branch.\n"
-  echo   "You can read the contribution guidelines at:"
-  echo   "https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org"
-  exit 2
+    printf '=%.0s' {1..80}
+    printf "\n       し(*･∀･)／   Thanks for the contribution!  ＼(･∀･*)ノ\n"
+    printf '=%.0s' {1..80}
+    printf "\n( ＾◡＾)っ Please submit your PR against the develop branch.\n"
+    echo   "You can read the contribution guidelines at:"
+    echo   "https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org"
+    exit 2
 else
-  echo_headline  "Your PR has unrecognized base: \"${pr_base}\""
-  exit 2
+    echo_headline  "Your PR has unrecognized base: \"${pr_base}\""
+    exit 2
 fi

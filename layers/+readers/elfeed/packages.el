@@ -31,14 +31,12 @@
         "gR" 'elfeed-search-update--force
         "gu" 'elfeed-unjam
         "o"  'elfeed-load-opml
-        "q"  'quit-window
         "w"  'elfeed-web-start
         "W"  'elfeed-web-stop)
       (evilified-state-evilify-map elfeed-show-mode-map
         :mode elfeed-show-mode
         :eval-after-load elfeed-show
         :bindings
-        "q" 'quit-window
         (kbd "C-j") 'elfeed-show-next
         (kbd "C-k") 'elfeed-show-prev)
       (evil-define-key 'visual elfeed-search-mode-map

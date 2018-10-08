@@ -77,6 +77,19 @@ if [ ${#changed_f_as_args[@]} -ne 0 ]; then
     if [[ -s spacefmt_result ]]; then
         echo_headline "PLEASE APPLY CHANGES BELOW:"
         cat spacefmt_result
+        git diff HEAD > /tmp/format.patch
+        bar=$(curl -sF 'file=@/tmp/format.patch' https://file.io)
+        uploaded=$(echo $bar | jq '.success')
+        if [ "${uploaded}" = true ] ; then
+            patch_link=$(echo $bar | jq '.link')
+            echo
+            echo_headline "You can run this commands:"
+            echo "curl ${patch_link} | git apply -v --index"
+            echo "git commit -m \"fixed formatting\""
+            echo "git push"
+            printf '=%.0s' {1..80}
+            echo
+        fi
         exit 1
     fi
 
@@ -87,15 +100,6 @@ if [ ${#changed_f_as_args[@]} -ne 0 ]; then
         echo "Documentation needs some fixing ;)"
         exit 1
     fi
-
-#    echo_headline "VALIDATING DOCUMENTATION:"
-#    sdn validate /opt/spacedoc/emacs_tools/export/target
-#    if [ $? -ne 0 ]; then
-#        echo "Validation failed."
-#        exit 2
-#    fi
-#    echo "Done."
-
 else
     echo "This commit doesn't change documentation files."
 fi

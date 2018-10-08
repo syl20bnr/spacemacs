@@ -7,7 +7,9 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#web-beautify][web-beautify]]
+  - [[#prettier][prettier]]
   - [[#choosing-a-backend][Choosing a backend]]
+  - [[#choosing-a-formatter][Choosing a formatter]]
 - [[#backends][Backends]]
   - [[#tern][Tern]]
   - [[#language-server-protocol][Language Server Protocol]]
@@ -56,6 +58,9 @@ If you install these in non-standard locations, then add the following to your =
 ** web-beautify
 See [[file:../../+tools/web-beautify/README.org][web-beautify layer]] documentation.
 
+** prettier
+See [[file:../../+tools/prettier/README.org][prettier layer]] documentation.
+
 ** Choosing a backend
 To choose a default backend set the layer variable =javascript-backend=:
 
@@ -72,6 +77,24 @@ Backend can be chosen on a per project basis using directory local variables
 ;;; For more information see (info "(emacs) Directory Variables")
 
 ((js2-mode (javascript-backend . lsp)))
+#+END_SRC
+
+** Choosing a formatter
+To choose a formatter, set the layer variable =javascript-fmt-tool=:
+
+#+BEGIN_SRC elisp
+(javascript :variables javascript-fmt-tool 'web-beautify)
+#+END_SRC
+
+Formatter can be chosen on a per project basis using directory local variables
+(files named =.dir-locals.el= at the root of a project), an example to use the
+=prettier= formatter:
+
+#+BEGIN_SRC elisp
+;;; Directory Local Variables
+;;; For more information see (info "(emacs) Directory Variables")
+
+((js2-mode (javascript-fmt-tool . prettier)))
 #+END_SRC
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.

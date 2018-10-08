@@ -334,6 +334,10 @@
         "sR" 'spacemacs/python-shell-send-region-switch
         "sr" 'python-shell-send-region)
 
+      ;; Set `python-indent-guess-indent-offset' to `nil' to prevent guessing `python-indent-offset
+      ;; (we call python-indent-guess-indent-offset manually so python-mode does not need to do it)
+      (setq-default python-indent-guess-indent-offset nil)
+
       ;; Emacs users won't need these key bindings
       ;; TODO: make these key bindings dynamic given the current style
       ;; Doing it only at init time won't update it if the user switches style

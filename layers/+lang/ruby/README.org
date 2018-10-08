@@ -20,6 +20,7 @@
   - [[#toggles][Toggles]]
   - [[#rake][Rake]]
   - [[#refactor][Refactor]]
+  - [[#seeing-is-believing][Seeing is believing]]
 - [[#layer-options][Layer options]]
 
 * Description
@@ -55,6 +56,7 @@ based on your version manager):
 - =pry= and =pry-doc= are required for *jump to definition* and *code documentation* (=robe-mode=)
 - =ruby_parser= is required for *goto-step_definition* in =feature-mode=
 - =rubocop= is required for rubocop integration
+- =seeing_is_believing= helps you evaluate code inline
 
 You can install the gems in the context of your current project by
 adding them to the =Gemfile=, e.g.:
@@ -209,6 +211,13 @@ When =ruby-test-runner= equals =minitest=.
 | ~SPC m r R v~ | Extract local variable |
 | ~SPC m r R c~ | Extract constant       |
 | ~SPC m r R l~ | Extract to let (rspec) |
+
+** Seeing is believing
+
+| Key Binding   | Description                      |
+|---------------+----------------------------------|
+| ~<SPC> m @ @~ | Run seeing is believing          |
+| ~<SPC> m @ c~ | Clear seeing is believing output |
 
 * Layer options
 

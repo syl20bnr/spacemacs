@@ -43,11 +43,13 @@ If your project do not use a custom =.eslintrc= file I strongly advice you to
 try out this one by Airbnb:
 [[https://github.com/airbnb/javascript/blob/master/linters/.eslintrc][.eslintrc]]
 
-In order to use automatic code formatting you need to install ~js-beautify~
+React layer uses the same formatter defined in javascript layer. Options are
+=web-beautify= and =prettier=.
+To use automatic code formatting you need to install ~js-beautify~ or ~prettier~
 with:
 
 #+BEGIN_SRC sh
-  $ npm install -g js-beautify
+  $ npm install -g js-beautify prettier
 #+END_SRC
 
 If you install these in non-standard locations, then add the following to your
@@ -82,7 +84,8 @@ is my configuration as an example:
     "wrap_attributes": "auto",
     "wrap_attributes_indent_size": 2,
     "e4x": true,
-    "end_with_newline": true
+    "end_with_newline": true,
+    "brace_style": "collapse-preserve-inline"
   }
 #+END_SRC
 

@@ -27,9 +27,8 @@ language, instead of plain text structure. Semantic is the core of CEDET.
   [[https://github.com/tuhdo/semantic-stickyfunc-enhance][this page]] for demos in some programming languages.
 - Support common C/C++ refactoring with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]. See
   [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][this page]] for demonstration of refactoring features.
-- Support Lisp source code formatting with  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]].. See
-  [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos-elisp.org][this page]] for demonstration of Lisp formatting
-  features.
+- Support Lisp source code formatting with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]. See
+  [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos-elisp.org][this page]] for demonstration of Lisp formatting features.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

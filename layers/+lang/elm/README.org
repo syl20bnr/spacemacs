@@ -20,10 +20,12 @@
     - [[#imports-sort][Imports sort]]
     - [[#file-format][File format]]
   - [[#indentation][Indentation]]
+  - [[#test-runner-settings][Test runner settings]]
 - [[#key-bindings][Key bindings]]
   - [[#elm-make][elm-make]]
   - [[#elm-repl][elm-repl]]
   - [[#elm-reactor][elm-reactor]]
+  - [[#elm-test-runner][elm-test-runner]]
   - [[#elm-package][elm-package]]
     - [[#package-list-buffer][package list buffer]]
   - [[#elm-oracle-1][elm-oracle]]
@@ -168,6 +170,19 @@ cycle (n)... where n is the number of available indentations to choose from. If
 the automatic indentation level was not the one you expected simply hit TAB to
 cycle through the list (note that hitting any other key will cancel the cycle).
 
+** Test runner settings
+You may want to customize the default suffix for test files. For example, if you
+prefer to put your tests in =HelloSpec.elm= instead of =HelloTest.elm=, set the
+following variable:
+
+#+BEGIN_SRC emacs-lisp
+  (elm :variables
+       elm-test-runner-preferred-test-suffix "Spec")
+#+END_SRC
+
+Take a look [[https://github.com/juanedi/elm-test-runner#customization][here]] for more settings, and remember that this can be set by project
+using a =dir-locals.el= file.
+
 * Key bindings
 ** elm-make
 
@@ -193,6 +208,17 @@ cycle through the list (note that hitting any other key will cancel the cycle).
 |-------------+--------------------|
 | ~SPC m R n~ | elm-preview-buffer |
 | ~SPC m R m~ | elm-preview-main   |
+
+** elm-test-runner
+
+| Key Binding   | Description                            |
+|---------------+----------------------------------------|
+| ~SPC m t b~   | elm-test-runner-run                    |
+| ~SPC m t d~   | elm-test-runner-run-directory          |
+| ~SPC m t p~   | elm-test-runner-run-project            |
+| ~SPC m t r~   | elm-test-runner-rerun                  |
+| ~SPC m t w~   | elm-test-runner-watch                  |
+| ~SPC m t TAB~ | elm-test-runner-toggle-test-and-target |
 
 ** elm-package
 

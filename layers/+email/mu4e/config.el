@@ -18,6 +18,9 @@
 (defvar mu4e-spacemacs-layout-binding "m"
   "Binding used in the setup for `spacemacs-layouts' micro-state")
 
+(defvar mu4e-spacemacs-kill-layout-on-exit t
+  "When `t` exiting mu4e app will automatically kill its layout")
+
 (defvar mu4e-enable-async-operations nil
   "Prefer async operations when sending emails.")
 

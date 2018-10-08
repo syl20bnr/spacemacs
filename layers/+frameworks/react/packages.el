@@ -18,6 +18,7 @@
     flycheck
     js-doc
     lsp-javascript-typescript
+    prettier-js
     rjsx-mode
     smartparens
     tern
@@ -45,7 +46,8 @@
   (with-eval-after-load 'flycheck
     (dolist (checker '(javascript-eslint javascript-standard))
       (flycheck-add-mode checker 'rjsx-mode)))
-  (spacemacs/enable-flycheck 'rjsx-mode))
+  (spacemacs/enable-flycheck 'rjsx-mode)
+  (add-hook 'rjsx-mode-hook #'spacemacs//javascript-setup-eslint t))
 
 (defun react/post-init-js-doc ()
   (add-hook 'rjsx-mode-hook 'spacemacs/js-doc-require)
@@ -85,6 +87,10 @@
     (with-eval-after-load 'rjsx-mode
       (define-key rjsx-mode-map (kbd "C-d") nil))))
 
+(defun react/pre-init-prettier-js ()
+  (if (eq javascript-fmt-tool 'prettier)
+      (add-to-list 'spacemacs--prettier-modes 'rjsx-mode)))
+
 (defun react/post-init-smartparens ()
   (if dotspacemacs-smartparens-strict-mode
       (add-hook 'react-mode-hook #'smartparens-strict-mode)
@@ -94,7 +100,9 @@
   (add-to-list 'tern--key-bindings-modes 'rjsx-mode))
 
 (defun react/pre-init-web-beautify ()
-  (add-to-list 'spacemacs--web-beautify-modes (cons 'rjsx-mode 'web-beautify-js)))
+  (if (eq javascript-fmt-tool 'web-beautify)
+      (add-to-list 'spacemacs--web-beautify-modes
+                   (cons 'rjsx-mode 'web-beautify-js))))
 
 (defun react/post-init-yasnippet ()
   (add-hook 'rjsx-mode-hook #'spacemacs//react-setup-yasnippet))

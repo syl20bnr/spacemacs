@@ -33,3 +33,12 @@ If [[https://github.com/emacs-helm/helm][Helm]] layer is enabled, you can also u
 | Key Binding   | Description            |
 |---------------+------------------------|
 | ~SPC a m s g~ | Search for a new track |
+
+If [[https://github.com/abo-abo/swiper][Ivy]] layer is enabled, you can also use the following binding(s):
+
+| Key Binding       | Description                    |
+| ~SPC a m s s a~   | Spotify search artist          |
+| ~SPC a m s s A~   | Spotify search album           |
+| ~SPC a m s s t~   | Search for a new track         |
+| ~SPC a m s s T a~ | Spotify search track by artist |
+| ~SPC a m s s T A~ | Spotify search track by album  |

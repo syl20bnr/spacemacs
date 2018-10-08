@@ -48,6 +48,9 @@ python-*-docs-html
 /recentf
 .mc-lists.el
 nov-places
+workspace
+eclipse.jdt.ls
+.trello
 
 # Private directory
 private/

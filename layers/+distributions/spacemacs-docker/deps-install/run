@@ -83,4 +83,5 @@
     "/root/.npm"
     "/root/.wget-hsts"
     (l "%s/*" $WORKSPACE)
+    (l "%s/.emacs.d/.cache/.#recentf" $UHOME)
     (l "%s/.emacs.d/.cache/recentf" $UHOME))
