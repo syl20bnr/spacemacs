@@ -46,9 +46,12 @@ Clone Emacs from [[https://git.savannah.gnu.org/git/emacs.git]]:
   git checkout pdumper
 #+END_SRC
 
-Note: On windows make sure that autocrlf is disabled in git before cloning or else
-the autoconf.sh script will fail later on. This can be done via: =git config --global
-core.autocrlf false=
+Note: On windows make sure that autocrlf is disabled in git before cloning or
+else the =autoconf.sh= script will fail later on:
+
+#+BEGIN_SRC shell
+  git config --global core.autocrlf false
+#+END_SRC
 
 *** Simple patch of Emacs source code
 We need to increase the number of =remembered_data= slots in =src/pdumper.c=, we
@@ -114,9 +117,9 @@ Run msys2_shell.bat and in the msys2 prompt run:
   mingw-w64-x86_64-gnutls
 #+END_SRC
 
-Quit the msys2 shell and run mingw64.exe in the msys64 install directory.
-In the mingw prompt navigate to the emacs source checkout (=cd /c/= will
-get you to the root of the c drive) and run:
+Quit the msys2 shell and run mingw64.exe in the msys64 install directory. In the
+mingw prompt navigate to the emacs source checkout (=cd /c/= will get you to the
+root of the c drive) and run:
 
 #+BEGIN_SRC shell
   ./autogen.sh
