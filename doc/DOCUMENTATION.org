@@ -3579,6 +3579,7 @@ with ~SPC SPC spacemacs/recompile-elpa~.
 | The Librarian (doc-fmt tool and space-doc mode) | [[https://github.com/JAremko][JAremko]]       |
 | The Orgonaut ([[https://github.com/syl20bnr/spacemacs/issues/9476][fixed most of the Org READMEs]])    | [[https://github.com/smile13241324][smile13241324]] |
 | The Ticketmaster                                | [[https://github.com/StreakyCobra][StreakyCobra]]  |
+| The ASCII Scribe                                | [[https://github.com/JAremko][JAremko]]       |
 
 * Thank you
 Thank you Richard for this great piece of software.
