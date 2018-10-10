@@ -44,7 +44,7 @@
         :documentation "Always keep code indented."
         :evil-leader "tI")
       (spacemacs|add-toggle aggressive-indent-globally
-        :mode aggressive-indent-mode
+        :mode global-aggressive-indent-mode
         :documentation "Always keep code indented globally."
         :evil-leader "t C-I"))
     :config
@@ -326,7 +326,7 @@
         :documentation "Enable smartparens."
         :evil-leader "tp")
       (spacemacs|add-toggle smartparens-globally
-        :mode smartparens-mode
+        :mode smartparens-global-mode
         :documentation "Enable smartparens globally."
         :evil-leader "t C-p")
       ;; key bindings
