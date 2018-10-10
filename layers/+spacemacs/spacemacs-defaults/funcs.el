@@ -535,6 +535,10 @@ a dedicated window."
             (if dedicated "no longer " "")
             (buffer-name))))
 
+(defun spacemacs//init-visual-line-keys ()
+  (evil-define-minor-mode-key 'motion 'visual-line-mode "j" 'evil-next-visual-line)
+  (evil-define-minor-mode-key 'motion 'visual-line-mode "k" 'evil-previous-visual-line))
+
 
 ;; Copy file path
 

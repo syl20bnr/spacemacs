@@ -841,6 +841,8 @@ Other:
   - Added workspaces transient state key bindings (thanks to duianto):
     - ~SPC l w s~ =spacemacs/single-win-workspace= (exits the TS)
     - ~SPC l w S~ =spacemacs/single-win-workspace=
+  - Added ~SPC t C-S-l~ =spacemacs/toggle-visual-line-navigation-globally=
+    (thanks to Matt Kramer)
 - Improvements:
   - Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
     ~SPC w 4~ (thanks to Codruț Constantin Gușoi):

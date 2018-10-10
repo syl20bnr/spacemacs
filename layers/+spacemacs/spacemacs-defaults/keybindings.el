@@ -340,14 +340,7 @@
   :on
   (progn
     (visual-line-mode)
-    (evil-define-minor-mode-key 'motion 'visual-line-mode "j" 'evil-next-visual-line)
-    (evil-define-minor-mode-key 'motion 'visual-line-mode "k" 'evil-previous-visual-line)
-    (when (bound-and-true-p evil-escape-mode)
-      (evil-escape-mode -1)
-      (setq evil-escape-motion-state-shadowed-func nil)
-      (evil-define-minor-mode-key 'motion 'visual-line-mode "j" 'evil-next-visual-line)
-      (evil-define-minor-mode-key 'motion 'visual-line-mode "k" 'evil-previous-visual-line)
-      (evil-escape-mode))
+    (spacemacs//init-visual-line-keys)
     (evil-normalize-keymaps))
   :off
   (progn
@@ -355,6 +348,19 @@
     (evil-normalize-keymaps))
   :documentation "Move point according to visual lines."
   :evil-leader "tL")
+(spacemacs|add-toggle visual-line-navigation-globally
+  :status global-visual-line-mode
+  :on
+  (progn
+    (global-visual-line-mode)
+    (spacemacs//init-visual-line-keys)
+    (evil-normalize-keymaps))
+  :off
+  (progn
+    (global-visual-line-mode -1)
+    (evil-normalize-keymaps))
+  :documentation "Move point according to visual lines globally."
+  :evil-leader "t C-S-l")
 (spacemacs|add-toggle auto-fill-mode
   :status auto-fill-function
   :on (auto-fill-mode)
