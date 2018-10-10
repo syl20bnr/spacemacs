@@ -17,6 +17,7 @@
         evil-org
         evil-surround
         gnuplot
+        helm-org-rifle
         htmlize
         ;; ob, org and org-agenda are installed by `org-plus-contrib'
         (ob :location built-in)
@@ -71,6 +72,12 @@
     :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'org-mode
             "tp" 'org-plot/gnuplot)))
+
+(defun org/init-helm-org-rifle ()
+  (use-package helm-org-rifle
+    :defer t
+    :init (spacemacs/set-leader-keys-for-major-mode 'org-mode
+            "r" 'helm-org-rifle)))
 
 (defun org/init-htmlize ()
   (use-package htmlize

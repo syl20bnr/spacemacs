@@ -99,6 +99,7 @@ This file containes the change log for the next major version of Spacemacs.
 - Added a number of =lsp-ui= configuration variables to the layer - see [[file:./layers/+tools/lsp/README.org][LSP layer README]] for details.
 **** Org
 - Add package =org-journal= (Nick Anderson)
+- Add package =helm-org-rifle=, with keybinding ~SPC m r~ to rifle through files
 - Move clock related key bindings to ~SPC a o C~
 - Add key bindings:
   - From user darkfeline:
