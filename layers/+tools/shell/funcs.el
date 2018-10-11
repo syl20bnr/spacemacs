@@ -44,7 +44,7 @@
   "Open the default shell in a popup."
   (interactive)
   (let ((shell (case shell-default-shell
-                 ('multi-term 'multiterm)
+                 ('multi-term 'spacemacs//multiterm)
                  ('shell 'spacemacs//shell)
                  (t . shell-default-shell))))
     (call-interactively (intern (format "spacemacs/shell-pop-%S" shell)))))
@@ -120,11 +120,6 @@ is achieved by adding the relevant text properties."
                       read-only t
                       front-sticky (field inhibit-line-move-field-capture)))))
 
-(defun spacemacs//shell (&optional ARG)
-  "Wrapper to open shell in current window"
-  (switch-to-buffer "*shell*")
-  (shell "*shell*"))
-
 (defun spacemacs//init-eshell ()
   "Stuff to do when enabling eshell."
   (setq pcomplete-cycle-completions nil)
@@ -180,12 +175,18 @@ is achieved by adding the relevant text properties."
   (define-key eshell-mode-map
     (kbd "M-l") 'spacemacs/helm-eshell-history))
 
-(defun multiterm (_)
-  "Wrapper to be able to call multi-term from shell-pop"
-  (interactive)
-  (multi-term))
-
 (defun term-send-tab ()
   "Send tab in term mode."
   (interactive)
   (term-send-raw-string "\t"))
+
+;; Wrappers for non-standard shell commands
+(defun spacemacs//multiterm (&optional ARG)
+  "Wrapper to be able to call multi-term from shell-pop"
+  (interactive)
+  (multi-term))
+
+(defun spacemacs//shell (&optional ARG)
+  "Wrapper to open shell in current window"
+  (switch-to-buffer "*shell*")
+  (shell "*shell*"))
