@@ -17,7 +17,7 @@
         evil-org
         evil-surround
         gnuplot
-        helm-org-rifle
+        (helm-org-rifle :toggle (configuration-layer/layer-used-p 'helm))
         htmlize
         ;; ob, org and org-agenda are installed by `org-plus-contrib'
         (ob :location built-in)
