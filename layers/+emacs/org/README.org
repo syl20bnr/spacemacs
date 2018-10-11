@@ -682,7 +682,7 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 
 | Key Binding | Description                                |
 |-------------+--------------------------------------------|
-| ~SPC m r~   | Search org files for keywords and headings |
+| ~SPC a o r~ | Search org files for keywords and headings |
 
 ** Org-projectile
 
