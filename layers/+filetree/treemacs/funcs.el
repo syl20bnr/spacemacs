@@ -21,8 +21,9 @@
       (treemacs-do-add-project-to-workspace path name)
       (treemacs-select-window))))
 
-(defun spacemacs/treemacs-toggle-locked-width-off ()
-  "Unlock the manual resizing of the treemacs window."
+(defun spacemacs/treemacs-setup-width-lock ()
+  "Setup the width lock of treemacs buffer based on
+`treemacs-lock-width'."
   (interactive)
-  (when treemacs--width-is-locked
+  (when (xor treemacs--width-is-locked treemacs-lock-width)
     (treemacs-toggle-fixed-width)))
