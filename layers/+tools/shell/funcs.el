@@ -43,9 +43,10 @@
 (defun spacemacs/default-pop-shell ()
   "Open the default shell in a popup."
   (interactive)
-  (let ((shell (if (eq 'multi-term shell-default-shell)
-                   'multiterm
-                 shell-default-shell)))
+  (let ((shell (case shell-default-shell
+                 ('multi-term 'multiterm)
+                 ('shell 'spacemacs//shell)
+                 (t . shell-default-shell))))
     (call-interactively (intern (format "spacemacs/shell-pop-%S" shell)))))
 
 (defun spacemacs/resize-shell-to-desired-width ()
@@ -118,6 +119,11 @@ is achieved by adding the relevant text properties."
                       field output
                       read-only t
                       front-sticky (field inhibit-line-move-field-capture)))))
+
+(defun spacemacs//shell (&optional ARG)
+  "Wrapper to open shell in current window"
+  (switch-to-buffer "*shell*")
+  (shell "*shell*"))
 
 (defun spacemacs//init-eshell ()
   "Stuff to do when enabling eshell."

@@ -213,7 +213,7 @@
             shell-pop-term-shell      shell-default-term-shell
             shell-pop-full-span       shell-default-full-span)
       (make-shell-pop-command eshell)
-      (make-shell-pop-command shell)
+      (make-shell-pop-command spacemacs//shell)
       (make-shell-pop-command term shell-pop-term-shell)
       (make-shell-pop-command multiterm)
       (make-shell-pop-command ansi-term shell-pop-term-shell)
