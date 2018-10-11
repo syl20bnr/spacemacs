@@ -113,7 +113,7 @@ This file containes the change log for the next major version of Spacemacs.
     - ~SPC m C j~ to jump to current clock
     - ~SPC m C R~ to insert a clock report
 - Make =org-projectile= integration compatible with the newest version.
-- Add package =helm-org-rifle=, with keybinding ~SPC m r~ to rifle through
+- Add package =helm-org-rifle=, with keybinding ~SPC a o r~ to rifle through
   files.
 **** Scala
 - Move =ensime= to the =java= layer (Tor Hedin Bronner)

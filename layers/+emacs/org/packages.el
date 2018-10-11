@@ -76,8 +76,7 @@
 (defun org/init-helm-org-rifle ()
   (use-package helm-org-rifle
     :defer t
-    :init (spacemacs/set-leader-keys-for-major-mode 'org-mode
-            "r" 'helm-org-rifle)))
+    :init (spacemacs/set-leader-keys "aor" 'helm-org-rifle)))
 
 (defun org/init-htmlize ()
   (use-package htmlize
