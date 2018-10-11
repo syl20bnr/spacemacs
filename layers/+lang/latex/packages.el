@@ -210,7 +210,7 @@
     :defer t
     :init
     (progn
-      (add-hook 'LaTeX-mode-hook 'magic-latex-buffer)
+      (add-hook 'TeX-update-style-hook 'magic-latex-buffer)
       (setq magic-latex-enable-block-highlight t
             magic-latex-enable-suscript t
             magic-latex-enable-pretty-symbols t
