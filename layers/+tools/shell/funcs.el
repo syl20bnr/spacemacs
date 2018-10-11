@@ -44,8 +44,8 @@
   "Open the default shell in a popup."
   (interactive)
   (let ((shell (case shell-default-shell
-                 ('multi-term 'spacemacs//multiterm)
-                 ('shell 'spacemacs//shell)
+                 ('multi-term 'multiterm)
+                 ('shell 'inferior-shell)
                  (t . shell-default-shell))))
     (call-interactively (intern (format "spacemacs/shell-pop-%S" shell)))))
 
@@ -181,12 +181,12 @@ is achieved by adding the relevant text properties."
   (term-send-raw-string "\t"))
 
 ;; Wrappers for non-standard shell commands
-(defun spacemacs//multiterm (&optional ARG)
+(defun multiterm (&optional ARG)
   "Wrapper to be able to call multi-term from shell-pop"
   (interactive)
   (multi-term))
 
-(defun spacemacs//shell (&optional ARG)
+(defun inferior-shell (&optional ARG)
   "Wrapper to open shell in current window"
   (switch-to-buffer "*shell*")
   (shell "*shell*"))

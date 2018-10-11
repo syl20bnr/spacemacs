@@ -215,8 +215,8 @@
       (make-shell-pop-command eshell)
       (make-shell-pop-command term shell-pop-term-shell)
       (make-shell-pop-command ansi-term shell-pop-term-shell)
-      (make-shell-pop-command spacemacs//shell)
-      (make-shell-pop-command spacemacs//multiterm)
+      (make-shell-pop-command inferior-shell)
+      (make-shell-pop-command multiterm)
 
       (add-hook 'term-mode-hook 'ansi-term-handle-close)
       (add-hook 'term-mode-hook (lambda () (linum-mode -1)))
