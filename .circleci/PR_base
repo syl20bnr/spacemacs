@@ -20,7 +20,6 @@ if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
     exit 0
 fi
 
-
 pr_base=$(curl -s "${pr_data_URL}" | jq '.base.ref')
 
 if [[ "${pr_base}" == "\"develop\"" ]]; then

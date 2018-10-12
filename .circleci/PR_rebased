@@ -14,17 +14,14 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "${DIR}/shared"
 
-
 if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
     echo "Skipping PR rebase check for branch update."
     exit 0
 fi
 
-
 upstream_head_sha=$(curl -s "${upstream_data_URL}" | jq '.commit.sha')
 
 pr_base_sha=$(curl -s "${pr_data_URL}" | jq '.base.sha')
-
 
 if [[ "${upstream_head_sha}" == "${pr_base_sha}" ]]; then
     echo "Seems like your PR doesn't need rebase. This is also good."
