@@ -188,5 +188,6 @@ is achieved by adding the relevant text properties."
 
 (defun inferior-shell (&optional ARG)
   "Wrapper to open shell in current window"
+  (interactive)
   (switch-to-buffer "*shell*")
   (shell "*shell*"))
