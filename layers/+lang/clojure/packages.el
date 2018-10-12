@@ -170,7 +170,8 @@
 
       ;; cider-repl-mode only
       (spacemacs/set-leader-keys-for-major-mode 'cider-repl-mode
-        "," 'cider-repl-handle-shortcut)
+        "," 'cider-repl-handle-shortcut
+        "P" 'cider-repl-history)
       (spacemacs/set-leader-keys-for-major-mode 'cider-clojure-interaction-mode
         "ep" 'cider-eval-print-last-sexp))
     :config
