@@ -207,6 +207,8 @@
       (evilified-state-evilify cider-docview-mode cider-docview-mode-map
         (kbd "q") 'cider-popup-buffer-quit)
 
+      (evilified-state-evilify cider-repl-history-mode cider-repl-history-mode-map)
+
       (evilified-state-evilify cider-inspector-mode cider-inspector-mode-map
         (kbd "L") 'cider-inspector-pop
         (kbd "n") 'cider-inspector-next-page
