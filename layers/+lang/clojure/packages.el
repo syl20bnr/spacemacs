@@ -170,8 +170,7 @@
 
       ;; cider-repl-mode only
       (spacemacs/set-leader-keys-for-major-mode 'cider-repl-mode
-        "," 'cider-repl-handle-shortcut
-        "P" 'cider-repl-history)
+        "," 'cider-repl-handle-shortcut)
       (spacemacs/set-leader-keys-for-major-mode 'cider-clojure-interaction-mode
         "ep" 'cider-eval-print-last-sexp))
     :config
@@ -229,7 +228,8 @@
 
       (evil-define-key 'normal cider-repl-mode-map
         (kbd "C-j") 'cider-repl-next-input
-        (kbd "C-k") 'cider-repl-previous-input)
+        (kbd "C-k") 'cider-repl-previous-input
+        (kbd "RET") 'cider-repl-return)
 
       (evil-define-key 'insert cider-repl-mode-map
         (kbd "C-j") 'cider-repl-next-input
