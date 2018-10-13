@@ -85,7 +85,8 @@ fi
 fold_end "PUSHING_CHANGES_TO_${BOT_NAME}/${PUBLISH}"
 
 fold_start "OPENING_PR_TO_syl20bnr/${PUBLISH}.git"
-echo "[Spacebot]Documentation fixes\n" > msg
+echo "[Spacebot]Documentation fixes" > msg
+echo >> msg
 echo "Merge with care - I'm just a stupid bot. Beep boop." >> msg
 /tmp/hub pull-request -b "${TRAVIS_BRANCH}" -F msg
 if [ $? -ne 0 ]; then

@@ -81,7 +81,8 @@ fi
 fold_end "PUSHING_CHANGES_TO_${BOT_NAME}/${PUBLISH}"
 
 fold_start "OPENING_PR_TO_syl20bnr/${PUBLISH}.git"
-echo "Documentation updates (autoexport)\n" > msg
+echo "Documentation updates (autoexport)" > msg
+echo >> msg
 echo "beep beep boop... Beep?" >> msg
 /tmp/hub pull-request -F msg
 if [ $? -ne 0 ]; then
