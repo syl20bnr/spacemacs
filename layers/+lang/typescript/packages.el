@@ -84,7 +84,9 @@
                              "gt" spacemacs/typescript-jump-to-type-def
                              "gu" tide-references
                              "hh" tide-documentation-at-point
+                             "ri" 'tide-organize-imports
                              "rr" tide-rename-symbol
+                             "rf" 'tide-rename-file
                              "sr" tide-restart-server)
             typescriptList (cons 'typescript-mode keybindingList)
             typescriptTsxList (cons 'typescript-tsx-mode
