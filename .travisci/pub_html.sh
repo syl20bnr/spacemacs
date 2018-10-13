@@ -30,6 +30,14 @@ else
     exit 0
 fi
 
+fold_start "CONFIGURING_GIT_USER"
+git config --global user.name "${BOT_NAME}"
+git config --global user.email "${BOT_EMAIL}"
+git config --global push.default simple
+git config --global hub.protocol https
+export GITHUB_TOKEN=$BOT_TK
+fold_end "CONFIGURING_GIT_USER"
+
 fold_start "CLONING_TARGET_REPOSITORY"
 target_URL="https://github.com/syl20bnr/${PUBLISH}.git"
 git clone "${target_URL}" -b gh-pages "/tmp/${PUBLISH}"
