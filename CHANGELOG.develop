@@ -291,6 +291,7 @@ sane way, here is the complete list of changed key bindings
 **** Fonts
 - unicode-fonts (thanks to Aaron Jensen)
 **** Languages
+- alda (thanks to Andrew Hill (AstroEngiSci))
 - coffeescript (thanks to Sylvain Benner)
 - coq (thanks to Xuan Bi, Jeremy Bi and Langston Barret)
 - crystal (thanks to Sylvain Benner)
@@ -959,6 +960,13 @@ Other:
     (thanks to Compro-Prasad)
   - =global-hl-todo-mode= prevents activation in org (thanks to Sam Pillsworth)
 *** Layer changes and fixes
+**** Alda
+- Key bindings:
+  - ~SPC m r~ Play region (selected text)
+  - ~SPC m c~ Play block (paragraph on point)
+  - ~SPC m n~ Plays the current line
+  - ~SPC m b~ Play the entire buffer
+    (thanks to Andrew Hill (AstroEngiSci))
 **** Ansible
 - Improvements:
   - Added support for multiple vault password files, see the layer =README.org=
