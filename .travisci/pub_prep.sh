@@ -19,6 +19,11 @@ fold_end() {
     echo -e "\ntravis_fold:end:$1\r"
 }
 
+mkdir -p ~/.ssh
+printf  "Host  github.com\n" > ~/.ssh/config
+printf  "  StrictHostKeyChecking no\n" >> ~/.ssh/config
+printf  "  UserKnownHostsFile=/dev/null\n" >> ~/.ssh/config
+
 fold_start "FORMATTING_DOCUMENTATION"
 docker run --rm -v "${TRAVIS_BUILD_DIR}":/tmp/docs/ \
        jare/spacetools docfmt /tmp/docs/
@@ -45,7 +50,7 @@ fi
 fold_end "INSTALLING_${EVM_EMACS}"
 
 fold_start "INSTALLING_DEPENDENCIES"
-emacs -batch -l init.el > /dev/null
+emacs -batch -l init.el
 if [ $? -ne 0 ]; then
     echo "Dependencies installation failed."
     exit 2
