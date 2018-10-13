@@ -67,7 +67,7 @@ fi
 fold_end "EXPORTING_DOCUMENTATION"
 
 fold_start "INSTALLING_HUB"
-hub_version="2.2.9"
+hub_version="2.5.1"
 hub_url="https://github.com/github/hub/releases/download/"
 hub_url+="v${hub_version}/hub-linux-amd64-${hub_version}.tgz"
 curl -L $hub_url | tar \
