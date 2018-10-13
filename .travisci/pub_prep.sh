@@ -76,11 +76,3 @@ if [ $? -ne 0 ]; then
     exit 2
 fi
 fold_end "INSTALLING_HUB"
-
-fold_start "CONFIGURING_GIT_USER"
-git config --global user.name "${BOT_NAME}"
-git config --global user.email "${BOT_EMAIL}"
-git config --global push.default simple
-git config --global hub.protocol https
-export GITHUB_TOKEN=$BOT_TK
-fold_end "CONFIGURING_GIT_USER"
