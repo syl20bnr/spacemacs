@@ -1,26 +1,31 @@
 #+TITLE: Configuration layers
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
-* Table of Contents :TOC_4_gh:noexport:
-- [[#chat][Chat]]
-- [[#checkers][Checkers]]
-- [[#completion][Completion]]
-- [[#distributions][Distributions]]
-- [[#emacs][Emacs]]
-- [[#e-mail][E-mail]]
-- [[#frameworks][Frameworks]]
-- [[#fun][Fun]]
-- [[#international-support][International support]]
-- [[#programming-and-markup-languages][Programming and markup languages]]
-- [[#misc][Misc]]
-- [[#operating-systems][Operating systems]]
-- [[#pair-programming][Pair programming]]
-- [[#source-control][Source control]]
-- [[#spacemacs-distribution-layers][Spacemacs distribution layers]]
-- [[#tags][Tags]]
-- [[#themes][Themes]]
-- [[#tools][Tools]]
-- [[#vim][Vim]]
-- [[#web-services][Web services]]
+* Table of Contents :TOC_4_org:noexport:
+- [[Chat][Chat]]
+- [[Checkers][Checkers]]
+- [[Completion][Completion]]
+- [[Distributions][Distributions]]
+- [[Emacs][Emacs]]
+- [[E-mail][E-mail]]
+- [[Filetree][Filetree]]
+- [[Fonts][Fonts]]
+- [[Frameworks][Frameworks]]
+- [[Fun][Fun]]
+- [[International support][International support]]
+- [[Programming and markup languages][Programming and markup languages]]
+- [[Misc][Misc]]
+- [[Music][Music]]
+- [[Operating systems][Operating systems]]
+- [[Pair programming][Pair programming]]
+- [[Readers][Readers]]
+- [[Source control][Source control]]
+- [[Spacemacs distribution layers][Spacemacs distribution layers]]
+- [[Tags][Tags]]
+- [[Themes][Themes]]
+- [[Tools][Tools]]
+- [[Vim][Vim]]
+- [[Web services][Web services]]
 
 * Chat
 - [[file:+chat/erc/README.org][erc]]
@@ -36,8 +41,12 @@
 - [[file:+completion/auto-completion/README.org][auto-completion]]
 - [[file:+completion/helm/README.org][helm]]
 - [[file:+completion/ivy/README.org][ivy]]
+- [[file:+completion/templates/README.org][templates]]
 
 * Distributions
+- [[file:+distributions/spacemacs/README.org][spacemacs]]
+- [[file:+distributions/spacemacs-base/README.org][spacemacs-base]]
+- [[file:+distributions/spacemacs-bootstrap/README.org][spacemacs-bootstrap]]
 - [[file:+distributions/spacemacs-docker/README.org][spacemacs-docker]]
 
 * Emacs
@@ -51,9 +60,19 @@
 * E-mail
 - [[file:+email/gnus/README.org][gnus]]
 - [[file:+email/mu4e/README.org][mu4e]]
+- [[file:+email/notmuch/README.org][notmuch]]
+
+* Filetree
+- [[file:+filetree/neotree/README.org][neotree]]
+- [[file:+filetree/treemacs/README.org][treemacs]]
+
+* Fonts
+- [[file:+fonts/unicode-fonts/README.org][unicode-fonts]]
 
 * Frameworks
 - [[file:+frameworks/django/README.org][django]]
+- [[file:+frameworks/emberjs/README.org][emberjs]]
+- [[file:+frameworks/phoenix/README.org][phoenix]]
 - [[file:+frameworks/react/README.org][react]]
 - [[file:+frameworks/ruby-on-rails/README.org][ruby-on-rails]]
 
@@ -65,6 +84,7 @@
 
 * International support
 - [[file:+intl/chinese/README.org][chinese]]
+- [[file:+intl/japanese/README.org][japanese]]
 - [[file:+intl/keyboard-layout/README.org][keyboard-layout]]
 
 * Programming and markup languages
@@ -75,8 +95,10 @@
 - [[file:+lang/bibtex/README.org][bibtex]]
 - [[file:+lang/c-c++/README.org][c-c++]]
 - [[file:+lang/clojure/README.org][clojure]]
+- [[file:+lang/coffeescript/README.org][coffeescript]]
 - [[file:+lang/common-lisp/README.org][common-lisp]]
 - [[file:+lang/coq/README.org][coq]]
+- [[file:+lang/crystal/README.org][crystal]]
 - [[file:+lang/csharp/README.org][csharp]]
 - [[file:+lang/csv/README.org][csv]]
 - [[file:+lang/d/README.org][d]]
@@ -85,25 +107,34 @@
 - [[file:+lang/emacs-lisp/README.org][emacs-lisp]]
 - [[file:+lang/erlang/README.org][erlang]]
 - [[file:+lang/ess/README.org][ess]]
+- [[file:+lang/factor/README.org][factor]]
 - [[file:+lang/faust/README.org][faust]]
 - [[file:+lang/forth/README.org][forth]]
 - [[file:+lang/fsharp/README.org][fsharp]]
 - [[file:+lang/go/README.org][go]]
 - [[file:+lang/gpu/README.org][gpu]]
 - [[file:+lang/graphviz/README.org][graphviz]]
+- [[file:+lang/groovy/README.org][groovy]]
 - [[file:+lang/haskell/README.org][haskell]]
 - [[file:+lang/html/README.org][html]]
+- [[file:+lang/hy/README.org][hy]]
 - [[file:+lang/idris/README.org][idris]]
 - [[file:+lang/ipython-notebook/README.org][ipython-notebook]]
 - [[file:+lang/java/README.org][java]]
 - [[file:+lang/javascript/README.org][javascript]]
 - [[file:+lang/jr/README.org][jr]]
+- [[file:+lang/json/README.org][json]]
+- [[file:+lang/jsonnet/README.org][jsonnet]]
+- [[file:+lang/julia/README.org][julia]]
+- [[file:+lang/kotlin/README.org][kotlin]]
 - [[file:+lang/latex/README.org][latex]]
 - [[file:+lang/lua/README.org][lua]]
+- [[file:+lang/major-modes/README.org][major-modes]]
 - [[file:+lang/markdown/README.org][markdown]]
 - [[file:+lang/nim/README.org][nim]]
 - [[file:+lang/ocaml/README.org][ocaml]]
 - [[file:+lang/octave/README.org][octave]]
+- [[file:+lang/pact/README.org][pact]]
 - [[file:+lang/perl5/README.org][perl5]]
 - [[file:+lang/perl6/README.org][perl6]]
 - [[file:+lang/php/README.org][php]]
@@ -117,6 +148,7 @@
 - [[file:+lang/rust/README.org][rust]]
 - [[file:+lang/scala/README.org][scala]]
 - [[file:+lang/scheme/README.org][scheme]]
+- [[file:+lang/semantic-web/README.org][semantic-web]]
 - [[file:+lang/shell-scripts/README.org][shell-scripts]]
 - [[file:+lang/sml/README.org][sml]]
 - [[file:+lang/sql/README.org][sql]]
@@ -127,8 +159,12 @@
 - [[file:+lang/yaml/README.org][yaml]]
 
 * Misc
+- [[file:+misc/copy-as-format/README.org][copy-as-format]]
 - [[file:+misc/nlinum/README.org][nlinum]]
 - [[file:+misc/parinfer/README.org][parinfer]]
+
+* Music
+- [[file:+music/spotify/README.org][spotify]]
 
 * Operating systems
 - [[file:+os/nixos/README.org][nixos]]
@@ -137,6 +173,14 @@
 * Pair programming
 - [[file:+pair-programming/floobits/README.org][floobits]]
 
+* Readers
+- [[file:+readers/dash/README.org][dash]]
+- [[file:+readers/deft/README.org][deft]]
+- [[file:+readers/elfeed/README.org][elfeed]]
+- [[file:+readers/epub/README.org][epub]]
+- [[file:+readers/pdf/README.org][pdf]]
+- [[file:+readers/speed-reading/README.org][speed-reading]]
+
 * Source control
 - [[file:+source-control/git/README.org][git]]
 - [[file:+source-control/github/README.org][github]]
@@ -144,7 +188,20 @@
 - [[file:+source-control/version-control/README.org][version-control]]
 
 * Spacemacs distribution layers
+- [[file:+spacemacs/spacemacs-completion/README.org][spacemacs-completion]]
+- [[file:+spacemacs/spacemacs-defaults/README.org][spacemacs-defaults]]
+- [[file:+spacemacs/spacemacs-editing/README.org][spacemacs-editing]]
+- [[file:+spacemacs/spacemacs-editing-visual/README.org][spacemacs-editing-visual]]
+- [[file:+spacemacs/spacemacs-evil/README.org][spacemacs-evil]]
+- [[file:+spacemacs/spacemacs-language/README.org][spacemacs-language]]
+- [[file:+spacemacs/spacemacs-layouts/README.org][spacemacs-layouts]]
+- [[file:+spacemacs/spacemacs-misc/README.org][spacemacs-misc]]
+- [[file:+spacemacs/spacemacs-modeline/README.org][spacemacs-modeline]]
+- [[file:+spacemacs/spacemacs-navigation/README.org][spacemacs-navigation]]
+- [[file:+spacemacs/spacemacs-org/README.org][spacemacs-org]]
+- [[file:+spacemacs/spacemacs-project/README.org][spacemacs-project]]
 - [[file:+spacemacs/spacemacs-purpose/README.org][spacemacs-purpose]]
+- [[file:+spacemacs/spacemacs-visual/README.org][spacemacs-visual]]
 
 * Tags
 - [[file:+tags/cscope/README.org][cscope]]
@@ -157,21 +214,23 @@
 
 * Tools
 - [[file:+tools/ansible/README.org][ansible]]
+- [[file:+tools/bm/README.org][bm]]
 - [[file:+tools/cfengine/README.org][cfengine]]
 - [[file:+tools/chrome/README.org][chrome]]
 - [[file:+tools/cmake/README.org][cmake]]
 - [[file:+tools/command-log/README.org][command-log]]
-- [[file:+tools/dash/README.org][dash]]
 - [[file:+tools/debug/README.org][debug]]
-- [[file:+tools/deft/README.org][deft]]
 - [[file:+tools/docker/README.org][docker]]
 - [[file:+tools/fasd/README.org][fasd]]
 - [[file:+tools/finance/README.org][finance]]
 - [[file:+tools/geolocation/README.org][geolocation]]
 - [[file:+tools/imenu-list/README.org][imenu-list]]
+- [[file:+tools/lsp/README.org][lsp]]
 - [[file:+tools/nginx/README.org][nginx]]
+- [[file:+tools/node/README.org][node]]
 - [[file:+tools/pandoc/README.org][pandoc]]
-- [[file:+tools/pdf-tools/README.org][pdf-tools]]
+- [[file:+tools/pass/README.org][pass]]
+- [[file:+tools/prettier/README.org][prettier]]
 - [[file:+tools/prodigy/README.org][prodigy]]
 - [[file:+tools/puppet/README.org][puppet]]
 - [[file:+tools/ranger/README.org][ranger]]
@@ -179,27 +238,26 @@
 - [[file:+tools/restclient/README.org][restclient]]
 - [[file:+tools/salt/README.org][salt]]
 - [[file:+tools/shell/README.org][shell]]
-- [[file:+tools/speed-reading/README.org][speed-reading]]
 - [[file:+tools/sphinx/README.org][sphinx]]
 - [[file:+tools/systemd/README.org][systemd]]
+- [[file:+tools/tern/README.org][tern]]
 - [[file:+tools/terraform/README.org][terraform]]
 - [[file:+tools/tmux/README.org][tmux]]
+- [[file:+tools/transmission/README.org][transmission]]
 - [[file:+tools/vagrant/README.org][vagrant]]
+- [[file:+tools/web-beautify/README.org][web-beautify]]
+- [[file:+tools/xclipboard/README.org][xclipboard]]
 - [[file:+tools/ycmd/README.org][ycmd]]
 
 * Vim
-- [[file:+vim/evil-cleverparens/README.org][evil-cleverparens]]
 - [[file:+vim/evil-commentary/README.org][evil-commentary]]
 - [[file:+vim/evil-snipe/README.org][evil-snipe]]
 - [[file:+vim/vim-empty-lines/README.org][vim-empty-lines]]
-- [[file:+vim/vim-powerline/README.org][vim-powerline]]
 - [[file:+vim/vinegar/README.org][vinegar]]
 
 * Web services
 - [[file:+web-services/confluence/README.org][confluence]]
-- [[file:+web-services/elfeed/README.org][elfeed]]
 - [[file:+web-services/evernote/README.org][evernote]]
 - [[file:+web-services/search-engine/README.org][search-engine]]
-- [[file:+web-services/spotify/README.org][spotify]]
 - [[file:+web-services/twitter/README.org][twitter]]
 - [[file:+web-services/wakatime/README.org][wakatime]]
