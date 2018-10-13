@@ -46,6 +46,7 @@
   (let ((shell (case shell-default-shell
                  ('multi-term 'multiterm)
                  ('shell 'inferior-shell)
+                 ('eshell 'eshell)
                  (t . shell-default-shell))))
     (call-interactively (intern (format "spacemacs/shell-pop-%S" shell)))))
 
