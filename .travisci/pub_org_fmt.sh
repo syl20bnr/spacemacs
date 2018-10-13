@@ -51,7 +51,7 @@ rsync -rv \
       --prune-empty-dirs \
       ~/.emacs.d/ \
       "/tmp/${PUBLISH}"
-git add -all
+git add --all
 git diff --cached --exit-code
 if [ $? -eq 0 ]; then
     echo "Nothing to commit - exiting."
