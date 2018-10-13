@@ -46,7 +46,7 @@
   (let ((shell (case shell-default-shell
                  ('multi-term 'multiterm)
                  ('shell 'inferior-shell)
-                 (t . shell-default-shell))))
+                 (t shell-default-shell))))
     (call-interactively (intern (format "spacemacs/shell-pop-%S" shell)))))
 
 (defun spacemacs/resize-shell-to-desired-width ()
