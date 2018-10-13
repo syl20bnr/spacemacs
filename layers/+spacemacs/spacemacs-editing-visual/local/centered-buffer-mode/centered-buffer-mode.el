@@ -1,6 +1,6 @@
 ;;; centered-buffer-mode.el --- Centering minor mode -*- lexical-binding: t -*-
 ;;
-;; Copyright (C) 2012-2017 Sylvain Benner & Contributors
+;; Copyright (C) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Eugene "JAremko" Yaremenko <w3techplayground@gmail.com>
 ;; Keywords: centering buffer minor-mode

@@ -1,6 +1,6 @@
 ;;; packages.el --- nlinum Layer packages File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Thomas de Beauchêne <thomas.de.beauchene@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
