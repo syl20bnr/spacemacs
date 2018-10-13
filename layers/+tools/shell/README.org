@@ -10,6 +10,7 @@
   - [[#default-shell][Default shell]]
   - [[#default-shell-position-width-and-height][Default shell position, width, and height]]
   - [[#set-shell-for-term-and-ansi-term][Set shell for term and ansi-term]]
+  - [[#set-shell-for-multi-term][Set shell for multi-term]]
   - [[#width-of-the-shell-popup-buffers][Width of the shell popup buffers]]
   - [[#enable-em-smart-in-eshell][Enable em-smart in Eshell]]
   - [[#protect-your-eshell-prompt][Protect your Eshell prompt]]
@@ -42,6 +43,7 @@ You can find a quick introductions to them [[https://www.masteringemacs.org/arti
 
 To define the default shell you can set the layer variable =shell-default-shell=
 to the following variables:
+
 - =eshell=
 - =shell=
 - =term=
@@ -83,6 +85,15 @@ Default value is =/bin/bash=.
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
     '((shell :variables shell-default-term-shell "/bin/bash")))
+#+END_SRC
+
+** Set shell for multi-term
+The default shell can be set by setting the variable =multi-term-program=.
+Default value is =/bin/bash=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((shell :variables multi-term-program "/bin/bash")))
 #+END_SRC
 
 ** Width of the shell popup buffers
