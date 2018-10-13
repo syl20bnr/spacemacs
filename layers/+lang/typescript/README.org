@@ -143,9 +143,9 @@ You have to install the following dependencies with npm.
 | ~SPC m g t~ | jump to entity’s type definition                             |
 | ~SPC m g u~ | references                                                   |
 | ~SPC m h h~ | documentation at point                                       |
-| ~SPC m r i~ | organize imports
+| ~SPC m r i~ | organize imports                                             |
 | ~SPC m r r~ | rename symbol                                                |
-| ~SPC m r f~ | rename file                                            |
+| ~SPC m r f~ | rename file                                                  |
 | ~SPC m s p~ | send selected region or current buffer to the web playground |
 | ~SPC m s r~ | restart server                                               |
 
