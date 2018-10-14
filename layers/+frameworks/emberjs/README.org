@@ -1,9 +1,8 @@
 #+TITLE: emberjs layer
 
-#+CAPTION: logo
 [[file:img/ember.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -32,29 +31,30 @@ Additionally, temporary backup, autosave, and lockfiles interfere with broccoli 
 Add the following to your =dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
-(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-(setq create-lockfiles nil)
+  (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+  (setq create-lockfiles nil)
 #+END_SRC
 
 ** Features:
-  - Ability to easily switch between various files
-  - Key bindings for generators and also easily revert generator actions
-  - Ability to build, start server, and run tests
+- Ability to easily switch between various files
+- Key bindings for generators and also easily revert generator actions
+- Ability to build, start server, and run tests
 
 * Install
 To use this contribution add it to your =~/.spacemacs=
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(emberjs))
-#+end_src
+#+END_SRC
 
 * Completion System
-    By default this will use =ido=,
-    but it may be configured to use helm by adding the following in your =dotspacemacs/user-config= function:
- #+BEGIN_SRC emacs-lisp
+By default this will use =ido=,
+but it may be configured to use helm by adding the following in your =dotspacemacs/user-config= function:
+
+#+BEGIN_SRC emacs-lisp
   (setq ember-completion-system 'helm)
- #+END_SRC
+#+END_SRC
 
 * Key bindings
 ** File key bindings

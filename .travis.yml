@@ -16,14 +16,24 @@ env:
   - BOT_NAME=emacspace
   - BOT_EMAIL=emacspace@gmail.com
 before_script:
-- docker pull jare/spacedoc:latest
+- docker pull jare/spacetools:latest
 script: ".travisci/test.sh"
 before_deploy:
-  - ".travisci/pub_prep.sh"
+  - >
+    if ! [ "$BEFORE_DEPLOY_RUN" ]; then
+      export BEFORE_DEPLOY_RUN=1;
+      .travisci/pub_prep.sh
+    fi
 deploy:
-  skip_cleanup: true
-  provider: script
-  script: ".travisci/pub.sh"
-  on:
-    all_branches: true
-    condition: $TRAVIS_REPO_SLUG = "syl20bnr/spacemacs"
+  - provider: script
+    skip_cleanup: true
+    script: ".travisci/pub_org_fmt.sh"
+    on:
+      all_branches: true
+      condition: $TRAVIS_REPO_SLUG = "syl20bnr/spacemacs"
+  - provider: script
+    skip_cleanup: true
+    script: ".travisci/pub_html.sh"
+    on:
+      all_branches: true
+      condition: $TRAVIS_REPO_SLUG = "syl20bnr/spacemacs"

@@ -2,7 +2,7 @@
 
 [[file:img/elixir.png]] with [[file:img/alchemist.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -27,7 +27,7 @@
   - [[#formatting][Formatting]]
 
 * Description
-This layer adds support for [[http://elixir-lang.org/][Elixir]] .
+This layer adds support for [[http://elixir-lang.org/][Elixir]].
 
 [[https://github.com/tonini/alchemist.el][Alchemist]] brings the Elixir tooling to Emacs and comes with a bunch of features.
 
@@ -60,21 +60,21 @@ You need to install [[https://github.com/rrrene/credo][credo]] into your project
 to dependencies of your project (in file =mix.exs=):
 
 #+BEGIN_SRC elixir
-{:credo, "~> 0.5", only: [:dev, :test]}
+  {:credo, "~> 0.5", only: [:dev, :test]}
 #+END_SRC
 
 Then run in your shell:
 
 #+BEGIN_SRC shell
-$ mix deps.get
+  $ mix deps.get
 #+END_SRC
 
 For more info about mix [[http://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html][see]].
 
-You can tell flycheck-credo to call credo with the '--strict' argument.
+You can tell flycheck-credo to call credo with the ’--strict’ argument.
 
 #+BEGIN_SRC elisp
-(setq flycheck-elixir-credo-strict t)
+  (setq flycheck-elixir-credo-strict t)
 #+END_SRC
 
 *** Dogma
@@ -82,13 +82,13 @@ In order to lint your code, you also need to install [[https://github.com/lpil/d
 For this, add the following snippet to the dependencies in your =mix.exs= file:
 
 #+BEGIN_SRC elixir
-{:dogma, "~> 0.1", only: [:dev]}
+  {:dogma, "~> 0.1", only: [:dev]}
 #+END_SRC
 
 Then run in your shell:
 
 #+BEGIN_SRC shell
-$ mix deps.get
+  $ mix deps.get
 #+END_SRC
 
 *** mix compile
@@ -111,15 +111,15 @@ value of t. The result is a new file =.dir-locals.el= with the following
 contents:
 
 #+BEGIN_SRC elisp
-;;; Directory Local Variables
-;;; For more information see (info "(emacs) Directory Variables")
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
 
-((elixir-mode
-  (elixir-enable-compilation-checking . t)))
+  ((elixir-mode
+    (elixir-enable-compilation-checking . t)))
 #+END_SRC
 
 Spacemacs marks the variable =elixir-enable-compilation-checking= as safe so
-Emacs won't ask you if the variable is safe whenever an elixir file is opened.
+Emacs won’t ask you if the variable is safe whenever an elixir file is opened.
 
 Remember that you can verify the flycheck checkers status with ~SPC e v~.
 
@@ -222,7 +222,7 @@ You find and overview of all the key-bindings on the [[https://github.com/tonini
 | ~SPC m g j~ | Choose which symbol definition to jump to          |
 
 ** Hex (packages)
-Hex is the package manager for Elixir & Erlang ecosystem. See https://hex.pm .
+Hex is the package manager for Elixir & Erlang ecosystem. See [[https://hex.pm]].
 
 | Key Binding | Description                                              |
 |-------------+----------------------------------------------------------|

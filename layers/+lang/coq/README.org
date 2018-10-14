@@ -2,7 +2,7 @@
 
 [[file:img/coq.png]]
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -49,8 +49,8 @@ font, or disable the feature by adding the following snippet to the your
 =dotspacemacs/user-config=.
 
 #+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'company-coq
-  (add-to-list 'company-coq-disabled-features 'prettify-symbols))
+  (with-eval-after-load 'company-coq
+    (add-to-list 'company-coq-disabled-features 'prettify-symbols))
 #+END_SRC
 
 * Key bindings
@@ -80,7 +80,7 @@ font, or disable the feature by adding the following snippet to the your
 | ~SPC m h E~ | Browse all available documentation for errors               |
 
 ** Prover queries
-The mnemonic for =a= is "ask".
+The mnemonic for =a= is “ask”.
 
 | Key Binding   | Description                                 |
 |---------------+---------------------------------------------|
@@ -90,7 +90,7 @@ The mnemonic for =a= is "ask".
 | ~SPC m a B~   | About (showing all)                         |
 | ~SPC m a c~   | Check                                       |
 | ~SPC m a C~   | Check (showing all)                         |
-| ~SPC m a f~   | Search (mnemonic: "find theorems")          |
+| ~SPC m a f~   | Search (mnemonic: “find theorems”)          |
 | ~SPC m a i b~ | About (showing implicits)                   |
 | ~SPC m a i c~ | Check (showing implicits)                   |
 | ~SPC m a i i~ | Print (showing implicits)                   |

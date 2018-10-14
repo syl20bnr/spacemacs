@@ -2,7 +2,7 @@
 
 [[file:img/xkcd.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -14,10 +14,10 @@
 This layer adds a [[http://xkcd.com/][xkcd]] navigation mode using [[https://github.com/vibhavp/emacs-xkcd][emacs-xkcd]].
 
 ** Features:
-  - Load a random xkcd
-  - Show the text in the modeline
-  - Open explanation and current comic in browser
-  - Cache the comics in =.cache/xkcd=
+- Load a random xkcd
+- Show the text in the modeline
+- Open explanation and current comic in browser
+- Cache the comics in =.cache/xkcd=
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

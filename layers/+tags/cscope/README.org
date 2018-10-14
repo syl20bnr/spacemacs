@@ -2,7 +2,7 @@
 
 [[file:img/cscope.jpg]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -34,24 +34,24 @@ package manager, or download it from the [[http://cscope.sourceforge.net/#downlo
 From package manager (for example, Ubuntu):
 
 #+BEGIN_SRC sh
-sudo apt-get install cscope
+  sudo apt-get install cscope
 #+END_SRC
 
 From source:
 
 #+BEGIN_SRC sh
-tar xvf cscope-15.8b
-cd cscope-15.8b
-./configure
-make
-sudo make install
+  tar xvf cscope-15.8b
+  cd cscope-15.8b
+  ./configure
+  make
+  sudo make install
 #+END_SRC
 
 ** PyCscope
 Enable =python= layer in your =~/.spacemacs= file. Install PyCscope through pip:
 
 #+BEGIN_SRC sh
-pip install pycscope
+  pip install pycscope
 #+END_SRC
 
 * Usage

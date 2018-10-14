@@ -2,7 +2,7 @@
 
 [[file:img/flycheck.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -34,8 +34,8 @@ You can disable them by setting the variable =syntax-checking-enable-tooltips=
 to =nil=:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((syntax-checking :variables syntax-checking-enable-tooltips nil)))
+  (setq-default dotspacemacs-configuration-layers
+    '((syntax-checking :variables syntax-checking-enable-tooltips nil)))
 #+END_SRC
 
 ** Disabling by default
@@ -44,8 +44,8 @@ By default, syntax-checking is enabled in all available major modes (except for
 by setting the variable =syntax-checking-enable-by-default= to =nil=:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((syntax-checking :variables syntax-checking-enable-by-default nil)))
+  (setq-default dotspacemacs-configuration-layers
+    '((syntax-checking :variables syntax-checking-enable-by-default nil)))
 #+END_SRC
 
 If you want more fine-grained control, you can configure the variable
@@ -57,8 +57,8 @@ If the original flycheck fringe bitmaps are more to your liking, you can set the
 variable =syntax-checking-use-original-bitmaps= to =t=:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((syntax-checking :variables syntax-checking-use-original-bitmaps t)))
+  (setq-default dotspacemacs-configuration-layers
+    '((syntax-checking :variables syntax-checking-use-original-bitmaps t)))
 #+END_SRC
 
 * Key Bindings

@@ -2,7 +2,7 @@
 
 [[file:img/idris.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -35,11 +35,11 @@ file.
 Idris can be installed using =Haskell's cabal=:
 
 #+BEGIN_SRC sh
-cabal install idris
+  cabal install idris
 #+END_SRC
 
 Binaries are also available for some platforms at
-https://www.idris-lang.org/download/
+[[https://www.idris-lang.org/download/]]
 
 * Key bindings
 ** Shorthands
@@ -106,7 +106,7 @@ are reproduced under the local leader.
 |-------------+----------------------------------------------------------------------------|
 | ~SPC m b c~ | Build the package.                                                         |
 | ~SPC m b C~ | Clean the package, removing =.ibc= files                                   |
-| ~SPC m b i~ | Install the package to the user's repository, building first if necessary. |
+| ~SPC m b i~ | Install the package to the user’s repository, building first if necessary. |
 | ~SPC m b p~ | Open package file.                                                         |
 
 When inside a package file, you can insert a field with ~SPC m f~.

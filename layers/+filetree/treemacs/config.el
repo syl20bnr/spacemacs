@@ -29,3 +29,6 @@ There are 2 possible values:
 1) simple, which highlights only files based on their git status, and is
    slightly faster
 2) extended, which highlights both files and directories, but requires python")
+
+(defvar treemacs-lock-width nil
+  "When non-nil the treemacs window will not be manually resizable by default.")

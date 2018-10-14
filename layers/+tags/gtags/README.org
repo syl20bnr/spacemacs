@@ -1,6 +1,6 @@
 #+TITLE: Helm Gtags layer
 
-* Table of Contents                                          :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -58,14 +58,14 @@ OS distributions are out of date, and you will probably be missing support for
 recommend installing from source.
 
 *** Install on Ubuntu
-#+begin_src sh
+#+BEGIN_SRC sh
   sudo apt-get install global
-#+end_src
+#+END_SRC
 
 *** Install on OSX using Homebrew
-#+begin_src sh options
+#+BEGIN_SRC sh
   brew install global --with-pygments --with-ctags
-#+end_src
+#+END_SRC
 
 *** Install on *nix from source
 **** Install recommended dependencies
@@ -98,37 +98,37 @@ Download the latest tar.gz archive, then run these commands:
 To be able to use =pygments= and =ctags=, you need to copy the sample
 =gtags.conf= either to =/etc/gtags.conf= or =$HOME/.globalrc=. For example:
 
-#+begin_src sh
+#+BEGIN_SRC sh
   cp gtags.conf ~/.globalrc
-#+end_src
+#+END_SRC
 
 Additionally you should define GTAGSLABEL in your shell startup file e.g.
 with sh/ksh:
 
-#+begin_src sh
+#+BEGIN_SRC sh
   echo export GTAGSLABEL=pygments >> .profile
-#+end_src
+#+END_SRC
 
 With fish:
 
-#+begin_src sh
+#+BEGIN_SRC sh
   echo export set -x GTAGSLABEL pygments >> ${HOME}/.config/fish/config.fish
-#+end_src
+#+END_SRC
 
 *** Conflict between =ctags= and emacs's =etags= binary
 If you installed =emacs= from source after =ctags=, your original =ctags= binary
-is probably replaced by emacs's =etags=. To get around this you will need to
+is probably replaced by emacs’s =etags=. To get around this you will need to
 configure =emacs= as following before installing:
 
-#+begin_src sh
+#+BEGIN_SRC sh
   ./configure --program-transform-name='s/^ctags$/ctags.emacs/'
-#+end_src
+#+END_SRC
 
 To check if you have the correct version of =ctags= execute:
 
-#+begin_src sh
+#+BEGIN_SRC sh
   ctags --version | grep Exuberant
-#+end_src
+#+END_SRC
 
 If there is no output you have the wrong =ctags= executable and you need to
 reinstall =ctags= from your package manager.
@@ -137,13 +137,13 @@ reinstall =ctags= from your package manager.
 To use this configuration layer, add it to your =~/.spacemacs= file. You
 will need to add =gtags= to the existing =dotspacemacs-configuration-layers=.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq dotspacemacs-configuration-layers
         '( ;; ...
           gtags
            ;; ...
           ))
-#+end_src
+#+END_SRC
 
 *** Disabling by default
 If =ggtags-mode= is too intrusive you can disable it by default, by setting the
@@ -160,12 +160,10 @@ additional control on a per project basis.
 * Usage
 Before using =gtags=, remember to create a GTAGS database by one of the following
 methods:
-
 - From within Emacs, run either =counsel-gtags-create-tags= or
   =helm-gtags-create-tags=, which are bound to ~SPC m g c~. If the language is
   not directly supported by GNU Global, you can choose =ctags= or =pygments= as
   a backend to generate the database.
-
 - From inside a terminal:
 
 #+BEGIN_SRC sh
@@ -182,7 +180,6 @@ methods:
 *** Built-in languages
 If you do not have =ctags= or =pygments= enabled gtags will only produce
 tags for the following languages:
-
 - asm
 - c/c++
 - java
@@ -193,7 +190,6 @@ tags for the following languages:
 If you have enabled =exuberant ctags= and use that as the backend
 (i.e. =GTAGSLABEL=ctags= or =--gtagslabel=ctags=) the following additional languages
 are supported:
-
 - c#
 - erlang
 - javascript
@@ -211,7 +207,6 @@ are supported:
 If you have installed [[https://github.com/universal-ctags/ctags][universal ctags]] and use that as the backend
 (i.e. GTAGSLABEL=ctags or --gtagslabel=ctags) the following additional
 languages are supported:
-
 - clojure
 - d
 - go
@@ -221,12 +216,11 @@ languages are supported:
 In order to look up symbol references for any language not in the built in
 parser you must use the pygments backend. When this backend is used global
 actually uses both ctags and pygments to find the definitions and uses of
-functions and variables as well as "other symbols".
+functions and variables as well as “other symbols”.
 
 If you enabled pygments (the best choice) and use that as the backend
 (i.e. =GTAGSLABEL=pygments= or =--gtagslabel=pygments=) the following additional
 languages will be supported:
-
 - elixir
 - fsharp
 - haskell
@@ -241,7 +235,6 @@ This layer also integrates =ggtags= for its Eldoc feature. That means, when
 writing code, you can look at the minibuffer (at the bottom) and see variable
 and function definitions of the symbol under point. However, this feature is
 only activated for languages which are not:
-
 - C
 - C++
 - Common Lisp

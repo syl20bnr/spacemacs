@@ -2,7 +2,7 @@
 
 [[file:img/racket.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -28,10 +28,10 @@ Adds support for the [[http://racket-lang.org/][Racket]] programming language.
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =racket= to the existing =dotspacemacs-configuration-layers= list in this
 file. You will also need DrRacket installed. Alternatively, one can use the
-"Minimal Racket" installation, and then run the following command.
+“Minimal Racket” installation, and then run the following command.
 
 #+BEGIN_SRC Bash
-raco pkg install drracket
+  raco pkg install drracket
 #+END_SRC
 
 * Structuraly safe editing
@@ -45,13 +45,13 @@ To turn it on automatically for all =racket= buffers call the following
 function in your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-racket-mode)
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-racket-mode)
 #+END_SRC
 
 or to enable it for all supported modes:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 #+END_SRC
 
 When enabled the symbol =🆂= should be displayed in the mode-line.

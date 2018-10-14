@@ -99,10 +99,22 @@ This file containes the change log for the next major version of Spacemacs.
 - Added a number of =lsp-ui= configuration variables to the layer - see [[file:./layers/+tools/lsp/README.org][LSP layer README]] for details.
 **** Org
 - Add package =org-journal= (Nick Anderson)
-- Move clock related key bindings to ~SPC a o k~
-- Add key bindings ~SPC a o k i~ to clock in last and ~SPC a o k j~
-  to jump to current clock (thanks to darkfeline)
+- Move clock related key bindings to ~SPC a o C~
+- Add key bindings:
+  - From user darkfeline:
+    - ~SPC a o C I~ to clock in last
+    - ~SPC a o C j~ to jump to current clock
+  - From user siddharthist:
+    - ~SPC a o C c~ to cancel the last clock
+    - ~SPC m p~ to change priority
+    - ~SPC m C I~ to clock in last
+    - ~SPC m C d~ to display clocks
+    - ~SPC m C g~ for org-clock-goto
+    - ~SPC m C j~ to jump to current clock
+    - ~SPC m C R~ to insert a clock report
 - Make =org-projectile= integration compatible with the newest version.
+- Add package =helm-org-rifle=, with keybinding ~SPC a o r~ to rifle through
+  files.
 **** Scala
 - Move =ensime= to the =java= layer (Tor Hedin Bronner)
 **** Syntax-checking

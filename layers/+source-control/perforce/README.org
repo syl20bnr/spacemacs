@@ -2,7 +2,7 @@
 
 [[file:img/p4.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -19,9 +19,9 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =perforce= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-You'll have to install the =p4= command line tool from the [[https://www.perforce.com/downloads/helix][download page]].
+You’ll have to install the =p4= command line tool from the [[https://www.perforce.com/downloads/helix][download page]].
 
-Don't forget to setup the environment variables:
+Don’t forget to setup the environment variables:
 - =P4_PORT=
 - =P4_CLIENT=
 - =P4_USER=
@@ -36,7 +36,7 @@ Don't forget to setup the environment variables:
 | ~SPC p 4 D~ | p4-describe                                                  |
 | ~SPC p 4 e~ | checkout a file                                              |
 | ~SPC p 4 r~ | revert a file                                                |
-| ~SPC p 4 R~ | refresh content of an file. 'sync -f'                        |
+| ~SPC p 4 R~ | refresh content of an file. =sync -f=                        |
 | ~SPC p 4 S~ | submit CL                                                    |
 | ~SPC p 4 b~ | create, modify, or delete a branch view specification        |
 | ~SPC p 4 B~ | display list of branch specifications                        |

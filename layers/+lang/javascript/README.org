@@ -2,7 +2,7 @@
 
 [[file:img/javascript.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -65,7 +65,7 @@ See [[file:../../+tools/prettier/README.org][prettier layer]] documentation.
 To choose a default backend set the layer variable =javascript-backend=:
 
 #+BEGIN_SRC elisp
-(javascript :variables javascript-backend 'tern)
+  (javascript :variables javascript-backend 'tern)
 #+END_SRC
 
 Backend can be chosen on a per project basis using directory local variables
@@ -73,17 +73,17 @@ Backend can be chosen on a per project basis using directory local variables
 =lsp= backend:
 
 #+BEGIN_SRC elisp
-;;; Directory Local Variables
-;;; For more information see (info "(emacs) Directory Variables")
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
 
-((js2-mode (javascript-backend . lsp)))
+  ((js2-mode (javascript-backend . lsp)))
 #+END_SRC
 
 ** Choosing a formatter
 To choose a formatter, set the layer variable =javascript-fmt-tool=:
 
 #+BEGIN_SRC elisp
-(javascript :variables javascript-fmt-tool 'web-beautify)
+  (javascript :variables javascript-fmt-tool 'web-beautify)
 #+END_SRC
 
 Formatter can be chosen on a per project basis using directory local variables
@@ -91,10 +91,10 @@ Formatter can be chosen on a per project basis using directory local variables
 =prettier= formatter:
 
 #+BEGIN_SRC elisp
-;;; Directory Local Variables
-;;; For more information see (info "(emacs) Directory Variables")
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
 
-((js2-mode (javascript-fmt-tool . prettier)))
+  ((js2-mode (javascript-fmt-tool . prettier)))
 #+END_SRC
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
@@ -106,9 +106,9 @@ See [[file:../../+tools/tern/README.org][tern layer]] documentation.
 ** Language Server Protocol
 You just have to install javascript and typescript language server packages:
 
-#+begin_src sh
-npm i -g typescript javascript-typescript-langserver
-#+end_src
+#+BEGIN_SRC sh
+  npm i -g typescript javascript-typescript-langserver
+#+END_SRC
 
 * Configuration
 ** Indentation
@@ -143,7 +143,7 @@ To use the available JS repl, you need a running httpd server and a page loaded
 with skewer. If a blank page serves your needs, just use the run-skewer command
 in your javascript buffer. If you want to inject it in your own page, follow
 [[https://github.com/skeeto/skewer-mode#skewering-with-cors][these instructions]] (install the Greasemonkey script and then click the triangle
-in the top-right corner - if it turns green, you're good to go).
+in the top-right corner - if it turns green, you’re good to go).
 
 ** Node Modules
 If you would like =node_modules/.bin= to be automatically added to the buffer
@@ -152,8 +152,8 @@ local =exec_path=, e.g. to support project local eslint installations, set the
 doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472][introduces a security risk]]:
 
 #+BEGIN_SRC elisp
-(setq-default dotspacemacs-configuration-layers
-  '((javascript :variables node-add-modules-path t)))
+  (setq-default dotspacemacs-configuration-layers
+    '((javascript :variables node-add-modules-path t)))
 #+END_SRC
 
 * Key Bindings

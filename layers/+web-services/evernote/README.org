@@ -2,7 +2,7 @@
 
 [[file:img/evernote.png]] with [[file:img/geeknote.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -34,7 +34,7 @@ official =geeknote= [[http://www.geeknote.me/documentation/][documentation]].
 
 ** Geeknote.el
 [[https://github.com/avendael/emacs-geeknote][geeknote.el]] is a wrapper for some of the most used =geeknote= commands.
-By default, =geeknote.el= doesn't have any key bindings defined.
+By default, =geeknote.el= doesn’t have any key bindings defined.
 This layer provides key bindings for all of =geeknote.el's= exposed features.
 =geeknote.el= relies on having a correctly setup =geeknote= editor.
 To set this up, run the following command in your terminal after successfully

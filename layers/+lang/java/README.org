@@ -2,7 +2,7 @@
 
 [[file:img/java.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#layer-installation][Layer Installation]]
@@ -25,7 +25,7 @@
     - [[#usage-1][Usage]]
     - [[#issues][Issues]]
   - [[#lsp-java][LSP Java]]
-    - [[#instalation][Instalation]]
+    - [[#installation-2][Installation]]
     - [[#configuration-2][Configuration]]
 - [[#key-bindings][Key bindings]]
   - [[#meghanada-1][Meghanada]]
@@ -89,7 +89,7 @@ file.
 To choose a default backend set the layer variable =java-backend=:
 
 #+BEGIN_SRC elisp
-(java :variables java-backend 'eclim)
+  (java :variables java-backend 'eclim)
 #+END_SRC
 
 Backend can be chosen on a per project basis using directory local variables
@@ -97,10 +97,10 @@ Backend can be chosen on a per project basis using directory local variables
 =eclim= backend:
 
 #+BEGIN_SRC elisp
-;;; Directory Local Variables
-;;; For more information see (info "(emacs) Directory Variables")
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
 
-((java-mode (java-backend . eclim)))
+  ((java-mode (java-backend . eclim)))
 #+END_SRC
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
@@ -160,7 +160,7 @@ command (the example is for MacOS, replace the eclispe.home definition by
 your correct location as well as the current version of eclim):
 
 #+BEGIN_SRC shell
-$ java -Dvim.skip=true -Declipse.home=/Applications/Eclipse.app/Contents/Eclipse -jar eclim_2.6.0.jar install
+  $ java -Dvim.skip=true -Declipse.home=/Applications/Eclipse.app/Contents/Eclipse -jar eclim_2.6.0.jar install
 #+END_SRC
 
 *** Configuration
@@ -168,24 +168,24 @@ You may need to set the Eclipse and Eclim paths in your dotfile as layer
 variables or in the =dotspacemacs/user-config=, for instance on MacOS as layer
 variables:
 
- #+BEGIN_SRC elisp
-(java :variables java-backend 'eclim
-                 eclim-eclipse-dirs '("/Applications/Eclipse.app/Contents/Eclipse/")
-                 eclim-executable "/Applications/Eclipse.app/Contents/Eclipse/eclim")
- #+END_SRC
+#+BEGIN_SRC elisp
+  (java :variables java-backend 'eclim
+                   eclim-eclipse-dirs '("/Applications/Eclipse.app/Contents/Eclipse/")
+                   eclim-executable "/Applications/Eclipse.app/Contents/Eclipse/eclim")
+#+END_SRC
 
 You can also configure useful other options like the default location for the
 Eclim workspace (default value is =~/workspace=), as shown below:
 
- #+BEGIN_SRC elisp
-   (setq
-    ;; Specify the workspace to use by default
-    eclimd-default-workspace "/path/to/default/eclipse/workspace"
-    ;; whether autostarting eclimd or not (default nil)
-    eclimd-autostart t
-    ;; Whether or not to block emacs until eclimd is ready (default nil)
-    eclimd-wait-for-process t)
- #+END_SRC
+#+BEGIN_SRC elisp
+  (setq
+   ;; Specify the workspace to use by default
+   eclimd-default-workspace "/path/to/default/eclipse/workspace"
+   ;; whether autostarting eclimd or not (default nil)
+   eclimd-autostart t
+   ;; Whether or not to block emacs until eclimd is ready (default nil)
+   eclimd-wait-for-process t)
+#+END_SRC
 
 *** Usage
 Start the eclim daemon with ~SPC m D s~ and stop it with ~SPC m D k~. (See
@@ -220,7 +220,7 @@ Follow [[https://ensime.github.io/build_tools/sbt/][the ENSIME configuration ins
 the development version of Ensime so follow the appropriate steps.
 
 To use the build functions under ~SPC m b~ you need to use version =0.13.5= or
-newer of =sbt=, and specify that in your project's =project/build.properties=.
+newer of =sbt=, and specify that in your project’s =project/build.properties=.
 For example,
 
 #+BEGIN_SRC scala
@@ -234,13 +234,13 @@ will suffice do the trick.
 
 *** Issues
 ENSIME is originally built for Scala, so support for java is not complete, in
-particular refactoring doesn't work.
+particular refactoring doesn’t work.
 
 ** LSP Java
 LSP Java is the Java adapter for [[https://github.com/emacs-lsp/lsp-mode][LSP Mode]] which is the Emacs client for [[https://github.com/Microsoft/language-server-protocol][Language
 Server Protocol]].
 
-*** Instalation
+*** Installation
 Download either [[http://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz][latest]] or [[http://download.eclipse.org/jdtls/snapshots/?d][a specific version]] of Eclipse JDT Language Server
 distribution to =~/.emacs.d/eclipse.jdt.ls/server/=
 
@@ -264,178 +264,178 @@ if project is not imported JDT server will provide only basic java support due
 to lack of classpath information.
 
 #+BEGIN_SRC emacs-lisp
-(java :variables java-backend 'lsp
-                 lsp-java--workspace-folders '(list "/path/to/project1"
-                                                    "/path/to/project2"
-                                                    ...))
+  (java :variables java-backend 'lsp
+                   lsp-java--workspace-folders '(list "/path/to/project1"
+                                                      "/path/to/project2"
+                                                      ...))
 #+END_SRC
 
 * Key bindings
 ** Meghanada
 *** Server
 
- | Key Binding | Description                                  |
- |-------------+----------------------------------------------|
- | ~SPC m D c~ | Connect to server                            |
- | ~SPC m D d~ | Disconnect from server                       |
- | ~SPC m D i~ | Install server (should be done automatically |
- | ~SPC m D k~ | Kill server                                  |
- | ~SPC m D l~ | Clear server cache                           |
- | ~SPC m D p~ | Ping server                                  |
- | ~SPC m D r~ | Restart server                               |
- | ~SPC m D s~ | Start server                                 |
- | ~SPC m D u~ | Update server                                |
- | ~SPC m D v~ | Print version of the server                  |
+| Key Binding | Description                                  |
+|-------------+----------------------------------------------|
+| ~SPC m D c~ | Connect to server                            |
+| ~SPC m D d~ | Disconnect from server                       |
+| ~SPC m D i~ | Install server (should be done automatically |
+| ~SPC m D k~ | Kill server                                  |
+| ~SPC m D l~ | Clear server cache                           |
+| ~SPC m D p~ | Ping server                                  |
+| ~SPC m D r~ | Restart server                               |
+| ~SPC m D s~ | Start server                                 |
+| ~SPC m D u~ | Update server                                |
+| ~SPC m D v~ | Print version of the server                  |
 
 *** Navigation
 
- | Key Binding | Description                    |
- |-------------+--------------------------------|
- | ~SPC m g b~ | Jump back to previous location |
- | ~SPC m g g~ | Jump to declaration            |
+| Key Binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC m g b~ | Jump back to previous location |
+| ~SPC m g g~ | Jump to declaration            |
 
 *** Compilation
 
- | Key Binding | Description           |
- |-------------+-----------------------|
- | ~SPC m c b~ | Compile file (buffer) |
- | ~SPC m c c~ | Compile project       |
+| Key Binding | Description           |
+|-------------+-----------------------|
+| ~SPC m c b~ | Compile file (buffer) |
+| ~SPC m c c~ | Compile project       |
 
 *** Tests (junit)
 
- | Key Binding | Description                 |
- |-------------+-----------------------------|
- | ~SPC m t a~ | Run all tests               |
- | ~SPC m t c~ | Run test class around point |
- | ~SPC m t l~ | Run last tests              |
- | ~SPC m t t~ | Run test cause around point |
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m t a~ | Run all tests               |
+| ~SPC m t c~ | Run test class around point |
+| ~SPC m t l~ | Run last tests              |
+| ~SPC m t t~ | Run test cause around point |
 
 *** Refactoring
 
- | Key Binding | Description                            |
- |-------------+----------------------------------------|
- | ~SPC m =~   | Beautify code                          |
- | ~SPC m r i~ | Optimize imports                       |
- | ~SPC m r I~ | Import all                             |
- | ~SPC m r n~ | Create a new class, interface, or enum |
+| Key Binding | Description                            |
+|-------------+----------------------------------------|
+| ~SPC m =~   | Beautify code                          |
+| ~SPC m r i~ | Optimize imports                       |
+| ~SPC m r I~ | Import all                             |
+| ~SPC m r n~ | Create a new class, interface, or enum |
 
 *** Tasks
 
- | Key Binding | Description |
- |-------------+-------------|
- | ~SPC m x :~ | Run task    |
+| Key Binding | Description |
+|-------------+-------------|
+| ~SPC m x :~ | Run task    |
 
 ** Eclim
 *** Java-mode
 **** Ant
 
- | Key Binding | Description     |
- |-------------+-----------------|
- | ~SPC m a a~ | Run Ant         |
- | ~SPC m a c~ | Clear Ant cache |
- | ~SPC m a r~ | Run Ant         |
- | ~SPC m a v~ | Validate        |
+| Key Binding | Description     |
+|-------------+-----------------|
+| ~SPC m a a~ | Run Ant         |
+| ~SPC m a c~ | Clear Ant cache |
+| ~SPC m a r~ | Run Ant         |
+| ~SPC m a v~ | Validate        |
 
 **** Project management
 
- | Key Binding | Description                    |
- |-------------+--------------------------------|
- | ~SPC m p b~ | Build project                  |
- | ~SPC m p c~ | Create project                 |
- | ~SPC m p d~ | Delete project                 |
- | ~SPC m p g~ | Open file in current project   |
- | ~SPC m p i~ | Import project                 |
- | ~SPC m p j~ | Information about project      |
- | ~SPC m p k~ | Close project                  |
- | ~SPC m p o~ | Open project                   |
- | ~SPC m p p~ | Open project management buffer |
- | ~SPC m p r~ | Run project                    |
- | ~SPC m p u~ | Update project                 |
+| Key Binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC m p b~ | Build project                  |
+| ~SPC m p c~ | Create project                 |
+| ~SPC m p d~ | Delete project                 |
+| ~SPC m p g~ | Open file in current project   |
+| ~SPC m p i~ | Import project                 |
+| ~SPC m p j~ | Information about project      |
+| ~SPC m p k~ | Close project                  |
+| ~SPC m p o~ | Open project                   |
+| ~SPC m p p~ | Open project management buffer |
+| ~SPC m p r~ | Run project                    |
+| ~SPC m p u~ | Update project                 |
 
 **** Eclim daemon
 
- | Key Binding | Description  |
- |-------------+--------------|
- | ~SPC m D k~ | Kill daemon  |
- | ~SPC m D s~ | Start daemon |
+| Key Binding | Description  |
+|-------------+--------------|
+| ~SPC m D k~ | Kill daemon  |
+| ~SPC m D s~ | Start daemon |
 
 **** Goto
 
- | Key Binding | Description                                 |
- |-------------+---------------------------------------------|
- | ~M-​,​~       | jump back from go to declaration/definition |
- | ~SPC m g g~ | go to declaration                           |
- | ~SPC m g t~ | go to type definition                       |
+| Key Binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~M-​,​~       | jump back from go to declaration/definition |
+| ~SPC m g g~ | go to declaration                           |
+| ~SPC m g t~ | go to type definition                       |
 
 **** Refactoring
 
- | Key Binding | Description                            |
- |-------------+----------------------------------------|
- | ~SPC m r c~ | create a constructor                   |
- | ~SPC m r f~ | format file                            |
- | ~SPC m r g~ | generate getter and setter             |
- | ~SPC m r i~ | optimize imports                       |
- | ~SPC m r j~ | implement or override a method         |
- | ~SPC m r n~ | create a new class, enum, or interface |
- | ~SPC m r r~ | rename symbol                          |
+| Key Binding | Description                            |
+|-------------+----------------------------------------|
+| ~SPC m r c~ | create a constructor                   |
+| ~SPC m r f~ | format file                            |
+| ~SPC m r g~ | generate getter and setter             |
+| ~SPC m r i~ | optimize imports                       |
+| ~SPC m r j~ | implement or override a method         |
+| ~SPC m r n~ | create a new class, enum, or interface |
+| ~SPC m r r~ | rename symbol                          |
 
 **** Documentation, Find
 
- | Key Binding | Description                            |
- |-------------+----------------------------------------|
- | ~SPC m f f~ | general find in project                |
- | ~SPC m h c~ | call hierarchy                         |
- | ~SPC m h h~ | show documentation for symbol at point |
- | ~SPC m h i~ | view hierarchy                         |
- | ~SPC m h u~ | show usages for symbol at point        |
+| Key Binding | Description                            |
+|-------------+----------------------------------------|
+| ~SPC m f f~ | general find in project                |
+| ~SPC m h c~ | call hierarchy                         |
+| ~SPC m h h~ | show documentation for symbol at point |
+| ~SPC m h i~ | view hierarchy                         |
+| ~SPC m h u~ | show usages for symbol at point        |
 
 **** Errors (problems)
 
- | Key Binding | Description                |
- |-------------+----------------------------|
- | ~SPC e e~   | Force an error check       |
- | ~SPC e l~   | List errors                |
- | ~SPC e n~   | Next error                 |
- | ~SPC e p~   | Previous error             |
- | ~SPC m e e~ | Correct error around point |
+| Key Binding | Description                |
+|-------------+----------------------------|
+| ~SPC e e~   | Force an error check       |
+| ~SPC e l~   | List errors                |
+| ~SPC e n~   | Next error                 |
+| ~SPC e p~   | Previous error             |
+| ~SPC m e e~ | Correct error around point |
 
 **** Tests
 
- | Key Binding | Description                                                   |
- |-------------+---------------------------------------------------------------|
- | ~SPC m t t~ | run JUnit tests for current method or current file or project |
+| Key Binding | Description                                                   |
+|-------------+---------------------------------------------------------------|
+| ~SPC m t t~ | run JUnit tests for current method or current file or project |
 
 *** Errors (problems) buffer
 
- | Key Binding | Description                         |
- |-------------+-------------------------------------|
- | ~RET~       | go to problem place                 |
- | ~a~         | show all problems                   |
- | ~e~         | show only errors                    |
- | ~f~         | show problems only for current file |
- | ~g~         | refresh problems                    |
- | ~q~         | quit                                |
- | ~w~         | show only warnings                  |
+| Key Binding | Description                         |
+|-------------+-------------------------------------|
+| ~RET~       | go to problem place                 |
+| ~a~         | show all problems                   |
+| ~e~         | show only errors                    |
+| ~f~         | show problems only for current file |
+| ~g~         | refresh problems                    |
+| ~q~         | quit                                |
+| ~w~         | show only warnings                  |
 
 *** Projects buffer
 
- | Key Binding | Description                                |
- |-------------+--------------------------------------------|
- | ~RET~       | go to current project                      |
- | ~c~         | go to problem place                        |
- | ~D~         | delete project                             |
- | ~g~         | refresh buffer                             |
- | ~i~         | info about current project                 |
- | ~I~         | import existing project into the workspace |
- | ~m~         | mark current project                       |
- | ~M~         | mark all projects                          |
- | ~N~         | create new project                         |
- | ~o~         | open project                               |
- | ~p~         | update project                             |
- | ~q~         | quit                                       |
- | ~R~         | rename current project                     |
- | ~u~         | unmark current project                     |
- | ~U~         | unmark all projects                        |
+| Key Binding | Description                                |
+|-------------+--------------------------------------------|
+| ~RET~       | go to current project                      |
+| ~c~         | go to problem place                        |
+| ~D~         | delete project                             |
+| ~g~         | refresh buffer                             |
+| ~i~         | info about current project                 |
+| ~I~         | import existing project into the workspace |
+| ~m~         | mark current project                       |
+| ~M~         | mark all projects                          |
+| ~N~         | create new project                         |
+| ~o~         | open project                               |
+| ~p~         | update project                             |
+| ~q~         | quit                                       |
+| ~R~         | rename current project                     |
+| ~u~         | unmark current project                     |
+| ~U~         | unmark all projects                        |
 
 ** Ensime key bindings
 *** Search

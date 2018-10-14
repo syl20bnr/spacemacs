@@ -2,13 +2,14 @@
 
 [[file:img/clojure.png]] [[file:img/cider.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#pretty-symbols][Pretty Symbols]]
-  - [[#cider-and-clj-refactor][CIDER and clj-refactor]]
+  - [[#enabling-sayid-or-clj-refactor][Enabling sayid or clj-refactor]]
+  - [[#starting-clojure-manually-outside-of-emacs][Starting Clojure manually (outside of Emacs)]]
     - [[#quick-start-with-boot][Quick Start with boot]]
     - [[#quick-start-with-lein][Quick Start with lein]]
     - [[#more-details][More details]]
@@ -48,7 +49,7 @@ This layer adds support for [[https://clojure.org/][Clojure]] language using [[h
 - Code formatting via [[https://github.com/clojure-emacs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]]
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
 - Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
-- Debugging with [[https://bpiel.github.io/sayid/][sayid]]
+- Debugging with [[https://github.com/clojure-emacs/sayid][sayid]]
 - Clojure cheatsheet
 - Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
@@ -76,50 +77,102 @@ Or set this variable when loading the configuration layer:
   '((clojure :variables clojure-enable-fancify-symbols t)))
 #+END_SRC
 
-** CIDER and clj-refactor
-Note that recent versions of CIDER automatically inject the required
-dependencies into your boot or leiningen configuration when you connect to the
-REPL. Thus, the configuration instructions below only apply to CIDER 0.10 and
-older. Most users should be able to just run ~SPC m s i~ to connect to the CIDER
-REPL and skip the rest of this section.
+** Enabling sayid or clj-refactor
+The packages sayid (Clojure debugger) and clj-refactor (automatic refactorings)
+are disabled by default. To enable them, add a `:variables` option when enabling
+the `clojure` layer, specifying `clojure-enable-sayid`, or
+`clojure-enable-clj-refactor`, or both.
+
+In your Spacemacs configuration:
+
+#+BEGIN_SRC emacs-lisp
+  ;; before
+  dotspacemacs-configuration-layers
+  '(...
+    clojure
+    )
+
+  ;; after
+  dotspacemacs-configuration-layers
+  '(...
+    (clojure :variables
+             clojure-enable-sayid t
+             clojure-enable-clj-refactor t)
+    )
+#+END_SRC
+
+Enabling either of these packages will cause extra nREPL middleware to be
+injected when jacking in CIDER.
+
+** Starting Clojure manually (outside of Emacs)
+CIDER communicates with your Clojure process through nREPL, and for CIDER to
+function correctly extra nREPL middleware needs to be present
+(cider/cider-nrepl). The same is true for clj-refactor (refactor-nrepl), and for
+sayid (com.billpiel/sayid).
+
+When starting the Clojure process through cider (`cider-jack-in` and friends)
+this will be handled automatically, and so most users should be able to just run
+~SPC m s i~ to connect to the CIDER REPL and skip the rest of this section.
+
+If you are running an older version of CIDER (0.10 or older), or if you are
+starting the Clojure process yourself outside of Emacs, then you need to make
+sure the necessary dependencies are present, and the necessary nREPL middlewares
+are enabled.
 
 *** Quick Start with boot
-- Install =boot= (see https://github.com/boot-clj/boot#user-content-install)
+- Install =boot= (see [[https://github.com/boot-clj/boot#user-content-install]])
 - Create a file =~/.boot/profile.boot= with the following content:
 
-#+BEGIN_SRC clojure
-(require 'boot.repl)
+  #+BEGIN_SRC clojure
+    (require 'boot.repl)
 
-(swap! boot.repl/*default-dependencies* conj
-       '[refactor-nrepl "1.2.0-SNAPSHOT"]
-       '[cider/cider-nrepl "0.10.0-SNAPSHOT"])
+    (swap! boot.repl/*default-dependencies* conj
+           ;; When running an older version of CIDER (pre 0.18), use the
+           ;; version that best matches M-x cider-version. For versions since
+           ;; 0.18.0 use whatever version is the most recent.
+           '[cider/cider-nrepl "0.19.0-SNAPSHOT"]
 
-(swap! boot.repl/*default-middleware* conj
-       'refactor-nrepl.middleware/wrap-refactor)
-#+END_SRC
+           ;; Only necessary when using clj-refactor
+           '[refactor-nrepl "2.4.0"]
 
-- Run ~SPC m s i~ in any of the clojure source files to connect to the CIDER
-  REPL. Note that a build.boot file must be present in your working directory
-  for Cider to recognize the presence of boot.
+           ;; Only necessary when using sayid
+           '[com.billpiel/sayid "0.0.17"])
+
+    (swap! boot.repl/*default-middleware* conj
+           'cider.nrepl/cider-middleware
+           'refactor-nrepl.middleware/wrap-refactor
+           'com.billpiel.sayid.nrepl-middleware/wrap-sayid)
+  #+END_SRC
 
 *** Quick Start with lein
-- Install =lein= version 2.5.2 or newer (see https://leiningen.org/#install)
+- Install =lein= version 2.5.2 or newer (see [[https://leiningen.org/#install]])
 - Create a file =~/.lein/profiles.clj= with the following content:
 
-#+BEGIN_SRC clojure
-  {:repl {:plugins [[cider/cider-nrepl "0.10.0-SNAPSHOT"]
-                    [refactor-nrepl "2.0.0-SNAPSHOT"]]
-          :dependencies [[alembic "0.3.2"]
-                         [org.clojure/tools.nrepl "0.2.12"]]}}
-#+END_SRC
+  #+BEGIN_SRC clojure
+    {:repl
+     {:plugins [;; When running an older version of CIDER (pre 0.18), use the
+                ;; version that best matches M-x cider-version. For versions since
+                ;; 0.18.0 use whatever version is the most recent.
+                [cider/cider-nrepl "0.19.0-SNAPSHOT"]
 
-- After creating your project with ~lein new app <projectname>~ or
-  importing an existing project, run ~SPC m s i~ in any of the clojure
-  source files to connect to the CIDER REPL.
+                ;; Only necessary when using clj-refactor
+                [refactor-nrepl "2.4.0"]
+
+                ;; Only necessary when using sayid
+                [com.billpiel/sayid "0.0.17"]]
+
+      :dependencies [[nrepl "0.4.5"]]
+
+      :repl-options
+      {:nrepl-middleware [cider.nrepl/cider-middleware
+                          refactor-nrepl.middleware/wrap-refactor ;; clj-refactor
+                          com.billpiel.sayid.nrepl-middleware/wrap-sayid ;; sayid
+                          ]}}}
+  #+END_SRC
 
 *** More details
 More info regarding installation of nREPL middleware can be found here:
-- CIDER: [[https://github.com/clojure-emacs/cider#installation][cider_install]]
+- CIDER: [[https://cider.readthedocs.io/en/latest/installation/][CIDER installation (official docs)]]
 - clj-refactor: [[https://github.com/clojure-emacs/refactor-nrepl][refactor-nrepl]]
 
 * Usage
@@ -142,13 +195,13 @@ To turn it on automatically for all =clojure= buffers call the following
 function in your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-clojure-mode)
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-clojure-mode)
 #+END_SRC
 
 or to enable it for all supported modes:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 #+END_SRC
 
 When enabled the symbol =🆂= should be displayed in the mode-line.
@@ -156,7 +209,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 * Key Bindings
 ** Working with clojure files (barfage, slurpage & more)
 Spacemacs comes with a special =lisp-state= for working with lisp code that
-supports slurpage, barfage and more tools you'll likely want when working with
+supports slurpage, barfage and more tools you’ll likely want when working with
 lisp.
 
 As this state works the same for all files, the documentation is in global
@@ -261,7 +314,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m d r~   | reload namespaces                                  |
 | ~SPC m d s~   | show what is currently traced                      |
 | ~SPC m d S~   | show what is currently traced in current namespace |
-| ~SPC m d t b~ | trace current file's namespace                     |
+| ~SPC m d t b~ | trace current file’s namespace                     |
 | ~SPC m d t d~ | disable existing trace on current function         |
 | ~SPC m d t D~ | disable existing trace on all functions            |
 | ~SPC m d t e~ | enable existing trace on current function          |
@@ -455,6 +508,6 @@ In general, ~q~ should always quit the popped up buffer.
 * Development Notes
 ** Indentation
 With a [[https://github.com/clojure-emacs/cider/blob/master/doc/indent_spec.md][new]] functionality of Cider to read the custom indentation rules from the
-var's metadata, it is better for consistency reasons to not add the custom
+var’s metadata, it is better for consistency reasons to not add the custom
 indentation rules to Spacemacs, but to add them to the metadata of those
 specific vars.

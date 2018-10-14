@@ -1,8 +1,8 @@
 #+TITLE: Chinese layer
 
-[[file:img/China.png]]  [[file:img/Chinese.png]]
+[[file:img/China.png]] [[file:img/Chinese.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -45,10 +45,10 @@ file.
 The default Chinese input method is =Chinese-pyim=, if you are a Wubi(五笔) user,
 you could set the variable =chinese-default-input-method= to =wubi=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (chinese :variables chinese-default-input-method 'wubi)))
-#+end_src
+#+END_SRC
 
 *** Configure the =Chinese-pyim= Input Method(配置中文拼音输入法)
 The first time you use =Chinese-pyim=, you need to install the lexicon(词库)
@@ -97,7 +97,7 @@ with the following configuration.
 You need to install =fcitx= and =fcitx-remote= on your machine.
 
 ***** Mac OS X
-We don't have a =fcitx= in OS X yet but we already added an emulation called
+We don’t have a =fcitx= in OS X yet but we already added an emulation called
 =fcitx-remote= to make you happy with other Chinese input-methods.
 
 You can install [[https://github.com/CodeFalling/fcitx-remote-for-osx][fcitx-remote-for-osx]] from homebrew.
@@ -112,8 +112,8 @@ You can use =brew info fcitx-remote-for-osx= to get more options info for input
 method support.
 
 #+BEGIN_EXAMPLE
---with-input-method=
-  Select input method: baidu-pinyin(default), baidu-wubi, sogou-pinyin, qq-wubi, squirrel-rime, osx-pinyin
+  --with-input-method=
+    Select input method: baidu-pinyin(default), baidu-wubi, sogou-pinyin, qq-wubi, squirrel-rime, osx-pinyin
 #+END_EXAMPLE
 
 ***** Windows
@@ -130,16 +130,16 @@ You should set =chinese-enable-youdao-dict= to =t=.
 
 *** Set monospaced font size(设置等宽字体）
 If you are mixing Chinese script with Latin script, the text is not perfectly
-aligned in org table. That's because normally the Chinese font size is not equal
+aligned in org table. That’s because normally the Chinese font size is not equal
 to the Latin font size. You could call =spacemacs//set-monospaced-font= with
 your own Chinese font name in =dotspacemacs/user-config= function.
 
 Example configuration:
 
 #+BEGIN_SRC emacs-lisp
-;; Note: The Hiragino Sans GB is bundled with MacOS X.
-;; If you are not using MacOS X, you should change it to another Chinese font name.
-(spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16)
+  ;; Note: The Hiragino Sans GB is bundled with MacOS X.
+  ;; If you are not using MacOS X, you should change it to another Chinese font name.
+  (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16)
 #+END_SRC
 
 *** Enable/Disable ace-pinyin in =avy-goto-char=
@@ -159,7 +159,7 @@ Here are a few suggested key bindings (remember that ~SPC o~ is reserved for
 personal usage, spacemacs won´t put any binding under this prefix):
 
 ** Youdao Dictionary
-Bind ~SPC o y~  to =youdao-dictionary-search-at-point+=.
+Bind ~SPC o y~ to =youdao-dictionary-search-at-point+=.
 
 ** Find-by-pinyin-dired
 Bind ~SPC o d~ to =find-by-pinyin-dired=

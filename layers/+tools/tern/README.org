@@ -2,7 +2,7 @@
 
 [[file:img/tern.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -37,7 +37,7 @@ details]]. The variable can be set by adding the =tern= layer with this
 configuration layer:
 
 #+BEGIN_SRC emacs-lisp
-(tern :variables tern-command '("node" "/path/to/tern/bin/tern"))
+  (tern :variables tern-command '("node" "/path/to/tern/bin/tern"))
 #+END_SRC
 
 Note: =tern-command= must be a list of strings.

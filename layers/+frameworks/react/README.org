@@ -2,7 +2,7 @@
 
 [[file:img/react.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -96,7 +96,7 @@ behaviour.
 For example to have a consistent 2 spaces indenting both on =js= and =jsx= you
 may use these settings:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq-default
    ;; js2-mode
    js2-basic-offset 2
@@ -106,17 +106,17 @@ may use these settings:
    web-mode-css-indent-offset 2
    web-mode-code-indent-offset 2
    web-mode-attr-indent-offset 2)
-#+end_src
+#+END_SRC
 
-And if you want to have 2 space indent also for element's attributes,
+And if you want to have 2 space indent also for element’s attributes,
 concatenations and contiguous function calls:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'web-mode
     (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
     (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
-#+end_src
+#+END_SRC
 
 * Key Bindings
 ** rjsx-mode

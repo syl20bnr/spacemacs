@@ -1,6 +1,6 @@
 #+TITLE: LSP layer
 
-* Table of Contents                      :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#configuration][Configuration]]
@@ -15,114 +15,113 @@
 - [[#references][References]]
 
 * Description
-  This layer adds support for basic language server protocol packages speaking
-  [[https://microsoft.github.io/language-server-protocol/specification][language server protocol]].
+This layer adds support for basic language server protocol packages speaking
+[[https://microsoft.github.io/language-server-protocol/specification][language server protocol]].
 
-  Different language servers may support the language server protocol to varying degrees
-  and they may also provide extensions; check the language server's website for
-  details.
-  =M-x lsp-capabilities= in a LSP buffer to list capabilities of the server.
+Different language servers may support the language server protocol to varying degrees
+and they may also provide extensions; check the language server’s website for
+details.
+=M-x lsp-capabilities= in a LSP buffer to list capabilities of the server.
 
 ** Features:
-   - Cross references (definitions, references, document symbol, workspace symbol
-     search and others)
-   - Workspace-wide symbol rename
-   - Symbol highlighting
-   - Flycheck
-   - Completion with =company-lsp=
-   - Signature help with eldoc
-   - Symbol documentation in a child frame (=lsp-ui-doc=)
-   - Navigation using imenu
+- Cross references (definitions, references, document symbol, workspace symbol
+  search and others)
+- Workspace-wide symbol rename
+- Symbol highlighting
+- Flycheck
+- Completion with =company-lsp=
+- Signature help with eldoc
+- Symbol documentation in a child frame (=lsp-ui-doc=)
+- Navigation using imenu
 
 * Configuration
-  The LSP ecosystem is based on two packages: [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] and [[https://github.com/emacs-lsp/lsp-ui][lsp-ui]].
-  Please check out their documentation.
+The LSP ecosystem is based on two packages: [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] and [[https://github.com/emacs-lsp/lsp-ui][lsp-ui]].
+Please check out their documentation.
 
-  If you add =lsp-*-enable= to major mode hooks for auto initialization of
-  language clients, customize =lsp-project-whitelist= =lsp-project-blacklist= to
-  disable projects you don't want to enable LSP.
+If you add =lsp-*-enable= to major mode hooks for auto initialization of
+language clients, customize =lsp-project-whitelist= =lsp-project-blacklist= to
+disable projects you don’t want to enable LSP.
 
 ** Derived layers
-   A number of elisp functions have been added to facilitate development of derived layers.
+A number of elisp functions have been added to facilitate development of derived layers.
 
 *** =spacemacs/lsp-bind-keys-for-mode mode=
-    This function binds keys to a number of lsp features useful for all/most modes for the given major mode.
-    It also declares some relevant keyboard shortcut prefixes.
+This function binds keys to a number of lsp features useful for all/most modes for the given major mode.
+It also declares some relevant keyboard shortcut prefixes.
 
 **** Declared prefixes
-    The following prefixes have been declared:
+The following prefixes have been declared:
 
-    | prefix | name           | functional area                                                            |
-    |--------+----------------+----------------------------------------------------------------------------|
-    | ~m =~  | format         | Source formatting                                                          |
-    | ~m g~  | goto           | Source navigation                                                          |
-    | ~m h~  | help/hierarchy | Help and functions related to hierarchy (class relationships etc.)         |
-    | ~m l~  | lsp/backend    | Catchall. Restart LSP backend, other implementation-specific functionality |
-    | ~m r~  | refactor       | What it says on the tin                                                    |
-    | ~m T~  | toggle         | Toggle LSP backend features (documentation / symbol info overlays etc.)    |
+| prefix | name           | functional area                                                            |
+|--------+----------------+----------------------------------------------------------------------------|
+| ~m =~  | format         | Source formatting                                                          |
+| ~m g~  | goto           | Source navigation                                                          |
+| ~m h~  | help/hierarchy | Help and functions related to hierarchy (class relationships etc.)         |
+| ~m l~  | lsp/backend    | Catchall. Restart LSP backend, other implementation-specific functionality |
+| ~m r~  | refactor       | What it says on the tin                                                    |
+| ~m T~  | toggle         | Toggle LSP backend features (documentation / symbol info overlays etc.)    |
 
 **** Default keybindings
-    The default bindings are listed below. Derived language server layers should extend this list.
+The default bindings are listed below. Derived language server layers should extend this list.
 
-    | binding | function                                        |
-    |---------+-------------------------------------------------|
-    | ~m = b~ | format buffer (lsp)                             |
-    |---------+-------------------------------------------------|
-    | ~m g i~ | goto implementation (lsp)                       |
-    | ~m g t~ | goto type-definition (lsp)                      |
-    | ~m g k~ | goto viewport symbol (avy)                      |
-    | ~m g m~ | browse file symbols (lsp-ui-imenu)              |
-    | ~m g d~ | find definitions (lsp-ui-peek)                  |
-    | ~m g l~ | find implementations (lsp-ui-peek)              |
-    | ~m g r~ | find references (lsp-ui-peek)                   |
-    | ~m g s~ | find-workspace-symbol (lsp-ui-peek)             |
-    | ~m g p~ | jump prev (lsp-ui-peek stack - see Note 1)      |
-    | ~m g n~ | jump next (lsp-ui-peek stack - see Note 1)      |
-    | ~m g f~ | jump to flycheck error                          |
-    |---------+-------------------------------------------------|
-    | ~m h h~ | describe thing at point                         |
-    |---------+-------------------------------------------------|
-    | ~m l r~ | lsp-restart-workspace                           |
-    | ~m l a~ | execute code action                             |
-    |---------+-------------------------------------------------|
-    | ~m r r~ | rename                                          |
-    |---------+-------------------------------------------------|
-    | ~m T d~ | toggle documentation overlay                    |
-    | ~m T F~ | toggle documentation overlay function signature |
-    | ~m T s~ | toggle symbol info overlay                      |
-    | ~m T S~ | toggle symbol info overlay symbol name          |
-    | ~m T I~ | toggle symbol info overlay duplicates           |
+| binding | function                                        |
+|---------+-------------------------------------------------|
+| ~m = b~ | format buffer (lsp)                             |
+|---------+-------------------------------------------------|
+| ~m g i~ | goto implementation (lsp)                       |
+| ~m g t~ | goto type-definition (lsp)                      |
+| ~m g k~ | goto viewport symbol (avy)                      |
+| ~m g m~ | browse file symbols (lsp-ui-imenu)              |
+| ~m g d~ | find definitions (lsp-ui-peek)                  |
+| ~m g l~ | find implementations (lsp-ui-peek)              |
+| ~m g r~ | find references (lsp-ui-peek)                   |
+| ~m g s~ | find-workspace-symbol (lsp-ui-peek)             |
+| ~m g p~ | jump prev (lsp-ui-peek stack - see Note 1)      |
+| ~m g n~ | jump next (lsp-ui-peek stack - see Note 1)      |
+| ~m g f~ | jump to flycheck error                          |
+|---------+-------------------------------------------------|
+| ~m h h~ | describe thing at point                         |
+|---------+-------------------------------------------------|
+| ~m l r~ | lsp-restart-workspace                           |
+| ~m l a~ | execute code action                             |
+|---------+-------------------------------------------------|
+| ~m r r~ | rename                                          |
+|---------+-------------------------------------------------|
+| ~m T d~ | toggle documentation overlay                    |
+| ~m T F~ | toggle documentation overlay function signature |
+| ~m T s~ | toggle symbol info overlay                      |
+| ~m T S~ | toggle symbol info overlay symbol name          |
+| ~m T I~ | toggle symbol info overlay duplicates           |
 
-    Note 1: There is a window local jump list dedicated to cross references
+Note 1: There is a window local jump list dedicated to cross references
 
 ** Variables
-   A number of configuration variables have been exposed via the LSP layer =config.el=.
-   Sensible defaults have been provided, however they may all be overridden in your .spacemacs, or dynamically using the bindings added
-   under the derived mode t prefix by =(spacemacs/lsp-bind-keys-for-mode mode)=
+A number of configuration variables have been exposed via the LSP layer =config.el=.
+Sensible defaults have been provided, however they may all be overridden in your .spacemacs, or dynamically using the bindings added
+under the derived mode t prefix by =(spacemacs/lsp-bind-keys-for-mode mode)=
 
-   | Variable name                   | Default | Description                                                                               |
-   |---------------------------------+---------+-------------------------------------------------------------------------------------------|
-   | =lsp-ui-remap-xref-keybindings= | nil     | When non-nil, xref keybindings remapped to lsp-ui-peek-find-{definition,references}       |
-   | =lsp-ui-doc-enable=             | t       | When non-nil, the documentation overlay is displayed                                      |
-   | =lsp-ui-doc-include-signature=  | nil     | When nil, signature omitted from lsp-ui-doc overlay (this is usually redundant)           |
-   | =lsp-ui-sideline-enable=        | t       | When non-nil, the symbol information overlay is displayed                                 |
-   | =lsp-ui-sideline-show-symbol=   | nil     | When non-nil, the symbol information overlay includes symbol name (redundant for c-modes) |
+| Variable name                   | Default | Description                                                                               |
+|---------------------------------+---------+-------------------------------------------------------------------------------------------|
+| =lsp-ui-remap-xref-keybindings= | nil     | When non-nil, xref keybindings remapped to lsp-ui-peek-find-{definition,references}       |
+| =lsp-ui-doc-enable=             | t       | When non-nil, the documentation overlay is displayed                                      |
+| =lsp-ui-doc-include-signature=  | nil     | When nil, signature omitted from lsp-ui-doc overlay (this is usually redundant)           |
+| =lsp-ui-sideline-enable=        | t       | When non-nil, the symbol information overlay is displayed                                 |
+| =lsp-ui-sideline-show-symbol=   | nil     | When non-nil, the symbol information overlay includes symbol name (redundant for c-modes) |
 
 ** Diagnostics
-   If some features do not work as expected, here is a common check list.
-
-  - =M-x lsp-capabilities= If the LSP workspace is initialized correctly
-  - =M-: xref-backend-functions= should be =(lsp--xref-backend)= for cross
-    references
-  - =M-: completion-at-point-functions= should be =(lsp-completion-at-point)= for
-    completion
+If some features do not work as expected, here is a common check list.
+- =M-x lsp-capabilities= If the LSP workspace is initialized correctly
+- =M-: xref-backend-functions= should be =(lsp--xref-backend)= for cross
+  references
+- =M-: completion-at-point-functions= should be =(lsp-completion-at-point)= for
+  completion
 
 * Future additions/improvements
 ** Make =spacemacs/lsp-bind-keys-for-mode= bind conditionally
-   i.e. only bind keys if the language server supports the capability (queried using =lsp-capabilities=).
-   =lsp-capabilities= uses current buffer to determine the language server, so this would probably entail adding the bindings dynamically in
-   a mode hook.
+i.e. only bind keys if the language server supports the capability (queried using =lsp-capabilities=).
+=lsp-capabilities= uses current buffer to determine the language server, so this would probably entail adding the bindings dynamically in
+a mode hook.
 
 * References
-  - [[https://github.com/emacs-lsp/lsp-mode][lsp-mode repo]]
-  - [[https://github.com/emacs-lsp/lsp-ui][lsp-ui repo]]
+- [[https://github.com/emacs-lsp/lsp-mode][lsp-mode repo]]
+- [[https://github.com/emacs-lsp/lsp-ui][lsp-ui repo]]

@@ -1,6 +1,6 @@
 #+TITLE: Spacemacs experimental features
 
-* Table of contents                                       :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#spacemacs-dumps-using-the-portable-dumper][Spacemacs dumps using the portable dumper]]
   - [[#setup][Setup]]
     - [[#emacs-plus-users][=emacs-plus= users]]
@@ -46,16 +46,23 @@ Clone Emacs from [[https://git.savannah.gnu.org/git/emacs.git]]:
   git checkout pdumper
 #+END_SRC
 
+Note: On windows make sure that autocrlf is disabled in git before cloning or
+else the =autoconf.sh= script will fail later on:
+
+#+BEGIN_SRC shell
+  git config --global core.autocrlf false
+#+END_SRC
+
 *** Simple patch of Emacs source code
 We need to increase the number of =remembered_data= slots in =src/pdumper.c=, we
 double the number of slots by replacing 32 with 64:
 
 #+BEGIN_SRC C
-static struct
-{
-  void *mem;
-  int sz;
-} remembered_data[64];
+  static struct
+  {
+    void *mem;
+    int sz;
+  } remembered_data[64];
 #+END_SRC
 
 *** Compile Emacs from source
@@ -90,8 +97,8 @@ If you have never compiled Emacs from source on your machine then you probably
 need to install the following packages:
 
 #+BEGIN_SRC shell
-   sudo apt-get install build-essential automake texinfo libjpeg-dev libncurses5-dev
-   sudo apt-get install libtiff5-dev libgif-dev libpng-dev libxpm-dev libgtk-3-dev libgnutls28-dev
+  sudo apt-get install build-essential automake texinfo libjpeg-dev libncurses5-dev
+  sudo apt-get install libtiff5-dev libgif-dev libpng-dev libxpm-dev libgtk-3-dev libgnutls28-dev
 #+END_SRC
 
 **** Windows
@@ -110,8 +117,9 @@ Run msys2_shell.bat and in the msys2 prompt run:
   mingw-w64-x86_64-gnutls
 #+END_SRC
 
-Quit the msys2 shell and run mingw64.exe in the msys64 install directory.
-In the mingw prompt run:
+Quit the msys2 shell and run mingw64.exe in the msys64 install directory. In the
+mingw prompt navigate to the emacs source checkout (=cd /c/= will get you to the
+root of the c drive) and run:
 
 #+BEGIN_SRC shell
   ./autogen.sh
@@ -151,50 +159,50 @@ In the mingw shell run:
 #+END_SRC
 
 *** Update your dotfile
-In the function =dotspacemacs/init= add the following variables if you don't
+In the function =dotspacemacs/init= add the following variables if you don’t
 have them already and initialize them:
 
 #+BEGIN_SRC emacs-lisp
-(defun dotspacemacs/init ()
- "Initialization:
-  This function is called at the very beginning of Spacemacs startup,
-  before layer configuration.
-  It should only modify the values of Spacemacs settings."
-    (setq-default
+  (defun dotspacemacs/init ()
+   "Initialization:
+    This function is called at the very beginning of Spacemacs startup,
+    before layer configuration.
+    It should only modify the values of Spacemacs settings."
+      (setq-default
 
-   ;; If non-nil then enable support for the portable dumper. You'll need
-   ;; to compile Emacs 27 from source following the instructions in file
-   ;; EXPERIMENTAL.org at to root of the git repository.
-   ;; (default nil)
-   dotspacemacs-enable-emacs-pdumper t
+     ;; If non-nil then enable support for the portable dumper. You'll need
+     ;; to compile Emacs 27 from source following the instructions in file
+     ;; EXPERIMENTAL.org at to root of the git repository.
+     ;; (default nil)
+     dotspacemacs-enable-emacs-pdumper t
 
-   ;; File path pointing to emacs 27.1 executable compiled with support
-   ;; for the portable dumper (this is currently the branch pdumper).
-   ;; (default "emacs")
-   dotspacemacs-emacs-pdumper-executable-file "/path/to/emacs27"
+     ;; File path pointing to emacs 27.1 executable compiled with support
+     ;; for the portable dumper (this is currently the branch pdumper).
+     ;; (default "emacs")
+     dotspacemacs-emacs-pdumper-executable-file "/path/to/emacs27"
 
-   ;; Name of the Spacemacs dump file. This is the file will be created by the
-   ;; portable dumper in the cache directory under dumps sub-directory.
-   ;; To load it when starting Emacs add the parameter `--dump-file'
-   ;; when invoking Emacs 27.1 executable on the command line, for instance:
-   ;;   ./emacs --dump-file=~/.emacs.d/.cache/dumps/spacemacs.pdmp
-   ;; (default spacemacs.pdmp)
-   dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"))
+     ;; Name of the Spacemacs dump file. This is the file will be created by the
+     ;; portable dumper in the cache directory under dumps sub-directory.
+     ;; To load it when starting Emacs add the parameter `--dump-file'
+     ;; when invoking Emacs 27.1 executable on the command line, for instance:
+     ;;   ./emacs --dump-file=~/.emacs.d/.cache/dumps/spacemacs.pdmp
+     ;; (default spacemacs.pdmp)
+     dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"))
 #+END_SRC
 
 A new user dotfile function has been added which is called before doing the
 dump. The function name is =dotspacemacs/user-load=. You can require additional
-libraries before the dump so they won't need to be lazy loaded.
+libraries before the dump so they won’t need to be lazy loaded.
 
-Add this to your dotfile if you don't have it already.
+Add this to your dotfile if you don’t have it already.
 
 #+BEGIN_SRC emacs-lisp
-(defun dotspacemacs/user-load ()
-  "Library to load while dumping.
-This function is called while dumping Spacemacs configuration. You can
-`require' or `load' the libraries of your choice that will be included
-in the dump."
-  )
+  (defun dotspacemacs/user-load ()
+    "Library to load while dumping.
+  This function is called while dumping Spacemacs configuration. You can
+  `require' or `load' the libraries of your choice that will be included
+  in the dump."
+    )
 #+END_SRC
 
 *Friendly suggestions:* If you have a lot of personal configuration in =user-init= and

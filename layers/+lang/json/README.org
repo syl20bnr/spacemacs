@@ -2,7 +2,7 @@
 
 [[file:img/json.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -43,7 +43,7 @@ See [[file:../../+tools/prettier/README.org][prettier layer]] documentation.
 To choose a formatter, set the layer variable =json-fmt-tool=:
 
 #+BEGIN_SRC elisp
-(json :variables json-fmt-tool 'web-beautify)
+  (json :variables json-fmt-tool 'web-beautify)
 #+END_SRC
 
 Formatter can be chosen on a per project basis using directory local variables
@@ -51,10 +51,10 @@ Formatter can be chosen on a per project basis using directory local variables
 =prettier= formatter:
 
 #+BEGIN_SRC elisp
-;;; Directory Local Variables
-;;; For more information see (info "(emacs) Directory Variables")
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
 
-((json-mode (json-fmt-tool . prettier)))
+  ((json-mode (json-fmt-tool . prettier)))
 #+END_SRC
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
@@ -65,21 +65,20 @@ Formatter can be chosen on a per project basis using directory local variables
 prefix argument to specify a different indentation than =js-indent-level=.
 Use the universal prefix argument to print decoded strings, for instance:
 
-#+BEGIN_EXAMPLE json
-{"name":"foo\"bar","nick":"foo \u00e4 bar","description":"<pre>\nbaz\n</pre>","home":"/home/foobar"}
+#+BEGIN_SRC json
+  {"name":"foo\"bar","nick":"foo \u00e4 bar","description":"<pre>\nbaz\n</pre>","home":"/home/foobar"}
 
-Will be reformatted:
+  Will be reformatted:
 
-{
-  "name": "foo\"bar",
-  "nick": "foo ä bar",
-  "description": "<pre>
-  baz
-  </pre>",
-  "home": "/home/foobar"
-}
-
-#+END_EXAMPLE
+  {
+    "name": "foo\"bar",
+    "nick": "foo ä bar",
+    "description": "<pre>
+    baz
+    </pre>",
+    "home": "/home/foobar"
+  }
+#+END_SRC
 
 ** Display navigable hierarchy
 ~SPC m h h~ displays the hierarchy for the whole JSON document or the active

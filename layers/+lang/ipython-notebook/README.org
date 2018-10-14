@@ -1,6 +1,6 @@
 #+TITLE: IPython Notebook layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#list-of-todos][List of TODOS]]
@@ -37,8 +37,11 @@ lots of informative stuff.
 This is a WIP, feel free to collaborate.
 
 ** TODO Maybe it'd be better if there was a state for this
+
 ** TODO Make more keybinding to =connect= to a python buffer
+
 ** TODO Deleting visual regions don't work, find out why
+
 * Install
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -50,16 +53,16 @@ Install IPython Notebook > 3
 
 Note that IPython Notebook has now been renamed to [[https://jupyter.org/install][Jupyter Notebook]].
 
-#+begin_src sh
+#+BEGIN_SRC sh
   pip install jupyter
-#+end_src
+#+END_SRC
 
 ** What needs to be run
 Have an IPython notebook running
 
-#+begin_src sh
+#+BEGIN_SRC sh
   jupyter notebook
-#+end_src
+#+END_SRC
 
 * Using the IPython notebook
 ** Open Notebook List
@@ -148,11 +151,9 @@ In traceback mode the following key bindings are defined:
 
 * Screenshots
 ** Light
-#+attr_html: :width 400px
 [[file:img/light.png]]
 
 ** Dark
-#+attr_html: :width 400px
 [[file:img/dark.png]]
 
 * Bonus

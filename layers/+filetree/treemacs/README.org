@@ -2,7 +2,7 @@
 
 [[file:img/treemacs.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -10,6 +10,7 @@
   - [[#follow-mode][Follow mode]]
   - [[#file-watch][File watch]]
   - [[#collapsed-directories][Collapsed directories]]
+  - [[#locking-width][Locking width]]
 - [[#key-bindings][Key Bindings]]
   - [[#global][Global]]
   - [[#inside-treemacs][Inside Treemacs]]
@@ -19,9 +20,8 @@ This layer brings in [[https://github.com/Alexander-Miller/treemacs][Treemacs]] 
 explorer:
 
 ** Features:
-An detailed overview over Treemacs' available features is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][its
+An detailed overview over Treemacs’ available features is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][its
 readme]]. In a short summary Treemacs offers the following:
-
 - Simple and powerful navigation and ability to detail exactly how and where a
   file should be opened
 - Good looking png icons.
@@ -29,7 +29,7 @@ readme]]. In a short summary Treemacs offers the following:
 - Ability to show tags contained in files. Tags are provided by imenu, so
   nearly every filetype is supported.
 - Mouse interface for single and double left clicks in line with modern GUI standards.
-  (Clicking on an icon will also display a file's tags)
+  (Clicking on an icon will also display a file’s tags)
 - Locational awareness: commands like ~find-file~ or ~magit-status~ will use the location
   of the node at point (with $HOME as fallback)
 - Optionally fontifying files based on their git status.
@@ -53,7 +53,7 @@ layer variable =treemacs-use-follow-mode= to non-nil.
     (treemacs :variables treemacs-use-follow-mode t)))
 #+END_SRC
 
-Default value is =t=.
+Default is =t=.
 
 ** File watch
 To automatically refresh the Treemacs buffer when there is a change in the
@@ -65,7 +65,7 @@ part of the file system shown by treemacs set the layer variable
     (treemacs :variables treemacs-use-filewatch-mode t)))
 #+END_SRC
 
-Default value is =t=.
+Default is =t=.
 
 ** Collapsed directories
 *This feature requires python to be installed*.
@@ -79,7 +79,19 @@ layer variable =treemacs-use-collapsed-directories= to a positive number.
     (treemacs :variables treemacs-use-collapsed-directories 3)))
 #+END_SRC
 
-Default value is 3 (or 0 when python is not installed).
+Default is 3 (or 0 when python is not installed).
+
+** Locking width
+To have the width of the treemacs window locked by default, meaning not manually
+resizable, set the variable =treemacs-lock-width= to non-nil. It will still be
+resizable through Treemacs commands and keybindings.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (treemacs :variables treemacs-lock-width t)))
+#+END_SRC
+
+Default is =nil=.
 
 * Key Bindings
 ** Global
@@ -88,7 +100,7 @@ Default value is 3 (or 0 when python is not installed).
 |-------------+------------------------------------------------------------------------------------------------------------------------------------------------|
 | ~M-0~       | Selected the treemacs window. Actually selects window #10, which is always assigned to treemacs.                                               |
 | ~SPC 0~     | Open treemacs in the current directory. When not visiting a file use $HOME as fallback. With a prefix arg manually select the root instead.    |
-| ~SPC f B~   | Find and select a bookmark. If it cannot be found rebuild view with the bookmark's location as root. Also open the bookmark with a prefix arg. |
+| ~SPC f B~   | Find and select a bookmark. If it cannot be found rebuild view with the bookmark’s location as root. Also open the bookmark with a prefix arg. |
 | ~SPC f t~   | Hide/show existing treemacs buffer. Create one for the current directory if no buffer exists.                                                  |
 | ~SPC f T~   | Manually focus the treemacs view on the currently selected file. Not needed when =treemacs-follow-mode= is enabled.                            |
 | ~SPC f M-t~ | Manually focus the treemacs view on the currently selected file and tag.                                                                       |

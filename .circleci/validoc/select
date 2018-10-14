@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+## This script selects changed .org files for validation.
+##
+## Copyright (c) 2012-2014 Sylvain Benner
+## Copyright (c) 2014-2018 Sylvain Benner & Contributors
+##
+## Author: Eugene Yaremenko
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "${DIR}/../shared"
+
+if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
+    echo "Skipping documentation validation for branch update."
+    exit 0
+fi
+
+pr_patch_URL="https://patch-diff.githubusercontent.com/raw/"
+pr_patch_URL+="${CIRCLE_PROJECT_USERNAME}/"
+pr_patch_URL+="${CIRCLE_PROJECT_REPONAME}/pull/"
+pr_patch_URL+="${CIRCLE_PR_NUMBER}.patch"
+
+echo "PATCH_URL: \"${pr_patch_URL}\""
+
+curl "${pr_patch_URL}" --output /tmp/patch --silent
+first_commit=$(echo $(head -n 1 /tmp/patch) | sed -n 's/From \([a-zA-Z0-9]\+\).*/\1/p')
+
+if [[ -z "${first_commit// }" ]]; then
+    echo "Can't find first commit"
+    exit 1
+else
+    echo "First commit: ${first_commit}"
+fi
+
+git diff --name-only "${first_commit}^" HEAD > /tmp/changed_files
+if [ $? -ne 0 ]; then
+    echo "Git diff failed"
+    exit 1
+fi
+
+echo_headline "CHANGED DOCUMENTATION FILES:"
+while read p
+do
+    if [ -f "$p" ]; then
+        if [ ${p: -4} == ".org" ]; then
+            echo "${p}"
+        fi
+    fi
+done </tmp/changed_files

@@ -1,6 +1,6 @@
 #+TITLE: Ivy layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -36,12 +36,11 @@ file.
 * Configuration
 ** General
 You can customize ivy with the following variables:
-
 - =ivy-wrap= Whether C-n and C-p should wrap-around when at the first or
   last candidate. The default value is =nil=.
 - =ivy-extra-directories= Setting this to =nil= hides . and .. directories from
   file name completion. You can still go up a directory up by ~DEL~.
-  The default value is ("../", "./").
+  The default value is (“../”, “./”).
 - =ivy-use-virtual-buffers= Add bookmarks and recent files to buffer completion
   menu. The Spacemacs default is t.
 - =ivy-height= The height of the minibuffer. The Spacemacs default is 15.
@@ -67,7 +66,7 @@ is disabled by default.
 
 * Key Bindings
 If you choose =ivy= as completion system, make sure to read the [[http://oremacs.com/swiper/][official manual]].
-In case you don't want to read everything, at least familiarise with
+In case you don’t want to read everything, at least familiarise with
 [[http://oremacs.com/swiper/#minibuffer-key-bindings][minibuffer key bindings]].
 
 Some useful key bindings are presented in the following table.
@@ -75,11 +74,11 @@ Some useful key bindings are presented in the following table.
 | Key Binding | Description                                                                                          |
 |-------------+------------------------------------------------------------------------------------------------------|
 | ~RET~       | call default action on current candidate                                                             |
-| ~M-RET~     | the same as ~RET~ but doesn't close completion minibuffer                                            |
+| ~M-RET~     | the same as ~RET~ but doesn’t close completion minibuffer                                            |
 | ~C-M-j~     | use current input immediately (this can be used to create a new file in Find File)                   |
 | ~tab~       | complete partially                                                                                   |
 | ~M-o~       | show the list of valid actions on current candidate (then press any of described keys to execute it) |
-| ~C-M-o~     | the same as ~M-o~ but doesn't close completion minibuffer                                            |
+| ~C-M-o~     | the same as ~M-o~ but doesn’t close completion minibuffer                                            |
 | ~C-'~       | use avy to quickly select completion on current page (sometimes faster than using arrows)            |
 | ~<ESC>~     | close minibuffer                                                                                     |
 
@@ -91,5 +90,5 @@ Press ~M-SPC~ anytime in Ivy to get into the transient state.
 | ~j~         | select next candidate                                   |
 | ~k~         | select previous candidate                               |
 | ~d~         | call default action on candidate                        |
-| ~g~         | the same as ~d~ but doesn't close completion minibuffer |
+| ~g~         | the same as ~d~ but doesn’t close completion minibuffer |
 | ~o~         | leave transient state                                   |

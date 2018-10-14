@@ -41,6 +41,9 @@
             treemacs-never-persist nil
             treemacs-goto-tag-strategy 'refetch-index
             treemacs-collapse-dirs treemacs-use-collapsed-directories)
+      (unless treemacs-lock-width
+        (add-hook 'treemacs-mode-hook
+                  'spacemacs/treemacs-toggle-locked-width-off))
       (spacemacs/set-leader-keys
         "ft"    'treemacs
         "fB"    'treemacs-bookmark
@@ -64,7 +67,8 @@
         (treemacs-filewatch-mode t))
       (when (memq treemacs-use-git-mode '(simple extended))
         (treemacs-git-mode treemacs-use-git-mode))
-      (add-to-list 'spacemacs-window-split-ignore-prefixes treemacs--buffer-name-prefix))))
+      (add-to-list 'spacemacs-window-split-ignore-prefixes
+                   treemacs--buffer-name-prefix))))
 
 (defun treemacs/init-treemacs-evil ()
   (use-package treemacs-evil

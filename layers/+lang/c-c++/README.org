@@ -2,7 +2,7 @@
 
 [[file:img/ccpp.jpg]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -29,7 +29,7 @@ This layer adds configuration for C/C++ language.
   is included)
 - Display current function cursor is in at the top. See [[https://github.com/tuhdo/semantic-stickyfunc-enhance][stickyfunc-demos]] for
   demos in some programming languages. (when =semantic= layer is included)
-- Support common refactoring with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]] . See [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][srefactor-demos]] for
+- Support common refactoring with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]. See [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][srefactor-demos]] for
   demonstration of refactoring features. (when =semantic= layer is included)
 - Support code navigation via cscope (when =cscope= layer is included) and gtags.
 - Support auto-completion (when =auto-completion= layer is included) via
@@ -90,7 +90,7 @@ to load a projects =.clang_complete= file, which is just a text file with one
 clang flag per line, a format also used by other text editor clang plugins.
 
 Not only does this allow proper autocomplete on projects with extra includes and
-flags, but there is also support for flycheck so that it doesn't complain about
+flags, but there is also support for flycheck so that it doesn’t complain about
 missing header files.
 
 ** RTags configuration
@@ -117,8 +117,8 @@ If you have clang enabled with =clang-format= as described earlier in this page
 you may not have a lot of neeed for =google-set-c-style= if you are already
 using a mode based on Google mode for most of your projects.
 
-However, if you don't have (or want) =clang-format=, or if you have to do a lot
-[[https://www.emacswiki.org/emacs/TrampMode][Tramp]] remote editing on systems that don't have =clang-format= installed, you
+However, if you don’t have (or want) =clang-format=, or if you have to do a lot
+[[https://www.emacswiki.org/emacs/TrampMode][Tramp]] remote editing on systems that don’t have =clang-format= installed, you
 may want =google-c-style= enabled and added to your common hooks.
 
 To get =google-c-style= actually install itself into your C/C++ common hooks,
@@ -162,7 +162,7 @@ after certain characters by setting the =c-c++-enable-auto-newline= variable.
 | ~SPC m D~   | disaster: disassemble c/c++ code                              |
 | ~SPC m r~   | srefactor: refactor thing at point.                           |
 
-*Note:*  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+.
+*Note:* [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]] is only available for Emacs 24.4+.
 
 ** Formatting (clang-format)
 

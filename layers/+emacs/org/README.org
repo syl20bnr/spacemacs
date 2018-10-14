@@ -2,7 +2,7 @@
 
 [[file:img/org.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
   - [[#bibtex][BibTeX]]
@@ -39,6 +39,7 @@
     - [[#org-agenda-transient-state][Org agenda transient state]]
   - [[#pomodoro][Pomodoro]]
   - [[#presentation][Presentation]]
+  - [[#helm-org-rifle][Helm-org-rifle]]
   - [[#org-projectile][Org-projectile]]
   - [[#org-journal][Org-journal]]
   - [[#org-brain][Org-brain]]
@@ -135,17 +136,17 @@ as it described in the [[https://github.com/yjwen/org-reveal#set-the-location-of
 Alternatively, add the following line to each =.org= file you want to process:
 
 #+BEGIN_EXAMPLE
-#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
+  #+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
 #+END_EXAMPLE
 
 ** Org-journal support
 [[https://github.com/bastibe/org-journal][org-journal]] is a simple journal management system that:
-  * Keeps a separate journal file for each day inside a directory
-  * New daily file would always migrate entries with chosen TODO states
-  * Has journal encryption functionality
-  * Easily integrates with org-agenda and Emacs calendar, iCalendar,
-    allows scheduling
-  * Easily integrates with org-capture
+- Keeps a separate journal file for each day inside a directory
+- New daily file would always migrate entries with chosen TODO states
+- Has journal encryption functionality
+- Easily integrates with org-agenda and Emacs calendar, iCalendar,
+  allows scheduling
+- Easily integrates with org-capture
 
 To install org-journal - set the variable =org-enable-org-journal-support= to =t=.
 
@@ -159,34 +160,33 @@ By default, journal files are stored in =~/Documents/journal/=. To override
 this - set =org-journal-dir= variable in the =dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
-    (setq org-journal-dir "~/org/journal/")
+  (setq org-journal-dir "~/org/journal/")
 #+END_SRC
 
 To change the journal file name format - alter =org-journal-file-format=:
 
 #+BEGIN_SRC emacs-lisp
-    (setq org-journal-file-format "%Y-%m-%d")
+  (setq org-journal-file-format "%Y-%m-%d")
 #+END_SRC
 
 *Warning:* setting =org-journal-file-format= to include a file extension like
 =%Y-%m-%d.org= would break the calendar search functionality.
 
 By default, journal files are started with a first level heading (=*=) followed
-by the date in the form set by locale. To format journal files differently
+by the date in the form set by locale. To format journal files differently:
 - alter =org-journal-date-prefix= and =org-journal-date-format=.
+  For example, to have new journal files created with this header:
 
-For example, to have new journal files created with this header:
-
-#+BEGIN_EXAMPLE
-#+TITLE: Tuesday, September 06 2016
-#+END_EXAMPLE
+  #+BEGIN_EXAMPLE
+    #+TITLE: Tuesday, September 06 2016
+  #+END_EXAMPLE
 
 - define the following in =dotspacemacs/user-config=:
 
-#+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp
     (setq org-journal-date-prefix "#+TITLE: ")
     (setq org-journal-date-format "%A, %B %d %Y")
-#+END_SRC
+  #+END_SRC
 
 The default entry is a second level heading (=** =) followed by a timestamp. If
 you start your journal files with a Title as shown above you may want to adjust
@@ -194,8 +194,8 @@ entries to start at the first level heading and you may want to change or omit
 the timestamp.
 
 #+BEGIN_SRC emacs-lisp
-    (setq org-journal-time-prefix "* ")
-    (setq org-journal-time-format "")
+  (setq org-journal-time-prefix "* ")
+  (setq org-journal-time-format "")
 #+END_SRC
 
 Any of the org-journal settings can be configured in =dotspacemacs/user-config=
@@ -203,7 +203,7 @@ or defined alongside the layer itself.
 
 For example:
 
-#+Caption: Configure org-journal with the layer
+#+CAPTION: Configure org-journal with the layer
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
@@ -219,7 +219,7 @@ For example:
 #+END_SRC
 
 ** Hugo support
-To install the Org exporter [[https://ox-hugo.scripter.co][ox-hugo]] that generates [[https://gohugo.io][Hugo]]-compatible Markdown
+To install the Org exporter [[https://ox-hugo.scripter.co][ox-hugo]] that generates [[https://gohugo.io][Hugo]] -compatible Markdown
 /plus/ TOML/YAML front-matter, set the variable =org-enable-hugo-support= to
 =t=.
 
@@ -303,11 +303,13 @@ To permanently enable mode line display of org clock, add this snippet to your
 | ~SPC a o e~   | org store agenda views                                                    |
 | ~SPC a o f i~ | org feed goto inbox                                                       |
 | ~SPC a o f u~ | org feed update all                                                       |
-| ~SPC a o k g~ | org goto last clocked-in clock (go to specific recent clock with ~SPC u~) |
-| ~SPC a o k i~ | org clock in last                                                         |
-| ~SPC a o k j~ | org jump to current clock                                                 |
-| ~SPC a o k o~ | org clock out                                                             |
-| ~SPC a o k r~ | org resolve clocks                                                        |
+| ~SPC a o C c~ | org cancel clock                                                          |
+| ~SPC a o C g~ | org goto last clocked-in clock (go to specific recent clock with ~SPC u~) |
+| ~SPC a o C i~ | org clock in                                                              |
+| ~SPC a o C I~ | org clock in last                                                         |
+| ~SPC a o C j~ | org jump to current clock                                                 |
+| ~SPC a o C o~ | org clock out                                                             |
+| ~SPC a o C r~ | org resolve clocks                                                        |
 | ~SPC a o l~   | org store link                                                            |
 | ~SPC a o m~   | org tags view                                                             |
 | ~SPC a o o~   | org agenda                                                                |
@@ -330,39 +332,44 @@ To permanently enable mode line display of org clock, add this snippet to your
 
 ** Org-mode
 
-| Key Binding                                  | Description                                  |
-|----------------------------------------------+----------------------------------------------|
-| ~SPC m <dotspacemacs-major-mode-leader-key>~ | org-ctrl-c-ctrl-c                            |
-| ~SPC m *~                                    | org-ctrl-c-star                              |
-| ~SPC m RET~                                  | org-ctrl-c-ret                               |
-| ~SPC m -~                                    | org-ctrl-c-minus                             |
-| ~SPC m '​~                                    | org-edit-special                             |
-| ~SPC m a~                                    | org-agenda                                   |
-| ~SPC m A~                                    | org-attach                                   |
-| ~SPC m c~                                    | org-capture                                  |
-| ~SPC m C c~                                  | org-clock-cancel                             |
-| ~SPC m C g~                                  | evil-org-recompute-clocks                    |
-| ~SPC m C i~                                  | org-clock-in                                 |
-| ~SPC m C o~                                  | org-clock-out                                |
-| ~SPC m C r~                                  | org-resolve-clocks                           |
-| ~SPC m d d~                                  | org-deadline                                 |
-| ~SPC m d s~                                  | org-schedule                                 |
-| ~SPC m d t~                                  | org-time-stamp                               |
-| ~SPC m d T~                                  | org-time-stamp-inactive                      |
-| ~SPC m e e~                                  | org-export-dispatch                          |
-| ~SPC m e m~                                  | send current buffer as HTML email message    |
-| ~SPC m f i~                                  | org-feed-goto-inbox                          |
-| ~SPC m f u~                                  | org-feed-update-all                          |
-| ~SPC m l~                                    | org-open-at-point                            |
-| ~SPC m L~                                    | org-shiftright                               |
-| ~SPC m H~                                    | org-shiftleft                                |
-| ~SPC m K~                                    | org-shiftup                                  |
-| ~SPC m J~                                    | org-shiftdown                                |
-| ~SPC m C-S-l~                                | org-shiftcontrolright                        |
-| ~SPC m C-S-h~                                | org-shiftcontrolleft                         |
-| ~SPC m C-S-j~                                | org-shiftcontroldown                         |
-| ~SPC m C-S-k~                                | org-shiftcontrolup                           |
-| ~SPC s j~                                    | spacemacs/jump-in-buffer (jump to a heading) |
+| Key Binding                                  | Description                                   |
+|----------------------------------------------+-----------------------------------------------|
+| ~SPC m <dotspacemacs-major-mode-leader-key>~ | org-ctrl-c-ctrl-c                             |
+| ~SPC m *~                                    | org-ctrl-c-star                               |
+| ~SPC m RET~                                  | org-ctrl-c-ret                                |
+| ~SPC m -~                                    | org-ctrl-c-minus                              |
+| ~SPC m '​~                                    | org-edit-special                              |
+| ~SPC m a~                                    | org-agenda                                    |
+| ~SPC m A~                                    | org-attach                                    |
+| ~SPC m c~                                    | org-capture                                   |
+| ~SPC m C c~                                  | org-clock-cancel                              |
+| ~SPC m C d~                                  | Temporarily show clock times for current file |
+| ~SPC m C e~                                  | org-evaluate-time-range                       |
+| ~SPC m C g~                                  | org-clock-goto                                |
+| ~SPC m C i~                                  | org-clock-in                                  |
+| ~SPC m C I~                                  | org-clock-in-last                             |
+| ~SPC m C j~                                  | Jump to the current clock                     |
+| ~SPC m C o~                                  | org-clock-out                                 |
+| ~SPC m C R~                                  | Insert clock report                           |
+| ~SPC m C r~                                  | org-resolve-clocks                            |
+| ~SPC m d d~                                  | org-deadline                                  |
+| ~SPC m d s~                                  | org-schedule                                  |
+| ~SPC m d t~                                  | org-time-stamp                                |
+| ~SPC m d T~                                  | org-time-stamp-inactive                       |
+| ~SPC m e e~                                  | org-export-dispatch                           |
+| ~SPC m e m~                                  | send current buffer as HTML email message     |
+| ~SPC m f i~                                  | org-feed-goto-inbox                           |
+| ~SPC m f u~                                  | org-feed-update-all                           |
+| ~SPC m l~                                    | org-open-at-point                             |
+| ~SPC m L~                                    | org-shiftright                                |
+| ~SPC m H~                                    | org-shiftleft                                 |
+| ~SPC m K~                                    | org-shiftup                                   |
+| ~SPC m J~                                    | org-shiftdown                                 |
+| ~SPC m C-S-l~                                | org-shiftcontrolright                         |
+| ~SPC m C-S-h~                                | org-shiftcontrolleft                          |
+| ~SPC m C-S-j~                                | org-shiftcontroldown                          |
+| ~SPC m C-S-k~                                | org-shiftcontrolup                            |
+| ~SPC s j~                                    | spacemacs/jump-in-buffer (jump to a heading)  |
 
 ** Org with evil-org-mode
 Please see the [[https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org][evil-org documentation]] for additional instructions on customizing
@@ -670,6 +677,12 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 | ~h~         | previous slide |
 | ~l~         | next slide     |
 | ~q~         | quit           |
+
+** Helm-org-rifle
+
+| Key Binding | Description                                |
+|-------------+--------------------------------------------|
+| ~SPC a o r~ | Search org files for keywords and headings |
 
 ** Org-projectile
 

@@ -2,7 +2,7 @@
 
 [[file:img/TypeScript.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -38,26 +38,26 @@ add =typescript= to the existing =dotspacemacs-configuration-layers= list in thi
 file.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(typescript))
+  (setq-default dotspacemacs-configuration-layers '(typescript))
 #+END_SRC
 
 If you need formatting on save:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-  (typescript :variables
-              typescript-fmt-on-save t)))
+  (setq-default dotspacemacs-configuration-layers '(
+    (typescript :variables
+                typescript-fmt-on-save t)))
 #+END_SRC
 
 You can choose formatting tool:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-  (typescript :variables
-              typescript-fmt-tool 'typescript-formatter)))
+  (setq-default dotspacemacs-configuration-layers '(
+    (typescript :variables
+                typescript-fmt-tool 'typescript-formatter)))
 #+END_SRC
 
-Default is 'tide .
+Default is ='tide=.
 
 ** Pre-requisites
 You will need =node.js v0.12.0= or greater.
@@ -65,13 +65,13 @@ You will need =node.js v0.12.0= or greater.
 If you want linting run:
 
 #+BEGIN_SRC shell
-npm install -g typescript tslint
+  npm install -g typescript tslint
 #+END_SRC
 
 If you want to use typescript-formatter for formatting run:
 
 #+BEGIN_SRC shell
-npm install -g typescript-formatter
+  npm install -g typescript-formatter
 #+END_SRC
 
 For best results, make sure that the =auto-completion= (company) and =html=
@@ -81,8 +81,8 @@ layers are enabled.
 To choose a default backend set the layer variable =typescript-backend=:
 
 #+BEGIN_SRC elisp
-(setq-default dotspacemacs-configuration-layers '(
-  (typescript :variables typescript-backend 'tide)))
+  (setq-default dotspacemacs-configuration-layers '(
+    (typescript :variables typescript-backend 'tide)))
 #+END_SRC
 
 Backend can be chosen on a per project basis using directory local variables
@@ -90,10 +90,10 @@ Backend can be chosen on a per project basis using directory local variables
 =lsp= backend:
 
 #+BEGIN_SRC elisp
-;;; Directory Local Variables
-;;; For more information see (info "(emacs) Directory Variables")
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
 
-((typescript-mode (typescript-backend . lsp)))
+  ((typescript-mode (typescript-backend . lsp)))
 #+END_SRC
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
@@ -107,9 +107,9 @@ server intalled by =npm= instead. To do so set the variable
 For example:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-  (typescript :variables
-              tide-tsserver-executable "/usr/local/bin/tsserver")))
+  (setq-default dotspacemacs-configuration-layers '(
+    (typescript :variables
+                tide-tsserver-executable "/usr/local/bin/tsserver")))
 #+END_SRC
 
 *** Notes
@@ -120,14 +120,14 @@ error. Try node version 0.12.x if you get this error.
 
 Send to playground requires browser.
 
-Currently tsserver doesn't pickup tsconfig.json file changes. You might need to
+Currently tsserver doesn’t pickup tsconfig.json file changes. You might need to
 restart server after editing it.
 
 ** Language Server Protocol
 You have to install the following dependencies with npm.
 
 #+BEGIN_SRC shell
-npm i -g typescript typescript-language-server
+  npm i -g typescript typescript-language-server
 #+END_SRC
 
 * Key bindings
@@ -139,11 +139,13 @@ npm i -g typescript typescript-language-server
 | ~SPC m E d~ | add =tslitn-disable-next-line= at point                      |
 | ~SPC m E e~ | fix thing at point                                           |
 | ~SPC m g b~ | jump back                                                    |
-| ~SPC m g g~ | jump to entity's definition                                  |
-| ~SPC m g t~ | jump to entity's type definition                             |
+| ~SPC m g g~ | jump to entity’s definition                                  |
+| ~SPC m g t~ | jump to entity’s type definition                             |
 | ~SPC m g u~ | references                                                   |
 | ~SPC m h h~ | documentation at point                                       |
+| ~SPC m r i~ | organize imports                                             |
 | ~SPC m r r~ | rename symbol                                                |
+| ~SPC m r f~ | rename file                                                  |
 | ~SPC m s p~ | send selected region or current buffer to the web playground |
 | ~SPC m s r~ | restart server                                               |
 

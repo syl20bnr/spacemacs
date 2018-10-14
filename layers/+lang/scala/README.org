@@ -2,7 +2,7 @@
 
 [[file:img/scala.png]] with [[file:img/ensime.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#layer-installation][Layer Installation]]
@@ -60,18 +60,17 @@ Installation instructions and usage can be found in the =Java= layer
 provided by Flycheck.
 
 To use scalastyle, it must be present as an executable in your =PATH=.
-
 - OSX users: =brew install scalastyle=
-- Linux, please see http://www.scalastyle.org/command-line.html
+- Linux, please see [[http://www.scalastyle.org/command-line.html]]
 
 To test if =scalastyle= executable is in your path, run =scalastyle= in a new
 terminal, it should output something like:
 
 #+BEGIN_SRC bash
-$ scalastyle
-scalastyle 0.8.0
-Usage: scalastyle [options] <source directory>
-...
+  $ scalastyle
+  scalastyle 0.8.0
+  Usage: scalastyle [options] <source directory>
+  ...
 #+END_SRC
 
 Finally, enable the =syntax-checking= layer and set the =flycheck-scalastylerc=
@@ -117,7 +116,7 @@ variable =scala-auto-insert-asterisk-in-comments= to =t=.
 To replace ~=>~, =->= and =<-= with unicode arrows =⇒=, =→= and =←=, set the
 variable =scala-use-unicode-arrows= to =t=.
 
-If in some occasions you don't want the arrows replaced (for example when
+If in some occasions you don’t want the arrows replaced (for example when
 defining compound operators like ~=>>~), you can always undo the change and get
 the ascii arrows back.
 
@@ -131,8 +130,8 @@ If you prefer to have Ensime start when you load a scala file, you can enable it
 with
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-    (scala :variables scala-auto-start-ensime t)))
+  (setq-default dotspacemacs-configuration-layers '(
+      (scala :variables scala-auto-start-ensime t)))
 #+END_SRC
 
 * Key bindings

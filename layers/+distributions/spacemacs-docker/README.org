@@ -1,6 +1,6 @@
 #+TITLE: spacemacs-docker distribution
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#screenshots][Screenshots]]
   - [[#features][Features:]]
@@ -23,15 +23,14 @@ Spacemacs layers and provide well tested Docker based development environment
 with GUI support on all major platforms and even [[https://i.imgur.com/wDLDMZN.gif][your web browser]].
 
 ** Screenshots
-#+CAPTION: MacOS
 [[file:img/MAC_SP.jpg]]
 
 [[https://i.imgur.com/VcuqReF.jpg][HD MacOS image]]
-#+CAPTION: GNU/Linux
+
 [[file:img/LN_SP.jpg]]
 
 [[https://i.imgur.com/yDok0Q7.jpg][HD GNU/Linux image]]
-#+CAPTION: Windows
+
 [[file:img/WIN_SP.jpg]]
 
 [[https://i.imgur.com/WmsnCUo.jpg][HD Windows image]]
@@ -43,18 +42,18 @@ with GUI support on all major platforms and even [[https://i.imgur.com/wDLDMZN.g
 - Build once and work with the same development environment everywhere
 - Run untrusted/risky code in the tunable sandbox with CPU/network/disk quotas
 - Try new tools, experiment and roll back changes when something goes wrong
-- Share your setup with others or extend someone else's development environment
+- Share your setup with others or extend someone else’s development environment
 - Run multiple Emacs instances on the same machine isolated
 - An easy way to swap Emacs version (=emacs25= =emacs-snapshot=) for debugging
 - [[https://docs.docker.com/engine/reference/commandline/pause/][pause]] container to free resources temporarily
-- [[https://github.com/docker/docker/blob/1.13.x/experimental/checkpoint-restore.md][Checkpoint & Restore]] - maybe the fastest way to start a "heavy" environment
+- [[https://github.com/docker/docker/blob/1.13.x/experimental/checkpoint-restore.md][Checkpoint & Restore]] - maybe the fastest way to start a “heavy” environment
 - Friendly for networks with low upload speed/quotas.
 
 * How to setup
 The idea is to build your own image [[https://docs.docker.com/engine/reference/builder/#from][FROM]] the one of the provided base images
 ([[https://goo.gl/Rb2Als][spacemacs/emacs25:develop]] and [[https://goo.gl/DFSenZ][spacemacs/emacs-snapshot:develop]]). Get [[https://docs.docker.com/engine/installation][docker]] for the OS of
 the machine that will run development environment and then use
-[[https://github.com/JAremko/spacemacs-docker-seed][spacemacs-docker-seed]]  as an example to create [[https://docs.docker.com/docker-hub/builds/][automated builds on Docker Hub]] or
+[[https://github.com/JAremko/spacemacs-docker-seed][spacemacs-docker-seed]] as an example to create [[https://docs.docker.com/docker-hub/builds/][automated builds on Docker Hub]] or
 [[https://docs.docker.com/engine/reference/commandline/build/][build it locally]].
 
 * How to use
@@ -63,79 +62,80 @@ NOTE: The guide assumes that you want to run Docker and connect to it from
 the same machine.
 
 ** MacOS
-Get [[https://www.xquartz.org][XQuartz]] and =open -a XQuartz= In the XQuartz preferences go to the "Security"
-tab and make sure you’ve got "Allow connections from network clients" ticked
+Get [[https://www.xquartz.org][XQuartz]] and =open -a XQuartz= In the XQuartz preferences go to the “Security”
+tab and make sure you’ve got “Allow connections from network clients” ticked
 
 #+BEGIN_SRC sh
- ip=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
- xhost + $ip
- docker run -ti --name spacemacs \
-  -e DISPLAY=$ip:0 \
-  -e TZ=<your_time_zone> \
-  -v <path_to_your_workspace>:/mnt/workspace \
-  spacemacs/emacs25:develop
+  ip=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+  xhost + $ip
+  docker run -ti --name spacemacs \
+   -e DISPLAY=$ip:0 \
+   -e TZ=<your_time_zone> \
+   -v <path_to_your_workspace>:/mnt/workspace \
+   spacemacs/emacs25:develop
 #+END_SRC
 
 [[https://fredrikaverpil.github.io/2016/07/31/docker-for-mac-and-gui-applications][source]],
 [[https://github.com/chanezon/docker-tips/blob/master/x11/README.md][another method]]
 
 ** Windows
-Get [[https://www.cygwin.com][Cygwin]] with =xinit=, =xorg-server= and optionaly [[https://github.com/rprichard/winpty][winpty]](to run Emacs container with =-t=)
+Get [[https://www.cygwin.com][Cygwin]] with =xinit=, =xorg-server= and optionaly [[https://github.com/rprichard/winpty][winpty]] (to run Emacs container with =-t=)
 
 #+BEGIN_SRC sh
- export DISPLAY=<your-machine-ip>:0.0
- startxwin -- -listen tcp &
- xhost + <your-machine-ip>
- #+END_SRC
- #+BEGIN_SRC sh
- docker run --name spacemacs \
-  -e DISPLAY="$DISPLAY" \
-  -v <path_to_your_workspace>:/mnt/workspace \
-  spacemacs/emacs25:develop
+  export DISPLAY=<your-machine-ip>:0.0
+  startxwin -- -listen tcp &
+  xhost + <your-machine-ip>
 #+END_SRC
 
- Or with =-ti= via =winpty=
+#+BEGIN_SRC sh
+  docker run --name spacemacs \
+   -e DISPLAY="$DISPLAY" \
+   -v <path_to_your_workspace>:/mnt/workspace \
+   spacemacs/emacs25:develop
+#+END_SRC
+
+Or with =-ti= via =winpty=
 
 #+BEGIN_SRC sh
-winpty docker run -ti --name spacemacs \
- -e DISPLAY="$DISPLAY" \
- -v <path_to_your_workspace>:/mnt/workspace \
- spacemacs/emacs25:develop
+  winpty docker run -ti --name spacemacs \
+   -e DISPLAY="$DISPLAY" \
+   -v <path_to_your_workspace>:/mnt/workspace \
+   spacemacs/emacs25:develop
 #+END_SRC
 
 [[http://manomarks.github.io/2015/12/03/docker-gui-windows.html][source]]
-Also You can use [[https://www.reddit.com/r/emacs/comments/7a63r4/emacs_in_win10linuxdockerxserver_combo/][@ninrod 's setup]]
+Also You can use [[https://www.reddit.com/r/emacs/comments/7a63r4/emacs_in_win10linuxdockerxserver_combo/][@ninrod ’s setup]]
 
 ** GNU/Linux
 Make sure that =$DISPLAY= variable is set
 
 #+BEGIN_SRC sh
- docker run -ti --name spacemacs \
-  -e DISPLAY="unix$DISPLAY" \
-  -e UNAME="spacemacser" \
-  -e UID="1000" \
-  -e TZ=<your_time_zone> \
-  -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
-  -v /etc/localtime:/etc/localtime:ro \
-  -v /etc/machine-id:/etc/machine-id:ro \
-  -v /var/run/dbus:/var/run/dbus \
-  -v <path_to_your_workspace>:/mnt/workspace \
-  spacemacs/emacs25:develop
+  docker run -ti --name spacemacs \
+   -e DISPLAY="unix$DISPLAY" \
+   -e UNAME="spacemacser" \
+   -e UID="1000" \
+   -e TZ=<your_time_zone> \
+   -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+   -v /etc/localtime:/etc/localtime:ro \
+   -v /etc/machine-id:/etc/machine-id:ro \
+   -v /var/run/dbus:/var/run/dbus \
+   -v <path_to_your_workspace>:/mnt/workspace \
+   spacemacs/emacs25:develop
 #+END_SRC
 
-=UID= and preferably =UNAME= should match the host's user id. You can set them
+=UID= and preferably =UNAME= should match the host’s user id. You can set them
 in your Dockerfile with [[https://docs.docker.com/engine/reference/builder/#env][ENV statements]].
-That's it! Now you should see Emacs window.
-But if it doesn't work You may need to allow local connection for the user
+That’s it! Now you should see Emacs window.
+But if it doesn’t work You may need to allow local connection for the user
 
 #+BEGIN_SRC sh
- xhost +si:localuser:<UNAME>
+  xhost +si:localuser:<UNAME>
 #+END_SRC
 
-Or allow local connection from the container's host-name
+Or allow local connection from the container’s host-name
 
 #+BEGIN_SRC sh
- xhost +local:`docker inspect --format='{{ .Config.Hostname }}' spacemacs`
+  xhost +local:`docker inspect --format='{{ .Config.Hostname }}' spacemacs`
 #+END_SRC
 
 [[http://stackoverflow.com/questions/25281992/alternatives-to-ssh-x11-forwarding-for-docker-containers][source]]
@@ -151,52 +151,52 @@ Or allow local connection from the container's host-name
 - Lag spikes with some OSes
 
 *** Instruction
-It's a good idea to read [[https://github.com/JAremko/docker-x11-bridge][docker-x11-bridge]] and [[https://www.xpra.org/trac/][Xpra]] documentations, but
+It’s a good idea to read [[https://github.com/JAremko/docker-x11-bridge][docker-x11-bridge]] and [[https://www.xpra.org/trac/][Xpra]] documentations, but
 here is a short instruction:
 
 **** With Xpra desktop client
 Get [[https://xpra.org/][Xpra]] client for your OS. then
 
 #+BEGIN_SRC sh
- docker run -ti --rm --name x11-bridge \
-  -e MODE="ssh" \
-  --net=host \
-  -v ~/.ssh/pub_rsa:/etc/pub-keys/me.pub \
-  -e DISPLAY=:14 \
-  jare/x11-bridge
+  docker run -ti --rm --name x11-bridge \
+   -e MODE="ssh" \
+   --net=host \
+   -v ~/.ssh/pub_rsa:/etc/pub-keys/me.pub \
+   -e DISPLAY=:14 \
+   jare/x11-bridge
 
- docker run -ti --rm --name spacemacs \
-  --volumes-from x11-bridge \
-  -e DISPLAY=:14 \
-  -e TZ=<your_time_zone> \
-  spacemacs/emacs25:develop
+  docker run -ti --rm --name spacemacs \
+   --volumes-from x11-bridge \
+   -e DISPLAY=:14 \
+   -e TZ=<your_time_zone> \
+   spacemacs/emacs25:develop
 #+END_SRC
 
 Now you can connect to it with Xpra desktop client
 
 #+BEGIN_SRC sh
- <XPRA EXECUTABLE> attach --encoding=rgb \
-  --ssh="ssh -o StrictHostKeyChecking=no -p 22" \
-  ssh:xpra@localhost:14
+  <XPRA EXECUTABLE> attach --encoding=rgb \
+   --ssh="ssh -o StrictHostKeyChecking=no -p 22" \
+   ssh:xpra@localhost:14
 #+END_SRC
 
 **** Via web-browser
 #+BEGIN_SRC sh
- docker run -ti --rm --name x11-bridge \
-  -e MODE="html" \
-  --net=host \
-  -e XPRA_PASSWORD=<PASSWORD> \
-  -e DISPLAY=:14 \
-  jare/x11-bridge
+  docker run -ti --rm --name x11-bridge \
+   -e MODE="html" \
+   --net=host \
+   -e XPRA_PASSWORD=<PASSWORD> \
+   -e DISPLAY=:14 \
+   jare/x11-bridge
 
- docker run -ti --rm --name spacemacs \
-  --volumes-from x11-bridge \
-  -e TZ=<your_time_zone> \
-  -e DISPLAY=:14 \
-  spacemacs/emacs25:develop
+  docker run -ti --rm --name spacemacs \
+   --volumes-from x11-bridge \
+   -e TZ=<your_time_zone> \
+   -e DISPLAY=:14 \
+   spacemacs/emacs25:develop
 #+END_SRC
 
-Now visit http://localhost:10000/index.html?encoding=png&password=<PASSWORD>
+Now visit [[http://localhost:10000/index.html?encoding=png&password]] =<PASSWORD>
 
 * Some basic docker commands to get you going
 - =docker rm -f spacemacs= - remove =spacemacs= container
@@ -209,11 +209,12 @@ Now visit http://localhost:10000/index.html?encoding=png&password=<PASSWORD>
 - =docker run -ti ... spacemacs/emacs25:develop /bin/bash= - start bash
 - =docker run --network=host ...= - less overhead and no need to map ports
 - =docker exec spacemacs /usr/bin/emacs= - start =/usr/bin/emacs=
+
 With the running =spacemacs= container
-- =docker logs spacemacs= - print =spacemacs= container's logs
+- =docker logs spacemacs= - print =spacemacs= container’s logs
 - =docker cp <from_local_path> spacemacs:/<to_my_spacemacs_container_path>=
 - =docker cp spacemacs:/<from_my_spacemacs_container_path> <to_local_path>=
--  Manage data in containers with [[https://docs.docker.com/engine/tutorials/dockervolumes/][Docker volumes]]. Example
- -  =docker volume create --name my-ws=
- -  =docker run ... -v my-ws:/mnt/workspace ... spacemacs/emacs25:develop=
- -  =docker run ... -v my-ws:/home/developer/workspace ... jare/vim-bundle=
+- Manage data in containers with [[https://docs.docker.com/engine/tutorials/dockervolumes/][Docker volumes]]. Example
+  - =docker volume create --name my-ws=
+  - =docker run ... -v my-ws:/mnt/workspace ... spacemacs/emacs25:develop=
+  - =docker run ... -v my-ws:/home/developer/workspace ... jare/vim-bundle=

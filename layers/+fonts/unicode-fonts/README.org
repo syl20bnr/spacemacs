@@ -1,8 +1,6 @@
 #+TITLE: unicode-fonts layer
 
-# TOC links should be GitHub style anchors.
-
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -26,5 +24,5 @@ If using [[https://github.com/d12frosted/homebrew-emacs-plus/][emacs-plus]], you
 enable color emoji.
 
 #+BEGIN_SRC elisp
-(unicode-fonts :variables unicode-fonts-force-multi-color-on-mac t)
+  (unicode-fonts :variables unicode-fonts-force-multi-color-on-mac t)
 #+END_SRC

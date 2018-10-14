@@ -2,7 +2,7 @@
 
 [[file:img/vagrant.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -16,8 +16,8 @@ This layer adds support for working with Vagrant using [[https://github.com/ottb
 [[https://github.com/dougm/vagrant-tramp][vagrant-tramp]].
 
 ** Features:
- - Manage boxes (under the ~SPC a V~ prefix)
- - Remote editing on Vagrant boxes via Tramp
+- Manage boxes (under the ~SPC a V~ prefix)
+- Remote editing on Vagrant boxes via Tramp
 
 * Install
 ** Layer
@@ -30,10 +30,10 @@ to install the =ruby= layer as well.
 
 ** Vagrant
 Follow the [[https://www.vagrantup.com/docs/installation/index.html][Installing Vagrant]] and [[https://www.vagrantup.com/intro/getting-started/index.html][Getting Started]] guides in
-Vagrant's documentation.
+Vagrant’s documentation.
 
 ** Testing
-If you'd like to test this layer out in a simple way (for example to
+If you’d like to test this layer out in a simple way (for example to
 make sure you have Vagrant configured correctly) there is a [[https://gist.github.com/anonymous/578279337caf180298cd91c61be995bc][Vagrantfile]]
 in this directory.
 

@@ -2,7 +2,7 @@
 
 [[file:img/neotree.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -48,7 +48,7 @@ The default is =classic=.
 Use =nerd= if you want it to look most like NERDTree in VIM.  For example:
 
 #+BEGIN_SRC emacs-lisp
-(setq neo-theme 'nerd)
+  (setq neo-theme 'nerd)
 #+END_SRC
 
 ** NeoTree Source Control Integration
@@ -65,12 +65,12 @@ The default is =nil= (do not show source control information), which is recommen
 For example,
 
 #+BEGIN_SRC emacs-lisp
-(setq neo-vc-integration '(face))
+  (setq neo-vc-integration '(face))
 #+END_SRC
 
 *Note*: At this time, it is not recommended to set this to anything other
 than =nil=.  Otherwise, it will become very slow with larger source trees.
-See https://github.com/jaypei/emacs-neotree/issues/126 for more information.
+See [[https://github.com/jaypei/emacs-neotree/issues/126]] for more information.
 
 * Usage
 This layer provides a quick and simple way to navigate in an unknown project
@@ -89,11 +89,11 @@ current state. With default =spacemacs-dark= theme:
 
 ** NeoTree mode-line
 The mode-line has the following format =[x/y] d (D:a, F:b)= where:
-  - =x= is the index of the current selected file or directory
-  - =y= the total number of items (file and directory) in the current directory
-  - =d= the name of the current directory
-  - =a= the number of directories in the current directory
-  - =b= the number of files in the current directory
+- =x= is the index of the current selected file or directory
+- =y= the total number of items (file and directory) in the current directory
+- =d= the name of the current directory
+- =a= the number of directories in the current directory
+- =b= the number of files in the current directory
 
 * Key Bindings
 ** NeoTree navigation

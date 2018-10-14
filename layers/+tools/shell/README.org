@@ -2,7 +2,7 @@
 
 [[file:img/shell.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -10,6 +10,7 @@
   - [[#default-shell][Default shell]]
   - [[#default-shell-position-width-and-height][Default shell position, width, and height]]
   - [[#set-shell-for-term-and-ansi-term][Set shell for term and ansi-term]]
+  - [[#set-shell-for-multi-term][Set shell for multi-term]]
   - [[#width-of-the-shell-popup-buffers][Width of the shell popup buffers]]
   - [[#enable-em-smart-in-eshell][Enable em-smart in Eshell]]
   - [[#protect-your-eshell-prompt][Protect your Eshell prompt]]
@@ -23,7 +24,7 @@
 This layer configures the various shells available in Emacs.
 
 ** Features:
-  - Shell integration
+- Shell integration
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -49,8 +50,8 @@ to the following variables:
 - =multi-term=
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((shell :variables shell-default-shell 'eshell)))
+  (setq-default dotspacemacs-configuration-layers
+    '((shell :variables shell-default-shell 'eshell)))
 #+END_SRC
 
 The default shell is quickly accessible via a the default shortcut key ~SPC '​~.
@@ -85,6 +86,15 @@ Default value is =/bin/bash=.
     '((shell :variables shell-default-term-shell "/bin/bash")))
 #+END_SRC
 
+** Set shell for multi-term
+The default shell can be set by setting the variable =multi-term-program=.
+Default value is =/bin/bash=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((shell :variables multi-term-program "/bin/bash")))
+#+END_SRC
+
 ** Width of the shell popup buffers
 By default the popup buffer spans the full width of the current frame, if
 you prefer to spans only the width of the current window then set the
@@ -99,13 +109,13 @@ layer variable =shell-default-full-span= to nil.
 From the =em-smart= documentation:
 
 #+BEGIN_QUOTE
-The best way to get a sense of what this code is trying to do is by
-using it.  Basically, the philosophy represents a blend between the
-ease of use of modern day shells, and the review-before-you-proceed
-mentality of Plan 9's 9term.
+  The best way to get a sense of what this code is trying to do is by
+  using it.  Basically, the philosophy represents a blend between the
+  ease of use of modern day shells, and the review-before-you-proceed
+  mentality of Plan 9’s 9term.
 #+END_QUOTE
 
-In a nutshell, when =em-smart= is enabled point won't jump at the end of the
+In a nutshell, when =em-smart= is enabled point won’t jump at the end of the
 buffer when a command is executed, it will stay at the same command prompt used
 to execute the command. This allows to quickly edit the last command in the case
 of a mistake. If there is no mistake and you directly type a new command then
@@ -141,34 +151,34 @@ some pointers to save you time to setup your environment correctly.
 First be sure =~/.terminfo= is setup correctly by running:
 
 #+BEGIN_SRC fish
-tic -o ~/.terminfo $TERMINFO/e/eterm-color.ti
+  tic -o ~/.terminfo $TERMINFO/e/eterm-color.ti
 #+END_SRC
 
 You can locate the =eterm-colors.ti= file with:
 
 #+BEGIN_SRC fish
-locate eterm-color.ti
+  locate eterm-color.ti
 #+END_SRC
 
 Then setup your fish configuration file (usually at =~/.config/fish/config.fish=)
 
 #+BEGIN_SRC fish
-# emacs ansi-term support
-if test -n "$EMACS"
-  set -x TERM eterm-color
-end
+  # emacs ansi-term support
+  if test -n "$EMACS"
+    set -x TERM eterm-color
+  end
 
-# this function may be required
-function fish_title
-  true
-end
+  # this function may be required
+  function fish_title
+    true
+  end
 #+END_SRC
 
 Finally you may need to toggle truncated lines for some prompts to work
 correctly, in the function =dotspacemacs/user-config= of your dotfile add:
 
 #+BEGIN_SRC emacs-lisp
-(add-hook 'term-mode-hook 'spacemacs/toggle-truncate-lines-on)
+  (add-hook 'term-mode-hook 'spacemacs/toggle-truncate-lines-on)
 #+END_SRC
 
 * Eshell
@@ -192,7 +202,7 @@ Some advanced configuration is setup for =eshell= in this layer:
 | Key Binding | Description                                                |
 |-------------+------------------------------------------------------------|
 | ~SPC '​~     | Open, close or go to the default shell                     |
-| ~SPC p '​~   | Open a shell in the project's root                         |
+| ~SPC p '​~   | Open a shell in the project’s root                         |
 | ~SPC a s e~ | Open, close or go to an =eshell=                           |
 | ~SPC a s i~ | Open, close or go to a =shell=                             |
 | ~SPC a s m~ | Open, close or go to a =multi-term=                        |

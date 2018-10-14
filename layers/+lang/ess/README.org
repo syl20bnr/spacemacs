@@ -2,7 +2,7 @@
 
 [[file:img/r.jpg]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -24,7 +24,7 @@ This layer adds support for statistical programming languages to Spacemacs.
 - Syntax-checking via [[https://github.com/jimhester/lintr][lintr]]
 - Additional data viewer for R via [[https://github.com/myuhe/ess-R-data-view.el][ess-R-data-view]]
 - Support for Org-Babel
-- Better 'equals' behavior via [[https://github.com/genovese/ess-smart-equals][ess-smart-equals]]
+- Better ’equals’ behavior via [[https://github.com/genovese/ess-smart-equals][ess-smart-equals]]
 - Showing of inline help for =R= constructs
 - Repl support via =R terminal=
 - Support for =S=, =SAS= and =R=
@@ -117,7 +117,7 @@ Helpers that provide further interaction with the REPL.
 | ~SPC m r r~   | reload ESS process                                    |
 | ~SPC m r s~   | set source style                                      |
 | ~SPC m r t~   | build tags for directory                              |
-| ~SPC m r w~   | set "width" option                                    |
+| ~SPC m r w~   | set “width” option                                    |
 
 ** R devtools
 Interaction with the =R= =devtools= package.
@@ -140,13 +140,13 @@ Tools for debugging
 
 | Key Binding  | Description                                                       |
 |--------------+-------------------------------------------------------------------|
-| ~SPC m d ?~  | 'ess-tracebug-show-help                                           |
+| ~SPC m d ?~  | =ess-tracebug-show-help=                                          |
 | ~SPC m d `~  | show traceback and last error message                             |
 | ~SPC m d \~~ | display call current call stack                                   |
 | ~SPC m d b~  | set breakpoint                                                    |
 | ~SPC m d B~  | set conditional breakpoint                                        |
 | ~SPC m d d~  | set debugging flag for function                                   |
-| ~SPC m d e~  | toggle the `on-error` action                                      |
+| ~SPC m d e~  | toggle the =on-error= action                                      |
 | ~SPC m d i~  | jump to point where the last debugger or traceback event occurred |
 | ~SPC m d k~  | kill breakpoint                                                   |
 | ~SPC m d K~  | kill all breakpoints in buffer                                    |
