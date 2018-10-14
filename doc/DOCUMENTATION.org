@@ -542,10 +542,6 @@ tests are also run automatically when you synchronize with ~SPC f e R~.
 *** Configuration functions
 Five special functions in the =~/.spacemacs= file can be used to perform
 configuration at the beginning and end of Spacemacs loading process:
-- =dotspacemacs/layers= is called at the very startup of Spacemacs initialization,
-  this is where you set the Spacemacs distribution and declare layers to be used
-  in your configuration. You can also add or exclude packages of your choice
-  and tweak some behaviors of Spacemacs loading.
 - =dotspacemacs/init= is called at the very startup of Spacemacs initialization
   before layers configuration. *You should not put any user code* in there
   besides modifying the Spacemacs variable values prefixed with =dotspacemacs-=.
@@ -554,6 +550,10 @@ configuration at the beginning and end of Spacemacs loading process:
   that need to be set before packages are loaded.
 - =dotspacemacs/user-env= is called before the layers and packages configuration
   and it is responsible to setup environment variables.
+- =dotspacemacs/layers= is called at the startup of Spacemacs initialization,
+  this is where you set the Spacemacs distribution and declare layers to be used
+  in your configuration. You can also add or exclude packages of your choice
+  and tweak some behaviors of Spacemacs loading.
 - =dotspacemacs/user-config= is called at the very end of Spacemacs
   initialization after layers configuration. This is the place where most of
   your configurations should be done. Unless it is explicitly specified that a
@@ -1496,7 +1496,7 @@ fonts from the package repository, see [[https://github.com/domtronn/all-the-ico
 You can create your own Spaceline theme by setting the variable
 =dotspacemacs-mode-line-theme= to =custom= and define a function called
 =spaceline-custom-theme= in your =dotspacemacs/user-init= function of your
-dotfile. This functions must accept a variadic number of arguments which are
+dotfile. This function must accept a variadic number of arguments which are
 additional segments added by Spacemacs (like a segment to notify about available
 updates etc...).
 
