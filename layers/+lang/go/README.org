@@ -53,7 +53,7 @@ to get all the goodies of this layer:
   go get -u github.com/josharian/impl
 #+END_SRC
 
-If you with to use a linters aggregator tool, you can enable =gometalinter= or =golangci-lint=.
+If you wish to use a linters aggregator tool, you can enable =gometalinter= or =golangci-lint=.
 
 If you wish to use =gometalinter= set the value of =go-use-gometalinter= to t:
 
