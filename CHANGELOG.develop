@@ -1837,6 +1837,7 @@ Other:
 - Packages:
   - Added package =org-journal= (thanks to Nick Anderson)
   - Added package for =org-sticky-header-mode= (thanks to Langston Barret)
+  - Added package =org-jira= (thanks to Kirill A. Korinsky)
 - Key bindings:
   - ~SPC m T i~ to toggle inline images
   - Move clock related key bindings to ~SPC a o C~
@@ -1906,6 +1907,21 @@ Other:
   - Added key binding for org-insert-item (thanks to Emil Petersen)
     - ~SPC m i i~ for =org-insert-item=
   - Added ~SPC m s d~ for =org-cut-subtree= (thanks to clwgg)
+  - Added key bindings for =org-jira= (thanks to Kirill A. Korinsky)
+    - ~SPC a o J p g~ Get projects list
+    - ~SPC a o J i b~ Open the current issue in a WWW browser
+    - ~SPC a o J i g~ Get issues
+    - ~SPC a o J i h~ Get only head of issues
+    - ~SPC a o J i f~ Get only head of issues from filter
+    - ~SPC a o J i u~ Update an issue at point
+    - ~SPC a o J i w~ Progress an issue at point
+    - ~SPC a o J i r~ Refresh an issue at point
+    - ~SPC a o J i c~ Create an issue at point
+    - ~SPC a o J i y~ Copy current issue key
+    - ~SPC a o J s c~ Create a subtask
+    - ~SPC a o J s g~ Get subtasks
+    - ~SPC a o J c u~ Update the comment at point or add a new comment
+    - ~SPC a o J t j~ Convert the TODO item at point to a Jira ticket
 - Key binding changes for archiving (thanks to Ag Ibragimov):
   - Added ~SPC m s a~ to toggle archive tag for subtree
   - Added ~SPC m s A~ to archive subtree (previously ~SPC m s a~)
