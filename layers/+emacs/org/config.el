@@ -37,3 +37,6 @@ used.")
 
 (defvar org-enable-trello-support nil
   "If non-nil org-trello is configured")
+
+(defvar org-enable-jira-support nil
+  "If non-nil, Jira (https://www.atlassian.com/software/jira) related packages are configured.")
