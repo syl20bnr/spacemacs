@@ -311,32 +311,35 @@ be saved to a file, or just renamed.
 If called without a prefix argument, the prompt is
 initialized with the current filename."
   (interactive "P")
-  (let* ((name (buffer-name))
-         (filename (buffer-file-name)))
-    (if (and filename (file-exists-p filename))
+  (let* ((old-short-name (buffer-name))
+         (old-full-path (buffer-file-name)))
+    (if (and old-full-path (file-exists-p old-full-path))
         ;; the buffer is visiting a file
-        (let* ((dir (file-name-directory filename))
-               (new-name (read-file-name "New name: " (if arg dir filename))))
-          (cond ((get-buffer new-name)
-                 (error "A buffer named '%s' already exists!" new-name))
+        (let* ((old-directory (file-name-directory old-full-path))
+               (new-full-path (read-file-name
+                               "New name: "
+                               (if arg old-directory old-full-path))))
+          (cond ((get-buffer new-full-path)
+                 (error "A buffer named '%s' already exists!" new-full-path))
                 (t
-                 (let ((dir (file-name-directory new-name)))
-                   (when (and (not (file-exists-p dir))
+                 (let ((old-directory (file-name-directory new-full-path)))
+                   (when (and (not (file-exists-p old-directory))
                               (yes-or-no-p
-                               (format "Create directory '%s'?" dir)))
-                     (make-directory dir t)))
-                 (rename-file filename new-name 1)
-                 (rename-buffer new-name)
-                 (set-visited-file-name new-name)
+                               (format "Create directory '%s'?" old-directory)))
+                     (make-directory old-directory t)))
+                 (rename-file old-full-path new-full-path 1)
+                 (rename-buffer new-full-path)
+                 (set-visited-file-name new-full-path)
                  (set-buffer-modified-p nil)
                  (when (fboundp 'recentf-add-file)
-                   (recentf-add-file new-name)
-                   (recentf-remove-if-non-kept filename))
+                   (recentf-add-file new-full-path)
+                   (recentf-remove-if-non-kept old-full-path))
                  (when (and (configuration-layer/package-used-p 'projectile)
                             (projectile-project-p))
                    (call-interactively #'projectile-invalidate-cache))
                  (message "File '%s' successfully renamed to '%s'"
-                          name (file-name-nondirectory new-name)))))
+                          old-short-name (file-name-nondirectory
+                                          new-full-path)))))
       ;; the buffer is not visiting a file
       (let ((key))
         (while (not (memq key '(?s ?r)))
@@ -344,25 +347,25 @@ initialized with the current filename."
                                (format
                                 (concat "Buffer '%s' is not visiting a file: "
                                         "[s]ave to file or [r]ename buffer?")
-                                name)
+                                old-short-name)
                                'face 'minibuffer-prompt)))
           (cond ((eq key ?s)            ; save to file
                  ;; this allows for saving a new empty (unmodified) buffer
                  (unless (buffer-modified-p) (set-buffer-modified-p t))
                  (save-buffer))
                 ((eq key ?r)            ; rename buffer
-                 (let ((new-name (read-string "New buffer name: ")))
-                   (while (get-buffer new-name)
+                 (let ((new-buffer-name (read-string "New buffer name: ")))
+                   (while (get-buffer new-buffer-name)
                      ;; ask to rename again, if the new buffer name exists
                      (if (yes-or-no-p
                           (format (concat "A buffer named '%s' already exists: "
                                           "Rename again?")
-                                  new-name))
-                         (setq new-name (read-string "New buffer name: "))
+                                  new-buffer-name))
+                         (setq new-buffer-name (read-string "New buffer name: "))
                        (keyboard-quit)))
-                   (rename-buffer new-name)
+                   (rename-buffer new-buffer-name)
                    (message "Buffer '%s' successfully renamed to '%s'"
-                            name new-name)))
+                            old-short-name new-buffer-name)))
                 ;; ?\a = C-g, ?\e = Esc and C-[
                 ((memq key '(?\a ?\e)) (keyboard-quit))))))))
 
