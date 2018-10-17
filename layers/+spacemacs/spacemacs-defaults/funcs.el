@@ -344,7 +344,8 @@ initialized with the current filename."
                                (format
                                 (concat "Buffer '%s' is not visiting a file: "
                                         "[s]ave to file or [r]ename buffer?")
-                                name) 'face 'minibuffer-prompt)))
+                                name)
+                               'face 'minibuffer-prompt)))
           (cond ((eq key ?s)            ; save to file
                  ;; this allows for saving a new empty (unmodified) buffer
                  (unless (buffer-modified-p) (set-buffer-modified-p t))
@@ -355,7 +356,8 @@ initialized with the current filename."
                      ;; ask to rename again, if the new buffer name exists
                      (if (yes-or-no-p
                           (format (concat "A buffer named '%s' already exists: "
-                                          "Rename again?") new-name))
+                                          "Rename again?")
+                                  new-name))
                          (setq new-name (read-string "New buffer name: "))
                        (keyboard-quit)))
                    (rename-buffer new-name)
