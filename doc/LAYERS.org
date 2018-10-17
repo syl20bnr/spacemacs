@@ -405,26 +405,26 @@ More on this in the next section.
 * The Spacemacs loading process
 The Spacemacs loading process can be summarized as follows:
 1. Spacemacs goes through all the enabled layers and evaluates their files.
-  First =layers.el= is loaded to declare layer dependencies. Then =packages.el=
-  and =funcs.el= are loaded, but nothing happens from them since these files
-  only define functions and variables, then the changes introduced by
-  =config.el= are applied.
+   First =layers.el= is loaded to declare layer dependencies. Then =packages.el=
+   and =funcs.el= are loaded, but nothing happens from them since these files
+   only define functions and variables, then the changes introduced by
+   =config.el= are applied.
 2. Spacemacs checks which packages should be downloaded and installed. To be
-  installed, a package must be
-  - included by a layer that the user has enabled,
-  - not be excluded by any other layer that the user has enabled,
-  - not be excluded by the user herself, and
-  - there must be at least one =<layer>/init-<package>= function defined for
-    it.
+   installed, a package must be
+   - included by a layer that the user has enabled,
+   - not be excluded by any other layer that the user has enabled,
+   - not be excluded by the user herself, and
+   - there must be at least one =<layer>/init-<package>= function defined for
+     it.
 
-  Alternatively, if a package is part of the end user’s
-  =dotspacemacs-additional-packages=, it will also be installed.
+   Alternatively, if a package is part of the end user’s
+   =dotspacemacs-additional-packages=, it will also be installed.
 3. All packages which should be installed are installed in alphabetical order,
-  =package.el= built-in Emacs library is in charge of implicit dependencies.
-  Installed packages not following the rules of 2. are removed as well as
-  their dependencies if possible. (This last behavior is optional but default.)
+   =package.el= built-in Emacs library is in charge of implicit dependencies.
+   Installed packages not following the rules of 2. are removed as well as
+   their dependencies if possible. (This last behavior is optional but default.)
 4. The =pre-init=, =init= and =post-init= functions for each installed package
-  are executed in turn.
+   are executed in turn.
 
 It is step four that interests us. It is very important that a package is not
 installed if no =init= function is defined for it.
