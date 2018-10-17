@@ -25,5 +25,6 @@
   "Setup the width lock of treemacs buffer based on
 `treemacs-lock-width'."
   (interactive)
-  (when (xor treemacs--width-is-locked treemacs-lock-width)
+  (unless (eq (not treemacs--width-is-locked)
+              (not treemacs-lock-width))
     (treemacs-toggle-fixed-width)))
