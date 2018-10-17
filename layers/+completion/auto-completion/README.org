@@ -43,24 +43,24 @@ layer for it to have any effect.
 You can customize the user experience of auto-completion with the following
 layer variables:
 1. =auto-completion-return-key-behavior= set the action to perform when the
-  ~RET~ key is pressed, the possible values are:
-  - =complete= completes with the current selection
-  - =nil= does nothing
+   ~RET~ key is pressed, the possible values are:
+   - =complete= completes with the current selection
+   - =nil= does nothing
 2. =auto-completion-tab-key-behavior= set the action to perform when the ~TAB~
-  key is pressed, the possible values are:
-  - =complete= completes with the current selection
-  - =cycle= completes the common prefix and cycle between candidates
-  - =nil= does nothing
+   key is pressed, the possible values are:
+   - =complete= completes with the current selection
+   - =cycle= completes the common prefix and cycle between candidates
+   - =nil= does nothing
 3. =auto-completion-complete-with-key-sequence= is a string of two characters
-  denoting a key sequence that will perform a =complete action= if the sequence
-  has been entered quickly enough. If its value is =nil= then the feature is
-  disabled.
+   denoting a key sequence that will perform a =complete action= if the sequence
+   has been entered quickly enough. If its value is =nil= then the feature is
+   disabled.
 4. =auto-completion-complete-with-key-sequence-delay= is the number of seconds
-  to wait for the auto-completion key sequence to be entered. The default value
-  is 0.1 seconds.
+   to wait for the auto-completion key sequence to be entered. The default value
+   is 0.1 seconds.
 5. =auto-completion-idle-delay= is the number of seconds to wait before suggesting
-  completions. The default value is 0.2 seconds.  Set to =nil= to disable
-  automatic suggestions (the ~TAB~ key will still perform completion).
+   completions. The default value is 0.2 seconds.  Set to =nil= to disable
+   automatic suggestions (the ~TAB~ key will still perform completion).
 
 The default configuration of the layer is:
 

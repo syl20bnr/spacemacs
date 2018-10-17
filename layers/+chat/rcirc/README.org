@@ -90,29 +90,29 @@ recommended.
 This method is considered secured and is the recommended way to configure
 rcirc.
 1) If you want to use =authinfo.gpg= you have to enable the support for it by
-  setting =rcirc-enable-authinfo-support= to =t= in your dotfile:
+   setting =rcirc-enable-authinfo-support= to =t= in your dotfile:
 
-  #+BEGIN_SRC emacs-lisp
-    (setq-default dotspacemacs-configuration-layers '(
-      (rcirc :variables rcirc-enable-authinfo-support t)))
-  #+END_SRC
+   #+BEGIN_SRC emacs-lisp
+     (setq-default dotspacemacs-configuration-layers '(
+       (rcirc :variables rcirc-enable-authinfo-support t)))
+   #+END_SRC
 
 2) In your =~/.authinfo.gpg= file store your credentials like this:
 
-  #+BEGIN_EXAMPLE
-    machine irc.freenode.net port nickserv user <user> password <passwd>
-  #+END_EXAMPLE
+   #+BEGIN_EXAMPLE
+     machine irc.freenode.net port nickserv user <user> password <passwd>
+   #+END_EXAMPLE
 
 3) At last you need to provide your servers configuration in the
-  =dotspacemacs/user-config= function of your dotfile:
+   =dotspacemacs/user-config= function of your dotfile:
 
-  #+BEGIN_SRC emacs-lisp
-    (setq rcirc-server-alist
-    '(("irc.freenode.net"
-        :user-name "spacemacs_user"
-        :port "1337"
-        :channels ("#emacs"))))
-  #+END_SRC
+   #+BEGIN_SRC emacs-lisp
+     (setq rcirc-server-alist
+     '(("irc.freenode.net"
+         :user-name "spacemacs_user"
+         :port "1337"
+         :channels ("#emacs"))))
+   #+END_SRC
 
 *** Connecting behind a ZNC bouncer and storing the credentials in authinfo
 This methods is also secured since it uses authinfo _but_ you must secure your
@@ -131,40 +131,40 @@ setup. If it is not the case then it is recommended to read about ZNC
 **** Note
 For now authinfo is mandatory to use the ZNC configuration.
 1) To enable ZNC support set the variable =rcirc-enable-znc-support= to =t= in
-  your dotfile:
+   your dotfile:
 
-  #+BEGIN_SRC emacs-lisp
-    (setq-default dotspacemacs-configuration-layers '(
-      (rcirc :variables rcirc-enable-znc-support t)))
-  #+END_SRC
+   #+BEGIN_SRC emacs-lisp
+     (setq-default dotspacemacs-configuration-layers '(
+       (rcirc :variables rcirc-enable-znc-support t)))
+   #+END_SRC
 
 2) In your =~/.authinfo.gpg= file store your credentials like this:
 
-  #+BEGIN_EXAMPLE
-    machine freenode.spacemacsserver.me port irc user spacemacs_user/freenode password ZNC_PASSWORD
-    machine geekshed.spacemacsserver.me port irc user spacemacs_user/geekshed password ZNC_PASSWORD
-  #+END_EXAMPLE
+   #+BEGIN_EXAMPLE
+     machine freenode.spacemacsserver.me port irc user spacemacs_user/freenode password ZNC_PASSWORD
+     machine geekshed.spacemacsserver.me port irc user spacemacs_user/geekshed password ZNC_PASSWORD
+   #+END_EXAMPLE
 
-  *Important* =port= must be set to =irc=. This is a convention of the layer to
-  retrieve the credentials for the ZNC configuration.
+   *Important* =port= must be set to =irc=. This is a convention of the layer to
+   retrieve the credentials for the ZNC configuration.
 3) Then setup your servers configuration using subdomains in the
-  =dotspacemacs/user-config= function of your dotfile. The =:auth= keyword arguments
-  will be replaced by the credentials stored in your =~/.authinfo.gpg=.
+   =dotspacemacs/user-config= function of your dotfile. The =:auth= keyword arguments
+   will be replaced by the credentials stored in your =~/.authinfo.gpg=.
 
-  #+BEGIN_SRC emacs-lisp
-    (setq rcirc-server-alist
-     ;; This will replace :auth with the correct thing, see the doc for that function
-     '(("freenode"
-         :host "freenode.spacemacsserver.me"
-         :port "1337"
-         :auth "spacemacs_user/freenode"
-         :channels ("#emacs"))
-     ("geekshed"
-         :host "geekshed.spacemacsserver.me"
-         :port "1337"
-         :auth "spacemacs_user/geekshed"
-         :channels ("#jupiterbroadcasting"))))
-  #+END_SRC
+   #+BEGIN_SRC emacs-lisp
+     (setq rcirc-server-alist
+      ;; This will replace :auth with the correct thing, see the doc for that function
+      '(("freenode"
+          :host "freenode.spacemacsserver.me"
+          :port "1337"
+          :auth "spacemacs_user/freenode"
+          :channels ("#emacs"))
+      ("geekshed"
+          :host "geekshed.spacemacsserver.me"
+          :port "1337"
+          :auth "spacemacs_user/geekshed"
+          :channels ("#jupiterbroadcasting"))))
+   #+END_SRC
 
 * Key Bindings
 

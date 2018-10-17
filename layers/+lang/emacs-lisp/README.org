@@ -94,7 +94,7 @@ encounters this function it will start the debugger.
 evilified state otherwise you end up in emacs state and =*Debugging*= is
 displayed in the mode line.
 5) Press ~s~ to go to next step up to the opening parenthesis of
-  =(subroutine name)=,
+   =(subroutine name)=,
 6) Press ~i~ to go into the =subroutine= where you can press ~s~ to step in
 
 function or press ~o~ to go out of it.
