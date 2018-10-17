@@ -1542,7 +1542,7 @@ squared symbols like =🅿=.
 | ~SPC t C--~ | =⊝=     | -     | global centered cursor                                               |
 | ~SPC t a~   | =ⓐ=     | a     | auto-completion                                                      |
 | ~SPC t c~   | =ⓒ=     | c     | camel case motion with subword mode                                  |
-| =none=      | =ⓔ=     | e     | [[https://github.com/edwtjo/evil-org-mode][evil-org]] mode                                                        |
+| =none=      | =ⓔ=     | e     | [[https://github.com/Somelauw/evil-org-mode][evil-org]] mode                                                        |
 | ~SPC t E e~ | =Ⓔe=    | Ee    | emacs editing style (holy mode)                                      |
 | ~SPC t E h~ | =Ⓔh=    | Eh    | hybrid editing style (hybrid mode)                                   |
 | ~SPC t f~   | =ⓕ=     | f     | fill-column-indicator mode                                           |
