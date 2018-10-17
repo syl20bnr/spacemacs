@@ -308,27 +308,27 @@ testable layer is enabled in turn.
 To add tests for a layer, do the following:
 1. Create a subfolder of =tests/= corresponding to the layer you want to test.
 2. Write a file called =dotspacemacs.el= in that folder. It should be a minimal
-  dotfile that enables the layer in question (and other layers it may depend
-  on).
+   dotfile that enables the layer in question (and other layers it may depend
+   on).
 3. Write a number of files with tests. Please try to separate unit and
-  functional tests. Look at existing tests for clues.
+   functional tests. Look at existing tests for clues.
 4. Write a =Makefile= in that folder. It should define three variables.
-  - a list of additional files to load before testing (relative
-    to the root Spacemacs folder). This should typically be =init.el=.
-  - a list of unit test files in the current folder.
-  - a list of functional test files in the current folder.
+   - a list of additional files to load before testing (relative
+     to the root Spacemacs folder). This should typically be =init.el=.
+   - a list of unit test files in the current folder.
+   - a list of functional test files in the current folder.
 
-  See existing tests for examples.
+   See existing tests for examples.
 
-  #+BEGIN_SRC makefile
-    TEST_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+   #+BEGIN_SRC makefile
+     TEST_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
-    LOAD_FILES = ...
-    UNIT_TEST_FILES = ...
-    FUNC_TEST_FILES = ...
+     LOAD_FILES = ...
+     UNIT_TEST_FILES = ...
+     FUNC_TEST_FILES = ...
 
-    include ../../spacemacs.mk
-  #+END_SRC
+     include ../../spacemacs.mk
+   #+END_SRC
 
 5. Add the new test to list of tests in =travis/run_build.sh=.
 

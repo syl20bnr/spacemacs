@@ -30,33 +30,33 @@ file.
 1) Install the =ycm= server. Installation instructions can be found [[https://github.com/Valloric/ycmd#user-content-building][here]].
 2) Set the =ycmd-server-command= variable to reflect the path to the installation:
 
-  #+BEGIN_SRC emacs-lisp
-    (setq ycmd-server-command '("python" "/path/to/YouCompleteMe/third_party/ycmd/ycmd"))
-  #+END_SRC
+   #+BEGIN_SRC emacs-lisp
+     (setq ycmd-server-command '("python" "/path/to/YouCompleteMe/third_party/ycmd/ycmd"))
+   #+END_SRC
 
-  Note that no filename expansions are done, so =~= -paths will not work out of the box.
-  If you need expansions, you can use Emacs’s =file-truename= like this:
+   Note that no filename expansions are done, so =~= -paths will not work out of the box.
+   If you need expansions, you can use Emacs’s =file-truename= like this:
 
-  #+BEGIN_SRC emacs-lisp
-    (setq ycmd-server-command (list "python" (file-truename "~/some/path")))
-  #+END_SRC
+   #+BEGIN_SRC emacs-lisp
+     (setq ycmd-server-command (list "python" (file-truename "~/some/path")))
+   #+END_SRC
 
 3) By default, spacemacs configures ycmd for getting the compilation flags from either
-  a compile_commands.json or a .clang_complete file and get additionnal flags from a
-  .ycm_extra_flags file. If you do not like this behaviour, you can write your own
-  [[https://github.com/Valloric/YouCompleteMe/blob/master/README.md#c-family-semantic-completion][.ycm_extra_conf.py file]]. See [[#configuration][Configuration]] for more details.
+   a compile_commands.json or a .clang_complete file and get additionnal flags from a
+   .ycm_extra_flags file. If you do not like this behaviour, you can write your own
+   [[https://github.com/Valloric/YouCompleteMe/blob/master/README.md#c-family-semantic-completion][.ycm_extra_conf.py file]]. See [[#configuration][Configuration]] for more details.
 4) Whitelist the file by adding the following to =.spacemacs=:
 
-  #+BEGIN_SRC emacs-lisp
-    ;; In this example we whitelist everything in the Develop folder
-    (setq ycmd-extra-conf-whitelist '("~/Develop/*"))
-  #+END_SRC
+   #+BEGIN_SRC emacs-lisp
+     ;; In this example we whitelist everything in the Develop folder
+     (setq ycmd-extra-conf-whitelist '("~/Develop/*"))
+   #+END_SRC
 
 5) The completion is not going to work automatically until we actually force it:
 
-  #+BEGIN_SRC emacs-lisp
-    (setq ycmd-force-semantic-completion t)
-  #+END_SRC
+   #+BEGIN_SRC emacs-lisp
+     (setq ycmd-force-semantic-completion t)
+   #+END_SRC
 
 ** Other Requirements
 This package requires the =auto-completion= layer in order to get actual

@@ -40,10 +40,10 @@ initialization tasks which must occur to get the completion working as it should
 On any new project make sure to perform the following initialization tasks:
 1. Run the following
 
-  #+BEGIN_SRC shell
-    cd /root/of/project
-    touch .ac-php-conf.json
-  #+END_SRC
+   #+BEGIN_SRC shell
+     cd /root/of/project
+     touch .ac-php-conf.json
+   #+END_SRC
 
 2. Inside of spacemacs run:
-  = ac-php-remake-tags-all =
+   = ac-php-remake-tags-all =
