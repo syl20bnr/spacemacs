@@ -115,7 +115,7 @@ Spacemacs, so keep on eye on the different options! ~ESC~ usually breaks the
 combination you don’t want to use.
 
 ** Buffers, windows and frames
-Because Emacs (the extension of which Spacemacs is) was developed in the '80s
+Because Emacs (the extension of which Spacemacs is) was developed in the ’80s
 before the advent of modern graphical user interfaces, Emacs has
 a different name of what we normally call “windows”: in Emacs these are
 called “frames”. A frame is what pops up when you launch Spacemacs from your
