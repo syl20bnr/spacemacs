@@ -69,6 +69,9 @@ This layer also includes experimental support for =lsp-mode=. To enable language
 server functionality with this layer, follow [[#lsp][the instructions for installation]],
 and then install this layer with:
 
+Warning: [[https://github.com/JuliaEditorSupport/LanguageServer.jl][ =LanguageServer.jl=]] has not yet been released for Julia 1.0. If using
+this layer with Julia 1.0, =julia-mode-enable-lsp= should be set to =nil=.
+
 #+BEGIN_SRC emacs-lisp
   (setq-default
    dotspacemacs-configuration-layers
