@@ -25,18 +25,17 @@
         spaceline
         spaceline-all-the-icons
         symon
-        (vim-powerline :location local)
-        ))
+        (vim-powerline :location local)))
 
 (defun spacemacs-modeline/post-init-anzu ()
   (when (eq 'all-the-icons (spacemacs/get-mode-line-theme-name))
     (spaceline-all-the-icons--setup-anzu)))
 
 (defun spacemacs-modeline/init-doom-modeline ()
-(use-package doom-modeline
-  :defer t
-  :if (eq (spacemacs/get-mode-line-theme-name) 'doom)
-  :init (add-hook 'after-init-hook 'doom-modeline-init)))
+  (use-package doom-modeline
+    :defer t
+    :if (eq (spacemacs/get-mode-line-theme-name) 'doom)
+    :init (add-hook 'after-init-hook 'doom-modeline-init)))
 
 (defun spacemacs-modeline/init-fancy-battery ()
   (use-package fancy-battery
@@ -57,7 +56,8 @@
 
 (defun spacemacs-modeline/init-spaceline ()
   (use-package spaceline-config
-    :if (memq (spacemacs/get-mode-line-theme-name) '(spacemacs all-the-icons custom))
+    :if (memq (spacemacs/get-mode-line-theme-name)
+              '(spacemacs all-the-icons custom))
     :init
     (add-hook 'emacs-startup-hook
               (lambda ()
@@ -133,17 +133,19 @@
                           (if (yes-or-no-p
                                (format
                                 (concat "Do you want to update to the newest "
-                                        "version %s ?") spacemacs-new-version))
+                                        "version %s ?")
+                                spacemacs-new-version))
                               (progn
                                 (spacemacs/switch-to-version
                                  spacemacs-new-version))
                             (message "Update aborted."))))
                       map)))
-      (spaceline-define-segment new-version
-        (when spacemacs-new-version
-          (spacemacs-powerline-new-version
-           (spacemacs/get-new-version-lighter-face
-            spacemacs-version spacemacs-new-version))))
+      (spaceline-define-segment
+       new-version
+       (when spacemacs-new-version
+         (spacemacs-powerline-new-version
+          (spacemacs/get-new-version-lighter-face
+           spacemacs-version spacemacs-new-version))))
       (let ((theme (intern (format "spaceline-%S-theme"
                                    (spacemacs/get-mode-line-theme-name)))))
         (apply theme spacemacs-spaceline-additional-segments))
@@ -207,7 +209,6 @@ PAD import on left (l) or right (r) or left-right (lr)."
                             (if (listp str) rendered-str str)
                             (when (and (> (length rendered-str) 0)
                                        (or (eq pad 'r) (eq pad 'lr))) " "))))
-
           (if face
               (pl/add-text-property padded-str 'face face)
             padded-str))))
