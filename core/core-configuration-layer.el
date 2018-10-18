@@ -2112,7 +2112,7 @@ to update."
             (sort (mapcar 'symbol-name update-packages) 'string<))
       (if (and (not no-confirmation)
                (not (yes-or-no-p
-                     (format "Do you want to update %s package(s) ? "
+                     (format "Do you want to update %s package(s)? "
                              upgrade-count))))
           (spacemacs-buffer/append "Packages update has been cancelled.\n" t)
         ;; backup the package directory and construct an alist
