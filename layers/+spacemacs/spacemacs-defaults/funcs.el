@@ -418,13 +418,16 @@ FILENAME is deleted using `spacemacs/delete-file' function.."
         (name (buffer-name)))
     (if (not (and filename (file-exists-p filename)))
         (ido-kill-buffer)
-      (when (yes-or-no-p "Are you sure you want to delete this file? ")
-        (delete-file filename t)
-        (kill-buffer buffer)
-        (when (and (configuration-layer/package-used-p 'projectile)
-                   (projectile-project-p))
-          (call-interactively #'projectile-invalidate-cache))
-        (message "File '%s' successfully removed" filename)))))
+      (if (yes-or-no-p
+            (format "Are you sure you want to delete this file: '%s'?" name))
+          (progn
+            (delete-file filename t)
+            (kill-buffer buffer)
+            (when (and (configuration-layer/package-used-p 'projectile)
+                       (projectile-project-p))
+              (call-interactively #'projectile-invalidate-cache))
+            (message "File deleted: '%s'" filename))
+        (message "Canceled: File deletion")))))
 
 ;; from magnars
 (defun spacemacs/sudo-edit (&optional arg)
