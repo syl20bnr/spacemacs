@@ -353,7 +353,11 @@ initialized with the current directory instead of filename."
     (if (and filename (file-exists-p filename))
         ;; the buffer is visiting a file
         (let* ((dir (file-name-directory filename))
-               (new-name (read-file-name "New name: " (if arg dir filename))))
+               (new-name (read-file-name "New name: " (if arg dir filename)))
+               (new-dir (file-name-directory new-name))
+               (new-short-name (file-name-nondirectory new-name))
+               (file-moved-p (not (string-equal new-dir dir)))
+               (file-renamed-p (not (string-equal new-short-name name))))
           (cond ((get-buffer new-name)
                  (error "A buffer named '%s' already exists!" new-name))
                 (t
@@ -372,8 +376,18 @@ initialized with the current directory instead of filename."
                  (when (and (configuration-layer/package-used-p 'projectile)
                             (projectile-project-p))
                    (call-interactively #'projectile-invalidate-cache))
-                 (message "File '%s' successfully renamed to '%s'"
-                          name (file-name-nondirectory new-name)))))
+                 (message (cond ((and file-moved-p file-renamed-p)
+                                 (concat "File Moved & Renamed\n"
+                                         "From: " filename "\n"
+                                         "To:   " new-name))
+                                (file-moved-p
+                                 (concat "File Moved\n"
+                                         "From: " filename "\n"
+                                         "To:   " new-name))
+                                (file-renamed-p
+                                 (concat "File Renamed\n"
+                                         "From: " name "\n"
+                                         "To:   " new-short-name)))))))
       ;; the buffer is not visiting a file
       (let ((key))
         (while (not (memq key '(?s ?r)))
@@ -398,8 +412,9 @@ initialized with the current directory instead of filename."
                          (setq new-name (read-string "New buffer name: "))
                        (keyboard-quit)))
                    (rename-buffer new-name)
-                   (message "Buffer '%s' successfully renamed to '%s'"
-                            name new-name)))
+                   (message (concat "Buffer Renamed\n"
+                                    "From: " name "\n"
+                                    "To:   " new-name))))
                 ;; ?\a = C-g, ?\e = Esc and C-[
                 ((memq key '(?\a ?\e)) (keyboard-quit))))))))
 
