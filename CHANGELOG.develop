@@ -953,6 +953,8 @@ Other:
   - Fix doom-modeline in the messages buffer (thanks to duianto)
   - Fix void function error when recentf-save-list is undefined
     (thanks to Compro-Prasad)
+  - Fixed =spacemacs/rename-current-buffer-file=, separate messages for
+    move & rename, just move and just rename (thanks to duianto)
 *** Layer changes and fixes
 **** Ansible
 - Improvements:
