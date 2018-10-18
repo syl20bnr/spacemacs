@@ -120,12 +120,13 @@ automatically applied to."
 (defun spacemacs/toggle-maximize-buffer ()
   "Maximize buffer"
   (interactive)
-  (if (and (= 1 (length (window-list)))
-           (assoc ?_ register-alist))
-      (jump-to-register ?_)
-    (progn
-      (window-configuration-to-register ?_)
-      (delete-other-windows))))
+  (save-excursion
+    (if (and (= 1 (length (window-list)))
+             (assoc ?_ register-alist))
+        (jump-to-register ?_)
+      (progn
+        (window-configuration-to-register ?_)
+        (delete-other-windows)))))
 
 ;; https://tsdh.wordpress.com/2007/03/28/deleting-windows-vertically-or-horizontally/
 (defun spacemacs/maximize-horizontally ()
