@@ -1090,6 +1090,8 @@ Other:
   - Fixed =spacemacs/layouts-ts-close-other= with =ivy= (thanks to duianto)
   - Fixed =spacemacs/rename-current-buffer-file=, separate messages for
     move & rename, just move and just rename (thanks to duianto)
+  - Fixed =spacemacs/rename-current-buffer-file= handle same new and old name
+    (thanks to duianto)
 *** Layer changes and fixes
 **** Agda
 - Fixes

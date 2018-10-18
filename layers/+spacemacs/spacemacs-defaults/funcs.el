@@ -360,6 +360,10 @@ initialized with the current directory instead of filename."
                (file-renamed-p (not (string-equal new-short-name name))))
           (cond ((get-buffer new-name)
                  (error "A buffer named '%s' already exists!" new-name))
+                ((string-equal new-name filename)
+                 (spacemacs/show-hide-helm-or-ivy-prompt-msg
+                  "Rename failed! Same new and old name" 1.5)
+                 (spacemacs/rename-current-buffer-file))
                 (t
                  (let ((dir (file-name-directory new-name)))
                    (when (and (not (file-exists-p dir))
@@ -417,6 +421,36 @@ initialized with the current directory instead of filename."
                                     "To:   " new-name))))
                 ;; ?\a = C-g, ?\e = Esc and C-[
                 ((memq key '(?\a ?\e)) (keyboard-quit))))))))
+
+(defun spacemacs/show-hide-helm-or-ivy-prompt-msg (msg sec)
+  "Show a MSG at the helm or ivy prompt for SEC.
+With Helm, remember the path, then restore it after SEC.
+With Ivy, the path isn't editable, just remove the MSG after SEC."
+  (run-at-time
+   0 nil
+   #'(lambda (msg sec)
+       (let* ((prev-prompt-contents
+               (buffer-substring (line-beginning-position)
+                                 (line-end-position)))
+              (prev-prompt-contents-p
+               (not (string= prev-prompt-contents "")))
+              (helmp (fboundp 'helm-mode)))
+         (when prev-prompt-contents-p
+           (delete-region (line-beginning-position)
+                          (line-end-position)))
+         (insert (propertize msg 'face 'warning))
+         ;; stop checking for candidates
+         ;; and update the helm prompt
+         (when helmp (helm-suspend-update t))
+         (sit-for sec)
+         (delete-region (line-beginning-position)
+                        (line-end-position))
+         (when prev-prompt-contents-p
+           (insert prev-prompt-contents)
+           ;; start checking for candidates
+           ;; and update the helm prompt
+           (when helmp (helm-suspend-update nil)))))
+   msg sec))
 
 (defun spacemacs/delete-file (filename &optional ask-user)
   "Remove specified file or directory.
