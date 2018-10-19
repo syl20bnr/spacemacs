@@ -21,7 +21,7 @@ fold_end() {
 
 cd  ~/.emacs.d
 
-if  [ "$TRAVIS_BRANCH" = "master" ] || [ "$TRAVIS_BRANCH" = "develop" ]; then
+if [ "$TRAVIS_BRANCH" = "develop" ]; then
     PUBLISH="spacemacs"
 else
     echo "branch is \"${TRAVIS_BRANCH}\". Won't publish."
