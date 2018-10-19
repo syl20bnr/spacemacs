@@ -62,7 +62,7 @@ fold_end "SELECTING_CHANGED_FILES"
 fold_start "PUSHING_CHANGES_TO_${BOT_NAME}/${PUBLISH}"
 cd "/tmp/${PUBLISH}"
 /tmp/hub add --all
-/tmp/hub commit -m "documentation fixes:$(date -u)"
+/tmp/hub commit -m "documentation fixes: $(date -u)"
 if [ $? -ne 0 ]; then
     echo "hub commit failed"
     exit 2
