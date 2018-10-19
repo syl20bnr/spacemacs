@@ -1,0 +1,20 @@
+#+TITLE: clipboard layer
+
+* Table of Contents                     :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#key-bindings][Key Bindings]]
+
+* Description
+=clipboard= integration layer.
+
+** Features:
+- integrates with clipboard managers, such as Parcellite, Clipit, and Flycut.
+
+* Key Bindings
+
+| Key Binding | Description                         |
+|-------------+-------------------------------------|
+| ~SPC x P~   | paste item from history             |
+| ~SPC x R~   | rectangly paste item from history   |
+| ~SPC x s~   | select item from history            |
