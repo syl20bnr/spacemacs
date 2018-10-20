@@ -109,6 +109,7 @@ when this mode is enabled since the minibuffer is cleared all the time."
 (defun spacemacs/python-annotate-pdb ()
   "Highlight break point lines."
   (interactive)
+  (highlight-lines-matching-regexp "breakpoint()")
   (highlight-lines-matching-regexp "import \\(pdb\\|ipdb\\|pudb\\|wdb\\)")
   (highlight-lines-matching-regexp "\\(pdb\\|ipdb\\|pudb\\|wdb\\).set_trace()")
   (highlight-lines-matching-regexp "trepan.api.debug()"))
@@ -168,6 +169,8 @@ as the pyenv version then also return nil. This works around https://github.com/
                      ((spacemacs/pyenv-executable-find "pudb") "import pudb; pudb.set_trace()")
                      ((spacemacs/pyenv-executable-find "ipdb3") "import ipdb; ipdb.set_trace()")
                      ((spacemacs/pyenv-executable-find "pudb3") "import pudb; pudb.set_trace()")
+                     ((spacemacs/pyenv-executable-find "python3.7") "breakpoint()")
+                     ((spacemacs/pyenv-executable-find "python3.8") "breakpoint()")
                      (t "import pdb; pdb.set_trace()")))
         (line (thing-at-point 'line)))
     (if (and line (string-match trace line))
