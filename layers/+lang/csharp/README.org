@@ -13,6 +13,7 @@
   - [[#helpers-documentation-info][Helpers (documentation, info)]]
   - [[#refactoring][Refactoring]]
   - [[#omnisharp-server-interaction][OmniSharp server interaction]]
+  - [[#tests][Tests]]
 
 * Description
 This layer adds support for C# language using the [[https://github.com/OmniSharp/omnisharp-roslyn][omnisharp-roslyn]] language
@@ -40,10 +41,10 @@ Before you can work with C# files you will need to install the server by invokin
 ~SPC m s i~ (or =M-x omnisharp-install-server=). Otherwise, if this fails for
 you, please see [[https://github.com/OmniSharp/omnisharp-emacs/blob/master/doc/server-installation.md][omnisharp-emacs/doc/server-installation.md]].
 
-The server needs to be started manually with ~SPC m s s~ (or with
+While the server will start automatically where possible if the
+server needs to be started manually use ~SPC m s s~ (or
 =M-x omnisharp-start-omnisharp-server=). It will prompt a path to your .cpsroj
-or .sln file. In the future the server will be started automatically however for
-now this is required.
+or .sln file.
 
 * Caveats
 - You should use =dotnet= CLI tool from [[https://www.microsoft.com/net/download/core][.NET Core download page]] or an IDE like
@@ -96,3 +97,9 @@ now this is required.
 | ~SPC m s r~ | Reload the solution        |
 | ~SPC m s s~ | Start the OmniSharp server |
 | ~SPC m s S~ | Stop the OmniSharp server  |
+
+** Tests
+
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m t b~ | Run tests in current buffer |
