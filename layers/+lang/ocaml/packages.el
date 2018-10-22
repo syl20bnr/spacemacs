@@ -59,7 +59,7 @@
     :init
     (progn
       (add-to-list 'spacemacs-jump-handlers-tuareg-mode
-                'spacemacs/merlin-locate)
+                   'spacemacs/merlin-locate)
       (add-hook 'tuareg-mode-hook 'merlin-mode)
       (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
         "cp" 'merlin-project-check
@@ -81,7 +81,13 @@
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mE" "errors")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mh" "help")
-      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mr" "refactor"))))
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mr" "refactor")))
+    (use-package merlin-iedit
+      :defer t
+      :commands merlin-iedit-occurrences
+      :init
+      (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+        "re"  'merlin-iedit-occurrences)))
 
 (defun ocaml/post-init-imenu ()
   (use-package merlin-imenu
