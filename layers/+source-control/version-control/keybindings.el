@@ -12,10 +12,10 @@
 (spacemacs|define-transient-state vcs
   :title "VCS Transient State"
   :doc "
- Hunk Commands^^^^^^                 Magit Commands
-----------------------------^^^^^^  ------------------------------------------
- [_n_]^^^^      next hunk            [_w_/_u_]^^    stage/unstage in current file
- [_N_/_p_]^^    previous hunk        [_c_/_C_]^^    commit with popup/direct commit
+ Hunk Commands^^^^^^                 Magit Commands^^^^^^                             Others
+----------------------------^^^^^^  ------------------------------------------^^^^^^  ------------^^
+ [_n_]^^^^      next hunk            [_w_/_u_]^^    stage/unstage in current file     [_z_] recenter
+ [_N_/_p_]^^    previous hunk        [_c_/_C_]^^    commit with popup/direct commit   [_q_] quit
  [_r_/_s_/_h_]  revert/stage/show    [_f_/_F_/_P_]  fetch/pull/push popup
  [_t_]^^^^      toggle diff signs    [_l_/_D_]^^    log/diff popup"
   :on-enter (spacemacs/vcs-enable-margin)
@@ -37,6 +37,7 @@
   ("s" spacemacs/vcs-stage-hunk)
   ("h" spacemacs/vcs-show-hunk)
   ("t" spacemacs/toggle-version-control-margin)
+  ("z" recenter-top-bottom)
   ("q" nil :exit t))
 (spacemacs/set-leader-keys "g." 'spacemacs/vcs-transient-state/body)
 
