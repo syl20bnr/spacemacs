@@ -32,18 +32,16 @@
       :modes merlin-mode
       :variables merlin-completion-with-doc t)))
 
-(when (configuration-layer/layer-used-p 'syntax-checking)
-  (defun ocaml/post-init-flycheck ()
-    (spacemacs/enable-flycheck 'tuareg-mode))
-  (defun ocaml/init-flycheck-ocaml ()
-    (use-package flycheck-ocaml
-      :if (configuration-layer/package-used-p 'flycheck)
-      :defer t
-      :init
-      (progn
-        (with-eval-after-load 'merlin
-          (setq merlin-error-after-save nil)
-          (flycheck-ocaml-setup))))))
+(defun ocaml/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'tuareg-mode))
+
+(defun ocaml/init-flycheck-ocaml ()
+  (defun ocaml/setup-flycheck ()
+    (when (and buffer-file-name (locate-dominating-file buffer-file-name ".merlin"))
+      (setq merlin-error-after-save nil)
+      (flycheck-ocaml-setup)))
+  (use-package flycheck-ocaml
+    :hook (merlin-mode . ocaml/setup-flycheck)))
 
 (defun ocaml/post-init-ggtags ()
   (add-hook 'ocaml-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
