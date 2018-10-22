@@ -404,13 +404,14 @@ Will work on both org-mode and any mode that accepts plain html."
         :title "Org Babel Transient state"
         :doc "
 [_j_/_k_] navigate src blocks         [_e_] execute src block
-[_g_] goto named block                [_'_] edit src block
-[_q_] quit"
+[_g_]^^   goto named block            [_'_] edit src block
+[_z_]^^   recenter screen             [_q_] quit"
         :bindings
         ("q" nil :exit t)
         ("j" org-babel-next-src-block)
         ("k" org-babel-previous-src-block)
         ("g" org-babel-goto-named-src-block)
+        ("z" recenter-top-bottom)
         ("e" org-babel-execute-maybe :exit t)
         ("'" org-edit-special :exit t)))))
 
