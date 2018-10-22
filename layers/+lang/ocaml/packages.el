@@ -19,7 +19,9 @@
         ggtags
         counsel-gtags
         helm-gtags
+        imenu
         merlin
+        merlin-eldoc
         ocp-indent
         smartparens
         tuareg
@@ -78,6 +80,13 @@
         (setq merlin-error-after-save nil)
         (flycheck-ocaml-setup)))))
 
+;; (defun ocaml/setup-flycheck ()
+;;   (when (and buffer-file-name (locate-dominating-file buffer-file-name ".merlin"))
+;;     (setq merlin-error-after-save nil)
+;;     (flycheck-ocaml-setup)))
+;; (use-package flycheck-ocaml
+;;   :hook (merlin-mode . ocaml/setup-flycheck)))
+
 (defun ocaml/post-init-ggtags ()
   (add-hook 'ocaml-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
@@ -93,7 +102,7 @@
     :init
     (progn
       (add-to-list 'spacemacs-jump-handlers-tuareg-mode
-                'spacemacs/merlin-locate)
+                   'spacemacs/merlin-locate)
       (add-hook 'tuareg-mode-hook 'merlin-mode)
       (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
         "cp" 'merlin-project-check
@@ -115,7 +124,19 @@
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mE" "errors")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mh" "help")
-      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mr" "refactor"))))
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mr" "refactor"))
+    :config
+    (require 'merlin-iedit)
+    (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+      "re"  'merlin-iedit-occurrences)))
+
+(defun ocaml/post-init-imenu ()
+  (use-package merlin-imenu
+    :hook (merlin-mode . merlin-use-merlin-imenu)))
+
+(defun ocaml/init-merlin-eldoc ()
+  (use-package merlin-eldoc
+    :hook (merlin-mode . merlin-eldoc-setup)))
 
 (defun ocaml/init-ocp-indent ()
   (use-package ocp-indent
