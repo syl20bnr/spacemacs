@@ -11,7 +11,7 @@
     - [[#with-org][With Org]]
     - [[#manually][Manually]]
   - [[#server][Server]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 - [[#troubleshooting][Troubleshooting]]
   - [[#database-empty-at-first-start][Database empty at first start]]
   - [[#queue-timeout-exceeded][Queue timeout exceeded]]
@@ -93,15 +93,15 @@ to =t= which will start the web automatically when Emacs starts.
 By default web interface is available on [[http://localhost:8080/elfeed/][localhost:8080/elfeed]]. You can change
 the default port by changing the value of =httpd-port=.
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description  |
+| Key binding | Description  |
 |-------------+--------------|
 | ~SPC a f~   | start elfeed |
 
 Use =SPC ?= to discover major-mode key bindings.
 
-| Key Binding | Description                                       |
+| Key binding | Description                                       |
 |-------------+---------------------------------------------------|
 | ~c~         | compact feed db                                   |
 | ~gr~        | update all the feeds                              |
@@ -114,7 +114,7 @@ Use =SPC ?= to discover major-mode key bindings.
 
 In =elfeed-show= mode, you can use the following bindings:
 
-| Key Binding | Description      |
+| Key binding | Description      |
 |-------------+------------------|
 | ~q~         | quit show window |
 | ~C-j~       | Next entry       |

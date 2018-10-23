@@ -174,7 +174,7 @@ All Haskell specific bindings are prefixed with the major-mode leader ~SPC m~.
 
 Top-level commands are prefixed by ~SPC m~:
 
-| Key Binding | Description                                                         |
+| Key binding | Description                                                         |
 |-------------+---------------------------------------------------------------------|
 | ~SPC m g g~ | go to definition or tag                                             |
 | ~SPC m g i~ | cycle the Haskell import lines or return to point (with prefix arg) |
@@ -184,7 +184,7 @@ Top-level commands are prefixed by ~SPC m~:
 ** Documentation
 Documentation commands are prefixed by ~SPC m h~
 
-| Key Binding | Description                                                                |
+| Key binding | Description                                                                |
 |-------------+----------------------------------------------------------------------------|
 | ~SPC m h d~ | find or generate Haddock documentation for the identifier under the cursor |
 | ~SPC m h f~ | do a helm-hoogle lookup                                                    |
@@ -197,7 +197,7 @@ Documentation commands are prefixed by ~SPC m h~
 ** Debug
 Debug commands are prefixed by ~SPC m d~:
 
-| Key Binding | Description                                |
+| Key binding | Description                                |
 |-------------+--------------------------------------------|
 | ~SPC m d a~ | abandon current process                    |
 | ~SPC m d b~ | insert breakpoint at function              |
@@ -213,7 +213,7 @@ Debug commands are prefixed by ~SPC m d~:
 
 ** Debug Buffer
 
-| Key Binding | Description                                 |
+| Key binding | Description                                 |
 |-------------+---------------------------------------------|
 | ~RET~       | select object at the point                  |
 | ~a~         | abandon current computation                 |
@@ -229,7 +229,7 @@ Debug commands are prefixed by ~SPC m d~:
 ** REPL
 REPL commands are prefixed by ~SPC m s~:
 
-| Key Binding | Description                                     |
+| Key binding | Description                                     |
 |-------------+-------------------------------------------------|
 | ~SPC m s b~ | load or reload the current buffer into the REPL |
 | ~SPC m s c~ | clear the REPL                                  |
@@ -239,7 +239,7 @@ REPL commands are prefixed by ~SPC m s~:
 ** Intero REPL
 Intero REPL commands are prefixed by ~SPC m i~:
 
-| Key Binding | Description                                                   |
+| Key binding | Description                                                   |
 |-------------+---------------------------------------------------------------|
 | ~SPC m i c~ | change directory in the backend process                       |
 | ~SPC m i d~ | reload the module =DevelMain= and then run =DevelMain.update= |
@@ -251,7 +251,7 @@ Intero REPL commands are prefixed by ~SPC m i~:
 ** Cabal commands
 Cabal commands are prefixed by ~SPC m c~:
 
-| Key Binding | Description                                                |
+| Key binding | Description                                                |
 |-------------+------------------------------------------------------------|
 | ~SPC m c a~ | cabal actions                                              |
 | ~SPC m c b~ | build the current cabal project, i.e. invoke =cabal build= |
@@ -261,7 +261,7 @@ Cabal commands are prefixed by ~SPC m c~:
 ** Cabal files
 These commands are available in a cabal file.
 
-| Key Binding | Description                                 |
+| Key binding | Description                                 |
 |-------------+---------------------------------------------|
 | ~SPC m d~   | add a dependency to the project             |
 | ~SPC m b~   | go to benchmark section                     |
@@ -281,7 +281,7 @@ These commands are available in a cabal file.
 ** Refactor
 Refactor commands are prefixed by ~SPC m r~:
 
-| Key Binding | Description                                       |
+| Key binding | Description                                       |
 |-------------+---------------------------------------------------|
 | ~SPC m r b~ | apply all HLint suggestions in the current buffer |
 | ~SPC m r i~ | reformat imports from anywhere in the buffer      |
@@ -302,7 +302,7 @@ For more info, see
 
 ghc-mod commands are prefixed by ~SPC m m~:
 
-| Key Binding | Description                               |
+| Key binding | Description                               |
 |-------------+-------------------------------------------|
 | ~SPC t~     | insert template                           |
 | ~SPC m m u~ | insert template with holes                |
@@ -327,7 +327,7 @@ This command is only available when intero is enabled.
 
 This top-level command is prefixed by ~SPC m~:
 
-| Key Binding | Description            |
+| Key binding | Description            |
 |-------------+------------------------|
 | ~SPC m g b~ | return from definition |
 

@@ -7,7 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#structuraly-safe-editing][Structuraly safe editing]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#navigation][Navigation]]
   - [[#documentation][Documentation]]
   - [[#tests][Tests]]
@@ -56,10 +56,10 @@ or to enable it for all supported modes:
 
 When enabled the symbol =🆂= should be displayed in the mode-line.
 
-* Key Bindings
+* Key bindings
 ** Navigation
 
-| Key Binding | Description                         |
+| Key binding | Description                         |
 |-------------+-------------------------------------|
 | ~SPC m g `~ | Return to previous location         |
 | ~SPC m g g~ | Go to definition of symbol at point |
@@ -68,21 +68,21 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 
 ** Documentation
 
-| Key Binding | Description                                                   |
+| Key binding | Description                                                   |
 |-------------+---------------------------------------------------------------|
 | ~SPC m h d~ | Describes the function at point in a =Racket Describe= buffer |
 | ~SPC m h h~ | View documentation of the identifier or string at point.      |
 
 ** Tests
 
-| Key Binding | Description                       |
+| Key binding | Description                       |
 |-------------+-----------------------------------|
 | ~SPC m t b~ | Run tests of buffer               |
 | ~SPC m t B~ | Run tests of buffer with coverage |
 
 ** REPL
 
-| Key Binding | Description                                                     |
+| Key binding | Description                                                     |
 |-------------+-----------------------------------------------------------------|
 | ~SPC m s b~ | Send buffer to REPL                                             |
 | ~SPC m s B~ | Send buffer to REPL and switch to REPL buffer in =insert state= |
@@ -97,7 +97,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 
 ** Other key bindings
 
-| Key Binding | Description                                                                     |
+| Key binding | Description                                                                     |
 |-------------+---------------------------------------------------------------------------------|
 | ~SPC m i l~ | Insert lambda character                                                         |
 | ~H-r~       | Run current file and open REPL (=H= is hyper, *may* be bound to command on OSX) |

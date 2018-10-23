@@ -49,7 +49,7 @@ Choose if ~C-e~ first brings you to the end of the line or the end of the code
 
 * Key bindings
 
-| Key Binding | Description                                                                      |
+| Key binding | Description                                                                      |
 |-------------+----------------------------------------------------------------------------------|
 | ~C-a~       | move to beginning of line or code                                                |
 | ~C-e~       | move to end of line or code                                                      |

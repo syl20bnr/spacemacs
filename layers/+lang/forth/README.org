@@ -32,7 +32,7 @@ appropriate variable.
 
 * Key bindings
 
-| Key Binding | Description                                                       |
+| Key binding | Description                                                       |
 |-------------+-------------------------------------------------------------------|
 | ~SPC m d s~ | See definition (show decompiled body)                             |
 | ~SPC m e E~ | Evaluate expression in minibuffer                                 |

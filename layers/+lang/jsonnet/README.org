@@ -27,7 +27,7 @@ To use some of the additional formatting and evaluation features, you’ll need
 
 * Key bindings
 
-| Key Binding | Description                                              |
+| Key binding | Description                                              |
 |-------------+----------------------------------------------------------|
 | ~SPC m =~   | format the buffer using `jsonnet fmt`                    |
 | ~SPC m g g~ | jump to the definition of a given identifier             |

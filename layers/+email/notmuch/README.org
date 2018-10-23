@@ -92,7 +92,7 @@ Refer to the official notmuch website for more information:
 * Key bindings
 ** Global bindings
 
-| Keybinding  | Command                                      |
+| Key binding | Command                                      |
 |-------------+----------------------------------------------|
 | ~SPC a N N~ | Start notmuch                                |
 | ~SPC a N n~ | Start helm notmuch                           |
@@ -102,7 +102,7 @@ Refer to the official notmuch website for more information:
 
 ** Show mode
 
-| Keybinding      | Command                                                                        |
+| Key binding     | Command                                                                        |
 |-----------------+--------------------------------------------------------------------------------|
 | ~SPC m a~       | [ATTACHMENTS] Save all attachments                                             |
 |-----------------+--------------------------------------------------------------------------------|
@@ -130,56 +130,56 @@ Refer to the official notmuch website for more information:
 ** Evilified key bindings
 *** Hello mode
 
-| Keybinding | Command                     |
-|------------+-----------------------------|
-| ~J~        | Jump to a saved search      |
-| ~s~        | Show threads matching QUERY |
+| Key binding | Command                     |
+|-------------+-----------------------------|
+| ~J~         | Jump to a saved search      |
+| ~s~         | Show threads matching QUERY |
 
 *** Search mode
 
-| Keybinding | Command                   |
-|------------+---------------------------|
-| ~J~        | Jump to saved search      |
-| ~*~        | [Thread]  Add/Remove tags |
-| ~+~        | [Message] Add tags        |
-| ~-~        | [Message] Remove tags     |
-| ~a~        | [Message] Archive         |
+| Key binding | Command                  |
+|-------------+--------------------------|
+| ~J~         | Jump to saved search     |
+| ~*~         | [Thread] Add/Remove tags |
+| ~+~         | [Message] Add tags       |
+| ~-~         | [Message] Remove tags    |
+| ~a~         | [Message] Archive        |
 
 *** Show mode
 
-| Keybinding | Description                |
-|------------+----------------------------|
-| ~o~        | Open all messages          |
-| ~O~        | Close all messages         |
-| ~n~        | Show next open message     |
-| ~N~        | Show next message          |
-| ~p~        | Show previous open message |
-| ~P~        | Show previous message      |
-| ~C-n~      | Show next thread           |
-| ~C-p~      | Show previous thread       |
-| ~d~        | Delete messages down       |
-| ~D~        | Delete messages up         |
-| ~J~        | Jump search                |
-| ~L~        | Filter current search      |
-| ~gf~       | Find file or URL at point  |
-| ~gg~       | Jump to top                |
-| ~G~        | Jump to bottom             |
-| ~gr~       | Refresh buffer             |
-| ~gR~       | Refresh all buffers        |
-| ~m~        | Compose mail               |
+| Key binding | Description                |
+|-------------+----------------------------|
+| ~o~         | Open all messages          |
+| ~O~         | Close all messages         |
+| ~n~         | Show next open message     |
+| ~N~         | Show next message          |
+| ~p~         | Show previous open message |
+| ~P~         | Show previous message      |
+| ~C-n~       | Show next thread           |
+| ~C-p~       | Show previous thread       |
+| ~d~         | Delete messages down       |
+| ~D~         | Delete messages up         |
+| ~J~         | Jump search                |
+| ~L~         | Filter current search      |
+| ~gf~        | Find file or URL at point  |
+| ~gg~        | Jump to top                |
+| ~G~         | Jump to bottom             |
+| ~gr~        | Refresh buffer             |
+| ~gR~        | Refresh all buffers        |
+| ~m~         | Compose mail               |
 
 *** Tree mode
 
-| Keybinding | Command                   |
-|------------+---------------------------|
-| ~*~        | [Thread]  Add/Remove tags |
-| ~+~        | [Message] Add tags        |
-| ~-~        | [Message] Remove tags     |
-| ~a~        | [Message] Archive         |
+| Key binding | Command                  |
+|-------------+--------------------------|
+| ~*~         | [Thread] Add/Remove tags |
+| ~+~         | [Message] Add tags       |
+| ~-~         | [Message] Remove tags    |
+| ~a~         | [Message] Archive        |
 
 * Spacemacs layout integration
 This layer defines a [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces][Spacemacs custom layout]] and automatically adds notmuch
-buffers to this layout.  The name and the key binding for the layout can be
+buffers to this layout. The name and the key binding for the layout can be
 customized with the following layer variables:
 - =notmuch-spacemacs-layout-name= for the layout name,
 - =notmuch-spacemacs-layout-binding= for the key binding.

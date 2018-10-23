@@ -128,7 +128,7 @@ When using the Vim style or Hybrid style with the variable
 =hybrid-style-enable-hjkl-bindings= set to =t=, Spacemacs adds navigation in the
 Helm buffers with ~hjkl~.
 
-| Key Binding | Description                  |
+| Key binding | Description                  |
 |-------------+------------------------------|
 | ~C-h~       | go to next source            |
 | ~C-H~       | describe key (replace ~C-h~) |
@@ -142,7 +142,7 @@ plugin.
 
 Initiate the transient state with ~M-SPC~ or ~s-M-SPC~ while in a =Helm= buffer.
 
-| Key Binding          | Description                                          |
+| Key binding          | Description                                          |
 |----------------------+------------------------------------------------------|
 | ~M-SPC~ or ~s-M-SPC~ | initiate the transient state                         |
 | ~q~                  | quit transient state                                 |
@@ -171,7 +171,7 @@ Initiate the transient state with ~M-SPC~ or ~s-M-SPC~ while in a =Helm= buffer.
 ** Bookmarks
 In the =helm-bookmarks= buffer:
 
-| Key Binding | Description                                  |
+| Key binding | Description                                  |
 |-------------+----------------------------------------------|
 | ~C-d~       | delete the selected bookmark                 |
 | ~C-e~       | edit the selected bookmark                   |
@@ -194,7 +194,7 @@ real-time and navigate between them easily.
 You can even edit the occurrences directly in the =helm= buffer and apply the
 modifications to the buffer.
 
-| Key Binding | Description                    |
+| Key binding | Description                    |
 |-------------+--------------------------------|
 | ~SPC s s~   | execute =helm-swoop=           |
 | ~SPC s S~   | execute =helm-multi-swoop=     |

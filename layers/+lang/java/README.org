@@ -274,7 +274,7 @@ to lack of classpath information.
 ** Meghanada
 *** Server
 
-| Key Binding | Description                                  |
+| Key binding | Description                                  |
 |-------------+----------------------------------------------|
 | ~SPC m D c~ | Connect to server                            |
 | ~SPC m D d~ | Disconnect from server                       |
@@ -289,21 +289,21 @@ to lack of classpath information.
 
 *** Navigation
 
-| Key Binding | Description                    |
+| Key binding | Description                    |
 |-------------+--------------------------------|
 | ~SPC m g b~ | Jump back to previous location |
 | ~SPC m g g~ | Jump to declaration            |
 
 *** Compilation
 
-| Key Binding | Description           |
+| Key binding | Description           |
 |-------------+-----------------------|
 | ~SPC m c b~ | Compile file (buffer) |
 | ~SPC m c c~ | Compile project       |
 
 *** Tests (junit)
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC m t a~ | Run all tests               |
 | ~SPC m t c~ | Run test class around point |
@@ -312,7 +312,7 @@ to lack of classpath information.
 
 *** Refactoring
 
-| Key Binding | Description                            |
+| Key binding | Description                            |
 |-------------+----------------------------------------|
 | ~SPC m =~   | Beautify code                          |
 | ~SPC m r i~ | Optimize imports                       |
@@ -321,7 +321,7 @@ to lack of classpath information.
 
 *** Tasks
 
-| Key Binding | Description |
+| Key binding | Description |
 |-------------+-------------|
 | ~SPC m x :~ | Run task    |
 
@@ -329,7 +329,7 @@ to lack of classpath information.
 *** Java-mode
 **** Ant
 
-| Key Binding | Description     |
+| Key binding | Description     |
 |-------------+-----------------|
 | ~SPC m a a~ | Run Ant         |
 | ~SPC m a c~ | Clear Ant cache |
@@ -338,7 +338,7 @@ to lack of classpath information.
 
 **** Project management
 
-| Key Binding | Description                    |
+| Key binding | Description                    |
 |-------------+--------------------------------|
 | ~SPC m p b~ | Build project                  |
 | ~SPC m p c~ | Create project                 |
@@ -354,14 +354,14 @@ to lack of classpath information.
 
 **** Eclim daemon
 
-| Key Binding | Description  |
+| Key binding | Description  |
 |-------------+--------------|
 | ~SPC m D k~ | Kill daemon  |
 | ~SPC m D s~ | Start daemon |
 
 **** Goto
 
-| Key Binding | Description                                 |
+| Key binding | Description                                 |
 |-------------+---------------------------------------------|
 | ~M-​,​~       | jump back from go to declaration/definition |
 | ~SPC m g g~ | go to declaration                           |
@@ -369,7 +369,7 @@ to lack of classpath information.
 
 **** Refactoring
 
-| Key Binding | Description                            |
+| Key binding | Description                            |
 |-------------+----------------------------------------|
 | ~SPC m r c~ | create a constructor                   |
 | ~SPC m r f~ | format file                            |
@@ -381,7 +381,7 @@ to lack of classpath information.
 
 **** Documentation, Find
 
-| Key Binding | Description                            |
+| Key binding | Description                            |
 |-------------+----------------------------------------|
 | ~SPC m f f~ | general find in project                |
 | ~SPC m h c~ | call hierarchy                         |
@@ -391,7 +391,7 @@ to lack of classpath information.
 
 **** Errors (problems)
 
-| Key Binding | Description                |
+| Key binding | Description                |
 |-------------+----------------------------|
 | ~SPC e e~   | Force an error check       |
 | ~SPC e l~   | List errors                |
@@ -401,13 +401,13 @@ to lack of classpath information.
 
 **** Tests
 
-| Key Binding | Description                                                   |
+| Key binding | Description                                                   |
 |-------------+---------------------------------------------------------------|
 | ~SPC m t t~ | run JUnit tests for current method or current file or project |
 
 *** Errors (problems) buffer
 
-| Key Binding | Description                         |
+| Key binding | Description                         |
 |-------------+-------------------------------------|
 | ~RET~       | go to problem place                 |
 | ~a~         | show all problems                   |
@@ -419,7 +419,7 @@ to lack of classpath information.
 
 *** Projects buffer
 
-| Key Binding | Description                                |
+| Key binding | Description                                |
 |-------------+--------------------------------------------|
 | ~RET~       | go to current project                      |
 | ~c~         | go to problem place                        |
@@ -440,14 +440,14 @@ to lack of classpath information.
 ** Ensime key bindings
 *** Search
 
-| Key Binding | Description                                         |
+| Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC m /~   | incremental search using =ensime-scalex= major mode |
 | ~SPC m ?~   | incremental search in all live buffers              |
 
 *** Ensime Search Mode
 
-| Key Binding | Description                                                       |
+| Key binding | Description                                                       |
 |-------------+-------------------------------------------------------------------|
 | ~C-j~       | Move to next match                                                |
 | ~C-k~       | Move to previous match                                            |
@@ -457,7 +457,7 @@ to lack of classpath information.
 
 *** sbt
 
-| Key Binding | Description         |
+| Key binding | Description         |
 |-------------+---------------------|
 | ~SPC m b .~ | sbt transient state |
 | ~SPC m b b~ | sbt command         |
@@ -469,13 +469,13 @@ to lack of classpath information.
 
 *** Typecheck
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC m c t~ | type check the current file |
 
 *** Debug
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC m d A~ | Attach to a remote debugger |
 | ~SPC m d b~ | set breakpoint              |
@@ -494,14 +494,14 @@ to lack of classpath information.
 
 *** Errors
 
-| Key Binding | Description                                        |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC m e e~ | print error at point                               |
 | ~SPC m e s~ | switch to buffer containing the stack trace parser |
 
 *** Goto
 
-| Key Binding | Description      |
+| Key binding | Description      |
 |-------------+------------------|
 | ~SPC m g g~ | go to definition |
 
@@ -515,14 +515,14 @@ to lack of classpath information.
 
 *** Documentation, Inspect
 
-| Key Binding | Description                            |
+| Key binding | Description                            |
 |-------------+----------------------------------------|
 | ~SPC m h h~ | show documentation for symbol at point |
 | ~SPC m h u~ | show uses for symbol at point          |
 
 *** Server
 
-| Key Binding | Description                                            |
+| Key binding | Description                                            |
 |-------------+--------------------------------------------------------|
 | ~SPC m D f~ | reload open files                                      |
 | ~SPC m D r~ | regenerate the =.ensime= and restart the ensime server |
@@ -530,7 +530,7 @@ to lack of classpath information.
 
 *** Refactoring
 
-| Key Binding | Description                                                          |
+| Key binding | Description                                                          |
 |-------------+----------------------------------------------------------------------|
 | ~SPC m r a~ | add type annotation                                                  |
 | ~SPC m r d~ | get rid of an intermediate variable (=ensime-refactor-inline-local=) |
@@ -544,7 +544,7 @@ to lack of classpath information.
 
 *** Tests
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~SPC m t a~ | test command (sbt)       |
 | ~SPC m t r~ | test quick command (sbt) |
@@ -552,7 +552,7 @@ to lack of classpath information.
 
 *** REPL
 
-| Key Binding | Description                                                         |
+| Key binding | Description                                                         |
 |-------------+---------------------------------------------------------------------|
 | ~SPC m s a~ | ask for a file to be loaded in the REPL                             |
 | ~SPC m s b~ | send buffer to the REPL                                             |
@@ -563,7 +563,7 @@ to lack of classpath information.
 
 ** LSP Java
 
-| Key Binding   | Description                           |
+| Key binding   | Description                           |
 |---------------+---------------------------------------|
 | ~SPC m g g~   | Go to definition                      |
 | ~SPC m g r~   | Find references                       |
@@ -591,7 +591,7 @@ to lack of classpath information.
 
 ** Maven
 
-| Key Binding     | Description                                          |
+| Key binding     | Description                                          |
 |-----------------+------------------------------------------------------|
 | ~SPC m m c c~   | Compile                                              |
 | ~SPC m m c C~   | Clean                                                |
@@ -606,7 +606,7 @@ to lack of classpath information.
 
 ** Gradle
 
-| Key Binding   | Description              |
+| Key binding   | Description              |
 |---------------+--------------------------|
 | ~SPC m l c c~ | Compile                  |
 | ~SPC m l c C~ | Clean                    |

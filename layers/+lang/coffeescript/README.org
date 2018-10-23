@@ -8,7 +8,7 @@
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#linting][Linting]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#repl][REPL]]
 
 * Description
@@ -34,9 +34,9 @@ To enable linting, install [[http://www.coffeelint.org/][CoffeeLint]] with the f
   npm install -g coffeelint
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description            |
+| Key binding | Description            |
 |-------------+------------------------|
 | ~SPC m c c~ | Compile buffer         |
 | ~SPC m c r~ | Compile region         |
@@ -44,7 +44,7 @@ To enable linting, install [[http://www.coffeelint.org/][CoffeeLint]] with the f
 
 ** REPL
 
-| Key Binding | Description                                        |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC m '~   | Create or go to REPL                               |
 | ~SPC m s b~ | Send buffer to REPL                                |

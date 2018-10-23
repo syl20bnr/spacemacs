@@ -9,7 +9,7 @@
   - [[#layer][Layer]]
   - [[#geeknote][Geeknote]]
   - [[#geeknoteel][Geeknote.el]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support for the famous [[https://evernote.com/][Evernote]] note taking service to Spacemacs.
@@ -49,9 +49,9 @@ specifying the path to the =geeknote= python script, please refer to the
 =geeknote.el= [[https://github.com/avendael/emacs-geeknote][documentation]]. For more information about setting up =$PATH=,
 check out the corresponding section in the FAQ (~SPC h SPC $PATH RET~).
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                         |
+| Key binding | Description                         |
 |-------------+-------------------------------------|
 | ~SPC a e c~ | create a new note                   |
 | ~SPC a e e~ | edit an existing note               |

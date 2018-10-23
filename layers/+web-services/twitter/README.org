@@ -7,7 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds Twitter support to Spacemacs via the package [[https://github.com/hayamiz/twittering-mode][twittering-mode]].
@@ -46,9 +46,9 @@ You can authenticate easily via a PIN number, or you can use GnuPG by setting
 the variable =twittering-use-master-password= to =t= in the =user-config=
 function of your dotfile.
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                              |
+| Key binding | Description                              |
 |-------------+------------------------------------------|
 | ~?~         | Open/Quit transient state                |
 | ~/~         | Search                                   |

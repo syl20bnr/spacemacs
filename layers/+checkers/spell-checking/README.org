@@ -10,7 +10,7 @@
   - [[#enabling-auto-dictionary-mode][Enabling auto-dictionary-mode]]
   - [[#enabling-multi-dictionary-support-with-hunspell][Enabling multi-dictionary support with hunspell]]
   - [[#enable-auto-completion-popup][Enable auto-completion popup]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#spell-checking-transient-state][Spell Checking Transient-state]]
 - [[#known-issues][Known issues]]
 
@@ -118,9 +118,9 @@ set the layer variable =enable-flyspell-auto-completion= to t:
     '((spell-checking :variables enable-flyspell-auto-completion t)))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 
-| Key Binding     | Description                            |
+| Key binding     | Description                            |
 |-----------------+----------------------------------------|
 | ~SPC S b~       | flyspell whole buffer                  |
 | ~SPC S c~       | flyspell correct                       |
@@ -131,7 +131,7 @@ set the layer variable =enable-flyspell-auto-completion= to t:
 
 ** Spell Checking Transient-state
 
-| Key Binding | Description                                      |
+| Key binding | Description                                      |
 |-------------+--------------------------------------------------|
 | ~SPC S . b~ | Rerun spell check for the whole buffer           |
 | ~SPC S . d~ | Change dictionary                                |

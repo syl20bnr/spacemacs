@@ -14,7 +14,7 @@
   - [[#rtags-configuration][RTags configuration]]
   - [[#enable-google-set-c-style][Enable google-set-c-style]]
   - [[#newlines][Newlines]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#formatting-clang-format][Formatting (clang-format)]]
   - [[#rtags][RTags]]
 
@@ -151,9 +151,9 @@ after certain characters by setting the =c-c++-enable-auto-newline= variable.
          c-c++-enable-auto-newline t)
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                                                   |
+| Key binding | Description                                                   |
 |-------------+---------------------------------------------------------------|
 | ~SPC m g a~ | open matching file                                            |
 |             | (e.g. switch between .cpp and .h, requires a project to work) |
@@ -166,14 +166,14 @@ after certain characters by setting the =c-c++-enable-auto-newline= variable.
 
 ** Formatting (clang-format)
 
-| Key Binding | Description                     |
+| Key binding | Description                     |
 |-------------+---------------------------------|
 | ~SPC m = =~ | format current region or buffer |
 | ~SPC m = f~ | format current function         |
 
 ** RTags
 
-| Key Binding | Description                     |
+| Key binding | Description                     |
 |-------------+---------------------------------|
 | ~SPC m g .~ | find symbol at point            |
 | ~SPC m g ,~ | find references at point        |

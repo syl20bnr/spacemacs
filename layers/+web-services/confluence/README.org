@@ -54,7 +54,7 @@ convert =xml= content to =wiki= content on page load.
 * Key bindings
 ** Confluence page
 
-| Key Binding | Description                                              |
+| Key binding | Description                                              |
 |-------------+----------------------------------------------------------|
 | ~SPC m TAB~ | toggle the content type to =wiki= format or =xml= format |
 | ~SPC m s~   | save the buffer on the confluence server as a minor edit |
@@ -62,6 +62,6 @@ convert =xml= content to =wiki= content on page load.
 
 ** Org
 
-| Key Binding | Description                                                    |
+| Key binding | Description                                                    |
 |-------------+----------------------------------------------------------------|
 | ~SPC m e c~ | in a org buffer, export the buffer to Confluence =wiki= format |

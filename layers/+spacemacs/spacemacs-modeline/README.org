@@ -20,7 +20,7 @@ This layer adds various mode-lines to Spacemacs.
 
 * Key bindings
 
-| Key Binding | Description                                            |
+| Key binding | Description                                            |
 |-------------+--------------------------------------------------------|
 | ~SPC t m b~ | Display battery state in mode-line                     |
 | ~SPC t m r~ | Make the mode-line responsive                          |

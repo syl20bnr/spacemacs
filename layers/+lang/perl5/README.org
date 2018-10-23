@@ -8,7 +8,7 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#auto-completion-plsense][Auto-completion: PlSense]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#perldoc][Perldoc]]
   - [[#pod-and-here-doc][POD and HERE doc]]
   - [[#find-symbol][Find Symbol]]
@@ -33,11 +33,11 @@ file.
 ** Auto-completion: PlSense
 =company-plsense= requires installation of the =plsense= server from [[https://github.com/aki2o/plsense#install][here]].
 
-* Key Bindings
+* Key bindings
 ** Perldoc
 Browse formatted perldocs.
 
-| Key Binding | Description                     |
+| Key binding | Description                     |
 |-------------+---------------------------------|
 | ~SPC m h h~ | view perldoc of symbol at point |
 | ~SPC m h d~ | view perldoc of any symbol      |
@@ -45,21 +45,21 @@ Browse formatted perldocs.
 ** POD and HERE doc
 Select a POD or HERE doc.
 
-| Key Binding | Description                            |
+| Key binding | Description                            |
 |-------------+----------------------------------------|
 | ~SPC m v~   | select entire POD or HERE doc at point |
 
 ** Find Symbol
 Jump to symbol definition.
 
-| Key Binding | Description                               |
+| Key binding | Description                               |
 |-------------+-------------------------------------------|
 | ~SPC m g g~ | jump to symbol definition                 |
 | ~SPC m g G~ | jump to symbol definition in other window |
 
 ** Formatting Code
 
-| Key Binding | Description                   |
+| Key binding | Description                   |
 |-------------+-------------------------------|
 | ~SPC m = =~ | format current line or region |
 | ~SPC m = b~ | format current buffer         |

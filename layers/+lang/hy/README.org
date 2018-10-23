@@ -7,7 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#debug][Debug]]
   - [[#repl][REPL]]
   - [[#tests][Tests]]
@@ -34,10 +34,10 @@ To install =hy= globally:
   pip install hy
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 ** Debug
 
-| Key Binding | Description         |
+| Key binding | Description         |
 |-------------+---------------------|
 | ~SPC m d d~ | insert pdb          |
 | ~SPC m d t~ | insert pdb threaded |
@@ -50,7 +50,7 @@ by activating a virtual environment.
 
 Send code to hy REPL commands:
 
-| Key Binding | Description                                                     |
+| Key binding | Description                                                     |
 |-------------+-----------------------------------------------------------------|
 | ~SPC m s b~ | send buffer to the REPL                                         |
 | ~SPC m s B~ | send buffer to the REPL and switch to it                        |
@@ -63,7 +63,7 @@ Send code to hy REPL commands:
 
 ** Tests
 
-| Key Binding | Description                                          |
+| Key binding | Description                                          |
 |-------------+------------------------------------------------------|
 | ~SPC m t a~ | launch all tests of the project                      |
 | ~SPC m t A~ | launch all tests of the project in debug mode        |

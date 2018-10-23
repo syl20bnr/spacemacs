@@ -30,7 +30,7 @@ and =nimsuggest= binary must be in $PATH.
 * Working with Nim
 ** Nim commands (start with =m=):
 
-| Key Binding          | Description                  |
+| Key binding          | Description                  |
 |----------------------+------------------------------|
 | ~SPC m c r~          | =nim compile --run main.nim= |
 | ~SPC m g g~ or ~M-.~ | Jump to definition           |

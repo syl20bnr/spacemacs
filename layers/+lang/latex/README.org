@@ -14,7 +14,7 @@
   - [[#auto-fill][Auto-fill]]
   - [[#folding][Folding]]
   - [[#magic-latex-buffer][Magic latex buffer]]
-- [[#keybindings][Keybindings]]
+- [[#key-bindings][Key bindings]]
   - [[#folding-1][Folding]]
   - [[#reftex][RefTeX]]
 
@@ -109,9 +109,9 @@ variables:
 
 By default, the underlying latex code is echoed in the echo area.
 
-* Keybindings
+* Key bindings
 
-| Key Binding   | Description                                |
+| Key binding   | Description                                |
 |---------------+--------------------------------------------|
 | ~SPC m -~     | recenter output buffer                     |
 | ~SPC m ​,​~     | TeX command on master file                 |
@@ -160,7 +160,7 @@ By default, the underlying latex code is echoed in the echo area.
 ** Folding
 Available only when =latex-enable-folding= is non nil.
 
-| Key Binding | Description          |
+| Key binding | Description          |
 |-------------+----------------------|
 | ~SPC m z =~ | fold TeX math        |
 | ~SPC m z b~ | fold TeX buffer      |
@@ -170,7 +170,7 @@ Available only when =latex-enable-folding= is non nil.
 
 ** RefTeX
 
-| Key Binding   | Description                           |
+| Key binding   | Description                           |
 |---------------+---------------------------------------|
 | ~SPC m r c~   | reftex-citation                       |
 | ~SPC m r g~   | reftex-grep-document                  |
