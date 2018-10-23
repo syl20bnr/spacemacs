@@ -35,7 +35,7 @@ For this layer to work properly you also need to install the native package [[ht
 ** Ledger
 You can set what column transaction posts are aligned to on
 the right by setting the variable =ledger-post-amount-alignment-column= in
-your =dotspacemacs/user-config=.  The default value, set in the layer, is =62=.
+your =dotspacemacs/user-config=. The default value, set in the layer, is =62=.
 
 #+BEGIN_SRC emacs-lisp
   (defun dotspacemacs/user-config ()

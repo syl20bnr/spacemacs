@@ -796,7 +796,7 @@
 - Defer =company-web= loading (ralesi)
 
 **** IBuffer
-- New key bindings  ~g r~ to update buffer, ~g j~ to move to next filter group
+- New key bindings ~g r~ to update buffer, ~g j~ to move to next filter group
   and ~g k~ to move to previous filter group (thanks to donm)
 
 **** IPthon-notebook
@@ -895,7 +895,7 @@
 *** Improvements
 - Improve home buffer responsiveness, add centering for release notes and lists
   (thanks to deb0ch)
-- Add keybindings to move buffers by window number with ~SPC b #~ where
+- Add key bindings to move buffers by window number with ~SPC b #~ where
   ~#~ is a number between 0 and 9 (thanks to quicknir)
 - Add toggle to display time in modeline on ~SPC t m t~. Toggle of the modeline
   is now in ~SPC t m T~. (thanks to jupl)
@@ -1181,7 +1181,7 @@
 - Remove support for the value =all= for =dotspacemacs-configuration-layers=
   variable. To install all the packages supported by Spacemacs there is a new
   variable =dotspacemacs-install-packages=.
-- Remove layer variable  =colors-enable-rainbow-identifiers= in =colors= layer,
+- Remove layer variable =colors-enable-rainbow-identifiers= in =colors= layer,
   You have to replace it by =colors-colorize-identifiers 'all=.
 - The =bépo= layer has been replaced by the new layer =keyboard-layout=, see the
   =README.org= of the layer for more info.
@@ -1344,7 +1344,7 @@
   is set to =origami=) (thanks to ralesi)
 - Add package =link-hint=:
   - ~SPC x o~ to use avy to select a link in the frame and open it
-  - ~SPC x O~ to  use avy to select multiple links in the frame and open them
+  - ~SPC x O~ to use avy to select multiple links in the frame and open them
 
   (thanks to StreakyCobra)
 - Add package =uuidgen=:
@@ -2259,7 +2259,7 @@
 
 **** Old
 - Fabien Dubosson (StreakyCobra)
-- Justin Burkett  (thanks to justbur)
+- Justin Burkett (thanks to justbur)
 
 * Release 0.105.x
 ** 0.105.22 (2016/08/19)
@@ -3077,7 +3077,7 @@ Improve loading robustness:
 - New key binding ~SPC m x x~ to run =go run= for the current main package
   (thanks to sectorzero)
 - New key bindings for testing:
-  - ~SPC m t P~ to run =go test= for the current package and all packages under it                       |
+  - ~SPC m t P~ to run =go test= for the current package and all packages under it |
   - ~SPC m t t~ to run =go test= for the function you’re currently in
     and ~SPC m t s~ to run =go test= for the suite you’re currently in
 
@@ -3265,7 +3265,7 @@ Improve loading robustness:
 **** Rust
 - New key binding ~SPC m c C~ to remove build artefacts with Cargo
   (thanks to SShrike)
-- New key binding  ~SPC m g g~ to jump to definition (thanks to isphinx)
+- New key binding ~SPC m g g~ to jump to definition (thanks to isphinx)
 - Use =exec-path-from-shell-copy-env= to set =RUST_SRC_PATH= for Racer
   (thanks to mahinshaw)
 
@@ -3325,7 +3325,7 @@ Improve loading robustness:
 - Enable new global minor mode =flycheck-pos-tip-mode= (thanks to StreakyCobra)
 - New key bindings ~SPC e s~ and ~SPC e S~ to select =flycheck= checker
   executable (thanks to nashamri)
-- Fix escaping in buffer name regexp  (thanks to lunaryorn)
+- Fix escaping in buffer name regexp (thanks to lunaryorn)
 - Remove flycheck fringe’s bullet underlines (thanks to StreakyCobra)
 
 **** Themes-megapack
@@ -4361,7 +4361,7 @@ Improve loading robustness:
 - New variable =osx-use-option-as-meta= allowing to enable or disable the
   mapping of =option= key to =meta= key. This is especially useful for some
   European keyboard layouts like Finish or Swedish (thanks to tko)
-- Add  ~⌘ +~ and ~⌘ -~ key bindings to scale text (thanks to JoshTGreenwood
+- Add ~⌘ +~ and ~⌘ -~ key bindings to scale text (thanks to JoshTGreenwood
   and zimbatm)
 - Only update =dired-use-ls-dired= if =gls= was found on path (thanks to
   usharf)
@@ -4568,7 +4568,7 @@ Improve loading robustness:
   automatically uninstalled).
 - Don’t use the minibuffer for =scroll= micro-state
 - Don’t close compilation buffer after success (thanks to TheBB)
-- Make =trailing-whitespace= face more subtle  (thanks to tuhdo)
+- Make =trailing-whitespace= face more subtle (thanks to tuhdo)
 - Beautify whitespace highlighting (thanks to tuhdo)
 - Make inactive window face of mode-line compatible with more themes
   (thanks to tuhdo)
@@ -4899,7 +4899,7 @@ Improve loading robustness:
 * Release 0.101.x
 ** Hot new features
 *** Choose your own editing style
-Thanks to the new =holy-mode= Spacemacs can now  be used by Vim users
+Thanks to the new =holy-mode= Spacemacs can now be used by Vim users
 or Emacs users by setting the =dotspacemacs-editing-style= variable to
 ='vim= or ='emacs= in the dotfile. In =Emacs= style the leader is
 available on =M-m=. It is possible to dynamically switch between the
@@ -4911,7 +4911,7 @@ A package is now considered to be used only if there is a corresponding
 There is now two new functions to initialize a given package:
 - =<layer>/pre-init-<package>= which is called before the init function
 - =<layer>/post-init-<package>= which is called after the init function
-  Even if  a =pre= or =post= function exist for a given package, an =init=
+  Even if a =pre= or =post= function exist for a given package, an =init=
   function is still required to consider the package to be used.
 
 *** Auto-completion
@@ -4964,7 +4964,7 @@ a batch of packages.
 - =dotspacemacs-verbose-loading= if non nil the loading prints logs in
   the =*Messages*= buffer. Default value is =nil=.
 - =dotspacemacs-startup-lists= is a list of symbols to display recent
-  items in the startup buffer, possible values are:  =recents=,
+  items in the startup buffer, possible values are: =recents=,
   =bookmarks= and =projects= (thanks to CarlQLange)
 
 *** Auto-complete
@@ -5044,7 +5044,7 @@ a batch of packages.
 - Add function =spacemacs/helm-projectile-search-dwim= which select the
   first available external search tool (pt, ag, ack or grep) (thanks to
   ralesi)
-- Enable =helm-descbinds= globally  (thanks to tuhdo)
+- Enable =helm-descbinds= globally (thanks to tuhdo)
 - Add key bindings for useful Helm commands: =helm-info-at-point=,
   =helm-man-woman=, =helm-locate-library= and =helm-minibuffer-history=
   (thanks to tuhdo)
@@ -5058,7 +5058,7 @@ a batch of packages.
 - rcirc: Create rcirc logging directory during init
   (thanks to jcpetkovich)
 - New ERC layer (thanks to swaroopch)
-- Add ERC keybindings (thans to cpaulik)
+- Add ERC key bindings (thans to cpaulik)
 - Move startup key bindings to prefix ~SPC a i~
 
 *** Markdown

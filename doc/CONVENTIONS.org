@@ -201,7 +201,7 @@ History navigation in shells or REPLs buffers should be bound as well to
 | Key   | Description                |
 |-------+----------------------------|
 | ~C-j~ | next item in history       |
-| ~C-k~ | previous item in  history  |
+| ~C-k~ | previous item in history   |
 | ~C-l~ | clear screen               |
 | ~C-r~ | search backward in history |
 

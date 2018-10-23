@@ -111,7 +111,7 @@ auto-completion to work well. You can bind it like so:
 This function will automatically cancel out of any active completers, and offer
 semantic completions. It will automatically make an exception when you are
 completing includes; these do not count as semantic completion so the exception
-is necessary for the keybinding to work when completing includes.
+is necessary for the key binding to work when completing includes.
 
 * Key Bindings
 Adds ~SPC m g g~ go to definition binding to =c++-mode= as well as ~SPC m g G~

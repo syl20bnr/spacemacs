@@ -42,7 +42,7 @@ Start the daemon:
 
 * FAQ
 ** How to enable status auto refresh?
-Add  =(transmission :variables transmission-auto-refresh-all t)= to
+Add =(transmission :variables transmission-auto-refresh-all t)= to
 =dotspacemacs-configuration-layers= or pick modes manually:
 
 #+BEGIN_SRC emacs-lisp

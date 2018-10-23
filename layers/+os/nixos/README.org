@@ -14,9 +14,9 @@
 This layer adds tools for better integration of emacs in NixOS.
 
 ** Features:
-- Nix-mode using  [[https://github.com/NixOS/nix-mode][nix-mode]]
+- Nix-mode using [[https://github.com/NixOS/nix-mode][nix-mode]]
 - Auto-completion of NixOS Options using [[https://github.com/travisbhartwell/nix-emacs/blob/master/company-nixos-options.el][company-nixos-options]]
-- Helm Lookup for NixOS Options  [[https://github.com/travisbhartwell/nix-emacs/blob/master/helm-nixos-options.el][helm-nixos-options]]
+- Helm Lookup for NixOS Options [[https://github.com/travisbhartwell/nix-emacs/blob/master/helm-nixos-options.el][helm-nixos-options]]
 
 * Install
 ** Layer

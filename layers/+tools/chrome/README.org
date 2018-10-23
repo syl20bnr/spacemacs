@@ -17,7 +17,7 @@ This layer provides some integration with the Google Chrome browser.
 ** Features:
 - Edit text boxes with Emacs using [[https://github.com/stsquad/emacs_chrome][edit-server]]
 - Write markdown in Emacs and realtime show in chrome using [[https://github.com/mola-T/flymd][flymd]]
-- gmail message mode uses standard markdown keybindings
+- gmail message mode uses standard markdown key bindings
 
 * Install
 ** Layer

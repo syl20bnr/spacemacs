@@ -35,7 +35,7 @@
   - [[#navigating-in-calendar][Navigating in calendar]]
   - [[#capture-buffers-and-src-blocks][Capture buffers and src blocks]]
   - [[#org-agenda][Org agenda]]
-    - [[#keybindings][Keybindings]]
+    - [[#key-bindings-1][Key bindings]]
     - [[#org-agenda-transient-state][Org agenda transient state]]
   - [[#pomodoro][Pomodoro]]
   - [[#presentation][Presentation]]
@@ -511,7 +511,7 @@ are also available.
 
 *** Org Babel Transient State
 Use ~SPC m b .~ to enter a transient state for quick source block navigation and
-execution.  During that state, the following bindings are active:
+execution. During that state, the following bindings are active:
 
 | Key Binding | Description                   |
 |-------------+-------------------------------|
@@ -561,7 +561,7 @@ conventions.
 | ~SPC m r~                                    | org-capture-refile in org-capture-mode |
 
 ** Org agenda
-*** Keybindings
+*** Key bindings
 The evilified org agenda supports the following bindings:
 
 | Key Binding          | Description                       |
@@ -594,7 +594,7 @@ The transient state aims to list the most useful org agenda commands and
 visually organize them by category. The commands associated with each binding
 are listed bellow.
 
-| Keybinding  | Description         | Command                           |
+| Key binding | Description         | Command                           |
 |-------------+---------------------+-----------------------------------|
 | Entry       |                     |                                   |
 |-------------+---------------------+-----------------------------------|

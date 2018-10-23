@@ -151,37 +151,37 @@ comfortable for evil users.
 
 Here are the often used bindings inside a =status buffer=:
 
-| Key Binding | Description                                                         |
-|-------------+---------------------------------------------------------------------|
-| ~/~         | evil-search                                                         |
-| ~$~         | open =command output buffer=                                        |
-| ~c c~       | open a =commit message buffer=                                      |
-| ~b b~       | checkout a branch                                                   |
-| ~b c~       | create a branch                                                     |
-| ~f f~       | fetch changes                                                       |
-| ~F (r) u~   | pull tracked branch and rebase                                      |
-| ~gr~        | refresh                                                             |
-| ~j~         | goto next magit section                                             |
-| ~C-j~       | next visual line                                                    |
-| ~k~         | goto previous magit section                                         |
-| ~C-k~       | previous visual line                                                |
-| ~l l~       | open =log buffer=                                                   |
-| ~n~         | next search occurrence                                              |
-| ~N~         | previous search occurrence                                          |
-| ~o~         | revert item at point                                                |
-| ~P u~       | push to tracked branch                                              |
-| ~P m~       | push to matching branch  (e.g., upstream/develop to origin/develop) |
-| ~q~         | quit                                                                |
-| ~s~         | on a file or hunk in a diff: stage the file or hunk                 |
-| ~x~         | discard changes                                                     |
-| ~+~         | on a hunk: increase hunk size                                       |
-| ~=~         | on a hunk: decrease hunk size                                       |
-| ~S~         | stage all                                                           |
-| ~TAB~       | on a file: expand/collapse diff                                     |
-| ~u~         | on a staged file: unstage                                           |
-| ~U~         | unstage all staged files                                            |
-| ~v or V~    | select multiple lines                                               |
-| ~z z~       | stash changes                                                       |
+| Key Binding | Description                                                        |
+|-------------+--------------------------------------------------------------------|
+| ~/~         | evil-search                                                        |
+| ~$~         | open =command output buffer=                                       |
+| ~c c~       | open a =commit message buffer=                                     |
+| ~b b~       | checkout a branch                                                  |
+| ~b c~       | create a branch                                                    |
+| ~f f~       | fetch changes                                                      |
+| ~F (r) u~   | pull tracked branch and rebase                                     |
+| ~gr~        | refresh                                                            |
+| ~j~         | goto next magit section                                            |
+| ~C-j~       | next visual line                                                   |
+| ~k~         | goto previous magit section                                        |
+| ~C-k~       | previous visual line                                               |
+| ~l l~       | open =log buffer=                                                  |
+| ~n~         | next search occurrence                                             |
+| ~N~         | previous search occurrence                                         |
+| ~o~         | revert item at point                                               |
+| ~P u~       | push to tracked branch                                             |
+| ~P m~       | push to matching branch (e.g., upstream/develop to origin/develop) |
+| ~q~         | quit                                                               |
+| ~s~         | on a file or hunk in a diff: stage the file or hunk                |
+| ~x~         | discard changes                                                    |
+| ~+~         | on a hunk: increase hunk size                                      |
+| ~=~         | on a hunk: decrease hunk size                                      |
+| ~S~         | stage all                                                          |
+| ~TAB~       | on a file: expand/collapse diff                                    |
+| ~u~         | on a staged file: unstage                                          |
+| ~U~         | unstage all staged files                                           |
+| ~v or V~    | select multiple lines                                              |
+| ~z z~       | stash changes                                                      |
 
 ** Staging lines
 Magit allows you to stage specific lines by selecting them in a diff and hitting

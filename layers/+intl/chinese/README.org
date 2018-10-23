@@ -69,7 +69,7 @@ By default, =opencc= will be used as the backend, set
 
 to use =cconv= as the backend.
 
-There is no default keybinding for the conversions. Run
+There is no default key binding for the conversions. Run
 
 =M-x chinese-conv=
 

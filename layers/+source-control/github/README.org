@@ -52,10 +52,10 @@ to authenticate, you can use hub browse in a terminal (inside a GitHub repo).
 Spacemacs configures =Magithub= to be in offline mode by default and disables
 displaying the GitHub project status, issues, and pull requests because loading
 project data for repositories with many pull requests or issues can be
-exorbitantly slow (see [[https://github.com/syl20bnr/spacemacs/issues/11176][issue #11176]]).  To toggle online mode and the project
+exorbitantly slow (see [[https://github.com/syl20bnr/spacemacs/issues/11176][issue #11176]]). To toggle online mode and the project
 status, issues, and pull requests sections for the current repository, open in
 the =magit status= buffer (~SPC g s~) and then open the Magithub settings popup
-(~@ C~).  To enable online mode and the project status, pull requests, and
+(~@ C~). To enable online mode and the project status, pull requests, and
 issues sections by default, use the following shell commands:
 
 #+BEGIN_SRC sh

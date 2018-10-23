@@ -9,7 +9,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds keybindings for [[https://github.com/tonini/alchemist.el][Alchemist]]’s already built in phoenix mode.
+This layer adds key bindings for [[https://github.com/tonini/alchemist.el][Alchemist]]’s already built in phoenix mode.
 
 ** Features:
 - Key bindings for navigation to files

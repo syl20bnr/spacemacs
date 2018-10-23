@@ -4,7 +4,7 @@
 - [[#why-spacemacs][Why Spacemacs?]]
 - [[#installation-and-setup][Installation and setup]]
 - [[#getting-started][Getting started]]
-  - [[#keybinding-notation][Keybinding notation]]
+  - [[#key-binding-notation][Key binding notation]]
   - [[#modal-text-editing---why-and-how][Modal text editing - why and how?]]
   - [[#start-the-vim-tutorial][Start the Vim tutorial]]
   - [[#using-the-spacebar-to-launch-commands][Using the spacebar to launch commands]]
@@ -35,9 +35,9 @@ and then download the Spacemacs extension files, which is most easily done by
 using a program called Git. The steps are easy and detailed in the [[https://github.com/syl20bnr/spacemacs/blob/master/README.md#prerequisites][readme]].
 
 * Getting started
-** Keybinding notation
-The power of Spacemacs lies in its efficient keybindings. Because it is built on
-Emacs, we will use Emacs conventions for keybinding notation. The most important
+** Key binding notation
+The power of Spacemacs lies in its efficient key bindings. Because it is built on
+Emacs, we will use Emacs conventions for key binding notation. The most important
 modifier keys are:
 
 ~SPC~ = ~Space~, used as the leader key in Vim editing style.
@@ -249,7 +249,7 @@ more about the daemon and how to set it to launch automatically on startup.
 This is useful outside of Spacemacs as well!
 
 ** Troubleshooting and further info
-~SPC ?~ shows you the keybindings in the current major mode, which is often
+~SPC ?~ shows you the key bindings in the current major mode, which is often
 helpful. For troubleshooting, please refer to the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/FAQ.org][FAQ]] by pressing ~SPC h f~.
 More help is found under ~SPC h~, and with ~SPC h ~SPC~ you can access the
 comprehensive Spacemacs documentation, including this tutorial and the layer

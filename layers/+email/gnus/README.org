@@ -10,7 +10,7 @@
 - [[#adding-news-sources][Adding news sources]]
 - [[#configuring-gmail][Configuring gmail]]
 - [[#org-mime-in-org-layer][Org MIME in Org layer]]
-- [[#keybindings][Keybindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer integrates a general purpose email/newsgroup client into Spacemacs.
@@ -48,7 +48,7 @@ following:
       ))
 #+END_SRC
 
-For adding RSS Feeds please see the [[#keybindings][keybindings section]].
+For adding RSS Feeds please see the [[#key-bindings][key bindings section]].
 
 * Configuring gmail
 To configure Gnus with gmail support you can add the following to your
@@ -100,14 +100,14 @@ password]].
 It is possible to send beautiful HTML emails using org mode.
 
 Pressing ~SPC m e m~ in a message buffer will convert the current message
-from org mode to html.  An org mode buffer can be sent via html email by pressing
+from org mode to html. An org mode buffer can be sent via html email by pressing
 ~SPC m e m~ in any org mode buffer.
 
-* Keybindings
+* Key bindings
 Gnus has very modal default keybindings.
 Please see the [[http://www.gnus.org/manual.html][manual]] for a complete list.
 
-Basic and Spacemacs specific keybindings can be found in the following table.
+Basic and Spacemacs specific key bindings can be found in the following table.
 
 | Key Binding | Gnus mode - Description                             |
 |-------------+-----------------------------------------------------|

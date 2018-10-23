@@ -125,7 +125,7 @@ Remember that you can verify the flycheck checkers status with ~SPC e v~.
 
 * Key bindings
 ** Refcard
-You find and overview of all the key-bindings on the [[https://github.com/tonini/alchemist.el/blob/master/doc/alchemist-refcard.pdf][Alchemist-Refcard]].
+You find and overview of all the key bindings on the [[https://github.com/tonini/alchemist.el/blob/master/doc/alchemist-refcard.pdf][Alchemist-Refcard]].
 
 ** Help
 
