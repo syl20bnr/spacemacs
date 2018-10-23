@@ -38,7 +38,7 @@ this file.
 * Usage information
 Unless configured by the user, the REPL will be invoked using the command =xcrun
 swift=.
-You can launch the REPL using the keybinding ~SPC m s s~ (or ~C-c C-z~).
+You can launch the REPL using the key binding ~SPC m s s~ (or ~C-c C-z~).
 The universal prefix ~SPC u~ (~C-u~) may be used to modify command invocation.
 
 * Key bindings

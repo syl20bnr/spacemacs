@@ -110,7 +110,7 @@ From the =em-smart= documentation:
 
 #+BEGIN_QUOTE
   The best way to get a sense of what this code is trying to do is by
-  using it.  Basically, the philosophy represents a blend between the
+  using it. Basically, the philosophy represents a blend between the
   ease of use of modern day shells, and the review-before-you-proceed
   mentality of Plan 9’s 9term.
 #+END_QUOTE

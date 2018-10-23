@@ -842,7 +842,7 @@ Spacemacs has 10 states:
 *Note*: Technically speaking there is also the =operator= evil state.
 
 ** Evilified modes
-Some buffers are not for editing text and provide their own keybindings for
+Some buffers are not for editing text and provide their own key bindings for
 certain operations. These often conflict with Vim bindings. To make such buffers
 behave more like Vim in a consistent manner, they use a special state called
 /evilified/ state. In evilified state, a handful of keys work as in Evil, namely
@@ -2069,29 +2069,29 @@ Spacemacs comes with a built-in port of [[https://github.com/tpope/vim-unimpaire
 This plugin provides several pairs of bracket maps using ~[~ to denote
 previous, and ~]~ as next.
 
-| KeyBindings | Description                      |
-|-------------+----------------------------------|
-| ~[ SPC~     | Insert space above               |
-| ~] SPC~     | Insert space below               |
-| ~[ b~       | Go to previous buffer            |
-| ~] b~       | Go to next buffer                |
-| ~[ f~       | Go to previous file in directory |
-| ~] f~       | Go to next file in directory     |
-| ~[ l~       | Go to the previous error         |
-| ~] l~       | Go to the next error             |
-| ~[ h~       | Go to the previous vcs hunk      |
-| ~] h~       | Go to the next vcs hunk          |
-| ~[ q~       | Go to the previous error         |
-| ~] q~       | Go to the next error             |
-| ~[ t~       | Go to the previous frame         |
-| ~] t~       | Go to the next frame             |
-| ~[ w~       | Go to the previous window        |
-| ~] w~       | Go to the next window            |
-| ~[ e~       | Move line up                     |
-| ~] e~       | Move line down                   |
-| ~[ p~       | Paste above current line         |
-| ~] p~       | Paste below current line         |
-| ~g p~       | Select pasted text               |
+| Key bindings | Description                      |
+|--------------+----------------------------------|
+| ~[ SPC~      | Insert space above               |
+| ~] SPC~      | Insert space below               |
+| ~[ b~        | Go to previous buffer            |
+| ~] b~        | Go to next buffer                |
+| ~[ f~        | Go to previous file in directory |
+| ~] f~        | Go to next file in directory     |
+| ~[ l~        | Go to the previous error         |
+| ~] l~        | Go to the next error             |
+| ~[ h~        | Go to the previous vcs hunk      |
+| ~] h~        | Go to the next vcs hunk          |
+| ~[ q~        | Go to the previous error         |
+| ~] q~        | Go to the next error             |
+| ~[ t~        | Go to the previous frame         |
+| ~] t~        | Go to the next frame             |
+| ~[ w~        | Go to the previous window        |
+| ~] w~        | Go to the next window            |
+| ~[ e~        | Move line up                     |
+| ~] e~        | Move line down                   |
+| ~[ p~        | Paste above current line         |
+| ~] p~        | Paste below current line         |
+| ~g p~        | Select pasted text               |
 
 *** Jumping, Joining and Splitting
 The ~SPC j~ prefix is for jumping, joining and splitting.
@@ -2418,7 +2418,7 @@ navigate between =Emacs= and Spacemacs specific files.
 | ~SPC f e v~   | display and copy the spacemacs version                                                                  |
 
 **** Browsing files in completion buffer
-In =vim= style and  =hybrid= style with the variable
+In =vim= style and =hybrid= style with the variable
 =hybrid-mode-enable-hjkl-bindings= set to =t=, you can navigation with ~hjkl~.
 
 | Key Binding | Description                       |
@@ -2963,7 +2963,7 @@ argument (i.e. ~10 SPC n +~ will add 10 to the number under point).
 Spell checking is enabled by including the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell
 checking]] layer in your dotfile.
 
-Keybindings are listed in the layer documentation.
+Key bindings are listed in the layer documentation.
 
 *** Region selection
 Vi =Visual= modes are all supported by =evil=.
@@ -3142,7 +3142,7 @@ The key bindings start with ~SPC x r~ and have the following mnemonic structure:
 | ~SPC x r /~   | Explain the regexp around point with =rx=                                              |
 | ~SPC x r '​~   | Generate strings given by a regexp given this list is finite                           |
 | ~SPC x r t~   | Replace regexp around point by the =rx= form or vice versa                             |
-| ~SPC x r x~   | Convert regexp around point in =rx= form  and display the result in the minibuffer     |
+| ~SPC x r x~   | Convert regexp around point in =rx= form and display the result in the minibuffer      |
 | ~SPC x r c~   | Convert regexp around point to the other form and display the result in the minibuffer |
 | ~SPC x r e /~ | Explain Emacs Lisp regexp                                                              |
 | ~SPC x r e '​~ | Generate strings from Emacs Lisp regexp                                                |
@@ -3418,15 +3418,15 @@ variable =dotspacemacs-persistent-server= to =t= in your =~/.spacemacs=.
 When this variable is set to =t=, the only way to quit Emacs /and/ kill the
 server is to use the following bindings:
 
-| Keybinding | Description                                                              |
-|------------+--------------------------------------------------------------------------|
-| ~SPC q q~  | Quit Emacs and kill the server, prompt for changed buffers to save       |
-| ~SPC q Q~  | Quit Emacs and kill the server, lose all unsaved changes.                |
-| ~SPC q r~  | Restart both Emacs and the server, prompting to save any changed buffers |
-| ~SPC q s~  | Save the buffers, quit Emacs and kill the server                         |
-| ~SPC q f~  | Kill the current frame                                                   |
-| ~SPC q t~  | Restart Emacs and debug with --with-timed-requires                       |
-| ~SPC q T~  | Restart Emacs and debug with --adv-timers                                |
+| Key binding | Description                                                              |
+|-------------+--------------------------------------------------------------------------|
+| ~SPC q q~   | Quit Emacs and kill the server, prompt for changed buffers to save       |
+| ~SPC q Q~   | Quit Emacs and kill the server, lose all unsaved changes.                |
+| ~SPC q r~   | Restart both Emacs and the server, prompting to save any changed buffers |
+| ~SPC q s~   | Save the buffers, quit Emacs and kill the server                         |
+| ~SPC q f~   | Kill the current frame                                                   |
+| ~SPC q t~   | Restart Emacs and debug with --with-timed-requires                       |
+| ~SPC q T~   | Restart Emacs and debug with --adv-timers                                |
 
 ** Disabling the Emacs server
 You can disable the built-in server by setting the variable

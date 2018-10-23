@@ -22,11 +22,11 @@ A spacemacs layer for Factor language support.
 - Refactoring support
 
 * Install
-This layer depends on the elisp files that are bundled with factor.  To use this
+This layer depends on the elisp files that are bundled with factor. To use this
 layer, make sure that factor is installed and the bundled elisp files are picked
 up by emacs (usually somewhere in site-lisp).
 
-To use this layer, add it to your =./spacemacs= file.  Add =factor= to the
+To use this layer, add it to your =./spacemacs= file. Add =factor= to the
 =dotspacemacs-configuration-layers= list there.
 
 * Key Bindings
@@ -79,7 +79,7 @@ To use this layer, add it to your =./spacemacs= file.  Add =factor= to the
 
 * Snippets
 This layer provides a yasnippet for colon definitions, which can be expanded
-after typing a single ~:~.  Note that you might have
+after typing a single ~:~. Note that you might have
 to set =yas-triggers-in-field= to nil if you use =x= for stack effect
-declaration elements a lot,  as this will trigger a builtin snippet from
+declaration elements a lot, as this will trigger a builtin snippet from
 prog-mode instead of advancing to the next field when pressing =<TAB>=.

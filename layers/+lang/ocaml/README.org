@@ -96,6 +96,6 @@ Make sure opam is initialized and configured.
 | ~C-k~       | (in REPL) previous item in history                               |
 
 * TODO layer improvements list
-1. Add more proper spacemacs key-bindings for basic merlin tasks
-2. Add proper keybindings for ocamldebug
-3. Add more keybindings for tuareg-mode
+1. Add more proper spacemacs key bindings for basic merlin tasks
+2. Add proper key bindings for ocamldebug
+3. Add more key bindings for tuareg-mode

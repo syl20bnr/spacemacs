@@ -6,7 +6,7 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#fasd][fasd]]
-- [[#keybindings][Keybindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer integrates the [[https://github.com/clvv/fasd][fasd]] command line tool into spacemacs.
@@ -32,7 +32,7 @@ On OS X, it can be installed via [[https://github.com/Homebrew/legacy-homebrew][
   $ brew install fasd
 #+END_SRC
 
-* Keybindings
+* Key bindings
 
 | Key Binding | Description                        |
 |-------------+------------------------------------|

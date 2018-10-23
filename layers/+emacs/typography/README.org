@@ -23,7 +23,7 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =typography= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-Typographic editing however is disabled by default.  To enable it by default set
+Typographic editing however is disabled by default. To enable it by default set
 =typography-enable-typographic-editing= to =t=:
 
 #+BEGIN_SRC emacs-lisp
@@ -42,7 +42,7 @@ and automatic insertion and cycling among of typographic quotes and dashes.
 | ~SPC t ~~    | Toggle Tildify Mode (automatic insertion of non-breaking spaces) |
 | ~SPC x ~~    | Insert non-breaking spaces in the current region                 |
 
-The following keybindings are available in insert state.
+The following key bindings are available in insert state.
 
 ** Typo Mode
 

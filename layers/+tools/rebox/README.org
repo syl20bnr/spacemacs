@@ -121,7 +121,7 @@ These templates are added by the Spacemacs layer.
 *Note:* Use a numerical prefix argument to choose a specific style for instance
 ~86 SPC x b b~ to use the style 86 above.
 
-| Keybinding  | Command                                                           |
+| Key binding | Command                                                           |
 |-------------+-------------------------------------------------------------------|
 | ~SPC x b >~ | Move box to the right (point must be around left side of the box) |
 | ~SPC x b <~ | Move box to the left (point must be around left side of the box)  |

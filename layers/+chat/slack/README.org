@@ -12,7 +12,7 @@
 
 * Description
 This layer provides an interface to the Slack chat service via the emacs-slack
-package. Where possible, this layer aims to reuse keybindings from the IRC
+package. Where possible, this layer aims to reuse key bindings from the IRC
 packages in Spacemacs.
 
 ** Features:

@@ -59,7 +59,7 @@ layer variables:
    to wait for the auto-completion key sequence to be entered. The default value
    is 0.1 seconds.
 5. =auto-completion-idle-delay= is the number of seconds to wait before suggesting
-   completions. The default value is 0.2 seconds.  Set to =nil= to disable
+   completions. The default value is 0.2 seconds. Set to =nil= to disable
    automatic suggestions (the ~TAB~ key will still perform completion).
 
 The default configuration of the layer is:

@@ -70,8 +70,8 @@ dependencies are properly installed and run the command =pdf-tools-install=.
 
 * Usage
 Use ~SPC m .~ to activate the pdf-tools transient state.
-The keybindings that the transient displays can be also accessed using ~SPC m~. The
-navigation keybindings can be used directly.
+The key bindings that the transient displays can be also accessed using ~SPC m~. The
+navigation key bindings can be used directly.
 
 Try out opening the outline (~O~). The outline window shows the structure of the
 pdf, displaying all headings.

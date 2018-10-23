@@ -545,7 +545,7 @@ In =:config= should be
 - Anything that takes a long time to run, which would ruin startup performance.
 
 The =:init= block should contain setup for the entry points to the package. This
-includes keybindings, if the package should be loaded manually by the user, or
+includes key bindings, if the package should be loaded manually by the user, or
 hooks, if the package should be loaded upon some event. It is not unusual to
 have both!
 

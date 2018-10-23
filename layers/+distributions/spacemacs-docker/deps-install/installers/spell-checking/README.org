@@ -6,7 +6,7 @@
 - [[#list-of-installed-software][List of installed software:]]
 
 * Description
-Dependency installation script for [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell-checking  layer.]]
+Dependency installation script for [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell-checking layer.]]
 
 ** Features:
 - ispell support for Docker

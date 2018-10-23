@@ -50,7 +50,7 @@ You start prodigy with this:
 | ~L~         | Start prodigy                   |
 | ~S~         | Stop prodigy                    |
 | ~r~         | restart prodigy                 |
-| ~R~         | revert buffer  (refresh list)   |
+| ~R~         | revert buffer (refresh list)    |
 | ~d~         | Jump to the dired of service    |
 | ~g~         | Jump to magit-status of service |
 | ~Y~         | Copy prodigy command            |

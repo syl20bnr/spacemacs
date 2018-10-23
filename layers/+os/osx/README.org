@@ -15,7 +15,7 @@
 - [[#future-work][Future Work]]
 
 * Description
-Spacemacs is not just emacs+vim. It can have OSX keybindings too! This layer
+Spacemacs is not just emacs+vim. It can have OSX key bindings too! This layer
 globally defines common OSX keybindings.
 
 ** Features:
@@ -25,7 +25,7 @@ globally defines common OSX keybindings.
 
 * Philosophy
 While this layer enables common OSX bindings, it does not implement OSX
-navigation keybindings. Spacemacs is meant to be used with evil, and we
+navigation key bindings. Spacemacs is meant to be used with evil, and we
 encourage you to do so :)
 
 * Install

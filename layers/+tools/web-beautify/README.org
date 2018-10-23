@@ -7,7 +7,7 @@
 - [[#key-bindings][Key Bindings]]
 
 * Description
-This layer adds support for  [[https://github.com/yasuyk/web-beautify][web-beautify]].
+This layer adds support for [[https://github.com/yasuyk/web-beautify][web-beautify]].
 
 ** Features:
 - Format buffer to be beautiful
