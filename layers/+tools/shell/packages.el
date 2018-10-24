@@ -224,7 +224,7 @@
       (spacemacs/set-leader-keys
         "'"   'spacemacs/default-pop-shell
         "ase" 'spacemacs/shell-pop-eshell
-        "asi" 'spacemacs/shell-pop-shell
+        "asi" 'spacemacs/shell-pop-inferior-shell
         "asm" 'spacemacs/shell-pop-multiterm
         "ast" 'spacemacs/shell-pop-ansi-term
         "asT" 'spacemacs/shell-pop-term))))
