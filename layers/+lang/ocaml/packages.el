@@ -14,7 +14,7 @@
     ;; auto-complete
     company
     flycheck
-    flycheck-ocaml
+    (flycheck-ocaml :requires flycheck)
     ggtags
     counsel-gtags
     helm-gtags
