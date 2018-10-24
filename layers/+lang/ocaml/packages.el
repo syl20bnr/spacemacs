@@ -18,6 +18,7 @@
     ggtags
     counsel-gtags
     helm-gtags
+    imenu
     merlin
     merlin-eldoc
     ocp-indent
