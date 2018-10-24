@@ -81,13 +81,11 @@
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mE" "errors")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'tuareg-mode "mh" "help")
-      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mr" "refactor")))
-    (use-package merlin-iedit
-      :defer t
-      :commands merlin-iedit-occurrences
-      :init
-      (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
-        "re"  'merlin-iedit-occurrences)))
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mr" "refactor"))
+    :config
+    (require 'merlin-iedit)
+    (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+      "re"  'merlin-iedit-occurrences)))
 
 (defun ocaml/post-init-imenu ()
   (use-package merlin-imenu
