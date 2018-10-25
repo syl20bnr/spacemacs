@@ -306,7 +306,8 @@ current window."
     (switch-to-buffer
      (cl-find-if (lambda (buffer)
                    (not (eq buffer current-buffer)))
-                 (mapcar #'car (window-prev-buffers window))))))
+                 (mapcar #'car (window-prev-buffers window)))
+     nil t)))
 
 (defun spacemacs/alternate-window ()
   "Switch back and forth between current and last window in the
