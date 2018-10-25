@@ -27,7 +27,7 @@ before_deploy:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: ".travisci/pub_org_fmt.sh"
+    script: ".travisci/pub_org.sh"
     on:
       all_branches: true
       condition: $TRAVIS_REPO_SLUG = "syl20bnr/spacemacs"

@@ -62,7 +62,7 @@ fold_end "SELECTING_CHANGED_FILES"
 fold_start "PUSHING_CHANGES_TO_${BOT_NAME}/${PUBLISH}"
 cd "/tmp/${PUBLISH}"
 /tmp/hub add --all
-/tmp/hub commit -m "documentation fixes: $(date -u)"
+/tmp/hub commit -m "documentation formatting: $(date -u)"
 if [ $? -ne 0 ]; then
     echo "hub commit failed"
     exit 2
@@ -85,7 +85,7 @@ fi
 fold_end "PUSHING_CHANGES_TO_${BOT_NAME}/${PUBLISH}"
 
 fold_start "OPENING_PR_TO_syl20bnr/${PUBLISH}.git"
-echo "[Spacebot]Documentation fixes" > msg
+echo "[bot] Documentation formatting" > msg
 echo >> msg
 echo "Merge with care - I'm just a stupid bot. Beep boop." >> msg
 /tmp/hub pull-request -b "${TRAVIS_BRANCH}" -F msg
