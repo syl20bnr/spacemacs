@@ -43,9 +43,9 @@ This layer adds support for the Python language.
   - [[https://github.com/emacs-lsp/lsp-python][Language Server Protocol]] (experimental),
 - Auto-completion
 - Code Navigation
-- Documentation Lookup using  [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] and [[https://github.com/tsgates/pylookup][pylookup]]
+- Documentation Lookup using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] and [[https://github.com/tsgates/pylookup][pylookup]]
 - Test Runners using [[https://github.com/syl20bnr/nose.el][nose.el]] or [[https://github.com/ionrock/pytest-el][pytest]]
-- Virtual Environment using  [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]]
+- Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]]
 - semantic mode is enabled
 - PEP8 compliant formatting via [[https://github.com/google/yapf][YAPF]]
 - PEP8 checks with [[https://pypi.python.org/pypi/flake8][flake8]] or [[https://pypi.python.org/pypi/pylint/1.6.4][pylint]]
@@ -158,7 +158,7 @@ directory local variable in your project root. ~SPC f v d~ in Spacemacs. See
 The root of the project is detected with a =.git= directory or a =setup.cfg= file.
 
 ** Automatic buffer formatting on save
-To enable automatic buffer formatting on save with  [[https://github.com/google/yapf][YAPF]] set the variable
+To enable automatic buffer formatting on save with [[https://github.com/google/yapf][YAPF]] set the variable
 =python-enable-yapf-format-on-save= to =t=.
 
 #+BEGIN_SRC emacs-lisp
@@ -261,7 +261,7 @@ can be set with the variable =python-auto-set-local-pyvenv-virtualenv== to:
 Start a Python or iPython inferior REPL process with ~SPC m s i~.
 If =ipython= is available in system executable search paths, =ipython=
 will be used to launch python shell; otherwise, default =python=
-interpreter will be used.  You may change your system executable
+interpreter will be used. You may change your system executable
 search path by activating a virtual environment.
 
 Send code to inferior process commands:
@@ -350,25 +350,25 @@ Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][li
 
 ** Other Python commands
 
-| Key Binding   | Description                                                                  |
-|---------------+------------------------------------------------------------------------------|
-| ~SPC m =~     | Reformat the buffer according to PEP8 using  [[https://github.com/google/yapf][YAPF]]                            |
-| ~SPC m d b~   | toggle a breakpoint using =wdb=, =ipdb=, =pudb= or =pdb=                     |
-| ~SPC m g a~   | go to assignment using =anaconda-mode-find-assignments= (~C-o~ to jump back) |
-| ~SPC m g b~   | jump back                                                                    |
-| ~SPC m g g~   | go to definition using =anaconda-mode-find-definitions= (~C-o~ to jump back) |
-| ~SPC m g u~   | navigate between usages with =anaconda-mode-find-references=                 |
-| ~SPC m h d~   | look for documentation using =helm-pydoc=                                    |
-| ~SPC m h h~   | quick documentation using anaconda                                           |
-| ~SPC m h H~   | open documentation in =firefox= using [[https://github.com/tsgates/pylookup][pylookup]]                               |
-| ~SPC m v a~   | activate a virtual environment in any directory                              |
-| ~SPC m v d~   | deactivate active virtual environment                                        |
-| ~SPC m v s~   | set a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]                                           |
-| ~SPC m v u~   | unset a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]                                         |
-| ~SPC m v w~   | work on virtual environment in =WORKON_HOME=                                 |
-| ~SPC m v p a~ | activate pipenv in current project                                           |
-| ~SPC m v p d~ | deactivate pipenv in current project                                         |
-| ~SPC m v p i~ | install module into pipenv environment                                       |
-| ~SPC m v p o~ | open pipenv module in buffer                                                 |
-| ~SPC m v p s~ | launch pipenv shell in current project                                       |
-| ~SPC m v p u~ | uninstall module from pipenv environment                                     |
+| Key Binding   | Description                                                                       |
+|---------------+-----------------------------------------------------------------------------------|
+| ~SPC m =~     | Reformat the buffer according to PEP8 using [[https://github.com/google/yapf][YAPF]]                                  |
+| ~SPC m d b~   | toggle a breakpoint using =wdb=, =ipdb=, =pudb=, =pdb= or =python3.7= (and above) |
+| ~SPC m g a~   | go to assignment using =anaconda-mode-find-assignments= (~C-o~ to jump back)      |
+| ~SPC m g b~   | jump back                                                                         |
+| ~SPC m g g~   | go to definition using =anaconda-mode-find-definitions= (~C-o~ to jump back)      |
+| ~SPC m g u~   | navigate between usages with =anaconda-mode-find-references=                      |
+| ~SPC m h d~   | look for documentation using =helm-pydoc=                                         |
+| ~SPC m h h~   | quick documentation using anaconda                                                |
+| ~SPC m h H~   | open documentation in =firefox= using [[https://github.com/tsgates/pylookup][pylookup]]                                    |
+| ~SPC m v a~   | activate a virtual environment in any directory                                   |
+| ~SPC m v d~   | deactivate active virtual environment                                             |
+| ~SPC m v s~   | set a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]                                                |
+| ~SPC m v u~   | unset a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]                                              |
+| ~SPC m v w~   | work on virtual environment in =WORKON_HOME=                                      |
+| ~SPC m v p a~ | activate pipenv in current project                                                |
+| ~SPC m v p d~ | deactivate pipenv in current project                                              |
+| ~SPC m v p i~ | install module into pipenv environment                                            |
+| ~SPC m v p o~ | open pipenv module in buffer                                                      |
+| ~SPC m v p s~ | launch pipenv shell in current project                                            |
+| ~SPC m v p u~ | uninstall module from pipenv environment                                          |

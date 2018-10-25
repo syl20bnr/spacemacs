@@ -7,7 +7,7 @@
   - [[#derived-layers][Derived layers]]
     - [[#spacemacslsp-bind-keys-for-mode-mode][=spacemacs/lsp-bind-keys-for-mode mode=]]
       - [[#declared-prefixes][Declared prefixes]]
-      - [[#default-keybindings][Default keybindings]]
+      - [[#default-key-bindings][Default key bindings]]
   - [[#variables][Variables]]
   - [[#diagnostics][Diagnostics]]
 - [[#future-additionsimprovements][Future additions/improvements]]
@@ -61,7 +61,7 @@ The following prefixes have been declared:
 | ~m r~  | refactor       | What it says on the tin                                                    |
 | ~m T~  | toggle         | Toggle LSP backend features (documentation / symbol info overlays etc.)    |
 
-**** Default keybindings
+**** Default key bindings
 The default bindings are listed below. Derived language server layers should extend this list.
 
 | binding | function                                        |
@@ -102,7 +102,7 @@ under the derived mode t prefix by =(spacemacs/lsp-bind-keys-for-mode mode)=
 
 | Variable name                   | Default | Description                                                                               |
 |---------------------------------+---------+-------------------------------------------------------------------------------------------|
-| =lsp-ui-remap-xref-keybindings= | nil     | When non-nil, xref keybindings remapped to lsp-ui-peek-find-{definition,references}       |
+| =lsp-ui-remap-xref-keybindings= | nil     | When non-nil, xref key bindings remapped to lsp-ui-peek-find-{definition,references}      |
 | =lsp-ui-doc-enable=             | t       | When non-nil, the documentation overlay is displayed                                      |
 | =lsp-ui-doc-include-signature=  | nil     | When nil, signature omitted from lsp-ui-doc overlay (this is usually redundant)           |
 | =lsp-ui-sideline-enable=        | t       | When non-nil, the symbol information overlay is displayed                                 |

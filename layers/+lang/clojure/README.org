@@ -309,7 +309,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m d e~   | display last stacktrace                            |
 | ~SPC m d E~   | one time display of value at cursor                |
 | ~SPC m d f~   | query form at point                                |
-| ~SPC m d h~   | show sayid help (keybindings may not be accurate)  |
+| ~SPC m d h~   | show sayid help (key bindings may not be accurate) |
 | ~SPC m d i~   | inspect expression at point                        |
 | ~SPC m d r~   | reload namespaces                                  |
 | ~SPC m d s~   | show what is currently traced                      |
@@ -383,11 +383,11 @@ As this state works the same for all files, the documentation is in global
 
 *** Reformatting
 
-| Key Binding               | Description             |
-|---------------------------+-------------------------|
-| ~SPC m f b~ or  ~SPC m =~ | reformat current buffer |
-| ~SPC m f l~               | realign current form    |
-|                           |                         |
+| Key Binding              | Description             |
+|--------------------------+-------------------------|
+| ~SPC m f b~ or ~SPC m =~ | reformat current buffer |
+| ~SPC m f l~              | realign current form    |
+|                          |                         |
 
 *** Profiling
 
@@ -475,25 +475,25 @@ In general, ~q~ should always quit the popped up buffer.
 | ~P~                | pretty print value                                |
 | ~C~                | clear workspace trace log                         |
 | ~e~                | generate instance expression and put in kill ring |
-| ~H~                | display help (keybindings may not be accurate)    |
+| ~H~                | display help (key bindings may not be accurate)   |
 | ~w~                | show full workspace trace                         |
 | ~C-s v~            | toggle view                                       |
 | ~C-s V~            | set view                                          |
 
 *** sayid-traced-mode
 
-| Key Binding | Description                                    |
-|-------------+------------------------------------------------|
-| ~backspace~ | go back to trace overview                      |
-| ~enter~     | drill into ns at point                         |
-| ~e~         | enable trace                                   |
-| ~E~         | enable all traces                              |
-| ~d~         | disable trace                                  |
-| ~D~         | disable all traces                             |
-| ~h~         | display help (keybindings may not be accurate) |
-| ~i~         | apply inner trace to function at point         |
-| ~o~         | apply outer trace to function at point         |
-| ~r~         | remove trace at point                          |
+| Key Binding | Description                                     |
+|-------------+-------------------------------------------------|
+| ~backspace~ | go back to trace overview                       |
+| ~enter~     | drill into ns at point                          |
+| ~e~         | enable trace                                    |
+| ~E~         | enable all traces                               |
+| ~d~         | disable trace                                   |
+| ~D~         | disable all traces                              |
+| ~h~         | display help (key bindings may not be accurate) |
+| ~i~         | apply inner trace to function at point          |
+| ~o~         | apply outer trace to function at point          |
+| ~r~         | remove trace at point                           |
 
 *** sayid-pprint
 

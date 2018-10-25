@@ -226,7 +226,8 @@
 
       (evil-define-key 'normal cider-repl-mode-map
         (kbd "C-j") 'cider-repl-next-input
-        (kbd "C-k") 'cider-repl-previous-input)
+        (kbd "C-k") 'cider-repl-previous-input
+        (kbd "RET") 'cider-repl-return)
 
       (evil-define-key 'insert cider-repl-mode-map
         (kbd "C-j") 'cider-repl-next-input

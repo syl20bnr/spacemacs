@@ -59,7 +59,7 @@ existing =dotspacemacs-configuration-layers= list in this file.
 * Commands
 ** Global bindings
 
-| Keybinding             | Command                         |
+| Key binding            | Command                         |
 |------------------------+---------------------------------|
 | ~SPC a M~              | Start mu4e                      |
 | ~SPC m S~ or ~SPC m /~ | Search emails (requires helm)   |
@@ -68,23 +68,23 @@ existing =dotspacemacs-configuration-layers= list in this file.
 
 ** Headers mode
 
-| Keybinding | Command                                                     |
-|------------+-------------------------------------------------------------|
-| ~J~        | Go to next unread thread marking other mail read on the way |
-| ~C-j~      | Next header                                                 |
-| ~C-k~      | Previous header                                             |
+| Key binding | Command                                                     |
+|-------------+-------------------------------------------------------------|
+| ~J~         | Go to next unread thread marking other mail read on the way |
+| ~C-j~       | Next header                                                 |
+| ~C-k~       | Previous header                                             |
 
 ** View mode
 
-| Keybinding | Command                                                     |
-|------------+-------------------------------------------------------------|
-| ~J~        | Go to next unread thread marking other mail read on the way |
-| ~C-j~      | Next header                                                 |
-| ~C-k~      | Previous header                                             |
+| Key binding | Command                                                     |
+|-------------+-------------------------------------------------------------|
+| ~J~         | Go to next unread thread marking other mail read on the way |
+| ~C-j~       | Next header                                                 |
+| ~C-k~       | Previous header                                             |
 
 * Configuration
-Configuration varies too much to give precise instructions.  What follows is one
-example configuration.  Refer to mu4e’s manual for more detailed configuration
+Configuration varies too much to give precise instructions. What follows is one
+example configuration. Refer to mu4e’s manual for more detailed configuration
 instructions.
 
 ** Maildirs extension

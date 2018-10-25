@@ -6,7 +6,7 @@
 - [[#install][Install]]
 - [[#configuration][Configuration]]
 - [[#restclient][Restclient]]
-  - [[#keybindings][Keybindings]]
+  - [[#key-bindings][Key bindings]]
 - [[#ob-http][ob-http]]
 
 * Description
@@ -42,7 +42,7 @@ There is support for =org-babel= and =restclient= code blocks, for instance:
   #+END_SRC
 #+END_EXAMPLE
 
-** Keybindings
+** Key bindings
 
 | Key Binding | Description                                                 |
 |-------------+-------------------------------------------------------------|

@@ -31,7 +31,7 @@ Warning: enabling the LSP functionality within this package can cause emacs to
 hang for significant lengths of time when opening a Julia file. See tip below on
 using PackageCompiler.jl to mitigate this issue.
 
-This layer can be used with [[https://github.com/JuliaEditorSupport/LanguageServer.jl][ =LanguageServer.jl=]] and emacs [[https://github.com/emacs-lsp/lsp-mode][ =lsp-mode=]] to provide
+This layer can be used with [[https://github.com/JuliaEditorSupport/LanguageServer.jl][=LanguageServer.jl=]] and emacs [[https://github.com/emacs-lsp/lsp-mode][=lsp-mode=]] to provide
 richer, IDE-like capabilities. To use this layer with lsp, you must do the
 following:
 1. Add =lsp= to =dotspacemacs-configuration-layers=.
@@ -43,7 +43,7 @@ following:
 =lsp-mode= might give up on the language server before its started, but
 regardless usage of =lsp-mode= with Julia can cause long delays when first
 opening files. To mitigate this issue, you can try compiling =LanguageServer.jl=
-ahead of time using [[https://github.com/JuliaLang/PackageCompiler.jl][ =PackageCompiler.jl=]]. This drastically reduces startup time
+ahead of time using [[https://github.com/JuliaLang/PackageCompiler.jl][=PackageCompiler.jl=]]. This drastically reduces startup time
 if successful:
 
 #+BEGIN_SRC julia
@@ -75,6 +75,9 @@ and then install this layer with:
    '(
      (julia :variables julia-mode-enable-lsp t)))
 #+END_SRC
+
+Warning: [[https://github.com/JuliaEditorSupport/LanguageServer.jl][=LanguageServer.jl=]] has not yet been released for Julia 1.0. If you are
+using this layer with Julia 1.0, =julia-mode-enable-lsp= should be set to =nil=.
 
 * Key bindings
 

@@ -21,7 +21,7 @@ Supported scripting files:
 
 ** Features:
 - Auto-completion using [[https://github.com/Alexander-Miller/company-shell][company-shell]]
-- =Sh= scripts linting using  [[https://www.shellcheck.net/][shellcheck]]
+- =Sh= scripts linting using [[https://www.shellcheck.net/][shellcheck]]
 - =Sh= scripts style checking using [[https://github.com/openstack-dev/bashate][bashate]]
 
 * Install

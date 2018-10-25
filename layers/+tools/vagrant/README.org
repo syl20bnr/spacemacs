@@ -9,7 +9,7 @@
   - [[#layer][Layer]]
   - [[#vagrant][Vagrant]]
   - [[#testing][Testing]]
-- [[#keybindings][Keybindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support for working with Vagrant using [[https://github.com/ottbot/vagrant.el][vagrant.el]] and
@@ -37,7 +37,7 @@ If you’d like to test this layer out in a simple way (for example to
 make sure you have Vagrant configured correctly) there is a [[https://gist.github.com/anonymous/578279337caf180298cd91c61be995bc][Vagrantfile]]
 in this directory.
 
-* Keybindings
+* Key bindings
 
 | Key Binding | Description                                                                                    |
 |-------------+------------------------------------------------------------------------------------------------|

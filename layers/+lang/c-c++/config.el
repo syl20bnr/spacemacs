@@ -39,9 +39,6 @@
   "If non-nil, automatically format code with ClangFormat on
   save. Clang support has to be enabled for this to work.")
 
-(defvar c-c++-enable-c++11 nil
-  "If non nil then c++11 related features will be enabled")
-
 (spacemacs|define-jump-handlers c++-mode)
 (spacemacs|define-jump-handlers c-mode)
 

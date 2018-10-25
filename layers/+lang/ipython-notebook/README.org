@@ -5,7 +5,7 @@
   - [[#features][Features:]]
 - [[#list-of-todos][List of TODOS]]
   - [[#maybe-itd-be-better-if-there-was-a-state-for-this][Maybe it'd be better if there was a state for this]]
-  - [[#make-more-keybinding-to-connect-to-a-python-buffer][Make more keybinding to =connect= to a python buffer]]
+  - [[#make-more-key-binding-to-connect-to-a-python-buffer][Make more key binding to =connect= to a python buffer]]
   - [[#deleting-visual-regions-dont-work-find-out-why][Deleting visual regions don't work, find out why]]
 - [[#install][Install]]
   - [[#layer][Layer]]
@@ -30,7 +30,7 @@ Do not hesitate to check the original package README [[https://github.com/millej
 lots of informative stuff.
 
 ** Features:
-- Keybindings available through transient-state or leader key
+- Key bindings available through transient-state or leader key
 - Lazy-loading
 
 * List of TODOS
@@ -38,7 +38,7 @@ This is a WIP, feel free to collaborate.
 
 ** TODO Maybe it'd be better if there was a state for this
 
-** TODO Make more keybinding to =connect= to a python buffer
+** TODO Make more key binding to =connect= to a python buffer
 
 ** TODO Deleting visual regions don't work, find out why
 

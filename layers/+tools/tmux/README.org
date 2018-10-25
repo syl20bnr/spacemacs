@@ -7,7 +7,7 @@
 - [[#key-bindings][Key Bindings]]
 
 * Description
-This layer adds basic =tmux= keybindings to Spacemacs.
+This layer adds basic =tmux= key bindings to Spacemacs.
 
 ** Features:
 - Calling of =tmux= navigation commands directly from emacs via [[https://github.com/keith/evil-tmux-navigator][evil-tmux-navigator]].

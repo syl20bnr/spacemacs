@@ -21,7 +21,7 @@ fold_end() {
 
 cd  ~/.emacs.d
 
-if  [ "$TRAVIS_BRANCH" = "master" ] || [ "$TRAVIS_BRANCH" = "develop" ]; then
+if [ "$TRAVIS_BRANCH" = "develop" ]; then
     PUBLISH="spacemacs"
 else
     echo "branch is \"${TRAVIS_BRANCH}\". Won't publish."
@@ -62,7 +62,7 @@ fold_end "SELECTING_CHANGED_FILES"
 fold_start "PUSHING_CHANGES_TO_${BOT_NAME}/${PUBLISH}"
 cd "/tmp/${PUBLISH}"
 /tmp/hub add --all
-/tmp/hub commit -m "documentation fixes:$(date -u)"
+/tmp/hub commit -m "documentation fixes: $(date -u)"
 if [ $? -ne 0 ]; then
     echo "hub commit failed"
     exit 2

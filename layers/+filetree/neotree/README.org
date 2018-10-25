@@ -20,7 +20,7 @@
 This layer setups a file tree navigator buffer using Neotree.
 
 ** Features:
-- intuitive evil key-bindings integration
+- intuitive evil key bindings integration
 - supports multiple themes
 - transient state by pressing on ~?~
 - version-control integration
@@ -32,7 +32,7 @@ file.
 
 * Configuration
 ** NeoTree Theme
-You can change the NeoTree theme by using the setting =neo-theme=.  Possible
+You can change the NeoTree theme by using the setting =neo-theme=. Possible
 values are:
 
 | Setting   | Description                                                      |
@@ -45,7 +45,7 @@ values are:
 
 The default is =classic=.
 
-Use =nerd= if you want it to look most like NERDTree in VIM.  For example:
+Use =nerd= if you want it to look most like NERDTree in VIM. For example:
 
 #+BEGIN_SRC emacs-lisp
   (setq neo-theme 'nerd)
@@ -69,7 +69,7 @@ For example,
 #+END_SRC
 
 *Note*: At this time, it is not recommended to set this to anything other
-than =nil=.  Otherwise, it will become very slow with larger source trees.
+than =nil=. Otherwise, it will become very slow with larger source trees.
 See [[https://github.com/jaypei/emacs-neotree/issues/126]] for more information.
 
 * Usage

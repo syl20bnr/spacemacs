@@ -128,28 +128,28 @@ would look is that in your list of =dostpacemacs-configuration-layers= you have
 an entry like
 
 #+BEGIN_SRC emacs-lisp
-     (c-c++ :variables
-            c-c++-enable-google-style t)
-#+END_SRC emacs-lisp
+  (c-c++ :variables
+         c-c++-enable-google-style t)
+#+END_SRC
 
 Additionally, if you have =c-c++-enable-google-newline= variable set then
 =`google-make-newline-indent= will be set as a =c-mode-common-hook=. You would
 set that up like this:
 
 #+BEGIN_SRC emacs-lisp
-     (c-c++ :variables
-            c-c++-enable-google-style t
-            c-c++-enable-google-newline t)
-#+END_SRC emacs-lisp
+  (c-c++ :variables
+         c-c++-enable-google-style t
+         c-c++-enable-google-newline t)
+#+END_SRC
 
 ** Newlines
 You can enable the =Auto-newline= minor mode that automatically adds newlines
 after certain characters by setting the =c-c++-enable-auto-newline= variable.
 
 #+BEGIN_SRC emacs-lisp
-     (c-c++ :variables
-            c-c++-enable-auto-newline t)
-#+END_SRC emacs-lisp
+  (c-c++ :variables
+         c-c++-enable-auto-newline t)
+#+END_SRC
 
 * Key Bindings
 

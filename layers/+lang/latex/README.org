@@ -14,7 +14,7 @@
   - [[#auto-fill][Auto-fill]]
   - [[#folding][Folding]]
   - [[#magic-latex-buffer][Magic latex buffer]]
-- [[#keybindings][Keybindings]]
+- [[#key-bindings][Key bindings]]
   - [[#folding-1][Folding]]
   - [[#reftex][RefTeX]]
 
@@ -109,7 +109,7 @@ variables:
 
 By default, the underlying latex code is echoed in the echo area.
 
-* Keybindings
+* Key bindings
 
 | Key Binding   | Description                                |
 |---------------+--------------------------------------------|

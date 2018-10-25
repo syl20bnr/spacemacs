@@ -181,6 +181,10 @@
                 . helm-spacemacs-help//layer-action-open-packages)
                ("Open config.el"
                 . helm-spacemacs-help//layer-action-open-config)
+               ("Open funcs.el"
+                . helm-spacemacs-help//layer-action-open-funcs)
+               ("Open layers.el"
+                . helm-spacemacs-help//layer-action-open-layers)
                ("Install Layer"
                 . helm-spacemacs-help//layer-action-install-layer)
                ("Open README.org (for editing)"
@@ -317,6 +321,14 @@
 (defun helm-spacemacs-help//layer-action-open-config (candidate)
   "Open the `config.el' file of the passed CANDIDATE."
   (helm-spacemacs-help//layer-action-open-file "config.el" candidate))
+
+(defun helm-spacemacs-help//layer-action-open-funcs (candidate)
+  "Open the `funcs.el' file of the passed CANDIDATE."
+  (helm-spacemacs-help//layer-action-open-file "funcs.el" candidate))
+
+(defun helm-spacemacs-help//layer-action-open-layers (candidate)
+  "Open the `layers.el' file of the passed CANDIDATE."
+  (helm-spacemacs-help//layer-action-open-file "layers.el" candidate))
 
 (defun helm-spacemacs-help//package-action-describe (candidate)
   "Describe the passed package using Spacemacs describe function."

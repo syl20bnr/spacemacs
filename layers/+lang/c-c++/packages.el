@@ -77,8 +77,6 @@
   (when c-c++-enable-clang-support
     (spacemacs|add-company-backends :backends company-clang
       :modes c-mode-common)
-    (when c-c++-enable-c++11
-      (setq company-clang-arguments '("-std=c++11")))
     (setq company-clang-prefix-guesser 'spacemacs/company-more-than-prefix-guesser)
     (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)))
 
@@ -122,9 +120,7 @@
   (dolist (mode c-c++-modes)
     (spacemacs/enable-flycheck mode))
   (when c-c++-enable-clang-support
-    (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)
-    (when c-c++-enable-c++11
-      (setq flycheck-clang-language-standard "c++11"))))
+    (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)))
 
 ;; TODO lazy load this package
 (defun c-c++/init-flycheck-rtags ()
