@@ -130,9 +130,6 @@ jobs:
           name: Select changed documentation(.org) files
           command: ./.circleci/validoc/select
       - run:
-          name: format changed documentation files for exporting
-          command: ./.circleci/validoc/format
-      - run:
           name: export changed documentation files for validation
           command: ./.circleci/validoc/export
       - run:
