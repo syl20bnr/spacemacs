@@ -2274,6 +2274,11 @@ Other:
 - Added a code formatter for sql-mode (thanks to Seong Yong-ju)
 - Added connection between =org-mode= and =SQL layer= (thanks to Magnus Therning)
 - Added default jump handlers for SQL layer (thanks to Alex Palaistras)
+- Added send line functions/key bindings (thanks to benbotwin):
+  - ~SPC m s l~ Send the current line to the SQLi buffer and move to the next
+    line =insert state=
+  - ~SPC m s L~ Send the current line to the SQLi buffer and move to the next
+    line and switch to it in =insert state=
 **** Spell-checking
 - Added spell checking transient state (thanks to Francesc Elies Henar)
 - Update to flyspell-correct v0.5 (thanks to Boris Buliga)

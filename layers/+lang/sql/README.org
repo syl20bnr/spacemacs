@@ -116,17 +116,19 @@ auto-indent by setting the variable =sql-auto-indent= to =nil=.
 
 *** Send SQL queries to SQLi:
 
-| Key binding | Description                                                                           |
-|-------------+---------------------------------------------------------------------------------------|
-| ~SPC m s b~ | Send the whole buffer to the SQLi buffer                                              |
-| ~SPC m s B~ | Send the whole buffer to the SQLi buffer and switch to it in =insert state=           |
-| ~SPC m s i~ | Start the SQLi process                                                                |
-| ~SPC m s f~ | Send the paragraph around point to the SQLi buffer                                    |
-| ~SPC m s F~ | Send the paragraph around point to the SQLi buffer and switch to it in =insert state= |
-| ~SPC m s q~ | Prompt for a string to send to the SQLi buffer                                        |
-| ~SPC m s Q~ | Prompt for a string to send to the SQLi buffer and switch to it in =insert state=     |
-| ~SPC m s r~ | Send the selected region to the SQLi buffer                                           |
-| ~SPC m s R~ | Send the selected region to the SQLi buffer and switch to it in =insert state=        |
+| Key binding | Description                                                                                           |
+|-------------+-------------------------------------------------------------------------------------------------------|
+| ~SPC m s b~ | Send the whole buffer to the SQLi buffer                                                              |
+| ~SPC m s B~ | Send the whole buffer to the SQLi buffer and switch to it in =insert state=                           |
+| ~SPC m s i~ | Start the SQLi process                                                                                |
+| ~SPC m s f~ | Send the paragraph around point to the SQLi buffer                                                    |
+| ~SPC m s F~ | Send the paragraph around point to the SQLi buffer and switch to it in =insert state=                 |
+| ~SPC m s l~ | Send the current line to the SQLi buffer and move to the next line =insert state=                     |
+| ~SPC m s L~ | Send the current line to the SQLi buffer and move to the next line and switch to it in =insert state= |
+| ~SPC m s q~ | Prompt for a string to send to the SQLi buffer                                                        |
+| ~SPC m s Q~ | Prompt for a string to send to the SQLi buffer and switch to it in =insert state=                     |
+| ~SPC m s r~ | Send the selected region to the SQLi buffer                                                           |
+| ~SPC m s R~ | Send the selected region to the SQLi buffer and switch to it in =insert state=                        |
 
 ** SQLi buffer
 
