@@ -91,6 +91,13 @@
           (sql-send-region start end)
           (evil-insert-state)))
 
+      (defun spacemacs/sql-send-line-and-next-and-focus ()
+        "Send the current line to SQLi and switch to SQLi in `insert state'."
+        (interactive)
+        (let ((sql-pop-to-buffer-after-send-region t))
+          (sql-send-line-and-next)
+          (evil-insert-state)))
+
       (spacemacs/declare-prefix-for-mode 'sql-mode "mb" "buffer")
       (spacemacs/declare-prefix-for-mode 'sql-mode "mh" "dialects")
       (spacemacs/declare-prefix-for-mode 'sql-mode "ms" "interactivity")
@@ -114,6 +121,8 @@
         ;; command around point, which is what you probably want.
         "sf" 'sql-send-paragraph
         "sF" 'spacemacs/sql-send-paragraph-and-focus
+        "sl" 'sql-send-line-and-next
+        "sL" 'spacemacs/sql-send-line-and-next-and-focus
         "sq" 'sql-send-string
         "sQ" 'spacemacs/sql-send-string-and-focus
         "sr" 'sql-send-region
