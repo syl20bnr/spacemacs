@@ -47,10 +47,12 @@ The =evil-mc= package provides the following key bindings:
 
 For easy navigation you also have the following:
 
-| Key Binding | Description                       |
-|-------------+-----------------------------------|
-| ~M-n~       | evil-mc-make-and-goto-next-cursor |
-| ~M-p~       | evil-mc-make-and-goto-prev-cursor |
-| ~C-n~       | evil-mc-make-and-goto-next-match  |
-| ~C-p~       | evil-mc-make-and-goto-prev-match  |
-| ~C-t~       | evil-mc-skip-and-goto-next-match  |
+| Key Binding | Description                        |
+|-------------+------------------------------------|
+| ~M-n~       | evil-mc-make-and-goto-next-cursor  |
+| ~M-p~       | evil-mc-make-and-goto-prev-cursor  |
+| ~C-n~       | evil-mc-make-and-goto-next-match   |
+| ~C-p~       | evil-mc-make-and-goto-prev-match   |
+| ~C-t~       | evil-mc-skip-and-goto-next-match   |
+| ~C-M-j~     | evil-mc-make-cursor-move-next-line |
+| ~C-M-k~     | evil-mc-make-cursor-move-prev-line |
