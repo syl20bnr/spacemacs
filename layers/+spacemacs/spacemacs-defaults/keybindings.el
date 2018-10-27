@@ -702,8 +702,12 @@ respond to this toggle."
   ("v" split-window-right)
   ("V" split-window-right-and-focus)
   ("w" other-window))
-(spacemacs/set-leader-keys "w."
-  'spacemacs/window-manipulation-transient-state/body)
+(spacemacs/set-leader-keys
+  "w." 'spacemacs/window-manipulation-transient-state/body
+  "w[" 'spacemacs/window-manipulation-transient-state/spacemacs/shrink-window-horizontally
+  "w]" 'spacemacs/window-manipulation-transient-state/spacemacs/enlarge-window-horizontally
+  "w{" 'spacemacs/window-manipulation-transient-state/spacemacs/shrink-window
+  "w}" 'spacemacs/window-manipulation-transient-state/spacemacs/enlarge-window)
 
 ;; end of Window Manipulation Transient State
 

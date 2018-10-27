@@ -2207,6 +2207,10 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w w~              | cycle and focus between windows                                             |
 | ~SPC w W~              | select window using [[https://github.com/abo-abo/ace-window][ace-window]]                                              |
 | ~SPC w x~              | delete a window and its current buffer (does not delete the file)           |
+| ~SPC w [~              | shrink window horizontally (enter transient state)                          |
+| ~SPC w ]~              | enlarge window horizontally (enter transient state)                         |
+| ~SPC w {~              | shrink window vertically (enter transient state)                            |
+| ~SPC w }~              | enlarge window vertically (enter transient state)                           |
 
 Split the current window into multiple ones, deleting all others using the
 following commands:
