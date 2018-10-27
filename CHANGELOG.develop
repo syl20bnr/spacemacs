@@ -921,6 +921,7 @@ Other:
   - Fixed evil surround bindings (thanks to Hoyon Mak)
   - Improved Window Manipulation Transient state (thanks to yuhan0)
   - Exclude which-key from layer sync powerline restore (thanks to Doug Wilson)
+  - Fix doom-modeline in the messages buffer (thanks to duianto)
 *** Layer changes and fixes
 **** Ansible
 - Improvements:
