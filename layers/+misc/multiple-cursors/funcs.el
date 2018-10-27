@@ -11,6 +11,8 @@
 ;;
 ;;; License: GPLv3
 
+;; This is a placeholder change in a placeholder commit!
+
 (defun spacemacs//evil-mc-paste-transient-state-p ()
   "Return non-nil if the paste transient state is enabled."
   (and dotspacemacs-enable-paste-transient-state
