@@ -2337,13 +2337,19 @@ Buffer manipulation commands (start with ~b~):
 A convenient buffer manipulation transient state allows to quickly cycles through
 the opened buffer and kill them.
 
-| Key binding | Description                                                                       |
-|-------------+-----------------------------------------------------------------------------------|
-| ~SPC b .~   | initiate transient state                                                          |
-| ~K~         | kill current buffer                                                               |
-| ~n~         | go to next buffer (avoid buffers matching =spacemacs-useless-buffers-regexp=)     |
-| ~N~         | go to previous buffer (avoid buffers matching =spacemacs-useless-buffers-regexp=) |
-| ~z~         | recenter buffer in window                                                         |
+| Key binding            | Description                                                                                |
+|------------------------+--------------------------------------------------------------------------------------------|
+| ~SPC b .~              | initiate transient state                                                                   |
+| ~[1..9]~               | move current buffer to nth window                                                          |
+| ~[C-1..C-9]~           | switch focus to nth window                                                                 |
+| ~[M-1..M-9]~           | swap current buffer with nth window                                                        |
+| ~b~                    | list all buffers with helm/ivy (avoid buffers matching =spacemacs-useless-buffers-regexp=) |
+| ~d~                    | kill current buffer                                                                        |
+| ~C-d~                  | bury current buffer                                                                        |
+| ~n~ or ~<right>~       | go to next buffer (avoid buffers matching =spacemacs-useless-buffers-regexp=)              |
+| ~N~ or ~p~ or ~<left>~ | go to previous buffer (avoid buffers matching =spacemacs-useless-buffers-regexp=)          |
+| ~o~                    | switch focus to other window                                                               |
+| ~z~                    | recenter buffer in window                                                                  |
 
 Unlike vim, emacs creates many buffers that most people do not need to see. Some
 examples are the =*Messages*= and =*Compile-Log*= buffers. Spacemacs tries to

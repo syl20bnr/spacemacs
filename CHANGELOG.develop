@@ -773,6 +773,7 @@ Benner and Paweł Siudak):
   - Better delete file messages (thanks to duianto)
   - Replace centered-buffer-mode with writeroom-mode (thanks to Eugene
     Yaremenko)
+  - Add ivy option to buffer transient state (thanks to yuhan0)
 - Enable =evil-search= search module in evil state.
 - Improve function =spacemacs/sort-lines-by-column= to work on rectangular/block
   selection and warn the user about its requirements (thanks to duianto)
