@@ -22,6 +22,8 @@
     rust-mode
     smartparens
     toml-mode
+    ;; packages for lsp-rust
+    (lsp-rust :requires lsp-mode)
     ))
 
 (defun rust/init-cargo ()
@@ -50,13 +52,65 @@
         "cv" 'cargo-process-check
         "t" 'cargo-process-test))))
 
-(defun rust/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'rust-mode))
+(defun rust/init-rust-mode ()
+  (use-package rust-mode
+    :defer t
+    :init
+    (progn
+      (spacemacs/add-to-hook 'rust-mode-hook '(spacemacs//rust-setup-backend))
+      (spacemacs/declare-prefix-for-mode 'rust-mode "mg" "goto")
+      (spacemacs/declare-prefix-for-mode 'rust-mode "mh" "help")
+      (spacemacs/declare-prefix-for-mode 'rust-mode "m=" "format")
+      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+        "==" 'rust-format-buffer
+        "q" 'spacemacs/rust-quick-run))))
+
+(defun rust/init-toml-mode ()
+  (use-package toml-mode
+    :mode "/\\(Cargo.lock\\|\\.cargo/config\\)\\'"))
+
+(defun rust/init-racer ()
+  (use-package racer
+    :defer t
+    :commands racer-mode
+    :config
+    (progn
+      (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode))
+      (spacemacs/add-to-hook 'racer-mode-hook '(eldoc-mode))
+      (add-to-list 'spacemacs-jump-handlers-rust-mode 'racer-find-definition)
+      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+        "hh" 'spacemacs/racer-describe)
+      (spacemacs|hide-lighter racer-mode)
+      (evilified-state-evilify-map racer-help-mode-map
+        :mode racer-help-mode))))
 
 (defun rust/init-flycheck-rust ()
   (use-package flycheck-rust
     :defer t
     :init (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
+
+(defun rust/init-lsp-rust ()
+  (use-package lsp-rust
+    :defer t
+    :commands lsp-rust-enable
+    :init (setq lsp-rust-rls-cmd rust-rls-cmd)
+    :config
+    (progn
+      (spacemacs/lsp-bind-keys-for-mode 'rust-mode)
+      (spacemacs//setup-lsp-jump-handler 'rust-mode)
+      (add-hook 'rust-mode-hook #'lsp-rust-enable))))
+
+(defun rust/post-init-company ()
+  ;; backend specific
+  (spacemacs//rust-setup-company))
+
+(defun rust/post-init-smartparens ()
+  (with-eval-after-load 'smartparens
+    ;; Don't pair lifetime specifiers
+    (sp-local-pair 'rust-mode "'" nil :actions nil)))
+
+(defun rust/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'rust-mode))
 
 (defun rust/post-init-ggtags ()
   (add-hook 'rust-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
@@ -66,45 +120,3 @@
 
 (defun rust/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'rust-mode))
-
-(defun rust/init-rust-mode ()
-  (use-package rust-mode
-    :defer t
-    :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-        "=" 'rust-format-buffer
-        "q" 'spacemacs/rust-quick-run))))
-
-(defun rust/init-toml-mode ()
-  (use-package toml-mode
-    :mode "/\\(Cargo.lock\\|\\.cargo/config\\)\\'"))
-
-(defun rust/post-init-company ()
-  (spacemacs|add-company-backends
-    :backends company-capf
-    :modes rust-mode
-    :variables company-tooltip-align-annotations t))
-
-(defun rust/post-init-smartparens ()
-  (with-eval-after-load 'smartparens
-    ;; Don't pair lifetime specifiers
-    (sp-local-pair 'rust-mode "'" nil :actions nil)))
-
-(defun rust/init-racer ()
-  (use-package racer
-    :defer t
-    :init
-    (progn
-      (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode))
-      (spacemacs/add-to-hook 'racer-mode-hook '(eldoc-mode))
-      (spacemacs/declare-prefix-for-mode 'rust-mode "mg" "goto")
-      (add-to-list 'spacemacs-jump-handlers-rust-mode 'racer-find-definition)
-      (spacemacs/declare-prefix-for-mode 'rust-mode "mh" "help")
-      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-        "hh" 'spacemacs/racer-describe))
-    :config
-    (progn
-      (spacemacs|hide-lighter racer-mode)
-      (evilified-state-evilify-map racer-help-mode-map
-        :mode racer-help-mode))))
