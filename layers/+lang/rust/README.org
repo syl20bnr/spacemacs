@@ -7,7 +7,9 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
-  - [[#racer][Racer]]
+  - [[#backends][Backends]]
+    - [[#racer][Racer]]
+    - [[#lsp][LSP]]
   - [[#cargo][Cargo]]
   - [[#rustfmt][Rustfmt]]
 - [[#key-bindings][Key bindings]]
@@ -16,7 +18,7 @@
 This layer supports [[https://www.rust-lang.org/en-US/][Rust]] development in Spacemacs.
 
 ** Features:
-- Auto-completion and navigation support through [[https://github.com/phildawes/racer][Racer]]
+- Auto-completion and navigation support through [[https://github.com/emacs-lsp/lsp-rust][lsp]] or [[https://github.com/phildawes/racer][Racer]]
 - support for the Rust package manager [[http://doc.crates.io/index.html][Cargo]]
 
 * Install
@@ -25,10 +27,25 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =rust= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-** Racer
-You must install [[https://github.com/phildawes/racer][Racer]] to use this. Make sure the =racer= binary is available in
+** Backends
+The backend is dependent upon the =rust-backend= layer configuration variable.
+The possible vaules for =rust-backend= are =lsp= or =racer= with =racer= being the default.
+
+*** Racer
+You must install [[https://github.com/phildawes/racer][Racer]] to use this backend. Make sure the =racer= binary is available in
 your =PATH= and to set the environment variable =RUST_SRC_PATH=, as described in
 the [[https://github.com/phildawes/racer#installation][installation instructions]].
+
+To enable auto-completion, ensure that the =auto-completion= layer is enabled.
+
+*** LSP
+You must install the [[https://github.com/rust-lang-nursery/rls][Rust Language Server]].
+
+Configuration of the lsp backend is done through the layer configuration variable =rust-rls-cmd=.
+The =rust-rls-cmd= is how the rust server should be launched.
+=rust-rls-cmd= defaults to =rustup run nightly rls=.
+The environment variable =RLS_ROOT= is used for configuration if =rust-rls-cmd= is set to =nil=.
+For additional configuration please see [[https://github.com/emacs-lsp/lsp-rust][rust-lsp]].
 
 To enable auto-completion, ensure that the =auto-completion= layer is enabled.
 
@@ -49,7 +66,7 @@ To enable automatic buffer formatting on save, set the variable =rust-format-on-
 
 | Key Binding | Description                                 |
 |-------------+---------------------------------------------|
-| ~SPC m =~   | reformat the buffer                         |
+| ~SPC m = =~ | reformat the buffer                         |
 | ~SPC m c .~ | repeat the last Cargo command               |
 | ~SPC m c C~ | remove build artifacts with Cargo           |
 | ~SPC m c X~ | execute a project example with Cargo        |
