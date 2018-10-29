@@ -21,10 +21,6 @@
         evil-indent-plus
         evil-lion
         evil-lisp-state
-        ;; for testing purpose, contribute by reporting bugs and sending PRs
-        ;; to https://github.com/gabesoft/evil-mc
-        ;; To enable it add `(global-evil-mc-mode)' to user-config function
-        evil-mc
         evil-nerd-commenter
         evil-matchit
         evil-numbers
@@ -208,19 +204,6 @@
       (add-hook 'prog-mode-hook 'spacemacs//load-evil-lisp-state)
       (setq evil-lisp-state-global t))
     :config (spacemacs/set-leader-keys "k" evil-lisp-state-map)))
-
-
-(defun spacemacs-evil/init-evil-mc ()
-  (use-package evil-mc
-    :defer t
-    :init
-    (progn
-      ;; evil-mc is not compatible with the paste transient state
-      (define-key evil-normal-state-map "p" 'spacemacs/evil-mc-paste-after)
-      (define-key evil-normal-state-map "P" 'spacemacs/evil-mc-paste-before)
-      (setq evil-mc-one-cursor-show-mode-line-text nil)
-      (when (or (spacemacs/system-is-mac) (spacemacs/system-is-mswindows))
-        (setq evil-mc-enable-bar-cursor nil)))))
 
 ;; other commenting functions in funcs.el with keybinds in keybindings.el
 (defun spacemacs-evil/init-evil-nerd-commenter ()

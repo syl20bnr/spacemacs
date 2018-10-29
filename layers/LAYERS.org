@@ -160,6 +160,7 @@
 
 * Misc
 - [[file:+misc/copy-as-format/README.org][copy-as-format]]
+- [[file:+misc/multiple-cursors/README.org][multiple-cursors]]
 - [[file:+misc/nlinum/README.org][nlinum]]
 - [[file:+misc/parinfer/README.org][parinfer]]
 

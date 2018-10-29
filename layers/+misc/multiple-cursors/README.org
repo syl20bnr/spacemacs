@@ -1,0 +1,58 @@
+#+TITLE: multiple-cursors layer
+
+* Table of Contents                                       :TOC_4_gh:noexport:
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+- [[#key-bindings][Key bindings]]
+  - [[#evil-mc][=evil-mc=]]
+
+* Description
+This layer adds support for multiple cursors.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =multiple-cursors= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Configuration
+Currently the only supported backend is =evil-mc=, but more backends will be
+availabe in the future.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(
+  (multiple-cursors :variables multiple-cursors-backend 'evil-mc))
+#+END_SRC
+
+* Key bindings
+** =evil-mc=
+
+The =evil-mc= package provides the following key bindings:
+
+| Key Binding | Description                        |
+|-------------+------------------------------------|
+| ~g r f~     | evil-mc-make-and-goto-first-cursor |
+| ~g r h~     | evil-mc-make-cursor-here           |
+| ~g r j~     | evil-mc-make-cursor-move-next-line |
+| ~g r k~     | evil-mc-make-cursor-move-prev-line |
+| ~g r l~     | evil-mc-make-and-goto-last-cursor  |
+| ~g r m~     | evil-mc-make-all-cursors           |
+| ~g r n~     | evil-mc-skip-and-goto-next-match   |
+| ~g r N~     | evil-mc-skip-and-goto-next-cursor  |
+| ~g r p~     | evil-mc-skip-and-goto-prev-match   |
+| ~g r P~     | evil-mc-skip-and-goto-prev-cursor  |
+| ~g r r~     | evil-mc-resume-cursors             |
+| ~g r s~     | evil-mc-pause-cursors              |
+| ~g r u~     | evil-mc-undo-all-cursors           |
+
+For easy navigation you also have the following:
+
+| Key Binding | Description                        |
+|-------------+------------------------------------|
+| ~M-n~       | evil-mc-make-and-goto-next-cursor  |
+| ~M-p~       | evil-mc-make-and-goto-prev-cursor  |
+| ~C-n~       | evil-mc-make-and-goto-next-match   |
+| ~C-p~       | evil-mc-make-and-goto-prev-match   |
+| ~C-t~       | evil-mc-skip-and-goto-next-match   |
+| ~C-M-j~     | evil-mc-make-cursor-move-next-line |
+| ~C-M-k~     | evil-mc-make-cursor-move-prev-line |

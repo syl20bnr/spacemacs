@@ -137,6 +137,8 @@
     :defer (spacemacs/defer)
     :init
     (progn
+      (push "magit: .*" spacemacs-useless-buffers-regexp)
+      (push "magit-.*: .*"  spacemacs-useless-buffers-regexp)
       (spacemacs|require 'magit)
       (setq magit-completing-read-function
             (if (configuration-layer/layer-used-p 'ivy)
