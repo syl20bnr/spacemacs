@@ -107,6 +107,8 @@ Comprehensive documentation is available for each layer by pressing
 You can also check the [general documentation][DOCUMENTATION.org],
 [quick start guide][QUICK_START.org] and the [FAQ][FAQ.org].
 
+Also you can check this amazing playlist create by [Eivind Fonn](https://github.com/TheBB) Spacemacs ABC  [Youtube](https://www.youtube.com/watch?v=ZFV5EqpZ6_s&list=PLrJ2YN5y27KLhd3yNs2dR8_inqtEiEweE)
+
 # Getting Help
 
 If you need help, ask your question in the [Gitter Chat][] and a member of the
