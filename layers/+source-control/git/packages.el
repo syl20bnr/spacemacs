@@ -174,10 +174,10 @@
 Press [_b_] again to blame further in the history, [_q_] to go up or quit."
         :on-enter (let (golden-ratio-mode)
                     (unless (bound-and-true-p magit-blame-mode)
-                      (call-interactively 'magit-blame)))
+                      (call-interactively 'magit-blame-addition)))
         :foreign-keys run
         :bindings
-        ("b" magit-blame)
+        ("b" magit-blame-addition)
         ;; here we use the :exit keyword because we should exit the
         ;; micro-state only if the magit-blame-quit effectively disable
         ;; the magit-blame mode.
