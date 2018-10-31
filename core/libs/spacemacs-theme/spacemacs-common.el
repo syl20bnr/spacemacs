@@ -745,6 +745,16 @@ to 'auto, tags may not be properly aligned. "
      `(org-verse ((,class (:inherit org-block :slant italic))))
      `(org-warning ((,class (:foreground ,err :inherit org-priority))))
 
+;;;;; outline
+     `(outline-1 ((,class (:inherit org-level-1))))
+     `(outline-2 ((,class (:inherit org-level-2))))
+     `(outline-3 ((,class (:inherit org-level-3))))
+     `(outline-4 ((,class (:inherit org-level-4))))
+     `(outline-5 ((,class (:inherit org-level-5))))
+     `(outline-6 ((,class (:inherit org-level-6))))
+     `(outline-7 ((,class (:inherit org-level-7))))
+     `(outline-8 ((,class (:inherit org-level-8))))
+
 ;;;;; perspective
      `(persp-selected-face ((,class (:inherit bold :foreground ,func))))
 
