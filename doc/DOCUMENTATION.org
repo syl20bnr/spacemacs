@@ -2277,6 +2277,8 @@ window resizing.
 | ~9~         | go to window number 9                                         |
 | ~/~         | vertical split                                                |
 | ~-~         | horizontal split                                              |
+| ~\vert~     | maximize window vertically                                    |
+| ~_~         | maximize window horizontally                                  |
 | ~[~         | shrink window horizontally                                    |
 | ~]~         | enlarge window horizontally                                   |
 | ~{~         | shrink window vertically                                      |
@@ -2292,6 +2294,7 @@ window resizing.
 | ~J~         | move window to the bottom                                     |
 | ~K~         | move bottom to the top                                        |
 | ~L~         | move window to the right                                      |
+| ~m~         | toggle maximization of current window                         |
 | ~o~         | focus other frame                                             |
 | ~r~         | rotate windows forward                                        |
 | ~R~         | rotate windows backward                                       |

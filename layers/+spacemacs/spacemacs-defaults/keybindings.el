@@ -659,18 +659,18 @@ respond to this toggle."
 
 (spacemacs|transient-state-format-hint window-manipulation
   spacemacs--window-manipulation-ts-minified-hint "
-Select: _w_ _h_ _j_ _k_ _l_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s_ _v_ Resize: _[_ _]_ _{_ _}_")
+Select: _w_ _h_ _j_ _k_ _l_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s_ _v_ Resize: _[_ _]_ _{_ _}_ _m_ _|_ ___")
 
 (spacemacs|transient-state-format-hint window-manipulation
   spacemacs--window-manipulation-ts-full-hint
   (format "\n [_?_] toggle help
- Select^^^^               Move^^^^              Split^^               Resize^^             Other^^
- ──────^^^^─────────────  ────^^^^────────────  ─────^^─────────────  ──────^^───────────  ─────^^──────────────────
- [_j_/_k_]  down/up       [_J_/_K_] down/up     [_s_] horizontal      [_[_] shrink horiz   [_u_] restore prev layout
- [_h_/_l_]  left/right    [_H_/_L_] left/right  [_S_] horiz & follow  [_]_] enlarge horiz  [_U_] restore next layout
- [_0_.._9_] window 0..9   [_r_]^^   rotate fwd  [_v_] vertical        [_{_] shrink verti   [_d_] close current
- [_w_]^^    other window  [_R_]^^   rotate bwd  [_V_] verti & follow  [_}_] enlarge verti  [_D_] close other
- [_o_]^^    other frame   ^^^^                  ^^                    %s^^^^^^^^^^^^^^^^^^ [_q_] quit"
+ Select^^^^               Move^^^^              Split^^^^^^               Resize^^             Other^^
+ ──────^^^^─────────────  ────^^^^────────────  ─────^^^^^^─────────────  ──────^^───────────  ─────^^──────────────────
+ [_j_/_k_]  down/up       [_J_/_K_] down/up     [_s_]^^^^ horizontal      [_[_] shrink horiz   [_u_] restore prev layout
+ [_h_/_l_]  left/right    [_H_/_L_] left/right  [_S_]^^^^ horiz & follow  [_]_] enlarge horiz  [_U_] restore next layout
+ [_0_.._9_] window 0..9   [_r_]^^   rotate fwd  [_v_]^^^^ vertical        [_{_] shrink verti   [_d_] close current
+ [_w_]^^    other window  [_R_]^^   rotate bwd  [_V_]^^^^ verti & follow  [_}_] enlarge verti  [_D_] close other
+ [_o_]^^    other frame   ^^^^                  [_m_/_|_/___] maximize    %s^^^^^^^^^^^^^^^^^^ [_q_] quit"
           (if (configuration-layer/package-used-p 'golden-ratio)
               "[_g_] golden-ratio  "
             "^^^^                  ")))
@@ -725,6 +725,9 @@ Select: _w_ _h_ _j_ _k_ _l_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s_ _v
   ("U" winner-redo)
   ("v" split-window-right)
   ("V" split-window-right-and-focus)
+  ("m" spacemacs/toggle-maximize-buffer)
+  ("_" spacemacs/maximize-horizontally)
+  ("|" spacemacs/maximize-vertically)
   ("w" other-window))
 (spacemacs/set-leader-keys
   "w." 'spacemacs/window-manipulation-transient-state/body
