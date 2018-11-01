@@ -184,3 +184,28 @@ If called with a prefix argument, uses the other-window instead."
         (unless (eq 'symbol (type-of (cider-find-var nil var)))
           (dumb-jump-go))
       (dumb-jump-go))))
+
+(defun spacemacs/clj-describe-missing-refactorings ()
+  "Inform the user to add clj-refactor to configuration"
+  (interactive)
+  (with-help-window (help-buffer)
+    (princ "The package clj-refactor is disabled by default.
+To enable it, add the following variable to the clojure layer
+in your Spacemacs configuration:
+
+  dotspacemacs-configuration-layers
+  '(...
+    (clojure :variables
+             clojure-enable-clj-refactor t)
+    ) ")))
+
+(defmacro spacemacs|forall-clojure-modes (m &rest body)
+  "Executes BODY with M bound to all clojure derived modes."
+  (declare (indent 1))
+  `(dolist (,m '(clojure-mode
+                 clojurec-mode
+                 clojurescript-mode
+                 clojurex-mode
+                 cider-repl-mode
+                 cider-clojure-interaction-mode))
+     ,@body))
