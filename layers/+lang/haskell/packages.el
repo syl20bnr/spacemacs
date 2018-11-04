@@ -47,7 +47,8 @@
     :defer t))
 
 (defun haskell/post-init-company ()
-  (add-hook 'haskell-mode-local-vars-hook #'spacemacs-haskell//setup-company))
+  (add-hook 'haskell-mode-local-vars-hook #'spacemacs-haskell//setup-company)
+  (add-hook 'literate-haskell-mode-local-vars-hook #'spacemacs-haskell//setup-company))
 
 (defun haskell/init-company-cabal ()
   (use-package company-cabal
@@ -156,7 +157,8 @@
     :init (add-hook 'flycheck-mode-hook 'flycheck-haskell-configure)))
 
 (defun haskell/post-init-ggtags ()
-  (add-hook 'haskell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'haskell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
+  (add-hook 'literate-haskell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun haskell/init-haskell-mode ()
   (use-package haskell-mode
@@ -164,6 +166,7 @@
     :init
     (progn
       (add-hook 'haskell-mode-local-vars-hook #'spacemacs-haskell//setup-backend)
+      (add-hook 'literate-haskell-mode-local-vars-hook #'spacemacs-haskell//setup-backend)
 
       (defun spacemacs//force-haskell-mode-loading ()
         "Force `haskell-mode' loading when visiting cabal file."
