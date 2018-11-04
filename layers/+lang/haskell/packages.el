@@ -16,26 +16,19 @@
         (company-cabal :requires company)
 
         ;; ghci completion backend
-        (company-ghci
-         :requires company
-         :toggle (eq haskell-completion-backend 'ghci))
-
+        (company-ghci :requires company)
+         
         ;; ghc-mod completion backend
-        (company-ghc
-         :requires company
-         :toggle (eq haskell-completion-backend 'ghc-mod))
-        (ghc :toggle (eq haskell-completion-backend 'ghc-mod))
+        (company-ghc :requires company)
+        ghc
 
         ;; intero completion backend
-        (intero
-         :requires company
-         :toggle (eq haskell-completion-backend 'intero))
+        (intero :requires company)
 
         ;; dante completion backend
         (dante
          :requires company
-         :toggle (and (version<= "25" emacs-version)
-                      (eq haskell-completion-backend 'dante)))
+         :toggle (version<= "25" emacs-version))
 
         flycheck
         (flycheck-haskell :requires flycheck)
