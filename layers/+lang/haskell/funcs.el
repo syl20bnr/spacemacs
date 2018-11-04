@@ -22,7 +22,58 @@
     (haskell-navigate-imports)
     (haskell-mode-format-imports)))
 
-;; Dante Functions
+
+;; Completion setup functions
+
+(defun spacemacs-haskell//setup-backend ()
+  "Conditionally setup haskell backend."
+  (pcase haskell-completion-backend
+    (`ghci (spacemacs-haskell//setup-ghci))
+    (`intero (spacemacs-haskell//setup-intero))
+    (`dante (spacemacs-haskell//setup-dante))
+    (`ghc-mod (spacemacs-haskell//setup-ghc-mod))))
+
+(defun spacemacs-haskell//setup-company ()
+  "Conditionally setup haskell backend."
+  (pcase haskell-completion-backend
+    (`ghci (spacemacs-haskell//setup-ghci-company))
+    (`intero (spacemacs-haskell//setup-intero-company))
+    (`dante (spacemacs-haskell//setup-dante-company))
+    (`ghc-mod (spacemacs-haskell//setup-ghc-mod-company))))
+
+
+;; ghci functions
+
+(defun spacemacs-haskell//setup-ghci ()
+  (interactive-haskell-mode))
+
+(defun spacemacs-haskell//setup-ghci-company ()
+  (spacemacs|add-company-backends
+    :backends (company-ghci company-dabbrev-code company-yasnippet)
+    :modes haskell-mode))
+
+
+;; ghc-mod functions
+
+(defun spacemacs-haskell//setup-ghc-mod ()
+  (ghc-init))
+
+(defun spacemacs-haskell//setup-ghc-mod-company ()
+  (spacemacs|add-company-backends
+    :backends (company-ghc company-dabbrev-code company-yasnippet)
+    :modes haskell-mode))
+
+
+;; Dante functions
+
+(defun spacemacs-haskell//setup-dante ()
+  (dante-mode)
+  (add-to-list 'spacemacs-jump-handlers-haskell-mode 'xref-find-definitions))
+
+(defun spacemacs-haskell//setup-dante-company ()
+  (spacemacs|add-company-backends
+    :backends (dante-company company-dabbrev-code company-yasnippet)
+    :modes haskell-mode))
 
 (defun spacemacs-haskell//dante-insert-type ()
   (interactive)
@@ -30,6 +81,16 @@
 
 
 ;; Intero functions
+
+(defun spacemacs-haskell//setup-intero ()
+  (interactive-haskell-mode)
+  (intero-mode)
+  (add-to-list 'spacemacs-jump-handlers-haskell-mode 'intero-goto-definition))
+
+(defun spacemacs-haskell//setup-intero-company ()
+  (spacemacs|add-company-backends
+    :backends (company-intero company-dabbrev-code company-yasnippet)
+    :modes haskell-mode))
 
 (defun haskell-intero/insert-type ()
   (interactive)

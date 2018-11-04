@@ -53,7 +53,8 @@
   (use-package cmm-mode
     :defer t))
 
-(defun haskell/post-init-company ())
+(defun haskell/post-init-company ()
+  (add-hook 'haskell-mode-local-vars-hook #'spacemacs-haskell//setup-company))
 
 (defun haskell/init-company-cabal ()
   (use-package company-cabal
@@ -65,12 +66,7 @@
 
 (defun haskell/init-company-ghci ()
   (use-package company-ghci
-    :defer t
-    :init
-    (spacemacs|add-company-backends
-      :backends (company-ghci company-dabbrev-code company-yasnippet)
-      :modes haskell-mode)
-    (add-hook 'haskell-mode-hook 'interactive-haskell-mode)))
+    :defer t))
 
 (defun haskell/init-company-ghc ()
   (use-package company-ghc
@@ -79,11 +75,6 @@
 (defun haskell/init-ghc ()
   (use-package ghc
     :defer t
-    :init
-    (spacemacs|add-company-backends
-      :backends (company-ghc company-dabbrev-code company-yasnippet)
-      :modes haskell-mode)
-    (add-hook 'haskell-mode-hook 'ghc-init)
     :config
     (progn
       (dolist (mode haskell-modes)
@@ -108,13 +99,6 @@
 (defun haskell/init-intero ()
   (use-package intero
     :defer t
-    :init
-    (spacemacs|add-company-backends
-      :backends (company-intero company-dabbrev-code company-yasnippet)
-      :modes haskell-mode)
-    (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-    (add-hook 'haskell-mode-hook 'intero-mode)
-    (add-to-list 'spacemacs-jump-handlers-haskell-mode 'intero-goto-definition)
     :config
     (progn
       (spacemacs|diminish intero-mode " λ" " \\")
@@ -152,12 +136,6 @@
 (defun haskell/init-dante ()
   (use-package dante
     :defer t
-    :init
-    (spacemacs|add-company-backends
-      :backends (dante-company company-dabbrev-code company-yasnippet)
-      :modes haskell-mode)
-    (add-hook 'haskell-mode-hook 'dante-mode)
-    (add-to-list 'spacemacs-jump-handlers-haskell-mode 'xref-find-definitions)
     :config
     (progn
       (dolist (mode haskell-modes)
@@ -192,6 +170,8 @@
     :defer t
     :init
     (progn
+      (add-hook 'haskell-mode-local-vars-hook #'spacemacs-haskell//setup-backend)
+
       (defun spacemacs//force-haskell-mode-loading ()
         "Force `haskell-mode' loading when visiting cabal file."
         (require 'haskell-mode))
