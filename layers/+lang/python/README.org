@@ -116,10 +116,10 @@ opening a python buffer:
 To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anaconda-mode/wiki][anaconda-deps]] by hand:
 
 #+BEGIN_SRC sh
-  pip install --upgrade "jedi>=0.9.0" "json-rpc>=1.8.1" "service_factory>=0.1.5"
+  pip install --upgrade "jedi>=0.13.0" "json-rpc>=1.8.1" "service_factory>=0.1.5"
 #+END_SRC
 
-If you encounter problems with Jedi 1.0 consider downgrading to 0.9.0. See [[https://github.com/davidhalter/jedi/issues/873][this
+If you encounter problems with Jedi 1.0 consider downgrading to 0.13.0. See [[https://github.com/davidhalter/jedi/issues/873][this
 issue]] for details.
 
 Source: [[https://github.com/proofit404/anaconda-mode#issues]]
