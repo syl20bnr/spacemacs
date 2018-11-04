@@ -113,6 +113,19 @@ completion, you’ll have to enable the =auto-completion= layer as well.
                   (haskell :variables haskell-completion-backend 'intero)))
 #+END_SRC
 
+Backend can be chosen on a per project basis using directory local variables
+(files named =.dir-locals.el= at the root of a project), an example to use the
+=intero= backend:
+
+#+BEGIN_SRC elisp
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
+
+  ((haskell-mode (haskell-completion-backend . intero)))
+#+END_SRC
+
+*Note:* you can easily add a directory local variable with ~SPC f v d~.
+
 *** =company-ghci=
 [[https://github.com/juiko/company-ghci][company-ghci]] communicates directly with =ghci=, in order to provide completion.
 To use it, you have to call =haskell-process-load-or-reload= (=SPC s b=).
