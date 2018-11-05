@@ -2494,6 +2494,7 @@ Other:
 - Disabled =semantic-idle-summary-mode= when =gtags= or =lsp= layer is enabled
   (thanks to bet4it)
 **** Shell
+- Added support for =vterm= (thanks to deb0ch)
 - Improved the integration of =centered-cursor-mode= (thanks to deb0ch)
 - Fixed xterm colors filtering bug in =eshell= when eshell buffers are updated
   and are not focused (thanks to Steven Allen)
