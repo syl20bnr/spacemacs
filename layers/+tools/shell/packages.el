@@ -28,6 +28,7 @@
         (term :location built-in)
         xterm-color
         vi-tilde-fringe
+        (vterm :toggle (not (spacemacs/system-is-mswindows)))
         ))
 
 (defun shell/init-comint ()
@@ -231,14 +232,13 @@
             shell-pop-window-size     shell-default-height
             shell-pop-term-shell      shell-default-term-shell
             shell-pop-full-span       shell-default-full-span)
-      (make-shell-pop-command eshell)
-      (make-shell-pop-command term shell-pop-term-shell)
-      (make-shell-pop-command ansi-term shell-pop-term-shell)
-      (make-shell-pop-command inferior-shell)
-      (make-shell-pop-command multiterm)
+      (make-shell-pop-command "eshell" eshell)
+      (make-shell-pop-command "term" term shell-pop-term-shell)
+      (make-shell-pop-command "ansi-term" ansi-term shell-pop-term-shell)
+      (make-shell-pop-command "inferior-shell" inferior-shell)
+      (make-shell-pop-command "multiterm" multiterm)
 
       (add-hook 'term-mode-hook 'ansi-term-handle-close)
-      (add-hook 'term-mode-hook (lambda () (linum-mode -1)))
 
       (spacemacs/set-leader-keys
         "'"   'spacemacs/default-pop-shell
@@ -296,3 +296,32 @@
                             eshell-mode-hook
                             shell-mode-hook
                             term-mode-hook)))
+
+(defun shell/init-vterm ()
+  (use-package vterm
+    :defer t
+    :commands (vterm vterm-other-window)
+
+    :init
+    (progn
+      (make-shell-pop-command "vterm" vterm)
+      (spacemacs/set-leader-keys "asv" 'spacemacs/shell-pop-vterm)
+      (spacemacs/register-repl 'vterm 'vterm))
+
+    :config
+    (progn
+      (evil-define-key 'normal vterm-mode-map
+        [escape] 'vterm--self-insert
+        [return] 'vterm--self-insert)
+
+      (add-hook 'vterm-mode-hook 'spacemacs/disable-hl-line-mode)
+
+      (with-eval-after-load 'centered-cursor-mode
+        (add-hook 'vterm-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode))
+
+      (with-eval-after-load 'window-purpose
+        (purpose-set-extension-configuration
+         :vterm
+         (purpose-conf "vterm"
+                       :mode-purposes
+                       '((vterm-mode . terminal))))))))

@@ -8,6 +8,15 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#install-vterm][Install vterm]]
+    - [[#check-that-your-emacs-supports-dynamic-modules][Check that your Emacs supports dynamic modules]]
+    - [[#install-cmake-311-or-higher][Install CMake 3.11 or higher]]
+    - [[#install-libtool][Install libtool]]
+      - [[#ubuntu][Ubuntu]]
+    - [[#install-libvterm][Install libvterm]]
+      - [[#macos][MacOS]]
+      - [[#ubuntu-1][Ubuntu]]
+      - [[#windows][Windows]]
 - [[#configuration][Configuration]]
   - [[#default-shell][Default shell]]
   - [[#default-shell-position-width-and-height][Default shell position, width, and height]]
@@ -34,23 +43,67 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =shell= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+** Install vterm
+=vterm= is the latest addition to Emacs' set of terminal emulators and the only
+one to be implemented in C, leveraging =libvterm=. It is the only one in Emacs
+at the moment to be as fast as a standalone terminal with full support for
+=ncurses=, =vim=, =htop= and the likes.
+
+On its first run, =vterm= will automatically compile its dynamic library, for
+which dependencies are needed. For more details, head to the [[https://github.com/akermu/emacs-libvterm][official docs]].
+
+*** Check that your Emacs supports dynamic modules
+You can check if your Emacs supports loading dynamic libraries by checking if
+the =system-configuration-features= variable contains the string =MODULES=. If
+not, you need to get a version of Emacs that supports it or compile it from
+source supplying the =./configure --with-module= option at configure time.
+
+*** Install CMake 3.11 or higher
+
+*** Install libtool
+If the =libtool= command does not exist in your system (usually in
+=/usr/bin/libtool=), you need to install it:
+**** Ubuntu
+#+BEGIN_SRC shell
+sudo apt install libtool-bin
+#+END_SRC
+
+*** Install libvterm
+**** MacOS
+#+BEGIN_SRC shell
+brew install libvterm
+#+END_SRC
+
+**** Ubuntu
+#+BEGIN_SRC shell
+sudo apt install libvterm-dev
+#+END_SRC
+
+In other distros, find it and install it in your favorite package manager.
+
+**** Windows
+Not supported at the moment, [[https://github.com/akermu/emacs-libvterm/issues/12][but possibly coming up]].
+
 * Configuration
+
 ** Default shell
-Emacs supports three types of shell:
-- the Emacs shell
+Emacs supports five types of shells/terminals:
+- the Emacs shell (eshell)
 - the inferior shell
 - the terminal emulator
 - the ANSI terminal emulator
+- the vterm terminal emulator based on the C library libvterm
 
 You can find a quick introductions to them [[https://www.masteringemacs.org/article/running-shells-in-emacs-overview][here]].
 
 To define the default shell you can set the layer variable =shell-default-shell=
 to the following variables:
-- =eshell=
+- =eshell= (default on Windows)
 - =shell=
 - =term=
-- =ansi-term=
+- =ansi-term= (default on Linux/macOS)
 - =multi-term=
+- =vterm=
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
@@ -224,6 +277,7 @@ Some advanced configuration is setup for =eshell= in this layer:
 | ~SPC a s T~ | Open, close or go to a =term=                              |
 | ~TAB~       | browse completion with =helm=                              |
 | ~SPC m H~   | browse history with =helm= (works in =eshell= and =shell=) |
+| ~SPC a s v~ | Open, close or go to a =vterm=                             |
 | ~C-j~       | next item in history                                       |
 | ~C-k~       | previous item in history                                   |
 
