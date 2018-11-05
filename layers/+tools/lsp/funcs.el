@@ -35,7 +35,7 @@
   "Set jump handler for LSP with the given MODE."
   (dolist (m modes)
     (add-to-list (intern (format "spacemacs-jump-handlers-%S" m))
-                 #'lsp-ui-peek-find-definitions)))
+                 '(lsp-ui-peek-find-definitions :async t))))
 
 (defun fix-lsp-company-prefix ()
   "fix lsp-javascript company prefix
