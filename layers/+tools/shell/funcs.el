@@ -208,3 +208,12 @@ is achieved by adding the relevant text properties."
   (interactive)
   (switch-to-buffer "*shell*")
   (shell "*shell*"))
+
+;; https://stackoverflow.com/questions/6837511/automatically-disable-a-global-minor-mode-for-a-specific-major-mode
+(defun spacemacs//inhibit-global-centered-cursor-mode ()
+  "Counter-act `global-centered-cursor-mode'."
+  (add-hook 'after-change-major-mode-hook
+            (lambda ()
+              (centered-cursor-mode 0))
+            :append
+            :local))
