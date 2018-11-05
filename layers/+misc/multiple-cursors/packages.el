@@ -12,8 +12,9 @@
 ;;; License: GPLv3
 
 (setq multiple-cursors-packages
-  '(evil-mc
-     ))
+      '(
+        evil-mc
+        ))
 
 (defun multiple-cursors/init-evil-mc ()
   (use-package evil-mc
