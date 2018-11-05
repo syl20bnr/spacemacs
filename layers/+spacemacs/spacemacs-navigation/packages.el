@@ -162,6 +162,7 @@
       (setq ccm-recenter-at-end-of-file t
             ccm-ignored-commands '(mouse-drag-region
                                    mouse-set-point
+                                   mouse-set-region
                                    widget-button-click
                                    scroll-bar-toolkit-scroll
                                    evil-mouse-drag-region))
