@@ -28,6 +28,11 @@ else
     exit 0
 fi
 
+if [ `git rev-list HEAD...origin/$TRAVIS_BRANCH --count` != 0 ]; then
+    echo "We are outdated. Won't publish."
+    exit 0
+fi
+
 git config --global user.name "${BOT_NAME}"
 git config --global user.email "${BOT_EMAIL}"
 git config --global push.default simple
