@@ -152,6 +152,12 @@
       ;; helm-locate uses es (from everything on windows which doesnt like fuzzy)
       (helm-locate-set-command)
       (setq helm-locate-fuzzy-match (string-match "locate" helm-locate-command))
+      (setq helm-boring-buffer-regexp-list
+            (append helm-boring-buffer-regexp-list
+                    spacemacs-useless-buffers-regexp))
+      (setq helm-white-buffer-regexp-list
+            (append helm-white-buffer-regexp-list
+                    spacemacs-useful-buffers-regexp))
       ;; alter helm-bookmark key bindings to be simpler
       (defun simpler-helm-bookmark-keybindings ()
         (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
