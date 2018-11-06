@@ -56,22 +56,16 @@ rsync -rv \
       --prune-empty-dirs \
       ~/.emacs.d/ \
       "/tmp/${PUBLISH}"
-git add --all
-git diff --cached --exit-code
-if [ $? -eq 0 ]; then
+cd "/tmp/${PUBLISH}"
+/tmp/hub add --all
+/tmp/hub commit -m "documentation formatting: $(date -u)"
+if [ $? -ne 0 ]; then
     echo "Nothing to commit - exiting."
     exit 0
 fi
 fold_end "SELECTING_CHANGED_FILES"
 
 fold_start "PUSHING_CHANGES_TO_${BOT_NAME}/${PUBLISH}"
-cd "/tmp/${PUBLISH}"
-/tmp/hub add --all
-/tmp/hub commit -m "documentation formatting: $(date -u)"
-if [ $? -ne 0 ]; then
-    echo "hub commit failed"
-    exit 2
-fi
 /tmp/hub fork
 if [ $? -ne 0 ]; then
     echo "hub fork failed"
