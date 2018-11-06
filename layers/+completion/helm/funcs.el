@@ -623,3 +623,11 @@ to buffers)."
   (interactive)
   (let (helm-candidate-number-limit)
     (helm-themes)))
+
+;; Buffers ---------------------------------------------------------------------
+
+(defun spacemacs/helm-buffers-list-unfiltered ()
+  "Helm buffers without filtering."
+  (interactive)
+  (let ((helm-boring-buffer-regexp-list nil))
+    (call-interactively #'helm-buffers-list)))
