@@ -1756,6 +1756,7 @@ Other:
   - Added ~SPC m t m~ for =markdown-toggle-markup-hiding=
   - Rename =markdown-jump= to =markdown-do=
 - Hide MMM mode-line indicator (thanks to duianto)
+- Use =orgtbl-mode= only when the =org= layer is used (thanks to Boris Buliga)
 **** Major modes
 - Added SPARQL-mode (thanks to Dietrich Daroch)
 - Move =extra-langs= to =major-modes= (thanks to Eivind Fonn)
