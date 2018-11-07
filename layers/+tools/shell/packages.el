@@ -231,7 +231,8 @@
       (setq shell-pop-window-position shell-default-position
             shell-pop-window-size     shell-default-height
             shell-pop-term-shell      shell-default-term-shell
-            shell-pop-full-span       shell-default-full-span)
+            shell-pop-full-span       shell-default-full-span
+            shell-pop-in-after-hook   #'evil-insert-state)
       (make-shell-pop-command "eshell" eshell)
       (make-shell-pop-command "term" term shell-pop-term-shell)
       (make-shell-pop-command "ansi-term" ansi-term shell-pop-term-shell)
