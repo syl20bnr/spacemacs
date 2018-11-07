@@ -26,9 +26,7 @@
         (intero :requires company)
 
         ;; dante completion backend
-        (dante
-         :requires company
-         :toggle (version<= "25" emacs-version))
+        (dante :requires company)
 
         flycheck
         (flycheck-haskell :requires flycheck)
