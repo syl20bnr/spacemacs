@@ -114,7 +114,7 @@
       :modes haskell-mode)
     (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
     (add-hook 'haskell-mode-hook 'intero-mode)
-    (add-to-list 'spacemacs-jump-handlers 'intero-goto-definition)
+    (add-to-list 'spacemacs-jump-handlers-haskell-mode 'intero-goto-definition)
     :config
     (progn
       (spacemacs|diminish intero-mode " λ" " \\")

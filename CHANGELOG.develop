@@ -1238,6 +1238,7 @@ Benner and Paweł Siudak):
   - ~SPC r i~ runs new =spacemacs/haskell-format-imports= function
   - ~SPC m g b~ returns from definition in =intero-mode=
     (thanks to Magnus Therning)
+- Fix jump handlers conflict for haskell and intero (thanks to CthulhuDen)
 **** Helm
 - Limited =ripgrep= results to 512 columns by default, and added
   =spacemacs-helm-rg-max-column-number= layer variable to configure the above

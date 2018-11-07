@@ -14,7 +14,6 @@
 (setq haskell-modes '(haskell-mode literate-haskell-mode))
 
 (spacemacs|define-jump-handlers haskell-mode haskell-mode-jump-to-def-or-tag)
-(spacemacs|define-jump-handlers intero-mode intero-goto-definition)
 
 (defvar haskell-completion-backend 'ghci
   "Completion backend used by company.
