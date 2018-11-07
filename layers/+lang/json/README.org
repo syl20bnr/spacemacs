@@ -24,7 +24,7 @@ This layer adds support for JSON files with [[https://github.com/joshwnj/json-mo
 - Auto-completion
 - Get the path to a JSON value with [[https://github.com/Sterlingg/json-snatcher][json-snatcher]]
 - Navigate JSON hierarchy with [[https://github.com/DamienCassou/json-navigator][json-nagivator]]
-- Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
+- Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]] or [[https://github.com/prettier/prettier][prettier]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
