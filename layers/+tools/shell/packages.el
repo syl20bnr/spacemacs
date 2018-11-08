@@ -258,24 +258,26 @@
     "Send tab in term mode."
     (interactive)
     (term-send-raw-string "\t"))
-  ;; hack to fix pasting issue, the paste transient-state won't
-  ;; work in term
-  (evil-define-key 'normal term-raw-map "p" 'term-paste)
-  (evil-define-key 'normal term-raw-map (kbd "<mouse-2>") 'term-mouse-paste)
-  (evil-define-key 'insert term-raw-map (kbd "<mouse-2>") 'term-mouse-paste)
-  (evil-define-key 'normal term-raw-map (kbd "<mouse-3>") 'term-mouse-paste)
-  (evil-define-key 'insert term-raw-map (kbd "<mouse-3>") 'term-mouse-paste)
-  (evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)
-  (evil-define-key 'insert term-raw-map (kbd "C-c C-z") 'term-stop-subjob)
-  (evil-define-key 'insert term-raw-map (kbd "<tab>") 'term-send-tab)
 
   (when (eq dotspacemacs-editing-style 'vim)
     (evil-define-key 'insert term-raw-map
       (kbd "C-k") 'term-send-up
       (kbd "C-j") 'term-send-down))
+
+  (evil-define-key 'insert term-raw-map
+    (kbd "<mouse-2>") 'term-mouse-paste
+    (kbd "<mouse-3>") 'term-mouse-paste
+    (kbd "C-c C-d") 'term-send-eof
+    (kbd "C-c C-z") 'term-stop-subjob
+    (kbd "<tab>") 'term-send-tab)
+
   (evil-define-key 'normal term-raw-map
+    (kbd "<mouse-2>") 'term-mouse-paste
+    (kbd "<mouse-3>") 'term-mouse-paste
     (kbd "C-k") 'term-send-up
-    (kbd "C-j") 'term-send-down)
+    (kbd "C-j") 'term-send-down
+    ;; hack to fix pasting issue, the paste transient-state won't work in term
+    "p" 'term-paste)
 
   (add-hook 'term-mode-hook 'spacemacs/disable-hl-line-mode)
   (with-eval-after-load 'centered-cursor-mode
