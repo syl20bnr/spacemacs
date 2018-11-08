@@ -134,7 +134,7 @@ Select either =cquery= or =ccls= as the =c-c++= layer backend by adding the foll
                 '((c-c++ :variables c-c++-backend 'lsp-cquery))) ;or 'lsp-ccls
 #+END_SRC
 
-N.B. The [[../../+tools/lsp/README.org][LSP layer]] will be loaded automatically if either backend is selected.
+N.B. The [[file:../../+tools/lsp/README.org][LSP layer]] will be loaded automatically if either backend is selected.
 
 ***** Setting path to backend executable
 The basic configuration above should work if the cquery/ccls executable folder is present in your path. If not, you can set the path explicitly.
