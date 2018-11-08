@@ -1,7 +1,8 @@
 #+TITLE: multiple-cursors layer
 
-* Table of Contents                                       :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
 - [[#key-bindings][Key bindings]]
@@ -21,13 +22,12 @@ Currently the only supported backend is =evil-mc=, but more backends will be
 availabe in the future.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-  (multiple-cursors :variables multiple-cursors-backend 'evil-mc))
+  (setq-default dotspacemacs-configuration-layers '(
+    (multiple-cursors :variables multiple-cursors-backend 'evil-mc))
 #+END_SRC
 
 * Key bindings
 ** =evil-mc=
-
 The =evil-mc= package provides the following key bindings:
 
 | Key Binding | Description                        |

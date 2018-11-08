@@ -133,7 +133,6 @@
       - [[#buffers-manipulation-key-bindings][Buffers manipulation key bindings]]
       - [[#create-a-new-empty-buffer][Create a new empty buffer]]
       - [[#buffers-manipulation-transient-state][Buffers manipulation transient state]]
-      - [[#special-buffers-usefuluseless-buffers][Special Buffers (useful/useless buffers)]]
       - [[#files-manipulations-key-bindings][Files manipulations key bindings]]
       - [[#frame-manipulation-key-bindings][Frame manipulation key bindings]]
       - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
