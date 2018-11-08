@@ -236,11 +236,11 @@ ENSIME is originally built for Scala, so support for java is not complete, in
 particular refactoring doesn’t work.
 
 ** LSP Java
-   LSP Java is the Java adapter for [[https://github.com/emacs-lsp/lsp-mode][LSP Mode]] which is the Emacs client for [[https://github.com/Microsoft/language-server-protocol][Language Server Protocol]].
+LSP Java is the Java adapter for [[https://github.com/emacs-lsp/lsp-mode][LSP Mode]] which is the Emacs client for [[https://github.com/Microsoft/language-server-protocol][Language Server Protocol]].
 
 *** Usage
-    Open a java file and the ~lsp-java~ will automatically download the server
-    and ask you which projects you want to import.
+Open a java file and the ~lsp-java~ will automatically download the server
+and ask you which projects you want to import.
 
 * Key bindings
 ** Meghanada
