@@ -8,7 +8,8 @@
   - [[#evil-mc][=evil-mc=]]
 
 * Description
-This layer adds support for multiple cursors.
+** Features:
+- support for multiple cursors.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
