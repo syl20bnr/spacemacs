@@ -237,7 +237,7 @@ an entry like
 #+BEGIN_SRC emacs-lisp
   (c-c++ :variables
          c-c++-enable-google-style t)
-#+END_SRC
+#+END_SRC emacs-lisp
 
 Additionally, if you have =c-c++-enable-google-newline= variable set then
 =`google-make-newline-indent= will be set as a =c-mode-common-hook=. You would
@@ -247,7 +247,7 @@ set that up like this:
   (c-c++ :variables
          c-c++-enable-google-style t
          c-c++-enable-google-newline t)
-#+END_SRC
+#+END_SRC emacs-lisp
 
 ** Newlines
 You can enable the =Auto-newline= minor mode that automatically adds newlines
@@ -256,7 +256,7 @@ after certain characters by setting the =c-c++-enable-auto-newline= variable.
 #+BEGIN_SRC emacs-lisp
   (c-c++ :variables
          c-c++-enable-auto-newline t)
-#+END_SRC
+#+END_SRC emacs-lisp
 
 ** Projectile sub-project adoption
 To prevent projectile from using subproject root when visiting files in a subproject,
