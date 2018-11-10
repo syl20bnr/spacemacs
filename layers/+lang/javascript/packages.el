@@ -25,6 +25,8 @@
         js2-refactor
         livid-mode
         (lsp-javascript-typescript :requires lsp-mode)
+        flow-minor-mode
+        (lsp-javascript-flow :requires lsp-mode flow-minor-mode)
         org
         prettier-js
         skewer-mode
@@ -78,9 +80,9 @@
     :mode (("\\.m?js\\'"  . js2-mode))
     :init
     (progn
-      (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-backend)
+      (add-hook 'js2-mode-hook #'spacemacs//javascript-setup-backend)
       ;; safe values for backend to be used in directory file variables
-      (dolist (value '(lsp tern))
+      (dolist (value '(lsp lsp-flow tern))
         (add-to-list 'safe-local-variable-values
                      (cons 'javascript-backend value))))
     :config
@@ -171,6 +173,18 @@
     :commands lsp-javascript-typescript-enable
     :defer t
     :config (spacemacs//setup-lsp-jump-handler 'js2-mode)))
+
+(defun javascript/init-lsp-javascript-flow ()
+  (use-package lsp-javascript-flow
+    :commands lsp-javascript-flow-enable
+    :defer t
+    :config (spacemacs//setup-lsp-jump-handler 'js2-mode)))
+
+(defun javascript/init-flow-minor-mode ()
+  (use-package flow-minor-mode
+    :defer t
+    :config (define-key js2-mode-map (kbd "C-c C-j") #'flow-minor-jump-to-definition)))
+
 
 (defun javascript/pre-init-prettier-js ()
   (if (eq javascript-fmt-tool 'prettier)

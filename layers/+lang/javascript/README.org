@@ -12,13 +12,15 @@
   - [[#choosing-a-formatter][Choosing a formatter]]
 - [[#backends][Backends]]
   - [[#tern][Tern]]
-  - [[#language-server-protocol][Language Server Protocol]]
+  - [[#language-server-protocol-typescript][Language Server Protocol: typescript]]
+  - [[#language-server-protocol-flow][Language Server Protocol: flow]]
 - [[#configuration][Configuration]]
   - [[#indentation][Indentation]]
   - [[#repl][REPL]]
   - [[#node-modules][Node Modules]]
 - [[#key-bindings][Key Bindings]]
   - [[#js2-mode][js2-mode]]
+  - [[#lsp-flow][lsp-flow]]
   - [[#folding-js2-mode][Folding (js2-mode)]]
   - [[#refactoring-js2-refactor][Refactoring (js2-refactor)]]
     - [[#documentation-js-doc][Documentation (js-doc)]]
@@ -103,12 +105,21 @@ Formatter can be chosen on a per project basis using directory local variables
 ** Tern
 See [[file:../../+tools/tern/README.org][tern layer]] documentation.
 
-** Language Server Protocol
+** Language Server Protocol: typescript
 You just have to install javascript and typescript language server packages:
 
 #+BEGIN_SRC sh
   npm i -g typescript javascript-typescript-langserver
 #+END_SRC
+
+** Language Server Protocol: flow
+You just have to install flow-bin and flow language server packages:
+
+#+BEGIN_SRC sh
+  npm i -g flow-bin flow-language-server
+#+END_SRC
+
+
 
 * Configuration
 ** Indentation
@@ -163,6 +174,12 @@ doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472
 |-------------+--------------------------------------|
 | ~SPC m w~   | toggle js2-mode warnings and errors  |
 | ~%~         | jump between blockswith [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] |
+
+** lsp-flow
+
+| Key Binding | Description                                        |
+|-------------+----------------------------------------------------|
+| C-c C-j     | jump to definition (flow-minor-jump-to-definition) |
 
 ** Folding (js2-mode)
 

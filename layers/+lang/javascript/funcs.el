@@ -16,13 +16,26 @@
   "Conditionally setup javascript backend."
   (pcase javascript-backend
     (`tern (spacemacs//javascript-setup-tern))
+    (`lsp-flow (spacemacs//javascript-setup-lsp-flow))
     (`lsp (spacemacs//javascript-setup-lsp))))
 
 (defun spacemacs//javascript-setup-company ()
   "Conditionally setup company based on backend."
   (pcase javascript-backend
     (`tern (spacemacs//javascript-setup-tern-company))
+    (`lsp-flow (spacemacs//javascript-setup-lsp-company))
     (`lsp (spacemacs//javascript-setup-lsp-company))))
+
+
+;; lsp-flow
+
+(defun spacemacs//javascript-setup-lsp-flow ()
+  "Setup lsp backend."
+  (flow-minor-mode)
+  (if (configuration-layer/layer-used-p 'lsp)
+      (lsp-javascript-flow-enable)
+    (message (concat "`lsp' layer is not installed, "
+                     "please add `lsp' layer to your dotfile."))))
 
 
 ;; lsp
