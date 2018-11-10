@@ -1908,11 +1908,16 @@ Other help key bindings:
 | Key Binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~SPC h SPC~ | discover Spacemacs documentation, layers and packages |
+| ~SPC h .~   | search dotfile variables                              |
 | ~SPC h f~   | discover the =FAQ=                                    |
 | ~SPC h i~   | search in info pages with the symbol at point         |
 | ~SPC h k~   | show top-level bindings with =which-key=              |
+| ~SPC h l~   | search layers                                         |
 | ~SPC h m~   | search available man pages                            |
 | ~SPC h n~   | browse emacs news                                     |
+| ~SPC h p~   | search packages                                       |
+| ~SPC h r~   | search documentation files                            |
+| ~SPC h t~   | search toggles                                        |
 
 The =Profiler= is a tool that helps you identify why your editor is running
 slowly or consumes a lot of memory. Here are key bindings relate to it:
