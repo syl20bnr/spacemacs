@@ -747,7 +747,7 @@ To bind keys in Vim editing style (=insert state=):
 #+END_SRC
 
 When setting the Vim style you can pass any variable supported by =evil-mode=
-with the keyword =:variables=. Spacemacs also supports the followgin editing
+with the keyword =:variables=. Spacemacs also supports the following editing
 style variables for Vim:
 
 | Variables                                | Description                                                             |
@@ -1515,7 +1515,7 @@ toggle them.
 Some toggle have two flavors: local and global. The global version of the toggle
 can be reached using the =control= key.
 
-Addtionally all globally available toggles have a circled unicode symbols like
+Additionally all globally available toggles have a circled unicode symbols like
 =ⓟ=. Toggles specific to a major mode under the ~SPC m T~ prefix have plain
 squared symbols like =🅿=.
 
@@ -1555,7 +1555,7 @@ Default frame title displays name of current process and hostname of system. You
 can include more information (like name of current file, name of current project
 etc) by setting =dotspacemacs-frame-title-format= variable.
 
-Following format short codes are avialable:
+Following format short codes are available:
 
 | Code | Description                                                                  |
 |------+------------------------------------------------------------------------------|
@@ -3305,10 +3305,10 @@ To search in a project see [[#searching-in-a-project][project searching]].
 | ~SPC s k p~ | run =ack=                                                                                |
 | ~SPC s t p~ | run =pt=                                                                                 |
 | ~SPC s r p~ | run =rg=                                                                                 |
-| ~SPC f y C~ | show and copy current file path relaitve to the project root with line and column number |
-| ~SPC f y D~ | show and copy current directory path relaitve to the project root                        |
-| ~SPC f y L~ | show and copy current file path relaitve to the project root with line number            |
-| ~SPC f y Y~ | show and copy current file path relaitve to the project root                             |
+| ~SPC f y C~ | show and copy current file path relative to the project root with line and column number  |
+| ~SPC f y D~ | show and copy current directory path relative to the project root                         |
+| ~SPC f y L~ | show and copy current file path relative to the project root with line number             |
+| ~SPC f y Y~ | show and copy current file path relative to the project root                              |
 
 *Note for Windows Users*: To enable fast indexing the GNU ~find~ or
 Cygwin ~find~ must be in your ~PATH~.
