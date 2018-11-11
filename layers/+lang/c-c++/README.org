@@ -84,8 +84,7 @@ Install the RTags server via [[https://formulae.brew.sh/formula/rtags][homebrew]
 N.B. RTags is not supported on Windows at the time of writing, although there is an [[https://github.com/Andersbakken/rtags/issues/770][open issue with some recent activity]] on github.
 
 **** Configuration
-To enable support for =rtags=, set the layer variable
-=c-c++-enable-rtags-support= to =t= in your dotfile.
+To enable support for =rtags=, set the layer variable =c-c++-backend=:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
