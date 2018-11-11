@@ -69,7 +69,7 @@
     :init
     (progn
       (when c-c++-enable-clang-format-on-save
-        (spacemacs/add-to-hooks 'spacemacs/clang-format-on-save c-c++-mode-hooks))
+        (add-hook 'before-save-hook #'spacemacs//clang-format-on-save t))
       (dolist (mode c-c++-modes)
         (spacemacs/declare-prefix-for-mode mode "m=" "format")
         (spacemacs/set-leader-keys-for-major-mode mode

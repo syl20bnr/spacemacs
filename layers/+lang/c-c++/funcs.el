@@ -43,12 +43,8 @@
 (defun spacemacs//clang-format-on-save ()
   "Format the current buffer with clang-format on save when
 `c-c++-enable-clang-format-on-save' is non-nil."
-  (when c-c++-enable-clang-format-on-save
+  (when (and c-c++-enable-clang-format-on-save (member major-mode c-c++-modes))
     (spacemacs/clang-format-region-or-buffer)))
-
-(defun spacemacs/clang-format-on-save ()
-  "Add before-save hook for clang-format."
-  (add-hook 'before-save-hook 'spacemacs//clang-format-on-save nil t))
 
 (defun spacemacs/company-more-than-prefix-guesser ()
   (spacemacs/c-c++-load-clang-args)
