@@ -324,30 +324,30 @@ and the arguments for flyckeck-clang based on a project-specific text file."
   (spacemacs//c-c++-lsp-call-function "spacemacs//c-c++-lsp-define-" "-extensions")
 
   (spacemacs/lsp-define-extensions "c-c++" 'vars
-    (spacemacs//c-c++-lsp-string "$" "/vars"))
+    (spacemacs//c-c++-lsp-string "$" "/vars")))
 
+(defun spacemacs//c-c++-lsp-define-cquery-extensions ()
   (spacemacs/lsp-define-extensions "c-c++" 'refs-address
     "textDocument/references"
     '(plist-put (lsp--text-document-position-params) :context '(:role 128)))
-
   (spacemacs/lsp-define-extensions "c-c++" 'refs-read
     "textDocument/references"
     '(plist-put (lsp--text-document-position-params) :context '(:role 8)))
-
   (spacemacs/lsp-define-extensions "c-c++" 'refs-write
     "textDocument/references"
-    '(plist-put (lsp--text-document-position-params) :context '(:role 16))))
-
-(defun spacemacs//c-c++-lsp-define-cquery-extensions ()
+    '(plist-put (lsp--text-document-position-params) :context '(:role 16)))
   (spacemacs/lsp-define-extensions "c-c++" 'callers "$cquery/callers")
   (spacemacs/lsp-define-extensions "c-c++" 'callees "$cquery/callers" '(:callee t))
   (spacemacs/lsp-define-extensions "c-c++" 'base "$cquery/base"))
 
 (defun spacemacs//c-c++-lsp-define-ccls-extensions ()
+  (spacemacs/lsp-define-extensions "c-c++" 'refs-address "textDocument/references" '(:role 128))
+  (spacemacs/lsp-define-extensions "c-c++" 'refs-read "textDocument/references" '(:role 8))
+  (spacemacs/lsp-define-extensions "c-c++" 'refs-write "textDocument/references" '(:role 16))
   (spacemacs/lsp-define-extensions "c-c++" 'callers "$ccls/call")
   (spacemacs/lsp-define-extensions "c-c++" 'callees "$ccls/call" '(:callee t))
-  (spacemacs/lsp-define-extensions "c-c++" 'base "$ccls/inheritance" '(:levels 3))
+  (spacemacs/lsp-define-extensions "c-c++" 'base "$ccls/inheritance")
   ;;ccls features without a cquery analogue...
-  (spacemacs/lsp-define-extensions "c-c++" 'member-classes "$ccls/member" `(:kind 2))
+  (spacemacs/lsp-define-extensions "c-c++" 'member-types "$ccls/member" `(:kind 2))
   (spacemacs/lsp-define-extensions "c-c++" 'member-functions "$ccls/member" `(:kind 3))
   (spacemacs/lsp-define-extensions "c-c++" 'member-vars "$ccls/member" `(:kind 0)))
