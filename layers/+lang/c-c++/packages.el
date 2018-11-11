@@ -83,8 +83,6 @@
       (display-warning :error "`c-c++-enable-clang-support' ignored when using lsp backend")
       (progn
         (spacemacs|add-company-backends :backends company-clang :modes c-mode-common)
-        (when c-c++-enable-c++11
-          (setq company-clang-arguments '("-std=c++11")))
         (setq company-clang-prefix-guesser 'spacemacs/company-more-than-prefix-guesser)
         (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)
         ()))))
