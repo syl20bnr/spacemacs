@@ -1722,6 +1722,8 @@ Benner and Paweł Siudak):
   JimmyG)
 - Highlight python3.7 builtin =breakpoint()= function (thanks to Boris
   Verhovsky)
+- Fix conflict between pipenv directory .venv and pyvenv file .venv (thanks to
+  rgb-24bit)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 **** Ranger
