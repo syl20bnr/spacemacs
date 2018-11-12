@@ -3356,7 +3356,6 @@ The following key bindings are active in the error transient state:
 | ~N~ or ~p~  | jump to previous error    |
 | ~z~         | recenter buffer in window |
 
-
 *** Custom fringe bitmaps
 
 | Symbol                   | Description |

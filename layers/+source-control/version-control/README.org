@@ -180,7 +180,7 @@ A transient buffer is also defined, start it with ~SPC m .~ or ~, .~
 | ~f~          | show in a buffer the file revision indicated by the current line               |
 
 ** Version Control Transient-state
-Use ~SPC g .~ to enter a transient state for quickly navigating between hunks in a buffer.  During that state, the following bindings are active:
+Use ~SPC g .~ to enter a transient state for quickly navigating between hunks in a buffer. During that state, the following bindings are active:
 
 | Key Binding | Description                  |
 |-------------+------------------------------|
