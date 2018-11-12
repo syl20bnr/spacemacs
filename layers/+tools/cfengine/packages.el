@@ -40,6 +40,6 @@
     :defer t))
 
 (defun cfengine/pre-init-org ()
-  (when (configuration-layer/package-used-p 'org)
+  (when (configuration-layer/layer-used-p 'org)
     (spacemacs|use-package-add-hook org
-      :post-config (add-to-list 'org-babel-load-languages '(cfengine . t)))))
+      :post-config (add-to-list 'org-babel-load-languages '(cfengine3 . t)))))

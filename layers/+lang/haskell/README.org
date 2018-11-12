@@ -233,8 +233,8 @@ REPL commands are prefixed by ~SPC m s~:
 |-------------+-------------------------------------------------|
 | ~SPC m s b~ | load or reload the current buffer into the REPL |
 | ~SPC m s c~ | clear the REPL                                  |
-| ~SPC m s s~ | show the REPL without switching to it           |
-| ~SPC m s S~ | show and switch to the REPL                     |
+| ~SPC m s s~ | show and switch to the REPL                     |
+| ~SPC m s S~ | show the REPL without switching to it           |
 
 ** Intero REPL
 Intero REPL commands are prefixed by ~SPC m i~:

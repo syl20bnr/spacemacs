@@ -57,10 +57,11 @@
       "hp" 'jsons-print-path)))
 
 (defun json/pre-init-prettier-js ()
-  (if (eq json-fmt-tool 'prettier)
-      (add-to-list 'spacemacs--prettier-modes 'json-mode)))
+  (when (eq json-fmt-tool 'prettier)
+    (add-to-list 'spacemacs--prettier-modes 'json-mode)
+    (add-hook 'json-mode-hook #'spacemacs/json-setup-prettier)))
 
 (defun json/pre-init-web-beautify ()
-  (if (eq json-fmt-tool 'web-beautify)
-      (add-to-list 'spacemacs--web-beautify-modes
-                   (cons 'json-mode 'web-beautify-js))))
+  (when (eq json-fmt-tool 'web-beautify)
+    (add-to-list 'spacemacs--web-beautify-modes
+                 (cons 'json-mode 'web-beautify-js))))

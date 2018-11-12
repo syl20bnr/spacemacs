@@ -25,8 +25,7 @@
     - [[#usage-1][Usage]]
     - [[#issues][Issues]]
   - [[#lsp-java][LSP Java]]
-    - [[#installation-2][Installation]]
-    - [[#configuration-2][Configuration]]
+    - [[#usage-2][Usage]]
 - [[#key-bindings][Key bindings]]
   - [[#meghanada-1][Meghanada]]
     - [[#server][Server]]
@@ -237,38 +236,11 @@ ENSIME is originally built for Scala, so support for java is not complete, in
 particular refactoring doesn’t work.
 
 ** LSP Java
-LSP Java is the Java adapter for [[https://github.com/emacs-lsp/lsp-mode][LSP Mode]] which is the Emacs client for [[https://github.com/Microsoft/language-server-protocol][Language
-Server Protocol]].
+LSP Java is the Java adapter for [[https://github.com/emacs-lsp/lsp-mode][LSP Mode]] which is the Emacs client for [[https://github.com/Microsoft/language-server-protocol][Language Server Protocol]].
 
-*** Installation
-Download either [[http://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz][latest]] or [[http://download.eclipse.org/jdtls/snapshots/?d][a specific version]] of Eclipse JDT Language Server
-distribution to =~/.emacs.d/eclipse.jdt.ls/server/=
-
-If you choose to have the server installed in a different directory, set
-=lsp-java-server-install-dir=
-
-If you choose to have the server installed in a different directory, set
-=lsp-java-server-install-dir=
-On Linux/MacOS you could install/update Eclipse JDT Language Server via running the following commands:
-
-#+BEGIN_SRC bash
-  rm -rf ~/.emacs.d/eclipse.jdt.ls/server/
-  mkdir -p ~/.emacs.d/eclipse.jdt.ls/server/
-  wget http://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz -O /tmp/jdt-latest.tar
-  tar xf /tmp/jdt-latest.tar -C ~/.emacs.d/eclipse.jdt.ls/server/
-#+END_SRC
-
-*** Configuration
-Specify the list of projects which will be imported in the LSP server. Note that
-if project is not imported JDT server will provide only basic java support due
-to lack of classpath information.
-
-#+BEGIN_SRC emacs-lisp
-  (java :variables java-backend 'lsp
-                   lsp-java--workspace-folders '(list "/path/to/project1"
-                                                      "/path/to/project2"
-                                                      ...))
-#+END_SRC
+*** Usage
+Open a java file and the ~lsp-java~ will automatically download the server
+and ask you which projects you want to import.
 
 * Key bindings
 ** Meghanada

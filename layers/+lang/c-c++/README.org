@@ -8,15 +8,28 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#default-mode-for-header-files][Default mode for header files]]
+  - [[#backends][Backends]]
+    - [[#rtags][RTags]]
+      - [[#external-dependencies][External dependencies]]
+      - [[#configuration][Configuration]]
+    - [[#cquery--ccls-lsp-backends][cquery / ccls (lsp backends)]]
+      - [[#features-1][Features:]]
+      - [[#external-dependencies-1][External dependencies]]
+      - [[#configuration-1][Configuration]]
+      - [[#completion][Completion]]
   - [[#clang-configuration][Clang Configuration]]
     - [[#clang-format][clang-format]]
     - [[#company-clang-and-flycheck][Company-clang and flycheck]]
-  - [[#rtags-configuration][RTags configuration]]
   - [[#enable-google-set-c-style][Enable google-set-c-style]]
   - [[#newlines][Newlines]]
+  - [[#projectile-sub-project-adoption][Projectile sub-project adoption]]
 - [[#key-bindings][Key Bindings]]
   - [[#formatting-clang-format][Formatting (clang-format)]]
-  - [[#rtags][RTags]]
+  - [[#rtags-1][RTags]]
+  - [[#cquery--ccls][cquery / ccls]]
+    - [[#goto][goto]]
+    - [[#helphierarchy][help/hierarchy]]
+    - [[#backend-language-server][backend (language server)]]
 
 * Description
 This layer adds configuration for C/C++ language.
@@ -37,6 +50,7 @@ This layer adds configuration for C/C++ language.
   company-ycmd (when =ycmd= layer is included).
 - Support for [[https://github.com/realgud/realgud][realgud]] debugger.
 - Support for [[https://github.com/Andersbakken/rtags][rtags]].
+- Support for [[https://github.com/cquery-project/cquery][cquery]] or [[https://github.com/MaskRay/ccls][ccls]] as an lsp backend.
 
 * Install
 ** Layer
@@ -52,12 +66,122 @@ by setting the variable =c-c++-default-mode-for-headers= to =c++-mode=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '((c-c++ :variables c-c++-default-mode-for-headers 'c++-mode)))
+                '((c-c++ :variables c-c++-default-mode-for-headers 'c++-mode)))
 #+END_SRC
 
 *Note:* To set the variable for a given project, create a directory local
 variable at the root of your project. More info on directory local variables
 can be found in the [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Directory-Local-Variables.html][dir-locals]].
+
+** Backends
+This layer supports the selection of one of 3 available backends for code navigation etc via the =c-c++-backend= configuration variable.
+
+*** RTags
+RTags is a well established clang-based source code indexing tool.
+
+**** External dependencies
+Install the RTags server via [[https://formulae.brew.sh/formula/rtags][homebrew]], the [[https://aur.archlinux.org/packages/rtags/][aur]] or from source according to the instructions [[https://github.com/Andersbakken/rtags][here]].
+N.B. RTags is not supported on Windows at the time of writing, although there is an [[https://github.com/Andersbakken/rtags/issues/770][open issue with some recent activity]] on github.
+
+**** Configuration
+To enable support for =rtags=, set the layer variable
+=c-c++-enable-rtags-support= to =t= in your dotfile.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables c-c++-backend 'rtags)))
+#+END_SRC
+
+This will also enable =company-rtags= to be used as a backend for
+auto-completion (when =auto-completion= layer is included).
+To prevent this, while retaining the rest of Rtags functionality,
+set the variable =c-c++-rtags-completion= to =nil=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables
+                         c-c++-backend 'rtags
+                         c-c++-enable-rtags-completion nil)))
+#+END_SRC
+
+*** cquery / ccls (lsp backends)
+[[https://github.com/cquery-project/cquery][cquery]] and [[https://github.com/MaskRay/ccls][ccls]] are alternative implementations of the language server protocol based on libclang. They claim to be more efficient
+than existing tools at indexing large code bases.
+
+**** Features:
+- Cross references (definitions, references, base/derived classes/methods, type instances, ...)
+- Diagnostics
+- Completion with =company-lsp=
+- Semantic highlighting
+- See more on [[https://github.com/cquery-project/cquery/wiki/Emacs]]
+- Cross-platform - functional on Windows, Linux and OSX.
+
+**** External dependencies
+Install one (or both) of the following:
+
+***** cquery server
+Install the =cquery= server. [[https://github.com/cquery-project/cquery/wiki/Getting-started][Instructions]].
+
+***** ccls server
+Install the =ccls= server. [[https://github.com/MaskRay/ccls/wiki/Getting-started][Instructions]].
+
+**** Configuration
+***** Basic
+Select either =cquery= or =ccls= as the =c-c++= layer backend by adding the following to your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables c-c++-backend 'lsp-cquery))) ;or 'lsp-ccls
+#+END_SRC
+
+N.B. The [[file:../../+tools/lsp/README.org][LSP layer]] will be loaded automatically if either backend is selected.
+
+***** Setting path to backend executable
+The basic configuration above should work if the cquery/ccls executable folder is present in your path. If not, you can set the path explicitly.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables
+                         c-c++-backend 'lsp-cquery
+                         c-c++-lsp-executable "/path/to/bin/cquery/or/ccls")))
+#+END_SRC
+
+If you need to expand =~= in the path, you can use =file-truename= like
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables
+                         c-c++-backend 'lsp-cquery
+                         c-c++-lsp-executable (file-truename "~/bin/cquery/or/ccls"))))
+#+END_SRC
+
+***** Semantic highlighting
+Semantic highlighting is disabled by default. To enable, set the =c-c++-lsp-sem-highlight-method= variable to either ='font-lock= or ='overlay=.
+To enable the rainbow semantic highlighting colour theme, set =c-c++-lsp-sem-highlight-rainbow= to =t=.
+
+***** Additional configuration options
+Both lsp backends are configured to store their index cache in a subdirectory of =.emacs.d/cache=. This can be overridden by
+specifying an explicit =c-c++-lsp-cache-dir=. Setting this value to a relative path will cause the index cache to be placed in a
+subdirectory of your project root.
+
+There are other initialization options such as the number of indexer threads, cache serialization format.
+They have good default values. See [[file:./config.el][config.el]] and the backends’ respective homepages for more info.
+- [[https://github.com/cquery-project/cquery/wiki/Emacs][Emacs section of =cquery= wiki]]
+- [[https://github.com/MaskRay/ccls/wiki/Emacs][Emacs section of =ccls= wiki]]
+
+***** Example dotspacemacs-configuration-layers entry
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables
+                         c-c++-adopt-subprojects t
+                         c-c++-backend 'lsp-ccls
+                         c-c++-lsp-executable (file-truename "~/dev/cpp/ccls/Release/ccls")
+                         c-c++-lsp-sem-highlight-rainbow t)))
+#+END_SRC
+
+**** Completion
+=company-lsp= provides completion functionality. Client-side cache and sorting have been disabled in favour of server,
+as recommended by =cquery=/=ccls= wikis.
 
 ** Clang Configuration
 To enable Clang support, set the layer variable =c-c++-enable-clang-support=
@@ -65,8 +189,10 @@ to =t= in the dotfile:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '((c-c++ :variables c-c++-enable-clang-support t)))
+                '((c-c++ :variables c-c++-enable-clang-support t)))
 #+END_SRC
+
+N.B. do not set this option if either the =cquery= or =ccls= backend
 
 *** clang-format
 [[http://clang.llvm.org/docs/ClangFormat.html][clang-format]] allows reformatting either a selected region of code
@@ -80,8 +206,8 @@ To enable automatic buffer formatting on save, set the variable
 =c-c++-enable-clang-format-on-save= to =t=:
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (c-c++ :variables c-c++-enable-clang-format-on-save t)))
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables c-c++-enable-clang-format-on-save t)))
 #+END_SRC
 
 *** Company-clang and flycheck
@@ -92,25 +218,6 @@ clang flag per line, a format also used by other text editor clang plugins.
 Not only does this allow proper autocomplete on projects with extra includes and
 flags, but there is also support for flycheck so that it doesn’t complain about
 missing header files.
-
-** RTags configuration
-To enable support for =rtags=, set the layer variable
-=c-c++-enable-rtags-support= to =t= in your dotfile.
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-    '((c-c++ :variables c-c++-enable-rtags-support t)))
-#+END_SRC
-
-This will also enable =company-rtags= to be used as a backend for
-auto-completion (when =auto-completion= layer is included).
-To prevent this, while retaining the rest of Rtags functionality,
-set the variable =c-c++-enable-rtags-support= to ='no-completion=:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-    '((c-c++ :variables c-c++-enable-rtags-support 'no-completion)))
-#+END_SRC
 
 ** Enable google-set-c-style
 If you have clang enabled with =clang-format= as described earlier in this page
@@ -128,8 +235,7 @@ would look is that in your list of =dostpacemacs-configuration-layers= you have
 an entry like
 
 #+BEGIN_SRC emacs-lisp
-  (c-c++ :variables
-         c-c++-enable-google-style t)
+  (c-c++ :variables c-c++-enable-google-style t)
 #+END_SRC
 
 Additionally, if you have =c-c++-enable-google-newline= variable set then
@@ -137,9 +243,8 @@ Additionally, if you have =c-c++-enable-google-newline= variable set then
 set that up like this:
 
 #+BEGIN_SRC emacs-lisp
-  (c-c++ :variables
-         c-c++-enable-google-style t
-         c-c++-enable-google-newline t)
+  (c-c++ :variables c-c++-enable-google-style t
+                    c-c++-enable-google-newline t)
 #+END_SRC
 
 ** Newlines
@@ -147,9 +252,19 @@ You can enable the =Auto-newline= minor mode that automatically adds newlines
 after certain characters by setting the =c-c++-enable-auto-newline= variable.
 
 #+BEGIN_SRC emacs-lisp
-  (c-c++ :variables
-         c-c++-enable-auto-newline t)
+  (c-c++ :variables c-c++-enable-auto-newline t)
 #+END_SRC
+
+** Projectile sub-project adoption
+To prevent projectile from using subproject root when visiting files in a subproject,
+set =c-c++-adopt-subprojects= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (c-c++ :variables c-c++-adopt-subprojects t)
+#+END_SRC
+
+This is based on a recommendation on the =cquery= and =ccls= wikis, but should be more
+generally applicable.
 
 * Key Bindings
 
@@ -160,7 +275,7 @@ after certain characters by setting the =c-c++-enable-auto-newline= variable.
 | ~SPC m g A~ | open matching file in another window                          |
 |             | (e.g. switch between .cpp and .h, requires a project to work) |
 | ~SPC m D~   | disaster: disassemble c/c++ code                              |
-| ~SPC m r~   | srefactor: refactor thing at point.                           |
+| ~SPC m r .~ | srefactor: refactor thing at point.                           |
 
 *Note:* [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]] is only available for Emacs 24.4+.
 
@@ -204,3 +319,37 @@ after certain characters by setting the =c-c++-enable-auto-newline= variable.
 | ~SPC m g V~ | print enum value at point       |
 | ~SPC m g X~ | fix fixit at point              |
 | ~SPC m g Y~ | cycle overlays on screen        |
+
+** cquery / ccls
+The key bindings listed below are in addition to the default key bindings defined by the [[file:../../+tools/lsp/README.org][LSP layer]].
+
+*** goto
+
+| Key Binding | Description               |
+|-------------+---------------------------|
+| ~SPC m g &~ | find references (address) |
+| ~SPC m g R~ | find references (read)    |
+| ~SPC m g W~ | find references (write)   |
+| ~SPC m g c~ | find callers              |
+| ~SPC m g C~ | find callees              |
+| ~SPC m g v~ | vars                      |
+
+*** help/hierarchy
+
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m h b~ | base class(es)              |
+| ~SPC m h d~ | derived class(es)           |
+| ~SPC m h c~ | call hierarchy              |
+| ~SPC m h C~ | call hierarchy (inv)        |
+| ~SPC m h i~ | inheritance hierarchy       |
+| ~SPC m h I~ | inheritance hierarchy (inv) |
+| ~SPC m h m~ | member hierarchy            |
+| ~SPC m h M~ | member hierarchy (inv)      |
+
+*** backend (language server)
+
+| Key Binding | Description                              |
+|-------------+------------------------------------------|
+| ~SPC m b f~ | refresh index (e.g. after branch change) |
+| ~SPC m b p~ | preprocess file                          |

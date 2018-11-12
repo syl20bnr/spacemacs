@@ -4,7 +4,7 @@
 ;; Copyright 2014-2015, Vasilij Schneidermann <v.schneidermann@gmail.com>
 
 ;; Author: steckerhalter
-;; URL: https://github.com/quelpa/quelpa
+;; URL: https://framagit.org/steckerhalter/quelpa
 ;; Version: 0.0.1
 ;; Package-Requires: ((emacs "24.3"))
 ;; Keywords: package management build source elpa
@@ -32,7 +32,7 @@
 ;; built on-the-fly directly from source.
 
 ;; See the README for more info:
-;; https://github.com/quelpa/quelpa/blob/master/README.md
+;; https://framagit.org/steckerhalter/quelpa/blob/master/README.md
 
 ;;; Requirements:
 
@@ -153,7 +153,7 @@ If nil the update is disabled and the repo is only updated on
 (defvar quelpa-cache nil
   "The `quelpa' command stores processed pkgs/recipes in the cache.")
 
-(defvar quelpa-recipe '(quelpa :repo "quelpa/quelpa" :fetcher github)
+(defvar quelpa-recipe '(quelpa :url "https://framagit.org/steckerhalter/quelpa.git" :fetcher git)
   "The recipe for quelpa.")
 
 ;; --- compatibility for legacy `package.el' in Emacs 24.3  -------------------
@@ -1086,6 +1086,7 @@ Optionally PRETTY-PRINT the data."
          (get-buffer-create "*quelpa-build-checkout*")
          nil "-cvf"
          file
+         "--format=gnu"
          "--exclude=.svn"
          "--exclude=CVS"
          "--exclude=.git"
@@ -1454,15 +1455,15 @@ Returns the archive entry for the package."
       (copy-file pkg-source pkg-target)
       (let ((enable-local-variables nil)
             (make-backup-files nil))
-        (with-current-buffer (find-file pkg-target)
+        (with-temp-buffer
+          (insert-file-contents pkg-target)
           (quelpa-build--update-or-insert-version version)
           (quelpa-build--ensure-ends-here-line pkg-source)
           (write-file pkg-target nil)
           (condition-case err
               (quelpa-build--package-buffer-info-vec)
             (error
-             (quelpa-build--message "Warning: %S" err)))
-          (kill-buffer)))
+             (quelpa-build--message "Warning: %S" err)))))
 
       (quelpa-build--write-pkg-readme
        target-dir

@@ -9,6 +9,9 @@
 ;;
 ;;; License: GPLv3
 
+(require 'cl-lib)
+(require 'subr-x)
+
 (defun spacemacs//c-toggle-auto-newline ()
   "Toggle auto-newline."
   (c-toggle-auto-newline 1))
@@ -157,9 +160,9 @@ and the arguments for flyckeck-clang based on a project-specific text file."
            rtags-last-request-not-indexed)
       (gtags-find-tag)))
 
-(defun spacemacs/c-c++-tags-find-references-at-point (&optional prefix)
+(defun spacemacs/c-c++-tags-find-refs-at-point (&optional prefix)
   (interactive "P")
-  (if (and (not (rtags-find-references-at-point prefix))
+  (if (and (not (rtags-find-refs-at-point prefix))
            rtags-last-request-not-indexed)
       (gtags-find-rtag)))
 
@@ -182,3 +185,169 @@ and the arguments for flyckeck-clang based on a project-specific text file."
   (interactive)
   (call-interactively (if (spacemacs/c-c++-use-rtags t)
                           'rtags-imenu 'idomenu)))
+
+
+;; lsp
+(defun spacemacs//c-c++-lsp-enabled ()
+  "Return true if one or other of the lsp backends is enabled"
+  (member c-c++-backend c-c++-lsp-backends))
+
+;; -- BEGIN helper functions for common configuration of cquery and ccls backends
+(defun spacemacs//c-c++-lsp-backend ()
+  "Return a string representation of the LSP backend specified by the `c-c++-backend' configuration variable, without the `lsp-' prefix."
+  (ecase c-c++-backend
+    ('lsp-ccls "ccls")
+    ('lsp-cquery "cquery")))
+
+(defun spacemacs//c-c++-lsp-string (prefix suffix)
+  (concat prefix (spacemacs//c-c++-lsp-backend) suffix))
+
+(defun spacemacs//c-c++-lsp-symbol (prefix suffix)
+  "Return a symbol for the LSP backend specified by the `c-c++-backend' configuration variable."
+  (intern (spacemacs//c-c++-lsp-string prefix suffix)))
+
+(defun spacemacs//c-c++-lsp-call-function (prefix suffix &rest args)
+  (apply (spacemacs//c-c++-lsp-symbol prefix suffix) args))
+
+(defun spacemacs//c-c++-lsp-funcall-interactively (prefix suffix &rest args)
+  (funcall-interactively (spacemacs//c-c++-lsp-symbol prefix suffix) args))
+
+(defun spacemacs//c-c++-lsp-funcall-interactively-no-args (prefix suffix)
+  (funcall-interactively (spacemacs//c-c++-lsp-symbol prefix suffix)))
+
+(defun spacemacs//c-c++-lsp-set-symbol (prefix suffix value)
+  (set (spacemacs//c-c++-lsp-symbol prefix suffix) (symbol-value value)))
+
+(defun spacemacs//c-c++-lsp-set-config (param prefix suffix)
+  (when (symbol-value param) (spacemacs//c-c++-lsp-set-symbol prefix suffix param)))
+
+(defun spacemacs//c-c++-lsp-apply-config (suffix)
+  (spacemacs//c-c++-lsp-set-config (intern (concat "c-c++-lsp-" suffix)) nil (concat "-" suffix)))
+;; -- END helper functions for common configuration of cquery and ccls backends
+
+
+(defun spacemacs//c-c++-lsp-enable ()
+  "Enable the LSP backend specified by the `c-c++-backend' configuration variable."
+    (progn (condition-case nil
+             (spacemacs//c-c++-lsp-call-function "lsp-" "-enable")
+             (user-error nil))))
+
+(defun spacemacs//c-c++-lsp-config ()
+  "Configure the LSP backend specified by the `c-c++-backend' configuration variable."
+    (progn
+      (spacemacs//c-c++-lsp-setup-company)
+      (spacemacs//c-c++-lsp-define-extensions)
+      (spacemacs//c-c++-lsp-wrap-functions)
+      (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-gcc))
+
+      (if (eq c-c++-lsp-cache-dir nil)
+        (progn
+          (setq c-c++-lsp-cache-dir (file-truename(concat "~/.emacs.d/.cache/" (symbol-name c-c++-backend))))
+          (message (concat "c-c++: No c-c++-lsp-cache-dir specified: defaulting to " c-c++-lsp-cache-dir))))
+
+      (dolist (param '("executable" "extra-init-params" "cache-dir" "project-whitelist" "project-blacklist" "sem-highlight-method"))
+        (spacemacs//c-c++-lsp-apply-config param))
+
+      (when c-c++-lsp-sem-highlight-rainbow
+        (unless c-c++-lsp-sem-highlight-method
+          (progn
+            (setq c-c++-lsp-sem-highlight-method 'font-lock)
+            (message "c-c++: No semantic highlight method specified. Defaulting to `font-lock'.")))
+        (ecase c-c++-backend
+          ('lsp-cquery (cquery-use-default-rainbow-sem-highlight))
+          ('lsp-ccls (ccls-use-default-rainbow-sem-highlight))))
+
+      (dolist (mode c-c++-modes)
+        (spacemacs/lsp-bind-keys-for-mode mode)
+        (spacemacs//c-c++-lsp-bind-keys-for-mode mode))
+
+      (evil-set-initial-state '(spacemacs//c-c++-lsp-symbol nil "-tree-mode") 'emacs)
+      ;;evil-record-macro keybinding clobbers q in cquery-tree-mode-map for some reason?
+      (evil-make-overriding-map (symbol-value (spacemacs//c-c++-lsp-symbol nil "-tree-mode-map")))))
+
+(defun spacemacs//c-c++-lsp-setup-company ()
+  "Setup LSP backend auto-completion."
+    (progn
+      (spacemacs|add-company-backends :backends company-lsp :modes c-mode-common)
+      ;;Disable client-side cache and sorting, as server does a better job
+      (setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)))
+
+(defun spacemacs//c-c++-lsp-wrap-functions ()
+  "Wrap navigation functions for the LSP backend specified by the `c-c++-backend' configuration variable."
+  (defun c-c++/call-hierarchy () (interactive) (spacemacs//c-c++-lsp-funcall-interactively nil "-call-hierarchy" nil))
+  (defun c-c++/call-hierarchy-inv () (interactive) (spacemacs//c-c++-lsp-funcall-interactively nil "-call-hierarchy" t))
+  (defun c-c++/inheritance-hierarchy () (interactive) (spacemacs//c-c++-lsp-funcall-interactively nil "-inheritance-hierarchy"))
+  (defun c-c++/inheritance-hierarchy-inv () (interactive) (spacemacs//c-c++-lsp-funcall-interactively nil "-inheritance-hierarchy" t))
+  (defun c-c++/member-hierarchy () (interactive) (spacemacs//c-c++-lsp-funcall-interactively-no-args nil "-member-hierarchy"))
+  (defun c-c++/preprocess-file () (interactive) (spacemacs//c-c++-lsp-funcall-interactively nil "-preprocess-file"))
+  (defun c-c++/refresh-index () (interactive) ()
+    (ecase c-c++-backend
+      ('lsp-cquery (cquery-freshen-index))
+      ('lsp-ccls (ccls-reload)))))
+
+(defun spacemacs//c-c++-lsp-bind-keys-for-mode (mode)
+  "Bind LSP backend functions for the specified mode."
+  (spacemacs/set-leader-keys-for-major-mode mode
+    ;; backend
+    "bf" #'c-c++/refresh-index
+    "bp" #'c-c++/preprocess-file
+    ;; goto
+    "gf" 'find-file-at-point
+    "gF" 'ffap-other-window
+    ;; hierarchy
+    "ghc" #'c-c++/call-hierarchy
+    "ghC" #'c-c++/call-hierarchy-inv
+    "ghi" #'c-c++/inheritance-hierarchy
+    "ghI" #'c-c++/inheritance-hierarchy-inv
+    ;; members
+    "gmh" #'c-c++/member-hierarchy)
+
+  (spacemacs/lsp-bind-extensions-for-mode mode "c-c++"
+    "&" 'refs-address
+    "R" 'refs-read
+    "W" 'refs-write
+    "c" 'callers
+    "C" 'callees
+    "v" 'vars
+    "hb" 'base) ;;Replace this with lsp-goto-implementation in lsp-layer?
+
+  (when (eq c-c++-backend 'lsp-ccls)
+    (spacemacs/set-leader-keys-for-major-mode mode
+      "bR" 'ccls-reload)
+    (spacemacs/lsp-bind-extensions-for-mode mode "c-c++"
+      "mc" 'member-classes
+      "mf" 'member-functions
+      "mv" 'member-vars)))
+
+(defun spacemacs//c-c++-lsp-define-extensions ()
+  "Wrap some backend-specific extensions using the find functions provided by lsp-mode and lsp-ui"
+  (spacemacs//c-c++-lsp-call-function "spacemacs//c-c++-lsp-define-" "-extensions")
+
+  (spacemacs/lsp-define-extensions "c-c++" 'vars
+    (spacemacs//c-c++-lsp-string "$" "/vars"))
+
+  (spacemacs/lsp-define-extensions "c-c++" 'refs-address
+    "textDocument/references"
+    '(plist-put (lsp--text-document-position-params) :context '(:role 128)))
+
+  (spacemacs/lsp-define-extensions "c-c++" 'refs-read
+    "textDocument/references"
+    '(plist-put (lsp--text-document-position-params) :context '(:role 8)))
+
+  (spacemacs/lsp-define-extensions "c-c++" 'refs-write
+    "textDocument/references"
+    '(plist-put (lsp--text-document-position-params) :context '(:role 16))))
+
+(defun spacemacs//c-c++-lsp-define-cquery-extensions ()
+  (spacemacs/lsp-define-extensions "c-c++" 'callers "$cquery/callers")
+  (spacemacs/lsp-define-extensions "c-c++" 'callees "$cquery/callers" '(:callee t))
+  (spacemacs/lsp-define-extensions "c-c++" 'base "$cquery/base"))
+
+(defun spacemacs//c-c++-lsp-define-ccls-extensions ()
+  (spacemacs/lsp-define-extensions "c-c++" 'callers "$ccls/call")
+  (spacemacs/lsp-define-extensions "c-c++" 'callees "$ccls/call" '(:callee t))
+  (spacemacs/lsp-define-extensions "c-c++" 'base "$ccls/inheritance" '(:levels 3))
+  ;;ccls features without a cquery analogue...
+  (spacemacs/lsp-define-extensions "c-c++" 'member-classes "$ccls/member" `(:kind 2))
+  (spacemacs/lsp-define-extensions "c-c++" 'member-functions "$ccls/member" `(:kind 3))
+  (spacemacs/lsp-define-extensions "c-c++" 'member-vars "$ccls/member" `(:kind 0)))

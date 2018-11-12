@@ -12,13 +12,34 @@
 (setq haskell-packages
   '(
     cmm-mode
+    company
     (company-cabal :requires company)
-    company-ghci
-    company-ghc
+
+    ;; ghci completion backend
+    (company-ghci
+     :requires company
+     :toggle (eq haskell-completion-backend 'ghci))
+
+    ;; ghc-mod completion backend
+    (company-ghc
+     :requires company
+     :toggle (eq haskell-completion-backend 'ghc-mod))
+    (ghc :toggle (eq haskell-completion-backend 'ghc-mod))
+
+    ;; intero completion backend
+    (intero
+     :requires company
+     :toggle (eq haskell-completion-backend 'intero))
+
+    ;; dante completion backend
+    (dante
+     :requires company
+     :toggle (and (version<= "25" emacs-version)
+                  (eq haskell-completion-backend 'dante)))
+
     flycheck
     (flycheck-haskell :requires flycheck)
     ggtags
-    ghc
     haskell-mode
     haskell-snippets
     counsel-gtags
@@ -26,46 +47,127 @@
     (helm-hoogle :requires helm)
     hindent
     hlint-refactor
-    intero
-    (dante :toggle (version<= "25" emacs-version))
     ))
 
 (defun haskell/init-cmm-mode ()
   (use-package cmm-mode
     :defer t))
 
+(defun haskell/post-init-company ())
+
 (defun haskell/init-company-cabal ()
   (use-package company-cabal
     :defer t
-    :init (spacemacs|add-company-backends
-            :backends company-cabal
-            :modes haskell-cabal-mode)))
+    :init
+    (spacemacs|add-company-backends
+      :backends company-cabal
+      :modes haskell-cabal-mode)))
 
 (defun haskell/init-company-ghci ()
   (use-package company-ghci
-    :defer t))
+    :defer t
+    :init
+    (spacemacs|add-company-backends
+      :backends (company-ghci company-dabbrev-code company-yasnippet)
+      :modes haskell-mode)
+    (add-hook 'haskell-mode-hook 'interactive-haskell-mode)))
 
 (defun haskell/init-company-ghc ()
   (use-package company-ghc
     :defer t))
 
-(defun haskell/post-init-ggtags ()
-  (add-hook 'haskell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
-
 (defun haskell/init-ghc ()
   (use-package ghc
-    :defer t))
-
-(defun haskell/init-dante ())
+    :defer t
+    :init
+    (spacemacs|add-company-backends
+      :backends (company-ghc company-dabbrev-code company-yasnippet)
+      :modes haskell-mode)
+    (add-hook 'haskell-mode-hook 'ghc-init)
+    :config
+    (progn
+      (dolist (mode haskell-modes)
+        (spacemacs/declare-prefix-for-mode mode "mm" "haskell/ghc-mod")
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "mt" 'ghc-insert-template-or-signature
+          "mu" 'ghc-initial-code-from-signature
+          "ma" 'ghc-auto
+          "mf" 'ghc-refine
+          "me" 'ghc-expand-th
+          "mn" 'ghc-goto-next-hole
+          "mp" 'ghc-goto-prev-hole
+          "m>" 'ghc-make-indent-deeper
+          "m<" 'ghc-make-indent-shallower
+          "hi" 'ghc-show-info
+          "ht" 'ghc-show-type))
+      (when (configuration-layer/package-used-p 'flycheck)
+        ;; remove overlays from ghc-check.el if flycheck is enabled
+        (set-face-attribute 'ghc-face-error nil :underline nil)
+        (set-face-attribute 'ghc-face-warn nil :underline nil)))))
 
 (defun haskell/init-intero ()
   (use-package intero
     :defer t
+    :init
+    (spacemacs|add-company-backends
+      :backends (company-intero company-dabbrev-code company-yasnippet)
+      :modes haskell-mode)
+    (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+    (add-hook 'haskell-mode-hook 'intero-mode)
+    (add-to-list 'spacemacs-jump-handlers 'intero-goto-definition)
     :config
     (progn
       (spacemacs|diminish intero-mode " λ" " \\")
       (advice-add 'intero-repl-load
-                  :around #'haskell-intero//preserve-focus))))
+                  :around #'haskell-intero//preserve-focus)
+
+      (dolist (mode haskell-modes)
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "gb" 'xref-pop-marker-stack
+          "hi" 'intero-info
+          "ht" 'intero-type-at
+          "hT" 'haskell-intero/insert-type
+          "rs" 'intero-apply-suggestions
+          "sb" 'intero-repl-load))
+
+      (dolist (mode (cons 'haskell-cabal-mode haskell-modes))
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "sc"  nil
+          "sS"  'haskell-intero/display-repl
+          "ss"  'haskell-intero/pop-to-repl))
+
+      (dolist (mode (append haskell-modes '(haskell-cabal-mode intero-repl-mode)))
+        (spacemacs/declare-prefix-for-mode mode "mi" "haskell/intero")
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "ic"  'intero-cd
+          "id"  'intero-devel-reload
+          "ik"  'intero-destroy
+          "il"  'intero-list-buffers
+          "ir"  'intero-restart
+          "it"  'intero-targets))
+
+      (evil-define-key '(insert normal) intero-mode-map
+        (kbd "M-.") 'intero-goto-definition))))
+
+(defun haskell/init-dante ()
+  (use-package dante
+    :defer t
+    :init
+    (spacemacs|add-company-backends
+      :backends (dante-company company-dabbrev-code company-yasnippet)
+      :modes haskell-mode)
+    (add-hook 'haskell-mode-hook 'dante-mode)
+    (add-to-list 'spacemacs-jump-handlers 'xref-find-definitions)
+    :config
+    (progn
+      (dolist (mode haskell-modes)
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "ht" 'dante-type-at
+          "hT" 'spacemacs-haskell//dante-insert-type
+          "hi" 'dante-info
+          "rs" 'dante-auto-fix
+          "se" 'dante-eval-block
+          "sr" 'dante-restart)))))
 
 (defun haskell/init-helm-hoogle ()
   (use-package helm-hoogle
@@ -82,14 +184,14 @@
     :commands flycheck-haskell-configure
     :init (add-hook 'flycheck-mode-hook 'flycheck-haskell-configure)))
 
+(defun haskell/post-init-ggtags ()
+  (add-hook 'haskell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
 (defun haskell/init-haskell-mode ()
   (use-package haskell-mode
     :defer t
     :init
     (progn
-      (add-hook 'haskell-mode-local-vars-hook
-                #'spacemacs-haskell//setup-completion-backend)
-
       (defun spacemacs//force-haskell-mode-loading ()
         "Force `haskell-mode' loading when visiting cabal file."
         (require 'haskell-mode))

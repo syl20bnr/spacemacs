@@ -133,7 +133,6 @@
       - [[#buffers-manipulation-key-bindings][Buffers manipulation key bindings]]
       - [[#create-a-new-empty-buffer][Create a new empty buffer]]
       - [[#buffers-manipulation-transient-state][Buffers manipulation transient state]]
-      - [[#special-buffers][Special Buffers]]
       - [[#files-manipulations-key-bindings][Files manipulations key bindings]]
       - [[#frame-manipulation-key-bindings][Frame manipulation key bindings]]
       - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
@@ -2295,32 +2294,32 @@ The mode can be toggled on and off with ~SPC t g~.
 **** Buffers manipulation key bindings
 Buffer manipulation commands (start with ~b~):
 
-| Key Binding     | Description                                                              |
-|-----------------+--------------------------------------------------------------------------|
-| ~SPC TAB~       | switch to alternate buffer in the current window (switch back and forth) |
-| ~SPC b b~       | switch to a buffer                                                       |
-| ~SPC b d~       | kill the current buffer (does not delete the visited file)               |
-| ~SPC u SPC b d~ | kill the current buffer and window (does not delete the visited file)    |
-| ~SPC b D~       | kill a visible buffer using [[https://github.com/abo-abo/ace-window][ace-window]]                                   |
-| ~SPC u SPC b D~ | kill a visible buffer and its window using [[https://github.com/abo-abo/ace-window][ace-window]]                    |
-| ~SPC b C-d~     | kill other buffers                                                       |
-| ~SPC b C-D~     | kill buffers using a regular expression                                  |
-| ~SPC b e~       | erase the content of the buffer (ask for confirmation)                   |
-| ~SPC b h~       | open =*spacemacs*= home buffer                                           |
-| ~SPC b H~       | open or select the =*Help*= buffer                                       |
-| ~SPC b n~       | switch to next buffer avoiding special buffers                           |
-| ~SPC b m~       | open =*Messages*= buffer                                                 |
-| ~SPC u SPC b m~ | kill all buffers and windows except the current one                      |
-| ~SPC b M~       | kill all buffers matching the regexp                                     |
-| ~SPC b p~       | switch to previous buffer avoiding special buffers                       |
-| ~SPC b P~       | copy clipboard and replace buffer (useful when pasting from a browser)   |
-| ~SPC b R~       | revert the current buffer (reload from disk)                             |
-| ~SPC b s~       | switch to the =*scratch*= buffer (create it if needed)                   |
-| ~SPC b u~       | reopen the most recently killed file buffer                              |
-| ~SPC b w~       | toggle read-only (writable state)                                        |
-| ~SPC b x~       | kill the current buffer and window (does not delete the visited file)    |
-| ~SPC b Y~       | copy whole buffer to clipboard (useful when copying to a browser)        |
-| ~z f~           | Make current function or comments visible in buffer as much as possible  |
+| Key Binding     | Description                                                                            |
+|-----------------+----------------------------------------------------------------------------------------|
+| ~SPC TAB~       | switch to alternate buffer in the current window (switch back and forth)               |
+| ~SPC b b~       | switch to a buffer                                                                     |
+| ~SPC b d~       | kill the current buffer (does not delete the visited file)                             |
+| ~SPC u SPC b d~ | kill the current buffer and window (does not delete the visited file)                  |
+| ~SPC b D~       | kill a visible buffer using [[https://github.com/abo-abo/ace-window][ace-window]]                                                 |
+| ~SPC u SPC b D~ | kill a visible buffer and its window using [[https://github.com/abo-abo/ace-window][ace-window]]                                  |
+| ~SPC b C-d~     | kill other buffers                                                                     |
+| ~SPC b C-D~     | kill buffers using a regular expression                                                |
+| ~SPC b e~       | erase the content of the buffer (ask for confirmation)                                 |
+| ~SPC b h~       | open =*spacemacs*= home buffer                                                         |
+| ~SPC b H~       | open or select the =*Help*= buffer                                                     |
+| ~SPC b n~       | switch to next buffer avoiding buffers matching =spacemacs-useless-buffers-regexp=     |
+| ~SPC b m~       | open =*Messages*= buffer                                                               |
+| ~SPC u SPC b m~ | kill all buffers and windows except the current one                                    |
+| ~SPC b M~       | kill all buffers matching the regexp                                                   |
+| ~SPC b p~       | switch to previous buffer avoiding buffers matching =spacemacs-useless-buffers-regexp= |
+| ~SPC b P~       | copy clipboard and replace buffer (useful when pasting from a browser)                 |
+| ~SPC b R~       | revert the current buffer (reload from disk)                                           |
+| ~SPC b s~       | switch to the =*scratch*= buffer (create it if needed)                                 |
+| ~SPC b u~       | reopen the most recently killed file buffer                                            |
+| ~SPC b w~       | toggle read-only (writable state)                                                      |
+| ~SPC b x~       | kill the current buffer and window (does not delete the visited file)                  |
+| ~SPC b Y~       | copy whole buffer to clipboard (useful when copying to a browser)                      |
+| ~z f~           | Make current function or comments visible in buffer as much as possible                |
 
 **** Create a new empty buffer
 
@@ -2336,15 +2335,14 @@ Buffer manipulation commands (start with ~b~):
 A convenient buffer manipulation transient state allows to quickly cycles through
 the opened buffer and kill them.
 
-| Key Binding   | Description                                   |
-|---------------+-----------------------------------------------|
-| ~SPC b .~     | initiate transient state                      |
-| ~K~           | kill current buffer                           |
-| ~n~           | go to next buffer (avoid special buffers)     |
-| ~N~           | go to previous buffer (avoid special buffers) |
-| Any other key | leave the transient state                     |
+| Key Binding   | Description                                                                       |
+|---------------+-----------------------------------------------------------------------------------|
+| ~SPC b .~     | initiate transient state                                                          |
+| ~K~           | kill current buffer                                                               |
+| ~n~           | go to next buffer (avoid buffers matching =spacemacs-useless-buffers-regexp=)     |
+| ~N~           | go to previous buffer (avoid buffers matching =spacemacs-useless-buffers-regexp=) |
+| Any other key | leave the transient state                                                         |
 
-**** Special Buffers
 Unlike vim, emacs creates many buffers that most people do not need to see. Some
 examples are the =*Messages*= and =*Compile-Log*= buffers. Spacemacs tries to
 automatically ignore buffers that are not useful. However, you may want to

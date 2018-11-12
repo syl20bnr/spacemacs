@@ -11,32 +11,36 @@
 
 (setq c-c++-packages
   '(
-    cc-mode
-    clang-format
-    company
-    (company-c-headers :requires company)
-    (company-rtags :requires company rtags)
-    company-ycmd
-    counsel-gtags
-    disaster
-    flycheck
-    (flycheck-rtags :requires flycheck rtags)
-    gdb-mi
-    ggtags
-    google-c-style
-    helm-cscope
-    helm-gtags
-    (helm-rtags :requires helm rtags)
-    (ivy-rtags :requires ivy rtags)
-    org
-    realgud
-    rtags
-    semantic
-    srefactor
-    stickyfunc-enhance
-    xcscope
-    ycmd
-    ))
+     cc-mode
+     clang-format
+     company
+     (company-c-headers :requires company)
+     (company-rtags :requires company rtags)
+     company-ycmd
+     counsel-gtags
+     disaster
+     flycheck
+     (flycheck-rtags :requires flycheck rtags)
+     gdb-mi
+     ggtags
+     google-c-style
+     helm-cscope
+     helm-gtags
+     (helm-rtags :requires helm rtags)
+     (ivy-rtags :requires ivy rtags)
+     org
+     realgud
+     rtags
+     semantic
+     srefactor
+     stickyfunc-enhance
+     xcscope
+     ycmd
+     ;;lsp-backend
+     (cquery :requires lsp-mode)
+     (ccls :requires lsp-mode)
+     projectile))
+
 
 (defun c-c++/init-cc-mode ()
   (use-package cc-mode
@@ -60,7 +64,7 @@
 
 (defun c-c++/init-clang-format ()
   (use-package clang-format
-    :if c-c++-enable-clang-support
+    :if (or c-c++-enable-clang-support (spacemacs//c-c++-lsp-enabled))
     :init
     (progn
       (when c-c++-enable-clang-format-on-save
@@ -75,10 +79,13 @@
   (when (configuration-layer/package-used-p 'cmake-mode)
     (spacemacs|add-company-backends :backends company-cmake :modes cmake-mode))
   (when c-c++-enable-clang-support
-    (spacemacs|add-company-backends :backends company-clang
-      :modes c-mode-common)
-    (setq company-clang-prefix-guesser 'spacemacs/company-more-than-prefix-guesser)
-    (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)))
+    (if (spacemacs//c-c++-lsp-enabled)
+      (display-warning :error "`c-c++-enable-clang-support' ignored when using lsp backend")
+      (progn
+        (spacemacs|add-company-backends :backends company-clang :modes c-mode-common)
+        (setq company-clang-prefix-guesser 'spacemacs/company-more-than-prefix-guesser)
+        (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)
+        ()))))
 
 (defun c-c++/init-company-c-headers ()
   (use-package company-c-headers
@@ -89,8 +96,7 @@
 
 (defun c-c++/init-company-rtags ()
   (use-package company-rtags
-    :if (and c-c++-enable-rtags-support
-             (not (eq c-c++-enable-rtags-support 'no-completion)))
+    :if (and (eq c-c++-backend 'rtags) c-c++-enable-rtags-completion)
     :defer t
     :init
     (progn
@@ -125,7 +131,7 @@
 ;; TODO lazy load this package
 (defun c-c++/init-flycheck-rtags ()
   (use-package flycheck-rtags
-    :if c-c++-enable-rtags-support))
+    :if (eq c-c++-backend 'rtags)))
 
 (defun c-c++/post-init-ggtags ()
   (add-hook 'c-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
@@ -161,19 +167,19 @@
 ;; TODO lazy load this package
 (defun c-c++/init-helm-rtags ()
   (use-package helm-rtags
-    :if c-c++-enable-rtags-support
+    :if (eq c-c++-backend 'rtags)
     :init (setq rtags-display-result-backend 'helm)))
 
 ;; TODO lazy load this package
 (defun c-c++/init-ivy-rtags ()
   (use-package ivy-rtags
-    :if c-c++-enable-rtags-support
+    :if (eq c-c++-backend 'rtags)
     :init (setq rtags-display-result-backend 'ivy)))
 
 ;; TODO lazy load this package
 (defun c-c++/init-rtags ()
   (use-package rtags
-    :if c-c++-enable-rtags-support
+    :if (eq c-c++-backend 'rtags)
     :init
     (progn
       (setq rtags-autostart-diagnostics t)
@@ -227,7 +233,7 @@
 
 (defun c-c++/post-init-srefactor ()
   (dolist (mode c-c++-modes)
-    (spacemacs/set-leader-keys-for-major-mode mode "r" 'srefactor-refactor-at-point))
+    (spacemacs/set-leader-keys-for-major-mode mode "r." 'srefactor-refactor-at-point))
   (spacemacs/add-to-hooks 'spacemacs/load-srefactor c-c++-mode-hooks))
 
 (defun c-c++/post-init-stickyfunc-enhance ()
@@ -250,3 +256,46 @@
     :post-init
     (dolist (mode c-c++-modes)
       (spacemacs/set-leader-keys-for-major-mode mode "gi" 'cscope-index-files))))
+
+;; BEGIN LSP BACKEND PACKAGES
+
+;; See also https://github.com/cquery-project/cquery/wiki/Emacs
+(defun c-c++/init-cquery ()
+  (use-package cquery
+    :if (eq c-c++-backend 'lsp-cquery)
+    :defer t
+    :commands lsp-cquery-enable
+    :init
+    (add-hook 'c-mode-common-hook #'spacemacs//c-c++-lsp-enable)
+    :config
+    (spacemacs//c-c++-lsp-config)))
+
+;; See also https://github.com/MaskRay/ccls/wiki/Emacs
+(defun c-c++/init-ccls ()
+  (use-package ccls
+    :if (eq c-c++-backend 'lsp-ccls)
+    :defer t
+    :commands lsp-ccls-enable
+    :init
+    (add-hook 'c-mode-common-hook #'spacemacs//c-c++-lsp-enable)
+    :config
+    (spacemacs//c-c++-lsp-config)))
+
+;;Intentionally adding both cquery and ccls cache dirs to ignore list, to facilitate switching between
+;;two without multiple caches polluting projectile find file results
+(defun c-c++/pre-init-projectile ()
+  (spacemacs|use-package-add-hook projectile
+    :post-config
+    (progn
+      (add-to-list 'projectile-globally-ignored-directories ".cquery_cached_index")
+      (add-to-list 'projectile-globally-ignored-directories ".ccls-cache")
+      (when c-c++-lsp-cache-dir
+        (add-to-list 'projectile-globally-ignored-directories c-c++-lsp-cache-dir))
+      (when c-c++-adopt-subprojects
+        (setq projectile-project-root-files-top-down-recurring
+          (append '("compile_commands.json"
+                     ".cquery"
+                     ".ccls")
+            projectile-project-root-files-top-down-recurring))))))
+
+;; END LSP BACKEND PACKAGES
