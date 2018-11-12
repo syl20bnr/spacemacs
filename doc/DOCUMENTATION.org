@@ -3305,10 +3305,10 @@ To search in a project see [[#searching-in-a-project][project searching]].
 | ~SPC s k p~ | run =ack=                                                                                |
 | ~SPC s t p~ | run =pt=                                                                                 |
 | ~SPC s r p~ | run =rg=                                                                                 |
-| ~SPC f y C~ | show and copy current file path relative to the project root with line and column number  |
-| ~SPC f y D~ | show and copy current directory path relative to the project root                         |
-| ~SPC f y L~ | show and copy current file path relative to the project root with line number             |
-| ~SPC f y Y~ | show and copy current file path relative to the project root                              |
+| ~SPC f y C~ | show and copy current file path relative to the project root with line and column number |
+| ~SPC f y D~ | show and copy current directory path relative to the project root                        |
+| ~SPC f y L~ | show and copy current file path relative to the project root with line number            |
+| ~SPC f y Y~ | show and copy current file path relative to the project root                             |
 
 *Note for Windows Users*: To enable fast indexing the GNU ~find~ or
 Cygwin ~find~ must be in your ~PATH~.
