@@ -36,6 +36,7 @@
         seeing-is-believing
         smartparens
         rake
+        (lsp-ruby :requires lsp-mode lsp-ui company-lsp)
         ))
 
 (defun ruby/init-bundler ()
@@ -52,13 +53,7 @@
               "bo" 'bundle-open))))
 
 (defun ruby/post-init-company ()
-  (when (configuration-layer/package-used-p 'robe)
-    (spacemacs|add-company-backends
-      :backends company-robe
-      :modes ruby-mode enh-ruby-mode))
-  (with-eval-after-load 'company-dabbrev-code
-    (dolist (mode '(ruby-mode enh-ruby-mode))
-      (add-to-list 'company-dabbrev-code-modes mode))))
+  (spacemacs//ruby-setup-company))
 
 (defun ruby/init-chruby ()
   (use-package chruby
@@ -81,6 +76,7 @@
       (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mr" "refactor/RuboCop/robe")
       (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mt" "test")
       (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mT" "toggle"))
+      (spacemacs/add-to-hook 'enh-ruby-mode-hook '(spacemacs//ruby-setup-backend))
     :config
     (spacemacs/set-leader-keys-for-major-mode 'enh-ruby-mode
       "T{" 'enh-ruby-toggle-block)))
@@ -153,6 +149,7 @@
 
 (defun ruby/init-robe ()
   (use-package robe
+    :if (eq ruby-backend 'robe)
     :defer t
     :init
     (progn
@@ -244,6 +241,7 @@
       (spacemacs/declare-prefix-for-mode 'ruby-mode "mr" "refactor/RuboCop/robe")
       (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "test")
       (spacemacs/declare-prefix-for-mode 'ruby-mode "mT" "toggle")
+      (spacemacs/add-to-hook 'ruby-mode-hook '(spacemacs//ruby-setup-backend))
       (spacemacs/add-to-hooks
        'spacemacs/ruby-maybe-highlight-debugger-keywords
        '(ruby-mode-local-vars-hook enh-ruby-mode-local-vars-hook)))
@@ -355,3 +353,17 @@
         (spacemacs/set-leader-keys-for-major-mode mode
           "@@" 'seeing-is-believing-run
           "@c" 'seeing-is-believing-clear)))))
+
+(defun ruby/init-lsp-ruby ()
+  (use-package lsp-ruby
+    :commands lsp-ruby-enable
+    :defer t
+    :if (eq ruby-backend 'lsp)
+    :config
+    (progn
+      (let* ((mode (if ruby-enable-enh-ruby-mode 'enh-ruby-mode 'ruby-mode))
+              (hook (intern (concat (symbol-name mode) "-hook" ))))
+        (progn
+          (spacemacs/lsp-bind-keys-for-mode mode)
+          (spacemacs//setup-lsp-jump-handler mode)
+          (add-hook hook #'lsp-ruby-enable))))))
