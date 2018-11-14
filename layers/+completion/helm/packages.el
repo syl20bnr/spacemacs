@@ -370,8 +370,15 @@
                      (if thing thing ""))))))
           (call-interactively 'helm-swoop)))
 
+      (defun spacemacs/helm-swoop-clear-cache ()
+        "Call `helm-swoop--clear-cache' to clear the cache"
+        (interactive)
+        (helm-swoop--clear-cache)
+        (message "helm-swoop cache cleaned."))
+
       (spacemacs/set-leader-keys
         "ss"    'helm-swoop
+        "sC"    'spacemacs/helm-swoop-clear-cache
         "sS"    'spacemacs/helm-swoop-region-or-symbol
         "s C-s" 'helm-multi-swoop-all)
       (defadvice helm-swoop (before add-evil-jump activate)
