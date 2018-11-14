@@ -76,7 +76,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 
 ;; use only spaces and no tabs
 (setq-default indent-tabs-mode nil
-              tab-width 2)
+              tab-width 8)
 
 ;; Text
 (setq longlines-show-hard-newlines t)
