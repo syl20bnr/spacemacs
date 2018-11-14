@@ -39,21 +39,64 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     helm
-     ;; auto-completion
-     ;; better-defaults
+     (auto-completion :variables
+        ;; auto-completion-return-key-behavior 'complete
+        auto-completion-tab-key-behavior 'cycle
+        auto-completion-complete-with-key-sequence nil
+        auto-completion-enable-help-tooltip t
+        auto-completion-enable-sort-by-usage t
+        ;; auto-completion-enable-snippets-in-popup t
+        ;; auto-completion-private-snippets-directory nil
+        )
+     (c-c++ :variables
+       c-c++-default-mode-for-headers 'c++-mode
+       ;; Diable clang to prevent company-clang from interfering with irony.
+       ;; -rk 5/29/2017
+       c-c++-enable-clang-support nil
+       c-c++-enable-c++11 t
+       ;; Don't enable cmake to avoid annoying error messages. -rk 1/11/2018
+       ;; c-c++-enable-cmake-ide-support t
+       )
+     command-log
+     (dash :variables helm-dash-docsets-path "/u/kimr/public_html/docsets")
      emacs-lisp
-     ;; git
-     ;; markdown
+     (git :variables git-magit-status-fullscreen t)
+
+     ;; github
+
+     ;; gtags layer suddend caused startup failure with this! -rk 6/24/2017
+     ;; Wrong type argument: (or eieio-object class), nil, obj
+     ;; (gtags :variables
+     ;;    gtags-enable-by-default nil
+     ;;    ggtags-update-on-save nil
+     ;;    ;; never call "global -u" which seems to hang. -rk 4/14/2014
+     ;;    ggtags-oversize-limit 0
+     ;;    )
+
+     html
+     ipython-notebook
+     (ivy :variables ivy-magic-tilde nil)
+     ;; helm
+     javascript
+     latex
+     lsp
+     markdown
      multiple-cursors
      neotree
-     ;; org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
-     ;; spell-checking
-     ;; syntax-checking
-     ;; version-control
+     (org :variables org-enable-github-support t org-enable-reveal-js-support t)
+     perforce
+     python
+     shell
+     shell-scripts
+     spell-checking
+     syntax-checking
+     version-control
+     vimscript
+     yaml
+     graphviz
+     ;; my-layer1
+     ;; my-irony ; slows down things too much
+     ;; my-bbdb
      )
 
    ;; List of additional packages that will be installed without being
