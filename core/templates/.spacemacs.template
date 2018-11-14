@@ -214,7 +214,7 @@ It should only modify the values of Spacemacs settings."
                                :width normal)
 
    ;; The leader key (default "SPC")
-   dotspacemacs-leader-key "SPC"
+   dotspacemacs-leader-key ";"
 
    ;; The key used for Emacs commands `M-x' (after pressing on the leader key).
    ;; (default "SPC")
@@ -225,7 +225,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; The leader key accessible in `emacs state' and `insert state'
    ;; (default "M-m")
-   dotspacemacs-emacs-leader-key "M-m"
+   dotspacemacs-emacs-leader-key ";"
 
    ;; Major mode leader key is a shortcut key which is the equivalent of
    ;; pressing `<leader> m`. Set it to `nil` to disable it. (default ",")
@@ -463,6 +463,8 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  (spacemacs/set-leader-keys ";" 'my-insert-semi-colon)
+
   (when (eq dotspacemacs-editing-style 'hybrid)
     (spacemacs/set-leader-keys "C-;" 'evilnc-comment-operator)
     (spacemacs/set-leader-keys "C-'" 'evilnc-comment-operator)
