@@ -151,7 +151,12 @@ It should only modify the values of Spacemacs settings."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'vim
+   dotspacemacs-editing-style '(hybrid :variables
+                                       hybrid-mode-default-state 'emacs
+                                       hybrid-mode-enable-hjkl-bindings nil
+                                       hybrid-mode-enable-evilified-state nil
+                                       hybrid-mode-use-evil-search-module nil
+                                       )
 
    ;; If non-nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
@@ -458,6 +463,12 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  (when (eq dotspacemacs-editing-style 'hybrid)
+    (spacemacs/set-leader-keys "C-;" 'evilnc-comment-operator)
+    (spacemacs/set-leader-keys "C-'" 'evilnc-comment-operator)
+    (define-key evil-normal-state-map (kbd "C-'") 'evil-repeat-find-char)
+    (define-key evil-normal-state-map (kbd "C-;") 'evil-repeat-find-char))
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
