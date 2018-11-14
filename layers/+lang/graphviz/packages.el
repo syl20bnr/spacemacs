@@ -11,8 +11,7 @@
 
 (defconst graphviz-packages
   '(
-    (graphviz-dot-mode :location (recipe :fetcher github
-                                         :repo "luxbock/graphviz-dot-mode"))
+    graphviz-dot-mode
     org
     smartparens
     ))
