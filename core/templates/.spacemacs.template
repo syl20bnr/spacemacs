@@ -506,6 +506,7 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  (setq-default evil-escape-key-sequence "fq")
   (spacemacs/set-leader-keys ";" 'my-insert-semi-colon)
 
   (when (eq dotspacemacs-editing-style 'hybrid)
@@ -514,6 +515,15 @@ before packages are loaded."
     (define-key evil-normal-state-map (kbd "C-'") 'evil-repeat-find-char)
     (define-key evil-normal-state-map (kbd "C-;") 'evil-repeat-find-char))
 
+  (custom-set-variables
+   `(bookmark-default-file ,(expand-file-name "bookmarks" user-emacs-directory)))
+
+  ;; This is so that jumping to a file and killing that buffer would restore the
+  ;; point back to this buffer. -rk 6/15/2017
+  (push "\\*Proced\\*" spacemacs-useful-buffers-regexp)
+
+  ;; (push "\\*magit" spacemacs-useful-buffers-regexp)
+  (push "magit" spacemacs-useful-buffers-regexp)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
