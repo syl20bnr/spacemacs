@@ -523,6 +523,8 @@ Benner and Paweł Siudak):
   de Beauchêne)
 - Make query-replace work when frame is split (thanks to Dieter Komendera)
 - Don't skip missing .elc files when recompiling Elpa (thanks to RockyRoad29)
+- Update quelpa.el to fix installing of some recipes on macOS (thanks to Dieter
+  Komendera)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
