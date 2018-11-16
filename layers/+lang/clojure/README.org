@@ -331,7 +331,6 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m d x~   | clear workspace traces and log                     |
 
 *** Refactoring
-
 The following refactoring key bindings are enabled by default in clojure-mode:
 
 | Key Binding   | Description                                                    |
