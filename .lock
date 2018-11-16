@@ -11,10 +11,3 @@
     ("spacelpa" . ,(concat configuration-layer-stable-elpa-directory
                            "spacelpa-"
                            configuration-layer-stable-elpa-version))))
-
-(setq package-archive-priorities
-      '(("spacelpa" . 8)
-        ("melpa"    . 4)
-        ("org"      . 2)
-        ("gnu"      . 1)))
-

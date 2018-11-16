@@ -437,8 +437,6 @@ cache folder.")
     (setq package-user-dir
           (configuration-layer/elpa-directory
            configuration-layer--elpa-root-directory))
-    (setq package-archives (configuration-layer//resolve-package-archives
-                            configuration-layer-elpa-archives))
     ;; optimization, no need to activate all the packages so early
     (setq package-enable-at-startup nil)
     (package-initialize 'noactivate)
@@ -2543,10 +2541,7 @@ Original code from dochang at https://github.com/dochang/elpa-clone"
 (defun configuration-layer/create-elpa-repository (name output-dir)
   "Create an ELPA repository containing all packages supported by Spacemacs."
   (configuration-layer/make-all-packages 'no-discover)
-  (let (package-archive-contents
-        (package-archives '(("melpa" . "https://melpa.org/packages/")
-                            ("org"   . "https://orgmode.org/elpa/")
-                            ("gnu"   . "https://elpa.gnu.org/packages/"))))
+  (let (package-archive-contents)
     (package-refresh-contents)
     (package-read-all-archive-contents)
     (let* ((packages (configuration-layer//get-indexed-elpa-package-names))
