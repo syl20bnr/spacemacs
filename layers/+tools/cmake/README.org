@@ -57,6 +57,22 @@ Trailing slash is required.
          )))
 #+END_SRC
 
+In case of projectile it’s possible to configure project like:
+
+#+BEGIN_SRC emacs-lisp
+  ((nil . ((eval . (setq
+                    projectile-project-test-cmd #'helm-ctest
+                    projectile-project-compilation-cmd #'helm-make-projectile
+                    projectile-project-compilation-dir "build"
+                    helm-make-build-dir (projectile-compilation-dir)
+                    helm-ctest-dir (projectile-compilation-dir)
+                    ))
+           (projectile-project-name . "My Cool Project")
+           (projectile-project-run-cmd . "./run.sh")
+           (projectile-project-configure-cmd . "cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..")
+           (helm-make-arguments . "-j7"))))
+#+END_SRC
+
 * Key Bindings
 
 | Key Binding | Description                                                             |

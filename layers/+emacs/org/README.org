@@ -520,6 +520,7 @@ execution. During that state, the following bindings are active:
 | ~g~         | jump to named source block    |
 | ~j~         | jump to next source block     |
 | ~k~         | jump to previous source block |
+| ~z~         | recenter buffer in window     |
 | ~q~         | leave transient state         |
 
 ** Emphasis

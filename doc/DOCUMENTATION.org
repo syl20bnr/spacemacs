@@ -188,6 +188,8 @@
   - [[#managing-projects][Managing projects]]
   - [[#registers][Registers]]
   - [[#errors-handling][Errors handling]]
+    - [[#error-transient-state][Error transient state]]
+    - [[#custom-fringe-bitmaps][Custom fringe bitmaps]]
   - [[#compiling][Compiling]]
 - [[#editorconfig][EditorConfig]]
 - [[#emacs-server][Emacs Server]]
@@ -747,7 +749,7 @@ To bind keys in Vim editing style (=insert state=):
 #+END_SRC
 
 When setting the Vim style you can pass any variable supported by =evil-mode=
-with the keyword =:variables=. Spacemacs also supports the followgin editing
+with the keyword =:variables=. Spacemacs also supports the following editing
 style variables for Vim:
 
 | Variables                                | Description                                                             |
@@ -1515,7 +1517,7 @@ toggle them.
 Some toggle have two flavors: local and global. The global version of the toggle
 can be reached using the =control= key.
 
-Addtionally all globally available toggles have a circled unicode symbols like
+Additionally all globally available toggles have a circled unicode symbols like
 =ⓟ=. Toggles specific to a major mode under the ~SPC m T~ prefix have plain
 squared symbols like =🅿=.
 
@@ -1555,7 +1557,7 @@ Default frame title displays name of current process and hostname of system. You
 can include more information (like name of current file, name of current project
 etc) by setting =dotspacemacs-frame-title-format= variable.
 
-Following format short codes are avialable:
+Following format short codes are available:
 
 | Code | Description                                                                  |
 |------+------------------------------------------------------------------------------|
@@ -1675,34 +1677,31 @@ selected layout.
 
 Press ~?~ to toggle the full help.
 
-| Key Binding  | Description                                                |
-|--------------+------------------------------------------------------------|
-| ~SPC l~      | activate the transient- state                              |
-| ~?~          | toggle the documentation                                   |
-| ~[0..9]~     | switch to nth layout                                       |
-| ~[C-0..C-9]~ | switch to nth layout and keep the transient state active   |
-| ~<tab>~      | switch to the latest layout                                |
-| ~a~          | add a buffer to the current layout                         |
-| ~A~          | add all the buffers from another layout in the current one |
-| ~b~          | select a buffer in the current layout                      |
-| ~d~          | delete the current layout and keep its buffers             |
-| ~D~          | delete the other layouts and keep their buffers            |
-| ~h~          | go to default layout                                       |
-| ~C-h~        | previous layout in list                                    |
-| ~l~          | select/create a layout                                     |
-| ~L~          | load layouts from file                                     |
-| ~C-l~        | next layout in list                                        |
-| ~n~          | next layout in list                                        |
-| ~N~          | previous layout in list                                    |
-| ~o~          | open a custom layout                                       |
-| ~p~          | previous layout in list                                    |
-| ~r~          | remove current buffer from layout                          |
-| ~R~          | rename current layout                                      |
-| ~s~          | save layouts                                               |
-| ~t~          | display a buffer without adding it to the current layout   |
-| ~w~          | workspaces transient state (needs eyebrowse layer enabled) |
-| ~x~          | kill current layout with its buffers                       |
-| ~X~          | kill other layouts with their buffers                      |
+| Key Binding         | Description                                                |
+|---------------------+------------------------------------------------------------|
+| ~SPC l~             | initiate transient state                                   |
+| ~?~                 | toggle the documentation                                   |
+| ~[0..9]~            | switch to nth layout                                       |
+| ~[C-0..C-9]~        | switch to nth layout and keep the transient state active   |
+| ~<tab>~             | switch to the latest layout                                |
+| ~a~                 | add a buffer to the current layout                         |
+| ~A~                 | add all the buffers from another layout in the current one |
+| ~b~                 | select a buffer in the current layout                      |
+| ~d~                 | delete the current layout and keep its buffers             |
+| ~D~                 | delete the other layouts and keep their buffers            |
+| ~h~                 | go to default layout                                       |
+| ~l~                 | select/create a layout                                     |
+| ~L~                 | load layouts from file                                     |
+| ~n~ or ~C-l~        | next layout in list                                        |
+| ~N~ or ~p~ or ~C-h~ | previous layout in list                                    |
+| ~o~                 | open a custom layout                                       |
+| ~r~                 | remove current buffer from layout                          |
+| ~R~                 | rename current layout                                      |
+| ~s~                 | save layouts                                               |
+| ~t~                 | display a buffer without adding it to the current layout   |
+| ~w~                 | workspaces transient state (needs eyebrowse layer enabled) |
+| ~x~                 | kill current layout with its buffers                       |
+| ~X~                 | kill other layouts with their buffers                      |
 
 ** Workspaces
 Workspaces are sub-layouts, they allow to define multiple layouts into a given
@@ -1732,7 +1731,7 @@ Press ~?~ to toggle the full help.
 
 | Key Binding       | Description                                                 |
 |-------------------+-------------------------------------------------------------|
-| ~SPC l w~         | activate the transient state                                |
+| ~SPC l w~         | initiate transient state                                    |
 | ~?~               | toggle the documentation                                    |
 | ~[0..9]~          | switch to nth workspace                                     |
 | ~[C-0..C-9]~      | switch to nth workspace and keep the transient state active |
@@ -1908,11 +1907,16 @@ Other help key bindings:
 | Key Binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~SPC h SPC~ | discover Spacemacs documentation, layers and packages |
+| ~SPC h .~   | search dotfile variables                              |
 | ~SPC h f~   | discover the =FAQ=                                    |
 | ~SPC h i~   | search in info pages with the symbol at point         |
 | ~SPC h k~   | show top-level bindings with =which-key=              |
+| ~SPC h l~   | search layers                                         |
 | ~SPC h m~   | search available man pages                            |
 | ~SPC h n~   | browse emacs news                                     |
+| ~SPC h p~   | search packages                                       |
+| ~SPC h r~   | search documentation files                            |
+| ~SPC h t~   | search toggles                                        |
 
 The =Profiler= is a tool that helps you identify why your editor is running
 slowly or consumes a lot of memory. Here are key bindings relate to it:
@@ -2239,48 +2243,47 @@ A convenient window manipulation transient state allows performing most of the
 actions listed above. The transient state allows additional actions as well like
 window resizing.
 
-| Key Binding   | Description                                                   |
-|---------------+---------------------------------------------------------------|
-| ~SPC w .~     | initiate transient state                                      |
-| ~?~           | display the full documentation in minibuffer                  |
-| ~0~           | go to window number 0                                         |
-| ~1~           | go to window number 1                                         |
-| ~2~           | go to window number 2                                         |
-| ~3~           | go to window number 3                                         |
-| ~4~           | go to window number 4                                         |
-| ~5~           | go to window number 5                                         |
-| ~6~           | go to window number 6                                         |
-| ~7~           | go to window number 7                                         |
-| ~8~           | go to window number 8                                         |
-| ~9~           | go to window number 9                                         |
-| ~/~           | vertical split                                                |
-| ~-~           | horizontal split                                              |
-| ~[~           | shrink window horizontally                                    |
-| ~]~           | enlarge window horizontally                                   |
-| ~{~           | shrink window vertically                                      |
-| ~}~           | enlarge window vertically                                     |
-| ~d~           | delete window                                                 |
-| ~D~           | delete other windows                                          |
-| ~g~           | toggle =golden-ratio= on and off                              |
-| ~h~           | go to window on the left                                      |
-| ~j~           | go to window below                                            |
-| ~k~           | go to window above                                            |
-| ~l~           | go to window on the right                                     |
-| ~H~           | move window to the left                                       |
-| ~J~           | move window to the bottom                                     |
-| ~K~           | move bottom to the top                                        |
-| ~L~           | move window to the right                                      |
-| ~o~           | focus other frame                                             |
-| ~r~           | rotate windows forward                                        |
-| ~R~           | rotate windows backward                                       |
-| ~s~           | horizontal split                                              |
-| ~S~           | horizontal split and focus new window                         |
-| ~u~           | undo window layout (used to effectively undo a closed window) |
-| ~U~           | redo window layout                                            |
-| ~v~           | vertical split                                                |
-| ~V~           | vertical split and focus new window                           |
-| ~w~           | focus other window                                            |
-| Any other key | leave the transient state                                     |
+| Key Binding | Description                                                   |
+|-------------+---------------------------------------------------------------|
+| ~SPC w .~   | initiate transient state                                      |
+| ~?~         | display the full documentation in minibuffer                  |
+| ~0~         | go to window number 0                                         |
+| ~1~         | go to window number 1                                         |
+| ~2~         | go to window number 2                                         |
+| ~3~         | go to window number 3                                         |
+| ~4~         | go to window number 4                                         |
+| ~5~         | go to window number 5                                         |
+| ~6~         | go to window number 6                                         |
+| ~7~         | go to window number 7                                         |
+| ~8~         | go to window number 8                                         |
+| ~9~         | go to window number 9                                         |
+| ~/~         | vertical split                                                |
+| ~-~         | horizontal split                                              |
+| ~[~         | shrink window horizontally                                    |
+| ~]~         | enlarge window horizontally                                   |
+| ~{~         | shrink window vertically                                      |
+| ~}~         | enlarge window vertically                                     |
+| ~d~         | delete window                                                 |
+| ~D~         | delete other windows                                          |
+| ~g~         | toggle =golden-ratio= on and off                              |
+| ~h~         | go to window on the left                                      |
+| ~j~         | go to window below                                            |
+| ~k~         | go to window above                                            |
+| ~l~         | go to window on the right                                     |
+| ~H~         | move window to the left                                       |
+| ~J~         | move window to the bottom                                     |
+| ~K~         | move bottom to the top                                        |
+| ~L~         | move window to the right                                      |
+| ~o~         | focus other frame                                             |
+| ~r~         | rotate windows forward                                        |
+| ~R~         | rotate windows backward                                       |
+| ~s~         | horizontal split                                              |
+| ~S~         | horizontal split and focus new window                         |
+| ~u~         | undo window layout (used to effectively undo a closed window) |
+| ~U~         | redo window layout                                            |
+| ~v~         | vertical split                                                |
+| ~V~         | vertical split and focus new window                           |
+| ~w~         | focus other window                                            |
 
 **** Golden ratio
 If you resize windows like crazy you may want to give a try to [[https://github.com/roman/golden-ratio.el][golden-ratio]].
@@ -2335,13 +2338,13 @@ Buffer manipulation commands (start with ~b~):
 A convenient buffer manipulation transient state allows to quickly cycles through
 the opened buffer and kill them.
 
-| Key Binding   | Description                                                                       |
-|---------------+-----------------------------------------------------------------------------------|
-| ~SPC b .~     | initiate transient state                                                          |
-| ~K~           | kill current buffer                                                               |
-| ~n~           | go to next buffer (avoid buffers matching =spacemacs-useless-buffers-regexp=)     |
-| ~N~           | go to previous buffer (avoid buffers matching =spacemacs-useless-buffers-regexp=) |
-| Any other key | leave the transient state                                                         |
+| Key Binding | Description                                                                       |
+|-------------+-----------------------------------------------------------------------------------|
+| ~SPC b .~   | initiate transient state                                                          |
+| ~K~         | kill current buffer                                                               |
+| ~n~         | go to next buffer (avoid buffers matching =spacemacs-useless-buffers-regexp=)     |
+| ~N~         | go to previous buffer (avoid buffers matching =spacemacs-useless-buffers-regexp=) |
+| ~z~         | recenter buffer in window                                                         |
 
 Unlike vim, emacs creates many buffers that most people do not need to see. Some
 examples are the =*Messages*= and =*Compile-Log*= buffers. Spacemacs tries to
@@ -2613,7 +2616,7 @@ called =pt=.
 
 When results have been saved in a regular buffer with ~F3~, that buffer supports
 browsing through the matches with Spacemacs’ =next-error= and =previous-error=
-bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e~).
+bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e .~).
 
 **** Searching in current file
 
@@ -2733,34 +2736,36 @@ Navigation between the highlighted symbols can be done with the commands:
 | ~SPC s H~   | go to the last searched occurrence of the last highlighted symbol                  |
 | ~SPC t h a~ | toggle automatic highlight of symbol under point after =ahs-idle-interval= seconds |
 
-In “Spacemacs” highlight symbol transient state:
+During the symbol highlight transient state, the following bindings are active:
 
-| Key Binding   | Description                                                   |
-|---------------+---------------------------------------------------------------|
-| ~e~           | edit occurrences (*)                                          |
-| ~n~           | go to next occurrence                                         |
-| ~N~           | go to previous occurrence                                     |
-| ~d~           | go to next definition occurrence                              |
-| ~D~           | go to previous definition occurrence                          |
-| ~r~           | change range (=function=, =display area=, =whole buffer=)     |
-| ~R~           | go to home occurrence (reset position to starting occurrence) |
-| Any other key | leave the navigation transient state                          |
+| Key Binding | Description                                                   |
+|-------------+---------------------------------------------------------------|
+| ~e~         | edit occurrences (*)                                          |
+| ~n~         | go to next occurrence                                         |
+| ~N~ or ~p~  | go to previous occurrence                                     |
+| ~d~         | go to next definition occurrence                              |
+| ~D~         | go to previous definition occurrence                          |
+| ~r~         | change range (=function=, =display area=, =whole buffer=)     |
+| ~R~         | go to home occurrence (reset position to starting occurrence) |
+| ~s~         | search current buffer for symbol using ivy / helm             |
+| ~b~         | search all open buffers for symbol using ivy / helm           |
+| ~f~         | search files for symbol                                       |
+| ~/~         | search current project for symbol                             |
+| ~z~         | recenter buffer in window                                     |
 
-(*) using [[https://github.com/tsdh/iedit][iedit]] or the default implementation
-of =auto-highlight-symbol=
+(*) using [[https://github.com/tsdh/iedit][iedit]] or the default implementation of =auto-highlight-symbol=
 
-The transient state text in minibuffer display the following information:
+The minibuffer displays the following information during the transient state:
 
 #+BEGIN_EXAMPLE
-  <M> [6/11]* press (n/N) to navigate, (e) to edit, (r) to change range or (R)
-  for reset
+  Buffer [6/11]*
 #+END_EXAMPLE
 
-Where =<M> [x/y]*= is:
-- M: the current range mode
-- =<B>=: whole buffer range
-- =<D>=: current display range
-- =<F>=: current function range
+Where =M [x/y]*= indicates:
+- =M=: the current search scope, which is one of the following:
+  - =Buffer=: whole buffer range
+  - =Display=: current display range
+  - =Function=: current function range (dependent on the programming language major mode)
 - =x=: the index of the current highlighted occurrence
 - =y=: the total number of occurrences
 - =*=: appears if there is at least one occurrence which is not currently visible.
@@ -2790,12 +2795,11 @@ text on the kill ring.
 For example if you copy =foo= and =bar= then press ~p~ the text =bar= will
 be pasted, pressing ~C-j~ will replace =bar= with =foo=.
 
-| Key Binding   | Description                                                                   |
-|---------------+-------------------------------------------------------------------------------|
-| ~p~ or ~P~    | paste the text before or after point and initiate the =paste= transient state |
-| ~C-j~         | in transient state: replace paste text with the previously copied one         |
-| ~C-k~         | in transient state: replace paste text with the next copied one               |
-| Any other key | leave the transient state                                                     |
+| Key Binding | Description                                                                   |
+|-------------+-------------------------------------------------------------------------------|
+| ~p~ or ~P~  | paste the text before or after point and initiate the =paste= transient state |
+| ~C-j~       | in transient state: replace paste text with the previously copied one         |
+| ~C-k~       | in transient state: replace paste text with the next copied one               |
 
 **** Auto-indent pasted text
 By default any pasted text will be auto-indented. To paste text un-indented use
@@ -2907,17 +2911,21 @@ It is possible to enable it easily for /all programming modes/ with the variable
 **** Text
 The font size of the current buffer can be adjusted with the commands:
 
-| Key Binding   | Description                                                                    |
-|---------------+--------------------------------------------------------------------------------|
-| ~SPC z x +~   | scale up the font and initiate the font scaling transient state                |
-| ~SPC z x =~   | scale up the font and initiate the font scaling transient state                |
-| ~SPC z x -~   | scale down the font and initiate the font scaling transient state              |
-| ~SPC z x 0~   | reset the font size (no scaling) and initiate the font scaling transient state |
-| ~+~           | increase the font size                                                         |
-| ~=~           | increase the font size                                                         |
-| ~-~           | decrease the font size                                                         |
-| ~0~           | reset the font size                                                            |
-| Any other key | leave the font scaling transient state                                         |
+| Key Binding | Description                                                                    |
+|-------------+--------------------------------------------------------------------------------|
+| ~SPC z x +~ | scale up the font and initiate the font scaling transient state                |
+| ~SPC z x =~ | scale up the font and initiate the font scaling transient state                |
+| ~SPC z x -~ | scale down the font and initiate the font scaling transient state              |
+| ~SPC z x 0~ | reset the font size (no scaling) and initiate the font scaling transient state |
+
+In the transient state:
+
+| Key Binding | Description            |
+|-------------+------------------------|
+| ~+~         | increase the font size |
+| ~=~         | increase the font size |
+| ~-~         | decrease the font size |
+| ~0~         | reset the font size    |
 
 Note that /only/ the text of the current buffer is scaled, the other buffers,
 the mode-line and the minibuffer are not affected. To zoom the whole content of
@@ -2926,17 +2934,16 @@ a frame use the =zoom frame= bindings (see next section).
 **** Frame
 You can zoom in and out the whole content of the frame with the commands:
 
-| Key Binding   | Description                                                                 |
-|---------------+-----------------------------------------------------------------------------|
-| ~SPC z f +~   | zoom in the frame content and initiate the frame scaling transient state    |
-| ~SPC z f =~   | zoom in the frame content and initiate the frame scaling transient state    |
-| ~SPC z f -~   | zoom out the frame content and initiate the frame scaling transient state   |
-| ~SPC z f 0~   | reset the frame content size and initiate the frame scaling transient state |
-| ~+~           | zoom in                                                                     |
-| ~=~           | zoom in                                                                     |
-| ~-~           | zoom out                                                                    |
-| ~0~           | reset zoom                                                                  |
-| Any other key | leave the zoom frame transient state                                        |
+| Key Binding | Description                                                                 |
+|-------------+-----------------------------------------------------------------------------|
+| ~SPC z f +~ | zoom in the frame content and initiate the frame scaling transient state    |
+| ~SPC z f =~ | zoom in the frame content and initiate the frame scaling transient state    |
+| ~SPC z f -~ | zoom out the frame content and initiate the frame scaling transient state   |
+| ~SPC z f 0~ | reset the frame content size and initiate the frame scaling transient state |
+| ~+~         | zoom in                                                                     |
+| ~=~         | zoom in                                                                     |
+| ~-~         | zoom out                                                                    |
+| ~0~         | reset zoom                                                                  |
 
 *** Increase/Decrease numbers
 Spacemacs uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily increase or decrease numbers.
@@ -2946,13 +2953,12 @@ Spacemacs uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily 
 | ~SPC n +~   | increase the number under point by one and initiate transient state |
 | ~SPC n -~   | decrease the number under point by one and initiate transient state |
 
-In transient state:
+In the transient state:
 
-| Key Binding   | Description                            |
-|---------------+----------------------------------------|
-| ~+~           | increase the number under point by one |
-| ~-~           | decrease the number under point by one |
-| Any other key | leave the transient state              |
+| Key Binding | Description                            |
+|-------------+----------------------------------------|
+| ~+~         | increase the number under point by one |
+| ~-~         | decrease the number under point by one |
 
 *Tips:* you can increase or decrease a value by more that once by using a prefix
 argument (i.e. ~10 SPC n +~ will add 10 to the number under point).
@@ -3300,10 +3306,10 @@ To search in a project see [[#searching-in-a-project][project searching]].
 | ~SPC s k p~ | run =ack=                                                                                |
 | ~SPC s t p~ | run =pt=                                                                                 |
 | ~SPC s r p~ | run =rg=                                                                                 |
-| ~SPC f y C~ | show and copy current file path relaitve to the project root with line and column number |
-| ~SPC f y D~ | show and copy current directory path relaitve to the project root                        |
-| ~SPC f y L~ | show and copy current file path relaitve to the project root with line number            |
-| ~SPC f y Y~ | show and copy current file path relaitve to the project root                             |
+| ~SPC f y C~ | show and copy current file path relative to the project root with line and column number |
+| ~SPC f y D~ | show and copy current directory path relative to the project root                        |
+| ~SPC f y L~ | show and copy current file path relative to the project root with line number            |
+| ~SPC f y Y~ | show and copy current file path relative to the project root                             |
 
 *Note for Windows Users*: To enable fast indexing the GNU ~find~ or
 Cygwin ~find~ must be in your ~PATH~.
@@ -3341,7 +3347,16 @@ browse errors from flycheck as well as errors from compilation buffers, and
 indeed anything that supports Emacs’ =next-error= API. This includes for example
 search results that have been saved to a separate buffer.
 
-Custom fringe bitmaps:
+*** Error transient state
+The following key bindings are active in the error transient state:
+
+| Key Binding | Description               |
+|-------------+---------------------------|
+| ~n~         | jump to next error        |
+| ~N~ or ~p~  | jump to previous error    |
+| ~z~         | recenter buffer in window |
+
+*** Custom fringe bitmaps
 
 | Symbol                   | Description |
 |--------------------------+-------------|

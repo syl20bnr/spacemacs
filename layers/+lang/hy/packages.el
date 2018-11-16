@@ -12,6 +12,7 @@
 (setq hy-packages
       '(
         company
+        evil-cleverparens
         hy-mode
         ob-hy
         pyenv-mode
@@ -24,6 +25,11 @@
   (spacemacs|add-company-backends
     :backends company-hy
     :modes hy-mode inferior-hy-mode))
+
+(defun hy/pre-init-evil-cleverparens ()
+  (spacemacs|use-package-add-hook evil-cleverparens
+    :pre-init
+    (add-to-list 'evil-lisp-safe-structural-editing-modes 'hy-mode)))
 
 (defun hy/init-hy-mode ()
   (use-package hy-mode
