@@ -1967,7 +1967,7 @@ RNAME is the name symbol of another existing layer."
     (if (file-directory-p location)
         (file-name-as-directory location)
       (configuration-layer//warning
-       "Location path for package %S does not exists (value: %s)."
+       "Location path for package %S does not exist (value: %s)."
        pkg-name location)
       nil))
    ((eq 'local location)
