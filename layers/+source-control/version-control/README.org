@@ -180,26 +180,27 @@ A transient buffer is also defined, start it with ~SPC m .~ or ~, .~
 | ~f~          | show in a buffer the file revision indicated by the current line               |
 
 ** Version Control Transient-state
+Use ~SPC g .~ to enter a transient state for quickly navigating between hunks in a buffer. During that state, the following bindings are active:
 
 | Key Binding | Description                  |
 |-------------+------------------------------|
-| ~SPC g . h~ | Show diff of hunk            |
-| ~SPC g . n~ | Next hunk                    |
-| ~SPC g . N~ | Previous hunk                |
-| ~SPC g . p~ | Previous hunk                |
-| ~SPC g . r~ | Revert hunk                  |
-| ~SPC g . s~ | Stage hunk                   |
-| ~SPC g . t~ | Toggle margin indicators     |
-| ~SPC g . w~ | Stage file                   |
-| ~SPC g . u~ | Unstage file                 |
-| ~SPC g . d~ | Repo diff popup              |
-| ~SPC g . D~ | Show diffs of unstaged hunks |
-| ~SPC g . c~ | Commit with popup            |
-| ~SPC g . C~ | Commit                       |
-| ~SPC g . P~ | Push repo with popup         |
-| ~SPC g . f~ | Fetch for repo with popup    |
-| ~SPC g . F~ | Pull repo with popup         |
-| ~SPC g . l~ | Show repo log                |
+| ~h~         | Show diff of hunk            |
+| ~n~         | Next hunk                    |
+| ~N~ or ~p~  | Previous hunk                |
+| ~r~         | Revert hunk                  |
+| ~s~         | Stage hunk                   |
+| ~t~         | Toggle margin indicators     |
+| ~w~         | Stage file                   |
+| ~u~         | Unstage file                 |
+| ~d~         | Repo diff popup              |
+| ~D~         | Show diffs of unstaged hunks |
+| ~c~         | Commit with popup            |
+| ~C~         | Commit                       |
+| ~P~         | Push repo with popup         |
+| ~f~         | Fetch for repo with popup    |
+| ~F~         | Pull repo with popup         |
+| ~l~         | Show repo log                |
+| ~z~         | Recenter buffer in window    |
 
 ** Smerge Mode Transient-state
 

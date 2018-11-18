@@ -331,6 +331,24 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m d x~   | clear workspace traces and log                     |
 
 *** Refactoring
+The following refactoring key bindings are enabled by default in clojure-mode:
+
+| Key Binding   | Description                                                    |
+|---------------+----------------------------------------------------------------|
+| ~SPC m r c i~ | cycle between if and if-not forms                              |
+| ~SPC m r c p~ | cycle privacy of defn and def forms                            |
+| ~SPC m r c (~ | convert coll to list                                           |
+| ~SPC m r c '~ | convert coll to quoted list                                    |
+| ~SPC m r c {~ | convert coll to map                                            |
+| ~SPC m r c #~ | convert coll to set                                            |
+| ~SPC m r c [~ | convert coll to vector                                         |
+| ~SPC m r t f~ | rewrite the following form to use the -> (thread first) macro. |
+| ~SPC m r t l~ | rewrite the following form to use the ->> (thread last) macro. |
+| ~SPC m r t h~ | thread another form into the surrounding threading macro       |
+| ~SPC m r u a~ | unwind all steps of surrounding threading macro                |
+| ~SPC m r u w~ | unwind threading macro one step at a time                      |
+
+The following refactorings require cljr-refactor to be enabled and generally depend on a connected CIDER session.
 
 | Key Binding   | Description                       |
 |---------------+-----------------------------------|
@@ -341,15 +359,8 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m r a p~ | add project dependency            |
 | ~SPC m r a r~ | add require to ns                 |
 | ~SPC m r a u~ | add use to ns                     |
-| ~SPC m r c (~ | convert coll to list              |
-| ~SPC m r c '~ | convert coll to quoted list       |
-| ~SPC m r c {~ | convert coll to map               |
-| ~SPC m r c #~ | convert coll to set               |
-| ~SPC m r c [~ | convert coll to vector            |
 | ~SPC m r c :~ | toggle between keyword and string |
-| ~SPC m r c i~ | cycle if                          |
 | ~SPC m r c n~ | clean ns                          |
-| ~SPC m r c p~ | cycle privacy                     |
 | ~SPC m r d k~ | destructure keys                  |
 | ~SPC m r e c~ | extract constant                  |
 | ~SPC m r e d~ | extract definition                |
@@ -374,12 +385,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m r s p~ | sort project dependencies         |
 | ~SPC m r s r~ | stop referring                    |
 | ~SPC m r s c~ | show changelog                    |
-| ~SPC m r t f~ | thread first all                  |
-| ~SPC m r t h~ | thread                            |
-| ~SPC m r t l~ | thread last all                   |
-| ~SPC m r u a~ | unwind all                        |
 | ~SPC m r u p~ | update project dependencies       |
-| ~SPC m r u w~ | unwind                            |
 
 *** Reformatting
 

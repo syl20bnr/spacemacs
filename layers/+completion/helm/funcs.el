@@ -565,7 +565,7 @@ not set to any window (but in the case of files, they are still opened
 to buffers)."
   (let ((num-buffers (length buffers))
         (num-windows (length (winum--window-list)))
-        (cur-win (winum-get-number))
+        (cur-win (or (winum-get-number) (winum-get-number (other-window 1))))
         (num-buffers-placed 0))
     (cl-loop for buffer in buffers do
              (when (>= num-buffers-placed num-windows) cl-return)
