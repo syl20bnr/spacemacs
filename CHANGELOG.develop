@@ -1417,7 +1417,8 @@ Benner and Paweł Siudak):
 - Add colemak-jkhl layout (thanks to fmdkdd)
 - Disambiguate the colemak-hnei and colemak-neio layouts (thanks to fmdkdd)
 - Improve support for workman keyboard layout (thanks to Benjamin Reynolds)
-- after-config hooks for lazy-loaded packages (thanks to CharlesHD)
+- Add =after-config= hooks for lazy-loaded packages (thanks to CharlesHD)
+- Add undo-tree visualizer mapping (thanks to CharlesHD)
 **** LaTeX
 - New package =magic-latex-buffer= (thanks to benquebec)
 - New layer variable =latex-enable-magic= to enable =magic= symbols in latex
