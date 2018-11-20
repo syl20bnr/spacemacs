@@ -9,7 +9,6 @@
 ;;
 ;;; License: GPLv3
 
-
 (defconst factor-packages
   '(
     ;; Assume that factor is installed, and emacs lisp files are correctly

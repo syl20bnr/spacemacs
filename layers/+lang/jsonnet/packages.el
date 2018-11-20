@@ -9,7 +9,11 @@
 ;;
 ;;; License: GPLv3
 
-(setq jsonnet-packages '(jsonnet-mode flycheck))
+(setq jsonnet-packages
+      '(
+        jsonnet-mode
+        flycheck
+        ))
 
 (defun javascript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'jsonnet-mode))

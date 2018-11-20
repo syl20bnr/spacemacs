@@ -10,11 +10,11 @@
 ;;; License: GPLv3
 
 (setq syntax-checking-packages
-  '(
-    flycheck
-    flycheck-pos-tip
-    popwin
-    ))
+      '(
+        flycheck
+        flycheck-pos-tip
+        popwin
+        ))
 
 (defun syntax-checking/init-flycheck ()
   (use-package flycheck

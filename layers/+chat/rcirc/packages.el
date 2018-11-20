@@ -10,18 +10,18 @@
 ;;; License: GPLv3
 
 (setq rcirc-packages
-  '(
-    company
-    company-emoji
-    emoji-cheat-sheet-plus
-    flyspell
-    (helm-rcirc :location local
-                :requires helm)
-    persp-mode
-    rcirc
-    rcirc-color
-    rcirc-notify
-    ))
+      '(
+        company
+        company-emoji
+        emoji-cheat-sheet-plus
+        flyspell
+        (helm-rcirc :location local
+                    :requires helm)
+        persp-mode
+        rcirc
+        rcirc-color
+        rcirc-notify
+        ))
 
 (defun rcirc/post-init-company ()
   (spacemacs|add-company-backends :backends company-capf :modes rcirc-mode))

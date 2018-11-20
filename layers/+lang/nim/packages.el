@@ -10,10 +10,12 @@
 ;;; License: GPLv3
 
 (setq nim-packages
-      '(company
+      '(
+        company
         flycheck
         flycheck-nim
-        nim-mode))
+        nim-mode
+        ))
 
 (defun nim/post-init-company ()
   (spacemacs|add-company-backends

@@ -13,11 +13,12 @@
 ;;
 ;;; License: GPLv3
 
-
 ;;; Code:
 (defconst plantuml-packages
-  '(org
-    plantuml-mode))
+  '(
+    org
+    plantuml-mode
+    ))
 
 (defun plantuml/pre-init-org ()
   (spacemacs|use-package-add-hook org

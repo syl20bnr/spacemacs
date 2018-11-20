@@ -10,17 +10,17 @@
 ;;; License: GPLv3
 
 (setq markdown-packages
-  '(
-    company
-    company-emoji
-    emoji-cheat-sheet-plus
-    gh-md
-    markdown-mode
-    markdown-toc
-    mmm-mode
-    smartparens
-    (vmd-mode :toggle (eq 'vmd markdown-live-preview-engine))
-    ))
+      '(
+        company
+        company-emoji
+        emoji-cheat-sheet-plus
+        gh-md
+        markdown-mode
+        markdown-toc
+        mmm-mode
+        smartparens
+        (vmd-mode :toggle (eq 'vmd markdown-live-preview-engine))
+        ))
 
 (defun markdown/post-init-company ()
   (dolist (mode markdown--key-bindings-modes)

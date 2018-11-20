@@ -14,8 +14,10 @@
 ;;; Code:
 
 (defconst emberjs-packages
-  '(ember-mode
-    ember-yasnippets))
+  '(
+    ember-mode
+    ember-yasnippets
+    ))
 
 (defun emberjs/init-ember-mode ()
   (use-package ember-mode

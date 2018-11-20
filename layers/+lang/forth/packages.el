@@ -9,8 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(defconst forth-packages
-  '(forth-mode))
+(defconst forth-packages '(forth-mode))
 
 (defun forth/init-forth-mode ()
   (use-package forth-mode

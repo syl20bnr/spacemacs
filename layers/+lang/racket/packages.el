@@ -10,15 +10,15 @@
 ;;; License: GPLv3
 
 (setq racket-packages
-  '(
-    company
-    company-quickhelp
-    ggtags
-    counsel-gtags
-    evil-cleverparens
-    helm-gtags
-    racket-mode
-    ))
+      '(
+        company
+        company-quickhelp
+        ggtags
+        counsel-gtags
+        evil-cleverparens
+        helm-gtags
+        racket-mode
+        ))
 
 (defun racket/post-init-company ()
   ;; this is the only thing to do to enable company in racket-mode

@@ -9,8 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(defconst phoenix-packages
-  '(alchemist))
+(defconst phoenix-packages '(alchemist))
 
 (defun phoenix/post-init-alchemist ()
   (progn

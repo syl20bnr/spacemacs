@@ -9,8 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq templates-packages
-      '(yatemplate))
+(setq templates-packages '(yatemplate))
 
 (defun templates/init-yatemplate ()
   (use-package yatemplate
