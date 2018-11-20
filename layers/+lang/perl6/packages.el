@@ -10,7 +10,8 @@
 ;;; License: GPLv3
 
 (defconst perl6-packages
-  '(company
+  '(
+    company
     evil
     flycheck
     (flycheck-perl6 :requires flycheck)

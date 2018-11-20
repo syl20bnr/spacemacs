@@ -10,20 +10,20 @@
 ;;; License: GPLv3
 
 (setq elixir-packages
-  '(
-    alchemist
-    company
-    elixir-mode
-    flycheck
-    flycheck-mix
-    flycheck-credo
-    ggtags
-    counsel-gtags
-    helm-gtags
-    ob-elixir
-    popwin
-    smartparens
-    ))
+      '(
+        alchemist
+        company
+        elixir-mode
+        flycheck
+        flycheck-mix
+        flycheck-credo
+        ggtags
+        counsel-gtags
+        helm-gtags
+        ob-elixir
+        popwin
+        smartparens
+        ))
 
 (defun elixir/post-init-company ()
   (when (configuration-layer/package-used-p 'alchemist)

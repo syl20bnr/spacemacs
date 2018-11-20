@@ -10,10 +10,10 @@
 ;;; License: GPLv3
 
 (defconst protobuf-packages
-      '(
-        flycheck
-        protobuf-mode
-        ))
+  '(
+    flycheck
+    protobuf-mode
+    ))
 
 (defun protobuf/post-init-flycheck ()
   (spacemacs/enable-flycheck 'protobuf-mode))

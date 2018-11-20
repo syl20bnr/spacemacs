@@ -2,7 +2,6 @@
 ;;
 ;; This file is not part of GNU Emacs.
 
-
 (defconst factor-packages
   '(
     ;; Assume that factor is installed, and emacs lisp files are correctly

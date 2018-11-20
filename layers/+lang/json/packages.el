@@ -9,7 +9,6 @@
 ;;
 ;;; License: GPLv3
 
-
 (setq json-packages
       '(
         add-node-modules-path

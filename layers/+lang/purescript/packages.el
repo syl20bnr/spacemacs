@@ -9,14 +9,15 @@
 ;;
 ;;; License: GPLv3
 
-
 (setq purescript-packages
-  '(company
-    flycheck
-    purescript-mode
-    psci
-    psc-ide
-    popwin))
+      '(
+        company
+        flycheck
+        purescript-mode
+        psci
+        psc-ide
+        popwin
+        ))
 
 (defun purescript/post-init-company ()
   (when (configuration-layer/package-used-p 'psc-ide)

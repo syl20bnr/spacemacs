@@ -10,11 +10,13 @@
 ;;; License: GPLv3
 
 (defconst treemacs-packages
-  '(golden-ratio
+  '(
+    golden-ratio
     treemacs
     (treemacs-evil :toggle (memq dotspacemacs-editing-style '(vim hybrid)))
     treemacs-projectile
-    winum))
+    winum
+    ))
 
 (defun treemacs/pre-init-golden-ratio ()
   (spacemacs|use-package-add-hook golden-ratio

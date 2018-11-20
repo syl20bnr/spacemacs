@@ -15,7 +15,8 @@
         ess-R-data-view
         (ess-smart-equals :toggle ess-enable-smart-equals)
         golden-ratio
-        org))
+        org
+        ))
 
 (defun ess/init-ess ()
   (use-package ess-site

@@ -9,10 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq django-packages
-  '(
-    pony-mode
-    ))
+(setq django-packages '(pony-mode))
 
 (defun django/init-pony-mode ()
   (use-package pony-mode

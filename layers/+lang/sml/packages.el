@@ -10,11 +10,11 @@
 ;;; License: GPLv3
 
 (setq sml-packages
-  '(
-    sml-mode
-    ob-sml
-    smartparens
-    ))
+      '(
+        sml-mode
+        ob-sml
+        smartparens
+        ))
 
 (defun sml/init-sml-mode ()
   (use-package sml-mode

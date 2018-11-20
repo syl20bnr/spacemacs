@@ -10,21 +10,21 @@
 ;;; License: GPLv3
 
 (setq rust-packages
-  '(
-    cargo
-    company
-    counsel-gtags
-    racer
-    flycheck
-    (flycheck-rust :requires flycheck)
-    ggtags
-    helm-gtags
-    rust-mode
-    smartparens
-    toml-mode
-    ;; packages for lsp-rust
-    (lsp-rust :requires lsp-mode)
-    ))
+      '(
+        cargo
+        company
+        counsel-gtags
+        racer
+        flycheck
+        (flycheck-rust :requires flycheck)
+        ggtags
+        helm-gtags
+        rust-mode
+        smartparens
+        toml-mode
+        ;; packages for lsp-rust
+        (lsp-rust :requires lsp-mode)
+        ))
 
 (defun rust/init-cargo ()
   (use-package cargo
