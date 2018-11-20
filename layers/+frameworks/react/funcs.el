@@ -1,4 +1,6 @@
-;;; funcs.el --- react layer funcs file for Spacemacs. -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
+;;
+;;; funcs.el --- react layer funcs file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

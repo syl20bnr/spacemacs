@@ -1,4 +1,6 @@
-;;; config.el --- react layer config file for Spacemacs. -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
+;;
+;;; config.el --- react layer config file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

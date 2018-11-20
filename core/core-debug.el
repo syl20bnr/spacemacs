@@ -1,4 +1,6 @@
-;;; core-debug.el --- Spacemacs Core File  -*- lexical-binding: t; -*-
+;; -*- lexical-binding: t -*-
+;;
+;;; core-debug.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

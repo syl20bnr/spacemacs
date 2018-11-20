@@ -1,4 +1,6 @@
-;; flycheck-eclim.el --- an interface to the Eclipse IDE. -*- lexical-binding: t; -*-
+;; -*- lexical-binding: t -*-
+;;
+;; flycheck-eclim.el --- an interface to the Eclipse IDE.
 ;;
 ;; Copyright (C) 2015 Łukasz Klich
 ;;

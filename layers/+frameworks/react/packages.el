@@ -1,4 +1,6 @@
-;;; packages.el --- react layer packages file for Spacemacs. -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
+;;
+;;; packages.el --- react layer packages file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

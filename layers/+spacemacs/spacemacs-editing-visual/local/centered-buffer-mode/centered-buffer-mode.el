@@ -1,4 +1,6 @@
-;;; centered-buffer-mode.el --- Centering minor mode -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
+;;
+;;; centered-buffer-mode.el --- Centering minor mode
 ;;
 ;; Copyright (C) 2012-2018 Sylvain Benner & Contributors
 ;;

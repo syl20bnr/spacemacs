@@ -1,4 +1,6 @@
-;;; space-doc.el --- Spacemacs org minor mode. -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
+;;
+;;; space-doc.el --- Spacemacs org minor mode.
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

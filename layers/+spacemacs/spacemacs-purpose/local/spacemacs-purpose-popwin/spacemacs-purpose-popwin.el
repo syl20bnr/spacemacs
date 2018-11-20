@@ -1,4 +1,6 @@
-;;; spacemacs-purpose-popwin.el --- Purpose extension to act like Popwin -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
+
+;;; spacemacs-purpose-popwin.el --- Purpose extension to act like Popwin
 
 ;;; Commentary:
 
