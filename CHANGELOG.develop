@@ -2240,6 +2240,8 @@ Other:
 - Avoid loading all the diff packages (thanks to Sylvain Benner)
 - Fixed error on =diff-hl-margin-mode= function being nil during startup (thanks
   to Voleking)
+**** Xclipboard
+- Added Requirements documentation (thanks to Chris Glass)
 **** Ycmd
 - Search for =compile_commands.json= in build sub-directory
   (thanks to Amos Bird and Eivind Fonn)
