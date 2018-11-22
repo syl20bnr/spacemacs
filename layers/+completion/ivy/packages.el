@@ -139,10 +139,10 @@
   (spacemacs|use-package-add-hook projectile
     :post-init
     (progn
-      (setq projectile-switch-project-action 'counsel-projectile-find-file)
+      (setq projectile-switch-project-action 'counsel-projectile-find-file-action-root)
 
       (ivy-set-actions
-       'counsel-projectile-find-file
+       'counsel-projectile-find-file-action-root
        (append spacemacs--ivy-file-actions
                '(("R" (lambda (arg)
                         (interactive)
