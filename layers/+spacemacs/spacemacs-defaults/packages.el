@@ -14,7 +14,7 @@
         (abbrev :location built-in)
         (archive-mode :location built-in)
         (bookmark :location built-in)
-        (conf-mode :location built-in)
+        ;;(conf-mode :location built-in)
         (dired :location built-in)
         (dired-x :location built-in)
         (display-line-numbers :location built-in
@@ -33,8 +33,8 @@
         (page-break-lines :location built-in)
         (process-menu :location built-in)
         (recentf :location built-in)
-        (savehist :location built-in)
-        (saveplace :location built-in)
+        ;;(savehist :location built-in)
+        ;;(saveplace :location built-in)
         (subword :location built-in)
         (tar-mode :location built-in)
         (uniquify :location built-in)
@@ -42,7 +42,7 @@
         (visual-line-mode :location built-in)
         (whitespace :location built-in)
         (winner :location built-in)
-        (zone :location built-in)
+        ;; (zone :location built-in)
         ))
 
 ;; Initialization of packages
