@@ -1475,7 +1475,9 @@ Decision is based on `dotspacemacs-line-numbers'."
          ;; a more sensible default than enabling in all buffers - including
          ;; Magit buffers, terminal buffers, etc. But don't include prog-mode or
          ;; text-mode if they're explicitly disabled by user
-         (enabled-for-modes (or user-enabled-for-modes
+         (enabled-for-modes (or (if (memq 'defaults user-enabled-for-modes)
+                                    (cons 'prog-mode (cons 'text-mode user-enabled-for-modes))
+                                  user-enabled-for-modes)
                                 (seq-difference '(prog-mode text-mode)
                                                 disabled-for-modes
                                                 #'eq)))

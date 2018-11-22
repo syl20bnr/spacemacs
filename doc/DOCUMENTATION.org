@@ -1331,6 +1331,13 @@ Enable *line numbers* everywhere, even in non-prog-mode and non-text-mode buffer
   (setq-default dotspacemacs-line-numbers '(:enabled-for-modes 'all))
 #+END_SRC
 
+Enable *line numbers* in tuareg-mode, but keep the enabled-by-default ones:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-line-numbers '(:enabled-for-modes defaults
+                                                               tuareg-mode))
+#+END_SRC
+
 ** Mode-line
 *** Mode-line themes
 Spacemacs supports different mode-line themes. The mode-line theme is set in the
