@@ -49,7 +49,7 @@
     :init
     (progn
       (add-to-list 'auto-mode-alist
-                   `("\\.h\\'" . ,c-c++-default-mode-for-headers))
+        `("\\.h\\'" . ,c-c++-default-mode-for-headers))
       (when c-c++-enable-auto-newline
         (add-hook 'c-mode-common-hook 'spacemacs//c-toggle-auto-newline)))
     :config
@@ -259,15 +259,15 @@
       (spacemacs/set-leader-keys-for-major-mode mode "gi" 'cscope-index-files))))
 
 ;; BEGIN LSP BACKEND PACKAGES
-
 ;; See also https://github.com/cquery-project/cquery/wiki/Emacs
+;; :mode "\\.c..'" appears to work for deferred loading, in terms of registration with lsp layer
+;; however results in a warning in the log as the package doesn't define a function 'cquery'
+;; So probably preferable not to defer
 (defun c-c++/init-cquery ()
   (use-package cquery
     :if (eq c-c++-backend 'lsp-cquery)
-    :defer t
-    :commands lsp-cquery-enable
     :init
-    (add-hook 'c-mode-common-hook #'spacemacs//c-c++-lsp-enable)
+    (add-hook 'c-mode-common-hook 'lsp)
     :config
     (spacemacs//c-c++-lsp-config)))
 
@@ -275,10 +275,8 @@
 (defun c-c++/init-ccls ()
   (use-package ccls
     :if (eq c-c++-backend 'lsp-ccls)
-    :defer t
-    :commands lsp-ccls-enable
     :init
-    (add-hook 'c-mode-common-hook #'spacemacs//c-c++-lsp-enable)
+    (add-hook 'c-mode-common-hook 'lsp)
     :config
     (spacemacs//c-c++-lsp-config)))
 
