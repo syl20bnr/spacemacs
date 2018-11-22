@@ -225,28 +225,27 @@ and the arguments for flyckeck-clang based on a project-specific text file."
   (spacemacs//c-c++-lsp-set-config (intern (concat "c-c++-lsp-" suffix)) nil (concat "-" suffix)))
 ;; -- END helper functions for common configuration of cquery and ccls backends
 
-
-(defun spacemacs//c-c++-lsp-enable ()
-  "Enable the LSP backend specified by the `c-c++-backend' configuration variable."
-    (progn (condition-case nil
-             (spacemacs//c-c++-lsp-call-function "lsp-" "-enable")
-             (user-error nil))))
-
 (defun spacemacs//c-c++-lsp-config ()
   "Configure the LSP backend specified by the `c-c++-backend' configuration variable."
     (progn
-      (spacemacs//c-c++-lsp-setup-company)
       (spacemacs//c-c++-lsp-define-extensions)
       (spacemacs//c-c++-lsp-wrap-functions)
       (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-gcc))
+
+      (dolist (param '("executable" "extra-init-params" "initialization-options" "extra-args" "project-whitelist" "project-blacklist" "sem-highlight-method"))
+        (spacemacs//c-c++-lsp-apply-config param))
 
       (if (eq c-c++-lsp-cache-dir nil)
         (progn
           (setq c-c++-lsp-cache-dir (file-truename(concat "~/.emacs.d/.cache/" (symbol-name c-c++-backend))))
           (message (concat "c-c++: No c-c++-lsp-cache-dir specified: defaulting to " c-c++-lsp-cache-dir))))
 
-      (dolist (param '("executable" "extra-init-params" "cache-dir" "project-whitelist" "project-blacklist" "sem-highlight-method"))
-        (spacemacs//c-c++-lsp-apply-config param))
+      (ecase c-c++-backend
+        ('lsp-cquery (setq cquery-cache-dir c-c++-lsp-cache-dir))
+        ('lsp-ccls (setq ccls-initialization-options
+                     (if ccls-initialization-options
+                       (append ccls-initialization-options `(:cacheDirectory ,c-c++-lsp-cache-dir))
+                       `(:cacheDirectory ,c-c++-lsp-cache-dir)))))
 
       (when c-c++-lsp-sem-highlight-rainbow
         (unless c-c++-lsp-sem-highlight-method
@@ -258,23 +257,15 @@ and the arguments for flyckeck-clang based on a project-specific text file."
           ('lsp-ccls (ccls-use-default-rainbow-sem-highlight))))
 
       (dolist (mode c-c++-modes)
-        (spacemacs/lsp-bind-keys-for-mode mode)
         (spacemacs//c-c++-lsp-bind-keys-for-mode mode))
 
       (evil-set-initial-state '(spacemacs//c-c++-lsp-symbol nil "-tree-mode") 'emacs)
       ;;evil-record-macro keybinding clobbers q in cquery-tree-mode-map for some reason?
       (evil-make-overriding-map (symbol-value (spacemacs//c-c++-lsp-symbol nil "-tree-mode-map")))))
 
-(defun spacemacs//c-c++-lsp-setup-company ()
-  "Setup LSP backend auto-completion."
-    (progn
-      (spacemacs|add-company-backends :backends company-lsp :modes c-mode-common)
-      ;;Disable client-side cache and sorting, as server does a better job
-      (setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)))
-
 (defun spacemacs//c-c++-lsp-wrap-functions ()
   "Wrap navigation functions for the LSP backend specified by the `c-c++-backend' configuration variable."
-  (defun c-c++/call-hierarchy () (interactive) (spacemacs//c-c++-lsp-funcall-interactively nil "-call-hierarchy" nil))
+  (defun c-c++/call-hierarchy () (interactive) (spacemacs//c-c++-lsp-funcall-interactively nil "-call-hierarchy"))
   (defun c-c++/call-hierarchy-inv () (interactive) (spacemacs//c-c++-lsp-funcall-interactively nil "-call-hierarchy" t))
   (defun c-c++/inheritance-hierarchy () (interactive) (spacemacs//c-c++-lsp-funcall-interactively nil "-inheritance-hierarchy"))
   (defun c-c++/inheritance-hierarchy-inv () (interactive) (spacemacs//c-c++-lsp-funcall-interactively nil "-inheritance-hierarchy" t))
@@ -302,6 +293,7 @@ and the arguments for flyckeck-clang based on a project-specific text file."
     ;; members
     "gmh" #'c-c++/member-hierarchy)
 
+  ;; goto/peek
   (spacemacs/lsp-bind-extensions-for-mode mode "c-c++"
     "&" 'refs-address
     "R" 'refs-read
@@ -312,10 +304,9 @@ and the arguments for flyckeck-clang based on a project-specific text file."
     "hb" 'base) ;;Replace this with lsp-goto-implementation in lsp-layer?
 
   (when (eq c-c++-backend 'lsp-ccls)
-    (spacemacs/set-leader-keys-for-major-mode mode
-      "bR" 'ccls-reload)
     (spacemacs/lsp-bind-extensions-for-mode mode "c-c++"
-      "mc" 'member-classes
+      "hd" 'derived
+      "mt" 'member-types
       "mf" 'member-functions
       "mv" 'member-vars)))
 
@@ -348,6 +339,7 @@ and the arguments for flyckeck-clang based on a project-specific text file."
   (spacemacs/lsp-define-extensions "c-c++" 'callees "$ccls/call" '(:callee t))
   (spacemacs/lsp-define-extensions "c-c++" 'base "$ccls/inheritance")
   ;;ccls features without a cquery analogue...
+  (spacemacs/lsp-define-extensions "c-c++" 'derived "$ccls/inheritance" '(:derived t))
   (spacemacs/lsp-define-extensions "c-c++" 'member-types "$ccls/member" `(:kind 2))
   (spacemacs/lsp-define-extensions "c-c++" 'member-functions "$ccls/member" `(:kind 3))
   (spacemacs/lsp-define-extensions "c-c++" 'member-vars "$ccls/member" `(:kind 0)))

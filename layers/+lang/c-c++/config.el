@@ -76,10 +76,18 @@ if no pattern matches the project root, lsp-c-c++ will be initialized.")
 (defvar c-c++-lsp-sem-highlight-rainbow nil
   "When non-nil, use rainbow semantic highlighting")
 
+(defvar c-c++-lsp-initialization-options nil
+  "Extra initialisation parameters to pass to the ccls backend. See
+https://github.com/MaskRay/ccls/blob/master/src/config.hh
+for details. N.B. cquery still uses the deprecated extra-init-params (below)")
+
 ;; I've left cquery/ccls -extra-init-params separate for now, as one has defaults while the other doesn't
 ;; Just to facilitate switching between the two easily
 (defvar c-c++-lsp-extra-init-params '(:cacheFormat "msgpack")
   "Extra initialisation parameters to pass to the backend. See
 https://github.com/cquery-project/cquery/blob/master/src/config.h or
-https://github.com/MaskRay/ccls/blob/master/src/config.h
 for details.")
+
+(defvar c-c++-lsp-extra-args nil
+  "Extra args to pass to the backend. E.g. to log to file.
+https://github.com/MaskRay/ccls/wiki/Emacs for details")
