@@ -25,7 +25,7 @@ readme]]. In a short summary Treemacs offers the following:
 - Simple and powerful navigation and ability to detail exactly how and where a
   file should be opened
 - Good looking png icons.
-- Display of multiple file trees organized as projects residing in a workpsace.
+- Display of multiple file trees organized as projects residing in a workspace.
 - Ability to show tags contained in files. Tags are provided by imenu, so
   nearly every filetype is supported.
 - Mouse interface for single and double left clicks in line with modern GUI standards.
