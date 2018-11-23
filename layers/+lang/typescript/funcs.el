@@ -156,4 +156,4 @@
 
 (defun spacemacs/typescript-jump-to-type-def ()
   (interactive)
-  (tide-jump-to-definition t))
+  (tide-jump-to-definition))
