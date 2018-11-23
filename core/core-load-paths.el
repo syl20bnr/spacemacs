@@ -81,3 +81,5 @@
 (add-to-list 'custom-theme-load-path (concat spacemacs-core-directory
                                              "libs/spacemacs-theme/"))
 
+(require 'init-color-theme)
+;;(require 'init-windows)
