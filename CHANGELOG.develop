@@ -1489,6 +1489,10 @@ Other:
 - Added missing prefixes for =web-mode= and =css-mode= (thanks to Uroš Perišić)
 **** Hy
 - Added support for virtual envs (thanks to Danny Freeman)
+- Key bindings:
+  - Added ~SPC m h~ prefix for =help=
+  - Added ~SPC m e~ prefix to mirror the eval bindings of other Lisps
+  - Changed ~SPC m s s~ (i.e. =start-or-switch-to-shell=) to ~SPC m '~
 **** Idris
 - Update author email for Idris layer (thanks to Timothy Jones)
 - Enabled =idris-simple-indent= (thanks to Xuan Bi)
