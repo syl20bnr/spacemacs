@@ -1617,6 +1617,8 @@ Benner and Paweł Siudak):
 - Fixed error void: =evil-surround-pairs-alist= (thanks to Sylvain Benner)
 - Add warning against manually loading org (thanks to Maximilian Wolff)
 - Add a toggle for bringing in org-trello (thanks to Magnus Therning)
+- Add the org-mode keybindings to the org-journal major mode (thanks to Marty
+  Buchaus)
 **** Osx
 - Fix OSX mapping issue (thanks to Joey Liu)
 - Added layer variables to customize modifier behaviors on macOS:
