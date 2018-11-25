@@ -170,3 +170,12 @@ This doesn't support the chanserv auth method. "
                 (rcirc-connect host port nick user-name
                                full-name channels password encryption)))
            (process-put process :rcirc-server server)))))))
+
+;; erc-image -----------------------------------------------------------------
+
+(defun spacemacs//rcirc-image-show-url (_sender _response)
+  ;; erc-image's url-queue callback uses erc-fill-prefix, so it must be bound
+  ;; when the callback runs (it would not suffice simply to let-bind it here).
+  (unless (boundp 'erc-fill-prefix)
+    (setq erc-fill-prefix rcirc-fill-prefix))
+  (erc-image-show-url))

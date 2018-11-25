@@ -17,6 +17,9 @@
 (defvar rcirc-enable-emojify nil
   "if non nil then automatically enable emojify-mode in rcirc buffers.")
 
+(defvar rcirc-enable-erc-image nil
+  "if non nil then enable erc-image to display images in rcirc.")
+
 (defvar rcirc-enable-late-fix nil
   "if non nil then enable rcirc-late-fix to show s/// fixes in rcirc buffers.")
 

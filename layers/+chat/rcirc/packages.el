@@ -15,6 +15,7 @@
         company-emoji
         emoji-cheat-sheet-plus
         emojify
+        (erc-image :toggle rcirc-enable-erc-image)
         flyspell
         (helm-rcirc :location local
                     :requires helm)
@@ -42,6 +43,18 @@
     (use-package emojify
       :hook (rcirc-mode . emojify-mode)
       :if rcirc-enable-emojify)))
+
+(defun rcirc/init-erc-image ()
+  (spacemacs|use-package-add-hook rcirc
+    :post-config
+    (use-package erc-image
+      :if rcirc-enable-erc-image
+      :init (with-eval-after-load 'rcirc
+              (setq erc-image-images-path (concat spacemacs-cache-directory
+                                                  "erc-image/"))
+              (make-directory erc-image-images-path t)
+              (add-hook 'rcirc-markup-text-functions
+                        #'spacemacs//rcirc-image-show-url)))))
 
 (defun rcirc/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'rcirc-mode-hook))

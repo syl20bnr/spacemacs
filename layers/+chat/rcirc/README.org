@@ -20,6 +20,7 @@
       - [[#note][Note]]
   - [[#enabling-sfoobar][Enabling =s/foo/bar/=]]
   - [[#enabling-emojify-mode][Enabling emojify-mode]]
+  - [[#enabling-erc-image][Enabling erc-image]]
   - [[#enabling-rcirc-styles][Enabling rcirc-styles]]
 - [[#key-bindings][Key bindings]]
 - [[#rcirc-documentation][Rcirc documentation]]
@@ -187,6 +188,15 @@ to =t= in your dotfile:
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (rcirc :variables rcirc-enable-emojify t)))
+#+END_SRC
+
+** Enabling erc-image
+To enable erc-image for fetching and showing images when they are linked to in
+chat, set the variable =rcirc-enable-erc-image= to =t= in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (rcirc :variables rcirc-enable-erc-image t)))
 #+END_SRC
 
 ** Enabling rcirc-styles
