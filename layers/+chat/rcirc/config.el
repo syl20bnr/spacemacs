@@ -14,6 +14,9 @@
 (defvar rcirc-enable-authinfo-support nil
   "if non nil then authentication uses authinfo.")
 
+(defvar rcirc-enable-emojify nil
+  "if non nil then automatically enable emojify-mode in rcirc buffers.")
+
 (defvar rcirc-enable-late-fix nil
   "if non nil then enable rcirc-late-fix to show s/// fixes in rcirc buffers.")
 
