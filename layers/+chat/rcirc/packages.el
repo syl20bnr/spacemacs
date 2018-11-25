@@ -17,6 +17,7 @@
         emojify
         (erc-image :toggle rcirc-enable-erc-image)
         (erc-tweet :toggle rcirc-enable-erc-tweet)
+        (erc-yt :toggle rcirc-enable-erc-yt)
         flyspell
         (helm-rcirc :location local
                     :requires helm)
@@ -68,6 +69,18 @@
               (make-directory erc-tweet-cache-dir t)
               (add-hook 'rcirc-markup-text-functions
                         #'spacemacs//rcirc-tweet-show-tweet)))))
+
+(defun rcirc/init-erc-yt ()
+  (spacemacs|use-package-add-hook rcirc
+    :post-config
+    (use-package erc-yt
+      :if rcirc-enable-erc-yt
+      :init
+      (with-eval-after-load 'rcirc
+        (setq erc-yt-cache-dir (concat spacemacs-cache-directory "erc-yt/"))
+        (make-directory erc-yt-cache-dir t)
+        (add-hook 'rcirc-markup-text-functions
+                  #'spacemacs//rcirc-youtube-show-info)))))
 
 (defun rcirc/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'rcirc-mode-hook))

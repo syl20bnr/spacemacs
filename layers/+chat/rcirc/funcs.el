@@ -178,6 +178,11 @@ This doesn't support the chanserv auth method. "
     (setq erc-fill-prefix rcirc-fill-prefix))
   (erc-image-show-url))
 
+;; erc-yt --------------------------------------------------------------------
+
+(defun spacemacs//rcirc-youtube-show-info (_sender _response)
+  (erc-yt-show-info))
+
 ;; erc-tweet --------------------------------------------------------------------
 
 (defun spacemacs//rcirc-tweet-show-tweet (_sender _response)

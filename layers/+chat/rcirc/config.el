@@ -23,6 +23,9 @@
 (defvar rcirc-enable-erc-tweet nil
   "if non nil then enable erc-tweet to display tweets in rcirc.")
 
+(defvar rcirc-enable-erc-yt nil
+  "if non nil then enable erc-yt to display YouTube previews in rcirc.")
+
 (defvar rcirc-enable-late-fix nil
   "if non nil then enable rcirc-late-fix to show s/// fixes in rcirc buffers.")
 

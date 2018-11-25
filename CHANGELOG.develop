@@ -1990,6 +1990,8 @@ Other:
   package in rcirc for showing linked images in chat (disabled by default).
 - New variable =rcirc-enable-erc-tweet= to enable or disable the =erc-tweet=
   package in rcirc for showing linked tweets in chat (disabled by default).
+- New variable =rcirc-enable-erc-yt= to enable or disable the =erc-yt= package
+  in rcirc for showing previews for YouTube links (disabled by default).
 - Fixed using multiple lines in =.authinfo= (thanks to Jelle Licht)
 - Fixed logging where the channel name has =/= in it
   (thanks to Abdo Roig-Maranges)
