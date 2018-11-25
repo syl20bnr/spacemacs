@@ -174,8 +174,11 @@ This doesn't support the chanserv auth method. "
 ;; erc-image -----------------------------------------------------------------
 
 (defun spacemacs//rcirc-image-show-url (_sender _response)
-  ;; erc-image's url-queue callback uses erc-fill-prefix, so it must be bound
-  ;; when the callback runs (it would not suffice simply to let-bind it here).
   (unless (boundp 'erc-fill-prefix)
     (setq erc-fill-prefix rcirc-fill-prefix))
   (erc-image-show-url))
+
+;; erc-tweet --------------------------------------------------------------------
+
+(defun spacemacs//rcirc-tweet-show-tweet (_sender _response)
+  (erc-tweet-show-tweet))

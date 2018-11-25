@@ -16,6 +16,7 @@
         emoji-cheat-sheet-plus
         emojify
         (erc-image :toggle rcirc-enable-erc-image)
+        (erc-tweet :toggle rcirc-enable-erc-tweet)
         flyspell
         (helm-rcirc :location local
                     :requires helm)
@@ -55,6 +56,18 @@
               (make-directory erc-image-images-path t)
               (add-hook 'rcirc-markup-text-functions
                         #'spacemacs//rcirc-image-show-url)))))
+
+(defun rcirc/init-erc-tweet ()
+  (spacemacs|use-package-add-hook rcirc
+    :post-config
+    (use-package erc-tweet
+      :if rcirc-enable-erc-tweet
+      :init (with-eval-after-load 'rcirc
+              (setq erc-tweet-cache-dir (concat spacemacs-cache-directory
+                                                "erc-tweet/"))
+              (make-directory erc-tweet-cache-dir t)
+              (add-hook 'rcirc-markup-text-functions
+                        #'spacemacs//rcirc-tweet-show-tweet)))))
 
 (defun rcirc/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'rcirc-mode-hook))
