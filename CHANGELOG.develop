@@ -1981,6 +1981,8 @@ Other:
 **** Rcirc
 - New variable =rcirc-enable-late-fix= to enable or disable the included
   =rcirc-late-fix= package (disabled by default).
+- New variable =rcirc-enable-emojify= to enable or disable emojify-mode
+  in rcirc buffers (disabled by default).
 - Fixed using multiple lines in =.authinfo= (thanks to Jelle Licht)
 - Fixed logging where the channel name has =/= in it
   (thanks to Abdo Roig-Maranges)

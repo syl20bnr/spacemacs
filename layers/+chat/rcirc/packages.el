@@ -14,6 +14,7 @@
         company
         company-emoji
         emoji-cheat-sheet-plus
+        emojify
         flyspell
         (helm-rcirc :location local
                     :requires helm)
@@ -33,6 +34,13 @@
 
 (defun rcirc/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'rcirc-mode-hook 'emoji-cheat-sheet-plus-display-mode))
+
+(defun rcirc/post-init-emojify ()
+  (spacemacs|use-package-add-hook rcirc
+    :post-config
+    (use-package emojify
+      :hook (rcirc-mode . emojify-mode)
+      :if rcirc-enable-emojify)))
 
 (defun rcirc/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'rcirc-mode-hook))

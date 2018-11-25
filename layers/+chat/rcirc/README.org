@@ -19,6 +19,7 @@
       - [[#disclaimer][Disclaimer]]
       - [[#note][Note]]
   - [[#enabling-sfoobar][Enabling =s/foo/bar/=]]
+  - [[#enabling-emojify-mode][Enabling emojify-mode]]
 - [[#key-bindings][Key bindings]]
 - [[#rcirc-documentation][Rcirc documentation]]
 - [[#spacemacs-layout-support][Spacemacs Layout Support]]
@@ -176,6 +177,15 @@ variable =rcirc-enable-late-fix= to =t= in your dotfile:
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (rcirc :variables rcirc-enable-late-fix t)))
+#+END_SRC
+
+** Enabling emojify-mode
+To enable emojify-mode in rcirc buffers, set the variable =rcirc-enable-emojify=
+to =t= in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (rcirc :variables rcirc-enable-emojify t)))
 #+END_SRC
 
 * Key bindings
