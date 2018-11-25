@@ -20,6 +20,9 @@
 (defvar rcirc-enable-erc-image nil
   "if non nil then enable erc-image to display images in rcirc.")
 
+(defvar rcirc-enable-erc-tweet nil
+  "if non nil then enable erc-tweet to display tweets in rcirc.")
+
 (defvar rcirc-enable-late-fix nil
   "if non nil then enable rcirc-late-fix to show s/// fixes in rcirc buffers.")
 
