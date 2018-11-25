@@ -746,6 +746,8 @@ Benner and Paweł Siudak):
     Kramer)
   - Don't load outdated compiled files (thanks to Boris Buliga)
   - Fix helm loading for layouts transient state (thanks to Thomas de Beauchêne)
+  - Info-find-file from emacs 27 by adding third argument (thanks to Richard
+    Kim)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
