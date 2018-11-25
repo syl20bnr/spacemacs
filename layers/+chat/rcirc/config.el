@@ -20,6 +20,9 @@
 (defvar rcirc-enable-late-fix nil
   "if non nil then enable rcirc-late-fix to show s/// fixes in rcirc buffers.")
 
+(defvar rcirc-enable-styles nil
+  "if non nil then enable rcirc-styles to parse style markup codes in rcirc.")
+
 (defvar rcirc-enable-znc-support nil
   "if non nil then znc is enabled.")
 
