@@ -114,14 +114,14 @@
 
       (spacemacs/set-leader-keys "air" 'spacemacs/rcirc)
       (spacemacs/declare-prefix "ai"  "irc")
-      (evil-set-initial-state 'rcirc-mode 'insert))
+      (evil-set-initial-state 'rcirc-mode 'insert)
       (setq rcirc-fill-column 80
             rcirc-buffer-maximum-lines 2048
             rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY" "MODE")
             rcirc-time-format "%Y-%m-%d %H:%M "
             rcirc-omit-threshold 20
             rcirc-log-directory (concat spacemacs-cache-directory "/rcirc-logs/")
-            rcirc-log-flag t)
+            rcirc-log-flag t))
     :config
     (progn
       ;; (set-input-method "latin-1-prefix")
