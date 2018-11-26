@@ -497,6 +497,8 @@ Other:
     to Sylvain Benner)
   - New function =configuration-layer/load-file= to load files silently (thanks
     to Sylvain Benner)
+  - Fix configuration-layer/insert-lazy-install-configuration, which has been
+    broken since v0.200.0.
   - Fixed duplicate "Open quick help..." in the minibuffer at startup (thanks to
     Sylvain Benner)
   - Fixed overflow of line in page-break-lines-mode when using line number
