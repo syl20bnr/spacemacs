@@ -26,6 +26,7 @@
         (helm-spacemacs-help :location local)
         (helm-spacemacs-faq :location local)
         helm-xref
+        ido
         imenu
         persp-mode
         popwin
@@ -402,6 +403,12 @@
       ;; Use helm-xref to display `xref.el' results.
       (setq xref-show-xrefs-function #'helm-xref-show-xrefs))))
 
+(defun helm/post-init-ido ()
+  ;; helm is incompatible with ido, and spits an error when trying to enable
+  ;; both modes (see https://github.com/syl20bnr/spacemacs/issues/11640 and
+  ;; https://github.com/emacs-helm/helm/issues/2085)
+  (when (bound-and-true-p ido-mode)
+    (ido-mode -1)))
 
 (defun helm/post-init-imenu ()
   (spacemacs/set-leader-keys "ji" 'spacemacs/helm-jump-in-buffer))
