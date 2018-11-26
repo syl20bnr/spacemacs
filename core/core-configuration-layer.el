@@ -2421,10 +2421,7 @@ depends on it."
   (let ((layer-name
          (intern (completing-read
                   "Choose a used layer"
-                  (sort configuration-layer--used-layers
-                        (lambda (x y)
-                          (string< (oref (cdr x) :name)
-                                   (oref (cdr y) :name))))))))
+                  (sort (copy-list configuration-layer--used-layers) #'string<)))))
     (let ((mode-exts (configuration-layer//lazy-install-extensions-for-layer
                       layer-name)))
       (dolist (x mode-exts)
