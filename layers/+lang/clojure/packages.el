@@ -10,7 +10,8 @@
 ;;; License: GPLv3
 
 (setq clojure-packages
-      '(cider
+      '(
+        cider
         cider-eval-sexp-fu
         (clj-refactor :toggle clojure-enable-clj-refactor)
         clojure-cheatsheet
@@ -27,7 +28,8 @@
         popwin
         (sayid :toggle clojure-enable-sayid)
         smartparens
-        subword))
+        subword
+        ))
 
 (defun clojure/init-cider ()
   (use-package cider

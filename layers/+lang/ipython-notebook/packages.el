@@ -9,10 +9,12 @@
 ;;
 ;;; License: GPLv3
 
-(setq ipython-notebook-packages '(company
-                                  ein
-                                  ob-ipython
-                                  ))
+(setq ipython-notebook-packages
+      '(
+        company
+        ein
+        ob-ipython
+        ))
 
 (defun ipython-notebook/post-init-company ()
   (spacemacs|add-company-backends

@@ -12,8 +12,10 @@
 ;;; Code:
 
 (defconst unicode-fonts-packages
-  '(unicode-fonts
-    persistent-soft))
+  '(
+    unicode-fonts
+    persistent-soft
+    ))
 
 (defun unicode-fonts/init-persistent-soft ()
   (use-package persistent-soft

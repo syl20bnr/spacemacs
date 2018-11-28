@@ -10,36 +10,37 @@
 ;;; License: GPLv3
 
 (setq c-c++-packages
-  '(
-     cc-mode
-     clang-format
-     company
-     (company-c-headers :requires company)
-     (company-rtags :requires company rtags)
-     company-ycmd
-     counsel-gtags
-     disaster
-     flycheck
-     (flycheck-rtags :requires flycheck rtags)
-     gdb-mi
-     ggtags
-     google-c-style
-     helm-cscope
-     helm-gtags
-     (helm-rtags :requires helm rtags)
-     (ivy-rtags :requires ivy rtags)
-     org
-     realgud
-     rtags
-     semantic
-     srefactor
-     stickyfunc-enhance
-     xcscope
-     ycmd
-     ;;lsp-backend
-     (cquery :requires lsp-mode)
-     (ccls :requires lsp-mode)
-     projectile))
+      '(
+        cc-mode
+        clang-format
+        company
+        (company-c-headers :requires company)
+        (company-rtags :requires company rtags)
+        company-ycmd
+        counsel-gtags
+        disaster
+        flycheck
+        (flycheck-rtags :requires flycheck rtags)
+        gdb-mi
+        ggtags
+        google-c-style
+        helm-cscope
+        helm-gtags
+        (helm-rtags :requires helm rtags)
+        (ivy-rtags :requires ivy rtags)
+        org
+        realgud
+        rtags
+        semantic
+        srefactor
+        stickyfunc-enhance
+        xcscope
+        ycmd
+        ;;lsp-backend
+        (cquery :requires lsp-mode)
+        (ccls :requires lsp-mode)
+        projectile
+        ))
 
 
 (defun c-c++/init-cc-mode ()

@@ -10,12 +10,12 @@
 ;;; License: GPLv3
 
 (setq octave-packages
-  '(
-    ggtags
-    counsel-gtags
-    helm-gtags
-    (octave :location built-in)
-    ))
+      '(
+        ggtags
+        counsel-gtags
+        helm-gtags
+        (octave :location built-in)
+        ))
 
 (defun octave/init-octave ()
   (use-package octave

@@ -10,7 +10,8 @@
 ;;; License: GPLv3
 
 (setq common-lisp-packages
-      '(auto-highlight-symbol
+      '(
+        auto-highlight-symbol
         (common-lisp-snippets :requires yasnippet)
         evil
         evil-cleverparens

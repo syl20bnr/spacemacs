@@ -29,7 +29,8 @@
         prettier-js
         skewer-mode
         tern
-        web-beautify))
+        web-beautify
+        ))
 
 (defun javascript/post-init-add-node-modules-path ()
   (spacemacs/add-to-hooks #'add-node-modules-path '(css-mode-hook

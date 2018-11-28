@@ -10,44 +10,44 @@
 ;;; License: GPLv3
 
 (setq haskell-packages
-  '(
-    cmm-mode
-    company
-    (company-cabal :requires company)
+      '(
+        cmm-mode
+        company
+        (company-cabal :requires company)
 
-    ;; ghci completion backend
-    (company-ghci
-     :requires company
-     :toggle (eq haskell-completion-backend 'ghci))
+        ;; ghci completion backend
+        (company-ghci
+         :requires company
+         :toggle (eq haskell-completion-backend 'ghci))
 
-    ;; ghc-mod completion backend
-    (company-ghc
-     :requires company
-     :toggle (eq haskell-completion-backend 'ghc-mod))
-    (ghc :toggle (eq haskell-completion-backend 'ghc-mod))
+        ;; ghc-mod completion backend
+        (company-ghc
+         :requires company
+         :toggle (eq haskell-completion-backend 'ghc-mod))
+        (ghc :toggle (eq haskell-completion-backend 'ghc-mod))
 
-    ;; intero completion backend
-    (intero
-     :requires company
-     :toggle (eq haskell-completion-backend 'intero))
+        ;; intero completion backend
+        (intero
+         :requires company
+         :toggle (eq haskell-completion-backend 'intero))
 
-    ;; dante completion backend
-    (dante
-     :requires company
-     :toggle (and (version<= "25" emacs-version)
-                  (eq haskell-completion-backend 'dante)))
+        ;; dante completion backend
+        (dante
+         :requires company
+         :toggle (and (version<= "25" emacs-version)
+                      (eq haskell-completion-backend 'dante)))
 
-    flycheck
-    (flycheck-haskell :requires flycheck)
-    ggtags
-    haskell-mode
-    haskell-snippets
-    counsel-gtags
-    helm-gtags
-    (helm-hoogle :requires helm)
-    hindent
-    hlint-refactor
-    ))
+        flycheck
+        (flycheck-haskell :requires flycheck)
+        ggtags
+        haskell-mode
+        haskell-snippets
+        counsel-gtags
+        helm-gtags
+        (helm-hoogle :requires helm)
+        hindent
+        hlint-refactor
+        ))
 
 (defun haskell/init-cmm-mode ()
   (use-package cmm-mode

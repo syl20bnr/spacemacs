@@ -468,8 +468,8 @@ respond to this toggle."
   "wl"  'evil-window-right
   "w <right>"  'evil-window-right
   "wm"  'spacemacs/toggle-maximize-buffer
-  "wc"  'spacemacs/toggle-centered-buffer-mode
-  "wC"  'spacemacs/toggle-centered-buffer-mode-frame
+  "wc"  'spacemacs/toggle-centered-buffer
+  "wC"  'spacemacs/toggle-distraction-free
   "wo"  'other-frame
   "wr"  'spacemacs/rotate-windows-forward
   "wR"  'spacemacs/rotate-windows-backward

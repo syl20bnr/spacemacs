@@ -10,8 +10,10 @@
 ;;; License: GPLv3
 
 (defconst better-defaults-packages
-  '(mwim
-    unfill)
+  '(
+    mwim
+    unfill
+    )
   "The list of Lisp packages required by the mwim layer.")
 
 (defun better-defaults/init-mwim ()
