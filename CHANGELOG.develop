@@ -589,6 +589,8 @@ Other:
     - =help-fns+=
     - =font-lock+=
   - Remove package =adaptive-wrap=
+  - Added =symbol-overlay= to the =spacemacs-navigation= layer
+    (thanks to kenkangxgwe)
 - Key bindings:
   - New evil text objects =«=, =｢=, =‘= and =“=.
   - Improved buffer transient state with extra bindings and new commands:
@@ -746,6 +748,27 @@ Other:
     (thanks to Rich Alesi)
   - Improved =which-key= replacement regular expressions (thanks to duianto)
   - Added ~SPC o~ which-key prefix name: =user bindings= (thanks to duianto)
+  - Added =symbol-overlay= key bindings (thanks to kenkangxgwe):
+    - ~SPC s o~ calls =spacemacs/symbol-overlay=
+    - ~SPC s O~ calls =symbol-overlay-remove-all=
+  - New symbol overlay transient state, ~SPC s o~ on a symbol:
+    - ~b~ calls =symbol-overlay-switch-backward=
+    - ~c~ calls =symbol-overlay-save-symbol=
+    - ~d~ calls =symbol-overlay-jump-to-definition=
+    - ~e~ calls =symbol-overlay-echo-mark=
+    - ~f~ calls =symbol-overlay-switch-forward=
+    - ~n~ calls =symbol-overlay-jump-next=
+    - ~N~ calls =symbol-overlay-jump-prev=
+    - ~o~ calls =symbol-overlay-put=
+    - ~O~ calls =symbol-overlay-remove-all=
+    - ~p~ calls =symbol-overlay-jump-prev=
+    - ~r~ calls =symbol-overlay-query-replace=
+    - ~R~ calls =symbol-overlay-rename=
+    - ~s~ calls =symbol-overlay-isearch-literally=
+    - ~t~ calls =symbol-overlay-toggle-in-scope=
+    - ~z~ calls =recenter-top-bottom=
+    - ~q~ exits the transient state
+      (thanks to kenkangxgwe)
 - Improvements:
   - Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
     ~SPC w 4~ (thanks to Codruț Constantin Gușoi):

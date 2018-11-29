@@ -23,6 +23,7 @@
         paradox
         restart-emacs
         (smooth-scrolling :location built-in)
+        symbol-overlay
         winum))
 
 (defun spacemacs-navigation/init-ace-link ()
@@ -369,6 +370,48 @@
     :off (spacemacs/disable-smooth-scrolling)
     :documentation "Smooth scrolling."
     :evil-leader "tv"))
+
+(defun spacemacs-navigation/init-symbol-overlay ()
+  (use-package symbol-overlay
+    :init
+    (progn
+      (setq spacemacs--symbol-overlay-transient-state-doc "
+%s
+ [_n_] next   [_N_/_p_] prev      [_d_] def           [_f_/_b_] switch [_t_] scope
+ [_e_] echo   [_o_]^^   unoverlay [_O_] unoverlay all [_c_]^^   copy   [_z_] center
+ [_s_] search [_r_]^^   replace   [_R_] rename        ^^^^             [_q_] quit")
+
+      ;; since we are creating our own maps,
+      ;; prevent the default keymap from getting created
+      (setq symbol-overlay-map (make-sparse-keymap)))
+    :config
+    (progn
+      (spacemacs/set-leader-keys
+        "so" 'spacemacs/symbol-overlay
+        "sO" 'symbol-overlay-remove-all)
+
+      ;; transient state
+      (spacemacs|define-transient-state symbol-overlay
+        :title "Symbol Overlay Transient State"
+        :hint-is-doc t
+        :dynamic-hint (spacemacs//symbol-overlay-ts-doc)
+        :bindings
+        ("b" symbol-overlay-switch-backward)
+        ("c" symbol-overlay-save-symbol)
+        ("d" symbol-overlay-jump-to-definition)
+        ("e" symbol-overlay-echo-mark)
+        ("f" symbol-overlay-switch-forward)
+        ("n" symbol-overlay-jump-next)
+        ("N" symbol-overlay-jump-prev)
+        ("o" symbol-overlay-put)
+        ("O" symbol-overlay-remove-all)
+        ("p" symbol-overlay-jump-prev)
+        ("r" symbol-overlay-query-replace)
+        ("R" symbol-overlay-rename)
+        ("s" symbol-overlay-isearch-literally)
+        ("t" symbol-overlay-toggle-in-scope)
+        ("z" recenter-top-bottom)
+        ("q" nil :exit t)))))
 
 (defun spacemacs-navigation/init-winum ()
   (use-package winum
