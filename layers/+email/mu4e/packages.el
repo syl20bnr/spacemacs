@@ -83,7 +83,8 @@
        (kbd "C-k") 'mu4e-view-headers-prev
        (kbd "J") (lambda ()
                    (interactive)
-                    (mu4e-view-mark-thread '(read))))
+                   (mu4e-view-mark-thread '(read)))
+       (kbd "gu") 'mu4e-view-go-to-url)
 
       (spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode
         dotspacemacs-major-mode-leader-key 'message-send-and-exit
