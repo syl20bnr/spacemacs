@@ -198,6 +198,39 @@ If the universal prefix argument is used then kill also the window."
            (spacemacs//symbol-highlight-doc))))
 
 
+;; symbol overlay
+
+(defun spacemacs/symbol-overlay ()
+  "Start symbol-overlay-transient-state."
+  (interactive)
+  (symbol-overlay-put)
+  (spacemacs/symbol-overlay-transient-state/body))
+
+(defun spacemacs//symbol-overlay-doc ()
+        (let* ((symbol-at-point (symbol-overlay-get-symbol))
+               (keyword (symbol-overlay-assoc symbol-at-point))
+               (symbol (car keyword))
+	             (before (symbol-overlay-get-list -1 symbol))
+	             (after (symbol-overlay-get-list 1 symbol))
+	             (count (length before))
+               (scope (format "%s"
+                              (if (cadr keyword)
+                                  "Scope"
+                                "Buffer")))
+               (color (cddr keyword))
+               (x/y (format "[%s/%s]" (+ count 1) (+ count (length after)))))
+            (concat
+             (propertize (format " %s " scope) 'face color))
+             (propertize (format " %s " x/y) 'face
+                         `(:foreground "#ffffff" :background "#000000"))))
+
+(defun spacemacs//symbol-overlay-ts-doc ()
+  (spacemacs//transient-state-make-doc
+   'symbol-overlay
+   (format spacemacs--symbol-overlay-transient-state-doc
+           (spacemacs//symbol-overlay-doc))))
+
+
 ;; golden ratio
 
 (defun spacemacs/no-golden-ratio-for-buffers (bufname)
