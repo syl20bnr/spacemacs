@@ -97,7 +97,6 @@
       (apply 'spacemacs/set-leader-keys-for-major-mode typescriptTsxList)))
 
   (add-to-list 'spacemacs-jump-handlers-typescript-tsx-mode
-               (add-to-list 'spacemacs-jump-handlers '(tide-jump-to-definition :async t))
                '(tide-jump-to-definition :async t))
   (add-to-list 'spacemacs-jump-handlers-typescript-mode
                '(tide-jump-to-definition :async t)))
