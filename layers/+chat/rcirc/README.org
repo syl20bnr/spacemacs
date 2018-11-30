@@ -7,7 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
-  - [[#configuration][Configuration]]
+  - [[#configuring-authentication][Configuring authentication]]
     - [[#storing-the-credentials-in-your-dotfile][Storing the credentials in your dotfile]]
       - [[#example][Example:]]
     - [[#storing-the-credentials-in-your-dropbox][Storing the credentials in your Dropbox]]
@@ -16,6 +16,7 @@
     - [[#connecting-behind-a-znc-bouncer-and-storing-the-credentials-in-authinfo][Connecting behind a ZNC bouncer and storing the credentials in authinfo]]
       - [[#disclaimer][Disclaimer]]
       - [[#note][Note]]
+  - [[#enabling-sfoobar][Enabling =s/foo/bar/=]]
 - [[#key-bindings][Key Bindings]]
 - [[#rcirc-documentation][Rcirc documentation]]
 - [[#spacemacs-layout-support][Spacemacs Layout Support]]
@@ -29,7 +30,7 @@ and ZNC.
 - Support for credentials stored in =~/.authinfo.gpg= (need to have gnutls)
 - Support ZNC support (with optional =~/.authinfo.gpg=)
 - Colored nicknames
-- WIP: Real time change when people use =/s/foo/bar= in the chats
+- Real-time change when people use =s/foo/bar/= in chat
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
   using the =emoji= layer or having a proper font) :clap:
 
@@ -39,7 +40,7 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =rcirc= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-** Configuration
+** Configuring authentication
 There are several ways to configure rcirc supported by the layer:
 - By storing your credentials in =rcirc-server-alist= in your dotfile (not
   secured)
@@ -165,6 +166,15 @@ For now authinfo is mandatory to use the ZNC configuration.
           :auth "spacemacs_user/geekshed"
           :channels ("#jupiterbroadcasting"))))
    #+END_SRC
+
+** Enabling =s/foo/bar/=
+To configure rcirc to update buffers when people use =s/foo/bar/=, set the
+variable =rcirc-enable-late-fix= to =t= in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (rcirc :variables rcirc-enable-late-fix t)))
+#+END_SRC
 
 * Key Bindings
 
