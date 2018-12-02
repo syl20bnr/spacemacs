@@ -38,6 +38,8 @@
     (progn
       (spacemacs/register-repl 'alchemist 'alchemist-iex-run "alchemist")
       (add-hook 'elixir-mode-hook 'alchemist-mode)
+      (spacemacs/add-to-hook 'elixir-mode-hook
+                             '(spacemacs/elixir-annotate-pry))
       (setq alchemist-project-compile-when-needed t
             alchemist-test-status-modeline nil)
       (add-to-list 'spacemacs-jump-handlers-elixir-mode
@@ -54,6 +56,7 @@
     (spacemacs/declare-prefix-for-mode 'elixir-mode "ms" "iex")
     (spacemacs/declare-prefix-for-mode 'elixir-mode "mt" "test")
     (spacemacs/declare-prefix-for-mode 'elixir-mode "mx" "execute")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "md" "debug")
     (spacemacs/set-leader-keys-for-major-mode 'elixir-mode
       "el" 'alchemist-eval-current-line
       "eL" 'alchemist-eval-print-current-line
@@ -131,7 +134,9 @@
       "oi" 'alchemist-macroexpand-once-region
       "oI" 'alchemist-macroexpand-once-print-region
       "or" 'alchemist-macroexpand-region
-      "oR" 'alchemist-macroexpand-print-region)
+      "oR" 'alchemist-macroexpand-print-region
+
+      "db" 'spacemacs/elixir-toggle-breakpoint)
 
     (dolist (mode (list alchemist-compile-mode-map
                         alchemist-eval-mode-map

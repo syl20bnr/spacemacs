@@ -24,4 +24,6 @@
       "ffm" 'alchemist-phoenix-find-models
       "ffs" 'alchemist-phoenix-find-static
       "ffr" 'alchemist-phoenix-router
-      "fr" 'alchemist-phoenix-routes)))
+      "fr" 'alchemist-phoenix-routes
+      "fx" 'spacemacs/phoenix-server-start
+      "fd" 'spacemacs/phoenix-server-iex)))

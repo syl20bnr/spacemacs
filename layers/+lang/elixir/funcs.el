@@ -37,3 +37,21 @@
     (flycheck-mix-setup)
     ;; enable credo only if there are no compilation errors
     (flycheck-add-next-checker 'elixir-mix '(warning . elixir-credo))))
+
+(defun spacemacs/elixir-annotate-pry ()
+  "Highlight breakpoint lines."
+  (interactive)
+  (highlight-lines-matching-regexp "require IEx; IEx.pry"))
+
+(defun spacemacs/elixir-toggle-breakpoint ()
+  "Add a breakpoint, highlight it."
+  (interactive)
+  (let ((trace "require IEx; IEx.pry")
+        (line (thing-at-point 'line)))
+    (if (and line (string-match trace line))
+        (kill-whole-line)
+      (progn
+        (back-to-indentation)
+        (insert trace)
+        (insert "\n")
+        (indent-for-tab-command)))))
