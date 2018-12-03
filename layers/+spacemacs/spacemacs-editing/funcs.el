@@ -62,7 +62,8 @@ or `sp-local-pair'."
 
 (defun spacemacs//conditionally-enable-smartparens-mode ()
   "Enable `smartparens-mode' in the minibuffer, during `eval-expression'."
-  (if (eq this-command 'eval-expression)
+  (if (or (eq this-command 'eval-expression)
+          (eq this-command 'eldoc-eval-expression))
       (smartparens-mode)))
 
 (defun spacemacs//adaptive-smartparent-pair-overlay-face ()

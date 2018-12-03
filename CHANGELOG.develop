@@ -807,6 +807,8 @@ Other:
   - Cleanup =which-key= by removing obsolete entries and adding some missing
     ones (thans to duianto)
   - Add =go-run-args= to pass command line arguments to `go run`
+  - Editing: Enable smartparens in eldoc-eval-expression
+    (thanks to Aaron Jensen)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers (thanks to Sylvain
     Benner)
