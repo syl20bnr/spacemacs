@@ -5,14 +5,16 @@ This file containes the change log for the next major version of Spacemacs.
 * Release 0.300.x
 ** 0.300.0
 *** Breaking Changes
+**** Key bindings
 - ~SPC b m~ now opens the =*Messages*= buffer. The old ~SPC b m~ to kill other
   buffers has been moved to ~SPC b C-d~. Killing other buffers using a regular
   expression is now under ~SPC b C-D~.
-- Scrolling key bindings are now under ~SPC N~.
+- Scrolling key bindings are now under ~SPC N~ instead of ~SPC n~.
 - Key binding ~SPC e e~ is now for triggering a syntax check, the old action
   (explain error around point) has been moved to ~SPC e x~.
 - Vagrant key bindings prefix is now ~SPC a V~.
 - Regenerate tags are now under ~SPC m g C~ instead of ~SPC m g c~.
+**** Others
 - All custom settings are now encapsulated in a function called
   =dotspacemacs/emacs-custom-settings=. While it should not break your custom
   settings you should check that they are all applied correctly once you reboot
@@ -24,6 +26,7 @@ This file containes the change log for the next major version of Spacemacs.
   README.org file of the =auto-completion= layer, also you can read
   [[https://github.com/syl20bnr/spacemacs/commit/74fdbb6][commit message of commit 74fdbb6]].
 - The function =add-flycheck-hook= has been renamed to =enable-flycheck=.
+- =shaders= layer has been moved to =gpu= layer.
 *** Hot new feature
 - Improve themes support. Support are now handled like regular packages. The
   list of themes now supports =:location= keyword like in layer list. More
@@ -31,9 +34,9 @@ This file containes the change log for the next major version of Spacemacs.
 - Introduction of =spacemacs-purpose= layer in charge of handling Emacs windows
   assignation for actions opening new buffers. This layer brings more
   consistency to windows creation by giving them a purpose (i.e. =edit=,
-  =help=, etc...) (thanks to bmag)
+  =help=, etc...). See [[https://github.com/bmag/emacs-purpose][emacs-purpose]] repository for more info. (thanks to bmag)
 - New distribution =spacemacs-docker= used to build the official docker image
-  for the Spacemacs container (thanks to JAremko)
+  for the Spacemacs container (thanks to Eugene Yaremenko)
 - Add support for =ripgrep=. To enable it add =rg= to
   =dotspacemacs-search-tools=. =ripgrep= key bindings are under ~SPC s r~
   prefix. (Aron Griffis)
@@ -42,96 +45,171 @@ This file containes the change log for the next major version of Spacemacs.
   dotfile if the user does not specify a custom location for the custom settings
   file by modifying the variable =custom-file=. This allows Spacemacs to
   correctly loads custom settings at the end of the loading process, fixing
-  unwanted overriden custom settings by layers.
+  unwanted overriden custom settings by layers. See section =Custom variables=
+  in =DOCUMENTATION.org=.
 - Simplify declaration of company backends, see the section
-  =Add auto-completion in a layer= of the README.org file of the
+  =Add auto-completion in a layer= of the =README.org= file of the
   =auto-completion= layer.
 *** New layers
-- =confluence= in =+web-services= directory
-- =coq= in =+lang= directory
-- =forth= in =+lang= directory (Tim Jaeger)
-- =jr= in =+lang= directory (Philippe Baron)
-- =restructuredtext= in =+lang= directory (Wei-Wei Guo)
-- =spacemacs-purpose= in =+spacemacs= directory (thanks to bmag)
-- =sphinx= in =+tools= directory (Wei-Wei Guo)
+**** Languages
+- coq
+- forth (thanks to Tim Jaeger)
+- gpu (thanks to Evan Klitzke)
+- jr (thanks to Philippe Baron)
+- perl6 (thanks to Bahtiar Gadimov)
+- protobuf (thanks to Amol Mandhane)
+- restructuredtext (thanks to Wei-Wei Guo)
+**** WEB services
+- confluence
+**** Tools
+- sphinx (thanks to Wei-Wei Guo)
+**** Others
+- spacemacs-purpose (thanks to bmag)
 *** Dotfile changes
-- New variable =dotspacemacs-switch-to-buffer-prefers-purpose= which
-  controls where =switch-to-buffer= displays the buffer. If nil,
-  =switch-to-buffer= displays the buffer in the current window even if another
-  same-purpose window is available. If non nil, =switch-to-buffer= displays the
-  buffer in a same-purpose window even if the buffer can be displayed in the
-  current window. (thanks to bmag)
+- New variables:
+  - New variable =dotspacemacs-switch-to-buffer-prefers-purpose= which
+    controls where =switch-to-buffer= displays the buffer. If nil,
+    =switch-to-buffer= displays the buffer in the current window even if another
+    same-purpose window is available. If non nil, =switch-to-buffer= displays
+    the buffer in a same-purpose window even if the buffer can be displayed in
+    the current window. (thanks to bmag)
+  - New variable =dotspacemacs-zone-out-when-idle= to zone when idle. Zoning will
+    obfuscate the current buffer acting like a screen saver. (thanks to Eugene
+    Yaremenko)
 - Can use the univeral prefix argument to open both the =*scratch*= buffer and
-  the =*Messages*= buffer in another window (thanks to deb0ch)
+  the =*Messages*= buffer in another window (thanks to Thomas de Beauchêne)
 *** Core changes
-- 39667d3 | * Don't suggest `SPC q r` if restart-emacs is missing (Keshav Kini)
+- Don't suggest ~SPC q r~ if =restart-emacs= package is missing after an update
+  (thanks to Keshav Kini)
+- Add new interactive function =spacemacs/diminish-undo= to undo all the
+  dimished mode-line lighters and have all of them be displayed in the
+  mode-line. (thanks to hodge)
 *** Distribution changes
+- Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
+  - new =spacemacs-navigation= layer contains packages whose principal goal is
+  navigation
+  - new =spacemacs-modeline= layer contains packages about mode line
+  - Merge =spacemacs-ui= and =spacemacs-ui-visual= into layer =spacemacs-visual=
+- New Packages:
+  - Add =symon= package to =spacemacs-modeline= layer
+    (thanks to Eugene Yaremenko)
+- Key bindings:
+  - Use Helm or Ivy (if one of these is enabled) for ~SPC a d~ (=dired=),
+    ~SPC F f~ (=find-file-other-frame=), ~SPC F b~
+    (=switch-to-buffer-other-frame=), ~SPC F B~ (=display-buffer-other-frame=),
+    and ~SPC F O~ (=dired-other-frame=).
+  - New evil text objects =«=, =｢=, =‘= and =“=.
+  - New key binding ~SPC f i~ for =insert-file=.
+  - Add alignement support for ~{~ (thanks to Paulo Diniz)
+  - Move all scrolling key bindings from ~SPC n~ to ~SPC N~ (thanks to Somelauw)
+  - Overhaul the scroll transient state on ~SPC N~ prefix (thanks to Somelauw)
+- Fixes:
+  - Disable the paste transient state when using multiple cursors
+    (thanks to Koray AL)
+  - Fix ~.~ repeat operator with the unimpaired keybindings ~[ q~ and ~] q~ to
+    jump to flycheck errors in the current buffer. (thanks to Robbert van der
+    Helm)
 - Enable =evil-search= search module in evil state.
-- Partially tame =exec-path-from-shell= (Steven Allen):
-  - Make it possible to exclude the package (fix the go and rust layers).
-  - Import variables all at once (avoid spawning multiple login shells).
-  - Import variables early (during the "pre" package loading stage).
-  - Centralize the platform check by using a package toggle in the
-    `spacemacs-base`.
-  - Avoid importing already defined variables (except `PATH`/`MANPATH`).
-- Move all scrolling key bindings from ~SPC n~ to ~SPC N~ (Somelauw)
-- Overhaul the scroll transient state on ~SPC N~ prefix (Somelauw)
-- Use Helm or Ivy (if one of these is enabled) for ~SPC a d~ (=dired=),
-  ~SPC F f~ (=find-file-other-frame=), ~SPC F b~ (=switch-to-buffer-other-frame=),
-  ~SPC F B~ (=display-buffer-other-frame=), and ~SPC F O~ (=dired-other-frame=).
-- New key binding ~SPC f i~ for =insert-file=.
-*** Layer changes
-**** GitHub
-- Add new package =magithub=
-- Remove package =github-browse-file= which has been replaced by
-  =browse-at-remote= in =version-control= layer
-**** Git
-- install magit-svn by default and activate with git-enable-magit-svn-plugin
-**** Gtags
-- Move key binding ~SPC m g c~ to ~SPC m g C~ (regenerate tags)
-**** Java
-- Add support for multiple backends. Supported backends are: =megahnada=,
-  =eclim= and =ensime=. The default backend is =meghanada=.
-- ~SPC m e e~ is now to fix error around point. Use ~SPC e~ prefix to navigate
-  between errors.
-**** LSP
-- Added function =spacemacs/lsp-bind-keys-for-mode= to provide a consistent set of core keybindings across LSP layers.
-- Added a number of =lsp-ui= configuration variables to the layer - see [[file:./layers/+tools/lsp/README.org][LSP layer README]] for details.
-**** Org
-- Add package =org-journal= (Nick Anderson)
-- Move clock related key bindings to ~SPC a o C~
-- Add key bindings:
-  - From user darkfeline:
-    - ~SPC a o C I~ to clock in last
-    - ~SPC a o C j~ to jump to current clock
-  - From user siddharthist:
-    - ~SPC a o C c~ to cancel the last clock
-    - ~SPC m p~ to change priority
-    - ~SPC m C I~ to clock in last
-    - ~SPC m C d~ to display clocks
-    - ~SPC m C g~ for org-clock-goto
-    - ~SPC m C j~ to jump to current clock
-    - ~SPC m C R~ to insert a clock report
-- Make =org-projectile= integration compatible with the newest version.
-- Add package =helm-org-rifle=, with keybinding ~SPC a o r~ to rifle through
-  files.
-**** Rcirc
-- New variable =rcirc-enable-late-fix= to enable or disable the included
-  =rcirc-late-fix= package (disabled by default).
-**** Scala
-- Move =ensime= to the =java= layer (Tor Hedin Bronner)
-**** Syntax-checking
-- Key binding ~SPC e e~ is now for triggering a syntax check, the old action
-  (explain error around point) has been moved to ~SPC e x~.
-- Rename function =add-flycheck-hook= to =enable-flycheck=
-**** Vagrant
-- Move key bindings prefix to ~SPC a V~ (deb0ch)
-**** Version-control
-- Add package =browse-at-remote= which replaces =github-browse-file= (thanks JAremko)
+- Improve function =spacemacs/sort-lines-by-column= to work on rectangular/block
+  selection and warn the user about its requirements (thanks to duianto)
+*** Layer changes and fixes
 **** C-C++
+- Add automatic formatting on save using ClangFormat with the variables
+  =c-c++-enable-clang-format-on-save= and =c-c++-enable-clang-support=
+  (thanks to Robbert van der Helm)
 - Add possible value =no-completion= to =c-c++-enable-rtags-support= flag.
   This adds the option to opt-out of =company-rtags= while enabling Rtags.
 **** Chinese
-- Add package =chinese-conv= for conversion between simplified and traditional Chinese texts (Xiang Ji)
+- Add package =chinese-conv= for conversion between simplified and traditional
+  Chinese texts (Xiang Ji)
+**** Common Lisp
+- Add =slime-asdf= to =slime-contribs= to enabled some slime commands like
+  =,load-system= (thanks to Daniel Schoepe)
+**** Cscope
+- Fix key binding ~g C~ (thanks to dubnde)
+**** CSharp
+- Enable =flycheck= by default (thanks to Saulius Menkevičius)
+**** Emacs Lisp
+- Key bindings:
+  - Add ~c~ to continue in edebug mode (thanks to hodge)
+**** GitHub
+- Packages:
+ - Add package =magithub=, it is enabled by default in offline mode.
+ - Remove package =github-browse-file= which has been replaced by
+  =browse-at-remote= in =version-control= layer
+**** Git
+- Install magit-svn by default and activate with git-enable-magit-svn-plugin
+**** Gtags
+- Key bindings:
+  - Move key binding ~SPC m g c~ to ~SPC m g C~ (regenerate tags)
+**** Ivy
+- Key bindings:
+  - Add Helm key bindings counterparts: ~SPC f e l~ and ~SPC h i~
+    (thanks to Andriy Kmit')
+**** Java
+- Add support for multiple backends. Supported backends are: =megahnada=,
+  =eclim= and =ensime=. The default backend is =meghanada=.
+- Key bindings:
+  - ~SPC m e e~ is now to fix error around point. Use ~SPC e~ prefix to navigate
+    between errors.
+**** Keyboard layout
+- Add support for Colemak layout (thanks to Daniel Mijares)
+**** Markdown
+- Fix save of org table (thanks to Codruț Constantin Gușoi)
+- Fix missing key bindings for =gfm-mode= (thanks to Codruț Constantin Gușoi)
+**** Org
+- Packages:
+  - Add package =org-journal= (Nick Anderson)
+- Key bindings:
+  - Move clock related key bindings to ~SPC a o C~
+  - Key bindings (thanks to darkfeline and Langston Barrett):
+    - add ~SPC a o C I~ to clock in last
+    - add ~SPC a o C c~ to cancel the last clock
+    - add ~SPC a o C j~ to jump to current clock
+    - add ~SPC a o r~ to rifle through files with new package =helm-org-rifle=
+    - add ~SPC m C I~ to clock in last
+    - add ~SPC m C R~ to insert a clock report
+    - add ~SPC m C d~ to display clocks
+    - add ~SPC m C g~ for org-clock-goto
+    - add ~SPC m C j~ to jump to current clock
+    - add ~SPC m p~ to change priority
+**** Python
+- Various fixes in =pylookup.py= (thanks to ishestakov)
+- Hide =yapf-mode= modeline lighter (thanks to Robert ven der Helm)
+**** Rcirc
+- New variable =rcirc-enable-late-fix= to enable or disable the included
+  =rcirc-late-fix= package (disabled by default).
+- Fix using multiple lines in =.authinfo= (thanks to Jelle Licht)
+**** Scala
+- Move =ensime= to the =java= layer (Tor Hedin Bronner)
+**** Shell
+- Fix xterm colors filtering bug in =eshell= when eshell buffers are updated
+  and are not focused (thanks to Steven Allen)
+- Fix =eshell= clear behavior (thanks to Aidan Nyquist):
+  - Make eshell ~clear RET~ similar to ~C-l~
+  - Prevent ~C-l~ clearing cycle
+  - Prevent ~clear RET~ inserting a page of white-space
+  - Prevent duplicate insert lines from ~clear RET~
+**** Syntax-checking
+- Key bindings:
+  - ~SPC e e~ is now for triggering a syntax check, the old action
+    (explain error around point) has been moved to ~SPC e x~.
+- Rename function =add-flycheck-hook= to =enable-flycheck=
+**** Terraform
+- Add opt-in layer variable =terraform-fmt-on-save= to format buffers on save
+  with =terraform fmt= (thanks to Harry Hull)
+**** Vagrant
+- Key bindings:
+  - move key bindings prefix to ~SPC a V~ (thanks to Thomas de Beauchêne)
+**** Version-control
+- New packages:
+  - =browse-at-remote= which replaces =github-browse-file=
+   (thanks Eugene Yaremenko)
 *** Various improvements
-- Various documentation improvements (thanks Carl Lange, Diego Berrocal, Wieland Hoffmann)
+## TODO @JAremko: put everything you did here
+- Lots of improvement with CI (thanks to Eugene Yaremenko)
+- Various documentation improvements (thanks Aaron Peckham, Alexander Iljin, Anurag Sharma,
+  Benjamin Reynolds, Carl Lange, CL123123, Codruț Constantin Gușoi, Diego
+  Berrocal, duianto, John Wood, Jonathan Arnett, Jonathan Gillett, Kainalu
+  Hagiwara, Maximilian Wolff, Reverend Homer, Robby O'Connor, sduthil, Shane
+  Kilkelly, Somelauw, Soobin Rho, TinySong, Titov Andrey, Wieland Hoffmann, Yi Liu)
