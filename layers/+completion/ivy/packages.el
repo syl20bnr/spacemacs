@@ -15,7 +15,9 @@
         bookmark
         counsel
         counsel-projectile
+	(evil :toggle (dotspacemacs-editing-style 'evil))
         flx
+	(helm :toggle (configuration-layer/package-used-p 'helm-make))
         imenu
         ivy
         ivy-hydra
@@ -26,7 +28,7 @@
         persp-mode
         projectile
         recentf
-        smex
+        (smex :toggle (configuration-layer/package-used-p 'smex))
         swiper
         wgrep
         ))
