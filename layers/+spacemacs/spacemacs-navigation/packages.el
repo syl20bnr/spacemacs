@@ -356,7 +356,7 @@
       "qr" 'spacemacs/restart-emacs-resume-layouts
       "qR" 'spacemacs/restart-emacs
       "qt" 'spacemacs/restart-emacs-timed-requires
-      "qt" 'spacemacs/restart-emacs-adv-timers)))
+      "qT" 'spacemacs/restart-emacs-adv-timers)))
 
 (defun spacemacs-navigation/init-smooth-scrolling ()
   (setq scroll-preserve-screen-position t

@@ -1,4 +1,4 @@
-;;; config.el --- CMake Layer config File for Spacemacs
+;;; config.el --- CMake layer config file for Spacemacs.
 ;;
 ;; Copyright (c) 2018 Sylvain Benner & Contributors
 ;;

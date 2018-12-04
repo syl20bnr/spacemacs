@@ -1,4 +1,4 @@
-;;; packages.el --- CMake layer packages  fuke for Spacemacs
+;;; packages.el --- CMake layer packages file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

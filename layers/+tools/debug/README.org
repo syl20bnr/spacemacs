@@ -12,7 +12,7 @@
   - [[#debugger][Debugger]]
 
 * Description
-This layer adds interactive debuggers for mulitple languages using [[https://github.com/realgud/realgud][realgud]].
+This layer adds interactive debuggers for multiple languages using [[https://github.com/realgud/realgud][realgud]].
 
 ** Features:
 - Modern rewrite of the Emacs GUD debugger family
