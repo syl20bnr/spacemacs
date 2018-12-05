@@ -100,7 +100,7 @@ You can do that by using a quasi-quoted list which checks the Emacs mode:
 * Key bindings
 ** Colorize Identifiers
 
-| Key Binding   | Description                                                           |
+| Key binding   | Description                                                           |
 |---------------+-----------------------------------------------------------------------|
 | ~SPC t C a~   | colorize all identifiers in current buffer (rainbow-identifiers mode) |
 | ~SPC t C C-a~ | globally colorize all identifiers and all subsequent buffers          |
@@ -110,7 +110,7 @@ You can do that by using a quasi-quoted list which checks the Emacs mode:
 The =saturation= and =lightness= of rainbow-identifier mode’s colors
 can be adjusted live via the following transient-state:
 
-| Key Binding     | Description                              |
+| Key binding     | Description                              |
 |-----------------+------------------------------------------|
 | ~SPC C i s~     | initiate change =saturation= mini-mode   |
 | ~SPC C i l~     | initiate change =lightness= mini-mode    |

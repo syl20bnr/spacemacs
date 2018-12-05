@@ -6,7 +6,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#spawn-prodigy][Spawn prodigy]]
   - [[#navigate-through-it][Navigate through it]]
 
@@ -27,17 +27,17 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =prodigy= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key Bindings
+* Key bindings
 ** Spawn prodigy
 You start prodigy with this:
 
-| Key Binding | Description             |
+| Key binding | Description             |
 |-------------+-------------------------|
 | ~SPC a S~   | Open the prodigy buffer |
 
 ** Navigate through it
 
-| Key Binding | Description                     |
+| Key binding | Description                     |
 |-------------+---------------------------------|
 | ~c~         | Clear buffer                    |
 | ~h~         | First service                   |

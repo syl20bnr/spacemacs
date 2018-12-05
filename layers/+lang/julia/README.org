@@ -81,7 +81,7 @@ using this layer with Julia 1.0, =julia-mode-enable-lsp= should be set to =nil=.
 
 * Key bindings
 
-| Key Binding | Description                                                |
+| Key binding | Description                                                |
 |-------------+------------------------------------------------------------|
 | ~SPC m h h~ | Calls ~@doc~ macro on symbol under cursor.                 |
 | ~SPC m e m~ | Expands macro under cursor.                                |

@@ -29,7 +29,7 @@ This layer adds a number of packages for less common languages and major modes.
 * Key bindings
 ** Arch Linux PKGBUILDs
 
-| Key Binding | Description                |
+| Key binding | Description                |
 |-------------+----------------------------|
 | ~SPC m b~   | Run makepkg                |
 | ~SPC m r~   | Increase the pkgrel number |
@@ -40,7 +40,7 @@ This layer adds a number of packages for less common languages and major modes.
 
 ** Gentoo ebuilds
 
-| Key Binding | Description            |
+| Key binding | Description            |
 |-------------+------------------------|
 | ~SPC m n~   | Insert skeleton ebuild |
 | ~SPC m k~   | Edit keywords          |

@@ -213,7 +213,7 @@ When =ruby-test-runner= equals =minitest=.
 
 ** Seeing is believing
 
-| Key Binding   | Description                      |
+| Key binding   | Description                      |
 |---------------+----------------------------------|
 | ~<SPC> m @ @~ | Run seeing is believing          |
 | ~<SPC> m @ c~ | Clear seeing is believing output |

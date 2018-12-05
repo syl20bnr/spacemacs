@@ -199,7 +199,7 @@ Some advanced configuration is setup for =eshell= in this layer:
 
 * Key bindings
 
-| Key Binding | Description                                                |
+| Key binding | Description                                                |
 |-------------+------------------------------------------------------------|
 | ~SPC '​~     | Open, close or go to the default shell                     |
 | ~SPC p '​~   | Open a shell in the project’s root                         |
@@ -221,7 +221,7 @@ in the current buffer instead of a popup.
 
 ** Multi-term
 
-| Key Binding | Description                  |
+| Key binding | Description                  |
 |-------------+------------------------------|
 | ~SPC m c~   | create a new multi-term      |
 | ~SPC m n~   | go to next multi-term        |
@@ -230,6 +230,6 @@ in the current buffer instead of a popup.
 
 ** Eshell
 
-| Key Binding        | Description                                |
+| Key binding        | Description                                |
 |--------------------+--------------------------------------------|
 | ~SPC m H~ or ~M-l~ | shell commands history using a helm buffer |

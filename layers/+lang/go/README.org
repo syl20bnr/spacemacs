@@ -231,7 +231,7 @@ You have a few options to ensure you always get up to date suggestions:
 * Working with Go
 ** Go commands (start with =m=):
 
-| Key Binding   | Description                                                                           |
+| Key binding   | Description                                                                           |
 |---------------+---------------------------------------------------------------------------------------|
 | ~SPC m =~     | run “go fmt”                                                                          |
 | ~SPC m e b~   | go-play buffer                                                                        |
@@ -256,7 +256,7 @@ You have a few options to ensure you always get up to date suggestions:
 
 ** Go Guru
 
-| Key Binding | Description                                          |
+| Key binding | Description                                          |
 |-------------+------------------------------------------------------|
 | ~SPC m f <~ | go-guru show possible callers                        |
 | ~SPC m f >~ | go-guru show call targets                            |
@@ -273,7 +273,7 @@ You have a few options to ensure you always get up to date suggestions:
 
 ** Refactoring
 
-| Key Binding | Description                                                    |
+| Key binding | Description                                                    |
 |-------------+----------------------------------------------------------------|
 | ~SPC m r d~ | Add comment stubs                                              |
 | ~SPC m r e~ | Extract code as new function                                   |

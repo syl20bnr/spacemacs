@@ -30,7 +30,7 @@ file.
 
 * Key bindings
 
-| Key Binding | Description         |
+| Key binding | Description         |
 |-------------+---------------------|
 | ~<TAB>~     | Next link           |
 | ~<BACKTAB>~ | Previous link       |

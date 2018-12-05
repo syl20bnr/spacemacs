@@ -184,7 +184,7 @@ explore:
 | Key binding | Function                                                      |
 |-------------+---------------------------------------------------------------|
 | ~SPC h SPC~ | Lists all layers and allows you to view files from the layer. |
-| ~SPC ?~     | Lists all keybindings.                                        |
+| ~SPC ?~     | Lists all key bindings.                                       |
 
 * Customization
 ** The .spacemacs file
@@ -450,7 +450,7 @@ that is loaded at startup. Here is an example:
                                           gotham)))
 #+END_SRC
 
-All installed themes can be listed and chosen using the ~SPC T h~ keybinding.
+All installed themes can be listed and chosen using the ~SPC T h~ key binding.
 
 *** Nohlsearch
 Spacemacs emulates the default vim behavior which highlights search results even

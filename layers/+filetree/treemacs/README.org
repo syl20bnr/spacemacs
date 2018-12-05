@@ -11,7 +11,7 @@
   - [[#file-watch][File watch]]
   - [[#collapsed-directories][Collapsed directories]]
   - [[#locking-width][Locking width]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#global][Global]]
   - [[#inside-treemacs][Inside Treemacs]]
 
@@ -84,7 +84,7 @@ Default is 3 (or 0 when python is not installed).
 ** Locking width
 To have the width of the treemacs window locked by default, meaning not manually
 resizable, set the variable =treemacs-lock-width= to non-nil. It will still be
-resizable through Treemacs commands and keybindings.
+resizable through Treemacs commands and key bindings.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
@@ -93,10 +93,10 @@ resizable through Treemacs commands and keybindings.
 
 Default is =nil=.
 
-* Key Bindings
+* Key bindings
 ** Global
 
-| Key Binding | Description                                                                                                                                    |
+| Key binding | Description                                                                                                                                    |
 |-------------+------------------------------------------------------------------------------------------------------------------------------------------------|
 | ~M-0~       | Selected the treemacs window. Actually selects window #10, which is always assigned to treemacs.                                               |
 | ~SPC 0~     | Open treemacs in the current directory. When not visiting a file use $HOME as fallback. With a prefix arg manually select the root instead.    |
@@ -111,7 +111,7 @@ depending on whether vim/hybrid editing style is used. Likewise refresh is only
 bound to g when emacs editing style is used, since under vim g is a prefix for
 many other commands.
 
-| Key Binding | Description                                                                                                    |
+| Key binding | Description                                                                                                    |
 |-------------+----------------------------------------------------------------------------------------------------------------|
 | ~?~         | Summon the helpful hydra to show you the treemacs keymap.                                                      |
 | ~M-j/M-n~   | Select next node at the same depth as currently selected node, if possible.                                    |

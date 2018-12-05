@@ -208,7 +208,7 @@ History navigation in shells or REPLs buffers should be bound as well to
 ** Building and Compilation
 The base prefix for major mode specific compilation is ~SPC m c~.
 
-| Key Binding | Description       |
+| Key binding | Description       |
 |-------------+-------------------|
 | ~m c b~     | compile buffer    |
 | ~m c c~     | compile           |
@@ -221,7 +221,7 @@ implement an auto-save of the buffer before compiling the buffer.
 ** Debugging
 The base prefix for debugging commands is ~SPC m d~.
 
-| Key Binding | Description             |
+| Key binding | Description             |
 |-------------+-------------------------|
 | ~m d a~     | abandon current process |
 | ~m d b~     | toggle a breakpoint     |
@@ -244,7 +244,7 @@ Notes:
 ** Errors
 Management of errors should be put under ~SPC m E~.
 
-| Key Binding | Description                         |
+| Key binding | Description                         |
 |-------------+-------------------------------------|
 | ~m E e~     | fix error around point              |
 | ~m E l~     | show errors                         |
@@ -257,7 +257,7 @@ keybindings whenever applicable.
 *** Headers
 All header functionality should be grouped under ~SPC m h~
 
-| Key Binding | Description                                      |
+| Key binding | Description                                      |
 |-------------+--------------------------------------------------|
 | ~m h i~     | Insert a header                                  |
 | ~m h I~     | Insert a header alternative method (if existing) |
@@ -267,7 +267,7 @@ All header functionality should be grouped under ~SPC m h~
 Insertion of common elements like links or footnotes should be grouped
 under ~SPC m i~
 
-| Key Binding | Description      |
+| Key binding | Description      |
 |-------------+------------------|
 | ~m i f~     | Insert footnote  |
 | ~m i i~     | Insert image     |
@@ -278,7 +278,7 @@ under ~SPC m i~
 *** Text manipulation
 Manipulation of text regions should be grouped under ~SPC m x~
 
-| Key Binding | Description                   |
+| Key binding | Description                   |
 |-------------+-------------------------------|
 | ~m x b~     | Make region bold              |
 | ~m x c~     | Make region code              |
@@ -290,9 +290,9 @@ Manipulation of text regions should be grouped under ~SPC m x~
 | ~m x v~     | Make region verbose           |
 
 *** Movement in normal mode
-In normal mode Vim style movement should be enabled with these keybindings:
+In normal mode Vim style movement should be enabled with these key bindings:
 
-| Key Binding | Description                            |
+| Key binding | Description                            |
 |-------------+----------------------------------------|
 | ~g h~       | Move up one level in headings          |
 | ~g j~       | Move to next heading on same level     |
@@ -304,7 +304,7 @@ Promotion, demotion and movement of headings or list elements (whatever is
 possible) should be enabled with the following keys when in Vim style or
 Hybrid with hjkl movements enabled:
 
-| Key Binding | Description                  |
+| Key binding | Description                  |
 |-------------+------------------------------|
 | ~M-h~       | Promote heading by one level |
 | ~M-j~       | Move element down            |
@@ -314,7 +314,7 @@ Hybrid with hjkl movements enabled:
 In all editing styles promotion and demotion can be done with the following
 keys:
 
-| Key Binding | Description                  |
+| Key binding | Description                  |
 |-------------+------------------------------|
 | ~M-down~    | Move element down            |
 | ~M-left~    | Promote heading by one level |
@@ -369,7 +369,7 @@ Refactoring prefix is ~SPC m r~.
 ** Code Formatting
 Major-mode code formatting is under prefix ~SPC m =~.
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~m = =~     | format thing under point |
 | ~m = b~     | format current buffer    |

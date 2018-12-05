@@ -7,7 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#nixos-options][NixOS Options]]
 
 * Description
@@ -24,9 +24,9 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =nixos= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key Bindings
+* Key bindings
 ** NixOS Options
 
-| Key Binding | Description             |
+| Key binding | Description             |
 |-------------+-------------------------|
 | ~SPC h >~   | Call helm-nixos-options |

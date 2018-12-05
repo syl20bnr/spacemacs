@@ -44,7 +44,7 @@ There is support for =org-babel= and =restclient= code blocks, for instance:
 
 ** Key bindings
 
-| Key Binding | Description                                                 |
+| Key binding | Description                                                 |
 |-------------+-------------------------------------------------------------|
 | ~SPC m n~   | Jump to next request                                        |
 | ~SPC m p~   | Jump to previous request                                    |

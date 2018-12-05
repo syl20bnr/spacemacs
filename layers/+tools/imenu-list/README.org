@@ -29,13 +29,13 @@ this file.
 * Key bindings
 ** From any buffer
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~SPC b i~   | toggle imenu-list window |
 
 ** From imenu-list buffer
 
-| Key Binding | Description                                            |
+| Key binding | Description                                            |
 |-------------+--------------------------------------------------------|
 | ~q~         | quit imenu-list window                                 |
 | ~RET~       | go to current entry                                    |

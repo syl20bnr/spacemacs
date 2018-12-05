@@ -133,7 +133,7 @@ You have to install the following dependencies with npm.
 * Key bindings
 ** Typescript Major Mode
 
-| Key Binding | Description                                                  |
+| Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC m =~   | reformat the buffer                                          |
 | ~SPC m E d~ | add =tslitn-disable-next-line= at point                      |
@@ -151,7 +151,7 @@ You have to install the following dependencies with npm.
 
 ** Reference Major Mode
 
-| Key Binding | Description             |
+| Key binding | Description             |
 |-------------+-------------------------|
 | ~C-j~       | find previous reference |
 | ~C-k~       | find next reference     |

@@ -17,7 +17,7 @@
       - [[#disclaimer][Disclaimer]]
       - [[#note][Note]]
   - [[#enabling-sfoobar][Enabling =s/foo/bar/=]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 - [[#rcirc-documentation][Rcirc documentation]]
 - [[#spacemacs-layout-support][Spacemacs Layout Support]]
 
@@ -176,16 +176,16 @@ variable =rcirc-enable-late-fix= to =t= in your dotfile:
     (rcirc :variables rcirc-enable-late-fix t)))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                                                                   |
+| Key binding | Description                                                                   |
 |-------------+-------------------------------------------------------------------------------|
 | ~SPC a i r~ | Open rcirc                                                                    |
 | ~SPC l o i~ | Open rcirc in a custom perspective “@RICRC” (need perspectives layer enabled) |
 
 In normal state:
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~C-j~       | next item in history     |
 | ~C-k~       | previous item in history |

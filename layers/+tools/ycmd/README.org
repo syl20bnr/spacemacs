@@ -11,7 +11,7 @@
   - [[#activating-ycmd-in-a-major-mode][Activating ycmd in a major mode]]
   - [[#getting-the-compilation-flags][Getting the compilation flags]]
 - [[#functions][Functions]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]] support.
@@ -113,6 +113,6 @@ semantic completions. It will automatically make an exception when you are
 completing includes; these do not count as semantic completion so the exception
 is necessary for the key binding to work when completing includes.
 
-* Key Bindings
+* Key bindings
 Adds ~SPC m g g~ go to definition binding to =c++-mode= as well as ~SPC m g G~
 for the more imprecise but faster version.

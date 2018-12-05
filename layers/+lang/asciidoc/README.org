@@ -23,7 +23,7 @@ file.
 * Key bindings
 ** Element insertion
 
-| Key Binding | Description                                   |
+| Key binding | Description                                   |
 |-------------+-----------------------------------------------|
 | ~SPC m h 1~ | Insert title level 1                          |
 | ~SPC m h I~ | Insert title level 1 (the most important one) |
@@ -38,7 +38,7 @@ file.
 
 ** Promotion, Demotion
 
-| Key Binding | Description         |
+| Key binding | Description         |
 |-------------+---------------------|
 | ~M-h~       | Promote title level |
 | ~M-l~       | Demote title level  |

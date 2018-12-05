@@ -10,7 +10,7 @@
   - [[#prettier][prettier]]
   - [[#choosing-a-formatter][Choosing a formatter]]
 - [[#live-display-in-browser][Live display in browser]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#web-mode][Web mode]]
   - [[#cssscss][CSS/SCSS]]
 
@@ -77,10 +77,10 @@ in the browser. For other buffers, a list of available views can be found on
 
 For more information visit the [[https://github.com/skeeto/impatient-mode/blob/master/README.md][help page on GitHub.]]
 
-* Key Bindings
+* Key bindings
 ** Web mode
 
-| Key Binding | Description                                               |
+| Key binding | Description                                               |
 |-------------+-----------------------------------------------------------|
 | ~SPC m g p~ | quickly navigate CSS rules using =helm=                   |
 | ~SPC m e h~ | highlight DOM errors                                      |
@@ -99,7 +99,7 @@ For more information visit the [[https://github.com/skeeto/impatient-mode/blob/m
 
 A transient-state is also defined, start it with ~SPC m .~ or ~, .~
 
-| Key Binding | Description                                                    |
+| Key binding | Description                                                    |
 |-------------+----------------------------------------------------------------|
 | ~?~         | Toggle full help                                               |
 | ~c~         | clone current element                                          |
@@ -118,7 +118,7 @@ A transient-state is also defined, start it with ~SPC m .~ or ~, .~
 
 ** CSS/SCSS
 
-| Key Binding | Description                      |
+| Key binding | Description                      |
 |-------------+----------------------------------|
 | ~SPC m g h~ | quickly navigate CSS rules       |
 | ~SPC m z c~ | fold css statement to one line   |

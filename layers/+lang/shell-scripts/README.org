@@ -8,7 +8,7 @@
 - [[#install][Install]]
   - [[#linting][Linting]]
   - [[#style-checking][Style checking]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This simple layer adds support for shell scripting.
@@ -35,9 +35,9 @@ In order to enable =sh= scripts linting, install [[https://www.shellcheck.net/][
 ** Style checking
 In order to enable =sh= scripts style checking, install [[https://github.com/openstack-dev/bashate][bashate]].
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                                               |
+| Key binding | Description                                               |
 |-------------+-----------------------------------------------------------|
 | ~SPC m \~   | insert end-of-line backslashes to the lines in the region |
 | ~SPC i !~   | insert shebang in a script file                           |

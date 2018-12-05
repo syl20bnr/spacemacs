@@ -8,7 +8,7 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#cmake-ide-configuration][CMake-ide configuration]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support [[https://cmake.org/][CMake]] scripts.
@@ -73,9 +73,9 @@ In case of projectile it’s possible to configure project like:
            (helm-make-arguments . "-j7"))))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                                                             |
+| Key binding | Description                                                             |
 |-------------+-------------------------------------------------------------------------|
 | ~SPC m p c~ | Run CMake and set compiler flags for auto-completion and flycheck       |
 | ~SPC m p C~ | Run CMake if compilation database JSON file is not found                |
