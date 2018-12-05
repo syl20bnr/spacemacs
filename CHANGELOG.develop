@@ -118,6 +118,7 @@ a sane way, here is the complet list of changed key bindings:
 **** WEB services
 - confluence
 **** Tools
+- pass (thanks to Andrew Oppenlander)
 - sphinx (thanks to Wei-Wei Guo)
 **** Others
 - spacemacs-purpose (thanks to bmag)
@@ -152,6 +153,12 @@ a sane way, here is the complet list of changed key bindings:
   - new =spacemacs-modeline= layer contains packages about mode line
   - Merge =spacemacs-ui= and =spacemacs-ui-visual= into layer =spacemacs-visual=
 - New Packages:
+  - Add =evil-lion= package to =spacemacs-evil= layer (thanks to et2010 and
+    Eivind Fonn)
+  - Add =editorconfig= package to =spacemacs-editing= layer (thanks to Vladimir
+    Kochnev and Eivind Fonn)
+  - Add =password-generator= package to =spacemacs-editing= layer (thanks to
+    Sylvain Benner)
   - Add =symon= package to =spacemacs-modeline= layer
     (thanks to Eugene Yaremenko)
 - Key bindings:
@@ -194,9 +201,14 @@ a sane way, here is the complet list of changed key bindings:
   - Fix placement of created new empty buffer (thanks to bmag)
   - Fix renaming of a buffer without a visited file (thanks to duianto)
   - Fix frame cycling in =evil-unimpaired= (thanks to Vladimir Kochnev)
+- UX:
+  - Fill the current filename as a suggestion of
+    =spacemacs/rename-current-buffer-file= (thanks to tddsg)
+  - Add prefix argument to =rename-current-buffer-file= (thanks to Eivind Fonn)
 - Enable =evil-search= search module in evil state.
 - Improve function =spacemacs/sort-lines-by-column= to work on rectangular/block
   selection and warn the user about its requirements (thanks to duianto)
+- Keep =find-ert-test-buffer= from moving point (thanks to Alexander-Miller)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -212,6 +224,7 @@ a sane way, here is the complet list of changed key bindings:
 **** Chrome
 - Add =markdown= key bindings to gmail message mode (thanks to Christoph Paulik)
 **** Clojure
+- Add =sayid= debugger (thanks to Daniel Manila)
 - Key bindings:
   - ~SPC m e ;~ to eval sexp and show result as comment
     (thanks to John Stevenson)
@@ -226,12 +239,16 @@ a sane way, here is the complet list of changed key bindings:
 - Fix key binding ~g C~ (thanks to dubnde)
 **** CSharp
 - Enable =flycheck= by default (thanks to Saulius Menkevičius)
+**** Dash
+- Use default docsets path in ~helm-dash~ on macos (thanks to ColorFuzzy)
 **** Deft
 - Key bindings:
   - ~SPC m c~ clear deft filter (thanks to Bahtiar Gadimov)
   - ~SPC m N~ create new file named (thanks to Bahtiar Gadimov)
   - ~SPC m o~ deft open file in other window (thanks to Bahtiar Gadimov)
   - ~SPC m r~ rename selected note (thanks to Bahtiar Gadimov)
+**** Django
+- Added names to django mode prefixes (thanks to Boris Verhovsky)
 **** Elm
 - Fix flycheck initialization (thanks to Kevin W. van Rooijen)
 **** Emacs Lisp
@@ -245,6 +262,8 @@ a sane way, here is the complet list of changed key bindings:
   - Change ~SPC m s t~ to ~SPC m s f~ to respect convention (thanks to Yi Liu)
   - Change ~SPC m s T~ to ~SPC m s F~ to respect convention (thanks to Yi Liu)
 - Fix issue with read-only REPL buffer (thanks to jackkamm)
+**** Extra langs
+- Added SPARQL-mode (thanks to Dietrich Daroch)
 **** GitHub
 - Packages:
  - Add package =magithub=, it is enabled by default in offline mode.
@@ -254,7 +273,9 @@ a sane way, here is the complet list of changed key bindings:
 - Install magit-svn by default and activate with git-enable-magit-svn-plugin
 - Key bindings:
   - ~SPC g c~ to clone a repository (thanks to Steven Allen)
+  - ~SPC g f f~ to view a file at a specific branch or commit (thanks to duianto)
   - ~SPC g i~ to initialize a repository (thanks to Steven Allen)
+  - ~SPC m g y~ to find symbols (thanks to Daniel Ralston)
 **** Go
 - Improve go test output buffer behavior (thanks to Denis Bernard)
 **** Gtags
@@ -264,6 +285,8 @@ a sane way, here is the complet list of changed key bindings:
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
 **** IPython Notebook
 - Add support for auto-completion with =company= (thanks to tutysara)
+- Key bindings:
+  - ~SPC a i l~ to login (thanks to Ben Mabey)
 **** Ivy
 - Add =recentf= alt actions to refresh and delete items (thanks to Rich Alesi)
 - Add =projectile= alternate actions to invalidate cache (thanks to Rich Alesi)
@@ -278,6 +301,7 @@ a sane way, here is the complet list of changed key bindings:
 - Key bindings:
   - ~SPC m e e~ is now to fix error around point. Use ~SPC e~ prefix to navigate
     between errors.
+  - ~SPC m p r~ to run project (thanks to Willian Ver Valem Paiva)
 **** Keyboard layout
 - Add support for Colemak layout (thanks to Daniel Mijares and Lyall Cooper)
 **** Lua
@@ -290,11 +314,14 @@ a sane way, here is the complet list of changed key bindings:
 - Add support for Scala source blocks (thanks to Christian Brassat)
 - Fix save of org table (thanks to Codruț Constantin Gușoi)
 - Fix missing key bindings for =gfm-mode= (thanks to Codruț Constantin Gușoi)
+- Open Madoko document using markdown mode (thanks to Han Wang)
 **** Mu4e
 - Add custom Spacemacs layout for =mu4e= buffers (thanks to Benjamin Reynolds)
 **** NixOS
 - Enable Flycheck (thanks to William Casarin)
 **** Org
+- Load org-mode email integration (mu4e/notmuch) when org is loaded (thanks to
+  Steven Allen)
 - Packages:
   - Add package =org-journal= (thanks to Nick Anderson)
 - Key bindings:
@@ -312,6 +339,7 @@ a sane way, here is the complet list of changed key bindings:
     - add ~SPC m C j~ to jump to current clock
     - add ~SPC m p~ to change priority
 **** Osx
+- Fix OSX mapping issue (thanks to Joey Liu)
 - New layer variables to define modifers behaviors in macOS:
   - =osx-command-as= defaults to hyper
   - =osx-option-as= defaults to meta
@@ -354,6 +382,8 @@ a sane way, here is the complet list of changed key bindings:
   - Prevent ~C-l~ clearing cycle
   - Prevent ~clear RET~ inserting a page of white-space
   - Prevent duplicate insert lines from ~clear RET~
+**** Shell Scripts
+- Add new company-shell environment variable backend (thanks to Alexander-Miller)
 **** Slack
 - New layer variable =slack-spacemacs-layout-name= to customize the name of
   the custom layer for Slack buffers (thanks to Benjamin Reynolds)
@@ -381,20 +411,24 @@ a sane way, here is the complet list of changed key bindings:
 - Key bindings:
   - move key bindings prefix to ~SPC a V~ (thanks to Thomas de Beauchêne)
 **** Version-control
+- Un-evilify =diff-mode= (thanks to Steven Allen)
 - New packages:
   - =browse-at-remote= which replaces =github-browse-file=
    (thanks Eugene Yaremenko)
 *** Various improvements
 ## TODO @JAremko: put everything you did here
 - Lots of improvement with CI (thanks to Eugene Yaremenko)
+- Various code style improvements (thanks to duianto, Eivind Fonn, Sylvain
+  Benner)
 - Various documentation improvements (thanks Aaron Peckham, Alexander Iljin,
   Anurag Sharma, Archenoth, Benjamin Reynolds, Carl Lange, Chase Adams,
   CL123123, Codruț Constantin Gușoi, Darkhan, David Vo, Diego Berrocal, Dinesh
-  Bhosale, duianto, eldios, Evan Niessen-Derry, firemiles, Fuqiao Xue, Henry Marshall, Jesse Cooke, Jody
-  Frankowski, John Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett,
-  Josh Greenwood, Joshua Santos, Kainalu Hagiwara, Keith Wygant, Kristoffer
-  Haugsbakk, Leo Joseph Buchignani III, Max Nordlund, Maximilian Wolff, nikolaiam, Muneeb Shaikh, Nasser
-  Alshammari, Nikolai Myllymäki, Paul Milla, Phil Pirozhkov, Rafi Khan, Reverend Homer,
-  Robby O'Connor, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho,
-  Swaroop C H, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski, Vladimir Kochnev,
-  Wieland Hoffmann, Yi Liu)
+  Bhosale, duianto, eldios, Eugene Yaremenko, Evan Niessen-Derry, firemiles,
+  Fuqiao Xue, Henry Marshall, Jesse Cooke, Jody Frankowski, John Wood, Jon
+  Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood,
+  Joshua Santos, Kainalu Hagiwara, Keith Wygant, Kristoffer Haugsbakk, Leo
+  Joseph Buchignani III, Max Nordlund, Maximilian Wolff, nikolaiam, Muneeb
+  Shaikh, Nasser Alshammari, Nikolai Myllymäki, Paul Milla, Phil Pirozhkov, Rafi
+  Khan, Reverend Homer, Robby O'Connor, sduthil, Shane Kilkelly, Sid Kapur,
+  Somelauw, Soobin Rho, Swaroop C H, TinySong, Titov Andrey, Thomas de
+  Beauchêne, Tomasz Cichocinski, Vladimir Kochnev, Wieland Hoffmann, Yi Liu)
