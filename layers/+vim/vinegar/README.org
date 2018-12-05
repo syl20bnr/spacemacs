@@ -33,7 +33,7 @@ buffers to enter dired.
 
 ** Key bindings
 
-| Key Binding | Description                                        |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~-~         | Navigate to parent directory in dired              |
 | ~0~         | (Dired) Move to the beginning of the file in dired |

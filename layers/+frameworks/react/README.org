@@ -7,7 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#optional-configuration][Optional Configuration]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#rjsx-mode][rjsx-mode]]
   - [[#formatting-web-beautify][Formatting (web-beautify)]]
     - [[#documentation-js-doc][Documentation (js-doc)]]
@@ -118,10 +118,10 @@ concatenations and contiguous function calls:
     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 ** rjsx-mode
 
-| Key Binding   | Description                                                                      |
+| Key binding   | Description                                                                      |
 |---------------+----------------------------------------------------------------------------------|
 | ~<~           | inserts </> whenever it would start a new JSX node                               |
 | ~>~           | right before the slash in a self-closing tag automatically inserts a closing tag |
@@ -129,14 +129,14 @@ concatenations and contiguous function calls:
 
 ** Formatting (web-beautify)
 
-| Key Binding | Description                                                  |
+| Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC m =~   | beautify code in js2-mode, json-mode, web-mode, and css-mode |
 
 *** Documentation (js-doc)
 You can check more [[https://github.com/mooz/js-doc/][here]]
 
-| Key Binding   | Description                           |
+| Key binding   | Description                           |
 |---------------+---------------------------------------|
 | ~SPC m r d b~ | insert JSDoc comment for current file |
 | ~SPC m r d f~ | insert JSDoc comment for function     |
@@ -145,7 +145,7 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 
 ** Auto-complete and documentation (tern)
 
-| Key Binding   | Description                                                                              |
+| Key binding   | Description                                                                              |
 |---------------+------------------------------------------------------------------------------------------|
 | ~SPC m C-g~   | brings you back to last place you were when you pressed M-..                             |
 | ~SPC m g g~   | jump to the definition of the thing under the cursor                                     |

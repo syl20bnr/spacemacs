@@ -53,7 +53,7 @@ Spacemacs leader key.
 All Agda specific bindings are prefixed with the major-mode leader
 ~SPC m~.
 
-| Key Binding | Description                                                                                                                               |
+| Key binding | Description                                                                                                                               |
 |-------------+-------------------------------------------------------------------------------------------------------------------------------------------|
 | ~SPC m =~   | Show constraints.                                                                                                                         |
 | ~SPC m ?~   | Show all goals.                                                                                                                           |

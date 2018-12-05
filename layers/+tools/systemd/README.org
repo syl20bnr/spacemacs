@@ -23,7 +23,7 @@ To use this contribution add it to your =~/.spacemacs=
 
 * Key bindings
 
-| Key Binding | Description                                                              |
+| Key binding | Description                                                              |
 |-------------+--------------------------------------------------------------------------|
 | ~SPC m h d~ | Systemd open the directives documentation                                |
 | ~SPC m h o~ | Systemd open documentation (if a =\=Documentation= directive is provided |

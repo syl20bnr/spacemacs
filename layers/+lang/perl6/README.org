@@ -41,6 +41,6 @@ Then you can generate the =TAGS= file for your projects like this:
 
 * Key bindings
 
-| Key Binding | Description                                    |
+| Key binding | Description                                    |
 |-------------+------------------------------------------------|
 | ~SPC m g g~ | Jump to definition (requires =ctags-universal= |

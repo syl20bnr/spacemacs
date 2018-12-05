@@ -249,13 +249,13 @@ In addition =gtags= commands are also supported for symbols in the
 
 * Key bindings
 
-| Key Binding | Description                                      |
+| Key binding | Description                                      |
 |-------------+--------------------------------------------------|
 | ~g d~       | jump to definition or references of selected tag |
 
 ** Helm
 
-| Key Binding | Description                                               |
+| Key binding | Description                                               |
 |-------------+-----------------------------------------------------------|
 | ~SPC m g C~ | create a tag database                                     |
 | ~SPC m g f~ | jump to a file in tag database                            |
@@ -277,7 +277,7 @@ In addition =gtags= commands are also supported for symbols in the
 =counsel-gtags= is currently missing a few minor features compared to
 =helm-gtags=.
 
-| Key Binding | Description                                    |
+| Key binding | Description                                    |
 |-------------+------------------------------------------------|
 | ~SPC m g C~ | create a tag database                          |
 | ~SPC m g f~ | jump to a file in tag database                 |

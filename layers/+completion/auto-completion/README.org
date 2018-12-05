@@ -15,7 +15,7 @@
   - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
   - [[#completion-back-ends][Completion back ends]]
   - [[#improved-faces][Improved faces]]
-- [[#key-bindings-1][Key Bindings]]
+- [[#key-bindings-1][Key bindings]]
   - [[#company][Company]]
   - [[#auto-complete][Auto-complete]]
   - [[#yasnippet][Yasnippet]]
@@ -200,10 +200,10 @@ For nicer-looking faces, try adding the following to `custom-set-faces` in your 
      ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 ** Company
 
-| Key Binding | Description                                                                                          |
+| Key binding | Description                                                                                          |
 |-------------+------------------------------------------------------------------------------------------------------|
 | ~C-d~       | open minibuffer with documentation of thing at point in company dropdown                             |
 | ~C-/~       | show candidates in Helm or Ivy (for fuzzy searching)                                                 |
@@ -212,7 +212,7 @@ For nicer-looking faces, try adding the following to `custom-set-faces` in your 
 
 Vim Style:
 
-| Key Binding | Description                                  |
+| Key binding | Description                                  |
 |-------------+----------------------------------------------|
 | ~C-j~       | (vim style) go down in company dropdown menu |
 | ~C-k~       | (vim style) go up in company dropdown menu   |
@@ -220,14 +220,14 @@ Vim Style:
 
 Emacs style:
 
-| Key Binding | Description                                    |
+| Key binding | Description                                    |
 |-------------+------------------------------------------------|
 | ~C-n~       | (emacs style) go down in company dropdown menu |
 | ~C-p~       | (emacs style) go up in company dropdown menu   |
 
 ** Auto-complete
 
-| Key Binding | Description                                                          |
+| Key binding | Description                                                          |
 |-------------+----------------------------------------------------------------------|
 | ~C-j~       | select next candidate                                                |
 | ~C-k~       | select previous candidate                                            |
@@ -237,14 +237,14 @@ Emacs style:
 
 ** Yasnippet
 
-| Key Binding | Description                                                    |
+| Key binding | Description                                                    |
 |-------------+----------------------------------------------------------------|
 | ~M-/~       | Expand a snippet if text before point is a prefix of a snippet |
 | ~SPC i s~   | List all current yasnippets for inserting                      |
 
 ** Auto-yasnippet
 
-| Key Binding | Description                                                               |
+| Key binding | Description                                                               |
 |-------------+---------------------------------------------------------------------------|
 | ~SPC i S c~ | create a snippet from an active region                                    |
 | ~SPC i S e~ | Expand the snippet just created with ~SPC i y~                            |

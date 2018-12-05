@@ -4,7 +4,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds basic =tmux= key bindings to Spacemacs.
@@ -19,9 +19,9 @@ file.
 
 For this to work you will also need to install the native package =tmux= on your system.
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description     |
+| Key binding | Description     |
 |-------------+-----------------|
 | ~C-h~       | Call tmux left  |
 | ~C-j~       | Call tmux right |

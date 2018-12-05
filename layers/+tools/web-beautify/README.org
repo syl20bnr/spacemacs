@@ -4,7 +4,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support for [[https://github.com/yasuyk/web-beautify][web-beautify]].
@@ -23,8 +23,8 @@ To install =js-beautify= globally:
   $ npm install -g js-beautify
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                       |
+| Key binding | Description                       |
 |-------------+-----------------------------------|
 | ~SPC m =~   | beautify code in supported layers |

@@ -61,7 +61,7 @@ For more details please check [[https://github.com/stanaka/dash-at-point#Usage][
 
 * Key bindings
 
-| Key Binding | Description                                                     |
+| Key binding | Description                                                     |
 |-------------+-----------------------------------------------------------------|
 | ~SPC d d~   | Lookup thing at point in Dash or Zeal                           |
 | ~SPC d D~   | Lookup thing at point in Dash or Zeal within a specified Docset |

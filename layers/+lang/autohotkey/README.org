@@ -6,7 +6,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 Syntax highlighting and Emacs functions for use with [[https://autohotkey.com/][AutoHotkey]] or
@@ -30,9 +30,9 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =autohotkey= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                        |
+| Key binding | Description                        |
 |-------------+------------------------------------|
 | ~SPC m c b~ | block comment                      |
 | ~SPC m c c~ | line comment                       |

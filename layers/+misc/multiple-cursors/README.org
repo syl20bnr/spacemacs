@@ -30,7 +30,7 @@ availabe in the future.
 ** =evil-mc=
 The =evil-mc= package provides the following key bindings:
 
-| Key Binding | Description                        |
+| Key binding | Description                        |
 |-------------+------------------------------------|
 | ~g r f~     | evil-mc-make-and-goto-first-cursor |
 | ~g r h~     | evil-mc-make-cursor-here           |
@@ -48,7 +48,7 @@ The =evil-mc= package provides the following key bindings:
 
 For easy navigation you also have the following:
 
-| Key Binding | Description                        |
+| Key binding | Description                        |
 |-------------+------------------------------------|
 | ~M-n~       | evil-mc-make-and-goto-next-cursor  |
 | ~M-p~       | evil-mc-make-and-goto-prev-cursor  |

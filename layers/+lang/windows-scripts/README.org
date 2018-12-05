@@ -6,7 +6,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#powershell-powershellel][Powershell (powershell.el)]]
   - [[#batch-dosel][Batch (dos.el)]]
 
@@ -23,16 +23,16 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =windows-scripts= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key Bindings
+* Key bindings
 ** Powershell (powershell.el)
 
-| Key Binding | Description                      |
+| Key binding | Description                      |
 |-------------+----------------------------------|
 | ~SPC m r r~ | Transform marked regexp to regex |
 
 ** Batch (dos.el)
 
-| Key Binding | Description                          |
+| Key binding | Description                          |
 |-------------+--------------------------------------|
 | ~SPC m D~   | ask for a command and display help   |
 | ~SPC m e b~ | evaluate buffer                      |

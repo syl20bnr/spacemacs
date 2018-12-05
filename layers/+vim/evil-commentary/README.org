@@ -20,7 +20,7 @@ file.
 
 * Key bindings
 
-| Key Binding | Description                        |
+| Key binding | Description                        |
 |-------------+------------------------------------|
 | ~SPC ;~     | comment operator                   |
 | ~gcc~       | comment current line               |

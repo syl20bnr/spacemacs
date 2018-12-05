@@ -11,12 +11,12 @@
     - [[#use-with-non-us-keyboard-layouts][Use with non-US keyboard layouts]]
     - [[#define-words-using-os-x-dictionary][Define words using OS X Dictionary]]
   - [[#coreutils][Coreutils]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 - [[#future-work][Future Work]]
 
 * Description
 Spacemacs is not just emacs+vim. It can have OSX key bindings too! This layer
-globally defines common OSX keybindings.
+globally defines common OSX key bindings.
 
 ** Features:
 - ~⌘~ is set to ~hyper~ and ~⌥~ is set to ~meta~
@@ -101,9 +101,9 @@ To get =gls= install coreutils homebrew:
   brew install coreutils
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~⌘ =~       | Scale up text               |
 | ~⌘ -~       | Scale down text             |

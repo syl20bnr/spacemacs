@@ -13,7 +13,7 @@
 - [[#usage][Usage]]
   - [[#reformat][Reformat]]
   - [[#display-navigable-hierarchy][Display navigable hierarchy]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#json-hierarchy][JSON hierarchy]]
 
 * Description
@@ -85,9 +85,9 @@ Use the universal prefix argument to print decoded strings, for instance:
 region. Use the universal prefix argument ~SPC u SPC m h h~ to create the
 hierarchy for the JSON *after* the point.
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                                 |
+| Key binding | Description                                 |
 |-------------+---------------------------------------------|
 | ~SPC m =~   | DWIM Reformat JSON                          |
 | ~SPC m h p~ | Get the path of the value at point          |
@@ -96,7 +96,7 @@ hierarchy for the JSON *after* the point.
 
 ** JSON hierarchy
 
-| Key Binding | Description          |
+| Key binding | Description          |
 |-------------+----------------------|
 | ~RET~       | Expand/Collapse node |
 | ~TAB~       | Select next node     |

@@ -294,7 +294,7 @@ To permanently enable mode line display of org clock, add this snippet to your
 * Key bindings
 ** Starting org-mode
 
-| Key Binding   | Description                                                               |
+| Key binding   | Description                                                               |
 |---------------+---------------------------------------------------------------------------|
 | ~SPC a o #~   | org agenda list stuck projects                                            |
 | ~SPC a o /~   | org occur in agenda files                                                 |
@@ -319,7 +319,7 @@ To permanently enable mode line display of org clock, add this snippet to your
 
 ** Toggles
 
-| Key Binding | Description                                   |
+| Key binding | Description                                   |
 |-------------+-----------------------------------------------|
 | ~SPC m T c~ | org-toggle-checkbox                           |
 | ~SPC m T e~ | org-toggle-pretty-entities                    |
@@ -332,7 +332,7 @@ To permanently enable mode line display of org clock, add this snippet to your
 
 ** Org-mode
 
-| Key Binding                                  | Description                                   |
+| Key binding                                  | Description                                   |
 |----------------------------------------------+-----------------------------------------------|
 | ~SPC m <dotspacemacs-major-mode-leader-key>~ | org-ctrl-c-ctrl-c                             |
 | ~SPC m *~                                    | org-ctrl-c-star                               |
@@ -375,7 +375,7 @@ To permanently enable mode line display of org clock, add this snippet to your
 Please see the [[https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org][evil-org documentation]] for additional instructions on customizing
 =evil-org-mode=.
 
-| Key Binding   | Description                     |
+| Key binding   | Description                     |
 |---------------+---------------------------------|
 | ~gj~ / ~gk~   | Next/previous element (heading) |
 | ~gh~ / ~gl~   | Parent/child element (heading)  |
@@ -391,7 +391,7 @@ Please see the [[https://github.com/Somelauw/evil-org-mode/blob/master/doc/keyth
 If the layer variable =org-want-todo-bindings= is true, the following bindings
 are also available.
 
-| Key Bindings | Description                         |
+| Key bindings | Description                         |
 |--------------+-------------------------------------|
 | ~t~          | Cycle TODO state of current heading |
 | ~T~          | Insert new TODO heading             |
@@ -399,7 +399,7 @@ are also available.
 
 ** Tables
 
-| Key Binding   | Description                                                                |
+| Key binding   | Description                                                                |
 |---------------+----------------------------------------------------------------------------|
 | ~SPC m t a~   | Align the table at point by aligning all vertical bars                     |
 | ~SPC m t b~   | Blank the current table field or active region                             |
@@ -431,7 +431,7 @@ are also available.
 
 ** Trees
 
-| Key Binding   | Description                     |
+| Key binding   | Description                     |
 |---------------+---------------------------------|
 | ~gj~ / ~gk~   | Next/previous element (heading) |
 | ~gh~ / ~gl~   | Parent/child element (heading)  |
@@ -459,7 +459,7 @@ are also available.
 
 ** Element insertion
 
-| Key Binding   | Description                      |
+| Key binding   | Description                      |
 |---------------+----------------------------------|
 | ~SPC m i d~   | org-insert-drawer                |
 | ~SPC m i D s~ | Take screenshot                  |
@@ -477,13 +477,13 @@ are also available.
 
 ** Links
 
-| Key Binding | Description       |
+| Key binding | Description       |
 |-------------+-------------------|
 | ~SPC m x o~ | org-open-at-point |
 
 ** Babel / Source Blocks
 
-| Key Binding | Description                              |
+| Key binding | Description                              |
 |-------------+------------------------------------------|
 | ~SPC m b .~ | Enter Babel Transient State              |
 | ~SPC m b a~ | org-babel-sha1-hash                      |
@@ -513,7 +513,7 @@ are also available.
 Use ~SPC m b .~ to enter a transient state for quick source block navigation and
 execution. During that state, the following bindings are active:
 
-| Key Binding | Description                   |
+| Key binding | Description                   |
 |-------------+-------------------------------|
 | ~'~         | edit source block             |
 | ~e~         | execute source block          |
@@ -525,7 +525,7 @@ execution. During that state, the following bindings are active:
 
 ** Emphasis
 
-| Key Binding | Description                |
+| Key binding | Description                |
 |-------------+----------------------------|
 | ~SPC m x b~ | make region bold           |
 | ~SPC m x c~ | make region code           |
@@ -537,7 +537,7 @@ execution. During that state, the following bindings are active:
 
 ** Navigating in calendar
 
-| Key Binding | Description        |
+| Key binding | Description        |
 |-------------+--------------------|
 | ~M-l~       | One day forward    |
 | ~M-h~       | One day backward   |
@@ -552,7 +552,7 @@ execution. During that state, the following bindings are active:
 =org-capture-mode= and =org-src-mode= both support the confirm and abort
 conventions.
 
-| Key Binding                                  | Description                            |
+| Key binding                                  | Description                            |
 |----------------------------------------------+----------------------------------------|
 | ~SPC m <dotspacemacs-major-mode-leader-key>~ | confirm in =org-capture-mode=          |
 | ~SPC m '​~                                    | confirm in =org-src-mode=              |
@@ -565,7 +565,7 @@ conventions.
 *** Key bindings
 The evilified org agenda supports the following bindings:
 
-| Key Binding          | Description                       |
+| Key binding          | Description                       |
 |----------------------+-----------------------------------|
 | ~M-SPC~ or ~s-M-SPC~ | org-agenda transient state        |
 | ~SPC m a~            | org-agenda                        |
@@ -666,14 +666,14 @@ are listed bellow.
 
 ** Pomodoro
 
-| Key Binding | Description       |
+| Key binding | Description       |
 |-------------+-------------------|
 | ~SPC m C p~ | starts a pomodoro |
 
 ** Presentation
 org-present must be activated explicitly by typing: ~SPC SPC org-present~
 
-| Key Binding | Description    |
+| Key binding | Description    |
 |-------------+----------------|
 | ~h~         | previous slide |
 | ~l~         | next slide     |
@@ -681,13 +681,13 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 
 ** Helm-org-rifle
 
-| Key Binding | Description                                |
+| Key binding | Description                                |
 |-------------+--------------------------------------------|
 | ~SPC a o r~ | Search org files for keywords and headings |
 
 ** Org-projectile
 
-| Key Binding       | Description                                             |
+| Key binding       | Description                                             |
 |-------------------+---------------------------------------------------------|
 | ~SPC a o p~       | Capture a TODO for the current project                  |
 | ~SPC u SPC a o p~ | Capture a TODO for any given project (choose from list) |
@@ -695,7 +695,7 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 
 ** Org-journal
 
-| Key Binding   | Description            |
+| Key binding   | Description            |
 |---------------+------------------------|
 | ~SPC a o j j~ | New journal entry      |
 | ~SPC a o j s~ | Search journal entries |
@@ -703,7 +703,7 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 Journal entries are highlighted in the calendar. The following key bindings are
 available for =calendar-mode= for navigating and manipulating the journal.
 
-| Key Binding | Description                           |
+| Key binding | Description                           |
 |-------------+---------------------------------------|
 | ~SPC m r~   | Read journal entry                    |
 | ~SPC m i~   | Insert journal entry for date         |
@@ -717,7 +717,7 @@ available for =calendar-mode= for navigating and manipulating the journal.
 While viewing a journal entry in =org-journal-mode= the following key bindings
 are available.
 
-| Key Binding | Description            |
+| Key binding | Description            |
 |-------------+------------------------|
 | ~SPC m j~   | New journal entry      |
 | ~SPC m p~   | Previous journal entry |
@@ -726,13 +726,13 @@ are available.
 ** Org-brain
 *** Application bindings
 
-| Key Binding | Description                  |
+| Key binding | Description                  |
 |-------------+------------------------------|
 | ~SPC a o b~ | Visualize an org-brain entry |
 
 *** Visualization bindings
 
-| Key Binding | Description                           |
+| Key binding | Description                           |
 |-------------+---------------------------------------|
 | ~j / TAB~   | Goto next link                        |
 | ~k / S-TAB~ | Goto previous link                    |

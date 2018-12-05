@@ -34,7 +34,7 @@ On OS X, it can be installed via [[https://github.com/Homebrew/legacy-homebrew][
 
 * Key bindings
 
-| Key Binding | Description                        |
+| Key binding | Description                        |
 |-------------+------------------------------------|
 | ~SPC f a s~ | find a file or directory with fasd |
 | ~SPC f a d~ | find a directory with fasd         |

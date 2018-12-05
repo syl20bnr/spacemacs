@@ -64,7 +64,7 @@ If you want to disable this feature then set the layer variable
 
 * Key bindings
 
-| Key Binding | Description                              |
+| Key binding | Description                              |
 |-------------+------------------------------------------|
 | ~SPC m b d~ | encrypt the buffer using =ansible-vault= |
 | ~SPC m b e~ | decrypt the buffer using =ansible-vault= |

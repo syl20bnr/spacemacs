@@ -186,7 +186,7 @@ using a =dir-locals.el= file.
 * Key bindings
 ** elm-make
 
-| Key Binding | Description                                  |
+| Key binding | Description                                  |
 |-------------+----------------------------------------------|
 | ~SPC m c b~ | elm-compile-buffer                           |
 | ~SPC m c B~ | spacemacs/elm-compile-buffer-override-output |
@@ -194,7 +194,7 @@ using a =dir-locals.el= file.
 
 ** elm-repl
 
-| Key Binding | Description                                                |
+| Key binding | Description                                                |
 |-------------+------------------------------------------------------------|
 | ~SPC m s i~ | elm-repl-load                                              |
 | ~SPC m s f~ | send current function to REPL                              |
@@ -204,14 +204,14 @@ using a =dir-locals.el= file.
 
 ** elm-reactor
 
-| Key Binding | Description        |
+| Key binding | Description        |
 |-------------+--------------------|
 | ~SPC m R n~ | elm-preview-buffer |
 | ~SPC m R m~ | elm-preview-main   |
 
 ** elm-test-runner
 
-| Key Binding   | Description                            |
+| Key binding   | Description                            |
 |---------------+----------------------------------------|
 | ~SPC m t b~   | elm-test-runner-run                    |
 | ~SPC m t d~   | elm-test-runner-run-directory          |
@@ -222,7 +222,7 @@ using a =dir-locals.el= file.
 
 ** elm-package
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~SPC m p i~ | elm-import               |
 | ~SPC m p c~ | elm-package-catalog      |
@@ -230,7 +230,7 @@ using a =dir-locals.el= file.
 
 *** package list buffer
 
-| Key Binding | Description         |
+| Key binding | Description         |
 |-------------+---------------------|
 | ~g~         | elm-package-refresh |
 | ~v~         | elm-package-view    |
@@ -241,18 +241,18 @@ using a =dir-locals.el= file.
 
 ** elm-oracle
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~SPC m h h~ | elm-oracle-doc-at-point  |
 | ~SPC m h t~ | elm-oracle-type-at-point |
 
 ** elm-format
 
-| Key Binding | Description            |
+| Key binding | Description            |
 | ~SPC m = b~ | elm-mode-format-buffer |
 
 ** Refactoring
 
-| Key Binding | Description      |
+| Key binding | Description      |
 |-------------+------------------|
 | ~SPC m r i~ | elm-sort-imports |

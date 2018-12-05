@@ -7,7 +7,7 @@
   - [[#features][Features:]]
   - [[#supported-search-engines][Supported search engines]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 - [[#customize-it][Customize it!]]
 
 * Description
@@ -39,7 +39,7 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =search-engine= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key Bindings
+* Key bindings
 
 | Evil      | Holy    | Command                                   |
 |-----------+---------+-------------------------------------------|

@@ -29,6 +29,6 @@ file.
 
 * Key bindings
 
-| Key Binding | Description        |
+| Key binding | Description        |
 |-------------+--------------------|
 | ~SPC a b~   | bm transient state |

@@ -6,7 +6,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#tell-me-how-to-spawn-the-xkcd-greatness][Tell me how to spawn the xkcd greatness!!]]
   - [[#okay-what-now][Okay, what now]]
 
@@ -24,17 +24,17 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =xkcd= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key Bindings
+* Key bindings
 ** Tell me how to spawn the xkcd greatness!!
 
-| Key Binding | Description    |
+| Key binding | Description    |
 |-------------+----------------|
 | ~SPC a x~   | Open xkcd mode |
 
 ** Okay, what now
 You can now move through the comics with these
 
-| Key Binding | Description                         |
+| Key binding | Description                         |
 |-------------+-------------------------------------|
 | ~e~         | Open explanation in the browser     |
 | ~j~ or ~l~  | Next comic                          |

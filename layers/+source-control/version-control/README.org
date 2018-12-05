@@ -7,7 +7,7 @@
   - [[#layer][Layer]]
 - [[#configuration][Configuration]]
   - [[#differences-between-margin-programs][Differences between margin programs]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#vc-directory-buffer-commands][VC Directory buffer commands]]
   - [[#commit-message-editing-buffer][Commit message editing buffer]]
   - [[#diff-mode][Diff mode]]
@@ -69,10 +69,10 @@ one over the other:
 | Stage hunks from buffer             |         | X          | X           |
 | Dired support                       | X       |            |             |
 
-* Key Bindings
+* Key bindings
 VC commands:
 
-| Key Binding | Description                                            |
+| Key binding | Description                                            |
 |-------------+--------------------------------------------------------|
 | ~SPC g .~   | version control transient-state                        |
 | ~SPC g r~   | smerge mode transient-state                            |
@@ -110,7 +110,7 @@ To some of them are given shortcuts:
 
 Navigation and interaction commands in the VC Directory buffer:
 
-| Key Bindings    | Description        |
+| Key bindings    | Description        |
 |-----------------+--------------------|
 | ~j~ or ~M-n~    | next file          |
 | ~k~ or ~M-p~    | previous file      |
@@ -125,7 +125,7 @@ Pressing ~C-c C-k~ will discard the commit message and close this buffer.
 
 ** Diff mode
 
-| Key Bindings | Description                                    |
+| Key bindings | Description                                    |
 |--------------+------------------------------------------------|
 | ~SPC m a~    | apply a hunk                                   |
 | ~SPC m d~    | kill the hunk at point                         |
@@ -146,7 +146,7 @@ Pressing ~C-c C-k~ will discard the commit message and close this buffer.
 
 A transient buffer is also defined, start it with ~SPC m .~ or ~, .~
 
-| Key Bindings | Description   |
+| Key bindings | Description   |
 |--------------+---------------|
 | ~j~          | next hunk     |
 | ~J~          | next file     |
@@ -155,7 +155,7 @@ A transient buffer is also defined, start it with ~SPC m .~ or ~, .~
 
 ** Log view buffer
 
-| Key Bindings           | Description                                                                |
+| Key bindings           | Description                                                                |
 |------------------------+----------------------------------------------------------------------------|
 | ~C-j~ or ~M-n~         | next message                                                               |
 | ~C-k~ or ~M-p~         | previous message                                                           |
@@ -168,7 +168,7 @@ A transient buffer is also defined, start it with ~SPC m .~ or ~, .~
 
 ** Annotation buffer
 
-| Key Bindings | Description                                                                    |
+| Key bindings | Description                                                                    |
 |--------------+--------------------------------------------------------------------------------|
 | ~J~          | visit the annotation of the revision after this one                            |
 | ~K~          | visit the annotation of the revision previous to this one                      |
@@ -182,7 +182,7 @@ A transient buffer is also defined, start it with ~SPC m .~ or ~, .~
 ** Version Control Transient-state
 Use ~SPC g .~ to enter a transient state for quickly navigating between hunks in a buffer. During that state, the following bindings are active:
 
-| Key Binding | Description                  |
+| Key binding | Description                  |
 |-------------+------------------------------|
 | ~h~         | Show diff of hunk            |
 | ~n~         | Next hunk                    |
@@ -204,7 +204,7 @@ Use ~SPC g .~ to enter a transient state for quickly navigating between hunks in
 
 ** Smerge Mode Transient-state
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~SPC g r n~ | Next hunk                |
 | ~SPC g r N~ | Previous hunk            |
@@ -223,7 +223,7 @@ Use ~SPC g .~ to enter a transient state for quickly navigating between hunks in
 
 ** Toggles
 
-| Key Binding | Description                  |
+| Key binding | Description                  |
 |-------------+------------------------------|
 | ~SPC T d~   | toggle diff margins          |
 | ~SPC T C-d~ | toggle diff margins globally |
