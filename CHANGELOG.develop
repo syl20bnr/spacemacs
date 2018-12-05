@@ -6,6 +6,7 @@ This file containes the change log for the next major version of Spacemacs.
 ** 0.300.0
 *** Breaking Changes
 **** Key bindings
+- ~SPC q z~ is noe ~SPC q f~ to kill a frame.
 - ~SPC b m~ now opens the =*Messages*= buffer. The old ~SPC b m~ to kill other
   buffers has been moved to ~SPC b C-d~. Killing other buffers using a regular
   expression is now under ~SPC b C-D~.
@@ -14,6 +15,61 @@ This file containes the change log for the next major version of Spacemacs.
   (explain error around point) has been moved to ~SPC e x~.
 - Vagrant key bindings prefix is now ~SPC a V~.
 - Regenerate tags are now under ~SPC m g C~ instead of ~SPC m g c~.
+**** Org
+Org key bindings were all over the place and we needed to reorganize them in
+a sane way, here is the complet list of changed key bindings:
+- New prefixes:
+  - ~SPC C~ clocks
+  - ~SPC d~ dates
+  - ~SPC m i D~ download
+  - ~SPC m s~ trees/subtrees
+  - ~SPC m T~ toggles
+- Changed key bindings:
+  - ~SPC m C c~ org-clock-cancel
+  - ~SPC m C i~ org-clock-in
+  - ~SPC m C o~ org-clock-out
+  - ~SPC m C p~ org-pomodoro
+  - ~SPC m d d~ org-deadline
+  - ~SPC m d s~ org-schedule
+  - ~SPC m d t~ org-time-stamp
+  - ~SPC m d T~ org-time-stamp-inactive
+  - ~SPC m e m~ org-mime-org-buffer-htmlize
+  - ~SPC m i d~ org-insert-drawer
+  - ~SPC m i D y~ org-download-yank
+  - ~SPC m i D s~ org-download-screenshot
+  - ~SPC m i e~ org-set-effort
+  - ~SPC m i h~ org-insert-heading
+  - ~SPC m i H~ org-insert-heading-after-current
+  - ~SPC m i K~ spacemacs/insert-keybinding-org
+  - ~SPC m i l~ org-insert-link
+  - ~SPC m i p~ org-set-property
+  - ~SPC m i s~ org-insert-subheading
+  - ~SPC m i t~ org-set-tags
+  - ~SPC m s a~ org-archive-subtree
+  - ~SPC m s b~ org-tree-to-indirect-buffer
+  - ~SPC m s h~ org-promote-subtree
+  - ~SPC m s j~ org-move-subtree-down
+  - ~SPC m s k~ org-move-subtree-up
+  - ~SPC m s l~ org-demote-subtree
+  - ~SPC m s n~ org-narrow-to-subtree
+  - ~SPC m s N~ widen
+  - ~SPC m s r~ org-refile
+  - ~SPC m s s~ org-sparse-tree
+  - ~SPC m s S~ org-sort
+  - ~SPC m T t~ org-show-todo-tree
+  - ~SPC m T i~ org-toggle-inline-images
+  - ~SPC m T V~ space-doc-mode
+  - ~SPC m T x~ org-toggle-latex-fragment
+  - ~SPC m x o~ org-open-at-point
+  - ~SPC m C c~ org-agenda-clock-cancel
+  - ~SPC m C i~ org-agenda-clock-in
+  - ~SPC m C o~ org-agenda-clock-out
+  - ~SPC m d d~ org-agenda-deadline
+  - ~SPC m d s~ org-agenda-schedule
+  - ~SPC m i e~ org-agenda-set-effort
+  - ~SPC m i p~ org-agenda-set-property
+  - ~SPC m i t~ org-agenda-set-tags
+  - ~SPC m s r~ org-agenda-refile
 **** Others
 - All custom settings are now encapsulated in a function called
   =dotspacemacs/emacs-custom-settings=. While it should not break your custom
@@ -66,7 +122,7 @@ This file containes the change log for the next major version of Spacemacs.
 **** Others
 - spacemacs-purpose (thanks to bmag)
 *** Dotfile changes
-- New variables:
+- Variables:
   - New variable =dotspacemacs-switch-to-buffer-prefers-purpose= which
     controls where =switch-to-buffer= displays the buffer. If nil,
     =switch-to-buffer= displays the buffer in the current window even if another
@@ -76,6 +132,9 @@ This file containes the change log for the next major version of Spacemacs.
   - New variable =dotspacemacs-zone-out-when-idle= to zone when idle. Zoning will
     obfuscate the current buffer acting like a screen saver. (thanks to Eugene
     Yaremenko)
+  - New variable =dotspacemacs-frame-title-format= which is the efault format
+    string for a frame title bar, see docstring of function
+    =spacemacs/frame-title-prepare= for more info (thanks to Uri Sharf and Kepi)
 - Can use the univeral prefix argument to open both the =*scratch*= buffer and
   the =*Messages*= buffer in another window (thanks to Thomas de Beauchêne)
 *** Core changes
@@ -84,6 +143,8 @@ This file containes the change log for the next major version of Spacemacs.
 - Add new interactive function =spacemacs/diminish-undo= to undo all the
   dimished mode-line lighters and have all of them be displayed in the
   mode-line. (thanks to hodge)
+- Add support for building multi-file local packages with =Quelpa=
+  (thanks to Andriy Kmit')
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
@@ -102,17 +163,43 @@ This file containes the change log for the next major version of Spacemacs.
   - New key binding ~SPC f i~ for =insert-file=.
   - Add alignement support for ~{~ (thanks to Paulo Diniz)
   - Move all scrolling key bindings from ~SPC n~ to ~SPC N~ (thanks to Somelauw)
+  - Move ~SPC q z~ to ~SPC q f~ to kill a frame (thanks to Steven Allen)
   - Overhaul the scroll transient state on ~SPC N~ prefix (thanks to Somelauw)
+  - New ~SPC b N~ prefix to create an empty buffer (thanks to duianto):
+    - ~SPC b N h~ create new empty buffer in a new window on the left
+    - ~SPC b N j~ create new empty buffer in a new window at the bottom
+    - ~SPC b N k~ create new empty buffer in a new window above
+    - ~SPC b N l~ create new empty buffer in a new window below
+    - ~SPC b N n~ create new empty buffer in current window
+  - New text align key bindings (thanks to Thomas de Beauchêne):
+    - ~SPC x a [~ align region at [
+    - ~SPC x a ]~ align region at ]
+    - ~SPC x a {~ align region at {
+    - ~SPC x a }~ align region at }
+  - New string inflection key bindings (thanks to Ric da Silva):
+    - ~SPC x i i~ cycle symbol naming styles
+    - ~SPC x i u~ change symbol style to =under_score=
+    - ~SPC x i U~ change symbol style to =UP_CASE=
+    - ~SPC x i k~ change symbol style to =kebab-case=
+    - ~SPC x i c~ change symbol style to =lowerCamelCase=
+    - ~SPC x i C~ change symbol style to =UpperCamelCase=
+  - New ~SPC x d SPC~ to delete all spaces except one (thanks to Fabian Wilk)
 - Fixes:
   - Disable the paste transient state when using multiple cursors
     (thanks to Koray AL)
   - Fix ~.~ repeat operator with the unimpaired keybindings ~[ q~ and ~] q~ to
     jump to flycheck errors in the current buffer. (thanks to Robbert van der
     Helm)
+  - Fix colorization of compilation buffer (thanks to Abdó Roig-Maranges)
+  - Fix placement of created new empty buffer (thanks to bmag)
+  - Fix renaming of a buffer without a visited file (thanks to duianto)
+  - Fix frame cycling in =evil-unimpaired= (thanks to Vladimir Kochnev)
 - Enable =evil-search= search module in evil state.
 - Improve function =spacemacs/sort-lines-by-column= to work on rectangular/block
   selection and warn the user about its requirements (thanks to duianto)
 *** Layer changes and fixes
+**** Ansible
+- Add support for multiple vault password files, see later README.org
 **** C-C++
 - Add automatic formatting on save using ClangFormat with the variables
   =c-c++-enable-clang-format-on-save= and =c-c++-enable-clang-support=
@@ -122,16 +209,42 @@ This file containes the change log for the next major version of Spacemacs.
 **** Chinese
 - Add package =chinese-conv= for conversion between simplified and traditional
   Chinese texts (Xiang Ji)
+**** Chrome
+- Add =markdown= key bindings to gmail message mode (thanks to Christoph Paulik)
+**** Clojure
+- Key bindings:
+  - ~SPC m e ;~ to eval sexp and show result as comment
+    (thanks to John Stevenson)
 **** Common Lisp
+- Key bindings:
+  - ~SPC m e l~ to evaluate current line (thanks to Boris Avdeev)
 - Add =slime-asdf= to =slime-contribs= to enabled some slime commands like
+- Fix ~SPC m e~ key bindings to behave like in Emacs Lisp
+  (thanks to Boris Avdeev)
   =,load-system= (thanks to Daniel Schoepe)
 **** Cscope
 - Fix key binding ~g C~ (thanks to dubnde)
 **** CSharp
 - Enable =flycheck= by default (thanks to Saulius Menkevičius)
+**** Deft
+- Key bindings:
+  - ~SPC m c~ clear deft filter (thanks to Bahtiar Gadimov)
+  - ~SPC m N~ create new file named (thanks to Bahtiar Gadimov)
+  - ~SPC m o~ deft open file in other window (thanks to Bahtiar Gadimov)
+  - ~SPC m r~ rename selected note (thanks to Bahtiar Gadimov)
+**** Elm
+- Fix flycheck initialization (thanks to Kevin W. van Rooijen)
 **** Emacs Lisp
 - Key bindings:
   - Add ~c~ to continue in edebug mode (thanks to hodge)
+**** Emoji
+- Add support for Emoji fonts on macOS and Linux (thanks to CodeFalling )
+- Setup =emojify= cache directory (thanks to Boris Buliga)
+**** ESS
+- Key bindings:
+  - Change ~SPC m s t~ to ~SPC m s f~ to respect convention (thanks to Yi Liu)
+  - Change ~SPC m s T~ to ~SPC m s F~ to respect convention (thanks to Yi Liu)
+- Fix issue with read-only REPL buffer (thanks to jackkamm)
 **** GitHub
 - Packages:
  - Add package =magithub=, it is enabled by default in offline mode.
@@ -139,13 +252,26 @@ This file containes the change log for the next major version of Spacemacs.
   =browse-at-remote= in =version-control= layer
 **** Git
 - Install magit-svn by default and activate with git-enable-magit-svn-plugin
+- Key bindings:
+  - ~SPC g c~ to clone a repository (thanks to Steven Allen)
+  - ~SPC g i~ to initialize a repository (thanks to Steven Allen)
+**** Go
+- Improve go test output buffer behavior (thanks to Denis Bernard)
 **** Gtags
 - Key bindings:
   - Move key binding ~SPC m g c~ to ~SPC m g C~ (regenerate tags)
+**** Helm
+- Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
+**** IPython Notebook
+- Add support for auto-completion with =company= (thanks to tutysara)
 **** Ivy
+- Add =recentf= alt actions to refresh and delete items (thanks to Rich Alesi)
+- Add =projectile= alternate actions to invalidate cache (thanks to Rich Alesi)
 - Key bindings:
   - Add Helm key bindings counterparts: ~SPC f e l~ and ~SPC h i~
     (thanks to Andriy Kmit')
+  - Add ~SPC h d F~ to list faces (thanks to Muneeb Shaikh)
+- Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
 **** Java
 - Add support for multiple backends. Supported backends are: =megahnada=,
   =eclim= and =ensime=. The default backend is =meghanada=.
@@ -153,14 +279,26 @@ This file containes the change log for the next major version of Spacemacs.
   - ~SPC m e e~ is now to fix error around point. Use ~SPC e~ prefix to navigate
     between errors.
 **** Keyboard layout
-- Add support for Colemak layout (thanks to Daniel Mijares)
+- Add support for Colemak layout (thanks to Daniel Mijares and Lyall Cooper)
+**** Lua
+- Add support for auto-completion with =company= (thanks to halfcrazy)
 **** Markdown
+- New layer variable =markdown-mmm-auto-modes= which is a list of language names
+  or lists of language and mode names that are supported in source blocks, you
+  can add you own modes, see layer README.org for more info
+  (thanks to Christian Brassat)
+- Add support for Scala source blocks (thanks to Christian Brassat)
 - Fix save of org table (thanks to Codruț Constantin Gușoi)
 - Fix missing key bindings for =gfm-mode= (thanks to Codruț Constantin Gușoi)
+**** Mu4e
+- Add custom Spacemacs layout for =mu4e= buffers (thanks to Benjamin Reynolds)
+**** NixOS
+- Enable Flycheck (thanks to William Casarin)
 **** Org
 - Packages:
-  - Add package =org-journal= (Nick Anderson)
+  - Add package =org-journal= (thanks to Nick Anderson)
 - Key bindings:
+  - ~SPC m T i~ to toggle inline images
   - Move clock related key bindings to ~SPC a o C~
   - Key bindings (thanks to darkfeline and Langston Barrett):
     - add ~SPC a o C I~ to clock in last
@@ -173,15 +311,41 @@ This file containes the change log for the next major version of Spacemacs.
     - add ~SPC m C g~ for org-clock-goto
     - add ~SPC m C j~ to jump to current clock
     - add ~SPC m p~ to change priority
+**** Osx
+- New layer variables to define modifers behaviors in macOS:
+  - =osx-command-as= defaults to hyper
+  - =osx-option-as= defaults to meta
+  - =osx-control-as= defaults to control
+  - =osx-function-as= defaults to none
+  - =osx-right-command-as= defaults to left
+  - =osx-right-option-as=  defaults to left
+  - =osx-right-control-as= defaults to left
+  (thanks to Christopher Eames and Aaron Culich)
+- Key bindings:
+  - Add key bindings to use ~command-1..9~ for selecting window
+    (thanks to Liu Joey)
+  - Add ~M-s-h~ to hide other windows (thanks to Bas Veeling)
+**** Prodigy
+- Key bindings:
+  - add ~c~ to clear the buffer (thanks to Francesc Elies)
 **** Python
 - Various fixes in =pylookup.py= (thanks to ishestakov)
 - Hide =yapf-mode= modeline lighter (thanks to Robert ven der Helm)
+**** Ranger
+- Fix conflict with =golden-ratio= (thanks to Thomas de Beauchêne)
 **** Rcirc
 - New variable =rcirc-enable-late-fix= to enable or disable the included
   =rcirc-late-fix= package (disabled by default).
 - Fix using multiple lines in =.authinfo= (thanks to Jelle Licht)
+**** Ruby
+- Add support for =org-babel= (thanks to Muneeb Shaikh)
+**** Rust
+- Key bindings:
+  - Add ~SPC m c D~ to open Cargo docs (thanks to Matthew J. Berger)
 **** Scala
 - Move =ensime= to the =java= layer (Tor Hedin Bronner)
+- Key bindings:
+  - Evilify =ensime= search in insert/normal mode (thanks to Diego Alvarez)
 **** Shell
 - Fix xterm colors filtering bug in =eshell= when eshell buffers are updated
   and are not focused (thanks to Steven Allen)
@@ -190,14 +354,29 @@ This file containes the change log for the next major version of Spacemacs.
   - Prevent ~C-l~ clearing cycle
   - Prevent ~clear RET~ inserting a page of white-space
   - Prevent duplicate insert lines from ~clear RET~
+**** Slack
+- New layer variable =slack-spacemacs-layout-name= to customize the name of
+  the custom layer for Slack buffers (thanks to Benjamin Reynolds)
+- New layer variable =slack-spacemacs-layout-binding= to customize the key used
+  to open the Slack customn layout (thanks to Benjamin Reynolds)
+- Key bindings:
+  - ~SPC a C g~ or ~SPC m g~ to join a group (private channel)
+    (thanks to Benjamin Reynolds)
+  - ~SPC a C r~ or ~SPC m r~ to join a channel, group or direct message
+    (thanks to Benjamin Reynolds)
 **** Syntax-checking
 - Key bindings:
   - ~SPC e e~ is now for triggering a syntax check, the old action
     (explain error around point) has been moved to ~SPC e x~.
 - Rename function =add-flycheck-hook= to =enable-flycheck=
+**** Systemd
+- Add support for syntax checking with =flycheck= (thanks to Steven Allen)
 **** Terraform
 - Add opt-in layer variable =terraform-fmt-on-save= to format buffers on save
   with =terraform fmt= (thanks to Harry Hull)
+**** Themes Megapack
+- Add =rebecca-theme= (thanks to Victor Borja)
+- Add =white-sand-theme= (thanks to Swaroop C H)
 **** Vagrant
 - Key bindings:
   - move key bindings prefix to ~SPC a V~ (thanks to Thomas de Beauchêne)
@@ -208,8 +387,14 @@ This file containes the change log for the next major version of Spacemacs.
 *** Various improvements
 ## TODO @JAremko: put everything you did here
 - Lots of improvement with CI (thanks to Eugene Yaremenko)
-- Various documentation improvements (thanks Aaron Peckham, Alexander Iljin, Anurag Sharma,
-  Benjamin Reynolds, Carl Lange, CL123123, Codruț Constantin Gușoi, Diego
-  Berrocal, duianto, John Wood, Jonathan Arnett, Jonathan Gillett, Kainalu
-  Hagiwara, Maximilian Wolff, Reverend Homer, Robby O'Connor, sduthil, Shane
-  Kilkelly, Somelauw, Soobin Rho, TinySong, Titov Andrey, Wieland Hoffmann, Yi Liu)
+- Various documentation improvements (thanks Aaron Peckham, Alexander Iljin,
+  Anurag Sharma, Archenoth, Benjamin Reynolds, Carl Lange, Chase Adams,
+  CL123123, Codruț Constantin Gușoi, Darkhan, David Vo, Diego Berrocal, Dinesh
+  Bhosale, duianto, eldios, Evan Niessen-Derry, firemiles, Fuqiao Xue, Henry Marshall, Jesse Cooke, Jody
+  Frankowski, John Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett,
+  Josh Greenwood, Joshua Santos, Kainalu Hagiwara, Keith Wygant, Kristoffer
+  Haugsbakk, Leo Joseph Buchignani III, Max Nordlund, Maximilian Wolff, nikolaiam, Muneeb Shaikh, Nasser
+  Alshammari, Nikolai Myllymäki, Paul Milla, Phil Pirozhkov, Rafi Khan, Reverend Homer,
+  Robby O'Connor, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho,
+  Swaroop C H, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski, Vladimir Kochnev,
+  Wieland Hoffmann, Yi Liu)
