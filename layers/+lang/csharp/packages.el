@@ -87,7 +87,8 @@
         ;; Tests
         ;; [missing in roslyn] "ta" 'omnisharp-unit-test-all
         "tb" 'omnisharp-unit-test-buffer
-        ;; [missing in roslyn] "tt" 'omnisharp-unit-test-single
+        "tp" 'omnisharp-unit-test-at-point
+        "tt" 'omnisharp-unit-test-last
 
         ;; Code manipulation
         "u" 'omnisharp-auto-complete-overrides
