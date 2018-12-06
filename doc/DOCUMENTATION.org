@@ -183,7 +183,7 @@
     - [[#regular-expressions][Regular expressions]]
     - [[#deleting-files][Deleting files]]
     - [[#editing-lisp-code][Editing Lisp code]]
-      - [[#lisp-key-bindings][Lisp Key Bindings]]
+      - [[#lisp-key-bindings][Lisp Key bindings]]
     - [[#mouse-usage][Mouse usage]]
   - [[#managing-projects][Managing projects]]
   - [[#registers][Registers]]
@@ -1140,7 +1140,7 @@ You can cycle between the themes declared in =dotspacemacs-themes= with
 
 **** Themes Transient State
 
-| Key Binding      | Description                                   |
+| Key binding      | Description                                   |
 |------------------+-----------------------------------------------|
 | ~n~ or ~<right>~ | change to the next theme                      |
 | ~p~ or ~<left>~  | change to the previous theme                  |
@@ -1223,7 +1223,7 @@ property of a [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Low_00
 Some graphical UI indicators can be toggled on and off (toggles start with ~t~
 and ~T~):
 
-| Key Binding | Description                                                       |
+| Key binding | Description                                                       |
 |-------------+-------------------------------------------------------------------|
 | ~SPC t 8~   | highlight any character past the 80th column                      |
 | ~SPC t f~   | display the fill column (by default the fill column is set to 80) |
@@ -1238,7 +1238,7 @@ and ~T~):
 | ~SPC t v~   | toggle smooth scrolling                                           |
 | ~SPC t z~   | toggle 0/1 based column indexing                                  |
 
-| Key Binding | Description                                                      |
+| Key binding | Description                                                      |
 |-------------+------------------------------------------------------------------|
 | ~SPC T ~~   | display =~= in the fringe on empty lines                         |
 | ~SPC T F~   | toggle frame fullscreen                                          |
@@ -1431,7 +1431,7 @@ Reminder of the color codes for the states:
 
 Some elements can be dynamically toggled:
 
-| Key Binding | Description                                                     |
+| Key binding | Description                                                     |
 |-------------+-----------------------------------------------------------------|
 | ~SPC t m b~ | toggle the battery status                                       |
 | ~SPC t m c~ | toggle the =org= task clock (available in =org= layer)          |
@@ -1521,7 +1521,7 @@ Additionally all globally available toggles have a circled unicode symbols like
 =ⓟ=. Toggles specific to a major mode under the ~SPC m T~ prefix have plain
 squared symbols like =🅿=.
 
-| Key Binding | Unicode | ASCII | Mode                                                                 |
+| Key binding | Unicode | ASCII | Mode                                                                 |
 |-------------+---------+-------+----------------------------------------------------------------------|
 | ~SPC t -~   | =⊝=     | -     | [[https://www.emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]] mode                                                 |
 | ~SPC t 8~   | =⑧=     | 8     | toggle highlight of characters for long lines                        |
@@ -1649,7 +1649,7 @@ will be part of the custom layout.
 
 Some custom layouts that ship with Spacemacs:
 
-| Name       | Key Binding | Description                                                                     |
+| Name       | Key binding | Description                                                                     |
 |------------+-------------+---------------------------------------------------------------------------------|
 | @Spacemacs | ~e~         | Custom perspective containing all buffers of =~/.emacs.d=                       |
 | @Mu4e      | ~m~         | Custom perspective containing all mu4e buffers (needs the mu4e layer enabled)   |
@@ -1677,7 +1677,7 @@ selected layout.
 
 Press ~?~ to toggle the full help.
 
-| Key Binding         | Description                                                |
+| Key binding         | Description                                                |
 |---------------------+------------------------------------------------------------|
 | ~SPC l~             | initiate transient state                                   |
 | ~?~                 | toggle the documentation                                   |
@@ -1729,7 +1729,7 @@ selected workspace.
 
 Press ~?~ to toggle the full help.
 
-| Key Binding       | Description                                                 |
+| Key binding       | Description                                                 |
 |-------------------+-------------------------------------------------------------|
 | ~SPC l w~         | initiate transient state                                    |
 | ~?~               | toggle the documentation                                    |
@@ -1744,7 +1744,7 @@ Press ~?~ to toggle the full help.
 
 There are also some handy globally available key bindings related to workspaces:
 
-| Key Binding | Description                          |
+| Key binding | Description                          |
 |-------------+--------------------------------------|
 | ~gt~        | go to next workspace                 |
 | ~gT~        | go to previous workspace             |
@@ -1797,7 +1797,7 @@ state= to press quickly ~jj~ and inadvertently escape to =normal state=.
 
 *** Executing Vim and Emacs ex/M-x commands
 
-| Command          | Key Binding |
+| Command          | Key binding |
 |------------------+-------------|
 | Vim (ex-command) | ~:~         |
 | Emacs (M-x)      | ~SPC SPC~   |
@@ -1885,7 +1885,7 @@ bindings.
 information about functions, variables, modes etc. These commands are bound
 thusly:
 
-| Key Binding | Description                                               |
+| Key binding | Description                                               |
 |-------------+-----------------------------------------------------------|
 | ~SPC h d b~ | describe bindings                                         |
 | ~SPC h d c~ | describe current character under point                    |
@@ -1904,7 +1904,7 @@ thusly:
 
 Other help key bindings:
 
-| Key Binding | Description                                           |
+| Key binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~SPC h SPC~ | discover Spacemacs documentation, layers and packages |
 | ~SPC h .~   | search dotfile variables                              |
@@ -1921,7 +1921,7 @@ Other help key bindings:
 The =Profiler= is a tool that helps you identify why your editor is running
 slowly or consumes a lot of memory. Here are key bindings relate to it:
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC h P k~ | stop the profiler           |
 | ~SPC h P r~ | display the profiler report |
@@ -1930,7 +1930,7 @@ slowly or consumes a lot of memory. Here are key bindings relate to it:
 
 Navigation key bindings in =help-mode=:
 
-| Key Binding  | Description                                         |
+| Key binding  | Description                                         |
 |--------------+-----------------------------------------------------|
 | ~g b~ or ~[~ | go back (same as clicking on =[back]= button)       |
 | ~g f~ or ~]~ | go forward (same as clicking on =[forward]= button) |
@@ -1938,7 +1938,7 @@ Navigation key bindings in =help-mode=:
 
 Reporting an issue:
 
-| Key Binding     | Description                                                                              |
+| Key binding     | Description                                                                              |
 |-----------------+------------------------------------------------------------------------------------------|
 | ~SPC h I~       | Open Spacemacs GitHub issue page with pre-filled information                             |
 | ~SPC u SPC h I~ | Open Spacemacs GitHub issue page with pre-filled information - include last pressed keys |
@@ -1983,7 +1983,7 @@ configuration layer.
 =package-list-packages= because they don’t support the rollback feature of
 Spacemacs.
 
-| Key Binding | Description                                           |
+| Key binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~SPC a k~   | launch =paradox=                                      |
 | ~/~         | evil-search                                           |
@@ -2018,7 +2018,7 @@ The following actions are available on selected toggle:
 *** Point/Cursor
 Navigation is performed using the Vi key bindings ~hjkl~.
 
-| Key Binding | Description                                                                       |
+| Key binding | Description                                                                       |
 |-------------+-----------------------------------------------------------------------------------|
 | ~h~         | move cursor left                                                                  |
 | ~j~         | move cursor down                                                                  |
@@ -2051,7 +2051,7 @@ For instance, it is useful for deleting a set of visual lines from the current l
 Try the following sequence in a buffer containing some text: ~d SPC j l~, followed by
 selecting an avy candidate.
 
-| Key Binding | Description                                        |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC j b~   | go back to the previous location (before the jump) |
 | ~SPC j j~   | initiate avy jump char                             |
@@ -2062,7 +2062,7 @@ selecting an avy candidate.
 Similar to =avy=, [[https://github.com/abo-abo/ace-link][ace-link]] allows one to jump to any link in
 =help-mode= and =info-mode= with two key strokes.
 
-| Key Binding | Description                                           |
+| Key binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~o~         | initiate ace link mode in =help-mode= and =info-mode= |
 
@@ -2101,7 +2101,7 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 
 **** Jumping
 
-| Key Binding | Description                                                                       |
+| Key binding | Description                                                                       |
 |-------------+-----------------------------------------------------------------------------------|
 | ~SPC j 0~   | go to the beginning of line (and set a mark at the previous location in the line) |
 | ~SPC j $~   | go to the end of line (and set a mark at the previous location in the line)       |
@@ -2121,7 +2121,7 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 
 **** Joining and splitting
 
-| Key Binding | Description                                                              |
+| Key binding | Description                                                              |
 |-------------+--------------------------------------------------------------------------|
 | ~J~         | join the current line with the next line                                 |
 | ~SPC j k~   | go to next line and indent it using auto-indent rules                    |
@@ -2135,7 +2135,7 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 Every window has a number displayed at the start of the mode-line and
 can be quickly accessed using =SPC number=.
 
-| Key Binding | Description                                         |
+| Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC 1~     | go to window number 1                               |
 | ~SPC 2~     | go to window number 2                               |
@@ -2153,7 +2153,7 @@ number 0, =SPC 0= attempts to select window number 10.
 
 Windows manipulation commands (start with ~w~):
 
-| Key Binding            | Description                                                                 |
+| Key binding            | Description                                                                 |
 |------------------------+-----------------------------------------------------------------------------|
 | ~SPC w TAB~            | switch to alternate window in the current frame (switch back and forth)     |
 | ~SPC w =~              | balance split windows                                                       |
@@ -2197,7 +2197,7 @@ Windows manipulation commands (start with ~w~):
 Split the current window into multiple ones, deleting all others using the
 following commands:
 
-| Key Binding | Description                               |
+| Key binding | Description                               |
 |-------------+-------------------------------------------|
 | ~SPC w 1~   | make 1 window layout                      |
 | ~SPC w 2~   | make 2 windows layout (split vertically)  |
@@ -2207,7 +2207,7 @@ following commands:
 By default, the commands above ignore some windows, like the filetrees (treemacs
 and neotree) but you can use a prefix argument to force delete them.
 
-| Key Binding     | Description                                                 |
+| Key binding     | Description                                                 |
 |-----------------+-------------------------------------------------------------|
 | ~SPC u SPC w 1~ | make 1 window layout with force delete                      |
 | ~SPC u SPC w 2~ | make 2 windows layout (split vertically) with force delete  |
@@ -2243,7 +2243,7 @@ A convenient window manipulation transient state allows performing most of the
 actions listed above. The transient state allows additional actions as well like
 window resizing.
 
-| Key Binding | Description                                                   |
+| Key binding | Description                                                   |
 |-------------+---------------------------------------------------------------|
 | ~SPC w .~   | initiate transient state                                      |
 | ~?~         | display the full documentation in minibuffer                  |
@@ -2297,7 +2297,7 @@ The mode can be toggled on and off with ~SPC t g~.
 **** Buffers manipulation key bindings
 Buffer manipulation commands (start with ~b~):
 
-| Key Binding     | Description                                                                            |
+| Key binding     | Description                                                                            |
 |-----------------+----------------------------------------------------------------------------------------|
 | ~SPC TAB~       | switch to alternate buffer in the current window (switch back and forth)               |
 | ~SPC b b~       | switch to a buffer                                                                     |
@@ -2326,7 +2326,7 @@ Buffer manipulation commands (start with ~b~):
 
 **** Create a new empty buffer
 
-| Key Binding | Description                                           |
+| Key binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~SPC b N h~ | create new empty buffer in a new window on the left   |
 | ~SPC b N j~ | create new empty buffer in a new window at the bottom |
@@ -2338,7 +2338,7 @@ Buffer manipulation commands (start with ~b~):
 A convenient buffer manipulation transient state allows to quickly cycles through
 the opened buffer and kill them.
 
-| Key Binding | Description                                                                       |
+| Key binding | Description                                                                       |
 |-------------+-----------------------------------------------------------------------------------|
 | ~SPC b .~   | initiate transient state                                                          |
 | ~K~         | kill current buffer                                                               |
@@ -2355,7 +2355,7 @@ change the way Spacemacs marks buffers as useful. For instructions, see the
 **** Files manipulations key bindings
 Files manipulation commands (start with ~f~):
 
-| Key Binding | Description                                                                                            |
+| Key binding | Description                                                                                            |
 |-------------+--------------------------------------------------------------------------------------------------------|
 | ~SPC f A~   | open a file and replace the current buffer with the new file                                           |
 | ~SPC f b~   | go to file bookmarks                                                                                   |
@@ -2390,7 +2390,7 @@ Files manipulation commands (start with ~f~):
 **** Frame manipulation key bindings
 Frame manipulation commands (start with ~F~):
 
-| Key Binding | Description                                         |
+| Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC F f~   | open a file in another frame                        |
 | ~SPC F d~   | delete the current frame (unless it’s the only one) |
@@ -2405,7 +2405,7 @@ Frame manipulation commands (start with ~F~):
 Convenient key bindings are located under the prefix ~SPC f e~ to quickly
 navigate between =Emacs= and Spacemacs specific files.
 
-| Key Binding   | Description                                                                                             |
+| Key binding   | Description                                                                                             |
 |---------------+---------------------------------------------------------------------------------------------------------|
 | ~SPC f e d~   | open the spacemacs dotfile (=~/.spacemacs=)                                                             |
 | ~SPC f e D~   | open =ediff= buffer of =~/.spacemacs= and =.spacemacs.template=                                         |
@@ -2422,7 +2422,7 @@ navigate between =Emacs= and Spacemacs specific files.
 In =vim= style and =hybrid= style with the variable
 =hybrid-mode-enable-hjkl-bindings= set to =t=, you can navigation with ~hjkl~.
 
-| Key Binding | Description                       |
+| Key binding | Description                       |
 |-------------+-----------------------------------|
 | ~C-h~       | go up one level (parent directory |
 | ~C-H~       | describe key (replace ~C-h~)      |
@@ -2436,7 +2436,7 @@ Spacemacs displays the =ido= minibuffer vertically thanks to the
 
 Basic =ido= operations can be done with ~Ctrl~ key:
 
-| Key Binding        | Description                                       |
+| Key binding        | Description                                       |
 |--------------------+---------------------------------------------------|
 | ~C-RET~            | open a =dired buffer=                             |
 | ~M-RET~            | select the buffer or file named by the prompt     |
@@ -2461,7 +2461,7 @@ Spacemacs defines a [[#transient-states][transient state]] for =ido=.
 
 Initiate the transient state with ~M-SPC~ or ~s-M-SPC~ while in an =ido= buffer.
 
-| Key Binding          | Description                           |
+| Key binding          | Description                           |
 |----------------------+---------------------------------------|
 | ~M-SPC~ or ~s-M-SPC~ | initiate or leave the transient state |
 | ~?~                  | display help                          |
@@ -2486,7 +2486,7 @@ useful to jump to/open a known project.
 
 Open the bookmark completion window by pressing= ~SPC f b~
 
-| Key Binding | Description                                  |
+| Key binding | Description                                  |
 |-------------+----------------------------------------------|
 | ~C-d~       | delete the selected bookmark                 |
 | ~C-e~       | edit the selected bookmark                   |
@@ -2499,7 +2499,7 @@ To save a new bookmark, just type the name of the bookmark and press ~RET~.
 =doc-view-mode= is a built-in major mode to view DVI, PostScript (PS), PDF,
 OpenDocument, and Microsoft Office documents.
 
-| Key Binding | Description                              |
+| Key binding | Description                              |
 |-------------+------------------------------------------|
 | ~/~         | search forward                           |
 | ~?~         | search backward                          |
@@ -2606,7 +2606,7 @@ called =pt=.
 
 **** Useful key bindings
 
-| Key Binding            | Description                                                  |
+| Key binding            | Description                                                  |
 |------------------------+--------------------------------------------------------------|
 | ~F3~                   | in a completion buffer, save results to a regular buffer     |
 | ~SPC r l~              | resume the last =completion= buffer                          |
@@ -2620,7 +2620,7 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e 
 
 **** Searching in current file
 
-| Key Binding | Description                                         |
+| Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC s s~   | search with the first found tool                    |
 | ~SPC s S~   | search with the first found tool with default input |
@@ -2633,7 +2633,7 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e 
 
 **** Searching in all open buffers visiting files
 
-| Key Binding | Description                                         |
+| Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC s b~   | search with the first found tool                    |
 | ~SPC s B~   | search with the first found tool with default input |
@@ -2650,7 +2650,7 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e 
 
 **** Searching in files in an arbitrary directory
 
-| Key Binding | Description                                         |
+| Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC s f~   | search with the first found tool                    |
 | ~SPC s F~   | search with the first found tool with default input |
@@ -2667,7 +2667,7 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e 
 
 **** Searching in current directory
 
-| Key Binding          | Description                                         |
+| Key binding          | Description                                         |
 |----------------------+-----------------------------------------------------|
 | ~SPC /~ or ~SPC s d~ | search with the first found tool                    |
 | ~SPC *~ or ~SPC s D~ | search with the first found tool with default input |
@@ -2683,7 +2683,7 @@ bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e 
 
 **** Searching in a project
 
-| Key Binding          | Description                                         |
+| Key binding          | Description                                         |
 |----------------------+-----------------------------------------------------|
 | ~SPC /~ or ~SPC s p~ | search with the first found tool                    |
 | ~SPC *~ or ~SPC s P~ | search with the first found tool with default input |
@@ -2703,7 +2703,7 @@ directly search into it like with ~SPC s p~.
 
 **** Searching the web
 
-| Key Binding | Description                                                          |
+| Key binding | Description                                                          |
 |-------------+----------------------------------------------------------------------|
 | ~SPC s w g~ | Get Google suggestions in emacs. Opens Google results in Browser.    |
 | ~SPC s w w~ | Get Wikipedia suggestions in emacs. Opens Wikipedia page in Browser. |
@@ -2727,7 +2727,7 @@ To initiate the highlighting of the current symbol under point press ~SPC s h~.
 
 Navigation between the highlighted symbols can be done with the commands:
 
-| Key Binding | Description                                                                        |
+| Key binding | Description                                                                        |
 |-------------+------------------------------------------------------------------------------------|
 | ~*~         | initiate navigation transient state on current symbol and jump forwards            |
 | ~#~         | initiate navigation transient state on current symbol and jump backwards           |
@@ -2738,7 +2738,7 @@ Navigation between the highlighted symbols can be done with the commands:
 
 During the symbol highlight transient state, the following bindings are active:
 
-| Key Binding | Description                                                   |
+| Key binding | Description                                                   |
 |-------------+---------------------------------------------------------------|
 | ~e~         | edit occurrences (*)                                          |
 | ~n~         | go to next occurrence                                         |
@@ -2795,7 +2795,7 @@ text on the kill ring.
 For example if you copy =foo= and =bar= then press ~p~ the text =bar= will
 be pasted, pressing ~C-j~ will replace =bar= with =foo=.
 
-| Key Binding | Description                                                                   |
+| Key binding | Description                                                                   |
 |-------------+-------------------------------------------------------------------------------|
 | ~p~ or ~P~  | paste the text before or after point and initiate the =paste= transient state |
 | ~C-j~       | in transient state: replace paste text with the previously copied one         |
@@ -2812,7 +2812,7 @@ adding a major-mode to the variable =spacemacs-indent-sensitive-modes= in your
 *** Text manipulation commands
 Text related commands (start with ~x~):
 
-| Key Binding   | Description                                                   |
+| Key binding   | Description                                                   |
 |---------------+---------------------------------------------------------------|
 | ~SPC x a &~   | align region at &                                             |
 | ~SPC x a (~   | align region at (                                             |
@@ -2911,7 +2911,7 @@ It is possible to enable it easily for /all programming modes/ with the variable
 **** Text
 The font size of the current buffer can be adjusted with the commands:
 
-| Key Binding | Description                                                                    |
+| Key binding | Description                                                                    |
 |-------------+--------------------------------------------------------------------------------|
 | ~SPC z x +~ | scale up the font and initiate the font scaling transient state                |
 | ~SPC z x =~ | scale up the font and initiate the font scaling transient state                |
@@ -2920,7 +2920,7 @@ The font size of the current buffer can be adjusted with the commands:
 
 In the transient state:
 
-| Key Binding | Description            |
+| Key binding | Description            |
 |-------------+------------------------|
 | ~+~         | increase the font size |
 | ~=~         | increase the font size |
@@ -2934,7 +2934,7 @@ a frame use the =zoom frame= bindings (see next section).
 **** Frame
 You can zoom in and out the whole content of the frame with the commands:
 
-| Key Binding | Description                                                                 |
+| Key binding | Description                                                                 |
 |-------------+-----------------------------------------------------------------------------|
 | ~SPC z f +~ | zoom in the frame content and initiate the frame scaling transient state    |
 | ~SPC z f =~ | zoom in the frame content and initiate the frame scaling transient state    |
@@ -2948,14 +2948,14 @@ You can zoom in and out the whole content of the frame with the commands:
 *** Increase/Decrease numbers
 Spacemacs uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily increase or decrease numbers.
 
-| Key Binding | Description                                                         |
+| Key binding | Description                                                         |
 |-------------+---------------------------------------------------------------------|
 | ~SPC n +~   | increase the number under point by one and initiate transient state |
 | ~SPC n -~   | decrease the number under point by one and initiate transient state |
 
 In the transient state:
 
-| Key Binding | Description                            |
+| Key binding | Description                            |
 |-------------+----------------------------------------|
 | ~+~         | increase the number under point by one |
 | ~-~         | decrease the number under point by one |
@@ -2975,7 +2975,7 @@ Vi =Visual= modes are all supported by =evil=.
 **** Expand-region
 Spacemacs adds another =Visual= mode via the [[https://github.com/magnars/expand-region.el][expand-region]] mode.
 
-| Key Binding | Description                              |
+| Key binding | Description                              |
 |-------------+------------------------------------------|
 | ~SPC v~     | initiate expand-region mode then...      |
 | ~v~         | expand the region by one semantic unit   |
@@ -3004,7 +3004,7 @@ With [[https://github.com/TheBB/evil-indent-plus][evil-indent-plus]] the followi
 The displayed text of a buffer can be narrowed with the commands (start with
 ~n~):
 
-| Key Binding | Description                               |
+| Key binding | Description                               |
 |-------------+-------------------------------------------|
 | ~SPC n f~   | narrow the buffer to the current function |
 | ~SPC n p~   | narrow the buffer to the visible page     |
@@ -3027,7 +3027,7 @@ editing of the currently selected text by pressing ~e~.
 **** iedit states key bindings
 ***** State transitions
 
-| Key Binding | From             | To     |
+| Key binding | From             | To     |
 |-------------+------------------+--------|
 | ~SPC s e~   | normal or visual | iedit  |
 | ~e~         | expand-region    | iedit  |
@@ -3049,7 +3049,7 @@ state=.
 =iedit state= inherits from =normal state=, the following key bindings are
 specific to =iedit state=.
 
-| Key Binding | Description                                                                             |
+| Key binding | Description                                                                             |
 |-------------+-----------------------------------------------------------------------------------------|
 | ~ESC~       | go back to =normal state=                                                               |
 | ~TAB~       | toggle current occurrence                                                               |
@@ -3078,7 +3078,7 @@ an ~occurrence~.
 
 ***** In iedit-insert state
 
-| Key Binding | Description               |
+| Key binding | Description               |
 |-------------+---------------------------|
 | ~ESC~       | go back to =iedit state=  |
 | ~C-g~       | go back to =normal state= |
@@ -3116,7 +3116,7 @@ It is possible to batch rename files in a directory using =wdired= from an
 *** Commenting
 Comments are handled by [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]], it’s bound to the following keys.
 
-| Key Binding | Description               |
+| Key binding | Description               |
 |-------------+---------------------------|
 | ~SPC ;~     | comment operator          |
 | ~SPC c h~   | hide/show comments        |
@@ -3141,7 +3141,7 @@ The key bindings start with ~SPC x r~ and have the following mnemonic structure:
 - ~SPC x r <source> <target>~ convert from source to target
 - ~SPC x r~ do what I mean
 
-| Key Binding   | Function                                                                               |
+| Key binding   | Function                                                                               |
 |---------------+----------------------------------------------------------------------------------------|
 | ~SPC x r /~   | Explain the regexp around point with =rx=                                              |
 | ~SPC x r '​~   | Generate strings given by a regexp given this list is finite                           |
@@ -3185,11 +3185,11 @@ Examples:
 
 *Note*: The =lisp state= commands are available in /any/ modes! Try it out.
 
-**** Lisp Key Bindings
+**** Lisp Key bindings
 ***** Lisp state key bindings
 These commands automatically switch to =lisp state=.
 
-| Key Binding | Function                                                            |
+| Key binding | Function                                                            |
 |-------------+---------------------------------------------------------------------|
 | ~SPC k %~   | evil jump item                                                      |
 | ~SPC k :~   | ex command                                                          |
@@ -3240,7 +3240,7 @@ These commands automatically switch to =lisp state=.
 
 ***** Emacs lisp specific key bindings
 
-| Key Binding | Function                                   |
+| Key binding | Function                                   |
 |-------------+--------------------------------------------|
 | ~SPC m e $~ | go to end of line and evaluate last sexp   |
 | ~SPC m e b~ | evaluate buffer                            |
@@ -3250,7 +3250,7 @@ These commands automatically switch to =lisp state=.
 | ~SPC m e l~ | go to end of line and evaluate last sexp   |
 | ~SPC m e r~ | evaluate region                            |
 
-| Key Binding | Function                                           |
+| Key binding | Function                                           |
 |-------------+----------------------------------------------------|
 | ~SPC m g g~ | go to definition                                   |
 | ~SPC m g G~ | go to definition in another window                 |
@@ -3273,7 +3273,7 @@ To search in a project see [[#searching-in-a-project][project searching]].
 
 =projectile= commands start with p:
 
-| Key Binding | Description                                                                              |
+| Key binding | Description                                                                              |
 |-------------+------------------------------------------------------------------------------------------|
 | ~SPC p '​~   | open a shell in project’s root (with the =shell= layer)                                  |
 | ~SPC p !~   | run shell command in project’s root                                                      |
@@ -3317,7 +3317,7 @@ Cygwin ~find~ must be in your ~PATH~.
 ** Registers
 Access commands to the various registers start with =r=:
 
-| Key Binding | Description                        |
+| Key binding | Description                        |
 |-------------+------------------------------------|
 | ~SPC r e~   | show evil yank and named registers |
 | ~SPC r m~   | show marks register                |
@@ -3330,7 +3330,7 @@ only performed at save time by default.
 
 Errors management commands (start with ~e~):
 
-| Key Binding | Description                                                           |
+| Key binding | Description                                                           |
 |-------------+-----------------------------------------------------------------------|
 | ~SPC t s~   | toggle flycheck                                                       |
 | ~SPC e c~   | clear all errors                                                      |
@@ -3350,7 +3350,7 @@ search results that have been saved to a separate buffer.
 *** Error transient state
 The following key bindings are active in the error transient state:
 
-| Key Binding | Description               |
+| Key binding | Description               |
 |-------------+---------------------------|
 | ~n~         | jump to next error        |
 | ~N~ or ~p~  | jump to previous error    |
@@ -3367,7 +3367,7 @@ The following key bindings are active in the error transient state:
 ** Compiling
 Spacemacs binds a few commands to support compiling a project.
 
-| Key Binding | Description                    |
+| Key binding | Description                    |
 |-------------+--------------------------------|
 | ~SPC c c~   | use =helm-make= via projectile |
 | ~SPC c C~   | compile                        |

@@ -16,7 +16,7 @@
     - [[#enable-youdao有道-dictionary激活有道字典][Enable YouDao(有道) Dictionary(激活有道字典)]]
     - [[#set-monospaced-font-size设置等宽字体][Set monospaced font size(设置等宽字体）]]
     - [[#enabledisable-ace-pinyin-in-avy-goto-char][Enable/Disable ace-pinyin in =avy-goto-char=]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#youdao-dictionary][Youdao Dictionary]]
   - [[#find-by-pinyin-dired][Find-by-pinyin-dired]]
 
@@ -151,7 +151,7 @@ disable it. You can set =chinese-enable-avy-pinyin= to =nil=.
                                                              chinese-enable-avy-pinyin nil)))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 Currently, there are no built-in key bindings for this layer. You could define
 your own preference.
 

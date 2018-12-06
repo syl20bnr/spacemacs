@@ -38,7 +38,7 @@ All Pact specific bindings are prefixed with the major-mode leader ~SPC m~.
 ** REPL
 REPL commands are prefixed by ~SPC m s~:
 
-| Key Binding | Description                                     |
+| Key binding | Description                                     |
 |-------------+-------------------------------------------------|
 | ~SPC m s '~ | Open a Pact REPL in a new frame                 |
 | ~SPC m s b~ | Load or reload the current buffer into the REPL |

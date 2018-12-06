@@ -8,7 +8,7 @@
   - [[#misc][misc]]
 - [[#install][Install]]
 - [[#usage][Usage]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 - [[#caveats][Caveats]]
   - [[#popwin-and-guide-key][Popwin and guide-key]]
   - [[#packages-that-do-display-management][Packages that do display management]]
@@ -74,9 +74,9 @@ changes.
 
 See [[https://github.com/bmag/emacs-purpose/wiki][window-purpose wiki]] to learn more about window-purpose.
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                                                                         |
+| Key binding | Description                                                                         |
 |-------------+-------------------------------------------------------------------------------------|
 | ~SPC r b~   | Open a buffer. Only buffers with the same purpose as the current buffer are listed. |
 | ~SPC r B~   | Open any buffer and ignore window-purpose when displaying the buffer.               |

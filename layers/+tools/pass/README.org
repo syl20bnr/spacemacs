@@ -4,7 +4,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds intregration with [[http://www.passwordstore.org/][pass]], the unix password manager.
@@ -19,9 +19,9 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =pass= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key Bindings
+* Key bindings
 
-| Key Bindings | Description                                   |
+| Key bindings | Description                                   |
 |--------------+-----------------------------------------------|
 | ~SPC A p /~  | copy password using =helm-pass= or =ivy-pass= |
 | ~SPC A p y~  | copy password                                 |

@@ -14,7 +14,7 @@ This layer adds support various language related services to Spacemacs.
 
 * Key bindings
 
-| Key Binding | Description                                              |
+| Key binding | Description                                              |
 |-------------+----------------------------------------------------------|
 | ~SPC x w d~ | Show definition of word at point                         |
 | ~SPC x g l~ | Set the source and target languages for google translate |

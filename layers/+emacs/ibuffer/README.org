@@ -41,7 +41,7 @@ Example:
 * Key bindings
 ** Global
 
-| Key Binding | Description                |
+| Key binding | Description                |
 |-------------+----------------------------|
 | ~SPC b I~   | open IBuffer menu (global) |
 
@@ -49,7 +49,7 @@ Example:
 
 ** IBuffer
 
-| Key Binding | Description                   |
+| Key binding | Description                   |
 |-------------+-------------------------------|
 | ~g r~       | update IBuffer (“refresh”)    |
 | ~g j~       | move to next filter group     |

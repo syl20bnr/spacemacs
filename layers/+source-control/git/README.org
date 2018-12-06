@@ -80,7 +80,7 @@ layer by setting the variable =git-enable-magit-svn-plugin= to =t=.
     (setq-default git-enable-magit-svn-plugin t))
 #+END_SRC
 
-| Key Binding | Description          |
+| Key binding | Description          |
 |-------------+----------------------|
 | ~~~         | open magit-svn-popup |
 
@@ -111,7 +111,7 @@ See the commentary section of the package [[https://github.com/magit/orgit/blob/
 * Working with Git
 Git commands (start with ~g~):
 
-| Key Binding | Description                                         |
+| Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC g /~   | open =helm-git-grep=                                |
 | ~SPC g *~   | open =helm-git-grep-at-point=                       |
@@ -151,7 +151,7 @@ comfortable for evil users.
 
 Here are the often used bindings inside a =status buffer=:
 
-| Key Binding | Description                                                        |
+| Key binding | Description                                                        |
 |-------------+--------------------------------------------------------------------|
 | ~/~         | evil-search                                                        |
 | ~$~         | open =command output buffer=                                       |
@@ -195,7 +195,7 @@ In a commit message buffer press ~​,​c~ (if =dotspacemacs-major-mode-leader-
 or ~C-c C-c~ to commit the changes with the entered message. Pressing ~​,​a~ or ~C-c C-k~
 will discard the commit message.
 
-| Key Binding | Description |
+| Key binding | Description |
 |-------------+-------------|
 | ~h~         | go left     |
 | ~j~         | go down     |
@@ -204,7 +204,7 @@ will discard the commit message.
 
 ** Interactive rebase buffer
 
-| Key Binding | Description    |
+| Key binding | Description    |
 |-------------+----------------|
 | ~c~ or ~p~  | pick           |
 | ~e~         | edit           |
@@ -248,14 +248,14 @@ will discard the commit message.
 ** Git-Flow
 [[https://github.com/jtatarik/magit-gitflow][magit-gitflow]] provides git-flow commands in its own magit menu.
 
-| Key Binding | Description             |
+| Key binding | Description             |
 |-------------+-------------------------|
 | ~%~         | open magit-gitflow menu |
 
 ** Git time machine
 [[https://melpa.org/#/git-timemachine][git-timemachine]] allows to quickly browse the commits of the current buffer.
 
-| Key Binding | Description                                        |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC g t~   | start git timemachine and initiate transient-state |
 | ~c~         | show current commit                                |
@@ -269,7 +269,7 @@ will discard the commit message.
 These key bindings allow to quickly construct URLs pointing to a given commit
 or lines in a file hosted on Git web services like GitHub, GitLab, Bitbucket...
 
-| Key Binding | Description                                                            |
+| Key binding | Description                                                            |
 |-------------+------------------------------------------------------------------------|
 | ~SPC g l c~ | on a commit hash, browse to the current file at this commit            |
 | ~SPC g l C~ | on a commit hash, create link to the file at this commit and copy it   |
@@ -292,7 +292,7 @@ stanza insert the following with the directories of your choice:
         '("~/Development"))
 #+END_SRC
 
-| Key Binding | Description                                         |
+| Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC g L~   | start git repo list                                 |
 | ~RET~       | show the git status window for the selected project |

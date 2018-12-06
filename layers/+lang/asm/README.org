@@ -56,7 +56,7 @@ is a one time operation and the result is cached for later use.
 
 * Key bindings
 
-| Key Binding | Description                                        |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC m h h~ | Look up the documentation for instruction at point |
 | ~;~         | Insert a comment                                   |

@@ -13,7 +13,7 @@
   - [[#what-needs-to-be-run][What needs to be run]]
 - [[#using-the-ipython-notebook][Using the IPython notebook]]
   - [[#open-notebook-list][Open Notebook List]]
-  - [[#key-bindings][Key Bindings]]
+  - [[#key-bindings][Key bindings]]
     - [[#transient-state-ipython-notebook][Transient-state: =ipython-notebook=]]
     - [[#normal-mode][Normal mode]]
     - [[#insert-mode][Insert mode]]
@@ -69,7 +69,7 @@ Have an IPython notebook running
 This layer is lazy loaded so the transient-state will only work after you summon the
 command =ein:notebooklist-open= which is bound to ~SPC a y o~
 
-** Key Bindings
+** Key bindings
 The key bindings can be used through a transient state or the usual evil-leader.
 
 *** Transient-state: =ipython-notebook=

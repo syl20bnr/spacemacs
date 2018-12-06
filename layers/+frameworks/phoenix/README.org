@@ -21,7 +21,7 @@ file.
 
 * Key bindings
 
-| Key Binding   | Description        |
+| Key binding   | Description        |
 |---------------+--------------------|
 | ~SPC m f r~   | Shows routes       |
 | ~SPC m f f w~ | Find in web folder |

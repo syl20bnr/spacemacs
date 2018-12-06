@@ -27,6 +27,6 @@ works and how to configure it.
 
 * Key bindings
 
-| Key Binding | Description                                   |
+| Key binding | Description                                   |
 |-------------+-----------------------------------------------|
 | ~SPC t P~   | Toggle between parinfer indent and paren mode |

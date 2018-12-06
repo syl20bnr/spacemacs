@@ -67,7 +67,7 @@ The following example works on OS X:
 
 * Key bindings
 
-| Key Binding | Description |
+| Key binding | Description |
 |-------------+-------------|
 | ~SPC a F~   | flymd-flyit |
 

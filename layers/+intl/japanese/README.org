@@ -14,7 +14,7 @@
     - [[#avy-migemo][avy-migemo]]
     - [[#ddskk][ddskk]]
     - [[#pangu-spacing][pangu-spacing]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This Layer adds Japanese related packages.
@@ -110,5 +110,5 @@ mode globally, add:
 
 inside ~dotspacemacs/user-config~.
 
-* Key Bindings
+* Key bindings
 By default, ~C-x j~ toggles ~skk-mode~.

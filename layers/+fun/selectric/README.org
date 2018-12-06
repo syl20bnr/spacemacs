@@ -6,7 +6,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 - [[#notes][Notes]]
 
 * Description
@@ -24,9 +24,9 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =selectric= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~SPC C-t t~ | Toggle clicky key sounds |
 

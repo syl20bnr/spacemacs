@@ -27,6 +27,6 @@ file.
 
 * Key bindings
 
-| Key Binding | Description          |
+| Key binding | Description          |
 |-------------+----------------------|
 | ~SPC m q~   | Execute SPARQL query |
