@@ -7,7 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#options][Options]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#inferior-repl-process][Inferior REPL process]]
   - [[#help][Help]]
   - [[#more-interaction-with-the-repl][More interaction with the REPL]]
@@ -60,11 +60,11 @@ appropriate:
                                                          ess-enable-smart-equals t)))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 ** Inferior REPL process
 Send code to inferior process with these commands:
 
-| Key Binding | Description                                          |
+| Key binding | Description                                          |
 |-------------+------------------------------------------------------|
 | ~SPC m '​~   | start REPL                                           |
 | ~SPC m ,​~   | send region, current function, or paragraph and step |
@@ -86,7 +86,7 @@ Send code to inferior process with these commands:
 ** Help
 Get help and helpers for inspecting objects at point are available in R buffers only.
 
-| Key Binding | Description                                                    |
+| Key binding | Description                                                    |
 |-------------+----------------------------------------------------------------|
 | ~SPC m h a~ | help apropos                                                   |
 | ~SPC m h d~ | display help on object                                         |
@@ -106,7 +106,7 @@ Get help and helpers for inspecting objects at point are available in R buffers 
 ** More interaction with the REPL
 Helpers that provide further interaction with the REPL.
 
-| Key Binding   | Description                                           |
+| Key binding   | Description                                           |
 |---------------+-------------------------------------------------------|
 | ~SPC m r /~   | set working directory                                 |
 | ~SPC m r TAB~ | install package                                       |
@@ -122,7 +122,7 @@ Helpers that provide further interaction with the REPL.
 ** R devtools
 Interaction with the =R= =devtools= package.
 
-| Key Binding   | Description                              |
+| Key binding   | Description                              |
 |---------------+------------------------------------------|
 | ~SPC m w TAB~ | interface for =devtools::install()=      |
 | ~SPC m w a~   | ask for a devtools command and runs it   |
@@ -138,7 +138,7 @@ Interaction with the =R= =devtools= package.
 ** Debugging
 Tools for debugging
 
-| Key Binding  | Description                                                       |
+| Key binding  | Description                                                       |
 |--------------+-------------------------------------------------------------------|
 | ~SPC m d ?~  | =ess-tracebug-show-help=                                          |
 | ~SPC m d `~  | show traceback and last error message                             |
@@ -163,7 +163,7 @@ Tools for debugging
 ** Editing Markdown
 Edit Markdown files
 
-| Key Binding | Description                                               |
+| Key binding | Description                                               |
 |-------------+-----------------------------------------------------------|
 | ~SPC m c C~ | send knitr/sweave chunk and switch to REPL in insert mode |
 | ~SPC m c c~ | send knitr/sweave chunk and keep buffer focused           |

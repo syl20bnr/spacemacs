@@ -10,7 +10,7 @@
   - [[#enablingdisabling-tooltips][Enabling/Disabling tooltips]]
   - [[#disabling-by-default][Disabling by default]]
   - [[#bitmaps][Bitmaps]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds on the fly syntax checking to all supported language layers.
@@ -61,9 +61,9 @@ variable =syntax-checking-use-original-bitmaps= to =t=:
     '((syntax-checking :variables syntax-checking-use-original-bitmaps t)))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                                                  |
+| Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC e b~   | check for errors now                                         |
 | ~SPC e c~   | clear errors                                                 |

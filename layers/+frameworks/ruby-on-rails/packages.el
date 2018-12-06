@@ -10,11 +10,11 @@
 ;;; License: GPLv3
 
 (setq ruby-on-rails-packages
-  '(
-    feature-mode
-    projectile-rails
-    which-key
-    ))
+      '(
+        feature-mode
+        projectile-rails
+        which-key
+        ))
 
 (defun ruby-on-rails/init-projectile-rails ()
   (use-package projectile-rails

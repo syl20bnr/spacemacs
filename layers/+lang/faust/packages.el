@@ -12,9 +12,11 @@
 ;;; Code:
 
 (defconst faust-packages
-  '(company
+  '(
+    company
     faust-mode
-    yasnippet))
+    yasnippet
+    ))
 
 (defun faust/post-init-company ()
   (spacemacs|add-company-backends :modes faust-mode))

@@ -10,7 +10,8 @@
 ;;; License: GPLv3
 
 (setq spacemacs-evil-packages
-      '(evil-anzu
+      '(
+        evil-anzu
         evil-args
         evil-cleverparens
         evil-ediff

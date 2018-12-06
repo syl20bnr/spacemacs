@@ -39,7 +39,7 @@ in this directory.
 
 * Key bindings
 
-| Key Binding | Description                                                                                    |
+| Key binding | Description                                                                                    |
 |-------------+------------------------------------------------------------------------------------------------|
 | ~SPC a V D~ | destroy a box                                                                                  |
 | ~SPC a V e~ | edit the =Vagrantfile=                                                                         |

@@ -10,14 +10,14 @@
 ;;; License: GPLv3
 
 (setq erlang-packages
-  '(
-    company
-    erlang
-    ggtags
-    counsel-gtags
-    helm-gtags
-    flycheck
-    ))
+      '(
+        company
+        erlang
+        ggtags
+        counsel-gtags
+        helm-gtags
+        flycheck
+        ))
 
 (defun erlang/post-init-company ()
   (add-hook 'erlang-mode-hook 'company-mode))

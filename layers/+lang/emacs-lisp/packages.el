@@ -32,7 +32,8 @@
         parinfer
         semantic
         smartparens
-        srefactor))
+        srefactor
+        ))
 
 (defun emacs-lisp/init-ielm ()
   (use-package ielm

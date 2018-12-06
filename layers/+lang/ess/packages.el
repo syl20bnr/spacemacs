@@ -15,7 +15,8 @@
         ess-R-data-view
         (ess-smart-equals :toggle ess-enable-smart-equals)
         golden-ratio
-        org))
+        org
+        ))
 
 (defun ess/init-ess ()
   (use-package ess-site
@@ -68,7 +69,7 @@
                  ess-nuke-trailing-whitespace-p t
                  ess-default-style 'DEFAULT)
            (when ess-disable-underscore-assign
-             (ess-toggle-underscore nil))
+             (setq ess-smart-S-assign-key nil))
 
            (define-key ess-doc-map "h" 'ess-display-help-on-object)
            (define-key ess-doc-map "p" 'ess-R-dv-pprint)

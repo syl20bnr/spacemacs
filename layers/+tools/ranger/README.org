@@ -7,7 +7,7 @@
   - [[#customizing][Customizing]]
   - [[#parent-options][Parent options]]
   - [[#preview-options][Preview options]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer brings Ranger features to spacemacs from the =ranger= package.
@@ -119,9 +119,9 @@ To set the max files size (in MB), set the following parameter:
   (setq ranger-max-preview-size 10)
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 
-| Key Binding     | Description                                          |
+| Key binding     | Description                                          |
 |-----------------+------------------------------------------------------|
 | ~SPC a r~       | launch ranger                                        |
 | ~SPC a d~       | deer (minimal ranger window in current directory)    |

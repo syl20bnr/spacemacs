@@ -48,7 +48,7 @@ meant as an alternative to using flycheck. Default value is nil.
 ** Purescript
 *** Imports
 
-| Key Binding | Description                                                   |
+| Key binding | Description                                                   |
 |-------------+---------------------------------------------------------------|
 | ~SPC m i =~ | Format imports                                                |
 | ~SPC m i \~ | Return to where you were editing before navigating to imports |
@@ -58,7 +58,7 @@ meant as an alternative to using flycheck. Default value is nil.
 *** psc-ide
 =psc-ide= command are available under ~SPC m m~:
 
-| Key Binding   | Description                                                               |
+| Key binding   | Description                                                               |
 |---------------+---------------------------------------------------------------------------|
 | ~SPC m m s~   | Start psc-ide-server                                                      |
 | ~SPC m m l~   | Load definitions for the modules inside your project                      |
@@ -76,7 +76,7 @@ meant as an alternative to using flycheck. Default value is nil.
 [[https://github.com/ardumont/emacs-psci][psci]] provides a very basic REPL for purescript. The following key
 bindings are available:
 
-| Key Binding | Description                                                                      |
+| Key binding | Description                                                                      |
 |-------------+----------------------------------------------------------------------------------|
 | ~SPC m s b~ | Equivalent of =:m /path/to/current/module/file.purs= - Load <file> for importing |
 | ~SPC m s i~ | Launch a psci console buffer                                                     |

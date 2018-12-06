@@ -45,7 +45,7 @@ your =dotspacemacs/user-config=. The default value, set in the layer, is =62=.
 * Key bindings
 ** Ledger
 
-| Key Binding | Description                                   |
+| Key binding | Description                                   |
 |-------------+-----------------------------------------------|
 | ~SPC m a~   | add a transaction                             |
 | ~SPC m b~   | edit a post amount with Emacs Calculator mode |
@@ -65,7 +65,7 @@ can for example use ~dix~ or ~vax~ to delete or mark the transaction at point.
 
 ** Ledger-Reconcile
 
-| Key Binding | Description                                                               |
+| Key binding | Description                                                               |
 |-------------+---------------------------------------------------------------------------|
 | ~SPC m ,~   | toggle the current transaction pending                                    |
 | ~SPC m a~   | quickly add a transaction, without exiting the reconciliation buffer      |

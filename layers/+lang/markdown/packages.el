@@ -10,17 +10,17 @@
 ;;; License: GPLv3
 
 (setq markdown-packages
-  '(
-    company
-    company-emoji
-    emoji-cheat-sheet-plus
-    gh-md
-    markdown-mode
-    markdown-toc
-    mmm-mode
-    smartparens
-    (vmd-mode :toggle (eq 'vmd markdown-live-preview-engine))
-    ))
+      '(
+        company
+        company-emoji
+        emoji-cheat-sheet-plus
+        gh-md
+        markdown-mode
+        markdown-toc
+        mmm-mode
+        smartparens
+        (vmd-mode :toggle (eq 'vmd markdown-live-preview-engine))
+        ))
 
 (defun markdown/post-init-company ()
   (dolist (mode markdown--key-bindings-modes)
@@ -163,7 +163,10 @@
     :commands mmm-mode
     :init (add-hook 'markdown-mode-hook 'spacemacs/activate-mmm-mode)
     ;; Automatically add mmm class for languages
-    :config (mapc 'markdown/mmm-auto-class markdown-mmm-auto-modes)))
+    :config
+    (progn
+      (mapc 'markdown/mmm-auto-class markdown-mmm-auto-modes)
+      (spacemacs|hide-lighter mmm-mode))))
 
 (defun markdown/init-vmd-mode ()
   (use-package vmd-mode

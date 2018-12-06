@@ -10,16 +10,16 @@
 ;;; License: GPLv3
 
 (setq csharp-packages
-  '(
-    company
-    csharp-mode
-    evil-matchit
-    ggtags
-    counsel-gtags
-    helm-gtags
-    omnisharp
-    flycheck
-    ))
+      '(
+        company
+        csharp-mode
+        evil-matchit
+        ggtags
+        counsel-gtags
+        helm-gtags
+        omnisharp
+        flycheck
+        ))
 
 (defun csharp/init-omnisharp ()
   ;; Load omnisharp-mode with csharp-mode,

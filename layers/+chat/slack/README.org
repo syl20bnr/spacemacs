@@ -62,7 +62,7 @@ By default the values are:
 
 * Key bindings
 
-| Key Binding | Description                             |
+| Key binding | Description                             |
 |-------------+-----------------------------------------|
 | ~SPC a C d~ | Direct message someone                  |
 | ~SPC a C g~ | Join a group (private channel)          |
@@ -84,7 +84,7 @@ By default the values are:
 The following bindings are provided to mimic bindings in the official Slack
 client.
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~SPC m @~   | Embed mention of user    |
 | ~SPC m #~   | Embed mention of channel |

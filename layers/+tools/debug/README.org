@@ -38,13 +38,13 @@ Make sure that your debugger is compatible by checking [[https://github.com/real
 * Key bindings
 ** Major Mode
 
-| Key Binding | Description     |
+| Key binding | Description     |
 |-------------+-----------------|
 | ~SPC m d d~ | open cmd buffer |
 
 ** Debugger
 
-| Key Binding | Description          |
+| Key binding | Description          |
 |-------------+----------------------|
 | ~bb~        | set break            |
 | ~bc~        | clear break          |

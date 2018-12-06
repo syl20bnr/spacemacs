@@ -33,7 +33,7 @@ compiler more time to finish generating the file before reverting the buffer.
 
 * Key bindings
 
-| Key Binding | Description                          |
+| Key binding | Description                          |
 |-------------+--------------------------------------|
 | ~SPC m ,~   | Preview file                         |
 | ~SPC m =~   | Indent graph                         |

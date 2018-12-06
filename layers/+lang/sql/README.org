@@ -98,13 +98,13 @@ auto-indent by setting the variable =sql-auto-indent= to =nil=.
 * Key bindings
 ** Highlighting
 
-| Key Binding | Description                       |
+| Key binding | Description                       |
 |-------------+-----------------------------------|
 | ~SPC m h k~ | select a SQL dialect to highlight |
 
 ** Inferior Process Interactions (SQLi)
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC m b b~ | show the SQLi buffer name   |
 | ~SPC m b s~ | set the SQLi buffer         |
@@ -127,9 +127,10 @@ auto-indent by setting the variable =sql-auto-indent= to =nil=.
 | ~SPC m s r~ | Send the selected region to the SQLi buffer                                                           |
 | ~SPC m s R~ | Send the selected region to the SQLi buffer and switch to it in =insert state=                        |
 
+
 ** SQLi buffer
 
-| Key Binding | Description                                                  |
+| Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC m b r~ | rename buffer (follow up in the SQL buffer with ~SPC m b s~) |
 | ~SPC m b S~ | save the current connection                                  |

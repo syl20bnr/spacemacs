@@ -220,6 +220,7 @@
 - [[file:+tools/chrome/README.org][chrome]]
 - [[file:+tools/cmake/README.org][cmake]]
 - [[file:+tools/command-log/README.org][command-log]]
+- [[file:+tools/dap/README.org][dap]]
 - [[file:+tools/debug/README.org][debug]]
 - [[file:+tools/docker/README.org][docker]]
 - [[file:+tools/fasd/README.org][fasd]]

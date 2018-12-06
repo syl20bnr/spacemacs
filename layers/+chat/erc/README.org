@@ -100,7 +100,7 @@ read that in =:password=.
 
 * Key bindings
 
-| Key Binding | Description                                           |
+| Key binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~SPC a i e~ | Starts ERC                                            |
 | ~SPC a i E~ | Starts ERC via TLS/SSL                                |

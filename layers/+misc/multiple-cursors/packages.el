@@ -12,8 +12,9 @@
 ;;; License: GPLv3
 
 (setq multiple-cursors-packages
-  '(evil-mc
-     ))
+      '(
+        evil-mc
+        ))
 
 (defun multiple-cursors/init-evil-mc ()
   (use-package evil-mc
@@ -31,5 +32,5 @@
         (dolist (keybinding `((,(kbd "C-M-j") . evil-mc-make-cursor-move-next-line)
                               (,(kbd "C-M-k") . evil-mc-make-cursor-move-prev-line)))
           (define-key state-map (car keybinding) (cdr keybinding))))
-
-      (global-evil-mc-mode 1))))
+      (add-hook 'prog-mode-hook 'turn-on-evil-mc-mode)
+      (add-hook 'text-mode-hook 'turn-on-evil-mc-mode))))

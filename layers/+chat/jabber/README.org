@@ -25,12 +25,12 @@ file.
 
 * Key bindings
 
-| Key Binding | Description          |
+| Key binding | Description          |
 | ~SPC a j~   | Connect all accounts |
 
 ** Jabber Roster
 
-| Key Binding | Description                          |
+| Key binding | Description                          |
 | ~SPC m a~   | Jabber send presence                 |
 | ~SPC m b~   | Jabber get browse                    |
 | ~SPC m d~   | Jabber disconnect                    |

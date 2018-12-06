@@ -166,7 +166,7 @@ backslash, an actual space and a lowercase ~b~.
 =Describe functions= are powerful Emacs introspection commands to get information
 about functions, variables, modes etc. These commands are bound thusly:
 
-| Key Binding | Description       |
+| Key binding | Description       |
 |-------------+-------------------|
 | ~SPC h d f~ | describe-function |
 | ~SPC h d k~ | describe-key      |

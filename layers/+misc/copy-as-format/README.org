@@ -40,7 +40,7 @@ And you can add alist of file name patterns to language names used for asciidoc 
 
 * Key bindings
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~SPC x f f~ | copy-as-format           |
 | ~SPC x f a~ | copy-as-format-asciidoc  |

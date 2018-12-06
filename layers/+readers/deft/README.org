@@ -6,7 +6,7 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#configuration][Configuration]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds a search driven note taking system into Spacemacs.
@@ -41,9 +41,9 @@ can be configured in your =dotfile=:
 
 Just add or substitute your preferred extension.
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                      |
+| Key binding | Description                      |
 |-------------+----------------------------------|
 | ~SPC a n~   | Open Deft (works globally)       |
 | ~SPC m c~   | Clear deft filter                |

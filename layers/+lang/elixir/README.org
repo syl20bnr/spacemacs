@@ -129,7 +129,7 @@ You find and overview of all the key bindings on the [[https://github.com/tonini
 
 ** Help
 
-| Key Binding | Description                         |
+| Key binding | Description                         |
 |-------------+-------------------------------------|
 | ~SPC m h :~ | Run custom search for help          |
 | ~SPC m h h~ | Show help of the current expression |
@@ -138,7 +138,7 @@ You find and overview of all the key bindings on the [[https://github.com/tonini
 
 ** Mix
 
-| Key Binding | Description                                                |
+| Key binding | Description                                                |
 |-------------+------------------------------------------------------------|
 | ~SPC m m :~ | Prompt for a =mix= command                                 |
 | ~SPC m m c~ | Compile the whole application                              |
@@ -147,14 +147,14 @@ You find and overview of all the key bindings on the [[https://github.com/tonini
 
 ** Project
 
-| Key Binding | Description                                                |
+| Key binding | Description                                                |
 |-------------+------------------------------------------------------------|
 | ~SPC m g t~ | Toggle between a file and its tests in the current window. |
 | ~SPC m g T~ | Toggle between a file and its tests in other window.       |
 
 ** Evaluation in place
 
-| Key Binding | Description                             |
+| Key binding | Description                             |
 |-------------+-----------------------------------------|
 | ~SPC m e b~ | Evaluate buffer                         |
 | ~SPC m e B~ | Evaluate buffer and insert result       |
@@ -165,7 +165,7 @@ You find and overview of all the key bindings on the [[https://github.com/tonini
 
 ** REPL interactions
 
-| Key Binding | Description                                                     |
+| Key binding | Description                                                     |
 |-------------+-----------------------------------------------------------------|
 | ~SPC m s c~ | Compiles the current buffer in the IEx process.                 |
 | ~SPC m s i~ | Start an =iex= inferior process                                 |
@@ -178,7 +178,7 @@ You find and overview of all the key bindings on the [[https://github.com/tonini
 
 ** Tests
 
-| Key Binding | Description                                                                           |
+| Key binding | Description                                                                           |
 |-------------+---------------------------------------------------------------------------------------|
 | ~SPC m g t~ | Open the test file for current buffer                                                 |
 | ~SPC m t a~ | Run all the tests                                                                     |
@@ -195,7 +195,7 @@ You find and overview of all the key bindings on the [[https://github.com/tonini
 
 ** Compile
 
-| Key Binding | Description                                        |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC m c :~ | Run a custom compile command with =elixirc=        |
 | ~SPC m c b~ | Compile the current buffer with elixirc. =elixirc= |
@@ -203,7 +203,7 @@ You find and overview of all the key bindings on the [[https://github.com/tonini
 
 ** Execute
 
-| Key Binding | Description                                |
+| Key binding | Description                                |
 |-------------+--------------------------------------------|
 | ~SPC m x :~ | Run a custom execute command with =elixir= |
 | ~SPC m x b~ | Run the current buffer through =elixir=    |
@@ -211,7 +211,7 @@ You find and overview of all the key bindings on the [[https://github.com/tonini
 
 ** Code Definition Jump
 
-| Key Binding | Description                                        |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC m g g~ | Jump to the elixir expression definition at point. |
 | ~SPC m .~   | Jump to the elixir expression definition at point. |
@@ -224,7 +224,7 @@ You find and overview of all the key bindings on the [[https://github.com/tonini
 ** Hex (packages)
 Hex is the package manager for Elixir & Erlang ecosystem. See [[https://hex.pm]].
 
-| Key Binding | Description                                              |
+| Key binding | Description                                              |
 |-------------+----------------------------------------------------------|
 | ~SPC m X i~ | Display Hex package information for the package at point |
 | ~SPC m X r~ | Display Hex package releases for the package at point    |
@@ -234,7 +234,7 @@ Hex is the package manager for Elixir & Erlang ecosystem. See [[https://hex.pm]]
 
 ** Macro expand
 
-| Key Binding | Description                                                                       |
+| Key binding | Description                                                                       |
 |-------------+-----------------------------------------------------------------------------------|
 | ~SPC m o l~ | Macro expand once the Elixir code on the current line                             |
 | ~SPC m o L~ | Macro expand once the Elixir code on the current line and insert the result       |
@@ -247,6 +247,6 @@ Hex is the package manager for Elixir & Erlang ecosystem. See [[https://hex.pm]]
 
 ** Formatting
 
-| Key Binding | Description               |
+| Key binding | Description               |
 |-------------+---------------------------|
 | ~SPC m =~   | Format the current buffer |

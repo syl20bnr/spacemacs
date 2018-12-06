@@ -9,7 +9,7 @@
   - [[#osx-location][OSX-location]]
   - [[#theme-changer][Theme-changer]]
   - [[#sunshine-weather-forecast][Sunshine (weather forecast)]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#weather][Weather]]
 
 * Description
@@ -109,7 +109,7 @@ To display weather forecast icons by default (“pretty mode”), add
 
 [[file:img/emacs-sunshine.jpg]]
 
-* Key Bindings
+* Key bindings
 ** Weather
 
 | Evil      | Holy | Command                                       |

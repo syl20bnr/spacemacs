@@ -10,11 +10,11 @@
 ;;; License: GPLv3
 
 (setq semantic-web-packages
-  '(
-    ttl-mode
-    sparql-mode
-    org
-    ))
+      '(
+        ttl-mode
+        sparql-mode
+        org
+        ))
 
 (defun semantic-web/init-ttl-mode ()
   (use-package ttl-mode

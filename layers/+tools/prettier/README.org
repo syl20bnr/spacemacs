@@ -4,7 +4,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support for [[https://github.com/prettier/prettier][prettier]]
@@ -21,8 +21,8 @@ To install =prettier= globally:
   $ npm install -g prettier
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                       |
+| Key binding | Description                       |
 |-------------+-----------------------------------|
 | ~SPC m =~   | format buffer in supported layers |

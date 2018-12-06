@@ -57,7 +57,7 @@ file.
 * Key bindings
 ** Crystal commands
 
-| Key Binding | Description                                               |
+| Key binding | Description                                               |
 |-------------+-----------------------------------------------------------|
 | ~SPC m e b~ | play-crystal submit buffer                                |
 | ~SPC m e e~ | play-crystal show code in a browser                       |
@@ -78,7 +78,7 @@ file.
 Start a inferior crystal REPL process with ~SPC m '​~ or ~SPC m s i~.
 Send code to inferior process commands:
 
-| Key Binding | Description                                 |
+| Key binding | Description                                 |
 |-------------+---------------------------------------------|
 | ~SPC m '​~   | start inferior REPL process                 |
 | ~SPC m s B~ | send buffer and switch to REPL              |
@@ -92,7 +92,7 @@ Send code to inferior process commands:
 
 ** Ameba
 
-| Key Binding | Description                                    |
+| Key binding | Description                                    |
 |-------------+------------------------------------------------|
 | ~SPC m a d~ | Prompts from a directory on which to run Ameba |
 | ~SPC m a f~ | Runs Ameba on the current visited file         |

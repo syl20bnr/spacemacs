@@ -7,7 +7,7 @@
 - [[#configuration][Configuration]]
   - [[#general][General]]
   - [[#advanced-buffer-information][Advanced buffer information]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#transient-state][Transient state]]
 
 * Description
@@ -64,14 +64,14 @@ is disabled by default.
     (ivy :variables ivy-enable-advanced-buffer-information t)))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 If you choose =ivy= as completion system, make sure to read the [[http://oremacs.com/swiper/][official manual]].
 In case you don’t want to read everything, at least familiarise with
 [[http://oremacs.com/swiper/#minibuffer-key-bindings][minibuffer key bindings]].
 
 Some useful key bindings are presented in the following table.
 
-| Key Binding | Description                                                                                          |
+| Key binding | Description                                                                                          |
 |-------------+------------------------------------------------------------------------------------------------------|
 | ~RET~       | call default action on current candidate                                                             |
 | ~M-RET~     | the same as ~RET~ but doesn’t close completion minibuffer                                            |
@@ -85,7 +85,7 @@ Some useful key bindings are presented in the following table.
 ** Transient state
 Press ~M-SPC~ anytime in Ivy to get into the transient state.
 
-| Key Binding | Description                                             |
+| Key binding | Description                                             |
 |-------------+---------------------------------------------------------|
 | ~j~         | select next candidate                                   |
 | ~k~         | select previous candidate                               |

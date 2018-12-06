@@ -15,8 +15,8 @@
         (helm-notmuch :requires helm)
         notmuch
         org
-        persp-mode)
-      )
+        persp-mode
+        ))
 
 (defun notmuch/init-counsel-notmuch ()
   (use-package counsel-notmuch

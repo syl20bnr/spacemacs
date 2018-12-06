@@ -69,7 +69,7 @@
             spacemacs--symbol-highlight-transient-state-doc "
  %s
  [_n_] next   [_N_/_p_] prev  [_d_/_D_] next/prev def  [_r_] range  [_R_] reset
- [_e_] iedit")
+ [_e_] iedit  [_z_] recenter")
 
       ;; since we are creating our own maps,
       ;; prevent the default keymap from getting created
@@ -136,6 +136,8 @@
         ("p" spacemacs/quick-ahs-backward)
         ("R" ahs-back-to-start)
         ("r" ahs-change-range)
+        ("z" (progn (recenter-top-bottom)
+                    (spacemacs/symbol-highlight)))
         ("q" nil :exit t)))))
 
 (defun spacemacs-navigation/init-centered-cursor-mode ()

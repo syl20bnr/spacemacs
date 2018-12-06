@@ -115,6 +115,9 @@ This file containes the change log for the next major version of Spacemacs.
 - Make =org-projectile= integration compatible with the newest version.
 - Add package =helm-org-rifle=, with keybinding ~SPC a o r~ to rifle through
   files.
+**** Rcirc
+- New variable =rcirc-enable-late-fix= to enable or disable the included
+  =rcirc-late-fix= package (disabled by default).
 **** Scala
 - Move =ensime= to the =java= layer (Tor Hedin Bronner)
 **** Syntax-checking
