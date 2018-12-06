@@ -1130,6 +1130,9 @@ Other:
     - ~SPC u~ for =omnisharp-auto-complete-overrides=
     - ~SPC i~ for =omnisharp-fix-usings=
     (thanks to Alistair Bush)
+  - Add unit test bindings (thanks to Saulius Menkevičius):
+    - ~SPC m t p~ for =omnisharp-unit-test-at-point=
+    - ~SPC m t t~ for =omnisharp-unit-test-last=
 - Fixes:
   - Disabled functions not present in the latest =omnisharp= package
     (thanks to Saulius Menkevičius)
