@@ -14,7 +14,14 @@
     - [[#php-language-server][php-language-server]]
     - [[#ac-php-core][ac-php-core]]
       - [[#setup][Setup]]
+  - [[#refactoring-tools][Refactoring tools]]
+- [[#additional-tools][Additional tools]]
+  - [[#refactoring][Refactoring]]
+  - [[#debugging][Debugging]]
 - [[#key-bindings][Key bindings]]
+  - [[#general][General]]
+  - [[#refactoring-1][Refactoring]]
+  - [[#debugging-1][Debugging]]
 
 * Description
 This layer adds PHP language support to Spacemacs.
@@ -25,6 +32,8 @@ This layer adds PHP language support to Spacemacs.
 - Complete and jump to define with [[https://github.com/xcwen/ac-php][company-php]]
 - Run tests with PHPUnit
 - Reformat code with PHP CBF
+- Debug your programs with XDebug (via [[https://github.com/ahungry/geben][geben]])
+- Refactor source files with help of [[https://github.com/emacs-php/phpactor.el][phpactor.el]]
 - Support for the [[https://langserver.org/][Language Server Protocol]] (experimental)
 
 The =gtags= layer is recommended to benefit from better =eldoc= and
@@ -102,11 +111,93 @@ If your project contains the following files at the root folder:
 2. =vendor/autoload.php=
 
 the necessary configuration file (=.ac-php-conf.json=) will be created automatically
-if it does not exist. 
+if it does not exist.
+
+** Refactoring tools
+
+   To ensure that the phpactor package is intact, just run
+   ~M-x phpactor-install-or-update~ and the package itself will make sure that
+   you're good to go.
+
+* Additional tools
+
+** Refactoring
+   This layer provides refactoring and class auto-completion capabilities via [[https://github.com/emacs-php/phpactor.el][phpactor.el]].
+
+** Debugging
+   For configuration details, please refer to [[https://github.com/ahungry/geben][geben package]] repo page.
 
 * Key bindings
 
-| Key binding | Description             |
-|-------------+-------------------------|
-| ~SPC m g g~ | jump to define at point |
-| ~C-t~       | jump back               |
+** General
+
+   | Key binding | Description             |
+   |-------------+-------------------------|
+   | ~SPC m g g~ | jump to define at point |
+   | ~C-t~       | jump back               |
+
+** Refactoring
+
+   For more precise insights on which key does what, check out [[https://phpactor.github.io/phpactor/refactorings.html][phpactor API reference.]]
+
+   | Key binding   | Description                                             |
+   |---------------+---------------------------------------------------------|
+   | ~SPC m r i~   | import class under cursor                               |
+   | ~SPC m r R v~ | rename local variable                                   |
+   | ~SPC m r R V~ | rename variable in a whole file                         |
+   | ~SPC m r n~   | synchronize namespace with file location                |
+   | ~SPC m r v~   | toggle method visibility (public->protected->private)   |
+   | ~SPC m r g a~ | generate unknown property accessors                     |
+   | ~SPC m r g m~ | generate a method signature by a call example           |
+   | ~SPC m r c n~ | create a new class at a given path                      |
+   | ~SPC m r c c~ | copy current class elsewhere                            |
+   | ~SPC m r c m~ | move (rename) current class                             |
+   | ~SPC m r c i~ | generate an interface from class' public methods        |
+   | ~SPC m r p c~ | declare class properties by constructor signature       |
+   | ~SPC m r p p~ | add missing class properties                            |
+   | ~SPC m r e c~ | extract constant under cursor from a class              |
+   | ~SPC m r e e~ | extract expression to a variable                        |
+   | ~SPC m r e m~ | extract a code hunk to a method                         |
+   | ~SPC m r m c~ | add non-implemented stubs from parent classes/contracts |
+   | ~SPC m P s~   | ask phpactor about it's status                          |
+   | ~SPC m P u~   | install/update phpactor package                         |
+
+** Debugging
+
+   XDebug client management:
+
+   | Key binding | Description                                 |
+   |-------------+---------------------------------------------|
+   | ~SPC m d x~ | start XDebug client                         |
+   | ~SPC m d X~ | stop XDebug client                          |
+   | ~SPC m d b~ | set a predefined breakpoint on current line |
+   | ~SPC m d C~ | clear predefined breakpoints                |
+
+   Debugger interaction:
+
+   | Key binding | Description                                                      |
+   |-------------+------------------------------------------------------------------|
+   | ~o~ or ~n~  | step over statement                                              |
+   | ~s~ or ~i~  | step into current call                                           |
+   | ~r~         | step out of function                                             |
+   | ~c~         | resume execution until cursor position or next breakpoint        |
+   | ~e~         | evaluate expression in local context                             |
+   | ~L~         | focus line the execution stopped on                              |
+   | ~v~         | display context (local/global variables, user-defined constants) |
+   | ~b b~       | set breakpoint here                                              |
+   | ~b c~       | set conditional breakpoint here                                  |
+   | ~b e~       | set breakpoint on exception here                                 |
+   | ~u~         | unset breakpoint here                                            |
+   | ~U~         | clear all breakpoints (in all files!)                            |
+   | ~w~         | show current stack trace                                         |
+   | ~g f~       | find debugged file in a worktree                                 |
+   | ~q~         | quit debugging                                                   |
+
+   Variable listing:
+
+   | Key binding | Description                     |
+   |-------------+---------------------------------|
+   | ~j~         | next variable or section        |
+   | ~k~         | previous variable or section    |
+   | ~TAB~       | fold/unfold variable or section |
+   | ~q~         | close variable listing          |
