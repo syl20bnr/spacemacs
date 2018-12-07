@@ -29,7 +29,7 @@ Don’t forget to setup the environment variables:
 
 * Key bindings
 
-| Key Binding | Description                                                  |
+| Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC p 4 a~ | add a file in depot                                          |
 | ~SPC p 4 d~ | delete a file in depot                                       |

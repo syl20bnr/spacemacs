@@ -8,7 +8,7 @@
 - [[#packages-included][Packages Included]]
 - [[#install][Install]]
 - [[#caveats][Caveats]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#navigation][Navigation]]
   - [[#helpers-documentation-info][Helpers (documentation, info)]]
   - [[#refactoring][Refactoring]]
@@ -54,10 +54,10 @@ or .sln file.
   solution/project you need to invoke ~SPC m s S~ and ~SPC m s s~ to stop
   current server and start another one pointing to another solution/project.
 
-* Key Bindings
+* Key bindings
 ** Navigation
 
-| Key Binding | Description                                   |
+| Key binding | Description                                   |
 |-------------+-----------------------------------------------|
 | ~SPC m g c~ | Go to member in current file                  |
 | ~SPC m g e~ | List errors and warnings in solution          |
@@ -76,14 +76,14 @@ or .sln file.
 
 ** Helpers (documentation, info)
 
-| Key Binding | Description                                                            |
+| Key binding | Description                                                            |
 |-------------+------------------------------------------------------------------------|
 | ~SPC m h t~ | Get type information for symbol under cursor                           |
 | ~SPC m h T~ | Get type information for symbol under cursor and put it into kill-ring |
 
 ** Refactoring
 
-| Key Binding | Description                              |
+| Key binding | Description                              |
 |-------------+------------------------------------------|
 | ~SPC m r m~ | Rename symbol under cursor               |
 | ~SPC m r M~ | Rename symbol under cursor interactively |
@@ -91,7 +91,7 @@ or .sln file.
 
 ** OmniSharp server interaction
 
-| Key Binding | Description                |
+| Key binding | Description                |
 |-------------+----------------------------|
 | ~SPC m s i~ | Install OmniSharp server   |
 | ~SPC m s r~ | Reload the solution        |
@@ -100,6 +100,6 @@ or .sln file.
 
 ** Tests
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC m t b~ | Run tests in current buffer |

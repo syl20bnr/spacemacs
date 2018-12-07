@@ -25,6 +25,6 @@ libraries must be installed on the system containing the files being edited.
 
 * Key bindings
 
-| Key Binding | Description                                  |
+| Key binding | Description                                  |
 |-------------+----------------------------------------------|
 | ~SPC m p b~ | mmm-mode parse buffer via =mmm-parse-buffer= |

@@ -99,7 +99,7 @@ If you use Emacs editing style, check the key bindings at the [[https://github.c
 
 ** PDF View
 
-| *Key Binding*        | *Description*                             |
+| *Key binding*        | *Description*                             |
 |----------------------+-------------------------------------------|
 | *Navigation*         |                                           |
 |----------------------+-------------------------------------------|
@@ -142,7 +142,7 @@ differently from the default Evil search. To go to the next match, use ~C-s~.
 
 ** Leader keys
 
-| *Key Binding*         | *Description*                             |
+| *Key binding*         | *Description*                             |
 |-----------------------+-------------------------------------------|
 | *Slicing*             |                                           |
 |-----------------------+-------------------------------------------|
@@ -176,7 +176,7 @@ differently from the default Evil search. To go to the next match, use ~C-s~.
 
 ** Outline buffer mode
 
-| *Key Binding* | *Description*                                         |
+| *Key binding* | *Description*                                         |
 |---------------+-------------------------------------------------------|
 | ~S-tab~       | Expand all trees                                      |
 | ~RET~         | Follow link                                           |
@@ -193,7 +193,7 @@ Note that you can use also typical Vim keys such as ~j~ and ~G~.
 
 ** Annotation list mode
 
-| Key Binding | Description                   |
+| Key binding | Description                   |
 |-------------+-------------------------------|
 | ~d~         | Mark for deletion             |
 | ~x~         | Apply action for marked items |
@@ -202,7 +202,7 @@ Note that you can use also typical Vim keys such as ~j~ and ~G~.
 
 ** Occur mode
 
-| Key Binding | Description    |
+| Key binding | Description    |
 |-------------+----------------|
 | ~q~         | Quit           |
 | ~g~         | Refresh buffer |

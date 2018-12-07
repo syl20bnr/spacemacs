@@ -23,7 +23,7 @@
   - [[#enable-google-set-c-style][Enable google-set-c-style]]
   - [[#newlines][Newlines]]
   - [[#projectile-sub-project-adoption][Projectile sub-project adoption]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#formatting-clang-format][Formatting (clang-format)]]
   - [[#rtags-1][RTags]]
   - [[#cquery--ccls][cquery / ccls]]
@@ -265,9 +265,9 @@ set =c-c++-adopt-subprojects= to =t=.
 This is based on a recommendation on the =cquery= and =ccls= wikis, but should be more
 generally applicable.
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                                                   |
+| Key binding | Description                                                   |
 |-------------+---------------------------------------------------------------|
 | ~SPC m g a~ | open matching file                                            |
 |             | (e.g. switch between .cpp and .h, requires a project to work) |
@@ -280,14 +280,14 @@ generally applicable.
 
 ** Formatting (clang-format)
 
-| Key Binding | Description                     |
+| Key binding | Description                     |
 |-------------+---------------------------------|
 | ~SPC m = =~ | format current region or buffer |
 | ~SPC m = f~ | format current function         |
 
 ** RTags
 
-| Key Binding | Description                     |
+| Key binding | Description                     |
 |-------------+---------------------------------|
 | ~SPC m g .~ | find symbol at point            |
 | ~SPC m g ,~ | find references at point        |
@@ -324,7 +324,7 @@ The key bindings listed below are in addition to the default key bindings define
 
 *** goto
 
-| Key Binding | Description               |
+| Key binding | Description               |
 |-------------+---------------------------|
 | ~SPC m g &~ | find references (address) |
 | ~SPC m g R~ | find references (read)    |
@@ -335,7 +335,7 @@ The key bindings listed below are in addition to the default key bindings define
 
 *** help/hierarchy
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC m h b~ | base class(es)              |
 | ~SPC m h d~ | derived class(es)           |
@@ -348,7 +348,7 @@ The key bindings listed below are in addition to the default key bindings define
 
 *** backend (language server)
 
-| Key Binding | Description                              |
+| Key binding | Description                              |
 |-------------+------------------------------------------|
 | ~SPC m b f~ | refresh index (e.g. after branch change) |
 | ~SPC m b p~ | preprocess file                          |

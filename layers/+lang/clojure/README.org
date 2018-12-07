@@ -16,7 +16,7 @@
 - [[#usage][Usage]]
   - [[#cheatsheet][Cheatsheet]]
   - [[#structuraly-safe-editing][Structuraly safe editing]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#working-with-clojure-files-barfage-slurpage--more][Working with clojure files (barfage, slurpage & more)]]
   - [[#leader][Leader]]
     - [[#documentation][Documentation]]
@@ -206,7 +206,7 @@ or to enable it for all supported modes:
 
 When enabled the symbol =🆂= should be displayed in the mode-line.
 
-* Key Bindings
+* Key bindings
 ** Working with clojure files (barfage, slurpage & more)
 Spacemacs comes with a special =lisp-state= for working with lisp code that
 supports slurpage, barfage and more tools you’ll likely want when working with
@@ -218,7 +218,7 @@ As this state works the same for all files, the documentation is in global
 ** Leader
 *** Documentation
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC m h a~ | cider apropos               |
 | ~SPC m h c~ | clojure cheatsheet          |
@@ -230,7 +230,7 @@ As this state works the same for all files, the documentation is in global
 
 *** Evaluation
 
-| Key Binding | Description                                               |
+| Key binding | Description                                               |
 |-------------+-----------------------------------------------------------|
 | ~SPC m e ;~ | eval sexp and show result as comment                      |
 | ~SPC m e b~ | eval buffer                                               |
@@ -245,7 +245,7 @@ As this state works the same for all files, the documentation is in global
 
 *** Goto
 
-| Key Binding | Description      |
+| Key binding | Description      |
 |-------------+------------------|
 | ~SPC m g b~ | go back          |
 | ~SPC m g C~ | browse classpath |
@@ -258,7 +258,7 @@ As this state works the same for all files, the documentation is in global
 
 *** REPL
 
-| Key Binding | Description                                                                    |
+| Key binding | Description                                                                    |
 |-------------+--------------------------------------------------------------------------------|
 | ~SPC m ,~   | handle shortcut (cider-repl-handle-shortcut)                                   |
 | ~SPC m s b~ | send and eval buffer in REPL                                                   |
@@ -283,7 +283,7 @@ As this state works the same for all files, the documentation is in global
 
 *** Tests
 
-| Key Binding | Description                        |
+| Key binding | Description                        |
 |-------------+------------------------------------|
 | ~SPC m t a~ | run all tests in namespace         |
 | ~SPC m t r~ | re-run test failures for namespace |
@@ -291,7 +291,7 @@ As this state works the same for all files, the documentation is in global
 
 *** Toggles
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC m T e~ | toggle englighten mode      |
 | ~SPC m T f~ | toggle REPL font-locking    |
@@ -301,7 +301,7 @@ As this state works the same for all files, the documentation is in global
 
 *** Debugging
 
-| Key Binding   | Description                                        |
+| Key binding   | Description                                        |
 |---------------+----------------------------------------------------|
 | ~SPC m d !~   | reload traces and clear sayid workspace            |
 | ~SPC m d b~   | instrument expression at point                     |
@@ -333,7 +333,7 @@ As this state works the same for all files, the documentation is in global
 *** Refactoring
 The following refactoring key bindings are enabled by default in clojure-mode:
 
-| Key Binding   | Description                                                    |
+| Key binding   | Description                                                    |
 |---------------+----------------------------------------------------------------|
 | ~SPC m r c i~ | cycle between if and if-not forms                              |
 | ~SPC m r c p~ | cycle privacy of defn and def forms                            |
@@ -350,7 +350,7 @@ The following refactoring key bindings are enabled by default in clojure-mode:
 
 The following refactorings require cljr-refactor to be enabled and generally depend on a connected CIDER session.
 
-| Key Binding   | Description                       |
+| Key binding   | Description                       |
 |---------------+-----------------------------------|
 | ~SPC m r ?~   | describe refactoring              |
 | ~SPC m r a d~ | add declaration                   |
@@ -389,7 +389,7 @@ The following refactorings require cljr-refactor to be enabled and generally dep
 
 *** Reformatting
 
-| Key Binding              | Description             |
+| Key binding              | Description             |
 |--------------------------+-------------------------|
 | ~SPC m f b~ or ~SPC m =~ | reformat current buffer |
 | ~SPC m f l~              | realign current form    |
@@ -397,7 +397,7 @@ The following refactorings require cljr-refactor to be enabled and generally dep
 
 *** Profiling
 
-| Key Binding | Description          |
+| Key binding | Description          |
 |-------------+----------------------|
 | ~SPC m p +~ | profile samples      |
 | ~SPC m p c~ | clear profile        |
@@ -412,14 +412,14 @@ In general, ~q~ should always quit the popped up buffer.
 
 *** cider-repl-mode
 
-| Key Binding | Description    |
+| Key binding | Description    |
 |-------------+----------------|
 | ~C-j~       | next input     |
 | ~C-k~       | previous input |
 
 *** stacktrace-mode
 
-| Key Binding | Description         |
+| Key binding | Description         |
 |-------------+---------------------|
 | ~C-j~       | next cause          |
 | ~C-k~       | previous cause      |
@@ -439,7 +439,7 @@ In general, ~q~ should always quit the popped up buffer.
 
 *** inspector-mode
 
-| Key Binding | Description                     |
+| Key binding | Description                     |
 |-------------+---------------------------------|
 | ~TAB~       | next inspectable object         |
 | ~Shift-TAB~ | previous inspectable object     |
@@ -452,7 +452,7 @@ In general, ~q~ should always quit the popped up buffer.
 
 *** test-report-mode
 
-| Key Binding | Description        |
+| Key binding | Description        |
 |-------------+--------------------|
 | ~C-j~       | next result        |
 | ~C-k~       | previous result    |
@@ -466,7 +466,7 @@ In general, ~q~ should always quit the popped up buffer.
 ** Sayid Buffers
 *** sayid-mode
 
-| Key Binding        | Description                                       |
+| Key binding        | Description                                       |
 |--------------------+---------------------------------------------------|
 | ~Shift-Backspace~  | forward buffer state                              |
 | ~enter~            | pop to function                                   |
@@ -488,7 +488,7 @@ In general, ~q~ should always quit the popped up buffer.
 
 *** sayid-traced-mode
 
-| Key Binding | Description                                     |
+| Key binding | Description                                     |
 |-------------+-------------------------------------------------|
 | ~backspace~ | go back to trace overview                       |
 | ~enter~     | drill into ns at point                          |
@@ -503,7 +503,7 @@ In general, ~q~ should always quit the popped up buffer.
 
 *** sayid-pprint
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~enter~     | show path in minibuffer     |
 | ~i~         | enter child node            |

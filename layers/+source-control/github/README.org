@@ -10,7 +10,7 @@
   - [[#git-configuration][Git configuration]]
   - [[#hub-configuration][Hub configuration]]
   - [[#magithub-configuration][Magithub configuration]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#magit-gh-pulls][magit-gh-pulls]]
   - [[#magithub][magithub]]
   - [[#gistel][gist.el]]
@@ -74,11 +74,11 @@ Alternatively, use the following Emacs forms:
   (magit-set "true" "--global" "magithub.status.includeIssuesSection")
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 ** magit-gh-pulls
 In a =magit status= buffer (~SPC g s~):
 
-| Key Binding | Description                                                 |
+| Key binding | Description                                                 |
 |-------------+-------------------------------------------------------------|
 | ~# c~       | create a pull request                                       |
 | ~# g~       | get a list of (or reload) all PRs in the current repository |
@@ -93,7 +93,7 @@ possible.
 
 ** magithub
 
-| Key Binding | Description                                      |
+| Key binding | Description                                      |
 |-------------+--------------------------------------------------|
 | ~@ C~       | open the Magithub settings popup                 |
 | ~@ H~       | opens the current repository in the browser      |
@@ -104,7 +104,7 @@ possible.
 
 ** gist.el
 
-| Key Binding | Description                                   |
+| Key binding | Description                                   |
 |-------------+-----------------------------------------------|
 | ~SPC g g b~ | create a public gist with the buffer content  |
 | ~SPC g g B~ | create a private gist with the buffer content |
@@ -114,7 +114,7 @@ possible.
 
 In the gist list buffer:
 
-| Key Binding | Description                  |
+| Key binding | Description                  |
 |-------------+------------------------------|
 | ~/~         | evil search                  |
 | ~+~         | add buffer to gist           |
@@ -135,7 +135,7 @@ In the gist list buffer:
 
 ** Clone repositories
 
-| Key Binding   | Description                                              |
+| Key binding   | Description                                              |
 |---------------+----------------------------------------------------------|
 | ~SPC g h c /~ | search for a repository to clone it                      |
 | ~SPC g h c c~ | clone and optionally fork repository                     |

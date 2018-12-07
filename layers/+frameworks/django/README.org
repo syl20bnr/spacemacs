@@ -6,7 +6,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#general-managment][General Managment]]
   - [[#fabric][Fabric]]
   - [[#files][Files]]
@@ -31,26 +31,26 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =django= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key Bindings
+* Key bindings
 Django related key bindings uses [[https://github.com/davidmiller/pony-mode][pony-mode]] and are behind the prefix ~SPC m j~ in =Python-mode=.
 Various configuration options for =pony-mode= are documented at [[http://www.deadpansincerity.com/docs/pony/configuration.html][deadpansincerity.com]].
 
 ** General Managment
 
-| Key Binding | Description                           |
+| Key binding | Description                           |
 |-------------+---------------------------------------|
 | ~SPC m j m~ | Start a =pony-mode= managment session |
 
 ** Fabric
 
-| Key Binding   | Description                      |
+| Key binding   | Description                      |
 |---------------+----------------------------------|
 | ~SPC m j a f~ | Run a fabric command             |
 | ~SPC m j a d~ | Deploy project with =fab deploy= |
 
 ** Files
 
-| Key Binding   | Description                                                   |
+| Key binding   | Description                                                   |
 |---------------+---------------------------------------------------------------|
 | ~SPC m j f s~ | Open the =settings.py= for this project                       |
 | ~SPC m j f c~ | Interactively display a setting value in the minibuffer       |
@@ -59,7 +59,7 @@ Various configuration options for =pony-mode= are documented at [[http://www.dea
 
 ** Interactive
 
-| Key Binding   | Description                                                                |
+| Key binding   | Description                                                                |
 |---------------+----------------------------------------------------------------------------|
 | ~SPC m j i d~ | Run interpreter for this project’s default database as an inferior process |
 | ~SPC m j i s~ | Open a Python shell with the current pony project’s context loaded.        |
@@ -68,7 +68,7 @@ Various configuration options for =pony-mode= are documented at [[http://www.dea
 
 ** Server
 
-| Key Binding   | Description                                                       |
+| Key binding   | Description                                                       |
 |---------------+-------------------------------------------------------------------|
 | ~SPC m j r d~ | Stop the dev server                                               |
 | ~SPC m j r o~ | Open a tab at the dev server                                      |
@@ -78,7 +78,7 @@ Various configuration options for =pony-mode= are documented at [[http://www.dea
 
 ** South/Syncdb
 
-| Key Binding   | Description                                |
+| Key binding   | Description                                |
 |---------------+--------------------------------------------|
 | ~SPC m j s c~ | Convert an existing app to south           |
 | ~SPC m j s h~ | Create migration for modification          |
@@ -88,7 +88,7 @@ Various configuration options for =pony-mode= are documented at [[http://www.dea
 
 ** Test
 
-| Key Binding   | Description                                                      |
+| Key binding   | Description                                                      |
 |---------------+------------------------------------------------------------------|
 | ~SPC m j t d~ | Move down the traceback one level                                |
 | ~SPC m j t e~ | Go to the file and line of the last stack trace in a test buffer |

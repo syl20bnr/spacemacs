@@ -32,7 +32,7 @@ file.
 * Games instructions
 To run a game:
 
-| Key Binding | Description                            |
+| Key binding | Description                            |
 |-------------+----------------------------------------|
 | ~SPC a G~   | Open an =helm= buffer to select a game |
 
@@ -43,7 +43,7 @@ Possible helm actions:
 
 ** 2048
 
-| Key Binding | Description          |
+| Key binding | Description          |
 |-------------+----------------------|
 | ~h~         | Move the tiles left  |
 | ~j~         | Move the tiles down  |
@@ -52,7 +52,7 @@ Possible helm actions:
 
 ** Pacmacs
 
-| Key Binding | Description |
+| Key binding | Description |
 |-------------+-------------|
 | ~h~         | Move left   |
 | ~j~         | Move down   |
@@ -62,7 +62,7 @@ Possible helm actions:
 
 ** Sudoku
 
-| Key Bindings | Description  |
+| Key bindings | Description  |
 | ~h~          | Move left    |
 | ~j~          | Move down    |
 | ~k~          | Move up      |
@@ -76,7 +76,7 @@ Possible helm actions:
 
 ** Tetris
 
-| Key Binding | Description                    |
+| Key binding | Description                    |
 |-------------+--------------------------------|
 | ~h~         | Move block to the left         |
 | ~i~         | Rotate block counter-clockwise |

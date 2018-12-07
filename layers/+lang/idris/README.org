@@ -46,7 +46,7 @@ Binaries are also available for some platforms at
 Several (but not all) of the evil-leader shorthands that =idris-mode= provides
 are reproduced under the local leader.
 
-| Key Binding | Description                                                                     |
+| Key binding | Description                                                                     |
 |-------------+---------------------------------------------------------------------------------|
 | ~SPC m c~   | Case split the pattern variable under point, or make it into a case expression. |
 | ~SPC m d~   | Create an initial pattern match clause for a type declaration.                  |
@@ -58,7 +58,7 @@ are reproduced under the local leader.
 
 ** Interactive editing
 
-| Key Binding | Description                                                                                |
+| Key binding | Description                                                                                |
 |-------------+--------------------------------------------------------------------------------------------|
 | ~SPC m i a~ | Attempt to solve a metavariable automatically.                                             |
 | ~SPC m i c~ | Case split the pattern variable under point, or make it into a case expression.            |
@@ -70,7 +70,7 @@ are reproduced under the local leader.
 
 ** Documentation
 
-| Key Binding | Description                                           |
+| Key binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~SPC m h a~ | Search the documentation for a string.                |
 | ~SPC m h d~ | Search the documentation for the name under point.    |
@@ -79,7 +79,7 @@ are reproduced under the local leader.
 
 ** REPL
 
-| Key Binding | Description                                                                            |
+| Key binding | Description                                                                            |
 |-------------+----------------------------------------------------------------------------------------|
 | ~SPC m s b~ | Load the current buffer into Idris.                                                    |
 | ~SPC m s B~ | Load the current buffer into Idris and switch to REPL in insert state                  |
@@ -93,7 +93,7 @@ are reproduced under the local leader.
 
 ** Active term manipulations
 
-| Key Binding | Description                                   |
+| Key binding | Description                                   |
 |-------------+-----------------------------------------------|
 | ~SPC m m c~ | Show the core language for the term at point. |
 | ~SPC m m i~ | Show implicits for the term at point.         |
@@ -102,7 +102,7 @@ are reproduced under the local leader.
 
 ** Build system
 
-| Key Binding | Description                                                                |
+| Key binding | Description                                                                |
 |-------------+----------------------------------------------------------------------------|
 | ~SPC m b c~ | Build the package.                                                         |
 | ~SPC m b C~ | Clean the package, removing =.ibc= files                                   |

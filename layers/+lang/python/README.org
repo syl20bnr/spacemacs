@@ -25,7 +25,7 @@
   - [[#manage-virtual-environments-with-pyvenv][Manage virtual environments with pyvenv]]
   - [[#manage-multiple-python-versions-with-pyenv][Manage multiple Python versions with pyenv]]
     - [[#automatic-activation-of-local-pyenv-version][Automatic activation of local pyenv version]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#inferior-repl-process][Inferior REPL process]]
   - [[#running-python-script-in-shell][Running Python Script in shell]]
   - [[#testing][Testing]]
@@ -216,9 +216,9 @@ previous link, is a program which manages your virtual environments in a central
 location set by the =WORKON_HOME= environment variable.
 
 Spacemacs integration of virtual environments and virtualenvwrapper is provided
-by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides the following keybindings:
+by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides the following key bindings:
 
-| Key Binding | Description                                     |
+| Key binding | Description                                     |
 |-------------+-------------------------------------------------|
 | ~SPC m V a~ | activate a virtual environment in any directory |
 | ~SPC m V d~ | deactivate active virtual environment           |
@@ -229,9 +229,9 @@ If you need multiple Python versions (e.g. Python 2 and Python 3) then take a
 look at [[https://github.com/yyuu/pyenv][pyenv]]. It enables the installation and managment of multiple
 Python versions.
 [[https://www.brianthicks.com/post/2015/04/15/automate-your-python-environment-with-pyenv/][This blogpost]] gives a good overview on how to use the tool. Spacemacs
-integration is provided by [[https://github.com/proofit404/pyenv-mode][pyenv mode]] which has the following keybindings.
+integration is provided by [[https://github.com/proofit404/pyenv-mode][pyenv mode]] which has the following key bindings.
 
-| Key Binding | Description                          |
+| Key binding | Description                          |
 |-------------+--------------------------------------|
 | ~SPC m v s~ | set a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]   |
 | ~SPC m v u~ | unset a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]] |
@@ -256,7 +256,7 @@ can be set with the variable =python-auto-set-local-pyvenv-virtualenv== to:
 - =on-project-switch= set the virtualenv when you switch projects,
 - =nil= to disable.
 
-* Key Bindings
+* Key bindings
 ** Inferior REPL process
 Start a Python or iPython inferior REPL process with ~SPC m s i~.
 If =ipython= is available in system executable search paths, =ipython=
@@ -266,7 +266,7 @@ search path by activating a virtual environment.
 
 Send code to inferior process commands:
 
-| Key Binding | Description                                     |
+| Key binding | Description                                     |
 |-------------+-------------------------------------------------|
 | ~SPC m s b~ | send buffer and keep code buffer focused        |
 | ~SPC m s B~ | send buffer and switch to REPL in insert mode   |
@@ -284,7 +284,7 @@ to start the Python script in comint mode. This is useful when working with
 multiple Python files since the REPL does not reload changes made in other
 modules.
 
-| Key Binding | Description                                                               |
+| Key binding | Description                                                               |
 |-------------+---------------------------------------------------------------------------|
 | ~SPC m c c~ | Execute current file in a comint shell                                    |
 | ~SPC m c C~ | Execute current file in a comint shell and switch to it in =insert state= |
@@ -315,7 +315,7 @@ function with a prefix argument, for example ~SPC u SPC m t a~.
 
 ** Refactoring
 
-| Key Binding | Description                                     |
+| Key binding | Description                                     |
 |-------------+-------------------------------------------------|
 | ~SPC m r f~ | fix a missing import statement with [[https://pypi.python.org/pypi/importmagic][importmagic]] |
 | ~SPC m r i~ | remove unused imports with [[https://github.com/myint/autoflake][autoflake]]            |
@@ -330,7 +330,7 @@ packages in the currently activated virtual environment.
 
 In the package list buffer:
 
-| Key Binding | Description                                                 |
+| Key binding | Description                                                 |
 |-------------+-------------------------------------------------------------|
 | ~RET~       | follow link (=pippel-menu-visit-homepage=)                  |
 | ~d~         | mark for deletion (=pippel-menu-mark-delete=)               |
@@ -344,13 +344,13 @@ In the package list buffer:
 ** Live coding
 Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][live-py-plugin.]]
 
-| Key Binding | Description         |
+| Key binding | Description         |
 |-------------+---------------------|
 | ~SPC m l~   | Toggle live-py-mode |
 
 ** Other Python commands
 
-| Key Binding   | Description                                                                       |
+| Key binding   | Description                                                                       |
 |---------------+-----------------------------------------------------------------------------------|
 | ~SPC m =~     | Reformat the buffer according to PEP8 using [[https://github.com/google/yapf][YAPF]]                                  |
 | ~SPC m d b~   | toggle a breakpoint using =wdb=, =ipdb=, =pudb=, =pdb= or =python3.7= (and above) |

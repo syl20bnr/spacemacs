@@ -64,7 +64,7 @@ To enable automatic buffer formatting on save, set the variable =rust-format-on-
 
 * Key bindings
 
-| Key Binding | Description                                 |
+| Key binding | Description                                 |
 |-------------+---------------------------------------------|
 | ~SPC m = =~ | reformat the buffer                         |
 | ~SPC m c .~ | repeat the last Cargo command               |

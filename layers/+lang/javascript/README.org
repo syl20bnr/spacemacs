@@ -17,7 +17,7 @@
   - [[#indentation][Indentation]]
   - [[#repl][REPL]]
   - [[#node-modules][Node Modules]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#js2-mode][js2-mode]]
   - [[#folding-js2-mode][Folding (js2-mode)]]
   - [[#refactoring-js2-refactor][Refactoring (js2-refactor)]]
@@ -156,17 +156,17 @@ doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472
     '((javascript :variables node-add-modules-path t)))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 ** js2-mode
 
-| Key Binding | Description                          |
+| Key binding | Description                          |
 |-------------+--------------------------------------|
 | ~SPC m w~   | toggle js2-mode warnings and errors  |
 | ~%~         | jump between blockswith [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] |
 
 ** Folding (js2-mode)
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~SPC m z c~ | hide element             |
 | ~SPC m z o~ | show element             |
@@ -178,7 +178,7 @@ doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472
 ** Refactoring (js2-refactor)
 Bindings should match the plain emacs assignments.
 
-| Key Binding   | Description                                                                                                    |
+| Key binding   | Description                                                                                                    |
 |---------------+----------------------------------------------------------------------------------------------------------------|
 | ~SPC m k~     | deletes to the end of the line, but does not cross semantic boundaries                                         |
 | ~SPC m r 3 i~ | converts ternary operator to if-statement                                                                      |
@@ -214,7 +214,7 @@ Bindings should match the plain emacs assignments.
 *** Documentation (js-doc)
 You can check more [[https://github.com/mooz/js-doc/][here]]
 
-| Key Binding   | Description                           |
+| Key binding   | Description                           |
 |---------------+---------------------------------------|
 | ~SPC m r d b~ | insert JSDoc comment for current file |
 | ~SPC m r d f~ | insert JSDoc comment for function     |
@@ -223,12 +223,12 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 
 ** REPL (skewer-mode)
 
-| Key Binding | Description                                                      |
+| Key binding | Description                                                      |
 |-------------+------------------------------------------------------------------|
 | ~SPC m e e~ | evaluates the last expression                                    |
 | ~SPC m e E~ | evaluates and inserts the result of the last expression at point |
 
-| Key Binding | Description                                                                        |
+| Key binding | Description                                                                        |
 |-------------+------------------------------------------------------------------------------------|
 | ~SPC m s a~ | Toggle live evaluation of whole buffer in REPL on buffer changes                   |
 | ~SPC m s b~ | send current buffer contents to the skewer REPL                                    |

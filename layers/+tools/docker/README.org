@@ -40,7 +40,7 @@ auto-completion of the running containers.
 
 * Key bindings
 
-| Key Binding | Description                                 |
+| Key binding | Description                                 |
 |-------------+---------------------------------------------|
 | ~SPC m c b~ | build current buffer                        |
 | ~SPC m c B~ | build current buffer without cache          |

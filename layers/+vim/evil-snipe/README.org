@@ -94,7 +94,7 @@ group of characters. By adding a pair of =(CHAR REGEX)= to the list
 
 * Key bindings
 
-| Key Binding | Description                                                                             |
+| Key binding | Description                                                                             |
 |-------------+-----------------------------------------------------------------------------------------|
 | ~f~         | search forward for the next entered character and set the cursor to it’s position       |
 | ~F~         | search backward for the next entered character and set the cursor to it’s position      |

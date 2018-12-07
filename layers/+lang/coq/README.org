@@ -56,7 +56,7 @@ font, or disable the feature by adding the following snippet to the your
 * Key bindings
 ** Laying out windows
 
-| Key Binding | Description           |
+| Key binding | Description           |
 |-------------+-----------------------|
 | ~SPC m l c~ | Clear response buffer |
 | ~SPC m l l~ | Re-layout windows     |
@@ -64,7 +64,7 @@ font, or disable the feature by adding the following snippet to the your
 
 ** Managing prover process
 
-| Key Binding | Description                                                     |
+| Key binding | Description                                                     |
 |-------------+-----------------------------------------------------------------|
 | ~SPC m p i~ | Interrupt prover                                                |
 | ~SPC m p p~ | Process buffer - processes and moves point to end of buffer     |
@@ -73,7 +73,7 @@ font, or disable the feature by adding the following snippet to the your
 
 ** Getting documentation
 
-| Key Binding | Description                                                 |
+| Key binding | Description                                                 |
 |-------------+-------------------------------------------------------------|
 | ~SPC m h h~ | Show documentation for whatever is below the cursor         |
 | ~SPC m h e~ | Show documentation for the error in the `*response*` buffer |
@@ -82,7 +82,7 @@ font, or disable the feature by adding the following snippet to the your
 ** Prover queries
 The mnemonic for =a= is “ask”.
 
-| Key Binding   | Description                                 |
+| Key binding   | Description                                 |
 |---------------+---------------------------------------------|
 | ~SPC m a a~   | Print                                       |
 | ~SPC m a A~   | Print (showing all)                         |
@@ -98,7 +98,7 @@ The mnemonic for =a= is “ask”.
 
 ** Moving the point
 
-| Key Binding | Description                     |
+| Key binding | Description                     |
 |-------------+---------------------------------|
 | ~SPC m g e~ | Go to end of command at point   |
 | ~SPC m g g~ | Go to definition at point       |
@@ -107,7 +107,7 @@ The mnemonic for =a= is “ask”.
 
 ** Inserting
 
-| Key Binding     | Description                                                     |
+| Key binding     | Description                                                     |
 |-----------------+-----------------------------------------------------------------|
 | ~SPC m M-RET~   | Insert regular match branch                                     |
 | ~SPC m M-S-RET~ | Insert =match goal with= branch                                 |

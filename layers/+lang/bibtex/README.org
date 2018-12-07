@@ -57,7 +57,7 @@ More configuration options are available and are detailed in the =org-ref= and
 * Key bindings
 In a Bib(La)TeX file, the following key bindings are added:
 
-| Key Binding               | Description                                |
+| Key binding               | Description                                |
 |---------------------------+--------------------------------------------|
 | ~SPC m j~ / ~g j~ / ~C-j~ | Next entry                                 |
 | ~SPC m k~ / ~g k~ / ~C-k~ | Previous entry                             |
@@ -76,6 +76,6 @@ In a Bib(La)TeX file, the following key bindings are added:
 In addition, =org-mode=, =latex-mode= and =markdown-mode= all have the following
 key binding added:
 
-| Key Binding | Description     |
+| Key binding | Description     |
 |-------------+-----------------|
 | ~SPC m i c~ | Insert citation |

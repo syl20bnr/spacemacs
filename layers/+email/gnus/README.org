@@ -109,7 +109,7 @@ Please see the [[http://www.gnus.org/manual.html][manual]] for a complete list.
 
 Basic and Spacemacs specific key bindings can be found in the following table.
 
-| Key Binding | Gnus mode - Description                             |
+| Key binding | Gnus mode - Description                             |
 |-------------+-----------------------------------------------------|
 | ~SPC a g~   | Starts Gnus                                         |
 | ~m~         | New Message                                         |

@@ -36,7 +36,7 @@ and automatic insertion and cycling among of typographic quotes and dashes.
 
 * Key bindings
 
-| Key Bindings | Description                                                      |
+| Key bindings | Description                                                      |
 |--------------+------------------------------------------------------------------|
 | ~SPC t T~    | Toggle Typo Mode (automatic insertion of typographic characters) |
 | ~SPC t ~~    | Toggle Tildify Mode (automatic insertion of non-breaking spaces) |
@@ -46,7 +46,7 @@ The following key bindings are available in insert state.
 
 ** Typo Mode
 
-| Key Bindings | Description                              |
+| Key bindings | Description                              |
 |--------------+------------------------------------------|
 | ~​"​~          | Cycle among quotation marks              |
 | ~`~          | Cycle among left single quotation marks  |

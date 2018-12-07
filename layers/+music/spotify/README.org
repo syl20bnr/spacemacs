@@ -21,7 +21,7 @@ file.
 
 * Key bindings
 
-| Key Binding   | Description              |
+| Key binding   | Description              |
 |---------------+--------------------------|
 | ~SPC a m s p~ | Play or pause Spotify    |
 | ~SPC a m s n~ | Go to the next track     |
@@ -30,13 +30,13 @@ file.
 
 If [[https://github.com/emacs-helm/helm][Helm]] layer is enabled, you can also use the following binding(s):
 
-| Key Binding   | Description            |
+| Key binding   | Description            |
 |---------------+------------------------|
 | ~SPC a m s g~ | Search for a new track |
 
 If [[https://github.com/abo-abo/swiper][Ivy]] layer is enabled, you can also use the following binding(s):
 
-| Key Binding       | Description                    |
+| Key binding       | Description                    |
 | ~SPC a m s s a~   | Spotify search artist          |
 | ~SPC a m s s A~   | Spotify search album           |
 | ~SPC a m s s t~   | Search for a new track         |

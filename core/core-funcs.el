@@ -258,11 +258,18 @@ result, incrementing passed-tests and total-tests."
      (concat "Hidden Mode Line Mode enabled.  "
              "Use M-x hidden-mode-line-mode to make the mode-line appear."))))
 
-(defun spacemacs/recompile-elpa ()
-  "Recompile packages in elpa directory. Useful if you switch
-Emacs versions."
-  (interactive)
-  (byte-recompile-directory package-user-dir nil t))
+;; https://github.com/syl20bnr/spacemacs/issues/8414
+(defun spacemacs/recompile-elpa (arg)
+  "Compile or recompile packages in elpa directory, if needed, that is
+    if the corresponding .elc file is either missing or outdated.
+
+      If ARG is non-nil, also recompile every `.el' file, regardless of date.
+
+      Useful if you switch Emacs versions."
+  (interactive "P")
+  ;; First argument must be 0 (not nil) to get missing .elc files rebuilt.
+  ;; Bonus: Optionally force recompilation with universal ARG
+  (byte-recompile-directory package-user-dir 0 arg))
 
 (defun spacemacs/register-repl (feature repl-func &optional tag)
   "Register REPL-FUNC to the global list of REPLs SPACEMACS-REPL-LIST.

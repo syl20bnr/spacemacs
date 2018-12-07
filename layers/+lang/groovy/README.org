@@ -26,13 +26,13 @@ file.
 * Key bindings
 ** Imports
 
-| Key Binding | Description                        |
+| Key binding | Description                        |
 |-------------+------------------------------------|
 | ~SPC m r i~ | Add import for symbol around point |
 
 ** REPL
 
-| Key Binding | Description                                           |
+| Key binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~SPC m s b~ | send buffer to REPL and stay in buffer                |
 | ~SPC m s B~ | send buffer and and switch to REPL buffer             |

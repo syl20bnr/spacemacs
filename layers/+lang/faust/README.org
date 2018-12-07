@@ -22,7 +22,7 @@ file.
 
 * Key bindings
 
-| Key Binding | Description                           |
+| Key binding | Description                           |
 |-------------+---------------------------------------|
 | ~SPC m c f~ | Compile to SVG and open in Firefox    |
 | ~SPC m c g~ | Compile a jack-gtk program and run it |

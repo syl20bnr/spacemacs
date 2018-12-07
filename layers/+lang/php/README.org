@@ -29,7 +29,7 @@ file.
 
 * Key bindings
 
-| Key Binding | Description             |
+| Key binding | Description             |
 |-------------+-------------------------|
 | ~SPC m g g~ | jump to define at point |
 | ~C-t~       | jump back               |

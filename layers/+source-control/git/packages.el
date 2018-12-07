@@ -231,7 +231,9 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
               (spacemacs|diminish magit-svn-mode "SVN")
               (define-key magit-mode-map "~" 'magit-svn-popup))))
 
-(defun git/init-orgit ())
+(defun git/init-orgit ()
+  (use-package orgit
+    :defer t))
 
 (defun git/init-smeargle ()
   (use-package smeargle

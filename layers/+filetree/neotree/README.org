@@ -11,7 +11,7 @@
   - [[#neotree-source-control-integration][NeoTree Source Control Integration]]
 - [[#usage][Usage]]
   - [[#neotree-mode-line][NeoTree mode-line]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#neotree-navigation][NeoTree navigation]]
   - [[#opening-files-with-neotree][Opening files with NeoTree]]
   - [[#other-neotree-key-bindings][Other NeoTree key bindings]]
@@ -95,12 +95,12 @@ The mode-line has the following format =[x/y] d (D:a, F:b)= where:
 - =a= the number of directories in the current directory
 - =b= the number of files in the current directory
 
-* Key Bindings
+* Key bindings
 ** NeoTree navigation
 Navigation is centered on the ~hjkl~ keys with the hope of providing a fast
 navigation experience like in [[http://ranger.nongnu.org/][ranger]]:
 
-| Key Binding  | Description                                                                   |
+| Key binding  | Description                                                                   |
 |--------------+-------------------------------------------------------------------------------|
 | ~h~          | collapse expanded directory or go to parent node                              |
 | ~H~          | select previous sibling                                                       |
@@ -121,7 +121,7 @@ window number where to open a file by using a numeric argument, for instance
 ~2 l~ or ~2 RET~ will open the current file in window 2. It is also possible to
 open the file in a split window with ~|~ and ~-~:
 
-| Key Binding      | Description                               |
+| Key binding      | Description                               |
 |------------------+-------------------------------------------|
 | ~l~ or ~RET~     | open file in last active window           |
 | ~# l~ or ~# RET~ | open file in window number =#=            |
@@ -130,7 +130,7 @@ open the file in a split window with ~|~ and ~-~:
 
 ** Other NeoTree key bindings
 
-| Key Binding | Description                     |
+| Key binding | Description                     |
 |-------------+---------------------------------|
 | ~TAB~       | toggle stretching of the buffer |
 | ~c~         | create a node                   |

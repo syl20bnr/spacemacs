@@ -21,6 +21,6 @@ file.
 
 * Key bindings
 
-| Key Binding | Description            |
+| Key binding | Description            |
 |-------------+------------------------|
 | ~SPC a L~   | Toggle the command log |

@@ -54,7 +54,7 @@ is optional. If not set, the default browser will be used.
 
 * Key bindings
 
-| Key Binding   | Description                             |
+| Key binding   | Description                             |
 |---------------+-----------------------------------------|
 | ~<SPC> m c c~ | compile projects                        |
 | ~<SPC> m c C~ | clean projects                          |
