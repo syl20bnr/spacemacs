@@ -1,0 +1,202 @@
+#+TITLE: xah-fly-keys layer
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#configuration][Configuration]]
+  - [[#swap-the-leader-keys][Swap the leader keys]]
+- [[#key-bindings][Key bindings]]
+  - [[#command-mode][Command mode]]
+  - [[#leader-key-map][Leader Key Map]]
+  - [[#sub-keymaps][Sub keymaps]]
+
+* Description
+
+This layer adds an alternative "modal editing mode for Emacs, like vi, but
+the design of key/command choice is based on command frequency statistics
+and ease-of-key score. Most frequently used commands have most easy keys."
+[[http://ergoemacs.org/misc/ergoemacs_vi_mode.html][xah-fly-keys]] has been developed over years of experience by Xah Lee, a long
+time contributer to the Emacs community.
+
+Gain the modal superpowers of the dark side, without succumbing to evil!
+
+** Features:
+
+- You NEVER need to press 【Ctrl+x】! Use leader key instead!
+- There are about 200 commands with leader key sequence.
+- Efficient keys for common navigation and editing tasks in command mode.
+- Keybindings based on experience and [[http://ergoemacs.org/emacs/command-frequency.html][observed frequency of use]].
+- Never need to press Meta!
+
+* Install
+
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =xah-fly-keys= to the existing =dotspacemacs-configuration-layers= list in 
+this file. You should have the =dotspacemacs-editing-style= set to ='emacs=.
+
+It is recommended to change some of the defaults in your =.spacemacs= file, in
+order to avoid some unwanted cross-over with some keybindings.
+
+  - set =dotspacemacs-colorize-cursor-according-to-state nil= so that the cursor
+    will reflect the =xah-fly-keys= state instead.
+  - set the =dotspacemacs-leader-key= to an empty string, as having it set to 
+    ="SPC"= interferes with the =which-key= mappings.
+
+** Configuration
+
+This layer assumes a "qwerty" layout and uses that as a default.  You can configure
+xah-fly-keys to behave with other keyboard layouts with the =xah-fly-keys-layout=
+variable. Possible values are `qwerty', `qwerty-abnt', `qwertz', `dvorak',
+`programer-dvorak', `colemak', `colemak-mod-dh', `workman'".
+
+For example, in your layers list:
+
+#+BEGIN_SRC elisp
+(xah-fly-keys :variables xah-fly-keys-layout "dvorak")
+#+END_SRC
+
+** Swap the leader keys
+If you'd like to have the spacemacs leader key on the space bar rather than the xah-fly-keys
+menu, it is possible to swap these keys.
+
+I tried implementing this with a config variable, but it doesn't quite work as expected.
+Until that is sorted out, add this to your =dotspacemacs/user-config= to swap the leader
+keys for Spacemacs and xah-fly-keys.
+
+#+BEGIN_SRC elisp
+(defun xah-fly-keys-swap-spacemacs-leader ()
+      (progn
+        (define-key xah-fly-key-map (kbd "SPC") 'spacemacs-cmds)
+        (define-key xah-fly-key-map (kbd "M-m") 'xah-fly-leader-key-map)))
+
+(add-hook 'xah-fly-command-mode-activate-hook 'xah-fly-keys-swap-spacemacs-leader)
+#+END_SRC
+
+You'll also need to set the =dotspacemacs-emacs-leader= key to an empty string.
+It appears that sometimes the =which-key= menu will be affected by this change.
+
+* Key bindings
+
+See [[http://ergoemacs.org/misc/ergoemacs_vi_mode.html][xah-fly-keys]] for the modal keymap defined by Xah Lee.
+
+** Command mode
+
+| Key Binding | Description                               |
+|-------------+-------------------------------------------|
+| ~M-m~       | spacemacs commands keymap                 |
+| ~ESC~       | Prefix Command                            |
+| ~SPC~       | xah-fly-leader-key-map                    |
+| ~'~         | xah-cycle-hyphen-underscore-space         |
+| ~,~         | xah-next-window-or-frame                  |
+| ~-~         | xah-backward-punct                        |
+| ~.~         | xah-forward-right-bracket                 |
+| ~/~         | xah-goto-matching-bracket                 |
+| ~1~         | pop-global-mark                           |
+| ~2~         | xah-pop-local-mark-ring                   |
+| ~3~         | delete-other-windows                      |
+| ~4~         | split-window-below                        |
+| ~5~         | delete-char                               |
+| ~6~         | xah-select-block                          |
+| ~7~         | xah-select-line                           |
+| ~8~         | xah-extend-selection                      |
+| ~9~         | xah-select-text-in-quote                  |
+| ~;~         | xah-end-of-line-or-block                  |
+| ~=~         | xah-forward-punct                         |
+| ~[~         | hippie-expand                             |
+| ~]~         | xah-forward-equal-sign                    |
+| ~`~         | other-frame                               |
+| ~a~         | execute-extended-command                  |
+| ~b~         | xah-toggle-letter-case                    |
+| ~c~         | xah-copy-line-or-region                   |
+| ~d~         | xah-delete-backward-char-or-bracket-text  |
+| ~e~         | backward-kill-word                        |
+| ~f~         | xah-fly-insert-mode-activate              |
+| ~g~         | xah-delete-current-text-block             |
+| ~h~         | xah-beginning-of-line-or-block            |
+| ~i~         | previous-line                             |
+| ~j~         | backward-char                             |
+| ~k~         | next-line                                 |
+| ~l~         | forward-char                              |
+| ~m~         | xah-backward-left-bracket                 |
+| ~n~         | isearch-forward                           |
+| ~o~         | forward-word                              |
+| ~p~         | xah-fly-insert-mode-activate-space-before |
+| ~q~         | xah-reformat-lines                        |
+| ~r~         | kill-word                                 |
+| ~s~         | open-line                                 |
+| ~t~         | set-mark-command                          |
+| ~u~         | backward-word                             |
+| ~v~         | xah-paste-or-paste-previous               |
+| ~w~         | xah-shrink-whitespaces                    |
+| ~x~         | xah-cut-line-or-region                    |
+| ~y~         | undo                                      |
+| ~z~         | xah-comment-dwim                          |
+| ~<C-f11>~   | xah-previous-emacs-buffer                 |
+| ~<C-f12>~   | xah-next-emacs-buffer                     |
+| ~<f11>~     | xah-~previous-user-buffer                 |
+| ~<f12>~     | xah-next-user-buffer                      |
+| ~<f8>~      | xah-fly-command-mode-activate-no-hook     |
+| ~<home>~    | xah-fly-command-mode-activate             |
+| ~<menu>~    | xah-fly-command-mode-activate             |
+| ~M-SPC~     | xah-fly-command-mode-activate-no-hook     |
+
+** Leader Key Map
+
+| Key Binding | Description                           |
+|-------------+---------------------------------------|
+| ~SPC TAB~   | xah-fly--tab-key-map                  |
+| ~SPC RET~   | execute-extended-command              |
+| ~SPC SPC~   | xah-fly-insert-mode-activate          |
+| ~SPC '~     | xah-display-form-feed-as-line         |
+| ~SPC ,~     | xah-fly-w-keymap                      |
+| ~SPC 3~     | delete-window                         |
+| ~SPC 4~     | split-window-right                    |
+| ~SPC 5~     | balance-windows                       |
+| ~SPC 9~     | ispell-word                           |
+| ~SPC ;~     | save-buffer                           |
+| ~SPC \~     | toggle-input-method                   |
+| ~SPC a~     | mark-whole-buffer                     |
+| ~SPC c~     | xah-copy-all-or-region                |
+| ~SPC d~     | xah-fly-e-keymap                      |
+| ~SPC e~     | xah-fly-dot-keymap                    |
+| ~SPC f~     | switch-to-buffer                      |
+| ~SPC g~     | xah-copy-file-path                    |
+| ~SPC h~     | beginning-of-buffer                   |
+| ~SPC i~     | xah-fly-c-keymap                      |
+| ~SPC j~     | xah-fly-h-keymap                      |
+| ~SPC k~     | xah-fly-t-keymap                      |
+| ~SPC l~     | xah-fly-n-keymap                      |
+| ~SPC m~     | dired-jump                            |
+| ~SPC n~     | end-of-buffer                         |
+| ~SPC o~     | xah-fly-r-keymap                      |
+| ~SPC p~     | recenter-top-bottom                   |
+| ~SPC q~     | xah-fill-or-unfill                    |
+| ~SPC r~     | query-replace                         |
+| ~SPC s~     | exchange-point-and-mark               |
+| ~SPC t~     | xah-show-kill-ring                    |
+| ~SPC u~     | isearch-forward                       |
+| ~SPC v~     | xah-paste-or-paste-previous           |
+| ~SPC w~     | xah-fly-comma-keymap                  |
+| ~SPC x~     | xah-cut-all-or-region                 |
+| ~SPC y~     | xah-search-current-word               |
+| ~SPC DEL~   | xah-fly-insert-mode-activate          |
+
+** Sub keymaps
+
+You'll notice there are several sub keymaps after pressing the leader key.
+These are organized by ease of use, and should really be categorized by
+finger and keyboard row.  I've listed some of the functionality for each of the
+keymaps, but use =which-key= and you'll discover more details.
+
+- 【SPC ,】 - Eval, kill emacs
+- 【SPC k】 - registers, replace, occur
+- 【SPC o】 - rectangles, macros, number registers
+- 【SPC l】 - modes, view, windows
+- 【SPC j】 - help, apropos, info
+- 【SPC d】 - inserting chars, brackets, unicode
+- 【SPC i】 - files, bookmarks, external apps
+- 【SPC w】 - xref, find identifiers
+- 【SPC e】 - search, highlight, fonts
+- 【SPC TAB】 - indent, expand, abbrev
+

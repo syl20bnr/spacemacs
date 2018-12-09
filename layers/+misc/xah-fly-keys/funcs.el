@@ -1,0 +1,13 @@
+(when (configuration-layer/package-usedp 'xah-fly-keys)
+  (defun xah-fly-keys-command-mode-on ()
+    (global-hl-line-mode 1)
+    (set-cursor-color "deep pink")
+    (setq cursor-type 'box)
+    )
+
+  (defun xah-fly-keys-insert-mode-on ()
+    (global-hl-line-mode 0)
+    (set-cursor-color "Dark Turquoise")
+    (setq cursor-type 'bar)
+    )
+  )
