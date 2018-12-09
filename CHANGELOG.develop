@@ -529,6 +529,7 @@ Other:
   - Don't skip missing .elc files when recompiling Elpa (thanks to RockyRoad29)
   - Updated =quelpa= to fix installing of some recipes on macOS (thanks to Dieter
     Komendera)
+  - Added startup support for doom-sourcerer theme (thanks to Parker Johnson)
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)

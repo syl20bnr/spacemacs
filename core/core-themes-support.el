@@ -163,6 +163,7 @@
     (doom-opera-light                 . doom-themes)
     (doom-peacock                     . doom-themes)
     (doom-spacegrey                   . doom-themes)
+    (doom-sourcerer                   . doom-themes)
     (doom-solarized-light             . doom-themes)
     (doom-tomorrow-day                . doom-themes)
     (doom-tomorrow-night              . doom-themes)
