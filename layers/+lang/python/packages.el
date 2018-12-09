@@ -42,8 +42,6 @@
         ;; packages for anaconda backend
         anaconda-mode
         (company-anaconda :requires company)
-        ;; packages for lsp backend
-        (lsp-python :requires lsp-mode)
         ))
 
 (defun python/init-anaconda-mode ()
@@ -150,11 +148,6 @@
     :init
     (spacemacs/set-leader-keys-for-major-mode 'python-mode
       "l" 'live-py-mode)))
-
-(defun python/init-lsp-python ()
-  (use-package lsp-python
-    :commands lsp-python-enable
-    :config (spacemacs//setup-lsp-jump-handler 'python-mode)))
 
 (defun python/init-nose ()
   (use-package nose

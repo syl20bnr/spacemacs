@@ -67,8 +67,7 @@ when this mode is enabled since the minibuffer is cleared all the time."
 (defun spacemacs//python-setup-lsp ()
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (lsp-python-enable))
+      (lsp)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//python-setup-lsp-company ()

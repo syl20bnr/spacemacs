@@ -21,6 +21,8 @@
     :defer t
     :config
     (progn
+      (require 'lsp-clients)
+      (setq lsp-prefer-flymake nil)
       (spacemacs/lsp-bind-keys)
       (add-hook 'lsp-after-open-hook (lambda ()
                                        "Setup xref jump handler and declare keybinding prefixes"
