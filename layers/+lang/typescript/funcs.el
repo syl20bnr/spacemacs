@@ -85,6 +85,13 @@
   (eldoc-mode))
 
 
+;; Emmet
+(defun spacemacs/typescript-emmet-mode ()
+  "Activate `emmet-mode' and configure it for local buffer."
+  (emmet-mode)
+  (setq-local emmet-expand-jsx-className? t))
+
+
 ;; Others
 
 (defun spacemacs/typescript-tsfmt-format-buffer ()
