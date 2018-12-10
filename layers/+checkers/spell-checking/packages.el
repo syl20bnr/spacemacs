@@ -60,7 +60,7 @@ Spell Commands^^             Other
         ("b" flyspell-buffer)
         ("d" spell-checking/change-dictionary)
         ("n" flyspell-goto-next-error)
-        ("c" flyspell-correct-previous-word-generic)
+        ("c" flyspell-correct-wrapper)
         ("Q" flyspell-mode :exit t)
         ("q" nil :exit t)
         ("t" spacemacs/toggle-spelling-checking))

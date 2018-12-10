@@ -2131,6 +2131,7 @@ Other:
 **** Spell-checking
 - Added spell checking transient state (thanks to Francesc Elies Henar)
 - Update to flyspell-correct v0.5 (thanks to Boris Buliga)
+- Update spell checking ts to flyspell-correct v0.5 (thanks to Bruno Tavares)
 **** Syntax-checking
 - Key bindings:
   - ~SPC e e~ is now for triggering a syntax check, the old action
