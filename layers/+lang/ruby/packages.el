@@ -225,8 +225,10 @@
     :init (spacemacs/add-to-hooks 'rubocop-mode '(ruby-mode-hook
                                                   enh-ruby-mode-hook))
     :config (dolist (mode '(ruby-mode enh-ruby-mode))
+              (spacemacs/declare-prefix-for-mode mode "m=" "format")
               (spacemacs/declare-prefix-for-mode mode "mrr" "RuboCop")
               (spacemacs/set-leader-keys-for-major-mode mode
+                "=r"  'spacemacs/rubocop-format
                 "rrd" 'rubocop-check-directory
                 "rrD" 'rubocop-autocorrect-directory
                 "rrf" 'rubocop-check-current-file

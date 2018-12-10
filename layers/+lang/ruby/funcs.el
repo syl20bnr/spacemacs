@@ -45,6 +45,13 @@ Called interactively it prompts for a directory."
   (add-hook 'compilation-filter-hook 'inf-ruby-auto-enter nil t))
 
 
+;; rubocop
+
+(defun spacemacs/rubocop-format ()
+  (interactive)
+  (rubocop-autocorrect-current-file))
+
+
 ;; ruby-test
 
 (defun spacemacs//ruby-enable-ruby-test-mode ()
