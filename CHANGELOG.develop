@@ -745,6 +745,7 @@ Benner and Paweł Siudak):
   - Fix global toggles for aggressive-indent and smartparens (thanks to Matt
     Kramer)
   - Don't load outdated compiled files (thanks to Boris Buliga)
+  - Fix helm loading for layouts transient state (thanks to Thomas de Beauchêne)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)

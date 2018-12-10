@@ -103,6 +103,7 @@
 
 
 (defun spacemacs-layouts/post-init-helm ()
+  (spacemacs||set-helm-key "l" spacemacs/layouts-transient-state/body)
   (spacemacs/set-leader-keys
     "bB" 'spacemacs-layouts/non-restricted-buffer-list-helm
     "pl" 'spacemacs/helm-persp-switch-project))
