@@ -46,6 +46,7 @@
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
+    :if (eq python-backend 'anaconda)
     :defer t
     :init
     (progn
@@ -55,7 +56,7 @@
         "gb" 'xref-pop-marker-stack
         "gu" 'anaconda-mode-find-references)
       (setq anaconda-mode-installation-directory
-            (concat spacemacs-cache-directory "anaconda-mode")))
+        (concat spacemacs-cache-directory "anaconda-mode")))
     :config
     (progn
       ;; new anaconda-mode (2018-06-03) removed `anaconda-view-mode-map' in
@@ -72,7 +73,7 @@
       (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
         (evil--jumps-push))
       (add-to-list 'spacemacs-jump-handlers-python-mode
-                   '(anaconda-mode-find-definitions :async t)))))
+        '(anaconda-mode-find-definitions :async t)))))
 
 (defun python/post-init-company ()
   ;; backend specific
@@ -90,6 +91,7 @@
 
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
+    :if (eq python-backend 'anaconda)
     :defer t
     ;; see `spacemacs//python-setup-anaconda-company'
     ))
@@ -99,9 +101,10 @@
     :defer t
     :init
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'cython-mode
-        "hh" 'anaconda-mode-show-doc
-        "gu" 'anaconda-mode-find-references))))
+      (when (eq python-backend 'anaconda)
+        (spacemacs/set-leader-keys-for-major-mode 'cython-mode
+          "hh" 'anaconda-mode-show-doc
+          "gu" 'anaconda-mode-find-references)))))
 
 (defun python/post-init-eldoc ()
   (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-eldoc))

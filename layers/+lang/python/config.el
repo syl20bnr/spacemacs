@@ -18,6 +18,9 @@
   "The backend to use for IDE features. Possible values are `anaconda'
 and `lsp'.")
 
+(defvar python-pipenv-activate nil
+  "If non-nil, activate pipenv before enabling backend")
+
 (defvar python-enable-yapf-format-on-save nil
   "If non-nil, automatically format code with YAPF on save.")
 

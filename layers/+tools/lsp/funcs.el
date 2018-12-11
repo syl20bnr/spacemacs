@@ -41,7 +41,7 @@ https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
     ;;format
     "=b" #'lsp-format-buffer
     ;;goto
-    "gt" #'lsp-goto-type-definition
+    "gt" #'lsp-find-type-definition
     "gk" #'spacemacs/lsp-avy-goto-word
     "gK" #'spacemacs/lsp-avy-goto-symbol
     "ge" #'lsp-ui-flycheck-list
@@ -64,7 +64,7 @@ https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
 
 (defun spacemacs//lsp-bind-simple-navigation-functions (prefix-char)
   (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
-    (concat prefix-char "i") #'lsp-goto-implementation
+    (concat prefix-char "i") #'lsp-find-implementation
     (concat prefix-char "d") #'xref-find-definitions
     (concat prefix-char "r") #'xref-find-references
     (concat prefix-char "s") #'lsp-ui-find-workspace-symbol
@@ -124,7 +124,7 @@ https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
 
 (defun spacemacs//lsp-define-custom-extension (layer-name nav-mode kind request &optional extra)
   (let ((lsp-extension-fn (if (eq nav-mode "find")
-                            'lsp-find-custom
+                            'lsp-find-locations
                             'lsp-ui-peek-find-custom))
          (extension-name (spacemacs//lsp-get-extension-name layer-name nav-mode kind))
          (extension-descriptor (format (concat nav-mode " %s") (symbol-name kind))))
