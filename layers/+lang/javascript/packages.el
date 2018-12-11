@@ -167,6 +167,7 @@
     :defer t
     :init
     (progn
+      (spacemacs/declare-prefix-for-mode 'js2-mode "mT" "toggle")
       (spacemacs|add-toggle javascript-repl-live-evaluation
         :mode livid-mode
         :documentation "Live evaluation of JS buffer change."
