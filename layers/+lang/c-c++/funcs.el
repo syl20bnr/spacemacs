@@ -221,19 +221,19 @@ and the arguments for flyckeck-clang based on a project-specific text file."
 (defun spacemacs//c-c++-lsp-set-config (param prefix suffix)
   (when (symbol-value param) (spacemacs//c-c++-lsp-set-symbol prefix suffix param)))
 
-(defun spacemacs//c-c++-lsp-apply-config (suffix)
-  (spacemacs//c-c++-lsp-set-config (intern (concat "c-c++-lsp-" suffix)) nil (concat "-" suffix)))
+(defun spacemacs//c-c++-lsp-apply-config (&rest parameters)
+  (dolist (suffix parameters) (spacemacs//c-c++-lsp-set-config (intern (concat "c-c++-lsp-" suffix)) nil (concat "-" suffix))))
 ;; -- END helper functions for common configuration of cquery and ccls backends
 
 (defun spacemacs//c-c++-lsp-config ()
   "Configure the LSP backend specified by the `c-c++-backend' configuration variable."
     (progn
+      (remhash 'clangd lsp-clients)
       (spacemacs//c-c++-lsp-define-extensions)
       (spacemacs//c-c++-lsp-wrap-functions)
       (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-gcc))
 
-      (dolist (param '("executable" "extra-init-params" "initialization-options" "extra-args" "project-whitelist" "project-blacklist" "sem-highlight-method"))
-        (spacemacs//c-c++-lsp-apply-config param))
+      (spacemacs//c-c++-lsp-apply-config "executable" "initialization-options" "args" "project-whitelist" "project-blacklist" "sem-highlight-method")
 
       (if (eq c-c++-lsp-cache-dir nil)
         (progn
@@ -241,10 +241,15 @@ and the arguments for flyckeck-clang based on a project-specific text file."
           (message (concat "c-c++: No c-c++-lsp-cache-dir specified: defaulting to " c-c++-lsp-cache-dir))))
 
       (ecase c-c++-backend
-        ('lsp-cquery (setq cquery-cache-dir c-c++-lsp-cache-dir))
+        ('lsp-cquery (setq cquery-cache-dir c-c++-lsp-cache-dir)
+          (setq cquery-extra-args c-c++-lsp-args)
+          (setq cquery-extra-init-params
+            (if c-c++-lsp-initialization-options
+              (append c-c++-lsp-initialization-options '(:cacheFormat "msgpack"))
+              '(:cacheFormat "msgpack"))))
         ('lsp-ccls (setq ccls-initialization-options
-                     (if ccls-initialization-options
-                       (append ccls-initialization-options `(:cacheDirectory ,c-c++-lsp-cache-dir))
+                     (if c-c++-lsp-initialization-options
+                       (append c-c++-lsp-initialization-options `(:cacheDirectory ,c-c++-lsp-cache-dir))
                        `(:cacheDirectory ,c-c++-lsp-cache-dir)))))
 
       (when c-c++-lsp-sem-highlight-rainbow
