@@ -168,6 +168,7 @@ Kraemer, Yi Liu, and Jack Kamm):
 ***** JavaScript
 - CoffeeScript support has been extracted from the =javascript= layer into the
   new =coffeescript= layer.
+- Added missing prefix for =js2-mode=
 ***** Markdown
 - Key bindings:
   - Removed ~SPC m i I~ for =markdown-insert-reference-image=
