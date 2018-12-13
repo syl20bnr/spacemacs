@@ -2,7 +2,7 @@
 
 [[file:img/logo.png]]
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -31,11 +31,11 @@ This layer also supports having a global BibTeX file. For a basic
 configuration, add this to your =~/.spacemacs= inside
 =dotspacemacs/user-config=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq org-ref-default-bibliography '("~/Papers/references.bib")
         org-ref-pdf-directory "~/Papers/"
         org-ref-bibliography-notes "~/Papers/notes.org")
-#+end_src
+#+END_SRC
 
 Certain modes, such as =latex-mode= with AucTeX, will automatically lookup
 references in a document if any of the recognized bibliography commands are
@@ -45,11 +45,11 @@ file-local variables (through ~SPC f v f~).
 You can also customize which program is used to display the PDFs. For example,
 to use Zathura:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq org-ref-open-pdf-function
     (lambda (fpath)
       (start-process "zathura" "*helm-bibtex-zathura*" "/usr/bin/zathura" fpath)))
-#+end_src
+#+END_SRC
 
 More configuration options are available and are detailed in the =org-ref= and
 =helm-bibtex= package documentations.
@@ -57,7 +57,7 @@ More configuration options are available and are detailed in the =org-ref= and
 * Key bindings
 In a Bib(La)TeX file, the following key bindings are added:
 
-| Key Binding               | Description                                |
+| Key binding               | Description                                |
 |---------------------------+--------------------------------------------|
 | ~SPC m j~ / ~g j~ / ~C-j~ | Next entry                                 |
 | ~SPC m k~ / ~g k~ / ~C-k~ | Previous entry                             |
@@ -67,7 +67,7 @@ In a Bib(La)TeX file, the following key bindings are added:
 | ~SPC m i~                 | Insert new entry                           |
 | ~SPC m s~                 | Sort entry                                 |
 | ~SPC m h~                 | Various actions on entry                   |
-| ~SPC m l a~               | Lookup and add arXiv paper (don't get PDF) |
+| ~SPC m l a~               | Lookup and add arXiv paper (don’t get PDF) |
 | ~SPC m l A~               | Lookup and add arXiv paper (download PDF)  |
 | ~SPC m l d~               | Lookup and add paper by DOI                |
 | ~SPC m l i~               | Lookup and add book by ISBN                |
@@ -76,6 +76,6 @@ In a Bib(La)TeX file, the following key bindings are added:
 In addition, =org-mode=, =latex-mode= and =markdown-mode= all have the following
 key binding added:
 
-| Key Binding | Description     |
+| Key binding | Description     |
 |-------------+-----------------|
 | ~SPC m i c~ | Insert citation |

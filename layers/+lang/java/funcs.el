@@ -29,21 +29,24 @@
   (pcase java-backend
     (`meghanada (spacemacs//java-setup-meghanada))
     (`eclim (spacemacs//java-setup-eclim))
-    (`ensime (spacemacs//java-setup-ensime))))
+    (`ensime (spacemacs//java-setup-ensime))
+    (`lsp (spacemacs//java-setup-lsp))))
 
 (defun spacemacs//java-setup-company ()
   "Conditionally setup company based on backend."
   (pcase java-backend
     (`meghanada (spacemacs//java-setup-meghanada-company))
     (`eclim (spacemacs//java-setup-eclim-company))
-    (`ensime (spacemacs//java-setup-ensime-company))))
+    (`ensime (spacemacs//java-setup-ensime-company))
+    (`lsp (spacemacs//java-setup-lsp-company))))
 
 (defun spacemacs//java-setup-flycheck ()
   "Conditionally setup flycheck based on backend."
   (pcase java-backend
     (`meghanada (spacemacs//java-setup-meghanada-flycheck))
     (`eclim (spacemacs//java-setup-eclim-flycheck))
-    (`ensime (spacemacs//java-setup-ensime-flycheck))))
+    (`ensime (spacemacs//java-setup-ensime-flycheck))
+    (`lsp (spacemacs//java-setup-lsp-flycheck))))
 
 (defun spacemacs//java-setup-flyspell ()
   "Conditionally setup flyspell based on backend."
@@ -169,12 +172,12 @@
 (defun spacemacs/ensime-yank-type-at-point ()
   "Yank to kill ring and print short type name at point to the minibuffer."
   (interactive)
-  (ensime-type-at-point t nil))
+  (ensime-type-at-point '(4)))
 
 (defun spacemacs/ensime-yank-type-at-point-full-name ()
   "Yank to kill ring and print full type name at point to the minibuffer."
   (interactive)
-  (ensime-type-at-point t t))
+  (ensime-type-at-point '(4) t))
 
 
 ;; eclim
@@ -191,11 +194,11 @@
   (spacemacs|add-company-backends
     :backends company-emacs-eclim
     :modes eclim-mode
-    :hooks nil)
-  ;; call manualy generated functions by the macro
-  (spacemacs//init-company-eclim-mode)
-  (set (make-variable-buffer-local 'company-idle-delay) 0.5)
-  (set (make-variable-buffer-local 'company-minimum-prefix-length) 1)
+    :variables
+    company-idle-delay 0.5
+    company-minimum-prefix-length 1
+    :append-hooks nil
+    :call-hooks t)
   (company-mode))
 
 (defun spacemacs//java-setup-eclim-flycheck ()
@@ -245,10 +248,10 @@
 
 (defun spacemacs//java-setup-meghanada-flycheck ()
   "Setup Meghanada syntax checking."
-  (spacemacs/enable-flycheck 'java-mode)
-  (require 'flycheck-meghanada)
-  (add-to-list 'flycheck-checkers 'meghanada)
-  (flycheck-mode))
+  (when (spacemacs/enable-flycheck 'java-mode)
+    (require 'flycheck-meghanada)
+    (add-to-list 'flycheck-checkers 'meghanada)
+    (flycheck-mode)))
 
 (defun spacemacs//java-meghanada-server-livep ()
   "Return non-nil if the Meghanada server is up."
@@ -288,3 +291,41 @@
   (when (s-matches? (rx (+ (not space)))
                     (buffer-substring (line-beginning-position) (point)))
     (delete-horizontal-space t)))
+
+
+;; LSP Java
+
+(defun spacemacs//java-setup-lsp ()
+  "Setup LSP Java."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (require 'lsp-java)
+        (require 'company-lsp)
+        (lsp-java-enable))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile."))
+  (if (configuration-layer/layer-used-p 'dap)
+      (progn
+        (require 'dap-java)
+        (spacemacs/dap-bind-keys-for-mode 'java-mode))
+    (message "`dap' layer is not installed, please add `dap' layer to your dotfile.")))
+
+(defun spacemacs//java-setup-lsp-company ()
+  "Setup lsp auto-completion."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (spacemacs|add-company-backends
+          :backends company-lsp
+          :modes java-mode
+          :append-hooks nil
+          :call-hooks t)
+        (company-mode))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs//java-setup-lsp-flycheck ()
+  "Setup LSP Java syntax checking."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (when (spacemacs/enable-flycheck 'java-mode)
+        (require 'lsp-ui-flycheck)
+        (lsp-ui-flycheck-enable nil)
+        (flycheck-mode))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))

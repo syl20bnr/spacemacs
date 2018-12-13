@@ -1,0 +1,260 @@
+#+TITLE: Spacemacs experimental features
+
+* Table of Contents                     :TOC_4_gh:noexport:
+- [[#spacemacs-dumps-using-the-portable-dumper][Spacemacs dumps using the portable dumper]]
+  - [[#setup][Setup]]
+    - [[#emacs-plus-users][=emacs-plus= users]]
+    - [[#clone-emacs][Clone Emacs]]
+    - [[#simple-patch-of-emacs-source-code][Simple patch of Emacs source code]]
+    - [[#compile-emacs-from-source][Compile Emacs from source]]
+      - [[#macos][MacOS]]
+      - [[#ubuntu][Ubuntu]]
+      - [[#windows][Windows]]
+    - [[#install-emacs][Install Emacs]]
+      - [[#windows-1][Windows]]
+    - [[#update-your-dotfile][Update your dotfile]]
+    - [[#test][Test]]
+    - [[#report-issues][Report issues]]
+  - [[#usage][Usage]]
+
+* Spacemacs dumps using the portable dumper
+The portable dumper is a feature that may be available with Emacs 27.1, for now
+its code is in the =pdumper= branch of the Emacs Git repository, it has not been
+merged to master yet.
+
+This should theoretically work on all the three major OSes: GNU/Linux, MacOS and
+Windows.
+
+** Setup
+To test the portable dumper with Spacemacs, follow these steps:
+
+*** =emacs-plus= users
+In case you are using =d12frosted/emacs-plus= on macOS, you can skip manual
+Emacs installation instructions and just use =--with-pdumper= option passed to
+=brew=.
+
+#+BEGIN_SRC shell
+  brew install emacs-plus --HEAD --with-pdumper
+#+END_SRC
+
+*** Clone Emacs
+Clone Emacs from [[https://git.savannah.gnu.org/git/emacs.git]]:
+
+#+BEGIN_SRC shell
+  git clone https://git.savannah.gnu.org/git/emacs.git
+  cd emacs
+  git checkout pdumper
+#+END_SRC
+
+Note: On windows make sure that autocrlf is disabled in git before cloning or
+else the =autoconf.sh= script will fail later on:
+
+#+BEGIN_SRC shell
+  git config --global core.autocrlf false
+#+END_SRC
+
+*** Simple patch of Emacs source code
+We need to increase the number of =remembered_data= slots in =src/pdumper.c=, we
+double the number of slots by replacing 32 with 64:
+
+#+BEGIN_SRC C
+  static struct
+  {
+    void *mem;
+    int sz;
+  } remembered_data[64];
+#+END_SRC
+
+*** Compile Emacs from source
+This step depends on your OS (please create a PR to add the instructions for
+your OS).
+
+**** MacOS
+In the root directory of your freshly cloned Emacs repository and with the
+=pdumper= branch as the current branch:
+
+#+BEGIN_SRC shell
+  ./autogen.sh
+  ./configure --with-ns --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules
+  make
+#+END_SRC
+
+**** Ubuntu
+/Note: This is tested on Ubuntu 17.10./
+
+In the root directory of your freshly cloned Emacs repository and with the
+=pdumper= branch as the current branch:
+
+#+BEGIN_SRC shell
+  ./autogen.sh
+  # Pick one. The first one will install Emacs locally and the second one will install it globally.
+  ./configure --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules --prefix="$HOME/.local"
+  ./configure --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules
+  make
+#+END_SRC
+
+If you have never compiled Emacs from source on your machine then you probably
+need to install the following packages:
+
+#+BEGIN_SRC shell
+  sudo apt-get install build-essential automake texinfo libjpeg-dev libncurses5-dev
+  sudo apt-get install libtiff5-dev libgif-dev libpng-dev libxpm-dev libgtk-3-dev libgnutls28-dev
+#+END_SRC
+
+**** Windows
+/Note: This is tested on Windows 10/
+
+Install MSYS2 x86_64 from [[http://repo.msys2.org/distrib/x86_64/][here]].
+
+Run msys2_shell.bat and in the msys2 prompt run:
+
+#+BEGIN_SRC shell
+  pacman -S base-devel mingw-w64-x86_64-toolchain \
+  mingw-w64-x86_64-xpm-nox mingw-w64-x86_64-libtiff \
+  mingw-w64-x86_64-giflib mingw-w64-x86_64-jbigkit \
+  mingw-w64-x86_64-libpng mingw-w64-x86_64-libjpeg-turbo \
+  mingw-w64-x86_64-librsvg mingw-w64-x86_64-libxml2 \
+  mingw-w64-x86_64-gnutls
+#+END_SRC
+
+Quit the msys2 shell and run mingw64.exe in the msys64 install directory. In the
+mingw prompt navigate to the emacs source checkout (=cd /c/= will get you to the
+root of the c drive) and run:
+
+#+BEGIN_SRC shell
+  ./autogen.sh
+  ./configure --without-ns --without-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules
+  make
+#+END_SRC
+
+Instructions from [[https://sourceforge.net/p/emacsbinw64/wiki/Build%20guideline%20for%20MSYS2-MinGW-w64%20system/][here]].
+
+*** Install Emacs
+After the compiliation finished successfully, you may need to install Emacs.
+
+#+BEGIN_SRC shell
+  make install       # if you configure Emacs to install locally
+  sudo make install  # if globally
+#+END_SRC
+
+**** Windows
+In the mingw shell run:
+
+#+BEGIN_SRC shell
+  make install prefix=/c/emacs
+  cp /mingw64/bin/{libwinpthread-*.dll,libXpm-noX*.dll,libdbus-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libgomp-*.dll,libgcc_s_seh-*.dll,libglib-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libintl-*.dll,libiconv-*.dll,libgobject-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libffi-*.dll,libgdk_pixbuf-*.dll,libgio-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libgmodule-*.dll,zlib*.dll,librsvg-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libcairo-*.dll,libcroco-*.dll,libpango-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libpangocairo-*.dll,libxml2-*.dll,libfontconfig-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libfreetype-*.dll,libpixman-*.dll,libpng*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libpangoft*.dll,libpangowin32-*.dll,liblzma-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libexpat-*.dll,libharfbuzz-*.dll,libgnutls-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libgnutlsxx-*.dll,libtiff-*.dll,libtiffxx-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libjpeg-*.dll,libgif-*.dll,libbz2-*.dll,libjbig-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libgmp-*.dll,libhogweed-*.dll,libnettle-*.dll} /c/emacs/bin
+  cp /mingw64/bin/{libp11-kit-*.dll,libtasn1-*.dll} /c/emacs/bin
+#+END_SRC
+
+*** Update your dotfile
+In the function =dotspacemacs/init= add the following variables if you don’t
+have them already and initialize them:
+
+#+BEGIN_SRC emacs-lisp
+  (defun dotspacemacs/init ()
+   "Initialization:
+    This function is called at the very beginning of Spacemacs startup,
+    before layer configuration.
+    It should only modify the values of Spacemacs settings."
+      (setq-default
+
+     ;; If non-nil then enable support for the portable dumper. You'll need
+     ;; to compile Emacs 27 from source following the instructions in file
+     ;; EXPERIMENTAL.org at to root of the git repository.
+     ;; (default nil)
+     dotspacemacs-enable-emacs-pdumper t
+
+     ;; File path pointing to emacs 27.1 executable compiled with support
+     ;; for the portable dumper (this is currently the branch pdumper).
+     ;; (default "emacs")
+     dotspacemacs-emacs-pdumper-executable-file "/path/to/emacs27"
+
+     ;; Name of the Spacemacs dump file. This is the file will be created by the
+     ;; portable dumper in the cache directory under dumps sub-directory.
+     ;; To load it when starting Emacs add the parameter `--dump-file'
+     ;; when invoking Emacs 27.1 executable on the command line, for instance:
+     ;;   ./emacs --dump-file=~/.emacs.d/.cache/dumps/spacemacs.pdmp
+     ;; (default spacemacs.pdmp)
+     dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"))
+#+END_SRC
+
+A new user dotfile function has been added which is called before doing the
+dump. The function name is =dotspacemacs/user-load=. You can require additional
+libraries before the dump so they won’t need to be lazy loaded.
+
+Add this to your dotfile if you don’t have it already.
+
+#+BEGIN_SRC emacs-lisp
+  (defun dotspacemacs/user-load ()
+    "Library to load while dumping.
+  This function is called while dumping Spacemacs configuration. You can
+  `require' or `load' the libraries of your choice that will be included
+  in the dump."
+    )
+#+END_SRC
+
+*Friendly suggestions:* If you have a lot of personal configuration in =user-init= and
+=user-config=, you can try to move them into =user-load= as this can reduce the
+time to load those customized configurations.
+
+*** Test
+Restart Emacs. Each time Emacs starts, Spacemacs will check if the list of your
+layers has changed, if it has changed then Emacs will be automatically dumped
+for you in an asynchronous process. The buffer for the output of the process is
+named =*spacemacs dumper*=.
+
+If you have no error during the dump you can test it out!
+
+To actually start Spacemacs with the compiled Emacs 27.1 and the Spacemacs dump,
+on the command line in the =src= directory of the cloned Emacs source:
+
+#+BEGIN_SRC shell
+  ./emacs --dump-file=/Users/sylvain/.emacs.d/.cache/dumps/spacemacs.pdmp &
+#+END_SRC
+
+*** Report issues
+If you want to report an issue regarding this new feature please use the label
+=Portable Dumper=.
+
+All the related issues can be found with [[https://github.com/syl20bnr/spacemacs/labels/Portable%20Dumper][this link]].
+
+** Usage
+Once =dotspacemacs-enable-emacs-pdumper= is set to =t= and
+=dotspacemacs-emacs-pdumper-executable-file= is set to a valid file path to an
+Emacs 27.1 executable, Emacs will be redumped automatically each time the layer
+list changes or the =--force-dump= parameter is passed on the command line.
+
+To use the created dump file, open a shell in the =src= directory of the cloned
+Emacs source and type:
+
+#+BEGIN_SRC shell
+  ./emacs --dump-file=/Users/sylvain/.emacs.d/.cache/dumps/spacemacs.pdmp &
+#+END_SRC
+
+=spacemacs.pdmp= corresponds to the value of the variable
+=dotspacemacs-emacs-dumper-dump-file=.
+
+A forced dump is executed whenever the configuration is reloaded with
+~SPC f e R~. If a dump is already running then it is cancelled and a new one is
+started. Check the buffer =*spacemacs-dumper*= to see the progress of the
+dumping.
+
+After you can generate a portable dumper of your Emacs and you can start that
+pdumper file successfully, you can alias the way you usually start Emacs to the
+command:
+
+#+BEGIN_SRC shell
+  ./emacs --dump-file=/Users/sylvain/.emacs.d/.cache/dumps/spacemacs.pdmp &
+#+END_SRC

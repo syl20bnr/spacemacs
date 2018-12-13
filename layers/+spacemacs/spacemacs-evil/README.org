@@ -1,6 +1,6 @@
 #+TITLE: spacemacs-evil layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 
@@ -10,7 +10,7 @@ througout the entirety of Spacemacs.
 
 ** Features:
 - Add evil tutorial with =evil-tutor=
-- Add relative line number with =linun-relative=
+- Add relative line number with =linun-relative= (only in Emacs 25.x and older)
 - Add escaping under ~fd~ by default with =evil-escape=
 - Add occurences count in mode-line when searching a buffer
 - Add support for lisp structure manipulation with =evil-lisp-state=

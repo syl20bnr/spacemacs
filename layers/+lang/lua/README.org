@@ -2,11 +2,11 @@
 
 [[file:img/lua.gif]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#commands][Commands]]
 
 * Description
@@ -24,10 +24,10 @@ file.
 
 In order to enable code linting, install [[https://github.com/mpeterv/luacheck][Luacheck]].
 
-* Key Bindings
+* Key bindings
 ** Commands
 
-| Key Binding | Description                                |
+| Key binding | Description                                |
 |-------------+--------------------------------------------|
 | ~SPC m d~   | lookup thing at point in lua documentation |
 | ~SPC m s b~ | send buffer contents to REPL               |

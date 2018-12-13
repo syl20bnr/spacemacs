@@ -148,25 +148,62 @@ Emacs has graphical support.
 This might also be true for other linux distributions.
 
 ### macOS
-The recommended way of installing Emacs on macOS is using [Homebrew][]. It's a
-package manager for macOS. Once Homebrew is installed, run the following
-commands in the terminal to install both Emacs and the default Source Code Pro
-font:
 
-```sh
+#### Install emacs
+
+##### Using emacs-plus
+
+```
 brew tap d12frosted/emacs-plus
 brew install emacs-plus
-brew linkapps emacs-plus
+ln -s /usr/local/Cellar/emacs-plus/*/Emacs.app/ /Applications/
+```
+
+##### Using emacs-mac
+
+```
+brew tap railwaycat/emacsmacport
+brew install emacs-mac
+```
+
+Copy and paste the symlink (`ln`) from the install instructions if `brew linkapps`
+is deprecated.
+
+##### Using cask
+
+Homebrew now recommends to use the cask version with the following message:
+"Please try the Cask for a better-supported Cocoa version". To install the cask
+version:
+
+```
+brew cask install emacs
+```
+
+This installs a pre-built package from https://emacsformacosx.com/
+
+##### Other ways
+
+If you're not comfortable with the ways mentioned above, then
+[EmacsWiki](https://www.emacswiki.org/emacs/EmacsForMacOS#toc12) lists down
+a few ways to install Emacs for Mac OS.
+
+#### Install Source Code Pro font
+
+Once Emacs is installed, run the following commands in the terminal to install
+the default Source Code Pro font:
+
+```sh
 brew tap caskroom/fonts
 brew cask install font-source-code-pro
+```
+
+#### Install Spacemacs
+
+```
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 ```
 
 **Notes:**
-The proposed `emacs-plus` tap is identical to the `emacs` formulae, it just
-builds GNU Emacs with support for several features by default, including the
-Spacemacs icon. See [emacs-plus][] for more information.
-
 After completing the Spacemacs [install process](#install), then it's also
 recommended to add the [osx layer][] to your [dotfile][]. Installation
 instructions are available in the documentation for the [osx layer][].

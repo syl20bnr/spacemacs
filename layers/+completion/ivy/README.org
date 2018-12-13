@@ -1,13 +1,13 @@
 #+TITLE: Ivy layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#general][General]]
   - [[#advanced-buffer-information][Advanced buffer information]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#transient-state][Transient state]]
 
 * Description
@@ -36,17 +36,21 @@ file.
 * Configuration
 ** General
 You can customize ivy with the following variables:
-
-- =ivy-wrap= Whether C-n and C-p should wrap-around when at the the first or
+- =ivy-wrap= Whether C-n and C-p should wrap-around when at the first or
   last candidate. The default value is =nil=.
 - =ivy-extra-directories= Setting this to =nil= hides . and .. directories from
   file name completion. You can still go up a directory up by ~DEL~.
-  The default value is ("../", "./").
+  The default value is (“../”, “./”).
 - =ivy-use-virtual-buffers= Add bookmarks and recent files to buffer completion
   menu. The Spacemacs default is t.
 - =ivy-height= The height of the minibuffer. The Spacemacs default is 15.
 - =ivy-use-selectable-prompt= When non-nil, make the prompt line selectable like
   a candidate. The Spacemacs default value is =t=.
+- =ivy-re-builders-alist= An alist of regex building functions for each
+  collection function. See ivy documentation for possible choices. Use
+  =spacemacs/ivy--regex-plus= instead of =ivy--regex-plus= to get correct
+  highlighting in the search results of =spacemacs/search-project-auto= and
+  similar search commands provided by Spacemacs.
 
 ** Advanced buffer information
 To display more information about buffers set the layer variable
@@ -60,31 +64,31 @@ is disabled by default.
     (ivy :variables ivy-enable-advanced-buffer-information t)))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 If you choose =ivy= as completion system, make sure to read the [[http://oremacs.com/swiper/][official manual]].
-In case you don't want to read everything, at least familiarise with
+In case you don’t want to read everything, at least familiarise with
 [[http://oremacs.com/swiper/#minibuffer-key-bindings][minibuffer key bindings]].
 
 Some useful key bindings are presented in the following table.
 
-| Key Binding | Description                                                                                          |
+| Key binding | Description                                                                                          |
 |-------------+------------------------------------------------------------------------------------------------------|
 | ~RET~       | call default action on current candidate                                                             |
-| ~M-RET~     | the same as ~RET~ but doesn't close completion minibuffer                                            |
+| ~M-RET~     | the same as ~RET~ but doesn’t close completion minibuffer                                            |
 | ~C-M-j~     | use current input immediately (this can be used to create a new file in Find File)                   |
 | ~tab~       | complete partially                                                                                   |
 | ~M-o~       | show the list of valid actions on current candidate (then press any of described keys to execute it) |
-| ~C-M-o~     | the same as ~M-o~ but doesn't close completion minibuffer                                            |
+| ~C-M-o~     | the same as ~M-o~ but doesn’t close completion minibuffer                                            |
 | ~C-'~       | use avy to quickly select completion on current page (sometimes faster than using arrows)            |
 | ~<ESC>~     | close minibuffer                                                                                     |
 
 ** Transient state
 Press ~M-SPC~ anytime in Ivy to get into the transient state.
 
-| Key Binding | Description                                             |
+| Key binding | Description                                             |
 |-------------+---------------------------------------------------------|
 | ~j~         | select next candidate                                   |
 | ~k~         | select previous candidate                               |
 | ~d~         | call default action on candidate                        |
-| ~g~         | the same as ~d~ but doesn't close completion minibuffer |
+| ~g~         | the same as ~d~ but doesn’t close completion minibuffer |
 | ~o~         | leave transient state                                   |

@@ -28,10 +28,12 @@
                                        ("fC"  "files/convert")
                                        ("fe"  "emacs(spacemacs)")
                                        ("fv"  "variables")
+                                       ("fy"  "yank path")
                                        ("F"   "frame")
                                        ("g"   "git/versions-control")
                                        ("h"   "help")
                                        ("hd"  "help-describe")
+                                       ("hP"  "profiler")
                                        ("i"   "insertion")
                                        ("j"   "jump/join/split")
                                        ("k"   "lisp")
@@ -136,6 +138,7 @@
   "b N j" 'spacemacs/new-empty-buffer-below
   "b N k" 'spacemacs/new-empty-buffer-above
   "b N l" 'spacemacs/new-empty-buffer-right
+  "b N f" 'spacemacs/new-empty-buffer-new-frame
   "b N n" 'spacemacs/new-empty-buffer
   "bP"    'spacemacs/copy-clipboard-to-whole-buffer
   "bp"    'previous-buffer
@@ -193,20 +196,26 @@
   ("n" spacemacs/next-error "next")
   ("p" spacemacs/previous-error "prev")
   ("N" spacemacs/previous-error "prev")
+  ("z" recenter-top-bottom "recenter")
   ("q" nil "quit" :exit t)
   :evil-leader "e.")
 ;; file -----------------------------------------------------------------------
 (spacemacs/set-leader-keys
+  "fA" 'spacemacs/find-file-and-replace-buffer
   "fc" 'spacemacs/copy-file
   "fD" 'spacemacs/delete-current-buffer-file
   "fei" 'spacemacs/find-user-init-file
   "fed" 'spacemacs/find-dotfile
   "feD" 'spacemacs/ediff-dotfile-and-template
+  "fee" 'spacemacs/edit-env
+  "feE" 'dotspacemacs/call-user-env
+  "fe C-e" 'spacemacs/force-init-spacemacs-env
   "feR" 'dotspacemacs/sync-configuration-layers
   "fev" 'spacemacs/display-and-copy-version
   "feU"  'configuration-layer/update-packages
   "fCd" 'spacemacs/unix2dos
   "fCu" 'spacemacs/dos2unix
+  "fi" 'spacemacs/insert-file
   "fg" 'rgrep
   "fl" 'find-file-literally
   "fE" 'spacemacs/sudo-edit
@@ -217,16 +226,21 @@
   "fvd" 'add-dir-local-variable
   "fvf" 'add-file-local-variable
   "fvp" 'add-file-local-variable-prop-line
-  "fy" 'spacemacs/show-and-copy-buffer-filename)
+  "fyc" 'spacemacs/copy-file-path-with-line-column
+  "fyd" 'spacemacs/copy-directory-path
+  "fyl" 'spacemacs/copy-file-path-with-line
+  "fyn" 'spacemacs/copy-file-name
+  "fyN" 'spacemacs/copy-file-name-base
+  "fyy" 'spacemacs/copy-file-path)
 ;; frame ----------------------------------------------------------------------
 (spacemacs/set-leader-keys
-  "Ff" 'find-file-other-frame
+  "Ff" 'spacemacs/find-file-other-frame
   "Fd" 'delete-frame
   "FD" 'delete-other-frames
-  "Fb" 'switch-to-buffer-other-frame
-  "FB" 'display-buffer-other-frame
+  "Fb" 'spacemacs/switch-to-buffer-other-frame
+  "FB" 'spacemacs/display-buffer-other-frame
   "Fo" 'other-frame
-  "FO" 'dired-other-frame
+  "FO" 'spacemacs/dired-other-frame
   "Fn" 'make-frame)
 ;; help -----------------------------------------------------------------------
 (spacemacs/set-leader-keys
@@ -241,7 +255,11 @@
   "hdt" 'describe-theme
   "hdv" 'describe-variable
   "hI"  'spacemacs/report-issue
-  "hn"  'view-emacs-news)
+  "hn"  'view-emacs-news
+  "hPs" 'profiler-start
+  "hPk" 'profiler-stop
+  "hPr" 'profiler-report
+  "hPw" 'profiler-report-write-profile)
 ;; insert stuff ---------------------------------------------------------------
 (spacemacs/set-leader-keys
   "iJ" 'spacemacs/insert-line-below-no-indent
@@ -354,6 +372,26 @@
   :mode font-lock-mode
   :documentation "Toggle syntax highlighting."
   :evil-leader "ths")
+(spacemacs|add-toggle zero-based-column-indexing
+  :documentation "Toggle column indexing starting at 0 versus 1.
+
+This is achieved by the built in functionality available in emacs 26 by changing
+the value of the `column-number-indicator-zero-based' variable. Functionality
+that does not take into acount `column-number-indicator-zero-based' will not
+respond to this toggle."
+  :status (bound-and-true-p column-number-indicator-zero-based)
+  :on (setq column-number-indicator-zero-based t)
+  :off (setq column-number-indicator-zero-based nil)
+  :on-message (concat
+                "Column indexing starts at 0 (current column is "
+                (number-to-string (current-column))
+                ")")
+  :off-message (concat
+                 "Column indexing starts at 1 (current column is "
+                 (number-to-string (1+ (current-column)))
+                 ")")
+  :evil-leader "tz")
+
 (spacemacs|add-toggle transparent-frame
   :status nil
   :on (spacemacs/toggle-transparency)
@@ -405,8 +443,10 @@
 
 (spacemacs/set-leader-keys
   "w TAB"  'spacemacs/alternate-window
-  "w2"  'spacemacs/layout-double-columns
-  "w3"  'spacemacs/layout-triple-columns
+  "w1"  'spacemacs/window-split-single-column
+  "w2"  'spacemacs/window-split-double-columns
+  "w3"  'spacemacs/window-split-triple-columns
+  "w4"  'spacemacs/window-split-grid
   "wb"  'spacemacs/switch-to-minibuffer-window
   "wd"  'spacemacs/delete-window
   "wt"  'spacemacs/toggle-current-window-dedication
@@ -429,8 +469,8 @@
   "wl"  'evil-window-right
   "w <right>"  'evil-window-right
   "wm"  'spacemacs/toggle-maximize-buffer
-  "wc"  'spacemacs/toggle-centered-buffer-mode
-  "wC"  'spacemacs/toggle-centered-buffer-mode-frame
+  "wc"  'spacemacs/toggle-centered-buffer
+  "wC"  'spacemacs/toggle-distraction-free
   "wo"  'other-frame
   "wr"  'spacemacs/rotate-windows-forward
   "wR"  'spacemacs/rotate-windows-backward
@@ -486,6 +526,7 @@
   "xlS" 'spacemacs/sort-lines-reverse
   "xlu" 'spacemacs/uniquify-lines
   "xtc" 'transpose-chars
+  "xte" 'transpose-sexps
   "xtl" 'transpose-lines
   "xtp" 'transpose-paragraphs
   "xts" 'transpose-sentences
@@ -513,11 +554,11 @@
 
 (spacemacs|define-transient-state buffer
   :title "Buffer Selection Transient State"
-  :doc (concat "
+  :doc "
  [_C-1_.._C-9_] goto nth window            [_n_/_<right>_]^^  next buffer       [_b_]   buffer list
  [_1_.._9_]     move buffer to nth window  [_N_/_p_/_<left>_] previous buffer   [_C-d_] bury buffer
  [_M-1_.._M-9_] swap buffer w/ nth window  [_d_]^^^^          kill buffer       [_o_]   other window
- ^^^^                                      [_q_]^^^^          quit")
+ ^^^^                                      [_z_]^^^^          recenter          [_q_]   quit"
   :bindings
   ("n" next-buffer)
   ("<right>" next-buffer)
@@ -528,6 +569,7 @@
   ("b" helm-buffers-list)
   ("d" spacemacs/kill-this-buffer)
   ("C-d" bury-buffer)
+  ("z" recenter-top-bottom)
   ("q" nil :exit t)
   ("1" move-buffer-window-no-follow-1)
   ("2" move-buffer-window-no-follow-2)
@@ -587,10 +629,10 @@
   :doc (concat "
  Select^^^^               Move^^^^              Split^^               Resize^^             Other^^
  ──────^^^^─────────────  ────^^^^────────────  ─────^^─────────────  ──────^^───────────  ─────^^──────────────────
- [_j_/_k_]  down/up       [_J_/_K_] down/up     [_s_] vertical        [_[_] shrink horiz   [_u_] restore prev layout
- [_h_/_l_]  left/right    [_H_/_L_] left/right  [_S_] verti & follow  [_]_] enlarge horiz  [_U_] restore next layout
- [_0_.._9_] window 0..9   [_r_]^^   rotate fwd  [_v_] horizontal      [_{_] shrink verti   [_d_] close current
- [_w_]^^    other window  [_R_]^^   rotate bwd  [_V_] horiz & follow  [_}_] enlarge verti  [_D_] close other
+ [_j_/_k_]  down/up       [_J_/_K_] down/up     [_s_] horizontal      [_[_] shrink horiz   [_u_] restore prev layout
+ [_h_/_l_]  left/right    [_H_/_L_] left/right  [_S_] horiz & follow  [_]_] enlarge horiz  [_U_] restore next layout
+ [_0_.._9_] window 0..9   [_r_]^^   rotate fwd  [_v_] vertical        [_{_] shrink verti   [_d_] close current
+ [_w_]^^    other window  [_R_]^^   rotate bwd  [_V_] verti & follow  [_}_] enlarge verti  [_D_] close other
  [_o_]^^    other frame   ^^^^                  ^^                    ^^                   "
                (if (configuration-layer/package-used-p 'golden-ratio)
                    "[_g_] golden-ratio %`golden-ratio-mode"

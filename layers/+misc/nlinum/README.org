@@ -1,11 +1,17 @@
 #+TITLE: nlinum layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 
 * Description
-This layer provides various styles of line numbering in Spacemacs.
+This layer provides various styles of line numbering in Spacemacs. It replaces
+=linum= and =linum-relative= with the improved =nlinum= and =nlinum-relative=
+packages.
+
+Please note that on Emacs 26 and newer, this layer also replaces the new native
+line numbers mode (=display-line-numbers-mode=), and because of that it is not
+recommended to use =nlinum= layer on Emacs 26 or newer.
 
 ** Features:
 - Support for classic ascending line numbering.

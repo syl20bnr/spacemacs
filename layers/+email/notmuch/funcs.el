@@ -39,6 +39,10 @@
       (notmuch-search-previous-thread)
     (notmuch-search-next-thread)))
 
+(defun spacemacs/notmuch-show-as-patch ()
+  (interactive)
+  (notmuch-show-choose-mime-of-part "text/x-patch"))
+
 (defun spacemacs/notmuch-message-delete-down ()
   "Delete a message and select the next message."
   (interactive)

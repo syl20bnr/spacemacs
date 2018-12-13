@@ -2,7 +2,7 @@
 
 [[file:img/confluence.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -31,7 +31,7 @@ Define the variable =confluence-url= to point on your Confluence server
 =xmlrpc= endpoint.
 
 #+BEGIN_SRC emacs-lisp
-(setq confluence-url "https://<host>/confluence/rpc/xmlrpc")
+  (setq confluence-url "https://<host>/confluence/rpc/xmlrpc")
 #+END_SRC
 
 To be able to convert from =xml= format to the =wiki= format you need to
@@ -54,7 +54,7 @@ convert =xml= content to =wiki= content on page load.
 * Key bindings
 ** Confluence page
 
-| Key Binding | Description                                              |
+| Key binding | Description                                              |
 |-------------+----------------------------------------------------------|
 | ~SPC m TAB~ | toggle the content type to =wiki= format or =xml= format |
 | ~SPC m s~   | save the buffer on the confluence server as a minor edit |
@@ -62,6 +62,6 @@ convert =xml= content to =wiki= content on page load.
 
 ** Org
 
-| Key Binding | Description                                                    |
+| Key binding | Description                                                    |
 |-------------+----------------------------------------------------------------|
 | ~SPC m e c~ | in a org buffer, export the buffer to Confluence =wiki= format |

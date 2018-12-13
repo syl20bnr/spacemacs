@@ -41,21 +41,27 @@ Otherwise, revert to the default behavior (i.e. enable `evil-insert-state')."
     (evil-put-property 'evil-state-properties 'iedit-insert
                        :enable states)))
 
+(defun spacemacs//iedit-state-TAB-key-bindings (style)
+  "Set the action for TAB key in iedit state."
+  (if (memq style '(vim hybrid))
+      (progn
+        (define-key iedit-occurrence-keymap-default
+          (kbd "TAB") 'iedit-toggle-selection)
+        (define-key iedit-occurrence-keymap-default
+          [tab] 'iedit-toggle-selection))
+    (progn
+      (define-key iedit-occurrence-keymap-default
+        (kbd "TAB") 'iedit-next-occurrence)
+      (define-key iedit-occurrence-keymap-default
+        [tab] 'iedit-next-occurrence))))
+
+(defun spacemacs//evil-escape-deactivate-in-holy-mode  (style)
+  "Deactivate `evil-escape' if STYLE is `emacs' otherwise enable it."
+  (if (memq style '(vim hybrid))
+      (evil-escape-mode t)
+    (evil-escape-mode -1)))
+
 
-;; evil-search-highlight-persist
-
-(defun spacemacs/evil-search-clear-highlight ()
-  "Clear evil-search or evil-ex-search persistent highlights."
-  (interactive)
-  (evil-search-highlight-persist-remove-all) ; `C-s' highlights
-  (evil-ex-nohighlight))                     ; `/' highlights
-
-(defun spacemacs//adaptive-evil-highlight-persist-face ()
-  (set-face-attribute 'evil-search-highlight-persist-highlight-face nil
-                      :inherit 'lazy-highlight
-                      :background nil
-                      :foreground nil))
-
 (defun spacemacs/linum-relative-toggle ()
   (interactive)
   (if (not (bound-and-true-p linum-relative-mode))
@@ -75,26 +81,8 @@ Otherwise, revert to the default behavior (i.e. enable `evil-insert-state')."
     (spacemacs/disable-vi-tilde-fringe)))
 
 
-;; multiple-cursors
+;; lisp state
 
-(defun spacemacs//paste-transient-state-p ()
-  "Return non-nil if the paste transient state is enabled."
-  (and dotspacemacs-enable-paste-transient-state
-       (or (not (fboundp 'evil-mc-get-cursor-count))
-           (eq (evil-mc-get-cursor-count) 1))))
-
-(defun spacemacs/evil-mc-paste-after (&optional count register)
-  "Disable paste transient state if there is more than 1 cursor."
-  (interactive "p")
-  (setq this-command 'evil-paste-after)
-  (if (spacemacs//paste-transient-state-p)
-      (spacemacs/paste-transient-state/evil-paste-after)
-    (evil-paste-after count (or register evil-this-register))))
-
-(defun spacemacs/evil-mc-paste-before (&optional count register)
-  "Disable paste transient state if there is more than 1 cursor."
-  (interactive "p")
-  (setq this-command 'evil-paste-before)
-  (if (spacemacs//paste-transient-state-p)
-      (spacemacs/paste-transient-state/evil-paste-before)
-    (evil-paste-before count (or register evil-this-register))))
+(defun spacemacs//load-evil-lisp-state ()
+  "Load evil-lisp-state lazily"
+  (require 'evil-lisp-state))

@@ -2,11 +2,11 @@
 
 [[file:img/xkcd.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#tell-me-how-to-spawn-the-xkcd-greatness][Tell me how to spawn the xkcd greatness!!]]
   - [[#okay-what-now][Okay, what now]]
 
@@ -14,27 +14,27 @@
 This layer adds a [[http://xkcd.com/][xkcd]] navigation mode using [[https://github.com/vibhavp/emacs-xkcd][emacs-xkcd]].
 
 ** Features:
-  - Load a random xkcd
-  - Show the text in the modeline
-  - Open explanation and current comic in browser
-  - Cache the comics in =.cache/xkcd=
+- Load a random xkcd
+- Show the text in the modeline
+- Open explanation and current comic in browser
+- Cache the comics in =.cache/xkcd=
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =xkcd= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key Bindings
+* Key bindings
 ** Tell me how to spawn the xkcd greatness!!
 
-| Key Binding | Description    |
+| Key binding | Description    |
 |-------------+----------------|
 | ~SPC a x~   | Open xkcd mode |
 
 ** Okay, what now
 You can now move through the comics with these
 
-| Key Binding | Description                         |
+| Key binding | Description                         |
 |-------------+-------------------------------------|
 | ~e~         | Open explanation in the browser     |
 | ~j~ or ~l~  | Next comic                          |

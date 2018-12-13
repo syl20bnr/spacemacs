@@ -1,16 +1,16 @@
 #+TITLE: Version-Control layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
 - [[#configuration][Configuration]]
   - [[#differences-between-margin-programs][Differences between margin programs]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#vc-directory-buffer-commands][VC Directory buffer commands]]
   - [[#commit-message-editing-buffer][Commit message editing buffer]]
-  - [[#diff-buffer][Diff buffer]]
+  - [[#diff-mode][Diff mode]]
   - [[#log-view-buffer][Log view buffer]]
   - [[#annotation-buffer][Annotation buffer]]
   - [[#version-control-transient-state][Version Control Transient-state]]
@@ -36,23 +36,23 @@ You can choose the package to facilitate the diff transient-state and show margi
 by setting =version-control-diff-tool=
 
 #+BEGIN_SRC emacs-lisp
-'(version-control :variables
-                  version-control-diff-tool 'diff-hl)
+  '(version-control :variables
+                    version-control-diff-tool 'diff-hl)
 #+END_SRC
 
-You can choose the side on which the diff appears (by default it's the right side)
+You can choose the side on which the diff appears (by default it’s the right side)
 
 #+BEGIN_SRC emacs-lisp
-'(version-control :variables
-                  version-control-diff-side 'left)
+  '(version-control :variables
+                    version-control-diff-side 'left)
 #+END_SRC
 
 To automatically enable diff margins in all buffers, set
 =version-control-global-margin=
 
 #+BEGIN_SRC emacs-lisp
-'(version-control :variables
-                  version-control-global-margin t)
+  '(version-control :variables
+                    version-control-global-margin t)
 #+END_SRC
 
 ** Differences between margin programs
@@ -69,10 +69,10 @@ one over the other:
 | Stage hunks from buffer             |         | X          | X           |
 | Dired support                       | X       |            |             |
 
-* Key Bindings
+* Key bindings
 VC commands:
 
-| Key Binding | Description                                            |
+| Key binding | Description                                            |
 |-------------+--------------------------------------------------------|
 | ~SPC g .~   | version control transient-state                        |
 | ~SPC g r~   | smerge mode transient-state                            |
@@ -110,7 +110,7 @@ To some of them are given shortcuts:
 
 Navigation and interaction commands in the VC Directory buffer:
 
-| Key Bindings    | Description        |
+| Key bindings    | Description        |
 |-----------------+--------------------|
 | ~j~ or ~M-n~    | next file          |
 | ~k~ or ~M-p~    | previous file      |
@@ -123,23 +123,39 @@ Navigation and interaction commands in the VC Directory buffer:
 In a commit message buffer press ~C-c C-c~ to commit the changes with the entered message.
 Pressing ~C-c C-k~ will discard the commit message and close this buffer.
 
-** Diff buffer
+** Diff mode
 
-| Key Bindings           | Description                                    |
-|------------------------+------------------------------------------------|
-| ~C-j~ or ~M-n~         | next hunk                                      |
-| ~C-k~ or ~M-p~         | previous hunk                                  |
-| ~gj~ or ~J~ or ~TAB~   | next file                                      |
-| ~gk~ or ~K~ or ~S-TAB~ | previous file                                  |
-| ~a~                    | apply a hunk                                   |
-| ~r~                    | revert a hunk                                  |
-| ~S~                    | split the current hunk at point into two hunks |
-| ~D~                    | kill a hunk                                    |
-| ~u~                    | undo killing or splitting                      |
+| Key bindings | Description                                    |
+|--------------+------------------------------------------------|
+| ~SPC m a~    | apply a hunk                                   |
+| ~SPC m d~    | kill the hunk at point                         |
+| ~SPC m D~    | kill the current file’s hunk                   |
+| ~SPC m e~    | call =ediff-patch-file= on current buffer      |
+| ~SPC m f c~  | convert unified diffs to context diffs         |
+| ~SPC m f r~  | reverse the direction of the diffs             |
+| ~SPC m f u~  | convert context diffs to unified diffs         |
+| ~SPC m g~    | jump to the corresponding source line          |
+| ~SPC m j~    | next hunk                                      |
+| ~SPC m J~    | next file                                      |
+| ~SPC m k~    | previous hunk                                  |
+| ~SPC m K~    | previous file                                  |
+| ~SPC m q~    | close the diff window                          |
+| ~SPC m r~    | revert a hunk                                  |
+| ~SPC m s~    | split the current hunk at point into two hunks |
+| ~SPC m u~    | undo                                           |
+
+A transient buffer is also defined, start it with ~SPC m .~ or ~, .~
+
+| Key bindings | Description   |
+|--------------+---------------|
+| ~j~          | next hunk     |
+| ~J~          | next file     |
+| ~k~          | previous hunk |
+| ~K~          | previous file |
 
 ** Log view buffer
 
-| Key Bindings           | Description                                                                |
+| Key bindings           | Description                                                                |
 |------------------------+----------------------------------------------------------------------------|
 | ~C-j~ or ~M-n~         | next message                                                               |
 | ~C-k~ or ~M-p~         | previous message                                                           |
@@ -152,7 +168,7 @@ Pressing ~C-c C-k~ will discard the commit message and close this buffer.
 
 ** Annotation buffer
 
-| Key Bindings | Description                                                                    |
+| Key bindings | Description                                                                    |
 |--------------+--------------------------------------------------------------------------------|
 | ~J~          | visit the annotation of the revision after this one                            |
 | ~K~          | visit the annotation of the revision previous to this one                      |
@@ -164,30 +180,31 @@ Pressing ~C-c C-k~ will discard the commit message and close this buffer.
 | ~f~          | show in a buffer the file revision indicated by the current line               |
 
 ** Version Control Transient-state
+Use ~SPC g .~ to enter a transient state for quickly navigating between hunks in a buffer. During that state, the following bindings are active:
 
-| Key Binding | Description                  |
+| Key binding | Description                  |
 |-------------+------------------------------|
-| ~SPC g . h~ | Show diff of hunk            |
-| ~SPC g . n~ | Next hunk                    |
-| ~SPC g . N~ | Previous hunk                |
-| ~SPC g . p~ | Previous hunk                |
-| ~SPC g . r~ | Revert hunk                  |
-| ~SPC g . s~ | Stage hunk                   |
-| ~SPC g . t~ | Toggle margin indicators     |
-| ~SPC g . w~ | Stage file                   |
-| ~SPC g . u~ | Unstage file                 |
-| ~SPC g . d~ | Repo diff popup              |
-| ~SPC g . D~ | Show diffs of unstaged hunks |
-| ~SPC g . c~ | Commit with popup            |
-| ~SPC g . C~ | Commit                       |
-| ~SPC g . P~ | Push repo with popup         |
-| ~SPC g . f~ | Fetch for repo with popup    |
-| ~SPC g . F~ | Pull repo with popup         |
-| ~SPC g . l~ | Show repo log                |
+| ~h~         | Show diff of hunk            |
+| ~n~         | Next hunk                    |
+| ~N~ or ~p~  | Previous hunk                |
+| ~r~         | Revert hunk                  |
+| ~s~         | Stage hunk                   |
+| ~t~         | Toggle margin indicators     |
+| ~w~         | Stage file                   |
+| ~u~         | Unstage file                 |
+| ~d~         | Repo diff popup              |
+| ~D~         | Show diffs of unstaged hunks |
+| ~c~         | Commit with popup            |
+| ~C~         | Commit                       |
+| ~P~         | Push repo with popup         |
+| ~f~         | Fetch for repo with popup    |
+| ~F~         | Pull repo with popup         |
+| ~l~         | Show repo log                |
+| ~z~         | Recenter buffer in window    |
 
 ** Smerge Mode Transient-state
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~SPC g r n~ | Next hunk                |
 | ~SPC g r N~ | Previous hunk            |
@@ -206,7 +223,7 @@ Pressing ~C-c C-k~ will discard the commit message and close this buffer.
 
 ** Toggles
 
-| Key Binding | Description                  |
+| Key binding | Description                  |
 |-------------+------------------------------|
 | ~SPC T d~   | toggle diff margins          |
 | ~SPC T C-d~ | toggle diff margins globally |

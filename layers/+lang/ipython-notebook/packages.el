@@ -9,10 +9,12 @@
 ;;
 ;;; License: GPLv3
 
-(setq ipython-notebook-packages '(company
-                                  ein
-                                  ob-ipython
-                                  ))
+(setq ipython-notebook-packages
+      '(
+        company
+        ein
+        ob-ipython
+        ))
 
 (defun ipython-notebook/post-init-company ()
   (spacemacs|add-company-backends
@@ -174,12 +176,12 @@
         ("9" ein:notebook-worksheet-open-last)
         ("+" ein:notebook-worksheet-insert-next)
         ("-" ein:notebook-worksheet-delete)
-        ("x" ein:notebook-close))
-      (spacemacs/set-leader-keys "ein" 'spacemacs/ipython-notebook-transient-state/body))))
+        ("x" ein:notebook-close)))))
 
 (defun ipython-notebook/pre-init-ob-ipython ()
   (spacemacs|use-package-add-hook org
     :post-config
     (use-package ob-ipython
       :init (add-to-list 'org-babel-load-languages '(ipython . t)))))
+
 (defun ipython-notebook/init-ob-ipython ())

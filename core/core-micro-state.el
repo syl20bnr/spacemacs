@@ -61,7 +61,7 @@ Available PROPS:
     A STRING or a SEXP that evaluates to a string.
 
 `:use-minibuffer BOOLEAN'
-    If non nil then the minibuffer is used to display the documenation
+    If non nil then the minibuffer is used to display the documentation
     strings. Default is nil.
 
 `:disable-evil-leader BOOLEAN'
@@ -98,16 +98,16 @@ All properties supported by `spacemacs//create-key-binding-form' can be
 used."
   (declare (indent 1))
   (let* ((func (spacemacs//micro-state-func-name name))
-         (doc (spacemacs/mplist-get props :doc))
+         (doc (spacemacs/mplist-get-values props :doc))
          (persistent (plist-get props :persistent))
          (disable-leader (plist-get props :disable-evil-leader))
          (msg-func (if (plist-get props :use-minibuffer)
                        'message
                      'lv-message))
          (exec-binding (plist-get props :execute-binding-on-enter))
-         (on-enter (spacemacs/mplist-get props :on-enter))
-         (on-exit (spacemacs/mplist-get props :on-exit))
-         (bindings (spacemacs/mplist-get props :bindings))
+         (on-enter (spacemacs/mplist-get-values props :on-enter))
+         (on-exit (spacemacs/mplist-get-values props :on-exit))
+         (bindings (spacemacs/mplist-get-values props :bindings))
          (wrappers (spacemacs//micro-state-create-wrappers
                     name doc msg-func disable-leader bindings))
          (keymap-body (spacemacs//micro-state-fill-map-sexps wrappers))
@@ -159,9 +159,9 @@ used."
   "Create a wrapper of FUNC and return a tuple (key wrapper BINDING)."
   (let* ((key (car binding))
          (wrapped (cadr binding))
-         (binding-doc (spacemacs/mplist-get binding :doc))
-         (binding-pre (spacemacs/mplist-get binding :pre))
-         (binding-post (spacemacs/mplist-get binding :post))
+         (binding-doc (spacemacs/mplist-get-values binding :doc))
+         (binding-pre (spacemacs/mplist-get-values binding :pre))
+         (binding-post (spacemacs/mplist-get-values binding :post))
          (wrapper-name (intern (format "spacemacs//%S-%S-%s" name wrapped key)))
          (doc-body
           `((let ((bdoc ,@binding-doc)

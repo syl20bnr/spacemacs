@@ -2,26 +2,25 @@
 
 [[file:img/react.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#optional-configuration][Optional Configuration]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
+  - [[#rjsx-mode][rjsx-mode]]
   - [[#formatting-web-beautify][Formatting (web-beautify)]]
     - [[#documentation-js-doc][Documentation (js-doc)]]
   - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
 
 * Description
 ES6 and JSX ready configuration layer for React
-It will automatically recognize =.jsx= and =.react.js= files
-
-It will also recognize =/** @jsx React.DOM */= if it is the first line.
+It will automatically recognize =.jsx= files and files with =react= imported.
 
 ** Features:
 - on-the-fly syntax checking
 - proper syntax highlight and indentation with jsx
-- ternjs turbocharged autocompletion as in js2-mode
+- backend support for autocompletion as in rjsx-mode
 - jsfmt automatic formatting
 - js2-refactor
 - js-doc
@@ -31,14 +30,11 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =react= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-You will also need to install =tern= to use the auto-completion and
-documentation features:
-#+BEGIN_SRC sh
-  $ npm install -g tern
-#+END_SRC
+React layer uses the same backend defined in javascript layer. Options are =tern= and =lsp=.
 
 To use the on-the-fly syntax checking, install =eslint= with babel and react
 support:
+
 #+BEGIN_SRC sh
   $ npm install -g eslint babel-eslint eslint-plugin-react
 #+END_SRC
@@ -47,20 +43,25 @@ If your project do not use a custom =.eslintrc= file I strongly advice you to
 try out this one by Airbnb:
 [[https://github.com/airbnb/javascript/blob/master/linters/.eslintrc][.eslintrc]]
 
-In order to use automatic code formatting you need to install ~js-beautify~
+React layer uses the same formatter defined in javascript layer. Options are
+=web-beautify= and =prettier=.
+To use automatic code formatting you need to install ~js-beautify~ or ~prettier~
 with:
+
 #+BEGIN_SRC sh
-  $ npm install -g js-beautify
+  $ npm install -g js-beautify prettier
 #+END_SRC
 
 If you install these in non-standard locations, then add the following to your
 =dotspacemacs/user-init= function:
+
 #+BEGIN_SRC elisp
   (add-to-list 'exec-path "/path/to/node/bins" t)
 #+END_SRC
 
 Be sure to have the ~e4x~ option set to ~true~ on your ~.jsbeautifyrc~ here it
 is my configuration as an example:
+
 #+BEGIN_SRC json
   {
     "indent_size": 2,
@@ -83,7 +84,8 @@ is my configuration as an example:
     "wrap_attributes": "auto",
     "wrap_attributes_indent_size": 2,
     "e4x": true,
-    "end_with_newline": true
+    "end_with_newline": true,
+    "brace_style": "collapse-preserve-inline"
   }
 #+END_SRC
 
@@ -94,7 +96,7 @@ behaviour.
 For example to have a consistent 2 spaces indenting both on =js= and =jsx= you
 may use these settings:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq-default
    ;; js2-mode
    js2-basic-offset 2
@@ -104,28 +106,37 @@ may use these settings:
    web-mode-css-indent-offset 2
    web-mode-code-indent-offset 2
    web-mode-attr-indent-offset 2)
-#+end_src
+#+END_SRC
 
-And if you want to have 2 space indent also for element's attributes,
+And if you want to have 2 space indent also for element’s attributes,
 concatenations and contiguous function calls:
-#+begin_src emacs-lisp
+
+#+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'web-mode
     (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
     (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
-#+end_src
+#+END_SRC
 
-* Key Bindings
+* Key bindings
+** rjsx-mode
+
+| Key binding   | Description                                                                      |
+|---------------+----------------------------------------------------------------------------------|
+| ~<~           | inserts </> whenever it would start a new JSX node                               |
+| ~>~           | right before the slash in a self-closing tag automatically inserts a closing tag |
+| ~SPC m r r t~ | rename tag at point                                                              |
+
 ** Formatting (web-beautify)
 
-| Key Binding | Description                                                  |
+| Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC m =~   | beautify code in js2-mode, json-mode, web-mode, and css-mode |
 
 *** Documentation (js-doc)
 You can check more [[https://github.com/mooz/js-doc/][here]]
 
-| Key Binding   | Description                           |
+| Key binding   | Description                           |
 |---------------+---------------------------------------|
 | ~SPC m r d b~ | insert JSDoc comment for current file |
 | ~SPC m r d f~ | insert JSDoc comment for function     |
@@ -134,7 +145,7 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 
 ** Auto-complete and documentation (tern)
 
-| Key Binding   | Description                                                                              |
+| Key binding   | Description                                                                              |
 |---------------+------------------------------------------------------------------------------------------|
 | ~SPC m C-g~   | brings you back to last place you were when you pressed M-..                             |
 | ~SPC m g g~   | jump to the definition of the thing under the cursor                                     |

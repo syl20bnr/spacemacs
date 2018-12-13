@@ -20,7 +20,7 @@
                                 'eshell
                               'ansi-term)
   "Default shell to use in Spacemacs. Possible values are `eshell', `shell',
-`term' and `ansi-term'.")
+`term', `ansi-term' and `multi-term'.")
 
 (defvar shell-default-position 'bottom
   "Position of the shell. Possible values are `top', `bottom', `full',
@@ -28,6 +28,9 @@
 
 (defvar shell-default-height 30
   "Height in percents for the shell window.")
+
+(defvar shell-default-width 30
+  "Width in percents for the shell window.")
 
 (defvar shell-default-term-shell shell-file-name
   "Default shell to use in `term' and `ansi-term' shells.")

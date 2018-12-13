@@ -16,7 +16,6 @@
         centered-cursor-mode
         (compile :location built-in)
         (doc-view :location built-in)
-        flx-ido
         golden-ratio
         (grep :location built-in)
         (info+ :location local)
@@ -67,10 +66,10 @@
             ahs-idle-timer 0
             ahs-idle-interval 0.25
             ahs-inhibit-face-list nil
-            spacemacs--symbol-highlight-transient-state-doc
-            "
- %s  [_n_] next   [_N_/_p_] previous   [_r_] change range   [_R_] reset   [_e_] iedit
- %s  [_d_/_D_] next/previous definition")
+            spacemacs--symbol-highlight-transient-state-doc "
+ %s
+ [_n_] next   [_N_/_p_] prev  [_d_/_D_] next/prev def  [_r_] range  [_R_] reset
+ [_e_] iedit  [_z_] recenter")
 
       ;; since we are creating our own maps,
       ;; prevent the default keymap from getting created
@@ -125,8 +124,9 @@
       ;; transient state
       (spacemacs|define-transient-state symbol-highlight
         :title "Symbol Highlight Transient State"
+        :hint-is-doc t
         :dynamic-hint (spacemacs//symbol-highlight-ts-doc)
-        :before-exit (spacemacs//ahs-ms-on-exit)
+        :before-exit (spacemacs//ahs-ts-on-exit)
         :bindings
         ("d" ahs-forward-definition)
         ("D" ahs-backward-definition)
@@ -136,6 +136,8 @@
         ("p" spacemacs/quick-ahs-backward)
         ("R" ahs-back-to-start)
         ("r" ahs-change-range)
+        ("z" (progn (recenter-top-bottom)
+                    (spacemacs/symbol-highlight)))
         ("q" nil :exit t)))))
 
 (defun spacemacs-navigation/init-centered-cursor-mode ()
@@ -202,10 +204,6 @@
               (text-mode)
               (doc-view-minor-mode))
           ad-do-it)))))
-
-(defun spacemacs-navigation/init-flx-ido ()
-  (use-package flx-ido
-    :init (flx-ido-mode 1)))
 
 (defun spacemacs-navigation/init-golden-ratio ()
   (use-package golden-ratio
@@ -275,6 +273,8 @@
                    evil-window-move-far-left
                    evil-window-move-far-right
                    evil-window-move-very-bottom
+                   next-multiframe-window
+                   previous-multiframe-window
                    quit-window
                    winum-select-window-0-or-10
                    winum-select-window-1
@@ -314,9 +314,8 @@
     :defer t
     :init
     (progn
-      (with-eval-after-load 'info
-        (require 'info+))
-      (setq Info-fontify-angle-bracketed-flag nil))))
+      (setq Info-fontify-angle-bracketed-flag nil)
+      (add-hook 'Info-mode-hook (lambda () (require 'info+))))))
 
 (defun spacemacs-navigation/init-open-junk-file ()
   (use-package open-junk-file
@@ -325,7 +324,12 @@
     :init
     (progn
       (setq open-junk-file-format (concat spacemacs-cache-directory "junk/%Y/%m/%d-%H%M%S."))
-      (spacemacs/set-leader-keys "fJ" 'spacemacs/open-junk-file))))
+      (spacemacs/set-leader-keys "fJ" 'spacemacs/open-junk-file)
+      ;; function to run open-junk-file hooks is buggy when opening a large file
+      ;; and Emacs warns about it.
+      ;; Since this is not really useful to add hooks to open-junk-files lets remove
+      ;; it
+      (remove-hook 'find-file-hook 'find-file-hook--open-junk-file))))
 
 (defun spacemacs-navigation/init-paradox ()
   (use-package paradox

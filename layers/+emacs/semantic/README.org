@@ -1,10 +1,10 @@
 #+TITLE: Semantic layer
 
-* Table of Contents                      :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 CEDET is a *C*ollection of *E*macs *D*evelopment *E*nvironment *T*ools written
@@ -27,9 +27,8 @@ language, instead of plain text structure. Semantic is the core of CEDET.
   [[https://github.com/tuhdo/semantic-stickyfunc-enhance][this page]] for demos in some programming languages.
 - Support common C/C++ refactoring with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]. See
   [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][this page]] for demonstration of refactoring features.
-- Support Lisp source code formatting with  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]].. See
-  [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos-elisp.org][this page]] for demonstration of Lisp formatting
-  features.
+- Support Lisp source code formatting with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]. See
+  [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos-elisp.org][this page]] for demonstration of Lisp formatting features.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -40,8 +39,8 @@ By default, Spacemacs sets Semantic to parse only file, local and project scope.
 For a different parsing scope, you can customize the variable
 =semanticdb-find-default-throttle=.
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                         |
+| Key binding | Description                         |
 |-------------+-------------------------------------|
 | ~SPC m r~   | srefactor: refactor thing at point. |

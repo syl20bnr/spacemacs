@@ -2,12 +2,12 @@
 
 [[file:img/csv.png]]
 
-* Table of Contents                                      :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds tools for better integration of CSV files in Spacemacs.
@@ -29,9 +29,9 @@ To use this contribution add it to your =~/.spacemacs=
   (setq-default dotspacemacs-configuration-layers '(csv))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                      |
+| Key binding | Description                      |
 |-------------+----------------------------------|
 | ~SPC m a~   | Align fields                     |
 | ~SPC m d~   | Kill fields                      |

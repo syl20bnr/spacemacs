@@ -2,12 +2,15 @@
 
 [[file:img/html.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#web-beautify][web-beautify]]
+  - [[#prettier][prettier]]
+  - [[#choosing-a-formatter][Choosing a formatter]]
 - [[#live-display-in-browser][Live display in browser]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#web-mode][Web mode]]
   - [[#cssscss][CSS/SCSS]]
 
@@ -22,6 +25,7 @@ This layer adds support for editing HTML and CSS.
 - Support for editing Slim and Pug templates using [[https://github.com/slim-template/emacs-slim][slim-mode]] and [[https://github.com/hlissner/emacs-pug-mode][pug-mode]]
 - See the effects of typed HTML using [[https://github.com/skeeto/impatient-mode][impatient-mode]]
 - imenu support for CSS and Sass through [[https://github.com/hlissner/emacs-counsel-css][counsel-css]]
+- Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -31,10 +35,36 @@ file.
 SCSS linting requires SCSS-Lint version >= 0.43.0. You can get it from GitHub:
 
 #+BEGIN_SRC command-line
-gem install specific_install
-gem specific_install https://github.com/brigade/scss-lint.git
-gem specific_install https://github.com/Sweetchuck/scss_lint_reporter_checkstyle.git
+  gem install specific_install
+  gem specific_install https://github.com/brigade/scss-lint.git
+  gem specific_install https://github.com/Sweetchuck/scss_lint_reporter_checkstyle.git
 #+END_SRC
+
+** web-beautify
+See [[file:../../+tools/web-beautify/README.org][web-beautify layer]] documentation.
+
+** prettier
+See [[file:../../+tools/prettier/README.org][prettier layer]] documentation.
+
+** Choosing a formatter
+To choose a formatter, set the layer variable =web-fmt-tool=:
+
+#+BEGIN_SRC elisp
+  (html :variables web-fmt-tool 'web-beautify)
+#+END_SRC
+
+Formatter can be chosen on a per project basis using directory local variables
+(files named =.dir-locals.el= at the root of a project), an example to use the
+=prettier= formatter:
+
+#+BEGIN_SRC elisp
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
+
+  ((html-mode (web-fmt-tool . prettier)))
+#+END_SRC
+
+*Note:* you can easily add a directory local variable with ~SPC f v d~.
 
 * Live display in browser
 Use ~SPC m i~ to enable impatient mode, opening a live view of a HTML file in
@@ -43,14 +73,14 @@ files, too.
 
 When the underlying file is an HTML file, ~SPC m i~ automatically opens the page
 in the browser. For other buffers, a list of available views can be found on
-http://localhost:8080/imp.
+[[http://localhost:8080/imp]].
 
 For more information visit the [[https://github.com/skeeto/impatient-mode/blob/master/README.md][help page on GitHub.]]
 
-* Key Bindings
+* Key bindings
 ** Web mode
 
-| Key Binding | Description                                               |
+| Key binding | Description                                               |
 |-------------+-----------------------------------------------------------|
 | ~SPC m g p~ | quickly navigate CSS rules using =helm=                   |
 | ~SPC m e h~ | highlight DOM errors                                      |
@@ -65,11 +95,11 @@ For more information visit the [[https://github.com/skeeto/impatient-mode/blob/m
 | ~SPC m r r~ | rename current element                                    |
 | ~SPC m r w~ | wrap current element                                      |
 | ~SPC m z~   | fold/unfold current element                               |
-| ~%~         | evil-matchit keybinding to jump to closing tag            |
+| ~%~         | evil-matchit key binding to jump to closing tag           |
 
 A transient-state is also defined, start it with ~SPC m .~ or ~, .~
 
-| Key Binding | Description                                                    |
+| Key binding | Description                                                    |
 |-------------+----------------------------------------------------------------|
 | ~?~         | Toggle full help                                               |
 | ~c~         | clone current element                                          |
@@ -88,7 +118,7 @@ A transient-state is also defined, start it with ~SPC m .~ or ~, .~
 
 ** CSS/SCSS
 
-| Key Binding | Description                      |
+| Key binding | Description                      |
 |-------------+----------------------------------|
 | ~SPC m g h~ | quickly navigate CSS rules       |
 | ~SPC m z c~ | fold css statement to one line   |

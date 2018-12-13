@@ -2,7 +2,7 @@
 
 [[file:img/ledger.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -21,6 +21,7 @@ This layer integrates a full fledged accounting system into Spacemacs.
 - Display of finance reports directly within emacs.
 - Integration of emacs calculator mode for editing post amounts.
 - Support for easy account reconciliation via =Ledger-Reconcile=.
+- Extended support for ~evil~ style editing with [[https://github.com/atheriel/evil-ledger][evil-ledger]].
 
 * Install
 ** Layer
@@ -34,7 +35,7 @@ For this layer to work properly you also need to install the native package [[ht
 ** Ledger
 You can set what column transaction posts are aligned to on
 the right by setting the variable =ledger-post-amount-alignment-column= in
-your =dotspacemacs/user-config=.  The default value, set in the layer, is =62=.
+your =dotspacemacs/user-config=. The default value, set in the layer, is =62=.
 
 #+BEGIN_SRC emacs-lisp
   (defun dotspacemacs/user-config ()
@@ -44,24 +45,27 @@ your =dotspacemacs/user-config=.  The default value, set in the layer, is =62=.
 * Key bindings
 ** Ledger
 
-| Key Binding | Description                                   |
+| Key binding | Description                                   |
 |-------------+-----------------------------------------------|
 | ~SPC m a~   | add a transaction                             |
 | ~SPC m b~   | edit a post amount with Emacs Calculator mode |
-| ~SPC m c~   | toggle 'cleared' flag on transaction or post  |
+| ~SPC m c~   | toggle ’cleared’ flag on transaction or post  |
 | ~SPC m C~   | sort and align the entire buffer              |
 | ~SPC m d~   | delete current transaction                    |
 | ~SPC m p~   | display balance at point                      |
-| ~SPC m q~   | align a single transaction's posts            |
+| ~SPC m q~   | align a single transaction’s posts            |
 | ~SPC m r~   | reconcile an account                          |
 | ~SPC m R~   | display a report                              |
 | ~SPC m t~   | append an effective date to a post            |
-| ~SPC m y~   | set the year for quicker entry                |
-| ~SPC m RET~ | set the month for quicker entry               |
+| ~g j~       | go to the next transaction                    |
+| ~g k~       | go to the previous transaction                |
+
+evil-ledger additionally adds a transaction text object, bound to ~x~, so you
+can for example use ~dix~ or ~vax~ to delete or mark the transaction at point.
 
 ** Ledger-Reconcile
 
-| Key Binding | Description                                                               |
+| Key binding | Description                                                               |
 |-------------+---------------------------------------------------------------------------|
 | ~SPC m ,~   | toggle the current transaction pending                                    |
 | ~SPC m a~   | quickly add a transaction, without exiting the reconciliation buffer      |

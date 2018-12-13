@@ -39,7 +39,7 @@ override lazy-loaded settings."
   (let ((name-symbol (if (stringp name) (intern name) name))
         (expanded-forms '()))
     (dolist (keyword spacemacs--use-package-add-hook-keywords)
-      (let ((body (spacemacs/mplist-get plist keyword)))
+      (let ((body (spacemacs/mplist-get-values plist keyword)))
         (when body
           (let ((hook (intern (format "use-package--%S--%s-hook"
                                       name-symbol

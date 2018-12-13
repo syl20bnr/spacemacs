@@ -2,7 +2,7 @@
 
 [[file:img/elixir.png]] with [[file:img/alchemist.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -24,9 +24,10 @@
   - [[#code-definition-jump][Code Definition Jump]]
   - [[#hex-packages][Hex (packages)]]
   - [[#macro-expand][Macro expand]]
+  - [[#formatting][Formatting]]
 
 * Description
-This layer adds support for [[http://elixir-lang.org/][Elixir]] .
+This layer adds support for [[http://elixir-lang.org/][Elixir]].
 
 [[https://github.com/tonini/alchemist.el][Alchemist]] brings the Elixir tooling to Emacs and comes with a bunch of features.
 
@@ -59,21 +60,21 @@ You need to install [[https://github.com/rrrene/credo][credo]] into your project
 to dependencies of your project (in file =mix.exs=):
 
 #+BEGIN_SRC elixir
-{:credo, "~> 0.5", only: [:dev, :test]}
+  {:credo, "~> 0.5", only: [:dev, :test]}
 #+END_SRC
 
 Then run in your shell:
 
 #+BEGIN_SRC shell
-$ mix deps.get
+  $ mix deps.get
 #+END_SRC
 
 For more info about mix [[http://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html][see]].
 
-You can tell flycheck-credo to call credo with the '--strict' argument.
+You can tell flycheck-credo to call credo with the ’--strict’ argument.
 
 #+BEGIN_SRC elisp
-(setq flycheck-elixir-credo-strict t)
+  (setq flycheck-elixir-credo-strict t)
 #+END_SRC
 
 *** Dogma
@@ -81,13 +82,13 @@ In order to lint your code, you also need to install [[https://github.com/lpil/d
 For this, add the following snippet to the dependencies in your =mix.exs= file:
 
 #+BEGIN_SRC elixir
-{:dogma, "~> 0.1", only: [:dev]}
+  {:dogma, "~> 0.1", only: [:dev]}
 #+END_SRC
 
 Then run in your shell:
 
 #+BEGIN_SRC shell
-$ mix deps.get
+  $ mix deps.get
 #+END_SRC
 
 *** mix compile
@@ -110,25 +111,25 @@ value of t. The result is a new file =.dir-locals.el= with the following
 contents:
 
 #+BEGIN_SRC elisp
-;;; Directory Local Variables
-;;; For more information see (info "(emacs) Directory Variables")
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
 
-((elixir-mode
-  (elixir-enable-compilation-checking . t)))
+  ((elixir-mode
+    (elixir-enable-compilation-checking . t)))
 #+END_SRC
 
 Spacemacs marks the variable =elixir-enable-compilation-checking= as safe so
-Emacs won't ask you if the variable is safe whenever an elixir file is opened.
+Emacs won’t ask you if the variable is safe whenever an elixir file is opened.
 
 Remember that you can verify the flycheck checkers status with ~SPC e v~.
 
 * Key bindings
 ** Refcard
-You find and overview of all the key-bindings on the [[https://github.com/tonini/alchemist.el/blob/master/doc/alchemist-refcard.pdf][Alchemist-Refcard]].
+You find and overview of all the key bindings on the [[https://github.com/tonini/alchemist.el/blob/master/doc/alchemist-refcard.pdf][Alchemist-Refcard]].
 
 ** Help
 
-| Key Binding | Description                         |
+| Key binding | Description                         |
 |-------------+-------------------------------------|
 | ~SPC m h :~ | Run custom search for help          |
 | ~SPC m h h~ | Show help of the current expression |
@@ -137,7 +138,7 @@ You find and overview of all the key-bindings on the [[https://github.com/tonini
 
 ** Mix
 
-| Key Binding | Description                                                |
+| Key binding | Description                                                |
 |-------------+------------------------------------------------------------|
 | ~SPC m m :~ | Prompt for a =mix= command                                 |
 | ~SPC m m c~ | Compile the whole application                              |
@@ -146,15 +147,14 @@ You find and overview of all the key-bindings on the [[https://github.com/tonini
 
 ** Project
 
-| Key Binding | Description                                                |
+| Key binding | Description                                                |
 |-------------+------------------------------------------------------------|
-| ~SPC m p t~ | Open project test directory and list all test files.       |
 | ~SPC m g t~ | Toggle between a file and its tests in the current window. |
 | ~SPC m g T~ | Toggle between a file and its tests in other window.       |
 
 ** Evaluation in place
 
-| Key Binding | Description                             |
+| Key binding | Description                             |
 |-------------+-----------------------------------------|
 | ~SPC m e b~ | Evaluate buffer                         |
 | ~SPC m e B~ | Evaluate buffer and insert result       |
@@ -165,7 +165,7 @@ You find and overview of all the key-bindings on the [[https://github.com/tonini
 
 ** REPL interactions
 
-| Key Binding | Description                                                     |
+| Key binding | Description                                                     |
 |-------------+-----------------------------------------------------------------|
 | ~SPC m s c~ | Compiles the current buffer in the IEx process.                 |
 | ~SPC m s i~ | Start an =iex= inferior process                                 |
@@ -178,7 +178,7 @@ You find and overview of all the key-bindings on the [[https://github.com/tonini
 
 ** Tests
 
-| Key Binding | Description                                                                           |
+| Key binding | Description                                                                           |
 |-------------+---------------------------------------------------------------------------------------|
 | ~SPC m g t~ | Open the test file for current buffer                                                 |
 | ~SPC m t a~ | Run all the tests                                                                     |
@@ -191,10 +191,11 @@ You find and overview of all the key-bindings on the [[https://github.com/tonini
 | ~SPC m t N~ | Jump to previous test                                                                 |
 | ~SPC m t s~ | Run stale tests (~mix test --stale~)                                                  |
 | ~SPC m t R~ | Toggle test report window                                                             |
+| ~SPC m t F~ | Open project test directory and list all test files.                                  |
 
 ** Compile
 
-| Key Binding | Description                                        |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC m c :~ | Run a custom compile command with =elixirc=        |
 | ~SPC m c b~ | Compile the current buffer with elixirc. =elixirc= |
@@ -202,7 +203,7 @@ You find and overview of all the key-bindings on the [[https://github.com/tonini
 
 ** Execute
 
-| Key Binding | Description                                |
+| Key binding | Description                                |
 |-------------+--------------------------------------------|
 | ~SPC m x :~ | Run a custom execute command with =elixir= |
 | ~SPC m x b~ | Run the current buffer through =elixir=    |
@@ -210,7 +211,7 @@ You find and overview of all the key-bindings on the [[https://github.com/tonini
 
 ** Code Definition Jump
 
-| Key Binding | Description                                        |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC m g g~ | Jump to the elixir expression definition at point. |
 | ~SPC m .~   | Jump to the elixir expression definition at point. |
@@ -221,9 +222,9 @@ You find and overview of all the key-bindings on the [[https://github.com/tonini
 | ~SPC m g j~ | Choose which symbol definition to jump to          |
 
 ** Hex (packages)
-Hex is the package manager for Elixir & Erlang ecosystem. See https://hex.pm .
+Hex is the package manager for Elixir & Erlang ecosystem. See [[https://hex.pm]].
 
-| Key Binding | Description                                              |
+| Key binding | Description                                              |
 |-------------+----------------------------------------------------------|
 | ~SPC m X i~ | Display Hex package information for the package at point |
 | ~SPC m X r~ | Display Hex package releases for the package at point    |
@@ -233,7 +234,7 @@ Hex is the package manager for Elixir & Erlang ecosystem. See https://hex.pm .
 
 ** Macro expand
 
-| Key Binding | Description                                                                       |
+| Key binding | Description                                                                       |
 |-------------+-----------------------------------------------------------------------------------|
 | ~SPC m o l~ | Macro expand once the Elixir code on the current line                             |
 | ~SPC m o L~ | Macro expand once the Elixir code on the current line and insert the result       |
@@ -243,3 +244,9 @@ Hex is the package manager for Elixir & Erlang ecosystem. See https://hex.pm .
 | ~SPC m o I~ | Macro expand once the Elixir code on marked region once and insert the result     |
 | ~SPC m o r~ | Macro expand completely the Elixir code on marked region                          |
 | ~SPC m o R~ | Macro expand completely the Elixir code on marked region and insert the result    |
+
+** Formatting
+
+| Key binding | Description               |
+|-------------+---------------------------|
+| ~SPC m =~   | Format the current buffer |

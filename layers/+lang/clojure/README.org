@@ -2,20 +2,21 @@
 
 [[file:img/clojure.png]] [[file:img/cider.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#pretty-symbols][Pretty Symbols]]
-  - [[#cider-and-clj-refactor][CIDER and clj-refactor]]
+  - [[#enabling-sayid-or-clj-refactor][Enabling sayid or clj-refactor]]
+  - [[#starting-clojure-manually-outside-of-emacs][Starting Clojure manually (outside of Emacs)]]
     - [[#quick-start-with-boot][Quick Start with boot]]
     - [[#quick-start-with-lein][Quick Start with lein]]
     - [[#more-details][More details]]
 - [[#usage][Usage]]
   - [[#cheatsheet][Cheatsheet]]
   - [[#structuraly-safe-editing][Structuraly safe editing]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#working-with-clojure-files-barfage-slurpage--more][Working with clojure files (barfage, slurpage & more)]]
   - [[#leader][Leader]]
     - [[#documentation][Documentation]]
@@ -48,7 +49,7 @@ This layer adds support for [[https://clojure.org/][Clojure]] language using [[h
 - Code formatting via [[https://github.com/clojure-emacs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]]
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
 - Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
-- Debugging with [[https://bpiel.github.io/sayid/][sayid]]
+- Debugging with [[https://github.com/clojure-emacs/sayid][sayid]]
 - Clojure cheatsheet
 - Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
@@ -70,55 +71,108 @@ To enable this feature, add the following snippet to the
 #+END_SRC
 
 Or set this variable when loading the configuration layer:
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
   '((clojure :variables clojure-enable-fancify-symbols t)))
 #+END_SRC
 
-** CIDER and clj-refactor
-Note that recent versions of CIDER automatically inject the required
-dependencies into your boot or leiningen configuration when you connect to the
-REPL. Thus, the configuration instructions below only apply to CIDER 0.10 and
-older. Most users should be able to just run ~SPC m s i~ to connect to the CIDER
-REPL and skip the rest of this section.
+** Enabling sayid or clj-refactor
+The packages sayid (Clojure debugger) and clj-refactor (automatic refactorings)
+are disabled by default. To enable them, add a `:variables` option when enabling
+the `clojure` layer, specifying `clojure-enable-sayid`, or
+`clojure-enable-clj-refactor`, or both.
+
+In your Spacemacs configuration:
+
+#+BEGIN_SRC emacs-lisp
+  ;; before
+  dotspacemacs-configuration-layers
+  '(...
+    clojure
+    )
+
+  ;; after
+  dotspacemacs-configuration-layers
+  '(...
+    (clojure :variables
+             clojure-enable-sayid t
+             clojure-enable-clj-refactor t)
+    )
+#+END_SRC
+
+Enabling either of these packages will cause extra nREPL middleware to be
+injected when jacking in CIDER.
+
+** Starting Clojure manually (outside of Emacs)
+CIDER communicates with your Clojure process through nREPL, and for CIDER to
+function correctly extra nREPL middleware needs to be present
+(cider/cider-nrepl). The same is true for clj-refactor (refactor-nrepl), and for
+sayid (com.billpiel/sayid).
+
+When starting the Clojure process through cider (`cider-jack-in` and friends)
+this will be handled automatically, and so most users should be able to just run
+~SPC m s i~ to connect to the CIDER REPL and skip the rest of this section.
+
+If you are running an older version of CIDER (0.10 or older), or if you are
+starting the Clojure process yourself outside of Emacs, then you need to make
+sure the necessary dependencies are present, and the necessary nREPL middlewares
+are enabled.
 
 *** Quick Start with boot
-- Install =boot= (see https://github.com/boot-clj/boot#user-content-install)
+- Install =boot= (see [[https://github.com/boot-clj/boot#user-content-install]])
 - Create a file =~/.boot/profile.boot= with the following content:
 
-#+BEGIN_SRC clojure
-(require 'boot.repl)
+  #+BEGIN_SRC clojure
+    (require 'boot.repl)
 
-(swap! boot.repl/*default-dependencies* conj
-       '[refactor-nrepl "1.2.0-SNAPSHOT"]
-       '[cider/cider-nrepl "0.10.0-SNAPSHOT"])
+    (swap! boot.repl/*default-dependencies* conj
+           ;; When running an older version of CIDER (pre 0.18), use the
+           ;; version that best matches M-x cider-version. For versions since
+           ;; 0.18.0 use whatever version is the most recent.
+           '[cider/cider-nrepl "0.19.0-SNAPSHOT"]
 
-(swap! boot.repl/*default-middleware* conj
-       'refactor-nrepl.middleware/wrap-refactor)
-#+END_SRC
+           ;; Only necessary when using clj-refactor
+           '[refactor-nrepl "2.4.0"]
 
-- Run ~SPC m s i~ in any of the clojure source files to connect to the CIDER
-  REPL. Note that a build.boot file must be present in your working directory
-  for Cider to recognize the presence of boot.
+           ;; Only necessary when using sayid
+           '[com.billpiel/sayid "0.0.17"])
+
+    (swap! boot.repl/*default-middleware* conj
+           'cider.nrepl/cider-middleware
+           'refactor-nrepl.middleware/wrap-refactor
+           'com.billpiel.sayid.nrepl-middleware/wrap-sayid)
+  #+END_SRC
 
 *** Quick Start with lein
-- Install =lein= version 2.5.2 or newer (see https://leiningen.org/#install)
+- Install =lein= version 2.5.2 or newer (see [[https://leiningen.org/#install]])
 - Create a file =~/.lein/profiles.clj= with the following content:
 
-#+BEGIN_SRC clojure
-  {:repl {:plugins [[cider/cider-nrepl "0.10.0-SNAPSHOT"]
-                    [refactor-nrepl "2.0.0-SNAPSHOT"]]
-          :dependencies [[alembic "0.3.2"]
-                         [org.clojure/tools.nrepl "0.2.12"]]}}
-#+END_SRC
+  #+BEGIN_SRC clojure
+    {:repl
+     {:plugins [;; When running an older version of CIDER (pre 0.18), use the
+                ;; version that best matches M-x cider-version. For versions since
+                ;; 0.18.0 use whatever version is the most recent.
+                [cider/cider-nrepl "0.19.0-SNAPSHOT"]
 
-- After creating your project with ~lein new app <projectname>~ or
-  importing an existing project, run ~SPC m s i~ in any of the clojure
-  source files to connect to the CIDER REPL.
+                ;; Only necessary when using clj-refactor
+                [refactor-nrepl "2.4.0"]
+
+                ;; Only necessary when using sayid
+                [com.billpiel/sayid "0.0.17"]]
+
+      :dependencies [[nrepl "0.4.5"]]
+
+      :repl-options
+      {:nrepl-middleware [cider.nrepl/cider-middleware
+                          refactor-nrepl.middleware/wrap-refactor ;; clj-refactor
+                          com.billpiel.sayid.nrepl-middleware/wrap-sayid ;; sayid
+                          ]}}}
+  #+END_SRC
 
 *** More details
 More info regarding installation of nREPL middleware can be found here:
-- CIDER: [[https://github.com/clojure-emacs/cider#installation][cider_install]]
+- CIDER: [[https://cider.readthedocs.io/en/latest/installation/][CIDER installation (official docs)]]
 - clj-refactor: [[https://github.com/clojure-emacs/refactor-nrepl][refactor-nrepl]]
 
 * Usage
@@ -141,21 +195,21 @@ To turn it on automatically for all =clojure= buffers call the following
 function in your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-clojure-mode)
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-clojure-mode)
 #+END_SRC
 
 or to enable it for all supported modes:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 #+END_SRC
 
 When enabled the symbol =🆂= should be displayed in the mode-line.
 
-* Key Bindings
+* Key bindings
 ** Working with clojure files (barfage, slurpage & more)
 Spacemacs comes with a special =lisp-state= for working with lisp code that
-supports slurpage, barfage and more tools you'll likely want when working with
+supports slurpage, barfage and more tools you’ll likely want when working with
 lisp.
 
 As this state works the same for all files, the documentation is in global
@@ -164,18 +218,19 @@ As this state works the same for all files, the documentation is in global
 ** Leader
 *** Documentation
 
-| Key Binding | Description        |
-|-------------+--------------------|
-| ~SPC m h a~ | cider apropos      |
-| ~SPC m h c~ | clojure cheatsheet |
-| ~SPC m h g~ | cider grimoire     |
-| ~SPC m h h~ | cider doc          |
-| ~SPC m h j~ | cider javadoc      |
-| ~SPC m h n~ | cider browse ns    |
+| Key binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m h a~ | cider apropos               |
+| ~SPC m h c~ | clojure cheatsheet          |
+| ~SPC m h g~ | cider grimoire              |
+| ~SPC m h h~ | cider doc                   |
+| ~SPC m h j~ | cider javadoc               |
+| ~SPC m h n~ | cider browse namespace      |
+| ~SPC m h N~ | cider browse all namespaces |
 
 *** Evaluation
 
-| Key Binding | Description                                               |
+| Key binding | Description                                               |
 |-------------+-----------------------------------------------------------|
 | ~SPC m e ;~ | eval sexp and show result as comment                      |
 | ~SPC m e b~ | eval buffer                                               |
@@ -190,21 +245,20 @@ As this state works the same for all files, the documentation is in global
 
 *** Goto
 
-| Key Binding | Description           |
-|-------------+-----------------------|
-| ~SPC m g b~ | go back               |
-| ~SPC m g C~ | browse classpath      |
-| ~SPC m g g~ | goto var              |
-| ~SPC m g e~ | goto error            |
-| ~SPC m g n~ | browse namespaces     |
-| ~SPC m g N~ | browse all namespaces |
-| ~SPC m g r~ | goto resource         |
-| ~SPC m g s~ | browse spec           |
-| ~SPC m g S~ | browse all specs      |
+| Key binding | Description      |
+|-------------+------------------|
+| ~SPC m g b~ | go back          |
+| ~SPC m g C~ | browse classpath |
+| ~SPC m g g~ | goto var         |
+| ~SPC m g e~ | goto error       |
+| ~SPC m g n~ | goto namespace   |
+| ~SPC m g r~ | goto resource    |
+| ~SPC m g s~ | browse spec      |
+| ~SPC m g S~ | browse all specs |
 
 *** REPL
 
-| Key Binding | Description                                                                    |
+| Key binding | Description                                                                    |
 |-------------+--------------------------------------------------------------------------------|
 | ~SPC m ,~   | handle shortcut (cider-repl-handle-shortcut)                                   |
 | ~SPC m s b~ | send and eval buffer in REPL                                                   |
@@ -229,7 +283,7 @@ As this state works the same for all files, the documentation is in global
 
 *** Tests
 
-| Key Binding | Description                        |
+| Key binding | Description                        |
 |-------------+------------------------------------|
 | ~SPC m t a~ | run all tests in namespace         |
 | ~SPC m t r~ | re-run test failures for namespace |
@@ -237,7 +291,7 @@ As this state works the same for all files, the documentation is in global
 
 *** Toggles
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC m T e~ | toggle englighten mode      |
 | ~SPC m T f~ | toggle REPL font-locking    |
@@ -247,7 +301,7 @@ As this state works the same for all files, the documentation is in global
 
 *** Debugging
 
-| Key Binding   | Description                                        |
+| Key binding   | Description                                        |
 |---------------+----------------------------------------------------|
 | ~SPC m d !~   | reload traces and clear sayid workspace            |
 | ~SPC m d b~   | instrument expression at point                     |
@@ -255,12 +309,12 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m d e~   | display last stacktrace                            |
 | ~SPC m d E~   | one time display of value at cursor                |
 | ~SPC m d f~   | query form at point                                |
-| ~SPC m d h~   | show sayid help (keybindings may not be accurate)  |
+| ~SPC m d h~   | show sayid help (key bindings may not be accurate) |
 | ~SPC m d i~   | inspect expression at point                        |
 | ~SPC m d r~   | reload namespaces                                  |
 | ~SPC m d s~   | show what is currently traced                      |
 | ~SPC m d S~   | show what is currently traced in current namespace |
-| ~SPC m d t b~ | trace current file's namespace                     |
+| ~SPC m d t b~ | trace current file’s namespace                     |
 | ~SPC m d t d~ | disable existing trace on current function         |
 | ~SPC m d t D~ | disable existing trace on all functions            |
 | ~SPC m d t e~ | enable existing trace on current function          |
@@ -277,8 +331,26 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m d x~   | clear workspace traces and log                     |
 
 *** Refactoring
+The following refactoring key bindings are enabled by default in clojure-mode:
 
-| Key Binding   | Description                       |
+| Key binding   | Description                                                    |
+|---------------+----------------------------------------------------------------|
+| ~SPC m r c i~ | cycle between if and if-not forms                              |
+| ~SPC m r c p~ | cycle privacy of defn and def forms                            |
+| ~SPC m r c (~ | convert coll to list                                           |
+| ~SPC m r c '~ | convert coll to quoted list                                    |
+| ~SPC m r c {~ | convert coll to map                                            |
+| ~SPC m r c #~ | convert coll to set                                            |
+| ~SPC m r c [~ | convert coll to vector                                         |
+| ~SPC m r t f~ | rewrite the following form to use the -> (thread first) macro. |
+| ~SPC m r t l~ | rewrite the following form to use the ->> (thread last) macro. |
+| ~SPC m r t h~ | thread another form into the surrounding threading macro       |
+| ~SPC m r u a~ | unwind all steps of surrounding threading macro                |
+| ~SPC m r u w~ | unwind threading macro one step at a time                      |
+
+The following refactorings require cljr-refactor to be enabled and generally depend on a connected CIDER session.
+
+| Key binding   | Description                       |
 |---------------+-----------------------------------|
 | ~SPC m r ?~   | describe refactoring              |
 | ~SPC m r a d~ | add declaration                   |
@@ -287,15 +359,8 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m r a p~ | add project dependency            |
 | ~SPC m r a r~ | add require to ns                 |
 | ~SPC m r a u~ | add use to ns                     |
-| ~SPC m r c (~ | convert coll to list              |
-| ~SPC m r c '~ | convert coll to quoted list       |
-| ~SPC m r c {~ | convert coll to map               |
-| ~SPC m r c #~ | convert coll to set               |
-| ~SPC m r c [~ | convert coll to vector            |
 | ~SPC m r c :~ | toggle between keyword and string |
-| ~SPC m r c i~ | cycle if                          |
 | ~SPC m r c n~ | clean ns                          |
-| ~SPC m r c p~ | cycle privacy                     |
 | ~SPC m r d k~ | destructure keys                  |
 | ~SPC m r e c~ | extract constant                  |
 | ~SPC m r e d~ | extract definition                |
@@ -320,24 +385,19 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m r s p~ | sort project dependencies         |
 | ~SPC m r s r~ | stop referring                    |
 | ~SPC m r s c~ | show changelog                    |
-| ~SPC m r t f~ | thread first all                  |
-| ~SPC m r t h~ | thread                            |
-| ~SPC m r t l~ | thread last all                   |
-| ~SPC m r u a~ | unwind all                        |
 | ~SPC m r u p~ | update project dependencies       |
-| ~SPC m r u w~ | unwind                            |
 
 *** Reformatting
 
-| Key Binding               | Description             |
-|---------------------------+-------------------------|
-| ~SPC m f b~ or  ~SPC m =~ | reformat current buffer |
-| ~SPC m f l~               | realign current form    |
-|                           |                         |
+| Key binding              | Description             |
+|--------------------------+-------------------------|
+| ~SPC m f b~ or ~SPC m =~ | reformat current buffer |
+| ~SPC m f l~              | realign current form    |
+|                          |                         |
 
 *** Profiling
 
-| Key Binding | Description          |
+| Key binding | Description          |
 |-------------+----------------------|
 | ~SPC m p +~ | profile samples      |
 | ~SPC m p c~ | clear profile        |
@@ -352,14 +412,14 @@ In general, ~q~ should always quit the popped up buffer.
 
 *** cider-repl-mode
 
-| Key Binding | Description    |
+| Key binding | Description    |
 |-------------+----------------|
 | ~C-j~       | next input     |
 | ~C-k~       | previous input |
 
 *** stacktrace-mode
 
-| Key Binding | Description         |
+| Key binding | Description         |
 |-------------+---------------------|
 | ~C-j~       | next cause          |
 | ~C-k~       | previous cause      |
@@ -379,7 +439,7 @@ In general, ~q~ should always quit the popped up buffer.
 
 *** inspector-mode
 
-| Key Binding | Description                     |
+| Key binding | Description                     |
 |-------------+---------------------------------|
 | ~TAB~       | next inspectable object         |
 | ~Shift-TAB~ | previous inspectable object     |
@@ -392,7 +452,7 @@ In general, ~q~ should always quit the popped up buffer.
 
 *** test-report-mode
 
-| Key Binding | Description        |
+| Key binding | Description        |
 |-------------+--------------------|
 | ~C-j~       | next result        |
 | ~C-k~       | previous result    |
@@ -406,7 +466,7 @@ In general, ~q~ should always quit the popped up buffer.
 ** Sayid Buffers
 *** sayid-mode
 
-| Key Binding        | Description                                       |
+| Key binding        | Description                                       |
 |--------------------+---------------------------------------------------|
 | ~Shift-Backspace~  | forward buffer state                              |
 | ~enter~            | pop to function                                   |
@@ -421,29 +481,29 @@ In general, ~q~ should always quit the popped up buffer.
 | ~P~                | pretty print value                                |
 | ~C~                | clear workspace trace log                         |
 | ~e~                | generate instance expression and put in kill ring |
-| ~H~                | display help (keybindings may not be accurate)    |
+| ~H~                | display help (key bindings may not be accurate)   |
 | ~w~                | show full workspace trace                         |
 | ~C-s v~            | toggle view                                       |
 | ~C-s V~            | set view                                          |
 
 *** sayid-traced-mode
 
-| Key Binding | Description                                    |
-|-------------+------------------------------------------------|
-| ~backspace~ | go back to trace overview                      |
-| ~enter~     | drill into ns at point                         |
-| ~e~         | enable trace                                   |
-| ~E~         | enable all traces                              |
-| ~d~         | disable trace                                  |
-| ~D~         | disable all traces                             |
-| ~h~         | display help (keybindings may not be accurate) |
-| ~i~         | apply inner trace to function at point         |
-| ~o~         | apply outer trace to function at point         |
-| ~r~         | remove trace at point                          |
+| Key binding | Description                                     |
+|-------------+-------------------------------------------------|
+| ~backspace~ | go back to trace overview                       |
+| ~enter~     | drill into ns at point                          |
+| ~e~         | enable trace                                    |
+| ~E~         | enable all traces                               |
+| ~d~         | disable trace                                   |
+| ~D~         | disable all traces                              |
+| ~h~         | display help (key bindings may not be accurate) |
+| ~i~         | apply inner trace to function at point          |
+| ~o~         | apply outer trace to function at point          |
+| ~r~         | remove trace at point                           |
 
 *** sayid-pprint
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~enter~     | show path in minibuffer     |
 | ~i~         | enter child node            |
@@ -454,6 +514,6 @@ In general, ~q~ should always quit the popped up buffer.
 * Development Notes
 ** Indentation
 With a [[https://github.com/clojure-emacs/cider/blob/master/doc/indent_spec.md][new]] functionality of Cider to read the custom indentation rules from the
-var's metadata, it is better for consistency reasons to not add the custom
+var’s metadata, it is better for consistency reasons to not add the custom
 indentation rules to Spacemacs, but to add them to the metadata of those
 specific vars.

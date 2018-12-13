@@ -1,6 +1,6 @@
 #+TITLE: Extra Languages
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#key-bindings][Key bindings]]
@@ -17,7 +17,6 @@ This layer adds a number of packages for less common languages and major modes.
   - Android Logcat (not associated with any file types by default)
   - Gentoo ebuilds
   - Hoon
-  - Julia
   - Kivy
   - MATLAB
   - QML
@@ -30,7 +29,7 @@ This layer adds a number of packages for less common languages and major modes.
 * Key bindings
 ** Arch Linux PKGBUILDs
 
-| Key Binding | Description                |
+| Key binding | Description                |
 |-------------+----------------------------|
 | ~SPC m b~   | Run makepkg                |
 | ~SPC m r~   | Increase the pkgrel number |
@@ -41,7 +40,7 @@ This layer adds a number of packages for less common languages and major modes.
 
 ** Gentoo ebuilds
 
-| Key Binding | Description            |
+| Key binding | Description            |
 |-------------+------------------------|
 | ~SPC m n~   | Insert skeleton ebuild |
 | ~SPC m k~   | Edit keywords          |

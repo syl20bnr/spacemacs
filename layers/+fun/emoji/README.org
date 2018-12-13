@@ -2,7 +2,7 @@
 
 [[file:img/emojis.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -31,14 +31,14 @@ Linux user could install [[https://zhm.github.io/symbola/][Symbola]] font to get
 
 * Key bindings
 
-| Key Binding | Description                             |
+| Key binding | Description                             |
 |-------------+-----------------------------------------|
 | ~SPC a E~   | open a dedicated buffer to browse Emoji |
 | ~SPC i e~   | insert Emoji via an helm buffer         |
 
 ** Emoji dedicated buffer
 
-| Key Binding | Description             |
+| Key binding | Description             |
 |-------------+-------------------------|
 | ~RET~       | copy current Emoji code |
 | ~q~         | quit                    |

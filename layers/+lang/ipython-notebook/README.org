@@ -1,11 +1,11 @@
 #+TITLE: IPython Notebook layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#list-of-todos][List of TODOS]]
   - [[#maybe-itd-be-better-if-there-was-a-state-for-this][Maybe it'd be better if there was a state for this]]
-  - [[#make-more-keybinding-to-connect-to-a-python-buffer][Make more keybinding to =connect= to a python buffer]]
+  - [[#make-more-key-binding-to-connect-to-a-python-buffer][Make more key binding to =connect= to a python buffer]]
   - [[#deleting-visual-regions-dont-work-find-out-why][Deleting visual regions don't work, find out why]]
 - [[#install][Install]]
   - [[#layer][Layer]]
@@ -13,7 +13,7 @@
   - [[#what-needs-to-be-run][What needs to be run]]
 - [[#using-the-ipython-notebook][Using the IPython notebook]]
   - [[#open-notebook-list][Open Notebook List]]
-  - [[#key-bindings][Key Bindings]]
+  - [[#key-bindings][Key bindings]]
     - [[#transient-state-ipython-notebook][Transient-state: =ipython-notebook=]]
     - [[#normal-mode][Normal mode]]
     - [[#insert-mode][Insert mode]]
@@ -30,15 +30,18 @@ Do not hesitate to check the original package README [[https://github.com/millej
 lots of informative stuff.
 
 ** Features:
-- Keybindings available through transient-state or leader key
+- Key bindings available through transient-state or leader key
 - Lazy-loading
 
 * List of TODOS
 This is a WIP, feel free to collaborate.
 
 ** TODO Maybe it'd be better if there was a state for this
-** TODO Make more keybinding to =connect= to a python buffer
+
+** TODO Make more key binding to =connect= to a python buffer
+
 ** TODO Deleting visual regions don't work, find out why
+
 * Install
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -47,22 +50,26 @@ in this file.
 
 ** Dependencies
 Install IPython Notebook > 3
-#+begin_src sh
-  pip install ipython[notebook]
-#+end_src
+
+Note that IPython Notebook has now been renamed to [[https://jupyter.org/install][Jupyter Notebook]].
+
+#+BEGIN_SRC sh
+  pip install jupyter
+#+END_SRC
 
 ** What needs to be run
 Have an IPython notebook running
-#+begin_src sh
-  ipython notebook
-#+end_src
+
+#+BEGIN_SRC sh
+  jupyter notebook
+#+END_SRC
 
 * Using the IPython notebook
 ** Open Notebook List
 This layer is lazy loaded so the transient-state will only work after you summon the
 command =ein:notebooklist-open= which is bound to ~SPC a y o~
 
-** Key Bindings
+** Key bindings
 The key bindings can be used through a transient state or the usual evil-leader.
 
 *** Transient-state: =ipython-notebook=
@@ -144,11 +151,9 @@ In traceback mode the following key bindings are defined:
 
 * Screenshots
 ** Light
-#+attr_html: :width 400px
 [[file:img/light.png]]
 
 ** Dark
-#+attr_html: :width 400px
 [[file:img/dark.png]]
 
 * Bonus

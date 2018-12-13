@@ -1,11 +1,11 @@
 #+TITLE: Scheme layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#structuraly-safe-editing][Structuraly safe editing]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#compiling][Compiling]]
   - [[#navigation][Navigation]]
   - [[#documentation][Documentation]]
@@ -46,28 +46,28 @@ To turn it on automatically for all =scheme= buffers call the following
 function in your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-scheme-mode)
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-scheme-mode)
 #+END_SRC
 
 or to enable it for all supported modes:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 #+END_SRC
 
 When enabled the symbol =🆂= should be displayed in the mode-line.
 
-* Key Bindings
+* Key bindings
 ** Compiling
 
-| Key Binding | Description                |
+| Key binding | Description                |
 |-------------+----------------------------|
 | ~SPC m c c~ | Compile current buffer     |
 | ~SPC m c p~ | Add directory to load path |
 
 ** Navigation
 
-| Key Binding | Description         |
+| Key binding | Description         |
 |-------------+---------------------|
 | ~SPC m g g~ | Goto Definition     |
 | ~SPC m g b~ | Go Back             |
@@ -77,7 +77,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 
 ** Documentation
 
-| Key Binding | Description                              |
+| Key binding | Description                              |
 |-------------+------------------------------------------|
 | ~SPC m h h~ | Docs for symbol at point                 |
 | ~SPC m h d~ | Look up manual entry for symbol at point |
@@ -87,13 +87,13 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 
 ** Insertion
 
-| Key Binding | Description   |
+| Key binding | Description   |
 |-------------+---------------|
 | ~SPC m i l~ | Insert Lambda |
 
 ** Macroexpansion
 
-| Key Binding | Description                  |
+| Key binding | Description                  |
 |-------------+------------------------------|
 | ~SPC m m e~ | Macroexpand last sexp        |
 | ~SPC m m f~ | Macroexpand surrounding sexp |
@@ -101,7 +101,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 
 ** REPL
 
-| Key Binding | Description                              |
+| Key binding | Description                              |
 |-------------+------------------------------------------|
 | ~SPC m s i~ | Start or switch to the REPL              |
 | ~SPC m s s~ | Select Scheme implementation             |
@@ -115,7 +115,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 
 ** Evaluation
 
-| Key Binding | Description               |
+| Key binding | Description               |
 |-------------+---------------------------|
 | ~SPC m e b~ | Evaluate the whole buffer |
 | ~SPC m e e~ | Evaluate last sexp        |

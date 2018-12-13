@@ -1,0 +1,30 @@
+#+TITLE: Speed Reading layer
+
+* Table of Contents                     :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+A speed reading mode for Emacs.
+
+** Features:
+- Support for =speed-reading= of arbitrary texts
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =speed-reading= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key binding | Description   |
+|-------------+---------------|
+| ~SPC a R~   | Start Spray   |
+| ~SPC~       | Pause Spray   |
+| ~h~         | Backward word |
+| ~l~         | Forward word  |
+| ~f~         | Faster speed  |
+| ~s~         | Slower speed  |
+| ~q~         | Quit Spray    |

@@ -2,7 +2,7 @@
 
 [[file:img/graphviz.png]]
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -33,7 +33,7 @@ compiler more time to finish generating the file before reverting the buffer.
 
 * Key bindings
 
-| Key Binding | Description                          |
+| Key binding | Description                          |
 |-------------+--------------------------------------|
 | ~SPC m ,~   | Preview file                         |
 | ~SPC m =~   | Indent graph                         |

@@ -2,12 +2,12 @@
 
 [[file:img/racket.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#structuraly-safe-editing][Structuraly safe editing]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#navigation][Navigation]]
   - [[#documentation][Documentation]]
   - [[#tests][Tests]]
@@ -28,10 +28,10 @@ Adds support for the [[http://racket-lang.org/][Racket]] programming language.
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =racket= to the existing =dotspacemacs-configuration-layers= list in this
 file. You will also need DrRacket installed. Alternatively, one can use the
-"Minimal Racket" installation, and then run the following command.
+“Minimal Racket” installation, and then run the following command.
 
 #+BEGIN_SRC Bash
-raco pkg install drracket
+  raco pkg install drracket
 #+END_SRC
 
 * Structuraly safe editing
@@ -45,21 +45,21 @@ To turn it on automatically for all =racket= buffers call the following
 function in your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-racket-mode)
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-racket-mode)
 #+END_SRC
 
 or to enable it for all supported modes:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 #+END_SRC
 
 When enabled the symbol =🆂= should be displayed in the mode-line.
 
-* Key Bindings
+* Key bindings
 ** Navigation
 
-| Key Binding | Description                         |
+| Key binding | Description                         |
 |-------------+-------------------------------------|
 | ~SPC m g `~ | Return to previous location         |
 | ~SPC m g g~ | Go to definition of symbol at point |
@@ -68,21 +68,21 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 
 ** Documentation
 
-| Key Binding | Description                                                   |
+| Key binding | Description                                                   |
 |-------------+---------------------------------------------------------------|
 | ~SPC m h d~ | Describes the function at point in a =Racket Describe= buffer |
 | ~SPC m h h~ | View documentation of the identifier or string at point.      |
 
 ** Tests
 
-| Key Binding | Description                       |
+| Key binding | Description                       |
 |-------------+-----------------------------------|
 | ~SPC m t b~ | Run tests of buffer               |
 | ~SPC m t B~ | Run tests of buffer with coverage |
 
 ** REPL
 
-| Key Binding | Description                                                     |
+| Key binding | Description                                                     |
 |-------------+-----------------------------------------------------------------|
 | ~SPC m s b~ | Send buffer to REPL                                             |
 | ~SPC m s B~ | Send buffer to REPL and switch to REPL buffer in =insert state= |
@@ -97,7 +97,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 
 ** Other key bindings
 
-| Key Binding | Description                                                                     |
+| Key binding | Description                                                                     |
 |-------------+---------------------------------------------------------------------------------|
 | ~SPC m i l~ | Insert lambda character                                                         |
 | ~H-r~       | Run current file and open REPL (=H= is hyper, *may* be bound to command on OSX) |

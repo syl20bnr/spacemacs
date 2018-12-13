@@ -7,6 +7,7 @@ eproject.lst
 .smex-items
 \#*
 .places
+.directory
 .cache
 /eww-bookmarks
 eshell/history
@@ -46,11 +47,16 @@ python-*-docs-html
 /srecode-map.el
 /recentf
 .mc-lists.el
+nov-places
+workspace
+eclipse.jdt.ls
+.trello
 
 # Private directory
 private/
 !private/README.md
 !private/snippets/README.md
+!private/templates/README.md
 !private/local/README.md
 /games/
 /doc/COMMUNITY.org

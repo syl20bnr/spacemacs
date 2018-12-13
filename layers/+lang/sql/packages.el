@@ -13,7 +13,15 @@
       '(
         company
         sql
-        sql-indent
+        ;; This mode is more up-to-date than the MELPA one.
+        ;; Turns out that it is available in GNU ELPA but we cannot
+        ;; force Spacemacs to fetch from it for now, it will always
+        ;; pickup the MELPA version. So for now we use an explicit
+        ;; recip to fetch from GitHUb the package.
+        (sql-indent :location (recipe
+                               :fetcher github
+                               :repo "alex-hhh/emacs-sql-indent"
+                               :files ("sql-indent.el")))
         (sqlup-mode :toggle sql-capitalize-keywords)
         ))
 
@@ -126,7 +134,10 @@
 
 (defun sql/init-sql-indent ()
   (use-package sql-indent
-    :defer t))
+    :if sql-auto-indent
+    :defer t
+    :init (add-hook 'sql-mode-hook 'sqlind-minor-mode)
+    :config (spacemacs|hide-lighter sqlind-minor-mode)))
 
 (defun sql/init-sqlup-mode ()
   (use-package sqlup-mode
@@ -140,7 +151,7 @@
         "=c" 'sqlup-capitalize-keywords-in-region))
     :config
     (progn
-      (spacemacs|diminish sqlup-mode)
+      (spacemacs|hide-lighter sqlup-mode)
       (setq sqlup-blacklist (append sqlup-blacklist
                                     sql-capitalize-keywords-blacklist)))))
 

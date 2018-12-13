@@ -13,5 +13,8 @@
 
 (spacemacs|define-jump-handlers js2-mode)
 
-(defvar javascript-disable-tern-port-files t
-  "Stops tern from creating tern port files.")
+(defvar javascript-backend 'tern
+  "The backend to use for IDE features. Possible values are `tern' and `lsp'.")
+
+(defvar javascript-fmt-tool 'web-beautify
+  "The formatter to format a JavaScript file. Possible values are `web-beautify' and `prettier'.")

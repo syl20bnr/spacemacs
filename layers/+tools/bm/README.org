@@ -1,10 +1,10 @@
 #+TITLE: bm layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#keybindings][Keybindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 [[https://github.com/joodland/bm/blob/master/README.md][BM]] provides visible, buffer local, bookmarks and the ability to jump forward and backward to the next bookmark.
@@ -27,8 +27,8 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =bm= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Keybindings
+* Key bindings
 
-| Key Binding | Description        |
+| Key binding | Description        |
 |-------------+--------------------|
 | ~SPC a b~   | bm transient state |

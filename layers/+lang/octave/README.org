@@ -2,7 +2,7 @@
 
 [[file:img/octave.png]]
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -43,7 +43,7 @@ Send code to inferior process with these commands:
 
 ** Helpers
 
-| Key Binding | Description                              |
+| Key binding | Description                              |
 |-------------+------------------------------------------|
 | ~SPC m h h~ | view documentation for function at point |
 | ~SPC m h i~ | read octave info documentation           |

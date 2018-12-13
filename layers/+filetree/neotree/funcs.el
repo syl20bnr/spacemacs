@@ -9,9 +9,9 @@
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs/neotree-expand-or-open ()
+(defun spacemacs/neotree-expand-or-open (&optional arg)
   "Expand or open a neotree node."
-  (interactive)
+  (interactive "P")
   (let ((node (neo-buffer--get-filename-current-line)))
     (when node
       (if (file-directory-p node)
@@ -21,7 +21,10 @@
             (when neo-auto-indent-point
               (next-line)
               (neo-point-auto-indent)))
-        (call-interactively 'neotree-enter)))))
+        (if arg
+            (neotree-enter arg)
+          (let ((mru-winum (winum-get-number (get-mru-window))))
+            (apply 'neotree-enter (list mru-winum))))))))
 
 (defun spacemacs/neotree-collapse ()
   "Collapse a neotree node."

@@ -2,7 +2,7 @@
 
 [[file:img/java.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#layer-installation][Layer Installation]]
@@ -24,6 +24,8 @@
     - [[#configuration-1][Configuration]]
     - [[#usage-1][Usage]]
     - [[#issues][Issues]]
+  - [[#lsp-java][LSP Java]]
+    - [[#usage-2][Usage]]
 - [[#key-bindings][Key bindings]]
   - [[#meghanada-1][Meghanada]]
     - [[#server][Server]]
@@ -58,6 +60,9 @@
     - [[#refactoring-2][Refactoring]]
     - [[#tests-1][Tests]]
     - [[#repl][REPL]]
+  - [[#lsp-java-1][LSP Java]]
+    - [[#code-intelligence-shorcuts][Code intelligence shorcuts]]
+    - [[#debugger-shorcuts][Debugger shorcuts]]
   - [[#maven][Maven]]
   - [[#gradle][Gradle]]
 
@@ -69,6 +74,7 @@ This layer adds support for the Java language.
   - [[https://github.com/mopemope/meghanada-emacs][Meghanada]] client/server (default),
   - [[http://eclim.org][Eclim]] client/server,
   - [[https://ensime.github.io/][ENSIME]] client/server.
+  - [[https://github.com/emacs-lsp/lsp-java][LSP Java]] client/server.
 - Each provides:
   - Auto-completion using company
   - Linting using flycheck integration
@@ -84,7 +90,7 @@ file.
 To choose a default backend set the layer variable =java-backend=:
 
 #+BEGIN_SRC elisp
-(java :variables java-backend 'eclim)
+  (java :variables java-backend 'eclim)
 #+END_SRC
 
 Backend can be chosen on a per project basis using directory local variables
@@ -92,10 +98,10 @@ Backend can be chosen on a per project basis using directory local variables
 =eclim= backend:
 
 #+BEGIN_SRC elisp
-;;; Directory Local Variables
-;;; For more information see (info "(emacs) Directory Variables")
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
 
-((java-mode (java-backend . eclim)))
+  ((java-mode (java-backend . eclim)))
 #+END_SRC
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
@@ -103,9 +109,10 @@ Backend can be chosen on a per project basis using directory local variables
 If you want to use the Ensime backend, you should modify your =~/.spacemacs= to
 use the recommended Ensime version (Stable). Please add the following lines to
 =dotspacemacs/user-init=:
+
 #+BEGIN_SRC emacs-lisp
-  (push '("melpa-stable" . "stable.melpa.org/packages/") configuration-layer-elpa-archives)
-  (push '(ensime . "melpa-stable") package-pinned-packages)
+  (add-to-list 'configuration-layer-elpa-archives '("melpa-stable" . "stable.melpa.org/packages/"))
+  (add-to-list 'package-pinned-packages '(ensime . "melpa-stable"))
 #+END_SRC
 
 * Backends
@@ -154,7 +161,7 @@ command (the example is for MacOS, replace the eclispe.home definition by
 your correct location as well as the current version of eclim):
 
 #+BEGIN_SRC shell
-$ java -Dvim.skip=true -Declipse.home=/Applications/Eclipse.app/Contents/Eclipse -jar eclim_2.6.0.jar install
+  $ java -Dvim.skip=true -Declipse.home=/Applications/Eclipse.app/Contents/Eclipse -jar eclim_2.6.0.jar install
 #+END_SRC
 
 *** Configuration
@@ -162,24 +169,24 @@ You may need to set the Eclipse and Eclim paths in your dotfile as layer
 variables or in the =dotspacemacs/user-config=, for instance on MacOS as layer
 variables:
 
- #+BEGIN_SRC elisp
-(java :variables java-backend 'eclim
-                 eclim-eclipse-dirs '("/Applications/Eclipse.app/Contents/Eclipse/")
-                 eclim-executable "/Applications/Eclipse.app/Contents/Eclipse/eclim")
- #+END_SRC
+#+BEGIN_SRC elisp
+  (java :variables java-backend 'eclim
+                   eclim-eclipse-dirs '("/Applications/Eclipse.app/Contents/Eclipse/")
+                   eclim-executable "/Applications/Eclipse.app/Contents/Eclipse/eclim")
+#+END_SRC
 
 You can also configure useful other options like the default location for the
 Eclim workspace (default value is =~/workspace=), as shown below:
 
- #+BEGIN_SRC elisp
-   (setq
-    ;; Specify the workspace to use by default
-    eclimd-default-workspace "/path/to/default/eclipse/workspace"
-    ;; wether autostarting eclimd or not (default nil)
-    eclimd-autostart t
-    ;; Whether or not to block emacs until eclimd is ready (default nil)
-    eclimd-wait-for-process t)
- #+END_SRC
+#+BEGIN_SRC elisp
+  (setq
+   ;; Specify the workspace to use by default
+   eclimd-default-workspace "/path/to/default/eclipse/workspace"
+   ;; whether autostarting eclimd or not (default nil)
+   eclimd-autostart t
+   ;; Whether or not to block emacs until eclimd is ready (default nil)
+   eclimd-wait-for-process t)
+#+END_SRC
 
 *** Usage
 Start the eclim daemon with ~SPC m D s~ and stop it with ~SPC m D k~. (See
@@ -198,9 +205,11 @@ Java projects as well.
 
 *** Installation when using SBT
 Find it with your favourite package manager, eg:
+
 #+BEGIN_SRC shell
   nix-env --install sbt
 #+END_SRC
+
 or refer to [[http://www.scala-sbt.org/download.html][the sbt installation instructions]].
 
 *** Installation when using Gradle
@@ -212,8 +221,9 @@ Follow [[https://ensime.github.io/build_tools/sbt/][the ENSIME configuration ins
 the development version of Ensime so follow the appropriate steps.
 
 To use the build functions under ~SPC m b~ you need to use version =0.13.5= or
-newer of =sbt=, and specify that in your project's =project/build.properties=.
+newer of =sbt=, and specify that in your project’s =project/build.properties=.
 For example,
+
 #+BEGIN_SRC scala
   sbt.version=0.13.11
 #+END_SRC
@@ -225,186 +235,193 @@ will suffice do the trick.
 
 *** Issues
 ENSIME is originally built for Scala, so support for java is not complete, in
-particular refactoring doesn't work.
+particular refactoring doesn’t work.
+
+** LSP Java
+LSP Java is the Java adapter for [[https://github.com/emacs-lsp/lsp-mode][LSP Mode]] which is the Emacs client for [[https://github.com/Microsoft/language-server-protocol][Language Server Protocol]].
+
+*** Usage
+Open a java file and the ~lsp-java~ will automatically download the server
+and ask you which projects you want to import.
 
 * Key bindings
 ** Meghanada
 *** Server
 
- | Key Binding | Description                                  |
- |-------------+----------------------------------------------|
- | ~SPC m D c~ | Connect to server                            |
- | ~SPC m D d~ | Disconnect from server                       |
- | ~SPC m D i~ | Install server (should be done automatically |
- | ~SPC m D k~ | Kill server                                  |
- | ~SPC m D l~ | Clear server cache                           |
- | ~SPC m D p~ | Ping server                                  |
- | ~SPC m D r~ | Restarrt server                              |
- | ~SPC m D s~ | Start server                                 |
- | ~SPC m D u~ | Update server                                |
- | ~SPC m D v~ | Print version of the server                  |
+| Key binding | Description                                  |
+|-------------+----------------------------------------------|
+| ~SPC m D c~ | Connect to server                            |
+| ~SPC m D d~ | Disconnect from server                       |
+| ~SPC m D i~ | Install server (should be done automatically |
+| ~SPC m D k~ | Kill server                                  |
+| ~SPC m D l~ | Clear server cache                           |
+| ~SPC m D p~ | Ping server                                  |
+| ~SPC m D r~ | Restart server                               |
+| ~SPC m D s~ | Start server                                 |
+| ~SPC m D u~ | Update server                                |
+| ~SPC m D v~ | Print version of the server                  |
 
 *** Navigation
 
- | Key Binding | Description                    |
- |-------------+--------------------------------|
- | ~SPC m g b~ | Jump back to previous location |
- | ~SPC m g g~ | Jump to declaration            |
+| Key binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC m g b~ | Jump back to previous location |
+| ~SPC m g g~ | Jump to declaration            |
 
 *** Compilation
 
- | Key Binding | Description           |
- |-------------+-----------------------|
- | ~SPC m c b~ | Compile file (buffer) |
- | ~SPC m c c~ | Compile project       |
+| Key binding | Description           |
+|-------------+-----------------------|
+| ~SPC m c b~ | Compile file (buffer) |
+| ~SPC m c c~ | Compile project       |
 
 *** Tests (junit)
 
- | Key Binding | Description                 |
- |-------------+-----------------------------|
- | ~SPC m t a~ | Run all tests               |
- | ~SPC m t c~ | Run test class around point |
- | ~SPC m t l~ | Run last tests              |
- | ~SPC m t t~ | Run test cause around point |
+| Key binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m t a~ | Run all tests               |
+| ~SPC m t c~ | Run test class around point |
+| ~SPC m t l~ | Run last tests              |
+| ~SPC m t t~ | Run test cause around point |
 
 *** Refactoring
 
- | Key Binding | Description                            |
- |-------------+----------------------------------------|
- | ~SPC m =~   | Beautify code                          |
- | ~SPC m r i~ | Optimize imports                       |
- | ~SPC m r I~ | Import all                             |
- | ~SPC m r n~ | Create a new class, interface, or enum |
+| Key binding | Description                            |
+|-------------+----------------------------------------|
+| ~SPC m =~   | Beautify code                          |
+| ~SPC m r i~ | Optimize imports                       |
+| ~SPC m r I~ | Import all                             |
+| ~SPC m r n~ | Create a new class, interface, or enum |
 
 *** Tasks
 
- | Key Binding | Description |
- |-------------+-------------|
- | ~SPC m x :~ | Run task    |
+| Key binding | Description |
+|-------------+-------------|
+| ~SPC m x :~ | Run task    |
 
 ** Eclim
 *** Java-mode
 **** Ant
 
- | Key Binding | Description     |
- |-------------+-----------------|
- | ~SPC m a a~ | Run Ant         |
- | ~SPC m a c~ | Clear Ant cache |
- | ~SPC m a r~ | Run Ant         |
- | ~SPC m a v~ | Validate        |
+| Key binding | Description     |
+|-------------+-----------------|
+| ~SPC m a a~ | Run Ant         |
+| ~SPC m a c~ | Clear Ant cache |
+| ~SPC m a r~ | Run Ant         |
+| ~SPC m a v~ | Validate        |
 
 **** Project management
 
- | Key Binding | Description                    |
- |-------------+--------------------------------|
- | ~SPC m p b~ | Build project                  |
- | ~SPC m p c~ | Create project                 |
- | ~SPC m p d~ | Delete project                 |
- | ~SPC m p g~ | Open file in current project   |
- | ~SPC m p i~ | Import project                 |
- | ~SPC m p j~ | Information about project      |
- | ~SPC m p k~ | Close project                  |
- | ~SPC m p o~ | Open project                   |
- | ~SPC m p p~ | Open project management buffer |
- | ~SPC m p r~ | Run project                    |
- | ~SPC m p u~ | Update project                 |
+| Key binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC m p b~ | Build project                  |
+| ~SPC m p c~ | Create project                 |
+| ~SPC m p d~ | Delete project                 |
+| ~SPC m p g~ | Open file in current project   |
+| ~SPC m p i~ | Import project                 |
+| ~SPC m p j~ | Information about project      |
+| ~SPC m p k~ | Close project                  |
+| ~SPC m p o~ | Open project                   |
+| ~SPC m p p~ | Open project management buffer |
+| ~SPC m p r~ | Run project                    |
+| ~SPC m p u~ | Update project                 |
 
 **** Eclim daemon
 
- | Key Binding | Description  |
- |-------------+--------------|
- | ~SPC m D k~ | Kill daemon  |
- | ~SPC m D s~ | Start daemon |
+| Key binding | Description  |
+|-------------+--------------|
+| ~SPC m D k~ | Kill daemon  |
+| ~SPC m D s~ | Start daemon |
 
 **** Goto
 
- | Key Binding | Description                                 |
- |-------------+---------------------------------------------|
- | ~M-​,​~       | jump back from go to declaration/definition |
- | ~SPC m g g~ | go to declaration                           |
- | ~SPC m g t~ | go to type definition                       |
+| Key binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~M-​,​~       | jump back from go to declaration/definition |
+| ~SPC m g g~ | go to declaration                           |
+| ~SPC m g t~ | go to type definition                       |
 
 **** Refactoring
 
- | Key Binding | Description                            |
- |-------------+----------------------------------------|
- | ~SPC m r c~ | create a constructor                   |
- | ~SPC m r f~ | format file                            |
- | ~SPC m r g~ | generate getter and setter             |
- | ~SPC m r i~ | optimize imports                       |
- | ~SPC m r j~ | implement or override a method         |
- | ~SPC m r n~ | create a new class, enum, or interface |
- | ~SPC m r r~ | rename symbol                          |
+| Key binding | Description                            |
+|-------------+----------------------------------------|
+| ~SPC m r c~ | create a constructor                   |
+| ~SPC m r f~ | format file                            |
+| ~SPC m r g~ | generate getter and setter             |
+| ~SPC m r i~ | optimize imports                       |
+| ~SPC m r j~ | implement or override a method         |
+| ~SPC m r n~ | create a new class, enum, or interface |
+| ~SPC m r r~ | rename symbol                          |
 
 **** Documentation, Find
 
- | Key Binding | Description                            |
- |-------------+----------------------------------------|
- | ~SPC m f f~ | general find in project                |
- | ~SPC m h c~ | call hierarchy                         |
- | ~SPC m h h~ | show documentation for symbol at point |
- | ~SPC m h i~ | view hierarchy                         |
- | ~SPC m h u~ | show usages for symbol at point        |
+| Key binding | Description                            |
+|-------------+----------------------------------------|
+| ~SPC m f f~ | general find in project                |
+| ~SPC m h c~ | call hierarchy                         |
+| ~SPC m h h~ | show documentation for symbol at point |
+| ~SPC m h i~ | view hierarchy                         |
+| ~SPC m h u~ | show usages for symbol at point        |
 
 **** Errors (problems)
 
- | Key Binding | Description                |
- |-------------+----------------------------|
- | ~SPC e e~   | Force an error check       |
- | ~SPC e l~   | List errors                |
- | ~SPC e n~   | Next error                 |
- | ~SPC e p~   | Previous error             |
- | ~SPC m e e~ | Correct error around point |
+| Key binding | Description                |
+|-------------+----------------------------|
+| ~SPC e e~   | Force an error check       |
+| ~SPC e l~   | List errors                |
+| ~SPC e n~   | Next error                 |
+| ~SPC e p~   | Previous error             |
+| ~SPC m e e~ | Correct error around point |
 
 **** Tests
 
- | Key Binding | Description                                                   |
- |-------------+---------------------------------------------------------------|
- | ~SPC m t t~ | run JUnit tests for current method or current file or project |
+| Key binding | Description                                                   |
+|-------------+---------------------------------------------------------------|
+| ~SPC m t t~ | run JUnit tests for current method or current file or project |
 
 *** Errors (problems) buffer
 
- | Key Binding | Description                         |
- |-------------+-------------------------------------|
- | ~RET~       | go to problem place                 |
- | ~a~         | show all problems                   |
- | ~e~         | show only errors                    |
- | ~f~         | show problems only for current file |
- | ~g~         | refresh problems                    |
- | ~q~         | quit                                |
- | ~w~         | show only warnings                  |
+| Key binding | Description                         |
+|-------------+-------------------------------------|
+| ~RET~       | go to problem place                 |
+| ~a~         | show all problems                   |
+| ~e~         | show only errors                    |
+| ~f~         | show problems only for current file |
+| ~g~         | refresh problems                    |
+| ~q~         | quit                                |
+| ~w~         | show only warnings                  |
 
 *** Projects buffer
 
- | Key Binding | Description                                |
- |-------------+--------------------------------------------|
- | ~RET~       | go to current project                      |
- | ~c~         | go to problem place                        |
- | ~D~         | delete project                             |
- | ~g~         | refresh buffer                             |
- | ~i~         | info about current project                 |
- | ~I~         | import existing project into the workspace |
- | ~m~         | mark current project                       |
- | ~M~         | mark all projects                          |
- | ~N~         | create new project                         |
- | ~o~         | open project                               |
- | ~p~         | update project                             |
- | ~q~         | quit                                       |
- | ~R~         | rename current project                     |
- | ~u~         | unmark current project                     |
- | ~U~         | unmark all projects                        |
+| Key binding | Description                                |
+|-------------+--------------------------------------------|
+| ~RET~       | go to current project                      |
+| ~c~         | go to problem place                        |
+| ~D~         | delete project                             |
+| ~g~         | refresh buffer                             |
+| ~i~         | info about current project                 |
+| ~I~         | import existing project into the workspace |
+| ~m~         | mark current project                       |
+| ~M~         | mark all projects                          |
+| ~N~         | create new project                         |
+| ~o~         | open project                               |
+| ~p~         | update project                             |
+| ~q~         | quit                                       |
+| ~R~         | rename current project                     |
+| ~u~         | unmark current project                     |
+| ~U~         | unmark all projects                        |
 
 ** Ensime key bindings
 *** Search
 
-| Key Binding | Description                                         |
+| Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC m /~   | incremental search using =ensime-scalex= major mode |
 | ~SPC m ?~   | incremental search in all live buffers              |
 
 *** Ensime Search Mode
 
-| Key Binding | Description                                                       |
+| Key binding | Description                                                       |
 |-------------+-------------------------------------------------------------------|
 | ~C-j~       | Move to next match                                                |
 | ~C-k~       | Move to previous match                                            |
@@ -414,7 +431,7 @@ particular refactoring doesn't work.
 
 *** sbt
 
-| Key Binding | Description         |
+| Key binding | Description         |
 |-------------+---------------------|
 | ~SPC m b .~ | sbt transient state |
 | ~SPC m b b~ | sbt command         |
@@ -426,14 +443,13 @@ particular refactoring doesn't work.
 
 *** Typecheck
 
-| Key Binding | Description                     |
-|-------------+---------------------------------|
-| ~SPC m c t~ | type check the current file     |
-| ~SPC m c T~ | type check all the open buffers |
+| Key binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m c t~ | type check the current file |
 
 *** Debug
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC m d A~ | Attach to a remote debugger |
 | ~SPC m d b~ | set breakpoint              |
@@ -452,19 +468,16 @@ particular refactoring doesn't work.
 
 *** Errors
 
-| Key Binding | Description                                        |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC m e e~ | print error at point                               |
-| ~SPC m e l~ | show all errors and warnings                       |
 | ~SPC m e s~ | switch to buffer containing the stack trace parser |
 
 *** Goto
 
-| Key Binding | Description          |
-|-------------+----------------------|
-| ~SPC m g g~ | go to definition     |
-| ~SPC m g i~ | go to implementation |
-| ~SPC m g t~ | go to test           |
+| Key binding | Description      |
+|-------------+------------------|
+| ~SPC m g g~ | go to definition |
 
 *** Print and yank types
 
@@ -476,17 +489,14 @@ particular refactoring doesn't work.
 
 *** Documentation, Inspect
 
-| Key Binding | Description                            |
+| Key binding | Description                            |
 |-------------+----------------------------------------|
 | ~SPC m h h~ | show documentation for symbol at point |
 | ~SPC m h u~ | show uses for symbol at point          |
-| ~SPC m i i~ | inspect type at point                  |
-| ~SPC m i I~ | inspect type in other frame            |
-| ~SPC m i p~ | inspect project package                |
 
 *** Server
 
-| Key Binding | Description                                            |
+| Key binding | Description                                            |
 |-------------+--------------------------------------------------------|
 | ~SPC m D f~ | reload open files                                      |
 | ~SPC m D r~ | regenerate the =.ensime= and restart the ensime server |
@@ -494,10 +504,9 @@ particular refactoring doesn't work.
 
 *** Refactoring
 
-| Key Binding | Description                                                          |
+| Key binding | Description                                                          |
 |-------------+----------------------------------------------------------------------|
 | ~SPC m r a~ | add type annotation                                                  |
-| ~SPC m r f~ | format source                                                        |
 | ~SPC m r d~ | get rid of an intermediate variable (=ensime-refactor-inline-local=) |
 | ~SPC m r D~ | get rid of an intermediate variable (=ensime-undo-peek=)             |
 | ~SPC m r i~ | organize imports                                                     |
@@ -509,7 +518,7 @@ particular refactoring doesn't work.
 
 *** Tests
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~SPC m t a~ | test command (sbt)       |
 | ~SPC m t r~ | test quick command (sbt) |
@@ -517,7 +526,7 @@ particular refactoring doesn't work.
 
 *** REPL
 
-| Key Binding | Description                                                         |
+| Key binding | Description                                                         |
 |-------------+---------------------------------------------------------------------|
 | ~SPC m s a~ | ask for a file to be loaded in the REPL                             |
 | ~SPC m s b~ | send buffer to the REPL                                             |
@@ -526,9 +535,92 @@ particular refactoring doesn't work.
 | ~SPC m s r~ | send region to the REPL                                             |
 | ~SPC m s R~ | send region to the REPL and focus the REPL buffer in =insert state= |
 
+** LSP Java
+*** Code intelligence shorcuts
+
+| Key binding   | Description                           |
+|---------------+---------------------------------------|
+| ~SPC m g g~   | Go to definition                      |
+| ~SPC m g r~   | Find references                       |
+| ~SPC m g R~   | Peek references using ~lsp-ui~        |
+| ~SPC m g d~   | Goto type definition                  |
+| ~SPC m g a~   | Search type in project                |
+| ~SPC m g A~   | Search type in project using ~lsp-ui~ |
+| ~SPC m h h~   | Describe thing at point               |
+| ~SPC m e l~   | List project errors/warnings          |
+| ~SPC m p u~   | Refresh user settings                 |
+| ~SPC m e a~   | Execute code action                   |
+| ~SPC m q r~   | Restart workspace                     |
+| ~SPC m r o i~ | Organize imports                      |
+| ~SPC m r r~   | Rename symbol                         |
+| ~SPC m r a i~ | Add import                            |
+| ~SPC m r a m~ | Add unimplemented methods             |
+| ~SPC m r c p~ | Create parameter                      |
+| ~SPC m r c f~ | Create field                          |
+| ~SPC m r e c~ | Extract constant                      |
+| ~SPC m r e l~ | Extract local                         |
+| ~SPC m r e m~ | Extract method                        |
+| ~SPC m c c~   | Build project                         |
+| ~SPC m a n~   | Actionable notifications              |
+| ~SPC m =~     | Format code                           |
+
+*** Debugger shorcuts
+
+| Key binding   | Description                     |
+|---------------+---------------------------------|
+| ~SPC m d t t~ | Debug test method               |
+| ~SPC m d t c~ | Debug test class                |
+| ~SPC m d j~   | Debug java class(main method).  |
+|---------------+---------------------------------|
+| ~SPC m t t~   | Run test method                 |
+| ~SPC m t c~   | Run test class                  |
+|---------------+---------------------------------|
+| ~SPC m d d d~ | start debugging                 |
+| ~SPC m d d l~ | debug last configuration        |
+| ~SPC m d d r~ | debug recent configuration      |
+|---------------+---------------------------------|
+| ~SPC m d c~   | continue                        |
+| ~SPC m d i~   | step in                         |
+| ~SPC m d o~   | step out                        |
+| ~SPC m d s~   | next step                       |
+| ~SPC m d v~   | inspect value at point          |
+| ~SPC m d r~   | restart frame                   |
+|---------------+---------------------------------|
+| ~SPC m d .~   | debug transient state           |
+|---------------+---------------------------------|
+| ~SPC m d a~   | abandon current session         |
+| ~SPC m d A~   | abandon all process             |
+|---------------+---------------------------------|
+| ~SPC m d e e~ | eval                            |
+| ~SPC m d e r~ | eval region                     |
+| ~SPC m d e t~ | eval value at point             |
+|---------------+---------------------------------|
+| ~SPC m d S s~ | switch session                  |
+| ~SPC m d S t~ | switch thread                   |
+| ~SPC m d S f~ | switch frame                    |
+|---------------+---------------------------------|
+| ~SPC m d I i~ | inspect                         |
+| ~SPC m d I r~ | inspect region                  |
+| ~SPC m d I t~ | inspect value at point          |
+|---------------+---------------------------------|
+| ~SPC m d b b~ | toggle a breakpoint             |
+| ~SPC m d b c~ | change breakpoint condition     |
+| ~SPC m d b l~ | change breakpoint log condition |
+| ~SPC m d b h~ | change breakpoint hit count     |
+| ~SPC m d b a~ | add a breakpoint                |
+| ~SPC m d b d~ | delete a breakpoint             |
+| ~SPC m d b D~ | clear all breakpoints           |
+|---------------+---------------------------------|
+| ~SPC m d '_~  | Run debug REPL                  |
+|---------------+---------------------------------|
+| ~SPC m d w l~ | list local variables            |
+| ~SPC m d w o~ | goto output buffer if present   |
+| ~SPC m d w s~ | list sessions                   |
+| ~SPC m d w b~ | list breakpoints                |
+
 ** Maven
 
-| Key Binding     | Description                                          |
+| Key binding     | Description                                          |
 |-----------------+------------------------------------------------------|
 | ~SPC m m c c~   | Compile                                              |
 | ~SPC m m c C~   | Clean                                                |
@@ -543,7 +635,7 @@ particular refactoring doesn't work.
 
 ** Gradle
 
-| Key Binding   | Description              |
+| Key binding   | Description              |
 |---------------+--------------------------|
 | ~SPC m l c c~ | Compile                  |
 | ~SPC m l c C~ | Clean                    |

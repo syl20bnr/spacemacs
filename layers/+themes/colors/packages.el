@@ -44,12 +44,11 @@
 
 (defun colors/init-color-identifiers-mode ()
   (use-package color-identifiers-mode
-    :commands color-identifiers-mode
     :defer t
     :init
     (progn
       (when (eq 'variables colors-colorize-identifiers)
-        (global-color-identifiers-mode))
+        (add-hook 'prog-mode-hook 'color-identifiers-mode))
       (spacemacs/declare-prefix "Ci" "colors-identifiers")
       (spacemacs|add-toggle color-identifiers-mode
         :status color-identifiers-mode

@@ -1,13 +1,14 @@
 #+TITLE: CMake layer
+
 [[file:img/cmake.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#cmake-ide-configuration][CMake-ide configuration]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support [[https://cmake.org/][CMake]] scripts.
@@ -15,7 +16,7 @@ This layer adds support [[https://cmake.org/][CMake]] scripts.
 ** Features:
 - Support for CMake configure/build (with limited support for other build systems),
   automatic generation of =compile_commands.json= (compile flags), on-the-fly configuration
-  of flycheck, company-clang and RTags (if installed) with [[https://github.com/atilaneves/cmake-ide][cmake-ide]] .
+  of flycheck, company-clang and RTags (if installed) with [[https://github.com/atilaneves/cmake-ide][cmake-ide]].
 - Run selected test using =Helm= interface via =helm-ctest=.
 
 * Install
@@ -42,7 +43,7 @@ Here is a sample configuration. This configuration forces =cmake-ide= to use the
 local directory and pass that directory to =helm-make=. Such config allows to
 build your project with ~SPC c c~ key binding.
 
-Additionally it's possible to configure =helm-ctest= in the same way via defining ~helm-ctest-dir~.
+Additionally it’s possible to configure =helm-ctest= in the same way via defining ~helm-ctest-dir~.
 Trailing slash is required.
 
 #+BEGIN_SRC emacs-lisp
@@ -56,9 +57,25 @@ Trailing slash is required.
          )))
 #+END_SRC
 
-* Key Bindings
+In case of projectile it’s possible to configure project like:
 
-| Key Binding | Description                                                             |
+#+BEGIN_SRC emacs-lisp
+  ((nil . ((eval . (setq
+                    projectile-project-test-cmd #'helm-ctest
+                    projectile-project-compilation-cmd #'helm-make-projectile
+                    projectile-project-compilation-dir "build"
+                    helm-make-build-dir (projectile-compilation-dir)
+                    helm-ctest-dir (projectile-compilation-dir)
+                    ))
+           (projectile-project-name . "My Cool Project")
+           (projectile-project-run-cmd . "./run.sh")
+           (projectile-project-configure-cmd . "cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..")
+           (helm-make-arguments . "-j7"))))
+#+END_SRC
+
+* Key bindings
+
+| Key binding | Description                                                             |
 |-------------+-------------------------------------------------------------------------|
 | ~SPC m p c~ | Run CMake and set compiler flags for auto-completion and flycheck       |
 | ~SPC m p C~ | Run CMake if compilation database JSON file is not found                |

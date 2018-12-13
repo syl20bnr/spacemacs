@@ -15,6 +15,11 @@
 (defconst dotspacemacs-test-results-buffer "*dotfile-test-results*"
   "Name of the buffer to display dotfile test results.")
 
+(defvar dotspacemacs--user-config-elapsed-time 0
+  "Time spent in `dotspacemacs/user-config' function.
+Useful for users in order to given them a hint of potential bottleneck in
+their configuration.")
+
 (let* ((env (getenv "SPACEMACSDIR"))
        (env-dir (when env (expand-file-name (concat env "/"))))
        (env-init (and env-dir (expand-file-name "init.el" env-dir)))
@@ -54,6 +59,22 @@ exists. Otherwise, fallback to ~/.spacemacs"))
   "Base distribution to use. This is a layer contained in the directory
 `+distributions'. For now available distributions are `spacemacs-base'
 or `spacemacs'.")
+
+(defvar dotspacemacs-enable-emacs-pdumper nil
+  "If non-nil then enable support for the portable dumper. You'll need
+to compile Emacs 27 from source following the instructions in file
+EXPERIMENTAL.org at to root of the git repository.")
+
+(defvar dotspacemacs-emacs-pdumper-executable-file "emacs-27.0.50"
+  "File path pointing to emacs 27.1 executable compiled with support for the
+portable dumper (this is currently the branch pdumper.")
+
+(defvar dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"
+  "Name of the Spacemacs dump file. This is the file will be created by the
+portable dumper in the cache directory under dumps sub-directory.
+To load it when starting Emacs add the parameter `--dump-file'
+when invoking Emacs 27.1 executable on the command line, for instance:
+./emacs --dump-file=/Users/sylvain/.emacs.d/.cache/dumps/spacemacs.pdmp")
 
 (defvar dotspacemacs-gc-cons '(100000000 0.1)
   "Set `gc-cons-threshold' and `gc-cons-percentage' when startup finishes.
@@ -114,7 +135,7 @@ packages then consider to create a layer, you can also put the
 configuration in `dotspacemacs/user-config'.")
 
 (defvar dotspacemacs--additional-theme-packages '()
-  "Same as `dotspacemacs-additonal-packages' but reserved for themes declared
+  "Same as `dotspacemacs-additional-packages' but reserved for themes declared
 in `dotspacemacs-themes'.")
 
 (defvar dotspacemacs-editing-style 'vim
@@ -157,11 +178,12 @@ with 2 themes variants, one dark and one light")
 
 (defvar dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
   "Set the theme for the Spaceline. Supported themes are `spacemacs',
-`all-the-icons', `custom', `vim-powerline' and `vanilla'. The first three
-are spaceline themes. `vanilla' is default Emacs mode-line. `custom' is a
-user defined themes, refer to the DOCUMENTATION.org for more info on how
-to create your own spaceline theme. Value can be a symbol or a list with
-additional properties like '(all-the-icons :separator-scale 1.5).")
+`all-the-icons', `custom', `doom',`vim-powerline' and `vanilla'. The first three
+are spaceline themes. `doom' is the doom-emacs mode-line. `vanilla' is default
+Emacs mode-line. `custom' is a user defined themes, refer to the
+DOCUMENTATION.org for more info on how to create your own spaceline theme. Value
+can be a symbol or a list with additional properties like '(all-the-icons
+:separator-scale 1.5).")
 
 (defvar dotspacemacs-frame-title-format "%I@%S"
   "Default format string for a frame title bar, using the
@@ -210,19 +232,6 @@ emacs.")
   "Default font, or prioritized list of fonts. This setting has no effect when
 running Emacs in terminal.")
 
-(defvar dotspacemacs-remap-Y-to-y$ nil
-  "If non nil `Y' is remapped to `y$' in Evil states.")
-
-(defvar dotspacemacs-retain-visual-state-on-shift t
-  "If non-nil, the shift mappings `<' and `>' retain visual state
-if used there.")
-
-(defvar dotspacemacs-visual-line-move-text nil
-  "If non-nil, J and K move lines up and down when in visual mode.")
-
-(defvar dotspacemacs-ex-substitute-global nil
-  "If non nil, inverse the meaning of `g' in `:substitute' Evil ex-command.")
-
 (defvar dotspacemacs-folding-method 'evil
   "Code folding method. Possible values are `evil' and `origami'.")
 
@@ -254,8 +263,9 @@ auto-save the file in-place, `cache' to auto-save the file to another
 file stored in the cache directory and `nil' to disable auto-saving.")
 
 (defvar dotspacemacs-enable-paste-transient-state nil
-  "If non-nil, the paste transient-state is enabled. While enabled, pressing
-`p' several times cycles through the elements in the `kill-ring'.")
+  "If non-nil, the paste transient-state is enabled. While enabled, after you
+paste something, pressing `C-j' and `C-k' several times cycles through the
+elements in the `kill-ring'.")
 (defvaralias
   'dotspacemacs-enable-paste-micro-state
   'dotspacemacs-enable-paste-transient-state
@@ -313,7 +323,9 @@ can be toggled through `toggle-transparency'.")
   "If non nil show the color guide hint for transient state keys.")
 
 (defvar dotspacemacs-mode-line-unicode-symbols t
-  "If non nil unicode symbols are displayed in the mode-line (eg. for lighters)")
+  "If non nil unicode symbols are displayed in the mode-line (eg. for lighters).
+If you use Emacs as a daemon and wants unicode characters only in GUI set
+the value to quoted `display-graphic-p'. (default t)")
 
 (defvar dotspacemacs-smooth-scrolling t
   "If non nil smooth scrolling (native-scrolling) is enabled.
@@ -337,11 +349,17 @@ This variable can also be set to a property list for finer control:
 The property `:enabled-for-modes' takes priority over `:disabled-for-modes' and
 restricts line-number to the specified list of major-mode.")
 
-(defvar dotspacemacs-enable-server t
+(defvar dotspacemacs-enable-server nil
   "If non-nil, start an Emacs server if one is not already running.")
 
 (defvar dotspacemacs-persistent-server nil
   "If non nil advises quit functions to keep server open when quitting.")
+
+(defvar dotspacemacs-server-socket-dir nil
+  "Set the emacs server socket location.
+If nil, uses whatever the Emacs default is,
+otherwise a directory path like \"~/.emacs.d/server\".
+Has no effect if `dotspacemacs-enable-server' is nil.")
 
 (defvar dotspacemacs-smartparens-strict-mode nil
   "If non-nil smartparens-strict-mode will be enabled in programming modes.")
@@ -422,6 +440,21 @@ are caught and signaled to user in spacemacs buffer."
                                            (error-message-string err))
                                    t))))))
 
+(defun dotspacemacs/call-user-env ()
+  "Call the function `dotspacemacs/user-env'."
+  (interactive)
+  (dotspacemacs|call-func dotspacemacs/user-env "Calling dotfile user env..."))
+
+(defun dotspacemacs/go-to-function (func)
+  "Open the dotfile and goes to FUNC function."
+  (interactive)
+  (find-function func))
+
+(defun dotspacemacs/go-to-user-env ()
+  "Go to the `dotspacemacs/user-env' function."
+  (interactive)
+  (dotspacemacs/go-to-function 'dotspacemacs/user-env))
+
 (defun dotspacemacs//check-layers-changed ()
   "Check if the value of `dotspacemacs-configuration-layers'
 changed, and issue a warning if it did."
@@ -440,7 +473,7 @@ the symbol of an editing style and the cdr is a list of keyword arguments like
   (cond
    ((symbolp config) config)
    ((listp config)
-    (let ((variables (spacemacs/mplist-get config :variables)))
+    (let ((variables (spacemacs/mplist-get-values config :variables)))
       (while variables
         (let ((var (pop variables)))
           (if (consp variables)
@@ -474,11 +507,19 @@ Returns non nil if the layer has been effectively inserted."
     (load-file (dotspacemacs/location))
     t))
 
+(defun dotspacemacs//profile-user-config (f &rest args)
+  "Compute time taken by the `dotspacemacs/user-config' function.
+Set the variable"
+  (let ((stime (current-time)))
+    (apply f args)
+    (setq dotspacemacs--user-config-elapsed-time
+          (float-time (time-subtract (current-time) stime)))))
+
 (defun dotspacemacs/sync-configuration-layers (&optional arg)
   "Synchronize declared layers in dotfile with spacemacs.
 
 Called with `C-u' skips `dotspacemacs/user-config'.
-Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
+Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preliminary tests."
   (interactive "P")
   (when (file-exists-p dotspacemacs-filepath)
     (with-current-buffer (find-file-noselect dotspacemacs-filepath)
@@ -496,7 +537,10 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
                 (setq dotspacemacs-editing-style
                       (dotspacemacs//read-editing-style-config
                        dotspacemacs-editing-style))
-                (configuration-layer/load)
+                (dotspacemacs/call-user-env)
+                ;; try to force a redump when reloading the configuration
+                (let ((spacemacs-force-dump t))
+                  (configuration-layer/load))
                 (if (member arg '((4) (16)))
                     (message (concat "Done (`dotspacemacs/user-config' "
                                      "function has been skipped)."))
@@ -508,7 +552,7 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
             (spacemacs-buffer/warning "Some tests failed, check `%s' buffer"
                                       dotspacemacs-test-results-buffer))))))
   (when (configuration-layer/package-used-p 'spaceline)
-    (spacemacs//set-powerline-for-startup-buffers)))
+    (spacemacs//restore-buffers-powerline)))
 
 (defun dotspacemacs/get-variable-string-list ()
   "Return a list of all the dotspacemacs variables as strings."
@@ -616,7 +660,8 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
     (if (file-exists-p dotspacemacs)
         (unless (with-demoted-errors "Error loading .spacemacs: %S"
                   (load dotspacemacs))
-          (dotspacemacs/safe-load)))))
+          (dotspacemacs/safe-load))))
+  (advice-add 'dotspacemacs/user-config :around 'dotspacemacs//profile-user-config))
 
 (defun spacemacs/title-prepare (title-format)
   "A string is printed verbatim except for %-constructs.
@@ -636,35 +681,48 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
   %n -- prints Narrow if appropriate
   %z -- prints mnemonics of buffer, terminal, and keyboard coding systems
   %Z -- like %z, but including the end-of-line format"
-  (let* ((fs (format-spec-make
-              ?a (abbreviate-file-name (or (buffer-file-name)
-                                           (buffer-name)))
-              ?t (if (fboundp 'projectile-project-name)
-                     (projectile-project-name)
-                   "-")
-              ?S system-name
-              ?I invocation-name
-              ?U (or (getenv "USER") "")
-              ?b "%b"
-              ?f "%f"
-              ?F "%F"
-              ?* "%*"
-              ?+ "%+"
-              ?s "%s"
-              ?l "%l"
-              ?c "%c"
-              ?p "%p"
-              ?P "%P"
-              ?m "%m"
-              ?n "%n"
-              ?z "%z"
-              ?Z "%Z"
-              ?\[ "%["
-              ?\] "%]"
-              ?% "%%"
-              ?- "%-"
-              )))
-    (format-spec title-format fs)))
+  (save-match-data
+    ;; save-match-data to work around Emacs bug, see
+    ;; https://github.com/syl20bnr/spacemacs/issues/9700
+    (let* ((project-name (when (string-match-p "%t" title-format)
+                           (if (boundp 'spacemacs--buffer-project-name)
+                               spacemacs--buffer-project-name
+                             (set (make-local-variable 'spacemacs--buffer-project-name)
+                                  (if (fboundp 'projectile-project-name)
+                                      (projectile-project-name)
+                                    "-")))))
+           (abbreviated-file-name (when (string-match-p "%a" title-format)
+                                    (if (boundp 'spacemacs--buffer-abbreviated-filename)
+                                        spacemacs--buffer-abbreviated-filename
+                                      (set (make-local-variable 'spacemacs--buffer-abbreviated-filename)
+                                           (abbreviate-file-name (or (buffer-file-name)
+                                                                     (buffer-name)))))))
+           (fs (format-spec-make
+                ?a abbreviated-file-name
+                ?t project-name
+                ?S system-name
+                ?I invocation-name
+                ?U (or (getenv "USER") "")
+                ?b "%b"
+                ?f "%f"
+                ?F "%F"
+                ?* "%*"
+                ?+ "%+"
+                ?s "%s"
+                ?l "%l"
+                ?c "%c"
+                ?p "%p"
+                ?P "%P"
+                ?m "%m"
+                ?n "%n"
+                ?z "%z"
+                ?Z "%Z"
+                ?\[ "%["
+                ?\] "%]"
+                ?% "%%"
+                ?- "%-"
+                )))
+      (format-spec title-format fs))))
 
 (defun dotspacemacs/safe-load ()
   "Error recovery from malformed .spacemacs.
@@ -756,15 +814,16 @@ error recovery."
                       emacs
                       hybrid))
           (and (listp x)
-               (eq 'hybrid (car x))
-               (spacemacs/mplist-get x :variables))))
+               (member (car x) '(vim emacs hybrid))
+               (spacemacs/mplist-get-values x :variables))))
     'dotspacemacs-editing-style
-    "is \'vim, \'emacs or \'hybrid or and list with `:variable' keyword")
+    "is \'vim, \'emacs or \'hybrid or and list with `:variables' keyword")
    (spacemacs//test-var
     (lambda (x)
       (let ((themes '(spacemacs
                       all-the-icons
                       custom
+                      doom
                       vim-powerline
                       vanilla)))
         (or (member x themes)

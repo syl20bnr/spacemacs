@@ -2,7 +2,7 @@
 
 [[file:img/games.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -18,11 +18,11 @@
 This layer allows you to play evilified games in spacemacs.
 
 ** Features:
-  - 2048-game
-  - Pacmacs (Pacman for Emacs)
-  - Sudoku
-  - Tetris
-  - Typit
+- 2048-game
+- Pacmacs (Pacman for Emacs)
+- Sudoku
+- Tetris
+- Typit
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -32,7 +32,7 @@ file.
 * Games instructions
 To run a game:
 
-| Key Binding | Description                            |
+| Key binding | Description                            |
 |-------------+----------------------------------------|
 | ~SPC a G~   | Open an =helm= buffer to select a game |
 
@@ -43,7 +43,7 @@ Possible helm actions:
 
 ** 2048
 
-| Key Binding | Description          |
+| Key binding | Description          |
 |-------------+----------------------|
 | ~h~         | Move the tiles left  |
 | ~j~         | Move the tiles down  |
@@ -52,7 +52,7 @@ Possible helm actions:
 
 ** Pacmacs
 
-| Key Binding | Description |
+| Key binding | Description |
 |-------------+-------------|
 | ~h~         | Move left   |
 | ~j~         | Move down   |
@@ -62,7 +62,7 @@ Possible helm actions:
 
 ** Sudoku
 
-| Key Bindings | Description  |
+| Key bindings | Description  |
 | ~h~          | Move left    |
 | ~j~          | Move down    |
 | ~k~          | Move up      |
@@ -76,7 +76,7 @@ Possible helm actions:
 
 ** Tetris
 
-| Key Binding | Description                    |
+| Key binding | Description                    |
 |-------------+--------------------------------|
 | ~h~         | Move block to the left         |
 | ~i~         | Rotate block counter-clockwise |

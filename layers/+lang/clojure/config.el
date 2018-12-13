@@ -18,4 +18,10 @@
 (spacemacs|define-jump-handlers cider-repl-mode)
 
 (defvar clojure-enable-fancify-symbols nil
-  "If non nil the `fancify-symbols' function is enabled.")
+  "If non-nil, the `fancify-symbols' function is enabled.")
+
+(defvar clojure-enable-sayid nil
+  "If non-nil, the Sayid Clojure debugger is enabled.")
+
+(defvar clojure-enable-clj-refactor nil
+  "If non-nil, the clj-refactor is enabled.")

@@ -2,19 +2,20 @@
 
 [[file:img/sql.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#sql-keywords-capitalization][SQL Keywords Capitalization]]
     - [[#sql-interactive-mode][SQL Interactive Mode]]
     - [[#blacklisting-keywords][Blacklisting keywords]]
+  - [[#auto-indent][Auto-Indent]]
 - [[#key-bindings][Key bindings]]
   - [[#highlighting][Highlighting]]
   - [[#inferior-process-interactions-sqli][Inferior Process Interactions (SQLi)]]
     - [[#send-sql-queries-to-sqli][Send SQL queries to SQLi:]]
   - [[#sqli-buffer][SQLi buffer]]
-  - [[#code-formating][Code Formating]]
+  - [[#code-formatting][Code Formatting]]
 
 * Description
 This layer adds support for a wide range of SQL dialects to Spacemacs.
@@ -48,7 +49,7 @@ file.
 For syntax-checking you also need to install [[https://www.ruby-lang.org/en/about/][ruby]] as well as =sqlint=.
 
 #+BEGIN_SRC ruby
-	gem install sqlint
+  gem install sqlint
 #+END_SRC
 
 ** SQL Keywords Capitalization
@@ -84,16 +85,26 @@ a list with keywords to ignore, e.g.
 This layer is blacklisting =name= by default as it is a very common name for
 column and NAME is non-reserved SQL keyword.
 
+** Auto-Indent
+This mode use [[https://github.com/alex-hhh/emacs-sql-indent][sql-indent]] to indent the code. You can check the package’s README
+to adjust the rules. If that’s not what you want, you can also disable
+auto-indent by setting the variable =sql-auto-indent= to =nil=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (sql :variables sql-auto-indent nil)))
+#+END_SRC
+
 * Key bindings
 ** Highlighting
 
-| Key Binding | Description                       |
+| Key binding | Description                       |
 |-------------+-----------------------------------|
 | ~SPC m h k~ | select a SQL dialect to highlight |
 
 ** Inferior Process Interactions (SQLi)
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC m b b~ | show the SQLi buffer name   |
 | ~SPC m b s~ | set the SQLi buffer         |
@@ -102,7 +113,7 @@ column and NAME is non-reserved SQL keyword.
 
 *** Send SQL queries to SQLi:
 
-| Key Binding | Description                                                                           |
+| Key binding | Description                                                                           |
 |-------------+---------------------------------------------------------------------------------------|
 | ~SPC m s b~ | Send the whole buffer to the SQLi buffer                                              |
 | ~SPC m s B~ | Send the whole buffer to the SQLi buffer and switch to it in =insert state=           |
@@ -116,11 +127,11 @@ column and NAME is non-reserved SQL keyword.
 
 ** SQLi buffer
 
-| Key Binding | Description                                                  |
+| Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC m b r~ | rename buffer (follow up in the SQL buffer with ~SPC m b s~) |
 | ~SPC m b S~ | save the current connection                                  |
 
-** Code Formating
+** Code Formatting
 
 | ~SPC m = c~ | capitalize SQL keywords in region (if capitalize is enabled) |

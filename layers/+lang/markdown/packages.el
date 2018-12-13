@@ -10,17 +10,17 @@
 ;;; License: GPLv3
 
 (setq markdown-packages
-  '(
-    company
-    company-emoji
-    emoji-cheat-sheet-plus
-    gh-md
-    markdown-mode
-    markdown-toc
-    mmm-mode
-    smartparens
-    (vmd-mode :toggle (eq 'vmd markdown-live-preview-engine))
-    ))
+      '(
+        company
+        company-emoji
+        emoji-cheat-sheet-plus
+        gh-md
+        markdown-mode
+        markdown-toc
+        mmm-mode
+        smartparens
+        (vmd-mode :toggle (eq 'vmd markdown-live-preview-engine))
+        ))
 
 (defun markdown/post-init-company ()
   (dolist (mode markdown--key-bindings-modes)
@@ -77,7 +77,7 @@
           "]"   'markdown-complete
           ;; Indentation
           ">"   'markdown-indent-region
-          "<"   'markdown-exdent-region
+          "<"   'markdown-outdent-region
           ;; Buffer-wide commands
           "c]"  'markdown-complete-buffer
           "cc"  'markdown-check-refs
@@ -104,9 +104,7 @@
           "if"  'markdown-insert-footnote
           "ii"  'markdown-insert-image
           "ik"  'spacemacs/insert-keybinding-markdown
-          "iI"  'markdown-insert-reference-image
-          "il"  'markdown-insert-inline-link-dwim
-          "iL"  'markdown-insert-reference-link-dwim
+          "il"  'markdown-insert-link
           "iw"  'markdown-insert-wiki-link
           "iu"  'markdown-insert-uri
           ;; Element removal
@@ -115,6 +113,7 @@
           "li"  'markdown-insert-list-item
           ;; Toggles
           "ti"  'markdown-toggle-inline-images
+          "tm"  'markdown-toggle-markup-hiding
           "tl"  'markdown-toggle-url-hiding
           "tt"  'markdown-toggle-gfm-checkbox
           "tw"  'markdown-toggle-wiki-links
@@ -131,7 +130,7 @@
           "N"   'markdown-next-link
           "f"   'markdown-follow-thing-at-point
           "P"   'markdown-previous-link
-          "<RET>" 'markdown-jump)
+          "<RET>" 'markdown-do)
         (when (eq 'eww markdown-live-preview-engine)
           (spacemacs/set-leader-keys-for-major-mode mode
             "cP" 'markdown-live-preview-mode)))
@@ -143,10 +142,13 @@
         ;; next visible heading is not exactly what we want but close enough
         "gl" 'outline-next-visible-heading)
       ;; Promotion, Demotion
-      (define-key markdown-mode-map (kbd "M-h") 'markdown-promote)
-      (define-key markdown-mode-map (kbd "M-j") 'markdown-move-down)
-      (define-key markdown-mode-map (kbd "M-k") 'markdown-move-up)
-      (define-key markdown-mode-map (kbd "M-l") 'markdown-demote))))
+      (add-hook 'spacemacs-editing-style-hook
+                'spacemacs//markdown-hjkl-promotion-demotion)
+      (spacemacs//markdown-hjkl-promotion-demotion dotspacemacs-editing-style)
+      (define-key markdown-mode-map (kbd "M-<down>") 'markdown-move-down)
+      (define-key markdown-mode-map (kbd "M-<left>") 'markdown-promote)
+      (define-key markdown-mode-map (kbd "M-<right>") 'markdown-demote)
+      (define-key markdown-mode-map (kbd "M-<up>") 'markdown-move-up))))
 
 (defun markdown/init-markdown-toc ()
   (use-package markdown-toc
@@ -161,7 +163,10 @@
     :commands mmm-mode
     :init (add-hook 'markdown-mode-hook 'spacemacs/activate-mmm-mode)
     ;; Automatically add mmm class for languages
-    :config (mapc 'markdown/mmm-auto-class markdown-mmm-auto-modes)))
+    :config
+    (progn
+      (mapc 'markdown/mmm-auto-class markdown-mmm-auto-modes)
+      (spacemacs|hide-lighter mmm-mode))))
 
 (defun markdown/init-vmd-mode ()
   (use-package vmd-mode

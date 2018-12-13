@@ -1,6 +1,6 @@
 #+TITLE: Typography layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -12,18 +12,18 @@
 This layer provides support for typographic text editing in Spacemacs.
 
 ** Features:
-  - Modes to automatically insert and cycle among typographic characters
-  - [[https://github.com/jorgenschaefer/typoel][Typo Mode]] automatically inserts and cycles among typographic Unicode
-    characters on some keys.
-  - Tildify Mode automatically inserts non-breaking spaces where
-    required (Only available on Emacs 25).
+- Modes to automatically insert and cycle among typographic characters
+- [[https://github.com/jorgenschaefer/typoel][Typo Mode]] automatically inserts and cycles among typographic Unicode
+  characters on some keys.
+- Tildify Mode automatically inserts non-breaking spaces where
+  required (Only available on Emacs 25).
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =typography= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-Typographic editing however is disabled by default.  To enable it by default set
+Typographic editing however is disabled by default. To enable it by default set
 =typography-enable-typographic-editing= to =t=:
 
 #+BEGIN_SRC emacs-lisp
@@ -36,17 +36,17 @@ and automatic insertion and cycling among of typographic quotes and dashes.
 
 * Key bindings
 
-| Key Bindings | Description                                                      |
+| Key bindings | Description                                                      |
 |--------------+------------------------------------------------------------------|
 | ~SPC t T~    | Toggle Typo Mode (automatic insertion of typographic characters) |
 | ~SPC t ~~    | Toggle Tildify Mode (automatic insertion of non-breaking spaces) |
 | ~SPC x ~~    | Insert non-breaking spaces in the current region                 |
 
-The following keybindings are available in insert state.
+The following key bindings are available in insert state.
 
 ** Typo Mode
 
-| Key Bindings | Description                              |
+| Key bindings | Description                              |
 |--------------+------------------------------------------|
 | ~​"​~          | Cycle among quotation marks              |
 | ~`~          | Cycle among left single quotation marks  |

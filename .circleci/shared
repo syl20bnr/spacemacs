@@ -2,7 +2,7 @@
 ## Shared script part for CircleCI
 ##
 ## Copyright (c) 2012-2014 Sylvain Benner
-## Copyright (c) 2014-2017 Sylvain Benner & Contributors
+## Copyright (c) 2014-2018 Sylvain Benner & Contributors
 ##
 ## Author: Eugene Yaremenko
 ## URL: https://github.com/syl20bnr/spacemacs
@@ -17,6 +17,14 @@ echo_headline () {
 	printf '=%.0s' {1..80}
 	echo
 }
+
+upstream_data_URL_root="https://api.github.com/repos/"
+upstream_data_URL_root+="${CIRCLE_PROJECT_USERNAME}/"
+upstream_data_URL_root+="${CIRCLE_PROJECT_REPONAME}"
+
+pr_data_URL="${upstream_data_URL_root}/pulls/${CIRCLE_PR_NUMBER}"
+
+upstream_data_URL="${upstream_data_URL_root}/branches/develop"
 
 cleanup () {
 	rm -rf ~/.emacs.d/elpa ~/.emacs.d/.cache -f ~/.spacemacs

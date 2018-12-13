@@ -10,16 +10,16 @@
 ;;; License: GPLv3
 
 (setq csharp-packages
-  '(
-    company
-    csharp-mode
-    evil-matchit
-    ggtags
-    counsel-gtags
-    helm-gtags
-    omnisharp
-    flycheck
-    ))
+      '(
+        company
+        csharp-mode
+        evil-matchit
+        ggtags
+        counsel-gtags
+        helm-gtags
+        omnisharp
+        flycheck
+        ))
 
 (defun csharp/init-omnisharp ()
   ;; Load omnisharp-mode with csharp-mode,
@@ -74,7 +74,7 @@
 
         ;; Refactoring
         "rm" 'omnisharp-rename
-        "rM" 'omnisharp-rename-interactively
+        ;; [Broken in roslyn] "rM" 'omnisharp-rename-interactively
         "rr" 'omnisharp-run-code-action-refactoring
 
         ;; Server manipulation, inspired spacemacs REPL bindings since C# does
@@ -86,12 +86,12 @@
 
         ;; Tests
         ;; [missing in roslyn] "ta" 'omnisharp-unit-test-all
-        ;; [missing in roslyn] "tb" 'omnisharp-unit-test-fixture
+        "tb" 'omnisharp-unit-test-buffer
         ;; [missing in roslyn] "tt" 'omnisharp-unit-test-single
 
         ;; Code manipulation
-        ;; [missing in roslyn] "u" 'omnisharp-auto-complete-overrides
-        ;; [missing in roslyn] "i" 'omnisharp-fix-usings
+        "u" 'omnisharp-auto-complete-overrides
+        "i" 'omnisharp-fix-usings
         ;; [missing in roslyn] "=" 'omnisharp-code-format
 ))))
 

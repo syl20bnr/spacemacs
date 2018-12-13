@@ -1,10 +1,11 @@
 #+TITLE: Helm Gtags layer
 
-* Table of Contents                                          :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#gnu-global-gtags][GNU Global (gtags)]]
+    - [[#install-on-ubuntu][Install on Ubuntu]]
     - [[#install-on-osx-using-homebrew][Install on OSX using Homebrew]]
     - [[#install-on-nix-from-source][Install on *nix from source]]
       - [[#install-recommended-dependencies][Install recommended dependencies]]
@@ -54,28 +55,29 @@ To use gtags, you first have to install [[https://www.gnu.org/software/global/do
 You can install =global= from the software repository of your OS; however, many
 OS distributions are out of date, and you will probably be missing support for
 =pygments= and =exuberant ctags=, and thus support for many languages. We
-recommend installing from source. If not for example to install on Ubuntu:
+recommend installing from source.
 
-#+begin_src sh
+*** Install on Ubuntu
+#+BEGIN_SRC sh
   sudo apt-get install global
-#+end_src
+#+END_SRC
 
 *** Install on OSX using Homebrew
-#+begin_src sh options
+#+BEGIN_SRC sh
   brew install global --with-pygments --with-ctags
-#+end_src
+#+END_SRC
 
 *** Install on *nix from source
 **** Install recommended dependencies
 To take full advantage of global you should install 2 extra packages in
 addition to global: pygments and ctags (exuberant). You can do this using
-your normal OS package manager, e.g., on Ubuntu
+your normal OS package manager, e.g. on Ubuntu
 
 #+BEGIN_SRC sh
   sudo apt-get install exuberant-ctags python-pygments
 #+END_SRC
 
-or e.g., Archlinux:
+or e.g. Archlinux:
 
 #+BEGIN_SRC sh
   sudo pacman -S ctags python-pygments
@@ -85,8 +87,8 @@ or e.g., Archlinux:
 Download the latest tar.gz archive, then run these commands:
 
 #+BEGIN_SRC sh
-  tar xvf global-6.5.3.tar.gz
-  cd global-6.5.3
+  tar xvf global-<version>.tar.gz
+  cd global-<version>
   ./configure --with-exuberant-ctags=/usr/bin/ctags
   make
   sudo make install
@@ -96,46 +98,52 @@ Download the latest tar.gz archive, then run these commands:
 To be able to use =pygments= and =ctags=, you need to copy the sample
 =gtags.conf= either to =/etc/gtags.conf= or =$HOME/.globalrc=. For example:
 
-#+begin_src sh
+#+BEGIN_SRC sh
   cp gtags.conf ~/.globalrc
-#+end_src
+#+END_SRC
 
 Additionally you should define GTAGSLABEL in your shell startup file e.g.
 with sh/ksh:
 
-#+begin_src sh
+#+BEGIN_SRC sh
   echo export GTAGSLABEL=pygments >> .profile
-#+end_src
+#+END_SRC
+
+With fish:
+
+#+BEGIN_SRC sh
+  echo export set -x GTAGSLABEL pygments >> ${HOME}/.config/fish/config.fish
+#+END_SRC
 
 *** Conflict between =ctags= and emacs's =etags= binary
 If you installed =emacs= from source after =ctags=, your original =ctags= binary
-is probably replaced by emacs's =etags=. To get around this you will need to
+is probably replaced by emacs’s =etags=. To get around this you will need to
 configure =emacs= as following before installing:
 
-#+begin_src sh
+#+BEGIN_SRC sh
   ./configure --program-transform-name='s/^ctags$/ctags.emacs/'
-#+end_src
+#+END_SRC
 
 To check if you have the correct version of =ctags= execute:
 
-#+begin_src sh
+#+BEGIN_SRC sh
   ctags --version | grep Exuberant
-#+end_src
+#+END_SRC
 
-If yo do not get any output then it means you have the wrong =ctags= and must
-install it again.
+If there is no output you have the wrong =ctags= executable and you need to
+reinstall =ctags= from your package manager.
 
 ** Emacs Configuration
-To use this configuration layer, add it to your =~/.spacemacs=. You
+To use this configuration layer, add it to your =~/.spacemacs= file. You
 will need to add =gtags= to the existing =dotspacemacs-configuration-layers=.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq dotspacemacs-configuration-layers
         '( ;; ...
           gtags
            ;; ...
           ))
-#+end_src
+#+END_SRC
 
 *** Disabling by default
 If =ggtags-mode= is too intrusive you can disable it by default, by setting the
@@ -147,36 +155,31 @@ layer variable =gtags-enable-by-default= to =nil=.
 #+END_SRC
 
 This variable can also be set as a file-local or directory-local variable for
-additional control per project.
+additional control on a per project basis.
 
 * Usage
-Before using the =gtags=, remember to create a GTAGS database by the following
+Before using =gtags=, remember to create a GTAGS database by one of the following
 methods:
-
 - From within Emacs, run either =counsel-gtags-create-tags= or
   =helm-gtags-create-tags=, which are bound to ~SPC m g c~. If the language is
   not directly supported by GNU Global, you can choose =ctags= or =pygments= as
-  a backend to generate tag database.
-
-- From inside terminal, runs gtags at your project root in terminal:
+  a backend to generate the database.
+- From inside a terminal:
 
 #+BEGIN_SRC sh
   cd /path/to/project/root
-  gtags
-#+END_SRC
 
-If the language is not directly supported by =gtags=, and you have not set the
-GTAGSLABEL environment variable, use this command instead:
-
-#+BEGIN_SRC sh
+  # If the language is not directly supported and GTAGSLABEL is not set
   gtags --gtagslabel=pygments
+
+  # Otherwise
+  gtags
 #+END_SRC
 
 ** Language Support
 *** Built-in languages
 If you do not have =ctags= or =pygments= enabled gtags will only produce
 tags for the following languages:
-
 - asm
 - c/c++
 - java
@@ -184,10 +187,9 @@ tags for the following languages:
 - yacc
 
 *** Exuberant ctags languages
-If you have enabled =exuberant ctags= and use that as the backend (i.e.,
-=GTAGSLABEL=ctags= or =--gtagslabel=ctags=) the following additional languages
-will have tags created for them:
-
+If you have enabled =exuberant ctags= and use that as the backend
+(i.e. =GTAGSLABEL=ctags= or =--gtagslabel=ctags=) the following additional languages
+are supported:
 - c#
 - erlang
 - javascript
@@ -202,10 +204,9 @@ will have tags created for them:
 - windows-scripts (.bat .cmd files)
 
 *** Universal ctags languages
-If instead you installed you the newer/beta =universal ctags= and use that
-as the backend (i.e., GTAGSLABEL=ctags or --gtagslabel=ctags) the following
-additional languages will have tags created for them:
-
+If you have installed [[https://github.com/universal-ctags/ctags][universal ctags]] and use that as the backend
+(i.e. GTAGSLABEL=ctags or --gtagslabel=ctags) the following additional
+languages are supported:
 - clojure
 - d
 - go
@@ -215,12 +216,11 @@ additional languages will have tags created for them:
 In order to look up symbol references for any language not in the built in
 parser you must use the pygments backend. When this backend is used global
 actually uses both ctags and pygments to find the definitions and uses of
-functions and variables as well as "other symbols".
+functions and variables as well as “other symbols”.
 
-If you enabled pygments (the best choice) and use that as the backend (i.e.,
-=GTAGSLABEL=pygments= or =--gtagslabel=pygments=) the following additional
-languages will have tags created for them:
-
+If you enabled pygments (the best choice) and use that as the backend
+(i.e. =GTAGSLABEL=pygments= or =--gtagslabel=pygments=) the following additional
+languages will be supported:
 - elixir
 - fsharp
 - haskell
@@ -233,9 +233,8 @@ languages will have tags created for them:
 ** Eldoc integration
 This layer also integrates =ggtags= for its Eldoc feature. That means, when
 writing code, you can look at the minibuffer (at the bottom) and see variable
-and function definition of the symbol the cursor is on. However, this feature is
-only activated for programming modes that are not one of these languages:
-
+and function definitions of the symbol under point. However, this feature is
+only activated for languages which are not:
 - C
 - C++
 - Common Lisp
@@ -245,20 +244,18 @@ only activated for programming modes that are not one of these languages:
 
 Since these modes have better Eldoc integration already.
 
-In addition, if output from =compile= (bound to ~SPC c C~), =shell-command=
-(bound to ~SPC !~ and ~M-!~) or =async-shell-command= (bound to ~M-&~) commands
-contains symbol in your project, you move cursor on such symbol and use any of
-the gtags commands.
+In addition =gtags= commands are also supported for symbols in the
+=compile=, =shell-command= and =async-shell-command= buffers.
 
 * Key bindings
 
-| Key Binding | Description                                               |
-|-------------+-----------------------------------------------------------|
-| ~g d~       | jump to the definitions or references of the selected tag |
+| Key binding | Description                                      |
+|-------------+--------------------------------------------------|
+| ~g d~       | jump to definition or references of selected tag |
 
 ** Helm
 
-| Key Binding | Description                                               |
+| Key binding | Description                                               |
 |-------------+-----------------------------------------------------------|
 | ~SPC m g C~ | create a tag database                                     |
 | ~SPC m g f~ | jump to a file in tag database                            |
@@ -280,7 +277,7 @@ the gtags commands.
 =counsel-gtags= is currently missing a few minor features compared to
 =helm-gtags=.
 
-| Key Binding | Description                                    |
+| Key binding | Description                                    |
 |-------------+------------------------------------------------|
 | ~SPC m g C~ | create a tag database                          |
 | ~SPC m g f~ | jump to a file in tag database                 |

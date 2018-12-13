@@ -2,7 +2,7 @@
 
 [[file:img/ruby.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -17,28 +17,30 @@
     - [[#rspec-mode][RSpec-mode]]
     - [[#ruby-test-mode][Ruby-test-mode]]
     - [[#minitest-mode][minitest-mode]]
+  - [[#toggles][Toggles]]
   - [[#rake][Rake]]
   - [[#refactor][Refactor]]
+  - [[#seeing-is-believing][Seeing is believing]]
 - [[#layer-options][Layer options]]
 
 * Description
 This layer provides support for the Ruby programming language.
 
 ** Features:
-   - Version manager (rbenv, rvm or chruby)
-   - Integration with bundler
-   - Test runner (ruby-test and rspec)
-   - Rake runner
-   - Linter (rubocop)
-   - Interactive REPL and code navigation (robe)
+- Version manager (rbenv, rvm or chruby)
+- Integration with bundler
+- Test runner (ruby-test and rspec)
+- Rake runner
+- Linter (rubocop)
+- Interactive REPL and code navigation (robe)
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ruby= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-This layer supports two different Ruby modes: Emacs' built-in Ruby Mode and
-[[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]].  By default the built-in Ruby mode is enabled.  To switch to the
+This layer supports two different Ruby modes: Emacs’s built-in Ruby Mode and
+[[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]]. By default the built-in Ruby mode is enabled. To switch to the
 =enh-ruby-mode= set =ruby-enable-enh-ruby-mode= to t:
 
 #+BEGIN_SRC emacs-lisp
@@ -50,10 +52,10 @@ This layer supports two different Ruby modes: Emacs' built-in Ruby Mode and
 Some of the advanced features supported by this layer depend on external gems
 that need to be installed in the context of your project (see below for guidance
 based on your version manager):
-
 - =pry= and =pry-doc= are required for *jump to definition* and *code documentation* (=robe-mode=)
 - =ruby_parser= is required for *goto-step_definition* in =feature-mode=
 - =rubocop= is required for rubocop integration
+- =seeing_is_believing= helps you evaluate code inline
 
 You can install the gems in the context of your current project by
 adding them to the =Gemfile=, e.g.:
@@ -105,24 +107,25 @@ directory local variables.
 * Key bindings
 ** Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)
 
-| Key binding | Description                                          |
-|-------------+------------------------------------------------------|
-| ~SPC m '​~   | toggle quotes of current string (only built-in mode) |
-| ~SPC m {~   | toggle style of current block (only built-in mode)   |
-| ~SPC m g g~ | go to definition (robe-jump)                         |
-| ~SPC m h h~ | show documentation for method at point (robe-doc)    |
-| ~SPC m s b~ | send buffer                                          |
-| ~SPC m s f~ | send function definition                             |
-| ~SPC m s F~ | send function definition and switch to REPL          |
-| ~SPC m s i~ | start REPL                                           |
-| ~SPC m s r~ | send region                                          |
-| ~SPC m s R~ | send region and switch to REPL                       |
-| ~SPC m s s~ | switch to REPL                                       |
-| ~SPC m x '​~ | Change symbol or " string to '                       |
-| ~SPC m x "​~ | Change symbol or ' string to "                       |
-| ~SPC m x :~ | Change string to symbol                              |
-| ~SPC m x h~ | toggle hash syntax in active region                  |
-| ~%~         | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] jumps between blocks                    |
+| Key binding | Description                                       |
+|-------------+---------------------------------------------------|
+| ~SPC m g g~ | go to definition (robe-jump)                      |
+| ~SPC m h h~ | show documentation for method at point (robe-doc) |
+| ~SPC m s b~ | send buffer                                       |
+| ~SPC m s B~ | send buffer and switch to REPL                    |
+| ~SPC m s f~ | send function definition                          |
+| ~SPC m s F~ | send function definition and switch to REPL       |
+| ~SPC m s i~ | start REPL                                        |
+| ~SPC m s l~ | send line                                         |
+| ~SPC m s L~ | send line and switch to REPL                      |
+| ~SPC m s r~ | send region                                       |
+| ~SPC m s R~ | send region and switch to REPL                    |
+| ~SPC m s s~ | switch to REPL                                    |
+| ~SPC m x '​~ | Change symbol or ="= string to ='=                |
+| ~SPC m x "​~ | Change symbol or ='= string to ="=                |
+| ~SPC m x :~ | Change string to symbol                           |
+| ~SPC m x h~ | toggle hash syntax in active region               |
+| ~%~         | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] jumps between blocks                 |
 
 ** Bundler
 
@@ -162,8 +165,8 @@ When =ruby-test-runner= equals =rspec=.
 | ~SPC m t m~   | run specs related to the current buffer                |
 | ~SPC m t r~   | re-run last spec                                       |
 | ~SPC m t t~   | run spec at pointer                                    |
-| ~SPC m t TAB~ | toggle between spec's and target's buffer              |
-| ~SPC m t ~~   | toggle between spec's and target's buffer find example |
+| ~SPC m t TAB~ | toggle between spec’s and target’s buffer              |
+| ~SPC m t ~~   | toggle between spec’s and target’s buffer find example |
 
 *** Ruby-test-mode
 When =ruby-test-runner= equals =ruby-test=.
@@ -183,6 +186,13 @@ When =ruby-test-runner= equals =minitest=.
 | ~SPC m t r~ | repeat last test command  |
 | ~SPC m t s~ | run test for current file |
 
+** Toggles
+
+| Key binding | Description                                          |
+|-------------+------------------------------------------------------|
+| ~SPC m T '~ | Toggle quotes of current string (only built-in mode) |
+| ~SPC m T {~ | Toggle style of current block (only built-in mode)   |
+
 ** Rake
 
 | Key binding | Description                     |
@@ -201,11 +211,18 @@ When =ruby-test-runner= equals =minitest=.
 | ~SPC m r R c~ | Extract constant       |
 | ~SPC m r R l~ | Extract to let (rspec) |
 
+** Seeing is believing
+
+| Key binding   | Description                      |
+|---------------+----------------------------------|
+| ~<SPC> m @ @~ | Run seeing is believing          |
+| ~<SPC> m @ c~ | Clear seeing is believing output |
+
 * Layer options
 
 | Variable                           | Default value | Description                                                                                  |
 |------------------------------------+---------------+----------------------------------------------------------------------------------------------|
-| =ruby-enable-enh-ruby-mode=        | =nil=         | If non-nil, use `enh-ruby-mode' package instead of the built-in Ruby Mode.                   |
-| =ruby-version-manager=             | =nil=         | If non nil, defines the Ruby version manager.Possible values are `rbenv', `rvm' or `chruby'. |
-| =ruby-test-runner=                 | =ruby-test=   | Test runner to use. Possible values are `ruby-test', `minitest' or `rspec'.                  |
+| =ruby-enable-enh-ruby-mode=        | =nil=         | If non-nil, use =enh-ruby-mode= package instead of the built-in Ruby Mode.                   |
+| =ruby-version-manager=             | =nil=         | If non nil, defines the Ruby version manager.Possible values are =rbenv=, =rvm= or =chruby=. |
+| =ruby-test-runner=                 | =ruby-test=   | Test runner to use. Possible values are =ruby-test=, =minitest= or =rspec=.                  |
 | =ruby-highlight-debugger-keywords= | =t=           | If non-nil, enable highlight for debugger keywords.                                          |

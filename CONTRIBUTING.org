@@ -12,7 +12,7 @@ You can only consider reading the sections relevant to what you are going to do:
 
 Thanks! :heart: :heart: :heart:
 
-* Content                                                   :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#asking-for-help][Asking for help]]
 - [[#reporting-issues][Reporting issues]]
 - [[#contributing-code][Contributing code]]
@@ -28,7 +28,7 @@ Thanks! :heart: :heart: :heart:
     - [[#file-header][File header]]
     - [[#author-of-a-new-layer][Author of a new layer]]
     - [[#contributor-to-an-existing-layer][Contributor to an existing layer]]
-  - [[#contributing-a-keybinding][Contributing a keybinding]]
+  - [[#contributing-a-key-binding][Contributing a key binding]]
   - [[#contributing-a-banner][Contributing a banner]]
 - [[#reviewing-pull-requests][Reviewing Pull Requests]]
   - [[#using-magit-to-quickly-test-prs][Using Magit to quickly test PRs]]
@@ -39,9 +39,8 @@ Thanks! :heart: :heart: :heart:
 * Asking for help
 If you want to ask an usage question, be sure to look first into some places as
 it may hold the answer:
-
 - [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/FAQ.org][The FAQ]]. Some of the most frequently asked questions are answered there.
-- [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][The documentation]]. It's the general documentation of Spacemacs.
+- [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][The documentation]]. It’s the general documentation of Spacemacs.
 - You may also read the =README.org= of the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][relevant layer(s)]].
 
 If your question is not answered there, then please come into our [[https://gitter.im/syl20bnr/spacemacs][gitter chat]] to
@@ -50,7 +49,6 @@ open an issue if it is needed.
 
 * Reporting issues
 Issues have to be reported on our [[https://github.com/syl20bnr/spacemacs/issues][issues tracker]]. Please:
-
 - Check that the issue has not already been reported.
   - This can be achieved by searching keywords on the [[https://github.com/syl20bnr/spacemacs/issues][issues tracker]].
 - Check that the issue has not been fixed in the =develop= version of Spacemacs.
@@ -105,14 +103,14 @@ You may want to [[https://github.com/syl20bnr/spacemacs/wiki/Beginner%27s-Guide-
 /PR = Pull Request/
 
 **** Ideally for /simple/ PRs (most of them):
--  Branch from =develop=
--  One topic per PR
--  One commit per PR
--  If you have several commits on different topics, close the PR and
-   create one PR per topic
--  If you still have several commits, squash them into only one commit
--  Rebase your PR branch on top of upstream =develop= before submitting
-   the PR
+- Branch from =develop=
+- One topic per PR
+- One commit per PR
+- If you have several commits on different topics, close the PR and
+  create one PR per topic
+- If you still have several commits, squash them into only one commit
+- Rebase your PR branch on top of upstream =develop= before submitting
+  the PR
 
 Those PRs are usually /cherry-picked/.
 
@@ -123,8 +121,7 @@ Those PRs are usually /cherry-picked/.
 Those PRs are /merged/ and explicitly /not fast-forwarded/.
 
 *** Commit messages
-Write commit messages according to adapted [[http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html][Tim Pope's guidelines]]:
-
+Write commit messages according to adapted [[http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html][Tim Pope’s guidelines]]:
 - Use present tense and write in the imperative: “Fix bug”, not “fixed bug” or
   “fixes bug”.
 - Start with a capitalized, short (72 characters or less) summary, followed by a
@@ -136,27 +133,27 @@ Write commit messages according to adapted [[http://tbaggery.com/2008/04/19/a-no
 This is a model commit message:
 
 #+BEGIN_EXAMPLE
-Capitalized, short (72 chars or less) summary
+  Capitalized, short (72 chars or less) summary
 
-More detailed explanatory text, if necessary.  Wrap it to about 72
-characters or so.  In some contexts, the first line is treated as the
-subject of an email and the rest of the text as the body.  The blank
-line separating the summary from the body is critical (unless you omit
-the body entirely); tools like rebase can get confused if you run the
-two together.
+  More detailed explanatory text, if necessary.  Wrap it to about 72
+  characters or so.  In some contexts, the first line is treated as the
+  subject of an email and the rest of the text as the body.  The blank
+  line separating the summary from the body is critical (unless you omit
+  the body entirely); tools like rebase can get confused if you run the
+  two together.
 
-Write your commit message in the imperative: "Fix bug" and not "Fixed bug"
-or "Fixes bug."  This convention matches up with commit messages generated
-by commands like git merge and git revert.
+  Write your commit message in the imperative: "Fix bug" and not "Fixed bug"
+  or "Fixes bug."  This convention matches up with commit messages generated
+  by commands like git merge and git revert.
 
-Further paragraphs come after blank lines.
+  Further paragraphs come after blank lines.
 
-- Bullet points are okay, too
+  - Bullet points are okay, too
 
-    - Typically a hyphen or asterisk is used for the bullet, followed by a
-      single space, with blank lines in between, but conventions vary here
+      - Typically a hyphen or asterisk is used for the bullet, followed by a
+        single space, with blank lines in between, but conventions vary here
 
-    - Use a hanging indent
+      - Use a hanging indent
 #+END_EXAMPLE
 
 [[https://github.com/magit/magit/][Git Commit]] and [[https://github.com/magit/magit/][Magit]] provide Emacs mode for Git commit messages, which helps you
@@ -181,20 +178,20 @@ variable =dotspacemacs-additional-packages=.
 The file header for =elisp= files should look like the following template:
 
 #+BEGIN_EXAMPLE
-    ;;; FILENAME --- NAME Layer packages File for Spacemacs
-    ;;
-    ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
-    ;;
-    ;; Author: YOUR_NAME <YOUR_EMAIL>
-    ;; URL: https://github.com/syl20bnr/spacemacs
-    ;;
-    ;; This file is not part of GNU Emacs.
-    ;;
-    ;;; License: GPLv3
+  ;;; FILENAME --- NAME Layer packages File for Spacemacs
+  ;;
+  ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+  ;;
+  ;; Author: YOUR_NAME <YOUR_EMAIL>
+  ;; URL: https://github.com/syl20bnr/spacemacs
+  ;;
+  ;; This file is not part of GNU Emacs.
+  ;;
+  ;;; License: GPLv3
 #+END_EXAMPLE
 
 You should replace =FILENAME= by the name of the file (e.g. =packages.el=)
-and =NAME= by the name of the layer you are creating, don't forget to replace
+and =NAME= by the name of the layer you are creating, don’t forget to replace
 =YOUR_NAME= and =YOUR_EMAIL= also. Some files already have a template inside
 =core/templates/=, so look in there first.
 Note that if you use =configuration-layer/create-layer=, spacemacs will prepare
@@ -208,21 +205,21 @@ name.
 If you are contributing to an already existing layer, you should not modify any
 header file.
 
-** Contributing a keybinding
-Keybindings are an important part of spacemacs.
+** Contributing a key binding
+Key bindings are an important part of spacemacs.
 
-First if you want to have some personal keybindings, you can freely bind them
+First if you want to have some personal key bindings, you can freely bind them
 inside the ~SPC o~ and ~SPC m o~ prefixes which are reserved for the user. This
 can be done from the =dotspacemacs/user-config= function of your =.spacemacs=
-file and don't require any contribution to Spacemacs.
+file and don’t require any contribution to Spacemacs.
 
 If you think it worth contributing a new key bindings then be sure to read
 the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/CONVENTIONS.org][CONVENTIONS.org]] file to find the best key bindings, then create a
 PR with your changes.
 
-*ALWAYS* document your new keybindings or keybindings changes inside the
-relevant documentation file. It should be the layer's =README.org= file for
-layer's keybindings, or =DOCUMENTATION.org= for general Spacemacs key
+*ALWAYS* document your new key bindings or key bindings changes inside the
+relevant documentation file. It should be the layer’s =README.org= file for
+layer’s key bindings, or =DOCUMENTATION.org= for general Spacemacs key
 bindings.
 
 ** Contributing a banner
@@ -238,7 +235,6 @@ around 75 characters.
 You can contribute by reviewing PRs created by others. This will help share the
 workload of the project maintainers by letting them know that a PR has been
 tested by an independent reviewer. The steps:
-
 - Check that the PR complies with the guidelines in [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#contributing-code][Contributing code]].
 - Check that the PR complies with [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/CONVENTIONS.org][CONVENTIONS.org]].
 - Check out the PR branch and test it. Remember to update your packages and your
@@ -263,7 +259,7 @@ the code conventions. Copy the following line to your approving review to notify
 the collaborators:
 
 #+BEGIN_EXAMPLE
-Ready to be merged! (@syl20bnr @TheBB @d12frosted @bmag @JAremko)
+  Ready to be merged! (@syl20bnr @TheBB @d12frosted @bmag @JAremko)
 #+END_EXAMPLE
 
 Now the collaborators who have write access to the repository will use their
@@ -279,8 +275,8 @@ to set the variable =magit-gh-pulls-pull-detail-limit= to a higher number, it
 is recommended to set it to something like 200.
 
 #+BEGIN_SRC elisp
-(setq-default dotspacemacs-configuration-layers
-  '((github :variables magit-gh-pulls-pull-detail-limit 200)))
+  (setq-default dotspacemacs-configuration-layers
+    '((github :variables magit-gh-pulls-pull-detail-limit 200)))
 #+END_SRC
 
 You can also set the variable in your =dotspacemacs/user-init= function.
@@ -310,7 +306,6 @@ Spacemacs uses Travis CI to perform more comprehensive testing, where each
 testable layer is enabled in turn.
 
 To add tests for a layer, do the following:
-
 1. Create a subfolder of =tests/= corresponding to the layer you want to test.
 2. Write a file called =dotspacemacs.el= in that folder. It should be a minimal
    dotfile that enables the layer in question (and other layers it may depend
@@ -318,12 +313,14 @@ To add tests for a layer, do the following:
 3. Write a number of files with tests. Please try to separate unit and
    functional tests. Look at existing tests for clues.
 4. Write a =Makefile= in that folder. It should define three variables.
-   - =LOAD_FILES= :: a list of additional files to load before testing (relative
-        to the root Spacemacs folder). This should typically be =init.el=.
-   - =UNIT_TEST_FILES= :: a list of unit test files in the current folder.
-   - =FUNC_TEST_FILES= :: a list of functional test files in the current folder.
+   - a list of additional files to load before testing (relative
+     to the root Spacemacs folder). This should typically be =init.el=.
+   - a list of unit test files in the current folder.
+   - a list of functional test files in the current folder.
+
    See existing tests for examples.
-   #+begin_src makefile
+
+   #+BEGIN_SRC makefile
      TEST_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
      LOAD_FILES = ...
@@ -331,7 +328,8 @@ To add tests for a layer, do the following:
      FUNC_TEST_FILES = ...
 
      include ../../spacemacs.mk
-   #+end_src
+   #+END_SRC
+
 5. Add the new test to list of tests in =travis/run_build.sh=.
 
 * Credits

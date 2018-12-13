@@ -32,15 +32,15 @@
 
 (defun spacemacs//python-setup-anaconda ()
   "Setup anaconda backend."
-  (anaconda-mode)
-  (add-to-list 'spacemacs-jump-handlers-python-mode
-               '(anaconda-mode-find-definitions :async t)))
+  (anaconda-mode))
 
 (defun spacemacs//python-setup-anaconda-company ()
   "Setup anaconda auto-completion."
   (spacemacs|add-company-backends
     :backends company-anaconda
-    :modes python-mode)
+    :modes python-mode
+    :append-hooks nil
+    :call-hooks t)
   (company-mode))
 
 (defun spacemacs//python-setup-anaconda-eldoc ()
@@ -68,9 +68,8 @@ when this mode is enabled since the minibuffer is cleared all the time."
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (require 'lsp-python)
         (lsp-python-enable))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//python-setup-lsp-company ()
   "Setup lsp auto-completion."
@@ -78,9 +77,11 @@ when this mode is enabled since the minibuffer is cleared all the time."
       (progn
         (spacemacs|add-company-backends
           :backends company-lsp
-          :modes python-mode)
+          :modes python-mode
+          :append-hooks nil
+          :call-hooks t)
         (company-mode))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dofile.")))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 
 ;; others
@@ -90,6 +91,11 @@ when this mode is enabled since the minibuffer is cleared all the time."
   (setq mode-name "Python"
         tab-width python-tab-width
         fill-column python-fill-column)
+
+  ;; since we changed the tab-width we need to manually call python-indent-guess-indent-offset here
+  (when python-spacemacs-indent-guess
+    (python-indent-guess-indent-offset))
+
   (when (version< emacs-version "24.5")
     ;; auto-indent on colon doesn't work well with if statement
     ;; should be fixed in 24.5 and above
@@ -103,6 +109,7 @@ when this mode is enabled since the minibuffer is cleared all the time."
 (defun spacemacs/python-annotate-pdb ()
   "Highlight break point lines."
   (interactive)
+  (highlight-lines-matching-regexp "breakpoint()")
   (highlight-lines-matching-regexp "import \\(pdb\\|ipdb\\|pudb\\|wdb\\)")
   (highlight-lines-matching-regexp "\\(pdb\\|ipdb\\|pudb\\|wdb\\).set_trace()")
   (highlight-lines-matching-regexp "trepan.api.debug()"))
@@ -115,26 +122,30 @@ as the pyenv version then also return nil. This works around https://github.com/
   (if (executable-find "pyenv")
       (progn
         (let ((pyenv-string (shell-command-to-string (concat "pyenv which " command)))
-              (pyenv-version-name (string-trim (shell-command-to-string "pyenv version-name"))))
-          (and (not (string-match "not found" pyenv-string))
-               (string-match pyenv-version-name (string-trim pyenv-string))
-                 (string-trim pyenv-string))))
+              (pyenv-version-names (split-string (string-trim (shell-command-to-string "pyenv version-name")) ":"))
+              (executable nil)
+              (i 0))
+          (if (not (string-match "not found" pyenv-string))
+              (while (and (not executable)
+                          (< i (length pyenv-version-names)))
+                (if (string-match (elt pyenv-version-names i) (string-trim pyenv-string))
+                    (setq executable (string-trim pyenv-string)))
+                (if (string-match (elt pyenv-version-names i) "system")
+                    (setq executable (string-trim (executable-find command))))
+                (setq i (1+ i))))
+          executable))
     (executable-find command)))
 
 (defun spacemacs//python-setup-shell (&rest args)
   (if (spacemacs/pyenv-executable-find "ipython")
       (progn (setq python-shell-interpreter "ipython")
-             (if (version< (replace-regexp-in-string "[\r\n|\n]$" "" (shell-command-to-string "ipython --version")) "5")
+             (if (version< (replace-regexp-in-string "[\r\n|\n]$" "" (shell-command-to-string (format "%s --version" (string-trim (spacemacs/pyenv-executable-find "ipython"))))) "5")
                  (setq python-shell-interpreter-args "-i")
                (setq python-shell-interpreter-args "--simple-prompt -i")))
     (progn
       (setq python-shell-interpreter-args "-i")
       (setq python-shell-interpreter "python"))))
 
-(defun spacemacs//python-setup-hy (&rest args)
-  (setq hy-mode-inferior-lisp-command
-        (concat (or (spacemacs/pyenv-executable-find "hy") "hy")
-                " --spy")))
 
 (defun spacemacs//python-setup-checkers (&rest args)
   (when (fboundp 'flycheck-set-checker-executable)
@@ -147,7 +158,6 @@ as the pyenv version then also return nil. This works around https://github.com/
 
 (defun spacemacs/python-setup-everything (&rest args)
   (apply 'spacemacs//python-setup-shell args)
-  (apply 'spacemacs//python-setup-hy args)
   (apply 'spacemacs//python-setup-checkers args))
 
 (defun spacemacs/python-toggle-breakpoint ()
@@ -159,6 +169,8 @@ as the pyenv version then also return nil. This works around https://github.com/
                      ((spacemacs/pyenv-executable-find "pudb") "import pudb; pudb.set_trace()")
                      ((spacemacs/pyenv-executable-find "ipdb3") "import ipdb; ipdb.set_trace()")
                      ((spacemacs/pyenv-executable-find "pudb3") "import pudb; pudb.set_trace()")
+                     ((spacemacs/pyenv-executable-find "python3.7") "breakpoint()")
+                     ((spacemacs/pyenv-executable-find "python3.8") "breakpoint()")
                      (t "import pdb; pdb.set_trace()")))
         (line (thing-at-point 'line)))
     (if (and line (string-match trace line))
@@ -385,7 +397,7 @@ to be called for each testrunner. "
   (let ((universal-argument t)
         (compile-command (format "%s %s"
                                  (spacemacs/pyenv-executable-find python-shell-interpreter)
-                                 (file-name-nondirectory buffer-file-name))))
+                                 (shell-quote-argument (file-name-nondirectory buffer-file-name)))))
     (if arg
         (call-interactively 'compile)
       (compile compile-command t)

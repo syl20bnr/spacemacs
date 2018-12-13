@@ -2,7 +2,7 @@
 
 [[file:img/dlogo.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -28,7 +28,7 @@ It is also recommended to install [[https://github.com/dlang/dub][DUB]] a =D lan
 
 * Key bindings
 
-| Key Binding | Description                                           |
+| Key binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~SPC m g g~ | Go to definition                                      |
 | ~SPC m g b~ | Jump back (after go to definition with above command) |

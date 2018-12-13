@@ -1,13 +1,13 @@
 #+TITLE: Tmux layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds basic =tmux= keybindings to Spacemacs.
+This layer adds basic =tmux= key bindings to Spacemacs.
 
 ** Features:
 - Calling of =tmux= navigation commands directly from emacs via [[https://github.com/keith/evil-tmux-navigator][evil-tmux-navigator]].
@@ -19,9 +19,9 @@ file.
 
 For this to work you will also need to install the native package =tmux= on your system.
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description     |
+| Key binding | Description     |
 |-------------+-----------------|
 | ~C-h~       | Call tmux left  |
 | ~C-j~       | Call tmux right |

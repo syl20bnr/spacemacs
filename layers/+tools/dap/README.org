@@ -1,0 +1,110 @@
+#+TITLE: DAP layer
+
+* Table of Contents                     :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#layer-installation][Layer installation]]
+  - [[#features][Features:]]
+- [[#configuration][Configuration]]
+  - [[#derived-layers][Derived layers]]
+    - [[#declared-prefixes][Declared prefixes]]
+    - [[#default-key-bindings][Default key bindings]]
+- [[#references][References]]
+
+* Description
+Experimental integrated visual debugger using [[https://code.visualstudio.com/docs/extensionAPI/api-debugging][Debug Adapter Protocol]].
+
+[[https://code.visualstudio.com/docs/extensionAPI/api-debugging][Debug Adapter Protocol]] is a wire protocol for communication between client and
+Debug Server. It similar to the [[https://github.com/Microsoft/language-server-protocol][LSP]] but providers integration with debug
+server.
+
+** Layer installation
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =dap= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+** Features:
+Fully featured IDE-like debugger providing:
+- Launch/Attach
+- Breakpoints
+- Exceptions
+- Pause & Continue
+- Step In/Out/Over
+- Callstacks
+- Threads
+- Multiple simultaneous debug sessions
+- Evaluating statements
+- Debug/Run configurations
+- Debug REPL
+
+* Configuration
+** Derived layers
+Derived layer should provide information how to configure the language
+specific debug adapter and the language specific bindings(e. g. debug
+application, debug test, etc). The package declares function
+~spacemacs/dap-bind-keys-for-mode~ which should be used by the derived layers
+to configure the shortcuts.
+
+*** Declared prefixes
+The following prefixes have been declared:
+
+| prefix      | name              |
+|-------------+-------------------|
+| ~SPC m d~   | debug             |
+| ~SPC m d d~ | launching         |
+| ~SPC m d b~ | breakpoints       |
+| ~SPC m d l~ | debug windows     |
+| ~SPC m d S~ | context switching |
+| ~SPC m d e~ | eval              |
+| ~SPC m d I~ | inspect           |
+
+*** Default key bindings
+The default bindings are listed below. Derived layers should extend this list:
+
+| Key binding   | Description                     |
+|---------------+---------------------------------|
+| ~SPC m d d d~ | start debugging                 |
+| ~SPC m d d l~ | debug last configuration        |
+| ~SPC m d d r~ | debug recent configuration      |
+|---------------+---------------------------------|
+| ~SPC m d c~   | continue                        |
+| ~SPC m d i~   | step in                         |
+| ~SPC m d o~   | step out                        |
+| ~SPC m d s~   | next step                       |
+| ~SPC m d v~   | inspect value at point          |
+| ~SPC m d r~   | restart frame                   |
+|---------------+---------------------------------|
+| ~SPC m d .~   | debug transient state           |
+|---------------+---------------------------------|
+| ~SPC m d a~   | abandon current session         |
+| ~SPC m d A~   | abandon all process             |
+|---------------+---------------------------------|
+| ~SPC m d e e~ | eval                            |
+| ~SPC m d e r~ | eval region                     |
+| ~SPC m d e t~ | eval value at point             |
+|---------------+---------------------------------|
+| ~SPC m d S s~ | switch session                  |
+| ~SPC m d S t~ | switch thread                   |
+| ~SPC m d S f~ | switch frame                    |
+|---------------+---------------------------------|
+| ~SPC m d I i~ | inspect                         |
+| ~SPC m d I r~ | inspect region                  |
+| ~SPC m d I t~ | inspect value at point          |
+|---------------+---------------------------------|
+| ~SPC m d b b~ | toggle a breakpoint             |
+| ~SPC m d b c~ | change breakpoint condition     |
+| ~SPC m d b l~ | change breakpoint log condition |
+| ~SPC m d b h~ | change breakpoint hit count     |
+| ~SPC m d b a~ | add a breakpoint                |
+| ~SPC m d b d~ | delete a breakpoint             |
+| ~SPC m d b D~ | clear all breakpoints           |
+|---------------+---------------------------------|
+| ~SPC m d '_~  | Run debug REPL                  |
+|---------------+---------------------------------|
+| ~SPC m d w l~ | list local variables            |
+| ~SPC m d w o~ | goto output buffer if present   |
+| ~SPC m d w s~ | list sessions                   |
+| ~SPC m d w b~ | list breakpoints                |
+
+* References
+- [[https://github.com/yyoncho/dap-mode][dap-mode repo]]
+- [[https://github.com/emacs-lsp/lsp-mode][lsp-mode repo]]

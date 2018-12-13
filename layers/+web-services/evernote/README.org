@@ -2,14 +2,14 @@
 
 [[file:img/evernote.png]] with [[file:img/geeknote.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#geeknote][Geeknote]]
   - [[#geeknoteel][Geeknote.el]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support for the famous [[https://evernote.com/][Evernote]] note taking service to Spacemacs.
@@ -34,7 +34,7 @@ official =geeknote= [[http://www.geeknote.me/documentation/][documentation]].
 
 ** Geeknote.el
 [[https://github.com/avendael/emacs-geeknote][geeknote.el]] is a wrapper for some of the most used =geeknote= commands.
-By default, =geeknote.el= doesn't have any key bindings defined.
+By default, =geeknote.el= doesn’t have any key bindings defined.
 This layer provides key bindings for all of =geeknote.el's= exposed features.
 =geeknote.el= relies on having a correctly setup =geeknote= editor.
 To set this up, run the following command in your terminal after successfully
@@ -49,9 +49,9 @@ specifying the path to the =geeknote= python script, please refer to the
 =geeknote.el= [[https://github.com/avendael/emacs-geeknote][documentation]]. For more information about setting up =$PATH=,
 check out the corresponding section in the FAQ (~SPC h SPC $PATH RET~).
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                         |
+| Key binding | Description                         |
 |-------------+-------------------------------------|
 | ~SPC a e c~ | create a new note                   |
 | ~SPC a e e~ | edit an existing note               |

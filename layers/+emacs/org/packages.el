@@ -17,6 +17,7 @@
         evil-org
         evil-surround
         gnuplot
+        (helm-org-rifle :toggle (configuration-layer/layer-used-p 'helm))
         htmlize
         ;; ob, org and org-agenda are installed by `org-plus-contrib'
         (ob :location built-in)
@@ -37,6 +38,7 @@
         (ox-reveal :toggle org-enable-reveal-js-support)
         persp-mode
         (ox-hugo :toggle org-enable-hugo-support)
+        (org-trello :toggle org-enable-trello-support)
         ))
 
 (defun org/post-init-company ()
@@ -63,16 +65,18 @@
     (spacemacs|hide-lighter evil-org-mode)))
 
 (defun org/post-init-evil-surround ()
-  (defun spacemacs/add-org-surrounds ()
-    (push '(?: . spacemacs//surround-drawer) evil-surround-pairs-alist)
-    (push '(?# . spacemacs//surround-code) evil-surround-pairs-alist))
-  (add-hook 'org-mode-hook 'spacemacs/add-org-surrounds))
+  (add-hook 'org-mode-hook 'spacemacs/org-setup-evil-surround))
 
 (defun org/init-gnuplot ()
   (use-package gnuplot
     :defer t
     :init (spacemacs/set-leader-keys-for-major-mode 'org-mode
             "tp" 'org-plot/gnuplot)))
+
+(defun org/init-helm-org-rifle ()
+  (use-package helm-org-rifle
+    :defer t
+    :init (spacemacs/set-leader-keys "aor" 'helm-org-rifle)))
 
 (defun org/init-htmlize ()
   (use-package htmlize
@@ -93,10 +97,11 @@
 
 (defun org/init-org ()
   (use-package org
-    :defer t
+    :defer (spacemacs/defer)
     :commands (orgtbl-mode)
     :init
     (progn
+      (spacemacs|require 'org)
       (setq org-clock-persist-file (concat spacemacs-cache-directory
                                            "org-clock-save.el")
             org-id-locations-file (concat spacemacs-cache-directory
@@ -162,8 +167,10 @@ Will work on both org-mode and any mode that accepts plain html."
                         ("mC" . "clocks")
                         ("md" . "dates")
                         ("me" . "export")
+                        ("mf" . "feeds")
                         ("mi" . "insert")
                         ("miD" . "download")
+                        ("mm" . "more")
                         ("ms" . "trees/subtrees")
                         ("mT" . "toggles")
                         ("mt" . "tables")
@@ -176,17 +183,31 @@ Will work on both org-mode and any mode that accepts plain html."
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "'" 'org-edit-special
         "c" 'org-capture
+
+        ;; Clock
+        ;; These keybindings should match those under the "aoC" prefix (below)
         "Cc" 'org-clock-cancel
+        "Cd" 'org-clock-display
+        "Ce" 'org-evaluate-time-range
+        "Cg" 'org-clock-goto
         "Ci" 'org-clock-in
+        "CI" 'org-clock-in-last
+        "Cj" 'org-clock-jump-to-current-clock
         "Co" 'org-clock-out
+        "CR" 'org-clock-report
         "Cr" 'org-resolve-clocks
+
         "dd" 'org-deadline
         "ds" 'org-schedule
         "dt" 'org-time-stamp
         "dT" 'org-time-stamp-inactive
         "ee" 'org-export-dispatch
+        "fi" 'org-feed-goto-inbox
+        "fu" 'org-feed-update-all
 
         "a" 'org-agenda
+
+        "p" 'org-priority
 
         "Tc" 'org-toggle-checkbox
         "Te" 'org-toggle-pretty-entities
@@ -292,6 +313,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "iH" 'org-insert-heading-after-current
         "iK" 'spacemacs/insert-keybinding-org
         "il" 'org-insert-link
+        "in" 'org-add-note
         "ip" 'org-set-property
         "is" 'org-insert-subheading
         "it" 'org-set-tags
@@ -308,7 +330,8 @@ Will work on both org-mode and any mode that accepts plain html."
       ;; Add global evil-leader mappings. Used to access org-agenda
       ;; functionalities – and a few others commands – from any other mode.
       (spacemacs/declare-prefix "ao" "org")
-      (spacemacs/declare-prefix "aok" "clock")
+      (spacemacs/declare-prefix "aof" "feeds")
+      (spacemacs/declare-prefix "aoC" "clock")
       (spacemacs/set-leader-keys
         ;; org-agenda
         "ao#" 'org-agenda-list-stuck-projects
@@ -316,11 +339,19 @@ Will work on both org-mode and any mode that accepts plain html."
         "aoa" 'org-agenda-list
         "aoc" 'org-capture
         "aoe" 'org-store-agenda-views
-        "aokg" 'org-clock-goto
-        "aoki" 'org-clock-in-last
-        "aokj" 'org-clock-jump-to-current-clock
-        "aoko" 'org-clock-out
-        "aokr" 'org-resolve-clocks
+        "aofi" 'org-feed-goto-inbox
+        "aofu" 'org-feed-update-all
+
+        ;; Clock
+        ;; These keybindings should match those under the "mC" prefix (above)
+        "aoCc" 'org-clock-cancel
+        "aoCg" 'org-clock-goto
+        "aoCi" 'org-clock-in
+        "aoCI" 'org-clock-in-last
+        "aoCj" 'org-clock-jump-to-current-clock
+        "aoCo" 'org-clock-out
+        "aoCr" 'org-resolve-clocks
+
         "aol" 'org-store-link
         "aom" 'org-tags-view
         "aoo" 'org-agenda
@@ -373,13 +404,14 @@ Will work on both org-mode and any mode that accepts plain html."
         :title "Org Babel Transient state"
         :doc "
 [_j_/_k_] navigate src blocks         [_e_] execute src block
-[_g_] goto named block                [_'_] edit src block
-[_q_] quit"
+[_g_]^^   goto named block            [_'_] edit src block
+[_z_]^^   recenter screen             [_q_] quit"
         :bindings
         ("q" nil :exit t)
         ("j" org-babel-next-src-block)
         ("k" org-babel-previous-src-block)
         ("g" org-babel-goto-named-src-block)
+        ("z" recenter-top-bottom)
         ("e" org-babel-execute-maybe :exit t)
         ("'" org-edit-special :exit t)))))
 
@@ -659,3 +691,22 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-ox-hugo ()
   (use-package ox-hugo :after ox))
+
+(defun org/init-org-trello ()
+  (use-package org-trello
+    :after org
+    :config
+    (progn
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmt" "trello")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmtd" "sync down")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmtu" "sync up")
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "mtI" 'org-trello-install-key-and-token
+        "mta" 'org-trello-archive-card
+        "mtc" 'org-trello-create-board-and-install-metadata
+        "mti" 'org-trello-install-board-metadata
+        "mtm" 'org-trello-update-board-metadata
+        "mtdb" 'spacemacs/org-trello-pull-buffer
+        "mtdc" 'spacemacs/org-trello-pull-card
+        "mtub" 'spacemacs/org-trello-push-buffer
+        "mtuc" 'spacemacs/org-trello-push-card))))

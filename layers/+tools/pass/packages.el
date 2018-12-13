@@ -9,7 +9,26 @@
 ;;
 ;;; License: GPLv3
 
-(setq pass-packages '(password-store))
+(setq pass-packages
+      '(
+        (ivy-pass :requires ivy)
+        (helm-pass :requires helm)
+        password-store
+        ))
+
+(defun pass/init-helm-pass ()
+  (use-package helm-pass
+    :defer t
+    :init
+    (evil-leader/set-key
+      "Ap/" 'helm-pass)))
+
+(defun pass/init-ivy-pass ()
+  (use-package ivy-pass
+    :defer t
+    :init
+    (evil-leader/set-key
+      "Ap/" 'ivy-pass)))
 
 (defun pass/init-password-store ()
   (use-package password-store

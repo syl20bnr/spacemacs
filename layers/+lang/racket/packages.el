@@ -1,13 +1,24 @@
+;;; config.el --- Racket Layer packages File for Spacemacs
+;;
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;;
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
 (setq racket-packages
-  '(
-    company
-    company-quickhelp
-    ggtags
-    counsel-gtags
-    evil-cleverparens
-    helm-gtags
-    racket-mode
-    ))
+      '(
+        company
+        company-quickhelp
+        ggtags
+        counsel-gtags
+        evil-cleverparens
+        helm-gtags
+        racket-mode
+        ))
 
 (defun racket/post-init-company ()
   ;; this is the only thing to do to enable company in racket-mode

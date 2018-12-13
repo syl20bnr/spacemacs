@@ -13,27 +13,32 @@
   "Pretty symbols for Clojure's anonymous functions and sets,
    like (λ [a] (+ a 5)), ƒ(+ % 5), and ∈{2 4 6}."
   (font-lock-add-keywords mode
-    `(("(\\(fn\\)[\[[:space:]]"
+    `(("(\\(fn\\)[[[:space:]]"
        (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "λ"))))
-      ("(\\(partial\\)[\[[:space:]]"
+                                 (match-end 1) "λ")
+                 nil)))
+      ("(\\(partial\\)[[[:space:]]"
        (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "Ƥ"))))
-      ("(\\(comp\\)[\[[:space:]]"
+                                 (match-end 1) "Ƥ")
+                 nil)))
+      ("(\\(comp\\)[[[:space:]]"
        (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "∘"))))
+                                 (match-end 1) "∘")
+                 nil)))
       ("\\(#\\)("
        (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "ƒ"))))
+                                 (match-end 1) "ƒ")
+                 nil)))
       ("\\(#\\){"
        (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "∈")))))))
+                                 (match-end 1) "∈")
+                 nil))))))
 
 (defun spacemacs//cider-eval-in-repl-no-focus (form)
   "Insert FORM in the REPL buffer and eval it."
   (while (string-match "\\`[ \t\n\r]+\\|[ \t\n\r]+\\'" form)
     (setq form (replace-match "" t t form)))
-  (with-current-buffer (cider-current-repl-buffer)
+  (with-current-buffer (cider-current-connection)
     (let ((pt-max (point-max)))
       (goto-char pt-max)
       (insert form)
@@ -179,3 +184,28 @@ If called with a prefix argument, uses the other-window instead."
         (unless (eq 'symbol (type-of (cider-find-var nil var)))
           (dumb-jump-go))
       (dumb-jump-go))))
+
+(defun spacemacs/clj-describe-missing-refactorings ()
+  "Inform the user to add clj-refactor to configuration"
+  (interactive)
+  (with-help-window (help-buffer)
+    (princ "The package clj-refactor is disabled by default.
+To enable it, add the following variable to the clojure layer
+in your Spacemacs configuration:
+
+  dotspacemacs-configuration-layers
+  '(...
+    (clojure :variables
+             clojure-enable-clj-refactor t)
+    ) ")))
+
+(defmacro spacemacs|forall-clojure-modes (m &rest body)
+  "Executes BODY with M bound to all clojure derived modes."
+  (declare (indent 1))
+  `(dolist (,m '(clojure-mode
+                 clojurec-mode
+                 clojurescript-mode
+                 clojurex-mode
+                 cider-repl-mode
+                 cider-clojure-interaction-mode))
+     ,@body))

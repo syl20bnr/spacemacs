@@ -14,6 +14,7 @@
     company
     (flycheck-ledger :requires flycheck)
     ledger-mode
+    (evil-ledger :toggle (memq dotspacemacs-editing-style '(vim hybrid)))
     ))
 
 (defun finance/post-init-company ()
@@ -24,6 +25,11 @@
 (defun finance/init-flycheck-ledger ()
   (with-eval-after-load 'flycheck
     (require 'flycheck-ledger)))
+
+(defun finance/init-evil-ledger ()
+  (use-package evil-ledger
+    :defer t
+    :init (add-hook 'ledger-mode 'evil-ledger-mode)))
 
 (defun finance/init-ledger-mode ()
   (use-package ledger-mode
@@ -43,9 +49,7 @@
          "q" 'ledger-post-align-xact
          "r" 'ledger-reconcile
          "R" 'ledger-report
-         "t" 'ledger-insert-effective-date
-         "y" 'ledger-set-year
-         "RET" 'ledger-set-month)
+         "t" 'ledger-insert-effective-date)
       (spacemacs/set-leader-keys-for-major-mode 'ledger-reconcile-mode
         (or dotspacemacs-major-mode-leader-key ",") 'ledger-reconcile-toggle
         "a" 'ledger-reconcile-add

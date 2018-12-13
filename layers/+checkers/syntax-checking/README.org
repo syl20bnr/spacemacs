@@ -2,7 +2,7 @@
 
 [[file:img/flycheck.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -10,14 +10,14 @@
   - [[#enablingdisabling-tooltips][Enabling/Disabling tooltips]]
   - [[#disabling-by-default][Disabling by default]]
   - [[#bitmaps][Bitmaps]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
-This layer provides on the fly syntax checking using [[http://www.flycheck.org/][Flycheck]].
+This layer adds on the fly syntax checking to all supported language layers.
 
 ** Features:
-   - Automatic syntax checking with [[http://www.flycheck.org/][Flycheck]]
-   - Tooltip syntax errors with =popwin=
+- Support for automatic syntax checking with [[http://www.flycheck.org/][Flycheck]] for various language layers
+- Tooltip syntax errors with =popwin=
 
 * Install
 ** Layer
@@ -25,14 +25,17 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =syntax-checking= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+As this is a support layer you will also have to install at least one supported language
+layer for it to have any effect.
+
 ** Enabling/Disabling tooltips
 By default tooltips are enabled and used whenever it is possible.
 You can disable them by setting the variable =syntax-checking-enable-tooltips=
 to =nil=:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((syntax-checking :variables syntax-checking-enable-tooltips nil)))
+  (setq-default dotspacemacs-configuration-layers
+    '((syntax-checking :variables syntax-checking-enable-tooltips nil)))
 #+END_SRC
 
 ** Disabling by default
@@ -41,8 +44,8 @@ By default, syntax-checking is enabled in all available major modes (except for
 by setting the variable =syntax-checking-enable-by-default= to =nil=:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((syntax-checking :variables syntax-checking-enable-by-default nil)))
+  (setq-default dotspacemacs-configuration-layers
+    '((syntax-checking :variables syntax-checking-enable-by-default nil)))
 #+END_SRC
 
 If you want more fine-grained control, you can configure the variable
@@ -54,13 +57,13 @@ If the original flycheck fringe bitmaps are more to your liking, you can set the
 variable =syntax-checking-use-original-bitmaps= to =t=:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((syntax-checking :variables syntax-checking-use-original-bitmaps t)))
+  (setq-default dotspacemacs-configuration-layers
+    '((syntax-checking :variables syntax-checking-use-original-bitmaps t)))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                                                  |
+| Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC e b~   | check for errors now                                         |
 | ~SPC e c~   | clear errors                                                 |

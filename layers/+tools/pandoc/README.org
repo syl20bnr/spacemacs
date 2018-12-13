@@ -1,13 +1,13 @@
 #+TITLE: Pandoc layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#pandoc][Pandoc]]
 - [[#usage][Usage]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support for [[http://pandoc.org/][Pandoc]].
@@ -34,8 +34,8 @@ For a full list of possible conversions see the [[http://pandoc.org/][Pandoc doc
 An explanation of all the options offered by =pandoc-mode= can be found at the
 [[http://joostkremers.github.io/pandoc-mode/][Pandoc-mode website]].
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                     |
+| Key binding | Description                     |
 |-------------+---------------------------------|
 | ~SPC P /~   | Start pandoc-mode and open menu |

@@ -2,11 +2,12 @@
 
 [[file:img/groovy.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
+  - [[#imports][Imports]]
   - [[#repl][REPL]]
 
 * Description
@@ -23,9 +24,15 @@ add =groovy= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Key bindings
+** Imports
+
+| Key binding | Description                        |
+|-------------+------------------------------------|
+| ~SPC m r i~ | Add import for symbol around point |
+
 ** REPL
 
-| Key Binding | Description                                           |
+| Key binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~SPC m s b~ | send buffer to REPL and stay in buffer                |
 | ~SPC m s B~ | send buffer and and switch to REPL buffer             |

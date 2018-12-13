@@ -2,7 +2,7 @@
 
 [[file:img/elm.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -20,10 +20,12 @@
     - [[#imports-sort][Imports sort]]
     - [[#file-format][File format]]
   - [[#indentation][Indentation]]
+  - [[#test-runner-settings][Test runner settings]]
 - [[#key-bindings][Key bindings]]
   - [[#elm-make][elm-make]]
   - [[#elm-repl][elm-repl]]
   - [[#elm-reactor][elm-reactor]]
+  - [[#elm-test-runner][elm-test-runner]]
   - [[#elm-package][elm-package]]
     - [[#package-list-buffer][package list buffer]]
   - [[#elm-oracle-1][elm-oracle]]
@@ -66,9 +68,11 @@ Official installers for these operating systems are available from:
 *** Universal installer using npm
 A npm based installer is available to, and provides pre-compiled binaries for
 certain operating system and architectures.
+
 #+BEGIN_SRC sh
   npm install --global elm
 #+END_SRC
+
 Also, note that you might need to set the =ELM_HOME= environment variables to
 the corresponding directory created by the installer.
 
@@ -87,7 +91,7 @@ To build from source, see instructions here:
 cursor and provide support for auto-completion, but it is not part of the
 standard elm-platform.
 
-Both the "company" and "auto-complete" backends are supported, but this layer
+Both the “company” and “auto-complete” backends are supported, but this layer
 is configured with company.
 
 To install =elm-oracle=, install =node.js= and =npm=, then
@@ -101,8 +105,8 @@ run this command:
 =elm-format= can be used to format elm code according to a standard set of
 rules.
 
-To install =elm-format= follow the the instructions for the version of elm
-installed: https://github.com/avh4/elm-format
+To install =elm-format= follow the instructions for the version of elm
+installed: [[https://github.com/avh4/elm-format]]
 
 Also, note that if you use homebrew to install =elm-format= the installed exe
 has a version suffix, the installed command name can be set in your
@@ -130,7 +134,7 @@ Alternatively, to preview from buffer, press ~C-u C-c C-n~ (or ~SPC m R
 n~). To preview in debug mode, prefix with ~C-u~ (or ~SPC u~).
 
 By default, =elm-reactor= with launch with its own generated index.html. To use
-a custom html, you'd need to load the debuger excplictly and use an http daemon
+a custom html, you’d need to load the debuger excplictly and use an http daemon
 to serve your custom file.
 
 If needed, default values for host and port used by for the elm-reactor server
@@ -166,10 +170,23 @@ cycle (n)... where n is the number of available indentations to choose from. If
 the automatic indentation level was not the one you expected simply hit TAB to
 cycle through the list (note that hitting any other key will cancel the cycle).
 
+** Test runner settings
+You may want to customize the default suffix for test files. For example, if you
+prefer to put your tests in =HelloSpec.elm= instead of =HelloTest.elm=, set the
+following variable:
+
+#+BEGIN_SRC emacs-lisp
+  (elm :variables
+       elm-test-runner-preferred-test-suffix "Spec")
+#+END_SRC
+
+Take a look [[https://github.com/juanedi/elm-test-runner#customization][here]] for more settings, and remember that this can be set by project
+using a =dir-locals.el= file.
+
 * Key bindings
 ** elm-make
 
-| Key Binding | Description                                  |
+| Key binding | Description                                  |
 |-------------+----------------------------------------------|
 | ~SPC m c b~ | elm-compile-buffer                           |
 | ~SPC m c B~ | spacemacs/elm-compile-buffer-override-output |
@@ -177,7 +194,7 @@ cycle through the list (note that hitting any other key will cancel the cycle).
 
 ** elm-repl
 
-| Key Binding | Description                                                |
+| Key binding | Description                                                |
 |-------------+------------------------------------------------------------|
 | ~SPC m s i~ | elm-repl-load                                              |
 | ~SPC m s f~ | send current function to REPL                              |
@@ -187,14 +204,25 @@ cycle through the list (note that hitting any other key will cancel the cycle).
 
 ** elm-reactor
 
-| Key Binding | Description        |
+| Key binding | Description        |
 |-------------+--------------------|
 | ~SPC m R n~ | elm-preview-buffer |
 | ~SPC m R m~ | elm-preview-main   |
 
+** elm-test-runner
+
+| Key binding   | Description                            |
+|---------------+----------------------------------------|
+| ~SPC m t b~   | elm-test-runner-run                    |
+| ~SPC m t d~   | elm-test-runner-run-directory          |
+| ~SPC m t p~   | elm-test-runner-run-project            |
+| ~SPC m t r~   | elm-test-runner-rerun                  |
+| ~SPC m t w~   | elm-test-runner-watch                  |
+| ~SPC m t TAB~ | elm-test-runner-toggle-test-and-target |
+
 ** elm-package
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~SPC m p i~ | elm-import               |
 | ~SPC m p c~ | elm-package-catalog      |
@@ -202,7 +230,7 @@ cycle through the list (note that hitting any other key will cancel the cycle).
 
 *** package list buffer
 
-| Key Binding | Description         |
+| Key binding | Description         |
 |-------------+---------------------|
 | ~g~         | elm-package-refresh |
 | ~v~         | elm-package-view    |
@@ -213,18 +241,18 @@ cycle through the list (note that hitting any other key will cancel the cycle).
 
 ** elm-oracle
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~SPC m h h~ | elm-oracle-doc-at-point  |
 | ~SPC m h t~ | elm-oracle-type-at-point |
 
 ** elm-format
 
-| Key Binding | Description            |
+| Key binding | Description            |
 | ~SPC m = b~ | elm-mode-format-buffer |
 
 ** Refactoring
 
-| Key Binding | Description      |
+| Key binding | Description      |
 |-------------+------------------|
 | ~SPC m r i~ | elm-sort-imports |

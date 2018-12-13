@@ -1,6 +1,6 @@
 #+TITLE: Auto-completion layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -15,77 +15,71 @@
   - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
   - [[#completion-back-ends][Completion back ends]]
   - [[#improved-faces][Improved faces]]
-- [[#key-bindings-1][Key Bindings]]
+- [[#key-bindings-1][Key bindings]]
   - [[#company][Company]]
   - [[#auto-complete][Auto-complete]]
   - [[#yasnippet][Yasnippet]]
   - [[#auto-yasnippet][Auto-yasnippet]]
 
 * Description
-This layer provides auto-completion to Spacemacs.
-
-The following completion engines are supported:
-- [[http://company-mode.github.io/][company]]
-- [[https://github.com/auto-complete/auto-complete][auto-complete]]
-
-Snippets are supported via [[https://github.com/capitaomorte/yasnippet][yasnippet]] and [[https://github.com/abo-abo/auto-yasnippet][auto-yasnippet]].
-
-This layer also configures =hippie-expand=.
+This layer adds auto-completion to all supported language layers.
 
 ** Features:
-- Completion with =company= or =auto-complete=
-- Frequency-based suggestions via =company-statistics=
-- Integration with =yasnippets=
+- Support for code completion with [[http://company-mode.github.io/][company]] or [[https://github.com/auto-complete/auto-complete][auto-complete]] for various language layers
+- Frequency-based suggestions via [[https://github.com/company-mode/company-statistics][company-statistics]] for =company=
+- Integration with [[https://github.com/capitaomorte/yasnippet][yasnippet]] and [[https://github.com/abo-abo/auto-yasnippet][auto-yasnippet]]
+- Automatic configuration of [[https://www.emacswiki.org/emacs/HippieExpand][hippie-expand]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =auto-completion= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+As this is a support layer you will also have to install at least one supported language
+layer for it to have any effect.
+
 * Configuration
 ** Key bindings
 You can customize the user experience of auto-completion with the following
 layer variables:
-
 1. =auto-completion-return-key-behavior= set the action to perform when the
    ~RET~ key is pressed, the possible values are:
    - =complete= completes with the current selection
    - =nil= does nothing
-
 2. =auto-completion-tab-key-behavior= set the action to perform when the ~TAB~
    key is pressed, the possible values are:
    - =complete= completes with the current selection
    - =cycle= completes the common prefix and cycle between candidates
    - =nil= does nothing
-
 3. =auto-completion-complete-with-key-sequence= is a string of two characters
-   denoting a key sequence that will perform a =complete= action if the sequence
-   as been entered quickly enough. If its value is =nil= then the feature is
+   denoting a key sequence that will perform a =complete action= if the sequence
+   has been entered quickly enough. If its value is =nil= then the feature is
    disabled.
-
 4. =auto-completion-complete-with-key-sequence-delay= is the number of seconds
    to wait for the auto-completion key sequence to be entered. The default value
    is 0.1 seconds.
-
-5. =auto-completion-idle-delay= is the number of seconds to wait before
-   suggesting completions. The default value is 0.2 seconds.
+5. =auto-completion-idle-delay= is the number of seconds to wait before suggesting
+   completions. The default value is 0.2 seconds. Set to =nil= to disable
+   automatic suggestions (the ~TAB~ key will still perform completion).
 
 The default configuration of the layer is:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-  (auto-completion :variables
-                   auto-completion-return-key-behavior 'complete
-                   auto-completion-tab-key-behavior 'cycle
-                   auto-completion-complete-with-key-sequence nil
-                   auto-completion-complete-with-key-sequence-delay 0.1
-                   auto-completion-idle-delay 0.2
-                   auto-completion-private-snippets-directory nil)
-                   ))
+  (setq-default dotspacemacs-configuration-layers '(
+    (auto-completion :variables
+                     auto-completion-return-key-behavior 'complete
+                     auto-completion-tab-key-behavior 'cycle
+                     auto-completion-complete-with-key-sequence nil
+                     auto-completion-complete-with-key-sequence-delay 0.1
+                     auto-completion-idle-delay 0.2
+                     auto-completion-private-snippets-directory nil
+                     auto-completion-enable-snippets-in-popup nil
+                     auto-completion-enable-help-tooltip nil
+                     auto-completion-enable-sort-by-usage nil)))
 #+END_SRC
 
 ~jk~ is a good candidate for =auto-completion-complete-with-key-sequence= if
-you don't use it already.
+you don’t use it already.
 
 ** Snippets directories
 The following directories are added by default:
@@ -94,9 +88,9 @@ The following directories are added by default:
 - =~/.emacs.d/private/snippets= (conditional to the value of =auto-completion-private-snippets-directory=)
 - =~/.spacemacs.d/snippets= (conditional to the existence of =~/.spacemacs.d= directory)
 
-You can provide additional directories by setting the variable
-=auto-completion-private-snippets-directory= which can take a string in case of
-a single path or a list of paths.
+You can provide additional directories by setting the variable =auto-completion-private-snippets-directory=
+which can either take a single path as string or a list of paths.
+
 If its value is =nil= then the path =~/.emacs.d/private/snippets= is used.
 
 ** Show snippets in auto-completion popup
@@ -114,31 +108,30 @@ To enable automatic docstring tooltips set =auto-completion-enable-help-tooltip=
 to =t=.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((auto-completion :variables
-                    auto-completion-enable-help-tooltip t)))
+  (setq-default dotspacemacs-configuration-layers
+    '((auto-completion :variables
+                      auto-completion-enable-help-tooltip t)))
 #+END_SRC
 
 To enable manual non-automatic invocation of docstring tooltips, set it to
 =manual=. The tooltip can be invoked manually by pressing ~M-h~.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((auto-completion :variables
-                    auto-completion-enable-help-tooltip 'manual)))
+  (setq-default dotspacemacs-configuration-layers
+    '((auto-completion :variables
+                      auto-completion-enable-help-tooltip 'manual)))
 #+END_SRC
 
 ** Sort results by usage
 To enable sorting auto-completion results by their usage frequency set
 =auto-completion-enable-sort-by-usage= to =t=.
 This feature is provided by the [[https://github.com/company-mode/company-statistics][company-statistics]] package when =company=
-is used.
-The variable has no effect when =auto-complete= is used.
+is used. The variable has no effect when =auto-complete= is used.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((auto-completion :variables
-                    auto-completion-enable-sort-by-usage t)))
+  (setq-default dotspacemacs-configuration-layers
+    '((auto-completion :variables
+                      auto-completion-enable-sort-by-usage t)))
 #+END_SRC
 
 ** Enable company or auto-complete globally
@@ -185,9 +178,10 @@ In the file =packages.el= of the python layer:
 ** Completion back ends
 Many spacemacs layers (e.g., python, html, haskell) configure company mode
 backends to provide mode-specific completion. These modes will include
-completion backends specified in the `spacemacs-default-company-backends`
+completion backends specified in the =spacemacs-default-company-backends=
 variable. The defaults should work well, but you can configure this variable in
 your =.spacemacs= file with (e.g.)
+
 #+BEGIN_SRC emacs-lisp
   (setq-default
    dotspacemacs-configuration-layers
@@ -199,26 +193,26 @@ your =.spacemacs= file with (e.g.)
 For nicer-looking faces, try adding the following to `custom-set-faces` in your dotspacemacs file.
 
 #+BEGIN_SRC emacs-lisp
-(custom-set-faces
- '(company-tooltip-common
-   ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection
-   ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+  (custom-set-faces
+   '(company-tooltip-common
+     ((t (:inherit company-tooltip :weight bold :underline nil))))
+   '(company-tooltip-common-selection
+     ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 ** Company
 
-| Key Binding | Description                                                                                          |
+| Key binding | Description                                                                                          |
 |-------------+------------------------------------------------------------------------------------------------------|
 | ~C-d~       | open minibuffer with documentation of thing at point in company dropdown                             |
-| ~C-/~       | show candidates in Helm (for fuzzy searching)                                                        |
+| ~C-/~       | show candidates in Helm or Ivy (for fuzzy searching)                                                 |
 | ~C-M-/~     | filter the company dropdown menu                                                                     |
-| ~M-h~       | show current candidate's documentation in a tooltip (requires =auto-completion-enable-help-tooltip=) |
+| ~M-h~       | show current candidate’s documentation in a tooltip (requires =auto-completion-enable-help-tooltip=) |
 
 Vim Style:
 
-| Key Binding | Description                                  |
+| Key binding | Description                                  |
 |-------------+----------------------------------------------|
 | ~C-j~       | (vim style) go down in company dropdown menu |
 | ~C-k~       | (vim style) go up in company dropdown menu   |
@@ -226,14 +220,14 @@ Vim Style:
 
 Emacs style:
 
-| Key Binding | Description                                    |
+| Key binding | Description                                    |
 |-------------+------------------------------------------------|
 | ~C-n~       | (emacs style) go down in company dropdown menu |
 | ~C-p~       | (emacs style) go up in company dropdown menu   |
 
 ** Auto-complete
 
-| Key Binding | Description                                                          |
+| Key binding | Description                                                          |
 |-------------+----------------------------------------------------------------------|
 | ~C-j~       | select next candidate                                                |
 | ~C-k~       | select previous candidate                                            |
@@ -243,14 +237,14 @@ Emacs style:
 
 ** Yasnippet
 
-| Key Binding | Description                                                    |
+| Key binding | Description                                                    |
 |-------------+----------------------------------------------------------------|
 | ~M-/~       | Expand a snippet if text before point is a prefix of a snippet |
 | ~SPC i s~   | List all current yasnippets for inserting                      |
 
 ** Auto-yasnippet
 
-| Key Binding | Description                                                               |
+| Key binding | Description                                                               |
 |-------------+---------------------------------------------------------------------------|
 | ~SPC i S c~ | create a snippet from an active region                                    |
 | ~SPC i S e~ | Expand the snippet just created with ~SPC i y~                            |

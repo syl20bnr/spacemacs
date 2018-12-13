@@ -2,7 +2,7 @@
 
 [[file:img/markdown.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
   - [[#bibtex][BibTeX]]
@@ -60,7 +60,7 @@ variable =markdown-live-preview-engine= to =vmd=:
 And install the executable with:
 
 #+BEGIN_SRC shell
-npm install -g vmd
+  npm install -g vmd
 #+END_SRC
 
 Additionally there is =flymd= package in =chrome= layer that allows to preview
@@ -71,7 +71,7 @@ information.
 To generate MMM-Modes for languages set the value of the variable
 =markdown-mmm-auto-modes= to a list of the languages. For languages where the
 mode name directly relates to the language name, use a string. Otherwise, use a
-list of `("language" "mode")`:
+list of `(“language” “mode”)`:
 
 #+BEGIN_SRC emacs-lisp
   dotspacemacs-configuration-layers '(
@@ -90,7 +90,7 @@ To generate a table of contents type on top of the buffer:
 * Key bindings
 ** Element insertion
 
-| Key Binding | Description                                                       |
+| Key binding | Description                                                       |
 |-------------+-------------------------------------------------------------------|
 | ~SPC m -~   | insert horizontal line                                            |
 | ~SPC m h i~ | insert header dwim                                                |
@@ -103,13 +103,11 @@ To generate a table of contents type on top of the buffer:
 | ~SPC m h 6~ | insert header atx 6                                               |
 | ~SPC m h !~ | insert header setext 1                                            |
 | ~SPC m h @~ | insert header setext 2                                            |
-| ~SPC m i l~ | insert inline link dwim                                           |
-| ~SPC m i L~ | insert reference link dwim                                        |
+| ~SPC m i l~ | insert link                                                       |
 | ~SPC m i u~ | insert uri                                                        |
 | ~SPC m i f~ | insert footnote                                                   |
 | ~SPC m i w~ | insert wiki link                                                  |
 | ~SPC m i i~ | insert image                                                      |
-| ~SPC m i I~ | insert reference image                                            |
 | ~SPC m i t~ | insert Table of Contents (toc)                                    |
 | ~SPC m x b~ | make region bold or insert bold                                   |
 | ~SPC m x i~ | make region italic or insert italic                               |
@@ -122,33 +120,33 @@ To generate a table of contents type on top of the buffer:
 
 ** Element removal
 
-| Key Binding | Description         |
+| Key binding | Description         |
 |-------------+---------------------|
 | ~SPC m k~   | kill thing at point |
 
 ** Completion
 
-| Key Binding | Description |
+| Key binding | Description |
 |-------------+-------------|
 | ~SPC m ]~   | complete    |
 
 ** Following and Jumping
 
-| Key Binding | Description           |
+| Key binding | Description           |
 |-------------+-----------------------|
 | ~SPC m o~   | follow thing at point |
-| ~SPC m j~   | jump                  |
+| ~RET~       | jump (markdown-do)    |
 
 ** Indentation
 
-| Key Binding | Description   |
-|-------------+---------------|
-| ~SPC m \>~  | indent region |
-| ~SPC m \<~  | exdent region |
+| Key binding | Description    |
+|-------------+----------------|
+| ~SPC m \>~  | indent region  |
+| ~SPC m \<~  | outdent region |
 
 ** Header navigation
 
-| Key Binding | Description                  |
+| Key binding | Description                  |
 |-------------+------------------------------|
 | ~gj~        | outline forward same level   |
 | ~gk~        | outline backward same level  |
@@ -157,7 +155,7 @@ To generate a table of contents type on top of the buffer:
 
 ** Buffer-wide commands
 
-| Key Binding | Description                                                                          |
+| Key binding | Description                                                                          |
 |-------------+--------------------------------------------------------------------------------------|
 | ~SPC m c ]~ | complete buffer                                                                      |
 | ~SPC m c m~ | other window                                                                         |
@@ -173,13 +171,13 @@ To generate a table of contents type on top of the buffer:
 
 ** List editing
 
-| Key Binding | Description      |
+| Key binding | Description      |
 |-------------+------------------|
 | ~SPC m l i~ | insert list item |
 
 ** Movement
 
-| Key Binding | Description        |
+| Key binding | Description        |
 |-------------+--------------------|
 | ~SPC m {~   | backward paragraph |
 | ~SPC m }~   | forward paragraph  |
@@ -188,18 +186,19 @@ To generate a table of contents type on top of the buffer:
 
 ** Promotion, Demotion
 
-| Key Binding | Description        |
-|-------------+--------------------|
-| ~M-k~       | markdown-move-up   |
-| ~M-j~       | markdown-move-down |
-| ~M-h~       | markdown-promote   |
-| ~M-l~       | markdown-demote    |
+| Key binding        | Command            |
+|--------------------+--------------------|
+| ~M-k~ or ~M-up~    | markdown-move-up   |
+| ~M-j~ or ~M-down~  | markdown-move-down |
+| ~M-h~ or ~M-left~  | markdown-promote   |
+| ~M-l~ or ~M-right~ | markdown-demote    |
 
 ** Toggles
 
-| Key Binding | Description          |
+| Key binding | Description          |
 |-------------+----------------------|
 | ~SPC m t i~ | toggle inline images |
 | ~SPC m t l~ | toggle hidden urls   |
+| ~SPC m t m~ | toggle markup hiding |
 | ~SPC m t t~ | toggle checkbox      |
 | ~SPC m t w~ | toggle wiki links    |

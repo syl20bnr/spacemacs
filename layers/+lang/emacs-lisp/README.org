@@ -2,7 +2,7 @@
 
 [[file:img/emacs.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -32,6 +32,7 @@ always be in your dotfile, it is not recommended to uninstall it.
 - Ert test runner with [[https://github.com/tonini/overseer.el][overseer]]
 - Nameless package prefix with optional [[https://github.com/Malabarba/Nameless][nameless]]
 - Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
+- Visual feedback when evaluation using [[https://github.com/hchbaw/eval-sexp-fu.el][eval-sexp-fu]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -54,7 +55,7 @@ You can also exclude the =auto-compile= package.
 
 * Working with lisp files (barfage, slurpage & more)
 Spacemacs comes with a special =lisp-state= for working with lisp code that
-supports slurpage, barfage and more tools you'll likely want when working with
+supports slurpage, barfage and more tools you’ll likely want when working with
 lisp.
 
 As this state works the same for all files, the documentation is in global
@@ -67,37 +68,36 @@ First you need to read this file in Emacs in order to have the following code
 block to be interactively opened as Emacs Lisp.
 
 #+BEGIN_SRC elisp
-(defun helloworld (name)
-  (let ((n (subroutine name)))
-    (message (format "Hello world, %s!" name))))
+  (defun helloworld (name)
+    (let ((n (subroutine name)))
+      (message (format "Hello world, %s!" name))))
 
-(defun subroutine (s)
-  (concat "my dear " s))
+  (defun subroutine (s)
+    (concat "my dear " s))
 
-(helloworld "Spacemacs")
+  (helloworld "Spacemacs")
 #+END_SRC
 
+Steps:
 1) To start the tutorial put your point in the source block above and press ~, '~
+
 it will open a new buffer in =emacs-lisp-mode=.
-
 2) Evaluate each sexp by putting your point in each of them and press ~, e f~.
-
 3) To debug the =helloworld= function, put your cursor on the =defun= keyword and
+
 press ~SPC m d f~ (or ~, d f~), it will put a breakpoint on the function (we say
 that we instrumentalise this function) so whenever the Lisp interpreter
 encounters this function it will start the debugger.
-
 4) Then go to the closing parenthesis of =(helloworld "Spacemacs")= and press
+
 ~, e e~ to evaluate it, if you are using =vim= editing style you end up in
 evilified state otherwise you end up in emacs state and =*Debugging*= is
 displayed in the mode line.
-
 5) Press ~s~ to go to next step up to the opening parenthesis of
    =(subroutine name)=,
-
 6) Press ~i~ to go into the =subroutine= where you can press ~s~ to step in
-function or press ~o~ to go out of it.
 
+function or press ~o~ to go out of it.
 7) Press ~a~ to stop debugging.
 
 * Nameless
@@ -129,7 +129,7 @@ You can define additional alias in function =dotspacemacs/user-config= of your
 dotfile:
 
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'nameless-global-aliases '("N" . "nameless"))
+  (add-to-list 'nameless-global-aliases '("N" . "nameless"))
 #+END_SRC
 
 * Structuraly safe editing
@@ -143,20 +143,20 @@ To turn it on automatically for all =emacs-lisp= buffers call the following
 function in your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-emacs-lisp-mode)
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-emacs-lisp-mode)
 #+END_SRC
 
 or to enable it for all supported modes:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 #+END_SRC
 
 When enabled the symbol =🆂= should be displayed in the mode-line.
 
 * Key bindings
 
-| Key Binding                | Description                                            |
+| Key binding                | Description                                            |
 |----------------------------+--------------------------------------------------------|
 | ~SPC m g g~                | go to definition of symbol under point                 |
 | ~SPC m g G~                | go to definition of symbol under point in other window |
@@ -178,7 +178,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 ** Additional testing functions with overseer
 Function related to test are present under the ~SPC m t~ prefix:
 
-| Key Binding | Description   |
+| Key binding | Description   |
 |-------------+---------------|
 | ~SPC m t a~ | overseer test |
 | ~SPC m t A~ | test debug    |
@@ -193,7 +193,7 @@ Function related to test are present under the ~SPC m t~ prefix:
 ** Additional evaluation functions
 If =smartparens= is used the following additional key bindings are available:
 
-| Key Binding | Description                  |
+| Key binding | Description                  |
 |-------------+------------------------------|
 | ~SPC m e c~ | evaluate sexp around point   |
 | ~SPC m e s~ | evaluate symbol around point |
@@ -201,7 +201,7 @@ If =smartparens= is used the following additional key bindings are available:
 ** Format code
 The [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bemacs/semantic/README.org][semantic]] layer should be installed for these key bindings to become active.
 
-| Key Binding | Description             |
+| Key binding | Description             |
 |-------------+-------------------------|
 | ~SPC m = b~ | format current buffer   |
 | ~SPC m = f~ | format current function |
@@ -211,7 +211,7 @@ The [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bemacs/semanti
 ** Debugging
 To start debugging:
 
-| Key Binding | Description                                                            |
+| Key binding | Description                                                            |
 |-------------+------------------------------------------------------------------------|
 | ~SPC m d f~ | on a =defun= symbol toggle on the instrumentalisation of the function  |
 | ~SPC m d F~ | on a =defun= symbol toggle off the instrumentalisation of the function |

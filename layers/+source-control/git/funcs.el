@@ -76,7 +76,7 @@
   "Return non-nil if evil navigation should be enabled for STYLE."
   (or (eq style 'vim)
       (and (eq style 'hybrid)
-           hybrid-mode-enable-evilified-state)))
+           hybrid-style-enable-evilified-state)))
 
 (defun spacemacs//magit-evil-magit-bindings (style)
   "Set `evil-magit' bindings for the given editing STYLE."

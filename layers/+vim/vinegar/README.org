@@ -1,6 +1,6 @@
 #+TITLE: Vinegar layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
   - [[#mouse-bindings][Mouse bindings]]
@@ -9,19 +9,19 @@
 * Description
 This layer is a port layer for vim-vinegar for emacs.
 
-A port of tpope's
+A port of tpope’s
 [[https://github.com/tpope/vim-vinegar][vinegar.vim]], simplifying =dired=
 with a limited number of details and exposing the ~-~ command in all
 buffers to enter dired.
 
 ** Features:
--  navigation up folders with ~-~ key
--  simplify dired buffer to show only file names
--  better evil/vim bindings for navigation within dired buffer
--  keep only one active dired buffer
--  Use dired-k extension to show time / vcs related information in
-   single bar
--  right mouse click moves up directory if in blank space or shows context menu
+- navigation up folders with ~-~ key
+- simplify dired buffer to show only file names
+- better evil/vim bindings for navigation within dired buffer
+- keep only one active dired buffer
+- Use dired-k extension to show time / vcs related information in
+  single bar
+- right mouse click moves up directory if in blank space or shows context menu
 
 ** Mouse bindings
 
@@ -33,7 +33,7 @@ buffers to enter dired.
 
 ** Key bindings
 
-| Key Binding | Description                                        |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~-~         | Navigate to parent directory in dired              |
 | ~0~         | (Dired) Move to the beginning of the file in dired |

@@ -2,7 +2,7 @@
 
 [[file:img/transmission.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -24,42 +24,46 @@ This layer integrates a BitTorrent client into Spacemacs.
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 install and configure =transmission-daemon=. Debian example:
+
 #+BEGIN_SRC sh
-sudo apt-get -y install transmission-daemon
-sudo service transmission-daemon stop
+  sudo apt-get -y install transmission-daemon
+  sudo service transmission-daemon stop
 #+END_SRC
+
 Set =rpc-authentication-required= to false (or 0 if it is numeric)
 in /etc/transmission-daemon/settings.json or
 configure authorization.
 See transmission.el [[https://github.com/holomorph/transmission][README.org]] for details.
 Start the daemon:
+
 #+BEGIN_SRC sh
-sudo service transmission-daemon start
+  sudo service transmission-daemon start
 #+END_SRC
 
 * FAQ
 ** How to enable status auto refresh?
-Add  =(transmission :variables transmission-auto-refresh-all t)= to
+Add =(transmission :variables transmission-auto-refresh-all t)= to
 =dotspacemacs-configuration-layers= or pick modes manually:
+
 #+BEGIN_SRC emacs-lisp
-(setq transmission-refresh-modes '(transmission-mode
-                                   transmission-files-mode
-                                   transmission-info-mode
-                                   transmission-peers-mode))
+  (setq transmission-refresh-modes '(transmission-mode
+                                     transmission-files-mode
+                                     transmission-info-mode
+                                     transmission-peers-mode))
 #+END_SRC
 
 * Key bindings
 ** Global
 
-| Key Binding | Description        |
+| Key binding | Description        |
 |-------------+--------------------|
 | ~SPC a t~   | start transmission |
 
 ** =transmission-mode=
 
-| Key Binding | Description                                                   |
+| Key binding | Description                                                   |
 |-------------+---------------------------------------------------------------|
-| ~SPC m g t~ | Open a `transmission-files-mode' buffer for torrent at point. |
+| ~SPC m g t~ | Open a `transmission-files-mode’ buffer for torrent at point. |
 | ~SPC m a t~ | Add torrent by filename, URL, magnet link, or info hash.      |
 | ~SPC m s d~ | Set global download speed limit in kB/s.                      |
 | ~SPC m g p~ | Open a =transmission-peers-mode= buffer for torrent at point. |
@@ -76,7 +80,7 @@ Add  =(transmission :variables transmission-auto-refresh-all t)= to
 
 ** =transmission-info-mode=
 
-| Key Binding | Description                                                   |
+| Key binding | Description                                                   |
 |-------------+---------------------------------------------------------------|
 | ~SPC m c~   | Copy magnet link of current torrent.                          |
 | ~SPC m s d~ | Set download limit of torrent(s) at point in kB/s.            |
@@ -90,7 +94,7 @@ Add  =(transmission :variables transmission-auto-refresh-all t)= to
 
 ** =transmission-files-mode=
 
-| Key Binding | Description                                                   |
+| Key binding | Description                                                   |
 |-------------+---------------------------------------------------------------|
 | ~SPC g f~   | Visit the file at point with =find-file-read-only=.           |
 | ~SPC m r~   | Run a command on the file at point.                           |
@@ -103,6 +107,6 @@ Add  =(transmission :variables transmission-auto-refresh-all t)= to
 
 ** =transmission-peers-mode=
 
-| Key Binding | Description                                                  |
+| Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC m g i~ | Open a =transmission-info-mode= buffer for torrent at point. |

@@ -2,7 +2,7 @@
 
 [[file:img/jabber-logo.gif]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -25,12 +25,12 @@ file.
 
 * Key bindings
 
-| Key Binding | Description          |
+| Key binding | Description          |
 | ~SPC a j~   | Connect all accounts |
 
 ** Jabber Roster
 
-| Key Binding | Description                          |
+| Key binding | Description                          |
 | ~SPC m a~   | Jabber send presence                 |
 | ~SPC m b~   | Jabber get browse                    |
 | ~SPC m d~   | Jabber disconnect                    |
@@ -46,8 +46,9 @@ file.
 
 * HipChat
 ** Authentication
-To find YOUR_JABBER_ID visit "XMPP/Jabber info" section on your profile page at hipchat.com
- #+begin_src emacs-lisp
+To find YOUR_JABBER_ID visit “XMPP/Jabber info” section on your profile page at hipchat.com
+
+#+BEGIN_SRC emacs-lisp
 
   (setq ssl-program-name "gnutls-cli"
         ssl-program-arguments '("--insecure" "-p" service host)
@@ -57,12 +58,12 @@ To find YOUR_JABBER_ID visit "XMPP/Jabber info" section on your profile page at 
                                (:port . 5223)
                                (:password . "YOUR_PASS")
                                (:connection-type . ssl))))
- #+end_src
+#+END_SRC
 
 ** Joining rooms
 To simplify joining rooms, you can use something like this:
 
- #+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defvar hipchat-room-list '(
                               ("HIPCHAT NAME" . "XMPP/JABBER NAME")
                               ))
@@ -79,5 +80,4 @@ To simplify joining rooms, you can use something like this:
        (concat hipchat-number "" hipchat-mapping "@conf.hipchat.com")
        hipchat-nickname
        t)))
-
- #+end_src
+#+END_SRC

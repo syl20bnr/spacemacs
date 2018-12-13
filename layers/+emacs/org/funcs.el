@@ -44,3 +44,26 @@
 (defun spacemacs//evil-org-mode ()
   (evil-org-mode)
   (evil-normalize-keymaps))
+
+(defun spacemacs/org-setup-evil-surround ()
+  (with-eval-after-load 'evil-surround
+    (add-to-list 'evil-surround-pairs-alist '(?: . spacemacs//surround-drawer))
+    (add-to-list 'evil-surround-pairs-alist '(?# . spacemacs//surround-code))))
+
+
+
+(defun spacemacs/org-trello-pull-buffer ()
+  (interactive)
+  (org-trello-sync-buffer 1))
+
+(defun spacemacs/org-trello-push-buffer ()
+  (interactive)
+  (org-trello-sync-buffer))
+
+(defun spacemacs/org-trello-pull-card ()
+  (interactive)
+  (org-trello-sync-card 1))
+
+(defun spacemacs/org-trello-push-card ()
+  (interactive)
+  (org-trello-sync-card))

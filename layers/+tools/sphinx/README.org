@@ -2,7 +2,7 @@
 
 [[file:img/sphinx.png]]
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -27,34 +27,34 @@ in this file.
 
 * Configuration
 ** Sphinx target
-To use the layer's Sphinx feature, the following variables should be set.
+To use the layer’s Sphinx feature, the following variables should be set.
 
-A parent directory is needed for all Sphinx projects' builds.
+A parent directory is needed for all Sphinx projects’ builds.
 
-#+begin_src emacs-lisp
-    (setq rst-sphinx-target-parent "/your/path/of/build/")
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (setq rst-sphinx-target-parent "/your/path/of/build/")
+#+END_SRC
 
 Set a directory in the parent directory for each Sphinx project.
 
-#+begin_src emacs-lisp
-    (setq rst-sphinx-target-projects
-          '(("project1" . (latex "folder/in/target/parent" t))
-            ("project2" . (html  "folder/in/target/parent" nil))
-            ))
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (setq rst-sphinx-target-projects
+        '(("project1" . (latex "folder/in/target/parent" t))
+          ("project2" . (html  "folder/in/target/parent" nil))
+          ))
+#+END_SRC
 
 ** Web browser
 Set the browser for viewing the HTML page of current rst file. This one
 is optional. If not set, the default browser will be used.
 
-#+begin_src emacs-lisp
-    (setq rst-slides-program "chromium")
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (setq rst-slides-program "chromium")
+#+END_SRC
 
 * Key bindings
 
-| Key Binding   | Description                             |
+| Key binding   | Description                             |
 |---------------+-----------------------------------------|
 | ~<SPC> m c c~ | compile projects                        |
 | ~<SPC> m c C~ | clean projects                          |

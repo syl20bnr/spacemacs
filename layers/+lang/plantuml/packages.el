@@ -13,11 +13,12 @@
 ;;
 ;;; License: GPLv3
 
-
 ;;; Code:
 (defconst plantuml-packages
-  '(org
-    plantuml-mode))
+  '(
+    org
+    plantuml-mode
+    ))
 
 (defun plantuml/pre-init-org ()
   (spacemacs|use-package-add-hook org
@@ -26,7 +27,14 @@
 (defun plantuml/init-plantuml-mode ()
   (use-package plantuml-mode
     :defer t
-    :mode ("\\.pum\\'" . plantuml-mode)
-    :config (spacemacs/set-leader-keys-for-major-mode 'plantuml-mode
-              "cc" 'plantuml-preview
-              "co" 'plantuml-set-output-type)))
+    :mode ("\\.\\(pum\\|puml\\)\\'" . plantuml-mode)
+    :config
+    (progn
+      (when (boundp 'spacemacs-indent-sensitive-modes)
+        ;; for now plantuml electric indentation is buggy and does not
+        ;; really work, let's disable auto-indentation on paste for
+        ;; this mode
+        (add-to-list 'spacemacs-indent-sensitive-modes 'plantuml-mode))
+      (spacemacs/set-leader-keys-for-major-mode 'plantuml-mode
+        "cc" 'plantuml-preview
+        "co" 'plantuml-set-output-type))))

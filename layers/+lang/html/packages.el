@@ -24,6 +24,7 @@
         (helm-css-scss :requires helm)
         impatient-mode
         less-css-mode
+        prettier-js
         pug-mode
         sass-mode
         scss-mode
@@ -32,6 +33,7 @@
         tagedit
         web-mode
         yasnippet
+        web-beautify
         ))
 
 (defun html/post-init-add-node-modules-path ()
@@ -55,10 +57,7 @@
     (progn
       (spacemacs|add-company-backends
         :backends (company-web-html company-css)
-        :modes web-mode
-        :variables
-        ;; see https://github.com/osv/company-web/issues/4
-        company-minimum-prefix-length 0)
+        :modes web-mode)
       (spacemacs|add-company-backends
         :backends company-web-jade
         :modes pug-mode)
@@ -79,32 +78,9 @@
       (when (version< emacs-version "25")
         (add-hook 'css-mode-hook 'spacemacs/run-prog-mode-hooks))
 
-      (defun css-expand-statement ()
-        "Expand CSS block"
-        (interactive)
-        (save-excursion
-          (end-of-line)
-          (search-backward "{")
-          (forward-char 1)
-          (while (or (eobp) (not (looking-at "}")))
-          (let ((beg (point)))
-            (newline)
-            (search-forward ";")
-            (indent-region beg (point))
-            ))
-          (newline)))
-
-      (defun css-contract-statement ()
-        "Contract CSS block"
-        (interactive)
-        (end-of-line)
-        (search-backward "{")
-        (while (not (looking-at "}"))
-          (join-line -1)))
-
       (spacemacs/set-leader-keys-for-major-mode 'css-mode
-        "zc" 'css-contract-statement
-        "zo" 'css-expand-statement))))
+        "zc" 'spacemacs/css-contract-statement
+        "zo" 'spacemacs/css-expand-statement))))
 
 (defun html/init-emmet-mode ()
   (use-package emmet-mode
@@ -118,8 +94,6 @@
     (progn
       (evil-define-key 'insert emmet-mode-keymap (kbd "TAB") 'spacemacs/emmet-expand)
       (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") 'spacemacs/emmet-expand)
-      (evil-define-key 'emacs emmet-mode-keymap (kbd "TAB") 'spacemacs/emmet-expand)
-      (evil-define-key 'emacs emmet-mode-keymap (kbd "<tab>") 'spacemacs/emmet-expand)
       (evil-define-key 'hybrid emmet-mode-keymap (kbd "TAB") 'spacemacs/emmet-expand)
       (evil-define-key 'hybrid emmet-mode-keymap (kbd "<tab>") 'spacemacs/emmet-expand)
       (spacemacs|hide-lighter emmet-mode))))
@@ -168,6 +142,11 @@
   (use-package less-css-mode
     :defer t
     :mode ("\\.less\\'" . less-css-mode)))
+
+(defun html/pre-init-prettier-js ()
+  (if (eq web-fmt-tool 'prettier)
+      (dolist (mode '(css-mode less-css-mode scss-mode))
+        (add-to-list 'spacemacs--prettier-modes mode))))
 
 (defun html/init-pug-mode ()
   (use-package pug-mode
@@ -294,3 +273,8 @@
   (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(css-mode-hook
                                                       jade-mode
                                                       slim-mode)))
+(defun html/pre-init-web-beautify ()
+  (if (eq web-fmt-tool 'web-beautify)
+      (add-to-list 'spacemacs--web-beautify-modes (cons 'css-mode 'web-beautify-css)))
+  ;; always use web-beautify for a .html file
+  (add-to-list 'spacemacs--web-beautify-modes (cons 'web-mode 'web-beautify-html)))

@@ -2,7 +2,7 @@
 
 [[file:img/camelia-logo.png]]
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -35,12 +35,12 @@ Jump to definition requires [[https://github.com/universal-ctags/ctags][ctags-un
 Then you can generate the =TAGS= file for your projects like this:
 
 #+BEGIN_SRC shell
-ctags -e -Ra lib t/
-ctags -e -Ra --language-force=Perl6 bin/ $YOUR_PERL_PATH/share/perl6/site/sources/
+  ctags -e -Ra lib t/
+  ctags -e -Ra --language-force=Perl6 bin/ $YOUR_PERL_PATH/share/perl6/site/sources/
 #+END_SRC
 
 * Key bindings
 
-| Key Binding | Description                                    |
+| Key binding | Description                                    |
 |-------------+------------------------------------------------|
 | ~SPC m g g~ | Jump to definition (requires =ctags-universal= |

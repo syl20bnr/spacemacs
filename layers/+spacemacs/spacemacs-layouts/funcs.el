@@ -12,6 +12,30 @@
 
 ;; General Persp functions
 
+(defun spacemacs//activate-persp-mode ()
+  "Always activate persp-mode, unless it is already active.
+ (e.g. don't re-activate during `dotspacemacs/sync-configuration-layers' -
+ see issues #5925 and #3875)"
+  (unless (bound-and-true-p persp-mode)
+    (persp-mode)
+    ;; eyebrowse's advice for rename-buffer only updates workspace window
+    ;; configurations that are stored in frame properties, but Spacemacs's
+    ;; persp-mode integration saves workspace window configurations in
+    ;; perspective parameters.  We need to replace eyebrowse's advice with
+    ;; perspective-aware advice in order to ensure that window
+    ;; configurations for inactive perspectives get updated.
+    (when (ad-find-advice 'rename-buffer 'around 'eyebrowse-fixup-window-configs)
+      (ad-disable-advice 'rename-buffer 'around 'eyebrowse-fixup-window-configs)
+      (ad-activate 'rename-buffer))
+    (advice-add 'rename-buffer :around #'spacemacs//fixup-window-configs)))
+
+(defun spacemacs//layout-wait-for-modeline (&rest _)
+  "Assure the mode-line is loaded before restoring the layouts."
+  (advice-remove 'persp-load-state-from-file 'spacemacs//layout-wait-for-modeline)
+  (when (and (configuration-layer/package-used-p 'spaceline)
+             (memq (spacemacs/get-mode-line-theme-name) '(spacemacs all-the-icons custom)))
+    (require 'spaceline-config)))
+
 (defun spacemacs//current-layout-name ()
   "Get name of the current perspective."
   (safe-persp-name (get-frame-persp)))
@@ -245,11 +269,11 @@ Available PROPS:
                    (symbol-value name)
                  name))
          (func (spacemacs//custom-layout-func-name name))
-         (binding-prop (car (spacemacs/mplist-get props :binding)))
+         (binding-prop (car (spacemacs/mplist-get-values props :binding)))
          (binding (if (symbolp binding-prop)
                       (symbol-value binding-prop)
                     binding-prop))
-         (body (spacemacs/mplist-get props :body))
+         (body (spacemacs/mplist-get-values props :body))
          (already-defined? (cdr (assoc binding
                                        spacemacs--custom-layout-alist))))
     `(progn
@@ -654,3 +678,14 @@ FRAME defaults to the current frame."
                                         (eyebrowse--get 'last-slot frame))
                                   (get-frame-persp frame)
                                   frame))
+
+(defun spacemacs//fixup-window-configs (orig-fn newname &optional unique)
+  "Update the buffer's name in the eyebrowse window-configs of any perspectives
+containing the buffer."
+  (let* ((old (buffer-name))
+         (new (funcall orig-fn newname unique)))
+    (dolist (persp (persp--buffer-in-persps (current-buffer)))
+      (dolist (window-config
+               (append (persp-parameter 'gui-eyebrowse-window-configs persp)
+                       (persp-parameter 'term-eyebrowse-window-configs persp)))
+        (eyebrowse--rename-window-config-buffers window-config old new)))))

@@ -135,7 +135,7 @@ seconds to load")
     (advice-add 'require :around #'spacemacs//load-timer)
     (advice-add 'package-initialize
                 :around
-                (spacemacs||make-function-timer package-intialize))
+                (spacemacs||make-function-timer package-initialize))
     (advice-add 'configuration-layer/load
                 :around
                 (spacemacs||make-function-timer configuration-layer/load))
@@ -267,7 +267,16 @@ seconds to load")
           (goto-char (point-min))
           (search-forward placeholder)
           (replace-match replacement [keep-case] [literal])))
+    (set-buffer-modified-p nil)
     (spacemacs/report-issue-mode)))
+
+(defun spacemacs//report-issue-kill-buffer-query ()
+  "Check if issue has been edited when buffer is about to be
+  killed. Intended to be used with
+  `kill-buffer-query-functions'"
+  (if (buffer-modified-p)
+      (y-or-n-p "Issue has unsaved changes, kill buffer anyways? ")
+    t))
 
 (define-derived-mode spacemacs/report-issue-mode text-mode "Report-Issue"
   "Major mode for reporting issues with Spacemacs.
@@ -279,7 +288,10 @@ that the issue has been created successfully, you can close this buffer.
 \\{spacemacs/report-issue-mode-map}
 "
   (font-lock-add-keywords 'spacemacs/report-issue-mode
-                          '(("\\(<<.*?>>\\)" . 'font-lock-comment-face))))
+                          '(("\\(<<.*?>>\\)" . 'font-lock-comment-face)))
+  (add-hook 'kill-buffer-query-functions
+            'spacemacs//report-issue-kill-buffer-query
+            nil t))
 
 (define-key spacemacs/report-issue-mode-map
   (kbd "C-c C-c") 'spacemacs//report-issue-done)

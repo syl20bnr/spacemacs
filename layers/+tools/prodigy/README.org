@@ -2,17 +2,17 @@
 
 [[file:img/prodigy.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#spawn-prodigy][Spawn prodigy]]
   - [[#navigate-through-it][Navigate through it]]
 
 * Description
 This layer adds support for the [[https://github.com/rejeep/prodigy.el][prodigy]] package to manage external services from
-within Emacs, check the package's documentation for more details.
+within Emacs, check the package’s documentation for more details.
 
 It is recommended to put your prodigy services in the =dotspacemacs/user-config=
 part of your =~/.spacemacs= file.
@@ -27,17 +27,17 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =prodigy= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key Bindings
+* Key bindings
 ** Spawn prodigy
 You start prodigy with this:
 
-| Key Binding | Description             |
+| Key binding | Description             |
 |-------------+-------------------------|
 | ~SPC a S~   | Open the prodigy buffer |
 
 ** Navigate through it
 
-| Key Binding | Description                     |
+| Key binding | Description                     |
 |-------------+---------------------------------|
 | ~c~         | Clear buffer                    |
 | ~h~         | First service                   |
@@ -50,7 +50,7 @@ You start prodigy with this:
 | ~L~         | Start prodigy                   |
 | ~S~         | Stop prodigy                    |
 | ~r~         | restart prodigy                 |
-| ~R~         | revert buffer  (refresh list)   |
+| ~R~         | revert buffer (refresh list)    |
 | ~d~         | Jump to the dired of service    |
 | ~g~         | Jump to magit-status of service |
 | ~Y~         | Copy prodigy command            |

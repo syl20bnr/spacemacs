@@ -33,6 +33,9 @@ and `lsp'.")
 (defvar python-tab-width 4
   "Tab width value for python buffers")
 
+(defvar python-spacemacs-indent-guess t
+  "If non-nil, try to guess correct indentation settings for python buffers on opening")
+
 (defvar python-auto-set-local-pyenv-version 'on-visit
   "Automatically set pyenv version from \".python-version\".
 
@@ -45,3 +48,14 @@ Possible values are `on-visit', `on-project-switch' or `nil'.")
 
 (defvar python-sort-imports-on-save nil
   "If non-nil, automatically sort imports on save.")
+
+(defvar spacemacs--python-pyenv-modes nil
+  "List of major modes where to add pyenv support.")
+
+(defvar spacemacs--python-pyvenv-modes nil
+  "List of major modes where to add pyvenv support.")
+
+;; inferior-python-mode needs these variables to be defined.  The python
+;; package declares them but does not initialize them.
+(defvar python-shell--interpreter nil)
+(defvar python-shell--interpreter-args nil)

@@ -60,6 +60,7 @@ If the universal prefix argument is used then kill also the window."
                 evil-ex-search-pattern (evil-ex-make-search-pattern regexp)))
         ;; Next time "n" is hit, go the correct direction.
         (setq isearch-forward forward)
+        (setq evil-ex-search-direction (if forward 'forward 'backward))
         ;; ahs does a case sensitive search.  We could set
         ;; this, but it would break the user's current
         ;; sensitivity settings.  We could save the setting,
@@ -139,7 +140,7 @@ If the universal prefix argument is used then kill also the window."
   (spacemacs/symbol-highlight-transient-state/body)
   (spacemacs/integrate-evil-search nil))
 
-(defun spacemacs//ahs-ms-on-exit ()
+(defun spacemacs//ahs-ts-on-exit ()
   ;; Restore user search direction state as ahs has exitted in a state
   ;; good for <C-s>, but not for 'n' and 'N'"
   (setq isearch-forward spacemacs--ahs-searching-forward))
@@ -194,8 +195,7 @@ If the universal prefix argument is used then kill also the window."
   (spacemacs//transient-state-make-doc
    'symbol-highlight
    (format spacemacs--symbol-highlight-transient-state-doc
-           (spacemacs//symbol-highlight-doc)
-           (make-string (length (spacemacs//symbol-highlight-doc)) 32))))
+           (spacemacs//symbol-highlight-doc))))
 
 
 ;; golden ratio
@@ -221,47 +221,6 @@ If the universal prefix argument is used then kill also the window."
   "Disable smooth scrolling."
   (interactive)
   (setq scroll-conservatively 0))
-
-
-;; zoom
-
-(defun spacemacs//zoom-frm-powerline-reset ()
-  (when (fboundp 'powerline-reset)
-    (setq-default powerline-height (spacemacs/compute-mode-line-height))
-    (powerline-reset)))
-
-(defun spacemacs//zoom-frm-do (arg)
-  "Perform a zoom action depending on ARG value."
-  (let ((zoom-action (cond ((eq arg 0) 'zoom-frm-unzoom)
-                           ((< arg 0) 'zoom-frm-out)
-                           ((> arg 0) 'zoom-frm-in)))
-        (fm (cdr (assoc 'fullscreen (frame-parameters))))
-        (fwp (* (frame-char-width) (frame-width)))
-        (fhp (* (frame-char-height) (frame-height))))
-    (when (equal fm 'maximized)
-      (toggle-frame-maximized))
-    (funcall zoom-action)
-    (set-frame-size nil fwp fhp t)
-    (when (equal fm 'maximized)
-      (toggle-frame-maximized))))
-
-(defun spacemacs/zoom-frm-in ()
-  "zoom in frame, but keep the same pixel size"
-  (interactive)
-  (spacemacs//zoom-frm-do 1)
-  (spacemacs//zoom-frm-powerline-reset))
-
-(defun spacemacs/zoom-frm-out ()
-  "zoom out frame, but keep the same pixel size"
-  (interactive)
-  (spacemacs//zoom-frm-do -1)
-  (spacemacs//zoom-frm-powerline-reset))
-
-(defun spacemacs/zoom-frm-unzoom ()
-  "Unzoom current frame, keeping the same pixel size"
-  (interactive)
-  (spacemacs//zoom-frm-do 0)
-  (spacemacs//zoom-frm-powerline-reset))
 
 
 ;; ace-link

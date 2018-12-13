@@ -13,6 +13,7 @@
       '(
         ;; package names go here
         asm-mode
+        company
         electric-indent-mode
         ggtags
         counsel-gtags

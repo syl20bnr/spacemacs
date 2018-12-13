@@ -209,3 +209,6 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Add buffer reference to internal list of killed buffers on `kill-buffer',
 ;; used for restoring recently killed buffers.
 (add-hook 'kill-buffer-hook #'spacemacs//add-buffer-to-killed-list)
+
+;; Don't load outdated compiled files.
+(setq load-prefer-newer t)

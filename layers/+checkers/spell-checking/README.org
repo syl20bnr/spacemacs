@@ -1,6 +1,6 @@
 #+TITLE: Spell Checking layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -10,7 +10,8 @@
   - [[#enabling-auto-dictionary-mode][Enabling auto-dictionary-mode]]
   - [[#enabling-multi-dictionary-support-with-hunspell][Enabling multi-dictionary support with hunspell]]
   - [[#enable-auto-completion-popup][Enable auto-completion popup]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
+  - [[#spell-checking-transient-state][Spell Checking Transient-state]]
 - [[#known-issues][Known issues]]
 
 * Description
@@ -43,8 +44,8 @@ toggled off with ~SPC t S~. You can default this to off by setting the variable
 =spell-checking-enable-by-default= to =nil=:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((spell-checking :variables spell-checking-enable-by-default nil)))
+  (setq-default dotspacemacs-configuration-layers
+    '((spell-checking :variables spell-checking-enable-by-default nil)))
 #+END_SRC
 
 ** Enabling auto-dictionary-mode
@@ -54,8 +55,8 @@ the variable =spell-checking-enable-auto-dictionary= to something other than
 =nil=:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((spell-checking :variables spell-checking-enable-auto-dictionary t)))
+  (setq-default dotspacemacs-configuration-layers
+    '((spell-checking :variables spell-checking-enable-auto-dictionary t)))
 #+END_SRC
 
 Some people encountered bugs with =auto-dictionary-mode=, especially in *daemon
@@ -90,22 +91,22 @@ currently supported language:
 
 ** Enabling multi-dictionary support with hunspell
 If your language is not supported by auto-dictionary feature or you author
-multi-lingual documents you might be compeled to use hunspell's multi-dictionary
+multi-lingual documents you might be compeled to use hunspell’s multi-dictionary
 mode. For example to enable it for pl_PL and en_GB dictionaries you could put
 following code in your dotspacemacs/user-config section in your configuration
 file:
 
 #+BEGIN_SRC emacs-lisp
-(with-eval-after-load "ispell"
-    (setq ispell-program-name "hunspell")
-    ;; ispell-set-spellchecker-params has to be called
-    ;; before ispell-hunspell-add-multi-dic will work
-    (ispell-set-spellchecker-params)
-    (ispell-hunspell-add-multi-dic "pl_PL,en_GB")
-    (setq ispell-dictionary "pl_PL,en_GB"))
+  (with-eval-after-load "ispell"
+      (setq ispell-program-name "hunspell")
+      ;; ispell-set-spellchecker-params has to be called
+      ;; before ispell-hunspell-add-multi-dic will work
+      (ispell-set-spellchecker-params)
+      (ispell-hunspell-add-multi-dic "pl_PL,en_GB")
+      (setq ispell-dictionary "pl_PL,en_GB"))
 #+END_SRC
 
-One caveat is you need quite modern ispell.el for above to work. It's been
+One caveat is you need quite modern ispell.el for above to work. It’s been
 tested with version coming from Emacs 25.2 repository.
 
 ** Enable auto-completion popup
@@ -113,22 +114,35 @@ To enable auto-completion popup when the point is idle on a misspelled word
 set the layer variable =enable-flyspell-auto-completion= to t:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-  '((spell-checking :variables enable-flyspell-auto-completion t)))
+  (setq-default dotspacemacs-configuration-layers
+    '((spell-checking :variables enable-flyspell-auto-completion t)))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description              |
-|-------------+--------------------------|
-| ~SPC S b~   | flyspell whole buffer    |
-| ~SPC S c~   | flyspell correct         |
-| ~SPC S d~   | change dictionary        |
-| ~SPC S n~   | flyspell goto next error |
-| ~SPC t S~   | toggle flyspell          |
+| Key binding     | Description                            |
+|-----------------+----------------------------------------|
+| ~SPC S b~       | flyspell whole buffer                  |
+| ~SPC S c~       | flyspell correct                       |
+| ~SPC u SPC S c~ | flyspell correct all errors one by one |
+| ~SPC S d~       | change dictionary                      |
+| ~SPC S n~       | flyspell goto next error               |
+| ~SPC t S~       | toggle flyspell                        |
+
+** Spell Checking Transient-state
+
+| Key binding | Description                                      |
+|-------------+--------------------------------------------------|
+| ~SPC S . b~ | Rerun spell check for the whole buffer           |
+| ~SPC S . d~ | Change dictionary                                |
+| ~SPC S . n~ | Go to next spelling error                        |
+| ~SPC S . c~ | Correct word under cursor                        |
+| ~SPC S . t~ | Toggle spell check                               |
+| ~SPC S . q~ | Quit transient state                             |
+| ~SPC S . Q~ | Quit transient state and disable =flyspell-mode= |
 
 * Known issues
 Vim-empty-lines layer seems incompatible with spell-checking inside org-mode. If
-you experience "Args out of range" error message when invoking ~SPC S c~ inside
-org-mode buffer then check if you don't have vim-empty-lines layer enabled and
+you experience “Args out of range” error message when invoking ~SPC S c~ inside
+org-mode buffer then check if you don’t have vim-empty-lines layer enabled and
 disable it.

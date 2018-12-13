@@ -54,6 +54,12 @@
             projectile-known-projects-file (concat spacemacs-cache-directory
                                                    "projectile-bookmarks.eld"))
       (spacemacs/set-leader-keys
+        ;; File path
+        "fyC" 'spacemacs/projectile-copy-file-path-with-line-column
+        "fyD" 'spacemacs/projectile-copy-directory-path
+        "fyL" 'spacemacs/projectile-copy-file-path-with-line
+        "fyY" 'spacemacs/projectile-copy-file-path
+        ;; Project
         "p!" 'projectile-run-shell-command-in-root
         "p&" 'projectile-run-async-shell-command-in-root
         "p%" 'projectile-replace-regexp
@@ -76,5 +82,5 @@
         "pv" 'projectile-vc))
     :config
     (progn
-      (projectile-global-mode)
+      (projectile-mode)
       (spacemacs|hide-lighter projectile-mode))))

@@ -1,7 +1,8 @@
 #+TITLE: plantuml layer
+
 [[file:img/logo.png]]
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -20,14 +21,14 @@ set it in your =user-config= function of your =~/.spacemacs= file.
 For example, the following diagram can be defined as follows:
 
 #+BEGIN_SRC plantuml
-@startuml
-JAremko->robbyoconnor : I think the docs can benefit from some kind of illustration
-JAremko<-robbyoconnor : I'm too lazy -- I have actual work to do. I link to the docs. If you can write me a diagram in plantuml, I'll gladly compile and add it.
-JAremko->robbyoconnor : *gives ths diagram*
-robbyoconnor<-JAremko : *robbyoconnor adds it and JAremko is happy*
-...
-robbyoconnor->theOtherPerson : And they thinks it's funny? Yup, they definitely finds it funny. Right?
-@enduml
+  @startuml
+  JAremko->robbyoconnor : I think the docs can benefit from some kind of illustration
+  JAremko<-robbyoconnor : I'm too lazy -- I have actual work to do. I link to the docs. If you can write me a diagram in plantuml, I'll gladly compile and add it.
+  JAremko->robbyoconnor : *gives ths diagram*
+  robbyoconnor<-JAremko : *robbyoconnor adds it and JAremko is happy*
+  ...
+  robbyoconnor->theOtherPerson : And they thinks it's funny? Yup, they definitely finds it funny. Right?
+  @enduml
 #+END_SRC
 
 [[file:img/dia.png]]
@@ -41,16 +42,16 @@ robbyoconnor->theOtherPerson : And they thinks it's funny? Yup, they definitely 
 * Install
 To use this contribution add it to your =~/.spacemacs=
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(plantuml))
-#+end_src
+#+END_SRC
 
 To control the =Plantuml= compiler you also need to download the [[http://plantuml.com/download][Plantuml jar]]
 and configure the =plantuml-jar-path= respectively:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '((plantuml :variables plantuml-jar-path "~/plantUml.jar")))
-#+end_src
+#+END_SRC
 
 To get the full range of =Plantuml= compilations working, you will also need
 the native package [[http://graphviz.org/][graphviz]] installed on your system.
@@ -59,13 +60,13 @@ the native package [[http://graphviz.org/][graphviz]] installed on your system.
 To enable the execution of embedded plantuml code blocks within [[http://orgmode.org/][Org-Mode]]
 documents, define a value for =org-plantuml-jar-path= in your =~/.spacemacs=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '((plantuml :variables org-plantuml-jar-path "~/plantUml.jar")))
-#+end_src
+#+END_SRC
 
 * Key bindings
 
-| Key Binding              | Description                                           |
+| Key binding              | Description                                           |
 |--------------------------+-------------------------------------------------------|
 | ~SPC m c c~ or ~C-c C-c~ | Build diagram from the text in the current buffer     |
 | ~SPC m c o~              | Set the output type (=unicode text=, =svg=, or =png=) |

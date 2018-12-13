@@ -25,6 +25,7 @@
       (spacemacs/declare-prefix "aD" "Docker")
       (evil-leader/set-key
         "aDc" 'docker-containers
+        "aDC" 'docker-compose
         "aDd" 'docker-rmi
         "aDe" 'docker-unpause
         "aDF" 'docker-pull
@@ -54,4 +55,5 @@
       (spacemacs/declare-prefix-for-mode 'dockerfile-mode
         "mc" "compile")
       (spacemacs/set-leader-keys-for-major-mode 'dockerfile-mode
-        "cb" 'dockerfile-build-buffer))))
+        "cb" 'dockerfile-build-buffer
+        "cB" 'dockerfile-build-no-cache-buffer))))

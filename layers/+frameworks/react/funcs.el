@@ -1,4 +1,4 @@
-;;; funcs.el --- React Layer functions File for Spacemacs
+;;; funcs.el --- react layer funcs file for Spacemacs. -*- lexical-binding: t -*-
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
@@ -10,18 +10,68 @@
 ;;; License: GPLv3
 
 
-;; react mode
+;; Backend
+(defun spacemacs//react-setup-backend ()
+  "Conditionally setup react backend."
+  (pcase javascript-backend
+    (`tern (spacemacs/tern-setup-tern))
+    (`lsp (spacemacs//react-setup-lsp))))
 
-(defun spacemacs//setup-react-mode ()
-  "Adjust web-mode to accommodate react-mode"
-  (emmet-mode 0)
-  ;; See https://github.com/CestDiego/emmet-mode/commit/3f2904196e856d31b9c95794d2682c4c7365db23
-  (setq-local emmet-expand-jsx-className? t)
-  ;; Enable js-mode snippets
-  (yas-activate-extra-mode 'js-mode)
-  ;; Force jsx content type
-  (web-mode-set-content-type "jsx")
-  ;; Don't auto-quote attribute values
-  (setq-local web-mode-enable-auto-quoting nil)
-  ;; See https://github.com/syl20bnr/spacemacs/issues/8222
-  (set (make-local-variable 'company-minimum-prefix-length) 2))
+(defun spacemacs//react-setup-company ()
+  "Conditionally setup company based on backend."
+  (pcase javascript-backend
+    (`tern (spacemacs/tern-setup-tern-company 'rjsx-mode))
+    (`lsp (spacemacs//react-setup-lsp-company))))
+
+
+;; LSP
+(defun spacemacs//react-setup-lsp ()
+  "Setup lsp backend."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (lsp-javascript-typescript-enable))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs//react-setup-lsp-company ()
+  "Setup lsp auto-completion."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (spacemacs|add-company-backends
+          :backends company-lsp
+          :modes rjsx-mode
+          :variables company-minimum-prefix-length 2
+          :append-hooks nil
+          :call-hooks t)
+        (company-mode)
+        (fix-lsp-company-prefix))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+
+;; Emmet
+(defun spacemacs/react-emmet-mode ()
+  "Activate `emmet-mode' and configure it for local buffer."
+  (emmet-mode)
+  (setq-local emmet-expand-jsx-className? t))
+
+
+;; Others
+(defun spacemacs//react-inside-string-q ()
+  "Returns non-nil if inside string, else nil.
+Result depends on syntax table's string quote character."
+  (let ((result (nth 3 (syntax-ppss))))
+    result))
+
+(defun spacemacs//react-inside-comment-q ()
+  "Returns non-nil if inside comment, else nil.
+Result depends on syntax table's comment character."
+  (let ((result (nth 4 (syntax-ppss))))
+    result))
+
+(defun spacemacs//react-inside-string-or-comment-q ()
+  "Return non-nil if point is inside string, documentation string or a comment.
+If optional argument P is present, test this instead of point."
+  (or (spacemacs//react-inside-string-q)
+      (spacemacs//react-inside-comment-q)))
+
+(defun spacemacs//react-setup-yasnippet ()
+  (yas-activate-extra-mode 'js-mode))

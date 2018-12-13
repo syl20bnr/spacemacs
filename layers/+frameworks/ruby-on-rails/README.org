@@ -2,7 +2,7 @@
 
 [[file:img/ror.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -16,11 +16,11 @@
 This layer aims at providing support for the Ruby on Rails framework.
 
 ** Features:
-   - Quick file navigation with with [[https://github.com/asok/projectile-rails][projectile-rails]]
-   - Run server
-   - Run generators
-   - Rake runner
-   - Interactive Rails console
+- Quick file navigation with with [[https://github.com/asok/projectile-rails][projectile-rails]]
+- Run server
+- Run generators
+- Rake runner
+- Interactive Rails console
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -32,58 +32,61 @@ file.
 
 | Key binding   | Description                                                     |
 |---------------+-----------------------------------------------------------------|
-| ~SPC m r f a~ | find localization file                                          |
-| ~SPC m r f c~ | find controller                                                 |
-| ~SPC m r f e~ | find environment file                                           |
-| ~SPC m r f f~ | find feature                                                    |
-| ~SPC m r f h~ | find helper                                                     |
-| ~SPC m r f i~ | find initializer                                                |
-| ~SPC m r f j~ | find javascript file                                            |
-| ~SPC m r f l~ | find library                                                    |
-| ~SPC m r f m~ | find model                                                      |
-| ~SPC m r f n~ | find migration                                                  |
-| ~SPC m r f o~ | find log                                                        |
-| ~SPC m r f p~ | find spec file                                                  |
-| ~SPC m r f r~ | find rake task                                                  |
-| ~SPC m r f s~ | find stylesheet file                                            |
-| ~SPC m r f S~ | find serializer file                                            |
-| ~SPC m r f t~ | find test                                                       |
-| ~SPC m r f u~ | find fixture                                                    |
-| ~SPC m r f v~ | find view                                                       |
-| ~SPC m r f y~ | find layout                                                     |
-| ~SPC m r f @~ | find mailer                                                     |
-| ~SPC m r g c~ | go to current controller                                        |
-| ~SPC m r g d~ | go to DB schema                                                 |
-| ~SPC m r g e~ | go to DB seeds                                                  |
-| ~SPC m r g h~ | go to current helper                                            |
-| ~SPC m r g j~ | go to current javascript                                        |
-| ~SPC m r g g~ | go to Gemfile                                                   |
-| ~SPC m r g m~ | go to current model                                             |
-| ~SPC m r g n~ | go to current migration                                         |
-| ~SPC m r g p~ | go to current spec                                              |
-| ~SPC m r g r~ | go to routes                                                    |
-| ~SPC m r g s~ | go to current stylesheet                                        |
-| ~SPC m r g t~ | go to current test                                              |
-| ~SPC m r g u~ | go to current fixture                                           |
-| ~SPC m r g v~ | go to current view                                              |
-| ~SPC m r g z~ | go to spec helper                                               |
-| ~SPC m r g .~ | go to file at point (faster but less powerful than ~SPC m g g~) |
+| ~SPC m f f a~ | find localization file                                          |
+| ~SPC m f f b~ | find job                                                        |
+| ~SPC m f f c~ | find controller                                                 |
+| ~SPC m f f e~ | find environment file                                           |
+| ~SPC m f f f~ | find feature                                                    |
+| ~SPC m f f h~ | find helper                                                     |
+| ~SPC m f f i~ | find initializer                                                |
+| ~SPC m f f j~ | find javascript file                                            |
+| ~SPC m f f l~ | find library                                                    |
+| ~SPC m f f m~ | find model                                                      |
+| ~SPC m f f n~ | find migration                                                  |
+| ~SPC m f f o~ | find log                                                        |
+| ~SPC m f f p~ | find spec file                                                  |
+| ~SPC m f f r~ | find rake task                                                  |
+| ~SPC m f f s~ | find stylesheet file                                            |
+| ~SPC m f f S~ | find serializer file                                            |
+| ~SPC m f f t~ | find test                                                       |
+| ~SPC m f f u~ | find fixture                                                    |
+| ~SPC m f f v~ | find view                                                       |
+| ~SPC m f f w~ | find webpack config                                             |
+| ~SPC m f f y~ | find layout                                                     |
+| ~SPC m f f @~ | find mailer                                                     |
+| ~SPC m f g c~ | go to current controller                                        |
+| ~SPC m f g d~ | go to DB schema                                                 |
+| ~SPC m f g e~ | go to DB seeds                                                  |
+| ~SPC m f g h~ | go to current helper                                            |
+| ~SPC m f g j~ | go to current javascript                                        |
+| ~SPC m f g g~ | go to Gemfile                                                   |
+| ~SPC m f g m~ | go to current model                                             |
+| ~SPC m f g n~ | go to current migration                                         |
+| ~SPC m f g p~ | go to current spec                                              |
+| ~SPC m f g r~ | go to routes                                                    |
+| ~SPC m f g s~ | go to current stylesheet                                        |
+| ~SPC m f g t~ | go to current test                                              |
+| ~SPC m f g u~ | go to current fixture                                           |
+| ~SPC m f g v~ | go to current view                                              |
+| ~SPC m f g z~ | go to spec helper                                               |
+| ~SPC m f g .~ | go to file at point (faster but less powerful than ~SPC m g g~) |
 
 ** Refactoring
 
 | Key binding   | Description                 |
 |---------------+-----------------------------|
-| ~SPC m r R x~ | extract region into partial |
+| ~SPC m f R x~ | extract region into partial |
 
 ** RUN commands
 
 | Key binding   | Description          |
 |---------------+----------------------|
-| ~SPC m r :~   | run rake task        |
-| ~SPC m r c c~ | run rails generator  |
-| ~SPC m r i~   | start rails console  |
-| ~SPC m r s r~ | reload Rails project |
-| ~SPC m r x s~ | start rails server   |
+| ~SPC m f :~   | run rake task        |
+| ~SPC m f c c~ | run rails generator  |
+| ~SPC m f c d~ | run rails destroy    |
+| ~SPC m f i~   | start rails console  |
+| ~SPC m f s r~ | reload Rails project |
+| ~SPC m f x s~ | start rails server   |
 
 ** Ex-commands
 

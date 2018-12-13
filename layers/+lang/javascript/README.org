@@ -1,57 +1,48 @@
 #+TITLE: JavaScript layer
 
-[[file:img/javascript.png]] [[file:img/coffee.png]]
+[[file:img/javascript.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#configuration][Configuration]]
+  - [[#web-beautify][web-beautify]]
+  - [[#prettier][prettier]]
+  - [[#choosing-a-backend][Choosing a backend]]
+  - [[#choosing-a-formatter][Choosing a formatter]]
+- [[#backends][Backends]]
   - [[#tern][Tern]]
+  - [[#language-server-protocol][Language Server Protocol]]
+- [[#configuration][Configuration]]
   - [[#indentation][Indentation]]
   - [[#repl][REPL]]
   - [[#node-modules][Node Modules]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#js2-mode][js2-mode]]
   - [[#folding-js2-mode][Folding (js2-mode)]]
   - [[#refactoring-js2-refactor][Refactoring (js2-refactor)]]
-  - [[#formatting-web-beautify][Formatting (web-beautify)]]
     - [[#documentation-js-doc][Documentation (js-doc)]]
-  - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
-  - [[#json][JSON]]
   - [[#repl-skewer-mode][REPL (skewer-mode)]]
-  - [[#coffee-mode][coffee-mode]]
 
 * Description
 This layer adds support for the JavaScript language using [[https://github.com/mooz/js2-mode][js2-mode]].
 
 ** Features:
+- Multiple backends support: Tern and LSP
 - Smart code folding
 - Refactoring: done using [[https://github.com/magnars/js2-refactor.el][js2-refactor]].
-- Auto-completion and documentation: provided by [[http://ternjs.net/][tern]]
-- CoffeeScript support
-- Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
-- Get the path to a JSON value with [[https://github.com/Sterlingg/json-snatcher][json-snatcher]]
+- Auto-completion and documentation
 - REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
+- Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =javascript= to the existing =dotspacemacs-configuration-layers= list in
 this file.
 
-You will also need to install =tern= to use the auto-completion and
-documentation features:
-#+BEGIN_SRC sh
-  $ npm install -g tern
-#+END_SRC
-
-To use the formatting features, install =js-beautify=:
-#+BEGIN_SRC sh
-  $ npm install -g js-beautify
-#+END_SRC
-
 To activate error checking using flycheck, install one of the [[http://www.flycheck.org/en/latest/languages.html#javascript][available linters]]
 such as =ESLint= or =JSHint=:
+
 #+BEGIN_SRC sh
   $ npm install -g eslint
   # or
@@ -59,32 +50,67 @@ such as =ESLint= or =JSHint=:
 #+END_SRC
 
 If you install these in non-standard locations, then add the following to your =dotspacemacs/user-init= function:
+
 #+BEGIN_SRC elisp
   (add-to-list 'exec-path "/path/to/node/bins" t)
 #+END_SRC
 
-* Configuration
+** web-beautify
+See [[file:../../+tools/web-beautify/README.org][web-beautify layer]] documentation.
+
+** prettier
+See [[file:../../+tools/prettier/README.org][prettier layer]] documentation.
+
+** Choosing a backend
+To choose a default backend set the layer variable =javascript-backend=:
+
+#+BEGIN_SRC elisp
+  (javascript :variables javascript-backend 'tern)
+#+END_SRC
+
+Backend can be chosen on a per project basis using directory local variables
+(files named =.dir-locals.el= at the root of a project), an example to use the
+=lsp= backend:
+
+#+BEGIN_SRC elisp
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
+
+  ((js2-mode (javascript-backend . lsp)))
+#+END_SRC
+
+** Choosing a formatter
+To choose a formatter, set the layer variable =javascript-fmt-tool=:
+
+#+BEGIN_SRC elisp
+  (javascript :variables javascript-fmt-tool 'web-beautify)
+#+END_SRC
+
+Formatter can be chosen on a per project basis using directory local variables
+(files named =.dir-locals.el= at the root of a project), an example to use the
+=prettier= formatter:
+
+#+BEGIN_SRC elisp
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
+
+  ((js2-mode (javascript-fmt-tool . prettier)))
+#+END_SRC
+
+*Note:* you can easily add a directory local variable with ~SPC f v d~.
+
+* Backends
 ** Tern
-To make tern re-use the server across multiple different editing sessions (thus
-creating multiple =.tern-port= files for each document you have open [[http://ternjs.net/doc/manual.html][see here
-for more details]]):
+See [[file:../../+tools/tern/README.org][tern layer]] documentation.
 
-The variables provided below can be set when adding the =javascript=
-configuration layer, as detailed in [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#setting-configuration-layers-variables][this]] section of the documentation.
+** Language Server Protocol
+You just have to install javascript and typescript language server packages:
 
-#+BEGIN_SRC emacs-lisp
-  (javascript :variables javascript-disable-tern-port-files nil)
+#+BEGIN_SRC sh
+  npm i -g typescript javascript-typescript-langserver
 #+END_SRC
 
-Windows users may need to set the variable =tern-command= in order for emacs to
-locate and launch tern server successfully. See [[https://github.com/syl20bnr/spacemacs/issues/5733][this open issue for more
-details]]. The variable can be set when adding the =javascript= configuration
-layer:
-
-#+BEGIN_SRC emacs-lisp
-  (javascript :variables tern-command '("node" "/path/to/tern/bin/tern"))
-#+END_SRC
-
+* Configuration
 ** Indentation
 To change how js2-mode indents code, set the variable =js2-basic-offset=, as
 such:
@@ -94,6 +120,7 @@ such:
 #+END_SRC
 
 or when adding the =javascript= configuration layer:
+
 #+BEGIN_SRC emacs-lisp
   (javascript :variables js2-basic-offset 2)
 #+END_SRC
@@ -106,6 +133,7 @@ Similarly, to change how js-mode indents JSON files, set the variable
 #+END_SRC
 
 or when adding the =javascript= configuration layer:
+
 #+BEGIN_SRC emacs-lisp
   (javascript :variables js-indent-level 2)
 #+END_SRC
@@ -115,7 +143,7 @@ To use the available JS repl, you need a running httpd server and a page loaded
 with skewer. If a blank page serves your needs, just use the run-skewer command
 in your javascript buffer. If you want to inject it in your own page, follow
 [[https://github.com/skeeto/skewer-mode#skewering-with-cors][these instructions]] (install the Greasemonkey script and then click the triangle
-in the top-right corner - if it turns green, you're good to go).
+in the top-right corner - if it turns green, you’re good to go).
 
 ** Node Modules
 If you would like =node_modules/.bin= to be automatically added to the buffer
@@ -124,21 +152,21 @@ local =exec_path=, e.g. to support project local eslint installations, set the
 doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472][introduces a security risk]]:
 
 #+BEGIN_SRC elisp
-(setq-default dotspacemacs-configuration-layers
-  '((javascript :variables node-add-modules-path t)))
+  (setq-default dotspacemacs-configuration-layers
+    '((javascript :variables node-add-modules-path t)))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 ** js2-mode
 
-| Key Binding | Description                          |
+| Key binding | Description                          |
 |-------------+--------------------------------------|
 | ~SPC m w~   | toggle js2-mode warnings and errors  |
 | ~%~         | jump between blockswith [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] |
 
 ** Folding (js2-mode)
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~SPC m z c~ | hide element             |
 | ~SPC m z o~ | show element             |
@@ -150,7 +178,7 @@ doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472
 ** Refactoring (js2-refactor)
 Bindings should match the plain emacs assignments.
 
-| Key Binding   | Description                                                                                                    |
+| Key binding   | Description                                                                                                    |
 |---------------+----------------------------------------------------------------------------------------------------------------|
 | ~SPC m k~     | deletes to the end of the line, but does not cross semantic boundaries                                         |
 | ~SPC m r 3 i~ | converts ternary operator to if-statement                                                                      |
@@ -183,47 +211,24 @@ Bindings should match the plain emacs assignments.
 | ~SPC m x m j~ | move line down, while keeping commas correctly placed                                                          |
 | ~SPC m x m k~ | move line up, while keeping commas correctly placed                                                            |
 
-** Formatting (web-beautify)
-
-| Key Binding | Description                                                  |
-|-------------+--------------------------------------------------------------|
-| ~SPC m =~   | beautify code in js2-mode, json-mode, web-mode, and css-mode |
-
 *** Documentation (js-doc)
 You can check more [[https://github.com/mooz/js-doc/][here]]
 
-| Key Binding   | Description                           |
+| Key binding   | Description                           |
 |---------------+---------------------------------------|
 | ~SPC m r d b~ | insert JSDoc comment for current file |
 | ~SPC m r d f~ | insert JSDoc comment for function     |
 | ~SPC m r d t~ | insert tag to comment                 |
 | ~SPC m r d h~ | show list of available jsdoc tags     |
 
-** Auto-complete and documentation (tern)
-
-| Key Binding   | Description                                                                              |
-|---------------+------------------------------------------------------------------------------------------|
-| ~SPC m C-g~   | brings you back to last place you were when you pressed M-..                             |
-| ~SPC m g g~   | jump to the definition of the thing under the cursor                                     |
-| ~SPC m g G~   | jump to definition for the given name                                                    |
-| ~SPC m h d~   | find docs of the thing under the cursor. Press again to open the associated URL (if any) |
-| ~SPC m h t~   | find the type of the thing under the cursor                                              |
-| ~SPC m r r V~ | rename variable under the cursor using tern                                              |
-
-** JSON
-
-| Key Binding | Description                        |
-|-------------+------------------------------------|
-| ~SPC m h p~ | Get the path of the value at point |
-
 ** REPL (skewer-mode)
 
-| Key Binding | Description                                                      |
+| Key binding | Description                                                      |
 |-------------+------------------------------------------------------------------|
 | ~SPC m e e~ | evaluates the last expression                                    |
 | ~SPC m e E~ | evaluates and inserts the result of the last expression at point |
 
-| Key Binding | Description                                                                        |
+| Key binding | Description                                                                        |
 |-------------+------------------------------------------------------------------------------------|
 | ~SPC m s a~ | Toggle live evaluation of whole buffer in REPL on buffer changes                   |
 | ~SPC m s b~ | send current buffer contents to the skewer REPL                                    |
@@ -234,16 +239,3 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m s r~ | send current region to the skewer REPL                                             |
 | ~SPC m s R~ | send current region to the skewer REPL and switch to it in insert state            |
 | ~SPC m s s~ | switch to REPL                                                                     |
-
-** coffee-mode
-
-| Key Binding | Description                                        |
-|-------------+----------------------------------------------------|
-| ~SPC m '~   | Create or go to REPL                               |
-| ~SPC m c c~ | Compile buffer                                     |
-| ~SPC m c r~ | Compile region                                     |
-| ~SPC m s b~ | Send buffer to REPL                                |
-| ~SPC m s l~ | Send line to REPL                                  |
-| ~SPC m s i~ | Create or go to REPL                               |
-| ~SPC m s r~ | send current region to the REPL and stay in buffer |
-| ~SPC m T c~ | Toggle compile on save                             |

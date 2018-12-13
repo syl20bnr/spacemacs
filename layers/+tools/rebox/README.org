@@ -1,6 +1,6 @@
 #+TITLE: Rebox layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -41,7 +41,7 @@ of styles using ~SPC x b n~. This list can be customized by setting the variable
 =rebox-style-loop=.
 
 #+BEGIN_SRC emacs-lisp
-(setq rebox-style-loop '(71 72 73))
+  (setq rebox-style-loop '(71 72 73))
 #+END_SRC
 
 *** Text mode
@@ -49,25 +49,25 @@ As text mode usage could surprise some users (e.g., when they enter M-q to fill
 a paragraph) =rebox= is not enabled by default in =text-mode=. To enable it you
 need to set the layer variable =rebox-enable-in-text-mode= to =t=.
 
-#+begin_src emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-    (rebox :variables rebox-enable-in-text-mode t)))
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+      (rebox :variables rebox-enable-in-text-mode t)))
+#+END_SRC
 
 * Style Templates
 ** Standard packaged templates
 You can find the full list of templates in
-[[https://github.com/lewang/rebox2/blob/master/rebox2.el]["Box templates" section of =rebox2.el=]]
+[[https://github.com/lewang/rebox2/blob/master/rebox2.el][“Box templates” section of =rebox2.el=]]
 
 *** Comments
 These templates are single line comments styles. A =#= is used here for
 illustration; however, it will work equally well if the comment character is
-different (e.g., lisp's =;= comment character).
+different (e.g., lisp’s =;= comment character).
 
 ** Additional Templates
 These templates are added by the Spacemacs layer.
 
-#+begin_src sh
+#+BEGIN_SRC sh
   #
   # box style 71
   #
@@ -115,13 +115,13 @@ These templates are added by the Spacemacs layer.
   ##==============
   ## box style 86
   ##==============
-#+end_src
+#+END_SRC
 
 * Key bindings
 *Note:* Use a numerical prefix argument to choose a specific style for instance
 ~86 SPC x b b~ to use the style 86 above.
 
-| Keybinding  | Command                                                           |
+| Key binding | Command                                                           |
 |-------------+-------------------------------------------------------------------|
 | ~SPC x b >~ | Move box to the right (point must be around left side of the box) |
 | ~SPC x b <~ | Move box to the left (point must be around left side of the box)  |

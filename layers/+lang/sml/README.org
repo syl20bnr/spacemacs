@@ -2,11 +2,11 @@
 
 [[file:img/sml.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#form-completion][Form Completion]]
   - [[#repl][REPL]]
 
@@ -23,17 +23,17 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =sml= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key Bindings
+* Key bindings
 ** Form Completion
 
-| Key Binding | Description                                                                               |
+| Key binding | Description                                                                               |
 |-------------+-------------------------------------------------------------------------------------------|
 | ~M-SPC~     | Inserts a space and completes the form before the cursor.                                 |
 | ~\vert{}~   | Inserts a pipe and adds a double arrow or copies the function name. Generally just works. |
 
 ** REPL
 
-| Key Binding | Description                                                       |
+| Key binding | Description                                                       |
 |-------------+-------------------------------------------------------------------|
 | ~SPC m s b~ | Send buffer to REPL                                               |
 | ~SPC m s B~ | Send buffer to REPL and switch to REPL buffer in =insert state=   |

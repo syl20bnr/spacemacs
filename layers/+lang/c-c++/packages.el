@@ -10,32 +10,38 @@
 ;;; License: GPLv3
 
 (setq c-c++-packages
-  '(
-    cc-mode
-    disaster
-    clang-format
-    company
-    (company-c-headers :requires company)
-    (company-rtags :requires company rtags)
-    company-ycmd
-    flycheck
-    (flycheck-rtags :requires flycheck rtags)
-    gdb-mi
-    ggtags
-    counsel-gtags
-    google-c-style
-    helm-cscope
-    helm-gtags
-    (helm-rtags :requires helm rtags)
-    (ivy-rtags :requires ivy rtags)
-    rtags
-    realgud
-    semantic
-    srefactor
-    stickyfunc-enhance
-    ycmd
-    xcscope
-    ))
+      '(
+        cc-mode
+        clang-format
+        company
+        (company-c-headers :requires company)
+        (company-rtags :requires company rtags)
+        company-ycmd
+        counsel-gtags
+        disaster
+        flycheck
+        (flycheck-rtags :requires flycheck rtags)
+        gdb-mi
+        ggtags
+        google-c-style
+        helm-cscope
+        helm-gtags
+        (helm-rtags :requires helm rtags)
+        (ivy-rtags :requires ivy rtags)
+        org
+        realgud
+        rtags
+        semantic
+        srefactor
+        stickyfunc-enhance
+        xcscope
+        ycmd
+        ;;lsp-backend
+        (cquery :requires lsp-mode)
+        (ccls :requires lsp-mode)
+        projectile
+        ))
+
 
 (defun c-c++/init-cc-mode ()
   (use-package cc-mode
@@ -44,7 +50,8 @@
     (progn
       (add-to-list 'auto-mode-alist
                    `("\\.h\\'" . ,c-c++-default-mode-for-headers))
-      (add-hook 'c-mode-common-hook 'spacemacs//c-toggle-auto-newline))
+      (when c-c++-enable-auto-newline
+        (add-hook 'c-mode-common-hook 'spacemacs//c-toggle-auto-newline)))
     :config
     (progn
       (require 'compile)
@@ -56,21 +63,13 @@
           "ga" 'projectile-find-other-file
           "gA" 'projectile-find-other-file-other-window)))))
 
-(defun c-c++/init-disaster ()
-  (use-package disaster
-    :defer t
-    :commands (disaster)
-    :init
-    (progn
-      (dolist (mode c-c++-modes)
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "D" 'disaster)))))
-
 (defun c-c++/init-clang-format ()
   (use-package clang-format
-    :if c-c++-enable-clang-support
+    :if (or c-c++-enable-clang-support (spacemacs//c-c++-lsp-enabled))
     :init
     (progn
+      (when c-c++-enable-clang-format-on-save
+        (spacemacs/add-to-hooks 'spacemacs/clang-format-on-save c-c++-mode-hooks))
       (dolist (mode c-c++-modes)
         (spacemacs/declare-prefix-for-mode mode "m=" "format")
         (spacemacs/set-leader-keys-for-major-mode mode
@@ -81,12 +80,13 @@
   (when (configuration-layer/package-used-p 'cmake-mode)
     (spacemacs|add-company-backends :backends company-cmake :modes cmake-mode))
   (when c-c++-enable-clang-support
-    (spacemacs|add-company-backends :backends company-clang
-      :modes c-mode-common)
-    (when c-c++-enable-c++11
-      (setq company-clang-arguments '("-std=c++11")))
-    (setq company-clang-prefix-guesser 'spacemacs/company-more-than-prefix-guesser)
-    (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)))
+    (if (spacemacs//c-c++-lsp-enabled)
+      (display-warning :error "`c-c++-enable-clang-support' ignored when using lsp backend")
+      (progn
+        (spacemacs|add-company-backends :backends company-clang :modes c-mode-common)
+        (setq company-clang-prefix-guesser 'spacemacs/company-more-than-prefix-guesser)
+        (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)
+        ()))))
 
 (defun c-c++/init-company-c-headers ()
   (use-package company-c-headers
@@ -97,7 +97,7 @@
 
 (defun c-c++/init-company-rtags ()
   (use-package company-rtags
-    :if c-c++-enable-rtags-support
+    :if (and (eq c-c++-backend 'rtags) c-c++-enable-rtags-completion)
     :defer t
     :init
     (progn
@@ -106,18 +106,33 @@
         :backends company-rtags
         :modes c-mode-common))))
 
+(defun c-c++/post-init-company-ycmd ()
+  (spacemacs|add-company-backends :backends company-ycmd :modes c-mode-common))
+
+(defun c-c++/post-init-counsel-gtags ()
+  (dolist (mode c-c++-modes)
+    (spacemacs/counsel-gtags-define-keys-for-mode mode)))
+
+(defun c-c++/init-disaster ()
+  (use-package disaster
+    :defer t
+    :commands (disaster)
+    :init
+    (progn
+      (dolist (mode c-c++-modes)
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "D" 'disaster)))))
+
 (defun c-c++/post-init-flycheck ()
   (dolist (mode c-c++-modes)
     (spacemacs/enable-flycheck mode))
   (when c-c++-enable-clang-support
-    (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)
-    (when c-c++-enable-c++11
-      (setq flycheck-clang-language-standard "c++11"))))
+    (spacemacs/add-to-hooks 'spacemacs/c-c++-load-clang-args c-c++-mode-hooks)))
 
 ;; TODO lazy load this package
 (defun c-c++/init-flycheck-rtags ()
   (use-package flycheck-rtags
-    :if c-c++-enable-rtags-support))
+    :if (eq c-c++-backend 'rtags)))
 
 (defun c-c++/post-init-ggtags ()
   (add-hook 'c-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
@@ -133,9 +148,18 @@
      ;; Non-nil means display source file containing the main routine at startup
      gdb-show-main t)))
 
-(defun c-c++/post-init-counsel-gtags ()
-  (dolist (mode c-c++-modes)
-    (spacemacs/counsel-gtags-define-keys-for-mode mode)))
+(defun c-c++/init-google-c-style ()
+  (use-package google-c-style
+    :if (or 'c-c++-enable-google-style 'c-c++-enable-google-newline)
+    :config (progn
+              (when c-c++-enable-google-style (add-hook 'c-mode-common-hook 'google-set-c-style))
+              (when c-c++-enable-google-newline (add-hook 'c-mode-common-hook 'google-make-newline-indent)))))
+
+(defun c-c++/pre-init-helm-cscope ()
+  (spacemacs|use-package-add-hook xcscope
+    :post-init
+    (dolist (mode c-c++-modes)
+      (spacemacs/setup-helm-cscope mode))))
 
 (defun c-c++/post-init-helm-gtags ()
   (dolist (mode c-c++-modes)
@@ -144,19 +168,19 @@
 ;; TODO lazy load this package
 (defun c-c++/init-helm-rtags ()
   (use-package helm-rtags
-    :if c-c++-enable-rtags-support
+    :if (eq c-c++-backend 'rtags)
     :init (setq rtags-display-result-backend 'helm)))
 
 ;; TODO lazy load this package
 (defun c-c++/init-ivy-rtags ()
   (use-package ivy-rtags
-    :if c-c++-enable-rtags-support
+    :if (eq c-c++-backend 'rtags)
     :init (setq rtags-display-result-backend 'ivy)))
 
 ;; TODO lazy load this package
 (defun c-c++/init-rtags ()
   (use-package rtags
-    :if c-c++-enable-rtags-support
+    :if (eq c-c++-backend 'rtags)
     :init
     (progn
       (setq rtags-autostart-diagnostics t)
@@ -199,48 +223,18 @@
           "gv" 'rtags-find-virtuals-at-point
           "gV" 'rtags-print-enum-value-at-point
           "gX" 'rtags-fix-fixit-at-point
-          "gY" 'rtags-cycle-overlays-on-screen)))))
+          "gY" 'rtags-cycle-through-diagnostics)))))
 
-(defun c-c++/init-realgud()
-  (use-package realgud
-    :defer t
-    :commands (realgud:gdb)
-    :init
-    (progn
-      (dolist (mode c-c++-modes)
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "dd" 'realgud:gdb
-          "de" 'realgud:cmd-eval-dwim))
-      (advice-add 'realgud-short-key-mode-setup
-                  :before #'spacemacs//short-key-state)
-      (evilified-state-evilify-map realgud:shortkey-mode-map
-        :eval-after-load realgud
-        :mode realgud-short-key-mode
-        :bindings
-        "s" 'realgud:cmd-next
-        "i" 'realgud:cmd-step
-        "b" 'realgud:cmd-break
-        "B" 'realgud:cmd-clear
-        "o" 'realgud:cmd-finish
-        "c" 'realgud:cmd-continue
-        "e" 'realgud:cmd-eval
-        "r" 'realgud:cmd-restart
-        "q" 'realgud:cmd-quit
-        "S" 'realgud-window-cmd-undisturb-src))))
-
-(defun c-c++/init-google-c-style ()
-  (use-package google-c-style
-    :if (or 'c-c++-enable-google-style 'c-c++-enable-google-newline)
-    :config (progn
-    (when c-c++-enable-google-style (add-hook 'c-mode-common-hook 'google-set-c-style))
-    (when c-c++-enable-google-newline (add-hook 'c-mode-common-hook 'google-make-newline-indent)))))
+(defun c-c++/post-init-realgud()
+  (dolist (mode c-c++-modes)
+    (spacemacs/add-realgud-debugger mode "gdb")))
 
 (defun c-c++/post-init-semantic ()
   (spacemacs/add-to-hooks 'semantic-mode c-c++-mode-hooks))
 
 (defun c-c++/post-init-srefactor ()
   (dolist (mode c-c++-modes)
-    (spacemacs/set-leader-keys-for-major-mode mode "r" 'srefactor-refactor-at-point))
+    (spacemacs/set-leader-keys-for-major-mode mode "r." 'srefactor-refactor-at-point))
   (spacemacs/add-to-hooks 'spacemacs/load-srefactor c-c++-mode-hooks))
 
 (defun c-c++/post-init-stickyfunc-enhance ()
@@ -254,8 +248,9 @@
     (spacemacs/set-leader-keys-for-major-mode mode
       "gG" 'ycmd-goto-imprecise)))
 
-(defun c-c++/post-init-company-ycmd ()
-  (spacemacs|add-company-backends :backends company-ycmd :modes c-mode-common))
+(defun c-c++/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(C . t))))
 
 (defun c-c++/pre-init-xcscope ()
   (spacemacs|use-package-add-hook xcscope
@@ -263,8 +258,44 @@
     (dolist (mode c-c++-modes)
       (spacemacs/set-leader-keys-for-major-mode mode "gi" 'cscope-index-files))))
 
-(defun c-c++/pre-init-helm-cscope ()
-  (spacemacs|use-package-add-hook xcscope
-    :post-init
-    (dolist (mode c-c++-modes)
-      (spacemacs/setup-helm-cscope mode))))
+;; BEGIN LSP BACKEND PACKAGES
+
+;; See also https://github.com/cquery-project/cquery/wiki/Emacs
+(defun c-c++/init-cquery ()
+  (use-package cquery
+    :if (eq c-c++-backend 'lsp-cquery)
+    :defer t
+    :commands lsp-cquery-enable
+    :init
+    (add-hook 'c-mode-common-hook #'spacemacs//c-c++-lsp-enable)
+    :config
+    (spacemacs//c-c++-lsp-config)))
+
+;; See also https://github.com/MaskRay/ccls/wiki/Emacs
+(defun c-c++/init-ccls ()
+  (use-package ccls
+    :if (eq c-c++-backend 'lsp-ccls)
+    :defer t
+    :commands lsp-ccls-enable
+    :init
+    (add-hook 'c-mode-common-hook #'spacemacs//c-c++-lsp-enable)
+    :config
+    (spacemacs//c-c++-lsp-config)))
+
+;;Intentionally adding both cquery and ccls cache dirs to ignore list, to facilitate switching between
+;;two without multiple caches polluting projectile find file results
+(defun c-c++/pre-init-projectile ()
+  (spacemacs|use-package-add-hook projectile
+    :post-config
+    (progn
+      (add-to-list 'projectile-globally-ignored-directories ".cquery_cached_index")
+      (add-to-list 'projectile-globally-ignored-directories ".ccls-cache")
+      (when c-c++-lsp-cache-dir
+        (add-to-list 'projectile-globally-ignored-directories c-c++-lsp-cache-dir))
+      (when c-c++-adopt-subprojects
+        (setq projectile-project-root-files-top-down-recurring
+          (append '("compile_commands.json"
+                     ".cquery")
+            projectile-project-root-files-top-down-recurring))))))
+
+;; END LSP BACKEND PACKAGES

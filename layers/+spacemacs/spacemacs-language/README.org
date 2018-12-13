@@ -1,6 +1,6 @@
 #+TITLE: spacemacs-language layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#key-bindings][Key bindings]]
@@ -14,11 +14,11 @@ This layer adds support various language related services to Spacemacs.
 
 * Key bindings
 
- | Key Binding | Description                                              |
- |-------------+----------------------------------------------------------|
- | ~SPC x w d~ | Show definition of word at point                         |
- | ~SPC x g l~ | Set the source and target languages for google translate |
- | ~SPC x g Q~ | Send marked area to google translate as reverse query    |
- | ~SPC x g q~ | Send marked area to google translate as forward query    |
- | ~SPC x g T~ | Send word at point to google translate as reverse query  |
- | ~SPC x g t~ | Send word at point to google translate as forward query  |
+| Key binding | Description                                              |
+|-------------+----------------------------------------------------------|
+| ~SPC x w d~ | Show definition of word at point                         |
+| ~SPC x g l~ | Set the source and target languages for google translate |
+| ~SPC x g Q~ | Send marked area to google translate as reverse query    |
+| ~SPC x g q~ | Send marked area to google translate as forward query    |
+| ~SPC x g T~ | Send word at point to google translate as reverse query  |
+| ~SPC x g t~ | Send word at point to google translate as forward query  |

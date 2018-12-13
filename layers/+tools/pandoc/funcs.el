@@ -12,5 +12,6 @@
 (defun spacemacs/run-pandoc ()
   "Start pandoc for the buffer and open the menu"
   (interactive)
-  (pandoc-mode)
+  ;; only run pandoc-mode if not active, as it resets pandoc--local-settings
+  (if (not (bound-and-true-p pandoc-mode)) (pandoc-mode))
   (pandoc-main-hydra/body))

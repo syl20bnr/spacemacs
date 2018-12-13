@@ -1,6 +1,6 @@
 #+TITLE: IBuffer layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -41,7 +41,7 @@ Example:
 * Key bindings
 ** Global
 
-| Key Binding | Description                |
+| Key binding | Description                |
 |-------------+----------------------------|
 | ~SPC b I~   | open IBuffer menu (global) |
 
@@ -49,8 +49,8 @@ Example:
 
 ** IBuffer
 
-| Key Binding | Description                   |
+| Key binding | Description                   |
 |-------------+-------------------------------|
-| ~g r~       | update IBuffer ("refresh")    |
+| ~g r~       | update IBuffer (“refresh”)    |
 | ~g j~       | move to next filter group     |
 | ~g k~       | move to previous filter group |

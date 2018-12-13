@@ -1,0 +1,69 @@
+#+TITLE: Dash layer
+
+[[file:img/dash.png]]
+
+[[file:img/zeal.png]]
+
+* Table of Contents                     :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#dash-os-x][Dash (OS X)]]
+    - [[#sqlite3][Sqlite3]]
+  - [[#zeal-linux--windows][Zeal (Linux & Windows)]]
+- [[#word-at-point][Word at point]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer integrates offline api browsers into emacs. It provides one for OS X, Linux and Windows.
+
+** Features:
+- Searching for word at point in offline api browser’s UI.
+- Integration of offline api browser search results in helm and ivy.
+- Support for [[https://kapeli.com/dash][dash]] offline api browser for OS X.
+- Support for [[https://zealdocs.org/][zeal]] offline api browser for Linux.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =dash= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+** Dash (OS X)
+You have to install [[https://kapeli.com/dash][dash]] on your machine.
+
+It is recommended to set the =HUD mode= in your Dash application preferences
+when using this layer.
+
+*** Sqlite3
+Helm Dash [[https://github.com/areina/helm-dash#user-content-requirements][requires]] sqlite3 to be installed to function properly.
+
+** Zeal (Linux & Windows)
+You have to install [[https://zealdocs.org/][zeal]] on your machine.
+
+Then install the docsets you use more frequently
+
+* Word at point
+=dash-at-point= and =zeal-at-point= will search for the word at point in the respective offline api browser.
+The result will be displayed in the offline browser’s UI.
+
+However having to leave emacs to have a look at the search results may be a bit awkward.
+To help with this it is also possible to integrate the search results directly in =helm= or =ivy=
+and show the details in a browser. To do so [[https://github.com/areina/helm-dash][helm-dash]] can be used for =helm= and [[https://github.com/nathankot/counsel-dash][counsel-dash]] for =ivy=.
+
+To get them working it is necessary to set =helm-dash-docset-newpath= to the location of your docsets.
+
+#+BEGIN_SRC elisp
+  (dash :variables
+        helm-dash-docset-newpath "~/.local/share/Zeal/Zeal/docsets")
+#+END_SRC
+
+For more details please check [[https://github.com/stanaka/dash-at-point#Usage][dash-at-point-usage]] or [[https://github.com/jinzhu/zeal-at-point][zeal-at-point]].
+
+* Key bindings
+
+| Key binding | Description                                                     |
+|-------------+-----------------------------------------------------------------|
+| ~SPC d d~   | Lookup thing at point in Dash or Zeal                           |
+| ~SPC d D~   | Lookup thing at point in Dash or Zeal within a specified Docset |
+| ~SPC d h~   | Lookup thing at point in helm-dash or counsel-dash              |
+| ~SPC d H~   | Lookup in helm-dash or counsel-dash within a specified Docset   |

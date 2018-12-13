@@ -1,12 +1,12 @@
 #+TITLE: fasd layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#fasd][fasd]]
-- [[#keybindings][Keybindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer integrates the [[https://github.com/clvv/fasd][fasd]] command line tool into spacemacs.
@@ -32,9 +32,9 @@ On OS X, it can be installed via [[https://github.com/Homebrew/legacy-homebrew][
   $ brew install fasd
 #+END_SRC
 
-* Keybindings
+* Key bindings
 
-| Key Binding | Description                        |
+| Key binding | Description                        |
 |-------------+------------------------------------|
 | ~SPC f a s~ | find a file or directory with fasd |
 | ~SPC f a d~ | find a directory with fasd         |

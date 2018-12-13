@@ -1,6 +1,6 @@
 #+TITLE: Forth layer
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -32,7 +32,7 @@ appropriate variable.
 
 * Key bindings
 
-| Key Binding | Description                                                       |
+| Key binding | Description                                                       |
 |-------------+-------------------------------------------------------------------|
 | ~SPC m d s~ | See definition (show decompiled body)                             |
 | ~SPC m e E~ | Evaluate expression in minibuffer                                 |

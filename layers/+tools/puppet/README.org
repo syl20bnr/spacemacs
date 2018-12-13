@@ -2,7 +2,7 @@
 
 [[file:img/puppet.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -31,7 +31,7 @@ To get syntax checking to work you will also need to install =puppet-lint= by ex
 * Key bindings
 The following key bindings are available in Puppet Mode:
 
-| Key Binding | Description                                       |
+| Key binding | Description                                       |
 |-------------+---------------------------------------------------|
 | ~SPC m {~   | Move to the beginning of the current block        |
 | ~SPC m }~   | Move to the end of the current block              |

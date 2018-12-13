@@ -2,14 +2,15 @@
 
 [[file:img/github.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#git-configuration][Git configuration]]
   - [[#hub-configuration][Hub configuration]]
-- [[#key-bindings][Key Bindings]]
+  - [[#magithub-configuration][Magithub configuration]]
+- [[#key-bindings][Key bindings]]
   - [[#magit-gh-pulls][magit-gh-pulls]]
   - [[#magithub][magithub]]
   - [[#gistel][gist.el]]
@@ -47,11 +48,37 @@ For now, =Magithub= requires the =hub= utility to work -- before trying to use
 Magithub, follow the installation instructions at hub.github.com. To force hub
 to authenticate, you can use hub browse in a terminal (inside a GitHub repo).
 
-* Key Bindings
+** Magithub configuration
+Spacemacs configures =Magithub= to be in offline mode by default and disables
+displaying the GitHub project status, issues, and pull requests because loading
+project data for repositories with many pull requests or issues can be
+exorbitantly slow (see [[https://github.com/syl20bnr/spacemacs/issues/11176][issue #11176]]). To toggle online mode and the project
+status, issues, and pull requests sections for the current repository, open in
+the =magit status= buffer (~SPC g s~) and then open the Magithub settings popup
+(~@ C~). To enable online mode and the project status, pull requests, and
+issues sections by default, use the following shell commands:
+
+#+BEGIN_SRC sh
+  git config --global --bool magithub.online true
+  git config --global --bool magithub.status.includeStatusHeader true
+  git config --global --bool magithub.status.includePullRequestsSection true
+  git config --global --bool magithub.status.includeIssuesSection true
+#+END_SRC
+
+Alternatively, use the following Emacs forms:
+
+#+BEGIN_SRC emacs-lisp
+  (magit-set "true" "--global" "magithub.online")
+  (magit-set "true" "--global" "magithub.status.includeStatusHeader")
+  (magit-set "true" "--global" "magithub.status.includePullRequestsSection")
+  (magit-set "true" "--global" "magithub.status.includeIssuesSection")
+#+END_SRC
+
+* Key bindings
 ** magit-gh-pulls
 In a =magit status= buffer (~SPC g s~):
 
-| Key Binding | Description                                                 |
+| Key binding | Description                                                 |
 |-------------+-------------------------------------------------------------|
 | ~# c~       | create a pull request                                       |
 | ~# g~       | get a list of (or reload) all PRs in the current repository |
@@ -66,8 +93,9 @@ possible.
 
 ** magithub
 
-| Key Binding | Description                                      |
+| Key binding | Description                                      |
 |-------------+--------------------------------------------------|
+| ~@ C~       | open the Magithub settings popup                 |
 | ~@ H~       | opens the current repository in the browser      |
 | ~@ c~       | pushes a brand-new local repository up to GitHub |
 | ~@ f~       | create a fork of an existing repository          |
@@ -76,7 +104,7 @@ possible.
 
 ** gist.el
 
-| Key Binding | Description                                   |
+| Key binding | Description                                   |
 |-------------+-----------------------------------------------|
 | ~SPC g g b~ | create a public gist with the buffer content  |
 | ~SPC g g B~ | create a private gist with the buffer content |
@@ -86,7 +114,7 @@ possible.
 
 In the gist list buffer:
 
-| Key Binding | Description                  |
+| Key binding | Description                  |
 |-------------+------------------------------|
 | ~/~         | evil search                  |
 | ~+~         | add buffer to gist           |
@@ -107,7 +135,7 @@ In the gist list buffer:
 
 ** Clone repositories
 
-| Key Binding   | Description                                              |
+| Key binding   | Description                                              |
 |---------------+----------------------------------------------------------|
 | ~SPC g h c /~ | search for a repository to clone it                      |
 | ~SPC g h c c~ | clone and optionally fork repository                     |

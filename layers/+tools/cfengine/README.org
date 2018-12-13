@@ -1,15 +1,16 @@
 #+TITLE: CFEngine layer
+
 #+PROPERTY: header-args :eval never-export
 
 [[file:./img/agent.png]]
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#set-file-permission-on-save][Set file permission on save]]
-  - [[#indendation][Indendation]]
+  - [[#indentation][Indentation]]
 - [[#execution-of-cfengine3-src-blocks][Execution of =cfengine3= SRC blocks]]
 - [[#key-bindings][Key bindings]]
 
@@ -43,11 +44,11 @@ errors like:
   (add-hook 'after-save-hook 'cfengine-permissions-policy-owner-only nil 'make-it-local)
 #+END_SRC
 
-** Indendation
+** Indentation
 If you like attributes to be intended from the promiser set =Indentation amount
 from anchor= to =2=. For example:
 
-#+begin_src cfengine3
+#+BEGIN_SRC cfengine3
   bundle agent main
   {
     vars:
@@ -56,7 +57,7 @@ from anchor= to =2=. For example:
           string => "value",
           comment => "Indented 2 spaces from promiser";
   }
-#+end_src
+#+END_SRC
 
 * Execution of =cfengine3= SRC blocks
 This layers add support for =cfengine3= source blocks in org files.
@@ -71,9 +72,6 @@ With the insertion point inside the SRC block press ~,,~ or ~CTRL-c Ctrl-c~
   }
 #+END_SRC
 
-#+RESULTS:
-: R: Hello World!
-
 See the ob-cfengine3 [[https://github.com/nickanderson/ob-cfengine3/blob/master/README.org][README]] for information on controlling inclusion of the
 stdlib, definition of classes and controlling the =bundlesequence= using header
 args.
@@ -83,6 +81,6 @@ To suppress the confirmation when executing a block set
 
 * Key bindings
 
-| Key Binding | Description           |
+| Key binding | Description           |
 |-------------+-----------------------|
 | ~SPC m j~   | Reformats JSON string |

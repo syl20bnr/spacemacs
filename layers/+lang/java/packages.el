@@ -29,6 +29,8 @@
         maven-test-mode
         (meghanada :toggle (not (version< emacs-version "25.1")))
         mvn
+        (lsp-java :requires lsp-mode lsp-ui company-lsp dap-mode)
+        org
         ))
 
 (defun java/post-init-company ()
@@ -197,7 +199,6 @@
           "br"     'ensime-sbt-do-run
 
           "ct"     'ensime-typecheck-current-buffer
-          "cT"     'ensime-typecheck-all
 
           "dA"     'ensime-db-attach
           "db"     'ensime-db-set-break
@@ -217,26 +218,18 @@
           "Ds"     'ensime
 
           "Ee"     'ensime-print-errors-at-point
-          "El"     'ensime-show-all-errors-and-warnings
           "Es"     'ensime-stacktrace-switch
 
           "gp"     'ensime-pop-find-definition-stack
-          "gi"     'ensime-goto-impl
-          "gt"     'ensime-goto-test
 
           "hh"     'ensime-show-doc-for-symbol-at-point
           "hT"     'ensime-type-at-point-full-name
           "ht"     'ensime-type-at-point
           "hu"     'ensime-show-uses-of-symbol-at-point
 
-          "ii"     'ensime-inspect-type-at-point
-          "iI"     'ensime-inspect-type-at-point-other-frame
-          "ip"     'ensime-inspect-project-package
-
           "ra"     'ensime-refactor-add-type-annotation
           "rd"     'ensime-refactor-diff-inline-local
           "rD"     'ensime-undo-peek
-          "rf"     'ensime-format-source
           "ri"     'ensime-refactor-diff-organize-imports
           "rm"     'ensime-refactor-diff-extract-method
           "rr"     'ensime-refactor-diff-rename
@@ -296,7 +289,7 @@
 ;;       (progn
 ;;         (spacemacs//ensime-init 'java-mode t nil)
 ;;         (when (configuration-layer/package-used-p 'company)
-;;           (push 'ensime-company company-backends-java-mode)))
+;;           (add-to-list 'company-backends-java-mode 'ensime-company)))
 ;;       :config
 ;;       (progn
 ;;         (spacemacs/ensime-configure-keybindings 'java-mode)))))
@@ -348,6 +341,10 @@
 
 (defun java/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'java-mode))
+
+(defun java/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(java . t))))
 
 (defun java/init-java-mode ()
   (use-package java-mode
@@ -431,6 +428,55 @@
         ;; meghanada-local-variable
 
         "x:" 'meghanada-run-task))))
+
+(defun java/init-lsp-java ()
+  (use-package lsp-java
+    :defer t
+    :config
+    (progn
+      ;; key bindings
+      (dolist (prefix '(("mc" . "compile")
+                        ("mg" . "goto")
+                        ("mr" . "refactor")
+                        ("mq" . "lsp")))
+        (spacemacs/set-leader-keys-for-major-mode 'java-mode
+          "gg"  'xref-find-definitions
+          "gr"  'xref-find-references
+          "gR"  'lsp-ui-peek-find-references
+          "ga"  'xref-find-apropos
+          "gA"  'lsp-ui-peek-find-workspace-symbol
+          "gd"  'lsp-goto-type-definition
+          "hh"  'lsp-describe-thing-at-point
+          "el"  'lsp-ui-flycheck-list
+          "pu"  'lsp-java-update-user-settings
+          "ea"  'lsp-execute-code-action
+          "qr"  'lsp-restart-workspace
+          "roi" 'lsp-java-organize-imports
+          "rr" 'lsp-rename
+          "rai" 'lsp-java-add-import
+          "ram" 'lsp-java-add-unimplemented-methods
+          "rcp" 'lsp-java-create-parameter
+          "rcf" 'lsp-java-create-field
+          "rec" 'lsp-java-extract-to-constant
+          "rel" 'lsp-java-extract-to-local-variable
+          "rem" 'lsp-java-extract-method
+          "cc"  'lsp-java-build-project
+          "an"  'lsp-java-actionable-notifications
+          "="   'lsp-format-buffer
+
+          ;; dap-mode
+          ;; debug
+          "ddj" 'dap-java-debug
+          "dtt" 'dap-java-debug-test-method
+          "dtc" 'dap-java-debug-test-class
+          ;; run
+          "tt" 'dap-java-run-test-method
+          "tc" 'dap-java-run-test-class)
+
+        (setq lsp-highlight-symbol-at-point nil
+              lsp-ui-sideline-update-mode 'point
+              lsp-eldoc-render-all nil
+              lsp-java-completion-guess-arguments t)))))
 
 (defun java/init-mvn ()
   (use-package mvn

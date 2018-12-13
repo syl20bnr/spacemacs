@@ -1,6 +1,6 @@
 ;;; packages.el --- coq layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Jeremy Bi <bixuanxbi@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,10 +12,7 @@
 (setq coq-packages
       '(
         (company-coq :requires company)
-        (proof-general :location (recipe
-                                  :fetcher github
-                                  :repo "ProofGeneral/PG"
-                                  :files ("*")))
+        proof-general
         smartparens
         vi-tilde-fringe
         ))
@@ -32,12 +29,18 @@
     :config
     (progn
       (spacemacs|hide-lighter company-coq-mode)
-      (spacemacs/declare-prefix-for-mode 'coq-mode
-        "mi" "coq/insert")
+      (dolist (prefix '(("mi" . "coq/insert")
+                        ("mh" . "coq/document")))
+        (spacemacs/declare-prefix-for-mode
+          'coq-mode
+          (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'coq-mode
         "il" 'company-coq-lemma-from-goal
         "im" 'company-coq-insert-match-construct
-        "ao" 'company-coq-occur))))
+        "ao" 'company-coq-occur
+        "he" 'company-coq-document-error
+        "hE" 'company-coq-browse-error-messages
+        "hh" 'company-coq-doc))))
 
 (defun coq/init-proof-general ()
   (use-package proof-site
@@ -95,7 +98,13 @@
         "gl" 'proof-goto-end-of-locked
         "gs" 'proof-goto-command-start
         ;; Insertions
-        "ie" 'coq-end-Section))))
+        "ic" 'coq-insert-command
+        "ie" 'coq-end-Section
+        "ii" 'coq-insert-intros
+        "ir" 'coq-insert-requires
+        "is" 'coq-insert-section-or-module
+        "it" 'coq-insert-tactic
+        "iT" 'coq-insert-tactical))))
 
 (defun coq/post-init-smartparens ()
   (spacemacs/add-to-hooks (if dotspacemacs-smartparens-strict-mode
