@@ -42,7 +42,7 @@ load path, otherwise set it to the path at which =agda2.el= can be found. For
 example,
 
 #+BEGIN_SRC emacs-lisp
-  (agda2 :variables agda-mode-path "/some/path/to/agda2.el")
+  (agda :variables agda-mode-path "/some/path/to/agda2.el")
 #+END_SRC
 
 * Key bindings
