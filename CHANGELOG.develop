@@ -116,6 +116,7 @@ a sane way, here is the complet list of changed key bindings:
 - perl6 (thanks to Bahtiar Gadimov)
 - protobuf (thanks to Amol Mandhane)
 - restructuredtext (thanks to Wei-Wei Guo)
+- semantic-web (thanks to Andreas Textor)
 **** WEB services
 - confluence
 **** Tools
@@ -152,6 +153,11 @@ a sane way, here is the complet list of changed key bindings:
 - Resolve symlinks when warning about duplicate layers (thanks to Ben Gamari)
 - More robust dotspacemacs/add-layer (thanks to Eivind Fonn)
 - Check toggle condition in status function (thanks to Eivind Fonn)
+- Inhibit recentf when inserting startupify lists (thanks to Eivind Fonn)
+- New dotvariable: =dotspacemacs-auto-generate-layout-names= (thanks to bmag)
+- Rework =spacemacs//reroot-link= to makes links relative (thanks to Eugene
+  Yaremenko)
+- Don't reroot non-org files (thanks to Eugene Yaremenko)
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
@@ -216,6 +222,7 @@ a sane way, here is the complet list of changed key bindings:
   - Fix frame killer logic with persistent server (thanks to Rich Alesi)
   - Fix terminal RET and TAB in layouts/workspaces transient state (thanks to
     Don March)
+  - Fix overriding =sp-show-pair-delay= (thanks to Eivind Fonn)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -283,6 +290,31 @@ a sane way, here is the complet list of changed key bindings:
   - ~SPC m r~ rename selected note (thanks to Bahtiar Gadimov)
 **** Django
 - Added names to django mode prefixes (thanks to Boris Verhovsky)
+**** Elixir
+- Add missing Alchemist commands and key bindings (thanks to Swaroop C H)
+  - Key bindings:
+    - Add ~SPC m t b~ to run tests for current file
+    - Add ~SPC m t N~ to jump to previous test
+    - Add ~SPC m t s~ to test stale
+    - Add ~SPC m t R~ to toggle test report display
+    - Add ~SPC m g g~ and ~SPC m .~ to jump to definition
+    - Add ~SPC m g b~ and ~SPC m ,~ to jump back
+    - Add ~SPC m g n~ to jump to next symbol
+    - Add ~SPC m g N~ to jump to previous symbol
+    - Add ~SPC m g j~ to list symbol definitions
+    - Add ~SPC m X i~ to find info at point
+    - Add ~SPC m X r~ for releases at point
+    - Add ~SPC m X R~ for releases
+    - Add ~SPC m X I~ for hex info
+    - Add ~SPC m X s~ for hex search
+    - Add ~SPC m o l~ to macroexpand once current line
+    - Add ~SPC m o L~ to macroexpand once print current line
+    - Add ~SPC m o k~ to macroexpand current line
+    - Add ~SPC m o K~ to macroexpand once current line
+    - Add ~SPC m o i~ to macroexpand once region
+    - Add ~SPC m o I~ to macroexpand once print region
+    - Add ~SPC m o r~ to macroexpand region
+    - Add ~SPC m o R~ to macroexpand print region
 **** Elm
 - Fix flycheck initialization (thanks to Kevin W. van Rooijen)
 **** Emacs Lisp
@@ -313,12 +345,19 @@ a sane way, here is the complet list of changed key bindings:
 **** Go
 - Improve go test output buffer behavior (thanks to Denis Bernard)
 - Configurable extra arguments to go test (thanks to Ian Clark)
+- Add =godoctor= (thanks to TinySong and Eivind Fonn)
+  - Key bindings:
+    - Add ~SPC m r n~ to rename
+    - Add ~SPC m r e~ to extract
+    - Add ~SPC m r t~ to toggle
+    - Add ~SPC m r d~ for godoc
 **** Gtags
 - Key bindings:
   - Move key binding ~SPC m g c~ to ~SPC m g C~ (regenerate tags)
 - Don’t check if mode function is bound (thanks to Eivind Fonn)
 **** Haskell
 - Disable electric indent for cabal-mode (thanks to Benno Fünfstück)(thanks to Benno Fünfstück)
+- Add dante support to haskell layer (thanks to Kyle McKean)
 **** Helm
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
 **** IPython Notebook
@@ -347,6 +386,9 @@ a sane way, here is the complet list of changed key bindings:
 - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
 **** Keyboard layout
 - Add support for Colemak layout (thanks to Daniel Mijares and Lyall Cooper)
+- Add new programmer dvorak layout that matches vim like key placement (thanks
+  to Max Gonzih)
+- Add support for the Workman keyboard layout (thanks to warreq)
 **** Lua
 - Add support for auto-completion with =company= (thanks to halfcrazy)
 **** Markdown
@@ -391,6 +433,7 @@ a sane way, here is the complet list of changed key bindings:
     - add ~SPC m p~ to change priority
   - Add ~SPC m #~ to update statistics cookies (thanks to Christian Höppner)
 - Make =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
+- Remove =mu4e= and =notmuch= from =org= (thanks to Sylvain Benner)
 **** Osx
 - Fix OSX mapping issue (thanks to Joey Liu)
 - New layer variables to define modifers behaviors in macOS:
@@ -406,6 +449,8 @@ a sane way, here is the complet list of changed key bindings:
   - Add key bindings to use ~command-1..9~ for selecting window
     (thanks to Liu Joey)
   - Add ~M-s-h~ to hide other windows (thanks to Bas Veeling)
+**** PHP
+- Add company-php (thanks to jim and Eivind Fonn)
 **** Prodigy
 - Key bindings:
   - add ~c~ to clear the buffer (thanks to Francesc Elies)
@@ -416,6 +461,7 @@ a sane way, here is the complet list of changed key bindings:
 - Highlight wdb breakpoints as well as pdb/ipdb/pudb (thanks to Alexey Kotlyarov)
 - Make =python-execute-file= use =python-shell-interpreter= (thanks to Swaroop C
   H)
+- Trim output from pyenv command (thanks to Eivind Fonn)
 - Key bindings:
   - New =anaconda-view-mode= keybindings (thanks to Muneeb Shaikh)
     - ~C-j~ for navigating to the next error
@@ -433,6 +479,12 @@ a sane way, here is the complet list of changed key bindings:
 **** Ruby
 - Add support for =org-babel= (thanks to Muneeb Shaikh)
 - Highlight debugger keywords (thanks to Alexander Berezovsky and Eivind Fonn)
+- Adding ruby-refactor package (thanks to Daniel Luna)
+  - Key bindings:
+    - Add ~SPC m r R m~ for extract to method.
+    - Add ~SPC m r R v~ to extract local variable.
+    - Add ~SPC m r R c~ to extract constant.
+    - Add ~SPC m r R l~ to extract to =let=.
 **** Rust
 - Key bindings:
   - Add ~SPC m c D~ to open Cargo docs (thanks to Matthew J. Berger)
@@ -461,6 +513,7 @@ a sane way, here is the complet list of changed key bindings:
     (thanks to Benjamin Reynolds)
   - ~SPC a C r~ or ~SPC m r~ to join a channel, group or direct message
     (thanks to Benjamin Reynolds)
+  - ~SPC m )~ to add reaction (thanks to Swaroop C H)
 **** SQL
 - Support for keywords auto capitalization (thanks to Kepi)
 - Change blacklist to only accept list (thanks to Eivind Fonn)
@@ -508,13 +561,14 @@ a sane way, here is the complet list of changed key bindings:
   Anurag Sharma, Archenoth, Benjamin Reynolds, Carl Lange, Chase Adams,
   CL123123, Codruț Constantin Gușoi, Darkhan, David Vo, Diego Alvarez, Diego
   Berrocal, Dietrich Daroch, Dinesh Bhosale, dubnde, duianto, eldios, Eugene
-  Yaremenko, Evan Niessen-Derry, firemiles, Fuqiao Xue, Henry Marshall, Jesse
-  Cooke, Jody Frankowski, John Wood, Jon Tippens, Jonas Strømsodd, Jonathan
-  Arnett, Jonathan Gillett, Josh Greenwood, Joshua Santos, Kainalu Hagiwara,
-  Keith Wygant, Kristoffer Haugsbakk, Leo Joseph Buchignani III, Max Nordlund,
-  Maximilian Wolff, Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Niko
-  Felger, Nikolai Myllymäki, nikolaiam, Paul Milla, Pawan Dubey, Phil Pirozhkov,
-  Rand01ph, Rafi Khan, Reverend Homer, Robby O'Connor, sduthil, Shane Kilkelly,
-  Sid Kapur, Somelauw, Soobin Rho, SteveJobzniak, Swaroop C H, TinySong, Titov
-  Andrey, Thomas de Beauchêne, Tomasz Cichocinski, Vladimir Kochnev, Wieland
-  Hoffmann, Yi Liu)
+  Yaremenko, Evan Niessen-Derry, firemiles, Fuqiao Xue, Garrett Johnson, Henry
+  Marshall, Ivan Kryvoruchko, Jesse Cooke, Jim Deville, Jody Frankowski, John
+  Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh
+  Greenwood, Joshua Santos, Kainalu Hagiwara, Keith Wygant, Kristoffer
+  Haugsbakk, Leo Joseph Buchignani III, Max Nordlund, Maximilian Wolff, Mikhail
+  Yakutovich, Muneeb Shaikh, Nasser Alshammari, Niko Felger, Nikolai Myllymäki,
+  nikolaiam, Paul Milla, Pawan Dubey, Phil Pirozhkov, Rafi Khan, Rand01ph,
+  rakyi, Reverend Homer, Robby O'Connor, sduthil, Shane Kilkelly, Sid Kapur,
+  Somelauw, Soobin Rho, SteveJobzniak, Swaroop C H, TinySong, Titov Andrey,
+  Thomas de Beauchêne, Tomasz Cichocinski, Vladimir Kochnev, Wieland Hoffmann,
+  Yi Liu, zer09)
