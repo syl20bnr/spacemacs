@@ -23,5 +23,5 @@
 (defun spacemacs//julia-setup-lsp ()
   "Start lsp-mode and configure for buffer."
   (if (configuration-layer/layer-used-p 'lsp)
-      (lsp-julia-enable)
+      (lsp)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
