@@ -11,10 +11,10 @@
 
 (defun spacemacs//julia-setup-buffer ()
   "Setup ESS and/or lsp for buffer depending on config."
-  (if (not julia-mode-enable-ess)
-      (spacemacs//julia-setup-repl))
-  (if julia-mode-enable-lsp
-      (spacemacs//julia-setup-lsp)))
+  (when (not julia-mode-enable-ess)
+    (spacemacs//julia-setup-repl))
+  (when julia-mode-enable-lsp
+    (spacemacs//julia-setup-lsp)))
 
 (defun spacemacs//julia-setup-repl ()
   "Start julia-repl minor mode and configure for buffer."
