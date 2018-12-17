@@ -5,6 +5,9 @@ This file containes the change log for the next major version of Spacemacs.
 * Release 0.300.x
 ** 0.300.0
 *** Breaking Changes
+**** Major
+- Support for Emacs 24 has been dropped, the minimal Emacs version is now
+  =25.1=.
 **** Key bindings
 - ~SPC q z~ is noe ~SPC q f~ to kill a frame.
 - ~SPC b m~ now opens the =*Messages*= buffer. The old ~SPC b m~ to kill other
@@ -112,6 +115,7 @@ a sane way, here is the complet list of changed key bindings:
 - coq
 - forth (thanks to Tim Jaeger)
 - gpu (thanks to Evan Klitzke)
+- hy (thanks to TODO: add author here)
 - jr (thanks to Philippe Baron)
 - perl6 (thanks to Bahtiar Gadimov)
 - protobuf (thanks to Amol Mandhane)
@@ -120,10 +124,14 @@ a sane way, here is the complet list of changed key bindings:
 **** WEB services
 - confluence
 **** Tools
-- pass (thanks to Andrew Oppenlander)
+- pass (thanks to Andrew Oppenlander and Kepi)
 - sphinx (thanks to Wei-Wei Guo)
 **** Others
+- multiple-cursors (thanks to Codruț Constantin Gușoi)
+- parinfer (thanks to Tianshu Shi)
 - spacemacs-purpose (thanks to bmag)
+*** Removed layers
+- =extra-langs= (replaced by ad-hoc layers)
 *** Dotfile changes
 - Variables:
   - New variable =dotspacemacs-switch-to-buffer-prefers-purpose= which
@@ -158,6 +166,9 @@ a sane way, here is the complet list of changed key bindings:
 - Rework =spacemacs//reroot-link= to makes links relative (thanks to Eugene
   Yaremenko)
 - Don't reroot non-org files (thanks to Eugene Yaremenko)
+- Fix loading of themes having dependencies (thanks to Benno Fünfstück)
+- Fix error when =layers= directory does not exist in dotdirectory
+  (thanks to Eivind Fonn)
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
@@ -223,6 +234,7 @@ a sane way, here is the complet list of changed key bindings:
   - Fix terminal RET and TAB in layouts/workspaces transient state (thanks to
     Don March)
   - Fix overriding =sp-show-pair-delay= (thanks to Eivind Fonn)
+  - Fix margin scaling ignoring window (thanks to Eivind Fonn)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -239,6 +251,10 @@ a sane way, here is the complet list of changed key bindings:
 - Add condition for fringe-mode toggle (thanks to Eivind Fonn)
 - Hide multiple cursor text when there's only one cursor (thanks to duianto)
 - Don't show warning on layout key clashes (thanks to Boris Buliga)
+- Rewrite function =spacemacs/sudo-edit=. Old version worked only for method
+  =ssh= and did not work at all if user was not specified (e.g.
+  /ssh:hostname:/path). Since the symbol '@' was required in a filename.
+  (thanks to dvzubarev)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -261,6 +277,7 @@ a sane way, here is the complet list of changed key bindings:
 - Key bindings:
   - ~SPC m e ;~ to eval sexp and show result as comment
     (thanks to John Stevenson)
+  - ~SPC m s X~ to restart the REPL (thanks to James Conroy-Finn)
 - Store cider repl history in spacemacs cache (thanks to Ryan Fowler)
 - Fix Clojure layer cider-repl-mode keybindings (thanks to Corey Ling)
 - Remove backtick from smartparens pairs for Clojure (thanks to Erwin Kroon and
@@ -280,6 +297,8 @@ a sane way, here is the complet list of changed key bindings:
   - New ~SPC m g =~ to find assignments to a symbol (thanks to dubnde)
 **** CSharp
 - Enable =flycheck= by default (thanks to Saulius Menkevičius)
+**** D
+- Fix d-mode flycheck imports on dub projects (thanks to Dietrich Daroch)
 **** Dash
 - Use default docsets path in ~helm-dash~ on macos (thanks to ColorFuzzy)
 **** Deft
@@ -360,6 +379,8 @@ a sane way, here is the complet list of changed key bindings:
 - Add dante support to haskell layer (thanks to Kyle McKean)
 **** Helm
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
+**** Hy
+- Add support for virtual envs (thanks to Danny Freeman)
 **** IPython Notebook
 - Add support for auto-completion with =company= (thanks to tutysara)
 - Key bindings:
@@ -385,10 +406,14 @@ a sane way, here is the complet list of changed key bindings:
 **** Javascript
 - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
 **** Keyboard layout
-- Add support for Colemak layout (thanks to Daniel Mijares and Lyall Cooper)
+- Add support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and Eivind Fonn)
 - Add new programmer dvorak layout that matches vim like key placement (thanks
   to Max Gonzih)
 - Add support for the Workman keyboard layout (thanks to warreq)
+**** LaTeX
+- New package =magic-latex-buffer= (thanks to benquebec)
+- New layer variable =latex-enable-magic= to enable =magic= symbols in latex
+  buffers, see README.org for more info (thanks to benquebec)
 **** Lua
 - Add support for auto-completion with =company= (thanks to halfcrazy)
 **** Markdown
@@ -408,8 +433,12 @@ a sane way, here is the complet list of changed key bindings:
     - add ~SPC m a~ and ~SPC m k~ to kill message buffer
     - add ~SPC m s~ to save message as draft
     - add ~SPC m f~ to attach file
+**** Multiple Cursors
+- Disable Spacemacs paste transient state when pasting to avoid pasting issue
+  when there are more than one cursor (thanks to braham-snyder)
 **** NixOS
 - Enable Flycheck (thanks to William Casarin)
+- Defer loading (thanks to Benno Fünfstück)
 **** OCaml
 - Allow initialization without requiring =opam= (thanks to Bernhard Schommer)
 **** Org
@@ -459,14 +488,18 @@ a sane way, here is the complet list of changed key bindings:
 - Hide =yapf-mode= modeline lighter (thanks to Robert ven der Helm)
 - Search for Pylint and Flake8 in the virtualenvs (thanks Alexey Kotlyarov)
 - Highlight wdb breakpoints as well as pdb/ipdb/pudb (thanks to Alexey Kotlyarov)
-- Make =python-execute-file= use =python-shell-interpreter= (thanks to Swaroop C
-  H)
+- Make =python-execute-file= use =python-shell-interpreter=
+  (thanks to Swaroop C H)
 - Trim output from pyenv command (thanks to Eivind Fonn)
+- Use Python executable from active virtual env to compile files
+  (thanks to Swaroop C H)
 - Key bindings:
   - New =anaconda-view-mode= keybindings (thanks to Muneeb Shaikh)
     - ~C-j~ for navigating to the next error
     - ~C-k~ for navigating to the previous error
     - ~RET~ to go forward
+**** Racket
+- Restore smart closing paren behavior in racket-mode (thanks to Don March)
 **** Ranger
 - Fix conflict with =golden-ratio= (thanks to Thomas de Beauchêne)
 - Key bindings:
@@ -476,6 +509,9 @@ a sane way, here is the complet list of changed key bindings:
 - New variable =rcirc-enable-late-fix= to enable or disable the included
   =rcirc-late-fix= package (disabled by default).
 - Fix using multiple lines in =.authinfo= (thanks to Jelle Licht)
+**** React
+- Improve =magic-mode-alist= regular expression to detect =react= files
+  (thanks to Jan Zdráhal)
 **** Ruby
 - Add support for =org-babel= (thanks to Muneeb Shaikh)
 - Highlight debugger keywords (thanks to Alexander Berezovsky and Eivind Fonn)
@@ -514,6 +550,7 @@ a sane way, here is the complet list of changed key bindings:
   - ~SPC a C r~ or ~SPC m r~ to join a channel, group or direct message
     (thanks to Benjamin Reynolds)
   - ~SPC m )~ to add reaction (thanks to Swaroop C H)
+  - ~SPC m (~ to remove reaction (thanks to Swaroop C H)
 **** SQL
 - Support for keywords auto capitalization (thanks to Kepi)
 - Change blacklist to only accept list (thanks to Eivind Fonn)
@@ -522,6 +559,8 @@ a sane way, here is the complet list of changed key bindings:
   - ~SPC e e~ is now for triggering a syntax check, the old action
     (explain error around point) has been moved to ~SPC e x~.
 - Rename function =add-flycheck-hook= to =enable-flycheck=
+**** Swift
+- Update Swift REPL key bindings (thanks to Elliot Bulmer)
 **** Systemd
 - Add support for syntax checking with =flycheck= (thanks to Steven Allen)
 **** Terraform
@@ -552,6 +591,9 @@ a sane way, here is the complet list of changed key bindings:
 - New packages:
   - =browse-at-remote= which replaces =github-browse-file=
    (thanks Eugene Yaremenko)
+**** Ycmd
+- Search for =compile_commands.json= in build sub-directory
+  (thanks to Amos Bird and Eivind Fonn)
 *** Various improvements
 ## TODO @JAremko: put everything you did here
 - Lots of improvement with CI (thanks to Eugene Yaremenko)
@@ -559,7 +601,7 @@ a sane way, here is the complet list of changed key bindings:
   Benner)
 - Various documentation improvements (thanks Aaron Peckham, Alexander Iljin,
   Anurag Sharma, Archenoth, Benjamin Reynolds, Carl Lange, Chase Adams,
-  CL123123, Codruț Constantin Gușoi, Darkhan, David Vo, Diego Alvarez, Diego
+  CL123123, Codruț Constantin Gușoi, Darkhan, David Florness, David Vo, Diego Alvarez, Diego
   Berrocal, Dietrich Daroch, Dinesh Bhosale, dubnde, duianto, eldios, Eugene
   Yaremenko, Evan Niessen-Derry, firemiles, Fuqiao Xue, Garrett Johnson, Henry
   Marshall, Ivan Kryvoruchko, Jesse Cooke, Jim Deville, Jody Frankowski, John
