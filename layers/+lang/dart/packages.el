@@ -16,10 +16,6 @@
   '(dart-mode
     flycheck))
 
-;; TODO: Remove when https://github.com/bradyt/dart-mode/pull/67
-(defun dart/trigger-hooks ()
-  (run-hooks 'change-major-mode-after-body-hook))
-
 (defun dart/show-buffer ()
   "Shows information at point on a new buffer"
   (interactive)
@@ -52,25 +48,9 @@
 
       (evil-set-initial-state 'dart-popup-mode 'motion)
       (evil-define-key 'motion dart-popup-mode-map
-        (kbd "gr") 'dart-do-it-again)
+        (kbd "gr") 'dart-do-it-again))))
 
-      (add-hook 'dart-mode-hook #'dart/trigger-hooks))
-
-      :config
-      ;; TODO: Remove when fix lands
-      ;; https://github.com/bradyt/dart-mode/pull/66
-      (defun dart-formatter-command ()
-        "The command for running the Dart formatter.
-This can be customized by setting `dart-formatter-command-override'."
-        (or dart-formatter-command-override
-            (when dart-sdk-path
-              (concat dart-sdk-path
-                      (file-name-as-directory "bin")
-                      (if (memq system-type '(ms-dos windows-nt))
-                          "dartfmt.exe"
-                        "dartfmt"))))))
-
-  (defun dart/post-init-flycheck ()
-    (spacemacs/add-flycheck-mode 'dart-mode)))
+(defun dart/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'dart-mode))
 
 ;;; packages.el ends here
