@@ -23,6 +23,7 @@
 ;; csharp
 (configuration-layer/lazy-install 'csv :extensions '("\\(\\.[Cc][Ss][Vv]\\'\\)" csv-mode))
 (configuration-layer/lazy-install 'd :extensions '("\\(\\.d[i]?\\'\\)" d-mode))
+(configuration-layer/lazy-install 'dart :extensions '("\\(\\.dart\\'\\)" dart-mode))
 (configuration-layer/lazy-install 'elixir :extensions '("\\.\\(ex\\|exs\\|elixir\\)\\'" elixir-mode))
 (configuration-layer/lazy-install 'elm :extensions '("\\(\\.elm\\'\\)" elm-mode))
 (configuration-layer/lazy-install 'erlang :extensions '("\\(\\.erl$\\|\\.app\\.src$\\|\\.escript\\|\\.hrl$\\|\\.xrl$\\|\\.yrl\\|/ebin/.+\\.app\\|\\.erl\\'\\|\\.hrl\\'\\)" erlang-mode))
