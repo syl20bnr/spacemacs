@@ -22,13 +22,15 @@ Must be a number.")
 (defvar treemacs-use-git-mode
   (pcase (cons (not (null (executable-find "git")))
                (not (null (executable-find "python3"))))
-    (`(t . t) 'extended)
+    (`(t . t) 'deferred)
     (`(t . _) 'simple))
   "Type of git integration for `treemacs-git-mode'.
 There are 2 possible values:
 1) simple, which highlights only files based on their git status, and is
    slightly faster
-2) extended, which highlights both files and directories, but requires python")
+2) extended, which highlights both files and directories, but requires python
+3) deferred, which is the same is extended, but delays highlighting for improved
+   performance")
 
 (defvar treemacs-lock-width nil
   "When non-nil the treemacs window will not be manually resizable by default.")
