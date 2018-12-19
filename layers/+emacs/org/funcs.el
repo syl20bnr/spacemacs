@@ -67,3 +67,9 @@
 (defun spacemacs/org-trello-push-card ()
   (interactive)
   (org-trello-sync-card))
+
+
+
+(defun spacemacs//hl-todo-org-mode ()
+  (unless org-enable-hl-todo-mode
+    (hl-todo-mode -1)))

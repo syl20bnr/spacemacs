@@ -18,6 +18,7 @@
         evil-surround
         gnuplot
         (helm-org-rifle :toggle (configuration-layer/layer-used-p 'helm))
+        hl-todo
         htmlize
         ;; ob, org and org-agenda are installed by `org-plus-contrib'
         (ob :location built-in)
@@ -49,6 +50,9 @@
 
 (defun org/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'org-mode-hook 'spacemacs/delay-emoji-cheat-sheet-hook))
+
+(defun org/post-init-hl-todo ()
+  (add-hook 'org-mode-hook 'spacemacs//hl-todo-org-mode))
 
 (defun org/init-evil-org ()
   (use-package evil-org
