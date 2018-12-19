@@ -957,6 +957,7 @@ Other:
   - Fix doom-modeline in the messages buffer (thanks to duianto)
   - Fix void function error when recentf-save-list is undefined
     (thanks to Compro-Prasad)
+  - =global-hl-todo-mode= prevents activation in org (thanks to Sam Pillsworth)
 *** Layer changes and fixes
 **** Ansible
 - Improvements:
