@@ -53,7 +53,10 @@
 (defun spacemacs-visual/init-hl-todo ()
   (use-package hl-todo
     :defer t
-    :init (global-hl-todo-mode 1)))
+    :init
+    ;; global hook activates hl-todo-mode for prog-mode, text-mode
+    ;; mode can be explicitly defined using hl-todo-activate-in-modes variable
+    (global-hl-todo-mode 1)))
 
 (defun spacemacs-visual/init-popup ())
 
