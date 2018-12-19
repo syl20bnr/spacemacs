@@ -53,8 +53,7 @@
 (defun spacemacs-visual/init-hl-todo ()
   (use-package hl-todo
     :defer t
-    :init (spacemacs/add-to-hooks 'hl-todo-mode '(text-mode-hook
-                                                  prog-mode-hook))))
+    :init (global-hl-todo-mode 1)))
 
 (defun spacemacs-visual/init-popup ())
 

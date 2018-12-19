@@ -37,6 +37,3 @@ used.")
 
 (defvar org-enable-trello-support nil
   "If non-nil org-trello is configured")
-
-(defvar org-enable-hl-todo-mode nil
-  "If non-nil hl-todo is enabled in org buffers")
