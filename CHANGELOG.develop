@@ -18,6 +18,12 @@ This file containes the change log for the next major version of Spacemacs.
   (explain error around point) has been moved to ~SPC e x~.
 - Vagrant key bindings prefix is now ~SPC a V~.
 - Regenerate tags are now under ~SPC m g C~ instead of ~SPC m g c~.
+- Changed ~SPC b B~ to ~SPC b I~ for =ibuffer= (thanks to Thomas de Beauchêne)
+- Changed ~SPC B b~ to ~SPC b B~ for non restricted buffer list (thanks to
+  Thomas de Beauchêne)
+**** IPython notebook
+- Key bindings:
+  - Change prefix from "ai" to "ay" (thanks to Swaroop C H)
 **** Org
 Org key bindings were all over the place and we needed to reorganize them in
 a sane way, here is the complet list of changed key bindings:
@@ -28,6 +34,7 @@ a sane way, here is the complet list of changed key bindings:
   - ~SPC m s~ trees/subtrees
   - ~SPC m T~ toggles
 - Changed key bindings:
+  - ~SPC m A~ org-attach
   - ~SPC m C c~ org-clock-cancel
   - ~SPC m C i~ org-clock-in
   - ~SPC m C o~ org-clock-out
@@ -74,6 +81,16 @@ a sane way, here is the complet list of changed key bindings:
   - ~SPC m i t~ org-agenda-set-tags
   - ~SPC m s r~ org-agenda-refile
 - Rebind =org-agenda-refile= to ~r~ in transient state (thanks to Muneeb Shaikh)
+**** Python
+- Key bindings (thanks to Danny Freeman):
+  - Chaged ~SPC m s e~ to ~SPC m e e~ for =lisp-eval-last-sexp=
+  - Chaged ~SPC m s f~ to ~SPC m e f~ for =lisp-eval-defun=
+  - Chaged ~SPC m s F~ to ~SPC m e F~ for =lisp-eval-defun-and-go=
+  - Chaged ~SPC m s r~ to ~SPC m e r~ for =lisp-eval-region=
+  - Chaged ~SPC m s R~ to ~SPC m e R~ for =lisp-eval-region-and-go=
+**** Syntax checking
+- Key bindings (thanks to Loris Lucido):
+  - Changed ~SPC e e~ to ~SPC e b~ for =flycheck-buffer=
 **** Others
 - All custom settings are now encapsulated in a function called
   =dotspacemacs/emacs-custom-settings=. While it should not break your custom
@@ -117,6 +134,7 @@ a sane way, here is the complet list of changed key bindings:
 - gpu (thanks to Evan Klitzke)
 - hy (thanks to TODO: add author here)
 - jr (thanks to Philippe Baron)
+- perl5 (thanks to Troy Hinckley)
 - perl6 (thanks to Bahtiar Gadimov)
 - protobuf (thanks to Amol Mandhane)
 - restructuredtext (thanks to Wei-Wei Guo)
@@ -124,8 +142,11 @@ a sane way, here is the complet list of changed key bindings:
 **** WEB services
 - confluence
 **** Tools
+- bm (thanks to Eugene Yaremenko)
+- node (thanks to jupl)
 - pass (thanks to Andrew Oppenlander and Kepi)
 - sphinx (thanks to Wei-Wei Guo)
+- transmission (thanks to Eugene Yaremenko)
 **** Others
 - multiple-cursors (thanks to Codruț Constantin Gușoi)
 - parinfer (thanks to Tianshu Shi)
@@ -169,6 +190,19 @@ a sane way, here is the complet list of changed key bindings:
 - Fix loading of themes having dependencies (thanks to Benno Fünfstück)
 - Fix error when =layers= directory does not exist in dotdirectory
   (thanks to Eivind Fonn)
+- Fixes insert point for lazy loaded layers (thanks to Codruț Constantin Gușoi)
+- Disable all applied themes in all cases, when a theme is applied (thanks to
+  Eivind Fonn)
+- Pupo: option to split the active window or the entire frame (thanks to tddsg)
+- Implement =:depends= for package declarations and owned packages (thanks to
+  Eivind Fonn)
+- Improved issue reporting (thanks to Eugene Yaremenko)
+- Add =--no-package-sync= startup flag (thanks to Valts Liepiņš)
+- Rename =configuration-layer/sync= to =configuration-layer/load= (thanks to
+  Sylvain Benner)
+- Replace the optional argument =no-install= by a global variable named
+  =spacemacs-sync-packages= (thanks to Sylvain Benner)
+
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
@@ -216,9 +250,23 @@ a sane way, here is the complet list of changed key bindings:
     - ~SPC x i c~ change symbol style to =lowerCamelCase=
     - ~SPC x i C~ change symbol style to =UpperCamelCase=
   - New ~SPC x d SPC~ to delete all spaces except one (thanks to Fabian Wilk)
-  - New =spacemacs-navigation= keybindings (thanks to Rich Alesi):
+  - New =spacemacs-navigation= key bindings (thanks to Rich Alesi):
     - ~SPC q t~ for restarting with =--timed-requires=
     - ~SPC q T~ for restarting with =--adv-timers=
+  - New =spacemacs-completion key bindings (thanks to Diego Berrocal):
+    - ~C-S-j~ for =helm-follow-action-forward=
+    - ~C-S-k~ for =helm-follow-action-backward=
+  - New frame manipulation key bindings (thanks to Ben Lloyd)
+    - Added ~SPC F f~ for =find-file-other-frame=
+    - Added ~SPC F c~ for =delete-frame=
+    - Added ~SPC F C~ for =delete-other-frames=
+    - Added ~SPC F b~ for =switch-to-buffer-other-frame=
+    - Added ~SPC F B~ for =display-buffer-other-frame=
+    - Added ~SPC F d~ for =dired-other-frame=
+    - Added ~SPC F o~ for =other-frame=
+    - Added ~SPC F n~ for =make-frame=
+  - Workspaces transient state: create workspace keys under =C= (thanks to
+    duianto)
 - Fixes:
   - Disable the paste transient state when using multiple cursors
     (thanks to Koray AL)
@@ -235,10 +283,19 @@ a sane way, here is the complet list of changed key bindings:
     Don March)
   - Fix overriding =sp-show-pair-delay= (thanks to Eivind Fonn)
   - Fix margin scaling ignoring window (thanks to Eivind Fonn)
+  - Require of avy in =spacemacs/ace-buffer-links= (thanks to Jonas Strømsodd)
+  - Fix =evil-paste-pop= (thanks to Nicholas Ochiel)
+  - Undo-tree: fix left/right bindings (thanks to Eivind Fonn)
+  - Replace obsolete which-key functions (thanks to duianto)
+  - Allow =default= theme to load properly (thanks to Eivind Fonn)
+  - Fix disabled scrollbar remains (thanks to Valts Liepiņš)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
   - Add prefix argument to =rename-current-buffer-file= (thanks to Eivind Fonn)
+  - String inflection transient state for cycling (thanks to Eivind Fonn)
+  - Undo-tree: evil bindings for visualizer and window improvements (thanks to
+    Rich Alesi)
 - Enable =evil-search= search module in evil state.
 - Improve function =spacemacs/sort-lines-by-column= to work on rectangular/block
   selection and warn the user about its requirements (thanks to duianto)
@@ -255,9 +312,12 @@ a sane way, here is the complet list of changed key bindings:
   =ssh= and did not work at all if user was not specified (e.g.
   /ssh:hostname:/path). Since the symbol '@' was required in a filename.
   (thanks to dvzubarev)
+- Add 'xi_' and 'xi-' to `string-inflection' bindings (thanks to Keith Wygant)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
+- Fixes ansible-doc-mode error on `SPC h d k` (thanks to Codruț Constantin
+  Gușoi)
 **** Auto-completion
 - Prefer =.spacemacs.d/snippets= over =.emacs.d/private/snippets= (thanks to
   Aaron Jensen)
@@ -278,6 +338,7 @@ a sane way, here is the complet list of changed key bindings:
   - ~SPC m e ;~ to eval sexp and show result as comment
     (thanks to John Stevenson)
   - ~SPC m s X~ to restart the REPL (thanks to James Conroy-Finn)
+  - ~SPC m e P~ to pprint eval last sexp (thanks to Tim Jäger)
 - Store cider repl history in spacemacs cache (thanks to Ryan Fowler)
 - Fix Clojure layer cider-repl-mode keybindings (thanks to Corey Ling)
 - Remove backtick from smartparens pairs for Clojure (thanks to Erwin Kroon and
@@ -342,13 +403,17 @@ a sane way, here is the complet list of changed key bindings:
 **** Emoji
 - Add support for Emoji fonts on macOS and Linux (thanks to CodeFalling )
 - Setup =emojify= cache directory (thanks to Boris Buliga)
+**** ERC
+- Key bindings:
+  - ~SPC m b~ to switch between ERC buffers (thanks to Evan Klitzke)
 **** ESS
 - Key bindings:
   - Change ~SPC m s t~ to ~SPC m s f~ to respect convention (thanks to Yi Liu)
   - Change ~SPC m s T~ to ~SPC m s F~ to respect convention (thanks to Yi Liu)
 - Fix issue with read-only REPL buffer (thanks to jackkamm)
-**** Extra langs
-- Added SPARQL-mode (thanks to Dietrich Daroch)
+- Added ess layer variable =ess-disable-underscore-assign= (thanks to Jack Kamm)
+**** Geolocation
+- Add deferred theme changer activation function. (thanks to Thadeus Fleming)
 **** GitHub
 - Packages:
  - Add package =magithub=, it is enabled by default in offline mode.
@@ -379,12 +444,26 @@ a sane way, here is the complet list of changed key bindings:
 - Add dante support to haskell layer (thanks to Kyle McKean)
 **** Helm
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
+- Key bindinds for directory search (thanks to Tim Jäger and Eivind Fonn):
+  - ~SPC s d for =spacemacs/helm-dir-smart-do-search=
+  - ~SPC s D for =spacemacs/helm-dir-smart-do-search-region-or-symbol=
+  - ~SPC s a d for =spacemacs/helm-dir-do-ag=
+  - ~SPC s a D for =spacemacs/helm-dir-do-ag-region-or-symbol=
+  - ~SPC s k d for =spacemacs/helm-dir-do-ack=
+  - ~SPC s k D for =spacemacs/helm-dir-do-ack-region-or-symbol=
+  - ~SPC s r d for =spacemacs/helm-dir-do-rg=
+  - ~SPC s r D for =spacemacs/helm-dir-do-rg-region-or-symbol=
+  - ~SPC s t d for =spacemacs/helm-dir-do-pt=
+  - ~SPC s t D for =spacemacs/helm-dir-do-pt-region-or-symbol=
+**** HTML
+- Added impatient-mode under ~SPC m i~ (thanks to geo7)
 **** Hy
 - Add support for virtual envs (thanks to Danny Freeman)
 **** IPython Notebook
 - Add support for auto-completion with =company= (thanks to tutysara)
 - Key bindings:
   - ~SPC a i l~ to login (thanks to Ben Mabey)
+  - ~SPC m s~ to split cell at point (thanks to Jaakko Luttinen)
 **** Ivy
 - Add =recentf= alt actions to refresh and delete items (thanks to Rich Alesi)
 - Add =projectile= alternate actions to invalidate cache (thanks to Rich Alesi)
@@ -393,7 +472,8 @@ a sane way, here is the complet list of changed key bindings:
     (thanks to Andriy Kmit')
   - Add ~SPC h d F~ to list faces (thanks to Muneeb Shaikh)
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
-- Use new API to register additional transient state bindings (thanks to Andriy Kmit')
+- Use new API to register additional transient state bindings (thanks to Andriy
+  Kmit')
 - Initiate the transient state with ~M-SPC~ while in a =ivy= buffer (thanks to
   Rich Alesi)
 **** Java
@@ -403,6 +483,11 @@ a sane way, here is the complet list of changed key bindings:
   - ~SPC m e e~ is now to fix error around point. Use ~SPC e~ prefix to navigate
     between errors.
   - ~SPC m p r~ to run project (thanks to Willian Ver Valem Paiva)
+  - ~SPC r n~ for =eclim-java-new= (thanks to Dela Anthonio)
+- Replace usage of =ensime-print-type-at-point= by =ensime-type-at-point=
+  (thanks to Joao Azevedo)
+- Add defalias for =ensime-type-at-point= for compatibility (thanks to Eivind
+  Fonn)
 **** Javascript
 - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
 **** Keyboard layout
@@ -410,6 +495,9 @@ a sane way, here is the complet list of changed key bindings:
 - Add new programmer dvorak layout that matches vim like key placement (thanks
   to Max Gonzih)
 - Add support for the Workman keyboard layout (thanks to warreq)
+- Add neo keyboard layout (thanks to benozol)
+- Add colemak-jkhl layout (thanks to fmdkdd)
+- Disambiguate the colemak-hnei and colemak-neio layouts (thanks to fmdkdd)
 **** LaTeX
 - New package =magic-latex-buffer= (thanks to benquebec)
 - New layer variable =latex-enable-magic= to enable =magic= symbols in latex
@@ -425,6 +513,21 @@ a sane way, here is the complet list of changed key bindings:
 - Fix save of org table (thanks to Codruț Constantin Gușoi)
 - Fix missing key bindings for =gfm-mode= (thanks to Codruț Constantin Gușoi)
 - Open Madoko document using markdown mode (thanks to Han Wang)
+- Key bindings (thanks to Swaroop C H):
+  - ~SPC m t i~ to toggle inline images
+  - ~SPC m t l~ to toggle url hiding
+  - ~SPC m t t~ to toggle checkbox
+  - ~SPC m t w~ to toggle wiki links
+- Update markdown insert link, function renamed (thanks to duianto)
+**** Major modes
+- Added SPARQL-mode (thanks to Dietrich Daroch)
+- Move =extra-langs= to =major-modes= (thanks to Eivind Fonn)
+- Add android logcat (thanks to jiejingzhang)
+- Add pkgbuild (thanks to Sven Fischer)
+- Add ebuild-mode (thanks to Kai Wohlfahrt)
+- Add the vala programming language (thanks to Steven Allen)
+- Add hoon (thanks to Hunter Haugen)
+- Add kivy (thanks to Nasser Alshammari)
 **** Mu4e
 - Add custom Spacemacs layout for =mu4e= buffers (thanks to Benjamin Reynolds)
 - Key bindings:
@@ -433,12 +536,16 @@ a sane way, here is the complet list of changed key bindings:
     - add ~SPC m a~ and ~SPC m k~ to kill message buffer
     - add ~SPC m s~ to save message as draft
     - add ~SPC m f~ to attach file
+- Replace mu4e multiple accounts with contexts (thanks to Allen Li)
 **** Multiple Cursors
 - Disable Spacemacs paste transient state when pasting to avoid pasting issue
   when there are more than one cursor (thanks to braham-snyder)
 **** NixOS
 - Enable Flycheck (thanks to William Casarin)
 - Defer loading (thanks to Benno Fünfstück)
+**** Node
+- Use add-node-modules-path to automatically find local executables (thanks to jupl)
+- Disable add-node-modules-path by default (thanks to Eivind Fonn)
 **** OCaml
 - Allow initialization without requiring =opam= (thanks to Bernhard Schommer)
 **** Org
@@ -463,6 +570,9 @@ a sane way, here is the complet list of changed key bindings:
   - Add ~SPC m #~ to update statistics cookies (thanks to Christian Höppner)
 - Make =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
 - Remove =mu4e= and =notmuch= from =org= (thanks to Sylvain Benner)
+- Use evil-org from MELPA (thanks to Eivind Fonn)
+- Added =org-brain= (thanks to Matthías Páll Gissurarson and Eivind Fonn)
+- Add layer variable for todo bindings (thanks to Eivind Fonn)
 **** Osx
 - Fix OSX mapping issue (thanks to Joey Liu)
 - New layer variables to define modifers behaviors in macOS:
@@ -493,6 +603,7 @@ a sane way, here is the complet list of changed key bindings:
 - Trim output from pyenv command (thanks to Eivind Fonn)
 - Use Python executable from active virtual env to compile files
   (thanks to Swaroop C H)
+- Fix arguments to =python-setup-hy= (thanks to Eivind Fonn)
 - Key bindings:
   - New =anaconda-view-mode= keybindings (thanks to Muneeb Shaikh)
     - ~C-j~ for navigating to the next error
@@ -509,6 +620,8 @@ a sane way, here is the complet list of changed key bindings:
 - New variable =rcirc-enable-late-fix= to enable or disable the included
   =rcirc-late-fix= package (disabled by default).
 - Fix using multiple lines in =.authinfo= (thanks to Jelle Licht)
+- Fix logging where the channel name has =/= in it (thanks to Abdo
+  Roig-Maranges)
 **** React
 - Improve =magic-mode-alist= regular expression to detect =react= files
   (thanks to Jan Zdráhal)
@@ -551,9 +664,13 @@ a sane way, here is the complet list of changed key bindings:
     (thanks to Benjamin Reynolds)
   - ~SPC m )~ to add reaction (thanks to Swaroop C H)
   - ~SPC m (~ to remove reaction (thanks to Swaroop C H)
+  - ~SPC m t~ to open message thread (thanks to Swaroop C H)
+**** Source control
+- Install orgit only when org package is used (thanks to Boris Buliga)
 **** SQL
 - Support for keywords auto capitalization (thanks to Kepi)
 - Change blacklist to only accept list (thanks to Eivind Fonn)
+- Adds dumb autocomplete (thanks to Codruț Constantin Gușoi)
 **** Syntax-checking
 - Key bindings:
   - ~SPC e e~ is now for triggering a syntax check, the old action
@@ -567,6 +684,8 @@ a sane way, here is the complet list of changed key bindings:
 - Add opt-in layer variable =terraform-fmt-on-save= to format buffers on save
   with =terraform fmt= (thanks to Harry Hull)
 **** Themes
+- Add support for more doom themes (thanks to Dela Anthonio)
+- Updates to the spacemacs theme (thanks to Nasser Alshammari)
 ***** Colors
 - Add ability to set default rainbow-identifiers values (thanks to SteveJobzniak)
 - Improved resetting of rainbow-identifiers transient-state (thanks to SteveJobzniak)
@@ -596,21 +715,23 @@ a sane way, here is the complet list of changed key bindings:
   (thanks to Amos Bird and Eivind Fonn)
 *** Various improvements
 ## TODO @JAremko: put everything you did here
-- Lots of improvement with CI (thanks to Eugene Yaremenko)
+- Lots of improvement with CI and documentation exporting (thanks to Eugene
+  Yaremenko)
 - Various code style improvements (thanks to duianto, Eivind Fonn, Sylvain
   Benner)
-- Various documentation improvements (thanks Aaron Peckham, Alexander Iljin,
-  Anurag Sharma, Archenoth, Benjamin Reynolds, Carl Lange, Chase Adams,
-  CL123123, Codruț Constantin Gușoi, Darkhan, David Florness, David Vo, Diego Alvarez, Diego
-  Berrocal, Dietrich Daroch, Dinesh Bhosale, dubnde, duianto, eldios, Eugene
-  Yaremenko, Evan Niessen-Derry, firemiles, Fuqiao Xue, Garrett Johnson, Henry
-  Marshall, Ivan Kryvoruchko, Jesse Cooke, Jim Deville, Jody Frankowski, John
-  Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh
-  Greenwood, Joshua Santos, Kainalu Hagiwara, Keith Wygant, Kristoffer
-  Haugsbakk, Leo Joseph Buchignani III, Max Nordlund, Maximilian Wolff, Mikhail
-  Yakutovich, Muneeb Shaikh, Nasser Alshammari, Niko Felger, Nikolai Myllymäki,
-  nikolaiam, Paul Milla, Pawan Dubey, Phil Pirozhkov, Rafi Khan, Rand01ph,
-  rakyi, Reverend Homer, Robby O'Connor, sduthil, Shane Kilkelly, Sid Kapur,
-  Somelauw, Soobin Rho, SteveJobzniak, Swaroop C H, TinySong, Titov Andrey,
-  Thomas de Beauchêne, Tomasz Cichocinski, Vladimir Kochnev, Wieland Hoffmann,
-  Yi Liu, zer09)
+- Various documentation improvements (thanks Aaron Jensen, Aaron Peckham,
+  Alexander Iljin, Anurag Sharma, Archenoth, Benjamin Reynolds, Boris Wong, Carl
+  Lange, Chase Adams, CL123123, Codruț Constantin Gușoi, Darkhan, David
+  Florness, David Vo, davidpham87, Diego Alvarez, Diego Berrocal, Dietrich
+  Daroch, Dinesh Bhosale, Doug Beardsley, dubnde, duianto, eldios, Eugene
+  Yaremenko, Evan Klitzke, Evan Niessen-Derry, firemiles, Fuqiao Xue, Garrett
+  Johnson, Henry Marshall, Ivan Kryvoruchko, Jesse Cooke, Jim Deville, Jody
+  Frankowski, John Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan
+  Gillett, Josh Greenwood, Joshua Santos, Kainalu Hagiwara, Keith Wygant,
+  Kristoffer Haugsbakk, Leo Joseph Buchignani III, Max Nordlund, Maximilian
+  Wolff, Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser
+  Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Paul Milla, Paulo
+  Schneider, Pawan Dubey, Phil Pirozhkov, Rafi Khan, Rand01ph, rakyi, Reverend
+  Homer, Robby O'Connor, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin
+  Rho, SteveJobzniak, Swaroop C H, TinySong, Titov Andrey, Thomas de Beauchêne,
+  Tomasz Cichocinski, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
