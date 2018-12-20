@@ -141,7 +141,13 @@
         "si" 'slime
         "sq" 'slime-quit-lisp
 
-        "tf" 'slime-toggle-fancy-trace)
+        "tf" 'slime-toggle-fancy-trace
+
+        ;; Add key bindings for custom eval functions
+        "ec" 'spacemacs/cl-eval-current-form-sp
+        "eC" 'spacemacs/cl-eval-current-form
+        "es" 'spacemacs/cl-eval-current-symbol-sp
+        )
       ;; prefix names for which-key
       (mapc (lambda (x)
               (spacemacs/declare-prefix-for-mode 'lisp-mode (car x) (cdr x)))
