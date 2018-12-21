@@ -714,7 +714,6 @@ a sane way, here is the complet list of changed key bindings:
 - Search for =compile_commands.json= in build sub-directory
   (thanks to Amos Bird and Eivind Fonn)
 *** Various improvements
-## TODO @JAremko: put everything you did here
 - Lots of improvement with CI and documentation exporting (thanks to Eugene
   Yaremenko)
 - Various code style improvements (thanks to duianto, Eivind Fonn, Sylvain
@@ -735,3 +734,6 @@ a sane way, here is the complet list of changed key bindings:
   Homer, Robby O'Connor, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin
   Rho, SteveJobzniak, Swaroop C H, TinySong, Titov Andrey, Thomas de Beauchêne,
   Tomasz Cichocinski, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
+
+*** Release notes summarized
+  Thank to:
