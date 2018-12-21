@@ -88,6 +88,9 @@ a sane way, here is the complet list of changed key bindings:
   - Chaged ~SPC m s F~ to ~SPC m e F~ for =lisp-eval-defun-and-go=
   - Chaged ~SPC m s r~ to ~SPC m e r~ for =lisp-eval-region=
   - Chaged ~SPC m s R~ to ~SPC m e R~ for =lisp-eval-region-and-go=
+**** Ruby
+- Key bindings:
+  - Changed ~SPC m h d~ to ~SPC m h h~ for =robe-doc= (thanks to Paweł Siudak)
 **** Syntax checking
 - Key bindings (thanks to Loris Lucido):
   - Changed ~SPC e e~ to ~SPC e b~ for =flycheck-buffer=
@@ -194,7 +197,7 @@ a sane way, here is the complet list of changed key bindings:
 - Disable all applied themes in all cases, when a theme is applied (thanks to
   Eivind Fonn)
 - Pupo: option to split the active window or the entire frame (thanks to tddsg)
-- Implement =:depends= for package declarations and owned packages (thanks to
+- Implement =:requires= for package declarations and owned packages (thanks to
   Eivind Fonn)
 - Improved issue reporting (thanks to Eugene Yaremenko)
 - Add =--no-package-sync= startup flag (thanks to Valts Liepiņš)
@@ -267,6 +270,7 @@ a sane way, here is the complet list of changed key bindings:
     - Added ~SPC F n~ for =make-frame=
   - Workspaces transient state: create workspace keys under =C= (thanks to
     duianto)
+  - New ~SPC b u~ keybinding for reopening killed buffers (thanks to Alex Palaistras)
 - Fixes:
   - Disable the paste transient state when using multiple cursors
     (thanks to Koray AL)
@@ -296,6 +300,8 @@ a sane way, here is the complet list of changed key bindings:
   - String inflection transient state for cycling (thanks to Eivind Fonn)
   - Undo-tree: evil bindings for visualizer and window improvements (thanks to
     Rich Alesi)
+  - Prompt to save modified, user created buffers on quit (thanks to Valts
+    Liepiņš)
 - Enable =evil-search= search module in evil state.
 - Improve function =spacemacs/sort-lines-by-column= to work on rectangular/block
   selection and warn the user about its requirements (thanks to duianto)
@@ -313,6 +319,7 @@ a sane way, here is the complet list of changed key bindings:
   /ssh:hostname:/path). Since the symbol '@' was required in a filename.
   (thanks to dvzubarev)
 - Add 'xi_' and 'xi-' to `string-inflection' bindings (thanks to Keith Wygant)
+- Implement and bind "distraction free mode" to SPC w C (thanks to Eugene Yaremenko)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -339,6 +346,8 @@ a sane way, here is the complet list of changed key bindings:
     (thanks to John Stevenson)
   - ~SPC m s X~ to restart the REPL (thanks to James Conroy-Finn)
   - ~SPC m e P~ to pprint eval last sexp (thanks to Tim Jäger)
+  - ~SPC m r c :~ to toggle between a keyword and a string (thanks to John
+    Stevenson)
 - Store cider repl history in spacemacs cache (thanks to Ryan Fowler)
 - Fix Clojure layer cider-repl-mode keybindings (thanks to Corey Ling)
 - Remove backtick from smartparens pairs for Clojure (thanks to Erwin Kroon and
@@ -459,6 +468,8 @@ a sane way, here is the complet list of changed key bindings:
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 **** Hy
 - Add support for virtual envs (thanks to Danny Freeman)
+**** Idris
+- Update author email for Idris layer (thanks to Timothy Jones)
 **** IPython Notebook
 - Add support for auto-completion with =company= (thanks to tutysara)
 - Key bindings:
@@ -471,6 +482,8 @@ a sane way, here is the complet list of changed key bindings:
   - Add Helm key bindings counterparts: ~SPC f e l~ and ~SPC h i~
     (thanks to Andriy Kmit')
   - Add ~SPC h d F~ to list faces (thanks to Muneeb Shaikh)
+  - Bind ==find-file-other-window= to ~j~ (thanks to James Wang)
+  - Add =counsel-mark-ring= to ~rm~ (thanks to bmag)
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
 - Use new API to register additional transient state bindings (thanks to Andriy
   Kmit')
@@ -519,6 +532,7 @@ a sane way, here is the complet list of changed key bindings:
   - ~SPC m t t~ to toggle checkbox
   - ~SPC m t w~ to toggle wiki links
 - Update markdown insert link, function renamed (thanks to duianto)
+- Make all keybindings available in gfm-mode (thanks to Codruț Constantin Gușoi)
 **** Major modes
 - Added SPARQL-mode (thanks to Dietrich Daroch)
 - Move =extra-langs= to =major-modes= (thanks to Eivind Fonn)
@@ -625,6 +639,7 @@ a sane way, here is the complet list of changed key bindings:
 **** React
 - Improve =magic-mode-alist= regular expression to detect =react= files
   (thanks to Jan Zdráhal)
+- Use JSX header without breaking React (thanks to Jam Risser)
 **** Ruby
 - Add support for =org-babel= (thanks to Muneeb Shaikh)
 - Highlight debugger keywords (thanks to Alexander Berezovsky and Eivind Fonn)
@@ -686,6 +701,7 @@ a sane way, here is the complet list of changed key bindings:
 **** Themes
 - Add support for more doom themes (thanks to Dela Anthonio)
 - Updates to the spacemacs theme (thanks to Nasser Alshammari)
+- Fix the =base16-solarflare= mapping (thanks to Sebastian Nagel)
 ***** Colors
 - Add ability to set default rainbow-identifiers values (thanks to SteveJobzniak)
 - Improved resetting of rainbow-identifiers transient-state (thanks to SteveJobzniak)
@@ -702,6 +718,9 @@ a sane way, here is the complet list of changed key bindings:
 **** Typescript
 - Call tsfmt with extension of current buffer for TSX formatting (thanks to
   Victor Andrée)
+- Declare =tide-jump-to-definition= as async (thanks to Sylvain Benner)
+- Adds tide keybindings to tsx web mode (thanks to George Miller)
+- Rewrite hooks for web-mode (thanks to Sylvain Benner)
 **** Vagrant
 - Key bindings:
   - move key bindings prefix to ~SPC a V~ (thanks to Thomas de Beauchêne)
@@ -713,27 +732,30 @@ a sane way, here is the complet list of changed key bindings:
 **** Ycmd
 - Search for =compile_commands.json= in build sub-directory
   (thanks to Amos Bird and Eivind Fonn)
+- Python3 compatibility fix for =global_conf.py= (thanks to Abdo Roig-Maranges)
 *** Various improvements
 - Lots of improvement with CI and documentation exporting (thanks to Eugene
   Yaremenko)
 - Various code style improvements (thanks to duianto, Eivind Fonn, Sylvain
   Benner)
+- Multiple unit test improvements (thanks to Sylvain Benner)
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham,
   Alexander Iljin, Anurag Sharma, Archenoth, Benjamin Reynolds, Boris Wong, Carl
   Lange, Chase Adams, CL123123, Codruț Constantin Gușoi, Darkhan, David
-  Florness, David Vo, davidpham87, Diego Alvarez, Diego Berrocal, Dietrich
-  Daroch, Dinesh Bhosale, Doug Beardsley, dubnde, duianto, eldios, Eugene
-  Yaremenko, Evan Klitzke, Evan Niessen-Derry, firemiles, Fuqiao Xue, Garrett
-  Johnson, Henry Marshall, Ivan Kryvoruchko, Jesse Cooke, Jim Deville, Jody
-  Frankowski, John Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan
-  Gillett, Josh Greenwood, Joshua Santos, Kainalu Hagiwara, Keith Wygant,
-  Kristoffer Haugsbakk, Leo Joseph Buchignani III, Max Nordlund, Maximilian
-  Wolff, Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser
-  Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Paul Milla, Paulo
-  Schneider, Pawan Dubey, Phil Pirozhkov, Rafi Khan, Rand01ph, rakyi, Reverend
-  Homer, Robby O'Connor, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin
-  Rho, SteveJobzniak, Swaroop C H, TinySong, Titov Andrey, Thomas de Beauchêne,
-  Tomasz Cichocinski, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
+  Florness, David Vo, davidpham87, Dela Anthonio, Diego Alvarez, Diego Berrocal,
+  Dietrich Daroch, Dinesh Bhosale, Dominik Schrempf, Doug Beardsley, dubnde,
+  duianto, eldios, Eugene Yaremenko, Evan Klitzke, Evan Niessen-Derry,
+  firemiles, Fuqiao Xue, Garrett Johnson, Henry Marshall, Ivan Kryvoruchko,
+  Jesse Cooke, Jim Deville, Jody Frankowski, John Wood, Jon Tippens, Jonas
+  Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood, Joshua Santos,
+  Kainalu Hagiwara, Keith Wygant, Kristoffer Haugsbakk, Leo Joseph Buchignani
+  III, Max Nordlund, Maximilian Wolff, Mikhail Yakutovich, Muneeb Shaikh, Nasser
+  Alshammari, Nasser Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Paul
+  Milla, Paulo Schneider, Pawan Dubey, Paweł Siudak, Phil Pirozhkov, Rafi Khan,
+  Rand01ph, rakyi, Reverend Homer, Robby O'Connor, Sam Pablo Kuper, sduthil,
+  Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho, SteveJobzniak, Swaroop C H,
+  TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski, Vladimir
+  Kochnev, Wieland Hoffmann, Yi Liu, zer09)
 
 *** Release notes summarized
   Thank to:
