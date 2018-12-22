@@ -326,7 +326,7 @@ A ~[ccls]~ or ~[cquery]~ suffix indicates that the binding is for the indicated 
 
 *** backend (language server)
 
-| Key Binding | Description                              |
+| Key binding | Description                              |
 |-------------+------------------------------------------|
 | ~SPC m b f~ | refresh index (e.g. after branch change) |
 | ~SPC m b p~ | preprocess file                          |
@@ -346,7 +346,7 @@ A ~[ccls]~ or ~[cquery]~ suffix indicates that the binding is for the indicated 
 
 **** goto/hierarchy
 
-| Key Binding   | Description                 |
+| Key binding   | Description                 |
 |---------------+-----------------------------|
 | ~SPC m g h b~ | base class(es)              |
 | ~SPC m g h d~ | derived class(es) [ccls]    |
@@ -357,9 +357,9 @@ A ~[ccls]~ or ~[cquery]~ suffix indicates that the binding is for the indicated 
 
 **** goto/member
 
-| Key Binding   | Description                 |
-|---------------+-----------------------------|
-| ~SPC m g m h~ | member hierarchy            |
-| ~SPC m g m t~ | member types [ccls]         |
-| ~SPC m g m f~ | member functions [ccls]     |
-| ~SPC m g m v~ | member variables [ccls]     |
+| Key binding   | Description             |
+|---------------+-------------------------|
+| ~SPC m g m h~ | member hierarchy        |
+| ~SPC m g m t~ | member types [ccls]     |
+| ~SPC m g m f~ | member functions [ccls] |
+| ~SPC m g m v~ | member variables [ccls] |

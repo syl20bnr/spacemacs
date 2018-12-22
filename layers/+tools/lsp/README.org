@@ -34,7 +34,7 @@ details.
 - Signature help with eldoc
 - Symbol documentation in a child frame (=lsp-ui-doc=)
 - Navigation using imenu
-- Consistent core keybindings in LSP modes
+- Consistent core key bindings in LSP modes
 
 * Configuration
 The LSP ecosystem is based on two packages: [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] and [[https://github.com/emacs-lsp/lsp-ui][lsp-ui]].
@@ -65,7 +65,7 @@ and the =lsp-ui-peek= variants under ~SPC m G~. Setting ~lsp-navigation~ to eith
 the bindings under ~SPC m G~ and creates bindings under ~SPC m g~ according to the specified preference.
 
 * Key bindings
-A number of lsp features useful for all/most modes have been bound to the lsp minor mode, meaning they'll be
+A number of lsp features useful for all/most modes have been bound to the lsp minor mode, meaning they’ll be
 available in all language layers based on the lsp layer.
 
 ** Key binding prefixes
@@ -81,7 +81,7 @@ The key bindings are grouped under the following prefixes:
 | ~SPC m r~ | refactor    | What it says on the tin                                                    |
 | ~SPC m T~ | toggle      | Toggle LSP backend features (documentation / symbol info overlays etc.)    |
 
-Some navigation keybindings (i.e. ~SPC m g~ / ~SPC m G~) use an additional level of grouping:
+Some navigation key bindings (i.e. ~SPC m g~ / ~SPC m G~) use an additional level of grouping:
 
 | prefix          | name             | functional area                                          |
 |-----------------+------------------+----------------------------------------------------------|
