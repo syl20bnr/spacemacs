@@ -122,8 +122,8 @@ Additionally you can install the following other packages:
   pip install pyls-mypy
 #+END_SRC
 
-If you've installed the language server and related packages as development
-dependencies in a pipenv environment, you'll want to set the ~python-pipenv-activate~
+If you’ve installed the language server and related packages as development
+dependencies in a pipenv environment, you’ll want to set the ~python-pipenv-activate~
 config variable to ~t~. This activates your pipenv before enabling the
 lsp backend.
 
@@ -351,7 +351,7 @@ Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][li
 
 | Key binding | Description         |
 |-------------+---------------------|
-| ~SPC m l~ | Toggle live-py-mode |
+| ~SPC m l~   | Toggle live-py-mode |
 
 ** Other Python commands
 
