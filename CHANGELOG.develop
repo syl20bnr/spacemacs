@@ -39,6 +39,7 @@ a sane way, here is the complet list of changed key bindings:
   - ~SPC m C i~ org-clock-in
   - ~SPC m C o~ org-clock-out
   - ~SPC m C p~ org-pomodoro
+  - ~SPC m C r~ org-resolve-clocks
   - ~SPC m d d~ org-deadline
   - ~SPC m d s~ org-schedule
   - ~SPC m d t~ org-time-stamp
@@ -205,7 +206,9 @@ a sane way, here is the complet list of changed key bindings:
   Sylvain Benner)
 - Replace the optional argument =no-install= by a global variable named
   =spacemacs-sync-packages= (thanks to Sylvain Benner)
-
+- Assume "no" for lazy installation in the --batch mode (thanks to Eugene
+  Yaremenko)
+- Use =url-hexify-string= to encode issue report body (thanks to Boris Buliga)
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
@@ -270,7 +273,14 @@ a sane way, here is the complet list of changed key bindings:
     - Added ~SPC F n~ for =make-frame=
   - Workspaces transient state: create workspace keys under =C= (thanks to
     duianto)
-  - New ~SPC b u~ keybinding for reopening killed buffers (thanks to Alex Palaistras)
+  - New ~SPC b u~ keybinding for reopening killed buffers (thanks to Alex
+    Palaistras)
+  - New transpose senteces and transpose paragraphs keybindings (thanks to
+    Daniel Gomez):
+    - ~SPC x t p~ for =transpose-paragraphs=
+    - ~SPC x t s~ for =transpose-sentances=
+  - Add missing which-key prefix names =new empty buffer= and =justification=
+    (thanks to duianto)
 - Fixes:
   - Disable the paste transient state when using multiple cursors
     (thanks to Koray AL)
@@ -334,6 +344,9 @@ a sane way, here is the complet list of changed key bindings:
   (thanks to Robbert van der Helm)
 - Add possible value =no-completion= to =c-c++-enable-rtags-support= flag.
   This adds the option to opt-out of =company-rtags= while enabling Rtags.
+- Declare "mg" prefix as "goto" (thanks to Dela Anthonio)
+- Update package name due to upstream renaming (thanks to James Wang)
+- Refactor to reduce duplication (thanks to Dela Anthonio)
 **** Chinese
 - Add package =chinese-conv= for conversion between simplified and traditional
   Chinese texts (Xiang Ji)
@@ -377,6 +390,7 @@ a sane way, here is the complet list of changed key bindings:
   - ~SPC m N~ create new file named (thanks to Bahtiar Gadimov)
   - ~SPC m o~ deft open file in other window (thanks to Bahtiar Gadimov)
   - ~SPC m r~ rename selected note (thanks to Bahtiar Gadimov)
+  - ~SPC m q~ for quitting the deft window (thanks to tinysong)
 **** Django
 - Added names to django mode prefixes (thanks to Boris Verhovsky)
 **** Elixir
@@ -423,6 +437,9 @@ a sane way, here is the complet list of changed key bindings:
 - Added ess layer variable =ess-disable-underscore-assign= (thanks to Jack Kamm)
 **** Geolocation
 - Add deferred theme changer activation function. (thanks to Thadeus Fleming)
+- Fix geolocation layer on non-macos systems (thanks to Boris Buliga)
+- Show user error when location is not set in theme changer (thanks to Boris
+  Buliga)
 **** GitHub
 - Packages:
  - Add package =magithub=, it is enabled by default in offline mode.
@@ -444,6 +461,8 @@ a sane way, here is the complet list of changed key bindings:
     - Add ~SPC m r e~ to extract
     - Add ~SPC m r t~ to toggle
     - Add ~SPC m r d~ for godoc
+ - Adds GOROOT to list of variables copied from shell environment (thanks to
+   Andy Lindeman)
 **** Gtags
 - Key bindings:
   - Move key binding ~SPC m g c~ to ~SPC m g C~ (regenerate tags)
@@ -562,6 +581,7 @@ a sane way, here is the complet list of changed key bindings:
 - Disable add-node-modules-path by default (thanks to Eivind Fonn)
 **** OCaml
 - Allow initialization without requiring =opam= (thanks to Bernhard Schommer)
+- Fix misused function, `merlin' is a package not a layer (thanks to jinyang)
 **** Org
 - Load org-mode email integration (mu4e/notmuch) when org is loaded (thanks to
   Steven Allen)
@@ -587,6 +607,8 @@ a sane way, here is the complet list of changed key bindings:
 - Use evil-org from MELPA (thanks to Eivind Fonn)
 - Added =org-brain= (thanks to Matthías Páll Gissurarson and Eivind Fonn)
 - Add layer variable for todo bindings (thanks to Eivind Fonn)
+- Make =org-projectile= integration compatible with its new version (thanks to
+  Ivan Malison)
 **** Osx
 - Fix OSX mapping issue (thanks to Joey Liu)
 - New layer variables to define modifers behaviors in macOS:
@@ -604,6 +626,7 @@ a sane way, here is the complet list of changed key bindings:
   - Add ~M-s-h~ to hide other windows (thanks to Bas Veeling)
 **** PHP
 - Add company-php (thanks to jim and Eivind Fonn)
+- Fix php-company autocompletion (thanks to Dela Anthonio)
 **** Prodigy
 - Key bindings:
   - add ~c~ to clear the buffer (thanks to Francesc Elies)
@@ -652,10 +675,12 @@ a sane way, here is the complet list of changed key bindings:
 **** Rust
 - Key bindings:
   - Add ~SPC m c D~ to open Cargo docs (thanks to Matthew J. Berger)
+  - Add ~SPC m c l~ to run linter with cargo clippy (thanks to Michael Kohl)
 **** Scala
 - Move =ensime= to the =java= layer (Tor Hedin Bronner)
 - Key bindings:
   - Evilify =ensime= search in insert/normal mode (thanks to Diego Alvarez)
+- Remove duplicated code (thanks to Tetsuro Takemoto)
 **** Shell
 - Fix xterm colors filtering bug in =eshell= when eshell buffers are updated
   and are not focused (thanks to Steven Allen)
@@ -680,6 +705,8 @@ a sane way, here is the complet list of changed key bindings:
   - ~SPC m )~ to add reaction (thanks to Swaroop C H)
   - ~SPC m (~ to remove reaction (thanks to Swaroop C H)
   - ~SPC m t~ to open message thread (thanks to Swaroop C H)
+**** Smex
+- Fix ~SPC m :~ for current major mode commands (thanks to tinysong)
 **** Source control
 - Install orgit only when org package is used (thanks to Boris Buliga)
 **** SQL
@@ -736,26 +763,27 @@ a sane way, here is the complet list of changed key bindings:
 *** Various improvements
 - Lots of improvement with CI and documentation exporting (thanks to Eugene
   Yaremenko)
-- Various code style improvements (thanks to duianto, Eivind Fonn, Sylvain
-  Benner)
+- Various code style improvements (thanks to duianto, Eivind Fonn, Eugene
+  Yaremenko, Sylvain Benner)
 - Multiple unit test improvements (thanks to Sylvain Benner)
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham,
-  Alexander Iljin, Anurag Sharma, Archenoth, Benjamin Reynolds, Boris Wong, Carl
-  Lange, Chase Adams, CL123123, Codruț Constantin Gușoi, Darkhan, David
-  Florness, David Vo, davidpham87, Dela Anthonio, Diego Alvarez, Diego Berrocal,
-  Dietrich Daroch, Dinesh Bhosale, Dominik Schrempf, Doug Beardsley, dubnde,
-  duianto, eldios, Eugene Yaremenko, Evan Klitzke, Evan Niessen-Derry,
-  firemiles, Fuqiao Xue, Garrett Johnson, Henry Marshall, Ivan Kryvoruchko,
-  Jesse Cooke, Jim Deville, Jody Frankowski, John Wood, Jon Tippens, Jonas
-  Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood, Joshua Santos,
-  Kainalu Hagiwara, Keith Wygant, Kristoffer Haugsbakk, Leo Joseph Buchignani
-  III, Max Nordlund, Maximilian Wolff, Mikhail Yakutovich, Muneeb Shaikh, Nasser
-  Alshammari, Nasser Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Paul
-  Milla, Paulo Schneider, Pawan Dubey, Paweł Siudak, Phil Pirozhkov, Rafi Khan,
-  Rand01ph, rakyi, Reverend Homer, Robby O'Connor, Sam Pablo Kuper, sduthil,
-  Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho, SteveJobzniak, Swaroop C H,
-  TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski, Vladimir
-  Kochnev, Wieland Hoffmann, Yi Liu, zer09)
+  Alexander Iljin, Anurag Sharma, Archenoth, Benjamin Reynolds, Boris Buliga,
+  Boris Wong, Carl Lange, Chase Adams, CL123123, Codruț Constantin Gușoi,
+  Darkhan, David Florness, David Vo, davidpham87, Dela Anthonio, Diego Alvarez,
+  Diego Berrocal, Dietrich Daroch, Dinesh Bhosale, Dominik Schrempf, Doug
+  Beardsley, dubnde, duianto, eldios, Eugene Yaremenko, Evan Klitzke, Evan
+  Niessen-Derry, firemiles, Fuqiao Xue, Garrett Johnson, Henry Marshall, Ivan
+  Kryvoruchko, Jesse Cooke, Jim Deville, Jody Frankowski, John Wood, Jon
+  Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood,
+  Joshua Santos, Kainalu Hagiwara, Keith Wygant, Kristoffer Haugsbakk, Leo
+  Joseph Buchignani III, Max Nordlund, Maximilian Wolff, Mikhail Yakutovich,
+  Muneeb Shaikh, Nasser Alshammari, Nasser Alshammari, Niko Felger, Nikolai
+  Myllymäki, nikolaiam, Paul Milla, Paulo Schneider, Pawan Dubey, Paweł Siudak,
+  Phil Pirozhkov, Rafi Khan, Rand01ph, rakyi, Reverend Homer, Robby O'Connor,
+  Sam Pablo Kuper, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho,
+  SteveJobzniak, Swaroop C H, TinySong, Titov Andrey, Thomas de Beauchêne,
+  Tomasz Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu,
+  zer09)
 
 *** Release notes summarized
   Thank to:
