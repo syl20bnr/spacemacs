@@ -135,6 +135,8 @@ a sane way, here is the complet list of changed key bindings:
   =Add auto-completion in a layer= of the =README.org= file of the
   =auto-completion= layer.
 *** New layers
+**** Fonts
+- unicode-fonts (thanks to Aaron Jensen)
 **** Languages
 - coq
 - forth (thanks to Tim Jaeger)
@@ -212,6 +214,7 @@ a sane way, here is the complet list of changed key bindings:
 - Assume "no" for lazy installation in the --batch mode (thanks to Eugene
   Yaremenko)
 - Use =url-hexify-string= to encode issue report body (thanks to Boris Buliga)
+- Fix reference to cfgl-package-distant-p (thanks to Alex Coventry)
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
@@ -308,6 +311,7 @@ a sane way, here is the complet list of changed key bindings:
   - Allow =default= theme to load properly (thanks to Eivind Fonn)
   - Fix disabled scrollbar remains (thanks to Valts Liepiņš)
   - Improves the linum text scaling advice (thanks to Codruț Constantin Gușoi)
+  - Remove obsolete purpose-conf name argument (thanks to duianto)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -318,6 +322,7 @@ a sane way, here is the complet list of changed key bindings:
   - Prompt to save modified, user created buffers on quit (thanks to Valts
     Liepiņš)
   - Added helm transient state swoop edit (thanks to Hinckley, Troy J)
+  - Clear both / and C-s search highlights with ~SPC s c~ (thanks to duianto)
 - Enable =evil-search= search module in evil state.
 - Improve function =spacemacs/sort-lines-by-column= to work on rectangular/block
   selection and warn the user about its requirements (thanks to duianto)
@@ -344,6 +349,9 @@ a sane way, here is the complet list of changed key bindings:
 **** Auto-completion
 - Prefer =.spacemacs.d/snippets= over =.emacs.d/private/snippets= (thanks to
   Aaron Jensen)
+- Check if =dotspacemacs-directory-snippets-dir= exists before adding it (thanks
+  to Wojciech Wojtyniak)
+- Fix check for =dotspacemacs-directory-snippets-dir= (thanks to Sylvain Benner)
 **** C-C++
 - Add automatic formatting on save using ClangFormat with the variables
   =c-c++-enable-clang-format-on-save= and =c-c++-enable-clang-support=
@@ -353,6 +361,7 @@ a sane way, here is the complet list of changed key bindings:
 - Declare "mg" prefix as "goto" (thanks to Dela Anthonio)
 - Update package name due to upstream renaming (thanks to James Wang)
 - Refactor to reduce duplication (thanks to Dela Anthonio)
+- Add =cmake-ide= (thanks to Alexander Dalshov)
 **** Chinese
 - Add package =chinese-conv= for conversion between simplified and traditional
   Chinese texts (Xiang Ji)
@@ -386,6 +395,10 @@ a sane way, here is the complet list of changed key bindings:
   - New ~SPC m g =~ to find assignments to a symbol (thanks to dubnde)
 **** CSharp
 - Enable =flycheck= by default (thanks to Saulius Menkevičius)
+- No need to unset =omnisharp-auto-complete-want-documentation= anymore (thanks
+  to Saulius Menkevičius)
+- Disabled functions not present in the latest omnisharp package (thanks to
+  Saulius Menkevičius)
 **** D
 - Fix d-mode flycheck imports on dub projects (thanks to Dietrich Daroch)
 **** Dash
@@ -399,6 +412,9 @@ a sane way, here is the complet list of changed key bindings:
   - ~SPC m q~ for quitting the deft window (thanks to tinysong)
 **** Django
 - Added names to django mode prefixes (thanks to Boris Verhovsky)
+**** Docker
+- Kill buffer shall return to *docker-containers* (thanks to Francesc Elies
+  Henar)
 **** Elixir
 - Add missing Alchemist commands and key bindings (thanks to Swaroop C H)
   - Key bindings:
@@ -435,6 +451,8 @@ a sane way, here is the complet list of changed key bindings:
 **** ERC
 - Key bindings:
   - ~SPC m b~ to switch between ERC buffers (thanks to Evan Klitzke)
+- Conditionally enable ERC notifications via =erc-enable-notifications= (thanks
+  to Evan Klitzke)
 **** ESS
 - Key bindings:
   - Change ~SPC m s t~ to ~SPC m s f~ to respect convention (thanks to Yi Liu)
@@ -469,6 +487,8 @@ a sane way, here is the complet list of changed key bindings:
     - Add ~SPC m r d~ for godoc
  - Adds GOROOT to list of variables copied from shell environment (thanks to
    Andy Lindeman)
+ - Convert remote file name to local name, stripping trampy stuff (thanks to
+   Josh Santos)
 **** Gtags
 - Key bindings:
   - Move key binding ~SPC m g c~ to ~SPC m g C~ (regenerate tags)
@@ -610,6 +630,9 @@ a sane way, here is the complet list of changed key bindings:
     - add ~SPC m p~ to change priority
   - Add ~SPC m #~ to update statistics cookies (thanks to Christian Höppner)
   - Add ~SPC a o k r~ for =org-resolve-clocks= (thanks to Francesc Elies Henar)
+  - Key bindings (thanks to James Wang):
+    - add ~SPC m T e~ to toggle pretty entities
+    - add ~SPC m T l~ to toggle link display
 - Make =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
 - Remove =mu4e= and =notmuch= from =org= (thanks to Sylvain Benner)
 - Use evil-org from MELPA (thanks to Eivind Fonn)
@@ -621,6 +644,8 @@ a sane way, here is the complet list of changed key bindings:
   Malison)
 - Adapt to changes in org-brain 0.4 (thanks to Boris Buliga)
 - Load org-projectile lazily, after org-capture (thanks to Aaron Jensen)
+- Use org-verbatim, not org-verbose (thanks to Swaroop C H)
+- Fix =org-projectile/goto-todos= (thanks to Aaron Jensen)
 **** Osx
 - Fix OSX mapping issue (thanks to Joey Liu)
 - New layer variables to define modifers behaviors in macOS:
@@ -708,6 +733,7 @@ a sane way, here is the complet list of changed key bindings:
 - Add bashate style checker (thanks to Victor Cuadrado Juan)
 - Add insert commands from sh-script package to major mode menu (thanks to
   Maximilian Wolff)
+- Add org-mode support (thanks to Josh Santos)
 **** Slack
 - New layer variable =slack-spacemacs-layout-name= to customize the name of
   the custom layer for Slack buffers (thanks to Benjamin Reynolds)
@@ -760,6 +786,8 @@ a sane way, here is the complet list of changed key bindings:
 **** Themes Megapack
 - Add =rebecca-theme= (thanks to Victor Borja)
 - Add =white-sand-theme= (thanks to Swaroop C H)
+- Add =exotica= theme (thanks to Bharat Joshi)
+- Remove themes that were deleted from Melpa (thanks to Henrique Jung)
 **** Tmux
 - Prevent =tmux-command= at GUI mode (thanks to Isaac Zeng)
 **** Typescript
@@ -795,15 +823,15 @@ a sane way, here is the complet list of changed key bindings:
   Niessen-Derry, firemiles, Fuqiao Xue, Garrett Johnson, Henry Marshall, Ivan
   Kryvoruchko, J. Patrick Lanigan, Jesse Cooke, Jim Deville, Jody Frankowski,
   John Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett,
-  Josh Greenwood, Joshua Santos, Kainalu Hagiwara, Keith Wygant, Kristoffer
-  Haugsbakk, Leo Joseph Buchignani III, Max Nordlund, Maximilian Wolff, Mikhail
-  Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser Alshammari, Niko Felger,
-  Nikolai Myllymäki, nikolaiam, Paul Milla, Paulo Schneider, Pawan Dubey, Paweł
-  Siudak, Phil Pirozhkov, Rafi Khan, Rand01ph, rakyi, Reverend Homer, Robby
-  O'Connor, Sam Pablo Kuper, sduthil, Shane Kilkelly, Sid Kapur, Somelauw,
-  Soobin Rho, SteveJobzniak, Swaroop C H, TinySong, Titov Andrey, Thomas de
-  Beauchêne, Tomasz Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi
-  Liu, zer09)
+  Josh Greenwood, Joshua Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant,
+  Kristoffer Haugsbakk, Leo Joseph Buchignani III, Max Nordlund, Maximilian
+  Wolff, Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser
+  Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Paul Milla, Paulo
+  Schneider, Pawan Dubey, Paweł Siudak, Phil Pirozhkov, Rafi Khan, Rand01ph,
+  rakyi, Reverend Homer, Robby O'Connor, Sam Pablo Kuper, Saulius Menkevičius,
+  sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho, SteveJobzniak,
+  Swaroop C H, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski,
+  tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
 
 *** Release notes summarized
   Thank to:
