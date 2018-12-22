@@ -92,6 +92,9 @@ a sane way, here is the complet list of changed key bindings:
 **** Ruby
 - Key bindings:
   - Changed ~SPC m h d~ to ~SPC m h h~ for =robe-doc= (thanks to Paweł Siudak)
+**** Ruby on Rails
+- Key bindings:
+  - New ~SPC m r f S~ to find serializer (thanks to Boris Buliga)
 **** Syntax checking
 - Key bindings (thanks to Loris Lucido):
   - Changed ~SPC e e~ to ~SPC e b~ for =flycheck-buffer=
@@ -281,6 +284,7 @@ a sane way, here is the complet list of changed key bindings:
     - ~SPC x t s~ for =transpose-sentances=
   - Add missing which-key prefix names =new empty buffer= and =justification=
     (thanks to duianto)
+  - New ~SPC p e~ to edit =dir-locals.el= (thanks to Dela Anthonio)
 - Fixes:
   - Disable the paste transient state when using multiple cursors
     (thanks to Koray AL)
@@ -303,6 +307,7 @@ a sane way, here is the complet list of changed key bindings:
   - Replace obsolete which-key functions (thanks to duianto)
   - Allow =default= theme to load properly (thanks to Eivind Fonn)
   - Fix disabled scrollbar remains (thanks to Valts Liepiņš)
+  - Improves the linum text scaling advice (thanks to Codruț Constantin Gușoi)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -312,6 +317,7 @@ a sane way, here is the complet list of changed key bindings:
     Rich Alesi)
   - Prompt to save modified, user created buffers on quit (thanks to Valts
     Liepiņš)
+  - Added helm transient state swoop edit (thanks to Hinckley, Troy J)
 - Enable =evil-search= search module in evil state.
 - Improve function =spacemacs/sort-lines-by-column= to work on rectangular/block
   selection and warn the user about its requirements (thanks to duianto)
@@ -508,6 +514,7 @@ a sane way, here is the complet list of changed key bindings:
   Kmit')
 - Initiate the transient state with ~M-SPC~ while in a =ivy= buffer (thanks to
   Rich Alesi)
+- Set =ivy-use-selectable-prompt= to =t= (thanks to Boris Buliga)
 **** Java
 - Add support for multiple backends. Supported backends are: =megahnada=,
   =eclim= and =ensime=. The default backend is =meghanada=.
@@ -602,6 +609,7 @@ a sane way, here is the complet list of changed key bindings:
     - add ~SPC m C j~ to jump to current clock
     - add ~SPC m p~ to change priority
   - Add ~SPC m #~ to update statistics cookies (thanks to Christian Höppner)
+  - Add ~SPC a o k r~ for =org-resolve-clocks= (thanks to Francesc Elies Henar)
 - Make =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
 - Remove =mu4e= and =notmuch= from =org= (thanks to Sylvain Benner)
 - Use evil-org from MELPA (thanks to Eivind Fonn)
@@ -609,6 +617,10 @@ a sane way, here is the complet list of changed key bindings:
 - Add layer variable for todo bindings (thanks to Eivind Fonn)
 - Make =org-projectile= integration compatible with its new version (thanks to
   Ivan Malison)
+- Remove nils from call to org-projectile-project-todo-entry (thanks to Ivan
+  Malison)
+- Adapt to changes in org-brain 0.4 (thanks to Boris Buliga)
+- Load org-projectile lazily, after org-capture (thanks to Aaron Jensen)
 **** Osx
 - Fix OSX mapping issue (thanks to Joey Liu)
 - New layer variables to define modifers behaviors in macOS:
@@ -689,9 +701,13 @@ a sane way, here is the complet list of changed key bindings:
   - Prevent ~C-l~ clearing cycle
   - Prevent ~clear RET~ inserting a page of white-space
   - Prevent duplicate insert lines from ~clear RET~
+- Require company in =eshell-switch-company-frontend= (thanks to Benjamin
+  Reynolds)
 **** Shell Scripts
 - Add new company-shell environment variable backend (thanks to Alexander-Miller)
 - Add bashate style checker (thanks to Victor Cuadrado Juan)
+- Add insert commands from sh-script package to major mode menu (thanks to
+  Maximilian Wolff)
 **** Slack
 - New layer variable =slack-spacemacs-layout-name= to customize the name of
   the custom layer for Slack buffers (thanks to Benjamin Reynolds)
@@ -705,10 +721,14 @@ a sane way, here is the complet list of changed key bindings:
   - ~SPC m )~ to add reaction (thanks to Swaroop C H)
   - ~SPC m (~ to remove reaction (thanks to Swaroop C H)
   - ~SPC m t~ to open message thread (thanks to Swaroop C H)
+- Fix documentation issues with slack and emoji layers (thanks to Benjamin
+  Reynolds)
 **** Smex
 - Fix ~SPC m :~ for current major mode commands (thanks to tinysong)
 **** Source control
 - Install orgit only when org package is used (thanks to Boris Buliga)
+- Defer git-gutter loading (thanks to Aaron Jensen)
+- Remove redundant arg from git-gutter timer (thanks to bmag)
 **** SQL
 - Support for keywords auto capitalization (thanks to Kepi)
 - Change blacklist to only accept list (thanks to Eivind Fonn)
@@ -763,27 +783,27 @@ a sane way, here is the complet list of changed key bindings:
 *** Various improvements
 - Lots of improvement with CI and documentation exporting (thanks to Eugene
   Yaremenko)
-- Various code style improvements (thanks to duianto, Eivind Fonn, Eugene
+- Various code style improvements (thanks to bmag, duianto, Eivind Fonn, Eugene
   Yaremenko, Sylvain Benner)
 - Multiple unit test improvements (thanks to Sylvain Benner)
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham,
-  Alexander Iljin, Anurag Sharma, Archenoth, Benjamin Reynolds, Boris Buliga,
-  Boris Wong, Carl Lange, Chase Adams, CL123123, Codruț Constantin Gușoi,
-  Darkhan, David Florness, David Vo, davidpham87, Dela Anthonio, Diego Alvarez,
-  Diego Berrocal, Dietrich Daroch, Dinesh Bhosale, Dominik Schrempf, Doug
-  Beardsley, dubnde, duianto, eldios, Eugene Yaremenko, Evan Klitzke, Evan
+  Alexander Iljin, Anurag Sharma, Archenoth, Benjamin Reynolds, bmag, Boris
+  Buliga, Boris Wong, Carl Lange, Chase Adams, CL123123, Codruț Constantin
+  Gușoi, Darkhan, David Florness, David Vo, davidpham87, Dela Anthonio, Diego
+  Alvarez, Diego Berrocal, Dietrich Daroch, Dinesh Bhosale, Dominik Schrempf,
+  Doug Beardsley, dubnde, duianto, eldios, Eugene Yaremenko, Evan Klitzke, Evan
   Niessen-Derry, firemiles, Fuqiao Xue, Garrett Johnson, Henry Marshall, Ivan
-  Kryvoruchko, Jesse Cooke, Jim Deville, Jody Frankowski, John Wood, Jon
-  Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood,
-  Joshua Santos, Kainalu Hagiwara, Keith Wygant, Kristoffer Haugsbakk, Leo
-  Joseph Buchignani III, Max Nordlund, Maximilian Wolff, Mikhail Yakutovich,
-  Muneeb Shaikh, Nasser Alshammari, Nasser Alshammari, Niko Felger, Nikolai
-  Myllymäki, nikolaiam, Paul Milla, Paulo Schneider, Pawan Dubey, Paweł Siudak,
-  Phil Pirozhkov, Rafi Khan, Rand01ph, rakyi, Reverend Homer, Robby O'Connor,
-  Sam Pablo Kuper, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho,
-  SteveJobzniak, Swaroop C H, TinySong, Titov Andrey, Thomas de Beauchêne,
-  Tomasz Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu,
-  zer09)
+  Kryvoruchko, J. Patrick Lanigan, Jesse Cooke, Jim Deville, Jody Frankowski,
+  John Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett,
+  Josh Greenwood, Joshua Santos, Kainalu Hagiwara, Keith Wygant, Kristoffer
+  Haugsbakk, Leo Joseph Buchignani III, Max Nordlund, Maximilian Wolff, Mikhail
+  Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser Alshammari, Niko Felger,
+  Nikolai Myllymäki, nikolaiam, Paul Milla, Paulo Schneider, Pawan Dubey, Paweł
+  Siudak, Phil Pirozhkov, Rafi Khan, Rand01ph, rakyi, Reverend Homer, Robby
+  O'Connor, Sam Pablo Kuper, sduthil, Shane Kilkelly, Sid Kapur, Somelauw,
+  Soobin Rho, SteveJobzniak, Swaroop C H, TinySong, Titov Andrey, Thomas de
+  Beauchêne, Tomasz Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi
+  Liu, zer09)
 
 *** Release notes summarized
   Thank to:
