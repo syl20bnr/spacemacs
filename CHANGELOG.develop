@@ -141,6 +141,7 @@ a sane way, here is the complet list of changed key bindings:
 - coq
 - forth (thanks to Tim Jaeger)
 - gpu (thanks to Evan Klitzke)
+- groovy (thanks to Sylvain Benner)
 - hy (thanks to TODO: add author here)
 - jr (thanks to Philippe Baron)
 - perl5 (thanks to Troy Hinckley)
@@ -215,6 +216,7 @@ a sane way, here is the complet list of changed key bindings:
   Yaremenko)
 - Use =url-hexify-string= to encode issue report body (thanks to Boris Buliga)
 - Fix reference to cfgl-package-distant-p (thanks to Alex Coventry)
+- Added layer shadowing system (thanks to Sylvain Benner)
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
@@ -312,6 +314,8 @@ a sane way, here is the complet list of changed key bindings:
   - Fix disabled scrollbar remains (thanks to Valts Liepiņš)
   - Improves the linum text scaling advice (thanks to Codruț Constantin Gușoi)
   - Remove obsolete purpose-conf name argument (thanks to duianto)
+  - Fix ~SPC w =~ for balancing windows (thanks to Sylvain Benner)
+  - Fix typos related to =persp-mode= (thanks to Ruslan Kamashev)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -341,6 +345,7 @@ a sane way, here is the complet list of changed key bindings:
   (thanks to dvzubarev)
 - Add 'xi_' and 'xi-' to `string-inflection' bindings (thanks to Keith Wygant)
 - Implement and bind "distraction free mode" to SPC w C (thanks to Eugene Yaremenko)
+- Disable popwin-mode at startup (thanks to bmag)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -459,6 +464,10 @@ a sane way, here is the complet list of changed key bindings:
   - Change ~SPC m s T~ to ~SPC m s F~ to respect convention (thanks to Yi Liu)
 - Fix issue with read-only REPL buffer (thanks to jackkamm)
 - Added ess layer variable =ess-disable-underscore-assign= (thanks to Jack Kamm)
+**** Evil snipe
+- Must always explicitly enable =evil-snipe-mode= even when
+  =evil-snipe-override-mode= (thanks to Sylvain Benner)
+is enabled
 **** Geolocation
 - Add deferred theme changer activation function. (thanks to Thadeus Fleming)
 - Fix geolocation layer on non-macos systems (thanks to Boris Buliga)
@@ -489,6 +498,9 @@ a sane way, here is the complet list of changed key bindings:
    Andy Lindeman)
  - Convert remote file name to local name, stripping trampy stuff (thanks to
    Josh Santos)
+**** Groovy
+- Update =indent-variable-alist= to support new groovy-mode (thanks to Sylvain Benner)
+- Move groovy configuration to its own layer and improve it (thanks to Sylvain Benner)
 **** Gtags
 - Key bindings:
   - Move key binding ~SPC m g c~ to ~SPC m g C~ (regenerate tags)
@@ -509,6 +521,8 @@ a sane way, here is the complet list of changed key bindings:
   - ~SPC s r D for =spacemacs/helm-dir-do-rg-region-or-symbol=
   - ~SPC s t d for =spacemacs/helm-dir-do-pt=
   - ~SPC s t D for =spacemacs/helm-dir-do-pt-region-or-symbol=
+- Don't change =helm-bookmarks= keys to early when helm-mode is enabled (thanks
+  to bmag)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 **** Hy
@@ -535,6 +549,7 @@ a sane way, here is the complet list of changed key bindings:
 - Initiate the transient state with ~M-SPC~ while in a =ivy= buffer (thanks to
   Rich Alesi)
 - Set =ivy-use-selectable-prompt= to =t= (thanks to Boris Buliga)
+- Rename git dir variable to upstream changes (thanks to bmag)
 **** Java
 - Add support for multiple backends. Supported backends are: =megahnada=,
   =eclim= and =ensime=. The default backend is =meghanada=.
