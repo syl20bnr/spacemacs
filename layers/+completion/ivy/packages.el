@@ -119,6 +119,9 @@
         "stP" 'spacemacs/search-project-pt-region-or-symbol))
     :config
     (progn
+      ;; temp fix for https://github.com/abo-abo/swiper/pull/1863/files
+      (and (fboundp 'counsel--elisp-to-pcre) (defalias 'counsel-unquote-regex-parens 'counsel--elisp-to-pcre))
+
       ;; set additional ivy actions
       (ivy-set-actions
        'counsel-find-file
