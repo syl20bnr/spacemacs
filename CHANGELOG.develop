@@ -91,6 +91,7 @@ a sane way, here is the complet list of changed key bindings:
   - Chaged ~SPC m s F~ to ~SPC m e F~ for =lisp-eval-defun-and-go=
   - Chaged ~SPC m s r~ to ~SPC m e r~ for =lisp-eval-region=
   - Chaged ~SPC m s R~ to ~SPC m e R~ for =lisp-eval-region-and-go=
+- Make =nose= fail compilation when tests fail (thanks to wizmer)
 **** Ruby
 - Key bindings:
   - Changed ~SPC m h d~ to ~SPC m h h~ for =robe-doc= (thanks to Paweł Siudak)
@@ -153,6 +154,8 @@ a sane way, here is the complet list of changed key bindings:
 - semantic-web (thanks to Andreas Textor)
 **** WEB services
 - confluence
+**** Spacemacs
+- treemacs (thanks to Alexander Miller)
 **** Tools
 - bm (thanks to Eugene Yaremenko)
 - node (thanks to jupl)
@@ -223,6 +226,7 @@ a sane way, here is the complet list of changed key bindings:
 - Add support for stable ELPA repository hosted on GitHub (thanks to Sylvain
   Benner)
 - Handle backward argument better when cycling themes (thanks to bmag)
+- Remove wizard question about completion engine. (thanks to Sylvain Benner)
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
@@ -309,6 +313,7 @@ a sane way, here is the complet list of changed key bindings:
     state (thanks to Linus Marton)
     - Add ~<~ for =spacemacs/move-current-persp-left=
     - Add ~>~ for =spacemacs/move-current-persp-right=
+  - New ~SPC f e U~ to update packages (thanks to Codruț Constantin Gușoi)
 - Fixes:
   - Disable the paste transient state when using multiple cursors
     (thanks to Koray AL)
@@ -336,6 +341,7 @@ a sane way, here is the complet list of changed key bindings:
   - Fix ~SPC w =~ for balancing windows (thanks to Sylvain Benner)
   - Fix typos related to =persp-mode= (thanks to Ruslan Kamashev)
   - Fix switch to home buffer moves prev buffers cursor (thanks to duianto)
+  - Correct undo-tree buffer name in =spacemacs-visual= (thanks to Winkey Wong)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -347,6 +353,7 @@ a sane way, here is the complet list of changed key bindings:
     Liepiņš)
   - Added helm transient state swoop edit (thanks to Hinckley, Troy J)
   - Clear both / and C-s search highlights with ~SPC s c~ (thanks to duianto)
+  - Make it easy to configure =spacemacs-evil-cursors= (thanks to bmag)
 - Enable =evil-search= search module in evil state.
 - Improve function =spacemacs/sort-lines-by-column= to work on rectangular/block
   selection and warn the user about its requirements (thanks to duianto)
@@ -367,6 +374,7 @@ a sane way, here is the complet list of changed key bindings:
 - Implement and bind "distraction free mode" to SPC w C (thanks to Eugene Yaremenko)
 - Disable popwin-mode at startup (thanks to bmag)
 - Change default value of =dotspacemacs-elpa-subdirectory= (thanks to Sylvain Benner)
+- Add =helm= to spacemacs default distribution (thanks to Sylvain Benner)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -392,7 +400,9 @@ a sane way, here is the complet list of changed key bindings:
 - Refactor to reduce duplication (thanks to Dela Anthonio)
 - Add =cmake-ide= (thanks to Alexander Dalshov)
 **** Cfengine
-- fix publish in README (thanks to Eugene Yaremenko)
+- Fix publish in README (thanks to Eugene Yaremenko)
+- Add =ob-cfengine3= (thanks to Nick Anderson)
+- Configure =org-babel= for cfengine source blocks (thanks to Sylvain Benner)
 **** Chinese
 - Add package =chinese-conv= for conversion between simplified and traditional
   Chinese texts (Xiang Ji)
@@ -503,6 +513,8 @@ a sane way, here is the complet list of changed key bindings:
 **** Evil snipe
 - Must always explicitly enable =evil-snipe-mode= even when
   =evil-snipe-override-mode= (thanks to Sylvain Benner)
+**** FSharp
+- Added prefixes for key bindings (thanks to David Millar-Durrant)
 is enabled
 **** Geolocation
 - Add deferred theme changer activation function. (thanks to Thadeus Fleming)
@@ -514,6 +526,11 @@ is enabled
  - Add package =magithub=, it is enabled by default in offline mode.
  - Remove package =github-browse-file= which has been replaced by
   =browse-at-remote= in =version-control= layer
+- Key bindings:
+  - Add ~g r~ evilified binding to gist-list-mode (thanks to Jean-Sebastien A.
+    Beaudry)
+- Replace =evilified-state-evilify= by =evilified-state-evilify-map= (thanks to
+  Sylvain Benner)
 **** Git
 - Install magit-svn by default and activate with git-enable-magit-svn-plugin
 - Key bindings:
@@ -542,8 +559,10 @@ is enabled
   - Move key binding ~SPC m g c~ to ~SPC m g C~ (regenerate tags)
 - Don’t check if mode function is bound (thanks to Eivind Fonn)
 **** Haskell
-- Disable electric indent for cabal-mode (thanks to Benno Fünfstück)(thanks to Benno Fünfstück)
+- Disable electric indent for cabal-mode (thanks to Benno Fünfstück)(thanks to
+  Benno Fünfstück)
 - Add dante support to haskell layer (thanks to Kyle McKean)
+- Fix: =company-dante= -> =dante-company= (thanks to Leon Isenberg)
 **** Helm
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
 - Key bindinds for directory search (thanks to Tim Jäger and Eivind Fonn):
@@ -663,6 +682,8 @@ is enabled
 - Disable Spacemacs paste transient state when pasting to avoid pasting issue
   when there are more than one cursor (thanks to braham-snyder)
 **** Neotree
+- Move neotree to its own layer in new +filtree folder (thanks to Sylvain
+  Benner)
 - Add screenshot in neotree layer (thanks to duianto)
 **** NixOS
 - Enable Flycheck (thanks to William Casarin)
@@ -718,6 +739,7 @@ is enabled
 - Fix =org-projectile/goto-todos= (thanks to Aaron Jensen)
 - Enable =org-src-tab-acts-natively= (thanks to Sylvain Benner)
 - Fix =org-default-notes-file= precedence (thanks to Troy Hinckley and bmag)
+- Add =ox-hugo= (thanks to Kaushal Modi)
 **** Osx
 - Fix OSX mapping issue (thanks to Joey Liu)
 - New layer variables to define modifers behaviors in macOS:
@@ -739,6 +761,10 @@ is enabled
 **** Prodigy
 - Key bindings:
   - add ~c~ to clear the buffer (thanks to Francesc Elies)
+  - bind ~q~ to quit-window in view mode (thanks to Saulius Menkevičius)
+**** Purescript
+- Enable =purescript-decl-scan-mode= when loading =purescript-mode= (thanks to
+  Bjarke Vad Andersen)
 **** Python
 - Various fixes in =pylookup.py= (thanks to ishestakov)
 - Hide =yapf-mode= modeline lighter (thanks to Robert ven der Helm)
@@ -833,6 +859,7 @@ is enabled
 - Support for keywords auto capitalization (thanks to Kepi)
 - Change blacklist to only accept list (thanks to Eivind Fonn)
 - Adds dumb autocomplete (thanks to Codruț Constantin Gușoi)
+- Add leader key prefixes (thanks to Jeremie Pelletier)
 **** Syntax-checking
 - Key bindings:
   - ~SPC e e~ is now for triggering a syntax check, the old action
@@ -847,6 +874,8 @@ is enabled
   with =terraform fmt= (thanks to Harry Hull)
 **** Themes
 - Add support for more doom themes (thanks to Dela Anthonio)
+- Add support for gruvbox theme variants (thanks to Dean Todevski)
+- Remove zonokai-theme theme as it is unavailable (thanks to nickclasener)
 - Updates to the spacemacs theme (thanks to Nasser Alshammari)
 - Fix the =base16-solarflare= mapping (thanks to Sebastian Nagel)
 ***** Colors
@@ -889,23 +918,24 @@ is enabled
   Yaremenko, Sylvain Benner)
 - Multiple unit test improvements (thanks to Sylvain Benner)
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham,
-  Alexander Iljin, Anurag Sharma, Archenoth, Benjamin Reynolds, bmag, Boris
-  Buliga, Boris Wong, Carl Lange, Chase Adams, CL123123, Codruț Constantin
-  Gușoi, Darkhan, David Florness, David Vo, davidpham87, Dela Anthonio, Diego
-  Alvarez, Diego Berrocal, Dietrich Daroch, Dinesh Bhosale, Dominik Schrempf,
-  Doug Beardsley, dubnde, duianto, eldios, Eugene Yaremenko, Evan Klitzke, Evan
-  Niessen-Derry, firemiles, Fuqiao Xue, Garrett Johnson, Henry Marshall, Ivan
-  Kryvoruchko, J. Patrick Lanigan, Jesse Cooke, Jim Deville, Jody Frankowski,
-  Joe Hillenbrand, John Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett,
-  Jonathan Gillett, Josh Greenwood, Joshua Santos, Kainalu Hagiwara, Kechao Cai,
-  Keith Wygant, Kristoffer Haugsbakk, Leo Joseph Buchignani III, Max Nordlund,
-  Maximilian Wolff, Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser
-  Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Paul Milla, Paulo
-  Schneider, Pawan Dubey, Paweł Siudak, Phil Pirozhkov, Rafi Khan, Rand01ph,
-  rakyi, Reverend Homer, Robby O'Connor, Sam Pablo Kuper, Saulius Menkevičius,
-  sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho, SteveJobzniak,
-  Swaroop C H, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski,
-  tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
+  Alexander Iljin, Anton Latukha, Anurag Sharma, Archenoth, Benjamin Reynolds,
+  bmag, Boris Buliga, Boris Wong, Carl Lange, Chase Adams, CL123123, Codruț
+  Constantin Gușoi, Darkhan, David Florness, David Vo, davidpham87, Dela
+  Anthonio, Diego Alvarez, Diego Berrocal, Dietrich Daroch, Dinesh Bhosale,
+  Dominik Schrempf, Doug Beardsley, dubnde, duianto, eldios, Eugene Yaremenko,
+  Evan Klitzke, Evan Niessen-Derry, firemiles, Fuqiao Xue, Garrett Johnson,
+  Henry Marshall, Ivan Kryvoruchko, J. Patrick Lanigan, Jesse Cooke, Jim
+  Deville, Jody Frankowski, Joe Hillenbrand, John Wood, Jon Tippens, Jonas
+  Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood, Joshua Santos,
+  Kainalu Hagiwara, Kechao Cai, Keith Wygant, Kristoffer Haugsbakk, Leo Joseph
+  Buchignani III, Max Nordlund, Maximilian Wolff, Mikhail Yakutovich, Muneeb
+  Shaikh, Nasser Alshammari, Nasser Alshammari, Niko Felger, Nikolai Myllymäki,
+  nikolaiam, Paul Milla, Paulo Schneider, Pawan Dubey, Paweł Siudak, Phil
+  Pirozhkov, Rafi Khan, Rand01ph, rakyi, Reverend Homer, Robby O'Connor, Sam
+  Pablo Kuper, Saulius Menkevičius, sduthil, Shane Kilkelly, Sid Kapur,
+  Somelauw, Soobin Rho, SteveJobzniak, Swaroop C H, TinySong, Titov Andrey,
+  Thomas de Beauchêne, Tomasz Cichocinski, tzhao11, Vladimir Kochnev, Wieland
+  Hoffmann, Yi Liu, zer09)
 
 *** Release notes summarized
   Thank to: Songpeng Zu
