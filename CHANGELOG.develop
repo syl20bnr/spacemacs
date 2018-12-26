@@ -21,6 +21,7 @@ This file containes the change log for the next major version of Spacemacs.
 - Changed ~SPC b B~ to ~SPC b I~ for =ibuffer= (thanks to Thomas de Beauchêne)
 - Changed ~SPC B b~ to ~SPC b B~ for non restricted buffer list (thanks to
   Thomas de Beauchêne)
+- Make ~SPC T n~ cycle and start the transient state
 **** IPython notebook
 - Key bindings:
   - Change prefix from "ai" to "ay" (thanks to Swaroop C H)
@@ -89,6 +90,9 @@ a sane way, here is the complet list of changed key bindings:
   - Chaged ~SPC m s F~ to ~SPC m e F~ for =lisp-eval-defun-and-go=
   - Chaged ~SPC m s r~ to ~SPC m e r~ for =lisp-eval-region=
   - Chaged ~SPC m s R~ to ~SPC m e R~ for =lisp-eval-region-and-go=
+**** Perl
+- Key bindings
+  - Changed ~SPC m h p~ to ~SPC m h h~ for =view perldoc of symbol at point=
 **** Ruby
 - Key bindings:
   - Changed ~SPC m h d~ to ~SPC m h h~ for =robe-doc= (thanks to Paweł Siudak)
@@ -217,6 +221,12 @@ a sane way, here is the complet list of changed key bindings:
 - Use =url-hexify-string= to encode issue report body (thanks to Boris Buliga)
 - Fix reference to cfgl-package-distant-p (thanks to Alex Coventry)
 - Added layer shadowing system (thanks to Sylvain Benner)
+- Enable backward theme cycling (thanks to Adrien Becchis)
+- Update export script (thanks to Eugene Yaremenko)
+- Update with the latest changes of spacemacs-theme (thanks to Nasser Alshammari and bmag)
+- Add support for stable ELPA repository hosted on GitHub (thanks to Sylvain Benner)
+- Fix issue with custom settings and lazy loading (thanks to Sylvain Benner)
+ 
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
@@ -270,13 +280,13 @@ a sane way, here is the complet list of changed key bindings:
   - New =spacemacs-completion key bindings (thanks to Diego Berrocal):
     - ~C-S-j~ for =helm-follow-action-forward=
     - ~C-S-k~ for =helm-follow-action-backward=
-  - New frame manipulation key bindings (thanks to Ben Lloyd)
+  - New frame manipulation key bindings (thanks to Ben Lloyd, duianto and bmag)
     - Added ~SPC F f~ for =find-file-other-frame=
-    - Added ~SPC F c~ for =delete-frame=
-    - Added ~SPC F C~ for =delete-other-frames=
+    - Added ~SPC F d~ for =delete-frame=
+    - Added ~SPC F D~ for =delete-other-frames=
     - Added ~SPC F b~ for =switch-to-buffer-other-frame=
     - Added ~SPC F B~ for =display-buffer-other-frame=
-    - Added ~SPC F d~ for =dired-other-frame=
+    - Added ~SPC F O~ for =dired-other-frame=
     - Added ~SPC F o~ for =other-frame=
     - Added ~SPC F n~ for =make-frame=
   - Workspaces transient state: create workspace keys under =C= (thanks to
@@ -290,6 +300,18 @@ a sane way, here is the complet list of changed key bindings:
   - Add missing which-key prefix names =new empty buffer= and =justification=
     (thanks to duianto)
   - New ~SPC p e~ to edit =dir-locals.el= (thanks to Dela Anthonio)
+  - Improve buffer transient mode with extra bindings and new commands 
+    (thanks to Adrien Becchis and Sylvain Benner)
+    - Add ~<right>~ for next-buffer
+    - Add ~<left>~ for previous-buffer
+    - Add ~o~ for other window
+    - Add ~C-d~ for burry  buffer 
+    - Add ~b~ for helm-buffer-list
+  - Update themes transient state (thanks to duianto)
+    - ~t~ or ~<up>~ to open helm-themes to select an installed theme  
+  - Add functionality to move layouts in layout list (thanks to Linus Marton)
+    - Add ~<~ for spacemacs/move-current-persp-left in layouts transient state
+    - Add ~>spacemacs/move-current-persp-right~ in layouts transient state
 - Fixes:
   - Disable the paste transient state when using multiple cursors
     (thanks to Koray AL)
@@ -316,6 +338,7 @@ a sane way, here is the complet list of changed key bindings:
   - Remove obsolete purpose-conf name argument (thanks to duianto)
   - Fix ~SPC w =~ for balancing windows (thanks to Sylvain Benner)
   - Fix typos related to =persp-mode= (thanks to Ruslan Kamashev)
+  - Fix switch to home buffer moves prev buffers cursor (thanks to duianto)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -346,17 +369,23 @@ a sane way, here is the complet list of changed key bindings:
 - Add 'xi_' and 'xi-' to `string-inflection' bindings (thanks to Keith Wygant)
 - Implement and bind "distraction free mode" to SPC w C (thanks to Eugene Yaremenko)
 - Disable popwin-mode at startup (thanks to bmag)
+- Cycle themes: handle backward argument better and cleanup (thanks to bmag)
+- Change default value of dotspacemacs-elpa-subdirectory (thanks to Sylvain Benner )
+
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
 - Fixes ansible-doc-mode error on `SPC h d k` (thanks to Codruț Constantin
   Gușoi)
 **** Auto-completion
+
 - Prefer =.spacemacs.d/snippets= over =.emacs.d/private/snippets= (thanks to
   Aaron Jensen)
 - Check if =dotspacemacs-directory-snippets-dir= exists before adding it (thanks
   to Wojciech Wojtyniak)
 - Fix check for =dotspacemacs-directory-snippets-dir= (thanks to Sylvain Benner)
+**** Auto-Layer
+- Prompt user to install react-mode if a .jsx file is opened (thanks to Jon Hermansen)
 **** C-C++
 - Add automatic formatting on save using ClangFormat with the variables
   =c-c++-enable-clang-format-on-save= and =c-c++-enable-clang-support=
@@ -367,6 +396,9 @@ a sane way, here is the complet list of changed key bindings:
 - Update package name due to upstream renaming (thanks to James Wang)
 - Refactor to reduce duplication (thanks to Dela Anthonio)
 - Add =cmake-ide= (thanks to Alexander Dalshov)
+- Add remark for required project for "open matching file" commands (thanks to Maximilian Wolff)
+**** Cfengine
+- fix publish in README (thanks to Eugene Yaremenko)
 **** Chinese
 - Add package =chinese-conv= for conversion between simplified and traditional
   Chinese texts (Xiang Ji)
@@ -464,6 +496,8 @@ a sane way, here is the complet list of changed key bindings:
   - Change ~SPC m s T~ to ~SPC m s F~ to respect convention (thanks to Yi Liu)
 - Fix issue with read-only REPL buffer (thanks to jackkamm)
 - Added ess layer variable =ess-disable-underscore-assign= (thanks to Jack Kamm)
+- Remove ess-R-object-popup from ess layer (thanks to Naylyn Gaffney)
+- add description, features to readme (thanks to bmag)
 **** Evil snipe
 - Must always explicitly enable =evil-snipe-mode= even when
   =evil-snipe-override-mode= (thanks to Sylvain Benner)
@@ -564,6 +598,16 @@ is enabled
   Fonn)
 **** Javascript
 - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
+- Key bindinns
+  - Improve coffeescript support (thanks to Kalle Lindqvist)
+    - ~SPC m '~ to create or go to REPL                               
+    - ~SPC m c c~ to compile buffer                                     
+    - ~SPC m c r~ to  compile region                                     
+    - ~SPC m s b~ to send buffer to REPL                                
+    - ~SPC m s l~ to send line to REPL                                  
+    - ~SPC m s i~ to create or go to REPL                               
+    - ~SPC m s r~ to send current region to the REPL and stay in buffer 
+    - ~SPC m T c~ to toggle compile on save                             
 **** Keyboard layout
 - Add support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and Eivind Fonn)
 - Add new programmer dvorak layout that matches vim like key placement (thanks
@@ -594,6 +638,7 @@ is enabled
   - ~SPC m t w~ to toggle wiki links
 - Update markdown insert link, function renamed (thanks to duianto)
 - Make all keybindings available in gfm-mode (thanks to Codruț Constantin Gușoi)
+- Remove org table lighter (thanks to Troy Hinckley)
 **** Major modes
 - Added SPARQL-mode (thanks to Dietrich Daroch)
 - Move =extra-langs= to =major-modes= (thanks to Eivind Fonn)
@@ -615,6 +660,8 @@ is enabled
 **** Multiple Cursors
 - Disable Spacemacs paste transient state when pasting to avoid pasting issue
   when there are more than one cursor (thanks to braham-snyder)
+**** Neotree
+- Add screenshot in neotree layer (thanks to duianto)
 **** NixOS
 - Enable Flycheck (thanks to William Casarin)
 - Defer loading (thanks to Benno Fünfstück)
@@ -648,6 +695,10 @@ is enabled
   - Key bindings (thanks to James Wang):
     - add ~SPC m T e~ to toggle pretty entities
     - add ~SPC m T l~ to toggle link display
+  - Add org-agenda commands in org agenda transient state to un-schedule and un-deadline tasks (thanks to Jake Zerrer)
+    - add ~dS~ to unschedule org-agenda-schedule
+    - add ~dD~ to remove org-agenda-deadline 
+  - Add ~M-RET~ for org-meta-return under major mode leader key
 - Make =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
 - Remove =mu4e= and =notmuch= from =org= (thanks to Sylvain Benner)
 - Use evil-org from MELPA (thanks to Eivind Fonn)
@@ -661,6 +712,8 @@ is enabled
 - Load org-projectile lazily, after org-capture (thanks to Aaron Jensen)
 - Use org-verbatim, not org-verbose (thanks to Swaroop C H)
 - Fix =org-projectile/goto-todos= (thanks to Aaron Jensen)
+- Enable org-src-tab-acts-natively
+- Fix org-default-notes-file precedence (thanks to Troy Hinckley and bmag)
 **** Osx
 - Fix OSX mapping issue (thanks to Joey Liu)
 - New layer variables to define modifers behaviors in macOS:
@@ -676,6 +729,13 @@ is enabled
   - Add key bindings to use ~command-1..9~ for selecting window
     (thanks to Liu Joey)
   - Add ~M-s-h~ to hide other windows (thanks to Bas Veeling)
+**** Perl 
+- Simplify key bindings config and sort package config sexps
+- Key bindings:
+  - Add key bindings to format codes (thanks to Troy Hinckley)
+    - Add ~SPC m = =~ to format current line or region
+    - Add ~SPC m = b~ to format current buffer
+    - Add ~SPC m = f~ to format current function
 **** PHP
 - Add company-php (thanks to jim and Eivind Fonn)
 - Fix php-company autocompletion (thanks to Dela Anthonio)
@@ -743,6 +803,8 @@ is enabled
   - Prevent duplicate insert lines from ~clear RET~
 - Require company in =eshell-switch-company-frontend= (thanks to Benjamin
   Reynolds)
+- Fix docs for "Fish shell and ansi-term" and explicitly enable `truncate-lines`.
+  (thanks to Joe Hillenbrand)
 **** Shell Scripts
 - Add new company-shell environment variable backend (thanks to Alexander-Miller)
 - Add bashate style checker (thanks to Victor Cuadrado Juan)
@@ -849,4 +911,4 @@ is enabled
   tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
 
 *** Release notes summarized
-  Thank to:
+  Thank to: Songpeng Zu
