@@ -1207,6 +1207,8 @@ Benner and Paweł Siudak):
 - Support editorconfig setting of =tab-width= to nil (thanks to lawrsp)
 - Add lsp support (thanks to Lupco Kotev)
 - Add golangci-lint support (thanks to Lupco Kotev)
+**** Graphviz
+- Use graphviz package from melpa (thanks to Matthew Boston)
 **** Groovy
 - Update =indent-variable-alist= to support new groovy-mode (thanks to Sylvain
   Benner)
