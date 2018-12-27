@@ -15,6 +15,7 @@ eshell/history
 .emacs.desktop.lock
 eshell/alias
 eshell/lastdir
+forge-database.sqlite
 url/*
 my-org/
 org-files/
