@@ -171,6 +171,7 @@ a sane way, here is the complet list of changed key bindings:
 - spacemacs-purpose (thanks to bmag)
 *** Removed layers
 - =extra-langs= (replaced by ad-hoc layers)
+- =evil-cleverparens= (moved to =spacemacs-evil=)
 *** Dotfile changes
 - Variables:
   - New variable =dotspacemacs-switch-to-buffer-prefers-purpose= which
@@ -230,6 +231,7 @@ a sane way, here is the complet list of changed key bindings:
   Benner)
 - Handle backward argument better when cycling themes (thanks to bmag)
 - Remove wizard question about completion engine. (thanks to Sylvain Benner)
+- Add support for major mode specific toggles (thanks to Sylvain Benner)
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
@@ -269,6 +271,8 @@ a sane way, here is the complet list of changed key bindings:
     - ~SPC x a ]~ align region at ]
     - ~SPC x a {~ align region at {
     - ~SPC x a }~ align region at }
+  - New text align key binding (thanks to Gunnar Bastkowski):
+    - ~SPC x a %~ align region at %
   - New string inflection key bindings (thanks to Ric da Silva):
     - ~SPC x i i~ cycle symbol naming styles
     - ~SPC x i u~ change symbol style to =under_score=
@@ -380,6 +384,8 @@ a sane way, here is the complet list of changed key bindings:
 - Disable popwin-mode at startup (thanks to bmag)
 - Change default value of =dotspacemacs-elpa-subdirectory= (thanks to Sylvain Benner)
 - Add =helm= to spacemacs default distribution (thanks to Sylvain Benner)
+- Use =evil-smartparens-mode= when =dotspacemacs-smartparens-strict-mode= is
+  enabled (thanks to timor)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -400,12 +406,21 @@ a sane way, here is the complet list of changed key bindings:
   (thanks to Robbert van der Helm)
 - Add possible value =no-completion= to =c-c++-enable-rtags-support= flag.
   This adds the option to opt-out of =company-rtags= while enabling Rtags.
+- Add option to use =google-c-style= with the variable
+  =c-c++-enable-google-style=, and install the =google-make-newline-indent= hook
+  with the variable =c-c++-enable-google-newline= (thanks to Evan Klitzke)
+- Add option to enable C++11 mode in =company-clang-arguments= with variable
+  =c-c++-enable-c++11= (thanks to Evan Klitzke)
 - Declare "mg" prefix as "goto" (thanks to Dela Anthonio)
 - Update package name due to upstream renaming (thanks to James Wang)
 - Refactor to reduce duplication (thanks to Dela Anthonio)
 - Add =cmake-ide= (thanks to Alexander Dalshov)
 - Fixed a typo by moving one closing parenthesis (thanks to Richard Kim)
 - Add option to control cmake-ide package (thanks to Alexander Dalshov)
+- Improve header include auto-completion (thanks to Fredrik Bergstrand)
+- Key bindings:
+  - ~SPC m = =~ clang-format current region or buffer (thanks to Dela Anthonio)
+  - ~SPC m = f~ clang-format current function (thanks to Dela Anthonio)
 **** Cfengine
 - Fix publish in README (thanks to Eugene Yaremenko)
 - Add =ob-cfengine3= (thanks to Nick Anderson)
@@ -524,6 +539,8 @@ a sane way, here is the complet list of changed key bindings:
     - ~SPC m t h~ for =overseer-help=
 - Setup nameless package, replacing package prefix with ~:~ (thanks to
   Adrien Becchis)
+- Move =nameless-mode= toggle to ~SPC m T n~ (thanks to Sylvain Benner)
+- Add dotspacemacs alias (=.S=) for nameless (thanks to Sylvain Benner)
 **** Emoji
 - Add support for Emoji fonts on macOS and Linux (thanks to CodeFalling )
 - Setup =emojify= cache directory (thanks to Boris Buliga)
@@ -539,6 +556,8 @@ a sane way, here is the complet list of changed key bindings:
 - Fix issue with read-only REPL buffer (thanks to jackkamm)
 - Added ess layer variable =ess-disable-underscore-assign= (thanks to Jack Kamm)
 - Remove =ess-R-object-popup= from ess layer (thanks to Naylyn Gaffney)
+- Refactor keybindings for =ess-mode= and =ess-julia-mode= (thanks to Guido Kraemer and bmag)
+- Add Julia repl to `spacemacs/ess-start-repl` (thanks to Guido Kraemer)
 **** Evil snipe
 - Must always explicitly enable =evil-snipe-mode= even when
   =evil-snipe-override-mode= (thanks to Sylvain Benner)
@@ -656,16 +675,17 @@ is enabled
 - Make java layer depend on groovy layer (thanks to Sylvain Benner)
 **** Javascript
 - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
-- Key bindinns
+- Key bindings
   - Improve coffeescript support (thanks to Kalle Lindqvist)
     - ~SPC m '~ to create or go to REPL                               
     - ~SPC m c c~ to compile buffer                                     
-    - ~SPC m c r~ to  compile region                                     
+    - ~SPC m c r~ to compile region
     - ~SPC m s b~ to send buffer to REPL                                
     - ~SPC m s l~ to send line to REPL                                  
     - ~SPC m s i~ to create or go to REPL                               
     - ~SPC m s r~ to send current region to the REPL and stay in buffer 
-    - ~SPC m T c~ to toggle compile on save                             
+    - ~SPC m T c~ to toggle compile on save
+- Move REPL live eval toggle to ~SPC m T l~ (thanks to Sylvain Benner)
 **** Keyboard layout
 - Add support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and Eivind Fonn)
 - Add new programmer dvorak layout that matches vim like key placement (thanks
@@ -770,6 +790,7 @@ is enabled
   Ivan Malison)
 - Remove nils from call to org-projectile-project-todo-entry (thanks to Ivan
   Malison)
+- Fix org-projectile capture-template keyword argument (thanks to Leonard Lausen)
 - Adapt to changes in org-brain 0.4 (thanks to Boris Buliga)
 - Load org-projectile lazily, after org-capture (thanks to Aaron Jensen)
 - Use org-verbatim, not org-verbose (thanks to Swaroop C H)
@@ -777,6 +798,7 @@ is enabled
 - Enable =org-src-tab-acts-natively= (thanks to Sylvain Benner)
 - Fix =org-default-notes-file= precedence (thanks to Troy Hinckley and bmag)
 - Add =ox-hugo= (thanks to Kaushal Modi)
+- Hide lighter for =evil-org= (thanks to Sylvain Benner)
 **** Osx
 - Fix OSX mapping issue (thanks to Joey Liu)
 - New layer variables to define modifers behaviors in macOS:
@@ -813,7 +835,16 @@ is enabled
 - Use Python executable from active virtual env to compile files
   (thanks to Swaroop C H)
 - Fix arguments to =python-setup-hy= (thanks to Eivind Fonn)
+- Fix ipython version check bug on windows (thanks to lostmarble)
+- Fix =pyenv-executable-find= in presence of =pyenv-which-ext= (thanks to
+  Christoph Paulik)
+- Add =pippel= for python package management (thanks to et2010)
+- Add defvar =python-save-before-test= (thanks to Benoit Coste)
+- Add key binding ~SPC m r f~ to fix missing import statements (thanks to
+  Volodymyr Vitvitskyi)
+- Use =python-mode= for SCons script files (thanks to shanemikel)
 - Key bindings:
+  - Update invalid cython mode keybindings (thanks to Muneeb Shaikh)
   - New =anaconda-view-mode= keybindings (thanks to Muneeb Shaikh)
     - ~C-j~ for navigating to the next error
     - ~C-k~ for navigating to the previous error
@@ -975,9 +1006,9 @@ is enabled
   Felger, Nikolai Myllymäki, nikolaiam, Paul Milla, Paulo Schneider, Pawan
   Dubey, Paweł Siudak, Phil Pirozhkov, Rafi Khan, Rand01ph, rakyi, Reverend
   Homer, Robby O'Connor, Sam Pablo Kuper, Saulius Menkevičius, sduthil, Shane
-  Kilkelly, Sid Kapur, Somelauw, Soobin Rho, SteveJobzniak, Swaroop C H,
-  TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski, tzhao11,
-  Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
+  Kilkelly, Sid Kapur, Somelauw, Soobin Rho, SteveJobzniak, Sunghyun Hwang,
+  Swaroop C H, Tim Stewart, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz
+  Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
 
 *** Release notes summarized
-  Thank to: Songpeng Zu
+  Thanks to: Songpeng Zu, Igor Almeida
