@@ -139,7 +139,7 @@ a sane way, here is the complet list of changed key bindings:
   =auto-completion= layer.
 *** New layers
 **** Email
-- notmuch (thanks to Francesc Elies Henar)
+- notmuch (thanks to Francesc Elies Henar, Leonard Lausen)
 **** Fonts
 - unicode-fonts (thanks to Aaron Jensen)
 **** Languages
@@ -185,6 +185,10 @@ a sane way, here is the complet list of changed key bindings:
   - New variable =dotspacemacs-frame-title-format= which is the efault format
     string for a frame title bar, see docstring of function
     =spacemacs/frame-title-prepare= for more info (thanks to Uri Sharf and Kepi)
+  - New variable =dotspacemacs-mode-line-themes= adds support for mode-line themes.
+    Supported themes are =spacemacs=, =all-the-icons=, =vim-powerline=, =custom=,
+    and =vanilla=. The first three are spaceline themes, =custom= is user defined,
+    and =vanilla= is the default Emacs mode-line. (thanks to Sylvain Benner)
 - Can use the univeral prefix argument to open both the =*scratch*= buffer and
   the =*Messages*= buffer in another window (thanks to Thomas de Beauchêne)
 *** Core changes
@@ -230,6 +234,12 @@ a sane way, here is the complet list of changed key bindings:
   Benner)
 - Handle backward argument better when cycling themes (thanks to bmag)
 - Remove wizard question about completion engine. (thanks to Sylvain Benner)
+- Fix loading order for package configuration it is now:
+  - pre-init functions for all packages
+  - init function of all packages
+  - post-init functions for all packages  (thanks to Sylvain Benner)
+- Backported battery fix for macOS (thanks to Sylvain Benner)
+
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
@@ -380,6 +390,8 @@ a sane way, here is the complet list of changed key bindings:
 - Disable popwin-mode at startup (thanks to bmag)
 - Change default value of =dotspacemacs-elpa-subdirectory= (thanks to Sylvain Benner)
 - Add =helm= to spacemacs default distribution (thanks to Sylvain Benner)
+- Fix =pupo-mode= loading for =spacemacs-purpose-popwin= (thanks to Muneeb Shaikh)
+- Colorize hybrid and inactive states for vim-powerline (thanks to Muneeb Shaikh)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -406,6 +418,10 @@ a sane way, here is the complet list of changed key bindings:
 - Add =cmake-ide= (thanks to Alexander Dalshov)
 - Fixed a typo by moving one closing parenthesis (thanks to Richard Kim)
 - Add option to control cmake-ide package (thanks to Alexander Dalshov)
+- Installation of =gtags= layer conditional on =c-c++-enable-rtags-support=
+flag (thanks to Sylvain Benner)
+- Only activate =rtags= keybindings when =rtags-mode= is active (thanks to
+lixinchin)
 **** Cfengine
 - Fix publish in README (thanks to Eugene Yaremenko)
 - Add =ob-cfengine3= (thanks to Nick Anderson)
@@ -524,6 +540,7 @@ a sane way, here is the complet list of changed key bindings:
     - ~SPC m t h~ for =overseer-help=
 - Setup nameless package, replacing package prefix with ~:~ (thanks to
   Adrien Becchis)
+- Disable nameless by default (thanks to Codruț Constantin Gușoi)
 **** Emoji
 - Add support for Emoji fonts on macOS and Linux (thanks to CodeFalling )
 - Setup =emojify= cache directory (thanks to Boris Buliga)
@@ -567,6 +584,10 @@ is enabled
   - ~SPC g f f~ to view a file at a specific branch or commit (thanks to duianto)
   - ~SPC g i~ to initialize a repository (thanks to Steven Allen)
   - ~SPC m g y~ to find symbols (thanks to Daniel Ralston)
+- Add feature to toggle =evil-magit= based on editing style (thanks to Muneeb Shaikh)
+- Add =use-package= for deferred loading of evil-magit (thanks to Sylvain Benner)
+- Remove old evilification of magit buffers (thanks to Sylvain Benner)
+- Move evil-magit =use-package= hook declaration to pre-init (thanks to Sylvain Benner)
 **** Go
 - Improve go test output buffer behavior (thanks to Denis Bernard)
 - Configurable extra arguments to go test (thanks to Ian Clark)
@@ -639,6 +660,8 @@ is enabled
   Rich Alesi)
 - Set =ivy-use-selectable-prompt= to =t= (thanks to Boris Buliga)
 - Rename git dir variable to upstream changes (thanks to bmag)
+- Add =ivy-enable-advanced-buffer-information= variable to toggle =ivy-rich=
+  being enabled (thanks to Alejandro Catalina)
 **** Java
 - Add support for multiple backends. Supported backends are: =megahnada=,
   =eclim= and =ensime=. The default backend is =meghanada=.
@@ -832,6 +855,8 @@ is enabled
 - Fix logging where the channel name has =/= in it (thanks to Abdo
   Roig-Maranges)
 - Delete rcirc-reconnect in favor of built-in cmd (thanks to Miciah Masters)
+- Move config defaults to package :init so they can be overridden
+(thanks to Miciah Masters)
 **** React
 - Improve =magic-mode-alist= regular expression to detect =react= files
   (thanks to Jan Zdráhal)
@@ -976,8 +1001,8 @@ is enabled
   Dubey, Paweł Siudak, Phil Pirozhkov, Rafi Khan, Rand01ph, rakyi, Reverend
   Homer, Robby O'Connor, Sam Pablo Kuper, Saulius Menkevičius, sduthil, Shane
   Kilkelly, Sid Kapur, Somelauw, Soobin Rho, SteveJobzniak, Swaroop C H,
-  TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski, tzhao11,
-  Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
+  Sylvain Benner, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski,
+  tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
 
 *** Release notes summarized
-  Thank to: Songpeng Zu
+  Thanks to: Grant Shangreaux, Songpeng Zu
