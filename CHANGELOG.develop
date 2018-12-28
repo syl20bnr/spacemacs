@@ -273,6 +273,11 @@ a sane way, here is the complet list of changed key bindings:
   Sylvain Benner)
 - Remove stray characters from output-dir argument (thanks to duianto)
 - Add support for major mode specific toggles (thanks to Sylvain Benner)
+- Use =cl-loop= instead of =loop= (thanks to Sylvain Benner)
+- Delete the quote preceding the lambda in =spacemacs|add-toggle= to avoid
+  warning (thanks to Miciah Dashiel Butler Masters)
+- Escape left and right bracket character literals to avoid warning (thanks to
+  Miciah Dashiel Butler Masters)
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
@@ -432,6 +437,8 @@ a sane way, here is the complet list of changed key bindings:
   to Alexander Miller)
 - Use =evil-smartparens-mode= when =dotspacemacs-smartparens-strict-mode= is
   enabled (thanks to timor)
+- Add function =spacemacs/maximize-vertically=, available with ~SPC w |~ (thanks
+  to Ag Ibragimov)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -464,6 +471,9 @@ a sane way, here is the complet list of changed key bindings:
 - Fixed a typo by moving one closing parenthesis (thanks to Richard Kim)
 - Add option to control cmake-ide package (thanks to Alexander Dalshov)
 - Improve header include auto-completion (thanks to Fredrik Bergstrand)
+- Fix clang format on save (thanks to Dela Anthonio and Silver Chan)
+- Support =rtags=, available under ~SPC m g~ prefix (thanks to Alexander
+  Dalshov and Sylvain Benner)
 - Key bindings:
   - ~SPC m = =~ clang-format current region or buffer (thanks to Dela Anthonio)
   - ~SPC m = f~ clang-format current function (thanks to Dela Anthonio)
@@ -587,6 +597,7 @@ a sane way, here is the complet list of changed key bindings:
   Adrien Becchis)
 - Move =nameless-mode= toggle to ~SPC m T n~ (thanks to Sylvain Benner)
 - Add dotspacemacs alias (=.S=) for nameless (thanks to Sylvain Benner)
+- Enable nameless by default (thanks to Sylvain Benner)
 **** Emoji
 - Add support for Emoji fonts on macOS and Linux (thanks to CodeFalling )
 - Setup =emojify= cache directory (thanks to Boris Buliga)
@@ -654,6 +665,7 @@ is enabled
 - Don’t check if mode function is bound (thanks to Eivind Fonn)
 - Implements diminish and toggle (thanks to Dominik Schrempf)
 - Add ivy support to the gtags layers (thanks to Robbert van der Helm)
+- Make gtags toggle major mode specific (thanks to Sylvain Benner)
 **** Haskell
 - Disable electric indent for cabal-mode (thanks to Benno Fünfstück)(thanks to
   Benno Fünfstück)
@@ -676,15 +688,20 @@ is enabled
   to bmag)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
+- Add =counsel-css= as an ivy alternative to =helm-css-scss= (thanks to Robbert
+  van der Helm)
 **** Hy
 - Add support for virtual envs (thanks to Danny Freeman)
 **** Idris
 - Update author email for Idris layer (thanks to Timothy Jones)
 **** IPython Notebook
 - Add support for auto-completion with =company= (thanks to tutysara)
+- Add =ob-ipython= (thanks to Alejandro Catalina)
 - Key bindings:
   - ~SPC a i l~ to login (thanks to Ben Mabey)
   - ~SPC m s~ to split cell at point (thanks to Jaakko Luttinen)
+  - ~<C-return>~ (execute cell) and ~<S-return>~ (execute cell and go to next)
+    also in hybrid mode (thanks to Jaakko Luttinen)
 **** Ivy
 - Add =recentf= alt actions to refresh and delete items (thanks to Rich Alesi)
 - Add =projectile= alternate actions to invalidate cache (thanks to Rich Alesi)
@@ -701,6 +718,14 @@ is enabled
   Rich Alesi)
 - Set =ivy-use-selectable-prompt= to =t= (thanks to Boris Buliga)
 - Rename git dir variable to upstream changes (thanks to bmag)
+- Add hook for =org-ctrl-c-ctrl-c=  (thanks to Sylvain Benner)
+- Add =ivy-rich= display transformer for =ivy-switch-buffer= (thanks to Alan
+  Ferguson)
+- Fix bug in spacemacs-help when a layer has no packages (thanks to Nikita
+  Leshenko)
+- Rotate ivy re builders rather than toggle (thanks to Tomasz Kołodziejski)
+- Follow upstream ivy/counsel and remove use of variable =counsel--git-dir=
+  (thanks to Chirantan Ekbote)
 **** Java
 - Add support for multiple backends. Supported backends are: =megahnada=,
   =eclim= and =ensime=. The default backend is =meghanada=.
@@ -842,6 +867,9 @@ is enabled
 - Fix =org-default-notes-file= precedence (thanks to Troy Hinckley and bmag)
 - Add =ox-hugo= (thanks to Kaushal Modi)
 - Hide lighter for =evil-org= (thanks to Sylvain Benner)
+- Use counsel-org-tag when ivy layer is used (thanks to darkfeline)
+- Delete the duplicate definition of the =spacemacs|org-emphasize= macro (thanks
+  to Miciah Dashiel Butler Masters)
 **** Osx
 - Fix OSX mapping issue (thanks to Joey Liu)
 - New layer variables to define modifers behaviors in macOS:
@@ -881,7 +909,10 @@ is enabled
 - Fix ipython version check bug on windows (thanks to lostmarble)
 - Fix =pyenv-executable-find= in presence of =pyenv-which-ext= (thanks to
   Christoph Paulik)
+- Fix broken repl invocation through ~SPC a '~  (thanks to Hans Jang)
 - Add =pippel= for python package management (thanks to et2010)
+- Add keybinding ~SPC m P~ for pip package management with =pippel= (thanks to
+  Sylvain Benner)
 - Add defvar =python-save-before-test= (thanks to Benoit Coste)
 - Add key binding ~SPC m r f~ to fix missing import statements (thanks to
   Volodymyr Vitvitskyi)
