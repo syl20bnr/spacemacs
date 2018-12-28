@@ -1141,6 +1141,7 @@ Benner and Paweł Siudak):
   Buliga)
 **** GitHub
 - Packages:
+ - Add new packages =forge= (thanks to Miciah Dashiel Butler Masters)
  - Add package =magithub=, it is enabled by default in offline mode.
  - Remove package =github-browse-file= which has been replaced by
   =browse-at-remote= in =version-control= layer
