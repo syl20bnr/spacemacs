@@ -82,7 +82,7 @@ This file containes the change log for the next major version of Spacemacs.
 - New key binding ~SPC f i~ for =insert-file=.
 *** Layer changes
 **** GitHub
-- Add new package =magithub=
+- Add new packages =forge= and =magithub=
 - Remove package =github-browse-file= which has been replaced by
   =browse-at-remote= in =version-control= layer
 **** Git

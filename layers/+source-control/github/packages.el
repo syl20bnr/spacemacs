@@ -11,6 +11,7 @@
 
 (setq github-packages
       '(
+        forge
         gist
         github-clone
         github-search
@@ -20,6 +21,12 @@
         ;; the call to spacemacs/declare-prefix.
         (spacemacs-github :location built-in)
         ))
+
+(defun github/init-forge ()
+  (use-package forge
+    :after magit
+    :init (setq forge-database-file (concat spacemacs-cache-directory
+                                            "forge-database.sqlite"))))
 
 (defun github/init-gist ()
   (use-package gist
@@ -94,7 +101,13 @@
         (magit-set "false" "--global" "magithub.status.includeStatusHeader")
         (magit-set "false" "--global" "magithub.status.includePullRequestsSection")
         (magit-set "false" "--global" "magithub.status.includeIssuesSection"))
-      (magithub-feature-autoinject t)
+      (magithub-feature-autoinject `(,@(when (not (package-installed-p 'forge))
+                                         '(issues-section
+                                           pull-requests-section))
+                                     completion
+                                     status-checks-header
+                                     commit-browse
+                                     pull-request-merge))
       (define-key magit-status-mode-map "@" #'magithub-dispatch-popup))))
 
 (defun github/init-spacemacs-github ()
