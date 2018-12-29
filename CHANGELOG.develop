@@ -23,6 +23,11 @@ This file containes the change log for the next major version of Spacemacs.
   Thomas de Beauchêne)
 - Remove ~SPC T N~ and make ~SPC T n~ cycle and start the theme transient state
   (thanks to Sylvain Benner)
+- Changed ~SPC j j~ from =evil-avy-goto-char= to =evil-avy-goto-char-timer=, and
+  removed default binding for =evil-avy-goto-char-2= (thanks to duianto and
+  Sylvain Benner)
+- Changed ~SPC f T~ to ~SPC 0~ for =neotree-show= / =treemacs-select-window=
+  (thanks to Dela Anthonio)
 **** ESS
 ESS key bindings were re-organised in the following list (thanks to Guido
 Kraemer, Yi Liu):
@@ -51,8 +56,8 @@ Kraemer, Yi Liu):
 - Key bindings:
   - Change prefix from "ai" to "ay" (thanks to Swaroop C H)
 **** Org
-Org key bindings were all over the place and we needed to reorganize them in
-a sane way, here is the complet list of changed key bindings:
+Org key bindings were all over the place and we needed to reorganize them in a
+sane way, here is the complet list of changed key bindings:
 - New prefixes:
   - ~SPC C~ clocks
   - ~SPC d~ dates
@@ -110,11 +115,11 @@ a sane way, here is the complet list of changed key bindings:
 - Rebind =org-agenda-refile= to ~r~ in transient state (thanks to Muneeb Shaikh)
 **** Python
 - Key bindings (thanks to Danny Freeman):
-  - Chaged ~SPC m s e~ to ~SPC m e e~ for =lisp-eval-last-sexp=
-  - Chaged ~SPC m s f~ to ~SPC m e f~ for =lisp-eval-defun=
-  - Chaged ~SPC m s F~ to ~SPC m e F~ for =lisp-eval-defun-and-go=
-  - Chaged ~SPC m s r~ to ~SPC m e r~ for =lisp-eval-region=
-  - Chaged ~SPC m s R~ to ~SPC m e R~ for =lisp-eval-region-and-go=
+  - Changed ~SPC m s e~ to ~SPC m e e~ for =lisp-eval-last-sexp=
+  - Changed ~SPC m s f~ to ~SPC m e f~ for =lisp-eval-defun=
+  - Changed ~SPC m s F~ to ~SPC m e F~ for =lisp-eval-defun-and-go=
+  - Changed ~SPC m s r~ to ~SPC m e r~ for =lisp-eval-region=
+  - Changed ~SPC m s R~ to ~SPC m e R~ for =lisp-eval-region-and-go=
 - Make =nose= fail compilation when tests fail (thanks to wizmer)
 **** Ruby
 - Key bindings:
@@ -134,18 +139,21 @@ a sane way, here is the complet list of changed key bindings:
   =dotspacemacs/emacs-custom-settings=.
 - Company backends declaration has been revamped to be less verbose and easier
   to use. For more info see the section =Add auto-completion in a layer= of the
-  README.org file of the =auto-completion= layer, also you can read
-  [[https://github.com/syl20bnr/spacemacs/commit/74fdbb6][commit message of commit 74fdbb6]].
+  README.org file of the =auto-completion= layer, also you can read [[https://github.com/syl20bnr/spacemacs/commit/74fdbb6][commit
+  message of commit 74fdbb6]].
 - The function =add-flycheck-hook= has been renamed to =enable-flycheck=.
 - =shaders= layer has been moved to =gpu= layer.
+- The property =:powerline-scale= of variable =dotspacemacs-default-font= has
+  been removed and replaced by the property =:separator-scale= used in the
+  variable =dotspacemacs-mode-line-theme=.
 *** Hot new feature
 - Improve themes support. Support are now handled like regular packages. The
   list of themes now supports =:location= keyword like in layer list. More
   information in the =Themes= section of the documentation.
 - Introduction of =spacemacs-purpose= layer in charge of handling Emacs windows
   assignation for actions opening new buffers. This layer brings more
-  consistency to windows creation by giving them a purpose (i.e. =edit=,
-  =help=, etc...). See [[https://github.com/bmag/emacs-purpose][emacs-purpose]] repository for more info. (thanks to bmag)
+  consistency to windows creation by giving them a purpose (i.e. =edit=, =help=,
+  etc...). See [[https://github.com/bmag/emacs-purpose][emacs-purpose]] repository for more info. (thanks to bmag)
 - New distribution =spacemacs-docker= used to build the official docker image
   for the Spacemacs container (thanks to Eugene Yaremenko)
 - Add support for =ripgrep=. To enable it add =rg= to
@@ -198,24 +206,27 @@ a sane way, here is the complet list of changed key bindings:
 - =evil-cleverparens= (moved to =spacemacs-evil=)
 *** Dotfile changes
 - Variables:
-  - New variable =dotspacemacs-switch-to-buffer-prefers-purpose= which
-    controls where =switch-to-buffer= displays the buffer. If nil,
-    =switch-to-buffer= displays the buffer in the current window even if another
-    same-purpose window is available. If non nil, =switch-to-buffer= displays
-    the buffer in a same-purpose window even if the buffer can be displayed in
-    the current window. (thanks to bmag)
-  - New variable =dotspacemacs-zone-out-when-idle= to zone when idle. Zoning will
-    obfuscate the current buffer acting like a screen saver. (thanks to Eugene
-    Yaremenko)
+  - New variable =dotspacemacs-switch-to-buffer-prefers-purpose= which controls
+    where =switch-to-buffer= displays the buffer. If nil, =switch-to-buffer=
+    displays the buffer in the current window even if another same-purpose
+    window is available. If non nil, =switch-to-buffer= displays the buffer in a
+    same-purpose window even if the buffer can be displayed in the current
+    window. (thanks to bmag)
+  - New variable =dotspacemacs-zone-out-when-idle= to zone when idle. Zoning
+    will obfuscate the current buffer acting like a screen saver. (thanks to
+    Eugene Yaremenko)
   - New variable =dotspacemacs-frame-title-format= which is the efault format
     string for a frame title bar, see docstring of function
     =spacemacs/frame-title-prepare= for more info (thanks to Uri Sharf and Kepi)
   - New variable =dotspacemacs-use-spacelpa= (thanks to Sylvain Benner)
-  - New variable =dotspacemacs-mode-line-themes= adds support for mode-line themes.
-    Supported themes are =spacemacs=, =all-the-icons=, =vim-powerline=, =custom=,
-    and =vanilla=. The first three are spaceline themes, =custom= is user defined,
-    and =vanilla= is the default Emacs mode-line. (thanks to Sylvain Benner)
->>>>>>> 812018c0f... Update change log
+  - New variable =dotspacemacs-mode-line-themes= adds support for mode-line
+    themes. Supported themes are =spacemacs=, =all-the-icons=, =vim-powerline=,
+    =custom=, and =vanilla=. The first three are spaceline themes, =custom= is
+    user defined, and =vanilla= is the default Emacs mode-line. (thanks to
+    Sylvain Benner)
+  - Removed obsolete =:powerline-scale= property from
+    =dotspacemacs-default-font= variable (thanks to Muneeb Shaikh and Sylvain
+    Benner)
 - Can use the univeral prefix argument to open both the =*scratch*= buffer and
   the =*Messages*= buffer in another window (thanks to Thomas de Beauchêne)
 *** Core changes
@@ -370,10 +381,10 @@ a sane way, here is the complet list of changed key bindings:
     - Add ~<right>~ for next-buffer
     - Add ~<left>~ for previous-buffer
     - Add ~o~ for other window
-    - Add ~C-d~ for burry  buffer 
+    - Add ~C-d~ for bury buffer
     - Add ~b~ for helm-buffer-list
   - Update themes transient state (thanks to duianto)
-    - ~t~ or ~<up>~ to open helm-themes to select an installed theme  
+    - ~t~ or ~<up>~ to open helm-themes to select an installed theme
   - Add functionality to move layouts in layout list using the layouts transient
     state (thanks to Linus Marton)
     - Add ~<~ for =spacemacs/move-current-persp-left=
@@ -383,6 +394,7 @@ a sane way, here is the complet list of changed key bindings:
     Benner)
   - New ~SPC b x~ and ~SPC w x~ to remove both buffer and window in one go
     (thanks to Codruț Constantin Gușoi)
+  - New ~SPC t m r~ to toggle responsiveness of the mode-line
 - Fixes:
   - Disable the paste transient state when using multiple cursors
     (thanks to Koray AL)
@@ -460,8 +472,10 @@ a sane way, here is the complet list of changed key bindings:
 - Reset initial useful and useless buffers regexp lists to empty lists
   (thanks to Sylvain Benner)
 - Updated Quelpa library (thanks to Sylvain Benner)
-- Fix =pupo-mode= loading for =spacemacs-purpose-popwin= (thanks to Muneeb Shaikh)
-- Colorize hybrid and inactive states for vim-powerline (thanks to Muneeb Shaikh)
+- Fix =pupo-mode= loading for =spacemacs-purpose-popwin= (thanks to Muneeb
+  Shaikh)
+- Colorize hybrid and inactive states for vim-powerline (thanks to Muneeb
+  Shaikh)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -478,6 +492,7 @@ a sane way, here is the complet list of changed key bindings:
 - Key bindings
   - Removed ~C-f~ because it interfered with the default key binding for
     =forward-char= (thanks to scturtle and duianto)
+- Add =yasnippet-snippets= package (thanks to Jack Kamm)
 **** Auto-Layer
 - Prompt user to install react-mode if a .jsx file is opened (thanks to Jon
   Hermansen)
@@ -647,10 +662,14 @@ lixinchin)
 - Conditionally enable ERC notifications via =erc-enable-notifications= (thanks
   to Evan Klitzke)
 **** ESS
-- Fix issue with read-only REPL buffer (thanks to jackkamm)
+- Key bindings:
+  - Change ~SPC m s t~ to ~SPC m s f~ to respect convention (thanks to Yi Liu)
+  - Change ~SPC m s T~ to ~SPC m s F~ to respect convention (thanks to Yi Liu)
+- Fix issue with read-only REPL buffer (thanks to Jack Kamm)
 - Added ess layer variable =ess-disable-underscore-assign= (thanks to Jack Kamm)
 - Remove =ess-R-object-popup= from ess layer (thanks to Naylyn Gaffney)
-- Refactor keybindings for =ess-mode= and =ess-julia-mode= (thanks to Guido Kraemer and bmag)
+- Refactor keybindings for =ess-mode= and =ess-julia-mode= (thanks to Guido
+  Kraemer and bmag)
 - Add Julia repl to `spacemacs/ess-start-repl` (thanks to Guido Kraemer)
 **** Evil snipe
 - Must always explicitly enable =evil-snipe-mode= even when
@@ -679,13 +698,17 @@ is enabled
 - Install magit-svn by default and activate with git-enable-magit-svn-plugin
 - Key bindings:
   - ~SPC g c~ to clone a repository (thanks to Steven Allen)
-  - ~SPC g f f~ to view a file at a specific branch or commit (thanks to duianto)
+  - ~SPC g f f~ to view a file at a specific branch or commit (thanks to
+    duianto)
   - ~SPC g i~ to initialize a repository (thanks to Steven Allen)
   - ~SPC m g y~ to find symbols (thanks to Daniel Ralston)
-- Add feature to toggle =evil-magit= based on editing style (thanks to Muneeb Shaikh)
-- Add =use-package= for deferred loading of evil-magit (thanks to Sylvain Benner)
+- Add feature to toggle =evil-magit= based on editing style (thanks to Muneeb
+  Shaikh)
+- Add =use-package= for deferred loading of evil-magit (thanks to Sylvain
+  Benner)
 - Remove old evilification of magit buffers (thanks to Sylvain Benner)
-- Move evil-magit =use-package= hook declaration to pre-init (thanks to Sylvain Benner)
+- Move evil-magit =use-package= hook declaration to pre-init (thanks to Sylvain
+  Benner)
 **** Go
 - Improve go test output buffer behavior (thanks to Denis Bernard)
 - Configurable extra arguments to go test (thanks to Ian Clark)
@@ -701,8 +724,10 @@ is enabled
    Josh Santos)
 - Added =go-tag= (thanks to brantou)
 **** Groovy
-- Update =indent-variable-alist= to support new groovy-mode (thanks to Sylvain Benner)
-- Move groovy configuration to its own layer and improve it (thanks to Sylvain Benner)
+- Update =indent-variable-alist= to support new groovy-mode (thanks to Sylvain
+  Benner)
+- Move groovy configuration to its own layer and improve it (thanks to Sylvain
+  Benner)
 - Add Gradle support (thanks to Johnson Denen)
 - Improve maven and gradle support (thanks to Sylvain Benner)
 **** Gtags
@@ -741,6 +766,9 @@ is enabled
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Add =counsel-css= as an ivy alternative to =helm-css-scss= (thanks to Robbert
   van der Helm)
+- Fix autoloading bug involving =spacemacs/helm-find-files= (thanks to Jack Kamm)
+- Added impatient-mode under ~SPC m i~ (thanks to geo7)
+- XML files now open with web-mode by default (thanks to Jordan Gwyn)
 **** Hy
 - Add support for virtual envs (thanks to Danny Freeman)
 **** Idris
@@ -798,17 +826,18 @@ is enabled
 - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
 - Key bindings
   - Improve coffeescript support (thanks to Kalle Lindqvist)
-    - ~SPC m '~ to create or go to REPL                               
-    - ~SPC m c c~ to compile buffer                                     
+    - ~SPC m '~ to create or go to REPL
+    - ~SPC m c c~ to compile buffer
     - ~SPC m c r~ to compile region
-    - ~SPC m s b~ to send buffer to REPL                                
-    - ~SPC m s l~ to send line to REPL                                  
-    - ~SPC m s i~ to create or go to REPL                               
-    - ~SPC m s r~ to send current region to the REPL and stay in buffer 
+    - ~SPC m s b~ to send buffer to REPL
+    - ~SPC m s l~ to send line to REPL
+    - ~SPC m s i~ to create or go to REPL
+    - ~SPC m s r~ to send current region to the REPL and stay in buffer
     - ~SPC m T c~ to toggle compile on save
 - Move REPL live eval toggle to ~SPC m T l~ (thanks to Sylvain Benner)
 **** Keyboard layout
-- Add support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and Eivind Fonn)
+- Add support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and
+  Eivind Fonn)
 - Add new programmer dvorak layout that matches vim like key placement (thanks
   to Max Gonzih)
 - Add support for the Workman keyboard layout (thanks to warreq)
@@ -874,6 +903,7 @@ is enabled
 **** OCaml
 - Allow initialization without requiring =opam= (thanks to Bernhard Schommer)
 - Fix misused function, `merlin' is a package not a layer (thanks to jinyang)
+- Fix issue with OPAM share directory on Windows (thanks to Levi Roth)
 **** Org
 - Load org-mode email integration (mu4e/notmuch) when org is loaded (thanks to
   Steven Allen)
@@ -900,8 +930,8 @@ is enabled
     - add ~SPC m T l~ to toggle link display
   - Add org-agenda commands in org agenda transient state to un-schedule and
     un-deadline tasks (thanks to Jake Zerrer)
-    - add ~dS~ to unschedule org-agenda-schedule
-    - add ~dD~ to remove org-agenda-deadline 
+    - add ~d S~ to unschedule org-agenda-schedule
+    - add ~d D~ to remove org-agenda-deadline
   - Add ~M-RET~ for =org-meta-return= under major mode leader key (thanks to
     Sylvain Benner)
 - Make =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
@@ -951,7 +981,7 @@ is enabled
 - Enable =purescript-decl-scan-mode= when loading =purescript-mode= (thanks to
   Bjarke Vad Andersen)
 **** Python
-- Various fixes in =pylookup.py= (thanks to ishestakov)
+- Various fixes in =pylookup.py= (thanks to ishestakov and Shitikanth Kashyap)
 - Hide =yapf-mode= modeline lighter (thanks to Robert ven der Helm)
 - Search for Pylint and Flake8 in the virtualenvs (thanks Alexey Kotlyarov)
 - Highlight wdb breakpoints as well as pdb/ipdb/pudb (thanks to Alexey Kotlyarov)
@@ -1013,12 +1043,15 @@ is enabled
   - Add ~SPC m c l~ to run linter with cargo clippy (thanks to Michael Kohl)
   - Add ~SPC m c t~ to run the current test with Cargo, and fix documentation
     for ~SPC m c f~ to format project files (thanks to Luke Alexander Stein)
+  - Add ~SPC m c v~ to run "cargo check" command (thanks to Victor Polevoy)
 **** Scala
 - Move =ensime= to the =java= layer (Tor Hedin Bronner)
 - Key bindings:
   - Evilify =ensime= search in insert/normal mode (thanks to Diego Alvarez)
 - Remove duplicated code (thanks to Tetsuro Takemoto)
 - Add ENSIME jump handlers (thanks to Joao Azevedo)
+**** Semantic
+- Make it possible to exclude stickyfunc (thanks to Sylvain Benner)
 **** Shell
 - Fix xterm colors filtering bug in =eshell= when eshell buffers are updated
   and are not focused (thanks to Steven Allen)
@@ -1070,6 +1103,8 @@ is enabled
   - ~SPC e e~ is now for triggering a syntax check, the old action
     (explain error around point) has been moved to ~SPC e x~.
 - Rename function =add-flycheck-hook= to =enable-flycheck=
+- Use correct error list faces when defining error levels with custom bitmaps
+  (thanks to Alexander Miller)
 **** Swift
 - Update Swift REPL key bindings (thanks to Elliot Bulmer)
 **** Systemd
@@ -1140,11 +1175,13 @@ is enabled
   Nordlund, Maximilian Wolff, Mikhail Yakutovich, Muneeb Shaikh, Nasser
   Alshammari, Nasser Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Paul
   Milla, Paulo Schneider, Pawan Dubey, Paweł Siudak, Phil Pirozhkov, Piotr
-  Grzesik, Rafi Khan, Rand01ph, rakyi, Reverend Homer, Robby O'Connor, Sam Pablo
-  Kuper, Saulius Menkevičius, sduthil, Shane Kilkelly, Sid Kapur, Somelauw,
-  Soobin Rho, SteveJobzniak, Sunghyun Hwang, Swaroop C H, Sylvain Benner, Tim
-  Stewart, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski,
-  tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
+  Grzesik, Rafi Khan, Rand01ph, rakyi, Raymond Wanyoike, Reverend Homer, Robby
+  O'Connor, Sam Pablo Kuper, Saulius Menkevičius, sduthil, Shane Kilkelly, Sid
+  Kapur, Somelauw, Soobin Rho, SteveJobzniak, Sunghyun Hwang, Swaroop C H,
+  Sylvain Benner, Tim Stewart, TinySong, Titov Andrey, Thomas de Beauchêne,
+  Tomasz Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu,
+  zer09)
+
 *** Release notes summarized
   Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
   Masters
