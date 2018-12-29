@@ -35,6 +35,7 @@ a sane way, here is the complet list of changed key bindings:
   - ~SPC m i D~ download
   - ~SPC m s~ trees/subtrees
   - ~SPC m T~ toggles
+  - ~SPC m b~ org-babel commands
 - Changed key bindings:
   - ~SPC m A~ org-attach
   - ~SPC m C c~ org-clock-cancel
@@ -58,7 +59,7 @@ a sane way, here is the complet list of changed key bindings:
   - ~SPC m i p~ org-set-property
   - ~SPC m i s~ org-insert-subheading
   - ~SPC m i t~ org-set-tags
-  - ~SPC m s a~ org-archive-subtree
+  - ~SPC m s A~ org-archive-subtree
   - ~SPC m s b~ org-tree-to-indirect-buffer
   - ~SPC m s h~ org-promote-subtree
   - ~SPC m s j~ org-move-subtree-down
@@ -185,6 +186,8 @@ a sane way, here is the complet list of changed key bindings:
   - New variable =dotspacemacs-frame-title-format= which is the efault format
     string for a frame title bar, see docstring of function
     =spacemacs/frame-title-prepare= for more info (thanks to Uri Sharf and Kepi)
+  - New variable =dotspacemacs-initial-scratch-message= for the initial message
+    in the scratch buffer (thanks to Carl Lange)
 - Can use the univeral prefix argument to open both the =*scratch*= buffer and
   the =*Messages*= buffer in another window (thanks to Thomas de Beauchêne)
 *** Core changes
@@ -230,6 +233,8 @@ a sane way, here is the complet list of changed key bindings:
   Benner)
 - Handle backward argument better when cycling themes (thanks to bmag)
 - Remove wizard question about completion engine. (thanks to Sylvain Benner)
+- Conventions: add SPC m f for web frameworks (thanks to Sylvain Benner)
+- Fix base16-theme mapping for all themes (thanks to Philippos Boon Alexaki)
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
@@ -346,6 +351,25 @@ a sane way, here is the complet list of changed key bindings:
   - Fix switch to home buffer moves prev buffers cursor (thanks to duianto)
   - Correct undo-tree buffer name in =spacemacs-visual= (thanks to Winkey Wong)
   - Update renamed helm split window variable (thanks to duianto)
+  - Fix using eyebrowse without persp-mode (thanks to Steven Allen)
+  - Fix ~hjkl~ bindings in =image-mode= and add leader bindings (thanks to Kalle
+    Lindqvist)
+    - ~SPC m a a~ calls =image-toggle-animation=
+    - ~SPC m a +~ calls =image-increase-speed=
+    - ~SPC m a -~ calls =image-decrease-speed=
+    - ~SPC m a r~ calls =image-reset-speed=
+    - ~SPC m g n~ calls =image-next-file=
+    - ~SPC m g N~ calls =image-previous-file=
+    - ~SPC m t +~ calls =image-increase-size=
+    - ~SPC m t -~ calls =image-decrease-size=
+    - ~SPC m t f~ calls =image-mode-fit-frame=
+    - ~SPC m t r~ calls =image-transform-reset=
+    - ~SPC m t h~ calls =image-transform-fit-to-height=
+    - ~SPC m t w~ calls =image-transform-fit-to-width=
+    - ~SPC m t s~ calls =image-transform-set-scale=
+    - ~SPC m t r~ calls =image-transform-rotation=
+  - Fix misaligned evil-mc cursors on macOS and Windows (thanks to Benjamin
+    Reynolds)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -359,6 +383,12 @@ a sane way, here is the complet list of changed key bindings:
   - Clear both / and C-s search highlights with ~SPC s c~ and =:noh= (thanks to
     duianto)
   - Make it easy to configure =spacemacs-evil-cursors= (thanks to bmag)
+  - Make popwin handle google-translate buffers (thanks to Kalle Lindqvist)
+  - Use =counsel-projectile-switch-project-action= instead of
+    =projectile-switch-project-by-name=, to match the additional actions
+    available via =counsel-projectile-switch-project= (thanks to Tad Fisher)
+  - Use new custom actions mechanism from upstream =counsel-projectile= (thanks
+    to Muneeb Shaikh)
 - Enable =evil-search= search module in evil state.
 - Improve function =spacemacs/sort-lines-by-column= to work on rectangular/block
   selection and warn the user about its requirements (thanks to duianto)
@@ -406,6 +436,8 @@ a sane way, here is the complet list of changed key bindings:
 - Add =cmake-ide= (thanks to Alexander Dalshov)
 - Fixed a typo by moving one closing parenthesis (thanks to Richard Kim)
 - Add option to control cmake-ide package (thanks to Alexander Dalshov)
+- Fix =google-set-c-style= functions being added regardless of config (thanks to
+  Martin Øinæs Myrseth)
 **** Cfengine
 - Fix publish in README (thanks to Eugene Yaremenko)
 - Add =ob-cfengine3= (thanks to Nick Anderson)
@@ -618,6 +650,7 @@ is enabled
 - Add support for virtual envs (thanks to Danny Freeman)
 **** Idris
 - Update author email for Idris layer (thanks to Timothy Jones)
+- Enable =idris-simple-indent= (thanks to Xuan Bi)
 **** IPython Notebook
 - Add support for auto-completion with =company= (thanks to tutysara)
 - Key bindings:
@@ -639,6 +672,12 @@ is enabled
   Rich Alesi)
 - Set =ivy-use-selectable-prompt= to =t= (thanks to Boris Buliga)
 - Rename git dir variable to upstream changes (thanks to bmag)
+- Move =counsel-projectile= to spacemacs-layouts (thanks to Muneeb Shaikh)
+**** Imenu-list
+- Fix key bindings (thanks to bet4it):
+  - ~r~ inside imenu-list buffer to refresh
+  - ~SPC b i~ calls =imenu-list-smart-toggle= rather than
+    =imenu-list-minor-mode=
 **** Java
 - Add support for multiple backends. Supported backends are: =megahnada=,
   =eclim= and =ensime=. The default backend is =meghanada=.
@@ -674,6 +713,7 @@ is enabled
 - Add neo keyboard layout (thanks to benozol)
 - Add colemak-jkhl layout (thanks to fmdkdd)
 - Disambiguate the colemak-hnei and colemak-neio layouts (thanks to fmdkdd)
+- Improve support for workman keyboard layout (thanks to Benjamin Reynolds)
 **** LaTeX
 - New package =magic-latex-buffer= (thanks to benquebec)
 - New layer variable =latex-enable-magic= to enable =magic= symbols in latex
@@ -715,6 +755,16 @@ is enabled
     - add ~SPC m s~ to save message as draft
     - add ~SPC m f~ to attach file
 - Replace mu4e multiple accounts with contexts (thanks to Allen Li)
+- Refactor to use =spacemacs/add-to-hooks= (thanks to Sylvain Benner)
+- Helm-mu4e integration and key bindings (thanks to Sébastien Bariteau and
+  Sylvain Benner):
+  - ~SPC a M~ to start mu4e
+  - ~SPC m S~ or ~SPC m /~ to search emails (requires helm)
+  - ~SPC m C~ to search contacts (requires helm)
+- Better defaults, async and utility functions (thanks to Peter Hoeg)
+  - Adds binding =C-x m= to compose new message
+- Maildirs extension is now optional (thanks to JorisE)
+- Create email with attachments from dired (thanks to Oleg Pykhalov)
 **** Multiple Cursors
 - Disable Spacemacs paste transient state when pasting to avoid pasting issue
   when there are more than one cursor (thanks to braham-snyder)
@@ -725,6 +775,9 @@ is enabled
 **** NixOS
 - Enable Flycheck (thanks to William Casarin)
 - Defer loading (thanks to Benno Fünfstück)
+**** Nim
+- Add key binding ~SPC m h h~ to show symbol documentation (thanks to Valts
+  Liepiņš)
 **** Node
 - Use add-node-modules-path to automatically find local executables (thanks to jupl)
 - Disable add-node-modules-path by default (thanks to Eivind Fonn)
@@ -761,6 +814,33 @@ is enabled
     - add ~dD~ to remove org-agenda-deadline 
   - Add ~M-RET~ for =org-meta-return= under major mode leader key (thanks to
     Sylvain Benner)
+  - Add org-babel commands (thanks to timor):
+    - ~SPC m b p~ calls =org-babel-previous-src-block=
+    - ~SPC m b n~ calls =org-babel-next-src-block=
+    - ~SPC m b e~ calls =org-babel-execute-maybe=
+    - ~SPC m b o~ calls =org-babel-open-src-block-result=
+    - ~SPC m b v~ calls =org-babel-expand-src-block=
+    - ~SPC m b u~ calls =org-babel-goto-src-block-head=
+    - ~SPC m b g~ calls =org-babel-goto-named-src-block=
+    - ~SPC m b r~ calls =org-babel-goto-named-result=
+    - ~SPC m b b~ calls =org-babel-execute-buffer=
+    - ~SPC m b s~ calls =org-babel-execute-subtree=
+    - ~SPC m b d~ calls =org-babel-demarcate-block=
+    - ~SPC m b t~ calls =org-babel-tangle=
+    - ~SPC m b f~ calls =org-babel-tangle-file=
+    - ~SPC m b c~ calls =org-babel-check-src-block=
+    - ~SPC m b j~ calls =org-babel-insert-header-arg=
+    - ~SPC m b l~ calls =org-babel-load-in-session=
+    - ~SPC m b i~ calls =org-babel-lob-ingest=
+    - ~SPC m b I~ calls =org-babel-view-src-block-info=
+    - ~SPC m b z~ calls =org-babel-switch-to-session=
+    - ~SPC m b Z~ calls =org-babel-switch-to-session-with-code=
+    - ~SPC m b a~ calls =org-babel-sha1-hash=
+    - ~SPC m b x~ calls =org-babel-do-key-sequence-in-edit-buffer=
+    - ~SPC m b .~ transient state
+- Key binding changes for archiving (thanks to Ag Ibragimov):
+  - Add ~SPC m s a~ to toggle archive tag for subtree
+  - Add ~SPC m s A~ to archive subtree (previously ~SPC m s a~)
 - Make =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
 - Remove =mu4e= and =notmuch= from =org= (thanks to Sylvain Benner)
 - Use evil-org from MELPA (thanks to Eivind Fonn)
@@ -777,6 +857,9 @@ is enabled
 - Enable =org-src-tab-acts-natively= (thanks to Sylvain Benner)
 - Fix =org-default-notes-file= precedence (thanks to Troy Hinckley and bmag)
 - Add =ox-hugo= (thanks to Kaushal Modi)
+- Use org-mime provided by melpa (thanks to Amos Bird)
+- Restore =evil-org-additional-bindings= in insert mode (thanks to Maximilian
+  Wolff)
 **** Osx
 - Fix OSX mapping issue (thanks to Joey Liu)
 - New layer variables to define modifers behaviors in macOS:
@@ -836,6 +919,7 @@ is enabled
 - Improve =magic-mode-alist= regular expression to detect =react= files
   (thanks to Jan Zdráhal)
 - Use JSX header without breaking React (thanks to Jam Risser)
+- Make auto-completion triggers more friendly (thanks to Cheng,Rong)
 **** Ruby
 - Add support for =org-babel= (thanks to Muneeb Shaikh)
 - Highlight debugger keywords (thanks to Alexander Berezovsky and Eivind Fonn)
@@ -845,6 +929,8 @@ is enabled
     - Add ~SPC m r R v~ to extract local variable.
     - Add ~SPC m r R c~ to extract constant.
     - Add ~SPC m r R l~ to extract to =let=.
+- Add ~SPC m x h~ to toggle between old and new hash syntax in the active region
+  (thanks to Paweł Siudak)
 **** Rust
 - Key bindings:
   - Add ~SPC m c D~ to open Cargo docs (thanks to Matthew J. Berger)
@@ -899,6 +985,8 @@ is enabled
 - Change blacklist to only accept list (thanks to Eivind Fonn)
 - Adds dumb autocomplete (thanks to Codruț Constantin Gușoi)
 - Add leader key prefixes (thanks to Jeremie Pelletier)
+- Rebuild =spacemacs-sql-startable= after running =sql-add-product= (thanks to
+  Andrew Christianson)
 **** Syntax-checking
 - Key bindings:
   - ~SPC e e~ is now for triggering a syntax check, the old action
@@ -941,6 +1029,7 @@ is enabled
 **** Vagrant
 - Key bindings:
   - move key bindings prefix to ~SPC a V~ (thanks to Thomas de Beauchêne)
+  - Move =vagrant-tramp-term= to ~SPC a V t~ (thanks to rakyi)
 **** Version-control
 - Un-evilify =diff-mode= (thanks to Steven Allen)
 - New packages:
@@ -959,25 +1048,25 @@ is enabled
 - Various code style improvements (thanks to bmag, duianto, Eivind Fonn, Eugene
   Yaremenko, Sylvain Benner)
 - Multiple unit test improvements (thanks to Sylvain Benner)
-- Various documentation improvements (thanks Aaron Jensen, Aaron Peckham,
-  Alexander Iljin, Alexander Kjeldaas, Anton Latukha, Anurag Sharma, Archenoth,
-  Benjamin Reynolds, bmag, Boris Buliga, Boris Wong, Carl Lange, Chase Adams,
-  CL123123, Codruț Constantin Gușoi, Darkhan, David Florness, David Vo,
-  davidpham87, Dela Anthonio, Diego Alvarez, Diego Berrocal, Dietrich Daroch,
-  Dinesh Bhosale, Dominik Schrempf, Doug Beardsley, dubnde, duianto, eldios,
-  Eugene Yaremenko, Evan Klitzke, Evan Niessen-Derry, firemiles, Fuqiao Xue,
-  Garrett Johnson, Henry Marshall, Ivan Kryvoruchko, J. Patrick Lanigan, Jesse
-  Cooke, Jim Deville, Jody Frankowski, Joe Hillenbrand, John Wood, Jon Tippens,
-  Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood, Joshua
-  Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant, Kristoffer Haugsbakk, Leo
-  Joseph Buchignani III, Max Beutelspacher, Max Nordlund, Maximilian Wolff,
-  Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser Alshammari, Niko
-  Felger, Nikolai Myllymäki, nikolaiam, Paul Milla, Paulo Schneider, Pawan
-  Dubey, Paweł Siudak, Phil Pirozhkov, Rafi Khan, Rand01ph, rakyi, Reverend
-  Homer, Robby O'Connor, Sam Pablo Kuper, Saulius Menkevičius, sduthil, Shane
-  Kilkelly, Sid Kapur, Somelauw, Soobin Rho, SteveJobzniak, Swaroop C H,
-  TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski, tzhao11,
-  Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
+- Various documentation improvements (thanks Aaron Jensen, Aaron Peckham, Adam
+  Kruszewski, Alexander Iljin, Alexander Kjeldaas, Anton Latukha, Anurag Sharma,
+  Archenoth, Benjamin Reynolds, bmag, Boris Buliga, Boris Wong, Carl Lange,
+  Chase Adams, CL123123, Codruț Constantin Gușoi, Darkhan, David Florness, David
+  Vo, davidpham87, Dela Anthonio, Diego Alvarez, Diego Berrocal, Dietrich
+  Daroch, Dinesh Bhosale, Dominik Schrempf, Doug Beardsley, dubnde, duianto,
+  eldios, Eugene Yaremenko, Evan Klitzke, Evan Niessen-Derry, firemiles, Fuqiao
+  Xue, Garrett Johnson, Henry Marshall, Ivan Kryvoruchko, J. Patrick Lanigan,
+  Jesse Cooke, Jim Deville, Jody Frankowski, Joe Hillenbrand, John Wood, Jon
+  Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood,
+  Joshua Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant, Kristoffer
+  Haugsbakk, Leo Joseph Buchignani III, Max Beutelspacher, Max Nordlund,
+  Maximilian Wolff, Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser
+  Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Paul Milla, Paulo
+  Schneider, Pawan Dubey, Paweł Siudak, Phil Pirozhkov, Rafi Khan, Rand01ph,
+  rakyi, Reverend Homer, Robby O'Connor, Sam Pablo Kuper, Saulius Menkevičius,
+  sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho, SteveJobzniak,
+  Swaroop C H, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski,
+  tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
 
 *** Release notes summarized
   Thank to: Songpeng Zu
