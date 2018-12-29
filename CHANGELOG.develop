@@ -139,7 +139,7 @@ a sane way, here is the complet list of changed key bindings:
   =auto-completion= layer.
 *** New layers
 **** Email
-- notmuch (thanks to Francesc Elies Henar)
+- notmuch (thanks to Francesc Elies Henar and Willian Casarin)
 **** Fonts
 - unicode-fonts (thanks to Aaron Jensen)
 **** Languages
@@ -258,6 +258,8 @@ a sane way, here is the complet list of changed key bindings:
   - Move ~SPC t C p~ to ~SPC t h p~ for =highlight-parentheses-mode= (thanks to
     Thomas de Beauchêne)
   - Overhaul the scroll transient state on ~SPC N~ prefix (thanks to Somelauw)
+  - New key binding ~SPC b H~ to open or select the =*Help*= buffer
+    (thanks to duianto)
   - New ~SPC b N~ prefix to create an empty buffer (thanks to duianto):
     - ~SPC b N h~ create new empty buffer in a new window on the left
     - ~SPC b N j~ create new empty buffer in a new window at the bottom
@@ -346,6 +348,7 @@ a sane way, here is the complet list of changed key bindings:
   - Fix switch to home buffer moves prev buffers cursor (thanks to duianto)
   - Correct undo-tree buffer name in =spacemacs-visual= (thanks to Winkey Wong)
   - Update renamed helm split window variable (thanks to duianto)
+  - Fix handling of Windows paths of package archives (thanks to Igor Avdeev)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -380,6 +383,12 @@ a sane way, here is the complet list of changed key bindings:
 - Disable popwin-mode at startup (thanks to bmag)
 - Change default value of =dotspacemacs-elpa-subdirectory= (thanks to Sylvain Benner)
 - Add =helm= to spacemacs default distribution (thanks to Sylvain Benner)
+- Set =which-key-idle-secondary-delay= to 0.01 to make which-key update more
+  promptly after each key-press following the initial key-press in a sequence
+  (thanks to oisincar)
+- Reset initial useful and useless buffers regexp lists to empty lists
+  (thanks to Sylvain Benner)
+- Updated Quelpa library (thanks to Sylvain Benner)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -391,6 +400,11 @@ a sane way, here is the complet list of changed key bindings:
 - Check if =dotspacemacs-directory-snippets-dir= exists before adding it (thanks
   to Wojciech Wojtyniak)
 - Fix check for =dotspacemacs-directory-snippets-dir= (thanks to Sylvain Benner)
+- Added =autocomplete-idle-delay= layer variable, which Spacemacs uses to set
+  =company-idle-delay= or =ac-delay= (thanks to Benjamin Hipple)
+- Key bindings
+  - Removed ~C-f~ because it interfered with the default key binding for
+    =forward-char= (thanks to scturtle and duianto)
 **** Auto-Layer
 - Prompt user to install react-mode if a .jsx file is opened (thanks to Jon
   Hermansen)
@@ -404,8 +418,9 @@ a sane way, here is the complet list of changed key bindings:
 - Update package name due to upstream renaming (thanks to James Wang)
 - Refactor to reduce duplication (thanks to Dela Anthonio)
 - Add =cmake-ide= (thanks to Alexander Dalshov)
-- Fixed a typo by moving one closing parenthesis (thanks to Richard Kim)
-- Add option to control cmake-ide package (thanks to Alexander Dalshov)
+- Add option to control cmake-ide package (thanks to Alexander Dalshov
+  and Richard Kim)
+- Add option to use google-c-style (thanks to Evan Klitzke and Richard Kim)
 **** Cfengine
 - Fix publish in README (thanks to Eugene Yaremenko)
 - Add =ob-cfengine3= (thanks to Nick Anderson)
@@ -461,6 +476,8 @@ a sane way, here is the complet list of changed key bindings:
   to Saulius Menkevičius)
 - Disabled functions not present in the latest omnisharp package (thanks to
   Saulius Menkevičius)
+- New key binding =SPC m g e= for =omnisharp-solution-errors= (thanks to Saulius
+  Menkevičius)
 **** D
 - Fix d-mode flycheck imports on dub projects (thanks to Dietrich Daroch)
 **** Dash
@@ -476,6 +493,8 @@ a sane way, here is the complet list of changed key bindings:
 - Added names to django mode prefixes (thanks to Boris Verhovsky)
 **** Docker
 - Kill buffer shall return to *docker-containers* (thanks to Francesc Elies
+- Key bindings:
+  - Moved key bindings prefix from ~SPC D~ to ~SPC a D~ (thanks to Ag Ibragimov)
   Henar)
 **** Elfeed
 - Fix selection bindings in visual state (thanks to Jeremy Symon)
@@ -558,6 +577,8 @@ is enabled
 - Key bindings:
   - Add ~g r~ evilified binding to gist-list-mode (thanks to Jean-Sebastien A.
     Beaudry)
+  - Fix ~#~ key binding in =magit-status= for the =magit-gh-pulls= dispatch
+    popup (thanks to Diego Berrocal)
 - Replace =evilified-state-evilify= by =evilified-state-evilify-map= (thanks to
   Sylvain Benner)
 **** Git
@@ -593,10 +614,11 @@ is enabled
 - Implements diminish and toggle (thanks to Dominik Schrempf)
 - Add ivy support to the gtags layers (thanks to Robbert van der Helm)
 **** Haskell
-- Disable electric indent for cabal-mode (thanks to Benno Fünfstück)(thanks to
-  Benno Fünfstück)
+- Disable electric indent for cabal-mode (thanks to Benno Fünfstück)
 - Add dante support to haskell layer (thanks to Kyle McKean)
 - Fix: =company-dante= -> =dante-company= (thanks to Leon Isenberg)
+- Rename =haskell-enable-hindent-style= to =haskell-enable-hindent= and make it
+  a Boolean option in accordance with upstream changes (thanks to PierreR)
 **** Helm
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
 - Key bindinds for directory search (thanks to Tim Jäger and Eivind Fonn):
@@ -612,6 +634,10 @@ is enabled
   - ~SPC s t D for =spacemacs/helm-dir-do-pt-region-or-symbol=
 - Don't change =helm-bookmarks= keys to early when helm-mode is enabled (thanks
   to bmag)
+- Change the default actions for =helm-find-files=, =helm-buffers-list=, and
+  other file- or buffer-related Helm interfaces to handle multiple marked
+  candidates by distributing buffers over existing windows until the action has
+  either assigned all buffers or run out of windows (thanks to Nir Friedman)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 **** Hy
@@ -725,6 +751,8 @@ is enabled
 **** NixOS
 - Enable Flycheck (thanks to William Casarin)
 - Defer loading (thanks to Benno Fünfstück)
+- Disable Electric-Indent mode, which interfered with the nix-mode indent
+  function (thanks to Profpatsch)
 **** Node
 - Use add-node-modules-path to automatically find local executables (thanks to jupl)
 - Disable add-node-modules-path by default (thanks to Eivind Fonn)
@@ -849,6 +877,8 @@ is enabled
 - Key bindings:
   - Add ~SPC m c D~ to open Cargo docs (thanks to Matthew J. Berger)
   - Add ~SPC m c l~ to run linter with cargo clippy (thanks to Michael Kohl)
+  - Add ~SPC m c t~ to run the current test with Cargo, and fix documentation
+    for ~SPC m c f~ to format project files (thanks to Luke Alexander Stein)
 **** Scala
 - Move =ensime= to the =java= layer (Tor Hedin Bronner)
 - Key bindings:
@@ -894,6 +924,8 @@ is enabled
 - Install orgit only when org package is used (thanks to Boris Buliga)
 - Defer git-gutter loading (thanks to Aaron Jensen)
 - Remove redundant arg from git-gutter timer (thanks to bmag)
+**** Spotify
+- Replaced helm-spotify package with helm-spotify-plus (thanks to Leonard Lausen)
 **** SQL
 - Support for keywords auto capitalization (thanks to Kepi)
 - Change blacklist to only accept list (thanks to Eivind Fonn)
@@ -962,22 +994,23 @@ is enabled
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham,
   Alexander Iljin, Alexander Kjeldaas, Anton Latukha, Anurag Sharma, Archenoth,
   Benjamin Reynolds, bmag, Boris Buliga, Boris Wong, Carl Lange, Chase Adams,
-  CL123123, Codruț Constantin Gușoi, Darkhan, David Florness, David Vo,
-  davidpham87, Dela Anthonio, Diego Alvarez, Diego Berrocal, Dietrich Daroch,
-  Dinesh Bhosale, Dominik Schrempf, Doug Beardsley, dubnde, duianto, eldios,
-  Eugene Yaremenko, Evan Klitzke, Evan Niessen-Derry, firemiles, Fuqiao Xue,
-  Garrett Johnson, Henry Marshall, Ivan Kryvoruchko, J. Patrick Lanigan, Jesse
-  Cooke, Jim Deville, Jody Frankowski, Joe Hillenbrand, John Wood, Jon Tippens,
-  Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood, Joshua
-  Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant, Kristoffer Haugsbakk, Leo
-  Joseph Buchignani III, Max Beutelspacher, Max Nordlund, Maximilian Wolff,
-  Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser Alshammari, Niko
-  Felger, Nikolai Myllymäki, nikolaiam, Paul Milla, Paulo Schneider, Pawan
-  Dubey, Paweł Siudak, Phil Pirozhkov, Rafi Khan, Rand01ph, rakyi, Reverend
-  Homer, Robby O'Connor, Sam Pablo Kuper, Saulius Menkevičius, sduthil, Shane
-  Kilkelly, Sid Kapur, Somelauw, Soobin Rho, SteveJobzniak, Swaroop C H,
-  TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski, tzhao11,
-  Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
+  CL123123, Codruț Constantin Gușoi, Daniel Hodson, Darkhan, David Florness,
+  David Vo, davidpham87, Dela Anthonio, Diego Alvarez, Diego Berrocal, Dietrich
+  Daroch, Dinesh Bhosale, Dominik Schrempf, Doug Beardsley, dubnde, duianto,
+  eldios, Eugene Yaremenko, Evan Klitzke, Evan Niessen-Derry, firemiles, Fuqiao
+  Xue, Garrett Johnson, Henry Marshall, Ivan Kryvoruchko, J. Patrick Lanigan,
+  Jesse Cooke, Jim Deville, Jody Frankowski, Joe Hillenbrand, John Wood, Jon
+  Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood,
+  Joshua Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant, Kristoffer
+  Haugsbakk, Leo Joseph Buchignani III, Max Beutelspacher, Max Nordlund,
+  Maximilian Wolff, Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser
+  Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Paul Milla, Paulo
+  Schneider, Pawan Dubey, Paweł Siudak, Phil Pirozhkov, Piotr Grzesik, Rafi
+  Khan, Rand01ph, rakyi, Reverend Homer, Robby O'Connor, Sam Pablo Kuper,
+  Saulius Menkevičius, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho,
+  SteveJobzniak, Swaroop C H, TinySong, Titov Andrey, Thomas de Beauchêne,
+  Tomasz Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu,
+  zer09)
 
 *** Release notes summarized
-  Thank to: Songpeng Zu
+  Thanks to: Songpeng Zu, Miciah Dashiel Butler Masters
