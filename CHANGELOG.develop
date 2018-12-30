@@ -25,21 +25,24 @@ This file containes the change log for the next major version of Spacemacs.
   (thanks to Sylvain Benner)
 **** ESS
 ESS key bindings were re-organised in the following list (thanks to Guido
-Kraemer, Yi Liu):
+Kraemer, Yi Liu, and Jack Kamm):
   - ~SPC m ,~ for =ess-eval-region-or-function-or-paragraph-and-step=
+  - ~SPC m s i~ for =spacemacs/ess-start-repl=
   - ~SPC m s s~ for =ess-switch-to-inferior-or-script-buffer=
   - ~SPC m s S~ for =ess-switch-process=
-  - ~SPC m s b~ for =ess-eval-buffer-and-go=
-  - ~SPC m e b~ for =ess-eval-buffer=
+  - ~SPC m s B~ for =ess-eval-buffer-and-go=
+  - ~SPC m s b~ for =ess-eval-buffer=
   - ~SPC m s d~ for =ess-eval-region-or-line-and-step=
   - ~SPC m s D~ for =ess-eval-function-or-paragraph-and-step=
-  - ~SPC m s l~ for =ess-eval-line-and-go=
-  - ~SPC m e l~ for =ess-eval-line=
-  - ~SPC m s r~ for =ess-eval-region-and-go=
-  - ~SPC m e r~ for =ess-eval-region=
-  - ~SPC m s f~ for =ess-eval-function-and-go=
-  - ~SPC m e f~ for =ess-eval-function=
-  - ~SPC m h~ for =ess-doc-map=
+  - ~SPC m s L~ for =ess-eval-line-and-go=
+  - ~SPC m s l~ for =ess-eval-line=
+  - ~SPC m s R~ for =ess-eval-region-and-go=
+  - ~SPC m s r~ for =ess-eval-region=
+  - ~SPC m s F~ for =ess-eval-function-and-go=
+  - ~SPC m s f~ for =ess-eval-function=
+  - ~SPC m h h~ for =ess-display-help-on-object=
+  - ~SPC m h p~ for =ess-R-dv-pprint=
+  - ~SPC m h t~ for =ess-R-dv-ctable=
   - ~SPC m r~ for =ess-extra-map=
   - ~SPC m w~ for =ess-r-package-dev-map=
   - ~SPC m d~ for =ess-dev-map=
@@ -107,6 +110,7 @@ a sane way, here is the complet list of changed key bindings:
   - ~SPC m i p~ org-agenda-set-property
   - ~SPC m i t~ org-agenda-set-tags
   - ~SPC m s r~ org-agenda-refile
+- Removed ~C-h~ binding in =org-agenda-mode= (thanks to Ag Ibragimov)
 - Rebind =org-agenda-refile= to ~r~ in transient state (thanks to Muneeb Shaikh)
 **** Python
 - Key bindings (thanks to Danny Freeman):
@@ -168,6 +172,7 @@ a sane way, here is the complet list of changed key bindings:
 - unicode-fonts (thanks to Aaron Jensen)
 **** Languages
 - coq
+- cmake (Thanks to Alexander Dalshov)
 - forth (thanks to Tim Jaeger)
 - gpu (thanks to Evan Klitzke)
 - groovy (thanks to Sylvain Benner)
@@ -278,6 +283,8 @@ a sane way, here is the complet list of changed key bindings:
   warning (thanks to Miciah Dashiel Butler Masters)
 - Escape left and right bracket character literals to avoid warning (thanks to
   Miciah Dashiel Butler Masters)
+- Disable spaceline responsiveness for all-the-icons theme (thanks to Sylvain Benner)
+- Shorten tags in the new exporter (thanks to Eugene Yaremenko)
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
@@ -360,10 +367,10 @@ a sane way, here is the complet list of changed key bindings:
     - Add ~<right>~ for next-buffer
     - Add ~<left>~ for previous-buffer
     - Add ~o~ for other window
-    - Add ~C-d~ for burry  buffer 
+    - Add ~C-d~ for burry  buffer
     - Add ~b~ for helm-buffer-list
   - Update themes transient state (thanks to duianto)
-    - ~t~ or ~<up>~ to open helm-themes to select an installed theme  
+    - ~t~ or ~<up>~ to open helm-themes to select an installed theme
   - Add functionality to move layouts in layout list using the layouts transient
     state (thanks to Linus Marton)
     - Add ~<~ for =spacemacs/move-current-persp-left=
@@ -448,6 +455,13 @@ a sane way, here is the complet list of changed key bindings:
 - Reset initial useful and useless buffers regexp lists to empty lists
   (thanks to Sylvain Benner)
 - Updated Quelpa library (thanks to Sylvain Benner)
+- Switch to HTTPS for org packages repo (thanks to Sylvain Benner)
+- Add the following local packages: (thanks to Sylvain Benner)
+  - =info+=
+  - =hide-comnt=
+  - =help-fns+=
+- Add the package =font-lock+= as a EmacsMirror dependency (thanks to Sylvain
+  Benner)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -481,9 +495,7 @@ a sane way, here is the complet list of changed key bindings:
 - Declare "mg" prefix as "goto" (thanks to Dela Anthonio)
 - Update package name due to upstream renaming (thanks to James Wang)
 - Refactor to reduce duplication (thanks to Dela Anthonio)
-- Add =cmake-ide= (thanks to Alexander Dalshov)
 - Fixed a typo by moving one closing parenthesis (thanks to Richard Kim)
-- Add option to control cmake-ide package (thanks to Alexander Dalshov)
 - Improve header include auto-completion (thanks to Fredrik Bergstrand)
 - Fix clang format on save (thanks to Dela Anthonio and Silver Chan)
 - Support =rtags=, available under ~SPC m g~ prefix (thanks to Alexander
@@ -491,9 +503,9 @@ a sane way, here is the complet list of changed key bindings:
 - Key bindings:
   - ~SPC m = =~ clang-format current region or buffer (thanks to Dela Anthonio)
   - ~SPC m = f~ clang-format current function (thanks to Dela Anthonio)
-- Add option to control cmake-ide package (thanks to Alexander Dalshov
-  and Richard Kim)
 - Add option to use google-c-style (thanks to Evan Klitzke and Richard Kim)
+- Moved cmake-ide and cmake script support to separate =cmake= layer (thanks to
+  Alexander Dalshov)
 **** Cfengine
 - Fix publish in README (thanks to Eugene Yaremenko)
 - Add =ob-cfengine3= (thanks to Nick Anderson)
@@ -633,6 +645,7 @@ a sane way, here is the complet list of changed key bindings:
 - Remove =ess-R-object-popup= from ess layer (thanks to Naylyn Gaffney)
 - Refactor keybindings for =ess-mode= and =ess-julia-mode= (thanks to Guido Kraemer and bmag)
 - Add Julia repl to `spacemacs/ess-start-repl` (thanks to Guido Kraemer)
+- Reorganize key bindings ( refer to =ESS= section in Breaking Changes above )
 **** Evil snipe
 - Must always explicitly enable =evil-snipe-mode= even when
   =evil-snipe-override-mode= (thanks to Sylvain Benner)
@@ -714,6 +727,7 @@ is enabled
   other file- or buffer-related Helm interfaces to handle multiple marked
   candidates by distributing buffers over existing windows until the action has
   either assigned all buffers or run out of windows (thanks to Nir Friedman)
+- Fix signature of =spacemacs//display-helm-window= (thanks to Jack Kamm)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Add =counsel-css= as an ivy alternative to =helm-css-scss= (thanks to Robbert
@@ -754,6 +768,7 @@ is enabled
 - Rotate ivy re builders rather than toggle (thanks to Tomasz Kołodziejski)
 - Follow upstream ivy/counsel and remove use of variable =counsel--git-dir=
   (thanks to Chirantan Ekbote)
+- Fix creation of layouts with ivy (thanks to Muneeb Shaikh)
 **** Java
 - Add support for multiple backends. Supported backends are: =megahnada=,
   =eclim= and =ensime=. The default backend is =meghanada=.
@@ -773,13 +788,13 @@ is enabled
 - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
 - Key bindings
   - Improve coffeescript support (thanks to Kalle Lindqvist)
-    - ~SPC m '~ to create or go to REPL                               
-    - ~SPC m c c~ to compile buffer                                     
+    - ~SPC m '~ to create or go to REPL
+    - ~SPC m c c~ to compile buffer
     - ~SPC m c r~ to compile region
-    - ~SPC m s b~ to send buffer to REPL                                
-    - ~SPC m s l~ to send line to REPL                                  
-    - ~SPC m s i~ to create or go to REPL                               
-    - ~SPC m s r~ to send current region to the REPL and stay in buffer 
+    - ~SPC m s b~ to send buffer to REPL
+    - ~SPC m s l~ to send line to REPL
+    - ~SPC m s i~ to create or go to REPL
+    - ~SPC m s r~ to send current region to the REPL and stay in buffer
     - ~SPC m T c~ to toggle compile on save
 - Move REPL live eval toggle to ~SPC m T l~ (thanks to Sylvain Benner)
 **** Keyboard layout
@@ -831,6 +846,7 @@ is enabled
     - add ~SPC m s~ to save message as draft
     - add ~SPC m f~ to attach file
 - Replace mu4e multiple accounts with contexts (thanks to Allen Li)
+- Refactor major-mode ledaer key bindings (thanks to Miciah Masters)
 **** Multiple Cursors
 - Disable Spacemacs paste transient state when pasting to avoid pasting issue
   when there are more than one cursor (thanks to braham-snyder)
@@ -848,7 +864,8 @@ is enabled
 - Disable add-node-modules-path by default (thanks to Eivind Fonn)
 **** OCaml
 - Allow initialization without requiring =opam= (thanks to Bernhard Schommer)
-- Fix misused function, `merlin' is a package not a layer (thanks to jinyang)
+- Fix misused functions, `merlin' is a package not a layer (thanks to jinyang and
+  Rudi Grinberg)
 **** Org
 - Load org-mode email integration (mu4e/notmuch) when org is loaded (thanks to
   Steven Allen)
@@ -876,7 +893,7 @@ is enabled
   - Add org-agenda commands in org agenda transient state to un-schedule and
     un-deadline tasks (thanks to Jake Zerrer)
     - add ~dS~ to unschedule org-agenda-schedule
-    - add ~dD~ to remove org-agenda-deadline 
+    - add ~dD~ to remove org-agenda-deadline
   - Add ~M-RET~ for =org-meta-return= under major mode leader key (thanks to
     Sylvain Benner)
 - Make =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
@@ -900,6 +917,7 @@ is enabled
 - Use counsel-org-tag when ivy layer is used (thanks to darkfeline)
 - Delete the duplicate definition of the =spacemacs|org-emphasize= macro (thanks
   to Miciah Dashiel Butler Masters)
+- Fix initialization order to prevent version conflicts (thanks to Sylvain Benner)
 **** Osx
 - Fix OSX mapping issue (thanks to Joey Liu)
 - New layer variables to define modifers behaviors in macOS:
@@ -980,6 +998,7 @@ is enabled
     - Add ~SPC m r R v~ to extract local variable.
     - Add ~SPC m r R c~ to extract constant.
     - Add ~SPC m r R l~ to extract to =let=.
+- Add gtags to =enh-ruby-mode= as well as =ruby-mode= (thanks to David Balatero)
 **** Rust
 - Key bindings:
   - Add ~SPC m c D~ to open Cargo docs (thanks to Matthew J. Berger)
@@ -1081,7 +1100,31 @@ is enabled
 - Key bindings:
   - move key bindings prefix to ~SPC a V~ (thanks to Thomas de Beauchêne)
 **** Version-control
-- Un-evilify =diff-mode= (thanks to Steven Allen)
+- Key bindings:
+  - Un-evilify =diff-mode= (thanks to Steven Allen)
+  - Evilify the following modes: refer to =layers/+source-control/version-control/README.org=
+    for details (thanks to dvzubarev)
+    - =log-view-mode=
+    - =vc-dir-mode=
+    - =vc-svn-log-view-mode=
+    - =vc-git-log-view-mode=
+    - =vc-hg-log-view-mode=
+    - =vc-annotate-mode=
+  - Add a new version-control prefix under ~SPC g v~ with the following
+    bindings: (thanks to dvzubarev)
+    - ~SPC g v =~ to open a hunk under the point in the diff buffer
+    - ~SPC g v D~ to compare the entire working tree with head
+    - ~SPC g v e~ to show diff against current head using ediff
+    - ~SPC g v g~ to visually annotate the current file
+    - ~SPC g v d~ to open the VC Directory buffer
+    - ~SPC g v +~ to update the working copy
+    - ~SPC g v i~ to register (add) into a version control system
+    - ~SPC g v u~ to revert working copy to their repository contents
+    - ~SPC g v l~ to list the change log
+    - ~SPC g v L~ to list the change log for the current VC controlled tree
+    - ~SPC g v v~ to do the next logical VC operation (=vc-next-action=)
+    - ~SPC g v I~ to ignore file (=vc-ignore=)
+    - ~SPC g v r~ to  resolve conflicts in file
 - New packages:
   - =browse-at-remote= which replaces =github-browse-file=
    (thanks Eugene Yaremenko)
@@ -1098,6 +1141,7 @@ is enabled
 - Various code style improvements (thanks to bmag, duianto, Eivind Fonn, Eugene
   Yaremenko, Sylvain Benner)
 - Multiple unit test improvements (thanks to Sylvain Benner)
+- Various regression fixes (thanks to Bruno Tavares)
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham,
   Alexander Iljin, Alexander Kjeldaas, Alexandros Kotzias, Anton Latukha, Anurag
   Sharma, Archenoth, Benjamin Reynolds, bmag, Boris Buliga, Boris Wong, Carl
@@ -1117,7 +1161,11 @@ is enabled
   Kuper, Saulius Menkevičius, sduthil, Shane Kilkelly, Sid Kapur, Somelauw,
   Soobin Rho, SteveJobzniak, Sunghyun Hwang, Swaroop C H, Tim Stewart, TinySong,
   Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski, tzhao11, Vladimir
-  Kochnev, Wieland Hoffmann, Yi Liu, zer09)
+  Kochnev, Wieland Hoffmann, Yi Liu, zer09,
+# Add additional names as comma separated lines for easier merging/diffing
+Daniel Le,
+timor,
+)
 
 *** Release notes summarized
   Thanks to: Songpeng Zu, Igor Almeida, Miciah Dashiel Butler Masters
