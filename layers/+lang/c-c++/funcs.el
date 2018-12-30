@@ -160,9 +160,9 @@ and the arguments for flyckeck-clang based on a project-specific text file."
            rtags-last-request-not-indexed)
       (gtags-find-tag)))
 
-(defun spacemacs/c-c++-tags-find-refs-at-point (&optional prefix)
+(defun spacemacs/c-c++-tags-find-references-at-point (&optional prefix)
   (interactive "P")
-  (if (and (not (rtags-find-refs-at-point prefix))
+  (if (and (not (rtags-find-references-at-point prefix))
            rtags-last-request-not-indexed)
       (gtags-find-rtag)))
 
