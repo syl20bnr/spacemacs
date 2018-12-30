@@ -395,6 +395,7 @@ bring up. But if you are experiencing problems with it, then you can help
 Available options are:
 - ghci
 - cabal-repl
+- cabal-new-repl
 - cabal-dev
 - cabal-ghci
 - stack-ghci
