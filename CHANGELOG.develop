@@ -922,7 +922,7 @@ Benner and Paweł Siudak):
 - Fix issue with =c++-enable-clang-format-on-save= not taking effect when set
   (thanks to Silver Chan)
 - Added lsp support using either cquery or ccls backends (thanks to Cormac
-  Cannon and Fangrui Song)
+  Cannon, Sergey Litovchuk and Fangrui Song)
 **** Cfengine
 - Fix publish in README (thanks to Eugene Yaremenko)
 - Add =ob-cfengine3= (thanks to Nick Anderson)
