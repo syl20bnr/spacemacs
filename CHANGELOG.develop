@@ -51,8 +51,9 @@ Kraemer, Yi Liu):
 - Key bindings:
   - Change prefix from "ai" to "ay" (thanks to Swaroop C H)
 **** Org
-Org key bindings were all over the place and we needed to reorganize them in
-a sane way, here is the complet list of changed key bindings:
+Org key bindings were all over the place and we needed to reorganize them in a
+sane way, here is the complete list of changed key bindings (thanks to Sylvain
+Benner and Paweł Siudak):
 - New prefixes:
   - ~SPC C~ clocks
   - ~SPC d~ dates
@@ -168,6 +169,7 @@ a sane way, here is the complet list of changed key bindings:
 - unicode-fonts (thanks to Aaron Jensen)
 **** Languages
 - coq
+- factor (thanks to timor)
 - forth (thanks to Tim Jaeger)
 - gpu (thanks to Evan Klitzke)
 - groovy (thanks to Sylvain Benner)
@@ -185,11 +187,13 @@ a sane way, here is the complet list of changed key bindings:
 - treemacs (thanks to Alexander Miller)
 **** Tools
 - bm (thanks to Eugene Yaremenko)
+- lsp (thanks to Fangrui Song, 0bl.blwl, and Sylvain Benner)
 - node (thanks to jupl)
 - pass (thanks to Andrew Oppenlander and Kepi)
 - sphinx (thanks to Wei-Wei Guo)
 - transmission (thanks to Eugene Yaremenko)
 **** Others
+- japanese (thanks to Kenji Miyazaki)
 - multiple-cursors (thanks to Codruț Constantin Gușoi)
 - parinfer (thanks to Tianshu Shi)
 - spacemacs-purpose (thanks to bmag)
@@ -211,6 +215,7 @@ a sane way, here is the complet list of changed key bindings:
     string for a frame title bar, see docstring of function
     =spacemacs/frame-title-prepare= for more info (thanks to Uri Sharf and Kepi)
   - New variable =dotspacemacs-use-spacelpa= (thanks to Sylvain Benner)
+  - New variable =dotspacemacs-enable-server= (thanks to Tad Fisher)
 - Can use the univeral prefix argument to open both the =*scratch*= buffer and
   the =*Messages*= buffer in another window (thanks to Thomas de Beauchêne)
 *** Core changes
@@ -278,6 +283,8 @@ a sane way, here is the complet list of changed key bindings:
   warning (thanks to Miciah Dashiel Butler Masters)
 - Escape left and right bracket character literals to avoid warning (thanks to
   Miciah Dashiel Butler Masters)
+- Fixed package initialization on Emacs 27 (thanks to Miciah Dashiel Butler
+  Masters)
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
@@ -516,11 +523,22 @@ a sane way, here is the complet list of changed key bindings:
     Michael van der Nest)
   - Fix =cider-inspector-prev-page= binding, also add ~p~ as another key binding
     (thanks to Brian Fay)
+- Added key bindings for profiling and spec browsing (thanks to Luo Tian):
+  - ~SPC m g s~ to browse spec
+  - ~SPC m g S~ to browse all specs
+  - ~SPC m p +~ to display or set current max-sample-count
+  - ~SPC m p c~ to clear profile
+  - ~SPC m p n~ to toggle namespace profiling
+  - ~SPC m p s~ to get profile summary for variable under point
+  - ~SPC m p S~ to get summary of all currently collected profile data
+  - ~SPC m p t~ to toggle variable profiling
+  - ~SPC m p v~ to display or set profiling status of variable
 - Store cider repl history in spacemacs cache (thanks to Ryan Fowler)
 - Fix Clojure layer cider-repl-mode keybindings (thanks to Corey Ling)
 - Remove backtick from smartparens pairs for Clojure (thanks to Erwin Kroon and
   Eivind Fonn)
 - Improved =jump-to-definition= for Clojure modes (thanks to Ag Ibragimov)
+- Compatibility fix for CIDER 0.9.0 (thanks to nijohando)
 **** Coffeescript
 - Adds basic autocompletion (thanks to Codruț Constantin Gușoi)
 - Key bindings (thanks to Kalle Lindqvist):
@@ -696,8 +714,10 @@ is enabled
 - Rename =haskell-enable-hindent-style= to =haskell-enable-hindent= and make it
   a Boolean option in accordance with upstream changes (thanks to PierreR)
 **** Helm
-- Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
-- Key bindinds for directory search (thanks to Tim Jäger and Eivind Fonn):
+- Limited =ripgrep= results to 512 columns by default, and added
+  =spacemacs-helm-rg-max-column-number= layer variable to configure the above
+  limit (thanks to Aaron Jensen, Michael Hauser-Raspe, and Sylvain Benner)
+- Key bindings for directory search (thanks to Tim Jäger and Eivind Fonn):
   - ~SPC s d for =spacemacs/helm-dir-smart-do-search=
   - ~SPC s D for =spacemacs/helm-dir-smart-do-search-region-or-symbol=
   - ~SPC s a d for =spacemacs/helm-dir-do-ag=
@@ -718,6 +738,7 @@ is enabled
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Add =counsel-css= as an ivy alternative to =helm-css-scss= (thanks to Robbert
   van der Helm)
+- Added =helm-xref= (thanks to Fangrui Song and Sylvain Benner)
 **** Hy
 - Add support for virtual envs (thanks to Danny Freeman)
 **** Idris
@@ -754,6 +775,7 @@ is enabled
 - Rotate ivy re builders rather than toggle (thanks to Tomasz Kołodziejski)
 - Follow upstream ivy/counsel and remove use of variable =counsel--git-dir=
   (thanks to Chirantan Ekbote)
+- Added =ivy-xref= (thanks to Fangrui Song and Sylvain Benner)
 **** Java
 - Add support for multiple backends. Supported backends are: =megahnada=,
   =eclim= and =ensime=. The default backend is =meghanada=.
@@ -919,6 +941,7 @@ is enabled
 - Add company-php (thanks to jim and Eivind Fonn)
 - Fix php-company autocompletion (thanks to Dela Anthonio)
 **** Prodigy
+- Compatibility fix for upstream change (thanks to Francesc Elies)
 - Key bindings:
   - add ~c~ to clear the buffer (thanks to Francesc Elies)
   - bind ~q~ to quit-window in view mode (thanks to Saulius Menkevičius)
@@ -947,6 +970,11 @@ is enabled
 - Add key binding ~SPC m r f~ to fix missing import statements (thanks to
   Volodymyr Vitvitskyi)
 - Use =python-mode= for SCons script files (thanks to shanemikel)
+- Added LSP support, which can be used by enabling the =lsp= layer and setting
+  the =python= layer's =python-backend= variable to =lsp= (thanks to Yuan Fu and
+  Sylvain Benner)
+- Added ~SPC m t l~ key binding to re-run the last test command (thanks to
+  Benoit Coste).
 - Key bindings:
   - Update invalid cython mode keybindings (thanks to Muneeb Shaikh)
   - New =anaconda-view-mode= keybindings (thanks to Muneeb Shaikh)
@@ -980,6 +1008,8 @@ is enabled
     - Add ~SPC m r R v~ to extract local variable.
     - Add ~SPC m r R c~ to extract constant.
     - Add ~SPC m r R l~ to extract to =let=.
+- Added ~SPC m s b~ key binding to send buffer to the Ruby console (thanks to
+  Alejandro Arrufat)
 **** Rust
 - Key bindings:
   - Add ~SPC m c D~ to open Cargo docs (thanks to Matthew J. Berger)
@@ -1077,6 +1107,7 @@ is enabled
 - Declare =tide-jump-to-definition= as async (thanks to Sylvain Benner)
 - Adds tide keybindings to tsx web mode (thanks to George Miller)
 - Rewrite hooks for web-mode (thanks to Sylvain Benner)
+- Created a derived mode for TSX files (thanks to Aaron Jensen)
 **** Vagrant
 - Key bindings:
   - move key bindings prefix to ~SPC a V~ (thanks to Thomas de Beauchêne)
@@ -1118,6 +1149,11 @@ is enabled
   Soobin Rho, SteveJobzniak, Sunghyun Hwang, Swaroop C H, Tim Stewart, TinySong,
   Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski, tzhao11, Vladimir
   Kochnev, Wieland Hoffmann, Yi Liu, zer09)
+# Add additional names as comma separated lines for easier merging/diffing
+Rhommel Lamas,
+Adam Frey,
+Nicolas Forgerit,
+Olivier Verdier,
 
 *** Release notes summarized
   Thanks to: Songpeng Zu, Igor Almeida, Miciah Dashiel Butler Masters
