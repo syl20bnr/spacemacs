@@ -14,11 +14,12 @@
 - [[#additional-tools][Additional tools]]
   - [[#syntax-checking][Syntax checking]]
   - [[#test-runner][Test runner]]
+  - [[#buffer-formatting][Buffer formatting]]
   - [[#automatic-buffer-formatting-on-save][Automatic buffer formatting on save]]
   - [[#automatic-save-of-buffer-when-testing][Automatic save of buffer when testing]]
   - [[#autoflake][autoflake]]
   - [[#pylookup][pylookup]]
-  - [[#dap-mode-debuggeronly-for-lsp-backend][dap-mode debugger(only for lsp backend)]]
+  - [[#dap-mode-debugger only-for-lsp-backend][dap-mode debugger (only for lsp backend)]]
 - [[#configuration][Configuration]]
   - [[#fill-column][Fill column]]
   - [[#sort-imports][Sort imports]]
@@ -50,7 +51,7 @@ This layer adds support for the Python language.
 - Test Runners using [[https://github.com/syl20bnr/nose.el][nose.el]] or [[https://github.com/ionrock/pytest-el][pytest]]
 - Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]]
 - semantic mode is enabled
-- PEP8 compliant formatting via [[https://github.com/google/yapf][YAPF]]
+- PEP8 compliant formatting via [[https://github.com/google/yapf][YAPF]] or [[https://github.com/ambv/black][black]]
 - PEP8 checks with [[https://pypi.python.org/pypi/flake8][flake8]] or [[https://pypi.python.org/pypi/pylint/1.6.4][pylint]]
 - Suppression of unused import with [[https://github.com/myint/autoflake][autoflake]]
 - Use the ~%~ key to jump between blocks with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
@@ -165,13 +166,30 @@ directory local variable in your project root. ~SPC f v d~ in Spacemacs. See
 
 The root of the project is detected with a =.git= directory or a =setup.cfg= file.
 
-** Automatic buffer formatting on save
-To enable automatic buffer formatting on save with [[https://github.com/google/yapf][YAPF]] set the variable
-=python-enable-yapf-format-on-save= to =t=.
+** Buffer formatting
+One of [[https://github.com/google/yapf][YAPF]] (the default) or [[https://github.com/ambv/black][black]] may be selected as the formatter, via
+=python-formatter=, as ='yapf= or ='black= respectively.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (python :variables python-enable-yapf-format-on-save t)))
+    (python :variables python-formatter 'yapf)))
+#+END_SRC
+
+The key binding ~SPC m =~ invokes the selected formatter on the current buffer
+when in python mode.
+
+Note that YAPF and black may also be invoked unconditionally via
+=yapfify-buffer= and =blacken-buffer=, respectively, provided that they are
+installed.
+
+** Automatic buffer formatting on save
+To enable automatic buffer formatting on save set the variable
+=python-format-on-save= to =t=. The formatter specified by =python-formatter=
+will be used.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (python :variables python-format-on-save t)))
 #+END_SRC
 
 ** Automatic save of buffer when testing
@@ -194,7 +212,7 @@ To be able to suppress unused imports easily, install [[https://github.com/myint
 To use =pylookup= on ~SPC m h H~, make sure you update the database first, using
 ~SPC SPC pylookup-update~.
 
-** dap-mode debugger(only for lsp backend)
+** dap-mode debugger (only for lsp backend)
 To use =dap-mode= for debugging do:
 
 #+BEGIN_SRC bash
@@ -374,7 +392,7 @@ Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][li
 
 | Key binding   | Description                                                                       |
 |---------------+-----------------------------------------------------------------------------------|
-| ~SPC m =~     | Reformat the buffer according to PEP8 using [[https://github.com/google/yapf][YAPF]]                                  |
+| ~SPC m =~     | reformat the buffer using formatter specified in =python-formatter=               |
 | ~SPC m d b~   | toggle a breakpoint using =wdb=, =ipdb=, =pudb=, =pdb= or =python3.7= (and above) |
 | ~SPC m g a~   | go to assignment using =anaconda-mode-find-assignments= (~C-o~ to jump back)      |
 | ~SPC m g b~   | jump back                                                                         |

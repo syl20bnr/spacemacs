@@ -352,6 +352,20 @@ to be called for each testrunner. "
     (py-isort-before-save)))
 
 
+;; Formatters
+
+(defun spacemacs//bind-python-formatter-keys ()
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode
+    "=" 'spacemacs/python-format-buffer))
+
+(defun spacemacs/python-format-buffer ()
+  (interactive)
+  (pcase python-formatter
+    (`yapf (yapfify-buffer))
+    (`black (blacken-buffer))
+    (code (message "Unknown formatter: %S" code))))
+
+
 ;; REPL
 
 (defun spacemacs//inferior-python-setup-hook ()

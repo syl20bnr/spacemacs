@@ -1904,6 +1904,7 @@ Other:
 - Added debugger integration via =dap= layer
 - Added documentation on installing importmagic and epc (thanks to Trapez Breen)
 - Made python-send-shell-* functions faster (thanks to Trapez Breen)
+- Added support for 'black' formatter (thanks to Mike Macpherson)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 **** Ranger
