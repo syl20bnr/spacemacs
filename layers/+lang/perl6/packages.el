@@ -15,10 +15,7 @@
     evil
     flycheck
     (flycheck-perl6 :requires flycheck)
-    ;; Not available in MELPA for now
-    ;; TODO check progress on issue: https://github.com/melpa/melpa/issues/5261
-    (perl6-mode :location (recipe :fetcher github
-                                  :repo "perl6/perl6-mode"))
+    perl6-mode
     ))
 
 (defun perl6/post-init-company ()
