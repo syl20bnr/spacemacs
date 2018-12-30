@@ -23,6 +23,32 @@ This file containes the change log for the next major version of Spacemacs.
   Thomas de Beauchêne)
 - Remove ~SPC T N~ and make ~SPC T n~ cycle and start the theme transient state
   (thanks to Sylvain Benner)
+**** ESS
+ESS key bindings were re-organised in the following list (thanks to Guido
+Kraemer, Yi Liu):
+  - ~SPC m ,~ for =ess-eval-region-or-function-or-paragraph-and-step=
+  - ~SPC m s s~ for =ess-switch-to-inferior-or-script-buffer=
+  - ~SPC m s S~ for =ess-switch-process=
+  - ~SPC m s b~ for =ess-eval-buffer-and-go=
+  - ~SPC m e b~ for =ess-eval-buffer=
+  - ~SPC m s d~ for =ess-eval-region-or-line-and-step=
+  - ~SPC m s D~ for =ess-eval-function-or-paragraph-and-step=
+  - ~SPC m s l~ for =ess-eval-line-and-go=
+  - ~SPC m e l~ for =ess-eval-line=
+  - ~SPC m s r~ for =ess-eval-region-and-go=
+  - ~SPC m e r~ for =ess-eval-region=
+  - ~SPC m s f~ for =ess-eval-function-and-go=
+  - ~SPC m e f~ for =ess-eval-function=
+  - ~SPC m h h~ for =ess-display-help-on-object=
+  - ~SPC m h p~ for =ess-R-dv-pprint=
+  - ~SPC m h t~ for =ess-R-dv-ctable=
+  - ~SPC m r~ for =ess-extra-map=
+  - ~SPC m w~ for =ess-r-package-dev-map=
+  - ~SPC m d~ for =ess-dev-map=
+**** Haskell
+- Swapped key bindings for better usability (thanks to Tony Lotts):
+  - ~SPC m s s~ for =haskell-interactive-switch=
+  - ~SPC m s S~ for =spacemacs/haskell-interactive-bring=
 **** IPython notebook
 - Key bindings:
   - Change prefix from "ai" to "ay" (thanks to Swaroop C H)
@@ -185,6 +211,7 @@ a sane way, here is the complet list of changed key bindings:
   - New variable =dotspacemacs-frame-title-format= which is the efault format
     string for a frame title bar, see docstring of function
     =spacemacs/frame-title-prepare= for more info (thanks to Uri Sharf and Kepi)
+  - New variable =dotspacemacs-use-spacelpa= (thanks to Sylvain Benner)
 - Can use the univeral prefix argument to open both the =*scratch*= buffer and
   the =*Messages*= buffer in another window (thanks to Thomas de Beauchêne)
 *** Core changes
@@ -230,6 +257,22 @@ a sane way, here is the complet list of changed key bindings:
   Benner)
 - Handle backward argument better when cycling themes (thanks to bmag)
 - Remove wizard question about completion engine. (thanks to Sylvain Benner)
+- Add check for gzip executable on Windows to install spacelpa (thanks to
+  Sylvain Benner)
+- Add optional parameter to spacemacs/set-mode-line (thanks to Sylvain Benner)
+- Add =(please wait)= message when downloading spacelpa (thanks to Sylvain
+  Benner)
+- Add spacemacs-buffer/error like spacemacs-buffer/warning (thanks to Sylvain
+  Benner)
+- Add e key bindings in Quick Help home screen (thanks to Sylvain Benner)
+- Add support for GnuPG signed Spacelpa archives (thanks to Sylvain Benner)
+- Fix computation of elpa directory (thanks to Sylvain Benner)
+- Changed scope of elpa stable variables (thanks to Sylvain Benner)
+- For elpa dir, replace branch name by a variable set in .lock (thanks to
+  Sylvain Benner)
+- Move versions functionality to new file =core/core-versions.el= (thanks to
+  Sylvain Benner)
+- Remove stray characters from output-dir argument (thanks to duianto)
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
@@ -317,6 +360,8 @@ a sane way, here is the complet list of changed key bindings:
     - Add ~<~ for =spacemacs/move-current-persp-left=
     - Add ~>~ for =spacemacs/move-current-persp-right=
   - New ~SPC f e U~ to update packages (thanks to Codruț Constantin Gușoi)
+  - Fix ~h~ key binding in compilation and grep buffers (thanks to Sylvain
+    Benner)
 - Fixes:
   - Disable the paste transient state when using multiple cursors
     (thanks to Koray AL)
@@ -346,6 +391,7 @@ a sane way, here is the complet list of changed key bindings:
   - Fix switch to home buffer moves prev buffers cursor (thanks to duianto)
   - Correct undo-tree buffer name in =spacemacs-visual= (thanks to Winkey Wong)
   - Update renamed helm split window variable (thanks to duianto)
+  - Fix neotree and treemacs window number allocation (thanks to Sylvain Benner)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -380,6 +426,8 @@ a sane way, here is the complet list of changed key bindings:
 - Disable popwin-mode at startup (thanks to bmag)
 - Change default value of =dotspacemacs-elpa-subdirectory= (thanks to Sylvain Benner)
 - Add =helm= to spacemacs default distribution (thanks to Sylvain Benner)
+- Make it possible to define an evil state face without an evil cursor. (thanks
+  to Alexander Miller)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -533,9 +581,6 @@ a sane way, here is the complet list of changed key bindings:
 - Conditionally enable ERC notifications via =erc-enable-notifications= (thanks
   to Evan Klitzke)
 **** ESS
-- Key bindings:
-  - Change ~SPC m s t~ to ~SPC m s f~ to respect convention (thanks to Yi Liu)
-  - Change ~SPC m s T~ to ~SPC m s F~ to respect convention (thanks to Yi Liu)
 - Fix issue with read-only REPL buffer (thanks to jackkamm)
 - Added ess layer variable =ess-disable-underscore-assign= (thanks to Jack Kamm)
 - Remove =ess-R-object-popup= from ess layer (thanks to Naylyn Gaffney)
@@ -610,7 +655,7 @@ is enabled
   - ~SPC s r D for =spacemacs/helm-dir-do-rg-region-or-symbol=
   - ~SPC s t d for =spacemacs/helm-dir-do-pt=
   - ~SPC s t D for =spacemacs/helm-dir-do-pt-region-or-symbol=
-- Don't change =helm-bookmarks= keys to early when helm-mode is enabled (thanks
+- Don't change =helm-bookmarks= keys too early when helm-mode is enabled (thanks
   to bmag)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
@@ -960,24 +1005,25 @@ is enabled
   Yaremenko, Sylvain Benner)
 - Multiple unit test improvements (thanks to Sylvain Benner)
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham,
-  Alexander Iljin, Alexander Kjeldaas, Anton Latukha, Anurag Sharma, Archenoth,
-  Benjamin Reynolds, bmag, Boris Buliga, Boris Wong, Carl Lange, Chase Adams,
-  CL123123, Codruț Constantin Gușoi, Darkhan, David Florness, David Vo,
-  davidpham87, Dela Anthonio, Diego Alvarez, Diego Berrocal, Dietrich Daroch,
-  Dinesh Bhosale, Dominik Schrempf, Doug Beardsley, dubnde, duianto, eldios,
-  Eugene Yaremenko, Evan Klitzke, Evan Niessen-Derry, firemiles, Fuqiao Xue,
-  Garrett Johnson, Henry Marshall, Ivan Kryvoruchko, J. Patrick Lanigan, Jesse
-  Cooke, Jim Deville, Jody Frankowski, Joe Hillenbrand, John Wood, Jon Tippens,
-  Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood, Joshua
-  Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant, Kristoffer Haugsbakk, Leo
-  Joseph Buchignani III, Max Beutelspacher, Max Nordlund, Maximilian Wolff,
-  Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser Alshammari, Niko
-  Felger, Nikolai Myllymäki, nikolaiam, Paul Milla, Paulo Schneider, Pawan
-  Dubey, Paweł Siudak, Phil Pirozhkov, Rafi Khan, Rand01ph, rakyi, Reverend
-  Homer, Robby O'Connor, Sam Pablo Kuper, Saulius Menkevičius, sduthil, Shane
-  Kilkelly, Sid Kapur, Somelauw, Soobin Rho, SteveJobzniak, Swaroop C H,
-  TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski, tzhao11,
-  Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
+  Alexander Iljin, Alexander Kjeldaas, Alexandros Kotzias, Anton Latukha, Anurag
+  Sharma, Archenoth, Benjamin Reynolds, bmag, Boris Buliga, Boris Wong, Carl
+  Lange, Chase Adams, CL123123, Codruț Constantin Gușoi, Darkhan, David
+  Florness, David Vo, davidpham87, Dela Anthonio, Diego Alvarez, Diego Berrocal,
+  Dietrich Daroch, Dinesh Bhosale, Dominik Schrempf, Doug Beardsley, dubnde,
+  duianto, eldios, Eugene Yaremenko, Evan Klitzke, Evan Niessen-Derry,
+  firemiles, Fuqiao Xue, Garrett Johnson, Henry Marshall, Ivan Kryvoruchko, J.
+  Patrick Lanigan, Jesse Cooke, Jim Deville, Jody Frankowski, Joe Hillenbrand,
+  John Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett,
+  Josh Greenwood, Joshua Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant,
+  Kristoffer Haugsbakk, Leo Joseph Buchignani III, Max Beutelspacher, Max
+  Nordlund, Maximilian Wolff, Mikhail Yakutovich, Muneeb Shaikh, Nasser
+  Alshammari, Nasser Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Paul
+  Milla, Paulo Schneider, Pawan Dubey, Paweł Siudak, Phil Pirozhkov, Rafi Khan,
+  Rand01ph, rakyi, Reverend Homer, Robby O'Connor, Sam Pablo Kuper, Saulius
+  Menkevičius, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho,
+  SteveJobzniak, Swaroop C H, TinySong, Titov Andrey, Thomas de Beauchêne,
+  Tomasz Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu,
+  zer09)
 
 *** Release notes summarized
   Thank to: Songpeng Zu
