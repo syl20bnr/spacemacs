@@ -182,7 +182,6 @@ sane way, here is the complet list of changed key bindings:
 - unicode-fonts (thanks to Aaron Jensen)
 **** Languages
 - coq
-- cmake (Thanks to Alexander Dalshov)
 - forth (thanks to Tim Jaeger)
 - gpu (thanks to Evan Klitzke)
 - groovy (thanks to Sylvain Benner)
@@ -204,6 +203,7 @@ sane way, here is the complet list of changed key bindings:
 - pass (thanks to Andrew Oppenlander and Kepi)
 - sphinx (thanks to Wei-Wei Guo)
 - transmission (thanks to Eugene Yaremenko)
+- cmake (thanks to Alexander Dalshov and Sylvain Benner)
 **** Others
 - multiple-cursors (thanks to Codruț Constantin Gușoi)
 - parinfer (thanks to Tianshu Shi)
@@ -236,6 +236,7 @@ sane way, here is the complet list of changed key bindings:
     Benner)
   - New variable =dotspacemacs-initial-scratch-message= for the initial message
     in the scratch buffer (thanks to Carl Lange)
+  - New variable =dotspacemacs-gc-cons= (thanks to Sylvain Benner)
 - Can use the univeral prefix argument to open both the =*scratch*= buffer and
   the =*Messages*= buffer in another window (thanks to Thomas de Beauchêne)
 *** Core changes
@@ -251,7 +252,6 @@ sane way, here is the complet list of changed key bindings:
 - Resolve symlinks when warning about duplicate layers (thanks to Ben Gamari)
 - More robust dotspacemacs/add-layer (thanks to Eivind Fonn)
 - Check toggle condition in status function (thanks to Eivind Fonn)
-- Inhibit recentf when inserting startupify lists (thanks to Eivind Fonn)
 - New dotvariable: =dotspacemacs-auto-generate-layout-names= (thanks to bmag)
 - Rework =spacemacs//reroot-link= to makes links relative (thanks to Eugene
   Yaremenko)
@@ -311,10 +311,14 @@ sane way, here is the complet list of changed key bindings:
 - Conventions: add ~SPC m f~ for web frameworks (thanks to Sylvain Benner)
 - Fix base16-theme mapping for all themes (thanks to Philippos Boon Alexaki)
 - Disable spaceline responsiveness for all-the-icons theme (thanks to Sylvain Benner)
+- Increased =gc-cons-threshold= during startup to reduce startup time (thanks
+  to Aaron Jensen)
+- Removed unused defvar =dotspacemacs-default-package-repository= (thanks to
+  Sylvain Benner)
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
-  navigation
+    navigation
   - new =spacemacs-modeline= layer contains packages about mode line
   - Merge =spacemacs-ui= and =spacemacs-ui-visual= into layer =spacemacs-visual=
 - New Packages:
@@ -521,11 +525,15 @@ sane way, here is the complet list of changed key bindings:
   - =help-fns+=
 - Add the package =font-lock+= as a EmacsMirror dependency (thanks to Sylvain
   Benner)
+- Switched =center-cursor-mode= to melpa source (thanks to Dieter Komendera)
+- Fix =projectile-switch-project-action= (thanks to John Soo)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
 - Fixes ansible-doc-mode error on `SPC h d k` (thanks to Codruț Constantin
   Gușoi)
+- Fix error void function ansible: auto-decrypt-encrypt (thanks to Sylvain
+  Benner)
 **** Auto-completion
 - Prefer =.spacemacs.d/snippets= over =.emacs.d/private/snippets= (thanks to
   Aaron Jensen)
@@ -564,10 +572,10 @@ sane way, here is the complet list of changed key bindings:
   - ~SPC m = =~ clang-format current region or buffer (thanks to Dela Anthonio)
   - ~SPC m = f~ clang-format current function (thanks to Dela Anthonio)
 - Add option to use google-c-style (thanks to Evan Klitzke and Richard Kim)
-- Installation of =gtags= layer conditional on =c-c++-enable-rtags-support=
-flag (thanks to Sylvain Benner)
+- Installation of =gtags= layer conditional on =c-c++-enable-rtags-support= flag
+  (thanks to Sylvain Benner)
 - Only activate =rtags= keybindings when =rtags-mode= is active (thanks to
-lixinchin)
+  lixinchin)
 - Fix =google-set-c-style= functions being added regardless of configuration
   (thanks to Martin Øinæs Myrseth)
 - Moved cmake-ide and cmake script support to separate =cmake= layer (thanks to
@@ -599,6 +607,8 @@ lixinchin)
 - Remove backtick from smartparens pairs for Clojure (thanks to Erwin Kroon and
   Eivind Fonn)
 - Improved =jump-to-definition= for Clojure modes (thanks to Ag Ibragimov)
+- Enable safe structural editing for .cljs, .cljx, and .cljc files (thanks to
+  Dieter Komendera)
 **** Coffeescript
 - Adds basic autocompletion (thanks to Codruț Constantin Gușoi)
 - Key bindings (thanks to Kalle Lindqvist):
@@ -647,6 +657,7 @@ lixinchin)
 - Key bindings:
   - Moved key bindings prefix from ~SPC D~ to ~SPC a D~ (thanks to Ag Ibragimov)
   Henar)
+- Fix: broken package declaration for dockerfile-mode (thanks to Maximilian Wolff)
 **** Elfeed
 - Fix selection bindings in visual state (thanks to Jeremy Symon)
 **** Elixir
@@ -789,6 +800,9 @@ is enabled
 - Fix: =company-dante= -> =dante-company= (thanks to Leon Isenberg)
 - Rename =haskell-enable-hindent-style= to =haskell-enable-hindent= and make it
   a Boolean option in accordance with upstream changes (thanks to PierreR)
+- Add function for proper import reformatting
+- Key bindings:
+  - ~SPC r i~ runs new =spacemacs/haskell-format-imports= function
 **** Helm
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
 - Key bindinds for directory search (thanks to Tim Jäger and Eivind Fonn):
@@ -956,9 +970,13 @@ is enabled
 - Disable Spacemacs paste transient state when pasting to avoid pasting issue
   when there are more than one cursor (thanks to braham-snyder)
 **** Neotree
-- Move neotree to its own layer in new +filtree folder (thanks to Sylvain
+- Move neotree to its own layer in new +filetree folder (thanks to Sylvain
   Benner)
 - Add screenshot in neotree layer (thanks to duianto)
+- Key bindings:
+  - ~SPC f T~ reinstated for showing file tree with Neotree or Treemacs
+    (thanks to bmag)
+  - ~SPC 0~ and ~M-0~ are consistent across Neotree and Treemacs (thanks to bmag)
 **** NixOS
 - Enable Flycheck (thanks to William Casarin)
 - Defer loading (thanks to Benno Fünfstück)
@@ -976,6 +994,7 @@ is enabled
 - Fix misused functions, =merlin= is a package not a layer (thanks to jinyang
   and Rudi Grinberg)
 - Fix issue with OPAM share directory on Windows (thanks to Levi Roth)
+- Enable flycheck-ocaml (thanks to Dave Aitken)
 **** Org
 - Load org-mode email integration (mu4e/notmuch) when org is loaded (thanks to
   Steven Allen)
@@ -1287,6 +1306,7 @@ is enabled
 - Add manual completion function (thanks to Nir Friedman)
 - Remove warning for unset var; always fires (thanks to Nir Friedman)
 - Add manual semantic completion function for company (thanks to Nir Friedman)
+- Fix searching for compilation DB in subdirectories (thanks to Alexander Dalshov)
 *** Various improvements
 - Lots of improvement with CI and documentation exporting (thanks to Eugene
   Yaremenko)
@@ -1294,27 +1314,26 @@ is enabled
   Yaremenko, Sylvain Benner)
 - Multiple unit test improvements (thanks to Sylvain Benner)
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham, Adam
-  Kruszewski, Alexander Iljin, Alexander Kjeldaas, Alexandros Kotzias, Anton
-  Latukha, Anurag Sharma, Archenoth, Benjamin Reynolds, bmag, Boris Buliga,
-  Boris Wong, Carl Lange, Chase Adams, CL123123, Codruț Constantin Gușoi, Daniel
-  Hodson, Daniel Le, Darkhan, David Florness, David Vo, davidpham87, Dela
-  Anthonio, Diego Alvarez, Diego Berrocal, Dietrich Daroch, Dinesh Bhosale,
-  Dominik Schrempf, Doug Beardsley, dubnde, duianto, eldios, Eugene Yaremenko,
-  Evan Klitzke, Evan Niessen-Derry, firemiles, Fuqiao Xue, Garrett Johnson,
-  Henry Marshall, Ivan Kryvoruchko, J. Patrick Lanigan, Jesse Cooke, Jim
-  Deville, Jody Frankowski, Joe Hillenbrand, John Wood, Jon Tippens, Jonas
-  Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood, Joshua Santos,
-  Kainalu Hagiwara, Kechao Cai, Keith Wygant, Kristoffer Haugsbakk, Leo Joseph
-  Buchignani III, Max Beutelspacher, Max Nordlund, Maximilian Wolff, Mikhail
-  Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser Alshammari, Niko Felger,
-  Nikolai Myllymäki, nikolaiam, Paul Milla, Paulo Schneider, Pawan Dubey, Paweł
-  Siudak, Phil Pirozhkov, Piotr Grzesik, Rafi Khan, Rand01ph, rakyi, Raymond
-  Wanyoike, Reverend Homer, Robby O'Connor, Sam Pablo Kuper, Saulius
-  Menkevičius, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho,
-  SteveJobzniak, Sunghyun Hwang, Swaroop C H, Sylvain Benner, Tim Stewart,
-  timor, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski,
-  tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
-
+  Kruszewski, Alexander Dalshov, Alexander Iljin, Alexander Kjeldaas, Alexandros
+  Kotzias, Anton Latukha, Anurag Sharma, Archenoth, Benjamin Reynolds, bmag,
+  Boris Buliga, Boris Wong, Carl Lange, Chase Adams, CL123123, Codruț Constantin
+  Gușoi, Daniel Hodson, Daniel Le, Darkhan, David Florness, David Vo,
+  davidpham87, Dela Anthonio, Diego Alvarez, Diego Berrocal, Dietrich Daroch,
+  Dinesh Bhosale, Dominik Schrempf, Doug Beardsley, dubnde, duianto, eldios,
+  Eugene Yaremenko, Evan Klitzke, Evan Niessen-Derry, firemiles, Fuqiao Xue,
+  Garrett Johnson, Henry Marshall, Ivan Kryvoruchko, J. Patrick Lanigan, Jesse
+  Cooke, Jim Deville, Jody Frankowski, Joe Hillenbrand, John Wood, Jon Tippens,
+  Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood, Joshua
+  Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant, Kristoffer Haugsbakk, Leo
+  Joseph Buchignani III, Max Beutelspacher, Max Nordlund, Maximilian Wolff,
+  Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser Alshammari, Niko
+  Felger, Nikolai Myllymäki, nikolaiam, Paul Milla, Paulo Schneider, Pawan
+  Dubey, Paweł Siudak, Phil Pirozhkov, Piotr Grzesik, Rafi Khan, Rand01ph,
+  rakyi, Raymond Wanyoike, Reverend Homer, Robby O'Connor, Sam Pablo Kuper,
+  Saulius Menkevičius, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho,
+  SteveJobzniak, Sunghyun Hwang, Swaroop C H, Sylvain Benner, Szunti, Tim
+  Stewart, timor, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz
+  Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
 *** Release notes summarized
   Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
   Masters
