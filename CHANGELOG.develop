@@ -9,7 +9,7 @@ This file containes the change log for the next major version of Spacemacs.
 - Support for Emacs 24 has been dropped, the minimal Emacs version is now
   =25.1=.
 **** Key bindings
-- ~SPC q z~ is noe ~SPC q f~ to kill a frame.
+- ~SPC q z~ is now ~SPC q f~ to kill a frame.
 - ~SPC b m~ now opens the =*Messages*= buffer. The old ~SPC b m~ to kill other
   buffers has been moved to ~SPC b C-d~. Killing other buffers using a regular
   expression is now under ~SPC b C-D~.
@@ -28,6 +28,8 @@ This file containes the change log for the next major version of Spacemacs.
   Sylvain Benner)
 - Changed ~SPC f T~ to ~SPC 0~ for =neotree-show= / =treemacs-select-window=
   (thanks to Dela Anthonio)
+- Move major specific error key bindings to ~SPC m E~ prefix (thanks to Sylvain
+  Benner)
 **** ESS
 ESS key bindings were re-organised in the following list (thanks to Guido
 Kraemer, Yi Liu, and Jack Kamm):
@@ -322,6 +324,9 @@ Benner and Paweł Siudak):
   Sylvain Benner)
 - Fixed package initialization on Emacs 27 (thanks to Miciah Dashiel Butler
   Masters)
+- Lazy load =diff-hl= and move =lsp-ui-mode= hook (thanks to Sylvain Benner)
+- Wrap init with =file-name-handler-alist nil= to speed up init (thanks to Aaron
+  Jensen)
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
   - new =spacemacs-navigation= layer contains packages whose principal goal is
@@ -344,7 +349,7 @@ Benner and Paweł Siudak):
     and ~SPC F O~ (=dired-other-frame=).
   - New evil text objects =«=, =｢=, =‘= and =“=.
   - New key binding ~SPC f i~ for =insert-file=.
-  - Add alignement support for ~{~ (thanks to Paulo Diniz)
+  - Add alignment support for ~{~ (thanks to Paulo Diniz)
   - Move all scrolling key bindings from ~SPC n~ to ~SPC N~ (thanks to Somelauw)
   - Move ~SPC q z~ to ~SPC q f~ to kill a frame (thanks to Steven Allen)
   - Move ~SPC t C p~ to ~SPC t h p~ for =highlight-parentheses-mode= (thanks to
@@ -434,6 +439,8 @@ Benner and Paweł Siudak):
     - ~SPC m t w~ calls =image-transform-fit-to-width=
     - ~SPC m t s~ calls =image-transform-set-scale=
     - ~SPC m t r~ calls =image-transform-rotation=
+  - Alternative keybinding ~M-0~ to switch to =neotree= / =treemacs= window
+    (thanks to Alexander Miller)
 - Fixes:
   - Disable the paste transient state when using multiple cursors
     (thanks to Koray AL)
@@ -553,6 +560,7 @@ Benner and Paweł Siudak):
   - Removed ~C-f~ because it interfered with the default key binding for
     =forward-char= (thanks to scturtle and duianto)
 - Add =yasnippet-snippets= package (thanks to Jack Kamm)
+- Fix =spacemacs/swiper-all-region-or-symbol= function (thanks to Ayush Goyal)
 **** Auto-Layer
 - Prompt user to install react-mode if a .jsx file is opened (thanks to Jon
   Hermansen)
@@ -913,6 +921,7 @@ is enabled
 - Add ENSIME jump handlers (thanks to Joao Azevedo)
 - Improve maven and gradle support (thanks to Sylvain Benner)
 - Make java layer depend on groovy layer (thanks to Sylvain Benner)
+- Fix syntax typo in configuration (thanks to EMayej)
 **** Javascript
 - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
 - Key bindings
@@ -1047,6 +1056,8 @@ is enabled
     - add ~d D~ to remove org-agenda-deadline
   - Add ~M-RET~ for =org-meta-return= under major mode leader key (thanks to
     Sylvain Benner)
+  - Add ~SPC m T c~ for =org-toggle-checkbox= (thanks to Paweł Siudak)
+  - Add ~SPC a o k g~ for =org-clock-goto= (thanks to William Casarin)
   - Add org-babel commands (thanks to timor):
     - ~SPC m b p~ calls =org-babel-previous-src-block=
     - ~SPC m b n~ calls =org-babel-next-src-block=
@@ -1152,6 +1163,9 @@ is enabled
   Sylvain Benner)
 - Added ~SPC m t l~ key binding to re-run the last test command (thanks to
   Benoit Coste).
+- Added support for breakpoints for the =trepan3k= python debugger (thanks to
+  dangirsh)
+- Added support for =pipenv= with proper keybindings (thanks to jackkamm)
 - Key bindings:
   - Update invalid cython mode keybindings (thanks to Muneeb Shaikh)
   - New =anaconda-view-mode= keybindings (thanks to Muneeb Shaikh)
@@ -1193,6 +1207,11 @@ is enabled
 - Add gtags to =enh-ruby-mode= as well as =ruby-mode= (thanks to David Balatero)
 - Added ~SPC m s b~ key binding to send buffer to the Ruby console (thanks to
   Alejandro Arrufat)
+- Key bindings:
+  - Add ~SPC m r R m~ for extract to method.
+  - Add ~SPC m r R v~ to extract local variable.
+  - Add ~SPC m r R c~ to extract constant.
+  - Add ~SPC m r R l~ to extract to =let=.
 **** Rust
 - Key bindings:
   - Add ~SPC m c D~ to open Cargo docs (thanks to Matthew J. Berger)
@@ -1220,6 +1239,7 @@ is enabled
   Reynolds)
 - Fix docs for "Fish shell and ansi-term" and explicitly enable `truncate-lines`.
   (thanks to Joe Hillenbrand)
+- Fix ~C-j~ and ~C-k~ in =eshell= while in insert state (thanks to Paweł Siudak)
 **** Shell Scripts
 - Add new company-shell environment variable backend (thanks to Alexander-Miller)
 - Add bashate style checker (thanks to Victor Cuadrado Juan)
@@ -1270,6 +1290,7 @@ is enabled
 **** Terraform
 - Add opt-in layer variable =terraform-fmt-on-save= to format buffers on save
   with =terraform fmt= (thanks to Harry Hull)
+- Add support for =terraform-company= (thanks to Sylvain Benner)
 **** Themes
 - Add support for more doom themes (thanks to Dela Anthonio)
 - Add support for gruvbox theme variants (thanks to Dean Todevski)
@@ -1291,6 +1312,8 @@ is enabled
 - Remove themes that were deleted from Melpa (thanks to Henrique Jung)
 **** Tmux
 - Prevent =tmux-command= at GUI mode (thanks to Isaac Zeng)
+- Fix regression in tmux by setting keybindings using =use-package= (thanks to
+  Aaron Jensen)
 **** Typescript
 - Call tsfmt with extension of current buffer for TSX formatting (thanks to
   Victor Andrée)
@@ -1298,6 +1321,12 @@ is enabled
 - Adds tide keybindings to tsx web mode (thanks to George Miller)
 - Rewrite hooks for web-mode (thanks to Sylvain Benner)
 - Created a derived mode for TSX files (thanks to Aaron Jensen)
+- Fix eldoc (thanks to Aaron Jensen)
+- Isolate eldoc configuration (thanks to Sylvain Benner)
+- /rename/ reworded to /refactor/ in =which-key= popup (thanks to Simon Altschuler)
+- Key bindings:
+  - ~SPC m E e~ is for =tide-fix= which was originally added as ~SPC m r f~
+    (thanks to Simon Altschuler)
 **** Vagrant
 - Key bindings:
   - move key bindings prefix to ~SPC a V~ (thanks to Thomas de Beauchêne)
@@ -1342,7 +1371,7 @@ is enabled
 - Lots of improvement with CI and documentation exporting (thanks to Eugene
   Yaremenko)
 - Various code style improvements (thanks to bmag, duianto, Eivind Fonn, Eugene
-  Yaremenko, Sylvain Benner)
+  Yaremenko, Fabien Dubosson, Sylvain Benner)
 - Multiple unit test improvements (thanks to Sylvain Benner)
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham, Adam
   Frey, Adam Kruszewski, Alexander Dalshov, Alexander Iljin, Alexander Kjeldaas,
@@ -1368,4 +1397,4 @@ is enabled
   Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
 *** Release notes summarized
   Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
-  Masters
+  Masters, Abhishek(Compro) Prasad
