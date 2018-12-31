@@ -233,7 +233,7 @@ a sane way, here is the complet list of changed key bindings:
   Benner)
 - Handle backward argument better when cycling themes (thanks to bmag)
 - Remove wizard question about completion engine. (thanks to Sylvain Benner)
-- Conventions: add SPC m f for web frameworks (thanks to Sylvain Benner)
+- Conventions: add ~SPC m f~ for web frameworks (thanks to Sylvain Benner)
 - Fix base16-theme mapping for all themes (thanks to Philippos Boon Alexaki)
 *** Distribution changes
 - Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
@@ -351,7 +351,7 @@ a sane way, here is the complet list of changed key bindings:
   - Fix switch to home buffer moves prev buffers cursor (thanks to duianto)
   - Correct undo-tree buffer name in =spacemacs-visual= (thanks to Winkey Wong)
   - Update renamed helm split window variable (thanks to duianto)
-  - Fix using eyebrowse without persp-mode (thanks to Steven Allen)
+  - Fix using eyebrowse without =persp-mode= (thanks to Steven Allen)
   - Fix ~hjkl~ bindings in =image-mode= and add leader bindings (thanks to Kalle
     Lindqvist)
     - ~SPC m a a~ calls =image-toggle-animation=
@@ -436,8 +436,8 @@ a sane way, here is the complet list of changed key bindings:
 - Add =cmake-ide= (thanks to Alexander Dalshov)
 - Fixed a typo by moving one closing parenthesis (thanks to Richard Kim)
 - Add option to control cmake-ide package (thanks to Alexander Dalshov)
-- Fix =google-set-c-style= functions being added regardless of config (thanks to
-  Martin Øinæs Myrseth)
+- Fix =google-set-c-style= functions being added regardless of configuration
+  (thanks to Martin Øinæs Myrseth)
 **** Cfengine
 - Fix publish in README (thanks to Eugene Yaremenko)
 - Add =ob-cfengine3= (thanks to Nick Anderson)
@@ -756,14 +756,14 @@ is enabled
     - add ~SPC m f~ to attach file
 - Replace mu4e multiple accounts with contexts (thanks to Allen Li)
 - Refactor to use =spacemacs/add-to-hooks= (thanks to Sylvain Benner)
-- Helm-mu4e integration and key bindings (thanks to Sébastien Bariteau and
+- Add helm-mu4e integration and key bindings (thanks to Sébastien Bariteau and
   Sylvain Benner):
   - ~SPC a M~ to start mu4e
   - ~SPC m S~ or ~SPC m /~ to search emails (requires helm)
   - ~SPC m C~ to search contacts (requires helm)
 - Better defaults, async and utility functions (thanks to Peter Hoeg)
-  - Adds binding =C-x m= to compose new message
-- Maildirs extension is now optional (thanks to JorisE)
+  - Adds binding ~C-x m~ to compose new message
+- Make maildirs extension optional (thanks to JorisE)
 - Create email with attachments from dired (thanks to Oleg Pykhalov)
 **** Multiple Cursors
 - Disable Spacemacs paste transient state when pasting to avoid pasting issue
@@ -837,7 +837,7 @@ is enabled
     - ~SPC m b Z~ calls =org-babel-switch-to-session-with-code=
     - ~SPC m b a~ calls =org-babel-sha1-hash=
     - ~SPC m b x~ calls =org-babel-do-key-sequence-in-edit-buffer=
-    - ~SPC m b .~ transient state
+    - ~SPC m b .~ enters transient state
 - Key binding changes for archiving (thanks to Ag Ibragimov):
   - Add ~SPC m s a~ to toggle archive tag for subtree
   - Add ~SPC m s A~ to archive subtree (previously ~SPC m s a~)
@@ -857,8 +857,8 @@ is enabled
 - Enable =org-src-tab-acts-natively= (thanks to Sylvain Benner)
 - Fix =org-default-notes-file= precedence (thanks to Troy Hinckley and bmag)
 - Add =ox-hugo= (thanks to Kaushal Modi)
-- Use org-mime provided by melpa (thanks to Amos Bird)
-- Restore =evil-org-additional-bindings= in insert mode (thanks to Maximilian
+- Use =org-mime= provided by melpa (thanks to Amos Bird)
+- Restore =evil-org-additional-bindings= in insert state (thanks to Maximilian
   Wolff)
 **** Osx
 - Fix OSX mapping issue (thanks to Joey Liu)
@@ -1069,4 +1069,4 @@ is enabled
   tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
 
 *** Release notes summarized
-  Thank to: Songpeng Zu
+  Thanks to: Songpeng Zu, Igor Almeida
