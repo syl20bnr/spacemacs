@@ -300,8 +300,7 @@
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
         (require 'lsp-java)
-        (require 'company-lsp)
-        (lsp-java-enable))
+        (lsp))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile."))
   (if (configuration-layer/layer-used-p 'dap)
       (progn

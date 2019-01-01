@@ -440,19 +440,8 @@
                         ("mr" . "refactor")
                         ("mq" . "lsp")))
         (spacemacs/set-leader-keys-for-major-mode 'java-mode
-          "gg"  'xref-find-definitions
-          "gr"  'xref-find-references
-          "gR"  'lsp-ui-peek-find-references
-          "ga"  'xref-find-apropos
-          "gA"  'lsp-ui-peek-find-workspace-symbol
-          "gd"  'lsp-goto-type-definition
-          "hh"  'lsp-describe-thing-at-point
-          "el"  'lsp-ui-flycheck-list
           "pu"  'lsp-java-update-user-settings
-          "ea"  'lsp-execute-code-action
-          "qr"  'lsp-restart-workspace
           "roi" 'lsp-java-organize-imports
-          "rr" 'lsp-rename
           "rai" 'lsp-java-add-import
           "ram" 'lsp-java-add-unimplemented-methods
           "rcp" 'lsp-java-create-parameter
@@ -462,9 +451,9 @@
           "rem" 'lsp-java-extract-method
           "cc"  'lsp-java-build-project
           "an"  'lsp-java-actionable-notifications
-          "="   'lsp-format-buffer
 
           ;; dap-mode
+
           ;; debug
           "ddj" 'dap-java-debug
           "dtt" 'dap-java-debug-test-method

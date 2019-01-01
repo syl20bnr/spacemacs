@@ -11,6 +11,7 @@
 
 (defun spacemacs//python-setup-backend ()
   "Conditionally setup python backend."
+  (when python-pipenv-activate (pipenv-activate))
   (pcase python-backend
     (`anaconda (spacemacs//python-setup-anaconda))
     (`lsp (spacemacs//python-setup-lsp))))
@@ -67,8 +68,7 @@ when this mode is enabled since the minibuffer is cleared all the time."
 (defun spacemacs//python-setup-lsp ()
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (lsp-python-enable))
+      (lsp)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//python-setup-lsp-company ()

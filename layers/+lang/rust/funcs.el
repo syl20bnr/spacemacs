@@ -35,8 +35,7 @@ using `cargo-process-run'."
 (defun spacemacs//rust-setup-lsp ()
   "Setup lsp backend"
   (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (lsp-rust-enable))
+      (lsp)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//rust-setup-racer ()

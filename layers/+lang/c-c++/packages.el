@@ -49,7 +49,7 @@
     :init
     (progn
       (add-to-list 'auto-mode-alist
-                   `("\\.h\\'" . ,c-c++-default-mode-for-headers))
+        `("\\.h\\'" . ,c-c++-default-mode-for-headers))
       (when c-c++-enable-auto-newline
         (add-hook 'c-mode-common-hook 'spacemacs//c-toggle-auto-newline)))
     :config
@@ -259,28 +259,23 @@
       (spacemacs/set-leader-keys-for-major-mode mode "gi" 'cscope-index-files))))
 
 ;; BEGIN LSP BACKEND PACKAGES
-
 ;; See also https://github.com/cquery-project/cquery/wiki/Emacs
 (defun c-c++/init-cquery ()
   (use-package cquery
     :if (eq c-c++-backend 'lsp-cquery)
-    :defer t
-    :commands lsp-cquery-enable
-    :init
-    (add-hook 'c-mode-common-hook #'spacemacs//c-c++-lsp-enable)
     :config
-    (spacemacs//c-c++-lsp-config)))
+    (spacemacs//c-c++-lsp-config)
+    :hook ((c-mode c++-mode) .
+            (lambda () (cl-pushnew #'company-lsp company-backends) (require 'cquery) (remhash 'clangd lsp-clients) (lsp)))))
 
 ;; See also https://github.com/MaskRay/ccls/wiki/Emacs
 (defun c-c++/init-ccls ()
   (use-package ccls
     :if (eq c-c++-backend 'lsp-ccls)
-    :defer t
-    :commands lsp-ccls-enable
-    :init
-    (add-hook 'c-mode-common-hook #'spacemacs//c-c++-lsp-enable)
     :config
-    (spacemacs//c-c++-lsp-config)))
+    (spacemacs//c-c++-lsp-config)
+    :hook ((c-mode c++-mode) .
+            (lambda () (cl-pushnew #'company-lsp company-backends) (require 'ccls) (remhash 'clangd lsp-clients) (lsp)))))
 
 ;;Intentionally adding both cquery and ccls cache dirs to ignore list, to facilitate switching between
 ;;two without multiple caches polluting projectile find file results
