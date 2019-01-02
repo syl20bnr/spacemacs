@@ -55,7 +55,10 @@
 (defun php/init-php-mode ()
   (use-package php-mode
     :defer t
-    :mode ("\\.php\\'" . php-mode)))
+    :mode ("\\.php\\'" . php-mode))
+    :init
+    (progn
+      (add-hook 'php-mode-hook 'spacemacs//php-setup-backend)))
 
 (defun php/init-phpcbf ()
   (use-package phpcbf
@@ -75,3 +78,6 @@
       (spacemacs|add-company-backends
         :modes php-mode
         :backends company-ac-php-backend))))
+
+(defun php/post-init-company ()
+  (add-hook 'php-mode-local-vars-hook #'spacemacs//php-setup-company))
