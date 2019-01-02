@@ -55,7 +55,10 @@
 (defun php/init-php-mode ()
   (use-package php-mode
     :defer t
-    :mode ("\\.php\\'" . php-mode)))
+    :mode ("\\.php\\'" . php-mode))
+    :init
+    (progn
+      (add-hook 'php-mode-hook 'spacemacs//php-setup-backend)))
 
 (defun php/init-phpcbf ()
   (use-package phpcbf

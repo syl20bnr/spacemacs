@@ -2263,6 +2263,8 @@ Other:
 **** PHP
 - Added company-php (thanks to jim and Eivind Fonn)
 - Fixed php-company autocompletion (thanks to Dela Anthonio)
+- Added LSP support, which can be used by enabling the =lsp= layer and setting
+  the =php= layer's =php-backend= variable to =lsp=
 **** PlantUML
 - Added a missing prefix: =compile=
 **** Platinum

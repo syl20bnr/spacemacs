@@ -8,6 +8,12 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#setting-the-backend][Setting the backend]]
+- [[#backend][Backend]]
+  - [[#language-server-protocol][Language Server Protocol]]
+    - [[#intelephense][intelephense]]
+    - [[#php-language-server][php-language-server]]
 - [[#key-bindings][Key bindings]]
 - [[#usage][Usage]]
 
@@ -20,14 +26,48 @@ This layer adds PHP language support to Spacemacs.
 - Complete and jump to define with [[https://github.com/xcwen/ac-php][company-php]]
 - Run tests with PHPUnit
 - Reformat code with PHP CBF
+- Support for the [[https://langserver.org/][Language Server Protocol]] (experimental)
 
 The =gtags= layer is recommended to benefit from better =eldoc= and
 =helm-gtags=.
 
 * Install
+** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =php= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+** Setting the backend
+To activate the backend set the layer variable =php-backend=:
+
+#+BEGIN_SRC elisp
+  (php :variables php-backend 'lsp)
+#+END_SRC
+
+For spacemacs to use lsp you also need to add =lsp= to the
+=dotspacemacs-configuration-layers= in your =~/.spacemacs= file.
+
+* Backend
+** Language Server Protocol
+=lsp-mode= currently supports two lsp backends for php. When both are installed,
+the former takes priority over the latter:
+
+*** intelephense
+
+#+BEGIN_SRC sh
+  nmp install -g intelephense
+#+END_SRC
+
+You can find further information on the project's [[http://intelephense.net/][website]] and [[https://github.com/bmewburn/vscode-intelephense][GitHub page]].
+
+*** php-language-server
+
+#+BEGIN_SRC sh
+  composer require felixfbecker/language-server
+  composer run-script --working-dir=vendor/felixfbecker/language-server parse-stubs
+#+END_SRC
+
+You can find further information on the project's [[https://github.com/felixfbecker/php-language-server%20][GitHub page]].
 
 * Key bindings
 
