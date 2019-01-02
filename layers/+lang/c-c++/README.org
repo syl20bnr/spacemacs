@@ -27,9 +27,10 @@
   - [[#formatting-clang-format][Formatting (clang-format)]]
   - [[#rtags-1][RTags]]
   - [[#cquery--ccls][cquery / ccls]]
-    - [[#goto][goto]]
-    - [[#helphierarchy][help/hierarchy]]
     - [[#backend-language-server][backend (language server)]]
+    - [[#goto][goto]]
+      - [[#gotohierarchy][goto/hierarchy]]
+      - [[#gotomember][goto/member]]
 
 * Description
 This layer adds configuration for C/C++ language.
@@ -321,6 +322,14 @@ generally applicable.
 
 ** cquery / ccls
 The key bindings listed below are in addition to the default key bindings defined by the [[file:../../+tools/lsp/README.org][LSP layer]].
+A ~[ccls]~ or ~[cquery]~ suffix indicates that the binding is for the indicated backend only.
+
+*** backend (language server)
+
+| Key binding | Description                              |
+|-------------+------------------------------------------|
+| ~SPC m b f~ | refresh index (e.g. after branch change) |
+| ~SPC m b p~ | preprocess file                          |
 
 *** goto
 
@@ -332,23 +341,25 @@ The key bindings listed below are in addition to the default key bindings define
 | ~SPC m g c~ | find callers              |
 | ~SPC m g C~ | find callees              |
 | ~SPC m g v~ | vars                      |
+| ~SPC m g f~ | find file at point (ffap) |
+| ~SPC m g F~ | ffap other window         |
 
-*** help/hierarchy
+**** goto/hierarchy
 
-| Key binding | Description                 |
-|-------------+-----------------------------|
-| ~SPC m h b~ | base class(es)              |
-| ~SPC m h d~ | derived class(es)           |
-| ~SPC m h c~ | call hierarchy              |
-| ~SPC m h C~ | call hierarchy (inv)        |
-| ~SPC m h i~ | inheritance hierarchy       |
-| ~SPC m h I~ | inheritance hierarchy (inv) |
-| ~SPC m h m~ | member hierarchy            |
-| ~SPC m h M~ | member hierarchy (inv)      |
+| Key binding   | Description                 |
+|---------------+-----------------------------|
+| ~SPC m g h b~ | base class(es)              |
+| ~SPC m g h d~ | derived class(es) [ccls]    |
+| ~SPC m g h c~ | call hierarchy              |
+| ~SPC m g h C~ | call hierarchy (inv)        |
+| ~SPC m g h i~ | inheritance hierarchy       |
+| ~SPC m g h I~ | inheritance hierarchy (inv) |
 
-*** backend (language server)
+**** goto/member
 
-| Key binding | Description                              |
-|-------------+------------------------------------------|
-| ~SPC m b f~ | refresh index (e.g. after branch change) |
-| ~SPC m b p~ | preprocess file                          |
+| Key binding   | Description             |
+|---------------+-------------------------|
+| ~SPC m g m h~ | member hierarchy        |
+| ~SPC m g m t~ | member types [ccls]     |
+| ~SPC m g m f~ | member functions [ccls] |
+| ~SPC m g m v~ | member variables [ccls] |

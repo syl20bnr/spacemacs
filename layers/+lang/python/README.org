@@ -122,6 +122,11 @@ Additionally you can install the following other packages:
   pip install pyls-mypy
 #+END_SRC
 
+If you’ve installed the language server and related packages as development
+dependencies in a pipenv environment, you’ll want to set the ~python-pipenv-activate~
+config variable to ~t~. This activates your pipenv before enabling the
+lsp backend.
+
 * Additional tools
 ** Syntax checking
 Syntax checking uses =flake8= package:
