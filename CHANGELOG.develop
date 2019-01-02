@@ -200,7 +200,12 @@ Benner and Paweł Siudak):
 **** WEB services
 - confluence
 **** Spacemacs
-- treemacs (thanks to Alexander Miller)
+- spacemacs-defaults
+- spacemacs-modeline
+- spacemacs-navigation
+- spacemacs-project
+- spacemacs-purpose (thanks to bmag)
+- spacemacs-visual
 **** Tools
 - bm (thanks to Eugene Yaremenko)
 - lsp (thanks to Fangrui Song, 0bl.blwl, and Sylvain Benner)
@@ -209,11 +214,12 @@ Benner and Paweł Siudak):
 - sphinx (thanks to Wei-Wei Guo)
 - transmission (thanks to Eugene Yaremenko)
 - cmake (thanks to Alexander Dalshov and Sylvain Benner)
+- xclipboard (thanks to Charles Weill and Sylvain Benner)
 **** Others
 - japanese (thanks to Kenji Miyazaki)
 - multiple-cursors (thanks to Codruț Constantin Gușoi)
 - parinfer (thanks to Tianshu Shi)
-- spacemacs-purpose (thanks to bmag)
+- treemacs (thanks to Alexander Miller)
 *** Removed layers
 - =extra-langs= (replaced by ad-hoc layers)
 - =evil-cleverparens= (moved to =spacemacs-evil=)
@@ -328,10 +334,16 @@ Benner and Paweł Siudak):
 - Wrap init with =file-name-handler-alist nil= to speed up init (thanks to Aaron
   Jensen)
 *** Distribution changes
-- Refactor =spacemacs-ui= and =spacemacs-ui-visual= layers:
-  - new =spacemacs-navigation= layer contains packages whose principal goal is
-    navigation
-  - new =spacemacs-modeline= layer contains packages about mode line
+- Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
+  layers:
+  - The =spacemacs-bootstrap= layer no longer configures built-in packages;
+    instead, the new =spacemacs-defaults= layer configures built-in packages.
+  - The =spacemacs-base= distribution now uses only the new =spacemacs-defaults=
+    layer. As a result, =spacemacs-base= no longer installs any packages, but
+    instead only configures defaults for built-in packages.
+  - The new =spacemacs-navigation= layer configures packages for navigation.
+  - The new =spacemacs-modeline= layer configures packages for the mode line.
+  - The new =spacemacs-project= layer configures =projectile=.
   - Merge =spacemacs-ui= and =spacemacs-ui-visual= into layer =spacemacs-visual=
 - New Packages:
   - Add =evil-lion= package to =spacemacs-evil= layer (thanks to et2010 and
@@ -441,6 +453,8 @@ Benner and Paweł Siudak):
     - ~SPC m t r~ calls =image-transform-rotation=
   - Alternative keybinding ~M-0~ to switch to =neotree= / =treemacs= window
     (thanks to Alexander Miller)
+  - New ~SPC w 1~ to set the window layout to a single column (thanks to
+    Alejandro Arrufat)
 - Fixes:
   - Disable the paste transient state when using multiple cursors
     (thanks to Koray AL)
@@ -541,6 +555,7 @@ Benner and Paweł Siudak):
   Benner)
 - Switched =center-cursor-mode= to melpa source (thanks to Dieter Komendera)
 - Fix =projectile-switch-project-action= (thanks to John Soo)
+- Configured =golden-ratio= to update after ~[ w~ and ~] w~ (thanks to duianto)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -682,6 +697,7 @@ Benner and Paweł Siudak):
 - Kill buffer shall return to *docker-containers* (thanks to Francesc Elies
 - Key bindings:
   - Moved key bindings prefix from ~SPC D~ to ~SPC a D~ (thanks to Ag Ibragimov)
+  - Added ~SPC m c B~ to build image without cache (thanks to Maximilian Wolff)
   Henar)
 - Fix: broken package declaration for dockerfile-mode (thanks to Maximilian Wolff)
 **** Elfeed
@@ -813,6 +829,8 @@ is enabled
   Benner)
 - Add Gradle support (thanks to Johnson Denen)
 - Improve maven and gradle support (thanks to Sylvain Benner)
+- Key bindings:
+  - Added ~SPC m r i~ to add import (thanks to Sylvain Benner)
 **** Gtags
 - Key bindings:
   - Move key binding ~SPC m g c~ to ~SPC m g C~ (regenerate tags)
@@ -851,6 +869,11 @@ is enabled
   candidates by distributing buffers over existing windows until the action has
   either assigned all buffers or run out of windows (thanks to Nir Friedman)
 - Fix signature of =spacemacs//display-helm-window= (thanks to Jack Kamm)
+- Fix initialization by calling =helm-mode= when Helm is initialized (thanks to
+  bet4it).
+- Fixed actions in Helm transient state (thanks to Troy Hinckley)
+- Added support for editing the =helm-find-files= buffer from the Helm transient
+  state (thanks to Troy Hinckley)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Add =counsel-css= as an ivy alternative to =helm-css-scss= (thanks to Robbert
@@ -924,6 +947,9 @@ is enabled
 - Fix syntax typo in configuration (thanks to EMayej)
 **** Javascript
 - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
+- Added LSP support, which can be used by enabling the =lsp= layer and setting
+  the =javascript= layer's =javascript-backend= variable to =lsp= (thanks to
+  Ting Zhou)
 - Key bindings
   - Improve coffeescript support (thanks to Kalle Lindqvist)
     - ~SPC m '~ to create or go to REPL
@@ -1297,6 +1323,8 @@ is enabled
 - Remove zonokai-theme theme as it is unavailable (thanks to nickclasener)
 - Updates to the spacemacs theme (thanks to Nasser Alshammari)
 - Fix the =base16-solarflare= mapping (thanks to Sebastian Nagel)
+- Added support for kaolin themes (thanks to William Roe)
+- Added support for eziam themes (thanks to Benno Fünfstück)
 ***** Colors
 - Add ability to set default rainbow-identifiers values (thanks to SteveJobzniak)
 - Improved resetting of rainbow-identifiers transient-state (thanks to SteveJobzniak)
@@ -1310,6 +1338,7 @@ is enabled
 - Add =white-sand-theme= (thanks to Swaroop C H)
 - Add =exotica= theme (thanks to Bharat Joshi)
 - Remove themes that were deleted from Melpa (thanks to Henrique Jung)
+- Added =eziam-theme= and =kaolin-themes= (thanks to Sylvain Benner)
 **** Tmux
 - Prevent =tmux-command= at GUI mode (thanks to Isaac Zeng)
 - Fix regression in tmux by setting keybindings using =use-package= (thanks to
@@ -1323,10 +1352,15 @@ is enabled
 - Created a derived mode for TSX files (thanks to Aaron Jensen)
 - Fix eldoc (thanks to Aaron Jensen)
 - Isolate eldoc configuration (thanks to Sylvain Benner)
-- /rename/ reworded to /refactor/ in =which-key= popup (thanks to Simon Altschuler)
+- /rename/ reworded to /refactor/ in =which-key= popup (thanks to Simon
+  Altschuler)
 - Key bindings:
   - ~SPC m E e~ is for =tide-fix= which was originally added as ~SPC m r f~
     (thanks to Simon Altschuler)
+- Added LSP support, which can be used by enabling the =lsp= layer and setting
+  the =typescript= layer's =typescript-backend= variable to =lsp= (thanks to
+  Ting Zhou)
+>>>>>>> a7f0331cd... Updated change log
 **** Vagrant
 - Key bindings:
   - move key bindings prefix to ~SPC a V~ (thanks to Thomas de Beauchêne)
@@ -1372,7 +1406,8 @@ is enabled
   Yaremenko)
 - Various code style improvements (thanks to bmag, duianto, Eivind Fonn, Eugene
   Yaremenko, Fabien Dubosson, Sylvain Benner)
-- Multiple unit test improvements (thanks to Sylvain Benner)
+- Multiple unit test improvements (thanks to Sylvain Benner and Codruț
+  Constantin Gușoi)
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham, Adam
   Frey, Adam Kruszewski, Alexander Dalshov, Alexander Iljin, Alexander Kjeldaas,
   Alexandros Kotzias, Anton Latukha, Anurag Sharma, Archenoth, Benjamin
@@ -1395,6 +1430,8 @@ is enabled
   SteveJobzniak, Sunghyun Hwang, Swaroop C H, Sylvain Benner, Szunti, Tim
   Stewart, timor, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz
   Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
+# Add additional names as comma separated lines for easier merging/diffing
+  Philippe Bourdages,
 *** Release notes summarized
   Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
   Masters, Abhishek(Compro) Prasad
