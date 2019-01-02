@@ -782,6 +782,8 @@ Other:
     - ~q~ exits the transient state
       (thanks to kenkangxgwe)
   - Added =link-hint-copy-link= to ~SPC x y~ (thanks to William Casarin)
+  - Added =evil-unimpaired= navigation keys prefixed by ~[~ and ~]~ to the
+    Spacemacs home buffer (thanks to Sorawee Porncharoenwase)
 - Improvements:
   - Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
     ~SPC w 4~ (thanks to Codruț Constantin Gușoi):
