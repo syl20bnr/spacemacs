@@ -8,8 +8,12 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#layer][Layer]]
   - [[#linting][Linting]]
   - [[#style-checking][Style checking]]
+  - [[#setting-the-backend][Setting the backend]]
+- [[#backend][Backend]]
+  - [[#language-server-protocol][Language Server Protocol]]
 - [[#key-bindings][Key bindings]]
 
 * Description
@@ -25,8 +29,10 @@ Supported scripting files:
 - Auto-completion using [[https://github.com/Alexander-Miller/company-shell][company-shell]]
 - =Sh= scripts linting using [[https://www.shellcheck.net/][shellcheck]]
 - =Sh= scripts style checking using [[https://github.com/openstack-dev/bashate][bashate]]
+- Support for the [[https://langserver.org/][Language Server Protocol]] (experimental)
 
 * Install
+** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =shell-scripts= to the existing =dotspacemacs-configuration-layers= list in this
 file.
@@ -36,6 +42,26 @@ In order to enable =sh= scripts linting, install [[https://www.shellcheck.net/][
 
 ** Style checking
 In order to enable =sh= scripts style checking, install [[https://github.com/openstack-dev/bashate][bashate]].
+
+** Setting the backend
+To activate the backend set the layer variable =shell-scripts-backend=:
+
+#+BEGIN_SRC elisp
+  (shell-scripts :variables shell-scripts-backend 'lsp)
+#+END_SRC
+
+For spacemacs to use lsp you also need to add =lsp= to the
+=dotspacemacs-configuration-layers= in your =~/.spacemacs= file.
+
+* Backend
+** Language Server Protocol
+You have to install the bash language server:
+
+#+BEGIN_SRC sh
+  npm i -g bash-language-server
+#+END_SRC
+
+You can find further information on the project's [[https://github.com/mads-hartmann/bash-language-server][GitHub page]].
 
 * Key bindings
 
