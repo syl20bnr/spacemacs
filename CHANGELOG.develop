@@ -2567,6 +2567,8 @@ Other:
 - Added insert commands from sh-script package to major mode menu
   (thanks to Maximilian Wolff)
 - Added org-mode support (thanks to Josh Santos)
+- Added LSP support, which can be used by enabling the =lsp= layer and setting
+  the =shell-scripts= layer's =shell-scripts-backend= variable to =lsp=
 **** Slack
 - New layer variable =slack-spacemacs-layout-name= to customize the name of
   the custom layer for Slack buffers (thanks to Benjamin Reynolds)
