@@ -189,7 +189,7 @@ Benner and Paweł Siudak):
 - forth (thanks to Tim Jaeger)
 - gpu (thanks to Evan Klitzke)
 - groovy (thanks to Sylvain Benner)
-- hy (thanks to TODO: add author here)
+- hy (thanks to Sylvain Benner)
 - jr (thanks to Philippe Baron)
 - koltin (thanks to Shanavas M)
 - perl5 (thanks to Troy Hinckley)
@@ -218,11 +218,13 @@ Benner and Paweł Siudak):
 - cmake (thanks to Alexander Dalshov and Sylvain Benner)
 - xclipboard (thanks to Charles Weill, Sylvain Benner, and Alex Palaistras)
 - debug (thanks to Troy Hinckley and Sylvain Benner)
+- web-beautify (thanks to Sylvain Benner and Juuso Valkeejärvi)
+- tern (thanks to Sylvain Benner and Juuso Valkeejärvi)
 **** Others
 - japanese (thanks to Kenji Miyazaki)
 - multiple-cursors (thanks to Codruț Constantin Gușoi)
 - parinfer (thanks to Tianshu Shi)
-- treemacs (thanks to Alexander Miller)
+- treemacs (thanks to Alexander Miller and Sylvain Benner)
 *** Removed layers
 - =extra-langs= (replaced by ad-hoc layers)
 - =evil-cleverparens= (moved to =spacemacs-evil=)
@@ -338,6 +340,12 @@ Benner and Paweł Siudak):
   Jensen)
 - Added optional =append= and =local= parameters to =spacemacs/add-to-hooks=
   (thanks to Sylvain Benner)
+- Fixed bugs that could cause =layers.el= and =packages.el= files to be loaded
+  multiple times (thanks to Sylvain Benner)
+- Changed startup to hide loading message unless =--debug-init= is specified
+  (thanks to Sylvain Benner)
+- Added support for dumping Spacemacs; see =EXPERIMENTAL.org= (thanks to Sylvain
+  Benner).
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -563,6 +571,7 @@ Benner and Paweł Siudak):
 - Switched =center-cursor-mode= to melpa source (thanks to Dieter Komendera)
 - Fix =projectile-switch-project-action= (thanks to John Soo)
 - Configured =golden-ratio= to update after ~[ w~ and ~] w~ (thanks to duianto)
+- Fixed spaceline colors on emacs-mac port (thanks to Paweł Siudak)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -780,10 +789,9 @@ Benner and Paweł Siudak):
 - Reorganize key bindings ( refer to =ESS= section in Breaking Changes above )
 **** Evil snipe
 - Must always explicitly enable =evil-snipe-mode= even when
-  =evil-snipe-override-mode= (thanks to Sylvain Benner)
+  =evil-snipe-override-mode= is enabled (thanks to Sylvain Benner)
 **** FSharp
 - Added prefixes for key bindings (thanks to David Millar-Durrant)
-is enabled
 **** Geolocation
 - Add deferred theme changer activation function. (thanks to Thadeus Fleming)
 - Fix geolocation layer on non-macos systems (thanks to Boris Buliga)
@@ -910,7 +918,7 @@ is enabled
   - Add Helm key bindings counterparts: ~SPC f e l~ and ~SPC h i~
     (thanks to Andriy Kmit')
   - Add ~SPC h d F~ to list faces (thanks to Muneeb Shaikh)
-  - Bind ==find-file-other-window= to ~j~ (thanks to James Wang)
+  - Bind =find-file-other-window= to ~j~ (thanks to James Wang)
   - Add =counsel-mark-ring= to ~rm~ (thanks to bmag)
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
 - Use new API to register additional transient state bindings (thanks to Andriy
@@ -1038,6 +1046,8 @@ is enabled
 - Move neotree to its own layer in new +filetree folder (thanks to Sylvain
   Benner)
 - Add screenshot in neotree layer (thanks to duianto)
+- Allow a prefix argument to ~RET~ / ~l~ (=spacemacs/neotree-expand-or-open=)
+  to specify which window to use to open a file (thanks to Ljupcho Kotev)
 - Key bindings:
   - ~SPC f T~ reinstated for showing file tree with Neotree or Treemacs
     (thanks to bmag)
@@ -1200,6 +1210,8 @@ is enabled
 - Added support for breakpoints for the =trepan3k= python debugger (thanks to
   dangirsh)
 - Added support for =pipenv= with proper keybindings (thanks to jackkamm)
+- Fixed bytecomp warning: =reference to free variable 'smartparens-strict-mode'=
+  (thanks to Nikita Leshenko and Sylvain Benner)
 - Key bindings:
   - Update invalid cython mode keybindings (thanks to Muneeb Shaikh)
   - New =anaconda-view-mode= keybindings (thanks to Muneeb Shaikh)
@@ -1227,6 +1239,8 @@ is enabled
   (thanks to Jan Zdráhal)
 - Use JSX header without breaking React (thanks to Jam Risser)
 - Make auto-completion triggers more friendly (thanks to Cheng,Rong)
+- Configure =emmet-mode= to expand classes using =className= instead of =class=
+  (thanks to Sylvain Benner)
 **** Ruby
 - Add support for =org-babel= (thanks to Muneeb Shaikh)
 - Highlight debugger keywords (thanks to Alexander Berezovsky and Eivind Fonn)
@@ -1246,6 +1260,7 @@ is enabled
   - Add ~SPC m r R v~ to extract local variable.
   - Add ~SPC m r R c~ to extract constant.
   - Add ~SPC m r R l~ to extract to =let=.
+  - Added ~SPC m s l~ to send line to REPL (thanks to Paweł Siudak)
 **** Rust
 - Key bindings:
   - Add ~SPC m c D~ to open Cargo docs (thanks to Matthew J. Berger)
