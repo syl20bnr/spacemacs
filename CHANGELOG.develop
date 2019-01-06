@@ -343,8 +343,6 @@ Benner and Paweł Siudak):
   Jensen)
 - Added optional =append= and =local= parameters to =spacemacs/add-to-hooks=
   (thanks to Sylvain Benner)
-- Support winner, ysnappet for portable dumper (thanks to Sylvain
-  Benner)
 - Enable auto dump when a layer list has changed (thanks to Sylvain Benner)
 - Run dump only when layers has been changed (thanks to Sylvain Benner)
 - Force dumps when reloading configuration with ~SPC f e R~ (thanks to Sylvain Benner)
