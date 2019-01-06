@@ -1579,6 +1579,10 @@ Benner and Paweł Siudak):
     - ~SPC a o C j~ for =org-clock-jump-to-current-clock=
     - ~SPC a o C o~ for =org-clock-out=
     - ~SPC a o C r~ for =org-resolve-clocks=
+  - Updates org-layer key bindings for Org 9.2 release (thanks to Sam
+    Pillsworth):
+    - ~SPC m i b~ for =org-insert-structure-template=
+    - ~SPC m i t~ for =org-set-tags-command=
 - Key binding changes for archiving (thanks to Ag Ibragimov):
   - Add ~SPC m s a~ to toggle archive tag for subtree
   - Add ~SPC m s A~ to archive subtree (previously ~SPC m s a~)
