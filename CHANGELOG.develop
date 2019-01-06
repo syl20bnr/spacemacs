@@ -199,6 +199,7 @@ Benner and Paweł Siudak):
 - semantic-web (thanks to Andreas Textor)
 - coffeescript (thanks to Sylvain Benner)
 - json (thanks to Sylvain Benner)
+- crystal (thanks to Sylvain Benner)
 **** WEB services
 - confluence
 **** Spacemacs
@@ -253,6 +254,10 @@ Benner and Paweł Siudak):
     in the scratch buffer (thanks to Carl Lange)
   - New variable =dotspacemacs-gc-cons= (thanks to Sylvain Benner)
   - New variable =dotspacemacs-enable-server= (thanks to Tad Fisher)
+  - New dotvariables =dotspacemacs-emacs-pdumper-executable-file=,
+    =dotspacemacs-emacs-dumper-dump-file= and
+    =dotspacemacs-enable-emacs-pdumper= to configure dump (thanks to Sylvain
+    Benner)
 - Can use the univeral prefix argument to open both the =*scratch*= buffer and
   the =*Messages*= buffer in another window (thanks to Thomas de Beauchêne)
 *** Core changes
@@ -338,6 +343,17 @@ Benner and Paweł Siudak):
   Jensen)
 - Added optional =append= and =local= parameters to =spacemacs/add-to-hooks=
   (thanks to Sylvain Benner)
+- Support winner, ysnappet for portable dumper (thanks to Sylvain
+  Benner)
+- Enable auto dump when a layer list has changed (thanks to Sylvain Benner)
+- Run dump only when layers has been changed (thanks to Sylvain Benner)
+- Force dumps when reloading configuration with ~SPC f e R~ (thanks to Sylvain Benner)
+- New command line parameter =--force-dump= to force dump emacs (thanks to
+  Sylvain Benner)
+- New function =configuration-layer/message= to display message in =*Messages*=
+  buffer (thanks to Sylvain Benner)
+- Disable auto-start of Emacs server by default (thanks to Sylvain Benner)
+- Removed obsolete tools from core (thanks to Eugene Yaremenko)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -563,6 +579,7 @@ Benner and Paweł Siudak):
 - Switched =center-cursor-mode= to melpa source (thanks to Dieter Komendera)
 - Fix =projectile-switch-project-action= (thanks to John Soo)
 - Configured =golden-ratio= to update after ~[ w~ and ~] w~ (thanks to duianto)
+- Remove package =adaptive-wrap=
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -882,6 +899,7 @@ is enabled
 - Fixed actions in Helm transient state (thanks to Troy Hinckley)
 - Added support for editing the =helm-find-files= buffer from the Helm transient
   state (thanks to Troy Hinckley)
+- Move functions in =packages.el= to =funcs.el= (thanks to Sylvain Benner)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Add =counsel-css= as an ivy alternative to =helm-css-scss= (thanks to Robbert
@@ -1206,6 +1224,8 @@ is enabled
     - ~C-j~ for navigating to the next error
     - ~C-k~ for navigating to the previous error
     - ~RET~ to go forward
+- Fix =pyenv= =pre-init= function and =hy-mode= prefixes (thanks to Brandon T.
+  Willard)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 **** Ranger
@@ -1419,30 +1439,33 @@ is enabled
   Yaremenko, Fabien Dubosson, Sylvain Benner)
 - Multiple unit test improvements (thanks to Sylvain Benner and Codruț
   Constantin Gușoi)
+- Documentation of Spacemacs experimental features in
+  [EXPERIMENTAL.org](EXPERIMENTAL.org) (thanks to Sylvain Benner)
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham, Adam
   Frey, Adam Kruszewski, Alexander Dalshov, Alexander Iljin, Alexander Kjeldaas,
-  Alexandros Kotzias, Anton Latukha, Anurag Sharma, Archenoth, Benjamin
-  Reynolds, bmag, Boris Buliga, Boris Wong, Carl Lange, Chase Adams, CL123123,
-  Codruț Constantin Gușoi, Daniel Hodson, Daniel Le, Darkhan, David Florness,
-  David Vo, davidpham87, Dela Anthonio, Diego Alvarez, Diego Berrocal, Dietrich
-  Daroch, Dinesh Bhosale, Dominik Schrempf, Doug Beardsley, dubnde, duianto,
-  eldios, Eugene Yaremenko, Evan Klitzke, Evan Niessen-Derry, firemiles, Fuqiao
-  Xue, Garrett Johnson, Henry Marshall, Ivan Kryvoruchko, J. Patrick Lanigan,
-  Jesse Cooke, Jim Deville, Jody Frankowski, Joe Hillenbrand, John Wood, Jon
-  Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood,
-  Joshua Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant, Kristoffer
-  Haugsbakk, Leo Joseph Buchignani III, Max Beutelspacher, Max Nordlund,
-  Maximilian Wolff, Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser
-  Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Nicolas Forgerit,
-  Olivier Verdier, Paul Milla, Paulo Schneider, Pawan Dubey, Paweł Siudak, Phil
-  Pirozhkov, Piotr Grzesik, Rafi Khan, Rand01ph, rakyi, Raymond Wanyoike,
-  Reverend Homer, Robby O'Connor, Rhommel Lamas, Sam Pablo Kuper, Saulius
-  Menkevičius, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho,
-  SteveJobzniak, Sunghyun Hwang, Swaroop C H, Sylvain Benner, Szunti, Tim
-  Stewart, timor, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz
-  Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
+  Alexandros Kotzias, Anton Latukha, Anurag Sharma, Archenoth, Ather Sharif,
+  Benjamin Reynolds, bmag, Boris Buliga, Boris Wong, Carl Lange, Chase Adams,
+  CL123123, Codruț Constantin Gușoi, Daniel Hodson, Daniel Le, Darkhan, David
+  Florness, David Vo, davidpham87, Dela Anthonio, Diego Alvarez, Diego Berrocal,
+  Dietrich Daroch, Dinesh Bhosale, Dominik Schrempf, Doug Beardsley, dubnde,
+  duianto, eldios, Eugene Yaremenko, Evan Klitzke, Evan Niessen-Derry,
+  firemiles, Fuqiao Xue, Garrett Johnson, Henry Marshall, Ivan Kryvoruchko, J.
+  Patrick Lanigan, Jesse Cooke, Jim Deville, Jody Frankowski, Joe Hillenbrand,
+  John Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett,
+  Josh Greenwood, Joshua Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant,
+  Kristoffer Haugsbakk, Leo Joseph Buchignani III, Max Beutelspacher, Max
+  Nordlund, Maximilian Wolff, Mikhail Yakutovich, Muneeb Shaikh, Nasser
+  Alshammari, Nasser Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam,
+  Nicolas Forgerit, Olivier Verdier, Paul Milla, Paulo Schneider, Pawan Dubey,
+  Paweł Siudak, Phil Pirozhkov, Piotr Grzesik, Rafi Khan, Rand01ph, rakyi,
+  Raymond Wanyoike, Reverend Homer, Robby O'Connor, Rhommel Lamas, Sam Pablo
+  Kuper, Saulius Menkevičius, sduthil, Shane Kilkelly, Sid Kapur, Somelauw,
+  Soobin Rho, SteveJobzniak, Sunghyun Hwang, Swaroop C H, Sylvain Benner,
+  Szunti, Tim Stewart, timor, TinySong, Titov Andrey, Thomas de Beauchêne,
+  Tomasz Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu,
+  zer09)
 # Add additional names as comma separated lines for easier merging/diffing
   Philippe Bourdages,
 *** Release notes summarized
   Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
-  Masters, Abhishek(Compro) Prasad
+  Masters, Abhishek(Compro) Prasad, Deepak Khidia
