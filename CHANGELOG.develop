@@ -182,6 +182,8 @@ Benner and Paweł Siudak):
 - Simplify declaration of company backends, see the section
   =Add auto-completion in a layer= of the =README.org= file of the
   =auto-completion= layer.
+- Added experimental support for the emacs dumper; see =EXPERIMENTAL.org=
+  (thanks to Sylvain Benner).
 *** New layers
 **** Email
 - notmuch (thanks to Francesc Elies Henar, Leonard Lausen, Willian Casarin)
@@ -203,6 +205,7 @@ Benner and Paweł Siudak):
 - semantic-web (thanks to Andreas Textor)
 - coffeescript (thanks to Sylvain Benner)
 - json (thanks to Sylvain Benner)
+- crystal (thanks to Sylvain Benner)
 **** WEB services
 - confluence
 **** Spacemacs
@@ -259,6 +262,10 @@ Benner and Paweł Siudak):
     in the scratch buffer (thanks to Carl Lange)
   - New variable =dotspacemacs-gc-cons= (thanks to Sylvain Benner)
   - New variable =dotspacemacs-enable-server= (thanks to Tad Fisher)
+  - New dotvariables =dotspacemacs-emacs-pdumper-executable-file=,
+    =dotspacemacs-emacs-dumper-dump-file= and
+    =dotspacemacs-enable-emacs-pdumper= to configure dump (thanks to Sylvain
+    Benner)
 - Can use the univeral prefix argument to open both the =*scratch*= buffer and
   the =*Messages*= buffer in another window (thanks to Thomas de Beauchêne)
 *** Core changes
@@ -348,8 +355,12 @@ Benner and Paweł Siudak):
   multiple times (thanks to Sylvain Benner)
 - Changed startup to hide loading message unless =--debug-init= is specified
   (thanks to Sylvain Benner)
-- Added support for dumping Spacemacs; see =EXPERIMENTAL.org= (thanks to Sylvain
-  Benner).
+- New command line parameter =--force-dump= to force dump emacs (thanks to
+  Sylvain Benner)
+- New function =configuration-layer/message= to display message in =*Messages*=
+  buffer (thanks to Sylvain Benner)
+- Disable auto-start of Emacs server by default (thanks to Sylvain Benner)
+- Removed obsolete tools from core (thanks to Eugene Yaremenko)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -578,6 +589,7 @@ Benner and Paweł Siudak):
 - Fix =projectile-switch-project-action= (thanks to John Soo)
 - Configured =golden-ratio= to update after ~[ w~ and ~] w~ (thanks to duianto)
 - Fixed spaceline colors on emacs-mac port (thanks to Paweł Siudak)
+- Remove package =adaptive-wrap=
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -1239,6 +1251,8 @@ Benner and Paweł Siudak):
     - ~C-j~ for navigating to the next error
     - ~C-k~ for navigating to the previous error
     - ~RET~ to go forward
+- Fix =pyenv=, =pre-init= function and =hy-mode= prefixes (thanks to Brandon T.
+  Willard)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 **** Ranger
@@ -1461,7 +1475,7 @@ Benner and Paweł Siudak):
   Constantin Gușoi)
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham, Adam
   Frey, Adam Kruszewski, Alexander Dalshov, Alexander Iljin, Alexander Kjeldaas,
-  Alexandros Kotzias, Anton Latukha, Anurag Sharma, Archenoth, Benjamin
+  Alexandros Kotzias, Anton Latukha, Anurag Sharma, Archenoth, Ather Sharif, Benjamin
   Reynolds, bmag, Boris Buliga, Boris Wong, Carl Lange, Chase Adams, CL123123,
   Codruț Constantin Gușoi, Daniel Hodson, Daniel Le, Darkhan, David Florness,
   David Vo, davidpham87, Dela Anthonio, Diego Alvarez, Diego Berrocal, Dietrich
@@ -1484,4 +1498,4 @@ Benner and Paweł Siudak):
   Liu, zer09)
 *** Release notes summarized
   Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
-  Masters, Abhishek(Compro) Prasad
+  Masters, Abhishek(Compro) Prasad, Deepak Khidia
