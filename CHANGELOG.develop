@@ -219,10 +219,10 @@ Benner and Paweł Siudak):
 - bm (thanks to Eugene Yaremenko)
 - lsp (thanks to Fangrui Song, 0bl.blwl, and Sylvain Benner)
 - node (thanks to jupl)
-- pass (thanks to Andrew Oppenlander and Kepi)
+- pass (thanks to Andrew Oppenlander, Kepi, and Evan Klitzke)
 - sphinx (thanks to Wei-Wei Guo)
 - transmission (thanks to Eugene Yaremenko)
-- cmake (thanks to Alexander Dalshov and Sylvain Benner)
+- cmake (thanks to Alexander Dalshov, Sylvain Benner and Jonas Jelten)
 - xclipboard (thanks to Charles Weill, Sylvain Benner, and Alex Palaistras)
 - debug (thanks to Troy Hinckley and Sylvain Benner)
 - web-beautify (thanks to Sylvain Benner and Juuso Valkeejärvi)
@@ -232,6 +232,7 @@ Benner and Paweł Siudak):
 - multiple-cursors (thanks to Codruț Constantin Gușoi)
 - parinfer (thanks to Tianshu Shi)
 - treemacs (thanks to Alexander Miller and Sylvain Benner)
+- templates (thanks to YasuharuIida and Eivind Fonn)
 *** Removed layers
 - =extra-langs= (replaced by ad-hoc layers)
 - =evil-cleverparens= (moved to =spacemacs-evil=)
@@ -361,6 +362,8 @@ Benner and Paweł Siudak):
   buffer (thanks to Sylvain Benner)
 - Disable auto-start of Emacs server by default (thanks to Sylvain Benner)
 - Removed obsolete tools from core (thanks to Eugene Yaremenko)
+- Ask if unsaved changes in issue reports are about to be discarded (thanks to
+  timor)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -522,6 +525,8 @@ Benner and Paweł Siudak):
   - Fix regression to allow new project perspectives (thanks to Bruno Tavares)
   - Compute spacemacs-modeline height only after display init (thanks to Benno
     Fünfstück)
+  - Fix vert/horiz in Window Manipulation Transient St (thanks to Jesse Byler)
+  - Fix https links (thanks to Paweł Siudak)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -590,6 +595,8 @@ Benner and Paweł Siudak):
 - Configured =golden-ratio= to update after ~[ w~ and ~] w~ (thanks to duianto)
 - Fixed spaceline colors on emacs-mac port (thanks to Paweł Siudak)
 - Remove package =adaptive-wrap=
+- Deactivate =evil-escape= in =holy-mode= (thanks to Maximilian Wolff)
+- Fix bug with evil-pasted text object (thanks to Troy Hinckley)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -691,6 +698,8 @@ Benner and Paweł Siudak):
 - Enable safe structural editing for .cljs, .cljx, and .cljc files (thanks to
   Dieter Komendera)
 - Compatibility fix for CIDER 0.9.0 (thanks to nijohando)
+- Enable command history navigation in the cider REPL in an insert mode (thanks
+  to Wojciech Wojtyniak)
 **** Coffeescript
 - Adds basic autocompletion (thanks to Codruț Constantin Gușoi)
 - Key bindings (thanks to Kalle Lindqvist):
@@ -851,6 +860,7 @@ Benner and Paweł Siudak):
 - Remove old evilification of magit buffers (thanks to Sylvain Benner)
 - Move evil-magit =use-package= hook declaration to pre-init (thanks to Sylvain
   Benner)
+- Change =magit-svn-popup= keybinding to =~= (thanks to hornuda)
 **** Go
 - Improve go test output buffer behavior (thanks to Denis Bernard)
 - Configurable extra arguments to go test (thanks to Ian Clark)
@@ -881,6 +891,8 @@ Benner and Paweł Siudak):
 - Implements diminish and toggle (thanks to Dominik Schrempf)
 - Add ivy support to the gtags layers (thanks to Robbert van der Helm)
 - Make gtags toggle major mode specific (thanks to Sylvain Benner)
+- Fix issue =counsel-gtags= command doesn't work in c-c++ layer (thanks to
+  kekenow)
 **** Haskell
 - Disable electric indent for cabal-mode (thanks to Benno Fünfstück)
 - Add dante support to haskell layer (thanks to Kyle McKean)
@@ -1008,7 +1020,9 @@ Benner and Paweł Siudak):
 - Move REPL live eval toggle to ~SPC m T l~ (thanks to Sylvain Benner)
 - Set default value of =tern-command= to "tern" (thanks to Sylvain Benner and
   Juuso Valkeejärvi)
-- Move yas-activate-extra-mode setup from react layer (thanks to Sylvain Benner)
+- Move =yas-activate-extra-mode= setup from react layer (thanks to Sylvain
+  Benner)
+- Add ES6 module extension to =init-js2-mode= (thanks to Nathan Lloyd)
 **** Keyboard layout
 - Add support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and
   Eivind Fonn)
@@ -1071,6 +1085,7 @@ Benner and Paweł Siudak):
 - Make maildirs extension optional (thanks to JorisE)
 - Create email with attachments from dired (thanks to Oleg Pykhalov)
 - Refactor major-mode ledaer key bindings (thanks to Miciah Masters)
+- Enable scrolling in =mu4e= (thanks to Simon Altschuler)
 **** Multiple Cursors
 - Disable Spacemacs paste transient state when pasting to avoid pasting issue
   when there are more than one cursor (thanks to braham-snyder)
@@ -1085,6 +1100,7 @@ Benner and Paweł Siudak):
     (thanks to bmag)
   - ~SPC 0~ and ~M-0~ are consistent across Neotree and Treemacs (thanks to bmag)
 - Fix ~RET~ binding functionality (thanks to Lupco Kotev)
+- Use "open" instead of "xdg-open" on macos (thanks to Alexander-Miller)
 **** NixOS
 - Enable Flycheck (thanks to William Casarin)
 - Defer loading (thanks to Benno Fünfstück)
@@ -1326,6 +1342,8 @@ Benner and Paweł Siudak):
 - Fix docs for "Fish shell and ansi-term" and explicitly enable `truncate-lines`.
   (thanks to Joe Hillenbrand)
 - Fix ~C-j~ and ~C-k~ in =eshell= while in insert state (thanks to Paweł Siudak)
+- Restore =auto-completion-idle-delay= value for =company-idle-delay= (thanks to
+  Miciah Dashiel Butler Masters)
 **** Shell Scripts
 - Add new company-shell environment variable backend (thanks to Alexander-Miller)
 - Add bashate style checker (thanks to Victor Cuadrado Juan)
@@ -1475,27 +1493,28 @@ Benner and Paweł Siudak):
   Constantin Gușoi)
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham, Adam
   Frey, Adam Kruszewski, Alexander Dalshov, Alexander Iljin, Alexander Kjeldaas,
-  Alexandros Kotzias, Anton Latukha, Anurag Sharma, Archenoth, Ather Sharif, Benjamin
-  Reynolds, bmag, Boris Buliga, Boris Wong, Carl Lange, Chase Adams, CL123123,
-  Codruț Constantin Gușoi, Daniel Hodson, Daniel Le, Darkhan, David Florness,
-  David Vo, davidpham87, Dela Anthonio, Diego Alvarez, Diego Berrocal, Dietrich
-  Daroch, Dinesh Bhosale, Dominik Schrempf, Doug Beardsley, dubnde, duianto,
-  eldios, Eugene Yaremenko, Evan Klitzke, Evan Niessen-Derry, firemiles, Fuqiao
-  Xue, Garrett Johnson, Henry Marshall, Ivan Kryvoruchko, J. Patrick Lanigan,
-  Jesse Cooke, JI Xiang, Jim Deville, Jody Frankowski, Joe Hillenbrand, John
-  Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh
-  Greenwood, Joshua Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant,
-  Kristoffer Haugsbakk, Leo Joseph Buchignani III, Max Beutelspacher, Max
-  Nordlund, Maximilian Wolff, Mikhail Yakutovich, Muneeb Shaikh, Nasser
-  Alshammari, Nasser Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam,
-  Nicolas Forgerit, Olivier Verdier, Paul Milla, Paulo Schneider, Pawan Dubey,
-  Paweł Siudak, Phil Pirozhkov, Philippe Bourdages, Piotr Grzesik, Rafi Khan,
-  Rand01ph, rakyi, Raymond Wanyoike, Reverend Homer, Robby O'Connor, Rhommel
-  Lamas, Sam Pablo Kuper, Saulius Menkevičius, sduthil, Shane Kilkelly, Sid
-  Kapur, Somelauw, Soobin Rho, SteveJobzniak, Sunghyun Hwang, Swaroop C H,
-  Sylvain Benner, Szunti, Tim Stewart, timor, TinySong, Titov Andrey, Thomas de
-  Beauchêne, Tomasz Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi
-  Liu, zer09)
+  Alexandros Kotzias, Anton Latukha, Anurag Sharma, Archenoth, Ather Sharif,
+  Benjamin Reynolds, bmag, Boris Buliga, Boris Wong, Carl Lange, Chase Adams,
+  CL123123, Codruț Constantin Gușoi, Daniel Hodson, Daniel Le, Darkhan, David
+  Florness, David Vo, davidpham87, Dela Anthonio, Diego Alvarez, Diego Berrocal,
+  Dietrich Daroch, Dinesh Bhosale, Dominik Schrempf, Doug Beardsley, dubnde,
+  duianto, eldios, Eugene Yaremenko, Evan Klitzke, Evan Niessen-Derry,
+  firemiles, Fuqiao Xue, Garrett Johnson, Henry Marshall, hornuda, Ivan
+  Kryvoruchko, J. Patrick Lanigan, Jaremy Creechley, Jesse Cooke, Jethro Shuwen
+  Sun, JI Xiang, Jim Deville, Jody Frankowski, Joe Hillenbrand, John Wood, Jon
+  Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood,
+  Joshua Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant, Kristoffer
+  Haugsbakk, Leo Joseph Buchignani III, Max Beutelspacher, Max Nordlund,
+  Maximilian Wolff, Miciah Dashiel Butler Masters, Mikhail Yakutovich, Muneeb
+  Shaikh, Nasser Alshammari, Nasser Alshammari, Niko Felger, Nikolai Myllymäki,
+  nikolaiam, Nicolas Forgerit, Olivier Verdier, pancho horrillo, Paul Milla,
+  Paulo Schneider, Pawan Dubey, Paweł Siudak, Phil Pirozhkov, Philippe
+  Bourdages, Piotr Grzesik, Rafi Khan, Rand01ph, rakyi, Raymond Wanyoike,
+  Reverend Homer, Robby O'Connor, Rhommel Lamas, Sam Pablo Kuper, Saulius
+  Menkevičius, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho,
+  SteveJobzniak, Sunghyun Hwang, Swaroop C H, Sylvain Benner, Szunti, Tim
+  Stewart, timor, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz
+  Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
 *** Release notes summarized
   Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
-  Masters, Abhishek(Compro) Prasad, Deepak Khidia
+  Masters, Abhishek(Compro) Prasad, Deepak Khidia, Ward Harris
