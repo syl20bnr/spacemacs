@@ -138,6 +138,8 @@ Benner and Paweł Siudak):
 **** Syntax checking
 - Key bindings (thanks to Loris Lucido):
   - Changed ~SPC e e~ to ~SPC e b~ for =flycheck-buffer=
+**** Extra
+- Delete extra-langs layer (thanks to Robby O'Connor)  
 **** Others
 - All custom settings are now encapsulated in a function called
   =dotspacemacs/emacs-custom-settings=. While it should not break your custom
@@ -208,14 +210,16 @@ Benner and Paweł Siudak):
 - spacemacs-project
 - spacemacs-purpose (thanks to bmag)
 - spacemacs-visual
+**** Templates
+- Add templates layer (thanks to YasuharuIida and Eivind Fonn)
 **** Tools
 - bm (thanks to Eugene Yaremenko)
 - lsp (thanks to Fangrui Song, 0bl.blwl, and Sylvain Benner)
 - node (thanks to jupl)
-- pass (thanks to Andrew Oppenlander and Kepi)
+- pass (thanks to Andrew Oppenlander, Kepi, and Evan Klitzke)
 - sphinx (thanks to Wei-Wei Guo)
 - transmission (thanks to Eugene Yaremenko)
-- cmake (thanks to Alexander Dalshov and Sylvain Benner)
+- cmake (thanks to Alexander Dalshov, Sylvain Benner and Jonas Jelten)
 - xclipboard (thanks to Charles Weill, Sylvain Benner, and Alex Palaistras)
 - debug (thanks to Troy Hinckley and Sylvain Benner)
 **** Others
@@ -338,6 +342,7 @@ Benner and Paweł Siudak):
   Jensen)
 - Added optional =append= and =local= parameters to =spacemacs/add-to-hooks=
   (thanks to Sylvain Benner)
+- Add =spacemacs//report-issue-kill-buffer-query= (thanks to timor)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -497,6 +502,8 @@ Benner and Paweł Siudak):
   - Fix misaligned evil-mc cursors on macOS and Windows (thanks to Benjamin
     Reynolds)
   - Fix regression to allow new project perspectives (thanks to Bruno Tavares)
+  - Fix vert/horiz in Window Manipulation Transient St (thanks to Jesse Byler)
+  - Fix https links (thanks to Paweł Siudak)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -563,6 +570,8 @@ Benner and Paweł Siudak):
 - Switched =center-cursor-mode= to melpa source (thanks to Dieter Komendera)
 - Fix =projectile-switch-project-action= (thanks to John Soo)
 - Configured =golden-ratio= to update after ~[ w~ and ~] w~ (thanks to duianto)
+- Deactivate =evil-escape= in =holy-mode= (thanks to Maximilian Wolff)
+- Fix bug with evil-pasted object (thanks to Troy Hinckley)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -658,6 +667,8 @@ Benner and Paweł Siudak):
 - Enable safe structural editing for .cljs, .cljx, and .cljc files (thanks to
   Dieter Komendera)
 - Compatibility fix for CIDER 0.9.0 (thanks to nijohando)
+- Enable command history navigation in the cider REPL in an insert mode (thanks to
+  Wojciech Wojtyniak)
 **** Coffeescript
 - Adds basic autocompletion (thanks to Codruț Constantin Gușoi)
 - Key bindings (thanks to Kalle Lindqvist):
@@ -816,6 +827,7 @@ is enabled
 - Remove old evilification of magit buffers (thanks to Sylvain Benner)
 - Move evil-magit =use-package= hook declaration to pre-init (thanks to Sylvain
   Benner)
+- Change =magit-svn-popup= keybinding to =~= (thanks to hornuda)
 **** Go
 - Improve go test output buffer behavior (thanks to Denis Bernard)
 - Configurable extra arguments to go test (thanks to Ian Clark)
@@ -846,6 +858,7 @@ is enabled
 - Implements diminish and toggle (thanks to Dominik Schrempf)
 - Add ivy support to the gtags layers (thanks to Robbert van der Helm)
 - Make gtags toggle major mode specific (thanks to Sylvain Benner)
+- Fix issue =counsel-gtags= command doesn't work in c-c++ layer (thanks to kekenow)
 **** Haskell
 - Disable electric indent for cabal-mode (thanks to Benno Fünfstück)
 - Add dante support to haskell layer (thanks to Kyle McKean)
@@ -969,6 +982,7 @@ is enabled
     - ~SPC m s r~ to send current region to the REPL and stay in buffer
     - ~SPC m T c~ to toggle compile on save
 - Move REPL live eval toggle to ~SPC m T l~ (thanks to Sylvain Benner)
+- Add ES6 module extension to =init-js2-mode= (thanks to Nathan Lloyd)
 **** Keyboard layout
 - Add support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and
   Eivind Fonn)
@@ -1031,6 +1045,7 @@ is enabled
 - Make maildirs extension optional (thanks to JorisE)
 - Create email with attachments from dired (thanks to Oleg Pykhalov)
 - Refactor major-mode ledaer key bindings (thanks to Miciah Masters)
+- Enable scrolling in =mu4e= (thanks to Simon Altschuler)
 **** Multiple Cursors
 - Disable Spacemacs paste transient state when pasting to avoid pasting issue
   when there are more than one cursor (thanks to braham-snyder)
@@ -1042,6 +1057,7 @@ is enabled
   - ~SPC f T~ reinstated for showing file tree with Neotree or Treemacs
     (thanks to bmag)
   - ~SPC 0~ and ~M-0~ are consistent across Neotree and Treemacs (thanks to bmag)
+- Let Neotree use "open" instead of "xdg-open" on macos (thanks to Alexander-Miller)
 **** NixOS
 - Enable Flycheck (thanks to William Casarin)
 - Defer loading (thanks to Benno Fünfstück)
@@ -1274,6 +1290,8 @@ is enabled
 - Fix docs for "Fish shell and ansi-term" and explicitly enable `truncate-lines`.
   (thanks to Joe Hillenbrand)
 - Fix ~C-j~ and ~C-k~ in =eshell= while in insert state (thanks to Paweł Siudak)
+- Restore =auto-completion-idle-delay= value for =company-idle-delay= (thanks to 
+  Miciah Dashiel Butler Masters)
 **** Shell Scripts
 - Add new company-shell environment variable backend (thanks to Alexander-Miller)
 - Add bashate style checker (thanks to Victor Cuadrado Juan)
@@ -1440,9 +1458,11 @@ is enabled
   Menkevičius, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho,
   SteveJobzniak, Sunghyun Hwang, Swaroop C H, Sylvain Benner, Szunti, Tim
   Stewart, timor, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz
-  Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
+  Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09,
+  hornuda, pancho horrillo, Jaremy Creechley, Philippe Bourdages, 
+  Miciah Dashiel Butler Masters, Jethro Shuwen Sun)
 # Add additional names as comma separated lines for easier merging/diffing
-  Philippe Bourdages,
 *** Release notes summarized
   Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
-  Masters, Abhishek(Compro) Prasad
+  Masters, Abhishek(Compro) Prasad, Ward Harris
+  
