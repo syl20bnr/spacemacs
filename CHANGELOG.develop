@@ -139,6 +139,9 @@ Benner and Paweł Siudak):
 **** Ruby on Rails
 - Key bindings:
   - New ~SPC m r f S~ to find serializer (thanks to Boris Buliga)
+- Changed =projectile-rails= key binding prefix from ~SPC m r~ to ~SPC m f~
+  to avoid conflicts with key bindings in the =web-mode= layer.
+  (thanks to Adam Sokolnicki)
 **** Syntax checking
 - Key bindings (thanks to Loris Lucido):
   - Changed ~SPC e e~ to ~SPC e b~ for =flycheck-buffer=
@@ -158,6 +161,8 @@ Benner and Paweł Siudak):
 - The property =:powerline-scale= of variable =dotspacemacs-default-font= has
   been removed and replaced by the property =:separator-scale= used in the
   variable =dotspacemacs-mode-line-theme=.
+- The =nlinum= layer is deprecated on Emacs 26.1 and newer in favor of native
+  line number support.
 *** Hot new feature
 - Improve themes support. Support are now handled like regular packages. The
   list of themes now supports =:location= keyword like in layer list. More
@@ -183,7 +188,8 @@ Benner and Paweł Siudak):
   =Add auto-completion in a layer= of the =README.org= file of the
   =auto-completion= layer.
 - Added experimental support for the emacs dumper; see =EXPERIMENTAL.org=
-  (thanks to Sylvain Benner).
+  (thanks to Sylvain Benner and Compro Prasad)
+- Added support for native line numbers in Emacs 26 (thanks to bmag)
 *** New layers
 **** Email
 - notmuch (thanks to Francesc Elies Henar, Leonard Lausen, Willian Casarin)
@@ -198,7 +204,7 @@ Benner and Paweł Siudak):
 - hy (thanks to Sylvain Benner)
 - jr (thanks to Philippe Baron)
 - koltin (thanks to Shanavas M)
-- perl5 (thanks to Troy Hinckley and Jinseop Kim)
+- perl5 (thanks to Troy Hinckley, Jinseop Kim and Michael Rohleder)
 - perl6 (thanks to Bahtiar Gadimov)
 - protobuf (thanks to Amol Mandhane)
 - restructuredtext (thanks to Wei-Wei Guo)
@@ -364,6 +370,11 @@ Benner and Paweł Siudak):
 - Removed obsolete tools from core (thanks to Eugene Yaremenko)
 - Ask if unsaved changes in issue reports are about to be discarded (thanks to
   timor)
+- Changed the layer loading process so that customizing a package variable using
+  =:variables= in =dotspacemacs-configuration-layers= overrides any default
+  value that the layer's package configuration sets.
+- Added =:off-message= keyword to the =spacemacs|add-toggle= macro to allow
+  overriding the default toggled-off expression (thanks to bmag)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -385,6 +396,8 @@ Benner and Paweł Siudak):
     Sylvain Benner)
   - Add =symon= package to =spacemacs-modeline= layer
     (thanks to Eugene Yaremenko)
+  - Added =evil-goggles= to the =spacemacs-evil= layer (thanks to Sylvain
+    Benner)
 - Key bindings:
   - Use Helm or Ivy (if one of these is enabled) for ~SPC a d~ (=dired=),
     ~SPC F f~ (=find-file-other-frame=), ~SPC F b~
@@ -488,6 +501,11 @@ Benner and Paweł Siudak):
     Alejandro Arrufat)
   - New ~SPC w 4~ to set the window layout to a 2x2 grid (thanks to Alejandro
     Arrufat, Codruț Constantin Gușoi, and bmag).
+  - Added profiling key bindings (thanks to Codruț Constantin Gușoi):
+    - ~SPC h P k~ to stop the profiler
+    - ~SPC h P r~ to display the profiler report
+    - ~SPC h P s~ to start the profiler
+    - ~SPC h P w~ to write the profiler report to a file
 - Fixes:
   - Disable the paste transient state when using multiple cursors
     (thanks to Koray AL)
@@ -498,7 +516,6 @@ Benner and Paweł Siudak):
   - Fix placement of created new empty buffer (thanks to bmag)
   - Fix renaming of a buffer without a visited file (thanks to duianto)
   - Fix frame cycling in =evil-unimpaired= (thanks to Vladimir Kochnev)
-  - Fix referencing to cache directory when symlinked (thanks to Rich Alesi)
   - Fix frame killer logic with persistent server (thanks to Rich Alesi)
   - Fix terminal RET and TAB in layouts/workspaces transient state (thanks to
     Don March)
@@ -527,6 +544,9 @@ Benner and Paweł Siudak):
     Fünfstück)
   - Fix vert/horiz in Window Manipulation Transient St (thanks to Jesse Byler)
   - Fix https links (thanks to Paweł Siudak)
+  - Changed initialization of =recentf-exclude= to use
+    =recentf-expand-file-name= in order to respect =recentf-filename-handlers=
+    (thanks to bet4it)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -597,6 +617,27 @@ Benner and Paweł Siudak):
 - Remove package =adaptive-wrap=
 - Deactivate =evil-escape= in =holy-mode= (thanks to Maximilian Wolff)
 - Fix bug with evil-pasted text object (thanks to Troy Hinckley)
+- Fixed a bug where setting =dotspacemacs-line-numbers= to =t=, =relative=, or a
+  property list with =:enabled-for-modes= omitted or set to =nil= enabled line
+  numbers in every buffer instead of only in buffers that derived from prog-mode
+  and text-mode (thanks to bmag)
+- Stopped configuring =fci-rule-color=, which was overriding themes that
+  configured it (thanks to Victor Cuadrado Juan)
+- Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
+  ~SPC w 4~ (thanks to Codruț Constantin Gușoi):
+  - Added =spacemacs-window-split-delete-function= variable, which can be used
+    to customize how the window layout functions delete windows.
+  - Added =spacemacs-window-split-ignore-prefixes= variable, which can be used
+    to customize the default =spacemacs-window-split-delete-function= function.
+    By default, this variable specifies treemacs and neotree sidebar windows.
+  - Added =spacemacs/window-split-default-delete=, which is the default function
+    for =spacemacs-window-split-delete-function=, and which deletes windows that
+    do not match the prefixes in =spacemacs-window-split-ignore-prefixes=.
+  - Allow a prefix argument to ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and ~SPC w 4~,
+    which causes them to delete all windows, ignoring window parameters and
+    =spacemacs-window-split-ignore-prefixes=.
+- Fixed =evil-escape= lighter being shown in the mode line (thanks to Sylvain
+  Benner)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -657,6 +698,7 @@ Benner and Paweł Siudak):
   Fangrui Song and Codruț Constantin Gușoi)
 - Add possible value =no-completion= to =c-c++-enable-rtags-support= flag.
   (thanks to Farva)
+- Added =org-babel= support (thanks to Michael Rohleder)
 **** Cfengine
 - Fix publish in README (thanks to Eugene Yaremenko)
 - Add =ob-cfengine3= (thanks to Nick Anderson)
@@ -715,9 +757,10 @@ Benner and Paweł Siudak):
 - Key bindings:
   - ~SPC m e l~ to evaluate current line (thanks to Boris Avdeev)
 - Add =slime-asdf= to =slime-contribs= to enabled some slime commands like
+  =,load-system= (thanks to Daniel Schoepe)
 - Fix ~SPC m e~ key bindings to behave like in Emacs Lisp
   (thanks to Boris Avdeev)
-  =,load-system= (thanks to Daniel Schoepe)
+- Fixed initialization of =counsel-gtags= (thanks to Sylvain Benner)
 **** Cscope
 - Key bindings:
   - Fix key binding ~g C~ (thanks to dubnde)
@@ -931,6 +974,8 @@ Benner and Paweł Siudak):
   state (thanks to Troy Hinckley)
 - Fix smex package integration (thanks to Troy Hinckley)
 - Fix winum intergration (thanks to Sylvain Benner)
+- Fixed "Invalid face reference" error in Helm transient state (thanks to
+  duianto)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Add =counsel-css= as an ivy alternative to =helm-css-scss= (thanks to Robbert
@@ -986,6 +1031,10 @@ Benner and Paweł Siudak):
   - ~r~ inside imenu-list buffer to refresh
   - ~SPC b i~ calls =imenu-list-smart-toggle= rather than
     =imenu-list-minor-mode=
+**** Jabber
+- Added missing optional argument for the =jabber-alert-echo= function to fix
+  =wrong-number-of-arguments= error when jabber receives a new notification
+  (thanks to Aleksei Fedotov)
 **** Java
 - Add support for multiple backends. Supported backends are: =megahnada=,
   =eclim= and =ensime=. The default backend is =meghanada=.
@@ -1002,6 +1051,7 @@ Benner and Paweł Siudak):
 - Improve maven and gradle support (thanks to Sylvain Benner)
 - Make java layer depend on groovy layer (thanks to Sylvain Benner)
 - Fix syntax typo in configuration (thanks to EMayej)
+- Added =org-babel= support (thanks to Michael Rohleder)
 **** Javascript
 - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
 - Added LSP support, which can be used by enabling the =lsp= layer and setting
@@ -1023,6 +1073,7 @@ Benner and Paweł Siudak):
 - Move =yas-activate-extra-mode= setup from react layer (thanks to Sylvain
   Benner)
 - Add ES6 module extension to =init-js2-mode= (thanks to Nathan Lloyd)
+- Added =org-babel= support (thanks to Michael Rohleder)
 **** Keyboard layout
 - Add support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and
   Eivind Fonn)
@@ -1175,6 +1226,9 @@ Benner and Paweł Siudak):
     - ~SPC m b a~ calls =org-babel-sha1-hash=
     - ~SPC m b x~ calls =org-babel-do-key-sequence-in-edit-buffer=
     - ~SPC m b .~ enters transient state
+  - Added key bindings for =org-feed= (thanks to Luke Alexander Stein):
+    - ~SPC a o f i~ and ~SPC m f i~ to go to feed inbox
+    - ~SPC a o f u~ and ~SPC m f u~ to update all feeds
 - Key binding changes for archiving (thanks to Ag Ibragimov):
   - Add ~SPC m s a~ to toggle archive tag for subtree
   - Add ~SPC m s A~ to archive subtree (previously ~SPC m s a~)
@@ -1203,9 +1257,10 @@ Benner and Paweł Siudak):
 - Restore =evil-org-additional-bindings= in insert state (thanks to Maximilian
   Wolff)
 - Fix initialization order to prevent version conflicts (thanks to Sylvain Benner)
+- Fixed adding =org-projectile= files to =org-agenda-files= (thanks to AmanYang)
 **** Osx
 - Fix OSX mapping issue (thanks to Joey Liu)
-- New layer variables to define modifers behaviors in macOS:
+- Added layer variables to customize modifier behaviors on macOS:
   - =osx-command-as= defaults to hyper
   - =osx-option-as= defaults to meta
   - =osx-control-as= defaults to control
@@ -1213,11 +1268,15 @@ Benner and Paweł Siudak):
   - =osx-right-command-as= defaults to left
   - =osx-right-option-as=  defaults to left
   - =osx-right-control-as= defaults to left
-  (thanks to Christopher Eames and Aaron Culich)
+  (thanks to Christopher Eames, Aaron Culich, and fiveNinePlusR)
 - Key bindings:
   - Add key bindings to use ~command-1..9~ for selecting window
     (thanks to Liu Joey)
   - Add ~M-s-h~ to hide other windows (thanks to Bas Veeling)
+**** Pandoc
+- Fixed =spacemacs/run-pandoc= not to reset =pandoc--local-settings= (thanks to
+  martian-f)
+- Added declaration for the ~SPC P~ prefix (thanks to Codruț Constantin Gușoi)
 **** PHP
 - Add company-php (thanks to jim and Eivind Fonn)
 - Fix php-company autocompletion (thanks to Dela Anthonio)
@@ -1308,12 +1367,19 @@ Benner and Paweł Siudak):
 - Add gtags to =enh-ruby-mode= as well as =ruby-mode= (thanks to David Balatero)
 - Added ~SPC m s b~ key binding to send buffer to the Ruby console (thanks to
   Alejandro Arrufat)
+- Added ~SPC m s B~ and ~SPC m s L~ key bindings to send buffer or line,
+  respectively, to the Ruby console and switch focus to the console (thanks to
+  Paweł Siudak)
 - Key bindings:
   - Add ~SPC m r R m~ for extract to method.
   - Add ~SPC m r R v~ to extract local variable.
   - Add ~SPC m r R c~ to extract constant.
   - Add ~SPC m r R l~ to extract to =let=.
   - Added ~SPC m s l~ to send line to REPL (thanks to Paweł Siudak)
+**** Ruby on Rails
+- Changed leader keys to be configured for the =projectile-rails-mode= minor
+  mode instead of =ruby-mode= and =enh-ruby-mode= so that the key bindings will
+  work in view file windows (thanks to Adam Sokolnicki)
 **** Rust
 - Key bindings:
   - Add ~SPC m c D~ to open Cargo docs (thanks to Matthew J. Berger)
@@ -1344,6 +1410,7 @@ Benner and Paweł Siudak):
 - Fix ~C-j~ and ~C-k~ in =eshell= while in insert state (thanks to Paweł Siudak)
 - Restore =auto-completion-idle-delay= value for =company-idle-delay= (thanks to
   Miciah Dashiel Butler Masters)
+- Added =shell-default-width= layer variable (thanks to David Balatero)
 **** Shell Scripts
 - Add new company-shell environment variable backend (thanks to Alexander-Miller)
 - Add bashate style checker (thanks to Victor Cuadrado Juan)
