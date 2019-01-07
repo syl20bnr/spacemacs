@@ -138,8 +138,6 @@ Benner and Paweł Siudak):
 **** Syntax checking
 - Key bindings (thanks to Loris Lucido):
   - Changed ~SPC e e~ to ~SPC e b~ for =flycheck-buffer=
-**** Extra
-- Delete extra-langs layer (thanks to Robby O'Connor)  
 **** Others
 - All custom settings are now encapsulated in a function called
   =dotspacemacs/emacs-custom-settings=. While it should not break your custom
@@ -211,7 +209,6 @@ Benner and Paweł Siudak):
 - spacemacs-purpose (thanks to bmag)
 - spacemacs-visual
 **** Templates
-- Add templates layer (thanks to YasuharuIida and Eivind Fonn)
 **** Tools
 - bm (thanks to Eugene Yaremenko)
 - lsp (thanks to Fangrui Song, 0bl.blwl, and Sylvain Benner)
@@ -227,6 +224,7 @@ Benner and Paweł Siudak):
 - multiple-cursors (thanks to Codruț Constantin Gușoi)
 - parinfer (thanks to Tianshu Shi)
 - treemacs (thanks to Alexander Miller)
+- templates (thanks to YasuharuIida and Eivind Fonn)
 *** Removed layers
 - =extra-langs= (replaced by ad-hoc layers)
 - =evil-cleverparens= (moved to =spacemacs-evil=)
