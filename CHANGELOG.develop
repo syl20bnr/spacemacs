@@ -154,6 +154,8 @@ Benner and Paweł Siudak):
 - The property =:powerline-scale= of variable =dotspacemacs-default-font= has
   been removed and replaced by the property =:separator-scale= used in the
   variable =dotspacemacs-mode-line-theme=.
+- The =nlinum= layer is deprecated on Emacs 26.1 and newer in favor of native
+  line number support.
 *** Hot new feature
 - Improve themes support. Support are now handled like regular packages. The
   list of themes now supports =:location= keyword like in layer list. More
@@ -338,6 +340,13 @@ Benner and Paweł Siudak):
   Jensen)
 - Added optional =append= and =local= parameters to =spacemacs/add-to-hooks=
   (thanks to Sylvain Benner)
+- Added support for dumping Spacemacs; see =EXPERIMENTAL.org= (thanks to Sylvain
+  Benner and Compro Prasad)
+- Changed the layer loading process so that customizing a package variable using
+  =:variables= in =dotspacemacs-configuration-layers= overrides any default
+  value that the layer's package configuration sets.
+- Added =:off-message= keyword to the =spacemacs|add-toggle= macro to allow
+  overriding the default toggled-off expression (thanks to bmag)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -359,6 +368,8 @@ Benner and Paweł Siudak):
     Sylvain Benner)
   - Add =symon= package to =spacemacs-modeline= layer
     (thanks to Eugene Yaremenko)
+  - Added =evil-goggles= to the =spacemacs-evil= layer (thanks to Sylvain
+    Benner)
 - Key bindings:
   - Use Helm or Ivy (if one of these is enabled) for ~SPC a d~ (=dired=),
     ~SPC F f~ (=find-file-other-frame=), ~SPC F b~
@@ -462,6 +473,11 @@ Benner and Paweł Siudak):
     Alejandro Arrufat)
   - New ~SPC w 4~ to set the window layout to a 2x2 grid (thanks to Alejandro
     Arrufat, Codruț Constantin Gușoi, and bmag).
+  - Added profiling key bindings (thanks to Codruț Constantin Gușoi):
+    - ~SPC h P k~ to stop the profiler
+    - ~SPC h P r~ to display the profiler report
+    - ~SPC h P s~ to start the profiler
+    - ~SPC h P w~ to write the profiler report to a file
 - Fixes:
   - Disable the paste transient state when using multiple cursors
     (thanks to Koray AL)
@@ -472,7 +488,6 @@ Benner and Paweł Siudak):
   - Fix placement of created new empty buffer (thanks to bmag)
   - Fix renaming of a buffer without a visited file (thanks to duianto)
   - Fix frame cycling in =evil-unimpaired= (thanks to Vladimir Kochnev)
-  - Fix referencing to cache directory when symlinked (thanks to Rich Alesi)
   - Fix frame killer logic with persistent server (thanks to Rich Alesi)
   - Fix terminal RET and TAB in layouts/workspaces transient state (thanks to
     Don March)
@@ -497,6 +512,9 @@ Benner and Paweł Siudak):
   - Fix misaligned evil-mc cursors on macOS and Windows (thanks to Benjamin
     Reynolds)
   - Fix regression to allow new project perspectives (thanks to Bruno Tavares)
+  - Changed initialization of =recentf-exclude= to use
+    =recentf-expand-file-name= in order to respect =recentf-filename-handlers=
+    (thanks to bet4it)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -563,6 +581,28 @@ Benner and Paweł Siudak):
 - Switched =center-cursor-mode= to melpa source (thanks to Dieter Komendera)
 - Fix =projectile-switch-project-action= (thanks to John Soo)
 - Configured =golden-ratio= to update after ~[ w~ and ~] w~ (thanks to duianto)
+- Added support for native line numbers in Emacs 26 (thanks to bmag)
+- Fixed a bug where setting =dotspacemacs-line-numbers= to =t=, =relative=, or a
+  property list with =:enabled-for-modes= omitted or set to =nil= enabled line
+  numbers in every buffer instead of only in buffers that derived from prog-mode
+  and text-mode (thanks to bmag)
+- Stopped configuring =fci-rule-color=, which was overriding themes that
+  configured it (thanks to Victor Cuadrado Juan)
+- Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
+  ~SPC w 4~ (thanks to Codruț Constantin Gușoi):
+  - Added =spacemacs-window-split-delete-function= variable, which can be used
+    to customize how the window layout functions delete windows.
+  - Added =spacemacs-window-split-ignore-prefixes= variable, which can be used
+    to customize the default =spacemacs-window-split-delete-function= function.
+    By default, this variable specifies treemacs and neotree sidebar windows.
+  - Added =spacemacs/window-split-default-delete=, which is the default function
+    for =spacemacs-window-split-delete-function=, and which deletes windows that
+    do not match the prefixes in =spacemacs-window-split-ignore-prefixes=.
+  - Allow a prefix argument to ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and ~SPC w 4~,
+    which causes them to delete all windows, ignoring window parameters and
+    =spacemacs-window-split-ignore-prefixes=.
+- Fixed =evil-escape= lighter being shown in the mode line (thanks to Sylvain
+  Benner)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -617,6 +657,7 @@ Benner and Paweł Siudak):
   (thanks to Martin Øinæs Myrseth)
 - Moved cmake-ide and cmake script support to separate =cmake= layer (thanks to
   Alexander Dalshov)
+- Added =org-babel= support (thanks to Michael Rohleder)
 **** Cfengine
 - Fix publish in README (thanks to Eugene Yaremenko)
 - Add =ob-cfengine3= (thanks to Nick Anderson)
@@ -673,9 +714,10 @@ Benner and Paweł Siudak):
 - Key bindings:
   - ~SPC m e l~ to evaluate current line (thanks to Boris Avdeev)
 - Add =slime-asdf= to =slime-contribs= to enabled some slime commands like
+  =,load-system= (thanks to Daniel Schoepe)
 - Fix ~SPC m e~ key bindings to behave like in Emacs Lisp
   (thanks to Boris Avdeev)
-  =,load-system= (thanks to Daniel Schoepe)
+- Fixed initialization of =counsel-gtags= (thanks to Sylvain Benner)
 **** Cscope
 - Key bindings:
   - Fix key binding ~g C~ (thanks to dubnde)
@@ -882,6 +924,8 @@ is enabled
 - Fixed actions in Helm transient state (thanks to Troy Hinckley)
 - Added support for editing the =helm-find-files= buffer from the Helm transient
   state (thanks to Troy Hinckley)
+- Fixed "Invalid face reference" error in Helm transient state (thanks to
+  duianto)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Add =counsel-css= as an ivy alternative to =helm-css-scss= (thanks to Robbert
@@ -937,6 +981,10 @@ is enabled
   - ~r~ inside imenu-list buffer to refresh
   - ~SPC b i~ calls =imenu-list-smart-toggle= rather than
     =imenu-list-minor-mode=
+**** Jabber
+- Added missing optional argument for the =jabber-alert-echo= function to fix
+  =wrong-number-of-arguments= error when jabber receives a new notification
+  (thanks to Aleksei Fedotov)
 **** Java
 - Add support for multiple backends. Supported backends are: =megahnada=,
   =eclim= and =ensime=. The default backend is =meghanada=.
@@ -953,6 +1001,7 @@ is enabled
 - Improve maven and gradle support (thanks to Sylvain Benner)
 - Make java layer depend on groovy layer (thanks to Sylvain Benner)
 - Fix syntax typo in configuration (thanks to EMayej)
+- Added =org-babel= support (thanks to Michael Rohleder)
 **** Javascript
 - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
 - Added LSP support, which can be used by enabling the =lsp= layer and setting
@@ -969,6 +1018,7 @@ is enabled
     - ~SPC m s r~ to send current region to the REPL and stay in buffer
     - ~SPC m T c~ to toggle compile on save
 - Move REPL live eval toggle to ~SPC m T l~ (thanks to Sylvain Benner)
+- Added =org-babel= support (thanks to Michael Rohleder)
 **** Keyboard layout
 - Add support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and
   Eivind Fonn)
@@ -1116,6 +1166,9 @@ is enabled
     - ~SPC m b a~ calls =org-babel-sha1-hash=
     - ~SPC m b x~ calls =org-babel-do-key-sequence-in-edit-buffer=
     - ~SPC m b .~ enters transient state
+  - Added key bindings for =org-feed= (thanks to Luke Alexander Stein):
+    - ~SPC a o f i~ and ~SPC m f i~ to go to feed inbox
+    - ~SPC a o f u~ and ~SPC m f u~ to update all feeds
 - Key binding changes for archiving (thanks to Ag Ibragimov):
   - Add ~SPC m s a~ to toggle archive tag for subtree
   - Add ~SPC m s A~ to archive subtree (previously ~SPC m s a~)
@@ -1144,9 +1197,10 @@ is enabled
 - Restore =evil-org-additional-bindings= in insert state (thanks to Maximilian
   Wolff)
 - Fix initialization order to prevent version conflicts (thanks to Sylvain Benner)
+- Fixed adding =org-projectile= files to =org-agenda-files= (thanks to AmanYang)
 **** Osx
 - Fix OSX mapping issue (thanks to Joey Liu)
-- New layer variables to define modifers behaviors in macOS:
+- Added layer variables to customize modifier behaviors on macOS:
   - =osx-command-as= defaults to hyper
   - =osx-option-as= defaults to meta
   - =osx-control-as= defaults to control
@@ -1154,11 +1208,17 @@ is enabled
   - =osx-right-command-as= defaults to left
   - =osx-right-option-as=  defaults to left
   - =osx-right-control-as= defaults to left
-  (thanks to Christopher Eames and Aaron Culich)
+  (thanks to Christopher Eames, Aaron Culich, and fiveNinePlusR)
 - Key bindings:
   - Add key bindings to use ~command-1..9~ for selecting window
     (thanks to Liu Joey)
   - Add ~M-s-h~ to hide other windows (thanks to Bas Veeling)
+**** Pandoc
+- Fixed =spacemacs/run-pandoc= not to reset =pandoc--local-settings= (thanks to
+  martian-f)
+- Added declaration for the ~SPC P~ prefix (thanks to Codruț Constantin Gușoi)
+**** Perl5
+- Added =org-babel= support (thanks to Michael Rohleder)
 **** PHP
 - Add company-php (thanks to jim and Eivind Fonn)
 - Fix php-company autocompletion (thanks to Dela Anthonio)
@@ -1241,11 +1301,21 @@ is enabled
 - Add gtags to =enh-ruby-mode= as well as =ruby-mode= (thanks to David Balatero)
 - Added ~SPC m s b~ key binding to send buffer to the Ruby console (thanks to
   Alejandro Arrufat)
+- Added ~SPC m s B~ and ~SPC m s L~ key bindings to send buffer or line,
+  respectively, to the Ruby console and switch focus to the console (thanks to
+  Paweł Siudak)
 - Key bindings:
   - Add ~SPC m r R m~ for extract to method.
   - Add ~SPC m r R v~ to extract local variable.
   - Add ~SPC m r R c~ to extract constant.
   - Add ~SPC m r R l~ to extract to =let=.
+**** Ruby on Rails
+- Changed leader keys to be configured for the =projectile-rails-mode= minor
+  mode instead of =ruby-mode= and =enh-ruby-mode= so that the key bindings will
+  work in view file windows (thanks to Adam Sokolnicki)
+- Changed =projectile-rails= key binding prefix from ~SPC m r~ to ~SPC m f~
+  to avoid conflicts with key bindings in the =web-mode= layer.
+  (thanks to Adam Sokolnicki)
 **** Rust
 - Key bindings:
   - Add ~SPC m c D~ to open Cargo docs (thanks to Matthew J. Berger)
@@ -1274,6 +1344,7 @@ is enabled
 - Fix docs for "Fish shell and ansi-term" and explicitly enable `truncate-lines`.
   (thanks to Joe Hillenbrand)
 - Fix ~C-j~ and ~C-k~ in =eshell= while in insert state (thanks to Paweł Siudak)
+- Added =shell-default-width= layer variable (thanks to David Balatero)
 **** Shell Scripts
 - Add new company-shell environment variable backend (thanks to Alexander-Miller)
 - Add bashate style checker (thanks to Victor Cuadrado Juan)
