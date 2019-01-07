@@ -2352,15 +2352,25 @@ depends on it."
     (unless (string-empty-p version-string)
       (version-to-list version-string))))
 
+(defun configuration-layer//system-package? (pkg-desc)
+  "Cheks if package is a system package"
+  (not (string-prefix-p
+         (file-name-as-directory
+           (expand-file-name package-user-dir))
+         (expand-file-name
+           (package-desc-dir pkg-desc)))))
+
 (defun configuration-layer//package-delete (pkg-name)
   "Delete package with name PKG-NAME."
   (cond
    ((version<= "25.0.50" emacs-version)
     (let ((p (cadr (assq pkg-name package-alist))))
       ;; add force flag to ignore dependency checks in Emacs25
-      (when p (package-delete p t t))))
+      (when (not (configuration-layer//system-package? p))
+        (package-delete p t t))))
    (t (let ((p (cadr (assq pkg-name package-alist))))
-        (when p (package-delete p))))))
+        (when (not (configuration-layer//system-package? p))
+          (package-delete p))))))
 
 (defun configuration-layer/delete-orphan-packages (packages)
   "Delete PACKAGES if they are orphan."
