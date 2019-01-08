@@ -231,7 +231,8 @@
 
 (defun c-c++/post-init-semantic ()
   (spacemacs/add-to-hooks 'semantic-mode c-c++-mode-hooks)
-  (when (configuration-layer/layer-used-p 'gtags)
+  (when (or (configuration-layer/layer-used-p 'gtags)
+            (configuration-layer/layer-used-p 'lsp))
     (spacemacs/add-to-hooks 'spacemacs//disable-semantic-idle-summary-mode c-c++-mode-hooks t)))
 
 (defun c-c++/post-init-srefactor ()
