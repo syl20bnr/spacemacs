@@ -53,6 +53,9 @@ Kraemer, Yi Liu, and Jack Kamm):
   - ~SPC m r~ for =ess-extra-map=
   - ~SPC m w~ for =ess-r-package-dev-map=
   - ~SPC m d~ for =ess-dev-map=
+**** Git
+- Changed ~SPC g f h~ to ~SPC g f l~ for 'git log' of current file (thanks to Ag
+  Ibragimov)
 **** Haskell
 - Swapped key bindings for better usability (thanks to Tony Lotts):
   - ~SPC m s s~ for =haskell-interactive-switch=
@@ -91,6 +94,7 @@ Benner and Paweł Siudak):
   - ~SPC m i H~ org-insert-heading-after-current
   - ~SPC m i K~ spacemacs/insert-keybinding-org
   - ~SPC m i l~ org-insert-link
+  - ~SPC m i n~ org-add-note (thanks to Tommi Komulainen)
   - ~SPC m i p~ org-set-property
   - ~SPC m i s~ org-insert-subheading
   - ~SPC m i t~ org-set-tags
@@ -192,7 +196,7 @@ Benner and Paweł Siudak):
 - hy (thanks to TODO: add author here)
 - jr (thanks to Philippe Baron)
 - koltin (thanks to Shanavas M)
-- perl5 (thanks to Troy Hinckley)
+- perl5 (thanks to Troy Hinckley and Jinseop Kim)
 - perl6 (thanks to Bahtiar Gadimov)
 - protobuf (thanks to Amol Mandhane)
 - restructuredtext (thanks to Wei-Wei Guo)
@@ -214,6 +218,7 @@ Benner and Paweł Siudak):
 - node (thanks to jupl)
 - pass (thanks to Andrew Oppenlander and Kepi)
 - sphinx (thanks to Wei-Wei Guo)
+- tern (thanks to Sylvain Benner)
 - transmission (thanks to Eugene Yaremenko)
 - cmake (thanks to Alexander Dalshov and Sylvain Benner)
 - xclipboard (thanks to Charles Weill, Sylvain Benner, and Alex Palaistras)
@@ -497,6 +502,8 @@ Benner and Paweł Siudak):
   - Fix misaligned evil-mc cursors on macOS and Windows (thanks to Benjamin
     Reynolds)
   - Fix regression to allow new project perspectives (thanks to Bruno Tavares)
+  - Compute spacemacs-modeline height only after display init (thanks to Benno
+    Fünfstück)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -583,6 +590,8 @@ Benner and Paweł Siudak):
     =forward-char= (thanks to scturtle and duianto)
 - Add =yasnippet-snippets= package (thanks to Jack Kamm)
 - Fix =spacemacs/swiper-all-region-or-symbol= function (thanks to Ayush Goyal)
+- Fix backends when =auto-completion-enable-snippets-in-popup= is nil (thanks to
+  Sylvain Benner)
 **** Auto-Layer
 - Prompt user to install react-mode if a .jsx file is opened (thanks to Jon
   Hermansen)
@@ -617,6 +626,10 @@ Benner and Paweł Siudak):
   (thanks to Martin Øinæs Myrseth)
 - Moved cmake-ide and cmake script support to separate =cmake= layer (thanks to
   Alexander Dalshov)
+- Control auto-newline using the =c-c++-enable-auto-newline= variable (thanks to
+  Fangrui Song and Codruț Constantin Gușoi)
+- Add possible value =no-completion= to =c-c++-enable-rtags-support= flag.
+  (thanks to Farva)
 **** Cfengine
 - Fix publish in README (thanks to Eugene Yaremenko)
 - Add =ob-cfengine3= (thanks to Nick Anderson)
@@ -781,6 +794,8 @@ Benner and Paweł Siudak):
 **** Evil snipe
 - Must always explicitly enable =evil-snipe-mode= even when
   =evil-snipe-override-mode= (thanks to Sylvain Benner)
+**** Finance
+- Remove key-bindings pointing to removed commands (thanks to Alexander Baier)
 **** FSharp
 - Added prefixes for key bindings (thanks to David Millar-Durrant)
 is enabled
@@ -809,6 +824,7 @@ is enabled
     duianto)
   - ~SPC g i~ to initialize a repository (thanks to Steven Allen)
   - ~SPC m g y~ to find symbols (thanks to Daniel Ralston)
+  - ~SPC g f d~ for =magit-diff-buffer-file-popup= (thanks to Ag Ibragimov)
 - Add feature to toggle =evil-magit= based on editing style (thanks to Muneeb
   Shaikh)
 - Add =use-package= for deferred loading of evil-magit (thanks to Sylvain
@@ -882,6 +898,8 @@ is enabled
 - Fixed actions in Helm transient state (thanks to Troy Hinckley)
 - Added support for editing the =helm-find-files= buffer from the Helm transient
   state (thanks to Troy Hinckley)
+- Fix smex package integration (thanks to Troy Hinckley)
+- Fix winum intergration (thanks to Sylvain Benner)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Add =counsel-css= as an ivy alternative to =helm-css-scss= (thanks to Robbert
@@ -969,6 +987,9 @@ is enabled
     - ~SPC m s r~ to send current region to the REPL and stay in buffer
     - ~SPC m T c~ to toggle compile on save
 - Move REPL live eval toggle to ~SPC m T l~ (thanks to Sylvain Benner)
+- Set default value of =tern-command= to "tern" (thanks to Sylvain Benner and
+  Juuso Valkeejärvi)
+- Move yas-activate-extra-mode setup from react layer (thanks to Sylvain Benner)
 **** Keyboard layout
 - Add support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and
   Eivind Fonn)
@@ -1042,6 +1063,7 @@ is enabled
   - ~SPC f T~ reinstated for showing file tree with Neotree or Treemacs
     (thanks to bmag)
   - ~SPC 0~ and ~M-0~ are consistent across Neotree and Treemacs (thanks to bmag)
+- Fix ~RET~ binding functionality (thanks to Lupco Kotev)
 **** NixOS
 - Enable Flycheck (thanks to William Casarin)
 - Defer loading (thanks to Benno Fünfstück)
@@ -1227,6 +1249,8 @@ is enabled
   (thanks to Jan Zdráhal)
 - Use JSX header without breaking React (thanks to Jam Risser)
 - Make auto-completion triggers more friendly (thanks to Cheng,Rong)
+- Use rjsx-mode for react framework (thanks to Ting Zhou)
+- Make layer depends on node and tern layers (thanks to Sylvain Benner)
 **** Ruby
 - Add support for =org-babel= (thanks to Muneeb Shaikh)
 - Highlight debugger keywords (thanks to Alexander Berezovsky and Eivind Fonn)
@@ -1295,6 +1319,7 @@ is enabled
   - ~SPC m t~ to open message thread (thanks to Swaroop C H)
 - Fix documentation issues with slack and emoji layers (thanks to Benjamin
   Reynolds)
+- Fix helm menu display (thanks to Leslie Shawn Russell)
 **** Smex
 - Fix ~SPC m :~ for current major mode commands (thanks to tinysong)
 **** Source control
@@ -1326,7 +1351,7 @@ is enabled
   with =terraform fmt= (thanks to Harry Hull)
 - Add support for =terraform-company= (thanks to Sylvain Benner)
 **** Themes
-- Add support for more doom themes (thanks to Dela Anthonio)
+- Add support for more doom themes (thanks to Dela Anthonio and Igor Kupczyński)
 - Add support for gruvbox theme variants (thanks to Dean Todevski)
 - Remove zonokai-theme theme as it is unavailable (thanks to nickclasener)
 - Updates to the spacemacs theme (thanks to Nasser Alshammari)
@@ -1347,6 +1372,7 @@ is enabled
 - Add =exotica= theme (thanks to Bharat Joshi)
 - Remove themes that were deleted from Melpa (thanks to Henrique Jung)
 - Added =eziam-theme= and =kaolin-themes= (thanks to Sylvain Benner)
+- Adds =doom-themes= (thanks to Codruț Constantin Gușoi)
 **** Tmux
 - Prevent =tmux-command= at GUI mode (thanks to Isaac Zeng)
 - Fix regression in tmux by setting keybindings using =use-package= (thanks to
@@ -1428,21 +1454,20 @@ is enabled
   Daroch, Dinesh Bhosale, Dominik Schrempf, Doug Beardsley, dubnde, duianto,
   eldios, Eugene Yaremenko, Evan Klitzke, Evan Niessen-Derry, firemiles, Fuqiao
   Xue, Garrett Johnson, Henry Marshall, Ivan Kryvoruchko, J. Patrick Lanigan,
-  Jesse Cooke, Jim Deville, Jody Frankowski, Joe Hillenbrand, John Wood, Jon
-  Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood,
-  Joshua Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant, Kristoffer
-  Haugsbakk, Leo Joseph Buchignani III, Max Beutelspacher, Max Nordlund,
-  Maximilian Wolff, Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser
-  Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Nicolas Forgerit,
-  Olivier Verdier, Paul Milla, Paulo Schneider, Pawan Dubey, Paweł Siudak, Phil
-  Pirozhkov, Piotr Grzesik, Rafi Khan, Rand01ph, rakyi, Raymond Wanyoike,
-  Reverend Homer, Robby O'Connor, Rhommel Lamas, Sam Pablo Kuper, Saulius
-  Menkevičius, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho,
-  SteveJobzniak, Sunghyun Hwang, Swaroop C H, Sylvain Benner, Szunti, Tim
-  Stewart, timor, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz
-  Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
-# Add additional names as comma separated lines for easier merging/diffing
-  Philippe Bourdages,
+  Jesse Cooke, JI Xiang, Jim Deville, Jody Frankowski, Joe Hillenbrand, John
+  Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh
+  Greenwood, Joshua Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant,
+  Kristoffer Haugsbakk, Leo Joseph Buchignani III, Max Beutelspacher, Max
+  Nordlund, Maximilian Wolff, Mikhail Yakutovich, Muneeb Shaikh, Nasser
+  Alshammari, Nasser Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam,
+  Nicolas Forgerit, Olivier Verdier, Paul Milla, Paulo Schneider, Pawan Dubey,
+  Paweł Siudak, Phil Pirozhkov, Philippe Bourdages, Piotr Grzesik, Rafi Khan,
+  Rand01ph, rakyi, Raymond Wanyoike, Reverend Homer, Robby O'Connor, Rhommel
+  Lamas, Sam Pablo Kuper, Saulius Menkevičius, sduthil, Shane Kilkelly, Sid
+  Kapur, Somelauw, Soobin Rho, SteveJobzniak, Sunghyun Hwang, Swaroop C H,
+  Sylvain Benner, Szunti, Tim Stewart, timor, TinySong, Titov Andrey, Thomas de
+  Beauchêne, Tomasz Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi
+  Liu, zer09)
 *** Release notes summarized
   Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
   Masters, Abhishek(Compro) Prasad
