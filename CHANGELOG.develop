@@ -188,7 +188,7 @@ Benner and Paweł Siudak):
   =Add auto-completion in a layer= of the =README.org= file of the
   =auto-completion= layer.
 - Added experimental support for the emacs dumper; see =EXPERIMENTAL.org=
-  (thanks to Sylvain Benner and Compro Prasad)
+  (thanks to Sylvain Benner, Compro Prasad and Keith Simmons)
 - Added support for native line numbers in Emacs 26 (thanks to bmag)
 *** New layers
 **** Email
@@ -214,6 +214,8 @@ Benner and Paweł Siudak):
 - crystal (thanks to Sylvain Benner)
 **** WEB services
 - confluence
+**** Readers
+- epub (thanks to Jeremy Dormitzer)
 **** Spacemacs
 - spacemacs-defaults
 - spacemacs-modeline
@@ -375,6 +377,7 @@ Benner and Paweł Siudak):
   value that the layer's package configuration sets.
 - Added =:off-message= keyword to the =spacemacs|add-toggle= macro to allow
   overriding the default toggled-off expression (thanks to bmag)
+- Avoid non-idempotent use of push in init code (thanks to Miciah Masters)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -506,6 +509,7 @@ Benner and Paweł Siudak):
     - ~SPC h P r~ to display the profiler report
     - ~SPC h P s~ to start the profiler
     - ~SPC h P w~ to write the profiler report to a file
+  - New ~SPC x t e~ to transpose sexps (thanks to Guido Kraemer)
 - Fixes:
   - Disable the paste transient state when using multiple cursors
     (thanks to Koray AL)
@@ -547,6 +551,7 @@ Benner and Paweł Siudak):
   - Changed initialization of =recentf-exclude= to use
     =recentf-expand-file-name= in order to respect =recentf-filename-handlers=
     (thanks to bet4it)
+  - Remove buggy find-file-hook--open-junk-file (thanks to Sylvain Benner)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -566,6 +571,11 @@ Benner and Paweł Siudak):
     available via =counsel-projectile-switch-project= (thanks to Tad Fisher)
   - Use new custom actions mechanism from upstream =counsel-projectile= (thanks
     to Muneeb Shaikh)
+  - Force powerline-scale to be 1 when utf-8 separator is used (thanks to
+    Sylvain Benner)
+  - Disable evil-goggles pulse (thanks to Sylvain Benner)
+  - =spacemacs/integrate-evil-search= also updates =evil-ex-search-direction=
+    (thanks to Thanh Vuong)
 - Enable =evil-search= search module in evil state.
 - Improve function =spacemacs/sort-lines-by-column= to work on rectangular/block
   selection and warn the user about its requirements (thanks to duianto)
@@ -660,6 +670,9 @@ Benner and Paweł Siudak):
 - Fix =spacemacs/swiper-all-region-or-symbol= function (thanks to Ayush Goyal)
 - Fix backends when =auto-completion-enable-snippets-in-popup= is nil (thanks to
   Sylvain Benner)
+- Add ivy-yasnippet (thanks to Kalle Lindqvist)
+- Use =counsel-company= to show completion candidates (thanks to Kalle
+  Lindqvist)
 **** Auto-Layer
 - Prompt user to install react-mode if a .jsx file is opened (thanks to Jon
   Hermansen)
@@ -820,6 +833,8 @@ Benner and Paweł Siudak):
     - Add ~SPC m o I~ to macroexpand once print region
     - Add ~SPC m o r~ to macroexpand region
     - Add ~SPC m o R~ to macroexpand print region
+- Add elixir format keybind (thanks to Perry Fraser)
+  - ~SPC m =~ to format current buffer
 **** Elm
 - Fix flycheck initialization (thanks to Kevin W. van Rooijen)
 **** Emacs Lisp
@@ -844,6 +859,7 @@ Benner and Paweł Siudak):
 - Add dotspacemacs alias (=.S=) for nameless (thanks to Sylvain Benner)
 - Disable nameless by default (thanks to Codruț Constantin Gușoi, Sylvain
   Benner)
+- Activate nameless only in GUI (thanks to Sylvain Benner)
 **** Emoji
 - Add support for Emoji fonts on macOS and Linux (thanks to CodeFalling )
 - Setup =emojify= cache directory (thanks to Boris Buliga)
@@ -1074,6 +1090,7 @@ Benner and Paweł Siudak):
   Benner)
 - Add ES6 module extension to =init-js2-mode= (thanks to Nathan Lloyd)
 - Added =org-babel= support (thanks to Michael Rohleder)
+- Check if =tern= exists before using it (thanks to Codruț Constantin Gușoi)
 **** Keyboard layout
 - Add support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and
   Eivind Fonn)
@@ -1107,6 +1124,12 @@ Benner and Paweł Siudak):
 - Update markdown insert link, function renamed (thanks to duianto)
 - Make all keybindings available in gfm-mode (thanks to Codruț Constantin Gușoi)
 - Remove org table lighter (thanks to Troy Hinckley)
+- Fix ~M-h~, ~M-j~, ~M-k~, ~M-l~ bindings (thanks to Kechao CAI)
+- New key bindings (thanks to Sylvain Benner):
+  - ~M-up~ for =markdown-move-up=
+  - ~M-down~ for =markdown-move-down=
+  - ~M-left~ for =markdown-move-left=
+  - ~M-right~ for =markdown-move-right=
 **** Major modes
 - Added SPARQL-mode (thanks to Dietrich Daroch)
 - Move =extra-langs= to =major-modes= (thanks to Eivind Fonn)
@@ -1328,6 +1351,7 @@ Benner and Paweł Siudak):
     - ~RET~ to go forward
 - Fix =pyenv=, =pre-init= function and =hy-mode= prefixes (thanks to Brandon T.
   Willard)
+- Conditionally remove binding to obsolete keymap (thanks to bmag)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 **** Ranger
@@ -1471,6 +1495,7 @@ Benner and Paweł Siudak):
 - Fix the =base16-solarflare= mapping (thanks to Sebastian Nagel)
 - Added support for kaolin themes (thanks to William Roe)
 - Added support for eziam themes (thanks to Benno Fünfstück)
+- Enable italics in spacemacs theme (thanks to Sylvain Benner)
 ***** Colors
 - Add ability to set default rainbow-identifiers values (thanks to SteveJobzniak)
 - Improved resetting of rainbow-identifiers transient-state (thanks to SteveJobzniak)
