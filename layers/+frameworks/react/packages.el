@@ -17,7 +17,6 @@
     evil-matchit
     flycheck
     js-doc
-    lsp-javascript-typescript
     prettier-js
     rjsx-mode
     smartparens
@@ -52,9 +51,6 @@
 (defun react/post-init-js-doc ()
   (add-hook 'rjsx-mode-hook 'spacemacs/js-doc-require)
   (spacemacs/js-doc-set-key-bindings 'rjsx-mode))
-
-(defun react/post-init-lsp-javascript-typescript ()
-  (spacemacs//setup-lsp-jump-handler 'rjsx-mode))
 
 (defun react/init-rjsx-mode ()
   (use-package rjsx-mode
