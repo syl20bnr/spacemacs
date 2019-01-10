@@ -39,13 +39,9 @@ the [[https://github.com/phildawes/racer#installation][installation instructions
 To enable auto-completion, ensure that the =auto-completion= layer is enabled.
 
 *** LSP
-You must install the [[https://github.com/rust-lang-nursery/rls][Rust Language Server]].
+You must add =lsp= to the existing =dotspacemacs-configuration-layers= in your =~/.spacemacs=.
 
-Configuration of the lsp backend is done through the layer configuration variable =rust-rls-cmd=.
-The =rust-rls-cmd= is how the rust server should be launched.
-=rust-rls-cmd= defaults to =rustup run nightly rls=.
-The environment variable =RLS_ROOT= is used for configuration if =rust-rls-cmd= is set to =nil=.
-For additional configuration please see [[https://github.com/emacs-lsp/lsp-rust][rust-lsp]].
+Consult the installation command for the desired language server found at [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] for instructions.
 
 To enable auto-completion, ensure that the =auto-completion= layer is enabled.
 

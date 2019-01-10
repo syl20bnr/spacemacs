@@ -32,10 +32,6 @@
         go-rename
         go-tag
         godoctor
-        (lsp-go
-         :requires lsp-mode
-         :location (recipe :fetcher github
-                           :repo "emacs-lsp/lsp-go"))
         popwin
         ))
 
@@ -46,10 +42,6 @@
             :backends company-go
             :modes go-mode
             :variables company-go-show-annotation t)))
-
-(defun go/init-lsp-go ()
-  (use-package lsp-go
-    :commands lsp-go-enable))
 
 (defun go/post-init-company ()
   (add-hook 'go-mode-local-vars-hook #'spacemacs//go-setup-company))

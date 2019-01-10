@@ -124,11 +124,8 @@ Currently tsserver doesn’t pickup tsconfig.json file changes. You might need t
 restart server after editing it.
 
 ** Language Server Protocol
-You have to install the following dependencies with npm.
-
-#+BEGIN_SRC shell
-  npm i -g typescript typescript-language-server
-#+END_SRC
+You also need to install the Typescript Language Server.
+Consult the installation command for the desired language server found at [[https://www.github.com/emacs-lsp/lsp-mode/][lsp-mode]] for instructions.
 
 * Key bindings
 ** Typescript Major Mode
