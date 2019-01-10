@@ -191,7 +191,11 @@ Benner and Paweł Siudak):
   (thanks to Sylvain Benner, Compro Prasad and Keith Simmons)
 - Added support for native line numbers in Emacs 26 (thanks to bmag)
 - Extensive use of lazy loading of packages to reduce Spacemacs startup time
-  (thanks to Sylvain Benner)
+  (thanks to Sylvain Benner and Ben Leggett)
+- Added environment-variable caching. At startup, if the cache does not exist,
+  Spacemacs loads environment variables using =exec-path-from-shell= and writes
+  the cache to be used on next startup (thanks to Sylvain Benner and Codruț
+  Constantin Gușoi)
 *** New layers
 **** Email
 - notmuch (thanks to Francesc Elies Henar, Leonard Lausen, Willian Casarin)
@@ -209,7 +213,7 @@ Benner and Paweł Siudak):
 - perl5 (thanks to Troy Hinckley, Jinseop Kim and Michael Rohleder)
 - perl6 (thanks to Bahtiar Gadimov)
 - protobuf (thanks to Amol Mandhane)
-- restructuredtext (thanks to Wei-Wei Guo)
+- restructuredtext (thanks to Wei-Wei Guo and Kalle Lindqvist)
 - semantic-web (thanks to Andreas Textor)
 - coffeescript (thanks to Sylvain Benner)
 - json (thanks to Sylvain Benner)
@@ -414,6 +418,11 @@ Benner and Paweł Siudak):
   Sylvain Benner)
 - Fixed duplicate "Open quick help..." in the minibuffer at startup (thanks to
   Sylvain Benner)
+- Added =spacemacs|add-transient-hook= macro to add hooks that vanish the first
+  time they are executed (thanks to Sylvain Benner)
+- Renamed =spacemacs/mplist-get= function to =spacemacs/mplist-get-values=,
+  renamed =spacemacs/plist-get= function to =spacemacs/mplist-get-value=, and
+  refactored the latter function (thanks to Benjamin Reynolds)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -1044,6 +1053,7 @@ Benner and Paweł Siudak):
 - Fix winum intergration (thanks to Sylvain Benner)
 - Fixed "Invalid face reference" error in Helm transient state (thanks to
   duianto)
+- Hide lighter (thanks to Sylvain Benner)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Add =counsel-css= as an ivy alternative to =helm-css-scss= (thanks to Robbert
@@ -1344,6 +1354,8 @@ Benner and Paweł Siudak):
   - =osx-right-option-as=  defaults to left
   - =osx-right-control-as= defaults to left
   (thanks to Christopher Eames, Aaron Culich, and fiveNinePlusR)
+- Disabled =pbcopy= package because it introduced input latency for some actions
+  when using =emacs -daemon= and a GUI client (thanks to Sylvain Benner)
 - Key bindings:
   - Add key bindings to use ~command-1..9~ for selecting window
     (thanks to Liu Joey)
@@ -1645,20 +1657,20 @@ Benner and Paweł Siudak):
   Frey, Adam Kruszewski, Alexander Dalshov, Alexander Iljin, Alexander Kjeldaas,
   Alexandros Kotzias, Anton Latukha, Anurag Sharma, Archenoth, Ather Sharif,
   Benjamin Reynolds, bmag, Boris Buliga, Boris Wong, Carl Lange, Chase Adams,
-  CL123123, Codruț Constantin Gușoi, Daniel Hodson, Daniel Le, Darkhan, David
-  Florness, David Vo, davidpham87, Dela Anthonio, Diego Alvarez, Diego Berrocal,
-  Dietrich Daroch, Dinesh Bhosale, Dominik Schrempf, Doug Beardsley, dubnde,
-  duianto, eldios, Eugene Yaremenko, Evan Klitzke, Evan Niessen-Derry,
-  firemiles, Fuqiao Xue, Garrett Johnson, Henry Marshall, hornuda, Ivan
-  Kryvoruchko, J. Patrick Lanigan, Jaremy Creechley, Jesse Cooke, Jethro Shuwen
-  Sun, JI Xiang, Jim Deville, Jody Frankowski, Joe Hillenbrand, John Wood, Jon
-  Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood,
-  Joshua Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant, Kristoffer
-  Haugsbakk, Leo Joseph Buchignani III, Max Beutelspacher, Max Nordlund,
-  Maximilian Wolff, Miciah Dashiel Butler Masters, Mikhail Yakutovich, Muneeb
-  Shaikh, Nasser Alshammari, Nasser Alshammari, Niko Felger, Nikolai Myllymäki,
-  nikolaiam, Nicolas Forgerit, Olivier Verdier, pancho horrillo, Paul Milla,
-  Paulo Schneider, Pawan Dubey, Paweł Siudak, Phil Pirozhkov, Philippe
+  CL123123, Codruț Constantin Gușoi, Daniel Hodson, Daniel Le, Daniel Molina,
+  Darkhan, David Florness, David Vo, davidpham87, Dela Anthonio, Diego Alvarez,
+  Diego Berrocal, Dietrich Daroch, Dinesh Bhosale, Dominik Schrempf, Doug
+  Beardsley, dubnde, duianto, eldios, Eugene Yaremenko, Evan Klitzke, Evan
+  Niessen-Derry, firemiles, Fuqiao Xue, Garrett Johnson, Henry Marshall,
+  hornuda, Ivan Kryvoruchko, J. Patrick Lanigan, Jaremy Creechley, Jesse Cooke,
+  Jethro Shuwen Sun, JI Xiang, Jim Deville, Jody Frankowski, Joe Hillenbrand,
+  John Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett,
+  Josh Greenwood, Joshua Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant,
+  Kristoffer Haugsbakk, Leo Joseph Buchignani III, Max Beutelspacher, Max
+  Nordlund, Maximilian Wolff, Miciah Dashiel Butler Masters, Mikhail Yakutovich,
+  Muneeb Shaikh, Nasser Alshammari, Nasser Alshammari, Niko Felger, Nikolai
+  Myllymäki, nikolaiam, Nicolas Forgerit, Olivier Verdier, pancho horrillo, Paul
+  Milla, Paulo Schneider, Pawan Dubey, Paweł Siudak, Phil Pirozhkov, Philippe
   Bourdages, Piotr Grzesik, Rafi Khan, Rand01ph, rakyi, Raymond Wanyoike,
   Reverend Homer, Robby O'Connor, Rhommel Lamas, Sam Pablo Kuper, Saulius
   Menkevičius, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho,
