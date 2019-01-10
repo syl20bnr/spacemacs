@@ -190,6 +190,8 @@ Benner and Paweł Siudak):
 - Added experimental support for the emacs dumper; see =EXPERIMENTAL.org=
   (thanks to Sylvain Benner, Compro Prasad and Keith Simmons)
 - Added support for native line numbers in Emacs 26 (thanks to bmag)
+- Extensive use of lazy loading of packages to reduce Spacemacs startup time
+  (thanks to Sylvain Benner)
 *** New layers
 **** Email
 - notmuch (thanks to Francesc Elies Henar, Leonard Lausen, Willian Casarin)
@@ -263,7 +265,7 @@ Benner and Paweł Siudak):
     themes. Supported themes are =spacemacs=, =all-the-icons=, =vim-powerline=,
     =custom=, and =vanilla=. The first three are spaceline themes, =custom= is
     user defined, and =vanilla= is the default Emacs mode-line. (thanks to
-    Sylvain Benner)
+    Sylvain Benner and James Wang)
   - Removed obsolete =:powerline-scale= property from
     =dotspacemacs-default-font= variable (thanks to Muneeb Shaikh and Sylvain
     Benner)
@@ -275,6 +277,31 @@ Benner and Paweł Siudak):
     =dotspacemacs-emacs-dumper-dump-file= and
     =dotspacemacs-enable-emacs-pdumper= to configure dump (thanks to Sylvain
     Benner)
+  - Added =vim-style-visual-feedback= and =hybrid-style-visual-feedback= style
+    variables to enable =evil-goggles= pulse in the Vim and Hybrid editing
+    styles, respectively; disabled by default (thanks to Sylvain Benner)
+  - Renamed style variables for consistency; the old names are still recognized
+    but deprecated (thanks to Sylvain Benner):
+    - =dotspacemacs-remap-Y-to-y$= renamed to =vim-style-remap-Y-to-y$=
+    - =dotspacemacs-retain-visual-state-on-shift= to
+      =vim-style-retain-visual-state-on-shift=
+    - =dotspacemacs-visual-line-move-text= to =vim-style-visual-line-move-text=
+    - =dotspacemacs-ex-substitute-global= to =vim-style-ex-substitute-global=
+    - =hybrid-mode-enable-evilified-state= to
+      =hybrid-style-enable-evilified-state=
+    - =hybrid-mode-enable-hjkl-bindings= to =hybrid-style-enable-hjkl-bindings=
+    - =hybrid-mode-use-evil-search-module= to
+      =hybrid-style-use-evil-search-module=
+    - =hybrid-mode-default-state= to =hybrid-style-default-state=
+  - Renamed helm variables and made them layer variables; the old dotfile
+    variables are still recognized but deprecated (thanks to Sylvain Benner and
+    Kalle Lindqvist):
+    - =dotspacemacs-helm-resize= to =helm-enable-auto-resize=, in the
+      =spacemacs-completion= layer
+    - =dotspacemacs-helm-no-header= to =helm-no-header=, in the =helm= layer
+    - =dotspacemacs-helm-position= to =helm-position=, in the =helm= layer
+    - =dotspacemacs-helm-use-fuzzy= to =helm-use-fuzzy=, in the
+      =spacemacs-completion= layer
 - Can use the univeral prefix argument to open both the =*scratch*= buffer and
   the =*Messages*= buffer in another window (thanks to Thomas de Beauchêne)
 *** Core changes
@@ -378,6 +405,15 @@ Benner and Paweł Siudak):
 - Added =:off-message= keyword to the =spacemacs|add-toggle= macro to allow
   overriding the default toggled-off expression (thanks to bmag)
 - Avoid non-idempotent use of push in init code (thanks to Miciah Masters)
+- Moved Spacemacs startup progress bar to =core-progress-bar.el=, removed
+  counter from progress bar, fixed updating, and fixed size when Emacs is
+  started maximized (thanks to Sylvain Benner)
+- Fixed warning about quoted lambda in =core-configuration-layer.el= (thanks to
+  Sylvain Benner)
+- New function =configuration-layer/load-file= to load file silently (thanks to
+  Sylvain Benner)
+- Fixed duplicate "Open quick help..." in the minibuffer at startup (thanks to
+  Sylvain Benner)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -573,7 +609,6 @@ Benner and Paweł Siudak):
     to Muneeb Shaikh)
   - Force powerline-scale to be 1 when utf-8 separator is used (thanks to
     Sylvain Benner)
-  - Disable evil-goggles pulse (thanks to Sylvain Benner)
   - =spacemacs/integrate-evil-search= also updates =evil-ex-search-direction=
     (thanks to Thanh Vuong)
 - Enable =evil-search= search module in evil state.
@@ -648,6 +683,8 @@ Benner and Paweł Siudak):
     =spacemacs-window-split-ignore-prefixes=.
 - Fixed =evil-escape= lighter being shown in the mode line (thanks to Sylvain
   Benner)
+- Fixed ~TAB~ to toggle occurrences in iedit state in Vim and Hybrid editing
+  styles (thanks to Sylvain Benner)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -655,6 +692,8 @@ Benner and Paweł Siudak):
   Gușoi)
 - Fix error void function ansible: auto-decrypt-encrypt (thanks to Sylvain
   Benner)
+**** Asm
+- Added missing =company= package declaration (thanks to Kalle Lindqvist)
 **** Auto-completion
 - Prefer =.spacemacs.d/snippets= over =.emacs.d/private/snippets= (thanks to
   Aaron Jensen)
@@ -929,11 +968,24 @@ Benner and Paweł Siudak):
     - Add ~SPC m r e~ to extract
     - Add ~SPC m r t~ to toggle
     - Add ~SPC m r d~ for godoc
- - Adds GOROOT to list of variables copied from shell environment (thanks to
-   Andy Lindeman)
- - Convert remote file name to local name, stripping trampy stuff (thanks to
-   Josh Santos)
+- Adds =GOROOT= to list of variables copied from shell environment (thanks to
+  Andy Lindeman)
+- Convert remote file name to local name, stripping trampy stuff (thanks to
+  Josh Santos)
 - Added =go-tag= (thanks to brantou)
+- Added =go-gen-test= (thanks to Cosmin Cojocar and Sylvain Benner):
+  - Key bindings:
+    - ~SPC m t g g~ to generate tests for the function in the active region
+    - ~SPC m t g f~ to generate tests for all exported functions
+    - ~SPC m t g F~ to generate tests for all functions
+- Configure =go-mode= to use the =gopkgs= tool to find available Go packages
+  faster (thanks to Cosmin Cojocar)
+- Added =go-fill-struct= and key binding ~SPC m r s~ to fill struct with default
+  values (thanks to Cosmin Cojocar)
+- Added =go-impl= and key binding ~SPC m r i~ to generate method stubs for an
+  interface (thanks to Cosmin Cojocar)
+- Fixed loading of the =GOPATH=, =GOROOT=, and =GO15VENDOREXPERIMENT=
+  environment variables (thanks to Joshua Santos)
 **** Groovy
 - Update =indent-variable-alist= to support new groovy-mode (thanks to Sylvain
   Benner)
@@ -1405,6 +1457,10 @@ Benner and Paweł Siudak):
   mode instead of =ruby-mode= and =enh-ruby-mode= so that the key bindings will
   work in view file windows (thanks to Adam Sokolnicki)
 **** Rust
+- Added missing =counsel-gtags= and =smartparens= package declarations (thanks
+  to Kalle Lindqvist)
+- Fixed loading of the =RUST_SRC_PATH= environment variable (thanks to Joshua
+  Santos)
 - Key bindings:
   - Add ~SPC m c D~ to open Cargo docs (thanks to Matthew J. Berger)
   - Add ~SPC m c l~ to run linter with cargo clippy (thanks to Michael Kohl)
@@ -1417,6 +1473,8 @@ Benner and Paweł Siudak):
   - Evilify =ensime= search in insert/normal mode (thanks to Diego Alvarez)
 - Remove duplicated code (thanks to Tetsuro Takemoto)
 - Add ENSIME jump handlers (thanks to Joao Azevedo)
+**** Scheme
+- Added missing =parinfer= package declaration (thanks to Kalle Lindqvist)
 **** Semantic
 - Make it possible to exclude stickyfunc (thanks to Sylvain Benner)
 **** Shell
