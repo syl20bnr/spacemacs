@@ -191,11 +191,11 @@ Benner and Paweł Siudak):
   (thanks to Sylvain Benner, Compro Prasad and Keith Simmons)
 - Added support for native line numbers in Emacs 26 (thanks to bmag)
 - Extensive use of lazy loading of packages to reduce Spacemacs startup time
-  (thanks to Sylvain Benner and Ben Leggett)
+  (thanks to Sylvain Benner, Ben Leggett, and bmag)
 - Added environment-variable caching. At startup, if the cache does not exist,
   Spacemacs loads environment variables using =exec-path-from-shell= and writes
-  the cache to be used on next startup (thanks to Sylvain Benner and Codruț
-  Constantin Gușoi)
+  the cache to be used on next startup (thanks to Sylvain Benner, Codruț
+  Constantin Gușoi, and Paolo G. Giarrusso)
 *** New layers
 **** Email
 - notmuch (thanks to Francesc Elies Henar, Leonard Lausen, Willian Casarin)
@@ -423,6 +423,8 @@ Benner and Paweł Siudak):
 - Renamed =spacemacs/mplist-get= function to =spacemacs/mplist-get-values=,
   renamed =spacemacs/plist-get= function to =spacemacs/mplist-get-value=, and
   refactored the latter function (thanks to Benjamin Reynolds)
+- Add GPG_AGENT_INFO and SSH_AGENT_PID to ignored environment variables
+  (thanks to Sylvain Benner)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -597,6 +599,7 @@ Benner and Paweł Siudak):
     =recentf-expand-file-name= in order to respect =recentf-filename-handlers=
     (thanks to bet4it)
   - Remove buggy find-file-hook--open-junk-file (thanks to Sylvain Benner)
+    (thanks to Miciah Masters)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -694,6 +697,9 @@ Benner and Paweł Siudak):
   Benner)
 - Fixed ~TAB~ to toggle occurrences in iedit state in Vim and Hybrid editing
   styles (thanks to Sylvain Benner)
+- Fix the projectile layer (thanks to Karol Wójcik)
+- Fix handling of keymap property when the value is a symbol instead of
+  a keymap (thanks to Rudi Grinberg)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -783,6 +789,8 @@ Benner and Paweł Siudak):
     Michael van der Nest)
   - Fix =cider-inspector-prev-page= binding, also add ~p~ as another key binding
     (thanks to Brian Fay)
+  - Move =cider-browse-ns-all= to ~SPC m h N~
+  - Add ~SPC m g n~ to run =cider-find-ns=
 - Added key bindings for profiling and spec browsing (thanks to Luo Tian):
   - ~SPC m g s~ to browse spec
   - ~SPC m g S~ to browse all specs
@@ -803,6 +811,7 @@ Benner and Paweł Siudak):
 - Compatibility fix for CIDER 0.9.0 (thanks to nijohando)
 - Enable command history navigation in the cider REPL in an insert mode (thanks
   to Wojciech Wojtyniak)
+- Fix regression for pinned =cider= (thanks to André Stylianos Ramos)
 **** Coffeescript
 - Adds basic autocompletion (thanks to Codruț Constantin Gușoi)
 - Key bindings (thanks to Kalle Lindqvist):
@@ -1022,6 +1031,8 @@ Benner and Paweł Siudak):
 - Add function for proper import reformatting
 - Key bindings:
   - ~SPC r i~ runs new =spacemacs/haskell-format-imports= function
+  - ~SPC m g b~ returns from definition in =intero-mode=
+    (thanks to Magnus Therning)
 **** Helm
 - Limited =ripgrep= results to 512 columns by default, and added
   =spacemacs-helm-rg-max-column-number= layer variable to configure the above
@@ -1054,6 +1065,8 @@ Benner and Paweł Siudak):
 - Fixed "Invalid face reference" error in Helm transient state (thanks to
   duianto)
 - Hide lighter (thanks to Sylvain Benner)
+- Fix error from =spacemacs/helm-files-smart-do-search= on non-file buffers
+  (thanks to Miciah Masters)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Add =counsel-css= as an ivy alternative to =helm-css-scss= (thanks to Robbert
@@ -1104,6 +1117,12 @@ Benner and Paweł Siudak):
   being enabled (thanks to Alejandro Catalina)
 - Move =counsel-projectile= to spacemacs-layouts (thanks to Muneeb Shaikh)
 - Added =ivy-xref= (thanks to Fangrui Song and Sylvain Benner)
+- Use evil normal mode as default for =ivy-occur-grep-mode= (thanks to
+  Ting Zhou)
+- Fix error on =nil= input with counsel search (thanks to Miciah Masters)
+- Fix call to =counsel-more-chars= in =counsel-search= (thanks to bmag)
+- Add search highlighting with =ivy--regex-plus= (thanks to ivasonn)
+- Improve jumping in buffer (thanks to Kalle Lindqvist)
 **** Imenu-list
 - Fix key bindings (thanks to bet4it):
   - ~r~ inside imenu-list buffer to refresh
@@ -1130,6 +1149,8 @@ Benner and Paweł Siudak):
 - Make java layer depend on groovy layer (thanks to Sylvain Benner)
 - Fix syntax typo in configuration (thanks to EMayej)
 - Added =org-babel= support (thanks to Michael Rohleder)
+- Remove broken ENSIME key bindings (thanks to Bjarke Vad Andersen)
+- Fix yanking types (thanks to Bjarke Vad Andersen)
 **** Javascript
 - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
 - Added LSP support, which can be used by enabling the =lsp= layer and setting
@@ -1459,11 +1480,12 @@ Benner and Paweł Siudak):
   respectively, to the Ruby console and switch focus to the console (thanks to
   Paweł Siudak)
 - Key bindings:
-  - Add ~SPC m r R m~ for extract to method.
-  - Add ~SPC m r R v~ to extract local variable.
-  - Add ~SPC m r R c~ to extract constant.
-  - Add ~SPC m r R l~ to extract to =let=.
-  - Added ~SPC m s l~ to send line to REPL (thanks to Paweł Siudak)
+  - Add ~SPC m s l~ to send line to REPL (thanks to Paweł Siudak)
+  - Add ~SPC m T~ toggle prefix (thanks to Codruț Constantin Gușoi)
+    - ~SPC m T '~ to toggle string quotes
+    - ~SPC m T {~ to toggle block style
+- Add popwin config for bundler, projectile-rails, and rubocop (thanks to
+  Paweł Siudak)
 **** Ruby on Rails
 - Changed leader keys to be configured for the =projectile-rails-mode= minor
   mode instead of =ruby-mode= and =enh-ruby-mode= so that the key bindings will
@@ -1558,7 +1580,8 @@ Benner and Paweł Siudak):
   with =terraform fmt= (thanks to Harry Hull)
 - Add support for =terraform-company= (thanks to Sylvain Benner)
 **** Themes
-- Add support for more doom themes (thanks to Dela Anthonio and Igor Kupczyński)
+- Add support for more doom themes (thanks to Dela Anthonio, Igor Kupczyński,
+  and DonHugo69)
 - Add support for gruvbox theme variants (thanks to Dean Todevski)
 - Remove zonokai-theme theme as it is unavailable (thanks to nickclasener)
 - Updates to the spacemacs theme (thanks to Nasser Alshammari)
@@ -1599,6 +1622,9 @@ Benner and Paweł Siudak):
 - Key bindings:
   - ~SPC m E e~ is for =tide-fix= which was originally added as ~SPC m r f~
     (thanks to Simon Altschuler)
+  - ~SPC m g g~ for =tide-jump-to-definition= (thanks to Roy Choo)
+  - ~SPC m g t~ remapped to =spacemacs/typescript-jump-to-type-def= from
+    =typescript/jump-to-type-def= (thanks to Roy Choo)
 - Added LSP support, which can be used by enabling the =lsp= layer and setting
   the =typescript= layer's =typescript-backend= variable to =lsp= (thanks to
   Ting Zhou and Sylvain Benner)
