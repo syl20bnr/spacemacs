@@ -217,6 +217,7 @@ Benner and Paweł Siudak):
 - semantic-web (thanks to Andreas Textor)
 - coffeescript (thanks to Sylvain Benner)
 - json (thanks to Sylvain Benner)
+- jsonnet (thanks to liztio and Robby O'Connor)
 - crystal (thanks to Sylvain Benner)
 **** WEB services
 - confluence
@@ -322,7 +323,7 @@ Benner and Paweł Siudak):
 - More robust dotspacemacs/add-layer (thanks to Eivind Fonn)
 - Check toggle condition in status function (thanks to Eivind Fonn)
 - New dotvariable: =dotspacemacs-auto-generate-layout-names= (thanks to bmag)
-- Rework =spacemacs//reroot-link= to makes links relative (thanks to Eugene
+- Rework =spacemacs//reroot-link= to make links relative (thanks to Eugene
   Yaremenko)
 - Don't reroot non-org files (thanks to Eugene Yaremenko)
 - Fix loading of themes having dependencies (thanks to Benno Fünfstück)
@@ -423,6 +424,16 @@ Benner and Paweł Siudak):
 - Renamed =spacemacs/mplist-get= function to =spacemacs/mplist-get-values=,
   renamed =spacemacs/plist-get= function to =spacemacs/mplist-get-value=, and
   refactored the latter function (thanks to Benjamin Reynolds)
+- Fixed pdumper enabled on ~SPC f e R~ no matter what (thanks to Sylvain Benner)
+- Display time spent in =user-config= in home buffer (thanks to Sylvain Benner)
+- Don't call =user-load= unless we are dumping (thanks to Sylvain Benner)
+- Removed dotspacemacs variable =dotspacemacs-import-env-vars-from-shell= (thanks to Sylvain Benner)
+- Removed dotspacemacs variable =dotspacemacs-improt-env-vars-shell-file-name= (thanks to Sylvain Benner)
+- Rename environment file from =spacemacs.env= to =.spacemacs.env= (thanks to Sylvain Benner)
+- Move location of =.spacemacs.env= file to home or dotdirectory (thanks to Sylvain Benner)
+- Add new dotfile function =dotspacemacs/user-env= (thanks to Sylvain Benner)
+- Add ignored env. vars with variable =spacemacs-ignored-environment-variables= (thanks to Sylvain Benner)
+- Ignore env vars: =SSH_AUTH_SOCK= and =DBUS_SESSION_BUS_ADDRESS= (thanks to Sylvain Benner)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -435,6 +446,7 @@ Benner and Paweł Siudak):
   - The new =spacemacs-modeline= layer configures packages for the mode line.
   - The new =spacemacs-project= layer configures =projectile=.
   - Merge =spacemacs-ui= and =spacemacs-ui-visual= into layer =spacemacs-visual=
+  - Remove =spacemacs-environment= from =spacemacs-bootstrap= layer
 - New Packages:
   - Add =evil-lion= package to =spacemacs-evil= layer (thanks to et2010 and
     Eivind Fonn)
@@ -445,6 +457,8 @@ Benner and Paweł Siudak):
   - Add =symon= package to =spacemacs-modeline= layer
     (thanks to Eugene Yaremenko)
   - Added =evil-goggles= to the =spacemacs-evil= layer (thanks to Sylvain
+    Benner)
+  - Added =dotenv-mode= to the =spacemacs-bootstrap= layer (thanks to Sylvain
     Benner)
 - Key bindings:
   - Use Helm or Ivy (if one of these is enabled) for ~SPC a d~ (=dired=),
@@ -555,6 +569,18 @@ Benner and Paweł Siudak):
     - ~SPC h P s~ to start the profiler
     - ~SPC h P w~ to write the profiler report to a file
   - New ~SPC x t e~ to transpose sexps (thanks to Guido Kraemer)
+  - Added multiple key bindings to copy a file path (thanks to Codruț Constantin Gușoi):
+    - ~SPC f y c~ to show and copy current file absolute path with line and column number in the minibuffer
+    - ~SPC f y d~ to show and copy current directory absolute path in the minibuffer
+    - ~SPC f y l~ to show and copy current file absolute path with line number in the minibuffer
+    - ~SPC f y y~ to show and copy current file absolute path in the minibuffer
+    - ~SPC f y C~ to show and copy current file path relaitve to the project root with line and column number
+    - ~SPC f y D~ to show and copy current directory path relaitve to the project root
+    - ~SPC f y L~ to show and copy current file path relaitve to the project root with line number
+    - ~SPC f y Y~ to show and copy current file path relaitve to the project root
+  - New ~SPC f e e~ to open spacemacs.env file (thanks to Sylvain Benner)
+  - New ~SPC f e E~ to reload environment variable from env file (thanks to Sylvain Benner)
+  - New ~SPC f e C-e~ to re-initialize the env file from shell (thanks to Sylvain Benner)
 - Fixes:
   - Disable the paste transient state when using multiple cursors
     (thanks to Koray AL)
@@ -597,6 +623,9 @@ Benner and Paweł Siudak):
     =recentf-expand-file-name= in order to respect =recentf-filename-handlers=
     (thanks to bet4it)
   - Remove buggy find-file-hook--open-junk-file (thanks to Sylvain Benner)
+  - Fix copy-paste error in =lazy-load= hook name (thanks to bmag) 
+  - Fix errors when restoring a perspective (thanks to Codruț Constantin Gușoi) 
+  - Line-nums: don't default to text/prog-mode if disabled by user (thanks to bmag) 
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -694,6 +723,8 @@ Benner and Paweł Siudak):
   Benner)
 - Fixed ~TAB~ to toggle occurrences in iedit state in Vim and Hybrid editing
   styles (thanks to Sylvain Benner)
+- Add =Process List= to =popwin:special-display-config= (thanks to simendsjo) 
+- Remove obsolete =purpose-conf= argument for good (thanks to Codruț Constantin Gușoi)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -803,6 +834,7 @@ Benner and Paweł Siudak):
 - Compatibility fix for CIDER 0.9.0 (thanks to nijohando)
 - Enable command history navigation in the cider REPL in an insert mode (thanks
   to Wojciech Wojtyniak)
+- Fix function usage in clojure layer according to cider changes (thanks to André Stylianos Ramos)
 **** Coffeescript
 - Adds basic autocompletion (thanks to Codruț Constantin Gușoi)
 - Key bindings (thanks to Kalle Lindqvist):
@@ -968,6 +1000,7 @@ Benner and Paweł Siudak):
 - Move evil-magit =use-package= hook declaration to pre-init (thanks to Sylvain
   Benner)
 - Change =magit-svn-popup= keybinding to =~= (thanks to hornuda)
+- Add gitignore-templates (thanks to Ruslan Kamashev)
 **** Go
 - Improve go test output buffer behavior (thanks to Denis Bernard)
 - Configurable extra arguments to go test (thanks to Ian Clark)
@@ -1054,6 +1087,7 @@ Benner and Paweł Siudak):
 - Fixed "Invalid face reference" error in Helm transient state (thanks to
   duianto)
 - Hide lighter (thanks to Sylvain Benner)
+- Move helm variable from helm layer to spacemacs-completion layer (thanks to Kalle Lindqvist)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Add =counsel-css= as an ivy alternative to =helm-css-scss= (thanks to Robbert
@@ -1163,6 +1197,7 @@ Benner and Paweł Siudak):
 - Add colemak-jkhl layout (thanks to fmdkdd)
 - Disambiguate the colemak-hnei and colemak-neio layouts (thanks to fmdkdd)
 - Improve support for workman keyboard layout (thanks to Benjamin Reynolds)
+- after-config hooks for lazy-loaded packages (thanks to CharlesHD)
 **** LaTeX
 - New package =magic-latex-buffer= (thanks to benquebec)
 - New layer variable =latex-enable-magic= to enable =magic= symbols in latex
@@ -1343,6 +1378,8 @@ Benner and Paweł Siudak):
   Wolff)
 - Fix initialization order to prevent version conflicts (thanks to Sylvain Benner)
 - Fixed adding =org-projectile= files to =org-agenda-files= (thanks to AmanYang)
+- Fixed error void: =evil-surround-pairs-alist= (thanks to Sylvain Benner)
+- Add warning against manually loading org (thanks to Maximilian Wolff)
 **** Osx
 - Fix OSX mapping issue (thanks to Joey Liu)
 - Added layer variables to customize modifier behaviors on macOS:
@@ -1473,6 +1510,7 @@ Benner and Paweł Siudak):
   to Kalle Lindqvist)
 - Fixed loading of the =RUST_SRC_PATH= environment variable (thanks to Joshua
   Santos)
+- Enable eldoc for rust/racer (thanks to yangbo)
 - Key bindings:
   - Add ~SPC m c D~ to open Cargo docs (thanks to Matthew J. Berger)
   - Add ~SPC m c l~ to run linter with cargo clippy (thanks to Michael Kohl)
@@ -1505,6 +1543,7 @@ Benner and Paweł Siudak):
 - Restore =auto-completion-idle-delay= value for =company-idle-delay= (thanks to
   Miciah Dashiel Butler Masters)
 - Added =shell-default-width= layer variable (thanks to David Balatero)
+- Function =resize-shell-to-desired-width= check for shell buffer before changing size (thanks to thanhvg)
 **** Shell Scripts
 - Add new company-shell environment variable backend (thanks to Alexander-Miller)
 - Add bashate style checker (thanks to Victor Cuadrado Juan)
@@ -1542,6 +1581,8 @@ Benner and Paweł Siudak):
 - Add leader key prefixes (thanks to Jeremie Pelletier)
 - Rebuild =spacemacs-sql-startable= after running =sql-add-product= (thanks to
   Andrew Christianson)
+- fix sql-indent and defer it (thanks to Sylvain Benner)
+- Add alex-hhh's sql-indent in place of mepla sql-indent (thanks to Andrew Christianson) 
 **** Syntax-checking
 - Key bindings:
   - ~SPC e e~ is now for triggering a syntax check, the old action
@@ -1599,6 +1640,7 @@ Benner and Paweł Siudak):
 - Key bindings:
   - ~SPC m E e~ is for =tide-fix= which was originally added as ~SPC m r f~
     (thanks to Simon Altschuler)
+  - ~SPC m E d~ to add =tslitn-disable-next-line= at point (thanks to Daniel Perez Alvarez)
 - Added LSP support, which can be used by enabling the =lsp= layer and setting
   the =typescript= layer's =typescript-backend= variable to =lsp= (thanks to
   Ting Zhou and Sylvain Benner)
@@ -1635,6 +1677,7 @@ Benner and Paweł Siudak):
     - ~SPC g v v~ to do the next logical VC operation (=vc-next-action=)
     - ~SPC g v I~ to ignore file (=vc-ignore=)
     - ~SPC g v r~ to  resolve conflicts in file
+  - Define key bindings with leader key for vim editing style in =diff-mode= (thanks to miyabinomuratic)
 - New packages:
   - =browse-at-remote= which replaces =github-browse-file=
    (thanks Eugene Yaremenko)
@@ -1676,7 +1719,7 @@ Benner and Paweł Siudak):
   Menkevičius, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho,
   SteveJobzniak, Sunghyun Hwang, Swaroop C H, Sylvain Benner, Szunti, Tim
   Stewart, timor, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz
-  Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
+  Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09, Zhige Xin, Vlad Bokov)
 *** Release notes summarized
   Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
-  Masters, Abhishek(Compro) Prasad, Deepak Khidia, Ward Harris
+  Masters, Abhishek(Compro) Prasad, Deepak Khidia, Ward Harris, Jiahao Jiang
