@@ -53,6 +53,9 @@ Kraemer, Yi Liu, and Jack Kamm):
   - ~SPC m r~ for =ess-extra-map=
   - ~SPC m w~ for =ess-r-package-dev-map=
   - ~SPC m d~ for =ess-dev-map=
+**** Elixir
+- Changed ~SPC m p t~ to ~SPC m t F~ for =alchemist-project-find-test= (thanks
+  to Lyuben Petrov)
 **** Git
 - Changed ~SPC g f h~ to ~SPC g f l~ for 'git log' of current file (thanks to Ag
   Ibragimov)
@@ -63,6 +66,10 @@ Kraemer, Yi Liu, and Jack Kamm):
 **** IPython notebook
 - Key bindings:
   - Change prefix from "ai" to "ay" (thanks to Swaroop C H)
+**** Markdown
+- Key bindings:
+  - Removed ~SPC m i I~ for =markdown-insert-reference-image= (folded into ~SPC m i i~)
+  - Removed ~SPC m i L~ for =markdown-insert-reference-link-dwim= (folded into ~SPC m i l~)
 **** Org
 Org key bindings were all over the place and we needed to reorganize them in a
 sane way, here is the complete list of changed key bindings (thanks to Sylvain
@@ -241,12 +248,15 @@ Benner and Paweł Siudak):
 - debug (thanks to Troy Hinckley and Sylvain Benner)
 - web-beautify (thanks to Sylvain Benner and Juuso Valkeejärvi)
 - tern (thanks to Sylvain Benner and Juuso Valkeejärvi)
+- emberjs (thanks to Robert O'Connor)
+- phoenix (thanks to Lyuben Petrov)
 **** Others
 - japanese (thanks to Kenji Miyazaki)
 - multiple-cursors (thanks to Codruț Constantin Gușoi)
 - parinfer (thanks to Tianshu Shi)
 - treemacs (thanks to Alexander Miller and Sylvain Benner)
 - templates (thanks to YasuharuIida and Eivind Fonn)
+- copy-as-format (thanks to Ruslan Kamashev)
 *** Removed layers
 - =extra-langs= (replaced by ad-hoc layers)
 - =evil-cleverparens= (moved to =spacemacs-evil=)
@@ -260,7 +270,7 @@ Benner and Paweł Siudak):
     window. (thanks to bmag)
   - New variable =dotspacemacs-zone-out-when-idle= to zone when idle. Zoning
     will obfuscate the current buffer acting like a screen saver. (thanks to
-    Eugene Yaremenko)
+    Eugene Yaremenko and Sylvain Benner)
   - New variable =dotspacemacs-frame-title-format= which is the efault format
     string for a frame title bar, see docstring of function
     =spacemacs/frame-title-prepare= for more info (thanks to Uri Sharf and Kepi)
@@ -423,6 +433,7 @@ Benner and Paweł Siudak):
 - Renamed =spacemacs/mplist-get= function to =spacemacs/mplist-get-values=,
   renamed =spacemacs/plist-get= function to =spacemacs/mplist-get-value=, and
   refactored the latter function (thanks to Benjamin Reynolds)
+- Fix overflow of line in page-break-lines-mode when using line number (thanks to Compro Prasad)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -461,12 +472,13 @@ Benner and Paweł Siudak):
   - Overhaul the scroll transient state on ~SPC N~ prefix (thanks to Somelauw)
   - New key binding ~SPC b H~ to open or select the =*Help*= buffer
     (thanks to duianto)
-  - New ~SPC b N~ prefix to create an empty buffer (thanks to duianto):
+  - New ~SPC b N~ prefix to create an empty buffer (thanks to duianto and Jesse Byler):
     - ~SPC b N h~ create new empty buffer in a new window on the left
     - ~SPC b N j~ create new empty buffer in a new window at the bottom
     - ~SPC b N k~ create new empty buffer in a new window above
     - ~SPC b N l~ create new empty buffer in a new window below
     - ~SPC b N n~ create new empty buffer in current window
+    - ~SPC b N f~ create new empty buffer in a new frame
   - New text align key bindings (thanks to Thomas de Beauchêne):
     - ~SPC x a [~ align region at [
     - ~SPC x a ]~ align region at ]
@@ -760,6 +772,10 @@ Benner and Paweł Siudak):
 - Add possible value =no-completion= to =c-c++-enable-rtags-support= flag.
   (thanks to Farva)
 - Added =org-babel= support (thanks to Michael Rohleder)
+- Updated ~SPC m g y~ binding to reflect upstream renaming of command (thanks to
+  Miciah Masters)
+- Fix issue with =c++-enable-clang-format-on-save= not taking effect when set
+  (thanks to Silver Chan)
 **** Cfengine
 - Fix publish in README (thanks to Eugene Yaremenko)
 - Add =ob-cfengine3= (thanks to Nick Anderson)
@@ -803,6 +819,8 @@ Benner and Paweł Siudak):
 - Compatibility fix for CIDER 0.9.0 (thanks to nijohando)
 - Enable command history navigation in the cider REPL in an insert mode (thanks
   to Wojciech Wojtyniak)
+- Update obsolete =cider-refresh= alias to =cider-ns-refresh= (thanks to André
+  Peric Tavares)
 **** Coffeescript
 - Adds basic autocompletion (thanks to Codruț Constantin Gușoi)
 - Key bindings (thanks to Kalle Lindqvist):
@@ -883,6 +901,8 @@ Benner and Paweł Siudak):
     - Add ~SPC m o R~ to macroexpand print region
 - Add elixir format keybind (thanks to Perry Fraser)
   - ~SPC m =~ to format current buffer
+-  Change binding of  =alchemist-project-find-test= from
+  ~SPC m p t~ to ~SPC m t F~ (thanks to Lyuben Petrov)
 **** Elm
 - Fix flycheck initialization (thanks to Kevin W. van Rooijen)
 **** Emacs Lisp
@@ -932,6 +952,9 @@ Benner and Paweł Siudak):
   =evil-snipe-override-mode= is enabled (thanks to Sylvain Benner)
 **** Finance
 - Remove key-bindings pointing to removed commands (thanks to Alexander Baier)
+- Add =evil-ledger= package (thanks to Alexander Miller)
+  - new key bindings: ~g j~ and ~g k~,
+  - ~x~ evil text object
 **** FSharp
 - Added prefixes for key bindings (thanks to David Millar-Durrant)
 **** Geolocation
@@ -1192,6 +1215,12 @@ Benner and Paweł Siudak):
   - ~M-down~ for =markdown-move-down=
   - ~M-left~ for =markdown-move-left=
   - ~M-right~ for =markdown-move-right=
+- Update key bindings to reflect changes in markdown-mode 2.3 (thanks to Miciah Masters)
+  - Rename =markdown-exdent-region= to =markdown-outdent-region=.
+  - Command for ~SPC m i I~ folded into ~SPC m i i~.
+  - ~SPC m i l~ and ~SPC m i L~ replaced by markdown-insert-link ~SPC m i l~.
+  - Add ~SPC m t m~ for =markdown-toggle-markup-hiding=
+  - Rename =markdown-jump= to =markdown-do=
 **** Major modes
 - Added SPARQL-mode (thanks to Dietrich Daroch)
 - Move =extra-langs= to =major-modes= (thanks to Eivind Fonn)
@@ -1416,6 +1445,7 @@ Benner and Paweł Siudak):
 - Fix =pyenv=, =pre-init= function and =hy-mode= prefixes (thanks to Brandon T.
   Willard)
 - Conditionally remove binding to obsolete keymap (thanks to bmag)
+- Improve setup of =lsp-python= and =anaconda-mode= (thanks to Ting Zhou)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 **** Ranger
@@ -1463,11 +1493,15 @@ Benner and Paweł Siudak):
   - Add ~SPC m r R v~ to extract local variable.
   - Add ~SPC m r R c~ to extract constant.
   - Add ~SPC m r R l~ to extract to =let=.
-  - Added ~SPC m s l~ to send line to REPL (thanks to Paweł Siudak)
+  - Add ~SPC m s l~ to send line to REPL (thanks to Paweł Siudak)
 **** Ruby on Rails
 - Changed leader keys to be configured for the =projectile-rails-mode= minor
   mode instead of =ruby-mode= and =enh-ruby-mode= so that the key bindings will
   work in view file windows (thanks to Adam Sokolnicki)
+- Add key bindings: (thanks to Adam Sokolnicki)
+  - ~SPC m f f b~ to find job
+  - ~SPC m f f w~ to find webpack config
+  - ~SPC m f c d~ to run rails destroy
 **** Rust
 - Added missing =counsel-gtags= and =smartparens= package declarations (thanks
   to Kalle Lindqvist)
@@ -1504,7 +1538,7 @@ Benner and Paweł Siudak):
 - Fix ~C-j~ and ~C-k~ in =eshell= while in insert state (thanks to Paweł Siudak)
 - Restore =auto-completion-idle-delay= value for =company-idle-delay= (thanks to
   Miciah Dashiel Butler Masters)
-- Added =shell-default-width= layer variable (thanks to David Balatero)
+- Added =shell-default-width= layer variable (thanks to David Balatero and Miciah Masters)
 **** Shell Scripts
 - Add new company-shell environment variable backend (thanks to Alexander-Miller)
 - Add bashate style checker (thanks to Victor Cuadrado Juan)
@@ -1546,6 +1580,7 @@ Benner and Paweł Siudak):
 - Key bindings:
   - ~SPC e e~ is now for triggering a syntax check, the old action
     (explain error around point) has been moved to ~SPC e x~.
+  - Add ~SPC e y~ to copy error at cursor position into kill ring (thanks to Francsec Elies Henar)
 - Rename function =add-flycheck-hook= to =enable-flycheck=
 - Use correct error list faces when defining error levels with custom bitmaps
   (thanks to Alexander Miller)
@@ -1557,6 +1592,9 @@ Benner and Paweł Siudak):
 - Add opt-in layer variable =terraform-fmt-on-save= to format buffers on save
   with =terraform fmt= (thanks to Harry Hull)
 - Add support for =terraform-company= (thanks to Sylvain Benner)
+**** Templates
+- Fix issue with templates layer ignoring =templates-private-directory= (thanks
+  to Seong Yong-ju)
 **** Themes
 - Add support for more doom themes (thanks to Dela Anthonio and Igor Kupczyński)
 - Add support for gruvbox theme variants (thanks to Dean Todevski)
@@ -1664,6 +1702,7 @@ Benner and Paweł Siudak):
   Niessen-Derry, firemiles, Fuqiao Xue, Garrett Johnson, Henry Marshall,
   hornuda, Ivan Kryvoruchko, J. Patrick Lanigan, Jaremy Creechley, Jesse Cooke,
   Jethro Shuwen Sun, JI Xiang, Jim Deville, Jody Frankowski, Joe Hillenbrand,
+  John Eismeier,
   John Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett,
   Josh Greenwood, Joshua Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant,
   Kristoffer Haugsbakk, Leo Joseph Buchignani III, Max Beutelspacher, Max
@@ -1674,6 +1713,7 @@ Benner and Paweł Siudak):
   Bourdages, Piotr Grzesik, Rafi Khan, Rand01ph, rakyi, Raymond Wanyoike,
   Reverend Homer, Robby O'Connor, Rhommel Lamas, Sam Pablo Kuper, Saulius
   Menkevičius, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho,
+  sorawee,
   SteveJobzniak, Sunghyun Hwang, Swaroop C H, Sylvain Benner, Szunti, Tim
   Stewart, timor, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz
   Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
