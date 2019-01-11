@@ -209,7 +209,7 @@ Benner and Paweł Siudak):
 **** Fonts
 - unicode-fonts (thanks to Aaron Jensen)
 **** Languages
-- coq
+- coq (thanks to Xuan Bi and Langston Barret)
 - factor (thanks to timor)
 - forth (thanks to Tim Jaeger)
 - gpu (thanks to Evan Klitzke)
@@ -228,7 +228,7 @@ Benner and Paweł Siudak):
 **** WEB services
 - confluence
 **** Readers
-- epub (thanks to Jeremy Dormitzer)
+- epub (thanks to Jeremy Dormitzer and André Peric Tavares)
 **** Spacemacs
 - spacemacs-defaults
 - spacemacs-modeline
@@ -318,6 +318,7 @@ Benner and Paweł Siudak):
       =spacemacs-completion= layer
 - Can use the univeral prefix argument to open both the =*scratch*= buffer and
   the =*Messages*= buffer in another window (thanks to Thomas de Beauchêne)
+- Use lexical binding in new template (thanks to André Peric Tavares)
 *** Core changes
 - Don't suggest ~SPC q r~ if =restart-emacs= package is missing after an update
   (thanks to Keshav Kini)
@@ -461,7 +462,7 @@ Benner and Paweł Siudak):
   - Use Helm or Ivy (if one of these is enabled) for ~SPC a d~ (=dired=),
     ~SPC F f~ (=find-file-other-frame=), ~SPC F b~
     (=switch-to-buffer-other-frame=), ~SPC F B~ (=display-buffer-other-frame=),
-    and ~SPC F O~ (=dired-other-frame=).
+    and ~SPC F O~ (=dired-other-frame=). (thanks to Miciah Masters)
   - New evil text objects =«=, =｢=, =‘= and =“=.
   - New key binding ~SPC f i~ for =insert-file=.
   - Add alignment support for ~{~ (thanks to Paulo Diniz)
@@ -609,6 +610,8 @@ Benner and Paweł Siudak):
     =recentf-expand-file-name= in order to respect =recentf-filename-handlers=
     (thanks to bet4it)
   - Remove buggy find-file-hook--open-junk-file (thanks to Sylvain Benner)
+  - Fix issue with =spacemacs/smart-closing-parenthesis= sometimes adding an
+    extra closing parenthesis (thanks to Miciah Masters)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -706,6 +709,8 @@ Benner and Paweł Siudak):
   Benner)
 - Fixed ~TAB~ to toggle occurrences in iedit state in Vim and Hybrid editing
   styles (thanks to Sylvain Benner)
+- Fix value of =persp-add-buffer-on-after-change-major-mode= to add free buffers
+  to current layout (thanks to Miciah Masters)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -821,6 +826,8 @@ Benner and Paweł Siudak):
   to Wojciech Wojtyniak)
 - Update obsolete =cider-refresh= alias to =cider-ns-refresh= (thanks to André
   Peric Tavares)
+- Fix issue with =clojure-enable-fancify-symbols= causing "invalid face
+  reference" error messages (thanks to Miciah Masters)
 **** Coffeescript
 - Adds basic autocompletion (thanks to Codruț Constantin Gușoi)
 - Key bindings (thanks to Kalle Lindqvist):
@@ -903,6 +910,7 @@ Benner and Paweł Siudak):
   - ~SPC m =~ to format current buffer
 -  Change binding of  =alchemist-project-find-test= from
   ~SPC m p t~ to ~SPC m t F~ (thanks to Lyuben Petrov)
+- Mark alchemist jump handler as async (thanks to Lukasz Czaplinski)
 **** Elm
 - Fix flycheck initialization (thanks to Kevin W. van Rooijen)
 **** Emacs Lisp
@@ -940,13 +948,21 @@ Benner and Paweł Siudak):
 - Key bindings:
   - Change ~SPC m s t~ to ~SPC m s f~ to respect convention (thanks to Yi Liu)
   - Change ~SPC m s T~ to ~SPC m s F~ to respect convention (thanks to Yi Liu)
+  - Add REPL bindings (thanks to Guido Kraemer)
+    - ~SPC m ,~ to send region, current function, or paragraph and step
+    - ~SPC m s s~ to switch between file and REPL buffer
+    - ~SPC m h~ for predefined keymap =ess-doc-map=
+    - ~SPC m r~ for predefined keymap =ess-extra-map=
+    - ~SPC m w~ for predefined keymap =ess-r-package-dev-map=
+    - ~SPC m d~ for predefined keymap =ess-dev-map=
 - Fix issue with read-only REPL buffer (thanks to Jack Kamm)
 - Added ess layer variable =ess-disable-underscore-assign= (thanks to Jack Kamm)
 - Remove =ess-R-object-popup= from ess layer (thanks to Naylyn Gaffney)
 - Refactor keybindings for =ess-mode= and =ess-julia-mode= (thanks to Guido
   Kraemer and bmag)
-- Add Julia repl to `spacemacs/ess-start-repl` (thanks to Guido Kraemer)
+- Add Julia repl to =spacemacs/ess-start-repl= (thanks to Guido Kraemer)
 - Reorganize key bindings ( refer to =ESS= section in Breaking Changes above )
+- Add =xref= integraton (thanks to Guido Kraemer)
 **** Evil snipe
 - Must always explicitly enable =evil-snipe-mode= even when
   =evil-snipe-override-mode= is enabled (thanks to Sylvain Benner)
@@ -1018,6 +1034,9 @@ Benner and Paweł Siudak):
   interface (thanks to Cosmin Cojocar)
 - Fixed loading of the =GOPATH=, =GOROOT=, and =GO15VENDOREXPERIMENT=
   environment variables (thanks to Joshua Santos)
+- Add toggle for running =gofmt= before save (thanks to Jon Erik D Suero)
+  - Key bindings: ~SPC m =~ to run =gofmt= manually
+- Support editorconfig setting of =tab-width= to nil (thanks to lawrsp)
 **** Groovy
 - Update =indent-variable-alist= to support new groovy-mode (thanks to Sylvain
   Benner)
@@ -1077,6 +1096,7 @@ Benner and Paweł Siudak):
 - Fixed "Invalid face reference" error in Helm transient state (thanks to
   duianto)
 - Hide lighter (thanks to Sylvain Benner)
+- Add guard to check if =winum= is loaded (thanks to Dan Girshovich)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Add =counsel-css= as an ivy alternative to =helm-css-scss= (thanks to Robbert
@@ -1085,6 +1105,7 @@ Benner and Paweł Siudak):
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - XML files now open with web-mode by default (thanks to Jordan Gwyn)
 - Added =helm-xref= (thanks to Fangrui Song and Sylvain Benner)
+- Removed ~TAB~ binding for emacs editing style in =emmet-mode= (thanks to Kalle Lindqvist)
 **** Hy
 - Add support for virtual envs (thanks to Danny Freeman)
 **** Idris
@@ -1446,6 +1467,12 @@ Benner and Paweł Siudak):
   Willard)
 - Conditionally remove binding to obsolete keymap (thanks to bmag)
 - Improve setup of =lsp-python= and =anaconda-mode= (thanks to Ting Zhou)
+- Fix support of multiple pyenv versions via =spacemacs/pyenv-executable-find=
+  (thanks to Guan Xipeng)
+- Fix initialization of =inferior-python-mode= variables (thanks to Miciah Masters)
+- Fix bug with out-of-bound index (thanks to EMayej)
+- Fix escaping of shell argument for =spacemacs/python-execute-file= (thanks to
+  Riley Levy)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 **** Ranger
@@ -1471,6 +1498,7 @@ Benner and Paweł Siudak):
 - Make layer depends on node and tern layers (thanks to Sylvain Benner)
 - Configure =emmet-mode= to expand classes using =className= instead of =class=
   (thanks to Sylvain Benner)
+- Open =.jsx= files with =rjsx-mode= (thanks to Thomas de Beauchêne)
 **** Ruby
 - Add support for =org-babel= (thanks to Muneeb Shaikh)
 - Highlight debugger keywords (thanks to Alexander Berezovsky and Eivind Fonn)
@@ -1576,6 +1604,8 @@ Benner and Paweł Siudak):
 - Add leader key prefixes (thanks to Jeremie Pelletier)
 - Rebuild =spacemacs-sql-startable= after running =sql-add-product= (thanks to
   Andrew Christianson)
+- Add layer variable =sql-auto-indent= to toggle the use of =sql-indent= package
+  (thanks to David Chen)
 **** Syntax-checking
 - Key bindings:
   - ~SPC e e~ is now for triggering a syntax check, the old action
@@ -1698,14 +1728,18 @@ Benner and Paweł Siudak):
   CL123123, Codruț Constantin Gușoi, Daniel Hodson, Daniel Le, Daniel Molina,
   Darkhan, David Florness, David Vo, davidpham87, Dela Anthonio, Diego Alvarez,
   Diego Berrocal, Dietrich Daroch, Dinesh Bhosale, Dominik Schrempf, Doug
-  Beardsley, dubnde, duianto, eldios, Eugene Yaremenko, Evan Klitzke, Evan
+  Beardsley, dubnde, duianto, eldios,
+  EMayej,
+  Eugene Yaremenko, Evan Klitzke, Evan
   Niessen-Derry, firemiles, Fuqiao Xue, Garrett Johnson, Henry Marshall,
   hornuda, Ivan Kryvoruchko, J. Patrick Lanigan, Jaremy Creechley, Jesse Cooke,
   Jethro Shuwen Sun, JI Xiang, Jim Deville, Jody Frankowski, Joe Hillenbrand,
   John Eismeier,
   John Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett,
   Josh Greenwood, Joshua Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant,
-  Kristoffer Haugsbakk, Leo Joseph Buchignani III, Max Beutelspacher, Max
+  Kristoffer Haugsbakk,
+  lawrsp,
+  Leo Joseph Buchignani III, Max Beutelspacher, Max
   Nordlund, Maximilian Wolff, Miciah Dashiel Butler Masters, Mikhail Yakutovich,
   Muneeb Shaikh, Nasser Alshammari, Nasser Alshammari, Niko Felger, Nikolai
   Myllymäki, nikolaiam, Nicolas Forgerit, Olivier Verdier, pancho horrillo, Paul
