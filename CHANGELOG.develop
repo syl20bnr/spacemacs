@@ -132,6 +132,8 @@ Benner and Paweł Siudak):
   - ~SPC m s r~ org-agenda-refile
 - Removed ~C-h~ binding in =org-agenda-mode= (thanks to Ag Ibragimov)
 - Rebind =org-agenda-refile= to ~r~ in transient state (thanks to Muneeb Shaikh)
+- Moved =org-trello= keys from ~SPC m o~ to ~SPC m m t~ (thanks to Magnus
+  Therning)
 **** Python
 - Key bindings (thanks to Danny Freeman):
   - Changed ~SPC m s e~ to ~SPC m e e~ for =lisp-eval-last-sexp=
@@ -209,7 +211,7 @@ Benner and Paweł Siudak):
 **** Fonts
 - unicode-fonts (thanks to Aaron Jensen)
 **** Languages
-- coq (thanks to Xuan Bi and Langston Barret)
+- coq (thanks to Xuan Bi, Jeremy Bi and Langston Barret)
 - factor (thanks to timor)
 - forth (thanks to Tim Jaeger)
 - gpu (thanks to Evan Klitzke)
@@ -240,7 +242,7 @@ Benner and Paweł Siudak):
 - spacemacs-visual
 **** Tools
 - bm (thanks to Eugene Yaremenko)
-- lsp (thanks to Fangrui Song, 0bl.blwl, and Sylvain Benner)
+- lsp (thanks to Fangrui Song, 0bl.blwl, Cormac Cannon, and Sylvain Benner)
 - node (thanks to jupl)
 - pass (thanks to Andrew Oppenlander, Kepi, and Evan Klitzke)
 - sphinx (thanks to Wei-Wei Guo)
@@ -257,7 +259,7 @@ Benner and Paweł Siudak):
 - japanese (thanks to Kenji Miyazaki)
 - multiple-cursors (thanks to Codruț Constantin Gușoi)
 - parinfer (thanks to Tianshu Shi)
-- treemacs (thanks to Alexander Miller and Sylvain Benner)
+- treemacs (thanks to Alexander Miller, Kalle Lindqvist, and Sylvain Benner)
 - templates (thanks to YasuharuIida and Eivind Fonn)
 - copy-as-format (thanks to Ruslan Kamashev)
 *** Removed layers
@@ -453,6 +455,7 @@ Benner and Paweł Siudak):
   (thanks to Sylvain Benner)
 - Fix overflow of line in page-break-lines-mode when using line number (thanks
   to Compro Prasad)
+- Add doom-emacs mode-line theme (thanks to Sylvain Benner)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -657,11 +660,17 @@ Benner and Paweł Siudak):
   - Remove buggy find-file-hook--open-junk-file (thanks to Sylvain Benner)
   - Fix copy-paste error in =lazy-load= hook name (thanks to bmag)
   - Fix errors when restoring a perspective (thanks to Codruț Constantin Gușoi)
-  - Line-nums: don't default to text/prog-mode if disabled by user (thanks to bmag)
+  - Line-nums: don't default to text/prog-mode if disabled by user (thanks to
+    bmag)
   - Fix issue with =spacemacs/smart-closing-parenthesis= sometimes adding an
     extra closing parenthesis (thanks to Miciah Masters)
   - Fix updating buffer names in window configurations (thanks to Miciah Dashiel
     Butler Masters)
+  - Advise rename-buffer when persp-mode activated (thanks to Miciah Masters)
+  - Only disable eyebrowse advice if it exists (thanks to Miciah Masters)
+  - Make =spacemacs/counsel-search= with proper highlighting (thanks to Ting
+    Zhou)
+  - Remove compilation finish hook (thanks to Miciah Masters)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -975,6 +984,7 @@ Benner and Paweł Siudak):
 - Mark alchemist jump handler as async (thanks to Lukasz Czaplinski)
 **** Elm
 - Fix flycheck initialization (thanks to Kevin W. van Rooijen)
+- Add =elm-test-runner= (thanks to Juan Edi)
 **** Emacs Lisp
 - Key bindings:
   - Add ~c~ to continue in edebug mode (thanks to hodge)
@@ -1072,6 +1082,7 @@ Benner and Paweł Siudak):
   Benner)
 - Change =magit-svn-popup= keybinding to =~= (thanks to hornuda)
 - Add gitignore-templates (thanks to Ruslan Kamashev)
+- Add =helm-git-grep= (thanks to Evan Klitzke)
 **** Go
 - Improve go test output buffer behavior (thanks to Denis Bernard)
 - Configurable extra arguments to go test (thanks to Ian Clark)
@@ -1227,6 +1238,8 @@ Benner and Paweł Siudak):
 - Add search highlighting with =ivy--regex-plus= (thanks to ivasonn)
 - Improve jumping in buffer (thanks to Kalle Lindqvist)
 - Fix ~SPC m s~ key bindings for wgrep (thanks to John Lee)
+- Update =ivy-rich= config for upstream changes (thanks to bmag)
+- Add ~C-r~ keybinding for counsel-minibuffer-history (thanks to James Wang)
 **** Imenu-list
 - Fix key bindings (thanks to bet4it):
   - ~r~ inside imenu-list buffer to refresh
@@ -1356,6 +1369,7 @@ Benner and Paweł Siudak):
 - Create email with attachments from dired (thanks to Oleg Pykhalov)
 - Refactor major-mode ledaer key bindings (thanks to Miciah Masters)
 - Enable scrolling in =mu4e= (thanks to Simon Altschuler)
+- Kill mu4e layout on app exit (thanks to Ag Ibragimov)
 **** Multiple Cursors
 - Disable Spacemacs paste transient state when pasting to avoid pasting issue
   when there are more than one cursor (thanks to braham-snyder)
@@ -1461,7 +1475,8 @@ Benner and Paweł Siudak):
   Ivan Malison)
 - Remove nils from call to org-projectile-project-todo-entry (thanks to Ivan
   Malison)
-- Fix org-projectile capture-template keyword argument (thanks to Leonard Lausen)
+- Fix org-projectile capture-template keyword argument (thanks to Leonard
+  Lausen)
 - Adapt to changes in org-brain 0.4 (thanks to Boris Buliga)
 - Load org-projectile lazily, after org-capture (thanks to Aaron Jensen)
 - Use org-verbatim, not org-verbose (thanks to Swaroop C H)
@@ -1476,10 +1491,12 @@ Benner and Paweł Siudak):
 - Use =org-mime= provided by melpa (thanks to Amos Bird)
 - Restore =evil-org-additional-bindings= in insert state (thanks to Maximilian
   Wolff)
-- Fix initialization order to prevent version conflicts (thanks to Sylvain Benner)
+- Fix initialization order to prevent version conflicts (thanks to Sylvain
+  Benner)
 - Fixed adding =org-projectile= files to =org-agenda-files= (thanks to AmanYang)
 - Fixed error void: =evil-surround-pairs-alist= (thanks to Sylvain Benner)
 - Add warning against manually loading org (thanks to Maximilian Wolff)
+- Add a toggle for bringing in org-trello (thanks to Magnus Therning)
 **** Osx
 - Fix OSX mapping issue (thanks to Joey Liu)
 - Added layer variables to customize modifier behaviors on macOS:
@@ -1556,10 +1573,14 @@ Benner and Paweł Siudak):
 - Improve setup of =lsp-python= and =anaconda-mode= (thanks to Ting Zhou)
 - Fix support of multiple pyenv versions via =spacemacs/pyenv-executable-find=
   (thanks to Guan Xipeng)
-- Fix initialization of =inferior-python-mode= variables (thanks to Miciah Masters)
+- Fix initialization of =inferior-python-mode= variables (thanks to Miciah
+  Masters)
 - Fix bug with out-of-bound index (thanks to EMayej)
 - Fix escaping of shell argument for =spacemacs/python-execute-file= (thanks to
   Riley Levy)
+- New variable =python-spacemacs-indent-guess= for guessing correct indentation
+  settings (thanks to Benno Fünfstück)
+- Fix pyenv for system Python (thanks to Alexander Eberspächer)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 **** Ranger
@@ -1587,6 +1608,7 @@ Benner and Paweł Siudak):
   (thanks to Sylvain Benner)
 - Open =.jsx= files with =rjsx-mode= (thanks to Thomas de Beauchêne)
 - Fixes React imports when using web beautify. (thanks to Ismael)
+- Prefer eslint_d to eslint (thanks to Seong Yong-ju)
 **** Ruby
 - Add support for =org-babel= (thanks to Muneeb Shaikh)
 - Highlight debugger keywords (thanks to Alexander Berezovsky and Eivind Fonn)
@@ -1617,6 +1639,7 @@ Benner and Paweł Siudak):
   - Add ~SPC m r R l~ to extract to =let=.
   - Add ~SPC m s l~ to send line to REPL (thanks to Paweł Siudak)
 - Add the =seeing-is-believing= package (thanks to Brandon Conway)
+- Add prefixes for ruby major mode keybindings (thanks to Seong Yong-ju)
 **** Ruby on Rails
 - Changed leader keys to be configured for the =projectile-rails-mode= minor
   mode instead of =ruby-mode= and =enh-ruby-mode= so that the key bindings will
@@ -1705,14 +1728,18 @@ Benner and Paweł Siudak):
 - Rebuild =spacemacs-sql-startable= after running =sql-add-product= (thanks to
   Andrew Christianson)
 - Fix sql-indent and defer it (thanks to Sylvain Benner)
-- Add alex-hhh's sql-indent in place of mepla sql-indent (thanks to Andrew Christianson)
+- Add alex-hhh's sql-indent in place of mepla sql-indent (thanks to Andrew
+  Christianson)
 - Add layer variable =sql-auto-indent= to toggle the use of =sql-indent= package
   (thanks to David Chen)
+**** Spell-checking
+- Adds spell checking transient state (thanks to Francesc Elies Henar)
 **** Syntax-checking
 - Key bindings:
   - ~SPC e e~ is now for triggering a syntax check, the old action
     (explain error around point) has been moved to ~SPC e x~.
-  - Add ~SPC e y~ to copy error at cursor position into kill ring (thanks to Francsec Elies Henar)
+  - Add ~SPC e y~ to copy error at cursor position into kill ring (thanks to
+    Francsec Elies Henar)
 - Rename function =add-flycheck-hook= to =enable-flycheck=
 - Use correct error list faces when defining error levels with custom bitmaps
   (thanks to Alexander Miller)
@@ -1832,31 +1859,31 @@ Benner and Paweł Siudak):
 - Multiple unit test improvements (thanks to Sylvain Benner and Codruț
   Constantin Gușoi)
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham, Adam
-  Frey, Adam Kruszewski, Alexander Dalshov, Alexander Iljin, Alexander Kjeldaas,
-  Alexandros Kotzias, Anton Latukha, Anurag Sharma, Archenoth, Ather Sharif,
-  Benjamin Reynolds, bmag, Boris Buliga, Boris Wong, Carl Lange, Chase Adams,
-  Cibin Mathew, CL123123, Codruț Constantin Gușoi, Daniel Hodson, Daniel Le,
-  Daniel Molina, Darkhan, David Florness, David Vo, davidpham87, Dela Anthonio,
-  Diego Alvarez, Diego Berrocal, Dietrich Daroch, Dinesh Bhosale, Dominik
-  Schrempf, Doug Beardsley, dubnde, duianto, eldios, EMayej, Eugene Yaremenko,
-  Evan Klitzke, Evan Niessen-Derry, firemiles, Fuqiao Xue, Garrett Johnson,
-  Henry Marshall, hornuda, Ivan Kryvoruchko, J. Patrick Lanigan, Jaremy
-  Creechley, Jason Axelson, Jesse Cooke, Jethro Shuwen Sun, JI Xiang, Jim
-  Deville, Jody Frankowski, Joe Hillenbrand, John Eismeier, John Wood, Jon
-  Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood,
-  Joshua Santos, Kainalu Hagiwara, Kalle Lindqvist, Kechao Cai, Keith Wygant,
-  Kristoffer Haugsbakk, lawrsp, Leo Joseph Buchignani III, Marco Ieni, Max
-  Beutelspacher, Max Nordlund, Maximilian Wolff, Miciah Dashiel Butler Masters,
-  Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser Alshammari, Niko
-  Felger, Nikolai Myllymäki, nikolaiam, Nicolas Forgerit, Olivier Verdier,
-  pancho horrillo, Paul Milla, Paulo Schneider, Pawan Dubey, Paweł Siudak, Phil
-  Pirozhkov, Philippe Bourdages, Piotr Grzesik, Rafi Khan, Rand01ph, rakyi,
-  Raymond Wanyoike, Reverend Homer, Robby O'Connor, Rhommel Lamas, Sam Pablo
-  Kuper, Saulius Menkevičius, sduthil, Shane Kilkelly, Sid Kapur, Somelauw,
-  Soobin Rho, sorawee, SteveJobzniak, Sunghyun Hwang, Swaroop C H, Sylvain
-  Benner, Szunti, Tim Stewart, timor, TinySong, Titov Andrey, Thomas de
-  Beauchêne, Tomasz Cichocinski, tzhao11, Vlad Bokov, Vladimir Kochnev, Wieland
-  Hoffmann, Yi Liu, zer09, Zhige Xin)
+  Frey, Adam Kruszewski, Alexander Dalshov, Alexander Eberspächer, Alexander
+  Iljin, Alexander Kjeldaas, Alexandros Kotzias, Andriy Senyshyn, Anton Latukha,
+  Anurag Sharma, Archenoth, Ather Sharif, Benjamin Reynolds, bmag, Boris Buliga,
+  Boris Wong, Carl Lange, Chase Adams, Cibin Mathew, CL123123, Codruț Constantin
+  Gușoi, Daniel Hodson, Daniel Le, Daniel Molina, Darkhan, David Florness, David
+  Vo, davidpham87, Dela Anthonio, Diego Alvarez, Diego Berrocal, Dietrich
+  Daroch, Dinesh Bhosale, Dominik Schrempf, Doug Beardsley, dubnde, duianto,
+  eldios, EMayej, Eugene Yaremenko, Evan Klitzke, Evan Niessen-Derry, firemiles,
+  Fuqiao Xue, Garrett Johnson, Henry Marshall, hornuda, Ivan Kryvoruchko, J.
+  Patrick Lanigan, Jaremy Creechley, Jason Axelson, Jesse Cooke, Jethro Shuwen
+  Sun, JI Xiang, Jim Deville, Jody Frankowski, Joe Hillenbrand, John Eismeier,
+  John Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett,
+  Josh Greenwood, Joshua Santos, Kainalu Hagiwara, Kalle Lindqvist, Kechao Cai,
+  Keith Wygant, Kristoffer Haugsbakk, lawrsp, Leo Joseph Buchignani III, Marco
+  Ieni, Max Beutelspacher, Max Nordlund, Maximilian Wolff, Miciah Dashiel Butler
+  Masters, Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser
+  Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Nicolas Forgerit,
+  Olivier Verdier, pancho horrillo, Paul Milla, Paulo Schneider, Pawan Dubey,
+  Paweł Siudak, Phil Pirozhkov, Philippe Bourdages, Piotr Grzesik, Rafi Khan,
+  Rand01ph, rakyi, Raymond Wanyoike, Reverend Homer, Robby O'Connor, Rhommel
+  Lamas, Sam Pablo Kuper, Saulius Menkevičius, sduthil, Shane Kilkelly, Sid
+  Kapur, Somelauw, Soobin Rho, sorawee, SteveJobzniak, Sunghyun Hwang, Swaroop C
+  H, Sylvain Benner, Szunti, Tim Stewart, timor, TinySong, Titov Andrey, Thomas
+  de Beauchêne, Tomasz Cichocinski, tzhao11, Vlad Bokov, Vladimir Kochnev,
+  Wieland Hoffmann, Yi Liu, zer09, Zhige Xin)
 *** Release notes summarized
   Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
   Masters, Abhishek(Compro) Prasad, Deepak Khidia, Ward Harris, Jiahao Jiang
