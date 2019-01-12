@@ -88,6 +88,12 @@ Benner and Paweł Siudak):
   - ~SPC m C o~ org-clock-out
   - ~SPC m C p~ org-pomodoro
   - ~SPC m C r~ org-resolve-clocks
+  - ~SPC m C d~ org-clock-display
+  - ~SPC m C e~ org-evaluate-time-range
+  - ~SPC m C g~ org-clock-goto
+  - ~SPC m C I~ org-clock-in-last
+  - ~SPC m C j~ org-clock-jump-to-current-clock
+  - ~SPC m C R~ org-clock-report
   - ~SPC m d d~ org-deadline
   - ~SPC m d s~ org-schedule
   - ~SPC m d t~ org-time-stamp
@@ -105,6 +111,7 @@ Benner and Paweł Siudak):
   - ~SPC m i p~ org-set-property
   - ~SPC m i s~ org-insert-subheading
   - ~SPC m i t~ org-set-tags
+  - ~SPC m p~ org-priority
   - ~SPC m s A~ org-archive-subtree
   - ~SPC m s b~ org-tree-to-indirect-buffer
   - ~SPC m s h~ org-promote-subtree
@@ -134,6 +141,11 @@ Benner and Paweł Siudak):
 - Rebind =org-agenda-refile= to ~r~ in transient state (thanks to Muneeb Shaikh)
 - Moved =org-trello= keys from ~SPC m o~ to ~SPC m m t~ (thanks to Magnus
   Therning)
+- New keybindings for push and pull (thanks to Magnus Therning):
+  - ~SPC m t d b~ for =spacemacs/org-trello-pull-buffer=
+  - ~SPC m t d c~ for =spacemacs/org-trello-pull-card=
+  - ~SPC m t u b~ for =spacemacs/org-trello-push-buffer=
+  - ~SPC m t u c~ for =spacemacs/org-trello-push-card=
 **** Python
 - Key bindings (thanks to Danny Freeman):
   - Changed ~SPC m s e~ to ~SPC m e e~ for =lisp-eval-last-sexp=
@@ -207,28 +219,30 @@ Benner and Paweł Siudak):
   Constantin Gușoi, and Paolo G. Giarrusso)
 *** New layers
 **** Email
-- notmuch (thanks to Francesc Elies Henar, Leonard Lausen, Willian Casarin)
+- notmuch (thanks to Francesc Elies Henar, Leonard Lausen, Willian Casarin,
+  Kalle Lindqvist)
 **** Fonts
 - unicode-fonts (thanks to Aaron Jensen)
 **** Languages
+- coffeescript (thanks to Sylvain Benner)
 - coq (thanks to Xuan Bi, Jeremy Bi and Langston Barret)
+- crystal (thanks to Sylvain Benner)
 - factor (thanks to timor)
 - forth (thanks to Tim Jaeger)
 - gpu (thanks to Evan Klitzke)
 - groovy (thanks to Sylvain Benner)
 - hy (thanks to Sylvain Benner)
 - jr (thanks to Philippe Baron)
+- json (thanks to Sylvain Benner)
+- jsonnet (thanks to liztio and Robby O'Connor)
+- julia (thanks to Adam Beckmeyer and Guido Kraemer)
 - koltin (thanks to Shanavas M)
+- pact (thanks to Colin Woodbury)
 - perl5 (thanks to Troy Hinckley, Jinseop Kim and Michael Rohleder)
 - perl6 (thanks to Bahtiar Gadimov)
 - protobuf (thanks to Amol Mandhane)
 - restructuredtext (thanks to Wei-Wei Guo and Kalle Lindqvist)
 - semantic-web (thanks to Andreas Textor)
-- coffeescript (thanks to Sylvain Benner)
-- json (thanks to Sylvain Benner)
-- jsonnet (thanks to liztio and Robby O'Connor)
-- crystal (thanks to Sylvain Benner)
-- julia (thanks to Adam Beckmeyer and Guido Kraemer)
 **** WEB services
 - confluence
 **** Readers
@@ -244,7 +258,7 @@ Benner and Paweł Siudak):
 - bm (thanks to Eugene Yaremenko)
 - lsp (thanks to Fangrui Song, 0bl.blwl, Cormac Cannon, and Sylvain Benner)
 - node (thanks to jupl)
-- pass (thanks to Andrew Oppenlander, Kepi, and Evan Klitzke)
+- pass (thanks to Andrew Oppenlander, Kepi, Kalle Lindqvist, and Evan Klitzke)
 - sphinx (thanks to Wei-Wei Guo)
 - transmission (thanks to Eugene Yaremenko)
 - cmake (thanks to Alexander Dalshov, Sylvain Benner and Jonas Jelten)
@@ -259,7 +273,8 @@ Benner and Paweł Siudak):
 - japanese (thanks to Kenji Miyazaki)
 - multiple-cursors (thanks to Codruț Constantin Gușoi)
 - parinfer (thanks to Tianshu Shi)
-- treemacs (thanks to Alexander Miller, Kalle Lindqvist, and Sylvain Benner)
+- treemacs (thanks to Alexander Miller, Kalle Lindqvist, duianto, and Sylvain
+  Benner)
 - templates (thanks to YasuharuIida and Eivind Fonn)
 - copy-as-format (thanks to Ruslan Kamashev)
 *** Removed layers
@@ -608,6 +623,8 @@ Benner and Paweł Siudak):
       root with line number
     - ~SPC f y Y~ to show and copy current file path relative to the project
       root
+  - Add ~SPC f y n~ and ~SPC f y N~ to copy the name of a file (thanks to
+    Sylvain Benner)
   - Added ~SPC t z~ to toggle zero-based column indexing in the mode line
   - New ~SPC f e e~ to open spacemacs.env file (thanks to Sylvain Benner)
   - New ~SPC f e E~ to reload environment variable from env file (thanks to
@@ -898,6 +915,7 @@ Benner and Paweł Siudak):
   Peric Tavares)
 - Fix issue with =clojure-enable-fancify-symbols= causing "invalid face
   reference" error messages (thanks to Miciah Masters)
+- Make =clj-refactor= off by default (thanks to Arne Brasseur)
 **** Coffeescript
 - Adds basic autocompletion (thanks to Codruț Constantin Gușoi)
 - Key bindings (thanks to Kalle Lindqvist):
@@ -948,6 +966,7 @@ Benner and Paweł Siudak):
   - Moved key bindings prefix from ~SPC D~ to ~SPC a D~ (thanks to Ag Ibragimov)
   - Added ~SPC m c B~ to build image without cache (thanks to Maximilian Wolff)
   Henar)
+  - Added ~SPC a D C~ for =docker-compose= (thanks to Daniel Caixinha)
 - Fix: broken package declaration for dockerfile-mode (thanks to Maximilian Wolff)
 **** Elfeed
 - Fix selection bindings in visual state (thanks to Jeremy Symon)
@@ -1083,6 +1102,7 @@ Benner and Paweł Siudak):
 - Change =magit-svn-popup= keybinding to =~= (thanks to hornuda)
 - Add gitignore-templates (thanks to Ruslan Kamashev)
 - Add =helm-git-grep= (thanks to Evan Klitzke)
+- Enable colors in =magit-log= (thanks to Thomas de Beauchêne)
 **** Go
 - Improve go test output buffer behavior (thanks to Denis Bernard)
 - Configurable extra arguments to go test (thanks to Ian Clark)
@@ -1180,6 +1200,8 @@ Benner and Paweł Siudak):
 - Fix error from =spacemacs/helm-files-smart-do-search= on non-file buffers
   (thanks to Miciah Masters)
 - Add guard to check if =winum= is loaded (thanks to Dan Girshovich)
+- Fix regression: void function =helm-current-directory= on =C-x C-f= (thanks to
+  bmag)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Add =counsel-css= as an ivy alternative to =helm-css-scss= (thanks to Robbert
@@ -1424,7 +1446,6 @@ Benner and Paweł Siudak):
     - add ~SPC m C j~ to jump to current clock
     - add ~SPC m p~ to change priority
   - Add ~SPC m #~ to update statistics cookies (thanks to Christian Höppner)
-  - Add ~SPC a o k r~ for =org-resolve-clocks= (thanks to Francesc Elies Henar)
   - Key bindings (thanks to James Wang):
     - add ~SPC m T e~ to toggle pretty entities
     - add ~SPC m T l~ to toggle link display
@@ -1435,7 +1456,6 @@ Benner and Paweł Siudak):
   - Add ~M-RET~ for =org-meta-return= under major mode leader key (thanks to
     Sylvain Benner)
   - Add ~SPC m T c~ for =org-toggle-checkbox= (thanks to Paweł Siudak)
-  - Add ~SPC a o k g~ for =org-clock-goto= (thanks to William Casarin)
   - Add org-babel commands (thanks to timor):
     - ~SPC m b p~ calls =org-babel-previous-src-block=
     - ~SPC m b n~ calls =org-babel-next-src-block=
@@ -1463,6 +1483,15 @@ Benner and Paweł Siudak):
   - Added key bindings for =org-feed= (thanks to Luke Alexander Stein):
     - ~SPC a o f i~ and ~SPC m f i~ to go to feed inbox
     - ~SPC a o f u~ and ~SPC m f u~ to update all feeds
+  - Added key bindings for =org-clock= (thanks to Langston Barrett, William
+    Casarin, Francesc Elies Henar):
+    - ~SPC a o C c~ for =org-clock-cancel=
+    - ~SPC a o C g~ for =org-clock-goto=
+    - ~SPC a o C i~ for =org-clock-in=
+    - ~SPC a o C I~ for =org-clock-in-last=
+    - ~SPC a o C j~ for =org-clock-jump-to-current-clock=
+    - ~SPC a o C o~ for =org-clock-out=
+    - ~SPC a o C r~ for =org-resolve-clocks=
 - Key binding changes for archiving (thanks to Ag Ibragimov):
   - Add ~SPC m s a~ to toggle archive tag for subtree
   - Add ~SPC m s A~ to archive subtree (previously ~SPC m s a~)
@@ -1690,6 +1719,7 @@ Benner and Paweł Siudak):
   changing size (thanks to thanhvg)
 - Added =shell-default-width= layer variable (thanks to David Balatero and
   Miciah Masters)
+- Override read-only when capturing clear in shell (thanks to Alexander Wingård)
 **** Shell Scripts
 - Add new company-shell environment variable backend (thanks to Alexander-Miller)
 - Add bashate style checker (thanks to Victor Cuadrado Juan)
@@ -1719,7 +1749,10 @@ Benner and Paweł Siudak):
 - Defer git-gutter loading (thanks to Aaron Jensen)
 - Remove redundant arg from git-gutter timer (thanks to bmag)
 **** Spotify
-- Replaced helm-spotify package with helm-spotify-plus (thanks to Leonard Lausen)
+- Replaced helm-spotify package with helm-spotify-plus (thanks to Leonard
+  Lausen)
+- Add counsel-spotify for ivy users (thanks to Yuki Yoshioka, Deepu Mohan
+  Puthrote)
 **** SQL
 - Support for keywords auto capitalization (thanks to Kepi)
 - Change blacklist to only accept list (thanks to Eivind Fonn)
@@ -1734,6 +1767,7 @@ Benner and Paweł Siudak):
   (thanks to David Chen)
 **** Spell-checking
 - Adds spell checking transient state (thanks to Francesc Elies Henar)
+- Update to flyspell-correct v0.5 (thanks to Boris Buliga)
 **** Syntax-checking
 - Key bindings:
   - ~SPC e e~ is now for triggering a syntax check, the old action
@@ -1809,6 +1843,8 @@ Benner and Paweł Siudak):
   autocompletion (thanks to Andrea Moretti)
 - Enabled snippets using yasnippet (thanks to Andrea Moretti)
 - Enabled =smartparens-mode= (thanks to Andrea Moretti)
+- Add =prettier= to error msg of =spacemacs/typescript-format= (thanks to Matt
+  Kramer)
 **** Vagrant
 - Key bindings:
   - move key bindings prefix to ~SPC a V~ (thanks to Thomas de Beauchêne)
@@ -1856,34 +1892,35 @@ Benner and Paweł Siudak):
   Yaremenko)
 - Various code style improvements (thanks to bmag, duianto, Eivind Fonn, Eugene
   Yaremenko, Fabien Dubosson, Kalle Lindqvist, Sylvain Benner)
-- Multiple unit test improvements (thanks to Sylvain Benner and Codruț
+- Multiple unit test improvements (thanks to Sylvain Benner, et2010 and Codruț
   Constantin Gușoi)
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham, Adam
   Frey, Adam Kruszewski, Alexander Dalshov, Alexander Eberspächer, Alexander
   Iljin, Alexander Kjeldaas, Alexandros Kotzias, Andriy Senyshyn, Anton Latukha,
-  Anurag Sharma, Archenoth, Ather Sharif, Benjamin Reynolds, bmag, Boris Buliga,
-  Boris Wong, Carl Lange, Chase Adams, Cibin Mathew, CL123123, Codruț Constantin
-  Gușoi, Daniel Hodson, Daniel Le, Daniel Molina, Darkhan, David Florness, David
-  Vo, davidpham87, Dela Anthonio, Diego Alvarez, Diego Berrocal, Dietrich
-  Daroch, Dinesh Bhosale, Dominik Schrempf, Doug Beardsley, dubnde, duianto,
-  eldios, EMayej, Eugene Yaremenko, Evan Klitzke, Evan Niessen-Derry, firemiles,
-  Fuqiao Xue, Garrett Johnson, Henry Marshall, hornuda, Ivan Kryvoruchko, J.
-  Patrick Lanigan, Jaremy Creechley, Jason Axelson, Jesse Cooke, Jethro Shuwen
-  Sun, JI Xiang, Jim Deville, Jody Frankowski, Joe Hillenbrand, John Eismeier,
-  John Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett,
-  Josh Greenwood, Joshua Santos, Kainalu Hagiwara, Kalle Lindqvist, Kechao Cai,
+  Antonio Miranda, Anurag Sharma, Archenoth, Ather Sharif, Benjamin Reynolds,
+  bmag, Boris Buliga, Boris Wong, Carl Lange, Chase Adams, Cibin Mathew,
+  CL123123, Codruț Constantin Gușoi, Daniel Hodson, Daniel Le, Daniel Molina,
+  Darkhan, David Florness, David Vo, davidpham87, Deepu Mohan Puthrote, Dela
+  Anthonio, Diego Alvarez, Diego Berrocal, Dietrich Daroch, Dinesh Bhosale,
+  Dominik Schrempf, Doug Beardsley, dubnde, duianto, eldios, EMayej, Eugene
+  Yaremenko, Evan Klitzke, Evan Niessen-Derry, firemiles, Fuqiao Xue, Garrett
+  Johnson, Henry Marshall, hornuda, Ivan Kryvoruchko, J. Patrick Lanigan, Jaremy
+  Creechley, Jason Axelson, Jesse Cooke, Jethro Shuwen Sun, JI Xiang, Jim
+  Deville, Jody Frankowski, Joe Hillenbrand, John Eismeier, John Wood, Jon
+  Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood,
+  Joshua Santos, Kainalu Hagiwara, Kalle Lindqvist, Kechao Cai, Keith Simmons,
   Keith Wygant, Kristoffer Haugsbakk, lawrsp, Leo Joseph Buchignani III, Marco
   Ieni, Max Beutelspacher, Max Nordlund, Maximilian Wolff, Miciah Dashiel Butler
-  Masters, Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser
-  Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Nicolas Forgerit,
-  Olivier Verdier, pancho horrillo, Paul Milla, Paulo Schneider, Pawan Dubey,
-  Paweł Siudak, Phil Pirozhkov, Philippe Bourdages, Piotr Grzesik, Rafi Khan,
-  Rand01ph, rakyi, Raymond Wanyoike, Reverend Homer, Robby O'Connor, Rhommel
-  Lamas, Sam Pablo Kuper, Saulius Menkevičius, sduthil, Shane Kilkelly, Sid
-  Kapur, Somelauw, Soobin Rho, sorawee, SteveJobzniak, Sunghyun Hwang, Swaroop C
-  H, Sylvain Benner, Szunti, Tim Stewart, timor, TinySong, Titov Andrey, Thomas
-  de Beauchêne, Tomasz Cichocinski, tzhao11, Vlad Bokov, Vladimir Kochnev,
-  Wieland Hoffmann, Yi Liu, zer09, Zhige Xin)
+  Masters, mjkramer, Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari,
+  Nasser Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Nicolas
+  Forgerit, Olivier Verdier, pancho horrillo, Paul Milla, Paulo Schneider, Pawan
+  Dubey, Paweł Siudak, Phil Pirozhkov, Philippe Bourdages, Piotr Grzesik, Rafi
+  Khan, Rand01ph, rakyi, Raymond Wanyoike, Reverend Homer, Robby O'Connor,
+  Rhommel Lamas, Sam Pablo Kuper, Saulius Menkevičius, sduthil, Shane Kilkelly,
+  Sid Kapur, Somelauw, Soobin Rho, sorawee, SteveJobzniak, Sunghyun Hwang,
+  Swaroop C H, Sylvain Benner, Szunti, Tim Stewart, timor, TinySong, Titov
+  Andrey, Thomas de Beauchêne, Tomasz Cichocinski, tzhao11, Vlad Bokov, Vladimir
+  Kochnev, Wieland Hoffmann, Xiang Ji, Yi Liu, zer09, Zhige Xin)
 *** Release notes summarized
   Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
   Masters, Abhishek(Compro) Prasad, Deepak Khidia, Ward Harris, Jiahao Jiang
