@@ -273,8 +273,8 @@ Benner and Paweł Siudak):
 - japanese (thanks to Kenji Miyazaki)
 - multiple-cursors (thanks to Codruț Constantin Gușoi)
 - parinfer (thanks to Tianshu Shi)
-- treemacs (thanks to Alexander Miller, Kalle Lindqvist, duianto, and Sylvain
-  Benner)
+- treemacs (thanks to Alexander Miller, Kalle Lindqvist, duianto, Thomas de
+  Beauchêne, Boris Buliga and Sylvain Benner)
 - templates (thanks to YasuharuIida and Eivind Fonn)
 - copy-as-format (thanks to Ruslan Kamashev)
 *** Removed layers
@@ -471,6 +471,9 @@ Benner and Paweł Siudak):
 - Fix overflow of line in page-break-lines-mode when using line number (thanks
   to Compro Prasad)
 - Add doom-emacs mode-line theme (thanks to Sylvain Benner)
+- Optimize spacemacs/title-prepare (thanks to Andriy Kmit')
+- Cache expensive computations in spacemacs/title-prepare (thanks to Dieter
+  Komendera)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -688,6 +691,8 @@ Benner and Paweł Siudak):
   - Make =spacemacs/counsel-search= with proper highlighting (thanks to Ting
     Zhou)
   - Remove compilation finish hook (thanks to Miciah Masters)
+  - Fix global toggles for aggressive-indent and smartparens (thanks to Matt
+    Kramer)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -1330,6 +1335,8 @@ Benner and Paweł Siudak):
 - New package =magic-latex-buffer= (thanks to benquebec)
 - New layer variable =latex-enable-magic= to enable =magic= symbols in latex
   buffers, see README.org for more info (thanks to benquebec)
+- Put magic-latex-buffer in TeX-update-style-hook instead of LaTeX-mode-hook
+  (thanks to Matt Kramer)
 **** Lua
 - Add support for auto-completion with =company= (thanks to halfcrazy)
 **** Markdown
@@ -1445,6 +1452,7 @@ Benner and Paweł Siudak):
     - add ~SPC m C g~ for org-clock-goto
     - add ~SPC m C j~ to jump to current clock
     - add ~SPC m p~ to change priority
+    - add ~SPC m r~ for helm-org-rifle
   - Add ~SPC m #~ to update statistics cookies (thanks to Christian Höppner)
   - Key bindings (thanks to James Wang):
     - add ~SPC m T e~ to toggle pretty entities
@@ -1484,7 +1492,7 @@ Benner and Paweł Siudak):
     - ~SPC a o f i~ and ~SPC m f i~ to go to feed inbox
     - ~SPC a o f u~ and ~SPC m f u~ to update all feeds
   - Added key bindings for =org-clock= (thanks to Langston Barrett, William
-    Casarin, Francesc Elies Henar):
+    Casarin, Francesc Elies Henar, Daniel Molina):
     - ~SPC a o C c~ for =org-clock-cancel=
     - ~SPC a o C g~ for =org-clock-goto=
     - ~SPC a o C i~ for =org-clock-in=
@@ -1720,6 +1728,8 @@ Benner and Paweł Siudak):
 - Added =shell-default-width= layer variable (thanks to David Balatero and
   Miciah Masters)
 - Override read-only when capturing clear in shell (thanks to Alexander Wingård)
+- Wrap 'shell' command to start in current buffer (thanks to Valts Liepiņš)
+- Fixed shell popup broken on macOS (thanks to Daniel Rivas Perez)
 **** Shell Scripts
 - Add new company-shell environment variable backend (thanks to Alexander-Miller)
 - Add bashate style checker (thanks to Victor Cuadrado Juan)
@@ -1836,6 +1846,8 @@ Benner and Paweł Siudak):
   - ~SPC m g g~ for =tide-jump-to-definition= (thanks to Roy Choo)
   - ~SPC m g t~ remapped to =spacemacs/typescript-jump-to-type-def= from
     =typescript/jump-to-type-def= (thanks to Roy Choo)
+  - ~SPC m r i~ to organize imports (thanks to Stéphane Bisinger)
+  - ~SPC m r f~ to rename file (thanks to Stéphane Bisinger)
 - Added LSP support, which can be used by enabling the =lsp= layer and setting
   the =typescript= layer's =typescript-backend= variable to =lsp= (thanks to
   Ting Zhou and Sylvain Benner)
