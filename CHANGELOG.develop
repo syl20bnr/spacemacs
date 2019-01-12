@@ -243,6 +243,8 @@ Benner and Paweł Siudak):
 - protobuf (thanks to Amol Mandhane)
 - restructuredtext (thanks to Wei-Wei Guo and Kalle Lindqvist)
 - semantic-web (thanks to Andreas Textor)
+**** Misc
+- multiple-cursors (thanks to Codruț Constantin Gușoi)
 **** WEB services
 - confluence
 **** Readers
@@ -255,8 +257,9 @@ Benner and Paweł Siudak):
 - spacemacs-purpose (thanks to bmag)
 - spacemacs-visual
 **** Tools
-- bm (thanks to Eugene Yaremenko)
-- lsp (thanks to Fangrui Song, 0bl.blwl, Cormac Cannon, and Sylvain Benner)
+- bm (thanks to Eugene Yaremenko and Binbin Ye)
+- lsp (thanks to Fangrui Song, 0bl.blwl, Cormac Cannon, Juuso Valkeejärvi, and
+  Sylvain Benner)
 - node (thanks to jupl)
 - pass (thanks to Andrew Oppenlander, Kepi, Kalle Lindqvist, and Evan Klitzke)
 - sphinx (thanks to Wei-Wei Guo)
@@ -474,6 +477,9 @@ Benner and Paweł Siudak):
 - Optimize spacemacs/title-prepare (thanks to Andriy Kmit')
 - Cache expensive computations in spacemacs/title-prepare (thanks to Dieter
   Komendera)
+- Remove space before question mark when updating packages (thanks to Kevin Ji)
+- Alternate buffers without taking into account their purpose (thanks to Thomas
+  de Beauchêne)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -693,6 +699,7 @@ Benner and Paweł Siudak):
   - Remove compilation finish hook (thanks to Miciah Masters)
   - Fix global toggles for aggressive-indent and smartparens (thanks to Matt
     Kramer)
+  - Don't load outdated compiled files (thanks to Boris Buliga)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -716,6 +723,7 @@ Benner and Paweł Siudak):
     Sylvain Benner)
   - =spacemacs/integrate-evil-search= also updates =evil-ex-search-direction=
     (thanks to Thanh Vuong)
+  - Support directories in spacemacs/rename-file (thanks to Boris Buliga)
 - Enable =evil-search= search module in evil state.
 - Improve function =spacemacs/sort-lines-by-column= to work on rectangular/block
   selection and warn the user about its requirements (thanks to duianto)
@@ -798,6 +806,8 @@ Benner and Paweł Siudak):
   (thanks to Rudi Grinberg)
 - Fix value of =persp-add-buffer-on-after-change-major-mode= to add free buffers
   to current layout (thanks to Miciah Masters)
+- Add actions to open funcs.el and layers.el from layers help (thanks to Boris
+  Buliga)
 *** Layer changes and fixes
 **** Ansible
 - Add support for multiple vault password files, see later README.org
@@ -837,8 +847,6 @@ Benner and Paweł Siudak):
 - Add option to use =google-c-style= with the variable
   =c-c++-enable-google-style=, and install the =google-make-newline-indent= hook
   with the variable =c-c++-enable-google-newline= (thanks to Evan Klitzke)
-- Add option to enable C++11 mode in =company-clang-arguments= with variable
-  =c-c++-enable-c++11= (thanks to Evan Klitzke)
 - Declare "mg" prefix as "goto" (thanks to Dela Anthonio)
 - Update package name due to upstream renaming (thanks to James Wang)
 - Refactor to reduce duplication (thanks to Dela Anthonio)
@@ -921,6 +929,8 @@ Benner and Paweł Siudak):
 - Fix issue with =clojure-enable-fancify-symbols= causing "invalid face
   reference" error messages (thanks to Miciah Masters)
 - Make =clj-refactor= off by default (thanks to Arne Brasseur)
+- Allow to send input to the repl via RET in normal mode (thanks to Dieter
+  Komendera)
 **** Coffeescript
 - Adds basic autocompletion (thanks to Codruț Constantin Gușoi)
 - Key bindings (thanks to Kalle Lindqvist):
@@ -952,6 +962,10 @@ Benner and Paweł Siudak):
   Saulius Menkevičius)
 - New key binding =SPC m g e= for =omnisharp-solution-errors= (thanks to Saulius
   Menkevičius)
+- Key bindings (thaks to Alistair Bush):
+  - ~SPC t b~ for =omnisharp-unit-test-buffer=
+  - ~SPC u~ for =omnisharp-auto-complete-overrides=
+  - ~SPC i~ for =omnisharp-fix-usings=
 **** D
 - Fix d-mode flycheck imports on dub projects (thanks to Dietrich Daroch)
 **** Dash
@@ -1108,6 +1122,7 @@ Benner and Paweł Siudak):
 - Add gitignore-templates (thanks to Ruslan Kamashev)
 - Add =helm-git-grep= (thanks to Evan Klitzke)
 - Enable colors in =magit-log= (thanks to Thomas de Beauchêne)
+- Add magit buffers to useless buffers (thanks to Thomas de Beauchêne)
 **** Go
 - Improve go test output buffer behavior (thanks to Denis Bernard)
 - Configurable extra arguments to go test (thanks to Ian Clark)
@@ -1200,7 +1215,7 @@ Benner and Paweł Siudak):
 - Fix winum intergration (thanks to Sylvain Benner)
 - Fixed "Invalid face reference" error in Helm transient state (thanks to
   duianto)
-- Hide lighter (thanks to Sylvain Benner)
+- Hide lighter (thanks to Sylvain Benner and duianto)
 - Lazy load helm based on key bindings (thanks to Sylvain Benner)
 - Fix error from =spacemacs/helm-files-smart-do-search= on non-file buffers
   (thanks to Miciah Masters)
@@ -1618,6 +1633,10 @@ Benner and Paweł Siudak):
 - New variable =python-spacemacs-indent-guess= for guessing correct indentation
   settings (thanks to Benno Fünfstück)
 - Fix pyenv for system Python (thanks to Alexander Eberspächer)
+- Replace =anaconda-mode-go-back= with =xref-pop-marker-stack= (thanks to
+  JimmyG)
+- Highlight python3.7 builtin =breakpoint()= function (thanks to Boris
+  Verhovsky)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 **** Ranger
@@ -1910,10 +1929,10 @@ Benner and Paweł Siudak):
   Frey, Adam Kruszewski, Alexander Dalshov, Alexander Eberspächer, Alexander
   Iljin, Alexander Kjeldaas, Alexandros Kotzias, Andriy Senyshyn, Anton Latukha,
   Antonio Miranda, Anurag Sharma, Archenoth, Ather Sharif, Benjamin Reynolds,
-  bmag, Boris Buliga, Boris Wong, Carl Lange, Chase Adams, Cibin Mathew,
-  CL123123, Codruț Constantin Gușoi, Daniel Hodson, Daniel Le, Daniel Molina,
-  Darkhan, David Florness, David Vo, davidpham87, Deepu Mohan Puthrote, Dela
-  Anthonio, Diego Alvarez, Diego Berrocal, Dietrich Daroch, Dinesh Bhosale,
+  Billy Wade, bmag, Boris Buliga, Boris Wong, Carl Lange, Chase Adams, Cibin
+  Mathew, CL123123, Codruț Constantin Gușoi, Daniel Hodson, Daniel Le, Daniel
+  Molina, Darkhan, David Florness, David Vo, davidpham87, Deepu Mohan Puthrote,
+  Dela Anthonio, Diego Alvarez, Diego Berrocal, Dietrich Daroch, Dinesh Bhosale,
   Dominik Schrempf, Doug Beardsley, dubnde, duianto, eldios, EMayej, Eugene
   Yaremenko, Evan Klitzke, Evan Niessen-Derry, firemiles, Fuqiao Xue, Garrett
   Johnson, Henry Marshall, hornuda, Ivan Kryvoruchko, J. Patrick Lanigan, Jaremy
