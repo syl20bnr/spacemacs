@@ -56,16 +56,8 @@ To display the =magit status= buffer in fullscreen set the variable
 #+END_SRC
 
 ** Magit auto-complete
-Magit auto-complete feature is enabled. For this feature to work best you
-have to setup your Git repository directory in your =dotspacemacs/user-config=
-function, this is the folder where you keep all your git-controlled projects
-(the path should end up with a ~/~ to respect Emacs conventions):
-
-#+BEGIN_SRC emacs-lisp
-  (setq magit-repository-directories '("~/repos/"))
-#+END_SRC
-
-For more information, see [[http://magit.vc/manual/magit.html#Status-buffer][Magit-User-Manual#Status-buffer]]
+Magit auto-complete feature is enabled by default.
+For this feature to work best - setup [[#repository-list][magit repository list]].
 
 ** Magit SVN plugin
 The magit SVN plugin shows commits which were not pushed to svn yet.
@@ -286,17 +278,24 @@ or lines in a file hosted on Git web services like GitHub, GitLab, Bitbucket...
   =nil=.
 
 ** Repository list
-This feature will show a list of git directories. The feature needs slight
-configuration within your `.spacemacs` config. In the `dotspacemacs/user-config()`
-stanza insert the following with the directories of your choice:
+Feature displays a status-list of git repositories.
+Within your =.spacemacs= config, in the =dotspacemacs/user-config()= stanza
+configure =magit-repository-directories= to target Emacs to directories to look
+into.
 
 #+BEGIN_SRC emacs-lisp
-  (setq magit-repository-directories
-        '("~/Development"))
+(setq magit-repository-directories
+      '(("~/Development/" . 2) ("~/src/" . 2)))
 #+END_SRC
+
+Where each element has the form =(DIRECTORY . DEPTH)=, when DEPTH is ~0~ - then
+only add DIRECTORY itself.
+The DIRECTORY should end up with a ~/~ to respect Emacs conventions.
 
 | Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC g L~   | start git repo list                                 |
 | ~RET~       | show the git status window for the selected project |
 | ~gr~        | refresh the project list                            |
+
+For more information, look into [[http://magit.vc/manual/magit.html#Status-Buffer][Magit-User-Manual#Status-Buffer]]
