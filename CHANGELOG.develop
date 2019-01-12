@@ -218,6 +218,7 @@ Benner and Paweł Siudak):
 - coffeescript (thanks to Sylvain Benner)
 - json (thanks to Sylvain Benner)
 - crystal (thanks to Sylvain Benner)
+- jsonnet (thanks to liz)
 **** WEB services
 - confluence
 **** Readers
@@ -306,6 +307,11 @@ Benner and Paweł Siudak):
     - =dotspacemacs-helm-position= to =helm-position=, in the =helm= layer
     - =dotspacemacs-helm-use-fuzzy= to =helm-use-fuzzy=, in the
       =spacemacs-completion= layer
+  - New variable =dotspacemacs-server-socket-dir= for setting the server socker
+    location (thanks to Carl Lange)
+  - New vairables =dotspacemacs-import-env-vars-from-shell= and
+    =dotspacemacs-import-env-vars-shell-file-name= to asynchronously import
+    environment variables (thanks to Sylvain Benner)
 - Can use the univeral prefix argument to open both the =*scratch*= buffer and
   the =*Messages*= buffer in another window (thanks to Thomas de Beauchêne)
 *** Core changes
@@ -423,6 +429,10 @@ Benner and Paweł Siudak):
 - Renamed =spacemacs/mplist-get= function to =spacemacs/mplist-get-values=,
   renamed =spacemacs/plist-get= function to =spacemacs/mplist-get-value=, and
   refactored the latter function (thanks to Benjamin Reynolds)
+- Load window-purpose when window configuration changes (thanks to Sylvain
+  Benner)
+- Synchronize environment variables from the default shell (thanks to
+  fiveNinePlusR)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
@@ -1054,6 +1064,7 @@ Benner and Paweł Siudak):
 - Fixed "Invalid face reference" error in Helm transient state (thanks to
   duianto)
 - Hide lighter (thanks to Sylvain Benner)
+- Lazy load helm based on key bindings (thanks to Sylvain Benner)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Add =counsel-css= as an ivy alternative to =helm-css-scss= (thanks to Robbert
@@ -1638,6 +1649,7 @@ Benner and Paweł Siudak):
 - New packages:
   - =browse-at-remote= which replaces =github-browse-file=
    (thanks Eugene Yaremenko)
+- Avoid loading all the diff packages (thanks to Sylvain Benner)
 **** Ycmd
 - Search for =compile_commands.json= in build sub-directory
   (thanks to Amos Bird and Eivind Fonn)
@@ -1650,33 +1662,34 @@ Benner and Paweł Siudak):
 - Lots of improvement with CI and documentation exporting (thanks to Eugene
   Yaremenko)
 - Various code style improvements (thanks to bmag, duianto, Eivind Fonn, Eugene
-  Yaremenko, Fabien Dubosson, Sylvain Benner)
+  Yaremenko, Fabien Dubosson, Kalle Lindqvist, Sylvain Benner)
 - Multiple unit test improvements (thanks to Sylvain Benner and Codruț
   Constantin Gușoi)
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham, Adam
   Frey, Adam Kruszewski, Alexander Dalshov, Alexander Iljin, Alexander Kjeldaas,
   Alexandros Kotzias, Anton Latukha, Anurag Sharma, Archenoth, Ather Sharif,
   Benjamin Reynolds, bmag, Boris Buliga, Boris Wong, Carl Lange, Chase Adams,
-  CL123123, Codruț Constantin Gușoi, Daniel Hodson, Daniel Le, Daniel Molina,
-  Darkhan, David Florness, David Vo, davidpham87, Dela Anthonio, Diego Alvarez,
-  Diego Berrocal, Dietrich Daroch, Dinesh Bhosale, Dominik Schrempf, Doug
-  Beardsley, dubnde, duianto, eldios, Eugene Yaremenko, Evan Klitzke, Evan
-  Niessen-Derry, firemiles, Fuqiao Xue, Garrett Johnson, Henry Marshall,
-  hornuda, Ivan Kryvoruchko, J. Patrick Lanigan, Jaremy Creechley, Jesse Cooke,
-  Jethro Shuwen Sun, JI Xiang, Jim Deville, Jody Frankowski, Joe Hillenbrand,
-  John Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett,
-  Josh Greenwood, Joshua Santos, Kainalu Hagiwara, Kechao Cai, Keith Wygant,
-  Kristoffer Haugsbakk, Leo Joseph Buchignani III, Max Beutelspacher, Max
-  Nordlund, Maximilian Wolff, Miciah Dashiel Butler Masters, Mikhail Yakutovich,
-  Muneeb Shaikh, Nasser Alshammari, Nasser Alshammari, Niko Felger, Nikolai
-  Myllymäki, nikolaiam, Nicolas Forgerit, Olivier Verdier, pancho horrillo, Paul
-  Milla, Paulo Schneider, Pawan Dubey, Paweł Siudak, Phil Pirozhkov, Philippe
-  Bourdages, Piotr Grzesik, Rafi Khan, Rand01ph, rakyi, Raymond Wanyoike,
-  Reverend Homer, Robby O'Connor, Rhommel Lamas, Sam Pablo Kuper, Saulius
-  Menkevičius, sduthil, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho,
-  SteveJobzniak, Sunghyun Hwang, Swaroop C H, Sylvain Benner, Szunti, Tim
-  Stewart, timor, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz
-  Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi Liu, zer09)
+  Cibin Mathew, CL123123, Codruț Constantin Gușoi, Daniel Hodson, Daniel Le,
+  Daniel Molina, Darkhan, David Florness, David Vo, davidpham87, Dela Anthonio,
+  Diego Alvarez, Diego Berrocal, Dietrich Daroch, Dinesh Bhosale, Dominik
+  Schrempf, Doug Beardsley, dubnde, duianto, eldios, Eugene Yaremenko, Evan
+  Klitzke, Evan Niessen-Derry, firemiles, Fuqiao Xue, Garrett Johnson, Henry
+  Marshall, hornuda, Ivan Kryvoruchko, J. Patrick Lanigan, Jaremy Creechley,
+  Jason Axelson, Jesse Cooke, Jethro Shuwen Sun, JI Xiang, Jim Deville, Jody
+  Frankowski, Joe Hillenbrand, John Wood, Jon Tippens, Jonas Strømsodd, Jonathan
+  Arnett, Jonathan Gillett, Josh Greenwood, Joshua Santos, Kainalu Hagiwara,
+  Kalle Lindqvist, Kechao Cai, Keith Wygant, Kristoffer Haugsbakk, Leo Joseph
+  Buchignani III, Max Beutelspacher, Max Nordlund, Maximilian Wolff, Miciah
+  Dashiel Butler Masters, Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari,
+  Nasser Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Nicolas
+  Forgerit, Olivier Verdier, pancho horrillo, Paul Milla, Paulo Schneider, Pawan
+  Dubey, Paweł Siudak, Phil Pirozhkov, Philippe Bourdages, Piotr Grzesik, Rafi
+  Khan, Rand01ph, rakyi, Raymond Wanyoike, Reverend Homer, Robby O'Connor,
+  Rhommel Lamas, Sam Pablo Kuper, Saulius Menkevičius, sduthil, Shane Kilkelly,
+  Sid Kapur, Somelauw, Soobin Rho, SteveJobzniak, Sunghyun Hwang, Swaroop C H,
+  Sylvain Benner, Szunti, Tim Stewart, timor, TinySong, Titov Andrey, Thomas de
+  Beauchêne, Tomasz Cichocinski, tzhao11, Vladimir Kochnev, Wieland Hoffmann, Yi
+  Liu, zer09)
 *** Release notes summarized
   Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
   Masters, Abhishek(Compro) Prasad, Deepak Khidia, Ward Harris
