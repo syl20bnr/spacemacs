@@ -424,13 +424,8 @@ Benner and Paweł Siudak):
 - Renamed =spacemacs/mplist-get= function to =spacemacs/mplist-get-values=,
   renamed =spacemacs/plist-get= function to =spacemacs/mplist-get-value=, and
   refactored the latter function (thanks to Benjamin Reynolds)
-- Fixed pdumper enabled on ~SPC f e R~ no matter what (thanks to Sylvain Benner)
 - Display time spent in =user-config= in home buffer (thanks to Sylvain Benner)
-- Don't call =user-load= unless we are dumping (thanks to Sylvain Benner)
-- Removed dotspacemacs variable =dotspacemacs-import-env-vars-from-shell= (thanks to Sylvain Benner)
-- Removed dotspacemacs variable =dotspacemacs-improt-env-vars-shell-file-name= (thanks to Sylvain Benner)
-- Rename environment file from =spacemacs.env= to =.spacemacs.env= (thanks to Sylvain Benner)
-- Move location of =.spacemacs.env= file to home or dotdirectory (thanks to Sylvain Benner)
+- Add new dotfile function =dotspacemacs/user-load= (thanks to Sylvain Benner)
 - Add new dotfile function =dotspacemacs/user-env= (thanks to Sylvain Benner)
 - Add ignored env. vars with variable =spacemacs-ignored-environment-variables= (thanks to Sylvain Benner)
 - Ignore env vars: =SSH_AUTH_SOCK= and =DBUS_SESSION_BUS_ADDRESS= (thanks to Sylvain Benner)
@@ -446,7 +441,6 @@ Benner and Paweł Siudak):
   - The new =spacemacs-modeline= layer configures packages for the mode line.
   - The new =spacemacs-project= layer configures =projectile=.
   - Merge =spacemacs-ui= and =spacemacs-ui-visual= into layer =spacemacs-visual=
-  - Remove =spacemacs-environment= from =spacemacs-bootstrap= layer
 - New Packages:
   - Add =evil-lion= package to =spacemacs-evil= layer (thanks to et2010 and
     Eivind Fonn)
@@ -574,10 +568,11 @@ Benner and Paweł Siudak):
     - ~SPC f y d~ to show and copy current directory absolute path in the minibuffer
     - ~SPC f y l~ to show and copy current file absolute path with line number in the minibuffer
     - ~SPC f y y~ to show and copy current file absolute path in the minibuffer
-    - ~SPC f y C~ to show and copy current file path relaitve to the project root with line and column number
-    - ~SPC f y D~ to show and copy current directory path relaitve to the project root
-    - ~SPC f y L~ to show and copy current file path relaitve to the project root with line number
-    - ~SPC f y Y~ to show and copy current file path relaitve to the project root
+    - ~SPC f y C~ to show and copy current file path relative to the project root with line and column number
+    - ~SPC f y D~ to show and copy current directory path relative to the project root
+    - ~SPC f y L~ to show and copy current file path relative to the project root with line number
+    - ~SPC f y Y~ to show and copy current file path relative to the project root
+  - Added ~SPC t z~ to toggle zero-based column indexing in the mode line
   - New ~SPC f e e~ to open spacemacs.env file (thanks to Sylvain Benner)
   - New ~SPC f e E~ to reload environment variable from env file (thanks to Sylvain Benner)
   - New ~SPC f e C-e~ to re-initialize the env file from shell (thanks to Sylvain Benner)
@@ -1087,7 +1082,6 @@ Benner and Paweł Siudak):
 - Fixed "Invalid face reference" error in Helm transient state (thanks to
   duianto)
 - Hide lighter (thanks to Sylvain Benner)
-- Move helm variable from helm layer to spacemacs-completion layer (thanks to Kalle Lindqvist)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Add =counsel-css= as an ivy alternative to =helm-css-scss= (thanks to Robbert
@@ -1640,7 +1634,7 @@ Benner and Paweł Siudak):
 - Key bindings:
   - ~SPC m E e~ is for =tide-fix= which was originally added as ~SPC m r f~
     (thanks to Simon Altschuler)
-  - ~SPC m E d~ to add =tslitn-disable-next-line= at point (thanks to Daniel Perez Alvarez)
+  - ~SPC m E d~ to add =tslint-disable-next-line= at point (thanks to Daniel Perez Alvarez)
 - Added LSP support, which can be used by enabling the =lsp= layer and setting
   the =typescript= layer's =typescript-backend= variable to =lsp= (thanks to
   Ting Zhou and Sylvain Benner)
