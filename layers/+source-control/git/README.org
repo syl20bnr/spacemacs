@@ -59,13 +59,10 @@ To display the =magit status= buffer in fullscreen set the variable
 Magit auto-complete feature is enabled. For this feature to work best you
 have to setup your Git repository directory in your =dotspacemacs/user-config=
 function, this is the folder where you keep all your git-controlled projects
-(the path should end up with a ~/~ to respect Emacs conventions):
 
 #+BEGIN_SRC emacs-lisp
   (setq magit-repository-directories '("~/repos/"))
 #+END_SRC
-
-For more information, see [[http://magit.vc/manual/magit.html#Status-buffer][Magit-User-Manual#Status-buffer]]
 
 ** Magit SVN plugin
 The magit SVN plugin shows commits which were not pushed to svn yet.
@@ -292,8 +289,12 @@ stanza insert the following with the directories of your choice:
         '("~/Development"))
 #+END_SRC
 
+The DIRECTORY should end up with a ~/~ to respect Emacs conventions.
+
 | Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC g L~   | start git repo list                                 |
 | ~RET~       | show the git status window for the selected project |
 | ~gr~        | refresh the project list                            |
+
+For more information, look into [[http://magit.vc/manual/magit.html#Status-Buffer][Magit-User-Manual#Status-Buffer]]
