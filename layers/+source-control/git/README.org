@@ -285,10 +285,12 @@ configuration within your `.spacemacs` config. In the `dotspacemacs/user-config(
 stanza insert the following with the directories of your choice:
 
 #+BEGIN_SRC emacs-lisp
-  (setq magit-repository-directories
-        '("~/Development"))
+(setq magit-repository-directories
+      '(("~/Development/" . 2) ("~/src/" . 2)))
 #+END_SRC
 
+Where each element has the form =(DIRECTORY . DEPTH)=, when DEPTH is ~0~ - then
+only add DIRECTORY itself.
 The DIRECTORY should end up with a ~/~ to respect Emacs conventions.
 
 | Key binding | Description                                         |
