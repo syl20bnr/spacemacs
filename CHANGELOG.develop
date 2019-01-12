@@ -226,6 +226,7 @@ Benner and Paweł Siudak):
 - json (thanks to Sylvain Benner)
 - jsonnet (thanks to liztio and Robby O'Connor)
 - crystal (thanks to Sylvain Benner)
+- julia (thanks to Adam Beckmeyer and Guido Kraemer)
 **** WEB services
 - confluence
 **** Readers
@@ -251,6 +252,7 @@ Benner and Paweł Siudak):
 - tern (thanks to Sylvain Benner and Juuso Valkeejärvi)
 - emberjs (thanks to Robert O'Connor)
 - phoenix (thanks to Lyuben Petrov)
+- prettier (thanks to Seong Yong-ju)
 **** Others
 - japanese (thanks to Kenji Miyazaki)
 - multiple-cursors (thanks to Codruț Constantin Gușoi)
@@ -586,19 +588,31 @@ Benner and Paweł Siudak):
     - ~SPC h P s~ to start the profiler
     - ~SPC h P w~ to write the profiler report to a file
   - New ~SPC x t e~ to transpose sexps (thanks to Guido Kraemer)
-  - Added multiple key bindings to copy a file path (thanks to Codruț Constantin Gușoi):
-    - ~SPC f y c~ to show and copy current file absolute path with line and column number in the minibuffer
-    - ~SPC f y d~ to show and copy current directory absolute path in the minibuffer
-    - ~SPC f y l~ to show and copy current file absolute path with line number in the minibuffer
+  - Added multiple key bindings to copy a file path (thanks to Codruț Constantin
+    Gușoi):
+    - ~SPC f y c~ to show and copy current file absolute path with line and
+      column number in the minibuffer
+    - ~SPC f y d~ to show and copy current directory absolute path in the
+      minibuffer
+    - ~SPC f y l~ to show and copy current file absolute path with line number
+      in the minibuffer
     - ~SPC f y y~ to show and copy current file absolute path in the minibuffer
-    - ~SPC f y C~ to show and copy current file path relative to the project root with line and column number
-    - ~SPC f y D~ to show and copy current directory path relative to the project root
-    - ~SPC f y L~ to show and copy current file path relative to the project root with line number
-    - ~SPC f y Y~ to show and copy current file path relative to the project root
+    - ~SPC f y C~ to show and copy current file path relative to the project
+      root with line and column number
+    - ~SPC f y D~ to show and copy current directory path relative to the
+      project root
+    - ~SPC f y L~ to show and copy current file path relative to the project
+      root with line number
+    - ~SPC f y Y~ to show and copy current file path relative to the project
+      root
   - Added ~SPC t z~ to toggle zero-based column indexing in the mode line
   - New ~SPC f e e~ to open spacemacs.env file (thanks to Sylvain Benner)
-  - New ~SPC f e E~ to reload environment variable from env file (thanks to Sylvain Benner)
-  - New ~SPC f e C-e~ to re-initialize the env file from shell (thanks to Sylvain Benner)
+  - New ~SPC f e E~ to reload environment variable from env file (thanks to
+    Sylvain Benner)
+  - New ~SPC f e C-e~ to re-initialize the env file from shell (thanks to
+    Sylvain Benner)
+  - New ~SPC f A~ to open a file and replace buffer with it (thanks to Masayuki
+    Takemura)
 - Fixes:
   - Disable the paste transient state when using multiple cursors
     (thanks to Koray AL)
@@ -646,6 +660,8 @@ Benner and Paweł Siudak):
   - Line-nums: don't default to text/prog-mode if disabled by user (thanks to bmag)
   - Fix issue with =spacemacs/smart-closing-parenthesis= sometimes adding an
     extra closing parenthesis (thanks to Miciah Masters)
+  - Fix updating buffer names in window configurations (thanks to Miciah Dashiel
+    Butler Masters)
 - UX:
   - Fill the current filename as a suggestion of
     =spacemacs/rename-current-buffer-file= (thanks to tddsg)
@@ -832,7 +848,7 @@ Benner and Paweł Siudak):
 **** Chrome
 - Add =markdown= key bindings to gmail message mode (thanks to Christoph Paulik)
 **** Clojure
-- Add =sayid= debugger (thanks to Daniel Manila)
+- Add =sayid= debugger (thanks to Daniel Manila and Arne Brasseur)
 - Key bindings:
   - ~SPC m e ;~ to eval sexp and show result as comment
     (thanks to John Stevenson)
@@ -926,6 +942,7 @@ Benner and Paweł Siudak):
 - Fix: broken package declaration for dockerfile-mode (thanks to Maximilian Wolff)
 **** Elfeed
 - Fix selection bindings in visual state (thanks to Jeremy Symon)
+- Fix not saving on quit (thanks to Andrew Stevanus)
 **** Elixir
 - Add missing Alchemist commands and key bindings (thanks to Swaroop C H)
   - Key bindings:
@@ -1035,6 +1052,8 @@ Benner and Paweł Siudak):
     popup (thanks to Diego Berrocal)
 - Replace =evilified-state-evilify= by =evilified-state-evilify-map= (thanks to
   Sylvain Benner)
+- Make magithub offline by default (thanks to Miciah Masters)
+- Disable status, issues, and PRs by default (thanks to Miciah Masters)
 **** Git
 - Install magit-svn by default and activate with git-enable-magit-svn-plugin
 - Key bindings:
@@ -1083,6 +1102,8 @@ Benner and Paweł Siudak):
 - Add toggle for running =gofmt= before save (thanks to Jon Erik D Suero)
   - Key bindings: ~SPC m =~ to run =gofmt= manually
 - Support editorconfig setting of =tab-width= to nil (thanks to lawrsp)
+- Add lsp support (thanks to Lupco Kotev)
+- Add golangci-lint support (thanks to Lupco Kotev)
 **** Groovy
 - Update =indent-variable-alist= to support new groovy-mode (thanks to Sylvain
   Benner)
@@ -1205,6 +1226,7 @@ Benner and Paweł Siudak):
 - Fix call to =counsel-more-chars= in =counsel-search= (thanks to bmag)
 - Add search highlighting with =ivy--regex-plus= (thanks to ivasonn)
 - Improve jumping in buffer (thanks to Kalle Lindqvist)
+- Fix ~SPC m s~ key bindings for wgrep (thanks to John Lee)
 **** Imenu-list
 - Fix key bindings (thanks to bet4it):
   - ~r~ inside imenu-list buffer to refresh
@@ -1233,6 +1255,8 @@ Benner and Paweł Siudak):
 - Added =org-babel= support (thanks to Michael Rohleder)
 - Remove broken ENSIME key bindings (thanks to Bjarke Vad Andersen)
 - Fix yanking types (thanks to Bjarke Vad Andersen)
+- Fix gtags related initialization (thanks to Guido Kraemer)
+- Add LSP Java backend (thanks to Ivan Yonchovski)
 **** Javascript
 - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
 - Added LSP support, which can be used by enabling the =lsp= layer and setting
@@ -1352,6 +1376,7 @@ Benner and Paweł Siudak):
 - Defer loading (thanks to Benno Fünfstück)
 - Disable Electric-Indent mode, which interfered with the nix-mode indent
   function (thanks to Profpatsch)
+- Associate nix-mode with .nix files (thanks to jpathy)
 **** Nim
 - Add key binding ~SPC m h h~ to show symbol documentation (thanks to Valts
   Liepiņš)
@@ -1561,6 +1586,7 @@ Benner and Paweł Siudak):
 - Configure =emmet-mode= to expand classes using =className= instead of =class=
   (thanks to Sylvain Benner)
 - Open =.jsx= files with =rjsx-mode= (thanks to Thomas de Beauchêne)
+- Fixes React imports when using web beautify. (thanks to Ismael)
 **** Ruby
 - Add support for =org-babel= (thanks to Muneeb Shaikh)
 - Highlight debugger keywords (thanks to Alexander Berezovsky and Eivind Fonn)
@@ -1590,6 +1616,7 @@ Benner and Paweł Siudak):
   - Add ~SPC m r R c~ to extract constant.
   - Add ~SPC m r R l~ to extract to =let=.
   - Add ~SPC m s l~ to send line to REPL (thanks to Paweł Siudak)
+- Add the =seeing-is-believing= package (thanks to Brandon Conway)
 **** Ruby on Rails
 - Changed leader keys to be configured for the =projectile-rails-mode= minor
   mode instead of =ruby-mode= and =enh-ruby-mode= so that the key bindings will
@@ -1693,6 +1720,7 @@ Benner and Paweł Siudak):
 - Update Swift REPL key bindings (thanks to Elliot Bulmer)
 **** Systemd
 - Add support for syntax checking with =flycheck= (thanks to Steven Allen)
+- Add support for lazy installation (thanks to Wieland Hoffmann)
 **** Terraform
 - Add opt-in layer variable =terraform-fmt-on-save= to format buffers on save
   with =terraform fmt= (thanks to Harry Hull)
@@ -1817,11 +1845,11 @@ Benner and Paweł Siudak):
   Deville, Jody Frankowski, Joe Hillenbrand, John Eismeier, John Wood, Jon
   Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood,
   Joshua Santos, Kainalu Hagiwara, Kalle Lindqvist, Kechao Cai, Keith Wygant,
-  Kristoffer Haugsbakk, lawrsp, Leo Joseph Buchignani III, Max Beutelspacher,
-  Max Nordlund, Maximilian Wolff, Miciah Dashiel Butler Masters, Mikhail
-  Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser Alshammari, Niko Felger,
-  Nikolai Myllymäki, nikolaiam, Nicolas Forgerit, Olivier Verdier, pancho
-  horrillo, Paul Milla, Paulo Schneider, Pawan Dubey, Paweł Siudak, Phil
+  Kristoffer Haugsbakk, lawrsp, Leo Joseph Buchignani III, Marco Ieni, Max
+  Beutelspacher, Max Nordlund, Maximilian Wolff, Miciah Dashiel Butler Masters,
+  Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser Alshammari, Niko
+  Felger, Nikolai Myllymäki, nikolaiam, Nicolas Forgerit, Olivier Verdier,
+  pancho horrillo, Paul Milla, Paulo Schneider, Pawan Dubey, Paweł Siudak, Phil
   Pirozhkov, Philippe Bourdages, Piotr Grzesik, Rafi Khan, Rand01ph, rakyi,
   Raymond Wanyoike, Reverend Homer, Robby O'Connor, Rhommel Lamas, Sam Pablo
   Kuper, Saulius Menkevičius, sduthil, Shane Kilkelly, Sid Kapur, Somelauw,
