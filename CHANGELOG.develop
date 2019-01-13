@@ -1,6 +1,35 @@
--*- mode: org -*-
+#+COMMENT -*- mode: org -*-
 
 This file containes the change log for the next major version of Spacemacs.
+
+Use the following template structure and fill it in with your changes.
+When a release will be drafted, the notes will be copied at the top of
+the [[file:CHANGELOG.org][CHANGELOG.org]] file.
+
+#+BEGIN_EXAMPLE
+* Release 0.400.x
+** 0.400.0
+*** Breaking Changes
+**** Major
+**** Key bindings
+**** Layers
+***** Layer 1
+***** Layer 2
+***** Layer 3
+*** Hot new features
+*** Dotfile changes
+*** Core changes
+*** Distribution changes
+*** Layers
+**** New layers
+**** Layer 1
+**** Layer 2
+**** Layer 3
+*** Various improvements
+**** Code syle and organization
+**** Documentation and website
+**** Testing and CI
+#+END_EXAMPLE
 
 * Release 0.300.x
 ** 0.300.0
