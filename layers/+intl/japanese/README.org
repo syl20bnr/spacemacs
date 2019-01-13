@@ -98,7 +98,7 @@ inside ~dotspacemacs/user-config~.
 
 *** ddskk
 You can write a configuration file ~​~/.skk~. For detailed configuration, see
-some [[http://openlab.ring.gr.jp/skk/doc.html][documents]].
+some [[http://web.archive.org/web/20160719053620/http://openlab.ring.gr.jp/skk/doc.html][documents]].
 
 *** pangu-spacing
 By default, ~pangu-spacing-mode~ is applied to ~text-mode~. If you prefer the

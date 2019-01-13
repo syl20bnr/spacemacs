@@ -15,7 +15,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer supports [[https://www.rust-lang.org/en-US/][Rust]] development in Spacemacs.
+This layer supports [[https://www.rust-lang.org][Rust]] development in Spacemacs.
 
 ** Features:
 - Auto-completion and navigation support through [[https://github.com/emacs-lsp/lsp-rust][lsp]] or [[https://github.com/phildawes/racer][Racer]]
