@@ -165,7 +165,7 @@ specifying an explicit =c-c++-lsp-cache-dir=. Setting this value to a relative p
 subdirectory of your project root.
 
 There are other initialization options such as the number of indexer threads, cache serialization format.
-They have good default values. See [[file:./config.el][config.el]] and the backends’ respective homepages for more info.
+They have good default values. See =config.el= of the layer and the backends’ respective homepages for more info.
 - [[https://github.com/cquery-project/cquery/wiki/Emacs][Emacs section of =cquery= wiki]]
 - [[https://github.com/MaskRay/ccls/wiki/Emacs][Emacs section of =ccls= wiki]]
 

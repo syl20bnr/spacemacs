@@ -28,7 +28,7 @@ this file.
 
 * Configuration
 ** Linting
-To enable linting, install [[http://www.coffeelint.org/][CoffeeLint]] with the following command:
+To enable linting, install [[https://github.com/clutchski/coffeelint][CoffeeLint]] with the following command:
 
 #+BEGIN_SRC sh
   npm install -g coffeelint
