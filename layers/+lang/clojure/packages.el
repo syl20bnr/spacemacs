@@ -14,7 +14,6 @@
         cider
         cider-eval-sexp-fu
         (clj-refactor :toggle clojure-enable-clj-refactor)
-        clojure-cheatsheet
         clojure-mode
         (clojure-snippets :toggle (configuration-layer/layer-used-p 'auto-completion))
         company
@@ -75,7 +74,7 @@
 
           (spacemacs/set-leader-keys-for-major-mode m
             "ha" 'cider-apropos
-            "hc" 'clojure-cheatsheet
+            "hc" 'cider-cheatsheet
             "hg" 'cider-grimoire
             "hh" 'cider-doc
             "hj" 'cider-javadoc
@@ -252,19 +251,6 @@
               (spacemacs/set-leader-keys-for-major-mode m
                 (concat "r" binding) func))))))))
 
-(defun clojure/init-clojure-cheatsheet ()
-  (use-package clojure-cheatsheet
-    :defer t
-    :init
-    (progn
-      (setq sayid--key-binding-prefixes
-            '(("mhc" . "clojure-cheatsheet")))
-      (spacemacs|forall-clojure-modes m
-        (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
-                            m (car x) (cdr x)))
-              sayid--key-binding-prefixes)
-        (spacemacs/set-leader-keys-for-major-mode m
-          "hc" 'clojure-cheatsheet)))))
 
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
