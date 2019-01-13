@@ -87,8 +87,8 @@ See `spacemacs//fetch-docs-from-root'"
   (with-temp-buffer
     (org-mode)
     (insert "#+TITLE: Configuration layers\n")
-    (insert "\n* Table of Contents\n")
-    (org-set-tags-to '("TOC_4_gh" "noexport"))
+    (insert "\n")
+    (insert "* Table of Contents                     :TOC_4_gh:noexport:\n")
     ;; there is no layer at the root level for now
     ;; uncomment this line if any new layer is added at the root level
     ;; (insert "* General layers\n")
