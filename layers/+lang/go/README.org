@@ -273,7 +273,7 @@ You have a few options to ensure you always get up to date suggestions:
 
 ** Refactoring
 
-| Key Binding | Description                                                     |
+| Key binding | Description                                                     |
 |-------------+-----------------------------------------------------------------|
 | ~SPC m r d~ | Add comment stubs                                               |
 | ~SPC m r e~ | Extract code as new function                                    |
