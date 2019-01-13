@@ -30,6 +30,9 @@ This file containes the change log for the next major version of Spacemacs.
   (thanks to Dela Anthonio)
 - Move major specific error key bindings to ~SPC m E~ prefix (thanks to Sylvain
   Benner)
+**** C
+- CMake support has been extracted from the =c-c++= layer into the new =cmake=
+  layer.
 **** ESS
 ESS key bindings were re-organised in the following list (thanks to Guido
 Kraemer, Yi Liu, and Jack Kamm):
@@ -66,6 +69,9 @@ Kraemer, Yi Liu, and Jack Kamm):
 **** IPython notebook
 - Key bindings:
   - Change prefix from "ai" to "ay" (thanks to Swaroop C H)
+**** JavaScript
+- CoffeeScript support has been extracted from the =javascript= layer into the
+  new =coffeescript= layer.
 **** Markdown
 - Key bindings:
   - Removed ~SPC m i I~ for =markdown-insert-reference-image= (folded into ~SPC m i i~)
@@ -147,6 +153,7 @@ Benner and Paweł Siudak):
   - ~SPC m t u b~ for =spacemacs/org-trello-push-buffer=
   - ~SPC m t u c~ for =spacemacs/org-trello-push-card=
 **** Python
+- Hy support has been extracted from the =python= layer into the new =hy= layer.
 - Key bindings (thanks to Danny Freeman):
   - Changed ~SPC m s e~ to ~SPC m e e~ for =lisp-eval-last-sexp=
   - Changed ~SPC m s f~ to ~SPC m e f~ for =lisp-eval-defun=
@@ -184,6 +191,8 @@ Benner and Paweł Siudak):
   variable =dotspacemacs-mode-line-theme=.
 - The =nlinum= layer is deprecated on Emacs 26.1 and newer in favor of native
   line number support.
+- Support for multiple cursors is now encapsulated in the =multiple-cursors=
+  layer.
 *** Hot new feature
 - Improve themes support. Support are now handled like regular packages. The
   list of themes now supports =:location= keyword like in layer list. More
@@ -236,7 +245,7 @@ Benner and Paweł Siudak):
 - json (thanks to Sylvain Benner)
 - jsonnet (thanks to liztio and Robby O'Connor)
 - julia (thanks to Adam Beckmeyer and Guido Kraemer)
-- koltin (thanks to Shanavas M)
+- kotlin (thanks to Shanavas M)
 - pact (thanks to Colin Woodbury)
 - perl5 (thanks to Troy Hinckley, Jinseop Kim and Michael Rohleder)
 - perl6 (thanks to Bahtiar Gadimov)
@@ -266,7 +275,7 @@ Benner and Paweł Siudak):
 - transmission (thanks to Eugene Yaremenko)
 - cmake (thanks to Alexander Dalshov, Sylvain Benner and Jonas Jelten)
 - xclipboard (thanks to Charles Weill, Sylvain Benner, and Alex Palaistras)
-- debug (thanks to Troy Hinckley and Sylvain Benner)
+- debug (thanks to Hodge Shen, Troy Hinckley, and Sylvain Benner)
 - web-beautify (thanks to Sylvain Benner and Juuso Valkeejärvi)
 - tern (thanks to Sylvain Benner and Juuso Valkeejärvi)
 - emberjs (thanks to Robert O'Connor)
