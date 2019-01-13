@@ -986,6 +986,8 @@ Benner and Paweł Siudak):
 - Allow to send input to the repl via RET in normal mode (thanks to Dieter
   Komendera)
 - Enable clojure-mode refactorings without clj-refactor (thanks to yuhan0)
+- Remove =clojure-cheatsheet= as it is part of cider now (thanks to Eugene
+  Yaremenko)
 **** Coffeescript
 - Adds basic autocompletion (thanks to Codruț Constantin Gușoi)
 - Key bindings (thanks to Kalle Lindqvist):
