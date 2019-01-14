@@ -1131,6 +1131,7 @@ Benner and Paweł Siudak):
 - Reorganize key bindings ( refer to =ESS= section in Breaking Changes above )
 - Add =xref= integraton (thanks to Guido Kraemer)
 - Update ess-disable-underscore-assign for ESS 18.10 (thanks to Leonard Lausen)
+- Update layer with the latest upstream changes (thanks to Guido Kraemer)
 **** Evil snipe
 - Must always explicitly enable =evil-snipe-mode= even when
   =evil-snipe-override-mode= is enabled (thanks to Sylvain Benner)

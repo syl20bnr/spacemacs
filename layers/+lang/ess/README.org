@@ -24,7 +24,6 @@ This layer adds support for statistical programming languages to Spacemacs.
 - Syntax-checking via [[https://github.com/jimhester/lintr][lintr]]
 - Additional data viewer for R via [[https://github.com/myuhe/ess-R-data-view.el][ess-R-data-view]]
 - Support for Org-Babel
-- Better ’equals’ behavior via [[https://github.com/genovese/ess-smart-equals][ess-smart-equals]]
 - Showing of inline help for =R= constructs
 - Repl support via =R terminal=
 - Support for =S=, =SAS= and =R=
@@ -43,21 +42,11 @@ To do so start the R terminal and type below code.
 #+END_SRC
 
 * Options
-To turn off the automatic replacement of underscores by =<-=, set in your
-=~/.spacemacs=:
+Use a key-binding to insert =<-=:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '((ess :variables
-                                                         ess-disable-underscore-assign t)))
-#+END_SRC
-
-Alternatively you may enable =ess-smart-equals=, which also disables replacement
-of underscores by =<-=, and additionally replace the equals sign with =<-= when
-appropriate:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '((ess :variables
-                                                         ess-enable-smart-equals t)))
+                                                         ess-assign-key "\M--")))
 #+END_SRC
 
 * Key bindings
