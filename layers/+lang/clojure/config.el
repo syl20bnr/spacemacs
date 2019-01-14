@@ -25,3 +25,6 @@
 
 (defvar clojure-enable-clj-refactor nil
   "If non-nil, the clj-refactor is enabled.")
+
+(defvar clojure-enable-linters nil
+  "If non-nil, enable clojure linters.")
