@@ -1739,7 +1739,6 @@ Benner and Paweł Siudak):
   (thanks to Sylvain Benner)
 - Open =.jsx= files with =rjsx-mode= (thanks to Thomas de Beauchêne)
 - Fixes React imports when using web beautify. (thanks to Ismael)
-- Prefer eslint_d to eslint (thanks to Seong Yong-ju)
 **** Ruby
 - Add support for =org-babel= (thanks to Muneeb Shaikh)
 - Highlight debugger keywords (thanks to Alexander Berezovsky and Eivind Fonn)
