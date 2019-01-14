@@ -1083,6 +1083,7 @@ Other:
 **** Clojure
 - New packages:
   - Added =sayid= debugger (thanks to Daniel Manila and Arne Brasseur)
+  - Added =flycheck-clojure= linters (thanks to Eugene Yaremenko)
 - Improvements:
   - Store cider REPL history in spacemacs cache (thanks to Ryan Fowler)
   - Remove backtick from smartparens pairs for Clojure

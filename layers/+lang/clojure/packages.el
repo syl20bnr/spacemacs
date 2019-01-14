@@ -19,6 +19,8 @@
         company
         eldoc
         evil-cleverparens
+        flycheck
+        (flycheck-clojure :toggle clojure-enable-linters)
         ggtags
         counsel-gtags
         helm-gtags
@@ -162,6 +164,9 @@
       ;; add support for golden-ratio
       (with-eval-after-load 'golden-ratio
         (add-to-list 'golden-ratio-extra-commands 'cider-popup-buffer-quit-function))
+      ;; setup linters. NOTE: It must be done after both CIDER and Flycheck are loaded.
+      (when clojure-enable-linters
+        (with-eval-after-load 'flycheck (flycheck-clojure-setup)))
       ;; add support for evil
       (evil-set-initial-state 'cider-stacktrace-mode 'motion)
       (evil-set-initial-state 'cider-popup-buffer-mode 'motion)
@@ -412,3 +417,11 @@
 
 (defun clojure/post-init-parinfer ()
   (add-hook 'clojure-mode-hook 'parinfer-mode))
+
+(defun clojure/post-init-flycheck ()
+  (spacemacs|forall-clojure-modes m
+    (spacemacs/enable-flycheck m)))
+
+(defun clojure/init-flycheck-clojure ()
+  (use-package flycheck-clojure
+    :if (configuration-layer/package-usedp 'flycheck)))
