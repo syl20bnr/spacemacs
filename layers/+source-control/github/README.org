@@ -110,7 +110,7 @@ In a =magit-status= buffer (~SPC g s~):
 | Key binding | Description                                               |
 |-------------+-----------------------------------------------------------|
 | ~F y~       | pull pull-requests and issues for the current repository  |
-| ~F Y~       | pull all notifications for the current repository's forge |
+| ~F Y~       | pull all notifications for the current repository’s forge |
 | ~b Y~       | create branch from pull-request                           |
 | ~b y~       | create and check out branch from pull-request             |
 
