@@ -13,7 +13,6 @@
       '(
         ess
         ess-R-data-view
-        (ess-smart-equals :toggle ess-enable-smart-equals)
         golden-ratio
         org
         ))
@@ -57,7 +56,7 @@
       (add-hook 'inferior-ess-mode-hook
                 'spacemacs//ess-fix-read-only-inferior-ess-mode)
       (when (configuration-layer/package-used-p 'company)
-        (add-hook 'ess-mode-hook 'company-mode))))
+        (add-hook 'ess-r-mode-hook 'company-mode))))
 
   ;; R --------------------------------------------------------------------------
   (setq spacemacs/ess-config
@@ -68,13 +67,12 @@
                  ess-expression-offset 2
                  ess-nuke-trailing-whitespace-p t
                  ess-default-style 'DEFAULT)
-           (when ess-disable-underscore-assign
-             (setq ess-smart-S-assign-key nil))
+
 
            (define-key ess-doc-map "h" 'ess-display-help-on-object)
            (define-key ess-doc-map "p" 'ess-R-dv-pprint)
            (define-key ess-doc-map "t" 'ess-R-dv-ctable)
-           (dolist (mode '(ess-julia-mode ess-mode))
+           (dolist (mode '(ess-julia-mode ess-r-mode))
              (spacemacs/declare-prefix-for-mode mode "ms" "repl")
              (spacemacs/declare-prefix-for-mode mode "mh" "help")
              (spacemacs/declare-prefix-for-mode mode "mr" "extra")
@@ -130,7 +128,11 @@
                "d" 'ess-dev-map))
            (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
            (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
-           (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input)))
+           (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input)
+
+           (when ess-assign-key
+             (define-key ess-r-mode-map          ess-assign-key #'ess-insert-assign)
+             (define-key inferior-ess-r-mode-map ess-assign-key #'ess-insert-assign))))
 
   (eval-after-load "ess-r-mode" spacemacs/ess-config)
   (eval-after-load "ess-julia" spacemacs/ess-config)
@@ -142,14 +144,6 @@
   (evilified-state-evilify-map ess-help-mode-map))
 
 (defun ess/init-ess-R-data-view ())
-
-(defun ess/init-ess-smart-equals ()
-  (use-package ess-smart-equals
-    :defer t
-    :init
-    (progn
-      (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
-      (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))))
 
 (defun ess/pre-init-golden-ratio ()
   (spacemacs|use-package-add-hook golden-ratio
