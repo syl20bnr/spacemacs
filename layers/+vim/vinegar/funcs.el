@@ -99,7 +99,7 @@
   (setq dired-hide-details-hide-symlink-targets nil)
 
   ;; hide details by default
-  (dired-hide-details-mode t)
+  (if vinegar-dired-hide-details (dired-hide-details-mode t))
   ;; omit the .. in dired
   (dired-omit-mode t)
 
