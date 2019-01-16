@@ -275,9 +275,9 @@
  [_n_]^^    next hunk       [_b_] keep base          [_u_] undo
  [_N_/_p_]  prev hunk       [_m_] keep mine          [_r_] refine
  [_j_/_k_]  move up/down    [_a_] keep all           [_q_] quit
- ^^^^                       [_o_] keep other
- ^^^^                       [_c_] keep current
- ^^^^                       [_C_] combine with next"
+ ^^^^                       [_o_] keep other         [_=<_] diff base to mine
+ ^^^^                       [_c_] keep current       [_==_] diff mine to other
+ ^^^^                       [_C_] combine with next  [_=>_] diff base to other"
         :bindings
         ("n" smerge-next)
         ("p" smerge-prev)
@@ -292,7 +292,10 @@
         ("C" smerge-combine-with-next)
         ("r" smerge-refine)
         ("u" undo-tree-undo)
-        ("q" nil :exit t)))))
+        ("q" nil :exit t)
+        ("=<" smerge-diff-base-mine)
+        ("==" smerge-diff-mine-other)
+        ("=>" smerge-diff-base-other)))))
 
 (defun version-control/init-browse-at-remote ()
   (use-package browse-at-remote
