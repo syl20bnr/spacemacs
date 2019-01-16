@@ -22,21 +22,3 @@
   (if (configuration-layer/layer-used-p 'lsp)
       (lsp)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
-
-(defun spacemacs//php-setup-company ()
-  "Conditionally setup company based on backend."
-  (message "%s setting up company" php-backend)
-  (pcase php-backend
-    (`lsp (spacemacs//php-setup-lsp-company))))
-
-(defun spacemacs//php-setup-lsp-company ()
-  "Setup lsp auto-completion."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (spacemacs|add-company-backends
-          :backends company-lsp
-          :modes php-mode
-          :append-hooks nil
-          :call-hooks t)
-        (company-mode))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))

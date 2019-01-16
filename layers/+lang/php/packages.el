@@ -78,6 +78,3 @@
       (spacemacs|add-company-backends
         :modes php-mode
         :backends company-ac-php-backend))))
-
-(defun php/post-init-company ()
-  (add-hook 'php-mode-local-vars-hook #'spacemacs//php-setup-company))
