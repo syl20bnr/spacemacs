@@ -35,9 +35,6 @@
         :backends (company-shell company-shell-env company-fish-shell)
         :modes fish-mode))))
 
-(defun shell-scripts/post-init-company ()
-  (add-hook 'sh-mode-local-vars-hook #'spacemacs//shell-scripts-setup-company))
-
 (defun shell-scripts/post-init-flycheck ()
   (spacemacs/enable-flycheck 'sh-mode))
 
