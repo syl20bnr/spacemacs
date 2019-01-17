@@ -1318,15 +1318,17 @@ Compare them on count first,and in case of tie sort them alphabetically."
  "If current mode is not one of spacemacs-indent-sensitive-modes
  indent yanked text (with universal arg don't indent)."
  (evil-start-undo-step)
- ad-do-it
- (if (and (not (equal '(4) (ad-get-arg 0)))
-          (not (member major-mode spacemacs-indent-sensitive-modes))
-          (or (derived-mode-p 'prog-mode)
-              (member major-mode spacemacs-indent-sensitive-modes)))
-     (let ((transient-mark-mode nil)
-           (save-undo buffer-undo-list))
-       (spacemacs/yank-advised-indent-function (region-beginning)
-                                               (region-end))))
+ (let ((universal (equal '(4) (ad-get-arg 0))))
+   (if universal (ad-set-args 0 (ad-get-args 1)))
+   ad-do-it
+   (if (and (not universal)
+            (not (member major-mode spacemacs-indent-sensitive-modes))
+            (or (derived-mode-p 'prog-mode)
+                (member major-mode spacemacs-indent-sensitive-modes)))
+       (let ((transient-mark-mode nil)
+             (save-undo buffer-undo-list))
+         (spacemacs/yank-advised-indent-function (region-beginning)
+                                                 (region-end)))))
  (evil-end-undo-step))
 
 ;; find file functions in split
