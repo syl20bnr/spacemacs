@@ -282,15 +282,15 @@ to 'auto, tags may not be properly aligned. "
 
 ;;;;; diff
      `(diff-added             ((,class :background nil :foreground ,green)))
-     `(diff-changed           ((,class :background nil :foreground ,keyword)))
+     `(diff-changed           ((,class :background nil :foreground ,blue)))
      `(diff-header            ((,class :background ,cblk-ln-bg :foreground ,func)))
      `(diff-file-header       ((,class :background ,cblk-ln-bg :foreground ,cblk)))
      `(diff-indicator-added   ((,class :background nil :foreground ,green)))
-     `(diff-indicator-changed ((,class :background nil :foreground ,keyword)))
+     `(diff-indicator-changed ((,class :background nil :foreground ,blue)))
      `(diff-indicator-removed ((,class :background nil :foreground ,red)))
-     `(diff-refine-added      ((,class :background ,green :foreground ,bg4)))
-     `(diff-refine-changed    ((,class :background ,keyword :foreground ,bg4)))
-     `(diff-refine-removed    ((,class :background ,red :foreground ,bg4)))
+     `(diff-refine-added      ((,class :background ,green :foreground ,bg1)))
+     `(diff-refine-changed    ((,class :background ,blue :foreground ,bg1)))
+     `(diff-refine-removed    ((,class :background ,red :foreground ,bg1)))
      `(diff-removed           ((,class :background nil :foreground ,red)))
 
 ;;;;; diff-hl
@@ -310,18 +310,18 @@ to 'auto, tags may not be properly aligned. "
      `(dired-warning ((,class (:foreground ,war))))
 
 ;;;;; ediff
-     `(ediff-current-diff-A ((,class(:background ,red-bg-s :foreground ,red))))
+     `(ediff-current-diff-A ((,class(:background ,red-bg :foreground ,red))))
      `(ediff-current-diff-Ancestor ((,class(:background ,aqua-bg :foreground ,aqua))))
-     `(ediff-current-diff-B ((,class(:background ,green-bg-s :foreground ,green))))
+     `(ediff-current-diff-B ((,class(:background ,green-bg :foreground ,green))))
      `(ediff-current-diff-C ((,class(:background ,blue-bg :foreground ,blue))))
      `(ediff-even-diff-A ((,class(:background ,bg3))))
      `(ediff-even-diff-Ancestor ((,class(:background ,bg3))))
      `(ediff-even-diff-B ((,class(:background ,bg3))))
      `(ediff-even-diff-C ((,class(:background ,bg3))))
-     `(ediff-fine-diff-A ((,class(:background nil :inherit bold))))
+     `(ediff-fine-diff-A ((,class(:background ,red :foreground ,bg1))))
      `(ediff-fine-diff-Ancestor ((,class(:background nil :inherit bold))))
-     `(ediff-fine-diff-B ((,class(:background nil :inherit bold))))
-     `(ediff-fine-diff-C ((,class(:background nil :inherit bold))))
+     `(ediff-fine-diff-B ((,class(:background ,green :foreground ,bg1))))
+     `(ediff-fine-diff-C ((,class(:background ,blue :foreground ,bg1))))
      `(ediff-odd-diff-A ((,class(:background ,bg4))))
      `(ediff-odd-diff-Ancestor ((,class(:background ,bg4))))
      `(ediff-odd-diff-B ((,class(:background ,bg4))))
@@ -937,7 +937,27 @@ to 'auto, tags may not be properly aligned. "
 
     (custom-theme-set-variables
      theme-name
+
+;;;;; ansi-color-names
      `(ansi-color-names-vector [,bg4 ,red ,green ,yellow ,blue ,magenta ,cyan ,base])
+
+;;;;; hl-todo
+     `(hl-todo-keyword-faces '(("TODO"   . ,war)
+                               ("NEXT"   . ,war)
+                               ("THEM"   . ,aqua)
+                               ("PROG"   . ,blue)
+                               ("OKAY"   . ,blue)
+                               ("DONT"   . ,red)
+                               ("FAIL"   . ,red)
+                               ("DONE"   . ,suc)
+                               ("NOTE"   . ,yellow)
+                               ("KLUDGE" . ,yellow)
+                               ("HACK"   . ,yellow)
+                               ("TEMP"   . ,yellow)
+                               ("FIXME"  . ,war)
+                               ("XXX"    . ,war)
+                               ("XXXX"   . ,war)
+                               ("???"    . ,war)))
 
 ;;;;; pdf-tools
     `(pdf-view-midnight-colors '(,base . ,bg1)))
