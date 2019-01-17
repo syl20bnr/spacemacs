@@ -12,11 +12,16 @@ Dependency installation script for [[https://github.com/syl20bnr/spacemacs/blob/
 - Go support for Docker
 
 * List of installed software:
-1. [[https://golang.org/][Go 1.8]]
-2. [[https://github.com/go-check/check/][go-check]]
+1. [[https://golang.org/][Go 1.11.4]]
+2. [[https://github.com/go-check/check/][check]]
 3. [[https://github.com/nsf/gocode][gocode]]
 4. [[https://github.com/rogpeppe/godef][godef]]
-5. [[https://godoc.org/golang.org/x/tools/cmd/guru][go-guru]]
+5. [[https://godoc.org/golang.org/x/tools/cmd/guru][guru]]
 6. [[https://godoc.org/golang.org/x/tools/cmd/gorename][gorename]]
 7. [[https://godoc.org/golang.org/x/tools/cmd/goimports][goimports]]
 8. [[https://github.com/alecthomas/gometalinter][gometalinter]] if =go-use-gometalinter= is =t=
+9. [[https://github.com/zmb3/gogetdoc][gogetdoc]]
+10. [[https://github.com/cweill/gotests/][gotests]] 
+11. [[https://github.com/haya14busa/gopkgs][gopkgs]]
+12. [[https://github.com/davidrjenni/reftools/tree/master/cmd/fillstruct][fillstruct]]
+13. [[https://github.com/josharian/impl][impl]] 
