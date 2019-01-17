@@ -159,7 +159,7 @@ Here are the often used bindings inside a =status buffer=:
 | ~b b~       | checkout a branch                                                  |
 | ~b c~       | create a branch                                                    |
 | ~f f~       | fetch changes                                                      |
-| ~F (r) u~   | pull tracked branch and rebase                                     |
+| ~F (r) u~   | pull tracked branch and rebase (see note below)                    |
 | ~gr~        | refresh                                                            |
 | ~j~         | goto next magit section                                            |
 | ~C-j~       | next visual line                                                   |
@@ -182,6 +182,9 @@ Here are the often used bindings inside a =status buffer=:
 | ~U~         | unstage all staged files                                           |
 | ~v or V~    | select multiple lines                                              |
 | ~z z~       | stash changes                                                      |
+
+*Note:* =GitHub= layer users will have the key bindings to pull commits on ~p~
+instead of ~F~ which is taken by the =forge= package to interact with GitHub.
 
 ** Staging lines
 Magit allows you to stage specific lines by selecting them in a diff and hitting

@@ -59,6 +59,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   (thanks to Dela Anthonio)
 - Move major specific error key bindings to ~SPC m E~ prefix (thanks to Sylvain
   Benner)
+- For Evil style users using the GitHub layer, the key-binding to pull commits
+  is now on ~p~ instead of ~F~ which is taken by the new package =forge=
 **** C-C++
 - CMake support has been extracted from the =c-c++= layer into the new =cmake=
   layer.
@@ -1141,11 +1143,13 @@ Benner and Paweł Siudak):
   Buliga)
 **** GitHub
 - Packages:
- - Add new packages =forge= (thanks to Miciah Dashiel Butler Masters)
- - Add package =magithub=, it is enabled by default in offline mode.
- - Remove package =github-browse-file= which has been replaced by
-  =browse-at-remote= in =version-control= layer
+  - Add new packages =forge= (thanks to Miciah Dashiel Butler Masters)
+  - Add package =magithub=, it is enabled by default in offline mode.
+  - Remove package =github-browse-file= which has been replaced by
+   =browse-at-remote= in =version-control= layer
 - Key bindings:
+  - For Evil style users, the key-binding to pull commits is now on ~p~ instead
+    of ~F~ which is taken by the new package =forge=
   - Add ~g r~ evilified binding to gist-list-mode (thanks to Jean-Sebastien A.
     Beaudry)
   - Fix ~#~ key binding in =magit-status= for the =magit-gh-pulls= dispatch
