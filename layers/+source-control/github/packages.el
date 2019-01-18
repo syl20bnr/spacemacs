@@ -28,8 +28,18 @@
 (defun github/init-forge ()
   (use-package forge
     :after magit
-    :init (setq forge-database-file (concat spacemacs-cache-directory
-                                            "forge-database.sqlite"))))
+    :init
+    (progn
+      (setq forge-database-file (concat spacemacs-cache-directory
+                                        "forge-database.sqlite"))
+      (spacemacs/set-leader-keys-for-major-mode 'forge-topic-mode
+        "c" 'forge-create-post
+        "e" 'forge-edit-post)
+      (spacemacs/set-leader-keys-for-major-mode 'forge-post-mode
+        dotspacemacs-major-mode-leader-key 'forge-post-submit
+        "c" 'forge-post-submit
+        "k" 'forge-post-cancel
+        "a" 'forge-post-cancel))))
 
 (defun github/init-gist ()
   (use-package gist
