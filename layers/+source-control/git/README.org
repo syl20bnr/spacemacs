@@ -18,6 +18,7 @@
   - [[#magit][Magit]]
   - [[#staging-lines][Staging lines]]
   - [[#commit-message-editing-buffer][Commit message editing buffer]]
+  - [[#log-selection-buffer][Log selection buffer]]
   - [[#interactive-rebase-buffer][Interactive rebase buffer]]
   - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
   - [[#git-flow-1][Git-Flow]]
@@ -183,16 +184,25 @@ intended. To work around this, you can use =v= instead (since Magit only stages
 whole lines, in any case).
 
 ** Commit message editing buffer
-In a commit message buffer press ~​,​c~ (if =dotspacemacs-major-mode-leader-key= is ~​,​~)
-or ~C-c C-c~ to commit the changes with the entered message. Pressing ~​,​a~ or ~C-c C-k~
-will discard the commit message.
+In a commit message buffer the following key bindings are active:
 
-| Key binding | Description |
-|-------------+-------------|
-| ~h~         | go left     |
-| ~j~         | go down     |
-| ~k~         | go up       |
-| ~l~         | go right    |
+| Key binding            | Description                                               |
+|------------------------+-----------------------------------------------------------|
+| ~SPC m c~ or ~SPC m ,~ | commit changes with the entered message                   |
+| ~SPC m a~ or ~SPC m k~ | discard message and abort the commit                      |
+| ~g j~ or ~M-n~         | cycle through history to the previous commit message      |
+| ~g k~ or ~M-p~         | save current commit message and cycle to the next message |
+
+In addition, regular commands for saving and killing a buffer such as ~:wq~ and ~ZZ~ can be used to commit changes.
+
+** Log selection buffer
+A log selection buffer is presented as an interactive way of selecting a recent commit that is reachable from HEAD. such as when selecting the beginning of a rebase and when selecting a commit to be squashed into.
+
+| Key binding            | Description                                 |
+|------------------------+---------------------------------------------|
+| ~SPC m c~ or ~SPC m ,~ | select the commit at point and act on it    |
+| ~SPC m a~ or ~SPC m k~ | abort selecting and don't act on any commit |
+
 
 ** Interactive rebase buffer
 
