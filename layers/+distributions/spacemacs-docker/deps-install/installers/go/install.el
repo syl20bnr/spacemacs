@@ -17,7 +17,7 @@
 (let ((go-version "1.11.4"))
   (with-build-dir (tgp "/tmp/gopath")
     (with-installed (tar gzip wget)
-      ($ `("wget https://storage.googleapis.com/golang/go%s.linux-amd64.tar.gz"
+      ($ `("wget -q https://storage.googleapis.com/golang/go%s.linux-amd64.tar.gz"
            ,go-version)
          `("tar -xf go%s.linux-amd64.tar.gz"
            ,go-version)

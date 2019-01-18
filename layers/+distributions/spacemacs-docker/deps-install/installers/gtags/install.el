@@ -29,7 +29,7 @@
          "make install"))
     (with-build-dir (tgtags "/tmp/gtags/")
       (! "Building gtags...")
-      ($ `("curl http://tamacom.com/global/global-%s.tar.gz | tar xvz"
+      ($ `("curl -s https://www.tamacom.com/global/global-%s.tar.gz | tar xz"
            ,global-version))
       (cd `("%sglobal-%s" ,tgtags ,global-version))
       ($ "cp ./gtags.conf /etc/gtags.conf"
