@@ -46,7 +46,11 @@ RUN cp ${UHOME}/.emacs.d/core/templates/.spacemacs.template ${UHOME}/ \
     && asEnvUser emacs -batch -u ${UNAME} -kill \
     && chmod ug+rw -R ${UHOME}
 
-# test Spacemacs
+# Apply vars from  /etc/environment
+RUN echo 'for line in $( cat /etc/environment ); do export $line; done' \
+    >> /etc/bash.bashrc
+
+# Test Spacemacs
 RUN asEnvUser make -C ${UHOME}/.emacs.d/tests/core/ test \
     && cd ${UHOME}/.emacs.d \
     && printf "SPACEMACS REVISION: %s\n" "$(git rev-parse --verify HEAD)"
