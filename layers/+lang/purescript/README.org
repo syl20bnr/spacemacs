@@ -8,6 +8,7 @@
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#add-import-on-completion][Add import on completion]]
+  - [[#node-modules][Node Modules]]
   - [[#error-popup][Error popup]]
 - [[#key-bindings][Key bindings]]
   - [[#purescript][Purescript]]
