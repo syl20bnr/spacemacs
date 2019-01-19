@@ -12,13 +12,6 @@
 (defconst spacemacs-docker-env-fp
   "/etc/environment")
 
-;; Export global configs.
-(with-temp-buffer
-  (insert-file-contents spacemacs-docker-env-fp)
-  (goto-char (point-min))
-  (while (re-search-forward "\\(.*\\)=\"\\(.*\\)\"" nil t)
-    (setenv (match-string 1) (match-string 2))))
-
 (defconst spacemacs-docker-temp-deps-dir
   (format "%sspacemacs-deps-tmp/"
           temporary-file-directory))
