@@ -7,28 +7,28 @@ When a release will be drafted, the notes will be copied at the top of
 the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 
 #+BEGIN_EXAMPLE
-* Release 0.400.x
-** 0.400.0
-*** Breaking Changes
-**** Major
-**** Key bindings
-**** Layers
-***** Layer 1
-***** Layer 2
-***** Layer 3
-*** Hot new features
-*** Dotfile changes
-*** Core changes
-*** Distribution changes
-*** Layers
-**** New layers
-**** Layer 1
-**** Layer 2
-**** Layer 3
-*** Various improvements
-**** Code syle and organization
-**** Documentation and website
-**** Testing and CI
+ * Release 0.400.x
+ ** 0.400.0
+ *** Breaking Changes
+ **** Major
+ **** Key bindings
+ **** Layers
+ ***** Layer 1
+ ***** Layer 2
+ ***** Layer 3
+ *** Hot new features
+ *** Dotfile changes
+ *** Core changes
+ *** Distribution changes
+ *** Layers
+ **** New layers
+ **** Layer 1
+ **** Layer 2
+ **** Layer 3
+ *** Various improvements
+ **** Code syle and organization
+ **** Documentation and website
+ **** Testing and CI
 #+END_EXAMPLE
 
 * Release 0.300.x
@@ -1486,6 +1486,7 @@ Benner and Paweł Siudak):
 - Disable Spacemacs paste transient state when pasting to avoid pasting issue
   when there are more than one cursor (thanks to braham-snyder)
 **** Neotree
+- Make neotree an optional instead of a default layer
 - Move neotree to its own layer in new +filetree folder (thanks to Sylvain
   Benner)
 - Add screenshot in neotree layer (thanks to duianto)
@@ -1928,6 +1929,8 @@ Benner and Paweł Siudak):
 - Prevent =tmux-command= at GUI mode (thanks to Isaac Zeng)
 - Fix regression in tmux by setting keybindings using =use-package= (thanks to
   Aaron Jensen)
+**** Treemacs
+- =Treemacs= replaces =NeoTree= as the default sidebar
 **** Typescript
 - Call tsfmt with extension of current buffer for TSX formatting (thanks to
   Victor Andrée)

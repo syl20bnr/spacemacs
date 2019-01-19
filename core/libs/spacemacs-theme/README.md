@@ -44,6 +44,7 @@ Some of the supported modes are:
 * magit
 * mu4e
 * neotree
+* treemacs
 * org
 * and others :) more are coming!
 

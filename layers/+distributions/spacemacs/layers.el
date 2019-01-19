@@ -11,7 +11,7 @@
 
 (configuration-layer/declare-layers '(
                                       helm
-                                      neotree
+                                      treemacs
                                       spacemacs-base
                                       spacemacs-completion
                                       spacemacs-layouts
