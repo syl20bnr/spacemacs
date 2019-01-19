@@ -16,8 +16,7 @@
   - [[#inside-treemacs][Inside Treemacs]]
 
 * Description
-This layer brings in [[https://github.com/Alexander-Miller/treemacs][Treemacs]] to replace Neotree as the default file and project
-explorer:
+This layer sets up a file navigation and project explorer side-window via [[https://github.com/Alexander-Miller/treemacs][Treemacs]].
 
 ** Features:
 An detailed overview over Treemacs’ available features is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][its

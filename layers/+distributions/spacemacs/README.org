@@ -11,7 +11,7 @@ This is the default distribution for Spacemacs.
 - Easy access to the Spacemacs experience by adding below auxiliary layers
   to the base distribution.
   - helm
-  - neotree
+  - treemacs
   - spacemacs-completion
   - spacemacs-layouts
   - spacemacs-editing

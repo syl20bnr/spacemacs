@@ -17,7 +17,7 @@
   - [[#other-neotree-key-bindings][Other NeoTree key bindings]]
 
 * Description
-This layer setups a file tree navigator buffer using Neotree.
+This layer setups a file tree navigator buffer using Neotree (replacing the Treemacs layer).
 
 ** Features:
 - intuitive evil key bindings integration
