@@ -11,6 +11,7 @@
 
 (setq purescript-packages
       '(
+        add-node-modules-path
         company
         flycheck
         purescript-mode
@@ -18,6 +19,9 @@
         psc-ide
         popwin
         ))
+
+(defun purescript/post-init-add-node-modules-path ()
+  (add-hook 'purescript-mode-hook 'add-node-modules-path))
 
 (defun purescript/post-init-company ()
   (when (configuration-layer/package-used-p 'psc-ide)
