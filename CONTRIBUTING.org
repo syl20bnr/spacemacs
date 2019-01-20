@@ -270,11 +270,10 @@ changes, your review is very valuable in these cases as well!
 ** Using Magit to quickly test PRs
 It is possible to manage PRs directly inside the Magit status buffer ~SPC g s~.
 First add the =github= layer to your dotfile which will pull the package
-=forge=. Once installed you need to set it up with a [[GitHub personal access
-token][https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started]] after
-which you can execute ~M-x forge-pull~. It will fetch all the PRs which may take
-a few seconds as we have lot of PRs. Note also that all your Magit actions will
-get some additional delay due to the refresh of the PRs list.
+=forge=. Once installed you need to set it up with a [[https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started][GitHub personal access
+token]] after which you can execute ~M-x forge-pull~. It will fetch all the PRs
+which may take a few seconds as we have lot of PRs. Note also that all your
+Magit actions will get some additional delay due to the refresh of the PRs list.
 
 Now, from the magit status buffer you can:
 - checkout a PR with ~b y~ and searching it by name or ID
