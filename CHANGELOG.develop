@@ -1968,6 +1968,7 @@ Benner and Paweł Siudak):
 - Add =prettier= to error msg of =spacemacs/typescript-format= (thanks to Matt
   Kramer)
 - Fix jump handling with multiple backends (thanks to Aaron Jensen)
+- Fix =typescript/jump-to-type-def= for npm modules (thanks to Jam Risser)
 **** Vagrant
 - Key bindings:
   - move key bindings prefix to ~SPC a V~ (thanks to Thomas de Beauchêne)
