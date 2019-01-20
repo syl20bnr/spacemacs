@@ -284,8 +284,8 @@ configure =magit-repository-directories= to target Emacs to directories to look
 into.
 
 #+BEGIN_SRC emacs-lisp
-(setq magit-repository-directories
-      '(("~/Development/" . 2) ("~/src/" . 2)))
+  (setq magit-repository-directories
+        '(("~/Development/" . 2) ("~/src/" . 2)))
 #+END_SRC
 
 Where each element has the form =(DIRECTORY . DEPTH)=, when DEPTH is ~0~ - then
