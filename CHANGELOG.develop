@@ -1996,11 +1996,14 @@ Benner and Paweł Siudak):
     - ~SPC g v v~ to do the next logical VC operation (=vc-next-action=)
     - ~SPC g v I~ to ignore file (=vc-ignore=)
     - ~SPC g v r~ to  resolve conflicts in file
-  - Define key bindings with leader key for vim editing style in =diff-mode= (thanks to miyabinomuratic)
+  - Define key bindings with leader key for vim editing style in =diff-mode=
+    (thanks to miyabinomuratic)
 - New packages:
   - =browse-at-remote= which replaces =github-browse-file=
    (thanks Eugene Yaremenko)
 - Avoid loading all the diff packages (thanks to Sylvain Benner)
+- Fixes error on =diff-hl-margin-mode= function being nil during startup (thanks
+  to Voleking)
 **** Ycmd
 - Search for =compile_commands.json= in build sub-directory
   (thanks to Amos Bird and Eivind Fonn)

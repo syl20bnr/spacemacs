@@ -135,8 +135,7 @@
     (progn
       (spacemacs|do-after-display-system-init
        (setq diff-hl-side (if (eq version-control-diff-side 'left)
-                              'left 'right))
-       (diff-hl-margin-mode -1)))))
+                              'left 'right))))))
 
 (defun version-control/post-init-evil-unimpaired ()
   (define-key evil-normal-state-map (kbd "[ h") 'spacemacs/vcs-previous-hunk)
