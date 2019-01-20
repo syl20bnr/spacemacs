@@ -42,7 +42,7 @@ To do so start the R terminal and type below code.
 #+END_SRC
 
 * Options
-Use a key-binding to insert =<-=:
+Use a key binding to insert =<-=:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '((ess :variables
