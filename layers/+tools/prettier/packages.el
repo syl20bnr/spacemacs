@@ -17,4 +17,4 @@
     :init
     (dolist (mode spacemacs--prettier-modes)
       (spacemacs/set-leader-keys-for-major-mode mode
-        "=" #'prettier-js))))
+        "==" #'prettier-js))))

@@ -27,4 +27,4 @@ To install =js-beautify= globally:
 
 | Key binding | Description                       |
 |-------------+-----------------------------------|
-| ~SPC m =~   | beautify code in supported layers |
+| ~SPC m = =~ | beautify code in supported layers |
