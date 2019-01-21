@@ -4,7 +4,7 @@
 
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#features][Features]]
+  - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
 
@@ -12,7 +12,7 @@
 This layer adds support for the [[https://dhall-lang.org/][Dhall Configuration Language]], a non-repetitive
 alternate to YAML.
 
-** Features
+** Features:
 - Syntax highlighting for ~.dhall~ source files
 - Automatic buffer reformatting on save (configurable)
 - Type error display in side-buffer
