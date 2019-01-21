@@ -25,4 +25,4 @@ To install =prettier= globally:
 
 | Key binding | Description                       |
 |-------------+-----------------------------------|
-| ~SPC m =~   | format buffer in supported layers |
+| ~SPC m = =~ | format buffer in supported layers |
