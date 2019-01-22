@@ -28,6 +28,7 @@
   "Conditionally setup haskell backend."
   (pcase haskell-completion-backend
     (`ghci (spacemacs-haskell//setup-ghci))
+    (`lsp (spacemacs-haskell//setup-lsp))
     (`intero (spacemacs-haskell//setup-intero))
     (`dante (spacemacs-haskell//setup-dante))
     (`ghc-mod (spacemacs-haskell//setup-ghc-mod))))
@@ -36,6 +37,7 @@
   "Conditionally setup haskell backend."
   (pcase haskell-completion-backend
     (`ghci (spacemacs-haskell//setup-ghci-company))
+    (`lsp (spacemacs-haskell//setup-lsp-company))
     (`intero (spacemacs-haskell//setup-intero-company))
     (`dante (spacemacs-haskell//setup-dante-company))
     (`ghc-mod (spacemacs-haskell//setup-ghc-mod-company))))
@@ -49,6 +51,31 @@
   (spacemacs|add-company-backends
     :backends (company-ghci company-dabbrev-code company-yasnippet)
     :modes haskell-mode))
+
+;; LSP functions
+
+(defun spacemacs-haskell//setup-lsp ()
+  "Setup lsp backend"
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        ;; The functionality we require from this is not an autoload, but rather some
+        ;; top-level code that registers a LSP server type. So we need to load it
+        ;; directly and can't rely on it being autoloaded.
+        (require 'lsp-haskell)
+        (lsp))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs-haskell//setup-lsp-company ()
+  "Setup lsp auto-completion"
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (spacemacs|add-company-backends
+          :backends company-lsp
+          :modes haskell-mode
+          :append-hooks nil
+          :call-hooks t)
+        (company-mode))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 ;; ghc-mod functions
 

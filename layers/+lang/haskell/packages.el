@@ -28,6 +28,8 @@
         ;; dante completion backend
         (dante :requires company)
 
+        lsp-haskell
+
         flycheck
         (flycheck-haskell :requires flycheck)
         ggtags
@@ -39,6 +41,10 @@
         hindent
         hlint-refactor
         ))
+
+(defun haskell/init-lsp-haskell()
+  (use-package lsp-haskell
+    :defer t))
 
 (defun haskell/init-cmm-mode ()
   (use-package cmm-mode

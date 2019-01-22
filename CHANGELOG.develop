@@ -1357,6 +1357,7 @@ Other:
     (thanks to Magnus Therning)
 - Fixed jump handlers conflict for haskell and intero (thanks to CthulhuDen)
 - Fix haskell jump handler for dante (thanks to cjay)
+- Enable LSP mode using HIE.
 **** Helm
 - Limited =ripgrep= results to 512 columns by default, and added
   =spacemacs-helm-rg-max-column-number= layer variable to configure the above
