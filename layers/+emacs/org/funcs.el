@@ -67,3 +67,8 @@
 (defun spacemacs/org-trello-push-card ()
   (interactive)
   (org-trello-sync-card))
+
+(defun spacemacs/org-clock-jump-to-current-clock ()
+  (interactive)
+  (autoload #'org-clock-jump-to-current-clock "org-clock")
+  (org-clock-jump-to-current-clock))

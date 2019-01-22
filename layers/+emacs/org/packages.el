@@ -194,7 +194,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "Cg" 'org-clock-goto
         "Ci" 'org-clock-in
         "CI" 'org-clock-in-last
-        "Cj" 'org-clock-jump-to-current-clock
+        "Cj" 'spacemacs/org-clock-jump-to-current-clock
         "Co" 'org-clock-out
         "CR" 'org-clock-report
         "Cr" 'org-resolve-clocks
@@ -351,7 +351,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "aoCg" 'org-clock-goto
         "aoCi" 'org-clock-in
         "aoCI" 'org-clock-in-last
-        "aoCj" 'org-clock-jump-to-current-clock
+        "aoCj" 'spacemacs/org-clock-jump-to-current-clock
         "aoCo" 'org-clock-out
         "aoCr" 'org-resolve-clocks
 
