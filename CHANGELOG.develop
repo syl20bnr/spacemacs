@@ -1761,6 +1761,7 @@ Other:
 - Load org-projectile lazily, after org-capture (thanks to Aaron Jensen)
 - Use org-verbatim, not org-verbose (thanks to Swaroop C H)
 - Fixed =org-projectile/goto-todos= (thanks to Aaron Jensen)
+- Fixed =org-clock-resolve-clock= keybinding (thanks to Francesc Elies Henar)
 - Enabled =org-src-tab-acts-natively= (thanks to Sylvain Benner)
 - Fixed =org-default-notes-file= precedence (thanks to Troy Hinckley and bmag)
 - Added =ox-hugo= (thanks to Kaushal Modi)

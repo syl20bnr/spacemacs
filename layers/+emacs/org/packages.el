@@ -146,6 +146,7 @@
           "a" 'org-edit-src-abort
           "k" 'org-edit-src-abort))
 
+      (autoload #'org-clock-jump-to-current-clock "org-clock")
       (add-hook 'org-mode-hook 'dotspacemacs//prettify-spacemacs-docs)
 
       (let ((dir (configuration-layer/get-layer-local-dir 'org)))
@@ -194,7 +195,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "Cg" 'org-clock-goto
         "Ci" 'org-clock-in
         "CI" 'org-clock-in-last
-        "Cj" 'org-clock-jump-to-current-clock
+        "Cj" 'spacemacs/org-clock-jump-to-current-clock
         "Co" 'org-clock-out
         "CR" 'org-clock-report
         "Cr" 'org-resolve-clocks
@@ -351,7 +352,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "aoCg" 'org-clock-goto
         "aoCi" 'org-clock-in
         "aoCI" 'org-clock-in-last
-        "aoCj" 'org-clock-jump-to-current-clock
+        "aoCj" 'spacemacs/org-clock-jump-to-current-clock
         "aoCo" 'org-clock-out
         "aoCr" 'org-resolve-clocks
 
@@ -442,12 +443,12 @@ Will work on both org-mode and any mode that accepts plain html."
         "it" 'org-agenda-set-tags
         "sr" 'org-agenda-refile)
       (spacemacs|define-transient-state org-agenda
-      :title "Org-agenda transient state"
-      :on-enter (setq which-key-inhibit t)
-      :on-exit (setq which-key-inhibit nil)
-      :foreign-keys run
-      :doc
-      "
+        :title "Org-agenda transient state"
+        :on-enter (setq which-key-inhibit t)
+        :on-exit (setq which-key-inhibit nil)
+        :foreign-keys run
+        :doc
+        "
 Headline^^            Visit entry^^               Filter^^                    Date^^                  Toggle mode^^        View^^             Clock^^        Other^^
 --------^^---------   -----------^^------------   ------^^-----------------   ----^^-------------     -----------^^------  ----^^---------    -----^^------  -----^^-----------
 [_ht_] set status     [_SPC_] in other window     [_ft_] by tag               [_ds_] schedule         [_tf_] follow        [_vd_] day         [_cI_] in      [_gr_] reload
@@ -460,71 +461,71 @@ Headline^^            Visit entry^^               Filter^^                    Da
 ^^                    ^^                          ^^                          ^^                      ^^                   [_vr_] reset       ^^             ^^
 [_q_] quit
 "
-      :bindings
-      ;; Entry
-      ("h:" org-agenda-set-tags)
-      ("hA" org-agenda-archive-default)
-      ("hk" org-agenda-kill)
-      ("hp" org-agenda-priority)
-      ("hr" org-agenda-refile)
-      ("ht" org-agenda-todo)
+        :bindings
+        ;; Entry
+        ("h:" org-agenda-set-tags)
+        ("hA" org-agenda-archive-default)
+        ("hk" org-agenda-kill)
+        ("hp" org-agenda-priority)
+        ("hr" org-agenda-refile)
+        ("ht" org-agenda-todo)
 
-      ;; Visit entry
-      ("SPC" org-agenda-show-and-scroll-up)
-      ("<tab>" org-agenda-goto :exit t)
-      ("TAB" org-agenda-goto :exit t)
-      ("RET" org-agenda-switch-to :exit t)
-      ("o"   link-hint-open-link :exit t)
+        ;; Visit entry
+        ("SPC" org-agenda-show-and-scroll-up)
+        ("<tab>" org-agenda-goto :exit t)
+        ("TAB" org-agenda-goto :exit t)
+        ("RET" org-agenda-switch-to :exit t)
+        ("o"   link-hint-open-link :exit t)
 
-      ;; Date
-      ("ds" org-agenda-schedule)
-      ("dS" (lambda () (interactive)
-             (let ((current-prefix-arg '(4)))
+        ;; Date
+        ("ds" org-agenda-schedule)
+        ("dS" (lambda () (interactive)
+                (let ((current-prefix-arg '(4)))
                   (call-interactively 'org-agenda-schedule))))
-      ("dd" org-agenda-deadline)
-      ("dt" org-agenda-date-prompt)
-      ("dD" (lambda () (interactive)
-             (let ((current-prefix-arg '(4)))
+        ("dd" org-agenda-deadline)
+        ("dt" org-agenda-date-prompt)
+        ("dD" (lambda () (interactive)
+                (let ((current-prefix-arg '(4)))
                   (call-interactively 'org-agenda-deadline))))
-      ("+" org-agenda-do-date-later)
-      ("-" org-agenda-do-date-earlier)
+        ("+" org-agenda-do-date-later)
+        ("-" org-agenda-do-date-earlier)
 
-      ;; View
-      ("vd" org-agenda-day-view)
-      ("vw" org-agenda-week-view)
-      ("vt" org-agenda-fortnight-view)
-      ("vm" org-agenda-month-view)
-      ("vy" org-agenda-year-view)
-      ("vn" org-agenda-later)
-      ("vp" org-agenda-earlier)
-      ("vr" org-agenda-reset-view)
+        ;; View
+        ("vd" org-agenda-day-view)
+        ("vw" org-agenda-week-view)
+        ("vt" org-agenda-fortnight-view)
+        ("vm" org-agenda-month-view)
+        ("vy" org-agenda-year-view)
+        ("vn" org-agenda-later)
+        ("vp" org-agenda-earlier)
+        ("vr" org-agenda-reset-view)
 
-      ;; Toggle mode
-      ("tf" org-agenda-follow-mode)
-      ("tl" org-agenda-log-mode)
-      ("ta" org-agenda-archives-mode)
-      ("tr" org-agenda-clockreport-mode)
-      ("td" org-agenda-toggle-diary)
+        ;; Toggle mode
+        ("tf" org-agenda-follow-mode)
+        ("tl" org-agenda-log-mode)
+        ("ta" org-agenda-archives-mode)
+        ("tr" org-agenda-clockreport-mode)
+        ("td" org-agenda-toggle-diary)
 
-      ;; Filter
-      ("ft" org-agenda-filter-by-tag)
-      ("fr" org-agenda-filter-by-tag-refine)
-      ("fc" org-agenda-filter-by-category)
-      ("fh" org-agenda-filter-by-top-headline)
-      ("fx" org-agenda-filter-by-regexp)
-      ("fd" org-agenda-filter-remove-all)
+        ;; Filter
+        ("ft" org-agenda-filter-by-tag)
+        ("fr" org-agenda-filter-by-tag-refine)
+        ("fc" org-agenda-filter-by-category)
+        ("fh" org-agenda-filter-by-top-headline)
+        ("fx" org-agenda-filter-by-regexp)
+        ("fd" org-agenda-filter-remove-all)
 
-      ;; Clock
-      ("cI" org-agenda-clock-in :exit t)
-      ("cj" org-agenda-clock-goto :exit t)
-      ("cO" org-agenda-clock-out)
-      ("cq" org-agenda-clock-cancel)
+        ;; Clock
+        ("cI" org-agenda-clock-in :exit t)
+        ("cj" org-agenda-clock-goto :exit t)
+        ("cO" org-agenda-clock-out)
+        ("cq" org-agenda-clock-cancel)
 
-      ;; Other
-      ("q" nil :exit t)
-      ("gr" org-agenda-redo)
-      ("." org-agenda-goto-today)
-      ("gd" org-agenda-goto-date)))
+        ;; Other
+        ("q" nil :exit t)
+        ("gr" org-agenda-redo)
+        ("." org-agenda-goto-today)
+        ("gd" org-agenda-goto-date)))
     :config
     (evilified-state-evilify-map org-agenda-mode-map
       :mode org-agenda-mode
@@ -727,4 +728,3 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :defer t
     :init
     (add-hook 'org-mode-hook 'org-sticky-header-mode)))
-
