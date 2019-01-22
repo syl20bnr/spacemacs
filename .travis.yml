@@ -15,9 +15,17 @@ env:
   - secure: "M8NF1Uw7VGkLdNmWiUF4T+VOJXwN8KCKVQb45/BWVpGm88Rcfom/9bxRTUme8VYuzIavph32QF+P9KyhX8aj2p2FMItNnxiEySzap5UrLrNiwB6ZxbQglMJj0yMQKASynNBai9KKI7mYlsM5jRpFJ9OSgj7Ko00RIFpO3EpJ+kE="
   - BOT_NAME=emacspace
   - BOT_EMAIL=emacspace@gmail.com
+  - SPACEMACS_REPO_SLUG="syl20bnr/spacemacs"
 before_script:
-- docker pull jare/spacetools:latest
-script: ".travisci/test.sh"
+  - docker pull jare/spacetools:latest
+script:
+  - |
+    cd /
+    rm -rf "${TRAVIS_BUILD_DIR}"
+    git clone "https://github.com/${SPACEMACS_REPO_SLUG}" \
+        -b "${TRAVIS_BRANCH}" \
+        "${TRAVIS_BUILD_DIR}"
+    cd "${TRAVIS_BUILD_DIR}"
 before_deploy:
   - >
     if ! [ "$BEFORE_DEPLOY_RUN" ]; then
@@ -29,11 +37,11 @@ deploy:
     skip_cleanup: true
     script: ".travisci/pub_org.sh"
     on:
-      all_branches: true
-      condition: $TRAVIS_REPO_SLUG = "syl20bnr/spacemacs"
+      branch: develop
+      condition: $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG
   - provider: script
     skip_cleanup: true
     script: ".travisci/pub_html.sh"
     on:
       all_branches: true
-      condition: $TRAVIS_REPO_SLUG = "syl20bnr/spacemacs"
+      condition: $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG

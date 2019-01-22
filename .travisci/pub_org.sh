@@ -40,7 +40,7 @@ git config --global hub.protocol https
 export GITHUB_TOKEN=$BOT_TK
 
 fold_start "CLONING_TARGET_REPOSITORY"
-target_URL="https://github.com/syl20bnr/${PUBLISH}.git"
+target_URL="https://github.com/${SPACEMACS_REPO_SLUG}.git"
 git clone "${target_URL}" -b "${TRAVIS_BRANCH}" "/tmp/${PUBLISH}"
 if [ $? -ne 0 ]; then
     echo "Failed to clone \"${target_URL}\""
@@ -83,7 +83,7 @@ if [ $? -ne 0 ]; then
 fi
 fold_end "PUSHING_CHANGES_TO_${BOT_NAME}/${PUBLISH}"
 
-fold_start "OPENING_PR_TO_syl20bnr/${PUBLISH}.git"
+fold_start "OPENING_PR_TO_SPACEMACS_REPO"
 echo "[bot] Documentation formatting" > msg
 echo >> msg
 echo "Merge with care - I'm just a stupid bot. Beep boop." >> msg
@@ -91,4 +91,4 @@ echo "Merge with care - I'm just a stupid bot. Beep boop." >> msg
 if [ $? -ne 0 ]; then
     echo "Seems like PR already exists (not a problem)"
 fi
-fold_end "OPENING_PR_TO_syl20bnr/${PUBLISH}.git"
+fold_end "OPENING_PR_TO_SPACEMACS_REPO"
