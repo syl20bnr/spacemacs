@@ -22,7 +22,6 @@
     (haskell-navigate-imports)
     (haskell-mode-format-imports)))
 
-
 ;; Completion setup functions
 
 (defun spacemacs-haskell//setup-backend ()
@@ -41,7 +40,6 @@
     (`dante (spacemacs-haskell//setup-dante-company))
     (`ghc-mod (spacemacs-haskell//setup-ghc-mod-company))))
 
-
 ;; ghci functions
 
 (defun spacemacs-haskell//setup-ghci ()
@@ -52,7 +50,6 @@
     :backends (company-ghci company-dabbrev-code company-yasnippet)
     :modes haskell-mode))
 
-
 ;; ghc-mod functions
 
 (defun spacemacs-haskell//setup-ghc-mod ()
@@ -63,7 +60,6 @@
     :backends (company-ghc company-dabbrev-code company-yasnippet)
     :modes haskell-mode))
 
-
 ;; Dante functions
 
 (defun spacemacs-haskell//setup-dante ()
@@ -79,7 +75,6 @@
   (interactive)
   (dante-type-at :insert))
 
-
 ;; Intero functions
 
 (defun spacemacs-haskell//setup-intero ()
