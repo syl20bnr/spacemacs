@@ -325,6 +325,7 @@ sane way, here is the complete list of changed key bindings
 - perl6 (thanks to Bahtiar Gadimov and yuhan0)
 - prolog (thanks to Newres Al Haider)
 - reasonml (thanks to fredyr and Dave Aitken)
+- solidity (thanks to Brooklyn Zelenka)
 - protobuf (thanks to Amol Mandhane)
 - restructuredtext (thanks to Wei-Wei Guo and Kalle Lindqvist)
 - semantic-web (thanks to Andreas Textor)
@@ -2722,6 +2723,9 @@ Other:
 - Fixed =helm= menu display (thanks to Leslie Shawn Russell)
 **** Smex
 - Fixed ~SPC m :~ for current major mode commands (thanks to tinysong)
+**** Solidity
+- Key bindings:
+  - Added ~SPC m g~ Estimate gas at point (thanks to Brooklyn Zelenka)
 **** Source control
 - Install orgit only when org package is used (thanks to Boris Buliga)
 - Defer git-gutter loading (thanks to Aaron Jensen)
