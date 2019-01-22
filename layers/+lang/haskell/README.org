@@ -14,6 +14,7 @@
     - [[#intero][=intero=]]
     - [[#dante][=dante=]]
     - [[#ghc-mod][=ghc-mod=]]
+    - [[#lsp][=lsp=]]
   - [[#optional-extras][Optional extras]]
     - [[#structured-haskell-mode][structured-haskell-mode]]
     - [[#hindent][hindent]]
@@ -77,6 +78,7 @@ This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:
 - =hoogle= (optional for =haskell-mode= and =helm-hoogle=)
 - =ghc-mod= (optional for completion)
 - =intero= (optional for completion)
+- =hie= (optional for completion)
 
 To install them, use the following command (or the =stack= equivalent):
 
@@ -100,8 +102,8 @@ For information about setting up =$PATH=, check out the corresponding section in
 the FAQ (~SPC h SPC $PATH RET~).
 
 ** Completion support
-This layer provides several completion backends - =intero=, =dante=, =ghci= and
-=ghc-mod=. =ghci= (=company-ghci=) is used by default, because it doesn’t
+This layer provides several completion backends - =intero=, =dante=, =ghci=,
+=ghc-mod=, and =lsp=. =ghci= (=company-ghci=) is used by default, because it doesn’t
 require any dependencies, and it works with both =stack= and pure =cabal=
 projects. The completion backend can be changed manually, by setting the value
 of the =haskell-completion-backend= variable. Note that in order to enable
@@ -151,6 +153,14 @@ checkout this [[https://github.com/DanielG/ghc-mod/wiki#user-content-known-issue
 Also note that =ghc-mod= only works with the =GHC= version that was used to
 build =ghc-mod=. You can check which version was used by calling
 =ghc-mod --version=.
+
+*** =lsp=
+=lsp= requires an appropriate installation of =hie= to provide the Haskell language server. 
+=hie= is built on =ghc-mod=, so many of the same considerations apply.
+
+Enabling the =lsp= backend requires the =lsp= layer to be enabled, and provides access to
+all the additional =lsp-mode= keybindings. As such it is more of a full backend than just
+a completion backend.
 
 ** Optional extras
 The Haskell layer supports some extra features, which can be enabled through the

@@ -17,7 +17,7 @@
 
 (defvar haskell-completion-backend 'ghci
   "Completion backend used by company.
-Available options are `ghci', `intero', `dante', and `ghc-mod'. Default is
+Available options are `ghci', `intero', `dante', `lsp' and `ghc-mod'. Default is
 `ghci'.")
 
 (defvar haskell-enable-hindent nil
