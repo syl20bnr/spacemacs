@@ -226,7 +226,10 @@ Insert it in the first line of the buffer, right justified."
         (goto-char (point-min))
         (delete-region (point) (progn (end-of-line) (point)))
         (insert (format (format "%%%ds"
-                                spacemacs-buffer--window-width)
+                                (if (display-graphic-p)
+                                    spacemacs-buffer--window-width
+                                  ;; terminal needs one less char
+                                  (1- spacemacs-buffer--window-width)))
                         version))))))
 
 (defun spacemacs-buffer//insert-footer ()
