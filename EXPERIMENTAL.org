@@ -43,7 +43,6 @@ Clone Emacs from [[https://git.savannah.gnu.org/git/emacs.git]]:
 #+BEGIN_SRC shell
   git clone https://git.savannah.gnu.org/git/emacs.git
   cd emacs
-  git checkout pdumper
 #+END_SRC
 
 Note: On windows make sure that autocrlf is disabled in git before cloning or
@@ -205,9 +204,13 @@ Add this to your dotfile if you don’t have it already.
     )
 #+END_SRC
 
-*Friendly suggestions:* If you have a lot of personal configuration in =user-init= and
-=user-config=, you can try to move them into =user-load= as this can reduce the
-time to load those customized configurations.
+*Friendly suggestions:*
+- If you have a lot of personal configuration in =user-init= and =user-config=,
+  you can try to move them into =user-load= as this can reduce the time to load
+  those customized configurations.
+- It is better to use =(with-temp-buffer (org-mode))= lines in =user-load=
+  section instead of =(require 'org)=. This will decrease load times by a lot.
+  Suggested by [[https://github.com/syl20bnr/spacemacs/issues/10902#issuecomment-398710755][@et2010]].
 
 *** Test
 Restart Emacs. Each time Emacs starts, Spacemacs will check if the list of your
