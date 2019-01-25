@@ -1,4 +1,4 @@
-;;; core-dumper.el --- Spacemacs Core File
+;;; core-dumper.el --- Spacemacs Core File -*- lexical-binding: t -*-
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
@@ -106,22 +106,38 @@ the end of the loading of the dump file."
   (interactive)
   (when spacemacs-dump-process
     (message "Cancel running dumping process to start a new one.")
-    (delete-process spacemacs-dump-process)
-    (with-current-buffer spacemacs-dump-buffer-name
+    (delete-process spacemacs-dump-process))
+  (when-let ((buf (get-buffer spacemacs-dump-buffer-name)))
+    (with-current-buffer buf
       (erase-buffer)))
   (make-directory spacemacs-dump-directory t)
-  (setq spacemacs-dump-process
-        (make-process
-         :name "spacemacs-dumper"
-         :buffer spacemacs-dump-buffer-name
-         :command
-         (list dotspacemacs-emacs-pdumper-executable-file
-               "--batch"
-               "-l" "~/.emacs.d/dump-init.el"
-               "-eval" (concat "(dump-emacs-portable \""
-                               (concat spacemacs-dump-directory
-                                       dotspacemacs-emacs-dumper-dump-file)
-                               "\")")))))
+  (let* ((dump-file (concat spacemacs-dump-directory dotspacemacs-emacs-dumper-dump-file))
+         (dump-file-temp (concat dump-file ".new")))
+    (setq spacemacs-dump-process
+          (make-process
+           :name "spacemacs-dumper"
+           :buffer spacemacs-dump-buffer-name
+           :sentinel
+           (lambda (proc event)
+             (when (not (process-live-p proc))
+               (if (and (eq (process-status proc) 'exit)
+                        (= (process-exit-status proc) 0))
+                   (with-current-buffer spacemacs-dump-buffer-name
+                     (rename-file dump-file-temp dump-file t)
+                     (goto-char (point-max))
+                     (insert (format "Done!\n" dump-file-temp dump-file)))
+                 (with-current-buffer spacemacs-dump-buffer-name
+                   (delete-file dump-file-temp nil)
+                   (goto-char (point-max))
+                   (insert "Failed\n")))
+               (delete-process spacemacs-dump-process)
+               (setq spacemacs-dump-process nil)))
+           :command
+           (list dotspacemacs-emacs-pdumper-executable-file
+                 "--batch"
+                 "-l" (concat spacemacs-start-directory "dump-init.el")
+                 "-eval" (concat "(dump-emacs-portable \"" dump-file-temp "\")"))))
+    (pop-to-buffer spacemacs-dump-buffer-name)))
 
 (defun spacemacs/dump-eval-delayed-functions ()
   "Evaluate delayed functions."
