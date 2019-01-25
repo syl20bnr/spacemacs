@@ -117,7 +117,7 @@ the end of the loading of the dump file."
          :command
          (list dotspacemacs-emacs-pdumper-executable-file
                "--batch"
-               "-l" "~/.emacs.d/dump-init.el"
+               "-l" (concat spacemacs-start-directory "dump-init.el")
                "-eval" (concat "(dump-emacs-portable \""
                                (concat spacemacs-dump-directory
                                        dotspacemacs-emacs-dumper-dump-file)
