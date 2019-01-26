@@ -125,8 +125,8 @@ Cate special text banner can de reachable via `998', `cat' or `random*'.
         (spacemacs-buffer/message (format "Banner: %s" banner))
         (if (image-type-available-p (intern (file-name-extension banner)))
             (spacemacs-buffer//insert-image-banner banner)
-          (spacemacs-buffer//insert-ascii-banner-centered banner))
-        (spacemacs-buffer//inject-version))
+          (spacemacs-buffer//insert-ascii-banner-centered banner)))
+      (spacemacs-buffer//inject-version)
       (spacemacs-buffer//insert-buttons)
       (spacemacs//redisplay))))
 
@@ -609,6 +609,7 @@ REAL-WIDTH: the real width of the line.  If the line contains an image, the size
 (defun spacemacs-buffer//insert-buttons ()
   "Create and insert the interactive buttons under Spacemacs banner."
   (goto-char (point-max))
+  (unless dotspacemacs-startup-banner (insert "\n"))
   (spacemacs-buffer||add-shortcut "m" "[?]" t)
   (widget-create 'url-link
                  :tag (propertize "?" 'face 'font-lock-doc-face)
