@@ -28,7 +28,16 @@
 
 ;; Initialization of packages
 
-(defun spacemacs-editing-visual/init-writeroom-mode ())
+(defun spacemacs-editing-visual/init-writeroom-mode ()
+  (use-package writeroom-mode
+    :defer t
+    :init
+    (spacemacs|define-transient-state centered-buffer-mode
+      :title "Centered buffer Transient State"
+      :bindings
+      ("[" writeroom-decrease-width "shrink")
+      ("]" writeroom-increase-width "enlarge")
+      ("=" writeroom-adjust-width "adjust width"))))
 
 (defun spacemacs-editing-visual/init-column-enforce-mode ()
   (use-package column-enforce-mode
