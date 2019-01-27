@@ -1,0 +1,54 @@
+#+TITLE: backup layer
+
+* Table of Contents                                       :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#acknowledgments][Acknowledgments]]
+
+* Description
+This layer adds support for automatic backups.
+
+Emacs default behavior is [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Backup.html][to backup a file first time it is saved]]. This behavior
+results in a lot of =file_name.ext~= files being automatically created. Many
+people find this annoying and spacemacs turns the auto backup off.
+
+This layer re-enables and extends the automatic backups.
+
+** Features:
+   
+- per-session backups
+
+  Similar to emacs default behavior, make a backup first time it is saved from
+  emacs session.
+
+- per-save backups
+
+  Make a backup every time file is saved.
+
+- better defaults
+
+  Do not clutter working directories with the backups:
+
+  - Store per-session backup in =~/.emacs.d/.cache/backups/per-session=
+    (customize variable =backup-per-session-directory= to override).
+  - Store per-save backup in =~/.emacs.d/.cache/backups/per-save= (customize
+    variable =backup-per-save-directory= to override).
+
+  Sane defaults for the backup files:
+
+  - Backup files under version control.
+  - Keep the last 10 per-save backups and last 3 per-session backups.
+  - Backup by copying.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =backup= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Acknowledgments
+
+Inner workings of this layer is based on description by @GregorySchwartz in
+syl20bnr/spacemacs#8947. Which is in turn inspired by a [[https://stackoverflow.com/questions/151945/how-do-i-control-how-emacs-makes-backup-files][StackOverflow discussion]]
+on the subject.
+
