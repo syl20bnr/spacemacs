@@ -1370,6 +1370,8 @@ Other:
   Gușoi)
 - Removed ~SPC s w w~ key binding for =helm-wikipedia-suggest=, which was
   removed upstream.
+- Load helm before read-file-name and completing-read (thanks duianto and thanks
+  Miciah for a more elegant solution)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Added =counsel-css= as an =ivy= alternative to =helm-css-scss= (thanks to Robbert
