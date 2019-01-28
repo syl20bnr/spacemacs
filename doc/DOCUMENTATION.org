@@ -2159,8 +2159,9 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w _~              | maximize window horizontally                                                |
 | ~SPC w \vert~          | maximize window vertically                                                  |
 | ~SPC w b~              | force the focus back to the minibuffer                                      |
-| ~SPC w c~              | maximize/minimize a window and center it                                    |
-| ~SPC w C~              | maximize/minimize a window and center it using [[https://github.com/abo-abo/ace-window][ace-window]]                   |
+| ~SPC w c c~            | toggle visual centering of the current buffer                               |
+| ~SPC w c C~            | toggle visual distraction free mode                                         |
+| ~SPC w c .~            | center buffer and enable centering transient state                          |
 | ~SPC w d~              | delete a window                                                             |
 | ~SPC u SPC w d~        | delete a window and its current buffer (does not delete the file)           |
 | ~SPC w D~              | delete another window using [[https://github.com/abo-abo/ace-window][ace-window]]                                      |
