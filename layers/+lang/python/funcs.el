@@ -18,16 +18,15 @@
 
 (defun spacemacs//python-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase python-backend
-    (`anaconda (spacemacs//python-setup-anaconda-company))
-    (`lsp (spacemacs//python-setup-lsp-company))))
+  (if (eq python-backend `anaconda)
+    (spacemacs//python-setup-anaconda-company)
+    (spacemacs//python-setup-lsp-company)))
 
 (defun spacemacs//python-setup-eldoc ()
   "Conditionally setup eldoc based on backend."
   (pcase python-backend
     ;; lsp setup eldoc on its own
-    (`anaconda (spacemacs//python-setup-anaconda-eldoc))))
-
+    (spacemacs//python-setup-anaconda-eldoc)))
 
 ;; anaconda
 
@@ -89,8 +88,8 @@
 (defun spacemacs//python-default ()
   "Defaut settings for python buffers"
   (setq mode-name "Python"
-        tab-width python-tab-width
-        fill-column python-fill-column)
+    tab-width python-tab-width
+    fill-column python-fill-column)
 
   ;; since we changed the tab-width we need to manually call python-indent-guess-indent-offset here
   (when python-spacemacs-indent-guess
@@ -187,10 +186,10 @@ as the pyenv version then also return nil. This works around https://github.com/
   "autoflake --remove-all-unused-imports -i unused_imports.py"
   (interactive)
   (if (executable-find "autoflake")
-      (progn
-        (shell-command (format "autoflake --remove-all-unused-imports -i %s"
-                               (shell-quote-argument (buffer-file-name))))
-        (revert-buffer t t t))
+    (progn
+      (shell-command (format "autoflake --remove-all-unused-imports -i %s"
+                       (shell-quote-argument (buffer-file-name))))
+      (revert-buffer t t t))
     (message "Error: Cannot find autoflake executable.")))
 
 (defun spacemacs//pyenv-mode-set-local-version ()

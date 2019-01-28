@@ -2045,7 +2045,11 @@ Other:
 - Use =python-mode= for SCons script files (thanks to shanemikel)
 - Added LSP support, which can be used by enabling the =lsp= layer and setting
   the =python= layer's =python-backend= variable to =lsp=
-  (thanks to Yuan Fu and Sylvain Benner)
+  (thanks to Yuan Fu and Sylvain Benner).
+- The LSP backend can use either the =pyls= (default) server or the =mspyls=
+  (Microsoft) implementation, which may be selected by setting the
+  =python-lsp-server= layer variable to =mspyls=
+  (thanks to Cormac Cannon).
 - Added ~SPC m t l~ key binding to re-run the last test command
   (thanks to Benoit Coste).
 - Added support for breakpoints for the =trepan3k= python debugger
