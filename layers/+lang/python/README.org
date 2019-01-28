@@ -13,6 +13,8 @@
 - [[#backends][Backends]]
   - [[#anaconda][Anaconda]]
   - [[#language-server-protocol][Language Server Protocol]]
+    - [[#python-language-server][python-language-server]]
+    - [[#microsoft-python-language-server][Microsoft python language server]]
 - [[#additional-tools][Additional tools]]
   - [[#syntax-checking][Syntax checking]]
   - [[#test-runner][Test runner]]
@@ -46,7 +48,9 @@ This layer adds support for the Python language.
 ** Features:
 - Support for the following backends:
   - [[https://github.com/proofit404/anaconda-mode][anaconda]] (default),
-  - [[https://github.com/emacs-lsp/lsp-python][Language Server Protocol]] (experimental),
+  - [[https://github.com/emacs-lsp/lsp-python][Language Server Protocol]] (experimental - 2 implementations),
+    - python-language-server
+    - Microsoft python language server
 - Auto-completion
 - Code Navigation
 - Documentation Lookup using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] and [[https://github.com/tsgates/pylookup][pylookup]]
@@ -87,6 +91,14 @@ Backend can be chosen on a per project basis using directory local variables
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
 
+The available options are:
+
+| symbol    | description                      |
+|-----------+----------------------------------|
+| 'anaconda | Default                          |
+| 'lsp      | python-language-server package   |
+| 'lsp-ms   | Microsoft python language server |
+
 * Backends
 ** Anaconda
 =anaconda-mode= tries to install the dependencies itself but sometimes
@@ -113,6 +125,22 @@ setting your =PYTHONPATH= as explained at
 [[https://github.com/proofit404/anaconda-mode#pythonpath]]
 
 ** Language Server Protocol
+
+The =lsp= backend can use either of the following language server implementations:
+
+| symbol  | description                              |
+|---------+------------------------------------------|
+| 'pyls   | python-language-server package (default) |
+| 'mspyls | Microsoft python language server         |
+
+=pyls= is used by default - to use the Microsoft server, set the =python-lsp-server=
+layer variable as follows:
+
+#+BEGIN_SRC elisp
+  (python :variables python-backend 'lsp python-lsp-server 'mspyls)
+#+END_SRC
+
+*** python-language-server
 You just have to install python language server package:
 
 #+BEGIN_SRC sh
@@ -132,6 +160,32 @@ If you've installed the language server and related packages as development
 dependencies in a pipenv environment, you'll want to set the ~python-pipenv-activate~
 config variable to ~t~. This activates your pipenv before enabling the
 lsp backend.
+
+*** Microsoft python language server
+Paraphrasing the instructions provided by the author of the =lsp-python-ms= package:
+
+#+BEGIN_SRC sh
+  git clone https://github.com/Microsoft/python-language-server.git
+  cd python-language-server/src/LanguageServer/Impl
+  dotnet build -c Release
+  dotnet publish -c Release -r <RUNTIME>
+#+END_SRC
+
+where ~<RUNTIME>~ is one of the [[https://docs.microsoft.com/en-us/dotnet/core/rid-catalog][runtime IDs supported by dotnet core]]. One of ~linux-x64~, ~osx-x64~, ~win10-x64~ should
+cover most use cases.
+
+The default package configuration assumes the executable is located in a folder included in your system path.
+To use the latest built version in a cloned git repo, use the ~python-lsp-git-root~ config variable, e.g.:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+    '((python :variables
+              python-backend 'lsp-ms
+              python-lsp-git-root "~/dev/python/python-language-server")))
+#+END_SRC
+
+N.B. If you're using Arch linux or a derivative distribution, you can install the =microsoft-python-language-server=
+package from the AUR.
 
 * Additional tools
 ** Syntax checking
