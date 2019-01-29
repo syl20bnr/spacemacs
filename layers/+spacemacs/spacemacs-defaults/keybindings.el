@@ -26,6 +26,7 @@
                                        ("bN"  "new empty buffer")
                                        ("c"   "compile/comments")
                                        ("C"   "capture/colors")
+                                       ("d"   "documentation")
                                        ("e"   "errors")
                                        ("f"   "files")
                                        ("fC"  "files/convert")
