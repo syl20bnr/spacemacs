@@ -588,10 +588,12 @@ Other:
   - Added =dotenv-mode= to the =spacemacs-bootstrap= layer (thanks to Sylvain
     Benner)
 - Key bindings:
-  - Use Helm or Ivy (if one of these is enabled) for ~SPC a d~ (=dired=),
-    ~SPC F f~ (=find-file-other-frame=), ~SPC F b~
-    (=switch-to-buffer-other-frame=), ~SPC F B~ (=display-buffer-other-frame=),
-    and ~SPC F O~ (=dired-other-frame=). (thanks to Miciah Masters)
+  - Use Helm or Ivy (if one of these is enabled) for: (thanks to Miciah Masters)
+    - ~SPC a d~ (=dired=)
+    - ~SPC F f~ (=find-file-other-frame=)
+    - ~SPC F b~ (=switch-to-buffer-other-frame=)
+    - ~SPC F B~ (=display-buffer-other-frame=)
+    - ~SPC F O~ (=dired-other-frame=)
   - New evil text objects =«=, =｢=, =‘= and =“=.
   - New key binding ~SPC f i~ for =insert-file=.
   - Add alignment support for ~{~ (thanks to Paulo Diniz)
