@@ -1012,7 +1012,7 @@ Some dynamic environment variables are ignored by Spacemacs when it first
 creates the =~/.spacemacs.env= file. These ignored variables are listed in
 the variable =spacemacs-ignored-environment-variables=.
 
-It is possible to for a new import of system and shell environment variables
+It is possible to force a new import of system and shell environment variables
 with ~SPC f e C-e~. Note that this action will overwrite =~/.spacemacs.env=.
 
 ** Managing environment variables by yourself
