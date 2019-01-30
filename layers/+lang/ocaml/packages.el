@@ -100,6 +100,9 @@
 
 (defun ocaml/init-tuareg ()
   (use-package tuareg
+    :bind (:map tuareg-mode-map
+                ;; Workaround to preserve vim backspace in normal mode
+                ([backspace] . nil))
     :mode (("\\.ml[ily]?$" . tuareg-mode)
            ("\\.topml$" . tuareg-mode))
     :defer t
