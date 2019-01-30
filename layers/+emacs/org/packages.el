@@ -31,6 +31,7 @@
         org-pomodoro
         org-present
         (org-projectile :requires projectile)
+        (ox-epub :toggle org-enable-epub-support)
         (ox-twbs :toggle org-enable-bootstrap-support)
         ;; use a for of ox-gfm to fix index generation
         (ox-gfm :location (recipe :fetcher github :repo "syl20bnr/ox-gfm")
@@ -643,6 +644,10 @@ Headline^^            Visit entry^^               Filter^^                    Da
                 org-capture-templates))
       (org-projectile-per-project)
       (setq org-projectile-per-project-filepath org-projectile-file))))
+
+(defun org/pre-init-ox-epub ()
+  (spacemacs|use-package-add-hook org :post-config (require 'ox-epub)))
+(defun org/init-ox-epub ())
 
 (defun org/pre-init-ox-twbs ()
   (spacemacs|use-package-add-hook org :post-config (require 'ox-twbs)))

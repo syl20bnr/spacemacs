@@ -40,3 +40,6 @@ used.")
 
 (defvar org-enable-trello-support nil
   "If non-nil org-trello is configured")
+
+(defvar org-enable-epub-support nil
+  "If non-nil org-epub is configured")
