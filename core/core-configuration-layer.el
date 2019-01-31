@@ -2649,8 +2649,13 @@ ELPA stable repository."
       (when untar
         (spacemacs-buffer/set-mode-line
          (format "Extracting %s archive..." name) t)
-        (tar-mode)
-        (tar-untar-buffer)))
+        (if (and (spacemacs/system-is-mswindows)
+                 (not (executable-find "tar")))
+            (progn
+              (configuration-layer//error
+                (concat "Error: Cannot find tar executable in you PATH.\n"
+                  "Spacelpa installation has been skipped!")))
+          (call-process "tar" nil nil nil "-xzf" archive))))
     untar))
 
 (defun configuration-layer/stable-elpa-download-tarball ()
