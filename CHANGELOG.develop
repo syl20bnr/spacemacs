@@ -1556,6 +1556,8 @@ Other:
 **** Nim
 - Add key binding ~SPC m h h~ to show symbol documentation (thanks to Valts
   Liepiņš)
+- Replace =company-capf= with =company-nimsuggest= in
+  =company-backends-nim-mode= to improve responsiveness (thanks to Uroš Perišić)
 **** Node
 - Use add-node-modules-path to automatically find local executables (thanks to
   jupl)
