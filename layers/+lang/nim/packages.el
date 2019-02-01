@@ -19,7 +19,7 @@
 
 (defun nim/post-init-company ()
   (spacemacs|add-company-backends
-    :backends company-capf
+    :backends company-nimsuggest
     :modes nim-mode nimscript-mode))
 
 (defun nim/post-init-flycheck ()
