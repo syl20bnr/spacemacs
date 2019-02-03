@@ -1489,6 +1489,8 @@ Other:
 - Fixed yanking types (thanks to Bjarke Vad Andersen)
 - Fixed gtags related initialization (thanks to Guido Kraemer)
 - Added LSP Java backend (thanks to Ivan Yonchovski)
+- Add =.dap-breakpoints= and =.lsp-session-*= (java lsp tempfiles) to .gitignore
+  (thanks to Uroš Perišić)
 **** Javascript
 - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
 - Added LSP support, which can be used by enabling the =lsp= layer and setting
