@@ -1642,6 +1642,8 @@ Other:
   Liepiņš)
 - Replace =company-capf= with =company-nimsuggest= in
   =company-backends-nim-mode= to improve responsiveness (thanks to Uroš Perišić)
+- Declare all prefix names (='(compile goto help)=) for =nim-mode= (thanks to
+  Uroš Perišić)
 **** Node
 - Use add-node-modules-path to automatically find local executables (thanks to
   jupl)

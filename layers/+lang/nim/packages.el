@@ -42,6 +42,10 @@
         (interactive)
         (shell-command "nim compile --run main.nim"))
 
+      (spacemacs/declare-prefix-for-mode 'nim-mode "mc" "compile")
+      (spacemacs/declare-prefix-for-mode 'nim-mode "mg" "goto")
+      (spacemacs/declare-prefix-for-mode 'nim-mode "mh" "help")
+
       (spacemacs/set-leader-keys-for-major-mode 'nim-mode
         "cr" 'spacemacs/nim-compile-run
         "gb" 'pop-tag-mark
