@@ -974,8 +974,10 @@ If you are not convinced, then here is the snippet to revert back to the default
 =Vim + vim-surround= setup (add it to your =dotspacemacs/user-config=):
 
 #+BEGIN_SRC emacs-lisp
-  (evil-define-key 'visual evil-surround-mode-map "s" 'evil-substitute)
-  (evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region)
+  (spacemacs|use-package-add-hook evil-surround
+    :post-config
+    (evil-define-key 'visual evil-surround-mode-map "s" 'evil-substitute)
+    (evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region))
 #+END_SRC
 
 * Evil plugins
