@@ -30,6 +30,7 @@
         skewer-mode
         tern
         web-beautify
+        nodejs-repl
         ))
 
 (defun javascript/post-init-add-node-modules-path ()
@@ -202,6 +203,44 @@
         "sr" 'spacemacs/skewer-eval-region
         "sR" 'spacemacs/skewer-eval-region-and-focus
         "ss" 'skewer-repl))))
+
+(defun javascript/init-nodejs-repl ()
+  (use-package nodejs-repl
+    :defer nil
+    :init
+    (spacemacs/register-repl 'nodejs-repl
+                              'nodejs-repl
+                              "nodejs-repl")
+    :config
+    (progn
+      (spacemacs/declare-prefix-for-mode 'js2-mode "msn" "nodejs-repl")
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+        "sni" 'nodejs-repl-switch-to-repl
+        "sne" 'nodejs-repl-send-last-expression
+        "snE" (lambda ()
+               (nodejs-repl-send-last-expression)
+               (nodejs-repl-switch-to-repl))
+        "snb" 'nodejs-repl-send-buffer
+        "snB" (lambda ()
+               (nodejs-repl-send-buffer)
+               (nodejs-repl-switch-to-repl))
+        "snl" 'nodejs-repl-send-line
+        "snL" (lambda ()
+               (nodejs-repl-send-line)
+               (nodejs-repl-switch-to-repl))
+        "snr" 'nodejs-repl-send-region
+        "snR" (lambda ()
+               (nodejs-repl-send-region)
+               (nodejs-repl-switch-to-repl)))
+      (spacemacs/declare-prefix-for-mode 'js2-mode
+        "msnE" "nodejs-send-last-expression-and-focus")
+      (spacemacs/declare-prefix-for-mode 'js2-mode
+        "msnB" "nodejs-send-buffer-and-focus")
+      (spacemacs/declare-prefix-for-mode 'js2-mode
+        "msnL" "nodejs-send-line-and-focus")
+      (spacemacs/declare-prefix-for-mode 'js2-mode
+        "msnR" "nodejs-send-region-and-focus")
+      )))
 
 (defun javascript/post-init-tern ()
   (add-to-list 'tern--key-bindings-modes 'js2-mode))

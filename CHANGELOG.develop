@@ -1665,6 +1665,7 @@ Other:
   - Added =org-babel= support (thanks to Michael Rohleder)
   - Added debug support via =dap= layer (Firefox and Google Chrome)
   - Added format on save option. (thanks to Trapez Breen)
+  - Add =nodejs-repl= support (thanks to Uroš Perišić)
 - Key bindings
   - Improved coffeescript support (thanks to Kalle Lindqvist):
     - ~SPC m '~ to create or go to REPL
@@ -1690,6 +1691,7 @@ Other:
     (thanks to Sylvain Benner and Juuso Valkeejärvi)
   - Check if =tern= exists before using it (thanks to Codruț Constantin Gușoi)
   - Fixed hook value to enable =evil-matchit= (thanks to Thanh Vuong)
+  - Fix hook value to enable =evil-matchit= (thanks to Thanh Vuong)
 **** Keyboard layout
 - Added support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and
   Eivind Fonn)
