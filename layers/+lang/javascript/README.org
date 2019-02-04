@@ -20,7 +20,9 @@
 - [[#configuration][Configuration]]
   - [[#indentation][Indentation]]
   - [[#repl][REPL]]
-  - [[#node-modules][Node Modules]]
+  - [[#node][Node]]
+    - [[#node-modules][Node Modules]]
+    - [[#node-externs][Node Externs]]
 - [[#key-bindings][Key bindings]]
   - [[#js2-mode][js2-mode]]
   - [[#folding-js2-mode][Folding (js2-mode)]]
@@ -29,6 +31,7 @@
     - [[#documentation-js-doc][Documentation (js-doc)]]
   - [[#repl-skewer-mode][REPL (skewer-mode)]]
   - [[#debugger-dap-mode][debugger (dap mode)]]
+  - [[#nodejs-repl-nodejs-repl][NodeJS REPL (nodejs-repl)]]
 
 * Description
 This layer adds support for the JavaScript language using [[https://github.com/mooz/js2-mode][js2-mode]].
@@ -39,6 +42,7 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 - Refactoring: done using [[https://github.com/magnars/js2-refactor.el][js2-refactor]].
 - Auto-completion and documentation
 - REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
+- NodeJS REPL with [[https://github.com/abicky/nodejs-repl.el][nodejs-repl]]
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 
 * Install
@@ -185,7 +189,8 @@ in your javascript buffer. If you want to inject it in your own page, follow
 [[https://github.com/skeeto/skewer-mode#skewering-with-cors][these instructions]] (install the Greasemonkey script and then click the triangle
 in the top-right corner - if it turns green, you're good to go).
 
-** Node Modules
+** Node
+*** Node Modules
 If you would like =node_modules/.bin= to be automatically added to the buffer
 local =exec_path=, e.g. to support project local eslint installations, set the
 =node-add-modules-path= variable in the =javascript= config section. Note that
@@ -194,6 +199,16 @@ doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472
 #+BEGIN_SRC elisp
   (setq-default dotspacemacs-configuration-layers
     '((javascript :variables node-add-modules-path t)))
+#+END_SRC
+
+*** Node Externs
+If you want =js2-mode= to presume =node= variables are defined by the host
+system (for completion purposes /i.a./) set the =js2-include-node-exters=
+variable to =t= in the =javascript= config section:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+    '((javascript :variables js2-include-node-externs t)))
 #+END_SRC
 
 * Key bindings
@@ -334,3 +349,17 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m d w o~ | goto output buffer if present   |
 | ~SPC m d w s~ | list sessions                   |
 | ~SPC m d w b~ | list breakpoints                |
+
+** NodeJS REPL (nodejs-repl)
+
+| Key binding | Description                                                        |
+|-------------+--------------------------------------------------------------------|
+| ~SPC m s n i~ | Switch to NodeJS REPL if one has been started, otherwise start one |
+| ~SPC m s n e~ | Send last expression to NodeJS REPL                                |
+| ~SPC m s n E~ | Send last expression to NodeJS REPL and switch to REPL             |
+| ~SPC m s n b~ | Send current buffer to NodeJS REPL                                 |
+| ~SPC m s n B~ | Send current buffer to NodeJS REPL and switch to REPL              |
+| ~SPC m s n l~ | Send current line to NodeJS REPL                                   |
+| ~SPC m s n L~ | Send current line to NodeJS REPL and switch to REPL                |
+| ~SPC m s n r~ | Send active region to NodeJS REPL                                  |
+| ~SPC m s n R~ | Send active region to NodeJS REPL and switch to REPL               |
