@@ -39,8 +39,9 @@
     :config
     (progn
       (defun spacemacs/nim-compile-run ()
+        "Compile current buffer file."
         (interactive)
-        (shell-command "nim compile --run main.nim"))
+        (shell-command (concat "nim compile --run " (buffer-file-name))))
 
       (spacemacs/set-leader-keys-for-major-mode 'nim-mode
         "cr" 'spacemacs/nim-compile-run
