@@ -1649,6 +1649,8 @@ Other:
 **** Nim
 - Added key binding ~SPC m h h~ to show symbol documentation (thanks to Valts
   Liepiņš)
+- Make =spacemacs/nim-compile-run= work with current buffer file instead of
+  defaulting to =main.nim= (thanks to Uroš Perišić)
 - Replace =company-capf= with =company-nimsuggest= in
   =company-backends-nim-mode= to improve responsiveness (thanks to Uroš Perišić)
 - Declare all prefix names (='(compile goto help)=) for =nim-mode= (thanks to
