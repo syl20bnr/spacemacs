@@ -1893,6 +1893,7 @@ Other:
 - Added variable =rcirc-enable-late-fix= (thanks to Miciah Masters)
 **** React
 - Improvements:
+  - Made % work on jsx tags (thanks to Thanh Vuong)
   - Use rjsx-mode for react framework (thanks to Ting Zhou)
   - Prompt user to install the =react= layer if a =.jsx= file is opened
     (thanks to Jon Hermansen)
