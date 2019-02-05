@@ -35,11 +35,7 @@
   (add-hook 'rjsx-mode-hook 'spacemacs/react-emmet-mode))
 
 (defun react/post-init-evil-matchit ()
-  (with-eval-after-load 'evil-matchit
-    (plist-put evilmi-plugins 'rjsx-mode
-               '((evilmi-simple-get-tag evilmi-simple-jump)
-                 (evilmi-javascript-get-tag evilmi-javascript-jump)
-                 (evilmi-html-get-tag evilmi-html-jump)))))
+  (add-hook 'rjsx-mode-hook 'turn-on-evil-matchit-mode))
 
 (defun react/post-init-flycheck ()
   (with-eval-after-load 'flycheck
@@ -77,7 +73,7 @@
     (spacemacs/declare-prefix-for-mode 'rjsx-mode "mh" "documentation")
     (spacemacs/declare-prefix-for-mode 'rjsx-mode "mg" "goto")
 
-    (spacemacs/set-leader-keys-for-major-mode 'rjsx-mode "rrt" 'rjsx-rename-tag-at-point)
+    (spacemacs/set-leader-keys-for-major-mode 'rjsx-mode "rt" 'rjsx-rename-tag-at-point)
 
     (with-eval-after-load 'rjsx-mode
       (define-key rjsx-mode-map (kbd "C-d") nil))))
