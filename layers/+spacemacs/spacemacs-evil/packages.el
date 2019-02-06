@@ -30,6 +30,7 @@
         ;; https://github.com/7696122/evil-terminal-cursor-changer/issues/8
         ;; evil-terminal-cursor-changer
         evil-tutor
+        evil-textobj-line
         (evil-unimpaired :location (recipe :fetcher local))
         evil-visual-mark-mode
         evil-visualstar
@@ -327,6 +328,10 @@
       (setq evil-tutor-working-directory
             (concat spacemacs-cache-directory ".tutor/"))
       (spacemacs/set-leader-keys "hT" 'evil-tutor-start))))
+
+(defun spacemacs-evil/init-evil-textobj-line ()
+  ;; No laziness here, the line text object should be available right away.
+  (use-package evil-textobj-line))
 
 (defun spacemacs-evil/init-evil-unimpaired ()
   ;; No laziness here, unimpaired bindings should be available right away.

@@ -432,6 +432,7 @@ Other:
     Kmit')
   - More robust =dotspacemacs/add-layer= implementation (thanks to Eivind Fonn)
   - Improved issue reporting (thanks to Eugene Yaremenko)
+  - Add line text object using =evil-textobj-line= (thanks to Uroš Perišić)
 
 - Fixes:
   - Fix loading of themes having dependencies (thanks to Benno Fünfstück)
