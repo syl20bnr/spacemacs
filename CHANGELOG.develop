@@ -1884,6 +1884,7 @@ Other:
 - Wrap 'shell' command to start in current buffer (thanks to Valts Liepiņš)
 - Fixed shell popup broken on macOS (thanks to Daniel Rivas Perez)
 - Fix broken leader key binding for inferior shell (thanks to Valts Liepiņš)
+- Add support to start external terminal emulators (thanks to Uroš Perišić)
 **** Shell Scripts
 - Add new company-shell environment variable backend (thanks to
   Alexander-Miller)
