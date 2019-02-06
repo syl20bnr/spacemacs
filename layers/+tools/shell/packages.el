@@ -27,6 +27,7 @@
         shell-pop
         (term :location built-in)
         xterm-color
+        terminal-here
         vi-tilde-fringe
         (vterm :toggle (not (spacemacs/system-is-mswindows)))
         ))
@@ -292,6 +293,16 @@
       (setq comint-output-filter-functions
             (remove 'ansi-color-process-output comint-output-filter-functions))
       (add-hook 'eshell-mode-hook 'spacemacs/init-eshell-xterm-color))))
+
+(defun shell/init-terminal-here ()
+  :defer t
+  :init
+  (progn
+    (spacemacs/register-repl 'terminal-here 'terminal-here)
+    (spacemacs/set-leader-keys
+      "\"" 'terminal-here-launch
+      "p \"" 'terminal-here-project-launch)
+    ))
 
 (defun shell/post-init-vi-tilde-fringe ()
   (spacemacs/add-to-hooks 'spacemacs/disable-vi-tilde-fringe

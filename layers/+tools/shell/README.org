@@ -22,6 +22,7 @@
 - [[#configuration][Configuration]]
   - [[#default-shell][Default shell]]
   - [[#default-shell-position-width-and-height][Default shell position, width, and height]]
+  - [[#external-terminal-emulator][External terminal emulator]]
   - [[#set-shell-for-term-ansi-term-and-vterm][Set shell for term, ansi-term and vterm]]
   - [[#set-shell-for-multi-term][Set shell for multi-term]]
   - [[#width-of-the-shell-popup-buffers][Width of the shell popup buffers]]
@@ -39,6 +40,7 @@ This layer configures the various shells available in Emacs.
 
 ** Features:
 - Shell integration
+- Running external terminal emulator in current/project directory
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -143,6 +145,12 @@ your shell is positioned on the left or the right.
              shell-default-position 'right
              shell-default-width 40)))
 #+END_SRC
+
+** External terminal emulator
+This layer supports opening an external terminal emulator using [[https://github.com/davidshepherd7/terminal-here][terminal-here]].
+By default =terminal-here= finds an appropriate default shell for you.
+If this does not work please check the package documentation how to
+change it.
 
 ** Set shell for term, ansi-term and vterm
 The default shell can be set by setting the variable =shell-default-term-shell=.
@@ -280,7 +288,9 @@ Some advanced configuration is setup for =eshell= in this layer:
 | Key binding | Description                                                |
 |-------------+------------------------------------------------------------|
 | ~SPC '​~     | Open, close or go to the default shell                     |
-| ~SPC p '​~   | Open a shell in the project's root                         |
+| ~SPC "​~     | Open external terminal emulator in current directory       |
+| ~SPC p '​~   | Open a shell in the project’s root                         |
+| ~SPC p "​~   | Open external terminal emulator in project root            |
 | ~SPC a s e~ | Open, close or go to an =eshell=                           |
 | ~SPC a s i~ | Open, close or go to a =shell=                             |
 | ~SPC a s m~ | Open, close or go to a =multi-term=                        |
