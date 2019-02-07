@@ -82,6 +82,7 @@
     :defer t
     :init
     (progn
+      (spacemacs/declare-prefix-for-mode 'go-mode "mtg" "generate")
       (spacemacs/set-leader-keys-for-major-mode 'go-mode
         "tgg" 'go-gen-test-dwim
         "tgf" 'go-gen-test-exported
