@@ -32,6 +32,9 @@ used.")
 (defvar org-enable-org-journal-support nil
   "If non-nil org-journal is configured.")
 
+(defvar org-enable-sticky-header nil
+  "If non-nil org-sticky-header is configured.")
+
 (defvar org-enable-hugo-support nil
   "If non-nil, Hugo (https://gohugo.io) related packages are configured.")
 

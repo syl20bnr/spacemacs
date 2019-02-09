@@ -39,6 +39,7 @@
         persp-mode
         (ox-hugo :toggle org-enable-hugo-support)
         (org-trello :toggle org-enable-trello-support)
+        (org-sticky-header :toggle org-enable-sticky-header)
         ))
 
 (defun org/post-init-company ()
@@ -715,3 +716,10 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "mtdc" 'spacemacs/org-trello-pull-card
         "mtub" 'spacemacs/org-trello-push-buffer
         "mtuc" 'spacemacs/org-trello-push-card))))
+
+(defun org/init-org-sticky-header ()
+  (use-package org-sticky-header
+    :defer t
+    :init
+    (add-hook 'org-mode-hook 'org-sticky-header-mode)))
+
