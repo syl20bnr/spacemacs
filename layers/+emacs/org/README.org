@@ -46,6 +46,7 @@
   - [[#org-journal][Org-journal]]
   - [[#org-brain][Org-brain]]
     - [[#application-bindings][Application bindings]]
+    - [[#org-mode-bindings][org-mode bindings]]
     - [[#visualization-bindings][Visualization bindings]]
 
 * Description
@@ -746,9 +747,24 @@ are available.
 ** Org-brain
 *** Application bindings
 
-| Key binding | Description                  |
-|-------------+------------------------------|
-| ~SPC a o b~ | Visualize an org-brain entry |
+| Key binding   | Description                  |
+|---------------+------------------------------|
+| ~SPC a o B v~ | Visualize an org-brain entry |
+| ~SPC a o B a~ | Go to the org-brain agenda   |
+
+*** org-mode bindings
+
+| Key binding   | Description                  |
+|---------------+------------------------------|
+| ~SPC m B a c~ | Add child                    |
+| ~SPC m B a p~ | Add parent                   |
+| ~SPC m B a f~ | Add friend                   |
+| ~SPC m B g c~ | Go to child                  |
+| ~SPC m B g p~ | Go to parent                 |
+| ~SPC m B g f~ | Go to friend                 |
+| ~SPC m B R~   | Refile entry                 |
+| ~SPC m B x~   | Delete entry                 |
+| ~SPC m B v~   | Visualize an org-brain entry |
 
 *** Visualization bindings
 
@@ -764,4 +780,3 @@ are available.
 | ~o~         | Open and edit the visualized entry    |
 | ~f~         | Find/visit another entry to visualize |
 | ~r~         | Rename this, or another, entry        |
-|             |                                       |
