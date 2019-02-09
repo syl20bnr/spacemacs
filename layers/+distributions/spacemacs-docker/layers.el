@@ -10,6 +10,3 @@
 ;;; License: GPLv3
 
 (configuration-layer/declare-layers '(spacemacs))
-
-;; TODO: Find a better place for it. Also better hook to allow customization.
-(add-hook 'spacemacs-post-user-config-hook 'spacemacs-docker//load-env)

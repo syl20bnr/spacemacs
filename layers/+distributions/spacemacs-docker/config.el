@@ -35,3 +35,5 @@
 ;; Start spacemacs in the workspace.
 (setq default-directory
       (concat (getenv "WORKSPACE") "/"))
+;; apply env. vars. expected by Dockers at the end
+(add-hook 'spacemacs-post-user-config-hook 'spacemacs-docker//load-env)
