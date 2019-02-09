@@ -365,6 +365,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "ao#" 'org-agenda-list-stuck-projects
         "ao/" 'org-occur-in-agenda-files
         "aoa" 'org-agenda-list
+        "aoo" 'org-agenda
         "aoc" 'org-capture
         "aoe" 'org-store-agenda-views
         "aofi" 'org-feed-goto-inbox
@@ -382,7 +383,6 @@ Will work on both org-mode and any mode that accepts plain html."
 
         "aol" 'org-store-link
         "aom" 'org-tags-view
-        "aoo" 'org-agenda
         "aos" 'org-search-view
         "aot" 'org-todo-list
         ;; SPC C- capture/colors
