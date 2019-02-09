@@ -20,6 +20,7 @@
   - [[#project-support][Project support]]
   - [[#org-brain-support][Org-brain support]]
   - [[#mode-line-support][Mode line support]]
+  - [[#sticky-header-support][Sticky header support]]
 - [[#key-bindings][Key bindings]]
   - [[#starting-org-mode][Starting org-mode]]
   - [[#toggles][Toggles]]
@@ -288,6 +289,16 @@ To permanently enable mode line display of org clock, add this snippet to your
 
 #+BEGIN_SRC elisp
   (setq spaceline-org-clock-p t)
+#+END_SRC
+
+** Sticky header support
+
+To install sticky header support set the variable =org-enable-sticky-header= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (org :variables
+         org-enable-sticky-header t)))
 #+END_SRC
 
 * Key bindings
