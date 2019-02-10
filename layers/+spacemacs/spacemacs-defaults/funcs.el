@@ -325,7 +325,7 @@ If the buffer isn't visiting a file, ask if it should
 be saved to a file, or just renamed.
 
 If called without a prefix argument, the prompt is
-initialized with the current filename."
+initialized with the current directory instead of filename."
   (interactive "P")
   (let* ((name (buffer-name))
          (filename (buffer-file-name)))
