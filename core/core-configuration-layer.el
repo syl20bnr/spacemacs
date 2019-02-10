@@ -120,7 +120,7 @@ subdirectory of ROOT is used."
   "Hook executed at the end of configuration loading.")
 
 (defconst configuration-layer--elpa-root-directory
-  (concat spacemacs-start-directory "elpa/")
+  (concat user-emacs-directory "elpa/")
   "Spacemacs ELPA root directory.")
 
 (defconst configuration-layer--rollback-root-directory

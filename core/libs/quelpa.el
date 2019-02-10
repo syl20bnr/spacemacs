@@ -374,8 +374,10 @@ and return TIME-STAMP, otherwise return OLD-TIME-STAMP."
         (delete-directory dir t)
         (make-directory dir)
         (if (eq type 'file)
-            (copy-file file-path dir t t t t)
-          (copy-directory file-path dir t t t)))
+          (progn (copy-file file-path dir t t t t)
+                 (set-file-modes (expand-file-name (file-name-nondirectory file-path) dir) #o644))
+          (progn (copy-directory file-path dir t t t)
+                 (set-file-modes dir #o755))))
       (quelpa-build--dump new-stamp-info stamp-file)
       (quelpa-file-version file-path type version time-stamp))))
 
@@ -1369,10 +1371,13 @@ FILES is a list of (SOURCE . DEST) relative filepath pairs."
   (cond
    ((file-regular-p file)
     (quelpa-build--message "%s -> %s" file newname)
-    (copy-file file newname))
+    (copy-file file newname)
+    (set-file-modes newname #o644))
    ((file-directory-p file)
     (quelpa-build--message "%s => %s" file newname)
-    (copy-directory file newname))))
+    (make-directory newname)
+    (set-file-modes newname #o755)
+    (map quelpa-build--copy-file (directory-files file t)))))
 
 (defun quelpa-build--find-source-file (target files)
   "Search for source of TARGET in FILES."
@@ -1566,7 +1571,8 @@ attribute with an URL like \"http://domain.tld/path/to/file.el\"."
     (unless (string= (file-name-extension url) "el")
       (error "<%s> does not end in .el" url))
     (unless (file-directory-p dir)
-      (make-directory dir))
+      (make-directory dir)
+      (set-file-modes dir #o755))
     (url-copy-file url local-path t)
     (quelpa-check-hash name config local-path dir 'url)))
 

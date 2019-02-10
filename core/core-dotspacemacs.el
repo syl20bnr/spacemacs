@@ -637,19 +637,20 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
     (with-current-buffer (find-file-noselect
                           (concat dotspacemacs-template-directory
                                   ".spacemacs.template"))
-      (dolist (p preferences)
-        (goto-char (point-min))
-        (re-search-forward (car p))
-        (replace-match (cadr p)))
-      (let ((install
-             (if (file-exists-p dotspacemacs-filepath)
-                 (y-or-n-p
-                  (format "%s already exists. Do you want to overwrite it ? "
-                          dotspacemacs-filepath)) t)))
-        (when install
-          (write-file dotspacemacs-filepath)
-          (message "%s has been installed." dotspacemacs-filepath)
-          t))))
+      (let ((inhibit-read-only t))
+        (dolist (p preferences)
+          (goto-char (point-min))
+          (re-search-forward (car p))
+          (replace-match (cadr p)))
+        (let ((install
+               (if (file-exists-p dotspacemacs-filepath)
+                   (y-or-n-p
+                    (format "%s already exists. Do you want to overwrite it ? "
+                            dotspacemacs-filepath)) t)))
+          (when install
+            (write-file dotspacemacs-filepath)
+            (message "%s has been installed." dotspacemacs-filepath)
+            t)))))
   (dotspacemacs/load-file)
   ;; force new wizard values to be applied
   (dotspacemacs/init))
