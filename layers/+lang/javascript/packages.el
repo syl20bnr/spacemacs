@@ -39,7 +39,7 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'js2-mode))
 
 (defun javascript/post-init-evil-matchit ()
-  (add-hook `js2-mode `turn-on-evil-matchit-mode))
+  (add-hook `js2-mode-hook `turn-on-evil-matchit-mode))
 
 (defun javascript/post-init-company ()
   (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-company))

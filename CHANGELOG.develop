@@ -1509,6 +1509,7 @@ Other:
 - Added ES6 module extension to =init-js2-mode= (thanks to Nathan Lloyd)
 - Added =org-babel= support (thanks to Michael Rohleder)
 - Check if =tern= exists before using it (thanks to Codruț Constantin Gușoi)
+- Fix hook value to enable evil-matchit (thanks to Thanh Vuong)
 **** Keyboard layout
 - Added support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and
   Eivind Fonn)
