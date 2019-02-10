@@ -1,0 +1,76 @@
+#+TITLE: ReasonML layer
+
+[[https://reasonml.github.io/img/reason.svg]]
+
+* Description
+
+Spacemacs layer for ReasonML, based around [[https://github.com/reasonml-editor/reason-mode][reason-mode]].
+
+** Features:
+  - Syntax highlighting / indentation
+  - Autocomplete (via =merlin=)
+  - Lint / error display (via =merlin=, and =flycheck= if =syntax-checking= layer is enabled)
+  - REPL via =rtop=
+  - Auto-formatting (via =refmt=)
+
+* Install
+
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =reasonml= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+This layer depends on the `ocaml` layer which should be installed automatically.
+
+** Merlin
+
+You'll need merlin (binaries =ocamlmerlin= and =ocamlmerlin-reason=) installed
+on your system and on your =PATH= for errors and auto-completion.
+
+If you're familiar with =opam= you can
+#+BEGIN_SRC sh
+  opam install merlin reason
+#+END_SRC
+to get =ocamlmerlin= and =ocamlmerlin-reason= on your current =opam= switch.
+
+** Refmt
+
+Similarly to Merlin, you'll need the =refmt= binary on your path.
+
+If you're familiar with =opam= you can
+#+BEGIN_SRC sh
+  opam install reason
+#+END_SRC
+to get =refmt= in your current =opam switch=.
+
+If your project depends on a specific version of =refmt=, you can set
+=refmt-command= (via =customize-mode= or =(setq refmt-command ..)=) to the path
+to a particular binary. You can also use the special values ='npm= or ='opam= to
+run =refmt= via =npx= or =opam exec=, which will keep you on the correct version
+for your current opam switch, or the project-local of =node_modules=.
+
+You can toggle =refmt= on save with =SPC m r t=. To permanently enable it, add the layer variable:
+#+BEGIN_SRC emacs-lisp
+  (reasonml :variables reason-auto-refmt t)
+#+END_SRC
+in your =dotspacemacs-configuration-layers=.
+
+* Key bindings
+
+The main keybindings, see =packages.el= for the main list.
+
+| Key binding   | Description                           |
+|---------------+---------------------------------------|
+| ~SPC m g g~   | Jump to definition                    |
+| ~SPC m g G~   | Jump to definition (other window)     |
+| ~SPC m g b~   | Jump back                             |
+| ~SPC m h t~   | Show type                             |
+| ~SPC m h h~   | Show docs                             |
+| ~SPC m r d~   | Merlin destruct                       |
+| ~SPC m = =~   | Refmt                                 |
+| ~SPC m t r~   | Toggle auto-refmt on save             |
+| ~SPC m = m r~ | Refmt: convert ml syntax to re syntax |
+| ~SPC m = r m~ | Refmt: convert re syntax to ml syntax |
+
+* Thanks
+
+Special thanks to [[https://github.com/fredyr/][fredyr]] who wrote the initial verison of this layer.

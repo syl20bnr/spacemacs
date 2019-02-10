@@ -311,6 +311,7 @@ sane way, here is the complete list of changed key bindings
 - perl5 (thanks to Troy Hinckley, Jinseop Kim and Michael Rohleder)
 - perl6 (thanks to Bahtiar Gadimov and yuhan0)
 - prolog (thanks to Newres Al Haider)
+- reasonml (thanks to fredyr and Dave Aitken)
 - protobuf (thanks to Amol Mandhane)
 - restructuredtext (thanks to Wei-Wei Guo and Kalle Lindqvist)
 - semantic-web (thanks to Andreas Textor)
@@ -1596,7 +1597,7 @@ Other:
 - Added missing prefixes for =web-mode= and =css-mode= (thanks to Uroš Perišić)
 - Fixed ~TAB~ indenting in =web-mode= (thanks to Christopher Eames)
 - Added =lsp= support for =css-mode=, =less-css-mode=, and =scss-mode=
-- Added support for =prettier= formatter in HTML buffers 
+- Added support for =prettier= formatter in HTML buffers
 **** Hy
 - Added support for virtual envs (thanks to Danny Freeman)
 - Key bindings:
@@ -2224,6 +2225,19 @@ Other:
   - Use JSX header without breaking React (thanks to Jam Risser)
   - Fixed React imports when using web beautify. (thanks to Ismael)
   - Made layer depends on node and tern layers (thanks to Sylvain Benner)
+**** ReasonML
+- Key bindings:
+  - ~SPC m g g~ Jump to definition
+  - ~SPC m g G~ Jump to definition (other window)
+  - ~SPC m g b~ Jump back
+  - ~SPC m h t~ Show type
+  - ~SPC m h h~ Show docs
+  - ~SPC m r d~ Merlin destruct
+  - ~SPC m = =~ Refmt
+  - ~SPC m t r~ Toggle auto-refmt on save
+  - ~SPC m = m r~ Refmt: convert ml syntax to re syntax
+  - ~SPC m = r m~ Refmt: convert re syntax to ml syntax
+    (thanks to Fredrik Dyrkell and Dave Aitken)
 **** Ruby
 - Added support for =org-babel= (thanks to Muneeb Shaikh)
 - Highlight debugger keywords (thanks to Alexander Berezovsky and Eivind Fonn)
