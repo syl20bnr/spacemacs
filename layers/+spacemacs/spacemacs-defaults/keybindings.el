@@ -156,16 +156,19 @@
 ;; Cycling settings -----------------------------------------------------------
 (spacemacs|define-transient-state theme
   :title "Themes Transient State"
-  :doc "\n[_n_/_<right>_] next  [_p_/_<left>_] previous  [_t_/_<up>_] helm-themes"
+  :doc "\n[_n_/_<right>_] next  [_N_/_p_/_<left>_] previous  [_t_/_<up>_] helm-themes"
   :bindings
   ("n" spacemacs/cycle-spacemacs-theme)
-  ("p" (spacemacs/cycle-spacemacs-theme 'backward))
+  ("N" spacemacs/cycle-spacemacs-theme-backward)
+  ("p" spacemacs/cycle-spacemacs-theme-backward)
   ("t" helm-themes)
   ("<up>" helm-themes)
   ("<right>" spacemacs/cycle-spacemacs-theme)
-  ("<left>" (spacemacs/cycle-spacemacs-theme 'backward)))
+  ("<left>" spacemacs/cycle-spacemacs-theme-backward))
 (spacemacs/set-leader-keys "Tn"
   'spacemacs/theme-transient-state/spacemacs/cycle-spacemacs-theme)
+(spacemacs/set-leader-keys "TN"
+  'spacemacs/theme-transient-state/spacemacs/cycle-spacemacs-theme-backward)
 ;; errors ---------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "en" 'spacemacs/next-error

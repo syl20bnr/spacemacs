@@ -332,7 +332,7 @@ THEME."
               (load-theme ',theme-name t))))))
 
 (defun spacemacs/cycle-spacemacs-theme (&optional backward)
-  "Cycle through themes defined in `dotspacemacs-themes.'
+  "Cycle through themes defined in `dotspacemacs-themes'.
 When BACKWARD is non-nil, or with universal-argument, cycle backwards."
   (interactive "P")
   (let* ((themes (if backward (reverse dotspacemacs-themes) dotspacemacs-themes))
@@ -347,6 +347,11 @@ When BACKWARD is non-nil, or with universal-argument, cycle backwards."
             (format "Loading theme %s..." next-theme))))
       (spacemacs/load-theme next-theme nil 'disable)
       (progress-reporter-done progress-reporter))))
+
+(defun spacemacs/cycle-spacemacs-theme-backward ()
+  "Cycle through themes defined in `dotspacemacs-themes' backward."
+  (interactive)
+  (spacemacs/cycle-spacemacs-theme t))
 
 (defadvice load-theme (after spacemacs/load-theme-adv activate)
   "Perform post load processing."
