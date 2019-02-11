@@ -655,6 +655,8 @@ Other:
     Sylvain Benner)
   - Changed ~SPC h d d~ to ~SPC h d a~ for =helm-apropos=, it's more mnemonic
     (thanks duianto, and thanks yuhan0 for the suggestion)
+  - Added ~SPC h d a~ for =counsel-apropos= (thanks duianto, and thanks yuhan0
+    for the suggestion)
   - Added profiling key bindings:
     - ~SPC h P k~ to stop the profiler
     - ~SPC h P r~ to display the profiler report
