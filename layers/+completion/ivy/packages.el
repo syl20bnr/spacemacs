@@ -62,6 +62,7 @@
         "fL"  'counsel-locate
         ;; help
         "?"   'counsel-descbinds
+        "hda" 'counsel-apropos
         "hdf" 'counsel-describe-function
         "hdF" 'counsel-describe-face
         "hdm" 'spacemacs/describe-mode
