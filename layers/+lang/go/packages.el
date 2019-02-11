@@ -142,6 +142,8 @@
       (spacemacs/declare-prefix-for-mode 'go-mode "mi" "imports")
       (spacemacs/declare-prefix-for-mode 'go-mode "mr" "refactoring")
       (spacemacs/declare-prefix-for-mode 'go-mode "mt" "test")
+      (spacemacs/declare-prefix-for-mode 'go-mode "mtg" "generate")
+      (spacemacs/declare-prefix-for-mode 'go-mode "mT" "toggle")
       (spacemacs/declare-prefix-for-mode 'go-mode "mx" "execute")
       (spacemacs/set-leader-keys-for-major-mode 'go-mode
         "="  'gofmt
