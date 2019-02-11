@@ -1943,6 +1943,7 @@ Other:
 - Changed leader keys to be configured for the =projectile-rails-mode= minor
   mode instead of =ruby-mode= and =enh-ruby-mode= so that the key bindings will
   work in view file windows (thanks to Adam Sokolnicki)
+- Added missing prefixes for =ruby-mode= and =enh-ruby-mode=
 - Added key bindings: (thanks to Adam Sokolnicki)
   - ~SPC m f f b~ to find job
   - ~SPC m f f w~ to find webpack config
