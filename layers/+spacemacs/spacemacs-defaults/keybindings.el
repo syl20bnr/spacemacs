@@ -50,6 +50,7 @@
                                        ("m"   "major mode commands")
                                        ("n"   "narrow/numbers")
                                        ("N"   "navigation")
+                                       ("o"   "user bindings")
                                        ("p"   "projects")
                                        ("q"   "quit")
                                        ("r"   "registers/rings/resume")
