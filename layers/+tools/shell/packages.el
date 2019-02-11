@@ -175,7 +175,8 @@
 (defun shell/post-init-projectile ()
   (spacemacs/set-leader-keys
     "p'" 'spacemacs/projectile-shell-pop
-    "p$t" 'projectile-multi-term-in-root))
+    "p$t" 'projectile-multi-term-in-root)
+  (spacemacs/declare-prefix "p$" "projects/shell"))
 
 (defun shell/init-shell ()
   (spacemacs/register-repl 'shell 'shell)
@@ -227,7 +228,9 @@
         "asi" 'spacemacs/shell-pop-inferior-shell
         "asm" 'spacemacs/shell-pop-multiterm
         "ast" 'spacemacs/shell-pop-ansi-term
-        "asT" 'spacemacs/shell-pop-term))))
+        "asT" 'spacemacs/shell-pop-term)
+      (spacemacs/declare-prefix "'" "open shell")
+      (spacemacs/declare-prefix "as" "shells"))))
 
 (defun shell/init-term ()
   (spacemacs/register-repl 'term 'term)

@@ -65,6 +65,7 @@
                                          rcirc-track-minor-mode))
 
       (spacemacs/set-leader-keys "air" 'spacemacs/rcirc)
+      (spacemacs/declare-prefix "ai"  "irc")
       (evil-set-initial-state 'rcirc-mode 'insert))
       (setq rcirc-fill-column 80
             rcirc-buffer-maximum-lines 2048

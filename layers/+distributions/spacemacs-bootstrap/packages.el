@@ -338,27 +338,11 @@
            ("\\(.+\\)-transient-state/\\(.+\\)" . "\\2")
            ("\\(.+\\)-transient-state/body" . "\\1-transient-state")
            ("spacemacs-layouts/non-restricted-buffer-list-\\(helm\\|ivy\\)" . "global-list-buffers")
-           ("spacemacs/alternate-buffer" . "last buffer")
-           ("spacemacs/default-pop-shell" . "open shell")
-           ("spacemacs/helm-project-smart-do-search" . "smart search")
-           ("spacemacs/helm-project-smart-do-search-region-or-symbol" . "smart search w/input")
-           ("spacemacs/search-project-auto" . "search project")
-           ("spacemacs/search-project-auto-region-or-symbol" . "search project w/input")
-           ("spacemacs/toggle-holy-mode" . "emacs (holy-mode)")
-           ("spacemacs/toggle-hybrid-mode" . "hybrid (hybrid-mode)")
            ("spacemacs/toggle-mode-line-\\(.+\\)" . "\\1")
-           ("avy-goto-line" . "avy line")
-           ("avy-goto-word-or-subword-1" . "avy word")
-           ("er/expand-region" . "expand region")
            ("evil-lisp-state-\\(.+\\)" . "\\1")
-           ("helm-apropos" . "apropos")
-           ("helm-descbinds" . "show keybindings")
            ("helm-mini\\|ivy-switch-buffer" . "list-buffers")
            ("lazy-helm/\\(.+\\)" . "\\1")
            ("lazy-helm/spacemacs/\\(.+\\)" . "\\1")
-           ("shell-command" . "shell cmd")
-           ("sp-split-sexp" . "split sexp")
-           ("universal-argument" . "universal arg")
            )))
     (dolist (nd new-descriptions)
       ;; ensure the target matches the whole string
@@ -478,18 +462,9 @@
   (push '(("\\(.*\\)C-c C-d C-d" . "elisp-slime-nav-describe-elisp-thing-at-point") . t)
           which-key-replacement-alist)
 
-  (dolist (leader-key `(,dotspacemacs-leader-key ,dotspacemacs-emacs-leader-key))
-    (which-key-add-key-based-replacements
-      (concat leader-key " m")    "major mode commands"
-      (concat leader-key " " dotspacemacs-emacs-command-key) "M-x"))
-
   (which-key-add-key-based-replacements
     dotspacemacs-leader-key '("root" . "Spacemacs root")
-    dotspacemacs-emacs-leader-key '("root" . "Spacemacs root")
-    (concat dotspacemacs-leader-key " m")
-    '("major-mode-cmd" . "Major mode commands")
-    (concat dotspacemacs-emacs-leader-key " m")
-    '("major-mode-cmd" . "Major mode commands"))
+    dotspacemacs-emacs-leader-key '("root" . "Spacemacs root"))
 
   ;; disable special key handling for spacemacs, since it can be
   ;; disorienting if you don't understand it
