@@ -298,6 +298,11 @@
     :defer t
     :init
     (progn
+      ;; `s' for surround instead of `substitute'
+      ;; see motivation here:
+      ;; https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#the-vim-surround-case
+      (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region)
+      (evil-define-key 'visual evil-surround-mode-map "S" 'evil-substitute)
       (spacemacs|add-transient-hook evil-visual-state-entry-hook
         (lambda () (require 'evil-surround))
         lazy-load-evil-surround)
@@ -306,10 +311,6 @@
         lazy-load-evil-surround-2))
     :config
     (progn
-      ;; `s' for surround instead of `substitute'
-      ;; see motivation for this change in the documentation
-      (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region)
-      (evil-define-key 'visual evil-surround-mode-map "S" 'evil-substitute)
       (global-evil-surround-mode 1))))
 
 (defun spacemacs-evil/init-evil-terminal-cursor-changer ()
