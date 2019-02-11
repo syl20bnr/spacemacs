@@ -42,6 +42,7 @@
                                        ("k`"  "hybrid")
                                        ("n"   "narrow/numbers")
                                        ("N"   "navigation")
+                                       ("o"   "user bindings")
                                        ("p"   "projects")
                                        ("p$"  "projects/shell")
                                        ("q"   "quit")
