@@ -52,6 +52,7 @@
         "aiE" 'erc-tls
         "aii" 'erc-track-switch-buffer
         "aiD" 'erc/default-servers)
+      (spacemacs/declare-prefix "ai"  "irc")
       ;; utf-8 always and forever
       (setq erc-server-coding-system '(utf-8 . utf-8)))
     :config

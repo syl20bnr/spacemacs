@@ -151,7 +151,6 @@
       (when (eq window-system 'w32)
         (setenv "GIT_ASKPASS" "git-gui--askpass"))
       ;; key bindings
-      (spacemacs/declare-prefix "gd" "diff")
       (spacemacs/declare-prefix "gf" "file")
       (spacemacs/set-leader-keys
         "gb"  'spacemacs/git-blame-micro-state

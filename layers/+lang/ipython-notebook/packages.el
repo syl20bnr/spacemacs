@@ -30,6 +30,7 @@
       (spacemacs/set-leader-keys
         "ayl" 'ein:notebooklist-login
         "ayo" 'ein:notebooklist-open)
+      (spacemacs/declare-prefix "ay" "ipython notebook")
       (with-eval-after-load 'ein-notebooklist
         (evilified-state-evilify-map ein:notebooklist-mode-map
           :mode ein:notebooklist-mode
