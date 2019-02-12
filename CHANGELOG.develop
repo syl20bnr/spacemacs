@@ -653,6 +653,8 @@ Other:
     Takemura)
   - Added ~SPC f y n~ and ~SPC f y N~ to copy the name of a file (thanks to
     Sylvain Benner)
+  - Changed ~SPC h d d~ to ~SPC h d a~ for =helm-apropos=, it's more mnemonic
+    (thanks duianto, and thanks yuhan0 for the suggestion)
   - Added profiling key bindings:
     - ~SPC h P k~ to stop the profiler
     - ~SPC h P r~ to display the profiler report
