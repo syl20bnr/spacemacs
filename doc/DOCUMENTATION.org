@@ -1887,9 +1887,9 @@ thusly:
 
 | Key binding | Description                                               |
 |-------------+-----------------------------------------------------------|
+| ~SPC h d a~ | describe current expression under point                   |
 | ~SPC h d b~ | describe bindings                                         |
 | ~SPC h d c~ | describe current character under point                    |
-| ~SPC h d d~ | describe current expression under point                   |
 | ~SPC h d f~ | describe a function                                       |
 | ~SPC h d F~ | describe a face                                           |
 | ~SPC h d k~ | describe a key                                            |

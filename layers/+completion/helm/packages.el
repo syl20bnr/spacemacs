@@ -87,7 +87,7 @@
       (spacemacs||set-helm-key "fF"   helm-find-files)
       (spacemacs||set-helm-key "fL"   helm-locate)
       (spacemacs||set-helm-key "fr"   helm-recentf)
-      (spacemacs||set-helm-key "hdd"  helm-apropos)
+      (spacemacs||set-helm-key "hda"  helm-apropos)
       (spacemacs||set-helm-key "hdF"  spacemacs/helm-faces)
       (spacemacs||set-helm-key "hi"   helm-info-at-point)
       (spacemacs||set-helm-key "hm"   helm-man-woman)
