@@ -398,9 +398,9 @@
         "C-k"))
     :bepo
     (progn
-      (magit-change-popup-key 'magit-dispatch-popup :actions ?t ?j)
-      (magit-change-popup-key 'magit-dispatch-popup :actions ?s ?k)
-      (magit-change-popup-key 'magit-dispatch-popup :actions ?S ?K))
+      (transient-suffix-put 'magit-dispatch "t" :key "j")
+      (transient-suffix-put 'magit-dispatch "s" :key "k")
+      (transient-suffix-put 'magit-dispatch "S" :key "K"))
     :colemak-jkhl
     (kl/evil-correct-keys 'visual magit-mode-map
       "j"

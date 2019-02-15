@@ -157,10 +157,10 @@
         "gc"  'magit-clone
         "gff" 'magit-find-file
         "gfl" 'magit-log-buffer-file
-        "gfd" 'magit-diff-buffer-file-popup
+        "gfd" 'magit-diff-buffer-file
         "gi"  'magit-init
         "gL"  'magit-list-repositories
-        "gm"  'magit-dispatch-popup
+        "gm"  'magit-dispatch
         "gs"  'magit-status
         "gS"  'magit-stage-file
         "gU"  'magit-unstage-file)
