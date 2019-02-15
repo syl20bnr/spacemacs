@@ -1210,8 +1210,8 @@ Other:
     duianto)
   - ~SPC g i~ to initialize a repository (thanks to Steven Allen)
   - ~SPC m g y~ to find symbols (thanks to Daniel Ralston)
-  - ~SPC g f d~ for =magit-diff-buffer-file-popup= (thanks to Ag Ibragimov)
-- Added feature to toggle =evil-magit= based on editing style (thanks to Muneeb
+  - ~SPC g f d~ for =magit-diff-buffer-file= (thanks to Ag Ibragimov and bmag)
+- Add feature to toggle =evil-magit= based on editing style (thanks to Muneeb
   Shaikh)
 - Added =use-package= for deferred loading of evil-magit (thanks to Sylvain
   Benner)
