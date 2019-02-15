@@ -130,8 +130,10 @@
     (call-interactively 'tide-format))
    ((eq typescript-fmt-tool 'prettier)
     (call-interactively 'prettier-js))
+   ((eq typescript-fmt-tool 'lsp)
+    (call-interactively 'lsp-format-buffer))
    (t (error (concat "%s isn't valid typescript-fmt-tool value."
-                     " It should be 'tide, 'typescript-formatter or 'prettier."
+                     " It should be 'tide, 'typescript-formatter, 'prettier or 'lsp."
                      (symbol-name typescript-fmt-tool))))))
 
 (defun spacemacs/typescript-fmt-before-save-hook ()

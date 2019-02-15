@@ -49,7 +49,7 @@ If you need formatting on save:
                 typescript-fmt-on-save t)))
 #+END_SRC
 
-You can choose formatting tool:
+You can choose formatting tool from ='tide=, ='typescript-formatter=, ='prettier= and ='lsp=:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
