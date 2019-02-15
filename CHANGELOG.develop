@@ -911,6 +911,7 @@ Other:
     (thanks to Codruț Constantin Gușoi)
   - Stopped configuring =fci-rule-color=, which was overriding themes that
     configured it (thanks to Victor Cuadrado Juan)
+  - Added ranger-mode to golden-ratio-exclude-modes (thanks to Langston Barrett)
 *** Layer changes and fixes
 **** Ansible
 - Improvements:

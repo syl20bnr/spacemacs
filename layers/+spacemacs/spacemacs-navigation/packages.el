@@ -234,6 +234,7 @@
                    "gdb-inferior-io-mode"
                    "gdb-disassembly-mode"
                    "gdb-memory-mode"
+                   "ranger-mode"
                    "speedbar-mode"))
 
         (add-to-list 'golden-ratio-exclude-modes m))
