@@ -17,6 +17,7 @@
         company
         (company-quickhelp :toggle auto-completion-enable-help-tooltip)
         company-statistics
+        (company-tabnine :toggle auto-completion-enable-tabnine)
         counsel
         fuzzy
         (helm-company :requires helm)
@@ -129,6 +130,13 @@
       (setq company-statistics-file (concat spacemacs-cache-directory
                                             "company-statistics-cache.el"))
       (add-hook 'company-mode-hook 'company-statistics-mode))))
+
+(defun auto-completion/init-company-tabnine ()
+  (use-package company-tabnine
+    :if auto-completion-enable-tabnine
+    :defer t
+    :config
+    (setq company-tabnine-max-num-results 3)))
 
 (defun auto-completion/pre-init-counsel ()
     (spacemacs|use-package-add-hook company

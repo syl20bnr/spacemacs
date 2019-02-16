@@ -8,6 +8,7 @@
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#key-bindings][Key bindings]]
+  - [[#tabnine][TabNine]]
   - [[#snippets-directories][Snippets directories]]
   - [[#show-snippets-in-auto-completion-popup][Show snippets in auto-completion popup]]
   - [[#tooltips][Tooltips]]
@@ -69,6 +70,7 @@ The default configuration of the layer is:
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (auto-completion :variables
+                     auto-completion-enable-tabnine t
                      auto-completion-return-key-behavior 'complete
                      auto-completion-tab-key-behavior 'cycle
                      auto-completion-complete-with-key-sequence nil
@@ -82,6 +84,21 @@ The default configuration of the layer is:
 
 ~jk~ is a good candidate for =auto-completion-complete-with-key-sequence= if
 you don't use it already.
+
+** TabNine
+[[https://tabnine.com/][TabNine]] is the all-language autocompleter. It uses machine learning to provide
+responsive, reliable, and relevant suggestions.
+To enable TabNine backend, set the variable
+=auto-completion-enable-sort-by-usage= to =t=.
+This feature is provided by the [[https://github.com/TommyX12/company-tabnine][company-tabnine]] package when =company= is used.
+The variable has no effect when =auto-complete= is used.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                  '((auto-completion :variables
+                                     auto-completion-front-end 'company
+                                     auto-completion-enable-tabnine t)))
+#+END_SRC
 
 ** Snippets directories
 The following directories are added by default:

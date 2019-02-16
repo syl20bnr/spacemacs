@@ -41,6 +41,9 @@ selection.")
 (defvar auto-completion-idle-delay 0.2
   "Delay (seconds) before completions are shown.")
 
+(defvar auto-completion-enable-tabnine nil
+  "If non nil enable tabnine backend when the front end is `company'.")
+
 (defvar auto-completion-enable-snippets-in-popup nil
   "If non nil show snippets in the auto-completion popup.")
 

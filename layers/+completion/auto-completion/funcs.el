@@ -93,7 +93,14 @@ Available PROPS:
                  ,(format "Company backend list for %S." mode)) result)
         ;; add backends
         (dolist (backend backends)
-          (push `(add-to-list ',raw-backends-var-name ',backend) result))
+          ;; add tabnine backend if enabled
+          (push (if auto-completion-enable-tabnine
+                    (if (consp backend)
+                        `(add-to-list ',raw-backends-var-name
+                                      (cons 'company-tabnine ',backend))
+                      `(add-to-list ',raw-backends-var-name
+                                    '(company-tabnine ,backend)))
+                  `(add-to-list ',raw-backends-var-name ',backend)) result))
         ;; define initialization hook function
         (push `(defun ,init-func-name ()
                 ,(format "Initialize company for %S." mode)
