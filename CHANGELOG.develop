@@ -575,21 +575,24 @@ Other:
     (thanks to Sylvain Benner)
   - Remove package =adaptive-wrap=
 - Key bindings:
-  - enabled Helm or Ivy (if one of these is enabled) for:
-    - ~SPC a d~ (=dired=)
-    - ~SPC F f~ (=find-file-other-frame=)
-    - ~SPC F b~ (=switch-to-buffer-other-frame=)
-    - ~SPC F B~ (=display-buffer-other-frame=)
-    - ~SPC F O~ (=dired-other-frame=)
-    (thanks to Miciah Masters)
   - New evil text objects =«=, =｢=, =‘= and =“=.
-  - New key binding ~SPC f i~ for =insert-file=.
+  - Improve buffer transient state with extra bindings and new commands:
+    - Added ~<right>~ for next-buffer
+    - Added ~<left>~ for previous-buffer
+    - Added ~o~ for other window
+    - Added ~C-d~ for burry buffer
+    - Added ~b~ for helm-buffer-list
+    (thanks to Adrien Becchis and Sylvain Benner)
   - Added alignment support for ~{~ (thanks to Paulo Diniz)
-  - Move all scrolling key bindings from ~SPC n~ to ~SPC N~ (thanks to Somelauw)
-  - Move ~SPC q z~ to ~SPC q f~ to kill a frame (thanks to Steven Allen)
-  - Move ~SPC t C p~ to ~SPC t h p~ for =highlight-parentheses-mode= (thanks to
-    Thomas de Beauchêne)
-  - Overhaul the scroll transient state on ~SPC N~ prefix (thanks to Somelauw)
+  - Added functionality to move layouts in layout list using the layouts
+    transient state:
+    - Added ~<~ for =spacemacs/move-current-persp-left=
+    - Added ~>~ for =spacemacs/move-current-persp-right=
+    (thanks to Linus Marton)
+  - New ~SPC b u~ keybinding for reopening killed buffers (thanks to Alex
+    Palaistras)
+  - New ~SPC b x~ and ~SPC w x~ to remove both buffer and window in one go
+    (thanks to Codruț Constantin Gușoi)
   - New key binding ~SPC b H~ to open or select the =*Help*= buffer
     (thanks to duianto)
   - New ~SPC b N~ prefix to create an empty buffer:
@@ -600,33 +603,17 @@ Other:
     - ~SPC b N n~ create new empty buffer in current window
     - ~SPC b N f~ create new empty buffer in a new frame
     (thanks to duianto and Jesse Byler)
-  - New text align key bindings:
-    - ~SPC x a [~ align region at [
-    - ~SPC x a ]~ align region at ]
-    - ~SPC x a {~ align region at {
-    - ~SPC x a }~ align region at }
-    (thanks to Thomas de Beauchêne)
-  - New text align key binding ~SPC x a %~ to align region at =%= (thanks to
-    Gunnar Bastkowski)
-  - New transient state for string inflection under ~SPC x i~
-    (thanks to Eivind Fonn)
-  - New string inflection key bindings:
-    - ~SPC x i i~ cycle symbol naming styles
-    - ~SPC x i u~ change symbol style to =under_score=
-    - ~SPC x i U~ change symbol style to =UP_CASE=
-    - ~SPC x i k~ change symbol style to =kebab-case=
-    - ~SPC x i c~ change symbol style to =lowerCamelCase=
-    - ~SPC x i C~ change symbol style to =UpperCamelCase=
-    (thanks to Ric da Silva)
-  - New ~SPC x d SPC~ to delete all spaces except one (thanks to Fabian Wilk)
-  - New =spacemacs-navigation= key bindings:
-    - ~SPC q t~ for restarting with =--timed-requires=
-    - ~SPC q T~ for restarting with =--adv-timers=
-    (thanks to Rich Alesi)
-  - New =spacemacs-completion key bindings:
-    - ~C-S-j~ for =helm-follow-action-forward=
-    - ~C-S-k~ for =helm-follow-action-backward=
-    (thanks to Diego Berrocal)
+  - Added ~C~ key binding to create workspace in workspace transient state
+    (thanks to duianto)
+  - enabled Helm or Ivy (if one of these is enabled) for:
+    - ~SPC a d~ (=dired=)
+    - ~SPC F f~ (=find-file-other-frame=)
+    - ~SPC F b~ (=switch-to-buffer-other-frame=)
+    - ~SPC F B~ (=display-buffer-other-frame=)
+    - ~SPC F O~ (=dired-other-frame=)
+    (thanks to Miciah Masters)
+  - New key binding ~SPC f i~ for =insert-file=.
+  - New ~SPC f e U~ to update packages (thanks to Codruț Constantin Gușoi)
   - New frame manipulation key bindings:
     - Added ~SPC F f~ for =find-file-other-frame=
     - Added ~SPC F d~ for =delete-frame=
@@ -637,64 +624,6 @@ Other:
     - Added ~SPC F o~ for =other-frame=
     - Added ~SPC F n~ for =make-frame=
     (thanks to Ben Lloyd, duianto and bmag)
-  - Added ~C~ key binding to create workspace in workspace transient state
-    (thanks to duianto)
-  - New ~SPC b u~ keybinding for reopening killed buffers (thanks to Alex
-    Palaistras)
-  - New transpose sentences and transpose paragraphs keybindings (thanks to
-    Daniel Gomez):
-    - ~SPC x t p~ for =transpose-paragraphs=
-    - ~SPC x t s~ for =transpose-sentances=
-  - Added missing which-key prefix names =new empty buffer= and =justification=
-    (thanks to duianto)
-  - New ~SPC p e~ to edit =dir-locals.el= (thanks to Dela Anthonio)
-  - Improve buffer transient state with extra bindings and new commands:
-    - Added ~<right>~ for next-buffer
-    - Added ~<left>~ for previous-buffer
-    - Added ~o~ for other window
-    - Added ~C-d~ for burry buffer
-    - Added ~b~ for helm-buffer-list
-    (thanks to Adrien Becchis and Sylvain Benner)
-  - New themes transient state key bindings ~t~ or ~<up>~ to open =helm-themes=
-    to select an installed theme (thanks to duianto)
-  - Added functionality to move layouts in layout list using the layouts
-    transient state:
-    - Added ~<~ for =spacemacs/move-current-persp-left=
-    - Added ~>~ for =spacemacs/move-current-persp-right=
-    (thanks to Linus Marton)
-  - New ~SPC f e U~ to update packages (thanks to Codruț Constantin Gușoi)
-  - New ~SPC b x~ and ~SPC w x~ to remove both buffer and window in one go
-    (thanks to Codruț Constantin Gușoi)
-  - New ~SPC t m r~ to toggle responsiveness of the mode-line
-  - Fixed ~hjkl~ bindings in =image-mode= and add leader bindings:
-    - ~SPC m a a~ calls =image-toggle-animation=
-    - ~SPC m a +~ calls =image-increase-speed=
-    - ~SPC m a -~ calls =image-decrease-speed=
-    - ~SPC m a r~ calls =image-reset-speed=
-    - ~SPC m g n~ calls =image-next-file=
-    - ~SPC m g N~ calls =image-previous-file=
-    - ~SPC m t +~ calls =image-increase-size=
-    - ~SPC m t -~ calls =image-decrease-size=
-    - ~SPC m t f~ calls =image-mode-fit-frame=
-    - ~SPC m t r~ calls =image-transform-reset=
-    - ~SPC m t h~ calls =image-transform-fit-to-height=
-    - ~SPC m t w~ calls =image-transform-fit-to-width=
-    - ~SPC m t s~ calls =image-transform-set-scale=
-    - ~SPC m t r~ calls =image-transform-rotation=
-    (thanks to Kalle Lindqvist)
-  - Alternative keybinding ~M-0~ to switch to =neotree= / =treemacs= window
-    (thanks to Alexander Miller)
-  - New ~SPC w 1~ to set the window layout to a single column (thanks to
-    Alejandro Arrufat)
-  - New ~SPC w 4~ to set the window layout to a 2x2 grid (thanks to Alejandro
-    Arrufat, Codruț Constantin Gușoi, and bmag).
-  - Added profiling key bindings:
-    - ~SPC h P k~ to stop the profiler
-    - ~SPC h P r~ to display the profiler report
-    - ~SPC h P s~ to start the profiler
-    - ~SPC h P w~ to write the profiler report to a file
-    (thanks to Codruț Constantin Gușoi)
-  - New ~SPC x t e~ to transpose sexps (thanks to Guido Kraemer)
   - Added multiple key bindings to copy a file path:
     - ~SPC f y c~ to show and copy current file absolute path with line and
       column number in the minibuffer
@@ -712,9 +641,6 @@ Other:
     - ~SPC f y Y~ to show and copy current file path relative to the project
       root
     (thanks to Codruț Constantin Gușoi)
-  - Added ~SPC f y n~ and ~SPC f y N~ to copy the name of a file (thanks to
-    Sylvain Benner)
-  - Added ~SPC t z~ to toggle zero-based column indexing in the mode line
   - New ~SPC f e e~ to open spacemacs.env file (thanks to Sylvain Benner)
   - New ~SPC f e E~ to reload environment variable from env file (thanks to
     Sylvain Benner)
@@ -722,11 +648,85 @@ Other:
     Sylvain Benner)
   - New ~SPC f A~ to open a file and replace buffer with it (thanks to Masayuki
     Takemura)
+  - Added ~SPC f y n~ and ~SPC f y N~ to copy the name of a file (thanks to
+    Sylvain Benner)
+  - Added profiling key bindings:
+    - ~SPC h P k~ to stop the profiler
+    - ~SPC h P r~ to display the profiler report
+    - ~SPC h P s~ to start the profiler
+    - ~SPC h P w~ to write the profiler report to a file
+    (thanks to Codruț Constantin Gușoi)
+  - New =spacemacs-completion key bindings:
+    - ~C-S-j~ for =helm-follow-action-forward=
+    - ~C-S-k~ for =helm-follow-action-backward=
+    (thanks to Diego Berrocal)
+  - Overhauled the scroll transient state and moved all scrolling key bindings
+    from ~SPC n~ to ~SPC N~ (thanks to Somelauw)
+  - Alternative keybinding ~M-0~ to switch to =neotree= / =treemacs= window
+    (thanks to Alexander Miller)
+  - Fixed ~hjkl~ bindings in =image-mode= and add leader bindings:
+    - ~SPC m a a~ calls =image-toggle-animation=
+    - ~SPC m a +~ calls =image-increase-speed=
+    - ~SPC m a -~ calls =image-decrease-speed=
+    - ~SPC m a r~ calls =image-reset-speed=
+    - ~SPC m g n~ calls =image-next-file=
+    - ~SPC m g N~ calls =image-previous-file=
+    - ~SPC m t +~ calls =image-increase-size=
+    - ~SPC m t -~ calls =image-decrease-size=
+    - ~SPC m t f~ calls =image-mode-fit-frame=
+    - ~SPC m t r~ calls =image-transform-reset=
+    - ~SPC m t h~ calls =image-transform-fit-to-height=
+    - ~SPC m t w~ calls =image-transform-fit-to-width=
+    - ~SPC m t s~ calls =image-transform-set-scale=
+    - ~SPC m t r~ calls =image-transform-rotation=
+    (thanks to Kalle Lindqvist)
+  - New ~SPC p e~ to edit =dir-locals.el= (thanks to Dela Anthonio)
+  - Move ~SPC q z~ to ~SPC q f~ to kill a frame (thanks to Steven Allen)
+  - New =spacemacs-navigation= key bindings:
+    - ~SPC q t~ for restarting with =--timed-requires=
+    - ~SPC q T~ for restarting with =--adv-timers=
+    (thanks to Rich Alesi)
+  - Move ~SPC t C p~ to ~SPC t h p~ for =highlight-parentheses-mode= (thanks to
+    Thomas de Beauchêne)
+  - New ~SPC t m r~ to toggle responsiveness of the mode-line
+  - New themes transient state key bindings ~t~ or ~<up>~ to open =helm-themes=
+    to select an installed theme (thanks to duianto)
+  - Added ~SPC t z~ to toggle zero-based column indexing in the mode line
+  - New key binding and function ~SPC w |~ for =spacemacs/maximize-vertically
+    (thanks to Ag Ibragimov)
+  - New ~SPC w 1~ to set the window layout to a single column (thanks to
+    Alejandro Arrufat)
+  - New ~SPC w 4~ to set the window layout to a 2x2 grid (thanks to Alejandro
+    Arrufat, Codruț Constantin Gușoi, and bmag).
+  - New text align key bindings:
+    - ~SPC x a [~ align region at [
+    - ~SPC x a ]~ align region at ]
+    - ~SPC x a {~ align region at {
+    - ~SPC x a }~ align region at }
+    (thanks to Thomas de Beauchêne)
+  - New text align key binding ~SPC x a %~ to align region at =%= (thanks to
+    Gunnar Bastkowski)
+  - New transient state for string inflection under ~SPC x i~
+    (thanks to Eivind Fonn)
+  - New ~SPC x d SPC~ to delete all spaces except one (thanks to Fabian Wilk)
+  - New string inflection key bindings:
+    - ~SPC x i i~ cycle symbol naming styles
+    - ~SPC x i u~ change symbol style to =under_score=
+    - ~SPC x i U~ change symbol style to =UP_CASE=
+    - ~SPC x i k~ change symbol style to =kebab-case=
+    - ~SPC x i c~ change symbol style to =lowerCamelCase=
+    - ~SPC x i C~ change symbol style to =UpperCamelCase=
+    (thanks to Ric da Silva)
+  - New transpose sentences and transpose paragraphs keybindings (thanks to
+    Daniel Gomez):
+    - ~SPC x t p~ for =transpose-paragraphs=
+    - ~SPC x t s~ for =transpose-sentances=
+  - Added missing which-key prefix names =new empty buffer= and =justification=
+    (thanks to duianto)
+  - New ~SPC x t e~ to transpose sexps (thanks to Guido Kraemer)
   - Added evil key bindings for visualizer and window mode of =undo-tree=
     (thanks to Rich Alesi)
   - Improved =which-key= replacement regular expressions (thanks to duianto)
-  - New key binding and function ~SPC w |~ for =spacemacs/maximize-vertically
-    (thanks to Ag Ibragimov)
 - Improvements:
   - Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
     ~SPC w 4~ (thanks to Codruț Constantin Gușoi):
@@ -1210,7 +1210,7 @@ Other:
     duianto)
   - ~SPC g i~ to initialize a repository (thanks to Steven Allen)
   - ~SPC m g y~ to find symbols (thanks to Daniel Ralston)
-  - ~SPC g f d~ for =magit-diff-buffer-file= (thanks to Ag Ibragimov and bmag)
+  - ~SPC g f d~ for =magit-diff= (thanks to Ag Ibragimov and bmag)
 - Add feature to toggle =evil-magit= based on editing style (thanks to Muneeb
   Shaikh)
 - Added =use-package= for deferred loading of evil-magit (thanks to Sylvain
