@@ -157,7 +157,7 @@
         "gc"  'magit-clone
         "gff" 'magit-find-file
         "gfl" 'magit-log-buffer-file
-        "gfd" 'magit-diff-buffer-file
+        "gfd" 'magit-diff
         "gi"  'magit-init
         "gL"  'magit-list-repositories
         "gm"  'magit-dispatch
