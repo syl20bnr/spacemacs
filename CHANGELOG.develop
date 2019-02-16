@@ -152,10 +152,6 @@ Kraemer, Yi Liu, and Jack Kamm):
 - Key bindings;
   - Changed ~SPC g f h~ to ~SPC g f l~ for 'git log' of current file (thanks to
     Ag Ibragimov)
-***** GitHub
-- Key bindings;
-  - For Evil style users using the GitHub layer, the key-binding to pull commits
-    is now on ~p~ instead of ~F~ which is taken by the new package =forge=
 ***** gtags
 - Key bindings;
   - Regenerate tags are now under ~SPC m g C~ instead of ~SPC m g c~.
@@ -1200,8 +1196,6 @@ Other:
   - Remove package =magit-gh-pulls= as it was deprecated in favor of =magithub=
     and =forge= (thanks to Robby O'Connor )
 - Key bindings:
-  - For Evil style users, the key-binding to pull commits is now on ~p~ instead
-    of ~F~ which is taken by the new package =forge=
   - Added ~g r~ evilified binding to gist-list-mode (thanks to Jean-Sebastien A.
     Beaudry)
 - Replace =evilified-state-evilify= by =evilified-state-evilify-map= (thanks to
