@@ -24,7 +24,9 @@
         (helm-git-grep :requires helm)
         (helm-gitignore :requires helm)
         magit
-        magit-gitflow
+        ;; Latest magit version with new transient keys
+        ;; working on a fix.
+        ;; magit-gitflow
         magit-svn
         (orgit :requires org)
         smeargle
