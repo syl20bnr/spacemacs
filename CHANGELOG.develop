@@ -149,6 +149,8 @@ Kraemer, Yi Liu, and Jack Kamm):
   - Changed ~SPC m p t~ to ~SPC m t F~ for =alchemist-project-find-test= (thanks
   to Lyuben Petrov)
 ***** Git
+- Improvements:
+  - Adapted configuration to new transient commands of Magit (thanks to bmag)
 - Key bindings;
   - Changed ~SPC g f h~ to ~SPC g f l~ for 'git log' of current file (thanks to
     Ag Ibragimov)
@@ -495,6 +497,7 @@ Other:
     using =:variables= in =dotspacemacs-configuration-layers= overrides any
     default value that the layer's package configuration sets (thanks to Sylvain
     Benner)
+  - Fixed bug that could overwrites customize variables (thanks to bmag)
   - Don't suggest ~SPC q r~ if =restart-emacs= package is missing after an
     update (thanks to Keshav Kini)
   - Resolve symlinks in warning message about duplicate layers
@@ -795,6 +798,8 @@ Other:
   - Added =Process List= to =popwin:special-display-config= (thanks to simendsjo)
   - Added actions to open =funcs.el= and =layers.el= from layers help
     (thanks to Boris Buliga)
+  - Cleanup =which-key= by removing obsolete entries and adding some missing
+    ones (thans to duianto)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers (thanks to Sylvain
     Benner)
@@ -2112,18 +2117,18 @@ Other:
   John Wood, Jon Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett,
   Josh Greenwood, Joshua Santos, Justin Stone, Kainalu Hagiwara, Kalle
   Lindqvist, Kechao Cai, Keith Simmons, Keith Wygant, Kevin Ji, Kristoffer
-  Haugsbakk, lawrsp, Leo Joseph Buchignani III, Marco Ieni, Max Beutelspacher,
-  Max Nordlund, Maximilian Wolff, Miciah Dashiel Butler Masters, mjkramer,
-  Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser Alshammari, Niko
-  Felger, Nikolai Myllymäki, nikolaiam, Nicolas Forgerit, Olivier Verdier,
-  Pancho Horrillo, Paul Milla, Paulo Schneider, Pawan Dubey, Paweł Siudak, Phil
-  Pirozhkov, Philippe Bourdages, Piotr Grzesik, Rafi Khan, Rand01ph, rakyi,
-  Raymond Wanyoike, Reverend Homer, Robby O'Connor, Rhommel Lamas, Sam Pablo
-  Kuper, Saulius Menkevičius, sduthil, Sergio Ugalde, Shane Kilkelly, Sid Kapur,
-  Somelauw, Soobin Rho, sorawee, SteveJobzniak, Sunghyun Hwang, Swaroop C H,
-  Sylvain Benner, Szunti, Tim Stewart, timor, TinySong, Titov Andrey, Thomas de
-  Beauchêne, Tomasz Cichocinski, tzhao11, Vlad Bokov, Vladimir Kochnev, Wieland
-  Hoffmann, Xiang Ji, Yi Liu, zer09, Zhige Xin)
+  Haugsbakk, lawrsp, Leo Joseph Buchignani III, Marco Ieni, Marco Zucconelli,
+  Max Beutelspacher, Max Nordlund, Maximilian Wolff, Miciah Dashiel Butler
+  Masters, mjkramer, Mikhail Yakutovich, Muneeb Shaikh, Nasser Alshammari,
+  Nasser Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Nicolas
+  Forgerit, Olivier Verdier, Pancho Horrillo, Paul Milla, Paulo Schneider, Pawan
+  Dubey, Paweł Siudak, Phil Pirozhkov, Philippe Bourdages, Piotr Grzesik, Rafi
+  Khan, Rand01ph, rakyi, Raymond Wanyoike, Reverend Homer, Robby O'Connor,
+  Rhommel Lamas, Sam Pablo Kuper, Saulius Menkevičius, sduthil, Sergio Ugalde,
+  Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho, sorawee, SteveJobzniak,
+  Sunghyun Hwang, Swaroop C H, Sylvain Benner, Szunti, Tim Stewart, timor,
+  TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz Cichocinski, tzhao11, Vlad
+  Bokov, Vladimir Kochnev, Wieland Hoffmann, Xiang Ji, Yi Liu, zer09, Zhige Xin)
 *** Release notes summarized
   Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
   Masters, Abhishek(Compro) Prasad, Deepak Khidia, Ward Harris, Jiahao Jiang
