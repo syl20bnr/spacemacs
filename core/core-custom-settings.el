@@ -14,13 +14,13 @@
                                        ".custom-settings"))
 
 (defun spacemacs/initialize-custom-file ()
-  "Initialize the custom file."
+  "Initialize the custom file.
+Does not initialize writing the custom file into the dotfile. To
+complete that part see `spacemacs/initialize-custom-file-sync'."
   ;; setup auto-rewrite of custom settings only if custom-file
   ;; has not been set by the user
   (when (null custom-file)
-    (setq custom-file spacemacs--custom-file)
-    (advice-add 'custom-save-all :after
-                #'spacemacs/write-custom-settings-to-dotfile))
+    (setq custom-file spacemacs--custom-file))
   ;; initialize the cache file contents
   (unless (or (not (string-equal custom-file spacemacs--custom-file))
               (file-exists-p spacemacs--custom-file))
@@ -31,6 +31,12 @@
 ;; Spacemacs will copy its content to your dotfile automatically in the
 ;; function `dotspacemacs/emacs-custom-settings'.
 ;; Do not alter this file, use Emacs customize interface instead.\n\n")))))
+
+(defun spacemacs/initialize-custom-file-sync ()
+  "Initialize syncing of the custom file to the dotfile."
+  (when (string-equal custom-file spacemacs--custom-file)
+    (advice-add 'custom-save-all :after
+                #'spacemacs/write-custom-settings-to-dotfile)))
 
 (defun spacemacs//delete-emacs-custom-settings ()
   "Delete function `dotspacemacs/emacs-custom-settings' from dotfile.
