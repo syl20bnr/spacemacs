@@ -230,7 +230,7 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
     :init (add-hook 'magit-mode-hook 'turn-on-magit-svn)
     :config (progn
               (spacemacs|diminish magit-svn-mode "SVN")
-              (define-key magit-mode-map "~" 'magit-svn-popup))))
+              (define-key magit-mode-map "~" 'magit-svn))))
 
 (defun git/init-orgit ()
   (use-package orgit
@@ -259,11 +259,12 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
 
 (defun git/init-transient ()
   (use-package transient
+    :defer t
     :init
     (setq
      transient-levels-file
-     (concat spacemacs-cache-directory (convert-standard-filename "transient/levels.el"))
+     (expand-file-name "transient/levels.el" spacemacs-cache-directory)
      transient-values-file
-     (concat spacemacs-cache-directory (convert-standard-filename "transient/values.el"))
+     (expand-file-name "transient/values.el" spacemacs-cache-directory)
      transient-history-file
-     (concat spacemacs-cache-directory (convert-standard-filename "transient/history.el")))))
+     (expand-file-name "transient/history.el" spacemacs-cache-directory))))
