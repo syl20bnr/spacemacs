@@ -28,6 +28,7 @@
         magit-svn
         (orgit :requires org)
         smeargle
+        transient
         ))
 
 (defun git/pre-init-evil-magit ()
@@ -255,3 +256,14 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
         "gHc" 'smeargle-clear
         "gHh" 'smeargle-commits
         "gHt" 'smeargle))))
+
+(defun git/init-transient ()
+  (use-package transient
+    :init
+    (setq
+     transient-levels-file
+     (concat spacemacs-cache-directory (convert-standard-filename "transient/levels.el"))
+     transient-values-file
+     (concat spacemacs-cache-directory (convert-standard-filename "transient/values.el"))
+     transient-history-file
+     (concat spacemacs-cache-directory (convert-standard-filename "transient/history.el")))))
