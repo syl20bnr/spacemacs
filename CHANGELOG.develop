@@ -1023,6 +1023,7 @@ Other:
   - Enabled =clojure-mode= refactorings without =clj-refactor= (thanks to yuhan0)
   - Allow to send input to the REPL via RET in normal mode
     (thanks to Dieter Komendera)
+  - Improve spacemacs-jump-handlers (thanks to Ag Ibragimov)
 - Key bindings:
   - ~SPC m e ;~ to eval sexp and show result as comment
     (thanks to John Stevenson)
