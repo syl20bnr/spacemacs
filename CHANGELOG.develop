@@ -1525,6 +1525,9 @@ Other:
   (thanks to Matt Kramer)
 **** Lua
 - Added support for auto-completion with =company= (thanks to halfcrazy)
+**** Language Server Protocol (LSP)
+- Replace lsp-capabilities keybinding with lsp-describe-session
+  (thanks to Bryan Tan)
 **** Markdown
 - New layer variable =markdown-mmm-auto-modes= which is a list of language names
   or lists of language and mode names that are supported in source blocks, you

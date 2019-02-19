@@ -51,7 +51,7 @@ https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
     ;;jump
     ;;backend
     "ba" #'lsp-execute-code-action
-    "bc" #'lsp-capabilities
+    "bd" #'lsp-describe-session
     "br" #'lsp-restart-workspace
     ;;refactor
     "rr" #'lsp-rename

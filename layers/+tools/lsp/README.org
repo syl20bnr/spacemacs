@@ -22,7 +22,7 @@ This layer adds support for basic language server protocol packages speaking
 Different language servers may support the language server protocol to varying degrees
 and they may also provide extensions; check the language server’s website for
 details.
-=M-x lsp-capabilities= in a LSP buffer to list capabilities of the server.
+=M-x lsp-describe-session= in a LSP buffer to list capabilities of the server.
 
 ** Features:
 - Cross references (definitions, references, document symbol, workspace symbol
@@ -121,7 +121,7 @@ The lsp minor mode bindings are:
 |-------------+--------------------------------------------------------------------------------|
 | ~SPC m b r~ | lsp-restart-workspace                                                          |
 | ~SPC m b a~ | execute code action                                                            |
-| ~SPC m b c~ | lsp-capabilities                                                               |
+| ~SPC m b d~ | lsp-describe-session                                                           |
 |-------------+--------------------------------------------------------------------------------|
 | ~SPC m r r~ | rename                                                                         |
 |-------------+--------------------------------------------------------------------------------|
@@ -200,7 +200,7 @@ etc.
 
 * Diagnostics
 If some features do not work as expected, here is a common check list.
-- =M-x lsp-capabilities= If the LSP workspace is initialized correctly
+- =M-x lsp-describe-session= If the LSP workspace is initialized correctly
 - =M-: xref-backend-functions= should be =(lsp--xref-backend)= for cross
   references
 - =M-: completion-at-point-functions= should be =(lsp-completion-at-point)= for
