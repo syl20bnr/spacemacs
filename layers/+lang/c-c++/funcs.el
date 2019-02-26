@@ -249,8 +249,8 @@ and the arguments for flyckeck-clang based on a project-specific text file."
               '(:cacheFormat "msgpack"))))
         ('lsp-ccls (setq ccls-initialization-options
                      (if c-c++-lsp-initialization-options
-                       (append c-c++-lsp-initialization-options `(:cacheDirectory ,c-c++-lsp-cache-dir))
-                       `(:cacheDirectory ,c-c++-lsp-cache-dir)))))
+                       (append c-c++-lsp-initialization-options `(:cache (:directory ,c-c++-lsp-cache-dir)))
+                       `(:cache (:directory ,c-c++-lsp-cache-dir ))))))
 
       (when c-c++-lsp-sem-highlight-rainbow
         (unless c-c++-lsp-sem-highlight-method
