@@ -33,7 +33,7 @@
   "Setup lsp backend."
   (flow-minor-mode)
   (if (configuration-layer/layer-used-p 'lsp)
-      (lsp-javascript-flow-enable)
+      (lsp)
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
 

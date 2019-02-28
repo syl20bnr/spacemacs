@@ -26,7 +26,6 @@
         livid-mode
         (lsp-javascript-typescript :requires lsp-mode)
         flow-minor-mode
-        (lsp-javascript-flow :requires lsp-mode flow-minor-mode)
         org
         prettier-js
         skewer-mode
@@ -167,18 +166,6 @@
         :documentation "Live evaluation of JS buffer change."
         :evil-leader-for-mode (js2-mode . "Tl"))
       (spacemacs|diminish livid-mode " 🅻" " [l]"))))
-
-(defun javascript/init-lsp-javascript-typescript ()
-  (use-package lsp-javascript-typescript
-    :commands lsp-javascript-typescript-enable
-    :defer t
-    :config (spacemacs//setup-lsp-jump-handler 'js2-mode)))
-
-(defun javascript/init-lsp-javascript-flow ()
-  (use-package lsp-javascript-flow
-    :commands lsp-javascript-flow-enable
-    :defer t
-    :config (spacemacs//setup-lsp-jump-handler 'js2-mode)))
 
 (defun javascript/init-flow-minor-mode ()
   (use-package flow-minor-mode
