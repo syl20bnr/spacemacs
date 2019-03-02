@@ -779,7 +779,7 @@ Other:
     Siegel and Eivind Fonn)
   - Set =case-fold-search= to =nil= in =compilation-finish-function= (thanks to
     Wieland Hoffmann)
-  - Hide multiple cursor text when there's only one cursor (thanks to duianto)
+  - Hide =evil-mc= single cursor mode-line lighter "emc" (thanks to duianto)
   - Rewrite function =spacemacs/sudo-edit=. Old version worked only for method
     =ssh= and did not work at all if user was not specified (e.g.
     /ssh:hostname:/path). Since the symbol '@' was required in a filename.

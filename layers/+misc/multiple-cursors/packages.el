@@ -20,7 +20,7 @@
   (use-package evil-mc
     :config
     (progn
-      (setq evil-mc-one-cursor-show-mode-line-text nil)
+      (setq-default evil-mc-one-cursor-show-mode-line-text nil)
       (when (or (spacemacs/system-is-mac) (spacemacs/system-is-mswindows))
         (setq evil-mc-enable-bar-cursor nil))
 
