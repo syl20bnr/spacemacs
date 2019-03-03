@@ -52,8 +52,9 @@
           (setq display-now t)
           (setq spacemacs--counsel-initial-cands-shown t)))
       (let ((ivy--prompt
-             (format (ivy-state-prompt ivy-last)
-                     size)))
+             (ivy-add-prompt-count
+              (format (ivy-state-prompt ivy-last)
+                      size))))
         (if display-now
             (ivy--insert-minibuffer
              (ivy--format ivy--all-candidates))
@@ -159,17 +160,16 @@ that directory."
           (default-directory
             (or initial-directory (read-directory-name "Start from directory: "))))
     (ivy-read
-     (concat ivy-count-format
-             (format "%s from [%s]: "
-                     tool
-                     (if (< (length default-directory)
-                            spacemacs--counsel-search-max-path-length)
-                         default-directory
-                       (concat
-                        "..." (substring default-directory
-                                         (- (length default-directory)
-                                            spacemacs--counsel-search-max-path-length)
-                                         (length default-directory))))))
+     (format "%s from [%s]: "
+             tool
+             (if (< (length default-directory)
+                    spacemacs--counsel-search-max-path-length)
+                 default-directory
+               (concat
+                "..." (substring default-directory
+                                 (- (length default-directory)
+                                    spacemacs--counsel-search-max-path-length)
+                                 (length default-directory)))))
      (spacemacs//make-counsel-search-function tool)
      :initial-input (when initial-input (rxt-quote-pcre initial-input))
      :dynamic-collection t
