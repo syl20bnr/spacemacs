@@ -294,6 +294,7 @@ Benner and Paweł Siudak):
 - coq (thanks to Xuan Bi, Jeremy Bi and Langston Barret)
 - crystal (thanks to Sylvain Benner)
 - dhall (thanks to Colin Woodbury)
+- ietf (thanks to Christian Hopps)
 - factor (thanks to timor)
 - forth (thanks to Tim Jaeger)
 - gpu (thanks to Evan Klitzke)
@@ -310,6 +311,7 @@ Benner and Paweł Siudak):
 - protobuf (thanks to Amol Mandhane)
 - restructuredtext (thanks to Wei-Wei Guo and Kalle Lindqvist)
 - semantic-web (thanks to Andreas Textor)
+- yang (thanks to Christian Hopps)
 **** Misc
 - multiple-cursors (thanks to Codruț Constantin Gușoi and Thomas de Beauchêne)
 **** WEB services
