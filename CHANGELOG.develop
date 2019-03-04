@@ -1056,6 +1056,8 @@ Other:
   - Update doc for Cider manual quick start -`cider-connect`. Leiningen
     version 2.9 and Boot versions 2.8.2, ~cider-nrepl~ version 0.21.1
     (thanks to John Stevenson)
+  - Call interactive `cider-test-*` functions interactively (thanks to Timo
+    Freiberg)
 **** Coffeescript
 - Improvements:
   - Added basic autocompletion (thanks to Codruț Constantin Gușoi)

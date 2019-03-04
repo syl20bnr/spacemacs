@@ -123,19 +123,19 @@ the focus."
   "Run namespace test."
   (interactive)
   (cider-load-buffer)
-  (cider-test-run-ns-tests nil))
+  (call-interactively #'cider-test-run-ns-tests))
 
 (defun spacemacs/cider-test-run-loaded-tests ()
   "Run loaded tests."
   (interactive)
   (cider-load-buffer)
-  (cider-test-run-loaded-tests))
+  (call-interactively #'cider-test-run-loaded-tests))
 
 (defun spacemacs/cider-test-run-project-tests ()
   "Run project tests."
   (interactive)
   (cider-load-buffer)
-  (cider-test-run-project-tests))
+  (call-interactively #'cider-test-run-project-tests))
 
 (defun spacemacs/cider-test-rerun-failed-tests ()
   "Rerun failed tests."
