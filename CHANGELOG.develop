@@ -1058,6 +1058,7 @@ Other:
     (thanks to John Stevenson)
   - Call interactive `cider-test-*` functions interactively (thanks to Timo
     Freiberg)
+  - Change run-all-tests alias to run-project-tests (thanks to Timo Freiberg)
 **** Coffeescript
 - Improvements:
   - Added basic autocompletion (thanks to Codruț Constantin Gușoi)

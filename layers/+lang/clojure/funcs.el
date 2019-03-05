@@ -113,11 +113,8 @@ the focus."
   (cider-load-buffer)
   (cider-test-run-test))
 
-(defalias 'spacemacs/cider-test-run-all-tests #'spacemacs/cider-test-run-ns-tests
-  "ns tests are not actually *all* tests;
-        cider-test-run-project-tests would be better here, but
-        there currently is a bug with the function. Replace once
-        it gets fixed.")
+(defalias 'spacemacs/cider-test-run-all-tests #'spacemacs/cider-test-run-project-tests
+  "Runs all tests in all project namespaces.")
 
 (defun spacemacs/cider-test-run-ns-tests ()
   "Run namespace test."
