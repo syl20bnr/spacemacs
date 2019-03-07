@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(spacemacs|define-jump-handlers factor-mode 'fuel-edit-word)
+(spacemacs|define-jump-handlers factor-mode 'fuel-edit-word-at-point)

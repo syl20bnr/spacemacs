@@ -53,8 +53,7 @@
         "er" 'fuel-eval-region
         "eR" 'fuel-eval-extended-region
 
-        "gg" 'fuel-edit-word
-        "gG" 'fuel-edit-word-at-point
+        "gg" 'fuel-edit-word-at-point
         "ga" 'factor-visit-other-file
 
         "ta" 'fuel-test-vocab
