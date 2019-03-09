@@ -35,6 +35,31 @@ For full Chicken support, the following commands should be run:
   $ curl https://3e8.org/pub/chicken-doc/chicken-doc-repo.tgz | sudo tar zx
 #+END_SRC
 
+*Note:* Chicken 5 does not have =chicken-home= imported by default,
+so the command for changing to that directory can be accomplished with this:
+
+#+BEGIN_SRC shell
+  $ cd `csi -b -e "(import (chicken platform))" -p "(chicken-home)"`
+#+END_SRC
+
+Additionally, as of 2018-12-12 there is a [[https://git.archlinux.org/svntogit/community.git/commit/trunk?h=packages/chicken&id=8b9a65eb88d899f7c9c78b56bba5bea5cdba534a][naming conflict]]
+in some of the Linux package repos:
+
+#+BEGIN_EXAMPLE
+# Chicken had csc and csi first, but then mono introduced a conflict and
+# does not seem to want to change this. OpenBSD renamed csc and csi to
+# chicken-csc and chicken-csi 2018-12-12.
+#+END_EXAMPLE
+
+You may need to modify the =csi= command accordingly. If the name of the
+REPL binary on your system is =chicken-csi=, you will also need to add
+
+#+BEGIN_SRC emacs-lisp
+(setq geiser-chicken-binary "chicken-csi")
+#+END_SRC
+
+to your =dotspacemacs/user-config= in order for the REPL to start in spacemacs.
+
 * Structuraly safe editing
 This layer adds support for =evil-cleverparens= which allows to safely edit
 lisp code by keeping the s-expressions balanced.
