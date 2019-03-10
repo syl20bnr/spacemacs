@@ -1266,6 +1266,7 @@ Other:
 - Added magit buffers to useless buffers (thanks to Thomas de Beauchêne)
 - Fixed magint blame function name (thanks to Bjarke Vad Andersen)
 - Show magit-log-select and diff in two windows (thanks to duianto)
+- Fix magit conflicting with golden-ratio (thanks Eric Zhang)
 **** Go
 - Improved go test output buffer behavior (thanks to Denis Bernard)
 - Configurable extra arguments to go test (thanks to Ian Clark)
