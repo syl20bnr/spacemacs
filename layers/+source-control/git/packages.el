@@ -21,6 +21,7 @@
         git-link
         git-messenger
         git-timemachine
+        golden-ratio
         (helm-git-grep :requires helm)
         (helm-gitignore :requires helm)
         magit
@@ -30,6 +31,11 @@
         smeargle
         transient
         ))
+
+(defun git/pre-init-golden-ratio ()
+  (spacemacs|use-package-add-hook golden-ratio
+    :post-config
+    (add-to-list 'golden-ratio-exclude-buffer-names " *transient*")))
 
 (defun git/pre-init-evil-magit ()
   (spacemacs|use-package-add-hook magit
