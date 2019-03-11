@@ -47,6 +47,7 @@ python-*-docs-html
 /session.*
 /srecode-map.el
 /recentf
+/transient
 .mc-lists.el
 nov-places
 workspace
