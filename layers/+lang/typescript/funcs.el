@@ -152,3 +152,9 @@
 (defun spacemacs/typescript-jump-to-type-def ()
   (interactive)
   (tide-jump-to-definition))
+
+(defun spacemacs/typescript-safe-local-variables (values)
+  ;; safe values for backend to be used in directory file variables
+  (dolist (value values)
+    (add-to-list 'safe-local-variable-values
+                 (cons 'typescript-backend value))))
