@@ -97,7 +97,16 @@
 
 (defun typescript/post-init-web-mode ()
   (define-derived-mode typescript-tsx-mode web-mode "TypeScript-tsx")
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode)))
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
+
+  ;; setup typescript backend
+  (add-hook 'typescript-tsx-mode-local-vars-hook 'spacemacs//typescript-setup-backend)
+  (spacemacs/typescript-safe-local-variables '(lsp tide))
+  (when typescript-fmt-on-save
+    (add-hook 'typescript-tsx-mode-hook 'spacemacs/typescript-fmt-before-save-hook))
+  (spacemacs/set-leader-keys-for-major-mode 'typescript-tsx-mode
+    "="  'spacemacs/typescript-format
+    "sp" 'spacemacs/typescript-open-region-in-playground))
 
 (defun typescript/post-init-yasnippet ()
   (spacemacs/add-to-hooks #'spacemacs/typescript-yasnippet-setup '(typescript-mode-hook
@@ -109,21 +118,12 @@
     :init
     (progn
       ;; setup typescript backend
-      (spacemacs/add-to-hooks #'spacemacs//typescript-setup-backend
-                       '(typescript-mode-local-vars-hook
-                         typescript-tsx-mode-local-vars-hook))
-      ;; safe values for backend to be used in directory file variables
-      (dolist (value '(lsp tide))
-        (add-to-list 'safe-local-variable-values
-                     (cons 'typescript-backend value))))
+      (add-hook 'typescript-mode-local-vars-hook 'spacemacs//typescript-setup-backend)
+      (spacemacs/typescript-safe-local-variables '(lsp tide))
     :config
     (progn
       (when typescript-fmt-on-save
-        (spacemacs/add-to-hooks 'spacemacs/typescript-fmt-before-save-hook
-                         '(typescript-mode-hook typescript-tsx-mode-hook)))
+        (add-hook 'typescript-mode-hook 'spacemacs/typescript-fmt-before-save-hook))
       (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
         "="  'spacemacs/typescript-format
-        "sp" 'spacemacs/typescript-open-region-in-playground)
-      (spacemacs/set-leader-keys-for-major-mode 'typescript-tsx-mode
-        "="  'spacemacs/typescript-format
-        "sp" 'spacemacs/typescript-open-region-in-playground))))
+        "sp" 'spacemacs/typescript-open-region-in-playground)))))
