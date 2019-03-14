@@ -141,6 +141,7 @@
     :init
     (progn
       (add-hook 'python-mode-hook 'importmagic-mode)
+      (spacemacs|diminish importmagic-mode " ⓘ" " [i]")
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "rf" 'importmagic-fix-symbol-at-point))))
 
