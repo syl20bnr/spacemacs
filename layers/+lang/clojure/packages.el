@@ -109,7 +109,8 @@
             "sc" (if (eq m 'cider-repl-mode)
                      'cider-repl-clear-buffer
                    'cider-connect)
-            "sC" 'cider-find-and-clear-repl-output
+            "sC" 'cider-connect-cljs
+            "sd" 'cider-find-and-clear-repl-output
             "se" 'spacemacs/cider-send-last-sexp-to-repl
             "sE" 'spacemacs/cider-send-last-sexp-to-repl-focus
             "sf" 'spacemacs/cider-send-function-to-repl
