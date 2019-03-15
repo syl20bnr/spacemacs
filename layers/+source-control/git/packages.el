@@ -186,6 +186,7 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
                               (not (bound-and-true-p magit-blame-mode))))))
     :config
     (progn
+      (purpose-x-magit-multi-on)
       ;; seems to be necessary at the time of release
       (require 'git-rebase)
       ;; bind function keys
