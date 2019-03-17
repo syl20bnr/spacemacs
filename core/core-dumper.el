@@ -106,8 +106,9 @@ the end of the loading of the dump file."
   (interactive)
   (when spacemacs-dump-process
     (message "Cancel running dumping process to start a new one.")
-    (delete-process spacemacs-dump-process)
-    (with-current-buffer spacemacs-dump-buffer-name
+    (delete-process spacemacs-dump-process))
+  (when-let ((buf (get-buffer spacemacs-dump-buffer-name)))
+    (with-current-buffer buf
       (erase-buffer)))
   (make-directory spacemacs-dump-directory t)
   (let* ((dump-file (concat spacemacs-dump-directory dotspacemacs-emacs-dumper-dump-file))
@@ -118,19 +119,19 @@ the end of the loading of the dump file."
            :buffer spacemacs-dump-buffer-name
            :sentinel
            (lambda (proc event)
-             (cond
-              ((process-live-p proc) nil)
-              ((and (eq (process-status proc) 'exit)
-                    (= (process-exit-status proc) 0))
-               (with-current-buffer spacemacs-dump-buffer-name
-                 (rename-file dump-file-temp dump-file t)
-                 (goto-char (point-max))
-                 (insert (format "Done!\n" dump-file-temp dump-file))))
-              (t
-               (with-current-buffer spacemacs-dump-buffer-name
-                 (delete-file dump-file-temp nil)
-                 (goto-char (point-max))
-                 (insert "Failed\n")))))
+             (when (not (process-live-p proc))
+               (if (and (eq (process-status proc) 'exit)
+                        (= (process-exit-status proc) 0))
+                   (with-current-buffer spacemacs-dump-buffer-name
+                     (rename-file dump-file-temp dump-file t)
+                     (goto-char (point-max))
+                     (insert (format "Done!\n" dump-file-temp dump-file)))
+                 (with-current-buffer spacemacs-dump-buffer-name
+                   (delete-file dump-file-temp nil)
+                   (goto-char (point-max))
+                   (insert "Failed\n")))
+               (delete-process spacemacs-dump-process)
+               (setq spacemacs-dump-process nil)))
            :command
            (list dotspacemacs-emacs-pdumper-executable-file
                  "--batch"
