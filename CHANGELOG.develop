@@ -1720,6 +1720,7 @@ Other:
 - Added a toggle for bringing in org-trello (thanks to Magnus Therning)
 - Added the org-mode keybindings to the org-journal major mode (thanks to Marty
   Buchaus)
+- Replace ox-reveal with org-re-reveal (thanks to Magnus Therning)
 **** Osx
 - Fixed OSX mapping issue (thanks to Joey Liu)
 - Added layer variables to customize modifier behaviors on macOS:
