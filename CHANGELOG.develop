@@ -1531,6 +1531,7 @@ Other:
 **** Language Server Protocol (LSP)
 - Replace lsp-capabilities keybinding with lsp-describe-session
   (thanks to Bryan Tan)
+- Add lsp-prefer-flymake variable (thanks to Juuso Valkeejärvi)
 **** Markdown
 - New layer variable =markdown-mmm-auto-modes= which is a list of language names
   or lists of language and mode names that are supported in source blocks, you
