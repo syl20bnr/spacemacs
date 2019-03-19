@@ -157,7 +157,7 @@
       :backends (dante-company company-dabbrev-code company-yasnippet)
       :modes haskell-mode)
     (add-hook 'haskell-mode-hook 'dante-mode)
-    (add-to-list 'spacemacs-jump-handlers 'xref-find-definitions)
+    (add-to-list 'spacemacs-jump-handlers-haskell-mode 'xref-find-definitions)
     :config
     (progn
       (dolist (mode haskell-modes)
