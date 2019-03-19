@@ -1220,6 +1220,7 @@ Other:
 - Added =evil-ledger= package (thanks to Alexander Miller)
   - new key bindings: ~g j~ and ~g k~,
   - ~x~ evil text object
+- Prevent auto-complete from adding a space (thanks to Lareb Syed)
 **** FSharp
 - Added prefixes for key bindings (thanks to David Millar-Durrant)
 **** Geolocation
