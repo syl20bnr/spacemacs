@@ -267,6 +267,24 @@ Insert it in the first line of the buffer, right justified."
                                             (length build-rhs)))
           (insert "\n"))))))
 
+(defmacro spacemacs-buffer||notes-adapt-caption-to-width (caption
+                                                          caption-length
+                                                          width)
+  "Adapt caption string's length to the note's frame current width.
+For internal use in `spacemacs-buffer//notes-render-framed-text'.
+CAPTION: string to be encrusted onto the note's frame
+CAPTION-LENGTH: length of the caption
+WIDTH: current external width of the note's frame."
+  `(when (> ,caption-length (- ,width 6)) ; minimum frame width is 6
+     (if (> ,width 8)
+         (setq ,caption (concat (substring ,caption
+                                           0
+                                           (min -3 (- (- ,width 6 3)
+                                                      ,caption-length)))
+                                "..."))
+       (setq ,caption nil
+             ,caption-length 0))))
+
 (defun spacemacs-buffer//notes-render-framed-text
     (content &optional topcaption botcaption hpadding max-width min-width)
   "Return a formatted string framed with curved lines.
@@ -334,23 +352,6 @@ MIN-WIDTH is the minimal width of the frame, frame included.  The frame will not
        (make-string (max 0 (- width (if botcaption 6 4) botcaption-length)) ?─)
        "─╯" (when botcaption "\n")))))
 
-(defmacro spacemacs-buffer||notes-adapt-caption-to-width (caption
-                                                          caption-length
-                                                          width)
-  "Adapt caption string's length to the note's frame current width.
-For internal use in `spacemacs-buffer//notes-render-framed-text'.
-CAPTION: string to be encrusted onto the note's frame
-CAPTION-LENGTH: length of the caption
-WIDTH: current external width of the note's frame."
-  `(when (> ,caption-length (- ,width 6)) ; minimum frame width is 6
-     (if (> ,width 8)
-         (setq ,caption (concat (substring ,caption
-                                           0
-                                           (min -3 (- (- ,width 6 3)
-                                                      ,caption-length)))
-                                "..."))
-       (setq ,caption nil
-             ,caption-length 0))))
 
 (defun spacemacs-buffer//notes-render-framed-line (line width hpadding)
   "Return a formatted LINE with borders of a frame on each side.
