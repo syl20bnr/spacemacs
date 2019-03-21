@@ -120,7 +120,7 @@ sure the necessary dependencies are present, and the necessary nREPL middlewares
 are enabled.
 
 *** Quick Start with boot
-- Install =boot= (see [[https://github.com/boot-clj/boot#user-content-install]])
+- Install =boot=  2.8.2 or newer (see [[https://github.com/boot-clj/boot#user-content-install]])
 - Create a file =~/.boot/profile.boot= with the following content:
 
   #+BEGIN_SRC clojure
@@ -130,7 +130,7 @@ are enabled.
            ;; When running an older version of CIDER (pre 0.18), use the
            ;; version that best matches M-x cider-version. For versions since
            ;; 0.18.0 use whatever version is the most recent.
-           '[cider/cider-nrepl "0.19.0-SNAPSHOT"]
+           '[cider/cider-nrepl "0.21.1"]
 
            ;; Only necessary when using clj-refactor
            '[refactor-nrepl "2.4.0"]
@@ -145,7 +145,7 @@ are enabled.
   #+END_SRC
 
 *** Quick Start with lein
-- Install =lein= version 2.5.2 or newer (see [[https://leiningen.org/#install]])
+- Install =lein= version 2.9.0 or newer (see [[https://leiningen.org/#install]])
 - Create a file =~/.lein/profiles.clj= with the following content:
 
   #+BEGIN_SRC clojure
@@ -153,7 +153,7 @@ are enabled.
      {:plugins [;; When running an older version of CIDER (pre 0.18), use the
                 ;; version that best matches M-x cider-version. For versions since
                 ;; 0.18.0 use whatever version is the most recent.
-                [cider/cider-nrepl "0.19.0-SNAPSHOT"]
+                [cider/cider-nrepl "0.21.1"]
 
                 ;; Only necessary when using clj-refactor
                 [refactor-nrepl "2.4.0"]
