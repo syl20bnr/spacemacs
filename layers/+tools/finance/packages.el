@@ -60,7 +60,7 @@
       ;; more info: https://github.com/emacs-evil/evil/issues/301
       ;; TODO remove this hack if the limitation is removed upstream
       (add-hook 'ledger-mode-hook 'evil-normalize-keymaps)
-      (add-hook 'ledger-mode (lambda ()
-                               (setq-local pcomplete-termination-string "")
-                               ))
+      (add-hook 'ledger-mode-hook (lambda ()
+                                    (setq-local pcomplete-termination-string "")
+                                    ))
       (evilified-state-evilify ledger-report-mode ledger-report-mode-map))))
