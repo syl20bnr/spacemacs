@@ -19,7 +19,7 @@ file.
 
 * Configuration
 Currently the only supported backend is =evil-mc=, but more backends will be
-availabe in the future.
+available in the future.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
