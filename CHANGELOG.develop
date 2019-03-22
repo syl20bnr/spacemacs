@@ -1747,6 +1747,8 @@ Other:
 - Enabled =purescript-decl-scan-mode= when loading =purescript-mode= (thanks to
   Bjarke Vad Andersen)
 - Allow adding node_modules/.bin path to exec-path (thanks to Anupam Jain)
+- Improve purescript keybinding discoverability & ergonomics. (thanks to Jason
+  Walker)
 **** Python
 - Various fixes in =pylookup.py= (thanks to ishestakov and Shitikanth Kashyap)
 - Hide =yapf-mode= modeline lighter (thanks to Robert ven der Helm)

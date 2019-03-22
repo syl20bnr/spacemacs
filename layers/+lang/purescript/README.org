@@ -68,21 +68,21 @@ meant as an alternative to using flycheck. Default value is nil.
 | ~SPC m i n~ | Navigate to the imports                                       |
 
 *** psc-ide
-=psc-ide= command are available under ~SPC m m~:
 
 | Key binding   | Description                                                               |
 |---------------+---------------------------------------------------------------------------|
 | ~SPC m m s~   | Start psc-ide-server                                                      |
+| ~SPC m m q~   | Quit the current psc-ide-server                                           |
 | ~SPC m m l~   | Load definitions for the modules inside your project                      |
-| ~SPC m h t~   | Show type at point                                                        |
-| ~SPC m g g~   | Goto definition for identifier at point                                   |
 | ~SPC m m b~   | Rebuilds the current file and displays any warnings or errors             |
+| ~SPC m m t~   | Add a new clause for the function signature at point                      |
+| ~SPC m m c~   | Casesplits on the identifier at the current cursor position               |
+| ~SPC m m L~   | Load a specific module (This is mostly used for troubleshooting)          |
 | ~SPC m m i a~ | Add an import for the identifier at the current cursor position           |
 | ~SPC m m i s~ | Inserts a suggestion for the warning/error at the current cursor position |
-| ~SPC m m t~   | Add a new clause for the function signature at point                      |
-| ~SPC m m c s~ | Casesplits on the identifier at the current cursor position               |
-| ~SPC m m q~   | Quit the current psc-ide-server                                           |
-| ~SPC m m L~   | Load a specific module (This is mostly used for troubleshooting)          |
+| ~SPC m h t~   | Show type at point                                                        |
+| ~SPC m g g~   | Goto definition for identifier at point                                   |
+
 
 ** REPL
 [[https://github.com/ardumont/emacs-psci][psci]] provides a very basic REPL for purescript. The following key
