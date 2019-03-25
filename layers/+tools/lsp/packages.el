@@ -28,7 +28,7 @@
       (spacemacs/lsp-bind-keys)
       (add-hook 'lsp-after-open-hook (lambda ()
                                        "Setup xref jump handler and declare keybinding prefixes"
-                                       (spacemacs//setup-lsp-jump-handler major-mode)
+                                       (spacemacs//setup-lsp-jump-handler)
                                        (spacemacs//lsp-declare-prefixes-for-mode major-mode))))))
 
 (defun lsp/init-lsp-ui ()
