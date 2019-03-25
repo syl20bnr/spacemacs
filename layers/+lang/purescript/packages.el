@@ -75,6 +75,7 @@
 
       (add-to-list 'spacemacs-jump-handlers-purescript-mode 'psc-ide-goto-definition)
       (spacemacs/declare-prefix "mmi" "insert/import")
+      (spacemacs/declare-prefix "mh" "help")
       (spacemacs/set-leader-keys-for-major-mode 'purescript-mode
         "mt"  'psc-ide-add-clause
         "mc"  'psc-ide-case-split
@@ -85,7 +86,7 @@
         "mL"  'psc-ide-load-module
         "mia" 'psc-ide-add-import
         "mis" 'psc-ide-flycheck-insert-suggestion
-        "t"  'psc-ide-show-type))))
+        "ht"  'psc-ide-show-type))))
 
 (defun purescript/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
