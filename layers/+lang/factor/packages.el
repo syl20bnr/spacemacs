@@ -13,7 +13,7 @@
   '(
     ;; Assume that factor is installed, and emacs lisp files are correctly
     ;; located in site-lisp
-    (factor-mode :location site)
+    (fuel :location site)
     yasnippet
     ))
 
@@ -26,7 +26,7 @@
                t)
   (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(factor-mode-hook fuel-mode-hook)))
 
-(defun factor/init-factor-mode()
+(defun factor/init-fuel()
   (use-package factor-mode
     :commands factor-mode run-factor fuel-mode
     :mode ("factor\\'" . factor-mode)
