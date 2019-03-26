@@ -12,6 +12,7 @@
 (setq sql-packages
       '(
         company
+        org
         sql
         ;; This mode is more up-to-date than the MELPA one.
         ;; Turns out that it is available in GNU ELPA but we cannot
@@ -167,3 +168,7 @@
   (spacemacs|add-company-backends
     :backends company-capf
     :modes sql-mode))
+
+(defun sql/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(sql . t))))
