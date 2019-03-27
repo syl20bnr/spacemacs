@@ -394,6 +394,7 @@ sane way, here is the complete list of changed key bindings
 - zig (thanks to Michael Hauser-Raspe)
 **** Misc
 - copy-as-format (thanks to Ruslan Kamashev)
+- dtrt-indent (thanks to Kevin Doherty)
 - ietf (thanks to Christian Hopps and Robby O'Connor)
 - multiple-cursors (thanks to Codruț Constantin Gușoi and Thomas de Beauchêne)
 - parinfer (thanks to Tianshu Shi)
