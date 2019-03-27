@@ -7,6 +7,7 @@ See the [[https://github.com/jscheid/dtrt-indent][dtrt-indent]] repo for more de
 # TOC links should be GitHub style anchors.
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 
 * Description
@@ -14,6 +15,9 @@ See the [[https://github.com/jscheid/dtrt-indent][dtrt-indent]] repo for more de
 This is a simple layer wrapping the dtrt-indent Emacs package for automatic detection and switching of indentation style.
 
 It is automatically enabled using the method [[https://github.com/syl20bnr/spacemacs/issues/3203#issuecomment-264175032][suggested here]].
+
+** Features:
+   - Indentation style detection and automatic configuration to match file in open buffer.
 
 * Install
 
