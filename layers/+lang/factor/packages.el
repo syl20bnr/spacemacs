@@ -65,6 +65,7 @@
         "rw" 'fuel-refactor-rename-word
         "ra" 'fuel-refactor-extract-article
         "rg" 'fuel-refactor-make-generic
+        "ru" 'fuel-update-usings
 
         "ss" 'run-factor
 
@@ -87,5 +88,7 @@
         "Sv" 'fuel-scaffold-vocab
         )
 
-      (evilified-state-evilify fuel-help-mode fuel-help-mode-map)))
+      (evilified-state-evilify fuel-help-mode fuel-help-mode-map)
+      (dolist (mode '(fuel-debug-uses-mode fuel-debug-mode))
+        (evil-set-initial-state mode 'insert))))
   )
