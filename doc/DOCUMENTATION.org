@@ -2712,7 +2712,6 @@ directly search into it like with ~SPC s p~.
 | Key binding | Description                                                          |
 |-------------+----------------------------------------------------------------------|
 | ~SPC s w g~ | Get Google suggestions in emacs. Opens Google results in Browser.    |
-| ~SPC s w w~ | Get Wikipedia suggestions in emacs. Opens Wikipedia page in Browser. |
 
 *** Persistent highlighting
 Spacemacs uses =evil-search-highlight-persist= to keep the searched expression

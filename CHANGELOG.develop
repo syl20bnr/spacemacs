@@ -1365,6 +1365,8 @@ Other:
   bmag)
 - Fixed opening files from buffers without winum (thanks to Codruț Constantin
   Gușoi)
+- Removed ~SPC s w w~ key binding for =helm-wikipedia-suggest=, which was
+  removed upstream.
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Added =counsel-css= as an =ivy= alternative to =helm-css-scss= (thanks to Robbert
