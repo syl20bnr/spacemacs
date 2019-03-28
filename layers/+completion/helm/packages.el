@@ -110,7 +110,6 @@
       ;; various key bindings
       (spacemacs||set-helm-key "fel" helm-locate-library)
       (spacemacs||set-helm-key "hdm" describe-mode)
-      (spacemacs||set-helm-key "sww" helm-wikipedia-suggest)
       (spacemacs||set-helm-key "swg" helm-google-suggest)
       (with-eval-after-load 'helm-files
         (define-key helm-find-files-map
