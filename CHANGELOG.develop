@@ -1379,6 +1379,7 @@ Other:
   Lindqvist)
 - Revert setting company min. prefix length to 0 for company-web backend (thanks
   to Dela Anthonio)
+- Add missing prefixes for =web-mode= and =css-mode= (thanks to Uroš Perišić)
 **** Hy
 - Added support for virtual envs (thanks to Danny Freeman)
 **** Idris
