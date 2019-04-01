@@ -1298,6 +1298,7 @@ Other:
 - Support editorconfig setting of =tab-width= to nil (thanks to lawrsp)
 - Added lsp support (thanks to Lupco Kotev)
 - Added golangci-lint support (thanks to Lupco Kotev)
+- Add toggle control for verbose go test output (thanks to Enze Chi)
 **** Graphviz
 - Use graphviz package from melpa (thanks to Matthew Boston)
 **** Groovy
