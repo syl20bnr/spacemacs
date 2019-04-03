@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-## This script selects changed .org files for validation.
+## This script selects changed files.
 ##
 ## Copyright (c) 2012-2014 Sylvain Benner
 ## Copyright (c) 2014-2018 Sylvain Benner & Contributors
@@ -12,7 +12,7 @@
 ## License: GPLv3
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source "${DIR}/../shared"
+source "${DIR}/shared"
 
 if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
     echo "Skipping documentation validation for branch update."
@@ -42,12 +42,5 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo_headline "CHANGED DOCUMENTATION FILES:"
-while read p
-do
-    if [ -f "$p" ]; then
-        if [ ${p: -4} == ".org" ]; then
-            echo "${p}"
-        fi
-    fi
-done </tmp/changed_files
+echo_headline "CHANGED FILES:"
+cat /tmp/changed_files
