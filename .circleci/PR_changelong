@@ -19,6 +19,11 @@ if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
     exit 0
 fi
 
+if [[ "$CIRCLE_PR_USERNAME" == "emacspace" ]]; then
+    echo "Fun fact. Bots can't climb stairs or update CHANGELOG.develop"
+    exit 0
+fi
+
 if grep -q CHANGELOG.develop /tmp/changed_files; then
     echo "CHANGELOG.develop was updated as required"
 else
