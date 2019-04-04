@@ -2709,9 +2709,9 @@ directly search into it like with ~SPC s p~.
 
 **** Searching the web
 
-| Key binding | Description                                                          |
-|-------------+----------------------------------------------------------------------|
-| ~SPC s w g~ | Get Google suggestions in emacs. Opens Google results in Browser.    |
+| Key binding | Description                                                       |
+|-------------+-------------------------------------------------------------------|
+| ~SPC s w g~ | Get Google suggestions in emacs. Opens Google results in Browser. |
 
 *** Persistent highlighting
 Spacemacs uses =evil-search-highlight-persist= to keep the searched expression

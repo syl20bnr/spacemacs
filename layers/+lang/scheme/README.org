@@ -46,16 +46,16 @@ Additionally, as of 2018-12-12 there is a [[https://git.archlinux.org/svntogit/c
 in some of the Linux package repos:
 
 #+BEGIN_EXAMPLE
-# Chicken had csc and csi first, but then mono introduced a conflict and
-# does not seem to want to change this. OpenBSD renamed csc and csi to
-# chicken-csc and chicken-csi 2018-12-12.
+  # Chicken had csc and csi first, but then mono introduced a conflict and
+  # does not seem to want to change this. OpenBSD renamed csc and csi to
+  # chicken-csc and chicken-csi 2018-12-12.
 #+END_EXAMPLE
 
 You may need to modify the =csi= command accordingly. If the name of the
 REPL binary on your system is =chicken-csi=, you will also need to add
 
 #+BEGIN_SRC emacs-lisp
-(setq geiser-chicken-binary "chicken-csi")
+  (setq geiser-chicken-binary "chicken-csi")
 #+END_SRC
 
 to your =dotspacemacs/user-config= in order for the REPL to start in spacemacs.
