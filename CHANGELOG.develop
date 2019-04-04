@@ -1362,9 +1362,11 @@ Other:
   candidates by distributing buffers over existing windows until the action has
   either assigned all buffers or run out of windows (thanks to Nir Friedman)
 - Fixed signature of =spacemacs//display-helm-window= (thanks to Jack Kamm)
-- Fixed initialization by calling =helm-mode= when Helm is initialized (thanks to
-  bet4it).
+- Fixed initialization by calling =helm-mode= when Helm is initialized=
+  (thanks to bet4it).
 - Fixed actions in Helm transient state (thanks to Troy Hinckley)
+- Fixed conflict with new Magit transient key bindings
+  (thanks to Sylvain Benner)
 - Added support for editing the =helm-find-files= buffer from the Helm transient
   state (thanks to Troy Hinckley)
 - Fixed smex package integration (thanks to Troy Hinckley)
@@ -1376,8 +1378,8 @@ Other:
 - Fixed error from =spacemacs/helm-files-smart-do-search= on non-file buffers
   (thanks to Miciah Masters)
 - Added guard to check if =winum= is loaded (thanks to Dan Girshovich)
-- Fixed regression: void function =helm-current-directory= on =C-x C-f= (thanks to
-  bmag)
+- Fixed regression: void function =helm-current-directory= on =C-x C-f=
+  (thanks to bmag)
 - Fixed opening files from buffers without winum (thanks to Codruț Constantin
   Gușoi)
 - Removed ~SPC s w w~ key binding for =helm-wikipedia-suggest=, which was
