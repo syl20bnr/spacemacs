@@ -805,6 +805,7 @@ Other:
     (thanks to Boris Buliga)
   - Cleanup =which-key= by removing obsolete entries and adding some missing
     ones (thans to duianto)
+  - Add =go-run-args= to pass command line arguments to `go run`
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers (thanks to Sylvain
     Benner)
@@ -2170,4 +2171,5 @@ Other:
   Hoffmann, Xiang Ji, Yi Liu, zer09, Zhige Xin)
 *** Release notes summarized
   Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
-  Masters, Abhishek(Compro) Prasad, Deepak Khidia, Ward Harris, Jiahao Jiang
+  Masters, Abhishek(Compro) Prasad, Deepak Khidia, Ward Harris, Jiahao Jiang,
+  Enze Chi
