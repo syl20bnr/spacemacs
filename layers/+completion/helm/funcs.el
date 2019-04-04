@@ -16,8 +16,9 @@
 
 (defun spacemacs//helm-cleanup ()
   "Cleanup some helm related states when quitting."
-  ;; deactivate any running transient map (transient-state)
-  (setq overriding-terminal-local-map nil))
+  ;; deactivate helm transient state if active when closing the helm buffer
+  (ignore-errors
+    (spacemacs/helm-navigation-transient-state/nil)))
 
 (defun spacemacs//helm-prepare-display ()
   "Prepare necessary settings to make Helm display properly."
