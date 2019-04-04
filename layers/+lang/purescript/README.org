@@ -83,7 +83,6 @@ meant as an alternative to using flycheck. Default value is nil.
 | ~SPC m h t~   | Show type at point                                                        |
 | ~SPC m g g~   | Goto definition for identifier at point                                   |
 
-
 ** REPL
 [[https://github.com/ardumont/emacs-psci][psci]] provides a very basic REPL for purescript. The following key
 bindings are available:

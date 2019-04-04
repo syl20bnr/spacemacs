@@ -120,7 +120,7 @@ sure the necessary dependencies are present, and the necessary nREPL middlewares
 are enabled.
 
 *** Quick Start with boot
-- Install =boot=  2.8.2 or newer (see [[https://github.com/boot-clj/boot#user-content-install]])
+- Install =boot= 2.8.2 or newer (see [[https://github.com/boot-clj/boot#user-content-install]])
 - Create a file =~/.boot/profile.boot= with the following content:
 
   #+BEGIN_SRC clojure
