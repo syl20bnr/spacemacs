@@ -1918,7 +1918,7 @@ Other:
 - Added ENSIME jump handlers (thanks to Joao Azevedo)
 **** Scheme
 - Added missing =parinfer= package declaration (thanks to Kalle Lindqvist)
-- Update install docs for Chicken 5 changes (thanks to Tim Heckman)
+- Update install docs for Chicken 5 changes (thanks to Grant Shangreaux)
 **** Semantic
 - Made it possible to exclude stickyfunc (thanks to Sylvain Benner)
 **** Shell
