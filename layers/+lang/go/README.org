@@ -153,6 +153,15 @@ or
   (go :variables gofmt-command "goimports")
 #+END_SRC
 
+To run current main package with command line arguments, set the value of
+=go-run-args= as file local variable, e.g.
+
+#+BEGIN_SRC emacs-lisp
+  // Local Variables:
+  // go-run-args: "--output run.log"
+  // End:
+#+END_SRC
+
 ** Indentation
 By default, the tab width in Go mode is 8 spaces. To use a different value set
 the layer variable =go-tab-width=, e.g.
