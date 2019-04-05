@@ -18,6 +18,7 @@
         (bind-key :step bootstrap)
         (diminish :step bootstrap)
         (evil :step bootstrap)
+        (lv :step bootstrap)
         (hydra :step bootstrap)
         (use-package :step bootstrap)
         (which-key :step bootstrap)
@@ -288,6 +289,8 @@
   ;; ignore repeat
   (evil-declare-ignore-repeat 'spacemacs/next-error)
   (evil-declare-ignore-repeat 'spacemacs/previous-error))
+
+(defun spacemacs-bootstrap/init-lv ())
 
 (defun spacemacs-bootstrap/init-hydra ()
   (require 'hydra)
