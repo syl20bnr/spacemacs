@@ -1453,6 +1453,8 @@ Other:
 - Update =ivy-rich= config for upstream changes (thanks to bmag)
 - Added ~C-r~ keybinding for counsel-minibuffer-history (thanks to James Wang)
 - Fixed counsel search errors due to function rename (thanks to Aaron Jensen)
+- Display results count properly in prompt (thanks to yuhan0)
+- Fix typos in spacemacs/search-dir* bindings (thanks to yuhan0)
 **** Imenu-list
 - Fixed key bindings (thanks to bet4it):
   - ~r~ inside imenu-list buffer to refresh
