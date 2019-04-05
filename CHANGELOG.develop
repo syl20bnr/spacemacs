@@ -2008,6 +2008,10 @@ Other:
 - Wrap 'shell' command to start in current buffer (thanks to Valts Liepiņš)
 - Fixed shell popup broken on macOS (thanks to Daniel Rivas Perez)
 - Fixed broken leader key binding for inferior shell (thanks to Valts Liepiņš)
+- Added =term-mode= bindings (Thanks to Emil Petersen):
+  - ~SPC m C~ switch multi-term to char mode
+  - ~SPC m l~ switch multi-term to line mode
+  - ~SPC m N~ go to previous multi-term
 **** Shell Scripts
 - Added new company-shell environment variable backend (thanks to
   Alexander-Miller)

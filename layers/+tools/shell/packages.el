@@ -165,8 +165,11 @@
       ;; multi-term commands to create terminals and move through them.
       (spacemacs/set-leader-keys-for-major-mode 'term-mode
         "c" 'multi-term
-        "p" 'multi-term-prev
-        "n" 'multi-term-next))))
+        "C" 'term-char-mode
+        "l" 'term-line-mode
+        "n" 'multi-term-next
+        "N" 'multi-term-prev
+        "p" 'multi-term-prev))))
 
 (defun shell/pre-init-org ()
   (spacemacs|use-package-add-hook org
