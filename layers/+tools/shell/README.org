@@ -221,12 +221,14 @@ in the current buffer instead of a popup.
 
 ** Multi-term
 
-| Key binding | Description                  |
-|-------------+------------------------------|
-| ~SPC m c~   | create a new multi-term      |
-| ~SPC m n~   | go to next multi-term        |
-| ~SPC m p~   | go to previous multi-term    |
-| ~SPC p $ t~ | run multi-term shell in root |
+| Key binding            | Description                    |
+|------------------------+--------------------------------|
+| ~SPC m c~              | create a new multi-term        |
+| ~SPC m C~              | switch multi-term char mode    |
+| ~SPC m l~              | switch multi-term to line mode |
+| ~SPC m n~              | go to next multi-term          |
+| ~SPC m N~ or ~SPC m p~ | go to previous multi-term      |
+| ~SPC p $ t~            | run multi-term shell in root   |
 
 ** Eshell
 
