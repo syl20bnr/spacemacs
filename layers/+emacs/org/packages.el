@@ -39,7 +39,6 @@
         persp-mode
         (ox-hugo :toggle org-enable-hugo-support)
         (org-trello :toggle org-enable-trello-support)
-        (ox-epub :toggle org-enable-epub-support)
         ))
 
 (defun org/post-init-company ()
@@ -716,7 +715,3 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "mtdc" 'spacemacs/org-trello-pull-card
         "mtub" 'spacemacs/org-trello-push-buffer
         "mtuc" 'spacemacs/org-trello-push-card))))
-
-(defun org/init-ox-epub ()
-  (use-package ox-epub
-    :after ox))

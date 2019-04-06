@@ -20,7 +20,6 @@
   - [[#project-support][Project support]]
   - [[#org-brain-support][Org-brain support]]
   - [[#mode-line-support][Mode line support]]
-  - [[#epub-support][Epub support]]
 - [[#key-bindings][Key bindings]]
   - [[#starting-org-mode][Starting org-mode]]
   - [[#toggles][Toggles]]
@@ -289,16 +288,6 @@ To permanently enable mode line display of org clock, add this snippet to your
 
 #+BEGIN_SRC elisp
   (setq spaceline-org-clock-p t)
-#+END_SRC
-
-** Epub support
-To install the Org exporter [[https://github.com/ofosos/ox-epub][ox-epub]] that generates e-book file format [[https://en.wikipedia.org/wiki/EPUB][epub]], set
-the variable =org-enable-epub-support= to =t=.
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs--configuration-layers
-                '((org :variables
-                       org-enable-epub-support t)))
 #+END_SRC
 
 * Key bindings
