@@ -1831,6 +1831,7 @@ Additional text objects are defined in Spacemacs:
 |---------+----------------------------|
 | ~a~     | an argument                |
 | ~g~     | the entire buffer          |
+| ~l~     | a line                     |
 | ~$~     | text between =$=           |
 | ~*~     | text between =*=           |
 | ~8~     | text between =/*= and =*/= |

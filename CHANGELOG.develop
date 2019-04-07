@@ -465,6 +465,7 @@ Other:
   - Optimized =spacemacs/title-prepare= (thanks to Andriy Kmit')
   - Cached expensive computations in =spacemacs/title-prepare= (thanks to Dieter
     Komendera)
+  - Add line text object using =evil-textobj-line= (thanks to Uroš Perišić)
 - Fixed:
   - Avoid non-idempotent use of push in init code (thanks to Miciah Masters)
   - Moved Spacemacs startup progress bar to =core-progress-bar.el=, removed
