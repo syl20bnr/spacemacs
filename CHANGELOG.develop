@@ -1281,6 +1281,7 @@ Other:
 - Fix magit conflicting with golden-ratio (thanks Eric Zhang)
 **** Go
 - Improved go test output buffer behavior (thanks to Denis Bernard)
+- Configurable extra arguments to go run (thanks to Enze Chi)
 - Configurable extra arguments to go test (thanks to Ian Clark)
 - Added =godoctor= (thanks to TinySong and Eivind Fonn)
   - Key bindings:
@@ -1639,11 +1640,13 @@ Other:
   and Rudi Grinberg)
 - Fixed issue with OPAM share directory on Windows (thanks to Levi Roth)
 - Enabled flycheck-ocaml (thanks to Dave Aitken)
+- Fixed backspace delete (thanks to Hasan Alirajpurwala)
 **** Org
 - Load org-mode email integration (mu4e/notmuch) when org is loaded (thanks to
   Steven Allen)
 - Packages:
   - Added package =org-journal= (thanks to Nick Anderson)
+  - Added package for =org-sticky-header-mode= (thanks to Langston Barret)
 - Key bindings:
   - ~SPC m T i~ to toggle inline images
   - Move clock related key bindings to ~SPC a o C~
@@ -2168,7 +2171,7 @@ Other:
   Tippens, Jonas Strømsodd, Jonathan Arnett, Jonathan Gillett, Josh Greenwood,
   Joshua Santos, Justin Stone, Kainalu Hagiwara, Kalle Lindqvist, Kechao Cai,
   Keith Simmons, Keith Wygant, Kevin Ji, Kristoffer Haugsbakk, lawrsp, Leo
-  Joseph Buchignani III, Marco Ieni, Marco Zucconelli, Max Beutelspacher, Max
+  Joseph Buchignani III, Luke Worth, Marco Ieni, Marco Zucconelli, Max Beutelspacher, Max
   Nordlund, Maximilian Wolff, Miciah Dashiel Butler Masters, mjkramer, Mikhail
   Yakutovich, Muneeb Shaikh, Nasser Alshammari, Nasser Alshammari, Niko Felger,
   Nikolai Myllymäki, nikolaiam, Nicolas Forgerit, Olivier Verdier, Pancho
