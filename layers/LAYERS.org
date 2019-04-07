@@ -101,6 +101,7 @@
 - [[file:+lang/csharp/README.org][csharp]]
 - [[file:+lang/csv/README.org][csv]]
 - [[file:+lang/d/README.org][d]]
+- [[file:+lang/dhall/README.org][dhall]]
 - [[file:+lang/elixir/README.org][elixir]]
 - [[file:+lang/elm/README.org][elm]]
 - [[file:+lang/emacs-lisp/README.org][emacs-lisp]]
