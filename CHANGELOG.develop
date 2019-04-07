@@ -954,6 +954,7 @@ Other:
 - Improvements:
   - Added =lsp= support using either =cquery= or =ccls= backends
     (thanks to Cormac Cannon, Sergey Litovchuk and Fangrui Song)
+  - Fix =lsp= support for =ccls= server (thanks to Alexander Dalshov)
   - Added automatic formatting on save using ClangFormat with the variables
     =c-c++-enable-clang-format-on-save= and =c-c++-enable-clang-support=
     (thanks to Robbert van der Helm)
