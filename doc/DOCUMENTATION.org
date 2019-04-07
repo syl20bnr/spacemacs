@@ -1036,6 +1036,10 @@ If you don’t create such function then Spacemacs assumes you are using the
 default behavior described above.
 
 * Binding keys
+To be compatible with all Spacemacs bindings, please refer to [[https://github.com/syl20bnr/spacemacs/blob/master/doc/CONVENTIONS.org#key-bindings-conventions][Conventions]].
+In brief, ~SPC o~ is reserved for user custom bindings in =global-map=,
+and ~SPC m o~ in major modes.
+
 Key sequences are bound to commands in Emacs in various keymaps. The most basic
 map is the =global-map=. Setting a key binding in the =global-map= is achieved
 with the function =global-set-key=. Example to bind a key to the command
