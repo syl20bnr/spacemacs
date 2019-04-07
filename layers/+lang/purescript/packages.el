@@ -39,8 +39,8 @@
     (progn
       (add-hook 'purescript-mode-hook 'turn-on-purescript-indentation)
       (add-hook 'purescript-mode-hook 'purescript-decl-scan-mode)
-      (spacemacs/declare-prefix "mg" "goto")
-      (spacemacs/declare-prefix "mi" "imports")
+      (spacemacs/declare-prefix-for-mode 'purescript-mode "mg" "goto")
+      (spacemacs/declare-prefix-for-mode 'purescript-mode "mi" "imports")
       (spacemacs/set-leader-keys-for-major-mode 'purescript-mode
         "i="  'purescript-mode-format-imports
         "i`"  'purescript-navigate-imports-return
@@ -54,7 +54,7 @@
     (progn
       (spacemacs/register-repl 'psci 'psci "purescript")
       (add-hook 'purescript-mode-hook 'inferior-psci-mode)
-      (spacemacs/declare-prefix "ms" "repl")
+      (spacemacs/declare-prefix-for-mode 'purescript-mode "ms" "repl")
       (spacemacs/set-leader-keys-for-major-mode 'purescript-mode
         "'"  'psci
         "sb" 'psci/load-current-file!
@@ -68,14 +68,15 @@
     :init
     (progn
       (add-hook 'purescript-mode-hook 'psc-ide-mode)
-      (spacemacs/declare-prefix-for-mode 'purescript-mode "mm" "purescript/psc-ide")
 
       (customize-set-variable 'psc-ide-add-import-on-completion purescript-add-import-on-completion)
       (customize-set-variable 'psc-ide-rebuild-on-save purescript-enable-rebuild-on-save)
 
       (add-to-list 'spacemacs-jump-handlers-purescript-mode 'psc-ide-goto-definition)
-      (spacemacs/declare-prefix "mmi" "insert/import")
-      (spacemacs/declare-prefix "mh" "help")
+
+      (spacemacs/declare-prefix-for-mode 'purescript-mode "mm" "psc-ide")
+      (spacemacs/declare-prefix-for-mode 'purescript-mode "mmi" "insert/import")
+      (spacemacs/declare-prefix-for-mode 'purescript-mode "mh" "help")
       (spacemacs/set-leader-keys-for-major-mode 'purescript-mode
         "mt"  'psc-ide-add-clause
         "mc"  'psc-ide-case-split
