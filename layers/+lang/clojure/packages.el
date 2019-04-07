@@ -410,5 +410,4 @@
         (kbd "h") 'sayid-traced-buf-show-help))))
 
 (defun clojure/post-init-parinfer ()
-  (spacemacs|forall-clojure-modes m
-    (add-hook m 'parinfer-mode)))
+  (add-hook 'clojure-mode-hook 'parinfer-mode))
