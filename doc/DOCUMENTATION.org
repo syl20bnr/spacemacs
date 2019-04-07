@@ -1077,12 +1077,12 @@ for that matter. For example, ~SPC a~ points to key bindings for “applications
 like ~SPC a c~ for =calc-dispatch=. Nesting bindings is easy.
 
 #+BEGIN_SRC emacs-lisp
-  (spacemacs/declare-prefix "]" "bracket-prefix")
-  (spacemacs/set-leader-keys "]]" 'double-bracket-command)
+  (spacemacs/declare-prefix "o" "custom")
+  (spacemacs/set-leader-keys "oc" 'my-custom-command)
 #+END_SRC
 
-The first line declares ~SPC ]~ to be a prefix and the second binds the key
-sequence ~SPC ]]~ to the corresponding command. The first line is actually
+The first line declares ~SPC o~ to be a prefix and the second binds the key
+sequence ~SPC oc~ to the corresponding command. The first line is actually
 unnecessary to create the prefix, but it will give your new prefix a name that
 key-discovery tools can use (e.g., which-key).
 
