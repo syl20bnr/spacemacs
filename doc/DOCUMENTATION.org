@@ -1086,6 +1086,15 @@ sequence ~SPC oc~ to the corresponding command. The first line is actually
 unnecessary to create the prefix, but it will give your new prefix a name that
 key-discovery tools can use (e.g., which-key).
 
+Example to create binding in major mode:
+
+#+begin_src emacs-lisp
+  (spacemacs/declare-prefix-for-mode 'org-mode "o" "custom")
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "oi" 'org-id-get-create)
+#+end_src
+
+This would add binding as ~, oi~ and ~SPC moi~.
+
 There is much more to say about bindings keys, but these are the basics. Keys
 can be bound in your =~/.spacemacs= file or in individual layers.
 
