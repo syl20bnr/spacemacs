@@ -1084,6 +1084,8 @@ Other:
     - Added ~SPC m T c~ for =coffee-cos-mode=
       (thanks to Kalle Lindqvist)
 **** Common Lisp
+- Improvements:
+  - Add eval-thing-at-point functions to Common Lisp Layer (thanks to Lukas Woell)
 - New packages:
   - Added =slime-asdf= to =slime-contribs= to enabled some slime commands like
     =,load-system= (thanks to Daniel Schoepe)
