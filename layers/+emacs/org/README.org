@@ -293,7 +293,6 @@ To permanently enable mode line display of org clock, add this snippet to your
 #+END_SRC
 
 ** Sticky header support
-
 To install sticky header support set the variable =org-enable-sticky-header= to =t=.
 
 #+BEGIN_SRC emacs-lisp
@@ -303,7 +302,6 @@ To install sticky header support set the variable =org-enable-sticky-header= to 
 #+END_SRC
 
 ** Epub support
-
 To install the Org exporter [[https://github.com/ofosos/ox-epub][ox-epub]] that generates e-book file format [[https://en.wikipedia.org/wiki/EPUB][epub]], set
 the variable =org-enable-epub-support= to =t=.
 
