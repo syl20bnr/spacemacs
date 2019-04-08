@@ -369,7 +369,7 @@ one or more bindings for the same thing
 Refactoring prefix is ~SPC m r~.
 
 ** Imports
-When =import= management is supported the following key-bindings should be used:
+When =import= management is supported the following key bindings should be used:
 
 | Key binding | Description                        |
 |-------------+------------------------------------|
