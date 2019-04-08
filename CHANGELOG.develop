@@ -465,7 +465,7 @@ Other:
   - Optimized =spacemacs/title-prepare= (thanks to Andriy Kmit')
   - Cached expensive computations in =spacemacs/title-prepare= (thanks to Dieter
     Komendera)
-  - Add line text object using =evil-textobj-line= (thanks to Uroš Perišić)
+  - Added line text object using =evil-textobj-line= (thanks to Uroš Perišić)
 - Fixed:
   - Avoid non-idempotent use of push in init code (thanks to Miciah Masters)
   - Moved Spacemacs startup progress bar to =core-progress-bar.el=, removed
@@ -807,7 +807,7 @@ Other:
     (thanks to Boris Buliga)
   - Cleanup =which-key= by removing obsolete entries and adding some missing
     ones (thans to duianto)
-  - Add =go-run-args= to pass command line arguments to `go run`
+  - Added =go-run-args= to pass command line arguments to `go run`
   - Editing: Enable smartparens in eldoc-eval-expression
     (thanks to Aaron Jensen)
 - Fixed:
@@ -879,7 +879,7 @@ Other:
   - Fixed loading of outdated compiled files (thanks to Boris Buliga)
   - Fixed =helm= loading for layouts transient state
     (thanks to Thomas de Beauchêne)
-  - Add support for =info-find-file= in emacs 27 by adding third argument
+  - Added support for =info-find-file= in emacs 27 by adding third argument
     (thanks to Richard Kim)
   - Fixed =:noh= ex-command to correctly clear search highlights initiated with
     both ~/~ and ~C-s~ (thanks to duianto)
@@ -1265,7 +1265,7 @@ Other:
   - ~SPC g i~ to initialize a repository (thanks to Steven Allen)
   - ~SPC m g y~ to find symbols (thanks to Daniel Ralston)
   - ~SPC g f d~ for =magit-diff= (thanks to Ag Ibragimov and bmag)
-- Add feature to toggle =evil-magit= based on editing style (thanks to Muneeb
+- Added feature to toggle =evil-magit= based on editing style (thanks to Muneeb
   Shaikh)
 - Added =use-package= for deferred loading of evil-magit (thanks to Sylvain
   Benner)
@@ -1313,7 +1313,7 @@ Other:
 - Support editorconfig setting of =tab-width= to nil (thanks to lawrsp)
 - Added lsp support (thanks to Lupco Kotev)
 - Added golangci-lint support (thanks to Lupco Kotev)
-- Add toggle control for verbose go test output (thanks to Enze Chi)
+- Added toggle control for verbose go test output (thanks to Enze Chi)
 - Set lsp-prefer-flymake to :none when Go layer is using LSP (thanks to Tim
   Heckman)
 **** Graphviz
@@ -1407,7 +1407,7 @@ Other:
   Lindqvist)
 - Revert setting company min. prefix length to 0 for company-web backend (thanks
   to Dela Anthonio)
-- Add missing prefixes for =web-mode= and =css-mode= (thanks to Uroš Perišić)
+- Added missing prefixes for =web-mode= and =css-mode= (thanks to Uroš Perišić)
 **** Hy
 - Added support for virtual envs (thanks to Danny Freeman)
 **** Idris
@@ -1493,15 +1493,18 @@ Other:
 - Fixed yanking types (thanks to Bjarke Vad Andersen)
 - Fixed gtags related initialization (thanks to Guido Kraemer)
 - Added LSP Java backend (thanks to Ivan Yonchovski)
-- Add =.dap-breakpoints= and =.lsp-session-*= (java lsp tempfiles) to .gitignore
+- Added =.dap-breakpoints= and =.lsp-session-*= (java lsp tempfiles) to .gitignore
   (thanks to Uroš Perišić)
 **** Javascript
-- Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
-- Added LSP support, which can be used by enabling the =lsp= layer and setting
-  the =javascript= layer's =javascript-backend= variable to =lsp= (thanks to
-  Ting Zhou and Sylvain Benner)
+- Improvements:
+  - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
+  - Added LSP support, which can be used by enabling the =lsp= layer and setting
+    the =javascript= layer's =javascript-backend= variable to =lsp=
+    (thanks to Ting Zhou and Sylvain Benner)
+  - Added ES6 module extension to =init-js2-mode= (thanks to Nathan Lloyd)
+  - Added =org-babel= support (thanks to Michael Rohleder)
 - Key bindings
-  - Improved coffeescript support (thanks to Kalle Lindqvist)
+  - Improved coffeescript support:
     - ~SPC m '~ to create or go to REPL
     - ~SPC m c c~ to compile buffer
     - ~SPC m c r~ to compile region
@@ -1510,15 +1513,21 @@ Other:
     - ~SPC m s i~ to create or go to REPL
     - ~SPC m s r~ to send current region to the REPL and stay in buffer
     - ~SPC m T c~ to toggle compile on save
-- Move REPL live eval toggle to ~SPC m T l~ (thanks to Sylvain Benner)
-- Set default value of =tern-command= to "tern" (thanks to Sylvain Benner and
-  Juuso Valkeejärvi)
-- Move =yas-activate-extra-mode= setup from react layer (thanks to Sylvain
-  Benner)
-- Added ES6 module extension to =init-js2-mode= (thanks to Nathan Lloyd)
-- Added =org-babel= support (thanks to Michael Rohleder)
-- Check if =tern= exists before using it (thanks to Codruț Constantin Gușoi)
-- Fix hook value to enable evil-matchit (thanks to Thanh Vuong)
+    (thanks to Kalle Lindqvist)
+  - Move REPL live eval toggle to ~SPC m T l~ (thanks to Sylvain Benner)
+  - Added =import-js= support with key bindings:
+    - ~SPC m i i~ to mport the module for the variable under the cursor
+    - ~SPC m i f~ to import any missing modules and remove any modules that ar
+      not used
+    - ~SPC m g i~ to go to the module of the variable under cursor
+    (thanks to Seong Yong-ju)
+  - Move ~SPC m i~ for =impatient-mode= to ~SPC m I~ as ~SPC m i~ is now taken
+    by the =import-js= key-bindings (thanks to Seong Yong-ju)
+- Fixes:
+  - Set default value of =tern-command= to "tern"
+    (thanks to Sylvain Benner and Juuso Valkeejärvi)
+  - Check if =tern= exists before using it (thanks to Codruț Constantin Gușoi)
+  - Fix hook value to enable =evil-matchit= (thanks to Thanh Vuong)
 **** Keyboard layout
 - Added support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and
   Eivind Fonn)
@@ -1542,7 +1551,7 @@ Other:
 **** Language Server Protocol (LSP)
 - Replace lsp-capabilities keybinding with lsp-describe-session
   (thanks to Bryan Tan)
-- Add lsp-prefer-flymake variable (thanks to Juuso Valkeejärvi)
+- Added lsp-prefer-flymake variable (thanks to Juuso Valkeejärvi)
 **** Markdown
 - New layer variable =markdown-mmm-auto-modes= which is a list of language names
   or lists of language and mode names that are supported in source blocks, you
@@ -1751,7 +1760,7 @@ Other:
 - Added the org-mode keybindings to the org-journal major mode (thanks to Marty
   Buchaus)
 - Replace ox-reveal with org-re-reveal (thanks to Magnus Therning)
-- Add epub support (thanks to vishvanath45)
+- Added epub support (thanks to vishvanath45)
 **** Osx
 - Fixed OSX mapping issue (thanks to Joey Liu)
 - Added layer variables to customize modifier behaviors on macOS:
@@ -1849,7 +1858,7 @@ Other:
   Verhovsky)
 - Fixed conflict between pipenv directory .venv and pyvenv file .venv (thanks to
   rgb-24bit)
-- Add diminish for importmagic (thanks to Loys Ollivier)
+- Added diminish for importmagic (thanks to Loys Ollivier)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 **** Ranger
@@ -1870,18 +1879,26 @@ Other:
 - Added variable =rcirc-enable-late-fix= (thanks to Miciah Masters)
 **** React
 - Improvements:
+  - Use rjsx-mode for react framework (thanks to Ting Zhou)
   - Prompt user to install the =react= layer if a =.jsx= file is opened
     (thanks to Jon Hermansen)
-- Improved =magic-mode-alist= regular expression to detect =react= files
-  (thanks to Jan Zdráhal)
-- Use JSX header without breaking React (thanks to Jam Risser)
-- Made auto-completion triggers more friendly (thanks to Cheng,Rong)
-- Use rjsx-mode for react framework (thanks to Ting Zhou)
-- Made layer depends on node and tern layers (thanks to Sylvain Benner)
-- Configure =emmet-mode= to expand classes using =className= instead of =class=
-  (thanks to Sylvain Benner)
-- Open =.jsx= files with =rjsx-mode= (thanks to Thomas de Beauchêne)
-- Fixed React imports when using web beautify. (thanks to Ismael)
+  - Improved =magic-mode-alist= regular expression to detect =react= files
+    (thanks to Jan Zdráhal)
+  - Made auto-completion triggers more friendly (thanks to Cheng,Rong)
+  - Configure =emmet-mode= to expand classes using =className= instead of =class=
+    (thanks to Sylvain Benner)
+  - Open =.jsx= files with =rjsx-mode= (thanks to Thomas de Beauchêne)
+- Key bindings:
+  - Added =import-js= support with key bindings:
+    - ~SPC m i i~ to mport the module for the variable under the cursor
+    - ~SPC m i f~ to import any missing modules and remove any modules that ar
+      not used
+    - ~SPC m g i~ to go to the module of the variable under cursor
+    (thanks to Seong Yong-ju)
+- Fixes:
+  - Use JSX header without breaking React (thanks to Jam Risser)
+  - Fixed React imports when using web beautify. (thanks to Ismael)
+  - Made layer depends on node and tern layers (thanks to Sylvain Benner)
 **** Ruby
 - Added support for =org-babel= (thanks to Muneeb Shaikh)
 - Highlight debugger keywords (thanks to Alexander Berezovsky and Eivind Fonn)
@@ -2015,7 +2032,7 @@ Other:
   Christianson)
 - Added layer variable =sql-auto-indent= to toggle the use of =sql-indent= package
   (thanks to David Chen)
-- Add a code formatter for sql-mode (thanks to Seong Yong-ju)
+- Added a code formatter for sql-mode (thanks to Seong Yong-ju)
 **** Spell-checking
 - Added spell checking transient state (thanks to Francesc Elies Henar)
 - Update to flyspell-correct v0.5 (thanks to Boris Buliga)
