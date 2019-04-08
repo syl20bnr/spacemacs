@@ -35,6 +35,7 @@
     - [[#language-specific][Language specific]]
   - [[#toggles][Toggles]]
   - [[#refactoring][Refactoring]]
+  - [[#imports][Imports]]
   - [[#code-formatting][Code Formatting]]
   - [[#web-frameworks][Web frameworks]]
   - [[#help-or-documentation][Help or Documentation]]
@@ -132,6 +133,7 @@ The prefix for going to something is ~SPC m g~.
 | ~m g b~ | go back to previous location (before last jump) |
 | ~m g g~ | go to things under point                        |
 | ~m g G~ | go to things under point in other window        |
+| ~m g i~ | go to imports                                   |
 | ~m g t~ | go to corresponding test file if any            |
 | ~m g u~ | go/find usage of thing under point              |
 
@@ -365,6 +367,15 @@ one or more bindings for the same thing
 
 ** Refactoring
 Refactoring prefix is ~SPC m r~.
+
+** Imports
+When =import= management is supported the following key-bindings should be used:
+
+| Key binding | Description                        |
+|-------------+------------------------------------|
+| ~m i i~     | add import for symbol around point |
+| ~m i f~     | fix/format imports                 |
+| ~m g i~     | go to imports                      |
 
 ** Code Formatting
 Major-mode code formatting is under prefix ~SPC m =~.
