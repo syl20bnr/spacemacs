@@ -7,7 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
-- [[#troubleshooting][Troubleshooting]]
+- [[#usage][Usage]]
 
 * Description
 This layer adds PHP language support to Spacemacs.
@@ -34,8 +34,8 @@ file.
 | ~SPC m g g~ | jump to define at point |
 | ~C-t~       | jump back               |
 
-* Troubleshooting
-Because of the way that the php-extras package works, there are a couple of simple
+* Usage
+Because of the way that the ac-php-core package works, there are a couple of simple
 initialization tasks which must occur to get the completion working as it should.
 On any new project make sure to perform the following initialization tasks:
 1. Run the following
@@ -46,4 +46,15 @@ On any new project make sure to perform the following initialization tasks:
    #+END_SRC
 
 2. Inside of spacemacs run:
-   = ac-php-remake-tags-all =
+   = ac-php-remake-tags =
+
+The =.ac-php-conf.json= file is required to enable auto-completion. When you run
+=ac-php-remake-tags= and your =.ac-php-conf.json= file is empty the default configuration
+will be used and inserted in the file.
+
+If your project contains the following files at the root folder:
+1. =.projectile=
+2. =vendor/autoload.php=
+
+the necessary configuration file (=.ac-php-conf.json=) will be created automatically
+if it does not exist. 
