@@ -70,12 +70,11 @@
 
 (defun spacemacs/import-js-set-key-bindings (mode)
   "Setup the key bindings for `import-js' for the given MODE."
-  (progn
-    (spacemacs/declare-prefix-for-mode mode "mi" "import")
-    (spacemacs/set-leader-keys-for-major-mode mode
-      "if" #'spacemacs/import-js-fix
-      "ii" #'spacemacs/import-js-import
-      "gi" #'import-js-goto)))
+  (spacemacs/declare-prefix-for-mode mode "mi" "import")
+  (spacemacs/set-leader-keys-for-major-mode mode
+    "if" #'spacemacs/import-js-fix
+    "ii" #'spacemacs/import-js-import
+    "gi" #'import-js-goto))
 
 (defun spacemacs/import-js-fix ()
   (interactive)
