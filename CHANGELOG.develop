@@ -1202,6 +1202,7 @@ Other:
 - Disabled nameless by default (thanks to Codruț Constantin Gușoi, Sylvain
   Benner)
 - Activate nameless only in GUI (thanks to Sylvain Benner)
+- Add =flycheck-package= for package metadata linting (thanks to Uroš Perišić)
 **** Emoji
 - Added support for Emoji fonts on macOS and Linux (thanks to CodeFalling )
 - Setup =emojify= cache directory (thanks to Boris Buliga)

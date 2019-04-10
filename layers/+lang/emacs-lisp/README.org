@@ -25,6 +25,7 @@ always be in your dotfile, it is not recommended to uninstall it.
 ** Features:
 - Auto-completion using company
 - Linting using flycheck integration
+- Linting package file metadata using [[https://github.com/purcell/flycheck-package][flycheck-package]]
 - Repl support via =IELM=
 - Support for specific lisp navigation styles via =emacs-lisp-mode=
 - Auto-compile via [[https://github.com/tarsius/auto-compile][auto-compile]] package
