@@ -22,6 +22,7 @@
         evil-cleverparens
         eval-sexp-fu
         flycheck
+        flycheck-package
         ggtags
         counsel-gtags
         helm-gtags
@@ -251,6 +252,12 @@
   ;; Make flycheck recognize packages in loadpath
   ;; i.e (require 'company) will not give an error now
   (setq flycheck-emacs-lisp-load-path 'inherit))
+
+(defun emacs-lisp/init-flycheck-package ()
+  (use-package flycheck-package
+    :defer t
+    :init (with-eval-after-load 'flycheck
+            (flycheck-pos-tip-mode))))
 
 (defun emacs-lisp/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'emacs-lisp-mode))
