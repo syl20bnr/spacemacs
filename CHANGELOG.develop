@@ -2082,6 +2082,8 @@ Other:
 - Faster method of redrawing buffer for transient state (thanks to SteveJobzniak)
 - Tuned defaults to work w. majority of light & dark themes (thanks to SteveJobzniak)
 - Better way of adding/refreshing themes
+- Actually download =nyan-mode= from MELPA instead of requiring local
+  installation (thanks to Uroš Perišić)
 **** Themes Megapack
 - Added =rebecca-theme= (thanks to Victor Borja)
 - Added =white-sand-theme= (thanks to Swaroop C H)

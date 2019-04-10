@@ -13,7 +13,7 @@
   '(
     ;; not working well for now
     ;; rainbow-blocks
-    (nyan-mode :location local)
+    nyan-mode
     color-identifiers-mode
     rainbow-identifiers
     rainbow-mode
