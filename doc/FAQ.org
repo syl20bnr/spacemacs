@@ -455,7 +455,7 @@ management), you can use this:
 
 ** Restore the sentence delimiter to two spaces?
 To restore the sentence delimiter to two spaces, add the following code to the
-=dotspacemacs/user-init= function of your =.spacemacs=:
+=dotspacemacs/user-config= function of your =.spacemacs=:
 
 #+BEGIN_SRC emacs-lisp
   (setq sentence-end-double-space t)
