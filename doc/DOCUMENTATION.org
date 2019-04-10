@@ -1092,10 +1092,10 @@ key-discovery tools can use (e.g., which-key).
 
 Example to create binding in major mode:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (spacemacs/declare-prefix-for-mode 'org-mode "o" "custom")
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "oi" 'org-id-get-create)
-#+end_src
+#+END_SRC
 
 This would add binding as ~, oi~ and ~SPC moi~.
 
