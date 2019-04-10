@@ -34,10 +34,10 @@
     (`ghc-mod (spacemacs-haskell//setup-ghc-mod))))
 
 (defun spacemacs-haskell//setup-company ()
-  "Conditionally setup haskell backend."
+  "Conditionally setup haskell completion backend."
   (pcase haskell-completion-backend
     (`ghci (spacemacs-haskell//setup-ghci-company))
-    (`lsp (spacemacs-haskell//setup-lsp-company))
+    (`lsp nil) ;; nothing to do, auto-configured by lsp-mode
     (`intero (spacemacs-haskell//setup-intero-company))
     (`dante (spacemacs-haskell//setup-dante-company))
     (`ghc-mod (spacemacs-haskell//setup-ghc-mod-company))))
@@ -63,18 +63,6 @@
         ;; directly and can't rely on it being autoloaded.
         (require 'lsp-haskell)
         (lsp))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
-
-(defun spacemacs-haskell//setup-lsp-company ()
-  "Setup lsp auto-completion"
-  (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (spacemacs|add-company-backends
-          :backends company-lsp
-          :modes haskell-mode
-          :append-hooks nil
-          :call-hooks t)
-        (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 ;; ghc-mod functions
