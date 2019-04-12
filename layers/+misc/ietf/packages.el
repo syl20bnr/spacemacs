@@ -12,7 +12,7 @@
 ;;; Code:
 
 (defconst ietf-packages '(ietf-docs
-                          irfc
+                          (irfc :location local)
                           (ox-rfc :requires org)))
 
 (defun ietf/init-ietf-docs ()
