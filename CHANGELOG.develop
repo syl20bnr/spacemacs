@@ -1627,6 +1627,7 @@ Other:
 **** Multiple Cursors
 - Disabled Spacemacs paste transient state when pasting to avoid pasting issue
   when there are more than one cursor (thanks to braham-snyder)
+- Disabled =evil-escape= minor mode in =evil-mc-mode=.
 **** Neotree
 - Made neotree an optional instead of a default layer
 - Move neotree to its own layer in new +filetree folder (thanks to Sylvain

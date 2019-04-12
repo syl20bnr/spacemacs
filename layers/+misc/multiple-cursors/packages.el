@@ -24,6 +24,11 @@
       (when (or (spacemacs/system-is-mac) (spacemacs/system-is-mswindows))
         (setq evil-mc-enable-bar-cursor nil))
 
+      ;; evil-mc is not compatible with evil-escape
+      (add-hook 'evil-mc-mode-hook
+                #'(lambda ()
+                    (add-to-list 'evil-mc-incompatible-minor-modes
+                                 'evil-escape-mode)))
       ;; evil-mc is not compatible with the paste transient state
       (define-key evil-normal-state-map "p" 'spacemacs/evil-mc-paste-after)
       (define-key evil-normal-state-map "P" 'spacemacs/evil-mc-paste-before)
