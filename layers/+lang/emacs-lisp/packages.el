@@ -83,13 +83,13 @@
           "dF" 'spacemacs/edebug-instrument-defun-off))
       ;; since we evilify `edebug-mode-map' we don't need to intercept it to
       ;; make it work with evil
-     (evil-set-custom-state-maps
-      'evil-intercept-maps
-      'evil-pending-intercept-maps
-      'intercept-state
-      'evil-make-intercept-map
-      (delq (assq 'edebug-mode-map evil-intercept-maps)
-            evil-intercept-maps))
+      (evil-set-custom-state-maps
+       'evil-intercept-maps
+       'evil-pending-intercept-maps
+       'intercept-state
+       'evil-make-intercept-map
+       (delq (assq 'edebug-mode-map evil-intercept-maps)
+             evil-intercept-maps))
       (evilified-state-evilify-map edebug-mode-map
         :eval-after-load edebug
         :bindings
@@ -255,9 +255,7 @@
 
 (defun emacs-lisp/init-flycheck-package ()
   (use-package flycheck-package
-    :defer t
-    :init (with-eval-after-load 'flycheck
-            (flycheck-pos-tip-mode))))
+    :defer t))
 
 (defun emacs-lisp/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'emacs-lisp-mode))
