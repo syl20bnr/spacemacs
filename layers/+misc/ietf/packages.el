@@ -24,7 +24,7 @@
       (setq ietf-docs-cache-directory ietf-docs-cache))))
 
 (defun ietf/init-irfc ()
-  (use-package ietf-docs
+  (use-package irfc
     :commands irfc-mode
     :init
     (progn
