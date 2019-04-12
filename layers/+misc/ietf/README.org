@@ -2,18 +2,18 @@
 
 [[file:img/ietf-logo.png]]
 
-* Table of Contents                                        :TOC_4_org:noexport:
-- [[Description][Description]]
-  - [[Features][Features]]
-    - [[Fetching and Opening IETF Documents][Fetching and Opening IETF Documents]]
-    - [[Viewing IETF Documents][Viewing IETF Documents]]
-    - [[Writing IETF Documents][Writing IETF Documents]]
-- [[Install][Install]]
-- [[Key bindings][Key bindings]]
+* Table of Contents                     :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#fetching-and-opening-ietf-documents][Fetching and Opening IETF Documents]]
+- [[#viewing-ietf-documents][Viewing IETF Documents]]
+- [[#writing-ietf-documents][Writing IETF Documents]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 The =IETF= layer collects various useful packages for participating in the
-Internet Engineering Task Force (https://www.ietf.org).
+Internet Engineering Task Force ([[https://www.ietf.org]]).
 
 ** Features:
 - Fetching and opening IETF documents.
@@ -58,6 +58,6 @@ By default fetched IETF documents are stored in a subdirectory of the
 
 * Key bindings
 
-| Key Binding | Description                                         |
+| Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC f I~   | Opens IETF document based on the text at the point. |
