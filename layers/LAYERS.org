@@ -101,6 +101,7 @@
 - [[file:+lang/csharp/README.org][csharp]]
 - [[file:+lang/csv/README.org][csv]]
 - [[file:+lang/d/README.org][d]]
+- [[file:+lang/dart/README.org][dart]]
 - [[file:+lang/dhall/README.org][dhall]]
 - [[file:+lang/elixir/README.org][elixir]]
 - [[file:+lang/elm/README.org][elm]]
@@ -157,9 +158,11 @@
 - [[file:+lang/vimscript/README.org][vimscript]]
 - [[file:+lang/windows-scripts/README.org][windows-scripts]]
 - [[file:+lang/yaml/README.org][yaml]]
+- [[file:+lang/yang/README.org][yang]]
 
 * Misc
 - [[file:+misc/copy-as-format/README.org][copy-as-format]]
+- [[file:+misc/ietf/README.org][ietf]]
 - [[file:+misc/multiple-cursors/README.org][multiple-cursors]]
 - [[file:+misc/nlinum/README.org][nlinum]]
 - [[file:+misc/parinfer/README.org][parinfer]]
