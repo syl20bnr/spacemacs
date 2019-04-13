@@ -24,6 +24,11 @@
     (`tern (spacemacs//javascript-setup-tern-company))
     (`lsp (spacemacs//javascript-setup-lsp-company))))
 
+(defun spacemacs//javascript-setup-next-error-fn ()
+  "If the `syntax-checking' layer is enabled, then disable `js2-mode''s
+`next-error-function', and let `flycheck' handle any errors."
+  (when (configuration-layer/layer-used-p 'syntax-checking)
+    (setq-local next-error-function nil)))
 
 ;; lsp
 
@@ -31,6 +36,8 @@
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
+        (when (not javascript-lsp-linter)
+          (setq-local lsp-prefer-flymake :none))
         (lsp))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile.")))

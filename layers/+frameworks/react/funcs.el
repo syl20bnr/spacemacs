@@ -23,12 +23,20 @@
     (`tern (spacemacs/tern-setup-tern-company 'rjsx-mode))
     (`lsp (spacemacs//react-setup-lsp-company))))
 
+(defun spacemacs//react-setup-next-error-fn ()
+  "If the `syntax-checking' layer is enabled, disable `rjsx-mode''s
+`next-error-function', and let `flycheck' handle any errors."
+  (when (configuration-layer/layer-used-p 'syntax-checking)
+    (setq-local next-error-function nil)))
 
 ;; LSP
 (defun spacemacs//react-setup-lsp ()
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
-      (lsp)
+      (progn
+        (when (not javascript-lsp-linter)
+          (setq-local lsp-prefer-flymake :none))
+        (lsp))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//react-setup-lsp-company ()

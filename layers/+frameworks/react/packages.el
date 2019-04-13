@@ -70,6 +70,8 @@
 
     ;; setup rjsx backend
     (add-hook 'rjsx-mode-local-vars-hook #'spacemacs//react-setup-backend)
+    ;; set next-error-function to nil because we use flycheck
+    (add-hook 'rjsx-mode-local-vars-hook #'spacemacs//react-setup-next-error-fn)
 
     :config
     ;; declare prefix
