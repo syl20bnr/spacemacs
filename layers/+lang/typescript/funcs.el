@@ -61,7 +61,10 @@
 (defun spacemacs//typescript-setup-lsp ()
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
-      (lsp)
+      (progn
+        (when (not typescript-lsp-linter)
+          (setq-local lsp-prefer-flymake :none))
+        (lsp))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
 

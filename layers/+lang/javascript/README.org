@@ -106,6 +106,14 @@ Backend can be chosen on a per project basis using directory local variables
   ((js2-mode (javascript-backend . lsp)))
 #+END_SRC
 
+When =lsp= is set as the backend, but you don't want to use lsp as the linter,
+set the variable =javascript-lsp-linter= to =nil=.
+
+#+BEGIN_SRC elisp
+   (javascript :variables
+               javascript-backend 'lsp
+               javascript-lsp-linter nil)
+#+END_SRC
 ** Choosing a formatter
 To choose a formatter, set the layer variable =javascript-fmt-tool=:
 

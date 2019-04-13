@@ -149,6 +149,16 @@ restart server after editing it.
 You also need to install the Typescript Language Server.
 Consult the installation command for the desired language server found at [[https://www.github.com/emacs-lsp/lsp-mode/][lsp-mode]] for instructions.
 
+By default lsp will explicitly set itself as the linter, if you don't want that,
+then set the variable =typescript-lsp-linter= to =nil=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (typescript :variables
+                typescript-backend 'lsp
+                typescript-lsp-linter nil)))
+#+END_SRC
+
 * Key bindings
 ** Typescript Major Mode
 

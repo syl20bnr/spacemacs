@@ -1761,6 +1761,9 @@ Other:
   - Added debug support via =dap= layer (Firefox and Google Chrome)
   - Added format on save option. (thanks to Trapez Breen)
   - Add =nodejs-repl= support (thanks to Uroš Perišić)
+  - Added a =javascript-lsp-linter= variable to allow for disabling =lsp= as a
+    linter for =javascript= and =react=, when =lsp= is set as the backend
+    (thanks to Thanh Vuong)
 - Key bindings
   - Improved coffeescript support (thanks to Kalle Lindqvist):
     - ~SPC m '~ to create or go to REPL
@@ -1787,6 +1790,8 @@ Other:
   - Check if =tern= exists before using it (thanks to Codruț Constantin Gușoi)
   - Fixed hook value to enable =evil-matchit= (thanks to Thanh Vuong)
   - Fix hook value to enable =evil-matchit= (thanks to Thanh Vuong)
+  - Disabled =js2-mode='s =next-error-function= when the =syntax-checking= layer
+    is enabled, to let =flycheck= handle any errors (thanks to Thanh Vuong)
 **** Keyboard layout
 - Added support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and
   Eivind Fonn)
@@ -2586,6 +2591,8 @@ Other:
 - Added the same setup to tsx files as to ts files (thanks to Trapez Breen)
 - Configured =emmet-mode= for =typescript-tsx-mode=
 - Added configurable =typescript= linter parameter so that users can migrate to eslint
+- Added a =typescript-lsp-linter= variable to allow for disabling =lsp= as a
+  linter, when =lsp= is set as the backend (thanks to Thanh Vuong)
 **** Vagrant
 - Key bindings:
   - move key bindings prefix to ~SPC a V~ (thanks to Thomas de Beauchêne)
