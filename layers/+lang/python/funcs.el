@@ -361,23 +361,44 @@ to be called for each testrunner. "
 (defun spacemacs/python-shell-send-buffer-switch ()
   "Send buffer content to shell and switch to it in insert mode."
   (interactive)
-  (python-shell-send-buffer)
-  (python-shell-switch-to-shell)
-  (evil-insert-state))
+  (let ((python-mode-hook nil))
+    (python-shell-send-buffer)
+    (python-shell-switch-to-shell)
+    (evil-insert-state)))
+
+(defun spacemacs/python-shell-send-buffer ()
+  "Send buffer content to shell and switch to it in insert mode."
+  (interactive)
+  (let ((python-mode-hook nil))
+    (python-shell-send-buffer)))
 
 (defun spacemacs/python-shell-send-defun-switch ()
   "Send function content to shell and switch to it in insert mode."
   (interactive)
-  (python-shell-send-defun nil)
-  (python-shell-switch-to-shell)
-  (evil-insert-state))
+  (let ((python-mode-hook nil))
+    (python-shell-send-defun nil)
+    (python-shell-switch-to-shell)
+    (evil-insert-state)))
+
+(defun spacemacs/python-shell-send-defun ()
+  "Send function content to shell and switch to it in insert mode."
+  (interactive)
+  (let ((python-mode-hook nil))
+    (python-shell-send-defun nil)))
 
 (defun spacemacs/python-shell-send-region-switch (start end)
   "Send region content to shell and switch to it in insert mode."
   (interactive "r")
-  (python-shell-send-region start end)
-  (python-shell-switch-to-shell)
-  (evil-insert-state))
+  (let ((python-mode-hook nil))
+    (python-shell-send-region start end)
+    (python-shell-switch-to-shell)
+    (evil-insert-state)))
+
+(defun spacemacs/python-shell-send-region (start end)
+  "Send region content to shell and switch to it in insert mode."
+  (interactive "r")
+  (let ((python-mode-hook nil))
+    (python-shell-send-region start end)))
 
 (defun spacemacs/python-start-or-switch-repl ()
   "Start and/or switch to the REPL."
