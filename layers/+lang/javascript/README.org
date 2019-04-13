@@ -8,6 +8,7 @@
 - [[#install][Install]]
   - [[#web-beautify][web-beautify]]
   - [[#prettier][prettier]]
+  - [[#import-js][import-js]]
   - [[#choosing-a-backend][Choosing a backend]]
   - [[#choosing-a-formatter][Choosing a formatter]]
 - [[#backends][Backends]]
@@ -69,6 +70,15 @@ See [[file:../../+tools/web-beautify/README.org][web-beautify layer]] documentat
 
 ** prettier
 See [[file:../../+tools/prettier/README.org][prettier layer]] documentation.
+
+** import-js
+See [[file:../../+tools/import-js/README.org][import-js layer]] documentation.
+
+To enable it, set the layer variable =javascript-import-tool=:
+
+#+BEGIN_SRC elisp
+  (javascript :variables javascript-import-tool 'import-js)
+#+END_SRC
 
 ** Choosing a backend
 To choose a default backend set the layer variable =javascript-backend=:

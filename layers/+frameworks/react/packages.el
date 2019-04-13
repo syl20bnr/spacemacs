@@ -44,9 +44,9 @@
       (flycheck-add-mode checker 'rjsx-mode)))
   (spacemacs/enable-flycheck 'rjsx-mode))
 
-(defun react/post-init-import-js ()
-  (add-hook 'rjsx-mode-hook #'run-import-js)
-  (spacemacs/import-js-set-key-bindings 'rjsx-mode))
+(defun react/pre-init-import-js ()
+(if (eq javascript-import-tool 'import-js)
+    (add-to-list 'spacemacs--import-js-modes (cons 'rjsx-mode 'rjsx-mode-hook))))
 
 (defun react/post-init-js-doc ()
   (add-hook 'rjsx-mode-hook 'spacemacs/js-doc-require)
