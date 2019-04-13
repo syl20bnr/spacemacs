@@ -10,3 +10,6 @@
 ;;; License: GPLv3
 
 (spacemacs|define-jump-handlers rjsx-mode)
+
+(defvar react-import-tool nil
+  "The import backend to import modules. Possible values are `import-js' and `nil' to disable.")

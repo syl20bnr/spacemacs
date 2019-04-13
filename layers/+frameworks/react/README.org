@@ -32,6 +32,8 @@ file.
 
 React layer uses the same backend defined in javascript layer. Options are =tern= and =lsp=.
 
+React layer also uses the same import backend defined in javascript layer.
+
 To use the on-the-fly syntax checking, install =eslint= with babel and react
 support:
 
