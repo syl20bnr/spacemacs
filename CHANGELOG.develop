@@ -1881,6 +1881,7 @@ Other:
 - Fixed conflict between pipenv directory .venv and pyvenv file .venv (thanks to
   rgb-24bit)
 - Added diminish for importmagic (thanks to Loys Ollivier)
+- Added debugger integration via =dap= layer
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 **** Ranger
