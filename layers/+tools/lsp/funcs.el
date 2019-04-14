@@ -38,36 +38,44 @@ https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
       (spacemacs//lsp-bind-peek-navigation-functions "G")))
 
   (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
-    ;;format
+    ;; format
     "=b" #'lsp-format-buffer
-    ;;goto
+    "=r" #'lsp-format-region
+    ;; goto
     "gt" #'lsp-find-type-definition
     "gk" #'spacemacs/lsp-avy-goto-word
     "gK" #'spacemacs/lsp-avy-goto-symbol
-    "ge" #'lsp-ui-flycheck-list
     "gM" #'lsp-ui-imenu
-    ;;help
+    ;; help
     "hh" #'lsp-describe-thing-at-point
-    ;;jump
-    ;;backend
+    ;; jump
+    ;; backend
     "ba" #'lsp-execute-code-action
     "bd" #'lsp-describe-session
     "br" #'lsp-restart-workspace
-    ;;refactor
+    "bs" #'lsp-shutdown-workspace
+    ;; refactor
     "rr" #'lsp-rename
-    ;;toggles
+    ;; toggles
     "Td" #'lsp-ui-doc-mode
     "Ts" #'lsp-ui-sideline-mode
     "TF" #'spacemacs/lsp-ui-doc-func
     "TS" #'spacemacs/lsp-ui-sideline-symb
-    "TI" #'spacemacs/lsp-ui-sideline-ignore-duplicate))
+    "TI" #'spacemacs/lsp-ui-sideline-ignore-duplicate
+    "Tl" #'lsp-lens-mode
+    ;; folders
+    "Fs" #'lsp-workspace-folders-switch
+    "Fr" #'lsp-workspace-folders-remove
+    "Fa" #'lsp-workspace-folders-add))
 
 (defun spacemacs//lsp-bind-simple-navigation-functions (prefix-char)
   (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
     (concat prefix-char "i") #'lsp-find-implementation
     (concat prefix-char "d") #'xref-find-definitions
     (concat prefix-char "r") #'xref-find-references
-    (concat prefix-char "s") #'lsp-ui-find-workspace-symbol
+    (concat prefix-char "e") #'lsp-treemacs-errors-list
+    (concat prefix-char "s") #'helm-lsp-workspace-symbol
+    (concat prefix-char "S") #'helm-lsp-global-workspace-symbol
     (concat prefix-char "p") #'xref-pop-marker-stack))
 
 (defun spacemacs//lsp-bind-peek-navigation-functions (prefix-char)
@@ -77,6 +85,7 @@ https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
     (concat prefix-char "r") #'lsp-ui-peek-find-references
     (concat prefix-char "s") #'lsp-ui-peek-find-workspace-symbol
     (concat prefix-char "p") #'lsp-ui-peek-jump-backward
+    (concat prefix-char "e") #'lsp-ui-flycheck-list
     (concat prefix-char "n") #'lsp-ui-peek-jump-forward))
 
 (defun spacemacs//lsp-declare-prefixes-for-mode (mode)
