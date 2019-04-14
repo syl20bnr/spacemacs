@@ -1520,6 +1520,7 @@ Other:
     (thanks to Ting Zhou and Sylvain Benner)
   - Added ES6 module extension to =init-js2-mode= (thanks to Nathan Lloyd)
   - Added =org-babel= support (thanks to Michael Rohleder)
+  - Added debug support via =dap= layer (Firefox and Google Chrome)
 - Key bindings
   - Improved coffeescript support:
     - ~SPC m '~ to create or go to REPL
