@@ -69,7 +69,13 @@ when this mode is enabled since the minibuffer is cleared all the time."
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (lsp)
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile."))
+  (if (configuration-layer/layer-used-p 'dap)
+    (progn
+      (require 'dap-python)
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode "db" nil)
+      (spacemacs/dap-bind-keys-for-mode 'python-mode))
+    (message "`dap' layer is not installed, please add `dap' layer to your dotfile.")))
 
 (defun spacemacs//python-setup-lsp-company ()
   "Setup lsp auto-completion."
