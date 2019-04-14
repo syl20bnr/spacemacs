@@ -13,7 +13,7 @@
   "Set jump handler for LSP with the given MODE."
   (dolist (m modes)
     (add-to-list (intern (format "spacemacs-jump-handlers-%S" m))
-      '(lsp-ui-peek-find-definitions :async t))))
+                 '(lsp-ui-peek-find-definitions :async t))))
 
 (defun fix-lsp-company-prefix ()
   "fix lsp-javascript company prefix
@@ -22,8 +22,8 @@ https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
   (defun lsp-prefix-company-transformer (candidates)
     (let ((completion-ignore-case t))
       (if (and (car candidates)
-            (get-text-property 0 'lsp-completion-prefix (car candidates)))
-        (all-completions (company-grab-symbol) candidates)
+               (get-text-property 0 'lsp-completion-prefix (car candidates)))
+          (all-completions (company-grab-symbol) candidates)
         candidates)))
   (make-local-variable 'company-transformers)
   (add-to-list 'company-transformers 'lsp-prefix-company-transformer))
@@ -34,40 +34,48 @@ https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
     ('simple (spacemacs//lsp-bind-simple-navigation-functions "g"))
     ('peek (spacemacs//lsp-bind-peek-navigation-functions "g"))
     ('both
-      (spacemacs//lsp-bind-simple-navigation-functions "g")
-      (spacemacs//lsp-bind-peek-navigation-functions "G")))
+     (spacemacs//lsp-bind-simple-navigation-functions "g")
+     (spacemacs//lsp-bind-peek-navigation-functions "G")))
 
   (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
-    ;;format
+    ;; format
     "=b" #'lsp-format-buffer
-    ;;goto
+    "=r" #'lsp-format-region
+    ;; goto
     "gt" #'lsp-find-type-definition
     "gk" #'spacemacs/lsp-avy-goto-word
     "gK" #'spacemacs/lsp-avy-goto-symbol
-    "ge" #'lsp-ui-flycheck-list
     "gM" #'lsp-ui-imenu
-    ;;help
+    ;; help
     "hh" #'lsp-describe-thing-at-point
-    ;;jump
-    ;;backend
+    ;; jump
+    ;; backend
     "ba" #'lsp-execute-code-action
     "bd" #'lsp-describe-session
     "br" #'lsp-restart-workspace
-    ;;refactor
+    "bs" #'lsp-shutdown-workspace
+    ;; refactor
     "rr" #'lsp-rename
-    ;;toggles
+    ;; toggles
     "Td" #'lsp-ui-doc-mode
     "Ts" #'lsp-ui-sideline-mode
     "TF" #'spacemacs/lsp-ui-doc-func
     "TS" #'spacemacs/lsp-ui-sideline-symb
-    "TI" #'spacemacs/lsp-ui-sideline-ignore-duplicate))
+    "TI" #'spacemacs/lsp-ui-sideline-ignore-duplicate
+    "Tl" #'lsp-lens-mode
+    ;; folders
+    "Fs" #'lsp-workspace-folders-switch
+    "Fr" #'lsp-workspace-folders-remove
+    "Fa" #'lsp-workspace-folders-add))
 
 (defun spacemacs//lsp-bind-simple-navigation-functions (prefix-char)
   (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
     (concat prefix-char "i") #'lsp-find-implementation
     (concat prefix-char "d") #'xref-find-definitions
     (concat prefix-char "r") #'xref-find-references
-    (concat prefix-char "s") #'lsp-ui-find-workspace-symbol
+    (concat prefix-char "e") #'lsp-treemacs-errors-list
+    (concat prefix-char "s") #'helm-lsp-workspace-symbol
+    (concat prefix-char "S") #'helm-lsp-global-workspace-symbol
     (concat prefix-char "p") #'xref-pop-marker-stack))
 
 (defun spacemacs//lsp-bind-peek-navigation-functions (prefix-char)
@@ -77,6 +85,7 @@ https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
     (concat prefix-char "r") #'lsp-ui-peek-find-references
     (concat prefix-char "s") #'lsp-ui-peek-find-workspace-symbol
     (concat prefix-char "p") #'lsp-ui-peek-jump-backward
+    (concat prefix-char "e") #'lsp-ui-flycheck-list
     (concat prefix-char "n") #'lsp-ui-peek-jump-forward))
 
 (defun spacemacs//lsp-declare-prefixes-for-mode (mode)
@@ -88,6 +97,7 @@ https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
   (spacemacs/declare-prefix-for-mode mode "mT" "toggle")
   (spacemacs/declare-prefix-for-mode mode "mg" "goto")
   (spacemacs/declare-prefix-for-mode mode "mG" "peek")
+  (spacemacs/declare-prefix-for-mode mode "mF" "folder")
   (dolist (prefix '("mg" "mG"))
     (spacemacs/declare-prefix-for-mode mode (concat prefix "h") "hierarchy")
     (spacemacs/declare-prefix-for-mode mode (concat prefix "m") "members")))
@@ -115,7 +125,7 @@ https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
   (while key
     (define-key keymap (kbd key) def)
     (setq key (pop bindings)
-      def (pop bindings))))
+          def (pop bindings))))
 
 ;; These functions facilitate extension of the navigation-mode keybindings in derived layers
 ;; See c/c++ layer for a usage example
@@ -124,12 +134,12 @@ https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
 
 (defun spacemacs//lsp-define-custom-extension (layer-name nav-mode kind request &optional extra)
   (let ((lsp-extension-fn (if (equal nav-mode "find")
-                            'lsp-find-locations
+                              'lsp-find-locations
                             'lsp-ui-peek-find-custom))
-         (extension-name (spacemacs//lsp-get-extension-name layer-name nav-mode kind))
-         (extension-descriptor (format (concat nav-mode " %s") (symbol-name kind))))
+        (extension-name (spacemacs//lsp-get-extension-name layer-name nav-mode kind))
+        (extension-descriptor (format (concat nav-mode " %s") (symbol-name kind))))
     (if extra
-      (defalias extension-name `(lambda () ,extension-descriptor (interactive) (funcall ',lsp-extension-fn ,request ',extra)))
+        (defalias extension-name `(lambda () ,extension-descriptor (interactive) (funcall ',lsp-extension-fn ,request ',extra)))
       (defalias extension-name `(lambda () ,extension-descriptor (interactive) (funcall ',lsp-extension-fn ,request))))))
 
 (defun spacemacs/lsp-define-extensions (layer-name kind request &optional extra)
@@ -137,7 +147,7 @@ https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
 The function names will be <layer-name>/find-<kind> and <layer-name>/peek-<kind>, respectively."
   (dolist (nav-mode '("find" "peek"))
     (if extra
-      (spacemacs//lsp-define-custom-extension layer-name nav-mode kind request extra)
+        (spacemacs//lsp-define-custom-extension layer-name nav-mode kind request extra)
       (spacemacs//lsp-define-custom-extension layer-name nav-mode kind request))))
 
 (defun spacemacs//lsp-bind-extensions (mode layer-name key kind)
@@ -171,38 +181,38 @@ a find extension defined using `lsp-define-extensions'"
 (defun spacemacs//lsp-avy-document-symbol (all)
   (interactive)
   (let ((line 0) (col 0) (w (selected-window))
-         (ccls (and (memq major-mode '(c-mode c++-mode objc-mode)) (eq c-c++-backend 'lsp-ccls)))
-         (start-line (1- (line-number-at-pos (window-start))))
-         (end-line (1- (line-number-at-pos (window-end))))
-         ranges point0 point1
-         candidates)
+        (ccls (and (memq major-mode '(c-mode c++-mode objc-mode)) (eq c-c++-backend 'lsp-ccls)))
+        (start-line (1- (line-number-at-pos (window-start))))
+        (end-line (1- (line-number-at-pos (window-end))))
+        ranges point0 point1
+        candidates)
     (save-excursion
       (goto-char 1)
       (cl-loop for loc in
-        (lsp--send-request (lsp--make-request
-                             "textDocument/documentSymbol"
-                             `(:textDocument ,(lsp--text-document-identifier)
-                                :all ,(if all t :json-false)
-                                :startLine ,start-line :endLine ,end-line)))
-        for range = (if ccls loc (->> loc (gethash "location") (gethash "range")))
-        for range_start = (gethash "start" range)
-        for range_end = (gethash "end" range)
-        for l0 = (gethash "line" range_start)
-        for c0 = (gethash "character" range_start)
-        for l1 = (gethash "line" range_end)
-        for c1 = (gethash "character" range_end)
-        while (<= l0 end-line)
-        when (>= l0 start-line)
-        do
-        (forward-line (- l0 line))
-        (forward-char c0)
-        (setq point0 (point))
-        (forward-line (- l1 l0))
-        (forward-char c1)
-        (setq point1 (point))
-        (setq line l1 col c1)
-        (push `((,point0 . ,point1) . ,w) candidates)))
+               (lsp--send-request (lsp--make-request
+                                   "textDocument/documentSymbol"
+                                   `(:textDocument ,(lsp--text-document-identifier)
+                                                   :all ,(if all t :json-false)
+                                                   :startLine ,start-line :endLine ,end-line)))
+               for range = (if ccls loc (->> loc (gethash "location") (gethash "range")))
+               for range_start = (gethash "start" range)
+               for range_end = (gethash "end" range)
+               for l0 = (gethash "line" range_start)
+               for c0 = (gethash "character" range_start)
+               for l1 = (gethash "line" range_end)
+               for c1 = (gethash "character" range_end)
+               while (<= l0 end-line)
+               when (>= l0 start-line)
+               do
+               (forward-line (- l0 line))
+               (forward-char c0)
+               (setq point0 (point))
+               (forward-line (- l1 l0))
+               (forward-char c1)
+               (setq point1 (point))
+               (setq line l1 col c1)
+               (push `((,point0 . ,point1) . ,w) candidates)))
     ;; (require 'avy)
     (avy-with avy-document-symbol
       (avy--process candidates
-        (avy--style-fn avy-style)))))
+                    (avy--style-fn avy-style)))))

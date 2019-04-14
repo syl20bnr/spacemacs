@@ -77,6 +77,7 @@ The key bindings are grouped under the following prefixes:
 | ~SPC m =~ | format      | Source formatting                                                          |
 | ~SPC m g~ | goto        | Source navigation                                                          |
 | ~SPC m G~ | peek        | Source navigation (lsp-ui-peek overlay)                                    |
+| ~SPC m F~ | folder      | Add/remove folders from workspace                                          |
 | ~SPC m h~ | help        | Help                                                                       |
 | ~SPC m b~ | lsp/backend | Catchall. Restart LSP backend, other implementation-specific functionality |
 | ~SPC m r~ | refactor    | What it says on the tin                                                    |
@@ -84,10 +85,10 @@ The key bindings are grouped under the following prefixes:
 
 Some navigation key bindings (i.e. ~SPC m g~ / ~SPC m G~) use an additional level of grouping:
 
-| prefix          | name             | functional area                                          |
-|-----------------+------------------+----------------------------------------------------------|
-| ~SPC m <g/G> h~ | hierarchy        | Heirarchy (i.e. call/inheritance hierarchy etc. )        |
-| ~SPC m <g/G> m~ | member hierarchy | Class/namespace members (functions, nested classes, vars |
+| prefix          | name             | functional area                                           |
+|-----------------+------------------+-----------------------------------------------------------|
+| ~SPC m <g/G> h~ | hierarchy        | Hierarchy (i.e. call/inheritance hierarchy etc. )         |
+| ~SPC m <g/G> m~ | member hierarchy | Class/namespace members (functions, nested classes, vars) |
 
 ** Core key bindings
 The lsp minor mode bindings are:
@@ -95,18 +96,20 @@ The lsp minor mode bindings are:
 | binding     | function                                                                       |
 |-------------+--------------------------------------------------------------------------------|
 | ~SPC m = b~ | format buffer (lsp)                                                            |
+| ~SPC m = r~ | format region (lsp)                                                            |
 |-------------+--------------------------------------------------------------------------------|
 | ~SPC m g t~ | goto type-definition (lsp)                                                     |
 | ~SPC m g k~ | goto viewport word (avy) (See Note 1)                                          |
 | ~SPC m g K~ | goto viewport symbol (avy) (See Note 1)                                        |
-| ~SPC m g e~ | browse flycheck errors                                                         |
+| ~SPC m g e~ | browse flycheck errors (lsp-treemacs)                                          |
 | ~SPC m g M~ | browse file symbols (lsp-ui-imenu)                                             |
 |-------------+--------------------------------------------------------------------------------|
 | Note        | /Replaced by the lsp-ui-peek equivalents when ~lsp-navigation~ == ='peek=/     |
 | ~SPC m g i~ | find implementations (lsp)                                                     |
 | ~SPC m g d~ | find definitions (xref/lsp)                                                    |
 | ~SPC m g r~ | find references (xref/lsp)                                                     |
-| ~SPC m g s~ | find-workspace-symbol (lsp-ui)                                                 |
+| ~SPC m g s~ | find symbol in project (helm-lsp)                                              |
+| ~SPC m g S~ | find symbol in all projects (helm-lsp)                                         |
 | ~SPC m g p~ | goto previous (xref-pop-marker-stack)                                          |
 |-------------+--------------------------------------------------------------------------------|
 | Note        | /Omitted when ~lsp-navigation~ == ='peek= or ='simple=/                        |
@@ -117,9 +120,11 @@ The lsp minor mode bindings are:
 | ~SPC m G s~ | find-workspace-symbol (lsp-ui-peek)                                            |
 | ~SPC m G p~ | goto previous (lsp-ui-peek stack - see Note 2)                                 |
 | ~SPC m G n~ | goto next (lsp-ui-peek stack - see Note 2)                                     |
+| ~SPC m G E~ | browse flycheck errors (lsp-ui)                                                |
 |-------------+--------------------------------------------------------------------------------|
 | ~SPC m h h~ | describe thing at point                                                        |
 |-------------+--------------------------------------------------------------------------------|
+| ~SPC m b s~ | lsp-shutdown-workspace                                                         |
 | ~SPC m b r~ | lsp-restart-workspace                                                          |
 | ~SPC m b a~ | execute code action                                                            |
 | ~SPC m b d~ | lsp-describe-session                                                           |
@@ -131,6 +136,11 @@ The lsp minor mode bindings are:
 | ~SPC m T s~ | toggle symbol info overlay                                                     |
 | ~SPC m T S~ | toggle symbol info overlay symbol name                                         |
 | ~SPC m T I~ | toggle symbol info overlay duplicates                                          |
+| ~SPC m T l~ | toggle lenses                                                                  |
+|-------------+--------------------------------------------------------------------------------|
+| ~SPC m F r~ | Remove workspace folder                                                        |
+| ~SPC m F a~ | Add workspace folder                                                           |
+| ~SPC m F s~ | Switch workspace folder                                                        |
 
 Note 1: Your language server may not distinguish between the word and symbol variants of this binding.
 Note 2: There is a window local jump list dedicated to cross references.

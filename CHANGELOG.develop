@@ -1488,7 +1488,7 @@ Other:
   =wrong-number-of-arguments= error when jabber receives a new notification
   (thanks to Aleksei Fedotov)
 **** Java
-- Added support for multiple backends. Supported backends are: =megahnada=,
+- Added support for multiple backends. Supported backends are: =meghanada=,
   =eclim= and =ensime=. The default backend is =meghanada=.
 - Key bindings:
   - ~SPC m e e~ is now to fix error around point. Use ~SPC e~ prefix to navigate
@@ -1568,6 +1568,18 @@ Other:
 - Replace lsp-capabilities keybinding with lsp-describe-session
   (thanks to Bryan Tan)
 - Added lsp-prefer-flymake variable (thanks to Juuso Valkeejärvi)
+- Added =lsp-treemacs=
+  - ~SPC m t g e~ to show error list
+- Fixed missing shorcuts for =lsp-mode=
+  - ~SPC m F r~  to remove workspace folder
+  - ~SPC m F a~  to add workspace folder
+  - ~SPC m F r~  to switch workspace folder
+  - ~SPC m b s~ to shutdown current workspace
+  - ~SPC m T l~ to toggle lenses
+  - ~SPC m = r~ to format region
+- Added package =helm-lsp=
+  - ~SPC m g s~ to find symbol in current project
+  - ~SPC m g S~ to find symbol in all projects
 **** Markdown
 - New layer variable =markdown-mmm-auto-modes= which is a list of language names
   or lists of language and mode names that are supported in source blocks, you

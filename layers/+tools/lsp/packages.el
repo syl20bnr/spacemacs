@@ -11,10 +11,12 @@
 
 (defconst lsp-packages
   '(
-     lsp-mode
-     lsp-ui
-     (company-lsp :requires company)
-     ))
+    lsp-mode
+    lsp-ui
+    (company-lsp :requires company)
+    helm-lsp
+    lsp-treemacs
+    ))
 
 (defun lsp/init-lsp-mode ()
   (use-package lsp-mode
@@ -48,3 +50,9 @@
 
 (defun lsp/init-company-lsp ()
   (use-package company-lsp :defer t))
+
+(defun lsp/init-helm-lsp ()
+  (use-package helm-lsp :defer t))
+
+(defun lsp/init-lsp-treemacs ()
+  (use-package lsp-treemacs :defer t))
