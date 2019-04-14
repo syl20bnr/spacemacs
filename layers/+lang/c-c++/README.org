@@ -17,6 +17,7 @@
       - [[#external-dependencies-1][External dependencies]]
       - [[#configuration-1][Configuration]]
       - [[#completion][Completion]]
+      - [[#debugger-dap-integration][Debugger (dap integration)]]
   - [[#clang-configuration][Clang Configuration]]
     - [[#clang-format][clang-format]]
     - [[#company-clang-and-flycheck][Company-clang and flycheck]]
@@ -31,6 +32,7 @@
     - [[#goto][goto]]
       - [[#gotohierarchy][goto/hierarchy]]
       - [[#gotomember][goto/member]]
+  - [[#debugger][debugger]]
 
 * Description
 This layer adds configuration for C/C++ language.
@@ -182,6 +184,9 @@ They have good default values. See =config.el= of the layer and the backends’ 
 **** Completion
 =company-lsp= provides completion functionality. Client-side cache and sorting have been disabled in favour of server,
 as recommended by =cquery=/=ccls= wikis.
+
+**** Debugger (dap integration)
+To install the debug adapter you may run =M-x dap-gdb-lldb-setup= when you are on Linux or download it manually from [[https://marketplace.visualstudio.com/items?itemName=webfreak.debug][Native Debug]] and adjust =dap-gdb-lldb-path=.
 
 ** Clang Configuration
 To enable Clang support, set the layer variable =c-c++-enable-clang-support=
@@ -363,3 +368,50 @@ A ~[ccls]~ or ~[cquery]~ suffix indicates that the binding is for the indicated 
 | ~SPC m g m t~ | member types [ccls]     |
 | ~SPC m g m f~ | member functions [ccls] |
 | ~SPC m g m v~ | member variables [ccls] |
+
+** debugger
+
+| Key binding   | Description                     |
+|---------------+---------------------------------|
+| ~SPC m d d d~ | start debugging                 |
+| ~SPC m d d l~ | debug last configuration        |
+| ~SPC m d d r~ | debug recent configuration      |
+|---------------+---------------------------------|
+| ~SPC m d c~   | continue                        |
+| ~SPC m d i~   | step in                         |
+| ~SPC m d o~   | step out                        |
+| ~SPC m d s~   | next step                       |
+| ~SPC m d v~   | inspect value at point          |
+| ~SPC m d r~   | restart frame                   |
+|---------------+---------------------------------|
+| ~SPC m d .~   | debug transient state           |
+|---------------+---------------------------------|
+| ~SPC m d a~   | abandon current session         |
+| ~SPC m d A~   | abandon all process             |
+|---------------+---------------------------------|
+| ~SPC m d e e~ | eval                            |
+| ~SPC m d e r~ | eval region                     |
+| ~SPC m d e t~ | eval value at point             |
+|---------------+---------------------------------|
+| ~SPC m d S s~ | switch session                  |
+| ~SPC m d S t~ | switch thread                   |
+| ~SPC m d S f~ | switch frame                    |
+|---------------+---------------------------------|
+| ~SPC m d I i~ | inspect                         |
+| ~SPC m d I r~ | inspect region                  |
+| ~SPC m d I t~ | inspect value at point          |
+|---------------+---------------------------------|
+| ~SPC m d b b~ | toggle a breakpoint             |
+| ~SPC m d b c~ | change breakpoint condition     |
+| ~SPC m d b l~ | change breakpoint log condition |
+| ~SPC m d b h~ | change breakpoint hit count     |
+| ~SPC m d b a~ | add a breakpoint                |
+| ~SPC m d b d~ | delete a breakpoint             |
+| ~SPC m d b D~ | clear all breakpoints           |
+|---------------+---------------------------------|
+| ~SPC m d '_~  | Run debug REPL                  |
+|---------------+---------------------------------|
+| ~SPC m d w l~ | list local variables            |
+| ~SPC m d w o~ | goto output buffer if present   |
+| ~SPC m d w s~ | list sessions                   |
+| ~SPC m d w b~ | list breakpoints                |

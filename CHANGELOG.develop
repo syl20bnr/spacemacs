@@ -978,6 +978,7 @@ Other:
   - Control auto-newline using the =c-c++-enable-auto-newline= variable
     (thanks to Fangrui Song and Codruț Constantin Gușoi)
   - Added =org-babel= support (thanks to Michael Rohleder)
+  - Added debugger integration via =dap= layer
 - Key bindings:
   - ~SPC m = =~ clang-format current region or buffer (thanks to Dela Anthonio)
   - ~SPC m = f~ clang-format current function (thanks to Dela Anthonio)
