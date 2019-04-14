@@ -47,6 +47,7 @@
 (defun java/init-eclim ()
   (use-package eclim
     :defer t
+    :if (eq java-backend 'eclim)
     ;; :init (setq eclim-auto-save nil)
     :config
     (progn
@@ -73,7 +74,7 @@
                         ("mr" . "refactor")
                         ("mt" . "test")))
         (spacemacs/declare-prefix-for-mode
-         'java-mode (car prefix) (cdr prefix)))
+          'java-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'java-mode
         ;; ant
         "aa" 'eclim-ant-run
@@ -160,6 +161,7 @@
 (defun java/init-ensime ()
   (use-package ensime
     :defer t
+    :if (eq java-backend 'ensime)
     :commands ensime-mode
     :init
     (progn
@@ -379,6 +381,7 @@
 (defun java/init-meghanada ()
   (use-package meghanada
     :defer t
+    :if (eq java-backend 'meghanada)
     :init
     (progn
       (setq meghanada-server-install-dir (concat spacemacs-cache-directory
@@ -397,7 +400,7 @@
                         ("mt" . "test")
                         ("mx" . "execute")))
         (spacemacs/declare-prefix-for-mode
-         'java-mode (car prefix) (cdr prefix)))
+          'java-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'java-mode
         "cb" 'meghanada-compile-file
         "cc" 'meghanada-compile-project
@@ -432,6 +435,7 @@
 (defun java/init-lsp-java ()
   (use-package lsp-java
     :defer t
+    :if (eq java-backend 'lsp)
     :config
     (progn
       ;; key bindings
