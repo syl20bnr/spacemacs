@@ -13,6 +13,7 @@
 - [[#backends][Backends]]
   - [[#tern][Tern]]
   - [[#language-server-protocol][Language Server Protocol]]
+    - [[#debugger-dap-integration][Debugger (dap integration)]]
 - [[#configuration][Configuration]]
   - [[#indentation][Indentation]]
   - [[#repl][REPL]]
@@ -24,6 +25,7 @@
   - [[#refactoring-js2-refactor][Refactoring (js2-refactor)]]
     - [[#documentation-js-doc][Documentation (js-doc)]]
   - [[#repl-skewer-mode][REPL (skewer-mode)]]
+  - [[#debugger-dap-mode][debugger (dap mode)]]
 
 * Description
 This layer adds support for the JavaScript language using [[https://github.com/mooz/js2-mode][js2-mode]].
@@ -111,11 +113,17 @@ Formatter can be chosen on a per project basis using directory local variables
 See [[file:../../+tools/tern/README.org][tern layer]] documentation.
 
 ** Language Server Protocol
-You just have to install javascript and typescript language server packages:
-
+You have to install =typescript-language-server= (recommended) or =javascript-typescript-langserver= language server packages via
+#+BEGIN_SRC sh
+  npm i -g typescript typescript-language-server
+#+END_SRC
+or
 #+BEGIN_SRC sh
   npm i -g typescript javascript-typescript-langserver
 #+END_SRC
+
+*** Debugger (dap integration)
+To install the debug adapter you may run =M-x dap-firefox-setup= or =M-x dap-firefox-setup= if you are using Linux or download it manually from [[https://marketplace.visualstudio.com/items?itemName=hbenl.vscode-firefox-debug][Firefox Debug Adapter]] or [[https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome][Chrome Debug Adapter]] and adjust =dap-firefox-debug-path= or =dap-chrome-debug-path=. For usage instructions refer to [[https://github.com/emacs-lsp/dap-mode][dap-mode]] readme.
 
 * Configuration
 ** Indentation
@@ -254,3 +262,49 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m s r~ | send current region to the skewer REPL                                             |
 | ~SPC m s R~ | send current region to the skewer REPL and switch to it in insert state            |
 | ~SPC m s s~ | switch to REPL                                                                     |
+
+** debugger (dap mode)
+| Key binding   | Description                     |
+|---------------+---------------------------------|
+| ~SPC m d d d~ | start debugging                 |
+| ~SPC m d d l~ | debug last configuration        |
+| ~SPC m d d r~ | debug recent configuration      |
+|---------------+---------------------------------|
+| ~SPC m d c~   | continue                        |
+| ~SPC m d i~   | step in                         |
+| ~SPC m d o~   | step out                        |
+| ~SPC m d s~   | next step                       |
+| ~SPC m d v~   | inspect value at point          |
+| ~SPC m d r~   | restart frame                   |
+|---------------+---------------------------------|
+| ~SPC m d .~   | debug transient state           |
+|---------------+---------------------------------|
+| ~SPC m d a~   | abandon current session         |
+| ~SPC m d A~   | abandon all process             |
+|---------------+---------------------------------|
+| ~SPC m d e e~ | eval                            |
+| ~SPC m d e r~ | eval region                     |
+| ~SPC m d e t~ | eval value at point             |
+|---------------+---------------------------------|
+| ~SPC m d S s~ | switch session                  |
+| ~SPC m d S t~ | switch thread                   |
+| ~SPC m d S f~ | switch frame                    |
+|---------------+---------------------------------|
+| ~SPC m d I i~ | inspect                         |
+| ~SPC m d I r~ | inspect region                  |
+| ~SPC m d I t~ | inspect value at point          |
+|---------------+---------------------------------|
+| ~SPC m d b b~ | toggle a breakpoint             |
+| ~SPC m d b c~ | change breakpoint condition     |
+| ~SPC m d b l~ | change breakpoint log condition |
+| ~SPC m d b h~ | change breakpoint hit count     |
+| ~SPC m d b a~ | add a breakpoint                |
+| ~SPC m d b d~ | delete a breakpoint             |
+| ~SPC m d b D~ | clear all breakpoints           |
+|---------------+---------------------------------|
+| ~SPC m d '_~  | Run debug REPL                  |
+|---------------+---------------------------------|
+| ~SPC m d w l~ | list local variables            |
+| ~SPC m d w o~ | goto output buffer if present   |
+| ~SPC m d w s~ | list sessions                   |
+| ~SPC m d w b~ | list breakpoints                |

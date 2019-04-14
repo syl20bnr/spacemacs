@@ -33,7 +33,13 @@
       (progn
         (lsp))
     (message (concat "`lsp' layer is not installed, "
-                     "please add `lsp' layer to your dotfile."))))
+                     "please add `lsp' layer to your dotfile.")))
+  (if (configuration-layer/layer-used-p 'dap)
+      (progn
+        (require 'dap-firefox)
+        (require 'dap-chrome)
+        (spacemacs/dap-bind-keys-for-mode 'js2-mode))
+    (message "`dap' layer is not installed, please add `dap' layer to your dotfile.")))
 
 (defun spacemacs//javascript-setup-lsp-company ()
   "Setup lsp auto-completion."
