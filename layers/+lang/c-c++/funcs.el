@@ -228,7 +228,6 @@ and the arguments for flyckeck-clang based on a project-specific text file."
 (defun spacemacs//c-c++-lsp-config ()
   "Configure the LSP backend specified by the `c-c++-backend' configuration variable."
     (progn
-      (remhash 'clangd lsp-clients)
       (spacemacs//c-c++-lsp-define-extensions)
       (spacemacs//c-c++-lsp-wrap-functions)
       (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-gcc))
@@ -266,7 +265,14 @@ and the arguments for flyckeck-clang based on a project-specific text file."
 
       (evil-set-initial-state '(spacemacs//c-c++-lsp-symbol nil "-tree-mode") 'emacs)
       ;;evil-record-macro keybinding clobbers q in cquery-tree-mode-map for some reason?
-      (evil-make-overriding-map (symbol-value (spacemacs//c-c++-lsp-symbol nil "-tree-mode-map")))))
+      (evil-make-overriding-map (symbol-value (spacemacs//c-c++-lsp-symbol nil "-tree-mode-map")))
+
+      (if (configuration-layer/layer-used-p 'dap)
+          (progn
+            (require 'dap-gdb-lldb)
+            (dolist (mode c-c++-modes)
+              (spacemacs/dap-bind-keys-for-mode mode)))
+        (message "`dap' layer is not installed, please add `dap' layer to your dotfile."))))
 
 (defun spacemacs//c-c++-lsp-wrap-functions ()
   "Wrap navigation functions for the LSP backend specified by the `c-c++-backend' configuration variable."
