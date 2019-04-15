@@ -195,9 +195,11 @@ To use =pylookup= on ~SPC m h H~, make sure you update the database first, using
 
 ** dap-mode debugger(only for lsp backend)
 To use =dap-mode= for debugging do:
+
 #+BEGIN_SRC bash
   pip install "ptvsd>=4.2"
 #+END_SRC
+
 * Configuration
 ** Fill column
 If you want to customize the fill column value, use something like this inside
@@ -384,6 +386,7 @@ Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][li
 | ~SPC m v p o~ | open pipenv module in buffer                                                      |
 | ~SPC m v p s~ | launch pipenv shell in current project                                            |
 | ~SPC m v p u~ | uninstall module from pipenv environment                                          |
+
 ** Debugger
 
 | Key binding   | Description                     |
