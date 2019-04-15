@@ -917,6 +917,7 @@ Other:
   - Added ranger-mode to golden-ratio-exclude-modes (thanks to Langston Barrett)
   - Fixed evil surround bindings (thanks to Hoyon Mak)
   - Improved Window Manipulation Transient state (thanks to yuhan0)
+  - Exclude which-key from layer sync powerline restore (thanks to Doug Wilson)
 *** Layer changes and fixes
 **** Ansible
 - Improvements:
