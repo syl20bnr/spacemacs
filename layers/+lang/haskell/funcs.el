@@ -22,6 +22,7 @@
     (haskell-navigate-imports)
     (haskell-mode-format-imports)))
 
+
 ;; Completion setup functions
 
 (defun spacemacs-haskell//setup-backend ()
@@ -42,6 +43,7 @@
     (`dante (spacemacs-haskell//setup-dante-company))
     (`ghc-mod (spacemacs-haskell//setup-ghc-mod-company))))
 
+
 ;; ghci functions
 
 (defun spacemacs-haskell//setup-ghci ()
@@ -65,6 +67,7 @@
         (lsp))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
+
 ;; ghc-mod functions
 
 (defun spacemacs-haskell//setup-ghc-mod ()
@@ -75,6 +78,7 @@
     :backends (company-ghc company-dabbrev-code company-yasnippet)
     :modes haskell-mode))
 
+
 ;; Dante functions
 
 (defun spacemacs-haskell//setup-dante ()
@@ -90,6 +94,7 @@
   (interactive)
   (dante-type-at :insert))
 
+
 ;; Intero functions
 
 (defun spacemacs-haskell//setup-intero ()
