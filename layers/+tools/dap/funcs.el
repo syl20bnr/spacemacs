@@ -22,6 +22,7 @@
 
   (spacemacs/set-leader-keys-for-major-mode mode
     ;; debuging/running
+    "dde" #'dap-debug-edit-template
     "ddd" #'dap-debug
     "ddl" #'dap-debug-last
     "ddr" #'dap-debug-recent

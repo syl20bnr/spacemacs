@@ -62,6 +62,7 @@ The default bindings are listed below. Derived layers should extend this list:
 
 | Key binding   | Description                     |
 |---------------+---------------------------------|
+| ~SPC m d d e~ | edit debug template             |
 | ~SPC m d d d~ | start debugging                 |
 | ~SPC m d d l~ | debug last configuration        |
 | ~SPC m d d r~ | debug recent configuration      |
