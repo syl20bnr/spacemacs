@@ -1581,6 +1581,9 @@ Other:
 - Added package =helm-lsp=
   - ~SPC m g s~ to find symbol in current project
   - ~SPC m g S~ to find symbol in all projects
+**** Debug Adapter Protocol (DAP)
+- Key bindings
+  - ~SPC m d d e~ to edit debug template
 **** Markdown
 - New layer variable =markdown-mmm-auto-modes= which is a list of language names
   or lists of language and mode names that are supported in source blocks, you
