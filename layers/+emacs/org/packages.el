@@ -114,6 +114,7 @@
             org-default-notes-file (expand-file-name "notes.org" org-directory)
             org-log-done t
             org-startup-with-inline-images t
+            org-latex-prefer-user-labels t
             org-image-actual-width nil
             org-src-fontify-natively t
             org-src-tab-acts-natively t
