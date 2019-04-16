@@ -1795,6 +1795,7 @@ Other:
   Buchaus)
 - Replace ox-reveal with org-re-reveal (thanks to Magnus Therning)
 - Added epub support (thanks to vishvanath45)
+- Added support for CUSTOM_ID in latex exports (thanks to Compro-Prasad)
 **** Osx
 - Fixed OSX mapping issue (thanks to Joey Liu)
 - Added layer variables to customize modifier behaviors on macOS:
