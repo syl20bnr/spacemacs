@@ -1900,6 +1900,7 @@ Other:
   rgb-24bit)
 - Added diminish for importmagic (thanks to Loys Ollivier)
 - Added debugger integration via =dap= layer
+- Added documentation on installing importmagic and epc (thanks to Trapez Breen)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 **** Ranger
