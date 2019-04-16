@@ -22,6 +22,7 @@
 - [[#configuration][Configuration]]
   - [[#fill-column][Fill column]]
   - [[#sort-imports][Sort imports]]
+  - [[#importmagic][Importmagic]]
 - [[#management-of-python-versions-and-virtual-environments][Management of Python versions and virtual environments]]
   - [[#manage-virtual-environments-with-pyvenv][Manage virtual environments with pyvenv]]
   - [[#manage-multiple-python-versions-with-pyenv][Manage multiple Python versions with pyenv]]
@@ -221,6 +222,13 @@ config section:
 #+END_SRC
 
 or as a directory-local variable (for per-project settings).
+
+** Importmagic
+   Install importmagic and epc for importmagic functionality.
+
+#+BEGIN_SRC sh
+  pip install importmagic epc
+#+END_SRC
 
 * Management of Python versions and virtual environments
 ** Manage virtual environments with pyvenv
