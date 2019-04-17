@@ -224,7 +224,7 @@ config section:
 or as a directory-local variable (for per-project settings).
 
 ** Importmagic
-   Install importmagic and epc for importmagic functionality.
+Install importmagic and epc for importmagic functionality.
 
 #+BEGIN_SRC sh
   pip install importmagic epc

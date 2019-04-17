@@ -114,10 +114,13 @@ See [[file:../../+tools/tern/README.org][tern layer]] documentation.
 
 ** Language Server Protocol
 You have to install =typescript-language-server= (recommended) or =javascript-typescript-langserver= language server packages via
+
 #+BEGIN_SRC sh
   npm i -g typescript typescript-language-server
 #+END_SRC
+
 or
+
 #+BEGIN_SRC sh
   npm i -g typescript javascript-typescript-langserver
 #+END_SRC
@@ -264,6 +267,7 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m s s~ | switch to REPL                                                                     |
 
 ** debugger (dap mode)
+
 | Key binding   | Description                     |
 |---------------+---------------------------------|
 | ~SPC m d d d~ | start debugging                 |
