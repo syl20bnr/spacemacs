@@ -54,6 +54,7 @@ eclipse.jdt.ls
 .dap-breakpoints
 .lsp-session-*
 .trello
+.extension
 
 # Private directory
 private/

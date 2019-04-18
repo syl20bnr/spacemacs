@@ -2134,6 +2134,7 @@ Other:
   - Added ~SPC m s l~ to send line to REPL (thanks to Paweł Siudak)
 - Added the =seeing-is-believing= package (thanks to Brandon Conway)
 - Added prefixes for ruby major mode keybindings (thanks to Seong Yong-ju)
+- Added =lsp= and =dap= support (thanks to Billy Kaplan)
 **** Ruby on Rails
 - Changed leader keys to be configured for the =projectile-rails-mode= minor
   mode instead of =ruby-mode= and =enh-ruby-mode= so that the key bindings will

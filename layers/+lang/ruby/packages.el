@@ -52,13 +52,7 @@
               "bo" 'bundle-open))))
 
 (defun ruby/post-init-company ()
-  (when (configuration-layer/package-used-p 'robe)
-    (spacemacs|add-company-backends
-      :backends company-robe
-      :modes ruby-mode enh-ruby-mode))
-  (with-eval-after-load 'company-dabbrev-code
-    (dolist (mode '(ruby-mode enh-ruby-mode))
-      (add-to-list 'company-dabbrev-code-modes mode))))
+  (add-hook 'ruby-mode-local-vars-hook #'spacemacs//ruby-setup-company))
 
 (defun ruby/init-chruby ()
   (use-package chruby
@@ -78,9 +72,12 @@
     (progn
       (setq enh-ruby-deep-indent-paren nil
             enh-ruby-hanging-paren-deep-indent-level 2)
-      (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mr" "refactor/RuboCop/robe")
+      (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mr" "refactor/robe")
       (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mt" "test")
-      (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mT" "toggle"))
+      (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mT" "toggle")
+
+      (spacemacs/add-to-hooks #'spacemacs//ruby-setup-backend
+                              '(ruby-mode-hook enh-ruby-mode-hook)))
     :config
     (spacemacs/set-leader-keys-for-major-mode 'enh-ruby-mode
       "T{" 'enh-ruby-toggle-block)))
@@ -147,12 +144,11 @@
 (defun ruby/init-rbenv ()
   (use-package rbenv
     :if (equal ruby-version-manager 'rbenv)
-    :defer t
-    :init (spacemacs/add-to-hooks 'spacemacs//enable-rbenv
-                                  '(ruby-mode-hook enh-ruby-mode-hook))))
+    :defer t))
 
 (defun ruby/init-robe ()
   (use-package robe
+    :if (eq ruby-backend 'robe)
     :defer t
     :init
     (progn
@@ -225,14 +221,14 @@
     :init (spacemacs/add-to-hooks 'rubocop-mode '(ruby-mode-hook
                                                   enh-ruby-mode-hook))
     :config (dolist (mode '(ruby-mode enh-ruby-mode))
-              (spacemacs/declare-prefix-for-mode mode "mrr" "RuboCop")
+              (spacemacs/declare-prefix-for-mode mode "mR" "RuboCop")
               (spacemacs/set-leader-keys-for-major-mode mode
-                "rrd" 'rubocop-check-directory
-                "rrD" 'rubocop-autocorrect-directory
-                "rrf" 'rubocop-check-current-file
-                "rrF" 'rubocop-autocorrect-current-file
-                "rrp" 'rubocop-check-project
-                "rrP" 'rubocop-autocorrect-project))))
+                "Rd" 'rubocop-check-directory
+                "RD" 'rubocop-autocorrect-directory
+                "Rf" 'rubocop-check-current-file
+                "RF" 'rubocop-autocorrect-current-file
+                "Rp" 'rubocop-check-project
+                "RP" 'rubocop-autocorrect-project))))
 
 (defun ruby/init-ruby-mode ()
   (use-package ruby-mode
@@ -241,9 +237,14 @@
            ("Puppetfile" . ruby-mode))
     :init
     (progn
-      (spacemacs/declare-prefix-for-mode 'ruby-mode "mr" "refactor/RuboCop/robe")
+      (spacemacs/declare-prefix-for-mode 'ruby-mode "mr" "refactor/robe")
       (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "test")
       (spacemacs/declare-prefix-for-mode 'ruby-mode "mT" "toggle")
+
+      ;; setup version manager which is necessary to find gems in path for backend
+      (spacemacs//ruby-setup-version-manager)
+      (spacemacs/add-to-hooks #'spacemacs//ruby-setup-backend
+                              '(ruby-mode-hook enh-ruby-mode-hook))
       (spacemacs/add-to-hooks
        'spacemacs/ruby-maybe-highlight-debugger-keywords
        '(ruby-mode-local-vars-hook enh-ruby-mode-local-vars-hook)))
