@@ -166,6 +166,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 ***** IPython notebook
 - Key bindings;
   - Change prefix from ~SPC a i~ to ~SPC a y~ (thanks to Swaroop C H)
+***** Java
+- Moved Ensime support to the Scala layer, Java support removed.
 ***** JavaScript
 - CoffeeScript support has been extracted from the =javascript= layer into the
   new =coffeescript= layer.
@@ -1819,7 +1821,7 @@ Other:
 - Fixed flycheck support in jsonnet files (thanks to Vikash Balasubramanian)
 **** Java
 - Added support for multiple backends. Supported backends are: =meghanada=,
-  =eclim= and =ensime=. The default backend is =meghanada=.
+  =eclim=. The default backend is =meghanada=.
 - Key bindings:
   - ~SPC m e e~ is now to fix error around point. Use ~SPC e~ prefix to navigate
     between errors.

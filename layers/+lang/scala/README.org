@@ -10,6 +10,10 @@
 - [[#layer-installation][Layer Installation]]
 - [[#backends][Backends]]
   - [[#ensime][Ensime]]
+    - [[#installation-when-using-sbt][Installation when using SBT]]
+    - [[#installation-when-using-gradle][Installation when using Gradle]]
+    - [[#configuration][Configuration]]
+    - [[#usage][Usage]]
   - [[#metals][Metals]]
 - [[#scalastyle][Scalastyle]]
   - [[#use-java-doc-style][Use Java doc-style]]
@@ -18,6 +22,20 @@
 - [[#automatically-replace-arrows-with-unicode-ones][Automatically replace arrows with unicode ones]]
 - [[#auto-start][Auto-start]]
 - [[#key-bindings][Key bindings]]
+  - [[#ensime-1][Ensime]]
+    - [[#search][Search]]
+    - [[#ensime-search-mode][Ensime Search Mode]]
+    - [[#sbt][sbt]]
+    - [[#typecheck][Typecheck]]
+    - [[#debug][Debug]]
+    - [[#errors][Errors]]
+    - [[#goto][Goto]]
+    - [[#print-and-yank-types][Print and yank types]]
+    - [[#documentation-inspect][Documentation, Inspect]]
+    - [[#server][Server]]
+    - [[#refactoring][Refactoring]]
+    - [[#tests][Tests]]
+    - [[#repl][REPL]]
 
 * Description
 This layer adds support for the Scala language to Spacemacs.
@@ -68,8 +86,35 @@ ENSIME requires a configuration file at the root of each Scala project. It
 provides an SBT plugin, a gradle plugin and others (see [[https://ensime.github.io/build_tools/][ensime.org]] for a full
 list) to generate these files.
 
-Installation instructions and usage can be found in the =Java= layer
-[[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Blang/java/README.org#ensime][README.org]].
+*** Installation when using SBT
+Find it with your favourite package manager, eg:
+
+#+BEGIN_SRC shell
+  nix-env --install sbt
+#+END_SRC
+
+or refer to [[http://www.scala-sbt.org/download.html][the sbt installation instructions]].
+
+*** Installation when using Gradle
+Refer to the [[https://ensime.github.io/build_tools/gradle/][Ensime installation instructions]] to install the =ensime-gradle=
+plugin.
+
+*** Configuration
+Follow [[https://ensime.github.io/build_tools/sbt/][the ENSIME configuration instructions]]. Spacemacs uses
+the development version of Ensime so follow the appropriate steps.
+
+To use the build functions under ~SPC m b~ you need to use version =0.13.5= or
+newer of =sbt=, and specify that in your project’s =project/build.properties=.
+For example,
+
+#+BEGIN_SRC scala
+  sbt.version=0.13.11
+#+END_SRC
+
+*** Usage
+~SPC SPC spacemacs/ensime-gen-and-restart~ or ~SPC m D r~ generates a new config
+for a project and starts the server. Afterwards ~SPC SPC ensime~ or ~SPC m D s~
+will suffice do the trick.
 
 ** Metals
 Currently, you must manually install the metals server. It is possible to do so via coursier; the latest version can be built using the following commands:
@@ -167,4 +212,127 @@ with
 #+END_SRC
 
 * Key bindings
-All ensime key bindings are listed in the =java= layer [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Blang/java/README.org#ensime-key-bindings][README.org]].
+
+** Ensime
+*** Search
+
+| Key binding | Description                                         |
+|-------------+-----------------------------------------------------|
+| ~SPC m /~   | incremental search using =ensime-scalex= major mode |
+| ~SPC m ?~   | incremental search in all live buffers              |
+
+*** Ensime Search Mode
+
+| Key binding | Description                                                       |
+|-------------+-------------------------------------------------------------------|
+| ~C-j~       | Move to next match                                                |
+| ~C-k~       | Move to previous match                                            |
+| ~C-i~       | Insert at point import of current result                          |
+| ~RET~       | Jump to the target of the currently selected ensime-search-result |
+| ~C-q~       | Quit ensime search                                                |
+
+*** sbt
+
+| Key binding | Description         |
+|-------------+---------------------|
+| ~SPC m b .~ | sbt transient state |
+| ~SPC m b b~ | sbt command         |
+| ~SPC m b c~ | compile             |
+| ~SPC m b C~ | clean command       |
+| ~SPC m b i~ | switch to sbt shell |
+| ~SPC m b p~ | package command     |
+| ~SPC m b r~ | run command         |
+
+*** Typecheck
+
+| Key binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m c t~ | type check the current file |
+
+*** Debug
+
+| Key binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m d A~ | Attach to a remote debugger |
+| ~SPC m d b~ | set breakpoint              |
+| ~SPC m d B~ | clear breakpoint            |
+| ~SPC m d C~ | clear all breakpoints       |
+| ~SPC m d c~ | continue                    |
+| ~SPC m d i~ | inspect value at point      |
+| ~SPC m d n~ | next                        |
+| ~SPC m d o~ | step out                    |
+| ~SPC m d q~ | quit                        |
+| ~SPC m d r~ | run                         |
+| ~SPC m d s~ | step                        |
+| ~SPC m d t~ | backtrace                   |
+
+*Note:* These key bindings need a transient-state, PR welcome :-)
+
+*** Errors
+
+| Key binding | Description                                        |
+|-------------+----------------------------------------------------|
+| ~SPC m e e~ | print error at point                               |
+| ~SPC m e s~ | switch to buffer containing the stack trace parser |
+
+*** Goto
+
+| Key binding | Description      |
+|-------------+------------------|
+| ~SPC m g g~ | go to definition |
+
+*** Print and yank types
+
+|-------------+--------------------------------|
+| ~SPC m h T~ | print full type name at point  |
+| ~SPC m h t~ | print short type name at point |
+| ~SPC m y T~ | yank full type name at point   |
+| ~SPC m y t~ | yank short type name at point  |
+
+*** Documentation, Inspect
+
+| Key binding | Description                            |
+|-------------+----------------------------------------|
+| ~SPC m h h~ | show documentation for symbol at point |
+| ~SPC m h u~ | show uses for symbol at point          |
+
+*** Server
+
+| Key binding | Description                                            |
+|-------------+--------------------------------------------------------|
+| ~SPC m D f~ | reload open files                                      |
+| ~SPC m D r~ | regenerate the =.ensime= and restart the ensime server |
+| ~SPC m D s~ | start ensime server                                    |
+
+*** Refactoring
+
+| Key binding | Description                                                          |
+|-------------+----------------------------------------------------------------------|
+| ~SPC m r a~ | add type annotation                                                  |
+| ~SPC m r d~ | get rid of an intermediate variable (=ensime-refactor-inline-local=) |
+| ~SPC m r D~ | get rid of an intermediate variable (=ensime-undo-peek=)             |
+| ~SPC m r i~ | organize imports                                                     |
+| ~SPC m r m~ | extract a range of code into a method                                |
+| ~SPC m r r~ | rename a symbol project wide                                         |
+| ~SPC m r t~ | import type at point                                                 |
+| ~SPC m r v~ | extract a range of code into a variable                              |
+| ~SPC m z~   | expand/contract region                                               |
+
+*** Tests
+
+| Key binding | Description              |
+|-------------+--------------------------|
+| ~SPC m t a~ | test command (sbt)       |
+| ~SPC m t r~ | test quick command (sbt) |
+| ~SPC m t t~ | test only (sbt)          |
+
+*** REPL
+
+| Key binding | Description                                                         |
+|-------------+---------------------------------------------------------------------|
+| ~SPC m s a~ | ask for a file to be loaded in the REPL                             |
+| ~SPC m s b~ | send buffer to the REPL                                             |
+| ~SPC m s B~ | send buffer to the REPL and focus the REPL buffer in =insert state= |
+| ~SPC m s i~ | start or switch to the REPL inferior process                        |
+| ~SPC m s r~ | send region to the REPL                                             |
+| ~SPC m s R~ | send region to the REPL and focus the REPL buffer in =insert state= |
