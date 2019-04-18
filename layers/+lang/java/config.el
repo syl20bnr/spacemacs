@@ -14,8 +14,5 @@
 (spacemacs|define-jump-handlers java-mode)
 
 (defvar java-backend 'meghanada
-  "The backend to use for IDE features. Possible values are `eclim', `ensime',
+  "The backend to use for IDE features. Possible values are `eclim',
  `meghanada' and `lsp'.")
-
-(defvar java--ensime-modes '(java-mode)
-  "Modes using ensime. Mainly used to define ENSIME key bindings.")
