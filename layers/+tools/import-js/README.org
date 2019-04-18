@@ -18,17 +18,20 @@ This layer adds support for [[https://github.com/Galooshi/import-js][import-js]]
 To use this configuration layer, add it to your =~/.spacemacs=.
 
 To install =import-js= globally:
+
 #+BEGIN_SRC sh
   $ npm install -g import-js
 #+END_SRC
 
-If that doesn't work you can also try installing =import-js= with =--unsafe-perm= tag
+If that doesn’t work you can also try installing =import-js= with =--unsafe-perm= tag
+
 #+BEGIN_SRC sh
   $ sudo npm install --unsafe-perm -g import-js
 #+END_SRC
 
 To enable it, set the layer variable =javascript-import-tool=, for example for
 the =javascript= layer
+
 #+BEGIN_SRC elisp
   (javascript :variables javascript-import-tool 'import-js)
 #+END_SRC

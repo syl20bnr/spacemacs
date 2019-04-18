@@ -1,6 +1,6 @@
 #+TITLE: prolog layer
 
-* Table of Contents                                       :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -16,10 +16,10 @@
 This layer adds support for Prolog using the bundled Prolog mode for Emacs. In addition it also adds ediprolog support for better interaction with SWI-Prolog.
 
 ** Features:
-  - Designed for SWI-Prolog as a default, but can be used with other Prologs that Prolog mode supports.
-  - Interactive consulting and compiling.
-  - Auto-formatting.
-  - Apropos and help lookup.
+- Designed for SWI-Prolog as a default, but can be used with other Prologs that Prolog mode supports.
+- Interactive consulting and compiling.
+- Auto-formatting.
+- Apropos and help lookup.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -27,10 +27,9 @@ add =prolog= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Key bindings
-  
 ** Consulting
 
-| Key Binding | Description       |
+| Key binding | Description       |
 |-------------+-------------------|
 | ~SPC m s b~ | Consult Buffer    |
 | ~SPC m s f~ | Consult File      |
@@ -39,22 +38,22 @@ file.
 
 ** Compiling
 
-| Key Binding | Description       |
+| Key binding | Description       |
 |-------------+-------------------|
 | ~SPC m c b~ | Compile Buffer    |
 | ~SPC m c c~ | Compile File      |
 | ~SPC m c p~ | Compile Predicate |
 | ~SPC m c r~ | Compile Region    |
 
-** Formatting 
+** Formatting
 
-| Key Binding | Description   |
+| Key binding | Description   |
 |-------------+---------------|
 | ~SPC m =~   | Indent Buffer |
 
 ** Inserting
 
-| Key Binding | Description                                        |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC m i m~ | Insert a Modeline for Module Specification         |
 | ~SPC m i n~ | Insert Newline and the Name for the Current Clause |
@@ -63,13 +62,13 @@ file.
 
 ** Help
 
-| Key Binding | Description                           |
+| Key binding | Description                           |
 |-------------+---------------------------------------|
 | ~SPC m h a~ | Prolog Apropos for a Given String     |
 | ~SPC m h p~ | Online Help for the Atom under Cursor |
 
-** Evaluating 
+** Evaluating
 
-| Key Binding | Description                               |
+| Key binding | Description                               |
 |-------------+-------------------------------------------|
 | ~SPC m e e~ | Context Sensitive SWI-Prolog Interaction. |
