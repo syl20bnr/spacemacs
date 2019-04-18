@@ -19,7 +19,7 @@
   - [[#automatic-save-of-buffer-when-testing][Automatic save of buffer when testing]]
   - [[#autoflake][autoflake]]
   - [[#pylookup][pylookup]]
-  - [[#dap-mode-debugger only-for-lsp-backend][dap-mode debugger (only for lsp backend)]]
+  - [[#dap-mode-debugger-only-for-lsp-backend][dap-mode debugger (only for lsp backend)]]
 - [[#configuration][Configuration]]
   - [[#fill-column][Fill column]]
   - [[#sort-imports][Sort imports]]
