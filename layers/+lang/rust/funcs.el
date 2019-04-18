@@ -36,7 +36,12 @@ using `cargo-process-run'."
   "Setup lsp backend"
   (if (configuration-layer/layer-used-p 'lsp)
       (lsp)
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile."))
+  (if (configuration-layer/layer-used-p 'dap)
+      (progn
+        (require 'dap-gdb-lldb)
+        (spacemacs/dap-bind-keys-for-mode 'rust-mode))
+    (message "`dap' layer is not installed, please add `dap' layer to your dotfile.")))
 
 (defun spacemacs//rust-setup-racer ()
   "Setup racer backend"
