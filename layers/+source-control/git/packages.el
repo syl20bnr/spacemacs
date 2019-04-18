@@ -217,8 +217,7 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
       ;; full screen magit-status
       (when git-magit-status-fullscreen
         (setq magit-display-buffer-function
-              'magit-display-buffer-fullframe-status-v1))
-      (add-to-list 'magit-log-arguments "--color"))))
+              'magit-display-buffer-fullframe-status-v1)))))
 
 (defun git/init-magit-gitflow ()
   (use-package magit-gitflow
