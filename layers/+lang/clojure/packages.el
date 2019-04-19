@@ -85,6 +85,7 @@
             "eM" 'cider-macroexpand-all
             "eP" 'cider-pprint-eval-last-sexp
             "er" 'cider-eval-region
+            "eu" 'cider-undef
             "ew" 'cider-eval-last-sexp-and-replace
 
             "="  'cider-format-buffer

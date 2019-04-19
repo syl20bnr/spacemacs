@@ -1058,6 +1058,7 @@ Other:
   - ~SPC m r c :~ to toggle between a keyword and a string (thanks to John
     Stevenson)
   - ~SPC m s X~ to restart the REPL (thanks to James Conroy-Finn)
+  - ~SPC m e u~ undefine symbol in the current namespace (thanks to John Stevenson)
 - Fixes:
   - Fixed =cider-inspector-prev-page= binding, also add ~p~ as another key
     binding (thanks to Brian Fay)
