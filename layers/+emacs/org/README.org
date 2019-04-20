@@ -662,6 +662,7 @@ are listed bellow.
 | ~tl~        | log                 | org-agenda-log-mode               |
 | ~ta~        | archive             | org-agenda-archives-mode          |
 | ~tr~        | clock report        | org-agenda-clockreport-mode       |
+| ~tc~        | clocking issues     | org-agenda-show-clocking-issues   |
 | ~td~        | diaries             | org-agenda-toggle-diary           |
 |-------------+---------------------+-----------------------------------|
 | View        |                     |                                   |
