@@ -270,32 +270,38 @@
       (spacemacs|define-transient-state smerge
         :title "Smerge Transient State"
         :doc "
- Movement^^^^         Merge Action^^             Diff^^             Other
- ---------------^^^^  -----------------------^^  ---------------^^  --------^^
- [_n_]^^   next hunk  [_b_] keep base            [_=<_] base/mine   [_u_] undo
- [_N_/_p_] prev hunk  [_m_] keep mine            [_==_] mine/other  [_q_] quit
- [_j_]^^   next line  [_a_] keep all             [_=>_] base/other
- [_k_]^^   prev line  [_o_] keep other           [_r_]  refine
- ^^^^                 [_c_] keep current
- ^^^^                 [_C_] join curr/next hunk"
+ Movement^^^^         Merge Action^^      Diff^^             Other
+ ---------------^^^^  ----------------^^  ---------------^^  ---------------------------^^
+ [_n_]^^   next hunk  [_b_] keep base     [_=<_] base/mine   [_C_] combine curr/next hunks
+ [_N_/_p_] prev hunk  [_m_] keep mine     [_==_] mine/other  [_u_] undo
+ [_j_]^^   next line  [_a_] keep all      [_=>_] base/other  [_q_] quit
+ [_k_]^^   prev line  [_o_] keep other    [_r_]  refine
+ ^^^^                 [_c_] keep current  [_e_]  ediff
+ ^^^^                 [_K_] kill current"
         :bindings
+        ;; move
         ("n" smerge-next)
-        ("p" smerge-prev)
         ("N" smerge-prev)
+        ("p" smerge-prev)
         ("j" evil-next-line)
         ("k" evil-previous-line)
-        ("a" smerge-keep-all)
+        ;; merge action
         ("b" smerge-keep-base)
         ("m" smerge-keep-mine)
+        ("a" smerge-keep-all)
         ("o" smerge-keep-other)
         ("c" smerge-keep-current)
-        ("C" smerge-combine-with-next)
-        ("r" smerge-refine)
-        ("u" undo-tree-undo)
-        ("q" nil :exit t)
+        ;; diff
         ("=<" smerge-diff-base-mine)
         ("==" smerge-diff-mine-other)
-        ("=>" smerge-diff-base-other)))))
+        ("=>" smerge-diff-base-other)
+        ("r" smerge-refine)
+        ("e" smerge-ediff :exit t)
+        ;; other
+        ("C" smerge-combine-with-next)
+        ("K" smerge-kill-current)
+        ("u" undo-tree-undo)
+        ("q" nil :exit t)))))
 
 (defun version-control/init-browse-at-remote ()
   (use-package browse-at-remote
