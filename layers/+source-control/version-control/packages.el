@@ -270,13 +270,13 @@
       (spacemacs|define-transient-state smerge
         :title "Smerge Transient State"
         :doc "
- Movement^^^^         Merge Action^^      Diff^^             Other
- ---------------^^^^  ----------------^^  ---------------^^  ---------------------------^^
- [_n_]^^   next hunk  [_b_] keep base     [_=<_] base/mine   [_C_] combine curr/next hunks
- [_N_/_p_] prev hunk  [_m_] keep mine     [_==_] mine/other  [_u_] undo
- [_j_]^^   next line  [_a_] keep all      [_=>_] base/other  [_q_] quit
- [_k_]^^   prev line  [_o_] keep other    [_r_]  refine
- ^^^^                 [_c_] keep current  [_e_]  ediff
+ Movement^^^^         Merge Action^^      Diff^^            Other
+ ---------------^^^^  ----------------^^  --------------^^  ---------------------------^^
+ [_n_]^^   next hunk  [_b_] keep base     [_<_] base/mine   [_C_] combine curr/next hunks
+ [_N_/_p_] prev hunk  [_m_] keep mine     [_=_] mine/other  [_u_] undo
+ [_j_]^^   next line  [_a_] keep all      [_>_] base/other  [_q_] quit
+ [_k_]^^   prev line  [_o_] keep other    [_r_] refine
+ ^^^^                 [_c_] keep current  [_e_] ediff
  ^^^^                 [_K_] kill current"
         :bindings
         ;; move
@@ -292,9 +292,9 @@
         ("o" smerge-keep-other)
         ("c" smerge-keep-current)
         ;; diff
-        ("=<" smerge-diff-base-mine)
-        ("==" smerge-diff-mine-other)
-        ("=>" smerge-diff-base-other)
+        ("<" smerge-diff-base-mine)
+        ("=" smerge-diff-mine-other)
+        (">" smerge-diff-base-other)
         ("r" smerge-refine)
         ("e" smerge-ediff :exit t)
         ;; other
