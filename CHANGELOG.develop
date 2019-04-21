@@ -1272,6 +1272,12 @@ Other:
 - Key bindings:
   - Added ~g r~ evilified binding to gist-list-mode (thanks to Jean-Sebastien A.
     Beaudry)
+  - Forge-topic buffer (thanks to Miciah Masters and yuhan0):
+    - ~SPC m c~ create new post
+    - ~SPC m e~ edit post
+  - Forge-post buffer (thanks to Miciah Masters and yuhan0):
+    - ~SPC m c~ or ~SPC m ,~ submit post
+    - ~SPC m k~ or ~SPC m k~ cancel post
 - Replace =evilified-state-evilify= by =evilified-state-evilify-map= (thanks to
   Sylvain Benner)
 - Made magithub offline by default (thanks to Miciah Masters)
@@ -1285,6 +1291,14 @@ Other:
   - ~SPC g i~ to initialize a repository (thanks to Steven Allen)
   - ~SPC m g y~ to find symbols (thanks to Daniel Ralston)
   - ~SPC g f d~ for =magit-diff= (thanks to Ag Ibragimov and bmag)
+  - Commit message buffer (thanks to yuhan0):
+    - ~SPC m c~ or ~SPC m ,~ commit changes with the entered message
+    - ~SPC m a~ or ~SPC m k~ discard message and abort the commit
+    - ~g j~ or ~M-n~ cycle through history to the previous commit message
+    - ~g k~ or ~M-p~ save current commit message and cycle to the next message
+  - Log selection buffer (thanks to yuhan0):
+    - ~SPC m c~ or ~SPC m ,~ select the commit at point and act on it
+    - ~SPC m a~ or ~SPC m k~ abort selecting and don't act on any commit
 - Added feature to toggle =evil-magit= based on editing style (thanks to Muneeb
   Shaikh)
 - Added =use-package= for deferred loading of evil-magit (thanks to Sylvain
