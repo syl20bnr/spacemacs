@@ -7,8 +7,8 @@
   - [[#layer][Layer]]
   - [[#reuse-dired-buffer][Reuse dired buffer]]
   - [[#deactive-hide-details-mode][Deactive hide details mode]]
-- [[#mouse-bindings][Mouse bindings]]
-- [[#key-bindings][Key bindings]]
+  - [[#mouse-bindings][Mouse bindings]]
+  - [[#key-bindings][Key bindings]]
 
 * Description
 This layer is a port of vim-vinegar for emacs.
@@ -35,9 +35,9 @@ To use this configuration layer add =vinegar= to the
 To reuse dired buffers set the variable =vinegar-reuse-dired-buffer= to =t=.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-  (vinegar :variables
-           vinegar-reuse-dired-buffer nil))
+  (setq-default dotspacemacs-configuration-layers '(
+    (vinegar :variables
+             vinegar-reuse-dired-buffer nil))
 #+END_SRC
 
 ** Deactive hide details mode
@@ -45,9 +45,9 @@ Per default extensive details in dired are hidden with this layer.
 This can be deactivated by setting the variable =vinegar-dired-hide-details= to =nil=.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-  (vinegar :variables
-           vinegar-dired-hide-details t)))
+  (setq-default dotspacemacs-configuration-layers '(
+    (vinegar :variables
+             vinegar-dired-hide-details t)))
 #+END_SRC
 
 ** Mouse bindings
