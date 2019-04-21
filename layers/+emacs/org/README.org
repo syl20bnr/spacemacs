@@ -5,8 +5,8 @@
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
-  - [[#bibtex][BibTeX]]
-  - [[#important-note][Important Note]]
+- [[#bibtex][BibTeX]]
+- [[#important-note][Important Note]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#github-support][Github support]]

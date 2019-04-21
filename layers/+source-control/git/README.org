@@ -201,8 +201,7 @@ A log selection buffer is presented as an interactive way of selecting a recent 
 | Key binding            | Description                                 |
 |------------------------+---------------------------------------------|
 | ~SPC m c~ or ~SPC m ,~ | select the commit at point and act on it    |
-| ~SPC m a~ or ~SPC m k~ | abort selecting and don't act on any commit |
-
+| ~SPC m a~ or ~SPC m k~ | abort selecting and don’t act on any commit |
 
 ** Interactive rebase buffer
 

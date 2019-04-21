@@ -3,8 +3,8 @@
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
-  - [[#fork-modifications][Fork modifications]]
-  - [[#introduction][Introduction]]
+- [[#fork-modifications][Fork modifications]]
+- [[#introduction][Introduction]]
   - [[#using-nyan-mode-with-custom-modeline][Using Nyan Mode with custom modeline]]
   - [[#known-issues][Known issues]]
   - [[#credits][Credits]]
