@@ -2,8 +2,8 @@
 
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#layer-installation][Layer installation]]
   - [[#features][Features:]]
+- [[#layer-installation][Layer installation]]
 - [[#configuration][Configuration]]
   - [[#derived-layers][Derived layers]]
     - [[#declared-prefixes][Declared prefixes]]

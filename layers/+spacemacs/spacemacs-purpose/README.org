@@ -3,7 +3,7 @@
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
-  - [[#purposes][Purposes]]
+- [[#purposes][Purposes]]
   - [[#switch-to-buffer-and-display-buffer][switch-to-buffer and display-buffer]]
   - [[#misc][misc]]
 - [[#install][Install]]

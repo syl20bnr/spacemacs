@@ -5,7 +5,7 @@
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
-  - [[#bibtex][BibTeX]]
+- [[#bibtex][BibTeX]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#live-preview][Live preview]]

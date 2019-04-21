@@ -2,8 +2,8 @@
 
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#screenshots][Screenshots]]
   - [[#features][Features:]]
+- [[#screenshots][Screenshots]]
 - [[#how-to-setup][How to setup]]
 - [[#how-to-use][How to use]]
   - [[#macos][MacOS]]
