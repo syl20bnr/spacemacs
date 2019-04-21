@@ -74,22 +74,22 @@ VC commands:
 
 | Key binding | Description                                            |
 |-------------+--------------------------------------------------------|
-| ~SPC g .~   | version control transient-state                        |
-| ~SPC g r~   | smerge mode transient-state                            |
-| ~SPC g h o~ | browser at remote                                      |
-| ~SPC g v =~ | open a hunk under the point in the diff buffer         |
-| ~SPC g v D~ | compare the entire working tree with head              |
-| ~SPC g v e~ | show diff against current head using ediff             |
-| ~SPC g v g~ | visually annotate the current file                     |
-| ~SPC g v d~ | open the VC Directory buffer                           |
-| ~SPC g v +~ | update the working copy                                |
-| ~SPC g v i~ | register (add) into a version control system           |
-| ~SPC g v u~ | revert working copy to their repository contents       |
-| ~SPC g v l~ | list the change log                                    |
-| ~SPC g v L~ | list the change log for the current VC controlled tree |
-| ~SPC g v v~ | do the next logical VC operation (=vc-next-action=)    |
-| ~SPC g v I~ | ignore file (=vc-ignore=)                              |
-| ~SPC g v r~ | resolve conflicts in file                              |
+| ~SPC g .~   | Version control transient-state                        |
+| ~SPC g r~   | Smerge mode transient-state                            |
+| ~SPC g h o~ | Browser at remote                                      |
+| ~SPC g v =~ | Open a hunk under the point in the diff buffer         |
+| ~SPC g v D~ | Compare the entire working tree with head              |
+| ~SPC g v e~ | Show diff against current head using ediff             |
+| ~SPC g v g~ | Visually annotate the current file                     |
+| ~SPC g v d~ | Open the VC Directory buffer                           |
+| ~SPC g v +~ | Update the working copy                                |
+| ~SPC g v i~ | Register (add) into a version control system           |
+| ~SPC g v u~ | Revert working copy to their repository contents       |
+| ~SPC g v l~ | List the change log                                    |
+| ~SPC g v L~ | List the change log for the current VC controlled tree |
+| ~SPC g v v~ | Do the next logical VC operation (=vc-next-action=)    |
+| ~SPC g v I~ | Ignore file (=vc-ignore=)                              |
+| ~SPC g v r~ | Resolve conflicts in file                              |
 
 ** VC Directory buffer commands
 You can hit ~SPC pv~ from the current project to open the VC Directory buffer,
@@ -98,26 +98,26 @@ Then you may mark (=m= key) files you are interested in, to form a fileset.
 Most commands described above are applicable to filesets too.
 To some of them are given shortcuts:
 
-| Key | Description                       |
-|-----+-----------------------------------|
-| ~=~ | compare selected files with head  |
-| ~c~ | open a =commit message buffer=    |
-| ~l~ | list changes                      |
-| ~a~ | annotate selected files           |
-| ~i~ | add into a version control system |
-| ~r~ | refresh directory view            |
-| ~E~ | ignore file under cursor          |
+| Key binding | Description                       |
+|-------------+-----------------------------------|
+| ~=~         | Compare selected files with head  |
+| ~c~         | Open a =commit message buffer=    |
+| ~l~         | List changes                      |
+| ~a~         | Annotate selected files           |
+| ~i~         | Add into a version control system |
+| ~r~         | Refresh directory view            |
+| ~E~         | Ignore file under cursor          |
 
 Navigation and interaction commands in the VC Directory buffer:
 
-| Key bindings    | Description        |
+| Key binding     | Description        |
 |-----------------+--------------------|
-| ~j~ or ~M-n~    | next file          |
-| ~k~ or ~M-p~    | previous file      |
-| ~gj~ or ~TAB~   | next directory     |
-| ~gk~ or ~S-TAB~ | previous directory |
-| ~m~             | mark a file        |
-| ~u~             | unmark a file      |
+| ~j~ or ~M-n~    | Next file          |
+| ~k~ or ~M-p~    | Previous file      |
+| ~gj~ or ~TAB~   | Next directory     |
+| ~gk~ or ~S-TAB~ | Previous directory |
+| ~m~             | Mark a file        |
+| ~u~             | Unmark a file      |
 
 ** Commit message editing buffer
 In a commit message buffer press ~C-c C-c~ to commit the changes with the entered message.
@@ -125,59 +125,59 @@ Pressing ~C-c C-k~ will discard the commit message and close this buffer.
 
 ** Diff mode
 
-| Key bindings | Description                                    |
-|--------------+------------------------------------------------|
-| ~SPC m a~    | apply a hunk                                   |
-| ~SPC m d~    | kill the hunk at point                         |
-| ~SPC m D~    | kill the current file’s hunk                   |
-| ~SPC m e~    | call =ediff-patch-file= on current buffer      |
-| ~SPC m f c~  | convert unified diffs to context diffs         |
-| ~SPC m f r~  | reverse the direction of the diffs             |
-| ~SPC m f u~  | convert context diffs to unified diffs         |
-| ~SPC m g~    | jump to the corresponding source line          |
-| ~SPC m j~    | next hunk                                      |
-| ~SPC m J~    | next file                                      |
-| ~SPC m k~    | previous hunk                                  |
-| ~SPC m K~    | previous file                                  |
-| ~SPC m q~    | close the diff window                          |
-| ~SPC m r~    | revert a hunk                                  |
-| ~SPC m s~    | split the current hunk at point into two hunks |
-| ~SPC m u~    | undo                                           |
+| Key binding | Description                                    |
+|-------------+------------------------------------------------|
+| ~SPC m a~   | Apply a hunk                                   |
+| ~SPC m d~   | Kill the hunk at point                         |
+| ~SPC m D~   | Kill the current file’s hunk                   |
+| ~SPC m e~   | Call =ediff-patch-file= on current buffer      |
+| ~SPC m f c~ | Convert unified diffs to context diffs         |
+| ~SPC m f r~ | Reverse the direction of the diffs             |
+| ~SPC m f u~ | Convert context diffs to unified diffs         |
+| ~SPC m g~   | Jump to the corresponding source line          |
+| ~SPC m j~   | Next hunk                                      |
+| ~SPC m J~   | Next file                                      |
+| ~SPC m k~   | Previous hunk                                  |
+| ~SPC m K~   | Previous file                                  |
+| ~SPC m q~   | Close the diff window                          |
+| ~SPC m r~   | Revert a hunk                                  |
+| ~SPC m s~   | Split the current hunk at point into two hunks |
+| ~SPC m u~   | Undo                                           |
 
 A transient buffer is also defined, start it with ~SPC m .~ or ~, .~
 
-| Key bindings | Description   |
-|--------------+---------------|
-| ~j~          | next hunk     |
-| ~J~          | next file     |
-| ~k~          | previous hunk |
-| ~K~          | previous file |
+| Key binding | Description   |
+|-------------+---------------|
+| ~j~         | Next hunk     |
+| ~J~         | Next file     |
+| ~k~         | Previous hunk |
+| ~K~         | Previous file |
 
 ** Log view buffer
 
-| Key bindings           | Description                                                                |
+| Key binding            | Description                                                                |
 |------------------------+----------------------------------------------------------------------------|
-| ~C-j~ or ~M-n~         | next message                                                               |
-| ~C-k~ or ~M-p~         | previous message                                                           |
-| ~gj~ or ~J~ or ~TAB~   | next file                                                                  |
-| ~gk~ or ~K~ or ~S-TAB~ | previous file                                                              |
-| ~f~ or ~ENTER~         | visit the version at point                                                 |
-| ~d~                    | display a diff between the revision at point and the next earlier revision |
-| ~o~                    | use for jumping to links                                                   |
-| ~H~                    | toggle hiding of the full message                                          |
+| ~C-j~ or ~M-n~         | Next message                                                               |
+| ~C-k~ or ~M-p~         | Previous message                                                           |
+| ~gj~ or ~J~ or ~TAB~   | Next file                                                                  |
+| ~gk~ or ~K~ or ~S-TAB~ | Previous file                                                              |
+| ~f~ or ~ENTER~         | Visit the version at point                                                 |
+| ~d~                    | Display a diff between the revision at point and the next earlier revision |
+| ~o~                    | Use for jumping to links                                                   |
+| ~H~                    | Toggle hiding of the full message                                          |
 
 ** Annotation buffer
 
-| Key bindings | Description                                                                    |
-|--------------+--------------------------------------------------------------------------------|
-| ~J~          | visit the annotation of the revision after this one                            |
-| ~K~          | visit the annotation of the revision previous to this one                      |
-| ~L~          | Visit the log of the revision at line                                          |
-| ~H~          | toggle whether or not the annotation is visible                                |
-| ~a~          | visit the annotation of the revision identified in the current line            |
-| ~p~          | visit the annotation of the revision before the revision at line               |
-| ~d~          | display the diff between the current line’s revision and the previous revision |
-| ~f~          | show in a buffer the file revision indicated by the current line               |
+| Key binding | Description                                                                    |
+|-------------+--------------------------------------------------------------------------------|
+| ~J~         | Visit the annotation of the revision after this one                            |
+| ~K~         | Visit the annotation of the revision previous to this one                      |
+| ~L~         | visit the log of the revision at line                                          |
+| ~H~         | Toggle whether or not the annotation is visible                                |
+| ~a~         | Visit the annotation of the revision identified in the current line            |
+| ~p~         | Visit the annotation of the revision before the revision at line               |
+| ~d~         | Display the diff between the current line’s revision and the previous revision |
+| ~f~         | Show in a buffer the file revision indicated by the current line               |
 
 ** Version Control Transient-state
 Use ~SPC g .~ to enter a transient state for quickly navigating between hunks in a buffer. During that state, the following bindings are active:
@@ -204,26 +204,47 @@ Use ~SPC g .~ to enter a transient state for quickly navigating between hunks in
 
 ** Smerge Mode Transient-state
 
-| Key binding | Description              |
-|-------------+--------------------------|
-| ~SPC g r n~ | Next hunk                |
-| ~SPC g r N~ | Previous hunk            |
-| ~SPC g r p~ | Previous hunk            |
-| ~SPC g r j~ | Go to next line          |
-| ~SPC g r k~ | Go to previous line      |
-| ~SPC g r b~ | Smerge keep base         |
-| ~SPC g r m~ | Smerge keep mine         |
-| ~SPC g r a~ | Smerge keep all          |
-| ~SPC g r o~ | Smerge keep other        |
-| ~SPC g r c~ | Smerge keep current      |
-| ~SPC g r C~ | Smerge combine with next |
-| ~SPC g r u~ | Undo                     |
-| ~SPC g r r~ | Smerge refine            |
-| ~SPC g r q~ | Quit transient state     |
+Movement:
+
+| Key binding                | Description         |
+|----------------------------+---------------------|
+| ~SPC g r n~                | Next hunk           |
+| ~SPC g r N~ or ~SPC g r p~ | Previous hunk       |
+| ~SPC g r j~                | Go to next line     |
+| ~SPC g r k~                | Go to previous line |
+
+Merge Actions:
+
+| Key binding | Description  |
+|-------------+--------------|
+| ~SPC g r b~ | Keep base    |
+| ~SPC g r m~ | Keep mine    |
+| ~SPC g r a~ | Keep all     |
+| ~SPC g r o~ | Keep other   |
+| ~SPC g r c~ | Keep current |
+| ~SPC g r K~ | Kill current |
+
+Diff:
+
+| Key binding | Description         |
+|-------------+---------------------|
+| ~SPC g r <~ | Diff base and mine  |
+| ~SPC g r =~ | Diff mine and other |
+| ~SPC g r >~ | Diff base and other |
+| ~SPC g r r~ | Refine              |
+| ~SPC g r e~ | Ediff               |
+
+Other:
+
+| Key binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC g r C~ | Combine current and next hunks |
+| ~SPC g r u~ | Undo                           |
+| ~SPC g r q~ | Quit transient state           |
 
 ** Toggles
 
 | Key binding | Description                  |
 |-------------+------------------------------|
-| ~SPC T d~   | toggle diff margins          |
-| ~SPC T C-d~ | toggle diff margins globally |
+| ~SPC T d~   | Toggle diff margins          |
+| ~SPC T C-d~ | Toggle diff margins globally |
