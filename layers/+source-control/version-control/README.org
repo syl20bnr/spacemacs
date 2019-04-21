@@ -203,7 +203,6 @@ Use ~SPC g .~ to enter a transient state for quickly navigating between hunks in
 | ~z~         | Recenter buffer in window    |
 
 ** Smerge Mode Transient-state
-
 Movement:
 
 | Key binding                | Description         |
