@@ -1216,6 +1216,7 @@ Other:
 **** Emoji
 - Added support for Emoji fonts on macOS and Linux (thanks to CodeFalling )
 - Setup =emojify= cache directory (thanks to Boris Buliga)
+- Hide mode-line indicator: =emoji= (thanks to duianto)
 **** ERC
 - Key bindings:
   - ~SPC m b~ to switch between ERC buffers (thanks to Evan Klitzke)
@@ -1299,6 +1300,7 @@ Other:
 - Fixed magint blame function name (thanks to Bjarke Vad Andersen)
 - Show magit-log-select and diff in two windows (thanks to duianto)
 - Fix magit conflicting with golden-ratio (thanks Eric Zhang)
+- Hide with-editor mode-line indicator: =WE= (thanks to duianto)
 **** Go
 - Improved go test output buffer behavior (thanks to Denis Bernard)
 - Configurable extra arguments to go run (thanks to Enze Chi)
