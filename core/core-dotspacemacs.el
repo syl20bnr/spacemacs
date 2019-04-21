@@ -402,7 +402,7 @@ List sizes may be nil, in which case
   "True if the home buffer should respond to resize events.")
 
 (defvar dotspacemacs-excluded-packages '()
-  "A list of packages that will not be install and loaded.")
+  "A list of packages that will not be installed and loaded.")
 
 (defvar dotspacemacs-frozen-packages '()
   "A list of packages that cannot be updated.")
