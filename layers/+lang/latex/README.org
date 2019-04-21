@@ -27,7 +27,7 @@ This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects
 - Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
 
-** BibTeX
+* BibTeX
 For more extensive support of BibTeX files than RefTeX provides, have a look at
 the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/bibtex/README.org][BibTeX layer]].
 

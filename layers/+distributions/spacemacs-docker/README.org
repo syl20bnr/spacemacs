@@ -22,19 +22,6 @@ Spacemacs distribution that aims to automate dependency installation for
 Spacemacs layers and provide well tested Docker based development environment
 with GUI support on all major platforms and even [[https://i.imgur.com/wDLDMZN.gif][your web browser]].
 
-** Screenshots
-[[file:img/MAC_SP.jpg]]
-
-[[https://i.imgur.com/VcuqReF.jpg][HD MacOS image]]
-
-[[file:img/LN_SP.jpg]]
-
-[[https://i.imgur.com/yDok0Q7.jpg][HD GNU/Linux image]]
-
-[[file:img/WIN_SP.jpg]]
-
-[[https://i.imgur.com/WmsnCUo.jpg][HD Windows image]]
-
 ** Features:
 - Automatically get Spacemacs layers dependency installed with [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/README.org][installer scripts]]
 - Reap the benefit of Emacs and other GNU/Linux tools on Windows/MacOS machines
@@ -48,6 +35,19 @@ with GUI support on all major platforms and even [[https://i.imgur.com/wDLDMZN.g
 - [[https://docs.docker.com/engine/reference/commandline/pause/][pause]] container to free resources temporarily
 - [[https://github.com/docker/docker/blob/1.13.x/experimental/checkpoint-restore.md][Checkpoint & Restore]] - maybe the fastest way to start a “heavy” environment
 - Friendly for networks with low upload speed/quotas.
+
+* Screenshots
+[[file:img/MAC_SP.jpg]]
+
+[[https://i.imgur.com/VcuqReF.jpg][HD MacOS image]]
+
+[[file:img/LN_SP.jpg]]
+
+[[https://i.imgur.com/yDok0Q7.jpg][HD GNU/Linux image]]
+
+[[file:img/WIN_SP.jpg]]
+
+[[https://i.imgur.com/WmsnCUo.jpg][HD Windows image]]
 
 * How to setup
 The idea is to build your own image [[https://docs.docker.com/engine/reference/builder/#from][FROM]] the one of the provided base images
