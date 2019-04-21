@@ -2209,13 +2209,19 @@ Other:
     - ~SPC g v r~ to  resolve conflicts in file
   - Define key bindings with leader key for vim editing style in =diff-mode=
     (thanks to miyabinomuratic)
+  - Added smerge transient state diff key bindings (thanks to Wang):
+    ~SPC g r <~ diff base/mine
+    ~SPC g r =~ diff mine/other
+    ~SPC g r >~ diff base/other
+  - Added smerge transient state key bindings (thanks to duianto):
+    ~SPC g r e >~ ediff
+    ~SPC g r K >~ kill current
 - New packages:
   - =browse-at-remote= which replaces =github-browse-file=
    (thanks Eugene Yaremenko)
 - Avoid loading all the diff packages (thanks to Sylvain Benner)
 - Fixed error on =diff-hl-margin-mode= function being nil during startup (thanks
   to Voleking)
-- Added smerge transient-state diff keybindings (thanks to Wang)
 **** Ycmd
 - Search for =compile_commands.json= in build sub-directory
   (thanks to Amos Bird and Eivind Fonn)
