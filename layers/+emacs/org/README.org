@@ -60,11 +60,11 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 - Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
 - Project-specific TODOs via [[https://github.com/IvanMalison/org-projectile][org-projectile]]
 
-** BibTeX
+* BibTeX
 For more extensive support of references through BibTeX files, have a look at
 the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+lang/bibtex/README.org][BibTeX layer]].
 
-** Important Note
+* Important Note
 Since version 0.104, spacemacs uses the =org= version from the =org= ELPA
 repository instead of the one shipped with emacs. Then, any =org= related code
 should not be loaded before =dotspacemacs/user-config=, otherwise both versions

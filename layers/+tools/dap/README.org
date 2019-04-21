@@ -17,11 +17,6 @@ Experimental integrated visual debugger using [[https://code.visualstudio.com/do
 Debug Server. It similar to the [[https://github.com/Microsoft/language-server-protocol][LSP]] but providers integration with debug
 server.
 
-** Layer installation
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =dap= to the existing =dotspacemacs-configuration-layers= list in this
-file.
-
 ** Features:
 Fully featured IDE-like debugger providing:
 - Launch/Attach
@@ -35,6 +30,11 @@ Fully featured IDE-like debugger providing:
 - Evaluating statements
 - Debug/Run configurations
 - Debug REPL
+
+* Layer installation
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =dap= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Configuration
 ** Derived layers

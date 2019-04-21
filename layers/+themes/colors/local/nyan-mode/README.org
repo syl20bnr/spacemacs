@@ -22,12 +22,12 @@ point from 0% to 100%.
 - Music, mplayer is needed (M-x nyan-start-music, M-x nyan-stop-music),
 - Customizable properties.
 
-** Fork modifications
+* Fork modifications
 - the starting nyan cat image has no rainbow behind it,
 - the starting rainbow image has zigzags,
 - the animation loop is not endless and occurs only when nyan cat moves.
 
-** Introduction
+* Introduction
 *WARNING, MIND DUMBING CONTENT INSIDE.*
 
 “Nyan-mode. It’s things like this that make me proud to be an emacs user.” - [[http://twitter.com/#!/mitchellh/status/104931263479156736][mitchellh]]

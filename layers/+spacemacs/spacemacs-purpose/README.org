@@ -32,7 +32,7 @@ brings popwin’s behavior to window-purpose and solves that problem.
 - Reuses popwin’s settings: =popwin:special-display-config=, =popwin:popup-window-height= and =popwin:popup-window-width=.
 - Difference from popwin: when several windows are open, popup window is sometimes bigger than with regular popwin in the same situation.
 
-** Purposes
+* Purposes
 window-purpose contains a configuration which assigns a purpose for each
 buffer. Later, when Emacs needs to display a buffer in a window, its purpose
 helps make a better decision of which window to use.
