@@ -44,7 +44,8 @@ The =evil-mc= package provides the following key bindings:
 | ~g r P~     | evil-mc-skip-and-goto-prev-cursor  |
 | ~g r r~     | evil-mc-resume-cursors             |
 | ~g r s~     | evil-mc-pause-cursors              |
-| ~g r u~     | evil-mc-undo-all-cursors           |
+| ~g r q~     | evil-mc-undo-all-cursors           |
+| ~g r u~     | evil-mc-undo-last-added-cursor     |
 
 For easy navigation you also have the following:
 
