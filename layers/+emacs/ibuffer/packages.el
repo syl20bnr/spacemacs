@@ -36,7 +36,9 @@
       :bindings
       "gr" 'ibuffer-update
       "gj" 'ibuffer-forward-filter-group
-      "gk" 'ibuffer-backward-filter-group)))
+      "]"  'ibuffer-forward-filter-group
+      "gk" 'ibuffer-backward-filter-group
+      "["  'ibuffer-backward-filter-group)))
 
 (defun ibuffer/init-ibuffer-projectile()
     (use-package ibuffer-projectile

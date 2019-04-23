@@ -552,8 +552,23 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :defer t
     :init
     (progn
+      (spacemacs/declare-prefix "aoB" "org-brain")
       (spacemacs/set-leader-keys
-        "aob" 'org-brain-visualize)
+        "aoBv" 'org-brain-visualize
+        "aoBa" 'org-brain-agenda)
+      (spacemacs/declare-prefix-for-mode 'org-mode "mB" "org-brain")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mBa" "add")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mBg" "goto")
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "Bac" 'org-brain-add-child
+        "Bv" 'org-brain-visualize
+        "Bap" 'org-brain-add-parent
+        "Baf" 'org-brain-add-fiendship
+        "Bgc" 'org-brain-goto-child
+        "Bgp" 'org-brain-goto-parent
+        "Bgf" 'org-brain-goto-friend
+        "BR"  'org-brain-refile
+        "Bx"  'org-brain-delete-entry)
       (evil-set-initial-state 'org-brain-visualize-mode 'emacs))))
 
 (defun org/init-org-expiry ()

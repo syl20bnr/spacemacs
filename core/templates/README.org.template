@@ -1,4 +1,7 @@
 #+TITLE: %LAYER_NAME% layer
+# Document tags separated with "|" char
+# The example below contains 2 tags: "layer", "web service"
+#+TAGS: layer|web service
 
 # The maximum height of the logo should be 200 pixels.
 [[img/%LAYER_NAME%.png]]

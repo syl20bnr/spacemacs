@@ -92,7 +92,6 @@ Backend can be chosen on a per project basis using directory local variables
 #+BEGIN_SRC elisp
   ;;; Directory Local Variables
   ;;; For more information see (info "(emacs) Directory Variables")
-
   ((typescript-mode (typescript-backend . lsp)))
 #+END_SRC
 

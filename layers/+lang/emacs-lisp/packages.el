@@ -255,7 +255,7 @@
 
 (defun emacs-lisp/init-flycheck-package ()
   (use-package flycheck-package
-    :defer t))
+    :hook (emacs-lisp-mode . flycheck-package-setup)))
 
 (defun emacs-lisp/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'emacs-lisp-mode))

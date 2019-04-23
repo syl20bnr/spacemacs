@@ -34,9 +34,9 @@
     :config
     (progn
       (setq
-            ;; should not set this to anything else than nil
-            ;; the focus of SQLi is handled by spacemacs conventions
-            sql-pop-to-buffer-after-send-region nil)
+       ;; should not set this to anything else than nil
+       ;; the focus of SQLi is handled by spacemacs conventions
+       sql-pop-to-buffer-after-send-region nil)
       (advice-add 'sql-add-product :after #'spacemacs/sql-populate-products-list)
       (advice-add 'sql-del-product :after #'spacemacs/sql-populate-products-list)
       (spacemacs/sql-populate-products-list)
@@ -157,7 +157,7 @@
       (unless sql-capitalize-keywords-disable-interactive
         (add-hook 'sql-interactive-mode-hook 'sqlup-mode))
       (spacemacs/set-leader-keys-for-major-mode 'sql-mode
-        "=c" 'sqlup-capitalize-keywords-in-region))
+        "c" 'sqlup-capitalize-keywords-in-region))
     :config
     (progn
       (spacemacs|hide-lighter sqlup-mode)

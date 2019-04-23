@@ -13,3 +13,6 @@
 
 (defvar vinegar-reuse-dired-buffer nil
   "If non-nil, reuses one dired buffer for navigation.")
+
+(defvar vinegar-dired-hide-details t
+  "If non-nil, enable dired hide details mode.")

@@ -68,8 +68,8 @@
             ahs-inhibit-face-list nil
             spacemacs--symbol-highlight-transient-state-doc "
  %s
- [_n_] next   [_N_/_p_] prev  [_d_/_D_] next/prev def  [_r_] range  [_R_] reset
- [_e_] iedit  [_z_] recenter")
+ [_n_] next   [_N_/_p_] prev  [_d_/_D_] next/prev def  [_r_] range  [_R_] reset  [_z_] recenter
+ [_e_] iedit")
 
       ;; since we are creating our own maps,
       ;; prevent the default keymap from getting created

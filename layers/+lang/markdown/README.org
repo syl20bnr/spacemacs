@@ -5,7 +5,7 @@
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
-  - [[#bibtex][BibTeX]]
+- [[#bibtex][BibTeX]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#live-preview][Live preview]]
@@ -35,7 +35,7 @@ This layer adds markdown support to Spacemacs.
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
   using the =emoji= layer or having a proper font) :clap:
 
-** BibTeX
+* BibTeX
 For more extensive support of references with BibTeX files, have a look at the
 [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/bibtex/README.org][BibTeX layer]].
 

@@ -147,7 +147,7 @@ The following example is taken from the manual:
 
   ;; compose with the current context is no context matches;
   ;; default is to ask
-  ;; '(setq mu4e-compose-context-policy nil)
+  ;; (setq mu4e-compose-context-policy nil)
 #+END_SRC
 
 Note: We used to have a hack to support multiple accounts with older version of

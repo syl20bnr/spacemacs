@@ -10,9 +10,11 @@
   - [[#backends][Backends]]
     - [[#racer][Racer]]
     - [[#lsp][LSP]]
+      - [[#debugger-dap-integration][Debugger (dap integration)]]
   - [[#cargo][Cargo]]
   - [[#rustfmt][Rustfmt]]
 - [[#key-bindings][Key bindings]]
+  - [[#debugger][debugger]]
 
 * Description
 This layer supports [[https://www.rust-lang.org][Rust]] development in Spacemacs.
@@ -44,6 +46,9 @@ You must add =lsp= to the existing =dotspacemacs-configuration-layers= in your =
 Consult the installation command for the desired language server found at [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] for instructions.
 
 To enable auto-completion, ensure that the =auto-completion= layer is enabled.
+
+**** Debugger (dap integration)
+To install the debug adapter you may run =M-x dap-gdb-lldb-setup= when you are on Linux or download it manually from [[https://marketplace.visualstudio.com/items?itemName=webfreak.debug][Native Debug]] and adjust =dap-gdb-lldb-path=.
 
 ** Cargo
 [[http://doc.crates.io/index.html][Cargo]] is a project management command line tool for Rust. Installation
@@ -82,3 +87,50 @@ To enable automatic buffer formatting on save, set the variable =rust-format-on-
 | ~SPC m g g~ | jump to definition                          |
 | ~SPC m h h~ | describe symbol at point                    |
 | ~SPC m t~   | run tests with Cargo                        |
+
+** debugger
+
+| Key binding   | Description                     |
+|---------------+---------------------------------|
+| ~SPC m d d d~ | start debugging                 |
+| ~SPC m d d l~ | debug last configuration        |
+| ~SPC m d d r~ | debug recent configuration      |
+|---------------+---------------------------------|
+| ~SPC m d c~   | continue                        |
+| ~SPC m d i~   | step in                         |
+| ~SPC m d o~   | step out                        |
+| ~SPC m d s~   | next step                       |
+| ~SPC m d v~   | inspect value at point          |
+| ~SPC m d r~   | restart frame                   |
+|---------------+---------------------------------|
+| ~SPC m d .~   | debug transient state           |
+|---------------+---------------------------------|
+| ~SPC m d a~   | abandon current session         |
+| ~SPC m d A~   | abandon all process             |
+|---------------+---------------------------------|
+| ~SPC m d e e~ | eval                            |
+| ~SPC m d e r~ | eval region                     |
+| ~SPC m d e t~ | eval value at point             |
+|---------------+---------------------------------|
+| ~SPC m d S s~ | switch session                  |
+| ~SPC m d S t~ | switch thread                   |
+| ~SPC m d S f~ | switch frame                    |
+|---------------+---------------------------------|
+| ~SPC m d I i~ | inspect                         |
+| ~SPC m d I r~ | inspect region                  |
+| ~SPC m d I t~ | inspect value at point          |
+|---------------+---------------------------------|
+| ~SPC m d b b~ | toggle a breakpoint             |
+| ~SPC m d b c~ | change breakpoint condition     |
+| ~SPC m d b l~ | change breakpoint log condition |
+| ~SPC m d b h~ | change breakpoint hit count     |
+| ~SPC m d b a~ | add a breakpoint                |
+| ~SPC m d b d~ | delete a breakpoint             |
+| ~SPC m d b D~ | clear all breakpoints           |
+|---------------+---------------------------------|
+| ~SPC m d '_~  | Run debug REPL                  |
+|---------------+---------------------------------|
+| ~SPC m d w l~ | list local variables            |
+| ~SPC m d w o~ | goto output buffer if present   |
+| ~SPC m d w s~ | list sessions                   |
+| ~SPC m d w b~ | list breakpoints                |

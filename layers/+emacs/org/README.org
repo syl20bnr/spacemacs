@@ -5,8 +5,8 @@
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
-  - [[#bibtex][BibTeX]]
-  - [[#important-note][Important Note]]
+- [[#bibtex][BibTeX]]
+- [[#important-note][Important Note]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#github-support][Github support]]
@@ -46,6 +46,7 @@
   - [[#org-journal][Org-journal]]
   - [[#org-brain][Org-brain]]
     - [[#application-bindings][Application bindings]]
+    - [[#org-mode-bindings][org-mode bindings]]
     - [[#visualization-bindings][Visualization bindings]]
 
 * Description
@@ -59,11 +60,11 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 - Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
 - Project-specific TODOs via [[https://github.com/IvanMalison/org-projectile][org-projectile]]
 
-** BibTeX
+* BibTeX
 For more extensive support of references through BibTeX files, have a look at
 the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+lang/bibtex/README.org][BibTeX layer]].
 
-** Important Note
+* Important Note
 Since version 0.104, spacemacs uses the =org= version from the =org= ELPA
 repository instead of the one shipped with emacs. Then, any =org= related code
 should not be loaded before =dotspacemacs/user-config=, otherwise both versions
@@ -746,9 +747,24 @@ are available.
 ** Org-brain
 *** Application bindings
 
-| Key binding | Description                  |
-|-------------+------------------------------|
-| ~SPC a o b~ | Visualize an org-brain entry |
+| Key binding   | Description                  |
+|---------------+------------------------------|
+| ~SPC a o B v~ | Visualize an org-brain entry |
+| ~SPC a o B a~ | Go to the org-brain agenda   |
+
+*** org-mode bindings
+
+| Key binding   | Description                  |
+|---------------+------------------------------|
+| ~SPC m B a c~ | Add child                    |
+| ~SPC m B a p~ | Add parent                   |
+| ~SPC m B a f~ | Add friend                   |
+| ~SPC m B g c~ | Go to child                  |
+| ~SPC m B g p~ | Go to parent                 |
+| ~SPC m B g f~ | Go to friend                 |
+| ~SPC m B R~   | Refile entry                 |
+| ~SPC m B x~   | Delete entry                 |
+| ~SPC m B v~   | Visualize an org-brain entry |
 
 *** Visualization bindings
 
@@ -764,4 +780,3 @@ are available.
 | ~o~         | Open and edit the visualized entry    |
 | ~f~         | Find/visit another entry to visualize |
 | ~r~         | Rename this, or another, entry        |
-|             |                                       |

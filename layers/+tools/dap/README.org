@@ -2,8 +2,8 @@
 
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#layer-installation][Layer installation]]
   - [[#features][Features:]]
+- [[#layer-installation][Layer installation]]
 - [[#configuration][Configuration]]
   - [[#derived-layers][Derived layers]]
     - [[#declared-prefixes][Declared prefixes]]
@@ -16,11 +16,6 @@ Experimental integrated visual debugger using [[https://code.visualstudio.com/do
 [[https://code.visualstudio.com/docs/extensionAPI/api-debugging][Debug Adapter Protocol]] is a wire protocol for communication between client and
 Debug Server. It similar to the [[https://github.com/Microsoft/language-server-protocol][LSP]] but providers integration with debug
 server.
-
-** Layer installation
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =dap= to the existing =dotspacemacs-configuration-layers= list in this
-file.
 
 ** Features:
 Fully featured IDE-like debugger providing:
@@ -35,6 +30,11 @@ Fully featured IDE-like debugger providing:
 - Evaluating statements
 - Debug/Run configurations
 - Debug REPL
+
+* Layer installation
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =dap= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 * Configuration
 ** Derived layers
