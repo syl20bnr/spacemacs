@@ -84,6 +84,8 @@
                      (cons 'javascript-backend value))))
     :config
     (progn
+      (when javascript-fmt-on-save
+        (add-hook 'js2-mode-local-vars-hook 'spacemacs/javascript-fmt-before-save-hook))
       ;; prefixes
       (spacemacs/declare-prefix-for-mode 'js2-mode "mh" "documentation")
       (spacemacs/declare-prefix-for-mode 'js2-mode "mg" "goto")
