@@ -20,7 +20,7 @@
                          "opam config var share"))))))
         (cond ((string= "" share)
                (spacemacs-buffer/warning
-                "\"opam config var shar\" output empty string."))
+                "\"opam config var share\" output empty string."))
               ((not (file-directory-p share))
                (spacemacs-buffer/warning
                 "opam share directory does not exist."))
