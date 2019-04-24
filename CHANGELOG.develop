@@ -1433,7 +1433,6 @@ Other:
   removed upstream.
 - Load helm before read-file-name and completing-read (thanks duianto and thanks
   Miciah for a more elegant solution)
-- Bind ~SPC f F~ to =helm-find= for recursive directory search.
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Added =counsel-css= as an =ivy= alternative to =helm-css-scss= (thanks to Robbert
