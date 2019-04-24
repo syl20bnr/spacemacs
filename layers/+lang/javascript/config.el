@@ -21,3 +21,6 @@
 
 (defvar javascript-import-tool nil
   "The import backend to import modules. Possible values are `import-js' and `nil' to disable.")
+
+(defvar javascript-fmt-on-save nil
+  "Run formatter on buffer save.")

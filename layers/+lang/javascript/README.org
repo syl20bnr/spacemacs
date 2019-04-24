@@ -118,6 +118,16 @@ Formatter can be chosen on a per project basis using directory local variables
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
 
+You can choose formatting tool:
+
+#+BEGIN_SRC elisp
+(setq-default dotspacemacs-configuration-layers '(
+  (javascript :variables
+              javascript-fmt-tool 'prettier)))
+#+END_SRC
+
+Default is =’web-beautify=.
+
 * Backends
 ** Tern
 See [[file:../../+tools/tern/README.org][tern layer]] documentation.
