@@ -1,5 +1,7 @@
 #+TITLE: Forth layer
 
+#+TAGS layer|general|imperative|lang
+
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
