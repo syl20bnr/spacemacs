@@ -42,8 +42,16 @@
   (spacemacs/enable-flycheck 'typescript-tsx-mode)
   (with-eval-after-load 'tide
     (with-eval-after-load 'flycheck
-      (flycheck-add-mode 'typescript-tide 'typescript-tsx-mode)
-      (flycheck-add-mode 'typescript-tslint 'typescript-tsx-mode))))
+      (if (eq typescript-linter `tslint)
+      (progn
+        (flycheck-add-mode 'typescript-tide 'typescript-tsx-mode)
+        (flycheck-add-mode 'typescript-tslint 'typescript-tsx-mode))
+      (progn
+        (add-to-list 'flycheck-disabled-checkers 'typescript-tslint)
+        (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
+        (flycheck-add-mode 'javascript-eslint 'typescript-mode)
+        (flycheck-add-next-checker 'javascript-eslint 'typescript-tide 'append)
+      )))))
 
 (defun typescript/post-init-smartparens ()
   (if dotspacemacs-smartparens-strict-mode

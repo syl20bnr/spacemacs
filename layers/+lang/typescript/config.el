@@ -22,5 +22,8 @@ Currently avaliable 'tide (default), 'typescript-formatter and 'prettier.")
   "The backend to use for IDE features. Possible values are `tide'
 +and `lsp'.")
 
+(defvar typescript-linter 'tslint
+  "Height in percents for the shell window.")
+
 (spacemacs|define-jump-handlers typescript-mode)
 (spacemacs|define-jump-handlers typescript-tsx-mode)
