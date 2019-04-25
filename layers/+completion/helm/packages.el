@@ -85,7 +85,7 @@
       (spacemacs||set-helm-key "bb"   helm-mini)
       (spacemacs||set-helm-key "Cl"   helm-colors)
       (spacemacs||set-helm-key "ff"   spacemacs/helm-find-files)
-      (spacemacs||set-helm-key "fF"   helm-find)
+      (spacemacs||set-helm-key "fF"   helm-find-files)
       (spacemacs||set-helm-key "fL"   helm-locate)
       (spacemacs||set-helm-key "fr"   helm-recentf)
       (spacemacs||set-helm-key "hda"  helm-apropos)

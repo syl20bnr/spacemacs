@@ -208,6 +208,13 @@ After completing the Spacemacs [install process](#install), then it's also
 recommended to add the [osx layer][] to your [dotfile][]. Installation
 instructions are available in the documentation for the [osx layer][].
 
+*Note:* you might have some issues when doing some search on your projects, you
+probably want to install grep through homebrew with default names:
+
+```sh
+$ brew install grep --with-default-names
+```
+
 ### Windows
 You can download good quality builds from the [emacs-w64 project][emacs-for-windows].
 It is recommended to install the most recent [stable build][emacs-for-windows-stable].
