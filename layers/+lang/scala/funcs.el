@@ -17,6 +17,14 @@
 (defun spacemacs//scala-disable-flycheck-scala ()
   (push 'scala flycheck-disabled-checkers))
 
+(defun spacemacs//scala-backend-ensime ()
+  "Return true if the selected backend is ensime"
+  (eq scala-backend 'scala-ensime))
+
+(defun spacemacs//scala-backend-metals ()
+  "Return true if the selected backend is metals"
+  (eq scala-backend 'scala-metals))
+
 (defun spacemacs/scala-join-line ()
   "Adapt `scala-indent:join-line' to behave more like evil's line join.
 

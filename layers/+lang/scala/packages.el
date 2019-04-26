@@ -11,10 +11,8 @@
 
 (setq scala-packages
       '(
-        eldoc
         ensime
-        flycheck
-        flyspell
+        (lsp-scala :requires lsp-mode)
         ggtags
         counsel-gtags
         helm-gtags
@@ -25,7 +23,7 @@
         ))
 
 (defun scala/post-init-eldoc ()
-  (when scala-enable-eldoc
+  (when (and scala-enable-eldoc (spacemacs//scala-backend-ensime))
     (add-hook 'scala-mode-hook #'spacemacs//java-setup-ensime-eldoc)))
 
 (defun scala/pre-init-ensime ()
@@ -35,10 +33,11 @@
 (defun scala/post-init-ensime ()
   (use-package ensime
     :defer t
+    :if (spacemacs//scala-backend-ensime)
     :init
     (progn
       (add-hook 'scala-mode-hook #'spacemacs//scala-setup-ensime)
-      (when scala-auto-start-ensime
+      (when scala-auto-start-backend
         (add-hook 'scala-mode-hook 'spacemacs//ensime-maybe-start)))
     :config
     (progn
@@ -52,7 +51,8 @@
   ;; Don't use scala checker if ensime mode is active, since it provides
   ;; better error checking.
   (with-eval-after-load 'flycheck
-    (add-hook 'ensime-mode-hook 'spacemacs//scala-disable-flycheck-scala)))
+    (add-hook 'ensime-mode-hook 'spacemacs//scala-disable-flycheck-scala)
+    (add-hook 'lsp-scala-)))
 
 (defun scala/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'scala-mode)
@@ -68,6 +68,13 @@
 (defun scala/init-sbt-mode ()
   (use-package sbt-mode
     :defer t
+    :config
+    ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+    ;; allows using SPACE when in the minibuffer
+    (substitute-key-definition
+     'minibuffer-complete-word
+     'self-insert-command
+     minibuffer-local-completion-map)
     :init (spacemacs/set-leader-keys-for-major-mode 'scala-mode
             "b." 'sbt-hydra
             "bb" 'sbt-command)))
@@ -81,6 +88,15 @@
         (add-to-list 'completion-ignored-extensions ext)))
     :config
     (progn
+
+      ;; Ensure only one of metals and ensime is loaded
+      (unless (spacemacs//scala-backend-ensime)
+        (progn
+	  (fmakunbound 'ensime)
+	  (remove-hook 'after-change-functions 'ensime-after-change-function)
+	  (remove-hook 'window-configuration-change-hook 'ensime-show-left-margin-hook)))
+
+
       ;; Automatically insert asterisk in a comment when enabled
       (defun scala/newline-and-indent-with-asterisk ()
         (interactive)
@@ -138,6 +154,18 @@ If it's part of a left arrow (`<-'),replace it with the unicode arrow."
             scala-indent:align-parameters t
             scala-indent:default-run-on-strategy
             scala-indent:operator-strategy))))
+
+(defun scala/init-lsp-scala ()
+  (use-package lsp-scala
+    :after scala-mode
+    :demand t
+    :if (spacemacs//scala-backend-metals)
+    :config
+    (add-hook 'scala-mode
+              (lambda ()
+                (setq-local lsp-prefer-flymake nil)))
+    :hook ((scala-mode) . lsp)))
+
 
 (defun scala/post-init-ggtags ()
   (add-hook 'scala-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
