@@ -1125,11 +1125,10 @@ Other:
 - Key bindings:
   - New key binding =SPC m g e= for =omnisharp-solution-errors=
     (thanks to Saulius Menkevičius)
-  - New key bindings:
-    - ~SPC t b~ for =omnisharp-unit-test-buffer=
-    - ~SPC u~ for =omnisharp-auto-complete-overrides=
-    - ~SPC i~ for =omnisharp-fix-usings=
-    (thanks to Alistair Bush)
+  - New key bindings (thanks to Alistair Bush):
+    - ~SPC m t b~ for =omnisharp-unit-test-buffer=
+    - ~SPC m u~ for =omnisharp-auto-complete-overrides=
+    - ~SPC m i~ for =omnisharp-fix-usings=
   - Add unit test bindings (thanks to Saulius Menkevičius):
     - ~SPC m t p~ for =omnisharp-unit-test-at-point=
     - ~SPC m t t~ for =omnisharp-unit-test-last=
