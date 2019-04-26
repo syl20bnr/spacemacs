@@ -1,0 +1,43 @@
+{:spacetools.spacedoc.config/layers-org-query
+ [{"lang" [
+           "pure" {"general" [
+                              "imperative"
+                              "multi-paradigm"
+                              ]
+                   }
+           ]
+   }
+  "markup"
+  ]
+ :spacetools.spacedoc.config/valid-tags
+ {"lang" "Programming languages"
+  "js" "JavaScript"
+  "dsl" "Domain-specific"
+  "e-mail" "E-mail"
+  "distribution" "Distributions"
+  "os" "Operating systems"
+  "chat" "Chats"
+  "misc" "Misc"
+  "framework" "Frameworks"
+  "markup" "Markup languages"
+  "tagging" "Tags"
+  "i18n" "internationalization"
+  "pairing" "Pair programming"
+  "web service" "Web services"
+  "versioning" "Source control"
+  "fun" "Fun"
+  "script" "Scripting"
+  "imperative" "Imperative"
+  "general" "General-purpose"
+  "pure" "Purely functional"
+  "emacs" "Emacs"
+  "vim" "Vim"
+  "completion" "Completion"
+  "tool" "Tools"
+  "extra" "Extra"
+  "lisp" "Lisp dialects"
+  "layer" "layers"
+  "theme" "Themes"
+  "multi-paradigm" "Multi-paradigm"
+  "checker" "Checkers"
+  }}
