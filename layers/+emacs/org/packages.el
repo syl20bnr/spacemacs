@@ -316,6 +316,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "if" 'org-footnote-new
         "ih" 'org-insert-heading
         "iH" 'org-insert-heading-after-current
+        "ii" 'org-insert-item
         "iK" 'spacemacs/insert-keybinding-org
         "il" 'org-insert-link
         "in" 'org-add-note
