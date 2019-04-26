@@ -38,7 +38,7 @@
       (spacemacs/declare-prefix-for-mode 'csharp-mode "mh" "csharp/documentation")
       (spacemacs/declare-prefix-for-mode 'csharp-mode "mr" "csharp/refactoring")
       (spacemacs/declare-prefix-for-mode 'csharp-mode "ms" "csharp/server")
-      ;; [missing in roslyn](spacemacs/declare-prefix-for-mode 'csharp-mode "mt" "csharp/tests")
+      (spacemacs/declare-prefix-for-mode 'csharp-mode "mt" "csharp/tests")
 
       (spacemacs/set-leader-keys-for-major-mode 'csharp-mode
         ;; Compile

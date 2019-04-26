@@ -1122,6 +1122,7 @@ Other:
   - Enabled =flycheck= by default (thanks to Saulius Menkevičius)
   - No need to unset =omnisharp-auto-complete-want-documentation= anymore
    (thanks to Saulius Menkevičius)
+  - Add ~SPC m t~ which key prefix: =csharp/tests= (thanks to duianto)
 - Key bindings:
   - New key binding =SPC m g e= for =omnisharp-solution-errors=
     (thanks to Saulius Menkevičius)
