@@ -26,7 +26,7 @@ This layer adds support for TypeScript and TSX editing.
 - Eldoc-mode
 - Documentation at point
 - Auto complete
-- Flycheck with linter
+- Flycheck with either tslint or eslint
 - Jump to definition, Jump to type definition
 - Find occurrences (Imenu-mode)
 - Rename symbol
@@ -61,14 +61,36 @@ You can choose formatting tool:
 
 Default is ='tide=.
 
+You can choose either tslint (default) or eslint for linting:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (typescript :variables
+                typescript-linter 'tslint)))
+#+END_SRC
+
+
 ** Pre-requisites
 You will need =node.js v0.12.0= or greater.
 
-If you want linting run:
+If you want linting with tslint run:
 
 #+BEGIN_SRC shell
   npm install -g typescript tslint
 #+END_SRC
+
+If you want linting with eslint run:
+
+#+BEGIN_SRC shell
+  npm install eslint
+#+END_SRC
+
+We need to use the project-local eslint installation in order to pick up plugins
+and presets installed locally.
+
+Ensure that the project directory =node_modules/.bin= is added to the buffer 
+local =exec_path= (see the Javascript layer [[file:~/.emacs.d/layers/+lang/javascript/README.org][README]] documentation for more 
+details).
 
 If you want to use typescript-formatter for formatting run:
 
