@@ -10,4 +10,4 @@
 ;;; License: GPLv3
 
 
-(configuration-layer/declare-layer 'java)
+(configuration-layer/declare-layers '(lsp java))

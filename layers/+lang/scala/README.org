@@ -8,7 +8,9 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#layer-installation][Layer Installation]]
-- [[#ensime][Ensime]]
+- [[#backends][Backends]]
+  - [[#ensime][Ensime]]
+  - [[#metals][Metals]]
 - [[#scalastyle][Scalastyle]]
   - [[#use-java-doc-style][Use Java doc-style]]
 - [[#automatically-show-the-type-of-the-symbol-under-the-cursor][Automatically show the type of the symbol under the cursor]]
@@ -22,6 +24,7 @@ This layer adds support for the Scala language to Spacemacs.
 
 ** Features:
 - Syntax highlighting
+- Support for language backend. Either using [[https://ensime.github.io/][ENSIME]] or [[https://scalameta.org/metals/][Metals]]
 - Auto-completion
 - Syntax-checking
 - Refactoring
@@ -31,7 +34,6 @@ This layer adds support for the Scala language to Spacemacs.
 - Eldoc integration
 - Test execution directly from Emacs
 - Automatic replacement of ASCII arrows with unicode ones
-- Automatic starting/stopping of [[https://ensime.github.io/][ENSIME]] IDE server
 
 * Layer Installation
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -46,7 +48,20 @@ version (Stable). Please add the following lines to =dotspacemacs/user-init=:
   (add-to-list 'package-pinned-packages '(ensime . "melpa-stable"))
 #+END_SRC
 
-* Ensime
+* Backends
+The currently supported language backends are:
+- scala-ensime (default)
+- scala-metals
+
+To set your choice of backend, configure the layer variable =scala-backend=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((scala :variables scala-backend 'scala-ensime))) ;or 'scala-metals
+#+END_SRC
+
+
+** Ensime
 [[https://ensime.github.io/][ENSIME]] provides IDE-like features, such as refactoring, incremental compilation
 and project-wide type-checking.
 
@@ -56,6 +71,22 @@ list) to generate these files.
 
 Installation instructions and usage can be found in the =Java= layer
 [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Blang/java/README.org#ensime][README.org]].
+
+** Metals
+Currently, you must manually install the metals server. It is possible to do so via coursier; the latest version can be built using the following commands:
+
+#+BEGIN_SRC bash
+./coursier bootstrap \
+  --java-opt -Xss4m \
+  --java-opt -Xms100m \
+  --java-opt -Dmetals.client=emacs \
+  org.scalameta:metals_2.12:0.5.1 \
+  -r bintray:scalacenter/releases \
+  -r sonatype:snapshots \
+  -o /usr/local/bin/metals-emacs -f
+#+END_SRC
+
+You will then have the common LSP keybindings; see http://develop.spacemacs.org/layers/+tools/lsp/README.html#key-bindings for more details.
 
 * Scalastyle
 [[http://www.scalastyle.org/][Scalastyle]] provides style-checking and linting. The Emacs functionality is
@@ -128,12 +159,12 @@ the ascii arrows back.
 #+END_SRC
 
 * Auto-start
-If you prefer to have Ensime start when you load a scala file, you can enable it
+If you prefer to have the backend start when you load a scala file, you can enable it
 with
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-      (scala :variables scala-auto-start-ensime t)))
+      (scala :variables scala-auto-start-backend t)))
 #+END_SRC
 
 * Key bindings

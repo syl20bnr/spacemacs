@@ -2430,6 +2430,8 @@ Other:
   - Evilify =ensime= search in insert/normal mode (thanks to Diego Alvarez)
 - Remove duplicated code (thanks to Tetsuro Takemoto)
 - Added ENSIME jump handlers (thanks to Joao Azevedo)
+- Added scala-lsp and metals as an additional backend for scala
+  (thanks to Rodolfo Hansen)
 **** Scheme
 - Added missing =parinfer= package declaration (thanks to Kalle Lindqvist)
 - Update install docs for Chicken 5 changes (thanks to Grant Shangreaux)

@@ -20,5 +20,12 @@
 (defvar scala-use-unicode-arrows nil
   "If non-nil then `->`, `=>` and `<-` are replaced with unicode arrows.")
 
-(defvar scala-auto-start-ensime nil
-  "If non nil then ensime will be started when a scala file is opened.")
+(defconst scala-backends '(scala-ensime scala-metals)
+  "Backend server implementation to enable advanced IDE language features")
+
+(defvar scala-backend 'scala-ensime
+  "Backend used to trigger IDE language features.
+`scala-ensime' or `scala-metals' are currently supported")
+
+(defvar scala-auto-start-backend nil
+  "If non nil then ensime/metals will be started when a scala file is opened.")
