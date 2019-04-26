@@ -30,8 +30,7 @@ do
 done </tmp/changed_files
 
 if [ ${#changed_f_as_args[@]} -ne 0 ]; then
-
-    spacedoc validate /tmp/exported/
+    spacedoc validate -c"./.ci/spacedoc-cfg.edn" /tmp/exported/
     if [ $? -ne 0 ]; then
         echo "Documentation validation failed."
         exit 1

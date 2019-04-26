@@ -25,7 +25,9 @@ printf  "  StrictHostKeyChecking no\n" >> ~/.ssh/config
 printf  "  UserKnownHostsFile=/dev/null\n" >> ~/.ssh/config
 
 fold_start "FORMATTING_DOCUMENTATION"
-docker run --rm -v "${TRAVIS_BUILD_DIR}":/tmp/docs/ \
+docker run --rm \
+       -v "${TRAVIS_BUILD_DIR}/.ci/spacedoc-cfg.edn":/opt/spacetools/spacedoc-cfg.edn \
+       -v "${TRAVIS_BUILD_DIR}":/tmp/docs/ \
        jare/spacetools docfmt /tmp/docs/
 if [ $? -ne 0 ]; then
     echo "Formatting failed."
