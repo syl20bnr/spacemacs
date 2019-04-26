@@ -134,13 +134,15 @@
       (setq indent-guide-delay 0.3)
       (spacemacs|add-toggle indent-guide
         :mode indent-guide-mode
-        :documentation (concat "Highlight indentation level at point."
-                               " (alternative to highlight-indentation).")
+        ;; :documentation (concat "Highlight indentation level at point."
+        ;;                        " (alternative to highlight-indentation).")
+        :documentation "Highlight indentation level at point. (alternative to highlight-indentation)."
         :evil-leader "ti")
       (spacemacs|add-toggle indent-guide-globally
         :mode indent-guide-global-mode
-        :documentation (concat "Highlight indentation level at point globally."
-                               " (alternative to highlight-indentation).")
+        ;; :documentation (concat "Highlight indentation level at point globally."
+        ;;                        " (alternative to highlight-indentation).")
+        :documentation "Highlight indentation level at point globally. (alternative to highlight-indentation)."
         :evil-leader "t TAB"))
     :config
     (spacemacs|diminish indent-guide-mode " ⓘ" " i")))
