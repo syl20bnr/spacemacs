@@ -5,10 +5,8 @@
   - [[#features][Features:]]
 
 * Description
-This layer tweaks =org-mode= to integrate nicely into Spacemacs.
+This layer tweaks =projectile= to integrate nicely into Spacemacs.
 
 ** Features:
-- Configuration for =flyspell= to check =org-buffers= for typos.
-- Support for automatically generated Table-Of-Contents via =toc-org=.
-- Support for custom bullet markers via =org-bullets=.
-- Support for a special view mode for org documents via =space-doc=.
+- Setup of =projectile= keybindings, including functions for project search, switching, version control and compilation.
+- Additional path helper functions, to copy the location of a buffer relative to the project root.
