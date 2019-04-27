@@ -94,7 +94,8 @@
         "u" 'omnisharp-auto-complete-overrides
         "i" 'omnisharp-fix-usings
         ;; [missing in roslyn] "=" 'omnisharp-code-format
-))))
+        )
+      (spacemacs|hide-lighter omnisharp-mode))))
 
 (defun csharp/post-init-company ()
   (when (configuration-layer/package-used-p 'omnisharp)
