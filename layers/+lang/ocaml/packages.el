@@ -13,6 +13,7 @@
       '(
         ;; auto-complete
         company
+        dune
         flycheck
         (flycheck-ocaml :toggle (configuration-layer/layer-used-p 'syntax-checking))
         ggtags
@@ -31,6 +32,38 @@
       :backends merlin-company-backend
       :modes merlin-mode
       :variables merlin-completion-with-doc t)))
+
+(defun ocaml/init-dune ()
+  (use-package dune
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'tuareg-mode
+        "tP" 'dune-promote
+        "tp" 'dune-runtest-and-promote)
+      (spacemacs/declare-prefix-for-mode 'tuareg-mode "mt" "test")
+      (spacemacs/set-leader-keys-for-major-mode 'dune-mode
+        "il" 'dune-insert-library-form
+        "ie" 'dune-insert-executable-form
+        "ix" 'dune-insert-executables-form
+        "ir" 'dune-insert-rule-form
+        "ip" 'dune-insert-ocamllex-form
+        "iy" 'dune-insert-ocamlyacc-form
+        "im" 'dune-insert-menhir-form
+        "ia" 'dune-insert-alias-form
+        "ii" 'dune-insert-install-form
+        "ic" 'dune-insert-copyfiles-form
+        "it" 'dune-insert-tests-form
+        "iv" 'dune-insert-env-form
+        "id" 'dune-insert-ignored-subdirs-form
+        "tP" 'dune-promote
+        "tp" 'dune-runtest-and-promote
+        "cc" 'compile)
+      (spacemacs/declare-prefix-for-mode 'dune-mode "mc" "compile/check")
+      (spacemacs/declare-prefix-for-mode 'dune-mode "mi" "insert-form")
+      (spacemacs/declare-prefix-for-mode 'dune-mode "mt" "test")
+      (add-to-list 'auto-mode-alist
+                   '("\\(?:\\`\\|/\\)dune\\(?:\\.inc\\)?\\'" . dune-mode)))))
 
 (defun ocaml/post-init-flycheck ()
   (spacemacs/enable-flycheck 'tuareg-mode))
