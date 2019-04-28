@@ -1774,6 +1774,7 @@ Other:
 - Enabled flycheck-ocaml (thanks to Dave Aitken)
 - Fixed backspace delete (thanks to Hasan Alirajpurwala)
 - Fixed flycheck-ocaml not initialized warning (thanks to Artur Juraszek)
+- Added =dune= support via =dune-mode= (thanks to Lyman Gillispie)
 **** Org
 - Load org-mode email integration (mu4e/notmuch) when org is loaded
   (thanks to Steven Allen)
