@@ -1,0 +1,37 @@
+#+TITLE: Configuration layers
+
+* Table of Contents                     :TOC_4_gh:noexport:
+- [[#programming-languages][Programming languages]]
+  - [[#general-purpose][General-purpose]]
+    - [[#imperative][Imperative]]
+      - [[#forth-layer][Forth layer]]
+      - [[#asm-layer][asm layer]]
+
+* Programming languages
+** General-purpose
+*** Imperative
+**** Forth layer
+[[file:+lang/forth/README.org][link]]
+This layer adds basic support for the Forth family of languages to spacemacs.
+
+Features:
+- Syntax highlighting
+- Showing meaning of objects in context of the current =Forth= session.
+- Eval of entire files or regions in current =Forth= session.
+- Passing interactive commands to current =Forth= session.
+
+**** asm layer
+[[file:+lang/asm/README.org][link]]
+This layer adds support for Assembly code. The built-in major mode for
+editing assembly code in Emacs is =asm-mode=.
+
+The layer also adds =nasm-mode= for NASM-specific syntax. Although =nasm-mode=
+is intended for NASM, it actually works well with other variants of Assembly
+in general, and provides Imenu integration so you can jump around with ~SPC s j~.
+
+Features:
+- Improved syntax highlighting.
+- Automatic indentation.
+- Auto-completion for symbol in opened buffers.
+- Look up documentation for current instruction at cursor.
+- Imenu integration.
