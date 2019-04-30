@@ -190,6 +190,7 @@
             symon-refresh-rate 2)
       (spacemacs|add-toggle minibuffer-system-monitor
         :mode symon-mode
+        :documentation "Tiny graphical system monitor."
         :evil-leader "tms"))))
 
 (defun spacemacs-modeline/init-vim-powerline ()

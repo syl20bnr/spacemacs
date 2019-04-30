@@ -211,6 +211,7 @@
         :status nameless-mode
         :on (nameless-mode)
         :off (nameless-mode -1)
+        :documentation "Hide package namespaces in your emacs-lisp code."
         :evil-leader-for-mode (emacs-lisp-mode . "Tn"))
       ;; activate nameless only when in a GUI
       ;; in a terminal nameless triggers all sorts of graphical glitches.
