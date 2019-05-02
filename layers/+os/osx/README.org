@@ -1,5 +1,7 @@
 #+TITLE: OSX layer
 
+#+TAGS: layer|os
+
 [[file:img/apple.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

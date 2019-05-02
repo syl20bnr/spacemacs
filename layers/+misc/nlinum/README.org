@@ -1,5 +1,7 @@
 #+TITLE: nlinum layer
 
+#+TAGS: layer|misc
+
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]

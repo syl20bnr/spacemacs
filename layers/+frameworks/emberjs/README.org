@@ -1,5 +1,7 @@
 #+TITLE: emberjs layer
 
+#+TAGS: framework|layer
+
 [[file:img/ember.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

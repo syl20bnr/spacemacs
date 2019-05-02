@@ -1,5 +1,7 @@
 #+TITLE: Dash layer
 
+#+TAGS: layer|reader
+
 [[file:img/dash.png]]
 
 [[file:img/zeal.png]]

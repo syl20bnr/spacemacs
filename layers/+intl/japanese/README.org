@@ -1,5 +1,7 @@
 #+TITLE: Japanese layer
 
+#+TAGS: i18n|layer
+
 [[file:img/Japanese.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

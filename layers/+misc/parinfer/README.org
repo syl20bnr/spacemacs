@@ -1,5 +1,7 @@
 #+TITLE: Parinfer layer
 
+#+TAGS: layer|misc
+
 [[file:img/parinfer.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

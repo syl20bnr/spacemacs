@@ -1,5 +1,7 @@
 #+TITLE: debug layer
 
+#+TAGS: layer|tool
+
 [[file:img/debug.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

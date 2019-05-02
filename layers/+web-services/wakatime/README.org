@@ -1,5 +1,7 @@
 #+TITLE: Wakatime layer
 
+#+TAGS: layer|web service
+
 [[file:img/wakatime.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

@@ -1,5 +1,7 @@
 #+TITLE: React layer
 
+#+TAGS: framework|layer
+
 [[file:img/react.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

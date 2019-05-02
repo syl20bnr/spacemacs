@@ -1,5 +1,7 @@
 #+TITLE: phoenix layer
 
+#+TAGS: framework|layer
+
 [[file:img/phoenix.png]] with [[file:img/alchemist.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

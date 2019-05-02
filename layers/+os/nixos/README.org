@@ -1,5 +1,7 @@
 #+TITLE: NixOS layer
 
+#+TAGS: layer|os
+
 [[file:img/nixos.jpg]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

@@ -1,5 +1,7 @@
 #+TITLE: Jabber layer
 
+#+TAGS: chat|layer
+
 [[file:img/jabber-logo.gif]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

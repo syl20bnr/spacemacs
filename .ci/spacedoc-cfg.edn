@@ -1,26 +1,57 @@
 {:spacetools.spacedoc.config/layers-org-query
- [{"lang" [
-           "pure" {"general" [
-                              "imperative"
-                              "multi-paradigm"
-                              ]
-                   }
-           ]
-   }
+ ["chat"
+  "checker"
+  "completion"
+  "e-mail"
+  "file tree"
+  "font"
+  "emacs"
+  "framework"
+  "fun"
+  "i18n"
   "markup"
+  "misc"
+  "music"
+  "os"
+  "pairing"
+  "reader"
+  {"programming" ["util"
+                  "dsl"
+                  "lisp"
+                  "script"
+                  {"general" ["imperative"
+                              "multi-paradigm"
+                              "js"
+                              ]}
+                  "pure"
+                  ]}
+  "versioning"
+  {"spacemacs" ["distribution"
+                "util"
+                   ]}
+  "tag"
+  "theme"
+  "tool"
+  "vim"
+  "web service"
   ]
  :spacetools.spacedoc.config/valid-tags
- {"lang" "Programming languages"
-  "js" "JavaScript"
+ {"programming" "Programming languages"
+  "music" "Music"
+  "file tree" "File trees"
+  "font" "Fonts"
   "dsl" "Domain-specific"
+  "js" "JavaScript"
   "e-mail" "E-mail"
   "distribution" "Distributions"
+  "spacemacs" "Spacemacs"
   "os" "Operating systems"
   "chat" "Chats"
-  "misc" "Misc"
+  "util" "Utilities"
   "framework" "Frameworks"
   "markup" "Markup languages"
-  "tagging" "Tags"
+  "tag" "Tagging"
+  "reader" "Readers"
   "i18n" "internationalization"
   "pairing" "Pair programming"
   "web service" "Web services"
@@ -34,10 +65,11 @@
   "vim" "Vim"
   "completion" "Completion"
   "tool" "Tools"
-  "extra" "Extra"
+  "misc" "Miscellaneous"
   "lisp" "Lisp dialects"
-  "layer" "layers"
+  "layer" "All layers"
   "theme" "Themes"
   "multi-paradigm" "Multi-paradigm"
   "checker" "Checkers"
-  }}
+  }
+ }

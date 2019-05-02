@@ -1,5 +1,7 @@
 #+TITLE: Confluence layer
 
+#+TAGS: layer|web service
+
 [[file:img/confluence.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

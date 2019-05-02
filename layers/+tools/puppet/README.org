@@ -1,5 +1,7 @@
 #+TITLE: Puppet layer
 
+#+TAGS: layer|tool
+
 [[file:img/puppet.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

@@ -1,5 +1,7 @@
 #+TITLE: Elfeed layer
 
+#+TAGS: layer|reader
+
 [[file:img/elfeed.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

@@ -1,5 +1,7 @@
 #+TITLE: Evernote layer
 
+#+TAGS: layer|web service
+
 [[file:img/evernote.png]] with [[file:img/geeknote.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

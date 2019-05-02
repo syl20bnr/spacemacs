@@ -1,5 +1,7 @@
 #+TITLE: Colors layer
 
+#+TAGS: layer|theme
+
 [[file:img/rainbow_dash.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

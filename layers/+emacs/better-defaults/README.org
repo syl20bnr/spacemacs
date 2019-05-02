@@ -1,5 +1,7 @@
 #+TITLE: Better Defaults layer
 
+#+TAGS: emacs|layer
+
 [[file:img/emacs.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

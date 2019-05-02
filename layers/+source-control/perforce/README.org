@@ -1,5 +1,7 @@
 #+TITLE: Perforce layer
 
+#+TAGS: layer|versioning
+
 [[file:img/p4.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

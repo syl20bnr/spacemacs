@@ -1,5 +1,7 @@
 #+TITLE: Helm layer
 
+#+TAGS: completion|layer
+
 [[file:img/helm.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

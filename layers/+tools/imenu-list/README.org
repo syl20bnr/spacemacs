@@ -1,5 +1,7 @@
 #+TITLE: imenu-list layer
 
+#+TAGS: layer|tool
+
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]

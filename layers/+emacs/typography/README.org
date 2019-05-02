@@ -1,5 +1,7 @@
 #+TITLE: Typography layer
 
+#+TAGS: emacs|layer
+
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]

@@ -1,5 +1,7 @@
 #+TITLE: Spacemacs-purpose layer
 
+#+TAGS: layer|spacemacs|util
+
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]

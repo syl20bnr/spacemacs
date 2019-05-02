@@ -1,5 +1,7 @@
 #+TITLE: Games layer
 
+#+TAGS: fun|layer
+
 [[file:img/games.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

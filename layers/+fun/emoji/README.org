@@ -1,5 +1,7 @@
 #+TITLE: Emoji layer
 
+#+TAGS: fun|layer
+
 [[file:img/emojis.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

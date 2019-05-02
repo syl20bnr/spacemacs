@@ -1,5 +1,7 @@
 #+TITLE: Sphinx layer
 
+#+TAGS: layer|tool
+
 [[file:img/sphinx.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

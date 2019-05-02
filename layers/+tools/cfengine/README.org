@@ -1,5 +1,7 @@
 #+TITLE: CFEngine layer
 
+#+TAGS: layer|tool
+
 #+PROPERTY: header-args :eval never-export
 
 [[file:./img/agent.png]]
