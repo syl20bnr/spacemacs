@@ -1,5 +1,7 @@
 #+TITLE: Floobits layer
 
+#+TAGS: layer|pairing
+
 [[file:img/floobits.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

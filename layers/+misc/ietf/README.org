@@ -1,5 +1,7 @@
 #+TITLE: ietf layer
 
+#+TAGS: layer|misc
+
 [[file:img/ietf-logo.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

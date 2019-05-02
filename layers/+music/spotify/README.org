@@ -1,5 +1,7 @@
 #+TITLE: Spotify layer
 
+#+TAGS: layer|music
+
 [[file:img/spotify.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

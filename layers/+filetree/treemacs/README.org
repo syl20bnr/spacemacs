@@ -1,5 +1,7 @@
 #+TITLE: Treemacs layer
 
+#+TAGS: file tree|layer
+
 [[file:img/treemacs.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

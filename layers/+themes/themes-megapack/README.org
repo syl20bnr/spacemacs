@@ -1,5 +1,7 @@
 #+TITLE: Themes Megapack layer
 
+#+TAGS: layer|theme
+
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]

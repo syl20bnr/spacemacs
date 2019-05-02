@@ -1,5 +1,7 @@
 #+TITLE: Ruby on Rails layer
 
+#+TAGS: framework|layer
+
 [[file:img/ror.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

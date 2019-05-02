@@ -1,5 +1,7 @@
 #+TITLE: Notmuch layer
 
+#+TAGS: e-mail|layer
+
 [[file:img/notmuch.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

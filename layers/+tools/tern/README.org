@@ -1,5 +1,7 @@
 #+TITLE: Tern layer
 
+#+TAGS: layer|tool
+
 [[file:img/tern.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

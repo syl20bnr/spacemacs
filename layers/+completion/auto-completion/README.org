@@ -1,5 +1,7 @@
 #+TITLE: Auto-completion layer
 
+#+TAGS: completion|layer
+
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]

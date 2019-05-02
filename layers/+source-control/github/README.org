@@ -1,5 +1,7 @@
 #+TITLE: GitHub layer
 
+#+TAGS: layer|versioning
+
 [[file:img/github.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

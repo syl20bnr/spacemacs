@@ -1,5 +1,7 @@
 #+TITLE: Saltstack layer
 
+#+TAGS: layer|tool
+
 [[file:img/saltstack.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

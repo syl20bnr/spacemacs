@@ -1,5 +1,7 @@
 #+TITLE: Vagrant layer
 
+#+TAGS: layer|tool
+
 [[file:img/vagrant.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

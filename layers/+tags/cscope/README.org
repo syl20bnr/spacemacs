@@ -1,5 +1,7 @@
 #+TITLE: Cscope layer
 
+#+TAGS: layer|tag
+
 [[file:img/cscope.jpg]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

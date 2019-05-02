@@ -1,5 +1,7 @@
 #+TITLE: Speed Reading layer
 
+#+TAGS: layer|reader
+
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]

@@ -1,5 +1,7 @@
 #+TITLE: Neotree layer
 
+#+TAGS: file tree|layer
+
 [[file:img/neotree.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

@@ -1,5 +1,7 @@
 #+TITLE: Org layer
 
+#+TAGS: emacs|layer
+
 [[file:img/org.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

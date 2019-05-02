@@ -1,6 +1,6 @@
 #+TITLE: Forth layer
 
-#+TAGS: general|imperative|lang|layer
+#+TAGS: general|imperative|layer|programming
 
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]

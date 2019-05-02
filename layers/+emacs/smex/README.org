@@ -1,5 +1,7 @@
 #+TITLE: Smex layer
 
+#+TAGS: emacs|layer
+
 [[file:img/smex.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

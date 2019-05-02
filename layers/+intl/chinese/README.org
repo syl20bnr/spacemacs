@@ -1,5 +1,7 @@
 #+TITLE: Chinese layer
 
+#+TAGS: i18n|layer
+
 [[file:img/China.png]] [[file:img/Chinese.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

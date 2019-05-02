@@ -1,5 +1,7 @@
 #+TITLE: CMake layer
 
+#+TAGS: layer|tool
+
 [[file:img/cmake.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

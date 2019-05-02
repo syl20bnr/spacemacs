@@ -1,5 +1,7 @@
 #+TITLE: Git layer
 
+#+TAGS: layer|versioning
+
 [[file:img/git.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

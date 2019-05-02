@@ -1,5 +1,7 @@
 #+TITLE: spacemacs-docker distribution
 
+#+TAGS: distribution|layer|spacemacs
+
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]

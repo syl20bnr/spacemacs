@@ -1,5 +1,7 @@
 #+TITLE: xkcd layer
 
+#+TAGS: fun|layer
+
 [[file:img/xkcd.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

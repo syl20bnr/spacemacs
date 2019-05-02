@@ -1,5 +1,7 @@
 #+TITLE: Evil-snipe layer
 
+#+TAGS: layer|vim
+
 [[file:img/Cat_With_Rifle.jpg]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

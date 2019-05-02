@@ -1,5 +1,7 @@
 #+TITLE: Syntax Checking layer
 
+#+TAGS: checker|layer
+
 [[file:img/flycheck.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

@@ -1,5 +1,7 @@
 #+TITLE: Prodigy layer
 
+#+TAGS: layer|tool
+
 [[file:img/prodigy.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

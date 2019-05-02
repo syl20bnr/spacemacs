@@ -1,5 +1,7 @@
 #+TITLE: nginx layer
 
+#+TAGS: layer|tool
+
 [[file:img/nginx.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:
