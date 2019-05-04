@@ -975,6 +975,7 @@ Other:
     (thanks to Aaron Jensen)
   - Use =counsel-company= to show completion candidates
     (thanks to Kalle Lindqvist)
+  - Added =company-semantic= as a default company backend (thanks to bet4it)
 - Fixes:
   - Check if =dotspacemacs-directory-snippets-dir= exists before adding it
     (thanks to Wojciech Wojtyniak)
@@ -2075,6 +2076,10 @@ Other:
 - Update install docs for Chicken 5 changes (thanks to Grant Shangreaux)
 **** Semantic
 - Made it possible to exclude stickyfunc (thanks to Sylvain Benner)
+- Changed the default throttle for =semanticdb-find= routines. Don't search
+  system databases to speed up semantic (thanks to bet4it)
+- Disabled =semantic-idle-summary-mode= when =gtags= or =lsp= layer is enabled
+  (thanks to bet4it)
 **** Shell
 - Fixed xterm colors filtering bug in =eshell= when eshell buffers are updated
   and are not focused (thanks to Steven Allen)
