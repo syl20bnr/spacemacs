@@ -28,13 +28,15 @@
   "versioning"
   {"spacemacs" ["distribution"
                 "util"
-                   ]}
+                ]}
   "tag"
   "theme"
   "tool"
   "vim"
   "web service"
+  "uncategorized"
   ]
+
  :spacetools.spacedoc.config/valid-tags
  {"programming" "Programming languages"
   "music" "Music"
@@ -71,5 +73,6 @@
   "theme" "Themes"
   "multi-paradigm" "Multi-paradigm"
   "checker" "Checkers"
+  "uncategorized" "README.org files that need proper tags"
   }
  }
