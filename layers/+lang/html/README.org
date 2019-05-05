@@ -1,5 +1,7 @@
 #+TITLE: HTML layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/html.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

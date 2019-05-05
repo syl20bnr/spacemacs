@@ -1,5 +1,7 @@
 #+TITLE: C/C++ layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/ccpp.jpg]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

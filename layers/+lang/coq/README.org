@@ -1,5 +1,7 @@
 #+TITLE: Coq layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/coq.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

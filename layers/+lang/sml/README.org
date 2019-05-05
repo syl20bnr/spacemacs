@@ -1,5 +1,7 @@
 #+TITLE: SML layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/sml.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

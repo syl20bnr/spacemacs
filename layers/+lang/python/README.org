@@ -1,5 +1,7 @@
 #+TITLE: Python layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/python.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

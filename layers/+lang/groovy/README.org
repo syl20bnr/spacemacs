@@ -1,5 +1,7 @@
 #+TITLE: Groovy layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/groovy.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

@@ -1,5 +1,7 @@
 #+TITLE: F# layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/fsharp.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

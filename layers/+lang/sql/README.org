@@ -1,5 +1,7 @@
 #+TITLE: SQL layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/sql.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

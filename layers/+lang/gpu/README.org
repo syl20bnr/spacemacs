@@ -1,5 +1,7 @@
 #+TITLE: GPU layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/opencl.png]] [[file:img/cuda.png]] [[file:img/shaders.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

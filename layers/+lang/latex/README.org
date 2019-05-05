@@ -1,5 +1,7 @@
 #+TITLE: LaTeX layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/latex.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:
