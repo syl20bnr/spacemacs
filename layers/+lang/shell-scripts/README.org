@@ -1,5 +1,7 @@
 #+TITLE: Shell Scripts layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/fish.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

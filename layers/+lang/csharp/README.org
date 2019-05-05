@@ -1,5 +1,7 @@
 #+TITLE: C# layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/csharp.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

@@ -1,5 +1,7 @@
 #+TITLE: Ruby layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/ruby.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

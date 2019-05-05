@@ -1,5 +1,7 @@
 #+TITLE: Clojure layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/clojure.png]] [[file:img/cider.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

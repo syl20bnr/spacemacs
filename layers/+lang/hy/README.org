@@ -1,5 +1,7 @@
 #+TITLE: Hy layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/hy.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

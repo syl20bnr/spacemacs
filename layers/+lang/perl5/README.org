@@ -1,5 +1,7 @@
 #+TITLE: Perl5 layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/perl5.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

@@ -1,5 +1,7 @@
 #+TITLE: Dhall layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/dhall-logo.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

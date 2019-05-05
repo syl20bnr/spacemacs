@@ -1,5 +1,7 @@
 #+TITLE: Lua layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/lua.gif]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

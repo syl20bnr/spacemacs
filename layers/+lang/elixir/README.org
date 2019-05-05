@@ -1,5 +1,7 @@
 #+TITLE: Elixir layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/elixir.png]] with [[file:img/alchemist.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

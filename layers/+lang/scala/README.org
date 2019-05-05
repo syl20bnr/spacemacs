@@ -1,5 +1,7 @@
 #+TITLE: Scala layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/scala.png]] with [[file:img/ensime.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:

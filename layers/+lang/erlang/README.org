@@ -1,5 +1,7 @@
 #+TITLE: Erlang layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/erlang.png]]
 
 * Table of Contents                     :TOC_4_gh:noexport:
