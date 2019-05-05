@@ -59,14 +59,14 @@ if [ $? -ne 0 ]; then
 fi
 fold_end "INSTALLING_DEPENDENCIES"
 
-fold_start "EXPORTING_DOCUMENTATION"
-emacs -batch -l init.el -l core/core-documentation.el \
-      -f spacemacs/publish-doc
-if [ $? -ne 0 ]; then
-    echo "spacemacs/publish-doc failed"
-    exit 2
-fi
-fold_end "EXPORTING_DOCUMENTATION"
+# fold_start "EXPORTING_DOCUMENTATION"
+# emacs -batch -l init.el -l core/core-documentation.el \
+#       -f spacemacs/publish-doc
+# if [ $? -ne 0 ]; then
+#     echo "spacemacs/publish-doc failed"
+#     exit 2
+# fi
+# fold_end "EXPORTING_DOCUMENTATION"
 
 fold_start "INSTALLING_HUB"
 hub_version="2.5.1"
