@@ -210,6 +210,7 @@ Some advanced configuration is setup for =eshell= in this layer:
 | ~SPC a s m~ | Open, close or go to a =multi-term=                        |
 | ~SPC a s t~ | Open, close or go to a =ansi-term=                         |
 | ~SPC a s T~ | Open, close or go to a =term=                              |
+| ~TAB~       | browse completion with =helm=                              |
 | ~SPC m H~   | browse history with =helm= (works in =eshell= and =shell=) |
 | ~C-j~       | next item in history                                       |
 | ~C-k~       | previous item in history                                   |
