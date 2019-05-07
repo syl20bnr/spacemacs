@@ -1,6 +1,6 @@
 #+TITLE: Swift layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: general|layer|multi-paradigm|programming
 
 [[file:img/swift.png]]
 

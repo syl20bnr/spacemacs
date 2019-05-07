@@ -1,6 +1,6 @@
 #+TITLE: Ocaml layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: general|layer|multi-paradigm|programming
 
 [[file:img/ocaml.png]]
 

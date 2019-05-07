@@ -1,6 +1,6 @@
 #+TITLE: Factor Layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: general|layer|multi-paradigm|programming
 
 [[file:img/logo.png]]
 

@@ -1,6 +1,6 @@
 #+TITLE: Elixir layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: general|layer|multi-paradigm|programming
 
 [[file:img/elixir.png]] with [[file:img/alchemist.png]]
 

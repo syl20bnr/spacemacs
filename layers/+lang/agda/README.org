@@ -1,6 +1,6 @@
 #+TITLE: Agda layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: general|layer|programming|pure
 
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]

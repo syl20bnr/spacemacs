@@ -1,6 +1,6 @@
 #+TITLE: JR Concurrent Programming Language layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: general|layer|multi-paradigm|programming
 
 [[file:img/jr.png]]
 

@@ -1,6 +1,6 @@
 #+TITLE: Java layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: general|layer|multi-paradigm|programming
 
 [[file:img/java.png]]
 

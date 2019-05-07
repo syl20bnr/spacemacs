@@ -1,6 +1,6 @@
 #+TITLE: JavaScript layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: general|js|layer|multi-paradigm|programming
 
 [[file:img/javascript.png]]
 
