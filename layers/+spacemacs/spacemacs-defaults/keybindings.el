@@ -96,6 +96,8 @@
 
 ;; improve delete-other-windows
 (define-key global-map (kbd "C-x 1") 'spacemacs/toggle-maximize-buffer)
+;; adds two spacing modes while preserving just-one-space behaviour
+(define-key global-map (kbd "M-SPC") 'cycle-spacing)
 
 ;; alternate binding to search next occurrence with isearch without
 ;; exiting isearch
@@ -527,7 +529,7 @@ respond to this toggle."
   "xar" 'spacemacs/align-repeat
   "xa|" 'spacemacs/align-repeat-bar
   "xc"  'count-region
-  "xd SPC" 'just-one-space
+  "xd SPC" 'cycle-spacing
   "xdw" 'delete-trailing-whitespace
   "xjc" 'set-justification-center
   "xjf" 'set-justification-full

@@ -845,6 +845,7 @@ Other:
   - Check for universal argument before paste (thanks to bet4it)
   - New variable =spacemacs-yank-indent-modes= to enable auto indent in modes
     not derived from =prog-mode= (thanks to bet4it)
+  - Remap ~M-SPC~ and ~SPC-x-d-SPC~ to =cycle-spacing= (thanks to bb2020)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)
