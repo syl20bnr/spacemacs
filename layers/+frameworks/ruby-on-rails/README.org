@@ -1,6 +1,6 @@
 #+TITLE: Ruby on Rails layer
 
-#+TAGS: framework|layer
+#+TAGS: framework|layer|programming
 
 [[file:img/ror.png]]
 

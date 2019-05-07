@@ -1,6 +1,6 @@
 #+TITLE: yang layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: dsl|layer|markup|programming
 
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]

@@ -1,6 +1,6 @@
 #+TITLE: faust layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: dsl|layer|programming
 
 [[file:img/faust.png]]
 

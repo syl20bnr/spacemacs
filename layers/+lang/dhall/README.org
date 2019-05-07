@@ -1,6 +1,6 @@
 #+TITLE: Dhall layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: dsl|layer|markup|programming
 
 [[file:img/dhall-logo.png]]
 

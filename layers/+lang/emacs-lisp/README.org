@@ -1,6 +1,6 @@
 #+TITLE: Emacs Lisp layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: dsl|layer|lisp|programming
 
 [[file:img/emacs.png]]
 

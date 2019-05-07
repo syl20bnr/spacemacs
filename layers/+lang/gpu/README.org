@@ -1,6 +1,6 @@
 #+TITLE: GPU layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: dsl|layer|programming
 
 [[file:img/opencl.png]] [[file:img/cuda.png]] [[file:img/shaders.png]]
 

@@ -1,6 +1,6 @@
 #+TITLE: Scheme layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: dsl|layer|lisp|programming
 
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]

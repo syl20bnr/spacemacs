@@ -1,6 +1,6 @@
 #+TITLE: plantuml layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: dsl|layer|markup|programming
 
 [[file:img/logo.png]]
 

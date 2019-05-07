@@ -1,6 +1,6 @@
 #+TITLE: React layer
 
-#+TAGS: framework|layer
+#+TAGS: framework|layer|programming
 
 [[file:img/react.png]]
 

@@ -1,6 +1,6 @@
 #+TITLE: Clojure layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: dsl|layer|lisp|programming
 
 [[file:img/clojure.png]] [[file:img/cider.png]]
 
