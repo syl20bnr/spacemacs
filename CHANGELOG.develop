@@ -2135,6 +2135,7 @@ Other:
   - ~SPC m N~ go to previous multi-term
 - Moved =eshell-z-freq-dir-hash-table-file-name= into cache dir
   (thanks to bb2020)
+- Enabled ~TAB~ completion in =eshell= with =Helm= (thanks to bb2020)
 **** Shell Scripts
 - Added new company-shell environment variable backend
   (thanks to Alexander-Miller)

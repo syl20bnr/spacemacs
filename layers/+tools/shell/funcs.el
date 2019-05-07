@@ -168,8 +168,7 @@ is achieved by adding the relevant text properties."
 
 (defun spacemacs/init-helm-eshell ()
   "Initialize helm-eshell."
-  ;; this is buggy for now
-  ;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete)
+  (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete)
   (spacemacs/set-leader-keys-for-major-mode 'eshell-mode
     "H" 'spacemacs/helm-eshell-history)
   (define-key eshell-mode-map
