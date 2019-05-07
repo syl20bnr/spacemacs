@@ -1,6 +1,6 @@
 #+TITLE: crystal layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: general|layer|multi-paradigm|programming
 
 [[file:img/crystal.png]]
 

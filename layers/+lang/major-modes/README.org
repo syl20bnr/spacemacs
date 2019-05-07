@@ -1,6 +1,6 @@
 #+TITLE: Extra Languages
 
-#+TAGS: layer|uncategorized
+#+TAGS: layer|programming|general|multi-paradigm|*
 
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]

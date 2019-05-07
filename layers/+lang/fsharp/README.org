@@ -1,6 +1,6 @@
 #+TITLE: F# layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: general|layer|multi-paradigm|programming
 
 [[file:img/fsharp.png]]
 

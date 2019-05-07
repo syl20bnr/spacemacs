@@ -1,6 +1,6 @@
 #+TITLE: Idris layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: general|layer|programming|pure
 
 [[file:img/idris.png]]
 

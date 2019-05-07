@@ -1,6 +1,6 @@
 #+TITLE: Groovy layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: general|layer|multi-paradigm|programming
 
 [[file:img/groovy.png]]
 

@@ -1,6 +1,6 @@
 #+TITLE: C/C++ layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: general|layer|multi-paradigm|programming
 
 [[file:img/ccpp.jpg]]
 
