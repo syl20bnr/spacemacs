@@ -1,6 +1,6 @@
 #+TITLE: Migrating from Vim
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#purpose-of-this-document][Purpose of this document]]
 - [[#philosophy][Philosophy]]
 - [[#basic-orientation][Basic orientation]]

@@ -1,6 +1,6 @@
 #+TITLE: Spacemacs Community
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#philosophy][Philosophy]]
   - [[#for-contributors][For Contributors]]
   - [[#for-users][For Users]]

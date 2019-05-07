@@ -4,7 +4,7 @@
 
 [[file:img/ccpp.jpg]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -17,7 +17,14 @@
     - [[#cquery--ccls-lsp-backends][cquery / ccls (lsp backends)]]
       - [[#features-1][Features:]]
       - [[#external-dependencies-1][External dependencies]]
+        - [[#cquery-server][cquery server]]
+        - [[#ccls-server][ccls server]]
       - [[#configuration-1][Configuration]]
+        - [[#basic][Basic]]
+        - [[#setting-path-to-backend-executable][Setting path to backend executable]]
+        - [[#semantic-highlighting][Semantic highlighting]]
+        - [[#additional-configuration-options][Additional configuration options]]
+        - [[#example-dotspacemacs-configuration-layers-entry][Example dotspacemacs-configuration-layers entry]]
       - [[#completion][Completion]]
       - [[#debugger-dap-integration][Debugger (dap integration)]]
   - [[#clang-configuration][Clang Configuration]]

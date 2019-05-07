@@ -1,6 +1,6 @@
 #+TITLE: Changelog
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#release-0200x][Release 0.200.x]]
   - [[#020010-20171101][0.200.10 (2017/11/01)]]
     - [[#fixes][Fixes]]
@@ -557,6 +557,8 @@
     - [[#new-conventions-3][New conventions]]
     - [[#layer-changes-29][Layer changes]]
       - [[#spacemacs-9][Spacemacs]]
+        - [[#helm-2][Helm]]
+        - [[#evil][Evil]]
       - [[#auctex][Auctex]]
       - [[#auto-completion-7][Auto-completion]]
       - [[#autohotkey-2][Autohotkey]]
@@ -620,7 +622,7 @@
     - [[#git-9][Git]]
     - [[#go-8][Go]]
     - [[#haskell-11][Haskell]]
-    - [[#helm-2][Helm]]
+    - [[#helm-3][Helm]]
     - [[#holy-mode][Holy-mode]]
     - [[#irc][IRC]]
     - [[#markdown-11][Markdown]]

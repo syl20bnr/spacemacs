@@ -4,7 +4,7 @@
 
 [[file:img/China.png]] [[file:img/Chinese.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -15,6 +15,9 @@
     - [[#configure-chinese-conv-配置简繁转换][Configure =chinese-conv= (配置简繁转换)]]
     - [[#enable-fcitx][Enable fcitx]]
       - [[#requirement][Requirement]]
+        - [[#linux][Linux]]
+        - [[#mac-os-x][Mac OS X]]
+        - [[#windows][Windows]]
     - [[#enable-youdao有道-dictionary激活有道字典][Enable YouDao(有道) Dictionary(激活有道字典)]]
     - [[#set-monospaced-font-size设置等宽字体][Set monospaced font size(设置等宽字体）]]
     - [[#enabledisable-ace-pinyin-in-avy-goto-char][Enable/Disable ace-pinyin in =avy-goto-char=]]
