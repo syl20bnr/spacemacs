@@ -533,6 +533,7 @@ Other:
   - Updated =quelpa= to fix installing of some recipes on macOS
     (thanks to Dieter Komendera)
   - Added startup support for doom-sourcerer theme (thanks to Parker Johnson)
+  - Fixed modeline when started in deamon mode (thanks to Benno Fünfstück)
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
