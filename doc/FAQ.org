@@ -1,6 +1,6 @@
 #+TITLE: Frequently Asked Questions
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#common][Common]]
   - [[#which-version-of-spacemacs-am-i-running][Which version of Spacemacs am I running?]]
   - [[#what-is-the-official-pronunciation-of-spacemacs][What is the official pronunciation of Spacemacs?]]

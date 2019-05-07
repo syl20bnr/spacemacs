@@ -2357,6 +2357,7 @@ Other:
 *** Various improvements
 - Lots of improvement with CI and documentation exporting
   (thanks to Eugene Yaremenko)
+- New LAYERS.org format (thanks to Eugene Yaremenko && Anton Latukha)
 - Various code and style improvements (thanks to bmag, duianto, Eivind Fonn,
   Eugene Yaremenko, Fabien Dubosson, Kalle Lindqvist, Boris Buliga, timor,
   yuhan0, thanhvg, Sylvain Benner)

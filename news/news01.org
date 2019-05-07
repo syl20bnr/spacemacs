@@ -1,6 +1,6 @@
 #+TITLE: Newsletter #01: About the 0.200 release
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#introduction][Introduction]]
 - [[#breaking-changes][Breaking changes]]
   - [[#support-for-emacs-243-has-been-dropped][Support for Emacs 24.3 has been dropped]]

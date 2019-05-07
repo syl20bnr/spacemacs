@@ -1,6 +1,6 @@
 #+TITLE: Spacemacs experimental features
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#spacemacs-dumps-using-the-portable-dumper][Spacemacs dumps using the portable dumper]]
   - [[#setup][Setup]]
     - [[#emacs-plus-users][=emacs-plus= users]]

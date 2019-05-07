@@ -1,6 +1,6 @@
 #+TITLE: Beginners tutorial
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#why-spacemacs][Why Spacemacs?]]
 - [[#installation-and-setup][Installation and setup]]
 - [[#getting-started][Getting started]]

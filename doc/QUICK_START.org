@@ -1,6 +1,6 @@
 #+TITLE: Quick start
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#configuration-layers][Configuration layers]]
 - [[#dotfile-spacemacs][Dotfile (.spacemacs)]]
 - [[#dotdirectory-spacemacsd][Dotdirectory (~/.spacemacs.d)]]

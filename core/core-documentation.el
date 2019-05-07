@@ -320,7 +320,7 @@ preprocessors for the exported .org files."
              :recursive t
              :publishing-directory ,(concat publish-target "layers/")
              :publishing-function org-html-publish-to-html
-             :preparation-function spacemacs/generate-layers-file
+             ;; :preparation-function spacemacs/generate-layers-file
              :exclude "local\\|dockerfiles"
              :html-head ,header)
             ("spacemacs-doc-static"
