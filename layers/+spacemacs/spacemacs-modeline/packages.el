@@ -64,6 +64,10 @@
                 (spacemacs|add-transient-hook window-configuration-change-hook
                   (lambda ()
                     (setq spaceline-byte-compile t)
+                    ;; this must also be set in this hook because (spacemacs/compute-mode-line-height)
+                    ;; returns wrong results if it is called before the display system is initialized
+                    ;; see https://github.com/syl20bnr/spacemacs/issues/10181 for details
+                    (setq powerline-height (spacemacs/compute-mode-line-height))
                     (spaceline-compile))
                   lazy-load-spaceline)))
     (progn
@@ -105,7 +109,6 @@
              (t 'wave))
             powerline-image-apple-rgb (eq window-system 'ns)
             powerline-scale (or (spacemacs/mode-line-separator-scale) 1.5)
-            powerline-height (spacemacs/compute-mode-line-height)
             spaceline-byte-compile nil))
     :config
     (progn
