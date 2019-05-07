@@ -39,9 +39,9 @@ deploy:
     on:
       branch: develop
       condition: $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG
-      #  - provider: script
-      #    skip_cleanup: true
-      #    script: ".travisci/pub_html.sh"
-      #    on:
-      #      all_branches: true
-      #      condition: $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG
+  - provider: script
+    skip_cleanup: true
+    script: ".travisci/pub_html.sh"
+    on:
+      all_branches: true
+      condition: $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG
