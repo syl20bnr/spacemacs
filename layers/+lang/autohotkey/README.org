@@ -1,6 +1,6 @@
 #+TITLE: Autohotkey layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: dsl|layer|programming|script
 
 [[file:img/ahk.png]]
 

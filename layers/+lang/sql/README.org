@@ -1,6 +1,6 @@
 #+TITLE: SQL layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: dsl|layer|programming
 
 [[file:img/sql.png]]
 

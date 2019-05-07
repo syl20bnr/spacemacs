@@ -1,6 +1,6 @@
 #+TITLE: HTML layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: dsl|layer|markup|programming
 
 [[file:img/html.png]]
 

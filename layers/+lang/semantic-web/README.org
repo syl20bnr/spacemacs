@@ -1,6 +1,6 @@
 #+TITLE: Semantic Web layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: dsl|layer|markup|programming
 
 [[file:img/semweb.png]]
 

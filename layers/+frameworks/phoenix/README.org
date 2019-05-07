@@ -1,6 +1,6 @@
 #+TITLE: phoenix layer
 
-#+TAGS: framework|layer
+#+TAGS: framework|layer|programming
 
 [[file:img/phoenix.png]] with [[file:img/alchemist.png]]
 

@@ -1,6 +1,6 @@
 #+TITLE: ESS (R) layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: dsl|layer|programming
 
 [[file:img/r.jpg]]
 

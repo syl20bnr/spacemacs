@@ -1,6 +1,6 @@
 #+TITLE: BibTeX layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: dsl|layer|markup|programming
 
 [[file:img/logo.png]]
 

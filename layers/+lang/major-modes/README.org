@@ -1,6 +1,6 @@
 #+TITLE: Extra Languages
 
-#+TAGS: layer|programming|general|multi-paradigm|*
+#+TAGS: dsl|layer|programming
 
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]

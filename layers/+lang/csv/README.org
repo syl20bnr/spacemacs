@@ -1,6 +1,6 @@
 #+TITLE: CSV layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: dsl|layer|markup|programming
 
 [[file:img/csv.png]]
 
