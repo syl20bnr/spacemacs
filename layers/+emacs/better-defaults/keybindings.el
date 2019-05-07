@@ -10,3 +10,4 @@
 ;;; License: GPLv3
 
 (global-set-key (kbd "C-w") 'spacemacs/backward-kill-word-or-region)
+(global-set-key (kbd "M-\\") 'cycle-spacing)
