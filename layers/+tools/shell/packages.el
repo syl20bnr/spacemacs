@@ -18,6 +18,7 @@
         eshell-prompt-extras
         eshell-z
         helm
+        ivy
         magit
         multi-term
         org
@@ -150,6 +151,11 @@
       ;;shell
       (spacemacs/set-leader-keys-for-major-mode 'shell-mode
         "H" 'spacemacs/helm-shell-history))))
+
+(defun shell/pre-init-ivy ()
+  (spacemacs|use-package-add-hook ivy
+    :post-init
+    (add-hook 'eshell-mode-hook 'spacemacs/init-ivy-eshell)))
 
 (defun shell/pre-init-magit ()
   (spacemacs|use-package-add-hook magit
