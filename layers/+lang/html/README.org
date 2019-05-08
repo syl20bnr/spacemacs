@@ -8,9 +8,12 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#lsp][LSP]]
   - [[#web-beautify][web-beautify]]
   - [[#prettier][prettier]]
   - [[#choosing-a-formatter][Choosing a formatter]]
+- [[#backends][Backends]]
+  - [[#language-server-protocol][Language Server Protocol]]
 - [[#live-display-in-browser][Live display in browser]]
 - [[#key-bindings][Key bindings]]
   - [[#web-mode][Web mode]]
@@ -42,6 +45,12 @@ SCSS linting requires SCSS-Lint version >= 0.43.0. You can get it from GitHub:
   gem specific_install https://github.com/Sweetchuck/scss_lint_reporter_checkstyle.git
 #+END_SRC
 
+** LSP
+To enable the LSP set the layer variables below:
+- =css-enable-lsp=
+- =less-enable-lsp=
+- =scss-enable-lsp=
+
 ** web-beautify
 See [[file:../../+tools/web-beautify/README.org][web-beautify layer]] documentation.
 
@@ -67,6 +76,14 @@ Formatter can be chosen on a per project basis using directory local variables
 #+END_SRC
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
+
+* Backends
+** Language Server Protocol
+You have to install =vscode-css-languageserver-bin= via
+
+#+BEGIN_SRC sh
+  npm i -g vscode-css-languageserver-bin
+#+END_SRC
 
 * Live display in browser
 Use ~SPC m I~ to enable impatient mode, opening a live view of a HTML file in

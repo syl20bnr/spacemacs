@@ -48,3 +48,9 @@
   (search-backward "{")
   (while (not (looking-at "}"))
     (join-line -1)))
+
+(defun spacemacs//setup-lsp-for-stylesheet-buffers ()
+  "Start lsp-mode and configure for buffer."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (lsp)
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
