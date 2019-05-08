@@ -135,8 +135,11 @@
   (use-package eshell-z
     :defer t
     :init
-    (with-eval-after-load 'eshell
-      (require 'eshell-z))))
+    (progn
+      (setq eshell-z-freq-dir-hash-table-file-name
+            (concat spacemacs-cache-directory "eshell/.z"))
+      (with-eval-after-load 'eshell
+        (require 'eshell-z)))))
 
 (defun shell/pre-init-helm ()
   (spacemacs|use-package-add-hook helm

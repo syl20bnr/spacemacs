@@ -2130,6 +2130,8 @@ Other:
   - ~SPC m C~ switch multi-term to char mode
   - ~SPC m l~ switch multi-term to line mode
   - ~SPC m N~ go to previous multi-term
+- Moved =eshell-z-freq-dir-hash-table-file-name= into cache dir
+  (thanks to bb2020)
 **** Shell Scripts
 - Added new company-shell environment variable backend
   (thanks to Alexander-Miller)
