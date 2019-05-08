@@ -235,6 +235,6 @@ in the current buffer instead of a popup.
 
 ** Eshell
 
-| Key binding        | Description                                |
-|--------------------+--------------------------------------------|
-| ~SPC m H~ or ~M-l~ | shell commands history using a helm buffer |
+| Key binding        | Description                                       |
+|--------------------+---------------------------------------------------|
+| ~SPC m H~ or ~M-l~ | shell commands history using a helm or ivy buffer |
