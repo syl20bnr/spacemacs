@@ -17,7 +17,7 @@ This layer adds packages to improve editing with Spacemacs.
 - Support for editing files in hex format via =hexl=.
 - Deletion of consecutive horizontal whitespace with a single key
   via =hungry-delete=.
-- Support for selecting and opening links using =avy= via =link-hint=.
+- Support for selecting, copying and opening links using =avy= via =link-hint=.
 - Adding of sample text via =lorem-ipsum=.
 - Transient state for moving text via =move-text=.
 - Support for folding of code via =origami=.
