@@ -193,3 +193,5 @@ The following example configures the layout with the default name and binding:
     (notmuch :variables notmuch-spacemacs-layout-name "@Notmuch"
                         notmuch-spacemacs-layout-binding "n")))
 #+END_SRC
+
+You can open the notmuch layout with ~SPC l o~
