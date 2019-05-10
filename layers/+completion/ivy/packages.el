@@ -300,7 +300,10 @@
   (ivy-set-actions
    'spacemacs/ivy-spacemacs-layouts
    '(("c" persp-kill-without-buffers "Close layout(s)")
-     ("k" persp-kill  "Kill layout(s)")))
+     ("k" persp-kill  "Kill layout(s)")
+     ("n" persp-copy "Copy Current Layout")
+     ("p" spacemacs//create-persp-with-current-project-buffers
+      "Create Project Layout")))
   ;; TODO: better handling of C and X bindings for ivy
   ;;       check ivy/pre-init-persp-mode
   (spacemacs/transient-state-register-remove-bindings 'layouts
