@@ -18,6 +18,9 @@
         (company-rtags :requires company rtags)
         company-ycmd
         counsel-gtags
+        (cpp-auto-include
+         :location (recipe :fetcher github
+                           :repo "syohex/emacs-cpp-auto-include"))
         disaster
         flycheck
         (flycheck-rtags :requires flycheck rtags)
@@ -112,6 +115,19 @@
 (defun c-c++/post-init-counsel-gtags ()
   (dolist (mode c-c++-modes)
     (spacemacs/counsel-gtags-define-keys-for-mode mode)))
+
+(defun c-c++/init-cpp-auto-include ()
+  (use-package cpp-auto-include
+    :defer t
+    :init
+    (progn
+      (when c++-enable-organize-includes-on-save
+        (add-hook 'c++-mode-hook #'spacemacs/c++-organize-includes-on-save))
+
+      (spacemacs/declare-prefix-for-mode 'c++-mode
+        "mr" "refactor")
+      (spacemacs/set-leader-keys-for-major-mode 'c++-mode
+        "ri" #'spacemacs/c++-organize-includes))))
 
 (defun c-c++/init-disaster ()
   (use-package disaster

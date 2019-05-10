@@ -27,6 +27,7 @@
         - [[#example-dotspacemacs-configuration-layers-entry][Example dotspacemacs-configuration-layers entry]]
       - [[#completion][Completion]]
       - [[#debugger-dap-integration][Debugger (dap integration)]]
+  - [[#organize-file-header-includes-on-save][Organize file header includes on save]]
   - [[#clang-configuration][Clang Configuration]]
     - [[#clang-format][clang-format]]
     - [[#company-clang-and-flycheck][Company-clang and flycheck]]
@@ -197,6 +198,15 @@ as recommended by =cquery=/=ccls= wikis.
 **** Debugger (dap integration)
 To install the debug adapter you may run =M-x dap-gdb-lldb-setup= when you are on Linux or download it manually from [[https://marketplace.visualstudio.com/items?itemName=webfreak.debug][Native Debug]] and adjust =dap-gdb-lldb-path=.
 
+** Organize file header includes on save
+To organize the file header includes on save, set the layer variable
+=c++-enable-organize-includes-on-save= to =t= in the dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables c++-enable-organize-includes-on-save t)))
+#+END_SRC
+
 ** Clang Configuration
 To enable Clang support, set the layer variable =c-c++-enable-clang-support=
 to =t= in the dotfile:
@@ -290,6 +300,7 @@ generally applicable.
 |             | (e.g. switch between .cpp and .h, requires a project to work) |
 | ~SPC m D~   | disaster: disassemble c/c++ code                              |
 | ~SPC m r .~ | srefactor: refactor thing at point.                           |
+| ~SPC m r i~ | organize includes                                             |
 
 *Note:* [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]] is only available for Emacs 24.4+.
 

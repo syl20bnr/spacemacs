@@ -139,6 +139,22 @@ and the arguments for flyckeck-clang based on a project-specific text file."
                           idirafter-paths)))))
 
 
+;; cpp-auto-include
+
+(defalias 'spacemacs/c++-organize-includes 'cpp-auto-include)
+
+(defun spacemacs//c++-organize-includes-on-save ()
+  "Organize the includes on save when `c++-enable-organize-includes-on-save'
+is non-nil."
+  (when c++-enable-organize-includes-on-save
+    (spacemacs/c++-organize-includes)))
+
+(defun spacemacs/c++-organize-includes-on-save ()
+  "Add before-save hook for c++-organize-includes."
+  (add-hook 'before-save-hook
+            #'spacemacs//c++-organize-includes-on-save nil t))
+
+
 ;; rtags
 
 (defun spacemacs/c-c++-use-rtags (&optional useFileManager)

@@ -121,6 +121,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 ***** C-C++
 - CMake support has been extracted from the =c-c++= layer into the new =cmake=
   layer.
+- Added a feature to automatically organize the includes using
+  =cpp-auto-include=.
 ***** ESS
 - ESS key bindings were re-organised in the following list
   (thanks to Guido Kraemer, Yi Liu, and Jack Kamm):
