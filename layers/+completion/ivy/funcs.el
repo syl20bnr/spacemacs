@@ -413,6 +413,8 @@ If match is found
 \(default) Select layout
 c: Close Layout(s) <- mark with C-SPC to close more than one-window
 k: Kill Layout(s)
+n: Copy current layout
+p: Create project layout
 
 If match is not found
 <enter> Creates layout
@@ -422,13 +424,7 @@ Closing doesn't kill buffers inside the layout while killing layouts does."
   (ivy-read "Layouts: "
             (persp-names)
             :caller 'spacemacs/ivy-spacemacs-layouts
-            :action (lambda (name)
-                      (let ((persp-reset-windows-on-nil-window-conf t))
-                        (persp-switch name)
-                        (unless
-                            (member name
-                                    (persp-names-current-frame-fast-ordered))
-                          (spacemacs/home))))))
+            :action 'spacemacs//create-persp-with-home-buffer))
 
 (defun spacemacs/ivy-spacemacs-layout-buffer ()
   "Switch to layout buffer using ivy."

@@ -511,7 +511,16 @@ Other:
   - Fixed bug that could overwrites customize variables (thanks to bmag)
   - Don't suggest ~SPC q r~ if =restart-emacs= package is missing after an
     update (thanks to Keshav Kini)
-  - spacemacs-layouts: Add Projectile project buffers to new perspectives.
+  - spacemacs-layouts: Improvements to ~SPC l l~ (=spacemacs/helm-perspectives=
+    or =spacemacs/ivy-spacemacs-layouts=):
+    - If the user selects a project that does not already have a layout and then
+      quits without selecting a file or buffer, kill the new layout.
+    - When creating a new layout, add any buffers that belong to the project.
+  - spacemacs-layouts: Improvements to ~SPC p l~
+    (=spacemacs/helm-persp-switch-project= or
+    =spacemacs/ivy-persp-switch-project=):
+    - Fixed the default action to display the home buffer in the new layout.
+    - Added actions to copy the current layout or create a new project layout.
   - Resolve symlinks in warning message about duplicate layers
     (thanks to Ben Gamari)
   - Check toggle condition in status function (thanks to Eivind Fonn)
