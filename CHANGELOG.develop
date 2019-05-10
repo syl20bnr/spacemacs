@@ -2071,6 +2071,7 @@ Other:
   - ~SPC m f f b~ to find job
   - ~SPC m f f w~ to find webpack config
   - ~SPC m f c d~ to run rails destroy
+- Added =rubocopfmt=
 **** Rust
 - Added missing =counsel-gtags= and =smartparens= package declarations
   (thanks to Kalle Lindqvist)
