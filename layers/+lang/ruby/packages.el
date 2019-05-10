@@ -27,6 +27,7 @@
         robe
         rspec-mode
         rubocop
+        rubocopfmt
         ruby-hash-syntax
         (ruby-mode :location built-in :toggle (not ruby-enable-enh-ruby-mode))
         ruby-refactor
@@ -226,9 +227,20 @@
                 "Rd" 'rubocop-check-directory
                 "RD" 'rubocop-autocorrect-directory
                 "Rf" 'rubocop-check-current-file
-                "RF" 'rubocop-autocorrect-current-file
                 "Rp" 'rubocop-check-project
                 "RP" 'rubocop-autocorrect-project))))
+
+(defun ruby/init-rubocopfmt ()
+  (use-package rubocopfmt
+    :defer t
+    :init
+    (progn
+      (setq-default rubocopfmt-disabled-cops '())
+
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/declare-prefix-for-mode mode "m=" "format")
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "=r" #'rubocopfmt)))))
 
 (defun ruby/init-ruby-mode ()
   (use-package ruby-mode

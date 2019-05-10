@@ -212,6 +212,7 @@ directory local variables.
 
 | Key binding   | Description                                          |
 |---------------+------------------------------------------------------|
+| ~SPC m = r~   | Format the current buffer using RuboCop              |
 | ~SPC m R r f~ | Runs RuboCop on the currently visited file           |
 | ~SPC m R r F~ | Runs auto-correct on the currently visited file      |
 | ~SPC m R r d~ | Prompts from a directory on which to run RuboCop     |
