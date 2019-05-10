@@ -1036,6 +1036,10 @@ Other:
 - Breaking changes:
   - Moved =cmake-ide= and cmake script support to separate =cmake= layer
     (thanks to Alexander Dalshov)
+- New packages:
+  - =cpp-auto-include= Insert and delete C++ header files automatically:
+    - Added variable: =++-enable-organize-includes-on-save=
+    - Added key binding: ~SPC m r i~ organize includes
 - Improvements:
   - Added =lsp= support using either =cquery= or =ccls= backends
     (thanks to Cormac Cannon, Sergey Litovchuk and Fangrui Song)
