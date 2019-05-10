@@ -37,7 +37,8 @@
                                                  (cscope//safe-project-root)))))
         (let ((default-directory directory))
           (shell-command
-           (format "pycscope -R -f '%s'"
+           (format "%s -R -f '%s'"
+                   pycscope-binary
                    (expand-file-name "cscope.out" directory))))))))
 
 (defun cscope/init-helm-cscope ()
