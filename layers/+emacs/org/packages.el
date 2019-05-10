@@ -30,6 +30,7 @@
         org-mime
         org-pomodoro
         org-present
+        org-cliplink
         (org-projectile :requires projectile)
         (ox-epub :toggle org-enable-epub-support)
         (ox-twbs :toggle org-enable-bootstrap-support)
@@ -644,6 +645,13 @@ Headline^^            Visit entry^^               Filter^^                    Da
         (evil-normal-state))
       (add-hook 'org-present-mode-hook 'spacemacs//org-present-start)
       (add-hook 'org-present-mode-quit-hook 'spacemacs//org-present-end))))
+
+(defun org/init-org-cliplink ()
+  (use-package org-cliplink
+    :defer t
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'org-mode
+      "iL" 'org-cliplink)))
 
 (defun org/init-org-projectile ()
   (use-package org-projectile

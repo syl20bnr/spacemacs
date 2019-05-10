@@ -2146,6 +2146,7 @@ Other:
 - Moved =eshell-z-freq-dir-hash-table-file-name= into cache dir
   (thanks to bb2020)
 - Enabled ~TAB~ completion in =eshell= with =Helm= (thanks to bb2020)
+- Added ~SPC m i L~ as =org-cliplink= into =org= layer (thanks to bb2020)
 - Added =eshell= =Ivy= completion bindings (thanks to bb2020):
   - ~M-l~ =spacemacs/ivy-eshell-history=
   - ~TAB~ =spacemacs/pcomplete-std-complete=
