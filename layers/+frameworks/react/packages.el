@@ -18,6 +18,7 @@
     flycheck
     import-js
     js-doc
+    npm-and-yarn
     prettier-js
     rjsx-mode
     smartparens
@@ -51,6 +52,9 @@
 (defun react/post-init-js-doc ()
   (add-hook 'rjsx-mode-hook 'spacemacs/js-doc-require)
   (spacemacs/js-doc-set-key-bindings 'rjsx-mode))
+
+(defun react/pre-init-npm-and-yarn ()
+  (add-to-list 'spacemacs--npm-and-yarn-modes 'rjsx-mode))
 
 (defun react/init-rjsx-mode ()
   (use-package rjsx-mode

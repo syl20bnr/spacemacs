@@ -25,6 +25,7 @@
         js2-mode
         js2-refactor
         livid-mode
+        npm-and-yarn
         org
         prettier-js
         skewer-mode
@@ -61,6 +62,9 @@
 (defun javascript/post-init-impatient-mode ()
   (spacemacs/set-leader-keys-for-major-mode 'js2-mode
     "I" 'spacemacs/impatient-mode))
+
+(defun javascript/pre-init-npm-and-yarn ()
+  (add-to-list 'spacemacs--npm-and-yarn-modes 'js2-mode))
 
 (defun javascript/pre-init-org ()
   (spacemacs|use-package-add-hook org

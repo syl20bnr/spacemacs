@@ -7,6 +7,7 @@
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer introduces packages that target Node.js. Currently this layer should
@@ -14,3 +15,12 @@ not be used directly, as it will be used by other layers.
 
 ** Features:
 - Integration of packages necessary to execute node.js modules from other layers.
+
+* Key bindings
+
+| Key binding | Description                                              |
+|-------------+----------------------------------------------------------|
+| ~SPC m n i~ | install and save a package using npm                     |
+| ~SPC m n I~ | install and save a package to =devDependencies= via npm  |
+| ~SPC m y a~ | install and save a package using yarn                    |
+| ~SPC m y A~ | install and save a package to =devDependencies= via yarn |

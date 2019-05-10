@@ -15,6 +15,7 @@
         company
         eldoc
         flycheck
+        npm-and-yarn
         smartparens
         tide
         typescript-mode
@@ -44,6 +45,10 @@
     (with-eval-after-load 'flycheck
       (flycheck-add-mode 'typescript-tide 'typescript-tsx-mode)
       (flycheck-add-mode 'typescript-tslint 'typescript-tsx-mode))))
+
+(defun typescript/pre-init-npm-and-yarn ()
+  (add-to-list 'spacemacs--npm-and-yarn-modes 'typescript-mode)
+  (add-to-list 'spacemacs--npm-and-yarn-modes 'typescript-tsx-mode))
 
 (defun typescript/post-init-smartparens ()
   (if dotspacemacs-smartparens-strict-mode

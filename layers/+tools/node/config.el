@@ -13,3 +13,6 @@
 (defvar node-add-modules-path nil
   "Set to true to automatically add node modules to the path.
 Note that this may be a security liability.")
+
+(defvar spacemacs--npm-and-yarn-modes '()
+  "List of mode.")

@@ -1750,6 +1750,7 @@ Other:
 - Use add-node-modules-path to automatically find local executables
   (thanks to jupl)
 - Disabled add-node-modules-path by default (thanks to Eivind Fonn)
+- Added =npm-and-yarn= to enable to install packages in Spacemacs
 **** Notmuch
 - Try harder to find GitHub patch URL (thanks to Miciah Masters)
 **** OCaml
