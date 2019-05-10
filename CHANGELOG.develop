@@ -1313,6 +1313,7 @@ Other:
 - Key bindings:
   - Fixed key binding ~g C~ (thanks to dubnde)
   - New ~SPC m g =~ to find assignments to a symbol (thanks to dubnde)
+- Make pycscope binary configurable (thanks to Gonéri Le Bouder)
 **** CSharp
 - Improvements:
   - Enabled =flycheck= by default (thanks to Saulius Menkevičius)
