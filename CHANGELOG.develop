@@ -2137,6 +2137,7 @@ Other:
 - Moved =eshell-z-freq-dir-hash-table-file-name= into cache dir
   (thanks to bb2020)
 - Enabled ~TAB~ completion in =eshell= with =Helm= (thanks to bb2020)
+- Added ~SPC m i L~ as =org-cliplink= into =org= layer (thanks to bb2020)
 **** Shell Scripts
 - Added new company-shell environment variable backend
   (thanks to Alexander-Miller)
