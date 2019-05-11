@@ -2391,6 +2391,7 @@ Other:
 - Fixed jump handling with multiple backends (thanks to Aaron Jensen)
 - Fixed =typescript/jump-to-type-def= for npm modules (thanks to Jam Risser)
 - Added the same setup to tsx files as to ts files (thanks to Trapez Breen)
+- Configured =emmet-mode= for =typescript-tsx-mode=
 **** Vagrant
 - Key bindings:
   - move key bindings prefix to ~SPC a V~ (thanks to Thomas de Beauchêne)
