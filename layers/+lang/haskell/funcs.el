@@ -83,7 +83,7 @@
 
 (defun spacemacs-haskell//setup-dante ()
   (dante-mode)
-  (add-to-list 'spacemacs-jump-handlers-haskell-mode 'xref-find-definitions))
+  (add-to-list 'spacemacs-jump-handlers 'xref-find-definitions))
 
 (defun spacemacs-haskell//setup-dante-company ()
   (spacemacs|add-company-backends
@@ -100,7 +100,7 @@
 (defun spacemacs-haskell//setup-intero ()
   (interactive-haskell-mode)
   (intero-mode)
-  (add-to-list 'spacemacs-jump-handlers-haskell-mode 'intero-goto-definition))
+  (add-to-list 'spacemacs-jump-handlers 'intero-goto-definition))
 
 (defun spacemacs-haskell//setup-intero-company ()
   (spacemacs|add-company-backends
