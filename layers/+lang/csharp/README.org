@@ -102,6 +102,8 @@ or .sln file.
 
 ** Tests
 
-| Key binding | Description                 |
-|-------------+-----------------------------|
-| ~SPC m t b~ | Run tests in current buffer |
+| Key binding | Description                      |
+|-------------+----------------------------------|
+| ~SPC m t b~ | Run tests in current buffer      |
+| ~SPC m t t~ | Run the last executed test again |
+| ~SPC m t t~ | Run the test around point        |
