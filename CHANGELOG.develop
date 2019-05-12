@@ -1478,9 +1478,9 @@ Other:
   - ~SPC r i~ runs new =spacemacs/haskell-format-imports= function
   - ~SPC m g b~ returns from definition in =intero-mode=
     (thanks to Magnus Therning)
-- Fixed jump handlers conflict for haskell and intero (thanks to CthulhuDen)
-- Fixed haskell jump handler for dante (thanks to cjay)
 - Enable LSP mode using HIE.
+- Fixed jump handlers for =dante= and =inferno=
+  (thanks to cjay, CthulhuDen and Magnus Therning)
 **** Helm
 - Limited =ripgrep= results to 512 columns by default, and added
   =spacemacs-helm-rg-max-column-number= layer variable to configure the above
