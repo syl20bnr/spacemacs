@@ -99,14 +99,17 @@ As this state works the same for all files, the documentation is in global
 
 *** Evaluation
 
-| Key binding | Description                              |
-|-------------+------------------------------------------|
-| ~SPC m e b~ | Evaluate buffer                          |
-| ~SPC m e e~ | Evaluate last sexp                       |
-| ~SPC m e l~ | Go to end of line and evaluate last sexp |
-| ~SPC m e f~ | Evaluate top level sexp                  |
-| ~SPC m e F~ | Undefine the function at point           |
-| ~SPC m e r~ | Evaluate region                          |
+| Key binding | Description                                       |
+|-------------+---------------------------------------------------|
+| ~SPC m e b~ | Evaluate buffer                                   |
+| ~SPC m e c~ | Evaluate parent sexp of current form around point |
+| ~SPC m e C~ | Evaluate current =def= or =set= form around point |
+| ~SPC m e e~ | Evaluate last sexp                                |
+| ~SPC m e l~ | Go to end of line and evaluate last sexp          |
+| ~SPC m e f~ | Evaluate top level sexp                           |
+| ~SPC m e F~ | Undefine the function at point                    |
+| ~SPC m e r~ | Evaluate region                                   |
+| ~SPC m e s~ | Evaluate symbol around point                      |
 
 *** REPL
 
