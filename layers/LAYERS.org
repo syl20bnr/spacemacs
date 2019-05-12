@@ -88,6 +88,7 @@
 
 * Programming and markup languages
 - [[file:+lang/agda/README.org][agda]]
+- [[file:+lang/alda/README.org][alda]]
 - [[file:+lang/asciidoc/README.org][asciidoc]]
 - [[file:+lang/asm/README.org][asm]]
 - [[file:+lang/autohotkey/README.org][autohotkey]]
