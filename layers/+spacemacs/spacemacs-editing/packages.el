@@ -184,8 +184,8 @@
     :init
     (spacemacs/set-leader-keys
       "xo" 'link-hint-open-link
-      "xy" 'link-hint-copy-link
-      "xO" 'link-hint-open-multiple-links)))
+      "xO" 'link-hint-open-multiple-links
+      "xy" 'link-hint-copy-link)))
 
 (defun spacemacs-editing/init-lorem-ipsum ()
   (use-package lorem-ipsum
