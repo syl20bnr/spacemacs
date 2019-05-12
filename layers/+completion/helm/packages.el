@@ -377,8 +377,8 @@
         (message "helm-swoop cache cleaned."))
 
       (spacemacs/set-leader-keys
-        "ss"    'helm-swoop
         "sC"    'spacemacs/helm-swoop-clear-cache
+        "ss"    'helm-swoop
         "sS"    'spacemacs/helm-swoop-region-or-symbol
         "s C-s" 'helm-multi-swoop-all)
       (defadvice helm-swoop (before add-evil-jump activate)

@@ -198,6 +198,7 @@ modifications to the buffer.
 
 | Key binding | Description                    |
 |-------------+--------------------------------|
+| ~SPC s C~   | clear =helm-swoop= own cache   |
 | ~SPC s s~   | execute =helm-swoop=           |
 | ~SPC s S~   | execute =helm-multi-swoop=     |
 | ~SPC s C-s~ | execute =helm-multi-swoop-all= |
