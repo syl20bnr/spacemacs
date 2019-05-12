@@ -2,6 +2,8 @@
 
 #+TAGS: layer|uncategorized
 
+[[file:img/alda.png]]
+
 * Table of Contents                     :TOC_4_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
