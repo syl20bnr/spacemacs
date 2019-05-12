@@ -457,7 +457,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
 [_hk_] kill           [_TAB_] & go to location    [_fr_] refine by tag        [_dS_] un-schedule      [_tl_] log           [_vw_] week        [_cO_] out     [_._]  go to today
 [_hr_] refile         [_RET_] & del other windows [_fc_] by category          [_dd_] set deadline     [_ta_] archive       [_vt_] fortnight   [_cq_] cancel  [_gd_] go to date
 [_hA_] archive        [_o_]   link                [_fh_] by top headline      [_dD_] remove deadline  [_tr_] clock report  [_vm_] month       [_cj_] jump    ^^
-[_h:_] set tags       ^^                          [_fx_] by regexp            [_dt_] timestamp        [_tc_] clock issues  [_vy_] year        ^^             ^^
+[_h:_] set tags       ^^                          [_fx_] by regexp            [_dt_] timestamp        [_ti_] clock issues  [_vy_] year        ^^             ^^
 [_hp_] set priority   ^^                          [_fd_] delete all filters   [_+_]  do later         [_td_] diaries       [_vn_] next span   ^^             ^^
 ^^                    ^^                          ^^                          [_-_]  do earlier       ^^                   [_vp_] prev span   ^^             ^^
 ^^                    ^^                          ^^                          ^^                      ^^                   [_vr_] reset       ^^             ^^
@@ -503,12 +503,12 @@ Headline^^            Visit entry^^               Filter^^                    Da
         ("vr" org-agenda-reset-view)
 
         ;; Toggle mode
-        ("tf" org-agenda-follow-mode)
-        ("tl" org-agenda-log-mode)
         ("ta" org-agenda-archives-mode)
-        ("tr" org-agenda-clockreport-mode)
-        ("tc" org-agenda-show-clocking-issues)
         ("td" org-agenda-toggle-diary)
+        ("tf" org-agenda-follow-mode)
+        ("ti" org-agenda-show-clocking-issues)
+        ("tl" org-agenda-log-mode)
+        ("tr" org-agenda-clockreport-mode)
 
         ;; Filter
         ("ft" org-agenda-filter-by-tag)
