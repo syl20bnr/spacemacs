@@ -540,31 +540,40 @@ and ask you which projects you want to import.
 ** LSP Java
 *** Code intelligence shorcuts
 
-| Key binding   | Description                           |
-|---------------+---------------------------------------|
-| ~SPC m g g~   | Go to definition                      |
-| ~SPC m g r~   | Find references                       |
-| ~SPC m g R~   | Peek references using ~lsp-ui~        |
-| ~SPC m g d~   | Goto type definition                  |
-| ~SPC m g a~   | Search type in project                |
-| ~SPC m g A~   | Search type in project using ~lsp-ui~ |
-| ~SPC m h h~   | Describe thing at point               |
-| ~SPC m e l~   | List project errors/warnings          |
-| ~SPC m p u~   | Refresh user settings                 |
-| ~SPC m e a~   | Execute code action                   |
-| ~SPC m q r~   | Restart workspace                     |
-| ~SPC m r o i~ | Organize imports                      |
-| ~SPC m r r~   | Rename symbol                         |
-| ~SPC m r a i~ | Add import                            |
-| ~SPC m r a m~ | Add unimplemented methods             |
-| ~SPC m r c p~ | Create parameter                      |
-| ~SPC m r c f~ | Create field                          |
-| ~SPC m r e c~ | Extract constant                      |
-| ~SPC m r e l~ | Extract local                         |
-| ~SPC m r e m~ | Extract method                        |
-| ~SPC m c c~   | Build project                         |
-| ~SPC m a n~   | Actionable notifications              |
-| ~SPC m =~     | Format code                           |
+| Key binding   | Description                              |
+|---------------+------------------------------------------|
+| ~SPC m g g~   | Go to definition                         |
+| ~SPC m g r~   | Find references                          |
+| ~SPC m g R~   | Peek references using ~lsp-ui~           |
+| ~SPC m g d~   | Goto type definition                     |
+| ~SPC m g a~   | Search type in project                   |
+| ~SPC m g A~   | Search type in project using ~lsp-ui~    |
+| ~SPC m h h~   | Describe thing at point                  |
+| ~SPC m e l~   | List project errors/warnings             |
+| ~SPC m p u~   | Refresh user settings                    |
+| ~SPC m e a~   | Execute code action                      |
+| ~SPC m q r~   | Restart workspace                        |
+| ~SPC m r o i~ | Organize imports                         |
+| ~SPC m r r~   | Rename symbol                            |
+| ~SPC m r a i~ | Add import                               |
+| ~SPC m r a m~ | Add unimplemented methods                |
+| ~SPC m r c p~ | Create parameter                         |
+| ~SPC m r c f~ | Create field                             |
+| ~SPC m r e c~ | Extract constant                         |
+| ~SPC m r e l~ | Extract local                            |
+| ~SPC m r e m~ | Extract method                           |
+| ~SPC m r c i~ | Convert to static import                 |
+| ~SPC m r a t~ | Add throws exception                     |
+| ~SPC m r a a~ | Assign all parameters to fields          |
+| ~SPC m r a f~ | Assign parameter to field                |
+| ~SPC m r g g~ | Generate getters/setters                 |
+| ~SPC m r g e~ | Generate =equals= and =hashCode= methods |
+| ~SPC m r g t~ | Generate =toString= method               |
+| ~SPC m r g o~ | Generate method overrides                |
+| ~SPC m c c~   | Build project                            |
+| ~SPC m c p~   | Create spring boot project               |
+| ~SPC m a n~   | Actionable notifications                 |
+| ~SPC m =~     | Format code                              |
 
 *** Debugger shorcuts
 
