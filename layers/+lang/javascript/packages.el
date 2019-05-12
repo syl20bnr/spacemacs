@@ -169,12 +169,12 @@
       (spacemacs|diminish livid-mode " 🅻" " [l]"))))
 
 (defun javascript/pre-init-prettier-js ()
-  (if (eq javascript-fmt-tool 'prettier)
-      (add-to-list 'spacemacs--prettier-modes 'js2-mode)))
+  (when (eq javascript-fmt-tool 'prettier)
+    (add-to-list 'spacemacs--prettier-modes 'js2-mode)))
 
 (defun javascript/pre-init-import-js ()
-  (if (eq javascript-import-tool 'import-js)
-      (add-to-list 'spacemacs--import-js-modes (cons 'js2-mode 'js2-mode-hook))))
+  (when (eq javascript-import-tool 'import-js)
+    (add-to-list 'spacemacs--import-js-modes (cons 'js2-mode 'js2-mode-hook))))
 
 (defun javascript/init-skewer-mode ()
   (use-package skewer-mode
@@ -207,6 +207,6 @@
   (add-to-list 'tern--key-bindings-modes 'js2-mode))
 
 (defun javascript/pre-init-web-beautify ()
-  (if (eq javascript-fmt-tool 'web-beautify)
+  (when (eq javascript-fmt-tool 'web-beautify)
       (add-to-list 'spacemacs--web-beautify-modes
                    (cons 'js2-mode 'web-beautify-js))))
