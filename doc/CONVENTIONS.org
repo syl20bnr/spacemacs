@@ -342,6 +342,7 @@ share common actions that we can unite under the same key bindings:
 | ~m t A~ | execute all the tests of the current project in debug        |
 | ~m t b~ | execute all the tests of the current buffer                  |
 | ~m t B~ | execute all the tests of the current buffer in debug         |
+| ~m t l~ | execute the last executed test again                         |
 | ~m t t~ | execute the current test (thing at point, function)          |
 | ~m t T~ | execute the current test in debug (thing at point, function) |
 
