@@ -623,12 +623,12 @@ are listed bellow.
 |-------------+---------------------+-----------------------------------|
 | Entry       |                     |                                   |
 |-------------+---------------------+-----------------------------------|
+| ~h:~        | set tags            | org-agenda-set-tags               |
+| ~hA~        | archive             | org-agenda-archive-default        |
 | ~ht~        | set status          | org-agenda-todo                   |
 | ~hk~        | kill                | org-agenda-kill                   |
-| ~hR~        | refile              | org-agenda-refile                 |
-| ~hA~        | archive             | org-agenda-archive-default        |
-| ~h:~        | set tags            | org-agenda-set-tags               |
 | ~hp~        | set priority        | org-agenda-priority               |
+| ~hR~        | refile              | org-agenda-refile                 |
 |-------------+---------------------+-----------------------------------|
 | Visit entry |                     |                                   |
 |-------------+---------------------+-----------------------------------|
@@ -639,55 +639,55 @@ are listed bellow.
 |-------------+---------------------+-----------------------------------|
 | Filter      |                     |                                   |
 |-------------+---------------------+-----------------------------------|
-| ~ft~        | by tag              | org-agenda-filter-by-tag          |
-| ~fr~        | refine by tag       | org-agenda-filter-by-tag-refine   |
 | ~fc~        | by category         | org-agenda-filter-by-category     |
-| ~fh~        | by top headline     | org-agenda-filter-by-top-headline |
-| ~fx~        | by regexp           | org-agenda-filter-by-regexp       |
 | ~fd~        | delete all filters  | org-agenda-filter-remove-all      |
+| ~fh~        | by top headline     | org-agenda-filter-by-top-headline |
+| ~fr~        | refine by tag       | org-agenda-filter-by-tag-refine   |
+| ~ft~        | by tag              | org-agenda-filter-by-tag          |
+| ~fx~        | by regexp           | org-agenda-filter-by-regexp       |
 |-------------+---------------------+-----------------------------------|
 | Date        |                     |                                   |
 |-------------+---------------------+-----------------------------------|
-| ~ds~        | schedule            | org-agenda-schedule               |
-| ~dS~        | un-schedule         | org-agenda-schedule               |
-| ~dd~        | set deadline        | org-agenda-deadline               |
-| ~dD~        | remove deadline     | org-agenda-deadline               |
-| ~dt~        | timestamp           | org-agenda-date-prompt            |
 | ~+~         | do later            | org-agenda-do-date-later          |
 | ~-~         | do earlier          | org-agenda-do-date-earlier        |
+| ~dd~        | set deadline        | org-agenda-deadline               |
+| ~dD~        | remove deadline     | org-agenda-deadline               |
+| ~ds~        | schedule            | org-agenda-schedule               |
+| ~dS~        | un-schedule         | org-agenda-schedule               |
+| ~dt~        | timestamp           | org-agenda-date-prompt            |
 |-------------+---------------------+-----------------------------------|
 | Toggle      |                     |                                   |
 |-------------+---------------------+-----------------------------------|
-| ~tf~        | follow              | org-agenda-follow-mode            |
-| ~tl~        | log                 | org-agenda-log-mode               |
 | ~ta~        | archive             | org-agenda-archives-mode          |
-| ~tr~        | clock report        | org-agenda-clockreport-mode       |
 | ~tc~        | clocking issues     | org-agenda-show-clocking-issues   |
 | ~td~        | diaries             | org-agenda-toggle-diary           |
+| ~tf~        | follow              | org-agenda-follow-mode            |
+| ~tl~        | log                 | org-agenda-log-mode               |
+| ~tr~        | clock report        | org-agenda-clockreport-mode       |
 |-------------+---------------------+-----------------------------------|
 | View        |                     |                                   |
 |-------------+---------------------+-----------------------------------|
 | ~vd~        | day                 | org-agenda-day-view               |
-| ~vw~        | week                | org-agenda-week-view              |
-| ~vt~        | fortnight           | org-agenda-fortnight-view         |
 | ~vm~        | month               | org-agenda-month-view             |
-| ~vy~        | year                | org-agenda-year-view              |
 | ~vn~        | next span           | org-agenda-later                  |
 | ~vp~        | prev span           | org-agenda-earlier                |
 | ~vr~        | reset               | org-agenda-reset-view             |
+| ~vt~        | fortnight           | org-agenda-fortnight-view         |
+| ~vw~        | week                | org-agenda-week-view              |
+| ~vy~        | year                | org-agenda-year-view              |
 |-------------+---------------------+-----------------------------------|
 | Clock       |                     |                                   |
 |-------------+---------------------+-----------------------------------|
 | ~cI~        | in                  | org-agenda-clock-in               |
+| ~cj~        | jump                | org-agenda-clock-goto             |
 | ~cO~        | out                 | org-agenda-clock-out              |
 | ~cq~        | cancel              | org-agenda-clock-cancel           |
-| ~cj~        | jump                | org-agenda-clock-goto             |
 |-------------+---------------------+-----------------------------------|
 | Other       |                     |                                   |
 |-------------+---------------------+-----------------------------------|
-| ~gr~        | reload              | org-agenda-redo                   |
 | ~.~         | go to today         | org-agenda-goto-today             |
 | ~gd~        | go to date          | org-agenda-goto-date              |
+| ~gr~        | reload              | org-agenda-redo                   |
 
 ** Pomodoro
 
@@ -730,13 +730,13 @@ available for =calendar-mode= for navigating and manipulating the journal.
 
 | Key binding | Description                           |
 |-------------+---------------------------------------|
-| ~SPC m r~   | Read journal entry                    |
 | ~SPC m i~   | Insert journal entry for date         |
+| ~SPC m m~   | Search calendar month journal entries |
 | ~SPC m n~   | Next journal entry                    |
 | ~SPC m p~   | Previous journal entry                |
+| ~SPC m r~   | Read journal entry                    |
 | ~SPC m s~   | Search all journal entries            |
 | ~SPC m w~   | Search calendar week journal entries  |
-| ~SPC m m~   | Search calendar month journal entries |
 | ~SPC m y~   | Search calendar year journal entries  |
 
 While viewing a journal entry in =org-journal-mode= the following key bindings
@@ -745,8 +745,8 @@ are available.
 | Key binding | Description            |
 |-------------+------------------------|
 | ~SPC m j~   | New journal entry      |
-| ~SPC m p~   | Previous journal entry |
 | ~SPC m n~   | Next journal entry     |
+| ~SPC m p~   | Previous journal entry |
 
 ** Org-brain
 *** Application bindings
@@ -761,11 +761,11 @@ are available.
 | Key binding   | Description                  |
 |---------------+------------------------------|
 | ~SPC m B a c~ | Add child                    |
-| ~SPC m B a p~ | Add parent                   |
 | ~SPC m B a f~ | Add friend                   |
+| ~SPC m B a p~ | Add parent                   |
 | ~SPC m B g c~ | Go to child                  |
-| ~SPC m B g p~ | Go to parent                 |
 | ~SPC m B g f~ | Go to friend                 |
+| ~SPC m B g p~ | Go to parent                 |
 | ~SPC m B R~   | Refile entry                 |
 | ~SPC m B x~   | Delete entry                 |
 | ~SPC m B v~   | Visualize an org-brain entry |
@@ -776,11 +776,11 @@ are available.
 |-------------+---------------------------------------|
 | ~j / TAB~   | Goto next link                        |
 | ~k / S-TAB~ | Goto previous link                    |
-| ~c~         | Add child                             |
-| ~p~         | Add parent                            |
-| ~l~         | Add resource link                     |
 | ~C-y~       | Paste resource link                   |
 | ~a~         | Add resource [[http://orgmode.org/manual/Attachments.html][attachment]]               |
-| ~o~         | Open and edit the visualized entry    |
+| ~c~         | Add child                             |
 | ~f~         | Find/visit another entry to visualize |
+| ~l~         | Add resource link                     |
+| ~p~         | Add parent                            |
+| ~o~         | Open and edit the visualized entry    |
 | ~r~         | Rename this, or another, entry        |

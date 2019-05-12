@@ -480,27 +480,27 @@ Headline^^            Visit entry^^               Filter^^                    Da
         ("o"   link-hint-open-link :exit t)
 
         ;; Date
+        ("+" org-agenda-do-date-later)
+        ("-" org-agenda-do-date-earlier)
+        ("dd" org-agenda-deadline)
+        ("dD" (lambda () (interactive)
+                (let ((current-prefix-arg '(4)))
+                  (call-interactively 'org-agenda-deadline))))
         ("ds" org-agenda-schedule)
         ("dS" (lambda () (interactive)
                 (let ((current-prefix-arg '(4)))
                   (call-interactively 'org-agenda-schedule))))
-        ("dd" org-agenda-deadline)
         ("dt" org-agenda-date-prompt)
-        ("dD" (lambda () (interactive)
-                (let ((current-prefix-arg '(4)))
-                  (call-interactively 'org-agenda-deadline))))
-        ("+" org-agenda-do-date-later)
-        ("-" org-agenda-do-date-earlier)
 
         ;; View
         ("vd" org-agenda-day-view)
-        ("vw" org-agenda-week-view)
-        ("vt" org-agenda-fortnight-view)
         ("vm" org-agenda-month-view)
-        ("vy" org-agenda-year-view)
         ("vn" org-agenda-later)
         ("vp" org-agenda-earlier)
         ("vr" org-agenda-reset-view)
+        ("vt" org-agenda-fortnight-view)
+        ("vw" org-agenda-week-view)
+        ("vy" org-agenda-year-view)
 
         ;; Toggle mode
         ("ta" org-agenda-archives-mode)
@@ -511,12 +511,12 @@ Headline^^            Visit entry^^               Filter^^                    Da
         ("tr" org-agenda-clockreport-mode)
 
         ;; Filter
-        ("ft" org-agenda-filter-by-tag)
-        ("fr" org-agenda-filter-by-tag-refine)
         ("fc" org-agenda-filter-by-category)
-        ("fh" org-agenda-filter-by-top-headline)
-        ("fx" org-agenda-filter-by-regexp)
         ("fd" org-agenda-filter-remove-all)
+        ("fh" org-agenda-filter-by-top-headline)
+        ("fr" org-agenda-filter-by-tag-refine)
+        ("ft" org-agenda-filter-by-tag)
+        ("fx" org-agenda-filter-by-regexp)
 
         ;; Clock
         ("cI" org-agenda-clock-in :exit t)
