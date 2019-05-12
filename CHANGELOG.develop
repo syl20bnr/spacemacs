@@ -1616,6 +1616,16 @@ Other:
 - Added =.dap-breakpoints= and =.lsp-session-*= (java lsp tempfiles) to
   .gitignore (thanks to Uroš Perišić)
 - Fixed prefixes for =java-mode= and =gradle-mode=
+- New =lsp= backend keybindings
+  - ~SPC m r c i~ convert to static import
+  - ~SPC m r a t~ add throws exception
+  - ~SPC m r a a~ assign all parameters to fields
+  - ~SPC m r a f~ assign parameter to field
+  - ~SPC m r g g~ to generate getters/setters
+  - ~SPC m r g e~ to generate =equals= and =hashCode= methods
+  - ~SPC m r g t~ to generate =toString= method
+  - ~SPC m r g o~ to generate method overrides
+  - ~SPC m c p~ create spring boot project
 **** Javascript
 - Improvements:
   - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
