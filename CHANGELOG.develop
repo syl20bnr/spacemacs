@@ -498,7 +498,7 @@ Other:
     (thanks to Sylvain Benner)
   - New function =configuration-layer/load-file= to load files silently
     (thanks to Sylvain Benner)
-  - Fix configuration-layer/insert-lazy-install-configuration, which has been
+  - Fixed configuration-layer/insert-lazy-install-configuration, which has been
     broken since v0.200.0.
   - Fixed duplicate "Open quick help..." in the minibuffer at startup
     (thanks to Sylvain Benner)
@@ -955,10 +955,11 @@ Other:
   - Fixed evil surround bindings (thanks to Hoyon Mak)
   - Improved Window Manipulation Transient state (thanks to yuhan0)
   - Exclude which-key from layer sync powerline restore (thanks to Doug Wilson)
-  - Fix doom-modeline in the messages buffer (thanks to duianto)
-  - Fix void function error when recentf-save-list is undefined
+  - Fixed =doom-modeline= in the messages buffer (thanks to duianto)
+  - Fixed void function error when =recentf-save-list= is undefined
     (thanks to Compro-Prasad)
-  - =global-hl-todo-mode= prevents activation in org (thanks to Sam Pillsworth)
+  - Fixed =global-hl-todo-mode= prevents activation in =org=
+    (thanks to Sam Pillsworth)
 *** Layer changes and fixes
 **** Alda
 - Key bindings:
@@ -1010,7 +1011,7 @@ Other:
 - Improvements:
   - Added =lsp= support using either =cquery= or =ccls= backends
     (thanks to Cormac Cannon, Sergey Litovchuk and Fangrui Song)
-  - Fix =lsp= support for =ccls= server (thanks to Alexander Dalshov)
+  - Fixed =lsp= support for =ccls= server (thanks to Alexander Dalshov)
   - Added automatic formatting on save using ClangFormat with the variables
     =c-c++-enable-clang-format-on-save= and =c-c++-enable-clang-support=
     (thanks to Robbert van der Helm)
@@ -1367,7 +1368,7 @@ Other:
 - Added magit buffers to useless buffers (thanks to Thomas de Beauchêne)
 - Fixed magint blame function name (thanks to Bjarke Vad Andersen)
 - Show magit-log-select and diff in two windows (thanks to duianto)
-- Fix magit conflicting with golden-ratio (thanks Eric Zhang)
+- Fixed magit conflicting with golden-ratio (thanks Eric Zhang)
 - Hide with-editor mode-line indicator: =WE= (thanks to duianto)
 **** Go
 - Improved go test output buffer behavior (thanks to Denis Bernard)
@@ -1437,7 +1438,7 @@ Other:
   - ~SPC m g b~ returns from definition in =intero-mode=
     (thanks to Magnus Therning)
 - Fixed jump handlers conflict for haskell and intero (thanks to CthulhuDen)
-- Fix haskell jump handler for dante (thanks to cjay)
+- Fixed haskell jump handler for dante (thanks to cjay)
 - Enable LSP mode using HIE.
 **** Helm
 - Limited =ripgrep= results to 512 columns by default, and added
@@ -1558,7 +1559,7 @@ Other:
 - Added ~C-r~ keybinding for counsel-minibuffer-history (thanks to James Wang)
 - Fixed counsel search errors due to function rename (thanks to Aaron Jensen)
 - Display results count properly in prompt (thanks to yuhan0)
-- Fix typos in spacemacs/search-dir* bindings (thanks to yuhan0)
+- Fixed typos in spacemacs/search-dir* bindings (thanks to yuhan0)
 **** Imenu-list
 - Fixed key bindings (thanks to bet4it):
   - ~r~ inside imenu-list buffer to refresh
@@ -1625,7 +1626,7 @@ Other:
   - Set default value of =tern-command= to "tern"
     (thanks to Sylvain Benner and Juuso Valkeejärvi)
   - Check if =tern= exists before using it (thanks to Codruț Constantin Gușoi)
-  - Fix hook value to enable =evil-matchit= (thanks to Thanh Vuong)
+  - Fixed hook value to enable =evil-matchit= (thanks to Thanh Vuong)
 **** Keyboard layout
 - Added support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and
   Eivind Fonn)
@@ -1906,7 +1907,7 @@ Other:
     (thanks to Liu Joey)
   - Added ~M-s-h~ to hide other windows (thanks to Bas Veeling)
 - Replace pbcopy by osx-clipboard (thanks to Minh Nguyen-Hue)
-- Fix key binding issue when Emacs is launched in daemon mode.
+- Fixed key binding issue when Emacs is launched in daemon mode.
 **** Pandoc
 - Fixed =spacemacs/run-pandoc= not to reset =pandoc--local-settings=
   (thanks to martian-f)
