@@ -1583,6 +1583,7 @@ Other:
 - Fixed counsel search errors due to function rename (thanks to Aaron Jensen)
 - Display results count properly in prompt (thanks to yuhan0)
 - Fixed typos in spacemacs/search-dir* bindings (thanks to yuhan0)
+- Added =ivy-ret-visits-directory= variable (thanks to bb2020)
 **** Imenu-list
 - Fixed key bindings (thanks to bet4it):
   - ~r~ inside imenu-list buffer to refresh

@@ -209,6 +209,10 @@
       (define-key ivy-minibuffer-map [escape] 'minibuffer-keyboard-quit)
       (define-key ivy-minibuffer-map (kbd "M-SPC") 'hydra-ivy/body)
 
+      (when ivy-ret-visits-directory
+        (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
+        (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-done))
+
       (ivy-mode 1)
       (global-set-key (kbd "C-c C-r") 'ivy-resume)
       (global-set-key (kbd "<f6>") 'ivy-resume)

@@ -53,6 +53,9 @@ You can customize ivy with the following variables:
   =spacemacs/ivy--regex-plus= instead of =ivy--regex-plus= to get correct
   highlighting in the search results of =spacemacs/search-project-auto= and
   similar search commands provided by Spacemacs.
+- =ivy-ret-visits-directory= Whether ~RET~ and ~C-j~ should be swapped in ivy
+  minibuffer so ~RET~ acts like Ido and descends into directory. It is described
+  [[https://github.com/abo-abo/swiper/wiki/ido-style-folder-navigation][here]] (probably outdated). Default value is =nil=.
 
 ** Advanced buffer information
 To display more information about buffers set the layer variable
