@@ -1,10 +1,5 @@
 #+TITLE: Alda Layer
 
-* Table of Contents
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
-
 * Description
 Alda is a music composition language allowing music to easily be written and
 edited in a text file.
