@@ -33,10 +33,10 @@ When alda-mode is active in an Alda file, you can use these key bindings:
 
 | Key binding | Description                     |
 |-------------+---------------------------------|
-| ~SPC m r~   | Play region (selected text)     |
-| ~SPC m c~   | Play block (paragraph on point) |
-| ~SPC m n~   | Plays the current line          |
 | ~SPC m b~   | Play the entire buffer          |
+| ~SPC m c~   | Play block (paragraph on point) |
+| ~SPC m r~   | Play region (selected text)     |
+| ~SPC m n~   | Plays the current line          |
 
 Note that if the Alda server is not running, =alda-mode= will start the server,
 and you will have to run the command again.

@@ -24,7 +24,7 @@
     :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'alda-mode
-        "r" 'alda-play-region
+        "b" 'alda-play-buffer
         "c" 'alda-play-block
         "n" 'alda-play-line
-        "b" 'alda-play-buffer))))
+        "r" 'alda-play-region))))
