@@ -76,10 +76,10 @@ Make sure opam is initialized and configured.
 | ~SPC m g b~ | Go back to the last position where the user did a locate |
 | ~SPC m g g~ | Locate the identifier under point (same window)          |
 | ~SPC m g G~ | Locate the identifier under point (different window)     |
-| ~SPC m g o~ | List occurrences for identifier under point              |
-| ~SPC m g l~ | Prompt for identifier and locate                         |
 | ~SPC m g i~ | Prompt for module name and switch to ML file             |
 | ~SPC m g I~ | Prompt for module name and switch to MLI file            |
+| ~SPC m g l~ | Prompt for identifier and locate                         |
+| ~SPC m g o~ | List occurrences for identifier under point              |
 | ~SPC m h h~ | Document the identifier under point                      |
 | ~SPC m h t~ | Highlight identifier under cursor and print its type     |
 | ~SPC m h T~ | Prompt for expression and show its type                  |
@@ -91,6 +91,8 @@ Make sure opam is initialized and configured.
 
 | Key binding | Description                                                      |
 |-------------+------------------------------------------------------------------|
+| ~C-j~       | (in REPL) next item in history                                   |
+| ~C-k~       | (in REPL) previous item in history                               |
 | ~SPC m s b~ | Send buffer to the REPL                                          |
 | ~SPC m s B~ | Send buffer to the REPL and switch to the REPL in =insert state= |
 | ~SPC m s i~ | Start a REPL                                                     |
@@ -98,27 +100,25 @@ Make sure opam is initialized and configured.
 | ~SPC m s P~ | Send phrase to the REPL and switch to the REPL in =insert state= |
 | ~SPC m s r~ | Send region to the REPL                                          |
 | ~SPC m s R~ | Send region to the REPL and switch to the REPL in =insert state= |
-| ~C-j~       | (in REPL) next item in history                                   |
-| ~C-k~       | (in REPL) previous item in history                               |
 
 ** Dune
 
 | Key binding | Description                    |
 |-------------+--------------------------------|
 | ~SPC m c c~ | Compile.                       |
-| ~SPC m i l~ | Insert ~library~ stanza.       |
-| ~SPC m i e~ | Insert ~executable~ stanza.    |
-| ~SPC m i x~ | Insert ~executables~ stanza.   |
-| ~SPC m i r~ | Insert ~rule~ stanza.          |
-| ~SPC m i p~ | Insert ~ocamllex~ stanza.      |
-| ~SPC m i y~ | Insert ~ocamlyacc~ stanza.     |
-| ~SPC m i m~ | Insert ~menhir~ stanza.        |
 | ~SPC m i a~ | Insert ~alias~ stanza.         |
-| ~SPC m i i~ | Insert ~install~ stanza.       |
 | ~SPC m i c~ | Insert ~copyfiles~ stanza.     |
+| ~SPC m i d~ | Insert ignored subdirs stanza. |
+| ~SPC m i e~ | Insert ~executable~ stanza.    |
+| ~SPC m i i~ | Insert ~install~ stanza.       |
+| ~SPC m i l~ | Insert ~library~ stanza.       |
+| ~SPC m i m~ | Insert ~menhir~ stanza.        |
+| ~SPC m i p~ | Insert ~ocamllex~ stanza.      |
+| ~SPC m i r~ | Insert ~rule~ stanza.          |
 | ~SPC m i t~ | Insert ~tests~ stanza.         |
 | ~SPC m i v~ | Insert ~env~ stanza.           |
-| ~SPC m i d~ | Insert ignored subdirs stanza. |
+| ~SPC m i x~ | Insert ~executables~ stanza.   |
+| ~SPC m i y~ | Insert ~ocamlyacc~ stanza.     |
 | ~SPC m t p~ | Dune run tests and promote.    |
 | ~SPC m t P~ | Dune promote.                  |
 
