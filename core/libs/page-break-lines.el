@@ -91,7 +91,7 @@ is available in that variant of your font, otherwise it may be
 displayed as a junk character."
   :group 'page-break-lines)
 
-
+
 
 ;;;###autoload
 (define-minor-mode page-break-lines-mode
@@ -112,7 +112,7 @@ horizontal line of `page-break-string-char' characters."
                 display-line-numbers-mode-hook))
   (add-hook hook 'page-break-lines--update-display-tables))
 
-
+
 
 (defun page-break-lines--update-display-table (window)
   "Modify a display-table that displays page-breaks prettily.
@@ -146,7 +146,7 @@ its display table will be modified as necessary."
   (unless (minibufferp)
     (mapc 'page-break-lines--update-display-table (window-list frame 'no-minibuffer))))
 
-
+
 
 ;;;###autoload
 (defun page-break-lines-mode-maybe ()

@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 
 (spacemacs|add-toggle auto-completion
   :status
@@ -32,7 +32,7 @@
   :documentation "Enable auto-completion."
   :evil-leader "ta")
 
-
+
 ;; company backends declaration macro
 
 (defmacro spacemacs|add-company-backends (&rest props)
@@ -151,7 +151,7 @@ MODE parameter must match the :modes values used in the call to
     (append (if (consp backend) backend (list backend))
             '(:with company-yasnippet))))
 
-
+
 ;; auto-completion key bindings functions
 
 (defun spacemacs//auto-completion-set-RET-key-behavior (package)
@@ -200,7 +200,7 @@ MODE parameter must match the :modes values used in the call to
                'spacemacs//auto-completion-key-sequence-start))
             (t (message "Not yet implemented for package %S" package))))))
 
-
+
 ;; key sequence to complete selection
 
 (defvar spacemacs--auto-completion-time nil)
@@ -281,7 +281,7 @@ MODE parameter must match the :modes values used in the call to
       second-key
       spacemacs--auto-completion-shadowed-hybrid-binding)))
 
-
+
 ;; Editing style
 
 (defun spacemacs//company-active-navigation (style)
@@ -301,7 +301,7 @@ MODE parameter must match the :modes values used in the call to
       (define-key map (kbd "C-n") 'company-select-next)
       (define-key map (kbd "C-p") 'company-select-previous)))))
 
-
+
 ;; Transformers
 
 (defun spacemacs//company-transformer-cancel (candidates)
@@ -310,7 +310,7 @@ MODE parameter must match the :modes values used in the call to
   (unless (member company-prefix company-mode-completion-cancel-keywords)
     candidates))
 
-
+
 
 (defvar-local company-fci-mode-on-p nil)
 
@@ -322,7 +322,7 @@ MODE parameter must match the :modes values used in the call to
 (defun company-maybe-turn-on-fci (&rest ignore)
   (when company-fci-mode-on-p (fci-mode 1)))
 
-
+
 ;; helm-yas
 
 (defun spacemacs/helm-yas ()
@@ -332,7 +332,7 @@ MODE parameter must match the :modes values used in the call to
   (require 'helm-c-yasnippet)
   (call-interactively 'helm-yas-complete))
 
-
+
 ;; ivy-yas
 
 (defun spacemacs/ivy-yas ()
@@ -342,7 +342,7 @@ MODE parameter must match the :modes values used in the call to
   (require 'ivy-yasnippet)
   (call-interactively 'ivy-yasnippet))
 
-
+
 ;; Yasnippet
 
 (defun spacemacs/load-yasnippet ()
@@ -353,7 +353,7 @@ MODE parameter must match the :modes values used in the call to
   (yas-minor-mode -1)
   (setq yas-dont-activate t))
 
-
+
 ;; Auto-Yasnippet
 
 (defun spacemacs/auto-yasnippet-expand ()
@@ -362,7 +362,7 @@ MODE parameter must match the :modes values used in the call to
   (call-interactively 'aya-expand)
   (evil-insert-state))
 
-
+
 ;; Yasnippet and Smartparens
 
 ;; If enabled, smartparens will mess snippets expanded by `hippie-expand`.

@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; shebang
 
 (defun spacemacs/insert-shebang ()

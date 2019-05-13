@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; rbenv
 
 (defun spacemacs//enable-rbenv ()
@@ -26,7 +26,7 @@
                            "from .ruby-version file.")))
       (message "[rbenv] Using the currently activated ruby."))))
 
-
+
 ;; rspec
 
 (defun spacemacs//ruby-enable-rspec-mode ()
@@ -44,7 +44,7 @@ Called interactively it prompts for a directory."
   "Automatically enters inf-ruby-mode in ruby modes' debugger breakpoints."
   (add-hook 'compilation-filter-hook 'inf-ruby-auto-enter nil t))
 
-
+
 ;; ruby-test
 
 (defun spacemacs//ruby-enable-ruby-test-mode ()
@@ -52,7 +52,7 @@ Called interactively it prompts for a directory."
   (when (eq 'ruby-test ruby-test-runner)
     (ruby-test-mode)))
 
-
+
 ;; minitest
 
 (defun spacemacs//ruby-enable-minitest-mode ()
@@ -60,7 +60,7 @@ Called interactively it prompts for a directory."
   (when (eq 'minitest ruby-test-runner)
     (minitest-enable-appropriate-mode)))
 
-
+
 ;; highlight debugger keywords
 
 (defun spacemacs/ruby-maybe-highlight-debugger-keywords ()

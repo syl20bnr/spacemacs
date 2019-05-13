@@ -331,7 +331,7 @@ current frame."
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
 
-
+
 ;; Generalized next-error system ("gne")
 
 (defun spacemacs/error-delegate ()

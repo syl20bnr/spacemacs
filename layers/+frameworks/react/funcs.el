@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; Backend
 (defun spacemacs//react-setup-backend ()
   "Conditionally setup react backend."
@@ -23,7 +23,7 @@
     (`tern (spacemacs/tern-setup-tern-company 'rjsx-mode))
     (`lsp (spacemacs//react-setup-lsp-company))))
 
-
+
 ;; LSP
 (defun spacemacs//react-setup-lsp ()
   "Setup lsp backend."
@@ -45,14 +45,14 @@
         (fix-lsp-company-prefix))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
-
+
 ;; Emmet
 (defun spacemacs/react-emmet-mode ()
   "Activate `emmet-mode' and configure it for local buffer."
   (emmet-mode)
   (setq-local emmet-expand-jsx-className? t))
 
-
+
 ;; Others
 (defun spacemacs//react-inside-string-q ()
   "Returns non-nil if inside string, else nil.

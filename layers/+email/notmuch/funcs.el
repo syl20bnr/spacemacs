@@ -60,7 +60,7 @@
   (let ((current-prefix-arg '(4)))
     (call-interactively 'notmuch-show-open-or-close-all)))
 
-
+
 ;; git
 
 (defun spacemacs/notmuch-git-apply-patch (entire-thread)
@@ -79,7 +79,7 @@ messages in the current thread"
      (lambda ()
        (mm-pipe-part (notmuch-show-current-part-handle mime-type) "git am")))))
 
-
+
 ;; GitHub
 
 ;; Thanks to Kyle Meyer (@kyleam)
@@ -113,7 +113,7 @@ messages in the current thread"
   (with-current-notmuch-show-message
    (spacemacs//notmuch-open-github-patch (current-buffer))))
 
-
+
 ;; persp
 
 (defun spacemacs//notmuch-persp-filter-save-buffers-function (buffer)

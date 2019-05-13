@@ -60,7 +60,7 @@
     (`ensime (spacemacs//java-setup-ensime-eldoc))))
 
 
-
+
 ;; ensime
 
 (autoload 'ensime-config-find-file "ensime-config")
@@ -179,7 +179,7 @@
   (interactive)
   (ensime-type-at-point '(4) t))
 
-
+
 ;; eclim
 
 (defun spacemacs//java-setup-eclim ()
@@ -225,7 +225,7 @@
     (when (s-matches? (buffer-substring (- curr 2) (- curr 1)) ":")
       (company-emacs-eclim 'interactive))))
 
-
+
 ;; meghanada
 
 (defun spacemacs//java-setup-meghanada ()
@@ -257,7 +257,7 @@
   "Return non-nil if the Meghanada server is up."
   (and meghanada--client-process (process-live-p meghanada--client-process)))
 
-
+
 ;; Maven
 
 (defun spacemacs/mvn-clean-compile ()
@@ -266,7 +266,7 @@
   (mvn-clean)
   (mvn-compile))
 
-
+
 ;; Gradle
 
 (defun spacemacs/gradle-clean ()
@@ -284,7 +284,7 @@
   (interactive)
   (gradle-single-test (file-name-base (buffer-file-name))))
 
-
+
 ;; Misc
 
 (defun spacemacs//java-delete-horizontal-space ()
@@ -292,7 +292,7 @@
                     (buffer-substring (line-beginning-position) (point)))
     (delete-horizontal-space t)))
 
-
+
 ;; LSP Java
 
 (defun spacemacs//java-setup-lsp ()

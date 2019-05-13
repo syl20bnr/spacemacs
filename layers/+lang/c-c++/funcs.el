@@ -16,7 +16,7 @@
   "Toggle auto-newline."
   (c-toggle-auto-newline 1))
 
-
+
 ;; clang
 
 (defun spacemacs/clang-format-function (&optional style)
@@ -138,7 +138,7 @@ and the arguments for flyckeck-clang based on a project-specific text file."
                             (spacemacs//c-c++-get-standard-include-paths "c"))
                           idirafter-paths)))))
 
-
+
 ;; rtags
 
 (defun spacemacs/c-c++-use-rtags (&optional useFileManager)

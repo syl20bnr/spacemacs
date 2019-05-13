@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; REPL
 
 (defun spacemacs/groovy-send-region-switch (start end)

@@ -17,7 +17,7 @@
         spaceline
         (counsel-projectile :requires projectile)))
 
-
+
 
 (defun spacemacs-layouts/init-eyebrowse ()
   (use-package eyebrowse
@@ -100,20 +100,20 @@
       (define-key evil-motion-state-map "gt" 'eyebrowse-next-window-config)
       (define-key evil-motion-state-map "gT" 'eyebrowse-prev-window-config))))
 
-
+
 
 (defun spacemacs-layouts/post-init-helm ()
   (spacemacs/set-leader-keys
     "bB" 'spacemacs-layouts/non-restricted-buffer-list-helm
     "pl" 'spacemacs/helm-persp-switch-project))
 
-
+
 
 (defun spacemacs-layouts/post-init-ivy ()
   (spacemacs/set-leader-keys
     "bB" 'spacemacs-layouts/non-restricted-buffer-list-ivy))
 
- 
+
 
 (defun spacemacs-layouts/init-persp-mode ()
   (use-package persp-mode
@@ -225,13 +225,13 @@
         "ba"   'persp-add-buffer
         "br"   'persp-remove-buffer))))
 
-
+
 
 (defun spacemacs-layouts/post-init-spaceline ()
   (setq spaceline-display-default-perspective
         dotspacemacs-display-default-layout))
 
-
+
 
 (defun spacemacs-layouts/init-counsel-projectile ()
   (use-package counsel-projectile

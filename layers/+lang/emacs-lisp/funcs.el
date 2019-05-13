@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 
 ;; Idea from http://www.reddit.com/r/emacs/comments/312ge1/i_created_this_function_because_i_was_tired_of/
 (defun spacemacs/eval-current-form ()
@@ -31,7 +31,7 @@ Unlike `eval-defun', this does not go to topmost function."
         (find-variable-other-window symb)
       (find-function-at-point))))
 
-
+
 ;; edebug
 
 (defun spacemacs/edebug-instrument-defun-on ()
@@ -73,7 +73,7 @@ Unlike `eval-defun', this does not go to topmost function."
                  golden-ratio-mode)
         (golden-ratio)))))
 
-
+
 ;; smartparens integration
 
 (defun spacemacs/eval-current-form-sp (&optional arg)
@@ -106,7 +106,7 @@ Requires smartparens because all movement is done using `sp-forward-symbol'."
       (sp-forward-symbol)
       (call-interactively 'eval-last-sexp))))
 
-
+
 ;; elisp comment text-object definition
 
 (defun spacemacs//define-elisp-comment-text-object ()

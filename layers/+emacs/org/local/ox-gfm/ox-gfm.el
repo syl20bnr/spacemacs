@@ -31,7 +31,7 @@
 (require 'ox-md)
 
 
-
+
 ;;; User-Configurable Variables
 
 (defgroup org-export-gfm nil
@@ -41,7 +41,7 @@
   :version "24.4"
   :package-version '(Org . "8.0"))
 
-
+
 ;;; Define Back-End
 
 (org-export-define-derived-backend 'gfm 'md
@@ -61,7 +61,7 @@
                      (src-block . org-gfm-src-block)))
 
 
-
+
 ;;; Transcode Functions
 
 ;;;; Src Block
@@ -116,7 +116,7 @@ holding export options."
     (concat toc-string toc-tail contents)))
 
 
-
+
 ;;; Interactive function
 
 ;;;###autoload

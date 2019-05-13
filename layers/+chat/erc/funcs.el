@@ -26,7 +26,7 @@
       (erc//servers erc-server-list)
     (message "You must define erc-server-list")))
 
-
+
 ;; persp
 
 (defun spacemacs//erc-persp-filter-save-buffers-function (buffer)

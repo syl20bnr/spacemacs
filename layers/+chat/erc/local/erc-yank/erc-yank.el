@@ -22,7 +22,7 @@
 ;; along with GNU Emacs; see the file COPYING.  If not, write to the
 ;; Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 ;; Boston, MA 02111-1307, USA.
-
+
 ;;; Commentary:
 
 ;; Automagically create a Gist if pasting more than 5 lines.
@@ -42,7 +42,7 @@
 ;;       (bind-key "C-y" 'erc-yank erc-mode-map)))
 ;;
 ;; This module requires gist.el, from: https://github.com/defunkt/gist.el
-
+
 ;;; Code:
 
 (require 'gist)

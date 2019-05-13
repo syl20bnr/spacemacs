@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; rainbow-identifiers
 
 (defun colors//rainbow-identifiers-mode-maybe ()

@@ -48,7 +48,7 @@
     (start-process "beep-process" nil player sound)))
 
 
-
+
 ;; persp
 
 (defun spacemacs//rcirc-persp-filter-save-buffers-function (buffer)
@@ -61,7 +61,7 @@
   (persp-add-buffer (current-buffer) (persp-get-by-name
                                       rcirc-spacemacs-layout-name)))
 
-
+
 ;; logging
 
 (defun spacemacs//rcirc-write-log (process sender response target text)
@@ -88,7 +88,7 @@
                         t 'quietly))))))
 
 
-
+
 ;; emms
 
 (defun spacemacs/rcirc-insert-current-emms-track ()
@@ -96,7 +96,7 @@
   (insert (emms-track-description (emms-playlist-current-selected-track))))
 
 
-
+
 ;; authinfo
 
 (defun spacemacs//rcirc-authinfo-config ()
@@ -115,7 +115,7 @@ This doesn't support the chanserv auth method. "
              (if (functionp secret) (funcall secret) secret))))))
 
 
-
+
 ;; ZNC with authinfo
 
 (defun spacemacs//znc-auth-source-fetch-password (server)

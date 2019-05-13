@@ -67,7 +67,7 @@ Otherwise, revert to the default behavior (i.e. enable `evil-insert-state')."
       (linum-mode))
   (linum-relative-toggle))
 
-
+
 ;; vi-tilde-fringe
 
 (defun spacemacs/disable-vi-tilde-fringe ()
@@ -79,7 +79,7 @@ Otherwise, revert to the default behavior (i.e. enable `evil-insert-state')."
   (when buffer-read-only
     (spacemacs/disable-vi-tilde-fringe)))
 
-
+
 ;; lisp state
 
 (defun spacemacs//load-evil-lisp-state ()

@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; ace-window
 
 (defun spacemacs/ace-delete-window (&optional arg)
@@ -37,7 +37,7 @@ If the universal prefix argument is used then kill also the window."
        (with-selected-window window
          (spacemacs/kill-this-buffer arg))))))
 
-
+
 ;; auto-highlight symbol
 
 (defun spacemacs/goto-last-searched-ahs-symbol ()
@@ -197,7 +197,7 @@ If the universal prefix argument is used then kill also the window."
    (format spacemacs--symbol-highlight-transient-state-doc
            (spacemacs//symbol-highlight-doc))))
 
-
+
 ;; symbol overlay
 
 (defun spacemacs/symbol-overlay ()
@@ -230,7 +230,7 @@ If the universal prefix argument is used then kill also the window."
    (format spacemacs--symbol-overlay-transient-state-doc
            (spacemacs//symbol-overlay-doc))))
 
-
+
 ;; golden ratio
 
 (defun spacemacs/no-golden-ratio-for-buffers (bufname)
@@ -242,7 +242,7 @@ If the universal prefix argument is used then kill also the window."
   (or (spacemacs/no-golden-ratio-for-buffers " *guide-key*")
       (spacemacs/no-golden-ratio-for-buffers " *popwin-dummy*")))
 
-
+
 ;; smooth scrolling
 
 (defun spacemacs/enable-smooth-scrolling ()
@@ -255,7 +255,7 @@ If the universal prefix argument is used then kill also the window."
   (interactive)
   (setq scroll-conservatively 0))
 
-
+
 ;; ace-link
 
 (defvar spacemacs--link-pattern "~?/.+\\|\s\\[")
@@ -281,7 +281,7 @@ If the universal prefix argument is used then kill also the window."
       (goto-char (1+ res))
       (widget-button-press (point)))))
 
-
+
 ;; doc-view
 
 (defun spacemacs/doc-view-search-new-query ()
@@ -302,7 +302,7 @@ If the universal prefix argument is used then kill also the window."
       (doc-view-last-page)
     (doc-view-goto-page count)))
 
-
+
 ;; junk-file
 
 (defun spacemacs/open-junk-file (&optional arg)
@@ -331,7 +331,7 @@ When ARG is non-nil search in junk files."
            (let (helm-ff-newfile-prompt-p)
              (helm-find-files-1 fname))))))
 
-
+
 ;; paradox
 
 (defun spacemacs/paradox-list-packages ()
@@ -353,7 +353,7 @@ When ARG is non-nil search in junk files."
                                      paradox-token)))))
   (paradox-list-packages nil))
 
-
+
 ;; restart-emacs
 
 (defun spacemacs/restart-emacs (&optional args)

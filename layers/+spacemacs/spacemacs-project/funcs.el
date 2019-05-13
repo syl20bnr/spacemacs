@@ -65,7 +65,7 @@ Returns:
                             (1+ (current-column))
                           (current-column))))))
 
-
+
 (defun spacemacs/projectile-copy-directory-path ()
   "Copy and show the directory path relative to project root.
 

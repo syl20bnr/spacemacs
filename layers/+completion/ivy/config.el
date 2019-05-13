@@ -10,13 +10,13 @@
 ;;; License: GPLv3
 
 
-
+
 ;; Layer Variables
 
 (defvar ivy-enable-advanced-buffer-information nil
   "If non-nil, enable `ivy-rich' which adds information on buffers.")
 
-
+
 ;; Private Variables
 
 (defvar spacemacs--counsel-commands

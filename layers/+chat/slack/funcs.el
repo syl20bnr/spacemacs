@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; persp
 
 (defun spacemacs//slack-persp-filter-save-buffers-function (buffer)

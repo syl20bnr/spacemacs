@@ -15,7 +15,7 @@
   (let ((msg (format "Spacemacs v.%s" spacemacs-version)))
     (message msg) (kill-new msg)))
 
-
+
 ;; startup debug
 
 (require 'profiler)
@@ -149,7 +149,7 @@ seconds to load")
   ;; Keep debug-on-error on for stuff that is lazily loaded
   (add-hook 'after-init-hook (lambda () (setq debug-on-error t))))
 
-
+
 ;; Report issue
 
 (defun spacemacs//describe-system-info-string ()

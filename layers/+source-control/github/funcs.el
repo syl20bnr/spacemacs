@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; Forge
 
 (defun spacemacs/forge-get-info-from-fetched-notification-error (err)

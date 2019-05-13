@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; Helm
 
 (defvar helm-use-fuzzy (spacemacs|dotspacemacs-backward-compatibility

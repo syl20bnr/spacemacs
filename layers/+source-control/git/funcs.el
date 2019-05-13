@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; magit
 
 (defun spacemacs/magit-toggle-whitespace ()

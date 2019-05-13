@@ -17,7 +17,7 @@
 
         ;; ghci completion backend
         (company-ghci :requires company)
-         
+
         ;; ghc-mod completion backend
         (company-ghc :requires company)
         ghc

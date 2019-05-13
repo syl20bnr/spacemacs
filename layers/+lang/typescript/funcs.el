@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; backend
 
 (defun spacemacs//typescript-setup-backend ()
@@ -30,7 +30,7 @@
     (`tide (spacemacs//typescript-setup-tide-eldoc))
     (`lsp (spacemacs//typescript-setup-lsp-eldoc))))
 
-
+
 ;; tide
 
 (defun spacemacs//typescript-setup-tide ()
@@ -55,7 +55,7 @@
   "Setup eldoc for tide."
   (eldoc-mode))
 
-
+
 ;; lsp
 
 (defun spacemacs//typescript-setup-lsp ()
@@ -84,7 +84,7 @@
   "Setup eldoc for LSP."
   (eldoc-mode))
 
-
+
 ;; Others
 
 (defun spacemacs/typescript-tsfmt-format-buffer ()

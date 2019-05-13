@@ -10,7 +10,7 @@
 ;;; License: GPLv3
 
 
-
+
 
 (defun spacemacs/state-color-face (state)
   "Return the symbol of the face for the given STATE."
@@ -180,7 +180,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
     (cl-loop for (mode uni nouni) in spacemacs--diminished-minor-modes
              do (diminish mode (if unicodep uni nouni)))))
 
-
+
 
 (defun spacemacs//hydra-key-doc-function (key key-width doc doc-width)
   "Custom hint documentation format for keys."

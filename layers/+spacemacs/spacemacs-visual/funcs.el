@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; ansi-colors
 
 (defun spacemacs-visual//compilation-buffer-apply-ansi-colors ()
@@ -17,7 +17,7 @@
     (goto-char compilation-filter-start)
     (ansi-color-apply-on-region (line-beginning-position) (point-max))))
 
-
+
 ;; popwin
 
 (defun spacemacs/remove-popwin-display-config (str)
@@ -27,7 +27,7 @@
                                  (string-match str (car x))))
                  popwin:special-display-config)))
 
-
+
 ;; zoom
 
 (defun spacemacs//zoom-frm-powerline-reset ()

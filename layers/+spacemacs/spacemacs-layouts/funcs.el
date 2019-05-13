@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; General Persp functions
 
 (defun spacemacs//activate-persp-mode ()
@@ -80,7 +80,7 @@ Cancels autosave on exiting perspectives mode."
   (let ((ivy-ignore-buffers (remove #'spacemacs//layout-not-contains-buffer-p ivy-ignore-buffers)))
     (ivy-switch-buffer)))
 
-
+
 ;; Persp transient-state
 
 (defvar spacemacs--persp-display-buffers-func 'ignore
@@ -239,7 +239,7 @@ ask the user if a new layout should be created."
                            (spacemacs//current-layout-name)
                            persp-names-cache)))
 
-
+
 ;; Custom Persp transient-state
 
 (defun spacemacs//custom-layout-func-name (name)
@@ -327,7 +327,7 @@ format so they are supported by the
              :bindings
              ,@bindings))))
 
-
+
 ;; Persp and Projectile integration
 
 (defmacro spacemacs||switch-layout (name &rest props)
@@ -386,7 +386,7 @@ the new perspective will be killed."
              ,@body)
          (quit (persp-kill-without-buffers ,name))))))
 
-
+
 ;; Helm and Ivy common functions
 
 (defun spacemacs//create-persp-with-home-buffer (name)
@@ -397,7 +397,7 @@ the Spacemacs home buffer.  If the perspective already exists,
 just switch to it."
   (spacemacs||switch-layout name :init (spacemacs/home)))
 
-
+
 ;; Helm integration
 
 (defun spacemacs/persp-helm-mini ()
@@ -506,7 +506,7 @@ perspectives does."
                 spacemacs//helm-persp-switch-project-action)))
    :buffer "*Helm Projectile Layouts*"))
 
-
+
 ;; Ivy integration
 (defun spacemacs//ivy-persp-switch-project-action (project)
   "Default action for `spacemacs/ivy-persp-switch-project'."
@@ -525,7 +525,7 @@ perspectives does."
             :action #'spacemacs//ivy-persp-switch-project-action
             :caller 'spacemacs/ivy-persp-switch-project))
 
-
+
 ;; Eyebrowse
 
 ;; Eyebrowse uses window-state objects (as returned by `window-state-get') to
@@ -624,7 +624,7 @@ STATE is a window-state object as returned by `window-state-get'."
                            display-buffer-same-window)
                           (inhibit-same-window . nil))))
 
-
+
 ;; Eyebrowse transient state
 
 (defun spacemacs//workspaces-ts-toggle-hint ()
@@ -663,7 +663,7 @@ STATE is a window-state object as returned by `window-state-get'."
              (propertize "?" 'face 'hydra-face-red)
              "] help)"))))
 
-
+
 ;; Eyebrowse and Persp integration
 
 (defun spacemacs//get-persp-workspace (&optional persp frame)

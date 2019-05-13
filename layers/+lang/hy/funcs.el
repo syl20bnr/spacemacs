@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; REPL
 
 (defun spacemacs/hy-shell-eval-buffer-and-go ()

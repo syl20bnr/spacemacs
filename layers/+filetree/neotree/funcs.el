@@ -60,7 +60,7 @@
   (when (get-buffer-window (neo-global--get-buffer))
     (neo-global--attach)))
 
-
+
 ;; winum
 
 (defun spacemacs//winum-neotree-assign-func ()

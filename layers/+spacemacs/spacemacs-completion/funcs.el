@@ -10,7 +10,7 @@
 ;;; License: GPLv3
 
 
-
+
 ;; Helm
 
 (defun spacemacs/helm-faces ()
@@ -186,7 +186,7 @@ See https://github.com/syl20bnr/spacemacs/issues/3700"
   (call-interactively 'helm-select-action)
   (spacemacs//helm-navigation-ts-set-face))
 
-
+
 ;; Ivy
 
 (defun spacemacs//ivy-hjkl-navigation (style)
@@ -212,7 +212,7 @@ See https://github.com/syl20bnr/spacemacs/issues/3700"
 (defun spacemacs//ivy-matcher-desc ()
   (replace-regexp-in-string "ivy--" "" (format "%s" ivy--regex-function)))
 
-
+
 ;; Ido
 
 (defun spacemacs//ido-minibuffer-setup ()

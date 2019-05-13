@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; eyebrowse integration
 
 (defun spacemacs/window-purpose-sync-eyebrowse ()
@@ -43,7 +43,7 @@ windows correctly."
   ;; buffer)
   (delete-other-windows))
 
-
+
 ;; Popwin integration
 
 (defun spacemacs/window-purpose-sync-popwin ()

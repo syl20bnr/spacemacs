@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; Helm integration
 
 (defun spacemacs//slime-helm-source (&optional table)
@@ -24,7 +24,7 @@
   (let ((command (helm :sources (spacemacs//slime-helm-source))))
     (and command (slime (intern command)))))
 
-
+
 ;; Evil integration
 
 (defun spacemacs/slime-eval-sexp-end-of-line ()
@@ -33,7 +33,7 @@
   (move-end-of-line 1)
   (slime-eval-last-expression))
 
-
+
 
 ;; Functions are taken from the elisp layer `eval-last-sexp' was replaced with
 ;; its slime equivalent `slime-eval-last-expression'

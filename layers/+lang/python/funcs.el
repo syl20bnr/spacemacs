@@ -28,7 +28,7 @@
     ;; lsp setup eldoc on its own
     (`anaconda (spacemacs//python-setup-anaconda-eldoc))))
 
-
+
 ;; anaconda
 
 (defun spacemacs//python-setup-anaconda ()
@@ -56,7 +56,7 @@
   (forward-button 1)
   (call-interactively #'push-button))
 
-
+
 ;; lsp
 
 (defun spacemacs//python-setup-lsp ()
@@ -83,7 +83,7 @@
         (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
-
+
 ;; others
 
 (defun spacemacs//python-default ()
@@ -229,7 +229,7 @@ as the pyenv version then also return nil. This works around https://github.com/
             (pyvenv-activate virtualenv)
           (pyvenv-workon virtualenv))))))
 
-
+
 ;; Tests
 
 (defun spacemacs//python-imenu-create-index-use-semantic-maybe ()
@@ -345,7 +345,7 @@ to be called for each testrunner. "
              (derived-mode-p 'python-mode))
     (py-isort-before-save)))
 
-
+
 ;; Formatters
 
 (defun spacemacs//bind-python-formatter-keys ()
@@ -359,7 +359,7 @@ to be called for each testrunner. "
     (`black (blacken-buffer))
     (code (message "Unknown formatter: %S" code))))
 
-
+
 ;; REPL
 
 (defun spacemacs//inferior-python-setup-hook ()

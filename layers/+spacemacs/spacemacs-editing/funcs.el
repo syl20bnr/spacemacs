@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; smartparens
 
 (defun spacemacs/smartparens-pair-newline (id action context)
@@ -72,7 +72,7 @@ or `sp-local-pair'."
                       :background nil
                       :foreground nil))
 
-
+
 ;; uuidgen
 ;; TODO spacemacs/uuidgen-3 and spacemacs/uuidgen-5
 

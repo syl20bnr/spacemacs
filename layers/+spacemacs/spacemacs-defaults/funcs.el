@@ -521,7 +521,7 @@ If the universal prefix argument is used then will the windows too."
             (if dedicated "no longer " "")
             (buffer-name))))
 
-
+
 ;; Copy file path
 
 (defun spacemacs--directory-path ()
@@ -625,7 +625,7 @@ variable."
       (message "%s" (kill-new file-path))
     (message "WARNING: Current buffer is not attached to a file!")))
 
-
+
 
 ;; adapted from bozhidar
 ;; http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/
@@ -706,7 +706,7 @@ in a new frame."
   (split-window-horizontally)
   (other-window 1))
 
-
+
 ;; Window Split
 
 (defun spacemacs--window-split-splittable-windows ()
@@ -847,7 +847,7 @@ to remove windows, regardless of the value in `spacemacs-window-split-delete-fun
     (funcall spacemacs-window-split-delete-function))
   (balance-windows))
 
-
+
 
 (defun spacemacs/insert-line-above-no-indent (count)
   "Insert a new line above with no indentation."
@@ -1402,7 +1402,7 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
   (when compilation-last-buffer
     (delete-windows-on compilation-last-buffer)))
 
-
+
 ;; Line number
 
 (defun spacemacs/no-linum (&rest ignore)

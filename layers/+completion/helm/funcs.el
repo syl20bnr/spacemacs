@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 
 (defvar spacemacs--helm-popwin-mode nil
   "Temp variable to store `popwin-mode''s value.")
@@ -39,7 +39,7 @@
     (popwin-mode))
   (setq display-buffer-alist spacemacs-display-buffer-alist))
 
-
+
 ;; REPLs integration
 
 (defun helm-available-repls ()
@@ -57,7 +57,7 @@
 
 
 
-
+
 ;; Search tools integration
 
 (defun spacemacs//helm-do-ag-region-or-symbol (func &optional dir)
@@ -517,7 +517,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
     (set-text-properties 0 (length input) nil input)
     (helm-find-files-1 input)))
 
- ;; Key bindings
+ ;; Key bindings
 
 (defmacro spacemacs||set-helm-key (keys func)
   "Define a key bindings for FUNC using KEYS.
@@ -532,7 +532,7 @@ Ensure that helm is required before calling FUNC."
          (call-interactively ',func))
        (spacemacs/set-leader-keys ,keys ',func-name))))
 
- ;; Find files tweaks
+ ;; Find files tweaks
 
 (defun spacemacs//helm-find-files-edit (candidate)
   "Opens a dired buffer and immediately switches to editable mode."
@@ -588,7 +588,7 @@ to buffers)."
             (buffers (mapcar 'find-file-noselect files)))
        (spacemacs//helm-open-buffers-in-windows buffers)))))
 
-
+
 ;; Generalized next-error interface
 
 (defun spacemacs//gne-init-helm-ag (&rest args)
@@ -615,7 +615,7 @@ to buffers)."
           spacemacs--gne-line-func 'helm-grep-action
           next-error-function 'spacemacs/gne-next)))
 
-
+
 ;; theme
 
 (defun spacemacs/helm-themes ()

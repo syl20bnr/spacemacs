@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; elm-mode
 
 (defun spacemacs/elm-compile-buffer-output ()

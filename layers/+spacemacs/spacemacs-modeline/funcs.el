@@ -29,7 +29,7 @@ Return nil if no scale is defined."
     (when (listp dotspacemacs-mode-line-theme)
       (plist-get (cdr dotspacemacs-mode-line-theme) :separator-scale))))
 
-
+
 ;; spaceline
 
 (defun spacemacs/customize-powerline-faces ()
@@ -72,7 +72,7 @@ Excluding which-key."
                           (if ascii ascii unicode))))
               (diminish mode dim))))))))
 
-
+
 ;; Vim powerline
 
 (defun spacemacs//set-vimish-powerline-for-startup-buffers ()

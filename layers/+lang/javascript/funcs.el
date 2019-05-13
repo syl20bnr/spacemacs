@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 ;; backend
 
 (defun spacemacs//javascript-setup-backend ()
@@ -24,7 +24,7 @@
     (`tern (spacemacs//javascript-setup-tern-company))
     (`lsp (spacemacs//javascript-setup-lsp-company))))
 
-
+
 ;; lsp
 
 (defun spacemacs//javascript-setup-lsp ()
@@ -55,7 +55,7 @@
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
 
-
+
 ;; tern
 (defun spacemacs//javascript-setup-tern ()
   (if (configuration-layer/layer-used-p 'tern)
@@ -71,7 +71,7 @@
     (message (concat "Tern was configured as the javascript backend but "
                      "the `tern' layer is not present in your `.spacemacs'!"))))
 
-
+
 ;; js-doc
 
 (defun spacemacs/js-doc-require ()
@@ -89,14 +89,14 @@
             'js-doc-insert-function-doc)
     "rdt" 'js-doc-insert-tag
     "rdh" 'js-doc-describe-tag))
-
+
 ;; js-refactor
 
 (defun spacemacs/js2-refactor-require ()
   "Lazy load js2-refactor"
   (require 'js2-refactor))
 
-
+
 ;; skewer
 
 (defun spacemacs/skewer-start-repl ()
@@ -131,7 +131,7 @@
   (skewer-repl)
   (evil-insert-state))
 
-
+
 ;; Others
 
 (defun spacemacs/javascript-format ()

@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-
+
 
 (defun spacemacs/tetris-quit-game ()
   "Correctly quit tetris by killng the game buffer."
@@ -21,7 +21,7 @@
         (kill-buffer "*Tetris*"))
     (tetris-pause-game)))
 
-
+
 
 (defun spacemacs/games-start-typit-beginner ()
   "Start `typit' game in beginner difficulty."
@@ -41,4 +41,3 @@
       (evil-insert-state)
       (funcall (intern (format "typit-%S-test" type))))))
 
-
