@@ -61,6 +61,7 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 - Presentation mode via [[https://github.com/rlister/org-present][org-present]]
 - Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
 - Project-specific TODOs via [[https://github.com/IvanMalison/org-projectile][org-projectile]]
+- Easy insert of URLs from clipboard with org format via [[https://github.com/rexim/org-cliplink][org-cliplink]]
 
 * BibTeX
 For more extensive support of references through BibTeX files, have a look at
@@ -482,23 +483,23 @@ are also available.
 
 ** Element insertion
 
-| Key binding   | Description                      |
-|---------------+----------------------------------|
-| ~SPC m i d~   | org-insert-drawer                |
-| ~SPC m i D s~ | Take screenshot                  |
-| ~SPC m i D y~ | Yank image url                   |
-| ~SPC m i e~   | org-set-effort                   |
-| ~SPC m i f~   | org-insert-footnote              |
-| ~SPC m i H~   | org-insert-heading-after-current |
-| ~SPC m i h~   | org-insert-heading               |
-| ~SPC m i i~   | org-insert-item                  |
-| ~SPC m i K~   | spacemacs/insert-keybinding-org  |
-| ~SPC m i l~   | org-insert-link                  |
-| ~SPC m i L~   | org-cliplink                     |
-| ~SPC m i n~   | org-add-note                     |
-| ~SPC m i p~   | org-set-property                 |
-| ~SPC m i s~   | org-insert-subheading            |
-| ~SPC m i t~   | org-set-tags                     |
+| Key binding   | Description                                   |
+|---------------+-----------------------------------------------|
+| ~SPC m i d~   | org-insert-drawer                             |
+| ~SPC m i D s~ | Take screenshot                               |
+| ~SPC m i D y~ | Yank image url                                |
+| ~SPC m i e~   | org-set-effort                                |
+| ~SPC m i f~   | org-insert-footnote                           |
+| ~SPC m i h~   | org-insert-heading                            |
+| ~SPC m i H~   | org-insert-heading-after-current              |
+| ~SPC m i i~   | org-insert-item                               |
+| ~SPC m i K~   | spacemacs/insert-keybinding-org               |
+| ~SPC m i l~   | org-insert-link                               |
+| ~SPC m i L~   | insert URL with its page title from clipboard |
+| ~SPC m i n~   | org-add-note                                  |
+| ~SPC m i p~   | org-set-property                              |
+| ~SPC m i s~   | org-insert-subheading                         |
+| ~SPC m i t~   | org-set-tags                                  |
 
 ** Links
 
