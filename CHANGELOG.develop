@@ -2284,6 +2284,7 @@ Other:
 - Fixed jump handling with multiple backends (thanks to Aaron Jensen)
 - Fixed =typescript/jump-to-type-def= for npm modules (thanks to Jam Risser)
 - Added the same setup to tsx files as to ts files (thanks to Trapez Breen)
+- Fixed =import-js= support in TypeScript buffers
 **** Vagrant
 - Key bindings:
   - move key bindings prefix to ~SPC a V~ (thanks to Thomas de Beauchêne)

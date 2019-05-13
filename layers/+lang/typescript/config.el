@@ -22,5 +22,8 @@ Currently avaliable 'tide (default), 'typescript-formatter and 'prettier.")
   "The backend to use for IDE features. Possible values are `tide'
 +and `lsp'.")
 
+(defvar typescript-enable-import-js nil
+  "If non-nil then enable `import-js' in TypeScript buffers.")
+
 (spacemacs|define-jump-handlers typescript-mode)
 (spacemacs|define-jump-handlers typescript-tsx-mode)

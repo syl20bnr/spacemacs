@@ -15,10 +15,10 @@
         company
         eldoc
         flycheck
+        import-js
         smartparens
         tide
         typescript-mode
-        import-js
         web-mode
         yasnippet
         ))
@@ -44,6 +44,13 @@
     (with-eval-after-load 'flycheck
       (flycheck-add-mode 'typescript-tide 'typescript-tsx-mode)
       (flycheck-add-mode 'typescript-tslint 'typescript-tsx-mode))))
+
+(defun typescript/pre-init-import-js ()
+  (when typescript-enable-import-js
+    (add-to-list 'spacemacs--import-js-modes
+                 (cons 'typescript-mode 'typescript-mode-hook))
+    (add-to-list 'spacemacs--import-js-modes
+                 (cons 'typescript-tsx-mode 'typescript-tsx-mode-hook))))
 
 (defun typescript/post-init-smartparens ()
   (if dotspacemacs-smartparens-strict-mode
@@ -131,9 +138,3 @@
       (spacemacs/set-leader-keys-for-major-mode 'typescript-tsx-mode
         "="  'spacemacs/typescript-format
         "sp" 'spacemacs/typescript-open-region-in-playground)))))
-
-(defun typescript/pre-init-import-js ()
-  (if (eq javascript-import-tool 'import-js)
-      (progn
-        (add-to-list 'spacemacs--import-js-modes (cons 'typescript-mode 'typescript-mode-hook))
-        (add-to-list 'spacemacs--import-js-modes (cons 'typescript-tsx-mode 'typescript-tsx-mode-hook)))))
