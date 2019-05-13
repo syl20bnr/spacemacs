@@ -23,7 +23,6 @@
 <p align="center">
 <a href="https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/Join Chat.svg" alt="Gitter"></a>
 <a href="https://circleci.com/gh/syl20bnr/spacemacs/tree/develop"><img src="https://circleci.com/gh/syl20bnr/spacemacs/tree/develop.svg?style=shield" alt="Build Status"></a>
-<a href="https://waffle.io/syl20bnr/spacemacs"><img src="https://badge.waffle.io/syl20bnr/spacemacs.png?label=Merging...&title=Merging" alt="PR being merged"></a>
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ESFVNPKP4Y742"><img src="https://img.shields.io/badge/Paypal-Donate-blue.svg" alt="Donate"></a>
 <a href="https://shop.spreadshirt.com/spacemacs-shop"><img src="https://img.shields.io/badge/Shop-T--Shirts-blue.svg" alt="Donate"></a>
 <a href="http://www.slant.co/topics/12/~what-are-the-best-programming-text-editors"><img src="https://img.shields.io/badge/Slant-Recommend-ff69b4.svg" alt="Recommend it"></a>
@@ -431,10 +430,6 @@ and to propose great and useful configurations for all the things!
 
 Before contributing be sure to consult the
 [contribution guidelines][CONTRIBUTING.org] and [conventions][CONVENTIONS.org].
-
-Here is a throughput graph of the repository for the last few weeks:
-
-[![Throughput Graph](https://graphs.waffle.io/syl20bnr/spacemacs/throughput.svg)](https://waffle.io/syl20bnr/spacemacs/metrics)
 
 # Communities
 - [Gitter Chat]
