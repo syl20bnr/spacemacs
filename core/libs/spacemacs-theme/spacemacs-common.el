@@ -695,7 +695,7 @@ to 'auto, tags may not be properly aligned. "
      `(notmuch-search-date ((,class (:foreground ,func))))
      `(notmuch-search-flagged-face ((,class (:weight extra-bold))))
      `(notmuch-search-non-matching-authors ((,class (:foreground ,base-dim))))
-     `(notmuch-search-unread-face ((,class (:background ,highlight-dim :box ,border))))
+     `(notmuch-search-unread-face ((,class (:background ,highlight-dim))))
      `(notmuch-tag-face ((,class (:foreground ,keyword))))
      `(notmuch-tag-flagged ((,class (:foreground ,war))))
 
