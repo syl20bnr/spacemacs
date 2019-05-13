@@ -1,288 +1,234 @@
 #+TITLE: Configuration layers
 
 * Table of Contents                     :TOC_4_gh:noexport:
-- [[#chats][Chats]]
-  - [[#erc-layer][ERC layer]]
-  - [[#jabber-layer][Jabber layer]]
-  - [[#rcirc-layer][RCIRC layer]]
-  - [[#slack-layer][Slack layer]]
 - [[#checkers][Checkers]]
-  - [[#spell-checking-layer][Spell Checking layer]]
-  - [[#syntax-checking-layer][Syntax Checking layer]]
-- [[#completion][Completion]]
-  - [[#auto-completion-layer][Auto-completion layer]]
-  - [[#helm-layer][Helm layer]]
-  - [[#ivy-layer][Ivy layer]]
-  - [[#templates-layer][Templates layer]]
-- [[#e-mail][E-mail]]
-  - [[#gnus-layer][Gnus layer]]
-  - [[#mu4e-layer][Mu4e layer]]
-  - [[#notmuch-layer][Notmuch layer]]
-- [[#file-trees][File trees]]
-  - [[#neotree-layer][Neotree layer]]
-  - [[#treemacs-layer][Treemacs layer]]
-- [[#fonts][Fonts]]
-  - [[#unicode-fonts-layer][unicode-fonts layer]]
-- [[#emacs][Emacs]]
-  - [[#better-defaults-layer][Better Defaults layer]]
-  - [[#ibuffer-layer][IBuffer layer]]
-  - [[#org-layer][Org layer]]
-  - [[#semantic-layer][Semantic layer]]
-  - [[#smex-layer][Smex layer]]
-  - [[#typography-layer][Typography layer]]
-- [[#frameworks][Frameworks]]
-  - [[#django-layer][Django layer]]
-  - [[#react-layer][React layer]]
-  - [[#ruby-on-rails-layer][Ruby on Rails layer]]
-  - [[#emberjs-layer][emberjs layer]]
-  - [[#phoenix-layer][phoenix layer]]
-- [[#fun][Fun]]
-  - [[#emoji-layer][Emoji layer]]
-  - [[#games-layer][Games layer]]
-  - [[#selectric-layer][selectric layer]]
-  - [[#xkcd-layer][xkcd layer]]
-- [[#internationalization][internationalization]]
-  - [[#chinese-layer][Chinese layer]]
-  - [[#japanese-layer][Japanese layer]]
-  - [[#keyboard-layout-layer][keyboard-layout layer]]
-- [[#miscellaneous][Miscellaneous]]
-  - [[#parinfer-layer][Parinfer layer]]
-  - [[#copy-as-format-layer][copy-as-format layer]]
-  - [[#ietf-layer][ietf layer]]
-  - [[#multiple-cursors-layer][multiple-cursors layer]]
-  - [[#nlinum-layer][nlinum layer]]
-- [[#music][Music]]
-  - [[#spotify-layer][Spotify layer]]
-- [[#operating-systems][Operating systems]]
-  - [[#nixos-layer][NixOS layer]]
-  - [[#osx-layer][OSX layer]]
-- [[#pair-programming][Pair programming]]
-  - [[#floobits-layer][Floobits layer]]
-- [[#readers][Readers]]
-  - [[#dash-layer][Dash layer]]
-  - [[#deft-layer][Deft layer]]
-  - [[#elfeed-layer][Elfeed layer]]
-  - [[#pdf-layer][PDF layer]]
-  - [[#speed-reading-layer][Speed Reading layer]]
-  - [[#epub-layer][epub layer]]
-- [[#programming-languages][Programming languages]]
-  - [[#general-purpose][General-purpose]]
-    - [[#imperative][Imperative]]
-      - [[#forth-layer][Forth layer]]
-      - [[#asm-layer][asm layer]]
-- [[#source-control][Source control]]
-  - [[#git-layer][Git layer]]
-  - [[#github-layer][GitHub layer]]
-  - [[#perforce-layer][Perforce layer]]
-  - [[#version-control-layer][Version-Control layer]]
+  - [[#spell-checking][Spell Checking]]
+  - [[#syntax-checking][Syntax Checking]]
+- [[#web-services][Web services]]
+  - [[#confluence][Confluence]]
+  - [[#evernote][Evernote]]
+  - [[#search-engine][Search Engine]]
+  - [[#twitter][Twitter]]
+  - [[#wakatime][Wakatime]]
 - [[#spacemacs][Spacemacs]]
   - [[#distributions][Distributions]]
     - [[#spacemacs-docker-distribution][spacemacs-docker distribution]]
   - [[#utilities][Utilities]]
-    - [[#spacemacs-purpose-layer][Spacemacs-purpose layer]]
-- [[#tagging][Tagging]]
-  - [[#cscope-layer][Cscope layer]]
-  - [[#helm-gtags-layer][Helm Gtags layer]]
+    - [[#spacemacs-purpose][Spacemacs-purpose]]
+- [[#music][Music]]
+  - [[#spotify][Spotify]]
+- [[#miscellaneous][Miscellaneous]]
+  - [[#parinfer][Parinfer]]
+  - [[#copy-as-format][copy-as-format]]
+  - [[#ietf][ietf]]
+  - [[#multiple-cursors][multiple-cursors]]
+  - [[#nlinum][nlinum]]
+- [[#fun][Fun]]
+  - [[#emoji][Emoji]]
+  - [[#games][Games]]
+  - [[#selectric][selectric]]
+  - [[#xkcd][xkcd]]
+- [[#programming-languages][Programming languages]]
+  - [[#general-purpose][General-purpose]]
+    - [[#imperative][Imperative]]
+      - [[#forth][Forth]]
+      - [[#asm][asm]]
+- [[#readers][Readers]]
+  - [[#dash][Dash]]
+  - [[#deft][Deft]]
+  - [[#elfeed][Elfeed]]
+  - [[#pdf][PDF]]
+  - [[#speed-reading][Speed Reading]]
+  - [[#epub][epub]]
+- [[#fonts][Fonts]]
+  - [[#unicode-fonts][unicode-fonts]]
+- [[#completion][Completion]]
+  - [[#auto-completion][Auto-completion]]
+  - [[#helm][Helm]]
+  - [[#ivy][Ivy]]
+  - [[#templates][Templates]]
+- [[#operating-systems][Operating systems]]
+  - [[#nixos][NixOS]]
+  - [[#osx][OSX]]
 - [[#themes][Themes]]
-  - [[#colors-layer][Colors layer]]
-  - [[#themes-megapack-layer][Themes Megapack layer]]
-  - [[#theming-layer][Theming layer]]
-- [[#tools][Tools]]
-  - [[#ansible-layer][Ansible layer]]
-  - [[#cfengine-layer][CFEngine layer]]
-  - [[#cmake-layer][CMake layer]]
-  - [[#chrome-layer][Chrome layer]]
-  - [[#dap-layer][DAP layer]]
-  - [[#docker-layer][Docker layer]]
-  - [[#finance-layer][Finance layer]]
-  - [[#geolocation-layer][Geolocation layer]]
-  - [[#lsp-layer][LSP layer]]
-  - [[#node-layer][Node layer]]
-  - [[#pandoc-layer][Pandoc layer]]
-  - [[#pass-layer][Pass layer]]
-  - [[#prodigy-layer][Prodigy layer]]
-  - [[#puppet-layer][Puppet layer]]
-  - [[#ranger-layer][Ranger layer]]
-  - [[#rebox-layer][Rebox layer]]
-  - [[#restclient-layer][Restclient layer]]
-  - [[#saltstack-layer][Saltstack layer]]
-  - [[#shell-layer][Shell layer]]
-  - [[#sphinx-layer][Sphinx layer]]
-  - [[#tern-layer][Tern layer]]
-  - [[#terraform-layer][Terraform layer]]
-  - [[#tmux-layer][Tmux layer]]
-  - [[#transmission-layer][Transmission layer]]
-  - [[#vagrant-layer][Vagrant layer]]
-  - [[#ycmd-layer][YCMD layer]]
-  - [[#bm-layer][bm layer]]
-  - [[#command-log-layer][command-log layer]]
-  - [[#debug-layer][debug layer]]
-  - [[#fasd-layer][fasd layer]]
-  - [[#imenu-list-layer][imenu-list layer]]
-  - [[#import-js-layer][import-js layer]]
-  - [[#nginx-layer][nginx layer]]
-  - [[#prettier-layer][prettier layer]]
-  - [[#systemd-layer][systemd layer]]
-  - [[#web-beautify-layer][web-beautify layer]]
-  - [[#xclipboard-layer][xclipboard layer]]
-- [[#vim][Vim]]
-  - [[#evil-commentary-layer][Evil-commentary layer]]
-  - [[#evil-snipe-layer][Evil-snipe layer]]
-  - [[#vim-empty-lines-layer][Vim-empty-lines layer]]
-  - [[#vinegar-layer][Vinegar layer]]
-- [[#web-services][Web services]]
-  - [[#confluence-layer][Confluence layer]]
-  - [[#evernote-layer][Evernote layer]]
-  - [[#search-engine-layer][Search Engine layer]]
-  - [[#twitter-layer][Twitter layer]]
-  - [[#wakatime-layer][Wakatime layer]]
+  - [[#colors][Colors]]
+  - [[#themes-megapack][Themes Megapack]]
+  - [[#theming][Theming]]
+- [[#internationalization][internationalization]]
+  - [[#chinese][Chinese]]
+  - [[#japanese][Japanese]]
+  - [[#keyboard-layout][keyboard-layout]]
 - [[#readmeorg-files-that-need-proper-tags][README.org files that need proper tags]]
-  - [[#agda-layer][Agda layer]]
+  - [[#agda][Agda]]
   - [[#alda-layer][Alda Layer]]
-  - [[#asciidoc-layer][Asciidoc layer]]
-  - [[#autohotkey-layer][Autohotkey layer]]
-  - [[#bibtex-layer][BibTeX layer]]
-  - [[#c-layer][C# layer]]
-  - [[#cc-layer][C/C++ layer]]
-  - [[#csv-layer][CSV layer]]
-  - [[#clojure-layer][Clojure layer]]
-  - [[#coffeescript-layer][CoffeeScript layer]]
-  - [[#common-lisp-layer][Common Lisp layer]]
-  - [[#coq-layer][Coq layer]]
-  - [[#d-language-layer][D language layer]]
-  - [[#dhall-layer][Dhall layer]]
-  - [[#ess-r-layer][ESS (R) layer]]
-  - [[#elixir-layer][Elixir layer]]
-  - [[#elm-layer][Elm layer]]
-  - [[#emacs-lisp-layer][Emacs Lisp layer]]
-  - [[#erlang-layer][Erlang layer]]
+  - [[#asciidoc][Asciidoc]]
+  - [[#autohotkey][Autohotkey]]
+  - [[#bibtex][BibTeX]]
+  - [[#c][C#]]
+  - [[#cc][C/C++]]
+  - [[#csv][CSV]]
+  - [[#clojure][Clojure]]
+  - [[#coffeescript][CoffeeScript]]
+  - [[#common-lisp][Common Lisp]]
+  - [[#coq][Coq]]
+  - [[#d-language][D language]]
+  - [[#dhall][Dhall]]
+  - [[#ess-r][ESS (R)]]
+  - [[#elixir][Elixir]]
+  - [[#elm][Elm]]
+  - [[#emacs-lisp][Emacs Lisp]]
+  - [[#erlang][Erlang]]
   - [[#extra-languages][Extra Languages]]
-  - [[#f-layer][F# layer]]
+  - [[#f][F#]]
   - [[#factor-layer][Factor Layer]]
-  - [[#go-layer][GO layer]]
-  - [[#gpu-layer][GPU layer]]
-  - [[#groovy-layer][Groovy layer]]
-  - [[#html-layer][HTML layer]]
-  - [[#haskell-layer][Haskell layer]]
-  - [[#hy-layer][Hy layer]]
-  - [[#ipython-notebook-layer][IPython Notebook layer]]
-  - [[#idris-layer][Idris layer]]
-  - [[#jr-concurrent-programming-language-layer][JR Concurrent Programming Language layer]]
-  - [[#json-layer][JSON layer]]
-  - [[#java-layer][Java layer]]
-  - [[#javascript-layer][JavaScript layer]]
-  - [[#latex-layer][LaTeX layer]]
-  - [[#lua-layer][Lua layer]]
-  - [[#markdown-layer][Markdown layer]]
-  - [[#nim-layer][Nim layer]]
-  - [[#ocaml-layer][Ocaml layer]]
-  - [[#octave-layer][Octave layer]]
-  - [[#php-layer][PHP layer]]
-  - [[#pact-layer][Pact layer]]
-  - [[#perl5-layer][Perl5 layer]]
-  - [[#protocol-buffers-layer][Protocol Buffers layer]]
-  - [[#purescript-layer][Purescript layer]]
-  - [[#python-layer][Python layer]]
-  - [[#racket-layer][Racket layer]]
-  - [[#ruby-layer][Ruby layer]]
-  - [[#rust-layer][Rust layer]]
-  - [[#sml-layer][SML layer]]
-  - [[#sql-layer][SQL layer]]
-  - [[#scala-layer][Scala layer]]
-  - [[#scheme-layer][Scheme layer]]
-  - [[#semantic-web-layer][Semantic Web layer]]
-  - [[#shell-scripts-layer][Shell Scripts layer]]
-  - [[#swift-layer][Swift layer]]
-  - [[#typescript-layer][TypeScript layer]]
-  - [[#vimscript-language-layer][Vimscript language layer]]
-  - [[#windows-scripting-layer][Windows Scripting layer]]
-  - [[#yaml-layer][YAML layer]]
-  - [[#crystal-layer][crystal layer]]
-  - [[#dart-layer][dart layer]]
-  - [[#faust-layer][faust layer]]
-  - [[#graphviz-layer][graphviz layer]]
-  - [[#jsonnet-layer][jsonnet layer]]
-  - [[#julia-layer][julia layer]]
-  - [[#kotlin-layer][kotlin layer]]
+  - [[#go][GO]]
+  - [[#gpu][GPU]]
+  - [[#groovy][Groovy]]
+  - [[#html][HTML]]
+  - [[#haskell][Haskell]]
+  - [[#hy][Hy]]
+  - [[#ipython-notebook][IPython Notebook]]
+  - [[#idris][Idris]]
+  - [[#jr-concurrent-programming-language][JR Concurrent Programming Language]]
+  - [[#json][JSON]]
+  - [[#java][Java]]
+  - [[#javascript][JavaScript]]
+  - [[#latex][LaTeX]]
+  - [[#lua][Lua]]
+  - [[#markdown][Markdown]]
+  - [[#nim][Nim]]
+  - [[#ocaml][Ocaml]]
+  - [[#octave][Octave]]
+  - [[#php][PHP]]
+  - [[#pact][Pact]]
+  - [[#perl5][Perl5]]
+  - [[#protocol-buffers][Protocol Buffers]]
+  - [[#purescript][Purescript]]
+  - [[#python][Python]]
+  - [[#racket][Racket]]
+  - [[#ruby][Ruby]]
+  - [[#rust][Rust]]
+  - [[#sml][SML]]
+  - [[#sql][SQL]]
+  - [[#scala][Scala]]
+  - [[#scheme][Scheme]]
+  - [[#semantic-web][Semantic Web]]
+  - [[#shell-scripts][Shell Scripts]]
+  - [[#swift][Swift]]
+  - [[#typescript][TypeScript]]
+  - [[#vimscript-language][Vimscript language]]
+  - [[#windows-scripting][Windows Scripting]]
+  - [[#yaml][YAML]]
+  - [[#crystal][crystal]]
+  - [[#dart][dart]]
+  - [[#faust][faust]]
+  - [[#graphviz][graphviz]]
+  - [[#jsonnet][jsonnet]]
+  - [[#julia][julia]]
+  - [[#kotlin][kotlin]]
   - [[#nyan-mode][nyan-mode]]
-  - [[#perl6-layer][perl6 layer]]
-  - [[#plantuml-layer][plantuml layer]]
-  - [[#prolog-layer][prolog layer]]
-  - [[#restructuredtext-layer][reStructuredText layer]]
+  - [[#perl6][perl6]]
+  - [[#plantuml][plantuml]]
+  - [[#prolog][prolog]]
+  - [[#restructuredtext][reStructuredText]]
   - [[#spacemacs-distribution][spacemacs distribution]]
   - [[#spacemacs-base-distribution][spacemacs-base distribution]]
   - [[#spacemacs-bootstrap-distribution][spacemacs-bootstrap distribution]]
-  - [[#spacemacs-completion-layer][spacemacs-completion layer]]
+  - [[#spacemacs-completion][spacemacs-completion]]
   - [[#spacemacs-defaults][spacemacs-defaults]]
-  - [[#spacemacs-editing-layer][spacemacs-editing layer]]
-  - [[#spacemacs-editing-visual-layer][spacemacs-editing-visual layer]]
-  - [[#spacemacs-evil-layer][spacemacs-evil layer]]
-  - [[#spacemacs-language-layer][spacemacs-language layer]]
-  - [[#spacemacs-layouts-layer][spacemacs-layouts layer]]
-  - [[#spacemacs-misc-layer][spacemacs-misc layer]]
-  - [[#spacemacs-modeline-layer][spacemacs-modeline layer]]
-  - [[#spacemacs-navigation-layer][spacemacs-navigation layer]]
-  - [[#spacemacs-org-layer][spacemacs-org layer]]
-  - [[#spacemacs-project-layer][spacemacs-project layer]]
-  - [[#spacemacs-visual-layer][spacemacs-visual layer]]
-  - [[#yang-layer][yang layer]]
-
-* Chats
-** ERC layer
-[[file:+chat/erc/README.org][+chat/erc/README.org]]
-
-Layer for [[http://www.emacswiki.org/emacs/ERC][ERC IRC chat]].
-
-Features:
-- Highlight nicks (using [[https://github.com/leathekd/erc-hl-nicks][erc-hl-nicks]])
-- Image inline support (using [[https://github.com/kidd/erc-image.el][erc-image]])
-- Logging to =~/.emacs.d/.cache/erc-logs= and =ViewLogMode= for viewing logs
-  (using [[https://github.com/Niluge-KiWi/erc-view-log][erc-view-log]])
-- YouTube videos Thumbnails inline (using [[https://github.com/yhvh/erc-yt][erc-yt]])
-- Social Graph for ERC messages (using [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]])
-- Optional SASL authentication via the variable =erc-enable-sasl-auth=
-  (using [[http://emacswiki.org/emacs/ErcSASL][erc-sasl]])
-- D-BUS notifications via the variable =erc-enable-notifications=
-- Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
-  using the =emoji= layer or having a proper font) :clap:
-
-** Jabber layer
-[[file:+chat/jabber/README.org][+chat/jabber/README.org]]
-
-This layer adds support for the Jabber (XMPP) client for Emacs
-
-Features:
-- Use Jabber without having to leave Spacemacs
-
-** RCIRC layer
-[[file:+chat/rcirc/README.org][+chat/rcirc/README.org]]
-
-This layer provide support for [[http://www.gnu.org/software/emacs/manual/html_mono/rcirc.html][rcirc]] with optional support for authinfo
-and ZNC.
-
-Features:
-- Store channel logs into =~/.emacs.d/.cache/rcirc-logs/<channel>=
-- Support for credentials stored in =~/.authinfo.gpg= (need to have gnutls)
-- Support ZNC support (with optional =~/.authinfo.gpg=)
-- Colored nicknames
-- Real-time change when people use =s/foo/bar/= in chat
-- Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
-  using the =emoji= layer or having a proper font) :clap:
-
-** Slack layer
-[[file:+chat/slack/README.org][+chat/slack/README.org]]
-
-This layer provides an interface to the Slack chat service via the emacs-slack
-package. Where possible, this layer aims to reuse key bindings from the IRC
-packages in Spacemacs.
-
-Features:
-- Real time messaging with [[https://github.com/ahyatt/emacs-websocket][emacs-websocket]]
-- Connect to multiple slack instances
-- Notifications with [[https://github.com/jwiegley/alert][alert.el]]
+  - [[#spacemacs-editing][spacemacs-editing]]
+  - [[#spacemacs-editing-visual][spacemacs-editing-visual]]
+  - [[#spacemacs-evil][spacemacs-evil]]
+  - [[#spacemacs-language][spacemacs-language]]
+  - [[#spacemacs-layouts][spacemacs-layouts]]
+  - [[#spacemacs-misc][spacemacs-misc]]
+  - [[#spacemacs-modeline][spacemacs-modeline]]
+  - [[#spacemacs-navigation][spacemacs-navigation]]
+  - [[#spacemacs-org][spacemacs-org]]
+  - [[#spacemacs-project][spacemacs-project]]
+  - [[#spacemacs-visual][spacemacs-visual]]
+  - [[#yang][yang]]
+- [[#pair-programming][Pair programming]]
+  - [[#floobits][Floobits]]
+- [[#e-mail][E-mail]]
+  - [[#gnus][Gnus]]
+  - [[#mu4e][Mu4e]]
+  - [[#notmuch][Notmuch]]
+- [[#source-control][Source control]]
+  - [[#git][Git]]
+  - [[#github][GitHub]]
+  - [[#perforce][Perforce]]
+  - [[#version-control][Version-Control]]
+- [[#file-trees][File trees]]
+  - [[#neotree][Neotree]]
+  - [[#treemacs][Treemacs]]
+- [[#chats][Chats]]
+  - [[#erc][ERC]]
+  - [[#jabber][Jabber]]
+  - [[#rcirc][RCIRC]]
+  - [[#slack][Slack]]
+- [[#tools][Tools]]
+  - [[#ansible][Ansible]]
+  - [[#cfengine][CFEngine]]
+  - [[#cmake][CMake]]
+  - [[#chrome][Chrome]]
+  - [[#dap][DAP]]
+  - [[#docker][Docker]]
+  - [[#finance][Finance]]
+  - [[#geolocation][Geolocation]]
+  - [[#lsp][LSP]]
+  - [[#node][Node]]
+  - [[#pandoc][Pandoc]]
+  - [[#pass][Pass]]
+  - [[#prodigy][Prodigy]]
+  - [[#puppet][Puppet]]
+  - [[#ranger][Ranger]]
+  - [[#rebox][Rebox]]
+  - [[#restclient][Restclient]]
+  - [[#saltstack][Saltstack]]
+  - [[#shell][Shell]]
+  - [[#sphinx][Sphinx]]
+  - [[#tern][Tern]]
+  - [[#terraform][Terraform]]
+  - [[#tmux][Tmux]]
+  - [[#transmission][Transmission]]
+  - [[#vagrant][Vagrant]]
+  - [[#ycmd][YCMD]]
+  - [[#bm][bm]]
+  - [[#command-log][command-log]]
+  - [[#debug][debug]]
+  - [[#fasd][fasd]]
+  - [[#imenu-list][imenu-list]]
+  - [[#import-js][import-js]]
+  - [[#nginx][nginx]]
+  - [[#prettier][prettier]]
+  - [[#systemd][systemd]]
+  - [[#web-beautify][web-beautify]]
+  - [[#xclipboard][xclipboard]]
+- [[#frameworks][Frameworks]]
+  - [[#django][Django]]
+  - [[#react][React]]
+  - [[#ruby-on-rails][Ruby on Rails]]
+  - [[#emberjs][emberjs]]
+  - [[#phoenix][phoenix]]
+- [[#tagging][Tagging]]
+  - [[#cscope][Cscope]]
+  - [[#helm-gtags][Helm Gtags]]
+- [[#vim][Vim]]
+  - [[#evil-commentary][Evil-commentary]]
+  - [[#evil-snipe][Evil-snipe]]
+  - [[#vim-empty-lines][Vim-empty-lines]]
+  - [[#vinegar][Vinegar]]
+- [[#emacs][Emacs]]
+  - [[#better-defaults][Better Defaults]]
+  - [[#ibuffer][IBuffer]]
+  - [[#org][Org]]
+  - [[#semantic][Semantic]]
+  - [[#smex][Smex]]
+  - [[#typography][Typography]]
 
 * Checkers
-** Spell Checking layer
+** Spell Checking
 [[file:+checkers/spell-checking/README.org][+checkers/spell-checking/README.org]]
 
 This layer provides spell checking capabilities to Spacemacs.
@@ -293,7 +239,7 @@ Features:
 - Optional correction popups, controlled by =enable-flyspell-auto-completion= variable.
 - [[https://github.com/nschum/auto-dictionary-mode][Auto dictionary mode]] for some languages.
 
-** Syntax Checking layer
+** Syntax Checking
 [[file:+checkers/syntax-checking/README.org][+checkers/syntax-checking/README.org]]
 
 This layer adds on the fly syntax checking to all supported language layers.
@@ -302,1260 +248,8 @@ Features:
 - Support for automatic syntax checking with [[http://www.flycheck.org/][Flycheck]] for various language layers
 - Tooltip syntax errors with =popwin=
 
-* Completion
-** Auto-completion layer
-[[file:+completion/auto-completion/README.org][+completion/auto-completion/README.org]]
-
-This layer adds auto-completion to all supported language layers.
-
-Features:
-- Support for code completion with [[http://company-mode.github.io/][company]] or [[https://github.com/auto-complete/auto-complete][auto-complete]] for various language layers
-- Frequency-based suggestions via [[https://github.com/company-mode/company-statistics][company-statistics]] for =company=
-- Integration with [[https://github.com/capitaomorte/yasnippet][yasnippet]] and [[https://github.com/abo-abo/auto-yasnippet][auto-yasnippet]]
-- Automatic configuration of [[https://www.emacswiki.org/emacs/HippieExpand][hippie-expand]]
-
-** Helm layer
-[[file:+completion/helm/README.org][+completion/helm/README.org]]
-
-This layer enables Helm everywhere in Spacemacs. The alternative to this
-layer is the Ivy layer which brings the same level of integration as Helm.
-
-These completion systems are the central control towers of Spacemacs, they are
-used to manage buffers, projects, search results, configuration layers, toggles
-and more...
-
-Mastering your choice of completion system will make you a Spacemacs power user.
-
-Features:
-- Project wide =grep= like text search via =helm-dir-smart-do-search=
-- Project wide text replacements using =helm-edit-mode=
-- Buffer wide dynamic text search via =helm-swoop=
-- Fuzzy matching for most =helm-sources=
-- Detailed configuration parameters for helms appearance
-- Intuitive =transient state=
-
-** Ivy layer
-[[file:+completion/ivy/README.org][+completion/ivy/README.org]]
-
-This layer enables Ivy for completion. It will replace the default completion by
-[[https://github.com/emacs-helm/helm][Helm]].
-
-These completion systems are the central control towers of Spacemacs, they are
-used to manage buffers, projects, search results, configuration layers, toggles
-and more...
-
-Mastering your choice of completion system will make you a Spacemacs power user.
-
-Features:
-- Project wide =grep= like text search via =search-auto=
-- Project wide text replacements using =counsel-imenu=
-- Buffer wide dynamic text search via =swiper=
-- Detailed configuration parameters for ivy appearance
-- Intuitive =transient state=
-- Advanced buffer information with =ivy-rich=
-
-** Templates layer
-[[file:+completion/templates/README.org][+completion/templates/README.org]]
-
-This layer provides templates to Spacemacs. A template consists of text that is
-automatically inserted into a new file when it is opened. This is done via
-[[https://github.com/mineo/yatemplate][yatemplate]], which leverages [[https://github.com/joaotavora/yasnippet][yasnippet]].
-
-Features:
-- Auto-insert snippets when creating specific new files.
-
-* E-mail
-** Gnus layer
-[[file:+email/gnus/README.org][+email/gnus/README.org]]
-
-This layer integrates a general purpose email/newsgroup client into Spacemacs.
-
-Features:
-- Support for reading RSS feeds, newsgroups and mails directly within emacs via [[http://www.gnus.org/][Gnus]].
-- Support for beautiful HTML mails generated from any =org= buffer.
-- Support for credential managment via [[https://gnupg.org/][GnuPG]].
-
-** Mu4e layer
-[[file:+email/mu4e/README.org][+email/mu4e/README.org]]
-
-This layer adds support for the Mu4e email client.
-
-Features:
-- Search, read, reply, move, and delete email.
-- Search-based: no folders, only queries.
-- UI optimized for speed: quick keystrokes for common actions.
-- Very extendable and costumizable.
-- Integration with Helm.
-- Maildir summary using [[https://github.com/agpchil/mu4e-maildirs-extension][mu4e-mailidrs-extension]]
-- Notifications using [[https://github.com/iqbalansari/mu4e-alert][mu4e-alert]]
-
-** Notmuch layer
-[[file:+email/notmuch/README.org][+email/notmuch/README.org]]
-
-Notmuch offers a fast, global-search and tag-based email system to
-use within your text editor or in a terminal.
-
-This layer integrates notmuch emacs package into spacemacs.
-
-Features:
-- Email searching
-- Email tagging
-
-* File trees
-** Neotree layer
-[[file:+filetree/neotree/README.org][+filetree/neotree/README.org]]
-
-This layer setups a file tree navigator buffer using Neotree (replacing the Treemacs layer).
-
-Features:
-- intuitive evil key bindings integration
-- supports multiple themes
-- transient state by pressing on ~?~
-- version-control integration
-
-** Treemacs layer
-[[file:+filetree/treemacs/README.org][+filetree/treemacs/README.org]]
-
-This layer sets up a file navigation and project explorer side-window via [[https://github.com/Alexander-Miller/treemacs][Treemacs]].
-
-Features:
-
-An detailed overview over Treemacs’ available features is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][its
-readme]]. In a short summary Treemacs offers the following:
-- Simple and powerful navigation and ability to detail exactly how and where a
-  file should be opened
-- Good looking png icons.
-- Display of multiple file trees organized as projects residing in a workspace.
-- Ability to show tags contained in files. Tags are provided by imenu, so
-  nearly every filetype is supported.
-- Mouse interface for single and double left clicks in line with modern GUI standards.
-  (Clicking on an icon will also display a file’s tags)
-- Locational awareness: commands like ~find-file~ or ~magit-status~ will use the location
-  of the node at point (with $HOME as fallback)
-- Optionally fontifying files based on their git status.
-- Optionally collapsing single-dir-child directories into one.
-- Doing both asynchronously for an imperceptible performance cost.
-- Optional =follow-mode= to automatically focus the currently selected file.
-- Optional =filewatch-mode= to automatically refresh the view after (and only
-  after) changes to the shown filesystem.
-
-* Fonts
-** unicode-fonts layer
-[[file:+fonts/unicode-fonts/README.org][+fonts/unicode-fonts/README.org]]
-
-This layer adds support for the [[https://github.com/rolandwalker/unicode-fonts][unicode-fonts]] package. It is recommended to
-install the fonts listed in the [[https://github.com/rolandwalker/unicode-fonts#quickstart][Quickstart]] section of the unicode-fonts README.
-
-Features:
-- Display unicode glyphs using the best available font.
-- Easily override glyphs or sections of glyphs.
-- Display color emoji on both the Mac port version of Emacs and emacs-plus (with
-  =unicode-fonts-force-multi-color-on-mac= set to non nil).
-
-* Emacs
-** Better Defaults layer
-[[file:+emacs/better-defaults/README.org][+emacs/better-defaults/README.org]]
-
-This layer enhances the default commands of Emacs and is primarily intended to
-be used with the =emacs= editing style as it does not change anything in the Vim
-key bindings.
-
-However the =emacs= editing style is not required, you can still use this layer
-while you are using the =vim= editing style if you have some kind of mixed
-style.
-
-The commands defined in this layer are taken from various sources like [[https://github.com/bbatsov/prelude][Prelude]].
-
-Features:
-- Smart line navigation: Subsequent presses of ~C-a~ toggles between the beginning of the line and the first non-whitespace character. Similarly, subsequent presses of ~C-e~ will toggle between the end of the code and the end of the comments.
-- =spacemacs/backward-kill-word-or-region=: A combination of =kill-region= and =backward-kill-word=, depending on whether there is an active region. If there’s an active region kill that. If not kill the preceding word.
-- Fill or unfill paragraph: Pressing ~M-q~ for the first time fills current paragraph and pressing ~M-q~ for the second time unfills it. Note that some modes override this key binding so it’s not available everywhere. Due to implementation details unfilling doesn’t work when called twice via ~M-x~.
-
-** IBuffer layer
-[[file:+emacs/ibuffer/README.org][+emacs/ibuffer/README.org]]
-
-This layer configures Emacs IBuffer for Spacemacs.
-
-Features:
-- Grouping of buffers by major-modes
-- Grouping of buffers by projects
-
-** Org layer
-[[file:+emacs/org/README.org][+emacs/org/README.org]]
-
-This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
-
-Features:
-- Vim inspired key bindings are provided by [[https://github.com/Somelauw/evil-org-mode][evil-org-mode]]
-- Nicer bullet via [[https://github.com/sabof/org-bullets][org-bullets]]
-- A [[https://cirillocompany.de/pages/pomodoro-technique][pomodoro method]] integration via [[https://github.com/lolownia/org-pomodoro][org-pomodoro]]
-- Presentation mode via [[https://github.com/rlister/org-present][org-present]]
-- Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
-- Project-specific TODOs via [[https://github.com/IvanMalison/org-projectile][org-projectile]]
-
-** Semantic layer
-[[file:+emacs/semantic/README.org][+emacs/semantic/README.org]]
-
-CEDET is a *C*ollection of *E*macs *D*evelopment *E*nvironment *T*ools written
-with the end goal of creating an advanced development environment in Emacs.
-CEDET includes common features such as intelligent completion, source code
-navigation, project management, code generation with templates. CEDET also
-provides a framework for working with programming languages; support for new
-programming languages can be added and use CEDET to provide IDE-like features.
-This framework is called Semantic.
-
-Semantic is a package that provides a framework for writing parsers. Parsing is
-a process of analyzing source code based on programming language syntax. The
-packages relies on Semantic for analyzing source code and uses its results to
-perform smart code refactoring that based on code structure of the analyzed
-language, instead of plain text structure. Semantic is the core of CEDET.
-
-Features:
-- Display function or variable definition at the bottom.
-- Display current function cursor is in at the top. See
-  [[https://github.com/tuhdo/semantic-stickyfunc-enhance][this page]] for demos in some programming languages.
-- Support common C/C++ refactoring with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]. See
-  [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][this page]] for demonstration of refactoring features.
-- Support Lisp source code formatting with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]. See
-  [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos-elisp.org][this page]] for demonstration of Lisp formatting features.
-
-** Smex layer
-[[file:+emacs/smex/README.org][+emacs/smex/README.org]]
-
-This layer provides a more traditional alternative to =helm-M-x= based on =ido=.
-
-Features:
-- Provides an alternative way for =helm-M-x= based on =ido= and [[https://github.com/nonsequitur/smex][smex]]
-
-** Typography layer
-[[file:+emacs/typography/README.org][+emacs/typography/README.org]]
-
-This layer provides support for typographic text editing in Spacemacs.
-
-Features:
-- Modes to automatically insert and cycle among typographic characters
-- [[https://github.com/jorgenschaefer/typoel][Typo Mode]] automatically inserts and cycles among typographic Unicode
-  characters on some keys.
-- Tildify Mode automatically inserts non-breaking spaces where
-  required (Only available on Emacs 25).
-
-* Frameworks
-** Django layer
-[[file:+frameworks/django/README.org][+frameworks/django/README.org]]
-
-This layer adds support for the Python web framework [[https://www.djangoproject.com/][Django]] to Spacemacs.
-
-Features:
-- Test execution directly from emacs
-- Starting/stopping of the Django test server
-- Starting of an interactive Python shell in the current project for debugging
-- Fixed commands to open various Django specific settings files
-- Automatic deployment with [[http://www.fabfile.org][Fabric]] directly from emacs
-- Control of [[http://south.aeracode.org/][South]] database migration tool
-
-** React layer
-[[file:+frameworks/react/README.org][+frameworks/react/README.org]]
-
-ES6 and JSX ready configuration layer for React
-It will automatically recognize =.jsx= files and files with =react= imported.
-
-Features:
-- on-the-fly syntax checking
-- proper syntax highlight and indentation with jsx
-- backend support for autocompletion as in rjsx-mode
-- jsfmt automatic formatting
-- js2-refactor
-- js-doc
-
-** Ruby on Rails layer
-[[file:+frameworks/ruby-on-rails/README.org][+frameworks/ruby-on-rails/README.org]]
-
-This layer aims at providing support for the Ruby on Rails framework.
-
-Features:
-- Quick file navigation with with [[https://github.com/asok/projectile-rails][projectile-rails]]
-- Run server
-- Run generators
-- Rake runner
-- Interactive Rails console
-
-** emberjs layer
-[[file:+frameworks/emberjs/README.org][+frameworks/emberjs/README.org]]
-
-This enables helpers for working with Ember.js projects.
-
-This also includes [[https://github.com/ronco/ember-yasnippets.el][ember-yasnippets]]. See the README for ember-yansippets for the snippet keys.
-
-To use this, you need to add add a =.dir-locals.el= file with the following in the root of your ember project:
-
-#+BEGIN_SRC emacs-lisp
-  ((nil . ((mode . ember))))
-#+END_SRC
-
-If you do not wish to do the following, you may also just do =M-x ember-mode=, however it will make things easier.
-
-Additionally, temporary backup, autosave, and lockfiles interfere with broccoli watcher, so they need to either be moved out of the way or disabled.
-
-Add the following to your =dotspacemacs/user-config=:
-
-#+BEGIN_SRC emacs-lisp
-  (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
-  (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-  (setq create-lockfiles nil)
-#+END_SRC
-
-Features:
-- Ability to easily switch between various files
-- Key bindings for generators and also easily revert generator actions
-- Ability to build, start server, and run tests
-
-** phoenix layer
-[[file:+frameworks/phoenix/README.org][+frameworks/phoenix/README.org]]
-
-This layer adds key bindings for [[https://github.com/tonini/alchemist.el][Alchemist]]’s already built in phoenix mode.
-
-Features:
-- Key bindings for navigation to files
-
-* Fun
-** Emoji layer
-[[file:+fun/emoji/README.org][+fun/emoji/README.org]]
-
-This layer adds support for Emoji emoticons from [[https://www.webpagefx.com/tools/emoji-cheat-sheet/][emoji-cheat-sheet]].
-
-Features:
-- Browse Emoji in a dedicated buffer
-- Display Emoji images in buffer
-- Insert one or several Emoji with an helm front-end
-- Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]]
-
-** Games layer
-[[file:+fun/games/README.org][+fun/games/README.org]]
-
-This layer allows you to play evilified games in spacemacs.
-
-Features:
-- 2048-game
-- Pacmacs (Pacman for Emacs)
-- Sudoku
-- Tetris
-- Typit
-
-** selectric layer
-[[file:+fun/selectric/README.org][+fun/selectric/README.org]]
-
-This layer makes your Emacs sound like an IBM Selectric typewriter, for those
-moments when your loud, clicky mechanical keyboard is not at hand, yet, you’d
-still wish to enjoy the sound.
-
-Features:
-- Brings back fond memories about your first programming job where you started
-  with that big mechanical keyboard and the small monochrom display working on
-  the latest IBM Iseries server.
-
-** xkcd layer
-[[file:+fun/xkcd/README.org][+fun/xkcd/README.org]]
-
-This layer adds a [[http://xkcd.com/][xkcd]] navigation mode using [[https://github.com/vibhavp/emacs-xkcd][emacs-xkcd]].
-
-Features:
-- Load a random xkcd
-- Show the text in the modeline
-- Open explanation and current comic in browser
-- Cache the comics in =.cache/xkcd=
-
-* internationalization
-** Chinese layer
-[[file:+intl/chinese/README.org][+intl/chinese/README.org]]
-
-This layer adds support for traditional Chinese script to Spacemacs.
-
-Features:
-- Support for the [[https://en.wikipedia.org/wiki/Pinyin][Pinyin(拼音)]] input method via [[https://github.com/tumashu/chinese-pyim][chinese-pyim]].
-- Support for the [[https://en.wikipedia.org/wiki/Wubi_method][Wubi(五笔)]] input method via [[https://github.com/andyque/chinese-wbim][chinese-wbim]].
-- Integration of the native input method framework [[https://en.wikipedia.org/wiki/Fcitx][fcitx]] via [[https://github.com/cute-jumper/fcitx.el][cute-jumper/fcitx.el]].
-- Integration of the [[https://en.wikipedia.org/wiki/Youdao][Youdao(有道) Dictionary]] via [[https://github.com/xuchunyang/youdao-dictionary.el][youdao-dictionary]].
-- Support for file searches in =dired= using Chinese Pinyin characters via [[https://github.com/redguardtoo/find-by-pinyin-dired][find-by-pinyin-dired]].
-- Support for jumping to Chinese Pinyin characters with =ace-jump-mode= via [[https://github.com/cute-jumper/ace-pinyin][ace-pinyin]].
-- Support for conversion between simplified and traditional Chinese texts via [[https://github.com/gucong/emacs-chinese-conv/][chinese-conv]].
-- Automatic visual separation of Chinese and Latin characters via [[https://github.com/coldnew/pangu-spacing][coldnew/pangu-spacing]].
-- Automatic joining of consecutive Chinese lines into a single long line without unwanted space when exporting org-mode to html.
-
-** Japanese layer
-[[file:+intl/japanese/README.org][+intl/japanese/README.org]]
-
-This Layer adds Japanese related packages.
-
-Features:
-- [[https://github.com/kenjimyzk/evil-tutor-ja][evil-tutor-ja]]: Japanese Vimtutor adapted to Emacs+Evil and wrapped in a major mode
-- [[https://github.com/emacs-jp/migemo][migemo]]: Japanese incremental search through dynamic pattern expansion
-- [[https://github.com/emacs-helm/helm/wiki/Migemo][helm-migemo-mode]]: helm with migemo
-- [[https://github.com/momomo5717/avy-migemo/blob/master/README.jp.org][avy-migemo]]: avy with migemo
-- [[https://github.com/hsaito/ddskk][ddskk]]: Simple Kana to Kanji conversion program (SKK)
-- [[https://github.com/emacs-jp/japanese-holidays][japanese-holidays]]: calendar functions for the Japanese calendar
-- [[https://github.com/coldnew/pangu-spacing][pangu-spacing]]: emacs minor-mode to add space between Japanese and English
-  characters.
-- Join consecutive Japanese lines into a single long line without unwanted space
-  when exporting org-mode to html.
-
-** keyboard-layout layer
-[[file:+intl/keyboard-layout/README.org][+intl/keyboard-layout/README.org]]
-
-This layer configures some key bindings in Spacemacs, to make it compatible with
-keyboard layouts that differs from the traditional =en-us= =QWERTY= layout.
-
-Features:
-- Support alernative keyboard layouts within spacemacs
-- Remap navigation commands to the homerow of your chosen layout
-- Remap missing commands automatically to elsewhere in the layout
-
-* Miscellaneous
-** Parinfer layer
-[[file:+misc/parinfer/README.org][+misc/parinfer/README.org]]
-
-This layer provides an implementation of [[https://shaunlebron.github.io/parinfer/][parinfer]], a lisp editing paradigm that
-controls indentation based on parentheses or vice versa.
-
-Features:
-- Automatic managment of parenthesis in clojure, emacs lisp, common-lisp and scheme following the parinfer editing paradigm.
-
-** copy-as-format layer
-[[file:+misc/copy-as-format/README.org][+misc/copy-as-format/README.org]]
-
-This layer adds support for [[https://github.com/sshaw/copy-as-format][copy-as-format]].
-
-Features:
-- Function to copy buffer locations as GitHub/Slack/JIRA/HipChat/... formatted code
-
-** ietf layer
-[[file:+misc/ietf/README.org][+misc/ietf/README.org]]
-
-The =IETF= layer collects various useful packages for participating in the
-Internet Engineering Task Force ([[https://www.ietf.org]]).
-
-Features:
-- Fetching and opening IETF documents.
-- Viewing IETF documents.
-- Writing IETF documents.
-
-** multiple-cursors layer
-[[file:+misc/multiple-cursors/README.org][+misc/multiple-cursors/README.org]]
-
-Features:
-- support for multiple cursors.
-
-** nlinum layer
-[[file:+misc/nlinum/README.org][+misc/nlinum/README.org]]
-
-This layer provides various styles of line numbering in Spacemacs. It replaces
-=linum= and =linum-relative= with the improved =nlinum= and =nlinum-relative=
-packages.
-
-Please note that on Emacs 26 and newer, this layer also replaces the new native
-line numbers mode (=display-line-numbers-mode=), and because of that it is not
-recommended to use =nlinum= layer on Emacs 26 or newer.
-
-Features:
-- Support for classic ascending line numbering.
-- Support for line numbering relative to the current cursor position.
-
-* Music
-** Spotify layer
-[[file:+music/spotify/README.org][+music/spotify/README.org]]
-
-This layer integrates an online music service into Spacemacs.
-
-Features:
-- Support for listening to music from within Emacs via [[https://www.spotify.com][Spotify]].
-
-* Operating systems
-** NixOS layer
-[[file:+os/nixos/README.org][+os/nixos/README.org]]
-
-This layer adds tools for better integration of emacs in NixOS.
-
-Features:
-- Nix-mode using [[https://github.com/NixOS/nix-mode][nix-mode]]
-- Auto-completion of NixOS Options using [[https://github.com/travisbhartwell/nix-emacs/blob/master/company-nixos-options.el][company-nixos-options]]
-- Helm Lookup for NixOS Options [[https://github.com/travisbhartwell/nix-emacs/blob/master/helm-nixos-options.el][helm-nixos-options]]
-
-** OSX layer
-[[file:+os/osx/README.org][+os/osx/README.org]]
-
-Spacemacs is not just emacs+vim. It can have OSX key bindings too! This layer
-globally defines common OSX key bindings.
-
-Features:
-- ~⌘~ is set to ~hyper~ and ~⌥~ is set to ~meta~
-- In =dired= use =gls= instead of =ls=
-- Fix separator colors of Spaceline mode-line
-
-* Pair programming
-** Floobits layer
-[[file:+pair-programming/floobits/README.org][+pair-programming/floobits/README.org]]
-
-This layer adds support for the peer programming tool [[https://github.com/Floobits/floobits-emacs][floobits]] to Spacemacs.
-
-Features:
-- Loading of floobits configuration files with fixed commands
-- Creation of floobits workspaces and populating it with content
-- Marking of the current cursor position for all users within the current workspace
-- Follow recent changes by other users
-
-* Readers
-** Dash layer
-[[file:+readers/dash/README.org][+readers/dash/README.org]]
-
-This layer integrates offline api browsers into emacs. It provides one for OS X, Linux and Windows.
-
-Features:
-- Searching for word at point in offline api browser’s UI.
-- Integration of offline api browser search results in helm and ivy.
-- Support for [[https://kapeli.com/dash][dash]] offline api browser for OS X.
-- Support for [[https://zealdocs.org/][zeal]] offline api browser for Linux.
-
-** Deft layer
-[[file:+readers/deft/README.org][+readers/deft/README.org]]
-
-This layer adds a search driven note taking system into Spacemacs.
-
-Features:
-- Browsing and creating notes with a powerfull search function via [[http://jblevins.org/projects/deft/][Deft]].
-- Integration of =org-mode= as note editor.
-- Configurable list of extensions to recognize as notes.
-
-** Elfeed layer
-[[file:+readers/elfeed/README.org][+readers/elfeed/README.org]]
-
-This layer integrates a web feed reader into spacemacs.
-
-Features:
-- Support for reading RSS and Atom feeds directly within emacs via [[https://github.com/skeeto/elfeed][Elfeed]].
-- Support for managing feeds via org files supplied by [[https://github.com/remyhonig/elfeed-org][elfeed-org]].
-- Support for displaying feed database content in the browser via [[https://github.com/skeeto/elfeed#web-interface][web interface]].
-
-** PDF layer
-[[file:+readers/pdf/README.org][+readers/pdf/README.org]]
-
-This layer enables support for PDF with the [[https://github.com/politza/pdf-tools][pdf-tools]] package.
-
-According to the official repository:
-
-#+BEGIN_QUOTE
-  “PDF Tools is, among other things, a replacement of DocView for PDF files. The
-  key difference is, that pages are not pre-rendered by e.g. ghostscript and
-  stored in the file-system, but rather created on-demand and stored in memory.”
-#+END_QUOTE
-
-Features:
-- Searching and slicing with =occur=.
-- Show document headings in outline buffer.
-- Manipulate annotations.
-- Fit PDF to screen.
-
-** Speed Reading layer
-[[file:+readers/speed-reading/README.org][+readers/speed-reading/README.org]]
-
-A speed reading mode for Emacs.
-
-Features:
-- Support for =speed-reading= of arbitrary texts
-
-** epub layer
-[[file:+readers/epub/README.org][+readers/epub/README.org]]
-
-This layer provides support for reading EPUB-formatted eBooks in Spacemacs using the
-excellent [[https://github.com/wasamasa/nov.el][nov.el]] package.
-
-Features:
-- Basic navigation (jump to TOC, previous/next chapter)
-- Remembering and restoring the last read position
-- Jump to next chapter when scrolling beyond end
-- Renders EPUB2 (.ncx) and EPUB3 (<nav>) TOCs
-- Hyperlinks to internal and external targets
-- Supports textual and image documents
-- View source of document files
-- Metadata display
-- Image rescaling
-
-* Programming languages
-** General-purpose
-*** Imperative
-**** Forth layer
-[[file:+lang/forth/README.org][+lang/forth/README.org]]
-
-This layer adds basic support for the Forth family of languages to spacemacs.
-
-Features:
-- Syntax highlighting
-- Showing meaning of objects in context of the current =Forth= session.
-- Eval of entire files or regions in current =Forth= session.
-- Passing interactive commands to current =Forth= session.
-
-**** asm layer
-[[file:+lang/asm/README.org][+lang/asm/README.org]]
-
-This layer adds support for Assembly code. The built-in major mode for
-editing assembly code in Emacs is =asm-mode=.
-
-The layer also adds =nasm-mode= for NASM-specific syntax. Although =nasm-mode=
-is intended for NASM, it actually works well with other variants of Assembly
-in general, and provides Imenu integration so you can jump around with ~SPC s j~.
-
-Features:
-- Improved syntax highlighting.
-- Automatic indentation.
-- Auto-completion for symbol in opened buffers.
-- Look up documentation for current instruction at cursor.
-- Imenu integration.
-
-* Source control
-** Git layer
-[[file:+source-control/git/README.org][+source-control/git/README.org]]
-
-This layers adds extensive support for [[http://git-scm.com/][git]] to Spacemacs.
-
-Features:
-- git repository management the indispensable [[http://magit.vc/][magit]] package
-- [[https://github.com/jtatarik/magit-gitflow][git-flow]] add-on for magit.
-- quick in buffer history browsing with [[https://melpa.org/#/git-timemachine][git-timemachine]].
-- quick in buffer last commit message per line with [[https://github.com/syohex/emacs-git-messenger][git-messenger]]
-- colorize buffer line by age of commit with [[https://github.com/syohex/emacs-smeargle][smeargle]]
-- git grep with [[https://github.com/yasuyk/helm-git-grep][helm-git-grep]]
-- gitignore generator with [[https://github.com/jupl/helm-gitignore][helm-gitignore]]
-- org integration with magit via [[https://github.com/magit/orgit][orgit]]
-
-New to Magit? Checkout the [[https://magit.vc/about/][official intro]].
-
-** GitHub layer
-[[file:+source-control/github/README.org][+source-control/github/README.org]]
-
-This layers adds support for [[http://github.com][GitHub]].
-
-Features:
-- [[https://github.com/vermiculus/magithub][magithub]]: Magit-integrated interface to [[https://hub.github.com/][hub]] command line
-- [[https://github.com/magit/forge][forge]]: integration with various forges, such as GitHub and GitLab.
-- [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post GitHub gists.
-- [[https://github.com/sshaw/git-link][git-link]]: quickly generate URLs for commits or files.
-- [[https://github.com/dgtized/github-clone.el][github-clone]] allows for easy cloning and forking of repositories.
-
-** Perforce layer
-[[file:+source-control/perforce/README.org][+source-control/perforce/README.org]]
-
-This layer integrates =Perforce= SCM system into spacemacs.
-
-Features:
-- Support for running [[https://www.perforce.com/][Perforce]] (p4) SCM commands directly from emacs.
-
-** Version-Control layer
-[[file:+source-control/version-control/README.org][+source-control/version-control/README.org]]
-
-This layers adds general configuration for [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html][Emacs VC]].
-It should work with all VC backends such as Git, Mercurial, Bazaar, SVN, etc...
-
-Features:
-- highlights uncommitted changes in the fringe or margin with [[https://github.com/dgutov/diff-hl][diff-hl]], [[https://github.com/syohex/emacs-git-gutter][git-gutter]], or [[https://github.com/nonsequitur/git-gutter-plus][git-gutter+]]
-- adds vcs transient-state ~SPC g.~ to allow quick navigation and modification of buffer hunks.
-
-* Spacemacs
-** Distributions
-*** spacemacs-docker distribution
-[[file:+distributions/spacemacs-docker/README.org][+distributions/spacemacs-docker/README.org]]
-
-Spacemacs distribution that aims to automate dependency installation for
-Spacemacs layers and provide well tested Docker based development environment
-with GUI support on all major platforms and even [[https://i.imgur.com/wDLDMZN.gif][your web browser]].
-
-Features:
-- Automatically get Spacemacs layers dependency installed with [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/README.org][installer scripts]]
-- Reap the benefit of Emacs and other GNU/Linux tools on Windows/MacOS machines
-- Use [[https://hub.docker.com/][docker hub]] to auto-build your environment and store full backups for free
-- Build once and work with the same development environment everywhere
-- Run untrusted/risky code in the tunable sandbox with CPU/network/disk quotas
-- Try new tools, experiment and roll back changes when something goes wrong
-- Share your setup with others or extend someone else’s development environment
-- Run multiple Emacs instances on the same machine isolated
-- An easy way to swap Emacs version (=emacs25= =emacs-snapshot=) for debugging
-- [[https://docs.docker.com/engine/reference/commandline/pause/][pause]] container to free resources temporarily
-- [[https://github.com/docker/docker/blob/1.13.x/experimental/checkpoint-restore.md][Checkpoint & Restore]] - maybe the fastest way to start a “heavy” environment
-- Friendly for networks with low upload speed/quotas.
-
-** Utilities
-*** Spacemacs-purpose layer
-[[file:+spacemacs/spacemacs-purpose/README.org][+spacemacs/spacemacs-purpose/README.org]]
-
-This layer enables [[https://github.com/bmag/emacs-purpose][window-purpose]], which provides an alternative, purpose-based
-window manager for Emacs. With this layer, your window layout should be robust
-and shouldn’t change too much when opening all sorts of buffers.
-
-Regular [[https://github.com/m2ym/popwin-el][popwin]] is not triggered when window-purpose is enabled. However,
-the window-purpose layer provides a =purpose-popwin= extension, which
-brings popwin’s behavior to window-purpose and solves that problem.
-
-Features:
-- Window layout is more robust and less likely to change unintentionally
-- Dedicate window to a purpose
-- User-defined purposes
-- Extensible window display behavior
-- Empty =purpose-mode-map=, to avoid conflicts with other key maps
-- Replicate popwin behavior for purpose-mode - almost no regression in popup behavior from using window-purpose.
-- Reuses popwin’s settings: =popwin:special-display-config=, =popwin:popup-window-height= and =popwin:popup-window-width=.
-- Difference from popwin: when several windows are open, popup window is sometimes bigger than with regular popwin in the same situation.
-
-* Tagging
-** Cscope layer
-[[file:+tags/cscope/README.org][+tags/cscope/README.org]]
-
-This layer provides bindings for using [[http://cscope.sourceforge.net][Cscope]] and [[https://github.com/portante/pycscope][PyCscope]] in Spacemacs.
-
-See [[https://github.com/OpenGrok/OpenGrok/wiki/Comparison-with-Similar-Tools][here]] for a comparison between =Cscope= and other similar tools (such as gtags).
-
-Features:
-- Tag indexing and searching for C-C++ via [[http://cscope.sourceforge.net][Cscope]]
-- Tag indexing and searching for python via [[https://github.com/portante/pycscope][PyCscope]]
-
-** Helm Gtags layer
-[[file:+tags/gtags/README.org][+tags/gtags/README.org]]
-
-=counsel-gtags=, =helm-gtags= and =ggtags= are clients for GNU Global. GNU
-Global is a source code tagging system that allows querying symbol locations in
-source code, such as definitions or references. Adding the =gtags= layer enables
-both of these modes.
-
-Features:
-- Select any tag in a project retrieved by gtags
-- Resume previous helm-gtags session
-- Jump to a location based on context
-- Find definitions
-- Find references
-- Present tags in current function only
-- Create a tag database
-- Jump to definitions in file
-- Show stack of visited locations
-- Manually update tag database
-- Jump to next location in context stack
-- Jump to previous location in context stack
-- Jump to a file in tag database
-- Enables =eldoc= in modes that otherwise might not support it.
-- Enables =company complete= in modes that otherwise might not support it.
-
-* Themes
-** Colors layer
-[[file:+themes/colors/README.org][+themes/colors/README.org]]
-
-This layer colors your life by enhancing the existing coloration of identifiers as well as providing you with a more colorful
-process indicator.
-
-Features:
-- Colorize all identifiers (christmas tree mode :-)) with mostly unique colors, and the ability to choose saturation and lightness
-  with [[https://github.com/Fanael/rainbow-identifiers][rainbow-identifiers]].
-- Colorize only identifiers recognized as variables with [[https://github.com/ankurdave/color-identifiers-mode][color-identifiers]].
-- Colorize strings representing colors with the color they represent as background with
-  [[https://jblevins.org/log/rainbow-mode][rainbow-mode]].
-- Display a Nyan cat progress bar in the mode-line with [[https://github.com/syl20bnr/nyan-mode][nyan-mode]].
-
-** Themes Megapack layer
-[[file:+themes/themes-megapack/README.org][+themes/themes-megapack/README.org]]
-
-This layer installs around 100 themes for Emacs.
-
-Features:
-- Have access to all included themes in this [[http://themegallery.robdor.com][theme gallery]] from [[http://www.twitter.com/robmerrell][Rob Merrell]].
-- Easily try a theme by invoking helm-themes with: ~SPC T s~.
-
-** Theming layer
-[[file:+themes/theming/README.org][+themes/theming/README.org]]
-
-This layer allows for a simple way of modifying themes.
-
-Features:
-- Modify themes from your =.spacemacs=.
-- Tweak face attributes and other aspects of themes.
-- Includes three additional layer variables for tweaking headings.
-
-* Tools
-** Ansible layer
-[[file:+tools/ansible/README.org][+tools/ansible/README.org]]
-
-This layer adds support for editing Ansible configuration files in Spacemacs.
-
-Features:
-- Syntax highlighting for Ansible-flavored YAML and Jinja2 templates.
-- Auto-completion via =company-ansible=.
-- Integration of =ansible-vault= into emacs for automatic encryption/decryption of files.
-
-** CFEngine layer
-[[file:+tools/cfengine/README.org][+tools/cfengine/README.org]]
-
-This layer adds support for CFEngine policies to Spacemacs.
-
-Features:
-- Syntax highlighting
-- On the fly syntax checking via =flycheck= integration.
-- Auto completion via =company= integration.
-- Execution of =cfengine3= =SRC= blocks in =org-mode= via =ob-cfengine3= package.
-
-** CMake layer
-[[file:+tools/cmake/README.org][+tools/cmake/README.org]]
-
-This layer adds support [[https://cmake.org/][CMake]] scripts.
-
-Features:
-- Support for CMake configure/build (with limited support for other build systems),
-  automatic generation of =compile_commands.json= (compile flags), on-the-fly configuration
-  of flycheck, company-clang and RTags (if installed) with [[https://github.com/atilaneves/cmake-ide][cmake-ide]].
-- Run selected test using =Helm= interface via =helm-ctest=.
-
-** Chrome layer
-[[file:+tools/chrome/README.org][+tools/chrome/README.org]]
-
-This layer provides some integration with the Google Chrome browser.
-
-Features:
-- Edit text boxes with Emacs using [[https://github.com/stsquad/emacs_chrome][edit-server]]
-- Write markdown in Emacs and realtime show in chrome using [[https://github.com/mola-T/flymd][flymd]]
-- gmail message mode uses standard markdown key bindings
-
-** DAP layer
-[[file:+tools/dap/README.org][+tools/dap/README.org]]
-
-Experimental integrated visual debugger using [[https://code.visualstudio.com/docs/extensionAPI/api-debugging][Debug Adapter Protocol]].
-
-[[https://code.visualstudio.com/docs/extensionAPI/api-debugging][Debug Adapter Protocol]] is a wire protocol for communication between client and
-Debug Server. It similar to the [[https://github.com/Microsoft/language-server-protocol][LSP]] but providers integration with debug
-server.
-
-Features:
-
-Fully featured IDE-like debugger providing:
-- Launch/Attach
-- Breakpoints
-- Exceptions
-- Pause & Continue
-- Step In/Out/Over
-- Callstacks
-- Threads
-- Multiple simultaneous debug sessions
-- Evaluating statements
-- Debug/Run configurations
-- Debug REPL
-
-** Docker layer
-[[file:+tools/docker/README.org][+tools/docker/README.org]]
-
-This layer integrates basic container management into Spacemacs.
-
-Features:
-- Syntax highlighting for =Docker= files
-- =Docker= build integration
-- =TRAMP= access to running Docker containers
-- =Docker= container and image management via [[https://github.com/Silex/docker.el][docker.el]]
-- =docker-compose= integration via [[https://github.com/Silex/docker.el][docker.el]]
-- Syntax checking via [[https://github.com/hadolint/hadolint][hadolint]]
-
-** Finance layer
-[[file:+tools/finance/README.org][+tools/finance/README.org]]
-
-This layer integrates a full fledged accounting system into Spacemacs.
-
-Features:
-- Support for maintaining a double-entry accounting system run by text files via [[https://www.emacswiki.org/emacs/LedgerMode][ledger-mode]].
-- Display of finance reports directly within emacs.
-- Integration of emacs calculator mode for editing post amounts.
-- Support for easy account reconciliation via =Ledger-Reconcile=.
-- Extended support for ~evil~ style editing with [[https://github.com/atheriel/evil-ledger][evil-ledger]].
-
-** Geolocation layer
-[[file:+tools/geolocation/README.org][+tools/geolocation/README.org]]
-
-This layer offers location sensitive adjustments to Emacs.
-
-Features:
-- Supports the following adjustments:
-  - Automatic switching between light (day) and dark (night) themes via [[https://github.com/hadronzoo/theme-changer][theme-changer]]
-  - Local weather forecast via [[https://github.com/aaronbieber/sunshine.el/blob/master/sunshine.el][sunshine]]
-  - Integration with OS X’s CoreLocation service via [[https://github.com/purcell/osx-location][osx-location]]
-  - Manual location setting via variables in your dotfile
-
-** LSP layer
-[[file:+tools/lsp/README.org][+tools/lsp/README.org]]
-
-This layer adds support for basic language server protocol packages speaking
-[[https://microsoft.github.io/language-server-protocol/specification][language server protocol]].
-
-Different language servers may support the language server protocol to varying degrees
-and they may also provide extensions; check the language server’s website for
-details.
-=M-x lsp-describe-session= in a LSP buffer to list capabilities of the server.
-
-Features:
-- Cross references (definitions, references, document symbol, workspace symbol
-  search and others)
-- Workspace-wide symbol rename
-- Symbol highlighting
-- Flycheck
-- Completion with =company-lsp=
-- Signature help with eldoc
-- Symbol documentation in a child frame (=lsp-ui-doc=)
-- Navigation using imenu
-- Consistent core key bindings in LSP modes
-
-** Node layer
-[[file:+tools/node/README.org][+tools/node/README.org]]
-
-This layer introduces packages that target Node.js. Currently this layer should
-not be used directly, as it will be used by other layers.
-
-Features:
-- Integration of packages necessary to execute node.js modules from other layers.
-
-** Pandoc layer
-[[file:+tools/pandoc/README.org][+tools/pandoc/README.org]]
-
-This layer adds support for [[http://pandoc.org/][Pandoc]].
-
-Pandoc is a universal document converter. It makes it easy to e.g. convert a
-Markdown file to org mode or vice versa. It can also export your text to PDF or
-DOCX.
-
-Features:
-- Mode independent document conversions via =global pandoc menu=
-- =Org-export= integration via [[https://github.com/kawabata/ox-pandoc][ox-pandoc]]
-
-** Pass layer
-[[file:+tools/pass/README.org][+tools/pass/README.org]]
-
-This layer adds intregration with [[http://www.passwordstore.org/][pass]], the unix password manager.
-You must have ~pass~ installed and available in your path for this layer to
-function properly.
-
-Features:
-- Use Spacemacs as your password manager
-
-** Prodigy layer
-[[file:+tools/prodigy/README.org][+tools/prodigy/README.org]]
-
-This layer adds support for the [[https://github.com/rejeep/prodigy.el][prodigy]] package to manage external services from
-within Emacs, check the package’s documentation for more details.
-
-It is recommended to put your prodigy services in the =dotspacemacs/user-config=
-part of your =~/.spacemacs= file.
-
-Features:
-- Managing of pre-declared services from within emacs
-- Showing of process output in special buffers
-- Filtering of processes for tags or names
-
-** Puppet layer
-[[file:+tools/puppet/README.org][+tools/puppet/README.org]]
-
-This layer provides support for the Puppet DSL to Spacemacs.
-
-Features:
-- Syntax highlighting via [[https://github.com/voxpupuli/puppet-mode][puppet-mode]]
-- Syntax-checking via [[http://puppet-lint.com/][puppet-lint]]
-- Navigation commands to jump between blocks
-- Applying the content of the current manifest directly from emacs
-
-** Ranger layer
-[[file:+tools/ranger/README.org][+tools/ranger/README.org]]
-
-This layer brings Ranger features to spacemacs from the =ranger= package.
-
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =ranger= to the existing =dotspacemacs-configuration-layers= list in this
-file.
-
-To default with preview enabled when entering ranger:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-                '(ranger :variables
-                         ranger-show-preview t))
-#+END_SRC
-
-Features:
-- use ranger to display dired with ranger like preview and stacked parent windows.
-
-** Rebox layer
-[[file:+tools/rebox/README.org][+tools/rebox/README.org]]
-
-This layer adds support for [[https://github.com/lewang/rebox2][rebox2]] package which is a minor-mode allowing
-to easily add ASCII text boxes to a buffer.
-
-A nice video demonstration by the package author can be found [[https://www.youtube.com/watch?v=53YeTdVtDkU][here]].
-
-Features:
-- Auto-wrap correctly in comments,
-- Auto-fill correctly in comments,
-- Boxes auto-adapt as text is inserted or deleted,
-- ~S-RET~ to continue a comment on the next line,
-- Kill/yank within the box,
-- Apparently works well with ancient =filladpt-mode= (see authors video).
-
-** Restclient layer
-[[file:+tools/restclient/README.org][+tools/restclient/README.org]]
-
-This layer provides a REPL-like interface for http requests.
-
-Features:
-- REPL for http requests via [[https://github.com/pashky/restclient.el][restclient]]
-- Alternative =org= integration via [[http://github.com/zweifisch/ob-http][ob-http]]
-
-** Saltstack layer
-[[file:+tools/salt/README.org][+tools/salt/README.org]]
-
-This layer provides syntax highlighting for Saltstack files.
-
-Features:
-- Syntax highlighting
-- Display of salt documentation
-
-** Shell layer
-[[file:+tools/shell/README.org][+tools/shell/README.org]]
-
-This layer configures the various shells available in Emacs.
-
-Features:
-- Shell integration
-
-** Sphinx layer
-[[file:+tools/sphinx/README.org][+tools/sphinx/README.org]]
-
-The layer adds support for the documentation generation system =Sphinx= to
-the =restructuredtext= layer.
-
-Features:
-- Support for =Sphinx= project compilation
-- Support for opening =Sphinx= project target
-- Support for opening =Sphinx= config file
-
-** Tern layer
-[[file:+tools/tern/README.org][+tools/tern/README.org]]
-
-This layer adds support for [[http://ternjs.net/][tern]] stand-alone code-analysis engine for
-JavaScript.
-
-Features:
-- TODO: list the feature of tern supported by tern package
-
-** Terraform layer
-[[file:+tools/terraform/README.org][+tools/terraform/README.org]]
-
-This layer provides basic support for Terraform =.tf= files.
-
-Features:
-- Basic syntax highlighting via [[https://github.com/syohex/emacs-terraform-mode][terraform-mode]]
-- Auto formatting on save via =terraform fmt=
-
-** Tmux layer
-[[file:+tools/tmux/README.org][+tools/tmux/README.org]]
-
-This layer adds basic =tmux= key bindings to Spacemacs.
-
-Features:
-- Calling of =tmux= navigation commands directly from emacs via [[https://github.com/keith/evil-tmux-navigator][evil-tmux-navigator]].
-
-** Transmission layer
-[[file:+tools/transmission/README.org][+tools/transmission/README.org]]
-
-This layer integrates a BitTorrent client into Spacemacs.
-
-Features:
-- Integration of [[https://transmissionbt.com/][Transmission]] into emacs.
-
-** Vagrant layer
-[[file:+tools/vagrant/README.org][+tools/vagrant/README.org]]
-
-This layer adds support for working with Vagrant using [[https://github.com/ottbot/vagrant.el][vagrant.el]] and
-[[https://github.com/dougm/vagrant-tramp][vagrant-tramp]].
-
-Features:
-- Manage boxes (under the ~SPC a V~ prefix)
-- Remote editing on Vagrant boxes via Tramp
-
-** YCMD layer
-[[file:+tools/ycmd/README.org][+tools/ycmd/README.org]]
-
-This layer adds [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]] support.
-
-Features:
-- [[https://github.com/Valloric/YouCompleteMe][YouCompleteMe]] based code-completion
-- Integrations with company, flycheck, and eldoc
-
-** bm layer
-[[file:+tools/bm/README.org][+tools/bm/README.org]]
-
-[[https://github.com/joodland/bm/blob/master/README.md][BM]] provides visible, buffer local, bookmarks and the ability to jump forward and backward to the next bookmark.
-
-Features:
-- Auto remove bookmark after jump to it by =bm-next= or =bm-previous=
-- Cycle through bookmarks in all open buffers in LIFO order
-- Toggle bookmarks. Jump to next/previous bookmark.
-- Setting bookmarks based on a regexp. (Useful when searching logfiles.)
-- Mouse navigation.
-- Annotate bookmarks.
-- Different wrapping modes.
-- Different bookmarks styles, line-only, fringe-only or both.
-- Persistent bookmarks.
-- List bookmarks (in all buffers) in a separate buffer.
-- Cycle through bookmarks in all open buffers.
-
-** command-log layer
-[[file:+tools/command-log/README.org][+tools/command-log/README.org]]
-
-This layer adds a handy command demonstration mode to Spacemacs.
-
-Features:
-- Support for logging all entered keys and triggered commands in a designated buffer via [[https://github.com/lewang/command-log-mode][command-log-mode]].
-- Provides the best way to demonstrate the connection between keystrokes and commands in emacs.
-- Provides an easy way to create command logs for training classes.
-
-** debug layer
-[[file:+tools/debug/README.org][+tools/debug/README.org]]
-
-This layer adds interactive debuggers for multiple languages using [[https://github.com/realgud/realgud][realgud]].
-
-Features:
-- Modern rewrite of the Emacs GUD debugger family
-- Visual interface including breakpoint and line indicators
-- Advanced features like stack frame navigation and mouse support
-- Extensible framework for [[https://github.com/realgud/realgud/wiki/How-to-add-a-new-debugger][adding]] your own external debuggers
-
-** fasd layer
-[[file:+tools/fasd/README.org][+tools/fasd/README.org]]
-
-This layer integrates the [[https://github.com/clvv/fasd][fasd]] command line tool into spacemacs.
-
-Features:
-- Adds easy shortcuts to reference recent files and directories.
-- Provides =fasd= with recent open file lists from emacs.
-- Allows to filter =fasd= results with =helm= or =ivy=.
-
-** imenu-list layer
-[[file:+tools/imenu-list/README.org][+tools/imenu-list/README.org]]
-
-This layer uses [[https://github.com/bmag/imenu-list][imenu-list]] to show the current buffer’s index in a side bar.
-
-This is similar to `SPC j i` but displayed in a persistent sidebar instead of
-a completion buffer.
-
-Features:
-- IDE like outline view of current buffer showing all significant symbols in one view
-
-** import-js layer
-[[file:+tools/import-js/README.org][+tools/import-js/README.org]]
-
-This layer adds support for [[https://github.com/Galooshi/import-js][import-js]]
-
-Features:
-- Import Javascript/Typescript modules to buffer
-- Import missing modules and remove unused one
-- Go to module location
-
-** nginx layer
-[[file:+tools/nginx/README.org][+tools/nginx/README.org]]
-
-This layer adds support for configuring [[http://nginx.org][nginx]] a powerful alternative for
-the apache web server.
-
-Features:
-- Syntax highlighting of nginx configuration files via [[https://github.com/ajc/nginx-mode][nginx-mode]].
-- Syntax-aware indentation
-
-** prettier layer
-[[file:+tools/prettier/README.org][+tools/prettier/README.org]]
-
-This layer adds support for [[https://github.com/prettier/prettier][prettier]]
-
-Features:
-- Format buffer in a consistent style
-
-** systemd layer
-[[file:+tools/systemd/README.org][+tools/systemd/README.org]]
-
-This layer adds support for editing =systemd= configuration files in Spacemacs.
-
-Features:
-- Syntax highlighting
-- Auto completion
-- Syntax checking via =systemd-analyze=
-
-** web-beautify layer
-[[file:+tools/web-beautify/README.org][+tools/web-beautify/README.org]]
-
-This layer adds support for [[https://github.com/yasuyk/web-beautify][web-beautify]].
-
-Features:
-- Format buffer to be beautiful
-
-** xclipboard layer
-[[file:+tools/xclipboard/README.org][+tools/xclipboard/README.org]]
-
-=xclipboard= integration layer.
-
-Features:
-- adds copy support to the X-clipboard from the terminal.
-- adds paste support to the X-clipboard from the terminal.
-
-* Vim
-** Evil-commentary layer
-[[file:+vim/evil-commentary/README.org][+vim/evil-commentary/README.org]]
-
-This layer replaces [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]] with [[https://github.com/linktohack/evil-commentary][evil-commentary]] for those
-who prefer the behaviour of [[https://github.com/tpope/vim-commentary][vim-commentary]].
-
-Features:
-- Provides the original vim behaviour for commenting out lines via [[https://github.com/linktohack/evil-commentary][evil-commentary]].
-
-** Evil-snipe layer
-[[file:+vim/evil-snipe/README.org][+vim/evil-snipe/README.org]]
-
-This layer adds various replacements for vim’s default search functions.
-
-Features:
-- Alternative implementation of vim’s default search operations.
-- Replacement of evil-surround with a two-character search.
-- Support for alternative scopes for default search operations.
-- Support for alternative motions based on configurable regexps.
-
-** Vim-empty-lines layer
-[[file:+vim/vim-empty-lines/README.org][+vim/vim-empty-lines/README.org]]
-
-This layer is a drop-in replacement for the =vi-tilde-fringe= mode, for those
-who desire behaviour closer to =vim=’s.
-
-It has better compatibility with retina displays, as it uses a text overlay
-using your font, rather than a pixel-art tilde. The empty line indicators are
-overlaid in within the buffer as in =vim=, and not in the fringe. The indicator
-behaviour with trailing empty lines matches =vim=’s behaviour.
-
-For details, see the [[https://github.com/jmickelin/vim-empty-lines-mode][vim-empty-lines-mode]] repository.
-
-Features:
-- Emulation of original vim behaviour.
-- Brings you as close to vim as one can be without using vim itself.
-
-** Vinegar layer
-[[file:+vim/vinegar/README.org][+vim/vinegar/README.org]]
-
-This layer is a port of vim-vinegar for emacs.
-
-It is based on tpope’s [[https://github.com/tpope/vim-vinegar][vinegar.vim]], simplifying =dired=
-with a limited number of details and exposing the ~-~ command in all
-buffers to enter dired.
-
-Features:
-- navigation up folders with ~-~ key
-- simplify dired buffer to show only file names
-- better evil/vim bindings for navigation within dired buffer
-- keep only one active dired buffer
-- Use dired-k extension to show time / vcs related information in
-  single bar
-- right mouse click moves up directory if in blank space or shows context menu
-
 * Web services
-** Confluence layer
+** Confluence
 [[file:+web-services/confluence/README.org][+web-services/confluence/README.org]]
 
 This layer adds support for Atlassian [[https://www.atlassian.com/software/confluence][Confluence]].
@@ -1564,7 +258,7 @@ Features:
 - Creating/editing of Confluence pages
 - Exporting of org buffers to Confluence =wiki= format
 
-** Evernote layer
+** Evernote
 [[file:+web-services/evernote/README.org][+web-services/evernote/README.org]]
 
 This layer adds support for the famous [[https://evernote.com/][Evernote]] note taking service to Spacemacs.
@@ -1575,7 +269,7 @@ Features:
 - Search for notes using keywords
 - Move notes between notebooks
 
-** Search Engine layer
+** Search Engine
 [[file:+web-services/search-engine/README.org][+web-services/search-engine/README.org]]
 
 This layer adds support for the [[https://github.com/hrs/engine-mode][Search Engine]] package.
@@ -1583,7 +277,7 @@ This layer adds support for the [[https://github.com/hrs/engine-mode][Search Eng
 Features:
 - Browser search integration
 
-** Twitter layer
+** Twitter
 [[file:+web-services/twitter/README.org][+web-services/twitter/README.org]]
 
 This layer adds Twitter support to Spacemacs via the package [[https://github.com/hayamiz/twittering-mode][twittering-mode]].
@@ -1609,7 +303,7 @@ Features:
 - HTTP Proxy support
 - Secure connection via HTTPS (cURL, GNU Wget, OpenSSL or GnuTLS is required)
 
-** Wakatime layer
+** Wakatime
 [[file:+web-services/wakatime/README.org][+web-services/wakatime/README.org]]
 
 This layer adds support for Wakatime.
@@ -1624,8 +318,442 @@ P.S. wakati means time in Swahili
 Features:
 - Integration with Wakatime cloud based time tracking service
 
+* Spacemacs
+** Distributions
+*** spacemacs-docker distribution
+[[file:+distributions/spacemacs-docker/README.org][+distributions/spacemacs-docker/README.org]]
+
+Spacemacs distribution that aims to automate dependency installation for
+Spacemacs layers and provide well tested Docker based development environment
+with GUI support on all major platforms and even [[https://i.imgur.com/wDLDMZN.gif][your web browser]].
+
+Features:
+- Automatically get Spacemacs layers dependency installed with [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/README.org][installer scripts]]
+- Reap the benefit of Emacs and other GNU/Linux tools on Windows/MacOS machines
+- Use [[https://hub.docker.com/][docker hub]] to auto-build your environment and store full backups for free
+- Build once and work with the same development environment everywhere
+- Run untrusted/risky code in the tunable sandbox with CPU/network/disk quotas
+- Try new tools, experiment and roll back changes when something goes wrong
+- Share your setup with others or extend someone else’s development environment
+- Run multiple Emacs instances on the same machine isolated
+- An easy way to swap Emacs version (=emacs25= =emacs-snapshot=) for debugging
+- [[https://docs.docker.com/engine/reference/commandline/pause/][pause]] container to free resources temporarily
+- [[https://github.com/docker/docker/blob/1.13.x/experimental/checkpoint-restore.md][Checkpoint & Restore]] - maybe the fastest way to start a “heavy” environment
+- Friendly for networks with low upload speed/quotas.
+
+** Utilities
+*** Spacemacs-purpose
+[[file:+spacemacs/spacemacs-purpose/README.org][+spacemacs/spacemacs-purpose/README.org]]
+
+This layer enables [[https://github.com/bmag/emacs-purpose][window-purpose]], which provides an alternative, purpose-based
+window manager for Emacs. With this layer, your window layout should be robust
+and shouldn’t change too much when opening all sorts of buffers.
+
+Regular [[https://github.com/m2ym/popwin-el][popwin]] is not triggered when window-purpose is enabled. However,
+the window-purpose layer provides a =purpose-popwin= extension, which
+brings popwin’s behavior to window-purpose and solves that problem.
+
+Features:
+- Window layout is more robust and less likely to change unintentionally
+- Dedicate window to a purpose
+- User-defined purposes
+- Extensible window display behavior
+- Empty =purpose-mode-map=, to avoid conflicts with other key maps
+- Replicate popwin behavior for purpose-mode - almost no regression in popup behavior from using window-purpose.
+- Reuses popwin’s settings: =popwin:special-display-config=, =popwin:popup-window-height= and =popwin:popup-window-width=.
+- Difference from popwin: when several windows are open, popup window is sometimes bigger than with regular popwin in the same situation.
+
+* Music
+** Spotify
+[[file:+music/spotify/README.org][+music/spotify/README.org]]
+
+This layer integrates an online music service into Spacemacs.
+
+Features:
+- Support for listening to music from within Emacs via [[https://www.spotify.com][Spotify]].
+
+* Miscellaneous
+** Parinfer
+[[file:+misc/parinfer/README.org][+misc/parinfer/README.org]]
+
+This layer provides an implementation of [[https://shaunlebron.github.io/parinfer/][parinfer]], a lisp editing paradigm that
+controls indentation based on parentheses or vice versa.
+
+Features:
+- Automatic managment of parenthesis in clojure, emacs lisp, common-lisp and scheme following the parinfer editing paradigm.
+
+** copy-as-format
+[[file:+misc/copy-as-format/README.org][+misc/copy-as-format/README.org]]
+
+This layer adds support for [[https://github.com/sshaw/copy-as-format][copy-as-format]].
+
+Features:
+- Function to copy buffer locations as GitHub/Slack/JIRA/HipChat/... formatted code
+
+** ietf
+[[file:+misc/ietf/README.org][+misc/ietf/README.org]]
+
+The =IETF= layer collects various useful packages for participating in the
+Internet Engineering Task Force ([[https://www.ietf.org]]).
+
+Features:
+- Fetching and opening IETF documents.
+- Viewing IETF documents.
+- Writing IETF documents.
+
+** multiple-cursors
+[[file:+misc/multiple-cursors/README.org][+misc/multiple-cursors/README.org]]
+
+Features:
+- support for multiple cursors.
+
+** nlinum
+[[file:+misc/nlinum/README.org][+misc/nlinum/README.org]]
+
+This layer provides various styles of line numbering in Spacemacs. It replaces
+=linum= and =linum-relative= with the improved =nlinum= and =nlinum-relative=
+packages.
+
+Please note that on Emacs 26 and newer, this layer also replaces the new native
+line numbers mode (=display-line-numbers-mode=), and because of that it is not
+recommended to use =nlinum= layer on Emacs 26 or newer.
+
+Features:
+- Support for classic ascending line numbering.
+- Support for line numbering relative to the current cursor position.
+
+* Fun
+** Emoji
+[[file:+fun/emoji/README.org][+fun/emoji/README.org]]
+
+This layer adds support for Emoji emoticons from [[https://www.webpagefx.com/tools/emoji-cheat-sheet/][emoji-cheat-sheet]].
+
+Features:
+- Browse Emoji in a dedicated buffer
+- Display Emoji images in buffer
+- Insert one or several Emoji with an helm front-end
+- Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]]
+
+** Games
+[[file:+fun/games/README.org][+fun/games/README.org]]
+
+This layer allows you to play evilified games in spacemacs.
+
+Features:
+- 2048-game
+- Pacmacs (Pacman for Emacs)
+- Sudoku
+- Tetris
+- Typit
+
+** selectric
+[[file:+fun/selectric/README.org][+fun/selectric/README.org]]
+
+This layer makes your Emacs sound like an IBM Selectric typewriter, for those
+moments when your loud, clicky mechanical keyboard is not at hand, yet, you’d
+still wish to enjoy the sound.
+
+Features:
+- Brings back fond memories about your first programming job where you started
+  with that big mechanical keyboard and the small monochrom display working on
+  the latest IBM Iseries server.
+
+** xkcd
+[[file:+fun/xkcd/README.org][+fun/xkcd/README.org]]
+
+This layer adds a [[http://xkcd.com/][xkcd]] navigation mode using [[https://github.com/vibhavp/emacs-xkcd][emacs-xkcd]].
+
+Features:
+- Load a random xkcd
+- Show the text in the modeline
+- Open explanation and current comic in browser
+- Cache the comics in =.cache/xkcd=
+
+* Programming languages
+** General-purpose
+*** Imperative
+**** Forth
+[[file:+lang/forth/README.org][+lang/forth/README.org]]
+
+This layer adds basic support for the Forth family of languages to spacemacs.
+
+Features:
+- Syntax highlighting
+- Showing meaning of objects in context of the current =Forth= session.
+- Eval of entire files or regions in current =Forth= session.
+- Passing interactive commands to current =Forth= session.
+
+**** asm
+[[file:+lang/asm/README.org][+lang/asm/README.org]]
+
+This layer adds support for Assembly code. The built-in major mode for
+editing assembly code in Emacs is =asm-mode=.
+
+The layer also adds =nasm-mode= for NASM-specific syntax. Although =nasm-mode=
+is intended for NASM, it actually works well with other variants of Assembly
+in general, and provides Imenu integration so you can jump around with ~SPC s j~.
+
+Features:
+- Improved syntax highlighting.
+- Automatic indentation.
+- Auto-completion for symbol in opened buffers.
+- Look up documentation for current instruction at cursor.
+- Imenu integration.
+
+* Readers
+** Dash
+[[file:+readers/dash/README.org][+readers/dash/README.org]]
+
+This layer integrates offline api browsers into emacs. It provides one for OS X, Linux and Windows.
+
+Features:
+- Searching for word at point in offline api browser’s UI.
+- Integration of offline api browser search results in helm and ivy.
+- Support for [[https://kapeli.com/dash][dash]] offline api browser for OS X.
+- Support for [[https://zealdocs.org/][zeal]] offline api browser for Linux.
+
+** Deft
+[[file:+readers/deft/README.org][+readers/deft/README.org]]
+
+This layer adds a search driven note taking system into Spacemacs.
+
+Features:
+- Browsing and creating notes with a powerfull search function via [[http://jblevins.org/projects/deft/][Deft]].
+- Integration of =org-mode= as note editor.
+- Configurable list of extensions to recognize as notes.
+
+** Elfeed
+[[file:+readers/elfeed/README.org][+readers/elfeed/README.org]]
+
+This layer integrates a web feed reader into spacemacs.
+
+Features:
+- Support for reading RSS and Atom feeds directly within emacs via [[https://github.com/skeeto/elfeed][Elfeed]].
+- Support for managing feeds via org files supplied by [[https://github.com/remyhonig/elfeed-org][elfeed-org]].
+- Support for displaying feed database content in the browser via [[https://github.com/skeeto/elfeed#web-interface][web interface]].
+
+** PDF
+[[file:+readers/pdf/README.org][+readers/pdf/README.org]]
+
+This layer enables support for PDF with the [[https://github.com/politza/pdf-tools][pdf-tools]] package.
+
+According to the official repository:
+
+#+BEGIN_QUOTE
+  “PDF Tools is, among other things, a replacement of DocView for PDF files. The
+  key difference is, that pages are not pre-rendered by e.g. ghostscript and
+  stored in the file-system, but rather created on-demand and stored in memory.”
+#+END_QUOTE
+
+Features:
+- Searching and slicing with =occur=.
+- Show document headings in outline buffer.
+- Manipulate annotations.
+- Fit PDF to screen.
+
+** Speed Reading
+[[file:+readers/speed-reading/README.org][+readers/speed-reading/README.org]]
+
+A speed reading mode for Emacs.
+
+Features:
+- Support for =speed-reading= of arbitrary texts
+
+** epub
+[[file:+readers/epub/README.org][+readers/epub/README.org]]
+
+This layer provides support for reading EPUB-formatted eBooks in Spacemacs using the
+excellent [[https://github.com/wasamasa/nov.el][nov.el]] package.
+
+Features:
+- Basic navigation (jump to TOC, previous/next chapter)
+- Remembering and restoring the last read position
+- Jump to next chapter when scrolling beyond end
+- Renders EPUB2 (.ncx) and EPUB3 (<nav>) TOCs
+- Hyperlinks to internal and external targets
+- Supports textual and image documents
+- View source of document files
+- Metadata display
+- Image rescaling
+
+* Fonts
+** unicode-fonts
+[[file:+fonts/unicode-fonts/README.org][+fonts/unicode-fonts/README.org]]
+
+This layer adds support for the [[https://github.com/rolandwalker/unicode-fonts][unicode-fonts]] package. It is recommended to
+install the fonts listed in the [[https://github.com/rolandwalker/unicode-fonts#quickstart][Quickstart]] section of the unicode-fonts README.
+
+Features:
+- Display unicode glyphs using the best available font.
+- Easily override glyphs or sections of glyphs.
+- Display color emoji on both the Mac port version of Emacs and emacs-plus (with
+  =unicode-fonts-force-multi-color-on-mac= set to non nil).
+
+* Completion
+** Auto-completion
+[[file:+completion/auto-completion/README.org][+completion/auto-completion/README.org]]
+
+This layer adds auto-completion to all supported language layers.
+
+Features:
+- Support for code completion with [[http://company-mode.github.io/][company]] or [[https://github.com/auto-complete/auto-complete][auto-complete]] for various language layers
+- Frequency-based suggestions via [[https://github.com/company-mode/company-statistics][company-statistics]] for =company=
+- Integration with [[https://github.com/capitaomorte/yasnippet][yasnippet]] and [[https://github.com/abo-abo/auto-yasnippet][auto-yasnippet]]
+- Automatic configuration of [[https://www.emacswiki.org/emacs/HippieExpand][hippie-expand]]
+
+** Helm
+[[file:+completion/helm/README.org][+completion/helm/README.org]]
+
+This layer enables Helm everywhere in Spacemacs. The alternative to this
+layer is the Ivy layer which brings the same level of integration as Helm.
+
+These completion systems are the central control towers of Spacemacs, they are
+used to manage buffers, projects, search results, configuration layers, toggles
+and more...
+
+Mastering your choice of completion system will make you a Spacemacs power user.
+
+Features:
+- Project wide =grep= like text search via =helm-dir-smart-do-search=
+- Project wide text replacements using =helm-edit-mode=
+- Buffer wide dynamic text search via =helm-swoop=
+- Fuzzy matching for most =helm-sources=
+- Detailed configuration parameters for helms appearance
+- Intuitive =transient state=
+
+** Ivy
+[[file:+completion/ivy/README.org][+completion/ivy/README.org]]
+
+This layer enables Ivy for completion. It will replace the default completion by
+[[https://github.com/emacs-helm/helm][Helm]].
+
+These completion systems are the central control towers of Spacemacs, they are
+used to manage buffers, projects, search results, configuration layers, toggles
+and more...
+
+Mastering your choice of completion system will make you a Spacemacs power user.
+
+Features:
+- Project wide =grep= like text search via =search-auto=
+- Project wide text replacements using =counsel-imenu=
+- Buffer wide dynamic text search via =swiper=
+- Detailed configuration parameters for ivy appearance
+- Intuitive =transient state=
+- Advanced buffer information with =ivy-rich=
+
+** Templates
+[[file:+completion/templates/README.org][+completion/templates/README.org]]
+
+This layer provides templates to Spacemacs. A template consists of text that is
+automatically inserted into a new file when it is opened. This is done via
+[[https://github.com/mineo/yatemplate][yatemplate]], which leverages [[https://github.com/joaotavora/yasnippet][yasnippet]].
+
+Features:
+- Auto-insert snippets when creating specific new files.
+
+* Operating systems
+** NixOS
+[[file:+os/nixos/README.org][+os/nixos/README.org]]
+
+This layer adds tools for better integration of emacs in NixOS.
+
+Features:
+- Nix-mode using [[https://github.com/NixOS/nix-mode][nix-mode]]
+- Auto-completion of NixOS Options using [[https://github.com/travisbhartwell/nix-emacs/blob/master/company-nixos-options.el][company-nixos-options]]
+- Helm Lookup for NixOS Options [[https://github.com/travisbhartwell/nix-emacs/blob/master/helm-nixos-options.el][helm-nixos-options]]
+
+** OSX
+[[file:+os/osx/README.org][+os/osx/README.org]]
+
+Spacemacs is not just emacs+vim. It can have OSX key bindings too! This layer
+globally defines common OSX key bindings.
+
+Features:
+- ~⌘~ is set to ~hyper~ and ~⌥~ is set to ~meta~
+- In =dired= use =gls= instead of =ls=
+- Fix separator colors of Spaceline mode-line
+
+* Themes
+** Colors
+[[file:+themes/colors/README.org][+themes/colors/README.org]]
+
+This layer colors your life by enhancing the existing coloration of identifiers as well as providing you with a more colorful
+process indicator.
+
+Features:
+- Colorize all identifiers (christmas tree mode :-)) with mostly unique colors, and the ability to choose saturation and lightness
+  with [[https://github.com/Fanael/rainbow-identifiers][rainbow-identifiers]].
+- Colorize only identifiers recognized as variables with [[https://github.com/ankurdave/color-identifiers-mode][color-identifiers]].
+- Colorize strings representing colors with the color they represent as background with
+  [[https://jblevins.org/log/rainbow-mode][rainbow-mode]].
+- Display a Nyan cat progress bar in the mode-line with [[https://github.com/syl20bnr/nyan-mode][nyan-mode]].
+
+** Themes Megapack
+[[file:+themes/themes-megapack/README.org][+themes/themes-megapack/README.org]]
+
+This layer installs around 100 themes for Emacs.
+
+Features:
+- Have access to all included themes in this [[http://themegallery.robdor.com][theme gallery]] from [[http://www.twitter.com/robmerrell][Rob Merrell]].
+- Easily try a theme by invoking helm-themes with: ~SPC T s~.
+
+** Theming
+[[file:+themes/theming/README.org][+themes/theming/README.org]]
+
+This layer allows for a simple way of modifying themes.
+
+Features:
+- Modify themes from your =.spacemacs=.
+- Tweak face attributes and other aspects of themes.
+- Includes three additional layer variables for tweaking headings.
+
+* internationalization
+** Chinese
+[[file:+intl/chinese/README.org][+intl/chinese/README.org]]
+
+This layer adds support for traditional Chinese script to Spacemacs.
+
+Features:
+- Support for the [[https://en.wikipedia.org/wiki/Pinyin][Pinyin(拼音)]] input method via [[https://github.com/tumashu/chinese-pyim][chinese-pyim]].
+- Support for the [[https://en.wikipedia.org/wiki/Wubi_method][Wubi(五笔)]] input method via [[https://github.com/andyque/chinese-wbim][chinese-wbim]].
+- Integration of the native input method framework [[https://en.wikipedia.org/wiki/Fcitx][fcitx]] via [[https://github.com/cute-jumper/fcitx.el][cute-jumper/fcitx.el]].
+- Integration of the [[https://en.wikipedia.org/wiki/Youdao][Youdao(有道) Dictionary]] via [[https://github.com/xuchunyang/youdao-dictionary.el][youdao-dictionary]].
+- Support for file searches in =dired= using Chinese Pinyin characters via [[https://github.com/redguardtoo/find-by-pinyin-dired][find-by-pinyin-dired]].
+- Support for jumping to Chinese Pinyin characters with =ace-jump-mode= via [[https://github.com/cute-jumper/ace-pinyin][ace-pinyin]].
+- Support for conversion between simplified and traditional Chinese texts via [[https://github.com/gucong/emacs-chinese-conv/][chinese-conv]].
+- Automatic visual separation of Chinese and Latin characters via [[https://github.com/coldnew/pangu-spacing][coldnew/pangu-spacing]].
+- Automatic joining of consecutive Chinese lines into a single long line without unwanted space when exporting org-mode to html.
+
+** Japanese
+[[file:+intl/japanese/README.org][+intl/japanese/README.org]]
+
+This Layer adds Japanese related packages.
+
+Features:
+- [[https://github.com/kenjimyzk/evil-tutor-ja][evil-tutor-ja]]: Japanese Vimtutor adapted to Emacs+Evil and wrapped in a major mode
+- [[https://github.com/emacs-jp/migemo][migemo]]: Japanese incremental search through dynamic pattern expansion
+- [[https://github.com/emacs-helm/helm/wiki/Migemo][helm-migemo-mode]]: helm with migemo
+- [[https://github.com/momomo5717/avy-migemo/blob/master/README.jp.org][avy-migemo]]: avy with migemo
+- [[https://github.com/hsaito/ddskk][ddskk]]: Simple Kana to Kanji conversion program (SKK)
+- [[https://github.com/emacs-jp/japanese-holidays][japanese-holidays]]: calendar functions for the Japanese calendar
+- [[https://github.com/coldnew/pangu-spacing][pangu-spacing]]: emacs minor-mode to add space between Japanese and English
+  characters.
+- Join consecutive Japanese lines into a single long line without unwanted space
+  when exporting org-mode to html.
+
+** keyboard-layout
+[[file:+intl/keyboard-layout/README.org][+intl/keyboard-layout/README.org]]
+
+This layer configures some key bindings in Spacemacs, to make it compatible with
+keyboard layouts that differs from the traditional =en-us= =QWERTY= layout.
+
+Features:
+- Support alernative keyboard layouts within spacemacs
+- Remap navigation commands to the homerow of your chosen layout
+- Remap missing commands automatically to elsewhere in the layout
+
 * README.org files that need proper tags
-** Agda layer
+** Agda
 [[file:+lang/agda/README.org][+lang/agda/README.org]]
 
 This layer adds support for the [[http://wiki.portal.chalmers.se/agda/pmwiki.php][Agda]] programming language.
@@ -1651,7 +779,7 @@ Features:
 - Play portions of a buffer, or the entire buffer,
   through a running Alda server.
 
-** Asciidoc layer
+** Asciidoc
 [[file:+lang/asciidoc/README.org][+lang/asciidoc/README.org]]
 
 This layer adds [[https://asciidoctor.org][AsciiDoc]] markup language support to Spacemacs.
@@ -1660,7 +788,7 @@ Features:
 - asciidoc format support via [[https://github.com/sensorflo/adoc-mode][adoc-mode]]
 - =.adoc= files are associated with =adoc-mode= by default
 
-** Autohotkey layer
+** Autohotkey
 [[file:+lang/autohotkey/README.org][+lang/autohotkey/README.org]]
 
 Syntax highlighting and Emacs functions for use with [[https://autohotkey.com/][AutoHotkey]] or
@@ -1679,7 +807,7 @@ Features:
 - Execute Code Snippets
 - Correct Indentation and Commenting
 
-** BibTeX layer
+** BibTeX
 [[file:+lang/bibtex/README.org][+lang/bibtex/README.org]]
 
 BibTeX and BibLaTeX files are a common way to manage bibliographies. The format
@@ -1693,7 +821,7 @@ Features:
 - Utilities for automatically adding entries from different data sources.
 - Support for inserting citations in various other modes.
 
-** C# layer
+** C#
 [[file:+lang/csharp/README.org][+lang/csharp/README.org]]
 
 This layer adds support for C# language using the [[https://github.com/OmniSharp/omnisharp-roslyn][omnisharp-roslyn]] language
@@ -1709,7 +837,7 @@ Features:
 - Navigation to cross-references
 - Inspecting types in metadata
 
-** C/C++ layer
+** C/C++
 [[file:+lang/c-c++/README.org][+lang/c-c++/README.org]]
 
 This layer adds configuration for C/C++ language.
@@ -1732,7 +860,7 @@ Features:
 - Support for [[https://github.com/Andersbakken/rtags][rtags]].
 - Support for [[https://github.com/cquery-project/cquery][cquery]] or [[https://github.com/MaskRay/ccls][ccls]] as an lsp backend.
 
-** CSV layer
+** CSV
 [[file:+lang/csv/README.org][+lang/csv/README.org]]
 
 This layer adds tools for better integration of CSV files in Spacemacs.
@@ -1746,7 +874,7 @@ Features:
 - Transposing of rows/columns
 - Intelligent yanking of fields
 
-** Clojure layer
+** Clojure
 [[file:+lang/clojure/README.org][+lang/clojure/README.org]]
 
 This layer adds support for [[https://clojure.org/][Clojure]] language using [[https://github.com/clojure-emacs/cider][CIDER]].
@@ -1760,7 +888,7 @@ Features:
 - Clojure cheatsheet
 - Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
-** CoffeeScript layer
+** CoffeeScript
 [[file:+lang/coffeescript/README.org][+lang/coffeescript/README.org]]
 
 This layer adds support for the CoffeeScript language using [[https://github.com/defunkt/coffee-mode][coffee-mode]].
@@ -1772,7 +900,7 @@ Features:
 - =Org-Babel= integration
 - REPL support
 
-** Common Lisp layer
+** Common Lisp
 [[file:+lang/common-lisp/README.org][+lang/common-lisp/README.org]]
 
 This layer provides support for Common Lisp to Spacemacs.
@@ -1784,7 +912,7 @@ Features:
 - Support for specific lisp navigation styles via =common-lisp-mode=
 - Support for [[http://www.sbcl.org/][sbcl]] backend or any other =common-lisp= implementation
 
-** Coq layer
+** Coq
 [[file:+lang/coq/README.org][+lang/coq/README.org]]
 
 This layer adds support for the [[https://coq.inria.fr/][Coq]] proof assistant (adapted from [[https://github.com/tchajed/spacemacs-coq][spacemacs-coq]]) to Spacemacs.
@@ -1797,7 +925,7 @@ Features:
 - Replacement of certain constants with the correct mathematical signs
 - Inserting of certain preconfigured proof elements
 
-** D language layer
+** D language
 [[file:+lang/d/README.org][+lang/d/README.org]]
 
 This simple layer adds support for the [[http://dlang.org/][D language]] to Spacemacs.
@@ -1807,7 +935,7 @@ Features:
 - Auto completion via =company=
 - Syntax checking via =flycheck=
 
-** Dhall layer
+** Dhall
 [[file:+lang/dhall/README.org][+lang/dhall/README.org]]
 
 This layer adds support for the [[https://dhall-lang.org/][Dhall Configuration Language]], a non-repetitive
@@ -1821,7 +949,7 @@ Features:
 *Note:* You will need a ~dhall~ binary on your ~PATH~. Official releases [[https://github.com/dhall-lang/dhall-haskell/releases][can be
 found here]].
 
-** ESS (R) layer
+** ESS (R)
 [[file:+lang/ess/README.org][+lang/ess/README.org]]
 
 This layer adds support for statistical programming languages to Spacemacs.
@@ -1837,7 +965,7 @@ Features:
 - Support for =S=, =SAS= and =R=
 - Much more via the [[https://ess.r-project.org/Manual/ess.html#Current-Features][ESS Project]]
 
-** Elixir layer
+** Elixir
 [[file:+lang/elixir/README.org][+lang/elixir/README.org]]
 
 This layer adds support for [[http://elixir-lang.org/][Elixir]].
@@ -1858,7 +986,7 @@ Features:
 - Flycheck support for [[https://github.com/rrrene/credo][credo]]
 - Flycheck support for test results
 
-** Elm layer
+** Elm
 [[file:+lang/elm/README.org][+lang/elm/README.org]]
 
 This layer adds support for [[http://elm-lang.org][Elm]].
@@ -1876,7 +1004,7 @@ Features:
 - Integration with elm-reactor
 - Integration with elm-package
 
-** Emacs Lisp layer
+** Emacs Lisp
 [[file:+lang/emacs-lisp/README.org][+lang/emacs-lisp/README.org]]
 
 This layer gathers all the configuration related to emacs-lisp. This should
@@ -1895,7 +1023,7 @@ Features:
 - Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 - Visual feedback when evaluation using [[https://github.com/hchbaw/eval-sexp-fu.el][eval-sexp-fu]]
 
-** Erlang layer
+** Erlang
 [[file:+lang/erlang/README.org][+lang/erlang/README.org]]
 
 This layer adds very basic support for Erlang to Spacemacs.
@@ -1926,7 +1054,7 @@ Features:
   - Vala
   - Wolfram Language / Mathematica
 
-** F# layer
+** F#
 [[file:+lang/fsharp/README.org][+lang/fsharp/README.org]]
 
 This layer adds support for F# language using [[https://github.com/fsharp/fsharpbinding][fsharpbinding]] and [[https://github.com/fsharp/fsharpbinding][fsharp-mode]].
@@ -1950,7 +1078,7 @@ Features:
 - Scaffolding support
 - Refactoring support
 
-** GO layer
+** GO
 [[file:+lang/go/README.org][+lang/go/README.org]]
 
 This layer adds extensive support for go to Spacemacs.
@@ -1968,7 +1096,7 @@ Features:
 - Fill a structure with default values using the [[https://github.com/davidrjenni/reftools/tree/master/cmd/fillstruct][fillstruct]]
 - LSP backend
 
-** GPU layer
+** GPU
 [[file:+lang/gpu/README.org][+lang/gpu/README.org]]
 
 This layer adds support for GPU related languages like CUDA, OpenCL and various Shader formats to Spacemacs.
@@ -1995,7 +1123,7 @@ Features:
   - =.frag= (Shaders)
   - =.comp= (Shaders)
 
-** Groovy layer
+** Groovy
 [[file:+lang/groovy/README.org][+lang/groovy/README.org]]
 
 This layer supports [[http://www.groovy-lang.org/][Groovy]] development in Spacemacs.
@@ -2005,7 +1133,7 @@ Features:
 - Auto-generate imports with [[https://github.com/mbezjak/emacs-groovy-imports][groovy-imports]]
 - Groovy REPL integration
 
-** HTML layer
+** HTML
 [[file:+lang/html/README.org][+lang/html/README.org]]
 
 This layer adds support for editing HTML and CSS.
@@ -2020,7 +1148,7 @@ Features:
 - imenu support for CSS and Sass through [[https://github.com/hlissner/emacs-counsel-css][counsel-css]]
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 
-** Haskell layer
+** Haskell
 [[file:+lang/haskell/README.org][+lang/haskell/README.org]]
 
 This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
@@ -2032,7 +1160,7 @@ Features:
 
 *This layer is under construction, it needs your contributions and bug reports.*
 
-** Hy layer
+** Hy
 [[file:+lang/hy/README.org][+lang/hy/README.org]]
 
 This layer adds support for the Hy language based on Python.
@@ -2045,7 +1173,7 @@ Features:
 - Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]]
 - Org Babel support
 
-** IPython Notebook layer
+** IPython Notebook
 [[file:+lang/ipython-notebook/README.org][+lang/ipython-notebook/README.org]]
 
 This layer adds support for the package =emacs-ipython-notebook=.
@@ -2057,7 +1185,7 @@ Features:
 - Key bindings available through transient-state or leader key
 - Lazy-loading
 
-** Idris layer
+** Idris
 [[file:+lang/idris/README.org][+lang/idris/README.org]]
 
 This layer adds support for the [[https://www.idris-lang.org/][Idris]] language to Spacemacs.
@@ -2068,7 +1196,7 @@ Features:
 - Integration of the =Idris= REPL
 - Integration of the =Idris= build system
 
-** JR Concurrent Programming Language layer
+** JR Concurrent Programming Language
 [[file:+lang/jr/README.org][+lang/jr/README.org]]
 
 This layer adds syntax highlighting for the [[http://web.cs.ucdavis.edu/~olsson/research/jr/][JR Concurrent Programming Language]].
@@ -2077,7 +1205,7 @@ JR is the implementation of the [[https://www2.cs.arizona.edu/sr/][SR]] language
 Features:
 - Syntax highlighting
 
-** JSON layer
+** JSON
 [[file:+lang/json/README.org][+lang/json/README.org]]
 
 This layer adds support for JSON files with [[https://github.com/joshwnj/json-mode][json-mode]]
@@ -2089,7 +1217,7 @@ Features:
 - Navigate JSON hierarchy with [[https://github.com/DamienCassou/json-navigator][json-nagivator]]
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]] or [[https://github.com/prettier/prettier][prettier]]
 
-** Java layer
+** Java
 [[file:+lang/java/README.org][+lang/java/README.org]]
 
 This layer adds support for the Java language.
@@ -2105,7 +1233,7 @@ Features:
   - Linting using flycheck integration
   - Maven and Gradle integration
 
-** JavaScript layer
+** JavaScript
 [[file:+lang/javascript/README.org][+lang/javascript/README.org]]
 
 This layer adds support for the JavaScript language using [[https://github.com/mooz/js2-mode][js2-mode]].
@@ -2118,7 +1246,7 @@ Features:
 - REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 
-** LaTeX layer
+** LaTeX
 [[file:+lang/latex/README.org][+lang/latex/README.org]]
 
 This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects/auctex/][AucTeX]].
@@ -2129,7 +1257,7 @@ Features:
 - Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
 
-** Lua layer
+** Lua
 [[file:+lang/lua/README.org][+lang/lua/README.org]]
 
 This layer adds support for editing Lua.
@@ -2139,7 +1267,7 @@ Features:
 - Sending code to a lua REPL
 - Code linting using [[https://github.com/mpeterv/luacheck][Luacheck]]
 
-** Markdown layer
+** Markdown
 [[file:+lang/markdown/README.org][+lang/markdown/README.org]]
 
 This layer adds markdown support to Spacemacs.
@@ -2151,7 +1279,7 @@ Features:
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
   using the =emoji= layer or having a proper font) :clap:
 
-** Nim layer
+** Nim
 [[file:+lang/nim/README.org][+lang/nim/README.org]]
 
 This layer adds support for the multi-paradigm language =Nim=.
@@ -2161,7 +1289,7 @@ Features:
 - Jump to definition.
 - Syntax checking.
 
-** Ocaml layer
+** Ocaml
 [[file:+lang/ocaml/README.org][+lang/ocaml/README.org]]
 
 This is a very basic layer for editing ocaml files.
@@ -2171,8 +1299,9 @@ Features:
 - Error reporting, completion and type display via [[https://github.com/ocaml/merlin][merlin]]
 - auto-completion with company mode via [[https://github.com/ocaml/merlin][merlin]]
 - syntax-checking via [[https://github.com/flycheck/flycheck-ocaml][flycheck-ocaml]] (or alternatively [[https://github.com/ocaml/merlin][merlin]])
+- =dune= file syntax highlighting and template insertion via [[https://github.com/ocaml/dune/][dune-mode]]
 
-** Octave layer
+** Octave
 [[file:+lang/octave/README.org][+lang/octave/README.org]]
 
 This layer adds support for =GNU Octave= files to Spacemacs.
@@ -2183,7 +1312,7 @@ Features:
 - Support for directly running =Octave= scripts from emacs.
 - Integration with =Octaves= documentation search function.
 
-** PHP layer
+** PHP
 [[file:+lang/php/README.org][+lang/php/README.org]]
 
 This layer adds PHP language support to Spacemacs.
@@ -2198,7 +1327,7 @@ Features:
 The =gtags= layer is recommended to benefit from better =eldoc= and
 =helm-gtags=.
 
-** Pact layer
+** Pact
 [[file:+lang/pact/README.org][+lang/pact/README.org]]
 
 This layer adds support for the [[https://github.com/kadena-io/pact][Pact Smart Contract Language]].
@@ -2210,7 +1339,7 @@ Features:
 
 *Note:* You will need a ~pact~ binary on your ~PATH~ for REPL features to function.
 
-** Perl5 layer
+** Perl5
 [[file:+lang/perl5/README.org][+lang/perl5/README.org]]
 
 This layer adds support for the Perl5 language.
@@ -2222,7 +1351,7 @@ Features:
 - Jump to symbol definition
 - Interactive debug via [[https://github.com/realgud/realgud][realgud]] with [[http://search.cpan.org/~rocky/Devel-Trepan-0.73/lib/Devel/Trepan.pm][trepan.pl]]
 
-** Protocol Buffers layer
+** Protocol Buffers
 [[file:+lang/protobuf/README.org][+lang/protobuf/README.org]]
 
 Highlighting and syntax checking for [[https://developers.google.com/protocol-buffers/][Protocol Buffer]] files.
@@ -2233,7 +1362,7 @@ Features:
 - Correct indentation and commenting
 - Quickly browse file contents using imenu (default key binding ~SPC j i~).
 
-** Purescript layer
+** Purescript
 [[file:+lang/purescript/README.org][+lang/purescript/README.org]]
 
 This layer provides basic Purescript editing support for spacemacs.
@@ -2245,7 +1374,7 @@ Features:
 - Syntax checking through flycheck
 - Autocompletion through company
 
-** Python layer
+** Python
 [[file:+lang/python/README.org][+lang/python/README.org]]
 
 This layer adds support for the Python language.
@@ -2268,7 +1397,7 @@ Features:
 - Fix a missing import statement with [[https://github.com/anachronic/importmagic.el][importmagic]]
 - Pip package manager with [[https://github.com/brotzeit/pippel][pippel]]
 
-** Racket layer
+** Racket
 [[file:+lang/racket/README.org][+lang/racket/README.org]]
 
 Adds support for the [[http://racket-lang.org/][Racket]] programming language.
@@ -2280,7 +1409,7 @@ Features:
 - Code navigation with =gtags=
 - Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
-** Ruby layer
+** Ruby
 [[file:+lang/ruby/README.org][+lang/ruby/README.org]]
 
 This layer provides support for the Ruby programming language.
@@ -2293,7 +1422,7 @@ Features:
 - Linter (rubocop)
 - Interactive REPL and code navigation (robe)
 
-** Rust layer
+** Rust
 [[file:+lang/rust/README.org][+lang/rust/README.org]]
 
 This layer supports [[https://www.rust-lang.org][Rust]] development in Spacemacs.
@@ -2302,7 +1431,7 @@ Features:
 - Auto-completion and navigation support through [[https://github.com/emacs-lsp/lsp-rust][lsp]] or [[https://github.com/phildawes/racer][Racer]]
 - support for the Rust package manager [[http://doc.crates.io/index.html][Cargo]]
 
-** SML layer
+** SML
 [[file:+lang/sml/README.org][+lang/sml/README.org]]
 
 Adds support for the [[http://www.smlnj.org][SML]] programming language to Spacemacs.
@@ -2312,7 +1441,7 @@ Features:
 - Integration of the =SML Repl= into emacs
 - Basic completion of SML forms via =sml-electric-space=
 
-** SQL layer
+** SQL
 [[file:+lang/sql/README.org][+lang/sql/README.org]]
 
 This layer adds support for a wide range of SQL dialects to Spacemacs.
@@ -2339,7 +1468,7 @@ Features:
 - REPL support via =SQLi= buffer.
 - Automatic capitalization of keywords.
 
-** Scala layer
+** Scala
 [[file:+lang/scala/README.org][+lang/scala/README.org]]
 
 This layer adds support for the Scala language to Spacemacs.
@@ -2357,7 +1486,7 @@ Features:
 - Automatic replacement of ASCII arrows with unicode ones
 - Automatic starting/stopping of [[https://ensime.github.io/][ENSIME]] IDE server
 
-** Scheme layer
+** Scheme
 [[file:+lang/scheme/README.org][+lang/scheme/README.org]]
 
 This layer adds support for Scheme via [[http://geiser.nongnu.org][Geiser]]. Note that combined usage of racket-mode and geiser has not been tested.
@@ -2367,7 +1496,7 @@ Features:
 - Support for the extension language platform [[https://www.gnu.org/software/guile/][Guile]]
 - Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
-** Semantic Web layer
+** Semantic Web
 [[file:+lang/semantic-web/README.org][+lang/semantic-web/README.org]]
 
 This layer adds support for RDF files in N3 and [[https://www.w3.org/TR/turtle/][Turtle syntax]] using [[https://bitbucket.org/nxg/ttl-mode][ttl-mode]]
@@ -2381,7 +1510,7 @@ that buffer. Results will be displayed in another buffer in CSV format.
 Features:
 - Provides an alternative way to search the web using SPARQL queries.
 
-** Shell Scripts layer
+** Shell Scripts
 [[file:+lang/shell-scripts/README.org][+lang/shell-scripts/README.org]]
 
 This simple layer adds support for shell scripting.
@@ -2397,7 +1526,7 @@ Features:
 - =Sh= scripts linting using [[https://www.shellcheck.net/][shellcheck]]
 - =Sh= scripts style checking using [[https://github.com/openstack-dev/bashate][bashate]]
 
-** Swift layer
+** Swift
 [[file:+lang/swift/README.org][+lang/swift/README.org]]
 
 This layer adds support for Apple’s Swift programming language, used as a
@@ -2410,7 +1539,7 @@ Features:
 - Automatic syntax checking with =flycheck= (available with the
   =syntax-checking= layer)
 
-** TypeScript layer
+** TypeScript
 [[file:+lang/typescript/README.org][+lang/typescript/README.org]]
 
 This layer adds support for TypeScript and TSX editing.
@@ -2428,7 +1557,7 @@ Features:
 - formatting
 - TypeScript playground integration
 
-** Vimscript language layer
+** Vimscript language
 [[file:+lang/vimscript/README.org][+lang/vimscript/README.org]]
 
 This layer adds basic support for vimscript and pentadactyl config files.
@@ -2436,7 +1565,7 @@ This layer adds basic support for vimscript and pentadactyl config files.
 Features:
 - Syntax highlighting
 
-** Windows Scripting layer
+** Windows Scripting
 [[file:+lang/windows-scripts/README.org][+lang/windows-scripts/README.org]]
 
 This simple layer adds support for the Powershell scripting language as well
@@ -2446,7 +1575,7 @@ Features:
 - Syntax highlighting of powershell =.ps1= files via [[https://github.com/jschaf/powershell.el][powershell.el]]
 - Syntax highlighting of batch =.bat= files via [[https://www.emacswiki.org/emacs/DosMode][dos.el]]
 
-** YAML layer
+** YAML
 [[file:+lang/yaml/README.org][+lang/yaml/README.org]]
 
 This layer provides support for the YAML file format.
@@ -2455,7 +1584,7 @@ Features:
 - Syntax highlighting
 - Syntax checking via [[http://www.flycheck.org/en/latest/languages.html#yaml][flycheck]]
 
-** crystal layer
+** crystal
 [[file:+lang/crystal/README.org][+lang/crystal/README.org]]
 
 This layer provides support for the Crystal language.
@@ -2469,7 +1598,7 @@ Features:
 - Interactive REPL ([[https://github.com/brantou/inf-crystal.el][inf-crystal.el]] and [[https://github.com/crystal-community/icr][icr]])
 - static code analysis using [[https://github.com/veelenga/ameba.el][ameba]]
 
-** dart layer
+** dart
 [[file:+lang/dart/README.org][+lang/dart/README.org]]
 
 This layer adds support for Dart language, and could be optionally used for Flutter development as well.
@@ -2481,7 +1610,7 @@ Features:
 - Dart Analyzer integration
 - Key bindings
 
-** faust layer
+** faust
 [[file:+lang/faust/README.org][+lang/faust/README.org]]
 
 This layer adds support for the [[https://en.wikipedia.org/wiki/FAUST_(programming_language)][faust language]] to Spacemacs.
@@ -2490,7 +1619,7 @@ Features:
 - Syntax highlighting
 - Auto-completion
 
-** graphviz layer
+** graphviz
 [[file:+lang/graphviz/README.org][+lang/graphviz/README.org]]
 
 This layer adds support for the open-source graph declaration system graphviz to Spacemacs.
@@ -2501,7 +1630,7 @@ Features:
 - Control of the graphviz compiler directly from emacs.
 - Support for formatting =.dot= files automatically.
 
-** jsonnet layer
+** jsonnet
 [[file:+lang/jsonnet/README.org][+lang/jsonnet/README.org]]
 
 This layer provides support for [[https://jsonnet.org/][Jsonnet template]] provided by [[https://github.com/mgyucht/jsonnet-mode][jsonnet-mode]].
@@ -2512,7 +1641,7 @@ Features:
 - jump to definition
 - buffer evaluation
 
-** julia layer
+** julia
 [[file:+lang/julia/README.org][+lang/julia/README.org]]
 
 This layer adds support for [[https://julialang.org][Julia]] to Spacemacs.
@@ -2525,7 +1654,7 @@ Features:
 - Jump-to-definition
 - Documentation on hover
 
-** kotlin layer
+** kotlin
 [[file:+lang/kotlin/README.org][+lang/kotlin/README.org]]
 
 This layer adds support for [[http://kotlinlang.org/][Kotlin]] in Spacemacs
@@ -2549,7 +1678,7 @@ Features:
 - Music, mplayer is needed (M-x nyan-start-music, M-x nyan-stop-music),
 - Customizable properties.
 
-** perl6 layer
+** perl6
 [[file:+lang/perl6/README.org][+lang/perl6/README.org]]
 
 This layer provides an environment for the [[https://perl6.org/][Perl 6 Programming Language]].
@@ -2565,7 +1694,7 @@ Features:
   - single-quotation-marks
   - double-quotation-marks
 
-** plantuml layer
+** plantuml
 [[file:+lang/plantuml/README.org][+lang/plantuml/README.org]]
 
 This layer enables support for [[https://github.com/skuro/plantuml-mode][plantuml-mode]], which provides
@@ -2597,7 +1726,7 @@ Features:
 - Embedding into org documents
 - Controlling the =Plantuml= compiler directly from emacs
 
-** prolog layer
+** prolog
 [[file:+lang/prolog/README.org][+lang/prolog/README.org]]
 
 This layer adds support for Prolog using the bundled Prolog mode for Emacs. In addition it also adds ediprolog support for better interaction with SWI-Prolog.
@@ -2608,7 +1737,7 @@ Features:
 - Auto-formatting.
 - Apropos and help lookup.
 
-** reStructuredText layer
+** reStructuredText
 [[file:+lang/restructuredtext/README.org][+lang/restructuredtext/README.org]]
 
 The layer adds ReStructuredText (ReST) support to Spacemacs and adds some
@@ -2672,7 +1801,7 @@ Features:
 - Loads =bind-map= and =bind-key= which are used to realise various
   spacemacs specific key binding commands
 
-** spacemacs-completion layer
+** spacemacs-completion
 [[file:+spacemacs/spacemacs-completion/README.org][+spacemacs/spacemacs-completion/README.org]]
 
 This layer does basic setup for completion frameworks like =helm=, =ivy= and
@@ -2728,7 +1857,7 @@ Features:
   - winner
   - zone
 
-** spacemacs-editing layer
+** spacemacs-editing
 [[file:+spacemacs/spacemacs-editing/README.org][+spacemacs/spacemacs-editing/README.org]]
 
 This layer adds packages to improve editing with Spacemacs.
@@ -2752,7 +1881,7 @@ Features:
 - Support for generating UUIDs via =uuidgen=.
 - Support for conversion between Emacs regexps and PCRE regexps.
 
-** spacemacs-editing-visual layer
+** spacemacs-editing-visual
 [[file:+spacemacs/spacemacs-editing-visual/README.org][+spacemacs/spacemacs-editing-visual/README.org]]
 
 This layer defines a lot of functions used to visually enhance the currently
@@ -2766,7 +1895,7 @@ Features:
 - Automatic highlighting of numbers
 - Automatic highlighting of parentheses
 
-** spacemacs-evil layer
+** spacemacs-evil
 [[file:+spacemacs/spacemacs-evil/README.org][+spacemacs/spacemacs-evil/README.org]]
 
 This layer adds various adjustments to packages to create an evilified experience
@@ -2794,7 +1923,7 @@ Features:
 - Persistent highlight of searched text with =evil-search-highlight-persist=
 - Display tidles in non-buffer area with =vi-tilde-fringe=
 
-** spacemacs-language layer
+** spacemacs-language
 [[file:+spacemacs/spacemacs-language/README.org][+spacemacs/spacemacs-language/README.org]]
 
 This layer adds support various language related services to Spacemacs.
@@ -2803,7 +1932,7 @@ Features:
 - Show definition of word at point via [[https://github.com/abo-abo/define-word][define-word]].
 - Integration of google-translate into emacs via [[https://github.com/atykhonov/google-translate][google-translate]].
 
-** spacemacs-layouts layer
+** spacemacs-layouts
 [[file:+spacemacs/spacemacs-layouts/README.org][+spacemacs/spacemacs-layouts/README.org]]
 
 This layer adds support for distinct layouts/workspaces to Spacemacs.
@@ -2812,7 +1941,7 @@ Features:
 - Support for distinct layouts via =eyebrowse=
 - Integration with =helm= and =ivy= to search for buffers within layouts
 
-** spacemacs-misc layer
+** spacemacs-misc
 [[file:+spacemacs/spacemacs-misc/README.org][+spacemacs/spacemacs-misc/README.org]]
 
 This layer adds some general packages into Spacemacs.
@@ -2821,7 +1950,7 @@ Features:
 - Support for jumping to definitions via =dumb-jump= or =evil-goto-definition=.
 - Support for an easy http request client via =request=.
 
-** spacemacs-modeline layer
+** spacemacs-modeline
 [[file:+spacemacs/spacemacs-modeline/README.org][+spacemacs/spacemacs-modeline/README.org]]
 
 This layer adds various mode-lines to Spacemacs.
@@ -2836,7 +1965,7 @@ Features:
   - The system clock
 - Display of a small system monitor in a separate mode-line.
 
-** spacemacs-navigation layer
+** spacemacs-navigation
 [[file:+spacemacs/spacemacs-navigation/README.org][+spacemacs/spacemacs-navigation/README.org]]
 
 This layer adds general navigation functions to all supported layers.
@@ -2854,7 +1983,7 @@ Features:
 - Shortcuts for restarting =emacs=
 - Shortcuts for easily switching between windows
 
-** spacemacs-org layer
+** spacemacs-org
 [[file:+spacemacs/spacemacs-org/README.org][+spacemacs/spacemacs-org/README.org]]
 
 This layer tweaks =org-mode= to integrate nicely into Spacemacs.
@@ -2865,7 +1994,7 @@ Features:
 - Support for custom bullet markers via =org-bullets=.
 - Support for a special view mode for org documents via =space-doc=.
 
-** spacemacs-project layer
+** spacemacs-project
 [[file:+spacemacs/spacemacs-project/README.org][+spacemacs/spacemacs-project/README.org]]
 
 This layer tweaks =projectile= to integrate nicely into Spacemacs.
@@ -2874,7 +2003,7 @@ Features:
 - Setup of =projectile= key bindings, including functions for project search, switching, version control and compilation.
 - Additional path helper functions, to copy the location of a buffer relative to the project root.
 
-** spacemacs-visual layer
+** spacemacs-visual
 [[file:+spacemacs/spacemacs-visual/README.org][+spacemacs/spacemacs-visual/README.org]]
 
 This layer adds various modes to enhance Spacemacs visual appearance.
@@ -2889,7 +2018,7 @@ Features:
 - Support for temporary windows which close automatically via =popwin=.
 - Support for text zooming via =zoom-frm=.
 
-** yang layer
+** yang
 [[file:+lang/yang/README.org][+lang/yang/README.org]]
 
 This layer provides support for the YANG file format.
@@ -2897,3 +2026,876 @@ This layer provides support for the YANG file format.
 Features:
 - Syntax highlighting
 - Syntax checking via [[http://www.flycheck.org/en/latest/languages.html#yaml][flycheck]]
+
+* Pair programming
+** Floobits
+[[file:+pair-programming/floobits/README.org][+pair-programming/floobits/README.org]]
+
+This layer adds support for the peer programming tool [[https://github.com/Floobits/floobits-emacs][floobits]] to Spacemacs.
+
+Features:
+- Loading of floobits configuration files with fixed commands
+- Creation of floobits workspaces and populating it with content
+- Marking of the current cursor position for all users within the current workspace
+- Follow recent changes by other users
+
+* E-mail
+** Gnus
+[[file:+email/gnus/README.org][+email/gnus/README.org]]
+
+This layer integrates a general purpose email/newsgroup client into Spacemacs.
+
+Features:
+- Support for reading RSS feeds, newsgroups and mails directly within emacs via [[http://www.gnus.org/][Gnus]].
+- Support for beautiful HTML mails generated from any =org= buffer.
+- Support for credential managment via [[https://gnupg.org/][GnuPG]].
+
+** Mu4e
+[[file:+email/mu4e/README.org][+email/mu4e/README.org]]
+
+This layer adds support for the Mu4e email client.
+
+Features:
+- Search, read, reply, move, and delete email.
+- Search-based: no folders, only queries.
+- UI optimized for speed: quick keystrokes for common actions.
+- Very extendable and costumizable.
+- Integration with Helm.
+- Maildir summary using [[https://github.com/agpchil/mu4e-maildirs-extension][mu4e-mailidrs-extension]]
+- Notifications using [[https://github.com/iqbalansari/mu4e-alert][mu4e-alert]]
+
+** Notmuch
+[[file:+email/notmuch/README.org][+email/notmuch/README.org]]
+
+Notmuch offers a fast, global-search and tag-based email system to
+use within your text editor or in a terminal.
+
+This layer integrates notmuch emacs package into spacemacs.
+
+Features:
+- Email searching
+- Email tagging
+
+* Source control
+** Git
+[[file:+source-control/git/README.org][+source-control/git/README.org]]
+
+This layers adds extensive support for [[http://git-scm.com/][git]] to Spacemacs.
+
+Features:
+- git repository management the indispensable [[http://magit.vc/][magit]] package
+- [[https://github.com/jtatarik/magit-gitflow][git-flow]] add-on for magit.
+- quick in buffer history browsing with [[https://melpa.org/#/git-timemachine][git-timemachine]].
+- quick in buffer last commit message per line with [[https://github.com/syohex/emacs-git-messenger][git-messenger]]
+- colorize buffer line by age of commit with [[https://github.com/syohex/emacs-smeargle][smeargle]]
+- git grep with [[https://github.com/yasuyk/helm-git-grep][helm-git-grep]]
+- gitignore generator with [[https://github.com/jupl/helm-gitignore][helm-gitignore]]
+- org integration with magit via [[https://github.com/magit/orgit][orgit]]
+
+New to Magit? Checkout the [[https://magit.vc/about/][official intro]].
+
+** GitHub
+[[file:+source-control/github/README.org][+source-control/github/README.org]]
+
+This layers adds support for [[http://github.com][GitHub]].
+
+Features:
+- [[https://github.com/vermiculus/magithub][magithub]]: Magit-integrated interface to [[https://hub.github.com/][hub]] command line
+- [[https://github.com/magit/forge][forge]]: integration with various forges, such as GitHub and GitLab.
+- [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post GitHub gists.
+- [[https://github.com/sshaw/git-link][git-link]]: quickly generate URLs for commits or files.
+- [[https://github.com/dgtized/github-clone.el][github-clone]] allows for easy cloning and forking of repositories.
+
+** Perforce
+[[file:+source-control/perforce/README.org][+source-control/perforce/README.org]]
+
+This layer integrates =Perforce= SCM system into spacemacs.
+
+Features:
+- Support for running [[https://www.perforce.com/][Perforce]] (p4) SCM commands directly from emacs.
+
+** Version-Control
+[[file:+source-control/version-control/README.org][+source-control/version-control/README.org]]
+
+This layers adds general configuration for [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html][Emacs VC]].
+It should work with all VC backends such as Git, Mercurial, Bazaar, SVN, etc...
+
+Features:
+- highlights uncommitted changes in the fringe or margin with [[https://github.com/dgutov/diff-hl][diff-hl]], [[https://github.com/syohex/emacs-git-gutter][git-gutter]], or [[https://github.com/nonsequitur/git-gutter-plus][git-gutter+]]
+- adds vcs transient-state ~SPC g.~ to allow quick navigation and modification of buffer hunks.
+
+* File trees
+** Neotree
+[[file:+filetree/neotree/README.org][+filetree/neotree/README.org]]
+
+This layer setups a file tree navigator buffer using Neotree (replacing the Treemacs layer).
+
+Features:
+- intuitive evil key bindings integration
+- supports multiple themes
+- transient state by pressing on ~?~
+- version-control integration
+
+** Treemacs
+[[file:+filetree/treemacs/README.org][+filetree/treemacs/README.org]]
+
+This layer sets up a file navigation and project explorer side-window via [[https://github.com/Alexander-Miller/treemacs][Treemacs]].
+
+Features:
+
+An detailed overview over Treemacs’ available features is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][its
+readme]]. In a short summary Treemacs offers the following:
+- Simple and powerful navigation and ability to detail exactly how and where a
+  file should be opened
+- Good looking png icons.
+- Display of multiple file trees organized as projects residing in a workspace.
+- Ability to show tags contained in files. Tags are provided by imenu, so
+  nearly every filetype is supported.
+- Mouse interface for single and double left clicks in line with modern GUI standards.
+  (Clicking on an icon will also display a file’s tags)
+- Locational awareness: commands like ~find-file~ or ~magit-status~ will use the location
+  of the node at point (with $HOME as fallback)
+- Optionally fontifying files based on their git status.
+- Optionally collapsing single-dir-child directories into one.
+- Doing both asynchronously for an imperceptible performance cost.
+- Optional =follow-mode= to automatically focus the currently selected file.
+- Optional =filewatch-mode= to automatically refresh the view after (and only
+  after) changes to the shown filesystem.
+
+* Chats
+** ERC
+[[file:+chat/erc/README.org][+chat/erc/README.org]]
+
+Layer for [[http://www.emacswiki.org/emacs/ERC][ERC IRC chat]].
+
+Features:
+- Highlight nicks (using [[https://github.com/leathekd/erc-hl-nicks][erc-hl-nicks]])
+- Image inline support (using [[https://github.com/kidd/erc-image.el][erc-image]])
+- Logging to =~/.emacs.d/.cache/erc-logs= and =ViewLogMode= for viewing logs
+  (using [[https://github.com/Niluge-KiWi/erc-view-log][erc-view-log]])
+- YouTube videos Thumbnails inline (using [[https://github.com/yhvh/erc-yt][erc-yt]])
+- Social Graph for ERC messages (using [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]])
+- Optional SASL authentication via the variable =erc-enable-sasl-auth=
+  (using [[http://emacswiki.org/emacs/ErcSASL][erc-sasl]])
+- D-BUS notifications via the variable =erc-enable-notifications=
+- Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
+  using the =emoji= layer or having a proper font) :clap:
+
+** Jabber
+[[file:+chat/jabber/README.org][+chat/jabber/README.org]]
+
+This layer adds support for the Jabber (XMPP) client for Emacs
+
+Features:
+- Use Jabber without having to leave Spacemacs
+
+** RCIRC
+[[file:+chat/rcirc/README.org][+chat/rcirc/README.org]]
+
+This layer provide support for [[http://www.gnu.org/software/emacs/manual/html_mono/rcirc.html][rcirc]] with optional support for authinfo
+and ZNC.
+
+Features:
+- Store channel logs into =~/.emacs.d/.cache/rcirc-logs/<channel>=
+- Support for credentials stored in =~/.authinfo.gpg= (need to have gnutls)
+- Support ZNC support (with optional =~/.authinfo.gpg=)
+- Colored nicknames
+- Real-time change when people use =s/foo/bar/= in chat
+- Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
+  using the =emoji= layer or having a proper font) :clap:
+
+** Slack
+[[file:+chat/slack/README.org][+chat/slack/README.org]]
+
+This layer provides an interface to the Slack chat service via the emacs-slack
+package. Where possible, this layer aims to reuse key bindings from the IRC
+packages in Spacemacs.
+
+Features:
+- Real time messaging with [[https://github.com/ahyatt/emacs-websocket][emacs-websocket]]
+- Connect to multiple slack instances
+- Notifications with [[https://github.com/jwiegley/alert][alert.el]]
+
+* Tools
+** Ansible
+[[file:+tools/ansible/README.org][+tools/ansible/README.org]]
+
+This layer adds support for editing Ansible configuration files in Spacemacs.
+
+Features:
+- Syntax highlighting for Ansible-flavored YAML and Jinja2 templates.
+- Auto-completion via =company-ansible=.
+- Integration of =ansible-vault= into emacs for automatic encryption/decryption of files.
+
+** CFEngine
+[[file:+tools/cfengine/README.org][+tools/cfengine/README.org]]
+
+This layer adds support for CFEngine policies to Spacemacs.
+
+Features:
+- Syntax highlighting
+- On the fly syntax checking via =flycheck= integration.
+- Auto completion via =company= integration.
+- Execution of =cfengine3= =SRC= blocks in =org-mode= via =ob-cfengine3= package.
+
+** CMake
+[[file:+tools/cmake/README.org][+tools/cmake/README.org]]
+
+This layer adds support [[https://cmake.org/][CMake]] scripts.
+
+Features:
+- Support for CMake configure/build (with limited support for other build systems),
+  automatic generation of =compile_commands.json= (compile flags), on-the-fly configuration
+  of flycheck, company-clang and RTags (if installed) with [[https://github.com/atilaneves/cmake-ide][cmake-ide]].
+- Run selected test using =Helm= interface via =helm-ctest=.
+
+** Chrome
+[[file:+tools/chrome/README.org][+tools/chrome/README.org]]
+
+This layer provides some integration with the Google Chrome browser.
+
+Features:
+- Edit text boxes with Emacs using [[https://github.com/stsquad/emacs_chrome][edit-server]]
+- Write markdown in Emacs and realtime show in chrome using [[https://github.com/mola-T/flymd][flymd]]
+- gmail message mode uses standard markdown key bindings
+
+** DAP
+[[file:+tools/dap/README.org][+tools/dap/README.org]]
+
+Experimental integrated visual debugger using [[https://code.visualstudio.com/docs/extensionAPI/api-debugging][Debug Adapter Protocol]].
+
+[[https://code.visualstudio.com/docs/extensionAPI/api-debugging][Debug Adapter Protocol]] is a wire protocol for communication between client and
+Debug Server. It similar to the [[https://github.com/Microsoft/language-server-protocol][LSP]] but providers integration with debug
+server.
+
+Features:
+
+Fully featured IDE-like debugger providing:
+- Launch/Attach
+- Breakpoints
+- Exceptions
+- Pause & Continue
+- Step In/Out/Over
+- Callstacks
+- Threads
+- Multiple simultaneous debug sessions
+- Evaluating statements
+- Debug/Run configurations
+- Debug REPL
+
+** Docker
+[[file:+tools/docker/README.org][+tools/docker/README.org]]
+
+This layer integrates basic container management into Spacemacs.
+
+Features:
+- Syntax highlighting for =Docker= files
+- =Docker= build integration
+- =TRAMP= access to running Docker containers
+- =Docker= container and image management via [[https://github.com/Silex/docker.el][docker.el]]
+- =docker-compose= integration via [[https://github.com/Silex/docker.el][docker.el]]
+- Syntax checking via [[https://github.com/hadolint/hadolint][hadolint]]
+
+** Finance
+[[file:+tools/finance/README.org][+tools/finance/README.org]]
+
+This layer integrates a full fledged accounting system into Spacemacs.
+
+Features:
+- Support for maintaining a double-entry accounting system run by text files via [[https://www.emacswiki.org/emacs/LedgerMode][ledger-mode]].
+- Display of finance reports directly within emacs.
+- Integration of emacs calculator mode for editing post amounts.
+- Support for easy account reconciliation via =Ledger-Reconcile=.
+- Extended support for ~evil~ style editing with [[https://github.com/atheriel/evil-ledger][evil-ledger]].
+
+** Geolocation
+[[file:+tools/geolocation/README.org][+tools/geolocation/README.org]]
+
+This layer offers location sensitive adjustments to Emacs.
+
+Features:
+- Supports the following adjustments:
+  - Automatic switching between light (day) and dark (night) themes via [[https://github.com/hadronzoo/theme-changer][theme-changer]]
+  - Local weather forecast via [[https://github.com/aaronbieber/sunshine.el/blob/master/sunshine.el][sunshine]]
+  - Integration with OS X’s CoreLocation service via [[https://github.com/purcell/osx-location][osx-location]]
+  - Manual location setting via variables in your dotfile
+
+** LSP
+[[file:+tools/lsp/README.org][+tools/lsp/README.org]]
+
+This layer adds support for basic language server protocol packages speaking
+[[https://microsoft.github.io/language-server-protocol/specification][language server protocol]].
+
+Different language servers may support the language server protocol to varying degrees
+and they may also provide extensions; check the language server’s website for
+details.
+=M-x lsp-describe-session= in a LSP buffer to list capabilities of the server.
+
+Features:
+- Cross references (definitions, references, document symbol, workspace symbol
+  search and others)
+- Workspace-wide symbol rename
+- Symbol highlighting
+- Flycheck
+- Completion with =company-lsp=
+- Signature help with eldoc
+- Symbol documentation in a child frame (=lsp-ui-doc=)
+- Navigation using imenu
+- Consistent core key bindings in LSP modes
+
+** Node
+[[file:+tools/node/README.org][+tools/node/README.org]]
+
+This layer introduces packages that target Node.js. Currently this layer should
+not be used directly, as it will be used by other layers.
+
+Features:
+- Integration of packages necessary to execute node.js modules from other layers.
+
+** Pandoc
+[[file:+tools/pandoc/README.org][+tools/pandoc/README.org]]
+
+This layer adds support for [[http://pandoc.org/][Pandoc]].
+
+Pandoc is a universal document converter. It makes it easy to e.g. convert a
+Markdown file to org mode or vice versa. It can also export your text to PDF or
+DOCX.
+
+Features:
+- Mode independent document conversions via =global pandoc menu=
+- =Org-export= integration via [[https://github.com/kawabata/ox-pandoc][ox-pandoc]]
+
+** Pass
+[[file:+tools/pass/README.org][+tools/pass/README.org]]
+
+This layer adds intregration with [[http://www.passwordstore.org/][pass]], the unix password manager.
+You must have ~pass~ installed and available in your path for this layer to
+function properly.
+
+Features:
+- Use Spacemacs as your password manager
+
+** Prodigy
+[[file:+tools/prodigy/README.org][+tools/prodigy/README.org]]
+
+This layer adds support for the [[https://github.com/rejeep/prodigy.el][prodigy]] package to manage external services from
+within Emacs, check the package’s documentation for more details.
+
+It is recommended to put your prodigy services in the =dotspacemacs/user-config=
+part of your =~/.spacemacs= file.
+
+Features:
+- Managing of pre-declared services from within emacs
+- Showing of process output in special buffers
+- Filtering of processes for tags or names
+
+** Puppet
+[[file:+tools/puppet/README.org][+tools/puppet/README.org]]
+
+This layer provides support for the Puppet DSL to Spacemacs.
+
+Features:
+- Syntax highlighting via [[https://github.com/voxpupuli/puppet-mode][puppet-mode]]
+- Syntax-checking via [[http://puppet-lint.com/][puppet-lint]]
+- Navigation commands to jump between blocks
+- Applying the content of the current manifest directly from emacs
+
+** Ranger
+[[file:+tools/ranger/README.org][+tools/ranger/README.org]]
+
+This layer brings Ranger features to spacemacs from the =ranger= package.
+
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =ranger= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+To default with preview enabled when entering ranger:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '(ranger :variables
+                         ranger-show-preview t))
+#+END_SRC
+
+Features:
+- use ranger to display dired with ranger like preview and stacked parent windows.
+
+** Rebox
+[[file:+tools/rebox/README.org][+tools/rebox/README.org]]
+
+This layer adds support for [[https://github.com/lewang/rebox2][rebox2]] package which is a minor-mode allowing
+to easily add ASCII text boxes to a buffer.
+
+A nice video demonstration by the package author can be found [[https://www.youtube.com/watch?v=53YeTdVtDkU][here]].
+
+Features:
+- Auto-wrap correctly in comments,
+- Auto-fill correctly in comments,
+- Boxes auto-adapt as text is inserted or deleted,
+- ~S-RET~ to continue a comment on the next line,
+- Kill/yank within the box,
+- Apparently works well with ancient =filladpt-mode= (see authors video).
+
+** Restclient
+[[file:+tools/restclient/README.org][+tools/restclient/README.org]]
+
+This layer provides a REPL-like interface for http requests.
+
+Features:
+- REPL for http requests via [[https://github.com/pashky/restclient.el][restclient]]
+- Alternative =org= integration via [[http://github.com/zweifisch/ob-http][ob-http]]
+
+** Saltstack
+[[file:+tools/salt/README.org][+tools/salt/README.org]]
+
+This layer provides syntax highlighting for Saltstack files.
+
+Features:
+- Syntax highlighting
+- Display of salt documentation
+
+** Shell
+[[file:+tools/shell/README.org][+tools/shell/README.org]]
+
+This layer configures the various shells available in Emacs.
+
+Features:
+- Shell integration
+
+** Sphinx
+[[file:+tools/sphinx/README.org][+tools/sphinx/README.org]]
+
+The layer adds support for the documentation generation system =Sphinx= to
+the =restructuredtext= layer.
+
+Features:
+- Support for =Sphinx= project compilation
+- Support for opening =Sphinx= project target
+- Support for opening =Sphinx= config file
+
+** Tern
+[[file:+tools/tern/README.org][+tools/tern/README.org]]
+
+This layer adds support for [[http://ternjs.net/][tern]] stand-alone code-analysis engine for
+JavaScript.
+
+Features:
+- TODO: list the feature of tern supported by tern package
+
+** Terraform
+[[file:+tools/terraform/README.org][+tools/terraform/README.org]]
+
+This layer provides basic support for Terraform =.tf= files.
+
+Features:
+- Basic syntax highlighting via [[https://github.com/syohex/emacs-terraform-mode][terraform-mode]]
+- Auto formatting on save via =terraform fmt=
+
+** Tmux
+[[file:+tools/tmux/README.org][+tools/tmux/README.org]]
+
+This layer adds basic =tmux= key bindings to Spacemacs.
+
+Features:
+- Calling of =tmux= navigation commands directly from emacs via [[https://github.com/keith/evil-tmux-navigator][evil-tmux-navigator]].
+
+** Transmission
+[[file:+tools/transmission/README.org][+tools/transmission/README.org]]
+
+This layer integrates a BitTorrent client into Spacemacs.
+
+Features:
+- Integration of [[https://transmissionbt.com/][Transmission]] into emacs.
+
+** Vagrant
+[[file:+tools/vagrant/README.org][+tools/vagrant/README.org]]
+
+This layer adds support for working with Vagrant using [[https://github.com/ottbot/vagrant.el][vagrant.el]] and
+[[https://github.com/dougm/vagrant-tramp][vagrant-tramp]].
+
+Features:
+- Manage boxes (under the ~SPC a V~ prefix)
+- Remote editing on Vagrant boxes via Tramp
+
+** YCMD
+[[file:+tools/ycmd/README.org][+tools/ycmd/README.org]]
+
+This layer adds [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]] support.
+
+Features:
+- [[https://github.com/Valloric/YouCompleteMe][YouCompleteMe]] based code-completion
+- Integrations with company, flycheck, and eldoc
+
+** bm
+[[file:+tools/bm/README.org][+tools/bm/README.org]]
+
+[[https://github.com/joodland/bm/blob/master/README.md][BM]] provides visible, buffer local, bookmarks and the ability to jump forward and backward to the next bookmark.
+
+Features:
+- Auto remove bookmark after jump to it by =bm-next= or =bm-previous=
+- Cycle through bookmarks in all open buffers in LIFO order
+- Toggle bookmarks. Jump to next/previous bookmark.
+- Setting bookmarks based on a regexp. (Useful when searching logfiles.)
+- Mouse navigation.
+- Annotate bookmarks.
+- Different wrapping modes.
+- Different bookmarks styles, line-only, fringe-only or both.
+- Persistent bookmarks.
+- List bookmarks (in all buffers) in a separate buffer.
+- Cycle through bookmarks in all open buffers.
+
+** command-log
+[[file:+tools/command-log/README.org][+tools/command-log/README.org]]
+
+This layer adds a handy command demonstration mode to Spacemacs.
+
+Features:
+- Support for logging all entered keys and triggered commands in a designated buffer via [[https://github.com/lewang/command-log-mode][command-log-mode]].
+- Provides the best way to demonstrate the connection between keystrokes and commands in emacs.
+- Provides an easy way to create command logs for training classes.
+
+** debug
+[[file:+tools/debug/README.org][+tools/debug/README.org]]
+
+This layer adds interactive debuggers for multiple languages using [[https://github.com/realgud/realgud][realgud]].
+
+Features:
+- Modern rewrite of the Emacs GUD debugger family
+- Visual interface including breakpoint and line indicators
+- Advanced features like stack frame navigation and mouse support
+- Extensible framework for [[https://github.com/realgud/realgud/wiki/How-to-add-a-new-debugger][adding]] your own external debuggers
+
+** fasd
+[[file:+tools/fasd/README.org][+tools/fasd/README.org]]
+
+This layer integrates the [[https://github.com/clvv/fasd][fasd]] command line tool into spacemacs.
+
+Features:
+- Adds easy shortcuts to reference recent files and directories.
+- Provides =fasd= with recent open file lists from emacs.
+- Allows to filter =fasd= results with =helm= or =ivy=.
+
+** imenu-list
+[[file:+tools/imenu-list/README.org][+tools/imenu-list/README.org]]
+
+This layer uses [[https://github.com/bmag/imenu-list][imenu-list]] to show the current buffer’s index in a side bar.
+
+This is similar to `SPC j i` but displayed in a persistent sidebar instead of
+a completion buffer.
+
+Features:
+- IDE like outline view of current buffer showing all significant symbols in one view
+
+** import-js
+[[file:+tools/import-js/README.org][+tools/import-js/README.org]]
+
+This layer adds support for [[https://github.com/Galooshi/import-js][import-js]]
+
+Features:
+- Import Javascript/Typescript modules to buffer
+- Import missing modules and remove unused one
+- Go to module location
+
+** nginx
+[[file:+tools/nginx/README.org][+tools/nginx/README.org]]
+
+This layer adds support for configuring [[http://nginx.org][nginx]] a powerful alternative for
+the apache web server.
+
+Features:
+- Syntax highlighting of nginx configuration files via [[https://github.com/ajc/nginx-mode][nginx-mode]].
+- Syntax-aware indentation
+
+** prettier
+[[file:+tools/prettier/README.org][+tools/prettier/README.org]]
+
+This layer adds support for [[https://github.com/prettier/prettier][prettier]]
+
+Features:
+- Format buffer in a consistent style
+
+** systemd
+[[file:+tools/systemd/README.org][+tools/systemd/README.org]]
+
+This layer adds support for editing =systemd= configuration files in Spacemacs.
+
+Features:
+- Syntax highlighting
+- Auto completion
+- Syntax checking via =systemd-analyze=
+
+** web-beautify
+[[file:+tools/web-beautify/README.org][+tools/web-beautify/README.org]]
+
+This layer adds support for [[https://github.com/yasuyk/web-beautify][web-beautify]].
+
+Features:
+- Format buffer to be beautiful
+
+** xclipboard
+[[file:+tools/xclipboard/README.org][+tools/xclipboard/README.org]]
+
+=xclipboard= integration layer.
+
+Features:
+- adds copy support to the X-clipboard from the terminal.
+- adds paste support to the X-clipboard from the terminal.
+
+* Frameworks
+** Django
+[[file:+frameworks/django/README.org][+frameworks/django/README.org]]
+
+This layer adds support for the Python web framework [[https://www.djangoproject.com/][Django]] to Spacemacs.
+
+Features:
+- Test execution directly from emacs
+- Starting/stopping of the Django test server
+- Starting of an interactive Python shell in the current project for debugging
+- Fixed commands to open various Django specific settings files
+- Automatic deployment with [[http://www.fabfile.org][Fabric]] directly from emacs
+- Control of [[http://south.aeracode.org/][South]] database migration tool
+
+** React
+[[file:+frameworks/react/README.org][+frameworks/react/README.org]]
+
+ES6 and JSX ready configuration layer for React
+It will automatically recognize =.jsx= files and files with =react= imported.
+
+Features:
+- on-the-fly syntax checking
+- proper syntax highlight and indentation with jsx
+- backend support for autocompletion as in rjsx-mode
+- jsfmt automatic formatting
+- js2-refactor
+- js-doc
+
+** Ruby on Rails
+[[file:+frameworks/ruby-on-rails/README.org][+frameworks/ruby-on-rails/README.org]]
+
+This layer aims at providing support for the Ruby on Rails framework.
+
+Features:
+- Quick file navigation with with [[https://github.com/asok/projectile-rails][projectile-rails]]
+- Run server
+- Run generators
+- Rake runner
+- Interactive Rails console
+
+** emberjs
+[[file:+frameworks/emberjs/README.org][+frameworks/emberjs/README.org]]
+
+This enables helpers for working with Ember.js projects.
+
+This also includes [[https://github.com/ronco/ember-yasnippets.el][ember-yasnippets]]. See the README for ember-yansippets for the snippet keys.
+
+To use this, you need to add add a =.dir-locals.el= file with the following in the root of your ember project:
+
+#+BEGIN_SRC emacs-lisp
+  ((nil . ((mode . ember))))
+#+END_SRC
+
+If you do not wish to do the following, you may also just do =M-x ember-mode=, however it will make things easier.
+
+Additionally, temporary backup, autosave, and lockfiles interfere with broccoli watcher, so they need to either be moved out of the way or disabled.
+
+Add the following to your =dotspacemacs/user-config=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+  (setq create-lockfiles nil)
+#+END_SRC
+
+Features:
+- Ability to easily switch between various files
+- Key bindings for generators and also easily revert generator actions
+- Ability to build, start server, and run tests
+
+** phoenix
+[[file:+frameworks/phoenix/README.org][+frameworks/phoenix/README.org]]
+
+This layer adds key bindings for [[https://github.com/tonini/alchemist.el][Alchemist]]’s already built in phoenix mode.
+
+Features:
+- Key bindings for navigation to files
+
+* Tagging
+** Cscope
+[[file:+tags/cscope/README.org][+tags/cscope/README.org]]
+
+This layer provides bindings for using [[http://cscope.sourceforge.net][Cscope]] and [[https://github.com/portante/pycscope][PyCscope]] in Spacemacs.
+
+See [[https://github.com/OpenGrok/OpenGrok/wiki/Comparison-with-Similar-Tools][here]] for a comparison between =Cscope= and other similar tools (such as gtags).
+
+Features:
+- Tag indexing and searching for C-C++ via [[http://cscope.sourceforge.net][Cscope]]
+- Tag indexing and searching for python via [[https://github.com/portante/pycscope][PyCscope]]
+
+** Helm Gtags
+[[file:+tags/gtags/README.org][+tags/gtags/README.org]]
+
+=counsel-gtags=, =helm-gtags= and =ggtags= are clients for GNU Global. GNU
+Global is a source code tagging system that allows querying symbol locations in
+source code, such as definitions or references. Adding the =gtags= layer enables
+both of these modes.
+
+Features:
+- Select any tag in a project retrieved by gtags
+- Resume previous helm-gtags session
+- Jump to a location based on context
+- Find definitions
+- Find references
+- Present tags in current function only
+- Create a tag database
+- Jump to definitions in file
+- Show stack of visited locations
+- Manually update tag database
+- Jump to next location in context stack
+- Jump to previous location in context stack
+- Jump to a file in tag database
+- Enables =eldoc= in modes that otherwise might not support it.
+- Enables =company complete= in modes that otherwise might not support it.
+
+* Vim
+** Evil-commentary
+[[file:+vim/evil-commentary/README.org][+vim/evil-commentary/README.org]]
+
+This layer replaces [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]] with [[https://github.com/linktohack/evil-commentary][evil-commentary]] for those
+who prefer the behaviour of [[https://github.com/tpope/vim-commentary][vim-commentary]].
+
+Features:
+- Provides the original vim behaviour for commenting out lines via [[https://github.com/linktohack/evil-commentary][evil-commentary]].
+
+** Evil-snipe
+[[file:+vim/evil-snipe/README.org][+vim/evil-snipe/README.org]]
+
+This layer adds various replacements for vim’s default search functions.
+
+Features:
+- Alternative implementation of vim’s default search operations.
+- Replacement of evil-surround with a two-character search.
+- Support for alternative scopes for default search operations.
+- Support for alternative motions based on configurable regexps.
+
+** Vim-empty-lines
+[[file:+vim/vim-empty-lines/README.org][+vim/vim-empty-lines/README.org]]
+
+This layer is a drop-in replacement for the =vi-tilde-fringe= mode, for those
+who desire behaviour closer to =vim=’s.
+
+It has better compatibility with retina displays, as it uses a text overlay
+using your font, rather than a pixel-art tilde. The empty line indicators are
+overlaid in within the buffer as in =vim=, and not in the fringe. The indicator
+behaviour with trailing empty lines matches =vim=’s behaviour.
+
+For details, see the [[https://github.com/jmickelin/vim-empty-lines-mode][vim-empty-lines-mode]] repository.
+
+Features:
+- Emulation of original vim behaviour.
+- Brings you as close to vim as one can be without using vim itself.
+
+** Vinegar
+[[file:+vim/vinegar/README.org][+vim/vinegar/README.org]]
+
+This layer is a port of vim-vinegar for emacs.
+
+It is based on tpope’s [[https://github.com/tpope/vim-vinegar][vinegar.vim]], simplifying =dired=
+with a limited number of details and exposing the ~-~ command in all
+buffers to enter dired.
+
+Features:
+- navigation up folders with ~-~ key
+- simplify dired buffer to show only file names
+- better evil/vim bindings for navigation within dired buffer
+- keep only one active dired buffer
+- Use dired-k extension to show time / vcs related information in
+  single bar
+- right mouse click moves up directory if in blank space or shows context menu
+
+* Emacs
+** Better Defaults
+[[file:+emacs/better-defaults/README.org][+emacs/better-defaults/README.org]]
+
+This layer enhances the default commands of Emacs and is primarily intended to
+be used with the =emacs= editing style as it does not change anything in the Vim
+key bindings.
+
+However the =emacs= editing style is not required, you can still use this layer
+while you are using the =vim= editing style if you have some kind of mixed
+style.
+
+The commands defined in this layer are taken from various sources like [[https://github.com/bbatsov/prelude][Prelude]].
+
+Features:
+- Smart line navigation: Subsequent presses of ~C-a~ toggles between the beginning of the line and the first non-whitespace character. Similarly, subsequent presses of ~C-e~ will toggle between the end of the code and the end of the comments.
+- =spacemacs/backward-kill-word-or-region=: A combination of =kill-region= and =backward-kill-word=, depending on whether there is an active region. If there’s an active region kill that. If not kill the preceding word.
+- Fill or unfill paragraph: Pressing ~M-q~ for the first time fills current paragraph and pressing ~M-q~ for the second time unfills it. Note that some modes override this key binding so it’s not available everywhere. Due to implementation details unfilling doesn’t work when called twice via ~M-x~.
+
+** IBuffer
+[[file:+emacs/ibuffer/README.org][+emacs/ibuffer/README.org]]
+
+This layer configures Emacs IBuffer for Spacemacs.
+
+Features:
+- Grouping of buffers by major-modes
+- Grouping of buffers by projects
+
+** Org
+[[file:+emacs/org/README.org][+emacs/org/README.org]]
+
+This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
+
+Features:
+- Vim inspired key bindings are provided by [[https://github.com/Somelauw/evil-org-mode][evil-org-mode]]
+- Nicer bullet via [[https://github.com/sabof/org-bullets][org-bullets]]
+- A [[https://cirillocompany.de/pages/pomodoro-technique][pomodoro method]] integration via [[https://github.com/lolownia/org-pomodoro][org-pomodoro]]
+- Presentation mode via [[https://github.com/rlister/org-present][org-present]]
+- Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
+- Project-specific TODOs via [[https://github.com/IvanMalison/org-projectile][org-projectile]]
+- Easy insert of URLs from clipboard with org format via [[https://github.com/rexim/org-cliplink][org-cliplink]]
+
+** Semantic
+[[file:+emacs/semantic/README.org][+emacs/semantic/README.org]]
+
+CEDET is a *C*ollection of *E*macs *D*evelopment *E*nvironment *T*ools written
+with the end goal of creating an advanced development environment in Emacs.
+CEDET includes common features such as intelligent completion, source code
+navigation, project management, code generation with templates. CEDET also
+provides a framework for working with programming languages; support for new
+programming languages can be added and use CEDET to provide IDE-like features.
+This framework is called Semantic.
+
+Semantic is a package that provides a framework for writing parsers. Parsing is
+a process of analyzing source code based on programming language syntax. The
+packages relies on Semantic for analyzing source code and uses its results to
+perform smart code refactoring that based on code structure of the analyzed
+language, instead of plain text structure. Semantic is the core of CEDET.
+
+Features:
+- Display function or variable definition at the bottom.
+- Display current function cursor is in at the top. See
+  [[https://github.com/tuhdo/semantic-stickyfunc-enhance][this page]] for demos in some programming languages.
+- Support common C/C++ refactoring with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]. See
+  [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][this page]] for demonstration of refactoring features.
+- Support Lisp source code formatting with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]. See
+  [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos-elisp.org][this page]] for demonstration of Lisp formatting features.
+
+** Smex
+[[file:+emacs/smex/README.org][+emacs/smex/README.org]]
+
+This layer provides a more traditional alternative to =helm-M-x= based on =ido=.
+
+Features:
+- Provides an alternative way for =helm-M-x= based on =ido= and [[https://github.com/nonsequitur/smex][smex]]
+
+** Typography
+[[file:+emacs/typography/README.org][+emacs/typography/README.org]]
+
+This layer provides support for typographic text editing in Spacemacs.
+
+Features:
+- Modes to automatically insert and cycle among typographic characters
+- [[https://github.com/jorgenschaefer/typoel][Typo Mode]] automatically inserts and cycles among typographic Unicode
+  characters on some keys.
+- Tildify Mode automatically inserts non-breaking spaces where
+  required (Only available on Emacs 25).
