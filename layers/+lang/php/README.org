@@ -12,6 +12,8 @@
   - [[#setting-the-backend][Setting the backend]]
 - [[#backend][Backend]]
   - [[#language-server-protocol][Language Server Protocol]]
+    - [[#intelephense][intelephense]]
+    - [[#php-language-server][php-language-server]]
 - [[#key-bindings][Key bindings]]
 - [[#usage][Usage]]
 
@@ -47,14 +49,25 @@ For spacemacs to use lsp you also need to add =lsp= to the
 
 * Backend
 ** Language Server Protocol
-You have to install the php language server:
+=lsp-mode= currently supports two lsp backends for php. When both are installed,
+the former takes priority over the latter:
+
+*** intelephense
+
+#+BEGIN_SRC sh
+  nmp install -g intelephense
+#+END_SRC
+
+You can find further information on the project's [[http://intelephense.net/][website]] and [[https://github.com/bmewburn/vscode-intelephense][GitHub page]].
+
+*** php-language-server
 
 #+BEGIN_SRC sh
   composer require felixfbecker/language-server
   composer run-script --working-dir=vendor/felixfbecker/language-server parse-stubs
 #+END_SRC
 
-+You can find further information on the project's [[https://github.com/felixfbecker/php-language-server%20][GitHub page]].
+You can find further information on the project's [[https://github.com/felixfbecker/php-language-server%20][GitHub page]].
 
 * Key bindings
 
