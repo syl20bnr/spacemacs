@@ -28,16 +28,16 @@
       ;; transient state
       (spacemacs|transient-state-format-hint workspaces
         spacemacs--workspaces-ts-full-hint
-        "\n\n
- Go to^^^^^^                           Actions^^^^
- ─────^^^^^^─────────────────────────  ───────^^^^───────────────────────
- [_0_.._9_]^^     nth/new workspace    [_c_/_C_] create workspace
- [_C-0_.._C-9_]^^ nth/new workspace    [_s_/_S_] single win workspace
- [_<tab>_]^^^^    last workspace       [_d_]^^   close current workspace
- [_l_]^^^^        layouts              [_R_]^^   rename current workspace
- [_n_/_C-l_]^^    next workspace       [_?_]^^   toggle help
- [_N_/_p_/_C-h_]  prev workspace\n
- [_w_]^^^^       workspace w/helm/ivy\n")
+        "\n
+ Go to^^^^^^                         Actions^^^^
+ ─────^^^^^^───────────────────────  ───────^^^^───────────────────────
+ [_0_.._9_]^^     nth/new workspace  [_c_/_C_] clone workspace
+ [_C-0_.._C-9_]^^ nth/new workspace  [_s_/_S_] single window workspace
+ [_<tab>_]^^^^    last workspace     [_d_]^^   close current workspace
+ [_n_/_C-l_]^^    next workspace     [_R_]^^   rename current workspace
+ [_N_/_p_/_C-h_]  prev workspace     [_?_]^^   toggle help
+ [_w_]^^^^        another workspace
+ [_l_]^^^^        layouts TS")
 
       (spacemacs|define-transient-state workspaces
         :title "Workspaces Transient State"
@@ -136,22 +136,22 @@
       ;; layouts transient state
       (spacemacs|transient-state-format-hint layouts
         spacemacs--layouts-ts-full-hint
-        "\n\n
- Go to^^^^^^                                  Actions^^
- ─────^^^^^^────────────────────────────────  ───────^^──────────────────────────────────────────────────
- [_0_.._9_]^^     nth/new layout              [_a_]^^   add buffer
- [_C-0_.._C-9_]^^ nth/new layout              [_A_]^^   add all from layout
- [_<tab>_]^^^^    last layout                 [_d_]^^   close current layout
- [_b_]^^^^        buffer in layout            [_D_]^^   close other layout
- [_h_]^^^^        default layout              [_L_]^^   load layouts from file
- [_l_]^^^^        layout w/helm/ivy           [_r_]^^   remove current buffer
- [_n_/_C-l_]^^    next layout                 [_R_]^^   rename current layout
- [_N_/_p_/_C-h_]  prev layout                 [_s_/_S_] save all layouts/save by names
- [_o_]^^^^        custom layout               [_t_]^^   show a buffer without adding it to current layout
- [_w_]^^^^        workspaces transient state  [_x_]^^   kill current w/buffers
- ^^^^^^                                       [_X_]^^   kill other w/buffers
- ^^^^^^                                       [_<_/_>_] move layout left/right
- ^^^^^^                                       [_?_]^^   toggle help\n")
+        "\n
+ Go to^^^^^^                        Actions^^^^
+ ─────^^^^^^──────────────────────  ───────^^^^───────────────────────────────
+ [_0_.._9_]^^     nth/new layout    [_a_]^^   add buffer
+ [_C-0_.._C-9_]^^ nth/new layout    [_A_]^^   add all buffers from layout
+ [_<tab>_]^^^^    last layout       [_d_]^^   close current layout
+ [_n_/_C-l_]^^    next layout       [_D_]^^   close other layout
+ [_N_/_p_/_C-h_]  prev layout       [_L_]^^   load layouts from file
+ [_b_]^^^^        buffer in layout  [_r_]^^   remove current buffer
+ [_h_]^^^^        default layout    [_R_]^^   rename current layout
+ [_l_]^^^^        another layout    [_s_/_S_] save all layouts/save by names
+ [_o_]^^^^        custom layout     [_t_]^^   show buffer w/o adding to layout
+ [_w_]^^^^        workspaces TS     [_x_]^^   kill current w/buffers
+ ^^^^^^                             [_X_]^^   kill other w/buffers
+ ^^^^^^                             [_<_/_>_] move layout left/right
+ ^^^^^^                             [_?_]^^   toggle help")
 
       (spacemacs|define-transient-state layouts
         :title "Layouts Transient State"
