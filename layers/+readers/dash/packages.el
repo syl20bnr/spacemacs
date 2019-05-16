@@ -11,32 +11,32 @@
   (use-package helm-dash
     :defer t
     :init (progn
-           (spacemacs/declare-prefix "d" "docs")
-           (spacemacs/set-leader-keys
-            "dh" 'helm-dash-at-point
-            "dH" 'helm-dash))
+            (spacemacs/declare-prefix "d" "docs")
+            (spacemacs/set-leader-keys
+              "dh" 'helm-dash-at-point
+              "dH" 'helm-dash))
     :config (when dash-autoload-common-docsets
-              (dash//activate-package-docsets helm-dash-docset-newpath))))
+              (dash//activate-package-docsets dash-docs-docset-newpath))))
 
 (defun dash/init-counsel-dash ()
   (use-package counsel-dash
     :defer t
     :init (progn
-           (spacemacs/declare-prefix "d" "docs")
-           (spacemacs/set-leader-keys
-            "dh" 'counsel-dash-at-point
-            "dH" 'counsel-dash))
+            (spacemacs/declare-prefix "d" "docs")
+            (spacemacs/set-leader-keys
+              "dh" 'counsel-dash-at-point
+              "dH" 'counsel-dash))
     :config (when dash-autoload-common-docsets
-              (dash//activate-package-docsets helm-dash-docset-newpath))))
+              (dash//activate-package-docsets dash-docs-docset-newpath))))
 
 (defun dash/init-dash-at-point ()
   (use-package dash-at-point
     :defer t
     :init (progn
-           (spacemacs/declare-prefix "d" "docs")
-           (spacemacs/set-leader-keys
-            "dd" 'dash-at-point
-            "dD" 'dash-at-point-with-docset))))
+            (spacemacs/declare-prefix "d" "docs")
+            (spacemacs/set-leader-keys
+              "dd" 'dash-at-point
+              "dD" 'dash-at-point-with-docset))))
 
 (defun dash/init-zeal-at-point ()
   (use-package zeal-at-point

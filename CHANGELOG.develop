@@ -1354,6 +1354,7 @@ Other:
 - Fixes:
   - Fixed startup error when using counsel-dash with custom path in
     helm-dash-docset-newpath (thanks to madand)
+  - Update dash layer to reflect dash-docs merge (thanks to Bryan Gilbert)
 **** Deft
 - Key bindings:
   - ~SPC m c~ clear deft filter (thanks to Bahtiar Gadimov)
