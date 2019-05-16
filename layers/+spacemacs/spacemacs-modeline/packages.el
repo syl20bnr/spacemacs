@@ -59,18 +59,21 @@
     :if (memq (spacemacs/get-mode-line-theme-name)
               '(spacemacs all-the-icons custom))
     :init
-    (add-hook 'emacs-startup-hook
-              (lambda ()
-                (spacemacs|add-transient-hook window-configuration-change-hook
-                  (lambda ()
-                    (setq spaceline-byte-compile t)
-                    ;; this must also be set in this hook because (spacemacs/compute-mode-line-height)
-                    ;; returns wrong results if it is called before the display system is initialized
-                    ;; see https://github.com/syl20bnr/spacemacs/issues/10181 for details
-                    (setq powerline-height (spacemacs/compute-mode-line-height))
-                    (spaceline-compile))
-                  lazy-load-spaceline)))
     (progn
+      (add-hook 'emacs-startup-hook
+                (lambda ()
+                  (spacemacs|add-transient-hook window-configuration-change-hook
+                    (lambda ()
+                      (setq spaceline-byte-compile t)
+                      ;; this must also be set in this hook because
+                      ;; (spacemacs/compute-mode-line-height) returns incorrect
+                      ;; results if it is called before the display system is
+                      ;; initialized. see issue for details:
+                      ;; https://github.com/syl20bnr/spacemacs/issues/10181
+                      (setq powerline-height
+                            (spacemacs/compute-mode-line-height))
+                      (spaceline-compile))
+                    lazy-load-spaceline)))
       (add-hook 'spacemacs-post-theme-change-hook
                 'spacemacs/customize-powerline-faces)
       (add-hook 'spacemacs-post-theme-change-hook 'powerline-reset)
