@@ -15,7 +15,7 @@
            (spacemacs/set-leader-keys
             "dh" 'helm-dash-at-point
             "dH" 'helm-dash))
-    :config (dash//activate-package-docsets helm-dash-docset-newpath)))
+    :config (dash//activate-package-docsets dash-docs-docset-newpath)))
 
 (defun dash/init-counsel-dash ()
   (use-package counsel-dash
@@ -25,7 +25,7 @@
            (spacemacs/set-leader-keys
             "dh" 'counsel-dash-at-point
             "dH" 'counsel-dash))
-    :config (dash//activate-package-docsets helm-dash-docset-newpath)))
+    :config (dash//activate-package-docsets dash-docs-docset-newpath)))
 
 (defun dash/init-dash-at-point ()
   (use-package dash-at-point
