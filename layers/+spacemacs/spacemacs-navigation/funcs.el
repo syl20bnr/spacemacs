@@ -277,7 +277,7 @@ If the universal prefix argument is used then kill also the window."
                (avy--process
                 (spacemacs//collect-spacemacs-buffer-links)
                 #'avy--overlay-pre))))
-    (when res
+    (when (numberp res)
       (goto-char (1+ res))
       (widget-button-press (point)))))
 

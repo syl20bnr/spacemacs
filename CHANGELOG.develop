@@ -974,6 +974,7 @@ Other:
     - =spacemacs-theme-comment-bg=
     - =spacemacs-theme-org-height=
       (thanks to Dominik Schrempf)
+  - Fixed canceling =spacemacs/ace-buffer-links= (thanks to duianto)
 *** Layer changes and fixes
 **** Alda
 - Key bindings:
