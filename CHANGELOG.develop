@@ -1033,6 +1033,7 @@ Other:
     is =nil= (thanks to duianto)
   - Used return value from advised function in =spacemacs//yank-indent-region=
     (thanks to Brandon T. Willard)
+  - Fixed canceling =spacemacs/ace-buffer-links= (thanks to duianto)
 *** Layer changes and fixes
 **** Agda
 - Fixes
