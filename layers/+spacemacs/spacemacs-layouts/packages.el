@@ -29,14 +29,13 @@
       (spacemacs|transient-state-format-hint workspaces
         spacemacs--workspaces-ts-full-hint
         "\n\n
- Go to^^^^^^                         Actions^^
- ─────^^^^^^───────────────────────  ───────^^──────────────────────
- [_0_.._9_]^^     nth/new workspace  [_d_] close current workspace
- [_C-0_.._C-9_]^^ nth/new workspace  [_R_] rename current workspace
- [_<tab>_]^^^^    last workspace     [_?_] toggle help\n
- [_c_/_C_]^^      create workspace
- [_l_]^^^^        layouts
- [_n_/_C-l_]^^    next workspace
+ Go to^^^^^^                           Actions^^^^
+ ─────^^^^^^─────────────────────────  ───────^^^^───────────────────────
+ [_0_.._9_]^^     nth/new workspace    [_c_/_C_] create workspace
+ [_C-0_.._C-9_]^^ nth/new workspace    [_s_/_S_] single win workspace
+ [_<tab>_]^^^^    last workspace       [_d_]^^   close current workspace
+ [_l_]^^^^        layouts              [_R_]^^   rename current workspace
+ [_n_/_C-l_]^^    next workspace       [_?_]^^   toggle help
  [_N_/_p_/_C-h_]  prev workspace\n
  [_w_]^^^^       workspace w/helm/ivy\n")
 
@@ -80,6 +79,8 @@
         ("N" eyebrowse-prev-window-config)
         ("p" eyebrowse-prev-window-config)
         ("R" spacemacs/workspaces-ts-rename :exit t)
+        ("s" spacemacs/single-win-workspace :exit t)
+        ("S" spacemacs/single-win-workspace)
         ("w" eyebrowse-switch-to-window-config :exit t))
       ;; note: we don't need to declare the `SPC l w' binding, it is
       ;; declare in the layout transient state
