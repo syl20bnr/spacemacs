@@ -1863,6 +1863,7 @@ Other:
     - ~SPC m i t~ for =org-set-tags-command=
   - Added key binding for org-insert-item (thanks to Emil Petersen)
     - ~SPC m i i~ for =org-insert-item=
+  - Added ~SPC m s d~ for =org-cut-subtree= (thanks to clwgg)
 - Key binding changes for archiving (thanks to Ag Ibragimov):
   - Added ~SPC m s a~ to toggle archive tag for subtree
   - Added ~SPC m s A~ to archive subtree (previously ~SPC m s a~)

@@ -239,6 +239,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "sa" 'org-toggle-archive-tag
         "sA" 'org-archive-subtree
         "sb" 'org-tree-to-indirect-buffer
+        "sd" 'org-cut-subtree
         "sh" 'org-promote-subtree
         "sj" 'org-move-subtree-down
         "sk" 'org-move-subtree-up
