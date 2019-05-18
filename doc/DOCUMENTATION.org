@@ -1797,9 +1797,9 @@ There are also some handy globally available key bindings related to workspaces:
 
 * Commands
 ** Vim key bindings
-Spacemacs is based on =Vim= modal user interface to navigate and edit text. If
-you are not familiar with the =Vim= way of editing text you can try the
-[[https://github.com/syl20bnr/evil-tutor][evil-tutor]] lessons by pressing ~SPC h T~ at any time.
+Spacemacs is based on the =Vim= modal user interface to navigate and edit text.
+If you are not familiar with the =Vim= way of editing text, then you can try the
+[[https://github.com/syl20bnr/evil-tutor][evil-tutor]] lessons by pressing ~SPC h T v~ at any time.
 
 *** Escaping
 Spacemacs uses [[https://github.com/syl20bnr/evil-escape][evil-escape]] to

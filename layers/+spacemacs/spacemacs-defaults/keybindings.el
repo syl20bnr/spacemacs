@@ -39,6 +39,7 @@
                                        ("h"   "help")
                                        ("hd"  "help-describe")
                                        ("hP"  "profiler")
+                                       ("hT"  "tutorials")
                                        ("i"   "insertion")
                                        ("j"   "jump/join/split")
                                        ("jj"  "avy timer")
@@ -265,6 +266,7 @@
   "FO" 'spacemacs/dired-other-frame
   "Fn" 'make-frame)
 ;; help -----------------------------------------------------------------------
+(defalias 'emacs-tutorial 'help-with-tutorial)
 (spacemacs/set-leader-keys
   "hdb" 'describe-bindings
   "hdc" 'describe-char
@@ -281,7 +283,8 @@
   "hPs" 'profiler-start
   "hPk" 'profiler-stop
   "hPr" 'profiler-report
-  "hPw" 'profiler-report-write-profile)
+  "hPw" 'profiler-report-write-profile
+  "hTe" 'emacs-tutorial)
 ;; insert stuff ---------------------------------------------------------------
 (spacemacs/set-leader-keys
   "iJ" 'spacemacs/insert-line-below-no-indent

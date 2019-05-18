@@ -333,7 +333,7 @@
     (progn
       (setq evil-tutor-working-directory
             (concat spacemacs-cache-directory ".tutor/"))
-      (spacemacs/set-leader-keys "hT" 'evil-tutor-start))))
+      (spacemacs/set-leader-keys "hTv" 'evil-tutor-start))))
 
 (defun spacemacs-evil/init-evil-unimpaired ()
   ;; No laziness here, unimpaired bindings should be available right away.
