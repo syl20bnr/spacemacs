@@ -984,6 +984,9 @@ Other:
     - =spacemacs-theme-comment-bg=
     - =spacemacs-theme-org-height=
       (thanks to Dominik Schrempf)
+  - Key bindings (thanks to bb2020)
+    - ~SPC-j-C~ to =check-parens=
+    - ~SPC-,~ to =goto-last-change=
 *** Layer changes and fixes
 **** Alda
 - Key bindings:
@@ -1928,6 +1931,7 @@ Other:
 - Replace ox-reveal with org-re-reveal (thanks to Magnus Therning)
 - Added epub support (thanks to vishvanath45)
 - Added support for CUSTOM_ID in latex exports (thanks to Compro-Prasad)
+- Added ~SPC m i L~ as =org-cliplink= into =org= layer (thanks to bb2020)
 **** Osx
 - Fixed OSX mapping issue (thanks to Joey Liu)
 - Added layer variables to customize modifier behaviors on macOS:
@@ -2185,7 +2189,6 @@ Other:
 - Moved =eshell-z-freq-dir-hash-table-file-name= into cache dir
   (thanks to bb2020)
 - Enabled ~TAB~ completion in =eshell= with =Helm= (thanks to bb2020)
-- Added ~SPC m i L~ as =org-cliplink= into =org= layer (thanks to bb2020)
 - Added =eshell= =Ivy= completion bindings (thanks to bb2020):
   - ~M-l~ =spacemacs/ivy-eshell-history=
   - ~TAB~ =spacemacs/pcomplete-std-complete=

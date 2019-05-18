@@ -132,6 +132,8 @@
     'universal-argument-more))
 ;; shell command  -------------------------------------------------------------
 (spacemacs/set-leader-keys "!" 'shell-command)
+;; last change  ---------------------------------------------------------------
+(spacemacs/set-leader-keys "," 'goto-last-change)
 ;; applications ---------------------------------------------------------------
 (spacemacs/set-leader-keys
   "ac"  'calc-dispatch
@@ -287,6 +289,7 @@
 ;; format ---------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "jo" 'open-line
+  "jC" 'check-parens
   "j=" 'spacemacs/indent-region-or-buffer
   "jS" 'spacemacs/split-and-new-line
   "jk" 'spacemacs/evil-goto-next-line-and-indent)
