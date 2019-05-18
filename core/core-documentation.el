@@ -321,7 +321,10 @@ preprocessors for the exported .org files."
              :publishing-directory ,(concat publish-target "layers/")
              :publishing-function org-html-publish-to-html
              ;; :preparation-function spacemacs/generate-layers-file
-             :exclude "local\\|dockerfiles"
+             ;; NOTE: Local exclusion disabled because we have files like:
+             ;; /layers/+themes/colors/local/nyan-mode/README.org
+             ;; :exclude "local\\|dockerfiles"
+             :exclude "dockerfiles"
              :html-head ,header)
             ("spacemacs-doc-static"
              :base-directory ,spacemacs-docs-directory
