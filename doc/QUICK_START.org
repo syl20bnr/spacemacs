@@ -127,7 +127,7 @@ where all the major-mode specific commands are bound.
 
 ** Evil-tutor
 If you are willing to learn the Vim key bindings (highly recommended since
-you can benefit from them even in =emacs= style), press ~SPC h T~
+you can benefit from them even in =emacs= style), press ~SPC h T v~
 to begin an Evil-adapted Vimtutor.
 
 ** Universal argument

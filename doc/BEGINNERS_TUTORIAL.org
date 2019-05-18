@@ -96,10 +96,10 @@ fingers from your home row (the row where your fingers lie in rest when
 touch-typing) and without using modifier keys.
 
 ** Start the Vim tutorial
-The modal editing features of Spacemacs originate from a text editor called Vi,
-and thus the modal editing tutorial is called eVIl tutor. Press ~SPC h T~ (that
-is, the spacebar followed by ~h~ and ~T~) to familiarize yourself with
-modal editing.
+The modal editing features of Spacemacs originate from a text editor called [[https://en.wikipedia.org/wiki/Vi][Vi]],
+and thus the modal editing tutorial is called eVIl tutor. Press ~SPC h T v~
+(that is, the ~spacebar~ followed by ~h~, ~T~ and ~v~) to familiarize yourself
+with modal editing.
 
 ** Using the spacebar to launch commands
 Now that you are familiar with writing and editing text it is time to put the

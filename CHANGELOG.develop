@@ -859,6 +859,9 @@ Other:
   - New variable =spacemacs-yank-indent-modes= to enable auto indent in modes
     not derived from =prog-mode= (thanks to bet4it)
   - Remap ~M-SPC~ and ~SPC-x-d-SPC~ to =cycle-spacing= (thanks to bb2020)
+  - Added a =tutorials= section at ~SPC h T~ (thanks to duianto):
+    - ~SPC h T e~ for =emacs-tutorial= (aliased from =help-with-tutorial=)
+    - ~SPC h T v~ for =evil-tutor-start=
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)
