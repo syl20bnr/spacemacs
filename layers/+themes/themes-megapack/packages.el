@@ -36,6 +36,7 @@
     django-theme
     doom-themes
     dracula-theme
+    ewal-spacemacs-themes
     espresso-theme
     exotica-theme
     eziam-theme
