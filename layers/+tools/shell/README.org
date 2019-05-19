@@ -17,6 +17,7 @@
   - [[#enable-em-smart-in-eshell][Enable em-smart in Eshell]]
   - [[#protect-your-eshell-prompt][Protect your Eshell prompt]]
   - [[#fish-shell-and-ansi-term][Fish shell and ansi-term]]
+  - [[#close-window-with-terminal][Close window with terminal]]
 - [[#eshell][Eshell]]
 - [[#key-bindings][Key bindings]]
   - [[#multi-term][Multi-term]]
@@ -182,6 +183,17 @@ correctly, in the function =dotspacemacs/user-config= of your dotfile add:
 #+BEGIN_SRC emacs-lisp
   (add-hook 'term-mode-hook 'spacemacs/toggle-truncate-lines-on)
 #+END_SRC
+
+** Close window with terminal
+If you want its window to close when the terminal terminates, set the following
+layer variable to non-nil:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((shell :variables close-window-with-terminal t)))
+#+END_SRC
+
+This is only applied to =term= and =ansi-term= modes.
 
 * Eshell
 Some advanced configuration is setup for =eshell= in this layer:
