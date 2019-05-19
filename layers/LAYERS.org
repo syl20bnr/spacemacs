@@ -1,7 +1,7 @@
 #+TITLE: Configuration layers
 
 * Table of Contents                     :TOC_5_gh:noexport:
-- [[#this-file-is-auto-generated][This file is auto generated]]
+- [[#this-file-is-auto-generated][THIS FILE IS AUTO GENERATED]]
 - [[#chats][Chats]]
   - [[#erc][Erc]]
   - [[#jabber][Jabber]]
@@ -236,7 +236,7 @@
   - [[#twitter][Twitter]]
   - [[#wakatime][Wakatime]]
 
-* This file is auto generated
+* THIS FILE IS AUTO GENERATED
 Don't edit it directly.
 See README.org template for instructions.
 
@@ -885,6 +885,7 @@ Features:
 - REPL via [[https://github.com/clojure-emacs/cider][CIDER]]
 - Code formatting via [[https://github.com/clojure-emacs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]]
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
+- Linting via [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]]
 - Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
 - Debugging with [[https://github.com/clojure-emacs/sayid][sayid]]
 - Clojure cheatsheet
