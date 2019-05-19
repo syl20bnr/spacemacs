@@ -37,7 +37,8 @@
                             (when (string-match "\\(finished\\|exited\\)"
                                                 change)
                               (kill-buffer (process-buffer proc))
-                              (when (> (count-windows) 1)
+                              (when (and close-window-with-terminal
+                                         (> (count-windows) 1))
                                 (delete-window)))))))
 
 (defun spacemacs/default-pop-shell ()

@@ -46,3 +46,7 @@ prompts and the prompt is made read-only")
 
 (defvar shell-default-full-span t
   "If non-nil, the `shell' buffer spans full width of a frame.")
+
+(defvar close-window-with-terminal nil
+  "If non-nil, the window is closed when the terminal is stopped.
+This is only applied to `term' and `ansi-term' modes.")
