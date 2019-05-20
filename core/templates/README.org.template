@@ -1,6 +1,8 @@
 #+TITLE: %LAYER_NAME% layer
-# Document tags separated with "|" char
-# The example below contains 2 tags: "layer", "web service"
+# Document tags are separated with "|" char
+# The example below contains 2 tags: "layer" and "web service"
+# Avaliable tags are listed in <spacemacs_root>/.ci/spacedoc-cfg.edn
+# under ":spacetools.spacedoc.config/valid-tags" section.
 #+TAGS: layer|web service
 
 # The maximum height of the logo should be 200 pixels.
