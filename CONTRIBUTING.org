@@ -214,8 +214,8 @@ Every README.org file of a layer should contain =#+TAGS= line:
   ...
 #+END_EXAMPLE
 
-Individual tags are separated with "|" char
-The example above contains 2 tags: "layer" and "web service"
+Individual tags are separated with “|” char
+The example above contains 2 tags: “layer” and “web service”
 They are listed in =<spacemacs_root>/.ci/spacedoc-cfg.edn=
 
 #+BEGIN_SRC clojure
@@ -230,8 +230,8 @@ They are listed in =<spacemacs_root>/.ci/spacedoc-cfg.edn=
 Labels are used to name headlines in =LAYERS.org= file and
 =:spacetools.spacedoc.config/layers-org-query= defines its structure by
 chaining tags into a tree where every leaf turns into a list of
-descriptions pulled out of README.org files that match leaf's path in the tree.
-"layer" is implicit root tag of the tree and every description can be displayed
+descriptions pulled out of README.org files that match leaf’s path in the tree.
+“layer” is implicit root tag of the tree and every description can be displayed
 only once.
 
 *** Contributor to an existing layer
