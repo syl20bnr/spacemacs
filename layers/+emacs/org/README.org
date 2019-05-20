@@ -785,8 +785,11 @@ are available.
 | Key binding   | Description                  |
 |---------------+------------------------------|
 | ~SPC m B a c~ | Add child                    |
+| ~SPC m B a h~ | Add headline child           |
 | ~SPC m B a f~ | Add friend                   |
 | ~SPC m B a p~ | Add parent                   |
+| ~SPC m B a r~ | Add resource                 |
+| ~SPC m B g g~ | Go to an org-brain entry     |
 | ~SPC m B g c~ | Go to child                  |
 | ~SPC m B g f~ | Go to friend                 |
 | ~SPC m B g p~ | Go to parent                 |

@@ -2068,7 +2068,7 @@ Other:
 - Remove =mu4e= and =notmuch= from =org= (thanks to Sylvain Benner)
 - Use evil-org from MELPA (thanks to Eivind Fonn)
 - Added =org-brain= (thanks to Matthías Páll Gissurarson and Eivind Fonn)
-- Added detailed =org-brain= bindings (thanks to Langston Barret)
+- Added detailed =org-brain= bindings (thanks to Langston Barret and Oguz Serbetci)
 - Added layer variable for todo bindings (thanks to Eivind Fonn)
 - Made =org-projectile= integration compatible with its new version
   (thanks to Ivan Malison)
