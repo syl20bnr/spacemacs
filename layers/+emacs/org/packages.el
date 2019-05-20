@@ -567,7 +567,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "Bac" 'org-brain-add-child
         "Bv" 'org-brain-visualize
         "Bap" 'org-brain-add-parent
-        "Baf" 'org-brain-add-fiendship
+        "Baf" 'org-brain-add-friendship
         "Bgc" 'org-brain-goto-child
         "Bgp" 'org-brain-goto-parent
         "Bgf" 'org-brain-goto-friend
