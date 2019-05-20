@@ -2273,7 +2273,6 @@ Features:
 - Try new tools, experiment and roll back changes when something goes wrong
 - Share your setup with others or extend someone else’s development environment
 - Run multiple Emacs instances on the same machine isolated
-- An easy way to swap Emacs version (=emacs25= =emacs-snapshot=) for debugging
 - [[https://docs.docker.com/engine/reference/commandline/pause/][pause]] container to free resources temporarily
 - [[https://github.com/docker/docker/blob/1.13.x/experimental/checkpoint-restore.md][Checkpoint & Restore]] - maybe the fastest way to start a “heavy” environment
 - Friendly for networks with low upload speed/quotas.
