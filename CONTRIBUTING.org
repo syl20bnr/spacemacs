@@ -27,6 +27,7 @@ Thanks! :heart: :heart: :heart:
   - [[#contributing-a-layer][Contributing a layer]]
     - [[#file-header][File header]]
     - [[#author-of-a-new-layer][Author of a new layer]]
+      - [[#readmeorg-tags][README.org tags]]
     - [[#contributor-to-an-existing-layer][Contributor to an existing layer]]
   - [[#contributing-a-key-binding][Contributing a key binding]]
   - [[#contributing-a-banner][Contributing a banner]]
@@ -200,6 +201,38 @@ files and headers for you, and for free :smile: !
 *** Author of a new layer
 In the files header, change the default author name (=Sylvain Benner=) to your
 name.
+
+**** README.org tags
+Every README.org file of a layer should contain =#+TAGS= line:
+
+#+BEGIN_EXAMPLE
+  #+TITLE: My layer
+
+  #+TAGS: layer|web service
+
+  * Table of Contents                     :TOC_5_gh:noexport:
+  ...
+#+END_EXAMPLE
+
+Individual tags are separated with "|" char
+The example above contains 2 tags: "layer" and "web service"
+They are listed in =<spacemacs_root>/.ci/spacedoc-cfg.edn=
+
+#+BEGIN_SRC clojure
+  :spacetools.spacedoc.config/valid-tags
+  {"chat" "Chats"
+  ...
+   <TAG> <LABEL>
+  ...
+   "completion" "Completion"}
+#+END_SRC
+
+Labels are used to name headlines in =LAYERS.org= file and
+=:spacetools.spacedoc.config/layers-org-query= defines its structure by
+chaining tags into a tree where every leaf turns into a list of
+descriptions pulled out of README.org files that match leaf's path in the tree.
+"layer" is implicit root tag of the tree and every description can be displayed
+only once.
 
 *** Contributor to an existing layer
 If you are contributing to an already existing layer, you should not modify any
