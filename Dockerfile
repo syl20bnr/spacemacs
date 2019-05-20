@@ -1,4 +1,4 @@
-### Dockerfile --- spacemacs-docker dockerfile with Emacs snapshot
+### Dockerfile --- spacemacs-docker dockerfile with Emacs25.x
 ##
 ## Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ##
@@ -11,10 +11,7 @@
 ##
 ## See spacemacs/layers/+distributions/spacemacs-docker/README.org
 
-# FROM jare/emacs:latest
-# FROM jare/emacs:emacs24
-# Emacs snapshot
-FROM jare/emacs:testing
+FROM jare/emacs:latest
 
 MAINTAINER JAremko <w3techplaygound@gmail.com>
 
