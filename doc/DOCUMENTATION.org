@@ -1626,7 +1626,7 @@ In the transient state:
 | Key binding   | Description                    |
 |---------------+--------------------------------|
 | ~+~, ~=~, ~k~ | increase transparency          |
-| ~-~, ~j~      | decrease transparency          |
+| ~-~, ~_~, ~j~ | decrease transparency          |
 | ~T~           | toggle transparency on and off |
 | ~q~           | quit transient state           |
 
@@ -2978,7 +2978,7 @@ The font size of the current buffer can be adjusted with the commands:
 | Key binding                           | Description                                                                    |
 |---------------------------------------+--------------------------------------------------------------------------------|
 | ~SPC z x +~, ~SPC z x =~, ~SPC z x k~ | scale up the font and initiate the font scaling transient state                |
-| ~SPC z x -~, ~SPC z x j~              | scale down the font and initiate the font scaling transient state              |
+| ~SPC z x -~, ~SPC z x _~, ~SPC z x j~ | scale down the font and initiate the font scaling transient state              |
 | ~SPC z x 0~                           | reset the font size (no scaling) and initiate the font scaling transient state |
 
 In the transient state:
@@ -2986,8 +2986,9 @@ In the transient state:
 | Key binding   | Description            |
 |---------------+------------------------|
 | ~+~, ~=~, ~k~ | increase the font size |
-| ~-~, ~j~      | decrease the font size |
+| ~-~, ~_~, ~j~ | decrease the font size |
 | ~0~           | reset the font size    |
+| ~q~           | quit transient state   |
 
 Note that /only/ the text of the current buffer is scaled, the other buffers,
 the mode-line and the minibuffer are not affected. To zoom the whole content of
@@ -2999,34 +3000,38 @@ You can zoom in and out the whole content of the frame with the commands:
 | Key binding                           | Description                                                                 |
 |---------------------------------------+-----------------------------------------------------------------------------|
 | ~SPC z f +~, ~SPC z f =~, ~SPC z f k~ | zoom in the frame content and initiate the frame scaling transient state    |
-| ~SPC z f -~, ~SPC z f j~              | zoom out the frame content and initiate the frame scaling transient state   |
+| ~SPC z f -~, ~SPC z f _~, ~SPC z f j~ | zoom out the frame content and initiate the frame scaling transient state   |
 | ~SPC z f 0~                           | reset the frame content size and initiate the frame scaling transient state |
 
 In the transient state:
 
-| Key binding   | Description      |
-|---------------+------------------|
-| ~+~, ~=~, ~k~ | zoom frame in    |
-| ~-~, ~j~      | zoom frame out   |
-| ~0~           | reset frame zoom |
+| Key binding   | Description          |
+|---------------+----------------------|
+| ~+~, ~=~, ~k~ | zoom frame in        |
+| ~-~, ~_~, ~j~ | zoom frame out       |
+| ~0~           | reset frame zoom     |
+| ~q~           | quit transient state |
 
 *** Increase/Decrease numbers
 Spacemacs uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily increase or decrease numbers.
 
-| Key binding | Description                                                         |
-|-------------+---------------------------------------------------------------------|
-| ~SPC n +~   | increase the number under point by one and initiate transient state |
-| ~SPC n -~   | decrease the number under point by one and initiate transient state |
+| Key binding          | Description                                                         |
+|----------------------+---------------------------------------------------------------------|
+| ~SPC n +~, ~SPC n =~ | increase the number under point by one and initiate transient state |
+| ~SPC n -~, ~SPC n _~ | decrease the number under point by one and initiate transient state |
 
 In the transient state:
 
-| Key binding | Description                            |
-|-------------+----------------------------------------|
-| ~+~         | increase the number under point by one |
-| ~-~         | decrease the number under point by one |
+| Key binding   | Description                            |
+|---------------+----------------------------------------|
+| ~+~, ~=~, ~k~ | increase the number under point by one |
+| ~-~, ~_~, ~j~ | decrease the number under point by one |
+| ~0..9~        | add a number prefix argument           |
+| ~q~           | quit transient state                   |
 
-*Tips:* you can increase or decrease a value by more that once by using a prefix
-argument (i.e. ~10 SPC n +~ will add 10 to the number under point).
+*Tips:* You can increase or decrease a number by more than one at a time, by
+using a prefix argument (i.e. ~10 SPC n +~ will add =10= to the number under
+point).
 
 *** Spell checking
 Spell checking is enabled by including the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell

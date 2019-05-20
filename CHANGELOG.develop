@@ -807,6 +807,12 @@ Other:
     - ~C-i~ calls =make-indirect-buffer=
     - ~i~ calls =clone-indirect-buffer=
     - ~I~ calls =clone-indirect-buffer-other-window=
+  - Added key bindings (thanks to duianto):
+    - Evil numbers ~SPC n _~ decrease number at point
+      and in the transient state ~j~ and ~k~
+    - Font scaling ~SPC z x _~ scale down
+    - Frame transparency ~SPC T T _~ decrease transparency
+    - Zoom frame ~SPC z f _~ zoom frame out
 - Improvements:
   - Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
     ~SPC w 4~ (thanks to Codruț Constantin Gușoi):

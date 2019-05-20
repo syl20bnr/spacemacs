@@ -96,13 +96,14 @@
         :title "Zoom Frame Transient State"
         :doc "
 [_+_/_=_/_k_] zoom frame in   [_m_] max frame
-[_-_/_j_]^^   zoom frame out  [_f_] fullscreen
+[_-_/___/_j_] zoom frame out  [_f_] fullscreen
 [_0_]^^^^     reset zoom      [_q_] quit"
         :bindings
         ("+" spacemacs/zoom-frm-in)
-        ("k" spacemacs/zoom-frm-in)
         ("=" spacemacs/zoom-frm-in)
+        ("k" spacemacs/zoom-frm-in)
         ("-" spacemacs/zoom-frm-out)
+        ("_" spacemacs/zoom-frm-out)
         ("j" spacemacs/zoom-frm-out)
         ("0" spacemacs/zoom-frm-unzoom)
         ("f" spacemacs/toggle-frame-fullscreen-non-native)

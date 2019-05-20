@@ -418,6 +418,25 @@
           ("\\11..9" . "digit-argument"))
         which-key-replacement-alist)
 
+  ;; SPC n- narrow/numbers
+  ;; Combine + and =
+  (push '(("\\(.*\\)+" . "evil-numbers/inc-at-pt") .
+          ("\\1+,=" . "evil-numbers/inc-at-pt"))
+        which-key-replacement-alist)
+
+  ;; hide "= -> evil-numbers/inc-at-pt" entry
+  (push '(("\\(.*\\)=" . "evil-numbers/inc-at-pt") . t)
+        which-key-replacement-alist)
+
+  ;; Combine - and _
+  (push '(("\\(.*\\)-" . "evil-numbers/dec-at-pt") .
+          ("\\1-,_" . "evil-numbers/dec-at-pt"))
+        which-key-replacement-alist)
+
+  ;; hide "_ -> evil-numbers/dec-at-pt" entry
+  (push '(("\\(.*\\)_" . "evil-numbers/dec-at-pt") . t)
+        which-key-replacement-alist)
+
   ;; SPC x i- inflection
   ;; rename "k -> string-inflection-kebab-case"
   ;; to "k,- -> string-inflection-kebab-case"
