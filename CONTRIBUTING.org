@@ -203,7 +203,7 @@ In the files header, change the default author name (=Sylvain Benner=) to your
 name.
 
 **** README.org tags
-Every README.org file of a layer should contain =#+TAGS= line:
+Every README.org file of a layer should contain =#+TAGS:= line:
 
 #+BEGIN_EXAMPLE
   #+TITLE: My layer
@@ -214,9 +214,9 @@ Every README.org file of a layer should contain =#+TAGS= line:
   ...
 #+END_EXAMPLE
 
-Individual tags are separated with “|” char
-The example above contains 2 tags: “layer” and “web service”
-They are listed in =<spacemacs_root>/.ci/spacedoc-cfg.edn=
+Individual tags are separated with “|” char.
+Example above contains 2 tags: “layer” and “web service”
+Tags are listed in =<spacemacs_root>/.ci/spacedoc-cfg.edn=
 
 #+BEGIN_SRC clojure
   :spacetools.spacedoc.config/valid-tags
