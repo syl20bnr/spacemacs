@@ -2145,6 +2145,8 @@ Other:
 **** Scheme
 - Added missing =parinfer= package declaration (thanks to Kalle Lindqvist)
 - Update install docs for Chicken 5 changes (thanks to Grant Shangreaux)
+**** Search Engine
+- Added =search-engine-default= function (thanks to bb2020)
 **** Semantic
 - Made it possible to exclude stickyfunc (thanks to Sylvain Benner)
 - Changed the default throttle for =semanticdb-find= routines. Don't search

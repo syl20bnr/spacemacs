@@ -22,8 +22,8 @@
     :defines search-engine-alist
     :init
     (progn
-      (spacemacs/set-leader-keys
-        "a/" 'spacemacs/search-engine-select)
+      (spacemacs/set-leader-keys "a/" 'spacemacs/search-engine-select)
+      (spacemacs/set-leader-keys "." 'spacemacs/search-engine-default)
       (setq search-engine-alist
             '((amazon
                :name "Amazon"
@@ -40,6 +40,9 @@
               (google
                :name "Google"
                :url "https://www.google.com/search?ie=utf-8&oe=utf-8&q=%s")
+              (google-ncr
+               :name "Google NCR"
+               :url "https://www.google.com/search?q=%s&pws=0&gl=us&gws_rd=cr")
               (google-images
                :name "Google Images"
                :url "https://www.google.com/images?hl=en&source=hp&biw=1440&bih=795&gbv=2&aq=f&aqi=&aql=&oq=&q=%s")

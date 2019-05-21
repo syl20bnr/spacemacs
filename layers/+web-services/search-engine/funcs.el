@@ -42,3 +42,15 @@
   (if (configuration-layer/layer-used-p 'ivy)
       (call-interactively 'spacemacs/ivy-search-engine-select)
     (call-interactively 'spacemacs/helm-search-engine-select)))
+
+(defun spacemacs/search-engine-default ()
+  "Search line or region with default engine."
+  (interactive)
+  (funcall
+   (intern (format "engine/search-%S" search-engine-default-entry))
+   (read-string
+    "Search: "
+    (if (region-active-p)
+        (buffer-substring-no-properties (region-beginning) (region-end))
+      (when search-engine-default-line-preloaded
+        (string-trim (buffer-substring-no-properties (line-beginning-position) (line-end-position))))))))
