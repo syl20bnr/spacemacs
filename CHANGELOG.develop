@@ -1014,6 +1014,9 @@ Other:
   - Fixed copied dir/path not shown in minibuffer when =select-enable-clipboard=
     is =nil= (thanks to duianto)
 *** Layer changes and fixes
+**** Agda
+- Fixes
+  - Fix auto bind breaking after Agda 2.6.0 api changes
 **** Alda
 - Key bindings:
   - ~SPC m r~ Play region (selected text)
