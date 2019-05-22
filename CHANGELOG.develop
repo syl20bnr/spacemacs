@@ -867,6 +867,10 @@ Other:
     - ~m~ for toggle maximize
     - ~f~ for toggle fullscreen
     (thanks to Ag Ibragimov)
+  - Revealed already bound Helm Transient State navigation keys:
+    - ~g~ go to first candidate
+    - ~G~ go to last candidate
+    (thanks to duianto)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)

@@ -70,9 +70,9 @@
     (spacemacs|define-transient-state helm-navigation
       :title "Helm Transient State"
       :doc "
- [_j_/_k_]  next/prev candidate  [_v_]^^     persistent action     [_e_]^^    edit occurrences
- [_h_/_l_]  prev/next source     [_1_.._0_]  action 1..10          [_t_/_T_]  toggle visible/all mark
- [_q_]^^    quit                 [_a_]^^     action selection pg"
+ [_j_/_k_] next/prev candidate   [_v_]^^    persistent action    [_e_]^^   edit occurrences
+ [_h_/_l_] prev/next source      [_1_.._0_] action 1..10         [_t_/_T_] toggle visible/all mark
+ [_g_/_G_] first/last candidate  [_a_]^^    action selection pg  [_q_]^^   quit"
         :foreign-keys run
         :on-enter (spacemacs//helm-navigation-ts-on-enter)
         :on-exit  (spacemacs//helm-navigation-ts-on-exit)
