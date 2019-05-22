@@ -136,18 +136,17 @@
   (spacemacs|define-transient-state scroll
     :title "Scrolling Transient State"
     :doc "
- Buffer^^^^              Full page^^^^     Half page^^^^        Line/column^^^^
- ──────^^^^───────────── ─────────^^^^──── ─────────^^^^─────── ───────────^^^^─────
- [_<_/_>_] beginning/end [_f_/_b_] down/up [_J_/_K_] down/up    [_j_/_k_] down/up
-  ^ ^ ^ ^                 ^ ^ ^ ^          [_H_/_L_] left/right [_h_/_l_] left/right
-  ^ ^ ^ ^                 ^ ^ ^ ^          [_d_/_u_] down/up     ^ ^ ^ ^"
+ Line/Column^^^^      Half Page^^^^        Full Page^^ Buffer^^^^    Other
+ ───────────^^^^───── ─────────^^^^─────── ─────────^^ ──────^^^^─── ─────^^───
+ [_k_]^^   up         [_u_/_K_] up         [_b_] up    [_<_/_g_] beg [_q_] quit
+ [_j_]^^   down       [_d_/_J_] down       [_f_] down  [_>_/_G_] end
+ [_h_/_l_] left/right [_H_/_L_] left/right"
     :bindings
-    ;; buffer
-    ("<" evil-goto-first-line)
-    (">" evil-goto-line)
-    ;; full page
-    ("f" evil-scroll-page-down)
-    ("b" evil-scroll-page-up)
+    ;; lines and columns
+    ("j" evil-scroll-line-down)
+    ("k" evil-scroll-line-up)
+    ("h" evil-scroll-column-left)
+    ("l" evil-scroll-column-right)
     ;; half page
     ("d" evil-scroll-down)
     ("u" evil-scroll-up)
@@ -155,18 +154,22 @@
     ("K" evil-scroll-up)
     ("H" evil-scroll-left)
     ("L" evil-scroll-right)
-    ;; lines and columns
-    ("j" evil-scroll-line-down)
-    ("k" evil-scroll-line-up)
-    ("h" evil-scroll-column-left)
-    ("l" evil-scroll-column-right))
-  (spacemacs/set-leader-keys
-    ;; buffer
-    "N<" 'spacemacs/scroll-transient-state/evil-goto-first-line
-    "N>" 'spacemacs/scroll-transient-state/evil-goto-line
     ;; full page
-    "Nf" 'spacemacs/scroll-transient-state/evil-scroll-page-down
-    "Nb" 'spacemacs/scroll-transient-state/evil-scroll-page-up
+    ("f" evil-scroll-page-down)
+    ("b" evil-scroll-page-up)
+    ;; buffer
+    ("<" evil-goto-first-line)
+    (">" evil-goto-line)
+    ("g" evil-goto-first-line)
+    ("G" evil-goto-line)
+    ;; other
+    ("q" nil :exit t))
+  (spacemacs/set-leader-keys
+    ;; lines and columns
+    "Nj" 'spacemacs/scroll-transient-state/evil-scroll-line-down
+    "Nk" 'spacemacs/scroll-transient-state/evil-scroll-line-up
+    "Nh" 'spacemacs/scroll-transient-state/evil-scroll-column-left
+    "Nl" 'spacemacs/scroll-transient-state/evil-scroll-column-right
     ;; half page
     "Nd" 'spacemacs/scroll-transient-state/evil-scroll-down
     "Nu" 'spacemacs/scroll-transient-state/evil-scroll-up
@@ -174,11 +177,14 @@
     "NK" 'spacemacs/scroll-transient-state/evil-scroll-up
     "NH" 'spacemacs/scroll-transient-state/evil-scroll-left
     "NL" 'spacemacs/scroll-transient-state/evil-scroll-right
-    ;; lines and columns
-    "Nj" 'spacemacs/scroll-transient-state/evil-scroll-line-down
-    "Nk" 'spacemacs/scroll-transient-state/evil-scroll-line-up
-    "Nh" 'spacemacs/scroll-transient-state/evil-scroll-column-left
-    "Nl" 'spacemacs/scroll-transient-state/evil-scroll-column-right)
+    ;; full page
+    "Nf" 'spacemacs/scroll-transient-state/evil-scroll-page-down
+    "Nb" 'spacemacs/scroll-transient-state/evil-scroll-page-up
+    ;; buffer
+    "N<" 'spacemacs/scroll-transient-state/evil-goto-first-line
+    "N>" 'spacemacs/scroll-transient-state/evil-goto-line
+    "Ng" 'spacemacs/scroll-transient-state/evil-goto-first-line
+    "NG" 'spacemacs/scroll-transient-state/evil-goto-line)
 
   ;; pasting transient-state
   (evil-define-command spacemacs//transient-state-0 ()
