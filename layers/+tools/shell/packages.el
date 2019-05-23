@@ -254,6 +254,10 @@
   ;; hack to fix pasting issue, the paste transient-state won't
   ;; work in term
   (evil-define-key 'normal term-raw-map "p" 'term-paste)
+  (evil-define-key 'normal term-raw-map (kbd "<mouse-2>") 'term-mouse-paste)
+  (evil-define-key 'insert term-raw-map (kbd "<mouse-2>") 'term-mouse-paste)
+  (evil-define-key 'normal term-raw-map (kbd "<mouse-3>") 'term-mouse-paste)
+  (evil-define-key 'insert term-raw-map (kbd "<mouse-3>") 'term-mouse-paste)
   (evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)
   (evil-define-key 'insert term-raw-map (kbd "C-c C-z") 'term-stop-subjob)
   (evil-define-key 'insert term-raw-map (kbd "<tab>") 'term-send-tab)

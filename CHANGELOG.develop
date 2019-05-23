@@ -2331,6 +2331,7 @@ Other:
 - Added =eshell= =Ivy= completion bindings (thanks to bb2020):
   - ~M-l~ =spacemacs/ivy-eshell-history=
   - ~TAB~ =spacemacs/pcomplete-std-complete=
+- Enabled mouse based pasting into term shells (thanks to Sheng Yang)
 **** Shell Scripts
 - Added new company-shell environment variable backend
   (thanks to Alexander-Miller)
