@@ -1773,6 +1773,7 @@ Other:
 **** Multiple Cursors
 - Disabled Spacemacs paste transient state when pasting to avoid pasting issue
   when there are more than one cursor (thanks to braham-snyder)
+- Added magnars's multiple-cursors package as a new backend (thanks to bb2020)
 **** Neotree
 - Made neotree an optional instead of a default layer
 - Move neotree to its own layer in new +filetree folder
