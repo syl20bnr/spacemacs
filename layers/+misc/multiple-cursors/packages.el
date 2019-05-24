@@ -13,8 +13,8 @@
 
 (setq multiple-cursors-packages
       '(
-        evil-mc
-        ))
+        (evil-mc :toggle (eq multiple-cursors-backend 'evil-mc))
+        (multiple-cursors :toggle (eq multiple-cursors-backend 'mc))))
 
 (defun multiple-cursors/init-evil-mc ()
   (use-package evil-mc
@@ -34,3 +34,28 @@
           (define-key state-map (car keybinding) (cdr keybinding))))
       (add-hook 'prog-mode-hook 'turn-on-evil-mc-mode)
       (add-hook 'text-mode-hook 'turn-on-evil-mc-mode))))
+
+(defun multiple-cursors/init-multiple-cursors ()
+  (use-package multiple-cursors
+    :defer t
+    :init
+    (progn
+      (spacemacs/declare-prefix "sm" "multiple-cursors")
+      (spacemacs/declare-prefix "sms" "specials")
+      (spacemacs/set-leader-keys
+        "smm" 'mc/mark-more-like-this-extended
+        "smr" 'mc/edit-lines
+        "smb" 'mc/mark-all-like-this
+        "sma" 'mc/mark-all-dwim
+        "smss" 'mc/sort-regions
+        "smsr" 'set-rectangular-region-anchor
+        "smsm" 'mc/mark-sgml-tag-pair
+        "smsn" 'mc/insert-numbers
+        "smsl" 'mc/insert-letters
+        "smst" 'mc/reverse-regions)
+      (setq mc/always-run-for-all t)
+      (with-eval-after-load 'multiple-cursors-core
+        (add-to-list 'mc/cmds-to-run-once 'helm-M-x)
+        (add-to-list 'mc/cmds-to-run-once 'counsel-M-x)
+        (add-to-list 'mc/cmds-to-run-once 'spacemacs/default-pop-shell)
+        ))))

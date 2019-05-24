@@ -1775,6 +1775,17 @@ Other:
 **** Multiple Cursors
 - Disabled Spacemacs paste transient state when pasting to avoid pasting issue
   when there are more than one cursor (thanks to braham-snyder)
+- Added magnars's multiple-cursors package as a new backend (thanks to bb2020)
+  - ~SPC s m a~   =mc/mark-all-dwim=
+  - ~SPC s m b~   =mc/mark-all-like-this=
+  - ~SPC s m m~   =mc/mark-more-like-this-extended=
+  - ~SPC s m r~   =mc/edit-lines=
+  - ~SPC s m s l~ =mc/insert-letters=
+  - ~SPC s m s m~ =mc/mark-sgml-tag-pair=
+  - ~SPC s m s n~ =mc/insert-numbers=
+  - ~SPC s m s r~ =set-rectangular-region-anchor=
+  - ~SPC s m s s~ =mc/sort-regions=
+  - ~SPC s m s t~ =mc/reverse-regions=
 **** Neotree
 - Made neotree an optional instead of a default layer
 - Move neotree to its own layer in new +filetree folder

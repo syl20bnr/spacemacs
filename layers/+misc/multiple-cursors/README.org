@@ -9,6 +9,9 @@
 - [[#configuration][Configuration]]
 - [[#key-bindings][Key bindings]]
   - [[#evil-mc][=evil-mc=]]
+  - [[#multiple-cursors][=multiple-cursors=]]
+- [[#notes][Notes]]
+  - [[#multiple-cursors-1][=multiple-cursors=]]
 
 * Description
 ** Features:
@@ -20,12 +23,16 @@ add =multiple-cursors= to the existing =dotspacemacs-configuration-layers= list 
 file.
 
 * Configuration
-Currently the only supported backend is =evil-mc=, but more backends will be
-available in the future.
+Currently supported backends are:
+- [[https://github.com/gabesoft/evil-mc][evil-mc]] (default)
+- [[https://github.com/magnars/multiple-cursors.el][mc]]
+
+To set your choice of backend, configure =multiple-cursors-backend= variable of
+the layer.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (multiple-cursors :variables multiple-cursors-backend 'evil-mc))
+    (multiple-cursors :variables multiple-cursors-backend 'mc))
 #+END_SRC
 
 * Key bindings
@@ -60,3 +67,44 @@ For easy navigation you also have the following:
 | ~C-t~       | evil-mc-skip-and-goto-next-match   |
 | ~C-M-j~     | evil-mc-make-cursor-move-next-line |
 | ~C-M-k~     | evil-mc-make-cursor-move-prev-line |
+
+** =multiple-cursors=
+The =multiple-cursors= backend provides the following key bindings to
+insert new cursors:
+
+| Key binding | Description                     |
+|-------------+---------------------------------|
+| ~SPC s m a~ | mc/mark-all-dwim                |
+| ~SPC s m b~ | mc/mark-all-like-this           |
+| ~SPC s m m~ | mc/mark-more-like-this-extended |
+| ~SPC s m r~ | mc/edit-lines                   |
+
+These special bindings manipulate text under cursors:
+
+| Key binding   | Description                   |
+|---------------+-------------------------------|
+| ~SPC s m s l~ | mc/insert-letters             |
+| ~SPC s m s m~ | mc/mark-sgml-tag-pair         |
+| ~SPC s m s n~ | mc/insert-numbers             |
+| ~SPC s m s r~ | set-rectangular-region-anchor |
+| ~SPC s m s s~ | mc/sort-regions               |
+| ~SPC s m s t~ | mc/reverse-regions            |
+
+* Notes
+** =multiple-cursors=
+Some commands executed during =multiple-cursors= enabled may lead Emacs to go frenzy.
+Commands like window manipulation will be executed multiple times if =mc= is active.
+Not all Emacs commands may be compatible with =mc=.
+
+To run interactive ~M-x~ commands with =mc=, run the command first. This will result
+with application of the command to the leading cursor. Then press =C-:= to apply the
+command to consequtive cursors. If this is not the case or you want a command to be
+executed only once, configure the =mc/cmds-to-run-once= variable of the layer like
+in the following example.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (multiple-cursors :variables
+                      multiple-cursors-backend 'mc
+                      mc/cmds-to-run-once '(upcase-region))))
+#+END_SRC
