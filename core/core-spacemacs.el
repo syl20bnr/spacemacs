@@ -70,6 +70,10 @@ the final step of executing code in `emacs-startup-hook'.")
                 evil-want-C-i-jump nil)
   (dotspacemacs/load-file)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
+  (when dotspacemacs-undecorated-at-startup
+    ;; this should be called before toggle-frame-maximized
+    (set-frame-parameter nil 'undecorated t)
+    (add-to-list 'default-frame-alist '(undecorated . t)))
   (when dotspacemacs-maximized-at-startup
     (unless (frame-parameter nil 'fullscreen)
       (toggle-frame-maximized))
