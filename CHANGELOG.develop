@@ -392,6 +392,7 @@ sane way, here is the complete list of changed key bindings
   - New variable =dotspacemacs-zone-out-when-idle= to zone when idle. Zoning
     will obfuscate the current buffer acting like a screen saver.
     (thanks to Eugene Yaremenko and Sylvain Benner)
+  - New variable =dotspacemacs-undecorated-at-startup= (thanks to bb2020)
 Other:
   - Added =vim-style-visual-feedback= and =hybrid-style-visual-feedback= style
     variables to enable =evil-goggles= pulse in the Vim and Hybrid editing

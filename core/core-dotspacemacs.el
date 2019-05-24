@@ -306,6 +306,9 @@ to disable fullscreen animations in OSX.")
   "If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).
 Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.")
 
+(defvar dotspacemacs-undecorated-at-startup nil
+  "If non nil the frame is undecorated when Emacs starts up.")
+
 (defvar dotspacemacs-active-transparency 90
   "A value from the range (0..100), in increasing opacity, which describes the
 transparency level of a frame when it's active or selected. Transparency
