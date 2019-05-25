@@ -1515,6 +1515,8 @@ Other:
 - Load helm before read-file-name and completing-read
   (thanks duianto and thanks Miciah for a more elegant solution)
 - Added key binding `sC` for `helm-swoop-clear-cache` (thanks to Yang Qian)
+- Fixed =spacemacs//helm-open-buffers-in-windows= when opening more files than
+  available windows (thanks to Juha Jeronen)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Added =counsel-css= as an =ivy= alternative to =helm-css-scss=
