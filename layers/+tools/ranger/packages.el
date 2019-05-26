@@ -40,7 +40,10 @@
       (unless (file-directory-p image-dired-dir)
         (make-directory image-dired-dir)))
     :config
-    (define-key ranger-mode-map (kbd "-") 'ranger-up-directory)))
+    (progn
+      (when (memq 'helm dotspacemacs-configuration-layers)
+        (require 'helm))
+      (define-key ranger-mode-map (kbd "-") 'ranger-up-directory))))
 
 (defun ranger/post-init-dired ()
   ;; Be sure to override dired bindings
