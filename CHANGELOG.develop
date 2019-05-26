@@ -2328,6 +2328,7 @@ Other:
 - Key bindings:
   - Added ~j D~ to jump other window (thanks to Rich Alesi)
   - Added ~-~ to enter (thanks to Rich Alesi)
+- Load =helm= before =ranger= (thanks to duianto)
 **** Rcirc
 - New variable =rcirc-enable-late-fix= to enable or disable the included
   =rcirc-late-fix= package (disabled by default).
