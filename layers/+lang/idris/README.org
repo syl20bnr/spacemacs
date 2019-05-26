@@ -108,7 +108,7 @@ are reproduced under the local leader.
 |-------------+----------------------------------------------------------------------------|
 | ~SPC m b c~ | Build the package.                                                         |
 | ~SPC m b C~ | Clean the package, removing =.ibc= files                                   |
-| ~SPC m b i~ | Install the package to the user’s repository, building first if necessary. |
+| ~SPC m b i~ | Install the package to the user's repository, building first if necessary. |
 | ~SPC m b p~ | Open package file.                                                         |
 
 When inside a package file, you can insert a field with ~SPC m f~.

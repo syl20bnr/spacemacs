@@ -223,7 +223,7 @@ Follow [[https://ensime.github.io/build_tools/sbt/][the ENSIME configuration ins
 the development version of Ensime so follow the appropriate steps.
 
 To use the build functions under ~SPC m b~ you need to use version =0.13.5= or
-newer of =sbt=, and specify that in your project’s =project/build.properties=.
+newer of =sbt=, and specify that in your project's =project/build.properties=.
 For example,
 
 #+BEGIN_SRC scala
@@ -237,7 +237,7 @@ will suffice do the trick.
 
 *** Issues
 ENSIME is originally built for Scala, so support for java is not complete, in
-particular refactoring doesn’t work.
+particular refactoring doesn't work.
 
 ** LSP Java
 LSP Java is the Java adapter for [[https://github.com/emacs-lsp/lsp-mode][LSP Mode]] which is the Emacs client for [[https://github.com/Microsoft/language-server-protocol][Language Server Protocol]].

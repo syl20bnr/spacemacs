@@ -15,7 +15,7 @@ This layer adds support for the [[http://wiki.portal.chalmers.se/agda/pmwiki.php
 
 ** Features:
 - Faces redefined to correctly play with themes.
-- Spacemacs bindings to Agda’s interactive tools.
+- Spacemacs bindings to Agda's interactive tools.
 
 *This layer is in construction, it needs your contributions and bug reports.*
 
@@ -37,9 +37,9 @@ information about setting up =$PATH=, check out the corresponding section in the
 FAQ (~SPC h SPC $PATH RET~).
 
 By default the =agda-mode= executable bundled with most agda installations is
-used to locate the agda-mode package. If you don’t have it and want to use a
+used to locate the agda-mode package. If you don't have it and want to use a
 local agda-mode package, you can customize the layer variable =agda-mode-path=
-to your needs. Set it to =nil= if =agda2.el= is already discoverable in Emacs’
+to your needs. Set it to =nil= if =agda2.el= is already discoverable in Emacs'
 load path, otherwise set it to the path at which =agda2.el= can be found. For
 example,
 
@@ -48,7 +48,7 @@ example,
 #+END_SRC
 
 * Key bindings
-The key bindings of this layer don’t follow the Spacemacs conventions,
+The key bindings of this layer don't follow the Spacemacs conventions,
 we opted to a simple transcription of stock Agda mode key bindings to
 Spacemacs leader key.
 
@@ -60,7 +60,7 @@ All Agda specific bindings are prefixed with the major-mode leader
 | ~SPC m =~   | Show constraints.                                                                                                                         |
 | ~SPC m ?~   | Show all goals.                                                                                                                           |
 | ~SPC m ​,​~   | Shows the type of the goal at point and the currect context.                                                                              |
-| ~SPC m .~   | Shows the context, the goal and the given expression’s inferred type.                                                                     |
+| ~SPC m .~   | Shows the context, the goal and the given expression's inferred type.                                                                     |
 | ~SPC m a~   | Simple proof search.                                                                                                                      |
 | ~SPC m b~   | Go to the previous goal, if any and activate goal-navigation transient-state.                                                             |
 | ~SPC m c~   | Refine the pattern variables given in the goal.                                                                                           |

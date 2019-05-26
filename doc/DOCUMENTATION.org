@@ -217,9 +217,9 @@
 - [[#thank-you][Thank you]]
 
 * Core Pillars
-Four core pillars: Mnemonic, Discoverable, Consistent and “Crowd-Configured”.
+Four core pillars: Mnemonic, Discoverable, Consistent and "Crowd-Configured".
 
-If any of these core pillars are violated, open an issue and we’ll try our best
+If any of these core pillars are violated, open an issue and we'll try our best
 to fix it.
 
 ** Mnemonic
@@ -298,7 +298,7 @@ Click it to update Spacemacs. You must restart Emacs after updating.
 disabled---you have to update manually using git.
 
 *** Updating from the Spacemacs Buffer
-Use the button labeled “Update Spacemacs” in the Spacemacs buffer. You will be
+Use the button labeled "Update Spacemacs" in the Spacemacs buffer. You will be
 prompted for the version you would like to use.
 
 *Note*: If you use the =develop= branch of Spacemacs, you cannot use this method.
@@ -368,7 +368,7 @@ Where:
 
 =Packages= can be:
 - =ELPA= packages installed from an =ELPA= compliant repository
-- local packages in a layer’s =local= folder
+- local packages in a layer's =local= folder
 - installed from an online source using [[https://github.com/quelpa/quelpa][quelpa]].
 
 ** Configure packages
@@ -384,7 +384,7 @@ Example:
 #+END_SRC
 
 All packages from all layers are processed in alphabetical order so sometimes
-you’ll have to use some =with-eval-after-load= black magic to configure them
+you'll have to use some =with-eval-after-load= black magic to configure them
 properly. For instance, if package =A= depends on =B= then you can configure
 =A= with:
 
@@ -473,7 +473,7 @@ Adding this layer will install around 100 themes; to uninstall them remove the
 layer from the =dotspacemacs-configuration-layers= and press ~SPC f e R~.
 
 ** Managing private configuration layers
-Spacemacs’s configuration system is flexible enough to let you manage your
+Spacemacs's configuration system is flexible enough to let you manage your
 private layers in different ways.
 
 *** Using the private directory
@@ -707,7 +707,7 @@ ignoring this package is the same as excluding it (because the package becomes
 orphan so it is considered unused by Spacemacs).
 
 *** Excluding packages
-You can exclude packages you don’t want to install with the variable
+You can exclude packages you don't want to install with the variable
 =dotspacemacs-excluded-packages= (see [[#configuration-layers][Configuration layers]] for more info
 on packages).
 
@@ -942,7 +942,7 @@ for the toggle to turn on and off the =which-key= minor mode.
 #+END_SRC
 
 Major mode specific toggles can be turned on by registering a hook on them to
-call the “toggle on” function automatically whenever a buffer using this major
+call the "toggle on" function automatically whenever a buffer using this major
 mode is opened. It can be done convenienty using the function
 =spacemacs/toggle-NAME-on-register-hooks=. It also exists variants of this
 function for each supported major mode like
@@ -1036,10 +1036,10 @@ will go to the function =dotspacemacs/user-env= instead of opening the file
 =dotspacemacs/user-env= so you can update your variables in place.
 
 ** Note about the function dotspacemacs/user-env
-Its possible that you don’t have this function defined if you have an older
+Its possible that you don't have this function defined if you have an older
 dotfile. It is recommended to update your dotfile by adding this function,
 see the file =~/.emacs.d/core/template/.spacemacs.template= to copy it.
-If you don’t create such function then Spacemacs assumes you are using the
+If you don't create such function then Spacemacs assumes you are using the
 default behavior described above.
 
 * Binding keys
@@ -1084,7 +1084,7 @@ major mode is =emacs-lisp=.
 
 Finally, one should be aware of prefix keys. Essentially, all keymaps can be
 nested. Nested keymaps are used extensively in spacemacs, and in vanilla Emacs
-for that matter. For example, ~SPC a~ points to key bindings for “applications”,
+for that matter. For example, ~SPC a~ points to key bindings for "applications",
 like ~SPC a c~ for =calc-dispatch=. Nesting bindings is easy.
 
 #+BEGIN_SRC emacs-lisp
@@ -1171,7 +1171,7 @@ You can see samples of all themes included in the =themes-megapack= layer
 in this [[http://themegallery.robdor.com][theme gallery]] from [[https://twitter.com/robmerrell][Rob Merrell]].
 
 *** Notes
-- You don’t need to explicitly list in a layer the theme packages you are
+- You don't need to explicitly list in a layer the theme packages you are
   defining in =dotspacemacs-themes=, Spacemacs is smart enough to remove those
   packages from the list of orphans.
 - Due to the inner working of themes in Emacs, switching theme during the same
@@ -1234,9 +1234,9 @@ property of a [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Low_00
 - =:size= The font size- either a non-negative integer that specifies the
   pixel size, or a floating-point number that specifies the point size.
 - =:adstyle= Additional typographic style information for the font, such as
-  ’sans’. The value should be a string or a symbol.
+  'sans'. The value should be a string or a symbol.
 - =:registry= The charset registry and encoding of the font, such as
-  ’iso8859-1’. The value should be a string or a symbol.
+  'iso8859-1'. The value should be a string or a symbol.
 - =:script= The script that the font must support (a symbol).
 
 ** GUI Toggles
@@ -1298,9 +1298,9 @@ Available properties:
 | =:size-limit-kb=      | size limit in kilobytes after which line numbers are not activated                           |
 
 Note that if =:enabled-for-modes= is =nil= or not specified, then the default is
-to enable line numbers in any =prog-mode= and =text-mode= that wasn’t explicitly
+to enable line numbers in any =prog-mode= and =text-mode= that wasn't explicitly
 disabled via =:disabled-for-modes=. To enable line numbers in a major mode that
-doesn’t derive from =prog-mode= or =text-mode=, you must specify it directly in
+doesn't derive from =prog-mode= or =text-mode=, you must specify it directly in
 =:enabled-for-modes=. To enable line numbers even in non-prog-mode and
 non-text-mode buffers, set =:enabled-for-modes= to =all=.
 
@@ -1405,7 +1405,7 @@ Supported separators and preview:
 | =none=       |           | X             |                                   |
 
 A last special separator is supported, it is =utf-8= which uses actual font
-glyphs so it can be rendered in a terminal. You’ll need a font patched for the
+glyphs so it can be rendered in a terminal. You'll need a font patched for the
 Vim powerline to be able to use it. The default font used by Spacemacs =Source
 Code Pro= already contains the glyphs.
 
@@ -1423,7 +1423,7 @@ Example:
   (setq dotspacemacs-mode-line-theme '(all-the-icons :separator-scale 1.5))
 #+END_SRC
 
-Note that this setting won’t work correctly when the separator is =utf-8=, if
+Note that this setting won't work correctly when the separator is =utf-8=, if
 you use this separator then it is recommended to set =:separator-scale= to =1.0=.
 
 *** Spacemacs mode-line theme
@@ -1596,7 +1596,7 @@ Following format short codes are available:
 | =%m= | mode name                                                                    |
 | =%n= | Narrow if appropriate                                                        |
 | =%z= | mnemonics of buffer, terminal, and keyboard coding systems                   |
-| =%Z= | like %z, but including the end-of-line format“                               |
+| =%Z= | like %z, but including the end-of-line format"                               |
 
 **** Iconified (tabified) title
 If you are using tiling window manager with tab support you may want to display
@@ -1643,7 +1643,7 @@ The =default= layout (the layout created at the startup of Emacs) is not
 displayed in the mode-line but it is possible to display it by setting the
 variable =dotspacemacs-display-default-layout= to =t=.
 
-Its name is “default” by default but it can be changed by setting the variable
+Its name is "default" by default but it can be changed by setting the variable
 =dotspacemacs-default-layout-name=.
 
 The =default= layout is special because it has a global scope which means that
@@ -1743,7 +1743,7 @@ Workspaces are sub-layouts, they allow to define multiple layouts into a given
 layout, those layouts share the same buffer as the parent layout.
 
 The currently active workspace number is displayed before the window number,
-for instance “➊|➍” or “1|4” means the fourth window of the first workspace.
+for instance "➊|➍" or "1|4" means the fourth window of the first workspace.
 
 Any new layout comes with a default workspace which is the workspace 1.
 
@@ -1797,7 +1797,7 @@ easily switch between =insert state= and =normal state= by quickly pressing the
 ~fd~ keys.
 
 The choice of ~fd~ was made to be able to use the same sequence to escape from
-“everything” in Emacs:
+"everything" in Emacs:
 - escape from all stock evil states to normal state
 - escape from evil-lisp-state to normal state
 - escape from evil-iedit-state to normal state
@@ -1815,7 +1815,7 @@ The choice of ~fd~ was made to be able to use the same sequence to escape from
 - hide neotree buffer
 
 If you find yourself in a buffer where the Spacemacs (~SPC~) or Vim keybindings
-don’t work you can use this to get back to =normal state= (for example in ~SPC
+don't work you can use this to get back to =normal state= (for example in ~SPC
 SPC customize~ press ~fd~ to make ~SPC b b~ work again).
 
 This sequence can be customized in your =~/.spacemacs=.
@@ -1994,7 +1994,7 @@ The following actions on the selected candidate are available:
 
 **** Available packages in Spacemacs
 =spacemacs-help= also lists all the packages available in Spacemacs. The
-entry format is =(layer) packages=. If you type =flycheck= you’ll be able to see
+entry format is =(layer) packages=. If you type =flycheck= you'll be able to see
 all the layers where =flycheck= is used.
 
 The following actions are available on selected package:
@@ -2011,12 +2011,12 @@ ELPA packages. Paradox enhances the package list buffer with better feedbacks,
 new filters and Github information like the number of stars. Optionally you can
 also star packages directly in the buffer.
 
-*Important Note 1*: Installing a new package from =Paradox= won’t make it
+*Important Note 1*: Installing a new package from =Paradox= won't make it
 persistent. To install a package persistently you have to add it explicitly to a
 configuration layer.
 
-*Important Note 2*: Don’t /update/ your packages from =Paradox= or
-=package-list-packages= because they don’t support the rollback feature of
+*Important Note 2*: Don't /update/ your packages from =Paradox= or
+=package-list-packages= because they don't support the rollback feature of
 Spacemacs.
 
 | Key binding | Description                                           |
@@ -2103,7 +2103,7 @@ Similar to =avy=, [[https://github.com/abo-abo/ace-link][ace-link]] allows one t
 | ~o~         | initiate ace link mode in =help-mode= and =info-mode= |
 
 *** Unimpaired bindings
-Spacemacs comes with a built-in port of [[https://github.com/tpope/vim-unimpaired][tpope’s vim-unimpaired]].
+Spacemacs comes with a built-in port of [[https://github.com/tpope/vim-unimpaired][tpope's vim-unimpaired]].
 
 This plugin provides several pairs of bracket maps using ~[~ to denote
 previous, and ~]~ as next.
@@ -2443,10 +2443,10 @@ Frame manipulation commands (start with ~F~):
 | Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC F f~   | open a file in another frame                        |
-| ~SPC F d~   | delete the current frame (unless it’s the only one) |
+| ~SPC F d~   | delete the current frame (unless it's the only one) |
 | ~SPC F D~   | delete all other frames                             |
 | ~SPC F b~   | open a buffer in another frame                      |
-| ~SPC F B~   | open a buffer in another frame (but don’t switch)   |
+| ~SPC F B~   | open a buffer in another frame (but don't switch)   |
 | ~SPC F o~   | cycle focus between frames                          |
 | ~SPC F O~   | open a dired buffer in another frame                |
 | ~SPC F n~   | create a new frame                                  |
@@ -2573,7 +2573,7 @@ OpenDocument, and Microsoft Office documents.
 | ~C-k~       | kill proc                                |
 | ~C-u~       | scroll up                                |
 | ~C-c C-c~   | toggle display text and image display    |
-| ~C-c C-t~   | open new buffer with doc’s text contents |
+| ~C-c C-t~   | open new buffer with doc's text contents |
 
 ** Auto-saving
 *** Frequency of auto-saving
@@ -2665,7 +2665,7 @@ called =pt=.
 | Prefix argument        | will ask for file extensions                                 |
 
 When results have been saved in a regular buffer with ~F3~, that buffer supports
-browsing through the matches with Spacemacs’ =next-error= and =previous-error=
+browsing through the matches with Spacemacs' =next-error= and =previous-error=
 bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e .~).
 
 **** Searching in current file
@@ -3165,7 +3165,7 @@ It is possible to batch rename files in a directory using =wdired= from an
 - use ~C-c C-k~ to abort any changes
 
 *** Commenting
-Comments are handled by [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]], it’s bound to the following keys.
+Comments are handled by [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]], it's bound to the following keys.
 
 | Key binding | Description               |
 |-------------+---------------------------|
@@ -3186,7 +3186,7 @@ Comments are handled by [[https://github.com/redguardtoo/evil-nerd-commenter][ev
 Spacemacs uses the packages [[https://github.com/joddie/pcre2el][pcre2el]] to manipulate regular expressions. It is
 useful when working with =Emacs Lisp= buffers since it allows to easily converts
 =PCRE= (Perl Compatible RegExp) to Emacs RegExp or =rx=. It can also be used to
-“explain” a PCRE RegExp around point in =rx= form.
+"explain" a PCRE RegExp around point in =rx= form.
 
 The key bindings start with ~SPC x r~ and have the following mnemonic structure:
 - ~SPC x r <source> <target>~ convert from source to target
@@ -3326,9 +3326,9 @@ To search in a project see [[#searching-in-a-project][project searching]].
 
 | Key binding | Description                                                                              |
 |-------------+------------------------------------------------------------------------------------------|
-| ~SPC p '​~   | open a shell in project’s root (with the =shell= layer)                                  |
-| ~SPC p !~   | run shell command in project’s root                                                      |
-| ~SPC p &~   | run async shell command in project’s root                                                |
+| ~SPC p '​~   | open a shell in project's root (with the =shell= layer)                                  |
+| ~SPC p !~   | run shell command in project's root                                                      |
+| ~SPC p &~   | run async shell command in project's root                                                |
 | ~SPC p %~   | replace a regexp                                                                         |
 | ~SPC p a~   | toggle between implementation and test                                                   |
 | ~SPC p b~   | switch to project buffer                                                                 |
@@ -3339,7 +3339,7 @@ To search in a project see [[#searching-in-a-project][project searching]].
 | ~SPC p f~   | find file                                                                                |
 | ~SPC p F~   | find file based on path around point                                                     |
 | ~SPC p g~   | find tags                                                                                |
-| ~SPC p G~   | regenerate the project’s =etags= / =gtags=                                               |
+| ~SPC p G~   | regenerate the project's =etags= / =gtags=                                               |
 | ~SPC p h~   | find file                                                                                |
 | ~SPC p I~   | invalidate the projectile cache                                                          |
 | ~SPC p k~   | kill all project buffers                                                                 |
@@ -3395,7 +3395,7 @@ Errors management commands (start with ~e~):
 
 The next/previous error bindings and the error transient state can be used to
 browse errors from flycheck as well as errors from compilation buffers, and
-indeed anything that supports Emacs’ =next-error= API. This includes for example
+indeed anything that supports Emacs' =next-error= API. This includes for example
 search results that have been saved to a separate buffer.
 
 *** Error transient state
@@ -3428,12 +3428,12 @@ Spacemacs binds a few commands to support compiling a project.
 | ~SPC c r~   | recompile                      |
 
 * EditorConfig
-Spacemacs has support for [[http://editorconfig.org/][EditorConfig]], a configuration file to “define and
-maintain consistent coding styles between different editors and IDEs.”
+Spacemacs has support for [[http://editorconfig.org/][EditorConfig]], a configuration file to "define and
+maintain consistent coding styles between different editors and IDEs."
 
 To enable this feature, [[https://github.com/editorconfig/editorconfig-core-c/blob/master/INSTALL.md][install the editorconfig command]].
 
-To customize your editorconfig experience, read [[https://github.com/editorconfig/editorconfig-emacs/blob/master/README.md#customize][the editorconfig-emacs package’s
+To customize your editorconfig experience, read [[https://github.com/editorconfig/editorconfig-emacs/blob/master/README.md#customize][the editorconfig-emacs package's
 documentation]].
 
 * Emacs Server
@@ -3453,7 +3453,7 @@ need to set it in your shell configuration, e.g. =~/.bashrc= or =~/.zshrc=:
   export EDITOR="emacsclient -c"
 #+END_SRC
 
-Note that if you’re on OS X, you may have to refer to the emacsclient that comes
+Note that if you're on OS X, you may have to refer to the emacsclient that comes
 with your GUI Emacs, e.g.:
 
 #+BEGIN_SRC sh-mode

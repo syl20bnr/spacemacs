@@ -25,7 +25,7 @@ To install =import-js= globally:
   $ npm install -g import-js
 #+END_SRC
 
-If that doesn’t work you can also try installing =import-js= with =--unsafe-perm= tag
+If that doesn't work you can also try installing =import-js= with =--unsafe-perm= tag
 
 #+BEGIN_SRC sh
   $ sudo npm install --unsafe-perm -g import-js

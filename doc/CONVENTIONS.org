@@ -63,7 +63,7 @@ A package is initialized in a function with name =<layer>/init-xxx= where:
   =:config= keywords.
 - If there is only one line of code then try to keep =:init= or =:config=
   keywords on the same line.
-- Don’t nest multiple =use-package= calls unless you have a very good reason
+- Don't nest multiple =use-package= calls unless you have a very good reason
   to do it.
 
 * Key bindings conventions
@@ -194,7 +194,7 @@ should be followed:
 | ~m s r~ | send region                                                  |
 | ~m s R~ | send region and switch to REPL                               |
 
-Note: we don’t distinguish between the file and the buffer.
+Note: we don't distinguish between the file and the buffer.
 
 *** In terminal
 History navigation in shells or REPLs buffers should be bound as well to
@@ -217,7 +217,7 @@ The base prefix for major mode specific compilation is ~SPC m c~.
 | ~m c C~     | clean             |
 | ~m c r~     | clean and compile |
 
-Note: we don’t distinguish between the file and the buffer. We can
+Note: we don't distinguish between the file and the buffer. We can
 implement an auto-save of the buffer before compiling the buffer.
 
 ** Debugging
@@ -346,7 +346,7 @@ share common actions that we can unite under the same key bindings:
 | ~m t t~ | execute the current test (thing at point, function)          |
 | ~m t T~ | execute the current test in debug (thing at point, function) |
 
-Note: we don’t distinguish between the file and the buffer. We can
+Note: we don't distinguish between the file and the buffer. We can
 implement an auto-save of the buffer before executing the tests of
 buffer.
 
@@ -413,4 +413,4 @@ Spacemacs provides an example layer =README.org= file in
   - Note: Many layer =READMEs= do not follow this convention yet. Please fix
     them if you can.
 - To keep things readable only mention the prefix ~SPC~ when documenting
-  key bindings, you don’t need to mention ~M-m~.
+  key bindings, you don't need to mention ~M-m~.

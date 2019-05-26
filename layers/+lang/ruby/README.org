@@ -41,7 +41,7 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ruby= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-This layer supports two different Ruby modes: Emacs’s built-in Ruby Mode and
+This layer supports two different Ruby modes: Emacs's built-in Ruby Mode and
 [[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]]. By default the built-in Ruby mode is enabled. To switch to the
 =enh-ruby-mode= set =ruby-enable-enh-ruby-mode= to t:
 
@@ -167,8 +167,8 @@ When =ruby-test-runner= equals =rspec=.
 | ~SPC m t m~   | run specs related to the current buffer                |
 | ~SPC m t r~   | re-run last spec                                       |
 | ~SPC m t t~   | run spec at pointer                                    |
-| ~SPC m t TAB~ | toggle between spec’s and target’s buffer              |
-| ~SPC m t ~~   | toggle between spec’s and target’s buffer find example |
+| ~SPC m t TAB~ | toggle between spec's and target's buffer              |
+| ~SPC m t ~~   | toggle between spec's and target's buffer find example |
 
 *** Ruby-test-mode
 When =ruby-test-runner= equals =ruby-test=.

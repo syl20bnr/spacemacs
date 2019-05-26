@@ -183,7 +183,7 @@ To use the available JS repl, you need a running httpd server and a page loaded
 with skewer. If a blank page serves your needs, just use the run-skewer command
 in your javascript buffer. If you want to inject it in your own page, follow
 [[https://github.com/skeeto/skewer-mode#skewering-with-cors][these instructions]] (install the Greasemonkey script and then click the triangle
-in the top-right corner - if it turns green, you’re good to go).
+in the top-right corner - if it turns green, you're good to go).
 
 ** Node Modules
 If you would like =node_modules/.bin= to be automatically added to the buffer

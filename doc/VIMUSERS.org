@@ -312,7 +312,7 @@ Emacs or press ~SPC f e R~. To view all layers and their documentation use
 ~SPC h SPC~.
 
 ** Creating a Layer
-To group configuration or when configuration doesn’t fit well in your
+To group configuration or when configuration doesn't fit well in your
 =.spacemacs= file, you can create a configuration layer. Spacemacs provides a
 builtin command to generate the layer boilerplate:
 ~SPC SPC configuration-layer/create-layer RET~. This generates a folder that
@@ -372,7 +372,7 @@ the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][configu
 
 ** Installing a single package
 Sometimes creating a layer is a bit overkill. Maybe you just want one package
-and don’t want to maintain a whole layer. Spacemacs provides a variable in the
+and don't want to maintain a whole layer. Spacemacs provides a variable in the
 =dotspacemacs/layers= function in =.spacemacs= called
 =dotspacemacs-additional-packages=. Just add a package name to the list and it
 will be installed when you restart. Loading the package is covered in the next
@@ -408,7 +408,7 @@ to using it:
 #+END_SRC
 
 This is just a very basic overview of =use-package=. There are many other ways
-to control how a package loads using it that aren’t covered here.
+to control how a package loads using it that aren't covered here.
 
 ** Uninstalling a package
 Spacemacs provides a variable in the =dotspacemacs/init= function in
@@ -478,7 +478,7 @@ your =.spacemacs=:
 * Other useful links
 - [[https://www.gnu.org/software/emacs/manual/emacs.html][Emacs Manual]]
 - [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][Spacemacs Documentation]]
-- [[http://ian.mccowan.space/2015/04/07/Spacemacs/][Spacemacs: A Vimmer’s Emacs Prerequisites]]
+- [[http://ian.mccowan.space/2015/04/07/Spacemacs/][Spacemacs: A Vimmer's Emacs Prerequisites]]
   - Note: The article refers to ~SPC b s~ as the key binding to switch buffers.
     It is ~SPC b b~
 - [[http://thume.ca/howto/2015/03/07/configuring-spacemacs-a-tutorial/][Configuring Spacemacs: A Tutorial]]

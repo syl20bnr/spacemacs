@@ -119,7 +119,7 @@ With fish:
 
 *** Conflict between =ctags= and emacs's =etags= binary
 If you installed =emacs= from source after =ctags=, your original =ctags= binary
-is probably replaced by emacs’s =etags=. To get around this you will need to
+is probably replaced by emacs's =etags=. To get around this you will need to
 configure =emacs= as following before installing:
 
 #+BEGIN_SRC sh
@@ -218,7 +218,7 @@ languages are supported:
 In order to look up symbol references for any language not in the built in
 parser you must use the pygments backend. When this backend is used global
 actually uses both ctags and pygments to find the definitions and uses of
-functions and variables as well as “other symbols”.
+functions and variables as well as "other symbols".
 
 If you enabled pygments (the best choice) and use that as the backend
 (i.e. =GTAGSLABEL=pygments= or =--gtagslabel=pygments=) the following additional

@@ -233,7 +233,7 @@ codes, set the variable =rcirc-enable-styles= to =t= in your dotfile:
 | Key binding | Description                                                                   |
 |-------------+-------------------------------------------------------------------------------|
 | ~SPC a i r~ | Open rcirc                                                                    |
-| ~SPC l o i~ | Open rcirc in a custom perspective “@RICRC” (need perspectives layer enabled) |
+| ~SPC l o i~ | Open rcirc in a custom perspective "@RICRC" (need perspectives layer enabled) |
 | ~SPC m i a~ | Interactively insert a color code (if rcirc-styles is enabled)                |
 | ~SPC m i c~ | Interactively insert a text attribute code (if rcirc-styles is enabled)       |
 | ~SPC m i p~ | Toggle preview in input line (if rcirc-styles is enabled)                     |
@@ -250,5 +250,5 @@ The rcirc documentation can be found [[http://www.gnu.org/software/emacs/manual/
 
 * Spacemacs Layout Support
 RCIRC buffers are added automatically to the default layout for RCIRC controlled by
-the variable =rcirc-spacemacs-layout-name= (defaults to “@RCIRC”) and the default
-binding (“i”) is controlled by =rcirc-spacemacs-layout-binding=
+the variable =rcirc-spacemacs-layout-name= (defaults to "@RCIRC") and the default
+binding ("i") is controlled by =rcirc-spacemacs-layout-binding=

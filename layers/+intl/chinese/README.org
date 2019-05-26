@@ -90,7 +90,7 @@ to replace the current selection in-place.
                                                              chinese-enable-fcitx t)))
 #+END_SRC
 
-If you don’t need to type Chinese in minibuffer, you can temporarily disable fcitx in the minibuffer
+If you don't need to type Chinese in minibuffer, you can temporarily disable fcitx in the minibuffer
 with the following configuration.
 
 #+BEGIN_SRC emacs-lisp
@@ -102,7 +102,7 @@ with the following configuration.
 You need to install =fcitx= and =fcitx-remote= on your machine.
 
 ***** Mac OS X
-We don’t have a =fcitx= in OS X yet but we already added an emulation called
+We don't have a =fcitx= in OS X yet but we already added an emulation called
 =fcitx-remote= to make you happy with other Chinese input-methods.
 
 You can install [[https://github.com/CodeFalling/fcitx-remote-for-osx][fcitx-remote-for-osx]] from homebrew.
@@ -135,7 +135,7 @@ You should set =chinese-enable-youdao-dict= to =t=.
 
 *** Set monospaced font size(设置等宽字体）
 If you are mixing Chinese script with Latin script, the text is not perfectly
-aligned in org table. That’s because normally the Chinese font size is not equal
+aligned in org table. That's because normally the Chinese font size is not equal
 to the Latin font size. You could call =spacemacs//set-monospaced-font= with
 your own Chinese font name in =dotspacemacs/user-config= function.
 

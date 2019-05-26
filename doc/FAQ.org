@@ -61,7 +61,7 @@ may also just type ~SPC f e v~.
 As it is written, that is _space_ then _macs_.
 
 ** Why do you call this a "distribution", I don't see any "Spacemacs" executable?
-Although we could do it we don’t package Emacs with Spacemacs. We allow users to
+Although we could do it we don't package Emacs with Spacemacs. We allow users to
 choose whatever build of Emacs they want that works with their OS, this is more
 flexible and it saves us tons of issues. Spacemacs is more than a configuration
 of Emacs it comes with advanced feature, concepts and tooling. Roughly, think of
@@ -86,7 +86,7 @@ To install packages that does not belong to any Spacemacs layers, you can:
 To create a new configuration layer see the [[https://github.com/syl20bnr/spacemacs/blob/master/doc/QUICK_START.org][quick start guide]] for more info.
 
 ** Environment variables or PATH are not set properly
-If you use Emacs GUI and don’t launch if from a terminal then edit the
+If you use Emacs GUI and don't launch if from a terminal then edit the
 environment variables in the =env= file. You can open this file with
 ~SPC f e e~. More information in the =Environment variables= section of the
 [[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org][documentation]].
@@ -101,7 +101,7 @@ dotfile to remove the need to start Emacs with =--insecure= argument.
 ** How to fix =Symbol's value as variable is void= errors on startup?
 If Emacs reports an error that the symbol =closed= or =-= is unbound as a
 variable, it is probably because you are using HTTPS to download packages, but
-you shouldn’t be. Try deleting your packages (the =.emacs.d/elpa= folder), and
+you shouldn't be. Try deleting your packages (the =.emacs.d/elpa= folder), and
 restart Emacs without HTTPS to download the packages again. There are two ways
 to do this:
 - Run Emacs with the =--insecure= command line argument: =emacs --insecure=. You
@@ -129,7 +129,7 @@ that by default the =utf8= separator is used in a terminal. See the powerline
 section in the font section of the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][documentation]].
 
 ** Why is after-init-hook not executed?
-Don’t launch Spacemacs with =emacs -q -l init.el= command. This command will run
+Don't launch Spacemacs with =emacs -q -l init.el= command. This command will run
 the hooked functions in =after-init-hook= before the evaluation of the passed
 =-l init.el= file.
 
@@ -149,7 +149,7 @@ Any variable that layer configuration code will *read* and *act on* must be set
 in =user-init=, and any variable that Spacemacs explicitly sets but you wish to
 *override* must be set in =user-config=.
 
-Anything that isn’t just setting a variable should 99% be in =user-config=.
+Anything that isn't just setting a variable should 99% be in =user-config=.
 
 Note that at time of writing files supplied as command line arguments to emacs
 will be read before =user-config= is executed. (Hence to yield consistent
@@ -220,7 +220,7 @@ situations, like escaping from =insert state= to =normal state=.
 The sequence of characters used can be customized. See the [[http://spacemacs.org/doc/DOCUMENTATION.html#escaping][documentation]] for
 more information.
 
-If you don’t like this feature, you can deactivate it by adding =evil-escape= to
+If you don't like this feature, you can deactivate it by adding =evil-escape= to
 =dotspacemacs-excluded-packages= in your init file.
 
 ** Why do I get files starting with .#?
@@ -251,7 +251,7 @@ location you may try to use =locate=:
 ** Why are my font settings not being respected?
 The settings of =dotspacemacs-default-font= (such as size, weight, etc.) will
 only be applied if the name of the font exists on your system. Check to make
-sure that this is the case. If Spacemacs can’t find the font, there should be a
+sure that this is the case. If Spacemacs can't find the font, there should be a
 warning to this effect in the =*Messages*= buffer.
 
 ** Why am I getting a message about environment variables on startup?
@@ -362,7 +362,7 @@ which has a number of different major modes, you can catch them all with
 
 This should make all original magit bindings work in the major modes in
 question. To enable the leader key in this case, you may have to define a
-binding in the mode’s map, e.g. for =magit-status-mode=,
+binding in the mode's map, e.g. for =magit-status-mode=,
 
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'magit
@@ -392,7 +392,7 @@ example, if you have installed some tools to =~/.local/bin= and want them to be
 available in Spacemacs, you need to add =~/.local/bin= to your =$PATH=.
 
 Users of =bash=, =zsh=, =sh= and other similar shells should add following line
-to their =.bashrc= (=.zshrc=, =.profile= or your shell’s equivalent). Note that
+to their =.bashrc= (=.zshrc=, =.profile= or your shell's equivalent). Note that
 the =export= part is very important.
 
 #+BEGIN_SRC sh
@@ -423,7 +423,7 @@ This is the value that will be used by Emacs. So it must contain =~/.local/bin=.
 After that you can run Spacemacs and check that it properly gets the value of
 =$PATH= by running =M-: (getenv "PATH")=.
 
-Note that having =~/.local/bin= in your =$PATH= also means that it’s possible to
+Note that having =~/.local/bin= in your =$PATH= also means that it's possible to
 run terminal and call tools from =~/.local/bin= without specifying their full
 path. Under certain conditions you might want to avoid modifying your =$PATH=.
 In that case you have the option of updating the value of =exec-path= in the
@@ -446,7 +446,7 @@ dash) to make the former easier to reach, you can use:
   (dear-leader/swap-keys "S" "d")
 #+END_SRC
 
-If you want to define your own alias, like using ~SPC é~ (because it’s a not
+If you want to define your own alias, like using ~SPC é~ (because it's a not
 used key on your keyboard-layout for instance) for accessing ~SPC w~ (windows
 management), you can use this:
 
@@ -504,7 +504,7 @@ commits messages. To enable this you have to add the following line to your
 #+END_SRC
 
 ** Try Spacemacs without modifying my existing Emacs configuration?
-Emacs’s ability to use any directory as the home for launching it allows us to
+Emacs's ability to use any directory as the home for launching it allows us to
 try out Spacemacs (or any other Emacs configuration we desire) without having to
 go through the trouble of backing up our =~/.emacs.d= directory and then cloning
 the new configuration. This can be achieved easily using the following steps:
@@ -515,7 +515,7 @@ the new configuration. This can be achieved easily using the following steps:
   HOME=~/spacemacs emacs
 #+END_SRC
 
-If you’re on Fish shell, you will need to modify the last command to:
+If you're on Fish shell, you will need to modify the last command to:
 =env HOME=$HOME/spacemacs emacs=
 
 ** Make copy/paste working with the mouse in X11 terminals?
@@ -562,7 +562,7 @@ You can modify the list of visual enhancements applied by the =space-doc-mode=:
 
 By default only =center-buffer-mode= is disabled.
 Both =space-doc-mode= and =center-buffer-mode= can be customized
-with “Easy Customization Interface”.
+with "Easy Customization Interface".
 
 ** Remap paste key to be able to paste copied text multiple times
 In vim and evil, pasting over a text would cause it to be copied, hence making it impossible to paste

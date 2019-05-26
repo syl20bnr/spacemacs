@@ -22,7 +22,7 @@ This layer adds support for basic language server protocol packages speaking
 [[https://microsoft.github.io/language-server-protocol/specification][language server protocol]].
 
 Different language servers may support the language server protocol to varying degrees
-and they may also provide extensions; check the language server’s website for
+and they may also provide extensions; check the language server's website for
 details.
 =M-x lsp-describe-session= in a LSP buffer to list capabilities of the server.
 
@@ -44,7 +44,7 @@ Please check out their documentation.
 
 If you add =lsp-*-enable= to major mode hooks for auto initialization of
 language clients, customize =lsp-project-whitelist= =lsp-project-blacklist= to
-disable projects you don’t want to enable LSP.
+disable projects you don't want to enable LSP.
 
 ** Variables
 A number of configuration variables have been exposed via the LSP layer =config.el=.
@@ -53,7 +53,7 @@ under the derived mode t prefix by =(spacemacs/lsp-bind-keys-for-mode mode)=
 
 | Variable name                   | Default | Description                                                                                                                          |
 |---------------------------------+---------+--------------------------------------------------------------------------------------------------------------------------------------|
-| =lsp-navigation=                | `both’  | `simple’ or `peek’ to bind only xref OR lsp-ui-peek navigation functions                                                             |
+| =lsp-navigation=                | `both'  | `simple' or `peek' to bind only xref OR lsp-ui-peek navigation functions                                                             |
 | =lsp-ui-remap-xref-keybindings= | nil     | When non-nil, xref key bindings remapped to lsp-ui-peek-find-{definition,references}                                                 |
 | =lsp-ui-doc-enable=             | t       | When non-nil, the documentation overlay is displayed                                                                                 |
 | =lsp-ui-doc-include-signature=  | nil     | When nil, signature omitted from lsp-ui-doc overlay (this is usually redundant)                                                      |
@@ -68,7 +68,7 @@ and the =lsp-ui-peek= variants under ~SPC m G~. Setting ~lsp-navigation~ to eith
 the bindings under ~SPC m G~ and creates bindings under ~SPC m g~ according to the specified preference.
 
 * Key bindings
-A number of lsp features useful for all/most modes have been bound to the lsp minor mode, meaning they’ll be
+A number of lsp features useful for all/most modes have been bound to the lsp minor mode, meaning they'll be
 available in all language layers based on the lsp layer.
 
 ** Key binding prefixes

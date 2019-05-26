@@ -158,7 +158,7 @@ In the mingw shell run:
 #+END_SRC
 
 *** Update your dotfile
-In the function =dotspacemacs/init= add the following variables if you don’t
+In the function =dotspacemacs/init= add the following variables if you don't
 have them already and initialize them:
 
 #+BEGIN_SRC emacs-lisp
@@ -191,9 +191,9 @@ have them already and initialize them:
 
 A new user dotfile function has been added which is called before doing the
 dump. The function name is =dotspacemacs/user-load=. You can require additional
-libraries before the dump so they won’t need to be lazy loaded.
+libraries before the dump so they won't need to be lazy loaded.
 
-Add this to your dotfile if you don’t have it already.
+Add this to your dotfile if you don't have it already.
 
 #+BEGIN_SRC emacs-lisp
   (defun dotspacemacs/user-load ()

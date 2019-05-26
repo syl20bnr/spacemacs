@@ -72,7 +72,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 * Key bindings
 ** Working with lisp files (barfage, slurpage & more)
 Spacemacs comes with a special =lisp-state= for working with lisp code that
-supports slurpage, barfage and more tools you’ll likely want when working with
+supports slurpage, barfage and more tools you'll likely want when working with
 lisp.
 
 As this state works the same for all files, the documentation is in global
@@ -88,7 +88,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m h h~ | Describe symbol at point                                |
 | ~SPC m h i~ | Inspect definition                                      |
 | ~SPC m h H~ | Hyperspec lookup symbol at point                        |
-| ~SPC m h p~ | Browse apropos results for a package’s exported symbols |
+| ~SPC m h p~ | Browse apropos results for a package's exported symbols |
 | ~SPC m h t~ | Toggle tracing of the function at point                 |
 | ~SPC m h T~ | Untrace all functions                                   |
 | ~SPC m h <~ | Show all known callers                                  |

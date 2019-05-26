@@ -225,7 +225,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 * Key bindings
 ** Working with clojure files (barfage, slurpage & more)
 Spacemacs comes with a special =lisp-state= for working with lisp code that
-supports slurpage, barfage and more tools you’ll likely want when working with
+supports slurpage, barfage and more tools you'll likely want when working with
 lisp.
 
 As this state works the same for all files, the documentation is in global
@@ -331,7 +331,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m d r~   | reload namespaces                                  |
 | ~SPC m d s~   | show what is currently traced                      |
 | ~SPC m d S~   | show what is currently traced in current namespace |
-| ~SPC m d t b~ | trace current file’s namespace                     |
+| ~SPC m d t b~ | trace current file's namespace                     |
 | ~SPC m d t d~ | disable existing trace on current function         |
 | ~SPC m d t D~ | disable existing trace on all functions            |
 | ~SPC m d t e~ | enable existing trace on current function          |
@@ -531,6 +531,6 @@ In general, ~q~ should always quit the popped up buffer.
 * Development Notes
 ** Indentation
 With a [[https://github.com/clojure-emacs/cider/blob/master/doc/indent_spec.md][new]] functionality of Cider to read the custom indentation rules from the
-var’s metadata, it is better for consistency reasons to not add the custom
+var's metadata, it is better for consistency reasons to not add the custom
 indentation rules to Spacemacs, but to add them to the metadata of those
 specific vars.

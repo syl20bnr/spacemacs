@@ -35,7 +35,7 @@ file.
 ** Using merlin for error reporting
 By default [[https://github.com/flycheck/flycheck-ocaml][flycheck-ocaml]] is used for error reporting when the
 =syntax-checking= layer is also enabled as this is common throughout spacemacs.
-You can disable this and switch back to [[https://github.com/ocaml/merlin][merlin]]’s default error reporting method
+You can disable this and switch back to [[https://github.com/ocaml/merlin][merlin]]'s default error reporting method
 by adding [[https://github.com/flycheck/flycheck-ocaml][flycheck-ocaml]] to your excluded packages list in =.spacemacs=:
 
 #+BEGIN_SRC emacs-lisp

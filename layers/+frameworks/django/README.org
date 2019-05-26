@@ -63,8 +63,8 @@ Various configuration options for =pony-mode= are documented at [[http://www.dea
 
 | Key binding   | Description                                                                |
 |---------------+----------------------------------------------------------------------------|
-| ~SPC m j i d~ | Run interpreter for this project’s default database as an inferior process |
-| ~SPC m j i s~ | Open a Python shell with the current pony project’s context loaded.        |
+| ~SPC m j i d~ | Run interpreter for this project's default database as an inferior process |
+| ~SPC m j i s~ | Open a Python shell with the current pony project's context loaded.        |
 |               | If the project has the django_extras package installed, then use the       |
 |               | excellent =shell_plus= command. Otherwise, fall back to =manage.py shell=  |
 
@@ -76,7 +76,7 @@ Various configuration options for =pony-mode= are documented at [[http://www.dea
 | ~SPC m j r o~ | Open a tab at the dev server                                      |
 | ~SPC m j r r~ | Restart the dev server (works better with django_extras/werkzeug) |
 | ~SPC m j r u~ | Start or open the dev server                                      |
-| ~SPC m j r t~ | Open a second server with a “throwaway” host/port                 |
+| ~SPC m j r t~ | Open a second server with a "throwaway" host/port                 |
 
 ** South/Syncdb
 

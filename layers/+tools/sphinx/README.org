@@ -29,9 +29,9 @@ in this file.
 
 * Configuration
 ** Sphinx target
-To use the layer’s Sphinx feature, the following variables should be set.
+To use the layer's Sphinx feature, the following variables should be set.
 
-A parent directory is needed for all Sphinx projects’ builds.
+A parent directory is needed for all Sphinx projects' builds.
 
 #+BEGIN_SRC emacs-lisp
   (setq rst-sphinx-target-parent "/your/path/of/build/")

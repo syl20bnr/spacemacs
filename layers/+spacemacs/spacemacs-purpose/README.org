@@ -18,11 +18,11 @@
 * Description
 This layer enables [[https://github.com/bmag/emacs-purpose][window-purpose]], which provides an alternative, purpose-based
 window manager for Emacs. With this layer, your window layout should be robust
-and shouldn’t change too much when opening all sorts of buffers.
+and shouldn't change too much when opening all sorts of buffers.
 
 Regular [[https://github.com/m2ym/popwin-el][popwin]] is not triggered when window-purpose is enabled. However,
 the window-purpose layer provides a =purpose-popwin= extension, which
-brings popwin’s behavior to window-purpose and solves that problem.
+brings popwin's behavior to window-purpose and solves that problem.
 
 ** Features:
 - Window layout is more robust and less likely to change unintentionally
@@ -31,7 +31,7 @@ brings popwin’s behavior to window-purpose and solves that problem.
 - Extensible window display behavior
 - Empty =purpose-mode-map=, to avoid conflicts with other key maps
 - Replicate popwin behavior for purpose-mode - almost no regression in popup behavior from using window-purpose.
-- Reuses popwin’s settings: =popwin:special-display-config=, =popwin:popup-window-height= and =popwin:popup-window-width=.
+- Reuses popwin's settings: =popwin:special-display-config=, =popwin:popup-window-height= and =popwin:popup-window-width=.
 - Difference from popwin: when several windows are open, popup window is sometimes bigger than with regular popwin in the same situation.
 
 * Purposes
@@ -42,7 +42,7 @@ helps make a better decision of which window to use.
 For example, consider the following case: Emacs frame shows three windows - one
 for code, one for a terminal and one general-purpose window. The general window
 is selected and you want to open a code file. How do you ensure that the code
-file will be displayed in the code window? With window-purpose you don’t
+file will be displayed in the code window? With window-purpose you don't
 need to worry about it - you open the file and window-purpose places it in
 the correct window.
 
@@ -51,10 +51,10 @@ reserved only for buffers that share that purpose.
 
 ** switch-to-buffer and display-buffer
 In regular Emacs, =switch-to-buffer= follows different rules than the other
-switching and popping commands, because it doesn’t use =display-buffer= (which
+switching and popping commands, because it doesn't use =display-buffer= (which
 the other commands do). With window-purpose, this behavior is fixed. The
 result is a better control over how buffers are displayed, since
-=switch-to-buffer= doesn’t ignore the user’s customizations anymore.
+=switch-to-buffer= doesn't ignore the user's customizations anymore.
 
 ** misc
 - specialized helm source similar to =helm-source-buffers-list=
@@ -85,7 +85,7 @@ See [[https://github.com/bmag/emacs-purpose/wiki][window-purpose wiki]] to learn
 | ~SPC r d~   | Toggle dedication of selected window to its current purpose.                        |
 | ~SPC r D~   | Delete all non-dedicated windows.                                                   |
 | ~SPC r p~   | Choose a purpose and open a buffer with that purpose.                               |
-| ~SPC r P~   | Change the purpose of the selected window. Changes the window’s buffer accordingly. |
+| ~SPC r P~   | Change the purpose of the selected window. Changes the window's buffer accordingly. |
 
 * Caveats
 ** Popwin and guide-key

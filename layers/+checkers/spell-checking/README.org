@@ -93,7 +93,7 @@ currently supported language:
 
 ** Enabling multi-dictionary support with hunspell
 If your language is not supported by auto-dictionary feature or you author
-multi-lingual documents you might be compelled to use hunspell’s multi-dictionary
+multi-lingual documents you might be compelled to use hunspell's multi-dictionary
 mode. For example to enable it for pl_PL and en_GB dictionaries you could put
 following code in your dotspacemacs/user-config section in your configuration
 file:
@@ -108,7 +108,7 @@ file:
       (setq ispell-dictionary "pl_PL,en_GB"))
 #+END_SRC
 
-One caveat is you need quite modern ispell.el for above to work. It’s been
+One caveat is you need quite modern ispell.el for above to work. It's been
 tested with version coming from Emacs 25.2 repository.
 
 ** Enable auto-completion popup
@@ -151,6 +151,6 @@ set the layer variable =enable-flyspell-auto-completion= to t:
 
 * Known issues
 Vim-empty-lines layer seems incompatible with spell-checking inside org-mode. If
-you experience “Args out of range” error message when invoking ~SPC S c~ inside
-org-mode buffer then check if you don’t have vim-empty-lines layer enabled and
+you experience "Args out of range" error message when invoking ~SPC S c~ inside
+org-mode buffer then check if you don't have vim-empty-lines layer enabled and
 disable it.

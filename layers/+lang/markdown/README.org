@@ -73,7 +73,7 @@ information.
 To generate MMM-Modes for languages set the value of the variable
 =markdown-mmm-auto-modes= to a list of the languages. For languages where the
 mode name directly relates to the language name, use a string. Otherwise, use a
-list of `(“language” “mode”)`:
+list of `("language" "mode")`:
 
 #+BEGIN_SRC emacs-lisp
   dotspacemacs-configuration-layers '(

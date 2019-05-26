@@ -32,7 +32,7 @@ choose the mode at any time.
 
 * Restclient
 Any file with an =.http= extension is opened in a =restclient= buffer.
-Full documentation and examples can be found in the package’s [[https://github.com/pashky/restclient.el][GitHub Page]].
+Full documentation and examples can be found in the package's [[https://github.com/pashky/restclient.el][GitHub Page]].
 Also there is an [[http://emacsrocks.com/e15.html][Emacs Rocks!]] episode of it.
 
 There is support for =org-babel= and =restclient= code blocks, for instance:
@@ -59,4 +59,4 @@ There is support for =org-babel= and =restclient= code blocks, for instance:
 * ob-http
 Any file with an =.http= extension is opened in an =org= buffer with org babel
 configured to use =ob-http=.
-Full documentation and examples can be found in the package’s [[http://github.com/zweifisch/ob-http][GitHub Page]].
+Full documentation and examples can be found in the package's [[http://github.com/zweifisch/ob-http][GitHub Page]].

@@ -48,7 +48,7 @@ file.
 
 * HipChat
 ** Authentication
-To find YOUR_JABBER_ID visit “XMPP/Jabber info” section on your profile page at hipchat.com
+To find YOUR_JABBER_ID visit "XMPP/Jabber info" section on your profile page at hipchat.com
 
 #+BEGIN_SRC emacs-lisp
 

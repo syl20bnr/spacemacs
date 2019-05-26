@@ -90,7 +90,7 @@ is nil.
 #+END_SRC
 
 ** Magic latex buffer
-To enable “magic” symbols in latex buffers, set the variable
+To enable "magic" symbols in latex buffers, set the variable
 =latex-enable-magic= to =t=.
 
 #+BEGIN_SRC emacs-lisp

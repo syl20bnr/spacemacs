@@ -12,7 +12,7 @@
   - [[#from-imenu-list-buffer][From imenu-list buffer]]
 
 * Description
-This layer uses [[https://github.com/bmag/imenu-list][imenu-list]] to show the current buffer’s index in a side bar.
+This layer uses [[https://github.com/bmag/imenu-list][imenu-list]] to show the current buffer's index in a side bar.
 
 This is similar to `SPC j i` but displayed in a persistent sidebar instead of
 a completion buffer.

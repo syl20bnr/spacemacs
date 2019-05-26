@@ -128,7 +128,7 @@ Be sure that you added some feeds first then load your feeds with ~gr~
 in evilified buffer. Or ~M-x elfeed-update~.
 
 ** Queue timeout exceeded
-If you are getting “Queue timeout exceeded” errors, try increasing
+If you are getting "Queue timeout exceeded" errors, try increasing
 the value of =url-queue-timeout=.
 
 #+BEGIN_SRC emacs-lisp

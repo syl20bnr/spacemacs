@@ -45,7 +45,7 @@ Here is a sample configuration. This configuration forces =cmake-ide= to use the
 local directory and pass that directory to =helm-make=. Such config allows to
 build your project with ~SPC c c~ key binding.
 
-Additionally it’s possible to configure =helm-ctest= in the same way via defining ~helm-ctest-dir~.
+Additionally it's possible to configure =helm-ctest= in the same way via defining ~helm-ctest-dir~.
 Trailing slash is required.
 
 #+BEGIN_SRC emacs-lisp
@@ -59,7 +59,7 @@ Trailing slash is required.
          )))
 #+END_SRC
 
-In case of projectile it’s possible to configure project like:
+In case of projectile it's possible to configure project like:
 
 #+BEGIN_SRC emacs-lisp
   ((nil . ((eval . (setq

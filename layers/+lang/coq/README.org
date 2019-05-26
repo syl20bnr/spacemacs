@@ -82,7 +82,7 @@ font, or disable the feature by adding the following snippet to the your
 | ~SPC m h E~ | Browse all available documentation for errors               |
 
 ** Prover queries
-The mnemonic for =a= is “ask”.
+The mnemonic for =a= is "ask".
 
 | Key binding   | Description                                 |
 |---------------+---------------------------------------------|
@@ -92,7 +92,7 @@ The mnemonic for =a= is “ask”.
 | ~SPC m a B~   | About (showing all)                         |
 | ~SPC m a c~   | Check                                       |
 | ~SPC m a C~   | Check (showing all)                         |
-| ~SPC m a f~   | Search (mnemonic: “find theorems”)          |
+| ~SPC m a f~   | Search (mnemonic: "find theorems")          |
 | ~SPC m a i b~ | About (showing implicits)                   |
 | ~SPC m a i c~ | Check (showing implicits)                   |
 | ~SPC m a i i~ | Print (showing implicits)                   |

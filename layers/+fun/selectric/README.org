@@ -13,7 +13,7 @@
 
 * Description
 This layer makes your Emacs sound like an IBM Selectric typewriter, for those
-moments when your loud, clicky mechanical keyboard is not at hand, yet, you’d
+moments when your loud, clicky mechanical keyboard is not at hand, yet, you'd
 still wish to enjoy the sound.
 
 ** Features:

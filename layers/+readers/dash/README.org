@@ -20,7 +20,7 @@
 This layer integrates offline api browsers into emacs. It provides one for OS X, Linux and Windows.
 
 ** Features:
-- Searching for word at point in offline api browser’s UI.
+- Searching for word at point in offline api browser's UI.
 - Integration of offline api browser search results in helm and ivy.
 - Support for [[https://kapeli.com/dash][dash]] offline api browser for OS X.
 - Support for [[https://zealdocs.org/][zeal]] offline api browser for Linux.
@@ -46,7 +46,7 @@ Then install the docsets you use more frequently
 
 * Word at point
 =dash-at-point= and =zeal-at-point= will search for the word at point in the respective offline api browser.
-The result will be displayed in the offline browser’s UI.
+The result will be displayed in the offline browser's UI.
 
 However having to leave emacs to have a look at the search results may be a bit awkward.
 To help with this it is also possible to integrate the search results directly in =helm= or =ivy=

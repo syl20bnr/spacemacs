@@ -41,7 +41,7 @@ Thanks! :heart: :heart: :heart:
 If you want to ask an usage question, be sure to look first into some places as
 it may hold the answer:
 - [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/FAQ.org][The FAQ]]. Some of the most frequently asked questions are answered there.
-- [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][The documentation]]. It’s the general documentation of Spacemacs.
+- [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][The documentation]]. It's the general documentation of Spacemacs.
 - You may also read the =README.org= of the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][relevant layer(s)]].
 
 If your question is not answered there, then please come into our [[https://gitter.im/syl20bnr/spacemacs][gitter chat]] to
@@ -99,7 +99,7 @@ Submit your contribution against the =develop= branch. You should not use
 your =master= branch to modify Spacemacs, this branch is considered to be
 read-only.
 
-You may want to [[https://github.com/syl20bnr/spacemacs/wiki/Beginner%27s-Guide-to-Contributing-a-Pull-Request-to-Spacemacs][read our beginner’s guide for Pull Requests]].
+You may want to [[https://github.com/syl20bnr/spacemacs/wiki/Beginner%27s-Guide-to-Contributing-a-Pull-Request-to-Spacemacs][read our beginner's guide for Pull Requests]].
 
 /PR = Pull Request/
 
@@ -122,9 +122,9 @@ Those PRs are usually /cherry-picked/.
 Those PRs are /merged/ and explicitly /not fast-forwarded/.
 
 *** Commit messages
-Write commit messages according to adapted [[http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html][Tim Pope’s guidelines]]:
-- Use present tense and write in the imperative: “Fix bug”, not “fixed bug” or
-  “fixes bug”.
+Write commit messages according to adapted [[http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html][Tim Pope's guidelines]]:
+- Use present tense and write in the imperative: "Fix bug", not "fixed bug" or
+  "fixes bug".
 - Start with a capitalized, short (72 characters or less) summary, followed by a
   blank line.
 - If necessary, add one or more paragraphs with details, wrapped at 72
@@ -192,7 +192,7 @@ The file header for =elisp= files should look like the following template:
 #+END_EXAMPLE
 
 You should replace =FILENAME= by the name of the file (e.g. =packages.el=)
-and =NAME= by the name of the layer you are creating, don’t forget to replace
+and =NAME= by the name of the layer you are creating, don't forget to replace
 =YOUR_NAME= and =YOUR_EMAIL= also. Some files already have a template inside
 =core/templates/=, so look in there first.
 Note that if you use =configuration-layer/create-layer=, spacemacs will prepare
@@ -214,8 +214,8 @@ Every README.org file of a layer should contain =#+TAGS:= line:
   ...
 #+END_EXAMPLE
 
-Individual tags are separated with “|” char.
-Example above contains 2 tags: “layer” and “web service”
+Individual tags are separated with "|" char.
+Example above contains 2 tags: "layer" and "web service"
 Tags are listed in =<spacemacs_root>/.ci/spacedoc-cfg.edn=
 
 #+BEGIN_SRC clojure
@@ -230,8 +230,8 @@ Tags are listed in =<spacemacs_root>/.ci/spacedoc-cfg.edn=
 Labels are used to name headlines in =LAYERS.org= file and
 =:spacetools.spacedoc.config/layers-org-query= defines its structure by
 chaining tags into a tree where every leaf turns into a list of
-descriptions pulled out of README.org files that match leaf’s path in the tree.
-“layer” is implicit root tag of the tree and every description can be displayed
+descriptions pulled out of README.org files that match leaf's path in the tree.
+"layer" is implicit root tag of the tree and every description can be displayed
 only once.
 
 *** Contributor to an existing layer
@@ -244,15 +244,15 @@ Key bindings are an important part of spacemacs.
 First if you want to have some personal key bindings, you can freely bind them
 inside the ~SPC o~ and ~SPC m o~ prefixes which are reserved for the user. This
 can be done from the =dotspacemacs/user-config= function of your =.spacemacs=
-file and don’t require any contribution to Spacemacs.
+file and don't require any contribution to Spacemacs.
 
 If you think it worth contributing a new key bindings then be sure to read
 the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/CONVENTIONS.org][CONVENTIONS.org]] file to find the best key bindings, then create a
 PR with your changes.
 
 *ALWAYS* document your new key bindings or key bindings changes inside the
-relevant documentation file. It should be the layer’s =README.org= file for
-layer’s key bindings, or =DOCUMENTATION.org= for general Spacemacs key
+relevant documentation file. It should be the layer's =README.org= file for
+layer's key bindings, or =DOCUMENTATION.org= for general Spacemacs key
 bindings.
 
 ** Contributing a banner

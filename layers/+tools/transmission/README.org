@@ -65,7 +65,7 @@ Add =(transmission :variables transmission-auto-refresh-all t)= to
 
 | Key binding | Description                                                   |
 |-------------+---------------------------------------------------------------|
-| ~SPC m g t~ | Open a `transmission-files-mode’ buffer for torrent at point. |
+| ~SPC m g t~ | Open a `transmission-files-mode' buffer for torrent at point. |
 | ~SPC m a t~ | Add torrent by filename, URL, magnet link, or info hash.      |
 | ~SPC m s d~ | Set global download speed limit in kB/s.                      |
 | ~SPC m g p~ | Open a =transmission-peers-mode= buffer for torrent at point. |

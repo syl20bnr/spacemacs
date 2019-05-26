@@ -114,10 +114,10 @@ From the =em-smart= documentation:
   The best way to get a sense of what this code is trying to do is by
   using it. Basically, the philosophy represents a blend between the
   ease of use of modern day shells, and the review-before-you-proceed
-  mentality of Plan 9’s 9term.
+  mentality of Plan 9's 9term.
 #+END_QUOTE
 
-In a nutshell, when =em-smart= is enabled point won’t jump at the end of the
+In a nutshell, when =em-smart= is enabled point won't jump at the end of the
 buffer when a command is executed, it will stay at the same command prompt used
 to execute the command. This allows to quickly edit the last command in the case
 of a mistake. If there is no mistake and you directly type a new command then
@@ -204,7 +204,7 @@ Some advanced configuration is setup for =eshell= in this layer:
 | Key binding | Description                                                |
 |-------------+------------------------------------------------------------|
 | ~SPC '​~     | Open, close or go to the default shell                     |
-| ~SPC p '​~   | Open a shell in the project’s root                         |
+| ~SPC p '​~   | Open a shell in the project's root                         |
 | ~SPC a s e~ | Open, close or go to an =eshell=                           |
 | ~SPC a s i~ | Open, close or go to a =shell=                             |
 | ~SPC a s m~ | Open, close or go to a =multi-term=                        |

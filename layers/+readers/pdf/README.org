@@ -25,9 +25,9 @@ This layer enables support for PDF with the [[https://github.com/politza/pdf-too
 According to the official repository:
 
 #+BEGIN_QUOTE
-  “PDF Tools is, among other things, a replacement of DocView for PDF files. The
+  "PDF Tools is, among other things, a replacement of DocView for PDF files. The
   key difference is, that pages are not pre-rendered by e.g. ghostscript and
-  stored in the file-system, but rather created on-demand and stored in memory.”
+  stored in the file-system, but rather created on-demand and stored in memory."
 #+END_QUOTE
 
 ** Features:
@@ -38,10 +38,10 @@ According to the official repository:
 
 * Install
 ** Prerequisites
-Linux is the only operating system officially supported, but it’s possible to
+Linux is the only operating system officially supported, but it's possible to
 use =pdf-tools= on OS X as well, and possibly on other Unix flavors.
 
-You’ll need to install a few libraries. Check the [[https://github.com/politza/pdf-tools#server-prerequisites][instructions]] on
+You'll need to install a few libraries. Check the [[https://github.com/politza/pdf-tools#server-prerequisites][instructions]] on
 =pdf-tools= page. Note that compiling from source might not be necessary, as
 the documentation states.
 
@@ -59,7 +59,7 @@ After installing the dependencies, add this to your =~/.spacemacs=.
 After that, syncronize your configuration with ~SPC f e R~. This will pop up a
 window showing the compilation process.
 
-If everything goes right, the compilation won’t display any error and you will
+If everything goes right, the compilation won't display any error and you will
 be able to see /PDFView/ (instead of /DocView/) on the spaceline after opening a
 pdf file.
 
@@ -84,7 +84,7 @@ Additionally, all annotation related functions can be accessed with ~SPC m a~.
 Searching with =occur= can be done by using =pdf-occur= (~SPC m s s~).
 
 Tips:
-- You’ll probably want to use =pdf-view-set-slice-from-bounding-box= (bound to
+- You'll probably want to use =pdf-view-set-slice-from-bounding-box= (bound to
   ~SPC m s b~) This command trims the blank parts of the
   lateral margins, making the useful portion larger.
 - The last visited page is not saved across Emacs sessions. If you want save it,

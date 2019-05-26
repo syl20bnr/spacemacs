@@ -57,7 +57,7 @@ Setting =nil= for modifiers will leave the left modifiers as emacs default.
 
 *** Use with non-US keyboard layouts
 If you need the ~⌥~ key to type common characters such as ={[]}~= which is usual
-for e.g. Finnish and Swedish keyboard layouts, you’ll probably want to leave the
+for e.g. Finnish and Swedish keyboard layouts, you'll probably want to leave the
 ~⌥~ key unchanged by setting the =osx-option-as= variable to =none=:
 
 #+BEGIN_SRC emacs-lisp
