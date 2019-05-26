@@ -40,11 +40,19 @@ If region is active, operate on it, else operate on line."
 (defun spacemacs/perltidy-format-buffer ()
   "Format current buffer with perltidy."
   (interactive)
-  (mark-whole-buffer)
-  (spacemacs/perltidy-format))
+  (let ((old-point (point))
+        (old-window-start (window-start)))
+    (mark-whole-buffer)
+    (spacemacs/perltidy-format)
+    (goto-char old-point)
+    (set-window-start (selected-window) old-window-start)))
 
 (defun spacemacs/perltidy-format-function ()
   "Format current function with perltidy."
   (interactive)
-  (mark-defun)
-  (spacemacs/perltidy-format))
+  (let ((old-point (point))
+        (old-window-start (window-start)))
+    (mark-defun)
+    (spacemacs/perltidy-format)
+    (goto-char old-point)
+    (set-window-start (selected-window) old-window-start)))

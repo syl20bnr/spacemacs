@@ -2074,6 +2074,10 @@ Other:
 - Fixed =spacemacs/run-pandoc= not to reset =pandoc--local-settings=
   (thanks to martian-f)
 - Added declaration for the ~SPC P~ prefix (thanks to Codruț Constantin Gușoi)
+**** Perl5
+- Fixed =spacemacs/perltidy-format-buffer= and
+  =spacemacs/perltidy-format-function= to move the point and window to their
+  original locations.
 **** PHP
 - Added company-php (thanks to jim and Eivind Fonn)
 - Fixed php-company autocompletion (thanks to Dela Anthonio)
