@@ -14,8 +14,8 @@
 Syntax highlighting and Emacs functions for use with [[https://autohotkey.com/][AutoHotkey]] or
 [[http://ahkscript.org][AutoHotkey_L]].
 
-Using a combined implementation of ahk-mode from Xah Lee’s =xahk-mode=
-and Robert Widhopf-Fenk’s =autohotkey-mode=. Updated with the latest
+Using a combined implementation of ahk-mode from Xah Lee's =xahk-mode=
+and Robert Widhopf-Fenk's =autohotkey-mode=. Updated with the latest
 ahk and ahk_l commands found in the latest revision of
 [[http://fincs.ahk4.net/scite4ahk/][SciTE4AutoHotkey]].
 

@@ -112,7 +112,7 @@ may use these settings:
    web-mode-attr-indent-offset 2)
 #+END_SRC
 
-And if you want to have 2 space indent also for element’s attributes,
+And if you want to have 2 space indent also for element's attributes,
 concatenations and contiguous function calls:
 
 #+BEGIN_SRC emacs-lisp

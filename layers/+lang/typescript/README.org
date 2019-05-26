@@ -121,7 +121,7 @@ error. Try node version 0.12.x if you get this error.
 
 Send to playground requires browser.
 
-Currently tsserver doesn’t pickup tsconfig.json file changes. You might need to
+Currently tsserver doesn't pickup tsconfig.json file changes. You might need to
 restart server after editing it.
 
 ** Language Server Protocol
@@ -137,8 +137,8 @@ Consult the installation command for the desired language server found at [[http
 | ~SPC m E d~ | add =tslitn-disable-next-line= at point                      |
 | ~SPC m E e~ | fix thing at point                                           |
 | ~SPC m g b~ | jump back                                                    |
-| ~SPC m g g~ | jump to entity’s definition                                  |
-| ~SPC m g t~ | jump to entity’s type definition                             |
+| ~SPC m g g~ | jump to entity's definition                                  |
+| ~SPC m g t~ | jump to entity's type definition                             |
 | ~SPC m g u~ | references                                                   |
 | ~SPC m h h~ | documentation at point                                       |
 | ~SPC m r i~ | organize imports                                             |

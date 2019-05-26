@@ -118,7 +118,7 @@ variable =scala-auto-insert-asterisk-in-comments= to =t=.
 To replace ~=>~, =->= and =<-= with unicode arrows =⇒=, =→= and =←=, set the
 variable =scala-use-unicode-arrows= to =t=.
 
-If in some occasions you don’t want the arrows replaced (for example when
+If in some occasions you don't want the arrows replaced (for example when
 defining compound operators like ~=>>~), you can always undo the change and get
 the ascii arrows back.
 

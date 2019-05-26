@@ -32,7 +32,7 @@
 * Introduction
 0.200 is a huge release with more than 1700 commits since the last major version
 released in January 2016. Actually it is so big that we jumped directly from
-version 0.105 to version 0.200, so don’t panic if you think you missed all the
+version 0.105 to version 0.200, so don't panic if you think you missed all the
 versions since 0.105 :-)
 
 This first newsletter describes with details the main changes introduced in the
@@ -42,7 +42,7 @@ last months.
 The (boring) complete list of changes can be found in the file =CHANGELOG.org=
 at the root of the Git repository.
 
-Let’s start with the hottest section: breaking changes!
+Let's start with the hottest section: breaking changes!
 
 * Breaking changes
 Before starting with the breaking changes let me begin with a few words about
@@ -62,7 +62,7 @@ in 2013. Supporting this version in Spacemacs is more and more work for
 maintainers so we decided to drop all the 24.3 related code in Spacemacs
 effectively raising the minimum Emacs version required to 24.4. We believe that
 users are able to switch to a newer version of Emacs, if you need help in this
-process you can try the [[https://gitter.im/syl20bnr/spacemacs][Gitter chat]], I’m sure you’ll find solutions there.
+process you can try the [[https://gitter.im/syl20bnr/spacemacs][Gitter chat]], I'm sure you'll find solutions there.
 
 ** Some modifications in the layer format
 We renamed =extensions= directories in layers to =local= and the file
@@ -123,7 +123,7 @@ _After:_
 
 A new file called =layers.el= is in charge of layers dependency, i.e. when a
 layer needs to declare additional layers. Previously this was done in the
-=config.el= file, to avoid errors you’ll have to move the calls to the functions
+=config.el= file, to avoid errors you'll have to move the calls to the functions
 =configuration-layer/declare-layer= and =configuration-layer/declare-layers= to
 a dedicated =layers.el= file. An example can be found in the
 [[https://github.com/syl20bnr/spacemacs/blob/564cbc40eda936985325c9b79088fbcb39d9a69d/layers/%2Bdistributions/spacemacs/layers.el][spacemacs distribution layer]].
@@ -138,7 +138,7 @@ support for the value =all=.
 A new variable =dotspacemacs-install-packages= is now dedicated to control what
 packages are downloaded by Spacemacs. Three behaviours are supported:
 - =used-only= (default) will download only the used packages
-- =used-but-keep-unused= will download only the used packages but won’t uninstall
+- =used-but-keep-unused= will download only the used packages but won't uninstall
   them if they become unused
 - =all= will download _all_ the supported packages by Spacemacs.
 
@@ -149,13 +149,13 @@ is a rather big amount of changes for users jumping from master 0.105 to 0.200.
 First of all the most visible change is for ~SPC SPC~ which triggers now ~M-x~
 instead of =avy= to jump to a character. The ~SPC~ key in Spacemacs is a central
 key as it acts as the leader key for _all_ the key bindings, it made sense to
-give the same sense of “root” key to the sequence ~SPC SPC~, so now ~SPC SPC~ is
+give the same sense of "root" key to the sequence ~SPC SPC~, so now ~SPC SPC~ is
 the central sequence to execute _any_ interactive function in Emacs.
 
 Where is the =avy= command then ? We reorganised from the ground up the prefix
 ~SPC j~ for all jump commands. In the conventions a doubled key is often used
 for the default command under a given prefix, for instance ~SPC b b~ is for
-buffer selection, ~SPC f f~ for file selection etc... The “jump to character”
+buffer selection, ~SPC f f~ for file selection etc... The "jump to character"
 command of =avy= is then under ~SPC j j~. Here is a detailed list of the new
 ~SPC j~ prefix:
 - =avy= commands are now behind the prefix ~SPC j~ for =jump=:
@@ -175,7 +175,7 @@ Closing, deleting or killing things ? This can be a tough call to distinguish
 them and we can find such confusion in the Spacemacs key bindings, for instance
 we close a window but we delete a buffer and we can also kill a buffer. Whereas
 it can make sense for a lot of users, there are still users finding this
-confusing. So we decided to simplify the notion of “closing/deleting” things
+confusing. So we decided to simplify the notion of "closing/deleting" things
 under the ~d~ key for =delete=. We moved ~SPC w c~ and ~SPC w C~ to ~SPC w d~
 and ~SPC w D~.
 
@@ -190,7 +190,7 @@ windows and buffers. The result is detailed here:
 - ~SPC b K~ (kill other buffers) is now ~SPC b m~ to map with ~SPC w m~
   (maximize buffer/window which effectively delete other windows).
 - ~SPC b D~ now kills a buffer using =ace-window=.
-- Buffer actions don’t delete the windows by default, use the universal
+- Buffer actions don't delete the windows by default, use the universal
   prefix argument to do so, for instance ~SPC u SPC b d~ and ~SPC u SPC b D~
   will delete the buffer and also the window. Another example is
   ~SPC u SPC b m~ to maximize a buffer.
@@ -276,7 +276,7 @@ Another example to select all the packages except =fancy-battery=:
 #+END_SRC
 
 ** Improved stability
-This is one of the Achilles’ heel of Spacemacs. We rely on bleeding edge version
+This is one of the Achilles' heel of Spacemacs. We rely on bleeding edge version
 of packages from =melpa= repository to install a fresh version of Spacemacs. If
 the repository is down then no sugar, try again later.
 
@@ -303,7 +303,7 @@ supported extension.
 
 For instance, when opening an Elixir file with extension =.ex= Spacemacs will
 ask to install the =elixir= layer if it is not already used. The =elixir= layer
-is automatically added to the dotfile so it won’t be uninstalled after a
+is automatically added to the dotfile so it won't be uninstalled after a
 restart.
 
 By default this feature is _disabled_, you have to opt-in for it by setting
@@ -312,7 +312,7 @@ values:
 - =unused= to lazy install only layers not listed in
   =dotspacemacs-configuration-layers=
 - =all= to lazy install any layer supporting lazy installation (i.e. even the
-  used layers won’t be installed at startup until you open a file with a
+  used layers won't be installed at startup until you open a file with a
   supported extension).
 
 ** A better hybrid editing style
@@ -341,7 +341,7 @@ layer to your dotfile and reloading it with ~SPC f e R~!
 
 The level of feature of the =ivy= layer is pretty on par with the =helm= layer,
 this is a fantastic work and it demonstrates all the power of a community-driven
-configuration. I’m really excited by this new feature and how it is so easy to
+configuration. I'm really excited by this new feature and how it is so easy to
 enjoy it. Nice work guys!
 
 ** Better transient-states
@@ -481,11 +481,11 @@ previous stable state if required.
 ** More consistent window behaviour
 One of the main focus for 0.201 will be to integrate [[https://github.com/bmag/emacs-purpose][emacs-purpose]]. It is a
 package to display buffer in the same windows. The current pull request is very
-popular and I’m sure you’ll like what it will bring to the Spacemacs experience.
+popular and I'm sure you'll like what it will bring to the Spacemacs experience.
 
 ** New layers
 Pull requests with new layers are low on the priority list because reviewing
-them is more time consuming. For 0.201 I’ll focus on all the pull requests with
+them is more time consuming. For 0.201 I'll focus on all the pull requests with
 new layers in order to speed up the merge so you can expect more new layers for
 0.201 than 0.200.
 

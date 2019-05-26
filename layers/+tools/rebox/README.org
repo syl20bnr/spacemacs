@@ -59,12 +59,12 @@ need to set the layer variable =rebox-enable-in-text-mode= to =t=.
 * Style Templates
 ** Standard packaged templates
 You can find the full list of templates in
-[[https://github.com/lewang/rebox2/blob/master/rebox2.el][“Box templates” section of =rebox2.el=]]
+[[https://github.com/lewang/rebox2/blob/master/rebox2.el]["Box templates" section of =rebox2.el=]]
 
 *** Comments
 These templates are single line comments styles. A =#= is used here for
 illustration; however, it will work equally well if the comment character is
-different (e.g., lisp’s =;= comment character).
+different (e.g., lisp's =;= comment character).
 
 ** Additional Templates
 These templates are added by the Spacemacs layer.

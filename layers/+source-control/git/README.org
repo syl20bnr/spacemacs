@@ -89,13 +89,13 @@ commits messages. To enable this you have to add the following line to your
 #+END_SRC
 
 ** Git
-Of course if your OS does not ship with git (!) you’ll have to install it
+Of course if your OS does not ship with git (!) you'll have to install it
 on your machine. You can download it from the [[http://git-scm.com/downloads][download page]].
 
 ** Git-Flow
 Git-flow is a standardized branching pattern for git repositories with the aim
 of making things more manageable. While there are tools to assist with making
-this easier, these do nothing you couldn’t do manually.
+this easier, these do nothing you couldn't do manually.
 
 Support requires installation of the git-flow extensions. Please reference their
 [[https://github.com/petervanderdoes/gitflow/wiki][installation page]] for assistance.
@@ -203,7 +203,7 @@ A log selection buffer is presented as an interactive way of selecting a recent 
 | Key binding            | Description                                 |
 |------------------------+---------------------------------------------|
 | ~SPC m c~ or ~SPC m ,~ | select the commit at point and act on it    |
-| ~SPC m a~ or ~SPC m k~ | abort selecting and don’t act on any commit |
+| ~SPC m a~ or ~SPC m k~ | abort selecting and don't act on any commit |
 
 ** Interactive rebase buffer
 

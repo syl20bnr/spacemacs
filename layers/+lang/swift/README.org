@@ -14,7 +14,7 @@
   - [[#swift-repl-mode][swift-repl-mode]]
 
 * Description
-This layer adds support for Apple’s Swift programming language, used as a
+This layer adds support for Apple's Swift programming language, used as a
 general purpose scripting language.
 
 ** Features:

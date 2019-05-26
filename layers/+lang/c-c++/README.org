@@ -176,7 +176,7 @@ specifying an explicit =c-c++-lsp-cache-dir=. Setting this value to a relative p
 subdirectory of your project root.
 
 There are other initialization options such as the number of indexer threads, cache serialization format.
-They have good default values. See =config.el= of the layer and the backends’ respective homepages for more info.
+They have good default values. See =config.el= of the layer and the backends' respective homepages for more info.
 - [[https://github.com/cquery-project/cquery/wiki/Emacs][Emacs section of =cquery= wiki]]
 - [[https://github.com/MaskRay/ccls/wiki/Emacs][Emacs section of =ccls= wiki]]
 
@@ -230,7 +230,7 @@ to load a projects =.clang_complete= file, which is just a text file with one
 clang flag per line, a format also used by other text editor clang plugins.
 
 Not only does this allow proper autocomplete on projects with extra includes and
-flags, but there is also support for flycheck so that it doesn’t complain about
+flags, but there is also support for flycheck so that it doesn't complain about
 missing header files.
 
 ** Enable google-set-c-style
@@ -238,8 +238,8 @@ If you have clang enabled with =clang-format= as described earlier in this page
 you may not have a lot of neeed for =google-set-c-style= if you are already
 using a mode based on Google mode for most of your projects.
 
-However, if you don’t have (or want) =clang-format=, or if you have to do a lot
-[[https://www.emacswiki.org/emacs/TrampMode][Tramp]] remote editing on systems that don’t have =clang-format= installed, you
+However, if you don't have (or want) =clang-format=, or if you have to do a lot
+[[https://www.emacswiki.org/emacs/TrampMode][Tramp]] remote editing on systems that don't have =clang-format= installed, you
 may want =google-c-style= enabled and added to your common hooks.
 
 To get =google-c-style= actually install itself into your C/C++ common hooks,

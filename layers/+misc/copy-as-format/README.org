@@ -27,7 +27,7 @@ You can choose default formatter.
   (setq copy-as-format-default "markdown")
 #+END_SRC
 
-Also, you can enable copying of buffer’s file name for asciidoc formatter.
+Also, you can enable copying of buffer's file name for asciidoc formatter.
 
 #+BEGIN_SRC elisp
   (setq copy-as-format-asciidoc-include-file-name t)

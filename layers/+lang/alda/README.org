@@ -14,7 +14,7 @@
 Alda is a music composition language allowing music to easily be written and
 edited in a text file.
 
-This layer adds key bindings for =alda-mode=’s functions, which allow Alda code
+This layer adds key bindings for =alda-mode='s functions, which allow Alda code
 to be interpreted and played by the running Alda server. It will also start the
 Alda server if it is not running.
 

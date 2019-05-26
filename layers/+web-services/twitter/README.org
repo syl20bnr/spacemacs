@@ -19,7 +19,7 @@ This layer adds Twitter support to Spacemacs via the package [[https://github.co
   - Viewing various timelines
     - Home timeline
     - Replies
-    - User’s timeline
+    - User's timeline
     - Public timeline
     - Favorites timeline
     - Retweets timeline

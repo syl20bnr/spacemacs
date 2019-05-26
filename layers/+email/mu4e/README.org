@@ -38,7 +38,7 @@ This layer adds support for the Mu4e email client.
 In order to use this layer you must install mu and mu4e separately. Typically
 mu4e will be bundled with mu (this is the case on many Linux distributions).
 
-If you’re on OS X and install mu using Homebrew, you must specify the
+If you're on OS X and install mu using Homebrew, you must specify the
 location of your Emacs binary at install time using the EMACS environment
 variable, as well as passing the =--with-emacs= option:
 
@@ -46,7 +46,7 @@ variable, as well as passing the =--with-emacs= option:
   brew install mu --with-emacs
 #+END_SRC
 
-If the installation directory of mu4e is not in Emacs’ load path, you can set
+If the installation directory of mu4e is not in Emacs' load path, you can set
 the layer variable =mu4e-installation-path=, for example:
 
 #+BEGIN_SRC emacs-lisp
@@ -86,7 +86,7 @@ existing =dotspacemacs-configuration-layers= list in this file.
 
 * Configuration
 Configuration varies too much to give precise instructions. What follows is one
-example configuration. Refer to mu4e’s manual for more detailed configuration
+example configuration. Refer to mu4e's manual for more detailed configuration
 instructions.
 
 ** Maildirs extension
@@ -214,7 +214,7 @@ count of unread messages to the modeline.
 [[https://raw.githubusercontent.com/iqbalansari/mu4e-alert/master/screenshots/mu4e-alert-in-action.png]]
 
 For an extended documentation of the available customizations please refer to
-[[https://github.com/iqbalansari/mu4e-alert#user-content-customizations][mu4e-alert’s documentation]]
+[[https://github.com/iqbalansari/mu4e-alert#user-content-customizations][mu4e-alert's documentation]]
 
 *** OS notifications
 To enable notifications about new messages, add the following line to your

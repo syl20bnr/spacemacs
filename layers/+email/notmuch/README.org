@@ -100,7 +100,7 @@ Refer to the official notmuch website for more information:
 | ~SPC a N n~ | Start helm notmuch                           |
 | ~SPC a N j~ | Start a notmuch jump search                  |
 | ~SPC a N s~ | Start a notmuch search                       |
-| ~SPC l o n~ | Start notmuch in a custom layout, “@Notmuch” |
+| ~SPC l o n~ | Start notmuch in a custom layout, "@Notmuch" |
 
 ** Show mode
 

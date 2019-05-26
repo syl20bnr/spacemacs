@@ -430,8 +430,8 @@ The commands defined in this layer are taken from various sources like [[https:/
 
 Features:
 - Smart line navigation: Subsequent presses of ~C-a~ toggles between the beginning of the line and the first non-whitespace character. Similarly, subsequent presses of ~C-e~ will toggle between the end of the code and the end of the comments.
-- =spacemacs/backward-kill-word-or-region=: A combination of =kill-region= and =backward-kill-word=, depending on whether there is an active region. If there’s an active region kill that. If not kill the preceding word.
-- Fill or unfill paragraph: Pressing ~M-q~ for the first time fills current paragraph and pressing ~M-q~ for the second time unfills it. Note that some modes override this key binding so it’s not available everywhere. Due to implementation details unfilling doesn’t work when called twice via ~M-x~.
+- =spacemacs/backward-kill-word-or-region=: A combination of =kill-region= and =backward-kill-word=, depending on whether there is an active region. If there's an active region kill that. If not kill the preceding word.
+- Fill or unfill paragraph: Pressing ~M-q~ for the first time fills current paragraph and pressing ~M-q~ for the second time unfills it. Note that some modes override this key binding so it's not available everywhere. Due to implementation details unfilling doesn't work when called twice via ~M-x~.
 
 ** Ibuffer
 [[file:+emacs/ibuffer/README.org][+emacs/ibuffer/README.org]]
@@ -521,7 +521,7 @@ This layer sets up a file navigation and project explorer side-window via [[http
 
 Features:
 
-An detailed overview over Treemacs’ available features is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][its
+An detailed overview over Treemacs' available features is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][its
 readme]]. In a short summary Treemacs offers the following:
 - Simple and powerful navigation and ability to detail exactly how and where a
   file should be opened
@@ -530,7 +530,7 @@ readme]]. In a short summary Treemacs offers the following:
 - Ability to show tags contained in files. Tags are provided by imenu, so
   nearly every filetype is supported.
 - Mouse interface for single and double left clicks in line with modern GUI standards.
-  (Clicking on an icon will also display a file’s tags)
+  (Clicking on an icon will also display a file's tags)
 - Locational awareness: commands like ~find-file~ or ~magit-status~ will use the location
   of the node at point (with $HOME as fallback)
 - Optionally fontifying files based on their git status.
@@ -581,7 +581,7 @@ Features:
 [[file:+fun/selectric/README.org][+fun/selectric/README.org]]
 
 This layer makes your Emacs sound like an IBM Selectric typewriter, for those
-moments when your loud, clicky mechanical keyboard is not at hand, yet, you’d
+moments when your loud, clicky mechanical keyboard is not at hand, yet, you'd
 still wish to enjoy the sound.
 
 Features:
@@ -1142,8 +1142,8 @@ Features:
 Syntax highlighting and Emacs functions for use with [[https://autohotkey.com/][AutoHotkey]] or
 [[http://ahkscript.org][AutoHotkey_L]].
 
-Using a combined implementation of ahk-mode from Xah Lee’s =xahk-mode=
-and Robert Widhopf-Fenk’s =autohotkey-mode=. Updated with the latest
+Using a combined implementation of ahk-mode from Xah Lee's =xahk-mode=
+and Robert Widhopf-Fenk's =autohotkey-mode=. Updated with the latest
 ahk and ahk_l commands found in the latest revision of
 [[http://fincs.ahk4.net/scite4ahk/][SciTE4AutoHotkey]].
 
@@ -1236,7 +1236,7 @@ Features:
 *** Phoenix
 [[file:+frameworks/phoenix/README.org][+frameworks/phoenix/README.org]]
 
-This layer adds key bindings for [[https://github.com/tonini/alchemist.el][Alchemist]]’s already built in phoenix mode.
+This layer adds key bindings for [[https://github.com/tonini/alchemist.el][Alchemist]]'s already built in phoenix mode.
 
 Features:
 - Key bindings for navigation to files
@@ -1439,7 +1439,7 @@ Features:
 - Source analysis using [[https://docs.google.com/document/d/1_Y9xCEMj5S-7rv2ooHpZNH15JgRT5iM742gJkw5LtmQ][go-guru]]
 - Refactoring with [[http://gorefactor.org/][godoctor]]
 - Edit struct field tag with [[https://github.com/fatih/gomodifytags][gomodifytags]]
-- Linting with flycheck’s built-in checkers or flycheck-gometalinter
+- Linting with flycheck's built-in checkers or flycheck-gometalinter
 - Coverage profile visualization
 - Test generation with [[https://github.com/s-kostyaev/go-gen-test][go-gen-test]]
 - Get packages faster with [[https://github.com/haya14busa/gopkgs][gopkgs]]
@@ -1691,7 +1691,7 @@ Features:
 **** Swift
 [[file:+lang/swift/README.org][+lang/swift/README.org]]
 
-This layer adds support for Apple’s Swift programming language, used as a
+This layer adds support for Apple's Swift programming language, used as a
 general purpose scripting language.
 
 Features:
@@ -1765,7 +1765,7 @@ This layer adds support for the [[http://wiki.portal.chalmers.se/agda/pmwiki.php
 
 Features:
 - Faces redefined to correctly play with themes.
-- Spacemacs bindings to Agda’s interactive tools.
+- Spacemacs bindings to Agda's interactive tools.
 
 *This layer is in construction, it needs your contributions and bug reports.*
 
@@ -1841,7 +1841,7 @@ Features:
 This layer integrates offline api browsers into emacs. It provides one for OS X, Linux and Windows.
 
 Features:
-- Searching for word at point in offline api browser’s UI.
+- Searching for word at point in offline api browser's UI.
 - Integration of offline api browser search results in helm and ivy.
 - Support for [[https://kapeli.com/dash][dash]] offline api browser for OS X.
 - Support for [[https://zealdocs.org/][zeal]] offline api browser for Linux.
@@ -1891,9 +1891,9 @@ This layer enables support for PDF with the [[https://github.com/politza/pdf-too
 According to the official repository:
 
 #+BEGIN_QUOTE
-  “PDF Tools is, among other things, a replacement of DocView for PDF files. The
+  "PDF Tools is, among other things, a replacement of DocView for PDF files. The
   key difference is, that pages are not pre-rendered by e.g. ghostscript and
-  stored in the file-system, but rather created on-demand and stored in memory.”
+  stored in the file-system, but rather created on-demand and stored in memory."
 #+END_QUOTE
 
 Features:
@@ -1917,7 +1917,7 @@ Features:
 Alda is a music composition language allowing music to easily be written and
 edited in a text file.
 
-This layer adds key bindings for =alda-mode=’s functions, which allow Alda code
+This layer adds key bindings for =alda-mode='s functions, which allow Alda code
 to be interpreted and played by the running Alda server. It will also start the
 Alda server if it is not running.
 
@@ -2271,10 +2271,10 @@ Features:
 - Build once and work with the same development environment everywhere
 - Run untrusted/risky code in the tunable sandbox with CPU/network/disk quotas
 - Try new tools, experiment and roll back changes when something goes wrong
-- Share your setup with others or extend someone else’s development environment
+- Share your setup with others or extend someone else's development environment
 - Run multiple Emacs instances on the same machine isolated
 - [[https://docs.docker.com/engine/reference/commandline/pause/][pause]] container to free resources temporarily
-- [[https://github.com/docker/docker/blob/1.13.x/experimental/checkpoint-restore.md][Checkpoint & Restore]] - maybe the fastest way to start a “heavy” environment
+- [[https://github.com/docker/docker/blob/1.13.x/experimental/checkpoint-restore.md][Checkpoint & Restore]] - maybe the fastest way to start a "heavy" environment
 - Friendly for networks with low upload speed/quotas.
 
 ** Utilities
@@ -2283,11 +2283,11 @@ Features:
 
 This layer enables [[https://github.com/bmag/emacs-purpose][window-purpose]], which provides an alternative, purpose-based
 window manager for Emacs. With this layer, your window layout should be robust
-and shouldn’t change too much when opening all sorts of buffers.
+and shouldn't change too much when opening all sorts of buffers.
 
 Regular [[https://github.com/m2ym/popwin-el][popwin]] is not triggered when window-purpose is enabled. However,
 the window-purpose layer provides a =purpose-popwin= extension, which
-brings popwin’s behavior to window-purpose and solves that problem.
+brings popwin's behavior to window-purpose and solves that problem.
 
 Features:
 - Window layout is more robust and less likely to change unintentionally
@@ -2296,7 +2296,7 @@ Features:
 - Extensible window display behavior
 - Empty =purpose-mode-map=, to avoid conflicts with other key maps
 - Replicate popwin behavior for purpose-mode - almost no regression in popup behavior from using window-purpose.
-- Reuses popwin’s settings: =popwin:special-display-config=, =popwin:popup-window-height= and =popwin:popup-window-width=.
+- Reuses popwin's settings: =popwin:special-display-config=, =popwin:popup-window-height= and =popwin:popup-window-width=.
 - Difference from popwin: when several windows are open, popup window is sometimes bigger than with regular popwin in the same situation.
 
 * Tagging
@@ -2520,13 +2520,13 @@ Features:
 - Supports the following adjustments:
   - Automatic switching between light (day) and dark (night) themes via [[https://github.com/hadronzoo/theme-changer][theme-changer]]
   - Local weather forecast via [[https://github.com/aaronbieber/sunshine.el/blob/master/sunshine.el][sunshine]]
-  - Integration with OS X’s CoreLocation service via [[https://github.com/purcell/osx-location][osx-location]]
+  - Integration with OS X's CoreLocation service via [[https://github.com/purcell/osx-location][osx-location]]
   - Manual location setting via variables in your dotfile
 
 ** Imenu-list
 [[file:+tools/imenu-list/README.org][+tools/imenu-list/README.org]]
 
-This layer uses [[https://github.com/bmag/imenu-list][imenu-list]] to show the current buffer’s index in a side bar.
+This layer uses [[https://github.com/bmag/imenu-list][imenu-list]] to show the current buffer's index in a side bar.
 
 This is similar to `SPC j i` but displayed in a persistent sidebar instead of
 a completion buffer.
@@ -2551,7 +2551,7 @@ This layer adds support for basic language server protocol packages speaking
 [[https://microsoft.github.io/language-server-protocol/specification][language server protocol]].
 
 Different language servers may support the language server protocol to varying degrees
-and they may also provide extensions; check the language server’s website for
+and they may also provide extensions; check the language server's website for
 details.
 =M-x lsp-describe-session= in a LSP buffer to list capabilities of the server.
 
@@ -2621,7 +2621,7 @@ Features:
 [[file:+tools/prodigy/README.org][+tools/prodigy/README.org]]
 
 This layer adds support for the [[https://github.com/rejeep/prodigy.el][prodigy]] package to manage external services from
-within Emacs, check the package’s documentation for more details.
+within Emacs, check the package's documentation for more details.
 
 It is recommended to put your prodigy services in the =dotspacemacs/user-config=
 part of your =~/.spacemacs= file.
@@ -2808,10 +2808,10 @@ Features:
 ** Evil-snipe
 [[file:+vim/evil-snipe/README.org][+vim/evil-snipe/README.org]]
 
-This layer adds various replacements for vim’s default search functions.
+This layer adds various replacements for vim's default search functions.
 
 Features:
-- Alternative implementation of vim’s default search operations.
+- Alternative implementation of vim's default search operations.
 - Replacement of evil-surround with a two-character search.
 - Support for alternative scopes for default search operations.
 - Support for alternative motions based on configurable regexps.
@@ -2820,12 +2820,12 @@ Features:
 [[file:+vim/vim-empty-lines/README.org][+vim/vim-empty-lines/README.org]]
 
 This layer is a drop-in replacement for the =vi-tilde-fringe= mode, for those
-who desire behaviour closer to =vim=’s.
+who desire behaviour closer to =vim='s.
 
 It has better compatibility with retina displays, as it uses a text overlay
 using your font, rather than a pixel-art tilde. The empty line indicators are
 overlaid in within the buffer as in =vim=, and not in the fringe. The indicator
-behaviour with trailing empty lines matches =vim=’s behaviour.
+behaviour with trailing empty lines matches =vim='s behaviour.
 
 For details, see the [[https://github.com/jmickelin/vim-empty-lines-mode][vim-empty-lines-mode]] repository.
 
@@ -2838,7 +2838,7 @@ Features:
 
 This layer is a port of vim-vinegar for emacs.
 
-It is based on tpope’s [[https://github.com/tpope/vim-vinegar][vinegar.vim]], simplifying =dired=
+It is based on tpope's [[https://github.com/tpope/vim-vinegar][vinegar.vim]], simplifying =dired=
 with a limited number of details and exposing the ~-~ command in all
 buffers to enter dired.
 
@@ -2890,7 +2890,7 @@ Features:
   - Viewing various timelines
     - Home timeline
     - Replies
-    - User’s timeline
+    - User's timeline
     - Public timeline
     - Favorites timeline
     - Retweets timeline

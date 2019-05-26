@@ -37,5 +37,5 @@ and =nimsuggest= binary must be in $PATH.
 | ~SPC m c r~          | =nim compile --run main.nim= |
 | ~SPC m g g~ or ~M-.~ | Jump to definition           |
 | ~SPC m g b~ or ~M-,~ | Jump back                    |
-| ~SPC m h h~          | Show symbol’s documentation  |
+| ~SPC m h h~          | Show symbol's documentation  |
 |----------------------+------------------------------|

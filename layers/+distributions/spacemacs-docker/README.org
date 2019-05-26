@@ -31,10 +31,10 @@ with GUI support on all major platforms and even [[https://i.imgur.com/wDLDMZN.g
 - Build once and work with the same development environment everywhere
 - Run untrusted/risky code in the tunable sandbox with CPU/network/disk quotas
 - Try new tools, experiment and roll back changes when something goes wrong
-- Share your setup with others or extend someone else’s development environment
+- Share your setup with others or extend someone else's development environment
 - Run multiple Emacs instances on the same machine isolated
 - [[https://docs.docker.com/engine/reference/commandline/pause/][pause]] container to free resources temporarily
-- [[https://github.com/docker/docker/blob/1.13.x/experimental/checkpoint-restore.md][Checkpoint & Restore]] - maybe the fastest way to start a “heavy” environment
+- [[https://github.com/docker/docker/blob/1.13.x/experimental/checkpoint-restore.md][Checkpoint & Restore]] - maybe the fastest way to start a "heavy" environment
 - Friendly for networks with low upload speed/quotas.
 
 * Screenshots
@@ -63,8 +63,8 @@ NOTE: The guide assumes that you want to run Docker and connect to it from
 the same machine.
 
 ** MacOS
-Get [[https://www.xquartz.org][XQuartz]] and =open -a XQuartz= In the XQuartz preferences go to the “Security”
-tab and make sure you’ve got “Allow connections from network clients” ticked
+Get [[https://www.xquartz.org][XQuartz]] and =open -a XQuartz= In the XQuartz preferences go to the "Security"
+tab and make sure you've got "Allow connections from network clients" ticked
 
 #+BEGIN_SRC sh
   ip=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
@@ -105,7 +105,7 @@ Or with =-ti= via =winpty=
 #+END_SRC
 
 [[http://manomarks.github.io/2015/12/03/docker-gui-windows.html][source]]
-Also You can use [[https://www.reddit.com/r/emacs/comments/7a63r4/emacs_in_win10linuxdockerxserver_combo/][@ninrod ’s setup]]
+Also You can use [[https://www.reddit.com/r/emacs/comments/7a63r4/emacs_in_win10linuxdockerxserver_combo/][@ninrod 's setup]]
 
 ** GNU/Linux
 Make sure that =$DISPLAY= variable is set
@@ -124,16 +124,16 @@ Make sure that =$DISPLAY= variable is set
    spacemacs/develop
 #+END_SRC
 
-=UID= and preferably =UNAME= should match the host’s user id. You can set them
+=UID= and preferably =UNAME= should match the host's user id. You can set them
 in your Dockerfile with [[https://docs.docker.com/engine/reference/builder/#env][ENV statements]].
-That’s it! Now you should see Emacs window.
-But if it doesn’t work You may need to allow local connection for the user
+That's it! Now you should see Emacs window.
+But if it doesn't work You may need to allow local connection for the user
 
 #+BEGIN_SRC sh
   xhost +si:localuser:<UNAME>
 #+END_SRC
 
-Or allow local connection from the container’s host-name
+Or allow local connection from the container's host-name
 
 #+BEGIN_SRC sh
   xhost +local:`docker inspect --format='{{ .Config.Hostname }}' spacemacs`
@@ -152,7 +152,7 @@ Or allow local connection from the container’s host-name
 - Lag spikes with some OSes
 
 *** Instruction
-It’s a good idea to read [[https://github.com/JAremko/docker-x11-bridge][docker-x11-bridge]] and [[https://www.xpra.org/trac/][Xpra]] documentations, but
+It's a good idea to read [[https://github.com/JAremko/docker-x11-bridge][docker-x11-bridge]] and [[https://www.xpra.org/trac/][Xpra]] documentations, but
 here is a short instruction:
 
 **** With Xpra desktop client
@@ -212,7 +212,7 @@ Now visit [[http://localhost:10000/index.html?encoding=png&password]] =<PASSWORD
 - =docker exec spacemacs /usr/bin/emacs= - start =/usr/bin/emacs=
 
 With the running =spacemacs= container
-- =docker logs spacemacs= - print =spacemacs= container’s logs
+- =docker logs spacemacs= - print =spacemacs= container's logs
 - =docker cp <from_local_path> spacemacs:/<to_my_spacemacs_container_path>=
 - =docker cp spacemacs:/<from_my_spacemacs_container_path> <to_local_path>=
 - Manage data in containers with [[https://docs.docker.com/engine/tutorials/dockervolumes/][Docker volumes]]. Example

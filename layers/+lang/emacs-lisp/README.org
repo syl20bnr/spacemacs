@@ -58,7 +58,7 @@ You can also exclude the =auto-compile= package.
 
 * Working with lisp files (barfage, slurpage & more)
 Spacemacs comes with a special =lisp-state= for working with lisp code that
-supports slurpage, barfage and more tools you’ll likely want when working with
+supports slurpage, barfage and more tools you'll likely want when working with
 lisp.
 
 As this state works the same for all files, the documentation is in global

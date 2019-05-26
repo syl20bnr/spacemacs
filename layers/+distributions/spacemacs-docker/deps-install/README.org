@@ -27,7 +27,7 @@ in Docker environment.
 
 * How it works
 When .spacemacs file contains one of supported layers and its installation
-isn’t disabled, it will be used to satisfy the layer’s requirements, taking
+isn't disabled, it will be used to satisfy the layer's requirements, taking
 into account its configurations. For example, [[https://github.com/alecthomas/gometalinter][gometalinter]] will be installed
 only if the variable =go-use-gometalinter= is =t=.
 Set =<LAYER_NAME>-spacemacs-docker-disable-deps-install= to =t=

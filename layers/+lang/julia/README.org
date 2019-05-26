@@ -57,7 +57,7 @@ if successful:
 * Options
 While =julia-mode= is perfectly usable without configuration or other packages,
 you can choose to replace the default functionality of using [[https://github.com/tpapp/julia-repl/][=julia-repl=]] as the
-layer’s interactive REPL with the ess REPL and other functionality that comes
+layer's interactive REPL with the ess REPL and other functionality that comes
 with it. To do so, install this layer with:
 
 #+BEGIN_SRC emacs-lisp

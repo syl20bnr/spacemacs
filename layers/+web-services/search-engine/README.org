@@ -48,7 +48,7 @@ file.
 | ~SPC a /~ | ~C-c /~ | Summon a Helm buffer to select any engine |
 
 * Customize it!
-If you’d rather have emacs use chrome, or firefox or any other thing (=eww=) you
+If you'd rather have emacs use chrome, or firefox or any other thing (=eww=) you
 can have that customization. For example for google chrome you can put this in
 your =dotspacemacs/user-config=:
 
@@ -68,7 +68,7 @@ Also if you want more search engines, just push them (do this in
           search-engine-alist)
 #+END_SRC
 
-If you’d rather not use helm but would want a specific search engine, remember
+If you'd rather not use helm but would want a specific search engine, remember
 the function generated is always =engine/search-(the name of the search engine
 lower-case and hyphen instead-of-spaces-for-separation)= so you can bind that to
 any key binding you want.

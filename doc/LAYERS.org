@@ -52,7 +52,7 @@ Before writing a layer, it is helpful to consider what you are trying to
 achieve. Is there a package that provides the functionality you are after, and
 you want to integrate it in Spacemacs? If yes, you should write a layer. Are you
 trying to implement a new feature that would be useful for the Emacs community
-at large? In that case, consider whether it wouldn’t be more appropriate to
+at large? In that case, consider whether it wouldn't be more appropriate to
 write a package first, and then a layer that uses your package.
 
 * The Emacs loading process
@@ -79,7 +79,7 @@ The simplest way to load a file is to call =load-file=.
 #+END_SRC
 
 This is as primitive as it comes. The path must be exact, and it does not have
-to be in the Emacs load path (we’ll get to that later). It will not look for a
+to be in the Emacs load path (we'll get to that later). It will not look for a
 byte-compiled =.elc= file. It will simply load exactly what you tell it to.
 
 ** Features
@@ -132,9 +132,9 @@ a long list of calls to =require= at startup would still cause Emacs to take
 forever to load.
 
 Emacs uses auto-loading to solve this problem. When a function is registered as
-auto-loading, an “empty” definition is provided. When that function is called,
+auto-loading, an "empty" definition is provided. When that function is called,
 the file that provides the function is immediately loaded (along with all its
-required features). Finally, the “empty” function is substituted with the real
+required features). Finally, the "empty" function is substituted with the real
 one and called normally. The end user will see only a slight delay when first
 calling the function, while subsequent calls to that function (or any other
 function loaded as part of the same procedure) will be as quick as normal.
@@ -149,7 +149,7 @@ This instructs Emacs that whenever =some-function= is called, load
 =some-file.el= first, and then proceed.
 
 After evaluating the above code, you can try to inspect =some-function= by doing
-~SPC h d f some-function~. It will say it’s an auto-loaded function, and that
+~SPC h d f some-function~. It will say it's an auto-loaded function, and that
 nothing else is known about it until it is loaded. The call to =autoload= can
 optionally include more information, such as a doc-string, whether the function
 can be called interactively, and so on. This provides more information to the
@@ -158,7 +158,7 @@ end-user without her having to actually load the file first.
 Open your =elpa= directory, go to =helm= and look at the file
 =helm-autoloads.el=. This provides all the auto-loads for all the files in Helm.
 However, this file is not written by hand. Instead, it is automatically
-generated from “magic” comments in the source code of Helm. They look like this:
+generated from "magic" comments in the source code of Helm. They look like this:
 
 #+BEGIN_SRC emacs-lisp
   ;;;###autoload
@@ -171,7 +171,7 @@ The magic comment =;;;###autoload= instructs Emacs that the following definition
 should be auto-loaded. This automatically generates an appropriate call to
 =autoload=.
 
-Things that can be auto-loaded generally involve anything “definable”, such as
+Things that can be auto-loaded generally involve anything "definable", such as
 functions, macros, major or minor modes, groups, classes, and so on.
 
 Magic comments also work on other things, such as variable definitions
@@ -273,7 +273,7 @@ Use-package supports heaps of useful keywords. Look at the [[https://github.com/
 more.
 
 * Anatomy of a layer
-A layer is simply a folder somewhere in Spacemacs’s layer search path that
+A layer is simply a folder somewhere in Spacemacs's layer search path that
 usually contains these files (listed in loading order).
 - declare additional layers
 - the packages list and configuration
@@ -384,7 +384,7 @@ By guarding these functions we avoid defining them when the package =my-package=
 is not used.
 
 ** config.el
-This file configures the layer by declaring layer variables’ default values and
+This file configures the layer by declaring layer variables' default values and
 setting up some other variables related to the layer.
 
 This file is loaded after =funcs.el=.
@@ -417,7 +417,7 @@ The Spacemacs loading process can be summarized as follows:
    - there must be at least one =<layer>/init-<package>= function defined for
      it.
 
-   Alternatively, if a package is part of the end user’s
+   Alternatively, if a package is part of the end user's
    =dotspacemacs-additional-packages=, it will also be installed.
 3. All packages which should be installed are installed in alphabetical order,
    =package.el= built-in Emacs library is in charge of implicit dependencies.
@@ -434,7 +434,7 @@ layer does *not* own a package if it only defines =pre-init= or =post-init=
 functions.
 
 Only one layer may own a package. Since layers are processed in order of
-specification in the user’s dotfile, it is possible for layers to “seize”
+specification in the user's dotfile, it is possible for layers to "seize"
 ownership of a package that was owned by a previously enabled layer.
 
 * Case study: auto-completion
@@ -505,7 +505,7 @@ commutative and the order of the operands is determined by the order of the
 layers in the dotfile (like the ownership stealing mechanism).
 
 If =:can-shadow= property is set explicitly to =nil= in the dotfile then the
-layer won’t shadow any layer.
+layer won't shadow any layer.
 
 For instance to install both ivy and helm layer:
 
@@ -552,7 +552,7 @@ have both!
 ** Use-package hooks
 Spacemacs includes a macro for adding more code to the =:init= or =:config=
 blocks of a call to =use-package=, after the fact. This is useful for =pre-init=
-or =post-init= functions to “inject” code into the =use-package= call of the
+or =post-init= functions to "inject" code into the =use-package= call of the
 =init= function.
 
 #+BEGIN_SRC emacs-lisp

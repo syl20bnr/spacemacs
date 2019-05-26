@@ -37,7 +37,7 @@ file.
    #+END_SRC
 
    Note that no filename expansions are done, so =~= -paths will not work out of the box.
-   If you need expansions, you can use Emacs’s =file-truename= like this:
+   If you need expansions, you can use Emacs's =file-truename= like this:
 
    #+BEGIN_SRC emacs-lisp
      (setq ycmd-server-command (list "python" (file-truename "~/some/path")))
@@ -95,7 +95,7 @@ Example .ycm_extra_flags:
   --sysroot="/path/to/your/toolchain/libc" # if you are cross-compiling
 #+END_SRC
 
-If your build system doesn’t handle the creation of a compile_commands.json,
+If your build system doesn't handle the creation of a compile_commands.json,
 you can use tools such as [[https://github.com/rizsotto/Bear][Bear]] or [[https://pypi.python.org/pypi/scan-build][scan-build]] to generate it, which both work
 with almost any build system.
 

@@ -73,7 +73,7 @@ Then run in your shell:
 
 For more info about mix [[http://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html][see]].
 
-You can tell flycheck-credo to call credo with the ’--strict’ argument.
+You can tell flycheck-credo to call credo with the '--strict' argument.
 
 #+BEGIN_SRC elisp
   (setq flycheck-elixir-credo-strict t)
@@ -121,7 +121,7 @@ contents:
 #+END_SRC
 
 Spacemacs marks the variable =elixir-enable-compilation-checking= as safe so
-Emacs won’t ask you if the variable is safe whenever an elixir file is opened.
+Emacs won't ask you if the variable is safe whenever an elixir file is opened.
 
 Remember that you can verify the flycheck checkers status with ~SPC e v~.
 

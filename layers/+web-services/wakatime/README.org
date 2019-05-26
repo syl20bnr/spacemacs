@@ -31,7 +31,7 @@ P.S. wakati means time in Swahili
 You can follow wakatime installation instructions here
 [[https://github.com/wakatime/wakatime-mode]].
 
-In short it’s just:
+In short it's just:
 
 #+BEGIN_SRC sh
   pip install wakatime
@@ -68,14 +68,14 @@ After this go to your wakatime account and have your API key handy
 
 Restart emacs and it will prompt you for the location of the wakatime installer
 (just put in whatever =which wakatime= gives you in the terminal e.g.
-=/usr/bin/wakatime= for example) and that’s it.
+=/usr/bin/wakatime= for example) and that's it.
 
 *** Note to =venv-workon= users:
 Right now wakatime uses =python= as python bin executable, so if you use
 =venv-workon= because you have python projects which need to have a virtual
 env., then wakatime, which is installed system-wide will have trouble locating
-wakatime files, so it’s best to define by yourself the python path where
-wakatime can always find it’s stuff, via this variable:
+wakatime files, so it's best to define by yourself the python path where
+wakatime can always find it's stuff, via this variable:
 
 #+BEGIN_SRC emacs-lisp
   (setq wakatime-python-bin "/path/to/python")

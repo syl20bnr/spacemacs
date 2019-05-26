@@ -103,7 +103,7 @@ In a =magit-status= buffer (~SPC g s~):
 | ~F P~       | list pull-requests                                        |
 | ~F I~       | list issues                                               |
 | ~p y~       | pull pull-requests and issues for the current repository  |
-| ~p Y~       | pull all notifications for the current repository’s forge |
+| ~p Y~       | pull all notifications for the current repository's forge |
 
 In a =forge-topic= buffer:
 

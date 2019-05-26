@@ -15,7 +15,7 @@
 * Description
 This layer is a port of vim-vinegar for emacs.
 
-It is based on tpope’s [[https://github.com/tpope/vim-vinegar][vinegar.vim]], simplifying =dired=
+It is based on tpope's [[https://github.com/tpope/vim-vinegar][vinegar.vim]], simplifying =dired=
 with a limited number of details and exposing the ~-~ command in all
 buffers to enter dired.
 

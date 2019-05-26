@@ -21,9 +21,9 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =perforce= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-You’ll have to install the =p4= command line tool from the [[https://www.perforce.com/downloads/helix][download page]].
+You'll have to install the =p4= command line tool from the [[https://www.perforce.com/downloads/helix][download page]].
 
-Don’t forget to setup the environment variables:
+Don't forget to setup the environment variables:
 - =P4_PORT=
 - =P4_CLIENT=
 - =P4_USER=

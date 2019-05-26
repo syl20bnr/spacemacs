@@ -53,6 +53,6 @@ Example:
 
 | Key binding                   | Description                   |
 |-------------------------------+-------------------------------|
-| ~g r~                         | update IBuffer (“refresh”)    |
+| ~g r~                         | update IBuffer ("refresh")    |
 | ~g j~ / ~]~ / ~TAB~ / ~M-n~   | move to next filter group     |
 | ~g k~ / ~[~ / ~S-TAB~ / ~M-p~ | move to previous filter group |

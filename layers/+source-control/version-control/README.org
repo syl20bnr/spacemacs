@@ -42,7 +42,7 @@ by setting =version-control-diff-tool=
                     version-control-diff-tool 'diff-hl)
 #+END_SRC
 
-You can choose the side on which the diff appears (by default it’s the right side)
+You can choose the side on which the diff appears (by default it's the right side)
 
 #+BEGIN_SRC emacs-lisp
   '(version-control :variables
@@ -131,7 +131,7 @@ Pressing ~C-c C-k~ will discard the commit message and close this buffer.
 |-------------+------------------------------------------------|
 | ~SPC m a~   | Apply a hunk                                   |
 | ~SPC m d~   | Kill the hunk at point                         |
-| ~SPC m D~   | Kill the current file’s hunk                   |
+| ~SPC m D~   | Kill the current file's hunk                   |
 | ~SPC m e~   | Call =ediff-patch-file= on current buffer      |
 | ~SPC m f c~ | Convert unified diffs to context diffs         |
 | ~SPC m f r~ | Reverse the direction of the diffs             |
@@ -178,7 +178,7 @@ A transient buffer is also defined, start it with ~SPC m .~ or ~, .~
 | ~H~         | Toggle whether or not the annotation is visible                                |
 | ~a~         | Visit the annotation of the revision identified in the current line            |
 | ~p~         | Visit the annotation of the revision before the revision at line               |
-| ~d~         | Display the diff between the current line’s revision and the previous revision |
+| ~d~         | Display the diff between the current line's revision and the previous revision |
 | ~f~         | Show in a buffer the file revision indicated by the current line               |
 
 ** Version Control Transient-state

@@ -107,7 +107,7 @@ You can set the size of the preview windows as a fraction of the frame size
   (setq ranger-width-preview 0.55)
 #+END_SRC
 
-You probably don’t want to open certain files like videos when using preview. To
+You probably don't want to open certain files like videos when using preview. To
 ignore certain files when moving over them you can customize the following to
 your liking:
 
