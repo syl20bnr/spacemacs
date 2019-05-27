@@ -168,8 +168,7 @@ are enabled.
       :dependencies [[nrepl "0.4.5"]]
 
       :repl-options
-      {:nrepl-middleware [cider.nrepl/cider-middleware
-                          refactor-nrepl.middleware/wrap-refactor ;; clj-refactor
+      {:nrepl-middleware [refactor-nrepl.middleware/wrap-refactor ;; clj-refactor
                           com.billpiel.sayid.nrepl-middleware/wrap-sayid ;; sayid
                           ]}}}
   #+END_SRC

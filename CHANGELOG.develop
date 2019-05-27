@@ -1156,6 +1156,7 @@ Other:
   - ~SPC m e u~ undefine symbol in the current namespace
     (thanks to John Stevenson)
 - Fixes:
+  - Remove `cider.nrepl/cider-middleware` in lein quick start setting
   - Fixed =cider-inspector-prev-page= binding, also add ~p~ as another key
     binding (thanks to Brian Fay)
   - Fixed Clojure layer cider-repl-mode keybindings (thanks to Corey Ling)
