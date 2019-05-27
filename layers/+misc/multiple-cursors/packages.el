@@ -43,15 +43,15 @@
       (spacemacs/declare-prefix "sm" "multiple-cursors")
       (spacemacs/declare-prefix "sms" "specials")
       (spacemacs/set-leader-keys
+        "sma" 'mc/mark-all-dwim
+        "smb" 'mc/mark-all-like-this
         "smm" 'mc/mark-more-like-this-extended
         "smr" 'mc/edit-lines
-        "smb" 'mc/mark-all-like-this
-        "sma" 'mc/mark-all-dwim
-        "smss" 'mc/sort-regions
-        "smsr" 'set-rectangular-region-anchor
+        "smsl" 'mc/insert-letters
         "smsm" 'mc/mark-sgml-tag-pair
         "smsn" 'mc/insert-numbers
-        "smsl" 'mc/insert-letters
+        "smsr" 'set-rectangular-region-anchor
+        "smss" 'mc/sort-regions
         "smst" 'mc/reverse-regions)
       (setq mc/always-run-for-all t)
       (with-eval-after-load 'multiple-cursors-core

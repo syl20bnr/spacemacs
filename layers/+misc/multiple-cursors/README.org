@@ -32,7 +32,7 @@ the layer.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (multiple-cursors :variables multiple-cursors-backend 'mc))
+    (multiple-cursors :variables multiple-cursors-backend 'evil-mc))
 #+END_SRC
 
 * Key bindings
