@@ -414,6 +414,9 @@ List sizes may be nil, in which case
   "Run `spacemacs/prettify-org-buffer' when
 visiting README.org files of Spacemacs.")
 
+(defvar dotspacemacs-new-empty-buffer-major-mode nil
+  "Set the major mode for a new empty buffer.")
+
 (defun dotspacemacs//prettify-spacemacs-docs ()
   "Run `spacemacs/prettify-org-buffer' if `buffer-file-name'
 has `spacemacs-start-directory'"
