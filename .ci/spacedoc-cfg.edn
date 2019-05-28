@@ -30,7 +30,7 @@
                   ]}
   "versioning"
   {"spacemacs" ["distribution"
-                "util"
+                "misc"
                 ]}
   "tag"
   "theme"

@@ -1,6 +1,6 @@
 #+TITLE: nyan-mode
 
-#+TAGS: layer|uncategorized
+#+TAGS: layer|theme
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
