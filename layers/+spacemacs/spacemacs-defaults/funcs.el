@@ -647,9 +647,10 @@ variable."
 
 (defun spacemacs/new-empty-buffer (&optional split)
   "Create a new buffer called untitled(<n>).
-A SPLIT argument with the value: `left',
-`below', `above' or `right', opens the new
-buffer in a split window."
+A SPLIT argument with the value: `left', `below', `above' or `right',
+opens the new buffer in a split window.
+If the variable `dotspacemacs-new-empty-buffer-major-mode' has been set,
+then apply that major mode to the new buffer."
   (interactive)
   (let ((newbuf (generate-new-buffer "untitled")))
     (case split
@@ -660,7 +661,9 @@ buffer in a split window."
       ('frame (select-frame (make-frame))))
     ;; Prompt to save on `save-some-buffers' with positive PRED
     (with-current-buffer newbuf
-      (setq-local buffer-offer-save t))
+      (setq-local buffer-offer-save t)
+      (when dotspacemacs-new-empty-buffer-major-mode
+        (funcall dotspacemacs-new-empty-buffer-major-mode)))
     ;; pass non-nil force-same-window to prevent `switch-to-buffer' from
     ;; displaying buffer in another window
     (switch-to-buffer newbuf nil 'force-same-window)))

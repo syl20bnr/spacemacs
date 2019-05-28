@@ -477,6 +477,8 @@ Other:
   - Added line text object using =evil-textobj-line= (thanks to Uroš Perišić)
   - Added more =kaolin-themes= (thanks to ogdenwebb)
   - Calling ~spacemacs/recompile-elpa~ with an argument nukes all *.elc files (thanks to Ag Ibragimov)
+  - Allow customizing default major mode for new empty buffers in ~SPC b N n~,
+    see =dotspacemacs-new-empty-buffer-major-mode= (thanks to Juha Jeronen)
 - Fixed:
   - Avoid non-idempotent use of push in init code (thanks to Miciah Masters)
   - Moved Spacemacs startup progress bar to =core-progress-bar.el=, removed
