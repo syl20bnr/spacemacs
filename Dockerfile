@@ -1,4 +1,4 @@
-### Dockerfile --- spacemacs-docker dockerfile with Emacs25.x
+### Dockerfile --- spacemacs-docker dockerfile with latest Emacs
 ##
 ## Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ##
