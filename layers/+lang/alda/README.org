@@ -1,6 +1,6 @@
 #+TITLE: Alda Layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: layer|music
 
 [[file:img/alda.png]]
 
