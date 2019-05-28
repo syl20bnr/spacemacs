@@ -46,7 +46,22 @@
   - [[#multiple-cursors][Multiple-cursors]]
   - [[#nlinum][Nlinum]]
   - [[#parinfer][Parinfer]]
+  - [[#spacemacs-completion][Spacemacs-completion]]
+  - [[#spacemacs-defaults][Spacemacs-defaults]]
+  - [[#spacemacs-editing][Spacemacs-editing]]
+  - [[#spacemacs-editing-visual][Spacemacs-editing-visual]]
+  - [[#spacemacs-evil][Spacemacs-evil]]
+  - [[#spacemacs-language][Spacemacs-language]]
+  - [[#spacemacs-layouts][Spacemacs-layouts]]
+  - [[#spacemacs-misc][Spacemacs-misc]]
+  - [[#spacemacs-modeline][Spacemacs-modeline]]
+  - [[#spacemacs-navigation][Spacemacs-navigation]]
+  - [[#spacemacs-org][Spacemacs-org]]
+  - [[#spacemacs-project][Spacemacs-project]]
+  - [[#spacemacs-purpose][Spacemacs-purpose]]
+  - [[#spacemacs-visual][Spacemacs-visual]]
 - [[#music][Music]]
+  - [[#alda-layer][Alda layer]]
   - [[#spotify][Spotify]]
 - [[#operating-systems][Operating systems]]
   - [[#nixos][Nixos]]
@@ -150,25 +165,6 @@
   - [[#epub][Epub]]
   - [[#pdf][Pdf]]
   - [[#speed-reading][Speed reading]]
-- [[#readmeorg-files-that-need-proper-tags][README.org files that need proper tags]]
-  - [[#alda-layer][Alda layer]]
-  - [[#nyan-mode][Nyan-mode]]
-  - [[#spacemacs-distribution][Spacemacs distribution]]
-  - [[#spacemacs-base-distribution][Spacemacs-base distribution]]
-  - [[#spacemacs-bootstrap-distribution][Spacemacs-bootstrap distribution]]
-  - [[#spacemacs-completion][Spacemacs-completion]]
-  - [[#spacemacs-defaults][Spacemacs-defaults]]
-  - [[#spacemacs-editing][Spacemacs-editing]]
-  - [[#spacemacs-editing-visual][Spacemacs-editing-visual]]
-  - [[#spacemacs-evil][Spacemacs-evil]]
-  - [[#spacemacs-language][Spacemacs-language]]
-  - [[#spacemacs-layouts][Spacemacs-layouts]]
-  - [[#spacemacs-misc][Spacemacs-misc]]
-  - [[#spacemacs-modeline][Spacemacs-modeline]]
-  - [[#spacemacs-navigation][Spacemacs-navigation]]
-  - [[#spacemacs-org][Spacemacs-org]]
-  - [[#spacemacs-project][Spacemacs-project]]
-  - [[#spacemacs-visual][Spacemacs-visual]]
 - [[#source-control][Source control]]
   - [[#git][Git]]
   - [[#github][Github]]
@@ -176,14 +172,16 @@
   - [[#version-control][Version-control]]
 - [[#spacemacs][Spacemacs]]
   - [[#distributions][Distributions]]
+    - [[#spacemacs-distribution][Spacemacs distribution]]
+    - [[#spacemacs-base-distribution][Spacemacs-base distribution]]
+    - [[#spacemacs-bootstrap-distribution][Spacemacs-bootstrap distribution]]
     - [[#spacemacs-docker-distribution][Spacemacs-docker distribution]]
-  - [[#utilities-1][Utilities]]
-    - [[#spacemacs-purpose][Spacemacs-purpose]]
 - [[#tagging][Tagging]]
   - [[#cscope][Cscope]]
   - [[#helm-gtags][Helm gtags]]
 - [[#themes][Themes]]
   - [[#colors][Colors]]
+  - [[#nyan-mode][Nyan-mode]]
   - [[#themes-megapack][Themes megapack]]
   - [[#theming][Theming]]
 - [[#tools][Tools]]
@@ -695,7 +693,260 @@ controls indentation based on parentheses or vice versa.
 Features:
 - Automatic managment of parenthesis in clojure, emacs lisp, common-lisp and scheme following the parinfer editing paradigm.
 
+** Spacemacs-completion
+[[file:+spacemacs/spacemacs-completion/README.org][+spacemacs/spacemacs-completion/README.org]]
+
+This layer does basic setup for completion frameworks like =helm=, =ivy= and
+=ido=.
+
+Its main role is to ensure sane defaults and consistent UI between =helm=
+and =ivy= because even when you are using only one of them you could still
+need to use the other (for instance a package that supports only =helm=).
+
+Advanced configuration of these packages can be found in their respective
+layers in =+completion= layer directory.
+
+Features:
+- Base preconfiguration of =helm= and =ivy= for other layers to use.
+- Basic support for =ido-navigation= configuration and transient state.
+
+** Spacemacs-defaults
+[[file:+spacemacs/spacemacs-defaults/README.org][+spacemacs/spacemacs-defaults/README.org]]
+
+This layer configures mostly Emacs built-in packages to given them better
+defaults.
+
+Features:
+- Configures packages:
+  - abbrev
+  - archive-mode
+  - bookmark
+  - conf-mode
+  - dired
+  - dired-x
+  - display-line-numbers (only in Emacs 26.x and newer)
+  - electric-indent-mode
+  - ediff
+  - eldoc
+  - help-fns+
+  - hi-lock
+  - image-mode
+  - imenu
+  - linum (only in Emacs 25.x and older)
+  - occur-mode
+  - package-menu
+  - page-break-lines
+  - process-menu
+  - recentf
+  - savehist
+  - saveplace
+  - subword
+  - tar-mode
+  - uniquify
+  - url
+  - visual-line-mode
+  - whitespace
+  - winner
+  - zone
+
+** Spacemacs-editing
+[[file:+spacemacs/spacemacs-editing/README.org][+spacemacs/spacemacs-editing/README.org]]
+
+This layer adds packages to improve editing with Spacemacs.
+
+Features:
+- Support for automatic indentation of code via =aggressive-indent=.
+- Support for jumping to chars using a decision tree via =avy=.
+- Improvements for evaluating sexps via =eval-sexp-fu=.
+- Selecting and editing of multiple text elements via =expand-region=.
+- Support for editing files in hex format via =hexl=.
+- Deletion of consecutive horizontal whitespace with a single key
+  via =hungry-delete=.
+- Support for selecting, copying and opening links using =avy= via =link-hint=.
+- Adding of sample text via =lorem-ipsum=.
+- Transient state for moving text via =move-text=.
+- Support for folding of code via =origami=.
+- Support for password generation via =password-generator=.
+- Support for improving parenthesis handling via =smartparens=.
+- Automatic whitespace cleanup on save via =spacemacs-whitespace-cleanup=.
+- Support for converting definitions to certain styles via =string-inflection=.
+- Support for generating UUIDs via =uuidgen=.
+- Support for conversion between Emacs regexps and PCRE regexps.
+
+** Spacemacs-editing-visual
+[[file:+spacemacs/spacemacs-editing-visual/README.org][+spacemacs/spacemacs-editing-visual/README.org]]
+
+This layer defines a lot of functions used to visually enhance the currently
+edited line in Spacemacs.
+
+Features:
+- Adaptive wrapping
+- Hiding of comments
+- Highlighting of columns longer than 80 chars
+- Highlighting of different indentations
+- Automatic highlighting of numbers
+- Automatic highlighting of parentheses
+
+** Spacemacs-evil
+[[file:+spacemacs/spacemacs-evil/README.org][+spacemacs/spacemacs-evil/README.org]]
+
+This layer adds various adjustments to packages to create an evilified experience
+througout the entirety of Spacemacs.
+
+Features:
+- Add evil tutorial with =evil-tutor=
+- Add relative line number with =linun-relative= (only in Emacs 25.x and older)
+- Add escaping under ~fd~ by default with =evil-escape=
+- Add occurences count in mode-line when searching a buffer
+- Add support for lisp structure manipulation with =evil-lisp-state=
+- Add safe structural editing of lisp dialects with =evil-cleverparens=
+- Add =evil-exchange= to swap text
+- Add easy live editing of multiple occurences with =evil-iedit-state=
+- Add new vim text objects for indentation with =evil-indent-plus=
+- Add operations to align text with =evil-lion=
+- Easy management of comments with =evil-nerd-commenter=
+- Nagivation between pairs with =evil-matchit=
+- Advanced navigation on brackets with =evil-unimpaired=
+- Easy increment and decrement of numbers with =evil-number=
+- Support for additional vim movements via =evil-args=
+- Support for surrounding the marked area with a given character via =evil-surround=
+- Evilification of various modes if the editing style is =vim= or =hybrid=
+- Improves the comment function to be able to also do the inverse operation
+- Persistent highlight of searched text with =evil-search-highlight-persist=
+- Display tidles in non-buffer area with =vi-tilde-fringe=
+
+** Spacemacs-language
+[[file:+spacemacs/spacemacs-language/README.org][+spacemacs/spacemacs-language/README.org]]
+
+This layer adds support various language related services to Spacemacs.
+
+Features:
+- Show definition of word at point via [[https://github.com/abo-abo/define-word][define-word]].
+- Integration of google-translate into emacs via [[https://github.com/atykhonov/google-translate][google-translate]].
+
+** Spacemacs-layouts
+[[file:+spacemacs/spacemacs-layouts/README.org][+spacemacs/spacemacs-layouts/README.org]]
+
+This layer adds support for distinct layouts/workspaces to Spacemacs.
+
+Features:
+- Support for distinct layouts via =eyebrowse=
+- Integration with =helm= and =ivy= to search for buffers within layouts
+
+** Spacemacs-misc
+[[file:+spacemacs/spacemacs-misc/README.org][+spacemacs/spacemacs-misc/README.org]]
+
+This layer adds some general packages into Spacemacs.
+
+Features:
+- Support for jumping to definitions via =dumb-jump= or =evil-goto-definition=.
+- Support for an easy http request client via =request=.
+
+** Spacemacs-modeline
+[[file:+spacemacs/spacemacs-modeline/README.org][+spacemacs/spacemacs-modeline/README.org]]
+
+This layer adds various mode-lines to Spacemacs.
+
+Features:
+- Display of a vim-powerline like mode-line being able to show various information like
+  - Current battery status
+  - All active minor modes displayed as unicode symbols
+  - The active major mode
+  - The current branch if the file is in version control
+  - The current cursor position
+  - The system clock
+- Display of a small system monitor in a separate mode-line.
+
+** Spacemacs-navigation
+[[file:+spacemacs/spacemacs-navigation/README.org][+spacemacs/spacemacs-navigation/README.org]]
+
+This layer adds general navigation functions to all supported layers.
+
+Features:
+- Support for ace-links in
+  - =spacemacs= buffer
+  - =info-mode=
+  - =help-mode=
+  - =eww-mode=
+- Support for keeping the cursor centered on the screen
+- Evilified version of =doc-view-mode=
+- Tweaks for =golden-ratio-mode=
+- Support for =paradox= a modern emacs package manager
+- Shortcuts for restarting =emacs=
+- Shortcuts for easily switching between windows
+
+** Spacemacs-org
+[[file:+spacemacs/spacemacs-org/README.org][+spacemacs/spacemacs-org/README.org]]
+
+This layer tweaks =org-mode= to integrate nicely into Spacemacs.
+
+Features:
+- Configuration for =flyspell= to check =org-buffers= for typos.
+- Support for automatically generated Table-Of-Contents via =toc-org=.
+- Support for custom bullet markers via =org-bullets=.
+- Support for a special view mode for org documents via =space-doc=.
+
+** Spacemacs-project
+[[file:+spacemacs/spacemacs-project/README.org][+spacemacs/spacemacs-project/README.org]]
+
+This layer tweaks =projectile= to integrate nicely into Spacemacs.
+
+Features:
+- Setup of =projectile= key bindings, including functions for project search, switching, version control and compilation.
+- Additional path helper functions, to copy the location of a buffer relative to the project root.
+
+** Spacemacs-purpose
+[[file:+spacemacs/spacemacs-purpose/README.org][+spacemacs/spacemacs-purpose/README.org]]
+
+This layer enables [[https://github.com/bmag/emacs-purpose][window-purpose]], which provides an alternative, purpose-based
+window manager for Emacs. With this layer, your window layout should be robust
+and shouldn't change too much when opening all sorts of buffers.
+
+Regular [[https://github.com/m2ym/popwin-el][popwin]] is not triggered when window-purpose is enabled. However,
+the window-purpose layer provides a =purpose-popwin= extension, which
+brings popwin's behavior to window-purpose and solves that problem.
+
+Features:
+- Window layout is more robust and less likely to change unintentionally
+- Dedicate window to a purpose
+- User-defined purposes
+- Extensible window display behavior
+- Empty =purpose-mode-map=, to avoid conflicts with other key maps
+- Replicate popwin behavior for purpose-mode - almost no regression in popup behavior from using window-purpose.
+- Reuses popwin's settings: =popwin:special-display-config=, =popwin:popup-window-height= and =popwin:popup-window-width=.
+- Difference from popwin: when several windows are open, popup window is sometimes bigger than with regular popwin in the same situation.
+
+** Spacemacs-visual
+[[file:+spacemacs/spacemacs-visual/README.org][+spacemacs/spacemacs-visual/README.org]]
+
+This layer adds various modes to enhance Spacemacs visual appearance.
+
+Features:
+- Automatic colorization of compilation buffers via =ansi-colors=.
+- Support for resuming the last layout when starting Spacemacs via =desktop=.
+- Support for showing a thin vertical line to indicate the fill column
+  via =fill-column-indicator=.
+- Automatic highlighting of =TODO-tags= in programming and text modes
+  via =hl-todo=.
+- Support for temporary windows which close automatically via =popwin=.
+- Support for text zooming via =zoom-frm=.
+
 * Music
+** Alda layer
+[[file:+lang/alda/README.org][+lang/alda/README.org]]
+
+Alda is a music composition language allowing music to easily be written and
+edited in a text file.
+
+This layer adds key bindings for =alda-mode='s functions, which allow Alda code
+to be interpreted and played by the running Alda server. It will also start the
+Alda server if it is not running.
+
+Features:
+- Syntax highlighting for Alda files.
+- Play portions of a buffer, or the entire buffer,
+  through a running Alda server.
+
 ** Spotify
 [[file:+music/spotify/README.org][+music/spotify/README.org]]
 
@@ -1910,303 +2161,6 @@ A speed reading mode for Emacs.
 Features:
 - Support for =speed-reading= of arbitrary texts
 
-* README.org files that need proper tags
-** Alda layer
-[[file:+lang/alda/README.org][+lang/alda/README.org]]
-
-Alda is a music composition language allowing music to easily be written and
-edited in a text file.
-
-This layer adds key bindings for =alda-mode='s functions, which allow Alda code
-to be interpreted and played by the running Alda server. It will also start the
-Alda server if it is not running.
-
-Features:
-- Syntax highlighting for Alda files.
-- Play portions of a buffer, or the entire buffer,
-  through a running Alda server.
-
-** Nyan-mode
-[[file:+themes/colors/local/nyan-mode/README.org][+themes/colors/local/nyan-mode/README.org]]
-
-Nyan Mode - Turn your Emacs into Nyanmacs! :)
-The mode is an analog indicator of your position in the buffer. The
-Cat should go from left to right in your mode-line, as you move your
-point from 0% to 100%.
-
-Features:
-- Mind dumbing content included,
-- Experimental animation (M-x nyan-start-animation, M-x nyan-stop-animation),
-- Wavy rainbow (M-x set-variable <ret> nyan-wavy-trail <ret> t),
-- Music, mplayer is needed (M-x nyan-start-music, M-x nyan-stop-music),
-- Customizable properties.
-
-** Spacemacs distribution
-[[file:+distributions/spacemacs/README.org][+distributions/spacemacs/README.org]]
-
-This is the default distribution for Spacemacs.
-
-Features:
-- Easy access to the Spacemacs experience by adding below auxiliary layers
-  to the base distribution.
-  - helm
-  - treemacs
-  - spacemacs-completion
-  - spacemacs-layouts
-  - spacemacs-editing
-  - spacemacs-editing-visual
-  - spacemacs-evil
-  - spacemacs-language
-  - spacemacs-misc
-  - spacemacs-modeline
-  - spacemacs-navigation
-  - spacemacs-org
-  - spacemacs-purpose
-  - spacemacs-visual
-
-** Spacemacs-base distribution
-[[file:+distributions/spacemacs-base/README.org][+distributions/spacemacs-base/README.org]]
-
-This is the base distribution for Spacemacs.
-
-Features:
-- Minimalistic approach to Spacemacs, contains only the core packages. Good starting
-  point to make something completely new. This distribution should not be used for
-  a new standalone Spacemacs installation except you have very good reasons to.
-
-** Spacemacs-bootstrap distribution
-[[file:+distributions/spacemacs-bootstrap/README.org][+distributions/spacemacs-bootstrap/README.org]]
-
-This layer loads the necessary packages for spacemacs to start-up.
-
-Features:
-- Loads =evil= key bindings and macros for auto-evilifcation of maps
-- Loads =holy= and =hybrid= modes
-- Loads the official Spacemacs theme
-- Loads =use-package= which is used to load other packages more easily
-- Loads =hydra= which is used to create transient modes
-- Loads =which-key= which is used to show key bindings in other modes
-- Loads =async= which is used to run background processes
-- Loads =bind-map= and =bind-key= which are used to realise various
-  spacemacs specific key binding commands
-
-** Spacemacs-completion
-[[file:+spacemacs/spacemacs-completion/README.org][+spacemacs/spacemacs-completion/README.org]]
-
-This layer does basic setup for completion frameworks like =helm=, =ivy= and
-=ido=.
-
-Its main role is to ensure sane defaults and consistent UI between =helm=
-and =ivy= because even when you are using only one of them you could still
-need to use the other (for instance a package that supports only =helm=).
-
-Advanced configuration of these packages can be found in their respective
-layers in =+completion= layer directory.
-
-Features:
-- Base preconfiguration of =helm= and =ivy= for other layers to use.
-- Basic support for =ido-navigation= configuration and transient state.
-
-** Spacemacs-defaults
-[[file:+spacemacs/spacemacs-defaults/README.org][+spacemacs/spacemacs-defaults/README.org]]
-
-This layer configures mostly Emacs built-in packages to given them better
-defaults.
-
-Features:
-- Configures packages:
-  - abbrev
-  - archive-mode
-  - bookmark
-  - conf-mode
-  - dired
-  - dired-x
-  - display-line-numbers (only in Emacs 26.x and newer)
-  - electric-indent-mode
-  - ediff
-  - eldoc
-  - help-fns+
-  - hi-lock
-  - image-mode
-  - imenu
-  - linum (only in Emacs 25.x and older)
-  - occur-mode
-  - package-menu
-  - page-break-lines
-  - process-menu
-  - recentf
-  - savehist
-  - saveplace
-  - subword
-  - tar-mode
-  - uniquify
-  - url
-  - visual-line-mode
-  - whitespace
-  - winner
-  - zone
-
-** Spacemacs-editing
-[[file:+spacemacs/spacemacs-editing/README.org][+spacemacs/spacemacs-editing/README.org]]
-
-This layer adds packages to improve editing with Spacemacs.
-
-Features:
-- Support for automatic indentation of code via =aggressive-indent=.
-- Support for jumping to chars using a decision tree via =avy=.
-- Improvements for evaluating sexps via =eval-sexp-fu=.
-- Selecting and editing of multiple text elements via =expand-region=.
-- Support for editing files in hex format via =hexl=.
-- Deletion of consecutive horizontal whitespace with a single key
-  via =hungry-delete=.
-- Support for selecting, copying and opening links using =avy= via =link-hint=.
-- Adding of sample text via =lorem-ipsum=.
-- Transient state for moving text via =move-text=.
-- Support for folding of code via =origami=.
-- Support for password generation via =password-generator=.
-- Support for improving parenthesis handling via =smartparens=.
-- Automatic whitespace cleanup on save via =spacemacs-whitespace-cleanup=.
-- Support for converting definitions to certain styles via =string-inflection=.
-- Support for generating UUIDs via =uuidgen=.
-- Support for conversion between Emacs regexps and PCRE regexps.
-
-** Spacemacs-editing-visual
-[[file:+spacemacs/spacemacs-editing-visual/README.org][+spacemacs/spacemacs-editing-visual/README.org]]
-
-This layer defines a lot of functions used to visually enhance the currently
-edited line in Spacemacs.
-
-Features:
-- Adaptive wrapping
-- Hiding of comments
-- Highlighting of columns longer than 80 chars
-- Highlighting of different indentations
-- Automatic highlighting of numbers
-- Automatic highlighting of parentheses
-
-** Spacemacs-evil
-[[file:+spacemacs/spacemacs-evil/README.org][+spacemacs/spacemacs-evil/README.org]]
-
-This layer adds various adjustments to packages to create an evilified experience
-througout the entirety of Spacemacs.
-
-Features:
-- Add evil tutorial with =evil-tutor=
-- Add relative line number with =linun-relative= (only in Emacs 25.x and older)
-- Add escaping under ~fd~ by default with =evil-escape=
-- Add occurences count in mode-line when searching a buffer
-- Add support for lisp structure manipulation with =evil-lisp-state=
-- Add safe structural editing of lisp dialects with =evil-cleverparens=
-- Add =evil-exchange= to swap text
-- Add easy live editing of multiple occurences with =evil-iedit-state=
-- Add new vim text objects for indentation with =evil-indent-plus=
-- Add operations to align text with =evil-lion=
-- Easy management of comments with =evil-nerd-commenter=
-- Nagivation between pairs with =evil-matchit=
-- Advanced navigation on brackets with =evil-unimpaired=
-- Easy increment and decrement of numbers with =evil-number=
-- Support for additional vim movements via =evil-args=
-- Support for surrounding the marked area with a given character via =evil-surround=
-- Evilification of various modes if the editing style is =vim= or =hybrid=
-- Improves the comment function to be able to also do the inverse operation
-- Persistent highlight of searched text with =evil-search-highlight-persist=
-- Display tidles in non-buffer area with =vi-tilde-fringe=
-
-** Spacemacs-language
-[[file:+spacemacs/spacemacs-language/README.org][+spacemacs/spacemacs-language/README.org]]
-
-This layer adds support various language related services to Spacemacs.
-
-Features:
-- Show definition of word at point via [[https://github.com/abo-abo/define-word][define-word]].
-- Integration of google-translate into emacs via [[https://github.com/atykhonov/google-translate][google-translate]].
-
-** Spacemacs-layouts
-[[file:+spacemacs/spacemacs-layouts/README.org][+spacemacs/spacemacs-layouts/README.org]]
-
-This layer adds support for distinct layouts/workspaces to Spacemacs.
-
-Features:
-- Support for distinct layouts via =eyebrowse=
-- Integration with =helm= and =ivy= to search for buffers within layouts
-
-** Spacemacs-misc
-[[file:+spacemacs/spacemacs-misc/README.org][+spacemacs/spacemacs-misc/README.org]]
-
-This layer adds some general packages into Spacemacs.
-
-Features:
-- Support for jumping to definitions via =dumb-jump= or =evil-goto-definition=.
-- Support for an easy http request client via =request=.
-
-** Spacemacs-modeline
-[[file:+spacemacs/spacemacs-modeline/README.org][+spacemacs/spacemacs-modeline/README.org]]
-
-This layer adds various mode-lines to Spacemacs.
-
-Features:
-- Display of a vim-powerline like mode-line being able to show various information like
-  - Current battery status
-  - All active minor modes displayed as unicode symbols
-  - The active major mode
-  - The current branch if the file is in version control
-  - The current cursor position
-  - The system clock
-- Display of a small system monitor in a separate mode-line.
-
-** Spacemacs-navigation
-[[file:+spacemacs/spacemacs-navigation/README.org][+spacemacs/spacemacs-navigation/README.org]]
-
-This layer adds general navigation functions to all supported layers.
-
-Features:
-- Support for ace-links in
-  - =spacemacs= buffer
-  - =info-mode=
-  - =help-mode=
-  - =eww-mode=
-- Support for keeping the cursor centered on the screen
-- Evilified version of =doc-view-mode=
-- Tweaks for =golden-ratio-mode=
-- Support for =paradox= a modern emacs package manager
-- Shortcuts for restarting =emacs=
-- Shortcuts for easily switching between windows
-
-** Spacemacs-org
-[[file:+spacemacs/spacemacs-org/README.org][+spacemacs/spacemacs-org/README.org]]
-
-This layer tweaks =org-mode= to integrate nicely into Spacemacs.
-
-Features:
-- Configuration for =flyspell= to check =org-buffers= for typos.
-- Support for automatically generated Table-Of-Contents via =toc-org=.
-- Support for custom bullet markers via =org-bullets=.
-- Support for a special view mode for org documents via =space-doc=.
-
-** Spacemacs-project
-[[file:+spacemacs/spacemacs-project/README.org][+spacemacs/spacemacs-project/README.org]]
-
-This layer tweaks =projectile= to integrate nicely into Spacemacs.
-
-Features:
-- Setup of =projectile= key bindings, including functions for project search, switching, version control and compilation.
-- Additional path helper functions, to copy the location of a buffer relative to the project root.
-
-** Spacemacs-visual
-[[file:+spacemacs/spacemacs-visual/README.org][+spacemacs/spacemacs-visual/README.org]]
-
-This layer adds various modes to enhance Spacemacs visual appearance.
-
-Features:
-- Automatic colorization of compilation buffers via =ansi-colors=.
-- Support for resuming the last layout when starting Spacemacs via =desktop=.
-- Support for showing a thin vertical line to indicate the fill column
-  via =fill-column-indicator=.
-- Automatic highlighting of =TODO-tags= in programming and text modes
-  via =hl-todo=.
-- Support for temporary windows which close automatically via =popwin=.
-- Support for text zooming via =zoom-frm=.
-
 * Source control
 ** Git
 [[file:+source-control/git/README.org][+source-control/git/README.org]]
@@ -2257,6 +2211,55 @@ Features:
 
 * Spacemacs
 ** Distributions
+*** Spacemacs distribution
+[[file:+distributions/spacemacs/README.org][+distributions/spacemacs/README.org]]
+
+This is the default distribution for Spacemacs.
+
+Features:
+- Easy access to the Spacemacs experience by adding below auxiliary layers
+  to the base distribution.
+  - helm
+  - treemacs
+  - spacemacs-completion
+  - spacemacs-layouts
+  - spacemacs-editing
+  - spacemacs-editing-visual
+  - spacemacs-evil
+  - spacemacs-language
+  - spacemacs-misc
+  - spacemacs-modeline
+  - spacemacs-navigation
+  - spacemacs-org
+  - spacemacs-purpose
+  - spacemacs-visual
+
+*** Spacemacs-base distribution
+[[file:+distributions/spacemacs-base/README.org][+distributions/spacemacs-base/README.org]]
+
+This is the base distribution for Spacemacs.
+
+Features:
+- Minimalistic approach to Spacemacs, contains only the core packages. Good starting
+  point to make something completely new. This distribution should not be used for
+  a new standalone Spacemacs installation except you have very good reasons to.
+
+*** Spacemacs-bootstrap distribution
+[[file:+distributions/spacemacs-bootstrap/README.org][+distributions/spacemacs-bootstrap/README.org]]
+
+This layer loads the necessary packages for spacemacs to start-up.
+
+Features:
+- Loads =evil= key bindings and macros for auto-evilifcation of maps
+- Loads =holy= and =hybrid= modes
+- Loads the official Spacemacs theme
+- Loads =use-package= which is used to load other packages more easily
+- Loads =hydra= which is used to create transient modes
+- Loads =which-key= which is used to show key bindings in other modes
+- Loads =async= which is used to run background processes
+- Loads =bind-map= and =bind-key= which are used to realise various
+  spacemacs specific key binding commands
+
 *** Spacemacs-docker distribution
 [[file:+distributions/spacemacs-docker/README.org][+distributions/spacemacs-docker/README.org]]
 
@@ -2276,28 +2279,6 @@ Features:
 - [[https://docs.docker.com/engine/reference/commandline/pause/][pause]] container to free resources temporarily
 - [[https://github.com/docker/docker/blob/1.13.x/experimental/checkpoint-restore.md][Checkpoint & Restore]] - maybe the fastest way to start a "heavy" environment
 - Friendly for networks with low upload speed/quotas.
-
-** Utilities
-*** Spacemacs-purpose
-[[file:+spacemacs/spacemacs-purpose/README.org][+spacemacs/spacemacs-purpose/README.org]]
-
-This layer enables [[https://github.com/bmag/emacs-purpose][window-purpose]], which provides an alternative, purpose-based
-window manager for Emacs. With this layer, your window layout should be robust
-and shouldn't change too much when opening all sorts of buffers.
-
-Regular [[https://github.com/m2ym/popwin-el][popwin]] is not triggered when window-purpose is enabled. However,
-the window-purpose layer provides a =purpose-popwin= extension, which
-brings popwin's behavior to window-purpose and solves that problem.
-
-Features:
-- Window layout is more robust and less likely to change unintentionally
-- Dedicate window to a purpose
-- User-defined purposes
-- Extensible window display behavior
-- Empty =purpose-mode-map=, to avoid conflicts with other key maps
-- Replicate popwin behavior for purpose-mode - almost no regression in popup behavior from using window-purpose.
-- Reuses popwin's settings: =popwin:special-display-config=, =popwin:popup-window-height= and =popwin:popup-window-width=.
-- Difference from popwin: when several windows are open, popup window is sometimes bigger than with regular popwin in the same situation.
 
 * Tagging
 ** Cscope
@@ -2350,6 +2331,21 @@ Features:
 - Colorize strings representing colors with the color they represent as background with
   [[https://jblevins.org/log/rainbow-mode][rainbow-mode]].
 - Display a Nyan cat progress bar in the mode-line with [[https://github.com/syl20bnr/nyan-mode][nyan-mode]].
+
+** Nyan-mode
+[[file:+themes/colors/local/nyan-mode/README.org][+themes/colors/local/nyan-mode/README.org]]
+
+Nyan Mode - Turn your Emacs into Nyanmacs! :)
+The mode is an analog indicator of your position in the buffer. The
+Cat should go from left to right in your mode-line, as you move your
+point from 0% to 100%.
+
+Features:
+- Mind dumbing content included,
+- Experimental animation (M-x nyan-start-animation, M-x nyan-stop-animation),
+- Wavy rainbow (M-x set-variable <ret> nyan-wavy-trail <ret> t),
+- Music, mplayer is needed (M-x nyan-start-music, M-x nyan-stop-music),
+- Customizable properties.
 
 ** Themes megapack
 [[file:+themes/themes-megapack/README.org][+themes/themes-megapack/README.org]]
