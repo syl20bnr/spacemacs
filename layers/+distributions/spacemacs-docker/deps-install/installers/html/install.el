@@ -14,10 +14,8 @@
                         (file-name-directory
                          load-file-name)) nil t)
 
-(with-installed (git curl software-properties-common)
-  ($ "add-apt-repository ppa:brightbox/ruby-ng"
-     "apt-get update")
-  (install ruby ruby-all-dev npm)
+(with-installed (git curl)
+  (install ruby-full npm)
   (!"Installing npm stuff...")
   ($ "npm cache clean -f"
      "npm install -g n"
