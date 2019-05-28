@@ -560,6 +560,7 @@ ghc-mod commands are prefixed with =ghc-=, haskell-mode ones are prefixed with
 ** Some commands start with =ghc-= and some with =haskell-=. What does that mean?
 Commands starting with =ghc-= are ghc-mod commands. Commands starting with
 =haskell-= are haskell-mode commands.
+
 ** Why doesn't the HLint Flycheck checker work when the Intero backend is enabled?
 By default, only the Intrero checker will be enabled if you manually set the
 Intero backend as described in [[#completion-support][completion support]].
@@ -572,4 +573,3 @@ HLint checker after the Intero checker.
     (with-eval-after-load 'intero
       (flycheck-add-next-checker 'intero '(warning . haskell-hlint))))
 #+END_SRC
-

@@ -68,7 +68,7 @@ installed globally with:
 
 LSP also supports the DAP debugger which will be automatically configured upon
 using the LSP backend. Dap-mode can be setup here:
-https://github.com/emacs-lsp/dap-mode#ruby
+[[https://github.com/emacs-lsp/dap-mode#ruby]]
 
 ** Prerequisites
 Some of the advanced features supported by this layer depend on external gems
