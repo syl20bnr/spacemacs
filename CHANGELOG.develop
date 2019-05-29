@@ -1216,6 +1216,9 @@ Other:
 **** Dash
 - Improvements:
   - Use default docsets path in =helm-dash= on macos (thanks to ColorFuzzy)
+- Fixes:
+  - Fix startup error when using counsel-dash with custom path in
+    helm-dash-docset-newpath (thanks to madand)
 **** Deft
 - Key bindings:
   - ~SPC m c~ clear deft filter (thanks to Bahtiar Gadimov)
