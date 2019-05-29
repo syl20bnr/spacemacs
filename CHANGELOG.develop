@@ -1213,6 +1213,9 @@ Other:
 - Fixes:
   - Fixed =d-mode= flycheck imports on dub projects (thanks to Dietrich Daroch)
 **** Dash
+- Fixes:
+  - Fix startup error when using counsel-dash with custom path in
+    helm-dash-docset-newpath (thanks to madand)
 - Improvements:
   - Use default docsets path in =helm-dash= on macos (thanks to ColorFuzzy)
 **** Deft
