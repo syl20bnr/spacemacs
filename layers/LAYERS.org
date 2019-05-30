@@ -236,7 +236,7 @@
 
 * THIS FILE IS AUTO GENERATED
 Don't edit it directly.
-See README.org template for instructions.
+See "README.org tags" section of CONTRIBUTING.org for instructions.
 
 * Chats
 ** Erc
