@@ -163,10 +163,8 @@ ln -s /usr/local/Cellar/emacs-plus/*/Emacs.app/ /Applications/
 ```
 brew tap railwaycat/emacsmacport
 brew install emacs-mac
+ln -s /usr/local/Cellar/emacs-mac/*/Emacs.app/ /Applications/
 ```
-
-Copy and paste the symlink (`ln`) from the install instructions if `brew linkapps`
-is deprecated.
 
 ##### Using cask
 
