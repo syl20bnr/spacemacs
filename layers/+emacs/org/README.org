@@ -333,7 +333,7 @@ you connect, add your authentication credentials to =~/.authinfo.gpg= or
 =~/.authinfo=:
 
 #+BEGIN_SRC authinfo
-machine yourcompany.atlassian.net login you@example.com password yourPassword port 443
+  machine yourcompany.atlassian.net login you@example.com password yourPassword port 443
 #+END_SRC
 
 * Key bindings
@@ -811,7 +811,7 @@ are available.
 
 ** Org-jira
 
-| Key Binding     | Description                                      |
+| Key binding     | Description                                      |
 |-----------------+--------------------------------------------------|
 | ~SPC a o J p g~ | Get projects list                                |
 | ~SPC a o J i b~ | Open the current issue in a WWW browser          |
