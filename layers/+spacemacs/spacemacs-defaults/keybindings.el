@@ -398,7 +398,7 @@
 
 This is achieved by the built in functionality available in emacs 26 by changing
 the value of the `column-number-indicator-zero-based' variable. Functionality
-that does not take into acount `column-number-indicator-zero-based' will not
+that does not take into account `column-number-indicator-zero-based' will not
 respond to this toggle."
   :status (bound-and-true-p column-number-indicator-zero-based)
   :on (setq column-number-indicator-zero-based t)

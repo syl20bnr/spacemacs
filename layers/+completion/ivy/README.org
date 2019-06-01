@@ -38,7 +38,7 @@ file.
 * Configuration
 ** General
 You can customize ivy with the following variables:
-- =ivy-wrap= Whether C-n and C-p should wrap-around when at the first or
+- =ivy-wrap= Whether ~C-n~ and ~C-p~ should wrap-around when at the first or
   last candidate. The default value is =nil=.
 - =ivy-extra-directories= Setting this to =nil= hides . and .. directories from
   file name completion. You can still go up a directory up by ~DEL~.

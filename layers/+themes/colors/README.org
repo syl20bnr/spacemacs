@@ -21,7 +21,7 @@ This layer colors your life by enhancing the existing coloration of identifiers 
 process indicator.
 
 ** Features:
-- Colorize all identifiers (christmas tree mode :-)) with mostly unique colors, and the ability to choose saturation and lightness
+- Colorize all identifiers (Christmas tree mode :-)) with mostly unique colors, and the ability to choose saturation and lightness
   with [[https://github.com/Fanael/rainbow-identifiers][rainbow-identifiers]].
 - Colorize only identifiers recognized as variables with [[https://github.com/ankurdave/color-identifiers-mode][color-identifiers]].
 - Colorize strings representing colors with the color they represent as background with

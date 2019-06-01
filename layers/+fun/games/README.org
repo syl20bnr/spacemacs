@@ -17,7 +17,7 @@
     - [[#create-a-new-dictionary][Create a new dictionary]]
 
 * Description
-This layer allows you to play evilified games in spacemacs.
+This layer allows you to play evilified games in Spacemacs.
 
 ** Features:
 - 2048-game

@@ -14,7 +14,7 @@
 This layer adds a search driven note taking system into Spacemacs.
 
 ** Features:
-- Browsing and creating notes with a powerfull search function via [[http://jblevins.org/projects/deft/][Deft]].
+- Browsing and creating notes with a powerful search function via [[http://jblevins.org/projects/deft/][Deft]].
 - Integration of =org-mode= as note editor.
 - Configurable list of extensions to recognize as notes.
 

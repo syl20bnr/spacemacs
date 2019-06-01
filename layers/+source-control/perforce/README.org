@@ -11,10 +11,10 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer integrates =Perforce= SCM system into spacemacs.
+This layer integrates =Perforce= SCM system into Spacemacs.
 
 ** Features:
-- Support for running [[https://www.perforce.com/][Perforce]] (p4) SCM commands directly from emacs.
+- Support for running [[https://www.perforce.com/][Perforce]] (p4) SCM commands directly from Emacs.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

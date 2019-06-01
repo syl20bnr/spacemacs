@@ -251,7 +251,7 @@ This is useful outside of Spacemacs as well!
 ** Troubleshooting and further info
 ~SPC ?~ shows you the key bindings in the current major mode, which is often
 helpful. For troubleshooting, please refer to the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/FAQ.org][FAQ]] by pressing ~SPC h f~.
-More help is found under ~SPC h~, and with ~SPC h ~SPC~ you can access the
+More help is found under ~SPC h~, and with ~SPC h SPC~ you can access the
 comprehensive Spacemacs documentation, including this tutorial and the layer
 documents.
 

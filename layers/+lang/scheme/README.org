@@ -6,7 +6,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#structuraly-safe-editing][Structuraly safe editing]]
+- [[#structurally-safe-editing][Structurally safe editing]]
 - [[#key-bindings][Key bindings]]
   - [[#compiling][Compiling]]
   - [[#navigation][Navigation]]
@@ -22,7 +22,7 @@ This layer adds support for Scheme via [[http://geiser.nongnu.org][Geiser]]. Not
 ** Features:
 - Support the Scheme compiler [[https://www.call-cc.org/][Chicken]]
 - Support for the extension language platform [[https://www.gnu.org/software/guile/][Guile]]
-- Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
+- Structurally safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -62,7 +62,7 @@ REPL binary on your system is =chicken-csi=, you will also need to add
 
 to your =dotspacemacs/user-config= in order for the REPL to start in spacemacs.
 
-* Structuraly safe editing
+* Structurally safe editing
 This layer adds support for =evil-cleverparens= which allows to safely edit
 lisp code by keeping the s-expressions balanced.
 

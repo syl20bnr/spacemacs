@@ -20,8 +20,8 @@ This layer integrates a full fledged accounting system into Spacemacs.
 
 ** Features:
 - Support for maintaining a double-entry accounting system run by text files via [[https://www.emacswiki.org/emacs/LedgerMode][ledger-mode]].
-- Display of finance reports directly within emacs.
-- Integration of emacs calculator mode for editing post amounts.
+- Display of finance reports directly within Emacs.
+- Integration of Emacs calculator mode for editing post amounts.
 - Support for easy account reconciliation via =Ledger-Reconcile=.
 - Extended support for ~evil~ style editing with [[https://github.com/atheriel/evil-ledger][evil-ledger]].
 

@@ -8,7 +8,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#structuraly-safe-editing][Structuraly safe editing]]
+- [[#structurally-safe-editing][Structurally safe editing]]
 - [[#key-bindings][Key bindings]]
   - [[#navigation][Navigation]]
   - [[#documentation][Documentation]]
@@ -24,7 +24,7 @@ Adds support for the [[http://racket-lang.org/][Racket]] programming language.
 - Test runner
 - Interactive REPL
 - Code navigation with =gtags=
-- Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
+- Structurally safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -36,7 +36,7 @@ file. You will also need DrRacket installed. Alternatively, one can use the
   raco pkg install drracket
 #+END_SRC
 
-* Structuraly safe editing
+* Structurally safe editing
 This layer adds support for =evil-cleverparens= which allows to safely edit
 lisp code by keeping the s-expressions balanced.
 

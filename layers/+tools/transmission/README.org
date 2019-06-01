@@ -21,7 +21,7 @@
 This layer integrates a BitTorrent client into Spacemacs.
 
 ** Features:
-- Integration of [[https://transmissionbt.com/][Transmission]] into emacs.
+- Integration of [[https://transmissionbt.com/][Transmission]] into Emacs.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

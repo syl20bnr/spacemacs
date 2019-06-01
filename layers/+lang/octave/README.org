@@ -18,7 +18,7 @@ This layer adds support for =GNU Octave= files to Spacemacs.
 ** Features:
 - Syntax highlighting for =.m= files via [[https://www.gnu.org/software/emacs/manual/html_mono/octave-mode.html][octave-mode]].
 - REPL support
-- Support for directly running =Octave= scripts from emacs.
+- Support for directly running =Octave= scripts from Emacs.
 - Integration with =Octaves= documentation search function.
 
 * Install

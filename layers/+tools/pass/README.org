@@ -9,7 +9,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds intregration with [[http://www.passwordstore.org/][pass]], the unix password manager.
+This layer adds integration with [[http://www.passwordstore.org/][pass]], the unix password manager.
 You must have ~pass~ installed and available in your path for this layer to
 function properly.
 

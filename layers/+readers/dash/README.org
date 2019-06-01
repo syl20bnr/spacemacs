@@ -17,7 +17,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer integrates offline api browsers into emacs. It provides one for OS X, Linux and Windows.
+This layer integrates offline api browsers into Emacs. It provides one for OS X, Linux and Windows.
 
 ** Features:
 - Searching for word at point in offline api browser's UI.

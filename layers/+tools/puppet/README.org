@@ -17,7 +17,7 @@ This layer provides support for the Puppet DSL to Spacemacs.
 - Syntax highlighting via [[https://github.com/voxpupuli/puppet-mode][puppet-mode]]
 - Syntax-checking via [[http://puppet-lint.com/][puppet-lint]]
 - Navigation commands to jump between blocks
-- Applying the content of the current manifest directly from emacs
+- Applying the content of the current manifest directly from Emacs
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

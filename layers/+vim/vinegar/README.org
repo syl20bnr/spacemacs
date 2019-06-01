@@ -13,7 +13,7 @@
   - [[#key-bindings][Key bindings]]
 
 * Description
-This layer is a port of vim-vinegar for emacs.
+This layer is a port of vim-vinegar for Emacs.
 
 It is based on tpope's [[https://github.com/tpope/vim-vinegar][vinegar.vim]], simplifying =dired=
 with a limited number of details and exposing the ~-~ command in all

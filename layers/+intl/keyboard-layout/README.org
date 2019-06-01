@@ -27,7 +27,7 @@ This layer configures some key bindings in Spacemacs, to make it compatible with
 keyboard layouts that differs from the traditional =en-us= =QWERTY= layout.
 
 ** Features:
-- Support alernative keyboard layouts within spacemacs
+- Support alternative keyboard layouts within Spacemacs
 - Remap navigation commands to the homerow of your chosen layout
 - Remap missing commands automatically to elsewhere in the layout
 

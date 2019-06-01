@@ -13,7 +13,7 @@
 - [[#debugging-elisp][Debugging Elisp]]
 - [[#nameless][Nameless]]
   - [[#aliases][Aliases]]
-- [[#structuraly-safe-editing][Structuraly safe editing]]
+- [[#structurally-safe-editing][Structurally safe editing]]
 - [[#key-bindings][Key bindings]]
   - [[#additional-testing-functions-with-overseer][Additional testing functions with overseer]]
   - [[#additional-evaluation-functions][Additional evaluation functions]]
@@ -31,10 +31,10 @@ always be in your dotfile, it is not recommended to uninstall it.
 - Repl support via =IELM=
 - Support for specific lisp navigation styles via =emacs-lisp-mode=
 - Auto-compile via [[https://github.com/tarsius/auto-compile][auto-compile]] package
-- Debuggin via [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Edebug.html#Edebug][edebug]]
+- Debugging via [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Edebug.html#Edebug][edebug]]
 - Ert test runner with [[https://github.com/tonini/overseer.el][overseer]]
 - Nameless package prefix with optional [[https://github.com/Malabarba/Nameless][nameless]]
-- Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
+- Structurally safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 - Visual feedback when evaluation using [[https://github.com/hchbaw/eval-sexp-fu.el][eval-sexp-fu]]
 
 * Install
@@ -135,7 +135,7 @@ dotfile:
   (add-to-list 'nameless-global-aliases '("N" . "nameless"))
 #+END_SRC
 
-* Structuraly safe editing
+* Structurally safe editing
 This layer adds support for =evil-cleverparens= which allows to safely edit
 lisp code by keeping the s-expressions balanced.
 

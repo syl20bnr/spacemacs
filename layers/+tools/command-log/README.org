@@ -13,7 +13,7 @@ This layer adds a handy command demonstration mode to Spacemacs.
 
 ** Features:
 - Support for logging all entered keys and triggered commands in a designated buffer via [[https://github.com/lewang/command-log-mode][command-log-mode]].
-- Provides the best way to demonstrate the connection between keystrokes and commands in emacs.
+- Provides the best way to demonstrate the connection between keystrokes and commands in Emacs.
 - Provides an easy way to create command logs for training classes.
 
 * Install

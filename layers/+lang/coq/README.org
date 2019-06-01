@@ -27,7 +27,7 @@ This layer adds support for the [[https://coq.inria.fr/][Coq]] proof assistant (
 - Syntax highlighting
 - Syntax-checking
 - Auto-completion
-- Debugging of mathematical proofs from within emacs using a special proof layout
+- Debugging of mathematical proofs from within Emacs using a special proof layout
 - Replacement of certain constants with the correct mathematical signs
 - Inserting of certain preconfigured proof elements
 

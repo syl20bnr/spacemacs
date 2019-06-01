@@ -13,7 +13,7 @@
   - [[#nixos-options][NixOS Options]]
 
 * Description
-This layer adds tools for better integration of emacs in NixOS.
+This layer adds tools for better integration of Emacs in NixOS.
 
 ** Features:
 - Nix-mode using [[https://github.com/NixOS/nix-mode][nix-mode]]

@@ -11,11 +11,11 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer integrates the [[https://github.com/clvv/fasd][fasd]] command line tool into spacemacs.
+This layer integrates the [[https://github.com/clvv/fasd][fasd]] command line tool into Spacemacs.
 
 ** Features:
 - Adds easy shortcuts to reference recent files and directories.
-- Provides =fasd= with recent open file lists from emacs.
+- Provides =fasd= with recent open file lists from Emacs.
 - Allows to filter =fasd= results with =helm= or =ivy=.
 
 * Install

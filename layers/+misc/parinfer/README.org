@@ -16,7 +16,7 @@ This layer provides an implementation of [[https://shaunlebron.github.io/parinfe
 controls indentation based on parentheses or vice versa.
 
 ** Features:
-- Automatic managment of parenthesis in clojure, emacs lisp, common-lisp and scheme following the parinfer editing paradigm.
+- Automatic management of parenthesis in clojure, emacs lisp, common-lisp and scheme following the parinfer editing paradigm.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

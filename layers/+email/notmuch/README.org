@@ -29,14 +29,14 @@
 Notmuch offers a fast, global-search and tag-based email system to
 use within your text editor or in a terminal.
 
-This layer integrates notmuch emacs package into spacemacs.
+This layer integrates the Notmuch Emacs package into Spacemacs.
 
 ** Features:
 - Email searching
 - Email tagging
 
 * Install
-In order to use this layer you must install notmuch separately.
+In order to use this layer you must install Notmuch separately.
 
 To install not much follow the instructions in [[https://notmuchmail.org/notmuch-emacs/#index2h2][installation instructions]].
 

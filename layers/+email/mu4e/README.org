@@ -29,7 +29,7 @@ This layer adds support for the Mu4e email client.
 - Search, read, reply, move, and delete email.
 - Search-based: no folders, only queries.
 - UI optimized for speed: quick keystrokes for common actions.
-- Very extendable and costumizable.
+- Very extendable and customizable.
 - Integration with Helm.
 - Maildir summary using [[https://github.com/agpchil/mu4e-maildirs-extension][mu4e-mailidrs-extension]]
 - Notifications using [[https://github.com/iqbalansari/mu4e-alert][mu4e-alert]]

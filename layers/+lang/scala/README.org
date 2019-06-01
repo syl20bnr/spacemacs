@@ -29,7 +29,7 @@ This layer adds support for the Scala language to Spacemacs.
 - Scala Repl
 - Style linting
 - Eldoc integration
-- Test execution directly from emacs
+- Test execution directly from Emacs
 - Automatic replacement of ASCII arrows with unicode ones
 - Automatic starting/stopping of [[https://ensime.github.io/][ENSIME]] IDE server
 

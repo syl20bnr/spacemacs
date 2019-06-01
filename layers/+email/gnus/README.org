@@ -18,9 +18,9 @@
 This layer integrates a general purpose email/newsgroup client into Spacemacs.
 
 ** Features:
-- Support for reading RSS feeds, newsgroups and mails directly within emacs via [[http://www.gnus.org/][Gnus]].
+- Support for reading RSS feeds, newsgroups and mails directly within Emacs via [[http://www.gnus.org/][Gnus]].
 - Support for beautiful HTML mails generated from any =org= buffer.
-- Support for credential managment via [[https://gnupg.org/][GnuPG]].
+- Support for credential management via [[https://gnupg.org/][GnuPG]].
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

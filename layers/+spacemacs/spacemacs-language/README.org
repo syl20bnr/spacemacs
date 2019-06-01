@@ -12,7 +12,7 @@ This layer adds support various language related services to Spacemacs.
 
 ** Features:
 - Show definition of word at point via [[https://github.com/abo-abo/define-word][define-word]].
-- Integration of google-translate into emacs via [[https://github.com/atykhonov/google-translate][google-translate]].
+- Integration of google-translate into Emacs via [[https://github.com/atykhonov/google-translate][google-translate]].
 
 * Key bindings
 

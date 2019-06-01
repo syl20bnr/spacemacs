@@ -18,7 +18,7 @@ still wish to enjoy the sound.
 
 ** Features:
 - Brings back fond memories about your first programming job where you started
-  with that big mechanical keyboard and the small monochrom display working on
+  with that big mechanical keyboard and the small monochrome display working on
   the latest IBM Iseries server.
 
 * Install

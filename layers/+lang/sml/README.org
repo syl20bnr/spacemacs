@@ -17,7 +17,7 @@ Adds support for the [[http://www.smlnj.org][SML]] programming language to Space
 
 ** Features:
 - Syntax highlighting
-- Integration of the =SML Repl= into emacs
+- Integration of the =SML Repl= into Emacs
 - Basic completion of SML forms via =sml-electric-space=
 
 * Install

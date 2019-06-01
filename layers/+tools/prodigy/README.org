@@ -20,7 +20,7 @@ It is recommended to put your prodigy services in the =dotspacemacs/user-config=
 part of your =~/.spacemacs= file.
 
 ** Features:
-- Managing of pre-declared services from within emacs
+- Managing of pre-declared services from within Emacs
 - Showing of process output in special buffers
 - Filtering of processes for tags or names
 
