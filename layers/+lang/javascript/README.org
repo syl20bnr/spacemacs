@@ -278,7 +278,7 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 
 | Key binding | Description                                                                        |
 |-------------+------------------------------------------------------------------------------------|
-| ~SPC m s a~ | Toggle live evaluation of whole buffer in REPL on buffer changes                   |
+| ~SPC m T l~ | Toggle live evaluation of whole buffer in REPL on buffer changes                   |
 | ~SPC m s b~ | send current buffer contents to the skewer REPL                                    |
 | ~SPC m s B~ | send current buffer contents to the skewer REPL and switch to it in insert state   |
 | ~SPC m s f~ | send current function at point to the skewer REPL                                  |

@@ -1668,6 +1668,7 @@ Other:
     - ~SPC m s r~ to send current region to the REPL and stay in buffer
     - ~SPC m T c~ to toggle compile on save
   - Move REPL live eval toggle to ~SPC m T l~ (thanks to Sylvain Benner)
+  - Updated readme key from: ~SPC m s a~ to: ~SPC m T l~ (thanks to duianto)
   - Added =import-js= support with key bindings:
     - ~SPC m i i~ to mport the module for the variable under the cursor
     - ~SPC m i f~ to import any missing modules and remove any modules that ar
