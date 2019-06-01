@@ -547,6 +547,8 @@ Other:
   - Added startup support for doom-sourcerer theme (thanks to Parker Johnson)
   - Fixed modeline when started in deamon mode (thanks to Benno Fünfstück)
   - Fixed search for "find" executable in windows (thanks to Charlie Barto)
+  - Found workaround for =buffer-list-update-hook= performance issue.
+    (thanks to Alexander Miller)
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)

@@ -684,10 +684,14 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
   %n -- prints Narrow if appropriate
   %z -- prints mnemonics of buffer, terminal, and keyboard coding systems
   %Z -- like %z, but including the end-of-line format"
+  ;; save-match-data to work around Emacs bug, see
+  ;; https://github.com/syl20bnr/spacemacs/issues/9700
   (save-match-data
-    ;; save-match-data to work around Emacs bug, see
-    ;; https://github.com/syl20bnr/spacemacs/issues/9700
-    (let* ((project-name (when (string-match-p "%t" title-format)
+    ;; disable buffer-list-update-hook to work around recursive invocations caused
+    ;; by the temp-buffer used by `format-spec' below, see
+    ;; https://github.com/syl20bnr/spacemacs/issues/12387
+    (let* ((buffer-list-update-hook nil)
+           (project-name (when (string-match-p "%t" title-format)
                            (if (boundp 'spacemacs--buffer-project-name)
                                spacemacs--buffer-project-name
                              (set (make-local-variable 'spacemacs--buffer-project-name)
