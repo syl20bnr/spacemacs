@@ -574,6 +574,8 @@ Other:
   - Added =pupo-split-active-window= variable to split the active window or the
     entire frame (thanks to tddsg)
   - New emacs banner: "100-banner.txt" (thanks to Robert Zaremba)
+  - Add Dogemacs inverted banner for dark themes: "997-banner.txt"
+    (thanks to Vitor Finotti and Robby O'Connor)
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
