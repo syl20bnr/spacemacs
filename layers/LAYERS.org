@@ -382,9 +382,9 @@ Features:
 This layer integrates a general purpose email/newsgroup client into Spacemacs.
 
 Features:
-- Support for reading RSS feeds, newsgroups and mails directly within emacs via [[http://www.gnus.org/][Gnus]].
+- Support for reading RSS feeds, newsgroups and mails directly within Emacs via [[http://www.gnus.org/][Gnus]].
 - Support for beautiful HTML mails generated from any =org= buffer.
-- Support for credential managment via [[https://gnupg.org/][GnuPG]].
+- Support for credential management via [[https://gnupg.org/][GnuPG]].
 
 ** Mu4e
 [[file:+email/mu4e/README.org][+email/mu4e/README.org]]
@@ -395,7 +395,7 @@ Features:
 - Search, read, reply, move, and delete email.
 - Search-based: no folders, only queries.
 - UI optimized for speed: quick keystrokes for common actions.
-- Very extendable and costumizable.
+- Very extendable and customizable.
 - Integration with Helm.
 - Maildir summary using [[https://github.com/agpchil/mu4e-maildirs-extension][mu4e-mailidrs-extension]]
 - Notifications using [[https://github.com/iqbalansari/mu4e-alert][mu4e-alert]]
@@ -406,7 +406,7 @@ Features:
 Notmuch offers a fast, global-search and tag-based email system to
 use within your text editor or in a terminal.
 
-This layer integrates notmuch emacs package into spacemacs.
+This layer integrates the Notmuch Emacs package into Spacemacs.
 
 Features:
 - Email searching
@@ -566,7 +566,7 @@ Features:
 ** Games
 [[file:+fun/games/README.org][+fun/games/README.org]]
 
-This layer allows you to play evilified games in spacemacs.
+This layer allows you to play evilified games in Spacemacs.
 
 Features:
 - 2048-game
@@ -584,7 +584,7 @@ still wish to enjoy the sound.
 
 Features:
 - Brings back fond memories about your first programming job where you started
-  with that big mechanical keyboard and the small monochrom display working on
+  with that big mechanical keyboard and the small monochrome display working on
   the latest IBM Iseries server.
 
 ** Xkcd
@@ -639,7 +639,7 @@ This layer configures some key bindings in Spacemacs, to make it compatible with
 keyboard layouts that differs from the traditional =en-us= =QWERTY= layout.
 
 Features:
-- Support alernative keyboard layouts within spacemacs
+- Support alternative keyboard layouts within Spacemacs
 - Remap navigation commands to the homerow of your chosen layout
 - Remap missing commands automatically to elsewhere in the layout
 
@@ -691,7 +691,7 @@ This layer provides an implementation of [[https://shaunlebron.github.io/parinfe
 controls indentation based on parentheses or vice versa.
 
 Features:
-- Automatic managment of parenthesis in clojure, emacs lisp, common-lisp and scheme following the parinfer editing paradigm.
+- Automatic management of parenthesis in clojure, emacs lisp, common-lisp and scheme following the parinfer editing paradigm.
 
 ** Spacemacs-completion
 [[file:+spacemacs/spacemacs-completion/README.org][+spacemacs/spacemacs-completion/README.org]]
@@ -791,21 +791,21 @@ Features:
 [[file:+spacemacs/spacemacs-evil/README.org][+spacemacs/spacemacs-evil/README.org]]
 
 This layer adds various adjustments to packages to create an evilified experience
-througout the entirety of Spacemacs.
+throughout the entirety of Spacemacs.
 
 Features:
 - Add evil tutorial with =evil-tutor=
-- Add relative line number with =linun-relative= (only in Emacs 25.x and older)
+- Add relative line number with =linum-relative= (only in Emacs 25.x and older)
 - Add escaping under ~fd~ by default with =evil-escape=
-- Add occurences count in mode-line when searching a buffer
+- Add occurrences count in mode-line when searching a buffer
 - Add support for lisp structure manipulation with =evil-lisp-state=
 - Add safe structural editing of lisp dialects with =evil-cleverparens=
 - Add =evil-exchange= to swap text
-- Add easy live editing of multiple occurences with =evil-iedit-state=
+- Add easy live editing of multiple occurrences with =evil-iedit-state=
 - Add new vim text objects for indentation with =evil-indent-plus=
 - Add operations to align text with =evil-lion=
 - Easy management of comments with =evil-nerd-commenter=
-- Nagivation between pairs with =evil-matchit=
+- Navigation between pairs with =evil-matchit=
 - Advanced navigation on brackets with =evil-unimpaired=
 - Easy increment and decrement of numbers with =evil-number=
 - Support for additional vim movements via =evil-args=
@@ -813,7 +813,7 @@ Features:
 - Evilification of various modes if the editing style is =vim= or =hybrid=
 - Improves the comment function to be able to also do the inverse operation
 - Persistent highlight of searched text with =evil-search-highlight-persist=
-- Display tidles in non-buffer area with =vi-tilde-fringe=
+- Display tildes in non-buffer area with =vi-tilde-fringe=
 
 ** Spacemacs-language
 [[file:+spacemacs/spacemacs-language/README.org][+spacemacs/spacemacs-language/README.org]]
@@ -822,7 +822,7 @@ This layer adds support various language related services to Spacemacs.
 
 Features:
 - Show definition of word at point via [[https://github.com/abo-abo/define-word][define-word]].
-- Integration of google-translate into emacs via [[https://github.com/atykhonov/google-translate][google-translate]].
+- Integration of google-translate into Emacs via [[https://github.com/atykhonov/google-translate][google-translate]].
 
 ** Spacemacs-layouts
 [[file:+spacemacs/spacemacs-layouts/README.org][+spacemacs/spacemacs-layouts/README.org]]
@@ -959,7 +959,7 @@ Features:
 ** Nixos
 [[file:+os/nixos/README.org][+os/nixos/README.org]]
 
-This layer adds tools for better integration of emacs in NixOS.
+This layer adds tools for better integration of Emacs in NixOS.
 
 Features:
 - Nix-mode using [[https://github.com/NixOS/nix-mode][nix-mode]]
@@ -1000,7 +1000,7 @@ Features:
 - Syntax highlighting
 - Syntax-checking
 - Auto-completion
-- Debugging of mathematical proofs from within emacs using a special proof layout
+- Debugging of mathematical proofs from within Emacs using a special proof layout
 - Replacement of certain constants with the correct mathematical signs
 - Inserting of certain preconfigured proof elements
 
@@ -1085,7 +1085,7 @@ This layer adds support for =GNU Octave= files to Spacemacs.
 Features:
 - Syntax highlighting for =.m= files via [[https://www.gnu.org/software/emacs/manual/html_mono/octave-mode.html][octave-mode]].
 - REPL support
-- Support for directly running =Octave= scripts from emacs.
+- Support for directly running =Octave= scripts from Emacs.
 - Integration with =Octaves= documentation search function.
 
 *** Prolog
@@ -1167,10 +1167,10 @@ Features:
 - Repl support via =IELM=
 - Support for specific lisp navigation styles via =emacs-lisp-mode=
 - Auto-compile via [[https://github.com/tarsius/auto-compile][auto-compile]] package
-- Debuggin via [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Edebug.html#Edebug][edebug]]
+- Debugging via [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Edebug.html#Edebug][edebug]]
 - Ert test runner with [[https://github.com/tonini/overseer.el][overseer]]
 - Nameless package prefix with optional [[https://github.com/Malabarba/Nameless][nameless]]
-- Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
+- Structurally safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 - Visual feedback when evaluation using [[https://github.com/hchbaw/eval-sexp-fu.el][eval-sexp-fu]]
 
 **** Scheme
@@ -1181,7 +1181,7 @@ This layer adds support for Scheme via [[http://geiser.nongnu.org][Geiser]]. Not
 Features:
 - Support the Scheme compiler [[https://www.call-cc.org/][Chicken]]
 - Support for the extension language platform [[https://www.gnu.org/software/guile/][Guile]]
-- Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
+- Structurally safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
 *** Markup & configuration
 **** Asciidoc
@@ -1862,7 +1862,9 @@ This layer adds support for the Python language.
 Features:
 - Support for the following backends:
   - [[https://github.com/proofit404/anaconda-mode][anaconda]] (default),
-  - [[https://github.com/emacs-lsp/lsp-python][Language Server Protocol]] (experimental),
+  - [[https://github.com/emacs-lsp/lsp-python][Language Server Protocol]] (experimental - 2 implementations),
+    - python-language-server
+    - Microsoft python language server
 - Auto-completion
 - Code Navigation
 - Documentation Lookup using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] and [[https://github.com/tsgates/pylookup][pylookup]]
@@ -1887,7 +1889,7 @@ Features:
 - Test runner
 - Interactive REPL
 - Code navigation with =gtags=
-- Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
+- Structurally safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
 **** Ruby
 [[file:+lang/ruby/README.org][+lang/ruby/README.org]]
@@ -1925,7 +1927,7 @@ Features:
 - Scala Repl
 - Style linting
 - Eldoc integration
-- Test execution directly from emacs
+- Test execution directly from Emacs
 - Automatic replacement of ASCII arrows with unicode ones
 - Automatic starting/stopping of [[https://ensime.github.io/][ENSIME]] IDE server
 
@@ -1936,7 +1938,7 @@ Adds support for the [[http://www.smlnj.org][SML]] programming language to Space
 
 Features:
 - Syntax highlighting
-- Integration of the =SML Repl= into emacs
+- Integration of the =SML Repl= into Emacs
 - Basic completion of SML forms via =sml-electric-space=
 
 **** Swift
@@ -2089,7 +2091,7 @@ Features:
 ** Dash
 [[file:+readers/dash/README.org][+readers/dash/README.org]]
 
-This layer integrates offline api browsers into emacs. It provides one for OS X, Linux and Windows.
+This layer integrates offline api browsers into Emacs. It provides one for OS X, Linux and Windows.
 
 Features:
 - Searching for word at point in offline api browser's UI.
@@ -2103,7 +2105,7 @@ Features:
 This layer adds a search driven note taking system into Spacemacs.
 
 Features:
-- Browsing and creating notes with a powerfull search function via [[http://jblevins.org/projects/deft/][Deft]].
+- Browsing and creating notes with a powerful search function via [[http://jblevins.org/projects/deft/][Deft]].
 - Integration of =org-mode= as note editor.
 - Configurable list of extensions to recognize as notes.
 
@@ -2194,10 +2196,10 @@ Features:
 ** Perforce
 [[file:+source-control/perforce/README.org][+source-control/perforce/README.org]]
 
-This layer integrates =Perforce= SCM system into spacemacs.
+This layer integrates =Perforce= SCM system into Spacemacs.
 
 Features:
-- Support for running [[https://www.perforce.com/][Perforce]] (p4) SCM commands directly from emacs.
+- Support for running [[https://www.perforce.com/][Perforce]] (p4) SCM commands directly from Emacs.
 
 ** Version-control
 [[file:+source-control/version-control/README.org][+source-control/version-control/README.org]]
@@ -2257,8 +2259,8 @@ Features:
 - Loads =hydra= which is used to create transient modes
 - Loads =which-key= which is used to show key bindings in other modes
 - Loads =async= which is used to run background processes
-- Loads =bind-map= and =bind-key= which are used to realise various
-  spacemacs specific key binding commands
+- Loads =bind-map= and =bind-key= which are used to realize various
+  Spacemacs specific key binding commands
 
 *** Spacemacs-docker distribution
 [[file:+distributions/spacemacs-docker/README.org][+distributions/spacemacs-docker/README.org]]
@@ -2325,7 +2327,7 @@ This layer colors your life by enhancing the existing coloration of identifiers 
 process indicator.
 
 Features:
-- Colorize all identifiers (christmas tree mode :-)) with mostly unique colors, and the ability to choose saturation and lightness
+- Colorize all identifiers (Christmas tree mode :-)) with mostly unique colors, and the ability to choose saturation and lightness
   with [[https://github.com/Fanael/rainbow-identifiers][rainbow-identifiers]].
 - Colorize only identifiers recognized as variables with [[https://github.com/ankurdave/color-identifiers-mode][color-identifiers]].
 - Colorize strings representing colors with the color they represent as background with
@@ -2434,7 +2436,7 @@ This layer adds a handy command demonstration mode to Spacemacs.
 
 Features:
 - Support for logging all entered keys and triggered commands in a designated buffer via [[https://github.com/lewang/command-log-mode][command-log-mode]].
-- Provides the best way to demonstrate the connection between keystrokes and commands in emacs.
+- Provides the best way to demonstrate the connection between keystrokes and commands in Emacs.
 - Provides an easy way to create command logs for training classes.
 
 ** Dap
@@ -2488,11 +2490,11 @@ Features:
 ** Fasd
 [[file:+tools/fasd/README.org][+tools/fasd/README.org]]
 
-This layer integrates the [[https://github.com/clvv/fasd][fasd]] command line tool into spacemacs.
+This layer integrates the [[https://github.com/clvv/fasd][fasd]] command line tool into Spacemacs.
 
 Features:
 - Adds easy shortcuts to reference recent files and directories.
-- Provides =fasd= with recent open file lists from emacs.
+- Provides =fasd= with recent open file lists from Emacs.
 - Allows to filter =fasd= results with =helm= or =ivy=.
 
 ** Finance
@@ -2502,8 +2504,8 @@ This layer integrates a full fledged accounting system into Spacemacs.
 
 Features:
 - Support for maintaining a double-entry accounting system run by text files via [[https://www.emacswiki.org/emacs/LedgerMode][ledger-mode]].
-- Display of finance reports directly within emacs.
-- Integration of emacs calculator mode for editing post amounts.
+- Display of finance reports directly within Emacs.
+- Integration of Emacs calculator mode for editing post amounts.
 - Support for easy account reconciliation via =Ledger-Reconcile=.
 - Extended support for ~evil~ style editing with [[https://github.com/atheriel/evil-ledger][evil-ledger]].
 
@@ -2567,7 +2569,7 @@ Features:
 [[file:+tools/nginx/README.org][+tools/nginx/README.org]]
 
 This layer adds support for configuring [[http://nginx.org][nginx]] a powerful alternative for
-the apache web server.
+the Apache web server.
 
 Features:
 - Syntax highlighting of nginx configuration files via [[https://github.com/ajc/nginx-mode][nginx-mode]].
@@ -2598,7 +2600,7 @@ Features:
 ** Pass
 [[file:+tools/pass/README.org][+tools/pass/README.org]]
 
-This layer adds intregration with [[http://www.passwordstore.org/][pass]], the unix password manager.
+This layer adds integration with [[http://www.passwordstore.org/][pass]], the unix password manager.
 You must have ~pass~ installed and available in your path for this layer to
 function properly.
 
@@ -2623,7 +2625,7 @@ It is recommended to put your prodigy services in the =dotspacemacs/user-config=
 part of your =~/.spacemacs= file.
 
 Features:
-- Managing of pre-declared services from within emacs
+- Managing of pre-declared services from within Emacs
 - Showing of process output in special buffers
 - Filtering of processes for tags or names
 
@@ -2636,7 +2638,7 @@ Features:
 - Syntax highlighting via [[https://github.com/voxpupuli/puppet-mode][puppet-mode]]
 - Syntax-checking via [[http://puppet-lint.com/][puppet-lint]]
 - Navigation commands to jump between blocks
-- Applying the content of the current manifest directly from emacs
+- Applying the content of the current manifest directly from Emacs
 
 ** Ranger
 [[file:+tools/ranger/README.org][+tools/ranger/README.org]]
@@ -2745,7 +2747,7 @@ Features:
 This layer adds basic =tmux= key bindings to Spacemacs.
 
 Features:
-- Calling of =tmux= navigation commands directly from emacs via [[https://github.com/keith/evil-tmux-navigator][evil-tmux-navigator]].
+- Calling of =tmux= navigation commands directly from Emacs via [[https://github.com/keith/evil-tmux-navigator][evil-tmux-navigator]].
 
 ** Transmission
 [[file:+tools/transmission/README.org][+tools/transmission/README.org]]
@@ -2753,7 +2755,7 @@ Features:
 This layer integrates a BitTorrent client into Spacemacs.
 
 Features:
-- Integration of [[https://transmissionbt.com/][Transmission]] into emacs.
+- Integration of [[https://transmissionbt.com/][Transmission]] into Emacs.
 
 ** Vagrant
 [[file:+tools/vagrant/README.org][+tools/vagrant/README.org]]
@@ -2832,7 +2834,7 @@ Features:
 ** Vinegar
 [[file:+vim/vinegar/README.org][+vim/vinegar/README.org]]
 
-This layer is a port of vim-vinegar for emacs.
+This layer is a port of vim-vinegar for Emacs.
 
 It is based on tpope's [[https://github.com/tpope/vim-vinegar][vinegar.vim]], simplifying =dired=
 with a limited number of details and exposing the ~-~ command in all
