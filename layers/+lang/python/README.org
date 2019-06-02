@@ -125,7 +125,6 @@ setting your =PYTHONPATH= as explained at
 [[https://github.com/proofit404/anaconda-mode#pythonpath]]
 
 ** Language Server Protocol
-
 The =lsp= backend can use either of the following language server implementations:
 
 | symbol  | description                              |
