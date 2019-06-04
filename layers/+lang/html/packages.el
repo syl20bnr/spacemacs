@@ -158,7 +158,7 @@
 
 (defun html/pre-init-prettier-js ()
   (when (eq web-fmt-tool 'prettier)
-    (dolist (mode '(css-mode less-css-mode scss-mode))
+    (dolist (mode '(css-mode less-css-mode scss-mode web-mode))
       (add-to-list 'spacemacs--prettier-modes mode))))
 
 (defun html/init-pug-mode ()
@@ -292,6 +292,5 @@
                                                       slim-mode)))
 (defun html/pre-init-web-beautify ()
   (when (eq web-fmt-tool 'web-beautify)
-    (add-to-list 'spacemacs--web-beautify-modes (cons 'css-mode 'web-beautify-css)))
-  ;; always use web-beautify for a .html file
-  (add-to-list 'spacemacs--web-beautify-modes (cons 'web-mode 'web-beautify-html)))
+    (add-to-list 'spacemacs--web-beautify-modes (cons 'css-mode 'web-beautify-css))
+    (add-to-list 'spacemacs--web-beautify-modes (cons 'web-mode 'web-beautify-html))))
