@@ -79,7 +79,7 @@ list of `("language" "mode")`:
 
 #+BEGIN_SRC emacs-lisp
   dotspacemacs-configuration-layers '(
-    (markdown :variables markdown-mmm-auto-modes '("c" "c++" "python" "scala" ("elisp" "emacs-lisp"))
+    (markdown :variables markdown-mmm-auto-modes '("c" "c++" "python" "scala" ("elisp" "emacs-lisp"))))
 #+END_SRC
 
 *Note:* Spacemacs already defines the variable =markdown-mmm-auto-modes= to a
