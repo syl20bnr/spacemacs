@@ -1738,11 +1738,14 @@ Other:
 - Fixed save of org table (thanks to Codruț Constantin Gușoi)
 - Fixed missing key bindings for =gfm-mode= (thanks to Codruț Constantin Gușoi)
 - Open Madoko document using markdown mode (thanks to Han Wang)
-- Key bindings (thanks to Swaroop C H):
-  - ~SPC m t i~ to toggle inline images
-  - ~SPC m t l~ to toggle url hiding
-  - ~SPC m t t~ to toggle checkbox
-  - ~SPC m t w~ to toggle wiki links
+- Key bindings:
+  - ~SPC m T i~ to toggle inline images
+  - ~SPC m T l~ to toggle url hiding
+  - ~SPC m T t~ to toggle checkbox
+  - ~SPC m T w~ to toggle wiki links
+    (thanks to Swaroop C H (added keys), AmaiKinono (moved to upper case T))
+  - ~SPC m T m~ for =markdown-toggle-markup-hiding=
+    (thanks to Miciah Masters (added key), AmaiKinono (moved to upper case T))
 - Update markdown insert link, function renamed (thanks to duianto)
 - Made all keybindings available in gfm-mode (thanks to Codruț Constantin Gușoi)
 - Remove org table lighter (thanks to Troy Hinckley)
@@ -1757,10 +1760,27 @@ Other:
   - Rename =markdown-exdent-region= to =markdown-outdent-region=.
   - Command for ~SPC m i I~ folded into ~SPC m i i~.
   - ~SPC m i l~ and ~SPC m i L~ replaced by markdown-insert-link ~SPC m i l~.
-  - Added ~SPC m t m~ for =markdown-toggle-markup-hiding=
   - Rename =markdown-jump= to =markdown-do=
 - Hide MMM mode-line indicator (thanks to duianto)
 - Use =orgtbl-mode= only when the =org= layer is used (thanks to Boris Buliga)
+- Added key bindings (thanks to AmaiKinono):
+  - Element insertion
+    - ~SPC m x B~ insert gfm checkbox
+    - ~SPC m x s~ make region striked through or insert strikethrough
+  - Table manipulation
+    - ~SPC m t p~ move row up
+    - ~SPC m t n~ move row down
+    - ~SPC m t f~ move column right
+    - ~SPC m t b~ move column left
+    - ~SPC m t r~ insert row
+    - ~SPC m t R~ delete row
+    - ~SPC m t c~ insert column
+    - ~SPC m t C~ delete column
+    - ~SPC m t s~ sort lines
+    - ~SPC m t t~ transpose table
+    - ~SPC m t d~ convert region to table
+- Bound major mode leader key and ~M-RET~ to =markdown-insert-list-item= for
+  terminal users (thanks to AmaiKinono)
 **** Major modes
 - Added SPARQL-mode (thanks to Dietrich Daroch)
 - Move =extra-langs= to =major-modes= (thanks to Eivind Fonn)

@@ -225,8 +225,8 @@ In order to use =orgtabl-mode=, add =org= layer to your =~/.spacemacs=.
 
 | Key binding | Description          |
 |-------------+----------------------|
-| ~SPC m t i~ | toggle inline images |
-| ~SPC m t l~ | toggle hidden urls   |
-| ~SPC m t m~ | toggle markup hiding |
-| ~SPC m t t~ | toggle checkbox      |
-| ~SPC m t w~ | toggle wiki links    |
+| ~SPC m T i~ | toggle inline images |
+| ~SPC m T l~ | toggle hidden urls   |
+| ~SPC m T m~ | toggle markup hiding |
+| ~SPC m T t~ | toggle checkbox      |
+| ~SPC m T w~ | toggle wiki links    |
