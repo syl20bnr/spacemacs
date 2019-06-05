@@ -56,8 +56,7 @@ To use =vmd= (Github-flavored live preview) instead set the value of the
 variable =markdown-live-preview-engine= to =vmd=:
 
 #+BEGIN_SRC emacs-lisp
-  dotspacemacs-configuration-layers '(
-    (markdown :variables markdown-live-preview-engine 'vmd))
+  (markdown :variables markdown-live-preview-engine 'vmd)
 #+END_SRC
 
 And install the executable with:
@@ -77,8 +76,7 @@ mode name directly relates to the language name, use a string. Otherwise, use a
 list of `("language" "mode")`:
 
 #+BEGIN_SRC emacs-lisp
-  dotspacemacs-configuration-layers '(
-    (markdown :variables markdown-mmm-auto-modes '("c" "c++" "python" "scala" ("elisp" "emacs-lisp"))
+  (markdown :variables markdown-mmm-auto-modes '("c" "c++" "python" "scala" ("elisp" "emacs-lisp")))
 #+END_SRC
 
 *Note:* Spacemacs already defines the variable =markdown-mmm-auto-modes= to a
