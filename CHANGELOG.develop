@@ -790,6 +790,10 @@ Other:
   - Added =link-hint-copy-link= to ~SPC x y~ (thanks to William Casarin)
   - Added =evil-unimpaired= navigation keys prefixed by ~[~ and ~]~ to the
     Spacemacs home buffer (thanks to Sorawee Porncharoenwase)
+  - Added key bindings for indirect buffer functions under ~SPC b c~:
+    - ~n~ calls =make-indirect-buffer=
+    - ~c~ calls =clone-indirect-buffer=
+    - ~w~ calls =clone-indirect-buffer-other-window=
 - Improvements:
   - Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
     ~SPC w 4~ (thanks to Codruț Constantin Gușoi):
