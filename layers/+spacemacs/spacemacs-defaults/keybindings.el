@@ -23,6 +23,7 @@
                                        ("a"   "applications")
                                        ("A"   "other applications")
                                        ("b"   "buffers")
+                                       ("bc"  "indirect buffers")
                                        ("bN"  "new empty buffer")
                                        ("c"   "compile/comments")
                                        ("C"   "capture/colors")
@@ -143,6 +144,9 @@
 ;; buffers --------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "TAB"   'spacemacs/alternate-buffer
+  "b c n" 'make-indirect-buffer
+  "b c c" 'clone-indirect-buffer
+  "b c w" 'clone-indirect-buffer-other-window-without-purpose
   "bd"    'spacemacs/kill-this-buffer
   "be"    'spacemacs/safe-erase-buffer
   "bh"    'spacemacs/home
