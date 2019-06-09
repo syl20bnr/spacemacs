@@ -20,6 +20,8 @@
 - [[#configuration][Configuration]]
   - [[#indentation][Indentation]]
   - [[#repl][REPL]]
+    - [[#browser-based-repl][Browser based REPL]]
+    - [[#server-based-repl][Server based REPL]]
   - [[#node][Node]]
     - [[#node-modules][Node Modules]]
     - [[#node-externs][Node Externs]]
@@ -29,9 +31,9 @@
   - [[#importing-import-js][Importing (import-js)]]
   - [[#refactoring-js2-refactor][Refactoring (js2-refactor)]]
     - [[#documentation-js-doc][Documentation (js-doc)]]
-  - [[#repl-skewer-mode][REPL (skewer-mode)]]
+  - [[#browser-based-repl-skewer-mode][Browser based REPL (skewer-mode)]]
+  - [[#server-based-repl-nodejs-repl][Server based REPL (nodejs-repl)]]
   - [[#debugger-dap-mode][debugger (dap mode)]]
-  - [[#nodejs-repl-nodejs-repl][NodeJS REPL (nodejs-repl)]]
 
 * Description
 This layer adds support for the JavaScript language using [[https://github.com/mooz/js2-mode][js2-mode]].
@@ -41,8 +43,8 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 - Smart code folding
 - Refactoring: done using [[https://github.com/magnars/js2-refactor.el][js2-refactor]].
 - Auto-completion and documentation
-- REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
-- NodeJS REPL with [[https://github.com/abicky/nodejs-repl.el][nodejs-repl]]
+- Browser based REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
+- Server based REPL with [[https://github.com/abicky/nodejs-repl.el][nodejs-repl]]
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 
 * Install
@@ -183,11 +185,27 @@ or when adding the =javascript= configuration layer:
 #+END_SRC
 
 ** REPL
-To use the available JS repl, you need a running httpd server and a page loaded
+*** Browser based REPL
+To use the browser based REPL set the =javascript-repl= variable as shown below:
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+    '((javascript :variables javascript-repl `skewer)))
+#+END_SRC
+
+In addition you need a running httpd server and a page loaded
 with skewer. If a blank page serves your needs, just use the run-skewer command
 in your javascript buffer. If you want to inject it in your own page, follow
 [[https://github.com/skeeto/skewer-mode#skewering-with-cors][these instructions]] (install the Greasemonkey script and then click the triangle
 in the top-right corner - if it turns green, you're good to go).
+
+*** Server based REPL
+To use the server based REPL set the =javascript-repl= variable as shown below:
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+    '((javascript :variables javascript-repl `nodejs)))
+#+END_SRC
+
+In addition install nodejs and make sure that =node= is in the path.
 
 ** Node
 *** Node Modules
@@ -284,7 +302,7 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m r d t~ | insert tag to comment                 |
 | ~SPC m r d h~ | show list of available jsdoc tags     |
 
-** REPL (skewer-mode)
+** Browser based REPL (skewer-mode)
 
 | Key binding | Description                                                      |
 |-------------+------------------------------------------------------------------|
@@ -301,6 +319,21 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m s i~ | starts/switch to the skewer REPL                                                   |
 | ~SPC m s r~ | send current region to the skewer REPL                                             |
 | ~SPC m s R~ | send current region to the skewer REPL and switch to it in insert state            |
+| ~SPC m s s~ | switch to REPL                                                                     |
+
+** Server based REPL (nodejs-repl)
+
+| Key binding | Description                                                        |
+|-------------+--------------------------------------------------------------------|
+| ~SPC m s i~ | Switch to NodeJS REPL if one has been started, otherwise start one |
+| ~SPC m s e~ | Send last expression to NodeJS REPL                                |
+| ~SPC m s E~ | Send last expression to NodeJS REPL and switch to REPL             |
+| ~SPC m s b~ | Send current buffer to NodeJS REPL                                 |
+| ~SPC m s B~ | Send current buffer to NodeJS REPL and switch to REPL              |
+| ~SPC m s l~ | Send current line to NodeJS REPL                                   |
+| ~SPC m s L~ | Send current line to NodeJS REPL and switch to REPL                |
+| ~SPC m s r~ | Send active region to NodeJS REPL                                  |
+| ~SPC m s R~ | Send active region to NodeJS REPL and switch to REPL               |
 | ~SPC m s s~ | switch to REPL                                                                     |
 
 ** debugger (dap mode)
@@ -349,17 +382,3 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m d w o~ | goto output buffer if present   |
 | ~SPC m d w s~ | list sessions                   |
 | ~SPC m d w b~ | list breakpoints                |
-
-** NodeJS REPL (nodejs-repl)
-
-| Key binding | Description                                                        |
-|-------------+--------------------------------------------------------------------|
-| ~SPC m s n i~ | Switch to NodeJS REPL if one has been started, otherwise start one |
-| ~SPC m s n e~ | Send last expression to NodeJS REPL                                |
-| ~SPC m s n E~ | Send last expression to NodeJS REPL and switch to REPL             |
-| ~SPC m s n b~ | Send current buffer to NodeJS REPL                                 |
-| ~SPC m s n B~ | Send current buffer to NodeJS REPL and switch to REPL              |
-| ~SPC m s n l~ | Send current line to NodeJS REPL                                   |
-| ~SPC m s n L~ | Send current line to NodeJS REPL and switch to REPL                |
-| ~SPC m s n r~ | Send active region to NodeJS REPL                                  |
-| ~SPC m s n R~ | Send active region to NodeJS REPL and switch to REPL               |

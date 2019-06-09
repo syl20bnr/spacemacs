@@ -88,8 +88,8 @@ If you want linting with eslint run:
 We need to use the project-local eslint installation in order to pick up plugins
 and presets installed locally.
 
-Ensure that the project directory =node_modules/.bin= is added to the buffer 
-local =exec_path= (see the Javascript layer [[file:~/.emacs.d/layers/+lang/javascript/README.org][README]] documentation for more 
+Ensure that the project directory =node_modules/.bin= is added to the buffer
+local =exec_path= (see the Javascript layer [[file:../../+lang/javascript/README.org][README]] documentation for more
 details).
 
 If you want to use typescript-formatter for formatting run:

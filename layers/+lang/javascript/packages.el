@@ -25,17 +25,17 @@
         js2-mode
         js2-refactor
         livid-mode
+        nodejs-repl
         org
         prettier-js
         skewer-mode
         tern
         web-beautify
-        nodejs-repl
         ))
 
 (defun javascript/post-init-add-node-modules-path ()
   (spacemacs/add-to-hooks #'add-node-modules-path '(css-mode-hook
-                                             js2-mode-hook)))
+                                                    js2-mode-hook)))
 
 (defun javascript/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'js2-mode))
@@ -158,16 +158,17 @@
         "xmk" 'js2r-move-line-up))))
 
 (defun javascript/init-livid-mode ()
-  (use-package livid-mode
-    :defer t
-    :init
-    (progn
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mT" "toggle")
-      (spacemacs|add-toggle javascript-repl-live-evaluation
-        :mode livid-mode
-        :documentation "Live evaluation of JS buffer change."
-        :evil-leader-for-mode (js2-mode . "Tl"))
-      (spacemacs|diminish livid-mode " 🅻" " [l]"))))
+  (when (eq javascript-repl 'skewer)
+    (use-package livid-mode
+      :defer t
+      :init
+      (progn
+        (spacemacs/declare-prefix-for-mode 'js2-mode "mT" "toggle")
+        (spacemacs|add-toggle javascript-repl-live-evaluation
+          :mode livid-mode
+          :documentation "Live evaluation of JS buffer change."
+          :evil-leader-for-mode (js2-mode . "Tl"))
+        (spacemacs|diminish livid-mode " 🅻" " [l]")))))
 
 (defun javascript/pre-init-prettier-js ()
   (when (eq javascript-fmt-tool 'prettier)
@@ -178,74 +179,82 @@
     (add-to-list 'spacemacs--import-js-modes (cons 'js2-mode 'js2-mode-hook))))
 
 (defun javascript/init-skewer-mode ()
-  (use-package skewer-mode
-    :defer t
-    :init
-    (progn
-      (spacemacs/register-repl 'skewer-mode
-                               'spacemacs/skewer-start-repl
-                               "skewer")
-      (add-hook 'js2-mode-hook 'skewer-mode))
-    :config
-    (progn
-      (spacemacs|hide-lighter skewer-mode)
-      (spacemacs/declare-prefix-for-mode 'js2-mode "ms" "skewer")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "me" "eval")
-      (spacemacs/set-leader-keys-for-major-mode 'js2-mode
-        "'" 'spacemacs/skewer-start-repl
-        "ee" 'skewer-eval-last-expression
-        "eE" 'skewer-eval-print-last-expression
-        "sb" 'skewer-load-buffer
-        "sB" 'spacemacs/skewer-load-buffer-and-focus
-        "si" 'spacemacs/skewer-start-repl
-        "sf" 'skewer-eval-defun
-        "sF" 'spacemacs/skewer-eval-defun-and-focus
-        "sr" 'spacemacs/skewer-eval-region
-        "sR" 'spacemacs/skewer-eval-region-and-focus
-        "ss" 'skewer-repl))))
+  (when (eq javascript-repl 'skewer)
+    (use-package skewer-mode
+      :defer t
+      :init
+      (progn
+        (spacemacs/register-repl 'skewer-mode
+                                 'spacemacs/skewer-start-repl
+                                 "skewer")
+        (add-hook 'js2-mode-hook 'skewer-mode))
+      :config
+      (progn
+        (spacemacs|hide-lighter skewer-mode)
+        (spacemacs/declare-prefix-for-mode 'js2-mode "ms" "skewer")
+        (spacemacs/declare-prefix-for-mode 'js2-mode "me" "eval")
+        (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+          "'" 'spacemacs/skewer-start-repl
+          "ee" 'skewer-eval-last-expression
+          "eE" 'skewer-eval-print-last-expression
+          "sb" 'skewer-load-buffer
+          "sB" 'spacemacs/skewer-load-buffer-and-focus
+          "si" 'spacemacs/skewer-start-repl
+          "sf" 'skewer-eval-defun
+          "sF" 'spacemacs/skewer-eval-defun-and-focus
+          "sr" 'spacemacs/skewer-eval-region
+          "sR" 'spacemacs/skewer-eval-region-and-focus
+          "ss" 'skewer-repl)))))
 
 (defun javascript/init-nodejs-repl ()
-  (use-package nodejs-repl
-    :defer nil
-    :init
-    (spacemacs/register-repl 'nodejs-repl
-                              'nodejs-repl
-                              "nodejs-repl")
-    :config
-    (progn
-      (spacemacs/declare-prefix-for-mode 'js2-mode "msn" "nodejs-repl")
-      (spacemacs/set-leader-keys-for-major-mode 'js2-mode
-        "sni" 'nodejs-repl-switch-to-repl
-        "sne" 'nodejs-repl-send-last-expression
-        "snE" (lambda ()
-               (nodejs-repl-send-last-expression)
-               (nodejs-repl-switch-to-repl))
-        "snb" 'nodejs-repl-send-buffer
-        "snB" (lambda ()
-               (nodejs-repl-send-buffer)
-               (nodejs-repl-switch-to-repl))
-        "snl" 'nodejs-repl-send-line
-        "snL" (lambda ()
-               (nodejs-repl-send-line)
-               (nodejs-repl-switch-to-repl))
-        "snr" 'nodejs-repl-send-region
-        "snR" (lambda ()
-               (nodejs-repl-send-region)
-               (nodejs-repl-switch-to-repl)))
-      (spacemacs/declare-prefix-for-mode 'js2-mode
-        "msnE" "nodejs-send-last-expression-and-focus")
-      (spacemacs/declare-prefix-for-mode 'js2-mode
-        "msnB" "nodejs-send-buffer-and-focus")
-      (spacemacs/declare-prefix-for-mode 'js2-mode
-        "msnL" "nodejs-send-line-and-focus")
-      (spacemacs/declare-prefix-for-mode 'js2-mode
-        "msnR" "nodejs-send-region-and-focus")
-      )))
+  (when (eq javascript-repl 'nodejs)
+    (use-package nodejs-repl
+      :defer nil
+      :init
+      (spacemacs/register-repl 'nodejs-repl
+                               'nodejs-repl
+                               "nodejs-repl")
+      :config
+      (progn
+        (spacemacs/declare-prefix-for-mode 'js2-mode "ms" "nodejs-repl")
+        (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+          "'" 'nodejs-repl
+          "ss" 'nodejs-repl
+          "si" 'nodejs-repl-switch-to-repl
+          "se" 'nodejs-repl-send-last-expression
+          "sE" (lambda ()
+                 (interactive)
+                 (nodejs-repl-send-last-expression)
+                 (nodejs-repl-switch-to-repl))
+          "sb" 'nodejs-repl-send-buffer
+          "sB" (lambda ()
+                 (interactive)
+                 (nodejs-repl-send-buffer)
+                 (nodejs-repl-switch-to-repl))
+          "sl" 'nodejs-repl-send-line
+          "sL" (lambda ()
+                 (interactive)
+                 (nodejs-repl-send-line)
+                 (nodejs-repl-switch-to-repl))
+          "sr" 'nodejs-repl-send-region
+          "sR" (lambda (start end)
+                 (interactive "r")
+                 (nodejs-repl-send-region start end)
+                 (nodejs-repl-switch-to-repl)))
+        (spacemacs/declare-prefix-for-mode 'js2-mode
+          "msE" "nodejs-send-last-expression-and-focus")
+        (spacemacs/declare-prefix-for-mode 'js2-mode
+          "msB" "nodejs-send-buffer-and-focus")
+        (spacemacs/declare-prefix-for-mode 'js2-mode
+          "msL" "nodejs-send-line-and-focus")
+        (spacemacs/declare-prefix-for-mode 'js2-mode
+          "msR" "nodejs-send-region-and-focus")
+        ))))
 
 (defun javascript/post-init-tern ()
   (add-to-list 'tern--key-bindings-modes 'js2-mode))
 
 (defun javascript/pre-init-web-beautify ()
   (when (eq javascript-fmt-tool 'web-beautify)
-      (add-to-list 'spacemacs--web-beautify-modes
-                   (cons 'js2-mode 'web-beautify-js))))
+    (add-to-list 'spacemacs--web-beautify-modes
+                 (cons 'js2-mode 'web-beautify-js))))

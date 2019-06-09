@@ -24,3 +24,6 @@
 
 (defvar javascript-fmt-on-save nil
   "Run formatter on buffer save.")
+
+(defvar javascript-repl 'skewer
+  "Repl to be configured by the layer, `skewer' for browser based javascript, `nodejs' for server based development.")
