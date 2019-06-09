@@ -138,7 +138,7 @@ In order to use =orgtabl-mode=, add =org= layer to your =~/.spacemacs=.
 
 ** Table manipulation
 
-| Key Binding | Description             |
+| Key binding | Description             |
 |-------------+-------------------------|
 | ~SPC m t p~ | move row up             |
 | ~SPC m t n~ | move row down           |
