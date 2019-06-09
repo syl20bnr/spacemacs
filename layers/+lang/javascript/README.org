@@ -187,6 +187,7 @@ or when adding the =javascript= configuration layer:
 ** REPL
 *** Browser based REPL
 To use the browser based REPL set the =javascript-repl= variable as shown below:
+
 #+BEGIN_SRC elisp
   (setq-default dotspacemacs-configuration-layers
     '((javascript :variables javascript-repl `skewer)))
@@ -200,6 +201,7 @@ in the top-right corner - if it turns green, you're good to go).
 
 *** Server based REPL
 To use the server based REPL set the =javascript-repl= variable as shown below:
+
 #+BEGIN_SRC elisp
   (setq-default dotspacemacs-configuration-layers
     '((javascript :variables javascript-repl `nodejs)))
@@ -334,7 +336,7 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m s L~ | Send current line to NodeJS REPL and switch to REPL                |
 | ~SPC m s r~ | Send active region to NodeJS REPL                                  |
 | ~SPC m s R~ | Send active region to NodeJS REPL and switch to REPL               |
-| ~SPC m s s~ | switch to REPL                                                                     |
+| ~SPC m s s~ | switch to REPL                                                     |
 
 ** debugger (dap mode)
 
