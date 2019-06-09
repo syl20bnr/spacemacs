@@ -886,6 +886,7 @@ Other:
     - ~f~ for toggle fullscreen
     (thanks to Ag Ibragimov)
   - Updated Scrolling Transient State (thanks to duianto)
+  - Removed new layout confirmation question (thanks to duianto)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)

@@ -164,13 +164,10 @@ ask the user if a new layout should be created."
       (let ((persp-reset-windows-on-nil-window-conf t)
             (generated-name (and dotspacemacs-auto-generate-layout-names
                                  (spacemacs//generate-layout-name pos))))
-        (cond
-         (generated-name
-          (persp-switch generated-name))
-         ((y-or-n-p (concat "Layout in this position doesn't exist. "
-                            "Do you want to create one? "))
-          (persp-switch nil)
-          (spacemacs/home-delete-other-windows)))))))
+        (if generated-name
+            (persp-switch generated-name) ; select an existing layout
+          (persp-switch nil)              ; create a new layout
+          (spacemacs/home-delete-other-windows))))))
 
 ;; Define all `spacemacs/persp-switch-to-X' functions
 (dolist (i (number-sequence 9 0 -1))
