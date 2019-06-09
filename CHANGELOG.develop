@@ -44,10 +44,11 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   list of themes now supports =:location= keyword like in package lists. More
   information in the =Themes= section of the documentation.
 - Added environment-variable caching. At startup, if the cache does not exist,
-  Spacemacs loads environment variables using =exec-path-from-shell= and writes
-  the cache to be used on next startup. Please read carefully the new
-  documentation section =Environment variables and PATH= in =DOCUMENTATION.org=
-  (thanks to Sylvain Benner, Codruț Constantin Gușoi, and Paolo G. Giarrusso)
+  Spacemacs loads environment variables and writes the cache to be used on next
+  startup. Please read carefully the new documentation section =Environment
+  variables and PATH= in =DOCUMENTATION.org= (thanks to Sylvain Benner,
+  Codruț Constantin Gușoi, fiveNinePlusR, Paolo G. Giarrusso,
+  and Miciah Dashiel Butler Masters)
 - Improved support of custom settings file. All custom settings are now
   encapsulated in a function called =dotspacemacs/emacs-custom-settings= in the
   dotfile if the user does not specify a custom location for the custom settings
@@ -383,9 +384,6 @@ sane way, here is the complete list of changed key bindings
     string for a frame title bar, see docstring of function
     =spacemacs/frame-title-prepare= for more info (thanks to Uri Sharf and Kepi)
   - New variable =dotspacemacs-gc-cons= (thanks to Sylvain Benner)
-  - New variables =dotspacemacs-import-env-vars-from-shell= and
-    =dotspacemacs-import-env-vars-shell-file-name= to asynchronously import
-    environment variables (thanks to Sylvain Benner)
   - New variable =dotspacemacs-initial-scratch-message= for the initial message
     in the scratch buffer (thanks to Carl Lange)
   - New variable =dotspacemacs-mode-line-themes= adds support for mode-line
@@ -485,8 +483,6 @@ Other:
   - Added =spacemacs|add-transient-hook= macro to add hooks that vanish the
     first time they are executed (thanks to Sylvain Benner)
   - Added =doom-emacs= mode-line theme (thanks to Sylvain Benner)
-  - Synchronize environment variables from the default shell
-    (thanks to fiveNinePlusR)
   - Optimized =spacemacs/title-prepare= (thanks to Andriy Kmit')
   - Cached expensive computations in =spacemacs/title-prepare=
     (thanks to Dieter Komendera)
