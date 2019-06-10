@@ -107,6 +107,7 @@
     - [[#leader-key][Leader key]]
     - [[#major-mode-leader-key][Major Mode leader key]]
     - [[#additional-text-objects][Additional text objects]]
+  - [[#key-chords][Key chords]]
   - [[#reserved-prefix-command-for-user][Reserved prefix command for user]]
   - [[#completion][Completion]]
   - [[#discovering][Discovering]]
@@ -1872,6 +1873,26 @@ Additional text objects are defined in Spacemacs:
 | ~8~     | text between =/*= and =*/= |
 | ~%~     | text between =%=           |
 | ~\vert~ | text between =\vert=       |
+
+** Key chords
+
+To bind a command to a [[ https://www.emacswiki.org/emacs/KeyChord][key chord]] (a sequence of keys pressed quickly), use the =:chords=
+keyword in the =use-package= definition. For example, to add key chords for [[https://github.com/winterTTr/ace-jump-mode/tree/8351e2df4fbbeb2a4003f2fb39f46d33803f3dac][Ace Jump]], you might have:
+
+#+begin_src emacs-lisp
+(use-package ace-jump-mode
+  :chords (("jj" . ace-jump-char-mode)
+           ("jk" . ace-jump-word-mode)
+           ("jl" . ace-jump-line-mode)))
+#+end_src
+
+Be sure to also include and enable the key chord package itself:
+
+#+begin_src emacs-lisp
+(use-package key-chord
+  :config
+  (key-chord-mode 1))
+#+end_src
 
 ** Reserved prefix command for user
 ~SPC o~ and ~SPC m o~ are reserved for the user. Setting key bindings behind
