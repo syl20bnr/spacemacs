@@ -878,6 +878,7 @@ Other:
     - ~m~ for toggle maximize
     - ~f~ for toggle fullscreen
     (thanks to Ag Ibragimov)
+  - Added support for =use-package-chords= (thanks to Dan Girshovich)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)
