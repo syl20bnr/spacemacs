@@ -13,27 +13,32 @@
   "Pretty symbols for Clojure's anonymous functions and sets,
    like (λ [a] (+ a 5)), ƒ(+ % 5), and ∈{2 4 6}."
   (font-lock-add-keywords mode
-    `(("(\\(fn\\)[\[[:space:]]"
+    `(("(\\(fn\\)[[[:space:]]"
        (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "λ"))))
-      ("(\\(partial\\)[\[[:space:]]"
+                                 (match-end 1) "λ")
+                 nil)))
+      ("(\\(partial\\)[[[:space:]]"
        (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "Ƥ"))))
-      ("(\\(comp\\)[\[[:space:]]"
+                                 (match-end 1) "Ƥ")
+                 nil)))
+      ("(\\(comp\\)[[[:space:]]"
        (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "∘"))))
+                                 (match-end 1) "∘")
+                 nil)))
       ("\\(#\\)("
        (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "ƒ"))))
+                                 (match-end 1) "ƒ")
+                 nil)))
       ("\\(#\\){"
        (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "∈")))))))
+                                 (match-end 1) "∈")
+                 nil))))))
 
 (defun spacemacs//cider-eval-in-repl-no-focus (form)
   "Insert FORM in the REPL buffer and eval it."
   (while (string-match "\\`[ \t\n\r]+\\|[ \t\n\r]+\\'" form)
     (setq form (replace-match "" t t form)))
-  (with-current-buffer (cider-current-repl-buffer)
+  (with-current-buffer (cider-current-connection)
     (let ((pt-max (point-max)))
       (goto-char pt-max)
       (insert form)
@@ -108,29 +113,26 @@ the focus."
   (cider-load-buffer)
   (cider-test-run-test))
 
-(defalias 'spacemacs/cider-test-run-all-tests #'spacemacs/cider-test-run-ns-tests
-  "ns tests are not actually *all* tests;
-        cider-test-run-project-tests would be better here, but
-        there currently is a bug with the function. Replace once
-        it gets fixed.")
+(defalias 'spacemacs/cider-test-run-all-tests #'spacemacs/cider-test-run-project-tests
+  "Runs all tests in all project namespaces.")
 
 (defun spacemacs/cider-test-run-ns-tests ()
   "Run namespace test."
   (interactive)
   (cider-load-buffer)
-  (cider-test-run-ns-tests nil))
+  (call-interactively #'cider-test-run-ns-tests))
 
 (defun spacemacs/cider-test-run-loaded-tests ()
   "Run loaded tests."
   (interactive)
   (cider-load-buffer)
-  (cider-test-run-loaded-tests))
+  (call-interactively #'cider-test-run-loaded-tests))
 
 (defun spacemacs/cider-test-run-project-tests ()
   "Run project tests."
   (interactive)
   (cider-load-buffer)
-  (cider-test-run-project-tests))
+  (call-interactively #'cider-test-run-project-tests))
 
 (defun spacemacs/cider-test-rerun-failed-tests ()
   "Rerun failed tests."
@@ -171,11 +173,37 @@ If called with a prefix argument, uses the other-window instead."
     (evil-make-overriding-map cider--debug-mode-map 'normal)
     (evil-normalize-keymaps)))
 
-(defun spacemacs/clj-find-var ()
-  "Attempts to jump-to-definition of the symbol-at-point. If CIDER fails, or not available, falls back to dumb-jump"
+(defun spacemacs/clj-find-var (sym-name &optional arg)
+  "Attempts to jump-to-definition of the symbol-at-point.
+
+If CIDER fails, or not available, falls back to dumb-jump."
+  (interactive (list (cider-symbol-at-point)))
+  (if (and (cider-connected-p) (cider-var-info sym-name))
+      (unless (eq 'symbol (type-of (cider-find-var nil sym-name)))
+        (dumb-jump-go))
+    (dumb-jump-go)))
+
+(defun spacemacs/clj-describe-missing-refactorings ()
+  "Inform the user to add clj-refactor to configuration"
   (interactive)
-  (let ((var (cider-symbol-at-point)))
-    (if (and (cider-connected-p) (cider-var-info var))
-        (unless (eq 'symbol (type-of (cider-find-var nil var)))
-          (dumb-jump-go))
-      (dumb-jump-go))))
+  (with-help-window (help-buffer)
+    (princ "The package clj-refactor is disabled by default.
+To enable it, add the following variable to the clojure layer
+in your Spacemacs configuration:
+
+  dotspacemacs-configuration-layers
+  '(...
+    (clojure :variables
+             clojure-enable-clj-refactor t)
+    ) ")))
+
+(defmacro spacemacs|forall-clojure-modes (m &rest body)
+  "Executes BODY with M bound to all clojure derived modes."
+  (declare (indent 1))
+  `(dolist (,m '(clojure-mode
+                 clojurec-mode
+                 clojurescript-mode
+                 clojurex-mode
+                 cider-repl-mode
+                 cider-clojure-interaction-mode))
+     ,@body))

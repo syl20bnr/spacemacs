@@ -1,6 +1,6 @@
 ;;; spacemacs-common.el --- Color theme with a dark and light versions.
 
-;; Copyright (C) 2015-2016 Nasser Alshammari
+;; Copyright (C) 2015-2018 Nasser Alshammari
 
 ;; Author: Nasser Alshammari
 ;; URL: <https://github.com/nashamri/spacemacs-theme>
@@ -51,6 +51,11 @@
   :type 'boolean
   :group 'spacemacs-theme)
 
+(defcustom spacemacs-theme-keyword-italic nil
+  "Enable italics for keywords."
+  :type 'boolean
+  :group 'spacemacs-theme)
+
 (defcustom spacemacs-theme-org-agenda-height nil
   "If non-nil, use varying text heights for agenda items.
 
@@ -65,6 +70,16 @@ to 'auto, tags may not be properly aligned. "
   :type 'boolean
   :group 'spacemacs-theme)
 
+(defcustom spacemacs-theme-org-bold t
+  "Inherit text bold for org headings"
+  :type 'boolean
+  :group 'spacemacs-theme)
+
+(defcustom spacemacs-theme-org-priority-bold t
+  "Inherit text bold for priority items in agenda view"
+  :type 'boolean
+  :group 'spacemacs-theme)
+
 (defcustom spacemacs-theme-org-highlight nil
   "Highlight org headings."
   :type 'boolean
@@ -73,6 +88,11 @@ to 'auto, tags may not be properly aligned. "
 (defcustom spacemacs-theme-custom-colors nil
   "Specify a list of custom colors."
   :type 'alist
+  :group 'spacemacs-theme)
+
+(defcustom spacemacs-theme-underline-parens t
+  "If non-nil, underline matching parens when using `show-paren-mode' or similar."
+  :type 'boolean
   :group 'spacemacs-theme)
 
 (defun true-color-p ()
@@ -144,6 +164,7 @@ to 'auto, tags may not be properly aligned. "
         (red-bg-s      (if (eq variant 'dark) (if (true-color-p) "#512e31" "#262626") (if (true-color-p) "#eed9d2" "#ffffff")))
         (blue          (if (eq variant 'dark) (if (true-color-p) "#4f97d7" "#268bd2") (if (true-color-p) "#3a81c3" "#268bd2")))
         (blue-bg       (if (eq variant 'dark) (if (true-color-p) "#293239" "#262626") (if (true-color-p) "#edf1ed" "#d7d7ff")))
+        (blue-bg-s     (if (eq variant 'dark) (if (true-color-p) "#2d4252" "#262626") (if (true-color-p) "#d1dcdf" "#d7d7ff")))
         (magenta       (if (eq variant 'dark) (if (true-color-p) "#a31db1" "#af00df") (if (true-color-p) "#a31db1" "#800080")))
         (yellow        (if (eq variant 'dark) (if (true-color-p) "#b1951d" "#875f00") (if (true-color-p) "#b1951d" "#875f00")))
         (yellow-bg     (if (eq variant 'dark) (if (true-color-p) "#32322c" "#262626") (if (true-color-p) "#f6f1e1" "#ffffff")))
@@ -167,7 +188,7 @@ to 'auto, tags may not be properly aligned. "
      `(font-lock-constant-face ((,class (:foreground ,const))))
      `(font-lock-doc-face ((,class (:foreground ,meta))))
      `(font-lock-function-name-face ((,class (:foreground ,func :inherit bold))))
-     `(font-lock-keyword-face ((,class (:inherit bold :foreground ,keyword))))
+     `(font-lock-keyword-face ((,class (:inherit bold :foreground ,keyword :slant ,(if spacemacs-theme-keyword-italic 'italic 'normal)))))
      `(font-lock-negation-char-face ((,class (:foreground ,const))))
      `(font-lock-preprocessor-face ((,class (:foreground ,func))))
      `(font-lock-reference-face ((,class (:foreground ,const))))
@@ -208,10 +229,10 @@ to 'auto, tags may not be properly aligned. "
      `(ac-completion-face ((,class (:background ,ttip-bg :foreground ,ttip))))
 
 ;;;;; avy
-     `(avy-lead-face   ((,class (:background ,blue-bg :foreground ,magenta))))
-     `(avy-lead-face-0 ((,class (:background ,blue-bg :foreground ,blue))))
-     `(avy-lead-face-1 ((,class (:background ,blue-bg :foreground ,magenta))))
-     `(avy-lead-face-2 ((,class (:background ,blue-bg :foreground ,blue))))
+     `(avy-lead-face   ((,class (:background ,green-bg :foreground ,green))))
+     `(avy-lead-face-0 ((,class (:background ,green-bg :foreground ,yellow))))
+     `(avy-lead-face-1 ((,class (:background ,green-bg :foreground ,magenta))))
+     `(avy-lead-face-2 ((,class (:background ,green-bg :foreground ,blue))))
 
 ;;;;; calfw
      `(cfw:face-title               ((,class (:foreground ,head1 :height 2.0 :weight bold :inherit variable-pitch))))
@@ -261,21 +282,21 @@ to 'auto, tags may not be properly aligned. "
 
 ;;;;; diff
      `(diff-added             ((,class :background nil :foreground ,green)))
-     `(diff-changed           ((,class :background nil :foreground ,keyword)))
+     `(diff-changed           ((,class :background nil :foreground ,blue)))
      `(diff-header            ((,class :background ,cblk-ln-bg :foreground ,func)))
      `(diff-file-header       ((,class :background ,cblk-ln-bg :foreground ,cblk)))
      `(diff-indicator-added   ((,class :background nil :foreground ,green)))
-     `(diff-indicator-changed ((,class :background nil :foreground ,keyword)))
+     `(diff-indicator-changed ((,class :background nil :foreground ,blue)))
      `(diff-indicator-removed ((,class :background nil :foreground ,red)))
-     `(diff-refine-added      ((,class :background ,green :foreground ,bg4)))
-     `(diff-refine-changed    ((,class :background ,keyword :foreground ,bg4)))
-     `(diff-refine-removed    ((,class :background ,red :foreground ,bg4)))
+     `(diff-refine-added      ((,class :background ,green :foreground ,bg1)))
+     `(diff-refine-changed    ((,class :background ,blue :foreground ,bg1)))
+     `(diff-refine-removed    ((,class :background ,red :foreground ,bg1)))
      `(diff-removed           ((,class :background nil :foreground ,red)))
 
 ;;;;; diff-hl
-     `(diff-hl-change ((,class :background ,blue-bg :foreground ,blue)))
-     `(diff-hl-delete ((,class :background ,red-bg :foreground ,red)))
-     `(diff-hl-insert ((,class :background ,green-bg :foreground ,green)))
+     `(diff-hl-change ((,class :background ,blue-bg-s :foreground ,blue)))
+     `(diff-hl-delete ((,class :background ,red-bg-s :foreground ,red)))
+     `(diff-hl-insert ((,class :background ,green-bg-s :foreground ,green)))
 
 ;;;;; dired
      `(dired-directory ((,class (:foreground ,keyword :background ,bg1 :inherit bold))))
@@ -289,18 +310,18 @@ to 'auto, tags may not be properly aligned. "
      `(dired-warning ((,class (:foreground ,war))))
 
 ;;;;; ediff
-     `(ediff-current-diff-A ((,class(:background ,red-bg-s :foreground ,red))))
+     `(ediff-current-diff-A ((,class(:background ,red-bg :foreground ,red))))
      `(ediff-current-diff-Ancestor ((,class(:background ,aqua-bg :foreground ,aqua))))
-     `(ediff-current-diff-B ((,class(:background ,green-bg-s :foreground ,green))))
+     `(ediff-current-diff-B ((,class(:background ,green-bg :foreground ,green))))
      `(ediff-current-diff-C ((,class(:background ,blue-bg :foreground ,blue))))
      `(ediff-even-diff-A ((,class(:background ,bg3))))
      `(ediff-even-diff-Ancestor ((,class(:background ,bg3))))
      `(ediff-even-diff-B ((,class(:background ,bg3))))
      `(ediff-even-diff-C ((,class(:background ,bg3))))
-     `(ediff-fine-diff-A ((,class(:background nil :inherit bold))))
+     `(ediff-fine-diff-A ((,class(:background ,red :foreground ,bg1))))
      `(ediff-fine-diff-Ancestor ((,class(:background nil :inherit bold))))
-     `(ediff-fine-diff-B ((,class(:background nil :inherit bold))))
-     `(ediff-fine-diff-C ((,class(:background nil :inherit bold))))
+     `(ediff-fine-diff-B ((,class(:background ,green :foreground ,bg1))))
+     `(ediff-fine-diff-C ((,class(:background ,blue :foreground ,bg1))))
      `(ediff-odd-diff-A ((,class(:background ,bg4))))
      `(ediff-odd-diff-Ancestor ((,class(:background ,bg4))))
      `(ediff-odd-diff-B ((,class(:background ,bg4))))
@@ -320,7 +341,7 @@ to 'auto, tags may not be properly aligned. "
      `(elfeed-search-date-face ((,class (:foreground ,head2))))
      `(elfeed-search-feed-face ((,class (:foreground ,blue))))
      `(elfeed-search-tag-face ((,class (:foreground ,func))))
-     `(elfeed-search-title-face ((,class (:foreground ,base-dim))))
+     `(elfeed-search-title-face ((,class (:foreground ,var))))
      `(elfeed-search-unread-title-face ((,class (:foreground ,base))))
 
 ;;;;; enh-ruby
@@ -349,9 +370,44 @@ to 'auto, tags may not be properly aligned. "
      `(eshell-ls-unreadable ((,class (:foreground ,base))))
      `(eshell-prompt ((,class (:foreground ,keyword :inherit bold))))
 
+;;;;; ESS
+     `(ess-assignment-face ((,class (:foreground ,type :inherit bold))))
+     `(ess-backquoted-face ((,class (:foreground ,var))))
+     `(ess-constant-face ((,class (:inherit font-lock-constant-face))))
+     `(ess-f-t-face ((,class (:inherit font-lock-constant-face))))
+     `(ess-function-call-face ((,class (:foreground ,func))))
+     `(ess-keyword-face ((,class (:inherit font-lock-keyword-face))))
+     `(ess-matrix-face ((,class (:foreground ,base-dim))))
+     `(ess-modifiers-face ((,class (:foreground ,keyword))))
+     `(ess-numbers-face ((,class (:inherit font-lock-constant-face))))
+     `(ess-operator-face ((,class (:foreground ,var))))
+     `(ess-paren-face ((,class (:foreground ,blue))))
+     `(ess-r-control-flow-keyword-face ((,class (:foreground ,keyword))))
+     `(ess-r-signal-keyword-face ((,class (:foreground ,war))))
+
 ;;;;; evil
      `(evil-ex-substitute-matches ((,class (:background ,red-bg :foreground ,red))))
      `(evil-ex-substitute-replacement ((,class (:background ,green-bg :foreground ,green))))
+
+;;;;; evil-goggles
+      `(evil-goggles--pulse-face ((,class (:background ,yellow-bg :foreground ,yellow))))
+      `(evil-goggles-change-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+      `(evil-goggles-commentary-face ((,class (:background ,aqua-bg :foreground ,aqua))))
+      `(evil-goggles-delete-face ((,class (:background ,red-bg-s :foreground ,red))))
+      `(evil-goggles-fill-and-move-face ((,class (:background ,green-bg-s :foreground ,green))))
+      `(evil-goggles-indent-face ((,class (:background ,green-bg-s :foreground ,green))))
+      `(evil-goggles-join-face ((,class (:background ,green-bg-s :foreground ,green))))
+      `(evil-goggles-nerd-commenter-face ((,class (:background ,aqua-bg :foreground ,aqua))))
+      `(evil-goggles-paste-face ((,class (:background ,green-bg-s :foreground ,green))))
+      `(evil-goggles-record-macro-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+      `(evil-goggles-replace-with-register-face ((,class (:background ,yellow-bg :foreground ,yellow))))
+      `(evil-goggles-set-marker-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+      `(evil-goggles-shift-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+      `(evil-goggles-surround-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+      `(evil-goggles-yank-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+      `(evil-goggles-undo-redo-add-face ((,class (:background ,green-bg-s :foreground ,green))))
+      `(evil-goggles-undo-redo-change-face ((,class (:background ,blue-bg-s :foreground ,blue))))
+      `(evil-goggles-undo-redo-remove-face ((,class (:background ,red-bg-s :foreground ,red))))
 
 ;;;;; flycheck
      `(flycheck-error
@@ -370,6 +426,25 @@ to 'auto, tags may not be properly aligned. "
        ((,(append '((supports :underline (:style line))) class)
          (:underline (:style line :color ,war)))
         (,class (:foreground ,base :background ,war :inherit bold :underline t))))
+
+;;;;; flymake
+     `(flymake-error ((,(append '((supports :underline (:style line))) class)
+                       (:underline (:style line :color ,err)))
+                      (,class (:foreground ,base :background ,err :inherit bold :underline t))))
+     `(flymake-note ((,(append '((supports :underline (:style line))) class)
+                      (:underline (:style wave :color ,keyword)))
+                     (,class (:foreground ,base :background ,keyword :inherit bold :underline t))))
+     `(flymake-warning ((,(append '((supports :underline (:style line))) class)
+                         (:underline (:style line :color ,war)))
+                        (,class (:foreground ,base :background ,war :inherit bold :underline t))))
+
+;;;;; flyspell
+     `(flyspell-incorrect ((,(append '((supports :underline (:style line))) class)
+                            (:underline (:style wave :color ,war)))
+                           (,class (:foreground ,base :background ,war :inherit bold :underline t))))
+     `(flyspell-duplicate ((,(append '((supports :underline (:style line))) class)
+                            (:underline (:style wave :color ,keyword)))
+                           (,class (:foreground ,base :background ,keyword :inherit bold :underline t))))
 
 ;;;;; jabber
      `(jabber-activity-face ((,class (:inherit bold :foreground ,red))))
@@ -518,9 +593,9 @@ to 'auto, tags may not be properly aligned. "
 ;;;;; linum-mode
      `(linum ((,class (:foreground ,lnum :background ,bg2 :inherit default))))
 
-;;;;; line-numbers-mode (Emacs 26+)
-     (when (>= emacs-major-version 26)
-       `(line-number ((,class (:foreground ,lnum :background ,bg2)))))
+;;;;; line-numbers
+     `(line-number ((,class (:foreground ,lnum :background ,bg2 :inherit default))))
+     `(line-number-current-line ((,class (:foreground ,base :background ,bg2 :inherit line-number))))
 
 ;;;;; linum-relative
      `(linum-relative-current-face ((,class (:foreground ,comp))))
@@ -608,7 +683,7 @@ to 'auto, tags may not be properly aligned. "
      `(mu4e-highlight-face ((,class (:foreground ,comp))))
      `(mu4e-title-face ((,class (:foreground ,head2 :inherit bold))))
      `(mu4e-replied-face ((,class (:foreground ,green))))
-     `(mu4e-modeline-face ((,class (:foreground ,func))))
+     `(mu4e-modeline-face ((,class (:foreground ,yellow))))
      `(mu4e-special-header-value-face ((,class (:foreground ,green))))
      `(mu4e-unread-face ((,class (:foreground ,head1 :inherit bold))))
      `(mu4e-view-url-number-face ((,class (:foreground ,comp))))
@@ -653,8 +728,8 @@ to 'auto, tags may not be properly aligned. "
      `(org-footnote  ((,class (:underline t :foreground ,base))))
      `(org-hide ((,class (:foreground ,base))))
      `(org-kbd ((,class (:inherit region :foreground ,base :box (:line-width 1 :style released-button)))))
-     `(org-level-1 ((,class (:inherit bold :foreground ,head1 :height ,(if spacemacs-theme-org-height 1.3 1.0) :background ,(when spacemacs-theme-org-highlight head1-bg)))))
-     `(org-level-2 ((,class (:inherit bold :foreground ,head2 :height ,(if spacemacs-theme-org-height 1.2 1.0) :background ,(when spacemacs-theme-org-highlight head2-bg)))))
+     `(org-level-1 ((,class (:inherit bold :bold ,(if spacemacs-theme-org-bold 'unspecified nil) :foreground ,head1 :height ,(if spacemacs-theme-org-height 1.3 1.0) :background ,(when spacemacs-theme-org-highlight head1-bg)))))
+     `(org-level-2 ((,class (:inherit bold :bold ,(if spacemacs-theme-org-bold 'unspecified nil) :foreground ,head2 :height ,(if spacemacs-theme-org-height 1.2 1.0) :background ,(when spacemacs-theme-org-highlight head2-bg)))))
      `(org-level-3 ((,class (:bold nil :foreground ,head3 :height ,(if spacemacs-theme-org-height 1.1 1.0) :background ,(when spacemacs-theme-org-highlight head3-bg)))))
      `(org-level-4 ((,class (:bold nil :foreground ,head4 :background ,(when spacemacs-theme-org-highlight head4-bg)))))
      `(org-level-5 ((,class (:bold nil :foreground ,head1))))
@@ -664,19 +739,32 @@ to 'auto, tags may not be properly aligned. "
      `(org-link ((,class (:underline t :foreground ,comment))))
      `(org-meta-line ((,class (:foreground ,meta))))
      `(org-mode-line-clock-overrun ((,class (:foreground ,err))))
-     `(org-priority ((,class (:foreground ,war :inherit bold))))
+     `(org-priority ((,class (:foreground ,war :inherit bold :bold ,(if spacemacs-theme-org-priority-bold 'unspecified nil)))))
      `(org-quote ((,class (:inherit org-block :slant italic))))
      `(org-scheduled ((,class (:foreground ,comp))))
      `(org-scheduled-today ((,class (:foreground ,func :height ,(if spacemacs-theme-org-agenda-height 1.2 1.0)))))
+     `(org-scheduled-previously ((,class (:foreground ,base :slant italic))))
      `(org-sexp-date ((,class (:foreground ,base))))
      `(org-special-keyword ((,class (:foreground ,func))))
      `(org-table ((,class (:foreground ,base :background ,head1-bg))))
      `(org-tag ((,class (:foreground ,meta))))
      `(org-time-grid ((,class (:foreground ,str))))
      `(org-todo ((,class (:foreground ,war :inherit bold :background ,yellow-bg))))
+     `(org-upcoming-deadline ((,class (:foreground ,war :inherit org-priority))))
+     `(org-upcoming-distant-deadline ((,class (:foreground ,suc :inherit org-priority))))
      `(org-verbatim ((,class (:foreground ,keyword))))
      `(org-verse ((,class (:inherit org-block :slant italic))))
-     `(org-warning ((,class (:foreground ,err))))
+     `(org-warning ((,class (:foreground ,err :inherit org-priority))))
+
+;;;;; outline
+     `(outline-1 ((,class (:inherit org-level-1))))
+     `(outline-2 ((,class (:inherit org-level-2))))
+     `(outline-3 ((,class (:inherit org-level-3))))
+     `(outline-4 ((,class (:inherit org-level-4))))
+     `(outline-5 ((,class (:inherit org-level-5))))
+     `(outline-6 ((,class (:inherit org-level-6))))
+     `(outline-7 ((,class (:inherit org-level-7))))
+     `(outline-8 ((,class (:inherit org-level-8))))
 
 ;;;;; perspective
      `(persp-selected-face ((,class (:inherit bold :foreground ,func))))
@@ -722,12 +810,13 @@ to 'auto, tags may not be properly aligned. "
      `(shm-quarantine-face ((,class (:background ,red-bg-s))))
 
 ;;;;; show-paren
-     `(show-paren-match ((,class (:background ,green-bg-s))))
-     `(show-paren-mismatch ((,class (:background ,red-bg-s))))
+     `(show-paren-match ((,class (:foreground ,mat :inherit bold  :underline ,(when spacemacs-theme-underline-parens t)))))
+     `(show-paren-match-expression ((,class (:background ,green-bg-s))))
+     `(show-paren-mismatch ((,class (:foreground ,err :inherit bold :underline ,(when spacemacs-theme-underline-parens t)))))
 
 ;;;;; smartparens
      `(sp-pair-overlay-face ((,class (:background ,highlight :foreground nil))))
-     `(sp-show-pair-match-face ((,class (:foreground ,mat :inherit bold :underline t))))
+     `(sp-show-pair-match-face ((,class (:foreground ,mat :inherit bold  :underline ,(when spacemacs-theme-underline-parens t)))))
 
 ;;;;; smerge
      `(smerge-base ((,class (:background ,yellow-bg))))
@@ -735,7 +824,7 @@ to 'auto, tags may not be properly aligned. "
      `(smerge-mine ((,class (:background ,red-bg))))
      `(smerge-other ((,class (:background ,green-bg))))
      `(smerge-refined-added ((,class (:background ,green-bg-s :foreground ,green))))
-     `(smerge-refined-changed ((,class (:background ,blue-bg :foreground ,blue))))
+     `(smerge-refined-changed ((,class (:background ,blue-bg-s :foreground ,blue))))
      `(smerge-refined-removed ((,class (:background ,red-bg-s :foreground ,red))))
 
 ;;;;; spaceline
@@ -774,6 +863,9 @@ to 'auto, tags may not be properly aligned. "
      `(term-color-white ((,class (:foreground ,base))))
      `(term-color-yellow ((,class (:foreground ,yellow))))
 
+;;;;; tide
+     `(tide-hl-identifier-face ((,class (:foreground ,yellow :background ,yellow-bg))))
+
 ;;;;; treemacs
      `(treemacs-git-added-face ((,class (:foreground ,green :background ,green-bg))))
      `(treemacs-git-conflict-face ((,class (:foreground ,red :background ,red-bg))))
@@ -785,6 +877,7 @@ to 'auto, tags may not be properly aligned. "
      `(web-mode-builtin-face ((,class (:inherit ,font-lock-builtin-face))))
      `(web-mode-comment-face ((,class (:inherit ,font-lock-comment-face))))
      `(web-mode-constant-face ((,class (:inherit ,font-lock-constant-face))))
+     `(web-mode-current-element-highlight-face ((,class (:background ,bg3))))
      `(web-mode-doctype-face ((,class (:inherit ,font-lock-comment-face))))
      `(web-mode-function-name-face ((,class (:inherit ,font-lock-function-name-face))))
      `(web-mode-html-attr-name-face ((,class (:foreground ,func))))
@@ -844,8 +937,30 @@ to 'auto, tags may not be properly aligned. "
 
     (custom-theme-set-variables
      theme-name
-     `(ansi-color-names-vector [,bg4 ,red ,green ,yellow ,blue ,magenta ,cyan ,base]))
 
+;;;;; ansi-color-names
+     `(ansi-color-names-vector [,bg4 ,red ,green ,yellow ,blue ,magenta ,cyan ,base])
+
+;;;;; hl-todo
+     `(hl-todo-keyword-faces '(("TODO"   . ,war)
+                               ("NEXT"   . ,war)
+                               ("THEM"   . ,aqua)
+                               ("PROG"   . ,blue)
+                               ("OKAY"   . ,blue)
+                               ("DONT"   . ,red)
+                               ("FAIL"   . ,red)
+                               ("DONE"   . ,suc)
+                               ("NOTE"   . ,yellow)
+                               ("KLUDGE" . ,yellow)
+                               ("HACK"   . ,yellow)
+                               ("TEMP"   . ,yellow)
+                               ("FIXME"  . ,war)
+                               ("XXX"    . ,war)
+                               ("XXXX"   . ,war)
+                               ("???"    . ,war)))
+
+;;;;; pdf-tools
+    `(pdf-view-midnight-colors '(,base . ,bg1)))
     ))
 
 

@@ -1,8 +1,10 @@
 #+TITLE: Smex layer
 
+#+TAGS: emacs|layer
+
 [[file:img/smex.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -21,7 +23,7 @@ file.
 
 * Key bindings
 
-| Key Binding | Description                                |
+| Key binding | Description                                |
 |-------------+--------------------------------------------|
 | ~SPC SPC~   | all Emacs commands (interactive functions) |
 | ~SPC m :~   | current major mode commands                |

@@ -1,0 +1,101 @@
+#+TITLE: crystal layer
+
+#+TAGS: general|layer|multi-paradigm|programming
+
+[[file:img/crystal.png]]
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#repl][REPL]]
+  - [[#ameba][Ameba]]
+  - [[#layer][Layer]]
+- [[#key-bindings][Key bindings]]
+  - [[#crystal-commands][Crystal commands]]
+  - [[#repl-1][REPL]]
+  - [[#ameba-1][Ameba]]
+
+* Description
+This layer provides support for the Crystal language.
+
+** Features:
+- =crystal tool format= on file save
+- integration [[https://play.crystal-lang.org][play.crystal-lang.org]] using [[https://github.com/veelenga/play-crystal.el][play-crystal.el]]
+- Linting with flycheck
+- test runner (=crystal spec=)
+- =crystal tool= integration
+- Interactive REPL ([[https://github.com/brantou/inf-crystal.el][inf-crystal.el]] and [[https://github.com/crystal-community/icr][icr]])
+- static code analysis using [[https://github.com/veelenga/ameba.el][ameba]]
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =crystal= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+** REPL
+To be able to connect to [[https://github.com/brantou/inf-crystal.el][inf-crystal]], you need to make sure that [[https://github.com/crystal-community/icr][icr]] is
+installed.
+
+Installation instructions can be found on the main page of [[https://github.com/crystal-community/icr#installation][icr]].
+
+Although not in the installation instruction it seems that on macOS you can
+install it with Homebrew:
+
+#+BEGIN_SRC sh
+  brew install crystal-icr
+#+END_SRC
+
+** Ameba
+To be able to use [[https://github.com/veelenga/ameba.el][ameba.el]], you need to make sure that [[https://github.com/veelenga/ameba][ameba]] is installed.
+
+Installation instructions can be found on the main page of [[https://github.com/veelenga/ameba][ameba]].
+
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =crystal= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+** Crystal commands
+
+| Key binding | Description                                               |
+|-------------+-----------------------------------------------------------|
+| ~SPC m e b~ | play-crystal submit buffer                                |
+| ~SPC m e e~ | play-crystal show code in a browser                       |
+| ~SPC m e i~ | download play-crystal snippet                             |
+| ~SPC m e r~ | play-crystal submit region                                |
+| ~SPC m g G~ | jump to definition in other window                        |
+| ~SPC m g a~ | jump to matching spec file or back from spec to code file |
+| ~SPC m g g~ | jump to definition                                        |
+| ~SPC m t b~ | run =crystal spec= for the current buffer                 |
+| ~SPC m t p~ | run =crystal spec= for the current project                |
+| ~SPC m u c~ | show context                                              |
+| ~SPC m u e~ | show macro expansion                                      |
+| ~SPC m u f~ | format the current buffer                                 |
+| ~SPC m u i~ | show implementations for given call                       |
+| ~SPC m x x~ | run =crystal run= for the current file                    |
+
+** REPL
+Start a inferior crystal REPL process with ~SPC m '​~ or ~SPC m s i~.
+Send code to inferior process commands:
+
+| Key binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~SPC m '​~   | start inferior REPL process                 |
+| ~SPC m s B~ | send buffer and switch to REPL              |
+| ~SPC m s F~ | send function definition and switch to REPL |
+| ~SPC m s R~ | send region and switch to REPL              |
+| ~SPC m s b~ | send buffer                                 |
+| ~SPC m s f~ | send function definition                    |
+| ~SPC m s i~ | start inferior REPL process                 |
+| ~SPC m s r~ | send region                                 |
+| ~SPC m s s~ | switch to REPL                              |
+
+** Ameba
+
+| Key binding | Description                                    |
+|-------------+------------------------------------------------|
+| ~SPC m a d~ | Prompts from a directory on which to run Ameba |
+| ~SPC m a f~ | Runs Ameba on the current visited file         |
+| ~SPC m a p~ | Runs Ameba on the entire project               |

@@ -1,0 +1,32 @@
+#+TITLE: web-beautify layer
+
+#+TAGS: layer|tool
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support for [[https://github.com/yasuyk/web-beautify][web-beautify]].
+
+** Features:
+- Format buffer to be beautiful
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =web-beautify= to the existing =dotspacemacs-configuration-layers= list in
+this file.
+
+To install =js-beautify= globally:
+
+#+BEGIN_SRC sh
+  $ npm install -g js-beautify
+#+END_SRC
+
+* Key bindings
+
+| Key binding | Description                       |
+|-------------+-----------------------------------|
+| ~SPC m = =~ | beautify code in supported layers |

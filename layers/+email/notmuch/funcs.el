@@ -39,6 +39,10 @@
       (notmuch-search-previous-thread)
     (notmuch-search-next-thread)))
 
+(defun spacemacs/notmuch-show-as-patch ()
+  (interactive)
+  (notmuch-show-choose-mime-of-part "text/x-patch"))
+
 (defun spacemacs/notmuch-message-delete-down ()
   "Delete a message and select the next message."
   (interactive)
@@ -87,7 +91,9 @@ messages in the current thread"
              (goto-char (point-min))
              (if (re-search-forward "https://github.com/.*\\.patch" nil t)
                  (match-string-no-properties 0)
-               (user-error "No patch found"))))))
+               (if (re-search-forward "https://github.com/[^/]+/[^/]+/pull/[0-9]+" nil t)
+                   (concat (match-string-no-properties 0) ".patch")
+                 (user-error "No patch found")))))))
     (with-current-buffer (get-buffer-create
                           (generate-new-buffer-name "*mail-github-patch*"))
       (condition-case exception

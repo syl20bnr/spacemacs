@@ -26,7 +26,7 @@
 (defun d/post-init-company ()
   ;; Need to convince company that this C-derived mode is a code mode.
   (with-eval-after-load 'company-dabbrev-code
-    (push 'd-mode company-dabbrev-code-modes)))
+    (add-to-list 'company-dabbrev-code-modes 'd-mode)))
 
 (defun d/init-company-dcd ()
   (use-package company-dcd

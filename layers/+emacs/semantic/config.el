@@ -13,6 +13,7 @@
                                     "srecode-map.el"))
 (setq semanticdb-default-save-directory (concat spacemacs-cache-directory
                                                 "semanticdb/"))
-(setq semanticdb-find-default-throttle '(file local project))
+(setq semanticdb-search-system-databases nil)
+(setq semanticdb-project-root-functions #'projectile-project-root)
 (unless (file-exists-p semanticdb-default-save-directory)
   (make-directory semanticdb-default-save-directory))

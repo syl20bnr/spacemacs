@@ -11,6 +11,7 @@
 
 (setq spacemacs-misc-packages
       '(
+        devdocs
         dumb-jump
         request
         ))
@@ -41,3 +42,11 @@
 (defun spacemacs-misc/init-request ()
   (setq request-storage-directory
         (concat spacemacs-cache-directory "request/")))
+
+(defun spacemacs-misc/init-devdocs ()
+  (use-package devdocs
+    :defer t
+    :init
+    (progn
+      (defalias 'spacemacs/browse-docs-online-at-point 'devdocs-search)
+      (spacemacs/set-leader-keys "db" #'spacemacs/browse-docs-online-at-point))))

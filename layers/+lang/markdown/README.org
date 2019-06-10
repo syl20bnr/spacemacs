@@ -1,20 +1,24 @@
 #+TITLE: Markdown layer
 
+#+TAGS: dsl|layer|markup|programming
+
 [[file:img/markdown.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
-  - [[#bibtex][BibTeX]]
+- [[#bibtex][BibTeX]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#live-preview][Live preview]]
   - [[#automatic-mmm-mode-generation][Automatic MMM-Mode Generation]]
 - [[#usage][Usage]]
   - [[#generate-a-toc][Generate a TOC]]
+  - [[#editing-tables][Editing tables]]
 - [[#key-bindings][Key bindings]]
   - [[#element-insertion][Element insertion]]
   - [[#element-removal][Element removal]]
+  - [[#table-manipulation][Table manipulation]]
   - [[#completion][Completion]]
   - [[#following-and-jumping][Following and Jumping]]
   - [[#indentation][Indentation]]
@@ -35,7 +39,7 @@ This layer adds markdown support to Spacemacs.
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
   using the =emoji= layer or having a proper font) :clap:
 
-** BibTeX
+* BibTeX
 For more extensive support of references with BibTeX files, have a look at the
 [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/bibtex/README.org][BibTeX layer]].
 
@@ -60,7 +64,7 @@ variable =markdown-live-preview-engine= to =vmd=:
 And install the executable with:
 
 #+BEGIN_SRC shell
-npm install -g vmd
+  npm install -g vmd
 #+END_SRC
 
 Additionally there is =flymd= package in =chrome= layer that allows to preview
@@ -75,7 +79,7 @@ list of `("language" "mode")`:
 
 #+BEGIN_SRC emacs-lisp
   dotspacemacs-configuration-layers '(
-    (markdown :variables markdown-mmm-auto-modes '("c" "c++" "python" "scala" ("elisp" "emacs-lisp"))
+    (markdown :variables markdown-mmm-auto-modes '("c" "c++" "python" "scala" ("elisp" "emacs-lisp"))))
 #+END_SRC
 
 *Note:* Spacemacs already defines the variable =markdown-mmm-auto-modes= to a
@@ -87,10 +91,16 @@ new languages instead of overriding the variable in your dotfile.
 To generate a table of contents type on top of the buffer:
 ~SPC SPC markdown-toc-generate-toc RET~
 
+** Editing tables
+While =markdown-mode= provides functionality to edit tables, users of =org=
+layer benefit from more sophisticated =orgtbl-mode=.
+
+In order to use =orgtabl-mode=, add =org= layer to your =~/.spacemacs=.
+
 * Key bindings
 ** Element insertion
 
-| Key Binding | Description                                                       |
+| Key binding | Description                                                       |
 |-------------+-------------------------------------------------------------------|
 | ~SPC m -~   | insert horizontal line                                            |
 | ~SPC m h i~ | insert header dwim                                                |
@@ -103,15 +113,14 @@ To generate a table of contents type on top of the buffer:
 | ~SPC m h 6~ | insert header atx 6                                               |
 | ~SPC m h !~ | insert header setext 1                                            |
 | ~SPC m h @~ | insert header setext 2                                            |
-| ~SPC m i l~ | insert inline link dwim                                           |
-| ~SPC m i L~ | insert reference link dwim                                        |
+| ~SPC m i l~ | insert link                                                       |
 | ~SPC m i u~ | insert uri                                                        |
 | ~SPC m i f~ | insert footnote                                                   |
 | ~SPC m i w~ | insert wiki link                                                  |
 | ~SPC m i i~ | insert image                                                      |
-| ~SPC m i I~ | insert reference image                                            |
 | ~SPC m i t~ | insert Table of Contents (toc)                                    |
 | ~SPC m x b~ | make region bold or insert bold                                   |
+| ~SPC m x B~ | insert gfm checkbox                                               |
 | ~SPC m x i~ | make region italic or insert italic                               |
 | ~SPC m x c~ | make region code or insert code                                   |
 | ~SPC m x C~ | make region code or insert code (Github Flavored Markdown format) |
@@ -119,36 +128,53 @@ To generate a table of contents type on top of the buffer:
 | ~SPC m x Q~ | blockquote region                                                 |
 | ~SPC m x p~ | make region or insert pre                                         |
 | ~SPC m x P~ | pre region                                                        |
+| ~SPC m x s~ | make region striked through or insert strikethrough               |
 
 ** Element removal
 
-| Key Binding | Description         |
+| Key binding | Description         |
 |-------------+---------------------|
 | ~SPC m k~   | kill thing at point |
 
+** Table manipulation
+
+| Key binding | Description             |
+|-------------+-------------------------|
+| ~SPC m t p~ | move row up             |
+| ~SPC m t n~ | move row down           |
+| ~SPC m t f~ | move column right       |
+| ~SPC m t b~ | move column left        |
+| ~SPC m t r~ | insert row              |
+| ~SPC m t R~ | delete row              |
+| ~SPC m t c~ | insert column           |
+| ~SPC m t C~ | delete column           |
+| ~SPC m t s~ | sort lines              |
+| ~SPC m t t~ | transpose table         |
+| ~SPC m t d~ | convert region to table |
+
 ** Completion
 
-| Key Binding | Description |
+| Key binding | Description |
 |-------------+-------------|
 | ~SPC m ]~   | complete    |
 
 ** Following and Jumping
 
-| Key Binding | Description           |
+| Key binding | Description           |
 |-------------+-----------------------|
 | ~SPC m o~   | follow thing at point |
-| ~SPC m j~   | jump                  |
+| ~RET~       | jump (markdown-do)    |
 
 ** Indentation
 
-| Key Binding | Description   |
-|-------------+---------------|
-| ~SPC m \>~  | indent region |
-| ~SPC m \<~  | exdent region |
+| Key binding | Description    |
+|-------------+----------------|
+| ~SPC m \>~  | indent region  |
+| ~SPC m \<~  | outdent region |
 
 ** Header navigation
 
-| Key Binding | Description                  |
+| Key binding | Description                  |
 |-------------+------------------------------|
 | ~gj~        | outline forward same level   |
 | ~gk~        | outline backward same level  |
@@ -157,7 +183,7 @@ To generate a table of contents type on top of the buffer:
 
 ** Buffer-wide commands
 
-| Key Binding | Description                                                                          |
+| Key binding | Description                                                                          |
 |-------------+--------------------------------------------------------------------------------------|
 | ~SPC m c ]~ | complete buffer                                                                      |
 | ~SPC m c m~ | other window                                                                         |
@@ -173,13 +199,13 @@ To generate a table of contents type on top of the buffer:
 
 ** List editing
 
-| Key Binding | Description      |
+| Key binding | Description      |
 |-------------+------------------|
 | ~SPC m l i~ | insert list item |
 
 ** Movement
 
-| Key Binding | Description        |
+| Key binding | Description        |
 |-------------+--------------------|
 | ~SPC m {~   | backward paragraph |
 | ~SPC m }~   | forward paragraph  |
@@ -188,18 +214,19 @@ To generate a table of contents type on top of the buffer:
 
 ** Promotion, Demotion
 
-| Key Binding | Description        |
-|-------------+--------------------|
-| ~M-k~       | markdown-move-up   |
-| ~M-j~       | markdown-move-down |
-| ~M-h~       | markdown-promote   |
-| ~M-l~       | markdown-demote    |
+| Key binding        | Command            |
+|--------------------+--------------------|
+| ~M-k~ or ~M-up~    | markdown-move-up   |
+| ~M-j~ or ~M-down~  | markdown-move-down |
+| ~M-h~ or ~M-left~  | markdown-promote   |
+| ~M-l~ or ~M-right~ | markdown-demote    |
 
 ** Toggles
 
-| Key Binding | Description          |
+| Key binding | Description          |
 |-------------+----------------------|
-| ~SPC m t i~ | toggle inline images |
-| ~SPC m t l~ | toggle hidden urls   |
-| ~SPC m t t~ | toggle checkbox      |
-| ~SPC m t w~ | toggle wiki links    |
+| ~SPC m T i~ | toggle inline images |
+| ~SPC m T l~ | toggle hidden urls   |
+| ~SPC m T m~ | toggle markup hiding |
+| ~SPC m T t~ | toggle checkbox      |
+| ~SPC m T w~ | toggle wiki links    |

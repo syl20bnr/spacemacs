@@ -12,3 +12,6 @@
 ;; Variables
 
 (spacemacs|define-jump-handlers rust-mode)
+
+(defvar rust-backend 'racer
+  "The backend to use for completion. Possible values are `lsp' `racer'.")

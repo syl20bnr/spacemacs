@@ -1,13 +1,15 @@
 #+TITLE: Common Lisp layer
 
+#+TAGS: dsl|layer|lisp|programming
+
 [[file:img/slime.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#structuraly-safe-editing][Structuraly safe editing]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
   - [[#leader][Leader]]
     - [[#help][Help]]
@@ -56,18 +58,18 @@ To turn it on automatically for all =common-lisp= buffers call the following
 function in your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-common-lisp-mode)
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-common-lisp-mode)
 #+END_SRC
 
 or to enable it for all supported modes:
 
 #+BEGIN_SRC emacs-lisp
-(spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 #+END_SRC
 
 When enabled the symbol =🆂= should be displayed in the mode-line.
 
-* Key Bindings
+* Key bindings
 ** Working with lisp files (barfage, slurpage & more)
 Spacemacs comes with a special =lisp-state= for working with lisp code that
 supports slurpage, barfage and more tools you'll likely want when working with
@@ -79,7 +81,7 @@ As this state works the same for all files, the documentation is in global
 ** Leader
 *** Help
 
-| Key Binding | Description                                             |
+| Key binding | Description                                             |
 |-------------+---------------------------------------------------------|
 | ~SPC m h a~ | SLIME apropos                                           |
 | ~SPC m h d~ | Disassemble symbol at point                             |
@@ -97,18 +99,21 @@ As this state works the same for all files, the documentation is in global
 
 *** Evaluation
 
-| Key Binding | Description                              |
-|-------------+------------------------------------------|
-| ~SPC m e b~ | Evaluate buffer                          |
-| ~SPC m e e~ | Evaluate last sexp                       |
-| ~SPC m e l~ | Go to end of line and evaluate last sexp |
-| ~SPC m e f~ | Evaluate top level sexp                  |
-| ~SPC m e F~ | Undefine the function at point           |
-| ~SPC m e r~ | Evaluate region                          |
+| Key binding | Description                                       |
+|-------------+---------------------------------------------------|
+| ~SPC m e b~ | Evaluate buffer                                   |
+| ~SPC m e c~ | Evaluate parent sexp of current form around point |
+| ~SPC m e C~ | Evaluate current =def= or =set= form around point |
+| ~SPC m e e~ | Evaluate last sexp                                |
+| ~SPC m e l~ | Go to end of line and evaluate last sexp          |
+| ~SPC m e f~ | Evaluate top level sexp                           |
+| ~SPC m e F~ | Undefine the function at point                    |
+| ~SPC m e r~ | Evaluate region                                   |
+| ~SPC m e s~ | Evaluate symbol around point                      |
 
 *** REPL
 
-| Key Binding | Description                      |
+| Key binding | Description                      |
 |-------------+----------------------------------|
 | ~SPC m s i~ | Start an inferior process        |
 | ~SPC m s e~ | Evaluate last expression in REPL |
@@ -116,7 +121,7 @@ As this state works the same for all files, the documentation is in global
 
 *** Compile
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~SPC m c c~ | Compile file             |
 | ~SPC m c C~ | Compile file and load it |
@@ -127,7 +132,7 @@ As this state works the same for all files, the documentation is in global
 
 *** Navigation
 
-| Key Binding               | Description      |
+| Key binding               | Description      |
 |---------------------------+------------------|
 | ~SPC m g g~               | Go to definition |
 | ~SPC m g b~               | Go back          |
@@ -136,7 +141,7 @@ As this state works the same for all files, the documentation is in global
 
 *** Macroexpansion
 
-| Key Binding | Description                                   |
+| Key binding | Description                                   |
 |-------------+-----------------------------------------------|
 | ~SPC m m a~ | Macroexpand the expression at point completly |
 | ~SPC m m o~ | Macroexpand the expression at point once      |

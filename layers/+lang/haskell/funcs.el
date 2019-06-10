@@ -9,94 +9,6 @@
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs-haskell//setup-completion-backend ()
-  "Conditionally setup haskell completion backend."
-  (when (configuration-layer/package-used-p 'company)
-    (pcase haskell-completion-backend
-      (`ghci (spacemacs-haskell//setup-ghci))
-      (`ghc-mod (spacemacs-haskell//setup-ghc-mod))
-      (`intero (spacemacs-haskell//setup-intero))
-      (`dante (spacemacs-haskell//setup-dante)))))
-
-(defun spacemacs-haskell//setup-ghci ()
-  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-  (spacemacs|add-company-backends
-    :backends (company-ghci company-dabbrev-code company-yasnippet)
-    :modes haskell-mode))
-
-(defun spacemacs-haskell//setup-ghc-mod ()
-  (spacemacs|add-company-backends
-    :backends (company-ghc company-dabbrev-code company-yasnippet)
-    :modes haskell-mode)
-  (ghc-init)
-  (dolist (mode haskell-modes)
-    (spacemacs/declare-prefix-for-mode mode "mm" "haskell/ghc-mod")
-    (spacemacs/set-leader-keys-for-major-mode mode
-      "mt" 'ghc-insert-template-or-signature
-      "mu" 'ghc-initial-code-from-signature
-      "ma" 'ghc-auto
-      "mf" 'ghc-refine
-      "me" 'ghc-expand-th
-      "mn" 'ghc-goto-next-hole
-      "mp" 'ghc-goto-prev-hole
-      "m>" 'ghc-make-indent-deeper
-      "m<" 'ghc-make-indent-shallower
-      "hi" 'ghc-show-info
-      "ht" 'ghc-show-type))
-  (when (configuration-layer/package-used-p 'flycheck)
-    ;; remove overlays from ghc-check.el if flycheck is enabled
-    (set-face-attribute 'ghc-face-error nil :underline nil)
-    (set-face-attribute 'ghc-face-warn nil :underline nil)))
-
-(defun spacemacs-haskell//setup-dante ()
-  (spacemacs|add-company-backends
-    :backends (dante-company company-dabbrev-code company-yasnippet)
-    :modes haskell-mode)
-  (push 'xref-find-definitions spacemacs-jump-handlers)
-  (dante-mode)
-  (dolist (mode haskell-modes)
-    (spacemacs/set-leader-keys-for-major-mode mode
-      "ht" 'dante-type-at
-      "hT" 'spacemacs-haskell//dante-insert-type
-      "hi" 'dante-info
-      "rs" 'dante-auto-fix
-      "se" 'dante-eval-block
-      "sr" 'dante-restart)))
-
-(defun spacemacs-haskell//setup-intero ()
-  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-  (spacemacs|add-company-backends
-    :backends (company-intero company-dabbrev-code company-yasnippet)
-    :modes haskell-mode)
-  (push 'intero-goto-definition spacemacs-jump-handlers)
-  (intero-mode)
-  (dolist (mode haskell-modes)
-    (spacemacs/set-leader-keys-for-major-mode mode
-      "hi" 'intero-info
-      "ht" 'intero-type-at
-      "hT" 'haskell-intero/insert-type
-      "rs" 'intero-apply-suggestions
-      "sb" 'intero-repl-load))
-
-  (dolist (mode (cons 'haskell-cabal-mode haskell-modes))
-    (spacemacs/set-leader-keys-for-major-mode mode
-      "sc"  nil
-      "sS"  'haskell-intero/display-repl
-      "ss"  'haskell-intero/pop-to-repl))
-
-  (dolist (mode (append haskell-modes '(haskell-cabal-mode intero-repl-mode)))
-    (spacemacs/declare-prefix-for-mode mode "mi" "haskell/intero")
-    (spacemacs/set-leader-keys-for-major-mode mode
-      "ic"  'intero-cd
-      "id"  'intero-devel-reload
-      "ik"  'intero-destroy
-      "il"  'intero-list-buffers
-      "ir"  'intero-restart
-      "it"  'intero-targets))
-
-  (evil-define-key '(insert normal) intero-mode-map
-    (kbd "M-.") 'intero-goto-definition))
-
 (defun spacemacs-haskell//disable-electric-indent ()
   "Disable electric indent mode if available"
   ;; use only internal indentation system from haskell
@@ -110,7 +22,73 @@
     (haskell-navigate-imports)
     (haskell-mode-format-imports)))
 
-;; Dante Functions
+
+;; Completion setup functions
+
+(defun spacemacs-haskell//setup-backend ()
+  "Conditionally setup haskell backend."
+  (pcase haskell-completion-backend
+    (`ghci (spacemacs-haskell//setup-ghci))
+    (`lsp (spacemacs-haskell//setup-lsp))
+    (`intero (spacemacs-haskell//setup-intero))
+    (`dante (spacemacs-haskell//setup-dante))
+    (`ghc-mod (spacemacs-haskell//setup-ghc-mod))))
+
+(defun spacemacs-haskell//setup-company ()
+  "Conditionally setup haskell completion backend."
+  (pcase haskell-completion-backend
+    (`ghci (spacemacs-haskell//setup-ghci-company))
+    (`lsp nil) ;; nothing to do, auto-configured by lsp-mode
+    (`intero (spacemacs-haskell//setup-intero-company))
+    (`dante (spacemacs-haskell//setup-dante-company))
+    (`ghc-mod (spacemacs-haskell//setup-ghc-mod-company))))
+
+
+;; ghci functions
+
+(defun spacemacs-haskell//setup-ghci ()
+  (interactive-haskell-mode))
+
+(defun spacemacs-haskell//setup-ghci-company ()
+  (spacemacs|add-company-backends
+    :backends (company-ghci company-dabbrev-code company-yasnippet)
+    :modes haskell-mode))
+
+;; LSP functions
+
+(defun spacemacs-haskell//setup-lsp ()
+  "Setup lsp backend"
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        ;; The functionality we require from this is not an autoload, but rather some
+        ;; top-level code that registers a LSP server type. So we need to load it
+        ;; directly and can't rely on it being autoloaded.
+        (require 'lsp-haskell)
+        (lsp))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+
+;; ghc-mod functions
+
+(defun spacemacs-haskell//setup-ghc-mod ()
+  (ghc-init))
+
+(defun spacemacs-haskell//setup-ghc-mod-company ()
+  (spacemacs|add-company-backends
+    :backends (company-ghc company-dabbrev-code company-yasnippet)
+    :modes haskell-mode))
+
+
+;; Dante functions
+
+(defun spacemacs-haskell//setup-dante ()
+  (dante-mode)
+  (add-to-list 'spacemacs-jump-handlers 'xref-find-definitions))
+
+(defun spacemacs-haskell//setup-dante-company ()
+  (spacemacs|add-company-backends
+    :backends (dante-company company-dabbrev-code company-yasnippet)
+    :modes haskell-mode))
 
 (defun spacemacs-haskell//dante-insert-type ()
   (interactive)
@@ -118,6 +96,16 @@
 
 
 ;; Intero functions
+
+(defun spacemacs-haskell//setup-intero ()
+  (interactive-haskell-mode)
+  (intero-mode)
+  (add-to-list 'spacemacs-jump-handlers 'intero-goto-definition))
+
+(defun spacemacs-haskell//setup-intero-company ()
+  (spacemacs|add-company-backends
+    :backends (company-intero company-dabbrev-code company-yasnippet)
+    :modes haskell-mode))
 
 (defun haskell-intero/insert-type ()
   (interactive)

@@ -24,6 +24,7 @@
         move-text
         (origami :toggle (eq 'origami dotspacemacs-folding-method))
         password-generator
+        pcre2el
         smartparens
         (spacemacs-whitespace-cleanup :location local)
         string-inflection
@@ -43,7 +44,7 @@
         :documentation "Always keep code indented."
         :evil-leader "tI")
       (spacemacs|add-toggle aggressive-indent-globally
-        :mode aggressive-indent-mode
+        :mode global-aggressive-indent-mode
         :documentation "Always keep code indented globally."
         :evil-leader "t C-I"))
     :config
@@ -54,7 +55,7 @@
 (defun spacemacs-editing/init-avy ()
   (use-package avy
     :defer t
-    :commands (spacemacs/avy-open-url spacemacs/avy-goto-url avy-pop-mark)
+    :commands (spacemacs/avy-open-url spacemacs/avy-goto-url avy-pop-mark avy-with)
     :init
     (progn
       (setq avy-all-windows 'all-frames)
@@ -98,9 +99,12 @@
     (editorconfig-mode t)))
 
 (defun spacemacs-editing/init-eval-sexp-fu ()
-  ;; ignore obsolete function warning generated on startup
-  (let ((byte-compile-not-obsolete-funcs (append byte-compile-not-obsolete-funcs '(preceding-sexp))))
-    (require 'eval-sexp-fu)))
+  (use-package eval-sexp-fu
+    :commands eval-sexp-fu-flash-mode))
+
+  ;; ;; ignore obsolete function warning generated on startup
+  ;; (let ((byte-compile-not-obsolete-funcs (append byte-compile-not-obsolete-funcs '(preceding-sexp))))
+  ;;   (require 'eval-sexp-fu)))
 
 (defun spacemacs-editing/init-expand-region ()
   (use-package expand-region
@@ -180,7 +184,8 @@
     :init
     (spacemacs/set-leader-keys
       "xo" 'link-hint-open-link
-      "xO" 'link-hint-open-multiple-links)))
+      "xO" 'link-hint-open-multiple-links
+      "xy" 'link-hint-copy-link)))
 
 (defun spacemacs-editing/init-lorem-ipsum ()
   (use-package lorem-ipsum
@@ -273,6 +278,26 @@
         "ipp" 'password-generator-phonetic
         "ipn" 'password-generator-numeric))))
 
+(defun spacemacs-editing/post-init-pcre2el ()
+  (spacemacs/declare-prefix "xr" "regular expressions")
+  (spacemacs/declare-prefix "xre" "elisp")
+  (spacemacs/declare-prefix "xrp" "pcre")
+  (spacemacs/set-leader-keys
+    "xr/"  'rxt-explain
+    "xr'"  'rxt-convert-to-strings
+    "xrt"  'rxt-toggle-elisp-rx
+    "xrx"  'rxt-convert-to-rx
+    "xrc"  'rxt-convert-syntax
+    "xre/" 'rxt-explain-elisp
+    "xre'" 'rxt-elisp-to-strings
+    "xrep" 'rxt-elisp-to-pcre
+    "xret" 'rxt-toggle-elisp-rx
+    "xrex" 'rxt-elisp-to-rx
+    "xrp/" 'rxt-explain-pcre
+    "xrp'" 'rxt-pcre-to-strings
+    "xrpe" 'rxt-pcre-to-elisp
+    "xrpx" 'rxt-pcre-to-rx))
+
 (defun spacemacs-editing/init-smartparens ()
   (use-package smartparens
     :defer t
@@ -302,7 +327,7 @@
         :documentation "Enable smartparens."
         :evil-leader "tp")
       (spacemacs|add-toggle smartparens-globally
-        :mode smartparens-mode
+        :mode smartparens-global-mode
         :documentation "Enable smartparens globally."
         :evil-leader "t C-p")
       ;; key bindings
@@ -379,11 +404,9 @@
 
 (defun spacemacs-editing/init-undo-tree ()
   (use-package undo-tree
-    :init
-    (progn
-      (global-undo-tree-mode)
-      (setq undo-tree-visualizer-timestamps t
-            undo-tree-visualizer-diff t))
+    :defer t
+    :init (setq undo-tree-visualizer-timestamps t
+                undo-tree-visualizer-diff t)
     :config
     (progn
       ;; restore diff window after quit.  TODO fix upstream

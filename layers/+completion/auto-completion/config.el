@@ -12,7 +12,7 @@
 ;; Company -------------------------------------------------------------------
 
 (defvar spacemacs-default-company-backends
-  '((company-dabbrev-code company-gtags company-etags company-keywords)
+  '((company-semantic company-dabbrev-code company-gtags company-etags company-keywords)
     company-files company-dabbrev)
   "The list of default company backends used by spacemacs.
 This variable is used to configure mode-specific company backends in spacemacs.

@@ -1,8 +1,10 @@
 #+TITLE: Wakatime layer
 
+#+TAGS: layer|web service
+
 [[file:img/wakatime.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -27,16 +29,18 @@ P.S. wakati means time in Swahili
 * Install
 ** Wakatime Program
 You can follow wakatime installation instructions here
-https://github.com/wakatime/wakatime-mode.
+[[https://github.com/wakatime/wakatime-mode]].
 
 In short it's just:
+
 #+BEGIN_SRC sh
-pip install wakatime
+  pip install wakatime
 #+END_SRC
 
 And for some linux users
+
 #+BEGIN_SRC sh
-sudo pip install wakatime
+  sudo pip install wakatime
 #+END_SRC
 
 ** Layer
@@ -45,6 +49,7 @@ add =wakatime= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 Example:
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '(
@@ -59,7 +64,7 @@ Example:
 
 ** API Keys
 After this go to your wakatime account and have your API key handy
-https://wakatime.com/settings/account?apikey=true .
+[[https://wakatime.com/settings/account?apikey=true]].
 
 Restart emacs and it will prompt you for the location of the wakatime installer
 (just put in whatever =which wakatime= gives you in the terminal e.g.
@@ -73,5 +78,5 @@ wakatime files, so it's best to define by yourself the python path where
 wakatime can always find it's stuff, via this variable:
 
 #+BEGIN_SRC emacs-lisp
-(setq wakatime-python-bin "/path/to/python")
+  (setq wakatime-python-bin "/path/to/python")
 #+END_SRC

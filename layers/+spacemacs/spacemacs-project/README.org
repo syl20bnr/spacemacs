@@ -1,0 +1,14 @@
+#+TITLE: spacemacs-project layer
+
+#+TAGS: layer|misc|spacemacs
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+
+* Description
+This layer tweaks =projectile= to integrate nicely into Spacemacs.
+
+** Features:
+- Setup of =projectile= key bindings, including functions for project search, switching, version control and compilation.
+- Additional path helper functions, to copy the location of a buffer relative to the project root.

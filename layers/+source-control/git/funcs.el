@@ -33,7 +33,8 @@
         (remove "-w"
                 (if (derived-mode-p 'magit-diff-mode)
                     magit-refresh-args
-                  magit-diff-section-arguments))) (magit-refresh))
+                  magit-diff-section-arguments)))
+  (magit-refresh))
 
 (defun spacemacs/git-link-copy-url-only ()
   "Only copy the generated link to the kill ring."
@@ -76,7 +77,7 @@
   "Return non-nil if evil navigation should be enabled for STYLE."
   (or (eq style 'vim)
       (and (eq style 'hybrid)
-           hybrid-mode-enable-evilified-state)))
+           hybrid-style-enable-evilified-state)))
 
 (defun spacemacs//magit-evil-magit-bindings (style)
   "Set `evil-magit' bindings for the given editing STYLE."

@@ -1,4 +1,13 @@
-;; funcs.el file for vinegar layer
+;;; config.el --- Vinegar Layer Functions File for Spacemacs
+;;
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;;
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
 
 (defun vinegar/dotfiles-toggle ()
   "Show/hide dot-files"
@@ -90,7 +99,7 @@
   (setq dired-hide-details-hide-symlink-targets nil)
 
   ;; hide details by default
-  (dired-hide-details-mode t)
+  (if vinegar-dired-hide-details (dired-hide-details-mode t))
   ;; omit the .. in dired
   (dired-omit-mode t)
 

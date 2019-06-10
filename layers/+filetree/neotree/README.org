@@ -1,8 +1,10 @@
 #+TITLE: Neotree layer
 
+#+TAGS: file tree|layer
+
 [[file:img/neotree.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -11,16 +13,16 @@
   - [[#neotree-source-control-integration][NeoTree Source Control Integration]]
 - [[#usage][Usage]]
   - [[#neotree-mode-line][NeoTree mode-line]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#neotree-navigation][NeoTree navigation]]
   - [[#opening-files-with-neotree][Opening files with NeoTree]]
   - [[#other-neotree-key-bindings][Other NeoTree key bindings]]
 
 * Description
-This layer setups a file tree navigator buffer using Neotree.
+This layer setups a file tree navigator buffer using Neotree (replacing the Treemacs layer).
 
 ** Features:
-- intuitive evil key-bindings integration
+- intuitive evil key bindings integration
 - supports multiple themes
 - transient state by pressing on ~?~
 - version-control integration
@@ -32,7 +34,7 @@ file.
 
 * Configuration
 ** NeoTree Theme
-You can change the NeoTree theme by using the setting =neo-theme=.  Possible
+You can change the NeoTree theme by using the setting =neo-theme=. Possible
 values are:
 
 | Setting   | Description                                                      |
@@ -45,10 +47,10 @@ values are:
 
 The default is =classic=.
 
-Use =nerd= if you want it to look most like NERDTree in VIM.  For example:
+Use =nerd= if you want it to look most like NERDTree in VIM. For example:
 
 #+BEGIN_SRC emacs-lisp
-(setq neo-theme 'nerd)
+  (setq neo-theme 'nerd)
 #+END_SRC
 
 ** NeoTree Source Control Integration
@@ -65,12 +67,12 @@ The default is =nil= (do not show source control information), which is recommen
 For example,
 
 #+BEGIN_SRC emacs-lisp
-(setq neo-vc-integration '(face))
+  (setq neo-vc-integration '(face))
 #+END_SRC
 
 *Note*: At this time, it is not recommended to set this to anything other
-than =nil=.  Otherwise, it will become very slow with larger source trees.
-See https://github.com/jaypei/emacs-neotree/issues/126 for more information.
+than =nil=. Otherwise, it will become very slow with larger source trees.
+See [[https://github.com/jaypei/emacs-neotree/issues/126]] for more information.
 
 * Usage
 This layer provides a quick and simple way to navigate in an unknown project
@@ -89,18 +91,18 @@ current state. With default =spacemacs-dark= theme:
 
 ** NeoTree mode-line
 The mode-line has the following format =[x/y] d (D:a, F:b)= where:
-  - =x= is the index of the current selected file or directory
-  - =y= the total number of items (file and directory) in the current directory
-  - =d= the name of the current directory
-  - =a= the number of directories in the current directory
-  - =b= the number of files in the current directory
+- =x= is the index of the current selected file or directory
+- =y= the total number of items (file and directory) in the current directory
+- =d= the name of the current directory
+- =a= the number of directories in the current directory
+- =b= the number of files in the current directory
 
-* Key Bindings
+* Key bindings
 ** NeoTree navigation
 Navigation is centered on the ~hjkl~ keys with the hope of providing a fast
 navigation experience like in [[http://ranger.nongnu.org/][ranger]]:
 
-| Key Binding  | Description                                                                   |
+| Key binding  | Description                                                                   |
 |--------------+-------------------------------------------------------------------------------|
 | ~h~          | collapse expanded directory or go to parent node                              |
 | ~H~          | select previous sibling                                                       |
@@ -121,7 +123,7 @@ window number where to open a file by using a numeric argument, for instance
 ~2 l~ or ~2 RET~ will open the current file in window 2. It is also possible to
 open the file in a split window with ~|~ and ~-~:
 
-| Key Binding      | Description                               |
+| Key binding      | Description                               |
 |------------------+-------------------------------------------|
 | ~l~ or ~RET~     | open file in last active window           |
 | ~# l~ or ~# RET~ | open file in window number =#=            |
@@ -130,7 +132,7 @@ open the file in a split window with ~|~ and ~-~:
 
 ** Other NeoTree key bindings
 
-| Key Binding | Description                     |
+| Key binding | Description                     |
 |-------------+---------------------------------|
 | ~TAB~       | toggle stretching of the buffer |
 | ~c~         | create a node                   |

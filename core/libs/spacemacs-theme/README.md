@@ -2,6 +2,7 @@
 
 [![MELPA](http://melpa.org/packages/spacemacs-theme-badge.svg)](http://melpa.org/#/spacemacs-theme) ![Made with Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/nashamri/spacemacs-theme?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ![spacemacs-theme](img/spacemacs-theme.png)
 
@@ -34,6 +35,7 @@ Some of the supported modes are:
 * company
 * ein
 * erc
+* ESS modes (users may want to customize the variables ess-R-font-lock-keywords and inferior-ess-r-font-lock-keywords)
 * gnus
 * helm
 * ido
@@ -42,6 +44,7 @@ Some of the supported modes are:
 * magit
 * mu4e
 * neotree
+* treemacs
 * org
 * and others :) more are coming!
 
@@ -57,9 +60,17 @@ This toggles a background color for the comment lines.
 
 This toggles italics for comments and will also add a lighter color to it. It is recommended to disable `spacemacs-theme-comment-bg` if you turn this option on for better contrast.
 
+* `spacemacs-theme-keyword-italic`:
+
+This toggles italics for keywords.
+
 * `spacemacs-theme-org-agenda-height`:
 
 This toggles the use of varying org agenda heights.
+
+* `spacemacs-theme-org-bold`:
+
+This toggles bold text for org headings.
 
 * `spacemacs-theme-org-height`:
 
@@ -69,9 +80,17 @@ This toggles the use of varying org headings heights.
 
 This toggles highlighting of org headings.
 
+* `spacemacs-theme-org-priority-bold`:
+
+This toggles bold text for priority items in agenda view.
+
 * `spacemacs-theme-custom-colors`:
 
 This allows for specifying a list of custom colors to override spacemacs theme colors. More details in the next section.
+
+* `spacemacs-theme-underline-parens`:
+
+This toggles the underline of matching parens when using `show-paren-mode` or similar.
 
 ### Override theme's colors
 
@@ -137,12 +156,12 @@ There is also explicit colors variables that can be customized:
 * red-bg-s
 * blue
 * blue-bg
+* blue-bg-s
 * magenta
 * yellow
 * yellow-bg
 
-The `green` and `red` colors have two background versions. The `green-bg` and  `red-bg` are normal light background colors.
-The `green-bg-s` and `red-bg-s` are a stronger version and are used in `ediff` and places were text is added or deleted.
+The `green` and `red` colors have two background versions. The `green-bg` and  `red-bg` are normal light background colors. The `green-bg-s`, `red-bg-s`, and `blue-bg-s` are stronger versions.
 
 Here are some screenshots of the various variables:
 
@@ -154,7 +173,7 @@ Here are some screenshots of the various variables:
 
 If you are using [spacemacs](https://github.com/syl20bnr/spacemacs), you can put this snippet in your `dotspacemacs/user-init` to override these colors:
 
-```
+```elisp
   (custom-set-variables '(spacemacs-theme-custom-colors
                           '((act1 . "#ff0000")
                             (act2 . "#0000ff")
@@ -163,6 +182,52 @@ If you are using [spacemacs](https://github.com/syl20bnr/spacemacs), you can put
 
 This will override `act1`, `act1` and `base` to use the specified colors.
 
-# Like the theme and want to use it in other places?
+### Use a custom flycheck fringe bitmap
+
+If you don't use spacemacs and want to get the same look of flycheck fringe bitmap, you can put the following snippet into your `init.el` (this assumes you are using `use-package`):
+
+```elisp
+(use-package flycheck
+  :init
+  (progn
+    (define-fringe-bitmap 'my-flycheck-fringe-indicator
+      (vector #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00011100
+              #b00111110
+              #b00111110
+              #b00111110
+              #b00011100
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000))
+
+    (flycheck-define-error-level 'error
+      :severity 2
+      :overlay-category 'flycheck-error-overlay
+      :fringe-bitmap 'my-flycheck-fringe-indicator
+      :fringe-face 'flycheck-fringe-error)
+
+    (flycheck-define-error-level 'warning
+      :severity 1
+      :overlay-category 'flycheck-warning-overlay
+      :fringe-bitmap 'my-flycheck-fringe-indicator
+      :fringe-face 'flycheck-fringe-warning)
+
+    (flycheck-define-error-level 'info
+      :severity 0
+      :overlay-category 'flycheck-info-overlay
+      :fringe-bitmap 'my-flycheck-fringe-indicator
+      :fringe-face 'flycheck-fringe-info)))
+```
+
+## Like the theme and want to use it in other places?
 
 Then check out this project [base16-builder](https://github.com/auduchinok/base16-builder).

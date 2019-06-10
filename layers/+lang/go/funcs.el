@@ -9,17 +9,54 @@
 ;;
 ;;; License: GPLv3
 
-(defun load-gopath-file(gopath name)
-  "Search for NAME file in all paths referenced in GOPATH."
-  (let* ((sep (if (spacemacs/system-is-mswindows) ";" ":"))
-         (paths (split-string gopath sep))
-         found)
-    (cl-loop for p in paths
-          for file = (concat p name) when (file-exists-p file)
-          do
-          (load-file file)
-          (setq found t)
-          finally return found)))
+(defun spacemacs//go-set-tab-width ()
+  "Set the tab width."
+  (when go-tab-width
+    (setq-local tab-width go-tab-width)))
+
+(defun spacemacs//go-setup-backend ()
+  "Conditionally setup go backend"
+  (pcase go-backend
+    ('lsp (spacemacs//go-setup-backend-lsp))))
+
+(defun spacemacs//go-setup-company ()
+  "Conditionally setup go company based on backend"
+  (pcase go-backend
+    ('go-mode (spacemacs//go-setup-company-go))
+    ('lsp (spacemacs//go-setup-company-lsp))))
+
+(defun spacemacs//go-setup-company-go ()
+  (spacemacs|add-company-backends
+    :backends company-go
+    :modes go-mode
+    :variables company-go-show-annotation t
+    :append-hooks nil
+    :call-hooks t)
+  (company-mode))
+
+(defun spacemacs//go-setup-backend-lsp ()
+  "Setup lsp backend"
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        ;; without setting lsp-prefer-flymake to :none
+        ;; golangci-lint errors won't be reported
+        (when go-use-golangci-lint
+          (message "[go] Setting lsp-prefer-flymake :none to enable golangci-lint support.")
+          (setq-local lsp-prefer-flymake :none))
+        (lsp))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs//go-setup-company-lsp ()
+  "Setup lsp auto-completion"
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (spacemacs|add-company-backends
+          :backends company-lsp
+          :modes go-mode
+          :append-hooks nil
+          :call-hooks t)
+        (company-mode))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//go-enable-gometalinter ()
    "Enable `flycheck-gometalinter' and disable overlapping `flycheck' linters."
@@ -31,9 +68,19 @@
                                       go-errcheck))
    (flycheck-gometalinter-setup))
 
+(defun spacemacs//go-enable-golangci-lint ()
+  "Enable `flycheck-golangci-lint' and disable overlapping `flycheck' linters."
+  (setq flycheck-disabled-checkers '(go-gofmt
+                                     go-golint
+                                     go-vet
+                                     go-build
+                                     go-test
+                                     go-errcheck))
+  (flycheck-golangci-lint-setup))
+
 (defun spacemacs/go-run-tests (args)
   (interactive)
-  (compilation-start (concat "go test " args " " go-use-test-args)
+  (compilation-start (concat "go test " (when go-test-verbose "-v ") args " " go-use-test-args)
                      nil (lambda (n) go-test-buffer-name) nil))
 
 (defun spacemacs/go-run-package-tests ()
@@ -68,6 +115,11 @@
 (defun spacemacs/go-run-main ()
   (interactive)
   (shell-command
-   (format "go run %s"
+   (format "go run %s %s"
            (shell-quote-argument (or (file-remote-p (buffer-file-name (buffer-base-buffer)) 'localname)
-                                     (buffer-file-name (buffer-base-buffer)))))))
+                                     (buffer-file-name (buffer-base-buffer))))
+           go-run-args)))
+
+(defun spacemacs/go-packages-gopkgs ()
+  "Return a list of all Go packages, using `gopkgs'."
+  (sort (process-lines "gopkgs") #'string<))

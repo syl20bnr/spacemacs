@@ -1,8 +1,10 @@
 #+TITLE: Better Defaults layer
 
+#+TAGS: emacs|layer
+
 [[file:img/emacs.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -49,7 +51,7 @@ Choose if ~C-e~ first brings you to the end of the line or the end of the code
 
 * Key bindings
 
-| Key Binding | Description                                                                      |
+| Key binding | Description                                                                      |
 |-------------+----------------------------------------------------------------------------------|
 | ~C-a~       | move to beginning of line or code                                                |
 | ~C-e~       | move to end of line or code                                                      |

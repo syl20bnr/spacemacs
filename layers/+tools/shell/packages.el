@@ -18,6 +18,7 @@
         eshell-prompt-extras
         eshell-z
         helm
+        ivy
         magit
         multi-term
         org
@@ -117,18 +118,12 @@
 
       ;; Visual commands
       (require 'em-term)
-      (mapc (lambda (x) (push x eshell-visual-commands))
+      (mapc (lambda (x) (add-to-list 'eshell-visual-commands x))
             '("el" "elinks" "htop" "less" "ssh" "tmux" "top"))
 
       ;; automatically truncate buffer after output
       (when (boundp 'eshell-output-filter-functions)
-        (push 'eshell-truncate-buffer eshell-output-filter-functions))
-
-      ;; These don't work well in normal state
-      ;; due to evil/emacs cursor incompatibility
-      (evil-define-key 'insert eshell-mode-map
-        (kbd "C-k") 'eshell-previous-matching-input-from-input
-        (kbd "C-j") 'eshell-next-matching-input-from-input))))
+        (add-hook 'eshell-output-filter-functions #'eshell-truncate-buffer)))))
 
 (defun shell/init-eshell-prompt-extras ()
   (use-package eshell-prompt-extras
@@ -141,8 +136,11 @@
   (use-package eshell-z
     :defer t
     :init
-    (with-eval-after-load 'eshell
-      (require 'eshell-z))))
+    (progn
+      (setq eshell-z-freq-dir-hash-table-file-name
+            (concat spacemacs-cache-directory "eshell/.z"))
+      (with-eval-after-load 'eshell
+        (require 'eshell-z)))))
 
 (defun shell/pre-init-helm ()
   (spacemacs|use-package-add-hook helm
@@ -153,6 +151,11 @@
       ;;shell
       (spacemacs/set-leader-keys-for-major-mode 'shell-mode
         "H" 'spacemacs/helm-shell-history))))
+
+(defun shell/pre-init-ivy ()
+  (spacemacs|use-package-add-hook ivy
+    :post-init
+    (add-hook 'eshell-mode-hook 'spacemacs/init-ivy-eshell)))
 
 (defun shell/pre-init-magit ()
   (spacemacs|use-package-add-hook magit
@@ -171,8 +174,11 @@
       ;; multi-term commands to create terminals and move through them.
       (spacemacs/set-leader-keys-for-major-mode 'term-mode
         "c" 'multi-term
-        "p" 'multi-term-prev
-        "n" 'multi-term-next))))
+        "C" 'term-char-mode
+        "l" 'term-line-mode
+        "n" 'multi-term-next
+        "N" 'multi-term-prev
+        "p" 'multi-term-prev))))
 
 (defun shell/pre-init-org ()
   (spacemacs|use-package-add-hook org
@@ -181,7 +187,8 @@
 (defun shell/post-init-projectile ()
   (spacemacs/set-leader-keys
     "p'" 'spacemacs/projectile-shell-pop
-    "p$t" 'projectile-multi-term-in-root))
+    "p$t" 'projectile-multi-term-in-root)
+  (spacemacs/declare-prefix "p$" "projects/shell"))
 
 (defun shell/init-shell ()
   (spacemacs/register-repl 'shell 'shell)
@@ -194,7 +201,8 @@
              ;; Check for clear command and execute it.
              ((string-match "^[ \t]*clear[ \t]*$" command)
               (comint-send-string proc "\n")
-              (erase-buffer))
+              (let ((inhibit-read-only  t))
+                (erase-buffer)))
              ;; Check for man command and execute it.
              ((string-match "^[ \t]*man[ \t]*" command)
               (comint-send-string proc "\n")
@@ -218,10 +226,10 @@
             shell-pop-term-shell      shell-default-term-shell
             shell-pop-full-span       shell-default-full-span)
       (make-shell-pop-command eshell)
-      (make-shell-pop-command shell)
       (make-shell-pop-command term shell-pop-term-shell)
-      (make-shell-pop-command multiterm)
       (make-shell-pop-command ansi-term shell-pop-term-shell)
+      (make-shell-pop-command inferior-shell)
+      (make-shell-pop-command multiterm)
 
       (add-hook 'term-mode-hook 'ansi-term-handle-close)
       (add-hook 'term-mode-hook (lambda () (linum-mode -1)))
@@ -229,10 +237,12 @@
       (spacemacs/set-leader-keys
         "'"   'spacemacs/default-pop-shell
         "ase" 'spacemacs/shell-pop-eshell
-        "asi" 'spacemacs/shell-pop-shell
+        "asi" 'spacemacs/shell-pop-inferior-shell
         "asm" 'spacemacs/shell-pop-multiterm
         "ast" 'spacemacs/shell-pop-ansi-term
-        "asT" 'spacemacs/shell-pop-term))))
+        "asT" 'spacemacs/shell-pop-term)
+      (spacemacs/declare-prefix "'" "open shell")
+      (spacemacs/declare-prefix "as" "shells"))))
 
 (defun shell/init-term ()
   (spacemacs/register-repl 'term 'term)

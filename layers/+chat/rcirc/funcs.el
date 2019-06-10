@@ -170,3 +170,20 @@ This doesn't support the chanserv auth method. "
                 (rcirc-connect host port nick user-name
                                full-name channels password encryption)))
            (process-put process :rcirc-server server)))))))
+
+;; erc-image -----------------------------------------------------------------
+
+(defun spacemacs//rcirc-image-show-url (_sender _response)
+  (unless (boundp 'erc-fill-prefix)
+    (setq erc-fill-prefix rcirc-fill-prefix))
+  (erc-image-show-url))
+
+;; erc-yt --------------------------------------------------------------------
+
+(defun spacemacs//rcirc-youtube-show-info (_sender _response)
+  (erc-yt-show-info))
+
+;; erc-tweet --------------------------------------------------------------------
+
+(defun spacemacs//rcirc-tweet-show-tweet (_sender _response)
+  (erc-tweet-show-tweet))

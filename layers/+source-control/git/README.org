@@ -1,8 +1,10 @@
 #+TITLE: Git layer
 
+#+TAGS: layer|versioning
+
 [[file:img/git.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -18,6 +20,7 @@
   - [[#magit][Magit]]
   - [[#staging-lines][Staging lines]]
   - [[#commit-message-editing-buffer][Commit message editing buffer]]
+  - [[#log-selection-buffer][Log selection buffer]]
   - [[#interactive-rebase-buffer][Interactive rebase buffer]]
   - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
   - [[#git-flow-1][Git-Flow]]
@@ -31,9 +34,10 @@ This layers adds extensive support for [[http://git-scm.com/][git]] to Spacemacs
 ** Features:
 - git repository management the indispensable [[http://magit.vc/][magit]] package
 - [[https://github.com/jtatarik/magit-gitflow][git-flow]] add-on for magit.
-- quick in buffer history browsing with [[https://github.com/pidu/git-timemachine][git-timemachine]].
+- quick in buffer history browsing with [[https://melpa.org/#/git-timemachine][git-timemachine]].
 - quick in buffer last commit message per line with [[https://github.com/syohex/emacs-git-messenger][git-messenger]]
 - colorize buffer line by age of commit with [[https://github.com/syohex/emacs-smeargle][smeargle]]
+- git grep with [[https://github.com/yasuyk/helm-git-grep][helm-git-grep]]
 - gitignore generator with [[https://github.com/jupl/helm-gitignore][helm-gitignore]]
 - org integration with magit via [[https://github.com/magit/orgit][orgit]]
 
@@ -55,18 +59,14 @@ To display the =magit status= buffer in fullscreen set the variable
 #+END_SRC
 
 ** Magit auto-complete
-Magit auto-complete feature is enabled. For this feature to work best you
-have to setup your Git repository directory in your =dotspacemacs/user-config=
-function, this is the folder where you keep all your git-controlled projects
-(the path should end up with a ~/~ to respect Emacs conventions):
-
-#+BEGIN_SRC emacs-lisp
-  (setq magit-repository-directories '("~/repos/"))
-#+END_SRC
-
-For more information, see [[http://magit.vc/manual/magit.html#Status-buffer][Magit-User-Manual#Status-buffer]]
+Magit auto-complete feature is enabled by default.
+For this feature to work best - setup [[#repository-list][magit repository list]].
 
 ** Magit SVN plugin
+The magit SVN plugin shows commits which were not pushed to svn yet.
+Press ~!~ in *Magit* buffer to open the magit-svn-popup.
+There you can push to or rebase from svn.
+
 For convenience the magit SVN plugin can be activated directly in the Git
 layer by setting the variable =git-enable-magit-svn-plugin= to =t=.
 
@@ -75,14 +75,18 @@ layer by setting the variable =git-enable-magit-svn-plugin= to =t=.
     (setq-default git-enable-magit-svn-plugin t))
 #+END_SRC
 
+| Key binding | Description          |
+|-------------+----------------------|
+| ~~~         | open magit-svn-popup |
+
 ** Global git commit mode
 Spacemacs can be used as the =$EDITOR= (or =$GIT_EDITOR=) for editing git
 commits messages. To enable this you have to add the following line to your
 =dotspacemacs/user-config=:
 
-#+begin_src emacs-lisp
-(global-git-commit-mode t)
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (global-git-commit-mode t)
+#+END_SRC
 
 ** Git
 Of course if your OS does not ship with git (!) you'll have to install it
@@ -102,11 +106,14 @@ See the commentary section of the package [[https://github.com/magit/orgit/blob/
 * Working with Git
 Git commands (start with ~g~):
 
-| Key Binding | Description                                         |
+| Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
+| ~SPC g /~   | open =helm-git-grep=                                |
+| ~SPC g *~   | open =helm-git-grep-at-point=                       |
 | ~SPC g b~   | open a =magit= blame                                |
 | ~SPC g f f~ | view a file at a specific branch or commit          |
-| ~SPC g f h~ | show file commits history                           |
+| ~SPC g f l~ | commits log for current file                        |
+| ~SPC g f d~ | diff for current file                               |
 | ~SPC g H c~ | clear highlights                                    |
 | ~SPC g H h~ | highlight regions by age of commits                 |
 | ~SPC g H t~ | highlight regions by last updated time              |
@@ -120,9 +127,10 @@ Git commands (start with ~g~):
 | ~SPC g t~   | launch the git time machine                         |
 | ~SPC g U~   | unstage current file                                |
 
+Notes:
 - Highlight by age of commit or last update time is provided by
- [[https://github.com/syohex/emacs-smeargle][smeargle]].
-- Git time machine is provided by [[https://github.com/pidu/git-timemachine][git-timemachine]].
+  [[https://github.com/syohex/emacs-smeargle][smeargle]].
+- Git time machine is provided by [[https://melpa.org/#/git-timemachine][git-timemachine]].
 - Git last commit message per line is provided by [[https://github.com/syohex/emacs-git-messenger][git-messenger]].
 
 ** Magit
@@ -138,37 +146,37 @@ comfortable for evil users.
 
 Here are the often used bindings inside a =status buffer=:
 
-| Key Binding | Description                                                         |
-|-------------+---------------------------------------------------------------------|
-| ~/~         | evil-search                                                         |
-| ~$~         | open =command output buffer=                                        |
-| ~c c~       | open a =commit message buffer=                                      |
-| ~b b~       | checkout a branch                                                   |
-| ~b c~       | create a branch                                                     |
-| ~f f~       | fetch changes                                                       |
-| ~F (r) u~   | pull tracked branch and rebase                                      |
-| ~gr~        | refresh                                                             |
-| ~j~         | goto next magit section                                             |
-| ~C-j~       | next visual line                                                    |
-| ~k~         | goto previous magit section                                         |
-| ~C-k~       | previous visual line                                                |
-| ~l l~       | open =log buffer=                                                   |
-| ~n~         | next search occurrence                                              |
-| ~N~         | previous search occurrence                                          |
-| ~o~         | revert item at point                                                |
-| ~P u~       | push to tracked branch                                              |
-| ~P m~       | push to matching branch  (e.g., upstream/develop to origin/develop) |
-| ~q~         | quit                                                                |
-| ~s~         | on a file or hunk in a diff: stage the file or hunk                 |
-| ~x~         | discard changes                                                     |
-| ~+~         | on a hunk: increase hunk size                                       |
-| ~=~         | on a hunk: decrease hunk size                                       |
-| ~S~         | stage all                                                           |
-| ~TAB~       | on a file: expand/collapse diff                                     |
-| ~u~         | on a staged file: unstage                                           |
-| ~U~         | unstage all staged files                                            |
-| ~v or V~    | select multiple lines                                               |
-| ~z z~       | stash changes                                                       |
+| Key binding | Description                                                        |
+|-------------+--------------------------------------------------------------------|
+| ~/~         | evil-search                                                        |
+| ~$~         | open =command output buffer=                                       |
+| ~c c~       | open a =commit message buffer=                                     |
+| ~b b~       | checkout a branch                                                  |
+| ~b c~       | create a branch                                                    |
+| ~f f~       | fetch changes                                                      |
+| ~F (r) u~   | pull tracked branch and rebase                                     |
+| ~gr~        | refresh                                                            |
+| ~j~         | goto next magit section                                            |
+| ~C-j~       | next visual line                                                   |
+| ~k~         | goto previous magit section                                        |
+| ~C-k~       | previous visual line                                               |
+| ~l l~       | open =log buffer=                                                  |
+| ~n~         | next search occurrence                                             |
+| ~N~         | previous search occurrence                                         |
+| ~o~         | revert item at point                                               |
+| ~P u~       | push to tracked branch                                             |
+| ~P m~       | push to matching branch (e.g., upstream/develop to origin/develop) |
+| ~q~         | quit                                                               |
+| ~s~         | on a file or hunk in a diff: stage the file or hunk                |
+| ~x~         | discard changes                                                    |
+| ~+~         | on a hunk: increase hunk size                                      |
+| ~=~         | on a hunk: decrease hunk size                                      |
+| ~S~         | stage all                                                          |
+| ~TAB~       | on a file: expand/collapse diff                                    |
+| ~u~         | on a staged file: unstage                                          |
+| ~U~         | unstage all staged files                                           |
+| ~v or V~    | select multiple lines                                              |
+| ~z z~       | stash changes                                                      |
 
 ** Staging lines
 Magit allows you to stage specific lines by selecting them in a diff and hitting
@@ -178,20 +186,28 @@ intended. To work around this, you can use =v= instead (since Magit only stages
 whole lines, in any case).
 
 ** Commit message editing buffer
-In a commit message buffer press ~​,​c~ (if =dotspacemacs-major-mode-leader-key= is ~​,​~)
-or ~C-c C-c~ to commit the changes with the entered message. Pressing ~​,​a~ or ~C-c C-k~
-will discard the commit message.
+In a commit message buffer the following key bindings are active:
 
-| Key Binding | Description |
-|-------------+-------------|
-| ~h~         | go left     |
-| ~j~         | go down     |
-| ~k~         | go up       |
-| ~l~         | go right    |
+| Key binding            | Description                                               |
+|------------------------+-----------------------------------------------------------|
+| ~SPC m c~ or ~SPC m ,~ | commit changes with the entered message                   |
+| ~SPC m a~ or ~SPC m k~ | discard message and abort the commit                      |
+| ~g j~ or ~M-n~         | cycle through history to the previous commit message      |
+| ~g k~ or ~M-p~         | save current commit message and cycle to the next message |
+
+In addition, regular commands for saving and killing a buffer such as ~:wq~ and ~ZZ~ can be used to commit changes.
+
+** Log selection buffer
+A log selection buffer is presented as an interactive way of selecting a recent commit that is reachable from HEAD. such as when selecting the beginning of a rebase and when selecting a commit to be squashed into.
+
+| Key binding            | Description                                 |
+|------------------------+---------------------------------------------|
+| ~SPC m c~ or ~SPC m ,~ | select the commit at point and act on it    |
+| ~SPC m a~ or ~SPC m k~ | abort selecting and don't act on any commit |
 
 ** Interactive rebase buffer
 
-| Key Binding | Description    |
+| Key binding | Description    |
 |-------------+----------------|
 | ~c~ or ~p~  | pick           |
 | ~e~         | edit           |
@@ -235,14 +251,14 @@ will discard the commit message.
 ** Git-Flow
 [[https://github.com/jtatarik/magit-gitflow][magit-gitflow]] provides git-flow commands in its own magit menu.
 
-| Key Binding | Description             |
+| Key binding | Description             |
 |-------------+-------------------------|
 | ~%~         | open magit-gitflow menu |
 
 ** Git time machine
-[[https://github.com/pidu/git-timemachine][git-timemachine]] allows to quickly browse the commits of the current buffer.
+[[https://melpa.org/#/git-timemachine][git-timemachine]] allows to quickly browse the commits of the current buffer.
 
-| Key Binding | Description                                        |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC g t~   | start git timemachine and initiate transient-state |
 | ~c~         | show current commit                                |
@@ -256,7 +272,7 @@ will discard the commit message.
 These key bindings allow to quickly construct URLs pointing to a given commit
 or lines in a file hosted on Git web services like GitHub, GitLab, Bitbucket...
 
-| Key Binding | Description                                                            |
+| Key binding | Description                                                            |
 |-------------+------------------------------------------------------------------------|
 | ~SPC g l c~ | on a commit hash, browse to the current file at this commit            |
 | ~SPC g l C~ | on a commit hash, create link to the file at this commit and copy it   |
@@ -270,17 +286,24 @@ or lines in a file hosted on Git web services like GitHub, GitLab, Bitbucket...
   =nil=.
 
 ** Repository list
-This feature will show a list of git directories. The feature needs slight
-configuration within your `.spacemacs` config. In the `dotspacemacs/user-config()`
-stanza insert the following with the directories of your choice:
+Feature displays a status-list of git repositories.
+Within your =.spacemacs= config, in the =dotspacemacs/user-config()= stanza
+configure =magit-repository-directories= to target Emacs to directories to look
+into.
 
 #+BEGIN_SRC emacs-lisp
-(setq magit-repository-directories
-      '("~/Development"))
+  (setq magit-repository-directories
+        '(("~/Development/" . 2) ("~/src/" . 2)))
 #+END_SRC
 
-| Key Binding | Description                                         |
+Where each element has the form =(DIRECTORY . DEPTH)=, when DEPTH is ~0~ - then
+only add DIRECTORY itself.
+The DIRECTORY should end up with a ~/~ to respect Emacs conventions.
+
+| Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC g L~   | start git repo list                                 |
 | ~RET~       | show the git status window for the selected project |
 | ~gr~        | refresh the project list                            |
+
+For more information, look into [[http://magit.vc/manual/magit.html#Status-Buffer][Magit-User-Manual#Status-Buffer]]

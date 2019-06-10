@@ -1,0 +1,30 @@
+#+TITLE: prettier layer
+
+#+TAGS: layer|tool
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support for [[https://github.com/prettier/prettier][prettier]]
+
+** Features:
+- Format buffer in a consistent style
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=.
+
+To install =prettier= globally:
+
+#+BEGIN_SRC sh
+  $ npm install -g prettier
+#+END_SRC
+
+* Key bindings
+
+| Key binding | Description                       |
+|-------------+-----------------------------------|
+| ~SPC m = =~ | format buffer in supported layers |

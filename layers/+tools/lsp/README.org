@@ -1,0 +1,224 @@
+#+TITLE: LSP layer
+
+#+TAGS: layer|tool
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#configuration][Configuration]]
+  - [[#variables][Variables]]
+  - [[#navigation-mode][Navigation mode]]
+- [[#key-bindings][Key bindings]]
+  - [[#key-binding-prefixes][Key binding prefixes]]
+  - [[#core-key-bindings][Core key bindings]]
+  - [[#language-specific-key-binding-extensions][Language-specific key binding extensions]]
+    - [[#spacemacslsp-define-extensions-layer-name-kind-request-optional-extra-parameters][~spacemacs/lsp-define-extensions layer-name kind request &optional extra-parameters~]]
+    - [[#spacemacslsp-bind-extensions-for-mode][~spacemacs/lsp-bind-extensions-for-mode~]]
+- [[#diagnostics][Diagnostics]]
+- [[#references][References]]
+
+* Description
+This layer adds support for basic language server protocol packages speaking
+[[https://microsoft.github.io/language-server-protocol/specification][language server protocol]].
+
+Different language servers may support the language server protocol to varying degrees
+and they may also provide extensions; check the language server's website for
+details.
+=M-x lsp-describe-session= in a LSP buffer to list capabilities of the server.
+
+** Features:
+- Cross references (definitions, references, document symbol, workspace symbol
+  search and others)
+- Workspace-wide symbol rename
+- Symbol highlighting
+- Flycheck
+- Completion with =company-lsp=
+- Signature help with eldoc
+- Symbol documentation in a child frame (=lsp-ui-doc=)
+- Navigation using imenu
+- Consistent core key bindings in LSP modes
+
+* Configuration
+The LSP ecosystem is based on two packages: [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] and [[https://github.com/emacs-lsp/lsp-ui][lsp-ui]].
+Please check out their documentation.
+
+If you add =lsp-*-enable= to major mode hooks for auto initialization of
+language clients, customize =lsp-project-whitelist= =lsp-project-blacklist= to
+disable projects you don't want to enable LSP.
+
+** Variables
+A number of configuration variables have been exposed via the LSP layer =config.el=.
+Sensible defaults have been provided, however they may all be overridden in your .spacemacs, or dynamically using the bindings added
+under the derived mode t prefix by =(spacemacs/lsp-bind-keys-for-mode mode)=
+
+| Variable name                   | Default | Description                                                                                                                          |
+|---------------------------------+---------+--------------------------------------------------------------------------------------------------------------------------------------|
+| =lsp-navigation=                | `both'  | `simple' or `peek' to bind only xref OR lsp-ui-peek navigation functions                                                             |
+| =lsp-ui-remap-xref-keybindings= | nil     | When non-nil, xref key bindings remapped to lsp-ui-peek-find-{definition,references}                                                 |
+| =lsp-ui-doc-enable=             | t       | When non-nil, the documentation overlay is displayed                                                                                 |
+| =lsp-ui-doc-include-signature=  | nil     | When nil, signature omitted from lsp-ui-doc overlay (this is usually redundant)                                                      |
+| =lsp-ui-sideline-enable=        | t       | When non-nil, the symbol information overlay is displayed                                                                            |
+| =lsp-ui-sideline-show-symbol=   | nil     | When non-nil, the symbol information overlay includes symbol name (redundant for c-modes)                                            |
+| =lsp-prefer-flymake=            | nil     | When non-nil, use flymake. When nil, and =lsp-ui-flycheck= is available, use flycheck. When :none, use neither flymake nor flycheck. |
+
+** Navigation mode
+The ~lsp-navigation~ variable defined in =config.el= allows you to define a preference for lightweight or pretty
+(using =lsp-ui-peek=) source navigation styles. By default, the lightweight functions are bound under ~SPC m g~
+and the =lsp-ui-peek= variants under ~SPC m G~. Setting ~lsp-navigation~ to either ~'simple~ or ~'peek~ eliminates
+the bindings under ~SPC m G~ and creates bindings under ~SPC m g~ according to the specified preference.
+
+* Key bindings
+A number of lsp features useful for all/most modes have been bound to the lsp minor mode, meaning they'll be
+available in all language layers based on the lsp layer.
+
+** Key binding prefixes
+The key bindings are grouped under the following prefixes:
+
+| prefix    | name        | functional area                                                            |
+|-----------+-------------+----------------------------------------------------------------------------|
+| ~SPC m =~ | format      | Source formatting                                                          |
+| ~SPC m g~ | goto        | Source navigation                                                          |
+| ~SPC m G~ | peek        | Source navigation (lsp-ui-peek overlay)                                    |
+| ~SPC m F~ | folder      | Add/remove folders from workspace                                          |
+| ~SPC m h~ | help        | Help                                                                       |
+| ~SPC m b~ | lsp/backend | Catchall. Restart LSP backend, other implementation-specific functionality |
+| ~SPC m r~ | refactor    | What it says on the tin                                                    |
+| ~SPC m T~ | toggle      | Toggle LSP backend features (documentation / symbol info overlays etc.)    |
+
+Some navigation key bindings (i.e. ~SPC m g~ / ~SPC m G~) use an additional level of grouping:
+
+| prefix          | name             | functional area                                           |
+|-----------------+------------------+-----------------------------------------------------------|
+| ~SPC m <g/G> h~ | hierarchy        | Hierarchy (i.e. call/inheritance hierarchy etc. )         |
+| ~SPC m <g/G> m~ | member hierarchy | Class/namespace members (functions, nested classes, vars) |
+
+** Core key bindings
+The lsp minor mode bindings are:
+
+| binding     | function                                                                       |
+|-------------+--------------------------------------------------------------------------------|
+| ~SPC m = b~ | format buffer (lsp)                                                            |
+| ~SPC m = r~ | format region (lsp)                                                            |
+|-------------+--------------------------------------------------------------------------------|
+| ~SPC m g t~ | goto type-definition (lsp)                                                     |
+| ~SPC m g k~ | goto viewport word (avy) (See Note 1)                                          |
+| ~SPC m g K~ | goto viewport symbol (avy) (See Note 1)                                        |
+| ~SPC m g e~ | browse flycheck errors (lsp-treemacs)                                          |
+| ~SPC m g M~ | browse file symbols (lsp-ui-imenu)                                             |
+|-------------+--------------------------------------------------------------------------------|
+| Note        | /Replaced by the lsp-ui-peek equivalents when ~lsp-navigation~ == ='peek=/     |
+| ~SPC m g i~ | find implementations (lsp)                                                     |
+| ~SPC m g d~ | find definitions (xref/lsp)                                                    |
+| ~SPC m g r~ | find references (xref/lsp)                                                     |
+| ~SPC m g s~ | find symbol in project (helm-lsp)                                              |
+| ~SPC m g S~ | find symbol in all projects (helm-lsp)                                         |
+| ~SPC m g p~ | goto previous (xref-pop-marker-stack)                                          |
+|-------------+--------------------------------------------------------------------------------|
+| Note        | /Omitted when ~lsp-navigation~ == ='peek= or ='simple=/                        |
+|             | /Bound under ~SPC m g~ rather than ~SPC m G~ when ~lsp-navigation~ == ='peek=/ |
+| ~SPC m G i~ | find implementation (lsp-ui-peek)                                              |
+| ~SPC m G d~ | find definitions (lsp-ui-peek)                                                 |
+| ~SPC m G r~ | find references (lsp-ui-peek)                                                  |
+| ~SPC m G s~ | find-workspace-symbol (lsp-ui-peek)                                            |
+| ~SPC m G p~ | goto previous (lsp-ui-peek stack - see Note 2)                                 |
+| ~SPC m G n~ | goto next (lsp-ui-peek stack - see Note 2)                                     |
+| ~SPC m G E~ | browse flycheck errors (lsp-ui)                                                |
+|-------------+--------------------------------------------------------------------------------|
+| ~SPC m h h~ | describe thing at point                                                        |
+|-------------+--------------------------------------------------------------------------------|
+| ~SPC m b s~ | lsp-shutdown-workspace                                                         |
+| ~SPC m b r~ | lsp-restart-workspace                                                          |
+| ~SPC m b a~ | execute code action                                                            |
+| ~SPC m b d~ | lsp-describe-session                                                           |
+|-------------+--------------------------------------------------------------------------------|
+| ~SPC m r r~ | rename                                                                         |
+|-------------+--------------------------------------------------------------------------------|
+| ~SPC m T d~ | toggle documentation overlay                                                   |
+| ~SPC m T F~ | toggle documentation overlay function signature                                |
+| ~SPC m T s~ | toggle symbol info overlay                                                     |
+| ~SPC m T S~ | toggle symbol info overlay symbol name                                         |
+| ~SPC m T I~ | toggle symbol info overlay duplicates                                          |
+| ~SPC m T l~ | toggle lenses                                                                  |
+|-------------+--------------------------------------------------------------------------------|
+| ~SPC m F r~ | Remove workspace folder                                                        |
+| ~SPC m F a~ | Add workspace folder                                                           |
+| ~SPC m F s~ | Switch workspace folder                                                        |
+
+Note 1: Your language server may not distinguish between the word and symbol variants of this binding.
+Note 2: There is a window local jump list dedicated to cross references.
+
+** Language-specific key binding extensions
+Some LSP server implementations provide extensions to the protocol, which can be leveraged using ~lsp-find-custom~
+or ~lsp-ui-peek-find-custom~. A number of additional functions have been provided to facilitate wrapping these extensions
+in a manner consistent with the ~lsp-navigation~ setting.
+
+*** ~spacemacs/lsp-define-extensions layer-name kind request &optional extra-parameters~
+Use this to define an extension to the lsp find functions. An example from the c-c++ layer:
+
+#+BEGIN_SRC elisp
+  (spacemacs/lsp-define-extensions "c-c++" 'refs-address
+                                   "textDocument/references"
+                                   '(plist-put (lsp--text-document-position-params) :context '(:role 128)))
+#+END_SRC
+
+This defines the following interactive functions:
+- ~c-c++/find-refs-address~
+- ~c-c++/peek-refs-address~
+
+*** ~spacemacs/lsp-bind-extensions-for-mode~
+Use this to bind one or more extensions under ~SPC m g~ and/or ~SPC m G~, as dictated by the value of ~lsp-navigation~.
+Using another example from the c-c++ layer:
+
+#+BEGIN_SRC elisp
+  (spacemacs/lsp-bind-extensions-for-mode mode "c-c++"
+                                          "&" 'refs-address
+                                          "R" 'refs-read
+                                          "W" 'refs-write
+                                          "c" 'callers
+                                          "C" 'callees
+                                          "v" 'vars)
+#+END_SRC
+
+With ~lsp-navigation~ set to ~'both~ (the default), this is equivalent to:
+
+#+BEGIN_SRC elisp
+  (spacemacs/set-leader-keys-for-major-mode mode
+    "g&" 'c-c++/find-refs-address
+    "gR" 'c-c++/find-refs-read
+    "gW" 'c-c++/find-refs-write
+    "gc" 'c-c++/find-callers
+    "gC" 'c-c++/find-callees
+    "gv" 'c-c++/find-vars
+    "G&" 'c-c++/peek-refs-address
+    "GR" 'c-c++/peek-refs-read
+    "GW" 'c-c++/peek-refs-write
+    "Gc" 'c-c++/peek-callers
+    "GC" 'c-c++/peek-callees
+    "Gv" 'c-c++/peek-vars)
+#+END_SRC
+
+whereas with ~lsp-navigation~ set to ~'peek~, this is equivalent to:
+
+#+BEGIN_SRC elisp
+  (spacemacs/set-leader-keys-for-major-mode mode
+    "g&" 'c-c++/peek-refs-address
+    "gR" 'c-c++/peek-refs-read
+    "gW" 'c-c++/peek-refs-write
+    "gc" 'c-c++/peek-callers
+    "gC" 'c-c++/peek-callees
+    "gv" 'c-c++/peek-vars)
+#+END_SRC
+
+etc.
+
+* Diagnostics
+If some features do not work as expected, here is a common check list.
+- =M-x lsp-describe-session= If the LSP workspace is initialized correctly
+- =M-: xref-backend-functions= should be =(lsp--xref-backend)= for cross
+  references
+- =M-: completion-at-point-functions= should be =(lsp-completion-at-point)= for
+  completion
+
+* References
+- [[https://github.com/emacs-lsp/lsp-mode][lsp-mode repo]]
+- [[https://github.com/emacs-lsp/lsp-ui][lsp-ui repo]]

@@ -1,6 +1,8 @@
 #+TITLE: Geolocation layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+#+TAGS: layer|tool
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -9,7 +11,7 @@
   - [[#osx-location][OSX-location]]
   - [[#theme-changer][Theme-changer]]
   - [[#sunshine-weather-forecast][Sunshine (weather forecast)]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#weather][Weather]]
 
 * Description
@@ -48,7 +50,7 @@ Set location manually by setting the following variables in your dotfile:
 #+END_SRC
 
 ** OSX-location
-Mac users can take adavantage of automatic geogrphical discovery using the OS'
+Mac users can take adavantage of automatic geogrphical discovery using the OS's
 CoreLocation system service, implemented as a long running background process.
 In order to enable it, set =geolocation-enable-location-service= to =t= as
 explained in installation instructions.
@@ -61,7 +63,7 @@ activated.
 ** Theme-changer
 This layer implement a simple "theme changer" which, when enabled, will switch
 between first two themes the user has setup in ~dotspacemacs-themes~. First
-theme listed will be used as light variant, while the second as the the dark.
+theme listed will be used as the light variant, while the second as the dark.
 Other themes will be ignored by this layer, though they are still available for
 cycling, etc.
 
@@ -87,7 +89,7 @@ and the country code after the ZIP code. Note the lack of a space in the example
 below.
 
 #+BEGIN_SRC emacs-lisp
-(setq sunshine-location "90210,USA")
+  (setq sunshine-location "90210,USA")
 #+END_SRC
 
 It will use the imperial unit system by default. To switch to metric, add
@@ -109,7 +111,7 @@ To display weather forecast icons by default ("pretty mode"), add
 
 [[file:img/emacs-sunshine.jpg]]
 
-* Key Bindings
+* Key bindings
 ** Weather
 
 | Evil      | Holy | Command                                       |

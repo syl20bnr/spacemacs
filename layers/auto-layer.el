@@ -23,6 +23,7 @@
 ;; csharp
 (configuration-layer/lazy-install 'csv :extensions '("\\(\\.[Cc][Ss][Vv]\\'\\)" csv-mode))
 (configuration-layer/lazy-install 'd :extensions '("\\(\\.d[i]?\\'\\)" d-mode))
+(configuration-layer/lazy-install 'dart :extensions '("\\(\\.dart\\'\\)" dart-mode))
 (configuration-layer/lazy-install 'elixir :extensions '("\\.\\(ex\\|exs\\|elixir\\)\\'" elixir-mode))
 (configuration-layer/lazy-install 'elm :extensions '("\\(\\.elm\\'\\)" elm-mode))
 (configuration-layer/lazy-install 'erlang :extensions '("\\(\\.erl$\\|\\.app\\.src$\\|\\.escript\\|\\.hrl$\\|\\.xrl$\\|\\.yrl\\|/ebin/.+\\.app\\|\\.erl\\'\\|\\.hrl\\'\\)" erlang-mode))
@@ -74,6 +75,7 @@
 (configuration-layer/lazy-install 'sml :extensions '("\\(\\.s\\(ml\\|ig\\)\\'\\|\\.\\(sml\\|sig\\)\\'\\)" sml-mode))
 (configuration-layer/lazy-install 'sql :extensions '("\\(\\.sql\\'\\)" sql-mode))
 (configuration-layer/lazy-install 'swift :extensions '("\\(\\.swift\\'\\)" swift-mode))
+(configuration-layer/lazy-install 'systemd :extensions'("\\(\\.\\(nspawn\\|automount\\|busname\\|mount\\|service\\|slice\\|socket\\|swap\\|target\\|timer\\|link\\|netdev\\|network\\)\\'\\)" systemd-mode))
 (configuration-layer/lazy-install 'shell-scripts :extensions '("\\(\\.fish\\'\\|/fish_funced\\..*\\'\\)" fish-mode))
 (configuration-layer/lazy-install 'typescript :extensions '("\\(\\.ts$\\)" typescript-mode))
 (configuration-layer/lazy-install 'vimscript :extensions '("\\(\\.vim\\'\\|[._]?g?vimrc\\'\\|\\.exrc\\'\\|_vimrc\\'\\|\\.vim[rc]?\\'\\)" vimrc-mode))

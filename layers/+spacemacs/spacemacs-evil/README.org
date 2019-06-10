@@ -1,8 +1,33 @@
 #+TITLE: spacemacs-evil layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+#+TAGS: layer|misc|spacemacs
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
-  - [[#describe-spacemacs-evil-layer-in-this-file][describe spacemacs-evil layer in this file]]
+  - [[#features][Features:]]
 
 * Description
-** TODO describe spacemacs-evil layer in this file
+This layer adds various adjustments to packages to create an evilified experience
+throughout the entirety of Spacemacs.
+
+** Features:
+- Add evil tutorial with =evil-tutor=
+- Add relative line number with =linum-relative= (only in Emacs 25.x and older)
+- Add escaping under ~fd~ by default with =evil-escape=
+- Add occurrences count in mode-line when searching a buffer
+- Add support for lisp structure manipulation with =evil-lisp-state=
+- Add safe structural editing of lisp dialects with =evil-cleverparens=
+- Add =evil-exchange= to swap text
+- Add easy live editing of multiple occurrences with =evil-iedit-state=
+- Add new vim text objects for indentation with =evil-indent-plus=
+- Add operations to align text with =evil-lion=
+- Easy management of comments with =evil-nerd-commenter=
+- Navigation between pairs with =evil-matchit=
+- Advanced navigation on brackets with =evil-unimpaired=
+- Easy increment and decrement of numbers with =evil-number=
+- Support for additional vim movements via =evil-args=
+- Support for surrounding the marked area with a given character via =evil-surround=
+- Evilification of various modes if the editing style is =vim= or =hybrid=
+- Improves the comment function to be able to also do the inverse operation
+- Persistent highlight of searched text with =evil-search-highlight-persist=
+- Display tildes in non-buffer area with =vi-tilde-fringe=

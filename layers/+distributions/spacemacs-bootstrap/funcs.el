@@ -9,6 +9,7 @@
 ;;
 ;;; License: GPLv3
 
+
 
 
 (defun spacemacs/state-color-face (state)
@@ -77,7 +78,7 @@ For evil states that also need an entry to `spacemacs-evil-cursors' use
   (cond
    ((or (eq 'vim style)
         (and (eq 'hybrid style)
-             (bound-and-true-p hybrid-mode-use-evil-search-module)))
+             (bound-and-true-p hybrid-style-use-evil-search-module)))
     ;; if Evil is loaded already, just setting `evil-search-module' isn't
     ;; enough, we need to call `evil-select-search-module' as well (this is done
     ;; automatically when `evil-search-module' is changed via customize)
@@ -88,6 +89,11 @@ For evil states that also need an entry to `spacemacs-evil-cursors' use
     (if (featurep 'evil-search)
         (evil-select-search-module 'evil-search-module 'isearch)
       (setq-default evil-search-module 'isearch)))))
+
+(defun spacemacs/evil-search-clear-highlight ()
+  "Clear evil-search or evil-ex-search persistent highlights."
+  (interactive)
+  (evil-ex-nohighlight)) ; `/' highlights
 
 (defun spacemacs/evil-smart-doc-lookup ()
   "Run documentation lookup command specific to the major mode.
@@ -131,11 +137,11 @@ the boundaries of the text object."
                                           ,(regexp-quote start)
                                           ,(regexp-quote end))
      (with-eval-after-load 'evil-surround
-       (push (cons (string-to-char ,key)
-                   (if ,end
-                       (cons ,start ,end)
-                     ,start))
-             evil-surround-pairs-alist))))
+       (add-to-list 'evil-surround-pairs-alist
+                    (cons (string-to-char ,key)
+                          (if ,end
+                              (cons ,start ,end)
+                            ,start))))))
 
 (defmacro spacemacs|define-text-object-regexp (key name start-regexp end-regexp)
   "Define a text object.

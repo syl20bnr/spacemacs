@@ -11,9 +11,10 @@
 
 (defun spacemacs/emmet-expand ()
   (interactive)
-  (if (bound-and-true-p yas-minor-mode)
-      (call-interactively 'emmet-expand-yas)
-    (call-interactively 'emmet-expand-line)))
+  (unless (if (bound-and-true-p yas-minor-mode)
+              (call-interactively 'emmet-expand-yas)
+            (call-interactively 'emmet-expand-line))
+    (indent-for-tab-command)))
 
 (defun spacemacs/impatient-mode ()
   (interactive)
@@ -24,3 +25,32 @@
     (impatient-mode)
     (when (string-match-p "\\.html\\'" (buffer-name))
       (imp-visit-buffer))))
+
+(defun spacemacs/css-expand-statement ()
+  "Expand CSS block"
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (search-backward "{")
+    (forward-char 1)
+    (while (or (eobp) (not (looking-at "}")))
+      (let ((beg (point)))
+        (newline)
+        (search-forward ";")
+        (indent-region beg (point))
+        ))
+    (newline)))
+
+(defun spacemacs/css-contract-statement ()
+  "Contract CSS block"
+  (interactive)
+  (end-of-line)
+  (search-backward "{")
+  (while (not (looking-at "}"))
+    (join-line -1)))
+
+(defun spacemacs//setup-lsp-for-stylesheet-buffers ()
+  "Start lsp-mode and configure for buffer."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (lsp)
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))

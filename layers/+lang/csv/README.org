@@ -1,13 +1,15 @@
 #+TITLE: CSV layer
 
+#+TAGS: dsl|layer|markup|programming
+
 [[file:img/csv.png]]
 
-* Table of Contents                                      :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds tools for better integration of CSV files in Spacemacs.
@@ -29,12 +31,13 @@ To use this contribution add it to your =~/.spacemacs=
   (setq-default dotspacemacs-configuration-layers '(csv))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                      |
+| Key binding | Description                      |
 |-------------+----------------------------------|
 | ~SPC m a~   | Align fields                     |
 | ~SPC m d~   | Kill fields                      |
+| ~SPC m h~   | Shows/unshows a header line.     |
 | ~SPC m i~   | Toggle delimiter invisibility    |
 | ~SPC m n~   | Move forward 1 field             |
 | ~SPC m p~   | Move backwards 1 field           |

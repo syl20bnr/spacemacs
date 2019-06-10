@@ -38,9 +38,7 @@
                  (mapconcat (lambda (docset) (symbol-name (car docset))) docsets " ")
                  " layers.\n Open a PR/issue if you need more. Docsets available at:"
                  " https://zealdocs.org/"))
-(with-installed (curl tar gzip software-properties-common)
-  ($ "add-apt-repository ppa:zeal-developers/ppa"
-     "apt-get update")
+(with-installed (curl tar gzip)
   (mkdirp docset-dir)
   (install zeal)
   (when (or (dotfile-has-symbol-p 'helm-dash-docset-newpath)

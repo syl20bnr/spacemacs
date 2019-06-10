@@ -1,10 +1,10 @@
 #+TITLE: Beginners tutorial
 
-* Beginners tutorial                                      :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#why-spacemacs][Why Spacemacs?]]
 - [[#installation-and-setup][Installation and setup]]
 - [[#getting-started][Getting started]]
-  - [[#keybinding-notation][Keybinding notation]]
+  - [[#key-binding-notation][Key binding notation]]
   - [[#modal-text-editing---why-and-how][Modal text editing - why and how?]]
   - [[#start-the-vim-tutorial][Start the Vim tutorial]]
   - [[#using-the-spacebar-to-launch-commands][Using the spacebar to launch commands]]
@@ -29,15 +29,15 @@
 - Deeply customizable yet beginner-friendly
 
 * Installation and setup
- Spacemacs is a beginner-friendly and powerful extension of a popular text
- editor called Emacs. To install Spacemacs you need to first install base Emacs
- and then download the Spacemacs extension files, which is most easily done by
- using a program called Git. The steps are easy and detailed in the [[https://github.com/syl20bnr/spacemacs/blob/master/README.md#prerequisites][readme]].
+Spacemacs is a beginner-friendly and powerful extension of a popular text
+editor called Emacs. To install Spacemacs you need to first install base Emacs
+and then download the Spacemacs extension files, which is most easily done by
+using a program called Git. The steps are easy and detailed in the [[https://github.com/syl20bnr/spacemacs/blob/master/README.md#prerequisites][readme]].
 
 * Getting started
-** Keybinding notation
-The power of Spacemacs lies in its efficient keybindings. Because it is built on
-Emacs, we will use Emacs conventions for keybinding notation. The most important
+** Key binding notation
+The power of Spacemacs lies in its efficient key bindings. Because it is built on
+Emacs, we will use Emacs conventions for key binding notation. The most important
 modifier keys are:
 
 ~SPC~ = ~Space~, used as the leader key in Vim editing style.
@@ -51,7 +51,7 @@ two keys at the same time. ~SPC 1~ is notation for a key sequence and means
 pressing ~Space~ first and pressing ~1~ after it. Key chords are notated by
 writing a ~-~ between the keys. Thus ~C-c~ means pressing ~Ctrl~ and the letter
 ~c~ simultaneously. Key chords and sequences can also be combined: ~C-c a~ means
-"First press ~Ctrl~ and ~c~ simultaneously, then press ~a~". ~C-c C-a~ means
+"First press ~Ctrl~ and ~c~ simultaneously, then press ~a~”. ~C-c C-a~ means
 "First press ~Ctrl~ and ~c~ simultaneously, then press ~Ctrl~ and ~a~
 simultaneously".
 
@@ -115,7 +115,7 @@ Spacemacs, so keep on eye on the different options! ~ESC~ usually breaks the
 combination you don't want to use.
 
 ** Buffers, windows and frames
-Because Emacs (the extension of which Spacemacs is) was developed in the 80's
+Because Emacs (the extension of which Spacemacs is) was developed in the '80s
 before the advent of modern graphical user interfaces, Emacs has
 a different name of what we normally call "windows": in Emacs these are
 called "frames". A frame is what pops up when you launch Spacemacs from your
@@ -230,7 +230,7 @@ folder your file is in. You will be prompted whether you want to create a
 repository in the folder. Select yes. You will see a list of "Untracked files":
 navigate to the file you want to track and press s to "stage changes". You might
 be prompted to save the file: save it if necessary. Now the new file needs to be
-commited: press c and c again. Two windows pop up: one showing the changes
+committed: press c and c again. Two windows pop up: one showing the changes
 you've made since the last edit (in this case, the whole document) and another
 prompting for a commit message. Write "Initial commit", press ESC to exit back
 to normal mode and press ~, c~ confirm and quit the commit
@@ -249,14 +249,14 @@ more about the daemon and how to set it to launch automatically on startup.
 This is useful outside of Spacemacs as well!
 
 ** Troubleshooting and further info
-~SPC ?~ shows you the keybindings in the current major mode, which is often
-helpful. For troubleshooting, please refer to the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/FAQ.org][FAQ]] by pressing ~SPC f e f~.
-More help is found under ~SPC h~, and with ~SPC h ~SPC~ you can access the
+~SPC ?~ shows you the key bindings in the current major mode, which is often
+helpful. For troubleshooting, please refer to the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/FAQ.org][FAQ]] by pressing ~SPC h f~.
+More help is found under ~SPC h~, and with ~SPC h SPC~ you can access the
 comprehensive Spacemacs documentation, including this tutorial and the layer
 documents.
 
 The [[https://gitter.im/syl20bnr/spacemacs][Gitter chat]] can be used to ask questions if the answer cannot be found in
-the documentation. For a detailed review of Spacemacs' features one can also
+the documentation. For a detailed review of Spacemacs's features one can also
 watch the [[https://www.youtube.com/playlist?list=PLrJ2YN5y27KLhd3yNs2dR8_inqtEiEweE][Spacemacs ABC series]] by Eivind Fonn on Youtube. Some of the
 keybindings have changed since the videos were uploaded but seeing someone in
 action helps spot helpful tricks that would otherwise be missed.

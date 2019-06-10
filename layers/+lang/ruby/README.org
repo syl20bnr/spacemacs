@@ -1,44 +1,52 @@
 #+TITLE: Ruby layer
 
+#+TAGS: general|layer|multi-paradigm|programming
+
 [[file:img/ruby.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#backends][Backends]]
+    - [[#robe][Robe]]
+    - [[#language-server-protocol][Language Server Protocol]]
   - [[#prerequisites][Prerequisites]]
   - [[#ruby-version-management][Ruby version management]]
   - [[#test-runner][Test runner]]
 - [[#key-bindings][Key bindings]]
   - [[#ruby-enh-ruby-mode-robe-inf-ruby-ruby-tools][Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)]]
+  - [[#debugger][Debugger]]
   - [[#bundler][Bundler]]
   - [[#rubocop][RuboCop]]
   - [[#tests][Tests]]
     - [[#rspec-mode][RSpec-mode]]
     - [[#ruby-test-mode][Ruby-test-mode]]
     - [[#minitest-mode][minitest-mode]]
+  - [[#toggles][Toggles]]
   - [[#rake][Rake]]
   - [[#refactor][Refactor]]
+  - [[#seeing-is-believing][Seeing is believing]]
 - [[#layer-options][Layer options]]
 
 * Description
 This layer provides support for the Ruby programming language.
 
 ** Features:
-   - Version manager (rbenv, rvm or chruby)
-   - Integration with bundler
-   - Test runner (ruby-test and rspec)
-   - Rake runner
-   - Linter (rubocop)
-   - Interactive REPL and code navigation (robe)
+- Version manager (rbenv, rvm or chruby)
+- Integration with bundler
+- Test runner (ruby-test and rspec)
+- Rake runner
+- Linter (rubocop)
+- Interactive REPL and code navigation (robe)
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ruby= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-This layer supports two different Ruby modes: Emacs' built-in Ruby Mode and
-[[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]].  By default the built-in Ruby mode is enabled.  To switch to the
+This layer supports two different Ruby modes: Emacs's built-in Ruby Mode and
+[[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]]. By default the built-in Ruby mode is enabled. To switch to the
 =enh-ruby-mode= set =ruby-enable-enh-ruby-mode= to t:
 
 #+BEGIN_SRC emacs-lisp
@@ -46,14 +54,31 @@ This layer supports two different Ruby modes: Emacs' built-in Ruby Mode and
      '((ruby :variables ruby-enable-enh-ruby-mode t)))
 #+END_SRC
 
+** Backends
+*** Robe
+The default Ruby-mode backend. See Prerequisites for the necessary Gems to support Robe.
+
+*** Language Server Protocol
+IDE-like backend for Ruby. The only prerequisite gem is =solargraph= which can be
+installed globally with:
+
+#+BEGIN_SRC sh
+  gem install solargraph
+#+END_SRC
+
+LSP also supports the DAP debugger which will be automatically configured upon
+using the LSP backend. Dap-mode can be setup here:
+[[https://github.com/emacs-lsp/dap-mode#ruby]]
+
 ** Prerequisites
 Some of the advanced features supported by this layer depend on external gems
 that need to be installed in the context of your project (see below for guidance
 based on your version manager):
-
 - =pry= and =pry-doc= are required for *jump to definition* and *code documentation* (=robe-mode=)
 - =ruby_parser= is required for *goto-step_definition* in =feature-mode=
 - =rubocop= is required for rubocop integration
+- =seeing_is_believing= helps you evaluate code inline
+- =solargraph= is required for using the language server protocol in =ruby-mode=
 
 You can install the gems in the context of your current project by
 adding them to the =Gemfile=, e.g.:
@@ -105,23 +130,72 @@ directory local variables.
 * Key bindings
 ** Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)
 
-| Key binding | Description                                          |
-|-------------+------------------------------------------------------|
-| ~SPC m '​~   | toggle quotes of current string (only built-in mode) |
-| ~SPC m {~   | toggle style of current block (only built-in mode)   |
-| ~SPC m g g~ | go to definition (robe-jump)                         |
-| ~SPC m h h~ | show documentation for method at point (robe-doc)    |
-| ~SPC m s f~ | send function definition                             |
-| ~SPC m s F~ | send function definition and switch to REPL          |
-| ~SPC m s i~ | start REPL                                           |
-| ~SPC m s r~ | send region                                          |
-| ~SPC m s R~ | send region and switch to REPL                       |
-| ~SPC m s s~ | switch to REPL                                       |
-| ~SPC m x '​~ | Change symbol or " string to '                       |
-| ~SPC m x "​~ | Change symbol or ' string to "                       |
-| ~SPC m x :~ | Change string to symbol                              |
-| ~SPC m x h~ | toggle hash syntax in active region                  |
-| ~%~         | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] jumps between blocks                    |
+| Key binding | Description                                       |
+|-------------+---------------------------------------------------|
+| ~SPC m g g~ | go to definition (robe-jump)                      |
+| ~SPC m h h~ | show documentation for method at point (robe-doc) |
+| ~SPC m s b~ | send buffer                                       |
+| ~SPC m s B~ | send buffer and switch to REPL                    |
+| ~SPC m s f~ | send function definition                          |
+| ~SPC m s F~ | send function definition and switch to REPL       |
+| ~SPC m s i~ | start REPL                                        |
+| ~SPC m s l~ | send line                                         |
+| ~SPC m s L~ | send line and switch to REPL                      |
+| ~SPC m s r~ | send region                                       |
+| ~SPC m s R~ | send region and switch to REPL                    |
+| ~SPC m s s~ | switch to REPL                                    |
+| ~SPC m x '​~ | Change symbol or ="= string to ='=                |
+| ~SPC m x "​~ | Change symbol or ='= string to ="=                |
+| ~SPC m x :~ | Change string to symbol                           |
+| ~SPC m x h~ | toggle hash syntax in active region               |
+| ~%~         | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] jumps between blocks                 |
+
+** Debugger
+
+| Key binding   | Description                     |
+|---------------+---------------------------------|
+| ~SPC m d d d~ | start debugging                 |
+| ~SPC m d d l~ | debug last configuration        |
+| ~SPC m d d r~ | debug recent configuration      |
+|---------------+---------------------------------|
+| ~SPC m d c~   | continue                        |
+| ~SPC m d i~   | step in                         |
+| ~SPC m d o~   | step out                        |
+| ~SPC m d s~   | next step                       |
+| ~SPC m d v~   | inspect value at point          |
+| ~SPC m d r~   | restart frame                   |
+|---------------+---------------------------------|
+| ~SPC m d .~   | debug transient state           |
+|---------------+---------------------------------|
+| ~SPC m d a~   | abandon current session         |
+| ~SPC m d A~   | abandon all process             |
+|---------------+---------------------------------|
+| ~SPC m d e e~ | eval                            |
+| ~SPC m d e r~ | eval region                     |
+| ~SPC m d e t~ | eval value at point             |
+|---------------+---------------------------------|
+| ~SPC m d S s~ | switch session                  |
+| ~SPC m d S t~ | switch thread                   |
+| ~SPC m d S f~ | switch frame                    |
+|---------------+---------------------------------|
+| ~SPC m d I i~ | inspect                         |
+| ~SPC m d I r~ | inspect region                  |
+| ~SPC m d I t~ | inspect value at point          |
+|---------------+---------------------------------|
+| ~SPC m d b b~ | toggle a breakpoint             |
+| ~SPC m d b c~ | change breakpoint condition     |
+| ~SPC m d b l~ | change breakpoint log condition |
+| ~SPC m d b h~ | change breakpoint hit count     |
+| ~SPC m d b a~ | add a breakpoint                |
+| ~SPC m d b d~ | delete a breakpoint             |
+| ~SPC m d b D~ | clear all breakpoints           |
+|---------------+---------------------------------|
+| ~SPC m d '_~  | Run debug REPL                  |
+|---------------+---------------------------------|
+| ~SPC m d w l~ | list local variables            |
+| ~SPC m d w o~ | goto output buffer if present   |
+| ~SPC m d w s~ | list sessions                   |
+| ~SPC m d w b~ | list breakpoints                |
 
 ** Bundler
 
@@ -138,12 +212,13 @@ directory local variables.
 
 | Key binding   | Description                                          |
 |---------------+------------------------------------------------------|
-| ~SPC m r r f~ | Runs RuboCop on the currently visited file           |
-| ~SPC m r r F~ | Runs auto-correct on the currently visited file      |
-| ~SPC m r r d~ | Prompts from a directory on which to run RuboCop     |
-| ~SPC m r r D~ | Prompts for a directory on which to run auto-correct |
-| ~SPC m r r p~ | Runs RuboCop on the entire project                   |
-| ~SPC m r r P~ | Runs auto-correct on the project                     |
+| ~SPC m = r~   | Format the current buffer using RuboCop              |
+| ~SPC m R r f~ | Runs RuboCop on the currently visited file           |
+| ~SPC m R r F~ | Runs auto-correct on the currently visited file      |
+| ~SPC m R r d~ | Prompts from a directory on which to run RuboCop     |
+| ~SPC m R r D~ | Prompts for a directory on which to run auto-correct |
+| ~SPC m R r p~ | Runs RuboCop on the entire project                   |
+| ~SPC m R r P~ | Runs auto-correct on the project                     |
 
 ** Tests
 *** RSpec-mode
@@ -182,6 +257,13 @@ When =ruby-test-runner= equals =minitest=.
 | ~SPC m t r~ | repeat last test command  |
 | ~SPC m t s~ | run test for current file |
 
+** Toggles
+
+| Key binding | Description                                          |
+|-------------+------------------------------------------------------|
+| ~SPC m T '~ | Toggle quotes of current string (only built-in mode) |
+| ~SPC m T {~ | Toggle style of current block (only built-in mode)   |
+
 ** Rake
 
 | Key binding | Description                     |
@@ -200,11 +282,19 @@ When =ruby-test-runner= equals =minitest=.
 | ~SPC m r R c~ | Extract constant       |
 | ~SPC m r R l~ | Extract to let (rspec) |
 
+** Seeing is believing
+
+| Key binding   | Description                      |
+|---------------+----------------------------------|
+| ~<SPC> m @ @~ | Run seeing is believing          |
+| ~<SPC> m @ c~ | Clear seeing is believing output |
+
 * Layer options
 
 | Variable                           | Default value | Description                                                                                  |
 |------------------------------------+---------------+----------------------------------------------------------------------------------------------|
-| =ruby-enable-enh-ruby-mode=        | =nil=         | If non-nil, use `enh-ruby-mode' package instead of the built-in Ruby Mode.                   |
-| =ruby-version-manager=             | =nil=         | If non nil, defines the Ruby version manager.Possible values are `rbenv', `rvm' or `chruby'. |
-| =ruby-test-runner=                 | =ruby-test=   | Test runner to use. Possible values are `ruby-test', `minitest' or `rspec'.                  |
+| =ruby-enable-enh-ruby-mode=        | =nil=         | If non-nil, use =enh-ruby-mode= package instead of the built-in Ruby Mode.                   |
+| =ruby-version-manager=             | =nil=         | If non nil, defines the Ruby version manager.Possible values are =rbenv=, =rvm= or =chruby=. |
+| =ruby-test-runner=                 | =ruby-test=   | Test runner to use. Possible values are =ruby-test=, =minitest= or =rspec=.                  |
 | =ruby-highlight-debugger-keywords= | =t=           | If non-nil, enable highlight for debugger keywords.                                          |
+| =ruby-backend=                     | =robe=        | Defines the backend for IDE feature. Possible values are =robe= or =lsp=.                    |

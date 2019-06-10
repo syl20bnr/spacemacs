@@ -21,6 +21,7 @@
       (spacemacs/set-leader-keys-for-major-mode 'csv-mode
         "a"  'csv-align-fields
         "d"  'csv-kill-fields
+        "h"  'csv-header-line
         "i"  'csv-toggle-invisibility
         "n"  'csv-forward-field
         "p"  'csv-backward-field

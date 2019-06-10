@@ -32,7 +32,7 @@
     :init (spacemacs/add-to-hook 'rst-mode-hook '(auto-complete-rst-init
                                                   auto-complete-rst-add-sources))))
 
-(defun restructuredtext/init-post-linum ()
+(defun restructuredtext/post-init-linum ()
   ;; important auto-complete work-around to be applied to make both linum
   ;; and auto-complete to work together
   (when (configuration-layer/package-used-p 'auto-complete)
@@ -43,9 +43,6 @@
 
 (defun restructuredtext/init-rst-lists ()
   (use-package rst-lists))
-
-(defun restructuredtext/init-rst-sphinx ()
-  (use-package rst-sphinx))
 
 (defun restructuredtext/init-rst ()
   (use-package rst

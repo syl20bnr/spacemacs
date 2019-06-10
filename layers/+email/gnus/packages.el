@@ -9,7 +9,10 @@
 ;;
 ;;; License: GPLv3
 
-(setq gnus-packages '(gnus))
+(setq gnus-packages '(
+                      gnus
+                      window-purpose
+                      ))
 
 (defun gnus/init-gnus ()
   "Initialize my package"
@@ -81,3 +84,13 @@
         (kbd "J") 'gnus-summary-next-article
         (kbd "K") 'gnus-summary-prev-article
         (kbd "<RET>") 'spacemacs/browse-nnrss-url))))
+
+(defun gnus/pre-init-window-purpose ()
+  (spacemacs|use-package-add-hook window-purpose
+    :pre-config
+    (dolist (mode '(gnus-group-mode
+                    gnus-server-mode
+                    gnus-browse-mode
+                    gnus-article-mode
+                    gnus-summary-mode))
+      (add-to-list 'purpose-user-mode-purposes (cons mode 'mail)))))

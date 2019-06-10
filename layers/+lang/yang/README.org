@@ -1,0 +1,54 @@
+#+TITLE: yang layer
+
+#+TAGS: dsl|layer|markup|programming
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#syntax-checking-with-flycheck][Syntax checking with flycheck]]
+  - [[#configuration][Configuration]]
+
+* Description
+This layer provides support for the YANG file format.
+
+** Features:
+- Syntax highlighting
+- Syntax checking via [[http://www.flycheck.org/en/latest/languages.html#yaml][flycheck]]
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =yang= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(yang))
+#+END_SRC
+
+* Syntax checking with flycheck
+Flycheck is used to check the yang syntax utilizing =pyang= which needs to be
+installed on your system. Documentation for pyang can be found at the [[https://github.com/mbj4668/pyang][pyang
+repository]], and can be installed using python packaging mechanisms
+
+** Configuration
+By default the syntax checking is done according to ~pyang --lint~ which uses
+rules outlined in RFC 6020. To use a different set of rules set the
+~yang-pyang-rules~ variable. The valid values at the time of writing were:
+- mef Validate the module(s) according to MEF rules.
+- ietf Validate the module(s) according to IETF rules.
+- bbf Validate the module(s) according to BBF rules.
+- ieee Validate the module(s) according to IEEE rules.
+- lint Validate the module(s) according to RFC 6087 rules.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((yang :variables yang-pyang-rules "ietf")))
+#+END_SRC
+
+To allow further customization one can set the ~yang-pyang-extra-args~
+variable to a string that will be passed directly to the =pyang= command.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((yang :variables yang-pyang-extra-args "--max-line-length=69")))
+#+END_SRC

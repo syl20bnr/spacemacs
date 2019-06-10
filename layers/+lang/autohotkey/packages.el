@@ -10,8 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq autohotkey-packages
-  '(ahk-mode))
+(setq autohotkey-packages '(ahk-mode))
 
 (defun autohotkey/init-ahk-mode ()
   (use-package ahk-mode

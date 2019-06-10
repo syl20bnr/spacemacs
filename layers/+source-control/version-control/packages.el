@@ -89,39 +89,53 @@
   (use-package diff-mode
     :defer t
     :config
-    (evilified-state-evilify diff-mode diff-mode-map
-      (kbd "C-j") 'diff-hunk-next
-      (kbd "C-k") 'diff-hunk-prev
-      (kbd "M-n") 'diff-hunk-next
-      (kbd "M-p") 'diff-hunk-prev
-      "J" 'diff-file-next
-      (kbd "<tab>") 'diff-file-next
-      "gj" 'diff-file-next
-      "K" 'diff-file-prev
-      (kbd "<backtab>") 'diff-file-prev
-      "gk" 'diff-file-prev
-      "a" 'diff-apply-hunk
-      "r" 'spacemacs/diff-mode-revert-hunk
-      "S" 'diff-split-hunk
-      "D" 'diff-hunk-kill
-      "u" 'diff-undo)))
+    (progn
+      (spacemacs/declare-prefix-for-mode 'diff-mode "mf" "format")
+      (spacemacs/set-leader-keys-for-major-mode 'diff-mode
+        "a" 'diff-apply-hunk
+        "d" 'diff-hunk-kill
+        "D" 'diff-file-kill
+        "e" 'diff-ediff-patch
+        "fc" 'diff-unified->context
+        "fr" 'diff-reverse-direction
+        "fu" 'diff-context->unified
+        "g" 'diff-goto-source
+        "j" 'diff-hunk-next
+        "J" 'diff-file-next
+        "k" 'diff-hunk-prev
+        "K" 'diff-file-prev
+        "r" 'spacemacs/diff-mode-revert-hunk
+        "s" 'diff-split-hunk
+        "u" 'diff-undo
+        "q" 'quit-window)
+      (spacemacs|define-transient-state diff-mode
+        :title "Diff-mode Transient State"
+        :evil-leader-for-mode (diff-mode . ".")
+        :bindings
+        ("j" diff-hunk-next "next hunk")
+        ("J" diff-file-next "next file")
+        ("k" diff-hunk-prev "previous hunk")
+        ("K" diff-file-prev "previous file")
+        ("q" nil "quit" :exit t)
+        ("<escape>" nil nil :exit t)))))
 
 (defun version-control/init-diff-hl ()
   (use-package diff-hl
+    :if (eq version-control-diff-tool 'diff-hl)
+    :defer t
     :init
     (progn
       (spacemacs/set-leader-keys "gv=" 'diff-hl-diff-goto-hunk)
-      (setq diff-hl-side 'left)
-      (when (eq version-control-diff-tool 'diff-hl)
-        (when (configuration-layer/package-used-p 'magit)
-          (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
-        (when version-control-global-margin
-          (global-diff-hl-mode))
-        (diff-hl-margin-mode)
-        (spacemacs|do-after-display-system-init
-         (setq diff-hl-side (if (eq version-control-diff-side 'left)
-                                'left 'right))
-         (diff-hl-margin-mode -1))))))
+      (if version-control-global-margin
+          (progn
+            (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+            (run-with-idle-timer 1 nil 'global-diff-hl-mode))
+        (run-with-idle-timer 1 nil 'diff-hl-margin-mode)))
+    :config
+    (progn
+      (spacemacs|do-after-display-system-init
+       (setq diff-hl-side (if (eq version-control-diff-side 'left)
+                              'left 'right))))))
 
 (defun version-control/post-init-evil-unimpaired ()
   (define-key evil-normal-state-map (kbd "[ h") 'spacemacs/vcs-previous-hunk)
@@ -129,12 +143,12 @@
 
 (defun version-control/init-git-gutter ()
   (use-package git-gutter
-    :commands (global-git-gutter-mode git-gutter-mode)
+    :if (eq version-control-diff-tool 'git-gutter)
+    :defer t
     :init
     (progn
       ;; If you enable global minor mode
-      (when (and (eq version-control-diff-tool 'git-gutter)
-                 version-control-global-margin)
+      (when version-control-global-margin
         (run-with-idle-timer 1 nil 'global-git-gutter-mode))
       (setq git-gutter:update-interval 2
             git-gutter:modified-sign " "
@@ -151,7 +165,8 @@
 
 (defun version-control/init-git-gutter-fringe ()
   (use-package git-gutter-fringe
-    :commands git-gutter-mode
+    :if (eq version-control-diff-tool 'git-gutter)
+    :defer t
     :init
     (progn
       (spacemacs|do-after-display-system-init
@@ -186,12 +201,12 @@
 
 (defun version-control/init-git-gutter+ ()
   (use-package git-gutter+
-    :commands (global-git-gutter+-mode git-gutter+-mode git-gutter+-refresh)
+    :if (eq version-control-diff-tool 'git-gutter+)
+    :defer t
     :init
     (progn
       ;; If you enable global minor mode
-      (when (and (eq version-control-diff-tool 'git-gutter+)
-                 version-control-global-margin)
+      (when version-control-global-margin
         (add-hook 'magit-pre-refresh-hook 'git-gutter+-refresh)
         (run-with-idle-timer 1 nil 'global-git-gutter+-mode))
       (setq
@@ -203,17 +218,12 @@
     ;; identify magit changes
     :config
     (spacemacs|hide-lighter git-gutter+-mode)
-    ;; (set-face-foreground 'git-gutter+-modified "black")
-    ;; (set-face-foreground 'git-gutter+-added    "black")
-    ;; (set-face-foreground 'git-gutter+-deleted  "black")
-    ;; (set-face-background 'git-gutter+-modified "orange1")
-    ;; (set-face-background 'git-gutter+-added    "green4")
-    ;; (set-face-background 'git-gutter+-deleted  "red3")
     ))
 
 (defun version-control/init-git-gutter-fringe+ ()
   (use-package git-gutter-fringe+
-    :commands git-gutter+-mode
+    :if (eq version-control-diff-tool 'git-gutter+)
+    :defer t
     :init
     (progn
       (spacemacs|do-after-display-system-init
@@ -258,29 +268,38 @@
     :config
     (progn
       (spacemacs|define-transient-state smerge
-        :title "smerge transient state"
+        :title "Smerge Transient State"
         :doc "
- movement^^^^               merge action^^           other
- ---------------------^^^^  -------------------^^    -----------
- [_n_]^^    next hunk       [_b_] keep base          [_u_] undo
- [_N_/_p_]  prev hunk       [_m_] keep mine          [_r_] refine
- [_j_/_k_]  move up/down    [_a_] keep all           [_q_] quit
- ^^^^                       [_o_] keep other
- ^^^^                       [_c_] keep current
- ^^^^                       [_C_] combine with next"
+ Movement^^^^         Merge Action^^      Diff^^            Other
+ ---------------^^^^  ----------------^^  --------------^^  ---------------------------^^
+ [_n_]^^   next hunk  [_b_] keep base     [_<_] base/mine   [_C_] combine curr/next hunks
+ [_N_/_p_] prev hunk  [_m_] keep mine     [_=_] mine/other  [_u_] undo
+ [_j_]^^   next line  [_a_] keep all      [_>_] base/other  [_q_] quit
+ [_k_]^^   prev line  [_o_] keep other    [_r_] refine
+ ^^^^                 [_c_] keep current  [_e_] ediff
+ ^^^^                 [_K_] kill current"
         :bindings
+        ;; move
         ("n" smerge-next)
-        ("p" smerge-prev)
         ("N" smerge-prev)
+        ("p" smerge-prev)
         ("j" evil-next-line)
         ("k" evil-previous-line)
-        ("a" smerge-keep-all)
+        ;; merge action
         ("b" smerge-keep-base)
         ("m" smerge-keep-mine)
+        ("a" smerge-keep-all)
         ("o" smerge-keep-other)
         ("c" smerge-keep-current)
-        ("C" smerge-combine-with-next)
+        ;; diff
+        ("<" smerge-diff-base-mine)
+        ("=" smerge-diff-mine-other)
+        (">" smerge-diff-base-other)
         ("r" smerge-refine)
+        ("e" smerge-ediff :exit t)
+        ;; other
+        ("C" smerge-combine-with-next)
+        ("K" smerge-kill-current)
         ("u" undo-tree-undo)
         ("q" nil :exit t)))))
 

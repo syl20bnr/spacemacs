@@ -21,6 +21,7 @@
         pangu-spacing
         org
         (youdao-dictionary :toggle chinese-enable-youdao-dict)
+        chinese-conv
         ))
 
 (defun chinese/init-fcitx ()
@@ -93,6 +94,10 @@
                  (add-hook 'org-mode-hook
                            '(lambda ()
                               (set (make-local-variable 'pangu-spacing-real-insert-separtor) t))))))
+
+(defun chinese/init-chinese-conv ()
+  (use-package chinese-conv
+    :defer t))
 
 (defun chinese/post-init-org ()
   (defadvice org-html-paragraph (before org-html-paragraph-advice

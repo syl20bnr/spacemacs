@@ -1,15 +1,19 @@
 #+TITLE: TypeScript layer
 
+#+TAGS: general|js|layer|multi-paradigm|programming
+
 [[file:img/TypeScript.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#pre-requisites][Pre-requisites]]
-  - [[#layer][Layer]]
-  - [[#notes][Notes]]
-- [[#configuration][Configuration]]
+  - [[#choosing-a-backend][Choosing a backend]]
+- [[#backends][Backends]]
+  - [[#tide][Tide]]
+    - [[#notes][Notes]]
+  - [[#language-server-protocol][Language Server Protocol]]
 - [[#key-bindings][Key bindings]]
   - [[#typescript-major-mode][Typescript Major Mode]]
   - [[#reference-major-mode][Reference Major Mode]]
@@ -18,10 +22,11 @@
 This layer adds support for TypeScript and TSX editing.
 
 ** Features:
+- Multiple backends support: Tide and LSP
 - Eldoc-mode
 - Documentation at point
 - Auto complete
-- Flycheck with linter
+- Flycheck with either tslint or eslint
 - Jump to definition, Jump to type definition
 - Find occurrences (Imenu-mode)
 - Rename symbol
@@ -30,50 +35,106 @@ This layer adds support for TypeScript and TSX editing.
 - TypeScript playground integration
 
 * Install
-** Pre-requisites
-You will need =node.js v0.12.0= or greater
-
-If you want linting run:  =npm install -g typescript=  =npm install -g tslint=
-
-If you want to use typescript-formatter for formatting run:  =npm install -g typescript-formatter=
-
-For best results, make sure that the =auto-completion= (company) and =html= layers are enabled.
-
-** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =typescript= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(typescript))
+  (setq-default dotspacemacs-configuration-layers '(typescript))
 #+END_SRC
 
 If you need formatting on save:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-  (typescript :variables
-              typescript-fmt-on-save t)))
+  (setq-default dotspacemacs-configuration-layers '(
+    (typescript :variables
+                typescript-fmt-on-save t)))
 #+END_SRC
 
 You can choose formatting tool:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-  (typescript :variables
-              typescript-fmt-tool 'typescript-formatter)))
+  (setq-default dotspacemacs-configuration-layers '(
+    (typescript :variables
+                typescript-fmt-tool 'typescript-formatter)))
 #+END_SRC
 
-Default is 'tide .
+Default is ='tide=.
 
-** Notes
-This layer uses:
-- [[https://github.com/ananthakumaran/tide][tide]]
-- [[https://github.com/flycheck/flycheck][flycheck]]
-- [[https://github.com/vvakame/typescript-formatter][typescript-formatter]] - optional.
+You can choose either tslint (default) or eslint for linting:
 
-*The tools use configuration files. You can learn more in their documentation.*
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (typescript :variables
+                typescript-linter 'tslint)))
+#+END_SRC
 
+** Pre-requisites
+You will need =node.js v0.12.0= or greater.
+
+If you want linting with tslint run:
+
+#+BEGIN_SRC shell
+  npm install -g typescript tslint
+#+END_SRC
+
+If you want linting with eslint run:
+
+#+BEGIN_SRC shell
+  npm install eslint
+#+END_SRC
+
+We need to use the project-local eslint installation in order to pick up plugins
+and presets installed locally.
+
+Ensure that the project directory =node_modules/.bin= is added to the buffer
+local =exec_path= (see the Javascript layer [[file:../../+lang/javascript/README.org][README]] documentation for more
+details).
+
+If you want to use typescript-formatter for formatting run:
+
+#+BEGIN_SRC shell
+  npm install -g typescript-formatter
+#+END_SRC
+
+For best results, make sure that the =auto-completion= (company) and =html=
+layers are enabled.
+
+** Choosing a backend
+To choose a default backend set the layer variable =typescript-backend=:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (typescript :variables typescript-backend 'tide)))
+#+END_SRC
+
+Backend can be chosen on a per project basis using directory local variables
+(files named =.dir-locals.el= at the root of a project), an example to use the
+=lsp= backend:
+
+#+BEGIN_SRC elisp
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
+  ((typescript-mode (typescript-backend . lsp)))
+#+END_SRC
+
+*Note:* you can easily add a directory local variable with ~SPC f v d~.
+
+* Backends
+** Tide
+Tide comes with an embedded Typescript server, it is recommended to use the
+server intalled by =npm= instead. To do so set the variable
+=tide-tsserver-executable= to the path of the =tsserver= executable.
+
+For example:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (typescript :variables
+                tide-tsserver-executable "/usr/local/bin/tsserver")))
+#+END_SRC
+
+*** Notes
 Make sure to add [[https://github.com/Microsoft/TypeScript/wiki/tsconfig.json][tsconfig.json]] in the project root folder.
 
 tsserver mangles output sometimes [[https://github.com/Microsoft/TypeScript/issues/2758][issue - #2758]], which will result in json parse
@@ -84,37 +145,32 @@ Send to playground requires browser.
 Currently tsserver doesn't pickup tsconfig.json file changes. You might need to
 restart server after editing it.
 
-* Configuration
-Tide comes with an embedded Typescript server, it is recommended to use the
-server intalled by =npm= instead. To do so set the variable
-=tide-tsserver-executable= to the path of the =tsserver= executable.
-
-For example:
-
-#+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-  (typescript :variables
-              tide-tsserver-executable "/usr/local/bin/tsserver")))
-#+END_SRC
+** Language Server Protocol
+You also need to install the Typescript Language Server.
+Consult the installation command for the desired language server found at [[https://www.github.com/emacs-lsp/lsp-mode/][lsp-mode]] for instructions.
 
 * Key bindings
 ** Typescript Major Mode
 
-| Key Binding | Description                                                  |
+| Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC m =~   | reformat the buffer                                          |
+| ~SPC m E d~ | add =tslitn-disable-next-line= at point                      |
+| ~SPC m E e~ | fix thing at point                                           |
 | ~SPC m g b~ | jump back                                                    |
 | ~SPC m g g~ | jump to entity's definition                                  |
 | ~SPC m g t~ | jump to entity's type definition                             |
 | ~SPC m g u~ | references                                                   |
 | ~SPC m h h~ | documentation at point                                       |
+| ~SPC m r i~ | organize imports                                             |
 | ~SPC m r r~ | rename symbol                                                |
+| ~SPC m r f~ | rename file                                                  |
 | ~SPC m s p~ | send selected region or current buffer to the web playground |
-| ~SPC m S r~ | restart server                                               |
+| ~SPC m s r~ | restart server                                               |
 
 ** Reference Major Mode
 
-| Key Binding | Description             |
+| Key binding | Description             |
 |-------------+-------------------------|
 | ~C-j~       | find previous reference |
 | ~C-k~       | find next reference     |

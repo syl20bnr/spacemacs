@@ -1,6 +1,6 @@
 #+TITLE: Newsletter #01: About the 0.200 release
 
-* Newsletter #01: About the 0.200 release                 :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#introduction][Introduction]]
 - [[#breaking-changes][Breaking changes]]
   - [[#support-for-emacs-243-has-been-dropped][Support for Emacs 24.3 has been dropped]]
@@ -73,27 +73,27 @@ We renamed =extensions= directories in layers to =local= and the file
 _Before:_
 
 #+BEGIN_SRC emacs-lisp
-;; in extensions.el
-(setq python-post-extensions
-  '(
-    nose
-    pylookup
-    python-compile
-    py-yapf
-    ))
+  ;; in extensions.el
+  (setq python-post-extensions
+    '(
+      nose
+      pylookup
+      python-compile
+      py-yapf
+      ))
 #+END_SRC
 
 _After:_
 
 #+BEGIN_SRC emacs-lisp
-;; in packages.el
-(setq python-packages
-  '(
-    ;; skipping packages before...
-    (nose :location local)
-    (pylookup :location local)
-    ;; skipping packages after...
-    ))
+  ;; in packages.el
+  (setq python-packages
+    '(
+      ;; skipping packages before...
+      (nose :location local)
+      (pylookup :location local)
+      ;; skipping packages after...
+      ))
 #+END_SRC
 
 The variables =<package>-excluded-packages= are now ignored, they have been
@@ -102,23 +102,23 @@ replaced by the =:excluded= keyword in =<layer>-packages= variables.
 _Before:_
 
 #+BEGIN_SRC emacs-lisp
-(setq vim-empty-lines-packages
-      '(
-        (vim-empty-lines-mode :location local)
-        ))
+  (setq vim-empty-lines-packages
+        '(
+          (vim-empty-lines-mode :location local)
+          ))
 
-(setq vim-empty-lines-excluded-packages
-      '(vi-tilde-fringe))
+  (setq vim-empty-lines-excluded-packages
+        '(vi-tilde-fringe))
 #+END_SRC
 
 _After:_
 
-#+BEGIN_SRC  emacs-lisp
-(setq vim-empty-lines-packages
-      '(
-        (vim-empty-lines-mode :location local)
-        (vi-tilde-fringe :excluded t)
-        ))
+#+BEGIN_SRC emacs-lisp
+  (setq vim-empty-lines-packages
+        '(
+          (vim-empty-lines-mode :location local)
+          (vi-tilde-fringe :excluded t)
+          ))
 #+END_SRC
 
 A new file called =layers.el= is in charge of layers dependency, i.e. when a
@@ -263,16 +263,16 @@ the new keyword =:packages=. For instance here is an example to select only the
 packages =fill-column-indicator= and =golden-ratio= in the layer
 =spacemacs-ui-visual=:
 
-#+BEGIN_SRC  emacs-lisp
-(setq dotspacemacs-configuration-layers
-  (spacemacs-ui-visual :packages fill-column-indicator golden-ratio))
+#+BEGIN_SRC emacs-lisp
+  (setq dotspacemacs-configuration-layers
+    (spacemacs-ui-visual :packages fill-column-indicator golden-ratio))
 #+END_SRC
 
 Another example to select all the packages except =fancy-battery=:
 
-#+BEGIN_SRC  emacs-lisp
-(setq dotspacemacs-configuration-layers
-  (spacemacs-ui-visual :packages (not fancy-battery))
+#+BEGIN_SRC emacs-lisp
+  (setq dotspacemacs-configuration-layers
+    (spacemacs-ui-visual :packages (not fancy-battery))
 #+END_SRC
 
 ** Improved stability
@@ -327,16 +327,16 @@ new variables allow to fine tune the Hybrid style experience:
 To define these new variables use the =:variables= keyword. For example:
 
 #+BEGIN_SRC emacs-lisp
-(setq dotspacemacs-editing-style '(hybrid :variables
-                                   hybrid-mode-enable-evilified-state t
-                                   hybrid-mode-enable-hjkl-bindings t
-                                   hybrid-mode-default-state 'normal))
+  (setq dotspacemacs-editing-style '(hybrid :variables
+                                     hybrid-mode-enable-evilified-state t
+                                     hybrid-mode-enable-hjkl-bindings t
+                                     hybrid-mode-default-state 'normal))
 #+END_SRC
 
 ** Support for Ivy
 The community has made a wonderful work to bring [[https://github.com/abo-abo/swiper][ivy]] support to Spacemacs.
 
-Want to switch from =helm= to =ivy= ? This is as simple as adding the =ivy=
+Want to switch from =helm= to =ivy=? This is as simple as adding the =ivy=
 layer to your dotfile and reloading it with ~SPC f e R~!
 
 The level of feature of the =ivy= layer is pretty on par with the =helm= layer,
@@ -364,7 +364,7 @@ configuration:
   =--debug-init= fed in for you
 - press ~SPC q D~ to restart Emacs with a selected list of packages to load,
   in this mode Spacemacs is completely disabled so you get the perfect way
-  to test wether a bug comes from Spacemacs configuration or not
+  to test whether a bug comes from Spacemacs configuration or not
 - press ~SPC h I~ to open an org buffer with an issue template, fill it then
   press ~C-c C-c~ to submit it with your default internet browser.
 
@@ -429,8 +429,8 @@ value will display a maximum of 5 items for the recent files list and a maximum
 of 7 items for the projects list:
 
 #+BEGIN_SRC emacs-lisp
-(setq dotspacemacs-startup-lists '((recents  . 5)
-                                   (projects . 7)))
+  (setq dotspacemacs-startup-lists '((recents  . 5)
+                                     (projects . 7)))
 #+END_SRC
 
 There are two new lists of items which can be displayed on the welcome screen:
@@ -492,24 +492,18 @@ new layers in order to speed up the merge so you can expect more new layers for
 * A few thanks
 This first newsletter is a great opportunity to thanks the Emacs community and
 more specifically:
-
 - =Justin Burkett= (aka [[https://github.com/justbur][justbur]]) and =Fabien Dubosson= (aka [[https://github.com/StreakyCobra][StreakyCobra]])
   who were collaborators during several months. This version would not be so
   awesome without their dedicated involvement. We wish them all the success in
   their future projects.
-
 - =Boris= (aka [[https://github.com/d12frosted][d12frosted]]) who joined =TheBB= and myself as collaborator.
-
 - Of course the unique =Eivind Fonn= (aka [[https://github.com/TheBB][TheBB]]) without his constant support
   Spacemacs could not be successful and I think I would have burn-out a long
   time ago.
-
 - All the package maintainers, especially =Oleh Krehel= (aka [[https://github.com/abo-abo][abo-abo]]) for the
   great help with =ivy= and obviously =Frank Fischer= (aka [[https://bitbucket.org/lyro/][lyro]]) the author
   of =evil=.
-
 - In no specific order: =Diego Berrocal= (aka [[https://github.com/CestDiego][CestDiego]]), [[https://github.com/bmag][bmag]], [[https://github.com/NJBS][NJBS]],
   =Eugene Yaremenko= (aka [[https://github.com/JAremko][JAremko]]), [[https://github.com/travisbhartwell][Travis B. Hartwell]], =Tristan Hume=
   (aka [[https://github.com/trishume][trishume]])
-
 - All the Spacemacs community, you are the heart of Spacemacs!

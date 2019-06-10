@@ -17,10 +17,12 @@
         company
         (company-quickhelp :toggle auto-completion-enable-help-tooltip)
         company-statistics
+        counsel
         fuzzy
         (helm-company :requires helm)
         (helm-c-yasnippet :requires helm)
         hippie-exp
+        (ivy-yasnippet :requires ivy)
         smartparens
         yasnippet
         yasnippet-snippets
@@ -73,7 +75,7 @@
     (progn
       (setq aya-persist-snippets-dir
             (or auto-completion-private-snippets-directory
-                (concat configuration-layer-private-directory "snippets/")))
+                (concat spacemacs-private-directory "snippets/")))
       (spacemacs/declare-prefix "iS" "auto-yasnippet")
       (spacemacs/set-leader-keys
         "iSc" 'aya-create
@@ -128,6 +130,11 @@
                                             "company-statistics-cache.el"))
       (add-hook 'company-mode-hook 'company-statistics-mode))))
 
+(defun auto-completion/pre-init-counsel ()
+    (spacemacs|use-package-add-hook company
+      :post-config
+      (define-key company-active-map (kbd "C-/") 'counsel-company)))
+
 (defun auto-completion/init-fuzzy ()
   (use-package fuzzy :defer t))
 
@@ -150,13 +157,14 @@
       (spacemacs/set-leader-keys "is" 'spacemacs/helm-yas)
       (setq helm-c-yas-space-match-any-greedy t))))
 
-(defun auto-completion/init-helm-company ()
-  (use-package helm-company
-    :if (configuration-layer/package-used-p 'company)
-    :defer t
-    :init
-    (with-eval-after-load 'company
+(defun auto-completion/pre-init-helm-company ()
+  (spacemacs|use-package-add-hook company
+    :post-config
+    (use-package helm-company
+      :defer t
+      :init
       (define-key company-active-map (kbd "C-/") 'helm-company))))
+(defun auto-completion/init-helm-company ())
 
 (defun auto-completion/init-hippie-exp ()
   ;; replace dabbrev-expand
@@ -189,6 +197,14 @@
     ;; Try to expand yasnippet snippets based on prefix
     (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand)))
 
+(defun auto-completion/init-ivy-yasnippet ()
+  (use-package ivy-yasnippet
+    :defer t
+    :init
+    (progn
+      (setq ivy-yasnippet-expand-keys nil)
+      (spacemacs/set-leader-keys "is" 'spacemacs/ivy-yas))))
+
 (defun auto-completion/post-init-smartparens ()
   (with-eval-after-load 'smartparens
     (add-hook 'yas-before-expand-snippet-hook
@@ -198,7 +214,7 @@
 
 (defun auto-completion/init-yasnippet ()
   (use-package yasnippet
-    :commands (yas-global-mode yas-minor-mode)
+    :commands (yas-global-mode yas-minor-mode yas-activate-extra-mode)
     :init
     (progn
       ;; We don't want undefined variable errors
@@ -218,7 +234,7 @@
       (let* ((spacemacs--auto-completion-dir
               (configuration-layer/get-layer-local-dir 'auto-completion))
              (emacs-directory-snippets-dir (concat
-                                          configuration-layer-private-directory
+                                          spacemacs-private-directory
                                           "snippets/"))
              (spacemacs-layer-snippets-dir (expand-file-name
                                       "snippets"
@@ -243,19 +259,19 @@
           (if (listp auto-completion-private-snippets-directory)
               (setq yas-snippet-dirs (append yas-snippet-dirs auto-completion-private-snippets-directory))
             (add-to-list 'yas-snippet-dirs auto-completion-private-snippets-directory))))
-
-      (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
-                                                          markdown-mode-hook
-                                                          org-mode-hook))
       (spacemacs|add-toggle yasnippet
         :mode yas-minor-mode
         :documentation "Enable snippets."
         :evil-leader "ty")
-
       (spacemacs/add-to-hooks
        'spacemacs/force-yasnippet-off '(term-mode-hook
                                         shell-mode-hook
-                                        eshell-mode-hook)))
+                                        eshell-mode-hook))
+      (spacemacs|require 'yasnippet)
+      (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
+                                                          markdown-mode-hook
+                                                          org-mode-hook))
+      )
     :config (spacemacs|diminish yas-minor-mode " ⓨ" " y")))
 
 (defun auto-completion/init-yasnippet-snippets ())

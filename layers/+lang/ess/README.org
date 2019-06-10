@@ -1,13 +1,15 @@
 #+TITLE: ESS (R) layer
 
+#+TAGS: dsl|layer|programming
+
 [[file:img/r.jpg]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#options][Options]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#inferior-repl-process][Inferior REPL process]]
   - [[#help][Help]]
   - [[#more-interaction-with-the-repl][More interaction with the REPL]]
@@ -24,7 +26,6 @@ This layer adds support for statistical programming languages to Spacemacs.
 - Syntax-checking via [[https://github.com/jimhester/lintr][lintr]]
 - Additional data viewer for R via [[https://github.com/myuhe/ess-R-data-view.el][ess-R-data-view]]
 - Support for Org-Babel
-- Better 'equals' behavior via [[https://github.com/genovese/ess-smart-equals][ess-smart-equals]]
 - Showing of inline help for =R= constructs
 - Repl support via =R terminal=
 - Support for =S=, =SAS= and =R=
@@ -43,28 +44,18 @@ To do so start the R terminal and type below code.
 #+END_SRC
 
 * Options
-To turn off the automatic replacement of underscores by =<-=, set in your
-=~/.spacemacs=:
+Use a key binding to insert =<-=:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '((ess :variables
-                                                         ess-disable-underscore-assign t)))
+                                                         ess-assign-key "\M--")))
 #+END_SRC
 
-Alternatively you may enable =ess-smart-equals=, which also disables replacement
-of underscores by =<-=, and additionally replace the equals sign with =<-= when
-appropriate:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '((ess :variables
-                                                         ess-enable-smart-equals t)))
-#+END_SRC
-
-* Key Bindings
+* Key bindings
 ** Inferior REPL process
 Send code to inferior process with these commands:
 
-| Key Binding | Description                                          |
+| Key binding | Description                                          |
 |-------------+------------------------------------------------------|
 | ~SPC m '​~   | start REPL                                           |
 | ~SPC m ,​~   | send region, current function, or paragraph and step |
@@ -86,7 +77,7 @@ Send code to inferior process with these commands:
 ** Help
 Get help and helpers for inspecting objects at point are available in R buffers only.
 
-| Key Binding | Description                                                    |
+| Key binding | Description                                                    |
 |-------------+----------------------------------------------------------------|
 | ~SPC m h a~ | help apropos                                                   |
 | ~SPC m h d~ | display help on object                                         |
@@ -106,7 +97,7 @@ Get help and helpers for inspecting objects at point are available in R buffers 
 ** More interaction with the REPL
 Helpers that provide further interaction with the REPL.
 
-| Key Binding   | Description                                           |
+| Key binding   | Description                                           |
 |---------------+-------------------------------------------------------|
 | ~SPC m r /~   | set working directory                                 |
 | ~SPC m r TAB~ | install package                                       |
@@ -122,7 +113,7 @@ Helpers that provide further interaction with the REPL.
 ** R devtools
 Interaction with the =R= =devtools= package.
 
-| Key Binding   | Description                              |
+| Key binding   | Description                              |
 |---------------+------------------------------------------|
 | ~SPC m w TAB~ | interface for =devtools::install()=      |
 | ~SPC m w a~   | ask for a devtools command and runs it   |
@@ -138,15 +129,15 @@ Interaction with the =R= =devtools= package.
 ** Debugging
 Tools for debugging
 
-| Key Binding  | Description                                                       |
+| Key binding  | Description                                                       |
 |--------------+-------------------------------------------------------------------|
-| ~SPC m d ?~  | 'ess-tracebug-show-help                                           |
+| ~SPC m d ?~  | =ess-tracebug-show-help=                                          |
 | ~SPC m d `~  | show traceback and last error message                             |
 | ~SPC m d \~~ | display call current call stack                                   |
 | ~SPC m d b~  | set breakpoint                                                    |
 | ~SPC m d B~  | set conditional breakpoint                                        |
 | ~SPC m d d~  | set debugging flag for function                                   |
-| ~SPC m d e~  | toggle the `on-error` action                                      |
+| ~SPC m d e~  | toggle the =on-error= action                                      |
 | ~SPC m d i~  | jump to point where the last debugger or traceback event occurred |
 | ~SPC m d k~  | kill breakpoint                                                   |
 | ~SPC m d K~  | kill all breakpoints in buffer                                    |
@@ -163,7 +154,7 @@ Tools for debugging
 ** Editing Markdown
 Edit Markdown files
 
-| Key Binding | Description                                               |
+| Key binding | Description                                               |
 |-------------+-----------------------------------------------------------|
 | ~SPC m c C~ | send knitr/sweave chunk and switch to REPL in insert mode |
 | ~SPC m c c~ | send knitr/sweave chunk and keep buffer focused           |

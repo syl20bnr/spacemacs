@@ -14,6 +14,8 @@
         (company-plsense :requires company)
         (cperl-mode :location built-in)
         flycheck
+        org
+        realgud
         smartparens
         ))
 
@@ -22,8 +24,8 @@
     :defer t
     :init
     (spacemacs|add-company-backends
-      :backends company-plsense
-      :modes cperl-mode)))
+     :backends company-plsense
+     :modes cperl-mode)))
 
 (defun perl5/init-cperl-mode ()
   (use-package cperl-mode
@@ -104,9 +106,9 @@
       (add-hook 'cperl-mode-hook
                 (lambda () (local-set-key (kbd "<tab>") 'indent-for-tab-command)))
 
-      (spacemacs/declare-prefix "m=" "format")
-      (spacemacs/declare-prefix "mg" "find-symbol")
-      (spacemacs/declare-prefix "mh" "perldoc")
+      (spacemacs/declare-prefix-for-mode 'cperl-mode "m=" "format")
+      (spacemacs/declare-prefix-for-mode 'cperl-mode "mg" "find-symbol")
+      (spacemacs/declare-prefix-for-mode 'cperl-mode "mh" "perldoc")
       (spacemacs/set-leader-keys-for-major-mode 'cperl-mode
         "==" 'spacemacs/perltidy-format
         "=b" 'spacemacs/perltidy-format-buffer
@@ -116,13 +118,20 @@
         "v" 'cperl-select-this-pod-or-here-doc)
 
       (font-lock-add-keywords 'cperl-mode
-                              '(("\\_<say\\_>" . cperl-nonoverridable-face))))))
+                      '(("\\_<say\\_>" . cperl-nonoverridable-face))))))
 
 (defun perl5/post-init-flycheck ()
   (spacemacs/enable-flycheck 'cperl-mode))
+
+(defun perl5/post-init-realgud()
+  (spacemacs/add-realgud-debugger 'cperl-mode "trepan.pl"))
 
 (defun perl5/post-init-smartparens ()
   ;; fixs a bug with electric mode and smartparens https://github.com/syl20bnr/spacemacs/issues/480
   (with-eval-after-load 'cperl-mode
     (add-hook 'smartparens-enabled-hook 'spacemacs//perl5-smartparens-enable)
     (add-hook 'smartparens-disabled-hook 'spacemacs//perl5-spartparens-disable)))
+
+(defun perl5/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(perl . t))))

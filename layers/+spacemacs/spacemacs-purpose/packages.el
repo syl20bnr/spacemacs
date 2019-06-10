@@ -100,14 +100,19 @@
         "wpp" #'pupo/close-window
         "wpP" #'pupo/close-all-windows)
       (pupo-mode))))
-
 (defun spacemacs-purpose/init-spacemacs-purpose-popwin ()
   (use-package spacemacs-purpose-popwin :commands pupo-mode))
 
 (defun spacemacs-purpose/init-window-purpose ()
   (use-package window-purpose
+    :defer (spacemacs/defer)
     :init
     (progn
+      (add-hook 'emacs-startup-hook
+                (lambda ()
+                  (spacemacs|add-transient-hook window-configuration-change-hook
+                    (lambda () (require 'window-purpose))
+                    lazy-load-window-purpose)))
       ;; 'r' is for "puRpose" ('w', 'p' are crowded, 'W', 'P' aren't
       ;; comfortable)
       (spacemacs/set-leader-keys
@@ -116,10 +121,16 @@
         "rd" 'purpose-toggle-window-purpose-dedicated
         "rD" 'purpose-delete-non-dedicated-windows
         "rp" 'purpose-switch-buffer-with-some-purpose
-        "rP" 'purpose-set-window-purpose)
-      (purpose-mode))
+        "rP" 'purpose-set-window-purpose))
     :config
     (progn
+      (purpose-mode)
+      ;; fix around window-purpose not respecting -other-window requirement
+      ;; of clone-indirect-buffer-other-window
+      ;; see https://github.com/bmag/emacs-purpose/issues/122
+      (defalias 'clone-indirect-buffer-other-window-without-purpose
+        (without-purpose-command #'clone-indirect-buffer-other-window))
+
       ;; change `switch-to-buffer' display preferences according to
       ;; `dotspacemacs-switch-to-buffer-prefers-purpose'. This affects actions
       ;; like `spacemacs/alternate-buffer', and opening buffers from Dired
@@ -143,4 +154,10 @@
       ;; with original `C-x C-f', `C-x b', etc. and `semantic' key bindings.
       (setcdr purpose-mode-map nil)
       (spacemacs|diminish purpose-mode)
-      (purpose-x-golden-ratio-setup))))
+      (purpose-x-golden-ratio-setup)
+      ;; Show magit-log-select and diff in two windows
+      (purpose-x-magit-multi-on)
+      ;; Other layers may have modified `purpose-user-mode-purposes' by using
+      ;; `spacemacs|user-package-add-hook' to add pre-config hooks; we want to
+      ;; incorporate any such configuration now.
+      (purpose-compile-user-configuration))))

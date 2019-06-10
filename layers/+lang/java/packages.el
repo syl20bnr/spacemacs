@@ -29,6 +29,8 @@
         maven-test-mode
         (meghanada :toggle (not (version< emacs-version "25.1")))
         mvn
+        (lsp-java :requires lsp-mode lsp-ui company-lsp dap-mode)
+        org
         ))
 
 (defun java/post-init-company ()
@@ -45,6 +47,7 @@
 (defun java/init-eclim ()
   (use-package eclim
     :defer t
+    :if (eq java-backend 'eclim)
     ;; :init (setq eclim-auto-save nil)
     :config
     (progn
@@ -71,7 +74,7 @@
                         ("mr" . "refactor")
                         ("mt" . "test")))
         (spacemacs/declare-prefix-for-mode
-         'java-mode (car prefix) (cdr prefix)))
+          'java-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'java-mode
         ;; ant
         "aa" 'eclim-ant-run
@@ -82,7 +85,7 @@
         "Dk" 'stop-eclimd
         "Ds" 'start-eclimd
         ;; errors (problems)
-        "ee" 'eclim-problems-correct
+        "Ee" 'eclim-problems-correct
         ;; find
         "ff" 'eclim-java-find-generic
         ;; goto
@@ -158,6 +161,7 @@
 (defun java/init-ensime ()
   (use-package ensime
     :defer t
+    :if (eq java-backend 'ensime)
     :commands ensime-mode
     :init
     (progn
@@ -177,7 +181,7 @@
                           ("mc" . "check")
                           ("md" . "debug")
                           ("mD" . "daemon")
-                          ("me" . "errors")
+                          ("mE" . "errors")
                           ("mg" . "goto")
                           ("mh" . "docs")
                           ("mi" . "inspect")
@@ -197,7 +201,6 @@
           "br"     'ensime-sbt-do-run
 
           "ct"     'ensime-typecheck-current-buffer
-          "cT"     'ensime-typecheck-all
 
           "dA"     'ensime-db-attach
           "db"     'ensime-db-set-break
@@ -216,27 +219,19 @@
           "Dr"     'spacemacs/ensime-gen-and-restart
           "Ds"     'ensime
 
-          "ee"     'ensime-print-errors-at-point
-          "el"     'ensime-show-all-errors-and-warnings
-          "es"     'ensime-stacktrace-switch
+          "Ee"     'ensime-print-errors-at-point
+          "Es"     'ensime-stacktrace-switch
 
           "gp"     'ensime-pop-find-definition-stack
-          "gi"     'ensime-goto-impl
-          "gt"     'ensime-goto-test
 
           "hh"     'ensime-show-doc-for-symbol-at-point
           "hT"     'ensime-type-at-point-full-name
           "ht"     'ensime-type-at-point
           "hu"     'ensime-show-uses-of-symbol-at-point
 
-          "ii"     'ensime-inspect-type-at-point
-          "iI"     'ensime-inspect-type-at-point-other-frame
-          "ip"     'ensime-inspect-project-package
-
           "ra"     'ensime-refactor-add-type-annotation
           "rd"     'ensime-refactor-diff-inline-local
           "rD"     'ensime-undo-peek
-          "rf"     'ensime-format-source
           "ri"     'ensime-refactor-diff-organize-imports
           "rm"     'ensime-refactor-diff-extract-method
           "rr"     'ensime-refactor-diff-rename
@@ -296,7 +291,7 @@
 ;;       (progn
 ;;         (spacemacs//ensime-init 'java-mode t nil)
 ;;         (when (configuration-layer/package-used-p 'company)
-;;           (push 'ensime-company company-backends-java-mode)))
+;;           (add-to-list 'company-backends-java-mode 'ensime-company)))
 ;;       :config
 ;;       (progn
 ;;         (spacemacs/ensime-configure-keybindings 'java-mode)))))
@@ -324,12 +319,12 @@
       (when (configuration-layer/package-used-p 'groovy-mode)
         (add-hook 'groovy-mode-hook 'gradle-mode)
         (spacemacs/declare-prefix-for-mode 'groovy-mode "ml" "gradle")
-        (spacemacs/declare-prefix-for-mode 'groovy-mode "mc" "compile")
+        (spacemacs/declare-prefix-for-mode 'groovy-mode "mlc" "compile")
         (spacemacs/declare-prefix-for-mode 'groovy-mode "mlt" "tests"))
       (when (configuration-layer/package-used-p 'java-mode)
         (add-hook 'java-mode-hook 'gradle-mode)
         (spacemacs/declare-prefix-for-mode 'java-mode "ml" "gradle")
-        (spacemacs/declare-prefix-for-mode 'groovy-mode "mc" "compile")
+        (spacemacs/declare-prefix-for-mode 'java-mode "mlc" "compile")
         (spacemacs/declare-prefix-for-mode 'java-mode "mlt" "tests")))
     :config
     (progn
@@ -348,6 +343,10 @@
 
 (defun java/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'java-mode))
+
+(defun java/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(java . t))))
 
 (defun java/init-java-mode ()
   (use-package java-mode
@@ -382,6 +381,7 @@
 (defun java/init-meghanada ()
   (use-package meghanada
     :defer t
+    :if (eq java-backend 'meghanada)
     :init
     (progn
       (setq meghanada-server-install-dir (concat spacemacs-cache-directory
@@ -400,7 +400,7 @@
                         ("mt" . "test")
                         ("mx" . "execute")))
         (spacemacs/declare-prefix-for-mode
-         'java-mode (car prefix) (cdr prefix)))
+          'java-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'java-mode
         "cb" 'meghanada-compile-file
         "cc" 'meghanada-compile-project
@@ -431,6 +431,71 @@
         ;; meghanada-local-variable
 
         "x:" 'meghanada-run-task))))
+
+(defun java/init-lsp-java ()
+  (use-package lsp-java
+    :defer t
+    :if (eq java-backend 'lsp)
+    :config
+    (progn
+      ;; key bindings
+      (dolist (prefix '(("mc" . "compile/create")
+                        ("mg" . "goto")
+                        ("mr" . "refactor")
+                        ("mra" . "add/assign")
+                        ("mrc" . "create/convert")
+                        ("mrg" . "generate")
+                        ("mre" . "extract")
+                        ("mq" . "lsp")
+                        ("mt" . "test")
+                        ("mx" . "execute")))
+        (spacemacs/declare-prefix-for-mode
+          'java-mode (car prefix) (cdr prefix)))
+      (spacemacs/set-leader-keys-for-major-mode 'java-mode
+        "pu"  'lsp-java-update-user-settings
+
+        ;; refactoring
+        "ro" 'lsp-java-organize-imports
+        "rcp" 'lsp-java-create-parameter
+        "rcf" 'lsp-java-create-field
+        "rci" 'lsp-java-conver-to-static-import
+        "rec" 'lsp-java-extract-to-constant
+        "rel" 'lsp-java-extract-to-local-variable
+        "rem" 'lsp-java-extract-method
+
+        ;; assign/add
+        "rai" 'lsp-java-add-import
+        "ram" 'lsp-java-add-unimplemented-methods
+        "rat" 'lsp-java-add-throws
+        "raa" 'lsp-java-assign-all
+        "raf" 'lsp-java-assign-to-field
+
+        ;; generate
+        "rgt" 'lsp-java-generate-to-string
+        "rge" 'lsp-java-generate-equals-and-hash-code
+        "rgo" 'lsp-java-generate-overrides
+        "rgg" 'lsp-java-generate-getters-and-setters
+
+        ;; create/compile
+        "cc"  'lsp-java-build-project
+        "cp"  'lsp-java-spring-initializr
+
+        "an"  'lsp-java-actionable-notifications
+
+        ;; dap-mode
+
+        ;; debug
+        "ddj" 'dap-java-debug
+        "dtt" 'dap-java-debug-test-method
+        "dtc" 'dap-java-debug-test-class
+        ;; run
+        "tt" 'dap-java-run-test-method
+        "tc" 'dap-java-run-test-class)
+
+      (setq lsp-highlight-symbol-at-point nil
+            lsp-ui-sideline-update-mode 'point
+            lsp-eldoc-render-all nil
+            lsp-java-completion-guess-arguments t))))
 
 (defun java/init-mvn ()
   (use-package mvn

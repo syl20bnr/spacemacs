@@ -44,12 +44,14 @@
 
 ;;; Code:
 
+(require 'cl-lib)
 (require 'rcirc)
 
-(add-hook 'rcirc-print-hooks 'rcirc-late-fix-hook)
+(add-hook 'rcirc-print-functions 'rcirc-late-fix-hook)
 
 (defface rcirc-late-fix-face '((t (:underline t :foreground "Blue")))
-  "Face for showing fixed words on the channel buffer.")
+  "Face for showing fixed words on the channel buffer."
+  :group 'rcirc-faces)
 
 (defun rcirc-late-fix-apply (beg end string)
   (save-excursion
@@ -76,13 +78,13 @@
               (setf matches (cons (list (match-beginning 0) (match-end 0)) matches)))
             (when (not (null matches)) ;; there was at least one match
               (if global               ;; global = replace all matches
-                  (mapc '(lambda (x) (rcirc-late-fix-apply (car x) (cadr x) to)) matches)
-                  (rcirc-late-fix-apply (caar matches) (cadar matches) to)))))))))
+                  (dolist (x matches)
+                    (rcirc-late-fix-apply (car x) (cadr x) to))
+                (rcirc-late-fix-apply (caar matches) (cadar matches) to)))))))))
 
 (defun rcirc-late-fix-matching-buffer (name)
   "Find buffer (channel) that starts with NAME."
-  (find-if '(lambda (x) (string-match (concat "^" name) x))
-           (mapcar 'buffer-name (buffer-list))))
+  (cl-find name (mapcar 'buffer-name (buffer-list)) :test #'string-prefix-p))
 
 
 

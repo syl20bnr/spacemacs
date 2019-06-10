@@ -10,9 +10,11 @@
 ;;; License: GPLv3
 
 (setq agda-packages
-      '((agda :location local)
+      '(
+        (agda :location local)
         company
-        golden-ratio))
+        golden-ratio
+        ))
 
 (defun agda/post-init-company ()
   (spacemacs|add-company-backends :backends company-capf :modes agda2-mode))

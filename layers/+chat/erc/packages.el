@@ -9,30 +9,29 @@
 ;;
 ;;; License: GPLv3
 
-(setq erc-packages
-      '(
-        company
-        company-emoji
-        emoji-cheat-sheet-plus
-        erc
-        (erc-gitter :location (recipe
-                               :fetcher github
-                               :repo "jleechpe/erc-gitter")
-                    :excluded t)
-        erc-hl-nicks
-        erc-image
-        (erc-sasl :location local)
-        erc-social-graph
-        (erc-tex :location local)
-        erc-view-log
-        (erc-yank :location local :excluded t)
-        erc-yt
-        linum
-        persp-mode
-        ))
-
-(when (spacemacs/system-is-mac)
-  (push 'erc-terminal-notifier erc-packages))
+(defconst erc-packages
+  '(
+    company
+    company-emoji
+    emoji-cheat-sheet-plus
+    erc
+    (erc-gitter :location (recipe
+                           :fetcher github
+                           :repo "jleechpe/erc-gitter")
+                :excluded t)
+    erc-hl-nicks
+    erc-image
+    (erc-sasl :location local)
+    erc-social-graph
+    (erc-terminal-notifier :toggle (spacemacs/system-is-mac))
+    (erc-tex :location local)
+    erc-view-log
+    (erc-yank :location local :excluded t)
+    erc-yt
+    linum
+    persp-mode
+    window-purpose
+    ))
 
 (defun erc/post-init-company ()
   (spacemacs|add-company-backends :backends company-capf :modes erc-mode))
@@ -54,6 +53,7 @@
         "aiE" 'erc-tls
         "aii" 'erc-track-switch-buffer
         "aiD" 'erc/default-servers)
+      (spacemacs/declare-prefix "ai"  "irc")
       ;; utf-8 always and forever
       (setq erc-server-coding-system '(utf-8 . utf-8)))
     :config
@@ -247,3 +247,6 @@
               (erc/default-servers)
             (call-interactively 'erc)))))))
 
+(defun erc/pre-init-window-purpose ()
+  (spacemacs|use-package-add-hook window-purpose
+    :pre-config (add-to-list 'purpose-user-mode-purposes '(erc-mode . chat))))

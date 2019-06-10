@@ -17,6 +17,7 @@
         (helm-mu :requires helm)
         org
         persp-mode
+        window-purpose
         ))
 
 (defun mu4e/post-init-persp-mode ()
@@ -34,7 +35,11 @@
                          mu4e-view-mode-hook
                          mu4e-compose-mode-hook))
       (call-interactively 'mu4e)
-      (call-interactively 'mu4e-update-index))))
+      (call-interactively 'mu4e-update-index)
+
+      (define-advice mu4e~stop (:after nil kill-mu4e-layout-after-mu4e~stop)
+        (when mu4e-spacemacs-kill-layout-on-exit
+          (persp-kill mu4e-spacemacs-layout-name))))))
 
 (defun mu4e/init-mu4e ()
   (use-package mu4e
@@ -56,7 +61,9 @@
       (evilified-state-evilify-map mu4e-main-mode-map
         :mode mu4e-main-mode
         :bindings
-        (kbd "j") 'mu4e~headers-jump-to-maildir)
+        (kbd "j") 'mu4e~headers-jump-to-maildir
+        (kbd "C-j") 'next-line
+        (kbd "C-k") 'previous-line)
 
       (evilified-state-evilify-map
        mu4e-headers-mode-map
@@ -145,3 +152,9 @@ mu4e-use-maildirs-extension-load to be evaluated after mu4e has been loaded."
 (defun mu4e/pre-init-org ()
   ;; load org-mu4e when org is actually loaded
   (with-eval-after-load 'org (require 'org-mu4e nil 'noerror)))
+
+(defun mu4e/pre-init-window-purpose ()
+  (spacemacs|use-package-add-hook window-purpose
+    :pre-config
+    (dolist (mode mu4e-modes)
+      (add-to-list 'purpose-user-mode-purposes (cons mode 'mail)))))

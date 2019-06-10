@@ -10,10 +10,11 @@
 ;;; License: GPLv3
 
 (defconst graphviz-packages
-  '((graphviz-dot-mode :location (recipe :fetcher github
-                                         :repo "luxbock/graphviz-dot-mode"))
+  '(
+    graphviz-dot-mode
     org
-    smartparens))
+    smartparens
+    ))
 
 (defun graphviz/init-graphviz-dot-mode ()
   (use-package graphviz-dot-mode

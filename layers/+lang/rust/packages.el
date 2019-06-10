@@ -10,18 +10,19 @@
 ;;; License: GPLv3
 
 (setq rust-packages
-  '(
-    cargo
-    company
-    racer
-    flycheck
-    (flycheck-rust :requires flycheck)
-    ggtags
-    exec-path-from-shell
-    helm-gtags
-    rust-mode
-    toml-mode
-    ))
+      '(
+        cargo
+        company
+        counsel-gtags
+        racer
+        flycheck
+        (flycheck-rust :requires flycheck)
+        ggtags
+        helm-gtags
+        rust-mode
+        smartparens
+        toml-mode
+        ))
 
 (defun rust/init-cargo ()
   (use-package cargo
@@ -49,13 +50,54 @@
         "cv" 'cargo-process-check
         "t" 'cargo-process-test))))
 
-(defun rust/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'rust-mode))
+(defun rust/init-rust-mode ()
+  (use-package rust-mode
+    :defer t
+    :init
+    (progn
+      (spacemacs/add-to-hook 'rust-mode-hook '(spacemacs//rust-setup-backend))
+      (spacemacs/declare-prefix-for-mode 'rust-mode "mg" "goto")
+      (spacemacs/declare-prefix-for-mode 'rust-mode "mh" "help")
+      (spacemacs/declare-prefix-for-mode 'rust-mode "m=" "format")
+      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+        "==" 'rust-format-buffer
+        "q" 'spacemacs/rust-quick-run))))
+
+(defun rust/init-toml-mode ()
+  (use-package toml-mode
+    :mode "/\\(Cargo.lock\\|\\.cargo/config\\)\\'"))
+
+(defun rust/init-racer ()
+  (use-package racer
+    :defer t
+    :commands racer-mode
+    :config
+    (progn
+      (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode))
+      (spacemacs/add-to-hook 'racer-mode-hook '(eldoc-mode))
+      (add-to-list 'spacemacs-jump-handlers-rust-mode 'racer-find-definition)
+      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+        "hh" 'spacemacs/racer-describe)
+      (spacemacs|hide-lighter racer-mode)
+      (evilified-state-evilify-map racer-help-mode-map
+        :mode racer-help-mode))))
 
 (defun rust/init-flycheck-rust ()
   (use-package flycheck-rust
     :defer t
     :init (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
+
+(defun rust/post-init-company ()
+  ;; backend specific
+  (spacemacs//rust-setup-company))
+
+(defun rust/post-init-smartparens ()
+  (with-eval-after-load 'smartparens
+    ;; Don't pair lifetime specifiers
+    (sp-local-pair 'rust-mode "'" nil :actions nil)))
+
+(defun rust/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'rust-mode))
 
 (defun rust/post-init-ggtags ()
   (add-hook 'rust-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
@@ -65,52 +107,3 @@
 
 (defun rust/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'rust-mode))
-
-(defun rust/init-rust-mode ()
-  (use-package rust-mode
-    :defer t
-    :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-        "=" 'rust-format-buffer
-        "q" 'spacemacs/rust-quick-run))))
-
-(defun rust/init-toml-mode ()
-  (use-package toml-mode
-    :mode "/\\(Cargo.lock\\|\\.cargo/config\\)\\'"))
-
-(defun rust/post-init-company ()
-  (spacemacs|add-company-backends
-    :backends company-capf
-    :modes rust-mode
-    :variables company-tooltip-align-annotations t))
-
-(defun rust/post-init-smartparens ()
-  (with-eval-after-load 'smartparens
-    ;; Don't pair lifetime specifiers
-    (sp-local-pair 'rust-mode "'" nil :actions nil)))
-
-
-(defun rust/pre-init-exec-path-from-shell ()
-  (spacemacs|use-package-add-hook exec-path-from-shell
-    :pre-config
-    (let ((var "RUST_SRC_PATH"))
-      (unless (or (member var exec-path-from-shell-variables) (getenv var))
-        (push var exec-path-from-shell-variables)))))
-
-(defun rust/init-racer ()
-  (use-package racer
-    :defer t
-    :init
-    (progn
-      (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode))
-      (spacemacs/declare-prefix-for-mode 'rust-mode "mg" "goto")
-      (add-to-list 'spacemacs-jump-handlers-rust-mode 'racer-find-definition)
-      (spacemacs/declare-prefix-for-mode 'rust-mode "mh" "help")
-      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-        "hh" 'spacemacs/racer-describe))
-    :config
-    (progn
-      (spacemacs|hide-lighter racer-mode)
-      (evilified-state-evilify-map racer-help-mode-map
-        :mode racer-help-mode))))

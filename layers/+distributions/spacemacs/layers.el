@@ -1,4 +1,4 @@
-;;; layers.el --- Spacemacs Layer layers File
+;;; layers.el --- Spacemacs distribution Layer layers File
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
@@ -11,7 +11,7 @@
 
 (configuration-layer/declare-layers '(
                                       helm
-                                      neotree
+                                      treemacs
                                       spacemacs-base
                                       spacemacs-completion
                                       spacemacs-layouts
@@ -23,6 +23,7 @@
                                       spacemacs-modeline
                                       spacemacs-navigation
                                       spacemacs-org
+                                      spacemacs-project
                                       spacemacs-purpose
                                       spacemacs-visual
                                       ))

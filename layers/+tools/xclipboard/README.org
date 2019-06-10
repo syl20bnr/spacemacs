@@ -1,0 +1,31 @@
+#+TITLE: xclipboard layer
+
+#+TAGS: layer|tool
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#requirements][Requirements]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+=xclipboard= integration layer.
+
+** Features:
+- adds copy support to the X-clipboard from the terminal.
+- adds paste support to the X-clipboard from the terminal.
+
+* Requirements
+This layer depends on a few platform-specific command-line tools:
+- on OSX, this layer calls =pbcopy=
+- on Windows, this layer calls =clip.exe=
+- on GNU/Linux systems, this layer relies on =xsel= to be available.
+
+Note that =xsel= might not be installed by default on e.g. Ubuntu systems.
+
+* Key bindings
+
+| Key binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~SPC x p~   | Paste clipboard contents at cursor position |
+| ~SPC x y~   | Copy selection to clipboard                 |

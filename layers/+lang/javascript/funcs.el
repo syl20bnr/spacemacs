@@ -10,6 +10,68 @@
 ;;; License: GPLv3
 
 
+;; backend
+
+(defun spacemacs//javascript-setup-backend ()
+  "Conditionally setup javascript backend."
+  (pcase javascript-backend
+    (`tern (spacemacs//javascript-setup-tern))
+    (`lsp (spacemacs//javascript-setup-lsp))))
+
+(defun spacemacs//javascript-setup-company ()
+  "Conditionally setup company based on backend."
+  (pcase javascript-backend
+    (`tern (spacemacs//javascript-setup-tern-company))
+    (`lsp (spacemacs//javascript-setup-lsp-company))))
+
+
+;; lsp
+
+(defun spacemacs//javascript-setup-lsp ()
+  "Setup lsp backend."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (lsp))
+    (message (concat "`lsp' layer is not installed, "
+                     "please add `lsp' layer to your dotfile.")))
+  (if (configuration-layer/layer-used-p 'dap)
+      (progn
+        (require 'dap-firefox)
+        (require 'dap-chrome)
+        (spacemacs/dap-bind-keys-for-mode 'js2-mode))
+    (message "`dap' layer is not installed, please add `dap' layer to your dotfile.")))
+
+(defun spacemacs//javascript-setup-lsp-company ()
+  "Setup lsp auto-completion."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (spacemacs|add-company-backends
+          :backends company-lsp
+          :modes js2-mode
+          :append-hooks nil
+          :call-hooks t)
+        (company-mode)
+        (fix-lsp-company-prefix))
+    (message (concat "`lsp' layer is not installed, "
+                     "please add `lsp' layer to your dotfile."))))
+
+
+;; tern
+(defun spacemacs//javascript-setup-tern ()
+  (if (configuration-layer/layer-used-p 'tern)
+      (when (locate-file "tern" exec-path)
+        (spacemacs/tern-setup-tern))
+    (message (concat "Tern was configured as the javascript backend but "
+                     "the `tern' layer is not present in your `.spacemacs'!"))))
+
+(defun spacemacs//javascript-setup-tern-company ()
+  (if (configuration-layer/layer-used-p 'tern)
+      (when (locate-file "tern" exec-path)
+        (spacemacs/tern-setup-tern-company 'js2-mode))
+    (message (concat "Tern was configured as the javascript backend but "
+                     "the `tern' layer is not present in your `.spacemacs'!"))))
+
+
 ;; js-doc
 
 (defun spacemacs/js-doc-require ()
@@ -33,17 +95,6 @@
 (defun spacemacs/js2-refactor-require ()
   "Lazy load js2-refactor"
   (require 'js2-refactor))
-
-
-;; coffee
-
-(defun javascript/coffee-indent ()
-  (if (coffee-line-wants-indent)
-      ;; We need to insert an additional tab because
-      ;; the last line was special.
-      (coffee-insert-spaces (+ (coffee-previous-indent) coffee-tab-width))
-    ;; otherwise keep at the same indentation level
-    (coffee-insert-spaces (coffee-previous-indent))))
 
 
 ;; skewer
@@ -81,22 +132,19 @@
   (evil-insert-state))
 
 
-;; tern
+;; Others
 
-(defun spacemacs//set-tern-key-bindings (mode)
-  "Set the key bindings for tern and the given MODE."
-  (add-to-list (intern (format "spacemacs-jump-handlers-%S" mode))
-            '(tern-find-definition :async t))
-  (spacemacs/set-leader-keys-for-major-mode mode
-    "rrV" 'tern-rename-variable
-    "hd" 'tern-get-docs
-    "gG" 'tern-find-definition-by-name
-    (kbd "C-g") 'tern-pop-find-definition
-    "ht" 'tern-get-type))
+(defun spacemacs/javascript-format ()
+  "Call formatting tool specified in `javascript-fmt-tool'."
+  (interactive)
+  (cond
+   ((eq javascript-fmt-tool 'prettier)
+    (call-interactively 'prettier-js))
+   ((eq javascript-fmt-tool 'web-beautify)
+    (call-interactively 'web-beautify-js))
+   (t (error (concat "%s isn't valid javascript-fmt-tool value."
+                     " It should be 'web-beutify or 'prettier.")
+                     (symbol-name javascript-fmt-tool)))))
 
-(defun spacemacs//tern-detect ()
-  "Detect tern binary and warn if not found."
-  (let ((found (executable-find "tern")))
-    (unless found
-      (spacemacs-buffer/warning "tern binary not found!"))
-    found))
+(defun spacemacs/javascript-fmt-before-save-hook ()
+  (add-hook 'before-save-hook 'spacemacs/javascript-format t t))

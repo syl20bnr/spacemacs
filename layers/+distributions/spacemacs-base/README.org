@@ -1,8 +1,15 @@
 #+TITLE: spacemacs-base distribution
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+#+TAGS: distribution|layer|spacemacs
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
-  - [[#describe-spacemacs-base-distribution-in-this-file][describe spacemacs-base distribution in this file]]
+  - [[#features][Features:]]
 
 * Description
-** TODO describe spacemacs-base distribution in this file
+This is the base distribution for Spacemacs.
+
+** Features:
+- Minimalistic approach to Spacemacs, contains only the core packages. Good starting
+  point to make something completely new. This distribution should not be used for
+  a new standalone Spacemacs installation except you have very good reasons to.

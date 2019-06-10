@@ -1,12 +1,25 @@
+;;; packages.el --- Nim Layer packages File for Spacemacs
+;;
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;;
+;; Author: Max Gonzih
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
 (setq nim-packages
-      '(company
+      '(
+        company
         flycheck
         flycheck-nim
-        nim-mode))
+        nim-mode
+        ))
 
 (defun nim/post-init-company ()
   (spacemacs|add-company-backends
-    :backends company-capf
+    :backends company-nimsuggest
     :modes nim-mode nimscript-mode))
 
 (defun nim/post-init-flycheck ()
@@ -22,12 +35,17 @@
     :init
     (progn
       (add-hook 'nim-mode-hook 'nimsuggest-mode)
-      (push 'nimsuggest-find-definition spacemacs-jump-handlers-nim-mode))
+      (add-to-list 'spacemacs-jump-handlers-nim-mode 'nimsuggest-find-definition))
     :config
     (progn
       (defun spacemacs/nim-compile-run ()
+        "Compile current buffer file."
         (interactive)
-        (shell-command "nim compile --run main.nim"))
+        (shell-command (concat "nim compile --run " (buffer-file-name))))
+
+      (spacemacs/declare-prefix-for-mode 'nim-mode "mc" "compile")
+      (spacemacs/declare-prefix-for-mode 'nim-mode "mg" "goto")
+      (spacemacs/declare-prefix-for-mode 'nim-mode "mh" "help")
 
       (spacemacs/set-leader-keys-for-major-mode 'nim-mode
         "cr" 'spacemacs/nim-compile-run

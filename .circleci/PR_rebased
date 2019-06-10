@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+## PR rebase check script for CircleCI
+##
+## Copyright (c) 2012-2014 Sylvain Benner
+## Copyright (c) 2014-2018 Sylvain Benner & Contributors
+##
+## Author: Eugene Yaremenko
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "${DIR}/shared"
+
+if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
+    echo "Skipping PR rebase check for branch update."
+    exit 0
+fi
+
+upstream_head_sha=$(curl -s "${upstream_data_URL}" | jq '.commit.sha')
+
+pr_base_sha=$(curl -s "${pr_data_URL}" | jq '.base.sha')
+
+if [[ "${upstream_head_sha}" == "${pr_base_sha}" ]]; then
+    echo "Seems like your PR doesn't need rebase. This is also good."
+    exit 0
+else
+    printf '=%.0s' {1..80}
+    printf "\n       し(*･∀･)／   Thanks for the contribution!  ＼(･∀･*)ノ\n"
+    printf '=%.0s' {1..80}
+    printf "\n( ＾◡＾)っ Please rebase your PR\n"
+
+    echo_headline  "How to rebase PR(first timer guide):"
+    printf "git remote add upstream "
+    printf "https://github.com/"
+    printf "${CIRCLE_PROJECT_USERNAME}/"
+    printf "${CIRCLE_PROJECT_REPONAME}.git\n"
+    printf "git fetch upstream\n"
+    printf "git rebase upstream/develop\n"
+    printf "git push --force\n"
+    printf '=%.0s' {1..80}
+    echo
+    exit 2
+fi

@@ -1,8 +1,10 @@
 #+TITLE: kotlin layer
 
+#+TAGS: general|layer|multi-paradigm|programming
+
 [[file:img/kotlin.png]]
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -13,15 +15,15 @@
 This layer adds support for [[http://kotlinlang.org/][Kotlin]] in Spacemacs
 
 ** Features:
-  - Linting with [[https://github.com/shyiko/ktlint][ktlint]] and [[https://github.com/whirm/flycheck-kotlin][flycheck-kotlin]]
-  - navigation with =ggtags=
+- Linting with [[https://github.com/shyiko/ktlint][ktlint]] and [[https://github.com/whirm/flycheck-kotlin][flycheck-kotlin]]
+- navigation with =ggtags=
 
 * Install
 ** Layer
-   To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-   add =kotlin= to the existing =dotspacemacs-configuration-layers= list in this
-   file.
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =kotlin= to the existing =dotspacemacs-configuration-layers= list in this
+file.
 
 ** Ktlint
-   You must install [[https://github.com/shyiko/ktlint][ktlint]] and make sure that the =ktlint= binary is on Emacs
-   =exec-path=
+You must install [[https://github.com/shyiko/ktlint][ktlint]] and make sure that the =ktlint= binary is on Emacs
+=exec-path=

@@ -11,14 +11,13 @@
 
 (setq notmuch-packages
       '(
-        (counsel-notmuch :requires ivy
-                         :location (recipe :fetcher github
-                                           :repo "fuxialexander/counsel-notmuch"))
+        (counsel-notmuch :requires ivy)
         (helm-notmuch :requires helm)
         notmuch
         org
-        persp-mode)
-      )
+        persp-mode
+        window-purpose
+        ))
 
 (defun notmuch/init-counsel-notmuch ()
   (use-package counsel-notmuch
@@ -59,6 +58,7 @@
         "a" 'notmuch-show-save-attachments
         ;; part
         "pm" 'notmuch-show-choose-mime-of-part
+        "pp" 'spacemacs/notmuch-show-as-patch
         "p|" 'notmuch-show-pipe-part
         "po" 'notmuch-show-interactively-view-part
         "pv" 'notmuch-show-view-part
@@ -134,3 +134,9 @@
             (let ((hook (intern (concat (symbol-name mode) "-hook"))))
               (add-hook hook #'spacemacs//notmuch-buffer-to-persp)))
           (call-interactively 'notmuch))))))
+
+(defun notmuch/pre-init-window-purpose ()
+  (spacemacs|use-package-add-hook window-purpose
+    :pre-config
+    (dolist (mode notmuch-modes)
+      (add-to-list 'purpose-user-mode-purposes (cons mode 'mail)))))

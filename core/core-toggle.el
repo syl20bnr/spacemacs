@@ -56,6 +56,9 @@ Available PROPS:
 `:on-message EXPRESSION'
     EXPRESSION is evaluated and displayed when the \"on\" toggle is activated.
 
+`:off-message EXPRESSION'
+    EXPRESSION is evaluated and displayed when the \"off\" toggle is activated.
+
 `:mode SYMBOL'
     If given, must be a minor mode. This overrides `:on', `:off' and `:status'.
 
@@ -71,11 +74,12 @@ used."
          (status (or mode (plist-get props :status)))
          (condition (plist-get props :if))
          (doc (plist-get props :documentation))
-         (on-body (if mode `((,mode)) (spacemacs/mplist-get props :on)))
-         (off-body (if mode `((,mode -1)) (spacemacs/mplist-get props :off)))
+         (on-body (if mode `((,mode)) (spacemacs/mplist-get-values props :on)))
+         (off-body (if mode `((,mode -1)) (spacemacs/mplist-get-values props :off)))
          (prefix-arg-var (plist-get props :prefix))
          (on-message (plist-get props :on-message))
-         (evil-leader-for-mode (spacemacs/mplist-get props :evil-leader-for-mode))
+         (off-message (plist-get props :off-message))
+         (evil-leader-for-mode (spacemacs/mplist-get-values props :evil-leader-for-mode))
          (supported-modes-string (mapconcat (lambda (x) (symbol-name (car x)))
                                             evil-leader-for-mode ", "))
          (bindkeys (spacemacs//create-key-binding-form props wrapper-func))
@@ -91,10 +95,12 @@ used."
                                    ,condition)
                            t)))
     `(progn
-       (push (append '(,name)
-                     '(:function ,wrapper-func :predicate ,wrapper-func-status)
-                     ',props)
-             spacemacs-toggles)
+       (let ((properties (append '(:function ,wrapper-func :predicate ,wrapper-func-status)
+                                 ',props))
+             (cell (assq ',name spacemacs-toggles)))
+         (if cell
+             (setcdr cell properties)
+           (push (cons ',name properties) spacemacs-toggles)))
        ;; toggle function
        (defun ,wrapper-func ,(if prefix-arg-var (list prefix-arg-var) ())
          ,(format "Toggle %s on and off." (symbol-name name))
@@ -114,7 +120,7 @@ used."
                (if (,wrapper-func-status)
                    (progn ,@off-body
                           (when (called-interactively-p 'any)
-                            (message ,(format "%s disabled." name))))
+                            (message ,(or off-message (format "%s disabled." name)))))
                  ,@on-body
                  (when (called-interactively-p 'any)
                    (message ,(or on-message (format "%s enabled." name))))))

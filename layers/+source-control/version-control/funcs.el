@@ -33,7 +33,8 @@
 
 (defun spacemacs/vcs-revert-hunk ()
   (interactive)
-  (let ((current-prefix-arg t))
+  (let ((current-prefix-arg t)
+        (inhibit-modification-hooks t))
     (call-interactively
      (cl-case version-control-diff-tool
        (diff-hl     'diff-hl-revert-hunk)

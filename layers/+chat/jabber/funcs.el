@@ -15,6 +15,6 @@
   ;; Disable the minibuffer getting jabber messages when active
   ;; See http://www.emacswiki.org/JabberEl
   (define-jabber-alert echo "Show a message in the echo area"
-    (lambda (msg)
+    (lambda (msg &optional title)
       (unless (minibuffer-prompt)
-        (message "%s" msg)))))
+        (message "%s" (or title msg))))))

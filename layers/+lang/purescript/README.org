@@ -1,13 +1,16 @@
 #+TITLE: Purescript layer
 
+#+TAGS: general|js|layer|multi-paradigm|programming
+
 [[file:img/purescript-logo.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#add-import-on-completion][Add import on completion]]
+  - [[#node-modules][Node Modules]]
   - [[#error-popup][Error popup]]
 - [[#key-bindings][Key bindings]]
   - [[#purescript][Purescript]]
@@ -39,6 +42,17 @@ can be found [[https://github.com/purescript/documentation/blob/master/guides/Ge
 Set =purescript-add-import-on-completion= to nil to make =psc-ide= stop adding
 imports on completion. Default value is =t=.
 
+** Node Modules
+If you would like =node_modules/.bin= to be automatically added to the buffer
+local =exec_path=, e.g. to support project local purs/pulp installations, set the
+=node-add-modules-path= variable in the =purescript= config section. Note that
+doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472][introduces a security risk]]:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+    '((purescript :variables node-add-modules-path t)))
+#+END_SRC
+
 ** Error popup
 If you set =purescript-enable-rebuild-on-save= to non-nil, you will get a popup
 buffer showing you your current warnings/errors one at a time. This is primarily
@@ -48,7 +62,7 @@ meant as an alternative to using flycheck. Default value is nil.
 ** Purescript
 *** Imports
 
-| Key Binding | Description                                                   |
+| Key binding | Description                                                   |
 |-------------+---------------------------------------------------------------|
 | ~SPC m i =~ | Format imports                                                |
 | ~SPC m i \~ | Return to where you were editing before navigating to imports |
@@ -56,27 +70,26 @@ meant as an alternative to using flycheck. Default value is nil.
 | ~SPC m i n~ | Navigate to the imports                                       |
 
 *** psc-ide
-=psc-ide= command are available under ~SPC m m~:
 
-| Key Binding   | Description                                                               |
+| Key binding   | Description                                                               |
 |---------------+---------------------------------------------------------------------------|
 | ~SPC m m s~   | Start psc-ide-server                                                      |
+| ~SPC m m q~   | Quit the current psc-ide-server                                           |
 | ~SPC m m l~   | Load definitions for the modules inside your project                      |
-| ~SPC m h t~   | Show type at point                                                        |
-| ~SPC m g g~   | Goto definition for identifier at point                                   |
 | ~SPC m m b~   | Rebuilds the current file and displays any warnings or errors             |
+| ~SPC m m t~   | Add a new clause for the function signature at point                      |
+| ~SPC m m c~   | Casesplits on the identifier at the current cursor position               |
+| ~SPC m m L~   | Load a specific module (This is mostly used for troubleshooting)          |
 | ~SPC m m i a~ | Add an import for the identifier at the current cursor position           |
 | ~SPC m m i s~ | Inserts a suggestion for the warning/error at the current cursor position |
-| ~SPC m m t~   | Add a new clause for the function signature at point                      |
-| ~SPC m m c s~ | Casesplits on the identifier at the current cursor position               |
-| ~SPC m m q~   | Quit the current psc-ide-server                                           |
-| ~SPC m m L~   | Load a specific module (This is mostly used for troubleshooting)          |
+| ~SPC m h t~   | Show type at point                                                        |
+| ~SPC m g g~   | Goto definition for identifier at point                                   |
 
 ** REPL
 [[https://github.com/ardumont/emacs-psci][psci]] provides a very basic REPL for purescript. The following key
 bindings are available:
 
-| Key Binding | Description                                                                      |
+| Key binding | Description                                                                      |
 |-------------+----------------------------------------------------------------------------------|
 | ~SPC m s b~ | Equivalent of =:m /path/to/current/module/file.purs= - Load <file> for importing |
 | ~SPC m s i~ | Launch a psci console buffer                                                     |

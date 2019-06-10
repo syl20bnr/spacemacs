@@ -10,16 +10,16 @@
 ;;; License: GPLv3
 
 (setq csharp-packages
-  '(
-    company
-    csharp-mode
-    evil-matchit
-    ggtags
-    counsel-gtags
-    helm-gtags
-    omnisharp
-    flycheck
-    ))
+      '(
+        company
+        csharp-mode
+        evil-matchit
+        ggtags
+        counsel-gtags
+        helm-gtags
+        omnisharp
+        flycheck
+        ))
 
 (defun csharp/init-omnisharp ()
   ;; Load omnisharp-mode with csharp-mode,
@@ -38,7 +38,7 @@
       (spacemacs/declare-prefix-for-mode 'csharp-mode "mh" "csharp/documentation")
       (spacemacs/declare-prefix-for-mode 'csharp-mode "mr" "csharp/refactoring")
       (spacemacs/declare-prefix-for-mode 'csharp-mode "ms" "csharp/server")
-      ;; [missing in roslyn](spacemacs/declare-prefix-for-mode 'csharp-mode "mt" "csharp/tests")
+      (spacemacs/declare-prefix-for-mode 'csharp-mode "mt" "csharp/tests")
 
       (spacemacs/set-leader-keys-for-major-mode 'csharp-mode
         ;; Compile
@@ -74,7 +74,7 @@
 
         ;; Refactoring
         "rm" 'omnisharp-rename
-        "rM" 'omnisharp-rename-interactively
+        ;; [Broken in roslyn] "rM" 'omnisharp-rename-interactively
         "rr" 'omnisharp-run-code-action-refactoring
 
         ;; Server manipulation, inspired spacemacs REPL bindings since C# does
@@ -86,14 +86,16 @@
 
         ;; Tests
         ;; [missing in roslyn] "ta" 'omnisharp-unit-test-all
-        ;; [missing in roslyn] "tb" 'omnisharp-unit-test-fixture
-        ;; [missing in roslyn] "tt" 'omnisharp-unit-test-single
+        "tb" 'omnisharp-unit-test-buffer
+        "tl" 'omnisharp-unit-test-last
+        "tt" 'omnisharp-unit-test-at-point
 
         ;; Code manipulation
-        ;; [missing in roslyn] "u" 'omnisharp-auto-complete-overrides
-        ;; [missing in roslyn] "i" 'omnisharp-fix-usings
+        "u" 'omnisharp-auto-complete-overrides
+        "i" 'omnisharp-fix-usings
         ;; [missing in roslyn] "=" 'omnisharp-code-format
-))))
+        )
+      (spacemacs|hide-lighter omnisharp-mode))))
 
 (defun csharp/post-init-company ()
   (when (configuration-layer/package-used-p 'omnisharp)

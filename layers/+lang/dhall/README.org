@@ -1,0 +1,29 @@
+#+TITLE: Dhall layer
+
+#+TAGS: dsl|layer|markup|programming
+
+[[file:img/dhall-logo.png]]
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+
+* Description
+This layer adds support for the [[https://dhall-lang.org/][Dhall Configuration Language]], a non-repetitive
+alternate to YAML.
+
+** Features:
+- Syntax highlighting for ~.dhall~ source files
+- Automatic buffer reformatting on save (configurable)
+- Type error display in side-buffer
+
+*Note:* You will need a ~dhall~ binary on your ~PATH~. Official releases [[https://github.com/dhall-lang/dhall-haskell/releases][can be
+found here]].
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =dhall= to the existing =dotspacemacs-configuration-layers= list in this
+file.

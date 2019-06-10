@@ -1,19 +1,21 @@
 #+TITLE: fasd layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+#+TAGS: layer|tool
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#fasd][fasd]]
-- [[#keybindings][Keybindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
-This layer integrates the [[https://github.com/clvv/fasd][fasd]] command line tool into spacemacs.
+This layer integrates the [[https://github.com/clvv/fasd][fasd]] command line tool into Spacemacs.
 
 ** Features:
 - Adds easy shortcuts to reference recent files and directories.
-- Provides =fasd= with recent open file lists from emacs.
+- Provides =fasd= with recent open file lists from Emacs.
 - Allows to filter =fasd= results with =helm= or =ivy=.
 
 * Install
@@ -32,9 +34,9 @@ On OS X, it can be installed via [[https://github.com/Homebrew/legacy-homebrew][
   $ brew install fasd
 #+END_SRC
 
-* Keybindings
+* Key bindings
 
-| Key Binding | Description                        |
+| Key binding | Description                        |
 |-------------+------------------------------------|
 | ~SPC f a s~ | find a file or directory with fasd |
 | ~SPC f a d~ | find a directory with fasd         |

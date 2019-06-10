@@ -1,12 +1,14 @@
 #+TITLE: Restclient layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+#+TAGS: layer|tool
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
 - [[#restclient][Restclient]]
-  - [[#keybindings][Keybindings]]
+  - [[#key-bindings][Key bindings]]
 - [[#ob-http][ob-http]]
 
 * Description
@@ -36,14 +38,15 @@ Also there is an [[http://emacsrocks.com/e15.html][Emacs Rocks!]] episode of it.
 There is support for =org-babel= and =restclient= code blocks, for instance:
 
 #+BEGIN_EXAMPLE
-#+BEGIN_SRC restclient
-  GET http://example.com
-#+END_SRC
+
+  #+BEGIN_SRC restclient
+    GET http://example.com
+  #+END_SRC
 #+END_EXAMPLE
 
-** Keybindings
+** Key bindings
 
-| Key Binding | Description                                                 |
+| Key binding | Description                                                 |
 |-------------+-------------------------------------------------------------|
 | ~SPC m n~   | Jump to next request                                        |
 | ~SPC m p~   | Jump to previous request                                    |

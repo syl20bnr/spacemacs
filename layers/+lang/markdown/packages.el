@@ -10,17 +10,18 @@
 ;;; License: GPLv3
 
 (setq markdown-packages
-  '(
-    company
-    company-emoji
-    emoji-cheat-sheet-plus
-    gh-md
-    markdown-mode
-    markdown-toc
-    mmm-mode
-    smartparens
-    (vmd-mode :toggle (eq 'vmd markdown-live-preview-engine))
-    ))
+      '(
+        company
+        company-emoji
+        emoji-cheat-sheet-plus
+        gh-md
+        markdown-mode
+        markdown-toc
+        mmm-mode
+        org
+        smartparens
+        (vmd-mode :toggle (eq 'vmd markdown-live-preview-engine))
+        ))
 
 (defun markdown/post-init-company ()
   (dolist (mode markdown--key-bindings-modes)
@@ -56,20 +57,21 @@
     :defer t
     :config
     (progn
-      (add-hook 'markdown-mode-hook 'orgtbl-mode)
-      (spacemacs|diminish orgtbl-mode)
-      (add-hook 'markdown-mode-hook 'spacemacs//cleanup-org-tables-on-save)
       ;; Declare prefixes and bind keys
       (dolist (prefix '(("mc" . "markdown/command")
                         ("mh" . "markdown/header")
                         ("mi" . "markdown/insert")
                         ("ml" . "markdown/lists")
+                        ("mt" . "markdown/table")
+                        ("mT" . "markdown/toggle")
                         ("mx" . "markdown/text")))
         (dolist (mode markdown--key-bindings-modes)
           (spacemacs/declare-prefix-for-mode
             mode (car prefix) (cdr prefix))))
       (dolist (mode markdown--key-bindings-modes)
         (spacemacs/set-leader-keys-for-major-mode mode
+          ;; rebind this so terminal users can use it
+          "M-RET" 'markdown-insert-list-item
           ;; Movement
           "{"   'markdown-backward-paragraph
           "}"   'markdown-forward-paragraph
@@ -77,7 +79,7 @@
           "]"   'markdown-complete
           ;; Indentation
           ">"   'markdown-indent-region
-          "<"   'markdown-exdent-region
+          "<"   'markdown-outdent-region
           ;; Buffer-wide commands
           "c]"  'markdown-complete-buffer
           "cc"  'markdown-check-refs
@@ -104,9 +106,7 @@
           "if"  'markdown-insert-footnote
           "ii"  'markdown-insert-image
           "ik"  'spacemacs/insert-keybinding-markdown
-          "iI"  'markdown-insert-reference-image
-          "il"  'markdown-insert-inline-link-dwim
-          "iL"  'markdown-insert-reference-link-dwim
+          "il"  'markdown-insert-link
           "iw"  'markdown-insert-wiki-link
           "iu"  'markdown-insert-uri
           ;; Element removal
@@ -114,24 +114,39 @@
           ;; List editing
           "li"  'markdown-insert-list-item
           ;; Toggles
-          "ti"  'markdown-toggle-inline-images
-          "tl"  'markdown-toggle-url-hiding
-          "tt"  'markdown-toggle-gfm-checkbox
-          "tw"  'markdown-toggle-wiki-links
+          "Ti"  'markdown-toggle-inline-images
+          "Tl"  'markdown-toggle-url-hiding
+          "Tm"  'markdown-toggle-markup-hiding
+          "Tt"  'markdown-toggle-gfm-checkbox
+          "Tw"  'markdown-toggle-wiki-links
+          ;; Table
+          "tp"  'markdown-table-move-row-up
+          "tn"  'markdown-table-move-row-down
+          "tf"  'markdown-table-move-column-right
+          "tb"  'markdown-table-move-column-left
+          "tr"  'markdown-table-insert-row
+          "tR"  'markdown-table-delete-row
+          "tc"  'markdown-table-insert-column
+          "tC"  'markdown-table-delete-column
+          "ts"  'markdown-table-sort-lines
+          "td"  'markdown-table-convert-region
+          "tt"  'markdown-table-transpose
           ;; region manipulation
           "xb"  'markdown-insert-bold
-          "xi"  'markdown-insert-italic
+          "xB"  'markdown-insert-gfm-checkbox
           "xc"  'markdown-insert-code
           "xC"  'markdown-insert-gfm-code-block
-          "xq"  'markdown-insert-blockquote
-          "xQ"  'markdown-blockquote-region
+          "xi"  'markdown-insert-italic
           "xp"  'markdown-insert-pre
+          "xq"  'markdown-insert-blockquote
+          "xs"  'markdown-insert-strike-through
+          "xQ"  'markdown-blockquote-region
           "xP"  'markdown-pre-region
           ;; Following and Jumping
           "N"   'markdown-next-link
           "f"   'markdown-follow-thing-at-point
           "P"   'markdown-previous-link
-          "<RET>" 'markdown-jump)
+          "<RET>" 'markdown-do)
         (when (eq 'eww markdown-live-preview-engine)
           (spacemacs/set-leader-keys-for-major-mode mode
             "cP" 'markdown-live-preview-mode)))
@@ -143,10 +158,13 @@
         ;; next visible heading is not exactly what we want but close enough
         "gl" 'outline-next-visible-heading)
       ;; Promotion, Demotion
-      (define-key markdown-mode-map (kbd "M-h") 'markdown-promote)
-      (define-key markdown-mode-map (kbd "M-j") 'markdown-move-down)
-      (define-key markdown-mode-map (kbd "M-k") 'markdown-move-up)
-      (define-key markdown-mode-map (kbd "M-l") 'markdown-demote))))
+      (add-hook 'spacemacs-editing-style-hook
+                'spacemacs//markdown-hjkl-promotion-demotion)
+      (spacemacs//markdown-hjkl-promotion-demotion dotspacemacs-editing-style)
+      (define-key markdown-mode-map (kbd "M-<down>") 'markdown-move-down)
+      (define-key markdown-mode-map (kbd "M-<left>") 'markdown-promote)
+      (define-key markdown-mode-map (kbd "M-<right>") 'markdown-demote)
+      (define-key markdown-mode-map (kbd "M-<up>") 'markdown-move-up))))
 
 (defun markdown/init-markdown-toc ()
   (use-package markdown-toc
@@ -161,7 +179,10 @@
     :commands mmm-mode
     :init (add-hook 'markdown-mode-hook 'spacemacs/activate-mmm-mode)
     ;; Automatically add mmm class for languages
-    :config (mapc 'markdown/mmm-auto-class markdown-mmm-auto-modes)))
+    :config
+    (progn
+      (mapc 'markdown/mmm-auto-class markdown-mmm-auto-modes)
+      (spacemacs|hide-lighter mmm-mode))))
 
 (defun markdown/init-vmd-mode ()
   (use-package vmd-mode
@@ -170,3 +191,9 @@
     (dolist (mode markdown--key-bindings-modes)
       (spacemacs/set-leader-keys-for-major-mode mode
         "cP" 'vmd-mode))))
+
+(defun markdown/post-init-org ()
+  (when (configuration-layer/layer-used-p 'org)
+    (add-hook 'markdown-mode-hook 'orgtbl-mode)
+    (spacemacs|diminish orgtbl-mode)
+    (add-hook 'markdown-mode-hook 'spacemacs//cleanup-org-tables-on-save)))

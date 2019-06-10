@@ -1,0 +1,73 @@
+#+TITLE: Hy layer
+
+#+TAGS: general|layer|multi-paradigm|programming
+
+[[file:img/hy.png]]
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+- [[#key-bindings][Key bindings]]
+  - [[#debug][Debug]]
+  - [[#repl][REPL]]
+  - [[#tests][Tests]]
+
+* Description
+This layer adds support for the Hy language based on Python.
+
+** Features:
+- syntax-highlighting
+- Auto-completion
+- Code Navigation
+- Python test runners (see [[file:../python/README.org][python layer]])
+- Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]]
+- Org Babel support
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =hy= to the existing =dotspacemacs-configuration-layers= list in this file.
+
+To install =hy= globally:
+
+#+BEGIN_SRC sh
+  pip install hy
+#+END_SRC
+
+* Key bindings
+** Debug
+
+| Key binding | Description         |
+|-------------+---------------------|
+| ~SPC m d d~ | insert pdb          |
+| ~SPC m d t~ | insert pdb threaded |
+
+** REPL
+Start a Hy inferior REPL process with ~SPC m s i~. If =hy= is
+available in system executable search paths, =hy= will be used to
+launch the shell. You may change your system executable search path
+by activating a virtual environment.
+
+Send code to hy REPL commands:
+
+| Key binding | Description                                                     |
+|-------------+-----------------------------------------------------------------|
+| ~SPC m s b~ | send buffer to the REPL                                         |
+| ~SPC m s B~ | send buffer to the REPL and switch to it                        |
+| ~SPC m s c~ | send form containing current point to the REPL                  |
+| ~SPC m s C~ | send form containing current point to the REPL and switch to it |
+| ~SPC m s i~ | start and/or switch to REPL                                     |
+| ~SPC m s r~ | send current region to the REPL                                 |
+| ~SPC m s R~ | send current region to the REPL and switch to it                |
+| ~SPC m s s~ | start and/or swithc to REPL                                     |
+
+** Tests
+
+| Key binding | Description                                          |
+|-------------+------------------------------------------------------|
+| ~SPC m t a~ | launch all tests of the project                      |
+| ~SPC m t A~ | launch all tests of the project in debug mode        |
+| ~SPC m t m~ | launch all tests of the current module               |
+| ~SPC m t M~ | launch all tests of the current module in debug mode |

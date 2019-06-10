@@ -1,9 +1,12 @@
 #+TITLE: Ansible layer
 
+#+TAGS: layer|tool
+
 [[file:img/ansible.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#ansible-vault][ansible-vault]]
@@ -12,7 +15,12 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for Ansible-flavored YAML buffers and Jinja2 templates.
+This layer adds support for editing Ansible configuration files in Spacemacs.
+
+** Features:
+- Syntax highlighting for Ansible-flavored YAML and Jinja2 templates.
+- Auto-completion via =company-ansible=.
+- Integration of =ansible-vault= into emacs for automatic encryption/decryption of files.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -27,21 +35,21 @@ password to use somewhere in your =dotspacemacs/user-config= function.
 For instance:
 
 #+BEGIN_SRC emacs-lisp
-(setq ansible::vault-password-file "path/to/pwd/file")
+  (setq ansible::vault-password-file "path/to/pwd/file")
 #+END_SRC
 
 The default value is the ansible-vault default value: =~/.vault_pass.txt=.
 
 For now Ansible does not handle multiple passwords in the vault file
-(see https://github.com/ansible/ansible/issues/13243). To work around this
+(see [[https://github.com/ansible/ansible/issues/13243]]). To work around this
 limitation directory local variables can be used to define a different
 password file for a given environment. Example:
 
 #+BEGIN_SRC emacs-lisp
-;;; Directory Local Variables
-;;; For more information see (info "(emacs) Directory Variables")
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
 
-((yaml-mode . ((ansible::vault-password-file . "path/to/vault_file"))))
+  ((yaml-mode . ((ansible::vault-password-file . "path/to/vault_file"))))
 #+END_SRC
 
 *** Automatic encryption and decryption
@@ -53,13 +61,13 @@ If you want to disable this feature then set the layer variable
 =ansible-auto-encrypt-decrypt= to =nil=.
 
 #+BEGIN_SRC emacs-lisp
-(ansible :variables ansible-auto-encrypt-decrypt t)
+  (ansible :variables ansible-auto-encrypt-decrypt t)
 #+END_SRC
 
 * Key bindings
 
-| Key Binding | Description                              |
+| Key binding | Description                              |
 |-------------+------------------------------------------|
-| ~SPC m b d~ | encrypt the buffer using =ansible-vault= |
-| ~SPC m b e~ | decrypt the buffer using =ansible-vault= |
+| ~SPC m b e~ | encrypt the buffer using =ansible-vault= |
+| ~SPC m b d~ | decrypt the buffer using =ansible-vault= |
 | ~SPC m h a~ | looks up documentation using [[https://github.com/lunaryorn/ansible-doc.el][ansible-doc]] |

@@ -9,7 +9,10 @@
 ;;
 ;;; License: GPLv3
 
-(setq jabber-packages '(jabber))
+(setq jabber-packages '(
+                        jabber
+                        window-purpose
+                        ))
 
 (defun jabber/init-jabber ()
   (use-package jabber
@@ -37,3 +40,11 @@
         "j" 'jabber-go-to-next-roster-item
         "k" 'jabber-go-to-previous-roster-item))))
 
+(defun jabber/pre-init-window-purpose ()
+  (spacemacs|use-package-add-hook window-purpose
+    :pre-config
+    (dolist (mode '(jabber-browse-mode
+                    jabber-chat-mode
+                    jabber-console-mode
+                    jabber-roster-mode))
+      (add-to-list 'purpose-user-mode-purposes (cons mode 'chat)))))

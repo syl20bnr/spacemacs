@@ -1,18 +1,20 @@
 #+TITLE: Perforce layer
 
+#+TAGS: layer|versioning
+
 [[file:img/p4.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer integrates =Perforce= SCM system into spacemacs.
+This layer integrates =Perforce= SCM system into Spacemacs.
 
 ** Features:
-- Support for running [[https://www.perforce.com/][Perforce]] (p4) SCM commands directly from emacs.
+- Support for running [[https://www.perforce.com/][Perforce]] (p4) SCM commands directly from Emacs.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -29,14 +31,14 @@ Don't forget to setup the environment variables:
 
 * Key bindings
 
-| Key Binding | Description                                                  |
+| Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC p 4 a~ | add a file in depot                                          |
 | ~SPC p 4 d~ | delete a file in depot                                       |
 | ~SPC p 4 D~ | p4-describe                                                  |
 | ~SPC p 4 e~ | checkout a file                                              |
 | ~SPC p 4 r~ | revert a file                                                |
-| ~SPC p 4 R~ | refresh content of an file. 'sync -f'                        |
+| ~SPC p 4 R~ | refresh content of an file. =sync -f=                        |
 | ~SPC p 4 S~ | submit CL                                                    |
 | ~SPC p 4 b~ | create, modify, or delete a branch view specification        |
 | ~SPC p 4 B~ | display list of branch specifications                        |

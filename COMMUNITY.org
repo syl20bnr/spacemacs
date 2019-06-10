@@ -1,6 +1,6 @@
 #+TITLE: Spacemacs Community
 
-* Spacemacs Community                                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#philosophy][Philosophy]]
   - [[#for-contributors][For Contributors]]
   - [[#for-users][For Users]]
@@ -84,9 +84,11 @@ These guidelines apply to all collaborators of the project, namely @syl20bnr,
   altering its meaning,
 - Any edition of a message is logged in the =edits log= located at the end of
   the edited message with the following format:
+
   #+BEGIN_EXAMPLE
-  EDIT: [@moderator] action (reason: xxx)
+    EDIT: [@moderator] action (reason: xxx)
   #+END_EXAMPLE
+
 - The reason is added only when needed (for instance we won't add a reason for
   formatting edits)
 

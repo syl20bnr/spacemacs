@@ -1,8 +1,10 @@
 #+TITLE: keyboard-layout layer
 
+#+TAGS: i18n|layer
+
 [[file:img/keyboard-layout-layer-logo.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#installation][Installation]]
@@ -25,9 +27,9 @@ This layer configures some key bindings in Spacemacs, to make it compatible with
 keyboard layouts that differs from the traditional =en-us= =QWERTY= layout.
 
 ** Features:
-   - Support alernative keyboard layouts within spacemacs
-   - Remap navigation commands to the homerow of your chosen layout
-   - Remap missing commands automatically to elsewhere in the layout
+- Support alternative keyboard layouts within Spacemacs
+- Remap navigation commands to the homerow of your chosen layout
+- Remap missing commands automatically to elsewhere in the layout
 
 * Installation
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -35,10 +37,10 @@ add =keyboard-layout= to the existing =dotspacemacs-configuration-layers= list
 in this file. You can then select the desired layout by specifying the
 =kl-layout= variable:
 
-#+begin_src emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-  (keyboard-layout :variables kl-layout 'dvorak)))
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (keyboard-layout :variables kl-layout 'dvorak)))
+#+END_SRC
 
 * Configuration
 ** Enable/Disable package configurations
@@ -53,12 +55,12 @@ configurations are loaded. Otherwise, only the listed configurations are loaded.
 Any configuration listed in =kl-disabled-configurations= will never be loaded,
 whether it is in the enabled list or not (default: =nil=).
 
-#+begin_src emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(
-  (keyboard-layout :variables
-                   kl-layout 'dvorak
-                   kl-disabled-configurations '(org magit))))
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (keyboard-layout :variables
+                     kl-layout 'dvorak
+                     kl-disabled-configurations '(org magit))))
+#+END_SRC
 
 ** Add/Override key bindings
 It is possible to override or add key bindings, by defining functions named
@@ -69,11 +71,12 @@ configuration by yourself*. =<NAME>= is the name of the configuration you want
 to customize, they are listed under the [[#configuration][Configuration]] section.
 
 Example:
-#+begin_src emacs-lisp
-(defun kl/post-config-company ()
-  "Company delete backward."
-  (kl/set-in-state company-active-map (kbd "C-w") 'evil-delete-backward-word))
-#+end_src
+
+#+BEGIN_SRC emacs-lisp
+  (defun kl/post-config-company ()
+    "Company delete backward."
+    (kl/set-in-state company-active-map (kbd "C-w") 'evil-delete-backward-word))
+#+END_SRC
 
 Note: If you define some of these functions in your own layer, then make sure
 that the =keyboard-layout= layer is placed *after* it in the
@@ -107,13 +110,11 @@ Bepo is a keyboard layout that's optimized for the French language.
 [[file:img/bepo-layout.png]]
 
 The mapping correction is the one proposed for vim on the official Bepo [[http://bepo.fr/wiki/Vim#Principe][wiki]].
-
 - The =bepo= layout: matches Vims movements keys:
   - ~c → h~
   - ~t → j~
   - ~s → k~
   - ~r → l~
-
 - The lost keys are remapped as follows:
   - ~h → r~
   - ~j → t~
@@ -123,22 +124,18 @@ The mapping correction is the one proposed for vim on the official Bepo [[http:/
 Some Bepo keys are not used in the traditional mapping, mainly because they are
 not on the =en-us= keyboard layout. They are used as aliases for other
 shortcuts:
-
 - Map the unused ~é~ key as an alias for ~w~, it's more useful in vim mode:
   - ~é → w~
   - ~É → W~
-
 - Map indentation to direct-access keys:
   - ~» → >~
   - ~« → <~
 
 Some default configurations are also not optimal for vim, so the following
 defaults are changed:
-
 - Change the =evil-escape= combination to something that's faster to type, while
   being nearly nonexistent in French or English words:
   - ~fd → gq~
-
 - In =avy=, the keys that select words/lines are remapped to the 8 characters
   under the home row fingers:
   - ~a u i e t s r n~
@@ -201,7 +198,6 @@ the [[https://colemak.com/][Colemak website]].
 [[file:img/colemak-layout.png]]
 
 This layer offers three flavors of Colemak bindings:
-
 - =colemak-hnei= remaps ~HJKL~ to ~HNEI~, keeping the same key location; useful
   for people used to the ~HJKL~ scheme on a Qwerty keyboard.
 - =colemak-neio= remaps ~HJKL~ to ~NEIO~, shifted one key to the right for
@@ -224,12 +220,10 @@ wikipedia keyboard layout page.
 
 As recommended in this blog post: [[https://axiomatic.neophilus.net/posts/2013-08-13-workman-layout-for-vim.html][Workman layout for Vim]], this layout
 substitutes the following keys with these mnemonics:
-
 - (y)ank -> (h)aul
 - Search (n)ext -> (j)ump
 - (e)nd word -> brea(k) of word
 - (o)pen new line -> (l)ine
-
 - The lost keys are remapped as follows:
   - ~h → y~
   - ~j → n~
@@ -245,7 +239,6 @@ The Neo layout has six layers, here is only the first:
 
 * Package Configurations
 The available configurations are:
-
 - ace-window
 - avy
 - comint
@@ -271,7 +264,6 @@ The available configurations are:
 * Key bindings
 This layer tries to bind keys /automatically/ in a lot of modes. That makes it
 difficult to list them all. For example the key bindings change if:
-
 - You chose to use a different keyboard layout.
 - You chose to be on the dark side by using evil (because they have :cookie: obviously).
 - You chose to use a layer, written with :heart:, that try to solve the induced mess.
@@ -287,4 +279,5 @@ So the price you have to pay is the absence of a key bindings list.
 - The Programmer Dvorak layout image is a modified version of the Dvorak
   Simplified layout image.
 - The Colemak layout image is a modified version from [[https://en.wikipedia.org/wiki/File:KB_US-Colemak.svg][Wikipedia]].
+
 They are all licensed under the [[https://creativecommons.org/licenses/by-sa/3.0/deed.en][CC-BY-SA]].

@@ -17,6 +17,7 @@
         ggtags
         counsel-gtags
         helm-gtags
+        parinfer
         ))
 
 (defun scheme/post-init-company ()

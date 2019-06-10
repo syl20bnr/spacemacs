@@ -1,13 +1,15 @@
 #+TITLE: Floobits layer
 
+#+TAGS: layer|pairing
+
 [[file:img/floobits.png]]
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support for the peer programming tool [[https://github.com/Floobits/floobits-emacs][floobits]] to Spacemacs.
@@ -24,9 +26,9 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =floobits= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                                                                              |
+| Key binding | Description                                                                              |
 |-------------+------------------------------------------------------------------------------------------|
 | ~SPC P c~   | Clears all mirrored highlights.                                                          |
 | ~SPC P d~   | Load the .floorc.json file for floobits configuration.                                   |

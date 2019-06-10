@@ -15,8 +15,8 @@
                          load-file-name)) nil t)
 
 (with-installed (curl software-properties-common bash)
-  ($ "curl -sL https://deb.nodesource.com/setup_6.x | bash -")
-  (install nodejs)
+  ($ "curl -sL https://nsolid-deb.nodesource.com/nsolid_setup_3.x | bash -")
+  (install nsolid-carbon nsolid-console)
   ($ "npm install csslint -g"
      "npm install httpd-node"
      "npm install tern -g"

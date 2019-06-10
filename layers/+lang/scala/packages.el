@@ -10,19 +10,19 @@
 ;;; License: GPLv3
 
 (setq scala-packages
-  '(
-    eldoc
-    ensime
-    flycheck
-    flyspell
-    ggtags
-    counsel-gtags
-    helm-gtags
-    noflet
-    org
-    scala-mode
-    sbt-mode
-    ))
+      '(
+        eldoc
+        ensime
+        flycheck
+        flyspell
+        ggtags
+        counsel-gtags
+        helm-gtags
+        noflet
+        org
+        scala-mode
+        sbt-mode
+        ))
 
 (defun scala/post-init-eldoc ()
   (when scala-enable-eldoc

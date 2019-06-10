@@ -19,6 +19,7 @@
     evil
     evil-escape
     evil-evilified-state
+    evil-magit
     evil-surround
     eyebrowse
     flycheck
@@ -32,6 +33,7 @@
     org-agenda
     ranger
     twittering-mode
+    undo-tree
     ))
 
 (defun keyboard-layout/pre-init-ace-window ()
@@ -227,12 +229,30 @@
       "k"
       "l")))
 
+(defun keyboard-layout/pre-init-evil-magit ()
+  (kl|config evil-magit
+    :description
+    "Remap `evil-magit' bindings."
+    :loader
+    (with-eval-after-load 'evil-magit BODY)
+    :common
+    (dolist (state (if evil-magit-use-y-for-yank
+                       (list evil-magit-state 'visual)
+                     (list evil-magit-state)))
+      (kl/evil-correct-keys state magit-mode-map
+        "j"
+        "k"
+        "C-j"
+        "C-k"))
+    (kl/evil-correct-keys 'normal evil-magit-toggle-text-minor-mode-map
+      "C-j")))
+
 (defun keyboard-layout/pre-init-evil-surround ()
   (kl|config evil-surround
     :description
     "Remap `evil-surround' bindings."
     :loader
-    (spacemacs|use-package-add-hook evil-surround :post-init BODY)
+    (spacemacs|use-package-add-hook evil-surround :post-config BODY)
     :common
     (kl/evil-correct-keys 'visual evil-surround-mode-map "s")))
 
@@ -258,7 +278,7 @@
     :description
     "Remap `flycheck-error-list' bindings."
     :loader
-    (spacemacs|use-package-add-hook flycheck :post-init BODY)
+    (spacemacs|use-package-add-hook flycheck :post-config BODY)
     :common
     (kl/evil-correct-keys 'evilified flycheck-error-list-mode-map
       "j"
@@ -357,46 +377,34 @@
     :loader
     (spacemacs|use-package-add-hook magit :post-config BODY)
     :common
-    (progn
-      (dolist (state (if evil-magit-use-y-for-yank
-                         (list evil-magit-state 'visual)
-                       (list evil-magit-state)))
-        (kl/evil-correct-keys state magit-mode-map
-          "j"
-          "k"
-          "C-j"
-          "C-k"))
-      (kl/evil-correct-keys 'normal evil-magit-toggle-text-minor-mode-map
-        "C-j")
-      (dolist (map (list magit-branch-section-map
-                         magit-commit-section-map
-                         magit-file-section-map
-                         magit-hunk-section-map
-                         magit-remote-section-map
-                         magit-staged-section-map
-                         magit-unstaged-section-map
-                         magit-module-commit-section-map
-                         magit-stash-section-map
-                         magit-stashes-section-map
-                         magit-tag-section-map
-                         magit-unpulled-section-map
-                         magit-unpushed-section-map
-                         magit-untracked-section-map))
-        (kl/correct-keys map
-          "j"
-          "k"
-          "C-j"
-          "C-k")))
+    (dolist (map (list magit-branch-section-map
+                       magit-commit-section-map
+                       magit-file-section-map
+                       magit-hunk-section-map
+                       magit-remote-section-map
+                       magit-staged-section-map
+                       magit-unstaged-section-map
+                       magit-module-commit-section-map
+                       magit-stash-section-map
+                       magit-stashes-section-map
+                       magit-tag-section-map
+                       magit-unpulled-section-map
+                       magit-unpushed-section-map
+                       magit-untracked-section-map))
+      (kl/correct-keys map
+        "j"
+        "k"
+        "C-j"
+        "C-k"))
     :bepo
     (progn
-      (magit-change-popup-key 'magit-dispatch-popup :actions ?t ?j)
-      (magit-change-popup-key 'magit-dispatch-popup :actions ?s ?k)
-      (magit-change-popup-key 'magit-dispatch-popup :actions ?S ?K))
+      (transient-suffix-put 'magit-dispatch "t" :key "j")
+      (transient-suffix-put 'magit-dispatch "s" :key "k")
+      (transient-suffix-put 'magit-dispatch "S" :key "K"))
     :colemak-jkhl
-    (progn
-      (kl/evil-correct-keys 'visual magit-mode-map
-        "j"
-        "k"))))
+    (kl/evil-correct-keys 'visual magit-mode-map
+      "j"
+      "k")))
 
 (defun keyboard-layout/pre-init-mu4e ()
   (kl|config mu4e
@@ -595,3 +603,16 @@
       "J"
       "K"
       "L")))
+
+(defun keyboard-layout/pre-init-undo-tree ()
+  (kl|config undo-tree
+    :description
+    "Remap navigation keys in `undo-tree-visualizer-mode'."
+    :loader
+    (spacemacs|use-package-add-hook undo-tree :post-config BODY)
+    :common
+    (kl/evil-correct-keys 'evilified undo-tree-visualizer-mode-map
+      "h"
+      "j"
+      "k"
+      "l")))

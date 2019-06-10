@@ -1,13 +1,15 @@
 #+TITLE: Ivy layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+#+TAGS: completion|layer
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#general][General]]
   - [[#advanced-buffer-information][Advanced buffer information]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#transient-state][Transient state]]
 
 * Description
@@ -36,8 +38,7 @@ file.
 * Configuration
 ** General
 You can customize ivy with the following variables:
-
-- =ivy-wrap= Whether C-n and C-p should wrap-around when at the the first or
+- =ivy-wrap= Whether ~C-n~ and ~C-p~ should wrap-around when at the first or
   last candidate. The default value is =nil=.
 - =ivy-extra-directories= Setting this to =nil= hides . and .. directories from
   file name completion. You can still go up a directory up by ~DEL~.
@@ -47,6 +48,14 @@ You can customize ivy with the following variables:
 - =ivy-height= The height of the minibuffer. The Spacemacs default is 15.
 - =ivy-use-selectable-prompt= When non-nil, make the prompt line selectable like
   a candidate. The Spacemacs default value is =t=.
+- =ivy-re-builders-alist= An alist of regex building functions for each
+  collection function. See ivy documentation for possible choices. Use
+  =spacemacs/ivy--regex-plus= instead of =ivy--regex-plus= to get correct
+  highlighting in the search results of =spacemacs/search-project-auto= and
+  similar search commands provided by Spacemacs.
+- =ivy-ret-visits-directory= Whether ~RET~ and ~C-j~ should be swapped in ivy
+  minibuffer so ~RET~ acts like Ido and descends into directory. It is described
+  [[https://github.com/abo-abo/swiper/wiki/ido-style-folder-navigation][here]] (probably outdated). Default value is =nil=.
 
 ** Advanced buffer information
 To display more information about buffers set the layer variable
@@ -60,14 +69,14 @@ is disabled by default.
     (ivy :variables ivy-enable-advanced-buffer-information t)))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 If you choose =ivy= as completion system, make sure to read the [[http://oremacs.com/swiper/][official manual]].
 In case you don't want to read everything, at least familiarise with
 [[http://oremacs.com/swiper/#minibuffer-key-bindings][minibuffer key bindings]].
 
 Some useful key bindings are presented in the following table.
 
-| Key Binding | Description                                                                                          |
+| Key binding | Description                                                                                          |
 |-------------+------------------------------------------------------------------------------------------------------|
 | ~RET~       | call default action on current candidate                                                             |
 | ~M-RET~     | the same as ~RET~ but doesn't close completion minibuffer                                            |
@@ -81,7 +90,7 @@ Some useful key bindings are presented in the following table.
 ** Transient state
 Press ~M-SPC~ anytime in Ivy to get into the transient state.
 
-| Key Binding | Description                                             |
+| Key binding | Description                                             |
 |-------------+---------------------------------------------------------|
 | ~j~         | select next candidate                                   |
 | ~k~         | select previous candidate                               |
