@@ -32,7 +32,7 @@
     (setq fcitx-active-evil-states '(insert emacs hybrid))
     (fcitx-default-setup)
     (fcitx-prefix-keys-add "M-m" "C-M-m")
-    (if chinese-fcitx-use-dbus
+    (when chinese-fcitx-use-dbus
         (setq fcitx-use-dbus t)))
   )
 
