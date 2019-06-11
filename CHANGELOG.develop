@@ -1103,6 +1103,11 @@ Other:
 - New packages:
   - Added package =chinese-conv= for conversion between simplified and
     traditional Chinese texts (Xiang Ji)
+- Improvements:
+  - Added variable =chinese-fcitx-use-dbus=, and fixed the misinformation about
+    dbus in README.org (thanks to AmaiKinono)
+- Fixes:
+  - Make =fcitx.el= work by default (thanks to AmaiKinono)
 **** Chrome
 - Key bindings:
   - Added =markdown= key bindings to gmail message mode
