@@ -41,6 +41,7 @@
         (org-re-reveal :toggle org-enable-reveal-js-support)
         persp-mode
         (ox-hugo :toggle org-enable-hugo-support)
+        (ox-jira :toggle org-enable-jira-support)
         (org-trello :toggle org-enable-trello-support)
         (org-sticky-header :toggle org-enable-sticky-header)
         ))
@@ -758,6 +759,9 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-ox-hugo ()
   (use-package ox-hugo :after ox))
+
+(defun org/init-ox-jira ()
+  (use-package ox-jira :after ox))
 
 (defun org/init-org-trello ()
   (use-package org-trello
