@@ -2096,7 +2096,7 @@ selecting an avy candidate.
 
 **** ace-link mode
 Similar to =avy=, [[https://github.com/abo-abo/ace-link][ace-link]] allows one to jump to any link in
-=help-mode= and =info-mode= with two key strokes.
+=help-mode= and =info-mode=.
 
 | Key binding | Description                                           |
 |-------------+-------------------------------------------------------|
