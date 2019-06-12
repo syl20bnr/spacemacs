@@ -3513,7 +3513,7 @@ usable; if it is not then restart Emacs with =emacs --debug-init= and open a
 ** Upgrading/Downgrading Emacs version
 To ensure that packages are correctly compiled for the new Emacs version you
 installed, be sure to run the interactive command =spacemacs/recompile-elpa=
-with ~SPC SPC spacemacs/recompile-elpa~.
+with ~SPC u SPC SPC spacemacs/recompile-elpa~.
 
 * Achievements
 ** Issues
