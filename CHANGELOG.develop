@@ -1160,6 +1160,8 @@ Other:
   - ~SPC m s X~ to restart the REPL (thanks to James Conroy-Finn)
   - ~SPC m e u~ undefine symbol in the current namespace
     (thanks to John Stevenson)
+  - ~SPC m e i~ interrupt the current evaluation (stop long running process)
+    (thanks to John Stevenson)
 - Fixes:
   - Remove `cider.nrepl/cider-middleware` in lein quick start setting
   - Fixed =cider-inspector-prev-page= binding, also add ~p~ as another key
