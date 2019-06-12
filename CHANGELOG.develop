@@ -2377,6 +2377,9 @@ Other:
   - ~SPC S . B~ Add word to dict (buffer)
   - ~SPC S . G~ Add word to dict (global)
   - ~SPC S . S~ Add word to dict (session)
+- Added key bindings (thanks to John Stevenson):
+  - ~SPC S s~ Correct word at point
+  - Transient State: ~SPC S . s~ Correct word at point
 **** Syntax-checking
 - Key bindings:
   - ~SPC e e~ is now for triggering a syntax check, the old action
