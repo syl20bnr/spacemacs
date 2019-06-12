@@ -83,9 +83,9 @@ Or set this variable when loading the configuration layer:
 
 ** Enabling sayid or clj-refactor
 The packages sayid (Clojure debugger) and clj-refactor (automatic refactorings)
-are disabled by default. To enable them, add a `:variables` option when enabling
-the `clojure` layer, specifying `clojure-enable-sayid`, or
-`clojure-enable-clj-refactor`, or both.
+are disabled by default. To enable them, add a =:variables= option when enabling
+the =clojure= layer, specifying =clojure-enable-sayid=, or
+=clojure-enable-clj-refactor=, or both.
 
 In your Spacemacs configuration:
 
@@ -114,7 +114,7 @@ function correctly extra nREPL middleware needs to be present
 (cider/cider-nrepl). The same is true for clj-refactor (refactor-nrepl), and for
 sayid (com.billpiel/sayid).
 
-When starting the Clojure process through cider (`cider-jack-in` and friends)
+When starting the Clojure process through cider (=cider-jack-in= and friends)
 this will be handled automatically, and so most users should be able to just run
 ~SPC m s i~ to connect to the CIDER REPL and skip the rest of this section.
 
