@@ -304,7 +304,7 @@
 
 (defun ruby/init-ruby-test-mode ()
   "Define keybindings for ruby test mode"
-  (use-package ruby-test-mode)
+  (use-package ruby-test-mode
     :defer t
     :init (spacemacs/add-to-hooks 'spacemacs//ruby-enable-ruby-test-mode
                                   '(ruby-mode-local-vars-hook
@@ -319,7 +319,7 @@
       (dolist (mode '(ruby-mode enh-ruby-mode))
         (spacemacs/set-leader-keys-for-major-mode mode
           "tb" 'ruby-test-run
-          "tt" 'ruby-test-run-at-point))))
+          "tt" 'ruby-test-run-at-point)))))
 
 (defun ruby/init-rvm ()
   (use-package rvm
