@@ -129,6 +129,7 @@ set the layer variable =enable-flyspell-auto-completion= to t:
 | ~SPC S a s~     | Add word to dict (session)             |
 | ~SPC S b~       | Flyspell whole buffer                  |
 | ~SPC S c~       | Flyspell correct                       |
+| ~SPC S s~       | Flyspell correct at point              |
 | ~SPC u SPC S c~ | Flyspell correct all errors one by one |
 | ~SPC S d~       | Change dictionary                      |
 | ~SPC S n~       | Flyspell goto next error               |
