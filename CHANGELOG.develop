@@ -1000,6 +1000,8 @@ Other:
   - Key bindings (thanks to bb2020)
     - ~SPC-j-C~ to =check-parens=
     - ~SPC-,~ to =goto-last-change=
+  - Excluded =fundamental-mode= from =spacemacs/check-large-file=
+    (thanks to Alexander Miller)
 *** Layer changes and fixes
 **** Alda
 - Key bindings:
