@@ -120,7 +120,7 @@ file."
   (interactive "P")
   (setq spacemacs--spacemacs-env-loaded t)
   (when (or force (display-graphic-p))
-    (spacemacs//init-spacemacs-env)
+    (spacemacs//init-spacemacs-env force)
     (load-env-vars spacemacs-env-vars-file)))
 
 (provide 'core-env)
