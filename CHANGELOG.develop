@@ -551,6 +551,8 @@ Other:
   - Fixed search for "find" executable in windows (thanks to Charlie Barto)
   - Found workaround for =buffer-list-update-hook= performance issue.
     (thanks to Alexander Miller)
+  - Added missing force argument to the =spacemacs//init-spacemacs-env= call in
+    the function =spacemacs/load-spacemacs-env= (thanks to sergeiz2)
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
