@@ -2210,6 +2210,7 @@ Other:
 - Added the =seeing-is-believing= package (thanks to Brandon Conway)
 - Added prefixes for ruby major mode keybindings (thanks to Seong Yong-ju)
 - Added =lsp= and =dap= support (thanks to Billy Kaplan)
+- Fixed lazy loading of =ruby-test-mode= (thanks to Michael Franz Aigner)
 **** Ruby on Rails
 - Changed leader keys to be configured for the =projectile-rails-mode= minor
   mode instead of =ruby-mode= and =enh-ruby-mode= so that the key bindings will
