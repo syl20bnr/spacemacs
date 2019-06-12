@@ -83,6 +83,7 @@
             "eb" 'cider-eval-buffer
             "ee" 'cider-eval-last-sexp
             "ef" 'cider-eval-defun-at-point
+            "ei" 'cider-interrupt
             "em" 'cider-macroexpand-1
             "eM" 'cider-macroexpand-all
             "eP" 'cider-pprint-eval-last-sexp
