@@ -118,7 +118,7 @@ download path, as described in the [[https://github.com/yjwen/org-reveal#obtain-
 to each =.org= file you want to process:
 
 #+BEGIN_EXAMPLE
-#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js@3.8.0
 #+END_EXAMPLE
 
 ** Different bullets
