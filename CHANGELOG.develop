@@ -1000,6 +1000,8 @@ Other:
   - Key bindings (thanks to bb2020)
     - ~SPC-j-C~ to =check-parens=
     - ~SPC-,~ to =goto-last-change=
+  - Fixed copied dir/path not shown in minibuffer when =select-enable-clipboard=
+    is =nil= (thanks to duianto)
 *** Layer changes and fixes
 **** Alda
 - Key bindings:
