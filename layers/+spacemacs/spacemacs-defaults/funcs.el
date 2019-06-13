@@ -583,21 +583,27 @@ variable as a fallback to display the directory, useful in buffers like the
 ones created by `magit' and `dired'."
   (interactive)
   (if-let (directory-path (spacemacs--directory-path))
-      (message "%s" (kill-new directory-path))
+      (progn
+        (kill-new directory-path)
+        (message "%s" directory-path))
     (message "WARNING: Current buffer does not have a directory!")))
 
 (defun spacemacs/copy-file-path ()
   "Copy and show the file path of the current buffer."
   (interactive)
   (if-let (file-path (spacemacs--file-path))
-      (message "%s" (kill-new file-path))
+      (progn
+        (kill-new file-path)
+        (message "%s" file-path))
     (message "WARNING: Current buffer is not attached to a file!")))
 
 (defun spacemacs/copy-file-name ()
   "Copy and show the file name of the current buffer."
   (interactive)
   (if-let (file-name (file-name-nondirectory (spacemacs--file-path)))
-      (message "%s" (kill-new file-name))
+      (progn
+        (kill-new file-name)
+        (message "%s" file-name))
     (message "WARNING: Current buffer is not attached to a file!")))
 
 (defun spacemacs/copy-file-name-base ()
@@ -605,14 +611,18 @@ ones created by `magit' and `dired'."
 buffer."
   (interactive)
   (if-let (file-name (file-name-base (spacemacs--file-path)))
-      (message "%s" (kill-new file-name))
+      (progn
+        (kill-new file-name)
+        (message "%s" file-name))
     (message "WARNING: Current buffer is not attached to a file!")))
 
 (defun spacemacs/copy-file-path-with-line ()
   "Copy and show the file path of the current buffer, including line number."
   (interactive)
   (if-let (file-path (spacemacs--file-path-with-line))
-      (message "%s" (kill-new file-path))
+      (progn
+        (kill-new file-path)
+        (message "%s" file-path))
     (message "WARNING: Current buffer is not attached to a file!")))
 
 (defun spacemacs/copy-file-path-with-line-column ()
@@ -622,7 +632,9 @@ This function respects the value of the `column-number-indicator-zero-based'
 variable."
   (interactive)
   (if-let (file-path (spacemacs--file-path-with-line-column))
-      (message "%s" (kill-new file-path))
+      (progn
+        (kill-new file-path)
+        (message "%s" file-path))
     (message "WARNING: Current buffer is not attached to a file!")))
 
 

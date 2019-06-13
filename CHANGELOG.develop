@@ -1006,6 +1006,8 @@ Other:
     - ~SPC-,~ to =goto-last-change=
   - Excluded =fundamental-mode= from =spacemacs/check-large-file=
     (thanks to Alexander Miller)
+  - Fixed copied dir/path not shown in minibuffer when =select-enable-clipboard=
+    is =nil= (thanks to duianto)
 *** Layer changes and fixes
 **** Alda
 - Key bindings:
