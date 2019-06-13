@@ -165,6 +165,9 @@
   - [[#epub][Epub]]
   - [[#pdf][Pdf]]
   - [[#speed-reading][Speed reading]]
+- [[#readmeorg-files-that-need-proper-tags][README.org files that need proper tags]]
+  - [[#dotnet][Dotnet]]
+  - [[#sailfish-os-developer][Sailfish os developer]]
 - [[#source-control][Source control]]
   - [[#git][Git]]
   - [[#github][Github]]
@@ -2163,6 +2166,23 @@ A speed reading mode for Emacs.
 
 Features:
 - Support for =speed-reading= of arbitrary texts
+
+* README.org files that need proper tags
+** Dotnet
+[[file:+tools/dotnet/README.org][+tools/dotnet/README.org]]
+
+This layer adds support for the dotnet cli package.
+
+Features:
+- dotnet operations
+
+** Sailfish os developer
+[[file:+tools/sailfish-developer/README.org][+tools/sailfish-developer/README.org]]
+
+This layer adds support of sailfish-os development packages.
+
+Features:
+- [[https://github.com/vityafx/sailfish-scratchbox.el][sailfish-scratchbox]]: handy sb2 interaction.
 
 * Source control
 ** Git

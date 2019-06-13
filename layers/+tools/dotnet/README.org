@@ -1,11 +1,13 @@
 #+TITLE: Dotnet layer
 
-* Table of Contents                                         :TOC_4_gh:noexport:
+#+TAGS: layer|uncategorized
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#packages-included][Packages Included]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support for the dotnet cli package.
@@ -21,7 +23,7 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =dotnet= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key Bindings
+* Key bindings
 
 | Key binding   | Description                                   |
 |---------------+-----------------------------------------------|
