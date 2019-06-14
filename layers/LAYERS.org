@@ -608,10 +608,10 @@ Features:
 This layer adds support for traditional Chinese script to Spacemacs.
 
 Features:
-- Support for the [[https://en.wikipedia.org/wiki/Pinyin][Pinyin(拼音)]] input method via [[https://github.com/tumashu/chinese-pyim][chinese-pyim]].
-- Support for the [[https://en.wikipedia.org/wiki/Wubi_method][Wubi(五笔)]] input method via [[https://github.com/andyque/chinese-wbim][chinese-wbim]].
+- Support for the [[https://en.wikipedia.org/wiki/Pinyin][Pinyin (拼音)]] input method via [[https://github.com/tumashu/chinese-pyim][chinese-pyim]].
+- Support for the [[https://en.wikipedia.org/wiki/Wubi_method][Wubi (五笔)]] input method via [[https://github.com/andyque/chinese-wbim][chinese-wbim]].
 - Integration of the native input method framework [[https://en.wikipedia.org/wiki/Fcitx][fcitx]] via [[https://github.com/cute-jumper/fcitx.el][cute-jumper/fcitx.el]].
-- Integration of the [[https://en.wikipedia.org/wiki/Youdao][Youdao(有道) Dictionary]] via [[https://github.com/xuchunyang/youdao-dictionary.el][youdao-dictionary]].
+- Integration of the [[https://en.wikipedia.org/wiki/Youdao][Youdao (有道) Dictionary]] via [[https://github.com/xuchunyang/youdao-dictionary.el][youdao-dictionary]].
 - Support for file searches in =dired= using Chinese Pinyin characters via [[https://github.com/redguardtoo/find-by-pinyin-dired][find-by-pinyin-dired]].
 - Support for jumping to Chinese Pinyin characters with =ace-jump-mode= via [[https://github.com/cute-jumper/ace-pinyin][ace-pinyin]].
 - Support for conversion between simplified and traditional Chinese texts via [[https://github.com/gucong/emacs-chinese-conv/][chinese-conv]].
