@@ -42,6 +42,7 @@
         ;;lsp-backend
         (cquery :requires lsp-mode)
         (ccls :requires lsp-mode)
+        lsp-mode
         projectile
         ))
 
@@ -295,6 +296,16 @@
     (spacemacs//c-c++-lsp-config)
     :hook ((c-mode c++-mode) .
             (lambda () (cl-pushnew #'company-lsp company-backends) (require 'ccls) (remhash 'clangd lsp-clients) (lsp)))))
+
+;; For clangd (built into lsp-mode)
+(defun c-c++/post-init-lsp-mode ()
+  (use-package lsp-mode
+    :defer t
+    :if (eq c-c++-backend 'lsp-clangd)
+    :config
+    (spacemacs//c-c++-lsp-config)
+    :hook ((c-mode c++-mode) .
+           (lambda () (cl-pushnew #'company-lsp company-backends) (lsp)))))
 
 ;;Intentionally adding both cquery and ccls cache dirs to ignore list, to facilitate switching between
 ;;two without multiple caches polluting projectile find file results

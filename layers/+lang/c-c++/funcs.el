@@ -213,7 +213,8 @@ is non-nil."
   "Return a string representation of the LSP backend specified by the `c-c++-backend' configuration variable, without the `lsp-' prefix."
   (ecase c-c++-backend
     ('lsp-ccls "ccls")
-    ('lsp-cquery "cquery")))
+    ('lsp-cquery "cquery")
+    ('lsp-clangd "clangd")))
 
 (defun spacemacs//c-c++-lsp-string (prefix suffix)
   (concat prefix (spacemacs//c-c++-lsp-backend) suffix))
@@ -265,7 +266,8 @@ is non-nil."
         ('lsp-ccls (setq ccls-initialization-options
                      (if c-c++-lsp-initialization-options
                        (append c-c++-lsp-initialization-options `(:cache (:directory ,c-c++-lsp-cache-dir)))
-                       `(:cache (:directory ,c-c++-lsp-cache-dir ))))))
+                       `(:cache (:directory ,c-c++-lsp-cache-dir )))))
+        ('lsp-clangd))
 
       (when c-c++-lsp-sem-highlight-rainbow
         (unless c-c++-lsp-sem-highlight-method
@@ -274,7 +276,8 @@ is non-nil."
             (message "c-c++: No semantic highlight method specified. Defaulting to `font-lock'.")))
         (ecase c-c++-backend
           ('lsp-cquery (cquery-use-default-rainbow-sem-highlight))
-          ('lsp-ccls (ccls-use-default-rainbow-sem-highlight))))
+          ('lsp-ccls (ccls-use-default-rainbow-sem-highlight))
+          ('lsp-clangd)))
 
       (dolist (mode c-c++-modes)
         (spacemacs//c-c++-lsp-bind-keys-for-mode mode))
@@ -370,3 +373,10 @@ is non-nil."
   (spacemacs/lsp-define-extensions "c-c++" 'member-types "$ccls/member" `(:kind 2))
   (spacemacs/lsp-define-extensions "c-c++" 'member-functions "$ccls/member" `(:kind 3))
   (spacemacs/lsp-define-extensions "c-c++" 'member-vars "$ccls/member" `(:kind 0)))
+
+(defun spacemacs//c-c++-lsp-define-clangd-extensions ()
+  ;; TODO: keybinding
+  (spacemacs/lsp-define-extensions "c-c++" 'switch-header "textDocument/switchSourceHeader")
+  )
+;; Squash error from tree-mode-map stuff above.
+(defvar clangd-tree-mode-map (make-sparse-keymap))

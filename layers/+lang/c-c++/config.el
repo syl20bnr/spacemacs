@@ -20,7 +20,7 @@
 (defconst c-c++-mode-hooks '(c-mode-hook c++-mode-hook)
   "Primary hooks of the `c-c++' layer.")
 
-(defconst c-c++-lsp-backends '(lsp-cquery lsp-ccls)
+(defconst c-c++-lsp-backends '(lsp-cquery lsp-ccls lsp-clangd)
   "Language Server Protocol (LSP) backends supported by the `c-c++' layer.")
 
 (defvar c-c++-backend nil

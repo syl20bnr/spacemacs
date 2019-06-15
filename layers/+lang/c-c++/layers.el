@@ -10,5 +10,5 @@
 ;;; License: GPLv3
 
 (when (and (boundp 'c-c++-backend)
-           (member c-c++-backend '(lsp-cquery lsp-ccls)))
+           (member c-c++-backend '(lsp-cquery lsp-ccls lsp-clangd)))
   (configuration-layer/declare-layer 'lsp))
