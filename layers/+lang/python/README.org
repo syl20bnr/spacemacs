@@ -97,7 +97,6 @@ The available options are:
 |-----------+----------------------------------|
 | 'anaconda | Default                          |
 | 'lsp      | python-language-server package   |
-| 'lsp-ms   | Microsoft python language server |
 
 * Backends
 ** Anaconda
@@ -179,7 +178,8 @@ To use the latest built version in a cloned git repo, use the ~python-lsp-git-ro
 #+BEGIN_SRC elisp
   (setq-default dotspacemacs-configuration-layers
     '((python :variables
-              python-backend 'lsp-ms
+              python-backend 'lsp
+              python-lsp-server 'mspyls
               python-lsp-git-root "~/dev/python/python-language-server")))
 #+END_SRC
 
