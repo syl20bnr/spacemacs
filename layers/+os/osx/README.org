@@ -47,13 +47,15 @@ The different modifier keys can be set as follows:
                      osx-function-as      nil
                      osx-right-command-as 'left
                      osx-right-option-as  'left
-                     osx-right-control-as 'left))
+                     osx-right-control-as 'left
+                     osx-swap-option-and-command nil))
 #+END_SRC
 
 These are also the default values. Setting the right modifier to =left=
 will equal the left modifier. Allowed values are: =super=, =meta=, =control=,
 =alt= and =nil=.
 Setting =nil= for modifiers will leave the left modifiers as emacs default.
+Setting =osx-swap-option-and-command= to =t= will swap =command= and =option= key.
 
 *** Use with non-US keyboard layouts
 If you need the ~⌥~ key to type common characters such as ={[]}~= which is usual
