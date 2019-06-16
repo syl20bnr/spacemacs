@@ -45,6 +45,9 @@
              (when (member key-value allowed-values)
                (setf (symbol-value internal-var) key-value))))
 
+  (when osx-swap-option-and-command
+    (cl-rotatef mac-command-modifier mac-option-modifier))
+
   (defun kbd-mac-command (keys)
     "Wraps `kbd' function with Mac OSX compatible Command-key (⌘).
 KEYS should be a string such as \"f\" which will be turned into values
