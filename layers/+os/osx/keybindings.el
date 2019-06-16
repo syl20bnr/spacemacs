@@ -58,7 +58,9 @@ other than the three sane values listed above."
                         '((hyper . "H-")
                           (super . "s-")
                           (alt   . "A-")))))
-      (when found (kbd (concat (cdr found) keys)))))
+      (if found
+          (kbd (concat (cdr found) keys))
+        (kbd (concat "H-" keys)))))
 
   ;; Keybindings
   (global-set-key (kbd-mac-command "=") 'spacemacs/scale-up-font)
