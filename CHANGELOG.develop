@@ -2066,6 +2066,8 @@ Other:
   - Added ~M-s-h~ to hide other windows (thanks to Bas Veeling)
 - Replace pbcopy by osx-clipboard (thanks to Minh Nguyen-Hue)
 - Fixed key binding issue when Emacs is launched in daemon mode.
+- Added the default value =H-= (hyper) to =kbd-mac-command= if it's neither:
+  =hyper=, =super= or =alt= (thanks to Binbin Ye)
 **** Pandoc
 - Fixed =spacemacs/run-pandoc= not to reset =pandoc--local-settings=
   (thanks to martian-f)

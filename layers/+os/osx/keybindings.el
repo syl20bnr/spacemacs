@@ -52,13 +52,15 @@ such as \"H-f\", \"s-f\", or \"A-f\" depending on the value of
 `mac-commmand-modifier' which could be `hyper', `super', or `alt'.
 KEYS with a string of \"C-f\" are also valid and will be turned into
 values such as \"H-C-f\".
-Returns nil if `mac-command-modifier' is set to `none' or something
-other than the three sane values listed above."
+if `mac-command-modifier' is set to `none' or something other than
+the three sane values listed above, bind to `H-' by default"
     (let ((found (assoc mac-command-modifier
                         '((hyper . "H-")
                           (super . "s-")
                           (alt   . "A-")))))
-      (when found (kbd (concat (cdr found) keys)))))
+      (if found
+          (kbd (concat (cdr found) keys))
+        (kbd (concat "H-" keys)))))
 
   ;; Keybindings
   (global-set-key (kbd-mac-command "=") 'spacemacs/scale-up-font)
