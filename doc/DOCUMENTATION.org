@@ -1285,17 +1285,25 @@ If it is set to =relative=, line numbers are show in a relative way:
   (setq-default dotspacemacs-line-numbers 'relative)
 #+END_SRC
 
+If it is set to =visual=, line numbers are shown in a relative way, but wrapped
+lines will be treated as multiple lines:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-line-numbers 'visual)
+#+END_SRC
+
 =dotspacemacs-line-numbers= can also be set to a property list for finer control
 over line numbers activation.
 
 Available properties:
 
-| Property              | Description                                                                                  |
-|-----------------------+----------------------------------------------------------------------------------------------|
-| =:disabled-for-modes= | list of major modes where line numbering is inhibited                                        |
-| =:enabled-for-modes=  | disable for all major modes except those listed. Takes precedence over =:disabled-for-modes= |
-| =:relative=           | if non-nil, line numbers are relative to the position of the cursor                          |
-| =:size-limit-kb=      | size limit in kilobytes after which line numbers are not activated                           |
+| Property              | Description                                                                                                                                                                                                                                     |
+|-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| =:disabled-for-modes= | list of major modes where line numbering is inhibited                                                                                                                                                                                           |
+| =:enabled-for-modes=  | disable for all major modes except those listed. Takes precedence over =:disabled-for-modes=                                                                                                                                                    |
+| =:relative=           | if non-nil, line numbers are relative to the position of the cursor                                                                                                                                                                             |
+| =:visual=             | if non-nil, line numbers are relative to the position of the cursor, but lines are separated by visual state - a wrapped line, for example, will be treated as more than one line. When set to t, this option takes precedence over =:relative= |
+| =:size-limit-kb=      | size limit in kilobytes after which line numbers are not activated                                                                                                                                                                              |
 
 Note that if =:enabled-for-modes= is =nil= or not specified, then the default is
 to enable line numbers in any =prog-mode= and =text-mode= that wasn't explicitly

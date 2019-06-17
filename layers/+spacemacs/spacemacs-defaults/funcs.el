@@ -1441,6 +1441,16 @@ Decision is based on `dotspacemacs-line-numbers'."
       (and (listp dotspacemacs-line-numbers)
            (car (spacemacs/mplist-get-values dotspacemacs-line-numbers :relative)))))
 
+(defun spacemacs/visual-line-numbers-p ()
+  "Return non-nil if line numbers should be visual.
+This is similar to relative line numbers, but wrapped lines are
+treated as multiple lines.
+
+Decision is based on `dotspacemacs-line-numbers'."
+  (or (eq dotspacemacs-line-numbers 'visual)
+      (and (listp dotspacemacs-line-numbers)
+           (car (spacemacs/mplist-get-values dotspacemacs-line-numbers :visual)))))
+
 (defun spacemacs//linum-on (origfunc &rest args)
   "Advice function to improve `linum-on' function."
   (when (spacemacs/enable-line-numbers-p)
@@ -1467,7 +1477,8 @@ Decision is based on `dotspacemacs-line-numbers'."
   (and dotspacemacs-line-numbers
        (not (listp dotspacemacs-line-numbers))
        (or (eq dotspacemacs-line-numbers t)
-           (eq dotspacemacs-line-numbers 'relative))
+           (eq dotspacemacs-line-numbers 'relative)
+           (eq dotspacemacs-line-numbers 'visual))
        (derived-mode-p 'prog-mode 'text-mode)))
 
 (defun spacemacs//linum-curent-buffer-is-not-too-big ()

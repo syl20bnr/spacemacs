@@ -891,6 +891,7 @@ Other:
     - ~g~ go to first candidate
     - ~G~ go to last candidate
     (thanks to duianto)
+  - Added support for visual line numbers (thanks to jcaw)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)
