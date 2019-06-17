@@ -366,7 +366,8 @@
     :commands (linum-relative-toggle linum-relative-on)
     :init
     (progn
-      (when (spacemacs/relative-line-numbers-p)
+      (when (or (spacemacs/visual-line-numbers-p)
+                (spacemacs/relative-line-numbers-p))
         (add-hook 'spacemacs-post-user-config-hook 'linum-relative-on))
       (spacemacs/set-leader-keys "tr" 'spacemacs/linum-relative-toggle))
     :config
