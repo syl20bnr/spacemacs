@@ -123,10 +123,10 @@ many other commands.
 | ~M-K/P~     | Go to the previous line in ~next-window~..                                                                     |
 | ~M-j/M-n~   | Select next node at the same depth as currently selected node, if possible.                                    |
 | ~M-k/M-p~   | Select previous node at the same depth as currently selected node, if possible.                                |
-| ~C-p a~     | Select a new project to add to the treemacs workspace.                                                         |
-| ~C-p p~     | Select a projectile project to add to the workspace.                                                           |
-| ~C-p d~     | Remove project at point from the workspace.                                                                    |
-| ~C-p r~     | Rename project at point.                                                                                       |
+| ~C-c C-p a~ | Select a new project to add to the treemacs workspace.                                                         |
+| ~C-c C-p p~ | Select a projectile project to add to the workspace.                                                           |
+| ~C-c C-p d~ | Remove project at point from the workspace.                                                                    |
+| ~C-c C-p r~ | Rename project at point.                                                                                       |
 | ~th~        | Toggle the hiding and displaying of dotfiles.                                                                  |
 | ~tw~        | Toggle whether the treemacs buffer should have a fixed width.                                                  |
 | ~tf~        | Toggle treemacs-follow-mode.                                                                                   |

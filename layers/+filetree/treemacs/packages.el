@@ -52,13 +52,13 @@
         "f M-t" 'treemacs-find-tag
         "pt"    'spacemacs/treemacs-project-toggle)
       (which-key-add-major-mode-key-based-replacements 'treemacs-mode
-        "c"     "treemacs-create"
-        "o"     "treemacs-visit-node"
-        "oa"    "treemacs-visit-node-ace"
-        "t"     "treemacs-toggles"
-        "y"     "treemacs-copy"
-        "C-p"   "treemacs-projects"
-        "C-p c" "treemacs-projects-collapse"))
+        "c"         "treemacs-create"
+        "o"         "treemacs-visit-node"
+        "oa"        "treemacs-visit-node-ace"
+        "t"         "treemacs-toggles"
+        "y"         "treemacs-copy"
+        "C-c C-p"   "treemacs-projects"
+        "C-c C-p c" "treemacs-projects-collapse"))
     :config
     (progn
       (spacemacs/define-evil-state-face "treemacs" "MediumPurple1")
