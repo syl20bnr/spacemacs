@@ -74,21 +74,27 @@ variable as a fallback to display the directory, useful in buffers like the
 ones created by `magit' and `dired'."
   (interactive)
   (if-let (directory-path (spacemacs--projectile-directory-path))
-      (message "%s" (kill-new directory-path))
+      (progn
+        (kill-new directory-path)
+        (message "%s" directory-path))
     (message "WARNING: Current buffer does not have a directory!")))
 
 (defun spacemacs/projectile-copy-file-path ()
   "Copy and show the file path relative to project root."
   (interactive)
   (if-let (file-path (spacemacs--projectile-file-path))
-      (message "%s" (kill-new file-path))
+      (progn
+        (kill-new file-path)
+        (message "%s" file-path))
     (message "WARNING: Current buffer is not visiting a file!")))
 
 (defun spacemacs/projectile-copy-file-path-with-line ()
   "Copy and show the file path relative to project root, including line number."
   (interactive)
   (if-let (file-path (spacemacs--projectile-file-path-with-line))
-      (message "%s" (kill-new file-path))
+      (progn
+        (kill-new file-path)
+        (message "%s" file-path))
     (message "WARNING: Current buffer is not visiting a file!")))
 
 (defun spacemacs/projectile-copy-file-path-with-line-column ()
@@ -98,5 +104,7 @@ This function respects the value of the `column-number-indicator-zero-based'
 variable."
   (interactive)
   (if-let (file-path (spacemacs--projectile-file-path-with-line-column))
-      (message "%s" (kill-new file-path))
+      (progn
+        (kill-new file-path)
+        (message "%s" file-path))
     (message "WARNING: Current buffer is not visiting a file!")))

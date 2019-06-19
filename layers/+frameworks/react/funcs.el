@@ -28,8 +28,7 @@
 (defun spacemacs//react-setup-lsp ()
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (lsp-javascript-typescript-enable))
+      (lsp)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//react-setup-lsp-company ()

@@ -53,8 +53,10 @@
 (defun spacemacs-visual/init-hl-todo ()
   (use-package hl-todo
     :defer t
-    :init (spacemacs/add-to-hooks 'hl-todo-mode '(text-mode-hook
-                                                  prog-mode-hook))))
+    :init
+    ;; global hook activates hl-todo-mode for prog-mode, text-mode
+    ;; mode can be explicitly defined using hl-todo-activate-in-modes variable
+    (global-hl-todo-mode 1)))
 
 (defun spacemacs-visual/init-popup ())
 
@@ -93,12 +95,18 @@
       (spacemacs|define-transient-state zoom-frm
         :title "Zoom Frame Transient State"
         :doc "
-[_+_/_=_] zoom frame in [_-_] zoom frame out [_0_] reset zoom [_q_] quit"
+[_+_/_=_/_k_] zoom frame in   [_m_] max frame
+[_-_/_j_]^^   zoom frame out  [_f_] fullscreen
+[_0_]^^^^     reset zoom      [_q_] quit"
         :bindings
         ("+" spacemacs/zoom-frm-in)
+        ("k" spacemacs/zoom-frm-in)
         ("=" spacemacs/zoom-frm-in)
         ("-" spacemacs/zoom-frm-out)
+        ("j" spacemacs/zoom-frm-out)
         ("0" spacemacs/zoom-frm-unzoom)
+        ("f" spacemacs/toggle-frame-fullscreen-non-native)
+        ("m" spacemacs/toggle-maximize-frame)
         ("q" nil :exit t))
       (spacemacs/set-leader-keys "zf" 'spacemacs/zoom-frm-transient-state/body)
 

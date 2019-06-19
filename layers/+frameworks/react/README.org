@@ -1,13 +1,15 @@
 #+TITLE: React layer
 
+#+TAGS: framework|layer|programming
+
 [[file:img/react.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#optional-configuration][Optional Configuration]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#rjsx-mode][rjsx-mode]]
   - [[#formatting-web-beautify][Formatting (web-beautify)]]
     - [[#documentation-js-doc][Documentation (js-doc)]]
@@ -31,6 +33,8 @@ add =react= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 React layer uses the same backend defined in javascript layer. Options are =tern= and =lsp=.
+
+React layer also uses the same import backend defined in javascript layer.
 
 To use the on-the-fly syntax checking, install =eslint= with babel and react
 support:
@@ -108,7 +112,7 @@ may use these settings:
    web-mode-attr-indent-offset 2)
 #+END_SRC
 
-And if you want to have 2 space indent also for element’s attributes,
+And if you want to have 2 space indent also for element's attributes,
 concatenations and contiguous function calls:
 
 #+BEGIN_SRC emacs-lisp
@@ -118,10 +122,10 @@ concatenations and contiguous function calls:
     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 ** rjsx-mode
 
-| Key Binding   | Description                                                                      |
+| Key binding   | Description                                                                      |
 |---------------+----------------------------------------------------------------------------------|
 | ~<~           | inserts </> whenever it would start a new JSX node                               |
 | ~>~           | right before the slash in a self-closing tag automatically inserts a closing tag |
@@ -129,14 +133,14 @@ concatenations and contiguous function calls:
 
 ** Formatting (web-beautify)
 
-| Key Binding | Description                                                  |
+| Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC m =~   | beautify code in js2-mode, json-mode, web-mode, and css-mode |
 
 *** Documentation (js-doc)
 You can check more [[https://github.com/mooz/js-doc/][here]]
 
-| Key Binding   | Description                           |
+| Key binding   | Description                           |
 |---------------+---------------------------------------|
 | ~SPC m r d b~ | insert JSDoc comment for current file |
 | ~SPC m r d f~ | insert JSDoc comment for function     |
@@ -145,7 +149,7 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 
 ** Auto-complete and documentation (tern)
 
-| Key Binding   | Description                                                                              |
+| Key binding   | Description                                                                              |
 |---------------+------------------------------------------------------------------------------------------|
 | ~SPC m C-g~   | brings you back to last place you were when you pressed M-..                             |
 | ~SPC m g g~   | jump to the definition of the thing under the cursor                                     |

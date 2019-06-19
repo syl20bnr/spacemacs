@@ -1,4 +1,4 @@
-### Dockerfile --- spacemacs-docker dockerfile with Emacs snapshot
+### Dockerfile --- spacemacs-docker dockerfile with latest Emacs
 ##
 ## Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ##
@@ -11,10 +11,7 @@
 ##
 ## See spacemacs/layers/+distributions/spacemacs-docker/README.org
 
-# FROM jare/emacs:latest
-# FROM jare/emacs:emacs24
-# Emacs snapshot
-FROM jare/emacs:testing
+FROM jare/emacs:latest
 
 MAINTAINER JAremko <w3techplaygound@gmail.com>
 
@@ -46,7 +43,7 @@ RUN cp ${UHOME}/.emacs.d/core/templates/.spacemacs.template ${UHOME}/ \
     && asEnvUser emacs -batch -u ${UNAME} -kill \
     && chmod ug+rw -R ${UHOME}
 
-# test Spacemacs
+# Test Spacemacs
 RUN asEnvUser make -C ${UHOME}/.emacs.d/tests/core/ test \
     && cd ${UHOME}/.emacs.d \
     && printf "SPACEMACS REVISION: %s\n" "$(git rev-parse --verify HEAD)"

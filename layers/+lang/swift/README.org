@@ -1,8 +1,10 @@
 #+TITLE: Swift layer
 
+#+TAGS: general|layer|multi-paradigm|programming
+
 [[file:img/swift.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -12,7 +14,7 @@
   - [[#swift-repl-mode][swift-repl-mode]]
 
 * Description
-This layer adds support for Apple’s Swift programming language, used as a
+This layer adds support for Apple's Swift programming language, used as a
 general purpose scripting language.
 
 ** Features:

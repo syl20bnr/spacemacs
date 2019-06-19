@@ -79,7 +79,7 @@ if [ $? -ne 0 ]; then
 fi
 fold_end "PUSHING_CHANGES_TO_${BOT_NAME}/${PUBLISH}"
 
-fold_start "OPENING_PR_TO_syl20bnr/${PUBLISH}.git"
+fold_start "OPENING_PR_TO_syl20bnr/${PUBLISH}"
 echo "Documentation updates (autoexport)" > msg
 echo >> msg
 echo "beep beep boop... Beep?" >> msg
@@ -87,4 +87,4 @@ echo "beep beep boop... Beep?" >> msg
 if [ $? -ne 0 ]; then
     echo "Seems like PR already exists (not a problem)"
 fi
-fold_end "OPENING_PR_TO_syl20bnr/${PUBLISH}.git"
+fold_end "OPENING_PR_TO_syl20bnr/${PUBLISH}"

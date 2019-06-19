@@ -1,13 +1,15 @@
 #+TITLE: RCIRC layer
 
+#+TAGS: chat|layer
+
 [[file:img/irc.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
-  - [[#configuration][Configuration]]
+  - [[#configuring-authentication][Configuring authentication]]
     - [[#storing-the-credentials-in-your-dotfile][Storing the credentials in your dotfile]]
       - [[#example][Example:]]
     - [[#storing-the-credentials-in-your-dropbox][Storing the credentials in your Dropbox]]
@@ -16,7 +18,13 @@
     - [[#connecting-behind-a-znc-bouncer-and-storing-the-credentials-in-authinfo][Connecting behind a ZNC bouncer and storing the credentials in authinfo]]
       - [[#disclaimer][Disclaimer]]
       - [[#note][Note]]
-- [[#key-bindings][Key Bindings]]
+  - [[#enabling-sfoobar][Enabling =s/foo/bar/=]]
+  - [[#enabling-emojify-mode][Enabling emojify-mode]]
+  - [[#enabling-erc-image][Enabling erc-image]]
+  - [[#enabling-erc-tweet][Enabling erc-tweet]]
+  - [[#enabling-erc-yt][Enabling erc-yt]]
+  - [[#enabling-rcirc-styles][Enabling rcirc-styles]]
+- [[#key-bindings][Key bindings]]
 - [[#rcirc-documentation][Rcirc documentation]]
 - [[#spacemacs-layout-support][Spacemacs Layout Support]]
 
@@ -29,7 +37,7 @@ and ZNC.
 - Support for credentials stored in =~/.authinfo.gpg= (need to have gnutls)
 - Support ZNC support (with optional =~/.authinfo.gpg=)
 - Colored nicknames
-- WIP: Real time change when people use =/s/foo/bar= in the chats
+- Real-time change when people use =s/foo/bar/= in chat
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
   using the =emoji= layer or having a proper font) :clap:
 
@@ -39,7 +47,7 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =rcirc= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-** Configuration
+** Configuring authentication
 There are several ways to configure rcirc supported by the layer:
 - By storing your credentials in =rcirc-server-alist= in your dotfile (not
   secured)
@@ -166,16 +174,73 @@ For now authinfo is mandatory to use the ZNC configuration.
           :channels ("#jupiterbroadcasting"))))
    #+END_SRC
 
-* Key Bindings
+** Enabling =s/foo/bar/=
+To configure rcirc to update buffers when people use =s/foo/bar/=, set the
+variable =rcirc-enable-late-fix= to =t= in your dotfile:
 
-| Key Binding | Description                                                                   |
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (rcirc :variables rcirc-enable-late-fix t)))
+#+END_SRC
+
+** Enabling emojify-mode
+To enable emojify-mode in rcirc buffers, set the variable =rcirc-enable-emojify=
+to =t= in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (rcirc :variables rcirc-enable-emojify t)))
+#+END_SRC
+
+** Enabling erc-image
+To enable erc-image for fetching and showing images when they are linked to in
+chat, set the variable =rcirc-enable-erc-image= to =t= in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (rcirc :variables rcirc-enable-erc-image t)))
+#+END_SRC
+
+** Enabling erc-tweet
+To enable erc-tweet for fetching and displaying tweets when they are linked in
+chat, set the variable =rcirc-enable-erc-tweet= to =t= in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (rcirc :variables rcirc-enable-erc-tweet t)))
+#+END_SRC
+
+** Enabling erc-yt
+To enable erc-yt for fetching and displaying previews for YouTube links in chat,
+set the variable =rcirc-enable-erc-yt= to =t= in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (rcirc :variables rcirc-enable-erc-yt t)))
+#+END_SRC
+
+** Enabling rcirc-styles
+To enable rcirc-styles for displaying and inserting color and text attribute
+codes, set the variable =rcirc-enable-styles= to =t= in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (rcirc :variables rcirc-enable-styles t)))
+#+END_SRC
+
+* Key bindings
+
+| Key binding | Description                                                                   |
 |-------------+-------------------------------------------------------------------------------|
 | ~SPC a i r~ | Open rcirc                                                                    |
-| ~SPC l o i~ | Open rcirc in a custom perspective “@RICRC” (need perspectives layer enabled) |
+| ~SPC l o i~ | Open rcirc in a custom perspective "@RICRC" (need perspectives layer enabled) |
+| ~SPC m i a~ | Interactively insert a color code (if rcirc-styles is enabled)                |
+| ~SPC m i c~ | Interactively insert a text attribute code (if rcirc-styles is enabled)       |
+| ~SPC m i p~ | Toggle preview in input line (if rcirc-styles is enabled)                     |
 
 In normal state:
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~C-j~       | next item in history     |
 | ~C-k~       | previous item in history |
@@ -185,5 +250,5 @@ The rcirc documentation can be found [[http://www.gnu.org/software/emacs/manual/
 
 * Spacemacs Layout Support
 RCIRC buffers are added automatically to the default layout for RCIRC controlled by
-the variable =rcirc-spacemacs-layout-name= (defaults to “@RCIRC”) and the default
-binding (“i”) is controlled by =rcirc-spacemacs-layout-binding=
+the variable =rcirc-spacemacs-layout-name= (defaults to "@RCIRC") and the default
+binding ("i") is controlled by =rcirc-spacemacs-layout-binding=

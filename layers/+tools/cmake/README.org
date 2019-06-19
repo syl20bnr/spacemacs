@@ -1,14 +1,16 @@
 #+TITLE: CMake layer
 
+#+TAGS: layer|tool
+
 [[file:img/cmake.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#cmake-ide-configuration][CMake-ide configuration]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support [[https://cmake.org/][CMake]] scripts.
@@ -43,7 +45,7 @@ Here is a sample configuration. This configuration forces =cmake-ide= to use the
 local directory and pass that directory to =helm-make=. Such config allows to
 build your project with ~SPC c c~ key binding.
 
-Additionally it’s possible to configure =helm-ctest= in the same way via defining ~helm-ctest-dir~.
+Additionally it's possible to configure =helm-ctest= in the same way via defining ~helm-ctest-dir~.
 Trailing slash is required.
 
 #+BEGIN_SRC emacs-lisp
@@ -57,7 +59,7 @@ Trailing slash is required.
          )))
 #+END_SRC
 
-In case of projectile it’s possible to configure project like:
+In case of projectile it's possible to configure project like:
 
 #+BEGIN_SRC emacs-lisp
   ((nil . ((eval . (setq
@@ -73,9 +75,9 @@ In case of projectile it’s possible to configure project like:
            (helm-make-arguments . "-j7"))))
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                                                             |
+| Key binding | Description                                                             |
 |-------------+-------------------------------------------------------------------------|
 | ~SPC m p c~ | Run CMake and set compiler flags for auto-completion and flycheck       |
 | ~SPC m p C~ | Run CMake if compilation database JSON file is not found                |

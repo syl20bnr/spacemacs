@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+## This script ensures that changelog file was updated.
+##
+## Copyright (c) 2012-2014 Sylvain Benner
+## Copyright (c) 2014-2018 Sylvain Benner & Contributors
+##
+## Author: Eugene Yaremenko
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "${DIR}/shared"
+
+if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
+    echo "Skipping changelogs check for branch update."
+    exit 0
+fi
+
+if [[ "$CIRCLE_PR_USERNAME" == "emacspace" ]]; then
+    echo "Fun fact. Bots can't climb stairs or update CHANGELOG.develop"
+    exit 0
+fi
+
+if grep -q CHANGELOG.develop /tmp/changed_files; then
+    echo "CHANGELOG.develop was updated as required"
+else
+    echo "Please mention your contribution in CHANGELOG.develop"
+    echo "See CONTRIBUTING.org for the details."
+    exit 1
+fi

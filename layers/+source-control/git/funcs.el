@@ -33,7 +33,8 @@
         (remove "-w"
                 (if (derived-mode-p 'magit-diff-mode)
                     magit-refresh-args
-                  magit-diff-section-arguments))) (magit-refresh))
+                  magit-diff-section-arguments)))
+  (magit-refresh))
 
 (defun spacemacs/git-link-copy-url-only ()
   "Only copy the generated link to the kill ring."

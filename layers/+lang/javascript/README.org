@@ -1,28 +1,39 @@
 #+TITLE: JavaScript layer
 
+#+TAGS: general|js|layer|multi-paradigm|programming
+
 [[file:img/javascript.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#web-beautify][web-beautify]]
   - [[#prettier][prettier]]
+  - [[#import-js][import-js]]
   - [[#choosing-a-backend][Choosing a backend]]
   - [[#choosing-a-formatter][Choosing a formatter]]
 - [[#backends][Backends]]
   - [[#tern][Tern]]
   - [[#language-server-protocol][Language Server Protocol]]
+    - [[#debugger-dap-integration][Debugger (dap integration)]]
 - [[#configuration][Configuration]]
   - [[#indentation][Indentation]]
   - [[#repl][REPL]]
-  - [[#node-modules][Node Modules]]
-- [[#key-bindings][Key Bindings]]
+    - [[#browser-based-repl][Browser based REPL]]
+    - [[#server-based-repl][Server based REPL]]
+  - [[#node][Node]]
+    - [[#node-modules][Node Modules]]
+    - [[#node-externs][Node Externs]]
+- [[#key-bindings][Key bindings]]
   - [[#js2-mode][js2-mode]]
   - [[#folding-js2-mode][Folding (js2-mode)]]
+  - [[#importing-import-js][Importing (import-js)]]
   - [[#refactoring-js2-refactor][Refactoring (js2-refactor)]]
     - [[#documentation-js-doc][Documentation (js-doc)]]
-  - [[#repl-skewer-mode][REPL (skewer-mode)]]
+  - [[#browser-based-repl-skewer-mode][Browser based REPL (skewer-mode)]]
+  - [[#server-based-repl-nodejs-repl][Server based REPL (nodejs-repl)]]
+  - [[#debugger-dap-mode][debugger (dap mode)]]
 
 * Description
 This layer adds support for the JavaScript language using [[https://github.com/mooz/js2-mode][js2-mode]].
@@ -32,13 +43,20 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 - Smart code folding
 - Refactoring: done using [[https://github.com/magnars/js2-refactor.el][js2-refactor]].
 - Auto-completion and documentation
-- REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
+- Browser based REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
+- Server based REPL with [[https://github.com/abicky/nodejs-repl.el][nodejs-repl]]
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =javascript= to the existing =dotspacemacs-configuration-layers= list in
 this file.
+
+To enable the importing helper, install the =ImportJS=:
+
+#+BEGIN_SRC sh
+  $ npm install -g import-js
+#+END_SRC
 
 To activate error checking using flycheck, install one of the [[http://www.flycheck.org/en/latest/languages.html#javascript][available linters]]
 such as =ESLint= or =JSHint=:
@@ -60,6 +78,15 @@ See [[file:../../+tools/web-beautify/README.org][web-beautify layer]] documentat
 
 ** prettier
 See [[file:../../+tools/prettier/README.org][prettier layer]] documentation.
+
+** import-js
+See [[file:../../+tools/import-js/README.org][import-js layer]] documentation.
+
+To enable it, set the layer variable =javascript-import-tool=:
+
+#+BEGIN_SRC elisp
+  (javascript :variables javascript-import-tool 'import-js)
+#+END_SRC
 
 ** Choosing a backend
 To choose a default backend set the layer variable =javascript-backend=:
@@ -99,16 +126,35 @@ Formatter can be chosen on a per project basis using directory local variables
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
 
+You can choose formatting tool:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (javascript :variables
+                javascript-fmt-tool 'prettier)))
+#+END_SRC
+
+Default is =’web-beautify=.
+
 * Backends
 ** Tern
 See [[file:../../+tools/tern/README.org][tern layer]] documentation.
 
 ** Language Server Protocol
-You just have to install javascript and typescript language server packages:
+You have to install =typescript-language-server= (recommended) or =javascript-typescript-langserver= language server packages via
+
+#+BEGIN_SRC sh
+  npm i -g typescript typescript-language-server
+#+END_SRC
+
+or
 
 #+BEGIN_SRC sh
   npm i -g typescript javascript-typescript-langserver
 #+END_SRC
+
+*** Debugger (dap integration)
+To install the debug adapter you may run =M-x dap-firefox-setup= or =M-x dap-firefox-setup= if you are using Linux or download it manually from [[https://marketplace.visualstudio.com/items?itemName=hbenl.vscode-firefox-debug][Firefox Debug Adapter]] or [[https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome][Chrome Debug Adapter]] and adjust =dap-firefox-debug-path= or =dap-chrome-debug-path=. For usage instructions refer to [[https://github.com/emacs-lsp/dap-mode][dap-mode]] readme.
 
 * Configuration
 ** Indentation
@@ -139,13 +185,32 @@ or when adding the =javascript= configuration layer:
 #+END_SRC
 
 ** REPL
-To use the available JS repl, you need a running httpd server and a page loaded
+*** Browser based REPL
+To use the browser based REPL set the =javascript-repl= variable as shown below:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+    '((javascript :variables javascript-repl `skewer)))
+#+END_SRC
+
+In addition you need a running httpd server and a page loaded
 with skewer. If a blank page serves your needs, just use the run-skewer command
 in your javascript buffer. If you want to inject it in your own page, follow
 [[https://github.com/skeeto/skewer-mode#skewering-with-cors][these instructions]] (install the Greasemonkey script and then click the triangle
-in the top-right corner - if it turns green, you’re good to go).
+in the top-right corner - if it turns green, you're good to go).
 
-** Node Modules
+*** Server based REPL
+To use the server based REPL set the =javascript-repl= variable as shown below:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+    '((javascript :variables javascript-repl `nodejs)))
+#+END_SRC
+
+In addition install nodejs and make sure that =node= is in the path.
+
+** Node
+*** Node Modules
 If you would like =node_modules/.bin= to be automatically added to the buffer
 local =exec_path=, e.g. to support project local eslint installations, set the
 =node-add-modules-path= variable in the =javascript= config section. Note that
@@ -156,17 +221,27 @@ doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472
     '((javascript :variables node-add-modules-path t)))
 #+END_SRC
 
-* Key Bindings
+*** Node Externs
+If you want =js2-mode= to presume =node= variables are defined by the host
+system (for completion purposes /i.a./) set the =js2-include-node-exters=
+variable to =t= in the =javascript= config section:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+    '((javascript :variables js2-include-node-externs t)))
+#+END_SRC
+
+* Key bindings
 ** js2-mode
 
-| Key Binding | Description                          |
+| Key binding | Description                          |
 |-------------+--------------------------------------|
 | ~SPC m w~   | toggle js2-mode warnings and errors  |
 | ~%~         | jump between blockswith [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] |
 
 ** Folding (js2-mode)
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~SPC m z c~ | hide element             |
 | ~SPC m z o~ | show element             |
@@ -175,10 +250,18 @@ doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472
 | ~SPC m z F~ | toggle hide functions    |
 | ~SPC m z C~ | toggle hide comments     |
 
+** Importing (import-js)
+
+| Key binding | Description                                                         |
+|-------------+---------------------------------------------------------------------|
+| ~SPC m i i~ | Import the module for the variable under the cursor                 |
+| ~SPC m i f~ | Import any missing modules and remove any modules that are not used |
+| ~SPC m g i~ | Go to the module of the variable under cursor                       |
+
 ** Refactoring (js2-refactor)
 Bindings should match the plain emacs assignments.
 
-| Key Binding   | Description                                                                                                    |
+| Key binding   | Description                                                                                                    |
 |---------------+----------------------------------------------------------------------------------------------------------------|
 | ~SPC m k~     | deletes to the end of the line, but does not cross semantic boundaries                                         |
 | ~SPC m r 3 i~ | converts ternary operator to if-statement                                                                      |
@@ -214,23 +297,23 @@ Bindings should match the plain emacs assignments.
 *** Documentation (js-doc)
 You can check more [[https://github.com/mooz/js-doc/][here]]
 
-| Key Binding   | Description                           |
+| Key binding   | Description                           |
 |---------------+---------------------------------------|
 | ~SPC m r d b~ | insert JSDoc comment for current file |
 | ~SPC m r d f~ | insert JSDoc comment for function     |
 | ~SPC m r d t~ | insert tag to comment                 |
 | ~SPC m r d h~ | show list of available jsdoc tags     |
 
-** REPL (skewer-mode)
+** Browser based REPL (skewer-mode)
 
-| Key Binding | Description                                                      |
+| Key binding | Description                                                      |
 |-------------+------------------------------------------------------------------|
 | ~SPC m e e~ | evaluates the last expression                                    |
 | ~SPC m e E~ | evaluates and inserts the result of the last expression at point |
 
-| Key Binding | Description                                                                        |
+| Key binding | Description                                                                        |
 |-------------+------------------------------------------------------------------------------------|
-| ~SPC m s a~ | Toggle live evaluation of whole buffer in REPL on buffer changes                   |
+| ~SPC m T l~ | Toggle live evaluation of whole buffer in REPL on buffer changes                   |
 | ~SPC m s b~ | send current buffer contents to the skewer REPL                                    |
 | ~SPC m s B~ | send current buffer contents to the skewer REPL and switch to it in insert state   |
 | ~SPC m s f~ | send current function at point to the skewer REPL                                  |
@@ -239,3 +322,65 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m s r~ | send current region to the skewer REPL                                             |
 | ~SPC m s R~ | send current region to the skewer REPL and switch to it in insert state            |
 | ~SPC m s s~ | switch to REPL                                                                     |
+
+** Server based REPL (nodejs-repl)
+
+| Key binding | Description                                                        |
+|-------------+--------------------------------------------------------------------|
+| ~SPC m s i~ | Switch to NodeJS REPL if one has been started, otherwise start one |
+| ~SPC m s e~ | Send last expression to NodeJS REPL                                |
+| ~SPC m s E~ | Send last expression to NodeJS REPL and switch to REPL             |
+| ~SPC m s b~ | Send current buffer to NodeJS REPL                                 |
+| ~SPC m s B~ | Send current buffer to NodeJS REPL and switch to REPL              |
+| ~SPC m s l~ | Send current line to NodeJS REPL                                   |
+| ~SPC m s L~ | Send current line to NodeJS REPL and switch to REPL                |
+| ~SPC m s r~ | Send active region to NodeJS REPL                                  |
+| ~SPC m s R~ | Send active region to NodeJS REPL and switch to REPL               |
+| ~SPC m s s~ | switch to REPL                                                     |
+
+** debugger (dap mode)
+
+| Key binding   | Description                     |
+|---------------+---------------------------------|
+| ~SPC m d d d~ | start debugging                 |
+| ~SPC m d d l~ | debug last configuration        |
+| ~SPC m d d r~ | debug recent configuration      |
+|---------------+---------------------------------|
+| ~SPC m d c~   | continue                        |
+| ~SPC m d i~   | step in                         |
+| ~SPC m d o~   | step out                        |
+| ~SPC m d s~   | next step                       |
+| ~SPC m d v~   | inspect value at point          |
+| ~SPC m d r~   | restart frame                   |
+|---------------+---------------------------------|
+| ~SPC m d .~   | debug transient state           |
+|---------------+---------------------------------|
+| ~SPC m d a~   | abandon current session         |
+| ~SPC m d A~   | abandon all process             |
+|---------------+---------------------------------|
+| ~SPC m d e e~ | eval                            |
+| ~SPC m d e r~ | eval region                     |
+| ~SPC m d e t~ | eval value at point             |
+|---------------+---------------------------------|
+| ~SPC m d S s~ | switch session                  |
+| ~SPC m d S t~ | switch thread                   |
+| ~SPC m d S f~ | switch frame                    |
+|---------------+---------------------------------|
+| ~SPC m d I i~ | inspect                         |
+| ~SPC m d I r~ | inspect region                  |
+| ~SPC m d I t~ | inspect value at point          |
+|---------------+---------------------------------|
+| ~SPC m d b b~ | toggle a breakpoint             |
+| ~SPC m d b c~ | change breakpoint condition     |
+| ~SPC m d b l~ | change breakpoint log condition |
+| ~SPC m d b h~ | change breakpoint hit count     |
+| ~SPC m d b a~ | add a breakpoint                |
+| ~SPC m d b d~ | delete a breakpoint             |
+| ~SPC m d b D~ | clear all breakpoints           |
+|---------------+---------------------------------|
+| ~SPC m d '_~  | Run debug REPL                  |
+|---------------+---------------------------------|
+| ~SPC m d w l~ | list local variables            |
+| ~SPC m d w o~ | goto output buffer if present   |
+| ~SPC m d w s~ | list sessions                   |
+| ~SPC m d w b~ | list breakpoints                |

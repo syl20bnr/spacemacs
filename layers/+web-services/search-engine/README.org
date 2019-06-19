@@ -1,13 +1,15 @@
 #+TITLE: Search Engine layer
 
+#+TAGS: layer|web service
+
 [[file:img/searchengine.jpg]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
-  - [[#supported-search-engines][Supported search engines]]
+- [[#supported-search-engines][Supported search engines]]
 - [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 - [[#customize-it][Customize it!]]
 
 * Description
@@ -16,7 +18,7 @@ This layer adds support for the [[https://github.com/hrs/engine-mode][Search Eng
 ** Features:
 - Browser search integration
 
-** Supported search engines
+* Supported search engines
 - Amazon
 - Bing
 - Duck Duck Go
@@ -39,14 +41,14 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =search-engine= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-* Key Bindings
+* Key bindings
 
 | Evil      | Holy    | Command                                   |
 |-----------+---------+-------------------------------------------|
 | ~SPC a /~ | ~C-c /~ | Summon a Helm buffer to select any engine |
 
 * Customize it!
-If you’d rather have emacs use chrome, or firefox or any other thing (=eww=) you
+If you'd rather have emacs use chrome, or firefox or any other thing (=eww=) you
 can have that customization. For example for google chrome you can put this in
 your =dotspacemacs/user-config=:
 
@@ -66,7 +68,7 @@ Also if you want more search engines, just push them (do this in
           search-engine-alist)
 #+END_SRC
 
-If you’d rather not use helm but would want a specific search engine, remember
+If you'd rather not use helm but would want a specific search engine, remember
 the function generated is always =engine/search-(the name of the search engine
 lower-case and hyphen instead-of-spaces-for-separation)= so you can bind that to
 any key binding you want.

@@ -1,8 +1,10 @@
 #+TITLE: Cscope layer
 
+#+TAGS: layer|tag
+
 [[file:img/cscope.jpg]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -61,7 +63,7 @@ command =cscope/run-pycscope= for Python projects, bound to ~SPC m g i~.
 
 * Key bindings
 
-| Key Binding | Description                                   |
+| Key binding | Description                                   |
 |-------------+-----------------------------------------------|
 | ~SPC m g =~ | Find assignments to a symbol                  |
 | ~SPC m g c~ | find which functions are called by a function |

@@ -11,15 +11,35 @@
 
 (setq github-packages
       '(
+        forge
         gist
         github-clone
         github-search
-        magit-gh-pulls
-        magithub
+        ;; magithub has been replaced by forge
+        ;; The configuration has been commented so you can move it
+        ;; to a private layer if you want.
+        ;; Commments will be remove in a few weeks
+        ;; magithub
         ;; this package does not exits, we need it to wrap
         ;; the call to spacemacs/declare-prefix.
         (spacemacs-github :location built-in)
         ))
+
+(defun github/init-forge ()
+  (use-package forge
+    :after magit
+    :init
+    (progn
+      (setq forge-database-file (concat spacemacs-cache-directory
+                                        "forge-database.sqlite"))
+      (spacemacs/set-leader-keys-for-major-mode 'forge-topic-mode
+        "c" 'forge-create-post
+        "e" 'forge-edit-post)
+      (spacemacs/set-leader-keys-for-major-mode 'forge-post-mode
+        dotspacemacs-major-mode-leader-key 'forge-post-submit
+        "c" 'forge-post-submit
+        "k" 'forge-post-cancel
+        "a" 'forge-post-cancel))))
 
 (defun github/init-gist ()
   (use-package gist
@@ -63,39 +83,30 @@
     :commands (github-search-clone-repo github-search-user-clone-repo)
     :init (spacemacs/set-leader-keys "ghc/" 'github-search-clone-repo)))
 
-;; magit-gh-pulls has to be loaded via a pre-config hook because the source code
-;; makes assumptions about the status of the magit-mode keymaps that are
-;; incompatible with the spacemacs' evilification feature.
-;; To avoid errors, magit-gh-pulls must be loaded after magit, but before magit
-;; is configured by spacemacs.
 
-(defun github/pre-init-magit-gh-pulls ()
-  (spacemacs|use-package-add-hook magit
-    :pre-config
-    (progn
-      (use-package magit-gh-pulls
-        :config
-        (define-key magit-mode-map "#" 'spacemacs/load-gh-pulls-mode)
-        (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))))
-(defun github/init-magit-gh-pulls ())
-
-(defun github/init-magithub ()
-  (use-package magithub
-    :after magit
-    :init
-    (setq magithub-dir (concat spacemacs-cache-directory "magithub/"))
-    :config
-    (progn
-      ;; Configure Magithub to be offline by default because loading data from
-      ;; projects with many pull requests or issues can be exorbitantly slow.
-      ;; See <https://github.com/syl20bnr/spacemacs/issues/11176>.
-      (when (null (magit-get "--global" "magithub.online"))
-        (magit-set "false" "--global" "magithub.online")
-        (magit-set "false" "--global" "magithub.status.includeStatusHeader")
-        (magit-set "false" "--global" "magithub.status.includePullRequestsSection")
-        (magit-set "false" "--global" "magithub.status.includeIssuesSection"))
-      (magithub-feature-autoinject t)
-      (define-key magit-status-mode-map "@" #'magithub-dispatch-popup))))
+;; (defun github/init-magithub ()
+;;   (use-package magithub
+;;     :after magit
+;;     :init
+;;     (setq magithub-dir (concat spacemacs-cache-directory "magithub/"))
+;;     :config
+;;     (progn
+;;       ;; Configure Magithub to be offline by default because loading data from
+;;       ;; projects with many pull requests or issues can be exorbitantly slow.
+;;       ;; See <https://github.com/syl20bnr/spacemacs/issues/11176>.
+;;       (when (null (magit-get "--global" "magithub.online"))
+;;         (magit-set "false" "--global" "magithub.online")
+;;         (magit-set "false" "--global" "magithub.status.includeStatusHeader")
+;;         (magit-set "false" "--global" "magithub.status.includePullRequestsSection")
+;;         (magit-set "false" "--global" "magithub.status.includeIssuesSection"))
+;;       (magithub-feature-autoinject `(,@(when (not (package-installed-p 'forge))
+;;                                          '(issues-section
+;;                                            pull-requests-section))
+;;                                      completion
+;;                                      status-checks-header
+;;                                      commit-browse
+;;                                      pull-request-merge))
+;;       (define-key magit-status-mode-map "@" #'magithub-dispatch-popup))))
 
 (defun github/init-spacemacs-github ()
   (spacemacs/declare-prefix "gh" "github"))

@@ -1,8 +1,10 @@
 #+TITLE: Java layer
 
+#+TAGS: general|layer|multi-paradigm|programming
+
 [[file:img/java.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#layer-installation][Layer Installation]]
@@ -61,6 +63,8 @@
     - [[#tests-1][Tests]]
     - [[#repl][REPL]]
   - [[#lsp-java-1][LSP Java]]
+    - [[#code-intelligence-shorcuts][Code intelligence shorcuts]]
+    - [[#debugger-shorcuts][Debugger shorcuts]]
   - [[#maven][Maven]]
   - [[#gradle][Gradle]]
 
@@ -219,7 +223,7 @@ Follow [[https://ensime.github.io/build_tools/sbt/][the ENSIME configuration ins
 the development version of Ensime so follow the appropriate steps.
 
 To use the build functions under ~SPC m b~ you need to use version =0.13.5= or
-newer of =sbt=, and specify that in your project’s =project/build.properties=.
+newer of =sbt=, and specify that in your project's =project/build.properties=.
 For example,
 
 #+BEGIN_SRC scala
@@ -233,7 +237,7 @@ will suffice do the trick.
 
 *** Issues
 ENSIME is originally built for Scala, so support for java is not complete, in
-particular refactoring doesn’t work.
+particular refactoring doesn't work.
 
 ** LSP Java
 LSP Java is the Java adapter for [[https://github.com/emacs-lsp/lsp-mode][LSP Mode]] which is the Emacs client for [[https://github.com/Microsoft/language-server-protocol][Language Server Protocol]].
@@ -246,7 +250,7 @@ and ask you which projects you want to import.
 ** Meghanada
 *** Server
 
-| Key Binding | Description                                  |
+| Key binding | Description                                  |
 |-------------+----------------------------------------------|
 | ~SPC m D c~ | Connect to server                            |
 | ~SPC m D d~ | Disconnect from server                       |
@@ -261,21 +265,21 @@ and ask you which projects you want to import.
 
 *** Navigation
 
-| Key Binding | Description                    |
+| Key binding | Description                    |
 |-------------+--------------------------------|
 | ~SPC m g b~ | Jump back to previous location |
 | ~SPC m g g~ | Jump to declaration            |
 
 *** Compilation
 
-| Key Binding | Description           |
+| Key binding | Description           |
 |-------------+-----------------------|
 | ~SPC m c b~ | Compile file (buffer) |
 | ~SPC m c c~ | Compile project       |
 
 *** Tests (junit)
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC m t a~ | Run all tests               |
 | ~SPC m t c~ | Run test class around point |
@@ -284,7 +288,7 @@ and ask you which projects you want to import.
 
 *** Refactoring
 
-| Key Binding | Description                            |
+| Key binding | Description                            |
 |-------------+----------------------------------------|
 | ~SPC m =~   | Beautify code                          |
 | ~SPC m r i~ | Optimize imports                       |
@@ -293,7 +297,7 @@ and ask you which projects you want to import.
 
 *** Tasks
 
-| Key Binding | Description |
+| Key binding | Description |
 |-------------+-------------|
 | ~SPC m x :~ | Run task    |
 
@@ -301,7 +305,7 @@ and ask you which projects you want to import.
 *** Java-mode
 **** Ant
 
-| Key Binding | Description     |
+| Key binding | Description     |
 |-------------+-----------------|
 | ~SPC m a a~ | Run Ant         |
 | ~SPC m a c~ | Clear Ant cache |
@@ -310,7 +314,7 @@ and ask you which projects you want to import.
 
 **** Project management
 
-| Key Binding | Description                    |
+| Key binding | Description                    |
 |-------------+--------------------------------|
 | ~SPC m p b~ | Build project                  |
 | ~SPC m p c~ | Create project                 |
@@ -326,14 +330,14 @@ and ask you which projects you want to import.
 
 **** Eclim daemon
 
-| Key Binding | Description  |
+| Key binding | Description  |
 |-------------+--------------|
 | ~SPC m D k~ | Kill daemon  |
 | ~SPC m D s~ | Start daemon |
 
 **** Goto
 
-| Key Binding | Description                                 |
+| Key binding | Description                                 |
 |-------------+---------------------------------------------|
 | ~M-​,​~       | jump back from go to declaration/definition |
 | ~SPC m g g~ | go to declaration                           |
@@ -341,7 +345,7 @@ and ask you which projects you want to import.
 
 **** Refactoring
 
-| Key Binding | Description                            |
+| Key binding | Description                            |
 |-------------+----------------------------------------|
 | ~SPC m r c~ | create a constructor                   |
 | ~SPC m r f~ | format file                            |
@@ -353,7 +357,7 @@ and ask you which projects you want to import.
 
 **** Documentation, Find
 
-| Key Binding | Description                            |
+| Key binding | Description                            |
 |-------------+----------------------------------------|
 | ~SPC m f f~ | general find in project                |
 | ~SPC m h c~ | call hierarchy                         |
@@ -363,7 +367,7 @@ and ask you which projects you want to import.
 
 **** Errors (problems)
 
-| Key Binding | Description                |
+| Key binding | Description                |
 |-------------+----------------------------|
 | ~SPC e e~   | Force an error check       |
 | ~SPC e l~   | List errors                |
@@ -373,13 +377,13 @@ and ask you which projects you want to import.
 
 **** Tests
 
-| Key Binding | Description                                                   |
+| Key binding | Description                                                   |
 |-------------+---------------------------------------------------------------|
 | ~SPC m t t~ | run JUnit tests for current method or current file or project |
 
 *** Errors (problems) buffer
 
-| Key Binding | Description                         |
+| Key binding | Description                         |
 |-------------+-------------------------------------|
 | ~RET~       | go to problem place                 |
 | ~a~         | show all problems                   |
@@ -391,7 +395,7 @@ and ask you which projects you want to import.
 
 *** Projects buffer
 
-| Key Binding | Description                                |
+| Key binding | Description                                |
 |-------------+--------------------------------------------|
 | ~RET~       | go to current project                      |
 | ~c~         | go to problem place                        |
@@ -412,14 +416,14 @@ and ask you which projects you want to import.
 ** Ensime key bindings
 *** Search
 
-| Key Binding | Description                                         |
+| Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC m /~   | incremental search using =ensime-scalex= major mode |
 | ~SPC m ?~   | incremental search in all live buffers              |
 
 *** Ensime Search Mode
 
-| Key Binding | Description                                                       |
+| Key binding | Description                                                       |
 |-------------+-------------------------------------------------------------------|
 | ~C-j~       | Move to next match                                                |
 | ~C-k~       | Move to previous match                                            |
@@ -429,7 +433,7 @@ and ask you which projects you want to import.
 
 *** sbt
 
-| Key Binding | Description         |
+| Key binding | Description         |
 |-------------+---------------------|
 | ~SPC m b .~ | sbt transient state |
 | ~SPC m b b~ | sbt command         |
@@ -441,13 +445,13 @@ and ask you which projects you want to import.
 
 *** Typecheck
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC m c t~ | type check the current file |
 
 *** Debug
 
-| Key Binding | Description                 |
+| Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC m d A~ | Attach to a remote debugger |
 | ~SPC m d b~ | set breakpoint              |
@@ -466,14 +470,14 @@ and ask you which projects you want to import.
 
 *** Errors
 
-| Key Binding | Description                                        |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC m e e~ | print error at point                               |
 | ~SPC m e s~ | switch to buffer containing the stack trace parser |
 
 *** Goto
 
-| Key Binding | Description      |
+| Key binding | Description      |
 |-------------+------------------|
 | ~SPC m g g~ | go to definition |
 
@@ -487,14 +491,14 @@ and ask you which projects you want to import.
 
 *** Documentation, Inspect
 
-| Key Binding | Description                            |
+| Key binding | Description                            |
 |-------------+----------------------------------------|
 | ~SPC m h h~ | show documentation for symbol at point |
 | ~SPC m h u~ | show uses for symbol at point          |
 
 *** Server
 
-| Key Binding | Description                                            |
+| Key binding | Description                                            |
 |-------------+--------------------------------------------------------|
 | ~SPC m D f~ | reload open files                                      |
 | ~SPC m D r~ | regenerate the =.ensime= and restart the ensime server |
@@ -502,7 +506,7 @@ and ask you which projects you want to import.
 
 *** Refactoring
 
-| Key Binding | Description                                                          |
+| Key binding | Description                                                          |
 |-------------+----------------------------------------------------------------------|
 | ~SPC m r a~ | add type annotation                                                  |
 | ~SPC m r d~ | get rid of an intermediate variable (=ensime-refactor-inline-local=) |
@@ -516,7 +520,7 @@ and ask you which projects you want to import.
 
 *** Tests
 
-| Key Binding | Description              |
+| Key binding | Description              |
 |-------------+--------------------------|
 | ~SPC m t a~ | test command (sbt)       |
 | ~SPC m t r~ | test quick command (sbt) |
@@ -524,7 +528,7 @@ and ask you which projects you want to import.
 
 *** REPL
 
-| Key Binding | Description                                                         |
+| Key binding | Description                                                         |
 |-------------+---------------------------------------------------------------------|
 | ~SPC m s a~ | ask for a file to be loaded in the REPL                             |
 | ~SPC m s b~ | send buffer to the REPL                                             |
@@ -534,36 +538,100 @@ and ask you which projects you want to import.
 | ~SPC m s R~ | send region to the REPL and focus the REPL buffer in =insert state= |
 
 ** LSP Java
+*** Code intelligence shorcuts
 
-| Key Binding   | Description                           |
-|---------------+---------------------------------------|
-| ~SPC m g g~   | Go to definition                      |
-| ~SPC m g r~   | Find references                       |
-| ~SPC m g R~   | Peek references using ~lsp-ui~        |
-| ~SPC m g d~   | Goto type definition                  |
-| ~SPC m g a~   | Search type in project                |
-| ~SPC m g A~   | Search type in project using ~lsp-ui~ |
-| ~SPC m h h~   | Describe thing at point               |
-| ~SPC m e l~   | List project errors/warnings          |
-| ~SPC m p u~   | Refresh user settings                 |
-| ~SPC m e a~   | Execute code action                   |
-| ~SPC m q r~   | Restart workspace                     |
-| ~SPC m r o i~ | Organize imports                      |
-| ~SPC m r r~   | Rename symbol                         |
-| ~SPC m r a i~ | Add import                            |
-| ~SPC m r a m~ | Add unimplemented methods             |
-| ~SPC m r c p~ | Create parameter                      |
-| ~SPC m r c f~ | Create field                          |
-| ~SPC m r e c~ | Extract constant                      |
-| ~SPC m r e l~ | Extract local                         |
-| ~SPC m r e m~ | Extract method                        |
-| ~SPC m c c~   | Build project                         |
-| ~SPC m a n~   | Actionable notifications              |
-| ~SPC m =~     | Format code                           |
+| Key binding   | Description                              |
+|---------------+------------------------------------------|
+| ~SPC m g g~   | Go to definition                         |
+| ~SPC m g r~   | Find references                          |
+| ~SPC m g R~   | Peek references using ~lsp-ui~           |
+| ~SPC m g d~   | Goto type definition                     |
+| ~SPC m g a~   | Search type in project                   |
+| ~SPC m g A~   | Search type in project using ~lsp-ui~    |
+| ~SPC m h h~   | Describe thing at point                  |
+| ~SPC m e l~   | List project errors/warnings             |
+| ~SPC m p u~   | Refresh user settings                    |
+| ~SPC m e a~   | Execute code action                      |
+| ~SPC m q r~   | Restart workspace                        |
+| ~SPC m r o i~ | Organize imports                         |
+| ~SPC m r r~   | Rename symbol                            |
+| ~SPC m r a i~ | Add import                               |
+| ~SPC m r a m~ | Add unimplemented methods                |
+| ~SPC m r c p~ | Create parameter                         |
+| ~SPC m r c f~ | Create field                             |
+| ~SPC m r e c~ | Extract constant                         |
+| ~SPC m r e l~ | Extract local                            |
+| ~SPC m r e m~ | Extract method                           |
+| ~SPC m r c i~ | Convert to static import                 |
+| ~SPC m r a t~ | Add throws exception                     |
+| ~SPC m r a a~ | Assign all parameters to fields          |
+| ~SPC m r a f~ | Assign parameter to field                |
+| ~SPC m r g g~ | Generate getters/setters                 |
+| ~SPC m r g e~ | Generate =equals= and =hashCode= methods |
+| ~SPC m r g t~ | Generate =toString= method               |
+| ~SPC m r g o~ | Generate method overrides                |
+| ~SPC m c c~   | Build project                            |
+| ~SPC m c p~   | Create spring boot project               |
+| ~SPC m a n~   | Actionable notifications                 |
+| ~SPC m =~     | Format code                              |
+
+*** Debugger shorcuts
+
+| Key binding   | Description                     |
+|---------------+---------------------------------|
+| ~SPC m d t t~ | Debug test method               |
+| ~SPC m d t c~ | Debug test class                |
+| ~SPC m d j~   | Debug java class(main method).  |
+|---------------+---------------------------------|
+| ~SPC m t t~   | Run test method                 |
+| ~SPC m t c~   | Run test class                  |
+|---------------+---------------------------------|
+| ~SPC m d d d~ | start debugging                 |
+| ~SPC m d d l~ | debug last configuration        |
+| ~SPC m d d r~ | debug recent configuration      |
+|---------------+---------------------------------|
+| ~SPC m d c~   | continue                        |
+| ~SPC m d i~   | step in                         |
+| ~SPC m d o~   | step out                        |
+| ~SPC m d s~   | next step                       |
+| ~SPC m d v~   | inspect value at point          |
+| ~SPC m d r~   | restart frame                   |
+|---------------+---------------------------------|
+| ~SPC m d .~   | debug transient state           |
+|---------------+---------------------------------|
+| ~SPC m d a~   | abandon current session         |
+| ~SPC m d A~   | abandon all process             |
+|---------------+---------------------------------|
+| ~SPC m d e e~ | eval                            |
+| ~SPC m d e r~ | eval region                     |
+| ~SPC m d e t~ | eval value at point             |
+|---------------+---------------------------------|
+| ~SPC m d S s~ | switch session                  |
+| ~SPC m d S t~ | switch thread                   |
+| ~SPC m d S f~ | switch frame                    |
+|---------------+---------------------------------|
+| ~SPC m d I i~ | inspect                         |
+| ~SPC m d I r~ | inspect region                  |
+| ~SPC m d I t~ | inspect value at point          |
+|---------------+---------------------------------|
+| ~SPC m d b b~ | toggle a breakpoint             |
+| ~SPC m d b c~ | change breakpoint condition     |
+| ~SPC m d b l~ | change breakpoint log condition |
+| ~SPC m d b h~ | change breakpoint hit count     |
+| ~SPC m d b a~ | add a breakpoint                |
+| ~SPC m d b d~ | delete a breakpoint             |
+| ~SPC m d b D~ | clear all breakpoints           |
+|---------------+---------------------------------|
+| ~SPC m d '_~  | Run debug REPL                  |
+|---------------+---------------------------------|
+| ~SPC m d w l~ | list local variables            |
+| ~SPC m d w o~ | goto output buffer if present   |
+| ~SPC m d w s~ | list sessions                   |
+| ~SPC m d w b~ | list breakpoints                |
 
 ** Maven
 
-| Key Binding     | Description                                          |
+| Key binding     | Description                                          |
 |-----------------+------------------------------------------------------|
 | ~SPC m m c c~   | Compile                                              |
 | ~SPC m m c C~   | Clean                                                |
@@ -578,7 +646,7 @@ and ask you which projects you want to import.
 
 ** Gradle
 
-| Key Binding   | Description              |
+| Key binding   | Description              |
 |---------------+--------------------------|
 | ~SPC m l c c~ | Compile                  |
 | ~SPC m l c C~ | Clean                    |

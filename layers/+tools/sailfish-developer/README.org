@@ -1,0 +1,33 @@
+#+TITLE: Sailfish OS developer layer
+
+#+TAGS: layer|uncategorized
+
+[[file:img/logo.png]]
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+  - [[#sailfish-scratchbox][sailfish-scratchbox]]
+
+* Description
+This layer adds support of sailfish-os development packages.
+
+** Features:
+- [[https://github.com/vityafx/sailfish-scratchbox.el][sailfish-scratchbox]]: handy sb2 interaction.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =sailfish-developer= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+** sailfish-scratchbox
+
+| Key binding | Description              |
+|-------------+--------------------------|
+| ~SPC c s~   | Show menu                |
+| ~SPC c s b~ | Invoke mb2 build         |
+| ~SPC c s d~ | Copy rpms to the phone   |
+| ~SPC c s i~ | Install rpms into target |

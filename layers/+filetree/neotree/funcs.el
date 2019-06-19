@@ -1,4 +1,4 @@
-;;; packages.el --- Neotree Layer functions File
+;;; funcs.el --- Neotree Layer functions File
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

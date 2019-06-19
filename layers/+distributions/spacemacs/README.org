@@ -1,6 +1,8 @@
 #+TITLE: spacemacs distribution
 
-* Table of Contents                     :TOC_4_gh:noexport:
+#+TAGS: distribution|layer|spacemacs
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 
@@ -11,7 +13,7 @@ This is the default distribution for Spacemacs.
 - Easy access to the Spacemacs experience by adding below auxiliary layers
   to the base distribution.
   - helm
-  - neotree
+  - treemacs
   - spacemacs-completion
   - spacemacs-layouts
   - spacemacs-editing

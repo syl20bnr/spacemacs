@@ -120,6 +120,19 @@ jobs:
     working_directory: ~/.emacs.d
     <<: *spacemacs_steps
 
+  "CHANGELOG.develop updated (optional)":
+    docker:
+      - image: jare/spacemacs-circleci:latest
+    working_directory: ~/.emacs.d
+    steps:
+      - checkout
+      - run:
+          name: Select changed files
+          command: ./.circleci/select
+      - run:
+          name: Check CHANGELOG.develop
+          command: ./.circleci/PR_changelong
+
   "Validate Documentation (required)":
     docker:
       - image: jare/spacemacs-circleci:latest
@@ -127,8 +140,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Select changed documentation(.org) files
-          command: ./.circleci/validoc/select
+          name: Select changed files
+          command: ./.circleci/select
       - run:
           name: export changed documentation files for validation
           command: ./.circleci/validoc/export
@@ -166,5 +179,8 @@ workflows:
           requires:
             - "Validate PR"
       - "Validate Documentation (required)":
+          requires:
+            - "Validate PR"
+      - "CHANGELOG.develop updated (optional)":
           requires:
             - "Validate PR"

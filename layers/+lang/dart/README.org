@@ -1,0 +1,96 @@
+#+TITLE: dart layer
+
+#+TAGS: general|layer|multi-paradigm|programming
+
+[[file:img/dart.png]]
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#dart-sdk-location][Dart SDK location]]
+    - [[#flutter-integration][Flutter integration]]
+- [[#configuration][Configuration]]
+  - [[#use-analysis-server][Use analysis server]]
+  - [[#format-on-save][Format on save]]
+- [[#key-bindings][Key bindings]]
+  - [[#normal-mode][Normal mode]]
+  - [[#insert-mode][Insert mode]]
+  - [[#popup-screens][Popup screens]]
+
+* Description
+This layer adds support for Dart language, and could be optionally used for Flutter development as well.
+
+** Features:
+- Syntax Highlight
+- Error checking with ~flycheck~
+- Go to Definition
+- Dart Analyzer integration
+- Key bindings
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =dart= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+** Dart SDK location
+The layer itself will use the `dart` executable location if available on the execution path, but it is possible to define the location manually.
+It should point to the folder, and end with `/`.
+
+#+BEGIN_SRC elisp
+  (dart :variables dart-sdk-path "~/path/to/dart-sdk/")
+#+END_SRC
+
+*** Flutter integration
+Flutter comes with a internal Dart SDK, which can be used to provide all the integration tools.
+
+#+BEGIN_SRC elisp
+  (dart :variables dart-sdk-path "<flutter-location>/bin/cache/dart-sdk/")
+#+END_SRC
+
+* Configuration
+For more available variables check [[https://github.com/bradyt/dart-mode][dart-mode]] documentation.
+
+** Use analysis server
+#+BEGIN_SRC elisp
+  (dart :variables dart-enable-analysis-server t)
+#+END_SRC
+
+** Format on save
+#+BEGIN_SRC elisp
+  (dart :variables dart-format-on-save t)
+#+END_SRC
+
+* Key bindings
+** Normal mode
+Some of the commands will instantiate a new Dart Analyzer server if
+necessary, while others work without using a Dart Analyzer connection.
+
+When ~dart-enable-analysis-server~ is enabled, most of the commands become Async, and there might be a delay when executing them.
+
+| Key binding            | Description                                       |
+|------------------------+---------------------------------------------------|
+| ~SPC m h h~, ~SPC m ?~ | Displays hover information for the current point. |
+| ~SPC m h b~            | Displays information at point on a new buffer.    |
+| ~gd~, ~SPC m g~        | Go to definition.                                 |
+| ~SPC m f f~            | Find reference at point.                          |
+| ~SPC m f d~            | Find members declarations by name.                |
+| ~SPC m f r~            | Find members references by name.                  |
+| ~SPC m f d~            | Find top-level declarations by name.              |
+| ~SPC m =~              | Format buffer                                     |
+
+** Insert mode
+
+| Key binding | Description                                      |
+|-------------+--------------------------------------------------|
+| ~<tab>~     | Expand previous word using Analyzer if available |
+| ~C-<tab>~   | Expand including parameters                      |
+
+** Popup screens
+
+| Key binding | Description                               |
+|-------------+-------------------------------------------|
+| ~q~         | Close popup                               |
+| ~gr~        | Execute last command to repopulate buffer |

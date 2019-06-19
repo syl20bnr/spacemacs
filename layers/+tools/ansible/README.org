@@ -1,8 +1,10 @@
 #+TITLE: Ansible layer
 
+#+TAGS: layer|tool
+
 [[file:img/ansible.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -64,8 +66,8 @@ If you want to disable this feature then set the layer variable
 
 * Key bindings
 
-| Key Binding | Description                              |
+| Key binding | Description                              |
 |-------------+------------------------------------------|
-| ~SPC m b d~ | encrypt the buffer using =ansible-vault= |
-| ~SPC m b e~ | decrypt the buffer using =ansible-vault= |
+| ~SPC m b e~ | encrypt the buffer using =ansible-vault= |
+| ~SPC m b d~ | decrypt the buffer using =ansible-vault= |
 | ~SPC m h a~ | looks up documentation using [[https://github.com/lunaryorn/ansible-doc.el][ansible-doc]] |

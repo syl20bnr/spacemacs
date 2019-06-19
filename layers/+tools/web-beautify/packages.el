@@ -16,4 +16,4 @@
     :defer t
     :init
     (dolist (x spacemacs--web-beautify-modes)
-      (spacemacs/set-leader-keys-for-major-mode (car x) "=" (cdr x)))))
+      (spacemacs/set-leader-keys-for-major-mode (car x) "==" (cdr x)))))

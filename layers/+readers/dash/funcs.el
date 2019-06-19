@@ -10,11 +10,11 @@
 
 (defun dash//activate-package-docsets (path)
   "Add dash docsets from specified PATH."
-  (if (not (string-blank-p path))
-      (setq helm-dash-docsets-path path))
-  (setq helm-dash-common-docsets (helm-dash-installed-docsets))
+  (when (not (string-blank-p path))
+      (setq dash-docs-docsets-path (expand-file-name path)))
+  (setq dash-docs-common-docsets (dash-docs-installed-docsets))
   (message (format "activated %d docsets from: %s"
-                   (length helm-dash-common-docsets) path)))
+                   (length dash-docs-common-docsets) path)))
 
 (defun counsel-dash-at-point ()
   "Counsel dash with selected point"

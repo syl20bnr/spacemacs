@@ -19,7 +19,7 @@
 
 (defun nim/post-init-company ()
   (spacemacs|add-company-backends
-    :backends company-capf
+    :backends company-nimsuggest
     :modes nim-mode nimscript-mode))
 
 (defun nim/post-init-flycheck ()
@@ -39,8 +39,13 @@
     :config
     (progn
       (defun spacemacs/nim-compile-run ()
+        "Compile current buffer file."
         (interactive)
-        (shell-command "nim compile --run main.nim"))
+        (shell-command (concat "nim compile --run " (buffer-file-name))))
+
+      (spacemacs/declare-prefix-for-mode 'nim-mode "mc" "compile")
+      (spacemacs/declare-prefix-for-mode 'nim-mode "mg" "goto")
+      (spacemacs/declare-prefix-for-mode 'nim-mode "mh" "help")
 
       (spacemacs/set-leader-keys-for-major-mode 'nim-mode
         "cr" 'spacemacs/nim-compile-run

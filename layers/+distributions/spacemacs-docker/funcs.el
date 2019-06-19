@@ -45,3 +45,7 @@ the `spacemacs-docker-dump-layer-data-fp' file"
                                     (format "\"%s\"" sym-val)
                                   sym-val))))))))
       (insert "))\n\n"))))
+
+(defun spacemacs-docker//load-env ()
+  "Load environments variables collected from dependency installers."
+  (load-env-vars spacemacs-docker-env-fp))

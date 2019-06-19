@@ -38,7 +38,7 @@
       (spacemacs/declare-prefix-for-mode 'csharp-mode "mh" "csharp/documentation")
       (spacemacs/declare-prefix-for-mode 'csharp-mode "mr" "csharp/refactoring")
       (spacemacs/declare-prefix-for-mode 'csharp-mode "ms" "csharp/server")
-      ;; [missing in roslyn](spacemacs/declare-prefix-for-mode 'csharp-mode "mt" "csharp/tests")
+      (spacemacs/declare-prefix-for-mode 'csharp-mode "mt" "csharp/tests")
 
       (spacemacs/set-leader-keys-for-major-mode 'csharp-mode
         ;; Compile
@@ -87,13 +87,15 @@
         ;; Tests
         ;; [missing in roslyn] "ta" 'omnisharp-unit-test-all
         "tb" 'omnisharp-unit-test-buffer
-        ;; [missing in roslyn] "tt" 'omnisharp-unit-test-single
+        "tl" 'omnisharp-unit-test-last
+        "tt" 'omnisharp-unit-test-at-point
 
         ;; Code manipulation
         "u" 'omnisharp-auto-complete-overrides
         "i" 'omnisharp-fix-usings
         ;; [missing in roslyn] "=" 'omnisharp-code-format
-))))
+        )
+      (spacemacs|hide-lighter omnisharp-mode))))
 
 (defun csharp/post-init-company ()
   (when (configuration-layer/package-used-p 'omnisharp)

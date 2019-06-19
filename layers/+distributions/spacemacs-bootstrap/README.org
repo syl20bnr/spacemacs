@@ -1,6 +1,8 @@
 #+TITLE: spacemacs-bootstrap distribution
 
-* Table of Contents                     :TOC_4_gh:noexport:
+#+TAGS: distribution|layer|spacemacs
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 
@@ -15,5 +17,5 @@ This layer loads the necessary packages for spacemacs to start-up.
 - Loads =hydra= which is used to create transient modes
 - Loads =which-key= which is used to show key bindings in other modes
 - Loads =async= which is used to run background processes
-- Loads =bind-map= and =bind-key= which are used to realise various
-  spacemacs specific key binding commands
+- Loads =bind-map= and =bind-key= which are used to realize various
+  Spacemacs specific key binding commands

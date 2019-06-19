@@ -1,8 +1,10 @@
 #+TITLE: Coq layer
 
+#+TAGS: dsl|layer|programming
+
 [[file:img/coq.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -25,7 +27,7 @@ This layer adds support for the [[https://coq.inria.fr/][Coq]] proof assistant (
 - Syntax highlighting
 - Syntax-checking
 - Auto-completion
-- Debugging of mathematical proofs from within emacs using a special proof layout
+- Debugging of mathematical proofs from within Emacs using a special proof layout
 - Replacement of certain constants with the correct mathematical signs
 - Inserting of certain preconfigured proof elements
 
@@ -56,7 +58,7 @@ font, or disable the feature by adding the following snippet to the your
 * Key bindings
 ** Laying out windows
 
-| Key Binding | Description           |
+| Key binding | Description           |
 |-------------+-----------------------|
 | ~SPC m l c~ | Clear response buffer |
 | ~SPC m l l~ | Re-layout windows     |
@@ -64,7 +66,7 @@ font, or disable the feature by adding the following snippet to the your
 
 ** Managing prover process
 
-| Key Binding | Description                                                     |
+| Key binding | Description                                                     |
 |-------------+-----------------------------------------------------------------|
 | ~SPC m p i~ | Interrupt prover                                                |
 | ~SPC m p p~ | Process buffer - processes and moves point to end of buffer     |
@@ -73,16 +75,16 @@ font, or disable the feature by adding the following snippet to the your
 
 ** Getting documentation
 
-| Key Binding | Description                                                 |
+| Key binding | Description                                                 |
 |-------------+-------------------------------------------------------------|
 | ~SPC m h h~ | Show documentation for whatever is below the cursor         |
 | ~SPC m h e~ | Show documentation for the error in the `*response*` buffer |
 | ~SPC m h E~ | Browse all available documentation for errors               |
 
 ** Prover queries
-The mnemonic for =a= is “ask”.
+The mnemonic for =a= is "ask".
 
-| Key Binding   | Description                                 |
+| Key binding   | Description                                 |
 |---------------+---------------------------------------------|
 | ~SPC m a a~   | Print                                       |
 | ~SPC m a A~   | Print (showing all)                         |
@@ -90,7 +92,7 @@ The mnemonic for =a= is “ask”.
 | ~SPC m a B~   | About (showing all)                         |
 | ~SPC m a c~   | Check                                       |
 | ~SPC m a C~   | Check (showing all)                         |
-| ~SPC m a f~   | Search (mnemonic: “find theorems”)          |
+| ~SPC m a f~   | Search (mnemonic: "find theorems")          |
 | ~SPC m a i b~ | About (showing implicits)                   |
 | ~SPC m a i c~ | Check (showing implicits)                   |
 | ~SPC m a i i~ | Print (showing implicits)                   |
@@ -98,7 +100,7 @@ The mnemonic for =a= is “ask”.
 
 ** Moving the point
 
-| Key Binding | Description                     |
+| Key binding | Description                     |
 |-------------+---------------------------------|
 | ~SPC m g e~ | Go to end of command at point   |
 | ~SPC m g g~ | Go to definition at point       |
@@ -107,7 +109,7 @@ The mnemonic for =a= is “ask”.
 
 ** Inserting
 
-| Key Binding     | Description                                                     |
+| Key binding     | Description                                                     |
 |-----------------+-----------------------------------------------------------------|
 | ~SPC m M-RET~   | Insert regular match branch                                     |
 | ~SPC m M-S-RET~ | Insert =match goal with= branch                                 |

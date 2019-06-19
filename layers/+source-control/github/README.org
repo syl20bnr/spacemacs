@@ -1,8 +1,10 @@
 #+TITLE: GitHub layer
 
+#+TAGS: layer|versioning
+
 [[file:img/github.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -10,9 +12,9 @@
   - [[#git-configuration][Git configuration]]
   - [[#hub-configuration][Hub configuration]]
   - [[#magithub-configuration][Magithub configuration]]
-- [[#key-bindings][Key Bindings]]
-  - [[#magit-gh-pulls][magit-gh-pulls]]
+- [[#key-bindings][Key bindings]]
   - [[#magithub][magithub]]
+  - [[#forge][forge]]
   - [[#gistel][gist.el]]
   - [[#clone-repositories][Clone repositories]]
 
@@ -20,8 +22,8 @@
 This layers adds support for [[http://github.com][GitHub]].
 
 ** Features:
-- [[https://github.com/sigma/magit-gh-pulls][magit-gh-pulls]]: handy =magit= add-on to manage GitHub pull requests.
-- [[https://github.com/vermiculus/magithub][magithub]]: magit integrated interface to [[https://hub.github.com/][hub]] command line
+- [[https://github.com/vermiculus/magithub][magithub]]: Magit-integrated interface to [[https://hub.github.com/][hub]] command line
+- [[https://github.com/magit/forge][forge]]: integration with various forges, such as GitHub and GitLab.
 - [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post GitHub gists.
 - [[https://github.com/sshaw/git-link][git-link]]: quickly generate URLs for commits or files.
 - [[https://github.com/dgtized/github-clone.el][github-clone]] allows for easy cloning and forking of repositories.
@@ -74,26 +76,10 @@ Alternatively, use the following Emacs forms:
   (magit-set "true" "--global" "magithub.status.includeIssuesSection")
 #+END_SRC
 
-* Key Bindings
-** magit-gh-pulls
-In a =magit status= buffer (~SPC g s~):
-
-| Key Binding | Description                                                 |
-|-------------+-------------------------------------------------------------|
-| ~# c~       | create a pull request                                       |
-| ~# g~       | get a list of (or reload) all PRs in the current repository |
-| ~# f~       | fetch the commits associated with the current PR at point   |
-| ~# b~       | create a branch for the current PR at point                 |
-| ~# m~       | merge the PR with current branch at point                   |
-| ~# d~       | show a diff of the current pull request at point            |
-| ~# o~       | open PR at point in browser                                 |
-
-Note that =magit-gh-pulls= will try to fast-forward the PRs whenever it is
-possible.
-
+* Key bindings
 ** magithub
 
-| Key Binding | Description                                      |
+| Key binding | Description                                      |
 |-------------+--------------------------------------------------|
 | ~@ C~       | open the Magithub settings popup                 |
 | ~@ H~       | opens the current repository in the browser      |
@@ -102,9 +88,40 @@ possible.
 | ~@ p~       | submit pull request upstream                     |
 | ~@ i~       | create an issue                                  |
 
+** forge
+In a =magit-status= buffer (~SPC g s~):
+
+| Key binding | Description                                               |
+|-------------+-----------------------------------------------------------|
+| ~b Y~       | create branch from pull-request                           |
+| ~b y~       | create and check out branch from pull-request             |
+| ~F f~       | fetch issues and pull-requests                            |
+| ~F n~       | fetch notifications                                       |
+| ~F p~       | create pull-request                                       |
+| ~F i~       | create issue                                              |
+| ~F F~       | list notifications                                        |
+| ~F P~       | list pull-requests                                        |
+| ~F I~       | list issues                                               |
+| ~p y~       | pull pull-requests and issues for the current repository  |
+| ~p Y~       | pull all notifications for the current repository's forge |
+
+In a =forge-topic= buffer:
+
+| Key binding | Description     |
+|-------------+-----------------|
+| ~SPC m c~   | create new post |
+| ~SPC m e~   | edit post       |
+
+In a =forge-post= buffer (assuming the major mode leader key is ~,~)
+
+| Key binding            | Description |
+|------------------------+-------------|
+| ~SPC m c~ or ~SPC m ,~ | submit post |
+| ~SPC m k~ or ~SPC m k~ | cancel post |
+
 ** gist.el
 
-| Key Binding | Description                                   |
+| Key binding | Description                                   |
 |-------------+-----------------------------------------------|
 | ~SPC g g b~ | create a public gist with the buffer content  |
 | ~SPC g g B~ | create a private gist with the buffer content |
@@ -114,7 +131,7 @@ possible.
 
 In the gist list buffer:
 
-| Key Binding | Description                  |
+| Key binding | Description                  |
 |-------------+------------------------------|
 | ~/~         | evil search                  |
 | ~+~         | add buffer to gist           |
@@ -135,7 +152,7 @@ In the gist list buffer:
 
 ** Clone repositories
 
-| Key Binding   | Description                                              |
+| Key binding   | Description                                              |
 |---------------+----------------------------------------------------------|
 | ~SPC g h c /~ | search for a repository to clone it                      |
 | ~SPC g h c c~ | clone and optionally fork repository                     |

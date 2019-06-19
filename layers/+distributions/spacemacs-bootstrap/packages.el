@@ -136,18 +136,17 @@
   (spacemacs|define-transient-state scroll
     :title "Scrolling Transient State"
     :doc "
- Buffer^^^^              Full page^^^^     Half page^^^^        Line/column^^^^
- ──────^^^^───────────── ─────────^^^^──── ─────────^^^^─────── ───────────^^^^─────
- [_<_/_>_] beginning/end [_f_/_b_] down/up [_J_/_K_] down/up    [_j_/_k_] down/up
-  ^ ^ ^ ^                 ^ ^ ^ ^          [_H_/_L_] left/right [_h_/_l_] left/right
-  ^ ^ ^ ^                 ^ ^ ^ ^          [_d_/_u_] down/up     ^ ^ ^ ^"
+ Line/Column^^^^      Half Page^^^^        Full Page^^ Buffer^^^^    Other
+ ───────────^^^^───── ─────────^^^^─────── ─────────^^ ──────^^^^─── ─────^^───
+ [_k_]^^   up         [_u_/_K_] up         [_b_] up    [_<_/_g_] beg [_q_] quit
+ [_j_]^^   down       [_d_/_J_] down       [_f_] down  [_>_/_G_] end
+ [_h_/_l_] left/right [_H_/_L_] left/right"
     :bindings
-    ;; buffer
-    ("<" evil-goto-first-line)
-    (">" evil-goto-line)
-    ;; full page
-    ("f" evil-scroll-page-down)
-    ("b" evil-scroll-page-up)
+    ;; lines and columns
+    ("j" evil-scroll-line-down)
+    ("k" evil-scroll-line-up)
+    ("h" evil-scroll-column-left)
+    ("l" evil-scroll-column-right)
     ;; half page
     ("d" evil-scroll-down)
     ("u" evil-scroll-up)
@@ -155,18 +154,22 @@
     ("K" evil-scroll-up)
     ("H" evil-scroll-left)
     ("L" evil-scroll-right)
-    ;; lines and columns
-    ("j" evil-scroll-line-down)
-    ("k" evil-scroll-line-up)
-    ("h" evil-scroll-column-left)
-    ("l" evil-scroll-column-right))
-  (spacemacs/set-leader-keys
-    ;; buffer
-    "N<" 'spacemacs/scroll-transient-state/evil-goto-first-line
-    "N>" 'spacemacs/scroll-transient-state/evil-goto-line
     ;; full page
-    "Nf" 'spacemacs/scroll-transient-state/evil-scroll-page-down
-    "Nb" 'spacemacs/scroll-transient-state/evil-scroll-page-up
+    ("f" evil-scroll-page-down)
+    ("b" evil-scroll-page-up)
+    ;; buffer
+    ("<" evil-goto-first-line)
+    (">" evil-goto-line)
+    ("g" evil-goto-first-line)
+    ("G" evil-goto-line)
+    ;; other
+    ("q" nil :exit t))
+  (spacemacs/set-leader-keys
+    ;; lines and columns
+    "Nj" 'spacemacs/scroll-transient-state/evil-scroll-line-down
+    "Nk" 'spacemacs/scroll-transient-state/evil-scroll-line-up
+    "Nh" 'spacemacs/scroll-transient-state/evil-scroll-column-left
+    "Nl" 'spacemacs/scroll-transient-state/evil-scroll-column-right
     ;; half page
     "Nd" 'spacemacs/scroll-transient-state/evil-scroll-down
     "Nu" 'spacemacs/scroll-transient-state/evil-scroll-up
@@ -174,11 +177,14 @@
     "NK" 'spacemacs/scroll-transient-state/evil-scroll-up
     "NH" 'spacemacs/scroll-transient-state/evil-scroll-left
     "NL" 'spacemacs/scroll-transient-state/evil-scroll-right
-    ;; lines and columns
-    "Nj" 'spacemacs/scroll-transient-state/evil-scroll-line-down
-    "Nk" 'spacemacs/scroll-transient-state/evil-scroll-line-up
-    "Nh" 'spacemacs/scroll-transient-state/evil-scroll-column-left
-    "Nl" 'spacemacs/scroll-transient-state/evil-scroll-column-right)
+    ;; full page
+    "Nf" 'spacemacs/scroll-transient-state/evil-scroll-page-down
+    "Nb" 'spacemacs/scroll-transient-state/evil-scroll-page-up
+    ;; buffer
+    "N<" 'spacemacs/scroll-transient-state/evil-goto-first-line
+    "N>" 'spacemacs/scroll-transient-state/evil-goto-line
+    "Ng" 'spacemacs/scroll-transient-state/evil-goto-first-line
+    "NG" 'spacemacs/scroll-transient-state/evil-goto-line)
 
   ;; pasting transient-state
   (evil-define-command spacemacs//transient-state-0 ()
@@ -304,6 +310,17 @@
 (defun spacemacs-bootstrap/init-which-key ()
   (require 'which-key)
 
+  (setq which-key-special-keys nil
+        which-key-use-C-h-for-paging t
+        which-key-prevent-C-h-from-cycling t
+        which-key-echo-keystrokes 0.02
+        which-key-max-description-length 32
+        which-key-allow-multiple-replacements t
+        which-key-sort-order 'which-key-key-order-alpha
+        which-key-idle-delay dotspacemacs-which-key-delay
+        which-key-idle-secondary-delay 0.01
+        which-key-allow-evil-operators t)
+
   (spacemacs|add-toggle which-key
     :mode which-key-mode
     :documentation
@@ -322,30 +339,17 @@
          ;; being higher in this list means the replacement is applied later
          '(
            ("spacemacs/\\(.+\\)" . "\\1")
+           ("spacemacs-\\(.+\\)" . "\\1")
            ("spacemacs/toggle-\\(.+\\)" . "\\1")
-           ("spacemacs/alternate-buffer" . "last buffer")
+           ("\\(.+\\)-transient-state/\\(.+\\)" . "\\2")
+           ("\\(.+\\)-transient-state/body" . "\\1-transient-state")
+           ("spacemacs-layouts/non-restricted-buffer-list-\\(helm\\|ivy\\)" . "global-list-buffers")
            ("spacemacs/toggle-mode-line-\\(.+\\)" . "\\1")
-           ("lazy-helm/\\(.+\\)" . "\\1")
-           ("avy-goto-word-or-subword-1" . "avy word")
-           ("shell-command" . "shell cmd")
-           ("spacemacs/default-pop-shell" . "open shell")
-           ("spacemacs/helm-project-smart-do-search-region-or-symbol" . "smart search w/input")
-           ("spacemacs/helm-project-smart-do-search" . "smart search")
-           ("spacemacs/search-project-auto-region-or-symbol" . "search project w/input")
-           ("spacemacs/search-project-auto" . "search project")
-           ("helm-descbinds" . "show keybindings")
-           ("sp-split-sexp" . "split sexp")
-           ("avy-goto-line" . "avy line")
-           ("universal-argument" . "universal arg")
-           ("er/expand-region" . "expand region")
-           ("helm-apropos" . "apropos")
-           ("spacemacs/toggle-hybrid-mode" . "hybrid (hybrid-mode)")
-           ("spacemacs/toggle-holy-mode" . "emacs (holy-mode)")
            ("evil-lisp-state-\\(.+\\)" . "\\1")
-           ("spacemacs/\\(.+\\)-transient-state/\\(.+\\)" . "\\2")
-           ("spacemacs/\\(.+\\)-transient-state/body" . "\\1-transient-state")
            ("helm-mini\\|ivy-switch-buffer" . "list-buffers")
-           ("spacemacs-layouts/non-restricted-buffer-list-\\(helm\\|ivy\\)" . "global-list-buffers"))))
+           ("lazy-helm/\\(.+\\)" . "\\1")
+           ("lazy-helm/spacemacs/\\(.+\\)" . "\\1")
+           )))
     (dolist (nd new-descriptions)
       ;; ensure the target matches the whole string
       (push (cons (cons nil (concat "\\`" (car nd) "\\'")) (cons nil (cdr nd)))
@@ -464,18 +468,9 @@
   (push '(("\\(.*\\)C-c C-d C-d" . "elisp-slime-nav-describe-elisp-thing-at-point") . t)
           which-key-replacement-alist)
 
-  (dolist (leader-key `(,dotspacemacs-leader-key ,dotspacemacs-emacs-leader-key))
-    (which-key-add-key-based-replacements
-      (concat leader-key " m")    "major mode commands"
-      (concat leader-key " " dotspacemacs-emacs-command-key) "M-x"))
-
   (which-key-add-key-based-replacements
     dotspacemacs-leader-key '("root" . "Spacemacs root")
-    dotspacemacs-emacs-leader-key '("root" . "Spacemacs root")
-    (concat dotspacemacs-leader-key " m")
-    '("major-mode-cmd" . "Major mode commands")
-    (concat dotspacemacs-emacs-leader-key " m")
-    '("major-mode-cmd" . "Major mode commands"))
+    dotspacemacs-emacs-leader-key '("root" . "Spacemacs root"))
 
   ;; disable special key handling for spacemacs, since it can be
   ;; disorienting if you don't understand it
@@ -483,16 +478,6 @@
     (`right (which-key-setup-side-window-right))
     (`bottom (which-key-setup-side-window-bottom))
     (`right-then-bottom (which-key-setup-side-window-right-bottom)))
-
-  (setq which-key-special-keys nil
-        which-key-use-C-h-for-paging t
-        which-key-prevent-C-h-from-cycling t
-        which-key-echo-keystrokes 0.02
-        which-key-max-description-length 32
-        which-key-sort-order 'which-key-key-order-alpha
-        which-key-idle-delay dotspacemacs-which-key-delay
-        which-key-idle-secondary-delay 0.01
-        which-key-allow-evil-operators t)
 
   (which-key-mode)
   (spacemacs|diminish which-key-mode " Ⓚ" " K"))
@@ -543,7 +528,4 @@
 
 (defun spacemacs-bootstrap/init-spacemacs-theme ()
   (use-package spacemacs-theme
-    :defer t
-    :init (setq spacemacs-theme-keyword-italic t
-                spacemacs-theme-comment-bg t
-                spacemacs-theme-org-height t)))
+    :defer t))

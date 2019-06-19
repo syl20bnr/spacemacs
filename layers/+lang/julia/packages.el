@@ -75,8 +75,7 @@
 (defun julia/init-lsp-julia ()
   (use-package lsp-julia
     :config (progn
-              (push 'xref-find-definitions spacemacs-jump-handlers-julia-mode))
-    :commands lsp-julia-enable))
+              (push 'xref-find-definitions spacemacs-jump-handlers-julia-mode))))
 
 (defun julia/post-init-company-lsp ()
   (spacemacs|add-company-backends

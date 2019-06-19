@@ -14,7 +14,7 @@
                         (file-name-directory
                          load-file-name)) nil t)
 
-(let ((global-version "6.6.2"))
+(let ((global-version "6.6.3"))
   (install python-pygments libncurses-dev)
   (with-installed (git tar curl gzip autotools-dev
                        pkg-config libtool dh-autoreconf)
@@ -29,7 +29,7 @@
          "make install"))
     (with-build-dir (tgtags "/tmp/gtags/")
       (! "Building gtags...")
-      ($ `("curl http://tamacom.com/global/global-%s.tar.gz | tar xvz"
+      ($ `("curl -s https://www.tamacom.com/global/global-%s.tar.gz | tar xz"
            ,global-version))
       (cd `("%sglobal-%s" ,tgtags ,global-version))
       ($ "cp ./gtags.conf /etc/gtags.conf"

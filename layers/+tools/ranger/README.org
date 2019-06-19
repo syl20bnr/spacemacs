@@ -1,13 +1,15 @@
 #+TITLE: Ranger layer
 
-* Table of Contents                     :TOC_4_gh:noexport:
+#+TAGS: layer|tool
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#configuration][Configuration]]
   - [[#customizing][Customizing]]
   - [[#parent-options][Parent options]]
   - [[#preview-options][Preview options]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer brings Ranger features to spacemacs from the =ranger= package.
@@ -105,7 +107,7 @@ You can set the size of the preview windows as a fraction of the frame size
   (setq ranger-width-preview 0.55)
 #+END_SRC
 
-You probably don’t want to open certain files like videos when using preview. To
+You probably don't want to open certain files like videos when using preview. To
 ignore certain files when moving over them you can customize the following to
 your liking:
 
@@ -119,9 +121,9 @@ To set the max files size (in MB), set the following parameter:
   (setq ranger-max-preview-size 10)
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 
-| Key Binding     | Description                                          |
+| Key binding     | Description                                          |
 |-----------------+------------------------------------------------------|
 | ~SPC a r~       | launch ranger                                        |
 | ~SPC a d~       | deer (minimal ranger window in current directory)    |

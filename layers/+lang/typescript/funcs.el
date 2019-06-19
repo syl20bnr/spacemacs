@@ -61,8 +61,7 @@
 (defun spacemacs//typescript-setup-lsp ()
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (lsp-javascript-typescript-enable))
+      (lsp)
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
 
@@ -84,6 +83,13 @@
 (defun spacemacs//typescript-setup-lsp-eldoc ()
   "Setup eldoc for LSP."
   (eldoc-mode))
+
+
+;; Emmet
+
+(defun spacemacs/typescript-emmet-mode ()
+  "Configure `emmet-mode' for local buffer."
+  (setq-local emmet-expand-jsx-className? t))
 
 
 ;; Others
@@ -132,8 +138,8 @@
    ((eq typescript-fmt-tool 'prettier)
     (call-interactively 'prettier-js))
    (t (error (concat "%s isn't valid typescript-fmt-tool value."
-                     " It should be 'tide, 'typescript-formatter or 'prettier."
-                     (symbol-name typescript-fmt-tool))))))
+                     " It should be 'tide, 'typescript-formatter or 'prettier.")
+                     (symbol-name typescript-fmt-tool)))))
 
 (defun spacemacs/typescript-fmt-before-save-hook ()
   (add-hook 'before-save-hook 'spacemacs/typescript-format t t))
@@ -152,4 +158,10 @@
 
 (defun spacemacs/typescript-jump-to-type-def ()
   (interactive)
-  (tide-jump-to-definition t))
+  (tide-jump-to-definition))
+
+(defun spacemacs/typescript-safe-local-variables (values)
+  ;; safe values for backend to be used in directory file variables
+  (dolist (value values)
+    (add-to-list 'safe-local-variable-values
+                 (cons 'typescript-backend value))))

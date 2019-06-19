@@ -55,10 +55,10 @@ The `insert state' is replaced by the `emacs state'."
   :lighter " holy"
   :group 'spacemacs
   (if holy-mode
-      (in-nominus-patris-et-filii-et-sipritus-sancti)
+      (in-nominus-patris-et-filii-et-spiritus-sancti)
     (amen)))
 
-(defun in-nominus-patris-et-filii-et-sipritus-sancti ()
+(defun in-nominus-patris-et-filii-et-spiritus-sancti ()
   "Enter the church of Emacs (wash your hands)."
   ;; make all buffers' initial state emacs
   (push '("." . emacs) evil-buffer-regexps)

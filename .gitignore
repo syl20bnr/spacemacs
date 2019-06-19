@@ -15,6 +15,7 @@ eshell/history
 .emacs.desktop.lock
 eshell/alias
 eshell/lastdir
+forge-database.sqlite
 url/*
 my-org/
 org-files/
@@ -50,7 +51,10 @@ python-*-docs-html
 nov-places
 workspace
 eclipse.jdt.ls
+.dap-breakpoints
+.lsp-session-*
 .trello
+.extension
 
 # Private directory
 private/

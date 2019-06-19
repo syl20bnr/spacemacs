@@ -91,7 +91,9 @@ messages in the current thread"
              (goto-char (point-min))
              (if (re-search-forward "https://github.com/.*\\.patch" nil t)
                  (match-string-no-properties 0)
-               (user-error "No patch found"))))))
+               (if (re-search-forward "https://github.com/[^/]+/[^/]+/pull/[0-9]+" nil t)
+                   (concat (match-string-no-properties 0) ".patch")
+                 (user-error "No patch found")))))))
     (with-current-buffer (get-buffer-create
                           (generate-new-buffer-name "*mail-github-patch*"))
       (condition-case exception

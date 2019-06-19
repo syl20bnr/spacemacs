@@ -10,6 +10,60 @@
 ;;; License: GPLv3
 
 
+;; backend
+
+(defun spacemacs//ruby-setup-backend ()
+  "Conditionally configure Ruby backend"
+  (spacemacs//ruby-setup-version-manager)
+  (pcase ruby-backend
+    (`lsp (spacemacs//ruby-setup-lsp))
+    (`robe (spacemacs//ruby-setup-robe))))
+
+(defun spacemacs//ruby-setup-company ()
+  "Configure backend company"
+  (pcase ruby-backend
+    (`robe (spacemacs//ruby-setup-robe-company))
+    (`lsp nil))) ;; Company is automatically set up by lsp
+
+
+;; lsp
+
+(defun spacemacs//ruby-setup-lsp ()
+  "Setup Ruby lsp."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (lsp)
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile."))
+  (if (configuration-layer/layer-used-p 'dap)
+      (progn
+        (require 'dap-ruby)
+        (spacemacs/dap-bind-keys-for-mode 'ruby-mode))
+    (message "`dap' layer is not installed, please add `dap' layer to your dotfile.")))
+
+
+;; robe
+
+(defun spacemacs//ruby-setup-robe ()
+  (robe-mode))
+
+(defun spacemacs//ruby-setup-robe-company ()
+  "Setup robe auto-completion."
+  (when (configuration-layer/package-used-p 'robe)
+    (spacemacs|add-company-backends
+      :backends company-robe
+      :modes ruby-mode enh-ruby-mode))
+  (with-eval-after-load 'company-dabbrev-code
+    (dolist (mode '(ruby-mode enh-ruby-mode))
+      (add-to-list 'company-dabbrev-code-modes mode))))
+
+
+;; version manager
+
+(defun spacemacs//ruby-setup-version-manager ()
+  "Setup ruby version manager."
+  (pcase ruby-version-manager
+    (`rbenv (spacemacs//enable-rbenv))))
+
+
 ;; rbenv
 
 (defun spacemacs//enable-rbenv ()

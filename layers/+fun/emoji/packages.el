@@ -35,7 +35,9 @@
         ;; calling the emoji mode.
         ;; If we directly call the emoji mode at hook runtime then some
         ;; text properties are not applied correctly.
-        (run-at-time 0.1 nil 'emoji-cheat-sheet-plus-display-mode)))))
+        (run-at-time 0.1 nil 'emoji-cheat-sheet-plus-display-mode)))
+    :config
+    (spacemacs|hide-lighter emoji-cheat-sheet-plus-display-mode)))
 
 (defun emoji/init-emojify ()
   (use-package emojify

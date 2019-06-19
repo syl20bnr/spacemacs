@@ -46,7 +46,7 @@
     :defer t
     :init
     (spacemacs/set-leader-keys-for-major-mode 'json-mode
-      "=" 'spacemacs/json-reformat-dwim)))
+      "==" 'spacemacs/json-reformat-dwim)))
 
 (defun json/init-json-snatcher ()
   (use-package json-snatcher

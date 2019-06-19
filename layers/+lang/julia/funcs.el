@@ -11,10 +11,10 @@
 
 (defun spacemacs//julia-setup-buffer ()
   "Setup ESS and/or lsp for buffer depending on config."
-  (if (not julia-mode-enable-ess)
-      (spacemacs//julia-setup-repl))
-  (if julia-mode-enable-lsp
-      (spacemacs//julia-setup-lsp)))
+  (when (not julia-mode-enable-ess)
+    (spacemacs//julia-setup-repl))
+  (when julia-mode-enable-lsp
+    (spacemacs//julia-setup-lsp)))
 
 (defun spacemacs//julia-setup-repl ()
   "Start julia-repl minor mode and configure for buffer."
@@ -23,5 +23,5 @@
 (defun spacemacs//julia-setup-lsp ()
   "Start lsp-mode and configure for buffer."
   (if (configuration-layer/layer-used-p 'lsp)
-      (lsp-julia-enable)
+      (lsp)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))

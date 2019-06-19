@@ -14,12 +14,13 @@
         cider
         cider-eval-sexp-fu
         (clj-refactor :toggle clojure-enable-clj-refactor)
-        clojure-cheatsheet
         clojure-mode
         (clojure-snippets :toggle (configuration-layer/layer-used-p 'auto-completion))
         company
         eldoc
         evil-cleverparens
+        flycheck
+        (flycheck-clojure :toggle clojure-enable-linters)
         ggtags
         counsel-gtags
         helm-gtags
@@ -43,17 +44,13 @@
             cider-repl-use-clojure-font-lock t
             cider-repl-history-file (concat spacemacs-cache-directory "cider-repl-history"))
       (add-hook 'clojure-mode-hook 'cider-mode)
+
       (dolist (x '(spacemacs-jump-handlers-clojure-mode
                    spacemacs-jump-handlers-clojurec-mode
                    spacemacs-jump-handlers-clojurescript-mode
                    spacemacs-jump-handlers-clojurex-mode
                    spacemacs-jump-handlers-cider-repl-mode))
-        (add-to-list x 'spacemacs/clj-find-var))
-
-      (add-hook 'clojure-mode-hook #'spacemacs//init-jump-handlers-clojure-mode)
-      (add-hook 'clojurescript-mode-hook #'spacemacs//init-jump-handlers-clojurescript-mode)
-      (add-hook 'clojurec-mode-hook #'spacemacs//init-jump-handlers-clojurec-mode)
-      (add-hook 'cider-repl-mode-hook #'spacemacs//init-jump-handlers-cider-repl-mode)
+        (add-to-list x '(spacemacs/clj-find-var :async t)))
 
       ;; TODO: having this work for cider-macroexpansion-mode would be nice,
       ;;       but the problem is that it uses clojure-mode as its major-mode
@@ -75,7 +72,7 @@
 
           (spacemacs/set-leader-keys-for-major-mode m
             "ha" 'cider-apropos
-            "hc" 'clojure-cheatsheet
+            "hc" 'cider-cheatsheet
             "hg" 'cider-grimoire
             "hh" 'cider-doc
             "hj" 'cider-javadoc
@@ -86,10 +83,12 @@
             "eb" 'cider-eval-buffer
             "ee" 'cider-eval-last-sexp
             "ef" 'cider-eval-defun-at-point
+            "ei" 'cider-interrupt
             "em" 'cider-macroexpand-1
             "eM" 'cider-macroexpand-all
             "eP" 'cider-pprint-eval-last-sexp
             "er" 'cider-eval-region
+            "eu" 'cider-undef
             "ew" 'cider-eval-last-sexp-and-replace
 
             "="  'cider-format-buffer
@@ -166,6 +165,9 @@
       ;; add support for golden-ratio
       (with-eval-after-load 'golden-ratio
         (add-to-list 'golden-ratio-extra-commands 'cider-popup-buffer-quit-function))
+      ;; setup linters. NOTE: It must be done after both CIDER and Flycheck are loaded.
+      (when clojure-enable-linters
+        (with-eval-after-load 'flycheck (flycheck-clojure-setup)))
       ;; add support for evil
       (evil-set-initial-state 'cider-stacktrace-mode 'motion)
       (evil-set-initial-state 'cider-popup-buffer-mode 'motion)
@@ -252,19 +254,6 @@
               (spacemacs/set-leader-keys-for-major-mode m
                 (concat "r" binding) func))))))))
 
-(defun clojure/init-clojure-cheatsheet ()
-  (use-package clojure-cheatsheet
-    :defer t
-    :init
-    (progn
-      (setq sayid--key-binding-prefixes
-            '(("mhc" . "clojure-cheatsheet")))
-      (spacemacs|forall-clojure-modes m
-        (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
-                            m (car x) (cdr x)))
-              sayid--key-binding-prefixes)
-        (spacemacs/set-leader-keys-for-major-mode m
-          "hc" 'clojure-cheatsheet)))))
 
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
@@ -428,5 +417,12 @@
         (kbd "h") 'sayid-traced-buf-show-help))))
 
 (defun clojure/post-init-parinfer ()
+  (add-hook 'clojure-mode-hook 'parinfer-mode))
+
+(defun clojure/post-init-flycheck ()
   (spacemacs|forall-clojure-modes m
-    (add-hook m 'parinfer-mode)))
+    (spacemacs/enable-flycheck m)))
+
+(defun clojure/init-flycheck-clojure ()
+  (use-package flycheck-clojure
+    :if (configuration-layer/package-usedp 'flycheck)))

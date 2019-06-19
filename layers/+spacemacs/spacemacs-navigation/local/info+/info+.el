@@ -2572,10 +2572,13 @@ form: `(MANUAL) NODE' (e.g.,`(emacs) Modes')."
 ;;
 (when (or (> emacs-major-version 23)  (and (= emacs-major-version 23)  (> emacs-minor-version 1)))
 
-  (defun Info-find-file (filename &optional noerror)
+  (defun Info-find-file (filename &optional noerror no-pop-to-dir)
     "Return expanded FILENAME, or t if FILENAME is \"dir\".
 Optional second argument NOERROR, if t, means if file is not found
-just return nil (no error)."
+just return nil (no error).
+
+If NO-POP-TO-DIR, don't try to pop to the info buffer if we can't
+find a node."
     ;; Convert filename to lower case if not found as specified.
     ;; Expand it.
     (cond
@@ -2617,7 +2620,10 @@ just return nil (no error)."
              (setq filename  found)
            (if noerror
                (setq filename  nil)
-             (unless Info-current-file (Info-directory)) ; If no previous Info file, go to directory.
+	     ;; If there is no previous Info file, go to the directory.
+             (when (and (not no-pop-to-dir)
+                        (not Info-current-file))
+	       (Info-directory))
              (info-user-error "Info file `%s' does not exist" filename)))
          filename))
       ((member filename '(apropos history toc))  filename))) ; Handle virtual books - `toc'.

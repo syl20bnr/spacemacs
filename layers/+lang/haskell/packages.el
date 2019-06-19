@@ -16,26 +16,19 @@
         (company-cabal :requires company)
 
         ;; ghci completion backend
-        (company-ghci
-         :requires company
-         :toggle (eq haskell-completion-backend 'ghci))
-
+        (company-ghci :requires company)
+         
         ;; ghc-mod completion backend
-        (company-ghc
-         :requires company
-         :toggle (eq haskell-completion-backend 'ghc-mod))
-        (ghc :toggle (eq haskell-completion-backend 'ghc-mod))
+        (company-ghc :requires company)
+        ghc
 
         ;; intero completion backend
-        (intero
-         :requires company
-         :toggle (eq haskell-completion-backend 'intero))
+        (intero :requires company)
 
         ;; dante completion backend
-        (dante
-         :requires company
-         :toggle (and (version<= "25" emacs-version)
-                      (eq haskell-completion-backend 'dante)))
+        (dante :requires company)
+
+        lsp-haskell
 
         flycheck
         (flycheck-haskell :requires flycheck)
@@ -49,11 +42,17 @@
         hlint-refactor
         ))
 
+(defun haskell/init-lsp-haskell()
+  (use-package lsp-haskell
+    :defer t))
+
 (defun haskell/init-cmm-mode ()
   (use-package cmm-mode
     :defer t))
 
-(defun haskell/post-init-company ())
+(defun haskell/post-init-company ()
+  (add-hook 'haskell-mode-local-vars-hook #'spacemacs-haskell//setup-company)
+  (add-hook 'literate-haskell-mode-local-vars-hook #'spacemacs-haskell//setup-company))
 
 (defun haskell/init-company-cabal ()
   (use-package company-cabal
@@ -65,12 +64,7 @@
 
 (defun haskell/init-company-ghci ()
   (use-package company-ghci
-    :defer t
-    :init
-    (spacemacs|add-company-backends
-      :backends (company-ghci company-dabbrev-code company-yasnippet)
-      :modes haskell-mode)
-    (add-hook 'haskell-mode-hook 'interactive-haskell-mode)))
+    :defer t))
 
 (defun haskell/init-company-ghc ()
   (use-package company-ghc
@@ -79,11 +73,6 @@
 (defun haskell/init-ghc ()
   (use-package ghc
     :defer t
-    :init
-    (spacemacs|add-company-backends
-      :backends (company-ghc company-dabbrev-code company-yasnippet)
-      :modes haskell-mode)
-    (add-hook 'haskell-mode-hook 'ghc-init)
     :config
     (progn
       (dolist (mode haskell-modes)
@@ -108,13 +97,6 @@
 (defun haskell/init-intero ()
   (use-package intero
     :defer t
-    :init
-    (spacemacs|add-company-backends
-      :backends (company-intero company-dabbrev-code company-yasnippet)
-      :modes haskell-mode)
-    (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-    (add-hook 'haskell-mode-hook 'intero-mode)
-    (add-to-list 'spacemacs-jump-handlers 'intero-goto-definition)
     :config
     (progn
       (spacemacs|diminish intero-mode " λ" " \\")
@@ -152,12 +134,6 @@
 (defun haskell/init-dante ()
   (use-package dante
     :defer t
-    :init
-    (spacemacs|add-company-backends
-      :backends (dante-company company-dabbrev-code company-yasnippet)
-      :modes haskell-mode)
-    (add-hook 'haskell-mode-hook 'dante-mode)
-    (add-to-list 'spacemacs-jump-handlers 'xref-find-definitions)
     :config
     (progn
       (dolist (mode haskell-modes)
@@ -185,13 +161,17 @@
     :init (add-hook 'flycheck-mode-hook 'flycheck-haskell-configure)))
 
 (defun haskell/post-init-ggtags ()
-  (add-hook 'haskell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'haskell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
+  (add-hook 'literate-haskell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun haskell/init-haskell-mode ()
   (use-package haskell-mode
     :defer t
     :init
     (progn
+      (add-hook 'haskell-mode-local-vars-hook #'spacemacs-haskell//setup-backend)
+      (add-hook 'literate-haskell-mode-local-vars-hook #'spacemacs-haskell//setup-backend)
+
       (defun spacemacs//force-haskell-mode-loading ()
         "Force `haskell-mode' loading when visiting cabal file."
         (require 'haskell-mode))

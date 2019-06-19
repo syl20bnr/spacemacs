@@ -16,6 +16,7 @@
         notmuch
         org
         persp-mode
+        window-purpose
         ))
 
 (defun notmuch/init-counsel-notmuch ()
@@ -133,3 +134,9 @@
             (let ((hook (intern (concat (symbol-name mode) "-hook"))))
               (add-hook hook #'spacemacs//notmuch-buffer-to-persp)))
           (call-interactively 'notmuch))))))
+
+(defun notmuch/pre-init-window-purpose ()
+  (spacemacs|use-package-add-hook window-purpose
+    :pre-config
+    (dolist (mode notmuch-modes)
+      (add-to-list 'purpose-user-mode-purposes (cons mode 'mail)))))

@@ -1,10 +1,12 @@
 #+TITLE: nyan-mode
 
-* Table of Contents                     :TOC_4_gh:noexport:
+#+TAGS: layer|theme
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
-  - [[#fork-modifications][Fork modifications]]
-  - [[#introduction][Introduction]]
+- [[#fork-modifications][Fork modifications]]
+- [[#introduction][Introduction]]
   - [[#using-nyan-mode-with-custom-modeline][Using Nyan Mode with custom modeline]]
   - [[#known-issues][Known issues]]
   - [[#credits][Credits]]
@@ -22,20 +24,20 @@ point from 0% to 100%.
 - Music, mplayer is needed (M-x nyan-start-music, M-x nyan-stop-music),
 - Customizable properties.
 
-** Fork modifications
+* Fork modifications
 - the starting nyan cat image has no rainbow behind it,
 - the starting rainbow image has zigzags,
 - the animation loop is not endless and occurs only when nyan cat moves.
 
-** Introduction
+* Introduction
 *WARNING, MIND DUMBING CONTENT INSIDE.*
 
-“Nyan-mode. It’s things like this that make me proud to be an emacs user.” - [[http://twitter.com/#!/mitchellh/status/104931263479156736][mitchellh]]
+"Nyan-mode. It's things like this that make me proud to be an emacs user." - [[http://twitter.com/#!/mitchellh/status/104931263479156736][mitchellh]]
 
-Nyanmacs is expanding!! [[http://temporal.pr0.pl/devblog/2011/08/25/introducing-nyan-mode-el-turn-your-emacs-into-nyanmacs/][Read the story so far]]! :).
+Nyanmacs is expanding!! [[http://jacek.zlydach.pl/blog/2011-08-25-introducing-nyan-mode-el-turn-your-emacs-into-nyanmacs.html][Read the story so far]]! :).
 
 ** Using Nyan Mode with custom modeline
-For those who were asking, or are planning to, [[http://friendfeed.com/amitp/b4097da0/nyan-mode-turn-your-emacs-into-nyanmacs][Amit Patel shared]]
+For those who were asking, or are planning to, [[http://amitp.blogspot.com/2011/08/emacs-custom-mode-line.html][Amit Patel shared]]
 some tips on how to make nyan-mode work with custom modeline.
 
 He basically changed the mode-line-format to include:
@@ -45,13 +47,13 @@ He basically changed the mode-line-format to include:
 #+END_SRC
 
 ** Known issues
-It’s my second attempt to write a minor mode in Emacs, so there will
+It's my second attempt to write a minor mode in Emacs, so there will
 definiely be some bugs.
 
 This version uses XPM images, which should be supported by default by
-most Emacs 23 installations, Windows included. In case it doesn’t
+most Emacs 23 installations, Windows included. In case it doesn't
 work, try switching to master-png branch. This branch, however, may
-have it’s own issues:
+have it's own issues:
 
 There was a problem with displaying PNG images, which require libpng
 to be available for Emacs. The lib is sometimes missing (e.g. some
@@ -60,7 +62,7 @@ download a proper DLL and put it into emacs bin/ folder. To see which
 DLL is needed, do: M-x describe-variable <ret> image-library-alist
 <ret>.
 
-Customizing nyan-animate-nyancat is broken; don’t do it.
+Customizing nyan-animate-nyancat is broken; don't do it.
 
 ** Credits
 Code and idea inspired by sml-modeline.el, written by Lennart Borgman.

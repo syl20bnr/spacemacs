@@ -30,6 +30,7 @@
     erc-yt
     linum
     persp-mode
+    window-purpose
     ))
 
 (defun erc/post-init-company ()
@@ -52,6 +53,7 @@
         "aiE" 'erc-tls
         "aii" 'erc-track-switch-buffer
         "aiD" 'erc/default-servers)
+      (spacemacs/declare-prefix "ai"  "irc")
       ;; utf-8 always and forever
       (setq erc-server-coding-system '(utf-8 . utf-8)))
     :config
@@ -245,3 +247,6 @@
               (erc/default-servers)
             (call-interactively 'erc)))))))
 
+(defun erc/pre-init-window-purpose ()
+  (spacemacs|use-package-add-hook window-purpose
+    :pre-config (add-to-list 'purpose-user-mode-purposes '(erc-mode . chat))))

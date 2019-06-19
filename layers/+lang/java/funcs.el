@@ -300,9 +300,13 @@
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
         (require 'lsp-java)
-        (require 'company-lsp)
-        (lsp-java-enable))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+        (lsp))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile."))
+  (if (configuration-layer/layer-used-p 'dap)
+      (progn
+        (require 'dap-java)
+        (spacemacs/dap-bind-keys-for-mode 'java-mode))
+    (message "`dap' layer is not installed, please add `dap' layer to your dotfile.")))
 
 (defun spacemacs//java-setup-lsp-company ()
   "Setup lsp auto-completion."

@@ -11,9 +11,10 @@
 
 (defun spacemacs/emmet-expand ()
   (interactive)
-  (if (bound-and-true-p yas-minor-mode)
-      (call-interactively 'emmet-expand-yas)
-    (call-interactively 'emmet-expand-line)))
+  (unless (if (bound-and-true-p yas-minor-mode)
+              (call-interactively 'emmet-expand-yas)
+            (call-interactively 'emmet-expand-line))
+    (indent-for-tab-command)))
 
 (defun spacemacs/impatient-mode ()
   (interactive)
@@ -47,3 +48,9 @@
   (search-backward "{")
   (while (not (looking-at "}"))
     (join-line -1)))
+
+(defun spacemacs//setup-lsp-for-stylesheet-buffers ()
+  "Start lsp-mode and configure for buffer."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (lsp)
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))

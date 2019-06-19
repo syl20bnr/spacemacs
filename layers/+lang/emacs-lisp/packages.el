@@ -22,6 +22,7 @@
         evil-cleverparens
         eval-sexp-fu
         flycheck
+        flycheck-package
         ggtags
         counsel-gtags
         helm-gtags
@@ -82,13 +83,13 @@
           "dF" 'spacemacs/edebug-instrument-defun-off))
       ;; since we evilify `edebug-mode-map' we don't need to intercept it to
       ;; make it work with evil
-     (evil-set-custom-state-maps
-      'evil-intercept-maps
-      'evil-pending-intercept-maps
-      'intercept-state
-      'evil-make-intercept-map
-      (delq (assq 'edebug-mode-map evil-intercept-maps)
-            evil-intercept-maps))
+      (evil-set-custom-state-maps
+       'evil-intercept-maps
+       'evil-pending-intercept-maps
+       'intercept-state
+       'evil-make-intercept-map
+       (delq (assq 'edebug-mode-map evil-intercept-maps)
+             evil-intercept-maps))
       (evilified-state-evilify-map edebug-mode-map
         :eval-after-load edebug
         :bindings
@@ -210,6 +211,7 @@
         :status nameless-mode
         :on (nameless-mode)
         :off (nameless-mode -1)
+        :documentation "Hide package namespaces in your emacs-lisp code."
         :evil-leader-for-mode (emacs-lisp-mode . "Tn"))
       ;; activate nameless only when in a GUI
       ;; in a terminal nameless triggers all sorts of graphical glitches.
@@ -251,6 +253,10 @@
   ;; Make flycheck recognize packages in loadpath
   ;; i.e (require 'company) will not give an error now
   (setq flycheck-emacs-lisp-load-path 'inherit))
+
+(defun emacs-lisp/init-flycheck-package ()
+  (use-package flycheck-package
+    :hook (emacs-lisp-mode . flycheck-package-setup)))
 
 (defun emacs-lisp/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'emacs-lisp-mode))

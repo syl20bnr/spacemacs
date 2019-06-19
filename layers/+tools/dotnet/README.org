@@ -1,0 +1,42 @@
+#+TITLE: Dotnet layer
+
+#+TAGS: layer|uncategorized
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#packages-included][Packages Included]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support for the dotnet cli package.
+
+** Features:
+- dotnet operations
+
+* Packages Included
+- [[https://github.com/julienXX/dotnet.el][dotnet]]
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =dotnet= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key binding   | Description                                   |
+|---------------+-----------------------------------------------|
+| ~SPC m d a p~ | Add package to the current dotnet project     |
+| ~SPC m d a r~ | Add reference to the current dotnet project   |
+| ~SPC m d b~   | Build the current dotnet project              |
+| ~SPC m d c~   | Clean the current dotnet project              |
+| ~SPC m d n~   | Create a new dotnet project                   |
+| ~SPC m d p~   | Publish the current dotnet project            |
+| ~SPC m d r a~ | Run the current dotnet project with arguments |
+| ~SPC m d r r~ | Restore the current dotnet project            |
+| ~SPC m d s a~ | Add to the current dotnet solution            |
+| ~SPC m d s l~ | List the current dotnet solution              |
+| ~SPC m d s n~ | Create a new dotnet solution                  |
+| ~SPC m d s r~ | Remove from the current dotnet solution       |
+| ~SPC m d t~   | Run tests for the current dotnet project      |

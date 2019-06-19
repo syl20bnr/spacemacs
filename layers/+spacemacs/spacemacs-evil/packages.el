@@ -29,6 +29,7 @@
         ;; Temporarily disabled, pending the resolution of
         ;; https://github.com/7696122/evil-terminal-cursor-changer/issues/8
         ;; evil-terminal-cursor-changer
+        evil-textobj-line
         evil-tutor
         (evil-unimpaired :location (recipe :fetcher local))
         evil-visual-mark-mode
@@ -297,6 +298,11 @@
     :defer t
     :init
     (progn
+      ;; `s' for surround instead of `substitute'
+      ;; see motivation here:
+      ;; https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#the-vim-surround-case
+      (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region)
+      (evil-define-key 'visual evil-surround-mode-map "S" 'evil-substitute)
       (spacemacs|add-transient-hook evil-visual-state-entry-hook
         (lambda () (require 'evil-surround))
         lazy-load-evil-surround)
@@ -305,10 +311,6 @@
         lazy-load-evil-surround-2))
     :config
     (progn
-      ;; `s' for surround instead of `substitute'
-      ;; see motivation for this change in the documentation
-      (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region)
-      (evil-define-key 'visual evil-surround-mode-map "S" 'evil-substitute)
       (global-evil-surround-mode 1))))
 
 (defun spacemacs-evil/init-evil-terminal-cursor-changer ()
@@ -317,6 +319,10 @@
     :init (setq evil-visual-state-cursor 'box
                 evil-insert-state-cursor 'bar
                 evil-emacs-state-cursor 'hbar)))
+
+(defun spacemacs-evil/init-evil-textobj-line ()
+  ;; No laziness here, the line text object should be available right away.
+  (use-package evil-textobj-line))
 
 (defun spacemacs-evil/init-evil-tutor ()
   (use-package evil-tutor

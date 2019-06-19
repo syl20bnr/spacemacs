@@ -1,8 +1,10 @@
 #+TITLE: debug layer
 
+#+TAGS: layer|tool
+
 [[file:img/debug.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -12,7 +14,7 @@
   - [[#debugger][Debugger]]
 
 * Description
-This layer adds interactive debuggers for mulitple languages using [[https://github.com/realgud/realgud][realgud]].
+This layer adds interactive debuggers for multiple languages using [[https://github.com/realgud/realgud][realgud]].
 
 ** Features:
 - Modern rewrite of the Emacs GUD debugger family
@@ -38,13 +40,13 @@ Make sure that your debugger is compatible by checking [[https://github.com/real
 * Key bindings
 ** Major Mode
 
-| Key Binding | Description     |
+| Key binding | Description     |
 |-------------+-----------------|
 | ~SPC m d d~ | open cmd buffer |
 
 ** Debugger
 
-| Key Binding | Description          |
+| Key binding | Description          |
 |-------------+----------------------|
 | ~bb~        | set break            |
 | ~bc~        | clear break          |

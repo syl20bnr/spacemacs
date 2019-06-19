@@ -1,8 +1,10 @@
 #+TITLE: JR Concurrent Programming Language layer
 
+#+TAGS: general|layer|multi-paradigm|programming
+
 [[file:img/jr.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]

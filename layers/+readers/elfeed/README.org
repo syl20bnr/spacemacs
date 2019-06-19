@@ -1,8 +1,10 @@
 #+TITLE: Elfeed layer
 
+#+TAGS: layer|reader
+
 [[file:img/elfeed.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -11,7 +13,7 @@
     - [[#with-org][With Org]]
     - [[#manually][Manually]]
   - [[#server][Server]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 - [[#troubleshooting][Troubleshooting]]
   - [[#database-empty-at-first-start][Database empty at first start]]
   - [[#queue-timeout-exceeded][Queue timeout exceeded]]
@@ -57,7 +59,7 @@ Here is an example of such a file (note the usage of org tags to tag your feeds)
   **** http://www.terminally-incoherent.com/blog/feed/
   **** http://nullprogram.com/feed/
   **** entry-title: \(emacs\|org-mode\)
-  **** http://planet.emacsen.org/atom.xml
+  **** https://planet.emacslife.com/atom.xml
   *** Web Development                                                     :web:
   **** http://feeds.feedburner.com/symfony/blog
   **** http://feeds.feedburner.com/qooxdoo/blog/content
@@ -93,15 +95,15 @@ to =t= which will start the web automatically when Emacs starts.
 By default web interface is available on [[http://localhost:8080/elfeed/][localhost:8080/elfeed]]. You can change
 the default port by changing the value of =httpd-port=.
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description  |
+| Key binding | Description  |
 |-------------+--------------|
 | ~SPC a f~   | start elfeed |
 
 Use =SPC ?= to discover major-mode key bindings.
 
-| Key Binding | Description                                       |
+| Key binding | Description                                       |
 |-------------+---------------------------------------------------|
 | ~c~         | compact feed db                                   |
 | ~gr~        | update all the feeds                              |
@@ -114,7 +116,7 @@ Use =SPC ?= to discover major-mode key bindings.
 
 In =elfeed-show= mode, you can use the following bindings:
 
-| Key Binding | Description      |
+| Key binding | Description      |
 |-------------+------------------|
 | ~q~         | quit show window |
 | ~C-j~       | Next entry       |
@@ -126,7 +128,7 @@ Be sure that you added some feeds first then load your feeds with ~gr~
 in evilified buffer. Or ~M-x elfeed-update~.
 
 ** Queue timeout exceeded
-If you are getting “Queue timeout exceeded” errors, try increasing
+If you are getting "Queue timeout exceeded" errors, try increasing
 the value of =url-queue-timeout=.
 
 #+BEGIN_SRC emacs-lisp

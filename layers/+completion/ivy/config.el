@@ -16,6 +16,9 @@
 (defvar ivy-enable-advanced-buffer-information nil
   "If non-nil, enable `ivy-rich' which adds information on buffers.")
 
+(defvar ivy-ret-visits-directory nil
+  "If non-nil, swap `RET' and `C-j' so that `RET' goes into directory like Ido.")
+
 
 ;; Private Variables
 

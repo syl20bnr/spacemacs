@@ -113,29 +113,26 @@ the focus."
   (cider-load-buffer)
   (cider-test-run-test))
 
-(defalias 'spacemacs/cider-test-run-all-tests #'spacemacs/cider-test-run-ns-tests
-  "ns tests are not actually *all* tests;
-        cider-test-run-project-tests would be better here, but
-        there currently is a bug with the function. Replace once
-        it gets fixed.")
+(defalias 'spacemacs/cider-test-run-all-tests #'spacemacs/cider-test-run-project-tests
+  "Runs all tests in all project namespaces.")
 
 (defun spacemacs/cider-test-run-ns-tests ()
   "Run namespace test."
   (interactive)
   (cider-load-buffer)
-  (cider-test-run-ns-tests nil))
+  (call-interactively #'cider-test-run-ns-tests))
 
 (defun spacemacs/cider-test-run-loaded-tests ()
   "Run loaded tests."
   (interactive)
   (cider-load-buffer)
-  (cider-test-run-loaded-tests))
+  (call-interactively #'cider-test-run-loaded-tests))
 
 (defun spacemacs/cider-test-run-project-tests ()
   "Run project tests."
   (interactive)
   (cider-load-buffer)
-  (cider-test-run-project-tests))
+  (call-interactively #'cider-test-run-project-tests))
 
 (defun spacemacs/cider-test-rerun-failed-tests ()
   "Rerun failed tests."
@@ -176,14 +173,15 @@ If called with a prefix argument, uses the other-window instead."
     (evil-make-overriding-map cider--debug-mode-map 'normal)
     (evil-normalize-keymaps)))
 
-(defun spacemacs/clj-find-var ()
-  "Attempts to jump-to-definition of the symbol-at-point. If CIDER fails, or not available, falls back to dumb-jump"
-  (interactive)
-  (let ((var (cider-symbol-at-point)))
-    (if (and (cider-connected-p) (cider-var-info var))
-        (unless (eq 'symbol (type-of (cider-find-var nil var)))
-          (dumb-jump-go))
-      (dumb-jump-go))))
+(defun spacemacs/clj-find-var (sym-name &optional arg)
+  "Attempts to jump-to-definition of the symbol-at-point.
+
+If CIDER fails, or not available, falls back to dumb-jump."
+  (interactive (list (cider-symbol-at-point)))
+  (if (and (cider-connected-p) (cider-var-info sym-name))
+      (unless (eq 'symbol (type-of (cider-find-var nil sym-name)))
+        (dumb-jump-go))
+    (dumb-jump-go)))
 
 (defun spacemacs/clj-describe-missing-refactorings ()
   "Inform the user to add clj-refactor to configuration"

@@ -70,6 +70,10 @@ the final step of executing code in `emacs-startup-hook'.")
                 evil-want-C-i-jump nil)
   (dotspacemacs/load-file)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
+  (when dotspacemacs-undecorated-at-startup
+    ;; this should be called before toggle-frame-maximized
+    (set-frame-parameter nil 'undecorated t)
+    (add-to-list 'default-frame-alist '(undecorated . t)))
   (when dotspacemacs-maximized-at-startup
     (unless (frame-parameter nil 'fullscreen)
       (toggle-frame-maximized))
@@ -211,6 +215,9 @@ Note: the hooked function is not executed when in dumped mode."
                    "Calling dotfile user config...")
      (dotspacemacs|call-func dotspacemacs/emacs-custom-settings
                    "Calling dotfile Emacs custom settings...")
+     ;; don't write custom settings into the dotfile before loading them,
+     ;; otherwise https://github.com/syl20bnr/spacemacs/issues/10504 happens
+     (spacemacs/initialize-custom-file-sync)
      (run-hooks 'spacemacs-post-user-config-hook)
      (setq spacemacs-post-user-config-hook-run t)
      (when (fboundp dotspacemacs-scratch-mode)

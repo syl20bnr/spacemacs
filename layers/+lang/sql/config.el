@@ -9,6 +9,8 @@
 ;;
 ;;; License: GPLv3
 
+(spacemacs|define-jump-handlers sql-mode)
+
 (defvar sql-capitalize-keywords nil
   "Capitalize keywords in SQL mode.")
 

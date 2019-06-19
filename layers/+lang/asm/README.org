@@ -1,8 +1,10 @@
 #+TITLE: asm layer
 
+#+TAGS: general|imperative|layer|programming
+
 [[file:img/asm.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -56,7 +58,7 @@ is a one time operation and the result is cached for later use.
 
 * Key bindings
 
-| Key Binding | Description                                        |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC m h h~ | Look up the documentation for instruction at point |
 | ~;~         | Insert a comment                                   |

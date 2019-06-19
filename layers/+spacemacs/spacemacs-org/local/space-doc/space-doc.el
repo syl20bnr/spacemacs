@@ -28,7 +28,6 @@
 (require 'face-remap)
 (require 'org)
 (require 'org-compat)
-(require 'centered-buffer-mode)
 
 (defgroup space-doc nil "Minor mode for viewing Spacemacs documentation files."
   :group 'convenience)
@@ -45,8 +44,7 @@
     org-kbd-face-remap
     resize-inline-images)
   "List of `space-doc' modificators."
-  :type '(set (const center-buffer-mode)
-              (const org-indent-mode)
+  :type '(set (const org-indent-mode)
               (const view-mode)
               (const hide-line-numbers)
               (const alternative-emphasis)
@@ -58,8 +56,7 @@
   :group 'space-doc)
 
 (defvar spacemacs-space-doc-modificators-functions
-  '((center-buffer-mode           . spacemacs//space-doc-center-buffer-mode)
-    (org-indent-mode              . spacemacs//space-doc-org-indent-mode)
+  '((org-indent-mode              . spacemacs//space-doc-org-indent-mode)
     (view-mode                    . spacemacs//space-doc-view-mode)
     (hide-line-numbers            . spacemacs//space-doc-hide-line-numbers)
     (alternative-emphasis         . spacemacs//space-doc-alternative-emphasis)
@@ -87,7 +84,6 @@ keeping their content visible.
   :init-value nil
   :lighter " SD"
   :group 'space-doc
-  (spacemacs//space-doc-centered-buffer-mode-goto-origin space-doc-mode)
   (if (derived-mode-p 'org-mode)
       (let ((inhibit-read-only t))
         (spacemacs//space-doc-set-cache +1)
@@ -101,17 +97,6 @@ keeping their content visible.
                      (buffer-name)))
     (setq space-doc-mode nil)))
 
-(defcustom spacemacs-space-doc-center-buffer-mode-min-aspect-ratio
-  1.7
-  "Minimal `frame' aspect ration (`frame-pixel-width' divided by
-`frame-pixel-height') for `spacemacs-centered-buffer-mode'
-to be automatically enabled.
-NOTE: If `center-buffer-mode' isn't a member of
-`spacemacs-space-doc-modificators' list `spacemacs-centered-buffer-mode'
-will not be enabled."
-  :type 'number
-  :group 'space-doc)
-
 (defvar-local spacemacs--space-doc-org-kbd-face-remap-cookie nil
   "Cookie for org-kbd-face remapping.")
 
@@ -120,27 +105,6 @@ will not be enabled."
 
 (defvar-local spacemacs--space-doc-org-block-end-line-face-remap-cookie nil
   "Cookie for org-block-end-line-face ")
-
-(defun spacemacs//space-doc-centered-buffer-mode-goto-origin (flag)
-  "Switch to the origin buffer if `spacemacs-centere-buffer-mode' is)
-enabled. Set the value of `space-doc-mode' variable in the origin
-buffer to FLAG."
-  (when spacemacs-centered-buffer-mode
-    (let ((old-flag flag))
-      (spacemacs-centered-buffer-mode -1)
-      (setq space-doc-mode old-flag))))
-
-(defun spacemacs//space-doc-center-buffer-mode (&optional flag)
-  "Enable `spacemacs-centered-buffer-mode' if flag is non nil,
-disable it otherwise.
-This functions is aimed to be used with `spacemacs-space-doc-modificators'."
-  (when (and flag
-             (not spacemacs-centered-buffer-mode)
-             (>= (/ (* (frame-pixel-width) 1.0) (frame-pixel-height))
-                 spacemacs-space-doc-center-buffer-mode-min-aspect-ratio))
-    ;; It has to be run when the `window-body-width' is properly calculated.
-    (run-with-idle-timer 0 nil 'spacemacs-centered-buffer-mode))
-  (spacemacs-centered-buffer-mode -1))
 
 (defun spacemacs//space-doc-org-indent-mode (&optional flag)
   "Enable `org-indent-mode' if flag is non nil, disable it otherwise.

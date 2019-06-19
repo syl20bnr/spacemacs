@@ -63,11 +63,15 @@
     :defer (spacemacs/defer)
     :init
     (progn
-      ;; (spacemacs|add-transient-hook minibuffer-setup-hook
-      ;;   (lambda ()
-      ;;     (require 'helm-mode)
-      ;;     (spacemacs|hide-lighter helm-mode))
-      ;;   lazy-load-helm)
+      (spacemacs|add-transient-hook completing-read
+        (lambda (&rest _args) (require 'helm))
+        lazy-load-helm-for-completing-read)
+      (spacemacs|add-transient-hook completion-at-point
+        (lambda (&rest _args) (require 'helm))
+        lazy-load-helm-for-completion-at-point)
+      (spacemacs|add-transient-hook read-file-name
+        (lambda (&rest _args) (require 'helm))
+        lazy-load-helm-for-read-file-name)
       (add-hook 'helm-cleanup-hook #'spacemacs//helm-cleanup)
       ;; key bindings
       ;; Use helm to provide :ls, unless ibuffer is used
@@ -87,7 +91,7 @@
       (spacemacs||set-helm-key "fF"   helm-find-files)
       (spacemacs||set-helm-key "fL"   helm-locate)
       (spacemacs||set-helm-key "fr"   helm-recentf)
-      (spacemacs||set-helm-key "hdd"  helm-apropos)
+      (spacemacs||set-helm-key "hda"  helm-apropos)
       (spacemacs||set-helm-key "hdF"  spacemacs/helm-faces)
       (spacemacs||set-helm-key "hi"   helm-info-at-point)
       (spacemacs||set-helm-key "hm"   helm-man-woman)
@@ -110,7 +114,6 @@
       ;; various key bindings
       (spacemacs||set-helm-key "fel" helm-locate-library)
       (spacemacs||set-helm-key "hdm" describe-mode)
-      (spacemacs||set-helm-key "sww" helm-wikipedia-suggest)
       (spacemacs||set-helm-key "swg" helm-google-suggest)
       (with-eval-after-load 'helm-files
         (define-key helm-find-files-map
@@ -370,7 +373,14 @@
                      (if thing thing ""))))))
           (call-interactively 'helm-swoop)))
 
+      (defun spacemacs/helm-swoop-clear-cache ()
+        "Call `helm-swoop--clear-cache' to clear the cache"
+        (interactive)
+        (helm-swoop--clear-cache)
+        (message "helm-swoop cache cleaned."))
+
       (spacemacs/set-leader-keys
+        "sC"    'spacemacs/helm-swoop-clear-cache
         "ss"    'helm-swoop
         "sS"    'spacemacs/helm-swoop-region-or-symbol
         "s C-s" 'helm-multi-swoop-all)

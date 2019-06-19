@@ -1,8 +1,10 @@
 #+TITLE: Japanese layer
 
+#+TAGS: i18n|layer
+
 [[file:img/Japanese.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -14,7 +16,7 @@
     - [[#avy-migemo][avy-migemo]]
     - [[#ddskk][ddskk]]
     - [[#pangu-spacing][pangu-spacing]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This Layer adds Japanese related packages.
@@ -98,7 +100,7 @@ inside ~dotspacemacs/user-config~.
 
 *** ddskk
 You can write a configuration file ~​~/.skk~. For detailed configuration, see
-some [[http://openlab.ring.gr.jp/skk/doc.html][documents]].
+some [[http://web.archive.org/web/20160719053620/http://openlab.ring.gr.jp/skk/doc.html][documents]].
 
 *** pangu-spacing
 By default, ~pangu-spacing-mode~ is applied to ~text-mode~. If you prefer the
@@ -110,5 +112,5 @@ mode globally, add:
 
 inside ~dotspacemacs/user-config~.
 
-* Key Bindings
+* Key bindings
 By default, ~C-x j~ toggles ~skk-mode~.

@@ -1,8 +1,10 @@
 #+TITLE: Python layer
 
+#+TAGS: general|layer|multi-paradigm|programming
+
 [[file:img/python.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -11,21 +13,26 @@
 - [[#backends][Backends]]
   - [[#anaconda][Anaconda]]
   - [[#language-server-protocol][Language Server Protocol]]
+    - [[#python-language-server][python-language-server]]
+    - [[#microsoft-python-language-server][Microsoft python language server]]
 - [[#additional-tools][Additional tools]]
   - [[#syntax-checking][Syntax checking]]
   - [[#test-runner][Test runner]]
+  - [[#buffer-formatting][Buffer formatting]]
   - [[#automatic-buffer-formatting-on-save][Automatic buffer formatting on save]]
   - [[#automatic-save-of-buffer-when-testing][Automatic save of buffer when testing]]
   - [[#autoflake][autoflake]]
   - [[#pylookup][pylookup]]
+  - [[#dap-mode-debugger-only-for-lsp-backend][dap-mode debugger (only for lsp backend)]]
 - [[#configuration][Configuration]]
   - [[#fill-column][Fill column]]
   - [[#sort-imports][Sort imports]]
+  - [[#importmagic][Importmagic]]
 - [[#management-of-python-versions-and-virtual-environments][Management of Python versions and virtual environments]]
   - [[#manage-virtual-environments-with-pyvenv][Manage virtual environments with pyvenv]]
   - [[#manage-multiple-python-versions-with-pyenv][Manage multiple Python versions with pyenv]]
     - [[#automatic-activation-of-local-pyenv-version][Automatic activation of local pyenv version]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#inferior-repl-process][Inferior REPL process]]
   - [[#running-python-script-in-shell][Running Python Script in shell]]
   - [[#testing][Testing]]
@@ -33,6 +40,7 @@
   - [[#pip-package-management][Pip package management]]
   - [[#live-coding][Live coding]]
   - [[#other-python-commands][Other Python commands]]
+  - [[#debugger][Debugger]]
 
 * Description
 This layer adds support for the Python language.
@@ -40,14 +48,16 @@ This layer adds support for the Python language.
 ** Features:
 - Support for the following backends:
   - [[https://github.com/proofit404/anaconda-mode][anaconda]] (default),
-  - [[https://github.com/emacs-lsp/lsp-python][Language Server Protocol]] (experimental),
+  - [[https://github.com/emacs-lsp/lsp-python][Language Server Protocol]] (experimental - 2 implementations),
+    - python-language-server
+    - Microsoft python language server
 - Auto-completion
 - Code Navigation
 - Documentation Lookup using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] and [[https://github.com/tsgates/pylookup][pylookup]]
 - Test Runners using [[https://github.com/syl20bnr/nose.el][nose.el]] or [[https://github.com/ionrock/pytest-el][pytest]]
 - Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]]
 - semantic mode is enabled
-- PEP8 compliant formatting via [[https://github.com/google/yapf][YAPF]]
+- PEP8 compliant formatting via [[https://github.com/google/yapf][YAPF]] or [[https://github.com/ambv/black][black]]
 - PEP8 checks with [[https://pypi.python.org/pypi/flake8][flake8]] or [[https://pypi.python.org/pypi/pylint/1.6.4][pylint]]
 - Suppression of unused import with [[https://github.com/myint/autoflake][autoflake]]
 - Use the ~%~ key to jump between blocks with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
@@ -81,6 +91,13 @@ Backend can be chosen on a per project basis using directory local variables
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
 
+The available options are:
+
+| symbol    | description                    |
+|-----------+--------------------------------|
+| 'anaconda | Default                        |
+| 'lsp      | python-language-server package |
+
 * Backends
 ** Anaconda
 =anaconda-mode= tries to install the dependencies itself but sometimes
@@ -102,11 +119,26 @@ issue]] for details.
 
 Source: [[https://github.com/proofit404/anaconda-mode#issues]]
 
-If you are facing errors such as “Unable to run anaconda-mode server”, try
+If you are facing errors such as "Unable to run anaconda-mode server", try
 setting your =PYTHONPATH= as explained at
 [[https://github.com/proofit404/anaconda-mode#pythonpath]]
 
 ** Language Server Protocol
+The =lsp= backend can use either of the following language server implementations:
+
+| symbol  | description                              |
+|---------+------------------------------------------|
+| 'pyls   | python-language-server package (default) |
+| 'mspyls | Microsoft python language server         |
+
+=pyls= is used by default - to use the Microsoft server, set the =python-lsp-server=
+layer variable as follows:
+
+#+BEGIN_SRC elisp
+  (python :variables python-backend 'lsp python-lsp-server 'mspyls)
+#+END_SRC
+
+*** python-language-server
 You just have to install python language server package:
 
 #+BEGIN_SRC sh
@@ -121,6 +153,38 @@ Additionally you can install the following other packages:
   # for mypy checking (python 3.4+ is needed)
   pip install pyls-mypy
 #+END_SRC
+
+If you've installed the language server and related packages as development
+dependencies in a pipenv environment, you'll want to set the ~python-pipenv-activate~
+config variable to ~t~. This activates your pipenv before enabling the
+lsp backend.
+
+*** Microsoft python language server
+Paraphrasing the instructions provided by the author of the =lsp-python-ms= package:
+
+#+BEGIN_SRC sh
+  git clone https://github.com/Microsoft/python-language-server.git
+  cd python-language-server/src/LanguageServer/Impl
+  dotnet build -c Release
+  dotnet publish -c Release -r <RUNTIME>
+#+END_SRC
+
+where ~<RUNTIME>~ is one of the [[https://docs.microsoft.com/en-us/dotnet/core/rid-catalog][runtime IDs supported by dotnet core]]. One of ~linux-x64~, ~osx-x64~, ~win10-x64~ should
+cover most use cases.
+
+The default package configuration assumes the executable is located in a folder included in your system path.
+To use the latest built version in a cloned git repo, use the ~python-lsp-git-root~ config variable, e.g.:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+    '((python :variables
+              python-backend 'lsp
+              python-lsp-server 'mspyls
+              python-lsp-git-root "~/dev/python/python-language-server")))
+#+END_SRC
+
+N.B. If you're using Arch linux or a derivative distribution, you can install the =microsoft-python-language-server=
+package from the AUR.
 
 * Additional tools
 ** Syntax checking
@@ -157,13 +221,30 @@ directory local variable in your project root. ~SPC f v d~ in Spacemacs. See
 
 The root of the project is detected with a =.git= directory or a =setup.cfg= file.
 
-** Automatic buffer formatting on save
-To enable automatic buffer formatting on save with [[https://github.com/google/yapf][YAPF]] set the variable
-=python-enable-yapf-format-on-save= to =t=.
+** Buffer formatting
+One of [[https://github.com/google/yapf][YAPF]] (the default) or [[https://github.com/ambv/black][black]] may be selected as the formatter, via
+=python-formatter=, as ='yapf= or ='black= respectively.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (python :variables python-enable-yapf-format-on-save t)))
+    (python :variables python-formatter 'yapf)))
+#+END_SRC
+
+The key binding ~SPC m =~ invokes the selected formatter on the current buffer
+when in python mode.
+
+Note that YAPF and black may also be invoked unconditionally via
+=yapfify-buffer= and =blacken-buffer=, respectively, provided that they are
+installed.
+
+** Automatic buffer formatting on save
+To enable automatic buffer formatting on save set the variable
+=python-format-on-save= to =t=. The formatter specified by =python-formatter=
+will be used.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (python :variables python-format-on-save t)))
 #+END_SRC
 
 ** Automatic save of buffer when testing
@@ -185,6 +266,13 @@ To be able to suppress unused imports easily, install [[https://github.com/myint
 ** pylookup
 To use =pylookup= on ~SPC m h H~, make sure you update the database first, using
 ~SPC SPC pylookup-update~.
+
+** dap-mode debugger (only for lsp backend)
+To use =dap-mode= for debugging do:
+
+#+BEGIN_SRC bash
+  pip install "ptvsd>=4.2"
+#+END_SRC
 
 * Configuration
 ** Fill column
@@ -208,6 +296,13 @@ config section:
 
 or as a directory-local variable (for per-project settings).
 
+** Importmagic
+Install importmagic and epc for importmagic functionality.
+
+#+BEGIN_SRC sh
+  pip install importmagic epc
+#+END_SRC
+
 * Management of Python versions and virtual environments
 ** Manage virtual environments with pyvenv
 A virtual environment provides isolation of your Python package versions. For a
@@ -216,9 +311,9 @@ previous link, is a program which manages your virtual environments in a central
 location set by the =WORKON_HOME= environment variable.
 
 Spacemacs integration of virtual environments and virtualenvwrapper is provided
-by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides the following keybindings:
+by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides the following key bindings:
 
-| Key Binding | Description                                     |
+| Key binding | Description                                     |
 |-------------+-------------------------------------------------|
 | ~SPC m V a~ | activate a virtual environment in any directory |
 | ~SPC m V d~ | deactivate active virtual environment           |
@@ -229,9 +324,9 @@ If you need multiple Python versions (e.g. Python 2 and Python 3) then take a
 look at [[https://github.com/yyuu/pyenv][pyenv]]. It enables the installation and managment of multiple
 Python versions.
 [[https://www.brianthicks.com/post/2015/04/15/automate-your-python-environment-with-pyenv/][This blogpost]] gives a good overview on how to use the tool. Spacemacs
-integration is provided by [[https://github.com/proofit404/pyenv-mode][pyenv mode]] which has the following keybindings.
+integration is provided by [[https://github.com/proofit404/pyenv-mode][pyenv mode]] which has the following key bindings.
 
-| Key Binding | Description                          |
+| Key binding | Description                          |
 |-------------+--------------------------------------|
 | ~SPC m v s~ | set a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]   |
 | ~SPC m v u~ | unset a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]] |
@@ -256,7 +351,7 @@ can be set with the variable =python-auto-set-local-pyvenv-virtualenv== to:
 - =on-project-switch= set the virtualenv when you switch projects,
 - =nil= to disable.
 
-* Key Bindings
+* Key bindings
 ** Inferior REPL process
 Start a Python or iPython inferior REPL process with ~SPC m s i~.
 If =ipython= is available in system executable search paths, =ipython=
@@ -266,7 +361,7 @@ search path by activating a virtual environment.
 
 Send code to inferior process commands:
 
-| Key Binding | Description                                     |
+| Key binding | Description                                     |
 |-------------+-------------------------------------------------|
 | ~SPC m s b~ | send buffer and keep code buffer focused        |
 | ~SPC m s B~ | send buffer and switch to REPL in insert mode   |
@@ -284,7 +379,7 @@ to start the Python script in comint mode. This is useful when working with
 multiple Python files since the REPL does not reload changes made in other
 modules.
 
-| Key Binding | Description                                                               |
+| Key binding | Description                                                               |
 |-------------+---------------------------------------------------------------------------|
 | ~SPC m c c~ | Execute current file in a comint shell                                    |
 | ~SPC m c C~ | Execute current file in a comint shell and switch to it in =insert state= |
@@ -315,7 +410,7 @@ function with a prefix argument, for example ~SPC u SPC m t a~.
 
 ** Refactoring
 
-| Key Binding | Description                                     |
+| Key binding | Description                                     |
 |-------------+-------------------------------------------------|
 | ~SPC m r f~ | fix a missing import statement with [[https://pypi.python.org/pypi/importmagic][importmagic]] |
 | ~SPC m r i~ | remove unused imports with [[https://github.com/myint/autoflake][autoflake]]            |
@@ -330,7 +425,7 @@ packages in the currently activated virtual environment.
 
 In the package list buffer:
 
-| Key Binding | Description                                                 |
+| Key binding | Description                                                 |
 |-------------+-------------------------------------------------------------|
 | ~RET~       | follow link (=pippel-menu-visit-homepage=)                  |
 | ~d~         | mark for deletion (=pippel-menu-mark-delete=)               |
@@ -344,15 +439,15 @@ In the package list buffer:
 ** Live coding
 Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][live-py-plugin.]]
 
-| Key Binding | Description         |
+| Key binding | Description         |
 |-------------+---------------------|
 | ~SPC m l~   | Toggle live-py-mode |
 
 ** Other Python commands
 
-| Key Binding   | Description                                                                       |
+| Key binding   | Description                                                                       |
 |---------------+-----------------------------------------------------------------------------------|
-| ~SPC m =~     | Reformat the buffer according to PEP8 using [[https://github.com/google/yapf][YAPF]]                                  |
+| ~SPC m =~     | reformat the buffer using formatter specified in =python-formatter=               |
 | ~SPC m d b~   | toggle a breakpoint using =wdb=, =ipdb=, =pudb=, =pdb= or =python3.7= (and above) |
 | ~SPC m g a~   | go to assignment using =anaconda-mode-find-assignments= (~C-o~ to jump back)      |
 | ~SPC m g b~   | jump back                                                                         |
@@ -372,3 +467,50 @@ Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][li
 | ~SPC m v p o~ | open pipenv module in buffer                                                      |
 | ~SPC m v p s~ | launch pipenv shell in current project                                            |
 | ~SPC m v p u~ | uninstall module from pipenv environment                                          |
+
+** Debugger
+
+| Key binding   | Description                     |
+|---------------+---------------------------------|
+| ~SPC m d d d~ | start debugging                 |
+| ~SPC m d d l~ | debug last configuration        |
+| ~SPC m d d r~ | debug recent configuration      |
+|---------------+---------------------------------|
+| ~SPC m d c~   | continue                        |
+| ~SPC m d i~   | step in                         |
+| ~SPC m d o~   | step out                        |
+| ~SPC m d s~   | next step                       |
+| ~SPC m d v~   | inspect value at point          |
+| ~SPC m d r~   | restart frame                   |
+|---------------+---------------------------------|
+| ~SPC m d .~   | debug transient state           |
+|---------------+---------------------------------|
+| ~SPC m d a~   | abandon current session         |
+| ~SPC m d A~   | abandon all process             |
+|---------------+---------------------------------|
+| ~SPC m d e e~ | eval                            |
+| ~SPC m d e r~ | eval region                     |
+| ~SPC m d e t~ | eval value at point             |
+|---------------+---------------------------------|
+| ~SPC m d S s~ | switch session                  |
+| ~SPC m d S t~ | switch thread                   |
+| ~SPC m d S f~ | switch frame                    |
+|---------------+---------------------------------|
+| ~SPC m d I i~ | inspect                         |
+| ~SPC m d I r~ | inspect region                  |
+| ~SPC m d I t~ | inspect value at point          |
+|---------------+---------------------------------|
+| ~SPC m d b b~ | toggle a breakpoint             |
+| ~SPC m d b c~ | change breakpoint condition     |
+| ~SPC m d b l~ | change breakpoint log condition |
+| ~SPC m d b h~ | change breakpoint hit count     |
+| ~SPC m d b a~ | add a breakpoint                |
+| ~SPC m d b d~ | delete a breakpoint             |
+| ~SPC m d b D~ | clear all breakpoints           |
+|---------------+---------------------------------|
+| ~SPC m d '_~  | Run debug REPL                  |
+|---------------+---------------------------------|
+| ~SPC m d w l~ | list local variables            |
+| ~SPC m d w o~ | goto output buffer if present   |
+| ~SPC m d w s~ | list sessions                   |
+| ~SPC m d w b~ | list breakpoints                |

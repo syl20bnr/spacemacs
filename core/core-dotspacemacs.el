@@ -306,6 +306,9 @@ to disable fullscreen animations in OSX.")
   "If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).
 Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.")
 
+(defvar dotspacemacs-undecorated-at-startup nil
+  "If non nil the frame is undecorated when Emacs starts up.")
+
 (defvar dotspacemacs-active-transparency 90
   "A value from the range (0..100), in increasing opacity, which describes the
 transparency level of a frame when it's active or selected. Transparency
@@ -402,7 +405,7 @@ List sizes may be nil, in which case
   "True if the home buffer should respond to resize events.")
 
 (defvar dotspacemacs-excluded-packages '()
-  "A list of packages that will not be install and loaded.")
+  "A list of packages that will not be installed and loaded.")
 
 (defvar dotspacemacs-frozen-packages '()
   "A list of packages that cannot be updated.")
@@ -410,6 +413,9 @@ List sizes may be nil, in which case
 (defvar dotspacemacs-pretty-docs nil
   "Run `spacemacs/prettify-org-buffer' when
 visiting README.org files of Spacemacs.")
+
+(defvar dotspacemacs-new-empty-buffer-major-mode nil
+  "Set the major mode for a new empty buffer.")
 
 (defun dotspacemacs//prettify-spacemacs-docs ()
   "Run `spacemacs/prettify-org-buffer' if `buffer-file-name'
@@ -681,10 +687,14 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
   %n -- prints Narrow if appropriate
   %z -- prints mnemonics of buffer, terminal, and keyboard coding systems
   %Z -- like %z, but including the end-of-line format"
+  ;; save-match-data to work around Emacs bug, see
+  ;; https://github.com/syl20bnr/spacemacs/issues/9700
   (save-match-data
-    ;; save-match-data to work around Emacs bug, see
-    ;; https://github.com/syl20bnr/spacemacs/issues/9700
-    (let* ((project-name (when (string-match-p "%t" title-format)
+    ;; disable buffer-list-update-hook to work around recursive invocations caused
+    ;; by the temp-buffer used by `format-spec' below, see
+    ;; https://github.com/syl20bnr/spacemacs/issues/12387
+    (let* ((buffer-list-update-hook nil)
+           (project-name (when (string-match-p "%t" title-format)
                            (if (boundp 'spacemacs--buffer-project-name)
                                spacemacs--buffer-project-name
                              (set (make-local-variable 'spacemacs--buffer-project-name)

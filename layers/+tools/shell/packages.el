@@ -18,6 +18,7 @@
         eshell-prompt-extras
         eshell-z
         helm
+        ivy
         magit
         multi-term
         org
@@ -135,8 +136,11 @@
   (use-package eshell-z
     :defer t
     :init
-    (with-eval-after-load 'eshell
-      (require 'eshell-z))))
+    (progn
+      (setq eshell-z-freq-dir-hash-table-file-name
+            (concat spacemacs-cache-directory "eshell/.z"))
+      (with-eval-after-load 'eshell
+        (require 'eshell-z)))))
 
 (defun shell/pre-init-helm ()
   (spacemacs|use-package-add-hook helm
@@ -147,6 +151,11 @@
       ;;shell
       (spacemacs/set-leader-keys-for-major-mode 'shell-mode
         "H" 'spacemacs/helm-shell-history))))
+
+(defun shell/pre-init-ivy ()
+  (spacemacs|use-package-add-hook ivy
+    :post-init
+    (add-hook 'eshell-mode-hook 'spacemacs/init-ivy-eshell)))
 
 (defun shell/pre-init-magit ()
   (spacemacs|use-package-add-hook magit
@@ -165,8 +174,11 @@
       ;; multi-term commands to create terminals and move through them.
       (spacemacs/set-leader-keys-for-major-mode 'term-mode
         "c" 'multi-term
-        "p" 'multi-term-prev
-        "n" 'multi-term-next))))
+        "C" 'term-char-mode
+        "l" 'term-line-mode
+        "n" 'multi-term-next
+        "N" 'multi-term-prev
+        "p" 'multi-term-prev))))
 
 (defun shell/pre-init-org ()
   (spacemacs|use-package-add-hook org
@@ -175,7 +187,8 @@
 (defun shell/post-init-projectile ()
   (spacemacs/set-leader-keys
     "p'" 'spacemacs/projectile-shell-pop
-    "p$t" 'projectile-multi-term-in-root))
+    "p$t" 'projectile-multi-term-in-root)
+  (spacemacs/declare-prefix "p$" "projects/shell"))
 
 (defun shell/init-shell ()
   (spacemacs/register-repl 'shell 'shell)
@@ -227,7 +240,9 @@
         "asi" 'spacemacs/shell-pop-inferior-shell
         "asm" 'spacemacs/shell-pop-multiterm
         "ast" 'spacemacs/shell-pop-ansi-term
-        "asT" 'spacemacs/shell-pop-term))))
+        "asT" 'spacemacs/shell-pop-term)
+      (spacemacs/declare-prefix "'" "open shell")
+      (spacemacs/declare-prefix "as" "shells"))))
 
 (defun shell/init-term ()
   (spacemacs/register-repl 'term 'term)

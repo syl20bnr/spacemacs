@@ -1,18 +1,20 @@
 #+TITLE: Deft layer
 
-* Table of Contents                     :TOC_4_gh:noexport:
+#+TAGS: layer|reader
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#configuration][Configuration]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds a search driven note taking system into Spacemacs.
 
 ** Features:
-- Browsing and creating notes with a powerfull search function via [[http://jblevins.org/projects/deft/][Deft]].
+- Browsing and creating notes with a powerful search function via [[http://jblevins.org/projects/deft/][Deft]].
 - Integration of =org-mode= as note editor.
 - Configurable list of extensions to recognize as notes.
 
@@ -41,9 +43,9 @@ can be configured in your =dotfile=:
 
 Just add or substitute your preferred extension.
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description                      |
+| Key binding | Description                      |
 |-------------+----------------------------------|
 | ~SPC a n~   | Open Deft (works globally)       |
 | ~SPC m c~   | Clear deft filter                |

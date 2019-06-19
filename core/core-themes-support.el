@@ -163,6 +163,7 @@
     (doom-opera-light                 . doom-themes)
     (doom-peacock                     . doom-themes)
     (doom-spacegrey                   . doom-themes)
+    (doom-sourcerer                   . doom-themes)
     (doom-solarized-light             . doom-themes)
     (doom-tomorrow-day                . doom-themes)
     (doom-tomorrow-night              . doom-themes)
@@ -213,12 +214,16 @@
     (gruvbox-light-hard               . gruvbox-theme)
     (kaolin-dark                      . kaolin-themes)
     (kaolin-light                     . kaolin-themes)
-    (kaolin-eclipse                   . kaolin-themes)
-    (kaolin-ocean                     . kaolin-themes)
-    (kaolin-galaxy                    . kaolin-themes)
     (kaolin-aurora                    . kaolin-themes)
-    (kaolin-valley-dark               . kaolin-themes)
+    (kaolin-breeze                    . kaolin-themes)
+    (kaolin-bubblegum                 . kaolin-themes)
+    (kaolin-eclipse                   . kaolin-themes)
+    (kaolin-galaxy                    . kaolin-themes)
     (kaolin-mono-dark                 . kaolin-themes)
+    (kaolin-ocean                     . kaolin-themes)
+    (kaolin-temple                    . kaolin-themes)
+    (kaolin-valley-dark               . kaolin-themes)
+    (kaolin-valley-light              . kaolin-themes)
     (eziam-light                      . eziam-theme)
     (eziam-dark                       . eziam-theme)
     (eziam-dusk                       . eziam-theme)
@@ -332,7 +337,7 @@ THEME."
               (load-theme ',theme-name t))))))
 
 (defun spacemacs/cycle-spacemacs-theme (&optional backward)
-  "Cycle through themes defined in `dotspacemacs-themes.'
+  "Cycle through themes defined in `dotspacemacs-themes'.
 When BACKWARD is non-nil, or with universal-argument, cycle backwards."
   (interactive "P")
   (let* ((themes (if backward (reverse dotspacemacs-themes) dotspacemacs-themes))
@@ -347,6 +352,11 @@ When BACKWARD is non-nil, or with universal-argument, cycle backwards."
             (format "Loading theme %s..." next-theme))))
       (spacemacs/load-theme next-theme nil 'disable)
       (progress-reporter-done progress-reporter))))
+
+(defun spacemacs/cycle-spacemacs-theme-backward ()
+  "Cycle through themes defined in `dotspacemacs-themes' backward."
+  (interactive)
+  (spacemacs/cycle-spacemacs-theme t))
 
 (defadvice load-theme (after spacemacs/load-theme-adv activate)
   "Perform post load processing."

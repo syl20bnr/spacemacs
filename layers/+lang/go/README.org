@@ -1,8 +1,10 @@
 #+TITLE: GO layer
 
+#+TAGS: general|layer|multi-paradigm|programming
+
 [[file:img/go.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -28,7 +30,7 @@ This layer adds extensive support for go to Spacemacs.
 - Source analysis using [[https://docs.google.com/document/d/1_Y9xCEMj5S-7rv2ooHpZNH15JgRT5iM742gJkw5LtmQ][go-guru]]
 - Refactoring with [[http://gorefactor.org/][godoctor]]
 - Edit struct field tag with [[https://github.com/fatih/gomodifytags][gomodifytags]]
-- Linting with flycheck’s built-in checkers or flycheck-gometalinter
+- Linting with flycheck's built-in checkers or flycheck-gometalinter
 - Coverage profile visualization
 - Test generation with [[https://github.com/s-kostyaev/go-gen-test][go-gen-test]]
 - Get packages faster with [[https://github.com/haya14busa/gopkgs][gopkgs]]
@@ -46,6 +48,7 @@ to get all the goodies of this layer:
   go get -u -v golang.org/x/tools/cmd/guru
   go get -u -v golang.org/x/tools/cmd/gorename
   go get -u -v golang.org/x/tools/cmd/goimports
+  go get -u -v golang.org/x/tools/cmd/godoc
   go get -u -v github.com/zmb3/gogetdoc
   go get -u -v github.com/cweill/gotests/...
   go get -u github.com/haya14busa/gopkgs/cmd/gopkgs
@@ -113,11 +116,8 @@ To enable the LSP backend set the layer variable =go-backend=:
   (go :variables go-backend 'lsp)
 #+END_SRC
 
-You also need to install the Go Language Server:
-
-#+BEGIN_SRC sh
-  go get -u github.com/sourcegraph/go-langserver
-#+END_SRC
+You also need to install the Go Language Server.
+Consult the installation command for the desired language server found at [[https://www.github.com/emacs-lsp/lsp-mode/][lsp-mode]] for instructions.
 
 Backend can be chosen on a per project basis using directory local variables
 (files named =.dir-locals.el= at the root of a project), an example to use the
@@ -156,6 +156,15 @@ or
   (go :variables gofmt-command "goimports")
 #+END_SRC
 
+To run current main package with command line arguments, set the value of
+=go-run-args= as file local variable, e.g.
+
+#+BEGIN_SRC emacs-lisp
+  // Local Variables:
+  // go-run-args: "--output run.log"
+  // End:
+#+END_SRC
+
 ** Indentation
 By default, the tab width in Go mode is 8 spaces. To use a different value set
 the layer variable =go-tab-width=, e.g.
@@ -164,7 +173,7 @@ the layer variable =go-tab-width=, e.g.
   (go :variables go-tab-width 4)
 #+END_SRC
 
-If you’re using =.editorconfig= in your project, set the value to nil to avoid
+If you're using =.editorconfig= in your project, set the value to nil to avoid
 confliction, e.g.
 
 #+BEGIN_SRC emacs-lisp
@@ -172,7 +181,7 @@ confliction, e.g.
 #+END_SRC
 
 ** Tests
-If you’re using =gocheck= in your project you can use the
+If you're using =gocheck= in your project you can use the
 =go-use-gocheck-for-testing= variable to enable suite testing and to get single
 function testing to work.
 
@@ -191,7 +200,7 @@ To provide additional arguments to go test, specify =go-use-test-args=.
 #+END_SRC
 
 ** Guru
-Go Oracle has been deprecated as of October 1, 2016, it’s replacement is =go-guru=.
+Go Oracle has been deprecated as of October 1, 2016, it's replacement is =go-guru=.
 
 If you would like to use the =goguru= bindings in your work, you will need to
 install it, and in your project you will need to set the scope with ~SPC m f o~.
@@ -231,9 +240,9 @@ You have a few options to ensure you always get up to date suggestions:
 * Working with Go
 ** Go commands (start with =m=):
 
-| Key Binding   | Description                                                                           |
+| Key binding   | Description                                                                           |
 |---------------+---------------------------------------------------------------------------------------|
-| ~SPC m =~     | run “go fmt”                                                                          |
+| ~SPC m =~     | run "go fmt"                                                                          |
 | ~SPC m e b~   | go-play buffer                                                                        |
 | ~SPC m e d~   | download go-play snippet                                                              |
 | ~SPC m e r~   | go-play region                                                                        |
@@ -245,18 +254,18 @@ You have a few options to ensure you always get up to date suggestions:
 | ~SPC m i g~   | goto imports                                                                          |
 | ~SPC m i r~   | remove unused import                                                                  |
 | ~SPC m r n~   | go rename                                                                             |
-| ~SPC m t P~   | run “go test” for the current package and all packages under it                       |
+| ~SPC m t P~   | run "go test" for the current package and all packages under it                       |
 | ~SPC m t g f~ | generate tests for all exported functions                                             |
 | ~SPC m t g F~ | generate tests for all functions                                                      |
 | ~SPC m t g g~ | DWIM generate test for the function in the active region                              |
-| ~SPC m t p~   | run “go test” for the current package                                                 |
-| ~SPC m t s~   | run “go test” for the suite you’re currently in (requires gocheck)                    |
-| ~SPC m t t~   | run “go test” for the function you’re currently in (while you’re in a _.test.go file) |
-| ~SPC m x x~   | run “go run” for the current ’main’ package                                           |
+| ~SPC m t p~   | run "go test" for the current package                                                 |
+| ~SPC m t s~   | run "go test" for the suite you're currently in (requires gocheck)                    |
+| ~SPC m t t~   | run "go test" for the function you're currently in (while you're in a _.test.go file) |
+| ~SPC m x x~   | run "go run" for the current 'main' package                                           |
 
 ** Go Guru
 
-| Key Binding | Description                                          |
+| Key binding | Description                                          |
 |-------------+------------------------------------------------------|
 | ~SPC m f <~ | go-guru show possible callers                        |
 | ~SPC m f >~ | go-guru show call targets                            |
@@ -273,14 +282,14 @@ You have a few options to ensure you always get up to date suggestions:
 
 ** Refactoring
 
-| Key Binding | Description                                                    |
-|-------------+----------------------------------------------------------------|
-| ~SPC m r d~ | Add comment stubs                                              |
-| ~SPC m r e~ | Extract code as new function                                   |
-| ~SPC m r f~ | Add field tags                                                 |
-| ~SPC m r F~ | Remove field tags                                              |
-| ~SPC m r i~ | Generate method subs for implementing an interface (=go-impl=) |
-| ~SPC m r n~ | Rename (with =godoctor=)                                       |
-| ~SPC m r N~ | Rename (with =go-rename=)                                      |
-| ~SPC m r s~ | Fill structure with default values                             |
-| ~SPC m r t~ | Toggle declaration and assignment                              |
+| Key binding | Description                                                     |
+|-------------+-----------------------------------------------------------------|
+| ~SPC m r d~ | Add comment stubs                                               |
+| ~SPC m r e~ | Extract code as new function                                    |
+| ~SPC m r f~ | Add field tags                                                  |
+| ~SPC m r F~ | Remove field tags                                               |
+| ~SPC m r i~ | Generate method stubs for implementing an interface (=go-impl=) |
+| ~SPC m r n~ | Rename (with =godoctor=)                                        |
+| ~SPC m r N~ | Rename (with =go-rename=)                                       |
+| ~SPC m r s~ | Fill structure with default values                              |
+| ~SPC m r t~ | Toggle declaration and assignment                               |

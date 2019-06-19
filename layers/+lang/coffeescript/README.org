@@ -1,14 +1,16 @@
 #+TITLE: CoffeeScript layer
 
+#+TAGS: general|js|layer|multi-paradigm|programming
+
 [[file:img/coffee.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#linting][Linting]]
-- [[#key-bindings][Key Bindings]]
+- [[#key-bindings][Key bindings]]
   - [[#repl][REPL]]
 
 * Description
@@ -28,15 +30,15 @@ this file.
 
 * Configuration
 ** Linting
-To enable linting, install [[http://www.coffeelint.org/][CoffeeLint]] with the following command:
+To enable linting, install [[https://github.com/clutchski/coffeelint][CoffeeLint]] with the following command:
 
 #+BEGIN_SRC sh
   npm install -g coffeelint
 #+END_SRC
 
-* Key Bindings
+* Key bindings
 
-| Key Binding | Description            |
+| Key binding | Description            |
 |-------------+------------------------|
 | ~SPC m c c~ | Compile buffer         |
 | ~SPC m c r~ | Compile region         |
@@ -44,7 +46,7 @@ To enable linting, install [[http://www.coffeelint.org/][CoffeeLint]] with the f
 
 ** REPL
 
-| Key Binding | Description                                        |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC m '~   | Create or go to REPL                               |
 | ~SPC m s b~ | Send buffer to REPL                                |

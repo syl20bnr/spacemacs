@@ -29,7 +29,7 @@
         maven-test-mode
         (meghanada :toggle (not (version< emacs-version "25.1")))
         mvn
-        (lsp-java :requires lsp-mode lsp-ui company-lsp)
+        (lsp-java :requires lsp-mode lsp-ui company-lsp dap-mode)
         org
         ))
 
@@ -47,6 +47,7 @@
 (defun java/init-eclim ()
   (use-package eclim
     :defer t
+    :if (eq java-backend 'eclim)
     ;; :init (setq eclim-auto-save nil)
     :config
     (progn
@@ -73,7 +74,7 @@
                         ("mr" . "refactor")
                         ("mt" . "test")))
         (spacemacs/declare-prefix-for-mode
-         'java-mode (car prefix) (cdr prefix)))
+          'java-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'java-mode
         ;; ant
         "aa" 'eclim-ant-run
@@ -160,6 +161,7 @@
 (defun java/init-ensime ()
   (use-package ensime
     :defer t
+    :if (eq java-backend 'ensime)
     :commands ensime-mode
     :init
     (progn
@@ -317,12 +319,12 @@
       (when (configuration-layer/package-used-p 'groovy-mode)
         (add-hook 'groovy-mode-hook 'gradle-mode)
         (spacemacs/declare-prefix-for-mode 'groovy-mode "ml" "gradle")
-        (spacemacs/declare-prefix-for-mode 'groovy-mode "mc" "compile")
+        (spacemacs/declare-prefix-for-mode 'groovy-mode "mlc" "compile")
         (spacemacs/declare-prefix-for-mode 'groovy-mode "mlt" "tests"))
       (when (configuration-layer/package-used-p 'java-mode)
         (add-hook 'java-mode-hook 'gradle-mode)
         (spacemacs/declare-prefix-for-mode 'java-mode "ml" "gradle")
-        (spacemacs/declare-prefix-for-mode 'groovy-mode "mc" "compile")
+        (spacemacs/declare-prefix-for-mode 'java-mode "mlc" "compile")
         (spacemacs/declare-prefix-for-mode 'java-mode "mlt" "tests")))
     :config
     (progn
@@ -379,6 +381,7 @@
 (defun java/init-meghanada ()
   (use-package meghanada
     :defer t
+    :if (eq java-backend 'meghanada)
     :init
     (progn
       (setq meghanada-server-install-dir (concat spacemacs-cache-directory
@@ -397,7 +400,7 @@
                         ("mt" . "test")
                         ("mx" . "execute")))
         (spacemacs/declare-prefix-for-mode
-         'java-mode (car prefix) (cdr prefix)))
+          'java-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'java-mode
         "cb" 'meghanada-compile-file
         "cc" 'meghanada-compile-project
@@ -432,42 +435,67 @@
 (defun java/init-lsp-java ()
   (use-package lsp-java
     :defer t
+    :if (eq java-backend 'lsp)
     :config
     (progn
       ;; key bindings
-      (dolist (prefix '(("mc" . "compile")
+      (dolist (prefix '(("mc" . "compile/create")
                         ("mg" . "goto")
                         ("mr" . "refactor")
-                        ("mq" . "lsp")))
+                        ("mra" . "add/assign")
+                        ("mrc" . "create/convert")
+                        ("mrg" . "generate")
+                        ("mre" . "extract")
+                        ("mq" . "lsp")
+                        ("mt" . "test")
+                        ("mx" . "execute")))
+        (spacemacs/declare-prefix-for-mode
+          'java-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'java-mode
-        "gg"  'xref-find-definitions
-        "gr"  'xref-find-references
-        "gR"  'lsp-ui-peek-find-references
-        "ga"  'xref-find-apropos
-        "gA"  'lsp-ui-peek-find-workspace-symbol
-        "gd"  'lsp-goto-type-definition
-        "hh"  'lsp-describe-thing-at-point
-        "el"  'lsp-ui-flycheck-list
         "pu"  'lsp-java-update-user-settings
-        "ea"  'lsp-execute-code-action
-        "qr"  'lsp-restart-workspace
-        "roi" 'lsp-java-organize-imports
-        "rr" 'lsp-rename
-        "rai" 'lsp-java-add-import
-        "ram" 'lsp-java-add-unimplemented-methods
+
+        ;; refactoring
+        "ro" 'lsp-java-organize-imports
         "rcp" 'lsp-java-create-parameter
         "rcf" 'lsp-java-create-field
+        "rci" 'lsp-java-conver-to-static-import
         "rec" 'lsp-java-extract-to-constant
         "rel" 'lsp-java-extract-to-local-variable
         "rem" 'lsp-java-extract-method
+
+        ;; assign/add
+        "rai" 'lsp-java-add-import
+        "ram" 'lsp-java-add-unimplemented-methods
+        "rat" 'lsp-java-add-throws
+        "raa" 'lsp-java-assign-all
+        "raf" 'lsp-java-assign-to-field
+
+        ;; generate
+        "rgt" 'lsp-java-generate-to-string
+        "rge" 'lsp-java-generate-equals-and-hash-code
+        "rgo" 'lsp-java-generate-overrides
+        "rgg" 'lsp-java-generate-getters-and-setters
+
+        ;; create/compile
         "cc"  'lsp-java-build-project
+        "cp"  'lsp-java-spring-initializr
+
         "an"  'lsp-java-actionable-notifications
-        "="   'lsp-format-buffer)
+
+        ;; dap-mode
+
+        ;; debug
+        "ddj" 'dap-java-debug
+        "dtt" 'dap-java-debug-test-method
+        "dtc" 'dap-java-debug-test-class
+        ;; run
+        "tt" 'dap-java-run-test-method
+        "tc" 'dap-java-run-test-class)
 
       (setq lsp-highlight-symbol-at-point nil
             lsp-ui-sideline-update-mode 'point
             lsp-eldoc-render-all nil
-            lsp-java-completion-guess-arguments t)))))
+            lsp-java-completion-guess-arguments t))))
 
 (defun java/init-mvn ()
   (use-package mvn

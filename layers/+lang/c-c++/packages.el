@@ -18,6 +18,9 @@
         (company-rtags :requires company rtags)
         company-ycmd
         counsel-gtags
+        (cpp-auto-include
+         :location (recipe :fetcher github
+                           :repo "syohex/emacs-cpp-auto-include"))
         disaster
         flycheck
         (flycheck-rtags :requires flycheck rtags)
@@ -49,7 +52,7 @@
     :init
     (progn
       (add-to-list 'auto-mode-alist
-                   `("\\.h\\'" . ,c-c++-default-mode-for-headers))
+        `("\\.h\\'" . ,c-c++-default-mode-for-headers))
       (when c-c++-enable-auto-newline
         (add-hook 'c-mode-common-hook 'spacemacs//c-toggle-auto-newline)))
     :config
@@ -112,6 +115,19 @@
 (defun c-c++/post-init-counsel-gtags ()
   (dolist (mode c-c++-modes)
     (spacemacs/counsel-gtags-define-keys-for-mode mode)))
+
+(defun c-c++/init-cpp-auto-include ()
+  (use-package cpp-auto-include
+    :defer t
+    :init
+    (progn
+      (when c++-enable-organize-includes-on-save
+        (add-hook 'c++-mode-hook #'spacemacs/c++-organize-includes-on-save))
+
+      (spacemacs/declare-prefix-for-mode 'c++-mode
+        "mr" "refactor")
+      (spacemacs/set-leader-keys-for-major-mode 'c++-mode
+        "ri" #'spacemacs/c++-organize-includes))))
 
 (defun c-c++/init-disaster ()
   (use-package disaster
@@ -230,7 +246,10 @@
     (spacemacs/add-realgud-debugger mode "gdb")))
 
 (defun c-c++/post-init-semantic ()
-  (spacemacs/add-to-hooks 'semantic-mode c-c++-mode-hooks))
+  (spacemacs/add-to-hooks 'semantic-mode c-c++-mode-hooks)
+  (when (or (configuration-layer/layer-used-p 'gtags)
+            (configuration-layer/layer-used-p 'lsp))
+    (spacemacs/add-to-hooks 'spacemacs//disable-semantic-idle-summary-mode c-c++-mode-hooks t)))
 
 (defun c-c++/post-init-srefactor ()
   (dolist (mode c-c++-modes)
@@ -259,28 +278,23 @@
       (spacemacs/set-leader-keys-for-major-mode mode "gi" 'cscope-index-files))))
 
 ;; BEGIN LSP BACKEND PACKAGES
-
 ;; See also https://github.com/cquery-project/cquery/wiki/Emacs
 (defun c-c++/init-cquery ()
   (use-package cquery
     :if (eq c-c++-backend 'lsp-cquery)
-    :defer t
-    :commands lsp-cquery-enable
-    :init
-    (add-hook 'c-mode-common-hook #'spacemacs//c-c++-lsp-enable)
     :config
-    (spacemacs//c-c++-lsp-config)))
+    (spacemacs//c-c++-lsp-config)
+    :hook ((c-mode c++-mode) .
+            (lambda () (cl-pushnew #'company-lsp company-backends) (require 'cquery) (remhash 'clangd lsp-clients) (lsp)))))
 
 ;; See also https://github.com/MaskRay/ccls/wiki/Emacs
 (defun c-c++/init-ccls ()
   (use-package ccls
     :if (eq c-c++-backend 'lsp-ccls)
-    :defer t
-    :commands lsp-ccls-enable
-    :init
-    (add-hook 'c-mode-common-hook #'spacemacs//c-c++-lsp-enable)
     :config
-    (spacemacs//c-c++-lsp-config)))
+    (spacemacs//c-c++-lsp-config)
+    :hook ((c-mode c++-mode) .
+            (lambda () (cl-pushnew #'company-lsp company-backends) (require 'ccls) (remhash 'clangd lsp-clients) (lsp)))))
 
 ;;Intentionally adding both cquery and ccls cache dirs to ignore list, to facilitate switching between
 ;;two without multiple caches polluting projectile find file results
@@ -295,7 +309,8 @@
       (when c-c++-adopt-subprojects
         (setq projectile-project-root-files-top-down-recurring
           (append '("compile_commands.json"
-                     ".cquery")
+                    ".cquery"
+                    ".ccls")
             projectile-project-root-files-top-down-recurring))))))
 
 ;; END LSP BACKEND PACKAGES

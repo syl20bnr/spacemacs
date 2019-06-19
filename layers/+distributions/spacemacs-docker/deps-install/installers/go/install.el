@@ -14,10 +14,10 @@
                         (file-name-directory
                          load-file-name)) nil t)
 
-(let ((go-version "1.10"))
+(let ((go-version "1.11.4"))
   (with-build-dir (tgp "/tmp/gopath")
     (with-installed (tar gzip wget)
-      ($ `("wget https://storage.googleapis.com/golang/go%s.linux-amd64.tar.gz"
+      ($ `("wget -q https://storage.googleapis.com/golang/go%s.linux-amd64.tar.gz"
            ,go-version)
          `("tar -xf go%s.linux-amd64.tar.gz"
            ,go-version)
@@ -44,10 +44,15 @@
                              tgp))
       ($ ["go get -u -buildmode=exe"
           "gopkg.in/check.v1"
-          "github.com/nsf/gocode"
+          "github.com/haya14busa/gopkgs/cmd/gopkgs"
+          "github.com/mdempsky/gocode"
           "github.com/rogpeppe/godef"
           "golang.org/x/tools/cmd/guru"
           "golang.org/x/tools/cmd/gorename"
+          "github.com/zmb3/gogetdoc"
+          "github.com/cweill/gotests/..."
+          "github.com/davidrjenni/reftools/cmd/fillstruct"
+          "github.com/josharian/impl"
           "golang.org/x/tools/cmd/goimports"])
       (when (get-config 'go-use-gometalinter)
         (! "Gometalinter used. Installing...")

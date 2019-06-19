@@ -36,3 +36,9 @@
 
 (defvar go-use-test-args ""
   "Additional arguments to be supplied to `go test` during runtime.")
+
+(defvar go-test-verbose nil
+  "Control verbosity of `go test` output")
+
+(defvar go-run-args ""
+  "Additional arguments to by supplied to `go run` during runtime.")

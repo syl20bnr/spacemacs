@@ -44,6 +44,7 @@ Some of the supported modes are:
 * magit
 * mu4e
 * neotree
+* treemacs
 * org
 * and others :) more are coming!
 
@@ -160,8 +161,7 @@ There is also explicit colors variables that can be customized:
 * yellow
 * yellow-bg
 
-The `green` and `red` colors have two background versions. The `green-bg` and  `red-bg` are normal light background colors.
-The `green-bg-s`, `red-bg-s`, and `blue-bg-s` are a stronger version and are used in `ediff` and places were text is added, deleted or changed.
+The `green` and `red` colors have two background versions. The `green-bg` and  `red-bg` are normal light background colors. The `green-bg-s`, `red-bg-s`, and `blue-bg-s` are stronger versions.
 
 Here are some screenshots of the various variables:
 
