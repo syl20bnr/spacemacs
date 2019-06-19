@@ -60,6 +60,9 @@
 (defvar osx-use-dictionary-app t
   "If non nil use osx dictionary app instead of wordnet")
 
+(defvar osx-swap-option-and-command nil
+  "If non nil swap option key and command key")
+
 ;; Use the OS X Emoji font for Emoticons
 (when (fboundp 'set-fontset-font)
   (set-fontset-font "fontset-default"
