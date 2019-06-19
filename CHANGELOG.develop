@@ -2456,6 +2456,8 @@ Other:
 - Add missing ~SPC p t~ to =readme.org= (thanks to oo6)
 - Remapped =winum-select-window-0-or-10= to =treemacs-select-window= so that
   ~C-x w 0~, ~SPC 0~ and ~M-0~ call the same command (thanks to duianto, Miciah)
+- Loaded =treemacs-projectile= key binding ~C-c C-p p~ with Treemacs
+  (thanks to duianto)
 **** Typescript
 - Call tsfmt with extension of current buffer for TSX formatting
   (thanks to Victor Andrée)
