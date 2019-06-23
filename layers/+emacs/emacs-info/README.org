@@ -1,0 +1,10 @@
+#+TITLE: Emasc Info Imrprovements
+
+#+TAGS: emacs|layer
+
+* Description
+  This layer improves navigation for Emacs Info mode
+** Features:
+   - TODO: list features
+* Key bindings
+  - TODO: list keys
