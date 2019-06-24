@@ -1255,7 +1255,9 @@ and ~T~):
 | ~SPC t l~   | toggle truncate lines                                             |
 | ~SPC t L~   | toggle visual lines                                               |
 | ~SPC t n~   | toggle line numbers                                               |
+| ~SPC t r~   | toggle relative line numbers                                      |
 | ~SPC t v~   | toggle smooth scrolling                                           |
+| ~SPC t V~   | toggle visual line numbers                                        |
 | ~SPC t z~   | toggle 0/1 based column indexing                                  |
 
 | Key binding | Description                                                      |
