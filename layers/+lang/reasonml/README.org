@@ -1,20 +1,29 @@
 #+TITLE: ReasonML layer
 
+#+TAGS: layer|uncategorized
+
 [[https://reasonml.github.io/img/reason.svg]]
 
-* Description
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#merlin][Merlin]]
+  - [[#refmt][Refmt]]
+- [[#key-bindings][Key bindings]]
+- [[#thanks][Thanks]]
 
+* Description
 Spacemacs layer for ReasonML, based around [[https://github.com/reasonml-editor/reason-mode][reason-mode]].
 
 ** Features:
-  - Syntax highlighting / indentation
-  - Autocomplete (via =merlin=)
-  - Lint / error display (via =merlin=, and =flycheck= if =syntax-checking= layer is enabled)
-  - REPL via =rtop=
-  - Auto-formatting (via =refmt=)
+- Syntax highlighting / indentation
+- Autocomplete (via =merlin=)
+- Lint / error display (via =merlin=, and =flycheck= if =syntax-checking= layer is enabled)
+- REPL via =rtop=
+- Auto-formatting (via =refmt=)
 
 * Install
-
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =reasonml= to the existing =dotspacemacs-configuration-layers= list in this
 file.
@@ -22,24 +31,26 @@ file.
 This layer depends on the `ocaml` layer which should be installed automatically.
 
 ** Merlin
-
 You'll need merlin (binaries =ocamlmerlin= and =ocamlmerlin-reason=) installed
 on your system and on your =PATH= for errors and auto-completion.
 
 If you're familiar with =opam= you can
+
 #+BEGIN_SRC sh
   opam install merlin reason
 #+END_SRC
+
 to get =ocamlmerlin= and =ocamlmerlin-reason= on your current =opam= switch.
 
 ** Refmt
-
 Similarly to Merlin, you'll need the =refmt= binary on your path.
 
 If you're familiar with =opam= you can
+
 #+BEGIN_SRC sh
   opam install reason
 #+END_SRC
+
 to get =refmt= in your current =opam switch=.
 
 If your project depends on a specific version of =refmt=, you can set
@@ -49,14 +60,15 @@ run =refmt= via =npx= or =opam exec=, which will keep you on the correct version
 for your current opam switch, or the project-local of =node_modules=.
 
 You can toggle =refmt= on save with =SPC m r t=. To permanently enable it, add the layer variable:
+
 #+BEGIN_SRC emacs-lisp
   (reasonml :variables reason-auto-refmt t)
 #+END_SRC
+
 in your =dotspacemacs-configuration-layers=.
 
 * Key bindings
-
-The main keybindings, see =packages.el= for the main list.
+The main key bindings, see =packages.el= for the main list.
 
 | Key binding   | Description                           |
 |---------------+---------------------------------------|
@@ -72,5 +84,4 @@ The main keybindings, see =packages.el= for the main list.
 | ~SPC m = r m~ | Refmt: convert re syntax to ml syntax |
 
 * Thanks
-
 Special thanks to [[https://github.com/fredyr/][fredyr]] who wrote the initial verison of this layer.

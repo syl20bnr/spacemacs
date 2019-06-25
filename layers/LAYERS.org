@@ -167,6 +167,7 @@
   - [[#speed-reading][Speed reading]]
 - [[#readmeorg-files-that-need-proper-tags][README.org files that need proper tags]]
   - [[#dotnet][Dotnet]]
+  - [[#reasonml][Reasonml]]
   - [[#sailfish-os-developer][Sailfish os developer]]
 - [[#source-control][Source control]]
   - [[#git][Git]]
@@ -2175,6 +2176,18 @@ This layer adds support for the dotnet cli package.
 
 Features:
 - dotnet operations
+
+** Reasonml
+[[file:+lang/reasonml/README.org][+lang/reasonml/README.org]]
+
+Spacemacs layer for ReasonML, based around [[https://github.com/reasonml-editor/reason-mode][reason-mode]].
+
+Features:
+- Syntax highlighting / indentation
+- Autocomplete (via =merlin=)
+- Lint / error display (via =merlin=, and =flycheck= if =syntax-checking= layer is enabled)
+- REPL via =rtop=
+- Auto-formatting (via =refmt=)
 
 ** Sailfish os developer
 [[file:+tools/sailfish-developer/README.org][+tools/sailfish-developer/README.org]]
