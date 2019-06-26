@@ -1010,7 +1010,7 @@ Other:
       (thanks to Dominik Schrempf)
   - Key bindings (thanks to bb2020)
     - ~SPC j (~ to =check-parens=
-    - ~SPC-,~ to =goto-last-change=
+    - ~SPC j c~ to =goto-last-change=
   - Excluded =fundamental-mode= from =spacemacs/check-large-file=
     (thanks to Alexander Miller)
   - Fixed copied dir/path not shown in minibuffer when =select-enable-clipboard=
