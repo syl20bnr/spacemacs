@@ -2356,9 +2356,6 @@ Buffer manipulation commands (start with ~b~):
 |-----------------+----------------------------------------------------------------------------------------|
 | ~SPC TAB~       | switch to alternate buffer in the current window (switch back and forth)               |
 | ~SPC b b~       | switch to a buffer                                                                     |
-| ~SPC b c n~     | create an indirect buffer                                                              |
-| ~SPC b c c~     | create an indirect buffer that is clone of current buffer                              |
-| ~SPC b c w~     | create an indirect buffer that is clone of current buffer, and open it in other window |
 | ~SPC b d~       | kill the current buffer (does not delete the visited file)                             |
 | ~SPC u SPC b d~ | kill the current buffer and window (does not delete the visited file)                  |
 | ~SPC b D~       | kill a visible buffer using [[https://github.com/abo-abo/ace-window][ace-window]]                                                 |
@@ -2384,13 +2381,16 @@ Buffer manipulation commands (start with ~b~):
 
 **** Create a new empty buffer
 
-| Key binding | Description                                           |
-|-------------+-------------------------------------------------------|
-| ~SPC b N h~ | create new empty buffer in a new window on the left   |
-| ~SPC b N j~ | create new empty buffer in a new window at the bottom |
-| ~SPC b N k~ | create new empty buffer in a new window above         |
-| ~SPC b N l~ | create new empty buffer in a new window below         |
-| ~SPC b N n~ | create new empty buffer in current window             |
+| Key binding   | Description                                                                                     |
+|---------------+-------------------------------------------------------------------------------------------------|
+| ~SPC b N h~   | create new empty buffer in a new window on the left                                             |
+| ~SPC b N C-i~ | create an indirect buffer from an existing opened buffer                                        |
+| ~SPC b N i~   | create an indirect buffer that is clone of currently opened buffer                              |
+| ~SPC b N I~   | create an indirect buffer that is clone of currently opened buffer, and open it in other window |
+| ~SPC b N j~   | create new empty buffer in a new window at the bottom                                           |
+| ~SPC b N k~   | create new empty buffer in a new window above                                                   |
+| ~SPC b N l~   | create new empty buffer in a new window below                                                   |
+| ~SPC b N n~   | create new empty buffer in current window                                                       |
 
 **** Buffers manipulation transient state
 A convenient buffer manipulation transient state allows to quickly cycles through
