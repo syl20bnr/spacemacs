@@ -292,9 +292,9 @@
   "ij" 'spacemacs/evil-insert-line-below)
 ;; format ---------------------------------------------------------------------
 (spacemacs/set-leader-keys
-  "jo" 'open-line
-  "jC" 'check-parens
+  "j(" 'check-parens
   "j=" 'spacemacs/indent-region-or-buffer
+  "jo" 'open-line
   "jS" 'spacemacs/split-and-new-line
   "jk" 'spacemacs/evil-goto-next-line-and-indent)
 

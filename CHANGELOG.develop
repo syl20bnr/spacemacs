@@ -1009,7 +1009,7 @@ Other:
     - =spacemacs-theme-org-height=
       (thanks to Dominik Schrempf)
   - Key bindings (thanks to bb2020)
-    - ~SPC-j-C~ to =check-parens=
+    - ~SPC j (~ to =check-parens=
     - ~SPC-,~ to =goto-last-change=
   - Excluded =fundamental-mode= from =spacemacs/check-large-file=
     (thanks to Alexander Miller)

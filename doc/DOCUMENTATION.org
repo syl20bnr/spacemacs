@@ -2150,10 +2150,10 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 | Key binding | Description                                                                       |
 |-------------+-----------------------------------------------------------------------------------|
 | ~SPC j 0~   | go to the beginning of line (and set a mark at the previous location in the line) |
+| ~SPC j (~   | jump to first unbalanced parentheses                                              |
 | ~SPC j $~   | go to the end of line (and set a mark at the previous location in the line)       |
 | ~SPC j b~   | undo a jump (go back to previous location)                                        |
 | ~SPC j d~   | jump to a listing of the current directory                                        |
-| ~SPC j C~   | jump to first unbalanced parentheses                                              |
 | ~SPC j D~   | jump to a listing of the current directory (other window)                         |
 | ~SPC j f~   | jump to the definition of an Emacs Lisp function                                  |
 | ~SPC j i~   | jump to a definition in buffer (imenu)                                            |
