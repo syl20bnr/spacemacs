@@ -101,6 +101,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   - Changed ~SPC b B~ to ~SPC b I~ for =ibuffer= (thanks to Thomas de Beauchêne)
   - Changed ~SPC B b~ to ~SPC b B~ for non restricted buffer list
     (thanks to Thomas de Beauchêne)
+  - Changed ~SPC b i~ to ~SPC b t~ for =imenu= tree view
+    (thansk to Sylvain Benner)
   - ~SPC b m~ now opens the =*Messages*= buffer. The old ~SPC b m~ to kill other
     buffers has been moved to ~SPC b C-d~. Killing other buffers using a regular
     expression is now under ~SPC b C-D~.
@@ -1659,9 +1661,11 @@ Other:
 - Fixed typos in spacemacs/search-dir* bindings (thanks to yuhan0)
 - Added =ivy-ret-visits-directory= variable (thanks to bb2020)
 **** Imenu-list
+- Changed ~SPC b i~ to ~SPC b t~ for =imenu= tree view
+  (thansk to Sylvain Benner)
 - Fixed key bindings (thanks to bet4it):
   - ~r~ inside imenu-list buffer to refresh
-  - ~SPC b i~ calls =imenu-list-smart-toggle= rather than
+  - ~SPC b t~ calls =imenu-list-smart-toggle= rather than
     =imenu-list-minor-mode=
 **** Jabber
 - Added missing optional argument for the =jabber-alert-echo= function to fix
