@@ -1017,6 +1017,8 @@ Other:
     (thanks to Alexander Miller)
   - Fixed copied dir/path not shown in minibuffer when =select-enable-clipboard=
     is =nil= (thanks to duianto)
+  - Used return value from advised function in =spacemacs//yank-indent-region=
+    (thanks to Brandon T. Willard)
 *** Layer changes and fixes
 **** Agda
 - Fixes
