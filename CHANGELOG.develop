@@ -968,7 +968,7 @@ Other:
     (thanks to Richard Kim)
   - Fixed =:noh= ex-command to correctly clear search highlights initiated with
     both ~/~ and ~C-s~ (thanks to duianto)
-  - Force =powerline-scale= to be 1 when =utf-8= separator is used
+  - Force =separator-scale= to be 1 when the =utf-8= separator is used
     (thanks to Sylvain Benner)
   - Fixed =find-ert-test-buffer= that moves point (thanks to Alexander-Miller)
   - Disabled popwin-mode at startup (thanks to bmag)
