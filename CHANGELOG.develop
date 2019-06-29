@@ -1791,6 +1791,7 @@ Other:
 - Added package =helm-lsp=
   - ~SPC m g s~ to find symbol in current project
   - ~SPC m g S~ to find symbol in all projects
+- Deleted =fix-lsp-company-prefix= since =company-lsp= is doing that handling.
 **** Debug Adapter Protocol (DAP)
 - Key bindings
   - ~SPC m d d e~ to edit debug template
