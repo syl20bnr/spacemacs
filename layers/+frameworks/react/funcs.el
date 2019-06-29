@@ -41,8 +41,7 @@
           :variables company-minimum-prefix-length 2
           :append-hooks nil
           :call-hooks t)
-        (company-mode)
-        (fix-lsp-company-prefix))
+        (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 
