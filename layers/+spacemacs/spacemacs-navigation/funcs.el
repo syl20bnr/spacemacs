@@ -54,7 +54,7 @@ If the universal prefix argument is used then kill also the window."
         ;; isearch-string is last searched item.  Next time
         ;; "n" is hit we will use this.
         (let* ((symbol (evil-find-thing forward 'symbol))
-               (regexp (concat "\\<" symbol "\\>")))
+               (regexp (concat "\\_<" (regexp-quote symbol) "\\_>")))
           (setq isearch-string regexp
                 isearch-regexp regexp
                 evil-ex-search-pattern (evil-ex-make-search-pattern regexp)))
