@@ -313,14 +313,11 @@ buffer."
   "Switch back and forth between current and last buffer in the
 current window."
   (interactive)
-  (let ((current-buffer (window-buffer window)))
-    ;; if no window is found in the windows history, `switch-to-buffer' will
-    ;; default to calling `other-buffer'.
-    (switch-to-buffer
-     (cl-find-if (lambda (buffer)
-                   (not (eq buffer current-buffer)))
-                 (mapcar #'car (window-prev-buffers window)))
-     nil t)))
+  (destructuring-bind (buf start pos)
+      (or (cl-find (window-buffer window) (window-prev-buffers)
+                   :key #'car :test-not #'eq)
+          (list (other-buffer) nil nil ))
+    (set-window-buffer-start-and-point window buf start pos)))
 
 (defun spacemacs/alternate-window ()
   "Switch back and forth between current and last window in the
