@@ -13,6 +13,7 @@
   - [[#dash-os-x][Dash (OS X)]]
     - [[#sqlite3][Sqlite3]]
   - [[#zeal-linux--windows][Zeal (Linux & Windows)]]
+- [[#configuration][Configuration]]
 - [[#word-at-point][Word at point]]
 - [[#key-bindings][Key bindings]]
 
@@ -44,6 +45,20 @@ You have to install [[https://zealdocs.org/][zeal]] on your machine.
 
 Then install the docsets you use more frequently
 
+* Configuration
+By default, the dash layer will initialize all installed docsets to be active in
+all buffers. To disable this and opt-in to specific docsets for specific buffers, set:
+#+BEGIN_SRC emacs-lisp
+(dash :variables
+      dash-autoload-common-docsets nil)
+#+END_SRC
+
+To change the location of the installed docsets, set:
+#+BEGIN_SRC elisp
+(dash :variables
+      helm-dash-docset-newpath "~/.docsets")
+#+END_SRC
+
 * Word at point
 =dash-at-point= and =zeal-at-point= will search for the word at point in the respective offline api browser.
 The result will be displayed in the offline browser's UI.
@@ -51,13 +66,6 @@ The result will be displayed in the offline browser's UI.
 However having to leave emacs to have a look at the search results may be a bit awkward.
 To help with this it is also possible to integrate the search results directly in =helm= or =ivy=
 and show the details in a browser. To do so [[https://github.com/areina/helm-dash][helm-dash]] can be used for =helm= and [[https://github.com/nathankot/counsel-dash][counsel-dash]] for =ivy=.
-
-To get them working it is necessary to set =helm-dash-docset-newpath= to the location of your docsets.
-
-#+BEGIN_SRC elisp
-  (dash :variables
-        helm-dash-docset-newpath "~/.local/share/Zeal/Zeal/docsets")
-#+END_SRC
 
 For more details please check [[https://github.com/stanaka/dash-at-point#Usage][dash-at-point-usage]] or [[https://github.com/jinzhu/zeal-at-point][zeal-at-point]].
 
