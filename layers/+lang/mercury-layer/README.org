@@ -1,0 +1,37 @@
+#+TITLE: mercury layer
+
+# The maximum height of the logo should be 200 pixels.
+[[file:img/mercury.png]]
+
+# TOC links should be GitHub style anchors.
+* Table of Contents                                        :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support for the Mercury language.
+
+** Features:
+  - Indentation.
+  - Syntax highlighting.
+  - Compiling / compiling and running.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =mercury= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding | Description                          |
+|-------------+--------------------------------------|
+| ~SPC c c~   | Compile current buffer file.         |
+| ~SPC c r~   | Compile and run current buffer file. |
+
+# Use GitHub URLs if you wish to link a Spacemacs documentation file or its heading.
+# Examples:
+# [[https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org#sessions]]
+# [[https://github.com/syl20bnr/spacemacs/blob/master/layers/%2Bfun/emoji/README.org][Link to Emoji layer README.org]]
+# If space-doc-mode is enabled, Spacemacs will open a local copy of the linked file.
