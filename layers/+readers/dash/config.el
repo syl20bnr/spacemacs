@@ -9,5 +9,8 @@
 ;;
 ;;; License: GPLv3
 
+(defvar dash-autoload-common-docsets t
+  "If non nil, autoload all installed docsets as common docsets")
+
 (defvar helm-dash-docset-newpath "~/.docsets"
   "Path containing dash docsets.")

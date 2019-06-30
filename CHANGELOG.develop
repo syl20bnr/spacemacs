@@ -1265,6 +1265,7 @@ Other:
 **** Dash
 - Improvements:
   - Use default docsets path in =helm-dash= on macos (thanks to ColorFuzzy)
+  - Added config option =dash-autoload-common-docsets= to toggle init behavior
 - Fixes:
   - Fix startup error when using counsel-dash with custom path in
     helm-dash-docset-newpath (thanks to madand)
