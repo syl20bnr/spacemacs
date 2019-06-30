@@ -1,0 +1,29 @@
+#+TITLE: mercury layer
+
+[[file:img/mercury.png]]
+
+* Table of Contents                                       :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support for the Mercury language.
+
+** Features:
+  - Indentation.
+  - Syntax highlighting.
+  - Compiling and running.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =mercury= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding | Description                          |
+|-------------+--------------------------------------|
+| ~SPC c c~   | Compile current buffer file.         |
+| ~SPC c r~   | Compile and run current buffer file. |
