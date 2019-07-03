@@ -140,6 +140,7 @@
       - [[#php][Php]]
       - [[#python][Python]]
       - [[#racket][Racket]]
+      - [[#reasonml][Reasonml]]
       - [[#ruby][Ruby]]
       - [[#rust][Rust]]
       - [[#scala][Scala]]
@@ -156,8 +157,10 @@
       - [[#haskell][Haskell]]
       - [[#idris][Idris]]
   - [[#utilities][Utilities]]
+    - [[#dotnet][Dotnet]]
     - [[#ipython-notebook][Ipython notebook]]
     - [[#protocol-buffers][Protocol buffers]]
+    - [[#sailfish-os-developer][Sailfish os developer]]
 - [[#readers][Readers]]
   - [[#dash][Dash]]
   - [[#deft][Deft]]
@@ -165,10 +168,6 @@
   - [[#epub][Epub]]
   - [[#pdf][Pdf]]
   - [[#speed-reading][Speed reading]]
-- [[#readmeorg-files-that-need-proper-tags][README.org files that need proper tags]]
-  - [[#dotnet][Dotnet]]
-  - [[#reasonml][Reasonml]]
-  - [[#sailfish-os-developer][Sailfish os developer]]
 - [[#source-control][Source control]]
   - [[#git][Git]]
   - [[#github][Github]]
@@ -1895,6 +1894,18 @@ Features:
 - Code navigation with =gtags=
 - Structurally safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
+**** Reasonml
+[[file:+lang/reasonml/README.org][+lang/reasonml/README.org]]
+
+Spacemacs layer for ReasonML, based around [[https://github.com/reasonml-editor/reason-mode][reason-mode]].
+
+Features:
+- Syntax highlighting / indentation
+- Autocomplete (via =merlin=)
+- Lint / error display (via =merlin=, and =flycheck= if =syntax-checking= layer is enabled)
+- REPL via =rtop=
+- Auto-formatting (via =refmt=)
+
 **** Ruby
 [[file:+lang/ruby/README.org][+lang/ruby/README.org]]
 
@@ -2069,6 +2080,14 @@ Features:
 - Integration of the =Idris= build system
 
 ** Utilities
+*** Dotnet
+[[file:+tools/dotnet/README.org][+tools/dotnet/README.org]]
+
+This layer adds support for the dotnet cli package.
+
+Features:
+- dotnet operations
+
 *** Ipython notebook
 [[file:+lang/ipython-notebook/README.org][+lang/ipython-notebook/README.org]]
 
@@ -2091,6 +2110,14 @@ Features:
 - Syntax checking using Flycheck (=protoc= compiler must be available)
 - Correct indentation and commenting
 - Quickly browse file contents using imenu (default key binding ~SPC j i~).
+
+*** Sailfish os developer
+[[file:+tools/sailfish-developer/README.org][+tools/sailfish-developer/README.org]]
+
+This layer adds support of sailfish-os development packages.
+
+Features:
+- [[https://github.com/vityafx/sailfish-scratchbox.el][sailfish-scratchbox]]: handy sb2 interaction.
 
 * Readers
 ** Dash
@@ -2167,35 +2194,6 @@ A speed reading mode for Emacs.
 
 Features:
 - Support for =speed-reading= of arbitrary texts
-
-* README.org files that need proper tags
-** Dotnet
-[[file:+tools/dotnet/README.org][+tools/dotnet/README.org]]
-
-This layer adds support for the dotnet cli package.
-
-Features:
-- dotnet operations
-
-** Reasonml
-[[file:+lang/reasonml/README.org][+lang/reasonml/README.org]]
-
-Spacemacs layer for ReasonML, based around [[https://github.com/reasonml-editor/reason-mode][reason-mode]].
-
-Features:
-- Syntax highlighting / indentation
-- Autocomplete (via =merlin=)
-- Lint / error display (via =merlin=, and =flycheck= if =syntax-checking= layer is enabled)
-- REPL via =rtop=
-- Auto-formatting (via =refmt=)
-
-** Sailfish os developer
-[[file:+tools/sailfish-developer/README.org][+tools/sailfish-developer/README.org]]
-
-This layer adds support of sailfish-os development packages.
-
-Features:
-- [[https://github.com/vityafx/sailfish-scratchbox.el][sailfish-scratchbox]]: handy sb2 interaction.
 
 * Source control
 ** Git
