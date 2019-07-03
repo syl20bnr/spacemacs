@@ -647,6 +647,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
         (setq org-pomodoro-audio-player "/usr/bin/afplay"))
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "Cp" 'org-pomodoro)
+      (spacemacs/set-leader-keys-for-major-mode 'org-journal-mode
+        "Cp" 'org-pomodoro)
       (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
         "Cp" 'org-pomodoro))))
 

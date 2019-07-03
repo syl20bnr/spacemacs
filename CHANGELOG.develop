@@ -2029,6 +2029,8 @@ Other:
     - ~SPC a o J s g~ Get subtasks
     - ~SPC a o J c u~ Update the comment at point or add a new comment
     - ~SPC a o J t j~ Convert the TODO item at point to a Jira ticket
+  - Added ~SPC m C p~ =org-pomodoro= in =org-journal-mode=
+    (thanks to Mariusz Klochowicz)
 - Key binding changes for archiving (thanks to Ag Ibragimov):
   - Added ~SPC m s a~ to toggle archive tag for subtree
   - Added ~SPC m s A~ to archive subtree (previously ~SPC m s a~)
