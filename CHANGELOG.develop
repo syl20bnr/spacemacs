@@ -1184,6 +1184,7 @@ Other:
     (thanks to John Stevenson)
   - ~SPC m e i~ interrupt the current evaluation (stop long running process)
     (thanks to John Stevenson)
+  - ~SPC m e v~ to evaluate s-expression at point (=cider-eval-sexp-at-point=)
 - Fixes:
   - Remove `cider.nrepl/cider-middleware` in lein quick start setting
   - Fixed =cider-inspector-prev-page= binding, also add ~p~ as another key
