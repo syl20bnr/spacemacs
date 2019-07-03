@@ -48,15 +48,17 @@ Then install the docsets you use more frequently
 * Configuration
 By default, the dash layer will initialize all installed docsets to be active in
 all buffers. To disable this and opt-in to specific docsets for specific buffers, set:
+
 #+BEGIN_SRC emacs-lisp
-(dash :variables
-      dash-autoload-common-docsets nil)
+  (dash :variables
+        dash-autoload-common-docsets nil)
 #+END_SRC
 
 To change the location of the installed docsets, set:
+
 #+BEGIN_SRC elisp
-(dash :variables
-      helm-dash-docset-newpath "~/.docsets")
+  (dash :variables
+        helm-dash-docset-newpath "~/.docsets")
 #+END_SRC
 
 * Word at point
