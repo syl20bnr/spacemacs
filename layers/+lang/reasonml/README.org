@@ -1,6 +1,6 @@
 #+TITLE: ReasonML layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: general|layer|multi-paradigm|programming
 
 [[https://reasonml.github.io/img/reason.svg]]
 
