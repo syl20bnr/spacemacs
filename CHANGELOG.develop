@@ -2196,6 +2196,7 @@ Other:
 - Made python-send-shell-* functions faster (thanks to Trapez Breen)
 - Added support for 'black' formatter (thanks to Mike Macpherson)
 - Enabled =eldoc= for =anaconda-mode= (thanks to Vikash Balasubramanian)
+- Various fixes for =lsp-python-ms= setup (thanks to Trapez Breen)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 **** Ranger
