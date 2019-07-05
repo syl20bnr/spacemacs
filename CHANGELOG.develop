@@ -2195,6 +2195,7 @@ Other:
 - Added documentation on installing importmagic and epc (thanks to Trapez Breen)
 - Made python-send-shell-* functions faster (thanks to Trapez Breen)
 - Added support for 'black' formatter (thanks to Mike Macpherson)
+- Enabled =eldoc= for =anaconda-mode= (thanks to Vikash Balasubramanian)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 **** Ranger
