@@ -34,7 +34,7 @@ The return value is nil if no font was found, truthy otherwise."
                             (spacemacs/mplist-remove props :powerline-scale)
                             :powerline-offset))
                (fontspec (apply 'font-spec :name font font-props)))
-          (spacemacs-buffer/message "Setting font \"%s\"..." font)
+          (message "Using font: [%s]" fontspec)
           (set-frame-font fontspec nil t)
           (push `(font . ,(frame-parameter nil 'font)) default-frame-alist)
           ;; fallback font for unicode characters used in spacemacs
