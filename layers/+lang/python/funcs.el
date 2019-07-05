@@ -26,7 +26,7 @@
   "Conditionally setup eldoc based on backend."
   (pcase python-backend
     ;; lsp setup eldoc on its own
-    (spacemacs//python-setup-anaconda-eldoc)))
+    (`anaconda (spacemacs//python-setup-anaconda-eldoc))))
 
 ;; anaconda
 
