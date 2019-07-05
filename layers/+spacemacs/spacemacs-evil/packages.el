@@ -283,6 +283,7 @@
         :title "Evil Numbers Transient State"
         :doc
         "\n[_+_/_=_] increase number  [_-_] decrease  [0..9] prefix  [_q_] quit"
+        :foreign-keys run
         :bindings
         ("+" evil-numbers/inc-at-pt)
         ("=" evil-numbers/inc-at-pt)

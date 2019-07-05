@@ -897,6 +897,7 @@ Other:
     - ~G~ go to last candidate
     (thanks to duianto)
   - Added support for visual line numbers (thanks to jcaw)
+  - Updated evil-numbers transient state to run foreign keys (thanks to Jake Romer)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)
