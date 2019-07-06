@@ -31,11 +31,14 @@
         "aDF" 'docker-pull
         "aDk" 'docker-rm
         "aDi" 'docker-images
+        "aDm" 'docker-machines
+        "aDn" 'docker-networks
         "aDo" 'docker-stop
         "aDP" 'docker-push
         "aDp" 'docker-pause
         "aDr" 'docker-restart
-        "aDs" 'docker-start)))
+        "aDs" 'docker-start
+        "aDv" 'docker-volumes)))
   (with-eval-after-load 'docker-containers
     (evilified-state-evilify-map docker-containers-mode-map
       :mode docker-containers-mode))

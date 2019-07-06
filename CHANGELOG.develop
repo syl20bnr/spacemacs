@@ -1291,6 +1291,9 @@ Other:
   - Added ~SPC m c B~ to build image without cache (thanks to Maximilian Wolff)
   Henar)
   - Added ~SPC a D C~ for =docker-compose= (thanks to Daniel Caixinha)
+  - Added ~SPC a D n~ for =docker-networks= (thanks to Ramz)
+  - Added ~SPC a D v~ for =docker-volumes= (thanks to Ramz)
+  - Added ~SPC a D m~ for =docker-machines= (thanks to Ramz)
 - Fix: broken package declaration for dockerfile-mode
   (thanks to Maximilian Wolff)
 **** Dotnet
