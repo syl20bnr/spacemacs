@@ -1680,6 +1680,8 @@ Other:
 - Added missing optional argument for the =jabber-alert-echo= function to fix
   =wrong-number-of-arguments= error when jabber receives a new notification
   (thanks to Aleksei Fedotov)
+**** Jsonnet
+- Fixed flycheck support in jsonnet files (thanks to Vikash Balasubramanian)
 **** Java
 - Added support for multiple backends. Supported backends are: =meghanada=,
   =eclim= and =ensime=. The default backend is =meghanada=.
