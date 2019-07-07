@@ -2598,6 +2598,10 @@ Other:
   (thanks to Voleking)
 **** Xclipboard
 - Added Requirements documentation (thanks to Chris Glass)
+- Added =cliphist= with the following bindings: (thanks to Hong Xu)
+  - ~SPC x P~ paste item from history (cliphist must be enabled)
+  - ~SPC x R~ rectangly paste item from history (cliphist must be enabled)
+  - ~SPC x s~ select item from history (cliphist must be enabled)
 **** Ycmd
 - Search for =compile_commands.json= in build sub-directory
   (thanks to Amos Bird and Eivind Fonn)
