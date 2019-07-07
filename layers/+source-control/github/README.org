@@ -10,10 +10,7 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#git-configuration][Git configuration]]
-  - [[#hub-configuration][Hub configuration]]
-  - [[#magithub-configuration][Magithub configuration]]
 - [[#key-bindings][Key bindings]]
-  - [[#magithub][magithub]]
   - [[#forge][forge]]
   - [[#gistel][gist.el]]
   - [[#clone-repositories][Clone repositories]]
@@ -22,7 +19,6 @@
 This layers adds support for [[http://github.com][GitHub]].
 
 ** Features:
-- [[https://github.com/vermiculus/magithub][magithub]]: Magit-integrated interface to [[https://hub.github.com/][hub]] command line
 - [[https://github.com/magit/forge][forge]]: integration with various forges, such as GitHub and GitLab.
 - [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post GitHub gists.
 - [[https://github.com/sshaw/git-link][git-link]]: quickly generate URLs for commits or files.
@@ -45,49 +41,7 @@ You will also need to [[https://help.github.com/articles/generating-a-new-ssh-ke
   git config --global github.oauth-token <token>
 #+END_SRC
 
-** Hub configuration
-For now, =Magithub= requires the =hub= utility to work -- before trying to use
-Magithub, follow the installation instructions at hub.github.com. To force hub
-to authenticate, you can use hub browse in a terminal (inside a GitHub repo).
-
-** Magithub configuration
-Spacemacs configures =Magithub= to be in offline mode by default and disables
-displaying the GitHub project status, issues, and pull requests because loading
-project data for repositories with many pull requests or issues can be
-exorbitantly slow (see [[https://github.com/syl20bnr/spacemacs/issues/11176][issue #11176]]). To toggle online mode and the project
-status, issues, and pull requests sections for the current repository, open in
-the =magit status= buffer (~SPC g s~) and then open the Magithub settings popup
-(~@ C~). To enable online mode and the project status, pull requests, and
-issues sections by default, use the following shell commands:
-
-#+BEGIN_SRC sh
-  git config --global --bool magithub.online true
-  git config --global --bool magithub.status.includeStatusHeader true
-  git config --global --bool magithub.status.includePullRequestsSection true
-  git config --global --bool magithub.status.includeIssuesSection true
-#+END_SRC
-
-Alternatively, use the following Emacs forms:
-
-#+BEGIN_SRC emacs-lisp
-  (magit-set "true" "--global" "magithub.online")
-  (magit-set "true" "--global" "magithub.status.includeStatusHeader")
-  (magit-set "true" "--global" "magithub.status.includePullRequestsSection")
-  (magit-set "true" "--global" "magithub.status.includeIssuesSection")
-#+END_SRC
-
 * Key bindings
-** magithub
-
-| Key binding | Description                                      |
-|-------------+--------------------------------------------------|
-| ~@ C~       | open the Magithub settings popup                 |
-| ~@ H~       | opens the current repository in the browser      |
-| ~@ c~       | pushes a brand-new local repository up to GitHub |
-| ~@ f~       | create a fork of an existing repository          |
-| ~@ p~       | submit pull request upstream                     |
-| ~@ i~       | create an issue                                  |
-
 ** forge
 In a =magit-status= buffer (~SPC g s~):
 
