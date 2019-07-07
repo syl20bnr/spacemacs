@@ -357,7 +357,7 @@ You can also do this using buffer name regular expressions. E.g. for magit,
 which has a number of different major modes, you can catch them all with
 
 #+BEGIN_SRC emacs-lisp
-  (push '("*magit" . emacs) evil-buffer-regexps)
+  (push '("magit*" . emacs) evil-buffer-regexps)
 #+END_SRC
 
 This should make all original magit bindings work in the major modes in
