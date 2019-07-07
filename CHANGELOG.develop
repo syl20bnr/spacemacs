@@ -1428,11 +1428,8 @@ Other:
 **** GitHub
 - Packages:
   - Added new packages =forge= (thanks to Miciah Dashiel Butler Masters)
-  - Added package =magithub=, it is enabled by default in offline mode.
   - Remove package =github-browse-file= which has been replaced by
    =browse-at-remote= in =version-control= layer
-  - Remove package =magit-gh-pulls= as it was deprecated in favor of =magithub=
-    and =forge= (thanks to Robby O'Connor)
 - Key bindings:
   - Added ~g r~ evilified binding to gist-list-mode
     (thanks to Jean-Sebastien A. Beaudry)
@@ -1444,8 +1441,13 @@ Other:
     - ~SPC m k~ or ~SPC m k~ cancel post
 - Replace =evilified-state-evilify= by =evilified-state-evilify-map=
   (thanks to Sylvain Benner)
-- Made magithub offline by default (thanks to Miciah Masters)
 - Disabled status, issues, and PRs by default (thanks to Miciah Masters)
+- Removed mentions of the removed package =magithub= (thanks to Hong Xu)
+  Obsolete:
+  - Added package =magithub=, it is enabled by default in offline mode.
+  - Remove package =magit-gh-pulls= as it was deprecated in favor of =magithub=
+    and =forge= (thanks to Robby O'Connor)
+  - Made magithub offline by default (thanks to Miciah Masters)
 **** Git
 - Install magit-svn by default and activate with git-enable-magit-svn-plugin
 - Key bindings:
