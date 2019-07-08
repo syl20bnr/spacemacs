@@ -1878,6 +1878,7 @@ Other:
     - ~SPC m t d~ convert region to table
 - Bound major mode leader key and ~M-RET~ to =markdown-insert-list-item= for
   terminal users (thanks to AmaiKinono)
+- Made =*lsp-help*= buffer shown in a popup window using popwin
 **** Major modes
 - Added SPARQL-mode (thanks to Dietrich Daroch)
 - Move =extra-langs= to =major-modes= (thanks to Eivind Fonn)
