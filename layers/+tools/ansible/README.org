@@ -35,7 +35,7 @@ password to use somewhere in your =dotspacemacs/user-config= function.
 For instance:
 
 #+BEGIN_SRC emacs-lisp
-  (setq ansible::vault-password-file "path/to/pwd/file")
+  (setq ansible-vault-password-file "path/to/pwd/file")
 #+END_SRC
 
 The default value is the ansible-vault default value: =~/.vault_pass.txt=.
@@ -49,7 +49,7 @@ password file for a given environment. Example:
   ;;; Directory Local Variables
   ;;; For more information see (info "(emacs) Directory Variables")
 
-  ((yaml-mode . ((ansible::vault-password-file . "path/to/vault_file"))))
+  ((yaml-mode . ((ansible-vault-password-file . "path/to/vault_file"))))
 #+END_SRC
 
 *** Automatic encryption and decryption
