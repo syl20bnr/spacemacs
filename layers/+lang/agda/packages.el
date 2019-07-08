@@ -31,6 +31,16 @@
       (setq agda-mode-path (let ((coding-system-for-read 'utf-8))
                              (shell-command-to-string "agda-mode locate"))))
 
+    (progn
+      (setq agda-version-out (let ((coding-system-for-read 'utf-8))
+                               (shell-command-to-string "agda --version")))
+      (string-match "\\([0-9]+\\.\\)*[0-9]+" agda-version-out)
+      (setq agda-version (match-string 0 agda-version-out)))
+
+    (setq agda2-auto (if (string< agda-version "2.6.0")
+                         'agda2-auto
+                       'agda2-auto-maybe-all))
+
     (use-package agda2-mode
       :defer t
       :init (when agda-mode-path (load-file agda-mode-path))
@@ -65,7 +75,7 @@
           ","   'agda2-goal-and-context
           "="   'agda2-show-constraints
           "SPC" 'agda2-give
-          "a"   'agda2-auto
+          "a"   agda2-auto
           "c"   'agda2-make-case
           "d"   'agda2-infer-type-maybe-toplevel
           "e"   'agda2-show-context

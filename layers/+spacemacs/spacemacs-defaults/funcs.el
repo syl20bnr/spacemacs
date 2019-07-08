@@ -1327,19 +1327,21 @@ Compare them on count first,and in case of tie sort them alphabetically."
   "If current mode is not one of spacemacs-indent-sensitive-modes
 indent yanked text (with universal arg don't indent)."
   (evil-start-undo-step)
-  (let ((prefix (car args))
-        (enable (and (not (member major-mode spacemacs-indent-sensitive-modes))
-                     (or (derived-mode-p 'prog-mode)
-                         (member major-mode spacemacs-yank-indent-modes)))))
-    (when (and enable (equal '(4) prefix))
-      (setq args (cdr args)))
-    (apply yank-func args)
-    (when (and enable (not (equal '(4) prefix)))
-      (let ((transient-mark-mode nil)
-            (save-undo buffer-undo-list))
-        (spacemacs/yank-advised-indent-function (region-beginning)
-                                                (region-end)))))
-  (evil-end-undo-step))
+  (prog1
+      (let ((prefix (car args))
+            (enable (and (not (member major-mode spacemacs-indent-sensitive-modes))
+                         (or (derived-mode-p 'prog-mode)
+                             (member major-mode spacemacs-yank-indent-modes)))))
+        (when (and enable (equal '(4) prefix))
+          (setq args (cdr args)))
+        (prog1
+            (apply yank-func args)
+          (when (and enable (not (equal '(4) prefix)))
+            (let ((transient-mark-mode nil)
+                  (save-undo buffer-undo-list))
+              (spacemacs/yank-advised-indent-function (region-beginning)
+                                                      (region-end))))))
+    (evil-end-undo-step)))
 
 (dolist (func '(yank yank-pop evil-paste-before evil-paste-after))
   (advice-add func :around #'spacemacs//yank-indent-region))
@@ -1441,6 +1443,16 @@ Decision is based on `dotspacemacs-line-numbers'."
       (and (listp dotspacemacs-line-numbers)
            (car (spacemacs/mplist-get-values dotspacemacs-line-numbers :relative)))))
 
+(defun spacemacs/visual-line-numbers-p ()
+  "Return non-nil if line numbers should be visual.
+This is similar to relative line numbers, but wrapped lines are
+treated as multiple lines.
+
+Decision is based on `dotspacemacs-line-numbers'."
+  (or (eq dotspacemacs-line-numbers 'visual)
+      (and (listp dotspacemacs-line-numbers)
+           (car (spacemacs/mplist-get-values dotspacemacs-line-numbers :visual)))))
+
 (defun spacemacs//linum-on (origfunc &rest args)
   "Advice function to improve `linum-on' function."
   (when (spacemacs/enable-line-numbers-p)
@@ -1467,7 +1479,8 @@ Decision is based on `dotspacemacs-line-numbers'."
   (and dotspacemacs-line-numbers
        (not (listp dotspacemacs-line-numbers))
        (or (eq dotspacemacs-line-numbers t)
-           (eq dotspacemacs-line-numbers 'relative))
+           (eq dotspacemacs-line-numbers 'relative)
+           (eq dotspacemacs-line-numbers 'visual))
        (derived-mode-p 'prog-mode 'text-mode)))
 
 (defun spacemacs//linum-curent-buffer-is-not-too-big ()

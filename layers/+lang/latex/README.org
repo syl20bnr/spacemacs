@@ -129,6 +129,8 @@ By default, the underlying latex code is echoed in the echo area.
 | ~SPC m k~     | kill TeX job                               |
 | ~SPC m l~     | recenter output buffer                     |
 | ~SPC m m~     | insert LaTeX macro                         |
+| ~SPC m n~     | goto next error                            |
+| ~SPC m N~     | goto previous error                        |
 | ~SPC m s~     | insert LaTeX section                       |
 | ~SPC m v~     | view output                                |
 | ~SPC m h d~   | TeX documentation, can be very slow        |

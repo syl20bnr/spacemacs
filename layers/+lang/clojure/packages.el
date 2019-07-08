@@ -89,6 +89,7 @@
             "eP" 'cider-pprint-eval-last-sexp
             "er" 'cider-eval-region
             "eu" 'cider-undef
+            "ev" 'cider-eval-sexp-at-point
             "ew" 'cider-eval-last-sexp-and-replace
 
             "="  'cider-format-buffer

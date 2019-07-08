@@ -15,7 +15,7 @@
         flycheck
         ))
 
-(defun javascript/post-init-flycheck ()
+(defun jsonnet/post-init-flycheck ()
   (spacemacs/enable-flycheck 'jsonnet-mode))
 
 (defun jsonnet/init-jsonnet-mode ()

@@ -24,7 +24,7 @@
                                        ("A"   "other applications")
                                        ("b"   "buffers")
                                        ("bc"  "indirect buffers")
-                                       ("bN"  "new empty buffer")
+                                       ("bN"  "new buffer")
                                        ("c"   "compile/comments")
                                        ("C"   "capture/colors")
                                        ("d"   "documentation")
@@ -39,6 +39,7 @@
                                        ("h"   "help")
                                        ("hd"  "help-describe")
                                        ("hP"  "profiler")
+                                       ("hT"  "tutorials")
                                        ("i"   "insertion")
                                        ("j"   "jump/join/split")
                                        ("jj"  "avy timer")
@@ -133,8 +134,6 @@
     'universal-argument-more))
 ;; shell command  -------------------------------------------------------------
 (spacemacs/set-leader-keys "!" 'shell-command)
-;; last change  ---------------------------------------------------------------
-(spacemacs/set-leader-keys "," 'goto-last-change)
 ;; applications ---------------------------------------------------------------
 (spacemacs/set-leader-keys
   "ac"  'calc-dispatch
@@ -144,9 +143,6 @@
 ;; buffers --------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "TAB"   'spacemacs/alternate-buffer
-  "b c n" 'make-indirect-buffer
-  "b c c" 'clone-indirect-buffer
-  "b c w" 'clone-indirect-buffer-other-window-without-purpose
   "bd"    'spacemacs/kill-this-buffer
   "be"    'spacemacs/safe-erase-buffer
   "bh"    'spacemacs/home
@@ -156,6 +152,9 @@
   "bn"    'next-buffer
   "bm"    'spacemacs/switch-to-messages-buffer
   "b N h" 'spacemacs/new-empty-buffer-left
+  "b N C-i" 'make-indirect-buffer
+  "b N i" 'clone-indirect-buffer
+  "b N I" 'clone-indirect-buffer-other-window-without-purpose
   "b N j" 'spacemacs/new-empty-buffer-below
   "b N k" 'spacemacs/new-empty-buffer-above
   "b N l" 'spacemacs/new-empty-buffer-right
@@ -267,6 +266,7 @@
   "FO" 'spacemacs/dired-other-frame
   "Fn" 'make-frame)
 ;; help -----------------------------------------------------------------------
+(defalias 'emacs-tutorial 'help-with-tutorial)
 (spacemacs/set-leader-keys
   "hdb" 'describe-bindings
   "hdc" 'describe-char
@@ -283,7 +283,8 @@
   "hPs" 'profiler-start
   "hPk" 'profiler-stop
   "hPr" 'profiler-report
-  "hPw" 'profiler-report-write-profile)
+  "hPw" 'profiler-report-write-profile
+  "hTe" 'emacs-tutorial)
 ;; insert stuff ---------------------------------------------------------------
 (spacemacs/set-leader-keys
   "iJ" 'spacemacs/insert-line-below-no-indent
@@ -292,9 +293,9 @@
   "ij" 'spacemacs/evil-insert-line-below)
 ;; format ---------------------------------------------------------------------
 (spacemacs/set-leader-keys
-  "jo" 'open-line
-  "jC" 'check-parens
+  "j(" 'check-parens
   "j=" 'spacemacs/indent-region-or-buffer
+  "jo" 'open-line
   "jS" 'spacemacs/split-and-new-line
   "jk" 'spacemacs/evil-goto-next-line-and-indent)
 
@@ -302,6 +303,7 @@
 (spacemacs/set-leader-keys
   "j0" 'spacemacs/push-mark-and-goto-beginning-of-line
   "j$" 'spacemacs/push-mark-and-goto-end-of-line
+  "jc" 'goto-last-change
   "jf" 'find-function
   "jv" 'find-variable)
 
