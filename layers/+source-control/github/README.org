@@ -35,7 +35,7 @@ add =github= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** Git configuration
-You will need to generate a [[https://github.com/settings/tokens][personal access token]] on GitHub. This token should
+You will need to generate a [[https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line][personal access token]] on GitHub. This token should
 have the =gist= and =repo= permissions. Once this token is created, it needs to
 be added to your =~/.gitconfig=
 
