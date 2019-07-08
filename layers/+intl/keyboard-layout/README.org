@@ -271,7 +271,7 @@ difficult to list them all. For example the key bindings change if:
 So the price you have to pay is the absence of a key bindings list.
 
 * Image sources
-- The keyboard-layout layer logo is a modified image from [[https://openclipart.org/detail/202777/keyboard-layout][openclipart.org]], and
+- The keyboard-layout layer logo is a modified image from [[https://web.archive.org/web/20170318110408/https://openclipart.org/detail/202777/keyboard-layout][openclipart.org]], and
   is under the public domain.
 - The Bepo logo and layout images, are from the official [[http://bepo.fr/][bepo]] website. (the
   layout image has been modified).
