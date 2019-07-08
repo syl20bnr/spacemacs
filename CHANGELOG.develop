@@ -1045,6 +1045,7 @@ Other:
     (thanks to Codruț Constantin Gușoi)
   - Fixed =error void function ansible: auto-decrypt-encrypt=
     (thanks to Sylvain Benner)
+  - Matched upstream Emacs coding convention names (thanks to Ayush Goyal)
 **** Asm
 - Improvements:
   - Added support for =company= package declaration (thanks to Kalle Lindqvist)
