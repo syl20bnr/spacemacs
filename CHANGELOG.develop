@@ -483,6 +483,8 @@ Other:
   - Calling ~spacemacs/recompile-elpa~ with an argument nukes all *.elc files (thanks to Ag Ibragimov)
   - Allow customizing default major mode for new empty buffers in ~SPC b N n~,
     see =dotspacemacs-new-empty-buffer-major-mode= (thanks to Juha Jeronen)
+  - Changed =dotspacemacs-default-font= =:size= from =13= (pixel size) to =10.0=
+    (point size) (thanks to duianto)
 - Fixed:
   - Avoid non-idempotent use of push in init code (thanks to Miciah Masters)
   - Moved Spacemacs startup progress bar to =core-progress-bar.el=, removed
