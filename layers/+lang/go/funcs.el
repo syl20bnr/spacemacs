@@ -40,7 +40,7 @@
       (progn
         ;; without setting lsp-prefer-flymake to :none
         ;; golangci-lint errors won't be reported
-        (when go-use-golangci-lint
+        (when (eq go-linter 'golangci-lint)
           (message "[go] Setting lsp-prefer-flymake :none to enable golangci-lint support.")
           (setq-local lsp-prefer-flymake :none))
         (lsp))
@@ -58,25 +58,20 @@
         (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
-(defun spacemacs//go-enable-gometalinter ()
-   "Enable `flycheck-gometalinter' and disable overlapping `flycheck' linters."
-   (setq flycheck-disabled-checkers '(go-gofmt
-                                      go-golint
-                                      go-vet
-                                      go-build
-                                      go-test
-                                      go-errcheck))
-   (flycheck-gometalinter-setup))
-
-(defun spacemacs//go-enable-golangci-lint ()
-  "Enable `flycheck-golangci-lint' and disable overlapping `flycheck' linters."
-  (setq flycheck-disabled-checkers '(go-gofmt
-                                     go-golint
-                                     go-vet
-                                     go-build
-                                     go-test
-                                     go-errcheck))
-  (flycheck-golangci-lint-setup))
+(defun spacemacs//go-enable-flycheck-extra ()
+  "Enable enhanced linter and disable overlapping `flycheck' linters."
+  (when go-linter
+    (setq flycheck-disabled-checkers '(go-gofmt
+                                       go-golint
+                                       go-vet
+                                       go-build
+                                       go-test
+                                       go-errcheck))
+    (pcase go-linter
+      ('gometalinter  (flycheck-gometalinter-setup)
+                      (message "go-linter: using gometalinter"))
+      ('golangci-lint (flycheck-golangci-lint-setup)
+                      (message "go-linter: using golangci-lint")))))
 
 (defun spacemacs/go-run-tests (args)
   (interactive)

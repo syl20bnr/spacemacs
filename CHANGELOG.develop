@@ -1517,6 +1517,8 @@ Other:
 - Added toggle control for verbose go test output (thanks to Enze Chi)
 - Set lsp-prefer-flymake to :none when Go layer is using LSP
   (thanks to Tim Heckman)
+- Refactored two variables =go-use-gometalinter= and =go-use-golangci-lint= to
+  one =go-linter= (thanks to Robert Zaremba)
 **** Graphviz
 - Use graphviz package from melpa (thanks to Matthew Boston)
 **** Groovy
