@@ -15,10 +15,10 @@
         (company-go :requires company)
         counsel-gtags
         flycheck
-        (flycheck-gometalinter :toggle (and go-use-gometalinter
+        (flycheck-gometalinter :toggle (and (eq go-linter 'gometalinter)
                                             (configuration-layer/package-used-p
                                              'flycheck)))
-        (flycheck-golangci-lint :toggle (and go-use-golangci-lint
+        (flycheck-golangci-lint :toggle (and (eq go-linter 'golangci-lint)
                                              (configuration-layer/package-used-p
                                               'flycheck)))
         ggtags
@@ -54,12 +54,12 @@
 (defun go/init-flycheck-gometalinter ()
   (use-package flycheck-gometalinter
     :defer t
-    :init (add-hook 'go-mode-hook 'spacemacs//go-enable-gometalinter t)))
+    :init (add-hook 'go-mode-hook 'spacemacs//go-enable-flycheck-extra t)))
 
 (defun go/init-flycheck-golangci-lint ()
   (use-package flycheck-golangci-lint
     :defer t
-    :init (add-hook 'go-mode-hook 'spacemacs//go-enable-golangci-lint t)))
+    :init (add-hook 'go-mode-hook 'spacemacs//go-enable-flycheck-extra t)))
 
 (defun go/post-init-ggtags ()
   (add-hook 'go-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
