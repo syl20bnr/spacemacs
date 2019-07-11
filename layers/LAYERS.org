@@ -2219,7 +2219,6 @@ New to Magit? Checkout the [[https://magit.vc/about/][official intro]].
 This layers adds support for [[http://github.com][GitHub]].
 
 Features:
-- [[https://github.com/vermiculus/magithub][magithub]]: Magit-integrated interface to [[https://hub.github.com/][hub]] command line
 - [[https://github.com/magit/forge][forge]]: integration with various forges, such as GitHub and GitLab.
 - [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post GitHub gists.
 - [[https://github.com/sshaw/git-link][git-link]]: quickly generate URLs for commits or files.
@@ -2815,6 +2814,7 @@ Features:
 Features:
 - adds copy support to the X-clipboard from the terminal.
 - adds paste support to the X-clipboard from the terminal.
+- [[https://github.com/redguardtoo/cliphist][cliphist]] package: integration with clipboard managers on Linux and Mac.
 
 ** Ycmd
 [[file:+tools/ycmd/README.org][+tools/ycmd/README.org]]
