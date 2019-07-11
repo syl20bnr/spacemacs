@@ -107,12 +107,13 @@ auto-indent by setting the variable =sql-auto-indent= to =nil=.
 
 ** Inferior Process Interactions (SQLi)
 
-| Key binding | Description                 |
-|-------------+-----------------------------|
-| ~SPC m b b~ | show the SQLi buffer name   |
-| ~SPC m b s~ | set the SQLi buffer         |
-| ~SPC m l a~ | List all objects            |
-| ~SPC m l t~ | list all objects in a table |
+| Key binding | Description                                          |
+|-------------+------------------------------------------------------|
+| ~SPC m b b~ | show the SQLi buffer name                            |
+| ~SPC m b c~ | connect to a SQLi buffer from your saved buffer list |
+| ~SPC m b s~ | set the SQLi buffer                                  |
+| ~SPC m l a~ | List all objects                                     |
+| ~SPC m l t~ | list all objects in a table                          |
 
 *** Send SQL queries to SQLi:
 

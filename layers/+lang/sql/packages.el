@@ -138,6 +138,7 @@
 
         ;; sqli buffer
         "bb" 'sql-show-sqli-buffer
+        "bc" 'sql-connect
         "bs" 'sql-set-sqli-buffer
 
         ;; dialects
