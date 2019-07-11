@@ -31,11 +31,12 @@ and [[https://github.com/TermiT/Flycut][Flycut]] installed on MacOS.
 
 * Usage
 ** Clipboard Manager Integration
-    Clipboard manager integration can be enabled by setting =xclipboard-enable-cliphist= to =t=.
-    #+BEGIN_SRC emacs-lisp
-      dotspacemacs-configuration-layers '(
-        (xclipboard :variables xclipboard-enable-cliphist t))
-    #+END_SRC
+Clipboard manager integration can be enabled by setting =xclipboard-enable-cliphist= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  dotspacemacs-configuration-layers '(
+    (xclipboard :variables xclipboard-enable-cliphist t))
+#+END_SRC
 
 * Key bindings
 
