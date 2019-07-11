@@ -101,6 +101,7 @@
         ;; sqli buffer
         "bb" 'sql-show-sqli-buffer
         "bs" 'sql-set-sqli-buffer
+        "bc" 'sql-connect
 
         ;; dialects
         "hk" 'spacemacs/sql-highlight
