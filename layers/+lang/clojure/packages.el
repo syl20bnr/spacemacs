@@ -98,6 +98,7 @@
 
             "gb" 'cider-pop-back
             "gc" 'cider-classpath
+            "gg" 'spacemacs/clj-find-var
             "ge" 'cider-jump-to-compilation-error
             "gn" 'cider-find-ns
             "gr" 'cider-find-resource
