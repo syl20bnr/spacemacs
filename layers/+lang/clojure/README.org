@@ -263,16 +263,16 @@ As this state works the same for all files, the documentation is in global
 
 *** Goto
 
-| Key binding | Description      |
-|-------------+------------------|
-| ~SPC m g b~ | go back          |
-| ~SPC m g C~ | browse classpath |
-| ~SPC m g g~ | goto var         |
-| ~SPC m g e~ | goto error       |
-| ~SPC m g n~ | goto namespace   |
-| ~SPC m g r~ | goto resource    |
-| ~SPC m g s~ | browse spec      |
-| ~SPC m g S~ | browse all specs |
+| Key binding | Description                                  |
+|-------------+----------------------------------------------|
+| ~SPC m g b~ | go back                                      |
+| ~SPC m g C~ | browse classpath                             |
+| ~SPC m g g~ | goto var definition =spacemacs/clj-find-var= |
+| ~SPC m g e~ | goto error                                   |
+| ~SPC m g n~ | goto namespace                               |
+| ~SPC m g r~ | goto resource                                |
+| ~SPC m g s~ | browse spec                                  |
+| ~SPC m g S~ | browse all specs                             |
 
 *** REPL
 

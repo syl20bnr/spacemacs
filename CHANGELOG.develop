@@ -1198,6 +1198,8 @@ Other:
     (thanks to John Stevenson)
   - ~SPC m s j s~ updated to call =cider-jack-in-cljs= rather than old alias
     =cider-jack-in-clojurescript= which is deprecated
+  - ~SPC m g g~ changed to =spacemacs/clj-find-var=, a wrapper for
+    =cider-find-var= if REPL running, otherwise =dumb-jump-go=
     (thanks to John Stevenson)
 - Fixes:
   - Remove `cider.nrepl/cider-middleware` in lein quick start setting
