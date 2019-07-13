@@ -130,9 +130,10 @@
           (sql-send-line-and-next)))
 
       (spacemacs/declare-prefix-for-mode 'sql-mode "mb" "buffer")
+      (spacemacs/declare-prefix-for-mode 'sql-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'sql-mode "mh" "dialects")
-      (spacemacs/declare-prefix-for-mode 'sql-mode "ms" "interactivity")
       (spacemacs/declare-prefix-for-mode 'sql-mode "ml" "listing")
+      (spacemacs/declare-prefix-for-mode 'sql-mode "ms" "interactivity")
       (spacemacs/set-leader-keys-for-major-mode 'sql-mode
         "'" 'spacemacs/sql-start
 
