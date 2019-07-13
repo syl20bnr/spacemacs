@@ -1192,13 +1192,6 @@ Other:
   - ~SPC m e v~ to evaluate s-expression at point (=cider-eval-sexp-at-point=)
   - ~SPC m s u~  require Clojure utils into current namespace
     i.e. functions =doc= =source= (thanks to John Stevenson)
-  - ~SPC m s j c~ updated to call =cider-jack-in-clj= rather than old alias
-    =cider-jack-in= (thanks to John Stevenson)
-  - ~SPC m s j f~ new keybinding to call =cider-jack-in-clj&cjls=
-    (thanks to John Stevenson)
-  - ~SPC m s j s~ updated to call =cider-jack-in-cljs= rather than old alias
-    =cider-jack-in-clojurescript= which is deprecated
-    (thanks to John Stevenson)
 - Fixes:
   - Remove `cider.nrepl/cider-middleware` in lein quick start setting
   - Fixed =cider-inspector-prev-page= binding, also add ~p~ as another key

@@ -62,7 +62,6 @@
                ("mh" . "documentation")
                ("mp" . "profile")
                ("ms" . "repl")
-               ("msj" . "jack-in")
                ("mt" . "test")
                ("mT" . "toggle")
                )))
@@ -104,9 +103,8 @@
             "gs" 'cider-browse-spec
             "gS" 'cider-browse-spec-all
 
-            "'"  'cider-jack-in-clj
-            "\"" 'cider-jack-in-cljs
-            "\&" 'cider-jack-in-clj&cljs
+            "'"  'cider-jack-in
+            "\"" 'cider-jack-in-clojurescript
             "sb" 'cider-load-buffer
             "sB" 'spacemacs/cider-send-buffer-in-repl-and-focus
             "sc" (if (eq m 'cider-repl-mode)
@@ -117,9 +115,8 @@
             "sE" 'spacemacs/cider-send-last-sexp-to-repl-focus
             "sf" 'spacemacs/cider-send-function-to-repl
             "sF" 'spacemacs/cider-send-function-to-repl-focus
-            "sjc" 'cider-jack-in-clj
-            "sjf" 'cider-jack-in-clj&cljs
-            "sjs" 'cider-jack-in-cljs
+            "si" 'cider-jack-in
+            "sI" 'cider-jack-in-clojurescript
             "sn" 'spacemacs/cider-send-ns-form-to-repl
             "sN" 'spacemacs/cider-send-ns-form-to-repl-focus
             "so" 'cider-repl-switch-to-other
