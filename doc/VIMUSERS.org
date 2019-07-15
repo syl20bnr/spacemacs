@@ -482,4 +482,4 @@ your =.spacemacs=:
   - Note: The article refers to ~SPC b s~ as the key binding to switch buffers.
     It is ~SPC b b~
 - [[http://thume.ca/howto/2015/03/07/configuring-spacemacs-a-tutorial/][Configuring Spacemacs: A Tutorial]]
-- [[http://juanjoalvarez.net/es/detail/2014/sep/19/vim-emacsevil-chaotic-migration-guide/][From Vim to Emacs+Evil chaotic migration guide]]
+- [[https://web.archive.org/web/20190423065450/https://juanjoalvarez.net/es/detail/2014/sep/19/vim-emacsevil-chaotic-migration-guide/][From Vim to Emacs+Evil chaotic migration guide]]
