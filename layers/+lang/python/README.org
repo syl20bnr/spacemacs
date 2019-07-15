@@ -321,7 +321,7 @@ by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides
 
 ** Manage multiple Python versions with pyenv
 If you need multiple Python versions (e.g. Python 2 and Python 3) then take a
-look at [[https://github.com/yyuu/pyenv][pyenv]]. It enables the installation and managment of multiple
+look at [[https://github.com/yyuu/pyenv][pyenv]]. It enables the installation and management of multiple
 Python versions.
 [[https://www.brianthicks.com/post/2015/04/15/automate-your-python-environment-with-pyenv/][This blogpost]] gives a good overview on how to use the tool. Spacemacs
 integration is provided by [[https://github.com/proofit404/pyenv-mode][pyenv mode]] which has the following key bindings.
@@ -346,7 +346,7 @@ the pyenv version. The behavior can be set with the variable
 - =nil= to disable.
 
 The same is also possible on pyvenv with a file called =.venv=. The behavior
-can be set with the variable =python-auto-set-local-pyvenv-virtualenv== to:
+can be set with the variable =python-auto-set-local-pyvenv-virtualenv= to:
 - =on-visit= (default) set the virtualenv when you visit a python buffer,
 - =on-project-switch= set the virtualenv when you switch projects,
 - =nil= to disable.
