@@ -731,15 +731,30 @@ LIST: a list of string pathnames made interactive in this function."
     (insert list-display-name)
     (mapc (lambda (el)
             (insert "\n    ")
-            (widget-create 'push-button
-                           :action `(lambda (&rest ignore)
-                                      (find-file-existing ,el))
-                           :mouse-face 'highlight
-                           :follow-link "\C-m"
-                           :button-prefix ""
-                           :button-suffix ""
-                           :format "%[%t%]"
-                           (abbreviate-file-name el)))
+            (let* ((filename (if (and (string-suffix-p "/" el)
+                                      (< 1 (length el)))
+                                 (file-name-nondirectory
+                                  (substring el 0 (- (length el) 1)))
+                               (file-name-nondirectory el)))
+                   (el-color (if (f-directory-p el)
+                                 'dired-directory
+                               'bookmark-menu-bookmark))
+                   (filename-colorized (propertize filename 'face el-color))
+                   (el-colorized (propertize el 'face 'file-name-shadow))
+                   (tagline-color (if filename
+                                      (format "%s - (%s)"
+                                              filename-colorized el-colorized)
+                                    (format "%s" el-colorized))))
+                (widget-create 'push-button
+                               :tag tagline-color
+                               :action `(lambda (&rest ignore)
+                                          (find-file-existing ,el))
+                               :mouse-face 'highlight
+                               :follow-link "\C-m"
+                               :button-prefix ""
+                               :button-suffix ""
+                               :format "%[%t%]"
+                               (abbreviate-file-name el))))
           list)))
 
 (defun spacemacs-buffer//insert-bookmark-list (list-display-name list)
@@ -750,18 +765,27 @@ LIST: a list of string bookmark names made interactive in this function."
     (insert list-display-name)
     (mapc (lambda (el)
             (insert "\n    ")
-            (let ((filename (bookmark-get-filename el)))
+            (let* ((filename (bookmark-get-filename el))
+                   (fileshort (abbreviate-file-name filename))
+                   (el-color (if (f-directory-p filename)
+                             'dired-directory
+                           'bookmark-menu-bookmark))
+                   (el-colorized (propertize el 'face el-color))
+                   (fileshort-colorized
+                    (propertize fileshort 'face 'file-name-shadow))
+                   (tagline-color (if filename
+                                      (format "%s - (%s)"
+                                              el-colorized fileshort-colorized)
+                                    (format "%s" el-colorized))))
               (widget-create 'push-button
+                             :tag tagline-color
                              :action `(lambda (&rest ignore) (bookmark-jump ,el))
                              :mouse-face 'highlight
                              :follow-link "\C-m"
                              :button-prefix ""
                              :button-suffix ""
                              :format "%[%t%]"
-                             (if filename
-                                 (format "%s - %s"
-                                         el (abbreviate-file-name filename))
-                               (format "%s" el)))))
+                             tagline-color)))
           list)))
 
 (defun spacemacs-buffer//get-org-items (types)
