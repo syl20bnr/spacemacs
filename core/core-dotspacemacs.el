@@ -226,7 +226,7 @@ emacs.")
 ;; emacs.")
 
 (defvar dotspacemacs-default-font '("Source Code Pro"
-                                    :size 13
+                                    :size 10.0
                                     :weight normal
                                     :width normal)
   "Default font, or prioritized list of fonts. This setting has no effect when

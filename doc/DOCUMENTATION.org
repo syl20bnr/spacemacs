@@ -1191,7 +1191,7 @@ To change the default font set the variable =dotspacemacs-default-font= in your
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-default-font '("Source Code Pro"
-                                            :size 13
+                                            :size 10.0
                                             :weight normal
                                             :width normal))
 #+END_SRC
