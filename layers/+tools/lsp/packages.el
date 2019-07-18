@@ -14,8 +14,8 @@
     lsp-mode
     lsp-ui
     (company-lsp :requires company)
-    helm-lsp
-    lsp-treemacs
+    (helm-lsp :requires helm)
+    (lsp-treemacs :requires treemacs)
     popwin
     ))
 
