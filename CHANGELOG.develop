@@ -1833,6 +1833,8 @@ Other:
   - ~SPC m g S~ to find symbol in all projects
 - Deleted =fix-lsp-company-prefix= since =company-lsp= is doing that handling.
 - Fixed a delay when declaring prefixes for mode (thanks to Thanh Vuong)
+- Required =helm= or =treemacs= to download =helm-lsp= or =lsp-treemacs=
+  (thanks to Steven Allen)
 **** Debug Adapter Protocol (DAP)
 - Key bindings
   - ~SPC m d d e~ to edit debug template
