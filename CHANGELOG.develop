@@ -1577,6 +1577,7 @@ Other:
 - Enable LSP mode using HIE.
 - Fixed jump handlers for =dante= and =inferno=
   (thanks to cjay, CthulhuDen and Magnus Therning)
+- Included =attrap= when =dante= is used (thanks to Pepe Iborra)
 **** Helm
 - Limited =ripgrep= results to 512 columns by default, and added
   =spacemacs-helm-rg-max-column-number= layer variable to configure the above

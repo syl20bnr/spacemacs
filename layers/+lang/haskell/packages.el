@@ -27,6 +27,8 @@
 
         ;; dante completion backend
         (dante :requires company)
+        ;; dante auto refactor companion
+        (attrap :requires dante)
 
         lsp-haskell
 
@@ -144,6 +146,10 @@
           "rs" 'dante-auto-fix
           "se" 'dante-eval-block
           "sr" 'dante-restart)))))
+
+(defun haskell/init-attrap ()
+  (use-package attrap
+    :defer t))
 
 (defun haskell/init-helm-hoogle ()
   (use-package helm-hoogle
