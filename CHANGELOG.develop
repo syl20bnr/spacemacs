@@ -2301,6 +2301,9 @@ Other:
   - ~SPC m = m r~ Refmt: convert ml syntax to re syntax
   - ~SPC m = r m~ Refmt: convert re syntax to ml syntax
     (thanks to Fredrik Dyrkell and Dave Aitken)
+**** Restclient
+- Moved key binding for =helm-restclient= from ~SPC m j i~ to ~SPC m j~
+  (thanks to Thanh Vuong)
 **** Ruby
 - Added support for =org-babel= (thanks to Muneeb Shaikh)
 - Highlight debugger keywords (thanks to Alexander Berezovsky and Eivind Fonn)
