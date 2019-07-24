@@ -29,6 +29,8 @@ If the error list is visible, hide it.  Otherwise, show it."
 (defun spacemacs/goto-flycheck-error-list ()
   "Open and go to the error list buffer."
   (interactive)
-  (unless (get-buffer-window (get-buffer flycheck-error-list-buffer))
-    (flycheck-list-errors)
-    (switch-to-buffer-other-window flycheck-error-list-buffer)))
+  (if (flycheck-get-error-list-window)
+      (switch-to-buffer flycheck-error-list-buffer)
+    (progn
+      (flycheck-list-errors)
+      (switch-to-buffer-other-window flycheck-error-list-buffer))))
