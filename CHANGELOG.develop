@@ -2237,6 +2237,7 @@ Other:
 - Various fixes for =lsp-python-ms= setup (thanks to Trapez Breen)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
+- Updated racket logo (thanks to Vityou)
 **** Ranger
 - Fixed conflict with =golden-ratio= (thanks to Thomas de Beauchêne)
 - Key bindings:
