@@ -2497,6 +2497,7 @@ Other:
 - Rename function =add-flycheck-hook= to =enable-flycheck=
 - Use correct error list faces when defining error levels with custom bitmaps
   (thanks to Alexander Miller)
+- Fixed =goto-flycheck-error-list= (thanks to Thanh Vuong)
 **** Swift
 - Update Swift REPL key bindings (thanks to Elliot Bulmer)
 **** Systemd
