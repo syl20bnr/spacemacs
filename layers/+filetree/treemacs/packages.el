@@ -14,6 +14,7 @@
     golden-ratio
     treemacs
     (treemacs-evil :toggle (memq dotspacemacs-editing-style '(vim hybrid)))
+    (treemacs-magit :toggle treemacs-enable-magit)
     treemacs-projectile
     winum
     ))
@@ -98,3 +99,9 @@
           (add-to-list 'winum-ignored-buffers
                        (format "%sFramebuffer-%s*"
                                treemacs--buffer-name-prefix n)))))))
+
+(defun treemacs/init-treemacs-magit ()
+  (use-package treemacs-magit
+    :after treemacs magit
+    :defer t
+    :if treemacs-enable-magit))
