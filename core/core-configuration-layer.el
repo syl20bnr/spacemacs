@@ -666,6 +666,12 @@ To prevent package from being installed or uninstalled set the variable
   (configuration-layer//load-layers-files configuration-layer--used-layers
                         '("keybindings.el"))
   (when (spacemacs-is-dumping-p)
+    ;; dump stuff in layers
+    (dolist (layer-name configuration-layer--used-layers)
+      (let ((layer-dump-func (intern (format "%S/pre-dump" layer-name))))
+        (when (fboundp layer-dump-func)
+          (configuration-layer/message "Pre-dumping layer %S..." layer-name)
+          (funcall layer-dump-func))))
     (dotspacemacs|call-func dotspacemacs/user-load
                             "Calling dotfile user-load...")))
 

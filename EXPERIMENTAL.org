@@ -13,6 +13,7 @@
     - [[#install-emacs][Install Emacs]]
       - [[#windows-1][Windows]]
     - [[#update-your-dotfile][Update your dotfile]]
+    - [[#add-pre-dump-function-to-layers][Add pre-dump function to layers]]
     - [[#test][Test]]
     - [[#report-issues][Report issues]]
   - [[#usage][Usage]]
@@ -201,13 +202,37 @@ Add this to your dotfile if you don't have it already.
     )
 #+END_SRC
 
+This is a good place to use the function =spacemacs/dump-modes= which
+all to easily load modes in a temporary buffer to trigger all the possible
+side effects.
+
+For instance to load my-mode:
+
+ #+begin_src emacs-lisp
+(spacemacs/dump-modes '(my-mode))
+ #+end_src
+
 *Friendly suggestions:*
 - If you have a lot of personal configuration in =user-init= and =user-config=,
   you can try to move them into =user-load= as this can reduce the time to load
   those customized configurations.
-- It is better to use =(with-temp-buffer (org-mode))= lines in =user-load=
-  section instead of =(require 'org)=. This will decrease load times by a lot.
-  Suggested by [[https://github.com/syl20bnr/spacemacs/issues/10902#issuecomment-398710755][@et2010]].
+
+*** Add pre-dump function to layers
+
+It is also possible to execute some lisp for each used layer by defining a
+function named =<layer>/pre-dump= in the =config.el= file of the layer.
+
+Example for the org layer:
+
+ #+begin_src emacs-lisp
+;; Dumper
+
+(defun org/pre-dump ()
+  (spacemacs/dump-modes '(org-mode)))
+ #+end_src
+
+*Note*: In order to not generate dump files that are too big we try to use this
+mechanism only when it makes a noticeable difference for all users.
 
 *** Test
 Restart Emacs. Each time Emacs starts, Spacemacs will check if the list of your

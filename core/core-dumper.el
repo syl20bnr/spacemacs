@@ -65,6 +65,14 @@ You should not used this function, it is reserved for some specific process."
         (locate-file (or dotspacemacs-emacs-pdumper-executable-file "emacs")
                      exec-path exec-suffixes 'file-executable-p))))
 
+(defun spacemacs/dump-modes (modes)
+  "Load given MODES in order to be dumped."
+  (dolist (mode modes)
+    (with-temp-buffer
+      (when (fboundp mode)
+        (message "Loading mode %S..." mode)
+        (funcall-interactively mode)))))
+
 (defun spacemacs/dump-emacs ()
   "Dump emacs in a subprocess."
   (when spacemacs-dump-process
