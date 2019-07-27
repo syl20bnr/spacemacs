@@ -207,7 +207,7 @@ The [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bemacs/semanti
 | Key binding | Description             |
 |-------------+-------------------------|
 | ~SPC m = b~ | format current buffer   |
-| ~SPC m = f~ | format current function |
+| ~SPC m = d~ | format current function |
 | ~SPC m = o~ | format all on one line  |
 | ~SPC m = s~ | format current sexp     |
 
