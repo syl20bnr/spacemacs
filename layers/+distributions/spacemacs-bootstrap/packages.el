@@ -514,36 +514,38 @@
   (use-package pcre2el :defer t))
 
 (defun spacemacs-bootstrap/init-holy-mode ()
-  (use-package holy-mode
-    :commands holy-mode
-    :init
-    (progn
-      (when (eq 'emacs dotspacemacs-editing-style)
-        (holy-mode))
-      (spacemacs|add-toggle holy-mode
-        :status holy-mode
-        :on (progn (when (bound-and-true-p hybrid-mode)
-                     (hybrid-mode -1))
-                   (holy-mode))
-        :off (holy-mode -1)
-        :documentation "Globally toggle holy mode."
-        :evil-leader "tEe")
-      (spacemacs|diminish holy-mode " Ⓔe" " Ee"))))
+  (spacemacs|unless-dumping-and-eval-after-loaded-dump holy-mode
+    (use-package holy-mode
+      :commands holy-mode
+      :init
+      (progn
+        (when (eq 'emacs dotspacemacs-editing-style)
+          (holy-mode))
+        (spacemacs|add-toggle holy-mode
+          :status holy-mode
+          :on (progn (when (bound-and-true-p hybrid-mode)
+                       (hybrid-mode -1))
+                     (holy-mode))
+          :off (holy-mode -1)
+          :documentation "Globally toggle holy mode."
+          :evil-leader "tEe")
+        (spacemacs|diminish holy-mode " Ⓔe" " Ee")))))
 
 (defun spacemacs-bootstrap/init-hybrid-mode ()
-  (use-package hybrid-mode
-    :config
-    (progn
-      (when (eq 'hybrid dotspacemacs-editing-style) (hybrid-mode))
-      (spacemacs|add-toggle hybrid-mode
-        :status hybrid-mode
-        :on (progn (when (bound-and-true-p holy-mode)
-                     (holy-mode -1))
-                   (hybrid-mode))
-        :off (hybrid-mode -1)
-        :documentation "Globally toggle hybrid mode."
-        :evil-leader "tEh")
-      (spacemacs|diminish hybrid-mode " Ⓔh" " Eh"))))
+  (spacemacs|unless-dumping-and-eval-after-loaded-dump hybrid-mode
+    (use-package hybrid-mode
+      :config
+      (progn
+        (when (eq 'hybrid dotspacemacs-editing-style) (hybrid-mode))
+        (spacemacs|add-toggle hybrid-mode
+          :status hybrid-mode
+          :on (progn (when (bound-and-true-p holy-mode)
+                       (holy-mode -1))
+                     (hybrid-mode))
+          :off (hybrid-mode -1)
+          :documentation "Globally toggle hybrid mode."
+          :evil-leader "tEh")
+        (spacemacs|diminish hybrid-mode " Ⓔh" " Eh")))))
 
 (defun spacemacs-bootstrap/init-spacemacs-theme ()
   (use-package spacemacs-theme
