@@ -47,6 +47,7 @@
       (global-font-lock-mode)
       (global-undo-tree-mode t)
       (winner-mode t))
+    (spacemacs/dump-eval-delayed-functions)
     (when (and dotspacemacs-enable-server (not (spacemacs-is-dumping-p)))
       (require 'server)
       (when dotspacemacs-server-socket-dir

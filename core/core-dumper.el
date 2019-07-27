@@ -15,6 +15,9 @@
 (defvar spacemacs-dump-process nil
   "The process object to dump Emacs.")
 
+(defvar spacemacs-dump-delayed-functions '()
+  "List of function to execute once the dump file has been loaded.")
+
 (defconst spacemacs-dump-directory
   (concat spacemacs-cache-directory "dumps/"))
 
@@ -58,6 +61,18 @@ You should not used this function, it is reserved for some specific process."
   `(unless (eq 'dumping spacemacs-dump-mode)
      ,@body))
 
+(defmacro spacemacs|unless-dumping-and-eval-after-loaded-dump (funcname &rest body)
+  "Execute BODY if not dumping, delay BODY evaluation after the dump is loaded.
+FUNCNAME is the name of the function that will be created and evaluated at
+the end of the loading of the dump file."
+  (declare (indent defun))
+  (if (eq 'dumping spacemacs-dump-mode)
+      (let ((funcname2 (intern (format "spacemacs//after-dump-%S" funcname))))
+            `(progn
+               (defun ,funcname2 nil ,@body)
+               (add-to-list 'spacemacs-dump-delayed-functions ',funcname2)))
+    ,@body))
+
 (defun spacemacs/emacs-with-pdumper-set-p ()
   "Return non-nil if a portable dumper capable emacs executable is set."
   (and dotspacemacs-enable-emacs-pdumper
@@ -75,6 +90,7 @@ You should not used this function, it is reserved for some specific process."
 
 (defun spacemacs/dump-emacs ()
   "Dump emacs in a subprocess."
+  (interactive)
   (when spacemacs-dump-process
     (message "Cancel running dumping process to start a new one.")
     (delete-process spacemacs-dump-process)
@@ -93,6 +109,12 @@ You should not used this function, it is reserved for some specific process."
                                (concat spacemacs-dump-directory
                                        dotspacemacs-emacs-dumper-dump-file)
                                "\")")))))
+
+(defun spacemacs/dump-eval-delayed-functions ()
+  "Evaluate delayed functions."
+  (spacemacs|unless-dumping
+    (dolist (func spacemacs-dump-delayed-functions)
+      (funcall func))))
 
 ;; ;; Brute-force load all .el files in ELPA packages
 ;; (dolist (d (directory-files package-user-dir t nil 'nosort))
