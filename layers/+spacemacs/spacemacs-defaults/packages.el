@@ -434,7 +434,7 @@
 
 (defun spacemacs-defaults/init-winner ()
   (use-package winner
-    :defer t
+    :commands (winner-undo winner-redo)
     :init
     (with-eval-after-load 'winner
       (setq spacemacs/winner-boring-buffers '("*Completions*"
