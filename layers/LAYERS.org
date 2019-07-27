@@ -563,7 +563,7 @@ This layer adds support for Emoji emoticons from [[https://www.webpagefx.com/too
 Features:
 - Browse Emoji in a dedicated buffer
 - Display Emoji images in buffer
-- Insert one or several Emoji with an helm front-end
+- Insert one or several Emoji with a helm front-end
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]]
 
 ** Games

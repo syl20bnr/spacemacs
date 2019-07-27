@@ -208,9 +208,9 @@ side effects.
 
 For instance to load my-mode:
 
- #+begin_src emacs-lisp
-(spacemacs/dump-modes '(my-mode))
- #+end_src
+#+BEGIN_SRC emacs-lisp
+  (spacemacs/dump-modes '(my-mode))
+#+END_SRC
 
 *Friendly suggestions:*
 - If you have a lot of personal configuration in =user-init= and =user-config=,
@@ -218,18 +218,17 @@ For instance to load my-mode:
   those customized configurations.
 
 *** Add pre-dump function to layers
-
 It is also possible to execute some lisp for each used layer by defining a
 function named =<layer>/pre-dump= in the =config.el= file of the layer.
 
 Example for the org layer:
 
- #+begin_src emacs-lisp
-;; Dumper
+#+BEGIN_SRC emacs-lisp
+  ;; Dumper
 
-(defun org/pre-dump ()
-  (spacemacs/dump-modes '(org-mode)))
- #+end_src
+  (defun org/pre-dump ()
+    (spacemacs/dump-modes '(org-mode)))
+#+END_SRC
 
 *Note*: In order to not generate dump files that are too big we try to use this
 mechanism only when it makes a noticeable difference for all users.
