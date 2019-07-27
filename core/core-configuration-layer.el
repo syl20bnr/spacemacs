@@ -586,8 +586,7 @@ refreshed during the current session."
       (configuration-layer//dump-emacs)))
    ((spacemacs-is-dumping-p)
     ;; dumping
-    (configuration-layer//load)
-    (configuration-layer/message "Dumping Emacs..."))
+    (configuration-layer//load))
    ((and (spacemacs/emacs-with-pdumper-set-p)
          (spacemacs-run-from-dump-p))
     ;; dumped

@@ -33,6 +33,7 @@
   (let ((file-name-handler-alist nil))
     (require 'core-spacemacs)
     (spacemacs|unless-dumping
+      ;; Retoring load-path from dump file
       (when (boundp 'load-path-backup)
         (setq load-path load-path-backup)))
     (configuration-layer/load-lock-file)
@@ -42,6 +43,7 @@
     (spacemacs-buffer/display-startup-note)
     (spacemacs/setup-startup-hook)
     (spacemacs|unless-dumping
+      ;; these modes need to be re-enabled explicitly
       (global-font-lock-mode)
       (global-undo-tree-mode t)
       (winner-mode t))
@@ -51,10 +53,4 @@
         (setq server-socket-dir dotspacemacs-server-socket-dir))
       (unless (server-running-p)
         (message "Starting a server...")
-        (server-start)))
-    (spacemacs|when-dumping-strict
-      (setq load-path-backup load-path)
-      ;; disable undo-tree to prevent from segfaulting when loading the dump
-      (global-undo-tree-mode -1)
-      (setq spacemacs-dump-mode 'dumped)
-      (garbage-collect))))
+        (server-start)))))
