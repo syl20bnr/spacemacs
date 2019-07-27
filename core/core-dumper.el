@@ -84,7 +84,7 @@ the end of the loading of the dump file."
             `(progn
                (defun ,funcname2 nil ,@body)
                (add-to-list 'spacemacs-dump-delayed-functions ',funcname2)))
-    ,@body))
+    `(progn ,@body)))
 
 (defun spacemacs/emacs-with-pdumper-set-p ()
   "Return non-nil if a portable dumper capable emacs executable is set."
