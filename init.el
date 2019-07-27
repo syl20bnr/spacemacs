@@ -32,10 +32,7 @@
   ;; Disable file-name-handlers for a speed boost during init
   (let ((file-name-handler-alist nil))
     (require 'core-spacemacs)
-    (spacemacs|unless-dumping
-      ;; Retoring load-path from dump file
-      (when (boundp 'load-path-backup)
-        (setq load-path load-path-backup)))
+    (spacemacs/dump-restore-load-path)
     (configuration-layer/load-lock-file)
     (spacemacs/init)
     (configuration-layer/stable-elpa-download-tarball)

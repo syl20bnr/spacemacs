@@ -18,10 +18,23 @@
 (defvar spacemacs-dump-delayed-functions '()
   "List of function to execute once the dump file has been loaded.")
 
+(defvar spacemacs-dump-load-path nil
+  "Variable to backup the `load-path' variable built during the dump creation.")
+
 (defconst spacemacs-dump-directory
   (concat spacemacs-cache-directory "dumps/"))
 
 (defconst spacemacs-dump-buffer-name "*spacemacs-dumper*")
+
+(defun spacemacs/dump-save-load-path ()
+  "Save `load-path' variable."
+  (setq spacemacs-dump-load-path load-path))
+
+(defun spacemacs/dump-restore-load-path ()
+  "Restore the `load-path' variable from the dump. "
+  (spacemacs|unless-dumping
+    (when (not (null spacemacs-dump-load-path))
+      (setq load-path spacemacs-dump-load-path))))
 
 (defun spacemacs/defer (&optional idle-time)
   "Return t or IDLE-TIME when Spacemacs is not running from a dump."
