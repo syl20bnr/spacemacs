@@ -15,7 +15,7 @@
         ivy
         persp-mode
         spaceline
-        (counsel-projectile :requires projectile)))
+        (counsel-projectile :requires ivy)))
 
 
 
