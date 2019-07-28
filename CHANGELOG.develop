@@ -1040,6 +1040,7 @@ Other:
   - Used return value from advised function in =spacemacs//yank-indent-region=
     (thanks to Brandon T. Willard)
   - Fixed canceling =spacemacs/ace-buffer-links= (thanks to duianto)
+  - Required =ivy= to load =counsel-projectile= (thanks to Thanh Vuong)
 *** Layer changes and fixes
 **** Agda
 - Fixes
