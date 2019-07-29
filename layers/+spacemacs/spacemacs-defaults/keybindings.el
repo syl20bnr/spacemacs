@@ -332,7 +332,7 @@
   :status truncate-lines
   :on (toggle-truncate-lines)
   :off (toggle-truncate-lines -1)
-  :documentation "Truncate long lines (no wrap)."
+  :documentation "Toggle between line wrapping or truncation (no wrap)."
   :evil-leader "tl")
 (spacemacs|add-toggle visual-line-navigation
   :status visual-line-mode
