@@ -1219,6 +1219,8 @@ Other:
   - ~SPC m g g~ changed to =spacemacs/clj-find-var=, a wrapper for
     =cider-find-var= if REPL running, otherwise =dumb-jump-go=
     (thanks to John Stevenson)
+  - Restore standard =SPC m s i= binding for =cider-jack-in-clj=
+    (thanks to Russell Mull)
 - Fixes:
   - Remove `cider.nrepl/cider-middleware` in lein quick start setting
   - Fixed =cider-inspector-prev-page= binding, also add ~p~ as another key
