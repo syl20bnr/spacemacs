@@ -866,7 +866,7 @@ a new object."
                                         layer-name)
                                        pkg-name-str))))
                     (cfgl-package-set-property
-                     obj :location `(recipe :fetcher file :path ,path))))
+                     obj :location `(recipe :fetcher file :path ,path ,@(spacemacs/mplist-remove (cdr location) :fetcher)))))
            ((eq 'dotfile layer-name) nil))
         (cfgl-package-set-property obj :location location)))
     ;; cannot override protected packages
