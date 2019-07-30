@@ -78,6 +78,8 @@
       (setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE")
             erc-server-coding-system '(utf-8 . utf-8))
       (setq erc-prompt (lambda () (concat "[" (buffer-name) "]")))
+      (erc-spelling-mode 1)
+      (setq erc-interpret-mirc-color t)
 
       ;; Notifications are enabled if erc-enable-notifications is non-nil, and
       ;; D-BUS is available (i.e. Linux/BSD).

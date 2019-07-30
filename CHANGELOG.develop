@@ -1413,6 +1413,7 @@ Other:
   - ~SPC m b~ to switch between ERC buffers (thanks to Evan Klitzke)
 - Conditionally enable ERC notifications via =erc-enable-notifications=
   (thanks to Evan Klitzke)
+- Added spell checking and mIRC colors (thanks to Benjamin Levy)
 **** ESS
 - Key bindings:
   - Change ~SPC m s t~ to ~SPC m s f~ to respect convention (thanks to Yi Liu)
