@@ -118,6 +118,7 @@
             "sE" 'spacemacs/cider-send-last-sexp-to-repl-focus
             "sf" 'spacemacs/cider-send-function-to-repl
             "sF" 'spacemacs/cider-send-function-to-repl-focus
+            "si" 'cider-jack-in-clj
             "sjc" 'cider-jack-in-clj
             "sjf" 'cider-jack-in-clj&cljs
             "sjs" 'cider-jack-in-cljs
