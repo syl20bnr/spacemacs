@@ -566,6 +566,8 @@ Other:
   - Added missing force argument to the =spacemacs//init-spacemacs-env= call in
     the function =spacemacs/load-spacemacs-env= (thanks to sergeiz2)
   - Fixed =spacemacs/alternate-buffer= to restore point.
+  - Removed Unicode triple dot in both =dotspacemacs-smart-closing-parenthesis=
+    variable comments in favor of the ASCII one (thanks to nshadov)
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)

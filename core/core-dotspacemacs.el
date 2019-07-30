@@ -368,8 +368,8 @@ Has no effect if `dotspacemacs-enable-server' is nil.")
 
 (defvar dotspacemacs-smart-closing-parenthesis nil
   "If non-nil pressing the closing parenthesis `)' key in insert mode passes
-over any automatically added closing parenthesis, bracket, quote, etc…
-This can be temporary disabled by pressing `C-q' before `)'.")
+over any automatically added closing parenthesis, bracket, quote, etc...
+This can be temporary disabled by pressing `C-q' before `)'. (default nil)")
 
 (defvar dotspacemacs-zone-out-when-idle nil
   "Either nil or a number of seconds. If non-nil zone out after the specified
