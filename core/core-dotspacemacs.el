@@ -316,7 +316,7 @@ restricts line-number to the specified list of major-mode.")
 
 (defvar dotspacemacs-smart-closing-parenthesis nil
   "If non-nil pressing the closing parenthesis `)' key in insert mode passes
-  over any automatically added closing parenthesis, bracket, quote, etc…
+  over any automatically added closing parenthesis, bracket, quote, etc...
   This can be temporary disabled by pressing `C-q' before `)'. (default nil)")
 
 (defvar dotspacemacs-highlight-delimiters 'all
