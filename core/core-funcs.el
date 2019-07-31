@@ -93,8 +93,8 @@ and its values are removed."
 (defun spacemacs/dump-vars (varlist buffer)
   "insert into buffer the setq statement to recreate the variables in VARLIST"
   (cl-loop for var in varlist do
-        (print (list 'setq var (list 'quote (symbol-value var)))
-               buffer)))
+           (print (list 'setq var (list 'quote (symbol-value var)))
+                  buffer)))
 
 (defvar spacemacs--init-redisplay-count 0
   "The number of calls to `redisplay'")
@@ -129,17 +129,17 @@ Supported properties:
     (append
      (when evil-leader
        `((dolist (key ',evil-leader)
-            (spacemacs/set-leader-keys key ',func))))
+           (spacemacs/set-leader-keys key ',func))))
      (when evil-leader-for-mode
        `((dolist (val ',evil-leader-for-mode)
-          (spacemacs/set-leader-keys-for-major-mode
-            (car val) (cdr val) ',func))))
+           (spacemacs/set-leader-keys-for-major-mode
+             (car val) (cdr val) ',func))))
      (when global-key
        `((dolist (key ',global-key)
-          (global-set-key (kbd key) ',func))))
+           (global-set-key (kbd key) ',func))))
      (when def-key
        `((dolist (val ',def-key)
-          (define-key (eval (car val)) (kbd (cdr val)) ',func)))))))
+           (define-key (eval (car val)) (kbd (cdr val)) ',func)))))))
 
 (defun spacemacs/prettify-org-buffer ()
   "Apply visual enchantments to the current buffer.
@@ -210,7 +210,7 @@ passed-tests and total-tests."
           (when (boundp 'passed-tests) (setq passed-tests (1+ passed-tests)))
           (insert (format "*** PASS: %s\n" var-val)))
       (insert (propertize (format "*** FAIL: %s\n" var-val)
-                                  'font-lock-face 'font-lock-warning-face)))))
+                          'font-lock-face 'font-lock-warning-face)))))
 
 (defun spacemacs//test-list (pred varlist test-desc &optional element-desc)
   "Test PRED against each element of VARLIST and print test
@@ -289,10 +289,10 @@ buffer."
 ;; http://stackoverflow.com/questions/11847547/emacs-regexp-count-occurrences
 (defun spacemacs/how-many-str (regexp str)
   (cl-loop with start = 0
-        for count from 0
-        while (string-match regexp str start)
-        do (setq start (match-end 0))
-        finally return count))
+           for count from 0
+           while (string-match regexp str start)
+           do (setq start (match-end 0))
+           finally return count))
 
 (defun spacemacs/echo (msg &rest args)
   "Display MSG in echo-area without logging it in *Messages* buffer."
@@ -311,13 +311,28 @@ buffer."
 
 (defun spacemacs/alternate-buffer (&optional window)
   "Switch back and forth between current and last buffer in the
-current window."
+current window.
+
+If `spacemacs-layouts-restrict-spc-tab' is `t' then this only switches between
+the current layouts buffers."
   (interactive)
   (destructuring-bind (buf start pos)
-      (or (cl-find (window-buffer window) (window-prev-buffers)
-                   :key #'car :test-not #'eq)
-          (list (other-buffer) nil nil ))
-    (set-window-buffer-start-and-point window buf start pos)))
+      (if spacemacs-layouts-restrict-spc-tab
+          (let ((buffer-list (persp-buffer-list))
+                (my-buffer (window-buffer window)))
+            ;; find buffer of the same persp in window
+            (seq-find (lambda (it) ;; predicate
+                        (and (not (eq (car it) my-buffer))
+                             (member (car it) buffer-list)))
+                      (window-prev-buffers)
+                      ;; default if found none
+                      (list nil nil nil)))
+        (or (cl-find (window-buffer window) (window-prev-buffers)
+                     :key #'car :test-not #'eq)
+            (list (other-buffer) nil nil)))
+    (if (not buf)
+        (message "Last buffer not found.")
+      (set-window-buffer-start-and-point window buf start pos))))
 
 (defun spacemacs/alternate-window ()
   "Switch back and forth between current and last window in the

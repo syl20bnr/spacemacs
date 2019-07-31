@@ -493,6 +493,9 @@ Other:
   - Changed =dotspacemacs-default-font= =:size= from =13= (pixel size) to =10.0=
     (point size) (thanks to Aaron Zeng and duianto)
   - Updated the list of =base16= themes (thanks to kenranunderscore)
+  - Added a =spacemacs-layouts-restrict-spc-tab= variable to
+    =spacemacs/alternate-buffer= that restricts ~SPC-TAB~ to the current layouts
+    buffers (default: =nil=) (thanks to Thanh Vuong)
 - Fixed:
   - Avoid non-idempotent use of push in init code (thanks to Miciah Masters)
   - Moved Spacemacs startup progress bar to =core-progress-bar.el=, removed
@@ -924,6 +927,12 @@ Other:
     - ~SPC h T e~ for =emacs-tutorial= (aliased from =help-with-tutorial=)
     - ~SPC h T v~ for =evil-tutor-start=
   - Improved Window Manipulation Transient state (thanks to yuhan0)
+  - Added a =spacemacs-layouts-restricted-functions= variable to restrict
+    functions to the current layouts buffers
+    Default: '(spacemacs/window-split-double-columns
+               spacemacs/window-split-triple-columns
+               spacemacs/window-split-grid)
+    (thanks to Thanh Vuong)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)
