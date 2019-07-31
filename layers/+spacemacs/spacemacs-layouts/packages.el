@@ -220,6 +220,8 @@
         (setq spacemacs--last-selected-layout persp-last-persp-name))
       (add-hook 'persp-mode-hook 'spacemacs//layout-autosave)
       (advice-add 'persp-load-state-from-file :before 'spacemacs//layout-wait-for-modeline)
+      (dolist (fn spacemacs-layouts-advice-list)
+        (advice-add fn :around 'spacemacs-layouts//advice-with-persp-buffer-list))
       ;; Override SPC TAB to only change buffers in perspective
       (spacemacs/set-leader-keys
         "ba"   'persp-add-buffer

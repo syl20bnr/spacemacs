@@ -5,6 +5,7 @@
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
+- [[#limit-functions-to-the-current-layouts-buffers][Limit functions to the current layout's buffers]]
 
 * Description
 This layer adds support for distinct layouts/workspaces to Spacemacs.
@@ -12,3 +13,35 @@ This layer adds support for distinct layouts/workspaces to Spacemacs.
 ** Features:
 - Support for distinct layouts via =eyebrowse=
 - Integration with =helm= and =ivy= to search for buffers within layouts
+
+* Limit functions to the current layout's buffers
+Besides =helm-mini= and =ivy-switch-buffer= that are aware of a layouts buffers.
+This layer provides variable ~spacemacs-layouts-advice-list~ holding a list of
+functions that need to be limited to current layout's buffers. They will be
+wrapped around by persp-mode ~with-persp-buffer-list~. 
+
+Default value of ~spacemacs-layouts-advice-list~ is
+~'(spacemacs/window-split-double-columns spacemacs/window-split-triple-columns
+spacemacs/window-split-grid)~.
+
+Another variable  ~spacemacs-layouts-restrict-spc-tab~ when set to ~t~ will 
+limit ~spacemacs/alternate-buffer~ (~SPC TAB~) to current layout's buffers.
+
+Default value of ~spacemacs-layouts-restrict-spc-tab~ is nil
+
+If you want to modify them, edit the ~dotspacemacs-configuration-layers~
+section, for example:
+ 
+ #+begin_example elisp
+  (spacemacs-layouts :variables
+                     spacemacs-layouts-restrict-spc-tab t
+                     spacemacs-layouts-advice-list '(spacemacs/window-split-double-columns
+                                                     spacemacs/window-split-triple-columns
+                                                     spacemacs/window-split-grid
+                                                     helm-do-ag-buffers))
+ #+end_example
+
+Note that ~spacemacs-layouts-restrict-spc-tab~ can be toggle on the fly with
+~setq~ or can be set in ~dotspacemacs/user-config~, while
+~spacemacs-layouts-advice-list~ can be changed only at
+~dotspacemacs-configuration-layers~ section
