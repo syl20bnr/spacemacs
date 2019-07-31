@@ -97,6 +97,7 @@
               (wolfram-alpha
                :name "Wolfram Alpha"
                :url "https://www.wolframalpha.com/input/?i=%s")))
+      (setq search-engine-alist (append search-engine-alist search-engine-config-list))
       (dolist (engine search-engine-alist)
         (let ((func (intern (format "engine/search-%S" (car engine)))))
           (autoload func "engine-mode" nil 'interactive))))
