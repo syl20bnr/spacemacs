@@ -1047,6 +1047,7 @@ Other:
   - Fixed canceling =spacemacs/ace-buffer-links= (thanks to duianto)
   - Required =ivy= to load =counsel-projectile= (thanks to Thanh Vuong)
   - Make =search-engine= layer support custom keywords for =engine-mode= (thanks to Maximilian Wolff)
+  - Fixed =search-engine= layer customization issue (thanks to Haisheng Wu)
 *** Layer changes and fixes
 **** Agda
 - Fixes
