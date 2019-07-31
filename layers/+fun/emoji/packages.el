@@ -50,7 +50,6 @@
     :defer t
     :init
     (progn
-      (setq company-emoji-insert-unicode nil)
       ;; For when Emacs is started in GUI mode:
       (spacemacs//set-emoji-font nil)
       ;; Hook for when a frame is created with emacsclient
