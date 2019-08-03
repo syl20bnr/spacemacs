@@ -37,6 +37,8 @@ This layer adds support for the [[https://github.com/hrs/engine-mode][Search Eng
 - Wolfram Alpha
 - Maven Central
 - Npm
+- Hoogle 5
+- Clojure-doc
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
