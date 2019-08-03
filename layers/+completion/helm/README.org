@@ -217,8 +217,8 @@ project:
 - initiate a search with ~SPC /~
 - enter in edit mode with ~C-c C-e~
 - go to the occurrence and enter in =iedit state= with ~SPC s e~
-- edit the occurrences then leave the =iedit state=
-- press ~C-c C-c~
+- save the modifcations and leave the =iedit state= with ~C-c C-c~
+- alternatively, discard all changes and leave the =iedit state= with ~C-c C-k~
 
 *Note*: In Spacemacs, =helm-ag= despite its name works with =rg=, =pt= and =ack=
 as well (but not with =grep=).
