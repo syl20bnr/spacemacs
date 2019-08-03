@@ -37,8 +37,6 @@ This layer adds support for the [[https://github.com/hrs/engine-mode][Search Eng
 - Wolfram Alpha
 - Maven Central
 - Npm
-- Hoogle 5
-- Clojure-doc
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -70,8 +68,8 @@ The datastructure consists of a key and:
 - name => the name displayed in the search prompt.
 - url => the url to query against.
 - keywords => a list of =engine-mode= keywords like a specific browser to use
-              or a specific transformation to make. You can find a detailed
-              list of all supported features [[https://github.com/hrs/engine-mode][here]].
+  or a specific transformation to make. You can find a detailed
+  list of all supported features [[https://github.com/hrs/engine-mode][here]].
 
 #+BEGIN_SRC emacs-lisp
   (push '(custom1
