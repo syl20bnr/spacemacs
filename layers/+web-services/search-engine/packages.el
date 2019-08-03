@@ -76,6 +76,12 @@
               (npm
                :name "Npmjs"
                :url "https://www.npmjs.com/search?q=%s")
+              (hoogle
+               :name "Hoggle 5"
+               :url "https://hoogle.haskell.org/?hoogle=%s")
+              (clojure
+               :name "Clojure Docs"
+               :url "https://clojuredocs.org/search?q=%s")
               (wolfram-alpha
                :name "Wolfram Alpha"
                :url "https://www.wolframalpha.com/input/?i=%s")))
