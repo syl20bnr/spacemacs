@@ -67,11 +67,11 @@ or you want to add additional ones you can do so by pushing the
 following datastructure to =search-engine-alist= in your =dotspacemacs/user-config=.
 
 The datastructure consists of a key and:
-- name => the name displayed in the search prompt.
-- url => the url to query against.
-- keywords => a list of =engine-mode= keywords like a specific browser to use
-              or a specific transformation to make. You can find a detailed
-              list of all supported features [[https://github.com/hrs/engine-mode][here]].
+- name -> the name displayed in the search prompt.
+- url -> the url to query against.
+- keywords -> a list of =engine-mode= keywords like a specific browser to use
+  or a specific transformation to make. You can find a detailed
+  list of all supported features [[https://github.com/hrs/engine-mode][here]].
 
 #+BEGIN_SRC emacs-lisp
   (push '(custom1
