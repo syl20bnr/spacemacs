@@ -14,6 +14,9 @@
 ;; move point to the end of buffer on new output
 (setq comint-move-point-for-output t)
 
+;; allow moving around the buffer in emacs >= 26.1 in evil's normal mode
+(setq term-char-mode-point-at-process-mark nil)
+
 ;; Variables
 
 (defvar shell-default-shell (if (eq window-system 'w32)
