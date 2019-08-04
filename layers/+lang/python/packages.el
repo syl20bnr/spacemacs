@@ -427,6 +427,7 @@ fix this issue."
   (use-package lsp-python-ms
     :if (eq python-lsp-server 'mspyls)
     :ensure nil
+    :defer t
     :config
     (when python-lsp-git-root
       ;; Use dev version of language server checked out from github
