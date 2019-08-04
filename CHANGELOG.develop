@@ -2437,6 +2437,8 @@ Other:
   - ~M-l~ =spacemacs/ivy-eshell-history=
   - ~TAB~ =spacemacs/pcomplete-std-complete=
 - Enabled mouse based pasting into term shells (thanks to Sheng Yang)
+- Set =term-char-mode-point-at-process-mark= to =nil= to allow evil normal-mode
+  movement in term shells on emacs 26.1
 **** Shell Scripts
 - Added new company-shell environment variable backend
   (thanks to Alexander-Miller)
