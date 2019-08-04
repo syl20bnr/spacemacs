@@ -79,9 +79,21 @@
               (hoogle
                :name "Hoggle 5"
                :url "https://hoogle.haskell.org/?hoogle=%s")
+              (haskell-packages
+               :name "Hackage Package Search"
+               :url "https://hackage.haskell.org/packages/search?terms=%s")
               (clojure
                :name "Clojure Docs"
                :url "https://clojuredocs.org/search?q=%s")
+              (pip
+               :name "Python Package Index"
+               :url "https://pypi.org/search/?q=%s")
+              (python-doc
+               :name "Python Docs"
+               :url "https://docs.python.org/3/search.html?q=%s")
+              (c++-api-reference
+               :name "C++ Reference"
+               :url "https://en.cppreference.com/mwiki/index.php?search=%s")
               (wolfram-alpha
                :name "Wolfram Alpha"
                :url "https://www.wolframalpha.com/input/?i=%s")))

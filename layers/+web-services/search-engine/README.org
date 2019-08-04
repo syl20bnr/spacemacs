@@ -38,7 +38,11 @@ This layer adds support for the [[https://github.com/hrs/engine-mode][Search Eng
 - Maven Central
 - Npm
 - Hoogle 5
+- Hackage Package Search
 - Clojure-doc
+- Python Package Index
+- Python Docs
+- C++ Reference
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
