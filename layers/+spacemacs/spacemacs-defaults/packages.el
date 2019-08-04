@@ -436,7 +436,6 @@
   (use-package winner
     :commands (winner-undo winner-redo)
     :init
-    (winner-mode t)
     (with-eval-after-load 'winner
       (setq spacemacs/winner-boring-buffers '("*Completions*"
                                               "*Compile-Log*"
