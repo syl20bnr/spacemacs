@@ -2315,6 +2315,7 @@ Other:
 - Added support for 'black' formatter (thanks to Mike Macpherson)
 - Enabled =eldoc= for =anaconda-mode= (thanks to Vikash Balasubramanian)
 - Various fixes for =lsp-python-ms= setup (thanks to Trapez Breen)
+- Added lazy loading of =lsp-python-ms= (thanks to Ying Qu)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 - Updated racket logo (thanks to Vityou)
