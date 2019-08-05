@@ -396,7 +396,7 @@
 
 (defun helm/init-helm-xref ()
   (use-package helm-xref
-    :commands (helm-xref-show-xrefs)
+    :commands (helm-xref-show-xrefs-27 helm-xref-show-xrefs)
     :init
     (progn
       ;; This is required to make `xref-find-references' not give a prompt.
@@ -410,7 +410,9 @@
                                              xref-find-references
                                              spacemacs/jump-to-definition))
       ;; Use helm-xref to display `xref.el' results.
-      (setq xref-show-xrefs-function #'helm-xref-show-xrefs))))
+      (setq xref-show-xrefs-function (if (< emacs-major-version 27)
+                                         #'helm-xref-show-xrefs
+                                       #'helm-xref-show-xrefs-27)))))
 
 
 (defun helm/post-init-imenu ()
