@@ -568,6 +568,8 @@ Other:
   - Fixed =spacemacs/alternate-buffer= to restore point.
   - Removed Unicode triple dot in both =dotspacemacs-smart-closing-parenthesis=
     variable comments in favor of the ASCII one (thanks to nshadov)
+  - Removed unused variable =dotspacemacs-verbose-loading= from
+    =.spacemacs.template= (thanks to yqu212)
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
