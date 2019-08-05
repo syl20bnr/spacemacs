@@ -22,7 +22,7 @@
 (defun spacemacs/ansible-auto-decrypt-encrypt-vault ()
   "Auto decrypt/encrypt Vault files."
   (when (spacemacs//ansible-should-enable?)
-    (ansible::auto-decrypt-encrypt)))
+    (ansible-auto-decrypt-encrypt)))
 
 (defun spacemacs/ansible-company-maybe-enable ()
   "Add the ansible company backend only for when ansible mode is active."

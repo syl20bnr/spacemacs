@@ -1,0 +1,42 @@
+#+TITLE: Alda Layer
+
+#+TAGS: layer|music
+
+[[file:img/alda.png]]
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+Alda is a music composition language allowing music to easily be written and
+edited in a text file.
+
+This layer adds key bindings for =alda-mode='s functions, which allow Alda code
+to be interpreted and played by the running Alda server. It will also start the
+Alda server if it is not running.
+
+** Features:
+- Syntax highlighting for Alda files.
+- Play portions of a buffer, or the entire buffer,
+  through a running Alda server.
+
+* Install
+Add =alda= to the =dotspacemacs-configuration-layers= list in =~/.spacemacs=.
+You will also want to ensure that you have installed [[https://github.com/alda-lang/alda/releases][Alda]] so that =alda-mode=
+can play your code.
+
+* Key bindings
+When alda-mode is active in an Alda file, you can use these key bindings:
+
+| Key binding | Description                     |
+|-------------+---------------------------------|
+| ~SPC m b~   | Play the entire buffer          |
+| ~SPC m c~   | Play block (paragraph on point) |
+| ~SPC m r~   | Play region (selected text)     |
+| ~SPC m n~   | Plays the current line          |
+
+Note that if the Alda server is not running, =alda-mode= will start the server,
+and you will have to run the command again.

@@ -1,8 +1,10 @@
 #+TITLE: C/C++ layer
 
+#+TAGS: general|layer|multi-paradigm|programming
+
 [[file:img/ccpp.jpg]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -15,9 +17,17 @@
     - [[#cquery--ccls-lsp-backends][cquery / ccls (lsp backends)]]
       - [[#features-1][Features:]]
       - [[#external-dependencies-1][External dependencies]]
+        - [[#cquery-server][cquery server]]
+        - [[#ccls-server][ccls server]]
       - [[#configuration-1][Configuration]]
+        - [[#basic][Basic]]
+        - [[#setting-path-to-backend-executable][Setting path to backend executable]]
+        - [[#semantic-highlighting][Semantic highlighting]]
+        - [[#additional-configuration-options][Additional configuration options]]
+        - [[#example-dotspacemacs-configuration-layers-entry][Example dotspacemacs-configuration-layers entry]]
       - [[#completion][Completion]]
       - [[#debugger-dap-integration][Debugger (dap integration)]]
+  - [[#organize-file-header-includes-on-save][Organize file header includes on save]]
   - [[#clang-configuration][Clang Configuration]]
     - [[#clang-format][clang-format]]
     - [[#company-clang-and-flycheck][Company-clang and flycheck]]
@@ -167,7 +177,7 @@ specifying an explicit =c-c++-lsp-cache-dir=. Setting this value to a relative p
 subdirectory of your project root.
 
 There are other initialization options such as the number of indexer threads, cache serialization format.
-They have good default values. See =config.el= of the layer and the backends’ respective homepages for more info.
+They have good default values. See =config.el= of the layer and the backends' respective homepages for more info.
 - [[https://github.com/cquery-project/cquery/wiki/Emacs][Emacs section of =cquery= wiki]]
 - [[https://github.com/MaskRay/ccls/wiki/Emacs][Emacs section of =ccls= wiki]]
 
@@ -187,6 +197,15 @@ as recommended by =cquery=/=ccls= wikis.
 
 **** Debugger (dap integration)
 To install the debug adapter you may run =M-x dap-gdb-lldb-setup= when you are on Linux or download it manually from [[https://marketplace.visualstudio.com/items?itemName=webfreak.debug][Native Debug]] and adjust =dap-gdb-lldb-path=.
+
+** Organize file header includes on save
+To organize the file header includes on save, set the layer variable
+=c++-enable-organize-includes-on-save= to =t= in the dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables c++-enable-organize-includes-on-save t)))
+#+END_SRC
 
 ** Clang Configuration
 To enable Clang support, set the layer variable =c-c++-enable-clang-support=
@@ -221,7 +240,7 @@ to load a projects =.clang_complete= file, which is just a text file with one
 clang flag per line, a format also used by other text editor clang plugins.
 
 Not only does this allow proper autocomplete on projects with extra includes and
-flags, but there is also support for flycheck so that it doesn’t complain about
+flags, but there is also support for flycheck so that it doesn't complain about
 missing header files.
 
 ** Enable google-set-c-style
@@ -229,8 +248,8 @@ If you have clang enabled with =clang-format= as described earlier in this page
 you may not have a lot of neeed for =google-set-c-style= if you are already
 using a mode based on Google mode for most of your projects.
 
-However, if you don’t have (or want) =clang-format=, or if you have to do a lot
-[[https://www.emacswiki.org/emacs/TrampMode][Tramp]] remote editing on systems that don’t have =clang-format= installed, you
+However, if you don't have (or want) =clang-format=, or if you have to do a lot
+[[https://www.emacswiki.org/emacs/TrampMode][Tramp]] remote editing on systems that don't have =clang-format= installed, you
 may want =google-c-style= enabled and added to your common hooks.
 
 To get =google-c-style= actually install itself into your C/C++ common hooks,
@@ -281,6 +300,7 @@ generally applicable.
 |             | (e.g. switch between .cpp and .h, requires a project to work) |
 | ~SPC m D~   | disaster: disassemble c/c++ code                              |
 | ~SPC m r .~ | srefactor: refactor thing at point.                           |
+| ~SPC m r i~ | organize includes                                             |
 
 *Note:* [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]] is only available for Emacs 24.4+.
 

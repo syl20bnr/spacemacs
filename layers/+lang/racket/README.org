@@ -1,12 +1,14 @@
 #+TITLE: Racket layer
 
+#+TAGS: general|layer|multi-paradigm|programming
+
 [[file:img/racket.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#structuraly-safe-editing][Structuraly safe editing]]
+- [[#structurally-safe-editing][Structurally safe editing]]
 - [[#key-bindings][Key bindings]]
   - [[#navigation][Navigation]]
   - [[#documentation][Documentation]]
@@ -22,19 +24,19 @@ Adds support for the [[http://racket-lang.org/][Racket]] programming language.
 - Test runner
 - Interactive REPL
 - Code navigation with =gtags=
-- Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
+- Structurally safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =racket= to the existing =dotspacemacs-configuration-layers= list in this
 file. You will also need DrRacket installed. Alternatively, one can use the
-“Minimal Racket” installation, and then run the following command.
+"Minimal Racket" installation, and then run the following command.
 
 #+BEGIN_SRC Bash
   raco pkg install drracket
 #+END_SRC
 
-* Structuraly safe editing
+* Structurally safe editing
 This layer adds support for =evil-cleverparens= which allows to safely edit
 lisp code by keeping the s-expressions balanced.
 

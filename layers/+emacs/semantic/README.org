@@ -1,6 +1,8 @@
 #+TITLE: Semantic layer
 
-* Table of Contents                     :TOC_4_gh:noexport:
+#+TAGS: emacs|layer
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -34,10 +36,6 @@ language, instead of plain text structure. Semantic is the core of CEDET.
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =semantic= to the existing =dotspacemacs-configuration-layers= list in this
 file.
-
-By default, Spacemacs sets Semantic to parse only file, local and project scope.
-For a different parsing scope, you can customize the variable
-=semanticdb-find-default-throttle=.
 
 * Key bindings
 

@@ -1,8 +1,10 @@
 #+TITLE: Jabber layer
 
+#+TAGS: chat|layer
+
 [[file:img/jabber-logo.gif]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -46,7 +48,7 @@ file.
 
 * HipChat
 ** Authentication
-To find YOUR_JABBER_ID visit “XMPP/Jabber info” section on your profile page at hipchat.com
+To find YOUR_JABBER_ID visit "XMPP/Jabber info" section on your profile page at hipchat.com
 
 #+BEGIN_SRC emacs-lisp
 

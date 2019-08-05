@@ -1,8 +1,10 @@
 #+TITLE: Slack layer
 
+#+TAGS: chat|layer
+
 [[file:img/slack.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]

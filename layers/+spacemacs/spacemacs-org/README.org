@@ -1,6 +1,8 @@
 #+TITLE: spacemacs-org layer
 
-* Table of Contents                     :TOC_4_gh:noexport:
+#+TAGS: layer|misc|spacemacs
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 

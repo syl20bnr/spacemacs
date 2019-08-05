@@ -116,6 +116,8 @@ FILE: the path to the file containing the banner."
 in spacemacs buffer along with quick buttons underneath.
 Easter egg:
 Doge special text banner can be reachable via `999', `doge' or `random*'.
+Doge special text banner for dark themes can be reachable via `997',
+`doge-inverted' or `random*'.
 Cate special text banner can de reachable via `998', `cat' or `random*'.
 `random' ignore special banners whereas `random*' does not."
   (let ((banner (spacemacs-buffer//choose-banner))
@@ -162,6 +164,8 @@ Cate special text banner can de reachable via `998', `cat' or `random*'.
            (spacemacs-buffer//choose-random-text-banner t))
           ((eq 'doge dotspacemacs-startup-banner)
            (spacemacs-buffer//get-banner-path 999))
+          ((eq 'doge-inverted dotspacemacs-startup-banner)
+           (spacemacs-buffer//get-banner-path 997))
           ((eq 'cat dotspacemacs-startup-banner)
            (spacemacs-buffer//get-banner-path 998))
           ((integerp dotspacemacs-startup-banner)

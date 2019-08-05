@@ -1,8 +1,10 @@
 #+TITLE: NixOS layer
 
+#+TAGS: layer|os
+
 [[file:img/nixos.jpg]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -11,7 +13,7 @@
   - [[#nixos-options][NixOS Options]]
 
 * Description
-This layer adds tools for better integration of emacs in NixOS.
+This layer adds tools for better integration of Emacs in NixOS.
 
 ** Features:
 - Nix-mode using [[https://github.com/NixOS/nix-mode][nix-mode]]

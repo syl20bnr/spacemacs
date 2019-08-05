@@ -1,8 +1,10 @@
 #+TITLE: TypeScript layer
 
+#+TAGS: general|js|layer|multi-paradigm|programming
+
 [[file:img/TypeScript.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -24,7 +26,7 @@ This layer adds support for TypeScript and TSX editing.
 - Eldoc-mode
 - Documentation at point
 - Auto complete
-- Flycheck with linter
+- Flycheck with either tslint or eslint
 - Jump to definition, Jump to type definition
 - Find occurrences (Imenu-mode)
 - Rename symbol
@@ -59,14 +61,35 @@ You can choose formatting tool:
 
 Default is ='tide=.
 
+You can choose either tslint (default) or eslint for linting:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (typescript :variables
+                typescript-linter 'tslint)))
+#+END_SRC
+
 ** Pre-requisites
 You will need =node.js v0.12.0= or greater.
 
-If you want linting run:
+If you want linting with tslint run:
 
 #+BEGIN_SRC shell
   npm install -g typescript tslint
 #+END_SRC
+
+If you want linting with eslint run:
+
+#+BEGIN_SRC shell
+  npm install eslint
+#+END_SRC
+
+We need to use the project-local eslint installation in order to pick up plugins
+and presets installed locally.
+
+Ensure that the project directory =node_modules/.bin= is added to the buffer
+local =exec_path= (see the Javascript layer [[file:../../+lang/javascript/README.org][README]] documentation for more
+details).
 
 If you want to use typescript-formatter for formatting run:
 
@@ -119,12 +142,22 @@ error. Try node version 0.12.x if you get this error.
 
 Send to playground requires browser.
 
-Currently tsserver doesn’t pickup tsconfig.json file changes. You might need to
+Currently tsserver doesn't pickup tsconfig.json file changes. You might need to
 restart server after editing it.
 
 ** Language Server Protocol
 You also need to install the Typescript Language Server.
 Consult the installation command for the desired language server found at [[https://www.github.com/emacs-lsp/lsp-mode/][lsp-mode]] for instructions.
+
+By default lsp will explicitly set itself as the linter, if you don't want that,
+then set the variable =typescript-lsp-linter= to =nil=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (typescript :variables
+                typescript-backend 'lsp
+                typescript-lsp-linter nil)))
+#+END_SRC
 
 * Key bindings
 ** Typescript Major Mode
@@ -135,8 +168,8 @@ Consult the installation command for the desired language server found at [[http
 | ~SPC m E d~ | add =tslitn-disable-next-line= at point                      |
 | ~SPC m E e~ | fix thing at point                                           |
 | ~SPC m g b~ | jump back                                                    |
-| ~SPC m g g~ | jump to entity’s definition                                  |
-| ~SPC m g t~ | jump to entity’s type definition                             |
+| ~SPC m g g~ | jump to entity's definition                                  |
+| ~SPC m g t~ | jump to entity's type definition                             |
 | ~SPC m g u~ | references                                                   |
 | ~SPC m h h~ | documentation at point                                       |
 | ~SPC m r i~ | organize imports                                             |

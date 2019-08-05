@@ -32,29 +32,18 @@
   ;; Disable file-name-handlers for a speed boost during init
   (let ((file-name-handler-alist nil))
     (require 'core-spacemacs)
-    (spacemacs|unless-dumping
-      (when (boundp 'load-path-backup)
-        (setq load-path load-path-backup)))
+    (spacemacs/dump-restore-load-path)
     (configuration-layer/load-lock-file)
     (spacemacs/init)
     (configuration-layer/stable-elpa-download-tarball)
     (configuration-layer/load)
     (spacemacs-buffer/display-startup-note)
     (spacemacs/setup-startup-hook)
-    (spacemacs|unless-dumping
-      (global-font-lock-mode)
-      (global-undo-tree-mode t)
-      (winner-mode t))
+    (spacemacs/dump-eval-delayed-functions)
     (when (and dotspacemacs-enable-server (not (spacemacs-is-dumping-p)))
       (require 'server)
       (when dotspacemacs-server-socket-dir
         (setq server-socket-dir dotspacemacs-server-socket-dir))
       (unless (server-running-p)
         (message "Starting a server...")
-        (server-start)))
-    (spacemacs|when-dumping-strict
-      (setq load-path-backup load-path)
-      ;; disable undo-tree to prevent from segfaulting when loading the dump
-      (global-undo-tree-mode -1)
-      (setq spacemacs-dump-mode 'dumped)
-      (garbage-collect))))
+        (server-start)))))

@@ -1,6 +1,8 @@
 #+TITLE: Evil-commentary layer
 
-* Table of Contents                     :TOC_4_gh:noexport:
+#+TAGS: layer|vim
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]

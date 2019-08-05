@@ -1,8 +1,10 @@
 #+TITLE: Shell Scripts layer
 
+#+TAGS: dsl|layer|programming|script
+
 [[file:img/fish.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]

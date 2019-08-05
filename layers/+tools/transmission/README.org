@@ -1,8 +1,10 @@
 #+TITLE: Transmission layer
 
+#+TAGS: layer|tool
+
 [[file:img/transmission.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -19,7 +21,7 @@
 This layer integrates a BitTorrent client into Spacemacs.
 
 ** Features:
-- Integration of [[https://transmissionbt.com/][Transmission]] into emacs.
+- Integration of [[https://transmissionbt.com/][Transmission]] into Emacs.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -63,7 +65,7 @@ Add =(transmission :variables transmission-auto-refresh-all t)= to
 
 | Key binding | Description                                                   |
 |-------------+---------------------------------------------------------------|
-| ~SPC m g t~ | Open a `transmission-files-mode’ buffer for torrent at point. |
+| ~SPC m g t~ | Open a `transmission-files-mode' buffer for torrent at point. |
 | ~SPC m a t~ | Add torrent by filename, URL, magnet link, or info hash.      |
 | ~SPC m s d~ | Set global download speed limit in kB/s.                      |
 | ~SPC m g p~ | Open a =transmission-peers-mode= buffer for torrent at point. |

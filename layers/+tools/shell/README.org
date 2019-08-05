@@ -1,8 +1,10 @@
 #+TITLE: Shell layer
 
+#+TAGS: layer|tool
+
 [[file:img/shell.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -15,6 +17,7 @@
   - [[#enable-em-smart-in-eshell][Enable em-smart in Eshell]]
   - [[#protect-your-eshell-prompt][Protect your Eshell prompt]]
   - [[#fish-shell-and-ansi-term][Fish shell and ansi-term]]
+  - [[#close-window-with-terminal][Close window with terminal]]
 - [[#eshell][Eshell]]
 - [[#key-bindings][Key bindings]]
   - [[#multi-term][Multi-term]]
@@ -112,10 +115,10 @@ From the =em-smart= documentation:
   The best way to get a sense of what this code is trying to do is by
   using it. Basically, the philosophy represents a blend between the
   ease of use of modern day shells, and the review-before-you-proceed
-  mentality of Plan 9’s 9term.
+  mentality of Plan 9's 9term.
 #+END_QUOTE
 
-In a nutshell, when =em-smart= is enabled point won’t jump at the end of the
+In a nutshell, when =em-smart= is enabled point won't jump at the end of the
 buffer when a command is executed, it will stay at the same command prompt used
 to execute the command. This allows to quickly edit the last command in the case
 of a mistake. If there is no mistake and you directly type a new command then
@@ -181,6 +184,17 @@ correctly, in the function =dotspacemacs/user-config= of your dotfile add:
   (add-hook 'term-mode-hook 'spacemacs/toggle-truncate-lines-on)
 #+END_SRC
 
+** Close window with terminal
+If you want its window to close when the terminal terminates, set the following
+layer variable to non-nil:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((shell :variables close-window-with-terminal t)))
+#+END_SRC
+
+This is only applied to =term= and =ansi-term= modes.
+
 * Eshell
 Some advanced configuration is setup for =eshell= in this layer:
 - some elisp functions aliases for quick access
@@ -202,12 +216,13 @@ Some advanced configuration is setup for =eshell= in this layer:
 | Key binding | Description                                                |
 |-------------+------------------------------------------------------------|
 | ~SPC '​~     | Open, close or go to the default shell                     |
-| ~SPC p '​~   | Open a shell in the project’s root                         |
+| ~SPC p '​~   | Open a shell in the project's root                         |
 | ~SPC a s e~ | Open, close or go to an =eshell=                           |
 | ~SPC a s i~ | Open, close or go to a =shell=                             |
 | ~SPC a s m~ | Open, close or go to a =multi-term=                        |
 | ~SPC a s t~ | Open, close or go to a =ansi-term=                         |
 | ~SPC a s T~ | Open, close or go to a =term=                              |
+| ~TAB~       | browse completion with =helm=                              |
 | ~SPC m H~   | browse history with =helm= (works in =eshell= and =shell=) |
 | ~C-j~       | next item in history                                       |
 | ~C-k~       | previous item in history                                   |
@@ -232,6 +247,6 @@ in the current buffer instead of a popup.
 
 ** Eshell
 
-| Key binding        | Description                                |
-|--------------------+--------------------------------------------|
-| ~SPC m H~ or ~M-l~ | shell commands history using a helm buffer |
+| Key binding        | Description                                       |
+|--------------------+---------------------------------------------------|
+| ~SPC m H~ or ~M-l~ | shell commands history using a helm or ivy buffer |

@@ -17,7 +17,7 @@
 
         ;; ghci completion backend
         (company-ghci :requires company)
-         
+
         ;; ghc-mod completion backend
         (company-ghc :requires company)
         ghc
@@ -27,6 +27,8 @@
 
         ;; dante completion backend
         (dante :requires company)
+        ;; dante auto refactor companion
+        (attrap :requires dante)
 
         lsp-haskell
 
@@ -145,6 +147,10 @@
           "se" 'dante-eval-block
           "sr" 'dante-restart)))))
 
+(defun haskell/init-attrap ()
+  (use-package attrap
+    :defer t))
+
 (defun haskell/init-helm-hoogle ()
   (use-package helm-hoogle
     :defer t
@@ -225,6 +231,10 @@
         (interactive)
         (haskell-process-do-type 1))
 
+      ;; Bind repl
+      (spacemacs/register-repl 'haskell
+                               'haskell-interactive-switch "haskell")
+
       (dolist (mode haskell-modes)
         (spacemacs/set-leader-keys-for-major-mode mode
           "gi"  'haskell-navigate-imports
@@ -234,6 +244,7 @@
           "sc"  'haskell-interactive-mode-clear
           "sS"  'spacemacs/haskell-interactive-bring
           "ss"  'haskell-interactive-switch
+          "'"   'haskell-interactive-switch
 
           "ca"  'haskell-process-cabal
           "cb"  'haskell-process-cabal-build
@@ -311,24 +322,24 @@
       (evil-define-key 'normal haskell-interactive-mode-map
         (kbd "RET") 'haskell-interactive-mode-return))
 
-  ;; align rules for Haskell
-  (with-eval-after-load 'align
-    (add-to-list 'align-rules-list
-                 '(haskell-types
-                   (regexp . "\\(\\s-+\\)\\(::\\|∷\\)\\s-+")
-                   (modes . haskell-modes)))
-    (add-to-list 'align-rules-list
-                 '(haskell-assignment
-                   (regexp . "\\(\\s-+\\)=\\s-+")
-                   (modes . haskell-modes)))
-    (add-to-list 'align-rules-list
-                 '(haskell-arrows
-                   (regexp . "\\(\\s-+\\)\\(->\\|→\\)\\s-+")
-                   (modes . haskell-modes)))
-    (add-to-list 'align-rules-list
-                 '(haskell-left-arrows
-                   (regexp . "\\(\\s-+\\)\\(<-\\|←\\)\\s-+")
-                   (modes . haskell-modes))))))
+    ;; align rules for Haskell
+    (with-eval-after-load 'align
+      (add-to-list 'align-rules-list
+                   '(haskell-types
+                     (regexp . "\\(\\s-+\\)\\(::\\|∷\\)\\s-+")
+                     (modes . haskell-modes)))
+      (add-to-list 'align-rules-list
+                   '(haskell-assignment
+                     (regexp . "\\(\\s-+\\)=\\s-+")
+                     (modes . haskell-modes)))
+      (add-to-list 'align-rules-list
+                   '(haskell-arrows
+                     (regexp . "\\(\\s-+\\)\\(->\\|→\\)\\s-+")
+                     (modes . haskell-modes)))
+      (add-to-list 'align-rules-list
+                   '(haskell-left-arrows
+                     (regexp . "\\(\\s-+\\)\\(<-\\|←\\)\\s-+")
+                     (modes . haskell-modes))))))
 
 (defun haskell/init-haskell-snippets ()
   ;; manually load the package since the current implementation is not lazy

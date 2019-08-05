@@ -1,8 +1,10 @@
 #+TITLE: graphviz layer
 
+#+TAGS: dsl|layer|markup|programming
+
 [[file:img/graphviz.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]

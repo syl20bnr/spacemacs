@@ -14,6 +14,7 @@
         auctex
         (auctex-latexmk :toggle (string= "LatexMk" latex-build-command))
         (company-auctex :requires company)
+        (company-reftex :requires company)
         evil-matchit
         (reftex :location built-in)
         flycheck
@@ -63,6 +64,8 @@
           "k"   'TeX-kill-job                                ;; C-c C-k
           "l"   'TeX-recenter-output-buffer                  ;; C-c C-l
           "m"   'TeX-insert-macro                            ;; C-c C-m
+          "n"   'TeX-next-error                              ;; C-c `
+          "N"   'TeX-previous-error                          ;; M-g p
           "v"   'TeX-view                                    ;; C-c C-v
           ;; TeX-doc is a very slow function
           "hd"  'TeX-doc
@@ -144,11 +147,18 @@
     :defer t
     :init (spacemacs|add-company-backends
             :backends
-            company-auctex-labels
-            company-auctex-bibs
             (company-auctex-macros
              company-auctex-symbols
              company-auctex-environments)
+            :modes LaTeX-mode)))
+
+(defun latex/init-company-reftex ()
+  (use-package company-reftex
+    :defer t
+    :init (spacemacs|add-company-backends
+            :backends
+            company-reftex-labels
+            company-reftex-citations
             :modes LaTeX-mode)))
 
 (defun latex/post-init-evil-matchit ()

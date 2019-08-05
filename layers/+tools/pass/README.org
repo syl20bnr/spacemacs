@@ -1,13 +1,15 @@
 #+TITLE: Pass layer
 
-* Table of Contents                     :TOC_4_gh:noexport:
+#+TAGS: layer|tool
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds intregration with [[http://www.passwordstore.org/][pass]], the unix password manager.
+This layer adds integration with [[http://www.passwordstore.org/][pass]], the unix password manager.
 You must have ~pass~ installed and available in your path for this layer to
 function properly.
 

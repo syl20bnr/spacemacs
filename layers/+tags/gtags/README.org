@@ -1,6 +1,8 @@
 #+TITLE: Helm Gtags layer
 
-* Table of Contents                     :TOC_4_gh:noexport:
+#+TAGS: layer|tag
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -117,7 +119,7 @@ With fish:
 
 *** Conflict between =ctags= and emacs's =etags= binary
 If you installed =emacs= from source after =ctags=, your original =ctags= binary
-is probably replaced by emacs’s =etags=. To get around this you will need to
+is probably replaced by emacs's =etags=. To get around this you will need to
 configure =emacs= as following before installing:
 
 #+BEGIN_SRC sh
@@ -161,7 +163,7 @@ additional control on a per project basis.
 Before using =gtags=, remember to create a GTAGS database by one of the following
 methods:
 - From within Emacs, run either =counsel-gtags-create-tags= or
-  =helm-gtags-create-tags=, which are bound to ~SPC m g c~. If the language is
+  =helm-gtags-create-tags=, which are bound to ~SPC m g C~. If the language is
   not directly supported by GNU Global, you can choose =ctags= or =pygments= as
   a backend to generate the database.
 - From inside a terminal:
@@ -216,7 +218,7 @@ languages are supported:
 In order to look up symbol references for any language not in the built in
 parser you must use the pygments backend. When this backend is used global
 actually uses both ctags and pygments to find the definitions and uses of
-functions and variables as well as “other symbols”.
+functions and variables as well as "other symbols".
 
 If you enabled pygments (the best choice) and use that as the backend
 (i.e. =GTAGSLABEL=pygments= or =--gtagslabel=pygments=) the following additional

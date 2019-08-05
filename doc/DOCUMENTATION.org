@@ -1,6 +1,6 @@
 #+TITLE: Spacemacs documentation
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#core-pillars][Core Pillars]]
   - [[#mnemonic][Mnemonic]]
   - [[#discoverable][Discoverable]]
@@ -87,8 +87,10 @@
     - [[#all-the-icons-theme][All-the-Icons theme]]
     - [[#custom-spaceline-theme][Custom spaceline theme]]
     - [[#minor-modes][Minor Modes]]
-  - [[#frame-title][Frame title]]
-    - [[#iconified-tabified-title][Iconified (tabified) title]]
+  - [[#frame][Frame]]
+    - [[#title][Title]]
+      - [[#iconified-tabified-title][Iconified (tabified) title]]
+    - [[#transparency][Transparency]]
 - [[#layouts-and-workspaces][Layouts and workspaces]]
   - [[#layouts][Layouts]]
     - [[#the-default-layout][The default layout]]
@@ -167,7 +169,7 @@
     - [[#smartparens-strict-mode][Smartparens Strict mode]]
     - [[#zooming][Zooming]]
       - [[#text][Text]]
-      - [[#frame][Frame]]
+      - [[#frame-1][Frame]]
     - [[#increasedecrease-numbers][Increase/Decrease numbers]]
     - [[#spell-checking][Spell checking]]
     - [[#region-selection][Region selection]]
@@ -176,6 +178,9 @@
     - [[#region-narrowing][Region narrowing]]
     - [[#replacing-text-with-iedit][Replacing text with iedit]]
       - [[#iedit-states-key-bindings][iedit states key bindings]]
+        - [[#state-transitions][State transitions]]
+        - [[#in-iedit-state][In iedit state]]
+        - [[#in-iedit-insert-state][In iedit-insert state]]
       - [[#examples][Examples]]
     - [[#replacing-text-in-several-files][Replacing text in several files]]
     - [[#renaming-files-in-a-directory][Renaming files in a directory]]
@@ -184,6 +189,8 @@
     - [[#deleting-files][Deleting files]]
     - [[#editing-lisp-code][Editing Lisp code]]
       - [[#lisp-key-bindings][Lisp Key bindings]]
+        - [[#lisp-state-key-bindings][Lisp state key bindings]]
+        - [[#emacs-lisp-specific-key-bindings][Emacs lisp specific key bindings]]
     - [[#mouse-usage][Mouse usage]]
   - [[#managing-projects][Managing projects]]
   - [[#registers][Registers]]
@@ -210,9 +217,9 @@
 - [[#thank-you][Thank you]]
 
 * Core Pillars
-Four core pillars: Mnemonic, Discoverable, Consistent and “Crowd-Configured”.
+Four core pillars: Mnemonic, Discoverable, Consistent and "Crowd-Configured".
 
-If any of these core pillars are violated, open an issue and we’ll try our best
+If any of these core pillars are violated, open an issue and we'll try our best
 to fix it.
 
 ** Mnemonic
@@ -241,7 +248,8 @@ and bugs are fixed quickly.
 - *Minimalistic and nice graphical UI* keeps your available screen space for
   what matters: your text files.
 - *Fast boot time*: packages and configuration are lazy-loaded as much as
-  possible.
+  possible. For even faster boot time, Spacemacs now provides full support for
+  the new portable dumper available in Emacs 27 and later.
 - *Lower the risk of RSI* by heavily using the space bar instead of modifiers.
   If you have issues with your thumbs you can still use Spacemacs using
   modifiers.
@@ -291,7 +299,7 @@ Click it to update Spacemacs. You must restart Emacs after updating.
 disabled---you have to update manually using git.
 
 *** Updating from the Spacemacs Buffer
-Use the button labeled “Update Spacemacs” in the Spacemacs buffer. You will be
+Use the button labeled "Update Spacemacs" in the Spacemacs buffer. You will be
 prompted for the version you would like to use.
 
 *Note*: If you use the =develop= branch of Spacemacs, you cannot use this method.
@@ -361,7 +369,7 @@ Where:
 
 =Packages= can be:
 - =ELPA= packages installed from an =ELPA= compliant repository
-- local packages in a layer’s =local= folder
+- local packages in a layer's =local= folder
 - installed from an online source using [[https://github.com/quelpa/quelpa][quelpa]].
 
 ** Configure packages
@@ -377,7 +385,7 @@ Example:
 #+END_SRC
 
 All packages from all layers are processed in alphabetical order so sometimes
-you’ll have to use some =with-eval-after-load= black magic to configure them
+you'll have to use some =with-eval-after-load= black magic to configure them
 properly. For instance, if package =A= depends on =B= then you can configure
 =A= with:
 
@@ -466,7 +474,7 @@ Adding this layer will install around 100 themes; to uninstall them remove the
 layer from the =dotspacemacs-configuration-layers= and press ~SPC f e R~.
 
 ** Managing private configuration layers
-Spacemacs’s configuration system is flexible enough to let you manage your
+Spacemacs's configuration system is flexible enough to let you manage your
 private layers in different ways.
 
 *** Using the private directory
@@ -542,10 +550,6 @@ tests are also run automatically when you synchronize with ~SPC f e R~.
 *** Configuration functions
 Five special functions in the =~/.spacemacs= file can be used to perform
 configuration at the beginning and end of Spacemacs loading process:
-- =dotspacemacs/layers= is called at the very startup of Spacemacs initialization,
-  this is where you set the Spacemacs distribution and declare layers to be used
-  in your configuration. You can also add or exclude packages of your choice
-  and tweak some behaviors of Spacemacs loading.
 - =dotspacemacs/init= is called at the very startup of Spacemacs initialization
   before layers configuration. *You should not put any user code* in there
   besides modifying the Spacemacs variable values prefixed with =dotspacemacs-=.
@@ -554,6 +558,10 @@ configuration at the beginning and end of Spacemacs loading process:
   that need to be set before packages are loaded.
 - =dotspacemacs/user-env= is called before the layers and packages configuration
   and it is responsible to setup environment variables.
+- =dotspacemacs/layers= is called at the startup of Spacemacs initialization,
+  this is where you set the Spacemacs distribution and declare layers to be used
+  in your configuration. You can also add or exclude packages of your choice
+  and tweak some behaviors of Spacemacs loading.
 - =dotspacemacs/user-config= is called at the very end of Spacemacs
   initialization after layers configuration. This is the place where most of
   your configurations should be done. Unless it is explicitly specified that a
@@ -700,7 +708,7 @@ ignoring this package is the same as excluding it (because the package becomes
 orphan so it is considered unused by Spacemacs).
 
 *** Excluding packages
-You can exclude packages you don’t want to install with the variable
+You can exclude packages you don't want to install with the variable
 =dotspacemacs-excluded-packages= (see [[#configuration-layers][Configuration layers]] for more info
 on packages).
 
@@ -916,7 +924,7 @@ binding for this toggle.
 For instance the globally available toggle for =which-key= is under ~SPC t K~
 and its corresponding symbol in the mode-line is =Ⓚ=. Also the major mode
 specific toggle for =nameless= available only in =emacs-lisp= mode is under
-~SPC m T n~ and its corresspoding symbol in the mode-line is =🅽=.
+~SPC m T n~ and its corresponding symbol in the mode-line is =🅽=.
 
 All toggles can be browsed via the Spacemacs help system under ~SPC h t~.
 
@@ -935,7 +943,7 @@ for the toggle to turn on and off the =which-key= minor mode.
 #+END_SRC
 
 Major mode specific toggles can be turned on by registering a hook on them to
-call the “toggle on” function automatically whenever a buffer using this major
+call the "toggle on" function automatically whenever a buffer using this major
 mode is opened. It can be done convenienty using the function
 =spacemacs/toggle-NAME-on-register-hooks=. It also exists variants of this
 function for each supported major mode like
@@ -1029,10 +1037,10 @@ will go to the function =dotspacemacs/user-env= instead of opening the file
 =dotspacemacs/user-env= so you can update your variables in place.
 
 ** Note about the function dotspacemacs/user-env
-Its possible that you don’t have this function defined if you have an older
+Its possible that you don't have this function defined if you have an older
 dotfile. It is recommended to update your dotfile by adding this function,
 see the file =~/.emacs.d/core/template/.spacemacs.template= to copy it.
-If you don’t create such function then Spacemacs assumes you are using the
+If you don't create such function then Spacemacs assumes you are using the
 default behavior described above.
 
 * Binding keys
@@ -1077,7 +1085,7 @@ major mode is =emacs-lisp=.
 
 Finally, one should be aware of prefix keys. Essentially, all keymaps can be
 nested. Nested keymaps are used extensively in spacemacs, and in vanilla Emacs
-for that matter. For example, ~SPC a~ points to key bindings for “applications”,
+for that matter. For example, ~SPC a~ points to key bindings for "applications",
 like ~SPC a c~ for =calc-dispatch=. Nesting bindings is easy.
 
 #+BEGIN_SRC emacs-lisp
@@ -1164,7 +1172,7 @@ You can see samples of all themes included in the =themes-megapack= layer
 in this [[http://themegallery.robdor.com][theme gallery]] from [[https://twitter.com/robmerrell][Rob Merrell]].
 
 *** Notes
-- You don’t need to explicitly list in a layer the theme packages you are
+- You don't need to explicitly list in a layer the theme packages you are
   defining in =dotspacemacs-themes=, Spacemacs is smart enough to remove those
   packages from the list of orphans.
 - Due to the inner working of themes in Emacs, switching theme during the same
@@ -1184,7 +1192,7 @@ To change the default font set the variable =dotspacemacs-default-font= in your
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-default-font '("Source Code Pro"
-                                            :size 13
+                                            :size 10.0
                                             :weight normal
                                             :width normal))
 #+END_SRC
@@ -1227,9 +1235,9 @@ property of a [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Low_00
 - =:size= The font size- either a non-negative integer that specifies the
   pixel size, or a floating-point number that specifies the point size.
 - =:adstyle= Additional typographic style information for the font, such as
-  ’sans’. The value should be a string or a symbol.
+  'sans'. The value should be a string or a symbol.
 - =:registry= The charset registry and encoding of the font, such as
-  ’iso8859-1’. The value should be a string or a symbol.
+  'iso8859-1'. The value should be a string or a symbol.
 - =:script= The script that the font must support (a symbol).
 
 ** GUI Toggles
@@ -1248,7 +1256,9 @@ and ~T~):
 | ~SPC t l~   | toggle truncate lines                                             |
 | ~SPC t L~   | toggle visual lines                                               |
 | ~SPC t n~   | toggle line numbers                                               |
+| ~SPC t r~   | toggle relative line numbers                                      |
 | ~SPC t v~   | toggle smooth scrolling                                           |
+| ~SPC t V~   | toggle visual line numbers                                        |
 | ~SPC t z~   | toggle 0/1 based column indexing                                  |
 
 | Key binding | Description                                                      |
@@ -1278,22 +1288,30 @@ If it is set to =relative=, line numbers are show in a relative way:
   (setq-default dotspacemacs-line-numbers 'relative)
 #+END_SRC
 
+If it is set to =visual=, line numbers are shown in a relative way, but wrapped
+lines will be treated as multiple lines:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-line-numbers 'visual)
+#+END_SRC
+
 =dotspacemacs-line-numbers= can also be set to a property list for finer control
 over line numbers activation.
 
 Available properties:
 
-| Property              | Description                                                                                  |
-|-----------------------+----------------------------------------------------------------------------------------------|
-| =:disabled-for-modes= | list of major modes where line numbering is inhibited                                        |
-| =:enabled-for-modes=  | disable for all major modes except those listed. Takes precedence over =:disabled-for-modes= |
-| =:relative=           | if non-nil, line numbers are relative to the position of the cursor                          |
-| =:size-limit-kb=      | size limit in kilobytes after which line numbers are not activated                           |
+| Property              | Description                                                                                                                                                                                                                                     |
+|-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| =:disabled-for-modes= | list of major modes where line numbering is inhibited                                                                                                                                                                                           |
+| =:enabled-for-modes=  | disable for all major modes except those listed. Takes precedence over =:disabled-for-modes=                                                                                                                                                    |
+| =:relative=           | if non-nil, line numbers are relative to the position of the cursor                                                                                                                                                                             |
+| =:visual=             | if non-nil, line numbers are relative to the position of the cursor, but lines are separated by visual state - a wrapped line, for example, will be treated as more than one line. When set to t, this option takes precedence over =:relative= |
+| =:size-limit-kb=      | size limit in kilobytes after which line numbers are not activated                                                                                                                                                                              |
 
 Note that if =:enabled-for-modes= is =nil= or not specified, then the default is
-to enable line numbers in any =prog-mode= and =text-mode= that wasn’t explicitly
+to enable line numbers in any =prog-mode= and =text-mode= that wasn't explicitly
 disabled via =:disabled-for-modes=. To enable line numbers in a major mode that
-doesn’t derive from =prog-mode= or =text-mode=, you must specify it directly in
+doesn't derive from =prog-mode= or =text-mode=, you must specify it directly in
 =:enabled-for-modes=. To enable line numbers even in non-prog-mode and
 non-text-mode buffers, set =:enabled-for-modes= to =all=.
 
@@ -1398,7 +1416,7 @@ Supported separators and preview:
 | =none=       |           | X             |                                   |
 
 A last special separator is supported, it is =utf-8= which uses actual font
-glyphs so it can be rendered in a terminal. You’ll need a font patched for the
+glyphs so it can be rendered in a terminal. You'll need a font patched for the
 Vim powerline to be able to use it. The default font used by Spacemacs =Source
 Code Pro= already contains the glyphs.
 
@@ -1416,7 +1434,7 @@ Example:
   (setq dotspacemacs-mode-line-theme '(all-the-icons :separator-scale 1.5))
 #+END_SRC
 
-Note that this setting won’t work correctly when the separator is =utf-8=, if
+Note that this setting won't work correctly when the separator is =utf-8=, if
 you use this separator then it is recommended to set =:separator-scale= to =1.0=.
 
 *** Spacemacs mode-line theme
@@ -1496,7 +1514,7 @@ fonts from the package repository, see [[https://github.com/domtronn/all-the-ico
 You can create your own Spaceline theme by setting the variable
 =dotspacemacs-mode-line-theme= to =custom= and define a function called
 =spaceline-custom-theme= in your =dotspacemacs/user-init= function of your
-dotfile. This functions must accept a variadic number of arguments which are
+dotfile. This function must accept a variadic number of arguments which are
 additional segments added by Spacemacs (like a segment to notify about available
 updates etc...).
 
@@ -1542,7 +1560,7 @@ squared symbols like =🅿=.
 | ~SPC t C--~ | =⊝=     | -     | global centered cursor                                               |
 | ~SPC t a~   | =ⓐ=     | a     | auto-completion                                                      |
 | ~SPC t c~   | =ⓒ=     | c     | camel case motion with subword mode                                  |
-| =none=      | =ⓔ=     | e     | [[https://github.com/edwtjo/evil-org-mode][evil-org]] mode                                                        |
+| =none=      | =ⓔ=     | e     | [[https://github.com/Somelauw/evil-org-mode][evil-org]] mode                                                        |
 | ~SPC t E e~ | =Ⓔe=    | Ee    | emacs editing style (holy mode)                                      |
 | ~SPC t E h~ | =Ⓔh=    | Eh    | hybrid editing style (hybrid mode)                                   |
 | ~SPC t f~   | =ⓕ=     | f     | fill-column-indicator mode                                           |
@@ -1565,7 +1583,8 @@ squared symbols like =🅿=.
 | ~SPC t C-W~ | =Ⓦ=     | W     | automatic whitespace cleanup globally                                |
 | ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
 
-** Frame title
+** Frame
+*** Title
 Default frame title displays name of current process and hostname of system. You
 can include more information (like name of current file, name of current project
 etc) by setting =dotspacemacs-frame-title-format= variable.
@@ -1588,15 +1607,29 @@ Following format short codes are available:
 | =%m= | mode name                                                                    |
 | =%n= | Narrow if appropriate                                                        |
 | =%z= | mnemonics of buffer, terminal, and keyboard coding systems                   |
-| =%Z= | like %z, but including the end-of-line format“                               |
+| =%Z= | like %z, but including the end-of-line format"                               |
 
-*** Iconified (tabified) title
+**** Iconified (tabified) title
 If you are using tiling window manager with tab support you may want to display
 different title for inactive tabs with =dotspacemacs-icon-title-format=
 variable. Short codes are same as for frame title.
 
 If this variable is set to =nil= (default) its value will be same as
 =dotspacemacs-frame-title-format=.
+
+*** Transparency
+The Frame transparency can be toggled with: ~SPC T T~
+
+This also opens the Frame Transparency Transient State.
+
+In the transient state:
+
+| Key binding   | Description                    |
+|---------------+--------------------------------|
+| ~+~, ~=~, ~k~ | increase transparency          |
+| ~-~, ~_~, ~j~ | decrease transparency          |
+| ~T~           | toggle transparency on and off |
+| ~q~           | quit transient state           |
 
 * Layouts and workspaces
 Layouts are window configurations with buffer isolation. Each layout can define
@@ -1621,7 +1654,7 @@ The =default= layout (the layout created at the startup of Emacs) is not
 displayed in the mode-line but it is possible to display it by setting the
 variable =dotspacemacs-display-default-layout= to =t=.
 
-Its name is “default” by default but it can be changed by setting the variable
+Its name is "default" by default but it can be changed by setting the variable
 =dotspacemacs-default-layout-name=.
 
 The =default= layout is special because it has a global scope which means that
@@ -1721,7 +1754,7 @@ Workspaces are sub-layouts, they allow to define multiple layouts into a given
 layout, those layouts share the same buffer as the parent layout.
 
 The currently active workspace number is displayed before the window number,
-for instance “➊|➍” or “1|4” means the fourth window of the first workspace.
+for instance "➊|➍" or "1|4" means the fourth window of the first workspace.
 
 Any new layout comes with a default workspace which is the workspace 1.
 
@@ -1765,9 +1798,9 @@ There are also some handy globally available key bindings related to workspaces:
 
 * Commands
 ** Vim key bindings
-Spacemacs is based on =Vim= modal user interface to navigate and edit text. If
-you are not familiar with the =Vim= way of editing text you can try the
-[[https://github.com/syl20bnr/evil-tutor][evil-tutor]] lessons by pressing ~SPC h T~ at any time.
+Spacemacs is based on the =Vim= modal user interface to navigate and edit text.
+If you are not familiar with the =Vim= way of editing text, then you can try the
+[[https://github.com/syl20bnr/evil-tutor][evil-tutor]] lessons by pressing ~SPC h T v~ at any time.
 
 *** Escaping
 Spacemacs uses [[https://github.com/syl20bnr/evil-escape][evil-escape]] to
@@ -1775,7 +1808,7 @@ easily switch between =insert state= and =normal state= by quickly pressing the
 ~fd~ keys.
 
 The choice of ~fd~ was made to be able to use the same sequence to escape from
-“everything” in Emacs:
+"everything" in Emacs:
 - escape from all stock evil states to normal state
 - escape from evil-lisp-state to normal state
 - escape from evil-iedit-state to normal state
@@ -1793,7 +1826,7 @@ The choice of ~fd~ was made to be able to use the same sequence to escape from
 - hide neotree buffer
 
 If you find yourself in a buffer where the Spacemacs (~SPC~) or Vim keybindings
-don’t work you can use this to get back to =normal state= (for example in ~SPC
+don't work you can use this to get back to =normal state= (for example in ~SPC
 SPC customize~ press ~fd~ to make ~SPC b b~ work again).
 
 This sequence can be customized in your =~/.spacemacs=.
@@ -1972,7 +2005,7 @@ The following actions on the selected candidate are available:
 
 **** Available packages in Spacemacs
 =spacemacs-help= also lists all the packages available in Spacemacs. The
-entry format is =(layer) packages=. If you type =flycheck= you’ll be able to see
+entry format is =(layer) packages=. If you type =flycheck= you'll be able to see
 all the layers where =flycheck= is used.
 
 The following actions are available on selected package:
@@ -1989,12 +2022,12 @@ ELPA packages. Paradox enhances the package list buffer with better feedbacks,
 new filters and Github information like the number of stars. Optionally you can
 also star packages directly in the buffer.
 
-*Important Note 1*: Installing a new package from =Paradox= won’t make it
+*Important Note 1*: Installing a new package from =Paradox= won't make it
 persistent. To install a package persistently you have to add it explicitly to a
 configuration layer.
 
-*Important Note 2*: Don’t /update/ your packages from =Paradox= or
-=package-list-packages= because they don’t support the rollback feature of
+*Important Note 2*: Don't /update/ your packages from =Paradox= or
+=package-list-packages= because they don't support the rollback feature of
 Spacemacs.
 
 | Key binding | Description                                           |
@@ -2074,14 +2107,14 @@ selecting an avy candidate.
 
 **** ace-link mode
 Similar to =avy=, [[https://github.com/abo-abo/ace-link][ace-link]] allows one to jump to any link in
-=help-mode= and =info-mode= with two key strokes.
+=help-mode= and =info-mode=.
 
 | Key binding | Description                                           |
 |-------------+-------------------------------------------------------|
 | ~o~         | initiate ace link mode in =help-mode= and =info-mode= |
 
 *** Unimpaired bindings
-Spacemacs comes with a built-in port of [[https://github.com/tpope/vim-unimpaired][tpope’s vim-unimpaired]].
+Spacemacs comes with a built-in port of [[https://github.com/tpope/vim-unimpaired][tpope's vim-unimpaired]].
 
 This plugin provides several pairs of bracket maps using ~[~ to denote
 previous, and ~]~ as next.
@@ -2118,8 +2151,10 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 | Key binding | Description                                                                       |
 |-------------+-----------------------------------------------------------------------------------|
 | ~SPC j 0~   | go to the beginning of line (and set a mark at the previous location in the line) |
+| ~SPC j (~   | jump to first unbalanced parentheses                                              |
 | ~SPC j $~   | go to the end of line (and set a mark at the previous location in the line)       |
 | ~SPC j b~   | undo a jump (go back to previous location)                                        |
+| ~SPC j c~   | go to last change                                                                 |
 | ~SPC j d~   | jump to a listing of the current directory                                        |
 | ~SPC j D~   | jump to a listing of the current directory (other window)                         |
 | ~SPC j f~   | jump to the definition of an Emacs Lisp function                                  |
@@ -2347,13 +2382,16 @@ Buffer manipulation commands (start with ~b~):
 
 **** Create a new empty buffer
 
-| Key binding | Description                                           |
-|-------------+-------------------------------------------------------|
-| ~SPC b N h~ | create new empty buffer in a new window on the left   |
-| ~SPC b N j~ | create new empty buffer in a new window at the bottom |
-| ~SPC b N k~ | create new empty buffer in a new window above         |
-| ~SPC b N l~ | create new empty buffer in a new window below         |
-| ~SPC b N n~ | create new empty buffer in current window             |
+| Key binding   | Description                                                                                     |
+|---------------+-------------------------------------------------------------------------------------------------|
+| ~SPC b N h~   | create new empty buffer in a new window on the left                                             |
+| ~SPC b N C-i~ | create an indirect buffer from an existing opened buffer                                        |
+| ~SPC b N i~   | create an indirect buffer that is clone of currently opened buffer                              |
+| ~SPC b N I~   | create an indirect buffer that is clone of currently opened buffer, and open it in other window |
+| ~SPC b N j~   | create new empty buffer in a new window at the bottom                                           |
+| ~SPC b N k~   | create new empty buffer in a new window above                                                   |
+| ~SPC b N l~   | create new empty buffer in a new window below                                                   |
+| ~SPC b N n~   | create new empty buffer in current window                                                       |
 
 **** Buffers manipulation transient state
 A convenient buffer manipulation transient state allows to quickly cycles through
@@ -2420,10 +2458,10 @@ Frame manipulation commands (start with ~F~):
 | Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC F f~   | open a file in another frame                        |
-| ~SPC F d~   | delete the current frame (unless it’s the only one) |
+| ~SPC F d~   | delete the current frame (unless it's the only one) |
 | ~SPC F D~   | delete all other frames                             |
 | ~SPC F b~   | open a buffer in another frame                      |
-| ~SPC F B~   | open a buffer in another frame (but don’t switch)   |
+| ~SPC F B~   | open a buffer in another frame (but don't switch)   |
 | ~SPC F o~   | cycle focus between frames                          |
 | ~SPC F O~   | open a dired buffer in another frame                |
 | ~SPC F n~   | create a new frame                                  |
@@ -2550,7 +2588,7 @@ OpenDocument, and Microsoft Office documents.
 | ~C-k~       | kill proc                                |
 | ~C-u~       | scroll up                                |
 | ~C-c C-c~   | toggle display text and image display    |
-| ~C-c C-t~   | open new buffer with doc’s text contents |
+| ~C-c C-t~   | open new buffer with doc's text contents |
 
 ** Auto-saving
 *** Frequency of auto-saving
@@ -2628,7 +2666,7 @@ file with =ag=.
 - It is also possible to search in several directories at once by marking
   them in the Helm buffer (not available in Ivy).
 
-*Beware* if you use =pt=, [[https://core.tcl.tk/tcllib/doc/trunk/embedded/www/tcllib/files/apps/pt.html][TCL parser tools]] also install a command line tool
+*Beware* if you use =pt=, [[https://core.tcl.tk/tcllib/doc/tcllib-1-17/embedded/www/tcllib/files/apps/pt.html][TCL parser tools]] also install a command line tool
 called =pt=.
 
 **** Useful key bindings
@@ -2642,7 +2680,7 @@ called =pt=.
 | Prefix argument        | will ask for file extensions                                 |
 
 When results have been saved in a regular buffer with ~F3~, that buffer supports
-browsing through the matches with Spacemacs’ =next-error= and =previous-error=
+browsing through the matches with Spacemacs' =next-error= and =previous-error=
 bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e .~).
 
 **** Searching in current file
@@ -2840,6 +2878,7 @@ Text related commands (start with ~x~):
 
 | Key binding   | Description                                                   |
 |---------------+---------------------------------------------------------------|
+| ~SPC x TAB~   | indent or dedent a region rigidly                             |
 | ~SPC x a &~   | align region at &                                             |
 | ~SPC x a (~   | align region at (                                             |
 | ~SPC x a )~   | align region at )                                             |
@@ -2895,7 +2934,7 @@ Text related commands (start with ~x~):
 | ~SPC x U~     | set the selected text to upper case                           |
 | ~SPC x w c~   | count the number of occurrences per word in the select region |
 | ~SPC x w d~   | show dictionary entry of word from wordnik.com                |
-| ~SPC x TAB~   | indent or dedent a region rigidly                             |
+| ~SPC x y~     | use avy to copy a link in the frame                           |
 
 *** Text insertion commands
 Text insertion commands (start with ~i~):
@@ -2937,21 +2976,20 @@ It is possible to enable it easily for /all programming modes/ with the variable
 **** Text
 The font size of the current buffer can be adjusted with the commands:
 
-| Key binding | Description                                                                    |
-|-------------+--------------------------------------------------------------------------------|
-| ~SPC z x +~ | scale up the font and initiate the font scaling transient state                |
-| ~SPC z x =~ | scale up the font and initiate the font scaling transient state                |
-| ~SPC z x -~ | scale down the font and initiate the font scaling transient state              |
-| ~SPC z x 0~ | reset the font size (no scaling) and initiate the font scaling transient state |
+| Key binding                           | Description                                                                    |
+|---------------------------------------+--------------------------------------------------------------------------------|
+| ~SPC z x +~, ~SPC z x =~, ~SPC z x k~ | scale up the font and initiate the font scaling transient state                |
+| ~SPC z x -~, ~SPC z x _~, ~SPC z x j~ | scale down the font and initiate the font scaling transient state              |
+| ~SPC z x 0~                           | reset the font size (no scaling) and initiate the font scaling transient state |
 
 In the transient state:
 
-| Key binding | Description            |
-|-------------+------------------------|
-| ~+~         | increase the font size |
-| ~=~         | increase the font size |
-| ~-~         | decrease the font size |
-| ~0~         | reset the font size    |
+| Key binding   | Description            |
+|---------------+------------------------|
+| ~+~, ~=~, ~k~ | increase the font size |
+| ~-~, ~_~, ~j~ | decrease the font size |
+| ~0~           | reset the font size    |
+| ~q~           | quit transient state   |
 
 Note that /only/ the text of the current buffer is scaled, the other buffers,
 the mode-line and the minibuffer are not affected. To zoom the whole content of
@@ -2960,34 +2998,41 @@ a frame use the =zoom frame= bindings (see next section).
 **** Frame
 You can zoom in and out the whole content of the frame with the commands:
 
-| Key binding | Description                                                                 |
-|-------------+-----------------------------------------------------------------------------|
-| ~SPC z f +~ | zoom in the frame content and initiate the frame scaling transient state    |
-| ~SPC z f =~ | zoom in the frame content and initiate the frame scaling transient state    |
-| ~SPC z f -~ | zoom out the frame content and initiate the frame scaling transient state   |
-| ~SPC z f 0~ | reset the frame content size and initiate the frame scaling transient state |
-| ~+~         | zoom in                                                                     |
-| ~=~         | zoom in                                                                     |
-| ~-~         | zoom out                                                                    |
-| ~0~         | reset zoom                                                                  |
+| Key binding                           | Description                                                                 |
+|---------------------------------------+-----------------------------------------------------------------------------|
+| ~SPC z f +~, ~SPC z f =~, ~SPC z f k~ | zoom in the frame content and initiate the frame scaling transient state    |
+| ~SPC z f -~, ~SPC z f _~, ~SPC z f j~ | zoom out the frame content and initiate the frame scaling transient state   |
+| ~SPC z f 0~                           | reset the frame content size and initiate the frame scaling transient state |
+
+In the transient state:
+
+| Key binding   | Description          |
+|---------------+----------------------|
+| ~+~, ~=~, ~k~ | zoom frame in        |
+| ~-~, ~_~, ~j~ | zoom frame out       |
+| ~0~           | reset frame zoom     |
+| ~q~           | quit transient state |
 
 *** Increase/Decrease numbers
 Spacemacs uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily increase or decrease numbers.
 
-| Key binding | Description                                                         |
-|-------------+---------------------------------------------------------------------|
-| ~SPC n +~   | increase the number under point by one and initiate transient state |
-| ~SPC n -~   | decrease the number under point by one and initiate transient state |
+| Key binding          | Description                                                         |
+|----------------------+---------------------------------------------------------------------|
+| ~SPC n +~, ~SPC n =~ | increase the number under point by one and initiate transient state |
+| ~SPC n -~, ~SPC n _~ | decrease the number under point by one and initiate transient state |
 
 In the transient state:
 
-| Key binding | Description                            |
-|-------------+----------------------------------------|
-| ~+~         | increase the number under point by one |
-| ~-~         | decrease the number under point by one |
+| Key binding   | Description                            |
+|---------------+----------------------------------------|
+| ~+~, ~=~, ~k~ | increase the number under point by one |
+| ~-~, ~_~, ~j~ | decrease the number under point by one |
+| ~0..9~        | add a number prefix argument           |
+| ~q~           | quit transient state                   |
 
-*Tips:* you can increase or decrease a value by more that once by using a prefix
-argument (i.e. ~10 SPC n +~ will add 10 to the number under point).
+*Tips:* You can increase or decrease a number by more than one at a time, by
+using a prefix argument (i.e. ~10 SPC n +~ will add =10= to the number under
+point).
 
 *** Spell checking
 Spell checking is enabled by including the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell
@@ -3140,7 +3185,7 @@ It is possible to batch rename files in a directory using =wdired= from an
 - use ~C-c C-k~ to abort any changes
 
 *** Commenting
-Comments are handled by [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]], it’s bound to the following keys.
+Comments are handled by [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]], it's bound to the following keys.
 
 | Key binding | Description               |
 |-------------+---------------------------|
@@ -3161,7 +3206,7 @@ Comments are handled by [[https://github.com/redguardtoo/evil-nerd-commenter][ev
 Spacemacs uses the packages [[https://github.com/joddie/pcre2el][pcre2el]] to manipulate regular expressions. It is
 useful when working with =Emacs Lisp= buffers since it allows to easily converts
 =PCRE= (Perl Compatible RegExp) to Emacs RegExp or =rx=. It can also be used to
-“explain” a PCRE RegExp around point in =rx= form.
+"explain" a PCRE RegExp around point in =rx= form.
 
 The key bindings start with ~SPC x r~ and have the following mnemonic structure:
 - ~SPC x r <source> <target>~ convert from source to target
@@ -3301,9 +3346,9 @@ To search in a project see [[#searching-in-a-project][project searching]].
 
 | Key binding | Description                                                                              |
 |-------------+------------------------------------------------------------------------------------------|
-| ~SPC p '​~   | open a shell in project’s root (with the =shell= layer)                                  |
-| ~SPC p !~   | run shell command in project’s root                                                      |
-| ~SPC p &~   | run async shell command in project’s root                                                |
+| ~SPC p '​~   | open a shell in project's root (with the =shell= layer)                                  |
+| ~SPC p !~   | run shell command in project's root                                                      |
+| ~SPC p &~   | run async shell command in project's root                                                |
 | ~SPC p %~   | replace a regexp                                                                         |
 | ~SPC p a~   | toggle between implementation and test                                                   |
 | ~SPC p b~   | switch to project buffer                                                                 |
@@ -3314,7 +3359,7 @@ To search in a project see [[#searching-in-a-project][project searching]].
 | ~SPC p f~   | find file                                                                                |
 | ~SPC p F~   | find file based on path around point                                                     |
 | ~SPC p g~   | find tags                                                                                |
-| ~SPC p G~   | regenerate the project’s =etags= / =gtags=                                               |
+| ~SPC p G~   | regenerate the project's =etags= / =gtags=                                               |
 | ~SPC p h~   | find file                                                                                |
 | ~SPC p I~   | invalidate the projectile cache                                                          |
 | ~SPC p k~   | kill all project buffers                                                                 |
@@ -3370,7 +3415,7 @@ Errors management commands (start with ~e~):
 
 The next/previous error bindings and the error transient state can be used to
 browse errors from flycheck as well as errors from compilation buffers, and
-indeed anything that supports Emacs’ =next-error= API. This includes for example
+indeed anything that supports Emacs' =next-error= API. This includes for example
 search results that have been saved to a separate buffer.
 
 *** Error transient state
@@ -3403,12 +3448,12 @@ Spacemacs binds a few commands to support compiling a project.
 | ~SPC c r~   | recompile                      |
 
 * EditorConfig
-Spacemacs has support for [[http://editorconfig.org/][EditorConfig]], a configuration file to “define and
-maintain consistent coding styles between different editors and IDEs.”
+Spacemacs has support for [[http://editorconfig.org/][EditorConfig]], a configuration file to "define and
+maintain consistent coding styles between different editors and IDEs."
 
 To enable this feature, [[https://github.com/editorconfig/editorconfig-core-c/blob/master/INSTALL.md][install the editorconfig command]].
 
-To customize your editorconfig experience, read [[https://github.com/editorconfig/editorconfig-emacs/blob/master/README.md#customize][the editorconfig-emacs package’s
+To customize your editorconfig experience, read [[https://github.com/editorconfig/editorconfig-emacs/blob/master/README.md#customize][the editorconfig-emacs package's
 documentation]].
 
 * Emacs Server
@@ -3428,7 +3473,7 @@ need to set it in your shell configuration, e.g. =~/.bashrc= or =~/.zshrc=:
   export EDITOR="emacsclient -c"
 #+END_SRC
 
-Note that if you’re on OS X, you may have to refer to the emacsclient that comes
+Note that if you're on OS X, you may have to refer to the emacsclient that comes
 with your GUI Emacs, e.g.:
 
 #+BEGIN_SRC sh-mode
@@ -3485,7 +3530,7 @@ usable; if it is not then restart Emacs with =emacs --debug-init= and open a
 ** Upgrading/Downgrading Emacs version
 To ensure that packages are correctly compiled for the new Emacs version you
 installed, be sure to run the interactive command =spacemacs/recompile-elpa=
-with ~SPC SPC spacemacs/recompile-elpa~.
+with ~SPC u SPC SPC spacemacs/recompile-elpa~.
 
 * Achievements
 ** Issues

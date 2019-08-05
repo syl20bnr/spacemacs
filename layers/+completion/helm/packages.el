@@ -63,12 +63,15 @@
     :defer (spacemacs/defer)
     :init
     (progn
-      (spacemacs|add-transient-hook read-file-name
-        (lambda (&rest _args) (require 'helm))
-        lazy-load-helm-for-read-file-name)
       (spacemacs|add-transient-hook completing-read
         (lambda (&rest _args) (require 'helm))
         lazy-load-helm-for-completing-read)
+      (spacemacs|add-transient-hook completion-at-point
+        (lambda (&rest _args) (require 'helm))
+        lazy-load-helm-for-completion-at-point)
+      (spacemacs|add-transient-hook read-file-name
+        (lambda (&rest _args) (require 'helm))
+        lazy-load-helm-for-read-file-name)
       (add-hook 'helm-cleanup-hook #'spacemacs//helm-cleanup)
       ;; key bindings
       ;; Use helm to provide :ls, unless ibuffer is used
@@ -85,7 +88,7 @@
       (spacemacs||set-helm-key "bb"   helm-mini)
       (spacemacs||set-helm-key "Cl"   helm-colors)
       (spacemacs||set-helm-key "ff"   spacemacs/helm-find-files)
-      (spacemacs||set-helm-key "fF"   helm-find)
+      (spacemacs||set-helm-key "fF"   helm-find-files)
       (spacemacs||set-helm-key "fL"   helm-locate)
       (spacemacs||set-helm-key "fr"   helm-recentf)
       (spacemacs||set-helm-key "hda"  helm-apropos)
@@ -370,7 +373,14 @@
                      (if thing thing ""))))))
           (call-interactively 'helm-swoop)))
 
+      (defun spacemacs/helm-swoop-clear-cache ()
+        "Call `helm-swoop--clear-cache' to clear the cache"
+        (interactive)
+        (helm-swoop--clear-cache)
+        (message "helm-swoop cache cleaned."))
+
       (spacemacs/set-leader-keys
+        "sC"    'spacemacs/helm-swoop-clear-cache
         "ss"    'helm-swoop
         "sS"    'spacemacs/helm-swoop-region-or-symbol
         "s C-s" 'helm-multi-swoop-all)

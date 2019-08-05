@@ -1,8 +1,10 @@
 #+TITLE: Octave layer
 
+#+TAGS: dsl|layer|programming
+
 [[file:img/octave.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -16,7 +18,7 @@ This layer adds support for =GNU Octave= files to Spacemacs.
 ** Features:
 - Syntax highlighting for =.m= files via [[https://www.gnu.org/software/emacs/manual/html_mono/octave-mode.html][octave-mode]].
 - REPL support
-- Support for directly running =Octave= scripts from emacs.
+- Support for directly running =Octave= scripts from Emacs.
 - Integration with =Octaves= documentation search function.
 
 * Install

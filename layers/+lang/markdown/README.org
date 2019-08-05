@@ -1,8 +1,10 @@
 #+TITLE: Markdown layer
 
+#+TAGS: dsl|layer|markup|programming
+
 [[file:img/markdown.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#bibtex][BibTeX]]
@@ -12,9 +14,11 @@
   - [[#automatic-mmm-mode-generation][Automatic MMM-Mode Generation]]
 - [[#usage][Usage]]
   - [[#generate-a-toc][Generate a TOC]]
+  - [[#editing-tables][Editing tables]]
 - [[#key-bindings][Key bindings]]
   - [[#element-insertion][Element insertion]]
   - [[#element-removal][Element removal]]
+  - [[#table-manipulation][Table manipulation]]
   - [[#completion][Completion]]
   - [[#following-and-jumping][Following and Jumping]]
   - [[#indentation][Indentation]]
@@ -71,11 +75,11 @@ information.
 To generate MMM-Modes for languages set the value of the variable
 =markdown-mmm-auto-modes= to a list of the languages. For languages where the
 mode name directly relates to the language name, use a string. Otherwise, use a
-list of `(“language” “mode”)`:
+list of `("language" "mode")`:
 
 #+BEGIN_SRC emacs-lisp
   dotspacemacs-configuration-layers '(
-    (markdown :variables markdown-mmm-auto-modes '("c" "c++" "python" "scala" ("elisp" "emacs-lisp"))
+    (markdown :variables markdown-mmm-auto-modes '("c" "c++" "python" "scala" ("elisp" "emacs-lisp"))))
 #+END_SRC
 
 *Note:* Spacemacs already defines the variable =markdown-mmm-auto-modes= to a
@@ -86,6 +90,12 @@ new languages instead of overriding the variable in your dotfile.
 ** Generate a TOC
 To generate a table of contents type on top of the buffer:
 ~SPC SPC markdown-toc-generate-toc RET~
+
+** Editing tables
+While =markdown-mode= provides functionality to edit tables, users of =org=
+layer benefit from more sophisticated =orgtbl-mode=.
+
+In order to use =orgtabl-mode=, add =org= layer to your =~/.spacemacs=.
 
 * Key bindings
 ** Element insertion
@@ -110,6 +120,7 @@ To generate a table of contents type on top of the buffer:
 | ~SPC m i i~ | insert image                                                      |
 | ~SPC m i t~ | insert Table of Contents (toc)                                    |
 | ~SPC m x b~ | make region bold or insert bold                                   |
+| ~SPC m x B~ | insert gfm checkbox                                               |
 | ~SPC m x i~ | make region italic or insert italic                               |
 | ~SPC m x c~ | make region code or insert code                                   |
 | ~SPC m x C~ | make region code or insert code (Github Flavored Markdown format) |
@@ -117,12 +128,29 @@ To generate a table of contents type on top of the buffer:
 | ~SPC m x Q~ | blockquote region                                                 |
 | ~SPC m x p~ | make region or insert pre                                         |
 | ~SPC m x P~ | pre region                                                        |
+| ~SPC m x s~ | make region striked through or insert strikethrough               |
 
 ** Element removal
 
 | Key binding | Description         |
 |-------------+---------------------|
 | ~SPC m k~   | kill thing at point |
+
+** Table manipulation
+
+| Key binding | Description             |
+|-------------+-------------------------|
+| ~SPC m t p~ | move row up             |
+| ~SPC m t n~ | move row down           |
+| ~SPC m t f~ | move column right       |
+| ~SPC m t b~ | move column left        |
+| ~SPC m t r~ | insert row              |
+| ~SPC m t R~ | delete row              |
+| ~SPC m t c~ | insert column           |
+| ~SPC m t C~ | delete column           |
+| ~SPC m t s~ | sort lines              |
+| ~SPC m t t~ | transpose table         |
+| ~SPC m t d~ | convert region to table |
 
 ** Completion
 
@@ -197,8 +225,8 @@ To generate a table of contents type on top of the buffer:
 
 | Key binding | Description          |
 |-------------+----------------------|
-| ~SPC m t i~ | toggle inline images |
-| ~SPC m t l~ | toggle hidden urls   |
-| ~SPC m t m~ | toggle markup hiding |
-| ~SPC m t t~ | toggle checkbox      |
-| ~SPC m t w~ | toggle wiki links    |
+| ~SPC m T i~ | toggle inline images |
+| ~SPC m T l~ | toggle hidden urls   |
+| ~SPC m T m~ | toggle markup hiding |
+| ~SPC m T t~ | toggle checkbox      |
+| ~SPC m T w~ | toggle wiki links    |

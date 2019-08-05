@@ -125,6 +125,12 @@
     :config
     (progn
       (purpose-mode)
+      ;; fix around window-purpose not respecting -other-window requirement
+      ;; of clone-indirect-buffer-other-window
+      ;; see https://github.com/bmag/emacs-purpose/issues/122
+      (defalias 'clone-indirect-buffer-other-window-without-purpose
+        (without-purpose-command #'clone-indirect-buffer-other-window))
+
       ;; change `switch-to-buffer' display preferences according to
       ;; `dotspacemacs-switch-to-buffer-prefers-purpose'. This affects actions
       ;; like `spacemacs/alternate-buffer', and opening buffers from Dired
@@ -150,4 +156,8 @@
       (spacemacs|diminish purpose-mode)
       (purpose-x-golden-ratio-setup)
       ;; Show magit-log-select and diff in two windows
-      (purpose-x-magit-multi-on))))
+      (purpose-x-magit-multi-on)
+      ;; Other layers may have modified `purpose-user-mode-purposes' by using
+      ;; `spacemacs|user-package-add-hook' to add pre-config hooks; we want to
+      ;; incorporate any such configuration now.
+      (purpose-compile-user-configuration))))

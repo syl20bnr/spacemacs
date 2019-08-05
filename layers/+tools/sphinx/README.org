@@ -1,8 +1,10 @@
 #+TITLE: Sphinx layer
 
+#+TAGS: layer|tool
+
 [[file:img/sphinx.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -27,9 +29,9 @@ in this file.
 
 * Configuration
 ** Sphinx target
-To use the layer’s Sphinx feature, the following variables should be set.
+To use the layer's Sphinx feature, the following variables should be set.
 
-A parent directory is needed for all Sphinx projects’ builds.
+A parent directory is needed for all Sphinx projects' builds.
 
 #+BEGIN_SRC emacs-lisp
   (setq rst-sphinx-target-parent "/your/path/of/build/")

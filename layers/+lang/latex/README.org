@@ -1,8 +1,10 @@
 #+TITLE: LaTeX layer
 
+#+TAGS: dsl|layer|markup|programming
+
 [[file:img/latex.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#bibtex][BibTeX]]
@@ -88,7 +90,7 @@ is nil.
 #+END_SRC
 
 ** Magic latex buffer
-To enable “magic” symbols in latex buffers, set the variable
+To enable "magic" symbols in latex buffers, set the variable
 =latex-enable-magic= to =t=.
 
 #+BEGIN_SRC emacs-lisp
@@ -127,6 +129,8 @@ By default, the underlying latex code is echoed in the echo area.
 | ~SPC m k~     | kill TeX job                               |
 | ~SPC m l~     | recenter output buffer                     |
 | ~SPC m m~     | insert LaTeX macro                         |
+| ~SPC m n~     | goto next error                            |
+| ~SPC m N~     | goto previous error                        |
 | ~SPC m s~     | insert LaTeX section                       |
 | ~SPC m v~     | view output                                |
 | ~SPC m h d~   | TeX documentation, can be very slow        |

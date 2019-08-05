@@ -1,8 +1,10 @@
 #+TITLE: ESS (R) layer
 
+#+TAGS: dsl|layer|programming
+
 [[file:img/r.jpg]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -106,7 +108,7 @@ Helpers that provide further interaction with the REPL.
 | ~SPC m r r~   | reload ESS process                                    |
 | ~SPC m r s~   | set source style                                      |
 | ~SPC m r t~   | build tags for directory                              |
-| ~SPC m r w~   | set “width” option                                    |
+| ~SPC m r w~   | set "width" option                                    |
 
 ** R devtools
 Interaction with the =R= =devtools= package.

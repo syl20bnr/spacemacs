@@ -1,8 +1,10 @@
 #+TITLE: selectric layer
 
+#+TAGS: fun|layer
+
 [[file:img/typewriter.jpg]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -11,12 +13,12 @@
 
 * Description
 This layer makes your Emacs sound like an IBM Selectric typewriter, for those
-moments when your loud, clicky mechanical keyboard is not at hand, yet, you’d
+moments when your loud, clicky mechanical keyboard is not at hand, yet, you'd
 still wish to enjoy the sound.
 
 ** Features:
 - Brings back fond memories about your first programming job where you started
-  with that big mechanical keyboard and the small monochrom display working on
+  with that big mechanical keyboard and the small monochrome display working on
   the latest IBM Iseries server.
 
 * Install

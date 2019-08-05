@@ -1,8 +1,10 @@
 #+TITLE: Games layer
 
+#+TAGS: fun|layer
+
 [[file:img/games.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -15,7 +17,7 @@
     - [[#create-a-new-dictionary][Create a new dictionary]]
 
 * Description
-This layer allows you to play evilified games in spacemacs.
+This layer allows you to play evilified games in Spacemacs.
 
 ** Features:
 - 2048-game

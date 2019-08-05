@@ -19,6 +19,8 @@
         company
         eldoc
         evil-cleverparens
+        flycheck
+        (flycheck-clojure :toggle clojure-enable-linters)
         ggtags
         counsel-gtags
         helm-gtags
@@ -60,6 +62,7 @@
                ("mh" . "documentation")
                ("mp" . "profile")
                ("ms" . "repl")
+               ("msj" . "jack-in")
                ("mt" . "test")
                ("mT" . "toggle")
                )))
@@ -81,11 +84,13 @@
             "eb" 'cider-eval-buffer
             "ee" 'cider-eval-last-sexp
             "ef" 'cider-eval-defun-at-point
+            "ei" 'cider-interrupt
             "em" 'cider-macroexpand-1
             "eM" 'cider-macroexpand-all
             "eP" 'cider-pprint-eval-last-sexp
             "er" 'cider-eval-region
             "eu" 'cider-undef
+            "ev" 'cider-eval-sexp-at-point
             "ew" 'cider-eval-last-sexp-and-replace
 
             "="  'cider-format-buffer
@@ -93,14 +98,16 @@
 
             "gb" 'cider-pop-back
             "gc" 'cider-classpath
+            "gg" 'spacemacs/clj-find-var
             "ge" 'cider-jump-to-compilation-error
             "gn" 'cider-find-ns
             "gr" 'cider-find-resource
             "gs" 'cider-browse-spec
             "gS" 'cider-browse-spec-all
 
-            "'"  'cider-jack-in
-            "\"" 'cider-jack-in-clojurescript
+            "'"  'cider-jack-in-clj
+            "\"" 'cider-jack-in-cljs
+            "\&" 'cider-jack-in-clj&cljs
             "sb" 'cider-load-buffer
             "sB" 'spacemacs/cider-send-buffer-in-repl-and-focus
             "sc" (if (eq m 'cider-repl-mode)
@@ -111,8 +118,10 @@
             "sE" 'spacemacs/cider-send-last-sexp-to-repl-focus
             "sf" 'spacemacs/cider-send-function-to-repl
             "sF" 'spacemacs/cider-send-function-to-repl-focus
-            "si" 'cider-jack-in
-            "sI" 'cider-jack-in-clojurescript
+            "si" 'cider-jack-in-clj
+            "sjc" 'cider-jack-in-clj
+            "sjf" 'cider-jack-in-clj&cljs
+            "sjs" 'cider-jack-in-cljs
             "sn" 'spacemacs/cider-send-ns-form-to-repl
             "sN" 'spacemacs/cider-send-ns-form-to-repl-focus
             "so" 'cider-repl-switch-to-other
@@ -122,6 +131,7 @@
             "ss" (if (eq m 'cider-repl-mode)
                      'cider-switch-to-last-clojure-buffer
                    'cider-switch-to-repl-buffer)
+            "su" 'cider-repl-require-repl-utils
             "sx" 'cider-ns-refresh
             "sX" 'cider-restart
 
@@ -162,6 +172,9 @@
       ;; add support for golden-ratio
       (with-eval-after-load 'golden-ratio
         (add-to-list 'golden-ratio-extra-commands 'cider-popup-buffer-quit-function))
+      ;; setup linters. NOTE: It must be done after both CIDER and Flycheck are loaded.
+      (when clojure-enable-linters
+        (with-eval-after-load 'flycheck (flycheck-clojure-setup)))
       ;; add support for evil
       (evil-set-initial-state 'cider-stacktrace-mode 'motion)
       (evil-set-initial-state 'cider-popup-buffer-mode 'motion)
@@ -412,3 +425,11 @@
 
 (defun clojure/post-init-parinfer ()
   (add-hook 'clojure-mode-hook 'parinfer-mode))
+
+(defun clojure/post-init-flycheck ()
+  (spacemacs|forall-clojure-modes m
+    (spacemacs/enable-flycheck m)))
+
+(defun clojure/init-flycheck-clojure ()
+  (use-package flycheck-clojure
+    :if (configuration-layer/package-usedp 'flycheck)))

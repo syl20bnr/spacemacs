@@ -65,9 +65,8 @@ or `spacemacs'.")
 to compile Emacs 27 from source following the instructions in file
 EXPERIMENTAL.org at to root of the git repository.")
 
-(defvar dotspacemacs-emacs-pdumper-executable-file "emacs-27.0.50"
-  "File path pointing to emacs 27.1 executable compiled with support for the
-portable dumper (this is currently the branch pdumper.")
+(defvar dotspacemacs-emacs-pdumper-executable-file "emacs"
+  "File path pointing to emacs 27 or later executable.")
 
 (defvar dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"
   "Name of the Spacemacs dump file. This is the file will be created by the
@@ -226,7 +225,7 @@ emacs.")
 ;; emacs.")
 
 (defvar dotspacemacs-default-font '("Source Code Pro"
-                                    :size 13
+                                    :size 10.0
                                     :weight normal
                                     :width normal)
   "Default font, or prioritized list of fonts. This setting has no effect when
@@ -306,6 +305,9 @@ to disable fullscreen animations in OSX.")
   "If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).
 Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.")
 
+(defvar dotspacemacs-undecorated-at-startup nil
+  "If non nil the frame is undecorated when Emacs starts up.")
+
 (defvar dotspacemacs-active-transparency 90
   "A value from the range (0..100), in increasing opacity, which describes the
 transparency level of a frame when it's active or selected. Transparency
@@ -366,8 +368,8 @@ Has no effect if `dotspacemacs-enable-server' is nil.")
 
 (defvar dotspacemacs-smart-closing-parenthesis nil
   "If non-nil pressing the closing parenthesis `)' key in insert mode passes
-over any automatically added closing parenthesis, bracket, quote, etc…
-This can be temporary disabled by pressing `C-q' before `)'.")
+over any automatically added closing parenthesis, bracket, quote, etc...
+This can be temporary disabled by pressing `C-q' before `)'. (default nil)")
 
 (defvar dotspacemacs-zone-out-when-idle nil
   "Either nil or a number of seconds. If non-nil zone out after the specified
@@ -410,6 +412,9 @@ List sizes may be nil, in which case
 (defvar dotspacemacs-pretty-docs nil
   "Run `spacemacs/prettify-org-buffer' when
 visiting README.org files of Spacemacs.")
+
+(defvar dotspacemacs-new-empty-buffer-major-mode nil
+  "Set the major mode for a new empty buffer.")
 
 (defun dotspacemacs//prettify-spacemacs-docs ()
   "Run `spacemacs/prettify-org-buffer' if `buffer-file-name'
@@ -681,10 +686,14 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
   %n -- prints Narrow if appropriate
   %z -- prints mnemonics of buffer, terminal, and keyboard coding systems
   %Z -- like %z, but including the end-of-line format"
+  ;; save-match-data to work around Emacs bug, see
+  ;; https://github.com/syl20bnr/spacemacs/issues/9700
   (save-match-data
-    ;; save-match-data to work around Emacs bug, see
-    ;; https://github.com/syl20bnr/spacemacs/issues/9700
-    (let* ((project-name (when (string-match-p "%t" title-format)
+    ;; disable buffer-list-update-hook to work around recursive invocations caused
+    ;; by the temp-buffer used by `format-spec' below, see
+    ;; https://github.com/syl20bnr/spacemacs/issues/12387
+    (let* ((buffer-list-update-hook nil)
+           (project-name (when (string-match-p "%t" title-format)
                            (if (boundp 'spacemacs--buffer-project-name)
                                spacemacs--buffer-project-name
                              (set (make-local-variable 'spacemacs--buffer-project-name)

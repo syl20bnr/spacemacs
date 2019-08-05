@@ -31,3 +31,6 @@
                             'global-semantic-stickyfunc-mode)))
 (defun semantic/init-stickyfunc-enhance ()
   (use-package stickyfunc-enhance :defer t))
+
+(defun spacemacs//disable-semantic-idle-summary-mode ()
+  (semantic-idle-summary-mode 0))

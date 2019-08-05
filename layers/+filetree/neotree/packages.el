@@ -116,7 +116,10 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
 (defun neotree/pre-init-winum ()
   (spacemacs|use-package-add-hook winum
     :post-config
-    ;; window 0 is reserved for file trees
-    (spacemacs/set-leader-keys "0" #'neotree-show)
-    (define-key winum-keymap (kbd "M-0") #'neotree-show)
-    (add-to-list 'winum-assign-functions #'spacemacs//winum-neotree-assign-func)))
+    ;; `0', `M-0' and `C-x w 0' are bound to `winum-select-window-0-or-10'
+    (define-key winum-keymap [remap winum-select-window-0-or-10] #'neotree-show)
+    ;; replace the which-key name
+    (push '((nil . "winum-select-window-0-or-10") . (nil . "neotree-show"))
+          which-key-replacement-alist)
+    (add-to-list 'winum-assign-functions
+                 #'spacemacs//winum-neotree-assign-func)))

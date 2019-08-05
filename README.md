@@ -23,7 +23,6 @@
 <p align="center">
 <a href="https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/Join Chat.svg" alt="Gitter"></a>
 <a href="https://circleci.com/gh/syl20bnr/spacemacs/tree/develop"><img src="https://circleci.com/gh/syl20bnr/spacemacs/tree/develop.svg?style=shield" alt="Build Status"></a>
-<a href="https://waffle.io/syl20bnr/spacemacs"><img src="https://badge.waffle.io/syl20bnr/spacemacs.png?label=Merging...&title=Merging" alt="PR being merged"></a>
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ESFVNPKP4Y742"><img src="https://img.shields.io/badge/Paypal-Donate-blue.svg" alt="Donate"></a>
 <a href="https://shop.spreadshirt.com/spacemacs-shop"><img src="https://img.shields.io/badge/Shop-T--Shirts-blue.svg" alt="Donate"></a>
 <a href="http://www.slant.co/topics/12/~what-are-the-best-programming-text-editors"><img src="https://img.shields.io/badge/Slant-Recommend-ff69b4.svg" alt="Recommend it"></a>
@@ -74,6 +73,7 @@ the [full installation instructions](#install) for other options.
 - [Quotes](#quotes)
 - [Contributions](#contributions)
 - [Communities](#communities)
+- [Spacemacs Everywhere](#spacemacs-everywhere)
 - [License](#license)
 - [Supporting Spacemacs](#supporting-spacemacs)
 
@@ -164,10 +164,8 @@ ln -s /usr/local/Cellar/emacs-plus/*/Emacs.app/ /Applications/
 ```
 brew tap railwaycat/emacsmacport
 brew install emacs-mac
+ln -s /usr/local/Cellar/emacs-mac/*/Emacs.app/ /Applications/
 ```
-
-Copy and paste the symlink (`ln`) from the install instructions if `brew linkapps`
-is deprecated.
 
 ##### Using cask
 
@@ -207,6 +205,13 @@ git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 After completing the Spacemacs [install process](#install), then it's also
 recommended to add the [osx layer][] to your [dotfile][]. Installation
 instructions are available in the documentation for the [osx layer][].
+
+*Note:* you might have some issues when doing some search on your projects, you
+probably want to install grep through homebrew with default names:
+
+```sh
+$ brew install grep --with-default-names
+```
 
 ### Windows
 You can download good quality builds from the [emacs-w64 project][emacs-for-windows].
@@ -425,14 +430,18 @@ and to propose great and useful configurations for all the things!
 Before contributing be sure to consult the
 [contribution guidelines][CONTRIBUTING.org] and [conventions][CONVENTIONS.org].
 
-Here is a throughput graph of the repository for the last few weeks:
-
-[![Throughput Graph](https://graphs.waffle.io/syl20bnr/spacemacs/throughput.svg)](https://waffle.io/syl20bnr/spacemacs/metrics)
-
 # Communities
 - [Gitter Chat]
 - [Stack Exchange]
 - [Reddit]
+
+# Spacemacs Everywhere
+
+Once you've learned the Spacemacs key bindings, you can use them in other IDEs/tools, thanks to the following projects:
+- [IntelliSpace](https://github.com/MarcoIeni/intelli-space) - Spacemacs' like key bindings for IntelliJ platform
+- [Spaceclipse](https://github.com/MarcoIeni/spaceclipse) - Spacemacs’ like key bindings for Eclipse
+- [SpaceVim](https://github.com/SpaceVim/SpaceVim) - A community-driven modular vim distribution
+- [VSpaceCode](https://github.com/VSpaceCode/VSpaceCode) - Spacemacs’ like key bindings for Visual Studio Code
 
 # License
 The license is GPLv3 for all parts specific to Spacemacs, this includes:

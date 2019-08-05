@@ -9,6 +9,11 @@
 ;;
 ;;; License: GPLv3
 
+;; Dumper
+
+(defun emacs-lisp/pre-dump ()
+  (spacemacs/dump-modes '(emacs-lisp-mode)))
+
 ;; Variables
 
 (spacemacs|define-jump-handlers emacs-lisp-mode)

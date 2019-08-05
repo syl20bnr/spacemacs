@@ -30,6 +30,7 @@
     erc-yt
     linum
     persp-mode
+    window-purpose
     ))
 
 (defun erc/post-init-company ()
@@ -77,6 +78,8 @@
       (setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE")
             erc-server-coding-system '(utf-8 . utf-8))
       (setq erc-prompt (lambda () (concat "[" (buffer-name) "]")))
+      (erc-spelling-mode 1)
+      (setq erc-interpret-mirc-color t)
 
       ;; Notifications are enabled if erc-enable-notifications is non-nil, and
       ;; D-BUS is available (i.e. Linux/BSD).
@@ -246,3 +249,6 @@
               (erc/default-servers)
             (call-interactively 'erc)))))))
 
+(defun erc/pre-init-window-purpose ()
+  (spacemacs|use-package-add-hook window-purpose
+    :pre-config (add-to-list 'purpose-user-mode-purposes '(erc-mode . chat))))

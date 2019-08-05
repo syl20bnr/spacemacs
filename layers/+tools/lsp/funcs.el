@@ -15,19 +15,6 @@
     (add-to-list (intern (format "spacemacs-jump-handlers-%S" m))
                  '(lsp-ui-peek-find-definitions :async t))))
 
-(defun fix-lsp-company-prefix ()
-  "fix lsp-javascript company prefix
-https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
-  (interactive)
-  (defun lsp-prefix-company-transformer (candidates)
-    (let ((completion-ignore-case t))
-      (if (and (car candidates)
-               (get-text-property 0 'lsp-completion-prefix (car candidates)))
-          (all-completions (company-grab-symbol) candidates)
-        candidates)))
-  (make-local-variable 'company-transformers)
-  (add-to-list 'company-transformers 'lsp-prefix-company-transformer))
-
 (defun spacemacs/lsp-bind-keys ()
   "Define key bindings for the lsp minor mode."
   (ecase lsp-navigation
@@ -90,17 +77,19 @@ https://github.com/emacs-lsp/lsp-javascript/issues/9#issuecomment-379515379"
 
 (defun spacemacs//lsp-declare-prefixes-for-mode (mode)
   "Define key binding prefixes for the specific MODE."
-  (spacemacs/declare-prefix-for-mode mode "m=" "format")
-  (spacemacs/declare-prefix-for-mode mode "mh" "help")
-  (spacemacs/declare-prefix-for-mode mode "mb" "backend")
-  (spacemacs/declare-prefix-for-mode mode "mr" "refactor")
-  (spacemacs/declare-prefix-for-mode mode "mT" "toggle")
-  (spacemacs/declare-prefix-for-mode mode "mg" "goto")
-  (spacemacs/declare-prefix-for-mode mode "mG" "peek")
-  (spacemacs/declare-prefix-for-mode mode "mF" "folder")
-  (dolist (prefix '("mg" "mG"))
-    (spacemacs/declare-prefix-for-mode mode (concat prefix "h") "hierarchy")
-    (spacemacs/declare-prefix-for-mode mode (concat prefix "m") "members")))
+  (unless (member mode lsp-layer--active-mode-list)
+    (push mode lsp-layer--active-mode-list)
+    (spacemacs/declare-prefix-for-mode mode "m=" "format")
+    (spacemacs/declare-prefix-for-mode mode "mh" "help")
+    (spacemacs/declare-prefix-for-mode mode "mb" "backend")
+    (spacemacs/declare-prefix-for-mode mode "mr" "refactor")
+    (spacemacs/declare-prefix-for-mode mode "mT" "toggle")
+    (spacemacs/declare-prefix-for-mode mode "mg" "goto")
+    (spacemacs/declare-prefix-for-mode mode "mG" "peek")
+    (spacemacs/declare-prefix-for-mode mode "mF" "folder")
+    (dolist (prefix '("mg" "mG"))
+      (spacemacs/declare-prefix-for-mode mode (concat prefix "h") "hierarchy")
+      (spacemacs/declare-prefix-for-mode mode (concat prefix "m") "members"))))
 
 (defun spacemacs/lsp-ui-doc-func ()
   "Toggle the function signature in the lsp-ui-doc overlay"

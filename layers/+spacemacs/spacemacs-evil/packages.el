@@ -282,16 +282,21 @@
       (spacemacs|define-transient-state evil-numbers
         :title "Evil Numbers Transient State"
         :doc
-        "\n[_+_/_=_] increase number  [_-_] decrease  [0..9] prefix  [_q_] quit"
+        "\n[_+_/_=_/_k_] increase number  [_-_/___/_j_] decrease  [0..9] prefix  [_q_] quit"
+        :foreign-keys run
         :bindings
         ("+" evil-numbers/inc-at-pt)
         ("=" evil-numbers/inc-at-pt)
+        ("k" evil-numbers/inc-at-pt)
         ("-" evil-numbers/dec-at-pt)
+        ("_" evil-numbers/dec-at-pt)
+        ("j" evil-numbers/dec-at-pt)
         ("q" nil :exit t))
       (spacemacs/set-leader-keys
         "n+" 'spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt
         "n=" 'spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt
-        "n-" 'spacemacs/evil-numbers-transient-state/evil-numbers/dec-at-pt))))
+        "n-" 'spacemacs/evil-numbers-transient-state/evil-numbers/dec-at-pt
+        "n_" 'spacemacs/evil-numbers-transient-state/evil-numbers/dec-at-pt))))
 
 (defun spacemacs-evil/init-evil-surround ()
   (use-package evil-surround
@@ -332,7 +337,7 @@
     (progn
       (setq evil-tutor-working-directory
             (concat spacemacs-cache-directory ".tutor/"))
-      (spacemacs/set-leader-keys "hT" 'evil-tutor-start))))
+      (spacemacs/set-leader-keys "hTv" 'evil-tutor-start))))
 
 (defun spacemacs-evil/init-evil-unimpaired ()
   ;; No laziness here, unimpaired bindings should be available right away.
@@ -366,7 +371,8 @@
     :commands (linum-relative-toggle linum-relative-on)
     :init
     (progn
-      (when (spacemacs/relative-line-numbers-p)
+      (when (or (spacemacs/visual-line-numbers-p)
+                (spacemacs/relative-line-numbers-p))
         (add-hook 'spacemacs-post-user-config-hook 'linum-relative-on))
       (spacemacs/set-leader-keys "tr" 'spacemacs/linum-relative-toggle))
     :config

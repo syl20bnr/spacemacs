@@ -9,6 +9,11 @@
 ;;
 ;;; License: GPLv3
 
+;; Dumper
+
+(defun org/pre-dump ()
+  (spacemacs/dump-modes '(org-mode)))
+
 ;; Variables
 
 (defvar org-want-todo-bindings nil
@@ -43,3 +48,7 @@ used.")
 
 (defvar org-enable-epub-support nil
   "If non-nil org-epub is configured")
+
+(defvar org-enable-jira-support nil
+  "If non-nil, Jira (https://www.atlassian.com/software/jira) related packages
+are configured.")

@@ -1,8 +1,10 @@
 #+TITLE: Org layer
 
+#+TAGS: emacs|layer
+
 [[file:img/org.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#bibtex][BibTeX]]
@@ -22,6 +24,7 @@
   - [[#mode-line-support][Mode line support]]
   - [[#sticky-header-support][Sticky header support]]
   - [[#epub-support][Epub support]]
+  - [[#jira-support][Jira support]]
 - [[#key-bindings][Key bindings]]
   - [[#starting-org-mode][Starting org-mode]]
   - [[#toggles][Toggles]]
@@ -48,6 +51,7 @@
     - [[#application-bindings][Application bindings]]
     - [[#org-mode-bindings][org-mode bindings]]
     - [[#visualization-bindings][Visualization bindings]]
+  - [[#org-jira][Org-jira]]
 
 * Description
 This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
@@ -59,6 +63,7 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 - Presentation mode via [[https://github.com/rlister/org-present][org-present]]
 - Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
 - Project-specific TODOs via [[https://github.com/IvanMalison/org-projectile][org-projectile]]
+- Easy insert of URLs from clipboard with org format via [[https://github.com/rexim/org-cliplink][org-cliplink]]
 
 * BibTeX
 For more extensive support of references through BibTeX files, have a look at
@@ -139,7 +144,7 @@ as it described in the [[https://github.com/yjwen/org-reveal#set-the-location-of
 Alternatively, add the following line to each =.org= file you want to process:
 
 #+BEGIN_EXAMPLE
-  #+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
+  #+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js@3.8.0
 #+END_EXAMPLE
 
 ** Org-journal support
@@ -312,6 +317,25 @@ the variable =org-enable-epub-support= to =t=.
                        org-enable-epub-support t)))
 #+END_SRC
 
+** Jira support
+To bring Jira and OrgMode together over [[https://github.com/ahungry/org-jira][org-jira]] set the variable
+=org-enable-jira-support= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (org :variables
+         org-enable-jira-support t
+         jiralib-url "https://yourcompany.atlassian.net:443")))
+#+END_SRC
+
+If you would like to avoid being prompted for your login and password each time
+you connect, add your authentication credentials to =~/.authinfo.gpg= or
+=~/.authinfo=:
+
+#+BEGIN_SRC authinfo
+  machine yourcompany.atlassian.net login you@example.com password yourPassword port 443
+#+END_SRC
+
 * Key bindings
 ** Starting org-mode
 
@@ -468,6 +492,7 @@ are also available.
 | ~SPC m s a~   | Toggle archive tag for subtree  |
 | ~SPC m s A~   | Archive subtree                 |
 | ~SPC m s b~   | org-tree-to-indirect-buffer     |
+| ~SPC m s d~   | org-cut-subtree                 |
 | ~SPC m s l~   | org-demote-subtree              |
 | ~SPC m s h~   | org-promote-subtree             |
 | ~SPC m s k~   | org-move-subtree-up             |
@@ -480,21 +505,23 @@ are also available.
 
 ** Element insertion
 
-| Key binding   | Description                      |
-|---------------+----------------------------------|
-| ~SPC m i d~   | org-insert-drawer                |
-| ~SPC m i D s~ | Take screenshot                  |
-| ~SPC m i D y~ | Yank image url                   |
-| ~SPC m i e~   | org-set-effort                   |
-| ~SPC m i f~   | org-insert-footnote              |
-| ~SPC m i H~   | org-insert-heading-after-current |
-| ~SPC m i h~   | org-insert-heading               |
-| ~SPC m i K~   | spacemacs/insert-keybinding-org  |
-| ~SPC m i l~   | org-insert-link                  |
-| ~SPC m i n~   | org-add-note                     |
-| ~SPC m i p~   | org-set-property                 |
-| ~SPC m i s~   | org-insert-subheading            |
-| ~SPC m i t~   | org-set-tags                     |
+| Key binding   | Description                                   |
+|---------------+-----------------------------------------------|
+| ~SPC m i d~   | org-insert-drawer                             |
+| ~SPC m i D s~ | Take screenshot                               |
+| ~SPC m i D y~ | Yank image url                                |
+| ~SPC m i e~   | org-set-effort                                |
+| ~SPC m i f~   | org-insert-footnote                           |
+| ~SPC m i h~   | org-insert-heading                            |
+| ~SPC m i H~   | org-insert-heading-after-current              |
+| ~SPC m i i~   | org-insert-item                               |
+| ~SPC m i K~   | spacemacs/insert-keybinding-org               |
+| ~SPC m i l~   | org-insert-link                               |
+| ~SPC m i L~   | insert URL with its page title from clipboard |
+| ~SPC m i n~   | org-add-note                                  |
+| ~SPC m i p~   | org-set-property                              |
+| ~SPC m i s~   | org-insert-subheading                         |
+| ~SPC m i t~   | org-set-tags                                  |
 
 ** Links
 
@@ -620,12 +647,12 @@ are listed bellow.
 |-------------+---------------------+-----------------------------------|
 | Entry       |                     |                                   |
 |-------------+---------------------+-----------------------------------|
+| ~h:~        | set tags            | org-agenda-set-tags               |
+| ~hA~        | archive             | org-agenda-archive-default        |
 | ~ht~        | set status          | org-agenda-todo                   |
 | ~hk~        | kill                | org-agenda-kill                   |
-| ~hR~        | refile              | org-agenda-refile                 |
-| ~hA~        | archive             | org-agenda-archive-default        |
-| ~h:~        | set tags            | org-agenda-set-tags               |
 | ~hp~        | set priority        | org-agenda-priority               |
+| ~hR~        | refile              | org-agenda-refile                 |
 |-------------+---------------------+-----------------------------------|
 | Visit entry |                     |                                   |
 |-------------+---------------------+-----------------------------------|
@@ -636,54 +663,55 @@ are listed bellow.
 |-------------+---------------------+-----------------------------------|
 | Filter      |                     |                                   |
 |-------------+---------------------+-----------------------------------|
-| ~ft~        | by tag              | org-agenda-filter-by-tag          |
-| ~fr~        | refine by tag       | org-agenda-filter-by-tag-refine   |
 | ~fc~        | by category         | org-agenda-filter-by-category     |
-| ~fh~        | by top headline     | org-agenda-filter-by-top-headline |
-| ~fx~        | by regexp           | org-agenda-filter-by-regexp       |
 | ~fd~        | delete all filters  | org-agenda-filter-remove-all      |
+| ~fh~        | by top headline     | org-agenda-filter-by-top-headline |
+| ~fr~        | refine by tag       | org-agenda-filter-by-tag-refine   |
+| ~ft~        | by tag              | org-agenda-filter-by-tag          |
+| ~fx~        | by regexp           | org-agenda-filter-by-regexp       |
 |-------------+---------------------+-----------------------------------|
 | Date        |                     |                                   |
 |-------------+---------------------+-----------------------------------|
-| ~ds~        | schedule            | org-agenda-schedule               |
-| ~dS~        | un-schedule         | org-agenda-schedule               |
-| ~dd~        | set deadline        | org-agenda-deadline               |
-| ~dD~        | remove deadline     | org-agenda-deadline               |
-| ~dt~        | timestamp           | org-agenda-date-prompt            |
 | ~+~         | do later            | org-agenda-do-date-later          |
 | ~-~         | do earlier          | org-agenda-do-date-earlier        |
+| ~dd~        | set deadline        | org-agenda-deadline               |
+| ~dD~        | remove deadline     | org-agenda-deadline               |
+| ~ds~        | schedule            | org-agenda-schedule               |
+| ~dS~        | un-schedule         | org-agenda-schedule               |
+| ~dt~        | timestamp           | org-agenda-date-prompt            |
 |-------------+---------------------+-----------------------------------|
 | Toggle      |                     |                                   |
 |-------------+---------------------+-----------------------------------|
+| ~ta~        | archive             | org-agenda-archives-mode          |
+| ~tc~        | clocking issues     | org-agenda-show-clocking-issues   |
+| ~td~        | diaries             | org-agenda-toggle-diary           |
 | ~tf~        | follow              | org-agenda-follow-mode            |
 | ~tl~        | log                 | org-agenda-log-mode               |
-| ~ta~        | archive             | org-agenda-archives-mode          |
 | ~tr~        | clock report        | org-agenda-clockreport-mode       |
-| ~td~        | diaries             | org-agenda-toggle-diary           |
 |-------------+---------------------+-----------------------------------|
 | View        |                     |                                   |
 |-------------+---------------------+-----------------------------------|
 | ~vd~        | day                 | org-agenda-day-view               |
-| ~vw~        | week                | org-agenda-week-view              |
-| ~vt~        | fortnight           | org-agenda-fortnight-view         |
 | ~vm~        | month               | org-agenda-month-view             |
-| ~vy~        | year                | org-agenda-year-view              |
 | ~vn~        | next span           | org-agenda-later                  |
 | ~vp~        | prev span           | org-agenda-earlier                |
 | ~vr~        | reset               | org-agenda-reset-view             |
+| ~vt~        | fortnight           | org-agenda-fortnight-view         |
+| ~vw~        | week                | org-agenda-week-view              |
+| ~vy~        | year                | org-agenda-year-view              |
 |-------------+---------------------+-----------------------------------|
 | Clock       |                     |                                   |
 |-------------+---------------------+-----------------------------------|
 | ~cI~        | in                  | org-agenda-clock-in               |
+| ~cj~        | jump                | org-agenda-clock-goto             |
 | ~cO~        | out                 | org-agenda-clock-out              |
 | ~cq~        | cancel              | org-agenda-clock-cancel           |
-| ~cj~        | jump                | org-agenda-clock-goto             |
 |-------------+---------------------+-----------------------------------|
 | Other       |                     |                                   |
 |-------------+---------------------+-----------------------------------|
-| ~gr~        | reload              | org-agenda-redo                   |
 | ~.~         | go to today         | org-agenda-goto-today             |
 | ~gd~        | go to date          | org-agenda-goto-date              |
+| ~gr~        | reload              | org-agenda-redo                   |
 
 ** Pomodoro
 
@@ -726,13 +754,13 @@ available for =calendar-mode= for navigating and manipulating the journal.
 
 | Key binding | Description                           |
 |-------------+---------------------------------------|
-| ~SPC m r~   | Read journal entry                    |
 | ~SPC m i~   | Insert journal entry for date         |
+| ~SPC m m~   | Search calendar month journal entries |
 | ~SPC m n~   | Next journal entry                    |
 | ~SPC m p~   | Previous journal entry                |
+| ~SPC m r~   | Read journal entry                    |
 | ~SPC m s~   | Search all journal entries            |
 | ~SPC m w~   | Search calendar week journal entries  |
-| ~SPC m m~   | Search calendar month journal entries |
 | ~SPC m y~   | Search calendar year journal entries  |
 
 While viewing a journal entry in =org-journal-mode= the following key bindings
@@ -741,8 +769,8 @@ are available.
 | Key binding | Description            |
 |-------------+------------------------|
 | ~SPC m j~   | New journal entry      |
-| ~SPC m p~   | Previous journal entry |
 | ~SPC m n~   | Next journal entry     |
+| ~SPC m p~   | Previous journal entry |
 
 ** Org-brain
 *** Application bindings
@@ -757,11 +785,14 @@ are available.
 | Key binding   | Description                  |
 |---------------+------------------------------|
 | ~SPC m B a c~ | Add child                    |
-| ~SPC m B a p~ | Add parent                   |
+| ~SPC m B a h~ | Add headline child           |
 | ~SPC m B a f~ | Add friend                   |
+| ~SPC m B a p~ | Add parent                   |
+| ~SPC m B a r~ | Add resource                 |
+| ~SPC m B g g~ | Go to an org-brain entry     |
 | ~SPC m B g c~ | Go to child                  |
-| ~SPC m B g p~ | Go to parent                 |
 | ~SPC m B g f~ | Go to friend                 |
+| ~SPC m B g p~ | Go to parent                 |
 | ~SPC m B R~   | Refile entry                 |
 | ~SPC m B x~   | Delete entry                 |
 | ~SPC m B v~   | Visualize an org-brain entry |
@@ -772,11 +803,30 @@ are available.
 |-------------+---------------------------------------|
 | ~j / TAB~   | Goto next link                        |
 | ~k / S-TAB~ | Goto previous link                    |
-| ~c~         | Add child                             |
-| ~p~         | Add parent                            |
-| ~l~         | Add resource link                     |
 | ~C-y~       | Paste resource link                   |
 | ~a~         | Add resource [[http://orgmode.org/manual/Attachments.html][attachment]]               |
-| ~o~         | Open and edit the visualized entry    |
+| ~c~         | Add child                             |
 | ~f~         | Find/visit another entry to visualize |
+| ~l~         | Add resource link                     |
+| ~p~         | Add parent                            |
+| ~o~         | Open and edit the visualized entry    |
 | ~r~         | Rename this, or another, entry        |
+
+** Org-jira
+
+| Key binding     | Description                                      |
+|-----------------+--------------------------------------------------|
+| ~SPC a o J p g~ | Get projects list                                |
+| ~SPC a o J i b~ | Open the current issue in a WWW browser          |
+| ~SPC a o J i g~ | Get issues                                       |
+| ~SPC a o J i h~ | Get only head of issues                          |
+| ~SPC a o J i f~ | Get only head of issues from filter              |
+| ~SPC a o J i u~ | Update an issue at point                         |
+| ~SPC a o J i w~ | Progress an issue at point                       |
+| ~SPC a o J i r~ | Refresh an issue at point                        |
+| ~SPC a o J i c~ | Create an issue at point                         |
+| ~SPC a o J i y~ | Copy current issue key                           |
+| ~SPC a o J s c~ | Create a subtask                                 |
+| ~SPC a o J s g~ | Get subtasks                                     |
+| ~SPC a o J c u~ | Update the comment at point or add a new comment |
+| ~SPC a o J t j~ | Convert the TODO item at point to a Jira ticket  |

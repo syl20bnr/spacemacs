@@ -1,8 +1,10 @@
 #+TITLE: Treemacs layer
 
+#+TAGS: file tree|layer
+
 [[file:img/treemacs.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -19,16 +21,16 @@
 This layer sets up a file navigation and project explorer side-window via [[https://github.com/Alexander-Miller/treemacs][Treemacs]].
 
 ** Features:
-An detailed overview over Treemacs’ available features is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][its
+An detailed overview over Treemacs' available features is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][its
 readme]]. In a short summary Treemacs offers the following:
 - Simple and powerful navigation and ability to detail exactly how and where a
   file should be opened
 - Good looking png icons.
-- Display of multiple file trees organized as projects residing in a workpsace.
+- Display of multiple file trees organized as projects residing in a workspace.
 - Ability to show tags contained in files. Tags are provided by imenu, so
   nearly every filetype is supported.
 - Mouse interface for single and double left clicks in line with modern GUI standards.
-  (Clicking on an icon will also display a file’s tags)
+  (Clicking on an icon will also display a file's tags)
 - Locational awareness: commands like ~find-file~ or ~magit-status~ will use the location
   of the node at point (with $HOME as fallback)
 - Optionally fontifying files based on their git status.
@@ -99,10 +101,11 @@ Default is =nil=.
 |-------------+------------------------------------------------------------------------------------------------------------------------------------------------|
 | ~M-0~       | Selected the treemacs window. Actually selects window #10, which is always assigned to treemacs.                                               |
 | ~SPC 0~     | Open treemacs in the current directory. When not visiting a file use $HOME as fallback. With a prefix arg manually select the root instead.    |
-| ~SPC f B~   | Find and select a bookmark. If it cannot be found rebuild view with the bookmark’s location as root. Also open the bookmark with a prefix arg. |
+| ~SPC f B~   | Find and select a bookmark. If it cannot be found rebuild view with the bookmark's location as root. Also open the bookmark with a prefix arg. |
 | ~SPC f t~   | Hide/show existing treemacs buffer. Create one for the current directory if no buffer exists.                                                  |
 | ~SPC f T~   | Manually focus the treemacs view on the currently selected file. Not needed when =treemacs-follow-mode= is enabled.                            |
 | ~SPC f M-t~ | Manually focus the treemacs view on the currently selected file and tag.                                                                       |
+| ~SPC p t~   | Hide/show existing treemacs buffer. Add the current project to treemacs if not already added.                                                  |
 
 ** Inside Treemacs
 Treemacs will use either ~j/k~ or ~n/p~ to go to the next/previous line,
@@ -120,10 +123,10 @@ many other commands.
 | ~M-K/P~     | Go to the previous line in ~next-window~..                                                                     |
 | ~M-j/M-n~   | Select next node at the same depth as currently selected node, if possible.                                    |
 | ~M-k/M-p~   | Select previous node at the same depth as currently selected node, if possible.                                |
-| ~C-p a~     | Select a new project to add to the treemacs workspace.                                                         |
-| ~C-p p~     | Select a projectile project to add to the workspace.                                                           |
-| ~C-p d~     | Remove project at point from the workspace.                                                                    |
-| ~C-p r~     | Rename project at point.                                                                                       |
+| ~C-c C-p a~ | Select a new project to add to the treemacs workspace.                                                         |
+| ~C-c C-p p~ | Select a projectile project to add to the workspace.                                                           |
+| ~C-c C-p d~ | Remove project at point from the workspace.                                                                    |
+| ~C-c C-p r~ | Rename project at point.                                                                                       |
 | ~th~        | Toggle the hiding and displaying of dotfiles.                                                                  |
 | ~tw~        | Toggle whether the treemacs buffer should have a fixed width.                                                  |
 | ~tf~        | Toggle treemacs-follow-mode.                                                                                   |
@@ -132,12 +135,12 @@ many other commands.
 | ~TAB~       | Do what I mean (as defined in ~treemacs-TAB-actions-config~). Prefers expanding nodes by default.              |
 | ~RET~       | Do what I mean (as defined in ~treemacs-RET-actions-config~). Prefers visiting nodes by default.               |
 | ~mouse1~    | Move point to clicked line                                                                                     |
-| ~2x mouse1~ | Do what I mean (as defined in ~treemacs-doubleclick-actions-config~). Behavious like ~RET~ by default.         |
+| ~2x mouse1~ | Do what I mean (as defined in ~treemacs-doubleclick-actions-config~). Behaves like ~RET~ by default.           |
 | ~g/r/gr~    | Refresh and rebuild the treemacs buffer.                                                                       |
 | ~d~         | Delete node at point. A delete action must always be confirmed. Directories are deleted recursively.           |
 | ~cf~        | Create a file.                                                                                                 |
 | ~cd~        | Create a directory.                                                                                            |
-| ~R~         | Rename the currently selected node. Reload buffers visiting renamed files or files in renamed direcotries.     |
+| ~R~         | Rename the currently selected node. Reload buffers visiting renamed files or files in renamed directories.     |
 | ~u~         | Select parent of selected node, if possible.                                                                   |
 | ~q~         | Hide/show an existing treemacs buffer.                                                                         |
 | ~Q~         | Kill the treemacs buffer.                                                                                      |

@@ -1,8 +1,10 @@
 #+TITLE: Lua layer
 
+#+TAGS: general|layer|multi-paradigm|programming
+
 [[file:img/lua.gif]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]

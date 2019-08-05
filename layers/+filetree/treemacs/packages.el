@@ -52,13 +52,13 @@
         "f M-t" 'treemacs-find-tag
         "pt"    'spacemacs/treemacs-project-toggle)
       (which-key-add-major-mode-key-based-replacements 'treemacs-mode
-        "c"     "treemacs-create"
-        "o"     "treemacs-visit-node"
-        "oa"    "treemacs-visit-node-ace"
-        "t"     "treemacs-toggles"
-        "y"     "treemacs-copy"
-        "C-p"   "treemacs-projects"
-        "C-p c" "treemacs-projects-collapse"))
+        "c"         "treemacs-create"
+        "o"         "treemacs-visit-node"
+        "oa"        "treemacs-visit-node-ace"
+        "t"         "treemacs-toggles"
+        "y"         "treemacs-copy"
+        "C-c C-p"   "treemacs-projects"
+        "C-c C-p c" "treemacs-projects-collapse"))
     :config
     (progn
       (spacemacs/define-evil-state-face "treemacs" "MediumPurple1")
@@ -79,16 +79,22 @@
 (defun treemacs/init-treemacs-projectile ()
   (use-package treemacs-projectile
     :after treemacs
-    :defer t))
+    :defer t
+    :init (require 'treemacs-projectile)))
 
 (defun treemacs/pre-init-winum ()
   (spacemacs|use-package-add-hook winum
     :post-config
     (progn
-      ;; window 0 is reserved for file trees
-      (spacemacs/set-leader-keys "0" 'treemacs-select-window)
-      (define-key winum-keymap (kbd "M-0") 'treemacs-select-window)
+      ;; `0', `M-0' and `C-x w 0' are bound to `winum-select-window-0-or-10'
+      (define-key winum-keymap
+        [remap winum-select-window-0-or-10] #'treemacs-select-window)
+      ;; replace the which-key name
+      (push '((nil . "winum-select-window-0-or-10") .
+              (nil . "treemacs-select-window"))
+            which-key-replacement-alist)
       (with-eval-after-load 'treemacs
         (dolist (n (number-sequence 1 5))
           (add-to-list 'winum-ignored-buffers
-                       (format "%sFramebuffer-%s*" treemacs--buffer-name-prefix n)))))))
+                       (format "%sFramebuffer-%s*"
+                               treemacs--buffer-name-prefix n)))))))

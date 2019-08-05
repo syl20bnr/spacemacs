@@ -22,5 +22,13 @@ Currently avaliable 'tide (default), 'typescript-formatter and 'prettier.")
   "The backend to use for IDE features. Possible values are `tide'
 +and `lsp'.")
 
+(defvar typescript-linter 'tslint
+  "The linter to use for typescript. Possible values are `tslint' `eslint'")
+
+(defvar typescript-lsp-linter t
+  "If the backend is `lsp', and this variable is non-nil, then
+use lsp as the linter, otherwise let flycheck choose the best
+linter that's available.")
+
 (spacemacs|define-jump-handlers typescript-mode)
 (spacemacs|define-jump-handlers typescript-tsx-mode)

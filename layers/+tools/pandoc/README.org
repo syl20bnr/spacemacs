@@ -1,6 +1,8 @@
 #+TITLE: Pandoc layer
 
-* Table of Contents                     :TOC_4_gh:noexport:
+#+TAGS: layer|tool
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]

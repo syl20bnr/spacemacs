@@ -1,8 +1,10 @@
 #+TITLE: Clojure layer
 
+#+TAGS: dsl|layer|lisp|programming
+
 [[file:img/clojure.png]] [[file:img/cider.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -15,6 +17,7 @@
     - [[#more-details][More details]]
 - [[#usage][Usage]]
   - [[#cheatsheet][Cheatsheet]]
+  - [[#linting][Linting]]
   - [[#structuraly-safe-editing][Structuraly safe editing]]
 - [[#key-bindings][Key bindings]]
   - [[#working-with-clojure-files-barfage-slurpage--more][Working with clojure files (barfage, slurpage & more)]]
@@ -48,6 +51,7 @@ This layer adds support for [[https://clojure.org/][Clojure]] language using [[h
 - REPL via [[https://github.com/clojure-emacs/cider][CIDER]]
 - Code formatting via [[https://github.com/clojure-emacs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]]
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
+- Linting via [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]]
 - Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
 - Debugging with [[https://github.com/clojure-emacs/sayid][sayid]]
 - Clojure cheatsheet
@@ -79,9 +83,9 @@ Or set this variable when loading the configuration layer:
 
 ** Enabling sayid or clj-refactor
 The packages sayid (Clojure debugger) and clj-refactor (automatic refactorings)
-are disabled by default. To enable them, add a `:variables` option when enabling
-the `clojure` layer, specifying `clojure-enable-sayid`, or
-`clojure-enable-clj-refactor`, or both.
+are disabled by default. To enable them, add a =:variables= option when enabling
+the =clojure= layer, specifying =clojure-enable-sayid=, or
+=clojure-enable-clj-refactor=, or both.
 
 In your Spacemacs configuration:
 
@@ -110,7 +114,7 @@ function correctly extra nREPL middleware needs to be present
 (cider/cider-nrepl). The same is true for clj-refactor (refactor-nrepl), and for
 sayid (com.billpiel/sayid).
 
-When starting the Clojure process through cider (`cider-jack-in` and friends)
+When starting the Clojure process through cider (=cider-jack-in= and friends)
 this will be handled automatically, and so most users should be able to just run
 ~SPC m s i~ to connect to the CIDER REPL and skip the rest of this section.
 
@@ -164,8 +168,7 @@ are enabled.
       :dependencies [[nrepl "0.4.5"]]
 
       :repl-options
-      {:nrepl-middleware [cider.nrepl/cider-middleware
-                          refactor-nrepl.middleware/wrap-refactor ;; clj-refactor
+      {:nrepl-middleware [refactor-nrepl.middleware/wrap-refactor ;; clj-refactor
                           com.billpiel.sayid.nrepl-middleware/wrap-sayid ;; sayid
                           ]}}}
   #+END_SRC
@@ -183,6 +186,18 @@ This layers installs the [[https://github.com/clojure-emacs/clojure-cheatsheet][
 Type ~SPC m h c~ to display the cheatsheet then type in some terms (space
 separated) to narrow down the list. For example, try typing in sort map to see
 some functions that deal with sorting maps.
+
+** Linting
+Linting works via flycheck and disabled by default.
+You can enable it like this:
+
+#+BEGIN_SRC emacs-lisp
+  (setq clojure-enable-linters t)
+#+END_SRC
+
+Make sure to read the [[https://github.com/clojure-emacs/squiggly-clojure#warnings][warnings section]].
+If you have a problem peek into [[https://github.com/clojure-emacs/squiggly-clojure#debugging-and-bug-reporting][debugging and bug reporting]] then try to reproduce in the [[https://github.com/clojure-emacs/squiggly-clojure/tree/master/sample-project][sample project]].
+NOTE: With the default linter configs you should add =org.clojure/core.typed= to the development dependencies.
 
 ** Structuraly safe editing
 This layer adds support for =evil-cleverparens= which allows to safely edit
@@ -209,7 +224,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 * Key bindings
 ** Working with clojure files (barfage, slurpage & more)
 Spacemacs comes with a special =lisp-state= for working with lisp code that
-supports slurpage, barfage and more tools you’ll likely want when working with
+supports slurpage, barfage and more tools you'll likely want when working with
 lisp.
 
 As this state works the same for all files, the documentation is in global
@@ -236,51 +251,55 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m e b~ | eval buffer                                               |
 | ~SPC m e e~ | eval last sexp                                            |
 | ~SPC m e f~ | eval function at point                                    |
+| ~SPC m e i~ | interrupt the current evaluation                          |
 | ~SPC m e r~ | eval region                                               |
 | ~SPC m e m~ | cider macroexpand 1                                       |
 | ~SPC m e M~ | cider macroexpand all                                     |
 | ~SPC m e p~ | print last sexp (clojure interaction mode only)           |
 | ~SPC m e P~ | eval last sexp and pretty print result in separate buffer |
 | ~SPC m e u~ | Undefine a symbol from the current namespace              |
+| ~SPC m e v~ | eval sexp around point                                    |
 | ~SPC m e w~ | eval last sexp and replace with result                    |
 
 *** Goto
 
-| Key binding | Description      |
-|-------------+------------------|
-| ~SPC m g b~ | go back          |
-| ~SPC m g C~ | browse classpath |
-| ~SPC m g g~ | goto var         |
-| ~SPC m g e~ | goto error       |
-| ~SPC m g n~ | goto namespace   |
-| ~SPC m g r~ | goto resource    |
-| ~SPC m g s~ | browse spec      |
-| ~SPC m g S~ | browse all specs |
+| Key binding | Description                                  |
+|-------------+----------------------------------------------|
+| ~SPC m g b~ | go back                                      |
+| ~SPC m g C~ | browse classpath                             |
+| ~SPC m g g~ | goto var definition =spacemacs/clj-find-var= |
+| ~SPC m g e~ | goto error                                   |
+| ~SPC m g n~ | goto namespace                               |
+| ~SPC m g r~ | goto resource                                |
+| ~SPC m g s~ | browse spec                                  |
+| ~SPC m g S~ | browse all specs                             |
 
 *** REPL
 
-| Key binding | Description                                                                    |
-|-------------+--------------------------------------------------------------------------------|
-| ~SPC m ,~   | handle shortcut (cider-repl-handle-shortcut)                                   |
-| ~SPC m s b~ | send and eval buffer in REPL                                                   |
-| ~SPC m s B~ | send and eval buffer and switch to REPL in =insert state=                      |
-| ~SPC m s c~ | connect to REPL (cider-connect) or clear repl buffer (cider-repl-clear-buffer) |
-| ~SPC m s C~ | clear REPL (cider-find-and-clear-repl-output)                                  |
-| ~SPC m s e~ | send and eval last sexp in REPL                                                |
-| ~SPC m s E~ | send and eval last sexp and switch to REPL in =insert state=                   |
-| ~SPC m s f~ | send and eval function in REPL                                                 |
-| ~SPC m s F~ | send and eval function and switch to REPL in =insert state=                    |
-| ~SPC m s i~ | start REPL (cider-jack-in)                                                     |
-| ~SPC m s I~ | start clojurescript REPL (cider-jack-in-clojurescript)                         |
-| ~SPC m s n~ | send and eval ns form in REPL                                                  |
-| ~SPC m s N~ | send and eval ns form and switch to REPL in =insert state=                     |
-| ~SPC m s q~ | kill REPL (cider-quit)                                                         |
-| ~SPC m s o~ | switch to other repl instance (cider-repl-switch-to-other)                     |
-| ~SPC m s r~ | send and eval region in REPL                                                   |
-| ~SPC m s R~ | send and eval region and switch to REPL in =insert state=                      |
-| ~SPC m s s~ | switch to REPL or jump to last file or last clj buffer from repl (cider-repl)  |
-| ~SPC m s x~ | refresh REPL                                                                   |
-| ~SPC m s X~ | restart REPL                                                                   |
+| Key binding   | Description                                                                    |
+|---------------+--------------------------------------------------------------------------------|
+| ~SPC m ,~     | handle shortcut (cider-repl-handle-shortcut)                                   |
+| ~SPC m s b~   | send and eval buffer in REPL                                                   |
+| ~SPC m s B~   | send and eval buffer and switch to REPL in =insert state=                      |
+| ~SPC m s c~   | connect to REPL (cider-connect) or clear repl buffer (cider-repl-clear-buffer) |
+| ~SPC m s C~   | clear REPL (cider-find-and-clear-repl-output)                                  |
+| ~SPC m s e~   | send and eval last sexp in REPL                                                |
+| ~SPC m s E~   | send and eval last sexp and switch to REPL in =insert state=                   |
+| ~SPC m s f~   | send and eval function in REPL                                                 |
+| ~SPC m s F~   | send and eval function and switch to REPL in =insert state=                    |
+| ~SPC m s j c~ | start Clojure REPL (=cider-jack-in-clj=)                                       |
+| ~SPC m s j f~ | start Clojure REPL (=cider-jack-in-clj&cljs=)                                  |
+| ~SPC m s j s~ | start ClojureScript REPL (=cider-jack-in-cljs=)                                |
+| ~SPC m s n~   | send and eval ns form in REPL                                                  |
+| ~SPC m s N~   | send and eval ns form and switch to REPL in =insert state=                     |
+| ~SPC m s q~   | kill REPL (cider-quit)                                                         |
+| ~SPC m s o~   | switch to other repl instance (cider-repl-switch-to-other)                     |
+| ~SPC m s r~   | send and eval region in REPL                                                   |
+| ~SPC m s R~   | send and eval region and switch to REPL in =insert state=                      |
+| ~SPC m s s~   | switch to REPL or jump to last file or last clj buffer from repl (cider-repl)  |
+| ~SPC m s u~   | require Clojure utils into current namespace - i.e. functions =doc= =source=   |
+| ~SPC m s x~   | refresh REPL                                                                   |
+| ~SPC m s X~   | restart REPL                                                                   |
 
 *** Tests
 
@@ -315,7 +334,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m d r~   | reload namespaces                                  |
 | ~SPC m d s~   | show what is currently traced                      |
 | ~SPC m d S~   | show what is currently traced in current namespace |
-| ~SPC m d t b~ | trace current file’s namespace                     |
+| ~SPC m d t b~ | trace current file's namespace                     |
 | ~SPC m d t d~ | disable existing trace on current function         |
 | ~SPC m d t D~ | disable existing trace on all functions            |
 | ~SPC m d t e~ | enable existing trace on current function          |
@@ -514,7 +533,7 @@ In general, ~q~ should always quit the popped up buffer.
 
 * Development Notes
 ** Indentation
-With a [[https://github.com/clojure-emacs/cider/blob/master/doc/indent_spec.md][new]] functionality of Cider to read the custom indentation rules from the
-var’s metadata, it is better for consistency reasons to not add the custom
+With a [[https://github.com/clojure-emacs/cider/blob/master/legacy-manual/indent_spec.md][new]] functionality of Cider to read the custom indentation rules from the
+var's metadata, it is better for consistency reasons to not add the custom
 indentation rules to Spacemacs, but to add them to the metadata of those
 specific vars.

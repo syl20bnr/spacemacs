@@ -569,7 +569,7 @@ to buffers)."
         (cur-win (or (winum-get-number) (winum-get-number (other-window 1))))
         (num-buffers-placed 0))
     (cl-loop for buffer in buffers do
-             (when (>= num-buffers-placed num-windows) cl-return)
+             (when (>= num-buffers-placed num-windows) (cl-return))
              (set-window-buffer (winum-get-window-by-number cur-win) buffer)
              (setq cur-win (+ 1 (mod cur-win num-windows)))
              (incf num-buffers-placed))))

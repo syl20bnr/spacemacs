@@ -1,8 +1,10 @@
 #+TITLE: Twitter layer
 
+#+TAGS: layer|web service
+
 [[file:img/twitter.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -17,7 +19,7 @@ This layer adds Twitter support to Spacemacs via the package [[https://github.co
   - Viewing various timelines
     - Home timeline
     - Replies
-    - User’s timeline
+    - User's timeline
     - Public timeline
     - Favorites timeline
     - Retweets timeline

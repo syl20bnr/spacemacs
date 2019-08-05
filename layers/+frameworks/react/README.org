@@ -1,8 +1,10 @@
 #+TITLE: React layer
 
+#+TAGS: framework|layer|programming
+
 [[file:img/react.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -44,6 +46,9 @@ support:
 If your project do not use a custom =.eslintrc= file I strongly advice you to
 try out this one by Airbnb:
 [[https://github.com/airbnb/javascript/blob/master/linters/.eslintrc][.eslintrc]]
+
+When =lsp= is set as the backend, but you don't want to use lsp as the linter,
+set the variable =javascript-lsp-linter= to =nil= in the Javascript layer.
 
 React layer uses the same formatter defined in javascript layer. Options are
 =web-beautify= and =prettier=.
@@ -110,7 +115,7 @@ may use these settings:
    web-mode-attr-indent-offset 2)
 #+END_SRC
 
-And if you want to have 2 space indent also for element’s attributes,
+And if you want to have 2 space indent also for element's attributes,
 concatenations and contiguous function calls:
 
 #+BEGIN_SRC emacs-lisp

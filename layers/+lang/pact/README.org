@@ -1,6 +1,8 @@
 #+TITLE: Pact layer
 
-* Table of Contents                     :TOC_4_gh:noexport:
+#+TAGS: general|layer|multi-paradigm|programming
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]

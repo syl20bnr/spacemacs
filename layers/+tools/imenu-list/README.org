@@ -1,6 +1,8 @@
 #+TITLE: imenu-list layer
 
-* Table of Contents                     :TOC_4_gh:noexport:
+#+TAGS: layer|tool
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#screenshot][Screenshot]]
@@ -10,7 +12,7 @@
   - [[#from-imenu-list-buffer][From imenu-list buffer]]
 
 * Description
-This layer uses [[https://github.com/bmag/imenu-list][imenu-list]] to show the current buffer’s index in a side bar.
+This layer uses [[https://github.com/bmag/imenu-list][imenu-list]] to show the current buffer's index in a side bar.
 
 This is similar to `SPC j i` but displayed in a persistent sidebar instead of
 a completion buffer.
@@ -31,7 +33,7 @@ this file.
 
 | Key binding | Description              |
 |-------------+--------------------------|
-| ~SPC b i~   | toggle imenu-list window |
+| ~SPC b t~   | toggle imenu tree window |
 
 ** From imenu-list buffer
 

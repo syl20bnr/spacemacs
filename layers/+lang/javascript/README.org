@@ -1,8 +1,10 @@
 #+TITLE: JavaScript layer
 
+#+TAGS: general|js|layer|multi-paradigm|programming
+
 [[file:img/javascript.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -18,14 +20,19 @@
 - [[#configuration][Configuration]]
   - [[#indentation][Indentation]]
   - [[#repl][REPL]]
-  - [[#node-modules][Node Modules]]
+    - [[#browser-based-repl][Browser based REPL]]
+    - [[#server-based-repl][Server based REPL]]
+  - [[#node][Node]]
+    - [[#node-modules][Node Modules]]
+    - [[#node-externs][Node Externs]]
 - [[#key-bindings][Key bindings]]
   - [[#js2-mode][js2-mode]]
   - [[#folding-js2-mode][Folding (js2-mode)]]
   - [[#importing-import-js][Importing (import-js)]]
   - [[#refactoring-js2-refactor][Refactoring (js2-refactor)]]
     - [[#documentation-js-doc][Documentation (js-doc)]]
-  - [[#repl-skewer-mode][REPL (skewer-mode)]]
+  - [[#browser-based-repl-skewer-mode][Browser based REPL (skewer-mode)]]
+  - [[#server-based-repl-nodejs-repl][Server based REPL (nodejs-repl)]]
   - [[#debugger-dap-mode][debugger (dap mode)]]
 
 * Description
@@ -36,7 +43,8 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 - Smart code folding
 - Refactoring: done using [[https://github.com/magnars/js2-refactor.el][js2-refactor]].
 - Auto-completion and documentation
-- REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
+- Browser based REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
+- Server based REPL with [[https://github.com/abicky/nodejs-repl.el][nodejs-repl]]
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 
 * Install
@@ -98,6 +106,15 @@ Backend can be chosen on a per project basis using directory local variables
   ((js2-mode (javascript-backend . lsp)))
 #+END_SRC
 
+When =lsp= is set as the backend, but you don't want to use lsp as the linter,
+set the variable =javascript-lsp-linter= to =nil=.
+
+#+BEGIN_SRC elisp
+  (javascript :variables
+              javascript-backend 'lsp
+              javascript-lsp-linter nil)
+#+END_SRC
+
 ** Choosing a formatter
 To choose a formatter, set the layer variable =javascript-fmt-tool=:
 
@@ -117,6 +134,16 @@ Formatter can be chosen on a per project basis using directory local variables
 #+END_SRC
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
+
+You can choose formatting tool:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (javascript :variables
+                javascript-fmt-tool 'prettier)))
+#+END_SRC
+
+Default is =’web-beautify=.
 
 * Backends
 ** Tern
@@ -167,13 +194,32 @@ or when adding the =javascript= configuration layer:
 #+END_SRC
 
 ** REPL
-To use the available JS repl, you need a running httpd server and a page loaded
+*** Browser based REPL
+To use the browser based REPL set the =javascript-repl= variable as shown below:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+    '((javascript :variables javascript-repl `skewer)))
+#+END_SRC
+
+In addition you need a running httpd server and a page loaded
 with skewer. If a blank page serves your needs, just use the run-skewer command
 in your javascript buffer. If you want to inject it in your own page, follow
 [[https://github.com/skeeto/skewer-mode#skewering-with-cors][these instructions]] (install the Greasemonkey script and then click the triangle
-in the top-right corner - if it turns green, you’re good to go).
+in the top-right corner - if it turns green, you're good to go).
 
-** Node Modules
+*** Server based REPL
+To use the server based REPL set the =javascript-repl= variable as shown below:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+    '((javascript :variables javascript-repl `nodejs)))
+#+END_SRC
+
+In addition install nodejs and make sure that =node= is in the path.
+
+** Node
+*** Node Modules
 If you would like =node_modules/.bin= to be automatically added to the buffer
 local =exec_path=, e.g. to support project local eslint installations, set the
 =node-add-modules-path= variable in the =javascript= config section. Note that
@@ -182,6 +228,16 @@ doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472
 #+BEGIN_SRC elisp
   (setq-default dotspacemacs-configuration-layers
     '((javascript :variables node-add-modules-path t)))
+#+END_SRC
+
+*** Node Externs
+If you want =js2-mode= to presume =node= variables are defined by the host
+system (for completion purposes /i.a./) set the =js2-include-node-exters=
+variable to =t= in the =javascript= config section:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers
+    '((javascript :variables js2-include-node-externs t)))
 #+END_SRC
 
 * Key bindings
@@ -257,7 +313,7 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m r d t~ | insert tag to comment                 |
 | ~SPC m r d h~ | show list of available jsdoc tags     |
 
-** REPL (skewer-mode)
+** Browser based REPL (skewer-mode)
 
 | Key binding | Description                                                      |
 |-------------+------------------------------------------------------------------|
@@ -266,7 +322,7 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 
 | Key binding | Description                                                                        |
 |-------------+------------------------------------------------------------------------------------|
-| ~SPC m s a~ | Toggle live evaluation of whole buffer in REPL on buffer changes                   |
+| ~SPC m T l~ | Toggle live evaluation of whole buffer in REPL on buffer changes                   |
 | ~SPC m s b~ | send current buffer contents to the skewer REPL                                    |
 | ~SPC m s B~ | send current buffer contents to the skewer REPL and switch to it in insert state   |
 | ~SPC m s f~ | send current function at point to the skewer REPL                                  |
@@ -275,6 +331,21 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m s r~ | send current region to the skewer REPL                                             |
 | ~SPC m s R~ | send current region to the skewer REPL and switch to it in insert state            |
 | ~SPC m s s~ | switch to REPL                                                                     |
+
+** Server based REPL (nodejs-repl)
+
+| Key binding | Description                                                        |
+|-------------+--------------------------------------------------------------------|
+| ~SPC m s i~ | Switch to NodeJS REPL if one has been started, otherwise start one |
+| ~SPC m s e~ | Send last expression to NodeJS REPL                                |
+| ~SPC m s E~ | Send last expression to NodeJS REPL and switch to REPL             |
+| ~SPC m s b~ | Send current buffer to NodeJS REPL                                 |
+| ~SPC m s B~ | Send current buffer to NodeJS REPL and switch to REPL              |
+| ~SPC m s l~ | Send current line to NodeJS REPL                                   |
+| ~SPC m s L~ | Send current line to NodeJS REPL and switch to REPL                |
+| ~SPC m s r~ | Send active region to NodeJS REPL                                  |
+| ~SPC m s R~ | Send active region to NodeJS REPL and switch to REPL               |
+| ~SPC m s s~ | switch to REPL                                                     |
 
 ** debugger (dap mode)
 

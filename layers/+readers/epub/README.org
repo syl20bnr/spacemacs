@@ -1,8 +1,10 @@
 #+TITLE: epub layer
 
+#+TAGS: layer|reader
+
 [[file:img/epub.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]

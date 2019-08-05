@@ -27,6 +27,9 @@
   "If `lsp-cquery' or `lsp-ccls' then selects language server protocol backend (cquery or ccls).
   If `rtags' then enables rtags support")
 
+(defvar c++-enable-organize-includes-on-save nil
+  "If non-nil then automatically organize the includes on save C++ buffer.")
+
 (defvar c-c++-enable-auto-newline nil
   "If non nil then enables the `Auto-newline' minor mode.")
 

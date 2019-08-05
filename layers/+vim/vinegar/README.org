@@ -1,6 +1,8 @@
 #+TITLE: Vinegar layer
 
-* Table of Contents                     :TOC_4_gh:noexport:
+#+TAGS: layer|vim
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -11,9 +13,9 @@
   - [[#key-bindings][Key bindings]]
 
 * Description
-This layer is a port of vim-vinegar for emacs.
+This layer is a port of vim-vinegar for Emacs.
 
-It is based on tpope’s [[https://github.com/tpope/vim-vinegar][vinegar.vim]], simplifying =dired=
+It is based on tpope's [[https://github.com/tpope/vim-vinegar][vinegar.vim]], simplifying =dired=
 with a limited number of details and exposing the ~-~ command in all
 buffers to enter dired.
 

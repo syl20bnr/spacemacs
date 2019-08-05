@@ -1,8 +1,10 @@
 #+TITLE: Helm layer
 
+#+TAGS: completion|layer
+
 [[file:img/helm.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -44,7 +46,7 @@ Mastering your choice of completion system will make you a Spacemacs power user.
 - Intuitive =transient state=
 
 * Install
-Helm is part of the standard distribution of Spacemacs so you don’t have to do
+Helm is part of the standard distribution of Spacemacs so you don't have to do
 anything to install it if you chose this distribution.
 
 If you want/need to explicitly install Helm then add it to your =~/.spacemacs=.
@@ -137,7 +139,7 @@ Helm buffers with ~hjkl~.
 | ~C-l~       | same as ~return~             |
 
 ** Transient state
-Spacemacs defines a transient state for =Helm= to make it work like [[https://github.com/Shougo/unite.vim][Vim’s Unite]]
+Spacemacs defines a transient state for =Helm= to make it work like [[https://github.com/Shougo/unite.vim][Vim's Unite]]
 plugin.
 
 Initiate the transient state with ~M-SPC~ or ~s-M-SPC~ while in a =Helm= buffer.
@@ -180,7 +182,7 @@ In the =helm-bookmarks= buffer:
 
 ** C-z and Tab switch
 The command bound to ~C-z~ is much more useful than the one bound to Tab, so it
-makes sense to swap them. It’s also recommended [[http://tuhdo.github.io/helm-intro.html][here]].
+makes sense to swap them. It's also recommended [[http://tuhdo.github.io/helm-intro.html][here]].
 
 ** Helm focus
 If you find yourself unable to return focus to Helm (after a careless
@@ -196,6 +198,7 @@ modifications to the buffer.
 
 | Key binding | Description                    |
 |-------------+--------------------------------|
+| ~SPC s C~   | clear =helm-swoop= own cache   |
 | ~SPC s s~   | execute =helm-swoop=           |
 | ~SPC s S~   | execute =helm-multi-swoop=     |
 | ~SPC s C-s~ | execute =helm-multi-swoop-all= |
@@ -209,13 +212,13 @@ first, select the command you want to run, and press ~C-u~ before pressing
 If you have =rg=, =ag=, =pt= or =ack= installed, replacing an occurrence of text
 in several files can be performed via [[https://github.com/syohex/emacs-helm-ag][helm-ag]].
 
-Say you want to replace all =foo= occurrences by =bar= in your current
-project:
-- initiate a search with ~SPC /~
-- enter in edit mode with ~C-c C-e~
-- go to the occurrence and enter in =iedit state= with ~SPC s e~
-- edit the occurrences then leave the =iedit state=
-- press ~C-c C-c~
+To replace all occurrences of =foo= with =bar= in your current project:
+- Initiate a search with ~SPC /~ (in a project)
+- Open =helm-ag-edit= with ~C-c C-e~
+- Go to an occurrence of =foo= and enter =iedit-mode= with ~SPC s e~
+- Change =foo= to =bar=
+- Save the modifications and leave =helm-ag-edit= with ~C-c C-c~
+- Alternatively, discard all changes and leave =helm-ag-edit= with ~C-c C-k~
 
 *Note*: In Spacemacs, =helm-ag= despite its name works with =rg=, =pt= and =ack=
 as well (but not with =grep=).

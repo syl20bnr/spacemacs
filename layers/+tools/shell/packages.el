@@ -18,6 +18,7 @@
         eshell-prompt-extras
         eshell-z
         helm
+        ivy
         magit
         multi-term
         org
@@ -135,8 +136,11 @@
   (use-package eshell-z
     :defer t
     :init
-    (with-eval-after-load 'eshell
-      (require 'eshell-z))))
+    (progn
+      (setq eshell-z-freq-dir-hash-table-file-name
+            (concat spacemacs-cache-directory "eshell/.z"))
+      (with-eval-after-load 'eshell
+        (require 'eshell-z)))))
 
 (defun shell/pre-init-helm ()
   (spacemacs|use-package-add-hook helm
@@ -147,6 +151,11 @@
       ;;shell
       (spacemacs/set-leader-keys-for-major-mode 'shell-mode
         "H" 'spacemacs/helm-shell-history))))
+
+(defun shell/pre-init-ivy ()
+  (spacemacs|use-package-add-hook ivy
+    :post-init
+    (add-hook 'eshell-mode-hook 'spacemacs/init-ivy-eshell)))
 
 (defun shell/pre-init-magit ()
   (spacemacs|use-package-add-hook magit
@@ -245,6 +254,10 @@
   ;; hack to fix pasting issue, the paste transient-state won't
   ;; work in term
   (evil-define-key 'normal term-raw-map "p" 'term-paste)
+  (evil-define-key 'normal term-raw-map (kbd "<mouse-2>") 'term-mouse-paste)
+  (evil-define-key 'insert term-raw-map (kbd "<mouse-2>") 'term-mouse-paste)
+  (evil-define-key 'normal term-raw-map (kbd "<mouse-3>") 'term-mouse-paste)
+  (evil-define-key 'insert term-raw-map (kbd "<mouse-3>") 'term-mouse-paste)
   (evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)
   (evil-define-key 'insert term-raw-map (kbd "C-c C-z") 'term-stop-subjob)
   (evil-define-key 'insert term-raw-map (kbd "<tab>") 'term-send-tab)

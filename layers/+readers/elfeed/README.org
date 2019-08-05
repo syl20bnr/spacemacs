@@ -1,8 +1,10 @@
 #+TITLE: Elfeed layer
 
+#+TAGS: layer|reader
+
 [[file:img/elfeed.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -57,7 +59,7 @@ Here is an example of such a file (note the usage of org tags to tag your feeds)
   **** http://www.terminally-incoherent.com/blog/feed/
   **** http://nullprogram.com/feed/
   **** entry-title: \(emacs\|org-mode\)
-  **** http://planet.emacsen.org/atom.xml
+  **** https://planet.emacslife.com/atom.xml
   *** Web Development                                                     :web:
   **** http://feeds.feedburner.com/symfony/blog
   **** http://feeds.feedburner.com/qooxdoo/blog/content
@@ -126,7 +128,7 @@ Be sure that you added some feeds first then load your feeds with ~gr~
 in evilified buffer. Or ~M-x elfeed-update~.
 
 ** Queue timeout exceeded
-If you are getting “Queue timeout exceeded” errors, try increasing
+If you are getting "Queue timeout exceeded" errors, try increasing
 the value of =url-queue-timeout=.
 
 #+BEGIN_SRC emacs-lisp

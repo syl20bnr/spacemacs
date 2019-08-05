@@ -48,7 +48,8 @@
         :status column-enforce-mode
         :prefix columns
         :on (column-enforce-n (or columns column-enforce-column))
-        :on-message (format "long-lines enabled for %s columns." (or columns column-enforce-column))
+        :on-message (format "long-lines enabled for %s columns."
+                            (or columns column-enforce-column))
         :off (column-enforce-mode -1)
         :documentation "Highlight the characters past the 80th column."
         :evil-leader "t8")
@@ -79,7 +80,8 @@
     :config
     (progn
       (spacemacs|diminish highlight-indentation-mode " ⓗi" " hi")
-      (spacemacs|diminish highlight-indentation-current-column-mode " ⓗc" " hc"))))
+      (spacemacs|diminish
+       highlight-indentation-current-column-mode " ⓗc" " hc"))))
 
 (defun spacemacs-editing-visual/init-highlight-numbers ()
   (use-package highlight-numbers
@@ -132,13 +134,15 @@
       (setq indent-guide-delay 0.3)
       (spacemacs|add-toggle indent-guide
         :mode indent-guide-mode
-        :documentation
-        "Highlight indentation level at point. (alternative to highlight-indentation)."
+        ;; :documentation (concat "Highlight indentation level at point."
+        ;;                        " (alternative to highlight-indentation).")
+        :documentation "Highlight indentation level at point. (alternative to highlight-indentation)."
         :evil-leader "ti")
       (spacemacs|add-toggle indent-guide-globally
         :mode indent-guide-global-mode
-        :documentation
-        "Highlight indentation level at point globally. (alternative to highlight-indentation)."
+        ;; :documentation (concat "Highlight indentation level at point globally."
+        ;;                        " (alternative to highlight-indentation).")
+        :documentation "Highlight indentation level at point globally. (alternative to highlight-indentation)."
         :evil-leader "t TAB"))
     :config
     (spacemacs|diminish indent-guide-mode " ⓘ" " i")))

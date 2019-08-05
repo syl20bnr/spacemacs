@@ -19,7 +19,7 @@
 
 (defun spacemacs/evil-mc-paste-after (&optional count register)
   "Disable paste transient state if there is more than 1 cursor."
-  (interactive "p")
+  (interactive "*P")
   (setq this-command 'evil-paste-after)
   (if (spacemacs//evil-mc-paste-transient-state-p)
     (spacemacs/paste-transient-state/evil-paste-after)
@@ -27,7 +27,7 @@
 
 (defun spacemacs/evil-mc-paste-before (&optional count register)
   "Disable paste transient state if there is more than 1 cursor."
-  (interactive "p")
+  (interactive "*P")
   (setq this-command 'evil-paste-before)
   (if (spacemacs//evil-mc-paste-transient-state-p)
     (spacemacs/paste-transient-state/evil-paste-before)

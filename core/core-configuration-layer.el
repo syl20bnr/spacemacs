@@ -586,8 +586,7 @@ refreshed during the current session."
       (configuration-layer//dump-emacs)))
    ((spacemacs-is-dumping-p)
     ;; dumping
-    (configuration-layer//load)
-    (configuration-layer/message "Dumping Emacs..."))
+    (configuration-layer//load))
    ((and (spacemacs/emacs-with-pdumper-set-p)
          (spacemacs-run-from-dump-p))
     ;; dumped
@@ -666,6 +665,12 @@ To prevent package from being installed or uninstalled set the variable
   (configuration-layer//load-layers-files configuration-layer--used-layers
                         '("keybindings.el"))
   (when (spacemacs-is-dumping-p)
+    ;; dump stuff in layers
+    (dolist (layer-name configuration-layer--used-layers)
+      (let ((layer-dump-func (intern (format "%S/pre-dump" layer-name))))
+        (when (fboundp layer-dump-func)
+          (configuration-layer/message "Pre-dumping layer %S..." layer-name)
+          (funcall layer-dump-func))))
     (dotspacemacs|call-func dotspacemacs/user-load
                             "Calling dotfile user-load...")))
 
@@ -1967,7 +1972,7 @@ RNAME is the name symbol of another existing layer."
     (if (file-directory-p location)
         (file-name-as-directory location)
       (configuration-layer//warning
-       "Location path for package %S does not exists (value: %s)."
+       "Location path for package %S does not exist (value: %s)."
        pkg-name location)
       nil))
    ((eq 'local location)
@@ -2421,10 +2426,7 @@ depends on it."
   (let ((layer-name
          (intern (completing-read
                   "Choose a used layer"
-                  (sort configuration-layer--used-layers
-                        (lambda (x y)
-                          (string< (oref (cdr x) :name)
-                                   (oref (cdr y) :name))))))))
+                  (sort (copy-list configuration-layer--used-layers) #'string<)))))
     (let ((mode-exts (configuration-layer//lazy-install-extensions-for-layer
                       layer-name)))
       (dolist (x mode-exts)

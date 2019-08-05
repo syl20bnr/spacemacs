@@ -1,8 +1,10 @@
 #+TITLE: RCIRC layer
 
+#+TAGS: chat|layer
+
 [[file:img/irc.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -17,6 +19,11 @@
       - [[#disclaimer][Disclaimer]]
       - [[#note][Note]]
   - [[#enabling-sfoobar][Enabling =s/foo/bar/=]]
+  - [[#enabling-emojify-mode][Enabling emojify-mode]]
+  - [[#enabling-erc-image][Enabling erc-image]]
+  - [[#enabling-erc-tweet][Enabling erc-tweet]]
+  - [[#enabling-erc-yt][Enabling erc-yt]]
+  - [[#enabling-rcirc-styles][Enabling rcirc-styles]]
 - [[#key-bindings][Key bindings]]
 - [[#rcirc-documentation][Rcirc documentation]]
 - [[#spacemacs-layout-support][Spacemacs Layout Support]]
@@ -176,12 +183,60 @@ variable =rcirc-enable-late-fix= to =t= in your dotfile:
     (rcirc :variables rcirc-enable-late-fix t)))
 #+END_SRC
 
+** Enabling emojify-mode
+To enable emojify-mode in rcirc buffers, set the variable =rcirc-enable-emojify=
+to =t= in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (rcirc :variables rcirc-enable-emojify t)))
+#+END_SRC
+
+** Enabling erc-image
+To enable erc-image for fetching and showing images when they are linked to in
+chat, set the variable =rcirc-enable-erc-image= to =t= in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (rcirc :variables rcirc-enable-erc-image t)))
+#+END_SRC
+
+** Enabling erc-tweet
+To enable erc-tweet for fetching and displaying tweets when they are linked in
+chat, set the variable =rcirc-enable-erc-tweet= to =t= in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (rcirc :variables rcirc-enable-erc-tweet t)))
+#+END_SRC
+
+** Enabling erc-yt
+To enable erc-yt for fetching and displaying previews for YouTube links in chat,
+set the variable =rcirc-enable-erc-yt= to =t= in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (rcirc :variables rcirc-enable-erc-yt t)))
+#+END_SRC
+
+** Enabling rcirc-styles
+To enable rcirc-styles for displaying and inserting color and text attribute
+codes, set the variable =rcirc-enable-styles= to =t= in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (rcirc :variables rcirc-enable-styles t)))
+#+END_SRC
+
 * Key bindings
 
 | Key binding | Description                                                                   |
 |-------------+-------------------------------------------------------------------------------|
 | ~SPC a i r~ | Open rcirc                                                                    |
-| ~SPC l o i~ | Open rcirc in a custom perspective “@RICRC” (need perspectives layer enabled) |
+| ~SPC l o i~ | Open rcirc in a custom perspective "@RICRC" (need perspectives layer enabled) |
+| ~SPC m i a~ | Interactively insert a color code (if rcirc-styles is enabled)                |
+| ~SPC m i c~ | Interactively insert a text attribute code (if rcirc-styles is enabled)       |
+| ~SPC m i p~ | Toggle preview in input line (if rcirc-styles is enabled)                     |
 
 In normal state:
 
@@ -195,5 +250,5 @@ The rcirc documentation can be found [[http://www.gnu.org/software/emacs/manual/
 
 * Spacemacs Layout Support
 RCIRC buffers are added automatically to the default layout for RCIRC controlled by
-the variable =rcirc-spacemacs-layout-name= (defaults to “@RCIRC”) and the default
-binding (“i”) is controlled by =rcirc-spacemacs-layout-binding=
+the variable =rcirc-spacemacs-layout-name= (defaults to "@RCIRC") and the default
+binding ("i") is controlled by =rcirc-spacemacs-layout-binding=

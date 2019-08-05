@@ -61,7 +61,10 @@
 (defun spacemacs//typescript-setup-lsp ()
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
-      (lsp)
+      (progn
+        (when (not typescript-lsp-linter)
+          (setq-local lsp-prefer-flymake :none))
+        (lsp))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
 
@@ -75,14 +78,20 @@
           :variables company-minimum-prefix-length 2
           :append-hooks nil
           :call-hooks t)
-        (company-mode)
-        (fix-lsp-company-prefix))
+        (company-mode))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
 
 (defun spacemacs//typescript-setup-lsp-eldoc ()
   "Setup eldoc for LSP."
   (eldoc-mode))
+
+
+;; Emmet
+
+(defun spacemacs/typescript-emmet-mode ()
+  "Configure `emmet-mode' for local buffer."
+  (setq-local emmet-expand-jsx-className? t))
 
 
 ;; Others
@@ -131,8 +140,8 @@
    ((eq typescript-fmt-tool 'prettier)
     (call-interactively 'prettier-js))
    (t (error (concat "%s isn't valid typescript-fmt-tool value."
-                     " It should be 'tide, 'typescript-formatter or 'prettier."
-                     (symbol-name typescript-fmt-tool))))))
+                     " It should be 'tide, 'typescript-formatter or 'prettier.")
+                     (symbol-name typescript-fmt-tool)))))
 
 (defun spacemacs/typescript-fmt-before-save-hook ()
   (add-hook 'before-save-hook 'spacemacs/typescript-format t t))

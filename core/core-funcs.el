@@ -269,6 +269,12 @@ result, incrementing passed-tests and total-tests."
   (interactive "P")
   ;; First argument must be 0 (not nil) to get missing .elc files rebuilt.
   ;; Bonus: Optionally force recompilation with universal ARG
+  (when arg
+    (seq-do
+     (lambda (fname)
+       (when (file-exists-p fname)
+         (delete-file fname)))
+     (directory-files-recursively user-emacs-directory "\\.elc$" t)))
   (byte-recompile-directory package-user-dir 0 arg))
 
 (defun spacemacs/register-repl (feature repl-func &optional tag)
@@ -307,14 +313,11 @@ buffer."
   "Switch back and forth between current and last buffer in the
 current window."
   (interactive)
-  (let ((current-buffer (window-buffer window)))
-    ;; if no window is found in the windows history, `switch-to-buffer' will
-    ;; default to calling `other-buffer'.
-    (switch-to-buffer
-     (cl-find-if (lambda (buffer)
-                   (not (eq buffer current-buffer)))
-                 (mapcar #'car (window-prev-buffers window)))
-     nil t)))
+  (destructuring-bind (buf start pos)
+      (or (cl-find (window-buffer window) (window-prev-buffers)
+                   :key #'car :test-not #'eq)
+          (list (other-buffer) nil nil ))
+    (set-window-buffer-start-and-point window buf start pos)))
 
 (defun spacemacs/alternate-window ()
   "Switch back and forth between current and last window in the
@@ -340,8 +343,7 @@ current frame."
 Delegates to flycheck if it is enabled and the next-error buffer
 is not visible. Otherwise delegates to regular Emacs next-error."
   (if (and (bound-and-true-p flycheck-mode)
-           (let ((buf (ignore-errors (next-error-find-buffer))))
-             (not (and buf (get-buffer-window buf)))))
+           (not next-error-function))
       'flycheck
     'emacs))
 

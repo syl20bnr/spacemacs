@@ -21,3 +21,14 @@
 
 (defvar javascript-import-tool nil
   "The import backend to import modules. Possible values are `import-js' and `nil' to disable.")
+
+(defvar javascript-fmt-on-save nil
+  "Run formatter on buffer save.")
+
+(defvar javascript-repl 'skewer
+  "Repl to be configured by the layer, `skewer' for browser based javascript, `nodejs' for server based development.")
+
+(defvar javascript-lsp-linter t
+  "If the backend is `lsp', and this variable is non-nil, then
+use lsp as the linter, otherwise let flycheck choose the best
+linter that's available.")

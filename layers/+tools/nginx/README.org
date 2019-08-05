@@ -1,15 +1,17 @@
 #+TITLE: nginx layer
 
+#+TAGS: layer|tool
+
 [[file:img/nginx.png]]
 
-* Table of Contents                     :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 
 * Description
 This layer adds support for configuring [[http://nginx.org][nginx]] a powerful alternative for
-the apache web server.
+the Apache web server.
 
 ** Features:
 - Syntax highlighting of nginx configuration files via [[https://github.com/ajc/nginx-mode][nginx-mode]].

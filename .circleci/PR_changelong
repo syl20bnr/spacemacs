@@ -27,7 +27,7 @@ fi
 if grep -q CHANGELOG.develop /tmp/changed_files; then
     echo "CHANGELOG.develop was updated as required"
 else
-    echo "Please describe your commit in CHANGELOG.develop"
+    echo "Please mention your contribution in CHANGELOG.develop"
     echo "See CONTRIBUTING.org for the details."
     exit 1
 fi
