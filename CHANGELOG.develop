@@ -429,6 +429,8 @@ Other:
   - Removed obsolete =:powerline-scale= property from
     =dotspacemacs-default-font= variable
     (thanks to Muneeb Shaikh and Sylvain Benner)
+  - Removed =dotspacemacs-verbose-loading= variable
+    (thanks to Sylvain Benner and Ying Qu)
 *** Core changes
 - Improvements:
   - Display time spent in =user-config= in home buffer (thanks to Sylvain Benner)
