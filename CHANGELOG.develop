@@ -372,7 +372,7 @@ sane way, here is the complete list of changed key bindings
     =dotspacemacs-enable-emacs-pdumper= to configure dump
     (thanks to Sylvain Benner)
   - New variable =dotspacemacs-enable-server= (thanks to Tad Fisher)
-  - New variable =dotspacemacs-frame-title-format= which is the efault format
+  - New variable =dotspacemacs-frame-title-format= which is the default format
     string for a frame title bar, see docstring of function
     =spacemacs/frame-title-prepare= for more info (thanks to Uri Sharf and Kepi)
   - New variable =dotspacemacs-gc-cons= (thanks to Sylvain Benner)
@@ -386,7 +386,7 @@ sane way, here is the complete list of changed key bindings
     =custom=, and =vanilla=. The first three are spaceline themes, =custom= is
     user defined, and =vanilla= is the default Emacs mode-line.
     (thanks to Sylvain Benner and James Wang)
-  - New variable =dotspacemacs-server-socket-dir= for setting the server socker
+  - New variable =dotspacemacs-server-socket-dir= for setting the server socket
     location (thanks to Carl Lange)
   - New variable =dotspacemacs-switch-to-buffer-prefers-purpose= which controls
     where =switch-to-buffer= displays the buffer. If nil, =switch-to-buffer=
@@ -399,6 +399,9 @@ sane way, here is the complete list of changed key bindings
     will obfuscate the current buffer acting like a screen saver.
     (thanks to Eugene Yaremenko and Sylvain Benner)
   - New variable =dotspacemacs-undecorated-at-startup= (thanks to bb2020)
+- Removed Variables:
+  - Removed unused variable =dotspacemacs-verbose-loading= from
+    =.spacemacs.template= (thanks to Ying Qu)
 Other:
   - =.gitignore= now ignores tag files.
   - Added =vim-style-visual-feedback= and =hybrid-style-visual-feedback= style
@@ -442,12 +445,12 @@ Other:
   - Added =:requires= keyword for package declarations and owned packages
     (thanks to Eivind Fonn)
   - Added new interactive function =spacemacs/diminish-undo= to undo all the
-    dimished mode-line lighters and have all of them be displayed in the
+    diminished mode-line lighters and have all of them be displayed in the
     mode-line. (thanks to hodge)
   - Conventions: added support for major mode specific toggles on ~SPC m T~
     prefix (thanks to Sylvain Benner)
   - Conventions: added ~SPC m f~ for web frameworks (thanks to Sylvain Benner)
-  - Added univeral prefix argument support to open both the =*scratch*= buffer
+  - Added universal prefix argument support to open both the =*scratch*= buffer
     and the =*Messages*= buffer in another window
     (thanks to Thomas de Beauchêne)
   - Added support for building multi-file local packages with =Quelpa=
@@ -456,8 +459,8 @@ Other:
     (thanks to Andriy Kmit')
   - More robust =dotspacemacs/add-layer= implementation (thanks to Eivind Fonn)
   - Improved issue reporting (thanks to Eugene Yaremenko)
-  - Enabled backward theme cycling and added dedicated transient state accesible
-    with ~SPC T n~ and ~SPC T N~ (thanks to Adrien Becchis and bmag)
+  - Enabled backward theme cycling and added dedicated transient state
+    accessible with ~SPC T n~ and ~SPC T N~ (thanks to Adrien Becchis and bmag)
   - Remove wizard question about completion engine. (thanks to Sylvain Benner)
   - Added e key bindings in Quick Help home screen (thanks to Sylvain Benner)
   - Increased =gc-cons-threshold= during startup to reduce startup time
@@ -559,7 +562,7 @@ Other:
   - Updated =quelpa= to fix installing of some recipes on macOS
     (thanks to Dieter Komendera)
   - Added startup support for doom-sourcerer theme (thanks to Parker Johnson)
-  - Fixed modeline when started in deamon mode (thanks to Benno Fünfstück)
+  - Fixed modeline when started in daemon mode (thanks to Benno Fünfstück)
   - Fixed search for "find" executable in windows (thanks to Charlie Barto)
   - Found workaround for =buffer-list-update-hook= performance issue.
     (thanks to Alexander Miller)
@@ -568,8 +571,6 @@ Other:
   - Fixed =spacemacs/alternate-buffer= to restore point.
   - Removed Unicode triple dot in both =dotspacemacs-smart-closing-parenthesis=
     variable comments in favor of the ASCII one (thanks to nshadov)
-  - Removed unused variable =dotspacemacs-verbose-loading= from
-    =.spacemacs.template= (thanks to yqu212)
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
@@ -637,7 +638,7 @@ Other:
     - Added ~<right>~ for next-buffer
     - Added ~<left>~ for previous-buffer
     - Added ~o~ for other window
-    - Added ~C-d~ for burry buffer
+    - Added ~C-d~ for bury buffer
     - Added ~b~ for helm-buffer-list
     (thanks to Adrien Becchis and Sylvain Benner)
   - Added alignment support for ~{~ (thanks to Paulo Diniz)
@@ -891,7 +892,7 @@ Other:
   - Added actions to open =funcs.el= and =layers.el= from layers help
     (thanks to Boris Buliga)
   - Cleanup =which-key= by removing obsolete entries and adding some missing
-    ones (thans to duianto)
+    ones (thanks to duianto)
   - Added =go-run-args= to pass command line arguments to `go run`
   - Editing: Enable smartparens in eldoc-eval-expression
     (thanks to Aaron Jensen)
@@ -1438,7 +1439,7 @@ Other:
   (thanks to Guido Kraemer and bmag)
 - Added Julia repl to =spacemacs/ess-start-repl= (thanks to Guido Kraemer)
 - Reorganize key bindings (refer to =ESS= section in Breaking Changes above)
-- Added =xref= integraton (thanks to Guido Kraemer)
+- Added =xref= integration (thanks to Guido Kraemer)
 - Update ess-disable-underscore-assign for ESS 18.10 (thanks to Leonard Lausen)
 - Update layer with the latest upstream changes (thanks to Guido Kraemer)
 **** Evil snipe
@@ -1513,7 +1514,7 @@ Other:
 - Added =helm-git-grep= (thanks to Evan Klitzke)
 - Enabled colors in =magit-log= (thanks to Thomas de Beauchêne)
 - Added magit buffers to useless buffers (thanks to Thomas de Beauchêne)
-- Fixed magint blame function name (thanks to Bjarke Vad Andersen)
+- Fixed magit blame function name (thanks to Bjarke Vad Andersen)
 - Show magit-log-select and diff in two windows (thanks to duianto)
 - Fixed magit conflicting with golden-ratio (thanks Eric Zhang)
 - Hide with-editor mode-line indicator: =WE= (thanks to duianto)
@@ -1620,7 +1621,7 @@ Other:
 - Added support for editing the =helm-find-files= buffer from the Helm transient
   state (thanks to Troy Hinckley)
 - Fixed smex package integration (thanks to Troy Hinckley)
-- Fixed winum intergration (thanks to Sylvain Benner)
+- Fixed winum integration (thanks to Sylvain Benner)
 - Fixed "Invalid face reference" error in Helm transient state
   (thanks to duianto)
 - Hide lighter (thanks to Sylvain Benner and duianto)
@@ -1841,7 +1842,7 @@ Other:
 - Added lsp-prefer-flymake variable (thanks to Juuso Valkeejärvi)
 - Added =lsp-treemacs=
   - ~SPC m t g e~ to show error list
-- Fixed missing shorcuts for =lsp-mode=
+- Fixed missing shortcuts for =lsp-mode=
   - ~SPC m F r~  to remove workspace folder
   - ~SPC m F a~  to add workspace folder
   - ~SPC m F r~  to switch workspace folder
@@ -1940,7 +1941,7 @@ Other:
   - Added binding ~C-x m~ to compose new message
 - Made maildirs extension optional (thanks to JorisE)
 - Create email with attachments from dired (thanks to Oleg Pykhalov)
-- Refactor major-mode ledaer key bindings (thanks to Miciah Masters)
+- Refactor major-mode leader key bindings (thanks to Miciah Masters)
 - Enabled scrolling in =mu4e= (thanks to Simon Altschuler)
 - Kill mu4e layout on app exit (thanks to Ag Ibragimov)
 **** Multiple Cursors
@@ -1987,7 +1988,7 @@ Other:
 - Declare all prefix names (='(compile goto help)=) for =nim-mode=
   (thanks to Uroš Perišić)
 **** Node
-- Use add-node-modules-path to automatically find local executables
+- Use =add-node-modules-path= to automatically find local executables
   (thanks to jupl)
 - Disabled add-node-modules-path by default (thanks to Eivind Fonn)
 **** Notmuch
@@ -2106,7 +2107,7 @@ Other:
 - Added layer variable for todo bindings (thanks to Eivind Fonn)
 - Made =org-projectile= integration compatible with its new version
   (thanks to Ivan Malison)
-- Remove nils from call to org-projectile-project-todo-entry
+- Remove nils from call to =org-projectile-project-todo-entry=
   (thanks to Ivan Malison)
 - Fixed org-projectile capture-template keyword argument
   (thanks to Leonard Lausen)
@@ -2455,7 +2456,7 @@ Other:
 - New layer variable =slack-spacemacs-layout-name= to customize the name of
   the custom layer for Slack buffers (thanks to Benjamin Reynolds)
 - New layer variable =slack-spacemacs-layout-binding= to customize the key used
-  to open the Slack customn layout (thanks to Benjamin Reynolds)
+  to open the Slack custom layout (thanks to Benjamin Reynolds)
 - Key bindings:
   - ~SPC a C g~ or ~SPC m g~ to join a group (private channel)
     (thanks to Benjamin Reynolds)
@@ -2660,7 +2661,7 @@ Other:
 - Added Requirements documentation (thanks to Chris Glass)
 - Added =cliphist= with the following bindings: (thanks to Hong Xu)
   - ~SPC x P~ paste item from history (cliphist must be enabled)
-  - ~SPC x R~ rectangly paste item from history (cliphist must be enabled)
+  - ~SPC x R~ rectangle paste item from history (cliphist must be enabled)
   - ~SPC x s~ select item from history (cliphist must be enabled)
 **** Ycmd
 - Search for =compile_commands.json= in build sub-directory

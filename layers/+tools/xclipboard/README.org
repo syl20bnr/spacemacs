@@ -45,5 +45,5 @@ Clipboard manager integration can be enabled by setting =xclipboard-enable-cliph
 | ~SPC x p~   | Paste clipboard contents at cursor position                  |
 | ~SPC x y~   | Copy selection to clipboard                                  |
 | ~SPC x P~   | paste item from history (cliphist must be enabled)           |
-| ~SPC x R~   | rectangly paste item from history (cliphist must be enabled) |
+| ~SPC x R~   | rectangle paste item from history (cliphist must be enabled) |
 | ~SPC x s~   | select item from history (cliphist must be enabled)          |
