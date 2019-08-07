@@ -181,9 +181,9 @@ confliction, e.g.
 #+END_SRC
 
 ** Tests
-If you're using =gocheck= in your project you can use the
-=go-use-gocheck-for-testing= variable to enable suite testing and to get single
-function testing to work.
+If you're using =gocheck= or =testify= in your project you can use the
+=go-use-gocheck-for-testing= or =go-use-testify-for-testing= variable to enable
+suite testing and to get single function testing to work.
 
 =go-coverage-display-buffer-func= controls how =go-coverage= should display
 the coverage buffer. See [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html][=display-buffer=]] for a list of possible functions.
