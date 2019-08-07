@@ -1581,6 +1581,7 @@ Other:
   (thanks to Tim Heckman)
 - Refactored two variables =go-use-gometalinter= and =go-use-golangci-lint= to
   one =go-linter= (thanks to Robert Zaremba)
+- Added Testify support (thanks to Mathieu Post)
 **** Graphviz
 - Use graphviz package from melpa (thanks to Matthew Boston)
 **** Groovy
