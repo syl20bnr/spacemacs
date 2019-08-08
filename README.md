@@ -191,6 +191,8 @@ powerline separator put following snippet in `dotspacemacs/user-config`.
 For more information about powerline separators, please refer to appropriate
 section in [Documentation][DOCUMENTATION.org].
 
+*Note:* In some cases packages are not able to be installed securely with a fresh install. You can run `emacs --insecure` as a resolution.
+
 ### Windows
 
 You can download good quality builds from the [emacs-w64 project][emacs-for-windows].
