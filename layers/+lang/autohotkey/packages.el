@@ -17,9 +17,13 @@
     :mode "\\.ahk\\'"
     :defer t
     :init
-    (spacemacs/set-leader-keys-for-major-mode 'ahk-mode
-      "cb" 'ahk-comment-block-dwim
-      "cc" 'ahk-comment-dwim
-      "eb" 'ahk-run-script
-      "hh" 'ahk-lookup-web
-      "hH" 'ahk-lookup-chm)))
+    (progn
+      (spacemacs/declare-prefix-for-mode 'ahk-mode "mc" "comment")
+      (spacemacs/declare-prefix-for-mode 'ahk-mode "me" "eval")
+      (spacemacs/declare-prefix-for-mode 'ahk-mode "mh" "help")
+      (spacemacs/set-leader-keys-for-major-mode 'ahk-mode
+        "cb" 'ahk-comment-block-dwim
+        "cc" 'ahk-comment-dwim
+        "eb" 'ahk-run-script
+        "hh" 'ahk-lookup-web
+        "hH" 'ahk-lookup-chm))))

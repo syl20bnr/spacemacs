@@ -1096,6 +1096,9 @@ Other:
 - Key bindings:
   - Removed ~C-f~ because it interfered with the default key binding for
     =forward-char= (thanks to scturtle and duianto)
+**** Autohotkey
+- Key bindings:
+  - Added names to autohotkey mode prefixes (thanks to Ying Qu)
 **** C-C++
 - Breaking changes:
   - Moved =cmake-ide= and cmake script support to separate =cmake= layer
