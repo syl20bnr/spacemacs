@@ -1072,6 +1072,7 @@ Other:
 **** Asm
 - Improvements:
   - Added support for =company= package declaration (thanks to Kalle Lindqvist)
+  - Added jump handlers for =nasm-mode= (thanks to Benjamin Levy)
 **** Auto-completion
 - New packages:
   - Added =yasnippet-snippets= package (thanks to Jack Kamm)

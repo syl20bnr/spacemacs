@@ -12,3 +12,4 @@
 ;; variables
 
 (spacemacs|define-jump-handlers asm-mode)
+(spacemacs|define-jump-handlers nasm-mode)
