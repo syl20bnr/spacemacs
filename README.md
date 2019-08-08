@@ -206,7 +206,12 @@ After completing the Spacemacs [install process](#install), then it's also
 recommended to add the [osx layer][] to your [dotfile][]. Installation
 instructions are available in the documentation for the [osx layer][].
 
-*Note:* you might have some issues when doing some search on your projects, you
+Depending on the installed version of GnuTLS securely installing emacs 
+packages may fail. In this case it is possible to install using 
+`emacs --insecure`. However be aware that this means your packages will 
+be transferred using http, use at your own risk.
+
+You might also have some issues when doing some search on your projects, you
 probably want to install grep through homebrew with default names:
 
 ```sh
@@ -240,6 +245,12 @@ Source: [Stack Overflow][so-server-unsafe]
 
 For efficient searches we recommend installing `pt` ([the platinum searcher][]).
 `pt` version 1.7.7 or higher is required.
+
+**Notes:**
+Depending on the installed version of GnuTLS securely installing emacs 
+packages may fail. In this case it is possible to install using 
+`emacs --insecure`. However be aware that this means your packages will 
+be transferred using http, use at your own risk.
 
 # Install
 ## Default installation
