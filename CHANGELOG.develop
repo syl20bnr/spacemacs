@@ -823,6 +823,7 @@ Other:
     - Font scaling ~SPC z x _~ scale down
     - Frame transparency ~SPC T T _~ decrease transparency
     - Zoom frame ~SPC z f _~ zoom frame out
+  - Added ~SPC j U~ for =spacemacs/avy-open-url= (thanks to Dominik Schrempf)
 - Improvements:
   - Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
     ~SPC w 4~ (thanks to Codruț Constantin Gușoi):
@@ -1048,6 +1049,8 @@ Other:
   - Required =ivy= to load =counsel-projectile= (thanks to Thanh Vuong)
   - Make =search-engine= layer support custom keywords for =engine-mode= (thanks to Maximilian Wolff)
   - Fixed =search-engine= layer customization issue (thanks to Haisheng Wu)
+  - Replaced deprecated =avy--generic-jump= with =avy-jump=
+    (thanks to Dominik Schrempf)
 *** Layer changes and fixes
 **** Agda
 - Fixes

@@ -65,6 +65,7 @@
         "jj" 'evil-avy-goto-char-timer
         "jl" 'evil-avy-goto-line
         "ju" 'spacemacs/avy-goto-url
+        "jU" 'spacemacs/avy-open-url
         "jw" 'evil-avy-goto-word-or-subword-1
         "xo" 'spacemacs/avy-open-url))
     :config
@@ -72,7 +73,7 @@
       (defun spacemacs/avy-goto-url()
         "Use avy to go to an URL in the buffer."
         (interactive)
-        (avy--generic-jump "https?://" nil 'pre))
+        (avy-jump "https?://"))
       (defun spacemacs/avy-open-url ()
         "Use avy to select an URL in the buffer and open it."
         (interactive)
