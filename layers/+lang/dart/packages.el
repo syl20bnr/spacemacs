@@ -12,18 +12,23 @@
 ;;; Code:
 
 (defconst dart-packages
-  '(dart-mode
-    flutter
+  '(
+    dart-mode
+    dart-server
     company
-    flycheck))
+    flutter
+    flycheck
+    ))
 
 (defun dart/show-buffer ()
-  "Shows information at point on a new buffer"
+  "Shows information at point in a new buffer"
   (interactive)
-  (dart-show-hover 't))
+  (dart-server-show-hover t))
 
-(defun dart/init-dart-mode ()
-  (use-package dart-mode
+(defun dart/init-dart-mode ())
+
+(defun dart/init-dart-server ()
+  (use-package dart-server
     :defer t
     :mode "\\.dart\\'"
     :init
@@ -33,25 +38,30 @@
       (spacemacs/declare-prefix-for-mode 'dart-mode "mf" "find")
       (spacemacs/declare-prefix-for-mode 'dart-mode "mh" "help")
       (spacemacs/set-leader-keys-for-major-mode 'dart-mode
-        "=" 'dart-format
-        "?" 'dart-show-hover
-        "g" 'dart-goto
-        "hh" 'dart-show-hover
+        "=" 'dart-server-format
+        "?" 'dart-server-show-hover
+        "g" 'dart-server-goto
+        "hh" 'dart-server-show-hover
         "hb" 'dart/show-buffer
-        "ff" 'dart-find-refs
-        "fe" 'dart-find-member-decls
-        "fr" 'dart-find-member-refs
-        "fd" 'dart-find-top-level-decls)
+        ;; There's an upstream issue with this command:
+        ;; dart-server-find-refs on int opens a dart buffer that keeps growing in size #11
+        ;; https://github.com/bradyt/dart-server/issues/11
+        ;; "ff" 'dart-server-find-refs
+        "fe" 'dart-server-find-member-decls
+        "fr" 'dart-server-find-member-refs
+        "fd" 'dart-server-find-top-level-decls)
 
-      (add-to-list 'spacemacs-jump-handlers-dart-mode '(dart-goto :async t))
+      (add-to-list 'spacemacs-jump-handlers-dart-server
+                   '(dart-server-goto :async t))
 
-      (evil-define-key 'insert dart-mode-map
-        (kbd "<tab>") 'dart-expand
-        (kbd "C-<tab>") 'dart-expand-parameters)
+      (evil-define-key 'insert dart-server-map
+        (kbd "<tab>") 'dart-server-expand
+        (kbd "C-<tab>") 'dart-server-expand-parameters)
 
-      (evil-set-initial-state 'dart-popup-mode 'motion)
-      (evil-define-key 'motion dart-popup-mode-map
-        (kbd "gr") 'dart-do-it-again))))
+      (evil-set-initial-state 'dart-server-popup-mode 'motion)
+      (evil-define-key 'motion dart-server-popup-mode-map
+        (kbd "gr") 'dart-server-do-it-again))
+    :config (dart-mode)))
 
 (defun dart/init-flutter ()
   (use-package flutter
@@ -59,9 +69,9 @@
     :after dart-mode
     :init
     (progn
+      (spacemacs/declare-prefix-for-mode 'dart-mode "mx" "flutter")
       (spacemacs/set-leader-keys-for-major-mode 'dart-mode
-        "xx" 'flutter-run-or-hot-reload)))
-  )
+        "xx" 'flutter-run-or-hot-reload))))
 
 (defun dart/post-init-company ()
   (add-hook 'dart-mode-local-vars-hook #'spacemacs//dart-setup-company-lsp))

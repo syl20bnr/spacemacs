@@ -11,4 +11,4 @@
 
 ;; Variables
 
-(spacemacs|define-jump-handlers dart-mode)
+(spacemacs|define-jump-handlers dart-server)

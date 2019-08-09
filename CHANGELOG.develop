@@ -1356,6 +1356,14 @@ Other:
 - Improvements:
   - Added =LSP= support (thanks to Mathieu Post)
   - Added =Flutter= support (thanks to Mathieu Post)
+- Fixes:
+  - Added =dart-server= package (thanks to duianto)
+  - Updated layer variables:
+    - From: =dart-sdk-path= To: =dart-server-sdk-path=
+    - From: =dart-enable-analysis-server=
+      To:   =dart-server-enable-analysis-server=
+    - From: =dart-format-on-save= To: =dart-server-format-on-save=
+      (thanks to duianto)
 **** Dash
 - Improvements:
   - Use default docsets path in =helm-dash= on macos (thanks to ColorFuzzy)

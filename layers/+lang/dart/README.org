@@ -36,39 +36,42 @@ add =dart= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** Dart SDK location
-The layer itself will use the `dart` executable location if available on the execution path, but it is possible to define the location manually.
-It should point to the folder, and end with `/`.
+The layer itself will use the =dart= executable location if available on the
+execution path, but it is possible to define the location manually. It should
+point to the folder, and end with =/=.
 
 #+BEGIN_SRC elisp
-  (dart :variables dart-sdk-path "~/path/to/dart-sdk/")
+  (dart :variables dart-server-sdk-path "~/path/to/dart-sdk/")
 #+END_SRC
 
 *** Flutter integration
-Flutter comes with a internal Dart SDK, which can be used to provide all the integration tools.
+Flutter comes with a internal Dart SDK, which can be used to provide all the
+integration tools.
 
 #+BEGIN_SRC elisp
-  (dart :variables dart-sdk-path "<flutter-location>/bin/cache/dart-sdk/")
+  (dart :variables dart-server-sdk-path "<flutter-path>/bin/cache/dart-sdk/")
 #+END_SRC
 
 * Configuration
-For more available variables check [[https://github.com/bradyt/dart-mode][dart-mode]] documentation.
+For additional variables check the [[https://github.com/bradyt/dart-server][dart-server]] documentation.
 
 ** Use analysis server
 #+BEGIN_SRC elisp
-  (dart :variables dart-enable-analysis-server t)
+  (dart :variables dart-server-enable-analysis-server t)
 #+END_SRC
 
 ** Format on save
 #+BEGIN_SRC elisp
-  (dart :variables dart-format-on-save t)
+  (dart :variables dart-server-format-on-save t)
 #+END_SRC
 
 * Key bindings
 ** Normal mode
-Some of the commands will instantiate a new Dart Analyzer server if
-necessary, while others work without using a Dart Analyzer connection.
+Some of the commands will instantiate a new Dart Analyzer server if necessary,
+while others work without using a Dart Analyzer connection.
 
-When ~dart-enable-analysis-server~ is enabled, most of the commands become Async, and there might be a delay when executing them.
+When ~dart-server-enable-analysis-server~ is enabled, most of the commands
+become Async, and there might be a delay when executing them.
 
 | Key binding            | Description                                       |
 |------------------------+---------------------------------------------------|
