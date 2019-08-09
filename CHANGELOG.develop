@@ -318,6 +318,7 @@ sane way, here is the complete list of changed key bindings
 - restructuredtext (thanks to Wei-Wei Guo and Kalle Lindqvist)
 - semantic-web (thanks to Andreas Textor)
 - yang (thanks to Christian Hopps)
+- zig (thanks to Michael Hauser-Raspe)
 **** Misc
 - multiple-cursors (thanks to Codruț Constantin Gușoi and Thomas de Beauchêne)
 **** Readers
@@ -2685,6 +2686,8 @@ Other:
 - Added manual semantic completion function for company (thanks to Nir Friedman)
 - Fixed searching for compilation DB in subdirectories
   (thanks to Alexander Dalshov)
+**** Zig
+- Added syntax highlighting (thanks to Michael Hauser-Raspe)
 *** Various improvements
 - Lots of improvement with CI and documentation exporting
   (thanks to Eugene Yaremenko)

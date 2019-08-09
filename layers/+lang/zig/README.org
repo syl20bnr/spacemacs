@@ -1,0 +1,17 @@
+#+TITLE: Zig layer
+
+* Table of Contents                                       :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+
+* Description
+This layer adds support for the zig programming language https://ziglang.org/
+
+** Features:
+- Syntax Highlighting
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =zig= to the existing =dotspacemacs-configuration-layers= list in this
+file.
