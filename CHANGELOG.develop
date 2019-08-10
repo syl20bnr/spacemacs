@@ -2585,6 +2585,8 @@ Other:
   ~C-x w 0~, ~SPC 0~ and ~M-0~ call the same command (thanks to duianto, Miciah)
 - Loaded =treemacs-projectile= key binding ~C-c C-p p~ with Treemacs
   (thanks to duianto)
+- Handle ~SPC p t~ when =projectile-project-root= is nil (thanks to Trapez
+  Breen)
 **** Typescript
 - Call tsfmt with extension of current buffer for TSX formatting
   (thanks to Victor Andrée)
