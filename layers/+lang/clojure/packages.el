@@ -20,7 +20,8 @@
         eldoc
         evil-cleverparens
         flycheck
-        (flycheck-clojure :toggle clojure-enable-linters)
+        (flycheck-clojure :toggle (eq clojure-enable-linters 'squiggly))
+        (flycheck-clj-kondo :toggle (eq clojure-enable-linters 'clj-kondo))
         ggtags
         counsel-gtags
         helm-gtags
@@ -173,7 +174,7 @@
       (with-eval-after-load 'golden-ratio
         (add-to-list 'golden-ratio-extra-commands 'cider-popup-buffer-quit-function))
       ;; setup linters. NOTE: It must be done after both CIDER and Flycheck are loaded.
-      (when clojure-enable-linters
+      (when (eq clojure-enable-linters 'squiggly)
         (with-eval-after-load 'flycheck (flycheck-clojure-setup)))
       ;; add support for evil
       (evil-set-initial-state 'cider-stacktrace-mode 'motion)
@@ -432,4 +433,8 @@
 
 (defun clojure/init-flycheck-clojure ()
   (use-package flycheck-clojure
+    :if (configuration-layer/package-usedp 'flycheck)))
+
+(defun clojure/init-flycheck-clj-kondo ()
+  (use-package flycheck-clj-kondo
     :if (configuration-layer/package-usedp 'flycheck)))

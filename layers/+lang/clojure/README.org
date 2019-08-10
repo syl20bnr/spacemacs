@@ -18,6 +18,8 @@
 - [[#usage][Usage]]
   - [[#cheatsheet][Cheatsheet]]
   - [[#linting][Linting]]
+    - [[#squiggly-linter][Squiggly linter]]
+    - [[#clj-kondo-linter][clj-kondo linter]]
   - [[#structuraly-safe-editing][Structuraly safe editing]]
 - [[#key-bindings][Key bindings]]
   - [[#working-with-clojure-files-barfage-slurpage--more][Working with clojure files (barfage, slurpage & more)]]
@@ -189,10 +191,21 @@ some functions that deal with sorting maps.
 
 ** Linting
 Linting works via flycheck and disabled by default.
-You can enable it like this:
+
+*** Squiggly linter
+
+It uses [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] behind the scene. You can enable it like this:
 
 #+BEGIN_SRC emacs-lisp
-  (setq clojure-enable-linters t)
+  (setq clojure-enable-linters 'squiggly)
+#+END_SRC
+
+*** clj-kondo linter
+
+This linter based on static syntax check, require [[https://github.com/borkdude/clj-kondo][clj-kondo]] installed on your PATH. Detailed installation instructions can be found [[https://github.com/borkdude/clj-kondo/blob/master/doc/install.md][here]].
+
+#+BEGIN_SRC emacs-lisp
+  (setq clojure-enable-linters 'clj-kondo)
 #+END_SRC
 
 Make sure to read the [[https://github.com/clojure-emacs/squiggly-clojure#warnings][warnings section]].
