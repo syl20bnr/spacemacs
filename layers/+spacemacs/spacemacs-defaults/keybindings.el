@@ -295,6 +295,7 @@
 (spacemacs/set-leader-keys
   "j(" 'check-parens
   "j=" 'spacemacs/indent-region-or-buffer
+  "j+" 'spacemacs/iwb-region-or-buffer
   "jo" 'open-line
   "jS" 'spacemacs/split-and-new-line
   "jk" 'spacemacs/evil-goto-next-line-and-indent)
