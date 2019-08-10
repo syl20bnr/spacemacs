@@ -2165,6 +2165,7 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 | ~SPC j l~   | jump to a line with avy (works as an evil motion)                                 |
 | ~SPC j q~   | show the dumb-jump quick look tooltip                                             |
 | ~SPC j u~   | jump to a URL in the current buffer                                               |
+| ~SPC j U~   | select a URL in the current buffer and follow it                                  |
 | ~SPC j v~   | jump to the definition/declaration of an Emacs Lisp variable                      |
 | ~SPC j w~   | jump to a word in the current buffer (works as an evil motion)                    |
 
@@ -2178,6 +2179,8 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 | ~SPC j o~   | split the current line at point but let point on current line            |
 | ~SPC j s~   | split a quoted string or s-expression in place                           |
 | ~SPC j S~   | split a quoted string or s-expression, insert a new line and auto-indent |
+| ~SPC j =~   | format the marked region or entire buffer                                |
+| ~SPC j +~   | format the marked region or entire buffer also cleanup whitespace        |
 
 *** Window manipulation
 **** Window manipulation key bindings

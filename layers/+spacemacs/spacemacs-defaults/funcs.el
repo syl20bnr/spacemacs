@@ -123,6 +123,22 @@ automatically applied to."
         (message "Indented buffer.")))
     (whitespace-cleanup)))
 
+;; http://emacsblog.org/2007/01/17/indent-whole-buffer/
+(defun spacemacs/iwb-region-or-buffer ()
+  "IWBs a region if selected, otherwise the whole buffer."
+  (interactive)
+  (save-excursion
+    (if (region-active-p)
+        (progn
+          (untabify (region-beginning) (region-end))
+          (indent-region (region-beginning) (region-end)))
+      (progn
+        (set-buffer-file-coding-system default-file-name-coding-system)
+        ;; (set-buffer-file-coding-system 'utf-8-unix)
+        (untabify (point-min) (point-max))
+        (indent-region (point-min) (point-max))
+        (whitespace-cleanup)))))
+
 ;; from https://gist.github.com/3402786
 (defun spacemacs/toggle-maximize-buffer ()
   "Maximize buffer"
