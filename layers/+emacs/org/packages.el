@@ -17,6 +17,7 @@
         evil-org
         evil-surround
         gnuplot
+        (helm-org :toggle (configuration-layer/layer-used-p 'helm))
         (helm-org-rifle :toggle (configuration-layer/layer-used-p 'helm))
         htmlize
         ;; ob, org and org-agenda are installed by `org-plus-contrib'
@@ -82,6 +83,11 @@
   (use-package helm-org-rifle
     :defer t
     :init (spacemacs/set-leader-keys "aor" 'helm-org-rifle)))
+
+(defun org/init-helm-org ()
+  (use-package helm-org
+    :commands (helm-org-in-buffer-headings)
+    :defer t))
 
 (defun org/init-htmlize ()
   (use-package htmlize

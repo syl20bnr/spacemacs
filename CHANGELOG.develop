@@ -2148,6 +2148,7 @@ Other:
 - Added support for CUSTOM_ID in latex exports (thanks to Compro-Prasad)
 - Added ~SPC m i L~ as =org-cliplink= into =org= layer (thanks to bb2020)
 - Added =ox-jira= as org export backend (thanks to Sebastian Nagel)
+- Load =helm-org= package (thanks to Simon Pintarelli)
 **** Osx
 - Fixed OSX mapping issue (thanks to Joey Liu)
 - Added layer variables to customize modifier behaviors on macOS:
