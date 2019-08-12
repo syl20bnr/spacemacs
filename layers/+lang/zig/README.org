@@ -1,12 +1,14 @@
 #+TITLE: Zig layer
 
-* Table of Contents                                       :TOC_4_gh:noexport:
+#+TAGS: layer|uncategorized
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 
 * Description
-This layer adds support for the zig programming language https://ziglang.org/
+This layer adds support for the zig programming language [[https://ziglang.org/]]
 
 ** Features:
 - Syntax Highlighting
