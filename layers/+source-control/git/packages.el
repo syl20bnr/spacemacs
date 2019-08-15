@@ -77,7 +77,7 @@
     (progn
       (spacemacs/declare-prefix "gl" "links")
       (spacemacs/set-leader-keys
-        "gll" 'spacemacs/git-link
+        "gll" 'git-link
         "glL" 'spacemacs/git-link-copy-url-only
         "glp" 'spacemacs/git-permalink
         "glP" 'spacemacs/git-permalink-copy-url-only
