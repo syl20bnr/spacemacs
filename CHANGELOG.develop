@@ -1143,7 +1143,10 @@ Other:
     (thanks to Fangrui Song and Codruț Constantin Gușoi)
   - Added =org-babel= support (thanks to Michael Rohleder)
   - Added debugger integration via =dap= layer
-  - Added detecting ".ccls" for ccls powered projects.
+  - Added detecting ".ccls" for ccls powered projects
+  - Fixed the =c-c++-default-mode-for-headers= should not affect the default
+    behavior that opening a .h file will turn C or C++ mode depending on
+    language used in Emacs > 26.1+ (thanks to Lin Sun)
 - Key bindings:
   - ~SPC m = =~ clang-format current region or buffer (thanks to Dela Anthonio)
   - ~SPC m = f~ clang-format current function (thanks to Dela Anthonio)

@@ -74,8 +74,9 @@ file.
 *Note:* [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]] is only available for Emacs 24.4+
 
 ** Default mode for header files
-By default header files are opened in =c-mode=, you can open them in =c++-mode=
-by setting the variable =c-c++-default-mode-for-headers= to =c++-mode=.
+Mode for header files is auto detected by `c-or-c++-mode' in Emacs > 26.1+.
+Older Emacs will open header files in =c-mode= by default, you can open them in
+=c++-mode= by setting the variable =c-c++-default-mode-for-headers= as follow.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers

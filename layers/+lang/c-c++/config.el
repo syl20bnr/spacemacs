@@ -51,8 +51,8 @@
   "If non-nil, automatically format code with ClangFormat on
   save. Clang support has to be enabled for this to work.")
 
-(defvar c-c++-default-mode-for-headers 'c-mode
-  "Default mode to open header files. Can be `c-mode' or `c++-mode'.")
+(defvar c-c++-default-mode-for-headers (when (not (functionp 'c-or-c++-mode)) 'c-mode)
+  "Default mode to open header files. Can be `c-mode' or `c++-mode', or `c-or-c++-mode' for Emacs > 26+.")
 
 (defvar c-c++-adopt-subprojects nil
   "When non-nil, projectile will remember project root when visiting files in subprojects")
