@@ -1597,6 +1597,8 @@ Other:
 - Fixed magit conflicting with golden-ratio (thanks Eric Zhang)
 - Hide with-editor mode-line indicator: =WE= (thanks to duianto)
 - Fixed magit blame in org buffers (thanks to Compro Prasad)
+- Deleted git-link and git-timemachine integration that has been superseded
+  by upstream changes (thanks to Miciah Dashiel Butler Masters)
 **** Gnus
 - Key bindings:
   - Added ~g r~ for =gnus-group-get-new-news= (thanks to Matthew Leach)

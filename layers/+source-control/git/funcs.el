@@ -40,49 +40,25 @@
   "Allow the user to get a permalink via git-link in a git-timemachine buffer."
   (interactive)
   (let ((git-link-use-commit t))
-    (call-interactively 'spacemacs/git-link-commit)))
+    (call-interactively 'git-link-commit)))
 
 (defun spacemacs/git-permalink-copy-url-only ()
   "Allow the user to get a permalink via git-link in a git-timemachine buffer."
   (interactive)
   (let (git-link-open-in-browser
         (git-link-use-commit t))
-    (call-interactively 'spacemacs/git-link-commit)))
+    (call-interactively 'git-link-commit)))
 
 (defun spacemacs/git-link-copy-url-only ()
   "Only copy the generated link to the kill ring."
   (interactive)
   (let (git-link-open-in-browser)
-    (call-interactively 'spacemacs/git-link)))
+    (call-interactively 'git-link)))
 
 (defun spacemacs/git-link-commit-copy-url-only ()
   "Only copy the generated link to the kill ring."
   (interactive)
   (let (git-link-open-in-browser)
-    (call-interactively 'spacemacs/git-link-commit)))
-
-(defun spacemacs/git-link ()
-  "Allow the user to run git-link in a git-timemachine buffer."
-  (interactive)
-  (require 'git-link)
-  (if (and (boundp 'git-timemachine-revision)
-           git-timemachine-revision)
-      (cl-letf (((symbol-function 'git-link--branch)
-                 (lambda ()
-                   (car git-timemachine-revision))))
-        (call-interactively 'git-link))
-    (call-interactively 'git-link)))
-
-(defun spacemacs/git-link-commit ()
-  "Allow the user to run git-link-commit in a git-timemachine buffer."
-  (interactive)
-  (require 'git-link)
-  (if (and (boundp 'git-timemachine-revision)
-           git-timemachine-revision)
-      (cl-letf (((symbol-function 'word-at-point)
-                 (lambda ()
-                   (car git-timemachine-revision))))
-        (call-interactively 'git-link-commit))
     (call-interactively 'git-link-commit)))
 
 
