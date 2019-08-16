@@ -1064,6 +1064,7 @@ Other:
   - Fixed =search-engine= layer customization issue (thanks to Haisheng Wu)
   - Replaced deprecated =avy--generic-jump= with =avy-jump=
     (thanks to Dominik Schrempf)
+  - Switch recreated messages buffer to =evil-normal-state= (thanks to duianto)
 *** Layer changes and fixes
 **** Agda
 - Fixes
