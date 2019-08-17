@@ -221,10 +221,6 @@ Note: the hooked function is not executed when in dumped mode."
                              "Calling dotfile user config...")
      (dotspacemacs|call-func dotspacemacs/emacs-custom-settings
                              "Calling dotfile Emacs custom settings...")
-     (defconst spacemacs-original-spacemacs-custom-colors spacemacs-theme-custom-colors
-       "Value of spacemacs-theme-custom-colors as it was after running user-config.
-
-Needs to be saved as some themes customise this variable and we can otherwise not restore the original setting.")
      ;; don't write custom settings into the dotfile before loading them,
      ;; otherwise https://github.com/syl20bnr/spacemacs/issues/10504 happens
      (spacemacs/initialize-custom-file-sync)
