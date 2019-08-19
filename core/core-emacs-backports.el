@@ -9,6 +9,9 @@
 ;;
 ;;; License: GPLv3
 
-;; nothing for now
+(when (and (version<  "25" emacs-version)
+           (version< emacs-version "26.3"))
+  ;; backport fix for https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
+  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
 
 (provide 'core-emacs-backports)
