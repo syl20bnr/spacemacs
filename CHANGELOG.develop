@@ -2593,6 +2593,7 @@ Other:
 - Added =eziam-theme= and =kaolin-themes= (thanks to Sylvain Benner)
 - Added =doom-themes= (thanks to Codruț Constantin Gușoi)
 - Created and added =ewal-spacemacs-themes= (thanks to Uroš Perišić)
+- Added =chocolate-theme= (thanks to Henrique Jung)
 **** Tmux
 - Prevent =tmux-command= at GUI mode (thanks to Isaac Zeng)
 - Fixed regression in tmux by setting keybindings using =use-package=
