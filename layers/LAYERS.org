@@ -2399,6 +2399,7 @@ This layer installs around 100 themes for Emacs.
 Features:
 - Have access to all included themes in this [[http://themegallery.robdor.com][theme gallery]] from [[http://www.twitter.com/robmerrell][Rob Merrell]].
 - Easily try a theme by invoking helm-themes with: ~SPC T s~.
+- Theme Spacemacs using [[https://github.com/dylanaraps/pywal][pywal]] by choosing one of the =ewal-spacemacs-*= themes.
 
 ** Theming
 [[file:+themes/theming/README.org][+themes/theming/README.org]]
