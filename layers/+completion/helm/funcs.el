@@ -114,8 +114,8 @@ If DEFAULT-INPUTP is non nil then the current region or symbol at point
   (interactive)
   (call-interactively
    (spacemacs//helm-do-search-find-tool "helm-file-do"
-                                 dotspacemacs-search-tools
-                                 default-inputp)))
+                                        dotspacemacs-search-tools
+                                        default-inputp)))
 
 (defun spacemacs/helm-file-smart-do-search-region-or-symbol ()
   "Search in current file using `dotspacemacs-search-tools' with
@@ -183,8 +183,8 @@ If DEFAULT-INPUTP is non nil then the current region or symbol at point
   (interactive)
   (call-interactively
    (spacemacs//helm-do-search-find-tool "helm-files-do"
-                                 dotspacemacs-search-tools
-                                 default-inputp)))
+                                        dotspacemacs-search-tools
+                                        default-inputp)))
 
 (defun spacemacs/helm-files-smart-do-search-region-or-symbol ()
   "Search in files using `dotspacemacs-search-tools' with default input.
@@ -242,8 +242,8 @@ If DEFAULT-INPUTP is non nil then the current region or symbol at point
   (interactive)
   (call-interactively
    (spacemacs//helm-do-search-find-tool "helm-dir-do"
-                                 dotspacemacs-search-tools
-                                 default-inputp)))
+                                        dotspacemacs-search-tools
+                                        default-inputp)))
 
 (defun spacemacs/helm-dir-smart-do-search-region-or-symbol ()
   "Search in current directory using `dotspacemacs-search-tools'.
@@ -308,8 +308,8 @@ If DEFAULT-INPUTP is non nil then the current region or symbol at point
   (interactive)
   (call-interactively
    (spacemacs//helm-do-search-find-tool "helm-buffers-do"
-                                 dotspacemacs-search-tools
-                                 default-inputp)))
+                                        dotspacemacs-search-tools
+                                        default-inputp)))
 
 (defun spacemacs/helm-buffers-smart-do-search-region-or-symbol ()
   "Search in opened buffers using `dotspacemacs-search-tools' with
@@ -407,8 +407,8 @@ If DEFAULT-INPUTP is non nil then the current region or symbol at point
   (let ((projectile-require-project-root nil))
     (call-interactively
      (spacemacs//helm-do-search-find-tool "helm-project-do"
-                                   dotspacemacs-search-tools
-                                   default-inputp))))
+                                          dotspacemacs-search-tools
+                                          default-inputp))))
 
 (defun spacemacs/helm-project-smart-do-search-region-or-symbol ()
   "Search in current project using `dotspacemacs-search-tools' with
@@ -595,9 +595,9 @@ to buffers)."
   (with-current-buffer "*helm ag results*"
     (setq spacemacs--gne-min-line 5
           spacemacs--gne-max-line (save-excursion
-            (goto-char (point-max))
-            (previous-line)
-            (line-number-at-pos))
+                                    (goto-char (point-max))
+                                    (previous-line)
+                                    (line-number-at-pos))
           spacemacs--gne-line-func
           (lambda (c)
             (helm-ag--find-file-action
@@ -621,5 +621,6 @@ to buffers)."
 (defun spacemacs/helm-themes ()
   "Remove limit on number of candidates on `helm-themes'"
   (interactive)
+  (setq spacemacs-theme-custom-colors spacemacs-original-spacemacs-custom-colors)
   (let (helm-candidate-number-limit)
     (helm-themes)))
