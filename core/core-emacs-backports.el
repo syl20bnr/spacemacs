@@ -13,6 +13,11 @@
 
 (provide 'core-emacs-backports)
 
+(when (and (version<  "25" emacs-version)
+           (version< emacs-version "26.3"))
+  ;; backport fix for https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
+  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
+
 (when (version< emacs-version "26")
   ;; backport fix for macOS battery status
   ;; https://github.com/emacs-mirror/emacs/commit/25dca60d5e3b2447352b7c51496baefb4ccd579d#diff-d1b82d59371a01a39cca34f1f64c3447
