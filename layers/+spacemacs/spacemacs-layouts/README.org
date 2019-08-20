@@ -5,8 +5,6 @@
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
-- [[#restrict-functions-to-the-current-layouts-buffers][Restrict functions to the current layout's buffers]]
-- [[#restrict-spc-tab-to-the-current-layouts-buffers][Restrict SPC-TAB to the current layout's buffers]]
 
 * Description
 This layer adds support for distinct layouts/workspaces to Spacemacs.
@@ -14,53 +12,3 @@ This layer adds support for distinct layouts/workspaces to Spacemacs.
 ** Features:
 - Support for distinct layouts via =eyebrowse=
 - Integration with =helm= and =ivy= to search for buffers within layouts
-
-* Restrict functions to the current layout's buffers
-Besides =helm-mini= and =ivy-switch-buffer= that are aware of a layout's
-buffers. This layer also provides a ~spacemacs-layouts-restricted-functions~
-variable that holds a list of functions that will be restricted to the current
-layout's buffers.
-
-Default value of ~spacemacs-layouts-restricted-functions~ is:
-
-#+BEGIN_EXAMPLE
-  '(spacemacs/window-split-double-columns
-    spacemacs/window-split-triple-columns
-    spacemacs/window-split-grid)
-#+END_EXAMPLE
-
-The list can be edited in the ~dotspacemacs-configuration-layers~ variable near
-the top of ~.spacemacs~ like this:
-
-#+BEGIN_EXAMPLE
-  (spacemacs-layouts :variables
-                     spacemacs-layouts-restricted-functions
-                     '(spacemacs/window-split-double-columns
-                       spacemacs/window-split-triple-columns
-                       spacemacs/window-split-grid))
-#+END_EXAMPLE
-
-Note that ~spacemacs-layouts-restricted-functions~ can only be changed in the
-~dotspacemacs-configuration-layers~ variable. They can't be edited during the
-current Emacs session. A restart is required.
-
-* Restrict SPC-TAB to the current layout's buffers
-When the ~spacemacs-layouts-restrict-spc-tab~ variable is set to ~t~, then
-~SPC-TAB~ (~spacemacs/alternate-buffer~) will be restricted to only switch
-between the current layout's buffers.
-
-Default value of ~spacemacs-layouts-restrict-spc-tab~ is ~nil~.
-
-It can be enabled in the ~dotspacemacs-configuration-layers~ variable near the
-top of ~.spacemacs~ like this:
-
-#+BEGIN_EXAMPLE
-  (spacemacs-layouts :variables spacemacs-layouts-restrict-spc-tab t)
-#+END_EXAMPLE
-
-Note that ~spacemacs-layouts-restrict-spc-tab~ also can be toggle on the fly by
-evaluating it like this:
-
-#+BEGIN_EXAMPLE
-  (setq spacemacs-layouts-restrict-spc-tab t)
-#+END_EXAMPLE

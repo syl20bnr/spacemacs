@@ -98,6 +98,8 @@
     - [[#custom-layouts][Custom Layouts]]
     - [[#saveload-layouts-into-a-file][Save/Load layouts into a file]]
     - [[#layout-key-bindings][Layout key bindings]]
+    - [[#behavior-of-spc-tab-with-layouts][Behavior of SPC TAB with layouts]]
+    - [[#restrict-a-given-function-to-the-current-layout][Restrict a given function to the current layout]]
   - [[#workspaces][Workspaces]]
     - [[#workspace-key-bindings][Workspace key bindings]]
 - [[#commands][Commands]]
@@ -1748,6 +1750,51 @@ Press ~?~ to toggle the full help.
 | ~w~                 | workspaces transient state (needs eyebrowse layer enabled) |
 | ~x~                 | kill current layout with its buffers                       |
 | ~X~                 | kill other layouts with their buffers                      |
+
+*** Behavior of SPC TAB with layouts
+By default ~SPC TAB~ which switches to last opened buffer is restricted to the
+current layout. If there is only one opened buffer for a given layout then
+~SPC TAB~ won't do anything and the following message is displayed in the
+minibuffer:
+
+#+begin_quote
+Last buffer not found.
+#+end_quote
+
+To allow ~SPC TAB~ to switch to the last opened buffer from another layout set
+this variable =spacemacs-layouts-restrict-spc-tab= to =nil=. For instance in
+your used layer list with layer variables:
+
+#+begin_example emacs-lisp
+  (spacemacs-layouts :variables spacemacs-layouts-restrict-spc-tab t)
+#+end_example
+
+*** Restrict a given function to the current layout
+You can make any function "layout aware" by adding it to the list
+=spacemacs-layouts-restricted-functions=. It is not possible to change this
+variable when Emacs is running. You have to define it using layer variables.
+If you change this variable then Emacs must be restarted for the change to
+take effect.
+
+Default value for this variable is:
+
+#+begin_example emacs-lisp
+  '(spacemacs/window-split-double-columns
+    spacemacs/window-split-triple-columns
+    spacemacs/window-split-grid)
+#+end_example
+
+If you want to add the function =my-func= to this list you need to redefine
+the complete list using layer variables:
+
+#+BEGIN_EXAMPLE
+  (spacemacs-layouts :variables
+                     spacemacs-layouts-restricted-functions
+                     '(spacemacs/window-split-double-columns
+                       spacemacs/window-split-triple-columns
+                       spacemacs/window-split-grid
+                       my-func))
+#+END_EXAMPLE
 
 ** Workspaces
 Workspaces are sub-layouts, they allow to define multiple layouts into a given
