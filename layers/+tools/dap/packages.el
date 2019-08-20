@@ -21,4 +21,7 @@
            (dap-ui-inspect-mode . evil-evilified-state))
     :config
     (dap-mode 1)
-    (dap-ui-mode 1)))
+    (dap-ui-mode 1)
+    (when dap-enable-mouse-support
+      (dap-tooltip-mode)
+      (tooltip-mode))))
