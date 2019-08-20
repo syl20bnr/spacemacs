@@ -61,5 +61,5 @@ in case none of the regular names can be used for a new layout.")
     spacemacs/window-split-grid)
   "List of functions to be wrapped by `with-persp-buffer-list'")
 
-(defvar spacemacs-layouts-restrict-spc-tab t
+(defvar spacemacs-layouts-restrict-spc-tab nil
   "If `t' then `SPC-TAB' will be limited to the current layout's buffers.")
