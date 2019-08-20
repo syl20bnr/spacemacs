@@ -8,6 +8,7 @@
 - [[#layer-installation][Layer installation]]
 - [[#configuration][Configuration]]
   - [[#derived-layers][Derived layers]]
+  - [[#variables][Variables]]
     - [[#declared-prefixes][Declared prefixes]]
     - [[#default-key-bindings][Default key bindings]]
 - [[#references][References]]
@@ -45,6 +46,12 @@ specific debug adapter and the language specific bindings(e. g. debug
 application, debug test, etc). The package declares function
 ~spacemacs/dap-bind-keys-for-mode~ which should be used by the derived layers
 to configure the shortcuts.
+
+** Variables
+
+| Variable name              | Default | Description                  |
+|----------------------------+---------+------------------------------|
+| =dap-enable-mouse-support= | t       | Enable/disable mouse support |
 
 *** Declared prefixes
 The following prefixes have been declared:

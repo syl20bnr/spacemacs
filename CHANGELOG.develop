@@ -1885,6 +1885,7 @@ Other:
 - Key bindings
   - ~SPC m d d e~ to edit debug template
 - Evilfied =dap= debug windows
+- Added variable =dap-enable-mouse-support=
 **** Markdown
 - New layer variable =markdown-mmm-auto-modes= which is a list of language names
   or lists of language and mode names that are supported in source blocks, you
