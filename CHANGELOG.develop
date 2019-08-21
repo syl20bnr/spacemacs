@@ -2594,6 +2594,7 @@ Other:
 - Added =doom-themes= (thanks to Codruț Constantin Gușoi)
 - Created and added =ewal-spacemacs-themes= (thanks to Uroš Perišić)
 - Added =chocolate-theme= (thanks to Henrique Jung)
+- Updated =doom-themes= list to reflect upstream (thanks to Dominic Pearson)
 **** Tmux
 - Prevent =tmux-command= at GUI mode (thanks to Isaac Zeng)
 - Fixed regression in tmux by setting keybindings using =use-package=
