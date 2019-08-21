@@ -22,16 +22,6 @@
       (when (string-empty-p (buffer-string))
         (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")))))
 
-;; (condition-case err
-;;     (url-retrieve-synchronously apath)
-;;   ('error
-;;    (display-warning
-;;     'spacemacs
-;;     (format
-;;      "\nError while contacting %s repository!"
-;;      aname) :warning)
-;;    'error))
-
 (when (version< emacs-version "26")
   ;; backport fix for macOS battery status
   ;; https://github.com/emacs-mirror/emacs/commit/25dca60d5e3b2447352b7c51496baefb4ccd579d#diff-d1b82d59371a01a39cca34f1f64c3447
