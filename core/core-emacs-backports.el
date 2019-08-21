@@ -17,9 +17,20 @@
            (version< emacs-version "26.3"))
   ;; Hack to prevent TLS error with Emacs 26.1 and 26.2 and gnutls 3.6.4 and above
   ;; see https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
-  (with-current-buffer (url-retrieve-synchronously "https://api.github.com/users/syl20bnr/repos")
-    (when (string-empty-p (buffer-string))
-      (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))))
+  (ignore-errors
+    (with-current-buffer (url-retrieve-synchronously "https://api.github.com/users/syl20bnr/repos")
+      (when (string-empty-p (buffer-string))
+        (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")))))
+
+;; (condition-case err
+;;     (url-retrieve-synchronously apath)
+;;   ('error
+;;    (display-warning
+;;     'spacemacs
+;;     (format
+;;      "\nError while contacting %s repository!"
+;;      aname) :warning)
+;;    'error))
 
 (when (version< emacs-version "26")
   ;; backport fix for macOS battery status
