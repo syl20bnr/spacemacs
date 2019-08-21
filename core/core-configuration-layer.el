@@ -53,7 +53,7 @@
   "Absolute path to the lock file.")
 
 (defvar configuration-layer-stable-elpa-version spacemacs-version
-  "Version of ELPA stable repository. This value is aimed to be overwritten by
+  "Version of ELPA stable repository. This value is aimed to be defined in
 the .lock file at the root of the repository.")
 
 (defvar configuration-layer-stable-elpa-name "spacelpa"
@@ -67,6 +67,10 @@ the lock file.")
   (expand-file-name
    (concat spacemacs-cache-directory "stable-elpa/" emacs-version "/"))
   "Remote location of the tarball for the ELPA stable directory")
+
+(defconst configuration-layer-stable-elpa-archive nil
+  "Absolute path to stable ELPA directory. This value is aimed to be defined in
+the .lock file at the root of the repository.")
 
 (defconst configuration-layer--stable-elpa-tarball-directory
   "https://github.com/syl20bnr/spacelpa/archive/"
@@ -2589,8 +2593,7 @@ repository."
 
 (defun configuration-layer//stable-elpa-directory ()
   "Return the local absolute path of the ELPA stable repository."
-  (cdr (assoc configuration-layer-stable-elpa-name
-              configuration-layer-elpa-archives)))
+  configuration-layer-stable-elpa-archive)
 
 (defun configuration-layer//stable-elpa-tarball-local-file ()
   "Return the local absolute path for the file of the downloaded tarball of
