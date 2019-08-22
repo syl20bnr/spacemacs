@@ -77,8 +77,8 @@ inside ~dotspacemacs-configuration-layers~. Note that you may find in a package 
 by helm.
 
 *** avy-migemo
-Note that ~avy-migemo~ in ELPA does not work
-currently, so you can use a [[https://github.com/tam17aki/avy-migemo][forked version]] alternatively.
+Note that ~avy-migemo~ in MELPA does not work
+currently, so you had better use a [[https://github.com/tam17aki/avy-migemo][forked version]] alternatively.
 
 By default, you can use ~avy-migemo~ for ~helm-mode~. For ~ivy-mode~, you should add:
 #+BEGIN_SRC emacs-lisp
