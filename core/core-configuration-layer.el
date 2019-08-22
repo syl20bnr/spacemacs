@@ -2604,6 +2604,18 @@ ELPA stable repository."
   "Return the absolute path to the signature file."
   (format "%s.sig" (configuration-layer//stable-elpa-directory)))
 
+(defun configuration-layer//executable-not-found-error (exec &optional msg)
+  "Display a generic error message about not found EXECutable file.
+
+MSG is an additional message append to the generic error."
+  (when (null msg) (setq msg ""))
+  (configuration-layer//error
+   (format
+    (concat
+     "Cannot find %s executable in your PATH.\n"
+     "Verify your spacemacs environment variables with [SPC f e e].%s\n"
+     "Spacelpa installation has been skipped!") exec msg)))
+
 (defun configuration-layer//stable-elpa-untar-archive ()
   "Untar the downloaded archive of stable ELPA, returns non-nil if succeeded."
   (require 'tar-mode)
@@ -2656,10 +2668,7 @@ ELPA stable repository."
          (format "Extracting %s archive..." name) t)
         (if (and (spacemacs/system-is-mswindows)
                  (not (executable-find "tar")))
-            (progn
-              (configuration-layer//error
-                (concat "Error: Cannot find tar executable in you PATH.\n"
-                  "Spacelpa installation has been skipped!")))
+            (configuration-layer//executable-not-found-error "tar")
           (call-process "tar" nil nil nil "-xzf" archive))))
     untar))
 
@@ -2681,13 +2690,11 @@ ELPA stable repository."
                (not (executable-find "gzip")))
           ;; additional check on Windows platform as tarball are not handled
           ;; natively and requires the installation of gzip.
-          (progn
-            (configuration-layer//error
-             (format
-              (concat "Error: Cannot find gzip executable in you PATH.\n"
-                      "Download and install gzip here: "
-                      "http://gnuwin32.sourceforge.net/packages/gzip.htm \n"
-                      "%s installation has been skipped!") name)))
+          (configuration-layer//executable-not-found-error
+           "gzip"
+           (concat
+            "\nDownload and install gzip here: "
+            "http://gnuwin32.sourceforge.net/packages/gzip.htm. "))
         ;; download tarball and detached signature
         (make-directory configuration-layer-stable-elpa-directory t)
         (url-copy-file url local 'ok-if-already-exists)
