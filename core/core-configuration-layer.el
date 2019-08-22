@@ -2686,33 +2686,24 @@ MSG is an additional message append to the generic error."
       (spacemacs-buffer/set-mode-line
        (format (concat "Downloading stable ELPA repository: %s... "
                        "(please wait)") name) t)
-      (if (and (spacemacs/system-is-mswindows)
-               (not (executable-find "gzip")))
-          ;; additional check on Windows platform as tarball are not handled
-          ;; natively and requires the installation of gzip.
-          (configuration-layer//executable-not-found-error
-           "gzip"
-           (concat
-            "\nDownload and install gzip here: "
-            "http://gnuwin32.sourceforge.net/packages/gzip.htm. "))
-        ;; download tarball and detached signature
-        (make-directory configuration-layer-stable-elpa-directory t)
-        (url-copy-file url local 'ok-if-already-exists)
+      ;; download tarball and detached signature
+      (make-directory configuration-layer-stable-elpa-directory t)
+      (url-copy-file url local 'ok-if-already-exists)
+      (when dotspacemacs-verify-spacelpa-archives
+        (url-copy-file url-sig local-sig 'ok-if-already-exists))
+      ;; extract
+      (when (configuration-layer//stable-elpa-untar-archive)
+        ;; delete archive
+        (delete-file local)
         (when dotspacemacs-verify-spacelpa-archives
-          (url-copy-file url-sig local-sig 'ok-if-already-exists))
-        ;; extract
-        (when (configuration-layer//stable-elpa-untar-archive)
-          ;; delete archive
-          (delete-file local)
-          (when dotspacemacs-verify-spacelpa-archives
-            (delete-file local-sig))
-          ;; update version file
-          (with-current-buffer (find-file-noselect
-                                configuration-layer--stable-elpa-version-file)
-            (erase-buffer)
-            (beginning-of-buffer)
-            (insert (format "%s" configuration-layer-stable-elpa-version))
-            (save-buffer)))))))
+          (delete-file local-sig))
+        ;; update version file
+        (with-current-buffer (find-file-noselect
+                              configuration-layer--stable-elpa-version-file)
+          (erase-buffer)
+          (beginning-of-buffer)
+          (insert (format "%s" configuration-layer-stable-elpa-version))
+          (save-buffer))))))
 
 ;; (configuration-layer/create-elpa-repository
 ;;  "spacelpa"
