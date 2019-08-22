@@ -1490,6 +1490,8 @@ Other:
 **** GitHub
 - Packages:
   - Added new packages =forge= (thanks to Miciah Dashiel Butler Masters)
+  - Do not install =forge= on Windows by default, see =README.org= of the layer
+    (thanks to Sylvain Benner)
   - Remove package =github-browse-file= which has been replaced by
    =browse-at-remote= in =version-control= layer
 - Key bindings:
