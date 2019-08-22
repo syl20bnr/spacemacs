@@ -35,8 +35,12 @@
     (setq migemo-regex-dictionary nil)
     (setq migemo-coding-system 'utf-8-unix)
     (setq search-default-regexp-mode nil)
-    (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
-    (migemo-init)))
+    (cond
+     ((eq system-type 'darwin)
+      (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict"))
+     ((eq system-type 'gnu/linux)
+      (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict"))))
+  (migemo-init))
 
 (defun japanese/init-avy-migemo ()
   (use-package avy-migemo
