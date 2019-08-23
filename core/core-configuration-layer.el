@@ -2662,20 +2662,20 @@ continue with the stable ELPA repository installation."
       (condition-case error
           (setq context (epg-make-context 'OpenPGP))
         (error (setq verification-err
-                     (format "GnuPGP seems not be available (%s)"
+                     (format "GnuPGP doesn't seem to be available. %s"
                              (cdr error)))))
       (unless verification-err
         (condition-case error
             (epg-import-keys-from-file
              context configuration-layer--stable-elpa-gpg-keyring)
           (error (setq verification-err
-                       (format "Cannot import public key (%s)"
+                       (format "Cannot import public key. %s"
                                (cdr error)))))
         (unless verification-err
           (condition-case error
               (epg-verify-string context sig-string (buffer-string))
             (error (setq verification-err
-                         (format "Error during verification phase (%s)"
+                         (format "Error during verification phase. %s"
                                  (cdr error)))))
           ;; The .sig file may contain multiple signatures. Success if one
           ;; of the signatures is good.
