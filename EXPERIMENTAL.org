@@ -51,7 +51,6 @@ else the =autoconf.sh= script will fail later on:
 #+END_SRC
 
 *** Simple patch of Emacs source code
-
 *Note: This seems to not be needed anymore. For reference we still keep it in
 the guide.*
 

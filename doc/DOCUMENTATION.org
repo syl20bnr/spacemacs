@@ -1757,17 +1757,17 @@ current layout. If there is only one opened buffer for a given layout then
 ~SPC TAB~ won't do anything and the following message is displayed in the
 minibuffer:
 
-#+begin_quote
-Last buffer not found.
-#+end_quote
+#+BEGIN_QUOTE
+  Last buffer not found.
+#+END_QUOTE
 
 To allow ~SPC TAB~ to switch to the last opened buffer from another layout set
 this variable =spacemacs-layouts-restrict-spc-tab= to =nil=. For instance in
 your used layer list with layer variables:
 
-#+begin_example emacs-lisp
+#+BEGIN_EXAMPLE
   (spacemacs-layouts :variables spacemacs-layouts-restrict-spc-tab t)
-#+end_example
+#+END_EXAMPLE
 
 *** Restrict a given function to the current layout
 You can make any function "layout aware" by adding it to the list
@@ -1778,11 +1778,11 @@ take effect.
 
 Default value for this variable is:
 
-#+begin_example emacs-lisp
+#+BEGIN_EXAMPLE
   '(spacemacs/window-split-double-columns
     spacemacs/window-split-triple-columns
     spacemacs/window-split-grid)
-#+end_example
+#+END_EXAMPLE
 
 If you want to add the function =my-func= to this list you need to redefine
 the complete list using layer variables:
