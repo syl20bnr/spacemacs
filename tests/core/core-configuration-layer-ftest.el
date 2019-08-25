@@ -49,32 +49,43 @@
 ;; configuration-layer//stable-elpa-verify-archive
 ;; ---------------------------------------------------------------------------
 
-;; FIXME: Always fail. >_> @syl20bnr
-;; (ert-deftest test-stable-elpa-verify-archive--verification-ok ()
-;;   (cl-letf (((symbol-function 'configuration-layer//stable-elpa-tarball-local-file)
-;;              (lambda ()
-;;                (concat spacemacs-test-directory
-;;                        "core/data/signed-test-stable-elpa.tar.gz")))
-;;             ((symbol-function 'configuration-layer//stable-elpa-tarball-local-sign-file)
-;;              (lambda ()
-;;                (concat spacemacs-test-directory
-;;                        "core/data/signed-test-stable-elpa.tar.gz.sig")))
-;;             ((symbol-function 'configuration-layer//stable-elpa-ask-to-continue)
-;;              (lambda (x)
-;;                (message "Verification Error: %s" x)
-;;                nil))
-;;             ((symbol-function 'configuration-layer//error)
-;;              (lambda (x)
-;;                (message "Fatal Error: %s" x)
-;;                nil))
-;;             ((symbol-function 'message) 'ignore))
-;;     (should (equal t (configuration-layer//stable-elpa-verify-archive)))))
+(defvar test-stable-elpa-verify-archive--verification-ok-error nil)
 
+(ert-deftest test-stable-elpa-verify-archive--verification-ok ()
+  ;; FIXME: >_> @syl20bnr
+  (skip-unless (not (and (version< emacs-version "27.1")
+                         (string-equal system-type "windows-nt"))))
+  (let (result)
+    (cl-letf (((symbol-function 'configuration-layer//stable-elpa-tarball-local-file)
+               (lambda ()
+                 (concat spacemacs-test-directory
+                         "core/data/signed-test-stable-elpa.tar.gz")))
+              ((symbol-function 'configuration-layer//stable-elpa-tarball-local-sign-file)
+               (lambda ()
+                 (concat spacemacs-test-directory
+                         "core/data/signed-test-stable-elpa.tar.gz.sig")))
+              ((symbol-function 'configuration-layer//stable-elpa-ask-to-continue)
+               (lambda (x)
+                 (setq test-stable-elpa-verify-archive--verification-ok-error x)
+                 nil))
+              ((symbol-function 'configuration-layer//error)
+               (lambda (x)
+                 (setq fatal-error x)
+                 nil))
+              ((symbol-function 'message) 'ignore))
+      (setq result (configuration-layer//stable-elpa-verify-archive)))
+    (should (if (null test-stable-elpa-verify-archive--verification-ok-error)
+                result
+              (message "Verification error was: %s"
+                       test-stable-elpa-verify-archive--verification-ok-error)
+              nil))))
+
+(defvar test-stable-elpa-verify-archive--verification-failed-error nil)
 (ert-deftest test-stable-elpa-verify-archive--verification-failed ()
   ;; FIXME: Seems to fail on specific Emacs version + OS combo >_> @syl20bnr
   (skip-unless (not (and (version< emacs-version "27.1")
                          (string-equal system-type "windows-nt"))))
-  (let (verification-error)
+  (let (result)
     (cl-letf (((symbol-function 'configuration-layer//stable-elpa-tarball-local-file)
                (lambda ()
                  (concat spacemacs-test-directory
@@ -85,13 +96,19 @@
                          "core/data/signed-test-stable-elpa.tar.gz.sig")))
               ((symbol-function 'configuration-layer//stable-elpa-ask-to-continue)
                (lambda (x)
-                 (setq verification-error x)
+                 (setq test-stable-elpa-verify-archive--verification-failed-error x)
                  nil))
               ((symbol-function 'configuration-layer//error)
                (lambda (x)
-                 (message "Fatal Error: %s" x)
+                 (setq fatal-error x)
                  nil))
               ((symbol-function 'message) 'ignore))
-      (should (and (null (configuration-layer//stable-elpa-verify-archive))
-                   (string-match-p "^Verification failed!.*"
-                                   verification-error))))))
+      (setq result (null (configuration-layer//stable-elpa-verify-archive))))
+    (should
+     (cond
+      ((and result
+            (string-match-p "^Verification failed!.*"
+                            test-stable-elpa-verify-archive--verification-failed-error)) t)
+      (t (message "Verification error was: %s"
+                  test-stable-elpa-verify-archive--verification-failed-error)
+         nil)))))
