@@ -2647,56 +2647,64 @@ Returns non nil if the verification succeeded.
 
 If Spacemacs cannot verify the archive a prompt ask the user if they want to
 continue with the stable ELPA repository installation."
-  (let* (context
-         good-signatures
-         verification-err
-         (archive (configuration-layer//stable-elpa-tarball-local-file))
-         (sig-file (configuration-layer//stable-elpa-tarball-local-sign-file))
-         (sig-string (with-current-buffer (find-file-noselect sig-file)
-                       (buffer-string)))
-         large-file-warning-threshold)
-    (with-current-buffer (find-file-noselect archive)
-      (spacemacs-buffer/set-mode-line
-       (format "Verifying %s archive..."
-               configuration-layer-stable-elpa-name) t)
-      (condition-case error
-          (setq context (epg-make-context 'OpenPGP))
-        (error (setq verification-err
-                     (format "GnuPGP doesn't seem to be available. %s"
-                             (cdr error)))))
-      (unless verification-err
+  (let (context
+        good-signatures
+        verification-err
+        fatal-err
+        (archive (configuration-layer//stable-elpa-tarball-local-file))
+        (sig-file (configuration-layer//stable-elpa-tarball-local-sign-file))
+        large-file-warning-threshold)
+    (when (or (not (file-exists-p archive))
+              (not (file-exists-p sig-file)))
+      (setq fatal-err (concat "Cannot find downloaded stable ELPA repository "
+                              "archive or its signature file.")))
+    (unless fatal-err
+      (with-current-buffer (find-file-noselect archive)
+        (spacemacs-buffer/set-mode-line
+         (format "Verifying %s archive..."
+                 configuration-layer-stable-elpa-name) t)
         (condition-case error
-            (epg-import-keys-from-file
-             context configuration-layer--stable-elpa-gpg-keyring)
+            (setq context (epg-make-context 'OpenPGP))
           (error (setq verification-err
-                       (format "Cannot import public key. %s"
+                       (format "GnuPGP doesn't seem to be available. %s"
                                (cdr error)))))
         (unless verification-err
           (condition-case error
-              (epg-verify-string context sig-string (buffer-string))
+              (epg-import-keys-from-file
+               context configuration-layer--stable-elpa-gpg-keyring)
             (error (setq verification-err
-                         (format "Error during verification phase. %s"
+                         (format "Cannot import public key. %s"
                                  (cdr error)))))
-          ;; The .sig file may contain multiple signatures. Success if one
-          ;; of the signatures is good.
-          (dolist (sig (epg-context-result-for context 'verify))
-            (when (eq (epg-signature-status sig) 'good)
-              (push sig good-signatures)))
-          (when (null good-signatures)
-            (unless verification-err
-              ;; `epg-verify-string' does not signal error when everything
-              ;; went fine but the verification in itself failed.
-              ;; This is a strong indicator that the archive may be
-              ;; compromised.
-              (setq verification-err
-                    (concat "Verification failed! It is strongly advised to "
-                            "NOT install the stable ELPA repository and "
-                            "report it on GitHub.")))
-            (when init-file-debug
-              (package--display-verify-error context sig-file))))))
-    (if verification-err
-        (configuration-layer//stable-elpa-ask-to-continue verification-err)
-      t)))
+          (unless verification-err
+            (condition-case error
+                (epg-verify-file context sig-file archive)
+              (error (setq verification-err
+                           (format "Error during verification phase. %s"
+                                   (cdr error)))))
+            ;; The .sig file may contain multiple signatures. Success if one
+            ;; of the signatures is good.
+            (dolist (sig (epg-context-result-for context 'verify))
+              (when (eq (epg-signature-status sig) 'good)
+                (push sig good-signatures)))
+            (when (null good-signatures)
+              (unless verification-err
+                ;; `epg-verify-string' does not signal error when everything
+                ;; went fine but the verification in itself failed.
+                ;; This is a strong indicator that the archive may be
+                ;; compromised.
+                (setq verification-err
+                      (concat "Verification failed! It is strongly advised to "
+                              "NOT install the stable ELPA repository and "
+                              "report it on GitHub.")))
+              (when init-file-debug
+                (package--display-verify-error context sig-file)))))))
+    (cond
+     ((not (null fatal-err))
+      (configuration-layer//error fatal-err)
+      nil)
+     ((not (null verification-err))
+      (configuration-layer//stable-elpa-ask-to-continue verification-err))
+     (t t))))
 
 (defun configuration-layer//stable-elpa-untar-archive ()
   "Untar the downloaded archive of stable ELPA, returns non-nil if succeeded."
