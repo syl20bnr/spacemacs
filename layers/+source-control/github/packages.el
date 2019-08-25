@@ -11,7 +11,9 @@
 
 (setq github-packages
       '(
-        forge
+        ;; forge requires a C compiler on Windows so we disable
+        ;; it by default on Windows.
+        (forge :toggle (not (spacemacs/system-is-mswindows)))
         gist
         github-clone
         github-search

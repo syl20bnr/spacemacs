@@ -10,8 +10,9 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#git-configuration][Git configuration]]
+  - [[#forge][Forge]]
 - [[#key-bindings][Key bindings]]
-  - [[#forge][forge]]
+  - [[#forge-1][Forge]]
   - [[#gistel][gist.el]]
   - [[#clone-repositories][Clone repositories]]
 
@@ -41,8 +42,21 @@ You will also need to [[https://help.github.com/articles/generating-a-new-ssh-ke
   git config --global github.oauth-token <token>
 #+END_SRC
 
+** Forge
+The =forge= package uses =emacsql= which requires a C compiler to be available
+on MS Windows, see issue [[https://github.com/skeeto/emacsql/issues/46]].
+
+For this reason the =forge= package is not installed on MS Windows by default.
+If you still want to install it (which means you do have a C compiler available
+in your PATH) then use the =dotspacemacs-additional-packages= variable in your
+dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (dotspacemacs-additional-packages '((forge :toggle t)))
+#+END_SRC
+
 * Key bindings
-** forge
+** Forge
 In a =magit-status= buffer (~SPC g s~):
 
 | Key binding | Description                                               |

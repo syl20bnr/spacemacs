@@ -35,7 +35,7 @@
     (spacemacs/dump-restore-load-path)
     (configuration-layer/load-lock-file)
     (spacemacs/init)
-    (configuration-layer/stable-elpa-download-tarball)
+    (configuration-layer/stable-elpa-init)
     (configuration-layer/load)
     (spacemacs-buffer/display-startup-note)
     (spacemacs/setup-startup-hook)

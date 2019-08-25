@@ -101,6 +101,7 @@ and its values are removed."
 (defun spacemacs//redisplay ()
   "`redisplay' wrapper."
   (setq spacemacs--init-redisplay-count (1+ spacemacs--init-redisplay-count))
+  (force-window-update)
   (redisplay))
 
 (defun spacemacs//create-key-binding-form (props func)

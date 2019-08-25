@@ -1490,6 +1490,8 @@ Other:
 **** GitHub
 - Packages:
   - Added new packages =forge= (thanks to Miciah Dashiel Butler Masters)
+  - Do not install =forge= on Windows by default, see =README.org= of the layer
+    (thanks to Sylvain Benner)
   - Remove package =github-browse-file= which has been replaced by
    =browse-at-remote= in =version-control= layer
 - Key bindings:
@@ -1581,6 +1583,7 @@ Other:
   (thanks to Tim Heckman)
 - Refactored two variables =go-use-gometalinter= and =go-use-golangci-lint= to
   one =go-linter= (thanks to Robert Zaremba)
+- Added Testify support (thanks to Mathieu Post)
 **** Graphviz
 - Use graphviz package from melpa (thanks to Matthew Boston)
 **** Groovy
@@ -2594,6 +2597,7 @@ Other:
 - Added =doom-themes= (thanks to Codruț Constantin Gușoi)
 - Created and added =ewal-spacemacs-themes= (thanks to Uroš Perišić)
 - Added =chocolate-theme= (thanks to Henrique Jung)
+- Updated =doom-themes= list to reflect upstream (thanks to Dominic Pearson)
 **** Tmux
 - Prevent =tmux-command= at GUI mode (thanks to Isaac Zeng)
 - Fixed regression in tmux by setting keybindings using =use-package=

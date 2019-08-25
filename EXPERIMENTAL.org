@@ -51,6 +51,9 @@ else the =autoconf.sh= script will fail later on:
 #+END_SRC
 
 *** Simple patch of Emacs source code
+*Note: This seems to not be needed anymore. For reference we still keep it in
+the guide.*
+
 We need to increase the number of =remembered_data= slots in =src/pdumper.c=, we
 double the number of slots by replacing 32 with 64:
 
