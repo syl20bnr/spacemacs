@@ -9,6 +9,7 @@
 
 * Description
 This layer adds support for Kivy, cross-platform GUI framework for Python.
+
 ** Features:
 - Syntax Highlighting
 
