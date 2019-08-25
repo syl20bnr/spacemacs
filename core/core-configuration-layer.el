@@ -2703,7 +2703,7 @@ continue with the stable ELPA repository installation."
         (condition-case error
             (setq context (epg-make-context 'OpenPGP))
           (error (setq verification-err
-                       (format "GnuPGP doesn't seem to be available. %s"
+                       (format "GnuPG doesn't seem to be available. %s"
                                (cdr error)))))
         (unless verification-err
           (condition-case error
