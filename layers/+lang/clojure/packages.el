@@ -235,7 +235,7 @@
         (clojure/fancify-symbols 'cider-repl-mode)
         (clojure/fancify-symbols 'cider-clojure-interaction-mode)))
 
-    (defadvice cider-jump-to-var (before add-evil-jump activate)
+    (defadvice cider-find-var (before add-evil-jump activate)
       (evil-set-jump))))
 
 (defun clojure/init-cider-eval-sexp-fu ()

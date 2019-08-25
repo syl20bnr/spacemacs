@@ -1277,6 +1277,7 @@ Other:
     (thanks to Timo Freiberg)
   - Change run-all-tests alias to run-project-tests (thanks to Timo Freiberg)
   - Fixed post-init of parinfer in the clojure layer (thanks to Martin Račák)
+  - Fixed jumping backwards after =cider-find-var= (thanks to Dieter Komendera)
 **** Coffeescript
 - Improvements:
   - Added basic autocompletion (thanks to Codruț Constantin Gușoi)
