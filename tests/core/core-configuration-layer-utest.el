@@ -3016,3 +3016,44 @@
                                   :reqs '((foo 7)))))
     (let ((patched-pkg (configuration-layer//package-install-org 'identity pkg)))
       (should (equal pkg patched-pkg)))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer//stable-elpa-verify-archive
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-stable-elpa-verify-archive--archive-not-found-is-fatal-error ()
+  (mocker-let
+   ((configuration-layer//stable-elpa-tarball-local-file
+     nil ((:record-cls 'mocker-stub-record
+                       :output
+                       (concat spacemacs-test-directory
+                               "core/data/not-found.tar.gz")
+                       :occur 1)))
+    (configuration-layer//stable-elpa-tarball-local-sign-file
+     nil ((:record-cls 'mocker-stub-record
+                       :output
+                       (concat spacemacs-test-directory
+                               "core/data/stable-elpa.sig")
+                       :occur 1)))
+    (configuration-layer//error
+     (msg &rest args) ((:record-cls 'mocker-stub-record :occur 1))))
+   (should (null (configuration-layer//stable-elpa-verify-archive)))))
+
+
+(ert-deftest test-stable-elpa-verify-archive--signature-not-found-is-fatal-error ()
+  (mocker-let
+   ((configuration-layer//stable-elpa-tarball-local-file
+     nil ((:record-cls 'mocker-stub-record
+                       :output
+                       (concat spacemacs-test-directory
+                               "core/data/signed-stable-elpa.tar.gz")
+                       :occur 1)))
+    (configuration-layer//stable-elpa-tarball-local-sign-file
+     nil ((:record-cls 'mocker-stub-record
+                       :output
+                       (concat spacemacs-test-directory
+                               "core/data/not-found.sig")
+                       :occur 1)))
+    (configuration-layer//error
+     (msg &rest args) ((:record-cls 'mocker-stub-record :occur 1))))
+   (should (null (configuration-layer//stable-elpa-verify-archive)))))
