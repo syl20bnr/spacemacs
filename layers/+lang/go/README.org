@@ -117,7 +117,14 @@ To enable the LSP backend set the layer variable =go-backend=:
 #+END_SRC
 
 You also need to install the Go Language Server.
-Consult the installation command for the desired language server found at [[https://www.github.com/emacs-lsp/lsp-mode/][lsp-mode]] for instructions.
+
+This is the [[https://github.com/golang/go/wiki/gopls][recommended procedure]] to install =gopls=:
+
+#+BEGIN_SRC sh
+  GO111MODULE=on go get -v golang.org/x/tools/gopls@latest
+#+END_SRC
+
+You can check [[https://www.github.com/emacs-lsp/lsp-mode/][lsp-mode]] for the gory details.
 
 Backend can be chosen on a per project basis using directory local variables
 (files named =.dir-locals.el= at the root of a project), an example to use the
