@@ -21,10 +21,11 @@
   "If non-nil then `->`, `=>` and `<-` are replaced with unicode arrows.")
 
 (defconst scala-backends '(scala-ensime scala-metals)
-  "Backend server implementation to be used to enable advanced IDE language features")
+  "Backend server implementation to enable advanced IDE language features")
 
 (defvar scala-backend 'scala-ensime
-  "Backend used to trigger IDE language features. `scala-ensime' or `scala-metals' are currently supported")
+  "Backend used to trigger IDE language features.
+`scala-ensime' or `scala-metals' are currently supported")
 
 (defvar scala-auto-start-backend nil
   "If non nil then ensime/metals will be started when a scala file is opened.")

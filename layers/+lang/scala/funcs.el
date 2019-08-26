@@ -14,14 +14,18 @@
   (spacemacs//java-setup-ensime)
   (add-to-list 'spacemacs-jump-handlers-scala-mode 'ensime-edit-definition))
 
+(defun spacemacs//scala-setup-metals ()
+  "Setup LSP metals for Scala."
+  (setq-local lsp-prefer-flymake nil))
+
 (defun spacemacs//scala-disable-flycheck-scala ()
   (push 'scala flycheck-disabled-checkers))
 
-(defun spacemacs//scala-backend-ensime ()
+(defun spacemacs//scala-backend-ensime-p ()
   "Return true if the selected backend is ensime"
   (eq scala-backend 'scala-ensime))
 
-(defun spacemacs//scala-backend-metals ()
+(defun spacemacs//scala-backend-metals-p ()
   "Return true if the selected backend is metals"
   (eq scala-backend 'scala-metals))
 

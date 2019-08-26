@@ -23,7 +23,7 @@
         ))
 
 (defun scala/post-init-eldoc ()
-  (when (and scala-enable-eldoc (spacemacs//scala-backend-ensime))
+  (when (and scala-enable-eldoc (spacemacs//scala-backend-ensime-p))
     (add-hook 'scala-mode-hook #'spacemacs//java-setup-ensime-eldoc)))
 
 (defun scala/pre-init-ensime ()
@@ -33,7 +33,7 @@
 (defun scala/post-init-ensime ()
   (use-package ensime
     :defer t
-    :if (spacemacs//scala-backend-ensime)
+    :if (spacemacs//scala-backend-ensime-p)
     :init
     (progn
       (add-hook 'scala-mode-hook #'spacemacs//scala-setup-ensime)
@@ -70,7 +70,7 @@
     :defer t
     :config
     ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
-    ;; allows using SPACE when in the minibuffer
+    ;; allows for using SPACE in the minibuffer
     (substitute-key-definition
      'minibuffer-complete-word
      'self-insert-command
@@ -90,12 +90,12 @@
     (progn
 
       ;; Ensure only one of metals and ensime is loaded
-      (unless (spacemacs//scala-backend-ensime)
+      (unless (spacemacs//scala-backend-ensime-p)
         (progn
 	  (fmakunbound 'ensime)
 	  (remove-hook 'after-change-functions 'ensime-after-change-function)
-	  (remove-hook 'window-configuration-change-hook 'ensime-show-left-margin-hook)))
-
+    (remove-hook 'window-configuration-change-hook
+                 'ensime-show-left-margin-hook)))
 
       ;; Automatically insert asterisk in a comment when enabled
       (defun scala/newline-and-indent-with-asterisk ()
@@ -159,13 +159,10 @@ If it's part of a left arrow (`<-'),replace it with the unicode arrow."
   (use-package lsp-scala
     :after scala-mode
     :demand t
-    :if (spacemacs//scala-backend-metals)
+    :if (spacemacs//scala-backend-metals-p)
     :config
-    (add-hook 'scala-mode
-              (lambda ()
-                (setq-local lsp-prefer-flymake nil)))
+    (add-hook 'scala-mode-local-vars-hook #'spacemacs//scala-setup-metals)
     :hook ((scala-mode) . lsp)))
-
 
 (defun scala/post-init-ggtags ()
   (add-hook 'scala-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
