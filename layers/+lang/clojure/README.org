@@ -237,7 +237,7 @@ As this state works the same for all files, the documentation is in global
 |-------------+-----------------------------|
 | ~SPC m h a~ | cider apropos               |
 | ~SPC m h c~ | clojure cheatsheet          |
-| ~SPC m h g~ | cider grimoire              |
+| ~SPC m h d~ | cider clojuredocs           |
 | ~SPC m h h~ | cider doc                   |
 | ~SPC m h j~ | cider javadoc               |
 | ~SPC m h n~ | cider browse namespace      |

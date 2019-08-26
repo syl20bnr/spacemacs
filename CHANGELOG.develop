@@ -1251,6 +1251,8 @@ Other:
     (thanks to John Stevenson)
   - Restore standard =SPC m s i= binding for =cider-jack-in-clj=
     (thanks to Russell Mull)
+  - ~SPC m h d~ new keybinding for =cider-clojuredocs= (thanks to Sam Hedin)
+  - Removed ~SPC m h g~ for =grimoire= as it is deprecated (thanks to Sam Hedin)
 - Fixes:
   - Remove `cider.nrepl/cider-middleware` in lein quick start setting
   - Fixed =cider-inspector-prev-page= binding, also add ~p~ as another key
