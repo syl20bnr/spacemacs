@@ -74,7 +74,7 @@
           (spacemacs/set-leader-keys-for-major-mode m
             "ha" 'cider-apropos
             "hc" 'cider-cheatsheet
-            "hg" 'cider-grimoire
+            "hd" 'cider-clojuredocs
             "hh" 'cider-doc
             "hj" 'cider-javadoc
             "hn" 'cider-browse-ns
