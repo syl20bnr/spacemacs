@@ -2600,7 +2600,6 @@ Other:
 - Remove themes that were deleted from Melpa (thanks to Henrique Jung)
 - Added =eziam-theme= and =kaolin-themes= (thanks to Sylvain Benner)
 - Added =doom-themes= (thanks to Codruț Constantin Gușoi)
-- Created and added =ewal-spacemacs-themes= (thanks to Uroš Perišić)
 - Added =chocolate-theme= (thanks to Henrique Jung)
 - Updated =doom-themes= list to reflect upstream (thanks to Dominic Pearson)
 **** Tmux
