@@ -26,13 +26,12 @@
         ))
 
 (defun elixir/post-init-company ()
-  (when (configuration-layer/package-used-p 'alchemist)
-    (spacemacs|add-company-backends
-      :backends alchemist-company
-      :modes elixir-mode alchemist-iex-mode)))
+  ;; backend specific
+  (add-hook 'elixir-mode-local-vars-hook #'spacemacs//elixir-setup-company))
 
 (defun elixir/init-alchemist ()
   (use-package alchemist
+    :if (eq elixir-backend 'alchemist)
     :defer t
     :init
     (progn
@@ -165,6 +164,8 @@
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
     :defer t
+    :init (spacemacs/add-to-hook 'elixir-mode-hook
+                                 '(spacemacs//elixir-setup-backend))
     :config
     (spacemacs/set-leader-keys-for-major-mode 'elixir-mode
       "=" 'elixir-format)))

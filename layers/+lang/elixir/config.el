@@ -17,4 +17,10 @@ Default is nil because Elixir compilation is based on macros and thus it
 is unsafe. Activate this option only for trusted code, usage of a
 directory variable is recommended.")
 
+(defvar elixir-backend 'alchemist
+  "The backend to use for IDE features. Possible values are `alchemist' and `lsp'.")
+
+(defvar elixir-ls-path "~/elixir-ls/release"
+  "The path to the folder that contains the elixir-ls release, start scripts (language_server.sh/language_server.bat).")
+
 (spacemacs|define-jump-handlers elixir-mode)
