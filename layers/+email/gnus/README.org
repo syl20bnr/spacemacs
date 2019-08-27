@@ -116,6 +116,7 @@ Basic and Spacemacs specific key bindings can be found in the following table.
 | ~SPC a g~   | Starts Gnus                                         |
 | ~m~         | New Message                                         |
 | ~G R~       | Group Buffer - Add RSS feed                         |
+| ~g r~       | Group Buffer - Check for new mail                   |
 | ~^~         | Open Server Buffer. Browse Newsgroups.              |
 | ~T n~       | Group Buffer - new Topic                            |
 | ~T m~       | Group Buffer - Move Group to Topic                  |
