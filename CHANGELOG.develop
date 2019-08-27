@@ -1411,6 +1411,7 @@ Other:
 -  Change binding of  =alchemist-project-find-test= from
   ~SPC m p t~ to ~SPC m t F~ (thanks to Lyuben Petrov)
 - Mark alchemist jump handler as async (thanks to Lukasz Czaplinski)
+- Added elixir-ls backend (thanks to mpanarin)
 **** Elm
 - Fixed flycheck initialization (thanks to Kevin W. van Rooijen)
 - Added =elm-test-runner= (thanks to Juan Edi)
