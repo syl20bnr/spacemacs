@@ -1081,6 +1081,7 @@ Other:
 - Improvements:
   - Added support for multiple vault password files, see the layer =README.org=
     (thanks to Sylvain Benner)
+  - Simplified filename matching re (thanks to Anatoli Babenia)
 - Fixes:
   - Fixed ansible-doc-mode error on ~SPC h d k~
     (thanks to Codruț Constantin Gușoi)
