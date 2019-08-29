@@ -273,6 +273,14 @@ be transferred using http, use at your own risk.
    git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
    ```
 
+   Or
+   
+   ```sh
+   git clone --depth 1 https://github.com/syl20bnr/spacemacs ~/.emacs.d
+   ```
+   
+   In case you have a limited internet connection or speed.
+
    `master` is the stable branch and it is _immutable_, **DO NOT** make any
    modification to it or you will break the update mechanism. If you want to
    fork Spacemacs safely, use the `develop` branch where you'll handle updates
