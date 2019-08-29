@@ -211,7 +211,7 @@
   - [[#general-layer-errors][General layer errors]]
     - [[#step-by-step-instructions-for-minimal-layer-bug-reports][Step by step instructions for minimal layer bug reports]]
   - [[#general-emacs-package-errors][General emacs package errors]]
-    - [[#step-by-step-instructions-for-minimal-emacs-bug-reports][Step by step instructions for minimal emacs package bug reports]]
+    - [[#step-by-step-instructions-for-minimal-emacs-package-bug-reports][Step by step instructions for minimal emacs package bug reports]]
 - [[#achievements][Achievements]]
   - [[#issues][Issues]]
   - [[#merged-pull-requests][Merged Pull Requests]]
@@ -3626,20 +3626,20 @@ retested.
 - Add initialization code for your package there
 
   #+BEGIN_SRC elisp
-;; Load the package
-(require 'package)
+    ;; Load the package
+    (require 'package)
 
-;; Mention all packages you wish to have loaded
-(setq package-load-list
-      '((package1 t)
-        (package2 t)
-        (package3 t)))
+    ;; Mention all packages you wish to have loaded
+    (setq package-load-list
+          '((package1 t)
+            (package2 t)
+            (package3 t)))
 
-;; Do package specific configuration if required
-;; (package-local-init)
+    ;; Do package specific configuration if required
+    ;; (package-local-init)
 
-;; Intialize your package list
-(package-initialize)
+    ;; Intialize your package list
+    (package-initialize)
   #+END_SRC
 
 - Now press ~M-x eval-buffer~ to evaluate the code.
