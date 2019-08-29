@@ -1551,6 +1551,8 @@ Other:
 **** Gnus
 - Key bindings:
   - Added ~g r~ for =gnus-group-get-new-news= (thanks to Matthew Leach)
+  - Added ~G~ for the prefix =gnus-group-group-map= in evil state
+    (thanks to duianto)
 **** Go
 - Improved go test output buffer behavior (thanks to Denis Bernard)
 - Configurable extra arguments to go run (thanks to Enze Chi)
