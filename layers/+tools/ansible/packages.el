@@ -63,9 +63,12 @@
   (use-package company-ansible
     :defer t
     :init
-    ;; append this hook at the end to execute it last so `company-backends'
-    ;; variable is buffer local
-    (add-hook 'yaml-mode-hook 'spacemacs/ansible-company-maybe-enable t)))
+    (progn
+     ;; append this hook at the end to execute it last so `company-backends'
+     ;; variable is buffer local
+     (add-hook 'yaml-mode-hook 'spacemacs/ansible-company-maybe-enable t)
+     (spacemacs|add-company-backends :backends company-ansible
+                                     :modes ansible))))
 
 (defun ansible/init-jinja2-mode ()
   (use-package jinja2-mode
