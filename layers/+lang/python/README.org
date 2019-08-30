@@ -447,7 +447,7 @@ Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][li
 
 | Key binding   | Description                                                                       |
 |---------------+-----------------------------------------------------------------------------------|
-| ~SPC m =~     | reformat the buffer using formatter specified in =python-formatter=               |
+| ~SPC m ==~    | reformat the buffer using formatter specified in =python-formatter=               |
 | ~SPC m d b~   | toggle a breakpoint using =wdb=, =ipdb=, =pudb=, =pdb= or =python3.7= (and above) |
 | ~SPC m g a~   | go to assignment using =anaconda-mode-find-assignments= (~C-o~ to jump back)      |
 | ~SPC m g b~   | jump back                                                                         |
