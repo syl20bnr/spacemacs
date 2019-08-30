@@ -349,7 +349,7 @@ to be called for each testrunner. "
 
 (defun spacemacs//bind-python-formatter-keys ()
   (spacemacs/set-leader-keys-for-major-mode 'python-mode
-    "=" 'spacemacs/python-format-buffer))
+    "==" 'spacemacs/python-format-buffer))
 
 (defun spacemacs/python-format-buffer ()
   (interactive)
