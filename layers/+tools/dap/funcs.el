@@ -13,7 +13,7 @@
   "Define key bindings for the specific MODE."
 
   (spacemacs/declare-prefix-for-mode mode "md" "debug")
-  (spacemacs/declare-prefix-for-mode mode "mdd" "debuging")
+  (spacemacs/declare-prefix-for-mode mode "mdd" "debugging")
   (spacemacs/declare-prefix-for-mode mode "mdb" "breakpoints")
   (spacemacs/declare-prefix-for-mode mode "mdw" "debug windows")
   (spacemacs/declare-prefix-for-mode mode "mdS" "switch")
