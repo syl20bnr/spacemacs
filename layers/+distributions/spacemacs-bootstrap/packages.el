@@ -27,7 +27,7 @@
         (evil-evilified-state :location local :step pre :protected t)
         (pcre2el :step pre)
         (holy-mode :location local :step pre)
-        (hybrid-mode :location local :step pre)
+        (hybrid-mode :location (recipe :fetcher local) :step pre)
         (spacemacs-theme :location built-in)
         ))
 
