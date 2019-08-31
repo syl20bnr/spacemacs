@@ -193,7 +193,6 @@ some functions that deal with sorting maps.
 Linting works via flycheck and disabled by default.
 
 *** Squiggly linter
-
 It uses [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] behind the scene. You can enable it like this:
 
 #+BEGIN_SRC emacs-lisp
@@ -201,7 +200,6 @@ It uses [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] 
 #+END_SRC
 
 *** clj-kondo linter
-
 This linter based on static syntax check, require [[https://github.com/borkdude/clj-kondo][clj-kondo]] installed on your PATH. Detailed installation instructions can be found [[https://github.com/borkdude/clj-kondo/blob/master/doc/install.md][here]].
 
 #+BEGIN_SRC emacs-lisp
