@@ -1643,6 +1643,9 @@ Features:
 This layer adds support for [[http://elixir-lang.org/][Elixir]].
 
 [[https://github.com/tonini/alchemist.el][Alchemist]] brings the Elixir tooling to Emacs and comes with a bunch of features.
+[[https://github.com/emacs-lsp/lsp-mode][Lsp-mode]] brings IDE like features following Language Server Protocol, through [[https://github.com/JakeBecker/elixir-ls][elixir-ls]]
+
+As Alchemist is no longer maintained, elixir-ls is a preferred solution, even though it has less features at the moment.
 
 Features:
 - Powerful IEx integration
