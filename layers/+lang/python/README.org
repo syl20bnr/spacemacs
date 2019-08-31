@@ -234,7 +234,7 @@ The key binding ~SPC m =~ invokes the selected formatter on the current buffer
 when in non LSP python mode otherwise ~SPC m ==~ is used.
 
 Note that a specific formatter may also be invoked unconditionally via
-=yapfify-buffer=,  =blacken-buffer= or =lsp-format-buffer=, provided
+=yapfify-buffer=, =blacken-buffer= or =lsp-format-buffer=, provided
 these are installed.
 
 ** Automatic buffer formatting on save
