@@ -348,8 +348,12 @@ to be called for each testrunner. "
 ;; Formatters
 
 (defun spacemacs//bind-python-formatter-keys ()
+  "Bind the python formatter keys.
+Bind formatter to == for LSP and = for all other backends."
   (spacemacs/set-leader-keys-for-major-mode 'python-mode
-    "==" 'spacemacs/python-format-buffer))
+    (if (eq python-backend 'lsp)
+        "=="
+      "=") 'spacemacs/python-format-buffer))
 
 (defun spacemacs/python-format-buffer ()
   (interactive)
