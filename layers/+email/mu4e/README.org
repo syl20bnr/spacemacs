@@ -23,7 +23,7 @@
 - [[#see-also][See also]]
 
 * Description
-This layer adds support for the Mu4e email client.
+This layer adds support for the =Mu4e= email client.
 
 ** Features:
 - Search, read, reply, move, and delete email.
@@ -31,14 +31,15 @@ This layer adds support for the Mu4e email client.
 - UI optimized for speed: quick keystrokes for common actions.
 - Very extendable and customizable.
 - Integration with Helm.
-- Maildir summary using [[https://github.com/agpchil/mu4e-maildirs-extension][mu4e-mailidrs-extension]]
+- Maildir summary using [[https://github.com/agpchil/mu4e-maildirs-extension][mu4e-mailidirs-extension]]
 - Notifications using [[https://github.com/iqbalansari/mu4e-alert][mu4e-alert]]
 
 * Install
-In order to use this layer you must install mu and mu4e separately. Typically
-mu4e will be bundled with mu (this is the case on many Linux distributions).
+In order to use this layer you must install =mu= and =mu4e= separately.
+Typically =mu4e= will be bundled with =mu= (this is the case on many Linux
+distributions).
 
-If you're on OS X and install mu using Homebrew, you must specify the
+If you're on OS X and install =mu= using Homebrew, you must specify the
 location of your Emacs binary at install time using the EMACS environment
 variable, as well as passing the =--with-emacs= option:
 
@@ -46,7 +47,7 @@ variable, as well as passing the =--with-emacs= option:
   brew install mu --with-emacs
 #+END_SRC
 
-If the installation directory of mu4e is not in Emacs' load path, you can set
+If the installation directory of =mu4e= is not in Emacs' load path, you can set
 the layer variable =mu4e-installation-path=, for example:
 
 #+BEGIN_SRC emacs-lisp
@@ -66,7 +67,7 @@ existing =dotspacemacs-configuration-layers= list in this file.
 | ~SPC a M~              | Start mu4e                      |
 | ~SPC m S~ or ~SPC m /~ | Search emails (requires helm)   |
 | ~SPC m C~              | Search contacts (requires helm) |
-| C-x m                  | Compose new message             |
+| ~C-x m~                | Compose new message             |
 
 ** Headers mode
 
@@ -86,11 +87,11 @@ existing =dotspacemacs-configuration-layers= list in this file.
 
 * Configuration
 Configuration varies too much to give precise instructions. What follows is one
-example configuration. Refer to mu4e's manual for more detailed configuration
+example configuration. Refer to =mu4e='s manual for more detailed configuration
 instructions.
 
 ** Maildirs extension
-The [[https://github.com/agpchil/mu4e-maildirs-extension][maildirs extension]] adds a list of all your maildirs to the main mu4e view
+The [[https://github.com/agpchil/mu4e-maildirs-extension][maildirs extension]] adds a list of all your maildirs to the main =mu4e= view
 that by default shows the unread and total mail counts for all your mail under
 your base mail directory.
 
@@ -104,7 +105,7 @@ variable =mu4e-use-maildirs-extension= to a non-nil value:
 #+END_SRC
 
 ** Multiple Accounts
-With `mu 0.9.16`, mu4e comes with a native contexts feature for managing
+With =mu 0.9.16=, =mu4e= comes with a native contexts feature for managing
 multiple accounts.
 
 The following example is taken from the manual:
@@ -153,11 +154,11 @@ The following example is taken from the manual:
 #+END_SRC
 
 Note: We used to have a hack to support multiple accounts with older version of
-`mu` but we removed it to encourage people to update their version and use the
+=mu= but we removed it to encourage people to update their version and use the
 new contexts feature.
 
 ** Async mode
-mu4e can send mails in async mode, which speeds up sending as you do not have
+=mu4e= can send mails in async mode, which speeds up sending as you do not have
 to wait for the email to be sent. This is off by default but you can enable
 it by setting the ~mu4e-enable-async-operations~ variable when including the
 layer.
@@ -169,8 +170,9 @@ layer.
 #+END_SRC
 
 ** Attachment directory
-By default mu4e will save attachment files to $HOME, but this layer changes
-that to $HOME/Downloads if it exists. You can override this in your user-config:
+By default =mu4e= will save attachment files to =$HOME=, but this layer changes
+that to =$HOME/Downloads= if it exists. You can override this in your
+=dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
   (setq mu4e-attachment-dir "~/files")
@@ -266,7 +268,8 @@ A [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#lay
 for it can be customized with the following layer variables:
 - =mu4e-spacemacs-layout-name= for the layout name,
 - =mu4e-spacemacs-layout-binding= for the key binding.
-- =mu4e-spacemacs-kill-layout-on-exit= for automatically removing layout when quitting mu4e.
+- =mu4e-spacemacs-kill-layout-on-exit= for automatically removing layout when
+  quitting =mu4e=.
 
 By default the values are:
 
@@ -278,5 +281,5 @@ By default the values are:
 #+END_SRC
 
 * See also
-Refer to the official mu and mu4e documentation for additional info.
+Refer to the official =mu= and =mu4e= documentation for additional info.
 - [[http://www.djcbsoftware.nl/code/mu/mu4e/index.html][mu4e Manual]]
