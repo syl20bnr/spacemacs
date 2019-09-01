@@ -11,15 +11,15 @@
   - [[#layer][Layer]]
   - [[#pretty-symbols][Pretty Symbols]]
   - [[#enabling-sayid-or-clj-refactor][Enabling sayid or clj-refactor]]
+  - [[#enabling-automatic-linting][Enabling Automatic Linting]]
+    - [[#enable-clj-kondo-linter][Enable clj-kondo linter]]
+    - [[#enable-squiggly-linter][Enable Squiggly linter]]
   - [[#starting-clojure-manually-outside-of-emacs][Starting Clojure manually (outside of Emacs)]]
     - [[#quick-start-with-boot][Quick Start with boot]]
     - [[#quick-start-with-lein][Quick Start with lein]]
     - [[#more-details][More details]]
 - [[#usage][Usage]]
   - [[#cheatsheet][Cheatsheet]]
-  - [[#linting][Linting]]
-    - [[#squiggly-linter][Squiggly linter]]
-    - [[#clj-kondo-linter][clj-kondo linter]]
   - [[#structuraly-safe-editing][Structuraly safe editing]]
 - [[#key-bindings][Key bindings]]
   - [[#working-with-clojure-files-barfage-slurpage--more][Working with clojure files (barfage, slurpage & more)]]
@@ -110,6 +110,77 @@ In your Spacemacs configuration:
 Enabling either of these packages will cause extra nREPL middleware to be
 injected when jacking in CIDER.
 
+** Enabling Automatic Linting
+[[https://github.com/borkdude/clj-kondo][clj-kondo]] and [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] provide automated linting via =flycheck=.
+These packages disabled by default as they require the relevant linter binaries
+to be installed locally.
+
+The recommended linter is [[https://github.com/borkdude/clj-kondo][clj-kondo]]
+
+squiggly reloads your code on every change which gives unexpected results if
+your code is not re-loadable.  squiggly also requires =org.clojure/core.typed= be
+added to the development dependencies of your projects or build tool when using
+=cider-connect=.
+
+Joker is a Clojure linter written in Go and is available separately via the
+[[https://github.com/n2o/clojure-lint-spacemacs-layer][unofficial clojure-lint layer]]
+
+*** Enable clj-kondo linter
+This linter based on static syntax checking and requires the [[https://github.com/borkdude/clj-kondo][clj-kondo]] binary
+installed on the system PATH that =spacemacs.env= includes. Please read the
+[[https://github.com/borkdude/clj-kondo/blob/master/doc/install.md][clj-kondo binary installation instructions]]
+
+Enable the clj-kondo automatic linter in Spacemacs by adding a =:variables= option
+to your Spacemacs configuration:
+
+#+BEGIN_SRC emacs-lisp
+  ;; Witout any variables your configuration would just include clojure
+  dotspacemacs-configuration-layers
+  '(...
+    clojure
+    )
+
+  ;; to use clj-kondo as a linter, add this variable to the clojure layer
+  ;; wrapping the clojure layer in a list
+  dotspacemacs-configuration-layers
+  '(...
+    (clojure :variables
+             clojure-enable-linters 'clj-kondo)
+    )
+#+END_SRC
+
+
+*** Enable Squiggly linter
+[[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] uses [[https://github.com/jonase/eastwood][Eastwood]] and [[https://github.com/jonase/kibit][Kibit]] for linting.  Please install these projects
+before configuring Spacemacs with =squiggly=.
+
+Make sure to read the [[https://github.com/clojure-emacs/squiggly-clojure#warnings][squiggly-clojure warnings section]].
+
+Please read the section on [[https://github.com/clojure-emacs/squiggly-clojure#dependencies-in-clojure][squiggly dependencies]] if you are using =cider-connect=
+
+Enable the clj-kondo automatic linter in Spacemacs by adding a =:variables= option
+to your Spacemacs configuration:
+
+#+BEGIN_SRC emacs-lisp
+  ;; Witout any variables your configuration would just include clojure
+  dotspacemacs-configuration-layers
+  '(...
+    clojure
+    )
+
+  ;; to use squiggly as a linter, add this variable to the clojure layer
+  ;; wrapping the clojure layer in a list
+  dotspacemacs-configuration-layers
+    '(...
+      (clojure :variables
+               clojure-enable-linters 'squiggly)
+      )
+
+#+END_SRC
+
+Troubleshooting: please read [[https://github.com/clojure-emacs/squiggly-clojure#debugging-and-bug-reporting][debugging and bug reporting]] and try to reproduce using the [[https://github.com/clojure-emacs/squiggly-clojure/tree/master/sample-project][sample project]].
+
+
 ** Starting Clojure manually (outside of Emacs)
 CIDER communicates with your Clojure process through nREPL, and for CIDER to
 function correctly extra nREPL middleware needs to be present
@@ -188,27 +259,6 @@ This layers installs the [[https://github.com/clojure-emacs/clojure-cheatsheet][
 Type ~SPC m h c~ to display the cheatsheet then type in some terms (space
 separated) to narrow down the list. For example, try typing in sort map to see
 some functions that deal with sorting maps.
-
-** Linting
-Linting works via flycheck and disabled by default.
-
-*** Squiggly linter
-It uses [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] behind the scene. You can enable it like this:
-
-#+BEGIN_SRC emacs-lisp
-  (setq clojure-enable-linters 'squiggly)
-#+END_SRC
-
-*** clj-kondo linter
-This linter based on static syntax check, require [[https://github.com/borkdude/clj-kondo][clj-kondo]] installed on your PATH. Detailed installation instructions can be found [[https://github.com/borkdude/clj-kondo/blob/master/doc/install.md][here]].
-
-#+BEGIN_SRC emacs-lisp
-  (setq clojure-enable-linters 'clj-kondo)
-#+END_SRC
-
-Make sure to read the [[https://github.com/clojure-emacs/squiggly-clojure#warnings][warnings section]].
-If you have a problem peek into [[https://github.com/clojure-emacs/squiggly-clojure#debugging-and-bug-reporting][debugging and bug reporting]] then try to reproduce in the [[https://github.com/clojure-emacs/squiggly-clojure/tree/master/sample-project][sample project]].
-NOTE: With the default linter configs you should add =org.clojure/core.typed= to the development dependencies.
 
 ** Structuraly safe editing
 This layer adds support for =evil-cleverparens= which allows to safely edit
