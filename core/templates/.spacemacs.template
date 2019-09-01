@@ -133,16 +133,17 @@ It should only modify the values of Spacemacs settings."
    ;; (default (* 1024 1024))
    dotspacemacs-read-process-output-max (* 1024 1024)
 
-   ;; If non-nil then Spacelpa repository is the primary source to install
-   ;; a locked version of packages. If nil then Spacemacs will install the
-   ;; latest version of packages from MELPA. Spacelpa is currently in
-   ;; experimental state please use only for testing purposes.
-   ;; (default nil)
-   dotspacemacs-use-spacelpa nil
+   ;; Only used for testing purpose, this variable is effective only on the
+   ;; develop branch. When non-nil it forces the develop branch of Spacemacs
+   ;; to use the stable ELPA repository, i.e. it makes the develop branch to
+   ;; behave like the master branch. (default nil)
+   dotspacemacs-use-stable-elpa nil
 
-   ;; If non-nil then verify the signature for downloaded Spacelpa archives.
-   ;; (default t)
-   dotspacemacs-verify-spacelpa-archives t
+   ;; If non-nil then verify the signature for downloaded stable ELPA archives.
+   ;; It strongly advised to let this variable to its default value `t'. You
+   ;; should fix your environment to have a working GnuPG setup and be able to
+   ;; verify the stable ELPA repository archive. (default t)
+   dotspacemacs-verify-stable-elpa-archives t
 
    ;; If non-nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for

@@ -93,13 +93,13 @@ environment, otherwise it is strongly recommended to let it set to t.")
 (defvar dotspacemacs-elpa-timeout 5
   "Maximum allowed time in seconds to contact an ELPA repository.")
 
-(defvar dotspacemacs-use-spacelpa nil
+(defvar dotspacemacs-use-stable-elpa nil
   "If non-nil then Spacelpa repository is the primary source to install
 a locked version of packages. If nil then Spacemacs will install the latest
 version of packages from MELPA. Spacelpa is currently in experimental
 state and should only be used for testing.")
 
-(defvar dotspacemacs-verify-spacelpa-archives nil
+(defvar dotspacemacs-verify-stable-elpa-archives nil
   "If non-nil then verify the signature for downloaded Spacelpa archives.")
 
 (defvar dotspacemacs-elpa-subdirectory 'emacs-version

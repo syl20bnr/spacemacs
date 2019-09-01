@@ -1,0 +1,24 @@
+;; -*- mode: emacs-lisp -*-
+;; Lock file for installing the pinned version of all packages from the
+;; official stale ELPA repository of Spacemacs.
+
+(setq configuration-layer-elpa-subdirectory "stable")
+
+(setq configuration-layer-stable-elpa-name "spacelpa")
+(setq configuration-layer-stable-elpa-version "0.401")
+
+(setq configuration-layer-elpa-archives
+  `(("melpa"    . "melpa.org/packages/")
+    ("org"      . "orgmode.org/elpa/")
+    ("gnu"      . "elpa.gnu.org/packages/")
+    ("spacelpa" . ,(format "%s%s-%s/packages/"
+                           configuration-layer-stable-elpa-base-directory
+                           configuration-layer-stable-elpa-name
+                           configuration-layer-stable-elpa-version))))
+
+(setq package-archive-priorities
+      '(("spacelpa" . 8)
+        ("melpa"    . 4)
+        ("org"      . 2)
+        ("gnu"      . 1)))
+

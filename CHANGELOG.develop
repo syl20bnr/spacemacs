@@ -486,7 +486,7 @@ In org-agenda-mode
     window is available. If non nil, =switch-to-buffer= displays the buffer in a
     same-purpose window even if the buffer can be displayed in the current
     window. (thanks to bmag)
-  - New variable =dotspacemacs-use-spacelpa= (thanks to Sylvain Benner)
+  - New variable =dotspacemacs-use-stable-elpa= (thanks to Sylvain Benner)
   - New variable =dotspacemacs-zone-out-when-idle= to zone when idle. Zoning
     will obfuscate the current buffer acting like a screen saver.
     (thanks to Eugene Yaremenko and Sylvain Benner)

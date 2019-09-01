@@ -45,17 +45,25 @@
   (let ((file-name-handler-alist nil))
     (require 'core-spacemacs)
     (spacemacs/dump-restore-load-path)
-    (configuration-layer/load-lock-file)
     (spacemacs/init)
-    (configuration-layer/stable-elpa-init)
-    (configuration-layer/load)
-    (spacemacs-buffer/display-startup-note)
-    (spacemacs/setup-startup-hook)
-    (spacemacs/dump-eval-delayed-functions)
-    (when (and dotspacemacs-enable-server (not (spacemacs-is-dumping-p)))
-      (require 'server)
-      (when dotspacemacs-server-socket-dir
-        (setq server-socket-dir dotspacemacs-server-socket-dir))
-      (unless (server-running-p)
-        (message "Starting a server...")
-        (server-start)))))
+    ;; Note: Stable ELPA is mandatory on the master (stable) branch.
+    ;; On the develop branch stable ELPA is optional
+    (if (configuration-layer/stable-elpa-init)
+        (progn
+          (configuration-layer/initialize)
+          (configuration-layer/load)
+          (spacemacs-buffer/display-startup-note)
+          (spacemacs/setup-startup-hook)
+          (spacemacs/dump-eval-delayed-functions)
+          (when (and dotspacemacs-enable-server
+                     (not (spacemacs-is-dumping-p)))
+            (require 'server)
+            (when dotspacemacs-server-socket-dir
+              (setq server-socket-dir dotspacemacs-server-socket-dir))
+            (unless (server-running-p)
+              (message "Starting a server...")
+              (server-start))))
+      (message
+       (concat "Spacemacs cannot continue, you need to fix the issue above. \n"
+               "Press any key to close Emacs."))
+      (set-transient-map map nil '(kill-emacs)))))

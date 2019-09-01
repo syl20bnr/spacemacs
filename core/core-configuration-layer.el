@@ -22,6 +22,7 @@
 (require 'core-funcs)
 (require 'core-progress-bar)
 (require 'core-spacemacs-buffer)
+(require 'core-release-management)
 
 (defvar configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout
   "Timeout in seconds to reach a package archive page.")
@@ -48,47 +49,9 @@
       spacemacs-private-directory))
   "Spacemacs default directory for private layers.")
 
-(defconst configuration-layer-lock-file
-  (concat spacemacs-start-directory ".lock")
-  "Absolute path to the lock file.")
-
-(defvar configuration-layer-stable-elpa-version spacemacs-version
-  "Version of ELPA stable repository. This value is aimed to be defined in
-the .lock file at the root of the repository.")
-
-(defvar configuration-layer-stable-elpa-name "spacelpa"
-  "Name of the stable ELPA repository. Should be defined in the lock file.")
-
 (defvar configuration-layer-elpa-subdirectory ""
   "Sub-directory name where to install ELPA packages. Should be defined in
-the lock file.")
-
-(defconst configuration-layer-stable-elpa-directory
-  (expand-file-name
-   (concat spacemacs-cache-directory "stable-elpa/" emacs-version "/"))
-  "Remote location of the tarball for the ELPA stable directory")
-
-(defconst configuration-layer-stable-elpa-archive nil
-  "Absolute path to stable ELPA directory. This value is aimed to be defined in
-the .lock file at the root of the repository.")
-
-(defconst configuration-layer--stable-elpa-tarball-directory
-  "https://github.com/syl20bnr/spacelpa/archive/"
-  "Remote location of the tarball for the ELPA stable directory")
-
-(defconst configuration-layer--stable-elpa-sig-directory
-  "https://github.com/syl20bnr/spacelpa/releases/download/"
-  "Remote location of the signature file for the ELPA stable directory")
-
-(defconst configuration-layer--stable-elpa-gpg-keyring
-  (expand-file-name (concat spacemacs-core-directory "gnupg/spacemacs.gpg"))
-  "Absolute path to public GPG key used to signed the ELPA stable repository
-tarballs.")
-
-(defconst configuration-layer--stable-elpa-version-file
-  (concat configuration-layer-stable-elpa-directory "version")
-  "Absolute path to the file containing the current stable elpa repository
-version")
+the .lock files.")
 
 (defun configuration-layer/elpa-directory (root)
   "Evaluate the correct package subdirectory of ROOT. This is
@@ -420,13 +383,9 @@ directory with a name starting with `+'.")
   "Used to collect information about rollback packages in the
 cache folder.")
 
-(defun configuration-layer/load-lock-file ()
-  "Load the .lock file"
-  (configuration-layer/load-file configuration-layer-lock-file))
-
 (defun configuration-layer/initialize ()
   "Initialize `package.el'."
-  (unless dotspacemacs-use-spacelpa
+  (unless dotspacemacs-use-stable-elpa
     (configuration-layer//stable-elpa-disable-repository))
   (setq configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout)
   (unless package--initialized
@@ -2598,44 +2557,6 @@ Original code from dochang at https://github.com/dochang/elpa-clone"
         (prin1 archive-contents (current-buffer))
         (save-buffer)))))
 
-(defun configuration-layer/stable-elpa-version ()
-  "Set and return the current version of the ELPA repository.
-Returns nil if the version is unknown."
-  (interactive)
-  (when (file-exists-p configuration-layer--stable-elpa-version-file)
-    (with-current-buffer (find-file-noselect
-                          configuration-layer--stable-elpa-version-file)
-      (when (called-interactively-p 'interactive)
-        (message "Stable ELPA repository version is: %s" (buffer-string)))
-      (buffer-string))))
-
-(defun configuration-layer//stable-elpa-tarball-distant-file ()
-  "Return the distant file path of the downloaded tarball of ELPA stable
-repository."
-  (format "%sv%s.tar.gz"
-          configuration-layer--stable-elpa-tarball-directory
-          configuration-layer-stable-elpa-version))
-
-(defun configuration-layer//stable-elpa-tarball-distant-sign-file ()
-  "Return the absolute path to the signature file."
-  (format "%s/v%s/v%s.tar.gz.sig"
-          configuration-layer--stable-elpa-sig-directory
-          configuration-layer-stable-elpa-version
-          configuration-layer-stable-elpa-version))
-
-(defun configuration-layer//stable-elpa-directory ()
-  "Return the local absolute path of the ELPA stable repository."
-  configuration-layer-stable-elpa-archive)
-
-(defun configuration-layer//stable-elpa-tarball-local-file ()
-  "Return the local absolute path for the file of the downloaded tarball of
-ELPA stable repository."
-  (format "%s.tar.gz" (configuration-layer//stable-elpa-directory)))
-
-(defun configuration-layer//stable-elpa-tarball-local-sign-file ()
-  "Return the absolute path to the signature file."
-  (format "%s.sig" (configuration-layer//stable-elpa-directory)))
-
 (defun configuration-layer//executable-not-found-error (exec &optional msg)
   "Display a generic error message about not found EXECutable file.
 
@@ -2647,173 +2568,6 @@ MSG is an additional message append to the generic error."
      "Cannot find %s executable in your PATH.\n"
      "Verify your spacemacs environment variables with [SPC f e e].%s\n"
      "Spacelpa installation has been skipped!") exec msg)))
-
-(defun configuration-layer//stable-elpa-update-version-file ()
-  "Write a file containing the version number of the stable ELPA repository."
-  (with-current-buffer (find-file-noselect
-                        configuration-layer--stable-elpa-version-file)
-    (erase-buffer)
-    (goto-char (point-min))
-    (insert (format "%s" configuration-layer-stable-elpa-version))
-    (save-buffer)))
-
-(defun configuration-layer//stable-elpa-delete-temporary-files ()
-  "Delete stable ELPA repository temporary files."
-  (let ((tarball (configuration-layer//stable-elpa-tarball-local-file))
-        (tarball-sig (configuration-layer//stable-elpa-tarball-local-sign-file)))
-    (when (file-exists-p tarball)
-      (delete-file tarball))
-    (when (file-exists-p tarball-sig)
-      (delete-file tarball-sig))))
-
-(defun configuration-layer//stable-elpa-ask-to-continue (reason)
-  "Prompt the users to continue when Spacemacs cannot verify the archive."
-  (y-or-n-p
-   (format (concat "Spacemacs cannot verify the authenticity of "
-                   "the stable ELPA archive (%s)!\n"
-                   "The reason is: %s\n"
-                   "\n"
-                   "Do you still want to install the stable ELPA repository ?")
-           configuration-layer-stable-elpa-name
-           reason)))
-
-(defun configuration-layer//stable-elpa-verify-archive ()
-  "Verify the downloaded stable ELPA repository archive.
-
-Returns non nil if the verification succeeded.
-
-If Spacemacs cannot verify the archive a prompt ask the user if they want to
-continue with the stable ELPA repository installation."
-  (let (context
-        good-signatures
-        verification-err
-        fatal-err
-        (archive (configuration-layer//stable-elpa-tarball-local-file))
-        (sig-file (configuration-layer//stable-elpa-tarball-local-sign-file))
-        large-file-warning-threshold)
-    (when (or (not (file-exists-p archive))
-              (not (file-exists-p sig-file)))
-      (setq fatal-err (concat "Cannot find downloaded stable ELPA repository "
-                              "archive or its signature file.")))
-    (unless fatal-err
-      (with-current-buffer (find-file-noselect archive)
-        (spacemacs-buffer/set-mode-line
-         (format "Verifying %s archive..."
-                 configuration-layer-stable-elpa-name) t)
-        (condition-case error
-            (setq context (epg-make-context 'OpenPGP))
-          (error (setq verification-err
-                       (format "GnuPG doesn't seem to be available. %s"
-                               (cdr error)))))
-        (unless verification-err
-          (condition-case error
-              (epg-import-keys-from-file
-               context configuration-layer--stable-elpa-gpg-keyring)
-            (error (setq verification-err
-                         (format "Cannot import public key. %s"
-                                 (cdr error)))))
-          (unless verification-err
-            (condition-case error
-                (epg-verify-file context sig-file archive)
-              (error (setq verification-err
-                           (format "Error during verification phase. %s"
-                                   (cdr error)))))
-            ;; The .sig file may contain multiple signatures. Success if one
-            ;; of the signatures is good.
-            (dolist (sig (epg-context-result-for context 'verify))
-              (when (eq (epg-signature-status sig) 'good)
-                (push sig good-signatures)))
-            (when (null good-signatures)
-              (unless verification-err
-                ;; `epg-verify-string' does not signal error when everything
-                ;; went fine but the verification in itself failed.
-                ;; This is a strong indicator that the archive may be
-                ;; compromised.
-                (setq verification-err
-                      (concat "Verification failed! It is strongly advised to "
-                              "NOT install the stable ELPA repository and "
-                              "report it on GitHub.")))
-              (when init-file-debug
-                (package--display-verify-error context sig-file)))))))
-    (cond
-     ((not (null fatal-err))
-      (configuration-layer//error fatal-err)
-      nil)
-     ((not (null verification-err))
-      (configuration-layer//stable-elpa-ask-to-continue verification-err))
-     (t t))))
-
-(defun configuration-layer//stable-elpa-untar-archive ()
-  "Untar the downloaded archive of stable ELPA, returns non-nil if succeeded."
-  (require 'tar-mode)
-  (let ((archive (configuration-layer//stable-elpa-tarball-local-file))
-        (sig-file (configuration-layer//stable-elpa-tarball-local-sign-file))
-        large-file-warning-threshold)
-    (with-current-buffer (find-file-noselect archive)
-      (spacemacs-buffer/set-mode-line
-       (format "Extracting %s archive..."
-               configuration-layer-stable-elpa-name) t)
-      (if (not (executable-find "tar"))
-          (configuration-layer//executable-not-found-error "tar")
-        (call-process "tar" nil nil nil "-xzf" archive)))))
-
-(defun configuration-layer//stable-elpa-download-tarball ()
-  "Download the tarball of the stable ELPA repository if it used.
-
-Returns non nil if the tarball has been downloaded.
-
-Returns nil if the tarball does not need to be downloaded or if an error
-happened during the download."
-  (let (result)
-    (when (and (assoc configuration-layer-stable-elpa-name
-                      configuration-layer-elpa-archives)
-               (not (string-equal (configuration-layer/stable-elpa-version)
-                                  configuration-layer-stable-elpa-version)))
-      (let ((url (configuration-layer//stable-elpa-tarball-distant-file))
-            (local (configuration-layer//stable-elpa-tarball-local-file))
-            (url-sig (configuration-layer//stable-elpa-tarball-distant-sign-file))
-            (local-sig (configuration-layer//stable-elpa-tarball-local-sign-file)))
-        (spacemacs-buffer/set-mode-line
-         (format (concat "Downloading stable ELPA repository: %s... "
-                         "(please wait)")
-                 configuration-layer-stable-elpa-name) t)
-        ;; download tarball and detached signature
-        (make-directory configuration-layer-stable-elpa-directory t)
-        (condition-case-unless-debug err
-            (progn
-              (url-copy-file url local 'ok-if-already-exists)
-              (when dotspacemacs-verify-spacelpa-archives
-                (url-copy-file url-sig local-sig 'ok-if-already-exists))
-              (setq result t))
-          (error nil))))
-    result))
-
-(defun configuration-layer//stable-elpa-disable-repository ()
-  "Remove stable ELPA repostiory from `package.el' archive.."
-  (setq configuration-layer-elpa-archives
-        (cl-delete configuration-layer-stable-elpa-name
-                   configuration-layer-elpa-archives
-                   :test 'equal :key 'car))
-  (setq package-archive-priorities
-        (cl-delete configuration-layer-stable-elpa-name
-                   package-archive-priorities
-                   :test 'equal :key 'car)))
-
-(defun configuration-layer/stable-elpa-init ()
-  "Initialize the stable ELPA repository.
-
-This function downloads the repository tarball. Then it verifies its signature
-if required. The last step is to uncompress the tarball and clean the temporary
-files."
-  (unwind-protect
-      (if (and (configuration-layer//stable-elpa-download-tarball)
-               (or (not dotspacemacs-verify-spacelpa-archives)
-                   (configuration-layer//stable-elpa-verify-archive)))
-          (progn
-            (configuration-layer//stable-elpa-untar-archive)
-            (configuration-layer//stable-elpa-update-version-file))
-        (configuration-layer//stable-elpa-disable-repository))
-    (configuration-layer//stable-elpa-delete-temporary-files)))
 
 ;; (configuration-layer/create-elpa-repository
 ;;  "spacelpa"
@@ -2868,6 +2622,413 @@ ARGS: format string arguments."
 (defun configuration-layer/load-file (file)
   "Load file silently except if in debug mode."
   (load file nil (not init-file-debug)))
+
+
+;; Stable elpa
+
+(defconst configuration-layer-lock-file-stable
+  (concat spacemacs-start-directory ".lock-stable")
+  "Absolute path to the lock file for stable releases.")
+
+(defconst configuration-layer-lock-file-latest
+  (concat spacemacs-start-directory ".lock-latest")
+  "Absolute path to the lock file for Spacemacs development.")
+
+(defconst configuration-layer-stable-elpa-base-directory
+  (expand-file-name
+   (concat spacemacs-start-directory "elpa/repository/"))
+  "Remote location of the tarball for the ELPA stable directory")
+
+(defconst configuration-layer--stable-elpa-tarball-base-url
+  "https://github.com/syl20bnr/spacelpa/archive/"
+  "Remote base location of the tarball for the ELPA stable.")
+
+(defconst configuration-layer--stable-elpa-sig-directory
+  "https://github.com/syl20bnr/spacelpa/releases/download/"
+  "Remote location of the signature file for the ELPA stable directory")
+
+(defconst configuration-layer--stable-elpa-gpg-keyring
+  (expand-file-name (concat spacemacs-core-directory "gnupg/spacemacs.gpg"))
+  "Absolute path to public GPG key used to signed the ELPA stable repository
+tarballs.")
+
+(defconst configuration-layer--stable-elpa-version-file
+  (concat configuration-layer-stable-elpa-base-directory "version")
+  "Absolute path to the file containing the current stable elpa repository
+ version")
+
+(defconst configuration-layer--stable-elpa-special-buffer "*stable-elpa*"
+  "Name of the stable ELPA special buffer.")
+
+(defvar configuration-layer--lock-filename nil
+  "File name of the loaded lock file.")
+
+(defvar configuration-layer-stable-elpa-version spacemacs-version
+  "Version of locked ELPA stable repository. This value is aimed to be defined
+in the .lock-xxx files at the root of the repository.")
+
+(defvar configuration-layer-stable-elpa-installed-version nil
+  "Version of installed ELPA stable repository.")
+
+(defvar configuration-layer-stable-elpa-name nil
+  "Name of the stable ELPA repository. It is defined in the .lock file.
+nil means that the stable ELPA repository is not used.")
+
+(defun configuration-layer//stable-elpa-installed-directory (&optional version)
+  "Return the local absolute path of the ELPA stable repository directory.
+
+If VERSION is nil then return the current version directory.
+If VERSION is non nil then return the directory for the given VERSION."
+  (format "%s%s-%s/"
+          configuration-layer-stable-elpa-base-directory
+          configuration-layer-stable-elpa-name
+          (if version version configuration-layer-stable-elpa-version)))
+
+(defun configuration-layer//stable-elpa-tarball-filename ()
+  "Returns the file name of the stable ELPA repsoitory tarball."
+  (format "%s-%s.tar.gz"
+          configuration-layer-stable-elpa-name
+          configuration-layer-stable-elpa-version))
+
+(defun configuration-layer//stable-elpa-tarball-sig-filename ()
+  "Returns the file name of the stable ELPA repsoitory tarball."
+  (format "%s.sig" (configuration-layer//stable-elpa-tarball-filename)))
+
+(defun configuration-layer//stable-elpa-tarball-local-file ()
+  "Return the local absolute path for the file of the downloaded tarball of
+ELPA stable repository."
+  (concat configuration-layer-stable-elpa-base-directory
+          (configuration-layer//stable-elpa-tarball-filename)))
+
+(defun configuration-layer//stable-elpa-tarball-local-sig-file ()
+  "Return the absolute path to the signature file."
+  (concat configuration-layer-stable-elpa-base-directory
+          (configuration-layer//stable-elpa-tarball-sig-filename)))
+
+(defun configuration-layer//stable-elpa-tarball-distant-file ()
+  "Return the distant file path of the downloaded tarball of ELPA stable
+repository."
+  (format "%sv%s.tar.gz"
+          configuration-layer--stable-elpa-tarball-base-url
+          configuration-layer-stable-elpa-version))
+
+(defun configuration-layer//stable-elpa-tarball-distant-sig-file ()
+  "Return the absolute path to the signature file."
+  (format "%sv%s/%s"
+          configuration-layer--stable-elpa-sig-directory
+          configuration-layer-stable-elpa-version
+          (configuration-layer//stable-elpa-tarball-sig-filename)))
+
+(defun configuration-layer/load-lock-file ()
+  "Load the .lock-xxx file and set `configuration-layer--lock-filename'.
+
+On the master branch it loads the file `.lock-stable'.
+On the other branch it loads the file `.lock-latest' if the variable
+`dotspacemacs-use-stable-elpa' is nil, otherwise it loads the file
+`lock-stable'."
+  (setq configuration-layer--lock-filename
+        (if (or (string-equal "master" (spacemacs//git-get-current-branch))
+                dotspacemacs-use-stable-elpa)
+            configuration-layer-lock-file-stable
+          configuration-layer-lock-file-latest))
+  (configuration-layer/load-file configuration-layer--lock-filename))
+
+(defun configuration-layer/stable-elpa-init ()
+  "Initialize the stable ELPA repository.
+
+This function loads the lock file and then downloads the repository tarball.
+Then it verifies its signature if required. The last step is to uncompress the
+tarball and clean the temporary files.
+
+It returns non nil if Spacemacs is allowed to load. It returns nil if Spacemacs
+must quit. Basically on a stable branch (like master) the stable ELPA repository
+is mandatory whereas on a develop branch the stable ELPA repository is optional
+(it can be enabled essentially for testing purpose). "
+  ;; load the lock file depending on the currently checked out git branch
+  (configuration-layer/load-lock-file)
+  (if (and
+       ;; when the stable lock file has been loaded
+       (string-equal configuration-layer--lock-filename
+                     configuration-layer-lock-file-stable)
+       (or
+        (not (configuration-layer//stable-elpa-version-installed-p))
+        (and
+         ;; prompt the user for upgrade if a previous installation
+         ;; has been found
+         (not (configuration-layer//stable-elpa-locked-version-installed-p))
+         (configuration-layer//stable-elpa-prompt-install-locked-version))))
+      (configuration-layer//stable-elpa-install)
+    t))
+
+(defun configuration-layer//stable-elpa-locked-version-installed-p ()
+  "Returns non-nil if locked version of stable ELPA repository is installed."
+  (file-exists-p
+   (format "%spackages/archive-contents"
+           (configuration-layer//stable-elpa-installed-directory))))
+
+(defun configuration-layer//stable-elpa-version-installed-p ()
+  "Returns non-nil if current version of stable ELPA repository is installed.
+
+Note: the current version is hold in the file
+ `configuration-layer--stable-elpa-version-file'."
+  (file-exists-p
+   (format "%spackages/archive-contents"
+           (configuration-layer//stable-elpa-installed-directory
+            (configuration-layer/stable-elpa-version)))))
+
+(defun configuration-layer//stable-elpa-prompt-install-locked-version ()
+  "Promt users if they want to install the locked version."
+  (y-or-n-p
+   (format (concat
+            "A new stabe ELPA version is available: %s"
+            "\n It is recommended to install it to avoid configuration errors."
+            "\n Do you want to install the new version ?")
+           configuration-layer-stable-elpa-version)))
+
+(defun configuration-layer//stable-elpa-install ()
+  "Install stable elpa version as defined in the lock file.
+
+Returns non nil if the installation succeeded."
+  (let ((continue-p nil))
+    (when (and (or (configuration-layer//stable-elpa-download-tarball)
+                   (configuration-layer//stable-elpa-prompt-to-download))
+               (or (not dotspacemacs-verify-stable-elpa-archives)
+                   (configuration-layer//stable-elpa-verify-archive)))
+      (unwind-protect
+          (setq continue-p
+                (progn
+                  ;; make sure directory is clean before extracting the archive
+                  (configuration-layer//stable-elpa-clean-locked-version-repo)
+                  (configuration-layer//stable-elpa-untar-archive)))
+        (configuration-layer//stable-elpa-delete-temporary-files)))
+    continue-p))
+
+(defun configuration-layer//stable-elpa-download-tarball ()
+  "Download the tarball of the stable ELPA repository if it used.
+
+Returns non nil if the tarball has been downloaded.
+Returns nil if an error happened during the download."
+  (let ((result t)
+        (url (configuration-layer//stable-elpa-tarball-distant-file))
+        (local (configuration-layer//stable-elpa-tarball-local-file))
+        (url-sig (configuration-layer//stable-elpa-tarball-distant-sig-file))
+        (local-sig (configuration-layer//stable-elpa-tarball-local-sig-file)))
+    (spacemacs-buffer/set-mode-line
+     (format (concat "Downloading stable ELPA repository: %s... "
+                     "(please wait, this might take several minutes)")
+             configuration-layer-stable-elpa-name) t)
+    (make-directory configuration-layer-stable-elpa-base-directory t)
+    (setq result
+          (and (or (file-exists-p local)
+                   (configuration-layer//stable-elpa-download url local))
+               (or (file-exists-p local-sig)
+                   (configuration-layer//stable-elpa-download url-sig
+                                                              local-sig))))
+    result))
+
+(defun configuration-layer//stable-elpa-download (url destination)
+  "Download URL to local DESTINATION.
+
+Returns non-nil if the download succeeded.
+
+This function tries to use `curl' binary first and then `wget' if `curl' is not
+available."
+  (cond
+   ((executable-find "curl")
+    (let ((default-process-coding-system (cons 'utf-8 'utf-8))
+          (coding-system-for-read 'binary)
+          (coding-system-for-write 'binary))
+      (with-current-buffer (get-buffer-create
+                            configuration-layer--stable-elpa-special-buffer)
+        (prog1
+            (if (= 0 (call-process "curl" nil t nil
+                                   "--location" "-o" destination url))
+                t
+              (configuration-layer//error
+               "Download with curl of file %s failed. See buffer %s."
+               url
+               configuration-layer--stable-elpa-special-buffer)
+              nil)
+          ;; hack to have prettier curl output in the output buffer
+          (beginning-of-buffer)
+          (replace-string "\r" "\n")
+          (end-of-buffer)))))
+   ((executable-find "wget")
+    (if (equal 0 (call-process "wget"
+                               nil
+                               configuration-layer--stable-elpa-special-buffer
+                               nil
+                               "-O" destination url))
+        t
+      (configuration-layer//error
+       "Download with wget of file %s failed. See buffer %s."
+       url
+       configuration-layer--stable-elpa-special-buffer)
+      nil))))
+
+(defun configuration-layer//stable-elpa-prompt-to-download ()
+  "Promt users to download manually the stable elpa archive.
+
+This function also puts in the clipboard the address of the archive."
+  (y-or-n-p
+   (format
+    (concat "An error happened while downloading the stable elpa archive."
+            "\nYou can download the archive manually with the following "
+            "URL:\n\n%s\n\n"
+            "This URL has been copied to your clipboard for "
+            "convenience."
+            "\nOnce downloaded you need to copy it in the following directory:"
+            "\n\n%s\n\n"
+            "Press 'y' once the archive is copied or 'n' to abort and "
+            "quit Emacs.")
+    (kill-new (configuration-layer//stable-elpa-tarball-distant-file))
+    configuration-layer-stable-elpa-base-directory)))
+
+(defun configuration-layer/stable-elpa-version ()
+  "Set and return the current version of the ELPA repository.
+ Returns nil if the version is unknown."
+  (interactive)
+  (when (file-exists-p configuration-layer--stable-elpa-version-file)
+    (with-current-buffer (find-file-noselect
+                          configuration-layer--stable-elpa-version-file)
+      (setq configuration-layer-stable-elpa-installed-version (buffer-string))
+      (when (called-interactively-p)
+        (message "Stable ELPA repository version is: %s" (buffer-string)))
+      (buffer-string))))
+
+(defun configuration-layer//stable-elpa-verify-archive ()
+  "Verify the downloaded stable ELPA repository archive.
+
+Returns non nil if the verification succeeded.
+
+If Spacemacs cannot verify the archive a prompt ask the user if they want to
+continue with the stable ELPA repository installation."
+  (let (context
+        good-signatures
+        verification-err
+        fatal-err
+        (archive (configuration-layer//stable-elpa-tarball-local-file))
+        (sig-file (configuration-layer//stable-elpa-tarball-local-sig-file))
+        large-file-warning-threshold)
+    (when (not (file-exists-p archive))
+      (setq fatal-err (concat "Cannot find downloaded stable ELPA repository "
+                              "archive.")))
+    (when (not (file-exists-p sig-file))
+      (setq verification-err
+            (concat "Cannot find signature file for downloaded "
+                    "stable ELPA repository archive.")))
+    (unless (or fatal-err verification-err)
+      (spacemacs-buffer/set-mode-line
+       (format "Verifying %s archive..."
+               configuration-layer-stable-elpa-name) t)
+      (condition-case error
+          (setq context (epg-make-context 'OpenPGP))
+        (error (setq verification-err
+                     (format "GnuPG doesn't seem to be available. %s"
+                             (cdr error)))))
+      (unless verification-err
+        (condition-case error
+            (epg-import-keys-from-file
+             context configuration-layer--stable-elpa-gpg-keyring)
+          (error (setq verification-err
+                       (format "Cannot import public key. %s"
+                               (cdr error)))))
+        (unless verification-err
+          (condition-case error
+              (epg-verify-file context sig-file archive)
+            (error (setq verification-err
+                         (format "Error during verification phase. %s"
+                                 (cdr error)))))
+          ;; The .sig file may contain multiple signatures. Success if one
+          ;; of the signatures is good.
+          (dolist (sig (epg-context-result-for context 'verify))
+            (when (eq (epg-signature-status sig) 'good)
+              (push sig good-signatures)))
+          (when (null good-signatures)
+            (unless verification-err
+              ;; `epg-verify-string' does not signal error when everything
+              ;; went fine but the verification in itself failed.
+              ;; This is a strong indicator that the archive may be
+              ;; compromised.
+              (setq verification-err
+                    (concat "Verification failed! It is strongly advised to "
+                            "NOT install the stable ELPA repository and "
+                            "report it on GitHub.")))
+            (when init-file-debug
+              (package--display-verify-error context sig-file))))))
+    (cond
+     ((not (null fatal-err))
+      (configuration-layer//error fatal-err)
+      nil)
+     ((not (null verification-err))
+      (configuration-layer//stable-elpa-ask-to-continue 'verification
+                                                        verification-err))
+     (t t))))
+
+(defun configuration-layer//stable-elpa-ask-to-continue (stage reason)
+  "Prompt the users to continue when Spacemacs cannot verify the archive."
+  (cond
+   ((eq stage 'verification)
+    (y-or-n-p
+     (format (concat "Spacemacs cannot verify the authenticity of "
+                     "the stable ELPA archive (%s)!\n"
+                     "The reason is: %s\n"
+                     "\n"
+                     "Do you still want to install the stable ELPA repository ?")
+             configuration-layer-stable-elpa-name
+             reason)))
+   (t nil)))
+
+(defun configuration-layer//stable-elpa-untar-archive ()
+  "Untar the downloaded archive of stable ELPA.
+
+Returns non-nil if succeeded.
+The `tar' binary is used to uncompress the file."
+  (let ((archive (configuration-layer//stable-elpa-tarball-local-file))
+        (sig-file (configuration-layer//stable-elpa-tarball-local-sig-file))
+        large-file-warning-threshold)
+    (spacemacs-buffer/set-mode-line
+     (format "Extracting %s archive..."
+             configuration-layer-stable-elpa-name) t)
+    (if (not (executable-find "tar"))
+        (configuration-layer//executable-not-found-error "tar")
+      (let ((default-directory configuration-layer-stable-elpa-base-directory))
+        (call-process "tar" nil nil nil "-xzf" archive)))))
+
+(defun configuration-layer//stable-elpa-clean-locked-version-repo ()
+  "Delete stable ELPA repository directory corresponding to the locked version."
+  (let ((dir (configuration-layer//stable-elpa-installed-directory)))
+    (when (file-directory-p dir)
+      (delete-directory dir t))))
+
+(defun configuration-layer//stable-elpa-delete-temporary-files ()
+  "Delete stable ELPA repository temporary files."
+  (let ((tarball (configuration-layer//stable-elpa-tarball-local-file))
+        (tarball-sig (configuration-layer//stable-elpa-tarball-local-sig-file)))
+    (when (file-exists-p tarball)
+      (delete-file tarball))
+    (when (file-exists-p tarball-sig)
+      (delete-file tarball-sig))))
+
+(defun configuration-layer//stable-elpa-update-version-file ()
+  "Write a file containing the version number of the stable ELPA repository."
+  (with-current-buffer (find-file-noselect
+                        configuration-layer--stable-elpa-version-file)
+    (erase-buffer)
+    (beginning-of-buffer)
+    (insert (format "%s" configuration-layer-stable-elpa-version))
+    (save-buffer)))
+
+(defun configuration-layer//stable-elpa-disable-repository ()
+  "Remove stable ELPA repostiory from `package.el' archive.."
+  (setq configuration-layer-elpa-archives
+        (cl-delete configuration-layer-stable-elpa-name
+                   configuration-layer-elpa-archives
+                   :test 'equal :key 'car))
+  (setq package-archive-priorities
+        (cl-delete configuration-layer-stable-elpa-name
+                   package-archive-priorities
+                   :test 'equal :key 'car)))
 
 (provide 'core-configuration-layer)
 

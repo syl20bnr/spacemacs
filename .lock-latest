@@ -1,0 +1,15 @@
+;; -*- mode: emacs-lisp -*-
+;; Lock file for installing the latest version of all packages.
+
+(setq configuration-layer-elpa-subdirectory "latest")
+
+(setq configuration-layer-elpa-archives
+  `(("melpa"    . "melpa.org/packages/")
+    ("org"      . "orgmode.org/elpa/")
+    ("gnu"      . "elpa.gnu.org/packages/")))
+
+(setq package-archive-priorities
+      '(("melpa"    . 4)
+        ("org"      . 2)
+        ("gnu"      . 1)))
+

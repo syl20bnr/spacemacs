@@ -106,7 +106,6 @@ the final step of executing code in `emacs-startup-hook'.")
   ;;                         "Calling dotfile Emacs custom settings...")
   (setq dotspacemacs-editing-style (dotspacemacs//read-editing-style-config
                                     dotspacemacs-editing-style))
-  (configuration-layer/initialize)
   ;; frame title init
   (when dotspacemacs-frame-title-format
     (require 'format-spec)
