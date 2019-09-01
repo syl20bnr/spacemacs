@@ -1,5 +1,3 @@
-#+TITLE: Newsletter #01: About the 0.200 release
-
 * Newsletter #01: About the 0.200 release                 :TOC_4_gh:noexport:
  - [[#introduction][Introduction]]
  - [[#breaking-changes][Breaking changes]]
