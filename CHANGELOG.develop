@@ -1199,6 +1199,7 @@ Other:
 - New packages:
   - Added =sayid= debugger (thanks to Daniel Manila and Arne Brasseur)
   - Added =flycheck-clojure= linters (thanks to Eugene Yaremenko)
+  - Added =clj-kondo= to Clojure linters (thanks to Luo Tian and John Stevenson)
 - Improvements:
   - Store cider REPL history in spacemacs cache (thanks to Ryan Fowler)
   - Remove backtick from smartparens pairs for Clojure
