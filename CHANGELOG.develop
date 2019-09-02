@@ -1219,6 +1219,7 @@ Other:
   - Added =sayid= debugger (thanks to Daniel Manila and Arne Brasseur)
   - Added =flycheck-clojure= linters (thanks to Eugene Yaremenko)
   - Added =clj-kondo= to Clojure linters (thanks to Luo Tian and John Stevenson)
+  - Added =flycheck-joker= to Clojure linters (thanks to didibus)
 - Improvements:
   - Store cider REPL history in spacemacs cache (thanks to Ryan Fowler)
   - Remove backtick from smartparens pairs for Clojure
@@ -1234,6 +1235,7 @@ Other:
     (thanks to Dieter Komendera)
   - Improved spacemacs-jump-handlers (thanks to Ag Ibragimov)
   - Autoscroll to end of repl when sending buffer content (thanks to Vitaly Banchenko)
+  - Added ability to use multiple linters together (thanks to didibus)
 - Key bindings:
   - ~SPC m e ;~ to eval sexp and show result as comment
     (thanks to John Stevenson)
