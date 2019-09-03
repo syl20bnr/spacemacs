@@ -192,7 +192,7 @@ set the =elixir-ls-path= to the release folder of =elixir-ls= in .spacemacs =dot
 or in the layer definition
 
 #+BEGIN_SRC elisp
-  (elixir :variables elixir-backend 'alchemist elixir-ls-path "*path to folder*/elixir-ls/release")
+  (elixir :variables elixir-backend 'lsp elixir-ls-path "*path to folder*/elixir-ls/release")
 #+END_SRC
 
 by default =elixir-ls-path= is equal to ="~/elixir-ls/release"=
