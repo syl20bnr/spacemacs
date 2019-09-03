@@ -2257,8 +2257,8 @@ Other:
 - Added key binding ~SPC m r f~ to fix missing import statements
   (thanks to Volodymyr Vitvitskyi)
 - Use =python-mode= for SCons script files (thanks to shanemikel)
-- Added LSP support, which can be used by enabling the =lsp= layer and setting
-  the =python= layer's =python-backend= variable to =lsp=
+- Added LSP support, which can be enabled by setting the =python= layer's
+  =python-backend= variable to =lsp=
   (thanks to Yuan Fu and Sylvain Benner).
 - The LSP backend can use either the =pyls= (default) server or the =mspyls=
   (Microsoft) implementation, which may be selected by setting the
