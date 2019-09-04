@@ -1884,6 +1884,7 @@ Other:
 **** Lua
 - Added support for auto-completion with =company= (thanks to halfcrazy)
 **** Language Server Protocol (LSP)
+- Added core keybindings and prefix declarations for all LSP-based language layers, and helper functions to bind server-specific extensions (thanks to Cormac Cannon).
 - Replace lsp-capabilities keybinding with lsp-describe-session
   (thanks to Bryan Tan)
 - Added lsp-prefer-flymake variable (thanks to Juuso Valkeejärvi)
@@ -1899,6 +1900,7 @@ Other:
 - Added package =helm-lsp=
   - ~SPC m g s~ to find symbol in current project
   - ~SPC m g S~ to find symbol in all projects
+- Disabled =helm-lsp= keybindings when =ivy= layer enabled (Cormac Cannon)
 - Deleted =fix-lsp-company-prefix= since =company-lsp= is doing that handling.
 - Fixed a delay when declaring prefixes for mode (thanks to Thanh Vuong)
 - Required =helm= or =treemacs= to download =helm-lsp= or =lsp-treemacs=

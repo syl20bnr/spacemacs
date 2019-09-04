@@ -28,7 +28,14 @@
     ;; format
     "=b" #'lsp-format-buffer
     "=r" #'lsp-format-region
+    "=o" #'lsp-organize-imports
+    ;; code actions
+    "aa" #'lsp-execute-code-action
+    "af" #'spacemacs//lsp-action-placeholder
+    "ar" #'spacemacs//lsp-action-placeholder
+    "as" #'spacemacs//lsp-action-placeholder
     ;; goto
+    ;; N.B. implementation and references covered by xref bindings / lsp provider...
     "gt" #'lsp-find-type-definition
     "gk" #'spacemacs/lsp-avy-goto-word
     "gK" #'spacemacs/lsp-avy-goto-symbol
@@ -37,10 +44,9 @@
     "hh" #'lsp-describe-thing-at-point
     ;; jump
     ;; backend
-    "ba" #'lsp-execute-code-action
     "bd" #'lsp-describe-session
-    "br" #'lsp-restart-workspace
-    "bs" #'lsp-shutdown-workspace
+    "br" #'lsp-workspace-restart
+    "bs" #'lsp-workspace-shutdown
     ;; refactor
     "rr" #'lsp-rename
     ;; toggles
@@ -53,7 +59,12 @@
     ;; folders
     "Fs" #'lsp-workspace-folders-switch
     "Fr" #'lsp-workspace-folders-remove
-    "Fa" #'lsp-workspace-folders-add))
+    "Fa" #'lsp-workspace-folders-add
+    ;; text/code
+    "xh" #'lsp-document-highlight
+    "xl" #'lsp-lens-show
+    "xL" #'lsp-lens-hide
+    ))
 
 (defun spacemacs//lsp-bind-simple-navigation-functions (prefix-char)
   (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
@@ -61,9 +72,14 @@
     (concat prefix-char "d") #'xref-find-definitions
     (concat prefix-char "r") #'xref-find-references
     (concat prefix-char "e") #'lsp-treemacs-errors-list
-    (concat prefix-char "s") #'helm-lsp-workspace-symbol
-    (concat prefix-char "S") #'helm-lsp-global-workspace-symbol
-    (concat prefix-char "p") #'xref-pop-marker-stack))
+    (concat prefix-char "p") #'xref-pop-marker-stack)
+  (if (configuration-layer/package-usedp 'helm)
+      (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+        (concat prefix-char "s") #'helm-lsp-workspace-symbol
+        (concat prefix-char "S") #'helm-lsp-global-workspace-symbol)
+    (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+      (concat prefix-char "s") #'lsp-ui-find-workspace-symbol))
+  )
 
 (defun spacemacs//lsp-bind-peek-navigation-functions (prefix-char)
   (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
@@ -71,6 +87,7 @@
     (concat prefix-char "d") #'lsp-ui-peek-find-definitions
     (concat prefix-char "r") #'lsp-ui-peek-find-references
     (concat prefix-char "s") #'lsp-ui-peek-find-workspace-symbol
+    (concat prefix-char "S") #'lsp-treemacs-symbols
     (concat prefix-char "p") #'lsp-ui-peek-jump-backward
     (concat prefix-char "e") #'lsp-ui-flycheck-list
     (concat prefix-char "n") #'lsp-ui-peek-jump-forward))
@@ -80,13 +97,15 @@
   (unless (member mode lsp-layer--active-mode-list)
     (push mode lsp-layer--active-mode-list)
     (spacemacs/declare-prefix-for-mode mode "m=" "format")
-    (spacemacs/declare-prefix-for-mode mode "mh" "help")
+    (spacemacs/declare-prefix-for-mode mode "ma" "code actions")
     (spacemacs/declare-prefix-for-mode mode "mb" "backend")
-    (spacemacs/declare-prefix-for-mode mode "mr" "refactor")
-    (spacemacs/declare-prefix-for-mode mode "mT" "toggle")
+    (spacemacs/declare-prefix-for-mode mode "mF" "folder")
     (spacemacs/declare-prefix-for-mode mode "mg" "goto")
     (spacemacs/declare-prefix-for-mode mode "mG" "peek")
-    (spacemacs/declare-prefix-for-mode mode "mF" "folder")
+    (spacemacs/declare-prefix-for-mode mode "mh" "help")
+    (spacemacs/declare-prefix-for-mode mode "mr" "refactor")
+    (spacemacs/declare-prefix-for-mode mode "mT" "toggle")
+    (spacemacs/declare-prefix-for-mode mode "mx" "text/code")
     (dolist (prefix '("mg" "mG"))
       (spacemacs/declare-prefix-for-mode mode (concat prefix "h") "hierarchy")
       (spacemacs/declare-prefix-for-mode mode (concat prefix "m") "members"))))
@@ -165,6 +184,10 @@ a find extension defined using `lsp-define-extensions'"
 (defun spacemacs/lsp-avy-goto-symbol ()
   (interactive)
   (spacemacs//lsp-avy-document-symbol nil))
+
+(defun spacemacs//lsp-action-placeholder ()
+  (interactive)
+  (message "Watch this space... (to be implemented in 'lsp-mode)"))
 
 ;; From https://github.com/MaskRay/Config/blob/master/home/.config/doom/autoload/misc.el#L118
 (defun spacemacs//lsp-avy-document-symbol (all)
