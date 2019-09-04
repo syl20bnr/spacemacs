@@ -28,9 +28,8 @@
 (defvar go-tab-width 8
   "Set the `tab-width' in Go mode. Default is 8.")
 
-(defvar go-linter nil
-  "The linter to use for go code. Possible values are:
-`gometalinter' and `golangci-lint'.")
+(defvar go-use-golangci-lint nil
+  "Use `golangci-lint' if the variable has non-nil value.")
 
 (defvar go-test-buffer-name "*go test*"
   "Name of the buffer for go test output. Default is *go test*.")
