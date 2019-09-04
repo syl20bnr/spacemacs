@@ -1598,6 +1598,7 @@ Other:
   one =go-linter= (thanks to Robert Zaremba)
 - Added Testify support (thanks to Mathieu Post)
 - Added setup instructions for =gopls= (thanks to pancho horrillo)
+- Dropped support for deprecated =gometalinter= (thanks to pancho horrillo)
 **** Graphviz
 - Use graphviz package from melpa (thanks to Matthew Boston)
 **** Groovy

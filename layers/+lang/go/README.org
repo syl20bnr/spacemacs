@@ -30,7 +30,7 @@ This layer adds extensive support for go to Spacemacs.
 - Source analysis using [[https://docs.google.com/document/d/1_Y9xCEMj5S-7rv2ooHpZNH15JgRT5iM742gJkw5LtmQ][go-guru]]
 - Refactoring with [[http://gorefactor.org/][godoctor]]
 - Edit struct field tag with [[https://github.com/fatih/gomodifytags][gomodifytags]]
-- Linting with flycheck's built-in checkers or flycheck-gometalinter
+- Linting with flycheck's built-in checkers or [[https://github.com/golangci/golangci-lint][flycheck-golangci-lint]]
 - Coverage profile visualization
 - Test generation with [[https://github.com/s-kostyaev/go-gen-test][go-gen-test]]
 - Get packages faster with [[https://github.com/haya14busa/gopkgs][gopkgs]]
@@ -56,28 +56,10 @@ to get all the goodies of this layer:
   go get -u github.com/josharian/impl
 #+END_SRC
 
-If you wish to use a linters aggregator tool, you can enable =gometalinter= or =golangci-lint=.
-
-If you wish to use =gometalinter= set the value of =go-linter= to ='gometalinter=:
+If you wish to use =golangci-lint=, set the following layer variable to non-nil:
 
 #+BEGIN_SRC emacs-lisp
-  (go :variables go-linter 'gometalinter)
-#+END_SRC
-
-and install the tool:
-
-#+BEGIN_SRC sh
-  go get -u -v github.com/alecthomas/gometalinter
-  gometalinter --install --update
-#+END_SRC
-
-For more information read [[https://github.com/alecthomas/gometalinter/blob/master/README.md][gometalinter README.md]]
-and [[https://github.com/favadi/flycheck-gometalinter/blob/master/README.md][flycheck-gometalinter README.md]]
-
-If you wish to use =golangci-lint= set the value of =go-linter= to ='golangci-lint=:
-
-#+BEGIN_SRC emacs-lisp
-  (go :variables go-linter 'golangci-lint)
+  (go :variables go-use-golangci-lint t)
 #+END_SRC
 
 and install the tool:
@@ -86,8 +68,7 @@ and install the tool:
   go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 #+END_SRC
 
-For more information read [[https://github.com/golangci/golangci-lint][golangci-lint README.md]]
-and [[https://github.com/weijiangan/flycheck-golangci-lint][flycheck-golangci-lint README.md]]
+Check [[https://github.com/golangci/golangci-lint][golangci-lint]] and [[https://github.com/weijiangan/flycheck-golangci-lint][flycheck-golangci-lint]] for more details.
 
 If you wish to use =godoctor= for refactoring, install it too:
 
