@@ -74,16 +74,17 @@ available in all language layers based on the lsp layer.
 ** Key binding prefixes
 The key bindings are grouped under the following prefixes:
 
-| prefix    | name        | functional area                                                            |
-|-----------+-------------+----------------------------------------------------------------------------|
-| ~SPC m =~ | format      | Source formatting                                                          |
-| ~SPC m g~ | goto        | Source navigation                                                          |
-| ~SPC m G~ | peek        | Source navigation (lsp-ui-peek overlay)                                    |
-| ~SPC m F~ | folder      | Add/remove folders from workspace                                          |
-| ~SPC m h~ | help        | Help                                                                       |
-| ~SPC m b~ | lsp/backend | Catchall. Restart LSP backend, other implementation-specific functionality |
-| ~SPC m r~ | refactor    | What it says on the tin                                                    |
-| ~SPC m T~ | toggle      | Toggle LSP backend features (documentation / symbol info overlays etc.)    |
+| prefix    | name          | functional area                                                            |
+|-----------+---------------+----------------------------------------------------------------------------|
+| ~SPC m =~ | format        | Source formatting                                                          |
+| ~SPC m g~ | goto          | Source navigation                                                          |
+| ~SPC m G~ | peek          | Source navigation (lsp-ui-peek overlay)                                    |
+| ~SPC m F~ | folder        | Add/remove folders from workspace                                          |
+| ~SPC m h~ | help          | Help                                                                       |
+| ~SPC m b~ | lsp/backend   | Catchall. Restart LSP backend, other implementation-specific functionality |
+| ~SPC m r~ | refactor      | What it says on the tin                                                    |
+| ~SPC m T~ | toggle        | Toggle LSP backend features (documentation / symbol info overlays etc.)    |
+| ~SPC m x~ | text (source) | Text (source) document related bindings                                    |
 
 Some navigation key bindings (i.e. ~SPC m g~ / ~SPC m G~) use an additional level of grouping:
 
@@ -95,54 +96,66 @@ Some navigation key bindings (i.e. ~SPC m g~ / ~SPC m G~) use an additional leve
 ** Core key bindings
 The lsp minor mode bindings are:
 
-| binding     | function                                                                       |
-|-------------+--------------------------------------------------------------------------------|
-| ~SPC m = b~ | format buffer (lsp)                                                            |
-| ~SPC m = r~ | format region (lsp)                                                            |
-|-------------+--------------------------------------------------------------------------------|
-| ~SPC m g t~ | goto type-definition (lsp)                                                     |
-| ~SPC m g k~ | goto viewport word (avy) (See Note 1)                                          |
-| ~SPC m g K~ | goto viewport symbol (avy) (See Note 1)                                        |
-| ~SPC m g e~ | browse flycheck errors (lsp-treemacs)                                          |
-| ~SPC m g M~ | browse file symbols (lsp-ui-imenu)                                             |
-|-------------+--------------------------------------------------------------------------------|
-| Note        | /Replaced by the lsp-ui-peek equivalents when ~lsp-navigation~ == ='peek=/     |
-| ~SPC m g i~ | find implementations (lsp)                                                     |
-| ~SPC m g d~ | find definitions (xref/lsp)                                                    |
-| ~SPC m g r~ | find references (xref/lsp)                                                     |
-| ~SPC m g s~ | find symbol in project (helm-lsp)                                              |
-| ~SPC m g S~ | find symbol in all projects (helm-lsp)                                         |
-| ~SPC m g p~ | goto previous (xref-pop-marker-stack)                                          |
-|-------------+--------------------------------------------------------------------------------|
-| Note        | /Omitted when ~lsp-navigation~ == ='peek= or ='simple=/                        |
-|             | /Bound under ~SPC m g~ rather than ~SPC m G~ when ~lsp-navigation~ == ='peek=/ |
-| ~SPC m G i~ | find implementation (lsp-ui-peek)                                              |
-| ~SPC m G d~ | find definitions (lsp-ui-peek)                                                 |
-| ~SPC m G r~ | find references (lsp-ui-peek)                                                  |
-| ~SPC m G s~ | find-workspace-symbol (lsp-ui-peek)                                            |
-| ~SPC m G p~ | goto previous (lsp-ui-peek stack - see Note 2)                                 |
-| ~SPC m G n~ | goto next (lsp-ui-peek stack - see Note 2)                                     |
-| ~SPC m G E~ | browse flycheck errors (lsp-ui)                                                |
-|-------------+--------------------------------------------------------------------------------|
-| ~SPC m h h~ | describe thing at point                                                        |
-|-------------+--------------------------------------------------------------------------------|
-| ~SPC m b s~ | lsp-shutdown-workspace                                                         |
-| ~SPC m b r~ | lsp-restart-workspace                                                          |
-| ~SPC m b a~ | execute code action                                                            |
-| ~SPC m b d~ | lsp-describe-session                                                           |
-|-------------+--------------------------------------------------------------------------------|
-| ~SPC m r r~ | rename                                                                         |
-|-------------+--------------------------------------------------------------------------------|
-| ~SPC m T d~ | toggle documentation overlay                                                   |
-| ~SPC m T F~ | toggle documentation overlay function signature                                |
-| ~SPC m T s~ | toggle symbol info overlay                                                     |
-| ~SPC m T S~ | toggle symbol info overlay symbol name                                         |
-| ~SPC m T I~ | toggle symbol info overlay duplicates                                          |
-| ~SPC m T l~ | toggle lenses                                                                  |
-|-------------+--------------------------------------------------------------------------------|
-| ~SPC m F r~ | Remove workspace folder                                                        |
-| ~SPC m F a~ | Add workspace folder                                                           |
-| ~SPC m F s~ | Switch workspace folder                                                        |
+| binding     | function                                                                         |
+|-------------+----------------------------------------------------------------------------------|
+| ~SPC m = b~ | format buffer (lsp)                                                              |
+| ~SPC m = r~ | format region (lsp)                                                              |
+| ~SPC m = o~ | format (organise) imports                                                        |
+|-------------+----------------------------------------------------------------------------------|
+| Note        | /The ~f~, ~r~ and ~s~ actions are placeholders for imminent ~lsp-mode~ features/ |
+| ~SPC m a a~ | Execute code action                                                              |
+| ~SPC m a f~ | Execute fix action                                                               |
+| ~SPC m a r~ | Execute refactor action                                                          |
+| ~SPC m a s~ | Execute source action                                                            |
+|-------------+----------------------------------------------------------------------------------|
+| ~SPC m g t~ | goto type-definition (lsp)                                                       |
+| ~SPC m g k~ | goto viewport word (avy) (See Note 1)                                            |
+| ~SPC m g K~ | goto viewport symbol (avy) (See Note 1)                                          |
+| ~SPC m g e~ | browse flycheck errors (lsp-treemacs)                                            |
+| ~SPC m g M~ | browse file symbols (lsp-ui-imenu)                                               |
+|-------------+----------------------------------------------------------------------------------|
+| Note        | /Replaced by the lsp-ui-peek equivalents when ~lsp-navigation~ == ='peek=/       |
+| ~SPC m g i~ | find implementations (lsp)                                                       |
+| ~SPC m g d~ | find definitions (xref/lsp)                                                      |
+| ~SPC m g r~ | find references (xref/lsp)                                                       |
+| ~SPC m g s~ | find symbol in project (helm-lsp)                                                |
+| ~SPC m g S~ | find symbol in all projects (helm-lsp)                                           |
+| ~SPC m g p~ | goto previous (xref-pop-marker-stack)                                            |
+|-------------+----------------------------------------------------------------------------------|
+| Note        | /Omitted when ~lsp-navigation~ == ='peek= or ='simple=/                          |
+|             | /Bound under ~SPC m g~ rather than ~SPC m G~ when ~lsp-navigation~ == ='peek=/   |
+| ~SPC m G i~ | find implementation (lsp-ui-peek)                                                |
+| ~SPC m G d~ | find definitions (lsp-ui-peek)                                                   |
+| ~SPC m G r~ | find references (lsp-ui-peek)                                                    |
+| ~SPC m G s~ | find workspace symbol (lsp-ui-peek)                                              |
+| ~SPC m G S~ | goto workspace symbol (lsp-treemacs-symbols)                                     |
+| ~SPC m G p~ | goto previous (lsp-ui-peek stack - see Note 2)                                   |
+| ~SPC m G n~ | goto next (lsp-ui-peek stack - see Note 2)                                       |
+| ~SPC m G E~ | browse flycheck errors (lsp-ui)                                                  |
+|-------------+----------------------------------------------------------------------------------|
+| ~SPC m h h~ | describe thing at point                                                          |
+|-------------+----------------------------------------------------------------------------------|
+| ~SPC m b s~ | lsp-workspace-shutdown                                                           |
+| ~SPC m b r~ | lsp-workspace-restart                                                            |
+| ~SPC m b d~ | lsp-describe-session                                                             |
+|-------------+----------------------------------------------------------------------------------|
+| ~SPC m r r~ | rename                                                                           |
+|-------------+----------------------------------------------------------------------------------|
+| ~SPC m T d~ | toggle documentation overlay                                                     |
+| ~SPC m T F~ | toggle documentation overlay function signature                                  |
+| ~SPC m T s~ | toggle symbol info overlay                                                       |
+| ~SPC m T S~ | toggle symbol info overlay symbol name                                           |
+| ~SPC m T I~ | toggle symbol info overlay duplicates                                            |
+| ~SPC m T l~ | toggle lenses                                                                    |
+|-------------+----------------------------------------------------------------------------------|
+| ~SPC m F r~ | Remove workspace folder                                                          |
+| ~SPC m F a~ | Add workspace folder                                                             |
+| ~SPC m F s~ | Switch workspace folder                                                          |
+|-------------+----------------------------------------------------------------------------------|
+| ~SPC m x h~ | Highlight all instances of symbol under point                                    |
+| ~SPC m x l~ | Show code lenses                                                                 |
+| ~SPC m x L~ | Hide code lenses                                                                 |
+
 
 Note 1: Your language server may not distinguish between the word and symbol variants of this binding.
 Note 2: There is a window local jump list dedicated to cross references.
