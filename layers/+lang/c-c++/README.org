@@ -14,13 +14,15 @@
     - [[#rtags][RTags]]
       - [[#external-dependencies][External dependencies]]
       - [[#configuration][Configuration]]
-    - [[#cquery--ccls-lsp-backends][cquery / ccls (lsp backends)]]
-      - [[#features-1][Features:]]
+    - [[#lsp][LSP]]
+      - [[#features-1][Features]]
       - [[#external-dependencies-1][External dependencies]]
-        - [[#cquery-server][cquery server]]
+        - [[#clangd][clangd]]
         - [[#ccls-server][ccls server]]
+        - [[#cquery-server][cquery server]]
       - [[#configuration-1][Configuration]]
         - [[#basic][Basic]]
+        - [[#selecting-an-alternate-lsp-server][Selecting an alternate LSP server]]
         - [[#setting-path-to-backend-executable][Setting path to backend executable]]
         - [[#semantic-highlighting][Semantic highlighting]]
         - [[#additional-configuration-options][Additional configuration options]]
@@ -37,6 +39,7 @@
 - [[#key-bindings][Key bindings]]
   - [[#formatting-clang-format][Formatting (clang-format)]]
   - [[#rtags-1][RTags]]
+  - [[#lsp-1][LSP]]
   - [[#cquery--ccls][cquery / ccls]]
     - [[#backend-language-server][backend (language server)]]
     - [[#goto][goto]]
@@ -88,8 +91,9 @@ variable at the root of your project. More info on directory local variables
 can be found in the [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Directory-Local-Variables.html][dir-locals]].
 
 ** Backends
-This layer supports the selection of one of 3 available backends for code
-navigation etc via the =c-c++-backend= configuration variable.
+This layer supports the selection of RTags, or one of three available implementations
+of the [[https://github.com/Microsoft/language-server-protocol][Language Server Protocol]]
+for code navigation etc. via the =c-c++-backend= configuration variable.
 
 *** RTags
 RTags is a well established clang-based source code indexing tool.
@@ -119,39 +123,55 @@ set the variable =c-c++-rtags-completion= to =nil=:
                          c-c++-enable-rtags-completion nil)))
 #+END_SRC
 
-*** cquery / ccls (lsp backends)
-[[https://github.com/cquery-project/cquery][cquery]] and [[https://github.com/MaskRay/ccls][ccls]] are alternative implementations of the language server protocol
-based on libclang. They claim to be more efficient than existing tools at
-indexing large code bases.
+*** LSP
+LSP support is provided via the [[file:../../+tools/lsp/README.org][LSP layer]], using one of three available backends (all based on libclang).
+- [[https://clang.llvm.org/extra/clangd/][clangd]]
+- [[https://github.com/cquery-project/cquery][cquery]]
+- [[https://github.com/MaskRay/ccls][ccls]]
+They claim to be more efficient than existing tools at indexing large code bases.
 
-**** Features:
+**** Features
 - Cross references (definitions, references, base/derived classes/methods, type instances, ...)
 - Diagnostics
 - Completion with =company-lsp=
-- Semantic highlighting
+- Semantic highlighting (=cquery=, =ccls=)
 - See more on [[https://github.com/cquery-project/cquery/wiki/Emacs]]
 - Cross-platform - functional on Windows, Linux and macOS.
 
 **** External dependencies
-Install one (or both) of the following:
+Install one (or more) of the following (=clangd= is used by default) :
 
-***** cquery server
-Install the =cquery= server. [[https://github.com/cquery-project/cquery/wiki/Getting-started][Instructions]].
+***** clangd
+Install =clang= using a binary distribution downloaded from the [[http://releases.llvm.org/download.html][LLVM releases page]] or via your package manager.
+This is the default implementation used by the emacs =lsp-mode= package and probably the easiest to install.
+- [[https://clang.llvm.org/extra/clangd/Extensions.html][clangd protocol extensions page]]
 
 ***** ccls server
 Install the =ccls= server. [[https://github.com/MaskRay/ccls/wiki/Getting-started][Instructions]].
+This is currently the most fully featured implementation, including semantic highlighting and some navigation/
+introspection features not provided by clangd.
+
+***** cquery server
+Install the =cquery= server. [[https://github.com/cquery-project/cquery/wiki/Getting-started][Instructions]].
+This implementation appears to be unmaintained, and continued support is provided here purely for existing users.
 
 **** Configuration
 ***** Basic
-Select either =cquery= or =ccls= as the =c-c++= layer backend by adding the
+To use the default =clangd= language server, simply select =lsp= as the =c-c++= layer backend by adding the
 following to your dotfile:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-                '((c-c++ :variables c-c++-backend 'lsp-cquery))) ;or 'lsp-ccls
+                '((c-c++ :variables c-c++-backend 'lsp)))
 #+END_SRC
 
-N.B. The [[file:../../+tools/lsp/README.org][LSP layer]] will be loaded automatically if either backend is selected.
+N.B. The [[file:../../+tools/lsp/README.org][LSP layer]] will be loaded automatically.
+
+***** Selecting an alternate LSP server
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables c-c++-backend 'lsp c-c++-lsp-server 'ccls))) ; or 'cquery or 'clangd
+#+END_SRC
 
 ***** Setting path to backend executable
 The basic configuration above should work if the cquery/ccls executable folder
@@ -160,8 +180,9 @@ is present in your path. If not, you can set the path explicitly.
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '((c-c++ :variables
-                         c-c++-backend 'lsp-cquery
-                         c-c++-lsp-executable "/path/to/bin/cquery/or/ccls")))
+                         c-c++-backend 'lsp
+                         c-c++-server 'ccls
+                         c-c++-lsp-executable "/path/to/bin/ccls/clangd/or/cquery")))
 #+END_SRC
 
 If you need to expand =~= in the path, you can use =file-truename= like
@@ -169,34 +190,36 @@ If you need to expand =~= in the path, you can use =file-truename= like
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '((c-c++ :variables
-                         c-c++-backend 'lsp-cquery
-                         c-c++-lsp-executable (file-truename "~/bin/cquery/or/ccls"))))
+                         c-c++-backend 'lsp
+                         c-c++-server 'ccls
+                         c-c++-lsp-executable (file-truename "~/bin/clangd/ccls/or/cquery"))))
 #+END_SRC
 
-***** Semantic highlighting
+***** Semantic highlighting :ccls:cquery:
 Semantic highlighting is disabled by default. To enable, set the
 =c-c++-lsp-sem-highlight-method= variable to either ='font-lock= or ='overlay=.
 To enable the rainbow semantic highlighting colour theme, set
 =c-c++-lsp-sem-highlight-rainbow= to =t=.
 
-***** Additional configuration options
-Both lsp backends are configured to store their index cache in a subdirectory of
-=.emacs.d/cache=. This can be overridden by specifying an explicit
+***** Additional configuration options :ccls:cquery:
+Both lsp backends are configured to store their index cache in a subdirectory of 
+=.emacs.d/cache=. This can be overridden by specifying an explicit 
 =c-c++-lsp-cache-dir=. Setting this value to a relative path will cause the
 index cache to be placed in a subdirectory of your project root.
 
 There are other initialization options such as the number of indexer threads,
-cache serialization format. They have good default values. See =config.el= of
+cache serialization format. They have good default values. See =config.el= of 
 the layer and the backends' respective homepages for more info.
-- [[https://github.com/cquery-project/cquery/wiki/Emacs][Emacs section of =cquery= wiki]]
 - [[https://github.com/MaskRay/ccls/wiki/Emacs][Emacs section of =ccls= wiki]]
+- [[https://github.com/cquery-project/cquery/wiki/Emacs][Emacs section of =cquery= wiki]]
 
 ***** Example dotspacemacs-configuration-layers entry
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '((c-c++ :variables
                          c-c++-adopt-subprojects t
-                         c-c++-backend 'lsp-ccls
+                         c-c++-backend 'lsp
+                         c-c++-server 'ccls
                          c-c++-lsp-executable (file-truename "~/dev/cpp/ccls/Release/ccls")
                          c-c++-lsp-sem-highlight-rainbow t)))
 #+END_SRC
@@ -358,8 +381,11 @@ generally applicable.
 | ~SPC m g X~ | fix fixit at point              |
 | ~SPC m g Y~ | cycle overlays on screen        |
 
+** LSP
+The default key bindings for LSP implementations are defined by/documented in the [[file:../../+tools/lsp/README.org][LSP layer]].
+
 ** cquery / ccls
-The key bindings listed below are in addition to the default key bindings defined by the [[file:../../+tools/lsp/README.org][LSP layer]].
+The key bindings listed below are in addition to
 A ~[ccls]~ or ~[cquery]~ suffix indicates that the binding is for the indicated backend only.
 
 *** backend (language server)
