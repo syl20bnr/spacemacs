@@ -21,6 +21,7 @@
         (cpp-auto-include
          :location (recipe :fetcher github
                            :repo "syohex/emacs-cpp-auto-include"))
+        dap-mode
         disaster
         flycheck
         (flycheck-rtags :requires flycheck rtags)
@@ -31,6 +32,7 @@
         helm-gtags
         (helm-rtags :requires helm rtags)
         (ivy-rtags :requires ivy rtags)
+        lsp-mode ;;Owned/initialised by lsp-layer
         org
         realgud
         rtags
@@ -69,7 +71,7 @@
 
 (defun c-c++/init-clang-format ()
   (use-package clang-format
-    :if (or c-c++-enable-clang-support (spacemacs//c-c++-lsp-enabled))
+    :if (or c-c++-enable-clang-support (eq c-c++-backend 'lsp))
     :init
     (progn
       (when c-c++-enable-clang-format-on-save
@@ -84,7 +86,7 @@
   (when (configuration-layer/package-used-p 'cmake-mode)
     (spacemacs|add-company-backends :backends company-cmake :modes cmake-mode))
   (when c-c++-enable-clang-support
-    (if (spacemacs//c-c++-lsp-enabled)
+    (if (eq c-c++-backend 'lsp)
       (display-warning :error "`c-c++-enable-clang-support' ignored when using lsp backend")
       (progn
         (spacemacs|add-company-backends :backends company-clang :modes c-mode-common)
@@ -279,33 +281,30 @@
       (spacemacs/set-leader-keys-for-major-mode mode "gi" 'cscope-index-files))))
 
 ;; BEGIN LSP BACKEND PACKAGES
+(defun c-c++/post-init-lsp-mode ()
+  (when (eq c-c++-backend 'lsp)
+    (spacemacs//c-c++-lsp-config)
+    (unless (eq c-c++-lsp-server 'clangd)
+      (require c-c++-lsp-server) ; i.e. the 'ccls or 'cquery package
+      (remhash 'clangd lsp-clients))
+    (spacemacs/add-to-hooks 'lsp c-c++-mode-hooks)))
+
 ;; See also https://github.com/cquery-project/cquery/wiki/Emacs
 (defun c-c++/init-cquery ()
   (use-package cquery
-    :if (eq c-c++-backend 'lsp-cquery)
-    :config
-    (spacemacs//c-c++-lsp-config)
-    :hook ((c-mode c++-mode) .
-            (lambda () (cl-pushnew #'company-lsp company-backends) (require 'cquery) (remhash 'clangd lsp-clients) (lsp)))))
+    :if (and (eq c-c++-backend 'lsp) (eq c-c++-lsp-server 'cquery))))
 
 ;; See also https://github.com/MaskRay/ccls/wiki/Emacs
 (defun c-c++/init-ccls ()
   (use-package ccls
-    :if (eq c-c++-backend 'lsp-ccls)
-    :config
-    (spacemacs//c-c++-lsp-config)
-    :hook ((c-mode c++-mode) .
-            (lambda () (cl-pushnew #'company-lsp company-backends) (require 'ccls) (remhash 'clangd lsp-clients) (lsp)))))
+    :if (and (eq c-c++-backend 'lsp) (eq c-c++-lsp-server 'ccls))))
 
-;;Intentionally adding both cquery and ccls cache dirs to ignore list, to facilitate switching between
-;;two without multiple caches polluting projectile find file results
 (defun c-c++/pre-init-projectile ()
   (spacemacs|use-package-add-hook projectile
     :post-config
     (progn
-      (add-to-list 'projectile-globally-ignored-directories ".cquery_cached_index")
-      (add-to-list 'projectile-globally-ignored-directories ".ccls-cache")
       (when c-c++-lsp-cache-dir
+        ;; Ignore lsp cache dir, in case user has opted for cache within project source tree
         (add-to-list 'projectile-globally-ignored-directories c-c++-lsp-cache-dir))
       (when c-c++-adopt-subprojects
         (setq projectile-project-root-files-top-down-recurring
@@ -315,3 +314,8 @@
             projectile-project-root-files-top-down-recurring))))))
 
 ;; END LSP BACKEND PACKAGES
+
+(defun c-c++/pre-init-dap-mode ()
+  (dolist (mode c-c++-modes)
+    (add-to-list 'spacemacs--dap-supported-modes mode)
+    (when (eq c-c++-backend 'lsp) (spacemacs/add-to-hooks 'spacemacs//c-c++-setup-lsp-dap c-c++-mode-hooks))))

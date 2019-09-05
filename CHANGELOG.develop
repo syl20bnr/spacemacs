@@ -122,6 +122,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 ***** C-C++
 - CMake support has been extracted from the =c-c++= layer into the new =cmake=
   layer.
+- LSP code navigation / completion added via clangd, ccls or cquery
+  (thanks to Cormac Cannon)
 ***** ESS
 - ESS key bindings were re-organised in the following list
   (thanks to Guido Kraemer, Yi Liu, and Jack Kamm):
@@ -1145,8 +1147,8 @@ Other:
     - Added variable: =++-enable-organize-includes-on-save=
     - Added key binding: ~SPC m r i~ organize includes
 - Improvements:
-  - Added =lsp= support using either =cquery= or =ccls= backends
-    (thanks to Cormac Cannon, Sergey Litovchuk and Fangrui Song)
+  - Added =lsp= support using either =clangd=, =ccls= or =cquery= backends
+    (thanks to Cormac Cannon, Sergey Litovchuk, Fangrui Song and David Vo)
   - Fixed =lsp= support for =ccls= server (thanks to Alexander Dalshov)
   - Added automatic formatting on save using ClangFormat with the variables
     =c-c++-enable-clang-format-on-save= and =c-c++-enable-clang-support=
@@ -2857,11 +2859,13 @@ Other:
   Sergio Ugalde, Shane Kilkelly, Sid Kapur, Somelauw, Soobin Rho, sorawee,
   SteveJobzniak, Sunghyun Hwang, Swaroop C H, Sylvain Benner, Szunti, Tim
   Stewart, timor, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz
-  Cichocinski, Trey Merkley, tzhao11, Vincent Taing, Vlad Bokov, Vladimir Kochnev, Wieland
-  Hoffmann, Witoslaw Koczewski, Xiang Ji, Yi Liu, Zane Sterling, zer09, Zhige
+  Cichocinski, Trey Merkley, tzhao11, Vincent Taing, Vlad Bokov, Vladimir
+  Kochnev, Wieland Hoffmann, Witoslaw Koczewski, Xiang Ji, Yi Liu, Zane
+  Sterling, zer09, Zhige
   Xin, Serghei Iakovlev)
 **** Documentation and website
-  - Updated DOCUMENTATION.org to fix the example for how to change the separator style
+  - Updated DOCUMENTATION.org to fix the example for how to change the separator
+    style
 *** Release notes summarized
   Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
   Masters, Abhishek(Compro) Prasad, Deepak Khidia, Ward Harris, Jiahao Jiang,
