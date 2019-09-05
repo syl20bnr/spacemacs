@@ -13,3 +13,6 @@
 
 (defvar json-fmt-tool 'web-beautify
   "The formatter to format a JSON file. Possible values are `web-beautify' and `prettier'.")
+
+(defvar json-fmt-on-save nil
+  "Run formatter on buffer save.")

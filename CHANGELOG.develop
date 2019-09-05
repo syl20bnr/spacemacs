@@ -1773,6 +1773,8 @@ Other:
 - Added missing optional argument for the =jabber-alert-echo= function to fix
   =wrong-number-of-arguments= error when jabber receives a new notification
   (thanks to Aleksei Fedotov)
+**** Json
+- Added variable =json-fmt-on-save= to run the selected formatter on save.
 **** Jsonnet
 - Fixed flycheck support in jsonnet files (thanks to Vikash Balasubramanian)
 **** Java
