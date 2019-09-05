@@ -12,6 +12,7 @@
   - [[#web-beautify][web-beautify]]
   - [[#prettier][prettier]]
   - [[#choosing-a-formatter][Choosing a formatter]]
+  - [[#formatting-on-save][Formatting on save]]
 - [[#usage][Usage]]
   - [[#reformat][Reformat]]
   - [[#display-navigable-hierarchy][Display navigable hierarchy]]

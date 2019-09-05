@@ -1706,7 +1706,7 @@ Features:
 - Source analysis using [[https://docs.google.com/document/d/1_Y9xCEMj5S-7rv2ooHpZNH15JgRT5iM742gJkw5LtmQ][go-guru]]
 - Refactoring with [[http://gorefactor.org/][godoctor]]
 - Edit struct field tag with [[https://github.com/fatih/gomodifytags][gomodifytags]]
-- Linting with flycheck's built-in checkers or flycheck-golangci-lint
+- Linting with flycheck's built-in checkers or [[https://github.com/golangci/golangci-lint][flycheck-golangci-lint]]
 - Coverage profile visualization
 - Test generation with [[https://github.com/s-kostyaev/go-gen-test][go-gen-test]]
 - Get packages faster with [[https://github.com/haya14busa/gopkgs][gopkgs]]
