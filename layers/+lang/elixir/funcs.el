@@ -65,6 +65,14 @@
 
 ;; others
 
+(defun spacemacs//elixir-default ()
+  "Default settings for elixir buffers"
+
+  ;; highlight all breakpoints
+  (spacemacs/elixir-annotate-pry)
+  ;; make C-j work the same way as RET
+  (local-set-key (kbd "C-j") 'newline-and-indent))
+
 (defun spacemacs//elixir-looking-back-special-p (expr)
   (save-excursion
     (when (or (looking-back " ")
@@ -93,3 +101,20 @@
     (flycheck-mix-setup)
     ;; enable credo only if there are no compilation errors
     (flycheck-add-next-checker 'elixir-mix '(warning . elixir-credo))))
+
+(defun spacemacs/elixir-annotate-pry ()
+  "Highlight breakpoint lines."
+  (interactive)
+  (highlight-lines-matching-regexp "require IEx; IEx.pry"))
+
+(defun spacemacs/elixir-toggle-breakpoint ()
+  "Add a breakpoint line or clear it if line is already a breakpoint."
+  (interactive)
+  (let ((trace "require IEx; IEx.pry")
+        (line (thing-at-point 'line)))
+    (if (and line (string-match trace line))
+        (kill-whole-line)
+      (progn
+        (back-to-indentation)
+        (insert trace)
+        (newline-and-indent)))))
