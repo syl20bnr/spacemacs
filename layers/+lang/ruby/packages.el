@@ -178,6 +178,8 @@
           "sf" 'ruby-send-definition
           "sF" 'ruby-send-definition-and-go
           "si" 'robe-start
+          "sb" 'ruby-send-buffer
+          "sB" 'ruby-send-buffer-and-go
           "sl" 'ruby-send-line
           "sL" 'ruby-send-line-and-go
           "sr" 'ruby-send-region
