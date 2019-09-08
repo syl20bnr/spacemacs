@@ -14,7 +14,10 @@
     (julia-mode :location elpa)
     (julia-repl :location elpa)
     (lsp-julia :location (recipe :fetcher github
-                                 :repo "non-Jedi/lsp-julia"))
+                                 :repo "gdkrmr/lsp-julia"
+                                 :files ("*.el"
+                                         "README.org"
+                                         "languageserver")))
     flycheck
     company-lsp
     evil-surround
@@ -33,37 +36,60 @@
                      julia-mode-enable-ess)
                 (message "`ess' layer is not installed. Please add `ess' layer to your dotfile.")))
     :config (progn
-              (spacemacs/declare-prefix-for-mode 'julia-mode
-                "mh" "help")
-              (spacemacs/declare-prefix-for-mode 'julia-mode
-                "me" "eval")
-              (spacemacs/declare-prefix-for-mode 'julia-mode
-                "m=" "format")
+              (spacemacs/declare-prefix-for-mode 'julia-mode "m=" "format")
               (spacemacs/set-leader-keys-for-major-mode 'julia-mode
-                "el" 'julia-latexsub
-                "==" 'julia-indent-line))))
+                "l" 'julia-latexsub-or-indent
+                "==" 'julia-indent-line
+                "=d" 'julia-manual-deindent
+                "=q" 'prog-indent-sexp)
+
+              (when (configuration-layer/package-used-p 'helm)
+                (spacemacs/declare-prefix-for-mode 'julia-mode "mi" "insert")
+                (spacemacs/set-leader-keys-for-minor-mode 'julia-mode
+                  "ii" 'spacemacs//julia-helm-math-insert)
+                )
+
+              )))
 
 (defun julia/init-julia-repl ()
   (use-package julia-repl
     :defer t
     :init (progn
-            (spacemacs/register-repl 'julia-repl 'julia-repl
-                                     "julia-repl"))
+            (spacemacs/register-repl 'julia-repl 'julia-repl "julia-repl"))
     :config (progn
-              (spacemacs/declare-prefix-for-mode 'julia-repl-mode
-                "ms" "send")
-              (spacemacs/set-leader-keys-for-minor-mode
-                'julia-repl-mode
-                "'" 'julia-repl-edit
+              (spacemacs/declare-prefix-for-mode 'julia-mode "mh" "help")
+              (spacemacs/declare-prefix-for-mode 'julia-mode "me" "eval")
+              (spacemacs/declare-prefix-for-mode 'julia-mode "ms" "send")
+              (spacemacs/set-leader-keys-for-minor-mode 'julia-repl-mode
+                "'" 'julia-repl
+                "r" 'julia-repl
                 "hh" 'julia-repl-doc
-                "w" 'julia-repl-workspace
-                "em" 'julia-repl-macroexpand
-                "r"  'julia-repl
+
+                "sa" 'julia-repl-activate-parent
+                "sd" 'julia-repl-cd
                 "si" 'julia-repl
                 "sb" 'julia-repl-send-buffer
+                "st" 'julia-repl-includet-buffer
                 "sl" 'julia-repl-send-line
+                "ss" 'julia-repl-send-line
                 "sr" 'julia-repl-send-region-or-line
-                "em" 'julia-repl-macroexpand))))
+                "sm" 'julia-repl-macroexpand
+                "se" 'julia-repl-edit
+                "sv" 'julia-repl-prompt-set-inferior-buffer-name-suffix
+
+                "ea" 'julia-repl-activate-parent
+                "ed" 'julia-repl-cd
+                "eb" 'julia-repl-send-buffer
+                "et" 'julia-repl-includet-buffer
+                "el" 'julia-repl-send-line
+                "es" 'julia-repl-send-line
+                "er" 'julia-repl-send-region-or-line
+                "em" 'julia-repl-macroexpand
+                "ee" 'julia-repl-edit
+                "ev" 'julia-repl-prompt-set-inferior-buffer-name-suffix
+
+                ))))
+
 
 (defun julia/post-init-evil-surround ()
   (with-eval-after-load 'evil-surround

@@ -9,6 +9,24 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//julia-hash-to-alist (hash)
+  "Convert a `hash-table' to an `alist' for the use in a helm buffer."
+  (let (res)
+    (maphash (lambda (key value)
+               (push `(,key . ,value) res))
+             hash)
+    res))
+
+(when (configuration-layer/layer-used-p 'helm)
+  (defun spacemacs//julia-helm-math-insert()
+    "Insert a utf8 symbol from `julia-latexsubs'"
+    (interactive)
+    (helm :sources (helm-build-sync-source "test"
+                     :candidates (spacemacs//julia-hash-to-alist julia-latexsubs)
+                     :fuzzy-match t
+                     :action (lambda (candidate) (insert candidate)))
+          :buffer "*helm julia latex insert*")))
+
 (defun spacemacs//julia-setup-buffer ()
   "Setup ESS and/or lsp for buffer depending on config."
   (when (not julia-mode-enable-ess)
