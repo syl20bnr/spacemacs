@@ -1474,6 +1474,7 @@ Other:
 - Refactor keybindings for =ess-mode= and =ess-julia-mode=
   (thanks to Guido Kraemer and bmag)
 - Added Julia repl to =spacemacs/ess-start-repl= (thanks to Guido Kraemer)
+- Optimize Julia layer to provide better dev experience (thanks to Guido Kraemer)
 - Reorganize key bindings (refer to =ESS= section in Breaking Changes above)
 - Added =xref= integration (thanks to Guido Kraemer)
 - Update ess-disable-underscore-assign for ESS 18.10 (thanks to Leonard Lausen)
