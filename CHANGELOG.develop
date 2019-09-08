@@ -1639,6 +1639,8 @@ Other:
   - Load helm before =read-file-name= and =completing-read=
     (thanks duianto and thanks Miciah for a more elegant solution)
   - Load helm before =completion-at-point= (thanks to duianto)
+  - Filter out useless buffers from =helm-mini= on ~SPC b b~, all useless
+    buffers can be listed using ~SPC b U~ (thanks to Thomas de Beauchêne)
   - Limited =ripgrep= results to 512 columns by default, and added
     =spacemacs-helm-rg-max-column-number= layer variable to configure the above
     limit (thanks to Aaron Jensen, Michael Hauser-Raspe, and Sylvain Benner)
@@ -1668,7 +1670,8 @@ Other:
     - ~SPC s r D for =spacemacs/helm-dir-do-rg-region-or-symbol=
     - ~SPC s t d for =spacemacs/helm-dir-do-pt=
     - ~SPC s t D for =spacemacs/helm-dir-do-pt-region-or-symbol=
-  - Added key binding `sC` for `helm-swoop-clear-cache` (thanks to Yang Qian)
+  - Added ~SPC b U~ to list all useless buffers(thanks to Thomas de Beauchêne)
+  - Added ~SPC s C~ for =helm-swoop-clear-cache= (thanks to Yang Qian)
   - Removed ~SPC s w w~ key binding for =helm-wikipedia-suggest=, which was
     removed upstream.
 - Fixes
