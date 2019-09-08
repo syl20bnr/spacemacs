@@ -1635,57 +1635,61 @@ Other:
   (thanks to cjay, CthulhuDen and Magnus Therning)
 - Included =attrap= when =dante= is used (thanks to Pepe Iborra)
 **** Helm
-- Limited =ripgrep= results to 512 columns by default, and added
-  =spacemacs-helm-rg-max-column-number= layer variable to configure the above
-  limit (thanks to Aaron Jensen, Michael Hauser-Raspe, and Sylvain Benner)
-- Key bindings for directory search (thanks to Tim Jäger and Eivind Fonn):
-  - ~SPC s d for =spacemacs/helm-dir-smart-do-search=
-  - ~SPC s D for =spacemacs/helm-dir-smart-do-search-region-or-symbol=
-  - ~SPC s a d for =spacemacs/helm-dir-do-ag=
-  - ~SPC s a D for =spacemacs/helm-dir-do-ag-region-or-symbol=
-  - ~SPC s k d for =spacemacs/helm-dir-do-ack=
-  - ~SPC s k D for =spacemacs/helm-dir-do-ack-region-or-symbol=
-  - ~SPC s r d for =spacemacs/helm-dir-do-rg=
-  - ~SPC s r D for =spacemacs/helm-dir-do-rg-region-or-symbol=
-  - ~SPC s t d for =spacemacs/helm-dir-do-pt=
-  - ~SPC s t D for =spacemacs/helm-dir-do-pt-region-or-symbol=
-- Don't change =helm-bookmarks= keys too early when helm-mode is enabled
-  (thanks to bmag)
-- Change the default actions for =helm-find-files=, =helm-buffers-list=, and
-  other file- or buffer-related Helm interfaces to handle multiple marked
-  candidates by distributing buffers over existing windows until the action has
-  either assigned all buffers or run out of windows (thanks to Nir Friedman)
-- Fixed signature of =spacemacs//display-helm-window= (thanks to Jack Kamm)
-- Fixed initialization by calling =helm-mode= when Helm is initialized=
-  (thanks to bet4it).
-- Fixed actions in Helm transient state (thanks to Troy Hinckley)
-- Fixed conflict with new Magit transient key bindings
-  (thanks to Sylvain Benner)
-- Added support for editing the =helm-find-files= buffer from the Helm transient
-  state (thanks to Troy Hinckley)
-- Fixed smex package integration (thanks to Troy Hinckley)
-- Fixed winum integration (thanks to Sylvain Benner)
-- Fixed "Invalid face reference" error in Helm transient state
-  (thanks to duianto)
-- Hide lighter (thanks to Sylvain Benner and duianto)
-- Lazy load =helm= based on key bindings (thanks to Sylvain Benner)
-- Fixed error from =spacemacs/helm-files-smart-do-search= on non-file buffers
-  (thanks to Miciah Masters)
-- Added guard to check if =winum= is loaded (thanks to Dan Girshovich)
-- Fixed regression: void function =helm-current-directory= on =C-x C-f=
-  (thanks to bmag)
-- Fixed opening files from buffers without winum
-  (thanks to Codruț Constantin Gușoi)
-- Removed ~SPC s w w~ key binding for =helm-wikipedia-suggest=, which was
-  removed upstream.
-- Load helm before =read-file-name= and =completing-read=
-  (thanks duianto and thanks Miciah for a more elegant solution)
-- Added key binding `sC` for `helm-swoop-clear-cache` (thanks to Yang Qian)
-- Fixed =spacemacs//helm-open-buffers-in-windows= when opening more files than
-  available windows (thanks to Juha Jeronen)
-- Load helm before =completion-at-point= (thanks to duianto)
-- Updated =helm-xref= to set the correct =xref-show-xrefs-function= for Emacs 27
-  (thanks to Junxuan)
+- Improvements:
+  - Load helm before =read-file-name= and =completing-read=
+    (thanks duianto and thanks Miciah for a more elegant solution)
+  - Load helm before =completion-at-point= (thanks to duianto)
+  - Limited =ripgrep= results to 512 columns by default, and added
+    =spacemacs-helm-rg-max-column-number= layer variable to configure the above
+    limit (thanks to Aaron Jensen, Michael Hauser-Raspe, and Sylvain Benner)
+  - Don't change =helm-bookmarks= keys too early when helm-mode is enabled
+    (thanks to bmag)
+  - Change the default actions for =helm-find-files=, =helm-buffers-list=, and
+    other file- or buffer-related Helm interfaces to handle multiple marked
+    candidates by distributing buffers over existing windows until the action
+    has either assigned all buffers or run out of windows
+    (thanks to Nir Friedman)
+  - Added support for editing the =helm-find-files= buffer from the Helm
+    transient state (thanks to Troy Hinckley)
+  - Hide lighter (thanks to Sylvain Benner and duianto)
+  - Lazy load =helm= based on key bindings (thanks to Sylvain Benner)
+  - Added guard to check if =winum= is loaded (thanks to Dan Girshovich)
+  - Updated =helm-xref= to set the correct =xref-show-xrefs-function= for
+    Emacs 27 (thanks to Junxuan)
+- Key bindings:
+  - Added Key bindings for directory search (thanks to Tim Jäger and Eivind Fonn):
+    - ~SPC s d for =spacemacs/helm-dir-smart-do-search=
+    - ~SPC s D for =spacemacs/helm-dir-smart-do-search-region-or-symbol=
+    - ~SPC s a d for =spacemacs/helm-dir-do-ag=
+    - ~SPC s a D for =spacemacs/helm-dir-do-ag-region-or-symbol=
+    - ~SPC s k d for =spacemacs/helm-dir-do-ack=
+    - ~SPC s k D for =spacemacs/helm-dir-do-ack-region-or-symbol=
+    - ~SPC s r d for =spacemacs/helm-dir-do-rg=
+    - ~SPC s r D for =spacemacs/helm-dir-do-rg-region-or-symbol=
+    - ~SPC s t d for =spacemacs/helm-dir-do-pt=
+    - ~SPC s t D for =spacemacs/helm-dir-do-pt-region-or-symbol=
+  - Added key binding `sC` for `helm-swoop-clear-cache` (thanks to Yang Qian)
+  - Removed ~SPC s w w~ key binding for =helm-wikipedia-suggest=, which was
+    removed upstream.
+- Fixes
+  - Fixed signature of =spacemacs//display-helm-window= (thanks to Jack Kamm)
+  - Fixed initialization by calling =helm-mode= when Helm is initialized=
+    (thanks to bet4it).
+  - Fixed actions in Helm transient state (thanks to Troy Hinckley)
+  - Fixed conflict with new Magit transient key bindings
+    (thanks to Sylvain Benner)
+  - Fixed smex package integration (thanks to Troy Hinckley)
+  - Fixed winum integration (thanks to Sylvain Benner)
+  - Fixed "Invalid face reference" error in Helm transient state
+    (thanks to duianto)
+  - Fixed error from =spacemacs/helm-files-smart-do-search= on non-file buffers
+    (thanks to Miciah Masters)
+  - Fixed regression: void function =helm-current-directory= on =C-x C-f=
+    (thanks to bmag)
+  - Fixed opening files from buffers without winum
+    (thanks to Codruț Constantin Gușoi)
+  - Fixed =spacemacs//helm-open-buffers-in-windows= when opening more files than
+    available windows (thanks to Juha Jeronen)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Added =counsel-css= as an =ivy= alternative to =helm-css-scss=
