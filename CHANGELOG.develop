@@ -940,6 +940,10 @@ Other:
   - Added a link to =spacemacs|create-align-repeat-x= in the docstring for
      =align-repeat-= commands (thanks to Troy Pracy)
   - Improved TS formatting: workspaces & layouts (thanks to duianto)
+  - Added more persistant =helm= actions ~C-z~ to switch layout ~SPC p l~
+    - Switch to Project Perspective and Show Recent Files
+    - Switch to Project Perspective and Search
+    (thanks to Gia Thanh Vuong)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)
