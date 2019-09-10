@@ -251,6 +251,11 @@
         (kbd "gr") 'helm-ag--update-save-results
         (kbd "q") 'quit-window))))
 
+(defun helm/pre-init-helm ()
+  ;; This is to define helm keymap which is needed by easy-menu-add-item called
+  ;; within helm-org-autoloads.el while activating helm-org.
+  (require 'helm-config))
+
 (defun helm/init-helm-descbinds ()
   (use-package helm-descbinds
     :defer (spacemacs/defer)
