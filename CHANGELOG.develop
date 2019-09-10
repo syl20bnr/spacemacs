@@ -1817,6 +1817,8 @@ Other:
 - Added LSP Java backend (thanks to Ivan Yonchovski)
 - Added =.dap-breakpoints= and =.lsp-session-*= (java lsp tempfiles) to
   .gitignore (thanks to Uroš Perišić)
+- Added =transient= (package update temp folder) to
+  .gitignore (thanks to Jarosław Górny)
 - Fixed prefixes for =java-mode= and =gradle-mode=
 - New =lsp= backend keybindings
   - ~SPC m r c i~ convert to static import
