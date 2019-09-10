@@ -32,9 +32,8 @@ file.
 This layer can be used with [[https://github.com/JuliaEditorSupport/LanguageServer.jl][=LanguageServer.jl=]] and emacs [[https://github.com/emacs-lsp/lsp-mode][=lsp-mode=]] to provide
 richer, IDE-like capabilities. To use this layer with lsp, you must do the
 following:
-1. Add =lsp= to =dotspacemacs-configuration-layers=.
-2. =LanguageServer.jl= should be configured automatically, if not, see the documentation of =lsp-julia=.
-3. Enable layer integration with lsp as described in section below.
+1. =LanguageServer.jl= should be configured automatically, if not, see the documentation of =lsp-julia=.
+2. Enable layer integration with lsp as described in section below.
 
 =LanguageServer.jl= tends to have a very long startup time. In the worst case,
 =lsp-mode= might give up on the language server before its started, but

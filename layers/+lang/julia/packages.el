@@ -1,4 +1,4 @@
-;;; packages.el --- julia layer packages file for Spacemacs.
+;;; packages.el --- Julia layer packages file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
