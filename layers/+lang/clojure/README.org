@@ -161,7 +161,7 @@ Enable the clj-kondo automatic linter in Spacemacs by adding a =:variables= opti
 to your Spacemacs configuration:
 
 #+BEGIN_SRC emacs-lisp
-  ;; Witout any variables your configuration would just include clojure
+  ;; Without any variables your configuration would just include Clojure
   dotspacemacs-configuration-layers
   '(...
     clojure
