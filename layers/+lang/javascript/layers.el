@@ -10,3 +10,7 @@
 ;;; License: GPLv3
 
 (configuration-layer/declare-layers '(json node prettier tern web-beautify))
+
+(when (and (boundp 'javascript-backend)
+           (eq javascript-backend 'lsp))
+  (configuration-layer/declare-layers '(lsp dap)))

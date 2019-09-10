@@ -10,3 +10,7 @@
 ;;; License: GPLv3
 
 (configuration-layer/declare-layers '(node javascript prettier))
+
+(when (and (boundp 'typescript-backend)
+           (eq typescript-backend 'lsp))
+  (configuration-layer/declare-layer 'lsp))
