@@ -1392,6 +1392,7 @@ Other:
 **** Elfeed
 - Fixed selection bindings in visual state (thanks to Jeremy Symon)
 - Fixed not saving on quit (thanks to Andrew Stevanus)
+- Make elfeed-goodies optional (thanks to Benjamin Sigonneau)
 **** Elixir
 - Added missing Alchemist commands and key bindings (thanks to Swaroop C H)
   - Key bindings:

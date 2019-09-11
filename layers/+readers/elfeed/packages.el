@@ -46,15 +46,17 @@
         "y"  'elfeed-search-yank))))
 
 (defun elfeed/pre-init-elfeed-goodies ()
-  (spacemacs|use-package-add-hook elfeed
-    :post-config
-    (progn
-      (elfeed-goodies/setup)
-      (evil-define-key 'evilified elfeed-show-mode-map
-        "o" 'elfeed-goodies/show-ace-link))))
+  (when elfeed-enable-goodies
+    (spacemacs|use-package-add-hook elfeed
+      :post-config
+      (progn
+        (elfeed-goodies/setup)
+        (evil-define-key 'evilified elfeed-show-mode-map
+          "o" 'elfeed-goodies/show-ace-link)))))
 
 (defun elfeed/init-elfeed-goodies ()
-  (use-package elfeed-goodies :commands elfeed-goodies/setup))
+  (when elfeed-enable-goodies
+    (use-package elfeed-goodies :commands elfeed-goodies/setup)))
 
 (defun elfeed/pre-init-elfeed-org ()
   (when (boundp 'rmh-elfeed-org-files)
