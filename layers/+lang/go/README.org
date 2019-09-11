@@ -1,4 +1,4 @@
-#+TITLE: GO layer
+#+TITLE: Go layer
 
 #+TAGS: general|layer|multi-paradigm|programming
 
@@ -8,107 +8,186 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-  - [[#pre-requisites][Pre-requisites]]
-  - [[#lsp-backend][LSP backend]]
   - [[#layer][Layer]]
+  - [[#pre-requisites][Pre-requisites]]
 - [[#configuration][Configuration]]
+  - [[#execution][Execution]]
   - [[#indentation][Indentation]]
+  - [[#autoformat][Autoformat]]
+  - [[#linting][Linting]]
   - [[#tests][Tests]]
+  - [[#coverage][Coverage]]
   - [[#guru][Guru]]
-  - [[#autocomplete][Autocomplete]]
+  - [[#auto-completion][Auto-completion]]
+  - [[#lsp-backend][LSP backend]]
 - [[#working-with-go][Working with Go]]
   - [[#go-commands-start-with-m][Go commands (start with =m=):]]
   - [[#go-guru][Go Guru]]
   - [[#refactoring][Refactoring]]
 
 * Description
-This layer adds extensive support for go to Spacemacs.
+This layer adds extensive support for the [[https://golang.org][Go]] programming language.
 
 ** Features:
-- gofmt/goimports on file save (to enable, see [[#configuration][Configuration]])
-- Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete]] (with the =auto-completion= layer)
-- Source analysis using [[https://docs.google.com/document/d/1_Y9xCEMj5S-7rv2ooHpZNH15JgRT5iM742gJkw5LtmQ][go-guru]]
+- Run [[https://golang.org/cmd/gofmt/][gofmt]]/[[https://godoc.org/golang.org/x/tools/cmd/goimports][goimports]] on file save (see [[#autoformat][Autoformat]])
+- Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete.el]], via the =auto-completion= layer (see [[#auto-completion][Auto-completion]])
+- Source analysis using [[https://docs.google.com/document/d/1_Y9xCEMj5S-7rv2ooHpZNH15JgRT5iM742gJkw5LtmQ][go-guru]] (see [[#guru][Guru]])
 - Refactoring with [[http://gorefactor.org/][godoctor]]
-- Edit struct field tag with [[https://github.com/fatih/gomodifytags][gomodifytags]]
-- Linting with flycheck's built-in checkers or [[https://github.com/golangci/golangci-lint][flycheck-golangci-lint]]
-- Coverage profile visualization
-- Test generation with [[https://github.com/s-kostyaev/go-gen-test][go-gen-test]]
-- Get packages faster with [[https://github.com/haya14busa/gopkgs][gopkgs]]
+- Edit struct field tags with [[https://github.com/fatih/gomodifytags][gomodifytags]]
+- Linting with flycheck's built-in checkers or [[https://github.com/golangci/golangci-lint][golangci-lint]] (see [[#linting][Linting]])
+- Test generation via [[https://github.com/s-kostyaev/go-gen-test][go-gen-test]] (see [[#tests][Tests]])
+- Coverage profile visualization (see [[#coverage][Coverage]])
+- List packages faster with [[https://github.com/haya14busa/gopkgs][gopkgs]]
 - Fill a structure with default values using the [[https://github.com/davidrjenni/reftools/tree/master/cmd/fillstruct][fillstruct]]
-- LSP backend
+- LSP backend (see [[#lsp-backend][LSP backend]])
 
 * Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =go= to the existing =dotspacemacs-configuration-layers= list in this file.
+
 ** Pre-requisites
 You will need =gocode=, =gogetdoc=, =godef=, =godoctor= and many others
 to get all the goodies of this layer:
 
 #+BEGIN_SRC sh
+  GO111MODULE=on go get -v golang.org/x/tools/gopls@latest
+  go get -u -v golang.org/x/tools/cmd/godoc
+  go get -u -v golang.org/x/tools/cmd/goimports
+  go get -u -v golang.org/x/tools/cmd/gorename
+  go get -u -v golang.org/x/tools/cmd/guru
+  go get -u -v github.com/cweill/gotests/...
+  go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
+  go get -u -v github.com/fatih/gomodifytags
+  go get -u -v github.com/godoctor/godoctor
+  go get -u -v github.com/golangci/golangci-lint/cmd/golangci-lint
+  go get -u -v github.com/haya14busa/gopkgs/cmd/gopkgs
+  go get -u -v github.com/josharian/impl
   go get -u -v github.com/mdempsky/gocode
   go get -u -v github.com/rogpeppe/godef
-  go get -u -v golang.org/x/tools/cmd/guru
-  go get -u -v golang.org/x/tools/cmd/gorename
-  go get -u -v golang.org/x/tools/cmd/goimports
-  go get -u -v golang.org/x/tools/cmd/godoc
   go get -u -v github.com/zmb3/gogetdoc
-  go get -u -v github.com/cweill/gotests/...
-  go get -u github.com/haya14busa/gopkgs/cmd/gopkgs
-  go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
-  go get -u github.com/josharian/impl
 #+END_SRC
 
+Make sure that the executables are in your search =$PATH=. Note that they are
+installed on =$(go env GOPATH)/bin=, or =$GOBIN= if that environment variable is
+defined. For information about setting up =$PATH=, check out the corresponding
+section in the FAQ (~SPC h f $PATH RET~).
+
+For best results, make sure that the =auto-completion= and =syntax-checking=
+layers are enabled as well.
+
+* Configuration
+** Execution
+To run the current =main= package with command line arguments, set the value of
+=go-run-args= as a file local variable, e.g.
+
+#+BEGIN_SRC emacs-lisp
+  // Local Variables:
+  // go-run-args: "--output run.log"
+  // End:
+#+END_SRC
+
+** Indentation
+By default, the tab width in Go mode is 8 spaces. To use a different value, set
+the layer variable =go-tab-width=, e.g.
+
+#+BEGIN_SRC emacs-lisp
+  (go :variables go-tab-width 4)
+#+END_SRC
+
+If you're using =.editorconfig= in your project, set the value to nil to avoid
+conflicts, i.e.
+
+#+BEGIN_SRC emacs-lisp
+  (go :variables go-tab-width nil)
+#+END_SRC
+
+** Autoformat
+To run =gofmt= before save, set the value to a non-nil, i.e.
+
+#+BEGIN_SRC emacs-lisp
+  (go :variables go-format-before-save t)
+#+END_SRC
+
+To use a different formatter, set the value of =gofmt-command=, e.g.
+
+#+BEGIN_SRC emacs-lisp
+  (go :variables gofmt-command "goimports")
+#+END_SRC
+
+** Linting
 If you wish to use =golangci-lint=, set the following layer variable to non-nil:
 
 #+BEGIN_SRC emacs-lisp
   (go :variables go-use-golangci-lint t)
 #+END_SRC
 
-and install the tool:
-
-#+BEGIN_SRC sh
-  go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
-#+END_SRC
-
 Check [[https://github.com/golangci/golangci-lint][golangci-lint]] and [[https://github.com/weijiangan/flycheck-golangci-lint][flycheck-golangci-lint]] for more details.
 
-If you wish to use =godoctor= for refactoring, install it too:
+** Tests
+If you're using =gocheck= or =testify= in your project you can use the
+=go-use-gocheck-for-testing= or =go-use-testify-for-testing= variable to enable
+suite testing and to get single function testing to work.
 
-#+BEGIN_SRC sh
-  go get -u -v github.com/godoctor/godoctor
-  go install github.com/godoctor/godoctor
+Tests are run in a compilation buffer displayed in a popup window that can be
+closed by pressing ~C-g~ from any other window. The variable =go-test-buffer-name=
+can be customized to set the output buffer name.
+
+To provide additional arguments to =go test=, specify =go-use-test-args=.
+
+#+BEGIN_SRC emacs-lisp
+  (go :variables go-use-test-args "-race -timeout 10s")
 #+END_SRC
 
-If you want to use =gomodifytags= to edit field tags, install it too:
+** Coverage
+=go-coverage-display-buffer-func= controls how =go-coverage= should display
+the coverage buffer. See [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html][display-buffer]] for a list of possible functions.
+The default value is =display-buffer-reuse-window=.
 
-#+BEGIN_SRC sh
-  go get -u -v github.com/fatih/gomodifytags
+** Guru
+If you would like to use the =Go Guru= bindings in your work, in your project you
+will need to set the scope with ~SPC m f o~. The scope is a comma separated set
+of packages, and Go’s recursive operator is supported. In addition, you can
+prefix it with =-= to exclude a package from searching.
+
+** Auto-completion
+For auto-completion there are actually two choices. First there is the classic
+=gocode=. This has been around for quite a long time now, however =gocode= has many
+shortcomings, like not being able to show documentation for built-in objects or
+being fully dependent on installed binary files to provide its suggestions.
+
+A more modern and complete solution is provided by =gogetdoc=, which is able to
+precisely detect all documentations in your go projects independently from where
+they have been added. This is also the recommended choice from =go-mode.el=.
+
+To choose =gocode= nothing more needs to be done. To use =gogetdoc= you need to set
+the layer variable:
+
+#+BEGIN_SRC emacs-lisp
+  (go :variables godoc-at-point-function 'godoc-gogetdoc)
 #+END_SRC
 
-Make sure that the =gocode= executable is in your PATH. For information about
-setting up =$PATH=, check out the corresponding section in the FAQ (~SPC h f
-$PATH RET~).
-
-For best results, make sure that the =auto-completion= and =syntax-checking=
-layers are enabled as well.
+If you choose to use =gocode= there are some suggestions to improve its results.
+As =gocode= uses the output from installed binary files to provide its suggestions.
+You have a few options to ensure you always get up to date suggestions:
+- Run =go install ./...= in your package directory when you make a file change.
+- Run =gocode set autobuild true= to have gocode attempt to run =go install ./...=
+  for you.
+- You can configure your task runner to run the =go install ./...= command on every
+  file change.
 
 ** LSP backend
-To enable the LSP backend set the layer variable =go-backend=:
+To enable the LSP backend, ensure that the =lsp= layer is enabled, and set the
+layer variable =go-backend=:
 
 #+BEGIN_SRC elisp
   (go :variables go-backend 'lsp)
 #+END_SRC
 
-You also need to install the Go Language Server.
-
-This is the [[https://github.com/golang/go/wiki/gopls][recommended procedure]] to install =gopls=:
-
-#+BEGIN_SRC sh
-  GO111MODULE=on go get -v golang.org/x/tools/gopls@latest
-#+END_SRC
-
 You can check [[https://www.github.com/emacs-lsp/lsp-mode/][lsp-mode]] for the gory details.
 
-Backend can be chosen on a per project basis using directory local variables
-(files named =.dir-locals.el= at the root of a project), an example to use the
+The backend can be chosen on a per project basis using directory local variables
+(files named =.dir-locals.el= at the root of a project), an example is to use the
 =go-mode= backend:
 
 #+BEGIN_SRC elisp
@@ -119,111 +198,6 @@ Backend can be chosen on a per project basis using directory local variables
 #+END_SRC
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
-
-** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =go= to the existing =dotspacemacs-configuration-layers= list in this
-file.
-
-* Configuration
-To run =gofmt= before save, set the value to a non-nil, e.g.
-
-#+BEGIN_SRC emacs-lisp
-  (setq go-format-before-save t)
-#+END_SRC
-
-To use a different formatter, set the value of =gofmt-command=, e.g.
-
-#+BEGIN_SRC emacs-lisp
-  (setq gofmt-command "goimports")
-#+END_SRC
-
-or
-
-#+BEGIN_SRC emacs-lisp
-  (go :variables gofmt-command "goimports")
-#+END_SRC
-
-To run current main package with command line arguments, set the value of
-=go-run-args= as file local variable, e.g.
-
-#+BEGIN_SRC emacs-lisp
-  // Local Variables:
-  // go-run-args: "--output run.log"
-  // End:
-#+END_SRC
-
-** Indentation
-By default, the tab width in Go mode is 8 spaces. To use a different value set
-the layer variable =go-tab-width=, e.g.
-
-#+BEGIN_SRC emacs-lisp
-  (go :variables go-tab-width 4)
-#+END_SRC
-
-If you're using =.editorconfig= in your project, set the value to nil to avoid
-confliction, e.g.
-
-#+BEGIN_SRC emacs-lisp
-  (go :variables go-tab-width nil)
-#+END_SRC
-
-** Tests
-If you're using =gocheck= or =testify= in your project you can use the
-=go-use-gocheck-for-testing= or =go-use-testify-for-testing= variable to enable
-suite testing and to get single function testing to work.
-
-=go-coverage-display-buffer-func= controls how =go-coverage= should display
-the coverage buffer. See [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html][=display-buffer=]] for a list of possible functions.
-The default value is =display-buffer-reuse-window=.
-
-Tests are run in a compilation buffer displayed in a popup window that can be
-closed by pressing ~C-g~ from any other window. The variable
-=go-test-buffer-name= can be customized to set the output buffer name.
-
-To provide additional arguments to go test, specify =go-use-test-args=.
-
-#+BEGIN_SRC emacs-lisp
-  (go :variables go-use-test-args "-race -timeout 10s"
-#+END_SRC
-
-** Guru
-Go Oracle has been deprecated as of October 1, 2016, it's replacement is =go-guru=.
-
-If you would like to use the =goguru= bindings in your work, you will need to
-install it, and in your project you will need to set the scope with ~SPC m f o~.
-The scope is a comma separated set of packages, and =go=’s recursive operator is
-supported. In addition, you can prefix with =-= to exclude a package from
-searching.
-
-In addition, =GOPATH= must be set prior to =go-guru= initialization.
-
-** Autocomplete
-For auto-completion there are actually two choices. First there is the classic =gocode=.
-This has been around for quite a long time now, however =gocode= has many shortcomings like
-not being able to show documentation for build-in objects or being fully dependent on installed binary
-files to provide its suggestions.
-
-A more modern and complete solution is provided by =gogetdoc= which is able to
-precisely detect all documentations in your go projects independent on where
-they have been added. This is also the choice recommended from =go-mode.el=.
-
-To choose =gocode= nothing more needs to be done. To use =gogetdoc= you need to set
-
-#+BEGIN_SRC emacs-lisp
-  (go :variables godoc-at-point-function 'godoc-gogetdoc)
-#+END_SRC
-
-in your =dotfile=.
-
-If you choose to use =gocode= there are some suggestions to improve its results.
-As =gocode= uses the output from installed binary files to provide its suggestions.
-You have a few options to ensure you always get up to date suggestions:
-- Run =go install ./...= in your package directory when you make a file change.
-- Run =gocode set autobuild true= to have gocode attempt to run =go install ./...=
-  for you.
-- You can configure your task runner to run =go install ./...= command on every
-  file change.
 
 * Working with Go
 ** Go commands (start with =m=):
@@ -274,10 +248,10 @@ You have a few options to ensure you always get up to date suggestions:
 |-------------+-----------------------------------------------------------------|
 | ~SPC m r d~ | Add comment stubs                                               |
 | ~SPC m r e~ | Extract code as new function                                    |
-| ~SPC m r f~ | Add field tags                                                  |
-| ~SPC m r F~ | Remove field tags                                               |
+| ~SPC m r f~ | Add field tags (with =gomodifytags=)                            |
+| ~SPC m r F~ | Remove field tags (with =gomodifytags=)                         |
 | ~SPC m r i~ | Generate method stubs for implementing an interface (=go-impl=) |
 | ~SPC m r n~ | Rename (with =godoctor=)                                        |
 | ~SPC m r N~ | Rename (with =go-rename=)                                       |
-| ~SPC m r s~ | Fill structure with default values                              |
+| ~SPC m r s~ | Fill structure with default values (with =go-fillstruct=)       |
 | ~SPC m r t~ | Toggle declaration and assignment                               |
