@@ -179,6 +179,14 @@ Cate special text banner can de reachable via `998', `cat' or `random*'.
              (spacemacs-buffer/warning (format "could not find banner %s"
                                                dotspacemacs-startup-banner))
              (spacemacs-buffer//get-banner-path 1)))
+          ((and dotspacemacs-startup-banner
+                (string= "txt" (intern (file-name-extension
+                                        dotspacemacs-startup-banner))))
+           (if (file-exists-p dotspacemacs-startup-banner)
+               dotspacemacs-startup-banner
+               (spacemacs-buffer/warning (format "could not find banner %s"
+                                                 dotspacemacs-startup-banner))
+             (spacemacs-buffer//get-banner-path 1)))
           (t (spacemacs-buffer//get-banner-path 1)))))
 
 (defvar spacemacs-buffer--random-banner nil
