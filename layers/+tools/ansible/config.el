@@ -19,4 +19,4 @@ If non-nil then encrypted files are automatically decrypted when opened and
 ;; detect filenames compatible with Ansible's recommended layout.
 ;; http://docs.ansible.com/playbooks_best_practices.html#directory-layout
 (setq spacemacs--ansible-filename-re
-      ".*\\(\\(main\\|site\\|encrypted\\|roles/.+\\)\\.yml\\|group_vars/.+\\|host_vars/.+\\)")
+      "/\\(main\\|site\\|encrypted\\|\\(\\(roles\\|tasks\\|handlers\\|vars\\|defaults\\|meta\\|group_vars\\|host_vars\\)/.+\\)\\)\\.ya?ml$")

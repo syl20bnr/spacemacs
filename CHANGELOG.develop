@@ -1,6 +1,6 @@
 #+COMMENT -*- mode: org -*-
 
-This file containes the change log for the next major version of Spacemacs.
+This file contains the change log for the next major version of Spacemacs.
 
 Use the following template structure and fill it in with your changes.
 When a release will be drafted, the notes will be copied at the top of
@@ -1095,6 +1095,8 @@ Other:
   - Added support for multiple vault password files, see the layer =README.org=
     (thanks to Sylvain Benner)
   - Simplified filename matching re (thanks to Anatoli Babenia)
+  - Added additional YAML paths and refactored =spacemacs--ansible-filename-re=
+    (thanks to Brett Campbell)
 - Fixes:
   - Fixed ansible-doc-mode error on ~SPC h d k~
     (thanks to Codruț Constantin Gușoi)
