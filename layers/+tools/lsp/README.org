@@ -156,7 +156,6 @@ The lsp minor mode bindings are:
 | ~SPC m x l~ | Show code lenses                                                                 |
 | ~SPC m x L~ | Hide code lenses                                                                 |
 
-
 Note 1: Your language server may not distinguish between the word and symbol variants of this binding.
 Note 2: There is a window local jump list dedicated to cross references.
 
