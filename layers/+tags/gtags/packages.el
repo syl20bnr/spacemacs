@@ -23,7 +23,7 @@
     :init
     (progn
       (setq counsel-gtags-ignore-case t
-            counse1-gtags-auto-update t)
+            counsel-gtags-auto-update t)
       ;; modes that do not have a layer, define here
       (spacemacs/counsel-gtags-define-keys-for-mode 'tcl-mode)
       (spacemacs/counsel-gtags-define-keys-for-mode 'vhdl-mode)
