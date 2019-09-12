@@ -1603,6 +1603,8 @@ Other:
 - Added Testify support (thanks to Mathieu Post)
 - Added setup instructions for =gopls= (thanks to pancho horrillo)
 - Dropped support for deprecated =gometalinter= (thanks to pancho horrillo)
+- Fixed =go-run-test-current-function= for vanilla tests and gocheck suite tests
+  (thanks to Mathieu Post)
 **** Graphviz
 - Use graphviz package from melpa (thanks to Matthew Boston)
 **** Groovy

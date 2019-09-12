@@ -88,8 +88,8 @@
         (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?\\([[:alnum:]]+\\))[ ]+\\)?\\(Test[[:alnum:]_]+\\)(.*)")
         (spacemacs/go-run-tests
          (cond (go-use-testify-for-testing (concat "-run='Test" (match-string-no-properties 2) "' -testify.m='" (match-string-no-properties 3) "'"))
-               (go-use-gocheck-for-testing (concat "-check.f='" (match-string-no-properties 2) "$'"))
-               (t (concat "-run='" (match-string-no-properties 2) "$'")))))
+               (go-use-gocheck-for-testing (concat "-check.f='" (match-string-no-properties 3) "$'"))
+               (t (concat "-run='" (match-string-no-properties 3) "$'")))))
     (message "Must be in a _test.go file to run go-run-test-current-function")))
 
 (defun spacemacs/go-run-test-current-suite ()
