@@ -1698,20 +1698,20 @@ Features:
 **** Go
 [[file:+lang/go/README.org][+lang/go/README.org]]
 
-This layer adds extensive support for go to Spacemacs.
+This layer adds extensive support for the [[https://golang.org][Go]] programming language.
 
 Features:
-- gofmt/goimports on file save (to enable, see [[file:+lang/go/README.org][Configuration]])
-- Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete]] (with the =auto-completion= layer)
-- Source analysis using [[https://docs.google.com/document/d/1_Y9xCEMj5S-7rv2ooHpZNH15JgRT5iM742gJkw5LtmQ][go-guru]]
+- Run [[https://golang.org/cmd/gofmt/][gofmt]] / [[https://godoc.org/golang.org/x/tools/cmd/goimports][goimports]] on file save (see [[file:+lang/go/README.org][Autoformat]])
+- Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete.el]], via the =auto-completion= layer (see [[file:+lang/go/README.org][Auto-completion]])
+- Source analysis using [[https://docs.google.com/document/d/1_Y9xCEMj5S-7rv2ooHpZNH15JgRT5iM742gJkw5LtmQ][go-guru]] (see [[file:+lang/go/README.org][Guru]])
 - Refactoring with [[http://gorefactor.org/][godoctor]]
-- Edit struct field tag with [[https://github.com/fatih/gomodifytags][gomodifytags]]
-- Linting with flycheck's built-in checkers or [[https://github.com/golangci/golangci-lint][flycheck-golangci-lint]]
-- Coverage profile visualization
-- Test generation with [[https://github.com/s-kostyaev/go-gen-test][go-gen-test]]
-- Get packages faster with [[https://github.com/haya14busa/gopkgs][gopkgs]]
+- Edit struct field tags with [[https://github.com/fatih/gomodifytags][gomodifytags]]
+- Linting with flycheck's built-in checkers or [[https://github.com/golangci/golangci-lint][golangci-lint]] (see [[file:+lang/go/README.org][Linting]])
+- Test generation via [[https://github.com/s-kostyaev/go-gen-test][go-gen-test]] (see [[file:+lang/go/README.org][Tests]])
+- Coverage profile visualization (see [[file:+lang/go/README.org][Coverage]])
+- List packages faster with [[https://github.com/haya14busa/gopkgs][gopkgs]]
 - Fill a structure with default values using the [[https://github.com/davidrjenni/reftools/tree/master/cmd/fillstruct][fillstruct]]
-- LSP backend
+- LSP backend (see [[file:+lang/go/README.org][LSP backend]])
 
 **** Groovy
 [[file:+lang/groovy/README.org][+lang/groovy/README.org]]
