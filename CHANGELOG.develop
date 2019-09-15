@@ -1565,48 +1565,57 @@ Other:
   - Added ~O~ prefix in evil state for =gnus-group-group-map=
     (thanks to Matthew Leach)
 **** Go
-- Improved go test output buffer behavior (thanks to Denis Bernard)
-- Configurable extra arguments to go run (thanks to Enze Chi)
-- Configurable extra arguments to go test (thanks to Ian Clark)
-- Added =godoctor= (thanks to TinySong and Eivind Fonn)
-  - Key bindings:
-    - Added ~SPC m r n~ to rename
-    - Added ~SPC m r e~ to extract
-    - Added ~SPC m r t~ to toggle
-    - Added ~SPC m r d~ for godoc
-- Added =GOROOT= to list of variables copied from shell environment
-  (thanks to Andy Lindeman)
-- Convert remote file name to local name, stripping trampy stuff
-  (thanks to Josh Santos)
-- Added =go-tag= (thanks to brantou)
-- Added =go-gen-test= (thanks to Cosmin Cojocar and Sylvain Benner):
-  - Key bindings:
+- Deprecated:
+  - Dropped support for deprecated =gometalinter= (thanks to pancho horrillo)
+- Layer variables:
+  - Add =go-format-before-save= with a default value of nil
+    (thanks to Jon Erik Del Rosario Suero)
+  - Refactored two variables =go-use-gometalinter= and =go-use-golangci-lint= to
+    one =go-linter= (thanks to Robert Zaremba)
+- Improvements:
+  - Added =LSP= support (thanks to Lupco Kotev)
+  - Set =lsp-prefer-flymake= to =:none= when =Go= layer is using =LSP=
+    (thanks to Tim Heckman)
+  - Improved go test output buffer behavior (thanks to Denis Bernard)
+  - Configurable extra arguments to =go run= (thanks to Enze Chi)
+  - Configurable extra arguments to =go test= (thanks to Ian Clark)
+  - Added toggle for running =gofmt= before save (thanks to Jon Erik Del Suero)
+  - Added toggle control for verbose go test output (thanks to Enze Chi)
+  - Added =go-gen-test= (thanks to Cosmin Cojocar and Sylvain Benner)
+  - Added =go-impl= (thanks to Cosmin Cojocar)
+  - Added =godoctor= (thanks to TinySong and Eivind Fonn)
+  - Added =go-tag= (thanks to brantou)
+  - Added =go-fill-struct= (thanks to Cosmin Cojocar)
+  - Added =golangci-lint= support (thanks to Lupco Kotev)
+  - Added =GOROOT= to list of variables copied from shell environment
+    (thanks to Andy Lindeman)
+  - Added =Testify= support (thanks to Mathieu Post)
+  - Convert remote file name to local name, stripping trampy stuff
+    (thanks to Josh Santos)
+  - Configure =go-mode= to use the =gopkgs= tool to find available Go packages
+    faster (thanks to Cosmin Cojocar)
+  - Support editorconfig setting of =tab-width= to nil (thanks to lawrsp)
+  - Added setup instructions for =gopls= (thanks to pancho horrillo)
+- Key bindings
+  - =godoctor= key bindings (thanks to TinySong and Eivind Fonn):
+    - ~SPC m r n~ to rename
+    - ~SPC m r e~ to extract
+    - ~SPC m r t~ to toggle
+    - ~SPC m r d~ for godoc
+  - =go-gen-test= key bindings (thanks to Cosmin Cojocar and Sylvain Benner):
     - ~SPC m t g g~ to generate tests for the function in the active region
     - ~SPC m t g f~ to generate tests for all exported functions
     - ~SPC m t g F~ to generate tests for all functions
-- Configure =go-mode= to use the =gopkgs= tool to find available Go packages
-  faster (thanks to Cosmin Cojocar)
-- Added =go-fill-struct= and key binding ~SPC m r s~ to fill struct with default
-  values (thanks to Cosmin Cojocar)
-- Added =go-impl= and key binding ~SPC m r i~ to generate method stubs for an
-  interface (thanks to Cosmin Cojocar)
-- Fixed loading of the =GOPATH=, =GOROOT=, and =GO15VENDOREXPERIMENT=
-  environment variables (thanks to Joshua Santos)
-- Added toggle for running =gofmt= before save (thanks to Jon Erik D Suero)
-  - Key bindings: ~SPC m =~ to run =gofmt= manually
-- Support editorconfig setting of =tab-width= to nil (thanks to lawrsp)
-- Added lsp support (thanks to Lupco Kotev)
-- Added golangci-lint support (thanks to Lupco Kotev)
-- Added toggle control for verbose go test output (thanks to Enze Chi)
-- Set lsp-prefer-flymake to :none when Go layer is using LSP
-  (thanks to Tim Heckman)
-- Refactored two variables =go-use-gometalinter= and =go-use-golangci-lint= to
-  one =go-linter= (thanks to Robert Zaremba)
-- Added Testify support (thanks to Mathieu Post)
-- Added setup instructions for =gopls= (thanks to pancho horrillo)
-- Dropped support for deprecated =gometalinter= (thanks to pancho horrillo)
-- Fixed =go-run-test-current-function= for vanilla tests and gocheck suite tests
-  (thanks to Mathieu Post)
+  - Added ~SPC m r s~ to fill struct with default values
+    (thanks to Cosmin Cojocar)
+  - Added ~SPC m r i~ to generate method stubs for an interface
+    (thanks to Cosmin Cojocar)
+  - Added ~SPC m =~ to run =gofmt= manually (thanks to Jon Erik Del Suero)
+- Fixes:
+  - Fixed loading of the =GOPATH=, =GOROOT=, and =GO15VENDOREXPERIMENT=
+    environment variables (thanks to Joshua Santos)
+  - Fixed =go-run-test-current-function= for vanilla tests and gocheck suite
+    tests (thanks to Mathieu Post)
 **** Graphviz
 - Use graphviz package from melpa (thanks to Matthew Boston)
 **** Groovy
