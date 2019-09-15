@@ -21,20 +21,11 @@
                    "need the TLS work-around...")
            emacs-version)
   (message "More info at https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341")
-  (let ((stime (current-time)))
-    (with-temp-buffer
-      (ignore-errors (call-process "gnutls-cli" nil t nil "--version"))
-      (unless (string-empty-p (buffer-string))
-        (goto-char (point-min))
-        (let ((gnutls-version-line (thing-at-point 'line t)))
-          (when (string-match ".*\\([0-9]+\\.[0-9]+\\.[0-9]+\\).*"
-                              gnutls-version-line)
-            (let ((gnutls-version (match-string 1 gnutls-version-line)))
-              (unless (version<= gnutls-version "3.6.3")
-                (message (concat "Your Emacs version %s and GnutTLS version %s "
-                                 "need the work-around, applying it...")
-                         emacs-version gnutls-version)
-                (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")))))))))
+  (unless (<= libgnutls-version 30603)
+    (message (concat "Your Emacs version %s and GnutTLS version %s "
+                     "need the work-around, applying it...")
+             emacs-version libgnutls-version)
+    (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")))
 
 (when (version< emacs-version "26")
   ;; backport fix for macOS battery status
