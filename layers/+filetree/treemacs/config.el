@@ -34,6 +34,3 @@ There are 2 possible values:
 
 (defvar treemacs-lock-width nil
   "When non-nil the treemacs window will not be manually resizable by default.")
-
-(defvar treemacs-enable-magit nil
-  "When non-nil, enable integration with magit.")

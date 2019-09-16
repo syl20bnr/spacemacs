@@ -14,7 +14,7 @@
     golden-ratio
     treemacs
     (treemacs-evil :toggle (memq dotspacemacs-editing-style '(vim hybrid)))
-    (treemacs-magit :toggle treemacs-enable-magit)
+    (treemacs-magit :requires magit)
     treemacs-projectile
     winum
     ))
@@ -103,5 +103,4 @@
 (defun treemacs/init-treemacs-magit ()
   (use-package treemacs-magit
     :after treemacs magit
-    :defer t
-    :if treemacs-enable-magit))
+    :defer t))
