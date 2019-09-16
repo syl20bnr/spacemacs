@@ -13,6 +13,7 @@
     - [[#with-org][With Org]]
     - [[#manually][Manually]]
   - [[#server][Server]]
+  - [[#elfeed-goodies][Elfeed goodies]]
 - [[#key-bindings][Key bindings]]
 - [[#troubleshooting][Troubleshooting]]
   - [[#database-empty-at-first-start][Database empty at first start]]
@@ -88,12 +89,21 @@ Elfeed comes with a simple [[https://github.com/skeeto/elfeed#web-interface][web
 start it by calling =elfeed-web-start= or by setting =elfeed-enable-web-interface=
 to =t= which will start the web automatically when Emacs starts.
 
+By default web interface is available on [[http://localhost:8080/elfeed/][localhost:8080/elfeed]]. You can change
+the default port by changing the value of =httpd-port=.
+
 #+BEGIN_SRC emacs-lisp
   (elfeed :variables elfeed-enable-web-interface t)
 #+END_SRC
 
-By default web interface is available on [[http://localhost:8080/elfeed/][localhost:8080/elfeed]]. You can change
-the default port by changing the value of =httpd-port=.
+** Elfeed goodies
+Elfeed layer loads a set of useful helper functions and bindings to improve your elfeed experience.
+Normally these should help you however there are some workflows where these may rather hinder you.
+In this case you can disable these by setting =elfeed-enable-goodies= to =nil=.
+
+#+BEGIN_SRC emacs-lisp
+  (elfeed :variables elfeed-enable-goodies nil)
+#+END_SRC
 
 * Key bindings
 

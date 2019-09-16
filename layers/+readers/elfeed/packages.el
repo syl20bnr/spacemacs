@@ -11,9 +11,9 @@
 
 (setq elfeed-packages
       '(elfeed
-        elfeed-goodies
+        (elfeed-goodies :toggle elfeed-enable-goodies)
         elfeed-org
-        elfeed-web
+        (elfeed-web :toggle elfeed-enable-web-interface)
         ))
 
 (defun elfeed/init-elfeed ()
@@ -46,17 +46,15 @@
         "y"  'elfeed-search-yank))))
 
 (defun elfeed/pre-init-elfeed-goodies ()
-  (when elfeed-enable-goodies
-    (spacemacs|use-package-add-hook elfeed
-      :post-config
-      (progn
-        (elfeed-goodies/setup)
-        (evil-define-key 'evilified elfeed-show-mode-map
-          "o" 'elfeed-goodies/show-ace-link)))))
+  (spacemacs|use-package-add-hook elfeed
+    :post-config
+    (progn
+      (elfeed-goodies/setup)
+      (evil-define-key 'evilified elfeed-show-mode-map
+        "o" 'elfeed-goodies/show-ace-link))))
 
 (defun elfeed/init-elfeed-goodies ()
-  (when elfeed-enable-goodies
-    (use-package elfeed-goodies :commands elfeed-goodies/setup)))
+  (use-package elfeed-goodies :commands elfeed-goodies/setup))
 
 (defun elfeed/pre-init-elfeed-org ()
   (when (boundp 'rmh-elfeed-org-files)
@@ -72,8 +70,9 @@
   (use-package elfeed-web
     :defer t
     :commands elfeed-web-stop
-    :init (when elfeed-enable-web-interface
-            ;; TODO check if the port is already in use
-            ;; hack to force elfeed feature to be required before elfeed-search
-            (require 'elfeed)
-            (elfeed-web-start))))
+    :init
+    (progn
+      ;; TODO check if the port is already in use
+      ;; hack to force elfeed feature to be required before elfeed-search
+      (require 'elfeed)
+      (elfeed-web-start))))
