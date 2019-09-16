@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq mercury-packages
+(defconst mercury-layer-packages
   '((metal-mercury-mode :location (recipe
                                    :fetcher github
                                    :repo "ahungry/metal-mercury-mode"
@@ -24,9 +24,7 @@
 
 (defun mercury/init-flycheck-mercury ()
   "Initialize flycheck-mercury"
-  (use-package flycheck-mercury
-    :defer t
-    :init (require 'flycheck-mercury)))
+  (use-package flycheck-mercury))
 
 (defun mercury/init-metal-mercury-mode ()
   "Initialize metal-mercury-mode"
