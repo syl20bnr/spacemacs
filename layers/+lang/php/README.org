@@ -9,13 +9,12 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
-  - [[#setting-the-backend][Setting the backend]]
-- [[#backend][Backend]]
-  - [[#language-server-protocol][Language Server Protocol]]
+  - [[#backends][Backends]]
     - [[#intelephense][intelephense]]
     - [[#php-language-server][php-language-server]]
+    - [[#ac-php-core][ac-php-core]]
+      - [[#setup][Setup]]
 - [[#key-bindings][Key bindings]]
-- [[#usage][Usage]]
 
 * Description
 This layer adds PHP language support to Spacemacs.
@@ -37,27 +36,30 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =php= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-** Setting the backend
-To activate the backend set the layer variable =php-backend=:
+** Backends
+For php you have the choice between a set of possible backends
+with different setup instructions and different capabilities.
+
+*** intelephense
+This is the recommended LSP server solution. To activate it set the
+layer variable =php-backend=:
 
 #+BEGIN_SRC elisp
   (php :variables php-backend 'lsp)
 #+END_SRC
 
-* Backend
-** Language Server Protocol
-=lsp-mode= currently supports two lsp backends for php. When both are installed,
-the former takes priority over the latter:
-
-*** intelephense
+and install the npm server with:
 
 #+BEGIN_SRC sh
-  nmp install -g intelephense
+  npm install -g intelephense
 #+END_SRC
 
 You can find further information on the project's [[http://intelephense.net/][website]] and [[https://github.com/bmewburn/vscode-intelephense][GitHub page]].
 
 *** php-language-server
+This is an alternative LSP server implementation working on PHP basis rather than nodejs.
+To activate it set the layer variable =php-backend= like for the intelephense backend and
+install the server via [[https://getcomposer.org/][composer]]:
 
 #+BEGIN_SRC sh
   composer require felixfbecker/language-server
@@ -66,14 +68,16 @@ You can find further information on the project's [[http://intelephense.net/][we
 
 You can find further information on the project's [[https://github.com/felixfbecker/php-language-server%20][GitHub page]].
 
-* Key bindings
+*** ac-php-core
+This is a non server solution working entirely from an elisp package.
+This requires no installation of external services but also delivers
+the least amount of IDE like integrations with spacemacs.
 
-| Key binding | Description             |
-|-------------+-------------------------|
-| ~SPC m g g~ | jump to define at point |
-| ~C-t~       | jump back               |
+To activate it just don't set the variable =php-backend= in your dotfile.
+Remember that additional setup instructions are necessary on a per
+project basis which you can find below.
 
-* Usage
+**** Setup
 Because of the way that the ac-php-core package works, there are a couple of simple
 initialization tasks which must occur to get the completion working as it should.
 On any new project make sure to perform the following initialization tasks:
@@ -97,3 +101,10 @@ If your project contains the following files at the root folder:
 
 the necessary configuration file (=.ac-php-conf.json=) will be created automatically
 if it does not exist. 
+
+* Key bindings
+
+| Key binding | Description             |
+|-------------+-------------------------|
+| ~SPC m g g~ | jump to define at point |
+| ~C-t~       | jump back               |
