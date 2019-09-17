@@ -227,9 +227,13 @@
         (kbd "C-k") 'cider-repl-previous-input
         (kbd "RET") 'cider-repl-return)
 
-      (evil-define-key 'insert cider-repl-mode-map
-        (kbd "C-j") 'cider-repl-next-input
-        (kbd "C-k") 'cider-repl-previous-input)
+      (if (package-installed-p 'company)
+          (evil-define-key 'insert cider-repl-mode-map
+            (kbd "C-j") 'spacemacs//clj-repl-wrap-c-j
+            (kbd "C-k") 'spacemacs//clj-repl-wrap-c-k)
+        (evil-define-key 'insert cider-repl-mode-map
+          (kbd "C-j") 'cider-repl-next-input
+          (kbd "C-k") 'cider-repl-previous-input))
 
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)

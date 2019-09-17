@@ -207,3 +207,17 @@ in your Spacemacs configuration:
                  cider-repl-mode
                  cider-clojure-interaction-mode))
      ,@body))
+
+(defun spacemacs//clj-repl-wrap-c-j ()
+  "Dynamically dispatch c-j to company or repl functions."
+  (interactive)
+  (if (company-tooltip-visible-p)
+      (company-select-next)
+    (cider-repl-next-input)))
+
+(defun spacemacs//clj-repl-wrap-c-k ()
+  "Dynamically dispatch c-k to company or repl functions."
+  (interactive)
+  (if (company-tooltip-visible-p)
+      (company-select-previous)
+    (cider-repl-previous-input)))
