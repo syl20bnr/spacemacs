@@ -188,7 +188,8 @@ Current Action: %s(ivy-action-name)
       'spacemacs/ivy-transient-state/body)
     (define-key ivy-minibuffer-map (kbd "s-M-SPC")
       'spacemacs/ivy-transient-state/body)
-    ))
+    (define-key ivy-minibuffer-map (kbd "s-M-SPC")
+      'spacemacs/ivy-transient-state/body)))
 
 (defun spacemacs-completion/init-flx-ido ()
   (use-package flx-ido
