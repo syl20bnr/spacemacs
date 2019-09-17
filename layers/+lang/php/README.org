@@ -44,9 +44,6 @@ To activate the backend set the layer variable =php-backend=:
   (php :variables php-backend 'lsp)
 #+END_SRC
 
-For spacemacs to use lsp you also need to add =lsp= to the
-=dotspacemacs-configuration-layers= in your =~/.spacemacs= file.
-
 * Backend
 ** Language Server Protocol
 =lsp-mode= currently supports two lsp backends for php. When both are installed,
