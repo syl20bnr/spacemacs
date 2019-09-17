@@ -1395,7 +1395,7 @@ For =spacemacs=, =all-the-icons= and =custom= themes you can specify the type
 of separator you want with the property =:separator=.
 
 #+BEGIN_SRC emacs-lisp
-  (setq dotspacemacs-mode-line-theme '(all-the-icons :separator 'slant))
+  (setq dotspacemacs-mode-line-theme '(all-the-icons :separator slant))
 #+END_SRC
 
 Supported separators and preview:
