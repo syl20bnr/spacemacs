@@ -13,6 +13,5 @@
 
 (spacemacs|define-jump-handlers java-mode)
 
-(defvar java-backend 'meghanada
-  "The backend to use for IDE features. Possible values are `eclim',
- `meghanada' and `lsp'.")
+(defvar java-backend 'lsp
+  "The backend to use for IDE features. Possible values are `lsp' and `meghanada'.")

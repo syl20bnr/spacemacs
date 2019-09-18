@@ -14,7 +14,6 @@
         company
         eldoc
         flycheck
-        flyspell
         ggtags
         gradle-mode
         counsel-gtags
@@ -30,14 +29,8 @@
 (defun java/post-init-company ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-company))
 
-(defun java/post-init-eldoc ()
-  (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-eldoc))
-
 (defun java/post-init-flycheck ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-flycheck))
-
-(defun java/post-init-flyspell ()
-  (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-flyspell))
 
 (defun java/post-init-ggtags ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
@@ -85,8 +78,7 @@
     :init
     (progn
       (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-backend)
-      (put 'java-backend 'safe-local-variable 'symbolp)
-      (spacemacs//java-define-command-prefixes))))
+      (put 'java-backend 'safe-local-variable 'symbolp))))
 
 (defun java/init-maven-test-mode ()
   (use-package maven-test-mode
@@ -183,7 +175,7 @@
         (spacemacs/declare-prefix-for-mode
           'java-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'java-mode
-        "pu"  'lsp-java-update-user-settings
+        ;; "pu"  'lsp-java-update-user-settings
 
         ;; refactoring
         "ro" 'lsp-java-organize-imports

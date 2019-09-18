@@ -9,88 +9,24 @@
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//java-define-command-prefixes ()
-  "Define command prefixes for java-mode."
-  (setq java/key-binding-prefixes '(("md" . "eclimd")
-                                    ("mE" . "errors")
-                                    ("mf" . "find")
-                                    ("mg" . "goto")
-                                    ("mr" . "refactor")
-                                    ("mh" . "documentation")
-                                    ("ma" . "ant")
-                                    ("mp" . "project")
-                                    ("mt" . "test")))
-  (mapc (lambda(x) (spacemacs/declare-prefix-for-mode
-                    'java-mode (car x) (cdr x)))
-        java/key-binding-prefixes))
-
 (defun spacemacs//java-setup-backend ()
   "Conditionally setup java backend."
   (pcase java-backend
     (`meghanada (spacemacs//java-setup-meghanada))
-    (`eclim (spacemacs//java-setup-eclim))
     (`lsp (spacemacs//java-setup-lsp))))
 
 (defun spacemacs//java-setup-company ()
   "Conditionally setup company based on backend."
   (pcase java-backend
     (`meghanada (spacemacs//java-setup-meghanada-company))
-    (`eclim (spacemacs//java-setup-eclim-company))
     (`lsp (spacemacs//java-setup-lsp-company))))
 
 (defun spacemacs//java-setup-flycheck ()
   "Conditionally setup flycheck based on backend."
   (pcase java-backend
     (`meghanada (spacemacs//java-setup-meghanada-flycheck))
-    (`eclim (spacemacs//java-setup-eclim-flycheck))
     (`lsp (spacemacs//java-setup-lsp-flycheck))))
 
-
-
-;; eclim
-
-(defun spacemacs//java-setup-eclim ()
-  "Setup Eclim."
-  ;; jump handler
-  (add-to-list 'spacemacs-jump-handlers '(eclim-java-find-declaration :async t))
-  ;; enable eclim
-  (eclim-mode))
-
-(defun spacemacs//java-setup-eclim-company ()
-  "Setup Eclim auto-completion."
-  (spacemacs|add-company-backends
-    :backends company-emacs-eclim
-    :modes eclim-mode
-    :variables
-    company-idle-delay 0.5
-    company-minimum-prefix-length 1
-    :append-hooks nil
-    :call-hooks t)
-  (company-mode))
-
-(defun spacemacs//java-setup-eclim-flycheck ()
-  "Setup Eclim syntax checking."
-  (flycheck-eclim-setup)
-  ;; disable auto check, use `SPC e e'
-  (setq eclim-autoupdate-problems nil)
-  (set (make-local-variable 'flycheck-check-syntax-automatically) nil)
-  (flycheck-mode))
-
-(defun spacemacs/java-eclim-completing-dot ()
-  "Insert a period and show company completions."
-  (interactive "*")
-  (spacemacs//java-delete-horizontal-space)
-  (insert ".")
-  (company-emacs-eclim 'interactive))
-
-(defun spacemacs/java-eclim-completing-double-colon ()
-  "Insert double colon and show company completions."
-  (interactive "*")
-  (spacemacs//java-delete-horizontal-space)
-  (insert ":")
-  (let ((curr (point)))
-    (when (s-matches? (buffer-substring (- curr 2) (- curr 1)) ":")
-      (company-emacs-eclim 'interactive))))
 
 
 ;; meghanada
