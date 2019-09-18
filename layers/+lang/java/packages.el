@@ -12,13 +12,8 @@
 (setq java-packages
       '(
         company
-        (company-emacs-eclim :toggle
-                             (configuration-layer/package-used-p 'company))
-        eclim
         eldoc
         flycheck
-        (flycheck-eclim :location local
-                        :requires flycheck)
         flyspell
         ggtags
         gradle-mode
@@ -35,136 +30,11 @@
 (defun java/post-init-company ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-company))
 
-(defun java/init-company-emacs-eclim ()
-  (use-package company-emacs-eclim
-    :defer t
-    :init
-    (setq company-emacs-eclim-ignore-case nil)
-    ;; see `spacemacs//java-setup-eclim-company'
-    ))
-
-(defun java/init-eclim ()
-  (use-package eclim
-    :defer t
-    :if (eq java-backend 'eclim)
-    ;; :init (setq eclim-auto-save nil)
-    :config
-    (progn
-      (spacemacs|hide-lighter eclim-mode)
-      (require 'eclimd)
-      ;; enable help at point
-      (setq help-at-pt-display-when-idle t
-            help-at-pt-timer-delay 0.1)
-      (help-at-pt-set-timer)
-      (add-to-list 'minor-mode-alist
-                   '(eclim-mode (:eval (eclim-modeline-string))))
-      ;; hack to support Maven multi-modules
-      (defun my-eclim-fix-relative-path (path)
-        (replace-regexp-in-string "^.*src/" "src/" path))
-      (advice-add 'eclim--project-current-file :filter-return
-                  #'my-eclim-fix-relative-path)
-      ;; key bindings
-      (dolist (prefix '(("ma" . "ant")
-                        ("mD" . "daemon")
-                        ("mg" . "goto")
-                        ("mh" . "help/doc")
-                        ("mi" . "issues")
-                        ("mp" . "project")
-                        ("mr" . "refactor")
-                        ("mt" . "test")))
-        (spacemacs/declare-prefix-for-mode
-          'java-mode (car prefix) (cdr prefix)))
-      (spacemacs/set-leader-keys-for-major-mode 'java-mode
-        ;; ant
-        "aa" 'eclim-ant-run
-        "ac" 'eclim-ant-clear-cache
-        "ar" 'eclim-ant-run
-        "av" 'eclim-ant-validate
-        ;; daemon
-        "Dk" 'stop-eclimd
-        "Ds" 'start-eclimd
-        ;; errors (problems)
-        "Ee" 'eclim-problems-correct
-        ;; find
-        "ff" 'eclim-java-find-generic
-        ;; goto
-        "gt" 'eclim-java-find-type
-        ;; help/doc
-        "hc" 'eclim-java-call-hierarchy
-        "hh" 'eclim-java-show-documentation-for-current-element
-        "hi" 'eclim-java-hierarchy
-        "hu" 'eclim-java-find-references
-        ;; project
-        "pb" 'eclim-project-build
-        "pc" 'eclim-project-create
-        "pd" 'eclim-project-delete
-        "pg" 'eclim-project-goto
-        "pi" 'eclim-project-import
-        "pj" 'eclim-project-info-mode
-        "pk" 'eclim-project-close
-        "po" 'eclim-project-open
-        "pp" 'eclim-project-mode
-        "pr" 'eclim-java-run-run
-        "pu" 'eclim-project-update
-        ;; refactor
-        "rc" 'eclim-java-constructor
-        "rf" 'eclim-java-format
-        "rg" 'eclim-java-generate-getter-and-setter
-        "ri" 'eclim-java-import-organize
-        "rj" 'eclim-java-implement
-        "rn" 'eclim-java-new
-        "rr" 'eclim-java-refactor-rename-symbol-at-point
-        ;; test
-        "tt" 'eclim-run-junit)
-      (evil-define-key 'insert java-mode-map
-        (kbd ".") 'spacemacs/java-eclim-completing-dot
-        (kbd ":") 'spacemacs/java-eclim-completing-double-colon
-        (kbd "M-.") 'eclim-java-find-declaration
-        (kbd "M-,") 'pop-tag-mark
-        (kbd "M-<mouse-3>") 'eclim-java-find-declaration
-        (kbd "<mouse-8>") 'pop-tag-mark)
-      (evil-define-key 'normal java-mode-map
-        (kbd "M-.") 'eclim-java-find-declaration
-        (kbd "M-,") 'pop-tag-mark
-        (kbd "M-<mouse-3>") 'eclim-java-find-declaration
-        (kbd "<mouse-8>") 'pop-tag-mark)
-      (evil-define-key 'normal eclim-problems-mode-map
-        (kbd "a") 'eclim-problems-show-all
-        (kbd "e") 'eclim-problems-show-errors
-        (kbd "g") 'eclim-problems-buffer-refresh
-        (kbd "q") 'eclim-quit-window
-        (kbd "w") 'eclim-problems-show-warnings
-        (kbd "f") 'eclim-problems-toggle-filefilter
-        (kbd "c") 'eclim-problems-correct
-        (kbd "RET") 'eclim-problems-open-current)
-      (evil-define-key 'normal eclim-project-mode-map
-        (kbd "N") 'eclim-project-create
-        (kbd "m") 'eclim-project-mark-current
-        (kbd "M") 'eclim-project-mark-all
-        (kbd "u") 'eclim-project-unmark-current
-        (kbd "U") 'eclim-project-unmark-all
-        (kbd "o") 'eclim-project-open
-        (kbd "c") 'eclim-project-close
-        (kbd "i") 'eclim-project-info-mode
-        (kbd "I") 'eclim-project-import
-        (kbd "RET") 'eclim-project-goto
-        (kbd "D") 'eclim-project-delete
-        (kbd "p") 'eclim-project-update
-        (kbd "g") 'eclim-project-mode-refresh
-        (kbd "R") 'eclim-project-rename
-        (kbd "q") 'eclim-quit-window))))
-
 (defun java/post-init-eldoc ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-eldoc))
 
 (defun java/post-init-flycheck ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-flycheck))
-
-(defun java/init-flycheck-eclim ()
-  (use-package flycheck-eclim
-    :commands flycheck-eclim-setup
-    ;; see `spacemacs//java-setup-eclim-flycheck'
-    ))
 
 (defun java/post-init-flyspell ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-flyspell))

@@ -30,7 +30,6 @@
   (use-package ensime
     :defer t
     :if (spacemacs//scala-backend-ensime-p)
-    :commands ensime-mode
     :init
     (progn
       (setq ensime-startup-dirname (concat spacemacs-cache-directory "ensime/"))
