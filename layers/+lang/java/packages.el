@@ -169,13 +169,14 @@
                         ("mrc" . "create/convert")
                         ("mrg" . "generate")
                         ("mre" . "extract")
+                        ("mp" . "project")
                         ("mq" . "lsp")
                         ("mt" . "test")
                         ("mx" . "execute")))
         (spacemacs/declare-prefix-for-mode
           'java-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'java-mode
-        ;; "pu"  'lsp-java-update-user-settings
+        "pu"  'lsp-java-update-project-configuration
 
         ;; refactoring
         "ro" 'lsp-java-organize-imports
