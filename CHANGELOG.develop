@@ -2353,6 +2353,7 @@ Other:
 - Various fixes for =lsp-python-ms= setup (thanks to Trapez Breen)
 - Added lazy loading of =lsp-python-ms= (thanks to Ying Qu)
 - Make pylookup makefile use correct shell (thanks to Koray Al)
+- Fix lazy loading of =lsp-python-ms= (thanks to lsp-ableton)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 - Updated racket logo (thanks to Vityou)
