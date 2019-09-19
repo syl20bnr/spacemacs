@@ -2684,6 +2684,8 @@ Other:
   (thanks to duianto)
 - Handle ~SPC p t~ when =projectile-project-root= is nil (thanks to Trapez
   Breen)
+- Made sure treemacs' minor modes will be disabled when they are configured
+  to be off.
 **** Typescript
 - Call tsfmt with extension of current buffer for TSX formatting
   (thanks to Victor Andrée)
