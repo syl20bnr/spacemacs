@@ -43,7 +43,9 @@
       (goto-char pt-max)
       (insert form)
       (indent-region pt-max (point))
-      (cider-repl-return))))
+      (cider-repl-return)
+      (with-selected-window (get-buffer-window (cider-current-connection))
+               (goto-char (point-max))))))
 
 (defun spacemacs/cider-send-last-sexp-to-repl ()
   "Send last sexp to REPL and evaluate it without changing
