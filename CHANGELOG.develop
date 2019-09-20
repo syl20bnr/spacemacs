@@ -1594,6 +1594,8 @@ Other:
 - Fixed magit conflicting with golden-ratio (thanks Eric Zhang)
 - Hide with-editor mode-line indicator: =WE= (thanks to duianto)
 - Fixed magit blame in org buffers (thanks to Compro Prasad)
+- Unfolded org headings to a target line when a .org file is opened from a Magit
+  diff or blame buffer (thanks to duianto and Miciah Masters)
 **** Gnus
 - Key bindings:
   - Added ~g r~ for =gnus-group-get-new-news= (thanks to Matthew Leach)
@@ -1749,6 +1751,8 @@ Other:
     (thanks to Codruț Constantin Gușoi)
   - Fixed =spacemacs//helm-open-buffers-in-windows= when opening more files than
     available windows (thanks to Juha Jeronen)
+  - Unfolded org headings to a target line when a .org file is opened from
+    Helm-ag (thanks to duianto and Miciah Masters)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Added =counsel-css= as an =ivy= alternative to =helm-css-scss=
