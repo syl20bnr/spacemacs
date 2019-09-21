@@ -370,10 +370,6 @@ Bind formatter to '==' for LSP and '='for all other backends."
 
 ;; REPL
 
-(defun spacemacs//inferior-python-setup-hook ()
-  "Setup REPL for python inferior process buffer."
-  (setq indent-tabs-mode t))
-
 (defun spacemacs/python-shell-send-buffer-switch ()
   "Send buffer content to shell and switch to it in insert mode."
   (interactive)
