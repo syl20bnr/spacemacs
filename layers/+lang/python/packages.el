@@ -309,8 +309,7 @@
     (progn
       (spacemacs/register-repl 'python
                                'spacemacs/python-start-or-switch-repl "python")
-      (add-hook 'inferior-python-mode-hook
-                'spacemacs//inferior-python-setup-hook)
+      (spacemacs//bind-python-repl-keys)
       (spacemacs/add-to-hook 'python-mode-hook
                              '(spacemacs//python-setup-backend
                                spacemacs//python-default))

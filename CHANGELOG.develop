@@ -2363,6 +2363,7 @@ Other:
 - Make pylookup makefile use correct shell (thanks to Koray Al)
 - Fix lazy loading of =lsp-python-ms= (thanks to lsp-ableton)
 - Fix =Ipython= path on windows (thanks to Daniel K)
+- Make =inferior-python-mode= do not use tabs (thanks to tsoernes)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 - Updated racket logo (thanks to Vityou)
