@@ -460,3 +460,11 @@ Bind formatter to '==' for LSP and '='for all other backends."
 (when (version< emacs-version "25")
   (advice-add 'wisent-python-default-setup :after
               #'spacemacs//python-imenu-create-index-use-semantic-maybe))
+
+(defun spacemacs//bind-python-repl-keys ()
+  "Bind the keys for testing in Python."
+  (spacemacs/declare-prefix-for-mode 'inferior-python-mode "mv" "virtualenv")
+  (spacemacs/set-leader-keys-for-major-mode 'inferior-python-mode
+    "c" 'comint-clear-buffer
+    "r" 'pyvenv-restart-python
+    "vw" 'pyvenv-workon))
