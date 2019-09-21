@@ -1574,6 +1574,7 @@ Other:
 - Show magit-log-select and diff in two windows (thanks to duianto)
 - Fixed magit conflicting with golden-ratio (thanks Eric Zhang)
 - Hide with-editor mode-line indicator: =WE= (thanks to duianto)
+- Fixed magit blame in org buffers (thanks to Compro Prasad)
 **** Gnus
 - Key bindings:
   - Added ~g r~ for =gnus-group-get-new-news= (thanks to Matthew Leach)
