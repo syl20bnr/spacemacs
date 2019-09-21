@@ -2264,6 +2264,11 @@ Other:
   =spacemacs/perltidy-format-function= to move the point and window to their
   original locations.
 **** PHP
+- Key bindings:
+  - Added =phpunit= test key bindings (thanks to duianto):
+    - ~SPC m t t~ =phpunit-current-test=
+    - ~SPC m t c~ =phpunit-current-class=
+    - ~SPC m t p~ =phpunit-current-project=
 - Fixes:
   - Added company-php (thanks to jim and Eivind Fonn)
   - Fixed php-company autocompletion (thanks to Dela Anthonio)
