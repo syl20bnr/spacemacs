@@ -11,9 +11,10 @@
 
 ;;; Code:
 
-;; TODO: offer lsp integration
 (defconst dart-packages
   '(dart-mode
+    flutter
+    company
     flycheck))
 
 (defun dart/show-buffer ()
@@ -27,6 +28,8 @@
     :mode "\\.dart\\'"
     :init
     (progn
+      (add-hook 'dart-mode-local-vars-hook
+                #'spacemacs//dart-setup-backend-lsp)
       (spacemacs/declare-prefix-for-mode 'dart-mode "mf" "find")
       (spacemacs/declare-prefix-for-mode 'dart-mode "mh" "help")
       (spacemacs/set-leader-keys-for-major-mode 'dart-mode
@@ -49,6 +52,19 @@
       (evil-set-initial-state 'dart-popup-mode 'motion)
       (evil-define-key 'motion dart-popup-mode-map
         (kbd "gr") 'dart-do-it-again))))
+
+(defun dart/init-flutter ()
+  (use-package flutter
+    :defer t
+    :after dart-mode
+    :init
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'dart-mode
+        "xx" 'flutter-run-or-hot-reload)))
+  )
+
+(defun dart/post-init-company ()
+  (add-hook 'dart-mode-local-vars-hook #'spacemacs//dart-setup-company-lsp))
 
 (defun dart/post-init-flycheck ()
   (spacemacs/enable-flycheck 'dart-mode))
