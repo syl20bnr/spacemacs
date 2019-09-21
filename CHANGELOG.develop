@@ -1351,6 +1351,10 @@ Other:
 **** D
 - Fixes:
   - Fixed =d-mode= flycheck imports on dub projects (thanks to Dietrich Daroch)
+**** Dart
+- Improvements:
+  - Added =LSP= support (thanks to Mathieu Post)
+  - Added =Flutter= support (thanks to Mathieu Post)
 **** Dash
 - Improvements:
   - Use default docsets path in =helm-dash= on macos (thanks to ColorFuzzy)
