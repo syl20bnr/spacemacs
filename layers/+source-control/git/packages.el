@@ -223,7 +223,9 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
       (when git-magit-status-fullscreen
         (setq magit-display-buffer-function
               'magit-display-buffer-fullframe-status-v1))
-      (spacemacs|hide-lighter with-editor-mode))))
+      (spacemacs|hide-lighter with-editor-mode)
+      ;; Workaround for #12747 - org-mode
+      (evil-define-key 'normal magit-blame-read-only-mode-map (kbd "RET") 'magit-show-commit))))
 
 (defun git/init-magit-gitflow ()
   (use-package magit-gitflow
