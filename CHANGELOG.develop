@@ -1229,6 +1229,7 @@ Other:
   - Allow to send input to the REPL via RET in normal mode
     (thanks to Dieter Komendera)
   - Improved spacemacs-jump-handlers (thanks to Ag Ibragimov)
+  - Autoscroll to end of repl when sending buffer content (thanks to Vitaly Banchenko)
 - Key bindings:
   - ~SPC m e ;~ to eval sexp and show result as comment
     (thanks to John Stevenson)
