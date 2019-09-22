@@ -52,7 +52,8 @@
 
 (defun spacemacs//scala-setup-metals ()
   "Setup LSP metals for Scala."
-  (setq-local lsp-prefer-flymake nil))
+  (setq-local lsp-prefer-flymake nil)
+  (add-hook 'scala-mode-hook #'lsp))
 
 (defun spacemacs//scala-disable-flycheck-scala ()
   (push 'scala flycheck-disabled-checkers))
