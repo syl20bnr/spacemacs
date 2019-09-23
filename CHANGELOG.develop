@@ -1751,6 +1751,7 @@ Other:
 - Fixed ~TAB~ indenting in =web-mode= (thanks to Christopher Eames)
 - Added =lsp= support for =css-mode=, =less-css-mode=, and =scss-mode=
 - Added support for =prettier= formatter in HTML buffers
+- Added support for .svelte files
 **** Hy
 - Added support for virtual envs (thanks to Danny Freeman)
 - Key bindings:
