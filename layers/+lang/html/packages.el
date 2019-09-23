@@ -284,6 +284,7 @@
      ("\\.hbs\\'"        . web-mode)
      ("\\.eco\\'"        . web-mode)
      ("\\.ejs\\'"        . web-mode)
+     ("\\.svelte\\'"     . web-mode)
      ("\\.djhtml\\'"     . web-mode))))
 
 (defun html/post-init-yasnippet ()
