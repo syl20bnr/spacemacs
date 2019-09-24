@@ -78,7 +78,6 @@ become Async, and there might be a delay when executing them.
 | ~SPC m h h~, ~SPC m ?~ | Displays hover information for the current point. |
 | ~SPC m h b~            | Displays information at point on a new buffer.    |
 | ~gd~, ~SPC m g~        | Go to definition.                                 |
-| ~SPC m f f~            | Find reference at point.                          |
 | ~SPC m f d~            | Find members declarations by name.                |
 | ~SPC m f r~            | Find members references by name.                  |
 | ~SPC m f d~            | Find top-level declarations by name.              |
