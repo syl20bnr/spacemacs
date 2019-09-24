@@ -14,12 +14,52 @@
         company
         ein
         ob-ipython
+        websocket
+        request
+        request-deferred
+        dash
+        s
+        skewer-mode
         ))
+
+(defun ipython-notebook/init-websocket ()
+  (use-package websocket
+    :defer t
+    :init))
+
+(defun ipython-notebook/init-request-deferred ()
+  (use-package request-deferred
+    :defer t
+    :init))
+
+(defun ipython-notebook/init-dash ()
+  (use-package dash
+    :defer t
+    :init))
+
+(defun ipython-notebook/init-s ()
+  (use-package s
+    :defer t
+    :init))
+
+(defun ipython-notebook/post-init-skewer-mode ())
+
+(defun ipython-notebook/post-init-request ())
 
 (defun ipython-notebook/post-init-company ()
   (spacemacs|add-company-backends
     :backends ein:company-backend
     :modes ein:notebook-mode))
+
+(defun ipython-notebook/init-ein-notebook ()
+  (use-package ein-notebook
+    :defer t
+    :init))
+
+(defun ipython-notebook/init-ein-subpackages ()
+  (use-package ein-subpackages
+    :defer t
+    :init))
 
 (defun ipython-notebook/init-ein ()
   (use-package ein
