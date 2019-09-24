@@ -52,7 +52,7 @@
     :config
     (progn
       ;; Key bindings for plain TeX
-      (dolist (mode '(tex-mode latex-mode))
+      (dolist (mode '(tex-mode latex-mode context-mode))
         (spacemacs/set-leader-keys-for-major-mode mode
           "\\"  'TeX-insert-macro                            ;; C-c C-m
           "-"   'TeX-recenter-output-buffer                  ;; C-c C-l
