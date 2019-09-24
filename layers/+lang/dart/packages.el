@@ -51,7 +51,7 @@
         "fr" 'dart-server-find-member-refs
         "fd" 'dart-server-find-top-level-decls)
 
-      (add-to-list 'spacemacs-jump-handlers-dart-server
+      (add-to-list 'spacemacs-jump-handlers-dart-mode
                    '(dart-server-goto :async t))
 
       (evil-define-key 'insert dart-server-map
