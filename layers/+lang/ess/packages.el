@@ -68,6 +68,8 @@
                  ess-nuke-trailing-whitespace-p t
                  ess-default-style 'DEFAULT)
 
+           ;; add support for evil states
+           (evil-set-initial-state 'ess-help-mode 'motion)
 
            (define-key ess-doc-map "h" 'ess-display-help-on-object)
            (define-key ess-doc-map "p" 'ess-R-dv-pprint)
