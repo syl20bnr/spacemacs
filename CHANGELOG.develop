@@ -410,7 +410,7 @@ sane way, here is the complete list of changed key bindings
   - Removed unused variable =dotspacemacs-verbose-loading= from
     =.spacemacs.template= (thanks to Ying Qu)
 Other:
-  - =.gitignore= now ignores tag files.
+  - =.gitignore= now ignores tag files and the bbdb database.
   - Added =vim-style-visual-feedback= and =hybrid-style-visual-feedback= style
     variables to enable =evil-goggles= pulse in the Vim and Hybrid editing
     styles, respectively; disabled by default (thanks to Sylvain Benner)
