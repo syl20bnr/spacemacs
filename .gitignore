@@ -57,6 +57,7 @@ eclipse.jdt.ls
 .extension
 mspyls/
 transient/
+bbdb
 
 # Private directory
 private/
