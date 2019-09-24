@@ -235,6 +235,9 @@
           (kbd "C-j") 'cider-repl-next-input
           (kbd "C-k") 'cider-repl-previous-input))
 
+      (evil-define-key 'insert cider-repl-mode-map
+        (kbd "<C-return>") 'cider-repl-newline-and-indent)
+
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)
         (clojure/fancify-symbols 'cider-clojure-interaction-mode)))
