@@ -1279,6 +1279,8 @@ Other:
     (thanks to Russell Mull)
   - ~SPC m h d~ new keybinding for =cider-clojuredocs= (thanks to Sam Hedin)
   - Removed ~SPC m h g~ for =grimoire= as it is deprecated (thanks to Sam Hedin)
+  - ~C-return~ to =cider-repl-newline-and-indent= in REPL evil insert state
+    (thanks to Gia Thanh Vuong)
 - Fixes:
   - Remove `cider.nrepl/cider-middleware` in lein quick start setting
   - Fixed =cider-inspector-prev-page= binding, also add ~p~ as another key
