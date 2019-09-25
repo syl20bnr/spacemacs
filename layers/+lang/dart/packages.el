@@ -25,16 +25,19 @@
   (interactive)
   (dart-server-show-hover t))
 
-(defun dart/init-dart-mode ())
-
-(defun dart/init-dart-server ()
-  (use-package dart-server
+(defun dart/init-dart-mode ()
+  (use-package dart-mode
     :defer t
     :mode "\\.dart\\'"
     :init
+    (add-hook 'dart-mode-local-vars-hook
+              #'spacemacs//dart-setup-backend-lsp)))
+
+(defun dart/init-dart-server ()
+  (use-package dart-server
+    :after dart-mode
+    :init
     (progn
-      (add-hook 'dart-mode-local-vars-hook
-                #'spacemacs//dart-setup-backend-lsp)
       (spacemacs/declare-prefix-for-mode 'dart-mode "mf" "find")
       (spacemacs/declare-prefix-for-mode 'dart-mode "mh" "help")
       (spacemacs/set-leader-keys-for-major-mode 'dart-mode
@@ -63,8 +66,7 @@
 
       (evil-set-initial-state 'dart-server-popup-mode 'motion)
       (evil-define-key 'motion dart-server-popup-mode-map
-        (kbd "gr") 'dart-server-do-it-again))
-    :config (dart-mode)))
+        (kbd "gr") 'dart-server-do-it-again))))
 
 (defun dart/init-flutter ()
   (use-package flutter
