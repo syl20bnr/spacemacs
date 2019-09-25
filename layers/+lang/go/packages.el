@@ -98,6 +98,12 @@
           (format "go run %s"
                   (shell-quote-argument (buffer-file-name)))))
 
+      (defun spacemacs/go-build-main ()
+        (interactive)
+        (shell-command
+          (format "go build %s"
+                  (shell-quote-argument (buffer-file-name)))))
+
       (spacemacs/declare-prefix-for-mode 'go-mode "me" "playground")
       (spacemacs/declare-prefix-for-mode 'go-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'go-mode "mh" "help")
