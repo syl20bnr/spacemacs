@@ -119,6 +119,7 @@
         "er" 'go-play-region
         "ed" 'go-download-play
         "xx" 'spacemacs/go-run-main
+        "bb" 'spacemacs/go-build-main'
         "ga" 'ff-find-other-file
         "gc" 'go-coverage
         "tt" 'spacemacs/go-run-test-current-function
