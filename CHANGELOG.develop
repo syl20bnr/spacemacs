@@ -1083,6 +1083,7 @@ Other:
 **** Agda
 - Fixes
   - Fixed auto bind breaking after Agda 2.6.0 api changes
+  - Retained indentation on paste (thanks to Georgy Lukyanov)
 **** Alda
 - Key bindings:
   - ~SPC m b~ Play the entire buffer
