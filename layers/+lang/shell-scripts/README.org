@@ -51,11 +51,15 @@ with different setup instructions and different capabilities.
 This is the recommended way for working with shell scripts in emacs. It works
 by using an emacs major mode.
 
+It supports =bash= and =fish= shell scripts.
+
 No additional setup is necessary.
 
 *** LSP
 This backend uses an external server to provide the various IDE integrations
 and a more modern UI integration in =spacemacs=.
+
+However it only supports working with =bash= scripts.
 
 It requires installing the external server via:
 
