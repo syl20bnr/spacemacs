@@ -11,8 +11,8 @@
   - [[#layer][Layer]]
   - [[#dart-sdk-location][Dart SDK location]]
     - [[#flutter-integration][Flutter integration]]
+  - [[#lsp][LSP]]
 - [[#configuration][Configuration]]
-  - [[#use-analysis-server][Use analysis server]]
   - [[#format-on-save][Format on save]]
 - [[#key-bindings][Key bindings]]
   - [[#normal-mode][Normal mode]]
@@ -52,13 +52,17 @@ integration tools.
   (dart :variables dart-server-sdk-path "<flutter-path>/bin/cache/dart-sdk/")
 #+END_SRC
 
+** LSP
+This layer requires an instance of a dart lsp server to work properly.
+You can execute below command to install the official dart lsp server.
+Make sure that the executable is available on your =path=.
+
+#+BEGIN_SRC shell
+  pub global activate dart_language_server
+#+END_SRC
+
 * Configuration
 For additional variables check the [[https://github.com/bradyt/dart-server][dart-server]] documentation.
-
-** Use analysis server
-#+BEGIN_SRC elisp
-  (dart :variables dart-server-enable-analysis-server t)
-#+END_SRC
 
 ** Format on save
 #+BEGIN_SRC elisp
