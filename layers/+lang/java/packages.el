@@ -12,7 +12,6 @@
 (setq java-packages
       '(
         company
-        eldoc
         flycheck
         ggtags
         gradle-mode
