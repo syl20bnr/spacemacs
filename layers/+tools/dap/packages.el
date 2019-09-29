@@ -20,8 +20,17 @@
            (dap-ui-locals-mode . evil-evilified-state)
            (dap-ui-inspect-mode . evil-evilified-state))
     :config
-    (dap-mode 1)
-    (dap-ui-mode 1)
-    (when dap-enable-mouse-support
-      (dap-tooltip-mode)
-      (tooltip-mode))))
+    (progn
+      (dap-mode 1)
+      (dap-ui-mode 1)
+
+      (spacemacs|add-toggle dap-mouse
+        :status dap-tooltip-mode
+        :on (progn (dap-tooltip-mode)
+                   (tooltip-mode))
+        :off (progn (dap-tooltip-mode -1)
+                    (tooltip-mode -1))
+        :documentation "Enable mouse support in DAP mode.")
+
+      (when dap-enable-mouse-support
+        (spacemacs/toggle-dap-mouse-on)))))
