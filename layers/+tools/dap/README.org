@@ -10,13 +10,13 @@
   - [[#dap-configuration-in-supported-layers][DAP configuration in supported layers]]
   - [[#variables][Variables]]
 - [[#key-bindings][Key bindings]]
-    - [[#declared-prefixes][Declared prefixes]]
-    - [[#transient-state][Transient state]]
-    - [[#startstop][Start/Stop]]
-    - [[#breakpoints][Breakpoints]]
-    - [[#navigation][Navigation]]
-    - [[#evaluation-and-repl][Evaluation and REPL]]
-    - [[#inspection][Inspection]]
+  - [[#declared-prefixes][Declared prefixes]]
+  - [[#transient-state][Transient state]]
+  - [[#startstop][Start/Stop]]
+  - [[#breakpoints][Breakpoints]]
+  - [[#navigation][Navigation]]
+  - [[#evaluation-and-repl][Evaluation and REPL]]
+  - [[#inspection][Inspection]]
 - [[#references][References]]
 
 * Description
@@ -66,21 +66,21 @@ See the =java= layer for further example on how to setup correctly =dap-mode=.
 | =dap-enable-mouse-support= | t       | Enable/disable mouse support |
 
 * Key bindings
-*** Declared prefixes
+** Declared prefixes
 The following prefixes have been declared:
 
 | prefix      | name              |
 |-------------+-------------------|
 | ~SPC m d~   | debug             |
-| ~SPC m d d~ | launching         |
 | ~SPC m d b~ | breakpoints       |
-| ~SPC m d l~ | debug windows     |
-| ~SPC m d S~ | context switching |
+| ~SPC m d d~ | launching         |
 | ~SPC m d e~ | eval              |
 | ~SPC m d I~ | inspect           |
-|             |                   |
+| ~SPC m d l~ | debug windows     |
+| ~SPC m d S~ | context switching |
+| ~SPC m d T~ | toggles           |
 
-*** Transient state
+** Transient state
 Most of the DAP functions can be easily repeated using the built-in DAP
 transient state which can be initiate with ~SPC m d .~.
 
@@ -88,7 +88,7 @@ transient state which can be initiate with ~SPC m d .~.
 |-------------+-----------------------|
 | ~SPC m d .~ | debug transient state |
 
-*** Start/Stop
+** Start/Stop
 
 | Key binding   | Description                     |
 |---------------+---------------------------------|
@@ -99,7 +99,7 @@ transient state which can be initiate with ~SPC m d .~.
 | ~SPC m d d l~ | debug last configuration        |
 | ~SPC m d d r~ | debug recent configuration      |
 
-*** Breakpoints
+** Breakpoints
 
 | Key binding   | Description                     |
 |---------------+---------------------------------|
@@ -112,7 +112,7 @@ transient state which can be initiate with ~SPC m d .~.
 | ~SPC m d b D~ | clear all breakpoints           |
 | ~SPC m d w b~ | list breakpoints                |
 
-*** Navigation
+** Navigation
 
 | Key binding   | Description                   |
 |---------------+-------------------------------|
@@ -127,7 +127,7 @@ transient state which can be initiate with ~SPC m d .~.
 | ~SPC m d w o~ | goto output buffer if present |
 | ~SPC m d w s~ | list sessions                 |
 
-*** Evaluation and REPL
+** Evaluation and REPL
 
 | Key binding   | Description         |
 |---------------+---------------------|
@@ -136,7 +136,7 @@ transient state which can be initiate with ~SPC m d .~.
 | ~SPC m d e r~ | eval region         |
 | ~SPC m d e t~ | eval value at point |
 
-*** Inspection
+** Inspection
 
 | Key binding   | Description                               |
 |---------------+-------------------------------------------|
