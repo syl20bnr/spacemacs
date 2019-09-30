@@ -10,4 +10,4 @@
 ;;; License: GPLv3
 
 
-(configuration-layer/declare-layer 'version-control)
+(configuration-layer/declare-layer-dependencies '(version-control))

@@ -11,4 +11,4 @@
 
 (when (and (boundp 'julia-backend)
            (eq julia-backend 'lsp))
-  (configuration-layer/declare-layer 'lsp))
+  (configuration-layer/declare-layer-dependencies '(lsp)))

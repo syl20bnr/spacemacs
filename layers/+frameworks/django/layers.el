@@ -11,4 +11,4 @@
 
 ;; Prerequisites
 
-(configuration-layer/declare-layer 'python)
+(configuration-layer/declare-layer-dependencies '(python))

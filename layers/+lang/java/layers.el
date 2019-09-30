@@ -9,8 +9,8 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layer 'groovy)
+(configuration-layer/declare-layer-dependencies '(groovy))
 
 (when (and (boundp 'java-backend)
            (eq java-backend 'lsp))
-  (configuration-layer/declare-layer 'lsp))
+  (configuration-layer/declare-layer-dependencies '(lsp)))

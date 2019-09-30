@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layers '(auto-completion syntax-checking))
+(configuration-layer/declare-layer-dependencies '(auto-completion syntax-checking))

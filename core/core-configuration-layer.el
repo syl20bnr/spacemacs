@@ -374,6 +374,9 @@ file.")
 (defvar configuration-layer--used-layers '()
   "A non-sorted list of used layer names.")
 
+(defvar configuration-layer--layers-dependencies '()
+  "List of layers declared in `layers.el' files.")
+
 (defvar configuration-layer--indexed-layers (make-hash-table :size 1024)
   "Hash map to index `cfgl-layer' objects by their names.")
 
@@ -1484,6 +1487,12 @@ whether the declared layer is an used one or not."
             (configuration-layer//load-layer-files layer-name '("layers.el"))))
       (configuration-layer//warning "Unknown declared layer %s." layer-name))))
 
+(defun configuration-layer/declare-layer-dependencies (layer-names)
+  "Function to be used in `layers.el' files to declare dependencies."
+  (dolist (x layer-names)
+    (add-to-list 'configuration-layer--layers-dependencies x)
+    (configuration-layer//load-layer-files x '("layers.el"))))
+
 (defun configuration-layer//declare-used-layers (layers-specs)
   "Declare used layers from LAYERS-SPECS list."
   (setq configuration-layer--used-layers nil)
@@ -1502,6 +1511,10 @@ whether the declared layer is an used one or not."
              "Unknown layer %s declared in dotfile." layer-name))))
       (setq configuration-layer--used-layers
             (reverse configuration-layer--used-layers)))
+    ;; declare additional layer required by used layers
+    ;; this layers will be at the beginning of `configuration-layer--used-layers'
+    (dolist (layer-name configuration-layer--layers-dependencies)
+      (configuration-layer/declare-layer layer-name))
     ;; distribution and bootstrap layers are always first
     (let ((distribution (if configuration-layer-force-distribution
                             configuration-layer-force-distribution

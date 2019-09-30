@@ -11,4 +11,4 @@
 
 (when (and (boundp 'c-c++-backend)
            (member c-c++-backend '(lsp-cquery lsp-ccls)))
-  (configuration-layer/declare-layers '(lsp dap)))
+  (configuration-layer/declare-layer-dependencies '(lsp dap)))

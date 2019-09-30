@@ -11,4 +11,4 @@
 
 (when (and (boundp 'php-backend)
            (eq php-backend 'lsp))
-  (configuration-layer/declare-layer 'lsp))
+  (configuration-layer/declare-layer-dependencies '(lsp)))

@@ -9,21 +9,26 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layers '(
-                                      helm
-                                      treemacs
-                                      spacemacs-base
-                                      spacemacs-completion
-                                      spacemacs-layouts
-                                      spacemacs-editing
-                                      spacemacs-editing-visual
-                                      spacemacs-evil
-                                      spacemacs-language
-                                      spacemacs-misc
-                                      spacemacs-modeline
-                                      spacemacs-navigation
-                                      spacemacs-org
-                                      spacemacs-project
-                                      spacemacs-purpose
-                                      spacemacs-visual
-                                      ))
+;; We use `spacemacs/declare-layers' instead of
+;; `configuration-layer/declare-layer-dependencies' in order to declare
+;; the layers right away
+;; This is a special case only for distribution layers.
+(configuration-layer/declare-layers
+ '(
+   helm
+   treemacs
+   spacemacs-base
+   spacemacs-completion
+   spacemacs-layouts
+   spacemacs-editing
+   spacemacs-editing-visual
+   spacemacs-evil
+   spacemacs-language
+   spacemacs-misc
+   spacemacs-modeline
+   spacemacs-navigation
+   spacemacs-org
+   spacemacs-project
+   spacemacs-purpose
+   spacemacs-visual
+   ))

@@ -11,4 +11,4 @@
 
 (when (and (boundp 'shell-scripts-backend)
            (eq shell-scripts-backend 'lsp))
-  (configuration-layer/declare-layer 'lsp))
+  (configuration-layer/declare-layer-dependencies '(lsp)))

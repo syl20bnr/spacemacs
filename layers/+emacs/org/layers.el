@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layers '(spacemacs-org))
+(configuration-layer/declare-layer-dependencies '(spacemacs-org))

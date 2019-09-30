@@ -11,4 +11,4 @@
 
 (when (and (boundp 'haskell-completion-backend)
            (eq haskell-completion-backend 'lsp))
-  (configuration-layer/declare-layer 'lsp))
+  (configuration-layer/declare-layer-dependencies '(lsp)))

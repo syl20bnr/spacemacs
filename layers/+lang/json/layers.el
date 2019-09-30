@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layers '(node prettier web-beautify))
+(configuration-layer/declare-layer-dependencies '(node prettier web-beautify))
