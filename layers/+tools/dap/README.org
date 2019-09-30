@@ -7,8 +7,9 @@
   - [[#features][Features:]]
 - [[#layer-installation][Layer installation]]
 - [[#configuration][Configuration]]
-  - [[#derived-layers][Derived layers]]
+  - [[#dap-configuration-in-supported-layers][DAP configuration in supported layers]]
   - [[#variables][Variables]]
+- [[#key-bindings][Key bindings]]
     - [[#declared-prefixes][Declared prefixes]]
     - [[#transient-state][Transient state]]
     - [[#startstop][Start/Stop]]
@@ -45,12 +46,18 @@ add =dap= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Configuration
-** Derived layers
-Derived layer should provide information how to configure the language
-specific debug adapter and the language specific bindings(e. g. debug
-application, debug test, etc). The package declares function
-~spacemacs/dap-bind-keys-for-mode~ which should be used by the derived layers
-to configure the shortcuts.
+** DAP configuration in supported layers
+To register =dap-mode= key bindings in a supported layer, the layer must
+register itself using the variable =spacemacs--dap-supported-modes=.
+
+For instance the =java= layer:
+
+#+begin_src emacs-lisp
+(defun java/pre-init-dap-mode ()
+  (add-to-list 'spacemacs--dap-supported-modes 'java-mode))
+#+end_src
+
+See the =java= layer for further example on how to setup correctly =dap-mode=.
 
 ** Variables
 
@@ -58,6 +65,7 @@ to configure the shortcuts.
 |----------------------------+---------+------------------------------|
 | =dap-enable-mouse-support= | t       | Enable/disable mouse support |
 
+* Key bindings
 *** Declared prefixes
 The following prefixes have been declared:
 

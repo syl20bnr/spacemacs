@@ -25,6 +25,12 @@
     (`robe (spacemacs//ruby-setup-robe-company))
     (`lsp nil))) ;; Company is automatically set up by lsp
 
+(defun spacemacs//ruby-setup-dap ()
+  "Conditionally setup elixir DAP integration."
+  ;; currently DAP is only available using LSP
+  (pcase ruby-backend
+    (`lsp (spacemacs//ruby-setup-lsp-dap))))
+
 
 ;; lsp
 
@@ -32,12 +38,11 @@
   "Setup Ruby lsp."
   (if (configuration-layer/layer-used-p 'lsp)
       (lsp)
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile."))
-  (if (configuration-layer/layer-used-p 'dap)
-      (progn
-        (require 'dap-ruby)
-        (spacemacs/dap-bind-keys-for-mode 'ruby-mode))
-    (message "`dap' layer is not installed, please add `dap' layer to your dotfile.")))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs//ruby-setup-lsp-dap ()
+  "Setup DAP integration."
+  (require 'dap-ruby))
 
 
 ;; robe

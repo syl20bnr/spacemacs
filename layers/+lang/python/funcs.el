@@ -22,6 +22,12 @@
     (spacemacs//python-setup-anaconda-company)
     (spacemacs//python-setup-lsp-company)))
 
+(defun spacemacs//python-setup-dap ()
+  "Conditionally setup elixir DAP integration."
+  ;; currently DAP is only available using LSP
+  (pcase python-backend
+    (`lsp (spacemacs//python-setup-lsp-dap))))
+
 (defun spacemacs//python-setup-eldoc ()
   "Conditionally setup eldoc based on backend."
   (pcase python-backend
@@ -65,13 +71,7 @@
         (when (eq python-lsp-server 'mspyls)
           (require 'lsp-python-ms))
         (lsp))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile."))
-  (if (configuration-layer/layer-used-p 'dap)
-    (progn
-      (require 'dap-python)
-      (spacemacs/set-leader-keys-for-major-mode 'python-mode "db" nil)
-      (spacemacs/dap-bind-keys-for-mode 'python-mode))
-    (message "`dap' layer is not installed, please add `dap' layer to your dotfile.")))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//python-setup-lsp-company ()
   "Setup lsp auto-completion."
@@ -84,6 +84,10 @@
           :call-hooks t)
         (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs//python-setup-lsp-dap ()
+  "Setup DAP integration."
+  (require 'dap-python))
 
 
 ;; others

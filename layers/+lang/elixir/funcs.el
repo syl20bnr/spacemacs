@@ -21,6 +21,12 @@
       (spacemacs//elixir-setup-alchemist-company)
     (spacemacs//elixir-setup-lsp-company)))
 
+(defun spacemacs//elixir-setup-dap ()
+  "Conditionally setup elixir DAP integration."
+  ;; currently DAP is only available using LSP
+  (pcase elixir-backend
+    (`lsp (spacemacs//elixir-setup-lsp-dap))))
+
 
 ;;alchemist
 
@@ -42,13 +48,7 @@
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn (add-to-list 'exec-path elixir-ls-path) (lsp))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile."))
-  (if (configuration-layer/layer-used-p 'dap)
-      (progn
-        (require 'dap-elixir)
-        (spacemacs/set-leader-keys-for-major-mode 'elixir-mode "db" nil)
-        (spacemacs/dap-bind-keys-for-mode 'elixir-mode))
-    (message "`dap' layer is not installed, please add `dap' layer to your dotfile.")))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//elixir-setup-lsp-company ()
   "Setup lsp auto-completion."
@@ -61,6 +61,10 @@
           :call-hooks t)
         (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs//elixir-setup-lsp-dap ()
+  "Setup DAP integration."
+  (require 'dap-elixir))
 
 
 ;; others

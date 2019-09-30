@@ -9,6 +9,61 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//rust-setup-backend ()
+  "Conditionally setup rust backend."
+  (pcase rust-backend
+    (`racer (spacemacs//rust-setup-racer))
+    (`lsp (spacemacs//rust-setup-lsp))))
+
+(defun spacemacs//rust-setup-company ()
+  "Conditionally setup company based on backend."
+  (pcase rust-backend
+    (`racer (spacemacs//rust-setup-racer-company))
+    (`lsp (spacemacs//rust-setup-lsp-company))))
+
+(defun spacemacs//rust-setup-dap ()
+  "Conditionally setup elixir DAP integration."
+  ;; currently DAP is only available using LSP
+  (pcase rust-backend
+    (`lsp (spacemacs//java-setup-lsp-dap))))
+
+
+;; lsp
+
+(defun spacemacs//rust-setup-lsp ()
+  "Setup lsp backend"
+  (if (configuration-layer/layer-used-p 'lsp)
+      (lsp)
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs//rust-setup-lsp-company ()
+  "Setup lsp auto-completion."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (spacemacs|add-company-backends
+          :backends company-lsp
+          :modes rust-mode))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs//rust-setup-lsp-dap ()
+  "Setup DAP integration."
+  (require 'dap-gdb-lldb))
+
+
+;; racer
+
+(defun spacemacs//rust-setup-racer ()
+  "Setup racer backend"
+  (progn
+    (racer-mode)))
+
+(defun spacemacs//rust-setup-racer-company ()
+  "Setup racer auto-completion."
+  (spacemacs|add-company-backends
+    :backends company-capf
+    :modes rust-mode
+    :variables company-tooltip-align-annotations t))
+
 (defun spacemacs/racer-describe ()
   "Show a *Racer Help* buffer for the function or type at point.
 If `help-window-select' is non-nil, also select the help window."
@@ -16,6 +71,8 @@ If `help-window-select' is non-nil, also select the help window."
   (let ((window (racer-describe)))
     (when help-window-select
       (select-window window))))
+
+;; Misc
 
 (defun spacemacs/rust-quick-run ()
   "Quickly run a Rust file using rustc.
@@ -31,47 +88,3 @@ using `cargo-process-run'."
              (shell-quote-argument output-file-name)
              (shell-quote-argument input-file-name)
              (shell-quote-argument output-file-name)))))
-
-(defun spacemacs//rust-setup-lsp ()
-  "Setup lsp backend"
-  (if (configuration-layer/layer-used-p 'lsp)
-      (lsp)
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile."))
-  (if (configuration-layer/layer-used-p 'dap)
-      (progn
-        (require 'dap-gdb-lldb)
-        (spacemacs/dap-bind-keys-for-mode 'rust-mode))
-    (message "`dap' layer is not installed, please add `dap' layer to your dotfile.")))
-
-(defun spacemacs//rust-setup-racer ()
-  "Setup racer backend"
-  (progn
-    (racer-mode)))
-
-(defun spacemacs//rust-setup-backend ()
-  "Conditionally setup rust backend."
-  (pcase rust-backend
-    (`racer (spacemacs//rust-setup-racer))
-    (`lsp (spacemacs//rust-setup-lsp))))
-
-(defun spacemacs//rust-setup-lsp-company ()
-  "Setup lsp auto-completion."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (spacemacs|add-company-backends
-          :backends company-lsp
-          :modes rust-mode))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
-
-(defun spacemacs//rust-setup-racer-company ()
-  "Setup racer auto-completion."
-        (spacemacs|add-company-backends
-          :backends company-capf
-          :modes rust-mode
-          :variables company-tooltip-align-annotations t))
-
-(defun spacemacs//rust-setup-company ()
-  "Conditionally setup company based on backend."
-  (pcase rust-backend
-    (`racer (spacemacs//rust-setup-racer-company))
-    (`lsp (spacemacs//rust-setup-lsp-company))))

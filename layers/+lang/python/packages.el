@@ -15,6 +15,7 @@
         company
         counsel-gtags
         cython-mode
+        dap-mode
         eldoc
         evil-matchit
         flycheck
@@ -119,6 +120,10 @@
         (spacemacs/set-leader-keys-for-major-mode 'cython-mode
           "hh" 'anaconda-mode-show-doc
           "gu" 'anaconda-mode-find-references)))))
+
+(defun python/pre-init-dap-mode ()
+  (add-to-list 'spacemacs--dap-supported-modes 'python-mode)
+  (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-dap))
 
 (defun python/post-init-eldoc ()
   (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-eldoc))
