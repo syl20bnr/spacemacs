@@ -9,6 +9,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
+  - [[#choosing-a-backend][Choosing a backend]]
   - [[#pre-requisites][Pre-requisites]]
 - [[#configuration][Configuration]]
   - [[#execution][Execution]]
@@ -45,6 +46,29 @@ This layer adds extensive support for the [[https://golang.org][Go]] programming
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =go= to the existing =dotspacemacs-configuration-layers= list in this file.
+
+** Choosing a backend
+To choose a default backend set the layer variable =go-backend=:
+
+#+BEGIN_SRC elisp
+  (go :variables go-backend 'go-mode)
+#+END_SRC
+
+Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
+is used and you did not specify any value for =go-backend=.
+
+Backend can be chosen on a per project basis using directory local variables
+(files named =.dir-locals.el= at the root of a project), an example to use the
+=lsp= backend:
+
+#+BEGIN_SRC elisp
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
+
+  ((go-mode (go-backend . lsp)))
+#+END_SRC
+
+*Note:* you can easily add a directory local variable with ~SPC f v d~.
 
 ** Pre-requisites
 You will need =gocode=, =gogetdoc=, =godef=, =godoctor= and many others

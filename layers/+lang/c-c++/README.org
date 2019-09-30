@@ -88,14 +88,16 @@ variable at the root of your project. More info on directory local variables
 can be found in the [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Directory-Local-Variables.html][dir-locals]].
 
 ** Backends
-This layer supports the selection of one of 3 available backends for code navigation etc via the =c-c++-backend= configuration variable.
+This layer supports the selection of one of 3 available backends for code
+navigation etc via the =c-c++-backend= configuration variable.
 
 *** RTags
 RTags is a well established clang-based source code indexing tool.
 
 **** External dependencies
-Install the RTags server via [[https://formulae.brew.sh/formula/rtags][homebrew]], the [[https://aur.archlinux.org/packages/rtags/][aur]] or from source according to the instructions [[https://github.com/Andersbakken/rtags][here]].
-N.B. RTags is not supported on Windows at the time of writing, although there is an [[https://github.com/Andersbakken/rtags/issues/770][open issue with some recent activity]] on github.
+Install the RTags server via [[https://formulae.brew.sh/formula/rtags][homebrew]], the [[https://aur.archlinux.org/packages/rtags/][aur]] or from source according to the
+instructions [[https://github.com/Andersbakken/rtags][here]]. N.B. RTags is not supported on Windows at the time of
+writing, although there is an [[https://github.com/Andersbakken/rtags/issues/770][open issue with some recent activity]] on github.
 
 **** Configuration
 To enable support for =rtags=, set the layer variable =c-c++-backend=:
@@ -118,8 +120,9 @@ set the variable =c-c++-rtags-completion= to =nil=:
 #+END_SRC
 
 *** cquery / ccls (lsp backends)
-[[https://github.com/cquery-project/cquery][cquery]] and [[https://github.com/MaskRay/ccls][ccls]] are alternative implementations of the language server protocol based on libclang. They claim to be more efficient
-than existing tools at indexing large code bases.
+[[https://github.com/cquery-project/cquery][cquery]] and [[https://github.com/MaskRay/ccls][ccls]] are alternative implementations of the language server protocol
+based on libclang. They claim to be more efficient than existing tools at
+indexing large code bases.
 
 **** Features:
 - Cross references (definitions, references, base/derived classes/methods, type instances, ...)
@@ -140,7 +143,8 @@ Install the =ccls= server. [[https://github.com/MaskRay/ccls/wiki/Getting-starte
 
 **** Configuration
 ***** Basic
-Select either =cquery= or =ccls= as the =c-c++= layer backend by adding the following to your dotfile:
+Select either =cquery= or =ccls= as the =c-c++= layer backend by adding the
+following to your dotfile:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
@@ -150,7 +154,8 @@ Select either =cquery= or =ccls= as the =c-c++= layer backend by adding the foll
 N.B. The [[file:../../+tools/lsp/README.org][LSP layer]] will be loaded automatically if either backend is selected.
 
 ***** Setting path to backend executable
-The basic configuration above should work if the cquery/ccls executable folder is present in your path. If not, you can set the path explicitly.
+The basic configuration above should work if the cquery/ccls executable folder
+is present in your path. If not, you can set the path explicitly.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
@@ -169,16 +174,20 @@ If you need to expand =~= in the path, you can use =file-truename= like
 #+END_SRC
 
 ***** Semantic highlighting
-Semantic highlighting is disabled by default. To enable, set the =c-c++-lsp-sem-highlight-method= variable to either ='font-lock= or ='overlay=.
-To enable the rainbow semantic highlighting colour theme, set =c-c++-lsp-sem-highlight-rainbow= to =t=.
+Semantic highlighting is disabled by default. To enable, set the
+=c-c++-lsp-sem-highlight-method= variable to either ='font-lock= or ='overlay=.
+To enable the rainbow semantic highlighting colour theme, set
+=c-c++-lsp-sem-highlight-rainbow= to =t=.
 
 ***** Additional configuration options
-Both lsp backends are configured to store their index cache in a subdirectory of =.emacs.d/cache=. This can be overridden by
-specifying an explicit =c-c++-lsp-cache-dir=. Setting this value to a relative path will cause the index cache to be placed in a
-subdirectory of your project root.
+Both lsp backends are configured to store their index cache in a subdirectory of
+=.emacs.d/cache=. This can be overridden by specifying an explicit
+=c-c++-lsp-cache-dir=. Setting this value to a relative path will cause the
+index cache to be placed in a subdirectory of your project root.
 
-There are other initialization options such as the number of indexer threads, cache serialization format.
-They have good default values. See =config.el= of the layer and the backends' respective homepages for more info.
+There are other initialization options such as the number of indexer threads,
+cache serialization format. They have good default values. See =config.el= of
+the layer and the backends' respective homepages for more info.
 - [[https://github.com/cquery-project/cquery/wiki/Emacs][Emacs section of =cquery= wiki]]
 - [[https://github.com/MaskRay/ccls/wiki/Emacs][Emacs section of =ccls= wiki]]
 
@@ -193,11 +202,14 @@ They have good default values. See =config.el= of the layer and the backends' re
 #+END_SRC
 
 **** Completion
-=company-lsp= provides completion functionality. Client-side cache and sorting have been disabled in favour of server,
+=company-lsp= provides completion functionality. Client-side cache and sorting
+have been disabled in favour of server,
 as recommended by =cquery=/=ccls= wikis.
 
 **** Debugger (dap integration)
-To install the debug adapter you may run =M-x dap-gdb-lldb-setup= when you are on Linux or download it manually from [[https://marketplace.visualstudio.com/items?itemName=webfreak.debug][Native Debug]] and adjust =dap-gdb-lldb-path=.
+To install the debug adapter you may run =M-x dap-gdb-lldb-setup= when you are
+on Linux or download it manually from [[https://marketplace.visualstudio.com/items?itemName=webfreak.debug][Native Debug]] and adjust
+=dap-gdb-lldb-path=.
 
 ** Organize file header includes on save
 To organize the file header includes on save, set the layer variable

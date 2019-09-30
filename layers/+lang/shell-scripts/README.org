@@ -67,7 +67,8 @@ It requires installing the external server via:
   npm i -g bash-language-server
 #+END_SRC
 
-As well as setting the layer variable =shell-scripts-backend=:
+Enable the =lsp= layer to activate this backend as well as setting the layer
+variable =shell-scripts-backend=:
 
 #+BEGIN_SRC elisp
   (shell-scripts :variables shell-scripts-backend 'lsp)

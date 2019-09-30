@@ -12,22 +12,30 @@
 
 ;; backend
 
+(defun spacemacs//javascript-backend ()
+  "Returns selected backend."
+  (if javascript-backend
+      javascript-backend
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'tern))))
+
 (defun spacemacs//javascript-setup-backend ()
   "Conditionally setup javascript backend."
-  (pcase javascript-backend
+  (pcase (spacemacs//javascript-backend)
     (`tern (spacemacs//javascript-setup-tern))
     (`lsp (spacemacs//javascript-setup-lsp))))
 
 (defun spacemacs//javascript-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase javascript-backend
+  (pcase (spacemacs//javascript-backend)
     (`tern (spacemacs//javascript-setup-tern-company))
     (`lsp (spacemacs//javascript-setup-lsp-company))))
 
 (defun spacemacs//javascript-setup-dap ()
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase javascript-backend
+  (pcase (spacemacs//javascript-backend)
     (`lsp (spacemacs//javascript-setup-lsp-dap))))
 
 (defun spacemacs//javascript-setup-next-error-fn ()

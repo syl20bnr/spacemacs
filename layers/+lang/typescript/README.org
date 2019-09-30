@@ -8,6 +8,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#formatting][Formatting]]
   - [[#pre-requisites][Pre-requisites]]
   - [[#choosing-a-backend][Choosing a backend]]
 - [[#backends][Backends]]
@@ -43,6 +44,7 @@ file.
   (setq-default dotspacemacs-configuration-layers '(typescript))
 #+END_SRC
 
+** Formatting
 If you need formatting on save:
 
 #+BEGIN_SRC emacs-lisp
@@ -107,6 +109,9 @@ To choose a default backend set the layer variable =typescript-backend=:
   (setq-default dotspacemacs-configuration-layers '(
     (typescript :variables typescript-backend 'tide)))
 #+END_SRC
+
+Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
+is used and you did not specify any value for =typescript-backend=.
 
 Backend can be chosen on a per project basis using directory local variables
 (files named =.dir-locals.el= at the root of a project), an example to use the

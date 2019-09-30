@@ -9,6 +9,6 @@
 ;;
 ;;; License: GPLv3
 
-(when (and (boundp 'julia-mode-enable-lsp)
-           julia-mode-enable-lsp t)
+(when (and (boundp 'julia-backend)
+           (eq julia-backend 'lsp))
   (configuration-layer/declare-layer 'lsp))

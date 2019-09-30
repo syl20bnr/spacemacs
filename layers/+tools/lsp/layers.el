@@ -1,4 +1,4 @@
-;;; layers.el --- Java layer layers File for Spacemacs
+;;; layers.el --- Language Server Protocol layers File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
@@ -9,8 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layer 'groovy)
-
-(when (and (boundp 'java-backend)
-           (eq java-backend 'lsp))
-  (configuration-layer/declare-layer 'lsp))
+(configuration-layer/declare-layers '(auto-completion syntax-checking))

@@ -13,4 +13,4 @@
 
 (when (and (boundp 'javascript-backend)
            (eq javascript-backend 'lsp))
-  (configuration-layer/declare-layers '(lsp dap)))
+  (configuration-layer/declare-layer 'lsp))

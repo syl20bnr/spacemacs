@@ -9,22 +9,30 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//elixir-backend ()
+  "Returns selected backend."
+  (if elixir-backend
+      elixir-backend
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'alchemist))))
+
 (defun spacemacs//elixir-setup-backend ()
   "Conditionally setup elixir backend."
-  (pcase elixir-backend
+  (pcase (spacemacs//elixir-backend)
     (`alchemist (spacemacs//elixir-setup-alchemist))
     (`lsp (spacemacs//elixir-setup-lsp))))
 
 (defun spacemacs//elixir-setup-company ()
   "Conditionally setup company based on backend."
-  (if (eq elixir-backend `alchemist)
-      (spacemacs//elixir-setup-alchemist-company)
-    (spacemacs//elixir-setup-lsp-company)))
+  (pcase (spacemacs//elixir-backend)
+    (`alchemist (spacemacs//elixir-setup-alchemist-company))
+    (`lsp (spacemacs//elixir-setup-lsp-company))))
 
 (defun spacemacs//elixir-setup-dap ()
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase elixir-backend
+  (pcase (spacemacs//elixir-backend)
     (`lsp (spacemacs//elixir-setup-lsp-dap))))
 
 

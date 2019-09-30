@@ -8,7 +8,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-  - [[#backends][Backends]]
+  - [[#choosing-a-backend][Choosing a backend]]
     - [[#robe][Robe]]
     - [[#language-server-protocol][Language Server Protocol]]
   - [[#prerequisites][Prerequisites]]
@@ -55,7 +55,29 @@ This layer supports two different Ruby modes: Emacs's built-in Ruby Mode and
      '((ruby :variables ruby-enable-enh-ruby-mode t)))
 #+END_SRC
 
-** Backends
+** Choosing a backend
+To choose a default backend set the layer variable =ruby-backend=:
+
+#+BEGIN_SRC elisp
+  (ruby :variables ruby-backend 'robe)
+#+END_SRC
+
+Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
+is used and you did not specify any value for =ruby-backend=.
+
+Backend can be chosen on a per project basis using directory local variables
+(files named =.dir-locals.el= at the root of a project), an example to use the
+=lsp= backend:
+
+#+BEGIN_SRC elisp
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
+
+  ((ruby-mode (ruby-backend . lsp)))
+#+END_SRC
+
+*Note:* you can easily add a directory local variable with ~SPC f v d~.
+
 *** Robe
 The default Ruby-mode backend. See Prerequisites for the necessary Gems to support Robe.
 

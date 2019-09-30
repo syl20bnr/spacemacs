@@ -9,13 +9,21 @@
 ;;
 ;;; License: GPLv3
 
-
-;; lsp
+(defun spacemacs//php-backend ()
+  "Returns selected backend."
+  (if php-backend
+      php-backend
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t nil))))
 
 (defun spacemacs//php-setup-backend ()
   "Conditionally setup php backend."
-  (pcase php-backend
+  (pcase (spacemacs//php-backend)
     (`lsp (spacemacs//php-setup-lsp))))
+
+
+;; lsp
 
 (defun spacemacs//php-setup-lsp ()
   "Setup lsp backend."

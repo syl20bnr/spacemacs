@@ -9,6 +9,25 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//shell-scripts-backend ()
+  "Returns selected backend."
+  ;; backend must be choosed explicitly with this layer
+  shell-scripts-backend)
+
+(defun spacemacs//shell-scripts-setup-backend ()
+  "Conditionally setup shell-scripts backend."
+  (pcase (spacemacs//shell-scripts-backend)
+    (`lsp (spacemacs//shell-scripts-setup-lsp))))
+
+
+;; lsp
+
+(defun spacemacs//shell-scripts-setup-lsp ()
+  "Setup lsp backend."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (lsp)
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
 
 ;; shebang
 
@@ -19,16 +38,3 @@
   (insert-shebang-get-extension-and-insert
    (file-name-nondirectory (buffer-file-name))))
 
-
-;; lsp
-
-(defun spacemacs//shell-scripts-setup-backend ()
-  "Conditionally setup shell-scripts backend."
-  (pcase shell-scripts-backend
-    (`lsp (spacemacs//shell-scripts-setup-lsp))))
-
-(defun spacemacs//shell-scripts-setup-lsp ()
-  "Setup lsp backend."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (lsp)
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))

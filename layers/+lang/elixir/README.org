@@ -73,6 +73,9 @@ To choose a default backend set the layer variable =elixir-backend=:
   (elixir :variables elixir-backend 'alchemist)
 #+END_SRC
 
+Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
+is used and you did not specify any value for =elixir-backend=.
+
 Backend can be chosen on a per project basis using directory local variables
 (files named =.dir-locals.el= at the root of a project), an example to use the
 =lsp= backend:

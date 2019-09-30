@@ -9,6 +9,41 @@
 ;;
 ;;; License: GPLv3
 
+
+(defun spacemacs//julia-backend ()
+  "Returns selected backend."
+  ;; backend must be choosed explicitly with this layer
+  julia-backend)
+
+(defun spacemacs//julia-setup-backend ()
+  "Conditionally setup julia backend."
+  (pcase (spacemacs//julia-backend)
+    (`lsp (spacemacs//julia-setup-lsp))))
+
+(defun spacemacs//julia-setup-buffer ()
+  "Setup ESS and/or lsp for buffer depending on config."
+  (when (not julia-mode-enable-ess)
+    (spacemacs//julia-setup-repl)))
+
+
+;; lsp
+
+(defun spacemacs//julia-setup-lsp ()
+  "Start lsp-mode and configure for buffer."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (lsp)
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+
+;; repl
+
+(defun spacemacs//julia-setup-repl ()
+  "Start julia-repl minor mode and configure for buffer."
+  (julia-repl-mode))
+
+
+;; misc
+
 (defun spacemacs//julia-hash-to-alist (hash)
   "Convert a `hash-table' to an `alist' for the use in a helm buffer."
   (let (res)
@@ -26,20 +61,3 @@
                      :fuzzy-match t
                      :action (lambda (candidate) (insert candidate)))
           :buffer "*helm julia latex insert*")))
-
-(defun spacemacs//julia-setup-buffer ()
-  "Setup ESS and/or lsp for buffer depending on config."
-  (when (not julia-mode-enable-ess)
-    (spacemacs//julia-setup-repl))
-  (when julia-mode-enable-lsp
-    (spacemacs//julia-setup-lsp)))
-
-(defun spacemacs//julia-setup-repl ()
-  "Start julia-repl minor mode and configure for buffer."
-  (julia-repl-mode))
-
-(defun spacemacs//julia-setup-lsp ()
-  "Start lsp-mode and configure for buffer."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (lsp)
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))

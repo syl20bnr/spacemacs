@@ -9,22 +9,30 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//rust-backend ()
+  "Returns selected backend."
+  (if rust-backend
+      rust-backend
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'racer))))
+
 (defun spacemacs//rust-setup-backend ()
   "Conditionally setup rust backend."
-  (pcase rust-backend
+  (pcase (spacemacs//rust-backend)
     (`racer (spacemacs//rust-setup-racer))
     (`lsp (spacemacs//rust-setup-lsp))))
 
 (defun spacemacs//rust-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase rust-backend
+  (pcase (spacemacs//rust-backend)
     (`racer (spacemacs//rust-setup-racer-company))
     (`lsp (spacemacs//rust-setup-lsp-company))))
 
 (defun spacemacs//rust-setup-dap ()
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase rust-backend
+  (pcase (spacemacs//rust-backend)
     (`lsp (spacemacs//java-setup-lsp-dap))))
 
 
