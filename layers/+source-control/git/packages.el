@@ -79,8 +79,11 @@
       (spacemacs/set-leader-keys
         "gll" 'spacemacs/git-link
         "glL" 'spacemacs/git-link-copy-url-only
+        "glp" 'spacemacs/git-permalink
+        "glP" 'spacemacs/git-permalink-copy-url-only
         "glc" 'spacemacs/git-link-commit
         "glC" 'spacemacs/git-link-commit-copy-url-only)
+
       ;; default is to open the generated link
       (setq git-link-open-in-browser t))))
 
