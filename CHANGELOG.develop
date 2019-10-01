@@ -1599,6 +1599,9 @@ Other:
   - Added ~g r~ for =gnus-group-get-new-news= (thanks to Matthew Leach)
   - Added ~O~ prefix in evil state for =gnus-group-group-map=
     (thanks to Matthew Leach)
+- Improvements:
+  - Added a =@gnus= perspective (~SPC l o g~) to the layouts transient state
+    (thanks to Matthew Leach)
 **** Go
 - Deprecated:
   - Dropped support for deprecated =gometalinter= (thanks to pancho horrillo)
