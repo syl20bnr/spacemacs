@@ -1574,6 +1574,9 @@ Other:
   - Log selection buffer (thanks to yuhan0):
     - ~SPC m c~ or ~SPC m ,~ select the commit at point and act on it
     - ~SPC m a~ or ~SPC m k~ abort selecting and don't act on any commit
+  - Get git permalink for a region (thanks to Roman Gonzalez):
+    - ~SPC g l p~ opens browser with region permalink URL
+    - ~SPC g l P~ adds region permalink URL to clipboard
 - Added feature to toggle =evil-magit= based on editing style
   (thanks to Muneeb Shaikh)
 - Added =use-package= for deferred loading of evil-magit

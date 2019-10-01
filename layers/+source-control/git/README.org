@@ -272,12 +272,14 @@ A log selection buffer is presented as an interactive way of selecting a recent 
 These key bindings allow to quickly construct URLs pointing to a given commit
 or lines in a file hosted on Git web services like GitHub, GitLab, Bitbucket...
 
-| Key binding | Description                                                            |
-|-------------+------------------------------------------------------------------------|
-| ~SPC g l c~ | on a commit hash, browse to the current file at this commit            |
-| ~SPC g l C~ | on a commit hash, create link to the file at this commit and copy it   |
-| ~SPC g l l~ | on a region, browse to file at current lines position                  |
-| ~SPC g l L~ | on a region, create a link to the file highlighting the selected lines |
+| Key binding | Description                                                                                   |
+|-------------+-----------------------------------------------------------------------------------------------|
+| ~SPC g l c~ | on a commit hash, browse to the current file at this commit                                   |
+| ~SPC g l C~ | on a commit hash, create link to the file at this commit and copy it                          |
+| ~SPC g l l~ | on a region, browse to file at current lines position                                         |
+| ~SPC g l L~ | on a region, create a link to the file highlighting the selected lines                        |
+| ~SPC g l p~ | on a region, browse to file at current lines position (using permalink link)                  |
+| ~SPC g l P~ | on a region, create a link to the file highlighting the selected lines (using permalink link) |
 
 *Notes:*
 - You can use the universal argument ~SPC u~ to select a remote repository.
