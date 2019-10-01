@@ -19,6 +19,10 @@
     flycheck
     (flycheck-crystal :requires flycheck)
     inf-crystal
+    (lsp-crystal :requires lsp-mode lsp-ui company-lsp
+                 :location (recipe :fetcher github
+                                   :repo "brantou/lsp-crystal.el"
+                                   :files ("lsp-crystal.el")))
     ob-crystal
     play-crystal
     ))
@@ -35,19 +39,15 @@
         "af" 'ameba-check-current-file
         "ap" 'ameba-check-project))))
 
-(defun crystal/post-init-company()
-  (spacemacs|add-company-backends
-    :backends company-capf
-    :modes crystal-mode
-    :variables company-tooltip-align-annotations t))
 
 (defun crystal/init-crystal-mode()
   (use-package crystal-mode
     :defer t
     :config
     (progn
-      (add-hook 'crystal-mode-hook 'spacemacs//crystal-auto-format-setup)
-
+      (add-hook 'crystal-mode-hook (progn
+                              'spacemacs//crystal-auto-format-setup
+                              'spacemacs//crystal-setup-lsp))
       (spacemacs/declare-prefix-for-mode 'crystal-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'crystal-mode "mt" "test")
       (spacemacs/declare-prefix-for-mode 'crystal-mode "mu" "tool")
@@ -91,6 +91,13 @@
         "sR" 'crystal-send-region-and-go
         "ss" 'crystal-switch-to-inf))))
 
+(defun crystal/init-lsp-crystal ()
+  (use-package lsp-crystal
+    :defer t
+    :config
+    (add-hook 'crystal-mode (lambda ()
+                       'spacemacs//crystal-setup-lsp))))
+
 (defun crystal/pre-init-ob-crystal ()
   (spacemacs|use-package-add-hook org
     :post-config
@@ -109,4 +116,3 @@
         "ee" 'play-crystal-browse
         "ei" 'play-crystal-insert
         "er" 'play-crystal-submit-region))))
-

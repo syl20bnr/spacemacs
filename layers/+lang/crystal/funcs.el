@@ -20,3 +20,17 @@
     (shell-command
      (format "crystal run %s"
              (shell-quote-argument (buffer-file-name))))))
+
+;; lsp
+
+(defun spacemacs//crystal-setup-lsp ()
+  "Setup Crystal lsp."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (require 'lsp-crystal)
+    (add-hook 'crystal-mode-hook (lambda ())
+                            ;; disable unsupported features
+                            (setq-local lsp-enable-eldoc nil)
+                            (setq-local lsp-enable-eldoc nil)
+                            (setq-local lsp-enable-codeaction nil)
+                            (lsp-crystal-enable))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
