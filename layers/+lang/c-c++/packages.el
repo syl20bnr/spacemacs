@@ -83,8 +83,6 @@
           "=f" 'spacemacs/clang-format-function)))))
 
 (defun c-c++/post-init-company ()
-  (when (configuration-layer/package-used-p 'cmake-mode)
-    (spacemacs|add-company-backends :backends company-cmake :modes cmake-mode))
   (when c-c++-enable-clang-support
     (if (eq c-c++-backend 'lsp)
       (display-warning :error "`c-c++-enable-clang-support' ignored when using lsp backend")
