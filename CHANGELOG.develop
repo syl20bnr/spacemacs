@@ -2783,6 +2783,7 @@ Other:
 - Added a =typescript-linter= variable. Possible values: =eslint= and =tslint=
 - Added a =typescript-lsp-linter= variable to allow for disabling =lsp= as a
   linter, when =lsp= is set as the backend (thanks to Thanh Vuong)
+- Fix =tide= with =tsx= files (thanks to Aaron Jensen)
 **** Vagrant
 - Key bindings:
   - move key bindings prefix to ~SPC a V~ (thanks to Thomas de Beauchêne)

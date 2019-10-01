@@ -64,9 +64,9 @@
 (defun typescript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'typescript-mode)
   (spacemacs/enable-flycheck 'typescript-tsx-mode)
-  (cond ((eq typescript-backend `tide)
+  (cond ((eq (spacemacs//typescript-backend) `tide)
          (progn (typescript/set-tide-linter)))
-        ((eq typescript-backend `lsp)
+        ((eq (spacemacs//typescript-backend) `lsp)
          (with-eval-after-load 'lsp-ui
          (with-eval-after-load 'flycheck
            (progn
