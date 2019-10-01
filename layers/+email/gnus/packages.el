@@ -12,7 +12,17 @@
 (setq gnus-packages '(
                       gnus
                       window-purpose
+                      persp-mode
                       ))
+
+(defun gnus/pre-init-persp-mode ()
+  (spacemacs|use-package-add-hook persp-mode
+    :post-config
+    (progn
+      (spacemacs|define-custom-layout gnus-spacemacs-layout-name
+        :binding gnus-spacemacs-layout-binding
+        :body
+        (call-interactively 'gnus)))))
 
 (defun gnus/init-gnus ()
   "Initialize my package"
