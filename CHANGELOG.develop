@@ -1165,8 +1165,7 @@ Other:
     (thanks to Cormac Cannon, Sergey Litovchuk, Fangrui Song and David Vo)
   - Fixed =lsp= support for =ccls= server (thanks to Alexander Dalshov)
   - Added automatic formatting on save using ClangFormat with the variables
-    =c-c++-enable-clang-format-on-save= and =c-c++-enable-clang-support=
-    (thanks to Robbert van der Helm)
+    =c-c++-enable-clang-format-on-save= (thanks to Robbert van der Helm)
   - Added possible value =no-completion= to =c-c++-enable-rtags-support= flag.
     This adds the option to opt-out of =company-rtags= while enabling Rtags.
   - Added option to use =google-c-style= with the variable

@@ -15,49 +15,34 @@
 (spacemacs|define-jump-handlers c-mode)
 
 (defvar c-c++-backend nil
-  "May be `nil', `rtags' or `lsp'.")
-
-(defconst c-c++-lsp-backends '(lsp-cquery lsp-ccls)
-  "Language Server Protocol (LSP) backends supported by the `c-c++' layer.")
+  "The backend to use for IDE features.
+Possible values are `lsp-ccls', `lsp-cquery', `lsp-clangd', `rtags' and `ycmd'.")
 
 
 ;; lsp
 
-(defconst c-c++-lsp-servers '(clangd ccls cquery)
-  "Language Server Protocol (LSP) backends supported by the `c-c++' layer.")
-
-(defvar c-c++-lsp-server 'clangd
-  "May be any member of `c-c++-lsp-servers'")
-
 (defvar c-c++-lsp-cache-dir nil
-  "Cache directory. Absolute and relative paths supported.")
+  "Cache directory for lsp backends.
+Can be nil, an absolute path or a relative path.
+If it is nil then the cache directory is in `spacemacs-cache-directory'.
+If it is a relative path then it is relative to the project root.
 
-(defvar c-c++-lsp-executable nil
-  "Path to cquery/ccls executable (default value assumes it's in the path)")
+Notes:
+- The name of the selected LSP backend is automatically appended to this
+path.
+- This variable has no effect with `lsp-clangd' backend.")
 
-(defvar c-c++-lsp-project-whitelist nil
-  "A list of project directory patterns for which lsp-c-c++ should be
-initialized. This overrides `c-c++-lsp-project-blacklist'.")
+(defvar c-c++-lsp-enable-semantic-highlight nil
+  "If non-nil then enable semantic highlighting.
+If `t' then regular semantic highlighting is enabled.
+If `rainbow' then rainbow semantic highlighting is enabled.
+Rainbow semantic highlighting gives a unique color to each identifier.")
 
-(defvar c-c++-lsp-project-blacklist nil
-  "A list of project root patterns for which lsp-c-c++ shouldn't be
-initialized. `c-c++-lsp-project-whitelist' is checked first, then this,
-if no pattern matches the project root, lsp-c-c++ will be initialized.")
+(defvar c-c++-lsp-semantic-highlight-method 'font-lock
+  "Method used to highlight the text when semantic highlighting is enabled.
 
-(defvar c-c++-lsp-sem-highlight-method nil
-  "Set to 'font-lock or 'overlay to enable semantic highlighting")
-
-(defvar c-c++-lsp-sem-highlight-rainbow nil
-  "When non-nil, use rainbow semantic highlighting")
-
-(defvar c-c++-lsp-initialization-options nil
-  "Extra initialisation parameters to pass to the lsp backend. See
-https://github.com/MaskRay/ccls/blob/master/src/config.hh
-for details. N.B. This is remapped to cquery-extra-init-params when using cquery backend")
-
-(defvar c-c++-lsp-args nil
-  "Extra args to pass to the backend. E.g. to log to file.
-https://github.com/MaskRay/ccls/wiki/Emacs for details. N.B. this is remapped to cquery-extra-args when using cquery backend")
+By default `font-lock' is used to highlight the text, set the variable to
+`overlay' if you want to use overlays. Note that overlays can be slower.")
 
 
 ;; rtags
@@ -67,9 +52,6 @@ https://github.com/MaskRay/ccls/wiki/Emacs for details. N.B. this is remapped to
 
 
 ;; clang
-
-(defvar c-c++-enable-clang-support nil
-  "If non nil Clang related packages and configuration are enabled.")
 
 (defvar c-c++-enable-clang-format-on-save nil
   "If non-nil, automatically format code with ClangFormat on
