@@ -14,55 +14,21 @@
 (spacemacs|define-jump-handlers c++-mode)
 (spacemacs|define-jump-handlers c-mode)
 
-(defconst c-c++-modes '(c-mode c++-mode)
-  "Primary major modes of the `c-c++' layer.")
-
-(defconst c-c++-mode-hooks '(c-mode-hook c++-mode-hook)
-  "Primary hooks of the `c-c++' layer.")
-
-(defconst c-c++-lsp-servers '(clangd ccls cquery)
-  "Language Server Protocol (LSP) backends supported by the `c-c++' layer.")
-
 (defvar c-c++-backend nil
   "May be `nil', `rtags' or `lsp'.")
-
-(defvar c-c++-lsp-server 'clangd
-  "May be any member of `c-c++-lsp-servers'")
 
 (defconst c-c++-lsp-backends '(lsp-cquery lsp-ccls)
   "Language Server Protocol (LSP) backends supported by the `c-c++' layer.")
 
-(defvar c++-enable-organize-includes-on-save nil
-  "If non-nil then automatically organize the includes on save C++ buffer.")
+
+;; lsp
 
-(defvar c-c++-enable-auto-newline nil
-  "If non nil then enables the `Auto-newline' minor mode.")
+(defconst c-c++-lsp-servers '(clangd ccls cquery)
+  "Language Server Protocol (LSP) backends supported by the `c-c++' layer.")
 
-(defvar c-c++-enable-clang-support nil
-  "If non nil Clang related packages and configuration are enabled.")
+(defvar c-c++-lsp-server 'clangd
+  "May be any member of `c-c++-lsp-servers'")
 
-(defvar c-c++-enable-google-style nil
-  "If non-nil `google-set-c-style' will be added as as
-  `c-mode-common-hook'.")
-
-(defvar c-c++-enable-google-newline nil
-  "If non-nil `google-make-newline-indent' will be added as as
-  `c-mode-common-hook'.")
-
-(defvar c-c++-enable-rtags-completion t
-  "If `nil', RTags completion is disabled when the RTags backend is enabled.")
-
-(defvar c-c++-enable-clang-format-on-save nil
-  "If non-nil, automatically format code with ClangFormat on
-  save. Clang support has to be enabled for this to work.")
-
-(defvar c-c++-default-mode-for-headers (when (not (functionp 'c-or-c++-mode)) 'c-mode)
-  "Default mode to open header files. Can be `c-mode' or `c++-mode', or `c-or-c++-mode' for Emacs > 26+.")
-
-(defvar c-c++-adopt-subprojects nil
-  "When non-nil, projectile will remember project root when visiting files in subprojects")
-
-;; c-c++-lsp-server variables
 (defvar c-c++-lsp-cache-dir nil
   "Cache directory. Absolute and relative paths supported.")
 
@@ -92,3 +58,54 @@ for details. N.B. This is remapped to cquery-extra-init-params when using cquery
 (defvar c-c++-lsp-args nil
   "Extra args to pass to the backend. E.g. to log to file.
 https://github.com/MaskRay/ccls/wiki/Emacs for details. N.B. this is remapped to cquery-extra-args when using cquery backend")
+
+
+;; rtags
+
+(defvar c-c++-enable-rtags-completion t
+  "If `nil', RTags completion is disabled when the RTags backend is enabled.")
+
+
+;; clang
+
+(defvar c-c++-enable-clang-support nil
+  "If non nil Clang related packages and configuration are enabled.")
+
+(defvar c-c++-enable-clang-format-on-save nil
+  "If non-nil, automatically format code with ClangFormat on
+  save. Clang support has to be enabled for this to work.")
+
+
+;; style
+
+(defvar c++-enable-organize-includes-on-save nil
+  "If non-nil then automatically organize the includes on save C++ buffer.")
+
+(defvar c-c++-enable-auto-newline nil
+  "If non nil then enables the `Auto-newline' minor mode.")
+
+(defvar c-c++-enable-google-style nil
+  "If non-nil `google-set-c-style' will be added as as
+  `c-mode-common-hook'.")
+
+(defvar c-c++-enable-google-newline nil
+  "If non-nil `google-make-newline-indent' will be added as as
+  `c-mode-common-hook'.")
+
+
+;; misc
+
+(defvar c-c++-default-mode-for-headers (when (not (functionp 'c-or-c++-mode)) 'c-mode)
+  "Default mode to open header files. Can be `c-mode' or `c++-mode', or `c-or-c++-mode' for Emacs > 26+.")
+
+(defvar c-c++-adopt-subprojects nil
+  "When non-nil, projectile will remember project root when visiting files in subprojects")
+
+
+;; internal
+
+(defconst c-c++-modes '(c-mode c++-mode)
+  "Primary major modes of the `c-c++' layer.")
+
+(defconst c-c++-mode-hooks '(c-mode-hook c++-mode-hook)
+  "Primary hooks of the `c-c++' layer.")
