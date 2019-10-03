@@ -1085,6 +1085,7 @@ Other:
   - Replaced deprecated =avy--generic-jump= with =avy-jump=
     (thanks to Dominik Schrempf)
   - Switch recreated messages buffer to =evil-normal-state= (thanks to duianto)
+  - Fixed =spacemacs/layouts-ts-close-other= with =ivy= (thanks to duianto)
 *** Layer changes and fixes
 **** Agda
 - Fixes
