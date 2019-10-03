@@ -200,7 +200,10 @@ ask the user if a new layout should be created."
 
 (defun spacemacs/layouts-ts-close-other ()
   (interactive)
-  (call-interactively 'spacemacs/helm-persp-close)
+  (cond ((configuration-layer/layer-used-p 'helm)
+         (spacemacs/helm-persp-close))
+        ((configuration-layer/layer-used-p 'ivy)
+         (spacemacs/ivy-spacemacs-layout-close-other)))
   (spacemacs/layouts-transient-state/body))
 
 (defun spacemacs/layouts-ts-kill ()
