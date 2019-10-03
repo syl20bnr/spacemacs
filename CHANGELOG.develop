@@ -2305,6 +2305,8 @@ Other:
     the =php= layer's =php-backend= variable to =lsp=
 **** PlantUML
 - Added a missing prefix: =compile=
+- Added instructions for compiling the image locally by setting
+  =plantuml-default-exec-mode= to =jar= (thanks to Daniel Caixinha)
 **** Platinum
 - Added the =.plum= extension to the platinum modes (thanks to Sylvain Benner)
 - Remove automatic indentation on paste (thanks to Sylvain Benner)

@@ -58,6 +58,12 @@ and configure the =plantuml-jar-path= respectively:
 To get the full range of =Plantuml= compilations working, you will also need
 the native package [[http://graphviz.org/][graphviz]] installed on your system.
 
+Additionally, to compile the image locally, you need to set =plantuml-default-exec-mode= to =jar=, e.g.:
+
+#+BEGIN_SRC emacs-lisp
+  (setq plantuml-default-exec-mode 'jar)
+#+END_SRC
+
 * Org-Babel Integration
 To enable the execution of embedded plantuml code blocks within [[http://orgmode.org/][Org-Mode]]
 documents, define a value for =org-plantuml-jar-path= in your =~/.spacemacs=:
