@@ -11,6 +11,7 @@
 - [[#configuration][Configuration]]
   - [[#follow-mode][Follow mode]]
   - [[#file-watch][File watch]]
+  - [[#git-mode][Git mode]]
   - [[#collapsed-directories][Collapsed directories]]
   - [[#locking-width][Locking width]]
 - [[#key-bindings][Key bindings]]
@@ -67,6 +68,19 @@ part of the file system shown by treemacs set the layer variable
 #+END_SRC
 
 Default is =t=.
+
+** Git mode
+To enable Treemacs to check for files’ and directories’ git status information
+and highlight them accordingly, set the layer variable =treemacs-use-git-mode=
+to =simple=, =extended=, or =deferred=. See the [[https://github.com/Alexander-Miller/treemacs#git-mode][Treemacs doc]] for a more detailed
+explanation.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (treemacs :variables treemacs-use-git-mode 'deferred)))
+#+END_SRC
+
+Default is =nil=.
 
 ** Collapsed directories
 *This feature requires python to be installed*.
