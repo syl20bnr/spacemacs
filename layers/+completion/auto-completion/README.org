@@ -31,6 +31,7 @@ This layer adds auto-completion to all supported language layers.
 - Frequency-based suggestions via [[https://github.com/company-mode/company-statistics][company-statistics]] for =company=
 - Integration with [[https://github.com/capitaomorte/yasnippet][yasnippet]] and [[https://github.com/abo-abo/auto-yasnippet][auto-yasnippet]]
 - Automatic configuration of [[https://www.emacswiki.org/emacs/HippieExpand][hippie-expand]]
+- Automatic docstring tooltips are provided by [[https://github.com/expez/company-quickhelp][company-quickhelp]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
