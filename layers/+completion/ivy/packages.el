@@ -192,6 +192,9 @@
       ;; Key bindings
       (spacemacs/set-leader-keys
         "a'" 'spacemacs/ivy-available-repls
+        "Ce" 'counsel-colors-emacs
+        "Cf" 'counsel-faces
+        "Cw" 'counsel-colors-web
         "fr" 'counsel-recentf
         "rl" 'ivy-resume
         "bb" 'ivy-switch-buffer)
