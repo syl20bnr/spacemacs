@@ -1791,6 +1791,10 @@ Other:
   - Added ~SPC h d F~ to list faces (thanks to Muneeb Shaikh)
   - Bind =find-file-other-window= to ~j~ (thanks to James Wang)
   - Added =counsel-mark-ring= to ~rm~ (thanks to bmag)
+  - Added counsel color and faces key bindings (thanks to duianto):
+    - ~SPC C e~ =counsel-colors-emacs=
+    - ~SPC C f~ =counsel-faces=
+    - ~SPC C w~ =counsel-colors-web=
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
 - Use new API to register additional transient state bindings
   (thanks to Andriy Kmit')
