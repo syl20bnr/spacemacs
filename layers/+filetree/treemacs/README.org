@@ -37,7 +37,7 @@ readme]]. In a short summary Treemacs offers the following:
 - Optionally fontifying files based on their git status.
 - Optionally collapsing single-dir-child directories into one.
 - Doing both asynchronously for an imperceptible performance cost.
-- Optional =follow-mode= to automatically focus the currently selected file.
+- Optional =follow-mode= to automatically focus the currently selected file or tag.
 - Optional =filewatch-mode= to automatically refresh the view after (and only
   after) changes to the shown filesystem.
 
@@ -47,12 +47,13 @@ To use this layer, add =treemacs= to the existing
 
 * Configuration
 ** Follow mode
-To have treemacs automatically sync with your current buffer set the
-layer variable =treemacs-use-follow-mode= to non-nil.
+To have Treemacs automatically sync with your current:
+- Buffer's file, set the layer variable =treemacs-use-follow-mode= to =t=.
+- Tag, set the layer variable =treemacs-use-follow-mode= to =tag=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (treemacs :variables treemacs-use-follow-mode t)))
+    (treemacs :variables treemacs-use-follow-mode 'tag)))
 #+END_SRC
 
 Default is =t=.
