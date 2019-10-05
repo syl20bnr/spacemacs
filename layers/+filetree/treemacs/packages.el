@@ -1,8 +1,9 @@
 ;;; packages.el --- treemacs Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
 ;;
 ;; Author: Alexander Miller <alexanderm@web.de>
+;;         Hong Xu <hong@topbug.net>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
@@ -65,9 +66,12 @@
       (spacemacs/define-evil-state-face "treemacs" "MediumPurple1")
       ;; minor modes are enabled by default, so they must be explicitly
       ;; turned off
-      (if treemacs-use-follow-mode
+      (if (eq treemacs-use-follow-mode t)
           (treemacs-follow-mode t)
         (treemacs-follow-mode -1))
+      (if (eq treemacs-use-follow-mode 'tag)
+          (treemacs-tag-follow-mode t)
+        (treemacs-tag-follow-mode -1))
       (if treemacs-use-filewatch-mode
           (treemacs-filewatch-mode t)
         (treemacs-filewatch-mode -1))
