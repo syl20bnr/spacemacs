@@ -1580,6 +1580,7 @@ Other:
   - Get git permalink for a region (thanks to Roman Gonzalez):
     - ~SPC g l p~ opens browser with region permalink URL
     - ~SPC g l P~ adds region permalink URL to clipboard
+  - Moved =magit-find-file= from ~SPC g f f~ to ~SPC g f F~ (thanks to Hong Xu)
 - Added feature to toggle =evil-magit= based on editing style
   (thanks to Muneeb Shaikh)
 - Added =use-package= for deferred loading of evil-magit
@@ -1802,6 +1803,7 @@ Other:
   - Added ~SPC h d F~ to list faces (thanks to Muneeb Shaikh)
   - Bind =find-file-other-window= to ~j~ (thanks to James Wang)
   - Added =counsel-mark-ring= to ~rm~ (thanks to bmag)
+  - Added =counsel-git= to ~SPC g f f~ (thanks to Hong Xu)
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
 - Use new API to register additional transient state bindings
   (thanks to Andriy Kmit')
