@@ -313,6 +313,8 @@
 
     :config
     (progn
+      (setq vterm-shell shell-default-term-shell)
+
       (evil-define-key 'normal vterm-mode-map
         [escape] 'vterm--self-insert
         [return] 'vterm--self-insert)
