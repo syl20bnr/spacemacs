@@ -130,7 +130,7 @@ the =gnuplot= package to your =dotspacemacs-excluded-packages= variable.
 ** Reveal.js support
 To enable the export of org files as a [[http://lab.hakim.se/reveal-js/][reveal.js]] presentation - set the
 variable =org-enable-reveal-js-support= to =t=.
-This would install the [[https://github.com/yjwen/org-reveal/][org-reveal]] Emacs extension.
+This would install the [[https://gitlab.com/oer/org-re-reveal/][org-re-reveal] Emacs extension.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
@@ -138,8 +138,8 @@ This would install the [[https://github.com/yjwen/org-reveal/][org-reveal]] Emac
 #+END_SRC
 
 Then the extension needs to be pointed to the =reveal.js= itself.
-So [[https://github.com/hakimel/reveal.js/releases][download]] =reveal.js= and point =org-reveal-root= to the path,
-as it described in the [[https://github.com/yjwen/org-reveal#set-the-location-of-revealjs][manual]].
+So [[https://github.com/hakimel/reveal.js/releases][download]] =reveal.js= and point =org-re-reveal-root= to the path,
+as it described in the [[https://gitlab.com/oer/org-re-reveal#set-the-location-of-revealjs][manual]].
 
 Alternatively, add the following line to each =.org= file you want to process:
 
