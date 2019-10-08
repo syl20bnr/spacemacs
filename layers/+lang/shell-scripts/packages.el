@@ -84,7 +84,8 @@
         (when (and buffer-file-name
                    (string-match-p "\\.zsh\\'" buffer-file-name))
           (sh-set-shell "zsh")))
-      (add-hook 'sh-mode-hook 'spacemacs//setup-shell))))
+      (add-hook 'sh-mode-hook 'spacemacs//setup-shell)
+      (add-hook 'sh-mode-hook 'spacemacs//shell-scripts-setup-backend))))
 
 (defun shell-scripts/post-init-ggtags ()
   (add-hook 'sh-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

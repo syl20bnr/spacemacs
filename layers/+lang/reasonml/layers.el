@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layer 'ocaml)
+(configuration-layer/declare-layer-dependencies '(ocaml))

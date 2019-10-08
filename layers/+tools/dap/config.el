@@ -8,3 +8,10 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
+
+
+(defvar spacemacs--dap-supported-modes nil
+  "List of modes supported by DAP.")
+
+(defvar dap-enable-mouse-support t
+  "If non-nil, enable `dap-mode''s mouse support.")

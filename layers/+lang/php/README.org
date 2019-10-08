@@ -37,8 +37,10 @@ add =php= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** Backends
-For php you have the choice between a set of possible backends
-with different setup instructions and different capabilities.
+For php you have the choice between a set of possible LSP backends with
+different setup instructions and different capabilities.
+
+Note that you'll need to use the =lsp= layer to enable these backends.
 
 *** intelephense
 This is the recommended LSP server solution. To activate it set the

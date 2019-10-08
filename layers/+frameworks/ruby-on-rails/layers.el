@@ -11,4 +11,4 @@
 
 ;; Prerequisites
 
-(configuration-layer/declare-layer 'ruby)
+(configuration-layer/declare-layer-dependencies '(ruby))

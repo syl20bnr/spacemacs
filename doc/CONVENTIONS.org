@@ -77,13 +77,14 @@ user.
 issue (ie. ~SPC m h d~) since ~SPC m~ can be accessed via ~​,​~.
 
 *** Transient-state
-Whenever possible a transient-state should be enabled with ~M-SPC~ and ~s-M-SPC~. We
-need the latter bindings on OS X since ~M-SPC~ is used by the OS for spotlight.
+Transient states are generally put behin the dot key ~.~, for instance the
+windows manipulation transient state in ~SPC w .~.
 
-For instance transient-states dedicated to special buffers like =helm= or =ido=
-buffers are good candidates to be put on ~M-SPC~ and ~s-M-SPC~.
+When it is not possible to use the ~.~ (like in =helm= buffers) transient states
+should be enabled with ~M-SPC~ and ~s-M-SPC~. We need the latter bindings on OS
+X since ~M-SPC~ is used by the OS for spotlight.
 
-It is recommended to add ~q~ to leave the transient-state.
+It is recommended to make sure that ~q~ allows to leave the transient-state.
 
 ** Evilified buffers
 /Evilifying/ a buffer is to set the =evilified state= as the default

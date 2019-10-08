@@ -39,6 +39,9 @@ details.
 - Consistent core key bindings in LSP modes
 
 * Configuration
+Enabling this layer will set the used backend for all supported languages to
+=lsp= unless you explicitly set a specific backend for the language.
+
 The LSP ecosystem is based on two packages: [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] and [[https://github.com/emacs-lsp/lsp-ui][lsp-ui]].
 Please check out their documentation.
 

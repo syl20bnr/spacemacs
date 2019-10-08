@@ -63,12 +63,17 @@
     :config
     (progn
       (spacemacs/define-evil-state-face "treemacs" "MediumPurple1")
-      (when treemacs-use-follow-mode
-        (treemacs-follow-mode t))
-      (when treemacs-use-filewatch-mode
-        (treemacs-filewatch-mode t))
-      (when (memq treemacs-use-git-mode '(simple extended deferred))
-        (treemacs-git-mode treemacs-use-git-mode))
+      ;; minor modes are enabled by default, so they must be explicitly
+      ;; turned off
+      (if treemacs-use-follow-mode
+          (treemacs-follow-mode t)
+        (treemacs-follow-mode -1))
+      (if treemacs-use-filewatch-mode
+          (treemacs-filewatch-mode t)
+        (treemacs-filewatch-mode -1))
+      (if (memq treemacs-use-git-mode '(simple extended deferred))
+          (treemacs-git-mode treemacs-use-git-mode)
+        (treemacs-git-mode -1))
       (add-to-list 'spacemacs-window-split-ignore-prefixes
                    treemacs--buffer-name-prefix))))
 

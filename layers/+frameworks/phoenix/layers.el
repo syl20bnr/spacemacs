@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layers '(elixir))
+(configuration-layer/declare-layer-dependencies '(elixir))

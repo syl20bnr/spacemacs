@@ -46,6 +46,7 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 - Browser based REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
 - Server based REPL with [[https://github.com/abicky/nodejs-repl.el][nodejs-repl]]
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
+- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -94,6 +95,9 @@ To choose a default backend set the layer variable =javascript-backend=:
 #+BEGIN_SRC elisp
   (javascript :variables javascript-backend 'tern)
 #+END_SRC
+
+Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
+is used and you did not specify any value for =javascript-backend=.
 
 Backend can be chosen on a per project basis using directory local variables
 (files named =.dir-locals.el= at the root of a project), an example to use the
@@ -348,48 +352,5 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m s s~ | switch to REPL                                                     |
 
 ** debugger (dap mode)
-
-| Key binding   | Description                     |
-|---------------+---------------------------------|
-| ~SPC m d d d~ | start debugging                 |
-| ~SPC m d d l~ | debug last configuration        |
-| ~SPC m d d r~ | debug recent configuration      |
-|---------------+---------------------------------|
-| ~SPC m d c~   | continue                        |
-| ~SPC m d i~   | step in                         |
-| ~SPC m d o~   | step out                        |
-| ~SPC m d s~   | next step                       |
-| ~SPC m d v~   | inspect value at point          |
-| ~SPC m d r~   | restart frame                   |
-|---------------+---------------------------------|
-| ~SPC m d .~   | debug transient state           |
-|---------------+---------------------------------|
-| ~SPC m d a~   | abandon current session         |
-| ~SPC m d A~   | abandon all process             |
-|---------------+---------------------------------|
-| ~SPC m d e e~ | eval                            |
-| ~SPC m d e r~ | eval region                     |
-| ~SPC m d e t~ | eval value at point             |
-|---------------+---------------------------------|
-| ~SPC m d S s~ | switch session                  |
-| ~SPC m d S t~ | switch thread                   |
-| ~SPC m d S f~ | switch frame                    |
-|---------------+---------------------------------|
-| ~SPC m d I i~ | inspect                         |
-| ~SPC m d I r~ | inspect region                  |
-| ~SPC m d I t~ | inspect value at point          |
-|---------------+---------------------------------|
-| ~SPC m d b b~ | toggle a breakpoint             |
-| ~SPC m d b c~ | change breakpoint condition     |
-| ~SPC m d b l~ | change breakpoint log condition |
-| ~SPC m d b h~ | change breakpoint hit count     |
-| ~SPC m d b a~ | add a breakpoint                |
-| ~SPC m d b d~ | delete a breakpoint             |
-| ~SPC m d b D~ | clear all breakpoints           |
-|---------------+---------------------------------|
-| ~SPC m d '_~  | Run debug REPL                  |
-|---------------+---------------------------------|
-| ~SPC m d w l~ | list local variables            |
-| ~SPC m d w o~ | goto output buffer if present   |
-| ~SPC m d w s~ | list sessions                   |
-| ~SPC m d w b~ | list breakpoints                |
+Using the =dap= layer you'll get access to all the DAP key bindings, see the
+complete list of key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].

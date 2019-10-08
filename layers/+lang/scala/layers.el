@@ -9,5 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-
-(configuration-layer/declare-layers '(lsp java))
+(configuration-layer/declare-layer-dependencies '(lsp java))

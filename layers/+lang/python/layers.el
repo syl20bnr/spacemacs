@@ -11,4 +11,4 @@
 
 (when (and (boundp 'python-backend)
            (eq python-backend 'lsp))
-  (configuration-layer/declare-layers '(lsp dap)))
+  (configuration-layer/declare-layer-dependencies '(lsp)))
