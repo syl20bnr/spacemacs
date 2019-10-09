@@ -169,8 +169,8 @@ In order to use =orgtabl-mode=, add =org= layer to your =~/.spacemacs=.
 
 | Key binding | Description    |
 |-------------+----------------|
-| ~SPC m \>~  | indent region  |
-| ~SPC m \<~  | outdent region |
+| ~SPC m >~   | indent region  |
+| ~SPC m <~   | outdent region |
 
 ** Header navigation
 
