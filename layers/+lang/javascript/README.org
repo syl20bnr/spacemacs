@@ -13,6 +13,7 @@
   - [[#import-js][import-js]]
   - [[#choosing-a-backend][Choosing a backend]]
   - [[#choosing-a-formatter][Choosing a formatter]]
+  - [[#format-buffer-before-saving][Format buffer before saving]]
 - [[#backends][Backends]]
   - [[#tern][Tern]]
   - [[#language-server-protocol][Language Server Protocol]]
@@ -45,7 +46,7 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 - Auto-completion and documentation
 - Browser based REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
 - Server based REPL with [[https://github.com/abicky/nodejs-repl.el][nodejs-repl]]
-- Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
+- Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]] or [[https://github.com/prettier/prettier][prettier]]
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 * Install
@@ -68,7 +69,8 @@ such as =ESLint= or =JSHint=:
   $ npm install -g jshint
 #+END_SRC
 
-If you install these in non-standard locations, then add the following to your =dotspacemacs/user-init= function:
+If you install these in non-standard locations, then add the following to your
+=dotspacemacs/user-init= function:
 
 #+BEGIN_SRC elisp
   (add-to-list 'exec-path "/path/to/node/bins" t)
@@ -126,9 +128,9 @@ To choose a formatter, set the layer variable =javascript-fmt-tool=:
   (javascript :variables javascript-fmt-tool 'web-beautify)
 #+END_SRC
 
-Formatter can be chosen on a per project basis using directory local variables
-(files named =.dir-locals.el= at the root of a project), an example to use the
-=prettier= formatter:
+The formatter can be chosen on a per project basis using directory local
+variables (files named =.dir-locals.el= at the root of a project). For example
+to use the =prettier= formatter:
 
 #+BEGIN_SRC elisp
   ;;; Directory Local Variables
@@ -149,12 +151,19 @@ You can choose formatting tool:
 
 Default is =’web-beautify=.
 
+** Format buffer before saving
+
+#+begin_src elisp
+  (javascript :variables javascript-fmt-on-save t)
+#+end_src
+
 * Backends
 ** Tern
 See [[file:../../+tools/tern/README.org][tern layer]] documentation.
 
 ** Language Server Protocol
-You have to install =typescript-language-server= (recommended) or =javascript-typescript-langserver= language server packages via
+You have to install =typescript-language-server= (recommended) or
+=javascript-typescript-langserver= language server packages via
 
 #+BEGIN_SRC sh
   npm i -g typescript typescript-language-server
@@ -167,7 +176,11 @@ or
 #+END_SRC
 
 *** Debugger (dap integration)
-To install the debug adapter you may run =M-x dap-firefox-setup= or =M-x dap-chrome-setup= if you are using Linux or download it manually from [[https://marketplace.visualstudio.com/items?itemName=hbenl.vscode-firefox-debug][Firefox Debug Adapter]] or [[https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome][Chrome Debug Adapter]] and adjust =dap-firefox-debug-path= or =dap-chrome-debug-path=. For usage instructions refer to [[https://github.com/emacs-lsp/dap-mode][dap-mode]] readme.
+To install the debug adapter you may run =M-x dap-firefox-setup= or
+=M-x dap-chrome-setup= if you are using Linux or download it manually from
+[[https://marketplace.visualstudio.com/items?itemName=hbenl.vscode-firefox-debug][Firefox Debug Adapter]] or [[https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome][Chrome Debug Adapter]] and adjust
+=dap-firefox-debug-path= or =dap-chrome-debug-path=. For usage instructions
+refer to [[https://github.com/emacs-lsp/dap-mode][dap-mode]] readme.
 
 * Configuration
 ** Indentation
