@@ -81,3 +81,7 @@ If optional argument P is present, test this instead of point."
 
 (defun spacemacs//react-setup-yasnippet ()
   (yas-activate-extra-mode 'js-mode))
+
+;; Format
+(defun spacemacs/react-fmt-before-save-hook ()
+  (add-hook 'before-save-hook 'spacemacs/javascript-format t t))

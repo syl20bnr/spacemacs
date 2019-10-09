@@ -2441,6 +2441,8 @@ Other:
   - Configure =emmet-mode= to expand classes using =className= instead of =class=
     (thanks to Sylvain Benner)
   - Open =.jsx= files with =rjsx-mode= (thanks to Thomas de Beauchêne)
+  - Made =react= layer respect =javascript= layers variable
+    =javascript-fmt-on-save= (thanks to Tommy Groshong)
 - Key bindings:
   - Added =import-js= support with key bindings:
     - ~SPC m i i~ to mport the module for the variable under the cursor
