@@ -72,6 +72,9 @@
     (add-hook 'rjsx-mode-local-vars-hook #'spacemacs//react-setup-backend)
     ;; set next-error-function to nil because we use flycheck
     (add-hook 'rjsx-mode-local-vars-hook #'spacemacs//react-setup-next-error-fn)
+    ;; setup fmt on save
+    (when javascript-fmt-on-save
+      (add-hook 'rjsx-mode-local-vars-hook 'spacemacs/react-fmt-before-save-hook))
 
     :config
     ;; declare prefix
