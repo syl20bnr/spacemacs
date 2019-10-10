@@ -507,6 +507,8 @@ are also available.
 
 | Key binding   | Description                                   |
 |---------------+-----------------------------------------------|
+| ~C-RET~       | Insert heading at end of current subtree      |
+| ~C-S-RET~     | Insert TODO heading at end of current subtree |
 | ~SPC m i d~   | org-insert-drawer                             |
 | ~SPC m i D s~ | Take screenshot                               |
 | ~SPC m i D y~ | Yank image url                                |

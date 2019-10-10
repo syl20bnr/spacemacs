@@ -2220,6 +2220,9 @@ Other:
 - Key binding changes for archiving (thanks to Ag Ibragimov):
   - Added ~SPC m s a~ to toggle archive tag for subtree
   - Added ~SPC m s A~ to archive subtree (previously ~SPC m s a~)
+- Documented more insertion bindings (thanks to Lorenzo Manacorda):
+  - ~C-RET~   Insert heading at end of current subtree
+  - ~C-S-RET~ Insert TODO heading at end of current subtree
 - Made =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
 - Remove =mu4e= and =notmuch= from =org= (thanks to Sylvain Benner)
 - Use evil-org from MELPA (thanks to Eivind Fonn)
