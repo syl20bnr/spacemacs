@@ -2217,12 +2217,13 @@ Other:
     - ~SPC a o J t j~ Convert the TODO item at point to a Jira ticket
   - Added ~SPC m C p~ =org-pomodoro= in =org-journal-mode=
     (thanks to Mariusz Klochowicz)
-- Key binding changes for archiving (thanks to Ag Ibragimov):
-  - Added ~SPC m s a~ to toggle archive tag for subtree
-  - Added ~SPC m s A~ to archive subtree (previously ~SPC m s a~)
-- Documented more insertion bindings (thanks to Lorenzo Manacorda):
-  - ~C-RET~   Insert heading at end of current subtree
-  - ~C-S-RET~ Insert TODO heading at end of current subtree
+  - Key binding changes for archiving (thanks to Ag Ibragimov):
+    - Added ~SPC m s a~ to toggle archive tag for subtree
+    - Added ~SPC m s A~ to archive subtree (previously ~SPC m s a~)
+  - Added ~SPC m i L~ as =org-cliplink= into =org= layer (thanks to bb2020)
+  - Documented more insertion bindings (thanks to Lorenzo Manacorda):
+    - ~C-RET~   Insert heading at end of current subtree
+    - ~C-S-RET~ Insert TODO heading at end of current subtree
 - Made =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
 - Remove =mu4e= and =notmuch= from =org= (thanks to Sylvain Benner)
 - Use evil-org from MELPA (thanks to Eivind Fonn)
@@ -2262,7 +2263,6 @@ Other:
 - Replace ox-reveal with org-re-reveal (thanks to Magnus Therning)
 - Added epub support (thanks to vishvanath45)
 - Added support for CUSTOM_ID in latex exports (thanks to Compro-Prasad)
-- Added ~SPC m i L~ as =org-cliplink= into =org= layer (thanks to bb2020)
 - Added =ox-jira= as org export backend (thanks to Sebastian Nagel)
 - Added =helm-org= package (thanks to Simon Pintarelli)
 **** Osx
