@@ -58,7 +58,8 @@
         "hh" 'anaconda-mode-show-doc
         "ga" 'anaconda-mode-find-assignments
         "gb" 'xref-pop-marker-stack
-        "gu" 'anaconda-mode-find-references)
+        "gu" 'anaconda-mode-find-references
+        "gg" 'anaconda-mode-find-definitions)
       (setq anaconda-mode-installation-directory
         (concat spacemacs-cache-directory "anaconda-mode")))
     :config
