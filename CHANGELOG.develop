@@ -2878,6 +2878,8 @@ Other:
   Sterling, zer09, Zhige Xin, Serghei Iakovlev)
 **** Documentation and website
   - Updated DOCUMENTATION.org to fix the example for how to change the separator style
+  - README.md:
+    - Fixed macOS documentation to install fonts (thanks to Sergio Morales)
 *** Release notes summarized
   Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
   Masters, Abhishek(Compro) Prasad, Deepak Khidia, Ward Harris, Jiahao Jiang,
