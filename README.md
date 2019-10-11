@@ -191,7 +191,7 @@ Once Emacs is installed, run the following commands in the terminal to install
 the default Source Code Pro font:
 
 ```sh
-brew tap caskroom/fonts
+brew tap homebrew/cask-fonts
 brew cask install font-source-code-pro
 ```
 
