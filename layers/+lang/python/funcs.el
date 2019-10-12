@@ -366,7 +366,7 @@ to be called for each testrunner. "
   "Bind the python formatter keys.
 Bind formatter to '==' for LSP and '='for all other backends."
   (spacemacs/set-leader-keys-for-major-mode 'python-mode
-    (if (eq python-backend 'lsp)
+    (if (eq (spacemacs//python-backend) 'lsp)
         "=="
       "=") 'spacemacs/python-format-buffer))
 
