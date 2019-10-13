@@ -77,7 +77,7 @@
                :name "Npmjs"
                :url "https://www.npmjs.com/search?q=%s")
               (hoogle
-               :name "Hoggle 5"
+               :name "Hoogle 5"
                :url "https://hoogle.haskell.org/?hoogle=%s")
               (haskell-packages
                :name "Hackage Package Search"
