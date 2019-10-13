@@ -128,3 +128,27 @@
   :off (spacemacs/vcs-disable-margin-globally)
   :documentation "Enable diff margins globally."
   :evil-leader "T C-d")
+
+(defun spacemacs//smerge-ts-hint ()
+  "Return a hint for the smerge transient state.
+Return a string indicating the index of the current conflict and
+the number of conflicts detected by `smerge-mode'."
+  (concat
+   (cl-loop for ol being the overlays
+            with pos = (point)
+            if (eq (overlay-get ol 'smerge) 'conflict)
+            count ol into total
+            and if (<= (overlay-start ol) pos)
+            count ol into idx
+            finally return (format "conflict [%d/%d]" idx total))
+   (if spacemacs--smerge-ts-full-hint-toggle
+       spacemacs--smerge-ts-full-hint
+     (concat "  (["
+             (propertize "?" 'face 'hydra-face-red)
+             "] help)"))))
+
+(defun spacemacs//smerge-ts-toggle-hint ()
+  "Toggle the full hint docstring for the smerge transient state."
+  (interactive)
+  (setq spacemacs--smerge-ts-full-hint-toggle
+        (not spacemacs--smerge-ts-full-hint-toggle)))
