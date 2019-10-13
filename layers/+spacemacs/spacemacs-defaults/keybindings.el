@@ -659,13 +659,13 @@ respond to this toggle."
   "Toggle the full hint docstring for the window manipulation transient-state."
   (interactive)
   (setq spacemacs--ts-full-hint-toggle
-        (logxor spacemacs--ts-full-hint-toggle 1)))
+        (not spacemacs--ts-full-hint-toggle)))
 
 (defun spacemacs//window-manipulation-ts-hint ()
   "Return a condensed/full hint for the window manipulation transient state"
   (concat
    " "
-   (if (equal 1 spacemacs--ts-full-hint-toggle)
+   (if spacemacs--ts-full-hint-toggle
        spacemacs--window-manipulation-ts-full-hint
      (concat spacemacs--window-manipulation-ts-minified-hint
              "  ([" (propertize "?" 'face 'hydra-face-red) "] help)"))))
