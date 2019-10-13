@@ -7,7 +7,7 @@
     - [[#clone-emacs][Clone Emacs]]
     - [[#simple-patch-of-emacs-source-code][Simple patch of Emacs source code]]
     - [[#compile-emacs-from-source][Compile Emacs from source]]
-      - [[#macos][MacOS]]
+      - [[#macos][macOS]]
       - [[#ubuntu][Ubuntu]]
       - [[#windows][Windows]]
     - [[#install-emacs][Install Emacs]]
@@ -20,7 +20,7 @@
 
 * Spacemacs dumps using the portable dumper
 The portable dumper is a feature that will be available with Emacs 27. This new
-dumper should theoretically work on all the three major OSes: GNU/Linux, MacOS
+dumper should theoretically work on all the three major OSes: GNU/Linux, macOS
 and Windows.
 
 ** Setup
@@ -69,7 +69,7 @@ double the number of slots by replacing 32 with 64:
 This step depends on your OS (please create a PR to add the instructions for
 your OS).
 
-**** MacOS
+**** macOS
 In the root directory of your freshly cloned Emacs repository in the =master=
 branch as the current branch:
 

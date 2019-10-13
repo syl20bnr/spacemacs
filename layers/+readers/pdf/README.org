@@ -39,7 +39,7 @@ According to the official repository:
 * Install
 ** Prerequisites
 Linux is the only operating system officially supported, but it's possible to
-use =pdf-tools= on OS X as well, and possibly on other Unix flavors.
+use =pdf-tools= on macOS as well, and possibly on other Unix flavors.
 
 You'll need to install a few libraries. Check the [[https://github.com/politza/pdf-tools#server-prerequisites][instructions]] on
 =pdf-tools= page. Note that compiling from source might not be necessary, as

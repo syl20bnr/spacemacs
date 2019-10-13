@@ -10,7 +10,7 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#elm-platform][Elm Platform]]
-    - [[#os-x-and-windows-installers][OS X and Windows installers]]
+    - [[#macos-and-windows-installers][macOS and Windows installers]]
     - [[#universal-installer-using-npm][Universal installer using npm]]
     - [[#source-code][Source code]]
   - [[#elm-oracle][elm-oracle]]
@@ -63,7 +63,7 @@ The =elm-platform= is a bundle of tools, including the =elm-compiler=,
 Depending on the method of installation, the =elm-mode= package would need to be
 able to access commands such as =elm-reactor= or =elm-make=.
 
-*** OS X and Windows installers
+*** macOS and Windows installers
 Official installers for these operating systems are available from:
 [[https://guide.elm-lang.org/install.html][https://guide.elm-lang.org/install.html]]
 
@@ -81,7 +81,7 @@ the corresponding directory created by the installer.
 If you are facing problems with previewing a buffer with =elm-reactor= ensure
 that the absolute path of the npm global bin file is on your path within emacs
 
-OS X Users facing problems with =elm-reactor= failing to properly install or
+MacOS users facing problems with =elm-reactor= failing to properly install or
 run, see this issue [[https://github.com/kevva/elm-bin/issues/28][https://github.com/kevva/elm-bin/issues/28]].
 
 *** Source code

@@ -164,7 +164,7 @@ many other commands.
 | ~oaa~       | Open current file or tag, using ace-window to decide which window to open the file in.                         |
 | ~oah~       | Open current file or tag by horizontally splitting a window selected by ace-window.                            |
 | ~oav~       | Open current file or tag by vertically splitting a window selected by ace-window.                              |
-| ~ox~        | Open current file according to its mime type in an external application. Linux, Windows and Mac are supported. |
+| ~ox~        | Open current file according to its mime type in an external application. Linux, Windows and macOS are supported. |
 | ~ta~        | Toggle ~treemacs-filewatch-mode~.                                                                              |
 | ~tf~        | Toggle ~treemacs-follow-mode~.                                                                                 |
 | ~th~        | Toggle the hiding and displaying of dotfiles.                                                                  |

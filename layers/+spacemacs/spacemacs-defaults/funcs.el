@@ -1014,7 +1014,7 @@ toggling fullscreen."
 
 (defun spacemacs/toggle-frame-fullscreen-non-native ()
   "Toggle full screen non-natively. Uses the `fullboth' frame paramerter
-rather than `fullscreen'. Useful to fullscreen on OSX w/o animations."
+rather than `fullscreen'. Useful to fullscreen on macOS w/o animations."
   (interactive)
   (modify-frame-parameters
    nil

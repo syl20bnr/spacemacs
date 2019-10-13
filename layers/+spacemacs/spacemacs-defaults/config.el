@@ -83,7 +83,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 
 ;; Use system trash for file deletion
 ;; should work on Windows and Linux distros
-;; on OS X, see contrib/osx layer
+;; on macOS, see contrib/osx layer
 (setq delete-by-moving-to-trash t)
 
 ;; auto fill breaks line beyond buffer's fill-column

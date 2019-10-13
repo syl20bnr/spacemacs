@@ -14,7 +14,7 @@ install the fonts listed in the [[https://github.com/rolandwalker/unicode-fonts#
 ** Features:
 - Display unicode glyphs using the best available font.
 - Easily override glyphs or sections of glyphs.
-- Display color emoji on both the Mac port version of Emacs and emacs-plus (with
+- Display color emoji on both the macOS port version of Emacs and emacs-plus (with
   =unicode-fonts-force-multi-color-on-mac= set to non nil).
 
 * Install

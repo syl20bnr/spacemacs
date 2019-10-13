@@ -81,8 +81,8 @@ Transient states are generally put behin the dot key ~.~, for instance the
 windows manipulation transient state in ~SPC w .~.
 
 When it is not possible to use the ~.~ (like in =helm= buffers) transient states
-should be enabled with ~M-SPC~ and ~s-M-SPC~. We need the latter bindings on OS
-X since ~M-SPC~ is used by the OS for spotlight.
+should be enabled with ~M-SPC~ and ~s-M-SPC~. We need the latter bindings on
+macOS since ~M-SPC~ is used by the OS for spotlight.
 
 It is recommended to make sure that ~q~ allows to leave the transient-state.
 

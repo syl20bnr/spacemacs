@@ -102,4 +102,4 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 | Key binding | Description                                                                     |
 |-------------+---------------------------------------------------------------------------------|
 | ~SPC m i l~ | Insert lambda character                                                         |
-| ~H-r~       | Run current file and open REPL (=H= is hyper, *may* be bound to command on OSX) |
+| ~H-r~       | Run current file and open REPL (=H= is hyper, *may* be bound to command on macOS) |
