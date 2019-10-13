@@ -77,6 +77,7 @@ The default configuration of the layer is:
                      auto-completion-private-snippets-directory nil
                      auto-completion-enable-snippets-in-popup nil
                      auto-completion-enable-help-tooltip nil
+                     auto-completion-use-company-box nil
                      auto-completion-enable-sort-by-usage nil)))
 #+END_SRC
 
@@ -123,6 +124,9 @@ To enable manual non-automatic invocation of docstring tooltips, set it to
     '((auto-completion :variables
                       auto-completion-enable-help-tooltip 'manual)))
 #+END_SRC
+
+However the tooltip may overlap on text on macOS, you can use =company-box= on
+Emacs 26+ by setting =auto-completion-use-company-box= to =t=.
 
 ** Sort results by usage
 To enable sorting auto-completion results by their usage frequency set
