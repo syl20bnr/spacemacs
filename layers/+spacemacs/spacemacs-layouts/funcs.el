@@ -105,7 +105,7 @@ Cancels autosave on exiting perspectives mode."
   "Toggle the full hint docstring for the layouts transient-state."
   (interactive)
   (setq spacemacs--ts-full-hint-toggle
-        (logxor spacemacs--ts-full-hint-toggle 1)))
+        (not spacemacs--ts-full-hint-toggle)))
 
 (defun spacemacs//layout-format-name (name pos)
   "Format the layout name given by NAME for display in mode-line."
@@ -132,7 +132,7 @@ Cancels autosave on exiting perspectives mode."
                              persp-list " | "))))
     (concat
      formatted-persp-list
-     (if (equal 1 spacemacs--ts-full-hint-toggle)
+     (if spacemacs--ts-full-hint-toggle
          spacemacs--layouts-ts-full-hint
        (concat "  (["
                (propertize "?" 'face 'hydra-face-red)
@@ -656,7 +656,7 @@ STATE is a window-state object as returned by `window-state-get'."
   "Toggle the full hint docstring for the workspaces transient-state."
   (interactive)
   (setq spacemacs--ts-full-hint-toggle
-        (logxor spacemacs--ts-full-hint-toggle 1)))
+        (not spacemacs--ts-full-hint-toggle)))
 
 (defun spacemacs/workspaces-ts-rename ()
   "Rename a workspace and get back to transient-state."
@@ -682,7 +682,7 @@ STATE is a window-state object as returned by `window-state-get'."
    " "
    (mapconcat 'spacemacs//workspace-format-name
               (eyebrowse--get 'window-configs) " | ")
-   (if (equal 1 spacemacs--ts-full-hint-toggle)
+   (if spacemacs--ts-full-hint-toggle
        spacemacs--workspaces-ts-full-hint
      (concat "  (["
              (propertize "?" 'face 'hydra-face-red)
