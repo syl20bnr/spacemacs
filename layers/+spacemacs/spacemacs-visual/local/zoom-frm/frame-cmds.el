@@ -619,7 +619,7 @@ Candidates include `jump-to-frame-config-register' and `show-buffer-menu'."
 
 ;; Use `cond', not `case', for Emacs 20 byte-compiler.
 (defcustom window-mgr-title-bar-pixel-height (cond ((eq window-system 'mac) 22)
-                                                   ;; For older versions of OS X, 40 might be better.
+                                                   ;; For older versions of macOS, 40 might be better.
 						   ((eq window-system 'ns)  50)
 						   (t  27))
   "*Height of frame title bar provided by the window manager, in pixels.
@@ -1470,7 +1470,7 @@ the pixel width and height of the rectangle."
   (- (frame-pixel-height frame) (* (frame-char-height frame) (frame-height frame))))
 
 (defun frcmds-smart-tool-bar-pixel-height (&optional frame)
-  "Pixel height of Mac smart tool bar."
+  "Pixel height of macOS smart tool bar."
   (if (and (boundp 'mac-tool-bar-display-mode)  (> (frame-parameter frame 'tool-bar-lines) 0))
       (if (eq mac-tool-bar-display-mode 'icons) 40 56)
     0))
@@ -1512,7 +1512,7 @@ the pixel width and height of the rectangle."
   "Returns a value of the same form as option `available-screen-pixel-bounds'.
 This represents the currently available screen area."
   (or available-screen-pixel-bounds     ; Use the option value, if available.
-      (if (fboundp 'mac-display-available-pixel-bounds) ; Mac-OS-specific.
+      (if (fboundp 'mac-display-available-pixel-bounds) ; macOS-specific.
           (mac-display-available-pixel-bounds)
         (list 0 0 (x-display-pixel-width) (x-display-pixel-height)))))
 

@@ -3286,7 +3286,7 @@ The key bindings start with ~SPC x r~ and have the following mnemonic structure:
 *** Deleting files
 Deletion is configured to send deleted files to system trash.
 
-On OS X the =trash= program is required. It can be installed with [[https://brew.sh/][homebrew]] with
+On macOS the =trash= program is required. It can be installed with [[https://brew.sh/][homebrew]] with
 the following command:
 
 #+BEGIN_SRC sh
@@ -3520,15 +3520,15 @@ You can open a file in Emacs from the terminal using =emacsclient=. Use
 file in Emacs within the terminal. If you set Emacs server socket by setting =dotspacemacs-server-socket-dir=,
 then pass its location as =-s ~/.emacs.d/server/server= additionally.
 
-If you want your Linux/OS X system to use Emacs by default for any prompt, you
-need to set it in your shell configuration, e.g. =~/.bashrc= or =~/.zshrc=:
+If you want your Linux or macOS system to use Emacs by default for any prompt,
+you need to set it in your shell configuration, e.g. =~/.bashrc= or =~/.zshrc=:
 
 #+BEGIN_SRC sh-mode
   export EDITOR="emacsclient -c"
 #+END_SRC
 
-Note that if you're on OS X, you may have to refer to the emacsclient that comes
-with your GUI Emacs, e.g.:
+Note that if you're using macOS, you may have to refer to the emacsclient that
+comes with your GUI Emacs, e.g.:
 
 #+BEGIN_SRC sh-mode
   export EDITOR="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c"

@@ -29,7 +29,7 @@
       type \"$command\" >/dev/null 2>&1
     }
 
-    # Installing reattach-to-user-namespace is recommended on OS X
+    # Installing reattach-to-user-namespace is recommended on macOS.
     if command_exists \"pbcopy\"; then
         if command_exists \"reattach-to-user-namespace\"; then
             printf \"reattach-to-user-namespace pbcopy\"
@@ -51,7 +51,7 @@
       type \"$command\" >/dev/null 2>&1
     }
 
-    # Installing reattach-to-user-namespace is recommended on OS X
+    # Installing reattach-to-user-namespace is recommended on macOS.
     if command_exists \"pbpaste\"; then
         if command_exists \"reattach-to-user-namespace\"; then
             printf \"reattach-to-user-namespace pbpaste\"

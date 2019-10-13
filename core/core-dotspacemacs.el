@@ -298,7 +298,7 @@ to boost the loading time.")
 
 (defvar dotspacemacs-fullscreen-use-non-native nil
   "If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen. Use
-to disable fullscreen animations in OSX.")
+to disable fullscreen animations on macOS.")
 
 (defvar dotspacemacs-maximized-at-startup nil
   "If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).

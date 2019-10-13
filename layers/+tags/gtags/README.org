@@ -8,7 +8,7 @@
 - [[#install][Install]]
   - [[#gnu-global-gtags][GNU Global (gtags)]]
     - [[#install-on-ubuntu][Install on Ubuntu]]
-    - [[#install-on-osx-using-homebrew][Install on OSX using Homebrew]]
+    - [[#install-on-macos-using-homebrew][Install on macOS using Homebrew]]
     - [[#install-on-nix-from-source][Install on *nix from source]]
       - [[#install-recommended-dependencies][Install recommended dependencies]]
       - [[#install-with-recommended-features][Install with recommended features]]
@@ -64,7 +64,7 @@ recommend installing from source.
   sudo apt-get install global
 #+END_SRC
 
-*** Install on OSX using Homebrew
+*** Install on macOS using Homebrew
 #+BEGIN_SRC sh
   brew install global --with-pygments --with-ctags
 #+END_SRC

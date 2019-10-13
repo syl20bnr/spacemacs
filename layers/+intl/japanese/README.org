@@ -47,7 +47,7 @@ By default, the variable ~evil-tutor-working-ja-directory~ is assigned =~/.emacs
 
 *** migemo
 By default, the variable ~migemo-dictionary~ is assigned
-~/usr/local/share/migemo/utf-8/migemo-dict~ in MacOS, or ~/usr/local/cmigemo/utf-8/migemo-dict~ in linux.
+~/usr/local/share/migemo/utf-8/migemo-dict~ in macOS, or ~/usr/local/cmigemo/utf-8/migemo-dict~ in linux.
 If you want it to be another directory, you must re-set the variable.
 For example, if you install [[https://www.kaoriya.net/software/cmigemo/][C/Migemo for Windows 64bit]] in the directory ~c:\app\cmigemo-default-win64~, you should add:
 

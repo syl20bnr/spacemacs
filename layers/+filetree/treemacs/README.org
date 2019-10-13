@@ -127,47 +127,47 @@ depending on whether vim/hybrid editing style is used. Likewise refresh is only
 bound to g when emacs editing style is used, since under vim g is a prefix for
 many other commands.
 
-| Key binding | Description                                                                                                    |
-|-------------+----------------------------------------------------------------------------------------------------------------|
-| ~?~         | Summon the helpful hydra to show you the treemacs keymap.                                                      |
-| ~M-j/M-n~   | Select next node at the same depth as currently selected node, if possible.                                    |
-| ~j/n~       | Goto next line.                                                                                                |
-| ~k/p~       | Goto previous line.                                                                                            |
-| ~M-J/N~     | Go to the next line in ~next-window~.                                                                          |
-| ~M-K/P~     | Go to the previous line in ~next-window~..                                                                     |
-| ~M-j/M-n~   | Select next node at the same depth as currently selected node, if possible.                                    |
-| ~M-k/M-p~   | Select previous node at the same depth as currently selected node, if possible.                                |
-| ~C-c C-p a~ | Select a new project to add to the treemacs workspace.                                                         |
-| ~C-c C-p p~ | Select a projectile project to add to the workspace.                                                           |
-| ~C-c C-p d~ | Remove project at point from the workspace.                                                                    |
-| ~C-c C-p r~ | Rename project at point.                                                                                       |
-| ~th~        | Toggle the hiding and displaying of dotfiles.                                                                  |
-| ~tw~        | Toggle whether the treemacs buffer should have a fixed width.                                                  |
-| ~tf~        | Toggle treemacs-follow-mode.                                                                                   |
-| ~ta~        | treemacs-filewatch-mode.                                                                                       |
-| ~w~         | Set a new value for the width of the treemacs window.                                                          |
-| ~TAB~       | Do what I mean (as defined in ~treemacs-TAB-actions-config~). Prefers expanding nodes by default.              |
-| ~RET~       | Do what I mean (as defined in ~treemacs-RET-actions-config~). Prefers visiting nodes by default.               |
-| ~mouse1~    | Move point to clicked line                                                                                     |
-| ~2x mouse1~ | Do what I mean (as defined in ~treemacs-doubleclick-actions-config~). Behaves like ~RET~ by default.           |
-| ~g/r/gr~    | Refresh and rebuild the treemacs buffer.                                                                       |
-| ~d~         | Delete node at point. A delete action must always be confirmed. Directories are deleted recursively.           |
-| ~cf~        | Create a file.                                                                                                 |
-| ~cd~        | Create a directory.                                                                                            |
-| ~R~         | Rename the currently selected node. Reload buffers visiting renamed files or files in renamed directories.     |
-| ~u~         | Select parent of selected node, if possible.                                                                   |
-| ~q~         | Hide/show an existing treemacs buffer.                                                                         |
-| ~Q~         | Kill the treemacs buffer.                                                                                      |
-| ~ov~        | Open current file or tag by vertically splitting ~next-window~.                                                |
-| ~oh~        | Open current file or tag by horizontally splitting ~next-window~.                                              |
-| ~oo~        | Open current file or tag, performing no split and using ~next-window~ directly.                                |
-| ~oaa~       | Open current file or tag, using ace-window to decide which window to open the file in.                         |
-| ~oah~       | Open current file or tag by horizontally splitting a window selected by ace-window.                            |
-| ~oav~       | Open current file or tag by vertically splitting a window selected by ace-window.                              |
-| ~ox~        | Open current file according to its mime type in an external application. Linux, Windows and Mac are supported. |
-| ~ta~        | Toggle ~treemacs-filewatch-mode~.                                                                              |
-| ~tf~        | Toggle ~treemacs-follow-mode~.                                                                                 |
-| ~th~        | Toggle the hiding and displaying of dotfiles.                                                                  |
-| ~tw~        | Toggle whether the treemacs buffer should have a fixed width.                                                  |
-| ~yr~        | Copy the absolute path of the nearest project node at point.                                                   |
-| ~yy~        | Copy the absolute path of the node at point.                                                                   |
+| Key binding | Description                                                                                                      |
+|-------------+------------------------------------------------------------------------------------------------------------------|
+| ~?~         | Summon the helpful hydra to show you the treemacs keymap.                                                        |
+| ~M-j/M-n~   | Select next node at the same depth as currently selected node, if possible.                                      |
+| ~j/n~       | Goto next line.                                                                                                  |
+| ~k/p~       | Goto previous line.                                                                                              |
+| ~M-J/N~     | Go to the next line in ~next-window~.                                                                            |
+| ~M-K/P~     | Go to the previous line in ~next-window~..                                                                       |
+| ~M-j/M-n~   | Select next node at the same depth as currently selected node, if possible.                                      |
+| ~M-k/M-p~   | Select previous node at the same depth as currently selected node, if possible.                                  |
+| ~C-c C-p a~ | Select a new project to add to the treemacs workspace.                                                           |
+| ~C-c C-p p~ | Select a projectile project to add to the workspace.                                                             |
+| ~C-c C-p d~ | Remove project at point from the workspace.                                                                      |
+| ~C-c C-p r~ | Rename project at point.                                                                                         |
+| ~th~        | Toggle the hiding and displaying of dotfiles.                                                                    |
+| ~tw~        | Toggle whether the treemacs buffer should have a fixed width.                                                    |
+| ~tf~        | Toggle treemacs-follow-mode.                                                                                     |
+| ~ta~        | treemacs-filewatch-mode.                                                                                         |
+| ~w~         | Set a new value for the width of the treemacs window.                                                            |
+| ~TAB~       | Do what I mean (as defined in ~treemacs-TAB-actions-config~). Prefers expanding nodes by default.                |
+| ~RET~       | Do what I mean (as defined in ~treemacs-RET-actions-config~). Prefers visiting nodes by default.                 |
+| ~mouse1~    | Move point to clicked line                                                                                       |
+| ~2x mouse1~ | Do what I mean (as defined in ~treemacs-doubleclick-actions-config~). Behaves like ~RET~ by default.             |
+| ~g/r/gr~    | Refresh and rebuild the treemacs buffer.                                                                         |
+| ~d~         | Delete node at point. A delete action must always be confirmed. Directories are deleted recursively.             |
+| ~cf~        | Create a file.                                                                                                   |
+| ~cd~        | Create a directory.                                                                                              |
+| ~R~         | Rename the currently selected node. Reload buffers visiting renamed files or files in renamed directories.       |
+| ~u~         | Select parent of selected node, if possible.                                                                     |
+| ~q~         | Hide/show an existing treemacs buffer.                                                                           |
+| ~Q~         | Kill the treemacs buffer.                                                                                        |
+| ~ov~        | Open current file or tag by vertically splitting ~next-window~.                                                  |
+| ~oh~        | Open current file or tag by horizontally splitting ~next-window~.                                                |
+| ~oo~        | Open current file or tag, performing no split and using ~next-window~ directly.                                  |
+| ~oaa~       | Open current file or tag, using ace-window to decide which window to open the file in.                           |
+| ~oah~       | Open current file or tag by horizontally splitting a window selected by ace-window.                              |
+| ~oav~       | Open current file or tag by vertically splitting a window selected by ace-window.                                |
+| ~ox~        | Open current file according to its mime type in an external application. Linux, Windows and macOS are supported. |
+| ~ta~        | Toggle ~treemacs-filewatch-mode~.                                                                                |
+| ~tf~        | Toggle ~treemacs-follow-mode~.                                                                                   |
+| ~th~        | Toggle the hiding and displaying of dotfiles.                                                                    |
+| ~tw~        | Toggle whether the treemacs buffer should have a fixed width.                                                    |
+| ~yr~        | Copy the absolute path of the nearest project node at point.                                                     |
+| ~yy~        | Copy the absolute path of the node at point.                                                                     |

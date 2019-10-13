@@ -11,11 +11,11 @@
   - [[#install-vterm][Install vterm]]
     - [[#check-that-your-emacs-supports-dynamic-modules][Check that your Emacs supports dynamic modules]]
     - [[#install-cmake-311-or-higher][Install CMake 3.11 or higher]]
-      - [[#macos][MacOS]]
+      - [[#macos][macOS]]
     - [[#install-libtool][Install libtool]]
       - [[#ubuntu][Ubuntu]]
     - [[#install-libvterm][Install libvterm]]
-      - [[#macos-1][MacOS]]
+      - [[#macos-1][macOS]]
       - [[#ubuntu-1][Ubuntu]]
       - [[#windows][Windows]]
 - [[#configuration][Configuration]]
@@ -60,7 +60,7 @@ not, you need to get a version of Emacs that supports it or compile it from
 source supplying the =./configure --with-module= option at configure time.
 
 *** Install CMake 3.11 or higher
-**** MacOS
+**** macOS
 #+BEGIN_SRC shell
 brew install cmake
 #+END_SRC
@@ -74,7 +74,7 @@ sudo apt install libtool-bin
 #+END_SRC
 
 *** Install libvterm
-**** MacOS
+**** macOS
 #+BEGIN_SRC shell
 brew install libvterm
 #+END_SRC

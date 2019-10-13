@@ -49,7 +49,7 @@
     (cl-rotatef mac-command-modifier mac-option-modifier))
 
   (defun kbd-mac-command (keys)
-    "Wraps `kbd' function with Mac OSX compatible Command-key (⌘).
+    "Wraps `kbd' function with macOS compatible Command-key (⌘).
 KEYS should be a string such as \"f\" which will be turned into values
 such as \"H-f\", \"s-f\", or \"A-f\" depending on the value of
 `mac-commmand-modifier' which could be `hyper', `super', or `alt'.

@@ -183,7 +183,7 @@ This installs a pre-built package from https://emacsformacosx.com/
 
 If you're not comfortable with the ways mentioned above, then
 [EmacsWiki](https://www.emacswiki.org/emacs/EmacsForMacOS#toc12) lists down
-a few ways to install Emacs for Mac OS.
+a few ways to install Emacs for macOS.
 
 #### Install Source Code Pro font
 
@@ -380,7 +380,7 @@ lines in the `~/.emacs.d/init.el` file:
 For Ubuntu users, follow this guide to
 [change the logo in Unity][cpaulik-unity-icon].
 
-For Mac users, you need to [download the .icns version of the logo][icon-repository],
+For macOS users, you need to [download the .icns version of the logo][icon-repository],
 then [change the logo on the Dock][icon-mac-instructions].
 
 # Update

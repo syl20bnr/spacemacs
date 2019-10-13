@@ -130,7 +130,7 @@ indexing large code bases.
 - Completion with =company-lsp=
 - Semantic highlighting
 - See more on [[https://github.com/cquery-project/cquery/wiki/Emacs]]
-- Cross-platform - functional on Windows, Linux and OSX.
+- Cross-platform - functional on Windows, Linux and macOS.
 
 **** External dependencies
 Install one (or both) of the following:

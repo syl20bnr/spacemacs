@@ -7,7 +7,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
-  - [[#os-x][OS X]]
+  - [[#macos][macOS]]
   - [[#social-graph][Social graph]]
   - [[#disable-notifications][Disable notifications]]
   - [[#enable-sasl-authentication][Enable SASL authentication]]
@@ -38,9 +38,9 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =erc= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-** OS X
+** macOS
 It's recommended to install the [[https://github.com/alloy/terminal-notifier][terminal-notifier gem]] so that you get
-notifications via the OS X Notification Center.
+notifications via the macOS Notification Center.
 
 ** Social graph
 [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]] needs graphviz to be installed on your system.
