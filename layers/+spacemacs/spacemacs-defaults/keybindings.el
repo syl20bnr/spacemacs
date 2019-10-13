@@ -655,17 +655,20 @@ respond to this toggle."
   (interactive "p")
   (enlarge-window delta t))
 
+(defvar spacemacs--window-manipulation-ts-full-hint-toggle nil
+  "Display window-manipulation transient-state documentation.")
+
 (defun spacemacs//window-manipulation-ts-toggle-hint ()
   "Toggle the full hint docstring for the window manipulation transient-state."
   (interactive)
-  (setq spacemacs--ts-full-hint-toggle
-        (not spacemacs--ts-full-hint-toggle)))
+  (setq spacemacs--window-manipulation-ts-full-hint-toggle
+        (not spacemacs--window-manipulation-ts-full-hint-toggle)))
 
 (defun spacemacs//window-manipulation-ts-hint ()
   "Return a condensed/full hint for the window manipulation transient state"
   (concat
    " "
-   (if spacemacs--ts-full-hint-toggle
+   (if spacemacs--window-manipulation-ts-full-hint-toggle
        spacemacs--window-manipulation-ts-full-hint
      (concat spacemacs--window-manipulation-ts-minified-hint
              "  ([" (propertize "?" 'face 'hydra-face-red) "] help)"))))
