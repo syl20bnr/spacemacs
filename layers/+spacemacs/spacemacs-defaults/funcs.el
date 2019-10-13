@@ -1013,8 +1013,9 @@ toggling fullscreen."
      (when (not (frame-parameter nil 'fullscreen)) 'fullscreen)))))
 
 (defun spacemacs/toggle-frame-fullscreen-non-native ()
-  "Toggle full screen non-natively. Uses the `fullboth' frame paramerter
-rather than `fullscreen'. Useful to fullscreen on macOS w/o animations."
+  "Toggle full screen using the `fullboth' frame parameter.
+Using the `fullboth' frame parameter rather than `fullscreen' is
+useful to use full screen on macOS without animations."
   (interactive)
   (modify-frame-parameters
    nil

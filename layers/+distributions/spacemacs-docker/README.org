@@ -143,7 +143,7 @@ Or allow local connection from the container's host-name
 
 ** With Xpra on any of the OSes and via web-browser
 *** Pros
-- Xpra has a client for GNU/Linux, Windows and macOS + can work via web browser
+- Xpra has a client for GNU/Linux, Windows and macOS and can work via web browser
 - Persistent server (you can connect and disconnect without disrupting Emacs)
 - Interactive screen sharing [[https://imgur.com/ijdSuX6][demo]]
 - Read/write rss/email with Emacs in web-browser (O_O) [[https://imgur.com/wDLDMZN][demo]]

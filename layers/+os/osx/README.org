@@ -17,8 +17,8 @@
 - [[#future-work][Future Work]]
 
 * Description
-Spacemacs is not just emacs+vim. It can have macOS key bindings too! This layer
-globally defines common macOS key bindings.
+Spacemacs is not just Emacs plus Vim. It can have macOS key bindings too! This
+layer globally defines common macOS key bindings.
 
 ** Features:
 - ~⌘~ is set to ~hyper~ and ~⌥~ is set to ~meta~
@@ -27,7 +27,7 @@ globally defines common macOS key bindings.
 
 * Philosophy
 While this layer enables common macOS bindings, it does not implement macOS
-navigation key bindings. Spacemacs is meant to be used with evil, and we
+navigation key bindings. Spacemacs is meant to be used with Evil, and we
 encourage you to do so :)
 
 * Install
