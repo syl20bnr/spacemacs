@@ -2813,6 +2813,8 @@ Other:
   - Added smerge transient state key bindings (thanks to duianto):
     ~SPC g r e >~ ediff
     ~SPC g r K >~ kill current
+  - Added current and total conflicts to smerge transient state's hint
+    (thanks to Miciah Dashiel Butler Masters)
 - New packages:
   - =browse-at-remote= which replaces =github-browse-file=
   (thanks Eugene Yaremenko)
