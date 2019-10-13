@@ -241,11 +241,11 @@ installed libraries:
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'mu4e-alert
     ;; Enable Desktop notifications
-    (mu4e-alert-set-default-style 'notifications)) ; For linux
-    ;; (mu4e-alert-set-default-style 'libnotify))  ; Alternative for linux
+    (mu4e-alert-set-default-style 'notifications)) ; For Linux.
+    ;; (mu4e-alert-set-default-style 'libnotify))  ; Alternative for Linux
     ;; (mu4e-alert-set-default-style 'notifier))   ; For macOS (through the
-                                                   ; terminal notifier app)
-    ;; (mu4e-alert-set-default-style 'growl))      ; Alternative for macOS
+                                                   ; terminal notifier app).
+    ;; (mu4e-alert-set-default-style 'growl))      ; Alternative for macOS.
 #+END_SRC
 
 *** Mode-line notifications

@@ -18,7 +18,7 @@
 
 (defvar osx-command-as 'hyper
   "Sets the key binding of the `COMMAND' key on macOS.
-   Possible values are `super' `meta' `hyper' `alt' `none'.
+   Possible values are `super', `meta', `hyper', `alt', and `none'.
    Default: `hyper'.")
 ;; There are problems setting osx-command-as to `alt' and `super',
 ;; so we use `hyper' as a default instead because, for example:
@@ -58,7 +58,7 @@
    Default: `left'.")
 
 (defvar osx-use-dictionary-app t
-  "If non nil use macOS dictionary app instead of wordnet")
+  "Use the macOS dictionary app instead of Wordnet.")
 
 (defvar osx-swap-option-and-command nil
   "If non nil swap option key and command key")
