@@ -17,6 +17,7 @@ env:
   - BOT_EMAIL=emacspace@gmail.com
   - SPACEMACS_REPO_SLUG="syl20bnr/spacemacs"
 before_script:
+  - sudo apt-get install -y libgnutls-dev
   - docker pull jare/spacetools:latest
 script:
   - |
