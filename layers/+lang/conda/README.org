@@ -1,0 +1,22 @@
+#+TITLE: Conda Layer
+
+#+TAGS: layer|programming|util
+
+* Description
+This layer integrates [[https://github.com/necaris/conda.el][conda.el]] with Spacemacs's UI, placing shortcuts to its
+functions under =SPC a= (applications). =conda.el= allows users to interact with
+Anaconda and Miniconda environments from Emacs -- this is not the same
+as =anaconda-mode=, which provides IDE-like features for Python.
+
+* Install
+To add this layer to Spacemacs, add =conda= to your
+=dotspacemacs-configuration-layers= list, then set the variable =conda-anaconda-home= to
+the path to your installation of anaconda.
+
+* Keybindings
+| Key Binding | Description                                                       |
+| ~SPC a e A~ | Toggle automatic activation of environments                       |
+| ~SPC a e a~ | Open a =helm= buffer to select an environment                     |
+| ~SPC a e b~ | Activate environment for buffer based on =conda-project-env-name= |
+| ~SPC a e d~ | Deactivate current environment                                    |
+| ~SPC a e l~ | Open a help buffer that lists envs                                |
