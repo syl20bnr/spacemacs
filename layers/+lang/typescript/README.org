@@ -61,7 +61,7 @@ You can choose formatting tool:
                 typescript-fmt-tool 'typescript-formatter)))
 #+END_SRC
 
-Default is ='tide=.
+Available formatters: ='tide= (default), ='prettier=, ='typescript-formatter=.
 
 You can choose either tslint (default) or eslint for linting:
 
