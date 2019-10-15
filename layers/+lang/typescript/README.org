@@ -54,14 +54,15 @@ If you need formatting on save:
 #+END_SRC
 
 You can choose formatting tool:
+- ='tide= (default)
+- ='prettier=
+- ='typescript-formatter=
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (typescript :variables
                 typescript-fmt-tool 'typescript-formatter)))
 #+END_SRC
-
-Default is ='tide=.
 
 You can choose either tslint (default) or eslint for linting:
 
