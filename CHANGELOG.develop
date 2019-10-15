@@ -1795,6 +1795,8 @@ Other:
   - ~<C-return>~ (execute cell) and ~<S-return>~ (execute cell and go to next)
     also in hybrid mode (thanks to Jaakko Luttinen)
   - Remove spurious key binding (thanks to Carlos Andrés Rocha)
+  - Added ~SPC a y r~ =ein:run= (thanks to Zach Pearson)
+  - Added ~SPC a y s~ =ein:stop= (thanks to Zach Pearson)
 **** Ivy
 - Added =recentf= alt actions to refresh and delete items (thanks to Rich Alesi)
 - Added =projectile= alternate actions to invalidate cache (thanks to Rich Alesi)
