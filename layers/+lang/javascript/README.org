@@ -167,7 +167,7 @@ or
 #+END_SRC
 
 *** Debugger (dap integration)
-To install the debug adapter you may run =M-x dap-firefox-setup= or =M-x dap-firefox-setup= if you are using Linux or download it manually from [[https://marketplace.visualstudio.com/items?itemName=hbenl.vscode-firefox-debug][Firefox Debug Adapter]] or [[https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome][Chrome Debug Adapter]] and adjust =dap-firefox-debug-path= or =dap-chrome-debug-path=. For usage instructions refer to [[https://github.com/emacs-lsp/dap-mode][dap-mode]] readme.
+To install the debug adapter you may run =M-x dap-firefox-setup= or =M-x dap-chrome-setup= if you are using Linux or download it manually from [[https://marketplace.visualstudio.com/items?itemName=hbenl.vscode-firefox-debug][Firefox Debug Adapter]] or [[https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome][Chrome Debug Adapter]] and adjust =dap-firefox-debug-path= or =dap-chrome-debug-path=. For usage instructions refer to [[https://github.com/emacs-lsp/dap-mode][dap-mode]] readme.
 
 * Configuration
 ** Indentation
