@@ -69,7 +69,8 @@ Have an IPython notebook running
 * Using the IPython notebook
 ** Open Notebook List
 This layer is lazy loaded so the transient-state will only work after you summon the
-command =ein:notebooklist-open= which is bound to ~SPC a y o~
+command =ein:notebooklist-open= which is bound to ~SPC a y o~ or =ein:run= which is
+bound to ~SPC a y r~.
 
 ** Key bindings
 The key bindings can be used through a transient state or the usual evil-leader.

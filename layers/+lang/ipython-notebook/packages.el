@@ -24,12 +24,14 @@
 (defun ipython-notebook/init-ein ()
   (use-package ein
     :defer t
-    :commands (ein:notebooklist-open ein:notebooklist-login)
+    :commands (ein:notebooklist-open ein:notebooklist-login ein:run ein:stop)
     :init
     (progn
       (spacemacs/set-leader-keys
         "ayl" 'ein:notebooklist-login
-        "ayo" 'ein:notebooklist-open)
+        "ayo" 'ein:notebooklist-open
+        "ayr" 'ein:run
+        "ays" 'ein:stop)
       (spacemacs/declare-prefix "ay" "ipython notebook")
       (with-eval-after-load 'ein-notebooklist
         (evilified-state-evilify-map ein:notebooklist-mode-map
