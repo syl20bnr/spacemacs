@@ -1223,8 +1223,8 @@ Other:
   - Added =flycheck-clojure= linters (thanks to Eugene Yaremenko)
   - Added =clj-kondo= to Clojure linters (thanks to Luo Tian and John Stevenson)
 - Improvements:
-  - Store cider REPL history in spacemacs cache (thanks to Ryan Fowler)
-  - Remove backtick from smartparens pairs for Clojure
+  - Stored cider REPL history in spacemacs cache (thanks to Ryan Fowler)
+  - Removed backtick from smartparens pairs for Clojure
     (thanks to Erwin Kroon and Eivind Fonn)
   - Improved =jump-to-definition= for Clojure modes (thanks to Ag Ibragimov)
   - Enabled safe structural editing for =.cljs=, =.cljx=, and =.cljc= files
@@ -1233,10 +1233,10 @@ Other:
     (thanks to Wojciech Wojtyniak)
   - Made =clj-refactor= off by default (thanks to Arne Brasseur)
   - Enabled =clojure-mode= refactorings without =clj-refactor= (thanks to yuhan0)
-  - Allow to send input to the REPL via RET in normal mode
+  - Allowed to send input to the REPL via ~RET~ in normal mode
     (thanks to Dieter Komendera)
   - Improved spacemacs-jump-handlers (thanks to Ag Ibragimov)
-  - Autoscroll to end of repl when sending buffer content (thanks to Vitaly Banchenko)
+  - Autoscroll to end of REPL when sending buffer content (thanks to Vitaly Banchenko)
 - Key bindings:
   - ~SPC m e ;~ to eval sexp and show result as comment
     (thanks to John Stevenson)
@@ -1253,9 +1253,9 @@ Other:
     - ~SPC m p v~ to display or set profiling status of variable
     (thanks to Luo Tian)
   - ~SPC m e P~ to pprint eval last sexp (thanks to Tim Jäger)
-  - ~SPC m h c~ for clojure-cheatsheet to clojure documentation.
+  - ~SPC m h c~ for =clojure-cheatsheet= to Clojure documentation.
     (thanks to Michael van der Nest)
-  - Move =cider-browse-ns-all= to ~SPC m h N~
+  - Moved =cider-browse-ns-all= to ~SPC m h N~
   - ~SPC m r c :~ to toggle between a keyword and a string
     (thanks to John Stevenson)
   - ~SPC m s X~ to restart the REPL (thanks to James Conroy-Finn)
@@ -1275,33 +1275,34 @@ Other:
   - ~SPC m g g~ changed to =spacemacs/clj-find-var=, a wrapper for
     =cider-find-var= if REPL running, otherwise =dumb-jump-go=
     (thanks to John Stevenson)
-  - Restore standard =SPC m s i= binding for =cider-jack-in-clj=
+  - Restored standard ~SPC m s i~ binding for =cider-jack-in-clj=
     (thanks to Russell Mull)
   - ~SPC m h d~ new keybinding for =cider-clojuredocs= (thanks to Sam Hedin)
   - Removed ~SPC m h g~ for =grimoire= as it is deprecated (thanks to Sam Hedin)
   - ~C-return~ to =cider-repl-newline-and-indent= in REPL evil insert state
     (thanks to Gia Thanh Vuong)
 - Fixes:
-  - Remove `cider.nrepl/cider-middleware` in lein quick start setting
+  - Removed =cider.nrepl/cider-middleware= in lein quick start setting
   - Fixed =cider-inspector-prev-page= binding, also add ~p~ as another key
     binding (thanks to Brian Fay)
-  - Fixed Clojure layer cider-repl-mode keybindings (thanks to Corey Ling)
+  - Fixed Clojure layer =cider-repl-mode= key bindings (thanks to Corey Ling)
   - Compatibility fix for CIDER 0.9.0 (thanks to nijohando)
   - Fixed function usage in clojure layer according to cider changes
     (thanks to André Stylianos Ramos)
   - Fixed regression for pinned =cider= (thanks to André Stylianos Ramos)
   - Fixed issue with =clojure-enable-fancify-symbols= causing "invalid face
     reference" error messages (thanks to Miciah Masters)
-  - Update obsolete =cider-refresh= alias to =cider-ns-refresh=
+  - Updated obsolete =cider-refresh= alias to =cider-ns-refresh=
     (thanks to André Peric Tavares)
-  - Remove =clojure-cheatsheet= as it is part of cider now
+  - Removed =clojure-cheatsheet= as it is part of cider now
     (thanks to Eugene Yaremenko)
-  - Update doc for Cider manual quick start -`cider-connect`. Leiningen
-    version 2.9 and Boot versions 2.8.2, ~cider-nrepl~ version 0.21.1
+  - Updated doc for Cider manual quick start -=cider-connect=. Leiningen
+    version 2.9 and Boot versions 2.8.2, =cider-nrepl= version 0.21.1
     (thanks to John Stevenson)
-  - Call interactive `cider-test-*` functions interactively
+  - Call interactive =cider-test-*= functions interactively
     (thanks to Timo Freiberg)
-  - Change run-all-tests alias to run-project-tests (thanks to Timo Freiberg)
+  - Changed =run-all-tests= alias to =run-project-tests=
+    (thanks to Timo Freiberg)
   - Fixed post-init of parinfer in the clojure layer (thanks to Martin Račák)
   - Fixed jumping backwards after =cider-find-var= (thanks to Dieter Komendera)
 **** Coffeescript
