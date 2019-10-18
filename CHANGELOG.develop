@@ -1139,6 +1139,7 @@ Other:
 - Key bindings:
   - Removed ~C-f~ because it interfered with the default key binding for
     =forward-char= (thanks to scturtle and duianto)
+  - Fixed ~C-k~ in company with tooltip (thanks to duianto)
 **** Autohotkey
 - Key bindings:
   - Added names to autohotkey mode prefixes (thanks to Ying Qu)
