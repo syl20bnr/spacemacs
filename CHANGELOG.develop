@@ -1459,6 +1459,7 @@ Other:
   - Added ~SPC m d b~ to toggle IEx.pry breakpoint
 - lsp layer is a dependency when backend is set to 'lsp (thanks to mpanarin)
 - "C-j" indents line properly (thanks to mpanarin)
+- Enabled =evil-matchit= (thanks to Miloš Mošić)
 **** Elm
 - Fixed flycheck initialization (thanks to Kevin W. van Rooijen)
 - Added =elm-test-runner= (thanks to Juan Edi)

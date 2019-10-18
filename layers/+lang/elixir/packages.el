@@ -16,6 +16,7 @@
         counsel-gtags
         dap-mode
         elixir-mode
+        evil-matchit
         flycheck
         flycheck-credo
         flycheck-mix
@@ -154,6 +155,9 @@
 (defun elixir/pre-init-dap-mode ()
   (add-to-list 'spacemacs--dap-supported-modes 'elixir-mode)
   (add-hook 'elixir-mode-local-vars-hook #'spacemacs//elixir-setup-dap))
+
+(defun elixir/post-init-evil-matchit ()
+  (add-hook 'elixir-mode-hook `turn-on-evil-matchit-mode))
 
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
