@@ -1070,6 +1070,8 @@ Other:
     - ~SPC j c~ to =goto-last-change=
   - Excluded =fundamental-mode= from =spacemacs/check-large-file=
     (thanks to Alexander Miller)
+  - Excluded =tags-table-mode= from =spacemacs/check-large-file=
+    (thanks to Hong Xu)
   - Fixed copied dir/path not shown in minibuffer when =select-enable-clipboard=
     is =nil= (thanks to duianto)
   - Used return value from advised function in =spacemacs//yank-indent-region=

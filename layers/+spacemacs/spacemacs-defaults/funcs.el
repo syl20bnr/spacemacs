@@ -89,7 +89,7 @@ Only modes that don't derive from `prog-mode' should be listed here."
 (defcustom spacemacs-large-file-modes-list
   '(archive-mode tar-mode jka-compr git-commit-mode image-mode
                  doc-view-mode doc-view-mode-maybe ebrowse-tree-mode
-                 pdf-view-mode fundamental-mode)
+                 pdf-view-mode tags-table-mode fundamental-mode)
   "Major modes which `spacemacs/check-large-file' will not be
 automatically applied to."
   :group 'spacemacs
