@@ -294,8 +294,14 @@ MODE parameter must match the :modes values used in the call to
       (define-key map (kbd "C-j") 'company-select-next)
       (define-key map (kbd "C-k") 'company-select-previous)
       (define-key map (kbd "C-l") 'company-complete-selection))
-    (when (require 'company-quickhelp nil 'noerror)
-      (evil-define-key 'insert company-quickhelp-mode-map (kbd "C-k") 'company-select-previous)))
+    ;; Fix company-quickhelp Evil C-k
+    (defun spacemacs//set-C-k-company-select-previous (&rest args)
+      (define-key evil-insert-state-map (kbd "C-k") 'company-select-previous))
+    (defun spacemacs//restore-C-k-evil-insert-digraph (&rest args)
+      (define-key evil-insert-state-map (kbd "C-k") 'evil-insert-digraph))
+    (add-hook 'company-completion-started-hook 'spacemacs//set-C-k-company-select-previous)
+    (add-hook 'company-completion-finished-hook 'spacemacs//restore-C-k-evil-insert-digraph)
+    (add-hook 'company-completion-cancelled-hook 'spacemacs//restore-C-k-evil-insert-digraph))
    (t
     (let ((map company-active-map))
       (define-key map (kbd "C-n") 'company-select-next)
