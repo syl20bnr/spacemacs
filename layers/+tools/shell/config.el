@@ -36,7 +36,7 @@
   "Width in percents for the shell window.")
 
 (defvar shell-default-term-shell shell-file-name
-  "Default shell to use in `term' and `ansi-term' shells.")
+  "Default shell to use in `term', `ansi-term' and `vterm' shells.")
 
 (defvar shell-enable-smart-eshell nil
   "If non-nil then `em-smart' is enabled. `em-smart' allows to quickly review

@@ -12,6 +12,7 @@
     - [[#check-that-your-emacs-supports-dynamic-modules][Check that your Emacs supports dynamic modules]]
     - [[#install-cmake-311-or-higher][Install CMake 3.11 or higher]]
       - [[#macos][macOS]]
+      - [[#ubuntu-2][Ubuntu]]
     - [[#install-libtool][Install libtool]]
       - [[#ubuntu][Ubuntu]]
     - [[#install-libvterm][Install libvterm]]
@@ -65,9 +66,15 @@ source supplying the =./configure --with-module= option at configure time.
 brew install cmake
 #+END_SRC
 
+**** Ubuntu
+#+BEGIN_SRC shell
+sudo apt install cmake
+#+END_SRC
+
 *** Install libtool
 If the =libtool= command does not exist in your system (usually in
 =/usr/bin/libtool=), you need to install it:
+
 **** Ubuntu
 #+BEGIN_SRC shell
 sudo apt install libtool-bin
@@ -138,7 +145,7 @@ your shell is positioned on the left or the right.
              shell-default-width 40)))
 #+END_SRC
 
-** Set shell for term and ansi-term
+** Set shell for term, ansi-term and vterm
 The default shell can be set by setting the variable =shell-default-term-shell=.
 Default value is =/bin/bash=.
 
