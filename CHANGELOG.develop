@@ -1688,6 +1688,7 @@ Other:
 - Fixed issue =counsel-gtags= command doesn't work in c-c++ layer
   (thanks to kekenow)
 - Fixed a typo by spelling counsel correctly (thanks to kccai)
+- Fixed GNU Global install instructions for macOS (thanks to Martin Račák)
 **** Haskell
 - Disabled electric indent for cabal-mode (thanks to Benno Fünfstück)
 - Added dante support to haskell layer (thanks to Kyle McKean)
