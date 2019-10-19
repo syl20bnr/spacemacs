@@ -2118,6 +2118,7 @@ Other:
 - Disabled Electric-Indent mode, which interfered with the nix-mode indent
   function (thanks to Profpatsch)
 - Associate nix-mode with .nix files (thanks to jpathy)
+- Updated layer banner (thanks to kalium)
 **** Nim
 - Added key binding ~SPC m h h~ to show symbol documentation
   (thanks to Valts Liepiņš)
