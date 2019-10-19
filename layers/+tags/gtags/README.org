@@ -66,7 +66,7 @@ recommend installing from source.
 
 *** Install on macOS using Homebrew
 #+BEGIN_SRC sh
-  brew install global --with-pygments --with-ctags
+  brew install global
 #+END_SRC
 
 *** Install on *nix from source
