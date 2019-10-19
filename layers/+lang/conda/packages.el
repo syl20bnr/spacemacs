@@ -10,26 +10,24 @@
 ;;; License: GPLv3
 
 (setq conda-packages
-	  '(
-		conda
-		))
+      '(
+        conda
+        ))
 
 (defun conda/init-conda ()
   (use-package conda
-	:defer t
-	:commands (
-			   conda-env-list
-			   conda-env-activate
-			   conda-env-deactivate
-			   conda-env-autoactivate-mode
-			   conda-env-activate-for-buffer
-               )
-	:init
-	(progn
-	  (spacemacs/set-leader-keys
-		"ael" 'conda-env-list
-		"aea" 'conda-env-activate
-		"aed" 'conda-env-deactivate
-		"aeA" 'conda-env-autoactivate-mode
-		"aeb" 'conda-env-activate-for-buffer)
-	  (spacemacs/declare-prefix "ae" "Python conda environments"))))
+    :defer t
+    :commands (conda-env-list
+               conda-env-activate
+               conda-env-deactivate
+               conda-env-autoactivate-mode
+               conda-env-activate-for-buffer)
+    :init
+    (progn
+      (spacemacs/declare-prefix-for-mode 'python-mode "mn" "anaconda")
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode
+        "nl" 'conda-env-list
+        "na" 'conda-env-activate
+        "nd" 'conda-env-deactivate
+        "nA" 'conda-env-autoactivate-mode
+        "nb" 'conda-env-activate-for-buffer))))
