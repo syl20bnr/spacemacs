@@ -337,6 +337,7 @@ sane way, here is the complete list of changed key bindings
 **** Tools
 - bm (thanks to Eugene Yaremenko and Binbin Ye)
 - cmake (thanks to Alexander Dalshov, Sylvain Benner and Jonas Jelten)
+- conda (thanks to Zach Pearson)
 - dap (thanks to Ivan Yonchovski)
 - debug (thanks to Hodge Shen, Troy Hinckley, and Sylvain Benner)
 - dotnet (thanks to Jordan Kaye)
