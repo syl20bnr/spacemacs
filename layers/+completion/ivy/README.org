@@ -11,6 +11,7 @@
   - [[#advanced-buffer-information][Advanced buffer information]]
 - [[#key-bindings][Key bindings]]
   - [[#transient-state][Transient state]]
+  - [[#colorsfaces][Colors/Faces]]
 
 * Description
 This layer enables Ivy for completion. It will replace the default completion by
@@ -98,3 +99,12 @@ Press ~M-SPC~ anytime in Ivy to get into the transient state.
 | ~d~         | call default action on candidate                        |
 | ~g~         | the same as ~d~ but doesn't close completion minibuffer |
 | ~o~         | leave transient state                                   |
+
+** Colors/Faces
+
+| Key binding | Description             |
+|-------------+-------------------------|
+| ~SPC C e~   | =counsel-colors-emacs=  |
+| ~SPC C f~   | =counsel-colors-faces=  |
+| ~SPC C w~   | =counsel-colors-web=    |
+| ~SPC h d F~ | =counsel-describe-face= |

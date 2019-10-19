@@ -19,6 +19,7 @@
   - [[#hjkl-navigation][hjkl navigation]]
   - [[#transient-state][Transient state]]
   - [[#bookmarks][Bookmarks]]
+  - [[#colorsfaces][Colors/Faces]]
   - [[#c-z-and-tab-switch][C-z and Tab switch]]
   - [[#helm-focus][Helm focus]]
   - [[#helm-swoop][Helm-swoop]]
@@ -179,6 +180,13 @@ In the =helm-bookmarks= buffer:
 | ~C-e~       | edit the selected bookmark                   |
 | ~C-f~       | toggle filename location                     |
 | ~C-o~       | open the selected bookmark in another window |
+
+** Colors/Faces
+
+| Key binding | Description            |
+|-------------+------------------------|
+| ~SPC C l~   | =helm-colors=          |
+| ~SPC h d F~ | =spacemacs/helm-faces= |
 
 ** C-z and Tab switch
 The command bound to ~C-z~ is much more useful than the one bound to Tab, so it
