@@ -226,22 +226,28 @@ as the pyenv version then also return nil. This works around https://github.com/
                    version file-path))))))
 
 (defun spacemacs//pyvenv-mode-set-local-virtualenv ()
-  "Set pyvenv virtualenv from \".venv\" by looking in parent directories. handle directory or file"
+  "Set pyvenv virtualenv from \".venv\" by looking in parent directories.
+Handle \".venv\" being a virtualenv directory or a file specifying either
+absolute or relative virtualenv path. Relative path is checked relative to
+location of \".venv\" file, then relative to pyvenv-workon-home()."
   (interactive)
-  (let ((root-path (locate-dominating-file default-directory
-                                           ".venv")))
+  (let ((root-path (locate-dominating-file default-directory ".venv")))
     (when root-path
-      (let* ((file-path (expand-file-name ".venv" root-path))
-             (virtualenv
-              (if (file-directory-p file-path)
-                  file-path
-                (with-temp-buffer
-                  (insert-file-contents-literally file-path)
-                  (buffer-substring-no-properties (line-beginning-position)
-                                                  (line-end-position))))))
-        (if (file-directory-p virtualenv)
-            (pyvenv-activate virtualenv)
-          (pyvenv-workon virtualenv))))))
+      (let ((file-path (expand-file-name ".venv" root-path)))
+        (if (file-directory-p file-path)
+            (pyvenv-activate file-path)
+          (let* ((virtualenv-path-in-file
+                  (with-temp-buffer
+                    (insert-file-contents-literally file-path)
+                    (buffer-substring-no-properties (line-beginning-position)
+                                                    (line-end-position))))
+                 (virtualenv-abs-path
+                  (if (file-name-absolute-p virtualenv-path-in-file)
+                      virtualenv-path-in-file
+                    (format "%s/%s" root-path virtualenv-path-in-file))))
+            (if (file-directory-p virtualenv-abs-path)
+                (pyvenv-activate virtualenv-abs-path)
+              (pyvenv-workon virtualenv-path-in-file))))))))
 
 
 ;; Tests
