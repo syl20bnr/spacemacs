@@ -2445,6 +2445,7 @@ Other:
   (thanks to Boris Verhovsky)
 - Fixed conflict between pipenv directory .venv and pyvenv file .venv
   (thanks to rgb-24bit)
+- Support relative path in pyvenv file .venv (thanks to Nam Nguyen)
 - Added diminish for importmagic (thanks to Loys Ollivier)
 - Added debugger integration via =dap= layer
 - Added documentation on installing importmagic and epc (thanks to Trapez Breen)

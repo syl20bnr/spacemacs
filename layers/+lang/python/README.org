@@ -349,7 +349,10 @@ the pyenv version. The behavior can be set with the variable
 - =on-project-switch= set the version when you switch projects,
 - =nil= to disable.
 
-The same is also possible on pyvenv with a file called =.venv=. The behavior
+The same is also possible on pyvenv with a file called =.venv= that specifies
+either an absolute or relative path to a virtualenv directory. A relative path
+is checked relative to the location of =.venv=, then relative to
+=pyvenv-workon-home=. =.venv= can also be a virtualenv directory. The behavior
 can be set with the variable =python-auto-set-local-pyvenv-virtualenv= to:
 - =on-visit= (default) set the virtualenv when you visit a python buffer,
 - =on-project-switch= set the virtualenv when you switch projects,
