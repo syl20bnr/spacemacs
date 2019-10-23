@@ -16,11 +16,7 @@
     flycheck
     julia-mode
     julia-repl
-    (lsp-julia :location (recipe :fetcher github
-                                 :repo "gdkrmr/lsp-julia"
-                                 :files ("*.el"
-                                         "README.org"
-                                         "languageserver")))
+    lsp-julia
     ))
 
 (defun julia/init-julia-mode ()
@@ -29,7 +25,7 @@
     :init
     (progn
       (add-hook 'julia-mode-hook #'spacemacs//julia-setup-buffer)
-      (add-hook 'julia-mode-local-vars-hook #'spacemacs//go-setup-backend)
+      (add-hook 'julia-mode-local-vars-hook #'spacemacs//julia-setup-lsp)
       (if (and (configuration-layer/layer-used-p 'ess)
                julia-mode-enable-ess)
           (add-to-list 'auto-mode-alist

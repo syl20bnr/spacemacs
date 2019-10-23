@@ -1957,6 +1957,10 @@ Other:
   - Fixed hook value to enable =evil-matchit= (thanks to Thanh Vuong)
   - Disabled =js2-mode='s =next-error-function= when the =syntax-checking= layer
     is enabled, to let =flycheck= handle any errors (thanks to Thanh Vuong)
+**** Julia
+- Fixes:
+  - Loaded =lsp-julia= from melpa (thanks to Guido Kraemer)
+  - Fixed =julia-mode-local-vars-hook= (thanks to Guido Kraemer)
 **** Keyboard layout
 - Added support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and
   Eivind Fonn)
