@@ -16,11 +16,7 @@
     flycheck
     julia-mode
     julia-repl
-    (lsp-julia :location (recipe :fetcher github
-                                 :repo "gdkrmr/lsp-julia"
-                                 :files ("*.el"
-                                         "README.org"
-                                         "languageserver")))
+    lsp-julia
     ))
 
 (defun julia/init-julia-mode ()
