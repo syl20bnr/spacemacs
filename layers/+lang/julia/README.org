@@ -29,12 +29,16 @@ add =julia= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** LSP
-This layer can be used with [[https://github.com/JuliaEditorSupport/LanguageServer.jl][=LanguageServer.jl=]] and emacs [[https://github.com/emacs-lsp/lsp-mode][=lsp-mode=]] to provide
+This layer can be used with [[https://github.com/JuliaEditorSupport/LanguageServer.jl][LanguageServer.jl]] and Emacs [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] to provide
 richer, IDE-like capabilities. To use this layer with lsp, you must do the
 following:
 
-1. =LanguageServer.jl= should be configured automatically, if not, see the documentation of =lsp-julia=.
+1. =LanguageServer.jl= should be configured automatically, if not, see the
+   documentation of =lsp-julia=.
 2. define the layer variable =julia-backend= to =lsp= in your dotfile
+
+To enable language server functionality with this layer, follow the instructions
+for installation, and then install this layer with:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default
@@ -43,10 +47,7 @@ following:
      (julia :variables julia-mode-enable-lsp t)))
 #+END_SRC
 
-To enable language server functionality with this layer, follow [[#lsp][the instructions
-for installation]], and then install this layer with:
-
-Warning: [[https://github.com/JuliaEditorSupport/LanguageServer.jl][=LanguageServer.jl=]] has not yet been released for Julia 1.0. If you are
+Warning: [[https://github.com/JuliaEditorSupport/LanguageServer.jl][LanguageServer.jl]] has not yet been released for Julia 1.0. If you are
 using this layer with Julia 1.0, =julia-mode-enable-lsp= should be set to =nil=.
 
 =LanguageServer.jl= tends to have a very long startup time. In the worst case,
@@ -56,7 +57,7 @@ opening files.
 
 * Options
 While =julia-mode= is perfectly usable without configuration or other packages,
-you can choose to replace the default functionality of using [[https://github.com/tpapp/julia-repl/][=julia-repl=]] as the
+you can choose to replace the default functionality of using [[https://github.com/tpapp/julia-repl/][julia-repl]] as the
 layer's interactive REPL with the ess REPL and other functionality that comes
 with it. To do so, install this layer with:
 
