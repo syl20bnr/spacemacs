@@ -1242,7 +1242,6 @@ Other:
   - Improved spacemacs-jump-handlers (thanks to Ag Ibragimov)
   - Autoscroll to end of REPL when sending buffer content (thanks to Vitaly Banchenko)
   - Added ability to use multiple linters together (thanks to didibus)
->>>>>>> fa4786d5a... [clojure] Added support for joker linter and having mutliple active linters
 - Key bindings:
   - ~SPC m e ;~ to eval sexp and show result as comment
     (thanks to John Stevenson)
