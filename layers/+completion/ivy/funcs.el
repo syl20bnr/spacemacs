@@ -254,7 +254,7 @@ that directory."
                    (buffer-substring-no-properties
                     (region-beginning) (region-end))
                  (thing-at-point 'symbol t))))
-    (counsel-git-grep nil input)))
+    (counsel-git-grep input)))
 
 (defun spacemacs/counsel-search-docs ()
   "Search spacemacs docs using `spacemacs/counsel-search'"
