@@ -1573,11 +1573,8 @@ Other:
     and =forge= (thanks to Robby O'Connor)
   - Made magithub offline by default (thanks to Miciah Masters)
 **** Git
-- Install magit-svn by default and activate with git-enable-magit-svn-plugin
 - Key bindings:
   - ~SPC g c~ to clone a repository (thanks to Steven Allen)
-  - ~SPC g f f~ to view a file at a specific branch or commit
-    (thanks to duianto)
   - ~SPC g i~ to initialize a repository (thanks to Steven Allen)
   - ~SPC m g y~ to find symbols (thanks to Daniel Ralston)
   - ~SPC g f d~ for =magit-diff= (thanks to Ag Ibragimov and bmag)
@@ -1592,28 +1589,31 @@ Other:
   - Get git permalink for a region (thanks to Roman Gonzalez):
     - ~SPC g l p~ opens browser with region permalink URL
     - ~SPC g l P~ adds region permalink URL to clipboard
-  - Moved =magit-find-file= from ~SPC g f f~ to ~SPC g f F~ (thanks to Hong Xu)
-- Added feature to toggle =evil-magit= based on editing style
-  (thanks to Muneeb Shaikh)
-- Added =use-package= for deferred loading of evil-magit
-  (thanks to Sylvain Benner)
-- Remove old evilification of magit buffers (thanks to Sylvain Benner)
-- Move evil-magit =use-package= hook declaration to pre-init
-  (thanks to Sylvain Benner)
-- Change =magit-svn-popup= keybinding to =~= (thanks to hornuda)
-- Added gitignore-templates (thanks to Ruslan Kamashev)
-- Added =helm-git-grep= (thanks to Evan Klitzke)
-- Enabled colors in =magit-log= (thanks to Thomas de Beauchêne)
-- Added magit buffers to useless buffers (thanks to Thomas de Beauchêne)
-- Fixed magit blame function name (thanks to Bjarke Vad Andersen)
-- Show magit-log-select and diff in two windows (thanks to duianto)
-- Fixed magit conflicting with golden-ratio (thanks Eric Zhang)
-- Hide with-editor mode-line indicator: =WE= (thanks to duianto)
-- Fixed magit blame in org buffers (thanks to Compro Prasad)
-- Deleted git-link and git-timemachine integration that has been superseded
-  by upstream changes (thanks to Miciah Dashiel Butler Masters)
-- Unfolded org headings to a target line when a .org file is opened from a Magit
-  diff or blame buffer (thanks to duianto and Miciah Masters)
+  - Moved =magit-find-file= to view a file at a specific branch or commit
+    from ~SPC g f f~ to ~SPC g f F~ (thanks to duianto and Hong Xu)
+- Fixes:
+  - Install magit-svn by default and activate with git-enable-magit-svn-plugin
+  - Added feature to toggle =evil-magit= based on editing style
+    (thanks to Muneeb Shaikh)
+  - Added =use-package= for deferred loading of evil-magit
+    (thanks to Sylvain Benner)
+  - Remove old evilification of magit buffers (thanks to Sylvain Benner)
+  - Move evil-magit =use-package= hook declaration to pre-init
+    (thanks to Sylvain Benner)
+  - Change =magit-svn-popup= keybinding to =~= (thanks to hornuda)
+  - Added gitignore-templates (thanks to Ruslan Kamashev)
+  - Added =helm-git-grep= (thanks to Evan Klitzke)
+  - Enabled colors in =magit-log= (thanks to Thomas de Beauchêne)
+  - Added magit buffers to useless buffers (thanks to Thomas de Beauchêne)
+  - Fixed magit blame function name (thanks to Bjarke Vad Andersen)
+  - Show magit-log-select and diff in two windows (thanks to duianto)
+  - Fixed magit conflicting with golden-ratio (thanks Eric Zhang)
+  - Hide with-editor mode-line indicator: =WE= (thanks to duianto)
+  - Fixed magit blame in org buffers (thanks to Compro Prasad)
+  - Deleted git-link and git-timemachine integration that has been superseded
+    by upstream changes (thanks to Miciah Dashiel Butler Masters)
+  - Unfolded org headings to a target line when a .org file is opened from a
+    Magit diff or blame buffer (thanks to duianto and Miciah Masters)
 **** Gnus
 - Key bindings:
   - Added ~g r~ for =gnus-group-get-new-news= (thanks to Matthew Leach)
