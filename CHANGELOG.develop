@@ -1712,6 +1712,8 @@ Other:
   (thanks to cjay, CthulhuDen and Magnus Therning)
 - Included =attrap= when =dante= is used (thanks to Pepe Iborra)
 **** Helm
+- New packages:
+  - =helm-ls-git= (thanks to duianto)
 - Improvements:
   - Load helm before =read-file-name= and =completing-read=
     (thanks duianto and thanks Miciah for a more elegant solution)
@@ -1751,6 +1753,7 @@ Other:
   - Added ~SPC s C~ for =helm-swoop-clear-cache= (thanks to Yang Qian)
   - Removed ~SPC s w w~ key binding for =helm-wikipedia-suggest=, which was
     removed upstream.
+  - ~SPC g f f~ for =helm-ls-git-ls= (thanks to duianto)
 - Fixes
   - Fixed signature of =spacemacs//display-helm-window= (thanks to Jack Kamm)
   - Fixed initialization by calling =helm-mode= when Helm is initialized=
