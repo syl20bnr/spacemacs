@@ -18,6 +18,7 @@
         helm-ag
         helm-descbinds
         helm-flx
+        (helm-ls-git :require git)
         helm-make
         helm-mode-manager
         helm-projectile
@@ -279,6 +280,11 @@
 (defun helm/init-helm-flx ()
   (use-package helm-flx
     :defer (spacemacs/defer)))
+
+(defun helm/init-helm-ls-git ()
+  (use-package helm-ls-git
+    :defer t
+    :init (spacemacs/set-leader-keys "gff" 'helm-ls-git-ls)))
 
 (defun helm/init-helm-make ()
   (use-package helm-make
