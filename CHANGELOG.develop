@@ -290,6 +290,8 @@ sane way, here is the complete list of changed key bindings
 ***** Vagrant
 - Key bindings:
   - Vagrant key bindings prefix is now ~SPC a V~.
+***** ycmd
+- The =ycmd= layer has been deleted and moved to the =c-c++= layer.
 *** New layers
 **** Email
 - notmuch (thanks to Francesc Elies Henar, Leonard Lausen, Willian Casarin,
@@ -372,8 +374,9 @@ sane way, here is the complete list of changed key bindings
 - =extra-langs= renamed to =major-modes= (thanks to Eivind Fonn)
 - =pdf-tools= renamed to =pdf=
 *** Removed layers
-- evil-cleverparens (moved to spacemacs-evil)
-- extra-langs (replaced by ad-hoc layers)
+- evil-cleverparens (moved to =spacemacs-evil=)
+- extra-langs (replaced by =ad-hoc= layers)
+- ycmd (moved to =c-c++=)
 *** Dotfile changes
 - New Variables:
   - New dotvariable =dotspacemacs-auto-generate-layout-names= (thanks to bmag)
