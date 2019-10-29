@@ -2369,6 +2369,8 @@ Other:
 - Key bindings:
   - add ~c~ to clear the buffer (thanks to Francesc Elies)
   - bind ~q~ to quit-window in view mode (thanks to Saulius Menkevičius)
+**** Prolog
+- Fixed autoloading error (thanks to jpathy)
 **** Purescript
 - Enabled =purescript-decl-scan-mode= when loading =purescript-mode=
   (thanks to Bjarke Vad Andersen)
