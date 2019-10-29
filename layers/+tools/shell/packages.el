@@ -315,9 +315,18 @@
     (progn
       (setq vterm-shell shell-default-term-shell)
 
+      (define-key vterm-mode-map (kbd "M-n") 'vterm-send-down)
+      (define-key vterm-mode-map (kbd "M-p") 'vterm-send-up)
+      (define-key vterm-mode-map (kbd "M-y") 'vterm-yank-pop)
+      (define-key vterm-mode-map (kbd "M-/") 'vterm-send-tab)
+
+      (evil-define-key 'insert vterm-mode-map (kbd "C-y") 'vterm-yank)
+
       (evil-define-key 'normal vterm-mode-map
         [escape] 'vterm--self-insert
-        [return] 'vterm--self-insert)
+        [return] 'vterm--self-insert
+        (kbd "p") 'vterm-yank
+        (kbd "u") 'vterm-undo)
 
       (add-hook 'vterm-mode-hook 'spacemacs/disable-hl-line-mode)
 

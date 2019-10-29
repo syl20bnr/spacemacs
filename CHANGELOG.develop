@@ -2612,6 +2612,18 @@ Other:
 - Disabled =semantic-idle-summary-mode= when =gtags= or =lsp= layer is enabled
   (thanks to bet4it)
 **** Shell
+- Key bindings:
+  - Added =vterm= bindings:
+    - ~M-n~     =vterm-send-down= (next command)
+    - ~M-p~     =vterm-send-up=   (previous command)
+    - ~M-y~     =vterm-yank-pop=  (previous paste)
+    - ~M-/~     =vterm-send-tab=  (hippie expand)
+    Evil insert state:
+    - ~C-y~     =vterm-yank=      (paste)
+    Evil normal state:
+    - ~p~       =vterm-yank=      (paste)
+    - ~u~       =vterm-undo=
+    (thanks to Ag Ibragimov)
 - Make =pop-shell= default mode more configurable (thanks to Tyoma Kostyuk)
 - Make =vterm= respect =shell-default-term-shell= (thanks to Tyoma Kostyuk)
 - Added support for =vterm= (thanks to deb0ch)
