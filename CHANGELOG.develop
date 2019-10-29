@@ -839,6 +839,9 @@ Other:
     - ~SPC l w S~ =spacemacs/single-win-workspace=
   - Added ~SPC t C-S-l~ =spacemacs/toggle-visual-line-navigation-globally=
     (thanks to Matt Kramer)
+  - Added visual-line-navigation keys (thanks to duianto)
+    - ~up~ =evil-previous-visual-line=
+    - ~down~ =evil-next-visual-line=
 - Improvements:
   - Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
     ~SPC w 4~ (thanks to Codruț Constantin Gușoi):
