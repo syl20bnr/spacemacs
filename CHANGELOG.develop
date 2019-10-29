@@ -1872,6 +1872,8 @@ Other:
   of =counsel-find-file= (thanks to Hong Xu)
 - Fixed broken =ivy-occur= (thanks to Carlos Ibáñez)
 - Fixed =counsel-git-grep= with input ~SPC s g P~ (thanks to Carlos Ibáñez)
+- Keep ~C-h~ binding in =counsel-find-file-map= only for hjkl navigation
+  (thanks to Hong Xu)
 **** Imenu-list
 - Changed ~SPC b i~ to ~SPC b t~ for =imenu= tree view
   (thansk to Sylvain Benner)
