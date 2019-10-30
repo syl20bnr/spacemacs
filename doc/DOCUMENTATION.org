@@ -1558,36 +1558,38 @@ Additionally all globally available toggles have a circled unicode symbols like
 =ⓟ=. Toggles specific to a major mode under the ~SPC m T~ prefix have plain
 squared symbols like =🅿=.
 
-| Key binding | Unicode | ASCII | Mode                                                                 |
-|-------------+---------+-------+----------------------------------------------------------------------|
-| ~SPC t -~   | =⊝=     | -     | [[https://www.emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]] mode                                                 |
-| ~SPC t 8~   | =⑧=     | 8     | toggle highlight of characters for long lines                        |
-| ~SPC t C-8~ | =⑧=     | 8     | global toggle highlight of characters for long lines                 |
-| ~SPC t C--~ | =⊝=     | -     | global centered cursor                                               |
-| ~SPC t a~   | =ⓐ=     | a     | auto-completion                                                      |
-| ~SPC t c~   | =ⓒ=     | c     | camel case motion with subword mode                                  |
-| =none=      | =ⓔ=     | e     | [[https://github.com/Somelauw/evil-org-mode][evil-org]] mode                                                        |
-| ~SPC t E e~ | =Ⓔe=    | Ee    | emacs editing style (holy mode)                                      |
-| ~SPC t E h~ | =Ⓔh=    | Eh    | hybrid editing style (hybrid mode)                                   |
-| ~SPC t f~   | =ⓕ=     | f     | fill-column-indicator mode                                           |
-| ~SPC t F~   | =Ⓕ=     | F     | auto-fill mode                                                       |
-| ~SPC t G~   | =Ⓖ=     | G     | [[http://spacemacs.org/layers/+tags/gtags/README.html][ggtags]] mode                                                          |
-| ~SPC t g~   | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                                                    |
-| ~SPC t h i~ | =ⓗi=    | hi    | toggle highlight indentation levels                                  |
-| ~SPC t h c~ | =ⓗc=    | hc    | toggle highlight indentation current column                          |
-| ~SPC t i~   | =ⓘ=     | i     | indentation guide                                                    |
-| ~SPC t C-i~ | =ⓘ=     | i     | global indentation guide                                             |
-| ~SPC t I~   | =Ⓘ=     | I     | aggressive indent mode                                               |
-| ~SPC t K~   | =Ⓚ=     | K     | which-key mode                                                       |
-| ~SPC t p~   | =ⓟ=     | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                                                     |
-| ~SPC t C-p~ | =ⓟ=     | p     | global smartparens                                                   |
-| ~SPC t s~   | =ⓢ=     | s     | syntax checking (flycheck)                                           |
-| ~SPC t S~   | =Ⓢ=     | S     | enabled in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell checking layer]] (flyspell)                           |
-| ~SPC t w~   | =ⓦ=     | w     | whitespace mode                                                      |
-| ~SPC t C-w~ | =ⓦ=     | w     | global whitespace                                                    |
-| ~SPC t W~   | =Ⓦ=     | W     | automatic whitespace cleanup (see =dotspacemacs-whitespace-cleanup=) |
-| ~SPC t C-W~ | =Ⓦ=     | W     | automatic whitespace cleanup globally                                |
-| ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
+| Key binding   | Unicode | ASCII | Mode                                                                 |
+|---------------+---------+-------+----------------------------------------------------------------------|
+| ~SPC t -~     | =⊝=     | -     | [[https://www.emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]] mode                                                 |
+| ~SPC t 8~     | =⑧=     | 8     | toggle highlight of characters for long lines                        |
+| ~SPC t C-8~   | =⑧=     | 8     | global toggle highlight of characters for long lines                 |
+| ~SPC t C--~   | =⊝=     | -     | global centered cursor                                               |
+| ~SPC t a~     | =ⓐ=     | a     | auto-completion                                                      |
+| ~SPC t c~     | =ⓒ=     | c     | camel case motion with subword mode                                  |
+| =none=        | =ⓔ=     | e     | [[https://github.com/Somelauw/evil-org-mode][evil-org]] mode                                                        |
+| ~SPC t E e~   | =Ⓔe=    | Ee    | emacs editing style (holy mode)                                      |
+| ~SPC t E h~   | =Ⓔh=    | Eh    | hybrid editing style (hybrid mode)                                   |
+| ~SPC t f~     | =ⓕ=     | f     | fill-column-indicator mode                                           |
+| ~SPC t F~     | =Ⓕ=     | F     | auto-fill mode                                                       |
+| ~SPC t G~     | =Ⓖ=     | G     | [[http://spacemacs.org/layers/+tags/gtags/README.html][ggtags]] mode                                                          |
+| ~SPC t g~     | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                                                    |
+| ~SPC t h i~   | =ⓗi=    | hi    | toggle highlight indentation levels                                  |
+| ~SPC t h c~   | =ⓗc=    | hc    | toggle highlight indentation current column                          |
+| ~SPC t i~     | =ⓘ=     | i     | indentation guide                                                    |
+| ~SPC t C-i~   | =ⓘ=     | i     | global indentation guide                                             |
+| ~SPC t I~     | =Ⓘ=     | I     | aggressive indent mode                                               |
+| ~SPC t K~     | =Ⓚ=     | K     | which-key mode                                                       |
+| ~SPC t L~     | =Ⓛ=     | L     | visual line navigation                                               |
+| ~SPC t C-S-l~ | =Ⓛ=     | L     | visual line navigation globally                                      |
+| ~SPC t p~     | =ⓟ=     | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                                                     |
+| ~SPC t C-p~   | =ⓟ=     | p     | global smartparens                                                   |
+| ~SPC t s~     | =ⓢ=     | s     | syntax checking (flycheck)                                           |
+| ~SPC t S~     | =Ⓢ=     | S     | enabled in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell checking layer]] (flyspell)                           |
+| ~SPC t w~     | =ⓦ=     | w     | whitespace mode                                                      |
+| ~SPC t C-w~   | =ⓦ=     | w     | global whitespace                                                    |
+| ~SPC t W~     | =Ⓦ=     | W     | automatic whitespace cleanup (see =dotspacemacs-whitespace-cleanup=) |
+| ~SPC t C-W~   | =Ⓦ=     | W     | automatic whitespace cleanup globally                                |
+| ~SPC t y~     | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
 
 ** Frame
 *** Title

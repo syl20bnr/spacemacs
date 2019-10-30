@@ -338,12 +338,7 @@ Examples:
 Add the following snippet to your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-  ;; Make evil-mode up/down operate in screen lines instead of logical lines
-  (define-key evil-motion-state-map "j" 'evil-next-visual-line)
-  (define-key evil-motion-state-map "k" 'evil-previous-visual-line)
-  ;; Also in visual mode
-  (define-key evil-visual-state-map "j" 'evil-next-visual-line)
-  (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
+  (spacemacs/toggle-visual-line-navigation-globally-on)
 #+END_SRC
 
 ** Disable evilification of a mode?
