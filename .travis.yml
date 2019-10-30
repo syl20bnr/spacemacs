@@ -2,6 +2,7 @@
 # TravisCI YAML file
 language: generic
 sudo: required
+dist: trusty
 services:
   - docker
 branches:
@@ -17,7 +18,7 @@ env:
   - BOT_EMAIL=emacspace@gmail.com
   - SPACEMACS_REPO_SLUG="syl20bnr/spacemacs"
 before_install:
-  - sudo apt-get install -y libgnutls-dev
+  - sudo apt-get install -y libgnutls26
 before_script:
   - docker pull jare/spacetools:latest
 script:
