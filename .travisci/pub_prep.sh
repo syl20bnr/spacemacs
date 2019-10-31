@@ -41,16 +41,6 @@ cd  ~/.emacs.d
 cp ./.travisci/.spacemacs ~/
 ln -sf ~/.emacs.d "${TRAVIS_BUILD_DIR}"
 
-fold_start "INSTALLING_${EVM_EMACS}"
-curl -fsSkL https://gist.github.com/rejeep/ebcd57c3af83b049833b/raw \
-     > /tmp/x.sh && source /tmp/x.sh
-evm install $EVM_EMACS --use --skip
-if [ $? -ne 0 ]; then
-    echo "Installation failed"
-    exit 2
-fi
-fold_end "INSTALLING_${EVM_EMACS}"
-
 fold_start "INSTALLING_DEPENDENCIES"
 emacs -batch -l init.el
 if [ $? -ne 0 ]; then
