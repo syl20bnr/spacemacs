@@ -266,9 +266,7 @@ that directory."
   "Generate a custom occur buffer for `counsel-git-grep'."
   (ivy-occur-grep-mode)
   (setq default-directory (ivy-state-directory ivy-last))
-  (let ((cands (if (boundp 'candidates)
-                   candidates
-                 ivy--old-cands))
+  (let ((cands (or candidates ivy--old-cands))
         (inhibit-read-only t))
     ;; Need precise number of header lines for `wgrep' to work.
     (insert (format "-*- mode:grep; default-directory: %S -*-\n\n\n"
