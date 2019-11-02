@@ -2024,6 +2024,7 @@ Other:
 - Fixed a delay when declaring prefixes for mode (thanks to Thanh Vuong)
 - Required =helm= or =treemacs= to download =helm-lsp= or =lsp-treemacs=
   (thanks to Steven Allen)
+- Required =yasnippet= (thanks to Ivan Yonchovski)
 **** Debug Adapter Protocol (DAP)
 - Layer variables:
   - Added variable =dap-enable-mouse-support=
