@@ -68,6 +68,12 @@
     (`lsp-ccls (spacemacs//c-c++-setup-clang-format))
     (`lsp-cquery (spacemacs//c-c++-setup-clang-format))))
 
+(defun spacemacs//c-c++-setup-semantic ()
+  "Conditionally setup semantic based on backend."
+  (pcase (spacemacs//c-c++-backend)
+    (`rtags (spacemacs//c-c++-setup-rtags-semantic))
+    (`ycmd (spacemacs//c-c++-setup-ycmd-semantic))))
+
 
 ;; lsp
 
