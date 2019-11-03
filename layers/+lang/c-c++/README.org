@@ -195,12 +195,16 @@ accurate but also slower method is to use overlays. To use overlays set
 the layer variable =c-c++-lsp-semantic-highlight-method= to ='overlay=.
 
 ***** Cache directory (absolute or relative)
-Currently only available for =lsp-ccls= and =lps-cquery=.
+=clangd= cache directoy is =.clangd= and cannot be changed.
 
-All LSP backends are configured to store their index cache in the subdirectory:
-=.emacs.d/cache=. This can be overridden by specifying an explicit
-=c-c++-lsp-cache-dir=. Setting this value to a relative path will cause the
-index cache to be placed in a subdirectory in your current project root.
+=ccls= default directory is =.ccls-cache=, it can be changed by setting the
+=:cache= option in the variable =ccls-initialization-options=.
+
+=cquery= cache directory is set by default to be
+=<emacs_config_directory>/.cache/lsp-cquery=. You can change this setting by
+setting the layer variable =c-c++-lsp-cquery-cache-directory= to either an
+absolute or relative directory. Relative directory is relative to the current
+project root directory.
 
 ***** Additional configuration options
 See the full list of configuration options you can set at:
