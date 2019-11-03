@@ -204,8 +204,11 @@
   (spacemacs|use-package-add-hook projectile
     :post-config
     (progn
-      ;; Ignore lsp cache dir, in case user has opted for cache within project source tree
-      (add-to-list 'projectile-globally-ignored-directories c-c++-lsp-cache-dir)
+      (when c-c++-lsp-cquery-cache-directory
+        ;; Ignore lsp cache dir, in case user has opted for cache within project
+        ;; source tree
+        (add-to-list 'projectile-globally-ignored-directories
+                     c-c++-lsp-cquery-cache-directory))
       (when c-c++-adopt-subprojects
         (setq projectile-project-root-files-top-down-recurring
               (append '("compile_commands.json"

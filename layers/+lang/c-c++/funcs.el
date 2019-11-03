@@ -93,14 +93,6 @@
 (defun spacemacs//c-c++-setup-lsp-ccls ()
   "Setup LSP ccls."
   (require 'ccls)
-  ;; configuration
-  (let ((cache-dir
-         (if (null c-c++-lsp-cache-dir)
-             (concat spacemacs-cache-directory "lsp-ccls")
-           (concat (file-truename (file-name-as-directory c-c++-lsp-cache-dir))
-                   "lsp-ccls"))))
-    (append ccls-initialization-options
-            `(:cache (:directory ,cache-dir))))
 
   ;; semantic highlight
   (when c-c++-lsp-enable-semantic-highlight
@@ -189,10 +181,10 @@
   (require 'cquery)
   ;; configuration
   (setq cquery-cache-dir
-        (if (null c-c++-lsp-cache-dir)
+        (if (null c-c++-lsp-cquery-cache-directory)
             (concat spacemacs-cache-directory "lsp-cquery")
-          (concat (file-truename (file-name-as-directory c-c++-lsp-cache-dir))
-                  "lsp-cquery")))
+          (concat (file-truename (file-name-as-directory
+                                  c-c++-lsp-cquery-cache-directory)))))
 
   ;; semantic highlight
   (when c-c++-lsp-enable-semantic-highlight
