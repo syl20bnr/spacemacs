@@ -1494,6 +1494,71 @@
       expected
       (configuration-layer/make-package pkg 'layer-make-pkg-11)))))
 
+(ert-deftest test-make-package--make-package-requires-with-single-symbol ()
+  (let* (configuration-layer--used-layers
+         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (input '(testpkg :location local :step pre :requires requiredpkg))
+         (expected (cfgl-package "testpkg"
+                                 :name 'testpkg
+                                 :owners '(layer-make-pkg-12)
+                                 :location 'local
+                                 :requires '(requiredpkg)
+                                 :pre-layers nil
+                                 :post-layers nil
+                                 :step 'pre
+                                 :excluded nil)))
+    (defun layer-make-pkg-12/init-testpkg nil)
+    (helper--add-layers
+     `(,(cfgl-layer "layer-make-pkg-12" :name 'layer-make-pkg-12)) t)
+    (should
+     (equal
+      expected
+      (configuration-layer/make-package input 'layer-make-pkg-12)))))
+
+(ert-deftest test-make-package--error-when-make-package-requires-with-multiple-symbols-no-list ()
+  (let* (configuration-layer--used-layers
+         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (input '(testpkg :location local :step pre :requires pkg1 pkg2 pkg3))
+         (expected (cfgl-package "testpkg"
+                                 :name 'testpkg
+                                 :owners '(layer-make-pkg-13)
+                                 :location 'local
+                                 :requires '(pkg1 pkg2 pkg3)
+                                 :pre-layers nil
+                                 :post-layers nil
+                                 :step 'pre
+                                 :excluded nil)))
+    (defun layer-make-pkg-13/init-testpkg nil)
+    (helper--add-layers
+     `(,(cfgl-layer "layer-make-pkg-13" :name 'layer-make-pkg-13)) t)
+    ;; (message "%s" (configuration-layer/make-package input 'layer-make-pkg-13))
+    (should
+     (not (equal
+       expected
+       (configuration-layer/make-package input 'layer-make-pkg-13))))))
+
+(ert-deftest test-make-package--make-package-requires-list-when-multiple-symbols ()
+  (let* (configuration-layer--used-layers
+         (configuration-layer--indexed-layers (make-hash-table :size 1024))
+         (input '(testpkg :location local :step pre :requires (pkg1 pkg2 pkg3)))
+         (expected (cfgl-package "testpkg"
+                                 :name 'testpkg
+                                 :owners '(layer-make-pkg-14)
+                                 :location 'local
+                                 :requires '(pkg1 pkg2 pkg3)
+                                 :pre-layers nil
+                                 :post-layers nil
+                                 :step 'pre
+                                 :excluded nil)))
+    (defun layer-make-pkg-14/init-testpkg nil)
+    (helper--add-layers
+     `(,(cfgl-layer "layer-make-pkg-14" :name 'layer-make-pkg-14)) t)
+    (message "%s" (configuration-layer/make-package input 'layer-make-pkg-14))
+    (should
+     (equal
+      expected
+      (configuration-layer/make-package input 'layer-make-pkg-14)))))
+
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//filter-distant-packages
 ;; ---------------------------------------------------------------------------
