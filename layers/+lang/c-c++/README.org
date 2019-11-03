@@ -19,6 +19,7 @@
       - [[#configuration][Configuration]]
         - [[#basic][Basic]]
         - [[#selecting-an-alternate-lsp-server][Selecting an alternate LSP server]]
+        - [[#path-to-lsp-server-executables][Path to LSP server executables]]
         - [[#semantic-highlighting][Semantic highlighting]]
         - [[#cache-directory-absolute-or-relative][Cache directory (absolute or relative)]]
         - [[#additional-configuration-options][Additional configuration options]]
@@ -43,7 +44,7 @@
       - [[#gotomember][goto/member]]
     - [[#debugger][debugger]]
   - [[#rtags-1][RTags]]
-  - [[#additional-key-bindings][Additional key-bindings]]
+  - [[#additional-key-bindings][Additional key bindings]]
     - [[#disassemble][Disassemble]]
     - [[#formatting-clang-format][Formatting (clang-format)]]
     - [[#open-matching-files][Open matching files]]
@@ -169,6 +170,17 @@ another supported backend, for instance =lsp-ccls=:
                  '((c-c++ :variables c-c++-backend 'lsp-ccls)))
  #+END_SRC
 
+***** Path to LSP server executables
+LSP expects to find the LSP server executables in your =PATH=. If you want to
+specify the location of an executable then you need to set the appropriate
+variable:
+
+| Server | Variable name                   |
+|--------+---------------------------------|
+| clangd | =lsp-clients-clangd-executable= |
+| ccls   | =ccls-executable=               |
+| cquery | =cquery-executable=             |
+
 ***** Semantic highlighting
 Currently only available for =lsp-ccls= and =lps-cquery=. Semantic highlighting
 can precisely highlight identifiers.
@@ -201,7 +213,6 @@ See the full list of configuration options you can set at:
                  '((c-c++ :variables
                           c-c++-adopt-subprojects t
                           c-c++-backend 'lsp-ccls
-                          c-c++-lsp-executable (file-truename "~/dev/cpp/ccls/Release/ccls")
                           c-c++-lsp-enable-semantic-highlight 'rainbow)))
  #+END_SRC
 
