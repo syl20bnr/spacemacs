@@ -374,8 +374,10 @@ is not visible. Otherwise delegates to regular Emacs next-error."
 (defun spacemacs/last-error ()
   "Go to last flycheck or standard emacs error."
   (interactive)
-  (spacemacs/next-error)
-  (spacemacs/last-error))
+  (if (save-excursion (spacemacs/next-error))
+      (progn
+        (evil-goto-line)
+        (spacemacs/previous-error))))
 
 (defun spacemacs/previous-error (&optional n reset)
   "Dispatch to flycheck or standard emacs error."

@@ -190,7 +190,7 @@
   'spacemacs/theme-transient-state/spacemacs/cycle-spacemacs-theme-backward)
 ;; errors ---------------------------------------------------------------------
 (spacemacs/set-leader-keys
-  "el" 'spacemacs/last-error
+  "ez" 'spacemacs/last-error
   "en" 'spacemacs/next-error
   "eN" 'spacemacs/previous-error
   "ep" 'spacemacs/previous-error)
@@ -418,13 +418,13 @@ respond to this toggle."
   :on (setq column-number-indicator-zero-based t)
   :off (setq column-number-indicator-zero-based nil)
   :on-message (concat
-                "Column indexing starts at 0 (current column is "
-                (number-to-string (current-column))
-                ")")
+               "Column indexing starts at 0 (current column is "
+               (number-to-string (current-column))
+               ")")
   :off-message (concat
-                 "Column indexing starts at 1 (current column is "
-                 (number-to-string (1+ (current-column)))
-                 ")")
+                "Column indexing starts at 1 (current column is "
+                (number-to-string (1+ (current-column)))
+                ")")
   :evil-leader "tz")
 
 (spacemacs|add-toggle transparent-frame
