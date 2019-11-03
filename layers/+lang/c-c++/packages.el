@@ -35,13 +35,13 @@
         (cquery :requires lsp-mode)
         dap-mode
         ;; rtags
-        (company-rtags :requires company rtags)
+        (company-rtags :requires (company rtags))
         counsel-gtags
-        (flycheck-rtags :requires flycheck rtags)
+        (flycheck-rtags :requires (flycheck rtags))
         ggtags
         helm-gtags
-        (helm-rtags :requires helm rtags)
-        (ivy-rtags :requires ivy rtags)
+        (helm-rtags :requires (helm rtags))
+        (ivy-rtags :requires (ivy rtags))
         rtags
         ;; ycmd
         (company-ycmd :requires company)
