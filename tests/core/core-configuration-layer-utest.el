@@ -699,7 +699,7 @@
     (should (null (configuration-layer/package-used-p
                    (nth (random 3) layer1-packages))))))
 
-(ert-deftest test-package-usedp--used-pkg-depends-on-used-pkg-can-be-used ()
+(ert-deftest test-package-usedp--used-pkg-requires-used-pkg-can-be-used ()
   (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
          (layer1-packages '(pkg1))
          (layer2 (cfgl-layer "layer2" :name 'layer2 :dir "/path/"))
@@ -715,7 +715,7 @@
      'used)
     (should (configuration-layer/package-used-p 'pkg2))))
 
-(ert-deftest test-package-usedp--used-pkg3-depends-on-used-pkg2-depends-on-used-pkg1-can-be-used ()
+(ert-deftest test-package-usedp--used-pkg3-requires-used-pkg2-depends-on-used-pkg1-can-be-used ()
   (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
          (layer1-packages '(pkg1))
          (layer2 (cfgl-layer "layer2" :name 'layer2 :dir "/path/"))
@@ -735,7 +735,7 @@
      'used)
     (should (configuration-layer/package-used-p 'pkg3))))
 
-(ert-deftest test-package-usedp--used-pkg2-depends-on-unused-pkg1-cannot-be-used ()
+(ert-deftest test-package-usedp--used-pkg2-requires-unused-pkg1-cannot-be-used ()
   (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
          (layer1-packages '(pkg1))
          (layer2 (cfgl-layer "layer2" :name 'layer2 :dir "/path/"))
@@ -753,7 +753,7 @@
      'used)
     (should (null (configuration-layer/package-used-p 'pkg2)))))
 
-(ert-deftest test-package-usedp--used-pkg3-depends-on-used-pkg2-depends-on-unused-pkg1-cannot-be-used ()
+(ert-deftest test-package-usedp--used-pkg3-requires-used-pkg2-requires-unused-pkg1-cannot-be-used ()
   (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path/"))
          (layer1-packages '(pkg1))
          (layer2 (cfgl-layer "layer2" :name 'layer2 :dir "/path/"))
@@ -778,12 +778,12 @@
 ;; configuration-layer//package-reqs-used-p
 ;; ---------------------------------------------------------------------------
 
-(ert-deftest test-package-reqs-used-p--no-reqs ()
+(ert-deftest test-package-reqs-used-p--no-requires ()
   (let ((pkg-a (cfgl-package "pkg-a"
                              :name 'pkg-a)))
     (should (configuration-layer//package-reqs-used-p pkg-a))))
 
-(ert-deftest test-package-reqs-used-p--reqs ()
+(ert-deftest test-package-reqs-used-p--requires-used-package ()
   (let ((pkg-a (cfgl-package "pkg-a"
                              :name 'pkg-a
                              :requires '(pkg-b)))
@@ -798,7 +798,7 @@
     (configuration-layer//add-layer owner 'used)
     (should (configuration-layer//package-reqs-used-p pkg-a))))
 
-(ert-deftest test-package-reqs-used-p--depends-not-owner ()
+(ert-deftest test-package-reqs-used-p--requires-unused-package ()
   (let ((pkg-a (cfgl-package "pkg-a"
                              :name 'pkg-a
                              :requires '(pkg-b)
