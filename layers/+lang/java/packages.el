@@ -22,7 +22,7 @@
         maven-test-mode
         (meghanada :toggle (not (version< emacs-version "25.1")))
         mvn
-        (lsp-java :requires lsp-mode lsp-ui company-lsp dap-mode)
+        (lsp-java :requires lsp-mode)
         org
         ))
 
