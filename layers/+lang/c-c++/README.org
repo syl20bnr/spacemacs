@@ -54,7 +54,7 @@ This layer adds configuration for C/C++ language.
 
 ** Features:
 - Multiple backends support:
-  - LSP with either =clangd=,  [[https://github.com/cquery-project/cquery][cquery]] or [[https://github.com/MaskRay/ccls][ccls]]
+  - LSP with either =clangd=, [[https://github.com/cquery-project/cquery][cquery]] or [[https://github.com/MaskRay/ccls][ccls]]
   - [[https://github.com/Andersbakken/rtags][rtags]] (gtags)
   - [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]]
 - Support for debuggers [[https://github.com/realgud/realgud][realgud]] and [[https://github.com/emacs-lsp/dap-mode][dap]] (with LSP backend)
@@ -64,7 +64,7 @@ This layer adds configuration for C/C++ language.
 - Support for disassembly of code with [[https://github.com/jart/disaster][disaster]].
 - =sematic= layer integration:
   - Function or variable definition at the bottom
-  - Current function cursor is in at the top. See [[https://github.com/tuhdo/semantic-stickyfunc-enhance][stickyfunc-demos]] for
+  - Current function cursor is at the top. See [[https://github.com/tuhdo/semantic-stickyfunc-enhance][stickyfunc-demos]] for
     demos in some programming languages.
   - Support common refactoring with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]. See [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][srefactor-demos]] for
     demonstration of refactoring features.
@@ -96,8 +96,8 @@ Alternatively the =lsp-clangd= backend will be automatically chosen if the layer
 
 *Note:* It is recommended to use a modern backend like the =lsp= ones.
 
-Backend can be chosen on a per project basis using directory local variables
-(files named =.dir-locals.el= at the root of a project), an example to use the
+The backend can be chosen on a per project basis using directory local variables
+(files named =.dir-locals.el= at the root of a project), an example is to use the
 =lsp-ccls= backend:
 
 #+BEGIN_SRC elisp
@@ -130,14 +130,14 @@ Install one (or more) of the following (=clangd= is used by default):
 
 ***** clangd
  Install =clang= using a binary distribution downloaded from the [[http://releases.llvm.org/download.html][LLVM releases
- page]] or via your package manager. This is the default implementation used by the
- emacs =lsp-mode= package and probably the easiest to install.
+ page]] or via your package manager. This is the default implementation that's used by the
+ Emacs =lsp-mode= package and probably the easiest to install.
  - [[https://clang.llvm.org/extra/clangd/Extensions.html][clangd protocol extensions page]]
 
 ***** ccls server
 Install the =ccls= server. See [[https://github.com/MaskRay/ccls/wiki][instructions]]. This is currently the most fully
 featured implementation, including semantic highlighting and some navigation/
-introspection features not provided by clangd.
+introspection features that are not provided by clangd.
 
 Note that prebuild binaries exist for most Linux distros and MacOS using
 Homebrew.
@@ -147,7 +147,7 @@ Install the =cquery= server. See [[https://github.com/cquery-project/cquery/wiki
 unmaintained and continued support is provided here purely for existing users.
 It is recommended to use the =lsp-ccls= backend instead if you can.
 
-Note that prebuild binaries exist for most Linux distros and MacOS using
+Note that prebuilt binaries exist for most Linux distros and MacOS using
 Homebrew.
 
 **** Configuration
@@ -177,18 +177,18 @@ Semantic highlighting is disabled by default. To enable it set the layer
 =c-c++-lsp-enable-semantic-highlight= to non-nil. It is possible to give a
 different color for each identifier by setting the variable to ='rainbow=.
 
-When semantic highlighting is enabled the method used to highlight the text
-relies on the =font-lock= mechanism of Emacs which is the fastest. More
-accurate but also slower method is to use the overlays. To use the overlays set
+When semantic highlighting is enabled then the method that's used to highlight the text
+relies on Emacs' fastest =font-lock= mechanism. A more
+accurate but also slower method is to use overlays. To use overlays set
 the layer variable =c-c++-lsp-semantic-highlight-method= to ='overlay=.
 
 ***** Cache directory (absolute or relative)
 Currently only available for =lsp-ccls= and =lps-cquery=.
 
-All LSP backends are configured to store their index cache in a subdirectory of
+All LSP backends are configured to store their index cache in the subdirectory:
 =.emacs.d/cache=. This can be overridden by specifying an explicit
 =c-c++-lsp-cache-dir=. Setting this value to a relative path will cause the
-index cache to be placed in a subdirectory of your current project root.
+index cache to be placed in a subdirectory in your current project root.
 
 ***** Additional configuration options
 See the full list of configuration options you can set at:
@@ -220,7 +220,9 @@ rtags is a well established clang-based source code indexing tool.
 
 **** External dependencies
 Install the RTags server via [[https://formulae.brew.sh/formula/rtags][homebrew]], the [[https://aur.archlinux.org/packages/rtags/][aur]] or from source according to the
-instructions [[https://github.com/Andersbakken/rtags][here]]. N.B. RTags is not supported on Windows at the time of
+instructions [[https://github.com/Andersbakken/rtags][here]].
+
+*Note:* RTags is not supported on Windows at the time of
 writing, although there is an [[https://github.com/Andersbakken/rtags/issues/770][open issue with some recent activity]] on github.
 
 **** Configuration
@@ -232,8 +234,8 @@ To enable support for =rtags=, set the layer variable =c-c++-backend=:
  #+END_SRC
 
 This will also enable =company-rtags= to be used as a backend for
-auto-completion (when =auto-completion= layer is included).
-To prevent this, while retaining the rest of Rtags functionality,
+auto-completion (when the =auto-completion= layer is enabled).
+To prevent this, while retaining the rest of Rtags' functionality,
 set the variable =c-c++-rtags-completion= to =nil=:
 
  #+BEGIN_SRC emacs-lisp
@@ -244,8 +246,8 @@ set the variable =c-c++-rtags-completion= to =nil=:
  #+END_SRC
 
 ** Default mode for header files
-Mode for header files is auto detected by `c-or-c++-mode' in Emacs > 26.1+.
-Older Emacs will open header files in =c-mode= by default, you can open them in
+The mode for header files is auto detected by `c-or-c++-mode' in Emacs > 26.1+.
+Older versions of Emacs will open header files in =c-mode= by default, you can open them in
 =c++-mode= by setting the variable =c-c++-default-mode-for-headers= as follow.
 
 #+BEGIN_SRC emacs-lisp
@@ -255,7 +257,7 @@ Older Emacs will open header files in =c-mode= by default, you can open them in
 
 *Note:* To set the variable for a given project, create a directory local
 variable at the root of your project. More info on directory local variables
-can be found in the [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Directory-Local-Variables.html][dir-locals]].
+can be found in the manual: [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Directory-Local-Variables.html][dir-locals]].
 
 ** Organize file header includes on save
 To organize the file header includes on save, set the layer variable
@@ -267,11 +269,11 @@ To organize the file header includes on save, set the layer variable
 #+END_SRC
 
 ** clang-format
-[[http://clang.llvm.org/docs/ClangFormat.html][clang-format]] allows reformatting either a selected region of code
+[[http://clang.llvm.org/docs/ClangFormat.html][clang-format]] allows for reformatting either a selected region of code
 (=clang-format-region=) or a whole buffer (=clang-format-buffer=) according to a
 style defined in a =.clang-format= file. This file is either located in the same
-directory as the file being edited, or any of its parent directories. If no
-=.clang-format= is found, then a default style will be used.
+directory as the file being edited, or in any of its parent directories. If no
+=.clang-format= file is found, then a default style will be used.
 
 To enable automatic buffer formatting on save, set the variable
 =c-c++-enable-clang-format-on-save= to =t=:
@@ -331,11 +333,10 @@ generally applicable.
 * Key bindings
 
 ** LSP
-The default key bindings for LSP implementations are defined by/documented in
+The default key bindings for the LSP implementations are defined and documented in
 the [[file:../../+tools/lsp/README.org][LSP layer]].
 
 *** cquery / ccls
-The key bindings listed below are in addition to
 A ~[ccls]~ or ~[cquery]~ suffix indicates that the binding is for the indicated backend only.
 
 **** backend (language server)
@@ -459,13 +460,12 @@ A ~[ccls]~ or ~[cquery]~ suffix indicates that the binding is for the indicated 
 | ~SPC m g X~ | fix fixit at point              |
 | ~SPC m g Y~ | cycle overlays on screen        |
 
-** Additional key-bindings
+** Additional key bindings
 *** Disassemble
 
 | Key binding | Description                      |
 |-------------+----------------------------------|
 | ~SPC m D~   | disaster: disassemble c/c++ code |
-|             |                                  |
 
 *** Formatting (clang-format)
 

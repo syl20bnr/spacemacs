@@ -121,7 +121,8 @@
   (spacemacs/lsp-define-extensions
    "c-c++" "lsp-ccls"
    'base "$ccls/inheritance")
-  ;;ccls features without a cquery analogue...
+
+  ;; ccls features without a cquery analogue...
   (spacemacs/lsp-define-extensions
    "c-c++" "lsp-ccls"
    'derived "$ccls/inheritance" '(:derived t))
@@ -152,7 +153,6 @@
       ;; members
       "gmh" 'ccls-member-hierarchy)
 
-    ;;Replace this with lsp-goto-implementation in lsp-layer?
     (spacemacs/lsp-bind-extensions-for-mode
      mode "c-c++" "lsp-ccls"
      "&" 'refs-address
@@ -234,7 +234,6 @@
       ;; members
       "gmh" 'cquery-member-hierarchy)
 
-    ;;Replace this with lsp-goto-implementation in lsp-layer?
     (spacemacs/lsp-bind-extensions-for-mode
      mode "c-c++" "lsp-cquery"
      "&" 'refs-address
@@ -263,7 +262,6 @@
 (defun spacemacs//c-c++-setup-lsp-dap ()
   "Setup DAP integration."
   (require 'dap-gdb-lldb))
-
 
 (defun spacemacs//c-c++-setup-lsp-flycheck ()
   "Setup LSP syntax checking."

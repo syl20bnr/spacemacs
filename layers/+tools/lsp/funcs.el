@@ -128,8 +128,8 @@
   "Bind extensions under the appropriate prefix(es) for the major-mode MODE.
 MODE should be a quoted symbol corresponding to a valid major mode.
 
-LAYER-NAME is the name string of the layer
-BACKEND-NAME is the name string of the back-end set for the layer
+LAYER-NAME is a string, the name of the layer
+BACKEND-NAME is a string, the name of the backend that's set for the layer
 KEY is a string corresponding to a key sequence
 KIND is a quoted symbol corresponding to an extension defined using
 `lsp-define-extensions'."
@@ -159,8 +159,8 @@ KIND is a quoted symbol corresponding to an extension defined using
   "Bind extensions under the appropriate prefix(es) for the major-mode MODE.
 
 MODE is a quoted symbol corresponding to a valid major mode.
-LAYER-NAME is the name string of the layer
-BACKEND-NAME is the name string of the back-end set for the layer
+LAYER-NAME is a string, the name of the layer
+BACKEND-NAME is a string, the name of the backend that's set for the layer
 KEY is a string corresponding to a key sequence
 KIND is a quoted symbol corresponding to an extension defined using
 `lsp-define-extensions'.
@@ -180,7 +180,7 @@ BINDINGS is other KEY and KIND to create other key bindings."
                                         &optional extra)
   "Wrap backend-specific LSP extensions.
 
-This function uses using `lsp-find-custom' and `lsp-ui-peek-find-custom'.
+This function uses `lsp-find-custom' and `lsp-ui-peek-find-custom'.
 The function names are defined in `spacemacs//lsp-extension-name.'"
   (dolist (nav-mode '("find" "peek"))
     (if extra
@@ -198,8 +198,8 @@ Examples of return name:
   - spacemacs/c-c++-lsp-clangd-find-clangd-other-file
   - spacemacs/c-c++-lsp-clangd-peek-clangd-other-file
 
-LAYER-NAME is the name string of the layer
-BACKEND-NAME is the name string of the back-end set for the layer
+LAYER-NAME is a string, the name of the layer
+BACKEND-NAME is a string, the name of the backend that's set for the layer
 NAV-MODE is a string with value `peek' or `find'
 KIND is a quoted symbol corresponding to an extension defined using
 `lsp-define-extensions'."
@@ -215,13 +215,13 @@ KIND is a quoted symbol corresponding to an extension defined using
                                                &optional extra)
   "Helper function to define custom LSP extensions.
 
-LAYER-NAME is the name string of the layer
-BACKEND-NAME is the name string of the back-end set for the layer
+LAYER-NAME is a string, the name of the layer
+BACKEND-NAME is a string, the name of the backend that's set for the layer
 NAV-MODE is a string with value `peek' or `find'
 KIND is a quoted symbol corresponding to an extension defined using
 `lsp-define-extensions'.
 REQUEST is a string defining the request
-EXTRA is an additional parameter pass to LSP function"
+EXTRA is an additional parameter that's passed to the LSP function"
   (let ((lsp-extension-fn (if (equal nav-mode "find")
                               'lsp-find-locations
                             'lsp-ui-peek-find-custom))
