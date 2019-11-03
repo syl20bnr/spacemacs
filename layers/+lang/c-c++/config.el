@@ -30,7 +30,7 @@ If it is a relative path then it is relative to the project root.
 Notes:
 - The name of the selected LSP backend is automatically appended to this
 path.
-- This variable has no effect with `lsp-clangd' backend.")
+- This variable has no effect with the `lsp-clangd' backend.")
 
 (defvar c-c++-lsp-enable-semantic-highlight nil
   "If non-nil then enable semantic highlighting.
