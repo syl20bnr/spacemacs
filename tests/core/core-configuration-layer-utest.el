@@ -439,6 +439,114 @@
     (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)) t)
     (should (not (cfgl-package-used-p pkg)))))
 
+;; method: cfgl-package-reqs-satisfied-p
+
+(ert-deftest test-cfgl-package-reqs-satisfied-p--ok-with-single-required-used-enabled-package ()
+  (let ((layer1 (cfgl-layer "layer1" :name 'layer1))
+        (layer2 (cfgl-layer "layer2" :name 'layer2))
+        (pkg1 (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1) :requires '(pkg2)))
+        (pkg2 (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2)))
+        configuration-layer--used-packages
+        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (helper--add-layers (list layer1 layer2) t)
+    (helper--add-packages (list pkg1 pkg2) t)
+    (should (cfgl-package-reqs-satisfied-p pkg1))))
+
+(ert-deftest test-cfgl-package-reqs-satisfied-p--ok-with-single-required-unused-enabled-package ()
+  (let ((layer1 (cfgl-layer "layer1" :name 'layer1))
+        (layer2 (cfgl-layer "layer2" :name 'layer2))
+        (pkg1 (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1) :requires '(pkg2)))
+        (pkg2 (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2)))
+        configuration-layer--used-layers
+        configuration-layer--used-packages
+        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+    (helper--add-layers (list layer1) t)
+    (helper--add-layers (list layer2))
+    (helper--add-packages (list pkg1) t)
+    (helper--add-packages (list pkg2))
+    (should (cfgl-package-reqs-satisfied-p pkg1))))
+
+(ert-deftest test-cfgl-package-reqs-satisfied-p--not-ok-with-single-required-used-not-enabled-package ()
+  (let ((layer1 (cfgl-layer "layer1" :name 'layer1))
+        (layer2 (cfgl-layer "layer2" :name 'layer2))
+        (pkg1 (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1) :requires '(pkg2)))
+        (pkg2 (cfgl-package "pkg2" :name 'pkg2 :toggle nil :owners '(layer3)))
+        configuration-layer--used-packages
+        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (helper--add-layers (list layer1 layer2) t)
+    (helper--add-packages (list pkg1 pkg2) t)
+    (should (not (cfgl-package-reqs-satisfied-p pkg1)))))
+
+(ert-deftest test-cfgl-package-reqs-satisfied-p--not-ok-with-single-required-not-existing-package ()
+  (let ((layer1 (cfgl-layer "layer1" :name 'layer1))
+        (pkg1 (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1) :requires '(pkg2)))
+        configuration-layer--used-packages
+        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (helper--add-layers (list layer1) t)
+    (helper--add-packages (list pkg1) t)
+    (should (not (cfgl-package-reqs-satisfied-p pkg1)))))
+
+(ert-deftest test-cfgl-package-reqs-satisfied-p--ok-with-multiple-required-used-enabled-package ()
+  (let ((layer1 (cfgl-layer "layer1" :name 'layer1))
+        (layer2 (cfgl-layer "layer2" :name 'layer2))
+        (layer3 (cfgl-layer "layer3" :name 'layer3))
+        (pkg1 (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1) :requires '(pkg2 pkg3)))
+        (pkg2 (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2)))
+        (pkg3 (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3)))
+        configuration-layer--used-packages
+        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (helper--add-layers (list layer1 layer2 layer3) t)
+    (helper--add-packages (list pkg1 pkg2 pkg3) t)
+    (should (cfgl-package-reqs-satisfied-p pkg1))))
+
+(ert-deftest test-cfgl-package-reqs-satisfied-p--ok-with-multiple-required-unused-enabled-package ()
+  (let ((layer1 (cfgl-layer "layer1" :name 'layer1))
+        (layer2 (cfgl-layer "layer2" :name 'layer2))
+        (layer3 (cfgl-layer "layer3" :name 'layer3))
+        (pkg1 (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1) :requires '(pkg2 pkg3)))
+        (pkg2 (cfgl-package "pkg2" :name 'pkg2 :owners '(layer2)))
+        (pkg3 (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3)))
+        configuration-layer--used-layers
+        configuration-layer--used-packages
+        (configuration-layer--indexed-layers (make-hash-table :size 1024))
+        (configuration-layer--indexed-packages (make-hash-table :size 2048)))
+    (helper--add-layers (list layer1 layer3) t)
+    (helper--add-layers (list layer2))
+    (helper--add-packages (list pkg1 pkg3) t)
+    (helper--add-packages (list pkg2))
+    (should (cfgl-package-reqs-satisfied-p pkg1))))
+
+(ert-deftest test-cfgl-package-reqs-satisfied-p--not-ok-with-multiple-required-used-not-enabled-package ()
+  (let ((layer1 (cfgl-layer "layer1" :name 'layer1))
+        (layer2 (cfgl-layer "layer2" :name 'layer2))
+        (layer3 (cfgl-layer "layer3" :name 'layer3))
+        (pkg1 (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1) :requires '(pkg2 pkg3)))
+        (pkg2 (cfgl-package "pkg2" :name 'pkg2 :toggle nil :owners '(layer3)))
+        (pkg3 (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3)))
+        configuration-layer--used-packages
+        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (helper--add-layers (list layer1 layer2 layer3) t)
+    (helper--add-packages (list pkg1 pkg2 pkg3) t)
+    (should (not (cfgl-package-reqs-satisfied-p pkg1)))))
+
+(ert-deftest test-cfgl-package-reqs-satisfied-p--not-ok-with-multiple-required-not-existing-package ()
+  (let ((layer1 (cfgl-layer "layer1" :name 'layer1))
+        (layer3 (cfgl-layer "layer3" :name 'layer3))
+        (pkg1 (cfgl-package "pkg1" :name 'pkg1 :owners '(layer1) :requires '(pkg2 pkg3)))
+        (pkg3 (cfgl-package "pkg3" :name 'pkg3 :owners '(layer3)))
+        configuration-layer--used-packages
+        (configuration-layer--indexed-packages (make-hash-table :size 2048))
+        (configuration-layer--indexed-layers (make-hash-table :size 1024)))
+    (helper--add-layers (list layer1 layer3) t)
+    (helper--add-packages (list pkg1 pkg3) t)
+    (should (not (cfgl-package-reqs-satisfied-p pkg1)))))
+
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//package-enabled-p
 ;; ---------------------------------------------------------------------------
