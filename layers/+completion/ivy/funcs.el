@@ -1,6 +1,6 @@
 ;;; funcs.el --- Ivy Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -158,28 +158,37 @@ that directory."
                       (throw 'tool tool)))
                   (throw 'tool "grep")))
           (default-directory
-            (or initial-directory (read-directory-name "Start from directory: "))))
-    (ivy-read
-     (format "%s from [%s]: "
-             tool
-             (if (< (length default-directory)
-                    spacemacs--counsel-search-max-path-length)
-                 default-directory
-               (concat
-                "..." (substring default-directory
-                                 (- (length default-directory)
-                                    spacemacs--counsel-search-max-path-length)
-                                 (length default-directory)))))
-     (spacemacs//make-counsel-search-function tool)
-     :initial-input (when initial-input (rxt-quote-pcre initial-input))
-     :dynamic-collection t
-     :history 'counsel-git-grep-history
-     :action #'counsel-git-grep-action
-     :caller 'spacemacs/counsel-search
-     :keymap spacemacs--counsel-map
-     :unwind (lambda ()
-               (counsel-delete-process)
-               (swiper--cleanup)))))
+            (or initial-directory (read-directory-name "Start from directory: ")))
+          (display-directory
+           (if (< (length default-directory)
+                  spacemacs--counsel-search-max-path-length)
+               default-directory
+             (concat
+              "..." (substring default-directory
+                               (- (length default-directory)
+                                  spacemacs--counsel-search-max-path-length)
+                               (length default-directory))))))
+    (cond ((eq tool "ag")
+           (counsel-ag initial-input initial-directory nil
+                       (format "ag from [%s]: " display-directory)))
+          ((eq tool "rg")
+           (counsel-rg initial-input initial-directory nil
+                       (format "rg from [%s]: " display-directory)))
+          (t
+           (ivy-read
+            (format "%s from [%s]: "
+                    tool
+                    display-directory)
+            (spacemacs//make-counsel-search-function tool)
+            :initial-input (when initial-input (rxt-quote-pcre initial-input))
+            :dynamic-collection t
+            :history 'counsel-git-grep-history
+            :action #'counsel-git-grep-action
+            :caller 'spacemacs/counsel-search
+            :keymap spacemacs--counsel-map
+            :unwind (lambda ()
+                      (counsel-delete-process)
+                      (swiper--cleanup)))))))
 
 ;; Define search functions for each tool
 (cl-loop
