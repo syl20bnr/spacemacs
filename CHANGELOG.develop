@@ -1091,6 +1091,8 @@ Other:
     move & rename, just move and just rename (thanks to duianto)
   - Fixed =spacemacs/rename-current-buffer-file= handle same new and old name
     (thanks to duianto)
+  - Replaced obsolete function =doom-modeline-init= with =doom-modeline-mode=
+    (thanks to duianto)
 *** Layer changes and fixes
 **** Agda
 - Fixes
