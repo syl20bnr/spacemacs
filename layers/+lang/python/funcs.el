@@ -182,8 +182,10 @@ as the pyenv version then also return nil. This works around https://github.com/
 
 ;; from https://www.snip2code.com/Snippet/127022/Emacs-auto-remove-unused-import-statemen
 (defun spacemacs/python-remove-unused-imports()
-  "Use Autoflake to remove unused function"
-  "autoflake --remove-all-unused-imports -i unused_imports.py"
+  "Use Autoflake to remove unused function
+
+Example:
+autoflake --remove-all-unused-imports -i unused_imports.py"
   (interactive)
   (if (executable-find "autoflake")
     (progn
