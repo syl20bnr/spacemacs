@@ -88,11 +88,16 @@
 
 
 (defun julia/post-init-evil-surround ()
-  (with-eval-after-load 'evil-surround
-    (add-to-list 'evil-surround-pairs-alist '(?b . ("begin " . " end")))
-    (add-to-list 'evil-surround-pairs-alist '(?q . ("quote " . " end")))
-    (add-to-list 'evil-surround-pairs-alist '(?: . (":("     .    ")")))
-    (add-to-list 'evil-surround-pairs-alist '(?l . ("let "   . " end")))))
+  (use-package evil-surround
+    :config
+    (progn
+      (add-hook
+       'julia-mode-hook
+       #'(lambda ()
+           (add-to-list 'evil-surround-pairs-alist '(?b . ("begin " . " end")))
+           (add-to-list 'evil-surround-pairs-alist '(?q . ("quote " . " end")))
+           (add-to-list 'evil-surround-pairs-alist '(?: . (":("     .    ")")))
+           (add-to-list 'evil-surround-pairs-alist '(?l . ("let "   . " end"))))))))
 
 (defun julia/init-lsp-julia ()
   (use-package lsp-julia
