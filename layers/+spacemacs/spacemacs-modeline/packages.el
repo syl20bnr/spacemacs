@@ -35,11 +35,7 @@
   (use-package doom-modeline
     :defer t
     :if (eq (spacemacs/get-mode-line-theme-name) 'doom)
-    :init
-    (progn
-      (setq-default doom-modeline-display-default-persp-name
-                    dotspacemacs-display-default-layout)
-      (doom-modeline-init))))
+    :init (doom-modeline-mode)))
 
 (defun spacemacs-modeline/init-fancy-battery ()
   (use-package fancy-battery
@@ -151,11 +147,11 @@
                             (message "Update aborted."))))
                       map)))
       (spaceline-define-segment
-       new-version
-       (when spacemacs-new-version
-         (spacemacs-powerline-new-version
-          (spacemacs/get-new-version-lighter-face
-           spacemacs-version spacemacs-new-version))))
+          new-version
+        (when spacemacs-new-version
+          (spacemacs-powerline-new-version
+           (spacemacs/get-new-version-lighter-face
+            spacemacs-version spacemacs-new-version))))
       (let ((theme (intern (format "spaceline-%S-theme"
                                    (spacemacs/get-mode-line-theme-name)))))
         (apply theme spacemacs-spaceline-additional-segments))
