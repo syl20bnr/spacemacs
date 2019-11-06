@@ -168,10 +168,10 @@ that directory."
                                (- (length default-directory)
                                   spacemacs--counsel-search-max-path-length)
                                (length default-directory))))))
-    (cond ((eq tool "ag")
+    (cond ((string= tool "ag")
            (counsel-ag initial-input initial-directory nil
                        (format "ag from [%s]: " display-directory)))
-          ((eq tool "rg")
+          ((string= tool "rg")
            (counsel-rg initial-input initial-directory nil
                        (format "rg from [%s]: " display-directory)))
           (t
