@@ -2,12 +2,6 @@
 # TravisCI YAML file
 language: generic
 sudo: required
-addons:
-  apt:
-    packages:
-      - ca-certificates
-      - gnutls-bin
-      - emacs
 services:
   - docker
 branches:
