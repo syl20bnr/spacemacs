@@ -131,13 +131,13 @@
       - [[#joining-and-splitting][Joining and splitting]]
     - [[#window-manipulation][Window manipulation]]
       - [[#window-manipulation-key-bindings][Window manipulation key bindings]]
-      - [[#window-manipulation-transient-state][Window manipulation transient state]]
+      - [[#window-transient-state][Window transient state]]
       - [[#golden-ratio][Golden ratio]]
     - [[#buffers-and-files][Buffers and Files]]
       - [[#buffers-manipulation-key-bindings][Buffers manipulation key bindings]]
       - [[#create-a-new-empty-buffer][Create a new empty buffer]]
-      - [[#buffers-manipulation-transient-state][Buffers manipulation transient state]]
-      - [[#files-manipulations-key-bindings][Files manipulations key bindings]]
+      - [[#buffers-transient-state][Buffers transient state]]
+      - [[#file-manipulation-key-bindings][File manipulation key bindings]]
       - [[#frame-manipulation-key-bindings][Frame manipulation key bindings]]
       - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
       - [[#browsing-files-in-completion-buffer][Browsing files in completion buffer]]
@@ -164,7 +164,7 @@
     - [[#listing-symbols-by-semantic][Listing symbols by semantic]]
   - [[#editing][Editing]]
     - [[#paste-text][Paste text]]
-      - [[#paste-transient-state][Paste Transient-state]]
+      - [[#paste-transient-state][Paste transient state]]
       - [[#auto-indent-pasted-text][Auto-indent pasted text]]
     - [[#text-manipulation-commands][Text manipulation commands]]
     - [[#text-insertion-commands][Text insertion commands]]
@@ -2347,10 +2347,9 @@ define your own deletion function:
   (setq spacemacs-window-split-delete-function 'my-delete-other-windows)
 #+END_SRC
 
-**** Window manipulation transient state
-A convenient window manipulation transient state allows performing most of the
-actions listed above. The transient state allows additional actions as well like
-window resizing.
+**** Window transient state
+A convenient window transient state allows for performing most of the actions
+listed above. For example window resizing.
 
 | Key binding     | Description                                                   |
 |-----------------+---------------------------------------------------------------|
@@ -2450,9 +2449,9 @@ Buffer manipulation commands (start with ~b~):
 | ~SPC b N l~   | create new empty buffer in a new window below                                                   |
 | ~SPC b N n~   | create new empty buffer in current window                                                       |
 
-**** Buffers manipulation transient state
-A convenient buffer manipulation transient state allows to quickly cycles through
-the opened buffer and kill them.
+**** Buffers transient state
+A convenient buffer transient state allows for quickly cycling through the
+open buffers and closing them.
 
 | Key binding            | Description                                                                                |
 |------------------------+--------------------------------------------------------------------------------------------|
@@ -2467,6 +2466,7 @@ the opened buffer and kill them.
 | ~N~ or ~p~ or ~<left>~ | go to previous buffer (avoid buffers matching =spacemacs-useless-buffers-regexp=)          |
 | ~o~                    | switch focus to other window                                                               |
 | ~z~                    | recenter buffer in window                                                                  |
+| ~q~                    | quit transient state                                                                       |
 
 Unlike vim, emacs creates many buffers that most people do not need to see. Some
 examples are the =*Messages*= and =*Compile-Log*= buffers. Spacemacs tries to
@@ -2474,8 +2474,8 @@ automatically ignore buffers that are not useful. However, you may want to
 change the way Spacemacs marks buffers as useful. For instructions, see the
 [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/FAQ.org#change-special-buffer-rules][special buffer howto]].
 
-**** Files manipulations key bindings
-Files manipulation commands (start with ~f~):
+**** File manipulation key bindings
+File manipulation commands (start with ~f~):
 
 | Key binding | Description                                                                                            |
 |-------------+--------------------------------------------------------------------------------------------------------|
@@ -2905,7 +2905,7 @@ To list all the symbols of a buffer press ~SPC s j~
 
 ** Editing
 *** Paste text
-**** Paste Transient-state
+**** Paste transient state
 The paste transient state can be enabled by setting the variable
 =dotspacemacs-enable-paste-transient-state= to =t=. By default it is disabled.
 
