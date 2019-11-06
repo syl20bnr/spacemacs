@@ -2653,6 +2653,8 @@ Other:
 - Enabled mouse based pasting into term shells (thanks to Sheng Yang)
 - Set =term-char-mode-point-at-process-mark= to =nil= to allow evil normal-mode
   movement in term shells on emacs 26.1
+- vterm keybindings added
+  ~M-n/M-p~ - next/previous command, ~u~ - undo, ~y~ - yank, ~M-y~ - yank-pop, ~M-/~ - hippie expand
 **** Shell Scripts
 - Added new company-shell environment variable backend
   (thanks to Alexander-Miller)

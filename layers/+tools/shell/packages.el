@@ -315,8 +315,17 @@
     (progn
       (setq vterm-shell shell-default-term-shell)
 
+      (define-key vterm-mode-map (kbd "M-/") 'vterm-send-tab)
+      (evil-define-key 'insert vterm-mode-map (kbd "M-/") 'vterm-send-tab)
+
+      (define-key vterm-mode-map (kbd "M-p") 'vterm-send-up)
+      (define-key vterm-mode-map (kbd "M-n") 'vterm-send-down)
       (evil-define-key 'insert vterm-mode-map (kbd "M-p") 'vterm-send-up)
       (evil-define-key 'insert vterm-mode-map (kbd "M-n") 'vterm-send-down)
+
+      (evil-define-key 'normal vterm-mode-map (kbd "p") 'vterm-yank)
+      (evil-define-key 'normal vterm-mode-map (kbd "M-y") 'vterm-yank-pop)
+      (evil-define-key 'normal vterm-mode-map (kbd "u") 'vterm-undo)
 
       (evil-define-key 'normal vterm-mode-map
         [escape] 'vterm--self-insert
