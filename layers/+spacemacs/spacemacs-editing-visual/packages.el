@@ -33,7 +33,7 @@
     :defer t
     :init
     (spacemacs|define-transient-state centered-buffer-mode
-      :title "Centered buffer Transient State"
+      :title "Centered Buffer Transient State"
       :bindings
       ("[" writeroom-decrease-width "shrink")
       ("]" writeroom-increase-width "enlarge")

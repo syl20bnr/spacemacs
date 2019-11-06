@@ -21,7 +21,7 @@
       (pdf-tools-install)
 
       (spacemacs|define-transient-state pdf-tools
-        :title "PDF-tools transient state"
+        :title "PDF-tools Transient State"
         :on-enter (setq which-key-inhibit t)
         :on-exit (setq which-key-inhibit nil)
         :evil-leader-for-mode (pdf-view-mode . ".")
