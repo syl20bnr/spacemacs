@@ -662,31 +662,31 @@ respond to this toggle."
   (interactive "p")
   (enlarge-window delta t))
 
-(defvar spacemacs--window-manipulation-ts-full-hint-toggle nil
-  "Display window-manipulation transient-state documentation.")
+(defvar spacemacs--window-ts-full-hint-toggle nil
+  "Display window transient state documentation.")
 
-(defun spacemacs//window-manipulation-ts-toggle-hint ()
-  "Toggle the full hint docstring for the window manipulation transient-state."
+(defun spacemacs//window-ts-toggle-hint ()
+  "Toggle the full hint docstring for the window transient state."
   (interactive)
-  (setq spacemacs--window-manipulation-ts-full-hint-toggle
-        (not spacemacs--window-manipulation-ts-full-hint-toggle)))
+  (setq spacemacs--window-ts-full-hint-toggle
+        (not spacemacs--window-ts-full-hint-toggle)))
 
-(defun spacemacs//window-manipulation-ts-hint ()
-  "Return a condensed/full hint for the window manipulation transient state"
+(defun spacemacs//window-ts-hint ()
+  "Return a condensed/full hint for the window transient state"
   (concat
    " "
-   (if spacemacs--window-manipulation-ts-full-hint-toggle
-       spacemacs--window-manipulation-ts-full-hint
+   (if spacemacs--window-ts-full-hint-toggle
+       spacemacs--window-ts-full-hint
      (concat "[" (propertize "?" 'face 'hydra-face-red) "] help"
-             spacemacs--window-manipulation-ts-minified-hint))))
+             spacemacs--window-ts-minified-hint))))
 
-(spacemacs|transient-state-format-hint window-manipulation
-  spacemacs--window-manipulation-ts-minified-hint "\n
+(spacemacs|transient-state-format-hint window
+  spacemacs--window-ts-minified-hint "\n
 Select: _a_ _h_ _j_ _k_ _l_ _w_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s_ _v_ Resize: _[_ _]_ _{_ _}_ _m_ _|_ ___")
 
-(spacemacs|transient-state-format-hint window-manipulation
-  spacemacs--window-manipulation-ts-full-hint
-  (format "\n[_?_] hide help
+(spacemacs|transient-state-format-hint window
+  spacemacs--window-ts-full-hint
+  (format "\n[_?_] toggle help
  Select^^^^               Move^^^^              Split^^^^^^               Resize^^             Other^^
  ──────^^^^─────────────  ────^^^^────────────  ─────^^^^^^─────────────  ──────^^───────────  ─────^^──────────────────
  [_j_/_k_]  down/up       [_J_/_K_] down/up     [_s_]^^^^ horizontal      [_[_] shrink horiz   [_d_] close current
@@ -701,12 +701,12 @@ Select: _a_ _h_ _j_ _k_ _l_ _w_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s
               "[_g_] golden-ratio "
             "^^                 ")))
 
-(spacemacs|define-transient-state window-manipulation
+(spacemacs|define-transient-state window
   :title "Window Transient State"
   :hint-is-doc t
-  :dynamic-hint (spacemacs//window-manipulation-ts-hint)
+  :dynamic-hint (spacemacs//window-ts-hint)
   :bindings
-  ("?" spacemacs//window-manipulation-ts-toggle-hint)
+  ("?" spacemacs//window-ts-toggle-hint)
   ;; Select
   ("j" evil-window-down)
   ("<down>" evil-window-down)
@@ -762,11 +762,11 @@ Select: _a_ _h_ _j_ _k_ _l_ _w_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s
   ("U" winner-redo)
   ("q" nil :exit t))
 (spacemacs/set-leader-keys
-  "w." 'spacemacs/window-manipulation-transient-state/body
-  "w[" 'spacemacs/window-manipulation-transient-state/spacemacs/shrink-window-horizontally
-  "w]" 'spacemacs/window-manipulation-transient-state/spacemacs/enlarge-window-horizontally
-  "w{" 'spacemacs/window-manipulation-transient-state/spacemacs/shrink-window
-  "w}" 'spacemacs/window-manipulation-transient-state/spacemacs/enlarge-window)
+  "w." 'spacemacs/window-transient-state/body
+  "w[" 'spacemacs/window-transient-state/spacemacs/shrink-window-horizontally
+  "w]" 'spacemacs/window-transient-state/spacemacs/enlarge-window-horizontally
+  "w{" 'spacemacs/window-transient-state/spacemacs/shrink-window
+  "w}" 'spacemacs/window-transient-state/spacemacs/enlarge-window)
 
 ;; end of Window Transient State
 
