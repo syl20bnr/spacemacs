@@ -278,6 +278,15 @@ result, incrementing passed-tests and total-tests."
      (directory-files-recursively user-emacs-directory "\\.elc$" t)))
   (byte-recompile-directory package-user-dir 0 arg))
 
+(defun spacemacs//recompile-dir (dir)
+  "Recompile all files inside this `dir'."
+  (seq-do
+   (lambda (fname)
+     (when (file-exists-p fname)
+       (delete-file fname)))
+   (directory-files-recursively dir "\\.elc$" t))
+  (byte-recompile-directory dir 0 arg))
+
 (defun spacemacs/register-repl (feature repl-func &optional tag)
   "Register REPL-FUNC to the global list of REPLs SPACEMACS-REPL-LIST.
 FEATURE will be loaded before running the REPL, in case it is not already

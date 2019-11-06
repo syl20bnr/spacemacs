@@ -210,7 +210,9 @@
     (action . (("Go to configuration function"
                 . helm-spacemacs-help//package-action-goto-config-func)
                ("Describe"
-                . helm-spacemacs-help//package-action-describe)))))
+                . helm-spacemacs-help//package-action-describe)
+               ("Recompile"
+                . helm-spacemacs-help//package-action-recompile)))))
 
 (defun helm-spacemacs-help//package-candidates ()
   "Return the sorted candidates for package source."
@@ -336,6 +338,21 @@
     (string-match "^\\(.+\\)\s(\\(.+\\) layer)$" candidate)
     (let* ((package (match-string 1 candidate)))
       (configuration-layer/describe-package (intern package)))))
+
+(defun helm-spacemacs-help//package-action-recompile (candidate)
+  "Recompile the passed package."
+  (save-match-data
+    (string-match "^\\(.+\\)\s(\\(.+\\) layer)$" candidate)
+    (let* ((package (match-string 1 candidate))
+           (package-dir
+            (condition-case nil
+                ;; when package not found this throw error
+                (configuration-layer//get-package-directory
+                 (intern package))
+              (error nil))))
+      (if package-dir
+          (spacemacs//recompile-dir package-dir)
+        (message "Package not installed or its location not found")))))
 
 (defun helm-spacemacs-help//package-action-goto-config-func (candidate)
   "Open the file `packages.el' and go to the init function."
