@@ -1878,6 +1878,7 @@ Other:
 - Keep ~C-h~ binding in =counsel-find-file-map= only for hjkl navigation
   (thanks to Hong Xu)
 - Optimize =spacemacs/counsel-search= for =ag= and =rg= (thanks to Hong Xu)
+- Fixed void variable =counsel-find-file-map= (thanks to duianto)
 **** Imenu-list
 - Changed ~SPC b i~ to ~SPC b t~ for =imenu= tree view
   (thansk to Sylvain Benner)
