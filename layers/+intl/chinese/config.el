@@ -23,6 +23,9 @@
 (defvar chinese-enable-fcitx nil
   "Enable fcitx to help writing Chinese in Evil mode.")
 
+(defvar chinese-use-fcitx5 nil
+  "Enable fcitx5 instead fcitx4.")
+
 (defvar chinese-fcitx-use-dbus nil
   "Use dbus interface for fcitx.el.")
 

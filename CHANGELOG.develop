@@ -1223,6 +1223,7 @@ Other:
 - Improvements:
   - Added variable =chinese-fcitx-use-dbus=, and fixed the misinformation about
     dbus in README.org (thanks to AmaiKinono)
+  - Added =fcitx5= support (thanks to wgjak47)
 - Fixes:
   - Make =fcitx.el= work by default (thanks to AmaiKinono)
 **** Chrome
