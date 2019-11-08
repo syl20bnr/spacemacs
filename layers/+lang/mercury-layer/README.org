@@ -1,6 +1,6 @@
 #+TITLE: mercury layer
 
-#+TAGS: layer|uncategorized
+#+TAGS: dsl|layer|programming
 
 [[file:img/mercury.png]]
 
