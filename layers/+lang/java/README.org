@@ -55,7 +55,6 @@ To choose a default backend set the layer variable =java-backend=:
   (java :variables java-backend 'meghanada)
 #+END_SRC
 
-
 Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
 is used and you did not specify any value for =java-backend=.
 

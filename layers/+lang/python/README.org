@@ -79,7 +79,6 @@ To choose a default backend set the layer variable =python-backend=:
   (python :variables python-backend 'anaconda)
 #+END_SRC
 
-
 Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
 is used and you did not specify any value for =python-backend=.
 

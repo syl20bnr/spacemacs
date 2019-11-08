@@ -111,7 +111,7 @@ To choose a default backend set the layer variable =haskell-completion-backend=:
   (haskell :variables haskell-completion-backend 'ghci)
 #+END_SRC
 
- Note that in order to enable completion, you'll have to enable the
+Note that in order to enable completion, you'll have to enable the
 =auto-completion= layer as well.
 
 Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=

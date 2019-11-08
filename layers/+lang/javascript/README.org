@@ -152,10 +152,9 @@ You can choose formatting tool:
 Default is =’web-beautify=.
 
 ** Format buffer before saving
-
-#+begin_src elisp
+#+BEGIN_SRC elisp
   (javascript :variables javascript-fmt-on-save t)
-#+end_src
+#+END_SRC
 
 * Backends
 ** Tern

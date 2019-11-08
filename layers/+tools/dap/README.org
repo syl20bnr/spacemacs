@@ -52,10 +52,10 @@ register itself using the variable =spacemacs--dap-supported-modes=.
 
 For instance the =java= layer:
 
-#+begin_src emacs-lisp
-(defun java/pre-init-dap-mode ()
-  (add-to-list 'spacemacs--dap-supported-modes 'java-mode))
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (defun java/pre-init-dap-mode ()
+    (add-to-list 'spacemacs--dap-supported-modes 'java-mode))
+#+END_SRC
 
 See the =java= layer for further example on how to setup correctly =dap-mode=.
 
@@ -90,14 +90,14 @@ transient state which can be initiate with ~SPC m d .~.
 
 ** Start/Stop
 
-| Key binding   | Description                     |
-|---------------+---------------------------------|
-| ~SPC m d A~   | abandon all process             |
-| ~SPC m d a~   | abandon current session         |
-| ~SPC m d d d~ | start debugging                 |
-| ~SPC m d d e~ | edit debug template             |
-| ~SPC m d d l~ | debug last configuration        |
-| ~SPC m d d r~ | debug recent configuration      |
+| Key binding   | Description                |
+|---------------+----------------------------|
+| ~SPC m d A~   | abandon all process        |
+| ~SPC m d a~   | abandon current session    |
+| ~SPC m d d d~ | start debugging            |
+| ~SPC m d d e~ | edit debug template        |
+| ~SPC m d d l~ | debug last configuration   |
+| ~SPC m d d r~ | debug recent configuration |
 
 ** Breakpoints
 
