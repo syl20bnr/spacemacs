@@ -58,10 +58,10 @@ For example, if you install [[https://www.kaoriya.net/software/cmigemo/][C/Migem
 
 inside =dotspacemacs/user-config=, or
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (japanese :variables
             migemo-dictionary "c:/app/cmigemo-default-win64/dict/utf-8/migemo-dict")
-#+end_src
+#+END_SRC
 
 inside =dotspacemacs-configuration-layers=.
 
@@ -75,10 +75,10 @@ If you want to use helm with migemo, you should add:
 
 inside =dotspacemacs/user-config=, or
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (japanese :variables
              helm-migemo-mode 1)
-#+end_src
+#+END_SRC
 
 inside =dotspacemacs-configuration-layers=. Note that you may find in a package called
 =helm-migemo.el= in MELPA. However, this package is deprecated and not supported

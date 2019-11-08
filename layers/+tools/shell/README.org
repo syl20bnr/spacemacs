@@ -12,17 +12,17 @@
     - [[#check-that-your-emacs-supports-dynamic-modules][Check that your Emacs supports dynamic modules]]
     - [[#install-cmake-311-or-higher][Install CMake 3.11 or higher]]
       - [[#macos][macOS]]
-      - [[#ubuntu-2][Ubuntu]]
-    - [[#install-libtool][Install libtool]]
       - [[#ubuntu][Ubuntu]]
+    - [[#install-libtool][Install libtool]]
+      - [[#ubuntu-1][Ubuntu]]
     - [[#install-libvterm][Install libvterm]]
       - [[#macos-1][macOS]]
-      - [[#ubuntu-1][Ubuntu]]
+      - [[#ubuntu-2][Ubuntu]]
       - [[#windows][Windows]]
 - [[#configuration][Configuration]]
   - [[#default-shell][Default shell]]
   - [[#default-shell-position-width-and-height][Default shell position, width, and height]]
-  - [[#set-shell-for-term-and-ansi-term][Set shell for term and ansi-term]]
+  - [[#set-shell-for-term-ansi-term-and-vterm][Set shell for term, ansi-term and vterm]]
   - [[#set-shell-for-multi-term][Set shell for multi-term]]
   - [[#width-of-the-shell-popup-buffers][Width of the shell popup buffers]]
   - [[#enable-em-smart-in-eshell][Enable em-smart in Eshell]]
@@ -63,12 +63,12 @@ source supplying the =./configure --with-module= option at configure time.
 *** Install CMake 3.11 or higher
 **** macOS
 #+BEGIN_SRC shell
-brew install cmake
+  brew install cmake
 #+END_SRC
 
 **** Ubuntu
 #+BEGIN_SRC shell
-sudo apt install cmake
+  sudo apt install cmake
 #+END_SRC
 
 *** Install libtool
@@ -77,18 +77,18 @@ If the =libtool= command does not exist in your system (usually in
 
 **** Ubuntu
 #+BEGIN_SRC shell
-sudo apt install libtool-bin
+  sudo apt install libtool-bin
 #+END_SRC
 
 *** Install libvterm
 **** macOS
 #+BEGIN_SRC shell
-brew install libvterm
+  brew install libvterm
 #+END_SRC
 
 **** Ubuntu
 #+BEGIN_SRC shell
-sudo apt install libvterm-dev
+  sudo apt install libvterm-dev
 #+END_SRC
 
 In other distros, find it and install it in your favorite package manager.
@@ -97,7 +97,6 @@ In other distros, find it and install it in your favorite package manager.
 Not supported at the moment, [[https://github.com/akermu/emacs-libvterm/issues/12][but possibly coming up]].
 
 * Configuration
-
 ** Default shell
 Emacs supports five types of shells/terminals:
 - the Emacs shell (eshell)

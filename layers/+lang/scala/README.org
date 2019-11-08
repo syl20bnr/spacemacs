@@ -104,7 +104,7 @@ Follow [[https://ensime.github.io/build_tools/sbt/][the ENSIME configuration ins
 the development version of Ensime so follow the appropriate steps.
 
 To use the build functions under ~SPC m b~ you need to use version =0.13.5= or
-newer of =sbt=, and specify that in your project’s =project/build.properties=.
+newer of =sbt=, and specify that in your project's =project/build.properties=.
 For example,
 
 #+BEGIN_SRC scala
@@ -212,7 +212,6 @@ with
 #+END_SRC
 
 * Key bindings
-
 ** Ensime
 *** Search
 

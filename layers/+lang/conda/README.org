@@ -25,6 +25,7 @@ To use this layer you need to tell spacemacs where your anaconda
 environment can be found. By default Spacemacs will check in =~/.anaconda3=.
 
 If it is installed somewhere else just set =conda-anaconda-home= in your dotfile:
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
     '((conda :variables conda-anaconda-home "/your/path/here")))
