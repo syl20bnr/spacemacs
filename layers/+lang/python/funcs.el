@@ -292,6 +292,16 @@ to be called for each testrunner. "
   (spacemacs//python-call-correct-test-function arg '((pytest . pytest-again)
                                                       (nose . nosetests-again))))
 
+(defun spacemacs/python-test-last-failed (arg)
+  "Re-run the tests that last failed."
+  (interactive "P")
+  (spacemacs//python-call-correct-test-function arg '((pytest . pytest-last-failed))))
+
+(defun spacemacs/python-test-pdb-last-failed (arg)
+  "Re-run the tests that last failed in debug mode."
+  (interactive "P")
+  (spacemacs//python-call-correct-test-function arg '((pytest . pytest-pdb-last-failed))))
+
 (defun spacemacs/python-test-all (arg)
   "Run all tests."
   (interactive "P")
@@ -349,6 +359,8 @@ to be called for each testrunner. "
     "tB" 'spacemacs/python-test-pdb-module
     "tb" 'spacemacs/python-test-module
     "tl" 'spacemacs/python-test-last
+    "tf" 'spacemacs/python-test-last-failed
+    "tF" 'spacemacs/python-test-pdb-last-failed
     "tT" 'spacemacs/python-test-pdb-one
     "tt" 'spacemacs/python-test-one
     "tM" 'spacemacs/python-test-pdb-module
