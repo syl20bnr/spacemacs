@@ -76,6 +76,7 @@
     - [[#faust][Faust]]
     - [[#gpu][Gpu]]
     - [[#kivy][Kivy]]
+    - [[#mercury][Mercury]]
     - [[#octave][Octave]]
     - [[#prolog][Prolog]]
     - [[#sql][Sql]]
@@ -147,6 +148,7 @@
       - [[#scala][Scala]]
       - [[#sml][Sml]]
       - [[#swift][Swift]]
+      - [[#zig][Zig]]
       - [[#javascript-dialects][JavaScript dialects]]
         - [[#coffeescript][Coffeescript]]
         - [[#javascript][Javascript]]
@@ -170,9 +172,6 @@
   - [[#epub][Epub]]
   - [[#pdf][Pdf]]
   - [[#speed-reading][Speed reading]]
-- [[#readmeorg-files-that-need-proper-tags][README.org files that need proper tags]]
-  - [[#mercury][Mercury]]
-  - [[#zig][Zig]]
 - [[#source-control][Source control]]
   - [[#git][Git]]
   - [[#github][Github]]
@@ -1093,6 +1092,16 @@ This layer adds support for Kivy, cross-platform GUI framework for Python.
 Features:
 - Syntax Highlighting
 
+*** Mercury
+[[file:+lang/mercury-layer/README.org][+lang/mercury-layer/README.org]]
+
+This layer adds support for the Mercury language.
+
+Features:
+- Indentation.
+- Syntax highlighting.
+- Compiling and running.
+
 *** Octave
 [[file:+lang/octave/README.org][+lang/octave/README.org]]
 
@@ -1989,6 +1998,14 @@ Features:
 - Automatic syntax checking with =flycheck= (available with the
   =syntax-checking= layer)
 
+**** Zig
+[[file:+lang/zig/README.org][+lang/zig/README.org]]
+
+This layer adds support for the zig programming language [[https://ziglang.org/]]
+
+Features:
+- Syntax Highlighting
+
 **** JavaScript dialects
 ***** Coffeescript
 [[file:+lang/coffeescript/README.org][+lang/coffeescript/README.org]]
@@ -2224,25 +2241,6 @@ A speed reading mode for Emacs.
 
 Features:
 - Support for =speed-reading= of arbitrary texts
-
-* README.org files that need proper tags
-** Mercury
-[[file:+lang/mercury-layer/README.org][+lang/mercury-layer/README.org]]
-
-This layer adds support for the Mercury language.
-
-Features:
-- Indentation.
-- Syntax highlighting.
-- Compiling and running.
-
-** Zig
-[[file:+lang/zig/README.org][+lang/zig/README.org]]
-
-This layer adds support for the zig programming language [[https://ziglang.org/]]
-
-Features:
-- Syntax Highlighting
 
 * Source control
 ** Git
