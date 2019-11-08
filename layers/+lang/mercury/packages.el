@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(defconst mercury-layer-packages
+(defconst mercury-packages
   '((metal-mercury-mode :location (recipe
                                    :fetcher github
                                    :repo "ahungry/metal-mercury-mode"
