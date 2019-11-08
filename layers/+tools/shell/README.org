@@ -11,10 +11,12 @@
   - [[#install-vterm][Install vterm]]
     - [[#check-that-your-emacs-supports-dynamic-modules][Check that your Emacs supports dynamic modules]]
     - [[#install-cmake-311-or-higher][Install CMake 3.11 or higher]]
+      - [[#macos][macOS]]
+      - [[#ubuntu-2][Ubuntu]]
     - [[#install-libtool][Install libtool]]
       - [[#ubuntu][Ubuntu]]
     - [[#install-libvterm][Install libvterm]]
-      - [[#macos][MacOS]]
+      - [[#macos-1][macOS]]
       - [[#ubuntu-1][Ubuntu]]
       - [[#windows][Windows]]
 - [[#configuration][Configuration]]
@@ -59,17 +61,27 @@ not, you need to get a version of Emacs that supports it or compile it from
 source supplying the =./configure --with-module= option at configure time.
 
 *** Install CMake 3.11 or higher
+**** macOS
+#+BEGIN_SRC shell
+brew install cmake
+#+END_SRC
+
+**** Ubuntu
+#+BEGIN_SRC shell
+sudo apt install cmake
+#+END_SRC
 
 *** Install libtool
 If the =libtool= command does not exist in your system (usually in
 =/usr/bin/libtool=), you need to install it:
+
 **** Ubuntu
 #+BEGIN_SRC shell
 sudo apt install libtool-bin
 #+END_SRC
 
 *** Install libvterm
-**** MacOS
+**** macOS
 #+BEGIN_SRC shell
 brew install libvterm
 #+END_SRC
@@ -133,7 +145,7 @@ your shell is positioned on the left or the right.
              shell-default-width 40)))
 #+END_SRC
 
-** Set shell for term and ansi-term
+** Set shell for term, ansi-term and vterm
 The default shell can be set by setting the variable =shell-default-term-shell=.
 Default value is =/bin/bash=.
 

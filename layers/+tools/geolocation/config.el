@@ -13,7 +13,7 @@
   "If non nil enable the automatic change of theme based on the current time.")
 
 (defvar geolocation-enable-location-service nil
-  "If non nil enable the OS X location service support.")
+  "If non nil enable the macOS location service support.")
 
 (defvar geolocation-enable-weather-forecast nil
   "If non nil enable the weather forecast service.")

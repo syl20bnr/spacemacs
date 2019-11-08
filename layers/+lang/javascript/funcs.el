@@ -12,17 +12,31 @@
 
 ;; backend
 
+(defun spacemacs//javascript-backend ()
+  "Returns selected backend."
+  (if javascript-backend
+      javascript-backend
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'tern))))
+
 (defun spacemacs//javascript-setup-backend ()
   "Conditionally setup javascript backend."
-  (pcase javascript-backend
+  (pcase (spacemacs//javascript-backend)
     (`tern (spacemacs//javascript-setup-tern))
     (`lsp (spacemacs//javascript-setup-lsp))))
 
 (defun spacemacs//javascript-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase javascript-backend
+  (pcase (spacemacs//javascript-backend)
     (`tern (spacemacs//javascript-setup-tern-company))
     (`lsp (spacemacs//javascript-setup-lsp-company))))
+
+(defun spacemacs//javascript-setup-dap ()
+  "Conditionally setup elixir DAP integration."
+  ;; currently DAP is only available using LSP
+  (pcase (spacemacs//javascript-backend)
+    (`lsp (spacemacs//javascript-setup-lsp-dap))))
 
 (defun spacemacs//javascript-setup-next-error-fn ()
   "If the `syntax-checking' layer is enabled, then disable `js2-mode''s
@@ -40,13 +54,7 @@
           (setq-local lsp-prefer-flymake :none))
         (lsp))
     (message (concat "`lsp' layer is not installed, "
-                     "please add `lsp' layer to your dotfile.")))
-  (if (configuration-layer/layer-used-p 'dap)
-      (progn
-        (require 'dap-firefox)
-        (require 'dap-chrome)
-        (spacemacs/dap-bind-keys-for-mode 'js2-mode))
-    (message "`dap' layer is not installed, please add `dap' layer to your dotfile.")))
+                     "please add `lsp' layer to your dotfile."))))
 
 (defun spacemacs//javascript-setup-lsp-company ()
   "Setup lsp auto-completion."
@@ -60,6 +68,11 @@
         (company-mode))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
+
+(defun spacemacs//javascript-setup-lsp-dap ()
+  "Setup DAP integration."
+  (require 'dap-firefox)
+  (require 'dap-chrome))
 
 
 ;; tern

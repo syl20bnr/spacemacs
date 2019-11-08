@@ -202,8 +202,9 @@ is non-nil."
   (call-interactively (if (spacemacs/c-c++-use-rtags t)
                           'rtags-imenu 'idomenu)))
 
-
+
 ;; lsp
+
 (defun spacemacs//c-c++-lsp-enabled ()
   "Return true if one or other of the lsp backends is enabled"
   (member c-c++-backend c-c++-lsp-backends))

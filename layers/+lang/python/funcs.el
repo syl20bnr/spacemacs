@@ -9,22 +9,36 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//python-backend ()
+  "Returns selected backend."
+  (if python-backend
+      python-backend
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'anaconda))))
+
 (defun spacemacs//python-setup-backend ()
   "Conditionally setup python backend."
   (when python-pipenv-activate (pipenv-activate))
-  (pcase python-backend
+  (pcase (spacemacs//python-backend)
     (`anaconda (spacemacs//python-setup-anaconda))
     (`lsp (spacemacs//python-setup-lsp))))
 
 (defun spacemacs//python-setup-company ()
   "Conditionally setup company based on backend."
-  (if (eq python-backend `anaconda)
-    (spacemacs//python-setup-anaconda-company)
-    (spacemacs//python-setup-lsp-company)))
+  (pcase (spacemacs//python-backend)
+    (`anaconda (spacemacs//python-setup-anaconda-company))
+    (`lsp (spacemacs//python-setup-lsp-company))))
+
+(defun spacemacs//python-setup-dap ()
+  "Conditionally setup elixir DAP integration."
+  ;; currently DAP is only available using LSP
+  (pcase (spacemacs//python-backend)
+    (`lsp (spacemacs//python-setup-lsp-dap))))
 
 (defun spacemacs//python-setup-eldoc ()
   "Conditionally setup eldoc based on backend."
-  (pcase python-backend
+  (pcase (spacemacs//python-backend)
     ;; lsp setup eldoc on its own
     (`anaconda (spacemacs//python-setup-anaconda-eldoc))))
 
@@ -65,13 +79,7 @@
         (when (eq python-lsp-server 'mspyls)
           (require 'lsp-python-ms))
         (lsp))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile."))
-  (if (configuration-layer/layer-used-p 'dap)
-    (progn
-      (require 'dap-python)
-      (spacemacs/set-leader-keys-for-major-mode 'python-mode "db" nil)
-      (spacemacs/dap-bind-keys-for-mode 'python-mode))
-    (message "`dap' layer is not installed, please add `dap' layer to your dotfile.")))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//python-setup-lsp-company ()
   "Setup lsp auto-completion."
@@ -84,6 +92,10 @@
           :call-hooks t)
         (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs//python-setup-lsp-dap ()
+  "Setup DAP integration."
+  (require 'dap-python))
 
 
 ;; others
@@ -354,7 +366,7 @@ to be called for each testrunner. "
   "Bind the python formatter keys.
 Bind formatter to '==' for LSP and '='for all other backends."
   (spacemacs/set-leader-keys-for-major-mode 'python-mode
-    (if (eq python-backend 'lsp)
+    (if (eq (spacemacs//python-backend) 'lsp)
         "=="
       "=") 'spacemacs/python-format-buffer))
 

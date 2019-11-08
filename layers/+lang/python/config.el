@@ -14,9 +14,10 @@
 (spacemacs|define-jump-handlers python-mode)
 (spacemacs|define-jump-handlers cython-mode anaconda-mode-goto)
 
-(defvar python-backend 'anaconda
-  "The backend to use for IDE features. Possible values are `anaconda'
-and `lsp'.")
+(defvar python-backend 'nil
+  "The backend to use for IDE features.
+Possible values are `anaconda'and `lsp'.
+If `nil' then `anaconda' is the default backend unless `lsp' layer is used.")
 
 (defvar python-lsp-server 'pyls
   "Language server to use for lsp backend. Possible values are `pyls'

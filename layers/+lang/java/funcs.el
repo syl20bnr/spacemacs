@@ -9,24 +9,37 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//java-backend ()
+  "Returns selected backend."
+  (if java-backend
+      java-backend
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'meghanada))))
+
 (defun spacemacs//java-setup-backend ()
   "Conditionally setup java backend."
-  (pcase java-backend
+  (pcase (spacemacs//java-backend)
     (`meghanada (spacemacs//java-setup-meghanada))
     (`lsp (spacemacs//java-setup-lsp))))
 
 (defun spacemacs//java-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase java-backend
+  (pcase (spacemacs//java-backend)
     (`meghanada (spacemacs//java-setup-meghanada-company))
     (`lsp (spacemacs//java-setup-lsp-company))))
 
+(defun spacemacs//java-setup-dap ()
+  "Conditionally setup elixir DAP integration."
+  ;; currently DAP is only available using LSP
+  (pcase (spacemacs//java-backend)
+    (`lsp (spacemacs//java-setup-lsp-dap))))
+
 (defun spacemacs//java-setup-flycheck ()
   "Conditionally setup flycheck based on backend."
-  (pcase java-backend
+  (pcase (spacemacs//java-backend)
     (`meghanada (spacemacs//java-setup-meghanada-flycheck))
     (`lsp (spacemacs//java-setup-lsp-flycheck))))
-
 
 
 ;; meghanada
@@ -104,12 +117,7 @@
       (progn
         (require 'lsp-java)
         (lsp))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile."))
-  (if (configuration-layer/layer-used-p 'dap)
-      (progn
-        (require 'dap-java)
-        (spacemacs/dap-bind-keys-for-mode 'java-mode))
-    (message "`dap' layer is not installed, please add `dap' layer to your dotfile.")))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//java-setup-lsp-company ()
   "Setup lsp auto-completion."
@@ -122,6 +130,10 @@
           :call-hooks t)
         (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs//java-setup-lsp-dap ()
+  "Setup DAP integration."
+  (require 'dap-java))
 
 (defun spacemacs//java-setup-lsp-flycheck ()
   "Setup LSP Java syntax checking."

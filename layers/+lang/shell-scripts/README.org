@@ -11,9 +11,9 @@
   - [[#layer][Layer]]
   - [[#linting][Linting]]
   - [[#style-checking][Style checking]]
-  - [[#setting-the-backend][Setting the backend]]
-- [[#backend][Backend]]
-  - [[#language-server-protocol][Language Server Protocol]]
+  - [[#backends][Backends]]
+    - [[#shell-script-mode][Shell-script-mode]]
+    - [[#lsp][LSP]]
 - [[#key-bindings][Key bindings]]
 
 * Description
@@ -43,25 +43,38 @@ In order to enable =sh= scripts linting, install [[https://www.shellcheck.net/][
 ** Style checking
 In order to enable =sh= scripts style checking, install [[https://github.com/openstack-dev/bashate][bashate]].
 
-** Setting the backend
-To activate the backend set the layer variable =shell-scripts-backend=:
+** Backends
+You have the choice between two different backends
+with different setup instructions and different capabilities.
 
-#+BEGIN_SRC elisp
-  (shell-scripts :variables shell-scripts-backend 'lsp)
-#+END_SRC
+*** Shell-script-mode
+This is the recommended way for working with shell scripts in emacs. It works
+by using an emacs major mode.
 
-For spacemacs to use lsp you also need to add =lsp= to the
-=dotspacemacs-configuration-layers= in your =~/.spacemacs= file.
+It supports =bash= and =fish= shell scripts.
 
-* Backend
-** Language Server Protocol
-You have to install the bash language server:
+No additional setup is necessary.
+
+*** LSP
+This backend uses an external server to provide the various IDE integrations
+and a more modern UI integration in =spacemacs=.
+
+However it only supports working with =bash= scripts.
+
+It requires installing the external server via:
 
 #+BEGIN_SRC sh
   npm i -g bash-language-server
 #+END_SRC
 
-You can find further information on the project's [[https://github.com/mads-hartmann/bash-language-server][GitHub page]].
+Enable the =lsp= layer to activate this backend as well as setting the layer
+variable =shell-scripts-backend=:
+
+#+BEGIN_SRC elisp
+  (shell-scripts :variables shell-scripts-backend 'lsp)
+#+END_SRC
+
+You can find further information about the project at its [[https://github.com/mads-hartmann/bash-language-server][GitHub page]].
 
 * Key bindings
 

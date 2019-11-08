@@ -12,7 +12,7 @@
 (setq java-packages
       '(
         company
-        eldoc
+        dap-mode
         flycheck
         ggtags
         gradle-mode
@@ -28,6 +28,10 @@
 
 (defun java/post-init-company ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-company))
+
+(defun java/pre-init-dap-mode ()
+  (add-to-list 'spacemacs--dap-supported-modes 'java-mode)
+  (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-lsp-dap))
 
 (defun java/post-init-flycheck ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-flycheck))

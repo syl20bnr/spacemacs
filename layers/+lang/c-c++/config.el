@@ -20,12 +20,12 @@
 (defconst c-c++-mode-hooks '(c-mode-hook c++-mode-hook)
   "Primary hooks of the `c-c++' layer.")
 
-(defconst c-c++-lsp-backends '(lsp-cquery lsp-ccls)
-  "Language Server Protocol (LSP) backends supported by the `c-c++' layer.")
-
 (defvar c-c++-backend nil
   "If `lsp-cquery' or `lsp-ccls' then selects language server protocol backend (cquery or ccls).
   If `rtags' then enables rtags support")
+
+(defconst c-c++-lsp-backends '(lsp-cquery lsp-ccls)
+  "Language Server Protocol (LSP) backends supported by the `c-c++' layer.")
 
 (defvar c++-enable-organize-includes-on-save nil
   "If non-nil then automatically organize the includes on save C++ buffer.")

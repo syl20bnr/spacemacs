@@ -10,7 +10,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-  - [[#dash-os-x][Dash (OS X)]]
+  - [[#dash-macos][Dash (macOS)]]
     - [[#sqlite3][Sqlite3]]
   - [[#zeal-linux--windows][Zeal (Linux & Windows)]]
 - [[#configuration][Configuration]]
@@ -18,20 +18,20 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer integrates offline api browsers into Emacs. It provides one for OS X, Linux and Windows.
+This layer integrates offline API browsers into Emacs. It provides one for macOS, Linux and Windows.
 
 ** Features:
-- Searching for word at point in offline api browser's UI.
-- Integration of offline api browser search results in helm and ivy.
-- Support for [[https://kapeli.com/dash][dash]] offline api browser for OS X.
-- Support for [[https://zealdocs.org/][zeal]] offline api browser for Linux.
+- Searching for word at point in offline API browser's UI.
+- Integration of offline API browser search results in Helm and Ivy.
+- Support for [[https://kapeli.com/dash][dash]] offline API browser for macOS.
+- Support for [[https://zealdocs.org/][zeal]] offline API browser for Linux.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =dash= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-** Dash (OS X)
+** Dash (macOS)
 You have to install [[https://kapeli.com/dash][dash]] on your machine.
 
 It is recommended to set the =HUD mode= in your Dash application preferences
@@ -62,7 +62,7 @@ To change the location of the installed docsets, set:
 #+END_SRC
 
 * Word at point
-=dash-at-point= and =zeal-at-point= will search for the word at point in the respective offline api browser.
+=dash-at-point= and =zeal-at-point= will search for the word at point in the respective offline API browser.
 The result will be displayed in the offline browser's UI.
 
 However having to leave emacs to have a look at the search results may be a bit awkward.

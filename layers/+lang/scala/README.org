@@ -137,7 +137,7 @@ You will then have the common LSP key bindings; see [[http://develop.spacemacs.o
 provided by Flycheck.
 
 To use scalastyle, it must be present as an executable in your =PATH=.
-- OSX users: =brew install scalastyle=
+- macOS users: =brew install scalastyle=
 - Linux, please see [[http://www.scalastyle.org/command-line.html]]
 
 To test if =scalastyle= executable is in your path, run =scalastyle= in a new

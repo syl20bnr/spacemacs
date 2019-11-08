@@ -17,8 +17,8 @@
    Default: `deprecated'")
 
 (defvar osx-command-as 'hyper
-  "Sets the key binding of the `COMMAND' key on OSX.
-   Possible values are `super' `meta' `hyper' `alt' `none'.
+  "Sets the key binding of the `COMMAND' key on macOS.
+   Possible values are `super', `meta', `hyper', `alt', and `none'.
    Default: `hyper'.")
 ;; There are problems setting osx-command-as to `alt' and `super',
 ;; so we use `hyper' as a default instead because, for example:
@@ -26,44 +26,44 @@
 ;;   - Using `super': Control-Command-f produces keycode: <C-s-268632078>
 ;; Setting to `hyper' seems to avoid both types of the above problems.
 ;; Also, while it is possible, it is not recommended to set to `meta'
-;; since standard OSX shortcuts would overshadow important keys such
+;; since standard macOS shortcuts would overshadow important keys such
 ;; as M-x.
 
 (defvar osx-option-as 'meta
-  "Sets the key binding of the `OPTION' key on OSX.
+  "Sets the key binding of the `OPTION' key on macOS.
    Possible values are `super' `meta' `hyper' `alt' `none'.
    Default: `meta'.
    For backwards compatibility the variable `osx-use-option-as-meta'
    takes precedence is set to t.")
 (defvar osx-function-as nil
-  "Sets the key binding of the `FUNCTION' key on OSX.
+  "Sets the key binding of the `FUNCTION' key on macOS.
    Possible values are `super' `meta' `hyper' `alt' `nil'.
    Default: `nil'.")
 (defvar osx-control-as 'control
-  "Sets the key binding of the `CONTROL' key on OSX.
+  "Sets the key binding of the `CONTROL' key on macOS.
    Possible values are `super' `meta' `hyper' `alt' `none'.
    Default: `control'.")
 
 (defvar osx-right-control-as 'left
-  "Sets the key binding of the `RIGHT CONTROL' key on OSX.
+  "Sets the key binding of the `RIGHT CONTROL' key on macOS.
    Possible values are `super' `meta' `hyper' `alt' `left' `none'.
    Default: `left'.")
 (defvar osx-right-command-as 'left
-  "Sets the key binding of the `RIGHT COMMAND' key on OSX.
+  "Sets the key binding of the `RIGHT COMMAND' key on macOS.
    Possible values are `super' `meta' `hyper' `alt' `left' `none'.
    Default: `left'.")
 (defvar osx-right-option-as 'left
-  "Sets the key binding of the `RIGHT OPTION' key on OSX.
+  "Sets the key binding of the `RIGHT OPTION' key on macOS.
    Possible values are `super' `meta' `hyper' `alt' `left' `none'.
    Default: `left'.")
 
 (defvar osx-use-dictionary-app t
-  "If non nil use osx dictionary app instead of wordnet")
+  "Use the macOS dictionary app instead of Wordnet.")
 
 (defvar osx-swap-option-and-command nil
   "If non nil swap option key and command key")
 
-;; Use the OS X Emoji font for Emoticons
+;; Use the macOS Emoji font for Emoticons.
 (when (fboundp 'set-fontset-font)
   (set-fontset-font "fontset-default"
                     '(#x1F600 . #x1F64F)

@@ -13,4 +13,4 @@
   "If non nil unicode-fonts will enable multi-color fonts (emoji)
   on macs. This should only be set when using the multi-color
   patch as emacs-plus does. It is unnecessary to set this when
-  using the Mac port version.")
+  using the macOS port version.")

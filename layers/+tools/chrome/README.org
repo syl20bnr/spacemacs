@@ -61,7 +61,7 @@ If you want Emacs to switch focus to Chrome after done editing, you can utilize
 Emacs cannot control focus of windows for external apps, so you need to use some
 sort of command line window manager like =wmctrl=.
 
-The following example works on OS X:
+The following example works on macOS:
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'edit-server-done-hook (lambda () (shell-command "open -a \"Google Chrome\"")))

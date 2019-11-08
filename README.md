@@ -156,7 +156,7 @@ This might also be true for other linux distributions.
 ```
 brew tap d12frosted/emacs-plus
 brew install emacs-plus
-ln -s /usr/local/Cellar/emacs-plus/*/Emacs.app/ /Applications/
+brew link emacs-plus
 ```
 
 ##### Using emacs-mac
@@ -164,7 +164,7 @@ ln -s /usr/local/Cellar/emacs-plus/*/Emacs.app/ /Applications/
 ```
 brew tap railwaycat/emacsmacport
 brew install emacs-mac
-ln -s /usr/local/Cellar/emacs-mac/*/Emacs.app/ /Applications/
+brew link emacs-mac
 ```
 
 ##### Using cask
@@ -183,7 +183,7 @@ This installs a pre-built package from https://emacsformacosx.com/
 
 If you're not comfortable with the ways mentioned above, then
 [EmacsWiki](https://www.emacswiki.org/emacs/EmacsForMacOS#toc12) lists down
-a few ways to install Emacs for Mac OS.
+a few ways to install Emacs for macOS.
 
 #### Install Source Code Pro font
 
@@ -191,7 +191,7 @@ Once Emacs is installed, run the following commands in the terminal to install
 the default Source Code Pro font:
 
 ```sh
-brew tap caskroom/fonts
+brew tap homebrew/cask-fonts
 brew cask install font-source-code-pro
 ```
 
@@ -206,9 +206,9 @@ After completing the Spacemacs [install process](#install), then it's also
 recommended to add the [osx layer][] to your [dotfile][]. Installation
 instructions are available in the documentation for the [osx layer][].
 
-Depending on the installed version of GnuTLS securely installing emacs 
-packages may fail. In this case it is possible to install using 
-`emacs --insecure`. However be aware that this means your packages will 
+Depending on the installed version of GnuTLS securely installing emacs
+packages may fail. In this case it is possible to install using
+`emacs --insecure`. However be aware that this means your packages will
 be transferred using http, use at your own risk.
 
 You might also have some issues when doing some search on your projects, you
@@ -247,9 +247,9 @@ For efficient searches we recommend installing `pt` ([the platinum searcher][]).
 `pt` version 1.7.7 or higher is required.
 
 **Notes:**
-Depending on the installed version of GnuTLS securely installing emacs 
-packages may fail. In this case it is possible to install using 
-`emacs --insecure`. However be aware that this means your packages will 
+Depending on the installed version of GnuTLS securely installing emacs
+packages may fail. In this case it is possible to install using
+`emacs --insecure`. However be aware that this means your packages will
 be transferred using http, use at your own risk.
 
 # Install
@@ -274,11 +274,11 @@ be transferred using http, use at your own risk.
    ```
 
    Or
-   
+
    ```sh
    git clone --depth 1 https://github.com/syl20bnr/spacemacs ~/.emacs.d
    ```
-   
+
    In case you have a limited internet connection or speed.
 
    `master` is the stable branch and it is _immutable_, **DO NOT** make any
@@ -380,7 +380,7 @@ lines in the `~/.emacs.d/init.el` file:
 For Ubuntu users, follow this guide to
 [change the logo in Unity][cpaulik-unity-icon].
 
-For Mac users, you need to [download the .icns version of the logo][icon-repository],
+For macOS users, you need to [download the .icns version of the logo][icon-repository],
 then [change the logo on the Dock][icon-mac-instructions].
 
 # Update

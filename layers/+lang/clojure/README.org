@@ -13,7 +13,9 @@
   - [[#enabling-sayid-or-clj-refactor][Enabling sayid or clj-refactor]]
   - [[#enabling-automatic-linting][Enabling Automatic Linting]]
     - [[#enable-clj-kondo-linter][Enable clj-kondo linter]]
+    - [[#enable-joker-linter][Enable joker linter]]
     - [[#enable-squiggly-linter][Enable Squiggly linter]]
+    - [[#enable-multiple-linters][Enable multiple linters]]
   - [[#starting-clojure-manually-outside-of-emacs][Starting Clojure manually (outside of Emacs)]]
     - [[#quick-start-with-boot][Quick Start with boot]]
     - [[#quick-start-with-lein][Quick Start with lein]]
@@ -53,7 +55,7 @@ This layer adds support for [[https://clojure.org/][Clojure]] language using [[h
 - REPL via [[https://github.com/clojure-emacs/cider][CIDER]]
 - Code formatting via [[https://github.com/clojure-emacs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]]
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
-- Linting via [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]]
+- Linting via [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]], [[https://github.com/borkdude/clj-kondo][clj-kondo]] or [[https://github.com/candid82/joker][joker]]
 - Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
 - Debugging with [[https://github.com/clojure-emacs/sayid][sayid]]
 - Clojure cheatsheet
@@ -111,19 +113,16 @@ Enabling either of these packages will cause extra nREPL middleware to be
 injected when jacking in CIDER.
 
 ** Enabling Automatic Linting
-[[https://github.com/borkdude/clj-kondo][clj-kondo]] and [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] provide automated linting via =flycheck=.
-These packages disabled by default as they require the relevant linter binaries
+[[https://github.com/borkdude/clj-kondo][clj-kondo]], [[https://github.com/candid82/joker][joker]] and [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] provide automated linting via =flycheck=.
+These packages are disabled by default as they require the relevant linter binaries
 to be installed locally.
 
-The recommended linter is [[https://github.com/borkdude/clj-kondo][clj-kondo]]
+The recommended linter is to use [[https://github.com/borkdude/clj-kondo][clj-kondo]] in combination with [[https://github.com/candid82/joker][joker]]. Together they catch the most issues while both running extremely quickly.
 
 squiggly reloads your code on every change which gives unexpected results if
 your code is not re-loadable. squiggly also requires =org.clojure/core.typed= be
 added to the development dependencies of your projects or build tool when using
 =cider-connect=.
-
-Joker is a Clojure linter written in Go and is available separately via the
-[[https://github.com/n2o/clojure-lint-spacemacs-layer][unofficial clojure-lint layer]]
 
 *** Enable clj-kondo linter
 This linter based on static syntax checking and requires the [[https://github.com/borkdude/clj-kondo][clj-kondo]] binary
@@ -149,6 +148,30 @@ to your Spacemacs configuration:
     )
 #+END_SRC
 
+*** Enable joker linter
+This linter is based on static syntax checking and requires the [[https://github.com/candid82/joker][joker]] binary
+installed on the system PATH that =spacemacs.env= includes. Please read the
+[[https://github.com/candid82/joker#installation][joker binary installation instructions]]
+
+Enable the joker automatic linter in Spacemacs by adding a =:variables= option
+to your Spacemacs configuration:
+
+#+BEGIN_SRC emacs-lisp
+  ;; Witout any variables your configuration would just include clojure
+  dotspacemacs-configuration-layers
+  '(...
+    clojure
+    )
+
+  ;; to use joker as a linter, add this variable to the clojure layer
+  ;; wrapping the clojure layer in a list
+  dotspacemacs-configuration-layers
+  '(...
+    (clojure :variables
+             clojure-enable-linters 'joker)
+    )
+#+END_SRC
+
 *** Enable Squiggly linter
 [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] uses [[https://github.com/jonase/eastwood][Eastwood]] and [[https://github.com/jonase/kibit][Kibit]] for linting. Please install these projects
 before configuring Spacemacs with =squiggly=.
@@ -157,8 +180,7 @@ Make sure to read the [[https://github.com/clojure-emacs/squiggly-clojure#warnin
 
 Please read the section on [[https://github.com/clojure-emacs/squiggly-clojure#dependencies-in-clojure][squiggly dependencies]] if you are using =cider-connect=
 
-Enable the clj-kondo automatic linter in Spacemacs by adding a =:variables= option
-to your Spacemacs configuration:
+Enable the squiggly (eastwood, kibit and core.typed) automatic linter in Spacemacs by adding a =:variables= option to your Spacemacs configuration:
 
 #+BEGIN_SRC emacs-lisp
   ;; Without any variables your configuration would just include Clojure
@@ -178,6 +200,29 @@ to your Spacemacs configuration:
 #+END_SRC
 
 Troubleshooting: please read [[https://github.com/clojure-emacs/squiggly-clojure#debugging-and-bug-reporting][debugging and bug reporting]] and try to reproduce using the [[https://github.com/clojure-emacs/squiggly-clojure/tree/master/sample-project][sample project]].
+
+*** Enable multiple linters
+You can choose to enable multiple linters and have them all run together. This gives you better linting coverage, as they don't catch all the same issues.
+
+You will need to follow their individual install instructions first, to get all their necessary binaries and configs on the system PATH that =spacemacs.env= includes. Please refer to their individual Enable ... linter section respectively.
+
+Once all the linters you want to enable are installed, you simply need to specify a list of them in the =:variables= option to your Spacemacs configuration:
+
+#+BEGIN_SRC emacs-lisp
+  ;; Witout any variables your configuration would just include clojure
+  dotspacemacs-configuration-layers
+  '(...
+    clojure
+    )
+
+  ;; to enable multiple linters, say clj-kondo and joker, add a list variable to the clojure layer
+  ;; listing each one in the order you want them running, wrapping the clojure layer in a list
+  dotspacemacs-configuration-layers
+  '(...
+    (clojure :variables
+             clojure-enable-linters '(clj-kondo joker))
+    )
+#+END_SRC
 
 ** Starting Clojure manually (outside of Emacs)
 CIDER communicates with your Clojure process through nREPL, and for CIDER to

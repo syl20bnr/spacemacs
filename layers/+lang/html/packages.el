@@ -76,7 +76,7 @@
 
       (when css-enable-lsp
         (add-hook 'css-mode-hook
-                  #'spacemacs//setup-lsp-for-stylesheet-buffers t))
+                  #'spacemacs//setup-lsp-for-web-mode-buffers t))
 
       ;; Explicitly run prog-mode hooks since css-mode does not derive from
       ;; prog-mode major-mode in Emacs 24 and below.
@@ -128,9 +128,9 @@
   (use-package counsel-css
     :defer t
     :init (cl-loop for (mode . mode-hook) in '((css-mode . css-mode-hook)
-                                            (scss-mode . scss-mode-hook))
-                do (add-hook mode-hook 'counsel-css-imenu-setup)
-                (spacemacs/set-leader-keys-for-major-mode mode "gh" 'counsel-css))))
+                                               (scss-mode . scss-mode-hook))
+                   do (add-hook mode-hook 'counsel-css-imenu-setup)
+                   (spacemacs/set-leader-keys-for-major-mode mode "gh" 'counsel-css))))
 
 (defun html/init-helm-css-scss ()
   (use-package helm-css-scss
@@ -153,7 +153,7 @@
     :init
     (when less-enable-lsp
       (add-hook 'less-css-mode-hook
-                #'spacemacs//setup-lsp-for-stylesheet-buffers t))
+                #'spacemacs//setup-lsp-for-web-mode-buffers t))
     :mode ("\\.less\\'" . less-css-mode)))
 
 (defun html/pre-init-prettier-js ()
@@ -176,7 +176,7 @@
     :defer t
     :init
     (when scss-enable-lsp
-      (add-hook 'scss-mode-hook #'spacemacs//setup-lsp-for-stylesheet-buffers t))
+      (add-hook 'scss-mode-hook #'spacemacs//setup-lsp-for-web-mode-buffers t))
     :mode ("\\.scss\\'" . scss-mode)))
 
 (defun html/init-slim-mode ()
@@ -230,20 +230,20 @@
       ;; (defvar spacemacs--web-mode-ms-doc-toggle 0
       ;;   "Display a short doc when nil, full doc otherwise.")
 
-  ;;     (defun spacemacs//web-mode-ms-doc ()
-  ;;       (if (equal 0 spacemacs--web-mode-ms-doc-toggle)
-  ;;           "[_?_] for help"
-  ;;         "
-  ;; [_?_] display this help
-  ;; [_k_] previous [_j_] next   [_K_] previous sibling [_J_] next sibling
-  ;; [_h_] parent   [_l_] child  [_c_] clone [_d_] delete [_D_] kill [_r_] rename
-  ;; [_w_] wrap     [_p_] xpath
-  ;; [_q_] quit"))
+      ;;     (defun spacemacs//web-mode-ms-doc ()
+      ;;       (if (equal 0 spacemacs--web-mode-ms-doc-toggle)
+      ;;           "[_?_] for help"
+      ;;         "
+      ;; [_?_] display this help
+      ;; [_k_] previous [_j_] next   [_K_] previous sibling [_J_] next sibling
+      ;; [_h_] parent   [_l_] child  [_c_] clone [_d_] delete [_D_] kill [_r_] rename
+      ;; [_w_] wrap     [_p_] xpath
+      ;; [_q_] quit"))
 
-  ;;     (defun spacemacs//web-mode-ms-toggle-doc ()
-  ;;       (interactive)
-  ;;       (setq spacemacs--web-mode-ms-doc-toggle
-  ;;             (logxor spacemacs--web-mode-ms-doc-toggle 1)))
+      ;;     (defun spacemacs//web-mode-ms-toggle-doc ()
+      ;;       (interactive)
+      ;;       (setq spacemacs--web-mode-ms-doc-toggle
+      ;;             (logxor spacemacs--web-mode-ms-doc-toggle 1)))
 
       (spacemacs|define-transient-state web-mode
         :title "Web-mode Transient State"
@@ -285,7 +285,10 @@
      ("\\.eco\\'"        . web-mode)
      ("\\.ejs\\'"        . web-mode)
      ("\\.svelte\\'"     . web-mode)
-     ("\\.djhtml\\'"     . web-mode))))
+     ("\\.djhtml\\'"     . web-mode))
+    :init
+    (when html-enable-lsp
+      (add-hook 'web-mode-hook #'spacemacs//setup-lsp-for-html-buffer t))))
 
 (defun html/post-init-yasnippet ()
   (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(css-mode-hook

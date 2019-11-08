@@ -25,5 +25,5 @@ file.
 
 | Key Binding | Description                          |
 |-------------+--------------------------------------|
-| ~SPC c c~   | Compile current buffer file.         |
-| ~SPC c r~   | Compile and run current buffer file. |
+| ~SPC m c b~ | Compile current buffer file.         |
+| ~SPC m c r~ | Compile and run current buffer file. |

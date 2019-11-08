@@ -31,6 +31,7 @@ This layer adds auto-completion to all supported language layers.
 - Frequency-based suggestions via [[https://github.com/company-mode/company-statistics][company-statistics]] for =company=
 - Integration with [[https://github.com/capitaomorte/yasnippet][yasnippet]] and [[https://github.com/abo-abo/auto-yasnippet][auto-yasnippet]]
 - Automatic configuration of [[https://www.emacswiki.org/emacs/HippieExpand][hippie-expand]]
+- Automatic docstring tooltips are provided by [[https://github.com/expez/company-quickhelp][company-quickhelp]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -77,6 +78,7 @@ The default configuration of the layer is:
                      auto-completion-private-snippets-directory nil
                      auto-completion-enable-snippets-in-popup nil
                      auto-completion-enable-help-tooltip nil
+                     auto-completion-use-company-box nil
                      auto-completion-enable-sort-by-usage nil)))
 #+END_SRC
 
@@ -123,6 +125,9 @@ To enable manual non-automatic invocation of docstring tooltips, set it to
     '((auto-completion :variables
                       auto-completion-enable-help-tooltip 'manual)))
 #+END_SRC
+
+However the tooltip may overlap on text on macOS, you can use =company-box= on
+Emacs 26+ by setting =auto-completion-use-company-box= to =t=.
 
 ** Sort results by usage
 To enable sorting auto-completion results by their usage frequency set

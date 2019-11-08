@@ -40,30 +40,30 @@ add =japanese= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** Configuration
-For a basic configuration, add this to your =~/.spacemacs= inside ~dotspacemacs/user-config~:
+For a basic configuration, add this to your =~/.spacemacs= inside =dotspacemacs/user-config=:
 
 *** evil-tutor-ja
-By default, the variable ~evil-tutor-working-ja-directory~ is assigned =~/.emacs.d/.tutor-ja=.
+By default, the variable =evil-tutor-working-ja-directory= is assigned =~/.emacs.d/.tutor-ja=.
 
 *** migemo
-By default, the variable ~migemo-dictionary~ is assigned
-~/usr/local/share/migemo/utf-8/migemo-dict~ in MacOS, or ~/usr/local/cmigemo/utf-8/migemo-dict~ in linux.
+By default, the variable =migemo-dictionary= is assigned
+=/usr/local/share/migemo/utf-8/migemo-dict= in macOS, or =/usr/local/cmigemo/utf-8/migemo-dict= in Linux.
 If you want it to be another directory, you must re-set the variable.
-For example, if you install [[https://www.kaoriya.net/software/cmigemo/][C/Migemo for Windows 64bit]] in the directory ~c:\app\cmigemo-default-win64~, you should add:
+For example, if you install [[https://www.kaoriya.net/software/cmigemo/][C/Migemo for Windows 64bit]] in the directory =c:\app\cmigemo-default-win64=, you should add:
 
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load "migemo"
     (setq migemo-dictionary "c:/app/cmigemo-default-win64/dict/utf-8/migemo-dict"))
 #+END_SRC
 
-inside ~dotspacemacs/user-config~, or
+inside =dotspacemacs/user-config=, or
 
 #+begin_src emacs-lisp
   (japanese :variables
             migemo-dictionary "c:/app/cmigemo-default-win64/dict/utf-8/migemo-dict")
 #+end_src
 
-inside ~dotspacemacs-configuration-layers~.
+inside =dotspacemacs-configuration-layers=.
 
 *** helm-with-migemo
 If you want to use helm with migemo, you should add:
@@ -73,22 +73,22 @@ If you want to use helm with migemo, you should add:
     (helm-migemo-mode 1))
 #+END_SRC
 
-inside ~dotspacemacs/user-config~, or
+inside =dotspacemacs/user-config=, or
 
 #+begin_src emacs-lisp
   (japanese :variables
              helm-migemo-mode 1)
 #+end_src
 
-inside ~dotspacemacs-configuration-layers~. Note that you may find in a package called
-~helm-migemo.el~ in MELPA. However, this package is deprecated and not supported
+inside =dotspacemacs-configuration-layers=. Note that you may find in a package called
+=helm-migemo.el= in MELPA. However, this package is deprecated and not supported
 by helm.
 
 *** avy-migemo
-Note that ~avy-migemo~ in MELPA does not work
-currently, so you had better use a [[https://github.com/tam17aki/avy-migemo][forked version]] alternatively.
+Note that =avy-migemo= in MELPA does not work
+currently, so you had better use a [[https://github.com/tam17aki/avy-migemo][forked version]] instead.
 
-By default, you can use ~avy-migemo~ for ~helm-mode~. For ~ivy-mode~, you should add:
+By default, you can use =avy-migemo= for =helm-mode=. For =ivy-mode=, you should add:
 
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load "migemo"
@@ -97,21 +97,21 @@ By default, you can use ~avy-migemo~ for ~helm-mode~. For ~ivy-mode~, you should
     (require 'avy-migemo-e.g.counsel))
 #+END_SRC
 
-inside ~dotspacemacs/user-config~.
+inside =dotspacemacs/user-config=.
 
 *** ddskk
-You can write a configuration file ~​~/.skk~. For detailed configuration, see
+You can write a configuration file =​~/.skk=. For detailed configuration, see
 some [[https://skk-dev.github.io/ddskk/skk.html][documents]].
 
 *** pangu-spacing
-By default, ~pangu-spacing-mode~ is applied to ~text-mode~. If you prefer the
+By default, =pangu-spacing-mode= is applied to =text-mode=. If you prefer the
 mode globally, add:
 
 #+BEGIN_SRC emacs-lisp
   (global-pangu-spacing-mode 1)
 #+END_SRC
 
-inside ~dotspacemacs/user-config~.
+inside =dotspacemacs/user-config=.
 
 * Key bindings
-By default, ~C-x j~ toggles ~skk-mode~.
+By default, ~C-x j~ toggles =skk-mode=.

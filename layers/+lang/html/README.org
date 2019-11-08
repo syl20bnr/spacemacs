@@ -46,10 +46,11 @@ SCSS linting requires SCSS-Lint version >= 0.43.0. You can get it from GitHub:
 #+END_SRC
 
 ** LSP
-To enable the LSP set the layer variables below:
+To enable LSP, set the layer variables below to =t=:
 - =css-enable-lsp=
 - =less-enable-lsp=
 - =scss-enable-lsp=
+- =html-enable-lsp=
 
 ** web-beautify
 See [[file:../../+tools/web-beautify/README.org][web-beautify layer]] documentation.
@@ -79,11 +80,19 @@ Formatter can be chosen on a per project basis using directory local variables
 
 * Backends
 ** Language Server Protocol
-You have to install =vscode-css-languageserver-bin= via
+For css files, you have to install =vscode-css-languageserver-bin=
 
 #+BEGIN_SRC sh
   npm i -g vscode-css-languageserver-bin
 #+END_SRC
+
+For html files, you will need to install =vscode-html-languageserver-bin=
+
+#+BEGIN_SRC sh
+  npm install -g vscode-html-languageserver-bin
+#+END_SRC
+
+Don't forget to set the corresponding layer variables mentioned above to =t=
 
 * Live display in browser
 Use ~SPC m I~ to enable impatient mode, opening a live view of a HTML file in

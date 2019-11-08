@@ -14,4 +14,5 @@
 (spacemacs|define-jump-handlers sh-mode)
 
 (defvar shell-scripts-backend nil
-  "The backend to use for IDE features. Possible values are `lsp'.")
+  "The backend to use for IDE features.
+Possible values are `lsp'.")

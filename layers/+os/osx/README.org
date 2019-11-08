@@ -11,14 +11,14 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
     - [[#use-with-non-us-keyboard-layouts][Use with non-US keyboard layouts]]
-    - [[#define-words-using-os-x-dictionary][Define words using OS X Dictionary]]
+    - [[#define-words-using-macos-dictionary][Define words using macOS Dictionary]]
   - [[#coreutils][Coreutils]]
 - [[#key-bindings][Key bindings]]
 - [[#future-work][Future Work]]
 
 * Description
-Spacemacs is not just emacs+vim. It can have OSX key bindings too! This layer
-globally defines common OSX key bindings.
+Spacemacs is not just Emacs plus Vim. It can have macOS key bindings too! This
+layer globally defines common macOS key bindings.
 
 ** Features:
 - ~⌘~ is set to ~hyper~ and ~⌥~ is set to ~meta~
@@ -26,8 +26,8 @@ globally defines common OSX key bindings.
 - Fix separator colors of Spaceline mode-line
 
 * Philosophy
-While this layer enables common OSX bindings, it does not implement OSX
-navigation key bindings. Spacemacs is meant to be used with evil, and we
+While this layer enables common macOS bindings, it does not implement macOS
+navigation key bindings. Spacemacs is meant to be used with Evil, and we
 encourage you to do so :)
 
 * Install
@@ -78,8 +78,8 @@ key.
                      osx-right-option-as 'none)))
 #+END_SRC
 
-*** Define words using OS X Dictionary
-This layer by default enables defining words under point ~SPC x w d~ using OS X
+*** Define words using macOS Dictionary
+This layer by default enables defining words under point ~SPC x w d~ using macOS
 Dictionary. In some cases you might want to manually setup dictionary to use.
 For example,
 
@@ -128,4 +128,4 @@ To get =gls= install coreutils homebrew:
 * Future Work
 - Allow user to choose from either ~hyper~ or ~super~ as ~⌘~. This is an option
   that is supported cross-platform.
-- Configurable option to keep the OSX and spacemacs clipboards separate
+- Configurable option to keep the macOS and Spacemacs clipboards separate.

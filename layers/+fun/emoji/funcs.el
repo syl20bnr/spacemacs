@@ -10,7 +10,7 @@
 ;;; License: GPLv3
 
 ;; From https://github.com/dunn/company-emoji/README.md for Linux, or on
-;; Mac OS X and using the Cocoa version of Emacs
+;; macOS and using the Cocoa version of Emacs
 (defun spacemacs//set-emoji-font (frame)
   "Adjust the font settings of FRAME so Emacs can display emoji properly."
   (when (fboundp 'set-fontset-font)

@@ -58,6 +58,9 @@
            (agda2-highlight-record-face                . font-lock-type-face))))
       :config
       (progn
+        ; don't lose indentation on paste
+        (add-to-list 'spacemacs-indent-sensitive-modes 'agda2-mode)
+
         (spacemacs|define-transient-state goal-navigation
           :title "Goal Navigation Transient State"
           :doc "\n[_f_] next [_b_] previous [_q_] quit"

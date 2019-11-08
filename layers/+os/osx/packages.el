@@ -23,7 +23,7 @@
 
 (when (spacemacs/system-is-mac)
   ;; Enable built-in trash support via finder API if available (only on Emacs
-  ;; Mac Port)
+  ;; macOS Port)
   (when (boundp 'mac-system-move-file-to-trash-use-finder)
     (setq mac-system-move-file-to-trash-use-finder t)))
 

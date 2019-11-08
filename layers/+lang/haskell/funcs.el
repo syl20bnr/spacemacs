@@ -9,25 +9,20 @@
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs-haskell//disable-electric-indent ()
-  "Disable electric indent mode if available"
-  ;; use only internal indentation system from haskell
-  (if (fboundp 'electric-indent-local-mode)
-      (electric-indent-local-mode -1)))
-
-(defun spacemacs/haskell-format-imports ()
-  "Sort and align import statements from anywhere in the source file."
-  (interactive)
-  (save-excursion
-    (haskell-navigate-imports)
-    (haskell-mode-format-imports)))
-
 
 ;; Completion setup functions
 
+(defun spacemacs//haskell-backend ()
+  "Returns selected backend."
+  (if haskell-completion-backend
+      haskell-completion-backend
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'ghci))))
+
 (defun spacemacs-haskell//setup-backend ()
   "Conditionally setup haskell backend."
-  (pcase haskell-completion-backend
+  (pcase (spacemacs//haskell-backend)
     (`ghci (spacemacs-haskell//setup-ghci))
     (`lsp (spacemacs-haskell//setup-lsp))
     (`intero (spacemacs-haskell//setup-intero))
@@ -36,7 +31,7 @@
 
 (defun spacemacs-haskell//setup-company ()
   "Conditionally setup haskell completion backend."
-  (pcase haskell-completion-backend
+  (pcase (spacemacs//haskell-backend)
     (`ghci (spacemacs-haskell//setup-ghci-company))
     (`lsp nil) ;; nothing to do, auto-configured by lsp-mode
     (`intero (spacemacs-haskell//setup-intero-company))
@@ -125,3 +120,19 @@
   (let ((buffer (current-buffer)))
     (apply f args)
     (pop-to-buffer buffer)))
+
+
+;; misc
+
+(defun spacemacs-haskell//disable-electric-indent ()
+  "Disable electric indent mode if available"
+  ;; use only internal indentation system from haskell
+  (if (fboundp 'electric-indent-local-mode)
+      (electric-indent-local-mode -1)))
+
+(defun spacemacs/haskell-format-imports ()
+  "Sort and align import statements from anywhere in the source file."
+  (interactive)
+  (save-excursion
+    (haskell-navigate-imports)
+    (haskell-mode-format-imports)))

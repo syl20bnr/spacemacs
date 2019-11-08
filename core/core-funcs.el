@@ -371,6 +371,13 @@ is not visible. Otherwise delegates to regular Emacs next-error."
      ((eq 'flycheck sys) (call-interactively 'flycheck-next-error))
      ((eq 'emacs sys) (call-interactively 'next-error)))))
 
+(defun spacemacs/last-error ()
+  "Go to last flycheck or standard emacs error."
+  (interactive)
+  (when (save-excursion (spacemacs/next-error))
+    (evil-goto-line)
+    (spacemacs/previous-error)))
+
 (defun spacemacs/previous-error (&optional n reset)
   "Dispatch to flycheck or standard emacs error."
   (interactive "P")

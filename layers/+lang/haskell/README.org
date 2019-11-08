@@ -11,7 +11,7 @@
   - [[#layer][Layer]]
   - [[#dependencies][Dependencies]]
   - [[#setup-path][Setup PATH]]
-  - [[#completion-support][Completion support]]
+  - [[#choosing-a-backend][Choosing a backend]]
     - [[#company-ghci][=company-ghci=]]
     - [[#intero][=intero=]]
     - [[#dante][=dante=]]
@@ -104,32 +104,43 @@ then it should be =~/.local/bin=.
 For information about setting up =$PATH=, check out the corresponding section in
 the FAQ (~SPC h SPC $PATH RET~).
 
-** Completion support
-This layer provides several completion backends - =intero=, =dante=, =ghci=,
-=ghc-mod=, and =lsp=. =ghci= (=company-ghci=) is used by default, because it doesn't
+** Choosing a backend
+To choose a default backend set the layer variable =haskell-completion-backend=:
+
+#+BEGIN_SRC elisp
+  (haskell :variables haskell-completion-backend 'ghci)
+#+END_SRC
+
+ Note that in order to enable completion, you'll have to enable the
+=auto-completion= layer as well.
+
+Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
+is used and you did not specify any value for =haskell-completion-backend=.
+
+Backend can be chosen on a per project basis using directory local variables
+(files named =.dir-locals.el= at the root of a project), an example to use the
+=lsp= backend:
+
+#+BEGIN_SRC elisp
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
+
+  ((haskell-mode (haskell-completion-backend . lsp)))
+#+END_SRC
+
+*Note:* you can easily add a directory local variable with ~SPC f v d~.
+
+Supported values for =haskell-completion-backend= arer =intero=, =dante=,
+=ghci=, =ghc-mod=, and =lsp=. =ghci= (=company-ghci=) is used by default unless
+the layer =lsp= is used. =ghci= is the default backend because it doesn't
 require any dependencies, and it works with both =stack= and pure =cabal=
-projects. The completion backend can be changed manually, by setting the value
-of the =haskell-completion-backend= variable. Note that in order to enable
-completion, you'll have to enable the =auto-completion= layer as well.
+projects.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '(auto-completion
                   (haskell :variables haskell-completion-backend 'intero)))
 #+END_SRC
-
-Backend can be chosen on a per project basis using directory local variables
-(files named =.dir-locals.el= at the root of a project), an example to use the
-=intero= backend:
-
-#+BEGIN_SRC elisp
-  ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
-
-  ((haskell-mode (haskell-completion-backend . intero)))
-#+END_SRC
-
-*Note:* you can easily add a directory local variable with ~SPC f v d~.
 
 *** =company-ghci=
 [[https://github.com/juiko/company-ghci][company-ghci]] communicates directly with =ghci=, in order to provide completion.

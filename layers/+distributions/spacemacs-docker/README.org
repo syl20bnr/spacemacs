@@ -8,7 +8,7 @@
 - [[#screenshots][Screenshots]]
 - [[#how-to-setup][How to setup]]
 - [[#how-to-use][How to use]]
-  - [[#macos][MacOS]]
+  - [[#macos][macOS]]
   - [[#windows][Windows]]
   - [[#gnulinux][GNU/Linux]]
   - [[#with-xpra-on-any-of-the-oses-and-via-web-browser][With Xpra on any of the OSes and via web-browser]]
@@ -26,7 +26,7 @@ with GUI support on all major platforms and even [[https://i.imgur.com/wDLDMZN.g
 
 ** Features:
 - Automatically get Spacemacs layers dependency installed with [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/README.org][installer scripts]]
-- Reap the benefit of Emacs and other GNU/Linux tools on Windows/MacOS machines
+- Reap the benefit of Emacs and other GNU/Linux tools on Windows or macOS machines
 - Use [[https://hub.docker.com/][docker hub]] to auto-build your environment and store full backups for free
 - Build once and work with the same development environment everywhere
 - Run untrusted/risky code in the tunable sandbox with CPU/network/disk quotas
@@ -40,7 +40,7 @@ with GUI support on all major platforms and even [[https://i.imgur.com/wDLDMZN.g
 * Screenshots
 [[file:img/MAC_SP.jpg]]
 
-[[https://i.imgur.com/VcuqReF.jpg][HD MacOS image]]
+[[https://i.imgur.com/VcuqReF.jpg][HD macOS image]]
 
 [[file:img/LN_SP.jpg]]
 
@@ -62,7 +62,7 @@ With one of the methods below replace =spacemacs/develop= with your images.
 NOTE: The guide assumes that you want to run Docker and connect to it from
 the same machine.
 
-** MacOS
+** macOS
 Get [[https://www.xquartz.org][XQuartz]] and =open -a XQuartz= In the XQuartz preferences go to the "Security"
 tab and make sure you've got "Allow connections from network clients" ticked
 
@@ -143,7 +143,7 @@ Or allow local connection from the container's host-name
 
 ** With Xpra on any of the OSes and via web-browser
 *** Pros
-- Xpra has a client for GNU/Linux, Windows and MacOS + can work via web browser
+- Xpra has a client for GNU/Linux, Windows and macOS and can work via web browser
 - Persistent server (you can connect and disconnect without disrupting Emacs)
 - Interactive screen sharing [[https://imgur.com/ijdSuX6][demo]]
 - Read/write rss/email with Emacs in web-browser (O_O) [[https://imgur.com/wDLDMZN][demo]]

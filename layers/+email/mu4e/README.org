@@ -39,7 +39,7 @@ In order to use this layer you must install =mu= and =mu4e= separately.
 Typically =mu4e= will be bundled with =mu= (this is the case on many Linux
 distributions).
 
-If you're on OS X and install =mu= using Homebrew, you must specify the
+If you're on macOS and install =mu= using Homebrew, you must specify the
 location of your Emacs binary at install time using the EMACS environment
 variable, as well as passing the =--with-emacs= option:
 
@@ -241,11 +241,11 @@ installed libraries:
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'mu4e-alert
     ;; Enable Desktop notifications
-    (mu4e-alert-set-default-style 'notifications)) ; For linux
-    ;; (mu4e-alert-set-default-style 'libnotify))  ; Alternative for linux
-    ;; (mu4e-alert-set-default-style 'notifier))   ; For Mac OSX (through the
-                                                   ; terminal notifier app)
-    ;; (mu4e-alert-set-default-style 'growl))      ; Alternative for Mac OSX
+    (mu4e-alert-set-default-style 'notifications)) ; For Linux.
+    ;; (mu4e-alert-set-default-style 'libnotify))  ; Alternative for Linux
+    ;; (mu4e-alert-set-default-style 'notifier))   ; For macOS (through the
+                                                   ; terminal notifier app).
+    ;; (mu4e-alert-set-default-style 'growl))      ; Alternative for macOS.
 #+END_SRC
 
 *** Mode-line notifications

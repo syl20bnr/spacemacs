@@ -68,7 +68,7 @@ to not have to set these variables manually when enabling this layer."
         (kbd "q") 'quit-window
         (kbd "i") 'sunshine-toggle-icons)
 
-      ;; just in case location was not set by user, or on OS X,
+      ;; just in case location was not set by user, or on macOS,
       ;; if wasn't set up automatically, will not work with Emacs'
       ;; default for `calendar-location-name'
       (unless (boundp 'sunshine-location)

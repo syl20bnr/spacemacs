@@ -1,0 +1,40 @@
+#+TITLE: Conda Layer
+
+#+TAGS: layer|programming|util
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#configuration][Configuration]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support for the Anaconda python environment for
+numerical computations to Spacemacs.
+
+** Features:
+- Controlling =Anaconda= or =Miniconda= environments directly from emacs with [[https://github.com/necaris/conda.el][conda.el]]
+
+* Install
+To add this layer to Spacemacs, add =conda= to your
+=dotspacemacs-configuration-layers= list.
+
+* Configuration
+To use this layer you need to tell spacemacs where your anaconda
+environment can be found. By default Spacemacs will check in =~/.anaconda3=.
+
+If it is installed somewhere else just set =conda-anaconda-home= in your dotfile:
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((conda :variables conda-anaconda-home "/your/path/here")))
+#+END_SRC
+
+* Key bindings
+
+| Key binding | Description                                                       |
+| ~SPC m n a~ | Open a =helm= buffer to select an environment                     |
+| ~SPC m n A~ | Toggle automatic activation of environments                       |
+| ~SPC m n b~ | Activate environment for buffer based on =conda-project-env-name= |
+| ~SPC m n d~ | Deactivate current environment                                    |
+| ~SPC m n l~ | Open a help buffer that lists envs                                |

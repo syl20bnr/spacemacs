@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layers '(python))
+(configuration-layer/declare-layer-dependencies '(python))
