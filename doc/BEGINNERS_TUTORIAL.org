@@ -36,9 +36,9 @@ using a program called Git. The steps are easy and detailed in the [[https://git
 
 * Getting started
 ** Key binding notation
-The power of Spacemacs lies in its efficient key bindings. Because it is built on
-Emacs, we will use Emacs conventions for key binding notation. The most important
-modifier keys are:
+The power of Spacemacs lies in its efficient key bindings. Because it is built
+on Emacs, we will use Emacs conventions for key binding notation. The most
+important modifier keys are:
 
 ~SPC~ = ~Space~, used as the leader key in Vim editing style.
 ~RET~ = ~Return~ (also known as ~Enter~)
@@ -164,13 +164,13 @@ Spacemacs divides its configuration into self-contained units called
 configuration layers. These layers are stacked on top of each other to achieve a
 custom configuration.
 
-By default Spacemacs uses a dotfile called =~/.spacemacs= to control which layers
-to load. Within this file you can also configure certain features. First, split
-the window vertically to view both this tutorial and the dotfile simultaneously
-(~SPC w /~). Open the dotfile by pressing ~SPC f e d~. Navigate to the line
-starting with "dotspacemacs-configuration-layers". The following lines have
-further instructions: uncomment =org= and =git= layers if you want to be
-familiarized with them. More [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][layers]] for different languages and tools can be
+By default Spacemacs uses a dotfile called =~/.spacemacs= to control which
+layers to load. Within this file you can also configure certain features. First,
+split the window vertically to view both this tutorial and the dotfile
+simultaneously (~SPC w /~). Open the dotfile by pressing ~SPC f e d~. Navigate
+to the line starting with "dotspacemacs-configuration-layers". The following
+lines have further instructions: uncomment =org= and =git= layers if you want to
+be familiarized with them. More [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][layers]] for different languages and tools can be
 found by pressing ~SPC h SPC~. The added layers will be installed upon restart
 of Spacemacs.
 
@@ -183,8 +183,8 @@ activated themes. You can find more by adding the themes-megapack layer and
 activate them by writing their names in the dotspacemacs-themes list.
 
 ** Starting maximized
-Editing the =dotspacemacs-maximized-at-startup= variable from =nil= to =t= will start
-Spacemacs maximized.
+Editing the =dotspacemacs-maximized-at-startup= variable from =nil= to =t= will
+start Spacemacs maximized.
 
 ** Quitting
 Save the changes you've made to the dotfile with ~SPC f s~ and then quit emacs
@@ -199,18 +199,20 @@ and effective plain-text system", but this gives only a small inkling of its
 versatility. If you do any kind of writing at all, chances are that Org mode
 will make it easier and more fun. This tutorial was written in Org mode.
 
-Install the Org layer and open this tutorial. Make a copy named test.org with
-~SPC f c~ somewhere outside of the .emacs.d directory. Write
-~SPC SPC org-mode RET~ to switch to org mode from the write-only documentation mode.
+To test some of it's features. Install the Org layer and open this tutorial.
+Make a copy named =test.org= with ~SPC f c~ somewhere outside of the =.emacs.d=
+directory. Press ~SPC SPC~, write ~org-mode~ and press ~RET~ to switch to
+=org-mode= from the write-only documentation mode.
 
 Press ~S-TAB~ repeatedly and observe that this cycles the visibility of the
-contents of different headlines. Press ~t~ in normal mode and observe that you
-can add TODO tags on headlines. Press ~M-k~ or ~M-j~ in normal mode and see how
+contents of different headlines. Press ~SPC m T T~ in normal mode and observe
+that you can add TODO tags on headlines. (This can be changed to just ~t~, see
+the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%252Bemacs/org/README.org#org-with-evil-org-mode][org]] layers documentation). Press ~M-k~ or ~M-j~ in normal mode and see how
 you can quickly move parts of the document around.
 
 This is not even scratching the surface of Org mode, so you should look into
 [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bemacs/org/README.org][org layer]] with ~SPC h SPC org~ for more information. Googling for Org mode
-tutorials is also very helpful in finding out the most useful features of it!
+tutorials is also very helpful for finding out about the most useful features!
 
 ** Version control - the intelligent way
 Version control means keeping track of the changes and edits you have made to
