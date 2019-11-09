@@ -9,6 +9,8 @@
 - [[#configuration][Configuration]]
 - [[#key-bindings][Key bindings]]
   - [[#evil-mc][=evil-mc=]]
+    - [[#make-cursors-from-a-selection][Make cursors from a selection]]
+    - [[#additional-key-bindings][Additional key bindings]]
   - [[#multiple-cursors][=multiple-cursors=]]
 - [[#notes][Notes]]
   - [[#multiple-cursors-1][=multiple-cursors=]]
@@ -56,17 +58,30 @@ The =evil-mc= package provides the following key bindings:
 | ~g r q~     | evil-mc-undo-all-cursors           |
 | ~g r u~     | evil-mc-undo-last-added-cursor     |
 
-For easy navigation you also have the following:
+*** Make cursors from a selection
+ When the following commands are called from a:
+ - character or line selection, then the cursors are created at the beginning or
+   at the end of each line with a selection.
+ - block selection, then the cursors are created before or after the selection
+   blocks left or right most column.
 
-| Key binding | Description                        |
-|-------------+------------------------------------|
-| ~M-n~       | evil-mc-make-and-goto-next-cursor  |
-| ~M-p~       | evil-mc-make-and-goto-prev-cursor  |
-| ~C-n~       | evil-mc-make-and-goto-next-match   |
-| ~C-p~       | evil-mc-make-and-goto-prev-match   |
-| ~C-t~       | evil-mc-skip-and-goto-next-match   |
-| ~C-M-j~     | evil-mc-make-cursor-move-next-line |
-| ~C-M-k~     | evil-mc-make-cursor-move-prev-line |
+ | Key binding | Description                                 |
+ |-------------+---------------------------------------------|
+ | ~g r A~     | evil-mc-make-cursor-in-visual-selection-end |
+ | ~g r I~     | evil-mc-make-cursor-in-visual-selection-beg |
+
+*** Additional key bindings
+ For easy navigation you also have the following:
+
+ | Key binding | Description                        |
+ |-------------+------------------------------------|
+ | ~M-n~       | evil-mc-make-and-goto-next-cursor  |
+ | ~M-p~       | evil-mc-make-and-goto-prev-cursor  |
+ | ~C-n~       | evil-mc-make-and-goto-next-match   |
+ | ~C-p~       | evil-mc-make-and-goto-prev-match   |
+ | ~C-t~       | evil-mc-skip-and-goto-next-match   |
+ | ~C-M-j~     | evil-mc-make-cursor-move-next-line |
+ | ~C-M-k~     | evil-mc-make-cursor-move-prev-line |
 
 ** =multiple-cursors=
 The =multiple-cursors= backend provides the following key bindings to

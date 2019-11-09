@@ -35,7 +35,11 @@
 
       (evil-define-key '(normal insert) evil-mc-key-map
         (kbd "C-M-j") #'evil-mc-make-cursor-move-next-line
-        (kbd "C-M-k") #'evil-mc-make-cursor-move-prev-line))))
+        (kbd "C-M-k") #'evil-mc-make-cursor-move-prev-line)
+
+      (evil-define-key 'visual evil-mc-key-map
+        "grA" 'evil-mc-make-cursor-in-visual-selection-end
+        "grI" 'evil-mc-make-cursor-in-visual-selection-beg))))
 
 (defun multiple-cursors/init-multiple-cursors ()
   (use-package multiple-cursors

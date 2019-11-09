@@ -2157,6 +2157,10 @@ Other:
   - ~SPC s m s t~ =mc/reverse-regions=
 - Fixed initialization (thanks to Seong Yong-ju)
 - Moved =evil-mc= key bindings to =evil-mc-key-map= (thanks to Seong Yong-ju)
+- Added =evil-mc= make cursors from selection key bindings:
+  - ~grI~ =evil-mc-make-cursor-in-visual-selection-beg=
+  - ~grA~ =evil-mc-make-cursor-in-visual-selection-end=
+  (thanks to duianto)
 **** Neotree
 - Made neotree an optional instead of a default layer
 - Move neotree to its own layer in new +filetree folder
