@@ -19,6 +19,7 @@ forge-database.sqlite
 url/*
 my-org/
 org-files/
+org-journal.cache
 semanticdb/
 edts/
 .recentf
