@@ -228,7 +228,6 @@
   - [[#vagrant][Vagrant]]
   - [[#web-beautify][Web-beautify]]
   - [[#xclipboard][Xclipboard]]
-  - [[#ycmd][Ycmd]]
 - [[#vim][Vim]]
   - [[#evil-commentary][Evil-commentary]]
   - [[#evil-snipe][Evil-snipe]]
@@ -1597,22 +1596,23 @@ Features:
 This layer adds configuration for C/C++ language.
 
 Features:
-- Support syntax checking via flycheck with Clang.
-- Support for disassembly of code with [[https://github.com/jart/disaster][disaster]].
+- Multiple backends support:
+  - LSP with either =clangd=, [[https://github.com/cquery-project/cquery][cquery]] or [[https://github.com/MaskRay/ccls][ccls]]
+  - [[https://github.com/Andersbakken/rtags][rtags]] (gtags)
+  - [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]]
+- Support for debuggers [[https://github.com/realgud/realgud][realgud]] and [[https://github.com/emacs-lsp/dap-mode][dap]] (with LSP backend)
+- Support syntax checking via flycheck (=syntax-checking= layer required)
+- Auto-completion via company (=auto-completion= layer required)
 - Support code reformatting with [[http://clang.llvm.org/docs/ClangFormat.html][clang-format]].
-- Display function or variable definition at the bottom. (when =semantic= layer
-  is included)
-- Display current function cursor is in at the top. See [[https://github.com/tuhdo/semantic-stickyfunc-enhance][stickyfunc-demos]] for
-  demos in some programming languages. (when =semantic= layer is included)
-- Support common refactoring with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]. See [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][srefactor-demos]] for
-  demonstration of refactoring features. (when =semantic= layer is included)
-- Support code navigation via cscope (when =cscope= layer is included) and gtags.
-- Support auto-completion (when =auto-completion= layer is included) via
-  company-clang (when =c-c++-enable-clang-support= is turned on), or
-  company-ycmd (when =ycmd= layer is included).
-- Support for [[https://github.com/realgud/realgud][realgud]] debugger.
-- Support for [[https://github.com/Andersbakken/rtags][rtags]].
-- Support for [[https://github.com/cquery-project/cquery][cquery]] or [[https://github.com/MaskRay/ccls][ccls]] as an lsp backend.
+- Support for disassembly of code with [[https://github.com/jart/disaster][disaster]].
+- =sematic= layer integration:
+  - Function or variable definition at the bottom
+  - Current function cursor is at the top. See [[https://github.com/tuhdo/semantic-stickyfunc-enhance][stickyfunc-demos]] for
+    demos in some programming languages.
+  - Support common refactoring with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]. See [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][srefactor-demos]] for
+    demonstration of refactoring features.
+- =cscope= layer integration:
+  - code navigation
 
 **** Crystal
 [[file:+lang/crystal/README.org][+lang/crystal/README.org]]
@@ -2862,15 +2862,6 @@ Features:
 - adds copy support to the X-clipboard from the terminal.
 - adds paste support to the X-clipboard from the terminal.
 - [[https://github.com/redguardtoo/cliphist][cliphist]] package: integration with clipboard managers on Linux and macOS.
-
-** Ycmd
-[[file:+tools/ycmd/README.org][+tools/ycmd/README.org]]
-
-This layer adds [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]] support.
-
-Features:
-- [[https://github.com/Valloric/YouCompleteMe][YouCompleteMe]] based code-completion
-- Integrations with company, flycheck, and eldoc
 
 * Vim
 ** Evil-commentary
