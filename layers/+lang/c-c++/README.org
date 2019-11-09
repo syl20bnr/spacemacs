@@ -80,11 +80,11 @@ file.
 
 ** Backends
 Supported backends are:
- - =lsp-clangd= using clangd LSP server
- - =lsp-ccls= using ccls LSP server
- - =lsp-cquery= using cquery LSP server
- - =rtags= using [[https://github.com/Andersbakken/rtags][rtags]]
- - =ycmd= using [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]]
+- =lsp-clangd= using clangd LSP server
+- =lsp-ccls= using ccls LSP server
+- =lsp-cquery= using cquery LSP server
+- =rtags= using [[https://github.com/Andersbakken/rtags][rtags]]
+- =ycmd= using [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]]
 
 To choose a default backend set the layer variable =c-c++-backend=:
 
@@ -113,9 +113,10 @@ The backend can be chosen on a per project basis using directory local variables
 *** LSP
 LSP support is provided via the [[file:../../+tools/lsp/README.org][LSP layer]], using one of three available backends
 (all based on libclang).
-  - [[https://clang.llvm.org/extra/clangd/][clangd]]
-  - [[https://github.com/cquery-project/cquery][cquery]]
-  - [[https://github.com/MaskRay/ccls][ccls]]
+- [[https://clang.llvm.org/extra/clangd/][clangd]]
+- [[https://github.com/cquery-project/cquery][cquery]]
+- [[https://github.com/MaskRay/ccls][ccls]]
+
 They claim to be more efficient than existing tools at indexing large code bases.
 
 **** Features
@@ -130,10 +131,10 @@ They claim to be more efficient than existing tools at indexing large code bases
 Install one (or more) of the following (=clangd= is used by default):
 
 ***** clangd
- Install =clang= using a binary distribution downloaded from the [[http://releases.llvm.org/download.html][LLVM releases
- page]] or via your package manager. This is the default implementation that's used by the
- Emacs =lsp-mode= package and probably the easiest to install.
- - [[https://clang.llvm.org/extra/clangd/Extensions.html][clangd protocol extensions page]]
+Install =clang= using a binary distribution downloaded from the [[http://releases.llvm.org/download.html][LLVM releases
+page]] or via your package manager. This is the default implementation that's used by the
+Emacs =lsp-mode= package and probably the easiest to install.
+- [[https://clang.llvm.org/extra/clangd/Extensions.html][clangd protocol extensions page]]
 
 ***** ccls server
 Install the =ccls= server. See [[https://github.com/MaskRay/ccls/wiki][instructions]]. This is currently the most fully
@@ -156,19 +157,19 @@ Homebrew.
 To use the default =clangd= language server, select =lsp-clangd= as the =c-c++=
 layer backend by adding the following to your dotfile:
 
- #+BEGIN_SRC emacs-lisp
-   (setq-default dotspacemacs-configuration-layers
-                 '((c-c++ :variables c-c++-backend 'lsp-clangd)))
- #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables c-c++-backend 'lsp-clangd)))
+#+END_SRC
 
 ***** Selecting an alternate LSP server
 To choose an alternate LSP server set the layer variable =c-c++-backend= to
 another supported backend, for instance =lsp-ccls=:
 
- #+BEGIN_SRC emacs-lisp
-   (setq-default dotspacemacs-configuration-layers
-                 '((c-c++ :variables c-c++-backend 'lsp-ccls)))
- #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables c-c++-backend 'lsp-ccls)))
+#+END_SRC
 
 ***** Path to LSP server executables
 LSP expects to find the LSP server executables in your =PATH=. If you want to
@@ -212,13 +213,13 @@ See the full list of configuration options you can set at:
 - [[https://github.com/cquery-project/cquery/wiki/Emacs][Emacs section of =cquery= wiki]]
 
 ***** Example dotspacemacs-configuration-layers entry
- #+BEGIN_SRC emacs-lisp
-   (setq-default dotspacemacs-configuration-layers
-                 '((c-c++ :variables
-                          c-c++-adopt-subprojects t
-                          c-c++-backend 'lsp-ccls
-                          c-c++-lsp-enable-semantic-highlight 'rainbow)))
- #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables
+                         c-c++-adopt-subprojects t
+                         c-c++-backend 'lsp-ccls
+                         c-c++-lsp-enable-semantic-highlight 'rainbow)))
+#+END_SRC
 
 **** Completion
 =company-lsp= provides completion functionality. Client-side cache and sorting
@@ -243,22 +244,22 @@ writing, although there is an [[https://github.com/Andersbakken/rtags/issues/770
 **** Configuration
 To enable support for =rtags=, set the layer variable =c-c++-backend=:
 
- #+BEGIN_SRC emacs-lisp
-   (setq-default dotspacemacs-configuration-layers
-                 '((c-c++ :variables c-c++-backend 'rtags)))
- #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables c-c++-backend 'rtags)))
+#+END_SRC
 
 This will also enable =company-rtags= to be used as a backend for
 auto-completion (when the =auto-completion= layer is enabled).
 To prevent this, while retaining the rest of Rtags' functionality,
 set the variable =c-c++-rtags-completion= to =nil=:
 
- #+BEGIN_SRC emacs-lisp
-   (setq-default dotspacemacs-configuration-layers
-                 '((c-c++ :variables
-                          c-c++-backend 'rtags
-                          c-c++-enable-rtags-completion nil)))
- #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables
+                         c-c++-backend 'rtags
+                         c-c++-enable-rtags-completion nil)))
+#+END_SRC
 
 ** Default mode for header files
 The mode for header files is auto detected by `c-or-c++-mode' in Emacs > 26.1+.
@@ -346,7 +347,6 @@ This is based on a recommendation on the =cquery= and =ccls= wikis, but should b
 generally applicable.
 
 * Key bindings
-
 ** LSP
 The default key bindings for the LSP implementations are defined and documented in
 the [[file:../../+tools/lsp/README.org][LSP layer]].
