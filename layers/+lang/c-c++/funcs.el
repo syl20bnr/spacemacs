@@ -284,12 +284,13 @@ is non-nil."
       ;;evil-record-macro keybinding clobbers q in cquery-tree-mode-map for some reason?
       (evil-make-overriding-map (symbol-value (spacemacs//c-c++-lsp-symbol nil "-tree-mode-map")))
 
-      (if (configuration-layer/layer-used-p 'dap)
-          (progn
-            (require 'dap-gdb-lldb)
-            (dolist (mode c-c++-modes)
-              (spacemacs/dap-bind-keys-for-mode mode)))
-        (message "`dap' layer is not installed, please add `dap' layer to your dotfile."))))
+      ;; (if (configuration-layer/layer-used-p 'dap)
+      ;;     (progn
+      ;;       (require 'dap-gdb-lldb)
+      ;;       (dolist (mode c-c++-modes)
+      ;;         (spacemacs/dap-bind-keys-for-mode mode)))
+      ;;   (message "`dap' layer is not installed, please add `dap' layer to your dotfile."))
+      ))
 
 (defun spacemacs//c-c++-lsp-wrap-functions ()
   "Wrap navigation functions for the LSP backend specified by the `c-c++-backend' configuration variable."
