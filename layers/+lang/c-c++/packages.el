@@ -73,7 +73,8 @@
           "gA" 'projectile-find-other-file-other-window)))))
 
 (defun c-c++/init-ccls ()
-  (use-package ccls))
+  (use-package ccls
+    :defer t))
 
 (defun c-c++/init-clang-format ()
   (use-package clang-format
@@ -118,7 +119,8 @@
         "ri" #'spacemacs/c++-organize-includes))))
 
 (defun c-c++/init-cquery ()
-  (use-package cquery))
+  (use-package cquery
+    :defer t))
 
 (defun c-c++/pre-init-dap-mode ()
   (add-to-list 'spacemacs--dap-supported-modes 'c-mode)
