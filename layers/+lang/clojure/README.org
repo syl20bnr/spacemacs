@@ -637,7 +637,7 @@ In general, ~q~ should always quit the popped up buffer.
 
 * Development Notes
 ** Indentation
-With a [[https://github.com/clojure-emacs/cider/blob/master/legacy-manual/indent_spec.md][new]] functionality of Cider to read the custom indentation rules from the
+With a [[https://github.com/clojure-emacs/cider/blob/master/doc/modules/ROOT/pages/indent_spec.adoc][Indentation spec]] functionality of Cider to read the custom indentation rules from the
 var's metadata, it is better for consistency reasons to not add the custom
 indentation rules to Spacemacs, but to add them to the metadata of those
 specific vars.
