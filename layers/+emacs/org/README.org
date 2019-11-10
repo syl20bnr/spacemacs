@@ -130,7 +130,7 @@ the =gnuplot= package to your =dotspacemacs-excluded-packages= variable.
 ** Reveal.js support
 To enable the export of org files as a [[http://lab.hakim.se/reveal-js/][reveal.js]] presentation - set the
 variable =org-enable-reveal-js-support= to =t=.
-This would install the [[https://gitlab.com/oer/org-re-reveal/][org-re-reveal] Emacs extension.
+This would install the [[https://gitlab.com/oer/org-re-reveal/][org-re-reveal]] Emacs extension.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers

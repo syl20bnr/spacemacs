@@ -199,7 +199,6 @@ See https://github.com/syl20bnr/spacemacs/issues/3700"
                        ivy-switch-buffer-map))
       (define-key map (kbd "C-j") 'ivy-next-line)
       (define-key map (kbd "C-k") 'ivy-previous-line))
-    (define-key counsel-find-file-map (kbd "C-h") 'counsel-up-directory)
     (define-key ivy-minibuffer-map (kbd "C-h") (kbd "DEL"))
     ;; Move C-h to C-S-h
     (define-key ivy-minibuffer-map (kbd "C-S-h") help-map)

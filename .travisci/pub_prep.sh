@@ -60,7 +60,7 @@ docker run --rm \
 	--entrypoint emacs \
 	jare/spacetools -batch \
 		-l /root/.emacs.d/init.el \
-		-l core/core-documentation.el \
+		-l /root/.emacs.d/core/core-documentation.el \
 		-f spacemacs/publish-doc
 if [ $? -ne 0 ]; then
     echo "spacemacs/publish-doc failed"

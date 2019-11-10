@@ -32,7 +32,6 @@ file.
 This layer can be used with [[https://github.com/JuliaEditorSupport/LanguageServer.jl][LanguageServer.jl]] and Emacs [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] to provide
 richer, IDE-like capabilities. To use this layer with lsp, you must do the
 following:
-
 1. =LanguageServer.jl= should be configured automatically, if not, see the
    documentation of =lsp-julia=.
 2. define the layer variable =julia-backend= to =lsp= in your dotfile

@@ -76,6 +76,7 @@
     - [[#faust][Faust]]
     - [[#gpu][Gpu]]
     - [[#kivy][Kivy]]
+    - [[#mercury][Mercury]]
     - [[#octave][Octave]]
     - [[#prolog][Prolog]]
     - [[#sql][Sql]]
@@ -147,6 +148,7 @@
       - [[#scala][Scala]]
       - [[#sml][Sml]]
       - [[#swift][Swift]]
+      - [[#zig][Zig]]
       - [[#javascript-dialects][JavaScript dialects]]
         - [[#coffeescript][Coffeescript]]
         - [[#javascript][Javascript]]
@@ -158,6 +160,7 @@
       - [[#haskell][Haskell]]
       - [[#idris][Idris]]
   - [[#utilities][Utilities]]
+    - [[#conda-layer][Conda layer]]
     - [[#dotnet][Dotnet]]
     - [[#ipython-notebook][Ipython notebook]]
     - [[#protocol-buffers][Protocol buffers]]
@@ -169,8 +172,6 @@
   - [[#epub][Epub]]
   - [[#pdf][Pdf]]
   - [[#speed-reading][Speed reading]]
-- [[#readmeorg-files-that-need-proper-tags][README.org files that need proper tags]]
-  - [[#zig][Zig]]
 - [[#source-control][Source control]]
   - [[#git][Git]]
   - [[#github][Github]]
@@ -330,6 +331,7 @@ Features:
 - Frequency-based suggestions via [[https://github.com/company-mode/company-statistics][company-statistics]] for =company=
 - Integration with [[https://github.com/capitaomorte/yasnippet][yasnippet]] and [[https://github.com/abo-abo/auto-yasnippet][auto-yasnippet]]
 - Automatic configuration of [[https://www.emacswiki.org/emacs/HippieExpand][hippie-expand]]
+- Automatic docstring tooltips are provided by [[https://github.com/expez/company-quickhelp][company-quickhelp]]
 
 ** Helm
 [[file:+completion/helm/README.org][+completion/helm/README.org]]
@@ -540,7 +542,7 @@ readme]]. In a short summary Treemacs offers the following:
 - Optionally fontifying files based on their git status.
 - Optionally collapsing single-dir-child directories into one.
 - Doing both asynchronously for an imperceptible performance cost.
-- Optional =follow-mode= to automatically focus the currently selected file.
+- Optional =follow-mode= to automatically focus the currently selected file or tag.
 - Optional =filewatch-mode= to automatically refresh the view after (and only
   after) changes to the shown filesystem.
 
@@ -554,7 +556,7 @@ install the fonts listed in the [[https://github.com/rolandwalker/unicode-fonts#
 Features:
 - Display unicode glyphs using the best available font.
 - Easily override glyphs or sections of glyphs.
-- Display color emoji on both the Mac port version of Emacs and emacs-plus (with
+- Display color emoji on both the macOS port version of Emacs and emacs-plus (with
   =unicode-fonts-force-multi-color-on-mac= set to non nil).
 
 * Fun
@@ -975,8 +977,8 @@ Features:
 ** Osx
 [[file:+os/osx/README.org][+os/osx/README.org]]
 
-Spacemacs is not just emacs+vim. It can have OSX key bindings too! This layer
-globally defines common OSX key bindings.
+Spacemacs is not just Emacs plus Vim. It can have macOS key bindings too! This
+layer globally defines common macOS key bindings.
 
 Features:
 - ~⌘~ is set to ~hyper~ and ~⌥~ is set to ~meta~
@@ -1090,6 +1092,16 @@ This layer adds support for Kivy, cross-platform GUI framework for Python.
 Features:
 - Syntax Highlighting
 
+*** Mercury
+[[file:+lang/mercury-layer/README.org][+lang/mercury-layer/README.org]]
+
+This layer adds support for the Mercury language.
+
+Features:
+- Indentation.
+- Syntax highlighting.
+- Compiling and running.
+
 *** Octave
 [[file:+lang/octave/README.org][+lang/octave/README.org]]
 
@@ -1149,7 +1161,7 @@ Features:
 - REPL via [[https://github.com/clojure-emacs/cider][CIDER]]
 - Code formatting via [[https://github.com/clojure-emacs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]]
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
-- Linting via [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]]
+- Linting via [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]], [[https://github.com/borkdude/clj-kondo][clj-kondo]] or [[https://github.com/candid82/joker][joker]]
 - Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
 - Debugging with [[https://github.com/clojure-emacs/sayid][sayid]]
 - Clojure cheatsheet
@@ -1434,6 +1446,7 @@ Features:
 - Auto-completion using [[https://github.com/Alexander-Miller/company-shell][company-shell]]
 - =Sh= scripts linting using [[https://www.shellcheck.net/][shellcheck]]
 - =Sh= scripts style checking using [[https://github.com/openstack-dev/bashate][bashate]]
+- Support for the [[https://langserver.org/][Language Server Protocol]] (experimental)
 
 **** Vimscript language
 [[file:+lang/vimscript/README.org][+lang/vimscript/README.org]]
@@ -1660,6 +1673,7 @@ Features:
 - Flycheck support for mix compile
 - Flycheck support for [[https://github.com/rrrene/credo][credo]]
 - Flycheck support for test results
+- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 **** Erlang
 [[file:+lang/erlang/README.org][+lang/erlang/README.org]]
@@ -1743,14 +1757,12 @@ This layer adds support for the Java language.
 
 Features:
 - Support for the following backends:
-  - [[https://github.com/mopemope/meghanada-emacs][Meghanada]] client/server (default),
-  - [[http://eclim.org][Eclim]] client/server,
-  - [[https://ensime.github.io/][ENSIME]] client/server.
-  - [[https://github.com/emacs-lsp/lsp-java][LSP Java]] client/server.
-- Each provides:
-  - Auto-completion using company
-  - Linting using flycheck integration
-  - Maven and Gradle integration
+  - [[https://github.com/emacs-lsp/lsp-java][LSP Java]] client/server (default)
+  - [[https://github.com/mopemope/meghanada-emacs][Meghanada]] client/server
+- Auto-completion using company
+- Linting using flycheck integration
+- Maven and Gradle integration
+- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 **** Jr concurrent programming language
 [[file:+lang/jr/README.org][+lang/jr/README.org]]
@@ -1866,6 +1878,7 @@ Features:
 - Complete and jump to define with [[https://github.com/xcwen/ac-php][company-php]]
 - Run tests with PHPUnit
 - Reformat code with PHP CBF
+- Support for the [[https://langserver.org/][Language Server Protocol]] (experimental)
 
 The =gtags= layer is recommended to benefit from better =eldoc= and
 =helm-gtags=.
@@ -1894,6 +1907,7 @@ Features:
 - Sort imports with [[https://pypi.python.org/pypi/isort][isort]]
 - Fix a missing import statement with [[https://github.com/anachronic/importmagic.el][importmagic]]
 - Pip package manager with [[https://github.com/brotzeit/pippel][pippel]]
+- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 **** Racket
 [[file:+lang/racket/README.org][+lang/racket/README.org]]
@@ -1931,6 +1945,7 @@ Features:
 - Rake runner
 - Linter (rubocop)
 - Interactive REPL and code navigation (robe)
+- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 **** Rust
 [[file:+lang/rust/README.org][+lang/rust/README.org]]
@@ -1939,6 +1954,7 @@ This layer supports [[https://www.rust-lang.org][Rust]] development in Spacemacs
 
 Features:
 - Auto-completion and navigation support through [[https://github.com/emacs-lsp/lsp-rust][lsp]] or [[https://github.com/phildawes/racer][Racer]]
+- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 - support for the Rust package manager [[http://doc.crates.io/index.html][Cargo]]
 
 **** Scala
@@ -1982,6 +1998,14 @@ Features:
 - Automatic syntax checking with =flycheck= (available with the
   =syntax-checking= layer)
 
+**** Zig
+[[file:+lang/zig/README.org][+lang/zig/README.org]]
+
+This layer adds support for the zig programming language [[https://ziglang.org/]]
+
+Features:
+- Syntax Highlighting
+
 **** JavaScript dialects
 ***** Coffeescript
 [[file:+lang/coffeescript/README.org][+lang/coffeescript/README.org]]
@@ -2007,7 +2031,8 @@ Features:
 - Auto-completion and documentation
 - Browser based REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
 - Server based REPL with [[https://github.com/abicky/nodejs-repl.el][nodejs-repl]]
-- Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
+- Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]] or [[https://github.com/prettier/prettier][prettier]]
+- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 ***** Purescript
 [[file:+lang/purescript/README.org][+lang/purescript/README.org]]
@@ -2093,6 +2118,15 @@ Features:
 - Integration of the =Idris= build system
 
 ** Utilities
+*** Conda layer
+[[file:+lang/conda/README.org][+lang/conda/README.org]]
+
+This layer adds support for the Anaconda python environment for
+numerical computations to Spacemacs.
+
+Features:
+- Controlling =Anaconda= or =Miniconda= environments directly from emacs with [[https://github.com/necaris/conda.el][conda.el]]
+
 *** Dotnet
 [[file:+tools/dotnet/README.org][+tools/dotnet/README.org]]
 
@@ -2136,13 +2170,13 @@ Features:
 ** Dash
 [[file:+readers/dash/README.org][+readers/dash/README.org]]
 
-This layer integrates offline api browsers into Emacs. It provides one for OS X, Linux and Windows.
+This layer integrates offline API browsers into Emacs. It provides one for macOS, Linux and Windows.
 
 Features:
-- Searching for word at point in offline api browser's UI.
-- Integration of offline api browser search results in helm and ivy.
-- Support for [[https://kapeli.com/dash][dash]] offline api browser for OS X.
-- Support for [[https://zealdocs.org/][zeal]] offline api browser for Linux.
+- Searching for word at point in offline API browser's UI.
+- Integration of offline API browser search results in Helm and Ivy.
+- Support for [[https://kapeli.com/dash][dash]] offline API browser for macOS.
+- Support for [[https://zealdocs.org/][zeal]] offline API browser for Linux.
 
 ** Deft
 [[file:+readers/deft/README.org][+readers/deft/README.org]]
@@ -2207,15 +2241,6 @@ A speed reading mode for Emacs.
 
 Features:
 - Support for =speed-reading= of arbitrary texts
-
-* README.org files that need proper tags
-** Zig
-[[file:+lang/zig/README.org][+lang/zig/README.org]]
-
-This layer adds support for the zig programming language [[https://ziglang.org/]]
-
-Features:
-- Syntax Highlighting
 
 * Source control
 ** Git
@@ -2324,7 +2349,7 @@ with GUI support on all major platforms and even [[https://i.imgur.com/wDLDMZN.g
 
 Features:
 - Automatically get Spacemacs layers dependency installed with [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/README.org][installer scripts]]
-- Reap the benefit of Emacs and other GNU/Linux tools on Windows/MacOS machines
+- Reap the benefit of Emacs and other GNU/Linux tools on Windows or macOS machines
 - Use [[https://hub.docker.com/][docker hub]] to auto-build your environment and store full backups for free
 - Build once and work with the same development environment everywhere
 - Run untrusted/risky code in the tunable sandbox with CPU/network/disk quotas
@@ -2571,7 +2596,7 @@ Features:
 - Supports the following adjustments:
   - Automatic switching between light (day) and dark (night) themes via [[https://github.com/hadronzoo/theme-changer][theme-changer]]
   - Local weather forecast via [[https://github.com/aaronbieber/sunshine.el/blob/master/sunshine.el][sunshine]]
-  - Integration with OS X's CoreLocation service via [[https://github.com/purcell/osx-location][osx-location]]
+  - Integration with macOS's CoreLocation service via [[https://github.com/purcell/osx-location][osx-location]]
   - Manual location setting via variables in your dotfile
 
 ** Imenu-list
@@ -2836,7 +2861,7 @@ Features:
 Features:
 - adds copy support to the X-clipboard from the terminal.
 - adds paste support to the X-clipboard from the terminal.
-- [[https://github.com/redguardtoo/cliphist][cliphist]] package: integration with clipboard managers on Linux and Mac.
+- [[https://github.com/redguardtoo/cliphist][cliphist]] package: integration with clipboard managers on Linux and macOS.
 
 ** Ycmd
 [[file:+tools/ycmd/README.org][+tools/ycmd/README.org]]

@@ -111,7 +111,7 @@ To choose a default backend set the layer variable =haskell-completion-backend=:
   (haskell :variables haskell-completion-backend 'ghci)
 #+END_SRC
 
- Note that in order to enable completion, you'll have to enable the
+Note that in order to enable completion, you'll have to enable the
 =auto-completion= layer as well.
 
 Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
@@ -574,7 +574,7 @@ Commands starting with =ghc-= are ghc-mod commands. Commands starting with
 
 ** Why doesn't the HLint Flycheck checker work when the Intero backend is enabled?
 By default, only the Intrero checker will be enabled if you manually set the
-Intero backend as described in [[#completion-support][completion support]].
+Intero backend as described in [[#choosing-a-backend][Choosing a backend]].
 
 To also enable the HLint checker, use =flycheck-add-next-checker= to set the
 HLint checker after the Intero checker.

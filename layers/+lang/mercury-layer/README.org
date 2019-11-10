@@ -1,8 +1,10 @@
 #+TITLE: mercury layer
 
+#+TAGS: dsl|layer|programming
+
 [[file:img/mercury.png]]
 
-* Table of Contents                                       :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -12,9 +14,9 @@
 This layer adds support for the Mercury language.
 
 ** Features:
-  - Indentation.
-  - Syntax highlighting.
-  - Compiling and running.
+- Indentation.
+- Syntax highlighting.
+- Compiling and running.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -23,7 +25,7 @@ file.
 
 * Key bindings
 
-| Key Binding | Description                          |
+| Key binding | Description                          |
 |-------------+--------------------------------------|
 | ~SPC m c b~ | Compile current buffer file.         |
 | ~SPC m c r~ | Compile and run current buffer file. |

@@ -58,7 +58,7 @@ The version is displayed on the upper right corner of the loading screen. You
 may also just type ~SPC f e v~.
 
 ** What is the official pronunciation of Spacemacs?
-As it is written, that is _space_ then _macs_.
+It's _space_ then _macs_.
 
 ** Why do you call this a "distribution", I don't see any "Spacemacs" executable?
 Although we could do it we don't package Emacs with Spacemacs. We allow users to

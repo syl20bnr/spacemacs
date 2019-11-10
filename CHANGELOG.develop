@@ -123,6 +123,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 ***** C-C++
 - CMake support has been extracted from the =c-c++= layer into the new =cmake=
   layer.
+- LSP code navigation / completion added via clangd, ccls or cquery
+  (thanks to Cormac Cannon)
 ***** ESS
 - ESS key bindings were re-organised in the following list
   (thanks to Guido Kraemer, Yi Liu, and Jack Kamm):
@@ -288,6 +290,8 @@ sane way, here is the complete list of changed key bindings
 ***** Vagrant
 - Key bindings:
   - Vagrant key bindings prefix is now ~SPC a V~.
+***** ycmd
+- The =ycmd= layer has been deleted and moved to the =c-c++= layer.
 *** New layers
 **** Email
 - notmuch (thanks to Francesc Elies Henar, Leonard Lausen, Willian Casarin,
@@ -370,8 +374,9 @@ sane way, here is the complete list of changed key bindings
 - =extra-langs= renamed to =major-modes= (thanks to Eivind Fonn)
 - =pdf-tools= renamed to =pdf=
 *** Removed layers
-- evil-cleverparens (moved to spacemacs-evil)
-- extra-langs (replaced by ad-hoc layers)
+- evil-cleverparens (moved to =spacemacs-evil=)
+- extra-langs (replaced by =ad-hoc= layers)
+- ycmd (moved to =c-c++=)
 *** Dotfile changes
 - New Variables:
   - New dotvariable =dotspacemacs-auto-generate-layout-names= (thanks to bmag)
@@ -1159,12 +1164,11 @@ Other:
     - Added variable: =++-enable-organize-includes-on-save=
     - Added key binding: ~SPC m r i~ organize includes
 - Improvements:
-  - Added =lsp= support using either =cquery= or =ccls= backends
-    (thanks to Cormac Cannon, Sergey Litovchuk and Fangrui Song)
+  - Added =lsp= support using either =clangd=, =ccls= or =cquery= backends
+    (thanks to Cormac Cannon, Sergey Litovchuk, Fangrui Song and David Vo)
   - Fixed =lsp= support for =ccls= server (thanks to Alexander Dalshov)
   - Added automatic formatting on save using ClangFormat with the variables
-    =c-c++-enable-clang-format-on-save= and =c-c++-enable-clang-support=
-    (thanks to Robbert van der Helm)
+    =c-c++-enable-clang-format-on-save= (thanks to Robbert van der Helm)
   - Added possible value =no-completion= to =c-c++-enable-rtags-support= flag.
     This adds the option to opt-out of =company-rtags= while enabling Rtags.
   - Added option to use =google-c-style= with the variable
@@ -1878,6 +1882,7 @@ Other:
 - Keep ~C-h~ binding in =counsel-find-file-map= only for hjkl navigation
   (thanks to Hong Xu)
 - Optimize =spacemacs/counsel-search= for =ag= and =rg= (thanks to Hong Xu)
+- Fixed void variable =counsel-find-file-map= (thanks to duianto)
 **** Imenu-list
 - Changed ~SPC b i~ to ~SPC b t~ for =imenu= tree view
   (thansk to Sylvain Benner)
@@ -2444,6 +2449,7 @@ Other:
   (thanks to Boris Verhovsky)
 - Fixed conflict between pipenv directory .venv and pyvenv file .venv
   (thanks to rgb-24bit)
+- Support relative path in pyvenv file .venv (thanks to Nam Nguyen)
 - Added diminish for importmagic (thanks to Loys Ollivier)
 - Added debugger integration via =dap= layer
 - Added documentation on installing importmagic and epc (thanks to Trapez Breen)
