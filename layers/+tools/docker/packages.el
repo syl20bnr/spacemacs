@@ -1,6 +1,6 @@
 ;;; packages.el --- docker Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner
+;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
 ;; Copyright (c) 2015 Alan Zimmerman & Contributors
 ;;
 ;; Author: Alan Zimmerman <alan.zimm@gmail.com>
@@ -15,6 +15,7 @@
     docker
     docker-tramp
     dockerfile-mode
+    flycheck
     ))
 
 (defun docker/init-docker ()
@@ -53,6 +54,8 @@
 (defun docker/init-dockerfile-mode ()
   (use-package dockerfile-mode
     :defer t
+    :init
+    (add-hook 'dockerfile-mode-hook #'spacemacs//docker-dockerfile-setup-backend)
     :config
     (progn
       (spacemacs/declare-prefix-for-mode 'dockerfile-mode
@@ -60,3 +63,6 @@
       (spacemacs/set-leader-keys-for-major-mode 'dockerfile-mode
         "cb" 'dockerfile-build-buffer
         "cB" 'dockerfile-build-no-cache-buffer))))
+
+(defun docker/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'dockerfile-mode))

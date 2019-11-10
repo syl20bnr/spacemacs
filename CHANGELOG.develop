@@ -1539,6 +1539,7 @@ Other:
   - Added ~SPC a D m~ for =docker-machines= (thanks to Ramz)
 - Fixed: broken package declaration for dockerfile-mode
   (thanks to Maximilian Wolff)
+- Added LSP support
 **** Dotnet
 - Key bindings:
   - Added key bindings for =dotnet= (thanks to Jordan Kaye):
