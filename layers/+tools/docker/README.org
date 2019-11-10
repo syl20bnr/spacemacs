@@ -8,6 +8,10 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#docker][Docker]]
+  - [[#linting][Linting]]
+  - [[#lsp][LSP]]
+- [[#options][Options]]
 - [[#usage][Usage]]
   - [[#tramp-access-to-docker-containers][TRAMP access to docker containers]]
 - [[#key-bindings][Key bindings]]
@@ -24,12 +28,39 @@ This layer integrates basic container management into Spacemacs.
 - Syntax checking via [[https://github.com/hadolint/hadolint][hadolint]]
 
 * Install
+** Docker
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =docker= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 You will also need the native package [[https://www.docker.com/][Docker]] for the actual container management.
-For syntax checking the external library =hadolint= is also necessary.
+
+** Linting
+For syntax checking the external library [[https://github.com/hadolint/hadolint][hadolint]] is necessary.
+
+** LSP
+This layer can be used with [[https://github.com/rcjsuen/dockerfile-language-server-nodejs][=dockerfile-language-server-nodejs=]] and emacs
+[[https://github.com/emacs-lsp/lsp-mode][=lsp-mode=]] to provide richer, IDE-like capabilities.
+To use this layer with lsp, you must do the following:
+
+1. Add =lsp= to =dotspacemacs-configuration-layers=.
+2. Install =dockerfile-language-server-nodejs= package with:
+
+   #+BEGIN_SRC sh
+     npm i -g dockerfile-language-server-nodejs
+   #+END_SRC
+
+3. Enable layer integration with lsp as described in section below.
+
+* Options
+This layer also includes experimental support for =lsp-mode=. To enable language
+server functionality with this layer, follow [[#lsp][the instructions for installation]],
+and then install this layer with:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((docker :variables docker-dockerfile-backend 'lsp)))
+#+END_SRC
 
 * Usage
 ** TRAMP access to docker containers
