@@ -55,10 +55,15 @@
     (("\\.m[k]d" . markdown-mode)
      ("\\.mdk" . markdown-mode))
     :defer t
+    :init
+    (when (eq markdown-fmt-tool 'prettier)
+      (add-to-list 'spacemacs--prettier-modes 'markdown-mode)
+      (add-to-list 'spacemacs--prettier-modes 'gfm-mode))
     :config
     (progn
       ;; Declare prefixes and bind keys
-      (dolist (prefix '(("mc" . "markdown/command")
+      (dolist (prefix '(("m=" . "format")
+                        ("mc" . "markdown/command")
                         ("mh" . "markdown/header")
                         ("mi" . "markdown/insert")
                         ("ml" . "markdown/lists")

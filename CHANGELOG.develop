@@ -181,6 +181,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
     (folded into ~SPC m i i~)
   - Removed ~SPC m i L~ for =markdown-insert-reference-link-dwim=
     (folded into ~SPC m i l~)
+  - Enable =prettier-js= to format markdown files
 ***** nlinum
 - The =nlinum= layer is deprecated on Emacs 26.1 and newer in favor of native
   line number support (thanks to bmag)

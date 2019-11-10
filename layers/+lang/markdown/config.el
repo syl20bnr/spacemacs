@@ -35,5 +35,8 @@
   "List of language names or lists of language and mode names for which to
 generate mmm classes.")
 
+(defvar markdown-fmt-tool 'prettier
+  "The formatter to format a markdown file.")
+
 (defvar markdown--key-bindings-modes '(markdown-mode gfm-mode)
   "Modes using markdown key bindings.")
