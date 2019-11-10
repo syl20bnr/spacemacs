@@ -207,7 +207,7 @@ directory. Press ~SPC SPC~, write ~org-mode~ and press ~RET~ to switch to
 Press ~S-TAB~ repeatedly and observe that this cycles the visibility of the
 contents of different headlines. Press ~SPC m T T~ in normal mode and observe
 that you can add TODO tags on headlines. (This can be changed to just ~t~, see
-the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%252Bemacs/org/README.org#org-with-evil-org-mode][org]] layers documentation). Press ~M-k~ or ~M-j~ in normal mode and see how
+the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bemacs/org/README.org#org-with-evil-org-mode][org]] layers documentation). Press ~M-k~ or ~M-j~ in normal mode and see how
 you can quickly move parts of the document around.
 
 This is not even scratching the surface of Org mode, so you should look into

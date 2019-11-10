@@ -83,7 +83,7 @@ To set your choice of backend, configure the layer variable =scala-backend=.
 and project-wide type-checking.
 
 ENSIME requires a configuration file at the root of each Scala project. It
-provides an SBT plugin, a gradle plugin and others (see [[https://ensime.github.io/build_tools/][ensime.org]] for a full
+provides an SBT plugin, a gradle plugin and others (see [[https://web.archive.org/web/20190427005241/https://ensime.github.io/build_tools/][ensime.org]] for a full
 list) to generate these files.
 
 *** Installation when using SBT
@@ -96,11 +96,11 @@ Find it with your favourite package manager, eg:
 or refer to [[http://www.scala-sbt.org/download.html][the sbt installation instructions]].
 
 *** Installation when using Gradle
-Refer to the [[https://ensime.github.io/build_tools/gradle/][Ensime installation instructions]] to install the =ensime-gradle=
+Refer to the [[https://web.archive.org/web/20190324005432/http://ensime.github.io/build_tools/gradle/][Ensime installation instructions]] to install the =ensime-gradle=
 plugin.
 
 *** Configuration
-Follow [[https://ensime.github.io/build_tools/sbt/][the ENSIME configuration instructions]]. Spacemacs uses
+Follow [[https://web.archive.org/web/20190417132406/http://ensime.github.io/build_tools/sbt/][the ENSIME configuration instructions]]. Spacemacs uses
 the development version of Ensime so follow the appropriate steps.
 
 To use the build functions under ~SPC m b~ you need to use version =0.13.5= or

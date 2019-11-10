@@ -68,7 +68,7 @@ install the server via [[https://getcomposer.org/][composer]]:
   composer run-script --working-dir=vendor/felixfbecker/language-server parse-stubs
 #+END_SRC
 
-You can find further information on the project's [[https://github.com/felixfbecker/php-language-server%20][GitHub page]].
+You can find further information on the project's [[https://github.com/felixfbecker/php-language-server][GitHub page]].
 
 *** ac-php-core
 This is a non server solution working entirely from an elisp package.
