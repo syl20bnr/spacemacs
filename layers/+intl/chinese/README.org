@@ -93,6 +93,15 @@ to replace the current selection in-place.
 If you don't need to type Chinese in minibuffer, you can temporarily disable fcitx in the minibuffer
 with the following configuration.
 
+**** Enable Fcitx5
+If you use fcitx5 instead of fcitx4, add chinese-use-fcitx5:
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '((chinese :variables
+  							     chinese-use-fcitx5 t
+                                                             chinese-enable-fcitx t)))
+#+END_SRC
+
+
 #+BEGIN_SRC emacs-lisp
   (fcitx-aggressive-setup)
 #+END_SRC
