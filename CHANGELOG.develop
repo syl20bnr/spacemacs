@@ -2902,6 +2902,10 @@ Other:
   - ~SPC x P~ paste item from history (cliphist must be enabled)
   - ~SPC x R~ rectangle paste item from history (cliphist must be enabled)
   - ~SPC x s~ select item from history (cliphist must be enabled)
+**** Yaml
+- Improvements:
+  - Updated docs to include the =yaml-yamllint= flycheck checker
+    (thanks to Nam Nguyen)
 **** Ycmd
 - Search for =compile_commands.json= in build sub-directory
   (thanks to Amos Bird and Eivind Fonn)

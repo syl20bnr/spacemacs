@@ -21,8 +21,9 @@ add =yaml= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Syntax checking with flycheck
-Flycheck checks YAML with yaml-jsyaml or yaml-ruby. The flycheck YAML
-documentation can be found at the [[http://www.flycheck.org/en/latest/languages.html#yaml][flycheck website]].
+Flycheck checks YAML files with either:
+- =yaml-yamllint= (requires =yamllint=)
+- =yaml-jsyaml= (requires the =node-js= package =js-yaml=)
+- or =yaml-ruby= (requires that =ruby= is installed on your system)
 
-Please notice that yaml-jsyaml requires node-js package js-yaml and that yaml-ruby requires ruby installed
-on your system to work.
+The flycheck YAML documentation can be found at the [[http://www.flycheck.org/en/latest/languages.html#yaml][flycheck website]].
