@@ -52,7 +52,8 @@
   (add-hook `js2-mode-hook `turn-on-evil-matchit-mode))
 
 (defun javascript/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'js2-mode))
+  (spacemacs/enable-flycheck 'js2-mode)
+  (add-hook 'js2-mode-hook #'spacemacs//javascript-setup-checkers 'append))
 
 (defun javascript/post-init-ggtags ()
   (add-hook 'js2-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
