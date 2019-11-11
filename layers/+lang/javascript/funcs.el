@@ -153,6 +153,10 @@
 
 ;; Others
 
+(defun spacemacs//javascript-setup-checkers ()
+  (when-let* ((found (executable-find "eslint_d")))
+    (set (make-local-variable 'flycheck-javascript-eslint-executable) found)))
+
 (defun spacemacs/javascript-format ()
   "Call formatting tool specified in `javascript-fmt-tool'."
   (interactive)

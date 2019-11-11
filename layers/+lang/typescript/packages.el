@@ -59,16 +59,23 @@
              (message
               "Invalid typescript-layer configuration, no such linter: %s" typescript-linter))))))
 
+(defun typescript/set-lsp-linter ()
+  (with-eval-after-load 'lsp-ui
+    (with-eval-after-load 'flycheck
+      (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
+      (flycheck-add-mode 'javascript-eslint 'typescript-mode))))
+
 (defun typescript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'typescript-mode)
   (spacemacs/enable-flycheck 'typescript-tsx-mode)
   (cond ((eq (spacemacs//typescript-backend) `tide)
          (typescript/set-tide-linter))
         ((eq (spacemacs//typescript-backend) `lsp)
-         (with-eval-after-load 'lsp-ui
-           (with-eval-after-load 'flycheck
-             (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
-             (flycheck-add-mode 'javascript-eslint 'typescript-mode))))))
+         (typescript/set-lsp-linter)))
+
+  (spacemacs/add-to-hooks #'spacemacs//typescript-setup-checkers
+                          '(typescript-mode-hook typescript-tsx-mode-hook)
+                          t))
 
 (defun typescript/post-init-smartparens ()
   (if dotspacemacs-smartparens-strict-mode

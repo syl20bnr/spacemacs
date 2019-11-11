@@ -177,6 +177,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 - CoffeeScript support has been extracted from the =javascript= layer into the
   new =coffeescript= layer.
 - Added missing prefix for =js2-mode=
+- Added =eslint_d= support (thanks to Seong Yong-ju)
 ***** Markdown
 - Key bindings:
   - Removed ~SPC m i I~ for =markdown-insert-reference-image=
@@ -2532,6 +2533,7 @@ Other:
   - Open =.jsx= files with =rjsx-mode= (thanks to Thomas de Beauchêne)
   - Made =react= layer respect =javascript= layers variable
     =javascript-fmt-on-save= (thanks to Tommy Groshong)
+  - Added =eslint_d= support (thanks to Seong Yong-ju)
 - Key bindings:
   - Added =import-js= support with key bindings:
     - ~SPC m i i~ to mport the module for the variable under the cursor
@@ -2878,6 +2880,7 @@ Other:
 - Added a =typescript-lsp-linter= variable to allow for disabling =lsp= as a
   linter, when =lsp= is set as the backend (thanks to Thanh Vuong)
 - Fix =tide= with =tsx= files (thanks to Aaron Jensen)
+- Added =eslint_d= support (thanks to Seong Yong-ju)
 **** Vagrant
 - Key bindings:
   - move key bindings prefix to ~SPC a V~ (thanks to Thomas de Beauchêne)

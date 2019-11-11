@@ -175,3 +175,7 @@
   (dolist (value values)
     (add-to-list 'safe-local-variable-values
                  (cons 'typescript-backend value))))
+
+(defun spacemacs//typescript-setup-checkers ()
+  (when-let* ((found (executable-find "eslint_d")))
+    (set (make-local-variable 'flycheck-javascript-eslint-executable) found)))
