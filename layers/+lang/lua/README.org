@@ -8,25 +8,66 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#backends][Backends]]
+    - [[#lsp][LSP]]
+      - [[#features-1][Features]]
 - [[#key-bindings][Key bindings]]
+  - [[#lsp-1][LSP]]
   - [[#commands][Commands]]
 
 * Description
 This layer adds support for editing Lua.
 
 ** Features:
+- LSP with EmmyLua-LS-all.
 - Editing lua files using [[https://github.com/immerrr/lua-mode][lua-mode]]
 - Sending code to a lua REPL
 - Code linting using [[https://github.com/mpeterv/luacheck][Luacheck]]
 
 * Install
+** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =lua= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 In order to enable code linting, install [[https://github.com/mpeterv/luacheck][Luacheck]].
 
+** Backends
+Supported backends are:
+- =lsp-emmy= using clangd LSP server
+
+*** LSP
+LSP support is provided via the [[file:../../+tools/lsp/README.org][LSP layer]], currently only EmmyLua is supported, 
+- [[https://github.com/EmmyLua/EmmyLua-LanguageServer][lsp-emmy]]
+
+To use the =lsp-emmy= backend, please download the [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua-LS-all.jar]] and put
+into =~/.emacs.d/=, then set the layer variables lsp-backend for =lua=:
+#+begin_src elisp
+  (lua :variables lsp-backend 'lsp-emmy)
+#+end_src
+
+The complete layer variables are:
+#+begin_src elisp
+  (lua :variables
+       lsp-backend 'lsp-emmy
+       lua-lsp-emmy-jar-path "~/.emacs.d/EmmyLua-LS-all.jar" ; default path
+       lua-lsp-emmy-enable-file-watchers t)                  ; enabled default
+#+end_src
+
+**** Features
+- Cross references (definitions, references, rename...)
+- Completion with =company-lsp=
+- Syntax checking via flycheck (lsp-ui-flycheck)
+- Cross-platform - functional on Windows, Linux and macOS.
+- Refer https://github.com/EmmyLua/EmmyLua-LanguageServer for details.
+
+
 * Key bindings
+** LSP
+The default key bindings for the LSP implementations are defined and documented in
+the [[file:../../+tools/lsp/README.org][LSP layer]].
+
 ** Commands
 
 | Key binding | Description                                |
