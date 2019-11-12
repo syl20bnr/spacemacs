@@ -97,6 +97,7 @@ with the following configuration.
 **** Enable Fcitx5
 If you want to use fcitx5 instead of fcitx4, enable the variable
 =chinese-use-fcitx5=:
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '((chinese :variables
