@@ -75,7 +75,16 @@
     "ad" 'spacemacs/dired
     "fj" 'dired-jump
     "jd" 'dired-jump
-    "jD" 'dired-jump-other-window))
+    "jD" 'dired-jump-other-window)
+  ;; The search next/previous commands are different
+  ;; because of the `evil-search-module' values:
+  ;; vim = evil-search, hybrid = isearch
+  (when (eq 'vim dotspacemacs-editing-style)
+    (evil-define-key 'normal dired-mode-map (kbd "n") 'evil-ex-search-next)
+    (evil-define-key 'normal dired-mode-map (kbd "N") 'evil-ex-search-previous))
+  (when (eq 'hybrid dotspacemacs-editing-style)
+    (evil-define-key 'normal dired-mode-map (kbd "n") 'evil-search-next)
+    (evil-define-key 'normal dired-mode-map (kbd "N") 'evil-search-previous)))
 
 (defun spacemacs-defaults/init-dired-x ()
   (use-package dired-x

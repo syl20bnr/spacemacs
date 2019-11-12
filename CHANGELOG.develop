@@ -859,6 +859,13 @@ Other:
     - ~down~ =evil-next-visual-line=
   - Added ~a~ for =ace-window= to window manipulation transient state
     (thanks to fleimgruber)
+  - Added =dired= evil search next/prev key bindings (thanks to duianto):
+    - With the =vim= editing style in =normal= state:
+      - ~n~ =evil-ex-search-next=
+      - ~N~ =evil-ex-search-previous=
+    - With the =hybrid= editing style in =normal= state:
+      - ~n~ =evil-search-next=
+      - ~N~ =evil-search-previous=
 - Improvements:
   - Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
     ~SPC w 4~ (thanks to Codruț Constantin Gușoi):
