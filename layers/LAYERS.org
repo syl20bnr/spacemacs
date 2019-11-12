@@ -1806,6 +1806,10 @@ Features:
 - Editing lua files using [[https://github.com/immerrr/lua-mode][lua-mode]]
 - Sending code to a lua REPL
 - Code linting using [[https://github.com/mpeterv/luacheck][Luacheck]]
+- LSP backend support
+  - Cross references (definitions, references, rename...)
+  - Completion with =company-lsp=
+  - Syntax checking via flycheck (lsp-ui-flycheck)
 
 **** Nim
 [[file:+lang/nim/README.org][+lang/nim/README.org]]

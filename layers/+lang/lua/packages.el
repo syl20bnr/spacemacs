@@ -30,17 +30,11 @@
     :interpreter ("lua" . lua-mode)
     :init
     (progn
-      (setq lua-indent-level 2
-            lua-indent-string-contents t)
-      (spacemacs/set-leader-keys-for-major-mode 'lua-mode
-        "d" 'lua-search-documentation
-        "sb" 'lua-send-buffer
-        "sf" 'lua-send-defun
-        "sl" 'lua-send-current-line
-        "sr" 'lua-send-region))))
+      (spacemacs/register-repl 'lua #'lua-show-process-buffer "lua")
+      (add-hook 'lua-mode-local-vars-hook #'spacemacs//lua-setup-backend))))
 
 (defun lua/post-init-company ()
-  (add-hook 'lua-mode-hook 'company-mode))
+  (add-hook 'lua-mode-local-vars-hook #'spacemacs//lua-setup-company))
 
 (defun lua/init-company-lua ()
   (use-package company-lua
@@ -57,3 +51,4 @@
 
 (defun lua/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'lua-mode))
+

@@ -12,3 +12,17 @@
 ;; variables
 
 (spacemacs|define-jump-handlers lua-mode)
+
+(defvar lua-backend nil
+  "If `lsp-emmy' then enables EmmyLua support")
+
+;; lua-lsp-backend variables
+
+(defvar lua-lsp-emmy-java-path nil
+  "Path to java which will be used for running emmy-lua language server.")
+
+(defvar lua-lsp-emmy-jar-path nil
+  "Path to jar which will be used for running EmmyLua language server.")
+
+(defvar lua-lsp-emmy-enable-file-watchers t
+  "Enabled the EmmyLua file watchers.")
