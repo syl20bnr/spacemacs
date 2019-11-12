@@ -1750,6 +1750,11 @@ Other:
     - ~SPC m r~ for predefined keymap =ess-extra-map=
     - ~SPC m w~ for predefined keymap =ess-r-package-dev-map=
     - ~SPC m d~ for predefined keymap =ess-dev-map=
+  - Change some leader keys (thanks to Seong Yong-ju)
+    - ~SPC m E~ for predefined keymap =ess-extra-map=
+    - ~SPC m D~ for predefined keymap =ess-r-package-dev-map=
+    - ~SPC m d~ for predefined keymap =ess-dev-map=
+  - Removed noweb bindings since it no longer works (thanks to Seong Yong-ju)
 - Fixed issue with read-only REPL buffer (thanks to Jack Kamm)
 - Added ess layer variable =ess-disable-underscore-assign= (thanks to Jack Kamm)
 - Remove =ess-R-object-popup= from ess layer (thanks to Naylyn Gaffney)
@@ -1762,6 +1767,7 @@ Other:
 - Update ess-disable-underscore-assign for ESS 18.10 (thanks to Leonard Lausen)
 - Update layer with the latest upstream changes (thanks to Guido Kraemer)
 - Evilified states for ess help buffer (thanks to ft)
+- Added LSP support for R (thanks to Seong Yong-ju)
 **** Evil snipe
 - Must always explicitly enable =evil-snipe-mode= even when
   =evil-snipe-override-mode= is enabled (thanks to Sylvain Benner)

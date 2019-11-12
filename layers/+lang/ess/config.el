@@ -9,7 +9,12 @@
 ;;
 ;;; License: GPLv3
 
+(spacemacs|define-jump-handlers ess-r-mode)
+
 ;; Variables
+
+(defvar ess-r-backend 'nil
+  "The backend to use for IDE features. Possible values are `ess' and `lsp'.")
 
 (defvar ess-assign-key nil
   "Call `ess-insert-assign'.")
