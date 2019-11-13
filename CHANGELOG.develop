@@ -2138,6 +2138,8 @@ Other:
   - ~SPC s m s r~ =set-rectangular-region-anchor=
   - ~SPC s m s s~ =mc/sort-regions=
   - ~SPC s m s t~ =mc/reverse-regions=
+- Fixed initialization (thanks to Seong Yong-ju)
+- Moved =evil-mc= key bindings to =evil-mc-key-map= (thanks to Seong Yong-ju)
 **** Neotree
 - Made neotree an optional instead of a default layer
 - Move neotree to its own layer in new +filetree folder
