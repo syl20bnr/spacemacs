@@ -33,7 +33,7 @@
   "Conditionally setup company based on backend."
   (pcase (spacemacs//lua-backend)
     (`lsp-emmy (spacemacs//lua-setup-lsp-company))
-    (t (company-mode))))
+    (_ (company-mode))))
 
 (defun spacemacs//lua-setup-dap ()
   "Conditionally setup elixir DAP integration."
