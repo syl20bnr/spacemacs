@@ -1148,6 +1148,8 @@ Other:
     (thanks to Ayush Goyal)
   - Fixed backends when =auto-completion-enable-snippets-in-popup= is nil
     (thanks to Sylvain Benner)
+  - Removed the assumption that ~C-k~ was bound to =evil-insert-digraph= after
+    closing/finishing a company completion (thanks to lovrolu)
 - Key bindings:
   - Removed ~C-f~ because it interfered with the default key binding for
     =forward-char= (thanks to scturtle and duianto)
