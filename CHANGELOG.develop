@@ -1657,6 +1657,15 @@ Other:
   - Added ~g r~ for =gnus-group-get-new-news= (thanks to Matthew Leach)
   - Added ~O~ prefix in evil state for =gnus-group-group-map=
     (thanks to Matthew Leach)
+  - Added *unplugged* and *slave* variants. These are for offline usage and
+    having multiple gnus running, respectively.
+    - ~SPC a g g~ gnus (normal). Not slave, plugged.
+    - ~SPC a g o~ slave & unplugged.
+    - ~SPC a g u~ unplugged (but not slave).
+    - ~SPC a g s~ gnus slave (but plugged).
+      (thanks to Spenser Truex)
+  - Added message mode insert binding: ~SPC m i F~ for FLAME ON, following
+    [[https://tools.ietf.org/html/rfc1855#page-4][RFC 1855]] (thanks to Spenser Truex)
 - Improvements:
   - Added a =@gnus= perspective (~SPC l o g~) to the layouts transient state
     (thanks to Matthew Leach)

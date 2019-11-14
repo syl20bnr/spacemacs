@@ -30,7 +30,16 @@
     :defer t
     :commands gnus
     :init
-    (spacemacs/set-leader-keys "ag" 'gnus)
+    (progn (spacemacs/declare-prefix "ag" "gnus" "Gnus newsreader")
+           (spacemacs/set-leader-keys
+             "agg" 'gnus
+             "ags" 'gnus-slave
+             "agu" 'gnus-unplugged
+             "ago" 'gnus-slave-unplugged)
+           (spacemacs/declare-prefix-for-mode 'message-mode "mi" "insert")
+           (spacemacs/set-leader-keys-for-major-mode 'message-mode
+             ;; RFC 1855
+             "miF" 'flame-on))
     :config
     (progn
       ;; No primary server
@@ -71,6 +80,14 @@
 
       (require 'browse-url)
       (require 'nnrss)
+      (defun spacemacs/gnus-flame-on ()
+        "Most important email function, for RFC1855 compliance."
+        ;; https://tools.ietf.org/html/rfc1855
+        (interactive)
+        (insert "FLAME ON:\n")
+        (insert "FLAME OFF\n")
+        (forward-line -2)
+        (end-of-line))
       (defun spacemacs/browse-nnrss-url (arg)
         "Open RSS Article directy in the browser"
         (interactive "p")
