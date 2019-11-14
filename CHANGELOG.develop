@@ -668,6 +668,93 @@ Other:
     (thanks to Codruț Constantin Gușoi)
   - New key binding ~SPC b H~ to open or select the =*Help*= buffer
     (thanks to duianto)
+  - New ~SPC k m~ prefix and subprefixes to use keyboard macros built-ins:
+    - ~SPC k m 2 c~ kmacro-call-ring-2nd
+    - ~SPC k m 2 C~ kmacro-call-ring-2nd-repeat
+    - ~SPC k m 2 v~ kmacro-view-ring-2nd
+    - ~SPC k m a~ kmacro-add-counter
+    - ~SPC k m b~ kmacro-bind-to-key
+    - ~SPC k m c~ kmacro-call-macro
+    - ~SPC k m d~ kmacro-delete-ring-head
+    - ~SPC k m e m~ kmacro-edit-macro
+    - ~SPC k m e r~ kmacro-edit-macro-repeat
+    - ~SPC k m e~ kmacro-step-edit-macro
+    - ~SPC k m <f4>~ kmacro-end-or-call-macro-repeat
+    - ~SPC k m i~ kmacro-insert-counter
+    - ~SPC k m e n~ kmacro-name-last-macro
+    - ~SPC k m e l~ kmacro-edit-lossage
+    - ~SPC k m m~ kmacro-end-call-mouse
+    - ~SPC k m n~ kmacro-cycle-ring-next
+    - ~SPC k m N~ kmacro-cycle-ring-previous
+    - ~SPC k m p~ kmacro-cycle-ring-previous
+    - ~SPC k m r~ helm-register
+    - ~SPC k m s c~ kmacro-set-counter
+    - ~SPC k m s f~ kmacro-set-format
+    - ~SPC k m s r~ kmacro-swap-ring
+    - ~SPC k m v~ kmacro-view-macro
+    - ~SPC k m V~ kmacro-view-macro-repeat
+    - ~SPC k m w~ kmacro-to-register
+    - ~SPC k m y~ jump-to-register
+  - New ~SPC R~ prefix to use rectangle manipulation built-ins:
+    - ~SPC R c~ close-rectangle
+    - ~SPC R !~ clear-rectangle
+    - ~SPC R c~ rectangle-number-lines
+    - ~SPC R d~ delete-rectangle
+    - ~SPC R e~ rectangle-exchange-point-and-mark
+    - ~SPC R i~ copy-rectangle-to-register
+    - ~SPC R k~ kill-rectangle
+    - ~SPC R l~ rectangle-left-char
+    - ~SPC R m~ rectangle-mark-mode
+    - ~SPC R n~ rectangle-next-line
+    - ~SPC R N~ rectangle-previous-line
+    - ~SPC R o~ open-rectangle
+    - ~SPC R p~ rectangle-previous-line
+    - ~SPC R r~ rectangle-right-char
+    - ~SPC R s~ string-rectangle
+    - ~SPC R t~ transpose-regions
+    - ~SPC R v~ rectangle-preview
+    - ~SPC R y~ yank-rectangle
+  - New ~SPC E~ prefix for ediff commands:
+    - ~SPC E b 3~  ediff-buffers3
+    - ~SPC E b b~   ediff-backup
+    - ~SPC E d 3~  ediff-directories3
+    - ~SPC E d d~   ediff-directories
+    - ~SPC E d r~  ediff-directory-revisions
+    - ~SPC E f 3~  ediff-files3
+    - ~SPC E f~   ediff-files
+    - ~SPC E h~   ediff-documentation
+    - ~SPC E m b 3~ ediff-merge-buffers-with-ancestor
+    - ~SPC E m b b~  ediff-merge-buffers
+    - ~SPC E m d 3~ ediff-merge-directories-with-ancestor
+    - ~SPC E m d~  ediff-merge-directories
+    - ~SPC E d .~   spacemacs/ediff-dotfile-and-template
+    - ~SPC E m f 3~ ediff-merge-files-with-ancestor
+    - ~SPC E m f f~  ediff-merge-files
+    - ~SPC E m r 3~ ediff-merge-revisions-with-ancestor
+    - ~SPC E m r~  ediff-merge-revisions
+    - ~SPC E p b~  ediff-patch-buffer
+    - ~SPC E p f~  ediff-patch-file
+    - ~SPC E r v~   ediff-revision
+    - ~SPC E r l~  ediff-regions-linewise
+    - ~SPC E r w~  ediff-regions-wordwise
+    - ~SPC E s~   ediff-show-registry
+    - ~SPC E w l~  ediff-windows-linewise
+    - ~SPC E w w~  ediff-windows-wordwise
+  - New ~SPC t t~ prefix for timeclock clock-in clock-out management:
+    - ~SPC t t c~ timeclock-change
+    - ~SPC t t e~ timeclock-workday-elapsed-string
+    - ~SPC t t g~ timeclock-workday-remaining-string
+    - ~SPC t t i~ timeclock-in
+    - ~SPC t t l~ timeclock-when-to-leave-string
+    - ~SPC t t m~ timeclock-modeline-display
+    - ~SPC t t o~ timeclock-out
+    - ~SPC t t r~ timeclock-reread-log
+    - ~SPC t t s~ timeclock-status-string
+    - ~SPC t t u~ timeclock-update-mode-line
+    - ~SPC t t v~ timeclock-visit
+    - ~SPC t t w~ timeclock-when-to-leave-string
+  - New ~SPC i b~ keybinding to insert another buffer's contents into the
+    current one.
   - New ~SPC b N~ prefix to create an empty buffer:
     - ~SPC b N h~ create new empty buffer in a new window on the left
     - ~SPC b N j~ create new empty buffer in a new window at the bottom

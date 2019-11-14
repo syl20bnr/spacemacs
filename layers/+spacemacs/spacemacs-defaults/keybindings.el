@@ -1,6 +1,6 @@
 ;;; keybindings.el --- Spacemacs Defaults Layer key-bindings File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -29,6 +29,17 @@
                                        ("C"   "capture/colors")
                                        ("d"   "documentation")
                                        ("e"   "errors")
+                                       ("E"   "ediff")
+                                       ("Eb"  "buffers")
+                                       ("Ed"  "directories")
+                                       ("Ef"  "files")
+                                       ("Em"  "merge")
+                                       ("Emb" "buffers")
+                                       ("Emd" "directories")
+                                       ("Emf" "files")
+                                       ("Emr" "revisions")
+                                       ("Er"  "regions")
+                                       ("Ew"  "windows")
                                        ("f"   "files")
                                        ("fC"  "files/convert")
                                        ("fe"  "emacs(spacemacs)")
@@ -49,6 +60,10 @@
                                        ("k"   "lisp")
                                        ("kd"  "delete")
                                        ("kD"  "delete-backward")
+                                       ("km" "kmacros")
+                                       ("km2" "ring")
+                                       ("kme" "edit")
+                                       ("kms" "set/swap")
                                        ("k`"  "hybrid")
                                        ("m"   "major mode commands")
                                        ("n"   "narrow/numbers")
@@ -57,6 +72,7 @@
                                        ("p"   "projects")
                                        ("q"   "quit")
                                        ("r"   "registers/rings/resume")
+                                       ("R" "rectangles")
                                        ("s"   "search/symbol")
                                        ("sa"  "ag")
                                        ("sg"  "grep")
@@ -73,6 +89,7 @@
                                        ("tEh" "hybrid (hybrid-mode)")
                                        ("th"  "highlight")
                                        ("tm"  "modeline")
+                                       ("tt"  "timeclock")
                                        ("T"   "UI toggles/themes")
                                        ("C-t" "other toggles")
                                        ("u"   "universal arg")
@@ -134,6 +151,54 @@
     'universal-argument-more))
 ;; shell command  -------------------------------------------------------------
 (spacemacs/set-leader-keys "!" 'shell-command)
+;; kmacros --------------------------------------------------------------------
+(spacemacs/set-leader-keys
+  "km2c" 'kmacro-call-ring-2nd
+  "km2C" 'kmacro-call-ring-2nd-repeat
+  "km2v" 'kmacro-view-ring-2nd
+  "kma" 'kmacro-add-counter
+  "kmb" 'kmacro-bind-to-key
+  "kmc" 'kmacro-call-macro
+  "kmd" 'kmacro-delete-ring-head
+  "kmem" 'kmacro-edit-macro
+  "kmer" 'kmacro-edit-macro-repeat
+  "km<f4>" 'kmacro-end-or-call-macro-repeat
+  "kmi" 'kmacro-insert-counter
+  "kmen" 'kmacro-name-last-macro
+  "kmel" 'kmacro-edit-lossage
+  "kmm" 'kmacro-end-call-mouse
+  "kmn" 'kmacro-cycle-ring-next
+  "kmN" 'kmacro-cycle-ring-previous
+  "kmp" 'kmacro-cycle-ring-previous
+  "kmr" 'helm-register
+  "kmsc" 'kmacro-set-counter
+  "kmsf" 'kmacro-set-format
+  "kmsr" 'kmacro-swap-ring
+  "kmet" 'kmacro-step-edit-macro
+  "kmv" 'kmacro-view-macro
+  "kmV" 'kmacro-view-macro-repeat
+  "kmw" 'kmacro-to-register
+  "kmy" 'jump-to-register)
+;; rectangles ------------------------------------------------------------------
+(spacemacs/set-leader-keys
+  "Rc" 'close-rectangle
+  "R!" 'clear-rectangle
+  "Rc" 'rectangle-number-lines
+  "Rd" 'delete-rectangle
+  "Re" 'rectangle-exchange-point-and-mark
+  "Ri" 'copy-rectangle-to-register
+  "Rk" 'kill-rectangle
+  "Rl" 'rectangle-left-char
+  "Rm" 'rectangle-mark-mode
+  "Rn" 'rectangle-next-line
+  "RN" 'rectangle-previous-line
+  "Ro" 'open-rectangle
+  "Rp" 'rectangle-previous-line
+  "Rr" 'rectangle-right-char
+  "Rs" 'string-rectangle
+  "Rt" 'transpose-regions
+  "Rv" 'rectangle-preview
+  "Ry" 'yank-rectangle)
 ;; applications ---------------------------------------------------------------
 (spacemacs/set-leader-keys
   "ac"  'calc-dispatch
@@ -223,6 +288,34 @@
   ("z" recenter-top-bottom "recenter")
   ("q" nil "quit" :exit t)
   :evil-leader "e.")
+;; ediff ----------------------------------------------------------------------
+(spacemacs/set-leader-keys
+  "Eb3"  'ediff-buffers3
+  "Ebb"  'ediff-buffers
+  "Ebp"  'ediff-patch-buffer
+  "Ec"   'ediff-backup
+  "Ed3"  'ediff-directories3
+  "Edd"   'ediff-directories
+  "Edr"  'ediff-directory-revisions
+  "Ed."   'spacemacs/ediff-dotfile-and-template
+  "Ef3"  'ediff-files3
+  "Eff"   'ediff-files
+  "Efp"  'ediff-patch-file
+  "Eh"   'ediff-documentation
+  "Emb3" 'ediff-merge-buffers-with-ancestor
+  "Embb"  'ediff-merge-buffers
+  "Emd3" 'ediff-merge-directories-with-ancestor
+  "Emdd"  'ediff-merge-directories
+  "Emf3" 'ediff-merge-files-with-ancestor
+  "Emff"  'ediff-merge-files
+  "Emr3" 'ediff-merge-revisions-with-ancestor
+  "Emrr"  'ediff-merge-revisions
+  "Erl"  'ediff-regions-linewise
+  "Erw"  'ediff-regions-wordwise
+  "Es"   'ediff-show-registry
+  "Ev"   'ediff-revision
+  "Ewl"  'ediff-windows-linewise
+  "Eww"  'ediff-windows-wordwise)
 ;; file -----------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "fA" 'spacemacs/find-file-and-replace-buffer
@@ -291,7 +384,8 @@
   "iJ" 'spacemacs/insert-line-below-no-indent
   "iK" 'spacemacs/insert-line-above-no-indent
   "ik" 'spacemacs/evil-insert-line-above
-  "ij" 'spacemacs/evil-insert-line-below)
+  "ij" 'spacemacs/evil-insert-line-below
+  "ib" 'insert-buffer)
 ;; format ---------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "j(" 'check-parens
@@ -456,6 +550,20 @@ respond to this toggle."
   "qq" 'spacemacs/prompt-kill-emacs
   "qQ" 'spacemacs/kill-emacs
   "qf" 'spacemacs/frame-killer)
+;; timeclock ------------------------------------------------------------------
+(spacemacs/set-leader-keys
+  "ttc" 'timeclock-change
+  "tte" 'timeclock-workday-elapsed-string
+  "ttg" 'timeclock-workday-remaining-string
+  "tti" 'timeclock-in
+  "ttl" 'timeclock-when-to-leave-string
+  "ttm" 'timeclock-modeline-display
+  "tto" 'timeclock-out
+  "ttr" 'timeclock-reread-log
+  "tts" 'timeclock-status-string
+  "ttu" 'timeclock-update-mode-line
+  "ttv" 'timeclock-visit
+  "ttw" 'timeclock-when-to-leave-string)
 ;; window ---------------------------------------------------------------------
 (defun split-window-below-and-focus ()
   "Split the window vertically and focus the new window."
