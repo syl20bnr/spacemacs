@@ -648,6 +648,13 @@ Other:
   - Added =symbol-overlay= to the =spacemacs-navigation= layer
     (thanks to kenkangxgwe)
 - Key bindings:
+  - GNUs keybindings now include *unplugged* and *slave* variants. These are for
+    offline usage and having multiple gnus running, respectively.
+    - ~SPC a g g~ gnus (normal). Not slave, plugged.
+    - ~SPC a g o~ slave & unplugged.
+    - ~SPC a g u~ unplugged (but not slave).
+    - ~SPC a g s~ gnus slave (but plugged).
+  - GNUs layer now includes the message mode insert binding: ~SPC m i F~ for FLAME ON, following [[https://tools.ietf.org/html/rfc1855][RFC 1855]].
   - New evil text objects =«=, =｢=, =‘= and =“=.
   - Improved buffer transient state with extra bindings and new commands:
     - Added ~<right>~ for next-buffer
