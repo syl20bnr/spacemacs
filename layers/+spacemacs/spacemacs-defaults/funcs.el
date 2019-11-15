@@ -567,7 +567,10 @@ If the universal prefix argument is used then will the windows too."
   (interactive "P")
   (when (yes-or-no-p (format "Killing all buffers except \"%s\"? "
                              (buffer-name)))
-    (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
+    (let* ((buffers-to-kill (if (bound-and-true-p persp-mode)
+                                (persp-buffer-list)
+                              (buffer-list))))
+      (mapc 'kill-buffer (delq (current-buffer) buffers-to-kill)))
     (when (equal '(4) arg) (delete-other-windows))
     (message "Buffers deleted!")))
 

@@ -117,6 +117,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   - ~SPC q z~ is now ~SPC q f~ to kill a frame.
   - Remove ~SPC T N~ and make ~SPC T n~ cycle and start the theme transient
     state (thanks to Sylvain Benner)
+  - Restricted ~SPC b C-d~ to only kill other buffers in current perspective
+    (thanks to Seong Yong-ju)
 - Other:
   - Support for multiple cursors using =evil-mc= is now encapsulated in the
     =multiple-cursors= layer (thanks to Codruț Constantin Gușoi)
