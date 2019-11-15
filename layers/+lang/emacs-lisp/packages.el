@@ -136,6 +136,8 @@
       (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
       (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
         (spacemacs/declare-prefix-for-mode mode "mg" "find-symbol")
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "gb" 'xref-pop-marker-stack)
         (spacemacs/declare-prefix-for-mode mode "mh" "help")
         (spacemacs/set-leader-keys-for-major-mode mode
           "hh" 'elisp-slime-nav-describe-elisp-thing-at-point)
