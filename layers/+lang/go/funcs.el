@@ -28,6 +28,11 @@
     ('go-mode (spacemacs//go-setup-company-go))
     ('lsp (spacemacs//go-setup-company-lsp))))
 
+(defun spacemacs//go-setup-eldoc ()
+  "Conditionally setup go eldoc based on backend"
+  (pcase (spacemacs//go-backend)
+    ('go-mode (go-eldoc-setup))))
+
 
 ;; go-mode
 
