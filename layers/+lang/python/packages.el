@@ -190,8 +190,11 @@
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(python . t))))
 
+(defun python/pre-init-pipenv ()
+  (add-to-list 'spacemacs--python-pipenv-modes 'python-mode))
 (defun python/init-pipenv ()
   (use-package pipenv
+    :defer t
     :commands (pipenv-activate
                pipenv-deactivate
                pipenv-shell
@@ -200,13 +203,14 @@
                pipenv-uninstall)
     :init
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'python-mode
-        "vpa" 'pipenv-activate
-        "vpd" 'pipenv-deactivate
-        "vpi" 'pipenv-install
-        "vpo" 'pipenv-open
-        "vps" 'pipenv-shell
-        "vpu" 'pipenv-uninstall))))
+      (dolist (m spacemacs--python-pipenv-modes)
+        (spacemacs/set-leader-keys-for-major-mode m
+          "vpa" 'pipenv-activate
+          "vpd" 'pipenv-deactivate
+          "vpi" 'pipenv-install
+          "vpo" 'pipenv-open
+          "vps" 'pipenv-shell
+          "vpu" 'pipenv-uninstall)))))
 
 (defun python/init-pip-requirements ()
   (use-package pip-requirements
