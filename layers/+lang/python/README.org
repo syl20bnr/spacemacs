@@ -28,10 +28,12 @@
   - [[#fill-column][Fill column]]
   - [[#sort-imports][Sort imports]]
   - [[#importmagic][Importmagic]]
+  - [[#pyvenv-pyenv-and-pipenv][Pyvenv, pyenv and pipenv]]
 - [[#management-of-python-versions-and-virtual-environments][Management of Python versions and virtual environments]]
   - [[#manage-virtual-environments-with-pyvenv][Manage virtual environments with pyvenv]]
   - [[#manage-multiple-python-versions-with-pyenv][Manage multiple Python versions with pyenv]]
     - [[#automatic-activation-of-local-pyenv-version][Automatic activation of local pyenv version]]
+  - [[#manage-environments-and-packages-with-pipenv][Manage environments and packages with pipenv]]
 - [[#key-bindings][Key bindings]]
   - [[#inferior-repl-process][Inferior REPL process]]
   - [[#running-python-script-in-shell][Running Python Script in shell]]
@@ -55,7 +57,7 @@ This layer adds support for the Python language.
 - Code Navigation
 - Documentation Lookup using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] and [[https://github.com/tsgates/pylookup][pylookup]]
 - Test Runners using [[https://github.com/syl20bnr/nose.el][nose.el]] or [[https://github.com/ionrock/pytest-el][pytest]]
-- Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]]
+- Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]] as well as [[https://github.com/pypa/pipenv][pipenv]]
 - semantic mode is enabled
 - PEP8 compliant formatting via [[https://github.com/google/yapf][YAPF]] or [[https://github.com/ambv/black][black]]
 - PEP8 checks with [[https://pypi.python.org/pypi/flake8][flake8]] or [[https://pypi.python.org/pypi/pylint/1.6.4][pylint]]
@@ -307,6 +309,19 @@ Install importmagic and epc for importmagic functionality.
   pip install importmagic epc
 #+END_SRC
 
+** Pyvenv, pyenv and pipenv
+Sometimes, it is convenient to be able to use python virtual environments from
+other modes. For this reason, the python layer provides the variables
+=spacemacs--python-pyenv-modes=, =spacemacs--python-pyvenv-modes= and
+=spacemacs--python-pipenv-modes=. If you wish to be able to access these
+functionalities from other modes, in your user config section, do:
+
+#+BEGIN_SRC elisp
+  (add-to-list 'spacemacs--python-pipenv-mode 'your-mode)
+#+END_SRC
+
+This will allow you to use [[https://github.com/pwalsh/pipenv.el][pipenv]] bindings from the mode your-mode.
+You can add to the other two lists analogously.
 * Management of Python versions and virtual environments
 ** Manage virtual environments with pyvenv
 A virtual environment provides isolation of your Python package versions. For a
@@ -357,6 +372,23 @@ can be set with the variable =python-auto-set-local-pyvenv-virtualenv= to:
 - =on-visit= (default) set the virtualenv when you visit a python buffer,
 - =on-project-switch= set the virtualenv when you switch projects,
 - =nil= to disable.
+
+** Manage environments and packages with pipenv
+[[https://pipenv.kennethreitz.org/en/latest/][Pipenv]] is the new standard tool to manage your virtual environments. It can act as
+a replacement for both =pyenv= and =venv= on a per-repository basis. An overview
+of how to use the tool is provided [[https://pipenv.kennethreitz.org/en/latest/basics/][here]].
+
+Spacemacs integration for pipenv is provided by the [[https://github.com/pwalsh/pipenv.el][pipenv package]].
+It provides the following key bindings:
+
+| Key binding   | Description                                                |
+|---------------+------------------------------------------------------------|
+| ~SPC m v p a~ | activate a pipenv environment with [[https://github.com/pwalsh/pipenv.el][pipenv]]                  |
+| ~SPC m v p d~ | deactivate a pipenv environment with [[https://github.com/pwalsh/pipenv.el][pipenv]]                |
+| ~SPC m v p i~ | install a package into a virtual environment with [[https://github.com/pwalsh/pipenv.el][pipenv]]   |
+| ~SPC m v p o~ | open an installed module in a new buffer with [[https://github.com/pwalsh/pipenv.el][pipenv]]       |
+| ~SPC m v p s~ | open a shell buffer in the current environment with [[https://github.com/pwalsh/pipenv.el][pipenv]] |
+| ~SPC m v p u~ | uninstall a package from a virtual environment with [[https://github.com/pwalsh/pipenv.el][pipenv]] |
 
 * Key bindings
 ** Inferior REPL process

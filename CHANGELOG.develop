@@ -1820,8 +1820,12 @@ Other:
 - Added support for =.svelte= files (thanks to Javier Candeira)
 - Added =lsp= support for =html= buffers (thanks to Thanh Vuong)
 **** Hy
+- Added support for pipenv (thanks to Cazim Hysi)
+- Updated Hy layer to current Hy mode (thanks to Cazim Hysi)
 - Added support for virtual envs (thanks to Danny Freeman)
 - Key bindings:
+  - Added ~SPC m v~ prefix for virtualenvs
+  - Added ~SPC m v p~ prefix for pipenv
   - Added ~SPC m h~ prefix for =help=
   - Added ~SPC m e~ prefix to mirror the eval bindings of other Lisps
   - Changed ~SPC m s s~ (i.e. =start-or-switch-to-shell=) to ~SPC m '~
@@ -2969,8 +2973,8 @@ Other:
   Alexandros Kotzias, Andrew Grangaard, Andrew Vit, Andriy Senyshyn, Anton
   Latukha, Antonio Miranda, Anurag Sharma, Archenoth, Ather Sharif, Artur
   Juraszek, Benjamin Reynolds, Bernhard Schommer, Billy Wade, bmag, Boris
-  Buliga, Boris Wong, Carl Lange, Chase Adams, Christian Bäuerlein, Cibin
-  Mathew, CL123123, Codruț Constantin Gușoi, Compro-Prasad, cormacc, Daniel
+  Buliga, Boris Wong, Carl Lange, Cazim Hysi, Chase Adams, Christian Bäuerlein,
+  Cibin Mathew, CL123123, Codruț Constantin Gușoi, Compro-Prasad, cormacc, Daniel
   Hodson, Daniel Le, Daniel Molina, Darkhan, David Florness, David Parrish,
   David Vo, davidpham87, Deepu Mohan Puthrote, Dela Anthonio, Diego Alvarez,
   Diego Berrocal, Dietrich Daroch, Dinesh Bhosale, Dominik Schrempf, Doug
