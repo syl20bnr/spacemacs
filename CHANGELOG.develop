@@ -960,6 +960,8 @@ Other:
     - Switch to Project Perspective and Show Recent Files
     - Switch to Project Perspective and Search
     (thanks to Gia Thanh Vuong)
+  - Enabled =doom= mode-line theme to respect
+    =dotspacemacs-display-default-layout= (thanks to Jake Romer)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)
