@@ -2234,6 +2234,7 @@ Other:
 - Disabled add-node-modules-path by default (thanks to Eivind Fonn)
 **** Notmuch
 - Try harder to find GitHub patch URL (thanks to Miciah Masters)
+- Open GitHub patches fullscreen
 **** OCaml
 - Allow initialization without requiring =opam= (thanks to Bernhard Schommer)
 - Fixed misused functions, =merlin= is a package not a layer
