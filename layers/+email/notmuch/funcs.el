@@ -105,7 +105,7 @@ messages in the current thread"
          (browse-url url)))
       (diff-mode)
       (view-mode 1)
-      (pop-to-buffer (current-buffer)))))
+      (pop-to-buffer-same-window (current-buffer)))))
 
 (defun spacemacs/notmuch-show-open-github-patch ()
   "Open patch from GitHub email."
