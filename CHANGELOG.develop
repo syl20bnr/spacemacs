@@ -2235,6 +2235,7 @@ Other:
 **** Notmuch
 - Try harder to find GitHub patch URL (thanks to Miciah Masters)
 - Open GitHub patches fullscreen
+- Add next and previous message bindings to notmuch-tree mode
 **** OCaml
 - Allow initialization without requiring =opam= (thanks to Bernhard Schommer)
 - Fixed misused functions, =merlin= is a package not a layer
