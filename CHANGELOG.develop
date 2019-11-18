@@ -1098,6 +1098,7 @@ Other:
     move & rename, just move and just rename (thanks to duianto)
   - Fixed =spacemacs/rename-current-buffer-file= handle same new and old name
     (thanks to duianto)
+  - Fixed sudo-edit on TRAMP (thanks to Carlos Ibáñez)
 *** Layer changes and fixes
 **** Agda
 - Fixes
@@ -1889,6 +1890,8 @@ Other:
   (thanks to Hong Xu)
 - Optimize =spacemacs/counsel-search= for =ag= and =rg= (thanks to Hong Xu)
 - Fixed void variable =counsel-find-file-map= (thanks to duianto)
+- Fixed wrong initial directory in =spacemacs/counsel-search=
+  (thanks to Carlos Ibáñez and Juuso Valkeejärvi)
 **** Imenu-list
 - Changed ~SPC b i~ to ~SPC b t~ for =imenu= tree view
   (thansk to Sylvain Benner)
