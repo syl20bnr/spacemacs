@@ -520,6 +520,9 @@ Run PROJECT-ACTION on project."
      :mode-line helm-read-file-name-mode-line-string
      :action `(("Switch to Project Perspective" .
                 spacemacs//helm-persp-switch-project-action)
+               ("Switch to Project Perspective and Open Dired" .
+                ,(spacemacs//helm-persp-switch-project-action-maker
+                  (lambda () (dired "."))))
                ("Switch to Project Perspective and Show Recent Files" .
                 ,(spacemacs//helm-persp-switch-project-action-maker
                   'helm-projectile-recentf))
