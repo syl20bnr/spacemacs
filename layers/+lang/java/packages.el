@@ -162,7 +162,7 @@
 (defun java/init-lsp-java ()
   (use-package lsp-java
     :defer t
-    :if (eq java-backend 'lsp)
+    :if (eq (spacemacs//java-backend) 'lsp)
     :config
     (progn
       ;; key bindings
