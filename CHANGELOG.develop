@@ -1945,6 +1945,9 @@ Other:
   - ~SPC m r g t~ to generate =toString= method
   - ~SPC m r g o~ to generate method overrides
   - ~SPC m c p~ create spring boot project
+- Fixes:
+  - Enabled =lsp-java= when the =java-backend= is =nil= and the =lsp= layer is
+    enabled (thanks to Ivan Yonchovski)
 **** Javascript
 - Improvements:
   - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')
