@@ -648,14 +648,7 @@ Other:
   - Added =symbol-overlay= to the =spacemacs-navigation= layer
     (thanks to kenkangxgwe)
 - Key bindings:
-  - GNUs keybindings now include *unplugged* and *slave* variants. These are for
-    offline usage and having multiple gnus running, respectively.
-    - ~SPC a g g~ gnus (normal). Not slave, plugged.
-    - ~SPC a g o~ slave & unplugged.
-    - ~SPC a g u~ unplugged (but not slave).
-    - ~SPC a g s~ gnus slave (but plugged).
-  - GNUs layer now includes the message mode insert binding: ~SPC m i F~ for FLAME ON, following [[https://tools.ietf.org/html/rfc1855][RFC 1855]].
-  - New evil text objects =«=, =｢=, =‘= and =“=.
+    - New evil text objects =«=, =｢=, =‘= and =“=.
   - Improved buffer transient state with extra bindings and new commands:
     - Added ~<right>~ for next-buffer
     - Added ~<left>~ for previous-buffer
@@ -1633,6 +1626,14 @@ Other:
     Magit diff or blame buffer (thanks to duianto and Miciah Masters)
 **** Gnus
 - Key bindings:
+  - Add *unplugged* and *slave* variants. These are for offline usage and having
+    multiple gnus running, respectively.
+    - ~SPC a g g~ gnus (normal). Not slave, plugged.
+    - ~SPC a g o~ slave & unplugged.
+    - ~SPC a g u~ unplugged (but not slave).
+    - ~SPC a g s~ gnus slave (but plugged).
+  - Added message mode insert binding: ~SPC m i F~ for FLAME ON, following
+    [[https://tools.ietf.org/html/rfc1855#page-4][RFC 1855]] (thanks to Spenser Truex).
   - Added ~g r~ for =gnus-group-get-new-news= (thanks to Matthew Leach)
   - Added ~O~ prefix in evil state for =gnus-group-group-map=
     (thanks to Matthew Leach)
