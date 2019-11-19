@@ -30,7 +30,7 @@
     :defer t
     :commands gnus
     :init
-    (progn (spacemaccs/declare-prefix "ag" "+gnus" "Gnus newsreader")
+    (progn (spacemacs/declare-prefix "ag" "gnus" "Gnus newsreader")
            (spacemacs/set-leader-keys
              "agg" 'gnus
              "ags" 'gnus-slave
