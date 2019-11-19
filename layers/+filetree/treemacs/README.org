@@ -12,7 +12,7 @@
   - [[#follow-mode][Follow mode]]
   - [[#file-watch][File watch]]
   - [[#git-mode][Git mode]]
-  - [[#collapsed-directories][Collapsed directories]]
+  - [[#flattening-directories][Flattening directories]]
   - [[#locking-width][Locking width]]
 - [[#key-bindings][Key bindings]]
   - [[#global][Global]]
@@ -83,16 +83,16 @@ explanation.
 
 Default is =nil=.
 
-** Collapsed directories
+** Flattening directories
 *This feature requires python to be installed*.
 
-Treemacs tries to collapse empty directory names into one name. It is possible
+Treemacs tries to flatten empty directory names into one name. It is possible
 to control how deep Treemacs will search for empty directories by settings the
-layer variable =treemacs-use-collapsed-directories= to a positive number.
+layer variable =treemacs-collapse-dirs= to a positive number.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (treemacs :variables treemacs-use-collapsed-directories 3)))
+    (treemacs :variables treemacs-collapse-dirs 3)))
 #+END_SRC
 
 Default is 3 (or 0 when python is not installed).
