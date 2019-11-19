@@ -376,6 +376,7 @@ sane way, here is the complete list of changed key bindings
 - node (thanks to jupl)
 - pass (thanks to Andrew Oppenlander, Kepi, Kalle Lindqvist, and Evan Klitzke)
 - prettier (thanks to Seong Yong-ju)
+- quickurl (thanks to Spenser "equwal" Truex)
 - sailfish-developer (thanks to Victor Polevoy)
 - sphinx (thanks to Wei-Wei Guo)
 - tern (thanks to Sylvain Benner and Juuso Valkeejärvi)
@@ -668,6 +669,13 @@ Other:
   - Added =symbol-overlay= to the =spacemacs-navigation= layer
     (thanks to kenkangxgwe)
 - Key bindings:
+  - New ~SPC Q~ prefix for dispatching quickurl
+    (thanks to Spenser "equwal" Truex:)
+    - ~SPC Q l~ List quickurls
+    - ~SPC Q Q~ Expand quickurl abbrev at point
+    - ~SPC Q i~ Ask for which quickurl to insert
+    - ~SPC Q e~ Edit quickurls
+    - ~SPC Q b~ Ask to browse some url from those stored (with completion).
   - New evil text objects =«=, =｢=, =‘= and =“=.
   - Improved buffer transient state with extra bindings and new commands:
     - Added ~<right>~ for next-buffer
