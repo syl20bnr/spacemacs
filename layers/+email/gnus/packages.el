@@ -84,10 +84,8 @@
         "Most important email function, for RFC1855 compliance."
         ;; https://tools.ietf.org/html/rfc1855
         (interactive)
-        (insert "FLAME ON:
-")
-        (insert "FLAME OFF
-")
+        (insert "FLAME ON:\n")
+        (insert "FLAME OFF\n")
         (forward-line -2)
         (end-of-line))
       (defun spacemacs/browse-nnrss-url (arg)
