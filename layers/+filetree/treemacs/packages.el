@@ -43,8 +43,7 @@
             treemacs-sorting 'alphabetic-desc
             treemacs-show-hidden-files t
             treemacs-never-persist nil
-            treemacs-goto-tag-strategy 'refetch-index
-            treemacs-collapse-dirs treemacs-use-collapsed-directories)
+            treemacs-goto-tag-strategy 'refetch-index)
       (add-hook 'treemacs-mode-hook
                 #'spacemacs/treemacs-setup-width-lock)
       (spacemacs/set-leader-keys

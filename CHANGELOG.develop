@@ -2843,6 +2843,9 @@ Other:
 - Made sure treemacs' minor modes will be disabled when they are configured
   to be off.
 - Add =tag= as an accepted value for option =treemacs-use-follow-mode=.
+- Deprecated =treemacs-use-collapsed-directories=. Flattening directories should
+  be controlled by directly setting =treemacs-collapse-dirs=.
+- Fixed "width (un)locked" message appearing when treemacs is loaded.
 **** Typescript
 - Call tsfmt with extension of current buffer for TSX formatting
   (thanks to Victor Andrée)

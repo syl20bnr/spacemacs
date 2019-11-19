@@ -15,10 +15,6 @@
 (defvar treemacs-use-filewatch-mode t
   "When non-nil use `treemacs-filewatch-mode'.")
 
-(defvar treemacs-use-collapsed-directories (if (executable-find "python") 3 0)
-  "Number of directories to collapse with `treemacs-collapse-dirs'.
-Must be a number.")
-
 (defvar treemacs-use-git-mode
   (pcase (cons (not (null (executable-find "git")))
                (not (null (executable-find "python3"))))

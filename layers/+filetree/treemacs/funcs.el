@@ -27,4 +27,5 @@
   (interactive)
   (unless (eq (not treemacs--width-is-locked)
               (not treemacs-lock-width))
-    (treemacs-toggle-fixed-width)))
+    (treemacs-without-messages
+     (treemacs-toggle-fixed-width))))
