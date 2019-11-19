@@ -83,7 +83,7 @@
     (concat prefix-char "d") #'xref-find-definitions
     (concat prefix-char "r") #'xref-find-references
     (concat prefix-char "e") #'lsp-treemacs-errors-list
-    (concat prefix-char "p") #'xref-pop-marker-stack)
+    (concat prefix-char "b") #'xref-pop-marker-stack)
   (if (configuration-layer/package-usedp 'helm)
       (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
         (concat prefix-char "s") #'helm-lsp-workspace-symbol
@@ -98,7 +98,7 @@
     (concat prefix-char "r") #'lsp-ui-peek-find-references
     (concat prefix-char "s") #'lsp-ui-peek-find-workspace-symbol
     (concat prefix-char "S") #'lsp-treemacs-symbols
-    (concat prefix-char "p") #'lsp-ui-peek-jump-backward
+    (concat prefix-char "b") #'lsp-ui-peek-jump-backward
     (concat prefix-char "e") #'lsp-ui-flycheck-list
     (concat prefix-char "n") #'lsp-ui-peek-jump-forward))
 
