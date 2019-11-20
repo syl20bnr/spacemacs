@@ -2978,6 +2978,7 @@ Text related commands (start with ~x~):
 | ~SPC x J~     | move down a line of text (enter transient state)              |
 | ~SPC x K~     | move up a line of text (enter transient state)                |
 | ~SPC x l d~   | duplicate line or region                                      |
+| ~SPC x l r~   | randomize lines in region                                     |
 | ~SPC x l s~   | sort lines                                                    |
 | ~SPC x l u~   | uniquify lines                                                |
 | ~SPC x o~     | use avy to select a link in the frame and open it             |
@@ -2992,6 +2993,7 @@ Text related commands (start with ~x~):
 | ~SPC x U~     | set the selected text to upper case                           |
 | ~SPC x w c~   | count the number of occurrences per word in the select region |
 | ~SPC x w d~   | show dictionary entry of word from wordnik.com                |
+| ~SPC x w r~   | randomize words in region                                     |
 | ~SPC x y~     | use avy to copy a link in the frame                           |
 
 *** Text insertion commands

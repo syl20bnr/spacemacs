@@ -103,6 +103,7 @@
                                        ("xg"  "google-translate")
                                        ("xj"  "justification")
                                        ("xl"  "lines")
+                                       ("xR"  "Randomize")
                                        ("xt"  "transpose")
                                        ("xw"  "words")
                                        ("z"   "zoom")))
@@ -656,6 +657,7 @@ respond to this toggle."
   "xlc" 'spacemacs/sort-lines-by-column
   "xlC" 'spacemacs/sort-lines-by-column-reverse
   "xld" 'spacemacs/duplicate-line-or-region
+  "xlr" 'spacemacs/randomize-lines
   "xls" 'spacemacs/sort-lines
   "xlS" 'spacemacs/sort-lines-reverse
   "xlu" 'spacemacs/uniquify-lines
@@ -668,6 +670,7 @@ respond to this toggle."
   "xU"  'upcase-region
   "xu"  'downcase-region
   "xwc" 'spacemacs/count-words-analysis
+  "xwr" 'spacemacs/randomize-words
   "x TAB" 'indent-rigidly)
 
 (define-key indent-rigidly-map "h" 'indent-rigidly-left)

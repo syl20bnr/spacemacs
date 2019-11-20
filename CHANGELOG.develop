@@ -933,6 +933,8 @@ Other:
   - New ~SPC x t e~ to transpose sexps (thanks to Guido Kraemer)
   - Added evil key bindings for visualizer and window mode of =undo-tree=
     (thanks to Rich Alesi)
+  - New key bindings ~SPC x l r~ and ~SPC x w r~ to randomize lines and words
+    in region (thanks to Sylvain Benner)
   - Improved =which-key= replacement regular expressions (thanks to duianto)
   - Added ~SPC o~ which-key prefix name: =user bindings= (thanks to duianto)
   - Added =symbol-overlay= key bindings (thanks to kenkangxgwe):
