@@ -1910,42 +1910,44 @@ Other:
 **** Jsonnet
 - Fixed flycheck support in jsonnet files (thanks to Vikash Balasubramanian)
 **** Java
-- Added support for multiple backends. Supported backends are: =meghanada=,
-  =eclim=. The default backend is =meghanada=.
 - Key bindings:
   - ~SPC m e e~ is now to fix error around point. Use ~SPC e~ prefix to navigate
     between errors.
   - ~SPC m p r~ to run project (thanks to Willian Ver Valem Paiva)
   - ~SPC r n~ for =eclim-java-new= (thanks to Dela Anthonio)
-- Replace usage of =ensime-print-type-at-point= by =ensime-type-at-point=
-  (thanks to Joao Azevedo)
-- Added defalias for =ensime-type-at-point= for compatibility
-  (thanks to Eivind Fonn)
-- Added ENSIME jump handlers (thanks to Joao Azevedo)
-- Improved maven and gradle support (thanks to Sylvain Benner)
-- Made java layer depend on groovy layer (thanks to Sylvain Benner)
-- Fixed syntax typo in configuration (thanks to EMayej)
-- Added =org-babel= support (thanks to Michael Rohleder)
-- Remove broken ENSIME key bindings (thanks to Bjarke Vad Andersen)
-- Fixed yanking types (thanks to Bjarke Vad Andersen)
-- Fixed gtags related initialization (thanks to Guido Kraemer)
-- Added LSP Java backend (thanks to Ivan Yonchovski)
-- Added =.dap-breakpoints= and =.lsp-session-*= (java lsp tempfiles) to
-  .gitignore (thanks to Uroš Perišić)
-- Added =transient= (package update temp folder) to
-  .gitignore (thanks to Jarosław Górny)
-- Fixed prefixes for =java-mode= and =gradle-mode=
-- New =lsp= backend keybindings
-  - ~SPC m r c i~ convert to static import
-  - ~SPC m r a t~ add throws exception
-  - ~SPC m r a a~ assign all parameters to fields
-  - ~SPC m r a f~ assign parameter to field
-  - ~SPC m r g g~ to generate getters/setters
-  - ~SPC m r g e~ to generate =equals= and =hashCode= methods
-  - ~SPC m r g t~ to generate =toString= method
-  - ~SPC m r g o~ to generate method overrides
-  - ~SPC m c p~ create spring boot project
+  - New =lsp= backend keybindings
+    - ~SPC m r c i~ convert to static import
+    - ~SPC m r a t~ add throws exception
+    - ~SPC m r a a~ assign all parameters to fields
+    - ~SPC m r a f~ assign parameter to field
+    - ~SPC m r g g~ to generate getters/setters
+    - ~SPC m r g e~ to generate =equals= and =hashCode= methods
+    - ~SPC m r g t~ to generate =toString= method
+    - ~SPC m r g o~ to generate method overrides
+    - ~SPC m c p~ create spring boot project
+      (thanks to Ivan Yonchovski)
+- Improvements:
+  - Added support for multiple backends. Supported backends are: =meghanada=,
+    =eclim=. The default backend is =meghanada=. (thanks to Ivan Yonchovski)
+  - Added =ENSIME= jump handlers (thanks to Joao Azevedo)
+  - Improved =maven= and =gradle= support (thanks to Sylvain Benner)
+  - Made =java= layer depend on =groovy= layer (thanks to Sylvain Benner)
+  - Added =org-babel= support (thanks to Michael Rohleder)
+  - Remove broken =ENSIME= key bindings (thanks to Bjarke Vad Andersen)
+  - Added LSP Java backend (thanks to Ivan Yonchovski)
+  - Added =.dap-breakpoints= and =.lsp-session-*= (java lsp tempfiles) to
+    .gitignore (thanks to Uroš Perišić)
+  - Added =transient= (package update temp folder) to
+    .gitignore (thanks to Jarosław Górny)
 - Fixes:
+  - Replace usage of =ensime-print-type-at-point= by =ensime-type-at-point=
+    (thanks to Joao Azevedo)
+  - Added defalias for =ensime-type-at-point= for compatibility
+    (thanks to Eivind Fonn)
+  - Fixed syntax typo in configuration (thanks to EMayej)
+  - Fixed yanking types (thanks to Bjarke Vad Andersen)
+  - Fixed gtags related initialization (thanks to Guido Kraemer)
+  - Fixed prefixes for =java-mode= and =gradle-mode= (thanks to Seong Yong-ju)
   - Enabled =lsp-java= when the =java-backend= is =nil= and the =lsp= layer is
     enabled (thanks to Ivan Yonchovski)
 **** Javascript
