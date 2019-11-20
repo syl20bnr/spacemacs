@@ -3015,7 +3015,7 @@ Text insertion commands (start with ~i~):
 | ~SPC i U U~ | insert UUIDv4 (use universal argument to insert with CID format)      |
 
 *Hint:* You can change the length of the inserted password with a numerical
-prefix argument, for instance ~SPC U 24 SPC i p p~ will insert a password
+prefix argument, for instance ~24 SPC i p p~ will insert a password
 with 24 characters.
 
 *** Smartparens Strict mode
