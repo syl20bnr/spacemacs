@@ -693,7 +693,8 @@ Select: _w_ _h_ _j_ _k_ _l_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s_ _v
  [_h_/_l_]  left/right    [_H_/_L_] left/right  [_S_]^^^^ horiz & follow  [_]_] enlarge horiz  [_U_] restore next layout
  [_0_.._9_] window 0..9   [_r_]^^   rotate fwd  [_v_]^^^^ vertical        [_{_] shrink verti   [_d_] close current
  [_w_]^^    other window  [_R_]^^   rotate bwd  [_V_]^^^^ verti & follow  [_}_] enlarge verti  [_D_] close other
- [_o_]^^    other frame   ^^^^                  [_m_/_|_/___] maximize    %s^^^^^^^^^^^^^^^^^^ [_q_] quit"
+ [_o_]^^    other frame   ^^^^                  [_m_/_|_/___] maximize    %s^^^^^^^^^^^^^^^^^^ [_q_] quit
+ [_a_]^^    ace-window"
           (if (configuration-layer/package-used-p 'golden-ratio)
               "[_g_] golden-ratio  "
             "^^^^                  ")))
@@ -740,6 +741,7 @@ Select: _w_ _h_ _j_ _k_ _l_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s_ _v
   ("L" evil-window-move-far-right)
   ("<S-right>" evil-window-move-far-right)
   ("o" other-frame)
+  ("a" ace-window)
   ("r" spacemacs/rotate-windows-forward)
   ("R" spacemacs/rotate-windows-backward)
   ("s" split-window-below)
