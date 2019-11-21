@@ -28,10 +28,8 @@
         livid-mode
         nodejs-repl
         org
-        prettier-js
         skewer-mode
         tern
-        web-beautify
         ))
 
 (defun javascript/post-init-add-node-modules-path ()
@@ -92,6 +90,7 @@
                      (cons 'javascript-backend value))))
     :config
     (progn
+      (spacemacs//bind-javascript-formatter-keys 'js2-mode)
       (when javascript-fmt-on-save
         (add-hook 'js2-mode-local-vars-hook 'spacemacs/javascript-fmt-before-save-hook))
       ;; prefixes
@@ -226,10 +225,6 @@
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(js . t))))
 
-(defun javascript/pre-init-prettier-js ()
-  (when (eq javascript-fmt-tool 'prettier)
-    (add-to-list 'spacemacs--prettier-modes 'js2-mode)))
-
 (defun javascript/init-skewer-mode ()
   (when (eq javascript-repl 'skewer)
     (use-package skewer-mode
@@ -260,8 +255,3 @@
 
 (defun javascript/post-init-tern ()
   (add-to-list 'tern--key-bindings-modes 'js2-mode))
-
-(defun javascript/pre-init-web-beautify ()
-  (when (eq javascript-fmt-tool 'web-beautify)
-    (add-to-list 'spacemacs--web-beautify-modes
-                 (cons 'js2-mode 'web-beautify-js))))

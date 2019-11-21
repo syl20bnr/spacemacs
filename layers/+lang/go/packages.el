@@ -115,7 +115,8 @@
     :init
     (progn
       ;; get go packages much faster
-      (setq go-packages-function 'spacemacs/go-packages-gopkgs)
+      (setq gofmt-show-errors    dotspacemacs-format-show-errors
+            go-packages-function 'spacemacs/go-packages-gopkgs)
       (add-hook 'go-mode-hook 'spacemacs//go-set-tab-width)
       (add-hook 'go-mode-local-vars-hook
                 #'spacemacs//go-setup-backend)

@@ -22,6 +22,7 @@
 (require 'core-custom-settings)
 (require 'core-release-management)
 (require 'core-jump)
+(require 'core-format)
 (require 'core-display-init)
 (require 'core-themes-support)
 (require 'core-fonts-support)

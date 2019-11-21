@@ -388,6 +388,11 @@ Possible values are:
 `changed' to delete only whitespace for changed lines or
 `nil' to disable cleanup.")
 
+(defvar dotspacemacs-format-show-errors 'buffer
+  "Where to display formatter error output.
+It can either be displayed in its own buffer, in the echo area, or not at all.
+Possible values are `buffer' `echo' `nil'.")
+
 (defvar dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
   "List of search tool executable names. Spacemacs uses the first installed
 tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.")

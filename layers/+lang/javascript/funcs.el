@@ -151,7 +151,13 @@
   (evil-insert-state))
 
 
-;; Others
+;; Formatters
+
+(defun spacemacs//bind-javascript-formatter-keys (mode)
+  (spacemacs/set-leader-keys-for-major-mode mode
+    (if (eq (spacemacs//javascript-backend) 'lsp)
+        "=="
+      "=") #'spacemacs/javascript-format))
 
 (defun spacemacs//javascript-setup-checkers ()
   (when-let* ((found (executable-find "eslint_d")))
@@ -161,13 +167,45 @@
   "Call formatting tool specified in `javascript-fmt-tool'."
   (interactive)
   (cond
-   ((eq javascript-fmt-tool 'prettier)
-    (call-interactively 'prettier-js))
    ((eq javascript-fmt-tool 'web-beautify)
-    (call-interactively 'web-beautify-js))
+    (call-interactively 'spacemacs/javascript-web-beautify-format))
+   ((eq javascript-fmt-tool 'eslint_d)
+    (call-interactively 'spacemacs/javascript-eslint_d-format))
+   ((eq javascript-fmt-tool 'prettier)
+    (call-interactively 'spacemacs/javascript-prettier-format))
+   ((eq javascript-fmt-tool 'prettier-eslint)
+    (call-interactively 'spacemacs/javascript-prettier-eslint-format))
+
    (t (error (concat "%s isn't valid javascript-fmt-tool value."
-                     " It should be 'web-beutify or 'prettier.")
-                     (symbol-name javascript-fmt-tool)))))
+                     " It should be 'web-beutify, 'eslint_d, 'prettier,"
+                     " 'prettier-eslint.")
+             (symbol-name javascript-fmt-tool)))))
+
+(spacemacs|define-fmt-tool
+ :id javascript-web-beautify
+ :name "web-beautify"
+ :program "js-beautify"
+ :args ("-f" "-" "--type" "js"))
+
+(spacemacs|define-fmt-tool
+ :id javascript-eslint_d
+ :name "eslint_d"
+ :program "eslint_d"
+ :args (lambda ()
+         `("--stdin" "--stdin-filename" ,(file-name-nondirectory buffer-file-name)
+           "--fix-to-stdout")))
+
+(spacemacs|define-fmt-tool
+ :id javascript-prettier
+ :name "prettier"
+ :program "prettier"
+ :args (lambda () `("--stdin" "--stdin-filepath" ,buffer-file-name)))
+
+(spacemacs|define-fmt-tool
+ :id javascript-prettier-eslint
+ :name "prettier-eslint"
+ :program "prettier-eslint"
+ :args (lambda () `("--stdin" "--stdin-filepath" ,buffer-file-name)))
 
 (defun spacemacs/javascript-fmt-before-save-hook ()
   (add-hook 'before-save-hook 'spacemacs/javascript-format t t))

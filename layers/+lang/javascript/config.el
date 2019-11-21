@@ -19,7 +19,8 @@ Possible values are `tern' and `lsp'.
 If `nil' then `tern' is the default backend unless `lsp' layer is used.")
 
 (defvar javascript-fmt-tool 'web-beautify
-  "The formatter to format a JavaScript file. Possible values are `web-beautify' and `prettier'.")
+  "The formatter to format a JavaScript file. Possible values are `web-beautify',
+`eslint_d', `prettier', `prettier-eslint'.")
 
 (defvar javascript-import-tool nil
   "The import backend to import modules. Possible values are `import-js' and `nil' to disable.")

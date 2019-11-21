@@ -18,11 +18,9 @@
     flycheck
     import-js
     js-doc
-    prettier-js
     rjsx-mode
     smartparens
     tern
-    web-beautify
     yasnippet
     ))
 
@@ -84,14 +82,11 @@
     (spacemacs/declare-prefix-for-mode 'rjsx-mode "mh" "documentation")
     (spacemacs/declare-prefix-for-mode 'rjsx-mode "mg" "goto")
 
+    (spacemacs//bind-javascript-formatter-keys 'rjsx-mode)
     (spacemacs/set-leader-keys-for-major-mode 'rjsx-mode "rt" 'rjsx-rename-tag-at-point)
 
     (with-eval-after-load 'rjsx-mode
       (define-key rjsx-mode-map (kbd "C-d") nil))))
-
-(defun react/pre-init-prettier-js ()
-  (when (eq javascript-fmt-tool 'prettier)
-    (add-to-list 'spacemacs--prettier-modes 'rjsx-mode)))
 
 (defun react/post-init-smartparens ()
   (if dotspacemacs-smartparens-strict-mode
@@ -100,11 +95,6 @@
 
 (defun react/post-init-tern ()
   (add-to-list 'tern--key-bindings-modes 'rjsx-mode))
-
-(defun react/pre-init-web-beautify ()
-  (when (eq javascript-fmt-tool 'web-beautify)
-    (add-to-list 'spacemacs--web-beautify-modes
-                 (cons 'rjsx-mode 'web-beautify-js))))
 
 (defun react/post-init-yasnippet ()
   (add-hook 'rjsx-mode-hook #'spacemacs//react-setup-yasnippet))
