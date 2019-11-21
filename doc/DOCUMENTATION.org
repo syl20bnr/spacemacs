@@ -2352,50 +2352,51 @@ A convenient window manipulation transient state allows performing most of the
 actions listed above. The transient state allows additional actions as well like
 window resizing.
 
-| Key binding | Description                                                   |
-|-------------+---------------------------------------------------------------|
-| ~SPC w .~   | initiate transient state                                      |
-| ~?~         | display the full documentation in minibuffer                  |
-| ~0~         | go to window number 0                                         |
-| ~1~         | go to window number 1                                         |
-| ~2~         | go to window number 2                                         |
-| ~3~         | go to window number 3                                         |
-| ~4~         | go to window number 4                                         |
-| ~5~         | go to window number 5                                         |
-| ~6~         | go to window number 6                                         |
-| ~7~         | go to window number 7                                         |
-| ~8~         | go to window number 8                                         |
-| ~9~         | go to window number 9                                         |
-| ~/~         | vertical split                                                |
-| ~-~         | horizontal split                                              |
-| ~\vert~     | maximize window vertically                                    |
-| ~_~         | maximize window horizontally                                  |
-| ~[~         | shrink window horizontally                                    |
-| ~]~         | enlarge window horizontally                                   |
-| ~{~         | shrink window vertically                                      |
-| ~}~         | enlarge window vertically                                     |
-| ~d~         | delete window                                                 |
-| ~D~         | delete other windows                                          |
-| ~g~         | toggle =golden-ratio= on and off                              |
-| ~h~         | go to window on the left                                      |
-| ~j~         | go to window below                                            |
-| ~k~         | go to window above                                            |
-| ~l~         | go to window on the right                                     |
-| ~H~         | move window to the left                                       |
-| ~J~         | move window to the bottom                                     |
-| ~K~         | move bottom to the top                                        |
-| ~L~         | move window to the right                                      |
-| ~m~         | toggle maximization of current window                         |
-| ~o~         | focus other frame                                             |
-| ~r~         | rotate windows forward                                        |
-| ~R~         | rotate windows backward                                       |
-| ~s~         | horizontal split                                              |
-| ~S~         | horizontal split and focus new window                         |
-| ~u~         | undo window layout (used to effectively undo a closed window) |
-| ~U~         | redo window layout                                            |
-| ~v~         | vertical split                                                |
-| ~V~         | vertical split and focus new window                           |
-| ~w~         | focus other window                                            |
+| Key binding     | Description                                                   |
+|-----------------+---------------------------------------------------------------|
+| ~SPC w .~       | initiate transient state                                      |
+| ~?~             | display the full documentation in minibuffer                  |
+| ~0~             | go to window number 0                                         |
+| ~1~             | go to window number 1                                         |
+| ~2~             | go to window number 2                                         |
+| ~3~             | go to window number 3                                         |
+| ~4~             | go to window number 4                                         |
+| ~5~             | go to window number 5                                         |
+| ~6~             | go to window number 6                                         |
+| ~7~             | go to window number 7                                         |
+| ~8~             | go to window number 8                                         |
+| ~9~             | go to window number 9                                         |
+| ~/~             | vertical split                                                |
+| ~-~             | horizontal split                                              |
+| ~\vert~         | maximize window vertically                                    |
+| ~_~             | maximize window horizontally                                  |
+| ~[~             | shrink window horizontally                                    |
+| ~]~             | enlarge window horizontally                                   |
+| ~{~             | shrink window vertically                                      |
+| ~}~             | enlarge window vertically                                     |
+| ~d~             | delete window                                                 |
+| ~D~             | delete other windows                                          |
+| ~g~             | toggle =golden-ratio= on and off                              |
+| ~h~ ~<left>~    | go to window on the left                                      |
+| ~j~ ~<down>~    | go to window below                                            |
+| ~k~ ~<up>~      | go to window above                                            |
+| ~l~ ~<right>~   | go to window on the right                                     |
+| ~H~ ~<S-left>~  | move window to the left                                       |
+| ~J~ ~<S-down>~  | move window to the bottom                                     |
+| ~K~ ~<S-up>~    | move bottom to the top                                        |
+| ~L~ ~<S-right>~ | move window to the right                                      |
+| ~m~             | toggle maximization of current window                         |
+| ~o~             | focus other frame                                             |
+| ~a~             | call ace window mode                                          |
+| ~r~             | rotate windows forward                                        |
+| ~R~             | rotate windows backward                                       |
+| ~s~             | horizontal split                                              |
+| ~S~             | horizontal split and focus new window                         |
+| ~u~             | undo window layout (used to effectively undo a closed window) |
+| ~U~             | redo window layout                                            |
+| ~v~             | vertical split                                                |
+| ~V~             | vertical split and focus new window                           |
+| ~w~             | focus other window                                            |
 
 **** Golden ratio
 If you resize windows like crazy you may want to give a try to [[https://github.com/roman/golden-ratio.el][golden-ratio]].
