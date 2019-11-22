@@ -172,6 +172,8 @@
   - [[#epub][Epub]]
   - [[#pdf][Pdf]]
   - [[#speed-reading][Speed reading]]
+- [[#readmeorg-files-that-need-proper-tags][README.org files that need proper tags]]
+  - [[#solidity-layer][Solidity layer]]
 - [[#source-control][Source control]]
   - [[#git][Git]]
   - [[#github][Github]]
@@ -2241,6 +2243,17 @@ A speed reading mode for Emacs.
 
 Features:
 - Support for =speed-reading= of arbitrary texts
+
+* README.org files that need proper tags
+** Solidity layer
+[[file:+lang/solidity/README.org][+lang/solidity/README.org]]
+
+A layer to support Solidity development in Spacemacs.
+
+Features:
+- Syntax highlighting
+- Syntax checking
+- Gas estimation
 
 * Source control
 ** Git
