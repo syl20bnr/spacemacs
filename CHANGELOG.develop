@@ -558,6 +558,7 @@ Other:
     =spacemacs/ivy-persp-switch-project=):
     - Fixed the default action to display the home buffer in the new layout.
     - Added actions to copy the current layout or create a new project layout.
+    - Added action for opening project in dired. (thanks to Magnus Therning)
   - Resolve symlinks in warning message about duplicate layers
     (thanks to Ben Gamari)
   - Check toggle condition in status function (thanks to Eivind Fonn)
