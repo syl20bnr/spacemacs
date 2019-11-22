@@ -682,30 +682,40 @@ respond to this toggle."
 
 (spacemacs|transient-state-format-hint window-manipulation
   spacemacs--window-manipulation-ts-minified-hint "
-Select: _w_ _h_ _j_ _k_ _l_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s_ _v_ Resize: _[_ _]_ _{_ _}_ _m_ _|_ ___")
+Select: _a_ _h_ _j_ _k_ _l_ _w_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s_ _v_ Resize: _[_ _]_ _{_ _}_ _m_ _|_ ___")
 
 (spacemacs|transient-state-format-hint window-manipulation
   spacemacs--window-manipulation-ts-full-hint
   (format "\n [_?_] toggle help
  Select^^^^               Move^^^^              Split^^^^^^               Resize^^             Other^^
  ──────^^^^─────────────  ────^^^^────────────  ─────^^^^^^─────────────  ──────^^───────────  ─────^^──────────────────
- [_j_/_k_]  down/up       [_J_/_K_] down/up     [_s_]^^^^ horizontal      [_[_] shrink horiz   [_u_] restore prev layout
- [_h_/_l_]  left/right    [_H_/_L_] left/right  [_S_]^^^^ horiz & follow  [_]_] enlarge horiz  [_U_] restore next layout
- [_0_.._9_] window 0..9   [_r_]^^   rotate fwd  [_v_]^^^^ vertical        [_{_] shrink verti   [_d_] close current
- [_w_]^^    other window  [_R_]^^   rotate bwd  [_V_]^^^^ verti & follow  [_}_] enlarge verti  [_D_] close other
- [_o_]^^    other frame   ^^^^                  [_m_/_|_/___] maximize    %s^^^^^^^^^^^^^^^^^^ [_q_] quit
- [_a_]^^    ace-window"
+ [_j_/_k_]  down/up       [_J_/_K_] down/up     [_s_]^^^^ horizontal      [_[_] shrink horiz   [_d_] close current
+ [_h_/_l_]  left/right    [_H_/_L_] left/right  [_S_]^^^^ horiz & follow  [_]_] enlarge horiz  [_D_] close other
+ [_0_.._9_] window 0..9   [_r_]^^   rotate fwd  [_v_]^^^^ vertical        [_{_] shrink verti   [_u_] restore prev layout
+ [_a_]^^    ace-window    [_R_]^^   rotate bwd  [_V_]^^^^ verti & follow  [_}_] enlarge verti  [_U_] restore next layout
+ [_o_]^^    other frame   ^^^^                  [_m_/_|_/___] maximize    %s^^^^^^^^^^^^^^^^^  [_q_] quit
+ [_w_]^^    other window"
           (if (configuration-layer/package-used-p 'golden-ratio)
-              "[_g_] golden-ratio  "
-            "^^^^                  ")))
+              ;; the following strings need to be the same length as:
+              ;; %s^^^^^^^^^^^^^^^^^ (above) to keep the following key aligned
+              "[_g_] golden-ratio "
+            "^^                 ")))
 
 (spacemacs|define-transient-state window-manipulation
   :title "Window Manipulation TS"
   :hint-is-doc t
   :dynamic-hint (spacemacs//window-manipulation-ts-hint)
   :bindings
-  ("q" nil :exit t)
   ("?" spacemacs//window-manipulation-ts-toggle-hint)
+  ;; Select
+  ("j" evil-window-down)
+  ("<down>" evil-window-down)
+  ("k" evil-window-up)
+  ("<up>" evil-window-up)
+  ("h" evil-window-left)
+  ("<left>" evil-window-left)
+  ("l" evil-window-right)
+  ("<right>" evil-window-right)
   ("0" winum-select-window-0)
   ("1" winum-select-window-1)
   ("2" winum-select-window-2)
@@ -716,44 +726,41 @@ Select: _w_ _h_ _j_ _k_ _l_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s_ _v
   ("7" winum-select-window-7)
   ("8" winum-select-window-8)
   ("9" winum-select-window-9)
-  ("-" split-window-below-and-focus)
-  ("/" split-window-right-and-focus)
-  ("[" spacemacs/shrink-window-horizontally)
-  ("]" spacemacs/enlarge-window-horizontally)
-  ("{" spacemacs/shrink-window)
-  ("}" spacemacs/enlarge-window)
-  ("d" delete-window)
-  ("D" delete-other-windows)
-  ("h" evil-window-left)
-  ("<left>" evil-window-left)
-  ("j" evil-window-down)
-  ("<down>" evil-window-down)
-  ("k" evil-window-up)
-  ("<up>" evil-window-up)
-  ("l" evil-window-right)
-  ("<right>" evil-window-right)
-  ("H" evil-window-move-far-left)
-  ("<S-left>" evil-window-move-far-left)
+  ("a" ace-window)
+  ("o" other-frame)
+  ("w" other-window)
+  ;; Move
   ("J" evil-window-move-very-bottom)
   ("<S-down>" evil-window-move-very-bottom)
   ("K" evil-window-move-very-top)
   ("<S-up>" evil-window-move-very-top)
+  ("H" evil-window-move-far-left)
+  ("<S-left>" evil-window-move-far-left)
   ("L" evil-window-move-far-right)
   ("<S-right>" evil-window-move-far-right)
-  ("o" other-frame)
-  ("a" ace-window)
   ("r" spacemacs/rotate-windows-forward)
   ("R" spacemacs/rotate-windows-backward)
+  ;; Split
   ("s" split-window-below)
   ("S" split-window-below-and-focus)
-  ("u" winner-undo)
-  ("U" winner-redo)
+  ("-" split-window-below-and-focus)
   ("v" split-window-right)
   ("V" split-window-right-and-focus)
+  ("/" split-window-right-and-focus)
   ("m" spacemacs/toggle-maximize-buffer)
-  ("_" spacemacs/maximize-horizontally)
   ("|" spacemacs/maximize-vertically)
-  ("w" other-window))
+  ("_" spacemacs/maximize-horizontally)
+  ;; Resize
+  ("[" spacemacs/shrink-window-horizontally)
+  ("]" spacemacs/enlarge-window-horizontally)
+  ("{" spacemacs/shrink-window)
+  ("}" spacemacs/enlarge-window)
+  ;; Other
+  ("d" delete-window)
+  ("D" delete-other-windows)
+  ("u" winner-undo)
+  ("U" winner-redo)
+  ("q" nil :exit t))
 (spacemacs/set-leader-keys
   "w." 'spacemacs/window-manipulation-transient-state/body
   "w[" 'spacemacs/window-manipulation-transient-state/spacemacs/shrink-window-horizontally
