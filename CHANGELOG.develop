@@ -2725,6 +2725,7 @@ Other:
 - Fixed documentation issues with slack and emoji layers
   (thanks to Benjamin Reynolds)
 - Fixed =helm= menu display (thanks to Leslie Shawn Russell)
+- Fixed function name bug in react layer fmt-on-save (thanks to Tommy Groshong)
 **** Smex
 - Fixed ~SPC m :~ for current major mode commands (thanks to tinysong)
 **** Solidity
