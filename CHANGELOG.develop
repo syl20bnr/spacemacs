@@ -168,6 +168,10 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   - Swapped key bindings for better usability (thanks to Tony Lotts):
     - ~SPC m s s~ for =haskell-interactive-switch=
     - ~SPC m s S~ for =spacemacs/haskell-interactive-bring=
+***** LSP
+- Key bindings;
+  - Change jump back to last mark from ~SPC m g p~ to ~SPC m g b~
+    to follow the keybindings convention (thanks to Magnus Therning)
 ***** IPython notebook
 - Key bindings;
   - Change prefix from ~SPC a i~ to ~SPC a y~ (thanks to Swaroop C H)
@@ -1493,6 +1497,7 @@ Other:
 **** Emacs Lisp
 - Key bindings:
   - Added ~c~ to continue in edebug mode (thanks to hodge)
+  - Added ~SPC m g b~ to jump back to previous point (thanks to Magnus Therning)
 - Identify Cask files as emacs lisp ones (thanks to Adrien Becchis)
 - Added =overseer= ert test runner (thanks to Adrien Becchis)
   - Key bindings:
