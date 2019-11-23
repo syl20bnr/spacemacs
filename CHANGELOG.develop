@@ -305,6 +305,8 @@ sane way, here is the complete list of changed key bindings
   Kalle Lindqvist)
 **** Fonts
 - unicode-fonts (thanks to Aaron Jensen)
+**** Frameworks
+- vue (thanks to Thanh Vuong)
 **** Languages
 - alda (thanks to Andrew Hill (AstroEngiSci))
 - coffeescript (thanks to Sylvain Benner)
