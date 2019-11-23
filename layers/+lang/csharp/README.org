@@ -7,10 +7,11 @@
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
-- [[#packages-included][Packages Included]]
+- [[#backends][Backends]]
 - [[#install][Install]]
+  - [[#omnisharp-backend][Omnisharp backend]]
 - [[#caveats][Caveats]]
-- [[#key-bindings][Key bindings]]
+- [[#key-bindings-for-the-omnisharp-backend][Key bindings for the omnisharp backend]]
   - [[#navigation][Navigation]]
   - [[#helpers-documentation-info][Helpers (documentation, info)]]
   - [[#refactoring][Refactoring]]
@@ -18,11 +19,9 @@
   - [[#tests][Tests]]
 
 * Description
-This layer adds support for C# language using the [[https://github.com/OmniSharp/omnisharp-roslyn][omnisharp-roslyn]] language
-server and corresponding [[https://github.com/OmniSharp/omnisharp-emacs][omnisharp-emacs]] package.
-
-Please report any issues encountered to [[https://github.com/OmniSharp/omnisharp-emacs/issues][omnisharp-emacs issue page on github]].
-PRs are welcome too!
+This layer adds support for the C# language using the [[https://github.com/OmniSharp/omnisharp-roslyn][omnisharp-roslyn]]
+language server with either the [[https://github.com/OmniSharp/omnisharp-emacs][omnisharp-emacs]]
+or the [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] packages.
 
 ** Features:
 - Syntax checking with flycheck (when =syntax-checking= layer is used)
@@ -31,32 +30,51 @@ PRs are welcome too!
 - Navigation to cross-references
 - Inspecting types in metadata
 
-* Packages Included
-- [[https://github.com/OmniSharp/omnisharp-emacs][omnisharp]]
+* Backends
+There are two backends available for this layer, one based on the =omnisharp-emacs=
+package and a new one based on =lsp-mode= (language server protocol) package.
+
+Both backends use the omnisharp-roslyn server under the hood however different
+features are available. The =omnisharp= backend might be more stable at this 
+moment (late 2019).
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =csharp= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-Before you can work with C# files you will need to install the server by invoking
-~SPC m s i~ (or =M-x omnisharp-install-server=). Otherwise, if this fails for
-you, please see [[https://github.com/OmniSharp/omnisharp-emacs/blob/master/doc/server-installation.md][omnisharp-emacs/doc/server-installation.md]].
+You can also choose between one of the two available backends by setting 
+the =csharp-backend= variable when configuring the layer:
+ - =omnisharp= (the default), or
+ - =lsp= (testing)
 
-While the server will start automatically where possible if the
-server needs to be started manually use ~SPC m s s~ (or
-=M-x omnisharp-start-omnisharp-server=). It will prompt a path to your .cpsroj
-or .sln file.
+To use the lsp backend, add `csharp' layer with =csharp-backend= variable set to 'lsp:
+#+BEGIN_SRC elisp
+  (csharp :variables csharp-backend 'lsp)
+#+END_SRC
+
+** Omnisharp backend
+Before you can work with C# files you will need to install the server by invoking
+~SPC m s i~ (or =M-x omnisharp-install-server=). Otherwise, if this fails for you, please see
+[[https://github.com/OmniSharp/omnisharp-emacs/blob/master/doc/server-installation.md][omnisharp-emacs/doc/server-installation.md]].
+
+While the server will start automatically it may still be required for you to start
+it manually using ~SPC m s s~ (or =M-x omnisharp-start-omnisharp-server=). It will 
+prompt a path to your .csproj or .sln file.
 
 * Caveats
 - You should use =dotnet= CLI tool from [[https://www.microsoft.com/net/download/core][.NET Core download page]] or an IDE like
   Visual Studio or Xamarin Studio to manage solution and project files.
 - Debugging on command line is possible using [[https://github.com/mono/sdb][SDB]].
-- There can be *only one server* running at the same time. To switch to a different
-  solution/project you need to invoke ~SPC m s S~ and ~SPC m s s~ to stop
+- There can be *only one server* running at the same time using the =omnisharp= backend.
+  To switch to a different solution/project you need to invoke ~SPC m s S~ and ~SPC m s s~ to stop
   current server and start another one pointing to another solution/project.
+- LSP backend supports multiple concurrent language servers/projects loaded.
 
-* Key bindings
+* Key bindings for the omnisharp backend
+The following key bindings are available when using the =omnisharp= backend.
+LSP-backend uses keybindings that are common for all layers/languages using the =lsp= layer.
+
 ** Navigation
 
 | Key binding | Description                                   |
