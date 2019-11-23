@@ -322,6 +322,7 @@ functionalities from other modes, in your user config section, do:
 
 This will allow you to use [[https://github.com/pwalsh/pipenv.el][pipenv]] bindings from the mode your-mode.
 You can add to the other two lists analogously.
+
 * Management of Python versions and virtual environments
 ** Manage virtual environments with pyvenv
 A virtual environment provides isolation of your Python package versions. For a

@@ -88,4 +88,3 @@ Send code to hy REPL commands:
 | ~SPC m v p o~ | open pipenv module in buffer                    |
 | ~SPC m v p s~ | launch pipenv shell in current project          |
 | ~SPC m v p u~ | uninstall module from pipenv environment        |
-
