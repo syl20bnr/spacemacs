@@ -1094,7 +1094,7 @@ Features:
 - Syntax Highlighting
 
 *** Mercury
-[[file:+lang/mercury-layer/README.org][+lang/mercury-layer/README.org]]
+[[file:+lang/mercury/README.org][+lang/mercury/README.org]]
 
 This layer adds support for the Mercury language.
 
