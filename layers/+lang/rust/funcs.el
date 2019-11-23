@@ -33,7 +33,7 @@
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
   (pcase (spacemacs//rust-backend)
-    (`lsp (spacemacs//java-setup-lsp-dap))))
+    (`lsp (spacemacs//rust-setup-lsp-dap))))
 
 
 ;; lsp
