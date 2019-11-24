@@ -197,7 +197,6 @@
   "Rr" 'rectangle-right-char
   "Rs" 'string-rectangle
   "Rt" 'transpose-regions
-  "Rv" 'rectangle-preview
   "Ry" 'yank-rectangle)
 ;; applications ---------------------------------------------------------------
 (spacemacs/set-leader-keys

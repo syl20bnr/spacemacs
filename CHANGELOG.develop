@@ -712,7 +712,6 @@ Other:
     - ~SPC R r~ rectangle-right-char
     - ~SPC R s~ string-rectangle
     - ~SPC R t~ transpose-regions
-    - ~SPC R v~ rectangle-preview
     - ~SPC R y~ yank-rectangle
   - New ~SPC E~ prefix for ediff commands:
     - ~SPC E b 3~  ediff-buffers3
@@ -751,7 +750,7 @@ Other:
     - ~SPC t t r~ timeclock-reread-log
     - ~SPC t t s~ timeclock-status-string
     - ~SPC t t u~ timeclock-update-mode-line
-    - ~SPC t t v~ timeclock-visit
+    - ~SPC t t v~ timeclock-visit-timelog
     - ~SPC t t w~ timeclock-when-to-leave-string
   - New ~SPC i b~ keybinding to insert another buffer's contents into the
     current one.
