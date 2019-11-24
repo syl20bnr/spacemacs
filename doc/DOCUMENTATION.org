@@ -2539,6 +2539,7 @@ navigate between =Emacs= and Spacemacs specific files.
 | ~SPC f e R~   | resync the dotfile with spacemacs                                                                       |
 | ~SPC f e U~   | update packages                                                                                         |
 | ~SPC f e v~   | display and copy the spacemacs version                                                                  |
+| ~SPC f e c~   | recompile all elpa packages                                                                             |
 
 **** Browsing files in completion buffer
 In =vim= style and =hybrid= style with the variable
@@ -3499,7 +3500,6 @@ Spacemacs binds a few commands to support compiling a project.
 |-------------+--------------------------------|
 | ~SPC c c~   | use =helm-make= via projectile |
 | ~SPC c C~   | compile                        |
-| ~SPC c C-c~ | compile all emacs packages     |
 | ~SPC c d~   | close compilation window       |
 | ~SPC c k~   | kill compilation               |
 | ~SPC c m~   | =helm-make=                    |

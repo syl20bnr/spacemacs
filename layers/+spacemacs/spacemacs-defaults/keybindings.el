@@ -228,6 +228,7 @@
   "fA" 'spacemacs/find-file-and-replace-buffer
   "fc" 'spacemacs/copy-file
   "fD" 'spacemacs/delete-current-buffer-file
+  "fec" 'spacemacs/recompile-elpa
   "fei" 'spacemacs/find-user-init-file
   "fed" 'spacemacs/find-dotfile
   "feD" 'spacemacs/ediff-dotfile-and-template
@@ -312,7 +313,6 @@
 ;; Compilation ----------------------------------------------------------------
 (spacemacs/set-leader-keys
   "cC" 'compile
-  "c C-c" 'spacemacs/recompile-elpa
   "ck" 'kill-compilation
   "cr" 'recompile
   "cd" 'spacemacs/close-compilation-window)
