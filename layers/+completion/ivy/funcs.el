@@ -117,11 +117,15 @@
             (counsel-git-grep-action c))
           next-error-function 'spacemacs/gne-next)))
 
-(defvar spacemacs--counsel-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "<f3>") 'spacemacs//counsel-save-in-buffer)
-    (define-key map (kbd "C-c C-e") 'spacemacs//counsel-edit)
-    map))
+(defun spacemacs//counsel-search-add-extra-bindings (map)
+  "Add extra counsel-search related keybindings to MAP, then return MAP.
+See `spacemacs/counsel-search' and `counsel-ag'."
+  (define-key map (kbd "<f3>") 'spacemacs//counsel-save-in-buffer)
+  (define-key map (kbd "C-c C-e") 'spacemacs//counsel-edit)
+  map)
+
+(defvar spacemacs--counsel-map (spacemacs//counsel-search-add-extra-bindings
+                                (make-sparse-keymap)))
 
 (defun spacemacs/ivy--regex-plus (str)
   "Build a regex sequence from STR.

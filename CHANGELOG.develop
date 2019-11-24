@@ -1882,6 +1882,10 @@ Other:
     - ~SPC C e~ =counsel-colors-emacs=
     - ~SPC C f~ =counsel-faces=
     - ~SPC C w~ =counsel-colors-web=
+  - Restored bindings in =spacemacs/counsel-search= with =ag= or =rg=:
+    - ~f3~ =spacemacs//counsel-save-in-buffer=
+    - ~C-c C-e~ =spacemacs//counsel-edit=
+    (thanks to madand)
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
 - Use new API to register additional transient state bindings
   (thanks to Andriy Kmit')
