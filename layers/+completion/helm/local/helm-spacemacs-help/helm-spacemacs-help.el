@@ -340,19 +340,13 @@
       (configuration-layer/describe-package (intern package)))))
 
 (defun helm-spacemacs-help//package-action-recompile (candidate)
-  "Recompile the passed package."
+  "Recompile the selected emacs package."
   (save-match-data
     (string-match "^\\(.+\\)\s(\\(.+\\) layer)$" candidate)
     (let* ((package (match-string 1 candidate))
-           (package-dir
-            (condition-case nil
-                ;; when package not found this throw error
-                (configuration-layer//get-package-directory
-                 (intern package))
-              (error nil))))
+           (package-dir (configuration-layer//get-package-directory (intern package))))
       (if package-dir
-          (spacemacs//recompile-dir package-dir)
-        (message "Package not installed or its location not found")))))
+          (spacemacs/recompile-elpa t package-dir)))))
 
 (defun helm-spacemacs-help//package-action-goto-config-func (candidate)
   "Open the file `packages.el' and go to the init function."

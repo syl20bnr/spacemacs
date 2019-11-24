@@ -978,6 +978,8 @@ Other:
     - Switch to Project Perspective and Show Recent Files
     - Switch to Project Perspective and Search
     (thanks to Gia Thanh Vuong)
+  - Added persistant =helm= actions for ~SPC h p~ to recompile emacs package
+    (thanks to thanhvg)
   - Enabled =doom= mode-line theme to respect
     =dotspacemacs-display-default-layout= (thanks to Jake Romer)
 - Fixed:
