@@ -339,6 +339,7 @@
          ;; being higher in this list means the replacement is applied later
          '(
            ("spacemacs/\\(.+\\)" . "\\1")
+           ("spacemacs//\\(.+\\)" . "\\1")
            ("spacemacs-\\(.+\\)" . "\\1")
            ("spacemacs/toggle-\\(.+\\)" . "\\1")
            ("\\(.+\\)-transient-state/\\(.+\\)" . "\\2")
