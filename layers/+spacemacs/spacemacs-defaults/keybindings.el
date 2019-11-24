@@ -562,7 +562,7 @@ respond to this toggle."
   "ttr" 'timeclock-reread-log
   "tts" 'timeclock-status-string
   "ttu" 'timeclock-update-mode-line
-  "ttv" 'timeclock-visit
+  "ttv" 'timeclock-visit-timelog
   "ttw" 'timeclock-when-to-leave-string)
 ;; window ---------------------------------------------------------------------
 (defun split-window-below-and-focus ()
