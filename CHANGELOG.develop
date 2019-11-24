@@ -1946,6 +1946,9 @@ Other:
   - Removed ~SPC s w w~ key binding for =helm-wikipedia-suggest=, which was
     removed upstream.
   - ~SPC g f f~ for =helm-ls-git-ls= (thanks to duianto)
+  - Add ~C-d~ to create a project perspective and open a project root dired
+    buffer, from the ~SPC p l~ persp switch project prompt
+    (thanks to Magnus Therning)
 - Fixes:
   - Fixed signature of =spacemacs//display-helm-window= (thanks to Jack Kamm)
   - Fixed initialization by calling =helm-mode= when Helm is initialized=
@@ -2038,6 +2041,9 @@ Other:
     - ~f3~ =spacemacs//counsel-save-in-buffer=
     - ~C-c C-e~ =spacemacs//counsel-edit=
     (thanks to madand)
+  - Add ~d~ to create a project perspective and open a project root dired
+    buffer, from the ~SPC p l~ persp switch project prompt
+    (thanks to Magnus Therning and Muneeb Shaikh)
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
 - Use new API to register additional transient state bindings
   (thanks to Andriy Kmit')

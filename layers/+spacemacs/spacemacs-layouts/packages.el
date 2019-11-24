@@ -240,4 +240,7 @@
 (defun spacemacs-layouts/init-counsel-projectile ()
   (use-package counsel-projectile
     :defer t
-    :init (spacemacs/set-leader-keys "pl" 'spacemacs/ivy-persp-switch-project)))
+    :init (spacemacs/set-leader-keys "pl" 'spacemacs/ivy-persp-switch-project)
+    :config (ivy-set-actions
+             'spacemacs/ivy-persp-switch-project
+             '(("d" spacemacs/ivy-switch-project-open-dired "dired")))))

@@ -518,9 +518,17 @@ Run PROJECT-ACTION on project."
                projectile-known-projects))
      :fuzzy-match helm-projectile-fuzzy-match
      :mode-line helm-read-file-name-mode-line-string
+     :keymap (let ((map (make-sparse-keymap)))
+               (define-key map
+                 (kbd "C-d") #'(lambda () (interactive)
+                                 (helm-exit-and-execute-action
+                                  (lambda (project)
+                                    (spacemacs||switch-project-persp project
+                                      (dired project))))))
+               map)
      :action `(("Switch to Project Perspective" .
                 spacemacs//helm-persp-switch-project-action)
-               ("Switch to Project Perspective and Open Dired" .
+               ("Switch to Project Perspective and Open Dired `C-d'" .
                 ,(spacemacs//helm-persp-switch-project-action-maker
                   (lambda () (dired "."))))
                ("Switch to Project Perspective and Show Recent Files" .
@@ -549,6 +557,11 @@ Run PROJECT-ACTION on project."
               projectile-known-projects)
             :action #'spacemacs//ivy-persp-switch-project-action
             :caller 'spacemacs/ivy-persp-switch-project))
+
+(defun spacemacs/ivy-switch-project-open-dired (project)
+  (interactive)
+  (spacemacs||switch-project-persp project
+    (dired project)))
 
 
 ;; Eyebrowse
