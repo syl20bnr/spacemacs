@@ -668,33 +668,33 @@ Other:
     (thanks to Codruț Constantin Gușoi)
   - New key binding ~SPC b H~ to open or select the =*Help*= buffer
     (thanks to duianto)
-  - New ~SPC k m~ prefix and subprefixes to use keyboard macros built-ins:
-    - ~SPC k m 2 c~ kmacro-call-ring-2nd
-    - ~SPC k m 2 C~ kmacro-call-ring-2nd-repeat
-    - ~SPC k m 2 v~ kmacro-view-ring-2nd
-    - ~SPC k m a~ kmacro-add-counter
-    - ~SPC k m b~ kmacro-bind-to-key
-    - ~SPC k m c~ kmacro-call-macro
-    - ~SPC k m d~ kmacro-delete-ring-head
-    - ~SPC k m e m~ kmacro-edit-macro
-    - ~SPC k m e r~ kmacro-edit-macro-repeat
-    - ~SPC k m e~ kmacro-step-edit-macro
-    - ~SPC k m <f4>~ kmacro-end-or-call-macro-repeat
-    - ~SPC k m i~ kmacro-insert-counter
-    - ~SPC k m e n~ kmacro-name-last-macro
-    - ~SPC k m e l~ kmacro-edit-lossage
-    - ~SPC k m m~ kmacro-end-call-mouse
-    - ~SPC k m n~ kmacro-cycle-ring-next
-    - ~SPC k m N~ kmacro-cycle-ring-previous
-    - ~SPC k m p~ kmacro-cycle-ring-previous
-    - ~SPC k m r~ helm-register
-    - ~SPC k m s c~ kmacro-set-counter
-    - ~SPC k m s f~ kmacro-set-format
-    - ~SPC k m s r~ kmacro-swap-ring
-    - ~SPC k m v~ kmacro-view-macro
-    - ~SPC k m V~ kmacro-view-macro-repeat
-    - ~SPC k m w~ kmacro-to-register
-    - ~SPC k m y~ jump-to-register
+  - New ~SPC K~ prefix and subprefixes to use keyboard macros built-ins:
+    - ~SPC K 2 c~ kmacro-call-ring-2nd
+    - ~SPC K 2 C~ kmacro-call-ring-2nd-repeat
+    - ~SPC K 2 v~ kmacro-view-ring-2nd
+    - ~SPC K a~ kmacro-add-counter
+    - ~SPC K b~ kmacro-bind-to-key
+    - ~SPC K c~ kmacro-call-macro
+    - ~SPC K d~ kmacro-delete-ring-head
+    - ~SPC K e m~ kmacro-edit-macro
+    - ~SPC K e r~ kmacro-edit-macro-repeat
+    - ~SPC K e~ kmacro-step-edit-macro
+    - ~SPC K <f4>~ kmacro-end-or-call-macro-repeat
+    - ~SPC K i~ kmacro-insert-counter
+    - ~SPC K e n~ kmacro-name-last-macro
+    - ~SPC K e l~ kmacro-edit-lossage
+    - ~SPC K m~ kmacro-end-call-mouse
+    - ~SPC K n~ kmacro-cycle-ring-next
+    - ~SPC K N~ kmacro-cycle-ring-previous
+    - ~SPC K p~ kmacro-cycle-ring-previous
+    - ~SPC K r~ helm-register
+    - ~SPC K s c~ kmacro-set-counter
+    - ~SPC K s f~ kmacro-set-format
+    - ~SPC K s r~ kmacro-swap-ring
+    - ~SPC K v~ kmacro-view-macro
+    - ~SPC K V~ kmacro-view-macro-repeat
+    - ~SPC K w~ kmacro-to-register
+    - ~SPC K y~ jump-to-register
   - New ~SPC R~ prefix to use rectangle manipulation built-ins:
     - ~SPC R c~ close-rectangle
     - ~SPC R !~ clear-rectangle

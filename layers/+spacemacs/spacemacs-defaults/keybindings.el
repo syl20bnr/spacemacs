@@ -60,10 +60,10 @@
                                        ("k"   "lisp")
                                        ("kd"  "delete")
                                        ("kD"  "delete-backward")
-                                       ("km" "kmacros")
-                                       ("km2" "ring")
-                                       ("kme" "edit")
-                                       ("kms" "set/swap")
+                                       ("K" "kmacros")
+                                       ("K2" "ring")
+                                       ("Ke" "edit")
+                                       ("Ks" "set/swap")
                                        ("k`"  "hybrid")
                                        ("m"   "major mode commands")
                                        ("n"   "narrow/numbers")
@@ -153,32 +153,32 @@
 (spacemacs/set-leader-keys "!" 'shell-command)
 ;; kmacros --------------------------------------------------------------------
 (spacemacs/set-leader-keys
-  "km2c" 'kmacro-call-ring-2nd
-  "km2C" 'kmacro-call-ring-2nd-repeat
-  "km2v" 'kmacro-view-ring-2nd
-  "kma" 'kmacro-add-counter
-  "kmb" 'kmacro-bind-to-key
-  "kmc" 'kmacro-call-macro
-  "kmd" 'kmacro-delete-ring-head
-  "kmem" 'kmacro-edit-macro
-  "kmer" 'kmacro-edit-macro-repeat
-  "km<f4>" 'kmacro-end-or-call-macro-repeat
-  "kmi" 'kmacro-insert-counter
-  "kmen" 'kmacro-name-last-macro
-  "kmel" 'kmacro-edit-lossage
-  "kmm" 'kmacro-end-call-mouse
-  "kmn" 'kmacro-cycle-ring-next
-  "kmN" 'kmacro-cycle-ring-previous
-  "kmp" 'kmacro-cycle-ring-previous
-  "kmr" 'helm-register
-  "kmsc" 'kmacro-set-counter
-  "kmsf" 'kmacro-set-format
-  "kmsr" 'kmacro-swap-ring
-  "kmet" 'kmacro-step-edit-macro
-  "kmv" 'kmacro-view-macro
-  "kmV" 'kmacro-view-macro-repeat
-  "kmw" 'kmacro-to-register
-  "kmy" 'jump-to-register)
+  "K2c" 'kmacro-call-ring-2nd
+  "K2C" 'kmacro-call-ring-2nd-repeat
+  "K2v" 'kmacro-view-ring-2nd
+  "Ka" 'kmacro-add-counter
+  "Kb" 'kmacro-bind-to-key
+  "Kc" 'kmacro-call-macro
+  "Kd" 'kmacro-delete-ring-head
+  "Kem" 'kmacro-edit-macro
+  "Ker" 'kmacro-edit-macro-repeat
+  "K<f4>" 'kmacro-end-or-call-macro-repeat
+  "Ki" 'kmacro-insert-counter
+  "Ken" 'kmacro-name-last-macro
+  "Kel" 'kmacro-edit-lossage
+  "Km" 'kmacro-end-call-mouse
+  "Kn" 'kmacro-cycle-ring-next
+  "KN" 'kmacro-cycle-ring-previous
+  "Kp" 'kmacro-cycle-ring-previous
+  "Kr" 'helm-register
+  "Ksc" 'kmacro-set-counter
+  "Ksf" 'kmacro-set-format
+  "Ksr" 'kmacro-swap-ring
+  "Ket" 'kmacro-step-edit-macro
+  "Kv" 'kmacro-view-macro
+  "KV" 'kmacro-view-macro-repeat
+  "Kw" 'kmacro-to-register
+  "Ky" 'jump-to-register)
 ;; rectangles ------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "Rc" 'close-rectangle
