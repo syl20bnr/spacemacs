@@ -156,19 +156,19 @@
   "K2c" 'kmacro-call-ring-2nd
   "K2C" 'kmacro-call-ring-2nd-repeat
   "K2v" 'kmacro-view-ring-2nd
+  "K(" 'kmacro-start-macro-or-insert-counter
+  "K)" 'kmacro-end-or-call-macro-repeat
   "Ka" 'kmacro-add-counter
   "Kb" 'kmacro-bind-to-key
   "Kc" 'kmacro-call-macro
   "Kd" 'kmacro-delete-ring-head
   "Kem" 'kmacro-edit-macro
   "Ker" 'kmacro-edit-macro-repeat
-  "K<f4>" 'kmacro-end-or-call-macro-repeat
   "Ki" 'kmacro-insert-counter
-  "Ken" 'kmacro-name-last-macro
   "Kel" 'kmacro-edit-lossage
   "Km" 'kmacro-end-call-mouse
   "Kn" 'kmacro-cycle-ring-next
-  "KN" 'kmacro-cycle-ring-previous
+  "KN" 'kmacro-name-last-macro
   "Kp" 'kmacro-cycle-ring-previous
   "Kr" 'helm-register
   "Ksc" 'kmacro-set-counter
@@ -183,7 +183,6 @@
 (spacemacs/set-leader-keys
   "Rc" 'close-rectangle
   "R!" 'clear-rectangle
-  "Rc" 'rectangle-number-lines
   "Rd" 'delete-rectangle
   "Re" 'rectangle-exchange-point-and-mark
   "Ri" 'copy-rectangle-to-register
@@ -191,7 +190,7 @@
   "Rl" 'rectangle-left-char
   "Rm" 'rectangle-mark-mode
   "Rn" 'rectangle-next-line
-  "RN" 'rectangle-previous-line
+  "RN" 'rectangle-number-lines
   "Ro" 'open-rectangle
   "Rp" 'rectangle-previous-line
   "Rr" 'rectangle-right-char
@@ -292,11 +291,11 @@
   "Eb3"  'ediff-buffers3
   "Ebb"  'ediff-buffers
   "Ebp"  'ediff-patch-buffer
-  "Ec"   'ediff-backup
+  "EB"   'ediff-backup
   "Ed3"  'ediff-directories3
   "Edd"   'ediff-directories
   "Edr"  'ediff-directory-revisions
-  "Ed."   'spacemacs/ediff-dotfile-and-template
+  "Ef."   'spacemacs/ediff-dotfile-and-template
   "Ef3"  'ediff-files3
   "Eff"   'ediff-files
   "Efp"  'ediff-patch-file
