@@ -679,7 +679,8 @@ Other:
     - ~SPC K e m~ kmacro-edit-macro
     - ~SPC K e r~ kmacro-edit-macro-repeat
     - ~SPC K e~ kmacro-step-edit-macro
-    - ~SPC K <f4>~ kmacro-end-or-call-macro-repeat
+    - ~SPC K (~ kmacro-start-macro-or-insert-counter
+    - ~SPC K )~ kmacro-end-or-call-macro-repeat
     - ~SPC K i~ kmacro-insert-counter
     - ~SPC K e n~ kmacro-name-last-macro
     - ~SPC K e l~ kmacro-edit-lossage
@@ -698,7 +699,6 @@ Other:
   - New ~SPC R~ prefix to use rectangle manipulation built-ins:
     - ~SPC R c~ close-rectangle
     - ~SPC R !~ clear-rectangle
-    - ~SPC R c~ rectangle-number-lines
     - ~SPC R d~ delete-rectangle
     - ~SPC R e~ rectangle-exchange-point-and-mark
     - ~SPC R i~ copy-rectangle-to-register
@@ -706,7 +706,7 @@ Other:
     - ~SPC R l~ rectangle-left-char
     - ~SPC R m~ rectangle-mark-mode
     - ~SPC R n~ rectangle-next-line
-    - ~SPC R N~ rectangle-previous-line
+    - ~SPC R N~ rectangle-number-lines
     - ~SPC R o~ open-rectangle
     - ~SPC R p~ rectangle-previous-line
     - ~SPC R r~ rectangle-right-char
@@ -715,10 +715,12 @@ Other:
     - ~SPC R y~ yank-rectangle
   - New ~SPC E~ prefix for ediff commands:
     - ~SPC E b 3~  ediff-buffers3
-    - ~SPC E b b~   ediff-backup
+    - ~SPC e b b~ ediff-buffers
+    - ~SPC E B~   ediff-backup
     - ~SPC E d 3~  ediff-directories3
     - ~SPC E d d~   ediff-directories
     - ~SPC E d r~  ediff-directory-revisions
+    - ~SPC E f .~   spacemacs/ediff-dotfile-and-template
     - ~SPC E f 3~  ediff-files3
     - ~SPC E f~   ediff-files
     - ~SPC E h~   ediff-documentation
@@ -726,7 +728,6 @@ Other:
     - ~SPC E m b b~  ediff-merge-buffers
     - ~SPC E m d 3~ ediff-merge-directories-with-ancestor
     - ~SPC E m d~  ediff-merge-directories
-    - ~SPC E d .~   spacemacs/ediff-dotfile-and-template
     - ~SPC E m f 3~ ediff-merge-files-with-ancestor
     - ~SPC E m f f~  ediff-merge-files
     - ~SPC E m r 3~ ediff-merge-revisions-with-ancestor
