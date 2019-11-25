@@ -96,6 +96,12 @@ The return value is nil if no font was found, truthy otherwise."
                              "~/.emacs.d/doc/DOCUMENTATION.org for more "
                              "info).")))
 
+(defun spacemacs/set-face-attribute (face frame &rest attributes)
+  "Set the FACE (eg. 'default) for the FRAME (eg. nil). See `set-face-attribute'.
+ATTRIBUTES should be valid entries in `set-face-attribute'."
+  (apply #'set-face-attribute face frame attributes)
+  (powerline-reset))
+
 (defmacro spacemacs|diminish (mode &optional unicode ascii)
   "Diminish MODE name in mode line to UNICODE or ASCII depending on the value
 `dotspacemacs-mode-line-unicode-symbols'.

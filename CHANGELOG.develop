@@ -454,6 +454,8 @@ Other:
     (thanks to Muneeb Shaikh and Sylvain Benner)
 *** Core changes
 - Improvements:
+  - Function =spacemacs/set-face-attribute= sets fonts and resets anything that
+    relies on them (currently just the powerline mode line).
   - Display time spent in =user-config= in home buffer (thanks to Sylvain Benner)
   - Added dotfile function =dotspacemacs/user-load= (thanks to Sylvain Benner)
   - Added dotfile function =dotspacemacs/user-env= (thanks to Sylvain Benner)
