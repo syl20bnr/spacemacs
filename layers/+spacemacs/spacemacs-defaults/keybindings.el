@@ -156,16 +156,17 @@
   "K2c" 'kmacro-call-ring-2nd
   "K2C" 'kmacro-call-ring-2nd-repeat
   "K2v" 'kmacro-view-ring-2nd
-  "K(" 'kmacro-start-macro-or-insert-counter
-  "K)" 'kmacro-end-or-call-macro-repeat
   "Ka" 'kmacro-add-counter
   "Kb" 'kmacro-bind-to-key
   "Kc" 'kmacro-call-macro
   "Kd" 'kmacro-delete-ring-head
+  "Kel" 'kmacro-edit-lossage
   "Kem" 'kmacro-edit-macro
   "Ker" 'kmacro-edit-macro-repeat
+  "Ket" 'kmacro-step-edit-macro
   "Ki" 'kmacro-insert-counter
-  "Kel" 'kmacro-edit-lossage
+  "K)" 'kmacro-end-or-call-macro-repeat
+  "K(" 'kmacro-start-macro-or-insert-counter
   "Km" 'kmacro-end-call-mouse
   "Kn" 'kmacro-cycle-ring-next
   "KN" 'kmacro-name-last-macro
@@ -174,7 +175,6 @@
   "Ksc" 'kmacro-set-counter
   "Ksf" 'kmacro-set-format
   "Ksr" 'kmacro-swap-ring
-  "Ket" 'kmacro-step-edit-macro
   "Kv" 'kmacro-view-macro
   "KV" 'kmacro-view-macro-repeat
   "Kw" 'kmacro-to-register
