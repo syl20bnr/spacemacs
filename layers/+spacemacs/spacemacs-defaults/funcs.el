@@ -743,9 +743,14 @@ variable."
                (concat dotspacemacs-template-directory ".spacemacs.template")))
 
 (defun spacemacs/new-empty-buffer (&optional split)
-  "Create a new buffer called untitled(<n>).
-A SPLIT argument with the value: `left', `below', `above' or `right',
-opens the new buffer in a split window.
+  "Create a new buffer called: untitled<n>
+
+The SPLIT argument decides where the buffer opens:
+Value                                Buffer
+`nil'                                current window
+`left', `below', `above' or `right'  split window
+`frame'                              new frame
+
 If the variable `dotspacemacs-new-empty-buffer-major-mode' has been set,
 then apply that major mode to the new buffer."
   (interactive)
