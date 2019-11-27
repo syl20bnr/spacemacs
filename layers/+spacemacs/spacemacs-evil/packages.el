@@ -37,7 +37,7 @@
         (hs-minor-mode :location built-in)
         (linum-relative :toggle (version< emacs-version "26"))
         vi-tilde-fringe
-        ))
+        eldoc))
 
 (defun spacemacs-evil/init-evil-anzu ()
   (use-package evil-anzu
@@ -63,6 +63,12 @@
               status)))
         (setq anzu-mode-line-update-function
               'spacemacs/anzu-update-mode-line)))))
+
+(defun spacemacs-evil/post-init-eldoc ()
+  (eldoc-add-command #'evil-cp-insert)
+  (eldoc-add-command #'evil-cp-insert-at-end-of-form)
+  (eldoc-add-command #'evil-cp-insert-at-beginning-of-form)
+  (eldoc-add-command #'evil-cp-append))
 
 (defun spacemacs-evil/init-evil-args ()
   (use-package evil-args
