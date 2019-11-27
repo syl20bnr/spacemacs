@@ -1073,6 +1073,8 @@ Other:
   - Enabled =doom= mode-line theme to respect
     =dotspacemacs-display-default-layout= (thanks to Jake Romer)
   - Hide =spacemacs//= command prefixes in which-key (thanks to duianto)
+  - Prevented removal of =eldoc= info when switching to insert state
+    (thanks to Ivan Yonchovski)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)

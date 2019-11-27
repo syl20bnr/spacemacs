@@ -143,7 +143,14 @@
       ;; enable eldoc in IELM
       (add-hook 'ielm-mode-hook #'eldoc-mode)
       ;; don't display eldoc on modeline
-      (spacemacs|hide-lighter eldoc-mode))))
+      (spacemacs|hide-lighter eldoc-mode)
+
+      ;; eldoc-message-commands
+      (eldoc-add-command #'evil-insert)
+      (eldoc-add-command #'evil-insert-line)
+      (eldoc-add-command #'evil-append)
+      (eldoc-add-command #'evil-append-line)
+      (eldoc-add-command #'evil-force-normal-state))))
 
 (defun spacemacs-defaults/init-help-fns+ ()
   (use-package help-fns+
