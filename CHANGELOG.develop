@@ -2070,6 +2070,7 @@ Other:
     .gitignore (thanks to Uroš Perišić)
   - Added =transient= (package update temp folder) to
     .gitignore (thanks to Jarosław Górny)
+  - Added /** */ smartparens pair (thanks to Ivan Yonchovski)
 - Fixes:
   - Replace usage of =ensime-print-type-at-point= by =ensime-type-at-point=
     (thanks to Joao Azevedo)
