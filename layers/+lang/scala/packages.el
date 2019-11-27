@@ -186,6 +186,8 @@
      'minibuffer-complete-word
      'self-insert-command
      minibuffer-local-completion-map)
+    ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
+    (setq sbt:program-options '("-Dsbt.supershell=false"))
     :init
     (progn
       (spacemacs/declare-prefix-for-mode 'scala-mode "mb" "sbt")
