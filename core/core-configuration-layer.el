@@ -613,8 +613,6 @@ refreshed during the current session."
 CHANGEDP non-nil means that layers list has changed since last dump
 To prevent package from being installed or uninstalled set the variable
 `spacemacs-sync-packages' to nil."
-  (when (spacemacs-buffer//choose-banner)
-    (spacemacs-buffer//inject-version))
   ;; declare used layers then packages as soon as possible to resolve
   ;; usage and ownership
   (configuration-layer/discover-layers 'refresh-index)
