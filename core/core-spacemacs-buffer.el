@@ -108,7 +108,8 @@ FILE: the path to the file containing the banner."
                                          banner-width) 2)))))
          (while (not (eobp))
            (insert (make-string margin ?\s))
-           (forward-line 1))))
+           (forward-line 1)))
+       (insert "\n"))
      (buffer-string))))
 
 (defun spacemacs-buffer/insert-banner-and-buttons ()
@@ -128,7 +129,6 @@ Cate special text banner can de reachable via `998', `cat' or `random*'.
         (if (image-type-available-p (intern (file-name-extension banner)))
             (spacemacs-buffer//insert-image-banner banner)
           (spacemacs-buffer//insert-ascii-banner-centered banner)))
-      (spacemacs-buffer//inject-version)
       (spacemacs-buffer//insert-buttons)
       (spacemacs//redisplay))))
 
@@ -208,8 +208,6 @@ BANNER: the path to an ascii banner file."
            (size (image-size spec))
            (width (car size))
            (left-margin (max 0 (floor (- spacemacs-buffer--window-width width) 2))))
-      (goto-char (point-min))
-      (insert "\n")
       (insert (make-string left-margin ?\s))
       (insert-image spec)
       (insert "\n\n")
@@ -217,24 +215,22 @@ BANNER: the path to an ascii banner file."
                                                (+ (length title) 1)) 2))) ?\s))
       (insert (format "%s\n\n" title)))))
 
-(defun spacemacs-buffer//inject-version ()
-  "Inject the current version of spacemacs.
-Insert it in the first line of the buffer, right justified."
+(defun spacemacs-buffer//insert-version ()
+  "Insert the current version of Spacemacs and Emacs.
+Right justified, based on the Spacemacs buffers window width."
   (with-current-buffer (get-buffer-create spacemacs-buffer-name)
-    (save-excursion
-      (let ((version (format "%s@%s (%s)"
-                             spacemacs-version
-                             emacs-version
-                             dotspacemacs-distribution))
-            (buffer-read-only nil))
-        (goto-char (point-min))
-        (delete-region (point) (progn (end-of-line) (point)))
-        (insert (format (format "%%%ds"
-                                (if (display-graphic-p)
-                                    spacemacs-buffer--window-width
-                                  ;; terminal needs one less char
-                                  (1- spacemacs-buffer--window-width)))
-                        version))))))
+    (let ((version (format "%s@%s (%s)"
+                           spacemacs-version
+                           emacs-version
+                           dotspacemacs-distribution))
+          (buffer-read-only nil))
+      (insert (format (format "%%%ds"
+                              (if (display-graphic-p)
+                                  spacemacs-buffer--window-width
+                                ;; terminal needs one less char
+                                (1- spacemacs-buffer--window-width)))
+                      version))
+      (insert "\n\n"))))
 
 (defun spacemacs-buffer//insert-footer ()
   "Insert the footer of the home buffer."
@@ -613,7 +609,6 @@ REAL-WIDTH: the real width of the line.  If the line contains an image, the size
 (defun spacemacs-buffer//insert-buttons ()
   "Create and insert the interactive buttons under Spacemacs banner."
   (goto-char (point-max))
-  (unless dotspacemacs-startup-banner (insert "\n"))
   (spacemacs-buffer||add-shortcut "m" "[?]" t)
   (widget-create 'url-link
                  :tag (propertize "?" 'face 'font-lock-doc-face)
@@ -702,7 +697,7 @@ REAL-WIDTH: the real width of the line.  If the line contains an image, the size
                  :mouse-face 'highlight
                  :follow-link "\C-m")
   (spacemacs-buffer//center-line)
-  (insert "\n\n"))
+  (insert "\n"))
 
 (defun spacemacs-buffer//insert-string-list (list-display-name list)
   "Insert a non-interactive startup list in the home buffer.
@@ -1034,6 +1029,7 @@ REFRESH if the buffer should be redrawn."
             (let ((inhibit-read-only t))
               (erase-buffer)))
           (spacemacs-buffer/set-mode-line "")
+          (spacemacs-buffer//insert-version)
           (spacemacs-buffer/insert-banner-and-buttons)
           (when (bound-and-true-p spacemacs-initialized)
             (spacemacs-buffer//notes-redisplay-current-note)

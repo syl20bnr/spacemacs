@@ -597,6 +597,7 @@ Other:
   - Fixed =spacemacs/alternate-buffer= to restore point.
   - Removed Unicode triple dot in both =dotspacemacs-smart-closing-parenthesis=
     variable comments in favor of the ASCII one (thanks to nshadov)
+  - Fixed home buffer version insertion removing first line (thanks to duianto)
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
