@@ -32,6 +32,7 @@
 (require 'core-micro-state)
 (require 'core-transient-state)
 (require 'core-use-package-ext)
+(require 'core-spacebind)
 
 (defgroup spacemacs nil
   "Spacemacs customizations."
