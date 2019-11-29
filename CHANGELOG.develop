@@ -510,6 +510,7 @@ Other:
   - Changed =dotspacemacs-default-font= =:size= from =13= (pixel size) to =10.0=
     (point size) (thanks to Aaron Zeng and duianto)
   - Updated the list of =base16= themes (thanks to kenranunderscore)
+  - Updated the list of =solarized= themes (thanks to Muneeb Shaikh)
   - Added a =spacemacs-layouts-restrict-spc-tab= variable to
     =spacemacs/alternate-buffer= that restricts ~SPC-TAB~ to the current layouts
     buffers (default: =nil=) (thanks to Thanh Vuong)
