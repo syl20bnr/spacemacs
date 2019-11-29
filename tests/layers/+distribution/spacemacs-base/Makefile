@@ -14,7 +14,8 @@ TEST_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 LOAD_FILES = init.el
 UNIT_TEST_FILES = \
   evil-evilified-state-utest.el \
-  line-numbers-utest.el
+  line-numbers-utest.el \
+  spacebind-utest.el
 FUNC_TEST_FILES = \
   evil-evilified-state-ftest.el
 

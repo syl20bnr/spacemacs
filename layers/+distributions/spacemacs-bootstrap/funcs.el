@@ -212,3 +212,21 @@ the scroll transient state.")
    (if spacemacs--scroll-ts-full-hint-toggle
        spacemacs--scroll-ts-full-hint
      (concat "[" (propertize "?" 'face 'hydra-face-red) "] toggle help"))))
+
+
+
+(defun use-package-normalize/:spacebind (name-symbol keyword args)
+  (use-package-only-one (symbol-name keyword) args
+    (lambda (label arg)
+      (if (and (listp arg) (keywordp (car arg)))
+          arg
+        (use-package-error
+         ":spacebind wants an arg list compatible with `spacebind' macro")))))
+
+(defun use-package-handler/:spacebind (name-symbol keyword args rest state)
+  (let ((body (use-package-process-keywords name-symbol rest state)))
+    (if (null args)
+        body
+      (use-package-concat
+       body
+       `((spacebind ,@args))))))
