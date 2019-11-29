@@ -81,11 +81,12 @@ Some useful key bindings are presented in the following table.
 | ~RET~       | call default action on current candidate                                                             |
 | ~M-RET~     | the same as ~RET~ but doesn't close completion minibuffer                                            |
 | ~C-M-j~     | use current input immediately (this can be used to create a new file in Find File)                   |
-| ~tab~       | complete partially                                                                                   |
+| ~TAB~       | complete partially                                                                                   |
 | ~M-o~       | show the list of valid actions on current candidate (then press any of described keys to execute it) |
 | ~C-M-o~     | the same as ~M-o~ but doesn't close completion minibuffer                                            |
 | ~C-'~       | use avy to quickly select completion on current page (sometimes faster than using arrows)            |
 | ~<ESC>~     | close minibuffer                                                                                     |
+| ~C-M-k~     | kill buffer (in =ivy-switch-buffer= (~SPC b b~))                                                     |
 
 ** Transient state
 Press ~M-SPC~ anytime in Ivy to get into the transient state.

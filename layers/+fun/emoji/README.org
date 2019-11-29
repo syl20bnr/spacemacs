@@ -17,7 +17,7 @@ This layer adds support for Emoji emoticons from [[https://www.webpagefx.com/too
 ** Features:
 - Browse Emoji in a dedicated buffer
 - Display Emoji images in buffer
-- Insert one or several Emoji with an helm front-end
+- Insert one or several Emoji with a helm front-end
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]]
 
 * Install
@@ -36,7 +36,7 @@ Linux user could install [[https://zhm.github.io/symbola/][Symbola]] font to get
 | Key binding | Description                             |
 |-------------+-----------------------------------------|
 | ~SPC a E~   | open a dedicated buffer to browse Emoji |
-| ~SPC i e~   | insert Emoji via an helm buffer         |
+| ~SPC i e~   | insert Emoji via a helm buffer          |
 
 ** Emoji dedicated buffer
 

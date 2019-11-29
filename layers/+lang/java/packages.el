@@ -12,15 +12,8 @@
 (setq java-packages
       '(
         company
-        (company-emacs-eclim :toggle
-                             (configuration-layer/package-used-p 'company))
-        eclim
-        eldoc
-        ensime
+        dap-mode
         flycheck
-        (flycheck-eclim :location local
-                        :requires flycheck)
-        flyspell
         ggtags
         gradle-mode
         counsel-gtags
@@ -29,287 +22,27 @@
         maven-test-mode
         (meghanada :toggle (not (version< emacs-version "25.1")))
         mvn
-        (lsp-java :requires lsp-mode lsp-ui company-lsp dap-mode)
+        (lsp-java :requires lsp-mode)
         org
+        smartparens
         ))
 
 (defun java/post-init-company ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-company))
 
-(defun java/init-company-emacs-eclim ()
-  (use-package company-emacs-eclim
-    :defer t
-    :init
-    (setq company-emacs-eclim-ignore-case nil)
-    ;; see `spacemacs//java-setup-eclim-company'
-    ))
-
-(defun java/init-eclim ()
-  (use-package eclim
-    :defer t
-    :if (eq java-backend 'eclim)
-    ;; :init (setq eclim-auto-save nil)
-    :config
-    (progn
-      (spacemacs|hide-lighter eclim-mode)
-      (require 'eclimd)
-      ;; enable help at point
-      (setq help-at-pt-display-when-idle t
-            help-at-pt-timer-delay 0.1)
-      (help-at-pt-set-timer)
-      (add-to-list 'minor-mode-alist
-                   '(eclim-mode (:eval (eclim-modeline-string))))
-      ;; hack to support Maven multi-modules
-      (defun my-eclim-fix-relative-path (path)
-        (replace-regexp-in-string "^.*src/" "src/" path))
-      (advice-add 'eclim--project-current-file :filter-return
-                  #'my-eclim-fix-relative-path)
-      ;; key bindings
-      (dolist (prefix '(("ma" . "ant")
-                        ("mD" . "daemon")
-                        ("mg" . "goto")
-                        ("mh" . "help/doc")
-                        ("mi" . "issues")
-                        ("mp" . "project")
-                        ("mr" . "refactor")
-                        ("mt" . "test")))
-        (spacemacs/declare-prefix-for-mode
-          'java-mode (car prefix) (cdr prefix)))
-      (spacemacs/set-leader-keys-for-major-mode 'java-mode
-        ;; ant
-        "aa" 'eclim-ant-run
-        "ac" 'eclim-ant-clear-cache
-        "ar" 'eclim-ant-run
-        "av" 'eclim-ant-validate
-        ;; daemon
-        "Dk" 'stop-eclimd
-        "Ds" 'start-eclimd
-        ;; errors (problems)
-        "Ee" 'eclim-problems-correct
-        ;; find
-        "ff" 'eclim-java-find-generic
-        ;; goto
-        "gt" 'eclim-java-find-type
-        ;; help/doc
-        "hc" 'eclim-java-call-hierarchy
-        "hh" 'eclim-java-show-documentation-for-current-element
-        "hi" 'eclim-java-hierarchy
-        "hu" 'eclim-java-find-references
-        ;; project
-        "pb" 'eclim-project-build
-        "pc" 'eclim-project-create
-        "pd" 'eclim-project-delete
-        "pg" 'eclim-project-goto
-        "pi" 'eclim-project-import
-        "pj" 'eclim-project-info-mode
-        "pk" 'eclim-project-close
-        "po" 'eclim-project-open
-        "pp" 'eclim-project-mode
-        "pr" 'eclim-java-run-run
-        "pu" 'eclim-project-update
-        ;; refactor
-        "rc" 'eclim-java-constructor
-        "rf" 'eclim-java-format
-        "rg" 'eclim-java-generate-getter-and-setter
-        "ri" 'eclim-java-import-organize
-        "rj" 'eclim-java-implement
-        "rn" 'eclim-java-new
-        "rr" 'eclim-java-refactor-rename-symbol-at-point
-        ;; test
-        "tt" 'eclim-run-junit)
-      (evil-define-key 'insert java-mode-map
-        (kbd ".") 'spacemacs/java-eclim-completing-dot
-        (kbd ":") 'spacemacs/java-eclim-completing-double-colon
-        (kbd "M-.") 'eclim-java-find-declaration
-        (kbd "M-,") 'pop-tag-mark
-        (kbd "M-<mouse-3>") 'eclim-java-find-declaration
-        (kbd "<mouse-8>") 'pop-tag-mark)
-      (evil-define-key 'normal java-mode-map
-        (kbd "M-.") 'eclim-java-find-declaration
-        (kbd "M-,") 'pop-tag-mark
-        (kbd "M-<mouse-3>") 'eclim-java-find-declaration
-        (kbd "<mouse-8>") 'pop-tag-mark)
-      (evil-define-key 'normal eclim-problems-mode-map
-        (kbd "a") 'eclim-problems-show-all
-        (kbd "e") 'eclim-problems-show-errors
-        (kbd "g") 'eclim-problems-buffer-refresh
-        (kbd "q") 'eclim-quit-window
-        (kbd "w") 'eclim-problems-show-warnings
-        (kbd "f") 'eclim-problems-toggle-filefilter
-        (kbd "c") 'eclim-problems-correct
-        (kbd "RET") 'eclim-problems-open-current)
-      (evil-define-key 'normal eclim-project-mode-map
-        (kbd "N") 'eclim-project-create
-        (kbd "m") 'eclim-project-mark-current
-        (kbd "M") 'eclim-project-mark-all
-        (kbd "u") 'eclim-project-unmark-current
-        (kbd "U") 'eclim-project-unmark-all
-        (kbd "o") 'eclim-project-open
-        (kbd "c") 'eclim-project-close
-        (kbd "i") 'eclim-project-info-mode
-        (kbd "I") 'eclim-project-import
-        (kbd "RET") 'eclim-project-goto
-        (kbd "D") 'eclim-project-delete
-        (kbd "p") 'eclim-project-update
-        (kbd "g") 'eclim-project-mode-refresh
-        (kbd "R") 'eclim-project-rename
-        (kbd "q") 'eclim-quit-window))))
-
-(defun java/post-init-eldoc ()
-  (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-eldoc))
-
-(defun java/init-ensime ()
-  (use-package ensime
-    :defer t
-    :if (eq java-backend 'ensime)
-    :commands ensime-mode
-    :init
-    (progn
-      (setq ensime-startup-dirname (concat spacemacs-cache-directory "ensime/"))
-      (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime"))
-    :config
-    (progn
-      ;; This function was renamed in ensime. Usually we don't need to do this,
-      ;; but documentation recommends the stable version of ensime, so we must
-      ;; try to support it, too.
-      (unless (fboundp 'ensime-type-at-point)
-        (defalias 'ensime-type-at-point 'ensime-print-type-at-point))
-
-      ;; key bindings
-      (dolist (mode java--ensime-modes)
-        (dolist (prefix '(("mb" . "build")
-                          ("mc" . "check")
-                          ("md" . "debug")
-                          ("mD" . "daemon")
-                          ("mE" . "errors")
-                          ("mg" . "goto")
-                          ("mh" . "docs")
-                          ("mi" . "inspect")
-                          ("mr" . "refactor")
-                          ("mt" . "test")
-                          ("ms" . "repl")
-                          ("my" . "yank")))
-          (spacemacs/declare-prefix-for-mode mode (car prefix) (cdr prefix)))
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "/"      'ensime-search
-          "'"      'ensime-inf-switch
-
-          "bc"     'ensime-sbt-do-compile
-          "bC"     'ensime-sbt-do-clean
-          "bi"     'ensime-sbt-switch
-          "bp"     'ensime-sbt-do-package
-          "br"     'ensime-sbt-do-run
-
-          "ct"     'ensime-typecheck-current-buffer
-
-          "dA"     'ensime-db-attach
-          "db"     'ensime-db-set-break
-          "dB"     'ensime-db-clear-break
-          "dC"     'ensime-db-clear-all-breaks
-          "dc"     'ensime-db-continue
-          "di"     'ensime-db-inspect-value-at-point
-          "dn"     'ensime-db-next
-          "do"     'ensime-db-step-out
-          "dq"     'ensime-db-quit
-          "dr"     'ensime-db-run
-          "ds"     'ensime-db-step
-          "dt"     'ensime-db-backtrace
-
-          "Df"     'ensime-reload-open-files
-          "Dr"     'spacemacs/ensime-gen-and-restart
-          "Ds"     'ensime
-
-          "Ee"     'ensime-print-errors-at-point
-          "Es"     'ensime-stacktrace-switch
-
-          "gp"     'ensime-pop-find-definition-stack
-
-          "hh"     'ensime-show-doc-for-symbol-at-point
-          "hT"     'ensime-type-at-point-full-name
-          "ht"     'ensime-type-at-point
-          "hu"     'ensime-show-uses-of-symbol-at-point
-
-          "ra"     'ensime-refactor-add-type-annotation
-          "rd"     'ensime-refactor-diff-inline-local
-          "rD"     'ensime-undo-peek
-          "ri"     'ensime-refactor-diff-organize-imports
-          "rm"     'ensime-refactor-diff-extract-method
-          "rr"     'ensime-refactor-diff-rename
-          "rt"     'ensime-import-type-at-point
-          "rv"     'ensime-refactor-diff-extract-local
-
-          "ta"     'ensime-sbt-do-test-dwim
-          "tr"     'ensime-sbt-do-test-quick-dwim
-          "tt"     'ensime-sbt-do-test-only-dwim
-
-          "sa"     'ensime-inf-load-file
-          "sb"     'ensime-inf-eval-buffer
-          "sB"     'spacemacs/ensime-inf-eval-buffer-switch
-          "si"     'ensime-inf-switch
-          "sr"     'ensime-inf-eval-region
-          "sR"     'spacemacs/ensime-inf-eval-region-switch
-
-          "yT"     'spacemacs/ensime-yank-type-at-point-full-name
-          "yt"     'spacemacs/ensime-yank-type-at-point
-
-          "z"      'ensime-expand-selection-command))
-      (evil-define-key 'insert ensime-mode-map
-        (kbd ".") 'spacemacs/ensime-completing-dot
-        (kbd "M-.") 'ensime-edit-definition
-        (kbd "M-,") 'ensime-pop-find-definition-stack)
-      (evil-define-key 'normal ensime-mode-map
-        (kbd "M-.") 'ensime-edit-definition
-        (kbd "M-,") 'ensime-pop-find-definition-stack)
-      (evil-define-key 'normal ensime-popup-buffer-map
-        (kbd "q") 'ensime-popup-buffer-quit-function)
-      (evil-define-key 'normal ensime-inspector-mode-map
-        (kbd "q") 'ensime-popup-buffer-quit-function)
-      (evil-define-key 'normal ensime-refactor-info-map
-        (kbd "q") 'spacemacs/ensime-refactor-cancel
-        (kbd "c") 'spacemacs/ensime-refactor-accept
-        (kbd "RET") 'spacemacs/ensime-refactor-accept)
-      (evil-define-key 'normal ensime-compile-result-map
-        (kbd "g") 'ensime-show-all-errors-and-warnings
-        (kbd "TAB") 'forward-button
-        (kbd "<backtab>") 'backward-button
-        (kbd "M-n") 'forward-button
-        (kbd "M-p") 'backward-button
-        (kbd "n") 'forward-button
-        (kbd "N") 'backward-button)
-      (evil-define-key '(insert normal) ensime-search-mode-map
-        (kbd "C-q") 'ensime-search-quit
-        (kbd "C-j") 'ensime-search-next-match
-        (kbd "C-k") 'ensime-search-prev-match
-        (kbd "RET") 'ensime-search-choose-current-result
-        (kbd "C-i") 'ensime-search-insert-import-of-current-result))))
-
-;; (defun java/post-init-ensime ()
-;;   (when (eq 'ensime java-backend)
-;;     (use-package ensime
-;;       :defer t
-;;       :init
-;;       (progn
-;;         (spacemacs//ensime-init 'java-mode t nil)
-;;         (when (configuration-layer/package-used-p 'company)
-;;           (add-to-list 'company-backends-java-mode 'ensime-company)))
-;;       :config
-;;       (progn
-;;         (spacemacs/ensime-configure-keybindings 'java-mode)))))
+(defun java/pre-init-dap-mode ()
+  (add-to-list 'spacemacs--dap-supported-modes 'java-mode)
+  (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-lsp-dap))
 
 (defun java/post-init-flycheck ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-flycheck))
 
-(defun java/init-flycheck-eclim ()
-  (use-package flycheck-eclim
-    :commands flycheck-eclim-setup
-    ;; see `spacemacs//java-setup-eclim-flycheck'
-    ))
-
-(defun java/post-init-flyspell ()
-  (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-flyspell))
-
 (defun java/post-init-ggtags ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun java/post-init-smartparens ()
+  (with-eval-after-load 'smartparens
+    (sp-local-pair 'java-mode "/** " " */" :trigger "/**")))
 
 (defun java/init-gradle-mode ()
   (use-package gradle-mode
@@ -354,8 +87,7 @@
     :init
     (progn
       (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-backend)
-      (put 'java-backend 'safe-local-variable 'symbolp)
-      (spacemacs//java-define-command-prefixes))))
+      (put 'java-backend 'safe-local-variable 'symbolp))))
 
 (defun java/init-maven-test-mode ()
   (use-package maven-test-mode
@@ -435,7 +167,7 @@
 (defun java/init-lsp-java ()
   (use-package lsp-java
     :defer t
-    :if (eq java-backend 'lsp)
+    :if (eq (spacemacs//java-backend) 'lsp)
     :config
     (progn
       ;; key bindings
@@ -446,13 +178,14 @@
                         ("mrc" . "create/convert")
                         ("mrg" . "generate")
                         ("mre" . "extract")
+                        ("mp" . "project")
                         ("mq" . "lsp")
                         ("mt" . "test")
                         ("mx" . "execute")))
         (spacemacs/declare-prefix-for-mode
           'java-mode (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'java-mode
-        "pu"  'lsp-java-update-user-settings
+        "pu"  'lsp-java-update-project-configuration
 
         ;; refactoring
         "ro" 'lsp-java-organize-imports

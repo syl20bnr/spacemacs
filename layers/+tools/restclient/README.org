@@ -48,6 +48,7 @@ There is support for =org-babel= and =restclient= code blocks, for instance:
 
 | Key binding | Description                                                 |
 |-------------+-------------------------------------------------------------|
+| ~SPC m j~   | helm-restclient                                             |
 | ~SPC m n~   | Jump to next request                                        |
 | ~SPC m p~   | Jump to previous request                                    |
 | ~SPC m s~   | Send and stay in window (pretty-print response if possible) |

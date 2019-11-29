@@ -21,8 +21,11 @@
 (defvar layouts-autosave-delay 900
   "Delay in seconds between each layouts auto-save.")
 
-(defvar spacemacs--ts-full-hint-toggle 0
-  "Toggle display of transient states documentations.")
+(defvar spacemacs--layouts-ts-full-hint-toggle nil
+  "Toggle display of layouts transient-state documentation.")
+
+(defvar spacemacs--workspaces-ts-full-hint-toggle nil
+  "Toggle display of workspaces transient-state documentation.")
 
 (defvar spacemacs--last-selected-layout dotspacemacs-default-layout-name
   "Previously selected layout.")
@@ -55,3 +58,11 @@ layout, the 4th for the 4th, and so on until the 10th (aka layout
 number 0). The first list is sepcial - it is a grab-bag for names
 in case none of the regular names can be used for a new layout.")
 
+(defvar spacemacs-layouts-restricted-functions
+  '(spacemacs/window-split-double-columns
+    spacemacs/window-split-triple-columns
+    spacemacs/window-split-grid)
+  "List of functions to be wrapped by `with-persp-buffer-list'")
+
+(defvar spacemacs-layouts-restrict-spc-tab nil
+  "If `t' then `SPC-TAB' will be limited to the current layout's buffers.")

@@ -14,10 +14,8 @@
         company
         (company-go :requires company)
         counsel-gtags
+        eldoc
         flycheck
-        (flycheck-gometalinter :toggle (and go-use-gometalinter
-                                            (configuration-layer/package-used-p
-                                             'flycheck)))
         (flycheck-golangci-lint :toggle (and go-use-golangci-lint
                                              (configuration-layer/package-used-p
                                               'flycheck)))
@@ -48,18 +46,16 @@
 (defun go/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'go-mode))
 
+(defun go/post-init-eldoc ()
+  (add-hook 'go-mode-hook #'spacemacs//go-setup-eldoc))
+
 (defun go/post-init-flycheck ()
   (spacemacs/enable-flycheck 'go-mode))
-
-(defun go/init-flycheck-gometalinter ()
-  (use-package flycheck-gometalinter
-    :defer t
-    :init (add-hook 'go-mode-hook 'spacemacs//go-enable-gometalinter t)))
 
 (defun go/init-flycheck-golangci-lint ()
   (use-package flycheck-golangci-lint
     :defer t
-    :init (add-hook 'go-mode-hook 'spacemacs//go-enable-golangci-lint t)))
+    :init (add-hook 'go-mode-hook 'spacemacs//go-enable-flycheck-golangci-lint t)))
 
 (defun go/post-init-ggtags ()
   (add-hook 'go-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
@@ -68,7 +64,7 @@
   (spacemacs/helm-gtags-define-keys-for-mode 'go-mode))
 
 (defun go/init-go-eldoc ()
-  (add-hook 'go-mode-hook 'go-eldoc-setup))
+  (use-package go-eldoc :defer t))
 
 (defun go/init-go-fill-struct ()
   (use-package go-fill-struct

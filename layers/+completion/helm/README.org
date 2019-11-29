@@ -212,13 +212,13 @@ first, select the command you want to run, and press ~C-u~ before pressing
 If you have =rg=, =ag=, =pt= or =ack= installed, replacing an occurrence of text
 in several files can be performed via [[https://github.com/syohex/emacs-helm-ag][helm-ag]].
 
-Say you want to replace all =foo= occurrences by =bar= in your current
-project:
-- initiate a search with ~SPC /~
-- enter in edit mode with ~C-c C-e~
-- go to the occurrence and enter in =iedit state= with ~SPC s e~
-- edit the occurrences then leave the =iedit state=
-- press ~C-c C-c~
+To replace all occurrences of =foo= with =bar= in your current project:
+- Initiate a search with ~SPC /~ (in a project)
+- Open =helm-ag-edit= with ~C-c C-e~
+- Go to an occurrence of =foo= and enter =iedit-mode= with ~SPC s e~
+- Change =foo= to =bar=
+- Save the modifications and leave =helm-ag-edit= with ~C-c C-c~
+- Alternatively, discard all changes and leave =helm-ag-edit= with ~C-c C-k~
 
 *Note*: In Spacemacs, =helm-ag= despite its name works with =rg=, =pt= and =ack=
 as well (but not with =grep=).

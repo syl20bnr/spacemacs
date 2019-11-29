@@ -12,4 +12,4 @@
 ;; Variables
 
 (defvar spacemacs--import-js-modes nil
-  "List of mode.")
+  "List of modes for which import-js will be enabled.")

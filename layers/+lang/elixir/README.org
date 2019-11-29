@@ -2,36 +2,48 @@
 
 #+TAGS: general|layer|multi-paradigm|programming
 
-[[file:img/elixir.png]] with [[file:img/alchemist.png]]
+[[file:img/elixir.png]]
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#choosing-a-backend][Choosing a backend]]
+    - [[#feature-comparison-in-backends][Feature comparison in backends]]
 - [[#configuration][Configuration]]
   - [[#flycheck][Flycheck]]
     - [[#credo][Credo]]
     - [[#dogma][Dogma]]
     - [[#mix-compile][mix compile]]
+  - [[#language-server-protocol][Language server protocol]]
+  - [[#debugger][Debugger]]
 - [[#key-bindings][Key bindings]]
-  - [[#refcard][Refcard]]
-  - [[#help][Help]]
-  - [[#mix][Mix]]
-  - [[#project][Project]]
-  - [[#evaluation-in-place][Evaluation in place]]
-  - [[#repl-interactions][REPL interactions]]
-  - [[#tests][Tests]]
-  - [[#compile][Compile]]
-  - [[#execute][Execute]]
-  - [[#code-definition-jump][Code Definition Jump]]
-  - [[#hex-packages][Hex (packages)]]
-  - [[#macro-expand][Macro expand]]
-  - [[#formatting][Formatting]]
+  - [[#alchemist][Alchemist]]
+    - [[#refcard][Refcard]]
+    - [[#help][Help]]
+    - [[#mix][Mix]]
+    - [[#project][Project]]
+    - [[#evaluation-in-place][Evaluation in place]]
+    - [[#repl-interactions][REPL interactions]]
+    - [[#tests][Tests]]
+    - [[#compile][Compile]]
+    - [[#execute][Execute]]
+    - [[#code-definition-jump][Code Definition Jump]]
+    - [[#hex-packages][Hex (packages)]]
+    - [[#macro-expand][Macro expand]]
+    - [[#formatting][Formatting]]
+    - [[#debugging][Debugging]]
+  - [[#lsp][LSP]]
+    - [[#debugging-1][Debugging]]
 
 * Description
 This layer adds support for [[http://elixir-lang.org/][Elixir]].
 
 [[https://github.com/tonini/alchemist.el][Alchemist]] brings the Elixir tooling to Emacs and comes with a bunch of features.
+[[https://github.com/emacs-lsp/lsp-mode][Lsp-mode]] brings IDE like features following Language Server Protocol, through [[https://github.com/JakeBecker/elixir-ls][elixir-ls]]
+
+As Alchemist is no longer maintained, elixir-ls is a preferred solution, even though it has less features at the moment.
 
 ** Features:
 - Powerful IEx integration
@@ -46,11 +58,58 @@ This layer adds support for [[http://elixir-lang.org/][Elixir]].
 - Flycheck support for mix compile
 - Flycheck support for [[https://github.com/rrrene/credo][credo]]
 - Flycheck support for test results
+- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 * Install
+** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =elixir= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+** Choosing a backend
+To choose a default backend set the layer variable =elixir-backend=:
+
+#+BEGIN_SRC elisp
+  (elixir :variables elixir-backend 'alchemist)
+#+END_SRC
+
+Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
+is used and you did not specify any value for =elixir-backend=.
+
+Backend can be chosen on a per project basis using directory local variables
+(files named =.dir-locals.el= at the root of a project), an example to use the
+=lsp= backend:
+
+#+BEGIN_SRC elisp
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
+
+  ((elixir-mode (elixir-backend . lsp)))
+#+END_SRC
+
+*Note:* you can easily add a directory local variable with ~SPC f v d~.
+
+The available options are:
+
+| symbol     | description       |
+|------------+-------------------|
+| 'alchemist | Default           |
+| 'lsp       | elixir-ls package |
+
+*** Feature comparison in backends
+
+| features                           | Alchemist | Lsp |
+|------------------------------------+-----------+-----|
+| Powerful IEx integration           | yes       | no  |
+| Mix integration                    | yes       | no  |
+| Compile & Execution of Elixir code | yes       | no  |
+| Inline code evaluation             | yes       | no  |
+| Documentation lookup               | yes       | yes |
+| Definition lookup                  | yes       | yes |
+| Smart code completion              | yes       | yes |
+| Elixir project management          | yes       | no  |
+| Integration with =company-mode=    | yes       | yes |
+| Flycheck support                   | yes       | yes |
 
 * Configuration
 ** Flycheck
@@ -125,11 +184,38 @@ Emacs won't ask you if the variable is safe whenever an elixir file is opened.
 
 Remember that you can verify the flycheck checkers status with ~SPC e v~.
 
+** Language server protocol
+The =lsp= backend uses [[https://github.com/JakeBecker/elixir-ls][elixir-ls]] as its language server implementation
+Clone the project to your system and follow the building instructions [[https://github.com/JakeBecker/elixir-ls#building-and-running][here]]
+Or the lsp-elixir [[https://github.com/elixir-lsp/elixir-ls][fork]], which is actively maintained as well
+
+set the =elixir-ls-path= to the release folder of =elixir-ls= in .spacemacs =dotspacemacs/user-config=
+
+#+BEGIN_SRC elisp
+  (setq elixir-ls-path "*path to folder*/elixir-ls/release")
+#+END_SRC
+
+or in the layer definition
+
+#+BEGIN_SRC elisp
+  (elixir :variables elixir-backend 'lsp elixir-ls-path "*path to folder*/elixir-ls/release")
+#+END_SRC
+
+by default =elixir-ls-path= is equal to ="~/elixir-ls/release"=
+
+** Debugger
+For =lsp= backend only
+
+=lsp= backend supports debugging of your elixir project through [[https://github.com/emacs-lsp/dap-mode][dap]]
+simply follow [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#layer-installation][dap layer]] installation and configuration instructions
+as well as make sure to read this elixir-ls [[https://github.com/elixir-lsp/elixir-ls#debugger-support][debugger support note]]
+
 * Key bindings
-** Refcard
+** Alchemist
+*** Refcard
 You find and overview of all the key bindings on the [[https://github.com/tonini/alchemist.el/blob/master/doc/alchemist-refcard.pdf][Alchemist-Refcard]].
 
-** Help
+*** Help
 
 | Key binding | Description                         |
 |-------------+-------------------------------------|
@@ -138,7 +224,7 @@ You find and overview of all the key bindings on the [[https://github.com/tonini
 | ~SPC m h H~ | Toggle through search history       |
 | ~SPC m h r~ | Show help for current region        |
 
-** Mix
+*** Mix
 
 | Key binding | Description                                                |
 |-------------+------------------------------------------------------------|
@@ -147,14 +233,14 @@ You find and overview of all the key bindings on the [[https://github.com/tonini
 | ~SPC m m h~ | Show help for a specific =mix= command                     |
 | ~SPC m m x~ | Run the given expression in the Elixir application context |
 
-** Project
+*** Project
 
 | Key binding | Description                                                |
 |-------------+------------------------------------------------------------|
 | ~SPC m g t~ | Toggle between a file and its tests in the current window. |
 | ~SPC m g T~ | Toggle between a file and its tests in other window.       |
 
-** Evaluation in place
+*** Evaluation in place
 
 | Key binding | Description                             |
 |-------------+-----------------------------------------|
@@ -165,7 +251,7 @@ You find and overview of all the key bindings on the [[https://github.com/tonini
 | ~SPC m e r~ | Evaluate region                         |
 | ~SPC m e R~ | Evaluate region and insert result       |
 
-** REPL interactions
+*** REPL interactions
 
 | Key binding | Description                                                     |
 |-------------+-----------------------------------------------------------------|
@@ -178,7 +264,7 @@ You find and overview of all the key bindings on the [[https://github.com/tonini
 | ~SPC m s r~ | Send region to REPL buffer                                      |
 | ~SPC m s R~ | Send region to REPL buffer and focus it in =insert state=       |
 
-** Tests
+*** Tests
 
 | Key binding | Description                                                                           |
 |-------------+---------------------------------------------------------------------------------------|
@@ -195,7 +281,7 @@ You find and overview of all the key bindings on the [[https://github.com/tonini
 | ~SPC m t R~ | Toggle test report window                                                             |
 | ~SPC m t F~ | Open project test directory and list all test files.                                  |
 
-** Compile
+*** Compile
 
 | Key binding | Description                                        |
 |-------------+----------------------------------------------------|
@@ -203,7 +289,7 @@ You find and overview of all the key bindings on the [[https://github.com/tonini
 | ~SPC m c b~ | Compile the current buffer with elixirc. =elixirc= |
 | ~SPC m c f~ | Compile the given filename with =elixirc=          |
 
-** Execute
+*** Execute
 
 | Key binding | Description                                |
 |-------------+--------------------------------------------|
@@ -211,7 +297,7 @@ You find and overview of all the key bindings on the [[https://github.com/tonini
 | ~SPC m x b~ | Run the current buffer through =elixir=    |
 | ~SPC m x f~ | Run =elixir= with the given filename       |
 
-** Code Definition Jump
+*** Code Definition Jump
 
 | Key binding | Description                                        |
 |-------------+----------------------------------------------------|
@@ -223,7 +309,7 @@ You find and overview of all the key bindings on the [[https://github.com/tonini
 | ~SPC m g N~ | Jump to previous symbol definition                 |
 | ~SPC m g j~ | Choose which symbol definition to jump to          |
 
-** Hex (packages)
+*** Hex (packages)
 Hex is the package manager for Elixir & Erlang ecosystem. See [[https://hex.pm]].
 
 | Key binding | Description                                              |
@@ -234,7 +320,7 @@ Hex is the package manager for Elixir & Erlang ecosystem. See [[https://hex.pm]]
 | ~SPC m X I~ | Display Hex package info for a certain package           |
 | ~SPC m X s~ | Search for Hex packages                                  |
 
-** Macro expand
+*** Macro expand
 
 | Key binding | Description                                                                       |
 |-------------+-----------------------------------------------------------------------------------|
@@ -247,8 +333,21 @@ Hex is the package manager for Elixir & Erlang ecosystem. See [[https://hex.pm]]
 | ~SPC m o r~ | Macro expand completely the Elixir code on marked region                          |
 | ~SPC m o R~ | Macro expand completely the Elixir code on marked region and insert the result    |
 
-** Formatting
+*** Formatting
 
 | Key binding | Description               |
 |-------------+---------------------------|
 | ~SPC m =~   | Format the current buffer |
+
+*** Debugging
+
+| Key binding | Description               |
+|-------------+---------------------------|
+| ~SPC m d b~ | Toggle IEx.pry breakpoint |
+
+** LSP
+You find and overview of all the key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/lsp#key-bindings][lsp layer description]].
+
+*** Debugging
+Using the =dap= layer you'll get access to all the DAP key bindings, see the
+complete list of key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].

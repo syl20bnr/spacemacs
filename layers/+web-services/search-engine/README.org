@@ -35,6 +35,14 @@ This layer adds support for the [[https://github.com/hrs/engine-mode][Search Eng
 - Spacemacs Pull Requests
 - Wikipedia
 - Wolfram Alpha
+- Maven Central
+- Npm
+- Hoogle 5
+- Hackage Package Search
+- Clojure-doc
+- Python Package Index
+- Python Docs
+- C++ Reference
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -58,14 +66,25 @@ your =dotspacemacs/user-config=:
         browse-url-generic-program "google-chrome")
 #+END_SRC
 
-Also if you want more search engines, just push them (do this in
-=dotspacemacs/user-config=)
+If you want more control of how various search engines are handled
+or you want to add additional ones you can do so by setting the
+following datastructure to =search-engine-config-list= in your =dotspacemacs/user-config=.
+
+The datastructure consists of a key and:
+- name -> the name displayed in the search prompt.
+- url -> the url to query against, search parameter must be set as =%s=.
+- keywords -> a list of =engine-mode= keywords like a specific browser to use
+  or a specific transformation to make. You can find a detailed
+  list of all supported features [[https://github.com/hrs/engine-mode][here]].
 
 #+BEGIN_SRC emacs-lisp
-  (push '(custom1
-           :name "Custom Search Engine 1"
-           :url "http://www.domain.com/s/stuff_sutff_remember_to_replace_search_candidate_with_%s")
-          search-engine-alist)
+  (setq-default dotspacemacs-configuration-layers
+    '((search-engine :variables
+                     search-engine-config-list '((custom1
+                                                  :name "Custom Search Engine 1"
+                                                  :url "http://www.domain.com/s/stuff_sutff_remember_to_replace_search_candidate_with_%s"
+                                                  :keywords (:docstring "My custom string"
+                                                                        :browser 'eww-browse-url))))))
 #+END_SRC
 
 If you'd rather not use helm but would want a specific search engine, remember

@@ -8,6 +8,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+- [[#spotify-web-api-authentication-when-using-search-with-ivy][Spotify Web API authentication when using search with Ivy]]
 - [[#key-bindings][Key bindings]]
 
 * Description
@@ -20,6 +21,12 @@ This layer integrates an online music service into Spacemacs.
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =spotify= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+* Spotify Web API authentication when using search with Ivy
+You'll need to [[https://developer.spotify.com/my-applications][register an application]] in Spotify in order to obtain a client id
+and a client secret. Then, you'll have to set the variables
+=counsel-spotify-client-id= and =counsel-spotify-client-secret= variables with
+your credentials to start using the search feature.
 
 * Key bindings
 

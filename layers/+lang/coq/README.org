@@ -37,7 +37,7 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =coq= to the existing =dotspacemacs-configuration-layers= list in this file.
 
 ** Coq
-Official installers for MacOS and Windows are available from:
+Official installers for macOS and Windows are available from:
 [[https://coq.inria.fr/download]].
 
 Linux users can build from source or consult with their own package managers.

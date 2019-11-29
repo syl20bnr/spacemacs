@@ -15,6 +15,8 @@
         auto-complete
         ac-ispell
         company
+        (company-box :toggle auto-completion-use-company-box)
+        (all-the-icons :toggle auto-completion-use-company-box)
         (company-quickhelp :toggle auto-completion-enable-help-tooltip)
         company-statistics
         counsel
@@ -148,6 +150,72 @@
        (define-key company-active-map (kbd "M-h") #'company-quickhelp-manual-begin)
        (unless (eq auto-completion-enable-help-tooltip 'manual)
          (company-quickhelp-mode))))))
+
+(defun auto-completion/init-all-the-icons ()
+  (use-package all-the-icons
+    :after company
+    :config
+    (progn
+      (eval-and-compile
+        ;; Icons selected by liguangsheng
+        ;; https://github.com/liguangsheng/emacsd/blob/master/lisp/init-completion.el
+        (defun my-company-box-icon (family icon &rest args)
+          "Defines icons using `all-the-icons' for `company-box'."
+          (when icon
+            (let ((icon (pcase family
+                          ('octicon (all-the-icons-octicon icon :height 0.8 :v-adjust -0.05 args))
+                          ('faicon (all-the-icons-faicon icon :height 0.8 :v-adjust -0.0575))
+                          ('material (all-the-icons-material icon :height 0.8 :v-adjust -0.225 args))
+                          ('alltheicon (all-the-icons-alltheicon icon :height 0.8 args)))))
+              (unless (symbolp icon)
+                (concat icon
+                        (propertize " " 'face 'variable-pitch)))))))
+      (setq company-box-icons-all-the-icons
+            `((Unknown . ,(my-company-box-icon 'octicon "file-text"))
+              (Text . ,(my-company-box-icon 'faicon "file-text-o"))
+              (Method . ,(my-company-box-icon 'faicon "cube"))
+              (Function . ,(my-company-box-icon 'faicon "cube"))
+              (Constructor . ,(my-company-box-icon 'faicon "cube"))
+              (Field . ,(my-company-box-icon 'faicon "tag"))
+              (Variable . ,(my-company-box-icon 'faicon "tag"))
+              (Class . ,(my-company-box-icon 'faicon "cog"))
+              (Interface . ,(my-company-box-icon 'faicon "cogs"))
+              (Module . ,(my-company-box-icon 'alltheicon "less"))
+              (Property . ,(my-company-box-icon 'faicon "wrench"))
+              (Unit . ,(my-company-box-icon 'faicon "tag"))
+              (Value . ,(my-company-box-icon 'faicon "tag"))
+              (Enum . ,(my-company-box-icon 'faicon "file-text-o"))
+              (Keyword . ,(my-company-box-icon 'material "format_align_center"))
+              (Snippet . ,(my-company-box-icon 'material "content_paste"))
+              (Color . ,(my-company-box-icon 'material "palette"))
+              (File . ,(my-company-box-icon 'faicon "file"))
+              (Reference . ,(my-company-box-icon 'faicon "tag"))
+              (Folder . ,(my-company-box-icon 'faicon "folder"))
+              (EnumMember . ,(my-company-box-icon 'faicon "tag"))
+              (Constant . ,(my-company-box-icon 'faicon "tag"))
+              (Struct . ,(my-company-box-icon 'faicon "cog"))
+              (Event . ,(my-company-box-icon 'faicon "bolt"))
+              (Operator . ,(my-company-box-icon 'faicon "tag"))
+              (TypeParameter . ,(my-company-box-icon 'faicon "cog"))
+              (Template . ,(my-company-box-icon 'octicon "file-code")))))))
+
+(defun auto-completion/init-company-box ()
+  (use-package company-box
+    :hook '(company-mode . company-box-mode)
+    :commands 'company-box-doc-manually
+    :init (setq company-box-icons-alist 'company-box-icons-all-the-icons)
+    :config
+    (progn
+      (spacemacs|hide-lighter company-box-mode)
+      (setq company-box-backends-colors nil
+            company-box-max-candidates 1000
+            company-box-doc-enable nil)
+      (add-hook 'company-box-selection-hook
+                (lambda (selection frame) (company-box-doc--hide frame)))
+      (case auto-completion-enable-help-tooltip
+        ('manual (define-key company-active-map
+                   (kbd "M-h") #'company-box-doc-manually))
+        ('t (setq company-box-doc-enable t))))))
 
 (defun auto-completion/init-helm-c-yasnippet ()
   (use-package helm-c-yasnippet

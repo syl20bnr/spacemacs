@@ -1,0 +1,74 @@
+#+TITLE: Solidity Layer
+
+#+TAGS: layer|uncategorized
+
+[[file:img/solidity.png]]
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#linter][Linter]]
+    - [[#solc][solc]]
+    - [[#ethlint][Ethlint]]
+- [[#options][Options]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+A layer to support Solidity development in Spacemacs.
+
+** Features:
+- Syntax highlighting
+- Syntax checking
+- Gas estimation
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =solidity= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+** Linter
+*** solc
+To use the solc flycheck checker, install [[https://solidity.readthedocs.io][solc]], and enable it in your =~/.spacemacs=.
+
+#+BEGIN_SRC emacs-lisp
+  (solidity :variables
+            solidity-flycheck-solc-checker-active t)
+#+END_SRC
+
+Please note that you can't use [[https://github.com/ethereum/solc-js][solc-js]] for the solc flycheck checker.
+
+*** Ethlint
+To use solium flycheck checker, install [[https://github.com/duaraghav8/Ethlint][Ethlint]].
+
+#+BEGIN_SRC sh
+  npm i -g ethlint
+#+END_SRC
+
+Then enable it in your =~/.spacemacs=:
+
+#+BEGIN_SRC emacs-lisp
+  (solidity :variables
+            solidity-flycheck-solium-checker-active t)
+#+END_SRC
+
+And make sure that =.soliumrc.json= exists in the root directory of your DApp:
+
+#+BEGIN_SRC sh
+  solium --init
+#+END_SRC
+
+* Options
+
+| Variable                                  | Default value | Description                                                |
+|-------------------------------------------+---------------+------------------------------------------------------------|
+| =solidity-flycheck-solc-checker-active=   | =nil=         | If non-nil, use solc flycheck checker for Solidity Mode.   |
+| =solidity-flycheck-solium-checker-active= | =nil=         | If non-nil, use solium flycheck checker for Solidity Mode. |
+
+* Key bindings
+
+| Key binding | Description           |
+|-------------+-----------------------|
+| ~SPC m g~   | Estimate gas at point |

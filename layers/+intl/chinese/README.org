@@ -14,9 +14,10 @@
     - [[#configure-the-chinese-pyim-input-method-配置中文拼音输入法][Configure the =Chinese-pyim= Input Method (配置中文拼音输入法)]]
     - [[#configure-chinese-conv-配置简繁转换][Configure =chinese-conv= (配置简繁转换)]]
     - [[#enable-fcitx][Enable fcitx]]
+      - [[#enable-fcitx5][Enable Fcitx5]]
       - [[#requirement][Requirement]]
         - [[#linux][Linux]]
-        - [[#mac-os-x][Mac OS X]]
+        - [[#macos][macOS]]
         - [[#windows][Windows]]
     - [[#enable-youdao-有道-dictionary-激活有道字典][Enable YouDao (有道) Dictionary (激活有道字典)]]
     - [[#set-monospaced-font-size-设置等宽字体][Set monospaced font size (设置等宽字体)]]
@@ -93,6 +94,17 @@ to replace the current selection in-place.
 If you don't need to type Chinese in minibuffer, you can temporarily disable fcitx in the minibuffer
 with the following configuration.
 
+**** Enable Fcitx5
+If you want to use fcitx5 instead of fcitx4, enable the variable
+=chinese-use-fcitx5=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((chinese :variables
+                           chinese-use-fcitx5 t
+                           chinese-enable-fcitx t)))
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp
   (fcitx-aggressive-setup)
 #+END_SRC
@@ -111,8 +123,8 @@ It's recommended to use the dbus interface to speed up =fcitx= a little:
 
 But notice that [[https://github.com/cute-jumper/fcitx.el/issues/30][this may lead to command lag]].
 
-***** Mac OS X
-We don't have a =fcitx= in OS X yet but we already added an emulation called
+***** macOS
+We don't have a =fcitx= in macOS yet but we already added an emulation called
 =fcitx-remote= to make you happy with other Chinese input-methods.
 
 You can install [[https://github.com/CodeFalling/fcitx-remote-for-osx][fcitx-remote-for-osx]] from homebrew.
@@ -152,8 +164,8 @@ your own Chinese font name in =dotspacemacs/user-config= function.
 Example configuration:
 
 #+BEGIN_SRC emacs-lisp
-  ;; Note: The Hiragino Sans GB is bundled with MacOS X.
-  ;; If you are not using MacOS X, you should change it to another Chinese font name.
+  ;; Note: The Hiragino Sans GB is bundled with macOS.
+  ;; If you are not using macOS, you should change it to another Chinese font name.
   (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16)
 #+END_SRC
 

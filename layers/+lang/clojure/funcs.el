@@ -43,7 +43,9 @@
       (goto-char pt-max)
       (insert form)
       (indent-region pt-max (point))
-      (cider-repl-return))))
+      (cider-repl-return)
+      (with-selected-window (get-buffer-window (cider-current-connection))
+               (goto-char (point-max))))))
 
 (defun spacemacs/cider-send-last-sexp-to-repl ()
   "Send last sexp to REPL and evaluate it without changing
@@ -207,3 +209,17 @@ in your Spacemacs configuration:
                  cider-repl-mode
                  cider-clojure-interaction-mode))
      ,@body))
+
+(defun spacemacs//clj-repl-wrap-c-j ()
+  "Dynamically dispatch c-j to company or repl functions."
+  (interactive)
+  (if (company-tooltip-visible-p)
+      (company-select-next)
+    (cider-repl-next-input)))
+
+(defun spacemacs//clj-repl-wrap-c-k ()
+  "Dynamically dispatch c-k to company or repl functions."
+  (interactive)
+  (if (company-tooltip-visible-p)
+      (company-select-previous)
+    (cider-repl-previous-input)))

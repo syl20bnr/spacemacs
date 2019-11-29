@@ -1,16 +1,17 @@
 ;; -*- mode: emacs-lisp -*-
 
 (setq configuration-layer-stable-elpa-name "spacelpa")
-(setq configuration-layer-stable-elpa-version "0.300")
+(setq configuration-layer-stable-elpa-version "0.400")
+(setq configuration-layer-stable-elpa-archive (concat configuration-layer-stable-elpa-directory
+                                     "spacelpa-"
+                                     configuration-layer-stable-elpa-version))
 (setq configuration-layer-elpa-subdirectory "develop")
 
 (setq configuration-layer-elpa-archives
   `(("melpa"    . "melpa.org/packages/")
     ("org"      . "orgmode.org/elpa/")
     ("gnu"      . "elpa.gnu.org/packages/")
-    ("spacelpa" . ,(concat configuration-layer-stable-elpa-directory
-                           "spacelpa-"
-                           configuration-layer-stable-elpa-version))))
+    ("spacelpa" . ,(concat configuration-layer-stable-elpa-archive "/packages/"))))
 
 (setq package-archive-priorities
       '(("spacelpa" . 8)

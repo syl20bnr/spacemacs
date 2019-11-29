@@ -61,7 +61,6 @@
 
 (defun prolog/init-ediprolog ()
   (use-package ediprolog
-    :hook prolog-mode
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'prolog-mode

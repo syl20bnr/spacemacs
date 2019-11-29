@@ -28,7 +28,7 @@ file.
 [[https://github.com/clvv/fasd][fasd]] must be installed on your system. The general installation
 instructions can be found in the repository [[https://github.com/clvv/fasd#install][README]]
 
-On OS X, it can be installed via [[https://github.com/Homebrew/legacy-homebrew][homebrew]]:
+On macOS, it can be installed via [[https://github.com/Homebrew/legacy-homebrew][homebrew]]:
 
 #+BEGIN_SRC sh
   $ brew install fasd

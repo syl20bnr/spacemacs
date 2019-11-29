@@ -41,18 +41,12 @@ cd  ~/.emacs.d
 cp ./.travisci/.spacemacs ~/
 ln -sf ~/.emacs.d "${TRAVIS_BUILD_DIR}"
 
-fold_start "INSTALLING_${EVM_EMACS}"
-curl -fsSkL https://gist.github.com/rejeep/ebcd57c3af83b049833b/raw \
-     > /tmp/x.sh && source /tmp/x.sh
-evm install $EVM_EMACS --use --skip
-if [ $? -ne 0 ]; then
-    echo "Installation failed"
-    exit 2
-fi
-fold_end "INSTALLING_${EVM_EMACS}"
-
 fold_start "INSTALLING_DEPENDENCIES"
-emacs -batch -l init.el
+docker run --rm \
+	-v "${TRAVIS_BUILD_DIR}:/root/.emacs.d" \
+	-v "${TRAVIS_BUILD_DIR}/.travisci/.spacemacs:/root/.spacemacs" \
+	--entrypoint emacs \
+	jare/spacetools -batch -l /root/.emacs.d/init.el
 if [ $? -ne 0 ]; then
     echo "Dependencies installation failed."
     exit 2
@@ -60,8 +54,14 @@ fi
 fold_end "INSTALLING_DEPENDENCIES"
 
 fold_start "EXPORTING_DOCUMENTATION"
-emacs -batch -l init.el -l core/core-documentation.el \
-      -f spacemacs/publish-doc
+docker run --rm \
+	-v "${TRAVIS_BUILD_DIR}:/root/.emacs.d" \
+	-v "${TRAVIS_BUILD_DIR}/.travisci/.spacemacs:/root/.spacemacs" \
+	--entrypoint emacs \
+	jare/spacetools -batch \
+		-l /root/.emacs.d/init.el \
+		-l /root/.emacs.d/core/core-documentation.el \
+		-f spacemacs/publish-doc
 if [ $? -ne 0 ]; then
     echo "spacemacs/publish-doc failed"
     exit 2

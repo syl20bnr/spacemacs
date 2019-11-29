@@ -8,6 +8,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#formatting][Formatting]]
   - [[#pre-requisites][Pre-requisites]]
   - [[#choosing-a-backend][Choosing a backend]]
 - [[#backends][Backends]]
@@ -43,6 +44,7 @@ file.
   (setq-default dotspacemacs-configuration-layers '(typescript))
 #+END_SRC
 
+** Formatting
 If you need formatting on save:
 
 #+BEGIN_SRC emacs-lisp
@@ -52,14 +54,15 @@ If you need formatting on save:
 #+END_SRC
 
 You can choose formatting tool:
+- ='tide= (default)
+- ='prettier=
+- ='typescript-formatter=
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (typescript :variables
                 typescript-fmt-tool 'typescript-formatter)))
 #+END_SRC
-
-Default is ='tide=.
 
 You can choose either tslint (default) or eslint for linting:
 
@@ -108,6 +111,9 @@ To choose a default backend set the layer variable =typescript-backend=:
     (typescript :variables typescript-backend 'tide)))
 #+END_SRC
 
+Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
+is used and you did not specify any value for =typescript-backend=.
+
 Backend can be chosen on a per project basis using directory local variables
 (files named =.dir-locals.el= at the root of a project), an example to use the
 =lsp= backend:
@@ -148,6 +154,16 @@ restart server after editing it.
 ** Language Server Protocol
 You also need to install the Typescript Language Server.
 Consult the installation command for the desired language server found at [[https://www.github.com/emacs-lsp/lsp-mode/][lsp-mode]] for instructions.
+
+By default lsp will explicitly set itself as the linter, if you don't want that,
+then set the variable =typescript-lsp-linter= to =nil=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (typescript :variables
+                typescript-backend 'lsp
+                typescript-lsp-linter nil)))
+#+END_SRC
 
 * Key bindings
 ** Typescript Major Mode

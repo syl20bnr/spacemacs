@@ -11,9 +11,9 @@
 
 (setq elfeed-packages
       '(elfeed
-        elfeed-goodies
+        (elfeed-goodies :toggle elfeed-enable-goodies)
         elfeed-org
-        elfeed-web
+        (elfeed-web :toggle elfeed-enable-web-interface)
         ))
 
 (defun elfeed/init-elfeed ()
@@ -70,8 +70,9 @@
   (use-package elfeed-web
     :defer t
     :commands elfeed-web-stop
-    :init (when elfeed-enable-web-interface
-            ;; TODO check if the port is already in use
-            ;; hack to force elfeed feature to be required before elfeed-search
-            (require 'elfeed)
-            (elfeed-web-start))))
+    :init
+    (progn
+      ;; TODO check if the port is already in use
+      ;; hack to force elfeed feature to be required before elfeed-search
+      (require 'elfeed)
+      (elfeed-web-start))))

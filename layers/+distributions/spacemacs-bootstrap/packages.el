@@ -27,7 +27,7 @@
         (evil-evilified-state :location local :step pre :protected t)
         (pcre2el :step pre)
         (holy-mode :location local :step pre)
-        (hybrid-mode :location local :step pre)
+        (hybrid-mode :location (recipe :fetcher local) :step pre)
         (spacemacs-theme :location built-in)
         ))
 
@@ -339,6 +339,7 @@
          ;; being higher in this list means the replacement is applied later
          '(
            ("spacemacs/\\(.+\\)" . "\\1")
+           ("spacemacs//\\(.+\\)" . "\\1")
            ("spacemacs-\\(.+\\)" . "\\1")
            ("spacemacs/toggle-\\(.+\\)" . "\\1")
            ("\\(.+\\)-transient-state/\\(.+\\)" . "\\2")
@@ -418,6 +419,25 @@
           ("\\11..9" . "digit-argument"))
         which-key-replacement-alist)
 
+  ;; SPC n- narrow/numbers
+  ;; Combine + and =
+  (push '(("\\(.*\\)+" . "evil-numbers/inc-at-pt") .
+          ("\\1+,=" . "evil-numbers/inc-at-pt"))
+        which-key-replacement-alist)
+
+  ;; hide "= -> evil-numbers/inc-at-pt" entry
+  (push '(("\\(.*\\)=" . "evil-numbers/inc-at-pt") . t)
+        which-key-replacement-alist)
+
+  ;; Combine - and _
+  (push '(("\\(.*\\)-" . "evil-numbers/dec-at-pt") .
+          ("\\1-,_" . "evil-numbers/dec-at-pt"))
+        which-key-replacement-alist)
+
+  ;; hide "_ -> evil-numbers/dec-at-pt" entry
+  (push '(("\\(.*\\)_" . "evil-numbers/dec-at-pt") . t)
+        which-key-replacement-alist)
+
   ;; SPC x i- inflection
   ;; rename "k -> string-inflection-kebab-case"
   ;; to "k,- -> string-inflection-kebab-case"
@@ -495,36 +515,38 @@
   (use-package pcre2el :defer t))
 
 (defun spacemacs-bootstrap/init-holy-mode ()
-  (use-package holy-mode
-    :commands holy-mode
-    :init
-    (progn
-      (when (eq 'emacs dotspacemacs-editing-style)
-        (holy-mode))
-      (spacemacs|add-toggle holy-mode
-        :status holy-mode
-        :on (progn (when (bound-and-true-p hybrid-mode)
-                     (hybrid-mode -1))
-                   (holy-mode))
-        :off (holy-mode -1)
-        :documentation "Globally toggle holy mode."
-        :evil-leader "tEe")
-      (spacemacs|diminish holy-mode " Ⓔe" " Ee"))))
+  (spacemacs|unless-dumping-and-eval-after-loaded-dump holy-mode
+    (use-package holy-mode
+      :commands holy-mode
+      :init
+      (progn
+        (when (eq 'emacs dotspacemacs-editing-style)
+          (holy-mode))
+        (spacemacs|add-toggle holy-mode
+          :status holy-mode
+          :on (progn (when (bound-and-true-p hybrid-mode)
+                       (hybrid-mode -1))
+                     (holy-mode))
+          :off (holy-mode -1)
+          :documentation "Globally toggle holy mode."
+          :evil-leader "tEe")
+        (spacemacs|diminish holy-mode " Ⓔe" " Ee")))))
 
 (defun spacemacs-bootstrap/init-hybrid-mode ()
-  (use-package hybrid-mode
-    :config
-    (progn
-      (when (eq 'hybrid dotspacemacs-editing-style) (hybrid-mode))
-      (spacemacs|add-toggle hybrid-mode
-        :status hybrid-mode
-        :on (progn (when (bound-and-true-p holy-mode)
-                     (holy-mode -1))
-                   (hybrid-mode))
-        :off (hybrid-mode -1)
-        :documentation "Globally toggle hybrid mode."
-        :evil-leader "tEh")
-      (spacemacs|diminish hybrid-mode " Ⓔh" " Eh"))))
+  (spacemacs|unless-dumping-and-eval-after-loaded-dump hybrid-mode
+    (use-package hybrid-mode
+      :config
+      (progn
+        (when (eq 'hybrid dotspacemacs-editing-style) (hybrid-mode))
+        (spacemacs|add-toggle hybrid-mode
+          :status hybrid-mode
+          :on (progn (when (bound-and-true-p holy-mode)
+                       (holy-mode -1))
+                     (hybrid-mode))
+          :off (hybrid-mode -1)
+          :documentation "Globally toggle hybrid mode."
+          :evil-leader "tEh")
+        (spacemacs|diminish hybrid-mode " Ⓔh" " Eh")))))
 
 (defun spacemacs-bootstrap/init-spacemacs-theme ()
   (use-package spacemacs-theme

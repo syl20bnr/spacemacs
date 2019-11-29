@@ -162,6 +162,7 @@
       (setq ccm-recenter-at-end-of-file t
             ccm-ignored-commands '(mouse-drag-region
                                    mouse-set-point
+                                   mouse-set-region
                                    widget-button-click
                                    scroll-bar-toolkit-scroll
                                    evil-mouse-drag-region))
@@ -211,7 +212,7 @@
     :defer t
     :init
     (progn
-      (spacemacs/transient-state-register-add-bindings 'window-manipulation
+      (spacemacs/transient-state-register-add-bindings 'window
         '(("g" spacemacs/toggle-golden-ratio)))
       (spacemacs|add-toggle golden-ratio
         :status golden-ratio-mode

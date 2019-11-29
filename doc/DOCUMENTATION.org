@@ -98,6 +98,8 @@
     - [[#custom-layouts][Custom Layouts]]
     - [[#saveload-layouts-into-a-file][Save/Load layouts into a file]]
     - [[#layout-key-bindings][Layout key bindings]]
+    - [[#behavior-of-spc-tab-with-layouts][Behavior of SPC TAB with layouts]]
+    - [[#restrict-a-given-function-to-the-current-layout][Restrict a given function to the current layout]]
   - [[#workspaces][Workspaces]]
     - [[#workspace-key-bindings][Workspace key bindings]]
 - [[#commands][Commands]]
@@ -129,13 +131,13 @@
       - [[#joining-and-splitting][Joining and splitting]]
     - [[#window-manipulation][Window manipulation]]
       - [[#window-manipulation-key-bindings][Window manipulation key bindings]]
-      - [[#window-manipulation-transient-state][Window manipulation transient state]]
+      - [[#window-transient-state][Window transient state]]
       - [[#golden-ratio][Golden ratio]]
     - [[#buffers-and-files][Buffers and Files]]
       - [[#buffers-manipulation-key-bindings][Buffers manipulation key bindings]]
       - [[#create-a-new-empty-buffer][Create a new empty buffer]]
-      - [[#buffers-manipulation-transient-state][Buffers manipulation transient state]]
-      - [[#files-manipulations-key-bindings][Files manipulations key bindings]]
+      - [[#buffers-transient-state][Buffers transient state]]
+      - [[#file-manipulation-key-bindings][File manipulation key bindings]]
       - [[#frame-manipulation-key-bindings][Frame manipulation key bindings]]
       - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
       - [[#browsing-files-in-completion-buffer][Browsing files in completion buffer]]
@@ -162,7 +164,7 @@
     - [[#listing-symbols-by-semantic][Listing symbols by semantic]]
   - [[#editing][Editing]]
     - [[#paste-text][Paste text]]
-      - [[#paste-transient-state][Paste Transient-state]]
+      - [[#paste-transient-state][Paste transient state]]
       - [[#auto-indent-pasted-text][Auto-indent pasted text]]
     - [[#text-manipulation-commands][Text manipulation commands]]
     - [[#text-insertion-commands][Text insertion commands]]
@@ -206,6 +208,10 @@
 - [[#troubleshoot][Troubleshoot]]
   - [[#loading-fails][Loading fails]]
   - [[#upgradingdowngrading-emacs-version][Upgrading/Downgrading Emacs version]]
+  - [[#general-layer-errors][General layer errors]]
+    - [[#step-by-step-instructions-for-minimal-layer-bug-reports][Step by step instructions for minimal layer bug reports]]
+  - [[#general-emacs-package-errors][General emacs package errors]]
+    - [[#step-by-step-instructions-for-minimal-emacs-package-bug-reports][Step by step instructions for minimal emacs package bug reports]]
 - [[#achievements][Achievements]]
   - [[#issues][Issues]]
   - [[#merged-pull-requests][Merged Pull Requests]]
@@ -248,7 +254,8 @@ and bugs are fixed quickly.
 - *Minimalistic and nice graphical UI* keeps your available screen space for
   what matters: your text files.
 - *Fast boot time*: packages and configuration are lazy-loaded as much as
-  possible.
+  possible. For even faster boot time, Spacemacs now provides full support for
+  the new portable dumper available in Emacs 27 and later.
 - *Lower the risk of RSI* by heavily using the space bar instead of modifiers.
   If you have issues with your thumbs you can still use Spacemacs using
   modifiers.
@@ -1191,7 +1198,7 @@ To change the default font set the variable =dotspacemacs-default-font= in your
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-default-font '("Source Code Pro"
-                                            :size 13
+                                            :size 10.0
                                             :weight normal
                                             :width normal))
 #+END_SRC
@@ -1255,7 +1262,9 @@ and ~T~):
 | ~SPC t l~   | toggle truncate lines                                             |
 | ~SPC t L~   | toggle visual lines                                               |
 | ~SPC t n~   | toggle line numbers                                               |
+| ~SPC t r~   | toggle relative line numbers                                      |
 | ~SPC t v~   | toggle smooth scrolling                                           |
+| ~SPC t V~   | toggle visual line numbers                                        |
 | ~SPC t z~   | toggle 0/1 based column indexing                                  |
 
 | Key binding | Description                                                      |
@@ -1285,17 +1294,25 @@ If it is set to =relative=, line numbers are show in a relative way:
   (setq-default dotspacemacs-line-numbers 'relative)
 #+END_SRC
 
+If it is set to =visual=, line numbers are shown in a relative way, but wrapped
+lines will be treated as multiple lines:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-line-numbers 'visual)
+#+END_SRC
+
 =dotspacemacs-line-numbers= can also be set to a property list for finer control
 over line numbers activation.
 
 Available properties:
 
-| Property              | Description                                                                                  |
-|-----------------------+----------------------------------------------------------------------------------------------|
-| =:disabled-for-modes= | list of major modes where line numbering is inhibited                                        |
-| =:enabled-for-modes=  | disable for all major modes except those listed. Takes precedence over =:disabled-for-modes= |
-| =:relative=           | if non-nil, line numbers are relative to the position of the cursor                          |
-| =:size-limit-kb=      | size limit in kilobytes after which line numbers are not activated                           |
+| Property              | Description                                                                                                                                                                                                                                     |
+|-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| =:disabled-for-modes= | list of major modes where line numbering is inhibited                                                                                                                                                                                           |
+| =:enabled-for-modes=  | disable for all major modes except those listed. Takes precedence over =:disabled-for-modes=                                                                                                                                                    |
+| =:relative=           | if non-nil, line numbers are relative to the position of the cursor                                                                                                                                                                             |
+| =:visual=             | if non-nil, line numbers are relative to the position of the cursor, but lines are separated by visual state - a wrapped line, for example, will be treated as more than one line. When set to t, this option takes precedence over =:relative= |
+| =:size-limit-kb=      | size limit in kilobytes after which line numbers are not activated                                                                                                                                                                              |
 
 Note that if =:enabled-for-modes= is =nil= or not specified, then the default is
 to enable line numbers in any =prog-mode= and =text-mode= that wasn't explicitly
@@ -1378,7 +1395,7 @@ For =spacemacs=, =all-the-icons= and =custom= themes you can specify the type
 of separator you want with the property =:separator=.
 
 #+BEGIN_SRC emacs-lisp
-  (setq dotspacemacs-mode-line-theme '(all-the-icons :separator 'slant))
+  (setq dotspacemacs-mode-line-theme '(all-the-icons :separator slant))
 #+END_SRC
 
 Supported separators and preview:
@@ -1541,36 +1558,38 @@ Additionally all globally available toggles have a circled unicode symbols like
 =ⓟ=. Toggles specific to a major mode under the ~SPC m T~ prefix have plain
 squared symbols like =🅿=.
 
-| Key binding | Unicode | ASCII | Mode                                                                 |
-|-------------+---------+-------+----------------------------------------------------------------------|
-| ~SPC t -~   | =⊝=     | -     | [[https://www.emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]] mode                                                 |
-| ~SPC t 8~   | =⑧=     | 8     | toggle highlight of characters for long lines                        |
-| ~SPC t C-8~ | =⑧=     | 8     | global toggle highlight of characters for long lines                 |
-| ~SPC t C--~ | =⊝=     | -     | global centered cursor                                               |
-| ~SPC t a~   | =ⓐ=     | a     | auto-completion                                                      |
-| ~SPC t c~   | =ⓒ=     | c     | camel case motion with subword mode                                  |
-| =none=      | =ⓔ=     | e     | [[https://github.com/Somelauw/evil-org-mode][evil-org]] mode                                                        |
-| ~SPC t E e~ | =Ⓔe=    | Ee    | emacs editing style (holy mode)                                      |
-| ~SPC t E h~ | =Ⓔh=    | Eh    | hybrid editing style (hybrid mode)                                   |
-| ~SPC t f~   | =ⓕ=     | f     | fill-column-indicator mode                                           |
-| ~SPC t F~   | =Ⓕ=     | F     | auto-fill mode                                                       |
-| ~SPC t G~   | =Ⓖ=     | G     | [[http://spacemacs.org/layers/+tags/gtags/README.html][ggtags]] mode                                                          |
-| ~SPC t g~   | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                                                    |
-| ~SPC t h i~ | =ⓗi=    | hi    | toggle highlight indentation levels                                  |
-| ~SPC t h c~ | =ⓗc=    | hc    | toggle highlight indentation current column                          |
-| ~SPC t i~   | =ⓘ=     | i     | indentation guide                                                    |
-| ~SPC t C-i~ | =ⓘ=     | i     | global indentation guide                                             |
-| ~SPC t I~   | =Ⓘ=     | I     | aggressive indent mode                                               |
-| ~SPC t K~   | =Ⓚ=     | K     | which-key mode                                                       |
-| ~SPC t p~   | =ⓟ=     | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                                                     |
-| ~SPC t C-p~ | =ⓟ=     | p     | global smartparens                                                   |
-| ~SPC t s~   | =ⓢ=     | s     | syntax checking (flycheck)                                           |
-| ~SPC t S~   | =Ⓢ=     | S     | enabled in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell checking layer]] (flyspell)                           |
-| ~SPC t w~   | =ⓦ=     | w     | whitespace mode                                                      |
-| ~SPC t C-w~ | =ⓦ=     | w     | global whitespace                                                    |
-| ~SPC t W~   | =Ⓦ=     | W     | automatic whitespace cleanup (see =dotspacemacs-whitespace-cleanup=) |
-| ~SPC t C-W~ | =Ⓦ=     | W     | automatic whitespace cleanup globally                                |
-| ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
+| Key binding   | Unicode | ASCII | Mode                                                                 |
+|---------------+---------+-------+----------------------------------------------------------------------|
+| ~SPC t -~     | =⊝=     | -     | [[https://www.emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]] mode                                                 |
+| ~SPC t 8~     | =⑧=     | 8     | toggle highlight of characters for long lines                        |
+| ~SPC t C-8~   | =⑧=     | 8     | global toggle highlight of characters for long lines                 |
+| ~SPC t C--~   | =⊝=     | -     | global centered cursor                                               |
+| ~SPC t a~     | =ⓐ=     | a     | auto-completion                                                      |
+| ~SPC t c~     | =ⓒ=     | c     | camel case motion with subword mode                                  |
+| =none=        | =ⓔ=     | e     | [[https://github.com/Somelauw/evil-org-mode][evil-org]] mode                                                        |
+| ~SPC t E e~   | =Ⓔe=    | Ee    | emacs editing style (holy mode)                                      |
+| ~SPC t E h~   | =Ⓔh=    | Eh    | hybrid editing style (hybrid mode)                                   |
+| ~SPC t f~     | =ⓕ=     | f     | fill-column-indicator mode                                           |
+| ~SPC t F~     | =Ⓕ=     | F     | auto-fill mode                                                       |
+| ~SPC t G~     | =Ⓖ=     | G     | [[http://spacemacs.org/layers/+tags/gtags/README.html][ggtags]] mode                                                          |
+| ~SPC t g~     | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                                                    |
+| ~SPC t h i~   | =ⓗi=    | hi    | toggle highlight indentation levels                                  |
+| ~SPC t h c~   | =ⓗc=    | hc    | toggle highlight indentation current column                          |
+| ~SPC t i~     | =ⓘ=     | i     | indentation guide                                                    |
+| ~SPC t C-i~   | =ⓘ=     | i     | global indentation guide                                             |
+| ~SPC t I~     | =Ⓘ=     | I     | aggressive indent mode                                               |
+| ~SPC t K~     | =Ⓚ=     | K     | which-key mode                                                       |
+| ~SPC t L~     | =Ⓛ=     | L     | visual line navigation                                               |
+| ~SPC t C-S-l~ | =Ⓛ=     | L     | visual line navigation globally                                      |
+| ~SPC t p~     | =ⓟ=     | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                                                     |
+| ~SPC t C-p~   | =ⓟ=     | p     | global smartparens                                                   |
+| ~SPC t s~     | =ⓢ=     | s     | syntax checking (flycheck)                                           |
+| ~SPC t S~     | =Ⓢ=     | S     | enabled in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell checking layer]] (flyspell)                           |
+| ~SPC t w~     | =ⓦ=     | w     | whitespace mode                                                      |
+| ~SPC t C-w~   | =ⓦ=     | w     | global whitespace                                                    |
+| ~SPC t W~     | =Ⓦ=     | W     | automatic whitespace cleanup (see =dotspacemacs-whitespace-cleanup=) |
+| ~SPC t C-W~   | =Ⓦ=     | W     | automatic whitespace cleanup globally                                |
+| ~SPC t y~     | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
 
 ** Frame
 *** Title
@@ -1616,7 +1635,7 @@ In the transient state:
 | Key binding   | Description                    |
 |---------------+--------------------------------|
 | ~+~, ~=~, ~k~ | increase transparency          |
-| ~-~, ~j~      | decrease transparency          |
+| ~-~, ~_~, ~j~ | decrease transparency          |
 | ~T~           | toggle transparency on and off |
 | ~q~           | quit transient state           |
 
@@ -1738,9 +1757,54 @@ Press ~?~ to toggle the full help.
 | ~x~                 | kill current layout with its buffers                       |
 | ~X~                 | kill other layouts with their buffers                      |
 
+*** Behavior of SPC TAB with layouts
+By default ~SPC TAB~ which switches to last opened buffer is restricted to the
+current layout. If there is only one opened buffer for a given layout then
+~SPC TAB~ won't do anything and the following message is displayed in the
+minibuffer:
+
+#+BEGIN_QUOTE
+  Last buffer not found.
+#+END_QUOTE
+
+To allow ~SPC TAB~ to switch to the last opened buffer from another layout set
+this variable =spacemacs-layouts-restrict-spc-tab= to =nil=. For instance in
+your used layer list with layer variables:
+
+#+BEGIN_EXAMPLE
+  (spacemacs-layouts :variables spacemacs-layouts-restrict-spc-tab t)
+#+END_EXAMPLE
+
+*** Restrict a given function to the current layout
+You can make any function "layout aware" by adding it to the list
+=spacemacs-layouts-restricted-functions=. It is not possible to change this
+variable when Emacs is running. You have to define it using layer variables.
+If you change this variable then Emacs must be restarted for the change to
+take effect.
+
+Default value for this variable is:
+
+#+BEGIN_EXAMPLE
+  '(spacemacs/window-split-double-columns
+    spacemacs/window-split-triple-columns
+    spacemacs/window-split-grid)
+#+END_EXAMPLE
+
+If you want to add the function =my-func= to this list you need to redefine
+the complete list using layer variables:
+
+#+BEGIN_EXAMPLE
+  (spacemacs-layouts :variables
+                     spacemacs-layouts-restricted-functions
+                     '(spacemacs/window-split-double-columns
+                       spacemacs/window-split-triple-columns
+                       spacemacs/window-split-grid
+                       my-func))
+#+END_EXAMPLE
+
 ** Workspaces
 Workspaces are sub-layouts, they allow to define multiple layouts into a given
-layout, those layouts share the same buffer as the parent layout.
+layout, those layouts share the same buffers as the parent layout.
 
 The currently active workspace number is displayed before the window number,
 for instance "➊|➍" or "1|4" means the fourth window of the first workspace.
@@ -1787,9 +1851,9 @@ There are also some handy globally available key bindings related to workspaces:
 
 * Commands
 ** Vim key bindings
-Spacemacs is based on =Vim= modal user interface to navigate and edit text. If
-you are not familiar with the =Vim= way of editing text you can try the
-[[https://github.com/syl20bnr/evil-tutor][evil-tutor]] lessons by pressing ~SPC h T~ at any time.
+Spacemacs is based on the =Vim= modal user interface to navigate and edit text.
+If you are not familiar with the =Vim= way of editing text, then you can try the
+[[https://github.com/syl20bnr/evil-tutor][evil-tutor]] lessons by pressing ~SPC h T v~ at any time.
 
 *** Escaping
 Spacemacs uses [[https://github.com/syl20bnr/evil-escape][evil-escape]] to
@@ -2140,10 +2204,11 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 | Key binding | Description                                                                       |
 |-------------+-----------------------------------------------------------------------------------|
 | ~SPC j 0~   | go to the beginning of line (and set a mark at the previous location in the line) |
+| ~SPC j (~   | jump to first unbalanced parentheses                                              |
 | ~SPC j $~   | go to the end of line (and set a mark at the previous location in the line)       |
 | ~SPC j b~   | undo a jump (go back to previous location)                                        |
+| ~SPC j c~   | go to last change                                                                 |
 | ~SPC j d~   | jump to a listing of the current directory                                        |
-| ~SPC j C~   | jump to first unbalanced parentheses                                              |
 | ~SPC j D~   | jump to a listing of the current directory (other window)                         |
 | ~SPC j f~   | jump to the definition of an Emacs Lisp function                                  |
 | ~SPC j i~   | jump to a definition in buffer (imenu)                                            |
@@ -2153,6 +2218,7 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 | ~SPC j l~   | jump to a line with avy (works as an evil motion)                                 |
 | ~SPC j q~   | show the dumb-jump quick look tooltip                                             |
 | ~SPC j u~   | jump to a URL in the current buffer                                               |
+| ~SPC j U~   | select a URL in the current buffer and follow it                                  |
 | ~SPC j v~   | jump to the definition/declaration of an Emacs Lisp variable                      |
 | ~SPC j w~   | jump to a word in the current buffer (works as an evil motion)                    |
 
@@ -2166,6 +2232,8 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 | ~SPC j o~   | split the current line at point but let point on current line            |
 | ~SPC j s~   | split a quoted string or s-expression in place                           |
 | ~SPC j S~   | split a quoted string or s-expression, insert a new line and auto-indent |
+| ~SPC j =~   | format the marked region or entire buffer                                |
+| ~SPC j +~   | format the marked region or entire buffer also cleanup whitespace        |
 
 *** Window manipulation
 **** Window manipulation key bindings
@@ -2279,55 +2347,55 @@ define your own deletion function:
   (setq spacemacs-window-split-delete-function 'my-delete-other-windows)
 #+END_SRC
 
-**** Window manipulation transient state
-A convenient window manipulation transient state allows performing most of the
-actions listed above. The transient state allows additional actions as well like
-window resizing.
+**** Window transient state
+A convenient window transient state allows for performing most of the actions
+listed above. For example window resizing.
 
-| Key binding | Description                                                   |
-|-------------+---------------------------------------------------------------|
-| ~SPC w .~   | initiate transient state                                      |
-| ~?~         | display the full documentation in minibuffer                  |
-| ~0~         | go to window number 0                                         |
-| ~1~         | go to window number 1                                         |
-| ~2~         | go to window number 2                                         |
-| ~3~         | go to window number 3                                         |
-| ~4~         | go to window number 4                                         |
-| ~5~         | go to window number 5                                         |
-| ~6~         | go to window number 6                                         |
-| ~7~         | go to window number 7                                         |
-| ~8~         | go to window number 8                                         |
-| ~9~         | go to window number 9                                         |
-| ~/~         | vertical split                                                |
-| ~-~         | horizontal split                                              |
-| ~\vert~     | maximize window vertically                                    |
-| ~_~         | maximize window horizontally                                  |
-| ~[~         | shrink window horizontally                                    |
-| ~]~         | enlarge window horizontally                                   |
-| ~{~         | shrink window vertically                                      |
-| ~}~         | enlarge window vertically                                     |
-| ~d~         | delete window                                                 |
-| ~D~         | delete other windows                                          |
-| ~g~         | toggle =golden-ratio= on and off                              |
-| ~h~         | go to window on the left                                      |
-| ~j~         | go to window below                                            |
-| ~k~         | go to window above                                            |
-| ~l~         | go to window on the right                                     |
-| ~H~         | move window to the left                                       |
-| ~J~         | move window to the bottom                                     |
-| ~K~         | move bottom to the top                                        |
-| ~L~         | move window to the right                                      |
-| ~m~         | toggle maximization of current window                         |
-| ~o~         | focus other frame                                             |
-| ~r~         | rotate windows forward                                        |
-| ~R~         | rotate windows backward                                       |
-| ~s~         | horizontal split                                              |
-| ~S~         | horizontal split and focus new window                         |
-| ~u~         | undo window layout (used to effectively undo a closed window) |
-| ~U~         | redo window layout                                            |
-| ~v~         | vertical split                                                |
-| ~V~         | vertical split and focus new window                           |
-| ~w~         | focus other window                                            |
+| Key binding     | Description                                                   |
+|-----------------+---------------------------------------------------------------|
+| ~SPC w .~       | initiate transient state                                      |
+| ~?~             | display the full documentation in minibuffer                  |
+| ~0~             | go to window number 0                                         |
+| ~1~             | go to window number 1                                         |
+| ~2~             | go to window number 2                                         |
+| ~3~             | go to window number 3                                         |
+| ~4~             | go to window number 4                                         |
+| ~5~             | go to window number 5                                         |
+| ~6~             | go to window number 6                                         |
+| ~7~             | go to window number 7                                         |
+| ~8~             | go to window number 8                                         |
+| ~9~             | go to window number 9                                         |
+| ~/~             | vertical split                                                |
+| ~-~             | horizontal split                                              |
+| ~\vert~         | maximize window vertically                                    |
+| ~_~             | maximize window horizontally                                  |
+| ~[~             | shrink window horizontally                                    |
+| ~]~             | enlarge window horizontally                                   |
+| ~{~             | shrink window vertically                                      |
+| ~}~             | enlarge window vertically                                     |
+| ~d~             | delete window                                                 |
+| ~D~             | delete other windows                                          |
+| ~g~             | toggle =golden-ratio= on and off                              |
+| ~h~ ~<left>~    | go to window on the left                                      |
+| ~j~ ~<down>~    | go to window below                                            |
+| ~k~ ~<up>~      | go to window above                                            |
+| ~l~ ~<right>~   | go to window on the right                                     |
+| ~H~ ~<S-left>~  | move window to the left                                       |
+| ~J~ ~<S-down>~  | move window to the bottom                                     |
+| ~K~ ~<S-up>~    | move bottom to the top                                        |
+| ~L~ ~<S-right>~ | move window to the right                                      |
+| ~m~             | toggle maximization of current window                         |
+| ~o~             | focus other frame                                             |
+| ~a~             | call ace window mode                                          |
+| ~r~             | rotate windows forward                                        |
+| ~R~             | rotate windows backward                                       |
+| ~s~             | horizontal split                                              |
+| ~S~             | horizontal split and focus new window                         |
+| ~u~             | undo window layout (used to effectively undo a closed window) |
+| ~U~             | redo window layout                                            |
+| ~v~             | vertical split                                                |
+| ~V~             | vertical split and focus new window                           |
+| ~w~             | focus other window                                            |
 
 **** Golden ratio
 If you resize windows like crazy you may want to give a try to [[https://github.com/roman/golden-ratio.el][golden-ratio]].
@@ -2345,9 +2413,6 @@ Buffer manipulation commands (start with ~b~):
 |-----------------+----------------------------------------------------------------------------------------|
 | ~SPC TAB~       | switch to alternate buffer in the current window (switch back and forth)               |
 | ~SPC b b~       | switch to a buffer                                                                     |
-| ~SPC b c n~     | create an indirect buffer                                                              |
-| ~SPC b c c~     | create an indirect buffer that is clone of current buffer                              |
-| ~SPC b c w~     | create an indirect buffer that is clone of current buffer, and open it in other window |
 | ~SPC b d~       | kill the current buffer (does not delete the visited file)                             |
 | ~SPC u SPC b d~ | kill the current buffer and window (does not delete the visited file)                  |
 | ~SPC b D~       | kill a visible buffer using [[https://github.com/abo-abo/ace-window][ace-window]]                                                 |
@@ -2373,17 +2438,20 @@ Buffer manipulation commands (start with ~b~):
 
 **** Create a new empty buffer
 
-| Key binding | Description                                           |
-|-------------+-------------------------------------------------------|
-| ~SPC b N h~ | create new empty buffer in a new window on the left   |
-| ~SPC b N j~ | create new empty buffer in a new window at the bottom |
-| ~SPC b N k~ | create new empty buffer in a new window above         |
-| ~SPC b N l~ | create new empty buffer in a new window below         |
-| ~SPC b N n~ | create new empty buffer in current window             |
+| Key binding   | Description                                                                                     |
+|---------------+-------------------------------------------------------------------------------------------------|
+| ~SPC b N h~   | create new empty buffer in a new window on the left                                             |
+| ~SPC b N C-i~ | create an indirect buffer from an existing opened buffer                                        |
+| ~SPC b N i~   | create an indirect buffer that is clone of currently opened buffer                              |
+| ~SPC b N I~   | create an indirect buffer that is clone of currently opened buffer, and open it in other window |
+| ~SPC b N j~   | create new empty buffer in a new window at the bottom                                           |
+| ~SPC b N k~   | create new empty buffer in a new window above                                                   |
+| ~SPC b N l~   | create new empty buffer in a new window below                                                   |
+| ~SPC b N n~   | create new empty buffer in current window                                                       |
 
-**** Buffers manipulation transient state
-A convenient buffer manipulation transient state allows to quickly cycles through
-the opened buffer and kill them.
+**** Buffers transient state
+A convenient buffer transient state allows for quickly cycling through the
+open buffers and closing them.
 
 | Key binding            | Description                                                                                |
 |------------------------+--------------------------------------------------------------------------------------------|
@@ -2398,6 +2466,7 @@ the opened buffer and kill them.
 | ~N~ or ~p~ or ~<left>~ | go to previous buffer (avoid buffers matching =spacemacs-useless-buffers-regexp=)          |
 | ~o~                    | switch focus to other window                                                               |
 | ~z~                    | recenter buffer in window                                                                  |
+| ~q~                    | quit transient state                                                                       |
 
 Unlike vim, emacs creates many buffers that most people do not need to see. Some
 examples are the =*Messages*= and =*Compile-Log*= buffers. Spacemacs tries to
@@ -2405,8 +2474,8 @@ automatically ignore buffers that are not useful. However, you may want to
 change the way Spacemacs marks buffers as useful. For instructions, see the
 [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/FAQ.org#change-special-buffer-rules][special buffer howto]].
 
-**** Files manipulations key bindings
-Files manipulation commands (start with ~f~):
+**** File manipulation key bindings
+File manipulation commands (start with ~f~):
 
 | Key binding | Description                                                                                            |
 |-------------+--------------------------------------------------------------------------------------------------------|
@@ -2470,6 +2539,7 @@ navigate between =Emacs= and Spacemacs specific files.
 | ~SPC f e R~   | resync the dotfile with spacemacs                                                                       |
 | ~SPC f e U~   | update packages                                                                                         |
 | ~SPC f e v~   | display and copy the spacemacs version                                                                  |
+| ~SPC f e c~   | recompile all elpa packages                                                                             |
 
 **** Browsing files in completion buffer
 In =vim= style and =hybrid= style with the variable
@@ -2836,7 +2906,7 @@ To list all the symbols of a buffer press ~SPC s j~
 
 ** Editing
 *** Paste text
-**** Paste Transient-state
+**** Paste transient state
 The paste transient state can be enabled by setting the variable
 =dotspacemacs-enable-paste-transient-state= to =t=. By default it is disabled.
 
@@ -2967,7 +3037,7 @@ The font size of the current buffer can be adjusted with the commands:
 | Key binding                           | Description                                                                    |
 |---------------------------------------+--------------------------------------------------------------------------------|
 | ~SPC z x +~, ~SPC z x =~, ~SPC z x k~ | scale up the font and initiate the font scaling transient state                |
-| ~SPC z x -~, ~SPC z x j~              | scale down the font and initiate the font scaling transient state              |
+| ~SPC z x -~, ~SPC z x _~, ~SPC z x j~ | scale down the font and initiate the font scaling transient state              |
 | ~SPC z x 0~                           | reset the font size (no scaling) and initiate the font scaling transient state |
 
 In the transient state:
@@ -2975,8 +3045,9 @@ In the transient state:
 | Key binding   | Description            |
 |---------------+------------------------|
 | ~+~, ~=~, ~k~ | increase the font size |
-| ~-~, ~j~      | decrease the font size |
+| ~-~, ~_~, ~j~ | decrease the font size |
 | ~0~           | reset the font size    |
+| ~q~           | quit transient state   |
 
 Note that /only/ the text of the current buffer is scaled, the other buffers,
 the mode-line and the minibuffer are not affected. To zoom the whole content of
@@ -2988,34 +3059,38 @@ You can zoom in and out the whole content of the frame with the commands:
 | Key binding                           | Description                                                                 |
 |---------------------------------------+-----------------------------------------------------------------------------|
 | ~SPC z f +~, ~SPC z f =~, ~SPC z f k~ | zoom in the frame content and initiate the frame scaling transient state    |
-| ~SPC z f -~, ~SPC z f j~              | zoom out the frame content and initiate the frame scaling transient state   |
+| ~SPC z f -~, ~SPC z f _~, ~SPC z f j~ | zoom out the frame content and initiate the frame scaling transient state   |
 | ~SPC z f 0~                           | reset the frame content size and initiate the frame scaling transient state |
 
 In the transient state:
 
-| Key binding   | Description      |
-|---------------+------------------|
-| ~+~, ~=~, ~k~ | zoom frame in    |
-| ~-~, ~j~      | zoom frame out   |
-| ~0~           | reset frame zoom |
+| Key binding   | Description          |
+|---------------+----------------------|
+| ~+~, ~=~, ~k~ | zoom frame in        |
+| ~-~, ~_~, ~j~ | zoom frame out       |
+| ~0~           | reset frame zoom     |
+| ~q~           | quit transient state |
 
 *** Increase/Decrease numbers
 Spacemacs uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily increase or decrease numbers.
 
-| Key binding | Description                                                         |
-|-------------+---------------------------------------------------------------------|
-| ~SPC n +~   | increase the number under point by one and initiate transient state |
-| ~SPC n -~   | decrease the number under point by one and initiate transient state |
+| Key binding          | Description                                                         |
+|----------------------+---------------------------------------------------------------------|
+| ~SPC n +~, ~SPC n =~ | increase the number under point by one and initiate transient state |
+| ~SPC n -~, ~SPC n _~ | decrease the number under point by one and initiate transient state |
 
 In the transient state:
 
-| Key binding | Description                            |
-|-------------+----------------------------------------|
-| ~+~         | increase the number under point by one |
-| ~-~         | decrease the number under point by one |
+| Key binding   | Description                            |
+|---------------+----------------------------------------|
+| ~+~, ~=~, ~k~ | increase the number under point by one |
+| ~-~, ~_~, ~j~ | decrease the number under point by one |
+| ~0..9~        | add a number prefix argument           |
+| ~q~           | quit transient state                   |
 
-*Tips:* you can increase or decrease a value by more that once by using a prefix
-argument (i.e. ~10 SPC n +~ will add 10 to the number under point).
+*Tips:* You can increase or decrease a number by more than one at a time, by
+using a prefix argument (i.e. ~10 SPC n +~ will add =10= to the number under
+point).
 
 *** Spell checking
 Spell checking is enabled by including the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell
@@ -3215,7 +3290,7 @@ The key bindings start with ~SPC x r~ and have the following mnemonic structure:
 *** Deleting files
 Deletion is configured to send deleted files to system trash.
 
-On OS X the =trash= program is required. It can be installed with [[https://brew.sh/][homebrew]] with
+On macOS the =trash= program is required. It can be installed with [[https://brew.sh/][homebrew]] with
 the following command:
 
 #+BEGIN_SRC sh
@@ -3449,15 +3524,15 @@ You can open a file in Emacs from the terminal using =emacsclient=. Use
 file in Emacs within the terminal. If you set Emacs server socket by setting =dotspacemacs-server-socket-dir=,
 then pass its location as =-s ~/.emacs.d/server/server= additionally.
 
-If you want your Linux/OS X system to use Emacs by default for any prompt, you
-need to set it in your shell configuration, e.g. =~/.bashrc= or =~/.zshrc=:
+If you want your Linux or macOS system to use Emacs by default for any prompt,
+you need to set it in your shell configuration, e.g. =~/.bashrc= or =~/.zshrc=:
 
 #+BEGIN_SRC sh-mode
   export EDITOR="emacsclient -c"
 #+END_SRC
 
-Note that if you're on OS X, you may have to refer to the emacsclient that comes
-with your GUI Emacs, e.g.:
+Note that if you're using macOS, you may have to refer to the emacsclient that
+comes with your GUI Emacs, e.g.:
 
 #+BEGIN_SRC sh-mode
   export EDITOR="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c"
@@ -3514,6 +3589,70 @@ usable; if it is not then restart Emacs with =emacs --debug-init= and open a
 To ensure that packages are correctly compiled for the new Emacs version you
 installed, be sure to run the interactive command =spacemacs/recompile-elpa=
 with ~SPC u SPC SPC spacemacs/recompile-elpa~.
+
+** General layer errors
+It happens from time to time that some of the layers go stale and stop
+working properly for some commands. If this happens stay calm and try
+to produce a minimal bug report on the [[https://github.com/syl20bnr/spacemacs/issues][Github issue page]].
+
+*** Step by step instructions for minimal layer bug reports
+- Load the standard dotfile. You can get it with ~SPC f e D~.
+- Add the malfunctioning layer.
+- Use ~SPC t D~ to enable debug on error, this will
+  produce a backtrace when encountering a lisp error.
+- Reproduce the error. Note down the steps and backtrace.
+- Press ~SPC h I~ and fill in the place holders
+  enclosed in ~<<~ and ~>>~ signs. Don't forget the
+  reproduction guide and backtrace.
+- Press ~C-c C-c~ or ~, ,~ to transfer your buffers
+  content to the github issue creation page.
+- Enter a meaningfull title for your issue, stating
+  in short words what the issue is.
+- When everything has been filled in submit the bug
+  report.
+- When someone answers to your issue or ask questions
+  it goes without saying that you should answer him
+  politely and assist in testing a possible fix.
+
+** General emacs package errors
+It can also happen that your issue is not related to any layer but
+rather to a specific package in the emacs universe. In this case
+you should provide a minimalistic emacs only reproduction guide for the
+respective package and open an issue upstream. If there is already
+a spacemacs issue for your problem your upstream bug report should
+mention its ticket number so it is clear when this issue can be
+retested.
+
+*** Step by step instructions for minimal emacs package bug reports
+- Start emacs with ~emacs -q~, this will load a vanilla
+  emacs without any non-system packages loaded.
+- There open a scratch buffer with ~C-x b *scratch* RET~
+- Add initialization code for your package there
+
+  #+BEGIN_SRC elisp
+    ;; Load the package
+    (require 'package)
+
+    ;; Mention all packages you wish to have loaded
+    (setq package-load-list
+          '((package1 t)
+            (package2 t)
+            (package3 t)))
+
+    ;; Do package specific configuration if required
+    ;; (package-local-init)
+
+    ;; Intialize your package list
+    (package-initialize)
+  #+END_SRC
+
+- Now press ~M-x eval-buffer~ to evaluate the code.
+- Reproduce your issue. Note down step by step instructions.
+- With this information open an upstream issue following
+  their issue templates. If they have non its a good idea
+  to start with the infos required in the spacemacs issue
+  template and add missing information when required from
+  the package maintainers.
 
 * Achievements
 ** Issues

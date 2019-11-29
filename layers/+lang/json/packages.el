@@ -58,9 +58,15 @@
 (defun json/pre-init-prettier-js ()
   (when (eq json-fmt-tool 'prettier)
     (add-to-list 'spacemacs--prettier-modes 'json-mode)
-    (add-hook 'json-mode-hook #'spacemacs/json-setup-prettier)))
+    (add-hook 'json-mode-hook #'spacemacs/json-setup-prettier)
+    (when (eq json-fmt-on-save t)
+      (add-hook 'json-mode-hook 'prettier-js-mode))))
 
 (defun json/pre-init-web-beautify ()
   (when (eq json-fmt-tool 'web-beautify)
     (add-to-list 'spacemacs--web-beautify-modes
-                 (cons 'json-mode 'web-beautify-js))))
+                 (cons 'json-mode 'web-beautify-js))
+    (when (eq json-fmt-on-save t)
+      (add-hook 'json-mode-hook
+                (lambda ()
+                  (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))))

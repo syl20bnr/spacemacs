@@ -14,7 +14,7 @@
   (interactive)
   (if (eq (treemacs-current-visibility) 'visible)
       (delete-window (treemacs-get-local-window))
-    (let ((path (projectile-project-root))
+    (let ((path (projectile-ensure-project (projectile-project-root)))
           (name (projectile-project-name)))
       (unless (treemacs-current-workspace)
         (treemacs--find-workspace))
@@ -27,4 +27,5 @@
   (interactive)
   (unless (eq (not treemacs--width-is-locked)
               (not treemacs-lock-width))
-    (treemacs-toggle-fixed-width)))
+    (treemacs-without-messages
+     (treemacs-toggle-fixed-width))))

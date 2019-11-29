@@ -210,7 +210,9 @@
     (action . (("Go to configuration function"
                 . helm-spacemacs-help//package-action-goto-config-func)
                ("Describe"
-                . helm-spacemacs-help//package-action-describe)))))
+                . helm-spacemacs-help//package-action-describe)
+               ("Recompile"
+                . helm-spacemacs-help//package-action-recompile)))))
 
 (defun helm-spacemacs-help//package-candidates ()
   "Return the sorted candidates for package source."
@@ -336,6 +338,15 @@
     (string-match "^\\(.+\\)\s(\\(.+\\) layer)$" candidate)
     (let* ((package (match-string 1 candidate)))
       (configuration-layer/describe-package (intern package)))))
+
+(defun helm-spacemacs-help//package-action-recompile (candidate)
+  "Recompile the selected emacs package."
+  (save-match-data
+    (string-match "^\\(.+\\)\s(\\(.+\\) layer)$" candidate)
+    (let* ((package (match-string 1 candidate))
+           (package-dir (configuration-layer//get-package-directory (intern package))))
+      (if package-dir
+          (spacemacs/recompile-elpa t package-dir)))))
 
 (defun helm-spacemacs-help//package-action-goto-config-func (candidate)
   "Open the file `packages.el' and go to the init function."

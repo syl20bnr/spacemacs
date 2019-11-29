@@ -33,7 +33,7 @@ this file.
 
 | Key binding | Description              |
 |-------------+--------------------------|
-| ~SPC b i~   | toggle imenu-list window |
+| ~SPC b t~   | toggle imenu tree window |
 
 ** From imenu-list buffer
 

@@ -19,11 +19,11 @@
 (defun ansible/init-ansible ()
   (use-package ansible
     :defer t
-    :commands ansible::auto-decrypt-encrypt
+    :commands ansible-auto-decrypt-encrypt
     :init
     (progn
       (add-hook 'yaml-mode-hook 'spacemacs/ansible-maybe-enable)
-      (put 'ansible::vault-password-file 'safe-local-variable #'stringp)
+      (put 'ansible-vault-password-file 'safe-local-variable #'stringp)
       (if ansible-auto-encrypt-decrypt
           ;; add this hook to local-vars-hook to allow users to specify
           ;; a password file in directory local variables
@@ -35,8 +35,8 @@
     :config
     (progn
       (spacemacs/set-leader-keys-for-minor-mode 'ansible
-       "bd" 'ansible::decrypt-buffer
-       "be" 'ansible::encrypt-buffer))))
+       "bd" 'ansible-decrypt-buffer
+       "be" 'ansible-encrypt-buffer))))
 
 (defun ansible/init-ansible-doc ()
   (use-package ansible-doc
@@ -63,9 +63,12 @@
   (use-package company-ansible
     :defer t
     :init
-    ;; append this hook at the end to execute it last so `company-backends'
-    ;; variable is buffer local
-    (add-hook 'yaml-mode-hook 'spacemacs/ansible-company-maybe-enable t)))
+    (progn
+     ;; append this hook at the end to execute it last so `company-backends'
+     ;; variable is buffer local
+     (add-hook 'yaml-mode-hook 'spacemacs/ansible-company-maybe-enable t)
+     (spacemacs|add-company-backends :backends company-ansible
+                                     :modes ansible))))
 
 (defun ansible/init-jinja2-mode ()
   (use-package jinja2-mode

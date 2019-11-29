@@ -27,7 +27,7 @@ general purpose scripting language.
 * Install
 First check that you are able to run this from the command line:
 
-On OS X:
+On macOS:
 
 #+BEGIN_SRC sh
   xcrun swift

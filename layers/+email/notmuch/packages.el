@@ -86,20 +86,21 @@
       (evilified-state-evilify-map notmuch-show-mode-map
         :mode notmuch-show-mode
         :bindings
-        ;; In notmuch-show-mode n would be bound to `notmuch-show-next-message`
-        ;; but the evilified state moves the `n' bound function to C-n while
-        ;; it's counterpart `notmuch-show-previous-message` remains bound to
-        ;; `p'. Adding a binding for the previous function to `C-p' becomes
-        ;; handy while navigation messages back and forth.
-        (kbd "C-p")   'notmuch-show-previous-message
+        (kbd "N")   'notmuch-show-next-message
+        (kbd "P")   'notmuch-show-previous-message
+        (kbd "p")   'notmuch-show-previous-open-message
         (kbd "n")   'notmuch-show-next-open-message
         (kbd "o")   'notmuch-show-open-or-close-all
         (kbd "O")   'spacemacs/notmuch-show-close-all)
       (evilified-state-evilify-map notmuch-tree-mode-map
         :mode notmuch-tree-mode
         :bindings
+        (kbd "N") 'notmuch-tree-next-message
+        (kbd "P") 'notmuch-tree-prev-message
         (kbd "d") 'spacemacs/notmuch-message-delete-down
         (kbd "D") 'spacemacs/notmuch-message-delete-up
+        (kbd "n") 'notmuch-tree-next-matching-message
+        (kbd "p") 'notmuch-tree-prev-matching-message
         (kbd "M") 'compose-mail-other-frame)
       (evilified-state-evilify-map notmuch-search-mode-map
         :mode notmuch-search-mode

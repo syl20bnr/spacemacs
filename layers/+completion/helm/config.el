@@ -9,6 +9,11 @@
 ;;
 ;;; License: GPLv3
 
+;; Dumper
+
+(defun helm/pre-dump ()
+  (spacemacs/dump-modes '(helm-mode)))
+
 ;; variables
 
 ;; TODO: remove dotspacemacs variables backward compatbility in version

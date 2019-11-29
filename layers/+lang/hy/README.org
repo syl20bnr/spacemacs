@@ -13,6 +13,7 @@
   - [[#debug][Debug]]
   - [[#repl][REPL]]
   - [[#tests][Tests]]
+  - [[#python-environments][Python environments]]
 
 * Description
 This layer adds support for the Hy language based on Python.
@@ -71,3 +72,19 @@ Send code to hy REPL commands:
 | ~SPC m t A~ | launch all tests of the project in debug mode        |
 | ~SPC m t m~ | launch all tests of the current module               |
 | ~SPC m t M~ | launch all tests of the current module in debug mode |
+
+** Python environments
+
+| Key binding   | Description                                     |
+|---------------+-------------------------------------------------|
+| ~SPC m v a~   | activate a virtual environment in any directory |
+| ~SPC m v d~   | deactivate active virtual environment           |
+| ~SPC m v s~   | set a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]              |
+| ~SPC m v u~   | unset a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]            |
+| ~SPC m v w~   | work on virtual environment in =WORKON_HOME=    |
+| ~SPC m v p a~ | activate pipenv in current project              |
+| ~SPC m v p d~ | deactivate pipenv in current project            |
+| ~SPC m v p i~ | install module into pipenv environment          |
+| ~SPC m v p o~ | open pipenv module in buffer                    |
+| ~SPC m v p s~ | launch pipenv shell in current project          |
+| ~SPC m v p u~ | uninstall module from pipenv environment        |

@@ -35,7 +35,11 @@
   (use-package doom-modeline
     :defer t
     :if (eq (spacemacs/get-mode-line-theme-name) 'doom)
-    :init (doom-modeline-init)))
+    :init
+    (progn
+      (setq-default doom-modeline-display-default-persp-name
+                    dotspacemacs-display-default-layout)
+      (doom-modeline-init))))
 
 (defun spacemacs-modeline/init-fancy-battery ()
   (use-package fancy-battery

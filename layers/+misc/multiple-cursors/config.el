@@ -12,4 +12,5 @@
 ;;; License: GPLv3
 
 (defvar multiple-cursors-backend 'evil-mc
-  "The package used as the backend for multiple cursors functionality.")
+  "The package used as the backend for multiple cursors functionality.
+Possible values are `mc' or `evil-mc'.")

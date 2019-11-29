@@ -75,7 +75,16 @@
     "ad" 'spacemacs/dired
     "fj" 'dired-jump
     "jd" 'dired-jump
-    "jD" 'dired-jump-other-window))
+    "jD" 'dired-jump-other-window)
+  ;; The search next/previous commands are different
+  ;; because of the `evil-search-module' values:
+  ;; vim = evil-search, hybrid = isearch
+  (when (eq 'vim dotspacemacs-editing-style)
+    (evil-define-key 'normal dired-mode-map (kbd "n") 'evil-ex-search-next)
+    (evil-define-key 'normal dired-mode-map (kbd "N") 'evil-ex-search-previous))
+  (when (eq 'hybrid dotspacemacs-editing-style)
+    (evil-define-key 'normal dired-mode-map (kbd "n") 'evil-search-next)
+    (evil-define-key 'normal dired-mode-map (kbd "N") 'evil-search-previous)))
 
 (defun spacemacs-defaults/init-dired-x ()
   (use-package dired-x
@@ -134,7 +143,14 @@
       ;; enable eldoc in IELM
       (add-hook 'ielm-mode-hook #'eldoc-mode)
       ;; don't display eldoc on modeline
-      (spacemacs|hide-lighter eldoc-mode))))
+      (spacemacs|hide-lighter eldoc-mode)
+
+      ;; eldoc-message-commands
+      (eldoc-add-command #'evil-insert)
+      (eldoc-add-command #'evil-insert-line)
+      (eldoc-add-command #'evil-append)
+      (eldoc-add-command #'evil-append-line)
+      (eldoc-add-command #'evil-force-normal-state))))
 
 (defun spacemacs-defaults/init-help-fns+ ()
   (use-package help-fns+
@@ -187,9 +203,12 @@
     :defer t
     :init
     (progn
-      (if (spacemacs/relative-line-numbers-p)
-          (setq display-line-numbers-type 'relative)
-        (setq display-line-numbers-type t))
+      (cond ((spacemacs/visual-line-numbers-p)
+             (setq display-line-numbers-type 'visual))
+            ((spacemacs/relative-line-numbers-p)
+             (setq display-line-numbers-type 'relative))
+            (t
+             (setq display-line-numbers-type t)))
 
       (spacemacs|add-toggle line-numbers
         :status (and (featurep 'display-line-numbers)
@@ -213,6 +232,17 @@
         :on-message "Relative line numbers enabled."
         :off-message "Line numbers disabled."
         :evil-leader "tr")
+      (spacemacs|add-toggle visual-line-numbers
+        :status (and (featurep 'display-line-numbers)
+                     display-line-numbers-mode
+                     (eq display-line-numbers 'visual))
+        :on (prog1 (display-line-numbers-mode)
+              (setq display-line-numbers 'visual))
+        :off (display-line-numbers-mode -1)
+        :documentation "Show relative visual line numbers."
+        :on-message "Visual line numbers enabled."
+        :off-message "Line numbers disabled."
+        :evil-leader "tV")
 
       (when (spacemacs//linum-backward-compabitility)
         (add-hook 'prog-mode-hook 'display-line-numbers-mode)
@@ -420,7 +450,7 @@
 
 (defun spacemacs-defaults/init-winner ()
   (use-package winner
-    :defer t
+    :commands (winner-undo winner-redo)
     :init
     (with-eval-after-load 'winner
       (setq spacemacs/winner-boring-buffers '("*Completions*"

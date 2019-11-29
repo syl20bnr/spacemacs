@@ -20,7 +20,15 @@
         eldoc
         evil-cleverparens
         flycheck
-        (flycheck-clojure :toggle clojure-enable-linters)
+        (flycheck-clojure :toggle (memq 'squiggly (if (listp clojure-enable-linters)
+                                                      clojure-enable-linters
+                                                    (list clojure-enable-linters))))
+        (flycheck-clj-kondo :toggle (memq 'clj-kondo (if (listp clojure-enable-linters)
+                                                         clojure-enable-linters
+                                                       (list clojure-enable-linters))))
+        (flycheck-joker :toggle (memq 'joker (if (listp clojure-enable-linters)
+                                                 clojure-enable-linters
+                                               (list clojure-enable-linters))))
         ggtags
         counsel-gtags
         helm-gtags
@@ -62,6 +70,7 @@
                ("mh" . "documentation")
                ("mp" . "profile")
                ("ms" . "repl")
+               ("msj" . "jack-in")
                ("mt" . "test")
                ("mT" . "toggle")
                )))
@@ -73,7 +82,7 @@
           (spacemacs/set-leader-keys-for-major-mode m
             "ha" 'cider-apropos
             "hc" 'cider-cheatsheet
-            "hg" 'cider-grimoire
+            "hd" 'cider-clojuredocs
             "hh" 'cider-doc
             "hj" 'cider-javadoc
             "hn" 'cider-browse-ns
@@ -89,6 +98,7 @@
             "eP" 'cider-pprint-eval-last-sexp
             "er" 'cider-eval-region
             "eu" 'cider-undef
+            "ev" 'cider-eval-sexp-at-point
             "ew" 'cider-eval-last-sexp-and-replace
 
             "="  'cider-format-buffer
@@ -96,14 +106,16 @@
 
             "gb" 'cider-pop-back
             "gc" 'cider-classpath
+            "gg" 'spacemacs/clj-find-var
             "ge" 'cider-jump-to-compilation-error
             "gn" 'cider-find-ns
             "gr" 'cider-find-resource
             "gs" 'cider-browse-spec
             "gS" 'cider-browse-spec-all
 
-            "'"  'cider-jack-in
-            "\"" 'cider-jack-in-clojurescript
+            "'"  'cider-jack-in-clj
+            "\"" 'cider-jack-in-cljs
+            "\&" 'cider-jack-in-clj&cljs
             "sb" 'cider-load-buffer
             "sB" 'spacemacs/cider-send-buffer-in-repl-and-focus
             "sc" (if (eq m 'cider-repl-mode)
@@ -114,8 +126,10 @@
             "sE" 'spacemacs/cider-send-last-sexp-to-repl-focus
             "sf" 'spacemacs/cider-send-function-to-repl
             "sF" 'spacemacs/cider-send-function-to-repl-focus
-            "si" 'cider-jack-in
-            "sI" 'cider-jack-in-clojurescript
+            "si" 'cider-jack-in-clj
+            "sjc" 'cider-jack-in-clj
+            "sjf" 'cider-jack-in-clj&cljs
+            "sjs" 'cider-jack-in-cljs
             "sn" 'spacemacs/cider-send-ns-form-to-repl
             "sN" 'spacemacs/cider-send-ns-form-to-repl-focus
             "so" 'cider-repl-switch-to-other
@@ -125,6 +139,7 @@
             "ss" (if (eq m 'cider-repl-mode)
                      'cider-switch-to-last-clojure-buffer
                    'cider-switch-to-repl-buffer)
+            "su" 'cider-repl-require-repl-utils
             "sx" 'cider-ns-refresh
             "sX" 'cider-restart
 
@@ -165,9 +180,6 @@
       ;; add support for golden-ratio
       (with-eval-after-load 'golden-ratio
         (add-to-list 'golden-ratio-extra-commands 'cider-popup-buffer-quit-function))
-      ;; setup linters. NOTE: It must be done after both CIDER and Flycheck are loaded.
-      (when clojure-enable-linters
-        (with-eval-after-load 'flycheck (flycheck-clojure-setup)))
       ;; add support for evil
       (evil-set-initial-state 'cider-stacktrace-mode 'motion)
       (evil-set-initial-state 'cider-popup-buffer-mode 'motion)
@@ -219,15 +231,22 @@
         (kbd "C-k") 'cider-repl-previous-input
         (kbd "RET") 'cider-repl-return)
 
+      (if (package-installed-p 'company)
+          (evil-define-key 'insert cider-repl-mode-map
+            (kbd "C-j") 'spacemacs//clj-repl-wrap-c-j
+            (kbd "C-k") 'spacemacs//clj-repl-wrap-c-k)
+        (evil-define-key 'insert cider-repl-mode-map
+          (kbd "C-j") 'cider-repl-next-input
+          (kbd "C-k") 'cider-repl-previous-input))
+
       (evil-define-key 'insert cider-repl-mode-map
-        (kbd "C-j") 'cider-repl-next-input
-        (kbd "C-k") 'cider-repl-previous-input)
+        (kbd "<C-return>") 'cider-repl-newline-and-indent)
 
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)
         (clojure/fancify-symbols 'cider-clojure-interaction-mode)))
 
-    (defadvice cider-jump-to-var (before add-evil-jump activate)
+    (defadvice cider-find-var (before add-evil-jump activate)
       (evil-set-jump))))
 
 (defun clojure/init-cider-eval-sexp-fu ()
@@ -420,9 +439,70 @@
   (add-hook 'clojure-mode-hook 'parinfer-mode))
 
 (defun clojure/post-init-flycheck ()
+  ;; When user has chosen to use multiple linters.
+  (when (> (safe-length clojure-enable-linters) 1)
+    ;; If adding a linter, you must add to checkers-per-mode for each mode
+    ;; it can support the mapping from the linter name in clojure-enable-linters
+    ;; to the flycheck checker to use to add to flycheck.
+    (let* ((checkers-per-mode '((clj . ((clj-kondo . clj-kondo-clj)
+                                        (joker . clojure-joker)
+                                        (squiggly . clojure-cider-eastwood)))
+                                (cljc . ((clj-kondo . clj-kondo-cljc)
+                                         (joker . clojure-joker)))
+                                (cljs . ((clj-kondo . clj-kondo-cljs)
+                                         (joker . clojurescript-joker)))
+                                (edn . ((clj-kondo . clj-kondo-edn)
+                                        (joker . edn-joker))))))
+      ;; For each checker mode
+      (dolist (mode-checkers checkers-per-mode)
+        ;; We find the first checker in order from the user configured linters which
+        ;; the mode supports and make it the primary-linter. All other linters after that
+        ;; the mode support is made a next-linter. Finally, we extract the checkers of the
+        ;; primary linter and the next linters.
+        (let* ((checkers (cdr mode-checkers))
+               (primary-linter (seq-find (lambda (l)
+                                           (assq l checkers))
+                                         clojure-enable-linters))
+               (primary-checker (cdr (assq primary-linter checkers)))
+               (next-linters (seq-filter (lambda (l)
+                                           (and (not (eq l primary-linter))
+                                                (assq l checkers)))
+                                         clojure-enable-linters))
+               (next-checkers (mapcar (lambda (l)
+                                        (cdr (assq l checkers)))
+                                      next-linters)))
+          ;; Move primary checker to the front of flycheck lists of checkers so that
+          ;; it is used as the primary checker, because flycheck picks the first one
+          ;; it finds.
+          (delq primary-checker flycheck-checkers)
+          (push primary-checker flycheck-checkers)
+          ;; For every checker, set their next checkers, starting with the primary
+          ;; checker which has all others has a next-checker, and then the next
+          ;; one has all the ones after it, and so on, until the last one which
+          ;; has no next-checker to be added. This is because flycheck next-checkers
+          ;; must be nested if we want more than two to run. It will pick the first
+          ;; available next-checker from next-checkers and run that after. If we want
+          ;; a checker after that one, it must also have next-checkers configured.
+          (let ((checkers-to-add next-checkers))
+            (dolist (checker (cons primary-checker next-checkers))
+              (dolist (next-checker checkers-to-add)
+                (flycheck-add-next-checker checker next-checker t))
+              (setq checkers-to-add (cdr checkers-to-add))))))))
   (spacemacs|forall-clojure-modes m
     (spacemacs/enable-flycheck m)))
 
 (defun clojure/init-flycheck-clojure ()
   (use-package flycheck-clojure
+    :if (configuration-layer/package-usedp 'flycheck)
+    :config (progn
+              (flycheck-clojure-setup)
+              (with-eval-after-load 'cider
+                (flycheck-clojure-inject-jack-in-dependencies)))))
+
+(defun clojure/init-flycheck-clj-kondo ()
+  (use-package flycheck-clj-kondo
+    :if (configuration-layer/package-usedp 'flycheck)))
+
+(defun clojure/init-flycheck-joker ()
+  (use-package flycheck-joker
     :if (configuration-layer/package-usedp 'flycheck)))

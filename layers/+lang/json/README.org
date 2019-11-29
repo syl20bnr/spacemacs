@@ -12,6 +12,7 @@
   - [[#web-beautify][web-beautify]]
   - [[#prettier][prettier]]
   - [[#choosing-a-formatter][Choosing a formatter]]
+  - [[#formatting-on-save][Formatting on save]]
 - [[#usage][Usage]]
   - [[#reformat][Reformat]]
   - [[#display-navigable-hierarchy][Display navigable hierarchy]]
@@ -60,6 +61,13 @@ Formatter can be chosen on a per project basis using directory local variables
 #+END_SRC
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
+
+** Formatting on save
+To enable using the selected formatter on save, set the layer variable =json-fmt-on-save=:
+
+#+BEGIN_SRC elisp
+  (json :variables json-fmt-on-save t)
+#+END_SRC
 
 * Usage
 ** Reformat

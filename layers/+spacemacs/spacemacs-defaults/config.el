@@ -81,9 +81,9 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Text
 (setq longlines-show-hard-newlines t)
 
-;; Use system trash for file deletion
-;; should work on Windows and Linux distros
-;; on OS X, see contrib/osx layer
+;; Use system trash for file deletion.
+;; This should work on Windows and Linux distros.
+;; For macOS, see the osx layer.
 (setq delete-by-moving-to-trash t)
 
 ;; auto fill breaks line beyond buffer's fill-column

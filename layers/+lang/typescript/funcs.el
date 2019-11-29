@@ -12,21 +12,29 @@
 
 ;; backend
 
+(defun spacemacs//typescript-backend ()
+  "Returns selected backend."
+  (if typescript-backend
+      typescript-backend
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'tide))))
+
 (defun spacemacs//typescript-setup-backend ()
   "Conditionally setup typescript backend."
-  (pcase typescript-backend
+  (pcase (spacemacs//typescript-backend)
     (`tide (spacemacs//typescript-setup-tide))
     (`lsp (spacemacs//typescript-setup-lsp))))
 
 (defun spacemacs//typescript-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase typescript-backend
+  (pcase (spacemacs//typescript-backend)
     (`tide (spacemacs//typescript-setup-tide-company))
     (`lsp (spacemacs//typescript-setup-lsp-company))))
 
 (defun spacemacs//typescript-setup-eldoc ()
   "Conditionally setup eldoc based on backend."
-  (pcase typescript-backend
+  (pcase (spacemacs//typescript-backend)
     (`tide (spacemacs//typescript-setup-tide-eldoc))
     (`lsp (spacemacs//typescript-setup-lsp-eldoc))))
 
@@ -61,7 +69,10 @@
 (defun spacemacs//typescript-setup-lsp ()
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
-      (lsp)
+      (progn
+        (when (not typescript-lsp-linter)
+          (setq-local lsp-prefer-flymake :none))
+        (lsp))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
 
@@ -75,8 +86,7 @@
           :variables company-minimum-prefix-length 2
           :append-hooks nil
           :call-hooks t)
-        (company-mode)
-        (fix-lsp-company-prefix))
+        (company-mode))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
 
@@ -165,3 +175,7 @@
   (dolist (value values)
     (add-to-list 'safe-local-variable-values
                  (cons 'typescript-backend value))))
+
+(defun spacemacs//typescript-setup-checkers ()
+  (when-let* ((found (executable-find "eslint_d")))
+    (set (make-local-variable 'flycheck-javascript-eslint-executable) found)))

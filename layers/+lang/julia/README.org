@@ -29,34 +29,34 @@ add =julia= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** LSP
-Warning: enabling the LSP functionality within this package can cause emacs to
-hang for significant lengths of time when opening a Julia file. See tip below on
-using PackageCompiler.jl to mitigate this issue.
-
-This layer can be used with [[https://github.com/JuliaEditorSupport/LanguageServer.jl][=LanguageServer.jl=]] and emacs [[https://github.com/emacs-lsp/lsp-mode][=lsp-mode=]] to provide
+This layer can be used with [[https://github.com/JuliaEditorSupport/LanguageServer.jl][LanguageServer.jl]] and Emacs [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] to provide
 richer, IDE-like capabilities. To use this layer with lsp, you must do the
 following:
-1. Add =lsp= to =dotspacemacs-configuration-layers=.
-2. Install =LanguageServer.jl= by invoking =Pkg.add("LanguageServer")= in the
-   Julia REPL.
-3. Enable layer integration with lsp as described in section below.
+1. =LanguageServer.jl= should be configured automatically, if not, see the
+   documentation of =lsp-julia=.
+2. define the layer variable =julia-backend= to =lsp= in your dotfile
+
+To enable language server functionality with this layer, follow the instructions
+for installation, and then install this layer with:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default
+   dotspacemacs-configuration-layers
+   '(
+     (julia :variables julia-mode-enable-lsp t)))
+#+END_SRC
+
+Warning: [[https://github.com/JuliaEditorSupport/LanguageServer.jl][LanguageServer.jl]] has not yet been released for Julia 1.0. If you are
+using this layer with Julia 1.0, =julia-mode-enable-lsp= should be set to =nil=.
 
 =LanguageServer.jl= tends to have a very long startup time. In the worst case,
 =lsp-mode= might give up on the language server before its started, but
 regardless usage of =lsp-mode= with Julia can cause long delays when first
-opening files. To mitigate this issue, you can try compiling =LanguageServer.jl=
-ahead of time using [[https://github.com/JuliaLang/PackageCompiler.jl][=PackageCompiler.jl=]]. This drastically reduces startup time
-if successful:
-
-#+BEGIN_SRC julia
-  julia> Pkg.add("PackageCompiler")
-  julia> using PackageCompiler
-  julia> compile_package("LanguageServer")
-#+END_SRC
+opening files. 
 
 * Options
 While =julia-mode= is perfectly usable without configuration or other packages,
-you can choose to replace the default functionality of using [[https://github.com/tpapp/julia-repl/][=julia-repl=]] as the
+you can choose to replace the default functionality of using [[https://github.com/tpapp/julia-repl/][julia-repl]] as the
 layer's interactive REPL with the ess REPL and other functionality that comes
 with it. To do so, install this layer with:
 
@@ -67,29 +67,41 @@ with it. To do so, install this layer with:
      (julia :variables julia-mode-enable-ess t)))
 #+END_SRC
 
-This layer also includes experimental support for =lsp-mode=. To enable language
-server functionality with this layer, follow [[#lsp][the instructions for installation]],
-and then install this layer with:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default
-   dotspacemacs-configuration-layers
-   '(
-     (julia :variables julia-mode-enable-lsp t)))
-#+END_SRC
-
-Warning: [[https://github.com/JuliaEditorSupport/LanguageServer.jl][=LanguageServer.jl=]] has not yet been released for Julia 1.0. If you are
-using this layer with Julia 1.0, =julia-mode-enable-lsp= should be set to =nil=.
-
 * Key bindings
 
-| Key binding | Description                                                |
-|-------------+------------------------------------------------------------|
-| ~SPC m h h~ | Calls ~@doc~ macro on symbol under cursor.                 |
-| ~SPC m e m~ | Expands macro under cursor.                                |
-| ~SPC m w~   | Calls ~workspace()~ in Repl to give clean namespace.       |
-| ~SPC e l~   | Expands latex macro (e.g. =\delta=).                       |
-| ~SPC m s b~ | Sends buffer to REPL.                                      |
-| ~SPC m s l~ | Sends line to REPL.                                        |
-| ~SPC m s r~ | Sends region to REPL.                                      |
-| ~SPC m r~   | Brings up Julia Repl (starts new one or focuses existing). |
+| Key binding | Description                                                                            |
+|-------------+----------------------------------------------------------------------------------------|
+| ~TAB~       | Expands latex macro (e.g. =\delta=).                                                   |
+| ~SPC m l~   | Expands latex macro (e.g. =\delta=).                                                   |
+|-------------+----------------------------------------------------------------------------------------|
+| ~SPC m = =~ | Indent line                                                                            |
+| ~SPC m = d~ | Deindent line                                                                          |
+| ~SPC m = q~ | Indent Sexp                                                                            |
+|-------------+----------------------------------------------------------------------------------------|
+| ~SPC m '~   | Brings up Julia Repl (starts new one or focuses existing).                             |
+| ~SPC m r~   | Brings up Julia Repl (starts new one or focuses existing).                             |
+| ~SPC m h h~ | Calls ~@doc~ macro on symbol under cursor.                                             |
+|-------------+----------------------------------------------------------------------------------------|
+| ~SPC m s a~ | Activate the project of the current buffer (call with prefix to activate home project) |
+| ~SPC m s d~ | ~cd~ into the buffer directory                                                         |
+| ~SPC m s i~ | Brings up Julia Repl (starts new one or focuses existing).                             |
+| ~SPC m s b~ | Sends buffer to REPL.                                                                  |
+| ~SPC m s t~ | Sends buffer to REPL via ~Revise.includet~.                                            |
+| ~SPC m s l~ | Sends line to REPL.                                                                    |
+| ~SPC m s s~ | Sends line to REPL.                                                                    |
+| ~SPC m s r~ | Sends region or line to REPL.                                                          |
+| ~SPC m s m~ | Call ~@macroexpand~ on an expression                                                   |
+| ~SPC m s e~ | Call ~@edit~ on an expression                                                          |
+| ~SPC m s v~ | Prompt and set a Julia REPL inferior buffer name for the current buffer                |
+|-------------+----------------------------------------------------------------------------------------|
+| ~SPC m e a~ | Activate the project of the current buffer (call with prefix to activate home project) |
+| ~SPC m e d~ | ~cd~ into the buffer directory                                                         |
+| ~SPC m e i~ | Brings up Julia Repl (starts new one or focuses existing).                             |
+| ~SPC m e b~ | Sends buffer to REPL.                                                                  |
+| ~SPC m e t~ | Sends buffer to REPL via ~Revise.includet~.                                            |
+| ~SPC m e l~ | Sends line to REPL.                                                                    |
+| ~SPC m e s~ | Sends line to REPL.                                                                    |
+| ~SPC m e r~ | Sends region or line to REPL.                                                          |
+| ~SPC m e m~ | Call ~@macroexpand~ on an expression                                                   |
+| ~SPC m e e~ | Call ~@edit~ on an expression                                                          |
+| ~SPC m e v~ | Prompt and set a Julia REPL inferior buffer name for the current buffer                |

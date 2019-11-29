@@ -28,10 +28,12 @@
   - [[#fill-column][Fill column]]
   - [[#sort-imports][Sort imports]]
   - [[#importmagic][Importmagic]]
+  - [[#pyvenv-pyenv-and-pipenv][Pyvenv, pyenv and pipenv]]
 - [[#management-of-python-versions-and-virtual-environments][Management of Python versions and virtual environments]]
   - [[#manage-virtual-environments-with-pyvenv][Manage virtual environments with pyvenv]]
   - [[#manage-multiple-python-versions-with-pyenv][Manage multiple Python versions with pyenv]]
     - [[#automatic-activation-of-local-pyenv-version][Automatic activation of local pyenv version]]
+  - [[#manage-environments-and-packages-with-pipenv][Manage environments and packages with pipenv]]
 - [[#key-bindings][Key bindings]]
   - [[#inferior-repl-process][Inferior REPL process]]
   - [[#running-python-script-in-shell][Running Python Script in shell]]
@@ -55,7 +57,7 @@ This layer adds support for the Python language.
 - Code Navigation
 - Documentation Lookup using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] and [[https://github.com/tsgates/pylookup][pylookup]]
 - Test Runners using [[https://github.com/syl20bnr/nose.el][nose.el]] or [[https://github.com/ionrock/pytest-el][pytest]]
-- Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]]
+- Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]] as well as [[https://github.com/pypa/pipenv][pipenv]]
 - semantic mode is enabled
 - PEP8 compliant formatting via [[https://github.com/google/yapf][YAPF]] or [[https://github.com/ambv/black][black]]
 - PEP8 checks with [[https://pypi.python.org/pypi/flake8][flake8]] or [[https://pypi.python.org/pypi/pylint/1.6.4][pylint]]
@@ -64,6 +66,7 @@ This layer adds support for the Python language.
 - Sort imports with [[https://pypi.python.org/pypi/isort][isort]]
 - Fix a missing import statement with [[https://github.com/anachronic/importmagic.el][importmagic]]
 - Pip package manager with [[https://github.com/brotzeit/pippel][pippel]]
+- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 * Install
 ** Layer
@@ -77,6 +80,9 @@ To choose a default backend set the layer variable =python-backend=:
 #+BEGIN_SRC elisp
   (python :variables python-backend 'anaconda)
 #+END_SRC
+
+Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
+is used and you did not specify any value for =python-backend=.
 
 Backend can be chosen on a per project basis using directory local variables
 (files named =.dir-locals.el= at the root of a project), an example to use the
@@ -111,10 +117,10 @@ opening a python buffer:
 To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anaconda-mode/wiki][anaconda-deps]] by hand:
 
 #+BEGIN_SRC sh
-  pip install --upgrade "jedi>=0.9.0" "json-rpc>=1.8.1" "service_factory>=0.1.5"
+  pip install --upgrade "jedi>=0.13.0" "json-rpc>=1.8.1" "service_factory>=0.1.5"
 #+END_SRC
 
-If you encounter problems with Jedi 1.0 consider downgrading to 0.9.0. See [[https://github.com/davidhalter/jedi/issues/873][this
+If you encounter problems with Jedi 1.0 consider downgrading to 0.13.0. See [[https://github.com/davidhalter/jedi/issues/873][this
 issue]] for details.
 
 Source: [[https://github.com/proofit404/anaconda-mode#issues]]
@@ -222,8 +228,8 @@ directory local variable in your project root. ~SPC f v d~ in Spacemacs. See
 The root of the project is detected with a =.git= directory or a =setup.cfg= file.
 
 ** Buffer formatting
-One of [[https://github.com/google/yapf][YAPF]] (the default) or [[https://github.com/ambv/black][black]] may be selected as the formatter, via
-=python-formatter=, as ='yapf= or ='black= respectively.
+One of [[https://github.com/google/yapf][YAPF]] (the default), [[https://github.com/ambv/black][black]] or =lsp= may be selected as the formatter, via
+=python-formatter=, as ='yapf=, ='black= or =lsp= respectively.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
@@ -231,11 +237,11 @@ One of [[https://github.com/google/yapf][YAPF]] (the default) or [[https://githu
 #+END_SRC
 
 The key binding ~SPC m =~ invokes the selected formatter on the current buffer
-when in python mode.
+when in non LSP python mode otherwise ~SPC m ==~ is used.
 
-Note that YAPF and black may also be invoked unconditionally via
-=yapfify-buffer= and =blacken-buffer=, respectively, provided that they are
-installed.
+Note that a specific formatter may also be invoked unconditionally via
+=yapfify-buffer=, =blacken-buffer= or =lsp-format-buffer=, provided
+these are installed.
 
 ** Automatic buffer formatting on save
 To enable automatic buffer formatting on save set the variable
@@ -303,6 +309,20 @@ Install importmagic and epc for importmagic functionality.
   pip install importmagic epc
 #+END_SRC
 
+** Pyvenv, pyenv and pipenv
+Sometimes, it is convenient to be able to use python virtual environments from
+other modes. For this reason, the python layer provides the variables
+=spacemacs--python-pyenv-modes=, =spacemacs--python-pyvenv-modes= and
+=spacemacs--python-pipenv-modes=. If you wish to be able to access these
+functionalities from other modes, in your user config section, do:
+
+#+BEGIN_SRC elisp
+  (add-to-list 'spacemacs--python-pipenv-mode 'your-mode)
+#+END_SRC
+
+This will allow you to use [[https://github.com/pwalsh/pipenv.el][pipenv]] bindings from the mode your-mode.
+You can add to the other two lists analogously.
+
 * Management of Python versions and virtual environments
 ** Manage virtual environments with pyvenv
 A virtual environment provides isolation of your Python package versions. For a
@@ -321,7 +341,7 @@ by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides
 
 ** Manage multiple Python versions with pyenv
 If you need multiple Python versions (e.g. Python 2 and Python 3) then take a
-look at [[https://github.com/yyuu/pyenv][pyenv]]. It enables the installation and managment of multiple
+look at [[https://github.com/yyuu/pyenv][pyenv]]. It enables the installation and management of multiple
 Python versions.
 [[https://www.brianthicks.com/post/2015/04/15/automate-your-python-environment-with-pyenv/][This blogpost]] gives a good overview on how to use the tool. Spacemacs
 integration is provided by [[https://github.com/proofit404/pyenv-mode][pyenv mode]] which has the following key bindings.
@@ -345,11 +365,31 @@ the pyenv version. The behavior can be set with the variable
 - =on-project-switch= set the version when you switch projects,
 - =nil= to disable.
 
-The same is also possible on pyvenv with a file called =.venv=. The behavior
-can be set with the variable =python-auto-set-local-pyvenv-virtualenv== to:
+The same is also possible on pyvenv with a file called =.venv= that specifies
+either an absolute or relative path to a virtualenv directory. A relative path
+is checked relative to the location of =.venv=, then relative to
+=pyvenv-workon-home=. =.venv= can also be a virtualenv directory. The behavior
+can be set with the variable =python-auto-set-local-pyvenv-virtualenv= to:
 - =on-visit= (default) set the virtualenv when you visit a python buffer,
 - =on-project-switch= set the virtualenv when you switch projects,
 - =nil= to disable.
+
+** Manage environments and packages with pipenv
+[[https://pipenv.kennethreitz.org/en/latest/][Pipenv]] is the new standard tool to manage your virtual environments. It can act as
+a replacement for both =pyenv= and =venv= on a per-repository basis. An overview
+of how to use the tool is provided [[https://pipenv.kennethreitz.org/en/latest/basics/][here]].
+
+Spacemacs integration for pipenv is provided by the [[https://github.com/pwalsh/pipenv.el][pipenv package]].
+It provides the following key bindings:
+
+| Key binding   | Description                                                |
+|---------------+------------------------------------------------------------|
+| ~SPC m v p a~ | activate a pipenv environment with [[https://github.com/pwalsh/pipenv.el][pipenv]]                  |
+| ~SPC m v p d~ | deactivate a pipenv environment with [[https://github.com/pwalsh/pipenv.el][pipenv]]                |
+| ~SPC m v p i~ | install a package into a virtual environment with [[https://github.com/pwalsh/pipenv.el][pipenv]]   |
+| ~SPC m v p o~ | open an installed module in a new buffer with [[https://github.com/pwalsh/pipenv.el][pipenv]]       |
+| ~SPC m v p s~ | open a shell buffer in the current environment with [[https://github.com/pwalsh/pipenv.el][pipenv]] |
+| ~SPC m v p u~ | uninstall a package from a virtual environment with [[https://github.com/pwalsh/pipenv.el][pipenv]] |
 
 * Key bindings
 ** Inferior REPL process
@@ -445,72 +485,29 @@ Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][li
 
 ** Other Python commands
 
-| Key binding   | Description                                                                       |
-|---------------+-----------------------------------------------------------------------------------|
-| ~SPC m =~     | reformat the buffer using formatter specified in =python-formatter=               |
-| ~SPC m d b~   | toggle a breakpoint using =wdb=, =ipdb=, =pudb=, =pdb= or =python3.7= (and above) |
-| ~SPC m g a~   | go to assignment using =anaconda-mode-find-assignments= (~C-o~ to jump back)      |
-| ~SPC m g b~   | jump back                                                                         |
-| ~SPC m g g~   | go to definition using =anaconda-mode-find-definitions= (~C-o~ to jump back)      |
-| ~SPC m g u~   | navigate between usages with =anaconda-mode-find-references=                      |
-| ~SPC m h d~   | look for documentation using =helm-pydoc=                                         |
-| ~SPC m h h~   | quick documentation using anaconda                                                |
-| ~SPC m h H~   | open documentation in =firefox= using [[https://github.com/tsgates/pylookup][pylookup]]                                    |
-| ~SPC m v a~   | activate a virtual environment in any directory                                   |
-| ~SPC m v d~   | deactivate active virtual environment                                             |
-| ~SPC m v s~   | set a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]                                                |
-| ~SPC m v u~   | unset a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]                                              |
-| ~SPC m v w~   | work on virtual environment in =WORKON_HOME=                                      |
-| ~SPC m v p a~ | activate pipenv in current project                                                |
-| ~SPC m v p d~ | deactivate pipenv in current project                                              |
-| ~SPC m v p i~ | install module into pipenv environment                                            |
-| ~SPC m v p o~ | open pipenv module in buffer                                                      |
-| ~SPC m v p s~ | launch pipenv shell in current project                                            |
-| ~SPC m v p u~ | uninstall module from pipenv environment                                          |
+| Key binding              | Description                                                                       |
+|--------------------------+-----------------------------------------------------------------------------------|
+| ~SPC m =~ or ~SPC m = =~ | reformat the buffer using default formatter specified in =python-formatter=       |
+| ~SPC m d b~              | toggle a breakpoint using =wdb=, =ipdb=, =pudb=, =pdb= or =python3.7= (and above) |
+| ~SPC m g a~              | go to assignment using =anaconda-mode-find-assignments= (~C-o~ to jump back)      |
+| ~SPC m g b~              | jump back                                                                         |
+| ~SPC m g g~              | go to definition using =anaconda-mode-find-definitions= (~C-o~ to jump back)      |
+| ~SPC m g u~              | navigate between usages with =anaconda-mode-find-references=                      |
+| ~SPC m h d~              | look for documentation using =helm-pydoc=                                         |
+| ~SPC m h h~              | quick documentation using anaconda                                                |
+| ~SPC m h H~              | open documentation in =firefox= using [[https://github.com/tsgates/pylookup][pylookup]]                                    |
+| ~SPC m v a~              | activate a virtual environment in any directory                                   |
+| ~SPC m v d~              | deactivate active virtual environment                                             |
+| ~SPC m v s~              | set a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]                                                |
+| ~SPC m v u~              | unset a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]                                              |
+| ~SPC m v w~              | work on virtual environment in =WORKON_HOME=                                      |
+| ~SPC m v p a~            | activate pipenv in current project                                                |
+| ~SPC m v p d~            | deactivate pipenv in current project                                              |
+| ~SPC m v p i~            | install module into pipenv environment                                            |
+| ~SPC m v p o~            | open pipenv module in buffer                                                      |
+| ~SPC m v p s~            | launch pipenv shell in current project                                            |
+| ~SPC m v p u~            | uninstall module from pipenv environment                                          |
 
 ** Debugger
-
-| Key binding   | Description                     |
-|---------------+---------------------------------|
-| ~SPC m d d d~ | start debugging                 |
-| ~SPC m d d l~ | debug last configuration        |
-| ~SPC m d d r~ | debug recent configuration      |
-|---------------+---------------------------------|
-| ~SPC m d c~   | continue                        |
-| ~SPC m d i~   | step in                         |
-| ~SPC m d o~   | step out                        |
-| ~SPC m d s~   | next step                       |
-| ~SPC m d v~   | inspect value at point          |
-| ~SPC m d r~   | restart frame                   |
-|---------------+---------------------------------|
-| ~SPC m d .~   | debug transient state           |
-|---------------+---------------------------------|
-| ~SPC m d a~   | abandon current session         |
-| ~SPC m d A~   | abandon all process             |
-|---------------+---------------------------------|
-| ~SPC m d e e~ | eval                            |
-| ~SPC m d e r~ | eval region                     |
-| ~SPC m d e t~ | eval value at point             |
-|---------------+---------------------------------|
-| ~SPC m d S s~ | switch session                  |
-| ~SPC m d S t~ | switch thread                   |
-| ~SPC m d S f~ | switch frame                    |
-|---------------+---------------------------------|
-| ~SPC m d I i~ | inspect                         |
-| ~SPC m d I r~ | inspect region                  |
-| ~SPC m d I t~ | inspect value at point          |
-|---------------+---------------------------------|
-| ~SPC m d b b~ | toggle a breakpoint             |
-| ~SPC m d b c~ | change breakpoint condition     |
-| ~SPC m d b l~ | change breakpoint log condition |
-| ~SPC m d b h~ | change breakpoint hit count     |
-| ~SPC m d b a~ | add a breakpoint                |
-| ~SPC m d b d~ | delete a breakpoint             |
-| ~SPC m d b D~ | clear all breakpoints           |
-|---------------+---------------------------------|
-| ~SPC m d '_~  | Run debug REPL                  |
-|---------------+---------------------------------|
-| ~SPC m d w l~ | list local variables            |
-| ~SPC m d w o~ | goto output buffer if present   |
-| ~SPC m d w s~ | list sessions                   |
-| ~SPC m d w b~ | list breakpoints                |
+Using the =dap= layer you'll get access to all the DAP key bindings, see the
+complete list of key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].

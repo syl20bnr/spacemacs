@@ -58,7 +58,7 @@ The version is displayed on the upper right corner of the loading screen. You
 may also just type ~SPC f e v~.
 
 ** What is the official pronunciation of Spacemacs?
-As it is written, that is _space_ then _macs_.
+It's _space_ then _macs_.
 
 ** Why do you call this a "distribution", I don't see any "Spacemacs" executable?
 Although we could do it we don't package Emacs with Spacemacs. We allow users to
@@ -338,12 +338,7 @@ Examples:
 Add the following snippet to your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-  ;; Make evil-mode up/down operate in screen lines instead of logical lines
-  (define-key evil-motion-state-map "j" 'evil-next-visual-line)
-  (define-key evil-motion-state-map "k" 'evil-previous-visual-line)
-  ;; Also in visual mode
-  (define-key evil-visual-state-map "j" 'evil-next-visual-line)
-  (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
+  (spacemacs/toggle-visual-line-navigation-globally-on)
 #+END_SRC
 
 ** Disable evilification of a mode?
@@ -357,7 +352,7 @@ You can also do this using buffer name regular expressions. E.g. for magit,
 which has a number of different major modes, you can catch them all with
 
 #+BEGIN_SRC emacs-lisp
-  (push '("*magit" . emacs) evil-buffer-regexps)
+  (push '("magit*" . emacs) evil-buffer-regexps)
 #+END_SRC
 
 This should make all original magit bindings work in the major modes in

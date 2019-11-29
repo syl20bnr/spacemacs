@@ -30,6 +30,8 @@
     :config
     (progn
       (setq fcitx-active-evil-states '(insert emacs hybrid))
+      (when chinese-use-fcitx5
+        (setq fcitx-remote-command "fcitx5-remote"))
       (fcitx-default-setup)
       (fcitx-prefix-keys-add "M-m" "C-M-m")
       (when chinese-fcitx-use-dbus

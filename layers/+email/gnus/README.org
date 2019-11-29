@@ -111,15 +111,16 @@ Please see the [[http://www.gnus.org/manual.html][manual]] for a complete list.
 
 Basic and Spacemacs specific key bindings can be found in the following table.
 
-| Key binding | Gnus mode - Description                             |
-|-------------+-----------------------------------------------------|
-| ~SPC a g~   | Starts Gnus                                         |
-| ~m~         | New Message                                         |
-| ~G R~       | Group Buffer - Add RSS feed                         |
-| ~^~         | Open Server Buffer. Browse Newsgroups.              |
-| ~T n~       | Group Buffer - new Topic                            |
-| ~T m~       | Group Buffer - Move Group to Topic                  |
-| ~K~         | Article Buffer - Previous article                   |
-| ~J~         | Article Buffer - Next article                       |
-| ~RET~       | Summary Buffer(RSS) - Open article Link in browser  |
-| ~TAB~       | Summary Buffer(RSS) - Open article and switch to it |
+| Key binding          | Gnus mode - Description                             |
+|----------------------+-----------------------------------------------------|
+| ~SPC a g~            | Starts Gnus                                         |
+| ~m~                  | New Message                                         |
+| ~O R~, ~G R~ (emacs) | Group Buffer - Add RSS feed                         |
+| ~g r~                | Group Buffer - Check for new mail                   |
+| ~^~                  | Open Server Buffer. Browse Newsgroups.              |
+| ~T n~                | Group Buffer - new Topic                            |
+| ~T m~                | Group Buffer - Move Group to Topic                  |
+| ~K~                  | Article Buffer - Previous article                   |
+| ~J~                  | Article Buffer - Next article                       |
+| ~RET~                | Summary Buffer(RSS) - Open article Link in browser  |
+| ~TAB~                | Summary Buffer(RSS) - Open article and switch to it |

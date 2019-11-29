@@ -9,6 +9,9 @@
 ;;
 ;;; License: GPLv3
 
+(defvar spacemacs--smerge-ts-full-hint-toggle nil
+  "Display smerge transient-state documentation.")
+
 (defvar version-control-global-margin t
   "If non-nil, will show diff margins globally.")
 

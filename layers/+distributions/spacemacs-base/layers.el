@@ -9,4 +9,8 @@
 ;;
 ;;; License: GPLv3
 
+;; We use `spacemacs/declare-layers' instead of
+;; `configuration-layer/declare-layer-dependencies' in order to declare
+;; the layers right away
+;; This is a special case only for distribution layers.
 (configuration-layer/declare-layers '(spacemacs-defaults))

@@ -23,6 +23,9 @@
 (defvar chinese-enable-fcitx nil
   "Enable fcitx to help writing Chinese in Evil mode.")
 
+(defvar chinese-use-fcitx5 nil
+  "Enable fcitx5 instead fcitx4.")
+
 (defvar chinese-fcitx-use-dbus nil
   "Use dbus interface for fcitx.el.")
 
@@ -36,6 +39,6 @@
 
 ;; If the Hiragino Sans GB font is not found in your system, you could call this
 ;; method in dotspacemacs/user-config function with a different Chinese font name.
-;; If you are using mac, you could put the following code in your dotspacemacs/user-config function.
+;; If you are using macOS, you could put the following code in your dotspacemacs/user-config function.
 ;; (when (spacemacs/system-is-mac)
 ;;   (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16))

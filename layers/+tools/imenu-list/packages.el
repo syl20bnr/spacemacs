@@ -27,7 +27,7 @@
     (progn
       (setq imenu-list-focus-after-activation t
             imenu-list-auto-resize t)
-      (spacemacs/set-leader-keys "bi" #'imenu-list-smart-toggle))
+      (spacemacs/set-leader-keys "bt" #'imenu-list-smart-toggle))
     :config
     (evilified-state-evilify-map imenu-list-major-mode-map
       :mode imenu-list-major-mode

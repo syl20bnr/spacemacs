@@ -17,6 +17,7 @@
         ob-hy
         pyenv-mode
         pyvenv
+        pipenv
         smartparens
         ))
 
@@ -48,7 +49,7 @@
       (spacemacs/declare-prefix-for-mode 'hy-mode "mv" "pyvenv")
       (spacemacs/declare-prefix-for-mode 'hy-mode "mh" "help")
       (spacemacs/set-leader-keys-for-major-mode 'hy-mode
-        "'" 'hy-shell-start-or-switch-to-shell
+        "'" 'run-hy
 
         "dd" 'hy-insert-pdb
         "dt" 'hy-insert-pdb-threaded
@@ -58,7 +59,7 @@
         "eB" 'spacemacs/hy-shell-eval-buffer-and-go
         "ec" 'hy-shell-eval-current-form
         "eC" 'spacemacs/hy-shell-eval-current-form-and-go
-        "ei" 'hy-shell-start-or-switch-to-shell
+        "ei" 'run-hy
         "er" 'hy-shell-eval-region
         "eR" 'spacemacs/hy-shell-eval-region-and-go
 
@@ -87,6 +88,9 @@
 
 (defun hy/pre-init-pyvenv ()
   (add-to-list 'spacemacs--python-pyvenv-modes 'hy-mode))
+
+(defun hy/pre-init-pipenv ()
+  (add-to-list 'spacemacs--python-pipenv-modes 'hy-mode))
 
 (defun hy/post-init-smartparens ()
   (add-hook 'hy-mode-hook 'smartparens-mode))

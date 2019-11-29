@@ -64,6 +64,8 @@
           "k"   'TeX-kill-job                                ;; C-c C-k
           "l"   'TeX-recenter-output-buffer                  ;; C-c C-l
           "m"   'TeX-insert-macro                            ;; C-c C-m
+          "n"   'TeX-next-error                              ;; C-c `
+          "N"   'TeX-previous-error                          ;; M-g p
           "v"   'TeX-view                                    ;; C-c C-v
           ;; TeX-doc is a very slow function
           "hd"  'TeX-doc

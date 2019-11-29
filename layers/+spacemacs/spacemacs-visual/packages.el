@@ -77,7 +77,7 @@
       (push '("*compilation*"          :dedicated t :position bottom :stick t :noselect t   :height 0.4) popwin:special-display-config)
       (push '("*Shell Command Output*" :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
       (push '("*Async Shell Command*"  :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
-      (push '(" *undo-tree*"           :dedicated t :position right  :stick t :noselect nil :width   60) popwin:special-display-config)
+      (push '("*undo-tree*"            :dedicated t :position right  :stick t :noselect nil :width   60) popwin:special-display-config)
       (push '("*undo-tree Diff*"       :dedicated t :position bottom :stick t :noselect nil :height 0.3) popwin:special-display-config)
       (push '("*ert*"                  :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
       (push '("*grep*"                 :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
@@ -96,13 +96,14 @@
         :title "Zoom Frame Transient State"
         :doc "
 [_+_/_=_/_k_] zoom frame in   [_m_] max frame
-[_-_/_j_]^^   zoom frame out  [_f_] fullscreen
+[_-_/___/_j_] zoom frame out  [_f_] fullscreen
 [_0_]^^^^     reset zoom      [_q_] quit"
         :bindings
         ("+" spacemacs/zoom-frm-in)
-        ("k" spacemacs/zoom-frm-in)
         ("=" spacemacs/zoom-frm-in)
+        ("k" spacemacs/zoom-frm-in)
         ("-" spacemacs/zoom-frm-out)
+        ("_" spacemacs/zoom-frm-out)
         ("j" spacemacs/zoom-frm-out)
         ("0" spacemacs/zoom-frm-unzoom)
         ("f" spacemacs/toggle-frame-fullscreen-non-native)

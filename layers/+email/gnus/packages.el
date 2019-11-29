@@ -12,7 +12,17 @@
 (setq gnus-packages '(
                       gnus
                       window-purpose
+                      persp-mode
                       ))
+
+(defun gnus/pre-init-persp-mode ()
+  (spacemacs|use-package-add-hook persp-mode
+    :post-config
+    (progn
+      (spacemacs|define-custom-layout gnus-spacemacs-layout-name
+        :binding gnus-spacemacs-layout-binding
+        :body
+        (call-interactively 'gnus)))))
 
 (defun gnus/init-gnus ()
   "Initialize my package"
@@ -20,7 +30,16 @@
     :defer t
     :commands gnus
     :init
-    (spacemacs/set-leader-keys "ag" 'gnus)
+    (progn (spacemacs/declare-prefix "ag" "gnus" "Gnus newsreader")
+           (spacemacs/set-leader-keys
+             "agg" 'gnus
+             "ags" 'gnus-slave
+             "agu" 'gnus-unplugged
+             "ago" 'gnus-slave-unplugged)
+           (spacemacs/declare-prefix-for-mode 'message-mode "mi" "insert")
+           (spacemacs/set-leader-keys-for-major-mode 'message-mode
+             ;; RFC 1855
+             "miF" 'flame-on))
     :config
     (progn
       ;; No primary server
@@ -61,6 +80,14 @@
 
       (require 'browse-url)
       (require 'nnrss)
+      (defun spacemacs/gnus-flame-on ()
+        "Most important email function, for RFC1855 compliance."
+        ;; https://tools.ietf.org/html/rfc1855
+        (interactive)
+        (insert "FLAME ON:\n")
+        (insert "FLAME OFF\n")
+        (forward-line -2)
+        (end-of-line))
       (defun spacemacs/browse-nnrss-url (arg)
         "Open RSS Article directy in the browser"
         (interactive "p")
@@ -76,7 +103,9 @@
             (gnus-summary-scroll-up arg))))
       (add-to-list 'nnmail-extra-headers nnrss-url-field)
 
-      (evilified-state-evilify gnus-group-mode gnus-group-mode-map)
+      (evilified-state-evilify gnus-group-mode gnus-group-mode-map
+        (kbd "g r") 'gnus-group-get-new-news
+        (kbd "O") 'gnus-group-group-map)
       (evilified-state-evilify gnus-server-mode gnus-server-mode-map)
       (evilified-state-evilify gnus-browse-mode gnus-browse-mode-map)
       (evilified-state-evilify gnus-article-mode gnus-article-mode-map)

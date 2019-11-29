@@ -27,6 +27,7 @@
         magit
         magit-gitflow
         magit-svn
+        org
         (orgit :requires org)
         smeargle
         transient
@@ -77,10 +78,13 @@
     (progn
       (spacemacs/declare-prefix "gl" "links")
       (spacemacs/set-leader-keys
-        "gll" 'spacemacs/git-link
+        "glc" 'git-link-commit
+        "glC" 'spacemacs/git-link-commit-copy-url-only
+        "gll" 'git-link
         "glL" 'spacemacs/git-link-copy-url-only
-        "glc" 'spacemacs/git-link-commit
-        "glC" 'spacemacs/git-link-commit-copy-url-only)
+        "glp" 'spacemacs/git-permalink
+        "glP" 'spacemacs/git-permalink-copy-url-only)
+
       ;; default is to open the generated link
       (setq git-link-open-in-browser t))))
 
@@ -161,7 +165,7 @@
       (spacemacs/set-leader-keys
         "gb"  'spacemacs/git-blame-micro-state
         "gc"  'magit-clone
-        "gff" 'magit-find-file
+        "gfF" 'magit-find-file
         "gfl" 'magit-log-buffer-file
         "gfd" 'magit-diff
         "gi"  'magit-init
@@ -223,7 +227,9 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
       (when git-magit-status-fullscreen
         (setq magit-display-buffer-function
               'magit-display-buffer-fullframe-status-v1))
-      (spacemacs|hide-lighter with-editor-mode))))
+      (spacemacs|hide-lighter with-editor-mode)
+      ;; Workaround for #12747 - org-mode
+      (evil-define-key 'normal magit-blame-read-only-mode-map (kbd "RET") 'magit-show-commit))))
 
 (defun git/init-magit-gitflow ()
   (use-package magit-gitflow
@@ -246,6 +252,13 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
 (defun git/init-orgit ()
   (use-package orgit
     :defer t))
+
+(defun git/post-init-org ()
+  ;; unfold the org headings for a target line
+  (advice-add 'magit-blame-addition :after #'spacemacs/org-reveal-advice)
+  (advice-add 'magit-diff-visit-file :after #'spacemacs/org-reveal-advice)
+  (advice-add 'magit-diff-visit-worktree-file
+              :after #'spacemacs/org-reveal-advice))
 
 (defun git/init-smeargle ()
   (use-package smeargle

@@ -15,6 +15,7 @@
         company
         counsel-gtags
         cython-mode
+        dap-mode
         eldoc
         evil-matchit
         flycheck
@@ -49,19 +50,18 @@
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
-    :if (eq python-backend 'anaconda)
+    :if (eq (spacemacs//python-backend) 'anaconda)
     :defer t
     :init
+    (setq anaconda-mode-installation-directory
+      (concat spacemacs-cache-directory "anaconda-mode"))
+    :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "hh" 'anaconda-mode-show-doc
         "ga" 'anaconda-mode-find-assignments
         "gb" 'xref-pop-marker-stack
         "gu" 'anaconda-mode-find-references)
-      (setq anaconda-mode-installation-directory
-        (concat spacemacs-cache-directory "anaconda-mode")))
-    :config
-    (progn
       ;; new anaconda-mode (2018-06-03) removed `anaconda-view-mode-map' in
       ;; favor of xref. Eventually we need to remove this part.
       (when (boundp 'anaconda-view-mode-map)
@@ -94,7 +94,7 @@
 
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
-    :if (eq python-backend 'anaconda)
+    :if (eq (spacemacs//python-backend) 'anaconda)
     :defer t
     ;; see `spacemacs//python-setup-anaconda-company'
     ))
@@ -113,12 +113,15 @@
 (defun python/init-cython-mode ()
   (use-package cython-mode
     :defer t
-    :init
-    (progn
-      (when (eq python-backend 'anaconda)
-        (spacemacs/set-leader-keys-for-major-mode 'cython-mode
-          "hh" 'anaconda-mode-show-doc
-          "gu" 'anaconda-mode-find-references)))))
+    :config
+    (when (eq (spacemacs//python-backend) 'anaconda)
+      (spacemacs/set-leader-keys-for-major-mode 'cython-mode
+        "hh" 'anaconda-mode-show-doc
+        "gu" 'anaconda-mode-find-references))))
+
+(defun python/pre-init-dap-mode ()
+  (add-to-list 'spacemacs--dap-supported-modes 'python-mode)
+  (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-dap))
 
 (defun python/post-init-eldoc ()
   (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-eldoc))
@@ -187,8 +190,11 @@
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(python . t))))
 
+(defun python/pre-init-pipenv ()
+  (add-to-list 'spacemacs--python-pipenv-modes 'python-mode))
 (defun python/init-pipenv ()
   (use-package pipenv
+    :defer t
     :commands (pipenv-activate
                pipenv-deactivate
                pipenv-shell
@@ -197,13 +203,14 @@
                pipenv-uninstall)
     :init
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'python-mode
-        "vpa" 'pipenv-activate
-        "vpd" 'pipenv-deactivate
-        "vpi" 'pipenv-install
-        "vpo" 'pipenv-open
-        "vps" 'pipenv-shell
-        "vpu" 'pipenv-uninstall))))
+      (dolist (m spacemacs--python-pipenv-modes)
+        (spacemacs/set-leader-keys-for-major-mode m
+          "vpa" 'pipenv-activate
+          "vpd" 'pipenv-deactivate
+          "vpi" 'pipenv-install
+          "vpo" 'pipenv-open
+          "vps" 'pipenv-shell
+          "vpu" 'pipenv-uninstall)))))
 
 (defun python/init-pip-requirements ()
   (use-package pip-requirements
@@ -309,8 +316,7 @@
     (progn
       (spacemacs/register-repl 'python
                                'spacemacs/python-start-or-switch-repl "python")
-      (add-hook 'inferior-python-mode-hook
-                'spacemacs//inferior-python-setup-hook)
+      (spacemacs//bind-python-repl-keys)
       (spacemacs/add-to-hook 'python-mode-hook
                              '(spacemacs//python-setup-backend
                                spacemacs//python-default))
@@ -427,13 +433,16 @@ fix this issue."
   (use-package lsp-python-ms
     :if (eq python-lsp-server 'mspyls)
     :ensure nil
+    :defer t
     :config
-
-    (if python-lsp-git-root
+    (when python-lsp-git-root
       ;; Use dev version of language server checked out from github
-      (progn
-        (setq lsp-python-ms-dir
-          (expand-file-name (concat python-lsp-git-root "/output/bin/Release/")))
-        (message "lsp-python-ms: Using version at `%s'" lsp-python-ms-dir))
+      (setq lsp-python-ms-dir
+            (expand-file-name (concat python-lsp-git-root
+                                      "/output/bin/Release/")))
+      (message "lsp-python-ms: Using version at `%s'" lsp-python-ms-dir)
       ;; Use a precompiled exe
-      (setq lsp-python-ms-executable "Microsoft.Python.LanguageServer"))))
+      (setq lsp-python-ms-executable (concat lsp-python-ms-dir
+                                             "Microsoft.Python.LanguageServer"
+                                             (and (eq system-type 'windows-nt)
+                                                  ".exe"))))))

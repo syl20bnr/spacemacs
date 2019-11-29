@@ -52,6 +52,9 @@ selection.")
 If set to `manual', help tooltip appears only when invoked
 manually.")
 
+(defvar auto-completion-use-company-box nil
+  "If non nil company-box is used.")
+
 (defvar company-mode-completion-cancel-keywords
   '("do"
     "then"
