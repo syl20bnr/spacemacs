@@ -68,7 +68,7 @@
   "Setup lsp auto-completion."
   (spacemacs|add-company-backends
     :backends company-lsp
-    :modes c-mode c++-mode
+    :modes lua-mode
     :append-hooks nil
     :call-hooks t)
   ;; TODO: disable the cache
