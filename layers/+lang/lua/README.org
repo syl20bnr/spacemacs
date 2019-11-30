@@ -47,13 +47,14 @@ then set the layer variable lua-backend to =lsp-emmy=.
 
 =Lsp-emmy= requires a working java installation in the path as well as the path to the LSP server jar.
 The java path and the path to the server executable can be configured as is shown below:
-#+begin_src elisp
+
+#+BEGIN_SRC elisp
   (lua :variables
        lua-backend 'lsp-emmy
        lua-lsp-emmy-jar-path "~/.emacs.d/EmmyLua-LS-all.jar" ; default path
        lua-lsp-emmy-java-path "java"                         ; default path
        lua-lsp-emmy-enable-file-watchers t)                  ; enabled default
-#+end_src
+#+END_SRC
 
 *** Lua mode
 This backend provides support via pure emacs packages. It requires less setup than a full blown LSP setup 
