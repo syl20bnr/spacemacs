@@ -28,20 +28,16 @@
     :defer t
     :mode ("\\.lua\\'" . lua-mode)
     :interpreter ("lua" . lua-mode)
-    :init
-    (progn
-      (spacemacs/register-repl 'lua #'lua-show-process-buffer "lua")
-      (add-hook 'lua-mode-local-vars-hook #'spacemacs//lua-setup-backend))))
+    :init (progn
+            (spacemacs/register-repl 'lua #'lua-show-process-buffer "lua")
+            (add-hook 'lua-mode-local-vars-hook #'spacemacs//lua-setup-backend))))
 
 (defun lua/post-init-company ()
   (add-hook 'lua-mode-local-vars-hook #'spacemacs//lua-setup-company))
 
 (defun lua/init-company-lua ()
   (use-package company-lua
-    :defer t
-    :init (spacemacs|add-company-backends
-            :backends company-lua
-            :modes lua-mode)))
+    :defer t))
 
 (defun lua/post-init-ggtags ()
   (add-hook 'lua-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
@@ -51,4 +47,3 @@
 
 (defun lua/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'lua-mode))
-

@@ -11,7 +11,7 @@
   - [[#layer][Layer]]
   - [[#backends][Backends]]
     - [[#lsp][LSP]]
-      - [[#features-1][Features]]
+    - [[#lua-mode][Lua mode]]
 - [[#key-bindings][Key bindings]]
   - [[#lsp-1][LSP]]
   - [[#commands][Commands]]
@@ -20,10 +20,11 @@
 This layer adds support for editing Lua.
 
 ** Features:
-- LSP with EmmyLua-LS-all.
 - Editing lua files using [[https://github.com/immerrr/lua-mode][lua-mode]]
+- Code-Completion with =company-lsp= or =company-lua=
 - Sending code to a lua REPL
 - Code linting using [[https://github.com/mpeterv/luacheck][Luacheck]]
+- Cross references (definitions, references, rename...)
 
 * Install
 ** Layer
@@ -36,32 +37,27 @@ In order to enable code linting, install [[https://github.com/mpeterv/luacheck][
 ** Backends
 Supported backends are:
 - =lsp-emmy= using clangd LSP server
+- =lua-mode= using emacs package
 
 *** LSP
-LSP support is provided via the [[file:../../+tools/lsp/README.org][LSP layer]], currently only EmmyLua is supported, 
-- [[https://github.com/EmmyLua/EmmyLua-LanguageServer][lsp-emmy]]
+LSP support is provided via the [[file:../../+tools/lsp/README.org][LSP layer]], currently only [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua]] is supported.
 
-To use the =lsp-emmy= backend, please download the [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua-LS-all.jar]] and put
-into =~/.emacs.d/=, then set the layer variables lsp-backend for =lua=:
-#+begin_src elisp
-  (lua :variables lsp-backend 'lsp-emmy)
-#+end_src
+To use the =lsp-emmy= backend, please download the [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua-LS-all.jar]] and put it into =~/.emacs.d/=, 
+then set the layer variable lua-backend to =lsp-emmy=.
 
-The complete layer variables are:
+=Lsp-emmy= requires a working java installation in the path as well as the path to the LSP server jar.
+The java path and the path to the server executable can be configured as is shown below:
 #+begin_src elisp
   (lua :variables
-       lsp-backend 'lsp-emmy
+       lua-backend 'lsp-emmy
        lua-lsp-emmy-jar-path "~/.emacs.d/EmmyLua-LS-all.jar" ; default path
+       lua-lsp-emmy-java-path "java"                         ; default path
        lua-lsp-emmy-enable-file-watchers t)                  ; enabled default
 #+end_src
 
-**** Features
-- Cross references (definitions, references, rename...)
-- Completion with =company-lsp=
-- Syntax checking via flycheck (lsp-ui-flycheck)
-- Cross-platform - functional on Windows, Linux and macOS.
-- Refer https://github.com/EmmyLua/EmmyLua-LanguageServer for details.
-
+*** Lua mode
+This backend provides support via pure emacs packages. It requires less setup than a full blown LSP setup 
+but also provides less features. To enable it just set the =lua-backend= to =nil=.
 
 * Key bindings
 ** LSP
@@ -77,3 +73,4 @@ the [[file:../../+tools/lsp/README.org][LSP layer]].
 | ~SPC m s f~ | send current function to REPL              |
 | ~SPC m s l~ | send current line to REPL                  |
 | ~SPC m s r~ | send current region to REPL                |
+| ~SPC m '~   | open repl buffer                           |

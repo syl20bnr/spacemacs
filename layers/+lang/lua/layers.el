@@ -12,6 +12,3 @@
 (when (and (boundp 'lua-backend)
            (string-match-p "^lsp-.*" (symbol-name lua-backend)))
   (configuration-layer/declare-layer-dependencies '(lsp)))
-
-
-
