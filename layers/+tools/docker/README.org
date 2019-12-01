@@ -11,7 +11,6 @@
   - [[#docker][Docker]]
   - [[#linting][Linting]]
   - [[#lsp][LSP]]
-- [[#options][Options]]
 - [[#usage][Usage]]
   - [[#tramp-access-to-docker-containers][TRAMP access to docker containers]]
 - [[#key-bindings][Key bindings]]
@@ -26,6 +25,7 @@ This layer integrates basic container management into Spacemacs.
 - =Docker= container and image management via [[https://github.com/Silex/docker.el][docker.el]]
 - =docker-compose= integration via [[https://github.com/Silex/docker.el][docker.el]]
 - Syntax checking via [[https://github.com/hadolint/hadolint][hadolint]]
+- Code-Completion via =company-lsp=
 
 * Install
 ** Docker
@@ -37,29 +37,25 @@ You will also need the native package [[https://www.docker.com/][Docker]] for th
 
 ** Linting
 For syntax checking the external library [[https://github.com/hadolint/hadolint][hadolint]] is necessary.
+It can either be downloaded from [[https://github.com/hadolint/hadolint/releases/latest][=here=]] or
+build locally with stack as shown below:
+#+BEGIN_SRC sh
+  stack install hadolint
+#+END_SRC
 
 ** LSP
-This layer can be used with [[https://github.com/rcjsuen/dockerfile-language-server-nodejs][=dockerfile-language-server-nodejs=]] and emacs
+This layer can be enhanced with [[https://github.com/rcjsuen/dockerfile-language-server-nodejs][=dockerfile-language-server-nodejs=]] and emacs
 [[https://github.com/emacs-lsp/lsp-mode][=lsp-mode=]] to provide richer, IDE-like capabilities.
-To use this layer with lsp, you must do the following:
-
-1. Add =lsp= to =dotspacemacs-configuration-layers=.
-2. Install =dockerfile-language-server-nodejs= package with:
-
-   #+BEGIN_SRC sh
-     npm i -g dockerfile-language-server-nodejs
-   #+END_SRC
-
-3. Enable layer integration with lsp as described in section below.
-
-* Options
-This layer also includes experimental support for =lsp-mode=. To enable language
-server functionality with this layer, follow [[#lsp][the instructions for installation]],
-and then install this layer with:
-
+To do so set the layer variable =docker-dockerfile-backend= to =lsp= like shown below:
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '((docker :variables docker-dockerfile-backend 'lsp)))
+#+END_SRC
+
+In addition you need to install the lsp server's executable in your system.
+This can be done via npm:
+#+BEGIN_SRC sh
+  npm i -g dockerfile-language-server-nodejs
 #+END_SRC
 
 * Usage

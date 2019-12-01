@@ -13,5 +13,5 @@
 
 ;; Variables
 
-(defvar docker-dockerfile-backend nil
-  "The backend to use for IDE features. Possible values are `lsp'.")
+(defvar docker-dockerfile-backend 'nil
+  "The backend to use for IDE features. Possible values are `lsp' or `nil'.")
