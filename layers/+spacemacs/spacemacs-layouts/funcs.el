@@ -578,7 +578,7 @@ object."
 WINDOW is the representation of a window in a window-state object."
   (car (spacemacs/window-state-get-buffer window)))
 
-(defun spacemacs/window-state-walk-windows-1 (window fn)
+(defun spacemacs/window-state-walk-windows-1 (window fn result)
   "Helper function for `spacemacs/window-state-walk-windows'."
   ;; WINDOW is a misleading name. WINDOW is a list that can represent a window,
   ;; or a concatenation of several windows. window-state objects are weird.
@@ -589,7 +589,7 @@ WINDOW is the representation of a window in a window-state object."
          (--take-while (not (spacemacs/window-state-window-p it))
                        window)))
     (--each child-windows
-      (spacemacs/window-state-walk-windows-1 it fn))
+      (spacemacs/window-state-walk-windows-1 it fn result))
     (push (funcall fn bare-window) result)))
 
 (defun spacemacs/window-state-walk-windows (state fn)
@@ -597,7 +597,7 @@ WINDOW is the representation of a window in a window-state object."
 FN is a function to execute.
 STATE is a window-state object."
   (let (result)
-    (spacemacs/window-state-walk-windows-1 (cdr state) fn)
+    (spacemacs/window-state-walk-windows-1 (cdr state) fn result)
     result))
 
 (defun spacemacs/window-state-all-windows (state)
