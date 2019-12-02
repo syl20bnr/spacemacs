@@ -55,6 +55,6 @@
       "dd" 'zeal-at-point
       "dD" 'zeal-at-point-set-docset)
     :config
-    ;; This lets users seach in multiple docsets
+    ;; This lets users search in multiple docsets
     (push '(web-mode . "html,css,javascript") zeal-at-point-mode-alist)
     ))

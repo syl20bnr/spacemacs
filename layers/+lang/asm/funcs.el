@@ -24,7 +24,7 @@
 ;; colon and the original point the colon was inserted.
 ;;
 ;; These functions solve that problem. First, check whether we have any
-;; space or tab after point. If so, don't do anything becuase the spaces are
+;; space or tab after point. If so, don't do anything because the spaces are
 ;; there intentionally. If not, we delete all trailing spaces between
 ;; point and colon.
 (defvar asm-colon-has-space nil)

@@ -69,7 +69,7 @@ the final step of executing code in `emacs-startup-hook'.")
   (hidden-mode-line-mode)
   (spacemacs//removes-gui-elements)
   (spacemacs//setup-ido-vertical-mode)
-  ;; explicitly set the prefered coding systems to avoid annoying prompt
+  ;; explicitly set the preferred coding systems to avoid annoying prompt
   ;; from emacs (especially on Microsoft Windows)
   (prefer-coding-system 'utf-8)
   ;; TODO move these variables when evil is removed from the bootstrapped

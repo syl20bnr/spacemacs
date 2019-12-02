@@ -82,7 +82,7 @@
 
       (require 'notifications)
       (defun erc-global-notify (match-type nick message)
-        "Notify when a message is recieved."
+        "Notify when a message is received."
         (notifications-notify
          :title nick
          :body message

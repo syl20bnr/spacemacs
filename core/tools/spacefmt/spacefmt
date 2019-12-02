@@ -20,7 +20,7 @@ then
     exit 1
 fi
 
-#Use "sed" or "gsed" if avaliable.
+#Use "sed" or "gsed" if available.
 seder="sed"
 if hash gsed 2>/dev/null; then
     seder="gsed"

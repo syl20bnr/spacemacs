@@ -89,7 +89,7 @@
 ;;   * not recentering at end of buffer
 ;;   * defvar animate-first-start-p
 ;; 2007-09-14  andre-r
-;;   * inital release
+;;   * initial release
 
 ;; This file is *NOT* part of GNU Emacs.
 

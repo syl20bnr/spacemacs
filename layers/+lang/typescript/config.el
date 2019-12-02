@@ -17,7 +17,7 @@
 (defvar typescript-fmt-tool 'tide
   "The name of the tool to be used
 for TypeScript source code formatting.
-Currently avaliable 'tide (default)
+Currently available 'tide (default)
 and 'typescript-formatter .")
 
 (spacemacs|define-jump-handlers typescript-mode)
