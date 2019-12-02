@@ -2555,6 +2555,7 @@ Other:
 - Made =python-execute-file= use =python-shell-interpreter=
   (thanks to Swaroop C H)
 - Trim output from pyenv command (thanks to Eivind Fonn)
+- Set VIRTUAL_ENV environment variable when switching to new pyenv (thanks to James Gough)
 - Use Python executable from active virtual env to compile files
   (thanks to Swaroop C H)
 - Fixed arguments to =python-setup-hy= (thanks to Eivind Fonn)

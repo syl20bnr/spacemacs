@@ -221,7 +221,9 @@ as the pyenv version then also return nil. This works around https://github.com/
                                        (line-beginning-position)
                                        (line-end-position)))))))
         (if (member version (pyenv-mode-versions))
-            (pyenv-mode-set version)
+            (progn
+              (setenv "VIRTUAL_ENV" version)
+              (pyenv-mode-set version))
           (message "pyenv: version `%s' is not installed (set by %s)"
                    version file-path))))))
 
