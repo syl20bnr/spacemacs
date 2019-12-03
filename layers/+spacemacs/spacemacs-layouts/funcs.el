@@ -596,6 +596,7 @@ WINDOW is the representation of a window in a window-state object."
   "Execute FN once for each window in STATE and make a list of the results.
 FN is a function to execute.
 STATE is a window-state object."
+  (defvar result) ;; use dynamic binding
   (let (result)
     (spacemacs/window-state-walk-windows-1 (cdr state) fn)
     result))
