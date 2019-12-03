@@ -2780,6 +2780,7 @@ Other:
   system databases to speed up semantic (thanks to bet4it)
 - Disabled =semantic-idle-summary-mode= when =gtags= or =lsp= layer is enabled
   (thanks to bet4it)
+- Moved the toggle key bindings to the semantic layer (thanks to duianto)
 **** Shell
 - Key bindings:
   - Added =vterm= bindings:
