@@ -535,14 +535,6 @@ respond to this toggle."
   :mode menu-bar-mode
   :documentation "Display the menu bar."
   :evil-leader "Tm")
-(spacemacs|add-toggle semantic-stickyfunc
-  :mode semantic-stickyfunc-mode
-  :documentation "Enable semantic-stickyfunc."
-  :evil-leader "TS")
-(spacemacs|add-toggle semantic-stickyfunc-globally
-  :mode global-semantic-stickyfunc-mode
-  :documentation "Enable semantic-stickyfunc globally."
-  :evil-leader "T C-S")
 ;; quit -----------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "qs" 'spacemacs/save-buffers-kill-emacs
