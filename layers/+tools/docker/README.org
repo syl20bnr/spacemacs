@@ -39,6 +39,7 @@ You will also need the native package [[https://www.docker.com/][Docker]] for th
 For syntax checking the external library [[https://github.com/hadolint/hadolint][hadolint]] is necessary.
 It can either be downloaded from [[https://github.com/hadolint/hadolint/releases/latest][=here=]] or
 build locally with stack as shown below:
+
 #+BEGIN_SRC sh
   stack install hadolint
 #+END_SRC
@@ -47,6 +48,7 @@ build locally with stack as shown below:
 This layer can be enhanced with [[https://github.com/rcjsuen/dockerfile-language-server-nodejs][=dockerfile-language-server-nodejs=]] and emacs
 [[https://github.com/emacs-lsp/lsp-mode][=lsp-mode=]] to provide richer, IDE-like capabilities.
 To do so set the layer variable =docker-dockerfile-backend= to =lsp= like shown below:
+
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '((docker :variables docker-dockerfile-backend 'lsp)))
@@ -54,6 +56,7 @@ To do so set the layer variable =docker-dockerfile-backend= to =lsp= like shown 
 
 In addition you need to install the lsp server's executable in your system.
 This can be done via npm:
+
 #+BEGIN_SRC sh
   npm i -g dockerfile-language-server-nodejs
 #+END_SRC

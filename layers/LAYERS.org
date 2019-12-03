@@ -2579,6 +2579,7 @@ Features:
 - =Docker= container and image management via [[https://github.com/Silex/docker.el][docker.el]]
 - =docker-compose= integration via [[https://github.com/Silex/docker.el][docker.el]]
 - Syntax checking via [[https://github.com/hadolint/hadolint][hadolint]]
+- Code-Completion via =company-lsp=
 
 ** Fasd
 [[file:+tools/fasd/README.org][+tools/fasd/README.org]]
