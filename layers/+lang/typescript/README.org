@@ -171,7 +171,7 @@ then set the variable =typescript-lsp-linter= to =nil=.
 | Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC m =~   | reformat the buffer                                          |
-| ~SPC m E d~ | add =tslitn-disable-next-line= at point                      |
+| ~SPC m E d~ | add =tslint:disable-next-line= at point                      |
 | ~SPC m E e~ | fix thing at point                                           |
 | ~SPC m g b~ | jump back                                                    |
 | ~SPC m g g~ | jump to entity's definition                                  |
