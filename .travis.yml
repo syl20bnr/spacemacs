@@ -17,13 +17,7 @@ env:
 before_script:
   - docker pull jare/spacetools:latest
 script:
-  - |
-    cd /
-    rm -rf "${TRAVIS_BUILD_DIR}"
-    git clone "https://github.com/${SPACEMACS_REPO_SLUG}" \
-        -b "${TRAVIS_BRANCH}" \
-        "${TRAVIS_BUILD_DIR}"
-    cd "${TRAVIS_BUILD_DIR}"
+  - git checkout "${TRAVIS_BRANCH}"
 before_deploy:
   - >
     if ! [ "$BEFORE_DEPLOY_RUN" ]; then
@@ -36,10 +30,18 @@ deploy:
     script: ".travisci/pub_org.sh"
     on:
       branch: develop
-      condition: $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG
+      # Deploy only if we are in the official repo and
+      # the local revision matches origin's head
+      condition: $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG && \
+                 $(git remote update) && \
+                 $(git rev-parse '@') = $(git rev-parse '@{u}')
   - provider: script
     skip_cleanup: true
     script: ".travisci/pub_html.sh"
     on:
       all_branches: true
-      condition: $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG
+      # Deploy only if we are in the official repo and
+      # the local revision matches origin's head
+      condition: $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG && \
+                 $(git remote update) && \
+                 $(git rev-parse '@') = $(git rev-parse '@{u}')
