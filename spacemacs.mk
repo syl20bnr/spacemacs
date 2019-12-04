@@ -21,6 +21,7 @@ installation:
 	@echo "INSTALLATION OF PACKAGES FOR $(TEST_NAME)"
 	@echo "================================================================="
 	@emacs -batch \
+	       -eval "(setq gnutls-algorithm-priority \"NORMAL:-VERS-TLS1.3\")" \
 		$(addprefix -l $(EMACS_DIR)/, $(LOAD_FILES))
 
 ifneq ($(strip $(UNIT_TEST_FILES)),)
