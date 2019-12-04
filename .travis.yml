@@ -26,10 +26,7 @@ deploy:
       branch: develop
       # Deploy only if we are in the official repo and
       # the local revision matches origin's head
-      condition: |
-        $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG AND \
-        $(git remote update) AND \
-        $(git rev-parse '@') = $(git rev-parse '@{u}')
+      condition: $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG && $(git remote update) && $(git rev-parse '@') = $(git rev-parse '@{u}')
   - provider: script
     skip_cleanup: true
     script: ".travisci/pub_html.sh"
@@ -37,7 +34,4 @@ deploy:
       all_branches: true
       # Deploy only if we are in the official repo and
       # the local revision matches origin's head
-      condition: |
-        $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG AND \
-        $(git remote update) AND \
-        $(git rev-parse '@') = $(git rev-parse '@{u}')
+      condition: $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG && $(git remote update) && $(git rev-parse '@') = $(git rev-parse '@{u}')
