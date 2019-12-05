@@ -24,6 +24,12 @@ printf  "Host  github.com\n" > ~/.ssh/config
 printf  "  StrictHostKeyChecking no\n" >> ~/.ssh/config
 printf  "  UserKnownHostsFile=/dev/null\n" >> ~/.ssh/config
 
+git config --global user.name "${BOT_NAME}"
+git config --global user.email "${BOT_EMAIL}"
+git config --global push.default simple
+git config --global hub.protocol https
+export GITHUB_TOKEN=$BOT_TK
+
 fold_start "FORMATTING_DOCUMENTATION"
 docker run --rm \
        -v "${TRAVIS_BUILD_DIR}/.ci/spacedoc-cfg.edn":/opt/spacetools/spacedoc-cfg.edn \
@@ -34,6 +40,18 @@ if [ $? -ne 0 ]; then
     exit 2
 fi
 fold_end "FORMATTING_DOCUMENTATION"
+
+fold_start "CREATING_DOCUMENTATION_PATCH_FILE"
+git add --all
+git commit -m "documentation formatting: $(date -u)"
+if [ $? -ne 0 ]; then
+    echo "Nothing to commit - exiting."
+    exit 0
+fi
+export HAS_DOC_FIXES=true
+git format-patch -1 HEAD --stdout > /tmp/docfmt.patch
+cat /tmp/docfmt.patch
+fold_end "CREATING_DOCUMENTATION_PATCH_FILE"
 
 rm -rf ~/.emacs.d
 mv "${TRAVIS_BUILD_DIR}" ~/.emacs.d

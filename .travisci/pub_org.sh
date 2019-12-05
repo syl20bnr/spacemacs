@@ -33,12 +33,6 @@ if [ `git rev-list HEAD...origin/$TRAVIS_BRANCH --count` != 0 ]; then
     exit 0
 fi
 
-git config --global user.name "${BOT_NAME}"
-git config --global user.email "${BOT_EMAIL}"
-git config --global push.default simple
-git config --global hub.protocol https
-export GITHUB_TOKEN=$BOT_TK
-
 fold_start "CLONING_TARGET_REPOSITORY"
 target_URL="https://github.com/${SPACEMACS_REPO_SLUG}.git"
 git clone "${target_URL}" -b "${TRAVIS_BRANCH}" "/tmp/${PUBLISH}"
@@ -48,22 +42,14 @@ if [ $? -ne 0 ]; then
 fi
 fold_end "CLONING_TARGET_REPOSITORY"
 
-fold_start "SELECTING_CHANGED_FILES"
-rsync -rv \
-      --include '*/' \
-      --include='*.org' \
-      --exclude='*' \
-      --prune-empty-dirs \
-      ~/.emacs.d/ \
-      "/tmp/${PUBLISH}"
+fold_start "APPLYING DOCUMENTATION PATCH"
 cd "/tmp/${PUBLISH}"
-/tmp/hub add --all
-/tmp/hub commit -m "documentation formatting: $(date -u)"
+git am < /tmp/docfmt.patch
 if [ $? -ne 0 ]; then
-    echo "Nothing to commit - exiting."
-    exit 0
+    echo "Failed to apply documentation fixes patch"
+    exit 2
 fi
-fold_end "SELECTING_CHANGED_FILES"
+fold_end "APPLYING DOCUMENTATION PATCH"
 
 fold_start "PUSHING_CHANGES_TO_${BOT_NAME}/${PUBLISH}"
 /tmp/hub fork
