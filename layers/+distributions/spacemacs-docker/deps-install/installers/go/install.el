@@ -34,7 +34,7 @@
                              ($ "go version")))
         (progn (setq silient nil)
                (! (v "Golang installation failed!\n"
-                     (l "Expected verison %s but got %s"
+                     (l "Expected version %s but got %s"
                         go-version
                         ($ "go version")))))
       (! "Building Golang tools...")

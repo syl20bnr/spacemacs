@@ -23,7 +23,7 @@
             (setq bm-cycle-all-buffers t)
             ;; save bookmarks
             (setq-default bm-buffer-persistence t)
-            ;; where to store persistant files
+            ;; where to store persistent files
             (setq bm-repository-file (format "%sbm-repository"
                                              spacemacs-cache-directory))
             (spacemacs|define-transient-state bm

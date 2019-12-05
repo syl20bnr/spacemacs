@@ -151,7 +151,7 @@
       (helm-mode)
       (spacemacs|hide-lighter helm-mode)
       (advice-add 'helm-grep-save-results-1 :after 'spacemacs//gne-init-helm-grep)
-      ;; helm-locate uses es (from everything on windows which doesnt like fuzzy)
+      ;; helm-locate uses es (from everything on windows which doesn't like fuzzy)
       (helm-locate-set-command)
       (setq helm-locate-fuzzy-match (string-match "locate" helm-locate-command))
       (setq helm-boring-buffer-regexp-list

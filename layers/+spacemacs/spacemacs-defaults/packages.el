@@ -254,7 +254,7 @@
       (when dotspacemacs-line-numbers
         ;; delay the initialization of number lines when opening Spacemacs
         ;; normally. If opened via the command line with a file to visit then
-        ;; load it immediatly
+        ;; load it immediately
         (add-hook 'emacs-startup-hook
                   (lambda ()
                     (if (string-equal "*scratch*" (buffer-name))
