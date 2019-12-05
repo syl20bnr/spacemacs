@@ -45,12 +45,12 @@ fold_start "CREATING_DOCUMENTATION_PATCH_FILE"
 git add --all
 git commit -m "documentation formatting: $(date -u)"
 if [ $? -ne 0 ]; then
-    echo "Nothing to commit - exiting."
-    exit 0
+    echo "Documentation doesn't need fixes."
+else
+    export HAS_DOC_FIXES=true
+    git format-patch -1 HEAD --stdout > /tmp/docfmt.patch
+    cat /tmp/docfmt.patch
 fi
-export HAS_DOC_FIXES=true
-git format-patch -1 HEAD --stdout > /tmp/docfmt.patch
-cat /tmp/docfmt.patch
 fold_end "CREATING_DOCUMENTATION_PATCH_FILE"
 
 rm -rf ~/.emacs.d
