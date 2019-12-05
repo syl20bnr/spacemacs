@@ -189,7 +189,17 @@
       ;; to search using rg/ag/pt/whatever instead of just grep
       (with-eval-after-load 'helm-projectile
         (define-key helm-projectile-projects-map
-          (kbd "C-s") 'spacemacs/helm-projectile-grep))
+          (kbd "C-s") 'spacemacs/helm-projectile-grep)
+        ;; `spacemacs/helm-projectile-grep' calls:
+        ;; `spacemacs/helm-project-smart-do-search-in-dir'
+        ;; which needs to be an action.
+        ;; Delete the current action.
+        (helm-delete-action-from-source
+         "Grep in projects `C-s'" helm-source-projectile-projects)
+        (helm-add-action-to-source
+         "Search in projects `C-s'"
+         'spacemacs/helm-project-smart-do-search-in-dir
+         helm-source-projectile-projects))
 
       ;; evilify the helm-grep buffer
       (evilified-state-evilify helm-grep-mode helm-grep-mode-map
