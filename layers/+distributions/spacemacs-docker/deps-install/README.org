@@ -11,7 +11,7 @@ Dependency installation scripts for Spacemacs layers
 in Docker environment.
 
 ** Features:
-- Add Spacemacs to your Docker enviroment so you can build, ship, and run apps, anywhere
+- Add Spacemacs to your Docker environment so you can build, ship, and run apps, anywhere
 
 * Supported layers
 1. [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/installers/clojure/README.org][Clojure]]

@@ -52,7 +52,7 @@ To use this layer, add it to your =./spacemacs= file. Add =factor= to the
 | ~SPC m r r~ | Extract region as separate word                     |
 | ~SPC m r v~ | Create new Vocab with words in region               |
 | ~SPC m r i~ | Inline word                                         |
-| ~SPC m r w~ | Rename all occurences of word                       |
+| ~SPC m r w~ | Rename all occurrences of word                      |
 | ~SPC m r a~ | Extract region as new ARTICLE form                  |
 | ~SPC m r g~ | Turn current definition into generic word           |
 | ~SPC m r u~ | Update USING: line according to actually used words |

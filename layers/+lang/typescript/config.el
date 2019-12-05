@@ -16,7 +16,7 @@
 
 (defvar typescript-fmt-tool 'tide
   "The name of the tool to be used for TypeScript source code formatting.
-Currently avaliable 'tide (default), 'typescript-formatter and 'prettier.")
+Currently available 'tide (default), 'typescript-formatter and 'prettier.")
 
 (defvar typescript-backend nil
   "The backend to use for IDE features.
