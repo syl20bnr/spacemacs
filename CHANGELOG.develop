@@ -1900,7 +1900,7 @@ Other:
   - Removed ~SPC s w w~ key binding for =helm-wikipedia-suggest=, which was
     removed upstream.
   - ~SPC g f f~ for =helm-ls-git-ls= (thanks to duianto)
-- Fixes
+- Fixes:
   - Fixed signature of =spacemacs//display-helm-window= (thanks to Jack Kamm)
   - Fixed initialization by calling =helm-mode= when Helm is initialized=
     (thanks to bet4it).
@@ -1921,6 +1921,7 @@ Other:
     available windows (thanks to Juha Jeronen)
   - Unfolded org headings to a target line when a .org file is opened from
     Helm-ag (thanks to duianto and Miciah Masters)
+  - Fixed searching in a project with ~C-s~ from ~SPC p p~ (thanks to duianto)
 **** HTML
 - Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - Added =counsel-css= as an =ivy= alternative to =helm-css-scss=
