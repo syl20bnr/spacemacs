@@ -583,7 +583,7 @@ execution. During that state, the following bindings are active:
 | ~SPC m x r~ | clear region emphasis      |
 | ~SPC m x s~ | make region strike-through |
 | ~SPC m x u~ | make region underline      |
-| ~SPC m x v~ | make region verbose        |
+| ~SPC m x v~ | make region verbatim       |
 
 ** Navigating in calendar
 
