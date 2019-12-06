@@ -379,6 +379,7 @@ sane way, here is the complete list of changed key bindings
 - treemacs (thanks to Alexander Miller, Kalle Lindqvist, duianto,
   Thomas de Beauchêne, Boris Buliga and Sylvain Benner)
 - helpful (thanks to Johnson Denen)
+- kubernetes (thanks to Matt Bray)
 *** Renamed layers
 - =extra-langs= renamed to =major-modes= (thanks to Eivind Fonn)
 - =pdf-tools= renamed to =pdf=

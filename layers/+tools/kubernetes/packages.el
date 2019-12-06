@@ -1,6 +1,6 @@
 ;;; packages.el --- kubernetes layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2017 Matt Bray & Contributors
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Matt Bray <mattjbray@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -15,8 +15,7 @@
   '(
     kubernetes
     kubernetes-evil
-    )
-  )
+    ))
 
 (defun kubernetes/init-kubernetes ()
   (use-package kubernetes
@@ -27,6 +26,5 @@
     :init (spacemacs/set-leader-keys "aK" 'kubernetes-overview)))
 
 (defun kubernetes/init-kubernetes-evil ()
-  (use-package kubernetes-evil :after kubernetes-overview))
-
-;;; packages.el ends here
+  (use-package kubernetes-evil
+    :after kubernetes-overview))
