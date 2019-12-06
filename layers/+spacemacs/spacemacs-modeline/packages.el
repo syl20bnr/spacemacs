@@ -12,7 +12,7 @@
 (setq spacemacs-modeline-packages
       '(
         anzu
-        doom-modeline
+        (doom-modeline :toggle (eq (spacemacs/get-mode-line-theme-name) 'doom))
         fancy-battery
         ;; dependency of spaceline-all-the-icons which came from
         ;; the emacs wiki, we fetch it from Emacs Mirror for now.
@@ -34,7 +34,6 @@
 (defun spacemacs-modeline/init-doom-modeline ()
   (use-package doom-modeline
     :defer t
-    :if (eq (spacemacs/get-mode-line-theme-name) 'doom)
     :init (doom-modeline-mode)))
 
 (defun spacemacs-modeline/init-fancy-battery ()
