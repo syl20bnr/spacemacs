@@ -13,11 +13,11 @@ This layer provides the [[https://github.com/chrisbarrett/kubernetes-el#kubernet
 Kubernetes command-line client.
 
 ** Features:
-  - Live-updating lists of kubernetes resources
-  - Viewing and deleting pods, configmaps and secrets
-  - Switching contexts and namespaces.
-  - Showing logs and exec'ing into containers
-  - Describing pods
+- Live-updating lists of kubernetes resources
+- Viewing and deleting pods, configmaps and secrets
+- Switching contexts and namespaces.
+- Showing logs and exec'ing into containers
+- Describing pods
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
