@@ -409,7 +409,7 @@ you connect, add your authentication credentials to =~/.authinfo.gpg= or
 | ~SPC m L~                                    | org-shiftright                                |
 | ~SPC m H~                                    | org-shiftleft                                 |
 | ~SPC m K~                                    | org-shiftup                                   |
-| ~SPC m J~                                    | org-shiftdown                                 |
+| ~SPC m J~                                    | org-shiftdown                                  |
 | ~SPC m C-S-l~                                | org-shiftcontrolright                         |
 | ~SPC m C-S-h~                                | org-shiftcontrolleft                          |
 | ~SPC m C-S-j~                                | org-shiftcontroldown                          |
