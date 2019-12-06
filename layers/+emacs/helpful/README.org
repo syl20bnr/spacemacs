@@ -22,9 +22,9 @@ file.
 
 * Key bindings
 
-| Key Binding | Description                              |
-|-------------+------------------------------------------|
-| =SPC h h .= | Open helpful buffer for item under point |
-| =SPC h h f= | Open helpful buffer for function         |
-| =SPC h h k= | Open helpful buffer for key binding      |
-| =SPC h h v= | Open helpful buffer for variable         |
+| Key Binding | Description                                 |
+|-------------+---------------------------------------------|
+| =SPC h h h= | Open helpful buffer for item under point    |
+| =SPC h h k= | Open helpful buffer for key binding         |
+| =SPC h h f= | Open helpful buffer for any callable object |
+| =SPC h h v= | Open helpful buffer for variable            |

@@ -8,6 +8,7 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
+
 (defconst helpful-packages
   '(helpful))
 
@@ -19,10 +20,9 @@
       (spacemacs/declare-prefix "hh" "helpful")
       (spacemacs/set-leader-keys
         "hhh" #'helpful-at-point
-        "hhc" #'helpful-command
-        "hhf" #'helpful-callable
         "hhk" #'helpful-key
-        "hhm" #'helpful-macro
-        "hhv" #'helpful-variable))))
-
-;;; packages.el ends here
+        "hhf" #'helpful-callable
+        "hhv" #'helpful-variable)
+      (evil-set-initial-state 'helpful-mode 'normal)
+      (evil-make-overriding-map helpful-mode-map 'normal)
+      (evil-define-key 'normal helpful-mode-map (kbd "h") 'evil-backward-char))))
