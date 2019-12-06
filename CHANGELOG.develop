@@ -2526,6 +2526,7 @@ Other:
     - ~SPC m t t~ =phpunit-current-test=
     - ~SPC m t c~ =phpunit-current-class=
     - ~SPC m t p~ =phpunit-current-project=
+  - Added =refactoring= and =debugging= key bindings (thanks to Tyoma Kostyuk)
 - Improvements:
   - Enabled =evil-matchit-mode= (thanks to duianto)
 - Fixes:
