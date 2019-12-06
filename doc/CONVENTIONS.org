@@ -290,7 +290,7 @@ Manipulation of text regions should be grouped under ~SPC m x~
 | ~m x r~     | Remove formatting from region |
 | ~m x s~     | Make region strike-through    |
 | ~m x u~     | Make region underlined        |
-| ~m x v~     | Make region verbose           |
+| ~m x v~     | Make region verbatim          |
 
 *** Movement in normal mode
 In normal mode Vim style movement should be enabled with these key bindings:
