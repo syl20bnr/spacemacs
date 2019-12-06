@@ -14,6 +14,6 @@
 
 (spacemacs|define-jump-handlers php-mode)
 
-(defvar php-backend nil
+(defvar php-backend 'nil
   "The backend to use for IDE features.
 Possible values are `lsp'.")

@@ -9,25 +9,25 @@
 ;;
 ;;; License: GPLv3
 
-(setq php-packages
-      '(
-        drupal-mode
-        eldoc
-        evil-matchit
-        flycheck
-        ggtags
-        counsel-gtags
-        helm-gtags
-        php-auto-yasnippets
-        (php-extras :location (recipe :fetcher github :repo "arnested/php-extras"))
-        php-mode
-        phpcbf
-        phpunit
-        phpactor
-        (company-phpactor :requires company)
-        (company-php :requires company)
-        geben
-        ))
+(defconst php-packages
+  '(
+    drupal-mode
+    eldoc
+    evil-matchit
+    flycheck
+    ggtags
+    counsel-gtags
+    helm-gtags
+    php-auto-yasnippets
+    (php-extras :location (recipe :fetcher github :repo "arnested/php-extras"))
+    php-mode
+    phpcbf
+    phpunit
+    (phpactor :toggle (not (eq php-backend 'lsp)))
+    (company-phpactor :requires company :toggle (not (eq php-backend 'lsp)))
+    (company-php :requires company :toggle (not (eq php-backend 'lsp)))
+    (geben :toggle (not (eq php-backend 'lsp)))
+    ))
 
 (defun php/init-drupal-mode ()
   (use-package drupal-mode
@@ -62,7 +62,7 @@
 (defun php/init-php-mode ()
   (use-package php-mode
     :defer t
-    :mode ("\\.php\\'" . php-mode))
+    :mode ("\\.php\\'" . php-mode)
     :init
     (progn
       (add-hook 'php-mode-hook 'spacemacs//php-setup-backend))
@@ -73,25 +73,24 @@
       (spacemacs/set-leader-keys-for-major-mode 'php-mode
         "tt" 'phpunit-current-test
         "tc" 'phpunit-current-class
-        "tp" 'phpunit-current-project)))
+        "tp" 'phpunit-current-project))))
 
 (defun php/init-phpactor ()
   (use-package phpactor
     :defer t
     :config
     (progn
-      (spacemacs/declare-prefix-for-mode 'php-mode "mg" "references")
       (spacemacs/declare-prefix-for-mode 'php-mode "mrg" "generate")
       (spacemacs/declare-prefix-for-mode 'php-mode "mre" "extract")
       (spacemacs/declare-prefix-for-mode 'php-mode "mrm" "methods")
       (spacemacs/declare-prefix-for-mode 'php-mode "mrc" "classes")
       (spacemacs/declare-prefix-for-mode 'php-mode "mrp" "properties")
       (spacemacs/declare-prefix-for-mode 'php-mode "mP" "phpactor")
-
+      (spacemacs/declare-prefix-for-mode 'php-mode "mr" "refactoring")
       (spacemacs/set-leader-keys-for-major-mode 'php-mode
         "ri"  #'phpactor-import-class
-        "Rv"  #'phpactor-rename-variable-local
-        "RV"  #'phpactor-rename-variable-file
+        "rr"  #'phpactor-rename-variable-local
+        "rR"  #'phpactor-rename-variable-file
         "rn"  #'phpactor-fix-namespace
         "rv"  #'phpactor-change-visibility
         "rga" #'phpactor-generate-accessors
@@ -108,7 +107,6 @@
         "rmc" #'phpactor-implement-contracts
         "Ps"  #'phpactor-status
         "Pu"  #'phpactor-install-or-update)
-
       (setq-default phpactor-references-list-col1-width 72))))
 
 (defun php/init-phpcbf ()

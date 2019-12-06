@@ -14,14 +14,12 @@
     - [[#php-language-server][php-language-server]]
     - [[#ac-php-core][ac-php-core]]
       - [[#setup][Setup]]
-  - [[#refactoring-tools][Refactoring tools]]
-- [[#additional-tools][Additional tools]]
-  - [[#refactoring][Refactoring]]
-  - [[#debugging][Debugging]]
+      - [[#refactoring][Refactoring]]
 - [[#key-bindings][Key bindings]]
   - [[#general][General]]
-  - [[#refactoring-1][Refactoring]]
-  - [[#debugging-1][Debugging]]
+  - [[#refactoring-for-non-lsp-backends][Refactoring for non LSP backends]]
+  - [[#debugging-for-non-lsp-backends][Debugging for non LSP backends]]
+  - [[#lsp-keybindings][LSP keybindings]]
 
 * Description
 This layer adds PHP language support to Spacemacs.
@@ -46,7 +44,7 @@ add =php= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** Backends
-For php you have the choice between a set of possible LSP backends with
+For php you have the choice between a set of possible backends with
 different setup instructions and different capabilities.
 
 Note that you'll need to use the =lsp= layer to enable these backends.
@@ -113,38 +111,32 @@ If your project contains the following files at the root folder:
 the necessary configuration file (=.ac-php-conf.json=) will be created automatically
 if it does not exist.
 
-** Refactoring tools
+**** Refactoring
+This backend provides refactoring and class auto-completion capabilities via [[https://github.com/emacs-php/phpactor.el][phpactor.el]].
+To ensure that the phpactor package is intact, just run
+~M-x phpactor-install-or-update~ and the package itself will make sure that
+you're good to go.
 
-   To ensure that the phpactor package is intact, just run
-   ~M-x phpactor-install-or-update~ and the package itself will make sure that
-   you're good to go.
-
-* Additional tools
-
-** Refactoring
-   This layer provides refactoring and class auto-completion capabilities via [[https://github.com/emacs-php/phpactor.el][phpactor.el]].
-
-** Debugging
-   For configuration details, please refer to [[https://github.com/ahungry/geben][geben package]] repo page.
+It also provides debug capabilities via the [[https://github.com/ahungry/geben][geben package]]. Please refer for details
+to the project page.
 
 * Key bindings
 
 ** General
-
    | Key binding | Description             |
    |-------------+-------------------------|
    | ~SPC m g g~ | jump to define at point |
    | ~C-t~       | jump back               |
 
-** Refactoring
+** Refactoring for non LSP backends
 
-   For more precise insights on which key does what, check out [[https://phpactor.github.io/phpactor/refactorings.html][phpactor API reference.]]
+   For more precise insights on the meaning of the key bindings please refer to [[https://phpactor.github.io/phpactor/refactorings.html][phpactor API reference.]]
 
    | Key binding   | Description                                             |
    |---------------+---------------------------------------------------------|
    | ~SPC m r i~   | import class under cursor                               |
-   | ~SPC m r R v~ | rename local variable                                   |
-   | ~SPC m r R V~ | rename variable in a whole file                         |
+   | ~SPC m r r~   | rename local variable                                   |
+   | ~SPC m r R~   | rename variable in a whole file                         |
    | ~SPC m r n~   | synchronize namespace with file location                |
    | ~SPC m r v~   | toggle method visibility (public->protected->private)   |
    | ~SPC m r g a~ | generate unknown property accessors                     |
@@ -162,7 +154,7 @@ if it does not exist.
    | ~SPC m P s~   | ask phpactor about it's status                          |
    | ~SPC m P u~   | install/update phpactor package                         |
 
-** Debugging
+** Debugging for non LSP backends
 
    XDebug client management:
 
@@ -201,3 +193,7 @@ if it does not exist.
    | ~k~         | previous variable or section    |
    | ~TAB~       | fold/unfold variable or section |
    | ~q~         | close variable listing          |
+
+** LSP keybindings
+For a detailed list of keybindings in =lsp-mode= please checkout the README.org
+file of the =lsp layer=.
