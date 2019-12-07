@@ -25,7 +25,8 @@
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
   (spacemacs/add-to-hook 'vue-mode-hook '(spacemacs//vue-setup-editor-style
                                           spacemacs//vue-setup-keybindings))
-  (add-hook 'vue-mode-local-vars-hook #'spacemacs//vue-setup-backend))
+  (add-hook 'vue-mode-local-vars-hook #'spacemacs//vue-setup-backend)
+  (spacemacs//vue-setup-transient-state))
 
 (defun vue/post-init-add-node-modules-path ()
   (add-hook 'vue-mode-hook #'add-node-modules-path))

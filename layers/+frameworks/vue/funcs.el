@@ -111,26 +111,71 @@
     "rk" 'web-mode-element-kill
     "rn" 'web-mode-element-rename
     "rw" 'web-mode-element-wrap
-    "z" 'web-mode-fold-or-unfold)
-  (spacemacs|define-transient-state vue-mode
-    :title "Web-mode Transient State"
-    :columns 4
+    "z" 'web-mode-fold-or-unfold))
+
+(defun spacemacs//vue-setup-transient-state ()
+  (defvar spacemacs--vue-ts-full-hint-toggle nil
+    "Toggle the state of the vue transient state documentation.")
+
+  (defvar spacemacs--vue-ts-full-hint nil
+    "Display full vue transient state documentation.")
+
+  (defvar spacemacs--vue-ts-minified-hint nil
+    "Display minified vue transient state documentation.")
+
+  (defun spacemacs//vue-ts-toggle-hint ()
+    "Toggle the full hint docstring for the vue transient state."
+    (interactive)
+    (setq spacemacs--vue-ts-full-hint-toggle
+          (not spacemacs--vue-ts-full-hint-toggle)))
+
+  (defun spacemacs//vue-ts-hint ()
+    "Return a condensed/full hint for the vue transient state"
+    (concat
+     " "
+     (if spacemacs--vue-ts-full-hint-toggle
+         spacemacs--vue-ts-full-hint
+       (concat "[" (propertize "?" 'face 'hydra-face-red) "] help"
+               spacemacs--vue-ts-minified-hint))))
+
+  (spacemacs|transient-state-format-hint vue
+    spacemacs--vue-ts-minified-hint "\n
+Navigate: _j_ _k_ _J_ _K_ _h_ _l_ Element: _c_ _d_ _D_ _r_ _w_ Other: _p_")
+
+  (spacemacs|transient-state-format-hint vue
+    spacemacs--vue-ts-full-hint
+    (format "\n[_?_] toggle help
+Navigate^^^^                 Element^^                    Other
+[_j_/_k_] next/prev element  [_c_] clone                  [_p_] xpath (display path)
+[_J_/_K_] next/prev sibling  [_d_] vanish (keep content)  [_q_] quit
+[_h_/_l_] parent/child       [_D_] kill (inkl. content)
+^^^^                         [_r_] rename
+^^^^                         [_w_] wrap"))
+
+  (spacemacs|define-transient-state vue
+    :title "Vue Transient State"
+    :hint-is-doc t
+    :dynamic-hint (spacemacs//vue-ts-hint)
     :foreign-keys run
     :evil-leader-for-mode (vue-mode . ".")
     :bindings
-    ("D" web-mode-element-kill "kill")
-    ("J" web-mode-element-sibling-next "next sibling")
-    ("K" web-mode-element-sibling-previous "previous sibling")
-    ("c" web-mode-element-clone "clone")
-    ("d" web-mode-element-vanish "delete")
+    ("?" spacemacs//vue-ts-toggle-hint)
+    ;; Navigate
+    ("j"  web-mode-element-next)
+    ("k"  web-mode-element-previous)
+    ("J"  web-mode-element-sibling-next)
     ("gj" web-mode-element-sibling-next)
+    ("K"  web-mode-element-sibling-previous)
     ("gk" web-mode-element-sibling-previous)
-    ("h" web-mode-element-parent "parent")
-    ("j" web-mode-element-next "next")
-    ("k" web-mode-element-previous "previous")
-    ("l" web-mode-element-child "child")
-    ("p" web-mode-dom-xpath "xpath")
-    ("q" nil "quit" :exit t)
-    ("r" web-mode-element-rename "rename" :exit t)
-    ("w" web-mode-element-wrap "wrap")
-    ("<escape>" nil nil :exit t)))
+    ("h"  web-mode-element-parent)
+    ("l"  web-mode-element-child)
+    ;; Element
+    ("c" web-mode-element-clone)
+    ("d" web-mode-element-vanish)
+    ("D" web-mode-element-kill)
+    ("r" web-mode-element-rename)
+    ("w" web-mode-element-wrap)
+    ;; Other
+    ("p" web-mode-dom-xpath)
+    ("q" nil :exit t)
+    ("<escape>" nil :exit t)))
