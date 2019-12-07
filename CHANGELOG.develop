@@ -1950,6 +1950,7 @@ Other:
   (thanks to Anton Alekseev)
 - Added support for =.svelte= files (thanks to Javier Candeira)
 - Added =lsp= support for =html= buffers (thanks to Thanh Vuong)
+- Added a toggle state minified/full to the transient state (thanks to duianto)
 **** Hy
 - Added support for pipenv (thanks to Cazim Hysi)
 - Updated Hy layer to current Hy mode (thanks to Cazim Hysi)
@@ -3083,6 +3084,8 @@ Other:
 - Avoid loading all the diff packages (thanks to Sylvain Benner)
 - Fixed error on =diff-hl-margin-mode= function being nil during startup
   (thanks to Voleking)
+**** Vue
+- Added a toggle state minified/full to the transient state (thanks to duianto)
 **** Xclipboard
 - Added Requirements documentation (thanks to Chris Glass)
 - Added =cliphist= with the following bindings: (thanks to Hong Xu)
