@@ -7,13 +7,13 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer supports the [[https://github.com/Wilfred/helpful][helpful]] package, which extends the Emacs help buffer to include things like references and source code.
+This layer replaces the existing emacs related help buffers with more detailed ones.
 
 ** Features:
-- Better help buffers with [[https://github.com/Wilfred/helpful][helpful]]
-- Source code
-- Callers
-- Prettier docstrings
+- Better help buffers with [[https://github.com/Wilfred/helpful][helpful]] for emacs related buffers
+- Source code shown implicitly in help buffer for all lisp objects
+- More detailed descriptions in the emacs specific function, variable and key help buffers
+- Better formatted elisp docstrings
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -21,10 +21,14 @@ add =helpful= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Key bindings
+This layer aims to silently replace the standard emacs help key bindings
+with improved versions. So it does not introduce new bindings.
+For the sake of completion you can find below all keys which are replaced
+by this layer.
 
-| Key Binding | Description                                 |
-|-------------+---------------------------------------------|
-| =SPC h h h= | Open helpful buffer for item under point    |
-| =SPC h h k= | Open helpful buffer for key binding         |
-| =SPC h h f= | Open helpful buffer for any callable object |
-| =SPC h h v= | Open helpful buffer for variable            |
+| Key Binding | Description                                            |
+|-------------+--------------------------------------------------------|
+| =SPC m h h= | Open helpful buffer for item under point in elisp mode |
+| =SPC h d k= | Open helpful buffer for key binding                    |
+| =SPC h d f= | Open helpful buffer for any callable object            |
+| =SPC h h v= | Open helpful buffer for variable                       |

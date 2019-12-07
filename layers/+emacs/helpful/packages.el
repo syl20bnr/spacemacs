@@ -16,13 +16,14 @@
   (use-package helpful
     :defer t
     :init
-    (progn
-      (spacemacs/declare-prefix "hh" "helpful")
-      (spacemacs/set-leader-keys
-        "hhh" #'helpful-at-point
-        "hhk" #'helpful-key
-        "hhf" #'helpful-callable
-        "hhv" #'helpful-variable)
-      (evil-set-initial-state 'helpful-mode 'normal)
-      (evil-make-overriding-map helpful-mode-map 'normal)
-      (evil-define-key 'normal helpful-mode-map (kbd "h") 'evil-backward-char))))
+    (spacemacs/declare-prefix-for-mode 'helpful-mode "mg" "goto")
+    (add-hook 'emacs-startup-hook
+              (lambda ()
+                (spacemacs/set-leader-keys
+                  "hdk" #'helpful-key
+                  "hdf" #'helpful-callable
+                  "hdv" #'helpful-variable))
+              'append)
+    :config
+    (evil-set-initial-state 'helpful-mode 'normal)
+    (evil-define-key 'normal helpful-mode-map (kbd "q") 'quit-window)))
