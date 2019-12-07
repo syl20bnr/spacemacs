@@ -85,7 +85,7 @@
   (spacemacs/lsp-define-extensions
    "c-c++" "lsp-clangd"
    'clangd-other-file "textDocument/switchSourceHeader" 'buffer-file-name)
-  (set (make-local-variable 'lsp-enabled-clients) '(clangd))
+  (set (make-local-variable 'lsp-disabled-clients) '(cquery ccls))
   (lsp))
 
 ;; ccls
@@ -171,7 +171,7 @@
   ;;(evil-set-initial-state 'ccls--tree-mode 'emacs)
   ;;evil-record-macro keybinding clobbers q in cquery-tree-mode-map for some reason?
   ;;(evil-make-overriding-map 'ccls-tree-mode-map)
-  (set (make-local-variable 'lsp-enabled-clients) '(ccls))
+  (set (make-local-variable 'lsp-disabled-clients) '(clangd cquery))
   (lsp))
 
 ;; cquery
@@ -245,7 +245,7 @@
   ;;(evil-set-initial-state 'ccls--tree-mode 'emacs)
   ;;evil-record-macro keybinding clobbers q in cquery-tree-mode-map for some reason?
   ;;(evil-make-overriding-map 'ccls-tree-mode-map)
-  (set (make-local-variable 'lsp-enabled-clients) '(cquery))
+  (set (make-local-variable 'lsp-disabled-clients) '(ccls changd))
   (lsp))
 
 (defun spacemacs//c-c++-setup-lsp-company ()
@@ -505,4 +505,3 @@ is non-nil."
   "Add before-save hook for c++-organize-includes."
   (add-hook 'before-save-hook
             #'spacemacs//c++-organize-includes-on-save nil t))
-
