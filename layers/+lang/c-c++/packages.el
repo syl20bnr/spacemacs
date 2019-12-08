@@ -78,8 +78,7 @@
 
 (defun c-c++/init-clang-format ()
   (use-package clang-format
-    :init (spacemacs/add-to-hooks #'spacemacs//c-c++-setup-format
-                                  c-c++-mode-hooks)))
+    :init (spacemacs//c-c++-setup-clang-format)))
 
 (defun c-c++/post-init-company ()
   (add-hook 'c-mode-local-vars-hook #'spacemacs//c-c++-setup-company)
