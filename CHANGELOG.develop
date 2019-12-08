@@ -300,21 +300,32 @@ sane way, here is the complete list of changed key bindings
 ***** ycmd
 - The =ycmd= layer has been deleted and moved to the =c-c++= layer.
 *** New layers
+**** Completion
+- templates (thanks to YasuharuIida and Eivind Fonn)
+**** Emacs
+- helpful (thanks to Johnson Denen)
 **** Email
 - notmuch (thanks to Francesc Elies Henar, Leonard Lausen, Willian Casarin,
   Kalle Lindqvist)
+**** Filetree
+- treemacs (thanks to Alexander Miller, Kalle Lindqvist, duianto,
+  Thomas de Beauchêne, Boris Buliga and Sylvain Benner)
 **** Fonts
 - unicode-fonts (thanks to Aaron Jensen)
 **** Frameworks
+- emberjs (thanks to Robert O'Connor)
+- phoenix (thanks to Lyuben Petrov)
 - vue (thanks to Thanh Vuong)
+**** Intl
+- japanese (thanks to Kenji Miyazaki)
 **** Languages
 - alda (thanks to Andrew Hill (AstroEngiSci))
 - coffeescript (thanks to Sylvain Benner)
+- conda (thanks to Zach Pearson)
 - coq (thanks to Xuan Bi, Jeremy Bi and Langston Barret)
 - crystal (thanks to Sylvain Benner)
 - dart (thanks to Bruno Tavares)
 - dhall (thanks to Colin Woodbury)
-- ietf (thanks to Christian Hopps and Robby O'Connor)
 - factor (thanks to timor)
 - forth (thanks to Tim Jaeger)
 - gpu (thanks to Evan Klitzke)
@@ -339,7 +350,10 @@ sane way, here is the complete list of changed key bindings
 - yang (thanks to Christian Hopps)
 - zig (thanks to Michael Hauser-Raspe)
 **** Misc
+- copy-as-format (thanks to Ruslan Kamashev)
+- ietf (thanks to Christian Hopps and Robby O'Connor)
 - multiple-cursors (thanks to Codruț Constantin Gușoi and Thomas de Beauchêne)
+- parinfer (thanks to Tianshu Shi)
 **** Readers
 - epub (thanks to Jeremy Dormitzer and André Peric Tavares)
 **** Spacemacs
@@ -352,17 +366,15 @@ sane way, here is the complete list of changed key bindings
 **** Tools
 - bm (thanks to Eugene Yaremenko and Binbin Ye)
 - cmake (thanks to Alexander Dalshov, Sylvain Benner and Jonas Jelten)
-- conda (thanks to Zach Pearson)
 - dap (thanks to Ivan Yonchovski)
 - debug (thanks to Hodge Shen, Troy Hinckley, and Sylvain Benner)
 - dotnet (thanks to Jordan Kaye)
-- emberjs (thanks to Robert O'Connor)
 - import-js (thanks to Thanh Vuong and Seong Yong-ju)
+- kubernetes (thanks to Matt Bray)
 - lsp (thanks to Fangrui Song, 0bl.blwl, Cormac Cannon, Juuso Valkeejärvi,
   Guan Xipeng, Ivan Yonchovski, Justin Martin, dscole and Sylvain Benner)
 - node (thanks to jupl)
 - pass (thanks to Andrew Oppenlander, Kepi, Kalle Lindqvist, and Evan Klitzke)
-- phoenix (thanks to Lyuben Petrov)
 - prettier (thanks to Seong Yong-ju)
 - sailfish-developer (thanks to Victor Polevoy)
 - sphinx (thanks to Wei-Wei Guo)
@@ -372,16 +384,6 @@ sane way, here is the complete list of changed key bindings
 - xclipboard (thanks to Charles Weill, Sylvain Benner, and Alex Palaistras)
 **** WEB services
 - confluence
-**** Others
-- copy-as-format (thanks to Ruslan Kamashev)
-- japanese (thanks to Kenji Miyazaki)
-- multiple-cursors (thanks to Codruț Constantin Gușoi)
-- parinfer (thanks to Tianshu Shi)
-- templates (thanks to YasuharuIida and Eivind Fonn)
-- treemacs (thanks to Alexander Miller, Kalle Lindqvist, duianto,
-  Thomas de Beauchêne, Boris Buliga and Sylvain Benner)
-- helpful (thanks to Johnson Denen)
-- kubernetes (thanks to Matt Bray)
 *** Renamed layers
 - =extra-langs= renamed to =major-modes= (thanks to Eivind Fonn)
 - =pdf-tools= renamed to =pdf=
