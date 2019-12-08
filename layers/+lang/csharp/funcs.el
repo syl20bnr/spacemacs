@@ -12,26 +12,20 @@
 
 ;; backend
 
-(defun spacemacs//csharp-backend ()
-  "Returns selected backend."
-  (if csharp-backend
-      csharp-backend
-    'omnisharp))
-
 (defun spacemacs//csharp-setup-backend ()
   "Conditionally setup layer csharp based on backend."
-  (pcase (spacemacs//csharp-backend)
+  (pcase csharp-backend
     (`omnisharp (spacemacs//csharp-setup-omnisharp))
     (`lsp (spacemacs//csharp-setup-lsp))))
 
 (defun spacemacs//csharp-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//csharp-backend)
+  (pcase csharp-backend
     (`omnisharp (spacemacs//csharp-setup-omnisharp-company))))
 
 (defun spacemacs//csharp-configure ()
   "Conditionally configure csharp layer based on backend."
-  (pcase (spacemacs//csharp-backend)
+  (pcase csharp-backend
     (`omnisharp (spacemacs//csharp-configure-omnisharp))))
 
 

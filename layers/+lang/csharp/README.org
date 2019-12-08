@@ -47,6 +47,7 @@ You can also choose between one of the two available backends by setting
 the =csharp-backend= variable when configuring the layer:
  - =omnisharp= (the default), or
  - =lsp= (testing)
+ - =nil= (to not use any language server)
 
 To use the lsp backend, add `csharp' layer with =csharp-backend= variable set to 'lsp:
 #+BEGIN_SRC elisp
