@@ -31,8 +31,9 @@ git config --global hub.protocol https
 export GITHUB_TOKEN=$BOT_TK
 
 git remote update
-export BASE_REVISION=$(git rev-parse '@')
-echo "Base revision $BASE_REVISION"
+base_revision=$(git rev-parse '@')
+echo $base_revision > /tmp/base_revision
+echo "Base revision $base_revision"
 
 fold_start "FORMATTING_DOCUMENTATION"
 docker run --rm \
