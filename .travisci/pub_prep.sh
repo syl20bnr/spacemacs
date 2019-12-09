@@ -30,6 +30,10 @@ git config --global push.default simple
 git config --global hub.protocol https
 export GITHUB_TOKEN=$BOT_TK
 
+git remote update
+export BASE_REVISION=$(git rev-parse '@')
+echo "Base revision $BASE_REVISION"
+
 fold_start "FORMATTING_DOCUMENTATION"
 docker run --rm \
        -v "${TRAVIS_BUILD_DIR}/.ci/spacedoc-cfg.edn":/opt/spacetools/spacedoc-cfg.edn \
