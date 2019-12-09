@@ -19,7 +19,7 @@
   - [[#general][General]]
   - [[#refactoring-for-non-lsp-backends][Refactoring for non LSP backends]]
   - [[#debugging-for-non-lsp-backends][Debugging for non LSP backends]]
-  - [[#lsp-keybindings][LSP keybindings]]
+  - [[#lsp-key-bindings][LSP key bindings]]
 
 * Description
 This layer adds PHP language support to Spacemacs.
@@ -121,79 +121,77 @@ It also provides debug capabilities via the [[https://github.com/ahungry/geben][
 to the project page.
 
 * Key bindings
-
 ** General
-   | Key binding | Description             |
-   |-------------+-------------------------|
-   | ~SPC m g g~ | jump to define at point |
-   | ~C-t~       | jump back               |
+
+| Key binding | Description             |
+|-------------+-------------------------|
+| ~SPC m g g~ | jump to define at point |
+| ~C-t~       | jump back               |
 
 ** Refactoring for non LSP backends
+For more precise insights on the meaning of the key bindings please refer to [[https://phpactor.github.io/phpactor/refactorings.html][phpactor API reference.]]
 
-   For more precise insights on the meaning of the key bindings please refer to [[https://phpactor.github.io/phpactor/refactorings.html][phpactor API reference.]]
-
-   | Key binding   | Description                                             |
-   |---------------+---------------------------------------------------------|
-   | ~SPC m r i~   | import class under cursor                               |
-   | ~SPC m r r~   | rename local variable                                   |
-   | ~SPC m r R~   | rename variable in a whole file                         |
-   | ~SPC m r n~   | synchronize namespace with file location                |
-   | ~SPC m r v~   | toggle method visibility (public->protected->private)   |
-   | ~SPC m r g a~ | generate unknown property accessors                     |
-   | ~SPC m r g m~ | generate a method signature by a call example           |
-   | ~SPC m r c n~ | create a new class at a given path                      |
-   | ~SPC m r c c~ | copy current class elsewhere                            |
-   | ~SPC m r c m~ | move (rename) current class                             |
-   | ~SPC m r c i~ | generate an interface from class' public methods        |
-   | ~SPC m r p c~ | declare class properties by constructor signature       |
-   | ~SPC m r p p~ | add missing class properties                            |
-   | ~SPC m r e c~ | extract constant under cursor from a class              |
-   | ~SPC m r e e~ | extract expression to a variable                        |
-   | ~SPC m r e m~ | extract a code hunk to a method                         |
-   | ~SPC m r m c~ | add non-implemented stubs from parent classes/contracts |
-   | ~SPC m P s~   | ask phpactor about it's status                          |
-   | ~SPC m P u~   | install/update phpactor package                         |
+| Key binding   | Description                                             |
+|---------------+---------------------------------------------------------|
+| ~SPC m r i~   | import class under cursor                               |
+| ~SPC m r r~   | rename local variable                                   |
+| ~SPC m r R~   | rename variable in a whole file                         |
+| ~SPC m r n~   | synchronize namespace with file location                |
+| ~SPC m r v~   | toggle method visibility (public->protected->private)   |
+| ~SPC m r g a~ | generate unknown property accessors                     |
+| ~SPC m r g m~ | generate a method signature by a call example           |
+| ~SPC m r c n~ | create a new class at a given path                      |
+| ~SPC m r c c~ | copy current class elsewhere                            |
+| ~SPC m r c m~ | move (rename) current class                             |
+| ~SPC m r c i~ | generate an interface from class' public methods        |
+| ~SPC m r p c~ | declare class properties by constructor signature       |
+| ~SPC m r p p~ | add missing class properties                            |
+| ~SPC m r e c~ | extract constant under cursor from a class              |
+| ~SPC m r e e~ | extract expression to a variable                        |
+| ~SPC m r e m~ | extract a code hunk to a method                         |
+| ~SPC m r m c~ | add non-implemented stubs from parent classes/contracts |
+| ~SPC m P s~   | ask phpactor about it's status                          |
+| ~SPC m P u~   | install/update phpactor package                         |
 
 ** Debugging for non LSP backends
+XDebug client management:
 
-   XDebug client management:
+| Key binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~SPC m d x~ | start XDebug client                         |
+| ~SPC m d X~ | stop XDebug client                          |
+| ~SPC m d b~ | set a predefined breakpoint on current line |
+| ~SPC m d C~ | clear predefined breakpoints                |
 
-   | Key binding | Description                                 |
-   |-------------+---------------------------------------------|
-   | ~SPC m d x~ | start XDebug client                         |
-   | ~SPC m d X~ | stop XDebug client                          |
-   | ~SPC m d b~ | set a predefined breakpoint on current line |
-   | ~SPC m d C~ | clear predefined breakpoints                |
+Debugger interaction:
 
-   Debugger interaction:
+| Key binding | Description                                                      |
+|-------------+------------------------------------------------------------------|
+| ~o~ or ~n~  | step over statement                                              |
+| ~s~ or ~i~  | step into current call                                           |
+| ~r~         | step out of function                                             |
+| ~c~         | resume execution until cursor position or next breakpoint        |
+| ~e~         | evaluate expression in local context                             |
+| ~L~         | focus line the execution stopped on                              |
+| ~v~         | display context (local/global variables, user-defined constants) |
+| ~b b~       | set breakpoint here                                              |
+| ~b c~       | set conditional breakpoint here                                  |
+| ~b e~       | set breakpoint on exception here                                 |
+| ~u~         | unset breakpoint here                                            |
+| ~U~         | clear all breakpoints (in all files!)                            |
+| ~w~         | show current stack trace                                         |
+| ~g f~       | find debugged file in a worktree                                 |
+| ~q~         | quit debugging                                                   |
 
-   | Key binding | Description                                                      |
-   |-------------+------------------------------------------------------------------|
-   | ~o~ or ~n~  | step over statement                                              |
-   | ~s~ or ~i~  | step into current call                                           |
-   | ~r~         | step out of function                                             |
-   | ~c~         | resume execution until cursor position or next breakpoint        |
-   | ~e~         | evaluate expression in local context                             |
-   | ~L~         | focus line the execution stopped on                              |
-   | ~v~         | display context (local/global variables, user-defined constants) |
-   | ~b b~       | set breakpoint here                                              |
-   | ~b c~       | set conditional breakpoint here                                  |
-   | ~b e~       | set breakpoint on exception here                                 |
-   | ~u~         | unset breakpoint here                                            |
-   | ~U~         | clear all breakpoints (in all files!)                            |
-   | ~w~         | show current stack trace                                         |
-   | ~g f~       | find debugged file in a worktree                                 |
-   | ~q~         | quit debugging                                                   |
+Variable listing:
 
-   Variable listing:
+| Key binding | Description                     |
+|-------------+---------------------------------|
+| ~j~         | next variable or section        |
+| ~k~         | previous variable or section    |
+| ~TAB~       | fold/unfold variable or section |
+| ~q~         | close variable listing          |
 
-   | Key binding | Description                     |
-   |-------------+---------------------------------|
-   | ~j~         | next variable or section        |
-   | ~k~         | previous variable or section    |
-   | ~TAB~       | fold/unfold variable or section |
-   | ~q~         | close variable listing          |
-
-** LSP keybindings
-For a detailed list of keybindings in =lsp-mode= please checkout the README.org
+** LSP key bindings
+For a detailed list of key bindings in =lsp-mode= please checkout the README.org
 file of the =lsp layer=.

@@ -1,6 +1,8 @@
 #+TITLE: helpful layer
 
-* Table of Contents                                        :TOC_4_gh:noexport:
+#+TAGS: layer|uncategorized
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -26,7 +28,7 @@ with improved versions. So it does not introduce new bindings.
 For the sake of completion you can find below all keys which are replaced
 by this layer.
 
-| Key Binding | Description                                            |
+| Key binding | Description                                            |
 |-------------+--------------------------------------------------------|
 | =SPC m h h= | Open helpful buffer for item under point in elisp mode |
 | =SPC h d k= | Open helpful buffer for key binding                    |
