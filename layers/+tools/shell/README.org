@@ -289,7 +289,7 @@ Some advanced configuration is setup for =eshell= in this layer:
 |-------------+------------------------------------------------------------|
 | ~SPC '​~     | Open, close or go to the default shell                     |
 | ~SPC "​~     | Open external terminal emulator in current directory       |
-| ~SPC p '​~   | Open a shell in the project’s root                         |
+| ~SPC p '​~   | Open a shell in the project's root                         |
 | ~SPC p "​~   | Open external terminal emulator in project root            |
 | ~SPC a s e~ | Open, close or go to an =eshell=                           |
 | ~SPC a s i~ | Open, close or go to a =shell=                             |
