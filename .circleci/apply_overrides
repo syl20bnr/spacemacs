@@ -17,6 +17,7 @@ source "${DIR}/shared"
 cleanup
 
 if [ -d "/root/.emacs.d_overrides" ]; then
+    gpg --list-keys
     rsync -a /root/.emacs.d_overrides/ /root/.emacs.d
 fi
 
