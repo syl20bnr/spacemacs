@@ -7,6 +7,10 @@ references:
     steps:
       - checkout
       - run:
+          name: apply clone overrides
+          command:
+            ./.circleci/apply_overrides
+      - run:
           name: core tests installation
           command:
             ./.circleci/test core installation
@@ -22,6 +26,10 @@ references:
     steps:
       - checkout
       - run:
+          name: apply clone overrides
+          command:
+            ./.circleci/apply_overrides
+      - run:
           name: spacemacs-base distribution tests installation
           command:
             ./.circleci/test layers/+distribution/spacemacs-base installation
@@ -36,6 +44,10 @@ references:
   spacemacs_steps: &spacemacs_steps
     steps:
       - checkout
+      - run:
+          name: apply clone overrides
+          command:
+            ./.circleci/apply_overrides
       - run:
           name: spacemacs distribution tests installation
           command:

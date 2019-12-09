@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+## Clone overriding script for CircleCI
+##
+## Copyright (c) 2012-2014 Sylvain Benner
+## Copyright (c) 2014-2019 Sylvain Benner & Contributors
+##
+## Author: Eugene Yaremenko
+## URL: https://github.com/syl20bnr/spacemacs
+##
+## This file is not part of GNU Emacs.
+##
+## License: GPLv3
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "${DIR}/shared"
+
+cleanup
+
+if [ -d "/root/.emacs.d_overrides" ]; then
+    rsync -a /root/.emacs.d_overrides/ /root/.emacs.d
+fi
+
+exit $?
