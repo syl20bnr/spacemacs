@@ -82,7 +82,10 @@
                                      go-vet
                                      go-build
                                      go-test
-                                     go-errcheck))
+                                     go-errcheck
+                                     go-staticcheck
+                                     go-unconvert
+                                     ))
   (flycheck-golangci-lint-setup))
 
 
