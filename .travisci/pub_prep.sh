@@ -51,8 +51,10 @@ git commit -m "documentation formatting: $(date -u)"
 if [ $? -ne 0 ]; then
     echo "Documentation doesn't need fixes."
 else
-    export HAS_DOC_FIXES=true
     git format-patch -1 HEAD --stdout > /tmp/docfmt.patch
+    if [ $? -ne 0 ]; then
+        echo "Failed to create patch file."
+    fi
     cat /tmp/docfmt.patch
 fi
 fold_end "CREATING_DOCUMENTATION_PATCH_FILE"
