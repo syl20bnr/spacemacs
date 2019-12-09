@@ -53,10 +53,11 @@ fold_end "APPLYING DOCUMENTATION PATCH"
 fold_start "CHECKING_IF_SPACEMACS_HEAD_IS_THE_SAME"
 cd ~/.emacs.d
 git remote update
+base_revision=$(cat /tmp/base_revision)
 rem_rev=$(git rev-parse '@{u}')
-echo "Base revision: $BASE_REVISION"
+echo "Base revision: $base_revision"
 echo "Remote revision: $rem_rev"
-if [ "$BASE_REVISION" != "$rem_rev" ]; then
+if [ "$base_revision" != "$rem_rev" ]; then
     echo "Looks like Spacemacs head has changed while we generated files."
     echo "Aborting."
     exit 0
