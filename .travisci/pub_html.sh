@@ -30,6 +30,8 @@ else
     exit 0
 fi
 
+export GITHUB_TOKEN=$BOT_TK
+
 fold_start "CLONING_TARGET_REPOSITORY"
 target_URL="https://github.com/syl20bnr/${PUBLISH}.git"
 git clone "${target_URL}" -b gh-pages "/tmp/${PUBLISH}"
