@@ -51,7 +51,21 @@ if [ $? -ne 0 ]; then
 fi
 fold_end "APPLYING DOCUMENTATION PATCH"
 
+fold_start "CHECKING_IF_SPACEMACS_HEAD_IS_THE_SAME"
+cd ~/.emacs.d
+git remote update
+rem_rev=$(git rev-parse '@{u}')
+echo "Base revision: $BASE_REVISION"
+echo "Remote revision: $rem_rev"
+if [ "$BASE_REVISION" != "$rem_rev" ]; then
+    echo "Looks like Spacemacs head has changed while we generated files."
+    echo "Aborting."
+    exit 0
+fi
+fold_end "CHECKING_IF_SPACEMACS_HEAD_IS_THE_SAME"
+
 fold_start "PUSHING_CHANGES_TO_${BOT_NAME}/${PUBLISH}"
+cd "/tmp/${PUBLISH}"
 /tmp/hub fork
 if [ $? -ne 0 ]; then
     echo "hub fork failed"

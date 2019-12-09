@@ -35,12 +35,6 @@ if [ `git rev-list HEAD...origin/$TRAVIS_BRANCH --count` != 0 ]; then
     exit 0
 fi
 
-git config --global user.name "${BOT_NAME}"
-git config --global user.email "${BOT_EMAIL}"
-git config --global push.default simple
-git config --global hub.protocol https
-export GITHUB_TOKEN=$BOT_TK
-
 fold_start "CLONING_TARGET_REPOSITORY"
 target_URL="https://github.com/syl20bnr/${PUBLISH}.git"
 git clone "${target_URL}" -b gh-pages "/tmp/${PUBLISH}"
@@ -61,7 +55,21 @@ if [ $? -ne 0 ]; then
 fi
 fold_end "SELECTING_CHANGED_FILES"
 
+fold_start "CHECKING_IF_SPACEMACS_HEAD_IS_THE_SAME"
+cd ~/.emacs.d
+git remote update
+rem_rev=$(git rev-parse '@{u}')
+echo "Base revision: $BASE_REVISION"
+echo "Remote revision: $rem_rev"
+if [ "$BASE_REVISION" != "$rem_rev" ]; then
+    echo "Looks like Spacemacs head has changed while we generated files."
+    echo "Aborting."
+    exit 0
+fi
+fold_end "CHECKING_IF_SPACEMACS_HEAD_IS_THE_SAME"
+
 fold_start "PUSHING_CHANGES_TO_${BOT_NAME}/${PUBLISH}"
+cd "/tmp/${PUBLISH}"
 /tmp/hub fork
 if [ $? -ne 0 ]; then
     echo "hub fork failed"
