@@ -28,6 +28,8 @@ else
     exit 0
 fi
 
+export GITHUB_TOKEN=$BOT_TK
+
 fold_start "CLONING_TARGET_REPOSITORY"
 target_URL="https://github.com/${SPACEMACS_REPO_SLUG}.git"
 git clone "${target_URL}" -b "${TRAVIS_BRANCH}" "/tmp/${PUBLISH}"
