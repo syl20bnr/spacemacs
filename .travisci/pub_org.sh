@@ -28,11 +28,6 @@ else
     exit 0
 fi
 
-if [ `git rev-list HEAD...origin/$TRAVIS_BRANCH --count` != 0 ]; then
-    echo "We are outdated. Won't publish."
-    exit 0
-fi
-
 fold_start "CLONING_TARGET_REPOSITORY"
 target_URL="https://github.com/${SPACEMACS_REPO_SLUG}.git"
 git clone "${target_URL}" -b "${TRAVIS_BRANCH}" "/tmp/${PUBLISH}"
@@ -44,6 +39,10 @@ fold_end "CLONING_TARGET_REPOSITORY"
 
 fold_start "APPLYING DOCUMENTATION PATCH"
 cd "/tmp/${PUBLISH}"
+if [ ! -f /tmp/docfmt.patch ]; then
+    echo "Documentation doesn't need fixes. Aborting."
+    exit 0
+fi
 git am < /tmp/docfmt.patch
 if [ $? -ne 0 ]; then
     echo "Failed to apply documentation fixes patch"

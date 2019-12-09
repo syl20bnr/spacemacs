@@ -30,11 +30,6 @@ else
     exit 0
 fi
 
-if [ `git rev-list HEAD...origin/$TRAVIS_BRANCH --count` != 0 ]; then
-    echo "We are outdated. Won't publish."
-    exit 0
-fi
-
 fold_start "CLONING_TARGET_REPOSITORY"
 target_URL="https://github.com/syl20bnr/${PUBLISH}.git"
 git clone "${target_URL}" -b gh-pages "/tmp/${PUBLISH}"

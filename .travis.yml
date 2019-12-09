@@ -24,14 +24,10 @@ deploy:
     script: ".travisci/pub_org.sh"
     on:
       branch: develop
-      # Deploy only if we are in the official repo and
-      # the local revision matches origin's head
-      condition: $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG && $HAS_DOC_FIXES = true
+      condition: $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG
   - provider: script
     skip_cleanup: true
     script: ".travisci/pub_html.sh"
     on:
       all_branches: true
-      # Deploy only if we are in the official repo and
-      # the local revision matches origin's head
       condition: $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG
