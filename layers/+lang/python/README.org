@@ -236,6 +236,9 @@ One of [[https://github.com/google/yapf][YAPF]] (the default), [[https://github.
     (python :variables python-formatter 'yapf)))
 #+END_SRC
 
+Alternatively the =lsp= formatter will be automatically chosen if the layer =lsp=
+is used and you did not specify any value for =python-formatter=.
+
 The key binding ~SPC m =~ invokes the selected formatter on the current buffer
 when in non LSP python mode otherwise ~SPC m ==~ is used.
 

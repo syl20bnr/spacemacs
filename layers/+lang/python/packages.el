@@ -106,7 +106,7 @@
     (progn
       (spacemacs//bind-python-formatter-keys)
       (when (and python-format-on-save
-                 (eq 'black python-formatter))
+                 (eq 'black (spacemacs//python-formatter)))
         (add-hook 'python-mode-hook 'blacken-mode)))
     :config (spacemacs|hide-lighter blacken-mode)))
 
@@ -425,7 +425,7 @@ fix this issue."
     (progn
       (spacemacs//bind-python-formatter-keys)
       (when (and python-format-on-save
-                 (eq 'yapf python-formatter))
+                 (eq 'yapf (spacemacs//python-formatter)))
         (add-hook 'python-mode-hook 'yapf-mode)))
     :config (spacemacs|hide-lighter yapf-mode)))
 

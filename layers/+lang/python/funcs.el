@@ -17,6 +17,14 @@
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
      (t 'anaconda))))
 
+(defun spacemacs//python-formatter ()
+  "Returns selected backend."
+  (if python-formatter
+      python-formatter
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'yapf))))
+
 (defun spacemacs//python-setup-backend ()
   "Conditionally setup python backend."
   (when python-pipenv-activate (pipenv-activate))
@@ -381,7 +389,7 @@ Bind formatter to '==' for LSP and '='for all other backends."
 (defun spacemacs/python-format-buffer ()
   "Bind possible python formatters."
   (interactive)
-  (pcase python-formatter
+  (pcase (spacemacs//python-formatter)
     (`yapf (yapfify-buffer))
     (`black (blacken-buffer))
     (`lsp (lsp-format-buffer))
