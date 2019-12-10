@@ -117,20 +117,25 @@ for a project and starts the server. Afterwards ~SPC SPC ensime~ or ~SPC m D s~
 will suffice do the trick.
 
 ** Metals
-Currently, you must manually install the metals server. It is possible to do so via coursier; the latest version can be built using the following commands:
+Currently, you must manually install the metals server. It is possible to do so
+via coursier; the latest version can be built using the following commands,
+where =0.7.6= can be replaced with the current version of [[https://github.com/scalameta/metals/][Metals]]:
 
 #+BEGIN_SRC bash
   ./coursier bootstrap \
     --java-opt -Xss4m \
     --java-opt -Xms100m \
     --java-opt -Dmetals.client=emacs \
-    org.scalameta:metals_2.12:0.5.1 \
+    org.scalameta:metals_2.12:0.7.6 \
     -r bintray:scalacenter/releases \
     -r sonatype:snapshots \
     -o /usr/local/bin/metals-emacs -f
 #+END_SRC
 
-You will then have the common LSP key bindings; see [[http://develop.spacemacs.org/layers/+tools/lsp/README.html#key-bindings]] for more details.
+
+You will then have the common LSP key bindings; see
+[[http://develop.spacemacs.org/layers/+tools/lsp/README.html#key-bindings]] for more
+details.
 
 * Scalastyle
 [[http://www.scalastyle.org/][Scalastyle]] provides style-checking and linting. The Emacs functionality is
