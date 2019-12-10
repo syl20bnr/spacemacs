@@ -162,4 +162,4 @@ A transient-state is also defined, start it with ~SPC m .~ or ~, .~
 | ~SPC m G~   | jump to definition for the given name                |
 
 ** Lsp key bindings
-See the [=lsp= layer]([[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/lsp]]).
+See the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/lsp][lsp layer]].
