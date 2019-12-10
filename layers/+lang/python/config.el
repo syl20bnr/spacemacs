@@ -29,7 +29,7 @@ and `mspyls'")
 (defvar python-pipenv-activate nil
   "If non-nil, activate pipenv before enabling backend")
 
-(defvar python-formatter 'yapf
+(defvar python-formatter nil
   "The formatter to use. Possible values are `yapf',
   `black' and 'lsp'.")
 
