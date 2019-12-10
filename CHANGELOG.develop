@@ -1971,7 +1971,7 @@ Other:
 - Added =recentf= alt actions to refresh and delete items (thanks to Rich Alesi)
 - Added =projectile= alternate actions to invalidate cache (thanks to Rich Alesi)
 - Key bindings:
-  - Added Helm key bindings counterparts: ~SPC f e l~ and ~SPC h i~
+  - Added Helm key bindings counterparts: ~SPC f e l~, ~SPC h m~ and ~SPC h i~
     (thanks to Andriy Kmit')
   - Added ~SPC h d F~ to list faces (thanks to Muneeb Shaikh)
   - Bind =find-file-other-window= to ~j~ (thanks to James Wang)
