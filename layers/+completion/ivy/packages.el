@@ -69,6 +69,7 @@
         "hdm" 'spacemacs/describe-mode
         "hdv" 'counsel-describe-variable
         "hi"  'counsel-info-lookup-symbol
+        "hm"  'man
         "hR"  'spacemacs/counsel-search-docs
         ;; insert
         "iu"  'counsel-unicode-char

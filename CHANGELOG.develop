@@ -1979,8 +1979,11 @@ Other:
 - Added =recentf= alt actions to refresh and delete items (thanks to Rich Alesi)
 - Added =projectile= alternate actions to invalidate cache (thanks to Rich Alesi)
 - Key bindings:
-  - Added Helm key bindings counterparts: ~SPC f e l~ and ~SPC h i~
-    (thanks to Andriy Kmit')
+  - Added Helm key binding counterparts:
+    - ~SPC f e l~ =counsel-find-library=
+    - ~SPC h i~   =counsel-info-lookup-symbol=
+      (thanks to Andriy Kmit')
+    - ~SPC h m~ =man= (thanks to madand)
   - Added ~SPC h d F~ to list faces (thanks to Muneeb Shaikh)
   - Bind =find-file-other-window= to ~j~ (thanks to James Wang)
   - Added =counsel-mark-ring= to ~rm~ (thanks to bmag)
