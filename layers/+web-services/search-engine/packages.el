@@ -97,6 +97,9 @@
               (wolfram-alpha
                :name "Wolfram Alpha"
                :url "https://www.wolframalpha.com/input/?i=%s")
+              (ctan
+               :name "CTAN"
+               :url "https://ctan.org/search?phrase=%s")
               ,@search-engine-config-list))
       (dolist (engine search-engine-alist)
         (let ((func (intern (format "engine/search-%S" (car engine)))))
