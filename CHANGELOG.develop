@@ -2456,6 +2456,7 @@ Other:
     - Added ~SPC m s a~ to toggle archive tag for subtree
     - Added ~SPC m s A~ to archive subtree (previously ~SPC m s a~)
   - Added ~SPC m i L~ as =org-cliplink= into =org= layer (thanks to bb2020)
+  - Added ~SPC m e s~ =org-mime-org-subtree-htmlize= (thanks to Nick Anderson)
   - Documented more insertion bindings (thanks to Lorenzo Manacorda):
     - ~C-RET~   Insert heading at end of current subtree
     - ~C-S-RET~ Insert TODO heading at end of current subtree
