@@ -430,7 +430,8 @@
 (defun spacemacs//c-c++-setup-clang-format ()
   "Setup clang format."
   (when c-c++-enable-clang-format-on-save
-    (spacemacs/add-to-hooks 'spacemacs/clang-format-on-save c-c++-mode-hooks))
+    (spacemacs/add-to-hooks 'spacemacs/clang-format-on-save c-c++-mode-hooks)
+    (spacemacs/clang-format-on-save))
   (dolist (mode c-c++-modes)
     (spacemacs/declare-prefix-for-mode mode "m=" "format")
     (spacemacs/set-leader-keys-for-major-mode mode
