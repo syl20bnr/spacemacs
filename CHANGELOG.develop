@@ -229,6 +229,7 @@ sane way, here is the complete list of changed key bindings
   - ~SPC m d s~ org-schedule
   - ~SPC m d t~ org-time-stamp
   - ~SPC m e m~ org-mime-org-buffer-htmlize
+  - ~SPC m e s~ org-mime-org-subtree-htmlize
   - ~SPC m i D s~ org-download-screenshot
   - ~SPC m i D y~ org-download-yank
   - ~SPC m i H~ org-insert-heading-after-current
