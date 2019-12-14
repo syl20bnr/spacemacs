@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(require 'cl)
+(require 'cl-lib)
 (require 'package)
 
 (load (format (concat "%s/.emacs.d/"
@@ -127,7 +127,7 @@ NOTE: Duplicates are removed."
                                    vals))
                    separator))
          (res-val (mapconcat 'identity
-                             (remove-duplicates (split-string new-val
+                             (cl-remove-duplicates (split-string new-val
                                                               separator)
                                                 :test 'string=)
                              separator)))
@@ -252,8 +252,8 @@ Remove folder if BODY throws error.
 during BODY evaluation and return its value.
 Remove newly installed packages if BODY throws error."
   (declare (indent 1))
-  `(let* ((pkgs (sort (remove-duplicates (mapcar 'symbol-name
-                                                 '(,@packages)))
+  `(let* ((pkgs (sort (cl-remove-duplicates (mapcar 'symbol-name
+                                                    '(,@packages)))
                       'string<))
           (pkgs-only-installed
            (let ((silent t))
@@ -337,7 +337,7 @@ defun that matched REGEXP in the `spacemacs-docker-dotfile-fp'."
 ignoring comments and docstrings."
   (let ((name (symbol-name symbol)))
     (with-temp-buffer
-      (block nil
+      (cl-block nil
         (insert-file-contents spacemacs-docker-dotfile-fp)
         (goto-char (point-min))
         (while (re-search-forward (regexp-quote name)
@@ -350,7 +350,7 @@ ignoring comments and docstrings."
                      (string= (thing-at-point 'symbol
                                               t)
                               name))
-            (return t)))))))
+            (cl-return t)))))))
 
 (defun get-config (config-varible)
   "Return used Spacemacs layer CONFIG-VARIABLE value."

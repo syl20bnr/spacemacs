@@ -70,7 +70,7 @@
   ;; Use evil as a default jump handler
   (add-to-list 'spacemacs-default-jump-handlers 'evil-goto-definition)
 
-  (require 'cl)
+  (require 'cl-lib)
   ;; State cursors
   (cl-loop for (state color shape) in spacemacs-evil-cursors
            do (spacemacs/add-evil-cursor state color shape))

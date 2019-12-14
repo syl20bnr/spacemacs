@@ -26,7 +26,7 @@
 
 ;;; Code:
 
-(require 'cl)
+(require 'cl-lib)
 (require 'ht)
 (require 'ivy)
 (require 'core-configuration-layer)

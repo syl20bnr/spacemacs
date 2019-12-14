@@ -27,8 +27,6 @@
 
 ;;; Code:
 
-(eval-when-compile (require 'cl)) ;; dolist
-
 (defmacro ht (&rest pairs)
   "Create a hash table with the key-value pairs given.
 Keys are compared with `equal'.

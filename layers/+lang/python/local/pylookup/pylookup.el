@@ -27,7 +27,7 @@
 (eval-when-compile
   (require 'browse-url)
   (require 'simple)
-  (require 'cl)
+  (require 'cl-lib)
   (require 'ido))
 
 ;;=================================================================
@@ -235,7 +235,7 @@
                 (setq module (concat module " " (car iter)))
                 (setq iter (cdr iter)))
 
-              (incf index)
+              (cl-incf index)
               (insert (format " %03d) %-25s %-30s %10s"
                   index
                   (pylookup-trim api 25)

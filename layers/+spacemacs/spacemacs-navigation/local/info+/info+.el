@@ -899,7 +899,7 @@
 ;;; Code:
 
 (require 'info)
-(eval-when-compile (require 'cl)) ;; case
+(eval-when-compile (require 'cl-lib)) ;; cl-case
 
 ;; These are optional, for cosmetic purposes.
 (require 'thingatpt nil t) ;; (no error if not found): symbol-at-point
@@ -1725,7 +1725,7 @@ A bookmarked node name has the form \"(MANUAL) NODE\", referring to
 NODE in MANUAL.
 Optional arg LOCALP means read a node name from the current manual."
     (let* ((completion-ignore-case  t)
-           (bmks                    (remove-if-not
+           (bmks                    (cl-remove-if-not
                                      (lambda (bmk) (bmkp-string-match-p (if (and localp  Info-current-file)
                                                                        (format "\\`(%s) "
                                                                                (file-name-sans-extension
@@ -4438,7 +4438,7 @@ Syntax class:\\|User Option:\\|Variable:\\)\\(.*\\)\\([\n]          \\(.*\\)\\)*
                             nil t)
     (let ((symb  (intern (match-string 1))))
       (put-text-property (match-beginning 1) (match-end 1)
-                         'font-lock-face (case symb
+                         'font-lock-face (cl-case symb
                                            ('Constant:       'info-constant-ref-item)
                                            ('Command:        'info-command-ref-item)
                                            ('Function:       'info-function-ref-item)

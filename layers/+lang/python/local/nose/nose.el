@@ -53,7 +53,7 @@
 ;;             (local-set-key "\C-cpm" 'nosetests-pdb-module)
 ;;             (local-set-key "\C-cp." 'nosetests-pdb-one)))
 
-(require 'cl) ;; for "reduce"
+(require 'cl-lib) ;; for "cl-reduce"
 
 (defvar nose-project-root-files '(".projectile"
                                   "setup.cfg"
@@ -187,7 +187,7 @@ For more details: http://pswinkels.blogspot.ca/2010/04/debugging-python-code-fro
              (file-name-directory (directory-file-name dn)))))))
 
 (defun nose-project-root (dirname)
-  (reduce '(lambda (x y) (or x y))
+  (cl-reduce '(lambda (x y) (or x y))
           (mapcar (lambda (d) (member d (directory-files dirname)))
                   nose-project-root-files)))
 
