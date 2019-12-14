@@ -2058,6 +2058,8 @@ Other:
 - Fixed void variable =counsel-find-file-map= (thanks to duianto)
 - Fixed wrong initial directory in =spacemacs/counsel-search=
   (thanks to Carlos Ibáñez and Juuso Valkeejärvi)
+- Fix visual selection expansion across the buffer on `SPC s S` and `SPC s B`
+  (thanks to Andriy Kmit)
 **** Imenu-list
 - Changed ~SPC b i~ to ~SPC b t~ for =imenu= tree view
   (thansk to Sylvain Benner)
