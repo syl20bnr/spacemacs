@@ -466,22 +466,27 @@ Closing doesn't kill buffers inside the layout while killing layouts does."
 
 ;; Swiper
 
+(defun spacemacs//counsel-current-region-or-symbol ()
+  "Return contents of the region or symbol at point.
+
+If region is active, mark will be deactivated in order to prevent region
+expansion when jumping around the buffer with counsel. See `deactivate-mark'."
+  (if (region-active-p)
+      (prog1
+          (buffer-substring-no-properties (region-beginning) (region-end))
+        (deactivate-mark))
+    (thing-at-point 'symbol t)))
+
 (defun spacemacs/swiper-region-or-symbol ()
   "Run `swiper' with the selected region or the symbol
 around point as the initial input."
   (interactive)
-  (let ((input (if (region-active-p)
-                   (buffer-substring-no-properties
-                    (region-beginning) (region-end))
-                 (thing-at-point 'symbol t))))
+  (let ((input (spacemacs//counsel-current-region-or-symbol)))
     (swiper input)))
 
 (defun spacemacs/swiper-all-region-or-symbol ()
   "Run `swiper-all' with the selected region or the symbol
 around point as the initial input."
   (interactive)
-  (let ((input (if (region-active-p)
-                   (buffer-substring-no-properties
-                    (region-beginning) (region-end))
-                 (thing-at-point 'symbol t))))
+  (let ((input (spacemacs//counsel-current-region-or-symbol)))
     (swiper-all input)))
