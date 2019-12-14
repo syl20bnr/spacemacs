@@ -2630,6 +2630,7 @@ Improve loading robustness:
 
 **** ERC and RCIRC layers
 - Properly add all opened buffers to custom layouts
+  test
   (thanks to AlejandroCatalina)
 
 **** Go layer

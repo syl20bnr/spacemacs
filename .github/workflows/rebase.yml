@@ -1,11 +1,14 @@
-name: "Ask contributors to update changelog"
-on: [pull_request, push]
-
+on: pull_request
+name: Changelog Reminder
 jobs:
-  test-action:
+  remind:
+    name: Changelog Reminder
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@master
     - name: Changelog Reminder
       uses: peterjgrainger/action-changelog-reminder@v1.1.1
+      with:
+        changelog_regex: '/CHANGELOG.org'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
