@@ -1,4 +1,4 @@
-;;; funcs.el --- Ivy Layer functions File for Spacemacs
+;;; funcs.el --- Ivy Layer functions File for Spacemacs -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
 ;;
@@ -67,8 +67,7 @@
 
 ;; see `counsel-ag-function'
 (defun spacemacs//make-counsel-search-function (tool)
-  (lexical-let ((base-cmd
-                 (cdr (assoc-string tool spacemacs--counsel-commands))))
+  (let ((base-cmd (cdr (assoc-string tool spacemacs--counsel-commands))))
     (lambda (string &optional _pred &rest _unused)
       "Grep in the current directory for STRING."
       ;; `ivy-more-chars' returns non-nil when more chars are needed,
@@ -377,7 +376,7 @@ To prevent this error we just wrap `describe-mode' to defeat the
 ;; Ivy
 
 (defun spacemacs//ivy-command-not-implemented-yet (key)
-  (lexical-let ((-key key))
+  (let ((-key key))
     (spacemacs/set-leader-keys
       -key (lambda ()
              (interactive)
