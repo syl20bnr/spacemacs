@@ -11,11 +11,11 @@
 
 ;; Keybindings to use Quickurl, including mode-local ones for the listing.
 
-(spacemacs/declare-prefix "Q" "quickurl")
+(spacemacs/declare-prefix "aQ" "quickurl")
 (spacemacs/set-leader-keys
-  "Ql" 'quickurl-list
-  "QQ" 'quickurl
-  "Qi" 'quickurl-ask
-  "Qe" 'quickurl-edit-urls
-  "Qa" 'quickurl-add-url
-  "Qb" 'quickurl-browse-url-ask)
+  "aQl" 'quickurl-list
+  "aQQ" 'quickurl
+  "aQi" 'quickurl-ask
+  "aQe" 'quickurl-edit-urls
+  "aQa" 'quickurl-add-url
+  "aQb" 'quickurl-browse-url-ask)

@@ -4,6 +4,7 @@ export/
 !/core/tools/export/
 ac-comphist.dat
 eproject.lst
+quickurls
 .smex-items
 \#*
 .places
