@@ -19,8 +19,7 @@
         evil-matchit
         flycheck
         haml-mode
-        (counsel-css :requires ivy
-                     :location (recipe :fetcher github :repo "hlissner/emacs-counsel-css"))
+        (counsel-css :requires ivy)
         (helm-css-scss :requires helm)
         impatient-mode
         less-css-mode
