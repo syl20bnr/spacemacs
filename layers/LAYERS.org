@@ -23,6 +23,7 @@
   - [[#better-defaults][Better defaults]]
   - [[#ibuffer][Ibuffer]]
   - [[#org][Org]]
+  - [[#quickurl][Quickurl]]
   - [[#semantic][Semantic]]
   - [[#smex][Smex]]
   - [[#typography][Typography]]
@@ -465,6 +466,16 @@ Features:
 - Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
 - Project-specific TODOs via [[https://github.com/IvanMalison/org-projectile][org-projectile]]
 - Easy insert of URLs from clipboard with org format via [[https://github.com/rexim/org-cliplink][org-cliplink]]
+
+** Quickurl
+[[file:+tools/quickurl/README.org][+tools/quickurl/README.org]]
+
+Quickurl is a package in vanilla emacs for saving and inserting URLs. These
+are key bindings for the various methods of insertion, which are not bound by
+default.
+
+Features:
+- Key bindings to dispatch Quickurl (which is in vanilla Emacs).
 
 ** Semantic
 [[file:+emacs/semantic/README.org][+emacs/semantic/README.org]]
