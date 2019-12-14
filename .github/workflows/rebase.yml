@@ -5,7 +5,7 @@ jobs:
     name: Changelog Reminder
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@develop
     - name: Changelog Reminder
       uses: peterjgrainger/action-changelog-reminder@v1.1.1
       with:
