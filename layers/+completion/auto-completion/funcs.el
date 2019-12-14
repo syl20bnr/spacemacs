@@ -1,4 +1,4 @@
-;;; funcs.el --- Auto-completion functions File
+;;; funcs.el --- Auto-completion functions File -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
@@ -295,7 +295,7 @@ MODE parameter must match the :modes values used in the call to
       (define-key map (kbd "C-k") 'company-select-previous)
       (define-key map (kbd "C-l") 'company-complete-selection))
     ;; Fix company-quickhelp Evil C-k
-    (lexical-let ((prev nil))
+    (let ((prev nil))
       (defun spacemacs//set-C-k-company-select-previous (&rest args)
         (setf prev (lookup-key evil-insert-state-map (kbd "C-k")))
         (define-key evil-insert-state-map (kbd "C-k") 'company-select-previous))
