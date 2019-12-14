@@ -6,5 +6,5 @@
 (require 'ox)
 (require 'ox-beamer)
 (require 'ox-latex)
-(require 'cl)
+(require 'cl-lib)
 (setq org-export-async-debug nil)

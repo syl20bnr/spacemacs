@@ -549,7 +549,7 @@
 ;;
 ;;; Code:
 
-(eval-when-compile (require 'cl)) ;; case, incf (plus, for Emacs 20: dolist, dotimes)
+(eval-when-compile (require 'cl-lib)) ;; case, incf (plus, for Emacs 20: dolist, dotimes)
 (require 'frame-fns) ;; frame-geom-value-cons, frame-geom-value-numeric, frames-on, get-frame-name,
                      ;; get-a-frame, read-frame
 (require 'strings nil t) ;; (no error if not found) read-buffer
@@ -1215,7 +1215,7 @@ In Lisp code:
                                (frame-geom-value-numeric 'height new-height))
                (cons 'restore-height orig-height)))))
     (show-frame frame)
-    (incf fr-origin (if (eq direction 'horizontal) fr-pixel-width fr-pixel-height))))
+    (cl-incf fr-origin (if (eq direction 'horizontal) fr-pixel-width fr-pixel-height))))
 
 ;;;###autoload
 (unless (fboundp 'restore-frame-horizontally)
@@ -1281,7 +1281,7 @@ In Lisp code:
         (orig-height     (frame-parameter frame 'height))
         (horiz           (memq direction '(horizontal both)))
         (vert            (memq direction '(vertical both))))
-    (case direction
+    (cl-case direction
       (both        (unless (and restore-left  restore-width  restore-top  restore-height)
                      (maximize-frame 'both frame)))
       (vertical    (unless (and restore-top  restore-height) (maximize-frame-vertically frame)))
@@ -1420,7 +1420,7 @@ the pixel width and height of the rectangle."
         (fr-origin        (if (eq direction 'horizontal)
                               (or x-min-pix  (car (frcmds-effective-screen-pixel-bounds)))
                             (or y-min-pix  (cadr (frcmds-effective-screen-pixel-bounds))))))
-    (case direction                     ; Size of frame in pixels.
+    (cl-case direction                     ; Size of frame in pixels.
       (horizontal  (setq fr-pixel-width   (/ fr-pixel-width  (length visible-frames))))
       (vertical    (setq fr-pixel-height  (/ fr-pixel-height (length visible-frames))))
       (otherwise   (error "`frcmds-tile-frames': DIRECTION must be `horizontal' or `vertical'")))
@@ -1458,7 +1458,7 @@ the pixel width and height of the rectangle."
                           (if (eq direction 'horizontal) (or y-min-pix  0) fr-origin))
       (show-frame fr)
       ;; Move over the width or height of one frame, and add one border width.
-      (incf fr-origin (+ (or (cdr (assq 'border-width (frame-parameters fr)))  0)
+      (cl-incf fr-origin (+ (or (cdr (assq 'border-width (frame-parameters fr)))  0)
                          (if (eq direction 'horizontal) fr-pixel-width fr-pixel-height))))))
 
 (defun frcmds-extra-pixels-width (frame)

@@ -393,7 +393,7 @@
 (when (or (> emacs-major-version 23)  (and (= emacs-major-version 23)  (> emacs-minor-version 1)))
   (require 'info)) ;; Info-virtual-files
 
-(eval-when-compile (require 'cl)) ;; case, gentemp
+(eval-when-compile (require 'cl-lib)) ;; case, gentemp
 
 
 ;; Quiet the byte-compiler.
@@ -2444,7 +2444,7 @@ anything else (default): `inherit'
 
 VARIABLE's current value cannot satisfy a regexp type: it is
 impossible to know which concrete types a value must match."
-  (case mode
+  (cl-case mode
     ((nil inherit)     (help-var-inherits-type-p variable types))
     (inherit-or-value  (or (help-var-inherits-type-p variable types)
                            (help-var-val-satisfies-type-p variable types)))
@@ -2790,7 +2790,7 @@ Non-interactively:
                                                       (throw 'describe-keymap symb)))))
                        nil)))
         (unless sym
-          (setq sym  (gentemp "KEYMAP OBJECT (no variable) "))
+          (setq sym  (cl-gentemp "KEYMAP OBJECT (no variable) "))
           (set sym keymap))
         (setq keymap  sym))))
   (setq keymap  (or (condition-case nil (indirect-variable keymap) (error nil))  keymap)) ; Follow aliasing.
