@@ -38,6 +38,7 @@
 
         ;; avoid clash with other debug key bindings
         (spacemacs/set-leader-keys-for-major-mode mode "db" nil)
+        (spacemacs/set-leader-keys-for-major-mode mode "dd" nil)
 
         (spacemacs/declare-prefix-for-mode mode "md" "debug")
         (spacemacs/declare-prefix-for-mode mode "mdb" "breakpoints")
