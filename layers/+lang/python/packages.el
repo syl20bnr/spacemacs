@@ -1,6 +1,6 @@
 ;;; packages.el --- Python Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -50,7 +50,7 @@
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
-    :if (eq python-backend 'anaconda)
+    :if (eq (spacemacs//python-backend) 'anaconda)
     :defer t
     :init
     (setq anaconda-mode-installation-directory
@@ -94,7 +94,7 @@
 
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
-    :if (eq python-backend 'anaconda)
+    :if (eq (spacemacs//python-backend) 'anaconda)
     :defer t
     ;; see `spacemacs//python-setup-anaconda-company'
     ))
@@ -114,7 +114,7 @@
   (use-package cython-mode
     :defer t
     :config
-    (when (eq python-backend 'anaconda)
+    (when (eq (spacemacs//python-backend) 'anaconda)
       (spacemacs/set-leader-keys-for-major-mode 'cython-mode
         "hh" 'anaconda-mode-show-doc
         "gu" 'anaconda-mode-find-references))))

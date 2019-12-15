@@ -1,6 +1,6 @@
 ;;; funcs.el --- Python Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,34 +9,44 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//python-backend ()
+  "Returns selected backend."
+  (if python-backend
+      python-backend
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'anaconda))))
+
 (defun spacemacs//python-formatter ()
-  "Returns selected python-formatter."
-  (or python-formatter (pcase python-backend
-                         ('lsp 'lsp)
-                         ('anaconda 'yapf))))
+  "Returns selected backend."
+  (if python-formatter
+      python-formatter
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'yapf))))
 
 (defun spacemacs//python-setup-backend ()
   "Conditionally setup python backend."
   (when python-pipenv-activate (pipenv-activate))
-  (pcase python-backend
+  (pcase (spacemacs//python-backend)
     (`anaconda (spacemacs//python-setup-anaconda))
     (`lsp (spacemacs//python-setup-lsp))))
 
 (defun spacemacs//python-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase python-backend
+  (pcase (spacemacs//python-backend)
     (`anaconda (spacemacs//python-setup-anaconda-company))
     (`lsp (spacemacs//python-setup-lsp-company))))
 
 (defun spacemacs//python-setup-dap ()
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase python-backend
+  (pcase (spacemacs//python-backend)
     (`lsp (spacemacs//python-setup-lsp-dap))))
 
 (defun spacemacs//python-setup-eldoc ()
   "Conditionally setup eldoc based on backend."
-  (pcase python-backend
+  (pcase (spacemacs//python-backend)
     ;; lsp setup eldoc on its own
     (`anaconda (spacemacs//python-setup-anaconda-eldoc))))
 
@@ -372,7 +382,7 @@ to be called for each testrunner. "
   "Bind the python formatter keys.
 Bind formatter to '==' for LSP and '='for all other backends."
   (spacemacs/set-leader-keys-for-major-mode 'python-mode
-    (if (eq python-backend 'lsp)
+    (if (eq (spacemacs//python-backend) 'lsp)
         "=="
       "=") 'spacemacs/python-format-buffer))
 

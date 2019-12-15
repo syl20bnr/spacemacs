@@ -49,9 +49,9 @@ This layer adds support for the Python language.
 
 ** Features:
 - Support for the following backends:
-  - [[https://github.com/proofit404/anaconda-mode][anaconda]],
-  - [[https://github.com/emacs-lsp/lsp-python][Language Server Protocol]]
-    - python-language-server (default)
+  - [[https://github.com/proofit404/anaconda-mode][anaconda]] (default),
+  - [[https://github.com/emacs-lsp/lsp-python][Language Server Protocol]] (experimental - 2 implementations),
+    - python-language-server
     - Microsoft python language server
 - Auto-completion
 - Code Navigation
@@ -81,7 +81,10 @@ To choose a default backend set the layer variable =python-backend=:
   (python :variables python-backend 'anaconda)
 #+END_SRC
 
-A Backend can be chosen on a per project basis using directory local variables
+Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
+is used and you did not specify any value for =python-backend=.
+
+Backend can be chosen on a per project basis using directory local variables
 (files named =.dir-locals.el= at the root of a project), an example to use the
 =lsp= backend:
 
@@ -226,14 +229,16 @@ directory local variable in your project root. ~SPC f v d~ in Spacemacs. See
 The root of the project is detected with a =.git= directory or a =setup.cfg= file.
 
 ** Buffer formatting
-One of [[https://github.com/google/yapf][YAPF]], [[https://github.com/ambv/black][black]] or =lsp= may be selected as the formatter, via
-=python-formatter=, as =yapf=, =black= or =lsp= respectively. If non is selected
-either =yapf= or =lsp= is used depending on the selected backend.
+One of [[https://github.com/google/yapf][YAPF]] (the default), [[https://github.com/ambv/black][black]] or =lsp= may be selected as the formatter, via
+=python-formatter=, as ='yapf=, ='black= or =lsp= respectively.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (python :variables python-formatter 'yapf)))
 #+END_SRC
+
+Alternatively the =lsp= formatter will be automatically chosen if the layer =lsp=
+is used and you did not specify any value for =python-formatter=.
 
 The key binding ~SPC m =~ invokes the selected formatter on the current buffer
 when in non LSP python mode otherwise ~SPC m ==~ is used.
