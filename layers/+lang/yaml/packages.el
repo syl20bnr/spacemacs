@@ -8,9 +8,10 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(setq yaml-packages '(company
-                      flycheck
-                      yaml-mode))
+
+(defconst yaml-packages '(company
+                          flycheck
+                          yaml-mode))
 
 (defun yaml/post-init-company ()
   (unless yaml-enable-lsp
@@ -26,7 +27,7 @@
            ("Procfile\\'" . yaml-mode))
     :init
     (when yaml-enable-lsp
-      (add-hook 'yaml-mode-hook #'spacemacs//setup-lsp-for-yaml-buffer))
+      (add-hook 'yaml-mode-hook #'lsp))
     :config (add-hook 'yaml-mode-hook
                       '(lambda ()
                          (define-key yaml-mode-map "\C-m" 'newline-and-indent)))))

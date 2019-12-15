@@ -3124,6 +3124,7 @@ Other:
 - Improvements:
   - Updated docs to include the =yaml-yamllint= flycheck checker
     (thanks to Nam Nguyen)
+  - Add support for lsp server (thanks to Seong Yong-ju)
 **** Ycmd
 - Search for =compile_commands.json= in build sub-directory
   (thanks to Amos Bird and Eivind Fonn)
