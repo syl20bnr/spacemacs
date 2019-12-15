@@ -27,7 +27,7 @@ file.
 To enable LSP, install [[https://github.com/redhat-developer/yaml-language-server][yaml-language-server]]:
 
 #+BEGIN_SRC sh
-   npm i -g yaml-language-server
+  npm i -g yaml-language-server
 #+END_SRC
 
 And set the layer variable =yaml-enable-lsp= to =t= like shown below:
