@@ -132,7 +132,6 @@ where =0.7.6= can be replaced with the current version of [[https://github.com/s
     -o /usr/local/bin/metals-emacs -f
 #+END_SRC
 
-
 You will then have the common LSP key bindings; see
 [[http://develop.spacemacs.org/layers/+tools/lsp/README.html#key-bindings]] for more
 details.
