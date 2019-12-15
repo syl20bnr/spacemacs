@@ -216,7 +216,7 @@ Every README.org file of a layer should contain =#+TAGS:= line:
 
 Individual tags are separated with "|" char.
 Example above contains 2 tags: "layer" and "web service"
-Tags are listed in =<spacemacs_root>/.ci/spacedoc-cfg.edn=
+Tags are listed in  [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][=<spacemacs_root>/.ci/spacedoc-cfg.edn=]]
 
 #+BEGIN_SRC clojure
   :spacetools.spacedoc.config/valid-tags
@@ -231,8 +231,24 @@ Labels are used to name headlines in =LAYERS.org= file and
 =:spacetools.spacedoc.config/layers-org-query= defines its structure by
 chaining tags into a tree where every leaf turns into a list of
 descriptions pulled out of README.org files that match leaf's path in the tree.
-"layer" is implicit root tag of the tree and every description can be displayed
-only once.
+You can see how the shape of [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][=<spacemacs_root>/.ci/spacedoc-cfg.edn=]]
+repeats in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/LAYERS.org#table-of-contents][TOC of LAYERS.org]].
+There is one really useful property - every layer description
+will be displayed only once. It is used for "catch all" sections to
+match layers which do not have precise grouping.
+For example DSL language layers:
+
+#+BEGIN_SRC clojure
+  {"programming" [{"dsl" ["lisp"
+                          "markup"
+                          "script"
+                          ]}
+                  "dsl"]}
+#+END_SRC
+
+Here every layer that has tags: "layer", "programming", "dsl" plus one of
+"lisp", "markup", "script" tags will be displayed first then the rest of
+layers that have "layer", "programming", "dsl" tags.
 
 *** Contributor to an existing layer
 If you are contributing to an already existing layer, you should not modify any
