@@ -9,17 +9,17 @@
 ;;
 ;;; License: GPLv3
 
-(setq osx-packages
-      '(
-        exec-path-from-shell
-        helm
-        launchctl
-        (osx-dictionary :toggle osx-use-dictionary-app)
-        osx-trash
-        osx-clipboard
-        reveal-in-osx-finder
-        term
-        ))
+(defconst osx-packages
+  '(
+    exec-path-from-shell
+    helm
+    launchctl
+    (osx-dictionary :toggle osx-use-dictionary-app)
+    osx-trash
+    osx-clipboard
+    reveal-in-osx-finder
+    term
+    ))
 
 (when (spacemacs/system-is-mac)
   ;; Enable built-in trash support via finder API if available (only on Emacs
@@ -30,7 +30,6 @@
 (defun osx/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
     :if (spacemacs/system-is-mac)
-    :defer nil
     :config
     (progn
       (exec-path-from-shell-initialize)
@@ -117,13 +116,13 @@
     :init
     (progn
       (setq interprogram-cut-function '(lambda (text &rest ignore)
-                                        (if (display-graphic-p)
-                                            (gui-select-text text)
-                                          (osx-clipboard-cut-function text)))
+                                         (if (display-graphic-p)
+                                             (gui-select-text text)
+                                           (osx-clipboard-cut-function text)))
             interprogram-paste-function '(lambda ()
-                                          (if (display-graphic-p)
-                                              (gui-selection-value)
-                                            (osx-clipboard-paste-function)))))))
+                                           (if (display-graphic-p)
+                                               (gui-selection-value)
+                                             (osx-clipboard-paste-function)))))))
 
 (defun osx/init-reveal-in-osx-finder ()
   (use-package reveal-in-osx-finder
