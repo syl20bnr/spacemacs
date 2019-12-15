@@ -71,6 +71,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   =EXPERIMENTAL.org=. This allows for instant Spacemacs startup time with
   pre-loaded heavy packages like =Org= and =Helm=
   (thanks to Sylvain Benner, Compro Prasad and Keith Simmons)
+- Added support for native fill column indicator in Emacs 27+ (thanks to
+  Andriy Kmit)
 *** Breaking Changes
 **** Major
 - Support for Emacs 24 has been dropped, the minimal Emacs version is now
