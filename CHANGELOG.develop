@@ -1822,6 +1822,7 @@ Other:
     faster (thanks to Cosmin Cojocar)
   - Support editorconfig setting of =tab-width= to nil (thanks to lawrsp)
   - Added setup instructions for =gopls= (thanks to pancho horrillo)
+  - Make flycheck disable checkers covered by golangci (thanks to zhuoyikang)
 - Key bindings
   - =godoctor= key bindings (thanks to TinySong and Eivind Fonn):
     - ~SPC m r n~ to rename
