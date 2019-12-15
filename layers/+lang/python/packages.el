@@ -1,6 +1,6 @@
 ;;; packages.el --- Python Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -50,11 +50,11 @@
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
-    :if (eq (spacemacs//python-backend) 'anaconda)
+    :if (eq python-backend 'anaconda)
     :defer t
     :init
     (setq anaconda-mode-installation-directory
-      (concat spacemacs-cache-directory "anaconda-mode"))
+          (concat spacemacs-cache-directory "anaconda-mode"))
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
@@ -76,7 +76,7 @@
       (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
         (evil--jumps-push))
       (add-to-list 'spacemacs-jump-handlers-python-mode
-        '(anaconda-mode-find-definitions :async t)))))
+                   '(anaconda-mode-find-definitions :async t)))))
 
 (defun python/post-init-company ()
   ;; backend specific
@@ -94,7 +94,7 @@
 
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
-    :if (eq (spacemacs//python-backend) 'anaconda)
+    :if (eq python-backend 'anaconda)
     :defer t
     ;; see `spacemacs//python-setup-anaconda-company'
     ))
@@ -114,7 +114,7 @@
   (use-package cython-mode
     :defer t
     :config
-    (when (eq (spacemacs//python-backend) 'anaconda)
+    (when (eq python-backend 'anaconda)
       (spacemacs/set-leader-keys-for-major-mode 'cython-mode
         "hh" 'anaconda-mode-show-doc
         "gu" 'anaconda-mode-find-references))))
@@ -243,13 +243,13 @@
     :init
     (progn
       (pcase python-auto-set-local-pyenv-version
-       (`on-visit
-        (dolist (m spacemacs--python-pyenv-modes)
-          (add-hook (intern (format "%s-hook" m))
-                    'spacemacs//pyenv-mode-set-local-version)))
-       (`on-project-switch
-        (add-hook 'projectile-after-switch-project-hook
-                  'spacemacs//pyenv-mode-set-local-version)))
+        (`on-visit
+         (dolist (m spacemacs--python-pyenv-modes)
+           (add-hook (intern (format "%s-hook" m))
+                     'spacemacs//pyenv-mode-set-local-version)))
+        (`on-project-switch
+         (add-hook 'projectile-after-switch-project-hook
+                   'spacemacs//pyenv-mode-set-local-version)))
       ;; setup shell correctly on environment switch
       (dolist (func '(pyenv-mode-set pyenv-mode-unset))
         (advice-add func :after 'spacemacs/python-setup-everything))
@@ -295,7 +295,7 @@
         (setq pylookup-dir (concat dir "pylookup/")
               pylookup-program (concat pylookup-dir "pylookup.py")
               pylookup-db-file (concat pylookup-dir "pylookup.db")))
-        (setq pylookup-completing-read 'completing-read))))
+      (setq pylookup-completing-read 'completing-read))))
 
 (defun python/init-pytest ()
   (use-package pytest
@@ -381,8 +381,8 @@
 
 (defun python/post-init-semantic ()
   (when (configuration-layer/package-used-p 'anaconda-mode)
-      (add-hook 'python-mode-hook
-                'spacemacs//disable-semantic-idle-summary-mode t))
+    (add-hook 'python-mode-hook
+              'spacemacs//disable-semantic-idle-summary-mode t))
   (spacemacs/add-to-hook 'python-mode-hook
                          '(semantic-mode
                            spacemacs//python-imenu-create-index-use-semantic-maybe))
