@@ -13,7 +13,8 @@
                       yaml-mode))
 
 (defun yaml/post-init-company ()
-  (spacemacs|add-company-backends :modes yaml-mode))
+  (unless yaml-enable-lsp
+    (spacemacs|add-company-backends :modes yaml-mode)))
 
 (defun yaml/post-init-flycheck ()
   (spacemacs/enable-flycheck 'yaml-mode))
@@ -23,6 +24,9 @@
   (use-package yaml-mode
     :mode (("\\.\\(yml\\|yaml\\)\\'" . yaml-mode)
            ("Procfile\\'" . yaml-mode))
+    :init
+    (when yaml-enable-lsp
+      (add-hook 'yaml-mode-hook #'spacemacs//setup-lsp-for-yaml-buffer))
     :config (add-hook 'yaml-mode-hook
                       '(lambda ()
                          (define-key yaml-mode-map "\C-m" 'newline-and-indent)))))
