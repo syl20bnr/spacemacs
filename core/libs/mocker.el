@@ -29,7 +29,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl-lib))
+  (require 'cl))
 
 (require 'eieio)
 
@@ -64,7 +64,7 @@
    (records :initarg :records :initform nil :type list)))
 
 (defmethod constructor :static ((mock mocker-mock) newname &rest args)
-  (let* ((obj (cl-call-next-method))
+  (let* ((obj (call-next-method))
          (recs (oref obj :records))
          (func (oref obj :function)))
     (oset obj :orig-def (when (fboundp func) (symbol-function func)))
@@ -164,7 +164,7 @@
    (-sym :initarg :-sym)))
 
 (defmethod constructor :static ((rec mocker-record-base) newname &rest args)
-  (let* ((obj (cl-call-next-method))
+  (let* ((obj (call-next-method))
          (occur (oref obj :occur)))
     (when occur
       (oset obj :min-occur (max (oref obj :min-occur)
@@ -213,7 +213,7 @@
    (input-matcher :initarg :input-matcher :initform nil)))
 
 (defmethod constructor :static ((rec mocker-input-record) newname &rest args)
-  (let* ((obj (cl-call-next-method)))
+  (let* ((obj (call-next-method)))
     (when (or (not (slot-boundp obj :max-occur))
               (and (oref obj :max-occur)
                    (< (oref obj :max-occur)
@@ -250,7 +250,7 @@
   ((output :initarg :output :initform nil)))
 
 (defmethod constructor :static ((rec mocker-stub-record) newname &rest args)
-  (let* ((obj (cl-call-next-method)))
+  (let* ((obj (call-next-method)))
     (unless (slot-boundp obj :min-occur)
       (oset obj :min-occur 0))
     (unless (slot-boundp obj :max-occur)
