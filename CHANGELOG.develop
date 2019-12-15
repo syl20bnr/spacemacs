@@ -524,6 +524,9 @@ Other:
   - Use a unique variable for each transient state's full-hint toggle function
     so that toggling the full hint in one transient state does not affect other
     transient states (thanks to Miciah Dashiel Butler Masters)
+  - Converted obsolete =cl= to =cl-lib= (thanks to kimr)
+  - Removed uses of =lexical-let=, part of the deprecated =cl= package
+    (thanks to Spenser Truex)
 - Fixes:
   - Avoid non-idempotent use of push in init code (thanks to Miciah Masters)
   - Moved Spacemacs startup progress bar to =core-progress-bar.el=, removed
