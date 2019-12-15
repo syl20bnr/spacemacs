@@ -1593,11 +1593,9 @@ Features:
 **** C#
 [[file:+lang/csharp/README.org][+lang/csharp/README.org]]
 
-This layer adds support for C# language using the [[https://github.com/OmniSharp/omnisharp-roslyn][omnisharp-roslyn]] language
-server and corresponding [[https://github.com/OmniSharp/omnisharp-emacs][omnisharp-emacs]] package.
-
-Please report any issues encountered to [[https://github.com/OmniSharp/omnisharp-emacs/issues][omnisharp-emacs issue page on github]].
-PRs are welcome too!
+This layer adds support for the C# language using the [[https://github.com/OmniSharp/omnisharp-roslyn][omnisharp-roslyn]]
+language server with either the [[https://github.com/OmniSharp/omnisharp-emacs][omnisharp-emacs]]
+or the [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] packages.
 
 Features:
 - Syntax checking with flycheck (when =syntax-checking= layer is used)

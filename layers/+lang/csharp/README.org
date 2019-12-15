@@ -45,11 +45,12 @@ file.
 
 You can also choose between one of the two available backends by setting 
 the =csharp-backend= variable when configuring the layer:
- - =omnisharp= (the default), or
- - =lsp= (testing)
- - =nil= (to not use any language server)
+- =omnisharp= (the default), or
+- =lsp= (testing)
+- =nil= (to not use any language server)
 
 To use the lsp backend, add `csharp' layer with =csharp-backend= variable set to 'lsp:
+
 #+BEGIN_SRC elisp
   (csharp :variables csharp-backend 'lsp)
 #+END_SRC
@@ -74,7 +75,7 @@ prompt a path to your .csproj or .sln file.
 
 * Key bindings for the omnisharp backend
 The following key bindings are available when using the =omnisharp= backend.
-LSP-backend uses keybindings that are common for all layers/languages using the =lsp= layer.
+LSP-backend uses key bindings that are common for all layers/languages using the =lsp= layer.
 
 ** Navigation
 
