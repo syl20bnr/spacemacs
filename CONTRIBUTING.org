@@ -216,7 +216,7 @@ Every README.org file of a layer should contain =#+TAGS:= line:
 
 Individual tags are separated with "|" char.
 Example above contains 2 tags: "layer" and "web service"
-Tags are listed in  [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][=<spacemacs_root>/.ci/spacedoc-cfg.edn=]]
+Tags are listed in [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][=<spacemacs_root>/.ci/spacedoc-cfg.edn=]]
 
 #+BEGIN_SRC clojure
   :spacetools.spacedoc.config/valid-tags
