@@ -6,6 +6,8 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#lsp][LSP]]
 - [[#syntax-checking-with-flycheck][Syntax checking with flycheck]]
 
 * Description
@@ -16,9 +18,24 @@ This layer provides support for the YAML file format.
 - Syntax checking via [[http://www.flycheck.org/en/latest/languages.html#yaml][flycheck]]
 
 * Install
+** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =yaml= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+** LSP
+To enable LSP, install [[https://github.com/redhat-developer/yaml-language-server][yaml-language-server]]:
+
+#+BEGIN_SRC sh
+   npm i -g yaml-language-server
+#+END_SRC
+
+And set the layer variable =yaml-enable-lsp= to =t= like shown below:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((yaml :variables yaml-enable-lsp t)))
+#+END_SRC
 
 * Syntax checking with flycheck
 Flycheck checks YAML files with either:
