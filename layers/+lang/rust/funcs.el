@@ -89,24 +89,17 @@ open a junk Rust file, type in some code and quickly run it.
 If you want to use third-party crates, create a new project using `cargo-process-new' and run
 using `cargo-process-run'."
   (interactive)
-  (lexical-let ((input-file-name
-                  (buffer-file-name))
-                (output-file-name
-                  (concat
-                    temporary-file-directory
-                    (file-name-nondirectory (buffer-file-name))
-                    "-"
-                    (md5 (buffer-file-name)))))
+  (lexical-let ((input-file-name (buffer-file-name))
+                (output-file-name (concat temporary-file-directory
+                                          (file-name-nondirectory (buffer-file-name))
+                                          "-"
+                                          (md5 (buffer-file-name)))))
     (add-to-list 'compilation-finish-functions
                  (lambda (buffer status)
                    (if (string-match "finished" status)
-                     (shell-command
-                       (shell-quote-argument output-file-name)
-                       buffer)
+                       (shell-command (shell-quote-argument output-file-name) buffer)
                      (message "Compilation failed with: %s" status))))
     (compile
-      (format "rustc -o %s %s"
-              (shell-quote-argument output-file-name)
-              (shell-quote-argument input-file-name)))
-    )
-  )
+     (format "rustc -o %s %s"
+             (shell-quote-argument output-file-name)
+             (shell-quote-argument input-file-name)))))
