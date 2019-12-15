@@ -13,7 +13,10 @@
       '(
         (ansi-colors :location built-in)
         desktop
-        fill-column-indicator
+        ;; `display-fill-column-indicator' is available in Emacs 27+
+        (display-fill-column-indicator :location built-in
+                                       :toggle (boundp 'display-fill-column-indicator))
+        (fill-column-indicator :toggle (not (boundp 'display-fill-column-indicator)))
         hl-todo
         popup
         popwin
@@ -31,6 +34,21 @@
     (setq desktop-dirname spacemacs-cache-directory)
     :config
     (add-to-list 'desktop-path spacemacs-cache-directory)))
+
+(defun spacemacs-visual/init-display-fill-column-indicator ()
+  (spacemacs|add-toggle fill-column-indicator
+    :mode display-fill-column-indicator-mode
+    :documentation "Display the fill column indicator."
+    :evil-leader "tf")
+  (spacemacs|add-toggle fill-column-indicator-globally
+    :mode global-display-fill-column-indicator-mode
+    :documentation "Display the fill column indicator globally."
+    :evil-leader "t C-f")
+  (with-eval-after-load 'display-fill-column-indicator
+    ;; manually register the minor mode since it does not define any
+    ;; lighter
+    (add-to-list 'minor-mode-alist '(display-fill-column-indicator-mode ""))
+    (spacemacs|diminish display-fill-column-indicator-mode " ⓕ" " f")))
 
 (defun spacemacs-visual/init-fill-column-indicator ()
   (use-package fill-column-indicator
