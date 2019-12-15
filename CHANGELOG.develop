@@ -1503,6 +1503,7 @@ Other:
   - Enabled =flycheck= by default (thanks to Saulius Menkevičius)
   - No need to unset =omnisharp-auto-complete-want-documentation= anymore
    (thanks to Saulius Menkevičius)
+  - Add support for lsp server (thanks to Saulius Menkevičius)
   - Added ~SPC m t~ which key prefix: =csharp/tests= (thanks to duianto)
   - Hide mode-line indicator: =omnisharp= (thanks to duianto)
 - Key bindings:
