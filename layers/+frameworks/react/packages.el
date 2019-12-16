@@ -95,8 +95,8 @@
 
 (defun react/post-init-smartparens ()
   (if dotspacemacs-smartparens-strict-mode
-      (add-hook 'react-mode-hook #'smartparens-strict-mode)
-    (add-hook 'react-mode-hook #'smartparens-mode)))
+      (add-hook 'rjsx-mode-hook #'smartparens-strict-mode)
+    (add-hook 'rjsx-mode-hook #'smartparens-mode)))
 
 (defun react/post-init-tern ()
   (add-to-list 'tern--key-bindings-modes 'rjsx-mode))

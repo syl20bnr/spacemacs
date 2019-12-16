@@ -25,7 +25,7 @@ add =flow-type= to the existing =dotspacemacs-configuration-layers= list.
 In addition you also need to flow binary installed best with npm like shown below.
 
 #+BEGIN_SRC sh
-   npm install -g flow
+   npm install -g flow-bin
 #+END_SRC
 
 The type under the cursor is shown automatically using eldoc. You may find this
