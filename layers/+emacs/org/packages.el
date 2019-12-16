@@ -265,6 +265,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "tdr" 'org-table-kill-row
         "te" 'org-table-eval-formula
         "tE" 'org-table-export
+        "tf" 'org-table-field-info
         "th" 'org-table-previous-field
         "tH" 'org-table-move-column-left
         "tic" 'org-table-insert-column
