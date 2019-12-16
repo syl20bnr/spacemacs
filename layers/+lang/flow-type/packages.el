@@ -1,6 +1,6 @@
 ;;; packages.el --- flow-type layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
 ;;
 ;; Author: Mike Holm <coldpour@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -15,8 +15,7 @@
     company
     (company-flow :toggle (configuration-layer/package-usedp 'company))
     (flycheck-flow :toggle (configuration-layer/package-usedp 'flycheck))
-    eldoc
-    ))
+    eldoc))
 
 (defun flow-type/init-flow-minor-mode()
   (use-package flow-minor-mode
@@ -24,8 +23,7 @@
     :init
     (progn
       (add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
-      (add-hook 'react-mode-hook 'flow-minor-enable-automatically)
-      )
+      (add-hook 'react-mode-hook 'flow-minor-enable-automatically))
     :config
     (progn
       ;; enable jumping with ,gg
@@ -39,8 +37,7 @@
         "fc" 'flow-minor-status
         "ff" 'flow-minor-suggest
         "fo" 'flow-minor-coverage
-        "ft" 'flow-minor-type-at-pos
-        ))))
+        "ft" 'flow-minor-type-at-pos))))
 
 (defun flow-type/post-init-eldoc()
   (when flow-type-enable-eldoc-type-info
@@ -68,5 +65,4 @@
         (flycheck-add-mode 'javascript-flow 'react-mode)
         ;; After running js-flow, run js-eslint
         ;; doing this in the other order causes a lot of repeated errors!!!
-        (flycheck-add-next-checker 'javascript-flow 'javascript-eslint)
-      ))))
+        (flycheck-add-next-checker 'javascript-flow 'javascript-eslint)))))

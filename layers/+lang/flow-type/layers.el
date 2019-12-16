@@ -1,6 +1,6 @@
 ;;; layers.el --- flow-type Layer layers File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
 ;;
 ;; Author: Holm <holmi09@holmi09mac132>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layers '(node))
+(configuration-layer/declare-layer-dependencies '(node))
