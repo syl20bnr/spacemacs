@@ -453,6 +453,7 @@ are also available.
 | ~SPC m t d r~ | Delete the current row or horizontal line from the table                   |
 | ~SPC m t e~   | Replace the table field value at the cursor by the result of a calculation |
 | ~SPC m t E~   | Export table to a file, with configurable format                           |
+| ~SPC m t f~   | Show table field info                                                      |
 | ~SPC m t h~   | Go to the previous field in the table                                      |
 | ~SPC m t H~   | Move column to the left                                                    |
 | ~SPC m t i c~ | Insert a new column into the table                                         |

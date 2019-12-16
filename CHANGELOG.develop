@@ -269,6 +269,7 @@ sane way, here is the complete list of changed key bindings
   - ~SPC m t d c~ for =spacemacs/org-trello-pull-card=
   - ~SPC m t u b~ for =spacemacs/org-trello-push-buffer=
   - ~SPC m t u c~ for =spacemacs/org-trello-push-card=
+- New keybinding for =org-table-field-info= ~SPC m t f~ (thanks to Dominik Schrempf)
 ***** Python
 - Key bindings (thanks to Danny Freeman):
   - Changed ~SPC m s F~ to ~SPC m e F~ for =lisp-eval-defun-and-go=
