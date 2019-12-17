@@ -675,24 +675,26 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :defer t
     :init
     (progn
-      (evilified-state-evilify nil org-present-mode-keymap
-        "h" 'org-present-prev
-        "l" 'org-present-next
-        "q" 'org-present-quit)
       (defun spacemacs//org-present-start ()
         "Initiate `org-present' mode"
         (org-present-big)
         (org-display-inline-images)
         (org-present-hide-cursor)
         (org-present-read-only)
-        (evil-evilified-state))
+        (evil-define-key 'normal org-present-mode-keymap
+          "h"             'org-present-prev
+          (kbd "<left>")  'org-present-prev
+          "l"             'org-present-next
+          (kbd "<right>") 'org-present-next
+          "q"             'org-present-quit)
+        ;; evil-normal-state seems to be required to load the above key bindings
+        (evil-normal-state))
       (defun spacemacs//org-present-end ()
         "Terminate `org-present' mode"
         (org-present-small)
         (org-remove-inline-images)
         (org-present-show-cursor)
-        (org-present-read-write)
-        (evil-normal-state))
+        (org-present-read-write))
       (add-hook 'org-present-mode-hook 'spacemacs//org-present-start)
       (add-hook 'org-present-mode-quit-hook 'spacemacs//org-present-end))))
 
