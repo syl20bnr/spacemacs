@@ -11,10 +11,6 @@
 
 ;; Variables
 
-(defvar dart-sdk-path "~/flutter/bin/cache/dart-sdk"
-  "The path to dart sdk which is used by dart-server or lsp features.
-Default to flutter's build in sdk")
-
 (defvar dart-backend nil
   "The backend to use for IDE features.
 Possible values are `analyzer' `lsp'.
