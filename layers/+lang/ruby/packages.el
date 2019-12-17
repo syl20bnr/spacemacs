@@ -44,7 +44,8 @@
   (use-package bundler
     :defer t
     :init (dolist (mode '(ruby-mode enh-ruby-mode))
-            (spacemacs/declare-prefix-for-mode mode "mb" "bundle")
+            (spacemacs/declare-prefix-for-mode mode "mb"
+              (if (eq (spacemacs//ruby-backend) 'lsp) "build/bundle" "bundle"))
             (spacemacs/set-leader-keys-for-major-mode mode
               "bc" 'bundle-check
               "bi" 'bundle-install
@@ -65,11 +66,15 @@
   (add-hook 'ruby-mode-local-vars-hook #'spacemacs//ruby-setup-company))
 
 (defun ruby/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'ruby-mode))
+  (spacemacs/counsel-gtags-define-keys-for-mode 'ruby-mode)
+  (spacemacs/counsel-gtags-define-keys-for-mode 'enh-ruby-mode))
 
 (defun ruby/pre-init-dap-mode ()
   (add-to-list 'spacemacs--dap-supported-modes 'ruby-mode)
-  (add-hook 'ruby-mode-local-vars-hook #'spacemacs//ruby-setup-dap))
+  (add-to-list 'spacemacs--dap-supported-modes 'enh-ruby-mode)
+  (spacemacs/add-to-hooks #'spacemacs//ruby-setup-dap
+                          '(ruby-mode-local-vars-hook
+                            enh-ruby-mode-local-vars-hook)))
 
 (defun ruby/init-enh-ruby-mode ()
   (use-package enh-ruby-mode
@@ -81,12 +86,12 @@
     (progn
       (setq enh-ruby-deep-indent-paren nil
             enh-ruby-hanging-paren-deep-indent-level 2)
-      (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mr" "refactor/robe")
       (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mt" "test")
       (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mT" "toggle")
 
-      (spacemacs/add-to-hooks #'spacemacs//ruby-setup-backend
-                              '(ruby-mode-hook enh-ruby-mode-hook)))
+      (add-hook 'enh-ruby-mode-hook #'spacemacs//ruby-setup-backend)
+      (add-hook 'enh-ruby-mode-local-vars-hook
+                #'spacemacs/ruby-maybe-highlight-debugger-keywords))
     :config
     (spacemacs/set-leader-keys-for-major-mode 'enh-ruby-mode
       "T{" 'enh-ruby-toggle-block)))
@@ -182,6 +187,7 @@
       (dolist (mode '(ruby-mode enh-ruby-mode))
         (spacemacs/declare-prefix-for-mode mode "mg" "goto")
         (spacemacs/declare-prefix-for-mode mode "mh" "docs")
+        (spacemacs/declare-prefix-for-mode mode "mr" "refactor/robe")
         (spacemacs/declare-prefix-for-mode mode "mrs" "robe")
         (spacemacs/declare-prefix-for-mode mode "ms" "repl")
         (spacemacs/set-leader-keys-for-major-mode mode
@@ -274,17 +280,14 @@
            ("Puppetfile" . ruby-mode))
     :init
     (progn
-      (spacemacs/declare-prefix-for-mode 'ruby-mode "mr" "refactor/robe")
       (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "test")
       (spacemacs/declare-prefix-for-mode 'ruby-mode "mT" "toggle")
 
       ;; setup version manager which is necessary to find gems in path for backend
       (spacemacs//ruby-setup-version-manager)
-      (spacemacs/add-to-hooks #'spacemacs//ruby-setup-backend
-                              '(ruby-mode-hook enh-ruby-mode-hook))
-      (spacemacs/add-to-hooks
-       'spacemacs/ruby-maybe-highlight-debugger-keywords
-       '(ruby-mode-local-vars-hook enh-ruby-mode-local-vars-hook)))
+      (add-hook 'ruby-mode-hook #'spacemacs//ruby-setup-backend)
+      (add-hook 'ruby-mode-local-vars-hook
+                #'spacemacs/ruby-maybe-highlight-debugger-keywords))
     :config (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
               "T'" 'ruby-toggle-string-quotes
               "T{" 'ruby-toggle-block)))
@@ -295,14 +298,13 @@
     :init (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
             (add-hook hook 'ruby-refactor-mode-launch))
     :config
-    (progn
-      (dolist (mode '(ruby-mode enh-ruby-mode))
-        (spacemacs/declare-prefix-for-mode mode "mrR" "refactor")
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "rRm" 'ruby-refactor-extract-to-method
-          "rRv" 'ruby-refactor-extract-local-variable
-          "rRc" 'ruby-refactor-extract-constant
-          "rRl" 'ruby-refactor-extract-to-let)))))
+    (dolist (mode '(ruby-mode enh-ruby-mode))
+      (spacemacs/declare-prefix-for-mode mode "mre" "extract")
+      (spacemacs/set-leader-keys-for-major-mode mode
+        "rem" 'ruby-refactor-extract-to-method
+        "rev" 'ruby-refactor-extract-local-variable
+        "rec" 'ruby-refactor-extract-constant
+        "rel" 'ruby-refactor-extract-to-let))))
 
 (defun ruby/init-ruby-test-mode ()
   "Define keybindings for ruby test mode"
@@ -359,6 +361,7 @@
       (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
         (add-hook hook 'seeing-is-believing))
       (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/declare-prefix-for-mode mode "m@" "seeing-is-believing")
         (spacemacs/set-leader-keys-for-major-mode mode
           "@@" 'seeing-is-believing-run
           "@c" 'seeing-is-believing-clear)))))
