@@ -31,12 +31,12 @@
     :mode "\\.dart\\'"
     :init
     (add-hook 'dart-mode-local-vars-hook
-              #'spacemacs//dart-setup-backend-lsp)))
+              #'spacemacs//dart-setup-backend)))
 
 (defun dart/init-dart-server ()
   (use-package dart-server
-    :after dart-mode
-    :init
+    :defer t
+    :config
     (progn
       (spacemacs/declare-prefix-for-mode 'dart-mode "mf" "find")
       (spacemacs/declare-prefix-for-mode 'dart-mode "mh" "help")
@@ -72,14 +72,14 @@
   (use-package flutter
     :defer t
     :after dart-mode
-    :init
+    :config
     (progn
       (spacemacs/declare-prefix-for-mode 'dart-mode "mx" "flutter")
       (spacemacs/set-leader-keys-for-major-mode 'dart-mode
         "xx" 'flutter-run-or-hot-reload))))
 
 (defun dart/post-init-company ()
-  (add-hook 'dart-mode-local-vars-hook #'spacemacs//dart-setup-company-lsp))
+  (add-hook 'dart-mode-local-vars-hook #'spacemacs//dart-setup-company))
 
 (defun dart/post-init-flycheck ()
   (spacemacs/enable-flycheck 'dart-mode))
