@@ -11,4 +11,9 @@
 
 ;; Variables
 
+(defvar dart-backend nil
+  "The backend to use for IDE features.
+Possible values are `analyzer' `lsp'.
+If `nil' then `analyzer' is the default backend unless `lsp' layer is used.")
+
 (spacemacs|define-jump-handlers dart-mode)

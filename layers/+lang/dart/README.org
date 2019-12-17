@@ -8,12 +8,12 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-  - [[#layer][Layer]]
-  - [[#dart-sdk-location][Dart SDK location]]
+  - [[#choosing-a-backend][Choosing a backend]]
+- [[#backends][Backends]]
+  - [[#dart-analyzer][Dart analyzer]]
     - [[#flutter-integration][Flutter integration]]
+    - [[#format-on-save][Format on save]]
   - [[#lsp][LSP]]
-- [[#configuration][Configuration]]
-  - [[#format-on-save][Format on save]]
 - [[#key-bindings][Key bindings]]
   - [[#normal-mode][Normal mode]]
   - [[#insert-mode][Insert mode]]
@@ -30,13 +30,45 @@ This layer adds support for Dart language, and could be optionally used for Flut
 - Key bindings
 
 * Install
-** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =dart= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-** Dart SDK location
-The layer itself will use the =dart= executable location if available on the
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(dart))
+#+END_SRC
+
+** Choosing a backend
+To choose a default backend set the layer variable =dart-backend=:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (dart :variables dart-backend 'analyzer)))
+#+END_SRC
+
+Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
+is used and you did not specify any value for =dart-backend=.
+
+Backend can be chosen on a per project basis using directory local variables
+(files named =.dir-locals.el= at the root of a project), an example to use the
+=lsp= backend:
+
+#+BEGIN_SRC elisp
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
+  ((dart-mode (dart-backend . lsp)))
+#+END_SRC
+
+* Backends
+** Dart analyzer
+Dart analyzer supported via [[https://github.com/bradyt/dart-server][dart-server]]. You need to enable =dart-server-enable-analysis-server=
+to use analyzer features.
+
+#+BEGIN_SRC emacs-lisp
+  (dart :variables dart-server-enable-analysis-server t)
+#+end_src
+
+[[https://github.com/bradyt/dart-server][dart-server]] will use the =dart= executable location if available on the
 execution path, but it is possible to define the location manually. It should
 point to the folder, and end with =/=.
 
@@ -52,21 +84,24 @@ integration tools.
   (dart :variables dart-server-sdk-path "<flutter-path>/bin/cache/dart-sdk/")
 #+END_SRC
 
-** LSP
-This layer requires an instance of a dart lsp server to work properly.
-You can execute below command to install the official dart lsp server.
-Make sure that the executable is available on your =path=.
-
-#+BEGIN_SRC shell
-  pub global activate dart_language_server
-#+END_SRC
-
-* Configuration
-For additional variables check the [[https://github.com/bradyt/dart-server][dart-server]] documentation.
-
-** Format on save
+*** Format on save
 #+BEGIN_SRC elisp
   (dart :variables dart-server-format-on-save t)
+#+END_SRC
+
+For additional variables check the [[https://github.com/bradyt/dart-server][dart-server]] documentation.
+
+** LSP
+You must add lsp to the existing dotspacemacs-configuration-layers in your ~/.spacemacs.
+
+Consult the installation command for the desired language server found at lsp-mode for instructions.
+
+To enable auto-completion, ensure that the auto-completion layer is enabled.
+
+If you want to use custom dart sdk location, set it to =lsp-dart-sdk-dir=.
+
+#+BEGIN_SRC elisp
+  (dart :variables lsp-dart-sdk-dir "~/path/to/dart-sdk/")
 #+END_SRC
 
 * Key bindings
