@@ -257,10 +257,10 @@ When =ruby-test-runner= equals =minitest=.
 
 | Key binding   | Description            |
 |---------------+------------------------|
-| ~SPC m r R m~ | Extract to method      |
-| ~SPC m r R v~ | Extract local variable |
-| ~SPC m r R c~ | Extract constant       |
-| ~SPC m r R l~ | Extract to let (rspec) |
+| ~SPC m r e m~ | Extract to method      |
+| ~SPC m r e v~ | Extract local variable |
+| ~SPC m r e c~ | Extract constant       |
+| ~SPC m r e l~ | Extract to let (rspec) |
 
 ** Seeing is believing
 
