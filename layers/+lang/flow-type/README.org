@@ -2,11 +2,18 @@
 
 #+TAGS: framework|layer|programming
 
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#table-of-contents][Table of Contents]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
 * Table of Contents
-  - [[#description][Description]]
-    - [[#features][Features:]]
-  - [[#install][Install]]
-  - [[#key-bindings][Key bindings]]
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support for [[https://flowtype.org/][flow]] to spacemacs.
@@ -25,7 +32,7 @@ add =flow-type= to the existing =dotspacemacs-configuration-layers= list.
 In addition you also need to flow binary installed best with npm like shown below.
 
 #+BEGIN_SRC sh
-   npm install -g flow-bin
+  npm install -g flow-bin
 #+END_SRC
 
 The type under the cursor is shown automatically using eldoc. You may find this
@@ -33,7 +40,7 @@ a little sluggish, depending on your setup - if so, you can disable it by settin
 =flow-type-enable-eldoc-type-info= to =nil=.
 
 #+BEGIN_SRC emacs-lisp
-   (flow-type :variables flow-type-enable-eldoc-type-info nil)
+  (flow-type :variables flow-type-enable-eldoc-type-info nil)
 #+END_SRC
 
 You can always show types manually using =flow-minor-type-at-pos=,
@@ -41,10 +48,10 @@ bound to =SPC m f t= by default.
 
 * Key bindings
 
-  | Key binding | Description                                             |
-  |-------------+---------------------------------------------------------|
-  | ~SPC m f b~ | jump back from definition                               |
-  | ~SPC m f c~ | run `flow status' as a compiler                         |
-  | ~SPC m f d~ | jump to the definition of the variable under the cursor |
-  | ~SPC m f f~ | show flow suggestions                                   |
-  | ~SPC m f o~ | print coverage information                              |
+| Key binding | Description                                             |
+|-------------+---------------------------------------------------------|
+| ~SPC m f b~ | jump back from definition                               |
+| ~SPC m f c~ | run `flow status' as a compiler                         |
+| ~SPC m f d~ | jump to the definition of the variable under the cursor |
+| ~SPC m f f~ | show flow suggestions                                   |
+| ~SPC m f o~ | print coverage information                              |
