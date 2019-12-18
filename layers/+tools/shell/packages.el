@@ -295,14 +295,16 @@
       (add-hook 'eshell-mode-hook 'spacemacs/init-eshell-xterm-color))))
 
 (defun shell/init-terminal-here ()
-  :defer t
-  :init
-  (progn
-    (spacemacs/register-repl 'terminal-here 'terminal-here)
-    (spacemacs/set-leader-keys
-      "\"" 'terminal-here-launch
-      "p \"" 'terminal-here-project-launch)
-    ))
+  (use-package terminal-here
+    :defer t
+    :commands (terminal-here-launch terminal-here-project-launch)
+    :init
+    (progn
+      (spacemacs/register-repl 'terminal-here 'terminal-here)
+      (spacemacs/set-leader-keys
+        "\"" 'terminal-here-launch
+        "p \"" 'terminal-here-project-launch)
+      )))
 
 (defun shell/post-init-vi-tilde-fringe ()
   (spacemacs/add-to-hooks 'spacemacs/disable-vi-tilde-fringe
