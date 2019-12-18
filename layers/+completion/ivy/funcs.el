@@ -337,7 +337,7 @@ To prevent this error we just wrap `describe-mode' to defeat the
           (user-error "C-c C-c can do nothing useful at this location"))
     (let* ((context (org-element-context))
            (type (org-element-type context)))
-      (case type
+      (cl-case type
         ;; When at a link, act according to the parent instead.
         (link (setq context (org-element-property :parent context))
               (setq type (org-element-type context)))
@@ -359,7 +359,7 @@ To prevent this error we just wrap `describe-mode' to defeat the
             (setq context parent type 'item))))
 
       ;; Act according to type of element or object at point.
-      (case type
+      (cl-case type
         ((headline inlinetask)
          (save-excursion (goto-char (org-element-property :begin context))
                          (call-interactively 'counsel-org-tag)) t)))))

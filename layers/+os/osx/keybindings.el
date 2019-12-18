@@ -34,7 +34,7 @@
   (setq allowed-values '(super meta hyper control alt none left))
 
   ;; Backwards compatibility
-  (case osx-use-option-as-meta
+  (cl-case osx-use-option-as-meta
     ('nil (setf osx-option-as 'none))
     (deprecated nil)
     (t (setf osx-option-as 'meta)))

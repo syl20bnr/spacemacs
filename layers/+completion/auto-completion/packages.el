@@ -212,7 +212,7 @@
             company-box-doc-enable nil)
       (add-hook 'company-box-selection-hook
                 (lambda (selection frame) (company-box-doc--hide frame)))
-      (case auto-completion-enable-help-tooltip
+      (cl-case auto-completion-enable-help-tooltip
         ('manual (define-key company-active-map
                    (kbd "M-h") #'company-box-doc-manually))
         ('t (setq company-box-doc-enable t))))))
