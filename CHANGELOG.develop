@@ -2184,6 +2184,7 @@ Other:
 - Improved support for workman keyboard layout (thanks to Benjamin Reynolds)
 - Added =after-config= hooks for lazy-loaded packages (thanks to CharlesHD)
 - Added undo-tree visualizer mapping (thanks to CharlesHD)
+- Fixed key remapping after =cl= package deprecation (thanks to Damien Picard)
 **** Kivy
 - Added the =kivy= package (thanks to Nasser Alshammari and Ryota Kayanuma)
 **** LaTeX

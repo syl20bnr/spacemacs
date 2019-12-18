@@ -57,7 +57,7 @@ then `c' will be defined to the old `a' function, not to `b'."
   "Replace recursively all occurrences of `elem' by `repl' in the
 list `lst'."
   (declare (indent 0))
-  (if (typep lst 'list)
+  (if (cl-typep lst 'list)
       (let* ((body-position (cl-position elem lst)))
         (if body-position
             ;; The element is in the list, replace it
@@ -134,7 +134,7 @@ evil states, except insert."
 (defun kl/correct-keys (map &rest keys)
   (declare (indent 1))
   (let ((bindings (mapcan #'kl//guess-rebindings keys)))
-    (kl//remap-key-as map (remove-if #'null bindings))))
+    (kl//remap-key-as map (cl-remove-if #'null bindings))))
 
 (defun kl/evil-correct-keys (state map &rest keys)
   (declare (indent 2))
