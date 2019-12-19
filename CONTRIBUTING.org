@@ -239,10 +239,10 @@ Every layer description will be displayed only once.
 If you want to experiment with the system locally:
 
 #+BEGIN_SRC shell
- docker run --rm \
-   -v <SPACEMACS_REPO_ROOT>:/tmp/docs \
-   -v <PATH_TO_CONFIG_FILE>:/opt/spacetools/spacedoc-cfg.edn \
-   jare/spacetools docfmt /tmp/docs/
+  docker run --rm \
+    -v <SPACEMACS_REPO_ROOT>:/tmp/docs \
+    -v <PATH_TO_CONFIG_FILE>:/opt/spacetools/spacedoc-cfg.edn \
+    jare/spacetools docfmt /tmp/docs/
 #+END_SRC
 
 *** Contributor to an existing layer
