@@ -119,7 +119,13 @@
       (spacemacs||set-helm-key "swg" helm-google-suggest)
       (with-eval-after-load 'helm-files
         (define-key helm-find-files-map
-          (kbd "C-c C-e") 'spacemacs/helm-find-files-edit))
+          (kbd "C-c C-e") 'spacemacs/helm-find-files-edit)
+        (defun spacemacs//add-action-helm-find-files-edit ()
+          (helm-add-action-to-source
+          "Edit files in dired `C-c C-e'" 'spacemacs//helm-find-files-edit
+          helm-source-find-files))
+        (add-hook 'helm-find-files-before-init-hook
+                  'spacemacs//add-action-helm-find-files-edit))
       ;; Add minibuffer history with `helm-minibuffer-history'
       (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
       ;; Delay this key bindings to override the defaults
