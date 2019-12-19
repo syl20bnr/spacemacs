@@ -3,13 +3,6 @@
 #+TAGS: framework|layer|programming
 
 * Table of Contents                     :TOC_5_gh:noexport:
-- [[#table-of-contents][Table of Contents]]
-- [[#description][Description]]
-  - [[#features][Features:]]
-- [[#install][Install]]
-- [[#key-bindings][Key bindings]]
-
-* Table of Contents
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
