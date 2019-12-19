@@ -203,7 +203,7 @@ In the files header, change the default author name (=Sylvain Benner=) to your
 name.
 
 **** README.org tags
-Every README.org file of a layer should contain =#+TAGS:= line:
+Every README.org file of a layer should have =#+TAGS:= line:
 
 #+BEGIN_EXAMPLE
   #+TITLE: My layer
@@ -214,9 +214,9 @@ Every README.org file of a layer should contain =#+TAGS:= line:
   ...
 #+END_EXAMPLE
 
-Individual tags are separated with "|" char.
-Example above contains 2 tags: "layer" and "web service"
-Tags are listed in [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][=<spacemacs_root>/.ci/spacedoc-cfg.edn=]]
+Individual tags are separated with "|" character.
+Example above has 2 tags: "layer" and "web service".
+Tags are listed in [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][<spacemacs_root>/.ci/spacedoc-cfg.edn]] configuration file.
 
 #+BEGIN_SRC clojure
   :spacetools.spacedoc.config/valid-tags
@@ -227,28 +227,23 @@ Tags are listed in [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spac
    "completion" "Completion"}
 #+END_SRC
 
-Labels are used to name headlines in =LAYERS.org= file and
-=:spacetools.spacedoc.config/layers-org-query= defines its structure by
+Labels are used to name headlines in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/LAYERS.org][LAYERS.org]] file and
+[[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][:spacetools.spacedoc.config/layers-org-query]] defines structure of the file by
 chaining tags into a tree where every leaf turns into a list of
-descriptions pulled out of README.org files that match leaf's path in the tree.
-You can see how the shape of [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][=<spacemacs_root>/.ci/spacedoc-cfg.edn=]]
+descriptions pulled out of README.org files which tags match leaf's path in the tree.
+You can see how the shape of [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][<spacemacs_root>/.ci/spacedoc-cfg.edn]]
 repeats in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/LAYERS.org#table-of-contents][TOC of LAYERS.org]].
-There is one really useful property - every layer description
-will be displayed only once. It is used for "catch all" sections to
-match layers which do not have precise grouping.
-For example DSL language layers:
 
-#+BEGIN_SRC clojure
-  {"programming" [{"dsl" ["lisp"
-                          "markup"
-                          "script"
-                          ]}
-                  "dsl"]}
+Every layer description will be displayed only once.
+
+If you want to experiment with the system locally:
+
+#+BEGIN_SRC shell
+ docker run --rm \
+   -v <SPACEMACS_REPO_ROOT>:/tmp/docs \
+   -v <PATH_TO_CONFIG_FILE>:/opt/spacetools/spacedoc-cfg.edn \
+   jare/spacetools docfmt /tmp/docs/
 #+END_SRC
-
-Here every layer that has tags: "layer", "programming", "dsl" plus one of
-"lisp", "markup", "script" tags will be displayed first then the rest of
-layers that have "layer", "programming", "dsl" tags.
 
 *** Contributor to an existing layer
 If you are contributing to an already existing layer, you should not modify any
