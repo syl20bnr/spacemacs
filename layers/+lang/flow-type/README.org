@@ -9,7 +9,8 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for [[https://flowtype.org/][flow]] to spacemacs.
+This layer adds support for static type checking in javascript based
+on the [[https://flowtype.org/][flow]] project to spacemacs.
 
 ** Features:
 - Syntax highlighting
@@ -25,7 +26,7 @@ add =flow-type= to the existing =dotspacemacs-configuration-layers= list.
 In addition you also need to flow binary installed best with npm like shown below.
 
 #+BEGIN_SRC sh
-  npm install -g flow-bin
+  $ npm install -g flow-bin
 #+END_SRC
 
 The type under the cursor is shown automatically using eldoc. You may find this
