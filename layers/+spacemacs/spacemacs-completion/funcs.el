@@ -44,6 +44,13 @@
       (plist-put props :fuzzy-match (eq 'always helm-use-fuzzy))))
   (apply f args))
 
+(defun spacemacs//helm-find-files-enable-helm--in-fuzzy ()
+  "Enabling `helm--in-fuzzy' with the hook:
+`helm-find-files-after-init-hook'. Fixes the error:
+Helm issued errors: helm-match-from-candidates in source `Actions': wrong-type-argument (stringp nil)
+When searching in the helm-find-files (`SPC f f') actions (`C-z')."
+  (setq helm--in-fuzzy t))
+
 ;; Helm Header line
 
 (defun spacemacs//helm-hide-minibuffer-maybe ()

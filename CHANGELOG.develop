@@ -1244,6 +1244,7 @@ Other:
   - Fixed sudo-edit on TRAMP (thanks to Carlos Ibáñez)
   - Replaced obsolete function =doom-modeline-init= with =doom-modeline-mode=
     (thanks to duianto)
+  - Fixed searching in the =helm-find-file= actions (thanks to duianto)
 *** Layer changes and fixes
 **** Agda
 - Fixes
