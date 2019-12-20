@@ -234,15 +234,23 @@ descriptions pulled out of README.org files which tags match leaf's path in the 
 You can see how the shape of [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][<spacemacs_root>/.ci/spacedoc-cfg.edn]]
 repeats in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/LAYERS.org#table-of-contents][TOC of LAYERS.org]].
 
-Every layer description will be displayed only once.
+Important details:
+- Every layer description will be displayed exacly one time.
+- In the case when a README.org file of a layer doesn't have =#+TAGS:=
+  documentation formatting tool will inster dummy tags =layer|uncategorized=,
+  such files will be listed in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/LAYERS.org#readmeorg-files-that-need-proper-tags][LAYERS.org#readmeorg-files-that-need-proper-tags]].
+- Files which tag set has not being matched by [[https://github.com/syl20bnr/spacemacs/blob/develop/.ci/spacedoc-cfg.edn][:spacetools.spacedoc.config/layers-org-query]]
+  will appire in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/LAYERS.org#skipped-layers][LAYERS.org#skipped-layers]]
+- If [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/LAYERS.org][LAYERS.org]] file has =Skipped layers:= and/or
+  =README.org files that need proper tags= sections - someone is slacking :wink:
 
-If you want to experiment with the system locally:
+If you want to experiment with the tool locally:
 
 #+BEGIN_SRC shell
- docker run --rm \
-   -v <SPACEMACS_REPO_ROOT>:/tmp/docs \
-   -v <PATH_TO_CONFIG_FILE>:/opt/spacetools/spacedoc-cfg.edn \
-   jare/spacetools docfmt /tmp/docs/
+  docker run --rm \
+    -v <SPACEMACS_REPO_ROOT>:/tmp/docs \
+    -v <PATH_TO_CONFIG_FILE>:/opt/spacetools/spacedoc-cfg.edn \
+    jare/spacetools docfmt /tmp/docs/
 #+END_SRC
 
 *** Contributor to an existing layer
