@@ -1533,7 +1533,7 @@ Other:
   - Fixed =d-mode= flycheck imports on dub projects (thanks to Dietrich Daroch)
 **** Dart
 - Improvements:
-  - Added =LSP= support (thanks to Mathieu Post)
+  - Added =LSP= support (thanks to Mathieu Post and Takeshi Tsukamoto)
   - Added =Flutter= support (thanks to Mathieu Post)
 - Fixes:
   - Added =dart-server= package (thanks to duianto)

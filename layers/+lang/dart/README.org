@@ -43,11 +43,11 @@ To choose a default backend set the layer variable =dart-backend=:
 
 #+BEGIN_SRC elisp
   (setq-default dotspacemacs-configuration-layers '(
-    (dart :variables dart-backend 'analyzer)))
+    (dart :variables dart-backend 'lsp)))
 #+END_SRC
 
-Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
-is used and you did not specify any value for =dart-backend=.
+Alternatively the =lsp= backend will be automatically chosen if
+you did not specify any value for =dart-backend=.
 
 Backend can be chosen on a per project basis using directory local variables
 (files named =.dir-locals.el= at the root of a project), an example to use the
@@ -60,7 +60,27 @@ Backend can be chosen on a per project basis using directory local variables
 #+END_SRC
 
 * Backends
-** Dart analyzer
+** LSP
+This is the recommended backend it is a full IDE server using the standard
+language server protocol to communicate with emacs.
+
+Current versions of the dart-sdk ship with lsp support directly integrated in
+the =dart-server=. You do not need to worry about starting and stopping the
+server this will be done by spacemacs automatically.
+
+However to get all features make sure that you also load the
+auto-completion and syntax-checking layer in your dotfile.
+
+Emacs will look in the standard SDK location for the lsp server.
+If this is not working for you, please set the custom path via =lsp-dart-sdk-dir=.
+
+#+BEGIN_SRC elisp
+  (dart :variables lsp-dart-sdk-dir "~/path/to/dart-sdk/")
+#+END_SRC
+
+** Dart analyzer (deprecated)
+This backend is not longer officially supported from [[https://github.com/bradyt/dart-server][dart-server]] use the LSP backend instead.
+
 Dart analyzer supported via [[https://github.com/bradyt/dart-server][dart-server]]. You need to enable =dart-server-enable-analysis-server=
 to use analyzer features.
 
@@ -69,8 +89,7 @@ to use analyzer features.
 #+end_src
 
 [[https://github.com/bradyt/dart-server][dart-server]] will use the =dart= executable location if available on the
-execution path, but it is possible to define the location manually. It should
-point to the folder, and end with =/=.
+path, but it is possible to define the location manually. It should point to the folder and end with =/=.
 
 #+BEGIN_SRC elisp
   (dart :variables dart-server-sdk-path "~/path/to/dart-sdk/")
@@ -90,19 +109,6 @@ integration tools.
 #+END_SRC
 
 For additional variables check the [[https://github.com/bradyt/dart-server][dart-server]] documentation.
-
-** LSP
-You must add lsp to the existing dotspacemacs-configuration-layers in your ~/.spacemacs.
-
-Consult the installation command for the desired language server found at lsp-mode for instructions.
-
-To enable auto-completion, ensure that the auto-completion layer is enabled.
-
-If you want to use custom dart sdk location, set it to =lsp-dart-sdk-dir=.
-
-#+BEGIN_SRC elisp
-  (dart :variables lsp-dart-sdk-dir "~/path/to/dart-sdk/")
-#+END_SRC
 
 * Key bindings
 ** Normal mode
