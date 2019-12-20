@@ -1529,7 +1529,8 @@ Features:
 *** Flow-type
 [[file:+lang/flow-type/README.org][+lang/flow-type/README.org]]
 
-This layer adds support for [[https://flowtype.org/][flow]] to spacemacs.
+This layer adds support for static type checking in javascript based
+on the [[https://flowtype.org/][flow]] project to spacemacs.
 
 Features:
 - Syntax highlighting
