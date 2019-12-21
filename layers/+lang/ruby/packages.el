@@ -9,36 +9,36 @@
 ;;
 ;;; License: GPLv3
 
-(setq ruby-packages
-      '(
-        bundler
-        chruby
-        company
-        counsel-gtags
-        dap-mode
-        (enh-ruby-mode :toggle ruby-enable-enh-ruby-mode)
-        evil-matchit
-        flycheck
-        ggtags
-        helm-gtags
-        minitest
-        org
-        popwin
-        rake
-        rbenv
-        robe
-        rspec-mode
-        rubocop
-        rubocopfmt
-        ruby-hash-syntax
-        (ruby-mode :location built-in :toggle (not ruby-enable-enh-ruby-mode))
-        ruby-refactor
-        ruby-test-mode
-        ruby-tools
-        rvm
-        seeing-is-believing
-        smartparens
-        ))
+(defconst ruby-packages
+  '(
+    bundler
+    chruby
+    company
+    counsel-gtags
+    dap-mode
+    (enh-ruby-mode :toggle ruby-enable-enh-ruby-mode)
+    evil-matchit
+    flycheck
+    ggtags
+    helm-gtags
+    minitest
+    org
+    popwin
+    rake
+    rbenv
+    robe
+    rspec-mode
+    rubocop
+    rubocopfmt
+    ruby-hash-syntax
+    (ruby-mode :location built-in :toggle (not ruby-enable-enh-ruby-mode))
+    ruby-refactor
+    ruby-test-mode
+    ruby-tools
+    rvm
+    seeing-is-believing
+    smartparens
+    ))
 
 (defun ruby/init-bundler ()
   (use-package bundler
@@ -179,8 +179,8 @@
       (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
         (add-hook hook 'robe-mode))
       (spacemacs/add-to-hooks 'robe-jump
-                       '(spacemacs-jump-handlers-ruby-mode
-                         spacemacs-jump-handlers-enh-ruby-mode)))
+                              '(spacemacs-jump-handlers-ruby-mode
+                                spacemacs-jump-handlers-enh-ruby-mode)))
     :config
     (progn
       (spacemacs|hide-lighter robe-mode)

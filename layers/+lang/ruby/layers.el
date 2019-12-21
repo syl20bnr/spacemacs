@@ -11,4 +11,4 @@
 
 (when (and (boundp 'ruby-backend)
            (eq ruby-backend 'lsp))
-  (configuration-layer/declare-layer-dependencies '(lsp)))
+  (configuration-layer/declare-layer-dependencies '(dap)))
