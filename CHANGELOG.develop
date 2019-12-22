@@ -626,6 +626,7 @@ Other:
   - Replaced =destructuring-bind= with =cl-destructuring-bind=
     (thanks to duianto)
   - Ignore nils in dotspacemacs-configuration-layers (thanks to Ag)
+  - Fixed redundant package version checking during update (thanks to aaronjensen)
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
