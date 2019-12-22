@@ -616,6 +616,7 @@ Other:
     variable comments in favor of the ASCII one (thanks to nshadov)
   - Fixed home buffer version insertion removing first line (thanks to duianto)
   - Fixed ~SPC TAB~ in =spacemacs-base= distribution (thanks to duianto)
+  - Fixed redundant package version checking during update (thanks to aaronjensen)
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
