@@ -29,7 +29,7 @@
 
 (defun spacemacs/lsp-bind-keys ()
   "Define key bindings for the lsp minor mode."
-  (ecase lsp-navigation
+  (cl-ecase lsp-navigation
     ('simple (spacemacs//lsp-bind-simple-navigation-functions "g"))
     ('peek (spacemacs//lsp-bind-peek-navigation-functions "g"))
     ('both
@@ -133,7 +133,7 @@ BACKEND-NAME is a string, the name of the backend that's set for the layer
 KEY is a string corresponding to a key sequence
 KIND is a quoted symbol corresponding to an extension defined using
 `lsp-define-extensions'."
-  (ecase lsp-navigation
+  (cl-ecase lsp-navigation
     ('simple (spacemacs/set-leader-keys-for-major-mode mode
                (concat "g" key)
                (spacemacs//lsp-extension-name
