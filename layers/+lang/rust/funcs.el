@@ -92,6 +92,7 @@ If `help-window-select' is non-nil, also select the help window."
           (md5 (buffer-file-name))))
 
 (defun spacemacs//rust-quick-run-compilation-finish-function (buffer status)
+  (setq compilation-finish-functions (delete 'spacemacs//rust-quick-run-compilation-finish-function compilation-finish-functions))
   (if (and (string-match "finished" status)
            (with-current-buffer buffer
              (string-match (concat "rustc -o " temporary-file-directory) (buffer-string))))
@@ -108,6 +109,7 @@ using `cargo-process-run'."
   (interactive)
   (setq spacemacs//rust-quick-run-tmp-file
         (spacemacs//rust-quick-run-generate-tmp-file-name(buffer-file-name)))
+  (add-to-list 'compilation-finish-functions 'spacemacs//rust-quick-run-compilation-finish-function)
   (compile
    (format "rustc -o %s %s"
            (shell-quote-argument spacemacs//rust-quick-run-tmp-file)

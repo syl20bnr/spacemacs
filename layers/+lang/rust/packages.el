@@ -102,8 +102,7 @@
       (spacemacs/declare-prefix-for-mode 'rust-mode "m=" "format")
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "==" 'rust-format-buffer
-        "q" 'spacemacs/rust-quick-run)
-      (add-to-list 'compilation-finish-functions 'spacemacs//rust-quick-run-compilation-finish-function))))
+        "q" 'spacemacs/rust-quick-run))))
 
 (defun rust/post-init-smartparens ()
   (with-eval-after-load 'smartparens
