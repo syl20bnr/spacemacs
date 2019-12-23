@@ -2815,6 +2815,7 @@ Other:
 - Added debugger integration via =dap= layer
 - Fixed rust dap integration (thanks to Tommi Komulainen)
 - Make ~rustup~ call shell agnostic (thanks to Dietrich Daroch)
+- Fixed ~rust-quick-run~ command (thanks to Grant Shangreaux)
 **** Sailfish-Developer
 - Key bindings:
   - Added =sailfish-scratchbox= key bindings (thanks to Victor Polevoy):
