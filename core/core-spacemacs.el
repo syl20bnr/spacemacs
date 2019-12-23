@@ -103,7 +103,7 @@ the final step of executing code in `emacs-startup-hook'.")
                                     dotspacemacs-editing-style))
   (configuration-layer/initialize)
   ;; frame title init
-  (when (and (display-graphic-p) dotspacemacs-frame-title-format)
+  (when dotspacemacs-frame-title-format
     (require 'format-spec)
     (setq frame-title-format '((:eval (spacemacs/title-prepare dotspacemacs-frame-title-format))))
     (if dotspacemacs-icon-title-format
