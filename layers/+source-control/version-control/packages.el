@@ -12,15 +12,15 @@
 (setq version-control-packages
       '(
         browse-at-remote
-        (vc :location built-in)
+        (diff-hl            :toggle (eq 'diff-hl version-control-diff-tool))
         diff-mode
-        diff-hl
         evil-unimpaired
-        git-gutter
-        git-gutter+
-        git-gutter-fringe
-        git-gutter-fringe+
+        (git-gutter         :toggle (eq 'git-gutter version-control-diff-tool))
+        (git-gutter-fringe  :toggle (eq 'git-gutter version-control-diff-tool))
+        (git-gutter+        :toggle (eq 'git-gutter+ version-control-diff-tool))
+        (git-gutter-fringe+ :toggle (eq 'git-gutter+ version-control-diff-tool))
         (smerge-mode :location built-in)
+        (vc :location built-in)
         ))
 
 (defun version-control/init-vc ()
@@ -121,7 +121,6 @@
 
 (defun version-control/init-diff-hl ()
   (use-package diff-hl
-    :if (eq version-control-diff-tool 'diff-hl)
     :defer t
     :init
     (progn
@@ -143,7 +142,6 @@
 
 (defun version-control/init-git-gutter ()
   (use-package git-gutter
-    :if (eq version-control-diff-tool 'git-gutter)
     :defer t
     :init
     (progn
@@ -165,7 +163,6 @@
 
 (defun version-control/init-git-gutter-fringe ()
   (use-package git-gutter-fringe
-    :if (eq version-control-diff-tool 'git-gutter)
     :defer t
     :init
     (progn
@@ -222,7 +219,6 @@
 
 (defun version-control/init-git-gutter-fringe+ ()
   (use-package git-gutter-fringe+
-    :if (eq version-control-diff-tool 'git-gutter+)
     :defer t
     :init
     (progn

@@ -3133,6 +3133,7 @@ Other:
   - =browse-at-remote= which replaces =github-browse-file=
   (thanks Eugene Yaremenko)
 - Avoid loading all the diff packages (thanks to Sylvain Benner)
+- Avoided installing unused diff packages (thanks to Andriy Kmit)
 - Fixed error on =diff-hl-margin-mode= function being nil during startup
   (thanks to Voleking)
 **** Vue

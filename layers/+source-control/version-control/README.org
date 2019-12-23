@@ -8,7 +8,7 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
 - [[#configuration][Configuration]]
-  - [[#differences-between-margin-programs][Differences between margin programs]]
+  - [[#differences-between-margin-packages][Differences between margin packages]]
 - [[#key-bindings][Key bindings]]
   - [[#vc-directory-buffer-commands][VC Directory buffer commands]]
   - [[#commit-message-editing-buffer][Commit message editing buffer]]
@@ -34,8 +34,12 @@ add =version-control= to the existing =dotspacemacs-configuration-layers= list i
 file.
 
 * Configuration
-You can choose the package to facilitate the diff transient-state and show margins
-by setting =version-control-diff-tool=
+You can choose the package to facilitate the diff transient-state and show
+margins by setting the =version-control-diff-tool= variable to one of the
+supported packages:
+- [[https://github.com/dgutov/diff-hl][diff-hl]]
+- [[https://github.com/syohex/emacs-git-gutter][git-gutter]]
+- [[https://github.com/nonsequitur/git-gutter-plus][git-gutter+]] (default)
 
 #+BEGIN_SRC emacs-lisp
   '(version-control :variables
@@ -57,9 +61,9 @@ To automatically enable diff margins in all buffers, set
                     version-control-global-margin t)
 #+END_SRC
 
-** Differences between margin programs
+** Differences between margin packages
 This layer contains generalized mappings for three diff margin packages:
-diff-hl, git-gutter, and git-gutter+.
+=diff-hl=, =git-gutter=, and =git-gutter+=.
 
 There are some differences between packages that might have some people prefer
 one over the other:
