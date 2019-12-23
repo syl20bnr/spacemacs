@@ -10,10 +10,12 @@
 - [[#install][Install]]
   - [[#choosing-a-backend][Choosing a backend]]
 - [[#backends][Backends]]
-  - [[#dart-analyzer][Dart analyzer]]
+  - [[#lsp][LSP]]
     - [[#flutter-integration][Flutter integration]]
     - [[#format-on-save][Format on save]]
-  - [[#lsp][LSP]]
+  - [[#dart-analyzer][Dart analyzer]]
+    - [[#flutter-integration-1][Flutter integration]]
+    - [[#format-on-save-1][Format on save]]
 - [[#key-bindings][Key bindings]]
   - [[#normal-mode][Normal mode]]
   - [[#insert-mode][Insert mode]]
@@ -78,6 +80,22 @@ If this is not working for you, please set the custom path via =lsp-dart-sdk-dir
   (dart :variables lsp-dart-sdk-dir "~/path/to/dart-sdk/")
 #+END_SRC
 
+*** Flutter integration
+Flutter comes with a internal Dart SDK, which can be used to provide all the
+integration tools.
+
+#+BEGIN_SRC elisp
+  (dart :variables lsp-dart-sdk-dir "<flutter-path>/bin/cache/dart-sdk/")
+#+END_SRC
+
+*** Format on save
+Set the layer variable =lsp-enable-on-type-formatting= to =t= to activate formatting
+on save.
+
+#+BEGIN_SRC elisp
+  (dart :variables lsp-enable-on-type-formatting t)
+#+END_SRC
+
 ** Dart analyzer (deprecated)
 This backend is not longer officially supported from [[https://github.com/bradyt/dart-server][dart-server]] use the LSP backend instead.
 
@@ -104,6 +122,8 @@ integration tools.
 #+END_SRC
 
 *** Format on save
+Set the layer variable =dart-server-format-on-save= to =t= to activate formatting
+on save.
 #+BEGIN_SRC elisp
   (dart :variables dart-server-format-on-save t)
 #+END_SRC
