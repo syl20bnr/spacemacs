@@ -574,7 +574,7 @@ If the universal prefix argument is used then kill also the window."
 ;; found at http://emacswiki.org/emacs/KillingBuffers
 (defun spacemacs/kill-other-buffers (&optional arg)
   "Kill all other buffers.
-If the universal prefix argument is used then will the windows too."
+If the universal prefix argument is used then kill the windows too."
   (interactive "P")
   (when (yes-or-no-p (format "Killing all buffers except \"%s\"? "
                              (buffer-name)))
