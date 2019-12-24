@@ -1629,8 +1629,8 @@ Other:
 - Added elixir-ls backend (thanks to mpanarin)
 - Added breakpoint toggle to alchemist binds (thanks to mpanarin)
   - Added ~SPC m d b~ to toggle IEx.pry breakpoint
-- lsp layer is a dependency when backend is set to 'lsp (thanks to mpanarin)
-- "C-j" indents line properly (thanks to mpanarin)
+- lsp layer is a dependency when backend is set to ='lsp= (thanks to mpanarin)
+- ~C-j~ indents line properly (thanks to mpanarin)
 - Enabled =evil-matchit= (thanks to Miloš Mošić)
 **** Elm
 - Fixed flycheck initialization (thanks to Kevin W. van Rooijen)
@@ -1957,12 +1957,11 @@ Other:
   - Fixed searching in a project with ~C-s~ from ~SPC p p~ (thanks to duianto)
   - Fixed ~C-c C-e~ =helm-find-files-edit= action (thanks to duianto)
 **** HTML
-- Added impatient-mode under ~SPC m i~ (thanks to geo7)
+- Added =impatient-mode= under ~SPC m i~ (thanks to geo7)
 - Added =counsel-css= as an =ivy= alternative to =helm-css-scss=
   (thanks to Robbert van der Helm)
 - Fixed autoloading bug involving =spacemacs/helm-find-files=
   (thanks to Jack Kamm)
-- Added impatient-mode under ~SPC m i~ (thanks to geo7)
 - XML files now open with web-mode by default (thanks to Jordan Gwyn)
 - Added =helm-xref= (thanks to Fangrui Song and Sylvain Benner)
 - Removed ~TAB~ binding for emacs editing style in =emmet-mode=
@@ -2381,7 +2380,7 @@ Other:
 - Try harder to find GitHub patch URL (thanks to Miciah Masters)
 - Open GitHub patches fullscreen
 - Add next and previous message bindings to notmuch-tree mode
-- Change the C-n and C-p message bindings to their original N and P bindings
+- Change the ~C-n~ and ~C-p~ message keys to their original ~N~ and ~P~ bindings
 **** OCaml
 - Allow initialization without requiring =opam= (thanks to Bernhard Schommer)
 - Fixed misused functions, =merlin= is a package not a layer
@@ -3157,12 +3156,12 @@ Other:
 *** Various improvements
 - Lots of improvement with CI and documentation exporting
   (thanks to Eugene Yaremenko)
-- New LAYERS.org format (thanks to Eugene Yaremenko && Anton Latukha)
-- Various code and style improvements (thanks to bmag, duianto, Enze Chi, Eivind
-  Fonn, Eugene Yaremenko, Fabien Dubosson, Kalle Lindqvist, Boris Buliga, timor,
-  yuhan0, thanhvg, Sylvain Benner)
-- Multiple unit test improvements (thanks to Sylvain Benner, et2010 and
-  Codruț Constantin Gușoi)
+- New LAYERS.org format (thanks to Anton Latukha && Eugene Yaremenko)
+- Various code and style improvements (thanks to bmag, Boris Buliga, duianto,
+  Enze Chi, Eivind Fonn, Eugene Yaremenko, Fabien Dubosson, Kalle Lindqvist,
+  Sylvain Benner, thanhvg, timor, yuhan0)
+- Multiple unit test improvements (thanks to Codruț Constantin Gușoi, et2010 and
+  Sylvain Benner)
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham, Aaron
   Renner, Adam Frey, Adam Kruszewski, ahanwadi, Aleksandr Argunov, Alexander
   Dalshov, Alexander Eberspächer, Alexander Iljin, Alexander Kjeldaas,
@@ -3192,18 +3191,19 @@ Other:
   Verdier, Pancho Horrillo, Paul Milla, Paulo Schneider, Pawan Dubey, Paweł
   Siudak, Phil Pirozhkov, Philippe Bourdages, Piotr Grzesik, Rafi Khan,
   Rand01ph, rakyi, Raymond Wanyoike, Reverend Homer, Robby O'Connor, Rhommel
-  Lamas, Sam Pablo Kuper, Saulius Menkevičius, sduthil, Sergio Ugalde, Shane
-  Kilkelly, Sid Kapur, Som Poddar, Somelauw, Soobin Rho, sorawee, SteveJobzniak,
-  Sunghyun Hwang, Swaroop C H, Sylvain Benner, Szunti, Thijs Vermeir, Tianyi
-  Wang, Tim Stewart, timor, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz
-  Cichocinski, Trey Merkley, tzhao11, Vincent Taing, Vlad Bokov, Vladimir
-  Kochnev, wenpin, Wieland Hoffmann, Witoslaw Koczewski, Xiang Ji, Yi Liu, Zane
-  Sterling, zer09, Zhige Xin, Serghei Iakovlev)
+  Lamas, Sam Pablo Kuper, Saulius Menkevičius, sduthil, Serghei Iakovlev, Sergio
+  Ugalde, Shane Kilkelly, Sid Kapur, Som Poddar, Somelauw, Soobin Rho, sorawee,
+  SteveJobzniak, Sunghyun Hwang, Swaroop C H, Sylvain Benner, Szunti, Thijs
+  Vermeir, Tianyi Wang, Tim Stewart, timor, TinySong, Titov Andrey, Thomas de
+  Beauchêne, Tomasz Cichocinski, Trey Merkley, tzhao11, Vincent Taing, Vlad
+  Bokov, Vladimir Kochnev, wenpin, Wieland Hoffmann, Witoslaw Koczewski, Xiang
+  Ji, Yi Liu, Zane Sterling, zer09, Zhige Xin)
 **** Documentation and website
-  - Updated DOCUMENTATION.org to fix the example for how to change the separator style
+  - DOCUMENTATION.org:
+    - Fixed the example for how to change the separator style
   - README.md:
     - Fixed macOS documentation to install fonts (thanks to Sergio Morales)
 *** Release notes summarized
-  Thanks to: Grant Shangreaux, Songpeng Zu, Igor Almeida, Miciah Dashiel Butler
-  Masters, Abhishek(Compro) Prasad, Deepak Khidia, Ward Harris, Jiahao Jiang,
-  Enze Chi
+  Thanks to: Abhishek(Compro) Prasad, Deepak Khidia, Enze Chi, Grant Shangreaux,
+  Igor Almeida, Jiahao Jiang, Miciah Dashiel Butler Masters, Songpeng Zu, Ward
+  Harris
