@@ -13,7 +13,7 @@
   - [[#lsp][LSP]]
     - [[#flutter-integration][Flutter integration]]
     - [[#format-on-save][Format on save]]
-  - [[#dart-analyzer][Dart analyzer]]
+  - [[#dart-analyzer-deprecated][Dart analyzer (deprecated)]]
     - [[#flutter-integration-1][Flutter integration]]
     - [[#format-on-save-1][Format on save]]
 - [[#key-bindings][Key bindings]]
@@ -104,7 +104,7 @@ to use analyzer features.
 
 #+BEGIN_SRC emacs-lisp
   (dart :variables dart-server-enable-analysis-server t)
-#+end_src
+#+END_SRC
 
 [[https://github.com/bradyt/dart-server][dart-server]] will use the =dart= executable location if available on the
 path, but it is possible to define the location manually. It should point to the folder and end with =/=.
@@ -124,6 +124,7 @@ integration tools.
 *** Format on save
 Set the layer variable =dart-server-format-on-save= to =t= to activate formatting
 on save.
+
 #+BEGIN_SRC elisp
   (dart :variables dart-server-format-on-save t)
 #+END_SRC
