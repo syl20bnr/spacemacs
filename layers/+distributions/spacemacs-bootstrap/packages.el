@@ -133,15 +133,20 @@
   (define-key evil-normal-state-map (kbd "gD") 'spacemacs/jump-to-definition-other-window)
 
   ;; scrolling transient state
-  (spacemacs|define-transient-state scroll
-    :title "Scrolling Transient State"
-    :doc "
+  (spacemacs|transient-state-format-hint scroll
+    spacemacs--scroll-ts-full-hint
+    (format "\n[_?_] toggle help
  Line/Column^^^^      Half Page^^^^        Full Page^^ Buffer^^^^    Other
  ───────────^^^^───── ─────────^^^^─────── ─────────^^ ──────^^^^─── ─────^^───
  [_k_]^^   up         [_u_/_K_] up         [_b_] up    [_<_/_g_] beg [_q_] quit
  [_j_]^^   down       [_d_/_J_] down       [_f_] down  [_>_/_G_] end
- [_h_/_l_] left/right [_H_/_L_] left/right"
+ [_h_/_l_] left/right [_H_/_L_] left/right"))
+  (spacemacs|define-transient-state scroll
+    :title "Scrolling Transient State"
+    :hint-is-doc t
+    :dynamic-hint (spacemacs//scroll-ts-hint)
     :bindings
+    ("?" spacemacs//scroll-ts-toggle-hint)
     ;; lines and columns
     ("j" evil-scroll-line-down)
     ("k" evil-scroll-line-up)

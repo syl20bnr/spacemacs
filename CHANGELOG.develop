@@ -121,6 +121,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
     state (thanks to Sylvain Benner)
   - Restricted ~SPC b C-d~ to only kill other buffers in current perspective
     (thanks to Seong Yong-ju)
+  - Toggleable hint for the Scrolling Transient State (~SPC N~)
+    (thanks to Andriy Kmit)
 - Other:
   - Support for multiple cursors using =evil-mc= is now encapsulated in the
     =multiple-cursors= layer (thanks to Codruț Constantin Gușoi)
