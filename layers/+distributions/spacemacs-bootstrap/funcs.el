@@ -186,3 +186,29 @@ Example: (evil-map visual \"<\" \"<gv\")"
   "Custom hint documentation format for keys."
   (format (format "[%%%ds] %%%ds" key-width (- -1 doc-width))
           key doc))
+
+
+
+(defvar spacemacs--scroll-ts-full-hint-toggle t
+  "Toggle the state of the scroll transient state documentation.
+
+Initial value is t so full hint will be shown by default. This is
+to preserve the behavior before hint toggle was implemented for
+the scroll transient state.")
+
+(defvar spacemacs--scroll-ts-full-hint nil
+  "Display full scroll transient state documentation.")
+
+(defun spacemacs//scroll-ts-toggle-hint ()
+  "Toggle the full hint docstring for the scroll transient state."
+  (interactive)
+  (setq spacemacs--scroll-ts-full-hint-toggle
+        (not spacemacs--scroll-ts-full-hint-toggle)))
+
+(defun spacemacs//scroll-ts-hint ()
+  "Return a condensed/full hint for the scroll transient state"
+  (concat
+   " "
+   (if spacemacs--scroll-ts-full-hint-toggle
+       spacemacs--scroll-ts-full-hint
+     (concat "[" (propertize "?" 'face 'hydra-face-red) "] toggle help"))))

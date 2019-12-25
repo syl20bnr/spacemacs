@@ -1104,6 +1104,8 @@ Other:
   - Hide =spacemacs//= command prefixes in which-key (thanks to duianto)
   - Prevented removal of =eldoc= info when switching to insert state
     (thanks to Ivan Yonchovski)
+  - Added a toggleable hint for the Scrolling Transient State (~SPC N~)
+    (thanks to Andriy Kmit)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)
