@@ -1090,6 +1090,7 @@ Other:
                spacemacs/window-split-triple-columns
                spacemacs/window-split-grid)
     (thanks to Thanh Vuong)
+  - Added documentation to use a =spacemacs-layouts-restricted-functions= variables (John Stevenson)
   - Added a link to =spacemacs|create-align-repeat-x= in the docstring for
      =align-repeat-= commands (thanks to Troy Pracy)
   - Improved TS formatting: workspaces & layouts (thanks to duianto)
