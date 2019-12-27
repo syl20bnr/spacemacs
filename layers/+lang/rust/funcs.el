@@ -93,12 +93,10 @@ If `help-window-select' is non-nil, also select the help window."
 
 (defun spacemacs//rust-quick-run-compilation-finish-function (buffer status)
   (setq compilation-finish-functions (delete 'spacemacs//rust-quick-run-compilation-finish-function compilation-finish-functions))
-  (if (and (string-match "finished" status)
-           (with-current-buffer buffer
-             (string-match (concat "rustc -o " temporary-file-directory) (buffer-string))))
-      (progn
-        (newline)
-        (shell-command (shell-quote-argument spacemacs//rust-quick-run-tmp-file) t))))
+  (when (string-match "finished" status)
+    (newline)
+    (shell-command
+     (shell-quote-argument spacemacs//rust-quick-run-tmp-file) t)))
 
 (defun spacemacs/rust-quick-run ()
   "Quickly run a Rust file using rustc.
