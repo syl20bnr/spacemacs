@@ -1043,7 +1043,7 @@ will go to the function =dotspacemacs/user-env= instead of opening the file
 =dotspacemacs/user-env= so you can update your variables in place.
 
 ** Note about the function dotspacemacs/user-env
-Its possible that you don't have this function defined if you have an older
+It's possible that you don't have this function defined if you have an older
 dotfile. It is recommended to update your dotfile by adding this function,
 see the file =~/.emacs.d/core/template/.spacemacs.template= to copy it.
 If you don't create such function then Spacemacs assumes you are using the
