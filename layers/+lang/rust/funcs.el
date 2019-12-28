@@ -37,12 +37,15 @@
 
 
 ;; lsp
+(defun spacemacs//lsp-layer-not-installed-message ()
+  (message (concat "`lsp' layer is not installed, "
+                   "please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//rust-setup-lsp ()
   "Setup lsp backend"
   (if (configuration-layer/layer-used-p 'lsp)
       (lsp)
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+    (spacemacs//lsp-layer-not-installed-message)))
 
 (defun spacemacs//rust-setup-lsp-company ()
   "Setup lsp auto-completion."
@@ -51,7 +54,7 @@
         (spacemacs|add-company-backends
           :backends company-lsp
           :modes rust-mode))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+    (spacemacs//lsp-layer-not-installed-message)))
 
 (defun spacemacs//rust-setup-lsp-dap ()
   "Setup DAP integration."
@@ -92,7 +95,9 @@ If `help-window-select' is non-nil, also select the help window."
           (md5 (buffer-file-name))))
 
 (defun spacemacs//rust-quick-run-compilation-finish-function (buffer status)
-  (setq compilation-finish-functions (delete 'spacemacs//rust-quick-run-compilation-finish-function compilation-finish-functions))
+  (setq compilation-finish-functions
+        (delete 'spacemacs//rust-quick-run-compilation-finish-function
+                compilation-finish-functions))
   (when (string-match "finished" status)
     (newline)
     (shell-command
@@ -100,14 +105,15 @@ If `help-window-select' is non-nil, also select the help window."
 
 (defun spacemacs/rust-quick-run ()
   "Quickly run a Rust file using rustc.
-Meant for a quick-prototype flow only - use `spacemacs/open-junk-file' to
-open a junk Rust file, type in some code and quickly run it.
-If you want to use third-party crates, create a new project using `cargo-process-new' and run
-using `cargo-process-run'."
+Meant for a quick-prototype flow only - use `spacemacs/open-junk-file' to open a
+junk Rust file, type in some code and quickly run it. If you want to use
+third-party crates, create a new project using `cargo-process-new' and run using
+`cargo-process-run'."
   (interactive)
   (setq spacemacs//rust-quick-run-tmp-file
         (spacemacs//rust-quick-run-generate-tmp-file-name(buffer-file-name)))
-  (add-to-list 'compilation-finish-functions 'spacemacs//rust-quick-run-compilation-finish-function)
+  (add-to-list 'compilation-finish-functions
+               'spacemacs//rust-quick-run-compilation-finish-function)
   (compile
    (format "rustc -o %s %s"
            (shell-quote-argument spacemacs//rust-quick-run-tmp-file)
