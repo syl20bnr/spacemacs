@@ -457,7 +457,7 @@ Before contributing be sure to consult the
 # Spacemacs Everywhere
 
 Once you've learned the Spacemacs key bindings, you can use them in other IDEs/tools, thanks to the following projects:
-- [IntelliSpace](https://github.com/MarcoIeni/intelli-space) - Spacemacs' like key bindings for IntelliJ platform
+- [Intellimacs](https://github.com/MarcoIeni/intellimacs) - Spacemacs' like key bindings for IntelliJ platform
 - [Spaceclipse](https://github.com/MarcoIeni/spaceclipse) - Spacemacs’ like key bindings for Eclipse
 - [SpaceVim](https://github.com/SpaceVim/SpaceVim) - A community-driven modular vim distribution
 - [VSpaceCode](https://github.com/VSpaceCode/VSpaceCode) - Spacemacs’ like key bindings for Visual Studio Code
