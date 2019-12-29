@@ -161,6 +161,15 @@ Default is =’web-beautify=.
 See [[file:../../+tools/tern/README.org][tern layer]] documentation.
 
 ** Language Server Protocol
+To use an LSP server with JavaScript, add it as a =javascript-backend= to your
+=~/.spacemacs=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((javascript :variables
+                              javascript-backend 'lsp)))
+
+*** TypeScript
 You have to install =typescript-language-server= (recommended) or
 =javascript-typescript-langserver= language server packages via
 
@@ -172,6 +181,13 @@ or
 
 #+BEGIN_SRC sh
   npm i -g typescript javascript-typescript-langserver
+#+END_SRC
+
+*** Flow
+You have to install =flow-bin=.
+
+#+BEGIN_SRC sh
+  npm i -g flow-bin
 #+END_SRC
 
 *** Debugger (dap integration)

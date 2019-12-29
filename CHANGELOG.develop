@@ -2152,6 +2152,7 @@ Other:
   - Added a =javascript-lsp-linter= variable to allow for disabling =lsp= as a
     linter for =javascript= and =react=, when =lsp= is set as the backend
     (thanks to Thanh Vuong)
+  - Documented how to: Enable =lsp=. Install =flow= (thanks to William Blasko)
 - Key bindings
   - Improved coffeescript support (thanks to Kalle Lindqvist):
     - ~SPC m '~ to create or go to REPL
