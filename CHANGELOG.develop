@@ -2138,6 +2138,9 @@ Other:
   - Fixed prefixes for =java-mode= and =gradle-mode= (thanks to Seong Yong-ju)
   - Enabled =lsp-java= when the =java-backend= is =nil= and the =lsp= layer is
     enabled (thanks to Ivan Yonchovski)
+  - Fixed =dap-java= shortcuts (thanks to Ivan Yonchovski)
+  - Removed =lsp-java= configurations for missing properties or for defaults
+    that already are set by =lsp-mode/lsp-java= (thanks to Ivan Yonchovski)
 **** Javascript
 - Improvements:
   - Leverage js-doc Yasnippet integration if available (thanks to Andriy Kmit')

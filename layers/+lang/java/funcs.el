@@ -133,7 +133,15 @@
 
 (defun spacemacs//java-setup-lsp-dap ()
   "Setup DAP integration."
-  (require 'dap-java))
+  (require 'dap-java)
+  (spacemacs/set-leader-keys-for-major-mode 'java-mode
+    ;; debug
+    "ddj" 'dap-java-debug
+    "dtt" 'dap-java-debug-test-method
+    "dtc" 'dap-java-debug-test-class
+    ;; run
+    "tt" 'dap-java-run-test-method
+    "tc" 'dap-java-run-test-class))
 
 (defun spacemacs//java-setup-lsp-flycheck ()
   "Setup LSP Java syntax checking."
