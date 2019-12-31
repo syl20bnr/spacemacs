@@ -64,13 +64,18 @@
       ;;       but the problem is that it uses clojure-mode as its major-mode
       (let ((cider--key-binding-prefixes
              '(("md" . "debug")
+               ("msc" . "connect repl")
                ("me" . "evaluation")
+               ("mes" . "send-to-repl-buffer")
                ("mf" . "format")
                ("mg" . "goto")
                ("mh" . "documentation")
                ("mp" . "profile")
                ("ms" . "repl")
                ("msj" . "jack-in")
+               ("ms" . "repl sessions")
+               ("msl" . "link session")
+               ("mss" . "sibling sessions")
                ("mt" . "test")
                ("mT" . "toggle")
                )))
@@ -89,15 +94,27 @@
             "hN" 'cider-browse-ns-all
 
             "e;" 'cider-eval-defun-to-comment
+            "eB" 'spacemacs/cider-send-buffer-in-repl-and-focus
             "eb" 'cider-eval-buffer
             "ee" 'cider-eval-last-sexp
             "ef" 'cider-eval-defun-at-point
             "ei" 'cider-interrupt
+            "el" 'cider-repl-clear-buffer
+            "eL" 'cider-find-and-clear-repl-output
             "em" 'cider-macroexpand-1
             "eM" 'cider-macroexpand-all
             "eP" 'cider-pprint-eval-last-sexp
             "er" 'cider-eval-region
+            "ese" 'spacemacs/cider-send-last-sexp-to-repl
+            "esE" 'spacemacs/cider-send-last-sexp-to-repl-focus
+            "esf" 'spacemacs/cider-send-function-to-repl
+            "esF" 'spacemacs/cider-send-function-to-repl-focus
+            "esn" 'spacemacs/cider-send-ns-form-to-repl
+            "esN" 'spacemacs/cider-send-ns-form-to-repl-focus
+            "esr" 'spacemacs/cider-send-region-to-repl
+            "esR" 'spacemacs/cider-send-region-to-repl-focus
             "eu" 'cider-undef
+            "eU" 'cider-repl-require-repl-utils
             "ev" 'cider-eval-sexp-at-point
             "ew" 'cider-eval-last-sexp-and-replace
 
@@ -113,35 +130,31 @@
             "gs" 'cider-browse-spec
             "gS" 'cider-browse-spec-all
 
-            "'"  'cider-jack-in-clj
-            "\"" 'cider-jack-in-cljs
-            "\&" 'cider-jack-in-clj&cljs
-            "sb" 'cider-load-buffer
-            "sB" 'spacemacs/cider-send-buffer-in-repl-and-focus
-            "sc" (if (eq m 'cider-repl-mode)
-                     'cider-repl-clear-buffer
-                   'cider-connect)
-            "sC" 'cider-find-and-clear-repl-output
-            "se" 'spacemacs/cider-send-last-sexp-to-repl
-            "sE" 'spacemacs/cider-send-last-sexp-to-repl-focus
-            "sf" 'spacemacs/cider-send-function-to-repl
-            "sF" 'spacemacs/cider-send-function-to-repl-focus
-            "si" 'cider-jack-in-clj
-            "sjc" 'cider-jack-in-clj
-            "sjf" 'cider-jack-in-clj&cljs
-            "sjs" 'cider-jack-in-cljs
-            "sn" 'spacemacs/cider-send-ns-form-to-repl
-            "sN" 'spacemacs/cider-send-ns-form-to-repl-focus
-            "so" 'cider-repl-switch-to-other
-            "sq" 'cider-quit
-            "sr" 'spacemacs/cider-send-region-to-repl
-            "sR" 'spacemacs/cider-send-region-to-repl-focus
-            "ss" (if (eq m 'cider-repl-mode)
+            "'"  'sesman-start
+            "sa" (if (eq m 'cider-repl-mode)
                      'cider-switch-to-last-clojure-buffer
                    'cider-switch-to-repl-buffer)
-            "su" 'cider-repl-require-repl-utils
+            "sb" 'sesman-browser
+            "scj" 'cider-connect-clj
+            "scm" 'cider-connect-clj&cljs
+            "scs" 'cider-connect-cljs
+            "si" 'sesman-start
+            "sI" 'sesman-info
+            "sjj" 'cider-jack-in-clj
+            "sjm" 'cider-jack-in-clj&cljs
+            "sjs" 'cider-jack-in-cljs
+            "slb" 'sesman-link-with-buffer
+            "sld" 'sesman-link-with-directory
+            "slp" 'sesman-link-with-project
+            "slu" 'sesman-unlink
+            "so" 'cider-repl-switch-to-other
+            "ssj" 'cider-connect-sibling-clj
+            "sss" 'cider-connect-sibling-cljs
+            "sr" 'cider-restart
+            "sR" 'sesman-restart
+            "sq" 'cider-quit
+            "sQ" 'sesman-quit
             "sx" 'cider-ns-refresh
-            "sX" 'cider-restart
 
             "Te" 'cider-enlighten-mode
             "Tf" 'spacemacs/cider-toggle-repl-font-locking

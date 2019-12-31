@@ -1453,6 +1453,54 @@ Other:
   - Removed ~SPC m h g~ for =grimoire= as it is deprecated (thanks to Sam Hedin)
   - ~C-return~ to =cider-repl-newline-and-indent= in REPL evil insert state
     (thanks to Gia Thanh Vuong)
+  - Moved evaluation sent to repl keybindings to ~SPC m e s~ menu
+    ~esb~ 'spacemacs/cider-send-buffer-in-repl-and-focus
+    ~esc~ 'cider-repl-clear-buffer
+    ~esC~ 'cider-find-and-clear-repl-output
+    ~ese~ 'spacemacs/cider-send-last-sexp-to-repl
+    ~esE~ 'spacemacs/cider-send-last-sexp-to-repl-focus
+    ~esf~ 'spacemacs/cider-send-function-to-repl
+    ~esF~ 'spacemacs/cider-send-function-to-repl-focus
+    ~esn~ 'spacemacs/cider-send-ns-form-to-repl
+    ~esN~ 'spacemacs/cider-send-ns-form-to-repl-focus
+    ~eso~ 'cider-repl-switch-to-other
+    ~esr~ 'spacemacs/cider-send-region-to-repl
+    ~esR~ 'spacemacs/cider-send-region-to-repl-focus
+  - ~eU~ 'cider-repl-require-repl-utils
+    (thanks to John Stevenson)
+          - changed clear repl buffer of evaluation to match terminal clear key
+            ~el~ 'cider-repl-clear-buffer
+            ~eL~ 'cider-find-and-clear-repl-output
+            (thanks to John Stevenson)
+  - Add sesman session management keybindings and refactor
+    jack-in and connect keybindings
+    ~'~ 'sesman-start
+    ~sb~ 'sesman-browser
+    ~scj~ 'cider-connect-clj       ;; Java
+    ~scm~ 'cider-connect-clj&cljs  ;; Multiple repl
+    ~scs~ 'cider-connect-cljs      ;; javaScript
+    ~si~ 'sesman-start  ;; convention to use `i` to star repl in many Spacemacs layers
+    ~sI~ 'sesman-info
+    ~sjj~ 'cider-jack-in-clj       ;; Java
+    ~sjm~ 'cider-jack-in-clj&cljs  ;; Multiple repl - match cider keybinding
+    ~sjs~ 'cider-jack-in-cljs      ;; javaScript
+    ~slb~ 'sesman-link-with-buffer
+    ~sld~ 'sesman-link-with-directory
+    ~slp~ 'sesman-link-with-project
+    ~slu~ 'sesman-unlink
+    ~ssj~ 'cider-connect-sibling-clj   ;; sibling Java
+    ~sss~ 'cider-connect-sibling-cljs  ;; sibling javaScript
+    ~sr~ 'cider-restart
+    ~sR~ 'sesman-restart
+    ~sq~ 'cider-quit
+    ~sQ~ 'sesman-quit
+    ~sx~ 'cider-ns-refresh
+    (thanks to John Stevenson)
+  - changed toggle between source and repl to match key for toggle between code and test
+    ~sa~ (if (eq m 'cider-repl-mode)
+                     'cider-switch-to-last-clojure-buffer
+                   'cider-switch-to-repl-buffer)
+    (thanks to John Stevenson)
 - Fixes:
   - Removed =cider.nrepl/cider-middleware= in lein quick start setting
   - Fixed =cider-inspector-prev-page= binding, also add ~p~ as another key
