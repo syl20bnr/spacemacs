@@ -101,6 +101,7 @@
         "j" 'erc-join-channel
         "n" 'erc-channel-names
         "l" 'erc-list-command
+        "c" 'spacemacs/erc-find-channel-log
         "p" 'erc-part-from-channel
         "q" 'erc-quit-server))))
 
@@ -213,11 +214,17 @@
       (spacemacs|define-transient-state erc-log
         :title "ERC Log Transient State"
         :doc "\n[_r_] reload the log file  [_>_/_<_] go to the next/prev mention"
-        :evil-leader-for-mode (erc-mode . ".")
+        :evil-leader-for-mode (erc-view-log-mode . ".")
         :bindings
         ("r" erc-view-log-reload-file)
         (">" erc-view-log-next-mention)
-        ("<" erc-view-log-previous-mention)))))
+        ("<" erc-view-log-previous-mention))
+
+      (defun spacemacs/erc-find-channel-log ()
+        "find current erc channel's log file in `erc-view-log-mode'"
+        (interactive)
+        (when (erc-logging-enabled)
+            (find-file-existing (erc-current-logfile)))))))
 
 (defun erc/init-erc-image ()
   (use-package erc-image
