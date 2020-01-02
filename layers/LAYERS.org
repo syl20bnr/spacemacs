@@ -21,6 +21,7 @@
   - [[#notmuch][Notmuch]]
 - [[#emacs][Emacs]]
   - [[#better-defaults][Better defaults]]
+  - [[#helpful][Helpful]]
   - [[#ibuffer][Ibuffer]]
   - [[#org][Org]]
   - [[#quickurl][Quickurl]]
@@ -65,6 +66,7 @@
   - [[#alda-layer][Alda layer]]
   - [[#spotify][Spotify]]
 - [[#operating-systems][Operating systems]]
+  - [[#kubernetes][Kubernetes]]
   - [[#nixos][Nixos]]
   - [[#osx][Osx]]
 - [[#pair-programming][Pair programming]]
@@ -80,6 +82,7 @@
     - [[#mercury][Mercury]]
     - [[#octave][Octave]]
     - [[#prolog][Prolog]]
+    - [[#solidity-layer][Solidity layer]]
     - [[#sql][Sql]]
     - [[#lisp-dialects][Lisp dialects]]
       - [[#clojure][Clojure]]
@@ -114,6 +117,7 @@
     - [[#phoenix][Phoenix]]
     - [[#react][React]]
     - [[#ruby-on-rails][Ruby on rails]]
+    - [[#vue][Vue]]
   - [[#general-purpose][General-purpose]]
     - [[#imperative][Imperative]]
       - [[#asm][Asm]]
@@ -174,11 +178,6 @@
   - [[#epub][Epub]]
   - [[#pdf][Pdf]]
   - [[#speed-reading][Speed reading]]
-- [[#readmeorg-files-that-need-proper-tags][README.org files that need proper tags]]
-  - [[#helpful][Helpful]]
-  - [[#kubernetes][Kubernetes]]
-  - [[#solidity-layer][Solidity layer]]
-  - [[#vue][Vue]]
 - [[#source-control][Source control]]
   - [[#git][Git]]
   - [[#github][Github]]
@@ -444,6 +443,17 @@ Features:
 - Smart line navigation: Subsequent presses of ~C-a~ toggles between the beginning of the line and the first non-whitespace character. Similarly, subsequent presses of ~C-e~ will toggle between the end of the code and the end of the comments.
 - =spacemacs/backward-kill-word-or-region=: A combination of =kill-region= and =backward-kill-word=, depending on whether there is an active region. If there's an active region kill that. If not kill the preceding word.
 - Fill or unfill paragraph: Pressing ~M-q~ for the first time fills current paragraph and pressing ~M-q~ for the second time unfills it. Note that some modes override this key binding so it's not available everywhere. Due to implementation details unfilling doesn't work when called twice via ~M-x~.
+
+** Helpful
+[[file:+emacs/helpful/README.org][+emacs/helpful/README.org]]
+
+This layer replaces the existing emacs related help buffers with more detailed ones.
+
+Features:
+- Better help buffers with [[https://github.com/Wilfred/helpful][helpful]] for emacs related buffers
+- Source code shown implicitly in help buffer for all lisp objects
+- More detailed descriptions in the emacs specific function, variable and key help buffers
+- Better formatted elisp docstrings
 
 ** Ibuffer
 [[file:+emacs/ibuffer/README.org][+emacs/ibuffer/README.org]]
@@ -980,6 +990,19 @@ Features:
 - Support for listening to music from within Emacs via [[https://www.spotify.com][Spotify]].
 
 * Operating systems
+** Kubernetes
+[[file:+tools/kubernetes/README.org][+tools/kubernetes/README.org]]
+
+This layer provides the [[https://github.com/chrisbarrett/kubernetes-el#kubernetes-el][kubernetes-el]] package, a magit-style interface to the
+Kubernetes command-line client.
+
+Features:
+- Live-updating lists of kubernetes resources
+- Viewing and deleting pods, configmaps and secrets
+- Switching contexts and namespaces.
+- Showing logs and exec'ing into containers
+- Describing pods
+
 ** Nixos
 [[file:+os/nixos/README.org][+os/nixos/README.org]]
 
@@ -1139,6 +1162,16 @@ Features:
 - Interactive consulting and compiling.
 - Auto-formatting.
 - Apropos and help lookup.
+
+*** Solidity layer
+[[file:+lang/solidity/README.org][+lang/solidity/README.org]]
+
+A layer to support Solidity development in Spacemacs.
+
+Features:
+- Syntax highlighting
+- Syntax checking
+- Gas estimation
 
 *** Sql
 [[file:+lang/sql/README.org][+lang/sql/README.org]]
@@ -1572,6 +1605,26 @@ Features:
 - Run generators
 - Rake runner
 - Interactive Rails console
+
+*** Vue
+[[file:+frameworks/vue/README.org][+frameworks/vue/README.org]]
+
+Layer for Vue, for working with =.vue= files.
+
+Note: This layer creates a derived mode called =vue-mode= on the fly out of
+=web-mode= to handle vue files. It will conflict with the [[https://github.com/AdamNiederer/vue-mode][vue-mode package]], make sure
+you don't use that package together with this layer.
+
+Features:
+- Wholesome features from =web-mode=, especially on template part
+- Better performance
+- On-the-fly syntax checking with =eslint=
+- Proper syntax highlight and indentation with =vue-mode=
+- Two options for backend support for autocompletion and code analysis: =lsp= and =dumb=
+- Code autocompletion with =company-mode=
+- Formatting code with =prettier= layer
+- =evil-matchit= =%= to jump between open and close tags
+- =emmet-mode= and =yasnippet= for code expanding with the =TAB= key
 
 ** General-purpose
 *** Imperative
@@ -2273,61 +2326,6 @@ A speed reading mode for Emacs.
 
 Features:
 - Support for =speed-reading= of arbitrary texts
-
-* README.org files that need proper tags
-** Helpful
-[[file:+emacs/helpful/README.org][+emacs/helpful/README.org]]
-
-This layer replaces the existing emacs related help buffers with more detailed ones.
-
-Features:
-- Better help buffers with [[https://github.com/Wilfred/helpful][helpful]] for emacs related buffers
-- Source code shown implicitly in help buffer for all lisp objects
-- More detailed descriptions in the emacs specific function, variable and key help buffers
-- Better formatted elisp docstrings
-
-** Kubernetes
-[[file:+tools/kubernetes/README.org][+tools/kubernetes/README.org]]
-
-This layer provides the [[https://github.com/chrisbarrett/kubernetes-el#kubernetes-el][kubernetes-el]] package, a magit-style interface to the
-Kubernetes command-line client.
-
-Features:
-- Live-updating lists of kubernetes resources
-- Viewing and deleting pods, configmaps and secrets
-- Switching contexts and namespaces.
-- Showing logs and exec'ing into containers
-- Describing pods
-
-** Solidity layer
-[[file:+lang/solidity/README.org][+lang/solidity/README.org]]
-
-A layer to support Solidity development in Spacemacs.
-
-Features:
-- Syntax highlighting
-- Syntax checking
-- Gas estimation
-
-** Vue
-[[file:+frameworks/vue/README.org][+frameworks/vue/README.org]]
-
-Layer for Vue, for working with =.vue= files.
-
-Note: This layer creates a derived mode called =vue-mode= on the fly out of
-=web-mode= to handle vue files. It will conflict with the [[https://github.com/AdamNiederer/vue-mode][vue-mode package]], make sure
-you don't use that package together with this layer.
-
-Features:
-- Wholesome features from =web-mode=, especially on template part
-- Better performance
-- On-the-fly syntax checking with =eslint=
-- Proper syntax highlight and indentation with =vue-mode=
-- Two options for backend support for autocompletion and code analysis: =lsp= and =dumb=
-- Code autocompletion with =company-mode=
-- Formatting code with =prettier= layer
-- =evil-matchit= =%= to jump between open and close tags
-- =emmet-mode= and =yasnippet= for code expanding with the =TAB= key
 
 * Source control
 ** Git
