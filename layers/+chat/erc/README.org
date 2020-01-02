@@ -108,6 +108,7 @@ read that in =:password=.
 | ~SPC a i E~ | Starts ERC via TLS/SSL                                |
 | ~SPC a i i~ | Switch to next active ERC buffer                      |
 | ~SPC a i D~ | Start ERC with default servers                        |
+| ~SPC m c~   | Open the log file of the current channel              |
 | ~SPC m b~   | Switch between ERC buffers                            |
 | ~SPC m d~   | Interactively input a user action and send it to IRC. |
 | ~SPC m D~   | Draw Social Graph using [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]]              |
