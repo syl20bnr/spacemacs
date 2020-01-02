@@ -1,6 +1,6 @@
 #+TITLE: Vue layer
 
-#+TAGS: framework|layer
+#+TAGS: framework|programming|layer
 
 [[file:img/vue.png]]
 
