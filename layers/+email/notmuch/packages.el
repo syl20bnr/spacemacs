@@ -119,7 +119,7 @@
 
 (defun notmuch/pre-init-org ()
   (spacemacs|use-package-add-hook org
-    :post-config (require 'org-notmuch)))
+    :post-config (require 'ol-notmuch)))
 
 (defun notmuch/pre-init-persp-mode ()
   (spacemacs|use-package-add-hook persp-mode
