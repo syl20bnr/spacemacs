@@ -2113,6 +2113,7 @@ Other:
     - ~SPC m r g o~ to generate method overrides
     - ~SPC m c p~ create spring boot project
       (thanks to Ivan Yonchovski)
+  - Fixed ~SPC m m t C-a~ it was bound to ~SPC m m t C - a~ (thanks to duianto)
 - Improvements:
   - Added support for multiple backends. Supported backends are: =meghanada=,
     =eclim=. The default backend is =meghanada=. (thanks to Ivan Yonchovski)

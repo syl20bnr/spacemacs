@@ -102,13 +102,13 @@
     (progn
       (spacemacs|hide-lighter maven-test-mode)
       (spacemacs/set-leader-keys-for-minor-mode 'maven-test-mode
-        "mga"  'maven-test-toggle-between-test-and-class
-        "mgA"  'maven-test-toggle-between-test-and-class-other-window
-        "mta"   'maven-test-all
-        "mtC-a" 'maven-test-clean-test-all
-        "mtb"   'maven-test-file
-        "mti"   'maven-test-install
-        "mtt"   'maven-test-method))))
+        "mga"    'maven-test-toggle-between-test-and-class
+        "mgA"    'maven-test-toggle-between-test-and-class-other-window
+        "mta"    'maven-test-all
+        "mt C-a" 'maven-test-clean-test-all
+        "mtb"    'maven-test-file
+        "mti"    'maven-test-install
+        "mtt"    'maven-test-method))))
 
 (defun java/init-meghanada ()
   (use-package meghanada
