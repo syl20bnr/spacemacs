@@ -2128,6 +2128,7 @@ Other:
   - Added =transient= (package update temp folder) to
     .gitignore (thanks to Jarosław Górny)
   - Added /** */ smartparens pair (thanks to Ivan Yonchovski)
+  - Added the prefix name "actionable" to ~SPC m a~ (thanks to duianto)
 - Fixes:
   - Replace usage of =ensime-print-type-at-point= by =ensime-type-at-point=
     (thanks to Joao Azevedo)

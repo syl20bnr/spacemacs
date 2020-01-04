@@ -171,7 +171,8 @@
     :config
     (progn
       ;; key bindings
-      (dolist (prefix '(("mc" . "compile/create")
+      (dolist (prefix '(("ma" . "actionable")
+                        ("mc" . "compile/create")
                         ("mg" . "goto")
                         ("mr" . "refactor")
                         ("mra" . "add/assign")
