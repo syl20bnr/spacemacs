@@ -17,6 +17,8 @@
 - [[#backends][Backends]]
   - [[#tern][Tern]]
   - [[#language-server-protocol][Language Server Protocol]]
+    - [[#typescript][TypeScript]]
+    - [[#flow][Flow]]
     - [[#debugger-dap-integration][Debugger (dap integration)]]
 - [[#configuration][Configuration]]
   - [[#indentation][Indentation]]
@@ -168,6 +170,7 @@ To use an LSP server with JavaScript, add it as a =javascript-backend= to your
   (setq-default dotspacemacs-configuration-layers
                 '((javascript :variables
                               javascript-backend 'lsp)))
+#+END_SRC
 
 *** TypeScript
 You have to install =typescript-language-server= (recommended) or
