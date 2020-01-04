@@ -24,47 +24,53 @@
   )
 
 (defun spacemacs//xclipboard-get-copy-command ()
-  (shell-command-to-string "command_exists() {
-      local command=\"$1\"
-      type \"$command\" >/dev/null 2>&1
-    }
+  (if xclipboard-copy-command
+      xclipboard-copy-command
+    (shell-command-to-string "command_exists() {
+        local command=\"$1\"
+        type \"$command\" >/dev/null 2>&1
+      }
 
-    # Installing reattach-to-user-namespace is recommended on macOS.
-    if command_exists \"pbcopy\"; then
-        if command_exists \"reattach-to-user-namespace\"; then
-            printf \"reattach-to-user-namespace pbcopy\"
-        else
-            printf \"pbcopy\"
-        fi
-    elif command_exists \"clip.exe\"; then # WSL clipboard command
-        printf \"clip.exe\"
-    elif command_exists \"xsel\"; then
-        printf \"xsel -ib\"
-    elif command_exists \"putclip\"; then # cygwin clipboard command
-        printf \"putclip\"
-    fi")
+      # Installing reattach-to-user-namespace is recommended on macOS.
+      if command_exists \"pbcopy\"; then
+          if command_exists \"reattach-to-user-namespace\"; then
+              printf \"reattach-to-user-namespace pbcopy\"
+          else
+              printf \"pbcopy\"
+          fi
+      elif command_exists \"clip.exe\"; then # WSL clipboard command
+          printf \"clip.exe\"
+      elif command_exists \"xsel\"; then
+          printf \"xsel -ib\"
+      elif command_exists \"putclip\"; then # cygwin clipboard command
+          printf \"putclip\"
+      fi")
+    )
   )
 
 (defun spacemacs//xclipboard-get-paste-command ()
-  (shell-command-to-string "command_exists() {
-      local command=\"$1\"
-      type \"$command\" >/dev/null 2>&1
-    }
+  (if xclipboard-paste-command
+      xclipboard-paste-command
+    (shell-command-to-string "command_exists() {
+        local command=\"$1\"
+        type \"$command\" >/dev/null 2>&1
+      }
 
-    # Installing reattach-to-user-namespace is recommended on macOS.
-    if command_exists \"pbpaste\"; then
-        if command_exists \"reattach-to-user-namespace\"; then
-            printf \"reattach-to-user-namespace pbpaste\"
-        else
-            printf \"pbpaste\"
-        fi
-    elif command_exists \"paste.exe\"; then # WSL clipboard command
-        printf \"paste.exe\"
-    elif command_exists \"xsel\"; then
-        printf \"xsel -ob\"
-    elif command_exists \"getclip\"; then # cygwin clipboard command
-        printf \"getclip\"
-    fi")
+      # Installing reattach-to-user-namespace is recommended on macOS.
+      if command_exists \"pbpaste\"; then
+          if command_exists \"reattach-to-user-namespace\"; then
+              printf \"reattach-to-user-namespace pbpaste\"
+          else
+              printf \"pbpaste\"
+          fi
+      elif command_exists \"paste.exe\"; then # WSL clipboard command
+          printf \"paste.exe\"
+      elif command_exists \"xsel\"; then
+          printf \"xsel -ob\"
+      elif command_exists \"getclip\"; then # cygwin clipboard command
+          printf \"getclip\"
+      fi")
+    )
   )
 
 (defun spacemacs/xclipboard-copy ()

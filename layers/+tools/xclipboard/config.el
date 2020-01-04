@@ -13,3 +13,9 @@
 
 (defvar xclipboard-enable-cliphist nil
   "If non-nil, cliphist is enabled.")
+
+(defvar xclipboard-copy-command nil
+  "If non-nil, use this cmd for copy")
+
+(defvar xclipboard-paste-command nil
+  "If non-nil, use this cmd for paste")
