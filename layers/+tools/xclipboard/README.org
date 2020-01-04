@@ -8,6 +8,7 @@
 - [[#requirements][Requirements]]
 - [[#usage][Usage]]
   - [[#clipboard-manager-integration][Clipboard Manager Integration]]
+  - [[#custom-copy-paste-command][Custom Copy Paste Command]]
 - [[#key-bindings][Key bindings]]
 
 * Description
@@ -36,6 +37,14 @@ Clipboard manager integration can be enabled by setting =xclipboard-enable-cliph
 #+BEGIN_SRC emacs-lisp
   dotspacemacs-configuration-layers '(
     (xclipboard :variables xclipboard-enable-cliphist t))
+#+END_SRC
+
+** Custom Copy Paste Command
+Setting =xclipboard-copy-command= for copy, =xclipboard-paste-command= for paste.
+
+#+BEGIN_SRC emacs-lisp
+  dotspacemacs-configuration-layers '(
+    (xclipboard :variables xclipboard-copy-command "utf8clip.exe"))
 #+END_SRC
 
 * Key bindings
