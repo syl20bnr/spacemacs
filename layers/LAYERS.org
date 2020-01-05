@@ -114,7 +114,6 @@
   - [[#frameworks][Frameworks]]
     - [[#django][Django]]
     - [[#emberjs][Emberjs]]
-    - [[#flow-type][Flow-type]]
     - [[#phoenix][Phoenix]]
     - [[#react][React]]
     - [[#ruby-on-rails][Ruby on rails]]
@@ -1569,19 +1568,6 @@ Features:
 - Ability to easily switch between various files
 - Key bindings for generators and also easily revert generator actions
 - Ability to build, start server, and run tests
-
-*** Flow-type
-[[file:+lang/flow-type/README.org][+lang/flow-type/README.org]]
-
-This layer adds support for static type checking in javascript based
-on the [[https://flowtype.org/][flow]] project to spacemacs.
-
-Features:
-- Syntax highlighting
-- Linting
-- Code-completion
-- Eldoc integration for flow-types
-- Compilation
 
 *** Phoenix
 [[file:+frameworks/phoenix/README.org][+frameworks/phoenix/README.org]]

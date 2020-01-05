@@ -28,6 +28,7 @@
   - [[#node][Node]]
     - [[#node-modules][Node Modules]]
     - [[#node-externs][Node Externs]]
+  - [[#flowtypescript][Flow/Typescript]]
 - [[#key-bindings][Key bindings]]
   - [[#js2-mode][js2-mode]]
   - [[#folding-js2-mode][Folding (js2-mode)]]
@@ -50,6 +51,7 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 - Server based REPL with [[https://github.com/abicky/nodejs-repl.el][nodejs-repl]]
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]] or [[https://github.com/prettier/prettier][prettier]]
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
+- Display Flow & Typescript type information
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -193,6 +195,9 @@ You have to install =flow-bin=.
   npm i -g flow-bin
 #+END_SRC
 
+Or, if you'd rather use a locally-installed =flow-bin= from your project's
+node_modules directory, see the [[Node Modules][node-add-modules-path setting]].
+
 *** Debugger (dap integration)
 To install the debug adapter you may run =M-x dap-firefox-setup= or
 =M-x dap-chrome-setup= if you are using Linux or download it manually from
@@ -273,6 +278,18 @@ variable to =t= in the =javascript= config section:
 #+BEGIN_SRC elisp
   (setq-default dotspacemacs-configuration-layers
     '((javascript :variables js2-include-node-externs t)))
+#+END_SRC
+
+** Flow/Typescript
+   Enable the [[Language Server Protocol][lsp]] backend to view type information, jump to declarations, and more.
+
+   js2-mode is sometimes confused by the type syntax, so you may wish to disable their
+   parse warnings:
+
+#+BEGIN_SRC emacs-lisp
+  (javascript :variables javascript-backend 'lsp
+              js2-mode-show-strict-warnings nil
+              js2-mode-show-parse-errors nil)
 #+END_SRC
 
 * Key bindings
