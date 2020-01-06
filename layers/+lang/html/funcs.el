@@ -47,7 +47,8 @@
   (end-of-line)
   (search-backward "{")
   (while (not (looking-at "}"))
-    (join-line -1)))
+    (join-line -1))
+  (beginning-of-line))
 
 (defun spacemacs//setup-lsp-for-web-mode-buffers ()
   "Start lsp-mode and configure for buffer."

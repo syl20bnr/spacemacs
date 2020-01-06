@@ -1990,6 +1990,8 @@ Other:
 - Added support for =.svelte= files (thanks to Javier Candeira)
 - Added =lsp= support for =html= buffers (thanks to Thanh Vuong)
 - Added a toggle state minified/full to the transient state (thanks to duianto)
+- Moved cursor to beginning of line after =spacemacs/css-contract-statement=
+  (thanks to Mpho Jele)
 **** Hy
 - Added support for pipenv (thanks to Cazim Hysi)
 - Updated Hy layer to current Hy mode (thanks to Cazim Hysi)
