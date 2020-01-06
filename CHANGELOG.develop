@@ -2210,6 +2210,8 @@ Other:
 - Added =after-config= hooks for lazy-loaded packages (thanks to CharlesHD)
 - Added undo-tree visualizer mapping (thanks to CharlesHD)
 - Fixed key remapping after =cl= package deprecation (thanks to Damien Picard)
+- Fixed =bepo= layout, commented out broken evil-window :common bindings
+  (thanks to CharlesHD)
 **** Kivy
 - Added the =kivy= package (thanks to Nasser Alshammari and Ryota Kayanuma)
 **** LaTeX
