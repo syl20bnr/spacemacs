@@ -173,18 +173,18 @@
     "Remap `evil-window' bindings."
     :loader
     (with-eval-after-load 'evil-commands BODY)
-    :common
-    ;; FIXME: Not working
-    (kl/leader-correct-keys
-      "wh"
-      "wj"
-      "wk"
-      "wl"
-      ;;
-      "wH"
-      "wJ"
-      "wK"
-      "wL")
+    ;; :common
+    ;; ;; FIXME: Not working
+    ;; (kl/leader-correct-keys
+    ;;   "wh"
+    ;;   "wj"
+    ;;   "wk"
+    ;;   "wl"
+    ;;   ;;
+    ;;   "wH"
+    ;;   "wJ"
+    ;;   "wK"
+    ;;   "wL")
     :bepo
     (progn
       (spacemacs/set-leader-keys
