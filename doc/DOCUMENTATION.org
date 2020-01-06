@@ -2925,7 +2925,8 @@ be pasted, pressing ~C-j~ will replace =bar= with =foo=.
 
 **** Auto-indent pasted text
 By default any pasted text will be auto-indented. To paste text un-indented use
-the universal argument.
+the universal argument with a negative value i.e. `SPC u -2 p` to paste two times
+without indent. `M-- p` for quick, single paste without indent.
 
 It is possible to disable the auto-indentation for specific major-modes by
 adding a major-mode to the variable =spacemacs-indent-sensitive-modes= in your
