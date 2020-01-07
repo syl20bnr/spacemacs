@@ -120,9 +120,9 @@ This doesn't support the chanserv auth method. "
 
 (defun spacemacs//znc-auth-source-fetch-password (server)
   "Given a server with at least :host :port :login, return the :password"
-  (destructuring-bind (&key host auth &allow-other-keys)
+  (cl-destructuring-bind (&key host auth &allow-other-keys)
       (cdr server)
-    (destructuring-bind (&key secret &allow-other-keys)
+    (cl-destructuring-bind (&key secret &allow-other-keys)
         (car (auth-source-search :host host
                                  :port "irc"
                                  :user auth
@@ -150,7 +150,7 @@ This doesn't support the chanserv auth method. "
   (cl-loop
    for s in rcirc-server-alist
    collect
-   (destructuring-bind (&key host
+   (cl-destructuring-bind (&key host
                              (port rcirc-default-port)
                              (nick rcirc-default-nick)
                              (user-name rcirc-default-user-name)

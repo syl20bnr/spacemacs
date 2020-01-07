@@ -620,6 +620,8 @@ Other:
   - Fixed ~SPC TAB~ in =spacemacs-base= distribution (thanks to duianto)
   - Frame title setting doesn't need to depend on environment (gui/cli)
     (thanks to Mpho Jele)
+  - Replaced =destructuring-bind= with =cl-destructuring-bind=
+    (thanks to duianto)
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
