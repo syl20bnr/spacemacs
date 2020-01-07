@@ -9,6 +9,7 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
+- [[#configuration][Configuration]]
 - [[#key-bindings][Key bindings]]
   - [[#nixos-options][NixOS Options]]
 
@@ -25,6 +26,14 @@ This layer adds tools for better integration of Emacs in NixOS.
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =nixos= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+* Configuration
+Toggle whether =company-nixos-options= completion is enabled (defaults to =t=).
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+              '((nixos :variables nixos-enable-company t)))
+#+END_SRC
 
 * Key bindings
 ** NixOS Options
