@@ -2380,6 +2380,8 @@ Other:
   function (thanks to Profpatsch)
 - Associate nix-mode with .nix files (thanks to jpathy)
 - Updated layer banner (thanks to kalium)
+- Added option =nixos-enable-company= to toggle company auto-completion (thanks
+  to bhipple)
 **** Nim
 - Added key binding ~SPC m h h~ to show symbol documentation
   (thanks to Valts Liepiņš)
