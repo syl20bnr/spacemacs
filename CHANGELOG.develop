@@ -3236,6 +3236,7 @@ Other:
     - Fixed the example for how to change the separator style
   - README.md:
     - Fixed macOS documentation to install fonts (thanks to Sergio Morales)
+    - Updated Windows section, suggest official Emacs (thanks to ghost-420)
 *** Release notes summarized
   Thanks to: Abhishek(Compro) Prasad, Deepak Khidia, Enze Chi, Grant Shangreaux,
   Igor Almeida, Jiahao Jiang, Miciah Dashiel Butler Masters, Songpeng Zu, Ward

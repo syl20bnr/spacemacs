@@ -219,8 +219,7 @@ $ brew install grep --with-default-names
 ```
 
 ### Windows
-You can download good quality builds from the [emacs-w64 project][emacs-for-windows].
-It is recommended to install the most recent [stable build][emacs-for-windows-stable].
+Download the official 64-bit (x86_64) stable builds from the [GNU FTP][emacs-for-windows].
 
 You'll also need `gzip` and put it in your path, to download it go to the
 [GNUWin32 project page][gzip-for-windows]
@@ -229,13 +228,13 @@ Be sure to declare an environment variable named `HOME` that's pointing to your
 user directory `C:\Users\<username>`. Then you can clone Spacemacs into that
 directory.
 
-Sometimes you'll get the following error when you first start Emacs:
+If the following error occurs after starting Emacs:
 
 ```
 The directory ~/.emacs.d/server is unsafe
 ```
 
-To fix it change the owner of the directory `~/.emacs.d/server`:
+Fix it by changing the owner of the directory `~/.emacs.d/server`:
   - from Properties select the Tab “Security”,
   - select the button “Advanced”,
   - select the Tab “Owner”
@@ -521,8 +520,7 @@ Thank you!
 [Homebrew]: http://brew.sh
 [emacs-plus]: https://github.com/d12frosted/homebrew-emacs-plus
 [powerline documentation]: http://spacemacs.org/doc/DOCUMENTATION.html#powerline-separators
-[emacs-for-windows]: http://emacsbinw64.sourceforge.net/
-[emacs-for-windows-stable]: https://sourceforge.net/projects/emacsbinw64/files/release/
+[emacs-for-windows]: https://ftp.gnu.org/gnu/emacs/windows/
 [gzip-for-windows]: http://gnuwin32.sourceforge.net/packages/gzip.htm
 [the platinum searcher]: https://github.com/monochromegane/the_platinum_searcher
 [so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
