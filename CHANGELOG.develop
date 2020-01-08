@@ -1705,6 +1705,7 @@ Other:
 - Added =xref= integration (thanks to Guido Kraemer)
 - Update ess-disable-underscore-assign for ESS 18.10 (thanks to Leonard Lausen)
 - Update layer with the latest upstream changes (thanks to Guido Kraemer)
+- Evilified states for ess help buffer (thanks to ft)
 **** Evil snipe
 - Must always explicitly enable =evil-snipe-mode= even when
   =evil-snipe-override-mode= is enabled (thanks to Sylvain Benner)
@@ -1901,6 +1902,7 @@ Other:
 - Fixed jump handlers for =dante= and =inferno=
   (thanks to cjay, CthulhuDen and Magnus Therning)
 - Included =attrap= when =dante= is used (thanks to Pepe Iborra)
+- Added keybinding ~C-c C-z~ for =haskell-interactive-switch= (thanks to ft)
 **** Helm
 - New packages:
   - =helm-ls-git= (thanks to duianto)
@@ -2012,6 +2014,7 @@ Other:
   - Remove spurious key binding (thanks to Carlos Andrés Rocha)
   - Added ~SPC a y r~ =ein:run= (thanks to Zach Pearson)
   - Added ~SPC a y s~ =ein:stop= (thanks to Zach Pearson)
+  - Added package dependencies for =ein= (thanks to ft)
 **** Ivy
 - Added =recentf= alt actions to refresh and delete items (thanks to Rich Alesi)
 - Added =projectile= alternate actions to invalidate cache (thanks to Rich Alesi)
@@ -2221,6 +2224,7 @@ Other:
   - ~SPC m N~ goto previous error
     (thanks to Olivier Verdier)
 - Fixed README to say auto-fill on by default. (thanks to Max Willsey)
+- Added ConTeXt mode to the key bindings (thanks to ft)
 **** Lua
 - Added support for auto-completion with =company= (thanks to halfcrazy)
 - Added support for =LSP= (EmmyLua-LS-all) (thanks to Lin.Sun)
