@@ -535,6 +535,8 @@ Other:
     (thanks to Spenser Truex)
   - Converted =case= to =cl-case= to fix =cl-lib= related errors
     (thanks to Nikita Leshenko)
+  - Open Spacemacs home buffer in other/new window with prefix argument
+    (thanks to duianto)
 - Fixes:
   - Avoid non-idempotent use of push in init code (thanks to Miciah Masters)
   - Moved Spacemacs startup progress bar to =core-progress-bar.el=, removed
