@@ -26,7 +26,7 @@
   - [[#why-are-my-font-settings-not-being-respected][Why are my font settings not being respected?]]
   - [[#why-am-i-getting-a-message-about-environment-variables-on-startup][Why am I getting a message about environment variables on startup?]]
   - [[#i-want-to-learn-elisp-where-do-i-start-][I want to learn elisp, where do I start ?]]
-- [[#how-do-i][How do I:]]
+- [[#how-do-i][How do I]]
   - [[#install-a-package-not-provided-by-a-layer][Install a package not provided by a layer?]]
   - [[#disable-a-package-completely][Disable a package completely?]]
   - [[#disable-a-package-only-for-a-specific-major-mode][Disable a package only for a specific major-mode?]]
@@ -280,7 +280,7 @@ Practical reference with code examples for various situations that you will
 encounter: [[http://caiorss.github.io/Emacs-Elisp-Programming/][http://caiorss.github.io/Emacs-Elisp-Programming/]], more particularly
 sections [[http://caiorss.github.io/Emacs-Elisp-Programming/Elisp_Programming.html][Elisp Programming]] and [[http://caiorss.github.io/Emacs-Elisp-Programming/Elisp_Snippets.html][Elisp code snippets]].
 
-* How do I:
+* How do I
 ** Install a package not provided by a layer?
 Spacemacs provides a variable in the =dotspacemacs/layers= function in
 =.spacemacs= called =dotspacemacs-additional-packages=. Just add a package name

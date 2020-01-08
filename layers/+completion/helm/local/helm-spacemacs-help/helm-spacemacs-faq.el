@@ -59,26 +59,55 @@
                     ": " (match-string 2 str))
             (cdr cand)))))
 
+(defun helm-spacemacs-help//get-faq-headings-list (sources)
+  "Given the helm-org sources from FAQ.org.
+Return a list of all it's headings."
+    (aref (aref (cdadar sources) 2) 0))
+
 (defun helm-spacemacs-help//faq-candidates ()
+  "Join the section headings to each of their questions.
+Remove all text properties.
+Color the section heading substring.
+Add back the helm candidate text properties (to section substring):
+`helm-real-display' with the joined \"section: question\"
+`helm-realvalue' with the question marker.
+The questions marker makes sure that the cursor
+jumps to the selected question."
   (let* ((helm-org-format-outline-path nil)
-         (cands (helm-org-get-candidates (list helm-spacemacs-help--faq-filename)))
-         section result)
-    (dolist (c cands)
-      (let ((str (substring-no-properties (car c))))
-        (when (string-match "\\`\\* \\(.*\\)\\'" str)
-          (setq section (match-string 1 str)))
-        (when (string-match "\\`\\*\\* \\(.*\\)\\'" str)
-          (push (cons (concat (propertize section 'face 'font-lock-type-face)
-                              ": " (match-string 1 str))
-                      (cdr c))
-                result))))
-    result))
+         (cands (helm-org-build-sources
+                 (list helm-spacemacs-help--faq-filename)))
+         section section-no-prop
+         question question-marker question-no-prop
+         section-and-question-with-marker
+         result)
+    (dolist (heading (helm-spacemacs-help//get-faq-headings-list cands))
+      (when (string-match "\\`\\* \\(.*\\)\\'" heading)
+        (setq section (match-string 1 heading))
+        (setq section-no-prop (substring-no-properties section)))
+      (when (string-match "\\*\\* \\(.*\\)" heading)
+        (setq question (match-string 1 heading))
+        (setq question-marker (get-text-property 0 'helm-realvalue question))
+        (setq question-no-prop (substring-no-properties question))
+        (setq section-and-question
+              (concat section-no-prop ": " question-no-prop))
+        (setq section-and-question-with-marker
+              (concat (propertize
+                       section-no-prop
+                       'face 'font-lock-type-face
+                       'helm-real-display section-and-question
+                       'helm-realvalue question-marker)
+                      ": " question-no-prop))
+        (push (cons section-and-question-with-marker heading) result)))
+    ;; The result list is reversed, to show the questions in the same order as
+    ;; they appear in the FAQ.org file, with the common questions first.
+    (reverse result)))
 
 (defun helm-spacemacs-help//faq-goto-marker (marker)
   (find-file helm-spacemacs-help--faq-filename)
   (goto-char marker)
   (org-show-context)
-  (org-show-entry))
+  (org-show-entry)
+  (recenter-top-bottom))
 
 (provide 'helm-spacemacs-faq)
 

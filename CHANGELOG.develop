@@ -1258,6 +1258,7 @@ Other:
   - Fixed searching in the =helm-find-file= actions (thanks to duianto)
   - Fixed =evilified-state=, mapped ~C-w~ to =evil-window-map=
     (thanks to Muneeb Shaikh)
+  - Fixed ~SPC h f~ =helm-spacemacs-help-faq= (thanks to duianto)
 *** Layer changes and fixes
 **** Agda
 - Fixes
