@@ -558,6 +558,11 @@ Run PROJECT-ACTION on project."
             :action #'spacemacs//ivy-persp-switch-project-action
             :caller 'spacemacs/ivy-persp-switch-project))
 
+(defun spacemacs/ivy-switch-project-open-dired (project)
+  (interactive)
+  (spacemacs||switch-project-persp project
+    (dired project)))
+
 
 ;; Eyebrowse
 
