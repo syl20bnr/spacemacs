@@ -648,6 +648,7 @@ respond to this toggle."
   "xa|" 'spacemacs/align-repeat-bar
   "xc"  'count-region
   "xd SPC" 'cycle-spacing
+  "xdl" 'delete-blank-lines
   "xdw" 'delete-trailing-whitespace
   "xjc" 'set-justification-center
   "xjf" 'set-justification-full

@@ -994,6 +994,7 @@ Other:
     - With the =hybrid= editing style in =normal= state:
       - ~n~ =evil-search-next=
       - ~N~ =evil-search-previous=
+  - Added ~SPC x d l~ =delete-blank-lines= (thanks to duianto)
 - Improvements:
   - Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
     ~SPC w 4~ (thanks to Codruț Constantin Gușoi):
