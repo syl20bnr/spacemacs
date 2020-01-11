@@ -212,3 +212,22 @@ the scroll transient state.")
    (if spacemacs--scroll-ts-full-hint-toggle
        spacemacs--scroll-ts-full-hint
      (concat "[" (propertize "?" 'face 'hydra-face-red) "] toggle help"))))
+
+(defvar spacemacs--scroll-ts-on-enter-centered-cursor-was-active nil
+  "Remember whether the ‘centered-cursor-mode’ was initially active.
+
+Since scroll transient state and ‘centered-cursor-mode’ do not play well
+together, we need to disable ‘centered-cursor-mode’ when entering
+the scroll transient state and restore its initial state upon exit.")
+
+(defun spacemacs//scroll-ts-on-enter ()
+  "Actions to perform when entering the scroll transient state."
+  (when (bound-and-true-p centered-cursor-mode)
+    (setq spacemacs--scroll-ts-on-enter-centered-cursor-was-active t)
+    (centered-cursor-mode 0)))
+
+(defun spacemacs//scroll-ts-on-exit ()
+  "Actions to perform when exiting the scroll transient state."
+  (when spacemacs--scroll-ts-on-enter-centered-cursor-was-active
+    (setq spacemacs--scroll-ts-on-enter-centered-cursor-was-active nil)
+    (centered-cursor-mode 1)))

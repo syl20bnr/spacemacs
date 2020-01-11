@@ -145,6 +145,8 @@
     :title "Scrolling Transient State"
     :hint-is-doc t
     :dynamic-hint (spacemacs//scroll-ts-hint)
+    :on-enter (spacemacs//scroll-ts-on-enter)
+    :on-exit (spacemacs//scroll-ts-on-exit)
     :bindings
     ("?" spacemacs//scroll-ts-toggle-hint)
     ;; lines and columns

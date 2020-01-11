@@ -1256,6 +1256,9 @@ Other:
   - Replaced obsolete function =doom-modeline-init= with =doom-modeline-mode=
     (thanks to duianto)
   - Fixed searching in the =helm-find-file= actions (thanks to duianto)
+  - Fixed Scrolling Transient State (~SPC N~) in buffers with active
+    Centered Point mode (thanks to Andriy Kmit)
+
 *** Layer changes and fixes
 **** Agda
 - Fixes
