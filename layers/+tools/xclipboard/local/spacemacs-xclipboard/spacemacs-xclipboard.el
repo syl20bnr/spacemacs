@@ -20,8 +20,7 @@
     if [[ -z $DISPLAY ]]; then
       export DISPLAY=:0
     fi
-    printf $DISPLAY")
-  )
+    printf $DISPLAY"))
 
 (defun spacemacs//xclipboard-get-copy-command ()
   (if xclipboard-copy-command
@@ -44,9 +43,7 @@
           printf \"xsel -ib\"
       elif command_exists \"putclip\"; then # cygwin clipboard command
           printf \"putclip\"
-      fi")
-    )
-  )
+      fi")))
 
 (defun spacemacs//xclipboard-get-paste-command ()
   (if xclipboard-paste-command
@@ -69,9 +66,7 @@
           printf \"xsel -ob\"
       elif command_exists \"getclip\"; then # cygwin clipboard command
           printf \"getclip\"
-      fi")
-    )
-  )
+      fi")))
 
 (defun spacemacs/xclipboard-copy ()
   "Copies selection to x-clipboard."
@@ -79,18 +74,18 @@
   (if (display-graphic-p)
     (progn
       (message "Copied region to x-clipboard!")
-      (call-interactively 'clipboard-kill-ring-save)
-      )
+      (call-interactively 'clipboard-kill-ring-save))
     (if (region-active-p)
       (progn
-        (shell-command-on-region (region-beginning) (region-end) (format "DISPLAY=%s %s" (spacemacs/xclipboard-get-display) (spacemacs//xclipboard-get-copy-command)))
-        (message (format "Copied region to clipboard \"%s\"!" (spacemacs/xclipboard-get-display)))
-        (deactivate-mark)
-        )
-      (message "No region active; can't copy to clipboard!")
-      )
-    )
-  )
+        (shell-command-on-region
+         (region-beginning) (region-end)
+         (format "DISPLAY=%s %s"
+                 (spacemacs/xclipboard-get-display)
+                 (spacemacs//xclipboard-get-copy-command)))
+        (message (format "Copied region to clipboard \"%s\"!"
+                         (spacemacs/xclipboard-get-display)))
+        (deactivate-mark))
+      (message "No region active; can't copy to clipboard!"))))
 
 (defun spacemacs/xclipboard-paste ()
   "Pastes from x-clipboard."
@@ -98,11 +93,12 @@
   (if (display-graphic-p)
     (progn
       (clipboard-yank)
-      (message "graphics active")
-      )
-    (insert (shell-command-to-string (format "DISPLAY=%s %s" (spacemacs/xclipboard-get-display) (spacemacs//xclipboard-get-paste-command))))
-    )
-  (message (format "Pasted from clipboard \"%s\"!" (spacemacs/xclipboard-get-display)))
-  )
+      (message "graphics active"))
+    (insert (shell-command-to-string
+             (format "DISPLAY=%s %s"
+                     (spacemacs/xclipboard-get-display)
+                     (spacemacs//xclipboard-get-paste-command)))))
+  (message (format "Pasted from clipboard \"%s\"!"
+                   (spacemacs/xclipboard-get-display))))
 
 (provide 'spacemacs-xclipboard)
