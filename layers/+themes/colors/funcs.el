@@ -17,6 +17,12 @@
   (when (derived-mode-p 'prog-mode)
     (rainbow-identifiers-mode)))
 
+(defun colors//rainbow-identifiers-ignore-keywords ()
+  "Do not colorize stuff with ‘font-lock-keyword-face’."
+  (setq-local rainbow-identifiers-faces-to-override
+              (delq 'font-lock-keyword-face
+                    rainbow-identifiers-faces-to-override)))
+
 (defun colors//tweak-theme-colors (theme)
   "Tweak color themes by adjusting rainbow-identifiers."
   (interactive)

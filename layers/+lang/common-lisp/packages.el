@@ -20,6 +20,7 @@
         helm
         helm-gtags
         parinfer
+        rainbow-identifiers
         slime
         (slime-company :requires company)
         ))
@@ -62,6 +63,9 @@
 
 (defun common-lisp/post-init-parinfer ()
   (add-hook 'lisp-mode-hook 'parinfer-mode))
+
+(defun common-lisp/post-init-rainbow-identifiers ()
+  (add-hook 'lisp-mode-hook #'colors//rainbow-identifiers-ignore-keywords))
 
 (defun common-lisp/pre-init-slime-company ()
   (spacemacs|use-package-add-hook slime
