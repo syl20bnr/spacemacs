@@ -2072,7 +2072,7 @@ page instead.
 
 Spacemacs uses [[https://github.com/Bruce-Connor/paradox][Paradox]] instead of =package-list-packages= to list available
 ELPA packages. Paradox enhances the package list buffer with better feedbacks,
-new filters and Github information like the number of stars. Optionally you can
+new filters and GitHub information like the number of stars. Optionally you can
 also star packages directly in the buffer.
 
 *Important Note 1*: Installing a new package from =Paradox= won't make it
@@ -2102,7 +2102,7 @@ Spacemacs.
 | ~r~         | refresh                                               |
 | ~S P~       | sort by package name                                  |
 | ~S S~       | sort by status (installed, available, etc...)         |
-| ~S *~       | sort by Github stars                                  |
+| ~S *~       | sort by GitHub stars                                  |
 | ~v~         | =visual state=                                        |
 | ~V~         | =visual-line state=                                   |
 | ~x~         | execute (action flags)                                |
@@ -3583,7 +3583,7 @@ You can disable the built-in server by setting the variable
 If any errors happen during the loading the mode-line will turn red and the
 errors should appear inline in the startup buffer. Spacemacs should still be
 usable; if it is not then restart Emacs with =emacs --debug-init= and open a
-[[https://github.com/syl20bnr/spacemacs/issues][Github issue]] with the backtrace.
+[[https://github.com/syl20bnr/spacemacs/issues][GitHub issue]] with the backtrace.
 
 ** Upgrading/Downgrading Emacs version
 To ensure that packages are correctly compiled for the new Emacs version you
@@ -3593,7 +3593,7 @@ with ~SPC u SPC SPC spacemacs/recompile-elpa~.
 ** General layer errors
 It happens from time to time that some of the layers go stale and stop
 working properly for some commands. If this happens stay calm and try
-to produce a minimal bug report on the [[https://github.com/syl20bnr/spacemacs/issues][Github issue page]].
+to produce a minimal bug report on the [[https://github.com/syl20bnr/spacemacs/issues][GitHub issue page]].
 
 *** Step by step instructions for minimal layer bug reports
 - Load the standard dotfile. You can get it with ~SPC f e D~.

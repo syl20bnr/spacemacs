@@ -177,7 +177,7 @@ functions are the first thing you should refer to.
 
 ** Exploring
 There are a few ways to explore the functionality of Spacemacs. One is to read
-the [[https://github.com/syl20bnr/spacemacs][source code]] on Github. You can begin to feel your way around Emacs Lisp and
+the [[https://github.com/syl20bnr/spacemacs][source code]] on GitHub. You can begin to feel your way around Emacs Lisp and
 how Spacemacs works this way. You can also use the following key bindings to
 explore:
 

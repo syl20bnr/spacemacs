@@ -57,7 +57,7 @@
         (push filename result)))
 
     ;; CONTRIBUTING.org is a special case as it should be at the root of the
-    ;; repository to be linked as the contributing guide on Github.
+    ;; repository to be linked as the contributing guide on GitHub.
     (push "CONTRIBUTING.org" result)
 
     ;; delete DOCUMENTATION.org to make it the first guide
@@ -93,7 +93,7 @@
          (file (if (string= candidate "CONTRIBUTING.org")
                    ;; CONTRIBUTING.org is a special case as it should be at the
                    ;; root of the repository to be linked as the contributing
-                   ;; guide on Github.
+                   ;; guide on GitHub.
                    (concat spacemacs-start-directory candidate)
                  (concat spacemacs-docs-directory candidate))))
     (cond ((equal (file-name-extension file) "md")

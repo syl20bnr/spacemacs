@@ -1,4 +1,4 @@
-;;; ox-gfm.el --- Github Flavored Markdown Back-End for Org Export Engine
+;;; ox-gfm.el --- GitHub Flavored Markdown Back-End for Org Export Engine
 
 ;; Copyright (C) 2014 Lars Tveito
 
@@ -36,7 +36,7 @@
 
 (defgroup org-export-gfm nil
   "Options specific to Markdown export back-end."
-  :tag "Org Github Flavored Markdown"
+  :tag "Org GitHub Flavored Markdown"
   :group 'org-export
   :version "24.4"
   :package-version '(Org . "8.0"))
@@ -48,7 +48,7 @@
   :export-block '("GFM" "GITHUB FLAVORED MARKDOWN")
   :filters-alist '((:filter-parse-tree . org-md-separate-elements))
   :menu-entry
-  '(?g "Export to Github Flavored Markdown"
+  '(?g "Export to GitHub Flavored Markdown"
        ((?G "To temporary buffer"
             (lambda (a s v b) (org-gfm-export-as-markdown a s v)))
         (?g "To file" (lambda (a s v b) (org-gfm-export-to-markdown a s v)))
@@ -67,7 +67,7 @@
 ;;;; Src Block
 
 (defun org-gfm-src-block (src-block contents info)
-  "Transcode SRC-BLOCK element into Github Flavored Markdown
+  "Transcode SRC-BLOCK element into GitHub Flavored Markdown
 format. CONTENTS is nil.  INFO is a plist used as a communication
 channel."
   (let* ((lang (org-element-property :language src-block))
@@ -121,7 +121,7 @@ holding export options."
 
 ;;;###autoload
 (defun org-gfm-export-as-markdown (&optional async subtreep visible-only)
-  "Export current buffer to a Github Flavored Markdown buffer.
+  "Export current buffer to a GitHub Flavored Markdown buffer.
 
 If narrowing is active in the current buffer, only export its
 narrowed part.
@@ -150,7 +150,7 @@ non-nil."
 ;;;###autoload
 (defun org-gfm-convert-region-to-md ()
   "Assume the current region has org-mode syntax, and convert it
-to Github Flavored Markdown.  This can be used in any buffer.
+to GitHub Flavored Markdown.  This can be used in any buffer.
 For example, you can write an itemized list in org-mode syntax in
 a Markdown buffer and use this command to convert it."
   (interactive)
@@ -159,7 +159,7 @@ a Markdown buffer and use this command to convert it."
 
 ;;;###autoload
 (defun org-gfm-export-to-markdown (&optional async subtreep visible-only)
-  "Export current buffer to a Github Flavored Markdown file.
+  "Export current buffer to a GitHub Flavored Markdown file.
 
 If narrowing is active in the current buffer, only export its
 narrowed part.

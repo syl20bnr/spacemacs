@@ -346,7 +346,7 @@
       - [[#eyebrowse][Eyebrowse]]
       - [[#games-2][Games]]
       - [[#git-3][Git]]
-      - [[#github-1][Github]]
+      - [[#github-1][GitHub]]
       - [[#go-5][Go]]
       - [[#haskell-5][Haskell]]
       - [[#html-5][Html]]
@@ -448,7 +448,7 @@
       - [[#eyebrowse-2][Eyebrowse]]
       - [[#fsharp][Fsharp]]
       - [[#git-4][Git]]
-      - [[#github-2][Github]]
+      - [[#github-2][GitHub]]
       - [[#gnus-1][Gnus]]
       - [[#go-6][Go]]
       - [[#gtags-1][Gtags]]
@@ -3071,7 +3071,7 @@ Improve loading robustness:
 - Deactivate =evil-snipe= mode which messes with =magit= buffer (thanks to
   cpaulik)
 
-**** Github
+**** GitHub
 - New key binding ~SPC g c~ to clone and optionally fork repository
   (thanks to cpaulik)
 
@@ -3585,7 +3585,7 @@ Improve loading robustness:
   experience. Set the distribution with =dotspacemacs-distribution= variable.
 - Add support for =Quelpa= which allows to use =Melpa= recipes to install
   packages directly from source (i.e. one can now install a package directly
-  from a Github repository).
+  from a GitHub repository).
 - New editing style: =hybrid=. This style is similar to Vim style except that
   all Emacs key bindings are available in hybrid (insert) state instead of Vim
   key bindings. Also in this state, the buffers are evilified like in Vim style.
@@ -3871,7 +3871,7 @@ Improve loading robustness:
 - Evilify =magit-hunk-section-map= (thanks to ralesi)
 - Evilify =magit-stash-mode= (thanks to nixmaniack)
 
-**** Github
+**** GitHub
 - Properly evilify =gist-lists= buffer (thanks to cmccloud)
 
 **** Gnus
@@ -5216,4 +5216,4 @@ a batch of packages.
   conflict with =pt= command line tool from TCL parser tools.
 
 * Previous Releases
-- See Github release page
+- See GitHub release page

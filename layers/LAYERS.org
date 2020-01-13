@@ -180,7 +180,7 @@
   - [[#speed-reading][Speed reading]]
 - [[#source-control][Source control]]
   - [[#git][Git]]
-  - [[#github][Github]]
+  - [[#github][GitHub]]
   - [[#perforce][Perforce]]
   - [[#version-control][Version-control]]
 - [[#spacemacs][Spacemacs]]
@@ -1376,7 +1376,7 @@ This layer adds markdown support to Spacemacs.
 
 Features:
 - markdown files support via [[http://jblevins.org/git/markdown-mode.git/][markdown-mode]]
-- Fast Github-flavored live preview via [[https://github.com/blak3mill3r/vmd-mode][vmd-mode]]
+- Fast GitHub-flavored live preview via [[https://github.com/blak3mill3r/vmd-mode][vmd-mode]]
 - TOC generation via [[https://github.com/ardumont/markdown-toc][markdown-toc]]
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
   using the =emoji= layer or having a proper font) :clap:
@@ -2345,7 +2345,7 @@ Features:
 
 New to Magit? Checkout the [[https://magit.vc/about/][official intro]].
 
-** Github
+** GitHub
 [[file:+source-control/github/README.org][+source-control/github/README.org]]
 
 This layers adds support for [[http://github.com][GitHub]].
