@@ -32,6 +32,7 @@
         nameless
         overseer
         parinfer
+        rainbow-identifiers
         semantic
         smartparens
         srefactor
@@ -279,6 +280,9 @@
 
 (defun emacs-lisp/post-init-parinfer ()
   (add-hook 'emacs-lisp-mode-hook 'parinfer-mode))
+
+(defun emacs-lisp/post-init-rainbow-identifiers ()
+  (add-hook 'emacs-lisp-mode-hook #'colors//rainbow-identifiers-ignore-keywords))
 
 (defun emacs-lisp/post-init-semantic ()
   (add-hook 'emacs-lisp-mode-hook 'semantic-mode)

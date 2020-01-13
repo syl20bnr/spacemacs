@@ -1499,6 +1499,8 @@ Other:
 - Improvements:
   - Added eval-thing-at-point functions to Common Lisp Layer
     (thanks to Lukas Woell)
+  - Make rainbow-identifiers not colorize special operators and macros, so they
+    always visually stand out. (thanks to Andriy Kmit)
 - New packages:
   - Added =slime-asdf= to =slime-contribs= to enabled some slime commands like
     =,load-system= (thanks to Daniel Schoepe)
@@ -1667,6 +1669,8 @@ Other:
   (thanks to Codruț Constantin Gușoi, Sylvain Benner)
 - Activate nameless only in GUI (thanks to Sylvain Benner)
 - Added =flycheck-package= for package metadata linting (thanks to Uroš Perišić)
+- Make rainbow-identifiers not colorize special operators and macros, so they
+  always visually stand out. (thanks to Andriy Kmit)
 **** Emoji
 - Added support for Emoji fonts on macOS and Linux (thanks to CodeFalling)
 - Setup =emojify= cache directory (thanks to Boris Buliga)
