@@ -34,7 +34,7 @@ This layer adds markdown support to Spacemacs.
 
 ** Features:
 - markdown files support via [[http://jblevins.org/git/markdown-mode.git/][markdown-mode]]
-- Fast Github-flavored live preview via [[https://github.com/blak3mill3r/vmd-mode][vmd-mode]]
+- Fast GitHub-flavored live preview via [[https://github.com/blak3mill3r/vmd-mode][vmd-mode]]
 - TOC generation via [[https://github.com/ardumont/markdown-toc][markdown-toc]]
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
   using the =emoji= layer or having a proper font) :clap:
@@ -53,7 +53,7 @@ file.
 By default the built-in Emacs web browser is used to live preview a markdown
 buffer.
 
-To use =vmd= (Github-flavored live preview) instead set the value of the
+To use =vmd= (GitHub-flavored live preview) instead set the value of the
 variable =markdown-live-preview-engine= to =vmd=:
 
 #+BEGIN_SRC emacs-lisp
@@ -123,7 +123,7 @@ In order to use =orgtabl-mode=, add =org= layer to your =~/.spacemacs=.
 | ~SPC m x B~ | insert gfm checkbox                                               |
 | ~SPC m x i~ | make region italic or insert italic                               |
 | ~SPC m x c~ | make region code or insert code                                   |
-| ~SPC m x C~ | make region code or insert code (Github Flavored Markdown format) |
+| ~SPC m x C~ | make region code or insert code (GitHub Flavored Markdown format) |
 | ~SPC m x q~ | make region blockquote or insert blockquote                       |
 | ~SPC m x Q~ | blockquote region                                                 |
 | ~SPC m x p~ | make region or insert pre                                         |

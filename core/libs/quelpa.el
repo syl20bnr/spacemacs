@@ -1617,7 +1617,7 @@ Return t in each case."
     (setf (cdr (last cache-item)) '(:stable t))))
 
 (defun quelpa-checkout-melpa ()
-  "Fetch or update the melpa source code from Github.
+  "Fetch or update the melpa source code from GitHub.
 If there is no error return non-nil.
 If there is an error but melpa is already checked out return non-nil.
 If there is an error and no existing checkout return nil."

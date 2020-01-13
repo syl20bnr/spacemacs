@@ -11,7 +11,7 @@
 - [[#important-note][Important Note]]
 - [[#install][Install]]
   - [[#layer][Layer]]
-  - [[#github-support][Github support]]
+  - [[#github-support][GitHub support]]
   - [[#twitter-bootstrap-support][Twitter Bootstrap support]]
   - [[#gnuplot-support][Gnuplot support]]
   - [[#revealjs-support][Reveal.js support]]
@@ -99,8 +99,8 @@ To use this configuration layer: in the main Spacemacs configuration
 file (=~/.spacemacs=), to the existing =dotspacemacs-configuration-layers= list
 add the =org= entry.
 
-** Github support
-To install Github related extensions like [[https://github.com/larstvei/ox-gfm][ox-gfm]] to export to Github
+** GitHub support
+To install GitHub related extensions like [[https://github.com/larstvei/ox-gfm][ox-gfm]] to export to GitHub
 flavored markdown set the variable =org-enable-github-support= to =t=.
 
 #+BEGIN_SRC emacs-lisp
