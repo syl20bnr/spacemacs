@@ -232,6 +232,12 @@
         (interactive)
         (haskell-process-do-type 1))
 
+      ;; repl key bindings
+      (evil-define-key 'insert haskell-interactive-mode-map
+        (kbd "C-j") 'haskell-interactive-mode-history-next
+        (kbd "C-k") 'haskell-interactive-mode-history-previous
+        (kbd "C-l") 'haskell-interactive-mode-clear)
+
       ;; Bind repl
       (spacemacs/register-repl 'haskell
                                'haskell-interactive-switch "haskell")

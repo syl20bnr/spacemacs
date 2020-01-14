@@ -169,7 +169,7 @@ build =ghc-mod=. You can check which version was used by calling
 =ghc-mod --version=.
 
 *** =lsp=
-=lsp= requires an appropriate installation of =hie= to provide the Haskell language server. 
+=lsp= requires an appropriate installation of =hie= to provide the Haskell language server.
 =hie= is built on =ghc-mod=, so many of the same considerations apply.
 
 Enabling the =lsp= backend requires the =lsp= layer to be enabled, and provides access to
@@ -272,6 +272,9 @@ REPL commands are prefixed by ~SPC m s~:
 | ~SPC m s c~ | clear the REPL                                  |
 | ~SPC m s s~ | show and switch to the REPL                     |
 | ~SPC m s S~ | show the REPL without switching to it           |
+| ~C-j~       | switch to next history item                     |
+| ~C-k~       | switch to previous history item                 |
+| ~C-l~       | clear the REPL                                  |
 
 ** Intero REPL
 Intero REPL commands are prefixed by ~SPC m i~:
