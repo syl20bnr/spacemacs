@@ -1903,6 +1903,7 @@ Other:
   (thanks to cjay, CthulhuDen and Magnus Therning)
 - Included =attrap= when =dante= is used (thanks to Pepe Iborra)
 - Added keybinding ~C-c C-z~ for =haskell-interactive-switch= (thanks to ft)
+- Added keybindings ~C-j~, ~C-k~, ~C-l~ to the GHCI REPL
 **** Helm
 - New packages:
   - =helm-ls-git= (thanks to duianto)
