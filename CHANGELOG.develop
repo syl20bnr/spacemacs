@@ -3090,6 +3090,7 @@ Other:
 - Deprecated =treemacs-use-collapsed-directories=. Flattening directories should
   be controlled by directly setting =treemacs-collapse-dirs=.
 - Fixed "width (un)locked" message appearing when treemacs is loaded.
+- Add =persp-mode= integration (thanks to Seong Yong-ju)
 **** Typescript
 - Call tsfmt with extension of current buffer for TSX formatting
   (thanks to Victor Andrée)
