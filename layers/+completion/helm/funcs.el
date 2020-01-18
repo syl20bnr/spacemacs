@@ -209,6 +209,11 @@ If DEFAULT-INPUTP is non nil then the current region or symbol at point
   (interactive)
   (spacemacs/helm-files-do-ack default-directory))
 
+(defun spacemacs/helm-dir-do-grep ()
+  "Search in current directory with `grep'."
+  (interactive)
+  (spacemacs//helm-do-grep-region-or-symbol (list default-directory) nil))
+
 (defun spacemacs/helm-dir-do-ack-region-or-symbol ()
   "Search in current directory with `ack' with a default input."
   (interactive)

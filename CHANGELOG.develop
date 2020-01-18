@@ -1981,6 +1981,7 @@ Other:
     Helm-ag (thanks to duianto and Miciah Masters)
   - Fixed searching in a project with ~C-s~ from ~SPC p p~ (thanks to duianto)
   - Fixed ~C-c C-e~ =helm-find-files-edit= action (thanks to duianto)
+  - Added =spacemacs/helm-dir-do-grep= to fix #13167 (thanks to Richard Kim)
 **** HTML
 - Added =impatient-mode= under ~SPC m i~ (thanks to geo7)
 - Added =counsel-css= as an =ivy= alternative to =helm-css-scss=
