@@ -12,6 +12,7 @@
   - [[#choosing-a-backend][Choosing a backend]]
     - [[#racer][Racer]]
     - [[#lsp][LSP]]
+      - [[#autocompletion][Autocompletion]]
       - [[#debugger-dap-integration][Debugger (dap integration)]]
   - [[#cargo][Cargo]]
   - [[#rustfmt][Rustfmt]]
@@ -22,7 +23,7 @@
 This layer supports [[https://www.rust-lang.org][Rust]] development in Spacemacs.
 
 ** Features:
-- Auto-completion and navigation support through [[https://github.com/emacs-lsp/lsp-rust][lsp]] or [[https://github.com/phildawes/racer][Racer]]
+- Auto-completion and navigation support through [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] or [[https://github.com/phildawes/racer][Racer]]
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 - support for the Rust package manager [[http://doc.crates.io/index.html][Cargo]]
 
@@ -67,7 +68,15 @@ You must add =lsp= to the existing =dotspacemacs-configuration-layers= in your =
 
 Consult the installation command for the desired language server found at [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] for instructions.
 
+The default LSP server for Rust is [[https://github.com/rust-lang/rls][rls]], i.e. rust language server.
+To choose the experimental [[https://github.com/rust-analyzer/rust-analyzer][rust-analyzer]], you need to set the layer variable =lsp-rust-server= of =lsp= layer:
+#+BEGIN_SRC elisp
+(lsp :variables lsp-rust-server 'rust-analyzer)
+
+**** Autocompletion
 To enable auto-completion, ensure that the =auto-completion= layer is enabled.
+
+By default, currently [[https://github.com/phildawes/racer][Racer]] is the only code completion backend of [[https://github.com/rust-lang/rls][rls]], so you also need to install it.
 
 **** Debugger (dap integration)
 To install the debug adapter you may run =M-x dap-gdb-lldb-setup= when you are on Linux or download it manually from [[https://marketplace.visualstudio.com/items?itemName=webfreak.debug][Native Debug]] and adjust =dap-gdb-lldb-path=.
