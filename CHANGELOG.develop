@@ -1256,6 +1256,8 @@ Other:
   - Replaced obsolete function =doom-modeline-init= with =doom-modeline-mode=
     (thanks to duianto)
   - Fixed searching in the =helm-find-file= actions (thanks to duianto)
+  - Fixed =evilified-state=, mapped ~C-w~ to =evil-window-map=
+    (thanks to Muneeb Shaikh)
 *** Layer changes and fixes
 **** Agda
 - Fixes
