@@ -2582,6 +2582,8 @@ Other:
 - Added =helm-org= package (thanks to Simon Pintarelli)
 - Fixed evil-normal-state ~ESC~ after exiting =org-present-mode=
   (thanks to duianto)
+- Restored ~C-w~ as =evil-window-map= in the org agenda buffer
+  (thanks to duianto)
 **** Osx
 - Fixed OSX mapping issue (thanks to Joey Liu)
 - Added layer variables to customize modifier behaviors on macOS:

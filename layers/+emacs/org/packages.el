@@ -557,6 +557,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
       ;; TODO add the rule in auto-evilification to ignore C-h (like we do
       ;; with C-g)
       (kbd "C-h") nil
+      (kbd "C-w") 'evil-window-map
       (kbd "M-j") 'org-agenda-next-item
       (kbd "M-k") 'org-agenda-previous-item
       (kbd "M-h") 'org-agenda-earlier
