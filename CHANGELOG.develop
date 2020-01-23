@@ -1477,10 +1477,10 @@ Other:
     ~esR~ 'spacemacs/cider-send-region-to-repl-focus
   - ~eU~ 'cider-repl-require-repl-utils
     (thanks to John Stevenson)
-          - changed clear repl buffer of evaluation to match terminal clear key
-            ~el~ 'cider-repl-clear-buffer
-            ~eL~ 'cider-find-and-clear-repl-output
-            (thanks to John Stevenson)
+  - changed clear repl buffer of evaluation to match terminal clear key
+    ~el~ 'cider-repl-clear-buffer
+    ~eL~ 'cider-find-and-clear-repl-output
+    (thanks to John Stevenson)
   - Add sesman session management keybindings and refactor
     jack-in and connect keybindings
     ~'~ 'sesman-start
@@ -1488,7 +1488,8 @@ Other:
     ~scj~ 'cider-connect-clj       ;; Java
     ~scm~ 'cider-connect-clj&cljs  ;; Multiple repl
     ~scs~ 'cider-connect-cljs      ;; javaScript
-    ~si~ 'sesman-start  ;; convention to use `i` to star repl in many Spacemacs layers
+    ~si~ 'sesman-start ;; convention to use ~i~ to start repl in many Spacemacs
+    layers
     ~sI~ 'sesman-info
     ~sjj~ 'cider-jack-in-clj       ;; Java
     ~sjm~ 'cider-jack-in-clj&cljs  ;; Multiple repl - match cider keybinding
@@ -1505,7 +1506,8 @@ Other:
     ~sQ~ 'sesman-quit
     ~sx~ 'cider-ns-refresh
     (thanks to John Stevenson)
-  - changed toggle between source and repl to match key for toggle between code and test
+  - changed toggle between source and repl to match key for toggle between code
+    and test
     ~sa~ (if (eq m 'cider-repl-mode)
                      'cider-switch-to-last-clojure-buffer
                    'cider-switch-to-repl-buffer)

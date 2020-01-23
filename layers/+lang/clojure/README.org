@@ -230,7 +230,7 @@ Or set this variable when loading the configuration layer:
 *** Enabling sayid or clj-refactor
 
 The packages sayid (Clojure debugger) and clj-refactor (automatic refactorings)
-are disabled by default.  These packages are less active that the CIDER project
+are disabled by default.  These packages are less active than the CIDER project
 and may cause issues when running CIDER.
 
 To enable them, add a =:variables= option when enabling the =clojure= layer,
@@ -303,7 +303,7 @@ the nREPL runs on should be printed.
 ~, '_~ or ~SPC m s i~ displays the sesman prompt, select the connect command relevant
 to the type of REPL you wish to start.
 
-~, s c~ opens the cider-connect menu, providing keybindings for connecting too theme
+~, s c~ opens the cider-connect menu, providing keybindings for connecting too the
 different REPL session types.
 
 CIDER communicates with your Clojure process through nREPL, and for CIDER to
@@ -374,7 +374,7 @@ multiple projects or have multiple connections opened for the same project
 
 Files, directories and projects can be linked to an existing session.
 
-See the REPL connections keybingings section for all the commands.
+See the REPL connections keybindings section for all the commands.
 
 ** Cheatsheet
 This layers installs the [[https://github.com/clojure-emacs/clojure-cheatsheet][clojure-cheatsheet]] package which embeds this useful
@@ -491,7 +491,7 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m s l b~ | link buffer to REPL session (seman-link-with-buffer)                            |
 | ~SPC m s l d~ | link directory to REPL session (seman-link-with-directory)                      |
 | ~SPC m s l p~ | link project to REPL session (seman-link-with-project)                          |
-| ~SPC m s l u~ | unlink  from REPL session (seman-unlink)                                        |
+| ~SPC m s l u~ | unlink from REPL session (seman-unlink)                                         |
 | ~SPC m s o~   | switch to other repl instance (cider-repl-switch-to-other)                      |
 | ~SPC m s s j~ | connect as sibling to existing Clojure REPL                                     |
 | ~SPC m s s s~ | connect as sibling to existing ClojureScript REPL                               |
