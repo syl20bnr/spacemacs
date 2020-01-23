@@ -180,7 +180,7 @@
   - [[#speed-reading][Speed reading]]
 - [[#source-control][Source control]]
   - [[#git][Git]]
-  - [[#github][GitHub]]
+  - [[#github][Github]]
   - [[#perforce][Perforce]]
   - [[#version-control][Version-control]]
 - [[#spacemacs][Spacemacs]]
@@ -1208,13 +1208,21 @@ This layer adds support for [[https://clojure.org/][Clojure]] language using [[h
 
 Features:
 - REPL via [[https://github.com/clojure-emacs/cider][CIDER]]
+- REPL session management via Sesman
 - Code formatting via [[https://github.com/clojure-emacs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]]
-- Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
-- Linting via [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]], [[https://github.com/borkdude/clj-kondo][clj-kondo]] or [[https://github.com/candid82/joker][joker]]
 - Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
-- Debugging with [[https://github.com/clojure-emacs/sayid][sayid]]
+- Debugging with CIDER debug
 - Clojure cheatsheet
+
+
+Recommended optional features
 - Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
+- Linting via [[https://github.com/borkdude/clj-kondo][clj-kondo]] ([[https://github.com/candid82/joker][joker]] and [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] also available)
+
+
+Other optional features
+- Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
+- Debugging with [[https://github.com/clojure-emacs/sayid][sayid]] (beta)
 
 **** Common lisp
 [[file:+lang/common-lisp/README.org][+lang/common-lisp/README.org]]
@@ -2038,7 +2046,7 @@ Features:
 This layer supports [[https://www.rust-lang.org][Rust]] development in Spacemacs.
 
 Features:
-- Auto-completion and navigation support through [[https://github.com/emacs-lsp/lsp-rust][lsp]] or [[https://github.com/phildawes/racer][Racer]]
+- Auto-completion and navigation support through [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] or [[https://github.com/phildawes/racer][Racer]]
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 - support for the Rust package manager [[http://doc.crates.io/index.html][Cargo]]
 
@@ -2345,7 +2353,7 @@ Features:
 
 New to Magit? Checkout the [[https://magit.vc/about/][official intro]].
 
-** GitHub
+** Github
 [[file:+source-control/github/README.org][+source-control/github/README.org]]
 
 This layers adds support for [[http://github.com][GitHub]].
