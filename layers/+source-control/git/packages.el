@@ -26,6 +26,7 @@
         (helm-gitignore :requires helm)
         magit
         magit-gitflow
+        magit-section
         magit-svn
         org
         (orgit :requires org)
@@ -201,10 +202,10 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
       ;; bind function keys
       ;; (define-key magit-mode-map (kbd "<tab>") 'magit-section-toggle)
       (evilified-state-evilify-map magit-repolist-mode-map
-          :mode magit-repolist-mode
-          :bindings
-          (kbd "gr") 'magit-list-repositories
-          (kbd "RET") 'magit-repolist-status)
+        :mode magit-repolist-mode
+        :bindings
+        (kbd "gr") 'magit-list-repositories
+        (kbd "RET") 'magit-repolist-status)
       ;; confirm/abort
       (when dotspacemacs-major-mode-leader-key
         (add-hook 'with-editor-mode-hook 'evil-normalize-keymaps)
@@ -239,6 +240,10 @@ Press [_b_] again to blame further in the history, [_q_] to go up or quit."
     (progn
       (spacemacs|diminish magit-gitflow-mode "Flow")
       (define-key magit-mode-map "%" 'magit-gitflow-popup))))
+
+(defun git/init-magit-section ()
+  (use-package magit-section
+    :defer t))
 
 (defun git/init-magit-svn ()
   (use-package magit-svn
