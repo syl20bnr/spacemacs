@@ -177,6 +177,7 @@
     (doom-Iosvkem                     . doom-themes)
     (doom-challenger-deep             . doom-themes)
     (doom-city-lights                 . doom-themes)
+    (doom-dark+                       . doom-themes)
     (doom-dracula                     . doom-themes)
     (doom-fairy-floss                 . doom-themes)
     (doom-gruvbox                     . doom-themes)
