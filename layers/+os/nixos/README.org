@@ -31,8 +31,8 @@ file.
 Toggle whether =company-nixos-options= completion is enabled (defaults to =t=).
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-              '((nixos :variables nixos-enable-company t)))
+  (setq-default dotspacemacs-configuration-layers
+                '((nixos :variables nixos-enable-company t)))
 #+END_SRC
 
 * Key bindings

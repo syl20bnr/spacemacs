@@ -93,8 +93,8 @@ Fancify symbols replaces fn, #{} and partial with representative characters =λ=
 clj-refactor provides Clojure specific refactor commands. The refactor commands are being
 migrated into CIDER clojure-mode. clj-refactor is not actively maintained, so use with caution.
 
-sayid is a comprehensive debugger that analyses an entire project.  Projects need to compile
-fully or issues may occur.  sayid is not as actively maintained as CIDER and may cause issues.
+sayid is a comprehensive debugger that analyses an entire project. Projects need to compile
+fully or issues may occur. sayid is not as actively maintained as CIDER and may cause issues.
 
 *** Enabling Automatic Linting
 [[https://github.com/borkdude/clj-kondo][clj-kondo]], [[https://github.com/candid82/joker][joker]] and [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] provide automated linting via =flycheck=.
@@ -228,9 +228,8 @@ Or set this variable when loading the configuration layer:
 #+END_SRC
 
 *** Enabling sayid or clj-refactor
-
 The packages sayid (Clojure debugger) and clj-refactor (automatic refactorings)
-are disabled by default.  These packages are less active than the CIDER project
+are disabled by default. These packages are less active than the CIDER project
 and may cause issues when running CIDER.
 
 To enable them, add a =:variables= option when enabling the =clojure= layer,
@@ -261,7 +260,7 @@ If you are experiencing issues when running a REPL, try disabling these
 packages first and restart Spacemacs to see if the error persists.
 
 * Usage
-Read the keybindings section to see all the functionality available, or simply
+Read the key bindings section to see all the functionality available, or simply
 use the ~,~ or ~SPC m~ to open the which-key menu for the Clojure layer.
 
 ** Starting a REPL from Spacemacs
@@ -269,20 +268,20 @@ Open a Clojure file (.clj, .cljs, .cljc, .edn) and start a Clojure REPL,
 choosing the REPL session type (Clojure, ClojureScript or both Clojure & ClojureScript).
 
 ~, '~ and ~, s i~ calls the ~sesman-start~ command, a wrapper for all the
-~jack-in~ and ~connect~ commands.  A prompt appears allowing you to choose the
+~jack-in~ and ~connect~ commands. A prompt appears allowing you to choose the
 type of REPL session required.
 
 ~, s j~ opens the cider-jack-in menu, providing commands to start specific REPL sessions,
 it is the same as using the ~sesman-start~ command described previously.
 
 Using the universal constant, ~SPC u~ before any of the previous commands enables editing
-of the command that starts the REPL.  This is useful if you want to add a =deps.edn= alias
-or add your own dependencies to inject.  The command is edited in the mini-buffer
+of the command that starts the REPL. This is useful if you want to add a =deps.edn= alias
+or add your own dependencies to inject. The command is edited in the mini-buffer
 
 Once the REPL starts, a confirmation message is displayed in the mini-buffer.
 
 The REPL buffer does not open automatically (Clojure is typically evaluated in
-the source code buffer).  ~, s a~ will switch between REPL and source code buffers,
+the source code buffer). ~, s a~ will switch between REPL and source code buffers,
 opening the REPL buffer if not already shown.
 
 *** Troubleshooting
@@ -295,15 +294,14 @@ Restart Emacs and confirm the issue still occurs.
 Visit [[https://clojurians.slack.com/messages/cider][#cider channel on Clojurians Slack community]] for help with CIDER,
 and [[https://clojurians.slack.com/messages/spacemacs][#spacemacs channel]] for Spacemacs specific help
 
-
 ** Connecting to a Clojure REPL outside of Emacs
-Start a REPL outside of Emacs that includes an nREPL server.  The IP address and port
+Start a REPL outside of Emacs that includes an nREPL server. The IP address and port
 the nREPL runs on should be printed.
 
 ~, '_~ or ~SPC m s i~ displays the sesman prompt, select the connect command relevant
 to the type of REPL you wish to start.
 
-~, s c~ opens the cider-connect menu, providing keybindings for connecting too the
+~, s c~ opens the cider-connect menu, providing key bindings for connecting too the
 different REPL session types.
 
 CIDER communicates with your Clojure process through nREPL, and for CIDER to
@@ -366,15 +364,13 @@ More info regarding installation of nREPL middleware can be found here:
 - CIDER: [[https://cider.readthedocs.io/en/latest/installation/][CIDER installation (official docs)]]
 - clj-refactor: [[https://github.com/clojure-emacs/refactor-nrepl][refactor-nrepl]]
 
-
-
 ** Managing REPL connections
 Sesman is used for [[https://docs.cider.mx/cider/usage/managing_connections.html][managing REPL connections]] when working simultaneously on
 multiple projects or have multiple connections opened for the same project
 
 Files, directories and projects can be linked to an existing session.
 
-See the REPL connections keybindings section for all the commands.
+See the REPL connections key bindings section for all the commands.
 
 ** Cheatsheet
 This layers installs the [[https://github.com/clojure-emacs/clojure-cheatsheet][clojure-cheatsheet]] package which embeds this useful
@@ -470,7 +466,6 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m g r~ | goto resource                                |
 | ~SPC m g s~ | browse spec                                  |
 | ~SPC m g S~ | browse all specs                             |
-
 
 *** REPL Sessions
 
