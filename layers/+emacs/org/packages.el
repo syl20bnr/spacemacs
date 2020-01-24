@@ -692,7 +692,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (defun spacemacs//org-present-end ()
         "Terminate `org-present' mode"
         (org-present-small)
-        (org-remove-inline-images)
+        (if (not org-startup-with-inline-images)
+            (org-remove-inline-images))
         (org-present-show-cursor)
         (org-present-read-write))
       (add-hook 'org-present-mode-hook 'spacemacs//org-present-start)
