@@ -2585,6 +2585,8 @@ Other:
 - Added =helm-org= package (thanks to Simon Pintarelli)
 - Fixed evil-normal-state ~ESC~ after exiting =org-present-mode=
   (thanks to duianto)
+- Fixed =org-present=: exiting presentation always removes inline images
+  (thanks to Keith Pinson)
 **** Osx
 - Fixed OSX mapping issue (thanks to Joey Liu)
 - Added layer variables to customize modifier behaviors on macOS:
