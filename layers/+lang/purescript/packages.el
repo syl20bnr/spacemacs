@@ -37,6 +37,7 @@
     :defer t
     :init
     (progn
+      (add-to-list 'spacemacs-indent-sensitive-modes 'purescript-mode)
       (add-hook 'purescript-mode-hook 'turn-on-purescript-indentation)
       (add-hook 'purescript-mode-hook 'purescript-decl-scan-mode)
       (spacemacs/declare-prefix-for-mode 'purescript-mode "mg" "goto")

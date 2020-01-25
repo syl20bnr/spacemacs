@@ -2653,6 +2653,8 @@ Other:
 - Allow adding node_modules/.bin path to exec-path (thanks to Anupam Jain)
 - Improved purescript keybinding discoverability & ergonomics.
   (thanks to Jason Walker)
+- Added =purescript-mode= to =spacemacs-indent-sensitive-modes=
+  (thanks to Hideaki Kawai)
 **** Python
 - Various fixes in =pylookup.py= (thanks to ishestakov and Shitikanth Kashyap)
 - Hide =yapf-mode= modeline lighter (thanks to Robert ven der Helm)
