@@ -28,12 +28,8 @@ add =nixos= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Configuration
-Toggle whether =company-nixos-options= completion is enabled (defaults to =t=).
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-                '((nixos :variables nixos-enable-company t)))
-#+END_SRC
+On some systems, =company-nixos-options= may be very slow. If this is the case,
+see the section on disabling the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#disabling-layer-services-in-other-layers][disabling auto-complete]] for the =nixos= layer.
 
 * Key bindings
 ** NixOS Options

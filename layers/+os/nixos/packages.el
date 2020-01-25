@@ -10,26 +10,23 @@
 ;;; License: GPLv3
 
 (defconst nixos-packages
-      '(company
-        (company-nixos-options :requires company)
-        flycheck
-        (helm-nixos-options :requires helm)
-        nix-mode
-        nixos-options))
+  '((company-nixos-options :requires company)
+     flycheck
+     (helm-nixos-options :requires helm)
+     nix-mode
+     nixos-options))
 
 (defun nixos/post-init-company ()
-  (when nixos-enable-company
-    (let ((backends '(company-capf)))
-      (when (configuration-layer/package-used-p 'company-nixos-options)
-        (add-to-list 'backends 'company-nixos-options t))
-      (eval `(spacemacs|add-company-backends
-               :backends ,backends
-               :modes nix-mode)))))
+  (let ((backends '(company-capf)))
+    (when (configuration-layer/package-used-p 'company-nixos-options)
+      (add-to-list 'backends 'company-nixos-options t))
+    (eval `(spacemacs|add-company-backends
+              :backends ,backends
+              :modes nix-mode))))
 
 (defun nixos/init-company-nixos-options ()
- (use-package company-nixos-options
-   :if nixos-enable-company
-   :defer t))
+  (use-package company-nixos-options
+    :defer t))
 
 (defun nixos/init-helm-nixos-options ()
   (use-package helm-nixos-options
