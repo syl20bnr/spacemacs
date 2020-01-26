@@ -142,15 +142,14 @@ is used. The variable has no effect when =auto-complete= is used.
 #+END_SRC
 
 ** Enable company or auto-complete globally
-By default Spacemacs enables auto-completion explicitly for each supported
-major-mode, it means that =company= and =auto-complete= are not enabled
-globally, it allows more flexibility to choose an auto-completion engine
-for a given mode.
+By default, Spacemacs enables or disables =auto-completion= explicitly for each
+supported major-mode, which means means that =company= and =auto-complete= are
+not enabled globally. If you encounter a mode that should have =auto-completion=
+but does not, consider adding a layer dependency on =auto-completion=.
 
-You may want to enable company globally to get auto-completion
-everywhere even in the modes which are not configured by Spacemacs. To do
-so, you just have to add =(global-company-mode)= in the
-=dotspacemacs/user-config= function of your dotfile.
+As a last resort, you can set =(global-company-mode)= in your config to enable
+company globally, but note that this will interfere with [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#disabling-layer-services-in-other-layers][layers that try to
+disable auto-completion]].
 
 Note that if you want to enable =auto-complete= globally you will have to
 disable =company= first, see the next section to do so.
