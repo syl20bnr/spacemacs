@@ -1462,55 +1462,41 @@ Other:
   - Removed ~SPC m h g~ for =grimoire= as it is deprecated (thanks to Sam Hedin)
   - ~C-return~ to =cider-repl-newline-and-indent= in REPL evil insert state
     (thanks to Gia Thanh Vuong)
-  - Moved evaluation sent to repl keybindings to ~SPC m e s~ menu
-    ~esb~ 'spacemacs/cider-send-buffer-in-repl-and-focus
-    ~esc~ 'cider-repl-clear-buffer
-    ~esC~ 'cider-find-and-clear-repl-output
-    ~ese~ 'spacemacs/cider-send-last-sexp-to-repl
-    ~esE~ 'spacemacs/cider-send-last-sexp-to-repl-focus
-    ~esf~ 'spacemacs/cider-send-function-to-repl
-    ~esF~ 'spacemacs/cider-send-function-to-repl-focus
-    ~esn~ 'spacemacs/cider-send-ns-form-to-repl
-    ~esN~ 'spacemacs/cider-send-ns-form-to-repl-focus
-    ~eso~ 'cider-repl-switch-to-other
-    ~esr~ 'spacemacs/cider-send-region-to-repl
-    ~esR~ 'spacemacs/cider-send-region-to-repl-focus
-  - ~eU~ 'cider-repl-require-repl-utils
-    (thanks to John Stevenson)
   - changed clear repl buffer of evaluation to match terminal clear key
-    ~el~ 'cider-repl-clear-buffer
-    ~eL~ 'cider-find-and-clear-repl-output
+    ~SPC s s l~ 'cider-repl-clear-buffer
+    ~SPC s s L~ 'cider-find-and-clear-repl-output
     (thanks to John Stevenson)
-  - Add sesman session management keybindings and refactor
-    jack-in and connect keybindings
-    ~'~ 'sesman-start
-    ~sb~ 'sesman-browser
-    ~scj~ 'cider-connect-clj       ;; Java
-    ~scm~ 'cider-connect-clj&cljs  ;; Multiple repl
-    ~scs~ 'cider-connect-cljs      ;; javaScript
-    ~si~ 'sesman-start ;; convention to use ~i~ to start repl in many Spacemacs
-    layers
-    ~sI~ 'sesman-info
-    ~sjj~ 'cider-jack-in-clj       ;; Java
-    ~sjm~ 'cider-jack-in-clj&cljs  ;; Multiple repl - match cider keybinding
-    ~sjs~ 'cider-jack-in-cljs      ;; javaScript
-    ~slb~ 'sesman-link-with-buffer
-    ~sld~ 'sesman-link-with-directory
-    ~slp~ 'sesman-link-with-project
-    ~slu~ 'sesman-unlink
-    ~ssj~ 'cider-connect-sibling-clj   ;; sibling Java
-    ~sss~ 'cider-connect-sibling-cljs  ;; sibling javaScript
-    ~sr~ 'cider-restart
-    ~sR~ 'sesman-restart
-    ~sq~ 'cider-quit
-    ~sQ~ 'sesman-quit
-    ~sx~ 'cider-ns-refresh
+  - Add sesman session management keybindings to ~SPC m c~
+    ~SPC m c b~ 'sesman-browser
+    ~SPC m c i~ 'sesman-info
+    ~SPC m c g~ 'sesman-goto
+    ~SPC m c l b~ 'sesman-link-buffer
+    ~SPC m c l d~ 'sesman-link-directory
+    ~SPC m c l p~ 'sesman-link-project
+    ~SPC m c l u~ 'sesman-unlink
+    ~SPC m s q q~ 'sesman-quit
+    ~SPC m s q r~ 'sesman-restart
+    ~SPC m c s~ 'sesman-start
+    ~SPC m c S j~ 'cider-connect-sibling-clj
+    ~SPC m c S s~ 'cider-connect-sibling-cljs
     (thanks to John Stevenson)
+  - updated repl shortcut to use sesman-start wrapper, selecting any repl type
+    ~SPC m '~ 'sesman-start
   - changed toggle between source and repl to match key for toggle between code
     and test
-    ~sa~ (if (eq m 'cider-repl-mode)
+    ~SPC m s a~ (if (eq m 'cider-repl-mode)
                      'cider-switch-to-last-clojure-buffer
                    'cider-switch-to-repl-buffer)
+    (thanks to John Stevenson)
+  - added formatting command not previously included
+    ~SPC m f d~ 'cider-format-defun
+    ~SPC m f e b~ 'cider-format-buffer
+    ~SPC m f e e~ 'cider-format-last-sexp
+    ~SPC m f e r~ 'cider-format-region
+    ~SPC m f r~ 'cider-format-defun
+    (thanks to John Stevenson)
+  - added evaluation keybinding - evaluate up to point
+    ~SPC m e V~ 'cider-eval-sexp-up-to-point
     (thanks to John Stevenson)
 - Fixes:
   - Removed =cider.nrepl/cider-middleware= in lein quick start setting
