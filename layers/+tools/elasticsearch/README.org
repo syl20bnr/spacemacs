@@ -1,19 +1,22 @@
 #+TITLE: elasticsearch layer
 
+#+TAGS: dsl|layer|programming
+
 [[file:img/elasticsearch.png]]
 
-* Table of Contents                                       :TOC_4_gh:noexport:
+* Table of Contents                                       :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds Elasticsearch queries support to Spacemacs.
+This layer adds Elasticsearch query and monitoring support to Spacemacs.
 
 ** Features:
-  - Autocompletion for Elasticsearch Query DSL
-  - Support for Org-Babel
+- Autocompletion for Elasticsearch Query DSL
+- Support for Org-Babel
+- Support for an Elasticsearch Command Center to monitor a cluster
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
