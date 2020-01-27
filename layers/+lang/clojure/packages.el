@@ -63,14 +63,21 @@
       ;; TODO: having this work for cider-macroexpansion-mode would be nice,
       ;;       but the problem is that it uses clojure-mode as its major-mode
       (let ((cider--key-binding-prefixes
-             '(("md" . "debug")
+             '(("m=" . "format")
+               ("m=e" . "edn")
+               ("md" . "debug")
                ("me" . "evaluation")
-               ("mf" . "format")
                ("mg" . "goto")
                ("mh" . "documentation")
+               ("mm" . "manage repls")
+               ("mml" . "link session")
+               ("mmS" . "sibling sessions")
+               ("mmq" . "quit/restart")
                ("mp" . "profile")
-               ("ms" . "repl")
+               ("ms" . "send to repl")
+               ("msc" . "connect external repl")
                ("msj" . "jack-in")
+               ("msq" . "quit/restart repl")
                ("mt" . "test")
                ("mT" . "toggle")
                )))
@@ -80,6 +87,11 @@
                 cider--key-binding-prefixes)
 
           (spacemacs/set-leader-keys-for-major-mode m
+
+            ;; shortcuts
+            "'"  'sesman-start
+
+            ;; help / documentation
             "ha" 'cider-apropos
             "hc" 'cider-cheatsheet
             "hd" 'cider-clojuredocs
@@ -88,6 +100,7 @@
             "hn" 'cider-browse-ns
             "hN" 'cider-browse-ns-all
 
+            ;; evaluate in source code buffer
             "e;" 'cider-eval-defun-to-comment
             "eb" 'cider-eval-buffer
             "ee" 'cider-eval-last-sexp
@@ -95,15 +108,25 @@
             "ei" 'cider-interrupt
             "em" 'cider-macroexpand-1
             "eM" 'cider-macroexpand-all
+            "en" 'cider-ns-refresh
+            "eN" 'cider-ns-reload  ;; SPC u for cider-ns-reload-all
+            "ep" 'cider-pprint-eval-defun-at-point
             "eP" 'cider-pprint-eval-last-sexp
             "er" 'cider-eval-region
             "eu" 'cider-undef
             "ev" 'cider-eval-sexp-at-point
+            "eV" 'cider-eval-sexp-up-to-point
             "ew" 'cider-eval-last-sexp-and-replace
 
-            "="  'cider-format-buffer
-            "fb" 'cider-format-buffer
+            ;; format code style
+            "==" 'cider-format-buffer
+            "=eb" 'cider-format-edn-buffer
+            "=ee" 'cider-format-edn-last-sexp
+            "=er" 'cider-format-edn-region
+            "=f" 'cider-format-defun
+            "=r" 'cider-format-region
 
+            ;; goto
             "gb" 'cider-pop-back
             "gc" 'cider-classpath
             "gg" 'spacemacs/clj-find-var
@@ -113,41 +136,57 @@
             "gs" 'cider-browse-spec
             "gS" 'cider-browse-spec-all
 
-            "'"  'cider-jack-in-clj
-            "\"" 'cider-jack-in-cljs
-            "\&" 'cider-jack-in-clj&cljs
+            ;; manage cider connections / sesman
+            "mb" 'sesman-browser
+            "mi" 'sesman-info
+            "mg" 'sesman-goto
+            "mlb" 'sesman-link-with-buffer
+            "mld" 'sesman-link-with-directory
+            "mlu" 'sesman-unlink
+            "mqq" 'sesman-quit
+            "mqr" 'sesman-restart
+            "mlp" 'sesman-link-with-project
+            "mSj" 'cider-connect-sibling-clj
+            "mSs" 'cider-connect-sibling-cljs
+            "ms" 'sesman-start
+
+            ;; send code - spacemacs convention
+            "sa" (if (eq m 'cider-repl-mode)
+                     'cider-switch-to-last-clojure-buffer
+                   'cider-switch-to-repl-buffer)
             "sb" 'cider-load-buffer
             "sB" 'spacemacs/cider-send-buffer-in-repl-and-focus
-            "sc" (if (eq m 'cider-repl-mode)
-                     'cider-repl-clear-buffer
-                   'cider-connect)
-            "sC" 'cider-find-and-clear-repl-output
+            "scj" 'cider-connect-clj
+            "scm" 'cider-connect-clj&cljs
+            "scs" 'cider-connect-cljs
             "se" 'spacemacs/cider-send-last-sexp-to-repl
             "sE" 'spacemacs/cider-send-last-sexp-to-repl-focus
             "sf" 'spacemacs/cider-send-function-to-repl
             "sF" 'spacemacs/cider-send-function-to-repl-focus
-            "si" 'cider-jack-in-clj
-            "sjc" 'cider-jack-in-clj
-            "sjf" 'cider-jack-in-clj&cljs
+            "si" 'sesman-start
+            "sjj" 'cider-jack-in-clj
+            "sjm" 'cider-jack-in-clj&cljs
             "sjs" 'cider-jack-in-cljs
+            "sl" 'cider-repl-clear-buffer
+            "sL" 'cider-find-and-clear-repl-output
             "sn" 'spacemacs/cider-send-ns-form-to-repl
             "sN" 'spacemacs/cider-send-ns-form-to-repl-focus
             "so" 'cider-repl-switch-to-other
-            "sq" 'cider-quit
+            "sqq" 'cider-quit
+            "sqr" 'cider-restart
+            "sqn" 'cider-ns-reload
+            "sqN" 'cider-ns-reload-all
             "sr" 'spacemacs/cider-send-region-to-repl
             "sR" 'spacemacs/cider-send-region-to-repl-focus
-            "ss" (if (eq m 'cider-repl-mode)
-                     'cider-switch-to-last-clojure-buffer
-                   'cider-switch-to-repl-buffer)
             "su" 'cider-repl-require-repl-utils
-            "sx" 'cider-ns-refresh
-            "sX" 'cider-restart
 
+            ;; toggle options
             "Te" 'cider-enlighten-mode
             "Tf" 'spacemacs/cider-toggle-repl-font-locking
             "Tp" 'spacemacs/cider-toggle-repl-pretty-printing
             "Tt" 'cider-auto-test-mode
 
+            ;; cider-tests
             "ta" 'spacemacs/cider-test-run-all-tests
             "tb" 'cider-test-show-report
             "tl" 'spacemacs/cider-test-run-loaded-tests
@@ -156,6 +195,7 @@
             "tr" 'spacemacs/cider-test-rerun-failed-tests
             "tt" 'spacemacs/cider-test-run-focused-test
 
+            ;; cider-debug
             "db" 'cider-debug-defun-at-point
             "de" 'spacemacs/cider-display-error-buffer
             "dv" 'cider-inspect
@@ -303,7 +343,7 @@
                               m (car x) (cdr x)))
                 clj-refactor--key-binding-prefixes)
           (spacemacs/set-leader-keys-for-major-mode m
-            "fl" 'clojure-align
+            "=l" 'clojure-align
             "rci" 'clojure-cycle-if
             "rcp" 'clojure-cycle-privacy
             "rc#" 'clojure-convert-collection-to-set
