@@ -449,7 +449,7 @@ workaround - just add the following snippet to your =dotspacemacs/user-config=
 function:
 
 #+BEGIN_SRC emacs-lisp
-  (when (configuration-layer/package-used-p 'haskell)
+  (when (configuration-layer/layer-used-p 'haskell)
     (add-hook 'haskell-interactive-mode-hook
               (lambda ()
                 (setq-local evil-move-cursor-back nil))))
@@ -463,7 +463,7 @@ Also, some users might want to start the REPL in insert mode. This is done by
 placing the following snippet in your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-  (when (configuration-layer/package-used-p 'haskell)
+  (when (configuration-layer/layer-used-p 'haskell)
       (defadvice haskell-interactive-switch (after spacemacs/haskell-interactive-switch-advice activate)
         (when (eq dotspacemacs-editing-style 'vim)
           (call-interactively 'evil-insert))))
