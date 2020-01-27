@@ -1464,6 +1464,44 @@ Other:
   - Removed ~SPC m h g~ for =grimoire= as it is deprecated (thanks to Sam Hedin)
   - ~C-return~ to =cider-repl-newline-and-indent= in REPL evil insert state
     (thanks to Gia Thanh Vuong)
+  - changed clear repl buffer of evaluation to match terminal clear key
+    ~SPC s s l~ 'cider-repl-clear-buffer
+    ~SPC s s L~ 'cider-find-and-clear-repl-output
+    (thanks to John Stevenson)
+  - Add sesman session management keybindings to ~SPC m m~
+    ~SPC m m b~ 'sesman-browser
+    ~SPC m m i~ 'sesman-info
+    ~SPC m m g~ 'sesman-goto
+    ~SPC m m l b~ 'sesman-link-buffer
+    ~SPC m m l d~ 'sesman-link-directory
+    ~SPC m m l p~ 'sesman-link-project
+    ~SPC m m l u~ 'sesman-unlink
+    ~SPC m m q q~ 'sesman-quit
+    ~SPC m m q r~ 'sesman-restart
+    ~SPC m m s~ 'sesman-start
+    ~SPC m m S j~ 'cider-connect-sibling-clj
+    ~SPC m m S s~ 'cider-connect-sibling-cljs
+    (thanks to John Stevenson)
+  - updated repl shortcut to use sesman-start wrapper, selecting any repl type
+    ~SPC m '~ 'sesman-start
+  - changed toggle between source and repl to match key for toggle between code
+    and test
+    ~SPC m s a~ (if (eq m 'cider-repl-mode)
+                     'cider-switch-to-last-clojure-buffer
+                   'cider-switch-to-repl-buffer)
+    (thanks to John Stevenson)
+  - added formatting command not previously included
+    ~SPC m = =~ 'cider-format-buffer
+    ~SPC m = e b~ 'cider-format-edn-last-sexp
+    ~SPC m = e e~ 'cider-format-edn-last-sexp
+    ~SPC m = e r~ 'cider-format-edn-region
+    ~SPC m = f~ 'cider-format-defun
+    ~SPC m = l ~ 'cider-format-region
+    ~SPC m = r~ 'cider-format-region
+    (thanks to John Stevenson)
+  - added evaluation keybinding - evaluate up to point
+    ~SPC m e V~ 'cider-eval-sexp-up-to-point
+    (thanks to John Stevenson)
 - Fixes:
   - Removed =cider.nrepl/cider-middleware= in lein quick start setting
   - Fixed =cider-inspector-prev-page= binding, also add ~p~ as another key
