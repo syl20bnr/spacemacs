@@ -70,6 +70,7 @@ Consult the installation command for the desired language server found at [[http
 
 The default LSP server for Rust is [[https://github.com/rust-lang/rls][rls]], i.e. rust language server.
 To choose the experimental [[https://github.com/rust-analyzer/rust-analyzer][rust-analyzer]], you need to set the layer variable =lsp-rust-server= of =lsp= layer:
+
 #+BEGIN_SRC elisp
 (lsp :variables lsp-rust-server 'rust-analyzer)
 

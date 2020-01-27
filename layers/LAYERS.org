@@ -74,6 +74,7 @@
 - [[#programming-languages][Programming languages]]
   - [[#domain-specific-dsls][Domain-specific (DSLs)]]
     - [[#coq][Coq]]
+    - [[#elasticsearch][Elasticsearch]]
     - [[#ess-r][Ess (r)]]
     - [[#extra-languages][Extra languages]]
     - [[#faust][Faust]]
@@ -180,7 +181,7 @@
   - [[#speed-reading][Speed reading]]
 - [[#source-control][Source control]]
   - [[#git][Git]]
-  - [[#github][GitHub]]
+  - [[#github][Github]]
   - [[#perforce][Perforce]]
   - [[#version-control][Version-control]]
 - [[#spacemacs][Spacemacs]]
@@ -1050,6 +1051,16 @@ Features:
 - Debugging of mathematical proofs from within Emacs using a special proof layout
 - Replacement of certain constants with the correct mathematical signs
 - Inserting of certain preconfigured proof elements
+
+*** Elasticsearch
+[[file:+tools/elasticsearch/README.org][+tools/elasticsearch/README.org]]
+
+This layer adds Elasticsearch query and monitoring support to Spacemacs.
+
+Features:
+- Autocompletion for Elasticsearch Query DSL
+- Support for Org-Babel
+- Support for an Elasticsearch Command Center to monitor a cluster
 
 *** Ess (r)
 [[file:+lang/ess/README.org][+lang/ess/README.org]]
@@ -1975,9 +1986,9 @@ This layer adds support for the Python language.
 
 Features:
 - Support for the following backends:
-  - [[https://github.com/proofit404/anaconda-mode][anaconda]],
-  - [[https://github.com/emacs-lsp/lsp-python][Language Server Protocol]]
-    - python-language-server (default)
+  - [[https://github.com/proofit404/anaconda-mode][anaconda]] (default),
+  - [[https://github.com/emacs-lsp/lsp-python][Language Server Protocol]] (experimental - 2 implementations),
+    - python-language-server
     - Microsoft python language server
 - Auto-completion
 - Code Navigation
@@ -2038,7 +2049,7 @@ Features:
 This layer supports [[https://www.rust-lang.org][Rust]] development in Spacemacs.
 
 Features:
-- Auto-completion and navigation support through [[https://github.com/emacs-lsp/lsp-rust][lsp]] or [[https://github.com/phildawes/racer][Racer]]
+- Auto-completion and navigation support through [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] or [[https://github.com/phildawes/racer][Racer]]
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 - support for the Rust package manager [[http://doc.crates.io/index.html][Cargo]]
 
@@ -2345,7 +2356,7 @@ Features:
 
 New to Magit? Checkout the [[https://magit.vc/about/][official intro]].
 
-** GitHub
+** Github
 [[file:+source-control/github/README.org][+source-control/github/README.org]]
 
 This layers adds support for [[http://github.com][GitHub]].
