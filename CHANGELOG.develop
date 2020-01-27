@@ -1918,6 +1918,8 @@ Other:
   - ~C-k~ switch to previous history item
   - ~C-l~ clear the REPL
   (thanks to Joscha)
+- Reverted the REPL stuck snippets from checking if the =haskell= package is
+  used, to checking if the =haskell= layer is used (thanks to duianto)
 **** Helm
 - New packages:
   - =helm-ls-git= (thanks to duianto)
