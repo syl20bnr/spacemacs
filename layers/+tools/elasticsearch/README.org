@@ -4,7 +4,7 @@
 
 [[file:img/elasticsearch.png]]
 
-* Table of Contents                                       :TOC_5_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -24,4 +24,4 @@ add =elasticsearch= to the existing =dotspacemacs-configuration-layers= list in 
 file.
 
 * Key bindings
-This layer makes use of [[https://github.com/dakrone/es-mode#keyboard-shortcuts][es-mode keybindings]]
+This layer makes use of [[https://github.com/dakrone/es-mode#keyboard-shortcuts][es-mode key bindings]]
