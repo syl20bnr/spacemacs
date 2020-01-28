@@ -249,12 +249,22 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
    your terminal.
 
 4. Launch Emacs. Spacemacs will automatically install the packages it requires.
-   If you get an error regarding package downloads then you may try to disable
-   the HTTPS protocol by starting Emacs with
-
+   There is a well-known issue with some GPG keys having expired end of 2019.
+   This can be fixed by upgrading to Emacs 26.3 or above or by manually adding
+   the new keys using something like:
+   ```sh
+   gpg --homedir ~/.emacs.d/elpa/gnupg --receive-keys 066DAFCB81E42C40
+   ```
+   If you have a restrictive firewall it may help to manually specify the keyserver:
+   ```sh
+   gpg --keyserver keyserver.ubuntu.com --homedir ~/.emacs.d/elpa/gnupg/ --receive-keys 066DAFCB81E42C40
+   ```  
+   If you are behind a firewall or similar and you get an error regarding package
+   downloads then you may try to disable the HTTPS protocol by starting Emacs with
    ```sh
    emacs --insecure
    ```
+   but this should be a last resort because of the security implications.
 
    Or you can set the `dotspacemacs-elpa-https` to `nil` in your dotfile to
    remove the need to start Emacs with `--insecure` argument. You may wish to
