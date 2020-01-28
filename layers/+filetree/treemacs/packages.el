@@ -36,9 +36,7 @@
     :defer t
     :init
     (progn
-      (setq treemacs-follow-after-init t
-            treemacs-change-root-without-asking nil
-            treemacs-never-persist nil)
+      (setq treemacs-follow-after-init t)
       (add-hook 'treemacs-mode-hook
                 #'spacemacs/treemacs-setup-width-lock)
       (spacemacs/set-leader-keys
