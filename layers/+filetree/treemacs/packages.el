@@ -43,7 +43,7 @@
             treemacs-silent-refresh nil
             treemacs-indentation 2
             treemacs-change-root-without-asking nil
-            treemacs-sorting 'alphabetic-desc
+            treemacs-sorting 'alphabetic-asc
             treemacs-show-hidden-files t
             treemacs-never-persist nil
             treemacs-goto-tag-strategy 'refetch-index)
