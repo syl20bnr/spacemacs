@@ -2584,10 +2584,9 @@ Other:
 - Added support for CUSTOM_ID in latex exports (thanks to Compro-Prasad)
 - Added =ox-jira= as org export backend (thanks to Sebastian Nagel)
 - Added =helm-org= package (thanks to Simon Pintarelli)
-- Fixed evil-normal-state ~ESC~ after exiting =org-present-mode=
-  (thanks to duianto)
-- Fixed =org-present=: exiting presentation always removes inline images
-  (thanks to Keith Pinson)
+- Fixed evil-normal-state ~ESC~ after exiting =org-present-mode= (thanks to duianto)
+- Fixed =org-present=: exiting presentation always removes inline images (thanks to Keith Pinson)
+- Replace =org-toggle-latex-fragment= with =org-latex-preview= (thanks to Tianshu Wang)
 **** Osx
 - Fixed OSX mapping issue (thanks to Joey Liu)
 - Added layer variables to customize modifier behaviors on macOS:
