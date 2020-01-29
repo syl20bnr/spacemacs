@@ -228,7 +228,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "Tt" 'org-show-todo-tree
         "TT" 'org-todo
         "TV" 'space-doc-mode
-        "Tx" 'org-toggle-latex-fragment
+        "Tx" 'org-latex-preview
 
         ;; More cycling options (timestamps, headlines, items, properties)
         "L" 'org-shiftright
