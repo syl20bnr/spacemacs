@@ -42,8 +42,8 @@ readme]]. In short, Treemacs offers:
   after) changes to the shown filesystem.
 
 * Install
-To use this layer, add =treemacs= to the existing
-=dotspacemacs-configuration-layers= in your =dotspacemacs= file.
+To use this layer, add =treemacs= to =dotspacemacs-configuration-layers= in your
+=dotspacemacs= file.
 
 * Configuration
 ** Follow mode
