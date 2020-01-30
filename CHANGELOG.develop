@@ -3104,6 +3104,10 @@ Other:
   be controlled by directly setting =treemacs-collapse-dirs=.
 - Fixed "width (un)locked" message appearing when treemacs is loaded.
 - Add =persp-mode= integration (thanks to Seong Yong-ju)
+- Fixed default sort order (thanks to Michael Peyton Jones)
+- Deleted default values to track upstream behavior
+  (thanks to Michael Peyton Jones)
+- Removed obsolete options (thanks to Michael Peyton Jones)
 **** Typescript
 - Call tsfmt with extension of current buffer for TSX formatting
   (thanks to Victor Andrée)
