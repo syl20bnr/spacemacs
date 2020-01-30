@@ -12,7 +12,7 @@
   - [[#follow-mode][Follow mode]]
   - [[#file-watch][File watch]]
   - [[#git-mode][Git mode]]
-  - [[#flattening-directories][Flattening directories]]
+  - [[#flattening-of-directories][Flattening of directories]]
   - [[#locking-width][Locking width]]
 - [[#key-bindings][Key bindings]]
   - [[#global][Global]]
@@ -22,28 +22,28 @@
 This layer sets up a file navigation and project explorer side-window via [[https://github.com/Alexander-Miller/treemacs][Treemacs]].
 
 ** Features:
-An detailed overview over Treemacs' available features is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][its
-readme]]. In a short summary Treemacs offers the following:
+A detailed overview of the features of Treemacs is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][the Treemacs
+readme]]. In short, Treemacs offers:
 - Simple and powerful navigation and ability to detail exactly how and where a
-  file should be opened
-- Good looking png icons.
+  file should be opened.
+- Good looking icons.
 - Display of multiple file trees organized as projects residing in a workspace.
-- Ability to show tags contained in files. Tags are provided by imenu, so
-  nearly every filetype is supported.
-- Mouse interface for single and double left clicks in line with modern GUI standards.
-  (Clicking on an icon will also display a file's tags)
-- Locational awareness: commands like ~find-file~ or ~magit-status~ will use the location
-  of the node at point (with $HOME as fallback)
-- Optionally fontifying files based on their git status.
-- Optionally collapsing single-dir-child directories into one.
+- Ability to show tags contained in files. Tags are provided by [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Imenu.html][Imenu]], so nearly
+  every filetype is supported.
+- Mouse interface for single and double left clicks in line with modern GUI
+  standards (clicking on an icon will also display the file's tags).
+- Location awareness: commands like ~find-file~ or ~magit-status~ will use the
+  location of the node at point (with =$HOME= as fallback).
+- Optional fontifying of files based on their git status.
+- Optional collapsing of /single-dir-child/ directories into one.
 - Doing both asynchronously for an imperceptible performance cost.
 - Optional =follow-mode= to automatically focus the currently selected file or tag.
 - Optional =filewatch-mode= to automatically refresh the view after (and only
   after) changes to the shown filesystem.
 
 * Install
-To use this layer, add =treemacs= to the existing
-=dotspacemacs-configuration-layers= in your =dotspacemacs= file.
+To use this layer, add =treemacs= to =dotspacemacs-configuration-layers= in your
+=dotspacemacs= file.
 
 * Configuration
 ** Follow mode
@@ -71,9 +71,9 @@ part of the file system shown by treemacs set the layer variable
 Default is =t=.
 
 ** Git mode
-To enable Treemacs to check for files' and directories' git status information
+To enable Treemacs to check for the git status information of files and directories
 and highlight them accordingly, set the layer variable =treemacs-use-git-mode=
-to =simple=, =extended=, or =deferred=. See the [[https://github.com/Alexander-Miller/treemacs#git-mode][Treemacs doc]] for a more detailed
+to =simple=, =extended=, or =deferred=. See the [[https://github.com/Alexander-Miller/treemacs#git-mode][Treemacs documentation]] for a more detailed
 explanation.
 
 #+BEGIN_SRC emacs-lisp
@@ -83,8 +83,8 @@ explanation.
 
 Default is =nil=.
 
-** Flattening directories
-*This feature requires python to be installed*.
+** Flattening of directories
+*This feature requires Python to be installed*.
 
 Treemacs tries to flatten empty directory names into one name. It is possible
 to control how deep Treemacs will search for empty directories by settings the
@@ -95,10 +95,10 @@ layer variable =treemacs-collapse-dirs= to a positive number.
     (treemacs :variables treemacs-collapse-dirs 3)))
 #+END_SRC
 
-Default is 3 (or 0 when python is not installed).
+Default is 3 (or 0 when Python is not installed).
 
 ** Locking width
-To have the width of the treemacs window locked by default, meaning not manually
+To have the width of the treemacs window locked by default, so that it is not manually
 resizable, set the variable =treemacs-lock-width= to non-nil. It will still be
 resizable through Treemacs commands and key bindings.
 
