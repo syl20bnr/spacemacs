@@ -296,24 +296,7 @@ be transferred using http, use at your own risk.
    git clone https://github.com/syl20bnr/spacemacs /path/to/your/.emacs.d
    ```
 
-3. (Optional) Install the [Source Code Pro][] font.
-
-   If you are running in terminal you'll also need to change font settings of
-   your terminal.
-
-4. Launch Emacs. Spacemacs will automatically install the packages it requires.
-   There is a well-known issue with some GPG keys having expired end of 2019.
-   This can be fixed by upgrading to Emacs 26.3 or above or by manually adding
-   the new keys using something like:
-   ```sh
-   gpg --homedir ~/.emacs.d/elpa/gnupg --receive-keys 066DAFCB81E42C40
-   ```
-   If you have a restrictive firewall it may help to manually specify the keyserver:
-   ```sh
-   gpg --keyserver keyserver.ubuntu.com --homedir ~/.emacs.d/elpa/gnupg/ --receive-keys 066DAFCB81E42C40
-   ```
-
-5. Install the default fonts
+3. (Optional) Install the default fonts
 
    It's recommended to install [Source Code Pro][] by Adobe, as the default
    font. It ensures that, for example the symbols on the modeline (bottom bar)
@@ -332,7 +315,19 @@ be transferred using http, use at your own risk.
    If you're running in a terminal then you'll also need to change the terminals
    font settings.
 
-6. Launch Emacs, and answer the questions in the Dotfile wizard installer. If
+4. Launch Emacs. Spacemacs will automatically install the packages it requires.
+   There is a well-known issue with some GPG keys having expired end of 2019.
+   This can be fixed by upgrading to Emacs 26.3 or above or by manually adding
+   the new keys using something like:
+   ```sh
+   gpg --homedir ~/.emacs.d/elpa/gnupg --receive-keys 066DAFCB81E42C40
+   ```
+   If you have a restrictive firewall it may help to manually specify the keyserver:
+   ```sh
+   gpg --keyserver keyserver.ubuntu.com --homedir ~/.emacs.d/elpa/gnupg/ --receive-keys 066DAFCB81E42C40
+   ```
+
+5. Launch Emacs, and answer the questions in the Dotfile wizard installer. If
    you are new to Emacs and Spacemacs, then it's fine to just accept the default
    choices. It's easy to try the other choices later, without having to
    reinstall Spacemacs. They can be changed in the dotfile `~/.spacemacs`.
