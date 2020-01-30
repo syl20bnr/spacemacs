@@ -98,7 +98,7 @@ layer variable =treemacs-collapse-dirs= to a positive number.
 Default is 3 (or 0 when Python is not installed).
 
 ** Locking width
-To have the width of the treemacs window locked by default, meaning not manually
+To have the width of the treemacs window locked by default, so that it is not manually
 resizable, set the variable =treemacs-lock-width= to non-nil. It will still be
 resizable through Treemacs commands and key bindings.
 
