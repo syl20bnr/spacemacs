@@ -12,7 +12,7 @@
   - [[#follow-mode][Follow mode]]
   - [[#file-watch][File watch]]
   - [[#git-mode][Git mode]]
-  - [[#flattening-directories][Flattening directories]]
+  - [[#flattening-of-directories][Flattening of directories]]
   - [[#locking-width][Locking width]]
 - [[#key-bindings][Key bindings]]
   - [[#global][Global]]
@@ -83,8 +83,8 @@ explanation.
 
 Default is =nil=.
 
-** Flattening directories
-*This feature requires python to be installed*.
+** Flattening of directories
+*This feature requires Python to be installed*.
 
 Treemacs tries to flatten empty directory names into one name. It is possible
 to control how deep Treemacs will search for empty directories by settings the
@@ -95,7 +95,7 @@ layer variable =treemacs-collapse-dirs= to a positive number.
     (treemacs :variables treemacs-collapse-dirs 3)))
 #+END_SRC
 
-Default is 3 (or 0 when python is not installed).
+Default is 3 (or 0 when Python is not installed).
 
 ** Locking width
 To have the width of the treemacs window locked by default, meaning not manually
