@@ -72,7 +72,8 @@ The default LSP server for Rust is [[https://github.com/rust-lang/rls][rls]], i.
 To choose the experimental [[https://github.com/rust-analyzer/rust-analyzer][rust-analyzer]], you need to set the layer variable =lsp-rust-server= of =lsp= layer:
 
 #+BEGIN_SRC elisp
-(lsp :variables lsp-rust-server 'rust-analyzer)
+  (lsp :variables lsp-rust-server 'rust-analyzer)
+#+END_SRC
 
 **** Autocompletion
 To enable auto-completion, ensure that the =auto-completion= layer is enabled.
