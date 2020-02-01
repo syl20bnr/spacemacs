@@ -399,6 +399,7 @@ sane way, here is the complete list of changed key bindings
 *** Removed layers
 - evil-cleverparens (moved to =spacemacs-evil=)
 - extra-langs (replaced by =ad-hoc= layers)
+- flow-type (replaced by LSP in =javascript= layer)
 - ycmd (moved to =c-c++=)
 *** Dotfile changes
 - New Variables:
