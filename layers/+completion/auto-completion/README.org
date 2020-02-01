@@ -12,7 +12,8 @@
   - [[#show-snippets-in-auto-completion-popup][Show snippets in auto-completion popup]]
   - [[#tooltips][Tooltips]]
   - [[#sort-results-by-usage][Sort results by usage]]
-  - [[#enable-company-or-auto-complete-globally][Enable company or auto-complete globally]]
+  - [[#disable-auto-completion-in-specific-layers][Disable auto-completion in specific layers]]
+  - [[#enable-company-globally][Enable company globally]]
   - [[#replacing-company-by-auto-complete][Replacing company by auto-complete]]
   - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
   - [[#completion-back-ends][Completion back ends]]
@@ -141,18 +142,17 @@ is used. The variable has no effect when =auto-complete= is used.
                       auto-completion-enable-sort-by-usage t)))
 #+END_SRC
 
-** Enable company or auto-complete globally
-By default, Spacemacs enables or disables =auto-completion= explicitly for each
-supported major-mode, which means means that =company= and =auto-complete= are
-not enabled globally. If you encounter a mode that should have =auto-completion=
-but does not, consider adding a layer dependency on =auto-completion=.
+** Disable auto-completion in specific layers
+See general documentation on how to [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#disabling-layer-services-in-other-layers][disable a layer for specific layers]].
 
-As a last resort, you can set =(global-company-mode)= in your config to enable
-company globally, but note that this will interfere with [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#disabling-layer-services-in-other-layers][layers that try to
-disable auto-completion]].
+** Enable company globally
+It can be done by adding =(global-company-mode)= in the
+=dotspacemacs/user-config= function of your dotfile. But it is not recommended
+to do so, you should instead open an issue to ask for auto-completion support
+for the major-modes where it is missing.
 
-Note that if you want to enable =auto-complete= globally you will have to
-disable =company= first, see the next section to do so.
+If you choose to use =(global-company-mode)= then you loose some advantages
+provided by the layer system like [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#disabling-layer-services-in-other-layers][disabling auto-completion for specific layers]].
 
 ** Replacing company by auto-complete
 You can disable =company= by adding it to the =dotspacemacs-excluded-packages=
