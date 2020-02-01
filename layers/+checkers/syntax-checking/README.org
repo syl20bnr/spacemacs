@@ -11,6 +11,7 @@
   - [[#layer][Layer]]
   - [[#enablingdisabling-tooltips][Enabling/Disabling tooltips]]
   - [[#disabling-by-default][Disabling by default]]
+  - [[#enable-flycheck-globally][Enable flycheck globally]]
   - [[#bitmaps][Bitmaps]]
 - [[#key-bindings][Key bindings]]
 
@@ -53,6 +54,21 @@ by setting the variable =syntax-checking-enable-by-default= to =nil=:
 If you want more fine-grained control, you can configure the variable
 =flycheck-global-modes= instead. Note that this variable should be manipulated
 in =dotspacemacs/user-config=.
+
+** Enable flycheck globally
+Normally Spacemacs goes a long mile to enable syntax checking only where it
+makes sense. If syntax checking support is missing it is normally only a
+matter of declaring it in the layer. The best approach in this case is
+to open an issue and ask for syntax checking support.
+
+Some guides on the web suggest to enable flycheck globally by setting
+=(global-flycheck-mode)= in your =dotspacemacs/user-config=.
+This is neither necessary nor is it good for the layer system.
+In the contrary by doing so the layer system cannot longer decide for
+which modes activating flycheck would bring any useful outcome.
+This may result in loading slow or not properly configured checkers
+as well as break some of the more advanced configuration settings
+of the layer system.
 
 ** Bitmaps
 If the original flycheck fringe bitmaps are more to your liking, you can set the
