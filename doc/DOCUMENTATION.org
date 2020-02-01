@@ -194,6 +194,7 @@
         - [[#lisp-state-key-bindings][Lisp state key bindings]]
         - [[#emacs-lisp-specific-key-bindings][Emacs lisp specific key bindings]]
     - [[#mouse-usage][Mouse usage]]
+  - [[#comparing-diff][Comparing (diff)]]
   - [[#managing-projects][Managing projects]]
   - [[#registers][Registers]]
   - [[#errors-handling][Errors handling]]
@@ -3395,6 +3396,42 @@ There are some added mouse features set for the line number margin (if shown):
 - single click in line number margin visually selects the entire line
 - drag across line number margin visually selects the region
 - double click in line number margin visually select the current code block
+
+** Comparing (diff)
+To compare buffers, files, directories or even windows use the prefix ~SPC D~.
+Spacemacs uses the powerful embedded =ediff= to do comparisons, help for =ediff=
+can be opened using ~SPC D h~.
+
+All =ediff= commands starts with D:
+
+| Key binding   | Description                                                                                                                       |
+|---------------+-----------------------------------------------------------------------------------------------------------------------------------|
+| ~SPC D b 3~   | ask for 3 opened buffers and start an ediff session with them                                                                     |
+| ~SPC D b b~   | ask for 2 opened buffers and start an ediff session with them                                                                     |
+| ~SPC D b p~   | ask for a buffer or file that contains a patch to apply to a buffer and start an ediff session with the result                    |
+| ~SPC D B~     | ask for a file and run ediff with its backup file                                                                                 |
+| ~SPC D d 3~   | ask for 3 directories and run ediff on them comparing files that have the same name in all of them                                |
+| ~SPC D d d~   | ask for 2 directories and run ediff on them comparing files that have the same name in both                                       |
+| ~SPC D d r~   | run ediff on a directory comparing its files with their revisions if under version control                                        |
+| ~SPC D f .~   | start an ediff session between your =.spacemacs= and its default template in Spacemacs =core=                                     |
+| ~SPC D f 3~   | ask for 3 files and start an ediff session with them                                                                              |
+| ~SPC D f f~   | ask for 2 files and start an ediff session with them                                                                              |
+| ~SPC D f p~   | ask for a buffer or file that contains a patch to apply to a file and start an ediff session with the result                      |
+| ~SPC D h~     | open ediff documentation within Emacs                                                                                             |
+| ~SPC D m b 3~ | start an ediff merge session between 2 buffers and their ancestor                                                                 |
+| ~SPC D m b b~ | start an ediff merge session between 2 buffers                                                                                    |
+| ~SPC D m d 3~ | start an ediff merge session between files with the same name in 2 directories and with a 3rd directory containing their ancestor |
+| ~SPC D m d d~ | start an ediff merge session between files with the same name in 2 directories                                                    |
+| ~SPC D m f 3~ | start an ediff merge session between 2 files and their ancestor                                                                   |
+| ~SPC D m f f~ | start an ediff merge session between 2 files                                                                                      |
+| ~SPC D m r 3~ | start an ediff merge session between two revisions of a file with a common ancestor                                               |
+| ~SPC D m r r~ | start an ediff merge session between two revisions of a file                                                                      |
+| ~SPC D r l~   | start an ediff session between two regions to perform a linewise diff (use this for large regions)                                |
+| ~SPC D r w~   | start an ediff session between two regions to perform a wordwise diff (use this for small regions)                                |
+| ~SPC D s~     | display ediff registries                                                                                                          |
+| ~SPC D v~     | start ediff between versions of a file                                                                                            |
+| ~SPC D w l~   | compare linewise the portions of visible text of 2 windows which are selected by clicking                                         |
+| ~SPC D w w~   | compare wordwise the portions of visible text of 2 windows which are selected by clicking                                         |
 
 ** Managing projects
 Projects in Spacemacs are managed with [[https://github.com/bbatsov/projectile][projectile]]. In =projectile= projects

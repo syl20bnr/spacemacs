@@ -28,18 +28,18 @@
                                        ("c"   "compile/comments")
                                        ("C"   "capture/colors")
                                        ("d"   "documentation")
+                                       ("D"   "ediff")
+                                       ("Db"  "buffers")
+                                       ("Dd"  "directories")
+                                       ("Df"  "files")
+                                       ("Dm"  "merge")
+                                       ("Dmb" "buffers")
+                                       ("Dmd" "directories")
+                                       ("Dmf" "files")
+                                       ("Dmr" "revisions")
+                                       ("Dr"  "regions")
+                                       ("Dw"  "windows")
                                        ("e"   "errors")
-                                       ("E"   "ediff")
-                                       ("Eb"  "buffers")
-                                       ("Ed"  "directories")
-                                       ("Ef"  "files")
-                                       ("Em"  "merge")
-                                       ("Emb" "buffers")
-                                       ("Emd" "directories")
-                                       ("Emf" "files")
-                                       ("Emr" "revisions")
-                                       ("Er"  "regions")
-                                       ("Ew"  "windows")
                                        ("f"   "files")
                                        ("fC"  "files/convert")
                                        ("fe"  "emacs(spacemacs)")
@@ -289,32 +289,32 @@
   :evil-leader "e.")
 ;; ediff ----------------------------------------------------------------------
 (spacemacs/set-leader-keys
-  "Eb3"  'ediff-buffers3
-  "Ebb"  'ediff-buffers
-  "Ebp"  'ediff-patch-buffer
-  "EB"   'ediff-backup
-  "Ed3"  'ediff-directories3
-  "Edd"  'ediff-directories
-  "Edr"  'ediff-directory-revisions
-  "Ef."  'spacemacs/ediff-dotfile-and-template
-  "Ef3"  'ediff-files3
-  "Eff"  'ediff-files
-  "Efp"  'ediff-patch-file
-  "Eh"   'ediff-documentation
-  "Emb3" 'ediff-merge-buffers-with-ancestor
-  "Embb" 'ediff-merge-buffers
-  "Emd3" 'ediff-merge-directories-with-ancestor
-  "Emdd" 'ediff-merge-directories
-  "Emf3" 'ediff-merge-files-with-ancestor
-  "Emff" 'ediff-merge-files
-  "Emr3" 'ediff-merge-revisions-with-ancestor
-  "Emrr" 'ediff-merge-revisions
-  "Erl"  'ediff-regions-linewise
-  "Erw"  'ediff-regions-wordwise
-  "Es"   'ediff-show-registry
-  "Ev"   'ediff-revision
-  "Ewl"  'ediff-windows-linewise
-  "Eww"  'ediff-windows-wordwise)
+  "Db3"  'ediff-buffers3
+  "Dbb"  'ediff-buffers
+  "Dbp"  'ediff-patch-buffer
+  "DB"   'ediff-backup
+  "Dd3"  'ediff-directories3
+  "Ddd"  'ediff-directories
+  "Ddr"  'ediff-directory-revisions
+  "Df."  'spacemacs/ediff-dotfile-and-template
+  "Df3"  'ediff-files3
+  "Dff"  'ediff-files
+  "Dfp"  'ediff-patch-file
+  "Dh"   'ediff-documentation
+  "Dmb3" 'ediff-merge-buffers-with-ancestor
+  "Dmbb" 'ediff-merge-buffers
+  "Dmd3" 'ediff-merge-directories-with-ancestor
+  "Dmdd" 'ediff-merge-directories
+  "Dmf3" 'ediff-merge-files-with-ancestor
+  "Dmff" 'ediff-merge-files
+  "Dmr3" 'ediff-merge-revisions-with-ancestor
+  "Dmrr" 'ediff-merge-revisions
+  "Drl"  'ediff-regions-linewise
+  "Drw"  'ediff-regions-wordwise
+  "Ds"   'ediff-show-registry
+  "Dv"   'ediff-revision
+  "Dwl"  'ediff-windows-linewise
+  "Dww"  'ediff-windows-wordwise)
 ;; file -----------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "fA" 'spacemacs/find-file-and-replace-buffer

@@ -715,33 +715,33 @@ Other:
     (thanks to Codruț Constantin Gușoi)
   - New key binding ~SPC b H~ to open or select the =*Help*= buffer
     (thanks to duianto)
-  - New ~SPC E~ prefix for ediff commands:
-    - ~SPC E b 3~   ediff-buffers3
-    - ~SPC E b b~   ediff-buffers
-    - ~SPC E p b~   ediff-patch-buffer
-    - ~SPC E B~     ediff-backup
-    - ~SPC E d 3~   ediff-directories3
-    - ~SPC E d d~   ediff-directories
-    - ~SPC E d r~   ediff-directory-revisions
-    - ~SPC E f .~   spacemacs/ediff-dotfile-and-template
-    - ~SPC E f 3~   ediff-files3
-    - ~SPC E f f~   ediff-files
-    - ~SPC E f p~   ediff-patch-file
-    - ~SPC E h~     ediff-documentation
-    - ~SPC E m b 3~ ediff-merge-buffers-with-ancestor
-    - ~SPC E m b b~ ediff-merge-buffers
-    - ~SPC E m d 3~ ediff-merge-directories-with-ancestor
-    - ~SPC E m d d~ ediff-merge-directories
-    - ~SPC E m f 3~ ediff-merge-files-with-ancestor
-    - ~SPC E m f f~ ediff-merge-files
-    - ~SPC E m r 3~ ediff-merge-revisions-with-ancestor
-    - ~SPC E m r r~ ediff-merge-revisions
-    - ~SPC E r l~   ediff-regions-linewise
-    - ~SPC E r w~   ediff-regions-wordwise
-    - ~SPC E s~     ediff-show-registry
-    - ~SPC E v~     ediff-revision
-    - ~SPC E w l~   ediff-windows-linewise
-    - ~SPC E w w~   ediff-windows-wordwise
+  - New ~SPC D~ prefix for diff commands using =ediff=:
+    - ~SPC D b 3~   ediff-buffers3
+    - ~SPC D b b~   ediff-buffers
+    - ~SPC D b p~   ediff-patch-buffer
+    - ~SPC D B~     ediff-backup
+    - ~SPC D d 3~   ediff-directories3
+    - ~SPC D d d~   ediff-directories
+    - ~SPC D d r~   ediff-directory-revisions
+    - ~SPC D f .~   spacemacs/ediff-dotfile-and-template
+    - ~SPC D f 3~   ediff-files3
+    - ~SPC D f f~   ediff-files
+    - ~SPC D f p~   ediff-patch-file
+    - ~SPC D h~     ediff-documentation
+    - ~SPC D m b 3~ ediff-merge-buffers-with-ancestor
+    - ~SPC D m b b~ ediff-merge-buffers
+    - ~SPC D m d 3~ ediff-merge-directories-with-ancestor
+    - ~SPC D m d d~ ediff-merge-directories
+    - ~SPC D m f 3~ ediff-merge-files-with-ancestor
+    - ~SPC D m f f~ ediff-merge-files
+    - ~SPC D m r 3~ ediff-merge-revisions-with-ancestor
+    - ~SPC D m r r~ ediff-merge-revisions
+    - ~SPC D r l~   ediff-regions-linewise
+    - ~SPC D r w~   ediff-regions-wordwise
+    - ~SPC D s~     ediff-show-registry
+    - ~SPC D v~     ediff-revision
+    - ~SPC D w l~   ediff-windows-linewise
+    - ~SPC D w w~   ediff-windows-wordwise
     (thanks to Spenser Truex)
   - New ~SPC K~ prefix and subprefixes to use keyboard macros built-ins:
     - ~SPC K (~   kmacro-start-macro-or-insert-counter
