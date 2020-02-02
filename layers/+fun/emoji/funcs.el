@@ -28,3 +28,11 @@
   "Adjust the font settings of current frame so Emacs can display emoji
 properly."
   (spacemacs//set-emoji-font (selected-frame)))
+
+(defun spacemacs/delay-emoji-cheat-sheet-hook ()
+  "Work-around for org buffers."
+  ;; we need to wait for org buffer to be fully loaded before
+  ;; calling the emoji mode.
+  ;; If we directly call the emoji mode at hook runtime then some
+  ;; text properties are not applied correctly.
+  (run-at-time 0.1 nil 'emoji-cheat-sheet-plus-display-mode))
