@@ -148,29 +148,29 @@ around point as the initial input. If DIR is non nil start in
 that directory."
   (interactive)
   (require 'counsel)
-  (letf* ((initial-input (if use-initial-input
-                             (if (region-active-p)
-                                 (buffer-substring-no-properties
-                                  (region-beginning) (region-end))
-                               (thing-at-point 'symbol t))
-                           ""))
-          (tool (catch 'tool
-                  (dolist (tool tools)
-                    (when (and (assoc-string tool spacemacs--counsel-commands)
-                               (executable-find tool))
-                      (throw 'tool tool)))
-                  (throw 'tool "grep")))
-          (default-directory
-            (or initial-directory (read-directory-name "Start from directory: ")))
-          (display-directory
-           (if (< (length default-directory)
-                  spacemacs--counsel-search-max-path-length)
-               default-directory
-             (concat
-              "..." (substring default-directory
-                               (- (length default-directory)
-                                  spacemacs--counsel-search-max-path-length)
-                               (length default-directory))))))
+  (cl-letf* ((initial-input (if use-initial-input
+                                (if (region-active-p)
+                                    (buffer-substring-no-properties
+                                     (region-beginning) (region-end))
+                                  (thing-at-point 'symbol t))
+                              ""))
+             (tool (catch 'tool
+                     (dolist (tool tools)
+                       (when (and (assoc-string tool spacemacs--counsel-commands)
+                                  (executable-find tool))
+                         (throw 'tool tool)))
+                     (throw 'tool "grep")))
+             (default-directory
+               (or initial-directory (read-directory-name "Start from directory: ")))
+             (display-directory
+              (if (< (length default-directory)
+                     spacemacs--counsel-search-max-path-length)
+                  default-directory
+                (concat
+                 "..." (substring default-directory
+                                  (- (length default-directory)
+                                     spacemacs--counsel-search-max-path-length)
+                                  (length default-directory))))))
     (cond ((string= tool "ag")
            (counsel-ag initial-input default-directory nil
                        (format "ag from [%s]: " display-directory)))
