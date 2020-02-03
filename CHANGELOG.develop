@@ -1267,6 +1267,7 @@ Other:
   - Fixed =evilified-state=, mapped ~C-w~ to =evil-window-map=
     (thanks to Muneeb Shaikh)
   - Fixed ~SPC h f~ =helm-spacemacs-help-faq= (thanks to duianto)
+  - Fixed =cl= package deprecated =letf= (thanks to duianto)
 *** Layer changes and fixes
 **** Agda
 - Fixes
@@ -2162,6 +2163,7 @@ Other:
   (thanks to Carlos Ibáñez and Juuso Valkeejärvi)
 - Fix visual selection expansion across the buffer on `SPC s S` and `SPC s B`
   (thanks to Andriy Kmit)
+- Fixed =cl= package deprecated =letf*= (thanks to duianto)
 **** Imenu-list
 - Changed ~SPC b i~ to ~SPC b t~ for =imenu= tree view
   (thansk to Sylvain Benner)
