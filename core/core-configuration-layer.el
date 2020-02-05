@@ -1496,7 +1496,7 @@ whether the declared layer is an used one or not."
   (setq configuration-layer--used-layers nil)
   (let ((configuration-layer--declared-layers-usedp t))
     (unless configuration-layer-exclude-all-layers
-      (dolist (layer-specs layers-specs)
+      (dolist (layer-specs (remove nil layers-specs))
         (let* ((layer-name (if (listp layer-specs)
                                (car layer-specs)
                              layer-specs))
