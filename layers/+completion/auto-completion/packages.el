@@ -18,7 +18,7 @@
         (company-box :toggle auto-completion-use-company-box)
         (all-the-icons :toggle auto-completion-use-company-box)
         (company-quickhelp :toggle auto-completion-enable-help-tooltip)
-        company-statistics
+        (company-statistics :toggle auto-completion-enable-sort-by-usage)
         counsel
         fuzzy
         (helm-company :requires helm)
@@ -124,7 +124,6 @@
 
 (defun auto-completion/init-company-statistics ()
   (use-package company-statistics
-    :if auto-completion-enable-sort-by-usage
     :defer t
     :init
     (progn
