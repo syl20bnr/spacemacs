@@ -1310,6 +1310,7 @@ Other:
   - Use =counsel-company= to show completion candidates
     (thanks to Kalle Lindqvist)
   - Added =company-semantic= as a default company backend (thanks to bet4it)
+  - Don't install =company-statistics= unless necessary (thanks to Tianshu Wang)
 - Fixes:
   - Check if =dotspacemacs-directory-snippets-dir= exists before adding it
     (thanks to Wojciech Wojtyniak)
