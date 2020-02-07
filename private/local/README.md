@@ -2,19 +2,27 @@
 
 The content of this directory is ignored by Git.
 
-This is the place to store the local packages that you define in
-the `dotspacemacs-additional-packages` variable of your dotfile.
+This is the place to store the local packages that you define in the
+`dotspacemacs-additional-packages` variable of your dotfile.
 
-Additional packages can be added using the same recipe as for [adding packages to layers](https://develop.spacemacs.org/doc/LAYERS.html#packagesel) i.e.:
+Additional packages can be added using the same recipe as for [adding packages
+to layers](https://develop.spacemacs.org/doc/LAYERS.html#packagesel) i.e.:
 
-- if the package is on (M)ELPA simply add the package name to the list
+- For a local package:
+  - load the file explicitly, using the full path to the file, by placing a
+  `(require '~/.emacs.d/private/local/package-name)` within the body of the
+  `dotspacemacs/user-config` function of your dotspacemacs file.
+  - Alternatively create a directory with the name of the package in the
+  .emacs.d/private/local directory, and add that directory to the load-path
+  variable by adding `(some-package :location local)` to the list
+  `dotspacemacs-additional-packages` within the `dotspacemacs/layers` function
+  of your dotspacemacs file. After placing your package file into this
+  package-directory the file can be loaded, without requiring the full path, by
+  placing a `(require 'package-name)` within the body of the
+  `dotspacemacs/user-config` function of your dotspacemacs file.
 
-- for a local package add `(some-package :location local)` to the list and load or
-  require it explicitly in the user/config section. The first part only adds the
-  package directory (i.e. .emacs.d/private/local/package-dir/) to the load path
-  so that the .el file should be placed inside the package directory. If the
-  package provides a feature it can be loaded with require, otherwise it must be
-  loaded using load.
+- If the package is on (M)ELPA simply add the package name to the list
+  `dotspacemacs-additional-packages` in your dotspacemacs file
 
 - for a package hosted on github the recipe for github packages can be used i.e. add
 
@@ -24,5 +32,4 @@ Additional packages can be added using the same recipe as for [adding packages t
                              :repo "some/repo"))
 ```
 
-to the list. This will fetch the package on every startup, this can be
-prevented by installing the package locally as described in the previous point.
+to the list `dotspacemacs-additional-packages` in your dotspacemacs file.
