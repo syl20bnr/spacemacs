@@ -9,15 +9,14 @@
 ;;
 ;;; License: GPLv3
 
-(setq ess-packages
-      '(
-        company
-        flycheck
-        ess
-        ess-R-data-view
-        golden-ratio
-        org
-        ))
+(defconst ess-packages
+  '(
+    company
+    flycheck
+    ess
+    ess-R-data-view
+    golden-ratio
+    org))
 
 (defun ess/post-init-company ()
   ;; Julia
@@ -27,7 +26,16 @@
   ;; R
   (spacemacs|add-company-backends
     :backends (company-R-library company-R-args company-R-objects :separate)
-    :modes ess-r-mode inferior-ess-r-mode))
+    :modes inferior-ess-r-mode)
+
+  ;; Set R company to lsp manually to include file completion
+  (if (eq (spacemacs//ess-r-backend) 'lsp)
+      (spacemacs|add-company-backends
+        :backends company-lsp
+        :modes ess-r-mode)
+    (spacemacs|add-company-backends
+      :backends (company-R-library company-R-args company-R-objects :separate)
+      :modes ess-r-mode)))
 
 (defun ess/post-init-flycheck ()
   (spacemacs/enable-flycheck 'ess-r-mode))
