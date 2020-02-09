@@ -3011,6 +3011,8 @@ Other:
 - Enabled mouse based pasting into term shells (thanks to Sheng Yang)
 - Set =term-char-mode-point-at-process-mark= to =nil= to allow evil normal-mode
   movement in term shells on emacs 26.1
+- Stopped the cursor from jumping to =point-max= when entering insert state from
+  a multi line (thanks to Steven Allen)
 **** Shell Scripts
 - Added new company-shell environment variable backend
   (thanks to Alexander-Miller)
