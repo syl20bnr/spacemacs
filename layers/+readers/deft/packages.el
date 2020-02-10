@@ -13,7 +13,7 @@
 (setq deft-packages
       '(
         deft
-        zetteldeft
+        (zetteldeft :toggle (eq deft-zetteldeft t))
         ))
 
 (defun deft/init-zetteldeft ()
