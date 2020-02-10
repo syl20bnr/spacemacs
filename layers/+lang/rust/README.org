@@ -75,6 +75,10 @@ To choose the experimental [[https://github.com/rust-analyzer/rust-analyzer][rus
   (lsp :variables lsp-rust-server 'rust-analyzer)
 #+END_SRC
 
+**** Switch to another LSP server
+If both =rls= and =rust-analyzer= server are installed, you can press ~SPC m s s~ to select
+another LSP server backend, and press ~SPC m b r~ to restart the LSP server to finish the switching.
+
 **** Autocompletion
 To enable auto-completion, ensure that the =auto-completion= layer is enabled.
 
@@ -119,6 +123,7 @@ To enable automatic buffer formatting on save, set the variable =rust-format-on-
 | ~SPC m c v~ | check (verify) a project with Cargo         |
 | ~SPC m g g~ | jump to definition                          |
 | ~SPC m h h~ | describe symbol at point                    |
+| ~SPC m s s~ | switch to other LSP server backend          |
 | ~SPC m t~   | run tests with Cargo                        |
 
 ** debugger
