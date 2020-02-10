@@ -81,7 +81,6 @@ This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:
 - =hoogle= (optional for =haskell-mode= and =helm-hoogle=)
 - =ghc-mod= (optional for completion)
 - =intero= (optional for completion)
-- =hie= (optional for completion)
 
 To install them, use the following command (or the =stack= equivalent):
 
@@ -169,8 +168,11 @@ build =ghc-mod=. You can check which version was used by calling
 =ghc-mod --version=.
 
 *** =lsp=
-=lsp= requires an appropriate installation of =hie= to provide the Haskell language server.
-=hie= is built on =ghc-mod=, so many of the same considerations apply.
+=lsp= requires an appropriate installation of =hie= the official Haskell language server to work properly.
+=hie= is like an improved version of =ghc-mod= it is best installed by building it locally as it requires
+that the same GHC version has been used to compile your code as has been used for =hie=.
+
+To install it please refer to the official installation instructions [[https://github.com/haskell/haskell-ide-engine#installation][here]].
 
 Enabling the =lsp= backend requires the =lsp= layer to be enabled, and provides access to
 all the additional =lsp-mode= key bindings. As such it is more of a full backend than just
