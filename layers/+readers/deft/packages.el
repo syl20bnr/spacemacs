@@ -62,8 +62,11 @@
             deft-use-filename-as-title t
             deft-use-filter-string-for-filename t)
       ;; in applications prefix, NOTE: backward incompatible keybindings
-      (spacemacs/declare-prefix "an" "deft")
-      (spacemacs/set-leader-keys "and" 'spacemacs/deft)
+      (if deft-zetteldeft
+          (progn
+            (spacemacs/declare-prefix "an" "deft")
+            (spacemacs/set-leader-keys "ann" 'spacemacs/deft))
+        (spacemacs/set-leader-keys "an" 'spacemacs/deft))
       ;; put in capture prefix
       (spacemacs/set-leader-keys "Cd" 'deft-new-file)
 

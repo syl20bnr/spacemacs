@@ -59,7 +59,7 @@ Just add or substitute your preferred extension.
 
 | Key binding | Description                      |
 |-------------+----------------------------------|
-| ~SPC a n d~ | Open Deft (works globally)       |
+| ~SPC a n~   | Open Deft (works globally)       |
 | ~SPC C d~   | Create new file (works globally) |
 | ~SPC m c~   | Clear deft filter                |
 | ~SPC m d~   | Delete selected note             |
@@ -76,12 +76,13 @@ Just add or substitute your preferred extension.
 
 *** Global
 
-| Key binding               | Description                |
-|---------------------------+----------------------------|
-| ~SPC C z~ / ~SPC a n z n~ | New zetteldeft file        |
-| ~SPC a n z T~             | Show tag buffer            |
-| ~SPC a n z s~             | Zetteldeft search-at-point |
-| ~SPC a n z o~             | Zetteldeft find file       |
+| Key binding               | Description                    |
+|---------------------------+--------------------------------|
+| ~SPC C z~ / ~SPC a n z n~ | New zetteldeft file            |
+| ~SPC a n n~               | Open deft (replaces ~SPC a n~) |
+| ~SPC a n z T~             | Show tag buffer                |
+| ~SPC a n z s~             | Zetteldeft search-at-point     |
+| ~SPC a n z o~             | Zetteldeft find file           |
 
 *** Org-mode
 
