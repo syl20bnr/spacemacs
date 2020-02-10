@@ -443,6 +443,10 @@ fix this issue."
       (message "lsp-python-ms: Using version at `%s'" lsp-python-ms-dir)
       ;; Use a precompiled exe
       (setq lsp-python-ms-executable (concat lsp-python-ms-dir
+                                             (pcase system-type
+                                               ('gnu/linux "linux-x64/publish/")
+                                               ('darwin "osx-x64/publish/")
+                                               ('windows-nt "win-x64/publish/"))
                                              "Microsoft.Python.LanguageServer"
                                              (and (eq system-type 'windows-nt)
                                                   ".exe"))))))
