@@ -3,6 +3,7 @@
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;;         Bruno Morais <brunosmmm@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
@@ -10,7 +11,46 @@
 ;;; License: GPLv3
 
 (setq deft-packages
-  '(deft))
+      '(
+        deft
+        (zetteldeft :toggle (eq deft-zetteldeft t))
+        ))
+
+(defun deft/init-zetteldeft ()
+  (use-package zetteldeft
+    :if (eq deft-zetteldeft t)
+    :init
+    (progn
+      (spacemacs/declare-prefix-for-mode 'deft-mode "mz" "zetteldeft")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mz" "zetteldeft")
+      (spacemacs/declare-prefix "anz" "zetteldeft")
+      ;; zetteldeft actions in deft mode
+      (spacemacs/set-leader-keys-for-major-mode 'deft-mode
+        "zT" 'zetteldeft-tag-buffer
+        "zn" 'zetteldeft-new-file
+        )
+      ;; zetteldeft actions in org mode
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "zc" 'zetteldeft-search-current-id
+        "zf" 'zetteldeft-follow-link
+        "zt" 'zetteldeft-avy-tag-search
+        "zN" 'zetteldeft-new-file-and-link
+        "zr" 'zetteldeft-file-rename
+        "zi" 'zetteldeft-find-file-id-insert
+        "zI" 'zetteldeft-find-file-full-title-insert
+        "zs" 'zetteldeft-search-at-point
+        "zl" 'zetteldeft-avy-link-search
+        "zF" 'zetteldeft-avy-file-search-ace-window
+        "zo" 'zetteldeft-find-file
+        )
+      ;; new zetteldeft file under capture
+      (spacemacs/set-leader-keys "Cz" 'zetteldeft-new-file)
+      ;; actions under applications/deft/zetteldeft
+      (spacemacs/set-leader-keys "anzn" 'zetteldeft-new-file)
+      (spacemacs/set-leader-keys "anzT" 'zetteldeft-tag-buffer)
+      (spacemacs/set-leader-keys "anzs" 'zetteldeft-search-at-point)
+      (spacemacs/set-leader-keys "anzo" 'zetteldeft-find-file)
+    )))
 
 (defun deft/init-deft ()
   (use-package deft
@@ -21,7 +61,14 @@
             deft-text-mode 'org-mode
             deft-use-filename-as-title t
             deft-use-filter-string-for-filename t)
-      (spacemacs/set-leader-keys "an" 'spacemacs/deft)
+      ;; in applications prefix, NOTE: backward incompatible keybindings
+      (if deft-zetteldeft
+          (progn
+            (spacemacs/declare-prefix "an" "deft")
+            (spacemacs/set-leader-keys "ann" 'spacemacs/deft))
+        (spacemacs/set-leader-keys "an" 'spacemacs/deft))
+      ;; put in capture prefix
+      (spacemacs/set-leader-keys "Cd" 'deft-new-file)
 
       (defun spacemacs/deft ()
         "Helper to call deft and then fix things so that it is nice and works"
@@ -33,11 +80,11 @@
         ;; When opening it you always want to filter right away
         (evil-insert-state nil)))
     :config (spacemacs/set-leader-keys-for-major-mode 'deft-mode
-              "c" 'deft-filter-clear
-              "d" 'deft-delete-file
-              "i" 'deft-toggle-incremental-search
-              "n" 'deft-new-file
-              "N" 'deft-new-file-named
-              "q" 'quit-window
-              "o" 'deft-open-file-other-window
-              "r" 'deft-rename-file)))
+        "c" 'deft-filter-clear
+        "d" 'deft-delete-file
+        "i" 'deft-toggle-incremental-search
+        "n" 'deft-new-file
+        "N" 'deft-new-file-named
+        "q" 'quit-window
+        "o" 'deft-open-file-other-window
+        "r" 'deft-rename-file)))

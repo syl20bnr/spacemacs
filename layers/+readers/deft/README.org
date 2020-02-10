@@ -7,8 +7,12 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
+  - [[#zetteldeft][Zetteldeft]]
   - [[#configuration][Configuration]]
 - [[#key-bindings][Key bindings]]
+  - [[#zetteldeft-key-bindings][Zetteldeft key bindings]]
+    - [[#global][Global]]
+    - [[#org-mode][Org-mode]]
 
 * Description
 This layer adds a search driven note taking system into Spacemacs.
@@ -17,12 +21,20 @@ This layer adds a search driven note taking system into Spacemacs.
 - Browsing and creating notes with a powerful search function via [[http://jblevins.org/projects/deft/][Deft]].
 - Integration of =org-mode= as note editor.
 - Configurable list of extensions to recognize as notes.
+- Zettelkasten system with [[https://github.com/EFLS/zetteldeft][zetteldeft]]
 
 * Install
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =deft= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+** Zetteldeft
+Zetteldeft support is included with the layer. To enable it, set the layer variable ~deft-zetteldeft~ to ~t~:
+
+#+BEGIN_SRC elisp
+(deft :variables deft-zetteldeft t)
+#+END_SRC
 
 ** Configuration
 By default deft tries to put notes in =~/.deft= but you can change
@@ -48,6 +60,7 @@ Just add or substitute your preferred extension.
 | Key binding | Description                      |
 |-------------+----------------------------------|
 | ~SPC a n~   | Open Deft (works globally)       |
+| ~SPC C d~   | Create new file (works globally) |
 | ~SPC m c~   | Clear deft filter                |
 | ~SPC m d~   | Delete selected note             |
 | ~SPC m i~   | Toggle to regex search           |
@@ -56,3 +69,33 @@ Just add or substitute your preferred extension.
 | ~SPC m o~   | Deft open file in other window   |
 | ~SPC m r~   | Rename selected note             |
 | ~SPC m q~   | quit deft window                 |
+
+** Zetteldeft key bindings
+
+   Zetteldeft key bindings will appear in a few different places as follows:
+
+*** Global
+
+| Key binding               | Description                    |
+|---------------------------+--------------------------------|
+| ~SPC C z~ / ~SPC a n z n~ | New zetteldeft file            |
+| ~SPC a n n~               | Open deft (replaces ~SPC a n~) |
+| ~SPC a n z T~             | Show tag buffer                |
+| ~SPC a n z s~             | Zetteldeft search-at-point     |
+| ~SPC a n z o~             | Zetteldeft find file           |
+
+*** Org-mode
+
+| Key binding | Description                                |
+|-------------+--------------------------------------------|
+| ~SPC m z c~ | Search for id of current file              |
+| ~SPC m z f~ | Follow link                                |
+| ~SPC m z t~ | Tag search with avy                        |
+| ~SPC m z N~ | New file and insert link                   |
+| ~SPC m z r~ | Rename file                                |
+| ~SPC m z i~ | Find a file and insert link                |
+| ~SPC m z I~ | Find a file and insert link with full name |
+| ~SPC m z s~ | Search at point                            |
+| ~SPC m z l~ | Link search with avy                       |
+| ~SPC m z F~ | File search with avy on window             |
+| ~SPC m z o~ | Find file                                  |
