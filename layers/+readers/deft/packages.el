@@ -76,9 +76,7 @@
           (hungry-delete-mode -1))
         ;; When opening it you always want to filter right away
         (evil-insert-state nil)))
-    :config
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'deft-mode
+    :config (spacemacs/set-leader-keys-for-major-mode 'deft-mode
         "c" 'deft-filter-clear
         "d" 'deft-delete-file
         "i" 'deft-toggle-incremental-search
@@ -86,5 +84,4 @@
         "N" 'deft-new-file-named
         "q" 'quit-window
         "o" 'deft-open-file-other-window
-        "r" 'deft-rename-file)
-      )))
+        "r" 'deft-rename-file)))
