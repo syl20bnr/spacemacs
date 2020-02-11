@@ -1564,6 +1564,9 @@ Other:
   - Fixed ~SPC m e~ key bindings to behave like in Emacs Lisp
     (thanks to Boris Avdeev)
   - Fixed initialization of =counsel-gtags= (thanks to Sylvain Benner)
+**** Coq
+- Key bindings:
+  - ~SPC m T e~ Toggle electric terminator (thanks to Ignat Insarov)
 **** Cscope
 - Key bindings:
   - Fixed key binding ~g C~ (thanks to dubnde)
