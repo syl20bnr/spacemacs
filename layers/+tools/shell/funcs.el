@@ -119,7 +119,7 @@ is achieved by adding the relevant text properties."
   (let ((inhibit-field-text-motion t))
     (add-text-properties
      (point-at-bol)
-     (point)
+     eshell-last-output-end
      '(rear-nonsticky t
                       inhibit-line-move-field-capture t
                       field output

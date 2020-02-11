@@ -3027,6 +3027,8 @@ Other:
   movement in term shells on emacs 26.1
 - Stopped the cursor from jumping to =point-max= when entering insert state from
   a multi line (thanks to Steven Allen)
+- Stopped input buffered while the previous command was running while protecting
+  the prompt (thanks to Steven Allen).
 **** Shell Scripts
 - Added new company-shell environment variable backend
   (thanks to Alexander-Miller)
