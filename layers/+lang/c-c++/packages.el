@@ -121,8 +121,8 @@
     :defer t
     :init
     (progn
-      (when c++-enable-organize-includes-on-save
-        (add-hook 'c++-mode-hook #'spacemacs/c++-organize-includes-on-save))
+      (when c-c++-enable-organize-includes-on-save
+        (add-hook 'c++-mode-hook #'spacemacs/c-c++-organize-includes-on-save))
 
       (spacemacs/declare-prefix-for-mode 'c++-mode
         "mr" "refactor")

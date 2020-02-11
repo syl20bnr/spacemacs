@@ -289,11 +289,11 @@ can be found in the manual: [[http://www.gnu.org/software/emacs/manual/html_node
 
 ** Organize file header includes on save
 To organize the file header includes on save, set the layer variable
-=c++-enable-organize-includes-on-save= to =t= in the dotfile:
+=c-c++-enable-organize-includes-on-save= to =t= in the dotfile:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-                '((c-c++ :variables c++-enable-organize-includes-on-save t)))
+                '((c-c++ :variables c-c++-enable-organize-includes-on-save t)))
 #+END_SRC
 
 ** clang-format

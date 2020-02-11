@@ -73,7 +73,7 @@ Add `dap-gdb-lldb' for the WebFreak Native Debug extension.")
 
 ;; style
 
-(defvar c++-enable-organize-includes-on-save nil
+(defvar c-c++-enable-organize-includes-on-save nil
   "If non-nil then automatically organize the includes on save C++ buffer.")
 
 (defvar c-c++-enable-auto-newline nil

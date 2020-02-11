@@ -388,15 +388,15 @@
 
 ;; cpp-auto-include
 
-(defalias 'spacemacs/c++-organize-includes 'cpp-auto-include)
+(defalias 'spacemacs/c-c++-organize-includes 'cpp-auto-include)
 
-(defun spacemacs//c++-organize-includes-on-save ()
-  "Organize the includes on save when `c++-enable-organize-includes-on-save'
+(defun spacemacs//c-c++-organize-includes-on-save ()
+  "Organize the includes on save when `c-c++-enable-organize-includes-on-save'
 is non-nil."
-  (when c++-enable-organize-includes-on-save
-    (spacemacs/c++-organize-includes)))
+  (when c-c++-enable-organize-includes-on-save
+    (spacemacs/c-c++-organize-includes)))
 
-(defun spacemacs/c++-organize-includes-on-save ()
-  "Add before-save hook for c++-organize-includes."
+(defun spacemacs/c-c++-organize-includes-on-save ()
+  "Add before-save hook for c-c++-organize-includes."
   (add-hook 'before-save-hook
-            #'spacemacs//c++-organize-includes-on-save nil t))
+            #'spacemacs//c-c++-organize-includes-on-save nil t))

@@ -1494,7 +1494,7 @@ Other:
     (thanks to Alexander Dalshov)
 - New packages:
   - =cpp-auto-include= Insert and delete C++ header files automatically:
-    - Added variable: =++-enable-organize-includes-on-save=
+    - Added variable: =c-c++-enable-organize-includes-on-save=
     - Added key binding: ~SPC m r i~ organize includes
     (thanks to Seong Yong-ju)
 - Improvements:
