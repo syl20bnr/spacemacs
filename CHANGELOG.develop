@@ -1623,6 +1623,8 @@ Other:
   - ~SPC m o~ deft open file in other window (thanks to Bahtiar Gadimov)
   - ~SPC m q~ for quitting the deft window (thanks to tinysong)
   - ~SPC m r~ rename selected note (thanks to Bahtiar Gadimov)
+  - When zetteldeft is enabled, ~SPC a n~ is moved to ~SPC a n n~
+- Added zetteldeft support
 **** Django
 - Key bindings:
   - Added names to django mode prefixes (thanks to Boris Verhovsky)
