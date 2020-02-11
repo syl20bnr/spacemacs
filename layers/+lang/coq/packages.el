@@ -104,7 +104,9 @@
         "ir" 'coq-insert-requires
         "is" 'coq-insert-section-or-module
         "it" 'coq-insert-tactic
-        "iT" 'coq-insert-tactical))))
+        "iT" 'coq-insert-tactical
+        ;; Options
+        "Te" 'proof-electric-terminator-toggle))))
 
 (defun coq/post-init-smartparens ()
   (spacemacs/add-to-hooks (if dotspacemacs-smartparens-strict-mode

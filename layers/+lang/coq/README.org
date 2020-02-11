@@ -127,3 +127,9 @@ Note the last two are regular =company-coq= bindings, left alone since they are
 most useful in insert mode. The full =company-coq= tutorial showcasing all
 available =company-coq= key bindings can be accessed at any time using =SPC SPC
 company-coq-tutorial=.
+
+** Options
+
+| Key binding     | Description                 |
+|-----------------+-----------------------------|
+| ~SPC m T e~     | Toggle electric terminator. |
