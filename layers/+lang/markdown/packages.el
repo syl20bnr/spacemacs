@@ -128,6 +128,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "xb"  'markdown-insert-bold
         "xi"  'markdown-insert-italic
         "xc"  'markdown-insert-code
+        "xk"  'markdown-insert-kbd
         "xC"  'markdown-insert-gfm-code-block
         "xq"  'markdown-insert-blockquote
         "xQ"  'markdown-blockquote-region
