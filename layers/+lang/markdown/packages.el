@@ -137,6 +137,7 @@
           "xc"  'markdown-insert-code
           "xC"  'markdown-insert-gfm-code-block
           "xi"  'markdown-insert-italic
+          "xk"  'markdown-insert-kbd
           "xp"  'markdown-insert-pre
           "xq"  'markdown-insert-blockquote
           "xs"  'markdown-insert-strike-through

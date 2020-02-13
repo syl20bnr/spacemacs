@@ -124,6 +124,7 @@ In order to use =orgtabl-mode=, add =org= layer to your =~/.spacemacs=.
 | ~SPC m x i~ | make region italic or insert italic                               |
 | ~SPC m x c~ | make region code or insert code                                   |
 | ~SPC m x C~ | make region code or insert code (GitHub Flavored Markdown format) |
+| ~SPC m x k~ | make region <kbd> element or insert <kbd> element                 |
 | ~SPC m x q~ | make region blockquote or insert blockquote                       |
 | ~SPC m x Q~ | blockquote region                                                 |
 | ~SPC m x p~ | make region or insert pre                                         |
