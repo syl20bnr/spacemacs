@@ -15,7 +15,7 @@
 This layer enables support for [[https://github.com/skuro/plantuml-mode][plantuml-mode]], which provides
 a major-mode for [[http://plantuml.com][plantuml]]. PlantUML is a tool to generate [[https://en.wikipedia.org/wiki/Unified_Modeling_Language][UML diagrams]] from plain-text.
 
-For help with how to use plantuml, see the [[http://plantuml.com][plantuml website]] and the [[http://plantuml.com/PlantUML_Language_Reference_Guide.pdf][reference guide]].
+For help with how to use plantuml, see the [[http://plantuml.com][plantuml website]] and the [[http://plantuml.com/guide][reference guide]].
 
 The official file extension supported by this layer is =.pum=. If you want something else,
 set it in your =user-config= function of your =~/.spacemacs= file.
