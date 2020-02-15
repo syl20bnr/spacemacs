@@ -2694,6 +2694,7 @@ Other:
 - Added a missing prefix: =compile=
 - Added instructions for compiling the image locally by setting
   =plantuml-default-exec-mode= to =jar= (thanks to Daniel Caixinha)
+- Updated link to Reference Guide
 **** Platinum
 - Added the =.plum= extension to the platinum modes (thanks to Sylvain Benner)
 - Remove automatic indentation on paste (thanks to Sylvain Benner)
