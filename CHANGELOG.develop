@@ -2103,6 +2103,7 @@ Other:
   - Added ~SPC a y r~ =ein:run= (thanks to Zach Pearson)
   - Added ~SPC a y s~ =ein:stop= (thanks to Zach Pearson)
   - Added package dependencies for =ein= (thanks to ft)
+  - Fixed keybindings per removal of =ein:notebook-multilang-mode=
 **** Ivy
 - Added =recentf= alt actions to refresh and delete items (thanks to Rich Alesi)
 - Added =projectile= alternate actions to invalidate cache (thanks to Rich Alesi)
