@@ -46,10 +46,7 @@
 
 (defun ipython-notebook/post-init-request ())
 
-(defun ipython-notebook/post-init-company ()
-  (spacemacs|add-company-backends
-    :backends ein:company-backend
-    :modes ein:notebook-mode))
+(defun ipython-notebook/post-init-company ())
 
 (defun ipython-notebook/init-ein-notebook ()
   (use-package ein-notebook
@@ -90,49 +87,49 @@
             (concat dotspacemacs-major-mode-leader-key key)
           (concat "," key)))
 
-      (spacemacs/set-leader-keys-for-major-mode 'ein:notebook-multilang-mode
-        "y" 'ein:worksheet-copy-cell
-        "p" 'ein:worksheet-yank-cell
-        "d" 'ein:worksheet-kill-cell
-        "h" 'ein:notebook-worksheet-open-prev-or-last
-        "i" 'ein:worksheet-insert-cell-below
-        "I" 'ein:worksheet-insert-cell-above
-        "j" 'ein:worksheet-goto-next-input
-        "k" 'ein:worksheet-goto-prev-input
-        "l" 'ein:notebook-worksheet-open-next-or-first
-        "H" 'ein:notebook-worksheet-move-prev
-        "J" 'ein:worksheet-move-cell-down
-        "K" 'ein:worksheet-move-cell-up
-        "L" 'ein:notebook-worksheet-move-next
-        "t" 'ein:worksheet-toggle-output
-        "R" 'ein:worksheet-rename-sheet
-        "RET" 'ein:worksheet-execute-cell-and-goto-next
+      (spacemacs/set-leader-keys-for-minor-mode 'ein:notebook-mode
+        "y" 'ein:worksheet-copy-cell-km
+        "p" 'ein:worksheet-yank-cell-km
+        "d" 'ein:worksheet-kill-cell-km
+        "h" 'ein:notebook-worksheet-open-prev-or-last-km
+        "i" 'ein:worksheet-insert-cell-below-km
+        "I" 'ein:worksheet-insert-cell-above-km
+        "j" 'ein:worksheet-goto-next-input-km
+        "k" 'ein:worksheet-goto-prev-input-km
+        "l" 'ein:notebook-worksheet-open-next-or-first-km
+        "H" 'ein:notebook-worksheet-move-prev-km
+        "J" 'ein:worksheet-move-cell-down-km
+        "K" 'ein:worksheet-move-cell-up-km
+        "L" 'ein:notebook-worksheet-move-next-km
+        "t" 'ein:worksheet-toggle-output-km
+        "R" 'ein:worksheet-rename-sheet-km
+        "RET" 'ein:worksheet-execute-cell-and-goto-next-km
         ;; Output
-        "C-l" 'ein:worksheet-clear-output
-        "C-S-l" 'ein:worksheet-clear-all-output
+        "C-l" 'ein:worksheet-clear-output-km
+        "C-S-l" 'ein:worksheet-clear-all-output-km
         ;;Console
         "C-o" 'ein:console-open
         ;; Merge cells
-        "C-k" 'ein:worksheet-merge-cell
+        "C-k" 'ein:worksheet-merge-cell-km
         "C-j" 'spacemacs/ein:worksheet-merge-cell-next
-        "s" 'ein:worksheet-split-cell-at-point
+        "s" 'ein:worksheet-split-cell-at-point-km
         ;; Notebook
-        "C-s" 'ein:notebook-save-notebook-command
-        "C-r" 'ein:notebook-rename-command
-        "1" 'ein:notebook-worksheet-open-1th
-        "2" 'ein:notebook-worksheet-open-2th
-        "3" 'ein:notebook-worksheet-open-3th
-        "4" 'ein:notebook-worksheet-open-4th
-        "5" 'ein:notebook-worksheet-open-5th
-        "6" 'ein:notebook-worksheet-open-6th
-        "7" 'ein:notebook-worksheet-open-7th
-        "8" 'ein:notebook-worksheet-open-8th
-        "9" 'ein:notebook-worksheet-open-last
-        "+" 'ein:notebook-worksheet-insert-next
-        "-" 'ein:notebook-worksheet-delete
-        "x" 'ein:notebook-close
-        "u" 'ein:worksheet-change-cell-type
-        "fs" 'ein:notebook-save-notebook-command)
+        "C-s" 'ein:notebook-save-notebook-command-km
+        "C-r" 'ein:notebook-rename-command-km
+        "1" 'ein:notebook-worksheet-open-1th-km
+        "2" 'ein:notebook-worksheet-open-2th-km
+        "3" 'ein:notebook-worksheet-open-3th-km
+        "4" 'ein:notebook-worksheet-open-4th-km
+        "5" 'ein:notebook-worksheet-open-5th-km
+        "6" 'ein:notebook-worksheet-open-6th-km
+        "7" 'ein:notebook-worksheet-open-7th-km
+        "8" 'ein:notebook-worksheet-open-8th-km
+        "9" 'ein:notebook-worksheet-open-last-km
+        "+" 'ein:notebook-worksheet-insert-next-km
+        "-" 'ein:notebook-worksheet-delete-km
+        "x" 'ein:notebook-close-km
+        "u" 'ein:worksheet-change-cell-type-km
+        "fs" 'ein:notebook-save-notebook-command-km)
 
       ;; keybindings for ipython notebook traceback mode
       (spacemacs/set-leader-keys-for-major-mode 'ein:traceback-mode
@@ -142,26 +139,26 @@
         "q" 'bury-buffer)
 
       ;; keybindings mirror ipython web interface behavior
-      (evil-define-key 'insert ein:notebook-multilang-mode-map
-        (kbd "<C-return>") 'ein:worksheet-execute-cell
-        (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next)
+      (evil-define-minor-mode-key 'insert 'ein:notebook-mode
+        (kbd "<C-return>") 'ein:worksheet-execute-cell-km
+        (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next-km)
 
       ;; keybindings mirror ipython web interface behavior
-      (evil-define-key 'hybrid ein:notebook-multilang-mode-map
-        (kbd "<C-return>") 'ein:worksheet-execute-cell
-        (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next)
+      (evil-define-minor-mode-key 'hybrid 'ein:notebook-mode
+        (kbd "<C-return>") 'ein:worksheet-execute-cell-km
+        (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next-km)
 
-      (evil-define-key 'normal ein:notebook-multilang-mode-map
+      (evil-define-minor-mode-key 'normal 'ein:notebook-mode
         ;; keybindings mirror ipython web interface behavior
-        (kbd "<C-return>") 'ein:worksheet-execute-cell
-        (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next
-        "gj" 'ein:worksheet-goto-next-input
-        "gk" 'ein:worksheet-goto-prev-input)
+        (kbd "<C-return>") 'ein:worksheet-execute-cell-km
+        (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next-km
+        "gj" 'ein:worksheet-goto-next-input-km
+        "gk" 'ein:worksheet-goto-prev-input-km)
 
       ;; if this is not required then the following keygindings fail
-      (require 'ein-multilang)
-      (define-key ein:notebook-multilang-mode-map (kbd "M-j") 'ein:worksheet-move-cell-down)
-      (define-key ein:notebook-multilang-mode-map (kbd "M-k") 'ein:worksheet-move-cell-up)
+      (require 'ein-notebook)
+      (define-key ein:notebook-mode-map (kbd "M-j") 'ein:worksheet-move-cell-down-km)
+      (define-key ein:notebook-mode-map (kbd "M-k") 'ein:worksheet-move-cell-up-km)
 
       (spacemacs|define-transient-state ipython-notebook
         :title "iPython Notebook Transient State"
@@ -175,51 +172,51 @@
  [_y_/_p_/_d_]   copy/paste           ^^^^                           [_x_]^^         close notebook
  [_u_]^^^^       change type          ^^^^                           [_q_]^^         quit transient-state
  [_RET_]^^^^     execute"
-        :evil-leader-for-mode (ein:notebook-multilang-mode . ".")
+        :evil-leader-for-mode (ein:notebook-mode . ".")
         :bindings
         ("q" nil :exit t)
         ("?" spacemacs//ipython-notebook-ms-toggle-doc)
-        ("h" ein:notebook-worksheet-open-prev-or-last)
-        ("j" ein:worksheet-goto-next-input)
-        ("k" ein:worksheet-goto-prev-input)
-        ("l" ein:notebook-worksheet-open-next-or-first)
-        ("H" ein:notebook-worksheet-move-prev)
-        ("J" ein:worksheet-move-cell-down)
-        ("K" ein:worksheet-move-cell-up)
-        ("L" ein:notebook-worksheet-move-next)
-        ("t" ein:worksheet-toggle-output)
-        ("d" ein:worksheet-kill-cell)
-        ("R" ein:worksheet-rename-sheet)
-        ("y" ein:worksheet-copy-cell)
-        ("p" ein:worksheet-yank-cell)
-        ("o" ein:worksheet-insert-cell-below)
-        ("O" ein:worksheet-insert-cell-above)
-        ("u" ein:worksheet-change-cell-type)
-        ("RET" ein:worksheet-execute-cell-and-goto-next)
+        ("h" ein:notebook-worksheet-open-prev-or-last-km)
+        ("j" ein:worksheet-goto-next-input-km)
+        ("k" ein:worksheet-goto-prev-input-km)
+        ("l" ein:notebook-worksheet-open-next-or-first-km-km)
+        ("H" ein:notebook-worksheet-move-prev-km-km)
+        ("J" ein:worksheet-move-cell-down-km)
+        ("K" ein:worksheet-move-cell-up-km)
+        ("L" ein:notebook-worksheet-move-next-km-km)
+        ("t" ein:worksheet-toggle-output-km)
+        ("d" ein:worksheet-kill-cell-km)
+        ("R" ein:worksheet-rename-sheet-km)
+        ("y" ein:worksheet-copy-cell-km)
+        ("p" ein:worksheet-yank-cell-km)
+        ("o" ein:worksheet-insert-cell-below-km)
+        ("O" ein:worksheet-insert-cell-above-km)
+        ("u" ein:worksheet-change-cell-type-km)
+        ("RET" ein:worksheet-execute-cell-and-goto-next-km)
         ;; Output
-        ("C-l" ein:worksheet-clear-output)
-        ("C-S-l" ein:worksheet-clear-all-output)
+        ("C-l" ein:worksheet-clear-output-km)
+        ("C-S-l" ein:worksheet-clear-all-output-km)
         ;;Console
-        ("C-o" ein:console-open)
+        ("C-o" ein:console-open-km)
         ;; Merge and split cells
-        ("C-k" ein:worksheet-merge-cell)
+        ("C-k" ein:worksheet-merge-cell-km)
         ("C-j" spacemacs/ein:worksheet-merge-cell-next)
-        ("s" ein:worksheet-split-cell-at-point)
+        ("s" ein:worksheet-split-cell-at-point-km)
         ;; Notebook
-        ("C-s" ein:notebook-save-notebook-command)
-        ("C-r" ein:notebook-rename-command)
-        ("1" ein:notebook-worksheet-open-1th)
-        ("2" ein:notebook-worksheet-open-2th)
-        ("3" ein:notebook-worksheet-open-3th)
-        ("4" ein:notebook-worksheet-open-4th)
-        ("5" ein:notebook-worksheet-open-5th)
-        ("6" ein:notebook-worksheet-open-6th)
-        ("7" ein:notebook-worksheet-open-7th)
-        ("8" ein:notebook-worksheet-open-8th)
-        ("9" ein:notebook-worksheet-open-last)
-        ("+" ein:notebook-worksheet-insert-next)
-        ("-" ein:notebook-worksheet-delete)
-        ("x" ein:notebook-close)))))
+        ("C-s" ein:notebook-save-notebook-command-km)
+        ("C-r" ein:notebook-rename-command-km)
+        ("1" ein:notebook-worksheet-open-1th-km)
+        ("2" ein:notebook-worksheet-open-2th-km)
+        ("3" ein:notebook-worksheet-open-3th-km)
+        ("4" ein:notebook-worksheet-open-4th-km)
+        ("5" ein:notebook-worksheet-open-5th-km)
+        ("6" ein:notebook-worksheet-open-6th-km)
+        ("7" ein:notebook-worksheet-open-7th-km)
+        ("8" ein:notebook-worksheet-open-8th-km)
+        ("9" ein:notebook-worksheet-open-last-km)
+        ("+" ein:notebook-worksheet-insert-next-km)
+        ("-" ein:notebook-worksheet-delete-km)
+        ("x" ein:notebook-close-km)))))
 
 (defun ipython-notebook/pre-init-ob-ipython ()
   (spacemacs|use-package-add-hook org
