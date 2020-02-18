@@ -8,6 +8,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#external-dependencies][External Dependencies:]]
   - [[#sql-keywords-capitalization][SQL Keywords Capitalization]]
     - [[#sql-interactive-mode][SQL Interactive Mode]]
     - [[#blacklisting-keywords][Blacklisting keywords]]
@@ -39,7 +40,7 @@ This layer adds support for a wide range of SQL dialects to Spacemacs.
   - Sybase
   - Vertica
 - Syntax-checking via [[https://github.com/purcell/sqlint][sqlint]] for ANSI SQL.
-- Format code with =sqlfmt=
+- Format code with [[https://github.com/mjibson/sqlfmt][=sqlfmt=]]
 - Snippet insertion for the more general SQL constructs.
 - REPL support via =SQLi= buffer.
 - Automatic capitalization of keywords.
@@ -49,7 +50,10 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =sql= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-For syntax-checking you also need to install [[https://www.ruby-lang.org/en/about/][ruby]] as well as =sqlint=.
+** External Dependencies:
+   Some functionality, like linting, rely on external binaries:
+   - *Syntax Checking*: Install [[https://www.ruby-lang.org/en/about/][ruby]] and the =sqlint= gem.
+   - *Formatting*: Install [[https://github.com/mjibson/sqlfmt][sqlfmt]] and move it into your =$PATH=
 
 #+BEGIN_SRC ruby
   gem install sqlint
@@ -140,4 +144,8 @@ auto-indent by setting the variable =sql-auto-indent= to =nil=.
 
 ** Code Formatting
 
-| ~SPC m = c~ | capitalize SQL keywords in region (if capitalize is enabled) |
+| Key binding  | Description                                                  |
+|--------------+--------------------------------------------------------------|
+| ~SPC m = c~  | capitalize SQL keywords in region (if capitalize is enabled) |
+| ~SPC m = ==~ | ~sqlfmt~ whole buffer                                        |
+| ~SPC m = r=~ | ~sqlfmt~ active region                                       |
