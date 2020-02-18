@@ -185,8 +185,12 @@
   (use-package sqlfmt
     :commands sqlfmt-buffer
     :init
-    (spacemacs/set-leader-keys-for-major-mode 'sql-mode
-      "=" 'sqlfmt-buffer)))
+    (progn
+      (spacemacs/declare-prefix-for-mode 'sql-mode "mf" "formatting")
+      (spacemacs/set-leader-keys-for-major-mode 'sql-mode
+        "=" 'sqlfmt-buffer
+        "fr" 'sqlfmt-region
+        "fb" 'sqlfmt-buffer))))
 
 (defun sql/init-sqlup-mode ()
   (use-package sqlup-mode

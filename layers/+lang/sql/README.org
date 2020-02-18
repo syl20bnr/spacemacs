@@ -140,4 +140,9 @@ auto-indent by setting the variable =sql-auto-indent= to =nil=.
 
 ** Code Formatting
 
-| ~SPC m = c~ | capitalize SQL keywords in region (if capitalize is enabled) |
+| Key binding  | Description                                                  |
+|--------------+--------------------------------------------------------------|
+| ~SPC m = c~  | capitalize SQL keywords in region (if capitalize is enabled) |
+| ~SPC m =~    | ~sqlfmt~ whole buffer                                        |
+| ~SPC m f b=~ | ~sqlfmt~ whole buffer                                        |
+| ~SPC m f r=~ | ~sqlfmt~ active region                                       |
