@@ -3095,6 +3095,8 @@ Other:
 - Added key binding (thanks to Michael Hauser-Raspe):
   ~SPC m b c~ connect to a SQLi buffer from your saved buffer list
 - Added ~SPC m g~ prefix: =goto= (thanks to duianto)
+- Added regional ~sqlfmt~ invocation, error handling, and formatting bindings
+  (thanks to 0x6362)
 **** Spell-checking
 - Added spell checking transient state (thanks to Francesc Elies Henar)
 - Update to flyspell-correct v0.5 (thanks to Boris Buliga)
