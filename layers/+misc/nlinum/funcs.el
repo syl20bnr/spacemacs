@@ -1,4 +1,4 @@
-;;; packages.el --- nlinum Layer packages File
+;;; funcs.el --- nlinum Layer packages File
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

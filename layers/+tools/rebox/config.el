@@ -1,4 +1,4 @@
-;;; packages.el --- rebox layer configuration file for Spacemacs.
+;;; config.el --- rebox layer configuration file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

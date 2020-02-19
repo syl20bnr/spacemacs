@@ -1,4 +1,4 @@
-;;; config.el --- Racket Layer packages File for Spacemacs
+;;; packages.el --- Racket Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

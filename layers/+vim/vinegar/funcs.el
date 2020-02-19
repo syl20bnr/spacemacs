@@ -1,4 +1,4 @@
-;;; config.el --- Vinegar Layer Functions File for Spacemacs
+;;; funcs.el --- Vinegar Layer Functions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

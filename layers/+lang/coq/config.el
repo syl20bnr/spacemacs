@@ -1,4 +1,4 @@
-;;; packages.el --- Coq Layer configuration File for Spacemacs
+;;; config.el --- Coq Layer configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

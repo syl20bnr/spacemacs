@@ -1,4 +1,4 @@
-;;; packages.el --- Windows Scripts Layer packages File for Spacemacs
+;;; config.el --- Windows Scripts Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

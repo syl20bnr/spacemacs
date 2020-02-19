@@ -1,4 +1,4 @@
-;;; layers.el --- Puppet layer packages File for Spacemacs
+;;; packages.el --- Puppet layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

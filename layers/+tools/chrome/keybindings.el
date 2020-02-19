@@ -1,4 +1,4 @@
-;;; config.el --- Chrome Layer keybindings File for Spacemacs
+;;; keybindings.el --- Chrome Layer keybindings File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

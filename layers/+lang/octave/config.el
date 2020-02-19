@@ -1,4 +1,4 @@
-;;; packages.el --- Octave Layer packages File for Spacemacs
+;;; config.el --- Octave Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

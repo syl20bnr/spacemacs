@@ -1,4 +1,4 @@
-;;; packages.el --- Java functions File for Spacemacs
+;;; funcs.el --- Java functions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

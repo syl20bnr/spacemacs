@@ -1,4 +1,4 @@
-;;; packages.el --- Nim Configuration Layer for Spacemacs
+;;; config.el --- Nim Configuration Layer for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

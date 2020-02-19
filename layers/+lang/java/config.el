@@ -1,4 +1,4 @@
-;;; packages.el --- Java configuration File for Spacemacs
+;;; config.el --- Java configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
