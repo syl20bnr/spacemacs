@@ -123,6 +123,7 @@
         (kbd "C-u") 'pdf-view-scroll-down-or-previous-page
         (kbd "C-d") 'pdf-view-scroll-up-or-next-page
         (kbd "``")  'pdf-history-backward
+        "'" 'pdf-view-jump-to-register
         ;; Search
         "/" 'isearch-forward
         "?" 'isearch-backward
