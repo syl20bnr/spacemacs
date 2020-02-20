@@ -12,31 +12,33 @@
 (defconst restructuredtext-packages
   '(
     auto-complete
-    (auto-complete-rst :requires auto-complete)
-    linum
+    ;; Disabled due to package is not longer maintained
+    ;; (auto-complete-rst :requires auto-complete)
+
+    ;; Linum is deprecated, use nlinum layer or native line numbers
+    ;; linum
     (rst :location built-in)
     (rst-directives :location local)
     (rst-lists :location local)
     flyspell
     smartparens
-    yasnippet
-    ))
+    yasnippet))
 
 (defun restructuredtext/post-init-auto-complete ()
   (add-hook 'rst-mode-hook 'auto-complete-mode))
 
-(defun restructuredtext/init-auto-complete-rst ()
-  (use-package auto-complete-rst
-    :commands (auto-complete-rst-add-sources
-               auto-complete-rst-init)
-    :init (spacemacs/add-to-hook 'rst-mode-hook '(auto-complete-rst-init
-                                                  auto-complete-rst-add-sources))))
+;; (defun restructuredtext/init-auto-complete-rst ()
+;;   (use-package auto-complete-rst
+;;     :commands (auto-complete-rst-add-sources
+;;                auto-complete-rst-init)
+;;     :init (spacemacs/add-to-hook 'rst-mode-hook '(auto-complete-rst-init
+;;                                                   auto-complete-rst-add-sources))))
 
-(defun restructuredtext/post-init-linum ()
-  ;; important auto-complete work-around to be applied to make both linum
-  ;; and auto-complete to work together
-  (when (configuration-layer/package-used-p 'auto-complete)
-    (add-hook 'rst-mode-hook 'ac-linum-workaround t)))
+;; (defun restructuredtext/post-init-linum ()
+;;   ;; important auto-complete work-around to be applied to make both linum
+;;   ;; and auto-complete to work together
+;;   (when (configuration-layer/package-used-p 'auto-complete)
+;;     (add-hook 'rst-mode-hook 'ac-linum-workaround t)))
 
 (defun restructuredtext/init-rst-directives ()
   (use-package rst-directives))
@@ -61,4 +63,3 @@
 
 (defun restructuredtext/post-init-smartparens ()
   (add-hook 'rst-mode-hook 'smartparens-mode))
-
