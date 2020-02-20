@@ -1031,7 +1031,10 @@ If a prefix argument is given, switch to it in an other, possibly new window."
             (let ((inhibit-read-only t))
               (erase-buffer)))
           (spacemacs-buffer/set-mode-line "")
-          (spacemacs-buffer//insert-version)
+          (if dotspacemacs-startup-buffer-show-version
+            (spacemacs-buffer//insert-version)
+            (let ((inhibit-read-only t))
+              (insert "\n")))
           (spacemacs-buffer/insert-banner-and-buttons)
           (when (bound-and-true-p spacemacs-initialized)
             (spacemacs-buffer//notes-redisplay-current-note)
