@@ -15,11 +15,6 @@
 If `peek' binds lsp-ui navigation functions under `SPC m g'.
 If `both', binds lightweight navigation functions under `SPC m g' and lsp-ui functions under `SPC m G'")
 
-(defvar lsp-prefer-flymake nil
-  "If nil, prefer the lsp flycheck checker.
-If non-nil, prefer the lsp flymake checker.
-If :none, use neither flycheck nor flymake.")
-
 ;; These are config variables exposed by the lsp-ui package
 ;; They all have toggles bound under 't' in spacemacs/lsp-define-keys-for-mode
 (defvar lsp-ui-doc-enable t "Enable/disable lsp-ui-doc overlay")

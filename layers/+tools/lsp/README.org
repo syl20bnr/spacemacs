@@ -54,15 +54,14 @@ A number of configuration variables have been exposed via the LSP layer =config.
 Sensible defaults have been provided, however they may all be overridden in your .spacemacs, or dynamically using the bindings added
 under the derived mode t prefix by =(spacemacs/lsp-bind-keys-for-mode mode)=
 
-| Variable name                   | Default | Description                                                                                                                          |
-|---------------------------------+---------+--------------------------------------------------------------------------------------------------------------------------------------|
-| =lsp-navigation=                | `both'  | `simple' or `peek' to bind only xref OR lsp-ui-peek navigation functions                                                             |
-| =lsp-ui-remap-xref-keybindings= | nil     | When non-nil, xref key bindings remapped to lsp-ui-peek-find-{definition,references}                                                 |
-| =lsp-ui-doc-enable=             | t       | When non-nil, the documentation overlay is displayed                                                                                 |
-| =lsp-ui-doc-include-signature=  | nil     | When nil, signature omitted from lsp-ui-doc overlay (this is usually redundant)                                                      |
-| =lsp-ui-sideline-enable=        | t       | When non-nil, the symbol information overlay is displayed                                                                            |
-| =lsp-ui-sideline-show-symbol=   | nil     | When non-nil, the symbol information overlay includes symbol name (redundant for c-modes)                                            |
-| =lsp-prefer-flymake=            | nil     | When non-nil, use flymake. When nil, and =lsp-ui-flycheck= is available, use flycheck. When :none, use neither flymake nor flycheck. |
+| Variable name                   | Default | Description                                                                               |
+|---------------------------------+---------+-------------------------------------------------------------------------------------------|
+| =lsp-navigation=                | `both'  | `simple' or `peek' to bind only xref OR lsp-ui-peek navigation functions                  |
+| =lsp-ui-remap-xref-keybindings= | nil     | When non-nil, xref key bindings remapped to lsp-ui-peek-find-{definition,references}      |
+| =lsp-ui-doc-enable=             | t       | When non-nil, the documentation overlay is displayed                                      |
+| =lsp-ui-doc-include-signature=  | nil     | When nil, signature omitted from lsp-ui-doc overlay (this is usually redundant)           |
+| =lsp-ui-sideline-enable=        | t       | When non-nil, the symbol information overlay is displayed                                 |
+| =lsp-ui-sideline-show-symbol=   | nil     | When non-nil, the symbol information overlay includes symbol name (redundant for c-modes) |
 
 ** Navigation mode
 The ~lsp-navigation~ variable defined in =config.el= allows you to define a preference for lightweight or pretty

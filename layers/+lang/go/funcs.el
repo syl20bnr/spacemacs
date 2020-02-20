@@ -52,11 +52,11 @@
   "Setup lsp backend"
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        ;; without setting lsp-prefer-flymake to :none
+        ;; without setting lsp-diagnostic-package to :none
         ;; golangci-lint errors won't be reported
         (when go-use-golangci-lint
-          (message "[go] Setting lsp-prefer-flymake :none to enable golangci-lint support.")
-          (setq-local lsp-prefer-flymake :none))
+          (message "[go] Setting lsp-diagnostic-package :none to enable golangci-lint support.")
+          (setq-local lsp-diagnostic-package :none))
         (lsp))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
