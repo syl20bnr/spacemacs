@@ -133,7 +133,7 @@
       (spacemacs/declare-prefix-for-mode 'sql-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'sql-mode "mh" "dialects")
       (spacemacs/declare-prefix-for-mode 'sql-mode "ml" "listing")
-      (spacemacs/declare-prefix-for-mode 'sql-mode "ms" "interactivity")
+      (spacemacs/declare-prefix-for-mode 'sql-mode "ms" "REPL")
       (spacemacs/set-leader-keys-for-major-mode 'sql-mode
         "'" 'spacemacs/sql-start
 
@@ -145,7 +145,7 @@
         ;; dialects
         "hk" 'spacemacs/sql-highlight
 
-        ;; interactivity
+        ;; repl
         "sb" 'sql-send-buffer
         "sB" 'spacemacs/sql-send-buffer-and-focus
         "si" 'spacemacs/sql-start
@@ -185,11 +185,10 @@
   (use-package sqlfmt
     :commands sqlfmt-buffer
     :init
-    (progn
-      (spacemacs/declare-prefix-for-mode 'sql-mode "mf" "formatting")
-      (spacemacs/set-leader-keys-for-major-mode 'sql-mode
-        "=r" 'sqlfmt-region
-        "==" 'sqlfmt-buffer))))
+    (spacemacs/declare-prefix-for-mode 'sql-mode "m=" "formatting")
+    (spacemacs/set-leader-keys-for-major-mode 'sql-mode
+      "=r" 'sqlfmt-region
+      "==" 'sqlfmt-buffer)))
 
 (defun sql/init-sqlup-mode ()
   (use-package sqlup-mode

@@ -8,7 +8,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-  - [[#external-dependencies][External Dependencies:]]
+  - [[#external-dependencies][External Dependencies]]
   - [[#sql-keywords-capitalization][SQL Keywords Capitalization]]
     - [[#sql-interactive-mode][SQL Interactive Mode]]
     - [[#blacklisting-keywords][Blacklisting keywords]]
@@ -16,7 +16,7 @@
 - [[#key-bindings][Key bindings]]
   - [[#highlighting][Highlighting]]
   - [[#inferior-process-interactions-sqli][Inferior Process Interactions (SQLi)]]
-    - [[#send-sql-queries-to-sqli][Send SQL queries to SQLi:]]
+    - [[#send-sql-queries-to-sqli][Send SQL queries to SQLi]]
   - [[#sqli-buffer][SQLi buffer]]
   - [[#code-formatting][Code Formatting]]
 
@@ -50,13 +50,18 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =sql= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-** External Dependencies:
-   Some functionality, like linting, rely on external binaries:
-   - *Syntax Checking*: Install [[https://www.ruby-lang.org/en/about/][ruby]] and the =sqlint= gem.
-   - *Formatting*: Install [[https://github.com/mjibson/sqlfmt][sqlfmt]] and move it into your =$PATH=
+** External Dependencies
+Some functionality, like linting, rely on external binaries:
+- *Syntax Checking*: Install [[https://www.ruby-lang.org/en/about/][ruby]] and the =sqlint= gem.
+- *Formatting*: Install [[https://github.com/mjibson/sqlfmt][sqlfmt]] and move it into your =$PATH=
 
 #+BEGIN_SRC ruby
   gem install sqlint
+#+END_SRC
+
+#+BEGIN_SRC sh
+  # Download and extract the binary 0.4.0 for linux
+  wget -q -O - https://github.com/mjibson/sqlfmt/releases/latest/download/sqlfmt_0.4.0_linux_amd64.tar.gz | tar -xpvzf - --directory "${installdir}/bin"
 #+END_SRC
 
 ** SQL Keywords Capitalization
@@ -119,7 +124,7 @@ auto-indent by setting the variable =sql-auto-indent= to =nil=.
 | ~SPC m l a~ | List all objects                                     |
 | ~SPC m l t~ | list all objects in a table                          |
 
-*** Send SQL queries to SQLi:
+*** Send SQL queries to SQLi
 
 | Key binding | Description                                                                                           |
 |-------------+-------------------------------------------------------------------------------------------------------|
@@ -144,8 +149,8 @@ auto-indent by setting the variable =sql-auto-indent= to =nil=.
 
 ** Code Formatting
 
-| Key binding  | Description                                                  |
-|--------------+--------------------------------------------------------------|
-| ~SPC m = c~  | capitalize SQL keywords in region (if capitalize is enabled) |
-| ~SPC m = ==~ | ~sqlfmt~ whole buffer                                        |
-| ~SPC m = r=~ | ~sqlfmt~ active region                                       |
+| Key binding | Description                                                  |
+|-------------+--------------------------------------------------------------|
+| ~SPC m = c~ | capitalize SQL keywords in region (if capitalize is enabled) |
+| ~SPC m = =~ | ~sqlfmt~ whole buffer                                        |
+| ~SPC m = r~ | ~sqlfmt~ active region                                       |

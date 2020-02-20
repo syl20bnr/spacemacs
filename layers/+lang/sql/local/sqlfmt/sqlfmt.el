@@ -8,12 +8,12 @@
   :type 'string)
 
 (defcustom sqlfmt-options
-  '("-u")
+  '("--use-spaces")
   "Command line options to pass to sqlfmt."
   :type '(repeat string))
 
 (defcustom sqlfmt-reuse-error-buffer
-  nil
+  t
   "Reuse the same buffer for sqlfmt errors, replacing content on new invocations, or generate new buffers on each invocation"
   :type 'boolean)
 
@@ -40,15 +40,15 @@
                           (erase-buffer)
                           (setq buffer-read-only t))
                         (apply #'call-process-region start end
-                              sqlfmt-executable nil tmpbuf nil
-                              sqlfmt-options))))
+                               sqlfmt-executable nil tmpbuf nil
+                               sqlfmt-options))))
     (deactivate-mark)
     (if (eq status-code 0)
         (progn
           (with-current-buffer orig-buffer
-           (delete-region start end)
-           (insert-buffer tmpbuf)
-           (kill-buffer tmpbuf)
-           (goto-char orig-point))
+            (delete-region start end)
+            (insert-buffer tmpbuf)
+            (kill-buffer tmpbuf)
+            (goto-char orig-point))
           (message "sqlfmt applied"))
       (error "sqlfmt failed, see %s buffer for details." (buffer-name tmpbuf)))))
