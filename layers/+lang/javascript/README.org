@@ -196,7 +196,7 @@ You have to install =flow-bin=.
 #+END_SRC
 
 Or, if you'd rather use a locally-installed =flow-bin= from your project's
-node_modules directory, see the [[Node Modules][node-add-modules-path setting]].
+node_modules directory, see the [[#node-modules][node-add-modules-path setting]].
 
 *** Debugger (dap integration)
 To install the debug adapter you may run =M-x dap-firefox-setup= or
