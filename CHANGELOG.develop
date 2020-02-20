@@ -1894,7 +1894,7 @@ Other:
     one =go-linter= (thanks to Robert Zaremba)
 - Improvements:
   - Added =LSP= support (thanks to Lupco Kotev)
-  - Set =lsp-prefer-flymake= to =:none= when =Go= layer is using =LSP=
+  - Set =lsp-diagnostic-package= to =:none= when =Go= layer is using =LSP=
     (thanks to Tim Heckman)
   - Improved go test output buffer behavior (thanks to Denis Bernard)
   - Configurable extra arguments to =go run= (thanks to Enze Chi)
@@ -2330,7 +2330,6 @@ Other:
   (thanks to Cormac Cannon).
 - Replace lsp-capabilities keybinding with lsp-describe-session
   (thanks to Bryan Tan)
-- Added lsp-prefer-flymake variable (thanks to Juuso Valkeejärvi)
 - Added =lsp-treemacs=
   - ~SPC m t g e~ to show error list
 - Fixed missing shortcuts for =lsp-mode=
@@ -2349,6 +2348,9 @@ Other:
 - Required =helm= or =treemacs= to download =helm-lsp= or =lsp-treemacs=
   (thanks to Steven Allen)
 - Required =yasnippet= (thanks to Ivan Yonchovski)
+- Removed the now obsolete variable =lsp-prefer-flymake= (originally added by
+  Juuso Valkeejärvi), the new variable =lsp-diagnostic-package= is handled
+  upstream (thanks to duianto)
 **** Debug Adapter Protocol (DAP)
 - Layer variables:
   - Added variable =dap-enable-mouse-support=

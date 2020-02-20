@@ -31,7 +31,7 @@
       (progn
         ;; error checking from lsp langserver sucks, turn it off
         ;; so eslint won't be overriden
-        (setq-local lsp-prefer-flymake :none)
+        (setq-local lsp-diagnostic-package :none)
         (lsp))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))

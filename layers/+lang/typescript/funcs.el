@@ -71,7 +71,7 @@
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
         (when (not typescript-lsp-linter)
-          (setq-local lsp-prefer-flymake :none))
+          (setq-local lsp-diagnostic-package :none))
         (lsp))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
