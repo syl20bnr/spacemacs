@@ -3311,8 +3311,8 @@ Other:
 - Various documentation improvements (thanks Aaron Jensen, Aaron Peckham, Aaron
   Renner, Adam Frey, Adam Kruszewski, ahanwadi, Aleksandr Argunov, Alexander
   Dalshov, Alexander Eberspächer, Alexander Iljin, Alexander Kjeldaas,
-  Alexandros Kotzias, Andrew Grangaard, Andrew Vit, Andriy Senyshyn, Anton
-  Latukha, Antonio Miranda, Anurag Sharma, Apromixately, Archenoth, Arjan Singh,
+  Alexandros Kotzias, Andrew Grangaard, Andrew Vit, Andriy Senyshyn, Anton Chevychalov,
+  Anton Latukha, Antonio Miranda, Anurag Sharma, Apromixately, Archenoth, Arjan Singh,
   Ather Sharif, Artur Juraszek, Benjamin Reynolds, Bernhard Schommer, Billy
   Wade, Brian Wignall, bmag, Boris Buliga, Boris Wong, Carl Lange, Cazim Hysi,
   Chase Adams, Christian Bäuerlein, Cibin Mathew, CL123123, Codruț Constantin
@@ -3351,8 +3351,6 @@ Other:
   - README.md:
     - Fixed macOS documentation to install fonts (thanks to Sergio Morales)
     - Updated Windows section, suggest official Emacs (thanks to ghost-420)
-  - layers/+filetree/treemacs/README.org:
-    - Add information about using and configuring ace mode in treemacs
 *** Release notes summarized
   Thanks to: Abhishek(Compro) Prasad, Deepak Khidia, Enze Chi, Grant Shangreaux,
   Igor Almeida, Jiahao Jiang, Miciah Dashiel Butler Masters, Songpeng Zu, Ward
