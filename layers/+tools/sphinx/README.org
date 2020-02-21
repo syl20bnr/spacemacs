@@ -33,17 +33,19 @@ To use the layer's Sphinx feature, the following variables should be set.
 
 A parent directory is needed for all Sphinx projects' builds.
 
-#+BEGIN_SRC emacs-lisp
-  (setq rst-sphinx-target-parent "/your/path/of/build/")
++BEGIN_SRC emacs-lisp
+  (sphinx :variables
+          rst-sphinx-target-parent "/your/path/of/build/")
 #+END_SRC
 
 Set a directory in the parent directory for each Sphinx project.
 
 #+BEGIN_SRC emacs-lisp
-  (setq rst-sphinx-target-projects
-        '(("project1" . (latex "folder/in/target/parent" t))
-          ("project2" . (html  "folder/in/target/parent" nil))
-          ))
+  (sphinx :variables
+          rst-sphinx-target-parent "/your/path/of/build/"
+          rst-sphinx-target-projects
+          '(("project1" . (latex "folder/in/target/parent" t))
+            ("project2" . (html  "folder/in/target/parent" nil))))
 #+END_SRC
 
 ** Web browser
@@ -51,15 +53,16 @@ Set the browser for viewing the HTML page of current rst file. This one
 is optional. If not set, the default browser will be used.
 
 #+BEGIN_SRC emacs-lisp
-  (setq rst-slides-program "chromium")
+  (sphinx :variables
+          rst-slides-program "chromium")
 #+END_SRC
 
 * Key bindings
 
-| Key binding   | Description                             |
-|---------------+-----------------------------------------|
-| ~<SPC> m c c~ | compile projects                        |
-| ~<SPC> m c C~ | clean projects                          |
-| ~<SPC> m c r~ | rebuild projects                        |
-| ~<SPC> m g c~ | open =conf.py= of current project       |
-| ~<SPC> m o~   | open compiled HTML page of current page |
+| Key binding | Description                             |
+|-------------+-----------------------------------------|
+| ~SPC m c c~ | compile projects                        |
+| ~SPC m c C~ | clean projects                          |
+| ~SPC m c r~ | rebuild projects                        |
+| ~SPC m g c~ | open =conf.py= of current project       |
+| ~SPC m o~   | open compiled HTML page of current page |
