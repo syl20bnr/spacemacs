@@ -33,7 +33,7 @@ To use the layer's Sphinx feature, the following variables should be set.
 
 A parent directory is needed for all Sphinx projects' builds.
 
-+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (sphinx :variables
           rst-sphinx-target-parent "/your/path/of/build/")
 #+END_SRC
