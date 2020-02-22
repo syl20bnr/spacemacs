@@ -33,7 +33,7 @@ file.
 Zetteldeft support is included with the layer. To enable it, set the layer variable ~deft-zetteldeft~ to ~t~:
 
 #+BEGIN_SRC elisp
-(deft :variables deft-zetteldeft t)
+  (deft :variables deft-zetteldeft t)
 #+END_SRC
 
 ** Configuration
@@ -71,8 +71,7 @@ Just add or substitute your preferred extension.
 | ~SPC m q~   | quit deft window                 |
 
 ** Zetteldeft key bindings
-
-   Zetteldeft key bindings will appear in a few different places as follows:
+Zetteldeft key bindings will appear in a few different places as follows:
 
 *** Global
 

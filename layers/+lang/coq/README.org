@@ -19,6 +19,7 @@
   - [[#prover-queries][Prover queries]]
   - [[#moving-the-point][Moving the point]]
   - [[#inserting][Inserting]]
+  - [[#options][Options]]
 
 * Description
 This layer adds support for the [[https://coq.inria.fr/][Coq]] proof assistant (adapted from [[https://github.com/tchajed/spacemacs-coq][spacemacs-coq]]) to Spacemacs.
@@ -130,6 +131,6 @@ company-coq-tutorial=.
 
 ** Options
 
-| Key binding     | Description                 |
-|-----------------+-----------------------------|
-| ~SPC m T e~     | Toggle electric terminator. |
+| Key binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m T e~ | Toggle electric terminator. |

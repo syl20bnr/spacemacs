@@ -12,6 +12,7 @@
   - [[#choosing-a-backend][Choosing a backend]]
     - [[#racer][Racer]]
     - [[#lsp][LSP]]
+      - [[#switch-to-another-lsp-server][Switch to another LSP server]]
       - [[#autocompletion][Autocompletion]]
       - [[#debugger-dap-integration][Debugger (dap integration)]]
   - [[#cargo][Cargo]]

@@ -245,9 +245,8 @@ Or set this variable when loading the configuration layer:
 #+END_SRC
 
 *** Enabling sayid or clj-refactor
-
 The packages sayid (Clojure debugger) and clj-refactor (automatic refactorings)
-are disabled by default.  These packages are less active that the CIDER project
+are disabled by default. These packages are less active that the CIDER project
 and may cause issues when running CIDER.
 
 To enable them, add a =:variables= option when enabling the =clojure= layer,
@@ -278,7 +277,7 @@ If you are experiencing issues when running a REPL, try disabling these
 packages first and restart Spacemacs to see if the error persists.
 
 * Usage
-Read the keybindings section to see all the functionality available, or simply
+Read the key bindings section to see all the functionality available, or simply
 use the ~,~ or ~SPC m~ to open the which-key menu for the Clojure layer.
 
 ** Starting a REPL from Spacemacs
@@ -286,7 +285,7 @@ Open a Clojure file (=.clj=, =.cljs=, =.cljc=, =.edn=) and start a Clojure REPL,
 choosing the REPL session type (Clojure, ClojureScript or both Clojure & ClojureScript).
 
 ~, '~ and ~, s i~ calls the ~sesman-start~ command, a wrapper for all the
-~jack-in~ and ~connect~ commands.  A prompt appears allowing you to choose the
+~jack-in~ and ~connect~ commands. A prompt appears allowing you to choose the
 type of REPL session required.
 
 ~, s j~ opens the cider-jack-in menu, providing commands to start specific REPL sessions,
@@ -412,7 +411,7 @@ some functions that deal with sorting maps.
 The Clojure layer adds support for =evil-cleverparens= which allows to safely edit
 lisp code by keeping the s-expressions balanced.
 
- ~SPC m T s~ will toggle safe structured editing, off by default.
+~SPC m T s~ will toggle safe structured editing, off by default.
 
 Enable safe structural editing for all =clojure= buffers using the following
 in the =dotspacemacs/user-config= function of your .spacemacs file
@@ -440,7 +439,7 @@ As this state works the same for all files, the documentation is in global
 
 ** Leader
 *** Shortcuts
-Shortcut keybindings for regularly used commands.
+Shortcut key bindings for regularly used commands.
 
 | Key binding | Description                                              |
 |-------------+----------------------------------------------------------|
@@ -480,23 +479,23 @@ Managing CIDER REPL connections and sessions
 *** Evaluation
 Evaluate Clojure code in the source code buffer
 
-| Key binding | Description                                                        |
-|-------------+--------------------------------------------------------------------|
-| ~SPC m e ;~ | eval sexp and show result as comment                               |
-| ~SPC m e b~ | eval buffer                                                        |
-| ~SPC m e e~ | eval last sexp                                                     |
-| ~SPC m e f~ | eval function at point                                             |
-| ~SPC m e i~ | interrupt the current evaluation                                   |
-| ~SPC m e m~ | cider macroexpand 1                                                |
-| ~SPC m e M~ | cider macroexpand all                                              |
-| ~SPC m e n~ | refresh namespace (cider-ns-refresh)                               |
-| ~SPC m e N~ | reload namespace (cider-ns-reload), ~SPC u~ (cider-ns-reload-all)  |
-| ~SPC m e p~ | eval top-level sexp, pretty print result in separate buffer        |
-| ~SPC m e P~ | eval last sexp, pretty print result in separate buffer             |
-| ~SPC m e r~ | eval region                                                        |
-| ~SPC m e u~ | Undefine a symbol from the current namespace                       |
-| ~SPC m e v~ | eval sexp around point                                             |
-| ~SPC m e w~ | eval last sexp and replace with result                             |
+| Key binding | Description                                                       |
+|-------------+-------------------------------------------------------------------|
+| ~SPC m e ;~ | eval sexp and show result as comment                              |
+| ~SPC m e b~ | eval buffer                                                       |
+| ~SPC m e e~ | eval last sexp                                                    |
+| ~SPC m e f~ | eval function at point                                            |
+| ~SPC m e i~ | interrupt the current evaluation                                  |
+| ~SPC m e m~ | cider macroexpand 1                                               |
+| ~SPC m e M~ | cider macroexpand all                                             |
+| ~SPC m e n~ | refresh namespace (cider-ns-refresh)                              |
+| ~SPC m e N~ | reload namespace (cider-ns-reload), ~SPC u~ (cider-ns-reload-all) |
+| ~SPC m e p~ | eval top-level sexp, pretty print result in separate buffer       |
+| ~SPC m e P~ | eval last sexp, pretty print result in separate buffer            |
+| ~SPC m e r~ | eval region                                                       |
+| ~SPC m e u~ | Undefine a symbol from the current namespace                      |
+| ~SPC m e v~ | eval sexp around point                                            |
+| ~SPC m e w~ | eval last sexp and replace with result                            |
 
 *** Goto
 
@@ -512,8 +511,8 @@ Evaluate Clojure code in the source code buffer
 | ~SPC m g S~ | browse all specs                             |
 
 *** Send code to REPL
-Use these keybindings when working directly with a REPL buffer.
-Use the Evaluation keybindings when evaluating in source code buffer.
+Use these key bindings when working directly with a REPL buffer.
+Use the Evaluation key bindings when evaluating in source code buffer.
 
 | Key binding   | Description                                                                |
 |---------------+----------------------------------------------------------------------------|
@@ -564,7 +563,7 @@ Use the Evaluation keybindings when evaluating in source code buffer.
 | ~SPC m T t~ | toggle auto test mode       |
 
 *** Debugging
-TODO: separate clojure-mode and sayid keybindings
+TODO: separate clojure-mode and sayid key bindings
 
 | Key binding   | Description                                        |
 |---------------+----------------------------------------------------|
@@ -656,13 +655,13 @@ The following refactorings require cljr-refactor to be enabled and generally dep
 
 | Key binding   | Description             |
 |---------------+-------------------------|
-| ~SPC m = =~  | reformat current buffer |
+| ~SPC m = =~   | reformat current buffer |
 | ~SPC m = e b~ | reformat edn buffer     |
 | ~SPC m = e e~ | reformat edn last sexp  |
 | ~SPC m = e r~ | reformat edn region     |
 | ~SPC m = f~   | reformat current sexp   |
 | ~SPC m = l~   | realign current form    |
-| ~SPC m = r~   | realign current region |
+| ~SPC m = r~   | realign current region  |
 
 *** Profiling
 
