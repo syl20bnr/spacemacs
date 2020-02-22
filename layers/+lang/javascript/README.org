@@ -281,10 +281,10 @@ variable to =t= in the =javascript= config section:
 #+END_SRC
 
 ** Flow/Typescript
-   Enable the [[#language-server-protocol][lsp]] backend to view type information, jump to declarations, and more.
+Enable the [[#language-server-protocol][lsp]] backend to view type information, jump to declarations, and more.
 
-   js2-mode is sometimes confused by the type syntax, so you may wish to disable their
-   parse warnings:
+js2-mode is sometimes confused by the type syntax, so you may wish to disable their
+parse warnings:
 
 #+BEGIN_SRC emacs-lisp
   (javascript :variables javascript-backend 'lsp

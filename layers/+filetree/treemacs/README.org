@@ -181,7 +181,7 @@ It is possible to open the file under cursor in exact the window you want.
 By default you have to press ~o a a~ to run ace selection mode and choose
 the window with keys ~a s d f~.
 That behavior can be changed in two ways.
-   
+
 **** Set ace mode as default action
 It is possible to set =ace mode= as default action for pressing RET on a file.
 To do this add following configuration to your dotfile.
