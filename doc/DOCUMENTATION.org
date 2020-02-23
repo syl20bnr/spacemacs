@@ -3397,49 +3397,53 @@ These commands automatically switch to =lisp state=.
 Keyboard macros are a powerful feature of Emacs. A keyboard macro is a record of
 keystrokes that can be replayed at any time.
 
-*Important note:* When creating a macro do not use the =evil-escape= key
-sequence (by default ~fd~) and use the ~ESC~ key explicitly. =evil-escape=
-does not support being replayed in macros for now.
+*Important note:* When creating a macro, do not use the =evil-escape= key
+sequence (by default press ~fd~ quickly), instead press the ~ESC~ key
+explicitly. Currently =evil-escape= does not support being replayed in macros.
 
 **** Vim keyboard macros
-Spacemacs supports the VIM interface to create macros using ~q~ to start a macro
-and ~@~ in normal state.
+Spacemacs supports the VIM interface for creating macros in normal state using
+~q~ to start a macro and ~@~ to play a macro.
 
-To start recording a keyboard macro to a register type:
+To record a keyboard macro:
+- Press ~q~ (there's no visual indicator, but it's waiting for a letter key to
+  be pressed).
+- Press a letter key to start recording to that letter register.
+  (the minibuffer shows: Defining kbd macro...)
+- Perform the actions that will be recorded.
+- Press ~q~ to stop recording the macro.
+  (the minibuffer shows: Keyboard macro defined).
 
-#+begin_comment
-q<letter><commands>q
-#+end_comment
-
-To execute the recorded macro type:
-
-#+begin_comment
-<number>@<letter>
-#+end_comment
+To execute a recorded macro:
+(A macro can be played back multiple times, by typing a number before starting
+the macro)
+- Press ~@~ (the minibuffer shows: ~@-~, and it waits for a letter register key
+  to be pressed).
+- Press a letter key for a register where a previous macro has been recorded.
+- The macro can be repeated by pressing the repeat last editing command key:
+  ~.~ (period).
 
 **** Emacs keyboard macros
-The Emacs way to define macros is available behind the prefix ~SPC K~.
+The Emacs way to define macros is available behind the prefix: ~SPC K~
 
-To start recording a keyboard macro to a register type:
+To start recording a keyboard macro:
+- Press ~SPC K k~ (uppercase then lowercase) to start recording a macro.
+- Perform the actions that should be recorded.
+- Press ~SPC K K~ (uppercase twice) to stop recording the macro.
 
-#+begin_comment
-SPC K k
-#+end_comment
-
-To stop and execute the recorded macro type twice (once to stop and once to
-execute):
-
-#+begin_comment
-SPC K K
-#+end_comment
+To execute the last recorded macro press: ~SPC K K~
+The macro can be executed again by pressing ~K~ one or more times.
+The single character replay works until another key than ~K~ is pressed.
 
 ***** Macro counter
-Emacs has an interesting concept: the macro counter.
+Emacs has an interesting concept: The macro counter.
 
-When starting to record a macro the counter is at 0 (you can also set it to a
-specific value) then each time the counter is inserted it is incremented
-afterwards by 1.
-When recording a macro it is possible to insert the current value by pressing ~SPC K k~.
+When starting to record a macro, the counter starts at 0 (you can also set it to
+a specific value), then each time the counter is inserted, it is incremented
+by 1 afterwards.
+
+When recording a macro it's possible to insert the current value by pressing:
+~SPC K k~
 
 ***** Key bindings
 | Key binding | Description                                                               |
