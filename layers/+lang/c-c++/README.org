@@ -89,7 +89,7 @@ Supported backends are:
 To choose a default backend set the layer variable =c-c++-backend=:
 
 #+BEGIN_SRC elisp
-  (c-c++ :variables =c-c++-backend= 'lsp-clangd)
+  (c-c++ :variables c-c++-backend 'lsp-clangd)
 #+END_SRC
 
 Alternatively the =lsp-clangd= backend will be automatically chosen if the layer
