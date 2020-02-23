@@ -193,6 +193,11 @@
       - [[#lisp-key-bindings][Lisp Key bindings]]
         - [[#lisp-state-key-bindings][Lisp state key bindings]]
         - [[#emacs-lisp-specific-key-bindings][Emacs lisp specific key bindings]]
+    - [[#keyboard-macros][Keyboard macros]]
+      - [[#vim-keyboard-macros][Vim keyboard macros]]
+      - [[#emacs-keyboard-macros][Emacs keyboard macros]]
+        - [[#macro-counter][Macro counter]]
+        - [[#key-bindings-1][Key bindings]]
     - [[#mouse-usage][Mouse usage]]
   - [[#comparing-diff][Comparing (diff)]]
   - [[#managing-projects][Managing projects]]
@@ -3274,7 +3279,7 @@ The key bindings start with ~SPC x r~ and have the following mnemonic structure:
 - ~SPC x r <source> <target>~ convert from source to target
 - ~SPC x r~ do what I mean
 
-| Key binding   | Function                                                                               |
+| Key binding   |Description                                                                            |
 |---------------+----------------------------------------------------------------------------------------|
 | ~SPC x r /~   | Explain the regexp around point with =rx=                                              |
 | ~SPC x r '​~   | Generate strings given by a regexp given this list is finite                           |
@@ -3322,7 +3327,7 @@ Examples:
 ***** Lisp state key bindings
 These commands automatically switch to =lisp state=.
 
-| Key binding | Function                                                            |
+| Key binding | Description                                                         |
 |-------------+---------------------------------------------------------------------|
 | ~SPC k %~   | evil jump item                                                      |
 | ~SPC k :~   | ex command                                                          |
@@ -3373,23 +3378,91 @@ These commands automatically switch to =lisp state=.
 
 ***** Emacs lisp specific key bindings
 
-| Key binding | Function                                   |
-|-------------+--------------------------------------------|
-| ~SPC m e $~ | go to end of line and evaluate last sexp   |
-| ~SPC m e b~ | evaluate buffer                            |
-| ~SPC m e c~ | evaluate current form (a =def= or a =set=) |
-| ~SPC m e e~ | evaluate last sexp                         |
-| ~SPC m e f~ | evaluate current defun                     |
-| ~SPC m e l~ | go to end of line and evaluate last sexp   |
-| ~SPC m e r~ | evaluate region                            |
-
-| Key binding | Function                                           |
+| Key binding | Description                                        |
 |-------------+----------------------------------------------------|
+| ~SPC m e $~ | go to end of line and evaluate last sexp           |
+| ~SPC m e b~ | evaluate buffer                                    |
+| ~SPC m e c~ | evaluate current form (a =def= or a =set=)         |
+| ~SPC m e e~ | evaluate last sexp                                 |
+| ~SPC m e f~ | evaluate current defun                             |
+| ~SPC m e l~ | go to end of line and evaluate last sexp           |
+| ~SPC m e r~ | evaluate region                                    |
 | ~SPC m g g~ | go to definition                                   |
 | ~SPC m g G~ | go to definition in another window                 |
 | ~SPC m h h~ | describe elisp thing at point (show documentation) |
 | ~SPC m t b~ | execute buffer tests                               |
 | ~SPC m t q~ | ask for test function to execute                   |
+
+*** Keyboard macros
+Keyboard macros are a powerful feature of Emacs. A keyboard macro is a record of
+keystrokes that can be replayed at any time.
+
+*Important note:* When creating a macro do not use the =evil-escape= key
+sequence (by default ~fd~) and use the ~ESC~ key explicitly. =evil-escape=
+does not support being replayed in macros for now.
+
+**** Vim keyboard macros
+Spacemacs supports the VIM interface to create macros using ~q~ to start a macro
+and ~@~ in normal state.
+
+To start recording a keyboard macro to a register type:
+
+#+begin_comment
+q<letter><commands>q
+#+end_comment
+
+To execute the recorded macro type:
+
+#+begin_comment
+<number>@<letter>
+#+end_comment
+
+**** Emacs keyboard macros
+The Emacs way to define macros is available behind the prefix ~SPC K~.
+
+To start recording a keyboard macro to a register type:
+
+#+begin_comment
+SPC K k
+#+end_comment
+
+To stop and execute the recorded macro type twice (once to stop and once to
+execute):
+
+#+begin_comment
+SPC K K
+#+end_comment
+
+***** Macro counter
+Emacs has an interesting concept: the macro counter.
+
+When starting to record a macro the counter is at 0 (you can also set it to a
+specific value) then each time the counter is inserted it is incremented
+afterwards by 1.
+When recording a macro it is possible to insert the current value by pressing ~SPC K k~.
+
+***** Key bindings
+| Key binding | Description                                                               |
+|-------------+---------------------------------------------------------------------------|
+| ~SPC K c a~ | increment macro counter                                                   |
+| ~SPC K c c~ | insert the current value of the macro counter                             |
+| ~SPC K c C~ | set the macro counter                                                     |
+| ~SPC K c f~ | set the display format for the macro counter                              |
+| ~SPC K e b~ | assign a key binding to the last macro                                    |
+| ~SPC K e e~ | edit last macro in a buffer                                               |
+| ~SPC K e l~ | edit a macro from lossage information (last 300 executed commands)        |
+| ~SPC K e n~ | give a name to the last macro                                             |
+| ~SPC K e r~ | write the last macro to a register (use ~SPC r r~ to call it)             |
+| ~SPC K e s~ | step by step edit of the last macro                                       |
+| ~SPC K k~   | start recording macro, if already recording then insert the macro counter |
+| ~SPC K K~   | stop recording macro, if no macro is recording then run last macro        |
+| ~SPC K r L~ | view head macro in ring                                                   |
+| ~SPC K r d~ | delete head macro in ring                                                 |
+| ~SPC K r l~ | run second macro in ring                                                  |
+| ~SPC K r n~ | cycle to next macro in ring                                               |
+| ~SPC K r p~ | cycle to previous macro in ring                                           |
+| ~SPC K r s~ | swap the first two macros in ring                                         |
+| ~SPC K v~   | view last macro string in minibuffer                                      |
 
 *** Mouse usage
 There are some added mouse features set for the line number margin (if shown):

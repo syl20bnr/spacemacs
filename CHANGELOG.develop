@@ -750,32 +750,25 @@ Other:
     - ~SPC D w w~   ediff-windows-wordwise
     (thanks to Spenser Truex)
   - New ~SPC K~ prefix and subprefixes to use keyboard macros built-ins:
-    - ~SPC K (~   kmacro-start-macro-or-insert-counter
-    - ~SPC K )~   kmacro-end-or-call-macro-repeat
-    - ~SPC K 2 c~ kmacro-call-ring-2nd
-    - ~SPC K 2 C~ kmacro-call-ring-2nd-repeat
-    - ~SPC K 2 v~ kmacro-view-ring-2nd
-    - ~SPC K a~   kmacro-add-counter
-    - ~SPC K b~   kmacro-bind-to-key
-    - ~SPC K c~   kmacro-call-macro
-    - ~SPC K d~   kmacro-delete-ring-head
-    - ~SPC K e l~ kmacro-edit-lossage
-    - ~SPC K e m~ kmacro-edit-macro
-    - ~SPC K e r~ kmacro-edit-macro-repeat
-    - ~SPC K e t~ kmacro-step-edit-macro
-    - ~SPC K i~   kmacro-insert-counter
-    - ~SPC K m~   kmacro-end-call-mouse
-    - ~SPC K n~   kmacro-cycle-ring-next
-    - ~SPC K N~   kmacro-name-last-macro
-    - ~SPC K p~   kmacro-cycle-ring-previous
-    - ~SPC K r~   helm-register
-    - ~SPC K s c~ kmacro-set-counter
-    - ~SPC K s f~ kmacro-set-format
-    - ~SPC K s r~ kmacro-swap-ring
-    - ~SPC K v~   kmacro-view-macro
-    - ~SPC K V~   kmacro-view-macro-repeat
-    - ~SPC K w~   kmacro-to-register
-    - ~SPC K y~   jump-to-register
+    - ~SPC K c a~  increment macro counter
+    - ~SPC K c c~  insert the current value of the macro counter
+    - ~SPC K c C~  set the macro counter
+    - ~SPC K c f~  set the display format for the macro counter
+    - ~SPC K e b~  assign a key binding to the last macro
+    - ~SPC K e e~  edit last macro in a buffer
+    - ~SPC K e l~  edit a macro from lossage information
+    - ~SPC K e n~  give a name to the last macro
+    - ~SPC K e r~  write the last macro to a register (use ~SPC r r~ to call it)
+    - ~SPC K e s~  step by step edit of the last macro
+    - ~SPC K k~ start recording macro, if already recording then insert counter
+    - ~SPC K K~  stop recording macro or run last macro
+    - ~SPC K r L~  view head macro in ring
+    - ~SPC K r d~  delete head macro in ring
+    - ~SPC K r l~  run second macro in ring
+    - ~SPC K r n~  cycle to next macro in ring
+    - ~SPC K r p~  cycle to previous macro in ring
+    - ~SPC K r s~  swap the first two macros in ring
+    - ~SPC K v~    view last macro string in minibuffer
     (thanks to Spenser Truex)
   - New ~SPC R~ prefix to use rectangle manipulation built-ins:
     - ~SPC R !~ clear-rectangle
