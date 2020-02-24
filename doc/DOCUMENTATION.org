@@ -3279,7 +3279,7 @@ The key bindings start with ~SPC x r~ and have the following mnemonic structure:
 - ~SPC x r <source> <target>~ convert from source to target
 - ~SPC x r~ do what I mean
 
-| Key binding   |Description                                                                            |
+| Key binding   | Description                                                                            |
 |---------------+----------------------------------------------------------------------------------------|
 | ~SPC x r /~   | Explain the regexp around point with =rx=                                              |
 | ~SPC x r '​~   | Generate strings given by a regexp given this list is finite                           |
@@ -3446,6 +3446,7 @@ When recording a macro it's possible to insert the current value by pressing:
 ~SPC K k~
 
 ***** Key bindings
+
 | Key binding | Description                                                               |
 |-------------+---------------------------------------------------------------------------|
 | ~SPC K c a~ | increment macro counter                                                   |
