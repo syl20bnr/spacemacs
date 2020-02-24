@@ -17,6 +17,7 @@
   - [[#files][Files]]
   - [[#the-help-system][The Help System]]
   - [[#exploring][Exploring]]
+  - [[#regular-expression-syntax][Regular expression syntax]]
 - [[#customization][Customization]]
   - [[#the-spacemacs-file][The .spacemacs file]]
   - [[#emacs-lisp][Emacs Lisp]]
@@ -185,6 +186,24 @@ explore:
 |-------------+---------------------------------------------------------------|
 | ~SPC h SPC~ | Lists all layers and allows you to view files from the layer. |
 | ~SPC ?~     | Lists all key bindings.                                       |
+
+** Regular expression syntax
+One thing that might catch you off guard is the difference in regex syntax
+between Vim and Emacs. In Emacs, even when you search under =evil-mode=
+with the =/= key, you'll be using the Emacs flavor of regular expression,
+instead of the Vim one.
+
+Some idiosyncrasies of Elisp regex:
+- You need to additionally escape some symbols such as:
+  - backslash ~\~ :: ~\\~
+  - alternation ~|~ :: ~\|~
+  - grouping ~(~ and ~)~ :: ~\(~ and ~\)~
+  - counting ~{~ and ~}~ :: ~\{~ and ~\}~
+-  ~\s~ begins a [[https://www.emacswiki.org/emacs/RegularExpression][syntax class]]. Whitespaces are denoted as ~\s-~ instead of ~\s~.
+- Use ~[0-9]~ or ~[:digit:]~ instead of ~\d~ to denote digits.
+
+For more details, refer to [[https://www.emacswiki.org/emacs/RegularExpression][The EmacsWiki]], this [[https://stackoverflow.com/questions/1946352/comparison-table-for-emacs-regexp-and-perl-compatible-regular-expression-pcre][SO question]]
+and [[https://github.com/joddie/pcre2el][this tool]] which converts PCRE regex to Emacs regex.
 
 * Customization
 ** The .spacemacs file
