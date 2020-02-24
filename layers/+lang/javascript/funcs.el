@@ -24,12 +24,14 @@
   "Conditionally setup javascript backend."
   (pcase (spacemacs//javascript-backend)
     (`tern (spacemacs//javascript-setup-tern))
+    (`tide (spacemacs//tide-setup))
     (`lsp (spacemacs//javascript-setup-lsp))))
 
 (defun spacemacs//javascript-setup-company ()
   "Conditionally setup company based on backend."
   (pcase (spacemacs//javascript-backend)
     (`tern (spacemacs//javascript-setup-tern-company))
+    (`tide (spacemacs//tide-setup-company 'js2-mode))
     (`lsp (spacemacs//javascript-setup-lsp-company))))
 
 (defun spacemacs//javascript-setup-dap ()

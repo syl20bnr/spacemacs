@@ -15,7 +15,7 @@
 
 (defvar javascript-backend 'tern
   "The backend to use for IDE features.
-Possible values are `tern' and `lsp'.
+Possible values are `tern', `tide' and `lsp'.
 If `nil' then `tern' is the default backend unless `lsp' layer is used.")
 
 (defvar javascript-fmt-tool 'web-beautify

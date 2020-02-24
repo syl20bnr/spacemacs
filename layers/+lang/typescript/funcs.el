@@ -23,45 +23,20 @@
 (defun spacemacs//typescript-setup-backend ()
   "Conditionally setup typescript backend."
   (pcase (spacemacs//typescript-backend)
-    (`tide (spacemacs//typescript-setup-tide))
+    (`tide (spacemacs//tide-setup))
     (`lsp (spacemacs//typescript-setup-lsp))))
 
 (defun spacemacs//typescript-setup-company ()
   "Conditionally setup company based on backend."
   (pcase (spacemacs//typescript-backend)
-    (`tide (spacemacs//typescript-setup-tide-company))
+    (`tide (spacemacs//tide-setup-company 'typescript-mode 'typescript-tsx-mode))
     (`lsp (spacemacs//typescript-setup-lsp-company))))
 
 (defun spacemacs//typescript-setup-eldoc ()
   "Conditionally setup eldoc based on backend."
   (pcase (spacemacs//typescript-backend)
-    (`tide (spacemacs//typescript-setup-tide-eldoc))
+    (`tide (spacemacs//tide-setup-eldoc))
     (`lsp (spacemacs//typescript-setup-lsp-eldoc))))
-
-
-;; tide
-
-(defun spacemacs//typescript-setup-tide ()
-  "Setup tide backend."
-  (progn
-    (evilified-state-evilify tide-references-mode tide-references-mode-map
-      (kbd "C-k") 'tide-find-previous-reference
-      (kbd "C-j") 'tide-find-next-reference
-      (kbd "C-l") 'tide-goto-reference)
-    (tide-setup)))
-
-(defun spacemacs//typescript-setup-tide-company ()
-  "Setup tide auto-completion."
-  (spacemacs|add-company-backends
-    :backends company-tide
-    :modes typescript-mode typescript-tsx-mode
-    :variables
-    company-minimum-prefix-length 2)
-  (company-mode))
-
-(defun spacemacs//typescript-setup-tide-eldoc ()
-  "Setup eldoc for tide."
-  (eldoc-mode))
 
 
 ;; lsp

@@ -176,13 +176,14 @@ then set the variable =typescript-lsp-linter= to =nil=.
 | ~SPC m g b~ | jump back                                                    |
 | ~SPC m g g~ | jump to entity's definition                                  |
 | ~SPC m g t~ | jump to entity's type definition                             |
-| ~SPC m g u~ | references                                                   |
+| ~SPC m g r~ | references                                                   |
 | ~SPC m h h~ | documentation at point                                       |
+| ~SPC m p~   | send selected region or current buffer to the web playground |
 | ~SPC m r i~ | organize imports                                             |
 | ~SPC m r r~ | rename symbol                                                |
 | ~SPC m r f~ | rename file                                                  |
-| ~SPC m s p~ | send selected region or current buffer to the web playground |
-| ~SPC m s r~ | restart server                                               |
+| ~SPC m S r~ | restart server                                               |
+| ~SPC m S j~ | create a barebone =jsconfig.json= at project root            |
 
 ** Reference Major Mode
 

@@ -16,6 +16,7 @@
   - [[#format-buffer-before-saving][Format buffer before saving]]
 - [[#backends][Backends]]
   - [[#tern][Tern]]
+  - [[#tide][Tide]]
   - [[#language-server-protocol][Language Server Protocol]]
     - [[#typescript][TypeScript]]
     - [[#flow][Flow]]
@@ -163,6 +164,9 @@ Default is =’web-beautify=.
 * Backends
 ** Tern
 See [[file:../../+tools/tern/README.org][tern layer]] documentation.
+
+** Tide
+See [[file:~/.emacs.d/layers/+tools/tide/README.org][tide layer]] documentation.
 
 ** Language Server Protocol
 To use an LSP server with JavaScript, add it as a =javascript-backend= to your
