@@ -162,8 +162,8 @@ to 'auto, tags may not be properly aligned. "
         (yellow        (if (eq variant 'dark) (if (true-color-p) "#b1951d" "#875f00") (if (true-color-p) "#b1951d" "#875f00")))
         (yellow-bg     (if (eq variant 'dark) (if (true-color-p) "#32322c" "#262626") (if (true-color-p) "#f6f1e1" "#ffffff"))))
 
-    (cl-loop for (var . val) in spacemacs-theme-custom-colors
-             do (set var val))
+    (cl-loop for (cvar . val) in spacemacs-theme-custom-colors
+             do (set cvar val))
 
     (custom-theme-set-faces
      theme-name
@@ -192,7 +192,7 @@ to 'auto, tags may not be properly aligned. "
      `(fringe ((,class (:background ,bg1 :foreground ,base))))
      `(header-line ((,class :background ,bg2)))
      `(highlight ((,class (:foreground ,base :background ,highlight))))
-     `(hl-line ((,class (:background ,bg2))))
+     `(hl-line ((,class (:background ,bg2 :extend t))))
      `(isearch ((,class (:foreground ,bg1 :background ,mat))))
      `(lazy-highlight ((,class (:background ,green-bg-s :weight normal))))
      `(link ((,class (:foreground ,comment :underline t))))
@@ -200,7 +200,7 @@ to 'auto, tags may not be properly aligned. "
      `(match ((,class (:background ,highlight :foreground ,mat))))
      `(minibuffer-prompt ((,class (:inherit bold :foreground ,keyword))))
      `(page-break-lines ((,class (:foreground ,act2))))
-     `(region ((,class (:background ,highlight))))
+     `(region ((,class (:background ,highlight :extend t))))
      `(secondary-selection ((,class (:background ,bg3))))
      `(shadow ((,class (:foreground ,base-dim))))
      `(success ((,class (:foreground ,suc))))
@@ -286,17 +286,17 @@ to 'auto, tags may not be properly aligned. "
      `(company-tooltip-selection ((,class (:background ,ttip-sl :foreground ,base))))
 
 ;;;;; diff
-     `(diff-added             ((,class :background nil :foreground ,green)))
+     `(diff-added             ((,class :background nil :foreground ,green :extend t)))
      `(diff-changed           ((,class :background nil :foreground ,blue)))
-     `(diff-header            ((,class :background ,cblk-ln-bg :foreground ,func)))
-     `(diff-file-header       ((,class :background ,cblk-ln-bg :foreground ,cblk)))
-     `(diff-indicator-added   ((,class :background nil :foreground ,green)))
+     `(diff-header            ((,class :background ,cblk-ln-bg :foreground ,func :extend t)))
+     `(diff-file-header       ((,class :background ,cblk-ln-bg :foreground ,cblk :extend t)))
+     `(diff-indicator-added   ((,class :background nil :foreground ,green :extend t)))
      `(diff-indicator-changed ((,class :background nil :foreground ,blue)))
      `(diff-indicator-removed ((,class :background nil :foreground ,red)))
      `(diff-refine-added      ((,class :background ,green :foreground ,bg1)))
      `(diff-refine-changed    ((,class :background ,blue :foreground ,bg1)))
      `(diff-refine-removed    ((,class :background ,red :foreground ,bg1)))
-     `(diff-removed           ((,class :background nil :foreground ,red)))
+     `(diff-removed           ((,class :background nil :foreground ,red :extend t)))
 
 ;;;;; diff-hl
      `(diff-hl-change ((,class :background ,blue-bg-s :foreground ,blue)))
@@ -318,22 +318,22 @@ to 'auto, tags may not be properly aligned. "
      `(doom-modeline-bar ((,class (:background ,keyword))))
 
 ;;;;; ediff
-     `(ediff-current-diff-A ((,class(:background ,red-bg :foreground ,red))))
-     `(ediff-current-diff-Ancestor ((,class(:background ,aqua-bg :foreground ,aqua))))
-     `(ediff-current-diff-B ((,class(:background ,green-bg :foreground ,green))))
-     `(ediff-current-diff-C ((,class(:background ,blue-bg :foreground ,blue))))
-     `(ediff-even-diff-A ((,class(:background ,bg3))))
-     `(ediff-even-diff-Ancestor ((,class(:background ,bg3))))
-     `(ediff-even-diff-B ((,class(:background ,bg3))))
-     `(ediff-even-diff-C ((,class(:background ,bg3))))
-     `(ediff-fine-diff-A ((,class(:background ,red :foreground ,bg1))))
-     `(ediff-fine-diff-Ancestor ((,class(:background nil :inherit bold))))
+     `(ediff-current-diff-A ((,class(:background ,red-bg :foreground ,red :extend t))))
+     `(ediff-current-diff-Ancestor ((,class(:background ,aqua-bg :foreground ,aqua :extend t))))
+     `(ediff-current-diff-B ((,class(:background ,green-bg :foreground ,green :extend t))))
+     `(ediff-current-diff-C ((,class(:background ,blue-bg :foreground ,blue :extend t))))
+     `(ediff-even-diff-A ((,class(:background ,bg3 :extend t))))
+     `(ediff-even-diff-Ancestor ((,class(:background ,bg3 :extend t))))
+     `(ediff-even-diff-B ((,class(:background ,bg3 :extend t))))
+     `(ediff-even-diff-C ((,class(:background ,bg3 :extend t))))
+     `(ediff-fine-diff-A ((,class(:background ,red :foreground ,bg1 :extend t))))
+     `(ediff-fine-diff-Ancestor ((,class(:background nil :inherit bold :extend t))))
      `(ediff-fine-diff-B ((,class(:background ,green :foreground ,bg1))))
      `(ediff-fine-diff-C ((,class(:background ,blue :foreground ,bg1))))
-     `(ediff-odd-diff-A ((,class(:background ,bg4))))
-     `(ediff-odd-diff-Ancestor ((,class(:background ,bg4))))
-     `(ediff-odd-diff-B ((,class(:background ,bg4))))
-     `(ediff-odd-diff-C ((,class(:background ,bg4))))
+     `(ediff-odd-diff-A ((,class(:background ,bg4 :extend t))))
+     `(ediff-odd-diff-Ancestor ((,class(:background ,bg4 :extend t))))
+     `(ediff-odd-diff-B ((,class(:background ,bg4 :extend t))))
+     `(ediff-odd-diff-C ((,class(:background ,bg4 :extend t))))
 
 ;;;;; ein
      `(ein:cell-input-area((,class (:background ,bg2))))
@@ -584,6 +584,9 @@ to 'auto, tags may not be properly aligned. "
      `(ivy-minibuffer-match-face-3 ((,class (:foreground ,head4 :underline t))))
      `(ivy-minibuffer-match-face-4 ((,class (:foreground ,head3 :underline t))))
      `(ivy-remote ((,class (:foreground ,cyan))))
+     
+;;;;; ivy-posframe
+     `(ivy-posframe ((,class (:background ,bg3))))
 
 ;;;;; latex
      `(font-latex-bold-face ((,class (:foreground ,comp))))
@@ -624,19 +627,19 @@ to 'auto, tags may not be properly aligned. "
      `(magit-blame-name    ((,class :background ,yellow-bg :foreground ,yellow)))
      `(magit-blame-sha1    ((,class :background ,yellow-bg :foreground ,func)))
      `(magit-blame-subject ((,class :background ,yellow-bg :foreground ,yellow)))
-     `(magit-blame-summary ((,class :background ,yellow-bg :foreground ,yellow)))
+     `(magit-blame-summary ((,class :background ,yellow-bg :foreground ,yellow :extend t)))
      `(magit-blame-time    ((,class :background ,yellow-bg :foreground ,green)))
      `(magit-branch ((,class (:foreground ,const :inherit bold))))
      `(magit-branch-current ((,class (:background ,blue-bg :foreground ,blue :inherit bold :box t))))
      `(magit-branch-local ((,class (:background ,blue-bg :foreground ,blue :inherit bold))))
      `(magit-branch-remote ((,class (:background ,aqua-bg :foreground ,aqua :inherit bold))))
-     `(magit-diff-context-highlight ((,class (:background ,bg2 :foreground ,base))))
-     `(magit-diff-hunk-heading ((,class (:background ,ttip-bg :foreground ,ttip))))
-     `(magit-diff-hunk-heading-highlight ((,class (:background ,ttip-sl :foreground ,base))))
+     `(magit-diff-context-highlight ((,class (:background ,bg2 :foreground ,base :extend t))))
+     `(magit-diff-hunk-heading ((,class (:background ,ttip-bg :foreground ,ttip :extend t))))
+     `(magit-diff-hunk-heading-highlight ((,class (:background ,ttip-sl :foreground ,base :extend t))))
      `(magit-hash ((,class (:foreground ,var))))
-     `(magit-hunk-heading           ((,class (:background ,bg3))))
-     `(magit-hunk-heading-highlight ((,class (:background ,bg3))))
-     `(magit-item-highlight ((,class :background ,bg2)))
+     `(magit-hunk-heading           ((,class (:background ,bg3 :extend t))))
+     `(magit-hunk-heading-highlight ((,class (:background ,bg3 :extend t))))
+     `(magit-item-highlight ((,class :background ,bg2 :extend t)))
      `(magit-log-author ((,class (:foreground ,func))))
      `(magit-log-head-label-head ((,class (:background ,yellow :foreground ,bg1 :inherit bold))))
      `(magit-log-head-label-local ((,class (:background ,keyword :foreground ,bg1 :inherit bold))))
@@ -655,8 +658,8 @@ to 'auto, tags may not be properly aligned. "
      `(magit-reflog-rebase ((,class (:foreground ,magenta))))
      `(magit-reflog-remote ((,class (:foreground ,cyan))))
      `(magit-reflog-reset ((,class (:foreground ,red))))
-     `(magit-section-heading        ((,class (:foreground ,keyword :inherit bold))))
-     `(magit-section-highlight      ((,class (:background ,bg2))))
+     `(magit-section-heading        ((,class (:foreground ,keyword :inherit bold :extend t))))
+     `(magit-section-highlight      ((,class (:background ,bg2 :extend t))))
      `(magit-section-title ((,class (:background ,bg1 :foreground ,keyword :inherit bold))))
 
 ;;;;; man
@@ -727,9 +730,9 @@ to 'auto, tags may not be properly aligned. "
      `(org-agenda-date-weekend ((,class (:inherit bold :foreground ,var))))
      `(org-agenda-done ((,class (:foreground ,suc :height ,(if spacemacs-theme-org-agenda-height 1.2 1.0)))))
      `(org-agenda-structure ((,class (:inherit bold :foreground ,comp))))
-     `(org-block ((,class (:background ,cblk-bg :foreground ,cblk))))
-     `(org-block-begin-line ((,class (:background ,cblk-ln-bg :foreground ,cblk-ln))))
-     `(org-block-end-line ((,class (:background ,cblk-ln-bg :foreground ,cblk-ln))))
+     `(org-block ((,class (:background ,cblk-bg :foreground ,cblk :extend t))))
+     `(org-block-begin-line ((,class (:background ,cblk-ln-bg :foreground ,cblk-ln :extend t))))
+     `(org-block-end-line ((,class (:background ,cblk-ln-bg :foreground ,cblk-ln :extend t))))
      `(org-clock-overlay ((,class (:foreground ,comp))))
      `(org-code ((,class (:foreground ,cyan))))
      `(org-column ((,class (:background ,highlight))))
@@ -834,8 +837,8 @@ to 'auto, tags may not be properly aligned. "
      `(sp-show-pair-match-face ((,class (:foreground ,mat :inherit bold  :underline ,(when spacemacs-theme-underline-parens t)))))
 
 ;;;;; smerge
-     `(smerge-base ((,class (:background ,yellow-bg))))
-     `(smerge-markers ((,class (:background ,ttip-bg :foreground ,ttip))))
+     `(smerge-base ((,class (:background ,yellow-bg :extend t))))
+     `(smerge-markers ((,class (:background ,ttip-bg :foreground ,ttip :extend t))))
      `(smerge-mine ((,class (:background ,red-bg))))
      `(smerge-other ((,class (:background ,green-bg))))
      `(smerge-refined-added ((,class (:background ,green-bg-s :foreground ,green))))
@@ -877,14 +880,28 @@ to 'auto, tags may not be properly aligned. "
 
 ;;;;; term
      `(term ((,class (:foreground ,base :background ,bg1))))
-     `(term-color-black ((,class (:foreground ,bg4))))
-     `(term-color-blue ((,class (:foreground ,keyword))))
-     `(term-color-cyan ((,class (:foreground ,cyan))))
-     `(term-color-green ((,class (:foreground ,green))))
-     `(term-color-magenta ((,class (:foreground ,magenta))))
-     `(term-color-red ((,class (:foreground ,red))))
-     `(term-color-white ((,class (:foreground ,base))))
-     `(term-color-yellow ((,class (:foreground ,yellow))))
+     `(term-color-black ((,class (:foreground ,bg4 :background ,bg4))))
+     `(term-color-blue ((,class (:foreground ,keyword :background ,keyword))))
+     `(term-color-cyan ((,class (:foreground ,cyan :background ,cyan))))
+     `(term-color-green ((,class (:foreground ,green :background ,green))))
+     `(term-color-magenta ((,class (:foreground ,magenta :background ,magenta))))
+     `(term-color-red ((,class (:foreground ,red :background ,red))))
+     `(term-color-white ((,class (:foreground ,base :background ,base))))
+     `(term-color-yellow ((,class (:foreground ,yellow :background ,yellow))))
+
+;;;;; vterm
+     `(vterm-color-default ((,class (:foreground ,base :background ,bg1))))
+     ;; vterm-color-black used to render black color code.
+     ;; The foreground color is used as ANSI color 0 and the background
+     ;; color is used as ANSI color 8.
+     `(vterm-color-black ((,class (:foreground ,bg4 :background ,bg4))))
+     `(vterm-color-blue ((,class (:foreground ,blue :background ,blue))))
+     `(vterm-color-cyan ((,class (:foreground ,cyan :background ,cyan))))
+     `(vterm-color-green ((,class (:foreground ,green :background ,green))))
+     `(vterm-color-magenta ((,class (:foreground ,magenta :background ,magenta))))
+     `(vterm-color-red ((,class (:foreground ,red  :background ,red))))
+     `(vterm-color-white ((,class (:foreground ,base  :background ,base))))
+     `(vterm-color-yellow ((,class (:foreground ,yellow   :background ,yellow))))
 
 ;;;;; tide
      `(tide-hl-identifier-face ((,class (:foreground ,yellow :background ,yellow-bg))))
