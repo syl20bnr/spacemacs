@@ -31,6 +31,7 @@
         prettier-js
         skewer-mode
         tern
+        tide
         web-beautify
         ))
 
@@ -87,7 +88,7 @@
       (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-backend)
       (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-next-error-fn)
       ;; safe values for backend to be used in directory file variables
-      (dolist (value '(lsp tern))
+      (dolist (value '(lsp tern tide))
         (add-to-list 'safe-local-variable-values
                      (cons 'javascript-backend value))))
     :config
@@ -260,6 +261,9 @@
 
 (defun javascript/post-init-tern ()
   (add-to-list 'tern--key-bindings-modes 'js2-mode))
+
+(defun javascript/post-init-tide ()
+  (add-to-list 'tide-managed-modes 'js2-mode))
 
 (defun javascript/pre-init-web-beautify ()
   (when (eq javascript-fmt-tool 'web-beautify)
