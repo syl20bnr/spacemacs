@@ -5,7 +5,7 @@
 ;; Author: Steven Degutis
 ;; Maintainer: Christopher Reichert <creichert07@gmail.com>
 ;; Version: 1.0.0
-;; Package-Version: 20160429.1037
+;; Package-Version: 20180618.2101
 ;; Keywords: convenience
 ;; URL: https://github.com/creichert/ido-vertical-mode.el
 
@@ -170,23 +170,22 @@ so we can restore it when turning `ido-vertical-mode' off")
           ;; Make a copy of [ido-matches], otherwise the selected string
           ;; could contain text properties which could lead to weird
           ;; artifacts, e.g. buffer-file-name having text properties.
-          (when (eq comps ido-matches)
-            (setq comps (copy-sequence ido-matches)))
-
-          (dotimes (i ncomps)
-            (let ((comps-i (nth i comps)))
-              (setf comps-i
-                    (setf (nth i comps) (substring (if (listp comps-i)
-                                                       (car comps-i)
-                                                     comps-i)
-                                                   0)))
-
-              (when (string-match (if ido-enable-regexp name (regexp-quote name)) comps-i)
-                (ignore-errors
-                  (add-face-text-property (match-beginning 0)
-                                          (match-end 0)
-                                          'ido-vertical-match-face
-                                          nil comps-i)))))))
+          (setq comps (cl-loop for comps-i being the elements of (if (eq comps ido-matches)
+                                                                     ido-matches
+                                                                   comps)
+                               do
+                               (setf comps-i (substring-no-properties
+                                              (if (listp comps-i)
+                                                  (car comps-i)
+                                                comps-i)
+                                              0))
+                               (when (string-match (if ido-enable-regexp name (regexp-quote name)) comps-i)
+                                 (ignore-errors
+                                   (add-face-text-property (match-beginning 0)
+                                                           (match-end 0)
+                                                           'ido-vertical-match-face
+                                                           nil comps-i)))
+                               collect comps-i))))
 
     (if (and ind ido-use-faces)
         (put-text-property 0 1 'face 'ido-indicator ind))
