@@ -199,7 +199,7 @@ Some idiosyncrasies of Elisp regex:
   - alternation ~|~ :: ~\|~
   - grouping ~(~ and ~)~ :: ~\(~ and ~\)~
   - counting ~{~ and ~}~ :: ~\{~ and ~\}~
--  ~\s~ begins a [[https://www.emacswiki.org/emacs/RegularExpression][syntax class]]. Whitespaces are denoted as ~\s-~ instead of ~\s~.
+- ~\s~ begins a [[https://www.emacswiki.org/emacs/RegularExpression][syntax class]]. Whitespaces are denoted as ~\s-~ instead of ~\s~.
 - Use ~[0-9]~ or ~[:digit:]~ instead of ~\d~ to denote digits.
 
 For more details, refer to [[https://www.emacswiki.org/emacs/RegularExpression][The EmacsWiki]], this [[https://stackoverflow.com/questions/1946352/comparison-table-for-emacs-regexp-and-perl-compatible-regular-expression-pcre][SO question]]
