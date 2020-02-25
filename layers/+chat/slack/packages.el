@@ -61,19 +61,18 @@
     :commands (slack-start)
     :defer t
     :init
-    (progn
-      (spacemacs/declare-prefix "aC" "slack")
-      (spacemacs/set-leader-keys
-        "aCs" 'slack-start
-        "aCj" 'slack-channel-select
-        "aCg" 'slack-group-select
-        "aCr" 'slack-select-rooms
-        "aCd" 'slack-im-select
-        "aCq" 'slack-ws-close)
-      (setq slack-enable-emoji t))
+    (spacemacs/declare-prefix "aC" "slack")
+    (spacemacs/set-leader-keys
+      "aCs" 'slack-start
+      "aCj" 'slack-channel-select
+      "aCg" 'slack-group-select
+      "aCr" 'slack-select-rooms
+      "aCd" 'slack-im-select
+      "aCq" 'slack-ws-close)
+    (setq slack-enable-emoji t)
     :config
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'slack-mode
+    (dolist (mode '(slack-mode slack-message-buffer-mode))
+      (spacemacs/set-leader-keys-for-major-mode mode
         "j" 'slack-channel-select
         "g" 'slack-group-select
         "r" 'slack-select-rooms
@@ -88,14 +87,12 @@
         "@" 'slack-message-embed-mention
         "#" 'slack-message-embed-channel
         ")" 'slack-message-add-reaction
-        "(" 'slack-message-remove-reaction)
-      (evil-define-key 'insert slack-mode-map
-        (kbd "@") 'slack-message-embed-mention
-        (kbd "#") 'slack-message-embed-channel))))
+        "(" 'slack-message-remove-reaction))
+    (evil-define-key 'insert slack-mode-map
+      (kbd "@") 'slack-message-embed-mention
+      (kbd "#") 'slack-message-embed-channel)))
 
 (defun slack/pre-init-window-purpose ()
   (spacemacs|use-package-add-hook window-purpose
     :pre-config
     (add-to-list 'purpose-user-mode-purposes '(slack-mode . chat))))
-
-;;; packages.el ends here
