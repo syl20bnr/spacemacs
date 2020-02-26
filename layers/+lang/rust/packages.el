@@ -33,21 +33,26 @@
       (spacemacs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "c." 'cargo-process-repeat
-        "cC" 'cargo-process-clean
-        "cX" 'cargo-process-run-example
+        "ca" 'cargo-process-add
+        "cA" 'cargo-process-audit
         "cc" 'cargo-process-build
+        "cC" 'cargo-process-clean
         "cd" 'cargo-process-doc
         "cD" 'cargo-process-doc-open
         "ce" 'cargo-process-bench
+        "cE" 'cargo-process-run-example
         "cf" 'cargo-process-fmt
         "ci" 'cargo-process-init
         "cl" 'cargo-process-clippy
         "cn" 'cargo-process-new
         "co" 'cargo-process-current-file-tests
+        "cr" 'cargo-process-rm
         "cs" 'cargo-process-search
         "ct" 'cargo-process-current-test
         "cu" 'cargo-process-update
+        "cU" 'cargo-process-upgrade
         "cx" 'cargo-process-run
+        "cX" 'cargo-process-run-bin
         "cv" 'cargo-process-check
         "t" 'cargo-process-test))))
 

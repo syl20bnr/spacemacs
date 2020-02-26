@@ -16,7 +16,10 @@
       - [[#autocompletion][Autocompletion]]
       - [[#debugger-dap-integration][Debugger (dap integration)]]
   - [[#cargo][Cargo]]
+    - [[#cargo-edit][cargo-edit]]
+    - [[#cargo-audit][cargo-audit]]
   - [[#rustfmt][Rustfmt]]
+  - [[#clippy][Clippy]]
 - [[#key-bindings][Key bindings]]
   - [[#debugger][debugger]]
 
@@ -92,6 +95,12 @@ To install the debug adapter you may run =M-x dap-gdb-lldb-setup= when you are o
 [[http://doc.crates.io/index.html][Cargo]] is a project management command line tool for Rust. Installation
 instructions can be found on the main page of [[http://doc.crates.io/index.html][Cargo]].
 
+*** cargo-edit
+[[https://github.com/killercup/cargo-edit][cargo-edit]] allows you to add, remove, and upgrade dependencies by modifying your =Cargo.toml` file.
+
+*** cargo-audit
+[[https://github.com/RustSec/cargo-audit][cargo-audit]] audits =Cargo.lock= files for crates with security vulnerabilities.
+
 ** Rustfmt
 Format Rust code according to style guidelines using [[https://github.com/rust-lang-nursery/rustfmt][rustfmt]].
 
@@ -101,31 +110,40 @@ Format Rust code according to style guidelines using [[https://github.com/rust-l
 
 To enable automatic buffer formatting on save, set the variable =rust-format-on-save= to =t=.
 
+** Clippy
+[[https://github.com/rust-lang/rust-clippy][Clippy]] provides a collection of lints to to catch common mistakes and improve your code.
+
 * Key bindings
 
-| Key binding | Description                                 |
-|-------------+---------------------------------------------|
-| ~SPC m = =~ | reformat the buffer                         |
-| ~SPC m c .~ | repeat the last Cargo command               |
-| ~SPC m c C~ | remove build artifacts with Cargo           |
-| ~SPC m c X~ | execute a project example with Cargo        |
-| ~SPC m c c~ | compile project with Cargo                  |
-| ~SPC m c d~ | generate documentation with Cargo           |
-| ~SPC m c e~ | run benchmarks with Cargo                   |
-| ~SPC m c f~ | format all project files with rustfmt       |
-| ~SPC m c i~ | create a new project with Cargo (init)      |
-| ~SPC m c l~ | run linter ([[https://github.com/arcnmx/cargo-clippy][cargo-clippy]]) with Cargo        |
-| ~SPC m c n~ | create a new project with Cargo (new)       |
-| ~SPC m c o~ | run all tests in current file with Cargo    |
-| ~SPC m c s~ | search for packages on crates.io with Cargo |
-| ~SPC m c t~ | run the current test with Cargo             |
-| ~SPC m c u~ | update dependencies with Cargo              |
-| ~SPC m c x~ | execute a project with Cargo                |
-| ~SPC m c v~ | check (verify) a project with Cargo         |
-| ~SPC m g g~ | jump to definition                          |
-| ~SPC m h h~ | describe symbol at point                    |
-| ~SPC m s s~ | switch to other LSP server backend          |
-| ~SPC m t~   | run tests with Cargo                        |
+| Key binding | Description                                                            |
+|-------------+------------------------------------------------------------------------|
+| ~SPC m = =~ | reformat the buffer                                                    |
+| ~SPC m c .~ | repeat the last Cargo command                                          |
+| ~SPC m c a~ | add a new dependency with cargo-edit                                   |
+| ~SPC m c A~ | audit dependencies for known vulnerability with cargo-audit            |
+| ~SPC m c C~ | remove build artifacts                                                 |
+| ~SPC m c c~ | compile project                                                        |
+| ~SPC m c D~ | generate documentation and open it in default browser                  |
+| ~SPC m c d~ | generate documentation                                                 |
+| ~SPC m c E~ | run a project example                                                  |
+| ~SPC m c e~ | run benchmarks                                                         |
+| ~SPC m c f~ | format all project files with rustfmt                                  |
+| ~SPC m c i~ | initialise a new project with Cargo (init)                             |
+| ~SPC m c l~ | run linter ([[https://github.com/arcnmx/cargo-clippy][cargo-clippy]])  |
+| ~SPC m c n~ | create a new project with Cargo (new)                                  |
+| ~SPC m c o~ | run all tests in current file with Cargo                               |
+| ~SPC m c r~ | remove a dependency with cargo-edit                                    |
+| ~SPC m c s~ | search for packages on crates.io with Cargo                            |
+| ~SPC m c t~ | run the current test with Cargo                                        |
+| ~SPC m c u~ | update dependencies with Cargo                                         |
+| ~SPC m c U~ | upgrade dependencies to LATEST version with cargo-edit                 |
+| ~SPC m c v~ | check (verify) a project with Cargo                                    |
+| ~SPC m c X~ | execute a specific binary                                              |
+| ~SPC m c x~ | execute the default binary                                             |
+| ~SPC m g g~ | jump to definition                                                     |
+| ~SPC m h h~ | describe symbol at point                                               |
+| ~SPC m s s~ | switch to other LSP server backend                                     |
+| ~SPC m t~   | run tests with Cargo                                                   |
 
 ** debugger
 Using the =dap= layer you'll get access to all the DAP key bindings, see the
