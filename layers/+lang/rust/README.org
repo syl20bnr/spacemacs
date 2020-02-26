@@ -115,35 +115,35 @@ To enable automatic buffer formatting on save, set the variable =rust-format-on-
 
 * Key bindings
 
-| Key binding | Description                                                            |
-|-------------+------------------------------------------------------------------------|
-| ~SPC m = =~ | reformat the buffer                                                    |
-| ~SPC m c .~ | repeat the last Cargo command                                          |
-| ~SPC m c a~ | add a new dependency with cargo-edit                                   |
-| ~SPC m c A~ | audit dependencies for known vulnerability with cargo-audit            |
-| ~SPC m c C~ | remove build artifacts                                                 |
-| ~SPC m c c~ | compile project                                                        |
-| ~SPC m c D~ | generate documentation and open it in default browser                  |
-| ~SPC m c d~ | generate documentation                                                 |
-| ~SPC m c E~ | run a project example                                                  |
-| ~SPC m c e~ | run benchmarks                                                         |
-| ~SPC m c f~ | format all project files with rustfmt                                  |
-| ~SPC m c i~ | initialise a new project with Cargo (init)                             |
-| ~SPC m c l~ | run linter ([[https://github.com/arcnmx/cargo-clippy][cargo-clippy]])  |
-| ~SPC m c n~ | create a new project with Cargo (new)                                  |
-| ~SPC m c o~ | run all tests in current file with Cargo                               |
-| ~SPC m c r~ | remove a dependency with cargo-edit                                    |
-| ~SPC m c s~ | search for packages on crates.io with Cargo                            |
-| ~SPC m c t~ | run the current test with Cargo                                        |
-| ~SPC m c u~ | update dependencies with Cargo                                         |
-| ~SPC m c U~ | upgrade dependencies to LATEST version with cargo-edit                 |
-| ~SPC m c v~ | check (verify) a project with Cargo                                    |
-| ~SPC m c X~ | execute a specific binary                                              |
-| ~SPC m c x~ | execute the default binary                                             |
-| ~SPC m g g~ | jump to definition                                                     |
-| ~SPC m h h~ | describe symbol at point                                               |
-| ~SPC m s s~ | switch to other LSP server backend                                     |
-| ~SPC m t~   | run tests with Cargo                                                   |
+| Key binding | Description                                                 |
+|-------------+-------------------------------------------------------------|
+| ~SPC m = =~ | reformat the buffer                                         |
+| ~SPC m c .~ | repeat the last Cargo command                               |
+| ~SPC m c a~ | add a new dependency with cargo-edit                        |
+| ~SPC m c A~ | audit dependencies for known vulnerability with cargo-audit |
+| ~SPC m c C~ | remove build artifacts                                      |
+| ~SPC m c c~ | compile project                                             |
+| ~SPC m c D~ | generate documentation and open it in default browser       |
+| ~SPC m c d~ | generate documentation                                      |
+| ~SPC m c E~ | run a project example                                       |
+| ~SPC m c e~ | run benchmarks                                              |
+| ~SPC m c f~ | format all project files with rustfmt                       |
+| ~SPC m c i~ | initialise a new project with Cargo (init)                  |
+| ~SPC m c l~ | run linter ([[https://github.com/arcnmx/cargo-clippy][cargo-clippy]])                                   |
+| ~SPC m c n~ | create a new project with Cargo (new)                       |
+| ~SPC m c o~ | run all tests in current file with Cargo                    |
+| ~SPC m c r~ | remove a dependency with cargo-edit                         |
+| ~SPC m c s~ | search for packages on crates.io with Cargo                 |
+| ~SPC m c t~ | run the current test with Cargo                             |
+| ~SPC m c u~ | update dependencies with Cargo                              |
+| ~SPC m c U~ | upgrade dependencies to LATEST version with cargo-edit      |
+| ~SPC m c v~ | check (verify) a project with Cargo                         |
+| ~SPC m c X~ | execute a specific binary                                   |
+| ~SPC m c x~ | execute the default binary                                  |
+| ~SPC m g g~ | jump to definition                                          |
+| ~SPC m h h~ | describe symbol at point                                    |
+| ~SPC m s s~ | switch to other LSP server backend                          |
+| ~SPC m t~   | run tests with Cargo                                        |
 
 ** debugger
 Using the =dap= layer you'll get access to all the DAP key bindings, see the
