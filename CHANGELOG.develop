@@ -2939,6 +2939,13 @@ Other:
   - Added ~SPC m c t~ to run the current test with Cargo, and fix documentation
     for ~SPC m c f~ to format project files (thanks to Luke Alexander Stein)
   - Added ~SPC m c v~ to run "cargo check" command (thanks to Victor Polevoy)
+  - Added key bindings for =cargo-edit= plugin
+    - ~SPC m c a~ for =cargo add=
+    - ~SPC m c r~ for =cargo rm=
+    - ~SPC m c U~ for =cargo upgrade=
+  - Added ~SPC m c A~ for =cargo audit= plugin
+  - Modified ~SPC m c X~ for =cargo run --bin= command, instead of =cargo run --example=
+  - Added ~SPC m c E~ for =cargo run --example=
 - Added rust lsp completion with company and bindings (thanks to Justin)
 - Added debugger integration via =dap= layer
 - Fixed rust dap integration (thanks to Tommi Komulainen)
