@@ -2282,6 +2282,8 @@ Other:
   - Fixed =julia-mode-local-vars-hook= (thanks to Guido Kraemer)
   - Limited =evil-surround-pairs-alist= redefinitions to julia mode
     (thanks to duianto)
+  - Remove warning about LanguageServer.jl not working in 1.0
+    (thanks to Daniel Molina)
 **** Keyboard layout
 - Added support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and
   Eivind Fonn)
