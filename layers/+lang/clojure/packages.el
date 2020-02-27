@@ -102,10 +102,12 @@
 
             ;; evaluate in source code buffer
             "e;" 'cider-eval-defun-to-comment
+            "e$" 'spacemacs/cider-eval-sexp-end-of-line
             "eb" 'cider-eval-buffer
             "ee" 'cider-eval-last-sexp
             "ef" 'cider-eval-defun-at-point
             "ei" 'cider-interrupt
+            "el" 'spacemacs/cider-eval-sexp-end-of-line
             "em" 'cider-macroexpand-1
             "eM" 'cider-macroexpand-all
             "en" 'cider-ns-refresh

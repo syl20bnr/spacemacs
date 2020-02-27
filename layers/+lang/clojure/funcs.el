@@ -34,6 +34,15 @@
                                  (match-end 1) "∈")
                  nil))))))
 
+
+(defun spacemacs/cider-eval-sexp-end-of-line ()
+  "Evaluate the last sexp at the end of the current line."
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (cider-eval-last-sexp)))
+
+
 (defun spacemacs//cider-eval-in-repl-no-focus (form)
   "Insert FORM in the REPL buffer and eval it."
   (while (string-match "\\`[ \t\n\r]+\\|[ \t\n\r]+\\'" form)

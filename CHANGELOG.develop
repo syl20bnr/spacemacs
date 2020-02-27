@@ -1429,6 +1429,8 @@ Other:
   - Autoscroll to end of REPL when sending buffer content
     (thanks to Vitaly Banchenko)
   - Added ability to use multiple linters together (thanks to didibus)
+  - Added `spacemacs/cider-eval-sexp-end-of-line` to match lisp functionality
+    (thanks to John Stevenson)
 - Key bindings:
   - ~SPC m e ;~ to eval sexp and show result as comment
     (thanks to John Stevenson)
@@ -1511,6 +1513,9 @@ Other:
   - added evaluation keybinding - evaluate up to point
     ~SPC m e V~ 'cider-eval-sexp-up-to-point
     (thanks to John Stevenson)
+  - added evaluation keybinding - go to end of line and evaluate sexp
+    ~SPC m e $~ 'spacemacs/cider-eval-sexp-end-of-line
+    ~SPC m e l~ 'spacemacs/cider-eval-sexp-end-of-line
 - Fixes:
   - Removed =cider.nrepl/cider-middleware= in lein quick start setting
   - Fixed =cider-inspector-prev-page= binding, also add ~p~ as another key
