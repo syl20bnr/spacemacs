@@ -46,9 +46,6 @@ for installation, and then install this layer with:
      (julia :variables julia-mode-enable-lsp t)))
 #+END_SRC
 
-Warning: [[https://github.com/JuliaEditorSupport/LanguageServer.jl][LanguageServer.jl]] has not yet been released for Julia 1.0. If you are
-using this layer with Julia 1.0, =julia-mode-enable-lsp= should be set to =nil=.
-
 =LanguageServer.jl= tends to have a very long startup time. In the worst case,
 =lsp-mode= might give up on the language server before its started, but
 regardless usage of =lsp-mode= with Julia can cause long delays when first
