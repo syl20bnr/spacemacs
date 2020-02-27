@@ -98,20 +98,32 @@ instructions can be found on the main page of [[http://doc.crates.io/index.html]
 *** cargo-edit
 [[https://github.com/killercup/cargo-edit][cargo-edit]] allows you to add, remove, and upgrade dependencies by modifying your =Cargo.toml` file.
 
+#+BEGIN_SRC sh
+  cargo install cargo-edit
+#+END_SRC
+
 *** cargo-audit
 [[https://github.com/RustSec/cargo-audit][cargo-audit]] audits =Cargo.lock= files for crates with security vulnerabilities.
+
+#+BEGIN_SRC sh
+  cargo install cargo-audit
+#+END_SRC
 
 ** Rustfmt
 Format Rust code according to style guidelines using [[https://github.com/rust-lang-nursery/rustfmt][rustfmt]].
 
 #+BEGIN_SRC sh
-  cargo install rustfmt
+  rustup component add rustfmt
 #+END_SRC
 
 To enable automatic buffer formatting on save, set the variable =rust-format-on-save= to =t=.
 
 ** Clippy
 [[https://github.com/rust-lang/rust-clippy][Clippy]] provides a collection of lints to to catch common mistakes and improve your code.
+
+#+BEGIN_SRC sh
+  rustup component add clippy
+#+END_SRC
 
 * Key bindings
 

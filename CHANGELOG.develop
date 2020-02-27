@@ -2953,6 +2953,8 @@ Other:
 - Fixed ~rust-quick-run~ command (thanks to Grant Shangreaux)
 - Removed compilation buffer string match on =rust-quick-run=
   (thanks to Grant Shangreaux)
+- Added/Updated instructions on external dependencies, =cargo-edit=, =cargo-audit=,
+  =rustfmt=, and =clippy= (thanks to Lucius Hu)
 **** Sailfish-Developer
 - Key bindings:
   - Added =sailfish-scratchbox= key bindings (thanks to Victor Polevoy):
