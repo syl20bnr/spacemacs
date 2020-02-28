@@ -157,5 +157,7 @@ mu4e-use-maildirs-extension-load to be evaluated after mu4e has been loaded."
 (defun mu4e/pre-init-window-purpose ()
   (spacemacs|use-package-add-hook window-purpose
     :pre-config
-    (dolist (mode mu4e-modes)
-      (add-to-list 'purpose-user-mode-purposes (cons mode 'mail)))))
+    (dolist (mode mu4e-list-modes)
+      (add-to-list 'purpose-user-mode-purposes (cons mode 'mail)))
+    (dolist (mode mu4e-view-modes)
+      (add-to-list 'purpose-user-mode-purposes (cons mode 'mail-view)))))
