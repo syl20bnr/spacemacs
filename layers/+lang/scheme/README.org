@@ -44,6 +44,12 @@ so the command for changing to that directory can be accomplished with this:
   $ cd `csi -b -e "(import (chicken platform))" -p "(chicken-home)"`
 #+END_SRC
 
+*Note:* Chicken 5 also requires SRFI-18
+
+#+BEGIN_SRC shell
+  $ chicken-install -s srfi-18
+#+END_SRC
+
 Additionally, as of 2018-12-12 there is a [[https://git.archlinux.org/svntogit/community.git/commit/trunk?h=packages/chicken&id=8b9a65eb88d899f7c9c78b56bba5bea5cdba534a][naming conflict]]
 in some of the Linux package repos:
 
