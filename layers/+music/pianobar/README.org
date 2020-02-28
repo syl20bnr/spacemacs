@@ -22,20 +22,21 @@ add =pianobar= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 For example:
-#+begin_src emacs-elisp
-dotspacemacs-configuration-layers
-   '((pianobar :variables pianobar-config t))
-#+end_src
+
+#+BEGIN_SRC emacs-elisp
+  dotspacemacs-configuration-layers
+     '((pianobar :variables pianobar-config t))
+#+END_SRC
 
 * Configure
 Below is an example configuration from MacOS:
 
-#+begin_src bash
-$ cat ~/.config/pianobar/config
-user = foobar@gmail.com
-password = 295TkBbHZiKwnDnQYhJW 
-autostart_station = 30385222902831057
-#+end_src
+#+BEGIN_SRC bash
+  $ cat ~/.config/pianobar/config
+  user = foobar@gmail.com
+  password = 295TkBbHZiKwnDnQYhJW 
+  autostart_station = 30385222902831057
+#+END_SRC
 
 Relevant links:
 - [[https://github.com/agrif/pianobar.el][pianobar.el]]
@@ -44,7 +45,6 @@ Relevant links:
 - [[https://jlk.fjfi.cvut.cz/arch/manpages/man/pianobar.1][Arch man page]]
 
 * Run
-
 ~M-x pianobar~
 
 With the above configuration, pianobar will login and start playing the autostart station.
