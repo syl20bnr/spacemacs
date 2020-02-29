@@ -2095,6 +2095,7 @@ Other:
 **** IPython Notebook
 - Added support for auto-completion with =company= (thanks to tutysara)
 - Added =ob-ipython= (thanks to Alejandro Catalina)
+- DRY and tidiness update (thanks to dickmao)
 - Key bindings:
   - ~SPC a i l~ to login (thanks to Ben Mabey)
   - ~SPC m s~ to split cell at point (thanks to Jaakko Luttinen)
