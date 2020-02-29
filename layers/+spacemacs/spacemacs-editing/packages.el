@@ -90,7 +90,10 @@
 
 (defun spacemacs-editing/init-clean-aindent-mode ()
   (use-package clean-aindent-mode
-    :config (clean-aindent-mode)))
+    :config
+    (progn
+      (clean-aindent-mode)
+      (add-hook 'prog-mode-hook 'spacemacs//put-clean-aindent-last t))))
 
 (defun spacemacs-editing/init-editorconfig ()
   (use-package editorconfig
@@ -103,9 +106,9 @@
   (use-package eval-sexp-fu
     :commands eval-sexp-fu-flash-mode))
 
-  ;; ;; ignore obsolete function warning generated on startup
-  ;; (let ((byte-compile-not-obsolete-funcs (append byte-compile-not-obsolete-funcs '(preceding-sexp))))
-  ;;   (require 'eval-sexp-fu)))
+;; ;; ignore obsolete function warning generated on startup
+;; (let ((byte-compile-not-obsolete-funcs (append byte-compile-not-obsolete-funcs '(preceding-sexp))))
+;;   (require 'eval-sexp-fu)))
 
 (defun spacemacs-editing/init-expand-region ()
   (use-package expand-region
@@ -261,10 +264,10 @@
         ("<tab>" origami-recursively-toggle-node)
         ("q" nil :exit t)
         ("C-g" nil :exit t)
-        ("<SPC>" nil :exit t))
-      ;; Note: The key binding for the fold transient state is defined in
-      ;; evil config
-      )))
+        ("<SPC>" nil :exit t)))))
+;; Note: The key binding for the fold transient state is defined in
+;; evil config
+
 
 (defun spacemacs-editing/init-password-generator ()
   (use-package password-generator

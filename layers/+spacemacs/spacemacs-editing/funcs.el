@@ -72,6 +72,16 @@ or `sp-local-pair'."
                       :background nil
                       :foreground nil))
 
+(defun spacemacs//put-clean-aindent-last ()
+  "Put `clean-aindent--check-last-point` to end of `post-command-hook`.
+This functions tries to ensure that clean-aindent checks for indent
+operations after each indent operations have been done.
+
+See issues #6520 and #13172"
+  (when clean-aindent-mode
+    (remove-hook 'post-command-hook 'clean-aindent--check-last-point)
+    (add-hook 'post-command-hook 'clean-aindent--check-last-point t)))
+
 
 ;; uuidgen
 ;; TODO spacemacs/uuidgen-3 and spacemacs/uuidgen-5
