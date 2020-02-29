@@ -20,8 +20,8 @@ jobs:
           recent activity. It will be closed if no further activity occurs.
           Please let us know if this PR is still need merging!
         stale-issue-label: 'stale'
-        exempt-issue-label: 'Kills Kittens (=^-^=)'
+        exempt-issue-label: 'High Priority'
         stale-pr-label: 'stale'
-        exempt-pr-label: 'Kills Kittens (=^-^=)'
+        exempt-pr-label: 'High Priority'
         days-before-stale: 365
         days-before-close: 90
