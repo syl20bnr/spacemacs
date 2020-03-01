@@ -229,4 +229,4 @@ the scroll transient state.")
         body
       (use-package-concat
        body
-       `((spacebind ,@args))))))
+       `((spacemacs|spacebind ,@args))))))
