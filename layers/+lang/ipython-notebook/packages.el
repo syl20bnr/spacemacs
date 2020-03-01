@@ -50,8 +50,6 @@
                         ("z" ein:notebook-kernel-interrupt-command-km))))
         (apply #'spacemacs/set-leader-keys-for-minor-mode
                (quote ein:notebook-mode)
-               dotspacemacs-major-mode-leader-key
-               #'ignore
                (cl-mapcan
                 (lambda (bind)
                   (if (fboundp (cl-second bind))
