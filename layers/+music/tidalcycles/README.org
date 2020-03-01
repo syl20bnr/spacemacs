@@ -1,0 +1,60 @@
+#+TITLE: TidalCycles layer
+
+#+TAGS: layer|music
+
+[[file:img/tidalcycles.jpg]]
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#usage][Usage]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds a major mode to control [[https://tidalcycles.org][TidalCycles]], a programming language
+for live coding.
+
+** Features:
+- =tidal-mode= to interact with TidalCycles
+- Spacemacs friendly keybindings
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =tidalcycles= to the existing =dotspacemacs-configuration-layers= list in
+this file.
+
+* Usage
+After installing TidalCycles and starting SuperDirt as described [[https://tidalcycles.org/index.php/Userbase][in the wiki]],
+open a file with the =.tidal= extension and start TidalCycles with =SPC m t s=.
+
+You can evaluate a piece of code with =SPC m RET= or the original keybinding
+=C-RET=.
+
+* Key bindings
+
+| Key binding | Description           |
+|-------------+-----------------------|
+| ~SPC m RET~ | Run block near cursor |
+| ~SPC m t s~ | Start TidalCycles     |
+| ~SPC m t q~ | Quit TidalCycles      |
+| ~SPC m r 1~ | Run orbit d1          |
+| ~SPC m r 2~ | Run orbit d2          |
+| ~SPC m r 3~ | Run orbit d3          |
+| ~SPC m r 4~ | Run orbit d4          |
+| ~SPC m r 5~ | Run orbit d5          |
+| ~SPC m r 6~ | Run orbit d6          |
+| ~SPC m r 7~ | Run orbit d7          |
+| ~SPC m r 8~ | Run orbit d8          |
+| ~SPC m r 9~ | Run orbit d9          |
+| ~SPC m s 1~ | Stop orbit d1         |
+| ~SPC m s 2~ | Stop orbit d2         |
+| ~SPC m s 3~ | Stop orbit d3         |
+| ~SPC m s 4~ | Stop orbit d4         |
+| ~SPC m s 5~ | Stop orbit d5         |
+| ~SPC m s 6~ | Stop orbit d6         |
+| ~SPC m s 7~ | Stop orbit d7         |
+| ~SPC m s 8~ | Stop orbit d8         |
+| ~SPC m s 9~ | Stop orbit d9         |
+| ~SPC m m u~ | Unmute all orbits     |
+| ~SPC m o u~ | Unsolo all orbits     |
