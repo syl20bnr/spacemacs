@@ -29,12 +29,6 @@
                                        ("C"   "capture/colors")
                                        ("d"   "documentation")
                                        ("e"   "errors")
-                                       ("f"   "files")
-                                       ("fC"  "files/convert")
-                                       ("fe"  "emacs(spacemacs)")
-                                       ("fv"  "variables")
-                                       ("fy"  "yank path")
-                                       ("F"   "frame")
                                        ("g"   "git/versions-control")
                                        ("h"   "help")
                                        ("hd"  "help-describe")
@@ -310,42 +304,49 @@
    ("w" "Windows"
     ("l" ediff-windows-linewise "Linewise between visible text")
     ("w" ediff-windows-wordwise "Wordwise between visible text"))
-   ("s" ediff-show-registry "Show registries")
+   ("s" ediff-show-registry "Show registry")
    ("h" ediff-documentation "Documentation"))))
 ;; file -----------------------------------------------------------------------
-(spacemacs/set-leader-keys
-  "fA" 'spacemacs/find-file-and-replace-buffer
-  "fc" 'spacemacs/copy-file
-  "fD" 'spacemacs/delete-current-buffer-file
-  "fec" 'spacemacs/recompile-elpa
-  "fei" 'spacemacs/find-user-init-file
-  "fed" 'spacemacs/find-dotfile
-  "feD" 'spacemacs/ediff-dotfile-and-template
-  "fee" 'spacemacs/edit-env
-  "feE" 'dotspacemacs/call-user-env
-  "fe C-e" 'spacemacs/force-init-spacemacs-env
-  "feR" 'dotspacemacs/sync-configuration-layers
-  "fev" 'spacemacs/display-and-copy-version
-  "feU"  'configuration-layer/update-packages
-  "fCd" 'spacemacs/unix2dos
-  "fCu" 'spacemacs/dos2unix
-  "fi" 'spacemacs/insert-file
-  "fg" 'rgrep
-  "fl" 'find-file-literally
-  "fE" 'spacemacs/sudo-edit
-  "fo" 'spacemacs/open-file-or-directory-in-external-app
-  "fR" 'spacemacs/rename-current-buffer-file
-  "fS" 'evil-write-all
-  "fs" 'save-buffer
-  "fvd" 'add-dir-local-variable
-  "fvf" 'add-file-local-variable
-  "fvp" 'add-file-local-variable-prop-line
-  "fyc" 'spacemacs/copy-file-path-with-line-column
-  "fyd" 'spacemacs/copy-directory-path
-  "fyl" 'spacemacs/copy-file-path-with-line
-  "fyn" 'spacemacs/copy-file-name
-  "fyN" 'spacemacs/copy-file-name-base
-  "fyy" 'spacemacs/copy-file-path)
+(spacebind
+ "Files manipulation."
+ :global
+ (("f" "Files"
+   ("A" spacemacs/find-file-and-replace-buffer "Replace current buffer")
+   ("c" spacemacs/copy-file "Copy file to new file")
+   ("D" spacemacs/delete-current-buffer-file "Delete")
+   ("i" spacemacs/insert-file "Insert file content")
+   ("l" find-file-literally "Open file literally (fund. mode)")
+   ("E" spacemacs/sudo-edit "Open using sudo")
+   ("o" spacemacs/open-file-or-directory-in-external-app "Open with external app.")
+   ("R" spacemacs/rename-current-buffer-file "Rename")
+   ("S" evil-write-all "Save all")
+   ("s" save-buffer "Save")
+   ("C"  "Convert"
+    ("d" spacemacs/unix2dos "Convert to DOS")
+    ("u" spacemacs/dos2unix "Convert to UNIX"))
+   ("e" "Emacs/Spacemacs"
+    ("C-e" spacemacs/force-init-spacemacs-env "Reinitialize env. variables")
+    ("c" spacemacs/recompile-elpa "Recompile packages")
+    ("i" spacemacs/find-user-init-file "Open Emacs \"init.el\"")
+    ("d" spacemacs/find-dotfile "Open Spacemacs dotfile")
+    ("D" spacemacs/ediff-dotfile-and-template "Diff. with dotfile template")
+    ("e" spacemacs/edit-env "Open \".spacemacs.env\"")
+    ("E" dotspacemacs/call-user-env "Refresh env. variables")
+    ("R" dotspacemacs/sync-configuration-layers "Reload configuration")
+    ("v" spacemacs/display-and-copy-version "Copy Spacemacs version")
+    ("U" configuration-layer/update-packages "Update packages"))
+   ("v" "Variables"
+    ("d" add-dir-local-variable "Add directory-local variable")
+    ("f" add-file-local-variable "Add bottom file variable")
+    ("p" add-file-local-variable-prop-line "Add top file property")
+    )
+   ("y" "Yank/Copy"
+    ("c" spacemacs/copy-file-path-with-line-column "File path with line and column")
+    ("d" spacemacs/copy-directory-path "Directory path")
+    ("l" spacemacs/copy-file-path-with-line "File path with line number")
+    ("n" spacemacs/copy-file-name "File name")
+    ("N" spacemacs/copy-file-name-base "File name without extension")
+    ("y" spacemacs/copy-file-path "File path")))))
 ;; frame ----------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "Ff" 'spacemacs/find-file-other-frame

@@ -39,12 +39,16 @@
       (setq treemacs-follow-after-init t)
       (add-hook 'treemacs-mode-hook
                 #'spacemacs/treemacs-setup-width-lock)
-      (spacemacs/set-leader-keys
-        "ft"    'treemacs
-        "fB"    'treemacs-bookmark
-        "fT"    'treemacs-find-file
-        "f M-t" 'treemacs-find-tag
-        "pt"    'spacemacs/treemacs-project-toggle)
+      (spacebind
+       "Files manipulation."
+       :global
+       (("f" "Files"
+         ("t" treemacs "File tree")
+         ("B" treemacs-bookmark "Find bookmark in file tree")
+         ("T" treemacs-find-file "Focus current file in file tree")
+         ("M-t" treemacs-find-tag "Focus tag in file tree" ))
+        ("p" "Project"
+         ("t" spacemacs/treemacs-project-toggle "Open project in file tree"))))
       (which-key-add-major-mode-key-based-replacements 'treemacs-mode
         "c"         "treemacs-create"
         "o"         "treemacs-visit-node"
