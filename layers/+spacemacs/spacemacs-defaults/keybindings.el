@@ -28,17 +28,6 @@
                                        ("c"   "compile/comments")
                                        ("C"   "capture/colors")
                                        ("d"   "documentation")
-                                       ("D"   "ediff")
-                                       ("Db"  "buffers")
-                                       ("Dd"  "directories")
-                                       ("Df"  "files")
-                                       ("Dm"  "merge")
-                                       ("Dmb" "buffers")
-                                       ("Dmd" "directories")
-                                       ("Dmf" "files")
-                                       ("Dmr" "revisions")
-                                       ("Dr"  "regions")
-                                       ("Dw"  "windows")
                                        ("e"   "errors")
                                        ("f"   "files")
                                        ("fC"  "files/convert")
@@ -283,33 +272,46 @@
   ("q" nil "quit" :exit t)
   :evil-leader "e.")
 ;; ediff ----------------------------------------------------------------------
-(spacemacs/set-leader-keys
-  "Db3"  'ediff-buffers3
-  "Dbb"  'ediff-buffers
-  "Dbp"  'ediff-patch-buffer
-  "DB"   'ediff-backup
-  "Dd3"  'ediff-directories3
-  "Ddd"  'ediff-directories
-  "Ddr"  'ediff-directory-revisions
-  "Df."  'spacemacs/ediff-dotfile-and-template
-  "Df3"  'ediff-files3
-  "Dff"  'ediff-files
-  "Dfp"  'ediff-patch-file
-  "Dh"   'ediff-documentation
-  "Dmb3" 'ediff-merge-buffers-with-ancestor
-  "Dmbb" 'ediff-merge-buffers
-  "Dmd3" 'ediff-merge-directories-with-ancestor
-  "Dmdd" 'ediff-merge-directories
-  "Dmf3" 'ediff-merge-files-with-ancestor
-  "Dmff" 'ediff-merge-files
-  "Dmr3" 'ediff-merge-revisions-with-ancestor
-  "Dmrr" 'ediff-merge-revisions
-  "Drl"  'ediff-regions-linewise
-  "Drw"  'ediff-regions-wordwise
-  "Ds"   'ediff-show-registry
-  "Dv"   'ediff-revision
-  "Dwl"  'ediff-windows-linewise
-  "Dww"  'ediff-windows-wordwise)
+(spacebind
+ "Compare buffers, files and directories."
+ :global
+ (("D" "Diff/Compare"
+   ("b"  "Buffers"
+    ("3" ediff-buffers3 "Between 3 buffers")
+    ("b" ediff-buffers "Between 2 buffers")
+    ("B" ediff-backup "With backup file")
+    ("p" ediff-patch-buffer "With a patch"))
+   ("d" "Directories"
+    ("3" ediff-directories3 "Between 3 directories")
+    ("d" ediff-directories "Between 2 directories")
+    ("r" ediff-directory-revisions "Using SCM revisions"))
+   ("f" "Files"
+    ("." spacemacs/ediff-dotfile-and-template "With Spacemacs dotfile")
+    ("3" ediff-files3 "Between 3 files")
+    ("f" ediff-files "Between 2 files")
+    ("p" ediff-patch-file "With a patch")
+    ("v" ediff-revision "Between file revisions"))
+   ("m" "Merge"
+    ("b" "Buffers"
+     ("3" ediff-merge-buffers-with-ancestor "3-way merge")
+     ("b" ediff-merge-buffers "2-way merge"))
+    ("d" "Directories"
+     ("3" ediff-merge-directories-with-ancestor "3-way merge")
+     ("d" ediff-merge-directories "2-way merge"))
+    ("f" "Files"
+     ("3" ediff-merge-files-with-ancestor "3-way merge")
+     ("f" ediff-merge-files "2-way merge"))
+    ("r" "Revisions"
+     ("3" ediff-merge-revisions-with-ancestor "3-way merge")
+     ("r" ediff-merge-revisions "2-way merge")))
+   ("r" "Regions"
+    ("l" ediff-regions-linewise "Between 2 large regions (linewise)")
+    ("w" ediff-regions-wordwise "Between 2 small regions (wordwise)"))
+   ("w" "Windows"
+    ("l" ediff-windows-linewise "Linewise between visible text")
+    ("w" ediff-windows-wordwise "Wordwise between visible text"))
+   ("s" ediff-show-registry "Show registries")
+   ("h" ediff-documentation "Documentation"))))
 ;; file -----------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "fA" 'spacemacs/find-file-and-replace-buffer

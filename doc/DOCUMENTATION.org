@@ -3495,6 +3495,7 @@ All =ediff= commands starts with D:
 | ~SPC D f 3~   | ask for 3 files and start an ediff session with them                                                                              |
 | ~SPC D f f~   | ask for 2 files and start an ediff session with them                                                                              |
 | ~SPC D f p~   | ask for a buffer or file that contains a patch to apply to a file and start an ediff session with the result                      |
+| ~SPC D f v~   | start ediff between versions of a file                                                                                            |
 | ~SPC D h~     | open ediff documentation within Emacs                                                                                             |
 | ~SPC D m b 3~ | start an ediff merge session between 2 buffers and their ancestor                                                                 |
 | ~SPC D m b b~ | start an ediff merge session between 2 buffers                                                                                    |
@@ -3507,7 +3508,6 @@ All =ediff= commands starts with D:
 | ~SPC D r l~   | start an ediff session between two regions to perform a linewise diff (use this for large regions)                                |
 | ~SPC D r w~   | start an ediff session between two regions to perform a wordwise diff (use this for small regions)                                |
 | ~SPC D s~     | display ediff registries                                                                                                          |
-| ~SPC D v~     | start ediff between versions of a file                                                                                            |
 | ~SPC D w l~   | compare linewise the portions of visible text of 2 windows which are selected by clicking                                         |
 | ~SPC D w w~   | compare wordwise the portions of visible text of 2 windows which are selected by clicking                                         |
 
