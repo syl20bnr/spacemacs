@@ -1885,6 +1885,8 @@ Other:
 - Improvements:
   - Added a =@gnus= perspective (~SPC l o g~) to the layouts transient state
     (thanks to Matthew Leach)
+- Fixed:
+  - Made the gnus variables user configurable (thanks to duianto)
 **** Go
 - Deprecated:
   - Dropped support for deprecated =gometalinter= (thanks to pancho horrillo)
