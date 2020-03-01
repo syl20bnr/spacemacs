@@ -61,10 +61,6 @@
                                        ("kd"  "delete")
                                        ("kD"  "delete-backward")
                                        ("k`"  "hybrid")
-                                       ("K"   "macros")
-                                       ("Kc"  "counter")
-                                       ("Ke"  "edit")
-                                       ("Kr"  "ring")
                                        ("m"   "major mode commands")
                                        ("n"   "narrow/numbers")
                                        ("N"   "navigation")
@@ -153,27 +149,32 @@
 ;; shell command  -------------------------------------------------------------
 (spacemacs/set-leader-keys "!" 'shell-command)
 ;; kmacros --------------------------------------------------------------------
-(spacemacs/set-leader-keys
-  "Kca" 'kmacro-add-counter
-  "Kcc" 'kmacro-insert-counter
-  "KcC" 'kmacro-set-counter
-  "Kcf" 'kmacro-set-format
-  "Keb" 'kmacro-bind-to-key
-  "Kee" 'kmacro-edit-macro-repeat
-  "Kel" 'kmacro-edit-lossage
-  "Ken" 'kmacro-name-last-macro
-  "Ker" 'kmacro-to-register
-  "Kes" 'kmacro-step-edit-macro
-  "Kk"  'kmacro-start-macro-or-insert-counter
-  "KK"  'kmacro-end-or-call-macro
-  "KrL" 'kmacro-view-ring-2nd
-  "Krd" 'kmacro-delete-ring-head
-  "Krl" 'kmacro-call-ring-2nd-repeat
-  "Krn" 'kmacro-cycle-ring-next
-  "Krp" 'kmacro-cycle-ring-previous
-  "Krs" 'kmacro-swap-ring
-  "Kv"  'kmacro-view-macro-repeat
-  )
+(spacebind
+ "Operations on rectangular selections of text."
+ :global
+ (("K" "Keyboard Macros"
+   ("c" "Counter"
+    ("a" kmacro-add-counter "Increment counter")
+    ("c" kmacro-insert-counter "Insert counter")
+    ("C" kmacro-set-counter "Set counter")
+    ("f" kmacro-set-format "Set display format"))
+   ("e" "Edit"
+    ("b" kmacro-bind-to-key "Assign key binding")
+    ("e" kmacro-edit-macro-repeat "Edit last macro")
+    ("l" kmacro-edit-lossage "Create macro from lossage")
+    ("n" kmacro-name-last-macro "Name last macro")
+    ("r" kmacro-to-register "Write macro to register")
+    ("s" kmacro-step-edit-macro "Step by step edit"))
+   ("k" kmacro-start-macro-or-insert-counter "Run macro/Insert counter")
+   ("K" kmacro-end-or-call-macro "Stop or Run")
+   ("r" "Ring"
+    ("L" kmacro-view-ring-2nd "Display ring head")
+    ("d" kmacro-delete-ring-head "Delete ring head")
+    ("l" kmacro-call-ring-2nd-repeat "Run 2nd macro in ring")
+    ("n" kmacro-cycle-ring-next "Next in ring")
+    ("p" kmacro-cycle-ring-previous "Previous in ring")
+    ("s" kmacro-swap-ring "Swap first two"))
+   ("v" kmacro-view-macro-repeat "View last macro"))))
 ;; rectangles ------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "R!" 'clear-rectangle
