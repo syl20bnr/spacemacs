@@ -944,6 +944,8 @@ Other:
     (thanks to Rich Alesi)
   - New key bindings ~SPC x l r~ and ~SPC x w r~ to randomize lines and words
     in region (thanks to Sylvain Benner)
+  - Improved =which-key= readibility by grouping prefixes together and display
+    at least 6 lines (thanks to Sylvain Benner)
   - Improved =which-key= replacement regular expressions (thanks to duianto)
   - Added ~SPC o~ which-key prefix name: =user bindings= (thanks to duianto)
   - Added =symbol-overlay= key bindings (thanks to kenkangxgwe):

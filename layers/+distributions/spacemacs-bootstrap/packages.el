@@ -316,15 +316,19 @@
 (defun spacemacs-bootstrap/init-which-key ()
   (require 'which-key)
 
-  (setq which-key-special-keys nil
-        which-key-use-C-h-for-paging t
-        which-key-prevent-C-h-from-cycling t
-        which-key-echo-keystrokes 0.02
-        which-key-max-description-length 32
+  (setq which-key-add-column-padding 1
         which-key-allow-multiple-replacements t
-        which-key-sort-order 'which-key-key-order-alpha
+        which-key-echo-keystrokes 0.02
         which-key-idle-delay dotspacemacs-which-key-delay
         which-key-idle-secondary-delay 0.01
+        which-key-max-description-length 32
+        which-key-max-display-columns nil
+        which-key-min-display-lines 6
+        which-key-prevent-C-h-from-cycling t
+        which-key-sort-order 'which-key-prefix-then-key-order
+        which-key-sort-uppercase-first nil
+        which-key-special-keys nil
+        which-key-use-C-h-for-paging t
         which-key-allow-evil-operators t)
 
   (spacemacs|add-toggle which-key
