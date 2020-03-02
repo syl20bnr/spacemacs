@@ -30,39 +30,40 @@
     :defer t
     :commands gnus
     :init
-    (progn (spacemacs/declare-prefix "ag" "gnus" "Gnus newsreader")
-           (spacemacs/set-leader-keys
-             "agg" 'gnus
-             "ags" 'gnus-slave
-             "agu" 'gnus-unplugged
-             "ago" 'gnus-slave-unplugged)
-           (spacemacs/declare-prefix-for-mode 'message-mode "mi" "insert")
-           (spacemacs/set-leader-keys-for-major-mode 'message-mode
-             ;; RFC 1855
-             "miF" 'flame-on)
-           ;; NOTE: If any of the following variables are modified,
-           ;; also update their values in: `gnus/README.org'
-           (setq-default
-            gnus-summary-line-format "%U%R%z %(%&user-date;  %-15,15f  %B (%c) %s%)\n"
-            gnus-user-date-format-alist '((t . "%Y-%m-%d %H:%M"))
-            gnus-group-line-format "%M%S%p%P%5y:%B %G\n";;"%B%(%g%)"
-            gnus-summary-thread-gathering-function 'gnus-gather-threads-by-references
-            gnus-thread-sort-functions '(gnus-thread-sort-by-most-recent-date)
-            gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\”]\”[#’()]"
-            gnus-sum-thread-tree-false-root ""
-            gnus-sum-thread-tree-indent " "
-            gnus-sum-thread-tree-leaf-with-other "├► "
-            gnus-sum-thread-tree-root ""
-            gnus-sum-thread-tree-single-leaf "╰► "
-            gnus-sum-thread-tree-vertical "│"
-            gnus-article-browse-delete-temp t
-            gnus-treat-strip-trailing-blank-lines 'last
-            gnus-keep-backlog 'nil
-            gnus-summary-display-arrow nil ; Don't show that annoying arrow:
-            gnus-mime-display-multipart-related-as-mixed t ; Show more MIME-stuff:
-            gnus-auto-select-first nil ; Don't get the first article automatically:
-            smiley-style 'medium
-            gnus-keep-backlog '0))
+    (progn
+      (spacemacs/declare-prefix "ag" "gnus" "Gnus newsreader")
+      (spacemacs/set-leader-keys
+        "agg" 'gnus
+        "ags" 'gnus-slave
+        "agu" 'gnus-unplugged
+        "ago" 'gnus-slave-unplugged)
+      (spacemacs/declare-prefix-for-mode 'message-mode "mi" "insert")
+      (spacemacs/set-leader-keys-for-major-mode 'message-mode
+        ;; RFC 1855
+        "miF" 'flame-on)
+      ;; NOTE: If any of the following variables are modified,
+      ;; also update their values in: `gnus/README.org'
+      (setq-default
+       gnus-summary-line-format "%U%R%z %(%&user-date;  %-15,15f  %B (%c) %s%)\n"
+       gnus-user-date-format-alist '((t . "%Y-%m-%d %H:%M"))
+       gnus-group-line-format "%M%S%p%P%5y:%B %G\n";;"%B%(%g%)"
+       gnus-summary-thread-gathering-function 'gnus-gather-threads-by-references
+       gnus-thread-sort-functions '(gnus-thread-sort-by-most-recent-date)
+       gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\”]\”[#’()]"
+       gnus-sum-thread-tree-false-root ""
+       gnus-sum-thread-tree-indent " "
+       gnus-sum-thread-tree-leaf-with-other "├► "
+       gnus-sum-thread-tree-root ""
+       gnus-sum-thread-tree-single-leaf "╰► "
+       gnus-sum-thread-tree-vertical "│"
+       gnus-article-browse-delete-temp t
+       gnus-treat-strip-trailing-blank-lines 'last
+       gnus-keep-backlog 'nil
+       gnus-summary-display-arrow nil ; Don't show that annoying arrow:
+       gnus-mime-display-multipart-related-as-mixed t ; Show more MIME-stuff:
+       gnus-auto-select-first nil ; Don't get the first article automatically:
+       smiley-style 'medium
+       gnus-keep-backlog '0))
     :config
     (progn
       ;; No primary server
