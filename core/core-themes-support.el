@@ -181,6 +181,7 @@
     (doom-city-lights                 . doom-themes)
     (doom-dark+                       . doom-themes)
     (doom-dracula                     . doom-themes)
+    (doom-ephemeral                   . doom-themes)
     (doom-fairy-floss                 . doom-themes)
     (doom-gruvbox                     . doom-themes)
     (doom-horizon                     . doom-themes)
