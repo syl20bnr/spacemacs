@@ -137,7 +137,8 @@
 (defun mu4e/init-helm-mu ()
   (use-package helm-mu
     :defer t
-    :init (dolist (m mu4e-modes)
+    :init (dolist (m mu4e-list-modes
+                     mu4e-view-modes)
             (spacemacs/set-leader-keys-for-major-mode m
               "S" 'helm-mu
               "/" 'helm-mu
