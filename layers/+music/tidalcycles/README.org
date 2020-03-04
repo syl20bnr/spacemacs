@@ -17,7 +17,7 @@ for live coding.
 
 ** Features:
 - =tidal-mode= to interact with TidalCycles
-- Spacemacs friendly keybindings
+- Spacemacs friendly key bindings
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -28,7 +28,7 @@ this file.
 After installing TidalCycles and starting SuperDirt as described [[https://tidalcycles.org/index.php/Userbase][in the wiki]],
 open a file with the =.tidal= extension and start TidalCycles with =SPC m t s=.
 
-You can evaluate a piece of code with =SPC m RET= or the original keybinding
+You can evaluate a piece of code with =SPC m RET= or the original key binding
 =C-RET=.
 
 * Key bindings
