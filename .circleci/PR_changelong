@@ -14,10 +14,11 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "${DIR}/shared"
 
-if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
-    echo "Skipping changelogs check for branch update."
-    exit 0
-fi
+## This seems to bug out when someone has a CircleCI setup at the source fork.
+# if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
+#     echo "Skipping changelogs check for branch update."
+#     exit 0
+# fi
 
 if [[ "$CIRCLE_PR_USERNAME" == "emacspace" ]]; then
     echo "Fun fact. Bots can't climb stairs or update CHANGELOG.develop"
