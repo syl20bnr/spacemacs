@@ -26,6 +26,10 @@
         (kbd "<C-return>") 'ein:worksheet-execute-cell-km
         (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next-km))
      '(insert hybrid normal))
+    (evil-define-minor-mode-key
+     'normal 'ein:notebook-mode
+     "gj" 'ein:worksheet-goto-next-input-km
+     "gk" 'ein:worksheet-goto-prev-input-km)
     (with-eval-after-load 'ein-notebook
       (evil-define-key nil ein:notebooklist-mode-map "o" 'spacemacs/ace-buffer-links)
       (let ((bindings '(("j" ein:worksheet-goto-next-input-km)
