@@ -1280,6 +1280,16 @@ With negative N, comment out original line and use the absolute value."
         (forward-line 1)
         (forward-char pos)))))
 
+;; credits to Steve Purcell
+;; https://github.com/purcell/emacs.d/blob/master/lisp/init-editing-utils.el
+;; https://emacsredux.com/blog/2013/04/08/kill-line-backward/
+(defun spacemacs/kill-back-to-indentation ()
+  "Kill from point back to the first non-whitespace character on the line."
+  (interactive)
+  (let ((prev-pos (point)))
+    (back-to-indentation)
+    (kill-region (point) prev-pos)))
+
 (defun spacemacs/uniquify-lines ()
   "Remove duplicate adjacent lines in a region or the current buffer"
   (interactive)

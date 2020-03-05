@@ -662,6 +662,7 @@ respond to this toggle."
   "xlc" 'spacemacs/sort-lines-by-column
   "xlC" 'spacemacs/sort-lines-by-column-reverse
   "xld" 'spacemacs/duplicate-line-or-region
+  "xlk" 'spacemacs/kill-back-to-indentation
   "xlr" 'spacemacs/randomize-lines
   "xls" 'spacemacs/sort-lines
   "xlS" 'spacemacs/sort-lines-reverse
