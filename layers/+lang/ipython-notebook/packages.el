@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq ipython-notebook-packages '(ein ob-ipython))
+(setq ipython-notebook-packages '(ein))
 
 (defun ipython-notebook/init-ein ()
   (use-package ein
@@ -58,18 +58,4 @@
                       (display-warning
                        'warn (format "ipython-notebook/init-ein: undefined %s"
                                      (cl-second bind))))))
-                (copy-tree bindings)))
-        (eval (append '(spacemacs|define-transient-state
-                        ipython-notebook
-                        :title "iPython Notebook Transient State"
-                        :bindings
-                        ("q" nil :exit t))
-                      bindings))))))
-
-(defun ipython-notebook/pre-init-ob-ipython ()
-  (spacemacs|use-package-add-hook org
-    :post-config
-    (use-package ob-ipython
-      :init (add-to-list 'org-babel-load-languages '(ipython . t)))))
-
-(defun ipython-notebook/init-ob-ipython ())
+                (copy-tree bindings)))))))
