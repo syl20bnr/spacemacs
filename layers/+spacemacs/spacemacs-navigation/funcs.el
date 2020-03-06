@@ -138,7 +138,7 @@ If the universal prefix argument is used then kill also the window."
   (spacemacs/ahs-highlight-now-wrapper)
   (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
   (spacemacs/symbol-highlight-transient-state/body)
-  (spacemacs/integrate-evil-search nil))
+  (spacemacs/integrate-evil-search t))
 
 (defun spacemacs//ahs-ts-on-exit ()
   ;; Restore user search direction state as ahs has exitted in a state
