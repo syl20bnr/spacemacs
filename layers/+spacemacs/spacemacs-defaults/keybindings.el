@@ -134,16 +134,16 @@
    ("c" "Counter"
     ("a" kmacro-add-counter "Increment counter")
     ("c" kmacro-insert-counter "Insert counter")
-    ("C" kmacro-set-counter "Set counter")
-    ("f" kmacro-set-format "Set display format"))
+    ("C" kmacro-set-counter "Set counter...")
+    ("f" kmacro-set-format "Set display format..."))
    ("e" "Edit"
-    ("b" kmacro-bind-to-key "Assign key binding")
+    ("b" kmacro-bind-to-key "Assign key binding...")
     ("e" kmacro-edit-macro-repeat "Edit last macro")
-    ("l" kmacro-edit-lossage "Create macro from lossage")
-    ("n" kmacro-name-last-macro "Name last macro")
-    ("r" kmacro-to-register "Write macro to register")
-    ("s" kmacro-step-edit-macro "Step by step edit"))
-   ("k" kmacro-start-macro-or-insert-counter "Run macro/Insert counter")
+    ("l" kmacro-edit-lossage "Create macro from lossage...")
+    ("n" kmacro-name-last-macro "Name last macro...")
+    ("r" kmacro-to-register "Write macro to register...")
+    ("s" kmacro-step-edit-macro "Step by step edit..."))
+   ("k" kmacro-start-macro-or-insert-counter "Start macro/Insert counter")
    ("K" kmacro-end-or-call-macro "Stop or Run")
    ("r" "Ring"
     ("L" kmacro-view-ring-2nd "Display ring head")
@@ -154,25 +154,25 @@
     ("s" kmacro-swap-ring "Swap first two"))
    ("v" kmacro-view-macro-repeat "View last macro"))))
 ;; rectangles ------------------------------------------------------------------
-;; (spacemacs|spacebind
-;;  "Operations on rectangular selections of text."
-;;  :global
-;;  (("C-v" "Rectangles"
-;;    ("c" close-rectangle "Delete whitespace after")
-;;    ("d" delete-rectangle "Delete text")
-;;    ("e" rectangle-exchange-point-and-mark "Go to corner")
-;;    ("i" copy-rectangle-to-register "Copy into register")
-;;    ("k" kill-rectangle "Delete and save")
-;;    ("l" rectangle-left-char "Move left past EOL")
-;;    ("m" rectangle-mark-mode "Toggle region as rectangular")
-;;    ("n" rectangle-next-line "Go to next line past EOL")
-;;    ("N" rectangle-number-lines "Insert line number")
-;;    ("o" open-rectangle "Shift text right")
-;;    ("p" rectangle-previous-line "Go to prev. line past EOL")
-;;    ("r" rectangle-right-char "Move right past EOL")
-;;    ("s" string-rectangle "Replace lines with string")
-;;    ("x" clear-rectangle "Blank out rectangle")
-;;    ("y" yank-rectangle "Paste last rectangle"))))
+(spacemacs|spacebind
+ "Operations on rectangular selections of text."
+ :global
+ (("C-v" "Rectangles"
+   ("c" close-rectangle "Delete whitespace after")
+   ("d" delete-rectangle "Delete text")
+   ("e" rectangle-exchange-point-and-mark "Go to corner")
+   ("i" copy-rectangle-to-register "Copy into register...")
+   ("k" kill-rectangle "Delete and save")
+   ("l" rectangle-left-char "Move left past EOL")
+   ("m" rectangle-mark-mode "Toggle region as rectangular")
+   ("n" rectangle-next-line "Go to next line past EOL")
+   ("N" rectangle-number-lines "Insert line number")
+   ("o" open-rectangle "Shift text right")
+   ("p" rectangle-previous-line "Go to prev. line past EOL")
+   ("r" rectangle-right-char "Move right past EOL")
+   ("s" string-rectangle "Replace lines with string...")
+   ("x" clear-rectangle "Blank out rectangle")
+   ("y" yank-rectangle "Paste last rectangle"))))
 ;; applications ---------------------------------------------------------------
 (spacemacs/set-leader-keys
   "ac"  'calc-dispatch
@@ -277,39 +277,39 @@
  :global
  (("D" "Diff/Compare"
    ("b"  "Buffers"
-    ("3" ediff-buffers3 "Between 3 buffers")
-    ("b" ediff-buffers "Between 2 buffers")
-    ("B" ediff-backup "With backup file")
-    ("p" ediff-patch-buffer "With a patch"))
+    ("3" ediff-buffers3 "Between 3 buffers...")
+    ("b" ediff-buffers "Between 2 buffers...")
+    ("B" ediff-backup "With backup file...")
+    ("p" ediff-patch-buffer "With a patch..."))
    ("d" "Directories"
-    ("3" ediff-directories3 "Between 3 directories")
-    ("d" ediff-directories "Between 2 directories")
-    ("r" ediff-directory-revisions "Using SCM revisions"))
+    ("3" ediff-directories3 "Between 3 directories...")
+    ("d" ediff-directories "Between 2 directories...")
+    ("r" ediff-directory-revisions "Using SCM revisions..."))
    ("f" "Files"
     ("." spacemacs/ediff-dotfile-and-template "With Spacemacs dotfile")
-    ("3" ediff-files3 "Between 3 files")
-    ("f" ediff-files "Between 2 files")
-    ("p" ediff-patch-file "With a patch")
-    ("v" ediff-revision "Between file revisions"))
+    ("3" ediff-files3 "Between 3 files...")
+    ("f" ediff-files "Between 2 files...")
+    ("p" ediff-patch-file "With a patch...")
+    ("v" ediff-revision "Between file revisions..."))
    ("m" "Merge"
     ("b" "Buffers"
-     ("3" ediff-merge-buffers-with-ancestor "3-way merge")
-     ("b" ediff-merge-buffers "2-way merge"))
+     ("3" ediff-merge-buffers-with-ancestor "3-way merge...")
+     ("b" ediff-merge-buffers "2-way merge..."))
     ("d" "Directories"
-     ("3" ediff-merge-directories-with-ancestor "3-way merge")
-     ("d" ediff-merge-directories "2-way merge"))
+     ("3" ediff-merge-directories-with-ancestor "3-way merge...")
+     ("d" ediff-merge-directories "2-way merge..."))
     ("f" "Files"
-     ("3" ediff-merge-files-with-ancestor "3-way merge")
-     ("f" ediff-merge-files "2-way merge"))
+     ("3" ediff-merge-files-with-ancestor "3-way merge...")
+     ("f" ediff-merge-files "2-way merge..."))
     ("r" "Revisions"
-     ("3" ediff-merge-revisions-with-ancestor "3-way merge")
-     ("r" ediff-merge-revisions "2-way merge")))
+     ("3" ediff-merge-revisions-with-ancestor "3-way merge...")
+     ("r" ediff-merge-revisions "2-way merge...")))
    ("r" "Regions"
-    ("l" ediff-regions-linewise "Between 2 large regions (linewise)")
-    ("w" ediff-regions-wordwise "Between 2 small regions (wordwise)"))
+    ("l" ediff-regions-linewise "Between 2 regions (linewise)...")
+    ("w" ediff-regions-wordwise "Between 2 regions (wordwise)..."))
    ("w" "Windows"
-    ("l" ediff-windows-linewise "Linewise between visible text")
-    ("w" ediff-windows-wordwise "Wordwise between visible text"))
+    ("l" ediff-windows-linewise "Linewise between visible text...")
+    ("w" ediff-windows-wordwise "Wordwise between visible text..."))
    ("s" ediff-show-registry "Show registry")
    ("h" ediff-documentation "Documentation"))))
 ;; file -----------------------------------------------------------------------
@@ -317,21 +317,21 @@
  "Files manipulation."
  :global
  (("f" "Files"
-   ("A" spacemacs/find-file-and-replace-buffer "Replace current buffer")
-   ("c" spacemacs/copy-file "Copy file to new file")
-   ("D" spacemacs/delete-current-buffer-file "Delete")
-   ("i" spacemacs/insert-file "Insert file content")
-   ("l" find-file-literally "Open file literally (fund. mode)")
-   ("E" spacemacs/sudo-edit "Open using sudo")
-   ("o" spacemacs/open-file-or-directory-in-external-app "Open with external app.")
-   ("R" spacemacs/rename-current-buffer-file "Rename")
+   ("A" spacemacs/find-file-and-replace-buffer "Set another file for buffer...")
+   ("c" spacemacs/copy-file "Copy file to new file...")
+   ("D" spacemacs/delete-current-buffer-file "Delete...")
+   ("i" spacemacs/insert-file "Insert file content...")
+   ("l" find-file-literally "Open file literally...")
+   ("E" spacemacs/sudo-edit "Open using sudo...")
+   ("o" spacemacs/open-file-or-directory-in-external-app "Open with external app")
+   ("R" spacemacs/rename-current-buffer-file "Rename...")
    ("S" evil-write-all "Save all")
    ("s" save-buffer "Save")
    ("C"  "Convert"
     ("d" spacemacs/unix2dos "Convert to DOS")
     ("u" spacemacs/dos2unix "Convert to UNIX"))
    ("e" "Emacs/Spacemacs"
-    ("C-e" spacemacs/force-init-spacemacs-env "Reinitialize env. variables")
+    ("C-e" spacemacs/force-init-spacemacs-env "Recreate env. variables file")
     ("c" spacemacs/recompile-elpa "Recompile packages")
     ("i" spacemacs/find-user-init-file "Open Emacs \"init.el\"")
     ("d" spacemacs/find-dotfile "Open Spacemacs dotfile")
@@ -340,11 +340,11 @@
     ("E" dotspacemacs/call-user-env "Refresh env. variables")
     ("R" dotspacemacs/sync-configuration-layers "Reload configuration")
     ("v" spacemacs/display-and-copy-version "Copy Spacemacs version")
-    ("U" configuration-layer/update-packages "Update packages"))
+    ("U" configuration-layer/update-packages "Update packages..."))
    ("v" "Variables"
-    ("d" add-dir-local-variable "Add directory-local variable")
-    ("f" add-file-local-variable "Add bottom file variable")
-    ("p" add-file-local-variable-prop-line "Add top file property")
+    ("d" add-dir-local-variable "Add directory-local variable...")
+    ("f" add-file-local-variable "Add bottom file variable...")
+    ("p" add-file-local-variable-prop-line "Add top file property...")
     )
    ("y" "Yank/Copy"
     ("c" spacemacs/copy-file-path-with-line-column "File path with line and column")
