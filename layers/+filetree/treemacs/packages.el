@@ -39,7 +39,7 @@
       (setq treemacs-follow-after-init t)
       (add-hook 'treemacs-mode-hook
                 #'spacemacs/treemacs-setup-width-lock)
-      (spacebind
+      (spacemacs|spacebind
        "Files manipulation."
        :global
        (("f" "Files"

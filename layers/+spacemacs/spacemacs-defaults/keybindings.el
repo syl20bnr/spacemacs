@@ -128,7 +128,7 @@
 ;; shell command  -------------------------------------------------------------
 (spacemacs/set-leader-keys "!" 'shell-command)
 ;; kmacros --------------------------------------------------------------------
-(spacebind
+(spacemacs|spacebind
  "Operations on rectangular selections of text."
  :global
  (("K" "Keyboard Macros"
@@ -271,7 +271,7 @@
   ("q" nil "quit" :exit t)
   :evil-leader "e.")
 ;; ediff ----------------------------------------------------------------------
-(spacebind
+(spacemacs|spacebind
  "Compare buffers, files and directories."
  :global
  (("D" "Diff/Compare"
@@ -312,7 +312,7 @@
    ("s" ediff-show-registry "Show registry")
    ("h" ediff-documentation "Documentation"))))
 ;; file -----------------------------------------------------------------------
-(spacebind
+(spacemacs|spacebind
  "Files manipulation."
  :global
  (("f" "Files"
