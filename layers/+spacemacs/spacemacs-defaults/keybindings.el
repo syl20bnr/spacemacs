@@ -15,16 +15,12 @@
 
 ;; We define prefix commands only for the sake of which-key
 (setq spacemacs/key-binding-prefixes '(("SPC" "M-x")
-                                       ("TAB" "last buffer")
                                        ("!"   "shell cmd")
                                        ("*"   "search project w/input")
                                        ("/"   "search project")
                                        ("?"   "show keybindings")
                                        ("a"   "applications")
                                        ("A"   "other applications")
-                                       ("b"   "buffers")
-                                       ("bc"  "indirect buffers")
-                                       ("bN"  "new buffer")
                                        ("c"   "compile/comments")
                                        ("C"   "capture/colors")
                                        ("d"   "documentation")
@@ -183,37 +179,46 @@
   "aP"  'proced
   "au"  'undo-tree-visualize)
 ;; buffers --------------------------------------------------------------------
-(spacemacs/set-leader-keys
-  "TAB"   'spacemacs/alternate-buffer
-  "bd"    'spacemacs/kill-this-buffer
-  "be"    'spacemacs/safe-erase-buffer
-  "bh"    'spacemacs/home
-  "bH"    'spacemacs/switch-to-help-buffer
-  "b C-d" 'spacemacs/kill-other-buffers
-  "b C-S-d" 'spacemacs/kill-matching-buffers-rudely
-  "bn"    'next-buffer
-  "bm"    'spacemacs/switch-to-messages-buffer
-  "b N h" 'spacemacs/new-empty-buffer-left
-  "b N C-i" 'make-indirect-buffer
-  "b N i" 'clone-indirect-buffer
-  "b N I" 'clone-indirect-buffer-other-window-without-purpose
-  "b N j" 'spacemacs/new-empty-buffer-below
-  "b N k" 'spacemacs/new-empty-buffer-above
-  "b N l" 'spacemacs/new-empty-buffer-right
-  "b N f" 'spacemacs/new-empty-buffer-new-frame
-  "b N n" 'spacemacs/new-empty-buffer
-  "bP"    'spacemacs/copy-clipboard-to-whole-buffer
-  "bp"    'previous-buffer
-  "bR"    'spacemacs/safe-revert-buffer
-  "bs"    'spacemacs/switch-to-scratch-buffer
-  "bu"    'spacemacs/reopen-killed-buffer
-  "bx"    'kill-buffer-and-window
-  "bY"    'spacemacs/copy-whole-buffer-to-clipboard
-  "bw"    'read-only-mode)
-(dotimes (i 9)
-  (let ((n (+ i 1)))
-    (spacemacs/set-leader-keys (format "b%i" n)
-      (intern (format "buffer-to-window-%s" n)))))
+(spacemacs|spacebind
+ "Compare buffers, files and directories."
+ :global
+ (("TAB" spacemacs/alternate-buffer "Last buffer")
+  ("b" "Buffers"
+   ("N"  "New buffer"
+    ("C-i" make-indirect-buffer "New indirect buffer...")
+    ("f" spacemacs/new-empty-buffer-new-frame "New buffer (new frame)")
+    ("h" spacemacs/new-empty-buffer-left "New buffer (left split)")
+    ("i" clone-indirect-buffer "Clone buffer")
+    ("I" clone-indirect-buffer-other-window-without-purpose "Clone buffer (other window)")
+    ("j" spacemacs/new-empty-buffer-below "New buffer (open below)")
+    ("k" spacemacs/new-empty-buffer-above "New buffer (open above)")
+    ("l" spacemacs/new-empty-buffer-right "New buffer (right split)")
+    ("n" spacemacs/new-empty-buffer "New buffer"))
+   ("1" buffer-to-window-1 "Move buffer to window 1")
+   ("2" buffer-to-window-2 "Move buffer to window 2")
+   ("3" buffer-to-window-3 "Move buffer to window 3")
+   ("4" buffer-to-window-4 "Move buffer to window 4")
+   ("5" buffer-to-window-5 "Move buffer to window 5")
+   ("6" buffer-to-window-6 "Move buffer to window 6")
+   ("7" buffer-to-window-7 "Move buffer to window 7")
+   ("8" buffer-to-window-8 "Move buffer to window 8")
+   ("9" buffer-to-window-9 "Move buffer to window 9")
+   ("C-d" spacemacs/kill-other-buffers "Kill other buffers...")
+   ("C-S-d" spacemacs/kill-matching-buffers-rudely "Kill buffers...")
+   ("d" spacemacs/kill-this-buffer "Kill buffer")
+   ("e" spacemacs/safe-erase-buffer "Erase...")
+   ("h" spacemacs/home "Spacemacs home buffer")
+   ("H" spacemacs/switch-to-help-buffer "Help buffer")
+   ("n" next-buffer "Next buffer")
+   ("m" spacemacs/switch-to-messages-buffer "Messages buffer")
+   ("P" spacemacs/copy-clipboard-to-whole-buffer "Paste and replace buffer")
+   ("p" previous-buffer "Previous buffer")
+   ("R" spacemacs/safe-revert-buffer "Revert buffer...")
+   ("s" spacemacs/switch-to-scratch-buffer "Scratch buffer")
+   ("u" spacemacs/reopen-killed-buffer "Reopen last killed buffer")
+   ("x" kill-buffer-and-window "Kill buffer and close window")
+   ("Y" spacemacs/copy-whole-buffer-to-clipboard "Copy buffer")
+   ("w" read-only-mode "Toggle read-only"))))
 ;; Cycling settings -----------------------------------------------------------
 (spacemacs|define-transient-state theme
   :title "Themes Transient State"
