@@ -47,7 +47,6 @@
                                        ("p"   "projects")
                                        ("q"   "quit")
                                        ("r"   "registers/rings/resume")
-                                       ("R"   "rectangles")
                                        ("s"   "search/symbol")
                                        ("sa"  "ag")
                                        ("sg"  "grep")
@@ -155,23 +154,25 @@
     ("s" kmacro-swap-ring "Swap first two"))
    ("v" kmacro-view-macro-repeat "View last macro"))))
 ;; rectangles ------------------------------------------------------------------
-(spacemacs/set-leader-keys
-  "R!" 'clear-rectangle
-  "Rc" 'close-rectangle
-  "Rd" 'delete-rectangle
-  "Re" 'rectangle-exchange-point-and-mark
-  "Ri" 'copy-rectangle-to-register
-  "Rk" 'kill-rectangle
-  "Rl" 'rectangle-left-char
-  "Rm" 'rectangle-mark-mode
-  "Rn" 'rectangle-next-line
-  "RN" 'rectangle-number-lines
-  "Ro" 'open-rectangle
-  "Rp" 'rectangle-previous-line
-  "Rr" 'rectangle-right-char
-  "Rs" 'string-rectangle
-  "Rt" 'transpose-regions
-  "Ry" 'yank-rectangle)
+;; (spacemacs|spacebind
+;;  "Operations on rectangular selections of text."
+;;  :global
+;;  (("C-v" "Rectangles"
+;;    ("c" close-rectangle "Delete whitespace after")
+;;    ("d" delete-rectangle "Delete text")
+;;    ("e" rectangle-exchange-point-and-mark "Go to corner")
+;;    ("i" copy-rectangle-to-register "Copy into register")
+;;    ("k" kill-rectangle "Delete and save")
+;;    ("l" rectangle-left-char "Move left past EOL")
+;;    ("m" rectangle-mark-mode "Toggle region as rectangular")
+;;    ("n" rectangle-next-line "Go to next line past EOL")
+;;    ("N" rectangle-number-lines "Insert line number")
+;;    ("o" open-rectangle "Shift text right")
+;;    ("p" rectangle-previous-line "Go to prev. line past EOL")
+;;    ("r" rectangle-right-char "Move right past EOL")
+;;    ("s" string-rectangle "Replace lines with string")
+;;    ("x" clear-rectangle "Blank out rectangle")
+;;    ("y" yank-rectangle "Paste last rectangle"))))
 ;; applications ---------------------------------------------------------------
 (spacemacs/set-leader-keys
   "ac"  'calc-dispatch

@@ -774,23 +774,23 @@ Other:
     - ~SPC K r s~  swap the first two macros in ring
     - ~SPC K v~    view last macro string in minibuffer
     (thanks to Spenser Truex)
-  - New ~SPC R~ prefix to use rectangle manipulation built-ins:
-    - ~SPC R !~ clear-rectangle
-    - ~SPC R c~ close-rectangle
-    - ~SPC R d~ delete-rectangle
-    - ~SPC R e~ rectangle-exchange-point-and-mark
-    - ~SPC R i~ copy-rectangle-to-register
-    - ~SPC R k~ kill-rectangle
-    - ~SPC R l~ rectangle-left-char
-    - ~SPC R m~ rectangle-mark-mode
-    - ~SPC R n~ rectangle-next-line
-    - ~SPC R N~ rectangle-number-lines
-    - ~SPC R o~ open-rectangle
-    - ~SPC R p~ rectangle-previous-line
-    - ~SPC R r~ rectangle-right-char
-    - ~SPC R s~ string-rectangle
-    - ~SPC R t~ transpose-regions
-    - ~SPC R y~ yank-rectangle
+  - New ~SPC C-v~ prefix to use rectangle manipulation built-ins:
+    - ~SPC C-v !~ clear-rectangle
+    - ~SPC C-v c~ close-rectangle
+    - ~SPC C-v d~ delete-rectangle
+    - ~SPC C-v e~ rectangle-exchange-point-and-mark
+    - ~SPC C-v i~ copy-rectangle-to-register
+    - ~SPC C-v k~ kill-rectangle
+    - ~SPC C-v l~ rectangle-left-char
+    - ~SPC C-v m~ rectangle-mark-mode
+    - ~SPC C-v n~ rectangle-next-line
+    - ~SPC C-v N~ rectangle-number-lines
+    - ~SPC C-v o~ open-rectangle
+    - ~SPC C-v p~ rectangle-previous-line
+    - ~SPC C-v r~ rectangle-right-char
+    - ~SPC C-v s~ string-rectangle
+    - ~SPC C-v t~ transpose-regions
+    - ~SPC C-v y~ yank-rectangle
     (thanks to Spenser Truex)
   - New ~SPC t t~ prefix for timeclock clock-in clock-out management:
     - ~SPC t t c~ timeclock-change
