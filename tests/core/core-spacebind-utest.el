@@ -300,6 +300,65 @@ NOTE: `spacebind--eager-bind' set to true. "
                    (("a" "section under a key"
                      ("b" bar-fn "call bar-fn"))))))))
 
+(ert-deftest test-spacebind-labels-multi-line-strings-allways-joined ()
+  (thread-first (spacemacs|spacebind
+                 :global
+                 (("a" foo-fn "This is a
+                            multi line string")))
+    (test-spacebind|log-stack-eval)
+    (plist-get :add-global-replacements)
+    (car)
+    (equal '(("a") "This is a multi line string"))
+    (should))
+  (thread-first (spacemacs|spacebind
+                 :minor
+                 (foo-mode
+                  ("a" foo-fn "This is a
+                            multi line string")))
+    (test-spacebind|log-stack-eval)
+    (plist-get :minor-mode-replacements)
+    (car)
+    (equal '(foo-mode ("a") "This is a multi line string"))
+    (should))
+  (thread-first (spacemacs|spacebind
+                 :major
+                 (foo-mode
+                  ("a" foo-fn "This is a
+                            multi line string")))
+    (test-spacebind|log-stack-eval)
+    (plist-get :major-mode-replacements)
+    (car)
+    (equal '(foo-mode ("a") "This is a multi line string"))
+    (should)))
+
+(ert-deftest test-spacebind-labels-pipe-slicing-always-works ()
+  (thread-first (spacemacs|spacebind
+                 :global
+                 (("a" foo-fn "this part goes into label | that part omitted")))
+    (test-spacebind|log-stack-eval)
+    (plist-get :add-global-replacements)
+    (car)
+    (equal '(("a") "this part goes into label"))
+    (should))
+  (thread-first (spacemacs|spacebind
+                 :minor
+                 (foo-mode
+                  ("a" foo-fn "this part goes into label | that part omitted")))
+    (test-spacebind|log-stack-eval)
+    (plist-get :minor-mode-replacements)
+    (car)
+    (equal '(foo-mode ("a") "this part goes into label"))
+    (should))
+  (thread-first (spacemacs|spacebind
+                 :major
+                 (foo-mode
+                  ("a" foo-fn "this part goes into label | that part omitted")))
+    (test-spacebind|log-stack-eval)
+    (plist-get :major-mode-replacements)
+    (car)
+    (equal '(foo-mode ("a") "this part goes into label"))
+    (should)))
+
 (ert-deftest test-spacebind-always-generates-right-stack ()
   (thread-last
       (spacemacs|spacebind
