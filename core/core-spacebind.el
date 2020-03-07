@@ -170,7 +170,7 @@ its value into a list and re-apply the function to it."
 
 (cl-defmethod spacemacs//spacebind-dispatch ((state spacemacs--spacebind-state)
                                              (_ string))
-  "Append STR to the RSEXP of STATE. Can be used as a doc-string."
+  "Ignore strings - used to implement doc-strings."
   state)
 
 (defun spacemacs//spacebind-form-visitor (form path k-fn p-fn)
@@ -187,6 +187,8 @@ delimited by \"|\" character."
           leader-label-or-fn-symbol
           leader-label-or-next-form)
          (mapcar (lambda (el)
+                   ;; Convert new lines and multiply spaces into singular.
+                   ;; This is done to enable better binding form formatting.
                    (if (stringp el)
                        (replace-regexp-in-string "[\n[:space:]]+" " " el)
                      el))
@@ -196,6 +198,9 @@ delimited by \"|\" character."
              (funcall k-fn
                       full-key-or-prefix
                       leader-label-or-fn-symbol
+                      ;; Discard everything after | symbol in labels.
+                      ;; This way we can add extra text into the documentation
+                      ;; while omitting it in labels.
                       (replace-regexp-in-string
                        "[[:punct:][:space:]]*|.*"
                        ""
@@ -346,6 +351,12 @@ See core-spacebind-utest.el for examples.
 
 NOTE: This macro also has `use-package' integration via `:spacebind' key
 
+NOTE: <TEXT> strings support formatting:
+      - \n and multiply spaces are converted into single spaces in the <TEXT>.
+      - Everything after and including | symbol is ignored and punctuation
+        before the character trimmed. This is done so you can provide additional
+        information for the binding documentation while keeping labels brief.
+
 \(fn <<DELIMITER_KEYWORD> <BINDING_FORMS>...>...)"
   (append
    (spacemacs--spacebind-state-rsexp
@@ -353,6 +364,7 @@ NOTE: This macro also has `use-package' integration via `:spacebind' key
                 bindings
                 (make-spacemacs--spacebind-state
                  :rsexp `(progn))))
+   ;; Schedule stacks processing with `spacebind//process-bind-stack' function.
    `((if (not spacebind--eager-bind)
          (when (aref spacebind--timer 0)
            (setq spacebind--timer
