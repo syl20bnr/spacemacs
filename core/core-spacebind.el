@@ -32,6 +32,8 @@ Otherwise binding happens at the next event loop.")
   "Binding stack for `spacemacs/set-leader-keys-for-minor-mode'.")
 (defvar spacebind--bs-global-replacements '()
   "Binding stack for `which-key-add-key-based-replacements'.")
+(defvar spacebind--bs-add-fn-key-seq-override '()
+  "Binding stack for `spacemacs/add-which-key-fn-key-seq-override'.")
 
 (defvar spacebind--timer [t]
   "`run-with-idle-timer' return value for `spacebind//process-bind-stack'.")
@@ -99,7 +101,14 @@ Otherwise binding happens at the next event loop.")
                                            (car args))
                                    " "))
                 (label (cadr args)))
-            (which-key-add-key-based-replacements keys label))))
+            (which-key-add-key-based-replacements keys label)))
+
+        ;; `spacemacs/add-which-key-fn-key-seq-override'
+        (dolist (args spacebind--bs-add-fn-key-seq-override)
+          (let ((sym (car args))
+                (rep (cadr args))
+                (label (caddr args)))
+            (spacemacs/add-which-key-fn-key-seq-override sym rep label))))
 
     ;; Reset stacks
     (setq spacebind--bs-global-replacements nil
@@ -110,6 +119,7 @@ Otherwise binding happens at the next event loop.")
           spacebind--bs-declare-prefix nil
           spacebind--bs-add-major-mode-replacements nil
           spacebind--bs-add-minor-mode-replacements nil
+          spacebind--bs-add-fn-key-seq-override nil
           ;; Reset timer var
           spacebind--timer [t])))
 
@@ -139,6 +149,11 @@ a clue how to do this.
 Also there is discussion about the feature:
 https://github.com/justbur/emacs-which-key/issues/212"
   (apply #'which-key-add-key-based-replacements key-sequence replacement more))
+
+(defun spacemacs/add-which-key-fn-key-seq-override
+    (fn-name key-rep label)
+  "Replace FN-NAME function's key sequence with KEY-REP and LABEL."
+  (push `((nil . ,fn-name) . (,key-rep . ,label)) which-key-replacement-alist))
 
 (cl-defstruct spacemacs--spacebind-state
   "State object for `spacebind' macro implementation.
@@ -179,56 +194,69 @@ PATH passed to the applied function.
 NOTE: This function strips all newline characters, replaces successive spaces
 with a singular in string elements of FORM and trims tails of function labels
 delimited by \"|\" character."
-  (when-let ((fm (and (stringp (car-safe form))
-                      (seq-take form 3))))
-    (list
-     (cl-destructuring-bind
-         (key-or-prefix
-          leader-label-or-fn-symbol
-          leader-label-or-next-form)
-         (mapcar (lambda (el)
-                   ;; Convert new lines and multiply spaces into singular.
-                   ;; This is done to enable better binding form formatting.
-                   (if (stringp el)
-                       (replace-regexp-in-string "[\n[:space:]]+" " " el)
-                     el))
-                 fm)
-       (let ((full-key-or-prefix (append path `(,key-or-prefix))))
-         (if (symbolp leader-label-or-fn-symbol)
-             (funcall k-fn
-                      full-key-or-prefix
-                      leader-label-or-fn-symbol
-                      ;; Discard everything after | symbol in labels.
-                      ;; This way we can add extra text into the documentation
-                      ;; while omitting it in labels.
-                      (replace-regexp-in-string
-                       "[[:punct:][:space:]]*|.*"
-                       ""
-                       leader-label-or-next-form))
-           (funcall p-fn
+  (list
+   (cl-destructuring-bind
+       (key-or-prefix-form
+        leader-label-or-fn-symbol
+        leader-label-or-next-form)
+       (mapcar (lambda (el)
+                 ;; Convert new lines and multiply spaces into singular.
+                 ;; This is done to enable better binding form formatting.
+                 (if (stringp el)
+                     (replace-regexp-in-string "[\n[:space:]]+" " " el)
+                   el))
+               (seq-take form 3))
+     (let ((full-key-or-prefix (append
+                                path
+                                ;; ("key" :label "label") or "key".
+                                `(,(or (car-safe key-or-prefix-form)
+                                       key-or-prefix-form))))
+           (key-or-prefix-label (thread-first key-or-prefix-form
+                                  (cdr-safe)
+                                  (plist-get :label))))
+       (if (symbolp leader-label-or-fn-symbol)
+           (funcall k-fn
                     full-key-or-prefix
-                    leader-label-or-fn-symbol)))))))
+                    key-or-prefix-label
+                    leader-label-or-fn-symbol
+                    ;; Discard everything after | symbol in labels.
+                    ;; This way we can add extra text into the documentation
+                    ;; while omitting it in labels.
+                    (replace-regexp-in-string
+                     "[[:punct:][:space:]]*|.*"
+                     ""
+                     ;; Either "label" or ("doc label" :label "label").
+                     (or (thread-first leader-label-or-next-form
+                           (cdr-safe)
+                           (plist-get :label))
+                         leader-label-or-next-form)))
+         (funcall p-fn full-key-or-prefix leader-label-or-fn-symbol))))))
 
 (defun spacemacs//spacebind-form-walker-rec (path k-fn p-fn form)
   "Recursive body of `spacemacs//spacebind-form-walker'."
-  (append
-   (spacemacs//spacebind-form-visitor form path k-fn p-fn)
-   (let* ((is-prefix-form (stringp (cadr form)))
-          (cur-path (if is-prefix-form
-                        (append path `(,(car form)))
-                      path))
-          ;; Strip key and label from prefix forms.
-          (bindings (if is-prefix-form
-                        (cddr form)
-                      form)))
-     ;; Is it a list of bind forms?
-     (when (consp (car-safe bindings))
+  (let* ((fn-sym-or-label (car-safe (cdr-safe form)))
+         (prefix-form? (stringp fn-sym-or-label))
+         (binding-form? (and fn-sym-or-label (symbolp fn-sym-or-label)))
+         (list-of-forms? (and form (every #'consp form)))
+         (binding-or-prefix-form? (or binding-form?
+                                      prefix-form?))
+         (head (car form))
+         (cur-path (if prefix-form?
+                       (append path `(,(or (car-safe head)
+                                           head)))
+                     path))
+         ;; Strip key and label from prefix forms.
+         (bindings (if prefix-form?
+                       (cddr form)
+                     form)))
+    (append
+     (when binding-or-prefix-form?
+       (spacemacs//spacebind-form-visitor form path k-fn p-fn))
+     (when (or prefix-form?
+               list-of-forms?)
        (seq-mapcat
         (apply-partially
-         'spacemacs//spacebind-form-walker-rec
-         cur-path
-         k-fn
-         p-fn)
+         'spacemacs//spacebind-form-walker-rec cur-path k-fn p-fn)
         bindings)))))
 
 (defun spacemacs//spacebind-form-walker (b-forms k-fn p-fn)
@@ -250,11 +278,11 @@ The forms will be concatenated and substituted by `spacebind' macro."
          (mode (pop form)))
     (spacemacs//spacebind-form-walker
      form
-     (lambda (key-seq fn-symbol label)
-       `(message "Key binding visitor args: key-seq: %S fn-symbol: %S label: %S"
-                 ,key-seq ,fn-symbol ,label))
+     (lambda (key-seq key-label fn-symbol label)
+       `(message "Key args: key-seq: %S Key-label: %S fn-symbol: %S label: %S"
+                 ,key-seq, key-label ,fn-symbol ,label))
      (lambda (key-prefix label)
-       `(message "Prefix binding visitor args: key-prefix: %S label: %S"
+       `(message "Prefix args: key-prefix: %S label: %S"
                  ,key-prefix ,label)))))
 
 (cl-defmethod :global ((_ spacemacs--spacebind-state) form)
@@ -264,9 +292,14 @@ The forms will be concatenated and substituted by `spacebind' macro."
    (if (char-or-string-p (car form))
        (cdr form)
      form)
-   (lambda (key-seq fn-symbol label)
+   (lambda (key-seq key-label fn-symbol label)
      `(progn
         (push (list ',key-seq ,label) spacebind--bs-global-replacements)
+        ,(when key-label
+           `(push (list ,(symbol-name fn-symbol)
+                        ,key-label
+                        ,label)
+                  spacebind--bs-add-fn-key-seq-override))
         (push (list ',key-seq ',fn-symbol) spacebind--bs-set-leader-keys)))
    (lambda (key-prefix label)
      `(push (list ',key-prefix ,label) spacebind--bs-declare-prefix))))
@@ -277,10 +310,15 @@ The forms will be concatenated and substituted by `spacebind' macro."
          (mode (pop form)))
     (spacemacs//spacebind-form-walker
      form
-     (lambda (key-seq fn-symbol label)
+     (lambda (key-seq key-label fn-symbol label)
        `(progn
           (push (list ',mode ',key-seq ,label)
                 spacebind--bs-add-major-mode-replacements)
+          ,(when key-label
+             `(push (list ,(symbol-name fn-symbol)
+                          ,key-label
+                          ,label)
+                    spacebind--bs-add-fn-key-seq-override))
           (push (list ',mode ',key-seq ',fn-symbol)
                 spacebind--bs-set-leader-keys-for-major-mode)))
      (lambda (key-prefix label)
@@ -293,10 +331,15 @@ The forms will be concatenated and substituted by `spacebind' macro."
          (mode (pop form)))
     (spacemacs//spacebind-form-walker
      form
-     (lambda (key-seq fn-symbol label)
+     (lambda (key-seq key-label fn-symbol label)
        `(progn
           (push (list ',mode ',key-seq ,label)
                 spacebind--bs-add-minor-mode-replacements)
+          ,(when key-label
+             `(push (list ,(symbol-name fn-symbol)
+                          ,key-label
+                          ,label)
+                    spacebind--bs-add-fn-key-seq-override))
           (push (list ',mode ',key-seq ',fn-symbol)
                 spacebind--bs-set-leader-keys-for-minor-mode)))
      (lambda (key-prefix label)
@@ -365,12 +408,11 @@ NOTE: <TEXT> strings support formatting:
                 (make-spacemacs--spacebind-state
                  :rsexp `(progn))))
    ;; Schedule stacks processing with `spacebind//process-bind-stack' function.
-   `((if (not spacebind--eager-bind)
-         (when (aref spacebind--timer 0)
+   `((when (aref spacebind--timer 0)
+       (if (not spacebind--eager-bind)
            (setq spacebind--timer
-                 (run-with-idle-timer 0 nil #'spacebind//process-bind-stack)))
-       (when (timerp spacebind--timer)
-         (cancel-timer spacebind--timer))
-       (spacebind//process-bind-stack)))))
+                 (run-with-idle-timer 0 nil #'spacebind//process-bind-stack))
+         (setq spacebind--timer [t])
+         (spacebind//process-bind-stack))))))
 
 (provide 'core-spacebind)
