@@ -30,7 +30,7 @@ Otherwise binding happens at the next event loop.")
   "Binding stack for `spacemacs/set-leader-keys-for-major-mode'.")
 (defvar spacebind--bs-set-leader-keys-for-minor-mode '()
   "Binding stack for `spacemacs/set-leader-keys-for-minor-mode'.")
-(defvar spacebind--bs-add-global-replacements '()
+(defvar spacebind--bs-global-replacements '()
   "Binding stack for `which-key-add-key-based-replacements'.")
 
 (defvar spacebind--timer [t]
@@ -94,7 +94,7 @@ Otherwise binding happens at the next event loop.")
             (spacemacs/set-leader-keys-for-minor-mode mode keys fn-sym)))
 
         ;; `which-key-add-key-based-replacements'
-        (dolist (args spacebind--bs-add-global-replacements)
+        (dolist (args spacebind--bs-global-replacements)
           (let ((keys (string-join (append `(,(spacemacs/leader-key))
                                            (car args))
                                    " "))
@@ -102,7 +102,7 @@ Otherwise binding happens at the next event loop.")
             (which-key-add-key-based-replacements keys label))))
 
     ;; Reset stacks
-    (setq spacebind--bs-add-global-replacements nil
+    (setq spacebind--bs-global-replacements nil
           spacebind--bs-set-leader-keys-for-minor-mode nil
           spacebind--bs-set-leader-keys-for-major-mode nil
           spacebind--bs-set-leader-keys nil
@@ -266,7 +266,7 @@ The forms will be concatenated and substituted by `spacebind' macro."
      form)
    (lambda (key-seq fn-symbol label)
      `(progn
-        (push (list ',key-seq ,label) spacebind--bs-add-global-replacements)
+        (push (list ',key-seq ,label) spacebind--bs-global-replacements)
         (push (list ',key-seq ',fn-symbol) spacebind--bs-set-leader-keys)))
    (lambda (key-prefix label)
      `(push (list ',key-prefix ,label) spacebind--bs-declare-prefix))))

@@ -102,7 +102,7 @@ The return value is a plist with the shape:
  :set-leader-keys <STACK>
  :set-leader-keys-for-major-mode <STACK>
  :set-leader-keys-for-minor-mode <STACK>
- :add-global-replacements <STACK>)
+ :global-replacements <STACK>)
 
 <STACK> is a corresponding binding stack.
 
@@ -126,9 +126,9 @@ NOTE: `spacebind--eager-bind' set to true."
                                    spacebind--bs-set-leader-keys-for-major-mode
                                    :set-leader-keys-for-minor-mode
                                    spacebind--bs-set-leader-keys-for-minor-mode
-                                   :add-global-replacements
-                                   spacebind--bs-add-global-replacements)
-                        spacebind--bs-add-global-replacements nil
+                                   :global-replacements
+                                   spacebind--bs-global-replacements)
+                        spacebind--bs-global-replacements nil
                         spacebind--bs-set-leader-keys-for-minor-mode nil
                         spacebind--bs-set-leader-keys-for-major-mode nil
                         spacebind--bs-set-leader-keys nil
@@ -165,7 +165,7 @@ NOTE: `spacebind--eager-bind' set to true. "
               (spacebind--bs-set-leader-keys '())
               (spacebind--bs-set-leader-keys-for-major-mode '())
               (spacebind--bs-set-leader-keys-for-minor-mode '())
-              (spacebind--bs-add-global-replacements '())
+              (spacebind--bs-global-replacements '())
               (spacebind--timer [t])
               (called nil)
               ((symbol-function 'spacebind//process-bind-stack)
@@ -179,7 +179,7 @@ NOTE: `spacebind--eager-bind' set to true. "
                                 spacebind--bs-set-leader-keys
                                 spacebind--bs-set-leader-keys-for-major-mode
                                 spacebind--bs-set-leader-keys-for-minor-mode
-                                spacebind--bs-add-global-replacements)))
+                                spacebind--bs-global-replacements)))
        (when (listp el) ;; all list arguments are key sequences.
          (condition-case err (kbd (string-join el " "))
            ((error nil) (push err invalid-key-seqs)))))
@@ -205,7 +205,7 @@ NOTE: `spacebind--eager-bind' set to true. "
        :declare-prefix nil
        :set-leader-keys nil
        :set-leader-keys-for-minor-mode nil
-       :add-global-replacements nil))
+       :global-replacements nil))
     (eq nil)
     (should)))
 
@@ -228,7 +228,7 @@ NOTE: `spacebind--eager-bind' set to true. "
        :declare-prefix nil
        :set-leader-keys nil
        :set-leader-keys-for-major-mode nil
-       :add-global-replacements nil))
+       :global-replacements nil))
     (eq nil)
     (should)))
 
@@ -244,7 +244,7 @@ NOTE: `spacebind--eager-bind' set to true. "
        ((("a") "section under a key"))
        :set-leader-keys
        ((("a" "b") bar-fn))
-       :add-global-replacements
+       :global-replacements
        ((("a" "b") "call bar-fn"))
        :minor-mode-replacements nil
        :major-mode-replacements nil
@@ -306,7 +306,7 @@ NOTE: `spacebind--eager-bind' set to true. "
                  (("a" foo-fn "This is a
                             multi line string")))
     (test-spacebind|log-stack-eval)
-    (plist-get :add-global-replacements)
+    (plist-get :global-replacements)
     (car)
     (equal '(("a") "This is a multi line string"))
     (should))
@@ -336,7 +336,7 @@ NOTE: `spacebind--eager-bind' set to true. "
                  :global
                  (("a" foo-fn "this part goes into label | that part omitted")))
     (test-spacebind|log-stack-eval)
-    (plist-get :add-global-replacements)
+    (plist-get :global-replacements)
     (car)
     (equal '(("a") "this part goes into label"))
     (should))
@@ -446,7 +446,7 @@ NOTE: `spacebind--eager-bind' set to true. "
        ((some-another-minor-mode ("a" "b" "c" "b") baz-fn)
         (some-minor-mode ("a" "c" "d" "e") baz-fn)
         (some-minor-mode ("a" "b") foo-fn))
-       :add-global-replacements
+       :global-replacements
        ((("C-v" "b") "call bar-fn"))))
     (eq nil)
     (should)))
