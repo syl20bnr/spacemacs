@@ -2112,7 +2112,7 @@ Other:
   - Added package dependencies for =ein= (thanks to ft)
   - Fixed keybindings per removal of =ein:notebook-multilang-mode=
   - DRY and tidiness update by primary EIN developer
-  - Dynamically generate transient-state docstring.  Remove ob-ipython (ibid.)
+  - Dynamically generate transient-state docstring.  Remove ob-ipython (Ibid.)
 **** Ivy
 - Added =recentf= alt actions to refresh and delete items (thanks to Rich Alesi)
 - Added =projectile= alternate actions to invalidate cache (thanks to Rich Alesi)
