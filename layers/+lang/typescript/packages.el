@@ -124,5 +124,6 @@
         (add-to-list 'spacemacs--import-js-modes (cons 'typescript-tsx-mode 'typescript-tsx-mode-hook)))))
 
 (defun typescript/post-init-tide ()
-  (add-to-list 'tide-managed-modes 'typescript-mode)
-  (add-to-list 'tide-managed-modes 'typescript-tsx-mode))
+  (when (eq (spacemacs//typescript-backend) `tide)
+    (add-to-list 'tide-managed-modes 'typescript-mode)
+    (add-to-list 'tide-managed-modes 'typescript-tsx-mode)))

@@ -263,7 +263,8 @@
   (add-to-list 'tern--key-bindings-modes 'js2-mode))
 
 (defun javascript/post-init-tide ()
-  (add-to-list 'tide-managed-modes 'js2-mode))
+  (when (eq (spacemacs//typescript-backend) `tide)
+    (add-to-list 'tide-managed-modes 'js2-mode)))
 
 (defun javascript/pre-init-web-beautify ()
   (when (eq javascript-fmt-tool 'web-beautify)

@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layer-dependencies '(node javascript prettier))
+(configuration-layer/declare-layer-dependencies '(node javascript prettier tide))
 
 (when (and (boundp 'typescript-backend)
            (eq typescript-backend 'lsp))

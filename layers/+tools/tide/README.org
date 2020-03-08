@@ -26,7 +26,7 @@ See [[https://github.com/ananthakumaran/tide][tide]] for details. First you must
 or globally:
 
 #+begin_src sh
-  npm install -g tsserver
+  npm install -g typescript
 #+end_src
 
 Next enable this layer in your =~/.spacemacs=. You will need to add =tide= to the
