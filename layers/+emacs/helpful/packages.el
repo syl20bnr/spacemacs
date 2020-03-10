@@ -26,4 +26,5 @@
               'append)
     :config
     (evil-set-initial-state 'helpful-mode 'normal)
+    (evil-define-key 'normal helpful-mode-map (kbd "o") 'link-hint-open-link)
     (evil-define-key 'normal helpful-mode-map (kbd "q") 'quit-window)))
