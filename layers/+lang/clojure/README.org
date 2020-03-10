@@ -475,6 +475,8 @@ Managing CIDER REPL connections and sessions
 | ~SPC m h j~ | cider javadoc               |
 | ~SPC m h n~ | cider browse namespace      |
 | ~SPC m h N~ | cider browse all namespaces |
+| ~SPC m h s~ | cider-browse-spec           |
+| ~SPC m h S~ | cider-browse-spec-all       |
 
 *** Evaluation
 Evaluate Clojure code in the source code buffer

@@ -1522,6 +1522,9 @@ Other:
   - added evaluation keybinding - go to end of line and evaluate sexp
     ~SPC m e $~ 'spacemacs/cider-eval-sexp-end-of-line
     ~SPC m e l~ 'spacemacs/cider-eval-sexp-end-of-line
+  - added browse-spec keybindings
+    ~SPC m h s~ 'cider-browse-spec
+    ~SPC m h S~ 'cider-browse-spec-all
 - Fixes:
   - Removed =cider.nrepl/cider-middleware= in lein quick start setting
   - Fixed =cider-inspector-prev-page= binding, also add ~p~ as another key
