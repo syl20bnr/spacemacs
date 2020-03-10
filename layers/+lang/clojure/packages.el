@@ -99,6 +99,9 @@
             "hj" 'cider-javadoc
             "hn" 'cider-browse-ns
             "hN" 'cider-browse-ns-all
+            "hs" 'cider-browse-spec
+            "hS" 'cider-browse-spec-all
+
 
             ;; evaluate in source code buffer
             "e;" 'cider-eval-defun-to-comment
