@@ -228,6 +228,8 @@
     (majapahit-light                  . majapahit-theme)
     (material-light                   . material-theme)
     (minimal-light                    . minimal-theme)
+    (modus-operandi                   . modus-operandi-theme)
+    (modus-vivendi                    . modus-vivendi-theme)
     (moe-dark                         . moe-theme)
     (moe-light                        . moe-theme)
     (stekene-dark                     . stekene-theme)
