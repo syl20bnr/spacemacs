@@ -1126,6 +1126,8 @@ Other:
     (thanks to Ivan Yonchovski)
   - Added a toggleable hint for the Scrolling Transient State (~SPC N~)
     (thanks to Andriy Kmit)
+  - Improved google-translate for set source language to "auto" and
+    select target language interactively (thanks to Lin Sun)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)
