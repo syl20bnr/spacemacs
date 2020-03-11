@@ -410,6 +410,11 @@ NOTE: <TEXT> strings support formatting:
         before the character trimmed. This is done so you can provide additional
         information for the binding documentation while keeping labels brief.
 
+NOTE: You can override key labels and displayed sequences :label <value>
+      Example: ((\"k\" :label \"press k\")
+                foo-fn
+                (\"for docs\" :label \"displayed\"))
+
 \(fn <<DELIMITER_KEYWORD> <BINDING_FORMS>...>...)"
   (append
    (spacemacs--spacebind-state-rsexp
