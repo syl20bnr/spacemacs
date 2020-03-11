@@ -247,7 +247,7 @@ delimited by \"|\" character."
   (let* ((fn-sym-or-label (car-safe (cdr-safe form)))
          (prefix-form? (stringp fn-sym-or-label))
          (binding-form? (and fn-sym-or-label (symbolp fn-sym-or-label)))
-         (list-of-forms? (and form (every #'consp form)))
+         (list-of-forms? (and form (cl-every #'consp form)))
          (binding-or-prefix-form? (or binding-form?
                                       prefix-form?))
          (head (car form))
