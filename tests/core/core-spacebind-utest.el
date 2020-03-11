@@ -27,7 +27,9 @@
     (which-key-add-key-based-replacements
       (KEY-SEQUENCE REPLACEMENT &rest MORE))
     (which-key-add-major-mode-key-based-replacements
-      (MODE KEY-SEQUENCE REPLACEMENT &rest MORE)))
+      (MODE KEY-SEQUENCE REPLACEMENT &rest MORE))
+    (spacemacs/add-which-key-fn-key-seq-override
+     (FN-NAME KEY-REP LABEL)))
   "Signature of the functions that we will mock for the `spacebind' tests.")
 
 ;;;; Helpers:
@@ -102,7 +104,8 @@ The return value is a plist with the shape:
  :set-leader-keys <STACK>
  :set-leader-keys-for-major-mode <STACK>
  :set-leader-keys-for-minor-mode <STACK>
- :global-replacements <STACK>)
+ :global-replacements <STACK>
+ :fn-key-seq-override <STACK>)
 
 <STACK> is a corresponding binding stack.
 
@@ -127,7 +130,9 @@ NOTE: `spacebind--eager-bind' set to true."
                                    :set-leader-keys-for-minor-mode
                                    spacebind--bs-set-leader-keys-for-minor-mode
                                    :global-replacements
-                                   spacebind--bs-global-replacements)
+                                   spacebind--bs-global-replacements
+                                   :fn-key-seq-override
+                                   spacebind--bs-add-fn-key-seq-override)
                         spacebind--bs-global-replacements nil
                         spacebind--bs-set-leader-keys-for-minor-mode nil
                         spacebind--bs-set-leader-keys-for-major-mode nil
@@ -136,6 +141,7 @@ NOTE: `spacebind--eager-bind' set to true."
                         spacebind--bs-declare-prefix nil
                         spacebind--bs-add-major-mode-replacements nil
                         spacebind--bs-add-minor-mode-replacements nil
+                        spacebind--bs-add-fn-key-seq-override nil
                         spacebind--timer [t])))
        (progn
          ,@body
@@ -166,6 +172,7 @@ NOTE: `spacebind--eager-bind' set to true. "
               (spacebind--bs-set-leader-keys-for-major-mode '())
               (spacebind--bs-set-leader-keys-for-minor-mode '())
               (spacebind--bs-global-replacements '())
+              (spacebind--bs-add-fn-key-seq-override '())
               (spacebind--timer [t])
               (called nil)
               ((symbol-function 'spacebind//process-bind-stack)
@@ -179,7 +186,8 @@ NOTE: `spacebind--eager-bind' set to true. "
                                 spacebind--bs-set-leader-keys
                                 spacebind--bs-set-leader-keys-for-major-mode
                                 spacebind--bs-set-leader-keys-for-minor-mode
-                                spacebind--bs-global-replacements)))
+                                spacebind--bs-global-replacements
+                                spacebind--bs-add-fn-key-seq-override)))
        (when (listp el) ;; all list arguments are key sequences.
          (condition-case err (kbd (string-join el " "))
            ((error nil) (push err invalid-key-seqs)))))
@@ -205,6 +213,7 @@ NOTE: `spacebind--eager-bind' set to true. "
        :declare-prefix nil
        :set-leader-keys nil
        :set-leader-keys-for-minor-mode nil
+       :fn-key-seq-override nil
        :global-replacements nil))
     (eq nil)
     (should)))
@@ -228,6 +237,7 @@ NOTE: `spacebind--eager-bind' set to true. "
        :declare-prefix nil
        :set-leader-keys nil
        :set-leader-keys-for-major-mode nil
+       :fn-key-seq-override nil
        :global-replacements nil))
     (eq nil)
     (should)))
@@ -246,6 +256,7 @@ NOTE: `spacebind--eager-bind' set to true. "
        ((("a" "b") bar-fn))
        :global-replacements
        ((("a" "b") "call bar-fn"))
+       :fn-key-seq-override nil
        :minor-mode-replacements nil
        :major-mode-replacements nil
        :declare-prefix-for-mode nil
@@ -300,11 +311,67 @@ NOTE: `spacebind--eager-bind' set to true. "
                    (("a" "section under a key"
                      ("b" bar-fn "call bar-fn"))))))))
 
-(ert-deftest test-spacebind-labels-multi-line-strings-allways-joined ()
+(ert-deftest test-spacebind-desc-overrides-always-applied ()
+  (thread-first (spacemacs|spacebind
+                 :global
+                 (("a" foo-fn ("ignored(used for docs)" :label "used label"))))
+    (test-spacebind|log-stack-eval)
+    (plist-get :global-replacements)
+    (car)
+    (equal '(("a") "used label"))
+    (should))
+  (thread-first (spacemacs|spacebind
+                 :minor
+                 (foo-mode
+                  ("a" foo-fn ("ignored(used for docs)" :label "used label"))))
+    (test-spacebind|log-stack-eval)
+    (plist-get :minor-mode-replacements)
+    (car)
+    (equal '(foo-mode ("a") "used label"))
+    (should))
+  (thread-first (spacemacs|spacebind
+                 :major
+                 (foo-mode
+                  ("a" foo-fn ("ignored(used for docs)" :label "used label"))))
+    (test-spacebind|log-stack-eval)
+    (plist-get :major-mode-replacements)
+    (car)
+    (equal '(foo-mode ("a") "used label"))
+    (should)))
+
+(ert-deftest test-spacebind-key-overrides-always-applied ()
+  (thread-first (spacemacs|spacebind
+                 :global
+                 ((("a" :label "press a") foo-fn "label")))
+    (test-spacebind|log-stack-eval)
+    (plist-get :fn-key-seq-override)
+    (car)
+    (equal '("foo-fn" "press a" "label"))
+    (should))
+  (thread-first (spacemacs|spacebind
+                 :minor
+                 (foo-mode
+                  (("a" :label "press a") foo-fn "label")))
+    (test-spacebind|log-stack-eval)
+    (plist-get :fn-key-seq-override)
+    (car)
+    (equal '("foo-fn" "press a" "label"))
+    (should))
+  (thread-first (spacemacs|spacebind
+                 :major
+                 (foo-mode
+                  (("a" :label "press a") foo-fn "label")))
+    (test-spacebind|log-stack-eval)
+    (plist-get :fn-key-seq-override)
+    (car)
+    (equal '("foo-fn" "press a" "label"))
+    (should)))
+
+(ert-deftest test-spacebind-labels-multi-line-strings-always-joined ()
   (thread-first (spacemacs|spacebind
                  :global
                  (("a" foo-fn "This is a
-                            multi line string")))
+                               multi line string")))
     (test-spacebind|log-stack-eval)
     (plist-get :global-replacements)
     (car)
@@ -314,7 +381,7 @@ NOTE: `spacebind--eager-bind' set to true. "
                  :minor
                  (foo-mode
                   ("a" foo-fn "This is a
-                            multi line string")))
+                               multi line string")))
     (test-spacebind|log-stack-eval)
     (plist-get :minor-mode-replacements)
     (car)
@@ -324,11 +391,20 @@ NOTE: `spacebind--eager-bind' set to true. "
                  :major
                  (foo-mode
                   ("a" foo-fn "This is a
-                            multi line string")))
+                               multi line string")))
     (test-spacebind|log-stack-eval)
     (plist-get :major-mode-replacements)
     (car)
     (equal '(foo-mode ("a") "This is a multi line string"))
+    (should))
+  (thread-first (spacemacs|spacebind
+                 :global
+                 (("a" foo-fn ("ignored" :label "This is a
+                                                 multi line string"))))
+    (test-spacebind|log-stack-eval)
+    (plist-get :global-replacements)
+    (car)
+    (equal '(("a") "This is a multi line string"))
     (should)))
 
 (ert-deftest test-spacebind-labels-pipe-slicing-always-works ()
@@ -357,6 +433,16 @@ NOTE: `spacebind--eager-bind' set to true. "
     (plist-get :major-mode-replacements)
     (car)
     (equal '(foo-mode ("a") "this part goes into label"))
+    (should))
+  (thread-first (spacemacs|spacebind
+                 :global
+                 (("a" foo-fn ("ignored"
+                               :label "this part goes into label
+                                       | that part omitted"))))
+    (test-spacebind|log-stack-eval)
+    (plist-get :global-replacements)
+    (car)
+    (equal '(("a") "this part goes into label"))
     (should)))
 
 (ert-deftest test-spacebind-always-generates-right-stack ()
@@ -369,14 +455,16 @@ NOTE: `spacebind--eager-bind' set to true. "
          ("TAB" spacemacs/python-execute-file "execute file")
          ("C" spacemacs/python-execute-file-focus "execute file and focus"))
         ("d" "debug"
-         ("b" spacemacs/python-toggle-breakpoint "toggle breakpoint"))
+         (("b" :label "->b") spacemacs/python-toggle-breakpoint "toggle
+                                                                 breakpoint"))
         ("r" "refactor"
          ("i" spacemacs/python-remove-unused-imports "remove unused import"))
         ("s" "REPL"
          ("s" spacemacs/python-shell-send-buffer-switch
-          "send buffer to REPL and focus")
+          "send buffer to REPL and focus | on the buffer")
          ("S" python-shell-send-buffer
-          "send buffer to REPL")
+          ("send buffer to REPL" :label "buffer -> REPL | without
+                                                          focusing"))
          ("d" spacemacs/python-shell-send-defun-switch
           "send function around point to REPL and focus")
          ("D" python-shell-send-defun
@@ -410,7 +498,7 @@ NOTE: `spacebind--eager-bind' set to true. "
         (py-mode ("s" "r") "send region to REPL and focus")
         (py-mode ("s" "D") "send function around point to REPL")
         (py-mode ("s" "d") "send function around point to REPL and focus")
-        (py-mode ("s" "S") "send buffer to REPL")
+        (py-mode ("s" "S") "buffer -> REPL")
         (py-mode ("s" "s") "send buffer to REPL and focus")
         (py-mode ("r" "i") "remove unused import")
         (py-mode ("d" "b") "toggle breakpoint")
@@ -425,10 +513,8 @@ NOTE: `spacebind--eager-bind' set to true. "
         (some-minor-mode ("a" "c" "d") "sub sub section under d key")
         (some-minor-mode ("a" "c") "sub section under c key")
         (some-minor-mode ("a") "section under a key")
-        (py-mode ("s") "REPL")
-        (py-mode ("r") "refactor")
-        (py-mode ("d") "debug")
-        (py-mode ("C-p") "compile/execute"))
+        (py-mode ("s") "REPL") (py-mode ("r") "refactor")
+        (py-mode ("d") "debug") (py-mode ("C-p") "compile/execute"))
        :set-leader-keys
        ((("C-v" "b") bar-fn))
        :set-leader-keys-for-major-mode
@@ -447,7 +533,9 @@ NOTE: `spacebind--eager-bind' set to true. "
         (some-minor-mode ("a" "c" "d" "e") baz-fn)
         (some-minor-mode ("a" "b") foo-fn))
        :global-replacements
-       ((("C-v" "b") "call bar-fn"))))
+       ((("C-v" "b") "call bar-fn"))
+       :fn-key-seq-override
+       (("spacemacs/python-toggle-breakpoint" "->b" "toggle breakpoint"))))
     (eq nil)
     (should)))
 
@@ -461,14 +549,16 @@ NOTE: `spacebind--eager-bind' set to true. "
          ("TAB" spacemacs/python-execute-file "execute file")
          ("C" spacemacs/python-execute-file-focus "execute file and focus"))
         ("d" "debug"
-         ("b" spacemacs/python-toggle-breakpoint "toggle breakpoint"))
+         (("b" :label "->b") spacemacs/python-toggle-breakpoint "toggle
+                                                                 breakpoint"))
         ("r" "refactor"
          ("i" spacemacs/python-remove-unused-imports "remove unused import"))
         ("s" "REPL"
          ("s" spacemacs/python-shell-send-buffer-switch
-          "send buffer to REPL and focus")
+          "send buffer to REPL and focus | on the buffer")
          ("S" python-shell-send-buffer
-          "send buffer to REPL")
+          ("send buffer to REPL" :label "buffer -> REPL | without
+                                                          focusing"))
          ("d" spacemacs/python-shell-send-defun-switch
           "send function around point to REPL and focus")
          ("D" python-shell-send-defun
@@ -493,7 +583,9 @@ NOTE: `spacebind--eager-bind' set to true. "
          ("b" bar-fn "call bar-fn"))))
     (test-spacebind|log-calls)
     (cl-set-exclusive-or
-     '((which-key-add-key-based-replacements
+     '((spacemacs/add-which-key-fn-key-seq-override
+        "spacemacs/python-toggle-breakpoint" "->b" "toggle breakpoint")
+       (which-key-add-key-based-replacements
          "SPC C-v b" "call bar-fn" nil)
        (spacemacs/set-leader-keys-for-minor-mode
          some-minor-mode "a b" foo-fn nil)
@@ -556,7 +648,7 @@ NOTE: `spacebind--eager-bind' set to true. "
        (which-key-add-major-mode-key-based-replacements
          py-mode "SPC m s s" "send buffer to REPL and focus" nil)
        (which-key-add-major-mode-key-based-replacements
-         py-mode "SPC m s S" "send buffer to REPL" nil)
+         py-mode "SPC m s S" "buffer -> REPL" nil)
        (which-key-add-major-mode-key-based-replacements
          py-mode "SPC m s d" "send function around point to REPL and focus" nil)
        (which-key-add-major-mode-key-based-replacements
@@ -585,14 +677,16 @@ NOTE: `spacebind--eager-bind' set to true. "
          ("TAB" spacemacs/python-execute-file "execute file")
          ("C" spacemacs/python-execute-file-focus "execute file and focus"))
         ("d" "debug"
-         ("b" spacemacs/python-toggle-breakpoint "toggle breakpoint"))
+         (("b" :label "->b") spacemacs/python-toggle-breakpoint "toggle
+                                                                 breakpoint"))
         ("r" "refactor"
          ("i" spacemacs/python-remove-unused-imports "remove unused import"))
         ("s" "REPL"
          ("s" spacemacs/python-shell-send-buffer-switch
-          "send buffer to REPL and focus")
+          "send buffer to REPL and focus | on the buffer")
          ("S" python-shell-send-buffer
-          "send buffer to REPL")
+          ("send buffer to REPL" :label "buffer -> REPL | without
+                                                          focusing"))
          ("d" spacemacs/python-shell-send-defun-switch
           "send function around point to REPL and focus")
          ("D" python-shell-send-defun

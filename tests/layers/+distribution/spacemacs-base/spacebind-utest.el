@@ -24,6 +24,7 @@ NOTE: `spacebind--eager-bind' set to true. "
               (spacebind--bs-set-leader-keys-for-major-mode '())
               (spacebind--bs-set-leader-keys-for-minor-mode '())
               (spacebind--bs-global-replacements '())
+              (spacebind--bs-add-fn-key-seq-override '())
               (spacebind--timer [t])
               (called nil)
               ((symbol-function 'spacebind//process-bind-stack)
