@@ -11,13 +11,12 @@
 
 (setq scala-packages
       '(
-        ensime
+        (ensime :toggle (spacemacs//scala-backend-ensime-p))
         lsp-mode
         ggtags
         counsel-gtags
         helm-gtags
         noflet
-        org
         scala-mode
         sbt-mode
         ))
@@ -162,19 +161,17 @@
   (spacemacs/enable-flycheck 'scala-mode)
   ;; Don't use scala checker if ensime mode is active, since it provides
   ;; better error checking.
-  (with-eval-after-load 'flycheck
-    (add-hook 'ensime-mode-hook 'spacemacs//scala-disable-flycheck-scala)))
+  (when spacemacs//scala-backend-ensime-p
+    (with-eval-after-load 'flycheck
+      (add-hook 'ensime-mode-hook 'spacemacs//scala-disable-flycheck-scala))))
 
 (defun scala/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'scala-mode)
-  (add-hook 'scala-mode-hook #'spacemacs//scala-setup-ensime-flyspell))
+  (when spacemacs//scala-backend-ensime-p
+    (add-hook 'scala-mode-hook #'spacemacs//scala-setup-ensime-flyspell)))
 
 (defun scala/init-noflet ()
   (use-package noflet))
-
-(defun scala/pre-init-org ()
-  (spacemacs|use-package-add-hook org
-    :post-config (add-to-list 'org-babel-load-languages '(scala . t))))
 
 (defun scala/init-sbt-mode ()
   (use-package sbt-mode

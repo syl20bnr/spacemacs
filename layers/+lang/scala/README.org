@@ -9,12 +9,12 @@
   - [[#features][Features:]]
 - [[#layer-installation][Layer Installation]]
 - [[#backends][Backends]]
+  - [[#metals][Metals]]
   - [[#ensime][Ensime]]
     - [[#installation-when-using-sbt][Installation when using SBT]]
     - [[#installation-when-using-gradle][Installation when using Gradle]]
     - [[#configuration][Configuration]]
     - [[#usage][Usage]]
-  - [[#metals][Metals]]
 - [[#scalastyle][Scalastyle]]
   - [[#use-java-doc-style][Use Java doc-style]]
 - [[#automatically-show-the-type-of-the-symbol-under-the-cursor][Automatically show the type of the symbol under the cursor]]
@@ -58,29 +58,49 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =scala= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-Then, you should modify your =~/.spacemacs= to use the recommended Ensime
-version (Stable). Please add the following lines to =dotspacemacs/user-init=:
-
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'configuration-layer-elpa-archives '("melpa-stable" . "stable.melpa.org/packages/"))
-  (add-to-list 'package-pinned-packages '(ensime . "melpa-stable"))
-#+END_SRC
-
 * Backends
 The currently supported language backends are:
-- scala-ensime (default)
 - scala-metals
+- scala-ensime (deprecated)
 
 To set your choice of backend, configure the layer variable =scala-backend=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-                '((scala :variables scala-backend 'scala-ensime))) ;or 'scala-metals
+                '((scala :variables scala-backend 'scala-metals))) ;or 'scala-ensime
 #+END_SRC
 
-** Ensime
+** Metals
+Currently, you must manually install the metals server. It is possible to do so
+via coursier; the latest version can be built using the following commands,
+where =0.7.6= can be replaced with the current version of [[https://github.com/scalameta/metals/][Metals]]:
+
+#+BEGIN_SRC bash
+  ./coursier bootstrap \
+    --java-opt -Xss4m \
+    --java-opt -Xms100m \
+    --java-opt -Dmetals.client=emacs \
+    org.scalameta:metals_2.12:0.7.6 \
+    -r bintray:scalacenter/releases \
+    -r sonatype:snapshots \
+    -o /usr/local/bin/metals-emacs -f
+#+END_SRC
+
+You will then have the common LSP key bindings; see
+[[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/lsp#key-bindings][LSP#key-bindings]] for more details.
+
+** Ensime (deprecated)
+This package is mainly unmaintained today and should only be used as a last resort.
+
 [[https://ensime.github.io/][ENSIME]] provides IDE-like features, such as refactoring, incremental compilation
 and project-wide type-checking.
+
+You will also need to modify your =dotspacemacs/user-init= to pull the recommended Ensime
+version (Stable):
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'configuration-layer-elpa-archives '("melpa-stable" . "stable.melpa.org/packages/"))
+  (add-to-list 'package-pinned-packages '(ensime . "melpa-stable"))
+#+END_SRC
 
 ENSIME requires a configuration file at the root of each Scala project. It
 provides an SBT plugin, a gradle plugin and others (see [[https://web.archive.org/web/20190427005241/https://ensime.github.io/build_tools/][ensime.org]] for a full
@@ -115,25 +135,6 @@ For example,
 ~SPC SPC spacemacs/ensime-gen-and-restart~ or ~SPC m D r~ generates a new config
 for a project and starts the server. Afterwards ~SPC SPC ensime~ or ~SPC m D s~
 will suffice do the trick.
-
-** Metals
-Currently, you must manually install the metals server. It is possible to do so
-via coursier; the latest version can be built using the following commands,
-where =0.7.6= can be replaced with the current version of [[https://github.com/scalameta/metals/][Metals]]:
-
-#+BEGIN_SRC bash
-  ./coursier bootstrap \
-    --java-opt -Xss4m \
-    --java-opt -Xms100m \
-    --java-opt -Dmetals.client=emacs \
-    org.scalameta:metals_2.12:0.7.6 \
-    -r bintray:scalacenter/releases \
-    -r sonatype:snapshots \
-    -o /usr/local/bin/metals-emacs -f
-#+END_SRC
-
-You will then have the common LSP key bindings; see
-[[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/lsp#key-bindings][LSP#key-bindings]] for more details.
 
 * Scalastyle
 [[http://www.scalastyle.org/][Scalastyle]] provides style-checking and linting. The Emacs functionality is
