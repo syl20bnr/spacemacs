@@ -4,7 +4,7 @@ Spacemacs is a volunteer effort. We encourage you to pitch in. The community
 makes Spacemacs what it is. We have a few guidelines, which we ask all
 contributors to follow.
 
-You can only consider reading the sections relevant to what you are going to do or just watch this video [here](https://www.youtube.com/watch?v=OMS-3Jl05mE&feature=youtu.be&list=PLpr9V-R8ZxiCHMl2_dn1Fovcd34Oz45sua):
+You can only consider reading the sections relevant to what you are going to do or just watch this video [[https://www.youtube.com/watch?v=OMS-3Jl05mE&feature=youtu.be&list=PLpr9V-R8ZxiCHMl2_dn1Fovcd34Oz45sua][here]]:
 - [[#asking-for-help][Asking for help]] if you are about to open an issue to ask a question.
 - [[#reporting-issues][Reporting issues]] if you are about to open a new issue.
 - [[#contributing-code][Contributing code]] if you are about to send a PR.
