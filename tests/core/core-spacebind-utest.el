@@ -95,7 +95,7 @@ NOTE: `spacebind--eager-bind' set to true. "
   "Evaluate BODY while mocking `spacebind//process-bind-stack'.
 Stack values after the evaluation are returned and the stacks cleaned.
 
-The return value is a plist with the shape:
+The return value is a plist of the shape:
 
 (:minor-mode-replacements <STACK>
  :major-mode-replacements <STACK>
