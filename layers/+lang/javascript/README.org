@@ -166,7 +166,7 @@ Default is =’web-beautify=.
 See [[file:../../+tools/tern/README.org][tern layer]] documentation.
 
 ** Tide
-See [[file:~/.emacs.d/layers/+tools/tide/README.org][tide layer]] documentation.
+See [[file:../../+tools/tide/README.org][tide layer]] documentation.
 
 ** Language Server Protocol
 To use an LSP server with JavaScript, add it as a =javascript-backend= to your
