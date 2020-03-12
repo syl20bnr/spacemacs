@@ -15,7 +15,7 @@
   "If true bind keys right after `spacmeacs|spacebind' macro-expanse.
 Otherwise binding happens at the next event loop.")
 
-;; Binding stacks
+;;;; Binding stacks
 (defvar spacebind--bs-add-minor-mode-replacements '()
   "Binding stack for `spacemacs/add-key-based-replacements-for-minor-mode'.")
 (defvar spacebind--bs-add-major-mode-replacements '()
@@ -133,11 +133,11 @@ NOTE: `dotspacemacs-major-mode-leader-key' isn't the same."
   "Returns `dotspacemacs-leader-key'"
   dotspacemacs-leader-key)
 
-(defun spacebind//strip-docstring (binding-form)
-  "Remove second element of BINDING-FORM if it is a string."
-  (if (stringp (cadr binding-form))
-      (cons (car binding-form) (cddr binding-form))
-    binding-form))
+(defun spacebind//strip-docstring (mode-binding-form)
+  "Remove second element of MODE-BINDING-FORM if it is a string."
+  (if (stringp (cadr mode-binding-form))
+      (cons (car mode-binding-form) (cddr mode-binding-form))
+    mode-binding-form))
 
 (defun spacemacs/add-key-based-replacements-for-minor-mode
     (mode key-sequence replacement &rest more)
@@ -158,10 +158,17 @@ https://github.com/justbur/emacs-which-key/issues/212"
 (cl-defstruct spacemacs--spacebind-state
   "State object for `spacebind' macro implementation.
 CTYPE - current binding type.
-RSEXP - accumulator with the macro output.
-This structure has one interpreter method for each supported CTYPE.
-CTYPE is a type of a currently processed binding."
-  ctype rsexp)
+BSTACK - plist of generated key-binding stacks of the shape:
+(:minor-mode-replacements <STACK>
+ :major-mode-replacements <STACK>
+ :declare-prefix <STACK>
+ :declare-prefix-for-mode <STACK>
+ :set-leader-keys <STACK>
+ :set-leader-keys-for-major-mode <STACK>
+ :set-leader-keys-for-minor-mode <STACK>
+ :global-replacements <STACK>
+ :fn-key-seq-override <STACK>)"
+  ctype bstack)
 
 (cl-defgeneric spacemacs//spacebind-dispatch (state binding)
   (:documentation "Based on BINDING type modify STATE using BINDING value."))
@@ -178,9 +185,8 @@ its value into a list and re-apply the function to it."
 
 (cl-defmethod spacemacs//spacebind-dispatch ((state spacemacs--spacebind-state)
                                              (sexp list))
-  "Apply STATE method from ctype slot to SEXP and append output to rsexp slot."
-  (cl-callf append (spacemacs--spacebind-state-rsexp state)
-    (funcall (spacemacs--spacebind-state-ctype state) state sexp))
+  "Apply STATE method from ctype slot to SEXP."
+  (funcall (spacemacs--spacebind-state-ctype state) state sexp)
   state)
 
 (cl-defmethod spacemacs//spacebind-dispatch ((state spacemacs--spacebind-state)
@@ -280,22 +286,16 @@ Both K-FN and P-FN should return binding evaluation forms.
 The forms will be concatenated and substituted by `spacebind' macro."
   (spacemacs//spacebind-form-walker-rec nil k-fn p-fn b-forms))
 
-;; Key bindings - keywords handlers
+(defun spacemacs//spacebind-stack-push (state stack-k sexp)
+  "Push SEXP onto stack specified by STACK-K in the STATE bstack plist slot."
+  (cl-callf (lambda (bs)
+              (plist-put bs stack-k (cons sexp (plist-get bs stack-k))))
+      (spacemacs--spacebind-state-bstack state))
+  state)
 
-(cl-defmethod :print-debug ((_ spacemacs--spacebind-state) form)
-  "`message' logging interpreter for debugging."
-  (let* ((form (spacebind//strip-docstring form))
-         (mode (pop form)))
-    (spacemacs//spacebind-form-walker
-     form
-     (lambda (key-seq key-label fn-symbol label)
-       `(message "Key args: key-seq: %S Key-label: %S fn-symbol: %S label: %S"
-                 ,key-seq, key-label ,fn-symbol ,label))
-     (lambda (key-prefix label)
-       `(message "Prefix args: key-prefix: %S label: %S"
-                 ,key-prefix ,label)))))
+;;;; Key bindings - keywords handlers
 
-(cl-defmethod :global ((_ spacemacs--spacebind-state) form)
+(cl-defmethod :global ((state spacemacs--spacebind-state) form)
   "Interpreter for global binding forms."
   (spacemacs//spacebind-form-walker
    ;; Strip optional doc-string.
@@ -303,58 +303,70 @@ The forms will be concatenated and substituted by `spacebind' macro."
        (cdr form)
      form)
    (lambda (key-seq key-label fn-symbol label)
-     `(progn
-        (push (list ',key-seq ,label) spacebind--bs-global-replacements)
-        ,(when key-label
-           `(push (list ,(symbol-name fn-symbol)
-                        ,key-label
-                        ,label)
-                  spacebind--bs-add-fn-key-seq-override))
-        (push (list ',key-seq ',fn-symbol) spacebind--bs-set-leader-keys)))
+     (spacemacs//spacebind-stack-push
+      state
+      :global-replacements `(,key-seq ,label))
+     (spacemacs//spacebind-stack-push
+      state
+      :set-leader-keys `(,key-seq ,fn-symbol))
+     (when key-label
+       (spacemacs//spacebind-stack-push
+        state
+        :fn-key-seq-override `(,(symbol-name fn-symbol)
+                               ,key-label
+                               ,label))))
    (lambda (key-prefix label)
-     `(push (list ',key-prefix ,label) spacebind--bs-declare-prefix))))
+     (spacemacs//spacebind-stack-push
+      state
+      :declare-prefix `(,key-prefix ,label)))))
 
-(cl-defmethod :major ((_ spacemacs--spacebind-state) form)
+(cl-defmethod :major ((state spacemacs--spacebind-state) form)
   "Interpreter for major mode binding forms."
   (let* ((form (spacebind//strip-docstring form))
          (mode (pop form)))
     (spacemacs//spacebind-form-walker
      form
      (lambda (key-seq key-label fn-symbol label)
-       `(progn
-          (push (list ',mode ',key-seq ,label)
-                spacebind--bs-add-major-mode-replacements)
-          ,(when key-label
-             `(push (list ,(symbol-name fn-symbol)
-                          ,key-label
-                          ,label)
-                    spacebind--bs-add-fn-key-seq-override))
-          (push (list ',mode ',key-seq ',fn-symbol)
-                spacebind--bs-set-leader-keys-for-major-mode)))
+       (spacemacs//spacebind-stack-push
+        state
+        :major-mode-replacements `(,mode ,key-seq ,label))
+       (spacemacs//spacebind-stack-push
+        state
+        :set-leader-keys-for-major-mode `(,mode ,key-seq ,fn-symbol))
+       (when key-label
+         (spacemacs//spacebind-stack-push
+          state
+          :fn-key-seq-override `(,(symbol-name fn-symbol)
+                                 ,key-label
+                                 ,label))))
      (lambda (key-prefix label)
-       `(push (list ',mode ',key-prefix ,label)
-              spacebind--bs-declare-prefix-for-mode)))))
+       (spacemacs//spacebind-stack-push
+        state
+        :declare-prefix-for-mode `(,mode ,key-prefix ,label))))))
 
-(cl-defmethod :minor ((_ spacemacs--spacebind-state) form)
+(cl-defmethod :minor ((state spacemacs--spacebind-state) form)
   "Interpreter for minor mode binding forms."
   (let* ((form (spacebind//strip-docstring form))
          (mode (pop form)))
     (spacemacs//spacebind-form-walker
      form
      (lambda (key-seq key-label fn-symbol label)
-       `(progn
-          (push (list ',mode ',key-seq ,label)
-                spacebind--bs-add-minor-mode-replacements)
-          ,(when key-label
-             `(push (list ,(symbol-name fn-symbol)
-                          ,key-label
-                          ,label)
-                    spacebind--bs-add-fn-key-seq-override))
-          (push (list ',mode ',key-seq ',fn-symbol)
-                spacebind--bs-set-leader-keys-for-minor-mode)))
+       (spacemacs//spacebind-stack-push
+        state
+        :minor-mode-replacements `(,mode ,key-seq ,label))
+       (spacemacs//spacebind-stack-push
+        state
+        :set-leader-keys-for-minor-mode `(,mode ,key-seq ,fn-symbol))
+       (when key-label
+         (spacemacs//spacebind-stack-push
+          state
+          :fn-key-seq-override `(,(symbol-name fn-symbol)
+                                 ,key-label
+                                 ,label))))
      (lambda (key-prefix label)
-       `(push (list ',mode ',key-prefix ,label)
-              spacebind--bs-declare-prefix-for-mode)))))
+       (spacemacs//spacebind-stack-push
+        state
+        :declare-prefix-for-mode `(,mode ,key-prefix ,label))))))
 
 (defmacro spacemacs|spacebind (&rest bindings)
   "Bind keys and their prefixes declared via BINDINGS tree like structure.
@@ -410,18 +422,48 @@ NOTE: <TEXT> strings support formatting:
         before the character trimmed. This is done so you can provide additional
         information for the binding documentation while keeping labels brief.
 
-NOTE: You can override key labels and displayed sequences :label <value>
+NOTE: You can override key labels and displayed key sequences with :label <TEXT>
       Example: ((\"k\" :label \"press k\")
                 foo-fn
                 (\"for docs\" :label \"displayed\"))
 
 \(fn <<DELIMITER_KEYWORD> <BINDING_FORMS>...>...)"
-  (append
-   (spacemacs--spacebind-state-rsexp
-    (seq-reduce 'spacemacs//spacebind-dispatch
-                bindings
-                (make-spacemacs--spacebind-state
-                 :rsexp `(progn))))
+  (cl-list*
+   'progn
+   (let ((state (make-spacemacs--spacebind-state)))
+     (dolist (sexp bindings)
+       ;; Fill stacks
+       (spacemacs//spacebind-dispatch state sexp))
+     (cl-flet ((get-stack (key) (thread-first state
+                                  (spacemacs--spacebind-state-bstack)
+                                  (plist-get key))))
+       (seq-reduce
+        (lambda (acc pair)
+          (if-let ((stack (get-stack (car pair)))
+                   (stack-var (cadr pair)))
+              ;; We do it this way because `nconc' should have
+              ;; the shortest list as the first argument.
+              (append acc `(,stack-var (nconc ',stack ,stack-var)))
+            acc))
+        `((:minor-mode-replacements
+           spacebind--bs-add-minor-mode-replacements)
+          (:major-mode-replacements
+           spacebind--bs-add-major-mode-replacements)
+          (:declare-prefix
+           spacebind--bs-declare-prefix)
+          (:declare-prefix-for-mode
+           spacebind--bs-declare-prefix-for-mode)
+          (:set-leader-keys
+           spacebind--bs-set-leader-keys)
+          (:set-leader-keys-for-major-mode
+           spacebind--bs-set-leader-keys-for-major-mode)
+          (:set-leader-keys-for-minor-mode
+           spacebind--bs-set-leader-keys-for-minor-mode)
+          (:global-replacements
+           spacebind--bs-global-replacements)
+          (:fn-key-seq-override
+           spacebind--bs-add-fn-key-seq-override))
+        '(setq))))
    ;; Schedule stacks processing with `spacebind//process-bind-stack' function.
    `((when (aref spacebind--timer 0)
        (if (not spacebind--eager-bind)
