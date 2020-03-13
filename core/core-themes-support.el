@@ -188,6 +188,7 @@
     (doom-laserwave                   . doom-themes)
     (doom-manegarm                    . doom-themes)
     (doom-material                    . doom-themes)
+    (doom-molokai                     . doom-themes)
     (doom-monokai-classic             . doom-themes)
     (doom-moonlight                   . doom-themes)
     (doom-nord                        . doom-themes)
