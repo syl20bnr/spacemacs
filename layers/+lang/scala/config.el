@@ -23,7 +23,7 @@
 (defconst scala-backends '(scala-ensime scala-metals)
   "Backend server implementation to enable advanced IDE language features")
 
-(defvar scala-backend 'scala-metals
+(defvar scala-backend 'scala-ensime
   "Backend used to trigger IDE language features.
 `scala-ensime' or `scala-metals' are currently supported")
 
