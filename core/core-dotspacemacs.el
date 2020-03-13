@@ -422,6 +422,15 @@ visiting README.org files of Spacemacs.")
 (defvar dotspacemacs-new-empty-buffer-major-mode nil
   "Set the major mode for a new empty buffer.")
 
+(defvar dotspacemacs-use-clean-aindent-mode t
+  "Correct indentation for simple modes.
+
+If non nil activate `clean-aindent-mode' which tries to correct
+virtual indentation of simple modes. This can interfer with mode specific
+indent handling like has been reported for `go-mode'.
+If it does deactivate it here.
+(default t)")
+
 (defun dotspacemacs//prettify-spacemacs-docs ()
   "Run `spacemacs/prettify-org-buffer' if `buffer-file-name'
 has `spacemacs-start-directory'"

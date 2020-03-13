@@ -13,7 +13,7 @@
       '(aggressive-indent
         avy
         (bracketed-paste :toggle (version<= emacs-version "25.0.92"))
-        clean-aindent-mode
+        (clean-aindent-mode :toggle dotspacemacs-use-clean-aindent-mode)
         editorconfig
         eval-sexp-fu
         expand-region
