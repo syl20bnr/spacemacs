@@ -10,7 +10,7 @@
 - [[#layer-installation][Layer Installation]]
 - [[#backends][Backends]]
   - [[#metals][Metals]]
-  - [[#ensime][Ensime]]
+  - [[#ensime-deprecated][Ensime (deprecated)]]
     - [[#installation-when-using-sbt][Installation when using SBT]]
     - [[#installation-when-using-gradle][Installation when using Gradle]]
     - [[#configuration][Configuration]]
@@ -22,7 +22,7 @@
 - [[#automatically-replace-arrows-with-unicode-ones][Automatically replace arrows with unicode ones]]
 - [[#auto-start][Auto-start]]
 - [[#key-bindings][Key bindings]]
-  - [[#ensime-1][Ensime]]
+  - [[#ensime][Ensime]]
     - [[#search][Search]]
     - [[#ensime-search-mode][Ensime Search Mode]]
     - [[#sbt][sbt]]
@@ -97,6 +97,7 @@ and project-wide type-checking.
 
 You will also need to modify your =dotspacemacs/user-init= to pull the recommended Ensime
 version (Stable):
+
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'configuration-layer-elpa-archives '("melpa-stable" . "stable.melpa.org/packages/"))
   (add-to-list 'package-pinned-packages '(ensime . "melpa-stable"))

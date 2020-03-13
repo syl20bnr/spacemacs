@@ -231,6 +231,7 @@
   - [[#systemd][Systemd]]
   - [[#tern][Tern]]
   - [[#terraform][Terraform]]
+  - [[#tide-layer][Tide Layer]]
   - [[#tmux][Tmux]]
   - [[#transmission][Transmission]]
   - [[#vagrant][Vagrant]]
@@ -2942,6 +2943,19 @@ This layer provides basic support for Terraform =.tf= files.
 Features:
 - Basic syntax highlighting via [[https://github.com/syohex/emacs-terraform-mode][terraform-mode]]
 - Auto formatting on save via =terraform fmt=
+
+** Tide Layer
+[[file:+tools/tide/README.org][+tools/tide/README.org]]
+
+This layer installs [[https://github.com/ananthakumaran/tide][tide]] package which allows communication with 
+[[https://github.com/Microsoft/TypeScript/wiki/Standalone-Server-%28tsserver%29][standalone typescript server]] =tsserver= for JavaScript/TypeScript development.
+
+Features:
+- First class support from =tsserver= just like =vscode=: speed and accuracy
+- Linter 
+- Refactor
+- Go to definition
+- Find references
 
 ** Tmux
 [[file:+tools/tmux/README.org][+tools/tmux/README.org]]

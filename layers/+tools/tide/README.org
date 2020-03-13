@@ -2,7 +2,7 @@
 
 #+TAGS: layer|tool
 
-* Table of Contents                                       :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -15,32 +15,32 @@ This layer installs [[https://github.com/ananthakumaran/tide][tide]] package whi
 [[https://github.com/Microsoft/TypeScript/wiki/Standalone-Server-%28tsserver%29][standalone typescript server]] =tsserver= for JavaScript/TypeScript development.
 
 ** Features:
-  - First class support from =tsserver= just like =vscode=: speed and accuracy
-  - Linter 
-  - Refactor
-  - Go to definition
-  - Find references
+- First class support from =tsserver= just like =vscode=: speed and accuracy
+- Linter 
+- Refactor
+- Go to definition
+- Find references
 
 * Install
 See [[https://github.com/ananthakumaran/tide][tide]] for details. First you must have `tsserver` installed in your project
 or globally:
 
-#+begin_src sh
+#+BEGIN_SRC sh
   npm install -g typescript
-#+end_src
+#+END_SRC
 
 Next enable this layer in your =~/.spacemacs=. You will need to add =tide= to the
 existing =dotspacemacs-configuration-layers= list in this file. Then set the
 backend variables for JavaScript layer, React layer and TypeScript layer to =tide=
 in =dotspacemacs-configuration-layers=
 
-#+begin_src elisp
+#+BEGIN_SRC elisp
   (javascript :variables
                javascript-backend 'tide)
 
   (typescript :variables
               typescript-backend 'tide)
-#+end_src
+#+END_SRC
 
 Both =javascript-backend= and =typescript-backend= can be set per project.
 
@@ -51,7 +51,7 @@ Example from emacs tide package: For JavaScript projects you may want to create
 =jsconfig.json= in the root folder of your project. =jsconfig.json= is =tsconfig.json=
 with allowjs attribute set to true.
 
-#+begin_src json
+#+BEGIN_SRC json
   {
     "compilerOptions": {
       "target": "es2017",
@@ -62,11 +62,13 @@ with allowjs attribute set to true.
       "lib": [ "dom", "es2017" ]
     }
   }
-#+end_src
+#+END_SRC
 
 Without this file =tsserver= will pick up current folder as project root.
+
 * Key bindings
 ** Major Mode
+
 | Key binding | Description                                       |
 |-------------+---------------------------------------------------|
 | ~SPC m E d~ | add =tslint:disable-next-line= at point           |
@@ -83,9 +85,9 @@ Without this file =tsserver= will pick up current folder as project root.
 | ~SPC m S j~ | create a barebone =jsconfig.json= at project root |
 
 ** Reference Major Mode
+
 | Key binding | Description             |
 |-------------+-------------------------|
 | ~C-j~       | find previous reference |
 | ~C-k~       | find next reference     |
 | ~C-l~       | goto reference          |
-
