@@ -2146,6 +2146,8 @@ Other:
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
 - Use new API to register additional transient state bindings
   (thanks to Andriy Kmit')
+- Replaced custom hydra-menu by original and updated hydra-menu, introducing
+  marking feature (thanks to Daniel Nicolai)
 - Initiate the transient state with ~M-SPC~ while in a =ivy= buffer
   (thanks to Rich Alesi)
 - Set =ivy-use-selectable-prompt= to =t= (thanks to Boris Buliga)
