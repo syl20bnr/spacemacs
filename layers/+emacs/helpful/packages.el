@@ -10,7 +10,10 @@
 ;;; License: GPLv3
 
 (defconst helpful-packages
-  '(helpful))
+  '(
+    helpful
+    popwin
+    ))
 
 (defun helpful/init-helpful ()
   (use-package helpful
@@ -28,3 +31,7 @@
     (evil-set-initial-state 'helpful-mode 'normal)
     (evil-define-key 'normal helpful-mode-map (kbd "o") 'link-hint-open-link)
     (evil-define-key 'normal helpful-mode-map (kbd "q") 'quit-window)))
+
+(defun helpful/post-init-popwin ()
+  (push '(helpful-mode :dedicated t :position bottom :stick t :noselect t :height 0.4)
+        popwin:special-display-config))
