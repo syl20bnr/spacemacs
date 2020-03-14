@@ -223,13 +223,13 @@
 ;; Cycling settings -----------------------------------------------------------
 (spacemacs|define-transient-state theme
   :title "Themes Transient State"
-  :doc "\n[_n_/_<right>_] next  [_N_/_p_/_<left>_] previous  [_t_/_<up>_] helm-themes"
+  :doc "\n[_n_/_<right>_] next  [_N_/_p_/_<left>_] previous  [_t_/_<up>_] list themes"
   :bindings
   ("n" spacemacs/cycle-spacemacs-theme)
   ("N" spacemacs/cycle-spacemacs-theme-backward)
   ("p" spacemacs/cycle-spacemacs-theme-backward)
-  ("t" helm-themes)
-  ("<up>" helm-themes)
+  ("t" spacemacs/theme-loader)
+  ("<up>" spacemacs/theme-loader)
   ("<right>" spacemacs/cycle-spacemacs-theme)
   ("<left>" spacemacs/cycle-spacemacs-theme-backward))
 (spacemacs/set-leader-keys "Tn"

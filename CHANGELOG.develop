@@ -906,8 +906,8 @@ Other:
   - Move ~SPC t C p~ to ~SPC t h p~ for =highlight-parentheses-mode=
     (thanks to Thomas de Beauchêne)
   - New ~SPC t m r~ to toggle responsiveness of the mode-line
-  - New themes transient state key bindings ~t~ or ~<up>~ to open =helm-themes=
-    to select an installed theme (thanks to duianto)
+  - New themes transient state keys to list available themes: ~t~ or ~<up>~
+    (thanks to duianto and Muneeb Shaikh)
   - Added ~SPC t z~ to toggle zero-based column indexing in the mode line
   - New key binding and function ~SPC w d~ for =spacemacs/maximize-vertically
     (thanks to Ag Ibragimov)

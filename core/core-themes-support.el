@@ -417,6 +417,16 @@ When BACKWARD is non-nil, or with universal-argument, cycle backwards."
       (setq spacemacs--cur-theme theme))
     (spacemacs/post-theme-init theme)))
 
+(defun spacemacs/theme-loader ()
+  "Call appropriate theme loader based on completion framework."
+  (interactive)
+  (cond
+   ((configuration-layer/layer-used-p 'helm)
+    (call-interactively 'spacemacs/helm-themes))
+   ((configuration-layer/layer-used-p 'ivy)
+    (call-interactively 'counsel-load-theme))
+   (t (call-interactively 'load-theme))))
+
 (defun spacemacs/post-theme-init (theme)
   "Some processing that needs to be done when the current theme
 has been changed to THEME."
