@@ -132,10 +132,20 @@ Refer to the official notmuch website for more information:
 ** Evilified key bindings
 *** Hello mode
 
-| Key binding | Command                     |
-|-------------+-----------------------------|
-| ~J~         | Jump to a saved search      |
-| ~s~         | Show threads matching QUERY |
+| Key binding | Command                              |
+|-------------+--------------------------------------|
+| ~TAB~       | Jump to next widget                  |
+| ~S-TAB~     | Jump to previous widget              |
+| ~J~         | Jump to a saved search               |
+| ~s~         | Show threads matching QUERY          |
+| ~=~ or ~g~  | Refresh buffer                       |
+| ~M-=~       | Refresh all open notmuch buffers     |
+| ~?~         | Open notmuch help buffer             |
+| ~G~         | Pull new messages and refresh buffer |
+| ~m~         | Open new mail buffer                 |
+| ~q~         | Kill notmuch buffer                  |
+| ~v~         | Show current notmuch version         |
+| ~z~         | Open notmuch tree buffer             |
 
 *** Search mode
 

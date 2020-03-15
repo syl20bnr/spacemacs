@@ -16,8 +16,8 @@
         notmuch
         org
         persp-mode
-        window-purpose
-        ))
+        window-purpose))
+
 
 (defun notmuch/init-counsel-notmuch ()
   (use-package counsel-notmuch
@@ -80,9 +80,27 @@
         "Po" 'spacemacs/notmuch-show-open-github-patch
         "Pa" 'spacemacs/notmuch-git-apply-patch
         "PA" 'spacemacs/notmuch-git-apply-patch-part)
-      ;; evilified maps
-      (evilified-state-evilify-map notmuch-hello-mode-map
-        :mode notmuch-hello-mode)
+      ;; Evilify notmuch modes
+      ;; Use normal mode map to allow proper editing capabilities
+      ;; for the embedded search field in `notmuch-hello-mode`
+      (evil-set-initial-state 'notmuch-hello-mode 'normal)
+      (evil-define-key 'normal notmuch-hello-mode-map
+        "C-tab" #'widget-backward
+        "S-tab" #'widget-backward
+        "=" #'notmuch-refresh-this-buffer
+        "?" #'notmuch-help
+        "G" #'notmuch-poll-and-refresh-this-buffer
+        "g" #'notmuch-refresh-this-buffer
+        "J" #'notmuch-jump-search
+        "m" #'notmuch-mua-new-mail
+        "q" #'notmuch-bury-or-kill-this-buffer
+        "s" #'notmuch-search
+        "v" #'notmuch-hello-versions
+        "z" #'notmuch-tree
+        "M-=" #'notmuch-refresh-all-buffers)
+      ;; Make notmuch message mode exitable with q
+      (evil-define-key 'normal notmuch-message-mode-map
+        "q" #'message-kill-buffer)
       (evilified-state-evilify-map notmuch-show-mode-map
         :mode notmuch-show-mode
         :bindings
