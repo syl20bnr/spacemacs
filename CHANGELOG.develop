@@ -3391,6 +3391,9 @@ Other:
   - README.md:
     - Fixed macOS documentation to install fonts (thanks to Sergio Morales)
     - Updated Windows section, suggest official Emacs (thanks to ghost-420)
+  - private/local/README.md
+    - Improved instructions on how to use private/local directory for packages
+      (thanks to Daniel Nicolai)
 *** Release notes summarized
   Thanks to: Abhishek(Compro) Prasad, Deepak Khidia, Enze Chi, Grant Shangreaux,
   Igor Almeida, Jiahao Jiang, Miciah Dashiel Butler Masters, Songpeng Zu, Ward
