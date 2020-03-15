@@ -12,5 +12,5 @@
 (configuration-layer/declare-layer-dependencies '(java))
 
 (when (and (boundp 'scala-backend)
-           (spacemacs//scala-backend-metals-p))
+           (eq scala-backend 'scala-metals))
   (configuration-layer/declare-layer-dependencies '(lsp)))
