@@ -98,9 +98,11 @@
         "v" #'notmuch-hello-versions
         "z" #'notmuch-tree
         "M-=" #'notmuch-refresh-all-buffers)
-      ;; Make notmuch message mode exitable with q
+      ;; Make notmuch message mode and help view exitable with q
       (evil-define-key 'normal notmuch-message-mode-map
         "q" #'message-kill-buffer)
+      (evil-define-key 'normal view-mode-map
+        "q" #'View-quit)
       (evilified-state-evilify-map notmuch-show-mode-map
         :mode notmuch-show-mode
         :bindings
