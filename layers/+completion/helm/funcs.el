@@ -165,6 +165,7 @@ If DEFAULT-INPUTP is non nil then the current region or symbol at point
   ;; no --vimgrep because it adds column numbers that wgrep can't handle
   ;; see https://github.com/syl20bnr/spacemacs/pull/8065
   (let* ((root-helm-ag-base-command "rg --smart-case --no-heading --color=never --line-number")
+         (helm-ag-insert-at-point (or helm-ag-insert-at-point 'symbol))
          (helm-ag-base-command (if spacemacs-helm-rg-max-column-number
                                    (concat root-helm-ag-base-command " --max-columns=" (number-to-string spacemacs-helm-rg-max-column-number))
                                  root-helm-ag-base-command)))
