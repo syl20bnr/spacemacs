@@ -8,7 +8,9 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
-- [[#key-bindings][Key bindings]]
+- [[#usage][Usage]]
+  - [[#tramp-access-to-kubernetes-containers][TRAMP access to kubernetes containers]]
+- [[key-bindings][Key bindings]]
 
 * Description
 This layer provides the [[https://github.com/chrisbarrett/kubernetes-el#kubernetes-el][kubernetes-el]] package, a magit-style interface to the
@@ -20,11 +22,23 @@ Kubernetes command-line client.
 - Switching contexts and namespaces.
 - Showing logs and exec'ing into containers
 - Describing pods
+- Tramp support for pods
+- Evil bindings
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =kubernetes= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+* Usage
+** TRAMP access to kubernetes containers
+This relies on the [[https://github.com/gruggiero/kubernetes-tramp][kubernetes-tramp]] package which uses =kubernetes exec=
+to access files in pods. It assumes that =kubectl= is properly installed
+and has already set the correct context.
+
+=kubernetes-tramp= adds a new prefix =/kubernetes:container:= that you can use with ~SPC f f~,
+this prefix allows to access your kubernetes containers and also provides auto-completion
+of the running containers.
 
 * Key bindings
 
