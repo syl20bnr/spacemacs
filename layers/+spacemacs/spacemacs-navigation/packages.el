@@ -16,6 +16,7 @@
         centered-cursor-mode
         (compile :location built-in)
         (doc-view :location built-in)
+        (view :location built-in)
         golden-ratio
         (grep :location built-in)
         (info+ :location local)
@@ -206,6 +207,16 @@
               (text-mode)
               (doc-view-minor-mode))
           ad-do-it)))))
+
+(defun spacemacs-navigation/init-view ()
+  (use-package view
+    :defer t
+    :init
+    ;; Add binding via mode symbole to have a local binding set
+    ;; after loading view mode. If not done this way the new bindings
+    ;; will only be affective after the user pressing `q' once.
+    (evil-define-key 'normal 'view-mode
+      "q" #'View-quit)))
 
 (defun spacemacs-navigation/init-golden-ratio ()
   (use-package golden-ratio
