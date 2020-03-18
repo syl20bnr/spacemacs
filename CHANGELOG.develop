@@ -2022,8 +2022,8 @@ Other:
   - Added guard to check if =winum= is loaded (thanks to Dan Girshovich)
   - Updated =helm-xref= to set the correct =xref-show-xrefs-function= for
     Emacs 27 (thanks to Junxuan)
-  - Make "rg" backend pick up symbol at point for 
-    =spacemacs/helm-project-smart-do-search= (thanks to Lin Sun)
+  - Made the spacemacs/helm-files-do-rg pickup sympol at point to follow 
+    the behavior of spacemacs/helm-files-do-grep (thanks to Lin Sun)
 - Key bindings:
   - Added Key bindings for directory search:
     - ~SPC s d for =spacemacs/helm-dir-smart-do-search=
