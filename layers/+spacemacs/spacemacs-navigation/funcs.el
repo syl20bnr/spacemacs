@@ -317,6 +317,7 @@ When ARG is non-nil search in junk files."
          (rel-fname (file-name-nondirectory fname))
          (junk-dir (file-name-directory fname))
          (default-directory junk-dir))
+    (make-directory junk-dir t)
     (cond ((and arg (configuration-layer/layer-used-p 'ivy))
            (spacemacs/counsel-search dotspacemacs-search-tools nil junk-dir))
           ((configuration-layer/layer-used-p 'ivy)
