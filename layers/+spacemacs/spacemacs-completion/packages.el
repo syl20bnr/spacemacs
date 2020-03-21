@@ -136,7 +136,7 @@
     ;; ensure that the correct bindings are set at startup
     (spacemacs//ivy-hjkl-navigation dotspacemacs-editing-style)
     ;; load ivy-hydra
-    (require 'ivy-hydra)
+    ;; (require 'ivy-hydra)
     ;; Using the original ivy-hydra might lead to some buggy behavior. Therefore
     ;; previously a customized transient state was found here. This customized
     ;; transient state was removed after commit
