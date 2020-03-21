@@ -475,6 +475,9 @@ Other:
   - Removed obsolete =:powerline-scale= property from
     =dotspacemacs-default-font= variable
     (thanks to Muneeb Shaikh and Sylvain Benner)
+  - Modified =dotspacemacs-major-mode-leader-key= so that =M-RET= key works in
+    org-mode as well as in terminal and GUI modes. =C-M-m= still works in
+    terminal mode, but no longer in GUI mode. (emacs18)
 *** Core changes
 - Improvements:
   - Display time spent in =user-config= in home buffer (thanks to Sylvain Benner)
