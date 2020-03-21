@@ -10,7 +10,7 @@
 - [[#install][Install]]
 - [[#usage][Usage]]
   - [[#tramp-access-to-kubernetes-containers][TRAMP access to kubernetes containers]]
-- [[key-bindings][Key bindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer provides the [[https://github.com/chrisbarrett/kubernetes-el#kubernetes-el][kubernetes-el]] package, a magit-style interface to the

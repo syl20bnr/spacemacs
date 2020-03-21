@@ -93,7 +93,6 @@ Some useful key bindings are presented in the following table.
 Press ~M-SPC~ (~m-M-SPC~ [[https://github.com/syl20bnr/spacemacs/blob/cb48ec74c1f401bd2945760799633c0e81e69088/doc/CONVENTIONS.org#transient-state][on macOS]]) anytime in Ivy to get into the transient state. Additional actions
 are found in [[https://oremacs.com/swiper/#minibuffer-key-bindings][the Hydra section of the official manual]].
 
-
 | Key binding | Description                                             |
 |-------------+---------------------------------------------------------|
 | ~j~         | select next candidate                                   |
