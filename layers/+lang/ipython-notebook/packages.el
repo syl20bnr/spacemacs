@@ -75,14 +75,14 @@
                         ("fs" ein:notebook-save-notebook-command))))
         (apply #'spacemacs/set-leader-keys-for-minor-mode
                (quote ein:notebook)
-               (mapcan
+               (cl-mapcan
                 (lambda (bind)
-                  (if (fboundp (second bind))
+                  (if (fboundp (cl-second bind))
                       bind
                     (prog1 nil
                       (display-warning
                        'warn (format "ipython-notebook/init-ein: undefined %s"
-                                     (second bind))))))
+                                     (cl-second bind))))))
                 (copy-tree bindings)))
         (eval (append '(spacemacs|define-transient-state
 			                   ipython-notebook
