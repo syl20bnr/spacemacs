@@ -1023,6 +1023,8 @@ Features:
 - Switching contexts and namespaces.
 - Showing logs and exec'ing into containers
 - Describing pods
+- Tramp support for pods
+- Evil bindings
 
 ** NixOS
 [[file:+os/nixos/README.org][+os/nixos/README.org]]
