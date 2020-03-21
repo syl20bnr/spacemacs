@@ -209,7 +209,7 @@ original format spec, and additional customizations.")
   "Major mode leader key is a shortcut key which is the equivalent of
 pressing `<leader> m`. Set it to `nil` to disable it.")
 
-(defvar dotspacemacs-major-mode-emacs-leader-key "C-M-m"
+(defvar dotspacemacs-major-mode-emacs-leader-key (if window-system "<M-return>" "C-M-m")
   "Major mode leader key accessible in `emacs state' and `insert state'")
 
 (defvar dotspacemacs-ex-command-key ":"
