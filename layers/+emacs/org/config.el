@@ -52,3 +52,6 @@ used.")
 (defvar org-enable-jira-support nil
   "If non-nil, Jira (https://www.atlassian.com/software/jira) related packages
 are configured.")
+
+(defvar org-enable-verb-support nil
+  "If non-nil, Verb (https://github.com/federicotdn/verb) is configured.")
