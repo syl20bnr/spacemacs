@@ -25,6 +25,7 @@
   - [[#sticky-header-support][Sticky header support]]
   - [[#epub-support][Epub support]]
   - [[#jira-support][Jira support]]
+  - [[#verb-support][Verb support]]
 - [[#key-bindings][Key bindings]]
   - [[#starting-org-mode][Starting org-mode]]
   - [[#toggles][Toggles]]
@@ -52,6 +53,7 @@
     - [[#org-mode-bindings][org-mode bindings]]
     - [[#visualization-bindings][Visualization bindings]]
   - [[#org-jira][Org-jira]]
+  - [[#verb][Verb]]
 
 * Description
 This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
@@ -334,6 +336,15 @@ you connect, add your authentication credentials to =~/.authinfo.gpg= or
 
 #+BEGIN_SRC authinfo
   machine yourcompany.atlassian.net login you@example.com password yourPassword port 443
+#+END_SRC
+
+** Verb support
+To install [[https://github.com/federicotdn/verb][Verb]], an HTTP client based on Org mode, set the
+=org-enable-verb-support= variable to =t=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+   '((org :variables org-enable-verb-support t)))
 #+END_SRC
 
 * Key bindings
@@ -834,3 +845,33 @@ are available.
 | ~SPC a o J s g~ | Get subtasks                                     |
 | ~SPC a o J c u~ | Update the comment at point or add a new comment |
 | ~SPC a o J t j~ | Convert the TODO item at point to a Jira ticket  |
+
+** Verb
+*** verb-mode bindings
+
+| Key Binding | Description                                                  |
+|-------------+--------------------------------------------------------------|
+| ~SPC m r r~ | Send request on point in another window, but don't select it |
+| ~SPC m r s~ | Send request on point in another window                      |
+| ~SPC m r m~ | Send request on point, show result status in minibuffer      |
+| ~SPC m r f~ | Send request on point in selected window                     |
+| ~SPC m r k~ | Kill all response buffers and their windows                  |
+| ~SPC m r e~ | Export request on point (prompt for format)                  |
+| ~SPC m r u~ | Export request on point to curl format                       |
+| ~SPC m r b~ | Export request on point to Verb format                       |
+| ~SPC m r v~ | Set value of a Verb variable                                 |
+
+*** verb-response-body-mode bindings
+
+| Key Binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~SPC m r r~ | Toggle display headers for current response |
+| ~SPC m r k~ | Kill current response buffer and its window |
+| ~SPC m r f~ | Re-send current response                    |
+
+*** verb-response-headers-mode bindings
+
+| Key Binding | Description                                         |
+|-------------+-----------------------------------------------------|
+| ~SPC m r q~ | Kill current response headers buffer and its window |
+

@@ -45,6 +45,7 @@
         (ox-jira :toggle org-enable-jira-support)
         (org-trello :toggle org-enable-trello-support)
         (org-sticky-header :toggle org-enable-sticky-header)
+        (verb :toggle org-enable-verb-support)
         ))
 
 (defun org/post-init-company ()
@@ -810,3 +811,32 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :defer t
     :init
     (add-hook 'org-mode-hook 'org-sticky-header-mode)))
+
+(defun org/init-verb ()
+  (use-package verb
+               :defer t
+               :init
+               (progn
+                 (spacemacs/set-leader-keys-for-major-mode
+                  'org-mode
+                  "rf" #'verb-send-request-on-point
+                  "rs" #'verb-send-request-on-point-other-window
+                  "rr" #'verb-send-request-on-point-other-window-stay
+                  "rm" #'verb-send-request-on-point-no-window
+                  "rk" #'verb-kill-all-response-buffers
+                  "re" #'verb-export-request-on-point
+                  "ru" #'verb-export-request-on-point-curl
+                  "rb" #'verb-export-request-on-point-verb
+                  "rv" #'verb-set-var)
+                 (spacemacs/set-leader-keys-for-minor-mode
+                  'verb-response-body-mode
+                  "rr" #'verb-toggle-show-headers
+                  "rk" #'verb-kill-response-buffer-and-window
+                  "rf" #'verb-re-send-request)
+                 (spacemacs/set-leader-keys-for-minor-mode
+                  'verb-response-headers-mode
+                  "rq" #'verb-kill-buffer-and-window))))
+
+(defun org/pre-init-verb ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(verb . t))))
