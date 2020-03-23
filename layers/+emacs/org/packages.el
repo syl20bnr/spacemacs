@@ -45,7 +45,7 @@
         (ox-jira :toggle org-enable-jira-support)
         (org-trello :toggle org-enable-trello-support)
         (org-sticky-header :toggle org-enable-sticky-header)
-	(verb :toggle org-enable-verb-support)
+        (verb :toggle org-enable-verb-support)
         ))
 
 (defun org/post-init-company ()
@@ -814,8 +814,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-verb ()
   (use-package verb
-               :after org
-               :config
+               :defer t
+               :init
                (progn
                  (spacemacs/set-leader-keys-for-major-mode
                   'org-mode
@@ -827,7 +827,6 @@ Headline^^            Visit entry^^               Filter^^                    Da
                   "re" #'verb-export-request-on-point
                   "ru" #'verb-export-request-on-point-curl
                   "rb" #'verb-export-request-on-point-verb
-                  "rn" #'verb-export-request-on-point-human
                   "rv" #'verb-set-var)
                  (spacemacs/set-leader-keys-for-minor-mode
                   'verb-response-body-mode

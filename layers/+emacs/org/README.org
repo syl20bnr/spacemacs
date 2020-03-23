@@ -849,30 +849,29 @@ are available.
 ** Verb
 *** verb-mode bindings
 
-| Key Binding | Description                                    |
-|-------------+------------------------------------------------|
-| ~SPC m r r~ | =verb-send-request-on-point-other-window-stay= |
-| ~SPC m r s~ | =verb-send-request-on-point-other-window=      |
-| ~SPC m r m~ | =verb-send-request-on-point-no-window=         |
-| ~SPC m r f~ | =verb-send-request-on-point=                   |
-| ~SPC m r k~ | =verb-kill-all-response-buffers=               |
-| ~SPC m r e~ | =verb-export-request-on-point=                 |
-| ~SPC m r u~ | =verb-export-request-on-point-curl=            |
-| ~SPC m r b~ | =verb-export-request-on-point-verb=            |
-| ~SPC m r n~ | =verb-export-request-on-point-human=           |
-| ~SPC m r v~ | =verb-set-var=                                 |
+| Key Binding | Description                                                  |
+|-------------+--------------------------------------------------------------|
+| ~SPC m r r~ | Send request on point in another window, but don't select it |
+| ~SPC m r s~ | Send request on point in another window                      |
+| ~SPC m r m~ | Send request on point, show result status in minibuffer      |
+| ~SPC m r f~ | Send request on point in selected window                     |
+| ~SPC m r k~ | Kill all response buffers and their windows                  |
+| ~SPC m r e~ | Export request on point (prompt for format)                  |
+| ~SPC m r u~ | Export request on point to curl format                       |
+| ~SPC m r b~ | Export request on point to Verb format                       |
+| ~SPC m r v~ | Set value of a Verb variable                                 |
 
 *** verb-response-body-mode bindings
 
-| Key Binding | Description                            |
-|-------------+----------------------------------------|
-| ~SPC m r r~ | =verb-toggle-show-headers=             |
-| ~SPC m r k~ | =verb-kill-response-buffer-and-window= |
-| ~SPC m r f~ | =verb-re-send-request=                 |
+| Key Binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~SPC m r r~ | Toggle display headers for current response |
+| ~SPC m r k~ | Kill current response buffer and its window |
+| ~SPC m r f~ | Re-send current response                    |
 
 *** verb-response-headers-mode bindings
 
-| Key Binding | Description                   |
-|-------------+-------------------------------|
-| ~SPC m r q~ | =verb-kill-buffer-and-window= |
+| Key Binding | Description                                         |
+|-------------+-----------------------------------------------------|
+| ~SPC m r q~ | Kill current response headers buffer and its window |
 
