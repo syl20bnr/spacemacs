@@ -312,7 +312,7 @@ sane way, here is the complete list of changed key bindings
 **** Completion
 - templates (thanks to YasuharuIida and Eivind Fonn)
 **** Emacs
-- helpful (thanks to Johnson Denen)
+- helpful (thanks to Johnson Denen, Andriy Kmit)
 **** Email
 - notmuch (thanks to Francesc Elies Henar, Leonard Lausen, Willian Casarin,
   Kalle Lindqvist)
