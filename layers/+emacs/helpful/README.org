@@ -38,9 +38,8 @@ by this layer.
 | =SPC h d f= | Open helpful buffer for any callable object            |
 | =SPC h h v= | Open helpful buffer for variable                       |
 
-
 ** Helpful mode bindings
-Additional keybindings available in the helpful-mode buffers.
+Additional key bindings available in the helpful-mode buffers.
 
 | Key binding | Description                                        |
 |-------------+----------------------------------------------------|
