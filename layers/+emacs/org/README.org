@@ -54,6 +54,9 @@
     - [[#visualization-bindings][Visualization bindings]]
   - [[#org-jira][Org-jira]]
   - [[#verb][Verb]]
+    - [[#verb-mode-bindings][Verb-mode bindings]]
+    - [[#verb-response-body-mode-bindings][Verb-response-body-mode bindings]]
+    - [[#verb-response-headers-mode-bindings][Verb-response-headers-mode bindings]]
 
 * Description
 This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
@@ -220,7 +223,7 @@ For example:
     (org :variables
         org-enable-org-journal-support t
         org-journal-dir "~/org/journal/"
-        org-journal-file-format "%Y-%m-%d"
+        erg-journal-file-format "%Y-%m-%d"
         org-journal-date-prefix "#+TITLE: "
         org-journal-date-format "%A, %B %d %Y"
         org-journal-time-prefix "* "
@@ -847,7 +850,7 @@ are available.
 | ~SPC a o J t j~ | Convert the TODO item at point to a Jira ticket  |
 
 ** Verb
-*** verb-mode bindings
+*** Verb-mode bindings
 
 | Key Binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
@@ -861,7 +864,7 @@ are available.
 | ~SPC m r b~ | Export request on point to Verb format                       |
 | ~SPC m r v~ | Set value of a Verb variable                                 |
 
-*** verb-response-body-mode bindings
+*** Verb-response-body-mode bindings
 
 | Key Binding | Description                                 |
 |-------------+---------------------------------------------|
@@ -869,7 +872,7 @@ are available.
 | ~SPC m r k~ | Kill current response buffer and its window |
 | ~SPC m r f~ | Re-send current response                    |
 
-*** verb-response-headers-mode bindings
+*** Verb-response-headers-mode bindings
 
 | Key Binding | Description                                         |
 |-------------+-----------------------------------------------------|
