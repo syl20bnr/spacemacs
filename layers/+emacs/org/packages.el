@@ -836,3 +836,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
                  (spacemacs/set-leader-keys-for-minor-mode
                   'verb-response-headers-mode
                   "rq" #'verb-kill-buffer-and-window))))
+
+(defun org/pre-init-verb ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(verb . t))))
