@@ -852,7 +852,7 @@ are available.
 ** Verb
 *** Verb-mode bindings
 
-| Key Binding | Description                                                  |
+| Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC m r r~ | Send request on point in another window, but don't select it |
 | ~SPC m r s~ | Send request on point in another window                      |
@@ -866,7 +866,7 @@ are available.
 
 *** Verb-response-body-mode bindings
 
-| Key Binding | Description                                 |
+| Key binding | Description                                 |
 |-------------+---------------------------------------------|
 | ~SPC m r r~ | Toggle display headers for current response |
 | ~SPC m r k~ | Kill current response buffer and its window |
@@ -874,7 +874,6 @@ are available.
 
 *** Verb-response-headers-mode bindings
 
-| Key Binding | Description                                         |
+| Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC m r q~ | Kill current response headers buffer and its window |
-
