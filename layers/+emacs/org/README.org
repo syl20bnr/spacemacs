@@ -223,7 +223,7 @@ For example:
     (org :variables
         org-enable-org-journal-support t
         org-journal-dir "~/org/journal/"
-        erg-journal-file-format "%Y-%m-%d"
+        org-journal-file-format "%Y-%m-%d"
         org-journal-date-prefix "#+TITLE: "
         org-journal-date-format "%A, %B %d %Y"
         org-journal-time-prefix "* "
