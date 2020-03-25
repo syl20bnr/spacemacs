@@ -1936,6 +1936,7 @@ Other:
   - Added setup instructions for =gopls= (thanks to pancho horrillo)
   - Make flycheck disable checkers covered by golangci (thanks to zhuoyikang)
   - Updated build instructions for =golangci-lint= (thanks to pancho horrillo)
+  - Added =dap-go= integration (ljupchokotev)
 - Key bindings
   - =godoctor= key bindings (thanks to TinySong and Eivind Fonn):
     - ~SPC m r n~ to rename
