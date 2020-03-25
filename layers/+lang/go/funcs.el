@@ -33,6 +33,13 @@
   (pcase (spacemacs//go-backend)
     ('go-mode (go-eldoc-setup))))
 
+
+(defun spacemacs//go-setup-dap ()
+  "Conditionally setup go DAP integration."
+  ;; currently DAP is only available using LSP
+  (pcase (spacemacs//go-backend)
+    (`lsp (spacemacs//go-setup-lsp-dap))))
+
 
 ;; go-mode
 
@@ -71,6 +78,11 @@
           :call-hooks t)
         (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+
+(defun spacemacs//go-setup-lsp-dap ()
+  "Setup DAP integration."
+  (require 'dap-go)
+  (dap-go-setup))
 
 
 ;; flycheck

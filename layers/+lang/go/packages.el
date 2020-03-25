@@ -12,6 +12,7 @@
 (setq go-packages
       '(
         company
+        dap-mode
         (company-go :requires company)
         counsel-gtags
         eldoc
@@ -42,6 +43,10 @@
 
 (defun go/post-init-company ()
   (add-hook 'go-mode-local-vars-hook #'spacemacs//go-setup-company))
+
+(defun go/pre-init-dap-mode ()
+  (add-to-list 'spacemacs--dap-supported-modes 'go-mode)
+  (add-hook 'go-mode-local-vars-hook #'spacemacs//go-setup-lsp-dap))
 
 (defun go/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'go-mode))
