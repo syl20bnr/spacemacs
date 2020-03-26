@@ -481,25 +481,27 @@ Managing CIDER REPL connections and sessions
 *** Evaluation
 Evaluate Clojure code in the source code buffer
 
-| Key binding | Description                                                       |
-|-------------+-------------------------------------------------------------------|
-| ~SPC m e ;~ | eval sexp and show result as comment                              |
-| ~SPC m e $~ | go to end of line and eval last sexp                              |
-| ~SPC m e b~ | eval buffer                                                       |
-| ~SPC m e e~ | eval last sexp                                                    |
-| ~SPC m e f~ | eval function at point                                            |
-| ~SPC m e i~ | interrupt the current evaluation                                  |
-| ~SPC m e l~ | go to end of line and eval last sexp                              |
-| ~SPC m e m~ | cider macroexpand 1                                               |
-| ~SPC m e M~ | cider macroexpand all                                             |
-| ~SPC m e n~ | refresh namespace (cider-ns-refresh)                              |
-| ~SPC m e N~ | reload namespace (cider-ns-reload), ~SPC u~ (cider-ns-reload-all) |
-| ~SPC m e p~ | eval top-level sexp, pretty print result in separate buffer       |
-| ~SPC m e P~ | eval last sexp, pretty print result in separate buffer            |
-| ~SPC m e r~ | eval region                                                       |
-| ~SPC m e u~ | Undefine a symbol from the current namespace                      |
-| ~SPC m e v~ | eval sexp around point                                            |
-| ~SPC m e w~ | eval last sexp and replace with result                            |
+| Key binding   | Description                                                       |
+|---------------+-------------------------------------------------------------------|
+| ~SPC m e ;~   | eval sexp and show result as comment                              |
+| ~SPC m e $~   | go to end of line and eval last sexp                              |
+| ~SPC m e b~   | eval buffer                                                       |
+| ~SPC m e e~   | eval last sexp                                                    |
+| ~SPC m e f~   | eval function at point                                            |
+| ~SPC m e i~   | interrupt the current evaluation                                  |
+| ~SPC m e l~   | go to end of line and eval last sexp                              |
+| ~SPC m e m~   | cider macroexpand 1                                               |
+| ~SPC m e M~   | cider macroexpand all                                             |
+| ~SPC m e n~   | refresh namespace (cider-ns-refresh)                              |
+| ~SPC m e N~   | reload namespace (cider-ns-reload), ~SPC u~ (cider-ns-reload-all) |
+| ~SPC m e p ;~ | eval top-level sexp, pretty print result as a comment             |
+| ~SPC m e p :~ | eval last sexp, pretty print result as a comment                  |
+| ~SPC m e p f~ | eval top-level sexp, pretty print result in separate buffer       |
+| ~SPC m e p e~ | eval last sexp, pretty print result in separate buffer            |
+| ~SPC m e r~   | eval region                                                       |
+| ~SPC m e u~   | Undefine a symbol from the current namespace                      |
+| ~SPC m e v~   | eval sexp around point                                            |
+| ~SPC m e w~   | eval last sexp and replace with result                            |
 
 *** Goto
 

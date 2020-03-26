@@ -67,6 +67,7 @@
                ("m=e" . "edn")
                ("md" . "debug")
                ("me" . "evaluation")
+               ("mep" . "pretty print")
                ("mg" . "goto")
                ("mh" . "documentation")
                ("mm" . "manage repls")
@@ -115,8 +116,10 @@
             "eM" 'cider-macroexpand-all
             "en" 'cider-ns-refresh
             "eN" 'cider-ns-reload  ;; SPC u for cider-ns-reload-all
-            "ep" 'cider-pprint-eval-defun-at-point
-            "eP" 'cider-pprint-eval-last-sexp
+            "ep;" 'cider-pprint-eval-defun-to-comment
+            "ep:" 'cider-pprint-eval-last-sexp-to-comment
+            "epf" 'cider-pprint-eval-defun-at-point
+            "epe" 'cider-pprint-eval-last-sexp
             "er" 'cider-eval-region
             "eu" 'cider-undef
             "ev" 'cider-eval-sexp-at-point
