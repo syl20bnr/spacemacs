@@ -109,7 +109,7 @@ You may want to [[https://github.com/syl20bnr/spacemacs/wiki/Beginner%27s-Guide-
 - One commit per PR
 - If you have several commits on different topics, close the PR and
   create one PR per topic
-- If you still have several commits, squash them into only one commit
+- If you still have several commits, squash them into only one commit ([[https://github.com/syl20bnr/spacemacs/pull/13381#pullrequestreview-380313280][here's a guide]])
 - Rebase your PR branch on top of upstream =develop= before submitting
   the PR
 
