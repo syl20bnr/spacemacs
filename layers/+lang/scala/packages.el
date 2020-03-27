@@ -11,14 +11,10 @@
 
 (setq scala-packages
       '(
-        (ensime :toggle (spacemacs//scala-backend-ensime-p))
-        lsp-mode
-        ggtags
-        counsel-gtags
-        helm-gtags
-        noflet
         scala-mode
         sbt-mode
+        lsp-mode
+        (ensime :toggle (spacemacs//scala-backend-ensime-p))
         ))
 
 (defun scala/post-init-eldoc ()
@@ -170,9 +166,6 @@
   (when spacemacs//scala-backend-ensime-p
     (add-hook 'scala-mode-hook #'spacemacs//scala-setup-ensime-flyspell)))
 
-(defun scala/init-noflet ()
-  (use-package noflet))
-
 (defun scala/init-sbt-mode ()
   (use-package sbt-mode
     :defer t
@@ -272,11 +265,18 @@ If it's part of a left arrow (`<-'),replace it with the unicode arrow."
   (when (spacemacs//scala-backend-metals-p)
     (spacemacs//scala-setup-metals)))
 
+(defun scala/post-init-lsp-treemacs ()
+  (when (spacemacs//scala-backend-metals-p)
+    (spacemacs//scala-setup-treeview)))
+
 (defun scala/post-init-ggtags ()
-  (add-hook 'scala-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (when scala-enable-gtags
+    (add-hook 'scala-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)))
 
 (defun scala/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'scala-mode))
+  (when scala-enable-gtags
+    (spacemacs/counsel-gtags-define-keys-for-mode 'scala-mode)))
 
 (defun scala/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'scala-mode))
+  (when scala-enable-gtags
+    (spacemacs/helm-gtags-define-keys-for-mode 'scala-mode)))

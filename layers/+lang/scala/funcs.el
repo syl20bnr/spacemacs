@@ -52,7 +52,13 @@
 
 (defun spacemacs//scala-setup-metals ()
   "Setup LSP metals for Scala."
-  (add-hook 'scala-mode-hook #'lsp))
+  (add-hook 'scala-mode-hook #'lsp)
+  (add-hook 'lsp-mode-hook #'lsp-lens-mode))
+
+(defun spacemacs//scala-setup-treeview ()
+  "Setup lsp-treemacs for Scala."
+  (lsp-metals-treeview-enable t)
+  (setq lsp-metals-treeview-show-when-views-received t))
 
 (defun spacemacs//scala-disable-flycheck-scala ()
   (push 'scala flycheck-disabled-checkers))
