@@ -21,6 +21,7 @@
   - [[#guru][Guru]]
   - [[#auto-completion][Auto-completion]]
   - [[#lsp-backend][LSP backend]]
+    - [[#debugger][Debugger]]
 - [[#working-with-go][Working with Go]]
   - [[#go-commands-start-with-m][Go commands (start with =m=):]]
   - [[#go-guru][Go Guru]]
@@ -225,7 +226,6 @@ The backend can be chosen on a per project basis using directory local variables
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
 
 *** Debugger
-
 Using the =dap= layer you'll get access to all the DAP key bindings, see the complete list of key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
 
 * Working with Go

@@ -1845,6 +1845,7 @@ Features:
 - List packages faster with [[https://github.com/haya14busa/gopkgs][gopkgs]]
 - Fill a structure with default values using the [[https://github.com/davidrjenni/reftools/tree/master/cmd/fillstruct][fillstruct]]
 - LSP backend (see [[file:+lang/go/README.org][LSP backend]])
+- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 **** Groovy
 [[file:+lang/groovy/README.org][+lang/groovy/README.org]]
