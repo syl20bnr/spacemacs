@@ -642,6 +642,7 @@ The evilified org agenda supports the following bindings:
 | ~SPC m d s~          | org-agenda-schedule               |
 | ~SPC m i e~          | org-agenda-set-effort             |
 | ~SPC m i p~          | org-agenda-set-property           |
+| ~SPC m i P~          | org-agenda-priority               |
 | ~SPC m i t~          | org-agenda-set-tags               |
 | ~SPC m s r~          | org-agenda-refile                 |
 | ~M-j~                | next item                         |

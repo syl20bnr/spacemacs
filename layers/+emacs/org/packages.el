@@ -461,6 +461,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "ds" 'org-agenda-schedule
         "ie" 'org-agenda-set-effort
         "ip" 'org-agenda-set-property
+        "iP" 'org-agenda-priority
         "it" 'org-agenda-set-tags
         "sr" 'org-agenda-refile)
       (spacemacs|define-transient-state org-agenda
