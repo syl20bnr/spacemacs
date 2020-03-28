@@ -36,24 +36,32 @@
     (progn
       (setq counsel-gtags-ignore-case t
             counsel-gtags-auto-update t)
-      ;; modes that do not have a layer, define here
-      (spacemacs/counsel-gtags-define-keys-for-mode 'tcl-mode)
-      (spacemacs/counsel-gtags-define-keys-for-mode 'vhdl-mode)
-      (spacemacs/counsel-gtags-define-keys-for-mode 'awk-mode)
-      (spacemacs/counsel-gtags-define-keys-for-mode 'dired-mode)
-      (spacemacs/counsel-gtags-define-keys-for-mode 'compilation-mode)
-      (spacemacs/counsel-gtags-define-keys-for-mode 'shell-mode))))
+      (add-hook 'ggtags-mode-hook 'counsel-gtags-mode)
+      (add-hook 'ggtags-mode-hook #'spacemacs/counsel-ggtags-set-jump-handler))
+    :config
+    ;; TODO add mixing commands
+    (spacemacs/set-leader-keys-for-minor-mode 'counsel-gtags-mode
+      "gC" 'counsel-gtags-create-tags
+      "gd" 'counsel-gtags-dwim
+      ;; "gD" 'helm-gtags-find-tag-other-window
+      "gf" 'counsel-gtags-find-file
+      ;; "gG" 'helm-gtags-dwim-other-window
+      ;; "gi" 'helm-gtags-tags-in-this-function
+      ;; "gl" 'helm-gtags-parse-file
+      "gn" 'counsel-gtags-go-forward
+      "gp" 'counsel-gtags-go-backward
+      "gr" 'counsel-gtags-find-reference
+      ;; "gR" 'helm-gtags-resume
+      ;; "gs" 'helm-gtags-select
+      ;; "gS" 'helm-gtags-show-stack
+      "gy" 'counsel-gtags-find-symbol
+      "gu" 'counsel-gtags-update-tags)))
 
 (defun gtags/init-ggtags ()
   (use-package ggtags
     :defer t
     :init
     (progn
-      ;; modes that do not have a layer, add here.
-      (add-hook 'awk-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
-      (add-hook 'shell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
-      (add-hook 'tcl-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
-      (add-hook 'vhdl-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
       (spacemacs|add-toggle ggtags-mode
         :status ggtags-mode
         :on (ggtags-mode nil)
@@ -122,10 +130,22 @@
             helm-gtags-auto-update t
             helm-gtags-use-input-at-cursor t
             helm-gtags-pulse-at-cursor t)
-      ;; modes that do not have a layer, define here
-      (spacemacs/helm-gtags-define-keys-for-mode 'tcl-mode)
-      (spacemacs/helm-gtags-define-keys-for-mode 'vhdl-mode)
-      (spacemacs/helm-gtags-define-keys-for-mode 'awk-mode)
-      (spacemacs/helm-gtags-define-keys-for-mode 'dired-mode)
-      (spacemacs/helm-gtags-define-keys-for-mode 'compilation-mode)
-      (spacemacs/helm-gtags-define-keys-for-mode 'shell-mode))))
+      (add-hook 'ggtags-mode-hook 'helm-gtags-mode)
+      (add-hook 'ggtags-mode-hook #'spacemacs/helm-ggtags-set-jump-handler))
+    :config
+    (spacemacs/set-leader-keys-for-minor-mode 'helm-gtags-mode
+       "gC" 'helm-gtags-create-tags
+       "gd" 'helm-gtags-find-tag
+       "gD" 'helm-gtags-find-tag-other-window
+       "gf" 'helm-gtags-select-path
+       "gG" 'helm-gtags-dwim-other-window
+       "gi" 'helm-gtags-tags-in-this-function
+       "gl" 'helm-gtags-parse-file
+       "gn" 'helm-gtags-next-history
+       "gp" 'helm-gtags-previous-history
+       "gr" 'helm-gtags-find-rtag
+       "gR" 'helm-gtags-resume
+       "gs" 'helm-gtags-select
+       "gS" 'helm-gtags-show-stack
+       "gy" 'helm-gtags-find-symbol
+       "gu" 'helm-gtags-update-tags)))
