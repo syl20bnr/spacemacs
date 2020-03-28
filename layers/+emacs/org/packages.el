@@ -142,12 +142,20 @@
 
       ;; Follow the confirm and abort conventions
       (with-eval-after-load 'org-capture
-        (spacemacs/set-leader-keys-for-minor-mode 'org-capture-mode
-          dotspacemacs-major-mode-leader-key 'org-capture-finalize
-          "a" 'org-capture-kill
-          "c" 'org-capture-finalize
-          "k" 'org-capture-kill
-          "r" 'org-capture-refile))
+        (defun spacemacs//org-capture-start ()
+          "Make sure that the keybindings are available for org capture."
+          (spacemacs/set-leader-keys-for-minor-mode 'org-capture-mode
+            dotspacemacs-major-mode-leader-key 'org-capture-finalize
+            "a" 'org-capture-kill
+            "c" 'org-capture-finalize
+            "k" 'org-capture-kill
+            "r" 'org-capture-refile)
+          ;; Evil bindins seem not to be applied until at least one
+          ;; Evil state is executed
+          (evil-normal-state))
+        ;; Must be done everytime we run org-capture otherwise it will
+        ;; be ignored until insert mode is entered.
+        (add-hook 'org-capture-mode-hook 'spacemacs//org-capture-start))
 
       (with-eval-after-load 'org-src
         (spacemacs/set-leader-keys-for-minor-mode 'org-src-mode
