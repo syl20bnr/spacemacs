@@ -22,11 +22,11 @@
 
 (defun bibtex/post-init-auctex ()
   (spacemacs/set-leader-keys-for-major-mode 'latex-mode
-    "ic" 'org-ref-helm-insert-cite-link))
+    "ic" 'org-ref-insert-link))
 
 (defun bibtex/post-init-org ()
   (spacemacs/set-leader-keys-for-major-mode 'org-mode
-    "ic" 'org-ref-helm-insert-cite-link))
+    "ic" 'org-ref-insert-link))
 
 (defun bibtex/init-org-ref ()
   (use-package org-ref
@@ -79,7 +79,7 @@
 
 (defun bibtex/post-init-markdown-mode ()
   (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-    "ic" 'org-ref-helm-insert-cite-link))
+    "ic" 'org-ref-insert-link))
 
 (defun bibtex/init-helm-bibtex ())
 (defun bibtex/init-biblio ())

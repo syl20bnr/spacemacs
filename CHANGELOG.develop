@@ -1343,6 +1343,10 @@ Other:
 **** Autohotkey
 - Key bindings:
   - Added names to autohotkey mode prefixes (thanks to Ying Qu)
+**** BibTeX
+- Key bindings:
+  - Replaced =org-ref-helm-insert-cite-link= with =org-ref-insert-link=
+    (thanks to Tianshu Wang)
 **** C-C++
 - Breaking changes:
   - Moved =cmake-ide= and cmake script support to separate =cmake= layer
