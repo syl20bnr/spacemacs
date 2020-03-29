@@ -49,6 +49,24 @@ If you use a Debian based system such as Ubuntu, you can skip this step, as
 =pdf-tools= installation asks whether you want it to try to download
 automatically all dependencies using =apt-get=.
 
+On macOS, the default instructions might not work. There is a brew tap at dunn/emacs that contains pdf-tools, but it did not work for me. I used the following successfully. Note that your PATH should be set correctly in Emacs, and that pdf-tools does not work in terminal (GUI-only).
+
+#+BEGIN_SRC
+brew install poppler automake
+#+END_SRC
+
+Then in emacs run the following:
+
+#+BEGIN_SRC
+(use-package pdf-tools
+  :ensure t
+  :config
+  (setq pdf-info-epdfinfo-program "/usr/local/bin/epdfinfo"))
+
+(setenv "PKG_CONFIG_PATH" "/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig")
+(pdf-tools-install)
+#+END_SRC
+
 ** Dotfile
 After installing the dependencies, add this to your =~/.spacemacs=.
 
@@ -95,6 +113,7 @@ Due to =image-mode=’s behaviour, the =pdf-tools= buffer might go back to the
 first page after switching windows. If this happens, you can quickly go back to
 the previous page in history with =pdf-history-backward= (~``~ in Evil state and
 ~B~ in Emacs state.)
+On some machines, pdf-tools can be quite slow (especially with a line-number mode active). You might want to try alternatives such as zathura.
 
 * Key bindings
 If you use Emacs editing style, check the key bindings at the [[https://github.com/politza/pdf-tools#some-keybindings][pdf-tools page]].
