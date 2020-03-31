@@ -19,21 +19,22 @@
                                "ays" 'ein:stop)
     (spacemacs/declare-prefix "ay" "ipython notebook")
     :config
-    (require 'seq)
-    (require 'subr-x)
-    (mapc
-     (lambda (mode)
-       (evil-define-minor-mode-key
-        mode 'ein:notebook-mode
-        (kbd "<C-return>") 'ein:worksheet-execute-cell-km
-        (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next-km))
-     '(insert hybrid normal))
-    (evil-define-minor-mode-key
-     'normal 'ein:notebook-mode
-     "gj" 'ein:worksheet-goto-next-input-km
-     "gk" 'ein:worksheet-goto-prev-input-km)
     (with-eval-after-load 'ein-notebook
-      (evil-define-key nil ein:notebooklist-mode-map "o" 'spacemacs/ace-buffer-links)
+      (add-hook 'ein:notebook-mode-hook
+		(lambda ()
+		  (add-to-list 'minor-mode-overriding-map-alist
+			       `(ein:notebook-mode . ,ein:notebook-mode-map))))
+      (mapc
+       (lambda (mode)
+	 (evil-define-minor-mode-key
+	  mode 'ein:notebook-mode
+	  (kbd "<C-return>") 'ein:worksheet-execute-cell-km
+	  (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next-km))
+       '(insert hybrid normal))
+      (evil-define-minor-mode-key
+       'normal 'ein:notebook-mode
+       "gj" 'ein:worksheet-goto-next-input-km
+       "gk" 'ein:worksheet-goto-prev-input-km)
       (let ((bindings '(("j" ein:worksheet-goto-next-input-km)
                         ("k" ein:worksheet-goto-prev-input-km)
                         ("J" ein:worksheet-move-cell-down-km)
@@ -54,25 +55,25 @@
                         ("C-r" ein:notebook-rename-command-km)
                         ("x" ein:notebook-close-km)
                         ("z" ein:notebook-kernel-interrupt-command-km))))
-        (apply #'spacemacs/set-leader-keys-for-minor-mode
-               (quote ein:notebook-mode)
-               (cl-mapcan
-                (lambda (bind)
-                  (if (fboundp (cl-second bind))
-                      bind
-                    (prog1 nil
-                      (display-warning
-                       'warn (format "ipython-notebook/init-ein: undefined %s"
-                                     (cl-second bind))))))
-                (copy-tree bindings)))
+	(apply #'spacemacs/set-leader-keys-for-minor-mode
+	       'ein:notebook-mode
+	       (cl-mapcan
+		(lambda (bind)
+		  (if (fboundp (cl-second bind))
+		      bind
+		    (prog1 nil
+		      (display-warning
+		       'warn (format "ipython-notebook/init-ein: undefined %s"
+				     (cl-second bind))))))
+		(copy-tree bindings)))
 	(eval (append '(spacemacs|define-transient-state
 			ipython-notebook
-			:title "iPython Notebook Transient State"
+			:title "EIN Transient State"
 			:evil-leader-for-mode (ein:notebook-mode . ".")
 			:bindings
 			("q" nil :exit t))
 		      bindings
-			`(:doc ,(ipython-notebook/transient-doc bindings))))))))
+		      `(:doc ,(ipython-notebook/transient-doc bindings))))))))
 
 (defun ipython-notebook/max-by-prefix (alist)
   (seq-reduce (lambda (lst1 lst2) (if (> (cl-second lst1)
