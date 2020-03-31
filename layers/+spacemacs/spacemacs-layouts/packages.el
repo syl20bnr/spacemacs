@@ -149,7 +149,7 @@
  [_l_]^^^^        another layout    [_s_/_S_] save all layouts/save by names
  [_o_]^^^^        custom layout     [_t_]^^   show buffer w/o adding to layout
  [_w_]^^^^        workspaces TS     [_x_]^^   kill current w/buffers
- ^^^^^^                             [_X_]^^   kill other w/buffers
+ [_e_]^^^^        select layout     [_X_]^^   kill other w/buffers
  ^^^^^^                             [_<_/_>_] move layout left/right
  ^^^^^^                             [_?_]^^   toggle help")
 
@@ -170,6 +170,7 @@
         ("8" spacemacs/persp-switch-to-8 :exit t)
         ("9" spacemacs/persp-switch-to-9 :exit t)
         ("0" spacemacs/persp-switch-to-0 :exit t)
+        ("e" spacemacs/layout-switch-to :exit t)
         ("C-1" spacemacs/persp-switch-to-1)
         ("C-2" spacemacs/persp-switch-to-2)
         ("C-3" spacemacs/persp-switch-to-3)

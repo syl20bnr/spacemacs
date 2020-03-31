@@ -181,6 +181,14 @@ ask the user if a new layout should be created."
            (interactive)
            (spacemacs/layout-switch-by-pos ,(if (eq 0 i) 9 (1- i))))))
 
+(defun spacemacs/layout-switch-to (pos)
+  "Switch to perspective but ask for POS.
+If POS has no layout, and `dotspacemacs-auto-generate-layout-names'
+is non-nil, create layout with auto-generated name. Otherwise,
+ask the user if a new layout should be created."
+  (interactive "NLayout to switch to/create: ")
+  (spacemacs/layout-switch-by-pos (1- pos)))
+
 (defun spacemacs/layout-goto-default ()
   "Go to `dotspacemacs-default-layout-name` layout"
   (interactive)
