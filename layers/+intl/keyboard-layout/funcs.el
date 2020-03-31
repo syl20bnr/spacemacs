@@ -46,12 +46,14 @@ the given MAPS."
   "Define keys to the associated definitions of other ones. All
 remapping are done atomically, i.e. if `a' -> `b' and `c' -> `a',
 then `c' will be defined to the old `a' function, not to `b'."
-  (declare (indent 1))
-  (let ((map-original (copy-tree map)))
-    (dolist (binding bindings)
-      (let ((key1 (kbd (car binding)))
-            (key2 (kbd (cdr binding))))
-        (define-key map key1 (lookup-key map-original key2))))))
+  (if (keymapp map)
+      (progn
+        (declare (indent 1))
+        (let ((map-original (copy-tree map)))
+          (dolist (binding bindings)
+            (let ((key1 (kbd (car binding)))
+                  (key2 (kbd (cdr binding))))
+              (define-key map key1 (lookup-key map-original key2))))))))
 
 (defun kl//replace-in-list-rec (lst elem repl)
   "Replace recursively all occurrences of `elem' by `repl' in the
