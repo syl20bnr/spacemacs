@@ -53,8 +53,7 @@ then `c' will be defined to the old `a' function, not to `b'."
           (dolist (binding bindings)
             (let ((key1 (kbd (car binding)))
                   (key2 (kbd (cdr binding))))
-              (if (keymapp map)
-                  (define-key map key1 (lookup-key map-original key2)))))))))
+              (define-key map key1 (lookup-key map-original key2))))))))
 
 (defun kl//replace-in-list-rec (lst elem repl)
   "Replace recursively all occurrences of `elem' by `repl' in the
