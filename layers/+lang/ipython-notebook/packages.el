@@ -15,89 +15,167 @@
   (use-package ein
     :init
     (spacemacs/set-leader-keys "ayl" 'ein:login
-      "ayr" 'ein:run
-      "ays" 'ein:stop)
+                               "ayr" 'ein:run
+                               "ays" 'ein:stop)
     (spacemacs/declare-prefix "ay" "ipython notebook")
     :config
-    (mapc
-     (lambda (mode)
-       (evil-define-minor-mode-key
-         mode 'ein:notebook
-         (kbd "<C-return>") 'ein:worksheet-execute-cell-km
-         (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next-km))
-     '(insert hybrid normal))
-    (evil-define-minor-mode-key
-      'normal 'ein:notebook
-      "gj" 'ein:worksheet-goto-next-input-km
-      "gk" 'ein:worksheet-goto-prev-input-km)
     (with-eval-after-load 'ein-notebook
-      (let ((bindings '(("y" ein:worksheet-copy-cell)
-                        ("p" ein:worksheet-yank-cell)
-                        ("d" ein:worksheet-kill-cell)
-                        ("h" ein:notebook-worksheet-open-prev-or-last)
-                        ("i" ein:worksheet-insert-cell-below)
-                        ("I" ein:worksheet-insert-cell-above)
-                        ("j" ein:worksheet-goto-next-input)
-                        ("k" ein:worksheet-goto-prev-input)
-                        ("l" ein:notebook-worksheet-open-next-or-first)
-                        ("H" ein:notebook-worksheet-move-prev)
-                        ("J" ein:worksheet-move-cell-down)
-                        ("K" ein:worksheet-move-cell-up)
-                        ("L" ein:notebook-worksheet-move-next)
-                        ("t" ein:worksheet-toggle-output)
-                        ("R" ein:worksheet-rename-sheet)
-                        ("RET" ein:worksheet-execute-cell-and-goto-next)
-                        ;; Output
-                        ("C-l" ein:worksheet-clear-output)
-                        ("C-S-l" ein:worksheet-clear-all-output)
-                        ;;Console
-                        ;; ("C-o" ein:console-open)
-                        ;; Merge cells
-                        ("C-k" ein:worksheet-merge-cell)
-                        ;;("C-j" spacemacs/ein:worksheet-merge-cell-next)
-                        ("s" ein:worksheet-split-cell-at-point)
-                        ;; Notebook
-                        ("C-s" ein:notebook-save-notebook-command)
-                        ("C-r" ein:notebook-rename-command)
-                        ("1" ein:notebook-worksheet-open-1th)
-                        ("2" ein:notebook-worksheet-open-2th)
-                        ("3" ein:notebook-worksheet-open-3th)
-                        ("4" ein:notebook-worksheet-open-4th)
-                        ("5" ein:notebook-worksheet-open-5th)
-                        ("6" ein:notebook-worksheet-open-6th)
-                        ("7" ein:notebook-worksheet-open-7th)
-                        ("8" ein:notebook-worksheet-open-8th)
-                        ("9" ein:notebook-worksheet-open-last)
-                        ("+" ein:notebook-worksheet-insert-next)
-                        ("-" ein:notebook-worksheet-delete)
-                        ("x" ein:notebook-close)
-                        ("u" ein:worksheet-change-cell-type)
-                        ("fs" ein:notebook-save-notebook-command))))
-        (apply #'spacemacs/set-leader-keys-for-minor-mode
-               (quote ein:notebook)
-               (cl-mapcan
-                (lambda (bind)
-                  (if (fboundp (cl-second bind))
-                      bind
-                    (prog1 nil
-                      (display-warning
-                       'warn (format "ipython-notebook/init-ein: undefined %s"
-                                     (cl-second bind))))))
-                (copy-tree bindings)))
-        (eval (append '(spacemacs|define-transient-state
-			                   ipython-notebook
-			                   :title "iPython Notebook Transient State"
-                         :doc "
-      Operations on Cells^^^^^^            On Worksheets^^^^              Other
-      ----------------------------^^^^^^   ------------------------^^^^   ----------------------------------^^^^
-      [_k_/_j_]^^     select prev/next     [_h_/_l_]   select prev/next   [_t_]^^         toggle output
-      [_K_/_J_]^^     move up/down         [_H_/_L_]   move left/right    [_C-l_/_C-S-l_] clear/clear all output
-      [_C-k_]^^       merge above          [_1_.._9_]  open [1st..last]   ^^^^
-      [_y_/_p_/_d_]   copy/paste           [_+_/_-_]   create/delete      [_C-s_/_C-r_]   save/rename notebook
-      [_u_]^^^^       change type          ^^^^                           [_x_]^^         close notebook
-      [_RET_]^^^^     execute              ^^^^                           [_q_]^^         quit transient-state
-           "
-			                   :evil-leader-for-mode (ein:notebook . ".")
-			                   :bindings
-			                   ("q" nil :exit t))
-		                  bindings))))))
+      (add-hook 'ein:notebook-mode-hook
+		(lambda ()
+		  (add-to-list 'minor-mode-overriding-map-alist
+			       `(ein:notebook-mode . ,ein:notebook-mode-map))))
+      (mapc
+       (lambda (mode)
+	 (evil-define-minor-mode-key
+	  mode 'ein:notebook-mode
+	  (kbd "<C-return>") 'ein:worksheet-execute-cell-km
+	  (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next-km))
+       '(insert hybrid normal))
+      (evil-define-minor-mode-key
+       'normal 'ein:notebook-mode
+       "gj" 'ein:worksheet-goto-next-input-km
+       "gk" 'ein:worksheet-goto-prev-input-km)
+      (let ((bindings '(("j" ein:worksheet-goto-next-input-km)
+                        ("k" ein:worksheet-goto-prev-input-km)
+                        ("J" ein:worksheet-move-cell-down-km)
+                        ("K" ein:worksheet-move-cell-up-km)
+                        ("e" ein:worksheet-toggle-output-km)
+                        ("d" ein:worksheet-kill-cell-km)
+                        ("y" ein:worksheet-copy-cell-km)
+                        ("p" ein:worksheet-yank-cell-km)
+                        ("m" ein:worksheet-merge-cell-km)
+                        ("s" ein:worksheet-split-cell-at-point-km)
+                        ("o" ein:worksheet-insert-cell-below-km)
+                        ("O" ein:worksheet-insert-cell-above-km)
+                        ("t" ein:worksheet-toggle-cell-type-km)
+                        ("RET" ein:worksheet-execute-cell-km)
+                        ("l" ein:worksheet-clear-output-km)
+                        ("L" ein:worksheet-clear-all-output-km)
+                        ("C-s" ein:notebook-save-notebook-command-km)
+                        ("C-r" ein:notebook-rename-command-km)
+                        ("x" ein:notebook-close-km)
+                        ("z" ein:notebook-kernel-interrupt-command-km))))
+	(apply #'spacemacs/set-leader-keys-for-minor-mode
+	       'ein:notebook-mode
+	       (cl-mapcan
+		(lambda (bind)
+		  (if (fboundp (cl-second bind))
+		      bind
+		    (prog1 nil
+		      (display-warning
+		       'warn (format "ipython-notebook/init-ein: undefined %s"
+				     (cl-second bind))))))
+		(copy-tree bindings)))
+	(eval (append '(spacemacs|define-transient-state
+			ipython-notebook
+			:title "EIN Transient State"
+			:evil-leader-for-mode (ein:notebook-mode . ".")
+			:bindings
+			("q" nil :exit t))
+		      bindings
+		      `(:doc ,(ipython-notebook/transient-doc bindings))))))))
+
+(defun ipython-notebook/max-by-prefix (alist)
+  (seq-reduce (lambda (lst1 lst2) (if (> (cl-second lst1)
+					 (cl-second lst2))
+				      lst1 lst2))
+	      (cdr alist) (car alist)))
+
+(defun ipython-notebook/count-by-prefix (alist)
+  (mapcar (lambda (lst)
+	    (cons (car lst) (list (length (cdr lst)))))
+	  alist))
+
+(defun ipython-notebook/commands-by-prefix-alist (commands)
+  "Return ((P1 P1-CMD1 P1-CMD2) (P2 P2-CMD1 P2-CMD2) ... )"
+  (let* ((commands (if (symbolp (car commands))
+		       (mapcar #'symbol-name commands)
+		     commands))
+	 (upto (ipython-notebook/prefix commands))
+	 result)
+    (cl-flet ((get-prefix
+	       (command)
+	       (intern (mapconcat #'identity
+				  (subseq (split-string command (regexp-quote "-"))
+					  0 (1+ upto))
+				  "-"))))
+      (mapc (lambda (command)
+	      (let ((lst (alist-get (get-prefix command) result)))
+		(setf (alist-get (get-prefix command) result)
+		      (cons (intern command) lst))))
+	    commands)
+      result)))
+
+(cl-defun ipython-notebook/prefix (commands &key (separator "-") (suffix-p nil))
+  "Return index of first different prefix among COMMANDS if each were split on SEPARATOR.
+For example, return 2 if COMMANDS are '(ein:notebook-foo ein:notebook-foo-bar)."
+  (let* ((commands (if (symbolp (car commands))
+		       (mapcar #'symbol-name commands)
+		     commands))
+	 (split-up (mapcar (lambda (command)
+			     (funcall (if suffix-p #'reverse #'identity)
+				      (split-string command (regexp-quote separator))))
+			   commands)))
+    (cl-loop for result from 0
+	     for bogey = (nth result (car split-up))
+	     if (or (null bogey)
+		    (null (cdr split-up))
+		    (cl-some (lambda (lst) (not (string= bogey (nth result lst))))
+			     (cdr split-up)))
+	     return (funcall (if suffix-p #'- #'identity) result)
+	     end)))
+
+(defun ipython-notebook/transient-doc (bindings)
+  (let* ((commands-by (ipython-notebook/commands-by-prefix-alist (mapcar #'cl-second bindings)))
+	 (counts-by (ipython-notebook/count-by-prefix commands-by))
+	 (max-by (ipython-notebook/max-by-prefix counts-by))
+	 (main (cl-first max-by))
+	 (n-main (cl-second max-by))
+	 (n-other (apply #'+ (mapcar (lambda (lst) (if (eq (cl-first lst) main)
+						       0 (cl-second lst)))
+				     counts-by)))
+	 (max-col 3)
+	 (spread (min max-col (ceiling (/ n-main (* 1.3 n-other)))))
+	 (main-commands (cdr (assq main commands-by)))
+	 (other-commands (cl-mapcan #'cdr (remove-if (lambda (lst)
+						       (eq (car lst) main))
+						     commands-by)))
+	 (other-from (ipython-notebook/prefix other-commands))
+	 (other-to (ipython-notebook/prefix other-commands :suffix-p t))
+	 (main-from (ipython-notebook/prefix main-commands))
+	 (main-to (ipython-notebook/prefix main-commands :suffix-p t)))
+    (cl-flet ((get-key (command) (car (rassoc (list command) bindings)))
+	      (massage (command from to)
+		       (let ((toks (split-string (symbol-name command) (regexp-quote "-"))))
+			 (mapconcat #'identity
+				    (subseq toks from (+ (length toks) to))
+				    "-"))))
+      (cl-macrolet ((rescol
+		     (result commands from to)
+		     `(let* ((key-width 10)
+			     (col-width 20)
+			     (format-str (format "%%-%ds%%-%ds" key-width col-width)))
+			(if-let ((command (pop ,commands)))
+			    (let ((massaged (massage command ,from ,to)))
+			      (setq ,result
+				    (concat ,result
+					    (format format-str
+						    (format "[_%s_]^^" (get-key command))
+						    (subseq massaged 0
+							    (min (length massaged) col-width))))))
+			  (setq ,result (concat ,result (format format-str "" "")))))))
+	(cl-loop
+	 with result = "\n"
+	 with betw = (make-string 1 ? )
+	 with col = 1
+	 if (= col spread)
+	 do (rescol result other-commands other-from other-to)
+	 and do (setq result (concat result "\n"))
+	 and do (setq col 1)
+	 else
+	 do (rescol result main-commands main-from main-to)
+	 and do (setq result (concat result betw))
+	 and do (cl-incf col)
+	 end
+	 until (and (null other-commands) (null main-commands))
+	 finally return result)))))
