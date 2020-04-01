@@ -761,7 +761,9 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (spacemacs/declare-prefix "aoj" "org-journal")
       (spacemacs/set-leader-keys
         "aojj" 'org-journal-new-entry
-        "aojs" 'org-journal-search-forever)
+        "aojs" 'org-journal-search-forever
+        "aojt" 'org-journal-new-scheduled-entry
+        "aojv" 'org-journal-schedule-view)
 
       (setq spacemacs-org-journal-mode-map (copy-keymap spacemacs-org-mode-map))
 
