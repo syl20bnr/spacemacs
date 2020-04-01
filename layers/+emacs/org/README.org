@@ -767,6 +767,8 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 | ~SPC a o j j~       | New journal entry                               |
 | ~SPC u SPC a o j j~ | Open today's journal without adding a new entry |
 | ~SPC a o j s~       | Search journal entries                          |
+| ~SPC a o j t~       | New scheduled journal entry                     |
+| ~SPC a o j v~       | View scheduled journal entries                  |
 
 Journal entries are highlighted in the calendar. The following key bindings are
 available for =calendar-mode= for navigating and manipulating the journal.
