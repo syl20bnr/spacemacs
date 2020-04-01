@@ -179,6 +179,27 @@
   "ap"  'list-processes
   "aP"  'proced
   "au"  'undo-tree-visualize)
+;; easy pg ----------------------------------------------------------------------
+(spacemacs|spacebind
+ "Encrypt / decrypt files with Easy PG"
+ :global
+ (("a" "applications"
+   ("e"  "easy pg"
+    ("d" epa-decrypt-file "Decrypt file to...")
+    ("D" epa-delete-keys  "Delete keys...")
+    ("e" epa-encrypt-file "Encrypt file...")
+    ("i" epa-insert-keys  "Insert keys...")
+    ("k" epa-list-keys "List keys...")
+    ("K" epa-list-secret-keys "List secret keys...")
+    ("x" epa-export-keys "Export keys...")
+    ("s"  "sign"
+     ("f" epa-sign-file "Sign file...")
+     ("m" epa-sign-mail "Sign mail...")
+     ("r" epa-sign-region "Sign region..."))
+    ("v"  "verify"
+     ("f" epa-verify-file "Verify file...")
+     ("r" epa-verify-region "Verify region...")
+     ("c" epa-verify-cleartext-in-region "Verify cleartext region..."))))))
 ;; buffers --------------------------------------------------------------------
 (spacemacs|spacebind
  "Compare buffers, files and directories."

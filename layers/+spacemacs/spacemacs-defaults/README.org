@@ -20,6 +20,7 @@ defaults.
   - dired-x
   - display-line-numbers (only in Emacs 26.x and newer)
   - electric-indent-mode
+  - easypg
   - ediff
   - eldoc
   - help-fns+
