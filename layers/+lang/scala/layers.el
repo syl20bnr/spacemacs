@@ -13,4 +13,4 @@
 
 (when (and (boundp 'scala-backend)
            (eq scala-backend 'scala-metals))
-  (configuration-layer/declare-layer-dependencies '(lsp dap)))
+  (configuration-layer/declare-layer-dependencies '(dap)))

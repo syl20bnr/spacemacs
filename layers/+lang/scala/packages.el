@@ -11,10 +11,18 @@
 
 (setq scala-packages
       '(
-        scala-mode
-        sbt-mode
         lsp-mode
+        dap-mode
+        eldoc
+        flycheck
+        flyspell
+        lsp-treemacs
+        counsel-gtags
+        ggtags
+        helm-gtags
         (ensime :toggle (spacemacs//scala-backend-ensime-p))
+        sbt-mode
+        scala-mode
         ))
 
 (defun scala/post-init-eldoc ()
@@ -157,13 +165,13 @@
   (spacemacs/enable-flycheck 'scala-mode)
   ;; Don't use scala checker if ensime mode is active, since it provides
   ;; better error checking.
-  (when spacemacs//scala-backend-ensime-p
+  (when (spacemacs//scala-backend-ensime-p)
     (with-eval-after-load 'flycheck
       (add-hook 'ensime-mode-hook 'spacemacs//scala-disable-flycheck-scala))))
 
 (defun scala/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'scala-mode)
-  (when spacemacs//scala-backend-ensime-p
+  (when (spacemacs//scala-backend-ensime-p)
     (add-hook 'scala-mode-hook #'spacemacs//scala-setup-ensime-flyspell)))
 
 (defun scala/init-sbt-mode ()
@@ -260,6 +268,10 @@ If it's part of a left arrow (`<-'),replace it with the unicode arrow."
             scala-indent:align-parameters t
             scala-indent:default-run-on-strategy
             scala-indent:operator-strategy))))
+
+(defun scala/pre-init-dap-mode ()
+  (add-to-list 'spacemacs--dap-supported-modes 'scala-mode)
+  (spacemacs//scala-setup-dap))
 
 (defun scala/post-init-lsp-mode ()
   (when (spacemacs//scala-backend-metals-p)

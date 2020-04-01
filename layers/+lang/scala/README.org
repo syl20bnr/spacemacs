@@ -180,13 +180,7 @@ To enable =java-doc-style=, set the variable =scala-indent:use-javadoc-style= to
 #+END_SRC
 
 * Enable Debug Adapter Protocol (DAP)
-To enable the use of the DAP layer for debugging support within spacemacs set the
-variable =scala-enable-dap= to =t=.
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (scala :variables scala-enable-dap t)))
-#+END_SRC
+The metals backend enables integration with the DAP layer for debugging support.
 
 * Automatically show the type of the symbol under the cursor
 To enable the feature =ensime-type-at-point= when cursor moves, set the

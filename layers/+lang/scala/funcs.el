@@ -52,8 +52,12 @@
 
 (defun spacemacs//scala-setup-metals ()
   "Setup LSP metals for Scala."
-  (add-hook 'scala-mode-hook #'lsp)
-  (add-hook 'lsp-mode-hook #'lsp-lens-mode))
+  (add-hook 'scala-mode-hook #'lsp))
+
+(defun spacemacs//scala-setup-dap ()
+  "Setup DAP in metals for Scala."
+  (when (spacemacs//scala-backend-metals-p)
+    (add-hook 'scala-mode-hook #'dap-mode)))
 
 (defun spacemacs//scala-setup-treeview ()
   "Setup lsp-treemacs for Scala."
