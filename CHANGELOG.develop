@@ -2392,6 +2392,8 @@ Other:
 - Removed the now obsolete variable =lsp-prefer-flymake= (originally added by
   Juuso Valkeejärvi), the new variable =lsp-diagnostic-package= is handled
   upstream (thanks to duianto)
+- Removed =company-lsp=. Now =lsp-mode= is responsible for configuring
+  =company-backends= and it will use =company-capf=.
 **** Debug Adapter Protocol (DAP)
 - Layer variables:
   - Added variable =dap-enable-mouse-support=

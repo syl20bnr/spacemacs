@@ -26,8 +26,7 @@
 (defun spacemacs//elixir-setup-company ()
   "Conditionally setup company based on backend."
   (pcase (spacemacs//elixir-backend)
-    (`alchemist (spacemacs//elixir-setup-alchemist-company))
-    (`lsp (spacemacs//elixir-setup-lsp-company))))
+    (`alchemist (spacemacs//elixir-setup-alchemist-company))))
 
 (defun spacemacs//elixir-setup-dap ()
   "Conditionally setup elixir DAP integration."
@@ -56,18 +55,6 @@
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn (add-to-list 'exec-path elixir-ls-path) (lsp))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
-
-(defun spacemacs//elixir-setup-lsp-company ()
-  "Setup lsp auto-completion."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (spacemacs|add-company-backends
-          :backends company-lsp
-          :modes elixir-mode
-          :append-hooks nil
-          :call-hooks t)
-        (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//elixir-setup-lsp-dap ()

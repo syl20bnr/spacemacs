@@ -32,7 +32,7 @@ details.
 - Workspace-wide symbol rename
 - Symbol highlighting
 - Flycheck
-- Completion with =company-lsp=
+- Completion with =lsp=
 - Signature help with eldoc
 - Symbol documentation in a child frame (=lsp-ui-doc=)
 - Navigation using imenu

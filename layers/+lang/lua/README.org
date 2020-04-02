@@ -21,7 +21,7 @@ This layer adds support for editing Lua.
 
 ** Features:
 - Editing lua files using [[https://github.com/immerrr/lua-mode][lua-mode]]
-- Code-Completion with =company-lsp= or =company-lua=
+- Code-Completion with =lsp= or =company-lua=
 - Sending code to a lua REPL
 - Code linting using [[https://github.com/mpeterv/luacheck][Luacheck]]
 - Cross references (definitions, references, rename...)
@@ -42,7 +42,7 @@ Supported backends are:
 *** LSP
 LSP support is provided via the [[file:../../+tools/lsp/README.org][LSP layer]], currently only [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua]] is supported.
 
-To use the =lsp-emmy= backend, please download the [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua-LS-all.jar]] and put it into =~/.emacs.d/=, 
+To use the =lsp-emmy= backend, please download the [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua-LS-all.jar]] and put it into =~/.emacs.d/=,
 then set the layer variable lua-backend to =lsp-emmy=.
 
 =Lsp-emmy= requires a working java installation in the path as well as the path to the LSP server jar.
@@ -57,7 +57,7 @@ The java path and the path to the server executable can be configured as is show
 #+END_SRC
 
 *** Lua mode
-This backend provides support via pure emacs packages. It requires less setup than a full blown LSP setup 
+This backend provides support via pure emacs packages. It requires less setup than a full blown LSP setup
 but also provides less features. To enable it just set the =lua-backend= to =nil=.
 
 * Key bindings

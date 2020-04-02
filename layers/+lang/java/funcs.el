@@ -26,8 +26,7 @@
 (defun spacemacs//java-setup-company ()
   "Conditionally setup company based on backend."
   (pcase (spacemacs//java-backend)
-    (`meghanada (spacemacs//java-setup-meghanada-company))
-    (`lsp (spacemacs//java-setup-lsp-company))))
+    (`meghanada (spacemacs//java-setup-meghanada-company))))
 
 (defun spacemacs//java-setup-dap ()
   "Conditionally setup elixir DAP integration."
@@ -117,18 +116,6 @@
       (progn
         (require 'lsp-java)
         (lsp))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
-
-(defun spacemacs//java-setup-lsp-company ()
-  "Setup lsp auto-completion."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (spacemacs|add-company-backends
-          :backends company-lsp
-          :modes java-mode
-          :append-hooks nil
-          :call-hooks t)
-        (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//java-setup-lsp-dap ()

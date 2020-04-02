@@ -25,16 +25,12 @@
   (pcase (spacemacs//c-c++-backend)
     (`lsp-clangd (spacemacs//c-c++-setup-lsp-clangd))
     (`lsp-ccls (spacemacs//c-c++-setup-lsp-ccls))
-    (`lsp-cquery (spacemacs//c-c++-setup-lsp-cquery))
     (`rtags (spacemacs//c-c++-setup-rtags))
     (`ycmd (spacemacs//c-c++-setup-ycmd))))
 
 (defun spacemacs//c-c++-setup-company ()
   "Conditionally setup C/C++ company integration based on backend."
   (pcase (spacemacs//c-c++-backend)
-    (`lsp-clangd (spacemacs//c-c++-setup-lsp-company))
-    (`lsp-ccls (spacemacs//c-c++-setup-lsp-company))
-    (`lsp-cquery (spacemacs//c-c++-setup-lsp-company))
     (`rtags (spacemacs//c-c++-setup-rtags-company))
     (`ycmd (spacemacs//c-c++-setup-ycmd-company))))
 
@@ -43,8 +39,7 @@
   ;; currently DAP is only available using LSP
   (pcase (spacemacs//c-c++-backend)
     (`lsp-clangd (spacemacs//c-c++-setup-lsp-dap))
-    (`lsp-ccls (spacemacs//c-c++-setup-lsp-dap))
-    (`lsp-cquery (spacemacs//c-c++-setup-lsp-dap))))
+    (`lsp-ccls (spacemacs//c-c++-setup-lsp-dap))))
 
 (defun spacemacs//c-c++-setup-eldoc ()
   "Conditionally setup C/C++ eldoc integration based on backend."
@@ -57,7 +52,6 @@
   (pcase (spacemacs//c-c++-backend)
     (`lsp-clangd (spacemacs//c-c++-setup-lsp-flycheck))
     (`lsp-ccls (spacemacs//c-c++-setup-lsp-flycheck))
-    (`lsp-cquery (spacemacs//c-c++-setup-lsp-flycheck))
     (`rtags (spacemacs//c-c++-setup-rtags-flycheck))
     (`ycmd (spacemacs//c-c++-setup-ycmd-flycheck))))
 
@@ -65,8 +59,7 @@
   "Conditionally setup format based on backend."
   (pcase (spacemacs//c-c++-backend)
     (`lsp-clangd (spacemacs//c-c++-setup-clang-format))
-    (`lsp-ccls (spacemacs//c-c++-setup-clang-format))
-    (`lsp-cquery (spacemacs//c-c++-setup-clang-format))))
+    (`lsp-ccls (spacemacs//c-c++-setup-clang-format))))
 
 (defun spacemacs//c-c++-setup-semantic ()
   "Conditionally setup semantic based on backend."
@@ -85,7 +78,7 @@
   (spacemacs/lsp-define-extensions
    "c-c++" "lsp-clangd"
    'clangd-other-file "textDocument/switchSourceHeader" 'buffer-file-name)
-  (set (make-local-variable 'lsp-disabled-clients) '(cquery ccls))
+  (set (make-local-variable 'lsp-disabled-clients) '(ccls))
   (lsp))
 
 ;; ccls
@@ -120,7 +113,6 @@
    "c-c++" "lsp-ccls"
    'base "$ccls/inheritance")
 
-  ;; ccls features without a cquery analogue...
   (spacemacs/lsp-define-extensions
    "c-c++" "lsp-ccls"
    'derived "$ccls/inheritance" '(:derived t))
@@ -169,93 +161,9 @@
      "mv" 'member-vars))
 
   ;;(evil-set-initial-state 'ccls--tree-mode 'emacs)
-  ;;evil-record-macro keybinding clobbers q in cquery-tree-mode-map for some reason?
   ;;(evil-make-overriding-map 'ccls-tree-mode-map)
-  (set (make-local-variable 'lsp-disabled-clients) '(clangd cquery))
+  (set (make-local-variable 'lsp-disabled-clients) '(clangd))
   (lsp))
-
-;; cquery
-
-(defun spacemacs//c-c++-setup-lsp-cquery ()
-  "Setup LSP cquery."
-  (require 'cquery)
-  ;; configuration
-  (setq cquery-cache-dir
-        (if (null c-c++-lsp-cquery-cache-directory)
-            (concat spacemacs-cache-directory "lsp-cquery")
-          (concat (file-truename (file-name-as-directory
-                                  c-c++-lsp-cquery-cache-directory)))))
-
-  ;; semantic highlight
-  (when c-c++-lsp-enable-semantic-highlight
-    (setq cquery-sem-highlight-method c-c++-lsp-semantic-highlight-method)
-    (when (eq 'rainbow c-c++-lsp-enable-semantic-highlight)
-      (cquery-use-default-rainbow-sem-highlight)))
-
-  ;; extensions
-  (spacemacs/lsp-define-extensions
-   "c-c++" "lsp-cquery"
-   'refs-address "textDocument/references"
-   '(plist-put (lsp--text-document-position-params) :context '(:role 128)))
-  (spacemacs/lsp-define-extensions
-   "c-c++" "lsp-cquery"
-   'refs-read "textDocument/references"
-   '(plist-put (lsp--text-document-position-params) :context '(:role 8)))
-  (spacemacs/lsp-define-extensions
-   "c-c++" "lsp-cquery"
-   'refs-write "textDocument/references"
-   '(plist-put (lsp--text-document-position-params) :context '(:role 16)))
-  (spacemacs/lsp-define-extensions
-   "c-c++" "lsp-cquery"
-   'callers "$cquery/callers")
-  (spacemacs/lsp-define-extensions
-   "c-c++" "lsp-cquery"
-   'callees "$cquery/callers" '(:callee t))
-  (spacemacs/lsp-define-extensions
-   "c-c++" "lsp-cquery"
-   'base "$cquery/base")
-
-  ;; key bindings
-  (dolist (mode c-c++-modes)
-    (spacemacs/set-leader-keys-for-major-mode mode
-      ;; backend
-      "bf" 'cquery-freshen-index
-      "bp" 'cquery-preprocess-file
-      ;; goto
-      "gf" 'find-file-at-point
-      "gF" 'ffap-other-window
-      ;; hierarchy
-      "ghc" 'cquery-call-hierarchy
-      "ghC" 'spacemacs/c-c++-lsp-cquery-call-hierarchy-inv
-      "ghi" 'cquery-inheritance-hierarchy
-      "ghI" 'spacemacs/c-c++-lsp-cquery-inheritance-hierarchy-inv
-      ;; members
-      "gmh" 'cquery-member-hierarchy)
-
-    (spacemacs/lsp-bind-extensions-for-mode
-     mode "c-c++" "lsp-cquery"
-     "&" 'refs-address
-     "R" 'refs-read
-     "W" 'refs-write
-     "c" 'callers
-     "C" 'callees
-     "v" 'vars
-     "hb" 'base))
-
-  ;;(evil-set-initial-state 'ccls--tree-mode 'emacs)
-  ;;evil-record-macro keybinding clobbers q in cquery-tree-mode-map for some reason?
-  ;;(evil-make-overriding-map 'ccls-tree-mode-map)
-  (set (make-local-variable 'lsp-disabled-clients) '(ccls changd))
-  (lsp))
-
-(defun spacemacs//c-c++-setup-lsp-company ()
-  "Setup lsp auto-completion."
-  (spacemacs|add-company-backends
-    :backends company-lsp
-    :modes c-mode c++-mode
-    :append-hooks nil
-    :call-hooks t)
-  (company-mode))
 
 (defun spacemacs//c-c++-setup-lsp-dap ()
   "Setup DAP integration."
@@ -478,17 +386,6 @@
 (defun spacemacs/c-c++-lsp-ccls-inheritance-hierarchy-inv ()
   (interactive)
   (ccls-inheritance-hierarchy t))
-
-
-;; cquery
-
-(defun spacemacs/c-c++-lsp-cquery-call-hierarchy-inv ()
-  (interactive)
-  (cquery-call-hierarchy t))
-
-(defun spacemacs/c-c++-lsp-cquery-inheritance-hierarchy-inv ()
-  (interactive)
-  (cquery-inheritance-hierarchy t))
 
 
 ;; cpp-auto-include

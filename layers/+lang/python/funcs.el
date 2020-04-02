@@ -35,8 +35,7 @@
 (defun spacemacs//python-setup-company ()
   "Conditionally setup company based on backend."
   (pcase (spacemacs//python-backend)
-    (`anaconda (spacemacs//python-setup-anaconda-company))
-    (`lsp (spacemacs//python-setup-lsp-company))))
+    (`anaconda (spacemacs//python-setup-anaconda-company))))
 
 (defun spacemacs//python-setup-dap ()
   "Conditionally setup elixir DAP integration."
@@ -87,18 +86,6 @@
         (when (eq python-lsp-server 'mspyls)
           (require 'lsp-python-ms))
         (lsp))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
-
-(defun spacemacs//python-setup-lsp-company ()
-  "Setup lsp auto-completion."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (spacemacs|add-company-backends
-          :backends company-lsp
-          :modes python-mode
-          :append-hooks nil
-          :call-hooks t)
-        (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//python-setup-lsp-dap ()

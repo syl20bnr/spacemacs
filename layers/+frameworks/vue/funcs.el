@@ -20,8 +20,7 @@
 (defun spacemacs//vue-setup-company ()
   "Conditionally setup company based on backend."
   (pcase vue-backend
-    ('dumb (spacemacs//vue-setup-dumb-company))
-    ('lsp (spacemacs//vue-setup-lsp-company))))
+    ('dumb (spacemacs//vue-setup-dumb-company))))
 
 
 ;; lsp
@@ -35,19 +34,6 @@
         (lsp))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
-
-(defun spacemacs//vue-setup-lsp-company ()
-  "Setup lsp auto-completion."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (spacemacs|add-company-backends
-          :backends company-lsp
-          :modes vue-mode
-          :variables company-minimum-prefix-length 2
-          :append-hooks nil
-          :call-hooks t)
-        (company-mode))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 
 ;; dumb

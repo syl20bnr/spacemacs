@@ -1927,7 +1927,7 @@ This layer adds support for editing Lua.
 
 Features:
 - Editing lua files using [[https://github.com/immerrr/lua-mode][lua-mode]]
-- Code-Completion with =company-lsp= or =company-lua=
+- Code-Completion with =lsp= or =company-lua=
 - Sending code to a lua REPL
 - Code linting using [[https://github.com/mpeterv/luacheck][Luacheck]]
 - Cross references (definitions, references, rename...)
@@ -2698,7 +2698,7 @@ Features:
 - =Docker= container and image management via [[https://github.com/Silex/docker.el][docker.el]]
 - =docker-compose= integration via [[https://github.com/Silex/docker.el][docker.el]]
 - Syntax checking via [[https://github.com/hadolint/hadolint][hadolint]]
-- Code-Completion via =company-lsp=
+- Code-Completion via =lsp=
 
 ** Fasd
 [[file:+tools/fasd/README.org][+tools/fasd/README.org]]
@@ -2772,7 +2772,7 @@ Features:
 - Workspace-wide symbol rename
 - Symbol highlighting
 - Flycheck
-- Completion with =company-lsp=
+- Completion with =lsp=
 - Signature help with eldoc
 - Symbol documentation in a child frame (=lsp-ui-doc=)
 - Navigation using imenu
