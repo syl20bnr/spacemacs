@@ -129,8 +129,9 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 ***** C-C++
 - CMake support has been extracted from the =c-c++= layer into the new =cmake=
   layer.
-- LSP code navigation / completion added via clangd, ccls or cquery
+- LSP code navigation / completion added via clangd or ccls
   (thanks to Cormac Cannon)
+- Removed cquery.
 ***** ESS
 - ESS key bindings were re-organised in the following list
   (thanks to Guido Kraemer, Yi Liu, and Jack Kamm):
@@ -1356,7 +1357,7 @@ Other:
     - Added variable: =++-enable-organize-includes-on-save=
     - Added key binding: ~SPC m r i~ organize includes
 - Improvements:
-  - Added =lsp= support using either =clangd=, =ccls= or =cquery= backends
+  - Added =lsp= support using either =clangd= or =ccls= backends
     (thanks to Cormac Cannon, Sergey Litovchuk, Fangrui Song and David Vo)
   - Fixed =lsp= support for =ccls= server (thanks to Alexander Dalshov)
   - Added automatic formatting on save using ClangFormat with the variables
