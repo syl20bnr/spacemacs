@@ -16,7 +16,7 @@
 
 (defvar c-c++-backend nil
   "The backend to use for IDE features.
-Possible values are `lsp-ccls', `lsp-cquery', `lsp-clangd', `rtags' and `ycmd'.")
+Possible values are `lsp-ccls', `lsp-clangd', `rtags' and `ycmd'.")
 
 
 ;; lsp
@@ -32,12 +32,6 @@ Rainbow semantic highlighting gives a unique color to each identifier.")
 
 By default `font-lock' is used to highlight the text, set the variable to
 `overlay' if you want to use overlays. Note that overlays can be slower.")
-
-(defvar c-c++-lsp-cquery-cache-directory nil
-  "Cache directory for lsp-cquery backends.
-Can be nil, an absolute path or a relative path.
-If it is nil then the cache directory is in `spacemacs-cache-directory'.
-If it is a relative path then it is relative to the project root.")
 
 
 ;; rtags

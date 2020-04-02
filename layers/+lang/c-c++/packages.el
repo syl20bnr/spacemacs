@@ -32,7 +32,6 @@
         xcscope
         ;; lsp
         (ccls :requires lsp-mode)
-        (cquery :requires lsp-mode)
         dap-mode
         ;; rtags
         (company-rtags :requires (company rtags))
@@ -116,10 +115,6 @@
         "mr" "refactor")
       (spacemacs/set-leader-keys-for-major-mode 'c++-mode
         "ri" #'spacemacs/c++-organize-includes))))
-
-(defun c-c++/init-cquery ()
-  (use-package cquery
-    :defer t))
 
 (defun c-c++/pre-init-dap-mode ()
   (add-to-list 'spacemacs--dap-supported-modes 'c-mode)
@@ -205,15 +200,9 @@
   (spacemacs|use-package-add-hook projectile
     :post-config
     (progn
-      (when c-c++-lsp-cquery-cache-directory
-        ;; Ignore lsp cache dir, in case user has opted for cache within project
-        ;; source tree
-        (add-to-list 'projectile-globally-ignored-directories
-                     c-c++-lsp-cquery-cache-directory))
       (when c-c++-adopt-subprojects
         (setq projectile-project-root-files-top-down-recurring
               (append '("compile_commands.json"
-                        ".cquery"
                         ".ccls")
                       projectile-project-root-files-top-down-recurring))))))
 

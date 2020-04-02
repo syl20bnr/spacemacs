@@ -13,6 +13,5 @@
   (pcase (spacemacs//c-c++-backend)
     (`lsp-clangd (configuration-layer/declare-layer-dependencies '(lsp dap)))
     (`lsp-ccls (configuration-layer/declare-layer-dependencies '(lsp dap)))
-    (`lsp-cquery (configuration-layer/declare-layer-dependencies '(lsp dap)))
     (`rtags (configuration-layer/declare-layer-dependencies '(ggtags)))
     (`ycmd (configuration-layer/declare-layer-dependencies '(ycmd)))))
