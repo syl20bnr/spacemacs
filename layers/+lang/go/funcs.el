@@ -25,8 +25,7 @@
 (defun spacemacs//go-setup-company ()
   "Conditionally setup go company based on backend"
   (pcase (spacemacs//go-backend)
-    ('go-mode (spacemacs//go-setup-company-go))
-    ('lsp (spacemacs//go-setup-company-lsp))))
+    ('go-mode (spacemacs//go-setup-company-go))))
 
 (defun spacemacs//go-setup-eldoc ()
   "Conditionally setup go eldoc based on backend"
@@ -65,18 +64,6 @@
           (message "[go] Setting lsp-diagnostic-package :none to enable golangci-lint support.")
           (setq-local lsp-diagnostic-package :none))
         (lsp))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
-
-(defun spacemacs//go-setup-company-lsp ()
-  "Setup lsp auto-completion"
-  (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (spacemacs|add-company-backends
-          :backends company-lsp
-          :modes go-mode
-          :append-hooks nil
-          :call-hooks t)
-        (company-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//go-setup-lsp-dap ()

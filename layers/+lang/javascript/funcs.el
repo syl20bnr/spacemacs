@@ -31,8 +31,7 @@
   "Conditionally setup company based on backend."
   (pcase (spacemacs//javascript-backend)
     (`tern (spacemacs//javascript-setup-tern-company))
-    (`tide (spacemacs//tide-setup-company 'js2-mode))
-    (`lsp (spacemacs//javascript-setup-lsp-company))))
+    (`tide (spacemacs//tide-setup-company 'js2-mode))))
 
 (defun spacemacs//javascript-setup-dap ()
   "Conditionally setup elixir DAP integration."
@@ -55,19 +54,6 @@
         (when (not javascript-lsp-linter)
           (setq-local lsp-diagnostic-package :none))
         (lsp))
-    (message (concat "`lsp' layer is not installed, "
-                     "please add `lsp' layer to your dotfile."))))
-
-(defun spacemacs//javascript-setup-lsp-company ()
-  "Setup lsp auto-completion."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (spacemacs|add-company-backends
-          :backends company-lsp
-          :modes js2-mode
-          :append-hooks nil
-          :call-hooks t)
-        (company-mode))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
 

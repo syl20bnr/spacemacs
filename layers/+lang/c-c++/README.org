@@ -118,7 +118,7 @@ They claim to be more efficient than existing tools at indexing large code bases
 **** Features
 - Cross references (definitions, references, base/derived classes/methods, type instances, ...)
 - Diagnostics
-- Completion with =company-lsp=
+- Completion with =lsp=
 - Semantic highlighting (=ccls= or =clangd=)
 - Cross-platform - functional on Windows, Linux and macOS.
 
@@ -200,7 +200,7 @@ See the full list of configuration options you can set at:
 #+END_SRC
 
 **** Completion
-=company-lsp= provides completion functionality. Client-side cache and sorting
+=company-capf= provides completion functionality. Client-side cache and sorting
 have been disabled in favour of server,
 as recommended by =ccls= wikis.
 

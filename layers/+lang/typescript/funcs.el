@@ -29,8 +29,7 @@
 (defun spacemacs//typescript-setup-company ()
   "Conditionally setup company based on backend."
   (pcase (spacemacs//typescript-backend)
-    (`tide (spacemacs//tide-setup-company 'typescript-mode 'typescript-tsx-mode))
-    (`lsp (spacemacs//typescript-setup-lsp-company))))
+    (`tide (spacemacs//tide-setup-company 'typescript-mode 'typescript-tsx-mode))))
 
 (defun spacemacs//typescript-setup-eldoc ()
   "Conditionally setup eldoc based on backend."
@@ -48,20 +47,6 @@
         (when (not typescript-lsp-linter)
           (setq-local lsp-diagnostic-package :none))
         (lsp))
-    (message (concat "`lsp' layer is not installed, "
-                     "please add `lsp' layer to your dotfile."))))
-
-(defun spacemacs//typescript-setup-lsp-company ()
-  "Setup lsp auto-completion."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (spacemacs|add-company-backends
-          :backends company-lsp
-          :modes typescript-mode typescript-tsx-mode
-          :variables company-minimum-prefix-length 2
-          :append-hooks nil
-          :call-hooks t)
-        (company-mode))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
 
