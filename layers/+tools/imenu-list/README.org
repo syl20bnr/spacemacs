@@ -31,9 +31,10 @@ this file.
 * Key bindings
 ** From any buffer
 
-| Key binding | Description              |
-|-------------+--------------------------|
-| ~SPC b t~   | toggle imenu tree window |
+| Key binding | Description                                      |
+|-------------+--------------------------------------------------|
+| ~SPC b i~   | focus imenu tree sidebar (creating if necessary) |
+| ~SPC T i~   | toggle imenu tree sidebar                        |
 
 ** From imenu-list buffer
 
