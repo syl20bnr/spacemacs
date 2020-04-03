@@ -5,25 +5,25 @@
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
--  [[#install][Install]]
+- [[#install][Install]]
   - [[#restrict-functions-to-the-current-layouts-buffers][Restrict functions to the current layout's buffers]]
   - [[#restrict-spc-tab-to-the-current-layouts-buffers][Restrict SPC-TAB to the current layout's buffers]]
   - [[#kill-buffers-when-killing-current-layout][Kill buffers when killing current layout]]
 - [[#usage][Usage]]
-- [[#keybindings][Keybindings]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds support for distinct layouts/workspaces to Spacemacs.
 
 Layouts provide an easy way to group buffers for a project or any arbitrary
-buffer grouping you wish.  Layouts also restrict actions to the buffers in
+buffer grouping you wish. Layouts also restrict actions to the buffers in
 the current layout.
 
 ** Features:
 - Support for distinct layouts via =eyebrowse=
 - Integration with =helm= and =ivy= to search for buffers within layouts
 
-*  Install
+* Install
 The =spacemacs-layouts= layer is included by default in the Spacemacs distribution.
 
 To set configuration layer variables, add =spacemacs-layouts= to the existing
@@ -97,7 +97,7 @@ remain open and listed in the default layout.
 
 * Usage
 Layout 1 is the default layout and has global scope, so ~SPC b b~ lists all open
-buffers.  All other layouts only show the buffers associated with that layout.
+buffers. All other layouts only show the buffers associated with that layout.
 
 ~SPC l~ to select from the current layouts by number or navigate with ~n~ / ~p~
  ~?~ will display the help menu.
@@ -106,9 +106,9 @@ buffers.  All other layouts only show the buffers associated with that layout.
 
 ~SPC l d~ to close the current layout, ~SPC l x~ to kill the current layout.
 
-See keybindings for more layout commands.
+See key bindings for more layout commands.
 
-* Keybindings
+* Key bindings
 
 | Key binding | Description                               |
 |-------------+-------------------------------------------|
