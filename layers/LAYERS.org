@@ -763,6 +763,7 @@ Features:
   - dired-x
   - display-line-numbers (only in Emacs 26.x and newer)
   - electric-indent-mode
+  - easypg
   - ediff
   - eldoc
   - help-fns+
@@ -2950,12 +2951,12 @@ Features:
 ** Tide Layer
 [[file:+tools/tide/README.org][+tools/tide/README.org]]
 
-This layer installs [[https://github.com/ananthakumaran/tide][tide]] package which allows communication with
+This layer installs [[https://github.com/ananthakumaran/tide][tide]] package which allows communication with 
 [[https://github.com/Microsoft/TypeScript/wiki/Standalone-Server-%28tsserver%29][standalone typescript server]] =tsserver= for JavaScript/TypeScript development.
 
 Features:
 - First class support from =tsserver= just like =vscode=: speed and accuracy
-- Linter
+- Linter 
 - Refactor
 - Go to definition
 - Find references
