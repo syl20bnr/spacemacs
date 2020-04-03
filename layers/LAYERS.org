@@ -867,6 +867,10 @@ Features:
 
 This layer adds support for distinct layouts/workspaces to Spacemacs.
 
+Layouts provide an easy way to group buffers for a project or any arbitrary
+buffer grouping you wish. Layouts also restrict actions to the buffers in
+the current layout.
+
 Features:
 - Support for distinct layouts via =eyebrowse=
 - Integration with =helm= and =ivy= to search for buffers within layouts
