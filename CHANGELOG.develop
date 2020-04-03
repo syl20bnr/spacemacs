@@ -173,6 +173,12 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   - Swapped key bindings for better usability (thanks to Tony Lotts):
     - ~SPC m s s~ for =haskell-interactive-switch=
     - ~SPC m s S~ for =spacemacs/haskell-interactive-bring=
+***** imenu-list
+- Improvements:
+  - Added function/binding to focus the imenu sidebar, creating it if none found.
+- Key bindings:
+  - Bound new focus function under ~SPC b i~
+  - Moved existing toggle binding to ~SPC T i~ (from ~SPC b t~)
 ***** LSP
 - Key bindings;
   - Change jump back to last mark from ~SPC m g p~ to ~SPC m g b~
