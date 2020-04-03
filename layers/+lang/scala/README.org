@@ -224,7 +224,6 @@ functioning set the variable =scala-enable-gtags= to =t=.
     (scala :variables scala-enable-gtags t)))
 #+END_SRC
 
-
 * Auto-start
 If you prefer to have the backend start when you load a scala file, you can enable it
 with

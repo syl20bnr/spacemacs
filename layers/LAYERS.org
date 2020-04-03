@@ -2094,13 +2094,16 @@ This layer adds support for the Scala language to Spacemacs.
 Features:
 - Syntax highlighting
 - Support for language backend. Either using [[https://ensime.github.io/][ENSIME]] or [[https://scalameta.org/metals/][Metals]]
+- Debugging support via dap
 - Auto-completion
+- Treeview support for viewing project structure and triggering compilation
 - Syntax-checking
 - Refactoring
 - Incremental compilation
 - Scala Repl
 - Style linting
 - Eldoc integration
+- Optional GGTags search
 - Test execution directly from Emacs
 - Automatic replacement of ASCII arrows with unicode ones
 
