@@ -14,6 +14,9 @@
 (defvar scala-enable-eldoc nil
   "If non nil then eldoc-mode is enabled in the scala layer.")
 
+(defvar scala-enable-gtags nil
+  "If non nil then gtags is enabled in the scala layer.")
+
 (defvar scala-auto-insert-asterisk-in-comments nil
   "If non-nil automatically insert leading asterisk in multi-line comments.")
 

@@ -17,9 +17,11 @@
     - [[#usage][Usage]]
 - [[#scalastyle][Scalastyle]]
   - [[#use-java-doc-style][Use Java doc-style]]
+- [[#enable-debug-adapter-protocol-dap][Enable Debug Adapter Protocol (DAP)]]
 - [[#automatically-show-the-type-of-the-symbol-under-the-cursor][Automatically show the type of the symbol under the cursor]]
 - [[#automatically-insert-asterisk-in-multiline-comments][Automatically insert asterisk in multiline comments]]
 - [[#automatically-replace-arrows-with-unicode-ones][Automatically replace arrows with unicode ones]]
+- [[#enable-gtags-as-a-fallback-navigation-utility][Enable GTags as a fallback navigation utility]]
 - [[#auto-start][Auto-start]]
 - [[#key-bindings][Key bindings]]
   - [[#ensime][Ensime]]
@@ -43,13 +45,16 @@ This layer adds support for the Scala language to Spacemacs.
 ** Features:
 - Syntax highlighting
 - Support for language backend. Either using [[https://ensime.github.io/][ENSIME]] or [[https://scalameta.org/metals/][Metals]]
+- Debugging support via dap
 - Auto-completion
+- Treeview support for viewing project structure and triggering compilation
 - Syntax-checking
 - Refactoring
 - Incremental compilation
 - Scala Repl
 - Style linting
 - Eldoc integration
+- Optional GGTags search
 - Test execution directly from Emacs
 - Automatic replacement of ASCII arrows with unicode ones
 
@@ -174,6 +179,9 @@ To enable =java-doc-style=, set the variable =scala-indent:use-javadoc-style= to
     (scala :variables scala-indent:use-javadoc-style t)))
 #+END_SRC
 
+* Enable Debug Adapter Protocol (DAP)
+The metals backend enables integration with the DAP layer for debugging support.
+
 * Automatically show the type of the symbol under the cursor
 To enable the feature =ensime-type-at-point= when cursor moves, set the
 variable =scala-enable-eldoc= to =t=.
@@ -206,6 +214,16 @@ the ascii arrows back.
   (setq-default dotspacemacs-configuration-layers '(
     (scala :variables scala-use-unicode-arrows t)))
 #+END_SRC
+
+* Enable GTags as a fallback navigation utility
+To enable gtags when in scala-mode, in case metals, or, ensime are not fully
+functioning set the variable =scala-enable-gtags= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (scala :variables scala-enable-gtags t)))
+#+END_SRC
+
 
 * Auto-start
 If you prefer to have the backend start when you load a scala file, you can enable it

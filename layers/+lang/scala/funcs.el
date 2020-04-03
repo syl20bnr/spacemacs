@@ -54,6 +54,16 @@
   "Setup LSP metals for Scala."
   (add-hook 'scala-mode-hook #'lsp))
 
+(defun spacemacs//scala-setup-dap ()
+  "Setup DAP in metals for Scala."
+  (when (spacemacs//scala-backend-metals-p)
+    (add-hook 'scala-mode-hook #'dap-mode)))
+
+(defun spacemacs//scala-setup-treeview ()
+  "Setup lsp-treemacs for Scala."
+  (lsp-metals-treeview-enable t)
+  (setq lsp-metals-treeview-show-when-views-received t))
+
 (defun spacemacs//scala-disable-flycheck-scala ()
   (push 'scala flycheck-disabled-checkers))
 
