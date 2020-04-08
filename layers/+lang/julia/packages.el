@@ -24,7 +24,7 @@
     :init
     (progn
       (add-hook 'julia-mode-hook #'spacemacs//julia-setup-buffer)
-      (add-hook 'julia-mode-local-vars-hook #'spacemacs//julia-setup-lsp)
+      (add-hook 'julia-mode-local-vars-hook #'spacemacs//julia-setup-backend)
       (if (and (configuration-layer/layer-used-p 'ess)
                julia-mode-enable-ess)
           (add-to-list 'auto-mode-alist

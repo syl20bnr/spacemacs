@@ -43,7 +43,7 @@ for installation, and then install this layer with:
   (setq-default
    dotspacemacs-configuration-layers
    '(
-     (julia :variables julia-mode-enable-lsp t)))
+     (julia :variables julia-backend 'lsp)))
 #+END_SRC
 
 =LanguageServer.jl= tends to have a very long startup time. In the worst case,

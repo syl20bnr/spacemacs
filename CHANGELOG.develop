@@ -2329,6 +2329,7 @@ Other:
     (thanks to duianto)
   - Remove warning about LanguageServer.jl not working in 1.0
     (thanks to Daniel Molina)
+  - Fixed inconsistencies in backend configuration (thanks to Matt Kramer)
 **** Keyboard layout
 - Added support for Colemak layout (thanks to Daniel Mijares, Lyall Cooper and
   Eivind Fonn)
