@@ -10,18 +10,13 @@
 ;;; License: GPLv3
 
 
-(defun spacemacs//julia-backend ()
-  "Returns selected backend."
-  ;; backend must be choosed explicitly with this layer
-  julia-backend)
-
 (defun spacemacs//julia-setup-backend ()
   "Conditionally setup julia backend."
-  (pcase (spacemacs//julia-backend)
+  (pcase julia-backend
     ('lsp (spacemacs//julia-setup-lsp))))
 
 (defun spacemacs//julia-setup-buffer ()
-  "Setup ESS and/or lsp for buffer depending on config."
+  "Configure julia-mode"
   (when (not julia-mode-enable-ess)
     (spacemacs//julia-setup-repl)))
 

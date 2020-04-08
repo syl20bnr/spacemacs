@@ -18,5 +18,5 @@
   "If non-nil, enable ESS in julia-mode buffers and disable julia-repl.")
 
 ;; disabled by default since most won't have lsp-mode working
-(defvar julia-mode-enable-lsp nil
-  "If non-nil, enable lsp-mode in julia-mode buffers.")
+(defvar julia-backend nil
+  "Set to 'lsp to enable use of LanguageServer.jl")
