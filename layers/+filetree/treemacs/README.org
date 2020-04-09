@@ -11,6 +11,7 @@
 - [[#configuration][Configuration]]
   - [[#follow-mode][Follow mode]]
   - [[#file-watch][File watch]]
+  - [[#scope-settings][Scope Settings]]
   - [[#git-mode][Git mode]]
   - [[#flattening-of-directories][Flattening of directories]]
   - [[#locking-width][Locking width]]
@@ -72,6 +73,23 @@ part of the file system shown by treemacs set the layer variable
 #+END_SRC
 
 Default is =t=.
+
+** Scope Settings
+By default treemacs buffers and their workspaces will be uniquely scoped within
+the current frame. As an alternative it is possible to scope treemacs to the
+currently active perspective, including the automatic creation of a workspace
+for every perspective. The scope type is determined by setting the layer
+variable =treemacs-use-scope-type= to either ='Frames= or ='Perspectives=.
+
+Note that persective-based scoping will only take effect when =persp-mode= is
+actually first used.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (treemacs :variables treemacs-use-persp-scope 'Perspectives)))
+#+END_SRC
+
+Default is ='Frames=.
 
 ** Git mode
 To enable Treemacs to check for the git status information of files and directories

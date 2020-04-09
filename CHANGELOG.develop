@@ -3248,6 +3248,7 @@ Other:
 - Deleted default values to track upstream behavior
   (thanks to Michael Peyton Jones)
 - Removed obsolete options (thanks to Michael Peyton Jones)
+- Finished =treemacs-persp= integration and made it opt-in.
 **** Typescript
 - Call tsfmt with extension of current buffer for TSX formatting
   (thanks to Victor Andrée)

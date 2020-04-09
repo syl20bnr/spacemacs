@@ -89,7 +89,10 @@
     :init (require 'treemacs-projectile)))
 
 (defun treemacs/init-treemacs-persp ()
-  (use-package treemacs-persp :after treemacs))
+  (use-package treemacs-persp
+    :after treemacs persp-mode
+    :config (when (eq treemacs-use-scope-type 'Perspectives)
+              (treemacs-set-scope-type 'Perspectives))))
 
 (defun treemacs/pre-init-winum ()
   (spacemacs|use-package-add-hook winum
