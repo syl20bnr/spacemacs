@@ -132,6 +132,7 @@ concatenations and contiguous function calls:
 |---------------+----------------------------------------------------------------------------------|
 | ~<~           | inserts </> whenever it would start a new JSX node                               |
 | ~>~           | right before the slash in a self-closing tag automatically inserts a closing tag |
+| ~SPC m r l t~ | log thing at point                                                               |
 | ~SPC m r r t~ | rename tag at point                                                              |
 
 ** Formatting (web-beautify)
