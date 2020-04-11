@@ -84,7 +84,7 @@ Company backend is set to be very eager in suggestions.
 Vue language server needed to be installed 
 
 #+BEGIN_SRC sh
-  $ npm install -g vue-language-server
+  $ npm install -g vls
 #+END_SRC
 
 This backend provides all the fancy features like: jump to definition,
