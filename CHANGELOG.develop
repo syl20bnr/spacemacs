@@ -2855,6 +2855,7 @@ Other:
 - Automatic use the =lsp= as =python-formater= when =lsp= is enabled
   (thanks sunlin7)
 - Fixed directory selection for self compiled mspyls (thanks Jee Lee)
+- Add python-test-last support for pytest runner 
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 - Updated racket logo (thanks to Vityou)
