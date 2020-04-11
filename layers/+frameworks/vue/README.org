@@ -81,7 +81,7 @@ Company backend is set to be very eager in suggestions.
 =eslint= is used for linting.
 
 ** lsp
-Vue language server needed to be installed 
+Vue language server needs to be installed
 
 #+BEGIN_SRC sh
   $ npm install -g vls
