@@ -1534,11 +1534,13 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
     (when (evil-evilified-state-p)
       (evil-normal-state))))
 
-(defun spacemacs/close-compilation-window ()
-  "Close the window containing the '*compilation*' buffer."
+(defun spacemacs/show-hide-compilation-window ()
+  "Show/Hide the window containing the compilation buffer."
   (interactive)
-  (when compilation-last-buffer
-    (delete-windows-on compilation-last-buffer)))
+  (when-let ((buffer compilation-last-buffer))
+    (if (get-buffer-window buffer 'visible)
+        (delete-windows-on buffer)
+      (spacemacs/switch-to-compilation-buffer))))
 
 (defun spacemacs/switch-to-compilation-buffer ()
   "Go to last compilation buffer."
@@ -1665,35 +1667,35 @@ Decision is based on `dotspacemacs-line-numbers'."
 ;; randomize region
 
 (defun spacemacs/randomize-words (beg end)
-    "Randomize the order of words in region."
-    (interactive "*r")
-    (let ((all (mapcar
-                (lambda (w) (if (string-match "\\w" w)
-                                ;; Randomize words,
-                                (cons (random) w)
-                              ;; keep everything else in order.
-                              (cons -1 w)))
-                (split-string
-                 (delete-and-extract-region beg end) "\\b")))
-          words sorted)
-      (mapc (lambda (x)
-              ;; Words are numbers >= 0.
-              (unless (> 0 (car x))
-                (setq words (cons x words))))
-            all)
-      ;; Random sort!
-      (setq sorted (sort words
-                         (lambda (a b) (< (car a) (car b)))))
-      (mapc
-       'insert
-       ;; Insert using original list, `all',
-       ;; but pull *words* from randomly-sorted list, `sorted'.
-       (mapcar (lambda (x)
-                 (if (> 0 (car x))
-                     (cdr x)
-                   (prog1 (cdar sorted)
-                     (setq sorted (cdr sorted)))))
-               all))))
+  "Randomize the order of words in region."
+  (interactive "*r")
+  (let ((all (mapcar
+              (lambda (w) (if (string-match "\\w" w)
+                              ;; Randomize words,
+                              (cons (random) w)
+                            ;; keep everything else in order.
+                            (cons -1 w)))
+              (split-string
+               (delete-and-extract-region beg end) "\\b")))
+        words sorted)
+    (mapc (lambda (x)
+            ;; Words are numbers >= 0.
+            (unless (> 0 (car x))
+              (setq words (cons x words))))
+          all)
+    ;; Random sort!
+    (setq sorted (sort words
+                       (lambda (a b) (< (car a) (car b)))))
+    (mapc
+     'insert
+     ;; Insert using original list, `all',
+     ;; but pull *words* from randomly-sorted list, `sorted'.
+     (mapcar (lambda (x)
+               (if (> 0 (car x))
+                   (cdr x)
+                 (prog1 (cdar sorted)
+                   (setq sorted (cdr sorted)))))
+             all))))
 
 (defun spacemacs/randomize-lines (beg end)
   "Randomize lines in region from BEG to END."
