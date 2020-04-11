@@ -643,6 +643,7 @@ Other:
     (thanks to aaronjensen)
   - Fixed unexpected behavior in =spacemacs/open-junk-file= (thanks to Matt
     Kramer)
+  - Replace =spacemacs/close-compilation-window= with =spacemacs/show-hide-compilation-window=
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
