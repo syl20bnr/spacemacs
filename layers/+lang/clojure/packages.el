@@ -175,7 +175,7 @@
             "sjj" 'cider-jack-in-clj
             "sjm" 'cider-jack-in-clj&cljs
             "sjs" 'cider-jack-in-cljs
-            "sl" 'cider-repl-clear-buffer
+            "sl" 'spacemacs/cider-find-and-clear-repl-buffer
             "sL" 'cider-find-and-clear-repl-output
             "sn" 'spacemacs/cider-send-ns-form-to-repl
             "sN" 'spacemacs/cider-send-ns-form-to-repl-focus
