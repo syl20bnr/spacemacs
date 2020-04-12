@@ -2766,6 +2766,10 @@ Other:
 - Added declaration for the ~SPC P~ prefix (thanks to Codruț Constantin Gușoi)
 **** Pdf
 - Fixed ~'~ =pdf-view-jump-to-register= (thanks to duianto)
+-Key bindings:
+  - Added to pdf-view mode and transient state
+    - ~[~ history-backward (previous view)
+    - ~]~ history-forward (next view)
 **** Perl5
 - Fixed =spacemacs/perltidy-format-buffer= and
   =spacemacs/perltidy-format-function= to move the point and window to their
