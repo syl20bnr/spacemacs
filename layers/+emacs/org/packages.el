@@ -359,34 +359,34 @@ Will work on both org-mode and any mode that accepts plain html."
 
       ;; Add global evil-leader mappings. Used to access org-agenda
       ;; functionalities – and a few others commands – from any other mode.
-      (spacemacs/declare-prefix "ao" "org")
-      (spacemacs/declare-prefix "aof" "feeds")
-      (spacemacs/declare-prefix "aoC" "clock")
+      (spacemacs/declare-prefix "o" "org")
+      (spacemacs/declare-prefix "of" "feeds")
+      (spacemacs/declare-prefix "oC" "clock")
       (spacemacs/set-leader-keys
         ;; org-agenda
-        "ao#" 'org-agenda-list-stuck-projects
-        "ao/" 'org-occur-in-agenda-files
-        "aoa" 'org-agenda-list
-        "aoc" 'org-capture
-        "aoe" 'org-store-agenda-views
-        "aofi" 'org-feed-goto-inbox
-        "aofu" 'org-feed-update-all
+        "o#" 'org-agenda-list-stuck-projects
+        "o/" 'org-occur-in-agenda-files
+        "oa" 'org-agenda-list
+        "oc" 'org-capture
+        "oe" 'org-store-agenda-views
+        "ofi" 'org-feed-goto-inbox
+        "ofu" 'org-feed-update-all
 
         ;; Clock
         ;; These keybindings should match those under the "mC" prefix (above)
-        "aoCc" 'org-clock-cancel
-        "aoCg" 'org-clock-goto
-        "aoCi" 'org-clock-in
-        "aoCI" 'org-clock-in-last
-        "aoCj" 'spacemacs/org-clock-jump-to-current-clock
-        "aoCo" 'org-clock-out
-        "aoCr" 'org-resolve-clocks
+        "oCc" 'org-clock-cancel
+        "oCg" 'org-clock-goto
+        "oCi" 'org-clock-in
+        "oCI" 'org-clock-in-last
+        "oCj" 'spacemacs/org-clock-jump-to-current-clock
+        "oCo" 'org-clock-out
+        "oCr" 'org-resolve-clocks
 
-        "aol" 'org-store-link
-        "aom" 'org-tags-view
-        "aoo" 'org-agenda
-        "aos" 'org-search-view
-        "aot" 'org-todo-list
+        "ol" 'org-store-link
+        "om" 'org-tags-view
+        "oo" 'org-agenda
+        "os" 'org-search-view
+        "ot" 'org-todo-list
         ;; SPC C- capture/colors
         "Cc" 'org-capture)
 
