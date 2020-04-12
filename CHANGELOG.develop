@@ -2454,6 +2454,7 @@ Other:
 - Bound major mode leader key and ~M-RET~ to =markdown-insert-list-item= for
   terminal users (thanks to AmaiKinono)
 - Made =*lsp-help*= buffer shown in a popup window using popwin
+- Add support for mdx files via markdown-mode (thanks to robbyoconnor)
 **** Major modes
 - Added SPARQL-mode (thanks to Dietrich Daroch)
 - Added android logcat (thanks to jiejingzhang)

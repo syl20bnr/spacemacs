@@ -34,6 +34,7 @@ This layer adds markdown support to Spacemacs.
 
 ** Features:
 - markdown files support via [[http://jblevins.org/git/markdown-mode.git/][markdown-mode]]
+- [[https://github.com/mdx-js/mdx][mdx]] file support via [[http://jblevins.org/git/markdown-mode.git/][markdown-mode]]
 - Fast GitHub-flavored live preview via [[https://github.com/blak3mill3r/vmd-mode][vmd-mode]]
 - TOC generation via [[https://github.com/ardumont/markdown-toc][markdown-toc]]
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
