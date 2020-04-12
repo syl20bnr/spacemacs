@@ -128,6 +128,10 @@
             org-image-actual-width nil
             org-src-fontify-natively t
             org-src-tab-acts-natively t
+            org-fontify-done-headline t
+            org-fontify-quote-and-verse-blocks t
+            org-hide-leading-stars t
+            org-hide-leading-stars-before-indent-mode t
             ;; this is consistent with the value of
             ;; `helm-org-headings-max-depth'.
             org-imenu-depth 8)
@@ -238,6 +242,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "TT" 'org-todo
         "TV" 'space-doc-mode
         "Tx" 'org-latex-preview
+        "k"  'org-todo
 
         ;; More cycling options (timestamps, headlines, items, properties)
         "L" 'org-shiftright

@@ -22,7 +22,6 @@
     ;; `org' package.
     (default-org-config :location built-in)
     (org-plus-contrib :step pre)
-    org-bullets
     (space-doc :location local)
     toc-org
     ))
@@ -54,18 +53,13 @@
             org-imenu-depth 8)
     :config
     (progn
-      (font-lock-add-keywords
-       'org-mode '(("\\(@@html:<kbd>@@\\) \\(.*\\) \\(@@html:</kbd>@@\\)"
-                    (1 font-lock-comment-face prepend)
-                    (2 font-lock-function-name-face)
-                    (3 font-lock-comment-face prepend))))
+      ;; (font-lock-add-keywords
+      ;;  'org-mode '(("\\(@@html:<kbd>@@\\) \\(.*\\) \\(@@html:</kbd>@@\\)"
+      ;;               (1 font-lock-comment-face prepend)
+      ;;               (2 font-lock-function-name-face)
+      ;;               (3 font-lock-comment-face prepend))))
       ;; Open links and files with RET in normal state
       (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)))))
-
-(defun spacemacs-org/init-org-bullets ()
-  (use-package org-bullets
-    :defer t
-    :init (add-hook 'org-mode-hook 'org-bullets-mode)))
 
 (defun spacemacs-org/init-toc-org ()
   (use-package toc-org
