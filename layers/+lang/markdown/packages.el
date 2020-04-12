@@ -53,7 +53,8 @@
   (use-package markdown-mode
     :mode
     (("\\.m[k]d" . markdown-mode)
-     ("\\.mdk" . markdown-mode))
+     ("\\.mdk" . markdown-mode)
+     ("\\.mdx" . markdown-mode))
     :defer t
     :config
     (progn
@@ -160,7 +161,7 @@
         "gl" 'outline-next-visible-heading)
       ;; Promotion, Demotion
       (add-hook 'spacemacs-editing-style-hook
-                'spacemacs//markdown-hjkl-promotion-demotion)
+         'spacemacs//markdown-hjkl-promotion-demotion)
       (spacemacs//markdown-hjkl-promotion-demotion dotspacemacs-editing-style)
       (define-key markdown-mode-map (kbd "M-<down>") 'markdown-move-down)
       (define-key markdown-mode-map (kbd "M-<left>") 'markdown-promote)

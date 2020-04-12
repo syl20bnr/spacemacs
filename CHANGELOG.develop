@@ -2546,6 +2546,8 @@ Other:
 - Change the ~C-n~ and ~C-p~ message keys to their original ~N~ and ~P~ bindings
 - Edit require from =org-notmuch= to =ol-notmuch= as per org-mode update 9.3.1
   (thanks to Loys Ollivier)
+**** Markdown
+- Add support for mdx files via markdown-mode (robbyoconnor)
 **** OCaml
 - Allow initialization without requiring =opam= (thanks to Bernhard Schommer)
 - Fixed misused functions, =merlin= is a package not a layer
