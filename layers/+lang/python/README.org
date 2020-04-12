@@ -154,6 +154,8 @@ You just have to install python language server package:
 Additionally you can install the following other packages:
 
 #+BEGIN_SRC sh
+  # for auto-complete when using lsp as backend
+  pip install jedi
   # for import sorting
   pip install pyls-isort
   # for mypy checking (python 3.4+ is needed)

@@ -35,7 +35,8 @@
 (defun spacemacs//python-setup-company ()
   "Conditionally setup company based on backend."
   (pcase (spacemacs//python-backend)
-    (`anaconda (spacemacs//python-setup-anaconda-company))))
+    (`anaconda (spacemacs//python-setup-anaconda-company))
+    (`lsp (spacemacs//python-setup-lsp-company))))
 
 (defun spacemacs//python-setup-dap ()
   "Conditionally setup elixir DAP integration."
@@ -59,6 +60,15 @@
   "Setup anaconda auto-completion."
   (spacemacs|add-company-backends
     :backends company-anaconda
+    :modes python-mode
+    :append-hooks nil
+    :call-hooks t)
+  (company-mode))
+
+(defun spacemacs//python-setup-lsp-company ()
+  "Setup anaconda auto-completion."
+  (spacemacs|add-company-backends
+    :backends company-jedi
     :modes python-mode
     :append-hooks nil
     :call-hooks t)

@@ -44,6 +44,7 @@
         ;; packages for anaconda backend
         anaconda-mode
         (company-anaconda :requires company)
+        (company-jedi :requires company)
         ;; packages for Microsoft LSP backend
         (lsp-python-ms :requires lsp-mode)
         ))
@@ -97,6 +98,12 @@
     :if (eq (spacemacs//python-backend) 'anaconda)
     :defer t
     ;; see `spacemacs//python-setup-anaconda-company'
+    ))
+
+(defun python/init-company-jedi ()
+  (use-package company-jedi
+    :if (eq (spacemacs//python-backend) 'lsp)
+    :defer t
     ))
 
 (defun python/init-blacken ()
