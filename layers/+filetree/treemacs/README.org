@@ -86,7 +86,7 @@ actually first used.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (treemacs :variables treemacs-use-persp-scope 'Perspectives)))
+    (treemacs :variables treemacs-use-scope-type 'Perspectives)))
 #+END_SRC
 
 Default is ='Frames=.
