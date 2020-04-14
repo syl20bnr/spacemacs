@@ -49,4 +49,4 @@
     :init
     (progn
       (defalias 'spacemacs/browse-docs-online-at-point 'devdocs-search)
-      (spacemacs/set-leader-keys "db" #'spacemacs/browse-docs-online-at-point))))
+      (spacemacs/set-leader-keys "hbd" #'spacemacs/browse-docs-online-at-point))))
