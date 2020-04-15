@@ -390,7 +390,8 @@ THEME."
   "Cycle through themes defined in `dotspacemacs-themes'.
 When BACKWARD is non-nil, or with universal-argument, cycle backwards."
   (interactive "P")
-  (let* ((themes (if backward (reverse dotspacemacs-themes) dotspacemacs-themes))
+  (let* ((theme-names (mapcar 'spacemacs//get-theme-name dotspacemacs-themes))
+         (themes (if backward (reverse theme-names) theme-names))
          (next-theme (car (or (cdr (memq spacemacs--cur-theme themes))
                               ;; if current theme isn't in cycleable themes, start
                               ;; over
