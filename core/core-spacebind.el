@@ -11,7 +11,7 @@
 
 (require 'core-keybindings)
 
-(defvar spacebind--eager-bind nil
+(defvar spacebind--eager-bind t
   "If true bind keys right after `spacmeacs|spacebind' macro-expanse.
 Otherwise binding happens at the next event loop.")
 

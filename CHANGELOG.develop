@@ -672,6 +672,7 @@ Other:
     (thanks to Vitor Finotti and Robby O'Connor)
   - Added reference handler as per jump handler (thanks to Fangrui Song)
   - Added =spacemacs/iwb-region-or-buffer= (thanks to bb2020)
+  - Enabled eager spacebind bindings by default
 *** Distribution changes
 - Refactored =spacemacs-bootstrap=, =spacemacs-ui=, and =spacemacs-ui-visual=
   layers:
