@@ -2411,6 +2411,7 @@ Other:
 **** Debug Adapter Protocol (DAP)
 - Layer variables:
   - Added variable =dap-enable-mouse-support=
+  - Added variable =dap-enable-ui-controls=
 - Key bindings
   - ~SPC m d d e~ to edit debug template
   - Added global binding under ~SPC d~

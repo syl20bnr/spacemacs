@@ -10,7 +10,8 @@
 ;;; License: GPLv3
 
 (defconst dap-packages
-  '(dap-mode))
+  '(dap-mode
+    (posframe (not (version< emacs-version "26.1")))))
 
 (defun dap/init-dap-mode ()
   (use-package dap-mode
@@ -33,6 +34,16 @@
         :documentation "Enable mouse support in DAP mode.")
       (when dap-enable-mouse-support
         (spacemacs/toggle-dap-mouse-on))
+
+      (unless (version< emacs-version "26.1")
+        (spacemacs|add-toggle dap-ui-controls
+          :status dap-ui-controls-mode
+          :on (dap-ui-controls-mode)
+          :off (dap-ui-controls-mode -1)
+          :documentation "Enable dap-ui-controls-mode"))
+
+      (when dap-enable-ui-controls
+        (spacemacs/toggle-dap-ui-controls-on))
 
       ;; key bindings
       (let ((bindings (list
@@ -113,3 +124,7 @@
           (mapc (lambda (cons)
                   (spacemacs/declare-prefix-for-mode mode (car cons) (cdr cons)))
                 prefixes))))))
+
+(defun dap/init-posframe ()
+  (unless (version< emacs-version "26.1")
+    (use-package posframe)))
