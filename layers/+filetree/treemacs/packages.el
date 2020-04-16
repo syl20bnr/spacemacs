@@ -15,6 +15,7 @@
     golden-ratio
     treemacs
     (treemacs-evil :toggle (memq dotspacemacs-editing-style '(vim hybrid)))
+    (treemacs-icons-dired :toggle treemacs-use-icons-dired)
     (treemacs-magit :requires magit)
     (treemacs-persp :requires persp-mode)
     treemacs-projectile
@@ -93,6 +94,10 @@
     :after treemacs persp-mode
     :config (when (eq treemacs-use-scope-type 'Perspectives)
               (treemacs-set-scope-type 'Perspectives))))
+
+(defun treemacs/init-treemacs-icons-dired ()
+  (use-package treemacs-icons-dired
+    :hook '(dired-mode . treemacs-icons-dired-mode)))
 
 (defun treemacs/pre-init-winum ()
   (spacemacs|use-package-add-hook winum

@@ -3257,6 +3257,7 @@ Other:
 - Finished =treemacs-persp= integration and made it opt-in. Using the layer
   variable: =treemacs-use-scope-type= with the possible values:
   ='Frames= (default) or ='Perspectives= (thanks to Alexander Miller)
+- Added integration with =treemacs-icons-dired= package.
 **** Typescript
 - Call tsfmt with extension of current buffer for TSX formatting
   (thanks to Victor Andrée)
