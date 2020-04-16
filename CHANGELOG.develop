@@ -862,6 +862,7 @@ Other:
       root with line number
     - ~SPC f y Y~ to show and copy current file path relative to the project
       root
+    - ~SPC f y b~ to show and copy buffer name.
     (thanks to Codruț Constantin Gușoi)
   - New ~SPC f e e~ to open spacemacs.env file (thanks to Sylvain Benner)
   - New ~SPC f e E~ to reload environment variable from env file

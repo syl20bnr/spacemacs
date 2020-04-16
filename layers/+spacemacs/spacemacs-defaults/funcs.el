@@ -690,6 +690,12 @@ ones created by `magit' and `dired'."
         (message "%s" file-name))
     (message "WARNING: Current buffer is not attached to a file!")))
 
+(defun spacemacs/copy-buffer-name ()
+  "Copy and show the name of the current buffer."
+  (interactive)
+  (kill-new (buffer-name))
+  (message "%s" (buffer-name)))
+
 (defun spacemacs/copy-file-name-base ()
   "Copy and show the file name without its final extension of the current
 buffer."
