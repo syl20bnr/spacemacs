@@ -62,6 +62,9 @@ Example:
                  ))
 #+END_SRC
 
+*** Note about api key and bug submission
+If you use the built in spacemace bug sumission tool it will include the snippit of code above, including your api key, don't forget to remove it before submitting.
+
 ** API Keys
 After this go to your wakatime account and have your API key handy
 [[https://wakatime.com/settings/account?apikey=true]].
