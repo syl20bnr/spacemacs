@@ -82,12 +82,17 @@
     (concat prefix-char "r") #'xref-find-references
     (concat prefix-char "e") #'lsp-treemacs-errors-list
     (concat prefix-char "b") #'xref-pop-marker-stack)
-  (if (configuration-layer/package-usedp 'helm)
-      (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
-        (concat prefix-char "s") #'helm-lsp-workspace-symbol
-        (concat prefix-char "S") #'helm-lsp-global-workspace-symbol)
+  (cond
+   ((configuration-layer/package-usedp 'helm)
     (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
-      (concat prefix-char "s") #'lsp-ui-find-workspace-symbol)))
+      (concat prefix-char "s") #'helm-lsp-workspace-symbol
+      (concat prefix-char "S") #'helm-lsp-global-workspace-symbol))
+   ((configuration-layer/package-usedp 'ivy)
+    (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+      (concat prefix-char "s") #'lsp-ivy-workspace-symbol
+      (concat prefix-char "S") #'lsp-ivy-global-workspace-symbol))
+   (t (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+        (concat prefix-char "s") #'lsp-ui-find-workspace-symbol))))
 
 (defun spacemacs//lsp-bind-peek-navigation-functions (prefix-char)
   (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
