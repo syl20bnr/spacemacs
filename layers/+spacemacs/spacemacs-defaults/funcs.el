@@ -1534,6 +1534,13 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
   (when compilation-last-buffer
     (delete-windows-on compilation-last-buffer)))
 
+(defun spacemacs/switch-to-compilation-buffer ()
+  "Go to last compilation buffer."
+  (interactive)
+  (if compilation-last-buffer
+      (pop-to-buffer compilation-last-buffer)
+    (user-error "There is no compilation buffer?")))
+
 
 ;; Line number
 
