@@ -3207,6 +3207,8 @@ Other:
 - Added support for eziam themes (thanks to Benno Fünfstück)
 - Enabled italics in spacemacs theme (thanks to Sylvain Benner)
 - Added support for =doom-dark+= theme (thanks to Ivan Yonchovski)
+**** Visual
+     - use the same window for =dap= log window and for compilation buffer.
 ***** Colors
 - Multiple improvements (thanks to SteveJobzniak):
   - Added ability to set default rainbow-identifiers values
