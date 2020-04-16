@@ -1016,6 +1016,7 @@ Other:
   - Added ~SPC x d l~ =delete-blank-lines= (thanks to duianto)
   - Added keybindings for Easy PG built in Emacs application
    (thanks to John Stevenson)
+  - Added ~SPC c b~ to switch to last compilation buffer(thanks to Ivan Yonchovski).
 - Improvements:
   - Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
     ~SPC w 4~ (thanks to Codruț Constantin Gușoi):

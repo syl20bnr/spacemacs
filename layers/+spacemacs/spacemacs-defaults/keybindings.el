@@ -434,7 +434,8 @@
   "cC" 'compile
   "ck" 'kill-compilation
   "cr" 'recompile
-  "cd" 'spacemacs/close-compilation-window)
+  "cd" 'spacemacs/close-compilation-window
+  "cb" 'spacemacs/switch-to-compilation-buffer)
 (with-eval-after-load 'compile
   (evil-define-key 'motion compilation-mode-map (kbd "gf") 'find-file-at-point)
   (define-key compilation-mode-map "r" 'recompile)
