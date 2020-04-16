@@ -289,7 +289,8 @@ to be called for each testrunner. "
 (defun spacemacs/python-test-last (arg)
   "Re-run the last test command"
   (interactive "P")
-  (spacemacs//python-call-correct-test-function arg '((nose . nosetests-again))))
+  (spacemacs//python-call-correct-test-function arg '((pytest . pytest-again)
+                                                      (nose . nosetests-again))))
 
 (defun spacemacs/python-test-all (arg)
   "Run all tests."
