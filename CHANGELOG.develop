@@ -177,6 +177,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 - Key bindings;
   - Change jump back to last mark from ~SPC m g p~ to ~SPC m g b~
     to follow the keybindings convention (thanks to Magnus Therning)
+  - Use ~lsp-ivy~ when ~ivy~ layer is present.
 ***** IPython notebook
 - Key bindings;
   - Change prefix from ~SPC a i~ to ~SPC a y~ (thanks to Swaroop C H)

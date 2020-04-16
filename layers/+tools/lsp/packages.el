@@ -14,6 +14,7 @@
     (lsp-mode :requires yasnippet)
     lsp-ui
     (helm-lsp :requires helm)
+    (lsp-ivy :requires ivy)
     (lsp-treemacs :requires treemacs)
     popwin
     ))
@@ -50,6 +51,9 @@
 
 (defun lsp/init-helm-lsp ()
   (use-package helm-lsp :defer t))
+
+(defun lsp/init-lsp-ivy ()
+  (use-package lsp-ivy :defer t))
 
 (defun lsp/init-lsp-treemacs ()
   (use-package lsp-treemacs :defer t))
