@@ -373,7 +373,8 @@
     ("l" spacemacs/copy-file-path-with-line "File path with line number")
     ("n" spacemacs/copy-file-name "File name")
     ("N" spacemacs/copy-file-name-base "File name without extension")
-    ("y" spacemacs/copy-file-path "File path")))))
+    ("y" spacemacs/copy-file-path "File path")
+    ("b" spacemacs/copy-buffer-name "Buffer name")))))
 ;; frame ----------------------------------------------------------------------
 (spacemacs/set-leader-keys
   "Ff" 'spacemacs/find-file-other-frame
