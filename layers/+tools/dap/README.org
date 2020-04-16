@@ -47,7 +47,7 @@ file.
 
 * Configuration
 ** DAP configuration in supported layers
-By default ~dap~ layer registers global keybinding defined under ~SPC m~. If you
+By default ~dap~ layer registers global key binding defined under ~SPC m~. If you
 want to have debug bindings under major mode leader you may do the following:
 
 For instance the =java= layer:
