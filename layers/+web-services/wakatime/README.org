@@ -53,6 +53,8 @@ Example:
                  ))
 #+END_SRC
 
+Note: If you submit a bug report it will also send your API key. Don't forget to remove it first.
+
 ** API Keys
 After this go to your wakatime account and have your API key handy
 https://wakatime.com/settings/account?apikey=true .
