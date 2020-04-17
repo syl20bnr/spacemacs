@@ -25,15 +25,15 @@ file.
 
 | Key bindings | Description                                   |
 |--------------+-----------------------------------------------|
-| ~SPC A p /~  | copy password using =helm-pass= or =ivy-pass= |
-| ~SPC A p y~  | copy password                                 |
-| ~SPC A p Y~  | copy and describe password                    |
-| ~SPC A p ?~  | describe password                             |
-| ~SPC A p g~  | generate new password                         |
-| ~SPC A p i~  | insert new password                           |
-| ~SPC A p c~  | edit password                                 |
-| ~SPC A p r~  | rename password                               |
-| ~SPC A p d~  | remove from password store                    |
-| ~SPC A p D~  | clear the password store                      |
-| ~SPC A p I~  | initialize the password store                 |
-| ~SPC A p w~  | open url                                      |
+| ~SPC a a /~  | copy password using =helm-pass= or =ivy-pass= |
+| ~SPC a a y~  | copy password                                 |
+| ~SPC a a Y~  | copy and describe password                    |
+| ~SPC a a ?~  | describe password                             |
+| ~SPC a a g~  | generate new password                         |
+| ~SPC a a i~  | insert new password                           |
+| ~SPC a a c~  | edit password                                 |
+| ~SPC a a r~  | rename password                               |
+| ~SPC a a d~  | remove from password store                    |
+| ~SPC a a D~  | clear the password store                      |
+| ~SPC a a I~  | initialize the password store                 |
+| ~SPC a a w~  | open url                                      |
