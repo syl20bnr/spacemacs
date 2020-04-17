@@ -184,7 +184,7 @@
  "Encrypt / decrypt files with Easy PG"
  :global
  (("a" "applications"
-   ("e"  "easy pg"
+   ("Y"  "easy pg"
     ("d" epa-decrypt-file "Decrypt file to...")
     ("D" epa-delete-keys  "Delete keys...")
     ("e" epa-encrypt-file "Encrypt file...")
