@@ -114,7 +114,7 @@ To display weather forecast icons by default ("pretty mode"), add
 * Key bindings
 ** Weather
 
-| Evil      | Holy | Command                                       |
-|-----------+------+-----------------------------------------------|
-| ~SPC a w~ |      | Display pretty weather forecast               |
-| ~SPC a W~ |      | Display quick weather forecast in mini buffer |
+| Key binding | Description                                   |
+|-------------+-----------------------------------------------|
+| ~SPC a w w~ | Display pretty weather forecast               |
+| ~SPC a w W~ | Display quick weather forecast in mini buffer |
