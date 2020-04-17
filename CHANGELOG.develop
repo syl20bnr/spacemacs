@@ -2903,8 +2903,6 @@ Other:
   (thanks to Miciah Masters)
 - Fixed compiler warnings in =rcirc-late-fix= (thanks to Miciah Masters)
 - Added variable =rcirc-enable-late-fix= (thanks to Miciah Masters)
-- Move global binding from SPC a i to SPC a I to avoid key conflicts
-  with erc layer (thanks to Maximilian Wolff)
 **** React
 - Improvements:
   - Made % work on jsx tags (thanks to Thanh Vuong)
