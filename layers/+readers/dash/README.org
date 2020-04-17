@@ -82,7 +82,7 @@ For more details please check [[https://github.com/stanaka/dash-at-point#Usage][
 
 | Key binding | Description                                                     |
 |-------------+-----------------------------------------------------------------|
-| ~SPC d d~   | Lookup thing at point in Dash or Zeal                           |
-| ~SPC d D~   | Lookup thing at point in Dash or Zeal within a specified Docset |
-| ~SPC d h~   | Lookup thing at point in helm-dash or counsel-dash              |
-| ~SPC d H~   | Lookup in helm-dash or counsel-dash within a specified Docset   |
+| ~SPC a z d~ | Lookup thing at point in Dash or Zeal                           |
+| ~SPC a z D~ | Lookup thing at point in Dash or Zeal within a specified Docset |
+| ~SPC a z h~ | Lookup thing at point in helm-dash or counsel-dash              |
+| ~SPC a z H~ | Lookup in helm-dash or counsel-dash within a specified Docset   |
