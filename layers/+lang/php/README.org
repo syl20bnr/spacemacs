@@ -10,16 +10,20 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#backends][Backends]]
-    - [[#intelephense][intelephense]]
-    - [[#php-language-server][php-language-server]]
+    - [[#lsp][LSP]]
+      - [[#intelephense][intelephense]]
+      - [[#php-language-server][php-language-server]]
+      - [[#debugging][Debugging]]
     - [[#ac-php-core][ac-php-core]]
       - [[#setup][Setup]]
       - [[#refactoring][Refactoring]]
+      - [[#debugging-1][Debugging]]
 - [[#key-bindings][Key bindings]]
   - [[#general][General]]
   - [[#refactoring-for-non-lsp-backends][Refactoring for non LSP backends]]
   - [[#debugging-for-non-lsp-backends][Debugging for non LSP backends]]
   - [[#lsp-key-bindings][LSP key bindings]]
+  - [[#debugging-for-lsp-backends][Debugging for LSP backends]]
 
 * Description
 This layer adds PHP language support to Spacemacs.
@@ -30,7 +34,7 @@ This layer adds PHP language support to Spacemacs.
 - Complete and jump to define with [[https://github.com/xcwen/ac-php][company-php]]
 - Run tests with PHPUnit
 - Reformat code with PHP CBF
-- Debug your programs with XDebug (via [[https://github.com/ahungry/geben][geben]])
+- Debug your programs with XDebug (via [[https://github.com/ahungry/geben][geben]] or [[https://github.com/emacs-lsp/dap-mode][dap-mode]])
 - Refactor source files with help of [[https://github.com/emacs-php/phpactor.el][phpactor.el]]
 - Support for the [[https://langserver.org/][Language Server Protocol]] (experimental)
 
@@ -47,9 +51,11 @@ file.
 For php you have the choice between a set of possible backends with
 different setup instructions and different capabilities.
 
+*** LSP
+
 Note that you'll need to use the =lsp= layer to enable these backends.
 
-*** intelephense
+**** intelephense
 This is the recommended LSP server solution. To activate it set the
 layer variable =php-backend=:
 
@@ -65,7 +71,7 @@ and install the npm server with:
 
 You can find further information on the project's [[http://intelephense.net/][website]] and [[https://github.com/bmewburn/vscode-intelephense][GitHub page]].
 
-*** php-language-server
+**** php-language-server
 This is an alternative LSP server implementation working on PHP basis rather than nodejs.
 To activate it set the layer variable =php-backend= like for the intelephense backend and
 install the server via [[https://getcomposer.org/][composer]]:
@@ -76,6 +82,39 @@ install the server via [[https://getcomposer.org/][composer]]:
 #+END_SRC
 
 You can find further information on the project's [[https://github.com/felixfbecker/php-language-server][GitHub page]].
+
+
+**** Debugging
+In case of using any of LSP backends You can debug using [[https://microsoft.github.io/debug-adapter-protocol][dap]].
+
+First of all You have to add =dap= to layer list of Your =dotspacemacs/layers= function of a =.spacemacs= config file.
+
+As mentioned in [[https://github.com/emacs-lsp/dap-mode#php][dap-mode doc for php]],
+dap-mode uses a [[https://marketplace.visualstudio.com/items?itemName=webfreak.debug][VSCode extension]] as a debugging backend
+and includes a convenient =dap-php-setup= command to install it into Your emacs.
+To embrace it open any PHP file in any PHP project just after restarting emacs with =dap= layer enabled.
+Now You can call the extension installation command: =<M-x> dap-php-setup=.
+
+After that You can try to debug something.
+For example add a breakpoint to any of Your phpunit tests with =SPC m d b a=.
+And start debuging with =SPC m d d d= and selecting a debug template.
+Now run the test to ensure everything is working. The command to run the test while debugging could look like this:
+=php -d xdebug.idekey=PHPSTORM -d xdebug.remote_autostart=1 -d xdebug.remote_enable=1 -d xdebug.remote_host=127.0.0.1 -d xdebug.remote_port=9000 bin/phpunit ./path/to/Test.php=
+The test is now expected to be paused by emacs/dap when it catches code at the breakpoint.
+
+You may wish to propagate some config options for the VSCode extension which is used as a debug server.
+For example if You are running Your code in a docker container the project source path may differ between the container (and Xdebug PHP extension consequently) and Emacs.
+The VSCode extension provides a config option to map the path. In VSCode it is done by adding an appropriate json config.
+For spacemacs it could be done for example by adding a next call to =dotspacemacs/user-config= function of Your =.spacemacs= config:
+  (with-eval-after-load 'dap-php
+    (dap-register-debug-template "PHP debug with custom path"
+      (list :type "php"
+            :cwd nil
+            :request "launch"
+            :name "Php Debug with path"
+            :args '("--server=4711")
+            :pathMappings (ht ("/docker/src/path" "/emacs/src/path"))
+            :sourceMaps t)))
 
 *** ac-php-core
 This is a non server solution working entirely from an elisp package.
@@ -117,7 +156,8 @@ To ensure that the phpactor package is intact, just run
 ~M-x phpactor-install-or-update~ and the package itself will make sure that
 you're good to go.
 
-It also provides debug capabilities via the [[https://github.com/ahungry/geben][geben package]]. Please refer for details
+**** Debugging
+While using ac-php-core debug capabilities are provided via the [[https://github.com/ahungry/geben][geben package]]. Please refer for details
 to the project page.
 
 * Key bindings
@@ -195,3 +235,6 @@ Variable listing:
 ** LSP key bindings
 For a detailed list of key bindings in =lsp-mode= please checkout the README.org
 file of the =lsp layer=.
+
+** Debugging for LSP backends
+See README.org file of the =dap-layer= for key bindings available in =dap-mode=
