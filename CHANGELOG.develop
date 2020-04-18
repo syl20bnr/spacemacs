@@ -1780,6 +1780,22 @@ Other:
 - Added =flycheck-package= for package metadata linting (thanks to Uroš Perišić)
 - Make rainbow-identifiers not colorize special operators and macros, so they
   always visually stand out. (thanks to Andriy Kmit)
+- Added =emr= integration + key bindings (thanks to Ivan Yonchovski)
+  - Key bindings:
+    - ~SPC m r f e~ for  =emr-implement-function=
+    - ~SPC m r f d~ for  =emr-find-unused-definitions=
+    - ~SPC m r e f~ for  =emr-extract-function=
+    - ~SPC m r e v~ for  =emr-extract-variable=
+    - ~SPC m r e l~ for  =emr-extract-to-let=
+    - ~SPC m r e c~ for  =emr-extract-constant=
+    - ~SPC m r e a~ for  =emr-extract-autoload=
+    - ~SPC m r i v~ for  =emr-inline-variable=
+    - ~SPC m r i s~ for  =emr-inline-let-variable=
+    - ~SPC m r i f~ for  =emr-inline-function=
+    - ~SPC m r i a~ for  =emr-insert-autoload-directive=
+    - ~SPC m r d l~ for  =emr-delete-let-binding-form=
+    - ~SPC m r d d~ for  =emr-delete-unused-definition=
+    - ~SPC m e w~   for   =emr-eval-and-replace=
 **** Emoji
 - Added support for Emoji fonts on macOS and Linux (thanks to CodeFalling)
 - Setup =emojify= cache directory (thanks to Boris Buliga)
