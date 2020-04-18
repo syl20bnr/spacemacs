@@ -68,7 +68,6 @@
   - [[#spotify][Spotify]]
   - [[#tidalcycles][TidalCycles]]
 - [[#operating-systems][Operating systems]]
-  - [[#kubernetes][Kubernetes]]
   - [[#nixos][NixOS]]
   - [[#osx][OSX]]
 - [[#pair-programming][Pair programming]]
@@ -214,6 +213,7 @@
   - [[#geolocation][Geolocation]]
   - [[#imenu-list][Imenu-list]]
   - [[#import-js][Import-js]]
+  - [[#kubernetes][Kubernetes]]
   - [[#lsp][LSP]]
   - [[#nginx][Nginx]]
   - [[#node][Node]]
@@ -1016,21 +1016,6 @@ Features:
 - Spacemacs friendly key bindings
 
 * Operating systems
-** Kubernetes
-[[file:+tools/kubernetes/README.org][+tools/kubernetes/README.org]]
-
-This layer provides the [[https://github.com/chrisbarrett/kubernetes-el#kubernetes-el][kubernetes-el]] package, a magit-style interface to the
-Kubernetes command-line client.
-
-Features:
-- Live-updating lists of kubernetes resources
-- Viewing and deleting pods, configmaps and secrets
-- Switching contexts and namespaces.
-- Showing logs and exec'ing into containers
-- Describing pods
-- Tramp support for pods
-- Evil bindings
-
 ** NixOS
 [[file:+os/nixos/README.org][+os/nixos/README.org]]
 
@@ -2253,7 +2238,7 @@ Features:
 
 ** Utilities
 *** Conda Layer
-[[file:+lang/conda/README.org][+lang/conda/README.org]]
+[[file:+tools/conda/README.org][+tools/conda/README.org]]
 
 This layer adds support for the Anaconda python environment for
 numerical computations to Spacemacs.
@@ -2270,7 +2255,7 @@ Features:
 - dotnet operations
 
 *** IPython Notebook
-[[file:+lang/ipython-notebook/README.org][+lang/ipython-notebook/README.org]]
+[[file:+tools/ipython-notebook/README.org][+tools/ipython-notebook/README.org]]
 
 This layer adds support for the package =emacs-ipython-notebook=.
 
@@ -2290,7 +2275,7 @@ Features:
 - Syntax highlighting
 - Syntax checking using Flycheck (=protoc= compiler must be available)
 - Correct indentation and commenting
-- Quickly browse file contents using imenu (default key binding ~SPC j i~).
+- Quickly browse file contents using imenu (default key binding ~SPC b t~).
 
 *** Sailfish OS developer
 [[file:+tools/sailfish-developer/README.org][+tools/sailfish-developer/README.org]]
@@ -2755,6 +2740,21 @@ Features:
 - Import Javascript/Typescript modules to buffer
 - Import missing modules and remove unused one
 - Go to module location
+
+** Kubernetes
+[[file:+tools/kubernetes/README.org][+tools/kubernetes/README.org]]
+
+This layer provides the [[https://github.com/chrisbarrett/kubernetes-el#kubernetes-el][kubernetes-el]] package, a magit-style interface to the
+Kubernetes command-line client.
+
+Features:
+- Live-updating lists of kubernetes resources
+- Viewing and deleting pods, configmaps and secrets
+- Switching contexts and namespaces.
+- Showing logs and exec'ing into containers
+- Describing pods
+- Tramp support for pods
+- Evil bindings
 
 ** LSP
 [[file:+tools/lsp/README.org][+tools/lsp/README.org]]
