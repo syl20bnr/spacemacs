@@ -11,6 +11,7 @@
 
 (defconst php-packages
   '(
+    dap-mode
     drupal-mode
     eldoc
     evil-matchit
@@ -28,6 +29,10 @@
     (company-php :requires company :toggle (not (eq php-backend 'lsp)))
     (geben :toggle (not (eq php-backend 'lsp)))
     ))
+
+(defun php/pre-init-dap-mode ()
+  (add-to-list 'spacemacs--dap-supported-modes 'php-mode)
+  (add-hook 'php-mode-local-vars-hook #'spacemacs//php-setup-dap))
 
 (defun php/init-drupal-mode ()
   (use-package drupal-mode

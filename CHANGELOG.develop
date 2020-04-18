@@ -2762,6 +2762,7 @@ Other:
   - Added =refactoring= and =debugging= key bindings (thanks to Tyoma Kostyuk)
 - Improvements:
   - Enabled =evil-matchit-mode= (thanks to duianto)
+  - Added debugger integration for LSP backends via =dap= layer (thanks to Alexander Konotop)
 - Fixes:
   - Added company-php (thanks to jim and Eivind Fonn)
   - Fixed php-company autocompletion (thanks to Dela Anthonio)
