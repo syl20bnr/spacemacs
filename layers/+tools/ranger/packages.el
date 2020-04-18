@@ -18,9 +18,10 @@
         ))
 
 (defun ranger//set-leader-keys ()
+  (spacemacs/declare-prefix "ar" "ranger/deer")
   (spacemacs/set-leader-keys
-    "ar" 'ranger
-    "ad" 'deer
+    "arr" 'ranger
+    "ard" 'deer
     "jD" 'deer-jump-other-window
     "jd" 'deer))
 
