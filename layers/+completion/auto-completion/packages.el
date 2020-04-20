@@ -90,7 +90,7 @@
     :init
     (progn
       (setq company-idle-delay auto-completion-idle-delay
-            company-minimum-prefix-length 2
+            company-minimum-prefix-length 1
             company-require-match nil
             company-dabbrev-ignore-case nil
             company-dabbrev-downcase nil)
