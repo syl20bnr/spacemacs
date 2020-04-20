@@ -132,6 +132,7 @@
             org-fontify-quote-and-verse-blocks t
             org-hide-leading-stars t
             org-hide-leading-stars-before-indent-mode t
+            org-agenda-start-with-log-mode t
             ;; this is consistent with the value of
             ;; `helm-org-headings-max-depth'.
             org-imenu-depth 8)
