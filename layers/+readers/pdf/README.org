@@ -101,45 +101,45 @@ If you use Emacs editing style, check the key bindings at the [[https://github.c
 
 ** PDF View
 
-| *Key binding*      | *Description*                               |
-|------------------+-------------------------------------------|
-| *Navigation*       |                                           |
-|------------------+-------------------------------------------|
+| *Key binding*        | *Description*                             |
+|----------------------+-------------------------------------------|
+| *Navigation*         |                                           |
+|----------------------+-------------------------------------------|
 | ~M-SPC~ or ~s-M-SPC~ | pdf-tools transient state                 |
-| ~0/$~              | Left/right full scroll                    |
-| ~J~                | Move to next page                         |
-| ~K~                | Move to previous page                     |
-| ~u~                | Scroll page up                            |
-| ~d~                | Scroll page down                          |
-| ~gg~               | Go to the first page                      |
-| ~G~                | Go to the last page                       |
-| ~gt~               | Go to page                                |
-| ~gl~               | Go to label (usually the line as printed) |
-| ~C-u~              | Scroll up                                 |
-| ~C-d~              | Scroll down                               |
-| ~``~               | Go to last page in the history            |
-| ~m~                | Set mark                                  |
-| ~'~                | Go to mark                                |
-| ~y~                | Yank selected region                      |
-| ~[~                | History back                              |
-| ~]~                | History forward                           |
-|------------------+-------------------------------------------|
-| *Search*           |                                           |
-|------------------+-------------------------------------------|
-| ~/~                | Search forward                            |
-| ~?~                | Search backward                           |
-|------------------+-------------------------------------------|
-| *Actions*          |                                           |
-|------------------+-------------------------------------------|
-| ~o~                | Follow link                               |
-| ~O~                | Show outline                              |
-| ~r~                | Refresh file                              |
-|------------------+-------------------------------------------|
-| *Zoom*             |                                           |
-|------------------+-------------------------------------------|
-| ~+/-~              | Zoom in/out                               |
-| ~zr~               | Reset zoom                                |
-|------------------+-------------------------------------------|
+| ~0/$~                | Left/right full scroll                    |
+| ~J~                  | Move to next page                         |
+| ~K~                  | Move to previous page                     |
+| ~u~                  | Scroll page up                            |
+| ~d~                  | Scroll page down                          |
+| ~gg~                 | Go to the first page                      |
+| ~G~                  | Go to the last page                       |
+| ~gt~                 | Go to page                                |
+| ~gl~                 | Go to label (usually the line as printed) |
+| ~C-u~                | Scroll up                                 |
+| ~C-d~                | Scroll down                               |
+| ~``~                 | Go to last page in the history            |
+| ~m~                  | Set mark                                  |
+| ~'~                  | Go to mark                                |
+| ~y~                  | Yank selected region                      |
+| ~[~                  | History back                              |
+| ~]~                  | History forward                           |
+|----------------------+-------------------------------------------|
+| *Search*             |                                           |
+|----------------------+-------------------------------------------|
+| ~/~                  | Search forward                            |
+| ~?~                  | Search backward                           |
+|----------------------+-------------------------------------------|
+| *Actions*            |                                           |
+|----------------------+-------------------------------------------|
+| ~o~                  | Follow link                               |
+| ~O~                  | Show outline                              |
+| ~r~                  | Refresh file                              |
+|----------------------+-------------------------------------------|
+| *Zoom*               |                                           |
+|----------------------+-------------------------------------------|
+| ~+/-~                | Zoom in/out                               |
+| ~zr~                 | Reset zoom                                |
+|----------------------+-------------------------------------------|
 
 /For evil users/: Note that the search keys activate =isearch=, which works
 differently from the default Evil search. To go to the next match, use ~C-s~.
