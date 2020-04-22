@@ -84,7 +84,6 @@
 (defun spacemacs/js-doc-require ()
   "Lazy load js-doc"
   (require 'js-doc))
-(add-hook 'js2-mode-hook 'spacemacs/js-doc-require)
 
 (defun spacemacs/js-doc-set-key-bindings (mode)
   "Setup the key bindings for `js2-doc' for the given MODE."
