@@ -77,7 +77,8 @@
 (defun javascript/init-js-doc ()
   (use-package js-doc
     :defer t
-    :init (spacemacs/js-doc-set-key-bindings 'js2-mode)))
+    :init (spacemacs/js-doc-set-key-bindings 'js2-mode)
+    (add-hook 'js2-mode-hook 'spacemacs/js-doc-require)))
 
 (defun javascript/init-js2-mode ()
   (use-package js2-mode
