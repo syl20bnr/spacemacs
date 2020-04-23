@@ -65,7 +65,6 @@ and a full suite of tooling for Clojure development.
 - REPL via [[https://github.com/clojure-emacs/cider][CIDER]]
 - Code formatting via [[https://github.com/clojure-emacs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]]
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
-- Linting via [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]], [[https://github.com/borkdude/clj-kondo][clj-kondo]] or [[https://github.com/candid82/joker][joker]]
 - Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
 - Debugging with [[https://github.com/clojure-emacs/sayid][sayid]]
 - Clojure cheatsheet
