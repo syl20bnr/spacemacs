@@ -36,6 +36,7 @@ This layer adds a number of packages for less common languages and major modes.
 | ~SPC m r~   | Increase the pkgrel number |
 | ~SPC m u~   | Browse URL                 |
 | ~SPC m m~   | Update package sums        |
+| ~SPC m s~   | Update .SRCINFO file       |
 | ~SPC m e~   | Build ETAGS file           |
 | ~SPC m a~   | Make a source tarball      |
 

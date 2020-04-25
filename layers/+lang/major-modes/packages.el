@@ -65,6 +65,7 @@
         "a" 'pkgbuild-tar
         "u" 'pkgbuild-browse-url
         "m" 'pkgbuild-update-sums-line
+        "s" 'pkgbuild-update-srcinfo
         "e" 'pkgbuild-etags))))
 
 (defun major-modes/init-qml-mode ()
