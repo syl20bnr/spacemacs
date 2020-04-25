@@ -2737,6 +2737,8 @@ Other:
   (thanks to Keith Pinson)
 - Replace =org-toggle-latex-fragment= with =org-latex-preview=
   (thanks to Tianshu Wang)
+- Enabled =org-habit= module
+  (thanks to Mariusz Klochowicz)
 **** Osx
 - Key bindings:
   - Added key bindings to use ~command-1..9~ for selecting window
