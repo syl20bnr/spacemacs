@@ -132,6 +132,9 @@
             ;; `helm-org-headings-max-depth'.
             org-imenu-depth 8)
 
+      (with-eval-after-load 'org-agenda
+      (add-to-list 'org-modules 'org-habit))
+
       (with-eval-after-load 'org-indent
         (spacemacs|hide-lighter org-indent-mode))
 
