@@ -655,6 +655,7 @@ Other:
     (thanks to Matt Kramer)
   - Replace =spacemacs/close-compilation-window= with
     =spacemacs/show-hide-compilation-window= (thanks to Hans Jang)
+  - Avoid unnecessary packages installation of tern layer
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
