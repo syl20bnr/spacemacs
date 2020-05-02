@@ -97,7 +97,7 @@
 
 (defun treemacs/init-treemacs-icons-dired ()
   (use-package treemacs-icons-dired
-    :hook '(dired-mode . treemacs-icons-dired-mode)))
+    :hook (dired-load . treemacs-icons-dired-mode)))
 
 (defun treemacs/pre-init-winum ()
   (spacemacs|use-package-add-hook winum

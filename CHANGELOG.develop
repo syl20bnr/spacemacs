@@ -3296,6 +3296,7 @@ Other:
   variable: =treemacs-use-scope-type= with the possible values:
   ='Frames= (default) or ='Perspectives= (thanks to Alexander Miller)
 - Added integration with =treemacs-icons-dired= package.
+- Loaded =treemacs-icons-dired-mode= earlier (thanks to duianto)
 **** Typescript
 - Key bindings:
   - ~SPC m E e~ is for =tide-fix= which was originally added as ~SPC m r f~
