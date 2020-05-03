@@ -64,7 +64,7 @@
           ","   'agda2-goal-and-context
           "="   'agda2-show-constraints
           "SPC" 'agda2-give
-          "a"   'agda2-auto
+          "a"   'agda2-auto-maybe-all
           "c"   'agda2-make-case
           "d"   'agda2-infer-type-maybe-toplevel
           "e"   'agda2-show-context
@@ -74,7 +74,7 @@
           "n"   'agda2-compute-normalised-maybe-toplevel
           "p"   'agda2-module-contents-maybe-toplevel
           "r"   'agda2-refine
-          "s"   'agda2-solveAll
+          "s"   'agda2-solve-maybe-all
           "t"   'agda2-goal-type
           "w"   'agda2-why-in-scope-maybe-toplevel
           "xc"  'agda2-compile
