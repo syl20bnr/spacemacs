@@ -52,7 +52,6 @@ For php you have the choice between a set of possible backends with
 different setup instructions and different capabilities.
 
 *** LSP
-
 Note that you'll need to use the =lsp= layer to enable these backends.
 
 **** intelephense
@@ -83,7 +82,6 @@ install the server via [[https://getcomposer.org/][composer]]:
 
 You can find further information on the project's [[https://github.com/felixfbecker/php-language-server][GitHub page]].
 
-
 **** Debugging
 In case of using any of LSP backends You can debug using [[https://microsoft.github.io/debug-adapter-protocol][dap]].
 
@@ -106,15 +104,15 @@ You may wish to propagate some config options for the VSCode extension which is 
 For example if You are running Your code in a docker container the project source path may differ between the container (and Xdebug PHP extension consequently) and Emacs.
 The VSCode extension provides a config option to map the path. In VSCode it is done by adding an appropriate json config.
 For spacemacs it could be done for example by adding a next call to =dotspacemacs/user-config= function of Your =.spacemacs= config:
-  (with-eval-after-load 'dap-php
-    (dap-register-debug-template "PHP debug with custom path"
-      (list :type "php"
-            :cwd nil
-            :request "launch"
-            :name "Php Debug with path"
-            :args '("--server=4711")
-            :pathMappings (ht ("/docker/src/path" "/emacs/src/path"))
-            :sourceMaps t)))
+ (with-eval-after-load 'dap-php
+ (dap-register-debug-template "PHP debug with custom path"
+ (list :type "php"
+ :cwd nil
+ :request "launch"
+ :name "Php Debug with path"
+ :args '("--server=4711")
+ :pathMappings (ht ("/docker/src/path" "/emacs/src/path"))
+ :sourceMaps t)))
 
 *** ac-php-core
 This is a non server solution working entirely from an elisp package.
