@@ -233,19 +233,19 @@ TODO
 
 ** Refactoring with emr
 
-| Key binding | Description                  |
-|-------------+------------------------------|
-| ~SPC m r f e~ | implement function           |
-| ~SPC m r f d~ | find unused definitions      |
-| ~SPC m r e f~ | extract function             |
-| ~SPC m r e v~ | extract variable             |
-| ~SPC m r e l~ | extract to let               |
-| ~SPC m r e c~ | extract constant             |
-| ~SPC m r e a~ | extract autoload             |
-| ~SPC m r i v~ | inline variable              |
-| ~SPC m r i s~ | inline let variable          |
-| ~SPC m r i f~ | inline function              |
-| ~SPC m r i a~ | insert autoload directive    |
-| ~SPC m r d l~ | delete let binding form      |
-| ~SPC m r d d~ | delete unused definition     |
-| ~SPC m e w~ | eval and replace             |
+| Key binding   | Description               |
+|---------------+---------------------------|
+| ~SPC m r f e~ | implement function        |
+| ~SPC m r f d~ | find unused definitions   |
+| ~SPC m r e f~ | extract function          |
+| ~SPC m r e v~ | extract variable          |
+| ~SPC m r e l~ | extract to let            |
+| ~SPC m r e c~ | extract constant          |
+| ~SPC m r e a~ | extract autoload          |
+| ~SPC m r i v~ | inline variable           |
+| ~SPC m r i s~ | inline let variable       |
+| ~SPC m r i f~ | inline function           |
+| ~SPC m r i a~ | insert autoload directive |
+| ~SPC m r d l~ | delete let binding form   |
+| ~SPC m r d d~ | delete unused definition  |
+| ~SPC m e w~   | eval and replace          |
