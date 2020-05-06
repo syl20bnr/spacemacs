@@ -107,6 +107,9 @@
         "ss" 'idris-pop-to-repl
         "sq" 'idris-quit)))
 
+  ;; To suppress auto-indentation
+  (add-to-list 'spacemacs-indent-sensitive-modes 'idris-mode)
+
   ;; To bind TAB to the indentation command for all Idris buffers
   (add-hook 'idris-mode-hook 'turn-on-idris-simple-indent)
 
