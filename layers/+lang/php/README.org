@@ -100,7 +100,7 @@ and selecting a debug template. Now run the test to ensure everything is
 working. The command to run the test while debugging could look like this:
 
 #+BEGIN_SRC sh
-php -d xdebug.idekey=PHPSTORM -d xdebug.remote_autostart=1 -d xdebug.remote_enable=1 -d xdebug.remote_host=127.0.0.1 -d xdebug.remote_port=9000 bin/phpunit ./path/to/Test.php
+  php -d xdebug.idekey=PHPSTORM -d xdebug.remote_autostart=1 -d xdebug.remote_enable=1 -d xdebug.remote_host=127.0.0.1 -d xdebug.remote_port=9000 bin/phpunit ./path/to/Test.php
 #+END_SRC
 
 The test is now expected to be paused by emacs/dap when it catches code at the
@@ -114,7 +114,7 @@ option to map the path. In VSCode it is done by adding an appropriate json
 config. For spacemacs it could be done for example by adding a next call to
 =dotspacemacs/user-config= function of Your =.spacemacs= config:
 
-  #+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'dap-php
     (dap-register-debug-template "PHP debug with custom path"
       (list :type "php"
@@ -124,7 +124,7 @@ config. For spacemacs it could be done for example by adding a next call to
             :args '("--server=4711")
             :pathMappings (ht ("/docker/src/path" "/emacs/src/path"))
             :sourceMaps t)))
-  #+END_SRC
+#+END_SRC
 
 *** ac-php-core
 This is a non server solution working entirely from an elisp package.
