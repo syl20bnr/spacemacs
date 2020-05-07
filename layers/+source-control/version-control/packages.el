@@ -27,9 +27,8 @@
   (use-package vc
     :defer t
     :init
-    (spacemacs/declare-prefix "gv" "version-control")
-    :config
     (progn
+      (spacemacs/declare-prefix "gv" "version-control")
       (spacemacs/set-leader-keys
         "gvv" 'vc-next-action
         "gvg" 'vc-annotate
@@ -41,8 +40,10 @@
         "gvu" 'vc-revert
         "gvl" 'vc-print-log
         "gvL" 'vc-print-root-log
-        "gvI" 'vc-ignore
-        "gvr" 'vc-resolve-conflicts)
+        "gvr" 'vc-resolve-conflicts))
+    :config
+    (progn
+      (spacemacs/set-leader-keys "gvI" 'vc-ignore)
 
       (evilified-state-evilify vc-dir-mode vc-dir-mode-map
         "j" 'vc-dir-next-line
