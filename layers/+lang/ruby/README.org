@@ -287,7 +287,6 @@ Note that =ruby-mode= and =enh-ruby-mode= will automatically insert the encoding
 
 [[https://stackoverflow.com/questions/6453955/how-do-i-prevent-emacs-from-adding-coding-information-in-the-first-line][The fix]] is to set the variable =ruby-insert-encoding-magic-comment= (=ruby-mode=) or =enh-ruby-add-encoding-comment-on-save= (=enh-ruby-mode=) to =nil=, e.g.
 
-
 #+BEGIN_SRC emacs-lisp
   (defun dotspacemacs-configuration-layers ()
      '((ruby :variables ruby-insert-encoding-magic-comment nil)))
