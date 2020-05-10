@@ -26,6 +26,7 @@
 (defun version-control/init-vc ()
   (use-package vc
     :defer t
+    :commands (vc-ignore)
     :init
     (progn
       (spacemacs/declare-prefix "gv" "version-control")
@@ -37,14 +38,13 @@
         "gvd" 'vc-dir
         "gv+" 'vc-update
         "gvi" 'vc-register
+        "gvI" 'vc-ignore
         "gvu" 'vc-revert
         "gvl" 'vc-print-log
         "gvL" 'vc-print-root-log
         "gvr" 'vc-resolve-conflicts))
     :config
     (progn
-      (spacemacs/set-leader-keys "gvI" 'vc-ignore)
-
       (evilified-state-evilify vc-dir-mode vc-dir-mode-map
         "j" 'vc-dir-next-line
         (kbd "M-n") 'vc-dir-next-line
