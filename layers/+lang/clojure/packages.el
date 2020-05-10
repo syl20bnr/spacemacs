@@ -222,7 +222,7 @@
       (spacemacs/set-leader-keys-for-major-mode 'cider-repl-mode
         "," 'cider-repl-handle-shortcut)
       (spacemacs/set-leader-keys-for-major-mode 'cider-clojure-interaction-mode
-        "ep" 'cider-eval-print-last-sexp))
+        "epl" 'cider-eval-print-last-sexp))
     :config
     (progn
       ;; add support for golden-ratio
