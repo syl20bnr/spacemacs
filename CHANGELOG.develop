@@ -1157,6 +1157,7 @@ Other:
     (thanks to Andriy Kmit)
   - Improved google-translate for set source language to "auto" and
     select target language interactively (thanks to Lin Sun)
+  - Allowed users to specify layout local variables (thanks to CeleritasCelery, fauxsoup)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)
@@ -3144,6 +3145,9 @@ Other:
   movement in term shells on emacs 26.1
 - Stopped the cursor from jumping to =point-max= when entering insert state from
   a multi line (thanks to Steven Allen)
+- Prevented =shell-pop-out= from restoring a dead buffer or window
+  (thanks to CeleritasCelery, fauxsoup)
+- Made =pop-shell= layout local (thanks to CeleritasCelery, fauxsoup)
 **** Shell Scripts
 - Added new company-shell environment variable backend
   (thanks to Alexander-Miller)
