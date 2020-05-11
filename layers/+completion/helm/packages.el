@@ -80,7 +80,7 @@
         (evil-ex-define-cmd "buffers" 'helm-buffers-list))
       ;; use helm by default for M-x, C-x C-f, and C-x b
       (unless (configuration-layer/layer-usedp 'smex)
-        (global-set-key (kbd "M-x") 'helm-M-x))
+        (global-set-key (kbd "M-x") 'spacemacs/helm-M-x-fuzzy-matching))
       (global-set-key (kbd "C-x C-f") 'spacemacs/helm-find-files)
       (global-set-key (kbd "C-x b") 'helm-buffers-list)
       ;; use helm everywhere
@@ -122,8 +122,8 @@
           (kbd "C-c C-e") 'spacemacs/helm-find-files-edit)
         (defun spacemacs//add-action-helm-find-files-edit ()
           (helm-add-action-to-source
-          "Edit files in dired `C-c C-e'" 'spacemacs//helm-find-files-edit
-          helm-source-find-files))
+           "Edit files in dired `C-c C-e'" 'spacemacs//helm-find-files-edit
+           helm-source-find-files))
         (add-hook 'helm-find-files-before-init-hook
                   'spacemacs//add-action-helm-find-files-edit))
       ;; Add minibuffer history with `helm-minibuffer-history'
@@ -151,7 +151,7 @@
                   ;; to overwrite any key binding
                   (unless (configuration-layer/layer-usedp 'smex)
                     (spacemacs/set-leader-keys
-                      dotspacemacs-emacs-command-key 'helm-M-x)))))
+                      dotspacemacs-emacs-command-key 'spacemacs/helm-M-x-fuzzy-matching)))))
     :config
     (progn
       (helm-mode)
