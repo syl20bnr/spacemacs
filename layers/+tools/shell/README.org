@@ -17,7 +17,7 @@
       - [[#ubuntu-1][Ubuntu]]
     - [[#install-libvterm][Install libvterm]]
       - [[#macos-1][macOS]]
-      - [[#ubuntu-2][Ubuntu]]
+      - [[#linux][Linux]]
       - [[#windows][Windows]]
 - [[#configuration][Configuration]]
   - [[#default-shell][Default shell]]
@@ -82,18 +82,19 @@ If the =libtool= command does not exist in your system (usually in
   sudo apt install libtool-bin
 #+END_SRC
 
-*** Install libvterm
+*** Install libvterm (Optional)
 **** macOS
 #+BEGIN_SRC shell
   brew install libvterm
 #+END_SRC
 
-**** Ubuntu
-#+BEGIN_SRC shell
-  sudo apt install libvterm-dev
-#+END_SRC
-
-In other distros, find it and install it in your favorite package manager.
+**** Linux
+This library can be found in the official repositories of most distributions
+(e.g., Arch, Debian, Fedora, Gentoo, openSUSE, Ubuntu). If not available, it
+will be downloaded during the compilation process. Some distributions
+(e.g. Ubuntu 18.04) have versions of libvterm that are too old.
+If you find compilation errors related to VTERM_COLOR, you should
+not use your system libvterm.
 
 **** Windows
 Not supported at the moment, [[https://github.com/akermu/emacs-libvterm/issues/12][but possibly coming up]].
