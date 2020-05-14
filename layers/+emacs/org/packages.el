@@ -258,8 +258,8 @@ Will work on both org-mode and any mode that accepts plain html."
         "C-S-k" 'org-shiftcontrolup
 
         ;; Subtree editing
-        "sa" 'org-toggle-archive-tag
-        "sA" 'org-archive-subtree
+        "sA" 'org-toggle-archive-tag
+        "sa" 'org-archive-subtree
         "sb" 'org-tree-to-indirect-buffer
         "sd" 'org-cut-subtree
         "sh" 'org-promote-subtree
