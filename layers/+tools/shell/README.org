@@ -15,7 +15,7 @@
       - [[#ubuntu][Ubuntu]]
     - [[#install-libtool][Install libtool]]
       - [[#ubuntu-1][Ubuntu]]
-    - [[#install-libvterm][Install libvterm]]
+    - [[#install-libvterm-optional][Install libvterm (Optional)]]
       - [[#macos-1][macOS]]
       - [[#linux][Linux]]
       - [[#windows][Windows]]
