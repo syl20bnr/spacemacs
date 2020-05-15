@@ -78,6 +78,12 @@ when invoking Emacs 27.1 executable on the command line, for instance:
 This is an advanced option and should not be changed unless you suspect
 performance issues due to garbage collection operations.")
 
+(defvar dotspacemacs-read-process-output-max (* 1024 1024)
+  "Set `read-process-output-max' when startup finishes.
+This defines how much data is read from a foreign process.
+Setting this >= 1 MB should increase performance for lsp servers
+in emacs 27.")
+
 (defvar dotspacemacs-elpa-https t
   "If non nil ELPA repositories are contacted via HTTPS whenever it's
 possible. Set it to nil if you have no way to use HTTPS in your

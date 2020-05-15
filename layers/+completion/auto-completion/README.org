@@ -65,6 +65,10 @@ layer variables:
 5. =auto-completion-idle-delay= is the number of seconds to wait before suggesting
    completions. The default value is 0.2 seconds. Set to =nil= to disable
    automatic suggestions (the ~TAB~ key will still perform completion).
+   Set to 0.0 for optimal results with lsp mode.
+6. =auto-completion-minimum-prefix-length= is the minimum number of characters
+   which must be entered before completions will be suggested automatically.
+   Set to 1 for optimal results with lsp mode.
 
 The default configuration of the layer is:
 
@@ -75,6 +79,7 @@ The default configuration of the layer is:
                      auto-completion-tab-key-behavior 'cycle
                      auto-completion-complete-with-key-sequence nil
                      auto-completion-complete-with-key-sequence-delay 0.1
+                     auto-completion-minimum-prefix-length 2
                      auto-completion-idle-delay 0.2
                      auto-completion-private-snippets-directory nil
                      auto-completion-enable-snippets-in-popup nil

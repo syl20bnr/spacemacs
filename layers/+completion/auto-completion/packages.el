@@ -90,7 +90,7 @@
     :init
     (progn
       (setq company-idle-delay auto-completion-idle-delay
-            company-minimum-prefix-length 2
+            company-minimum-prefix-length auto-completion-minimum-prefix-length
             company-require-match nil
             company-dabbrev-ignore-case nil
             company-dabbrev-downcase nil)
@@ -132,9 +132,9 @@
       (add-hook 'company-mode-hook 'company-statistics-mode))))
 
 (defun auto-completion/pre-init-counsel ()
-    (spacemacs|use-package-add-hook company
-      :post-config
-      (define-key company-active-map (kbd "C-/") 'counsel-company)))
+  (spacemacs|use-package-add-hook company
+    :post-config
+    (define-key company-active-map (kbd "C-/") 'counsel-company)))
 
 (defun auto-completion/init-fuzzy ()
   (use-package fuzzy :defer t))
@@ -301,11 +301,11 @@
       (let* ((spacemacs--auto-completion-dir
               (configuration-layer/get-layer-local-dir 'auto-completion))
              (emacs-directory-snippets-dir (concat
-                                          spacemacs-private-directory
-                                          "snippets/"))
+                                            spacemacs-private-directory
+                                            "snippets/"))
              (spacemacs-layer-snippets-dir (expand-file-name
-                                      "snippets"
-                                      spacemacs--auto-completion-dir))
+                                            "snippets"
+                                            spacemacs--auto-completion-dir))
              (dotspacemacs-directory-snippets-dir
               (when dotspacemacs-directory
                 (let ((snippet-dir (expand-file-name

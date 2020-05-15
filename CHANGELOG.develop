@@ -453,6 +453,8 @@ sane way, here is the complete list of changed key bindings
   - New variable =dotspacemacs-undecorated-at-startup= (thanks to bb2020)
   - New variable =dotspacemacs-startup-buffer-show-version=
     (thanks to Zach Pearson)
+  - New variable =dotspacemacs-read-process-output-max= to optimise lsp
+    performance in emacs 27 (thanks to Maximilian Wolff)
 - Removed Variables:
   - Removed unused variable =dotspacemacs-verbose-loading= from
     =.spacemacs.template= (thanks to Ying Qu)
@@ -3121,6 +3123,8 @@ Other:
   (thanks to Paweł Siudak)
 - Restore =auto-completion-idle-delay= value for =company-idle-delay=
   (thanks to Miciah Dashiel Butler Masters)
+- Added =auto-completion-minimum-prefix-length= layer variable
+  (thanks to Maximilian Wolff)
 - Added =shell-default-width= layer variable (thanks to David Balatero)
 - Function =resize-shell-to-desired-width= check for shell buffer before
   changing size (thanks to thanhvg)

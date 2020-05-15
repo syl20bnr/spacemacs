@@ -38,6 +38,9 @@ selection.")
   "Timeout (seconds) when waiting for the second key of
 `auto-completion-complete-with-key-sequence'.")
 
+(defvar auto-completion-minimum-prefix-length 2
+  "The minimum prefix length for idle completion.")
+
 (defvar auto-completion-idle-delay 0.2
   "Delay (seconds) before completions are shown.")
 
