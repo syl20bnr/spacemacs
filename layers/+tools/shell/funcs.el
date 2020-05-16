@@ -75,7 +75,7 @@ SHELL is the SHELL function to use (i.e. when FUNC represents a terminal)."
         (shell-pop--set-shell-type
         'shell-pop-shell-type
         (list ,name
-            ,(if layouts-enable-local-variables
+            ,(if (bound-and-true-p layouts-enable-local-variables)
                     `(concat "*" (spacemacs//current-layout-name) "-"
                             (if (file-remote-p default-directory)
                                 "remote-"

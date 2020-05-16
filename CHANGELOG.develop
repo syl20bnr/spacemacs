@@ -3153,6 +3153,10 @@ Other:
 - Prevented =shell-pop-out= from restoring a dead buffer or window
   (thanks to CeleritasCelery, fauxsoup)
 - Made =pop-shell= layout local (thanks to CeleritasCelery, fauxsoup)
+- Checked that the following are bound in =spacemacs-base=:
+  - variable: =layouts-enable-local-variables=
+  - function: =spacemacs/make-variable-layout-local=
+  (thanks to JAremko and duianto)
 **** Shell Scripts
 - Added new company-shell environment variable backend
   (thanks to Alexander-Miller)
