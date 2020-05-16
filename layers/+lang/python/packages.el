@@ -1,6 +1,6 @@
 ;;; packages.el --- Python Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,44 +9,43 @@
 ;;
 ;;; License: GPLv3
 
-(setq python-packages
-      '(
-        blacken
-        company
-        counsel-gtags
-        cython-mode
-        dap-mode
-        eldoc
-        evil-matchit
-        flycheck
-        ggtags
-        helm-cscope
-        helm-gtags
-        (helm-pydoc :requires helm)
-        importmagic
-        live-py-mode
-        (nose :location local)
-        org
-        pip-requirements
-        pipenv
-        pippel
-        py-isort
-        pyenv-mode
-        (pylookup :location local)
-        pytest
-        (python :location built-in)
-        pyvenv
-        semantic
-        smartparens
-        stickyfunc-enhance
-        xcscope
-        yapfify
-        ;; packages for anaconda backend
-        anaconda-mode
-        (company-anaconda :requires company)
-        ;; packages for Microsoft LSP backend
-        (lsp-python-ms :requires lsp-mode)
-        ))
+(defconst python-packages
+  '(
+    blacken
+    company
+    counsel-gtags
+    cython-mode
+    dap-mode
+    eldoc
+    evil-matchit
+    flycheck
+    ggtags
+    helm-cscope
+    helm-gtags
+    (helm-pydoc :requires helm)
+    importmagic
+    live-py-mode
+    (nose :location local)
+    org
+    pip-requirements
+    pipenv
+    pippel
+    py-isort
+    pyenv-mode
+    (pylookup :location local)
+    pytest
+    (python :location built-in)
+    pyvenv
+    semantic
+    smartparens
+    stickyfunc-enhance
+    xcscope
+    yapfify
+    ;; packages for anaconda backend
+    anaconda-mode
+    (company-anaconda :requires company)
+    ;; packages for Microsoft LSP backend
+    (lsp-python-ms :requires lsp-mode)))
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
@@ -95,9 +94,9 @@
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
     :if (eq (spacemacs//python-backend) 'anaconda)
-    :defer t
-    ;; see `spacemacs//python-setup-anaconda-company'
-    ))
+    :defer t))
+;; see `spacemacs//python-setup-anaconda-company'
+
 
 (defun python/init-blacken ()
   (use-package blacken
@@ -120,7 +119,8 @@
         "gu" 'anaconda-mode-find-references))))
 
 (defun python/pre-init-dap-mode ()
-  (add-to-list 'spacemacs--dap-supported-modes 'python-mode)
+  (pcase (spacemacs//python-backend)
+    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'python-mode)))
   (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-dap))
 
 (defun python/post-init-eldoc ()

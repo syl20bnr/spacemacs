@@ -1,6 +1,6 @@
 ;;; packages.el --- Java Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Lukasz Klich <klich.lukasz@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,30 +9,30 @@
 ;;
 ;;; License: GPLv3
 
-(setq java-packages
-      '(
-        company
-        dap-mode
-        flycheck
-        ggtags
-        gradle-mode
-        counsel-gtags
-        helm-gtags
-        (java-mode :location built-in)
-        maven-test-mode
-        (meghanada :toggle (not (version< emacs-version "25.1")))
-        mvn
-        (lsp-java :requires lsp-mode)
-        org
-        smartparens
-        ))
+(defconst java-packages
+  '(
+    company
+    dap-mode
+    flycheck
+    ggtags
+    gradle-mode
+    counsel-gtags
+    helm-gtags
+    (java-mode :location built-in)
+    maven-test-mode
+    (meghanada :toggle (not (version< emacs-version "25.1")))
+    mvn
+    (lsp-java :requires lsp-mode)
+    org
+    smartparens))
 
 (defun java/post-init-company ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-company))
 
 (defun java/pre-init-dap-mode ()
-  (add-to-list 'spacemacs--dap-supported-modes 'java-mode)
-  (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-lsp-dap))
+  (pcase (spacemacs//java-backend)
+    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'java-mode)))
+  (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-dap))
 
 (defun java/post-init-flycheck ()
   (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-flycheck))

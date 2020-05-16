@@ -47,17 +47,19 @@ file.
 
 * Configuration
 ** DAP configuration in supported layers
-By default ~dap~ layer registers global key binding defined under ~SPC m~. If you
+By default ~dap~ layer registers global key binding defined under ~SPC d~. If you
 want to have debug bindings under major mode leader you may do the following:
 
 For instance the =java= layer:
 
 #+BEGIN_SRC emacs-lisp
   (defun java/pre-init-dap-mode ()
-    (add-to-list 'spacemacs--dap-supported-modes 'java-mode))
+    (pcase (spacemacs//java-backend)
+       (`lsp (add-to-list 'spacemacs--dap-supported-modes 'java-mode)))
+    (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-dap))
 #+END_SRC
 
-See the =java= layer for further example on how to setup correctly =dap-mode=.
+See the =java= layer for further example on how to setup =dap-mode= correctly
 
 ** Variables
 
@@ -73,10 +75,10 @@ The following prefixes have been declared:
 |-----------+-------------------|
 | ~SPC d~   | debug             |
 | ~SPC d b~ | breakpoints       |
-| ~SPC d d~ | launching         |
+| ~SPC d d~ | debugging         |
 | ~SPC d e~ | eval              |
 | ~SPC d I~ | inspect           |
-| ~SPC d l~ | debug windows     |
+| ~SPC d w~ | debug windows     |
 | ~SPC d S~ | context switching |
 | ~SPC d T~ | toggles           |
 

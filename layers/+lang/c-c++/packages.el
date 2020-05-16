@@ -1,6 +1,6 @@
 ;;; packages.el --- C/C++ Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,43 +9,43 @@
 ;;
 ;;; License: GPLv3
 
-(setq c-c++-packages
-      '(
-        cc-mode
-        clang-format
-        (company-c-headers :requires company)
-        (cpp-auto-include
-         :location (recipe :fetcher github
-                           :repo "syohex/emacs-cpp-auto-include"))
-        disaster
-        eldoc
-        flycheck
-        gdb-mi
-        google-c-style
-        helm-cscope
-        org
-        projectile
-        realgud
-        semantic
-        srefactor
-        stickyfunc-enhance
-        xcscope
-        ;; lsp
-        (ccls :requires lsp-mode)
-        dap-mode
-        ;; rtags
-        (company-rtags :requires (company rtags))
-        counsel-gtags
-        (flycheck-rtags :requires (flycheck rtags))
-        ggtags
-        helm-gtags
-        (helm-rtags :requires (helm rtags))
-        (ivy-rtags :requires (ivy rtags))
-        rtags
-        ;; ycmd
-        (company-ycmd :requires company)
-        (flycheck-ycmd :requires flycheck)
-        ycmd))
+(defconst c-c++-packages
+  '(
+    cc-mode
+    clang-format
+    (company-c-headers :requires company)
+    (cpp-auto-include
+     :location (recipe :fetcher github
+                       :repo "syohex/emacs-cpp-auto-include"))
+    disaster
+    eldoc
+    flycheck
+    gdb-mi
+    google-c-style
+    helm-cscope
+    org
+    projectile
+    realgud
+    semantic
+    srefactor
+    stickyfunc-enhance
+    xcscope
+    ;; lsp
+    (ccls :requires lsp-mode)
+    dap-mode
+    ;; rtags
+    (company-rtags :requires (company rtags))
+    counsel-gtags
+    (flycheck-rtags :requires (flycheck rtags))
+    ggtags
+    helm-gtags
+    (helm-rtags :requires (helm rtags))
+    (ivy-rtags :requires (ivy rtags))
+    rtags
+    ;; ycmd
+    (company-ycmd :requires company)
+    (flycheck-ycmd :requires flycheck)
+    ycmd))
 
 (defun c-c++/init-cc-mode ()
   (use-package cc-mode
@@ -117,8 +117,11 @@
         "ri" #'spacemacs/c++-organize-includes))))
 
 (defun c-c++/pre-init-dap-mode ()
-  (add-to-list 'spacemacs--dap-supported-modes 'c-mode)
-  (add-to-list 'spacemacs--dap-supported-modes 'c++-mode)
+  (pcase (spacemacs//c-c++-backend)
+    (`lsp-clangd (add-to-list 'spacemacs--dap-supported-modes 'c-mode)
+                 (add-to-list 'spacemacs--dap-supported-modes 'c++-mode))
+    (`lsp-ccls (add-to-list 'spacemacs--dap-supported-modes 'c-mode)
+               (add-to-list 'spacemacs--dap-supported-modes 'c++-mode)))
   (add-hook 'c-mode-local-vars-hook #'spacemacs//c-c++-setup-dap)
   (add-hook 'c++-mode-local-vars-hook #'spacemacs//c-c++-setup-dap))
 

@@ -1,6 +1,6 @@
 ;;; packages.el --- Elixir Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,23 +9,22 @@
 ;;
 ;;; License: GPLv3
 
-(setq elixir-packages
-      '(
-        alchemist
-        company
-        counsel-gtags
-        dap-mode
-        elixir-mode
-        evil-matchit
-        flycheck
-        flycheck-credo
-        flycheck-mix
-        ggtags
-        helm-gtags
-        ob-elixir
-        popwin
-        smartparens
-        ))
+(defconst elixir-packages
+  '(
+    alchemist
+    company
+    counsel-gtags
+    dap-mode
+    elixir-mode
+    evil-matchit
+    flycheck
+    flycheck-credo
+    flycheck-mix
+    ggtags
+    helm-gtags
+    ob-elixir
+    popwin
+    smartparens))
 
 (defun elixir/init-alchemist ()
   (use-package alchemist
@@ -38,7 +37,7 @@
       (setq alchemist-project-compile-when-needed t
             alchemist-test-status-modeline nil)
       (add-to-list 'spacemacs-jump-handlers-elixir-mode
-                '(alchemist-goto-definition-at-point :async t)))
+                   '(alchemist-goto-definition-at-point :async t)))
     :config
     (spacemacs/declare-prefix-for-mode 'elixir-mode "mX" "hex")
     (spacemacs/declare-prefix-for-mode 'elixir-mode "mc" "compile")
@@ -153,7 +152,8 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'elixir-mode))
 
 (defun elixir/pre-init-dap-mode ()
-  (add-to-list 'spacemacs--dap-supported-modes 'elixir-mode)
+  (pcase (spacemacs//elixir-backend)
+    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'elixir-mode)))
   (add-hook 'elixir-mode-local-vars-hook #'spacemacs//elixir-setup-dap))
 
 (defun elixir/post-init-evil-matchit ()

@@ -1,6 +1,6 @@
 ;;; packages.el --- Scala Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,21 +9,20 @@
 ;;
 ;;; License: GPLv3
 
-(setq scala-packages
-      '(
-        lsp-mode
-        dap-mode
-        eldoc
-        flycheck
-        flyspell
-        lsp-treemacs
-        counsel-gtags
-        ggtags
-        helm-gtags
-        (ensime :toggle (spacemacs//scala-backend-ensime-p))
-        sbt-mode
-        scala-mode
-        ))
+(defconst scala-packages
+  '(
+    lsp-mode
+    dap-mode
+    eldoc
+    flycheck
+    flyspell
+    lsp-treemacs
+    counsel-gtags
+    ggtags
+    helm-gtags
+    (ensime :toggle (spacemacs//scala-backend-ensime-p))
+    sbt-mode
+    scala-mode))
 
 (defun scala/post-init-eldoc ()
   (when (and scala-enable-eldoc (spacemacs//scala-backend-ensime-p))
@@ -270,7 +269,8 @@ If it's part of a left arrow (`<-'),replace it with the unicode arrow."
             scala-indent:operator-strategy))))
 
 (defun scala/pre-init-dap-mode ()
-  (add-to-list 'spacemacs--dap-supported-modes 'scala-mode)
+  (when (spacemacs//scala-backend-metals-p)
+    (add-to-list 'spacemacs--dap-supported-modes 'scala-mode))
   (spacemacs//scala-setup-dap))
 
 (defun scala/post-init-lsp-mode ()

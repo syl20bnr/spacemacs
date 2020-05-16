@@ -1,6 +1,6 @@
 ;;; packages.el --- Javascript Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,31 +9,30 @@
 ;;
 ;;; License: GPLv3
 
-(setq javascript-packages
-      '(
-        add-node-modules-path
-        company
-        counsel-gtags
-        dap-mode
-        evil-matchit
-        flycheck
-        ggtags
-        helm-gtags
-        imenu
-        impatient-mode
-        import-js
-        js-doc
-        js2-mode
-        js2-refactor
-        livid-mode
-        nodejs-repl
-        org
-        prettier-js
-        skewer-mode
-        tern
-        tide
-        web-beautify
-        ))
+(defconst javascript-packages
+  '(
+    add-node-modules-path
+    company
+    counsel-gtags
+    dap-mode
+    evil-matchit
+    flycheck
+    ggtags
+    helm-gtags
+    imenu
+    impatient-mode
+    import-js
+    js-doc
+    js2-mode
+    js2-refactor
+    livid-mode
+    nodejs-repl
+    org
+    prettier-js
+    skewer-mode
+    tern
+    tide
+    web-beautify))
 
 (defun javascript/post-init-add-node-modules-path ()
   (spacemacs/add-to-hooks #'add-node-modules-path '(css-mode-hook
@@ -46,7 +45,8 @@
   (spacemacs/counsel-gtags-define-keys-for-mode 'js2-mode))
 
 (defun javascript/pre-init-dap-mode ()
-  (add-to-list 'spacemacs--dap-supported-modes 'js2-mode)
+  (pcase (spacemacs//javascript-backend)
+    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'js2-mode)))
   (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-dap))
 
 (defun javascript/post-init-evil-matchit ()
@@ -221,8 +221,8 @@
         (spacemacs/declare-prefix-for-mode 'js2-mode
           "msL" "nodejs-send-line-and-focus")
         (spacemacs/declare-prefix-for-mode 'js2-mode
-          "msR" "nodejs-send-region-and-focus")
-        ))))
+          "msR" "nodejs-send-region-and-focus")))))
+
 
 (defun javascript/pre-init-org ()
   (spacemacs|use-package-add-hook org

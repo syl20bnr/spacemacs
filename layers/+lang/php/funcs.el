@@ -20,7 +20,6 @@
   (pcase php-backend
     (`lsp (spacemacs//php-setup-lsp-dap))))
 
-
 (defun spacemacs//php-setup-lsp-dap ()
   "Setup DAP integration."
   (require 'dap-php))
