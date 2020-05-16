@@ -115,14 +115,10 @@
           (spacemacs/set-leader-keys-for-major-mode mode "db" nil)
           (spacemacs/set-leader-keys-for-major-mode mode "dd" nil)
 
-          (mapc (lambda (cons)
-                  (spacemacs/declare-prefix-for-mode mode (car cons) (cdr cons)))
-                prefixes)
-
           (apply #'spacemacs/set-leader-keys-for-major-mode mode bindings)
 
           (mapc (lambda (cons)
-                  (spacemacs/declare-prefix-for-mode mode (car cons) (cdr cons)))
+                  (spacemacs/declare-prefix-for-mode mode (concat "m" (car cons)) (cdr cons)))
                 prefixes))))))
 
 (defun dap/init-posframe ()
