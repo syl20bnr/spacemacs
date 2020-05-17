@@ -159,13 +159,6 @@ Additionally you can install the following other packages:
   # for mypy checking (python 3.4+ is needed)
   pip install pyls-mypy
   pip install pyls-black
-  pip install rope
-  pip install pyflakes
-  pip install mccabe
-  pip install pycodestyle
-  pip install pydocstyle
-  pip install autopep8
-  pip install yapf
 #+END_SRC
 
 If you've installed the language server and related packages as development
