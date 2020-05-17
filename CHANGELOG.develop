@@ -564,6 +564,8 @@ Other:
     (thanks to Nikita Leshenko)
   - Open Spacemacs home buffer in other/new window with prefix argument
     (thanks to duianto)
+  - Add =emacs-version= to the default value for
+    =dotspacemacs-emacs-dumper-dump-file= (thanks to Evan Klitzke)
 - Fixes:
   - Avoid non-idempotent use of push in init code (thanks to Miciah Masters)
   - Moved Spacemacs startup progress bar to =core-progress-bar.el=, removed

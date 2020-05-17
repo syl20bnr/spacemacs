@@ -66,12 +66,13 @@ EXPERIMENTAL.org at to root of the git repository.")
 (defvar dotspacemacs-emacs-pdumper-executable-file "emacs"
   "File path pointing to emacs 27 or later executable.")
 
-(defvar dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"
+(defvar dotspacemacs-emacs-dumper-dump-file
+  (format "spacemacs-%s.pdmp" emacs-version)
   "Name of the Spacemacs dump file. This is the file will be created by the
 portable dumper in the cache directory under dumps sub-directory.
 To load it when starting Emacs add the parameter `--dump-file'
 when invoking Emacs 27.1 executable on the command line, for instance:
-./emacs --dump-file=/Users/sylvain/.emacs.d/.cache/dumps/spacemacs.pdmp")
+./emacs --dump-file=$HOME/.emacs.d/.cache/dumps/spacemacs-27.1.pdmp")
 
 (defvar dotspacemacs-gc-cons '(100000000 0.1)
   "Set `gc-cons-threshold' and `gc-cons-percentage' when startup finishes.
