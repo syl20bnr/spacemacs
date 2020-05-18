@@ -1,7 +1,8 @@
 #+TITLE: Extempore layer
+
 #+TAGS: layer|lisp|music|programming
 
-* Table of Contents                                       :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -12,9 +13,9 @@
 This layer adds support for the [[https://github.com/digego/extempore][Extempore]] programming environment.
 
 ** Features:
-  - run Extempore (inferior extempore buffer)
-  - connect to & evaluate code
-  - eldoc support
+- run Extempore (inferior extempore buffer)
+- connect to & evaluate code
+- eldoc support
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -22,7 +23,6 @@ add =extempore= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 ** Configuration
-
 The only configuration variable you might want to set out-of-the-box is
 =extempore-path=, so that you don't have to answer the "which directory?" prompt
 every time you call =switch-to-extempore=. You can set it when you add
@@ -41,7 +41,7 @@ will be ok if you're just starting out. If you want to see them all, open up
 
 * Key bindings
 
-| Key Binding | Description             |
+| Key binding | Description             |
 |-------------+-------------------------|
 | ~SPC m c c~ | Switch to Extempore     |
 | ~SPC m c j~ | Connect to Extempore    |

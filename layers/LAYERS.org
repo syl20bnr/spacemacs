@@ -64,6 +64,7 @@
   - [[#spacemacs-visual][Spacemacs-visual]]
 - [[#music][Music]]
   - [[#alda-layer][Alda Layer]]
+  - [[#extempore][Extempore]]
   - [[#pianobar][Pianobar]]
   - [[#spotify][Spotify]]
   - [[#tidalcycles][TidalCycles]]
@@ -988,6 +989,16 @@ Features:
 - Syntax highlighting for Alda files.
 - Play portions of a buffer, or the entire buffer,
   through a running Alda server.
+
+** Extempore
+[[file:+lang/extempore/README.org][+lang/extempore/README.org]]
+
+This layer adds support for the [[https://github.com/digego/extempore][Extempore]] programming environment.
+
+Features:
+- run Extempore (inferior extempore buffer)
+- connect to & evaluate code
+- eldoc support
 
 ** Pianobar
 [[file:+music/pianobar/README.org][+music/pianobar/README.org]]
