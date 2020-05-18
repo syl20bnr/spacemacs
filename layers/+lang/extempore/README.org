@@ -28,8 +28,8 @@ The only configuration variable you might want to set out-of-the-box is
 every time you call =switch-to-extempore=. You can set it when you add
 =extempore= to your =dotspacemacs-configuration-layers= like so:
 
-#+BEGIN_SRC
-(extempore :variables extempore-path "/path/to/extempore/")
+#+BEGIN_SRC elisp
+  (extempore :variables extempore-path "/path/to/extempore/")
 #+END_SRC
 
 Alternately, you could set it elsewhere in your init file, or through the
