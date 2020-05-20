@@ -1864,6 +1864,9 @@ Other:
   =evil-snipe-override-mode= is enabled (thanks to Sylvain Benner)
 **** Factor
 - Misc fixes for factor version 0.98 (thanks to timor)
+- Support running graphical Factor listener instances from Spacemacs
+- Support reloading factor-mode/fuel-mode code when connecting to different
+  Factor versions
 **** Finance
 - Remove key-bindings pointing to removed commands (thanks to Alexander Baier)
 - Added =evil-ledger= package (thanks to Alexander Miller)
