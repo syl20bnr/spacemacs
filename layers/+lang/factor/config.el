@@ -10,3 +10,6 @@
 ;;; License: GPLv3
 
 (spacemacs|define-jump-handlers factor-mode 'fuel-edit-word-at-point)
+
+(defvar factor-ui-listener-args ""
+  "Extra arguments to the factor VM binary when starting the graphical listener.")
