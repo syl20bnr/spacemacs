@@ -25,7 +25,7 @@
         (lambda () (when syntax-checking-enable-by-default
                      (global-flycheck-mode 1)))
         lazy-load-flycheck)
-      (setq flycheck-standard-error-navigation nil
+      (setq flycheck-standard-error-navigation syntax-checking-use-standard-error-navigation
             flycheck-global-modes nil)
       ;; key bindings
       (spacemacs/set-leader-keys
