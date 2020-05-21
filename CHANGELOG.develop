@@ -2413,6 +2413,7 @@ Other:
 - Fixed README to say auto-fill on by default. (thanks to Max Willsey)
 - Added ConTeXt mode to the key bindings (thanks to ft)
 - Fixed ~SPC m ;~ binding (thanks to Tianshu Wang)
+- Fix jump handlers setup and use dumb-jump as default (thanks to Matt Kramer)
 **** Lua
 - Added support for auto-completion with =company= (thanks to halfcrazy)
 - Added support for =LSP= (EmmyLua-LS-all) (thanks to Lin.Sun)
