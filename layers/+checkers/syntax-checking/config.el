@@ -20,5 +20,8 @@
 (defvar syntax-checking-use-original-bitmaps nil
   "If non-nil, use the original bitmaps from flycheck.")
 
+(defvar syntax-checking-use-standard-error-navigation nil
+  "If non-nil hook into emacs standard error navigation")
+
 ;; Command Prefixes
 
