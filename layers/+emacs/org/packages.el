@@ -440,7 +440,7 @@ Will work on both org-mode and any mode that accepts plain html."
         ("k" org-babel-previous-src-block)
         ("g" org-babel-goto-named-src-block)
         ("z" recenter-top-bottom)
-        ("e" org-babel-execute-maybe :exit t)
+        ("e" org-babel-execute-maybe)
         ("'" org-edit-special :exit t)))))
 
 (defun org/init-org-agenda ()
