@@ -1,4 +1,4 @@
-;;; packages.el --- treemacs Layer packages File for Spacemacs
+;;; packages.el --- Treemacs Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
 ;;

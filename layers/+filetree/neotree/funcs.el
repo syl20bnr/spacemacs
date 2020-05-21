@@ -1,4 +1,4 @@
-;;; funcs.el --- Neotree Layer functions File
+;;; funcs.el --- Neotree Layer functions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

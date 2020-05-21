@@ -1,4 +1,4 @@
-;;; packages.el --- Neotree Layer packages File
+;;; packages.el --- Neotree Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;

@@ -1,4 +1,4 @@
-;;; layers.el --- Treemacs layers File for Spacemacs
+;;; layers.el --- Neotree layers File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
