@@ -2391,6 +2391,7 @@ Other:
 - Fixed key remapping after =cl= package deprecation (thanks to Damien Picard)
 - Fixed =bepo= layout, commented out broken evil-window :common bindings
   (thanks to CharlesHD)
+- Added evil-lisp-state mapping (thanks to Damien Picard)
 **** Kivy
 - Added the =kivy= package (thanks to Nasser Alshammari and Ryota Kayanuma)
 **** LaTeX

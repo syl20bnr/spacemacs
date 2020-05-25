@@ -19,6 +19,7 @@
     evil
     evil-escape
     evil-evilified-state
+    evil-lisp-state
     evil-magit
     evil-surround
     eyebrowse
@@ -228,6 +229,24 @@
       "j"
       "k"
       "l")))
+
+(defun keyboard-layout/pre-init-evil-lisp-state ()
+  (kl|config evil-lisp-state
+    :description
+    "Remap `evil-lisp-state' bindings."
+    :loader
+    (with-eval-after-load 'evil-lisp-state BODY)
+    :common
+    (kl/correct-keys evil-lisp-state-map
+      "h"
+      "j"
+      "k"
+      "l"
+      ;;
+      "H"
+      "J"
+      "K"
+      "L")))
 
 (defun keyboard-layout/pre-init-evil-magit ()
   (kl|config evil-magit
