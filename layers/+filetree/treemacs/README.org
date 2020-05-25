@@ -163,10 +163,6 @@ many other commands.
 | ~C-c C-p p~ | Select a projectile project to add to the workspace.                                                             |
 | ~C-c C-p d~ | Remove project at point from the workspace.                                                                      |
 | ~C-c C-p r~ | Rename project at point.                                                                                         |
-| ~th~        | Toggle the hiding and displaying of dotfiles.                                                                    |
-| ~tw~        | Toggle whether the treemacs buffer should have a fixed width.                                                    |
-| ~tf~        | Toggle treemacs-follow-mode.                                                                                     |
-| ~ta~        | treemacs-filewatch-mode.                                                                                         |
 | ~w~         | Set a new value for the width of the treemacs window.                                                            |
 | ~TAB~       | Do what I mean (as defined in ~treemacs-TAB-actions-config~). Prefers expanding nodes by default.                |
 | ~RET~       | Do what I mean (as defined in ~treemacs-RET-actions-config~). Prefers visiting nodes by default.                 |
