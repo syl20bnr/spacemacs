@@ -86,20 +86,24 @@
                                      go-golint
                                      go-vet
                                      ;; go-build
-                                     go-test
+                                     ;; go-test
                                      go-errcheck
                                      go-staticcheck
-                                     go-unconvert)
-        flycheck-golangci-lint-tests t
-        flycheck-golangci-lint-enable-all t)
+                                     go-unconvert))
   (flycheck-golangci-lint-setup)
 
   ;; Make sure to only run golangci after go-build
   ;; to ensure we show at least basic errors in the buffer
-  ;; when golangci fails.
+  ;; when golangci fails. Make also sure to run go-test if possible.
   ;; See #13580 for details
   (flycheck-add-next-checker 'go-build 'golangci-lint t)
-  (flycheck-select-checker 'go-build))
+  (flycheck-add-next-checker 'go-test 'golangci-lint t)
+
+  ;; Set basic checkers explicitly as flycheck will
+  ;; select the better golangci-lint automatically.
+  ;; However if it fails we require these as fallbacks.
+  (cond ((s-ends-with-p "_test.go" (buffer-name)) (flycheck-select-checker 'go-test))
+        ((s-ends-with-p ".go" (buffer-name)) (flycheck-select-checker 'go-build))))
 
 
 ;; run
