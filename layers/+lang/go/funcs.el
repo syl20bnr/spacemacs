@@ -96,14 +96,14 @@
   ;; to ensure we show at least basic errors in the buffer
   ;; when golangci fails. Make also sure to run go-test if possible.
   ;; See #13580 for details
-  (flycheck-add-next-checker 'go-build 'golangci-lint t)
-  (flycheck-add-next-checker 'go-test 'golangci-lint t)
+  (flycheck-add-next-checker 'go-build '(warning . golangci-lint) t)
+  (flycheck-add-next-checker 'go-test '(warning . golangci-lint) t)
 
   ;; Set basic checkers explicitly as flycheck will
   ;; select the better golangci-lint automatically.
   ;; However if it fails we require these as fallbacks.
-  (cond ((s-ends-with-p "_test.go" (buffer-name)) (flycheck-select-checker 'go-test))
-        ((s-ends-with-p ".go" (buffer-name)) (flycheck-select-checker 'go-build))))
+  (cond ((flycheck-may-use-checker 'go-test) (flycheck-select-checker 'go-test))
+        ((flycheck-may-use-checker 'go-build) (flycheck-select-checker 'go-build))))
 
 
 ;; run
