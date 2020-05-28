@@ -3084,6 +3084,8 @@ Other:
 - Disabled =sbt-supershell= in =sbt-mode= (thanks to Rodolfo Hansen)
 - Enable new DAP and lsp-treemacs integration via metals
   (thanks to Rodolfo Hansen)
+- Turn off ability to convert to Unicode arrows deprecated in Scala (and remove
+  =scala-use-unicode-arrows= variable)
 **** Scheme
 - Added missing =parinfer= package declaration (thanks to Kalle Lindqvist)
 - Update install docs for Chicken 5 changes (thanks to Grant Shangreaux)
