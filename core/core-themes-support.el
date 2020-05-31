@@ -277,6 +277,9 @@
     (eziam-light                      . eziam-theme)
     (eziam-dark                       . eziam-theme)
     (eziam-dusk                       . eziam-theme)
+    (poet-dark                        . poet-theme)
+    (poet-monochrome                  . poet-theme)
+    (poet-dark-monochrome             . poet-theme)
     )
   "alist matching a theme name with its package name, required when
 package name does not match theme name + `-theme' suffix.")
