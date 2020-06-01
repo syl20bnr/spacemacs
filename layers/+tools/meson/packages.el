@@ -1,0 +1,24 @@
+;;; packages.el --- meson layer packages file for Spacemacs.
+;;
+;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;;
+;; Author: Matthew Leach <dev@mattleach.net>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
+;;; Commentary: A simple layer that wraps meson-mode
+
+;;; Code:
+
+(defconst meson-packages
+  '(meson-mode))
+
+(defun meson/init-meson-mode ()
+  (use-package meson-mode
+    :defer t
+    :mode (("meson\\.build\\'" . meson-mode))))
+
+;;; packages.el ends here
