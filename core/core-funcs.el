@@ -420,4 +420,19 @@ set."
   (funcall spacemacs--gne-line-func
            (buffer-substring (point-at-bol) (point-at-eol))))
 
+(defun spacemacs/terminal-fix-mode-line-indicator-overlap (str)
+  "Add a space between two mode line indicators,
+to fix an overlapping issue, that occurs when
+Spacemacs is started in a terminal,
+and a modes mode line name is diminished to:
+- A unicode character followed by a non unicode character, ex: \" Ⓔh\"
+- Or to two unicode characters, ex: \" Ⓔⓗ\""
+  (let ((first-char (substring str 1 2)) ; first char after the space
+        second-char)
+    (if (equal (char-charset (string-to-char first-char)) 'unicode)
+        (progn
+          (setq second-char (substring str 2 3)) ; second char after the space
+          (concat first-char " " second-char))
+      str)))
+
 (provide 'core-funcs)
