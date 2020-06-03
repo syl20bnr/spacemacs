@@ -30,5 +30,8 @@
                            "align"
                            "align*"
                            "tabular"
+                           "tabular*"
+                           "tabu"
+                           "tabu*"
                            "tikzpicture")
   "List of environment names in which `auto-fill-mode' will be inhibited.")
