@@ -22,7 +22,7 @@
     ;; `org' package.
     (default-org-config :location built-in)
     (org-plus-contrib :step pre)
-    org-bullets
+    org-superstar
     (space-doc :location local)
     toc-org
     ))
@@ -62,10 +62,10 @@
       ;; Open links and files with RET in normal state
       (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)))))
 
-(defun spacemacs-org/init-org-bullets ()
-  (use-package org-bullets
+(defun spacemacs-org/init-org-superstar ()
+  (use-package org-super-star
     :defer t
-    :init (add-hook 'org-mode-hook 'org-bullets-mode)))
+    :init (add-hook 'org-mode-hook 'org-superstar-mode)))
 
 (defun spacemacs-org/init-toc-org ()
   (use-package toc-org
