@@ -16,3 +16,6 @@
 
 (defvar git-magit-status-fullscreen nil
   "If non nil magit-status buffer is displayed in fullscreen.")
+
+(defvar spacemacs--git-blame-ts-full-hint-toggle nil
+  "Display git blame transient state documentation.")
