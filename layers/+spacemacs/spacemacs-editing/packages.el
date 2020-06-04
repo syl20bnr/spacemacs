@@ -223,19 +223,19 @@
     :init
     (progn
       (global-origami-mode)
-      (define-key evil-normal-state-map "za" 'origami-forward-toggle-node)
-      (define-key evil-normal-state-map "zc" 'origami-close-node)
-      (define-key evil-normal-state-map "zC" 'origami-close-node-recursively)
-      (define-key evil-normal-state-map "zO" 'origami-open-node-recursively)
-      (define-key evil-normal-state-map "zo" 'origami-open-node)
-      (define-key evil-normal-state-map "zr" 'origami-open-all-nodes)
-      (define-key evil-normal-state-map "zm" 'origami-close-all-nodes)
-      (define-key evil-normal-state-map "zs" 'origami-show-only-node)
-      (define-key evil-normal-state-map "zn" 'origami-next-fold)
-      (define-key evil-normal-state-map "zp" 'origami-previous-fold)
-      (define-key evil-normal-state-map "zR" 'origami-reset)
-      (define-key evil-normal-state-map (kbd "z <tab>") 'origami-recursively-toggle-node)
-      (define-key evil-normal-state-map (kbd "z TAB") 'origami-recursively-toggle-node)
+      (define-key evil-motion-state-map "za" 'origami-forward-toggle-node)
+      (define-key evil-motion-state-map "zc" 'origami-close-node)
+      (define-key evil-motion-state-map "zC" 'origami-close-node-recursively)
+      (define-key evil-motion-state-map "zO" 'origami-open-node-recursively)
+      (define-key evil-motion-state-map "zo" 'origami-open-node)
+      (define-key evil-motion-state-map "zr" 'origami-open-all-nodes)
+      (define-key evil-motion-state-map "zm" 'origami-close-all-nodes)
+      (define-key evil-motion-state-map "zs" 'origami-show-only-node)
+      (define-key evil-motion-state-map "zn" 'origami-next-fold)
+      (define-key evil-motion-state-map "zp" 'origami-previous-fold)
+      (define-key evil-motion-state-map "zR" 'origami-reset)
+      (define-key evil-motion-state-map (kbd "z <tab>") 'origami-recursively-toggle-node)
+      (define-key evil-motion-state-map (kbd "z TAB") 'origami-recursively-toggle-node)
 
       (spacemacs|define-transient-state fold
         :title "Code Fold Transient State"
