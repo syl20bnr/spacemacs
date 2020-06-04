@@ -76,3 +76,35 @@
    (t
     (when (featurep 'evil-magit)
       (evil-magit-revert)))))
+
+
+;; git blame transient state
+
+(defun spacemacs//git-blame-ts-toggle-hint ()
+  "Toggle the full hint docstring for the git blame transient state."
+  (interactive)
+  (setq spacemacs--git-blame-ts-full-hint-toggle
+        (not spacemacs--git-blame-ts-full-hint-toggle)))
+
+(defun spacemacs//git-blame-ts-hint ()
+  "Return a condensed/full hint for the git-blame transient state"
+  (concat
+   " "
+   (if spacemacs--git-blame-ts-full-hint-toggle
+       spacemacs--git-blame-ts-full-hint
+     (concat "[" (propertize "?" 'face 'hydra-face-red) "] help"
+             spacemacs--git-blame-ts-minified-hint))))
+
+(spacemacs|transient-state-format-hint git-blame
+  spacemacs--git-blame-ts-minified-hint "\n
+Chunks: _n_ _N_ _p_ _P_ _RET_ Commits: _b_ _r_ _f_ _e_ _q_")
+
+(spacemacs|transient-state-format-hint git-blame
+  spacemacs--git-blame-ts-full-hint
+  (format "\n[_?_] toggle help
+Chunks^^^^                   Commits^^                     Other
+[_p_/_P_] prev /same commit  [_b_] adding lines            [_c_] cycle style
+[_n_/_N_] next /same commit  [_r_] removing lines          [_Y_] copy hash
+[_RET_]^^ show commit        [_f_] last commit with lines  [_B_] magit-blame
+^^^^                         [_e_] echo                    [_Q_] quit TS
+^^^^                         [_q_] quit blaming"))

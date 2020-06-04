@@ -23,6 +23,7 @@
   - [[#log-selection-buffer][Log selection buffer]]
   - [[#interactive-rebase-buffer][Interactive rebase buffer]]
   - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
+  - [[#git-blame-transient-state][Git Blame Transient State]]
   - [[#git-flow-1][Git-Flow]]
   - [[#git-time-machine][Git time machine]]
   - [[#git-links-to-web-services][Git links to web services]]
@@ -247,6 +248,27 @@ A log selection buffer is presented as an interactive way of selecting a recent 
 - Pull changes from upstream (the parent repository you have forked) and push:
   - ~F -r C-u F~ and choose =upstream= or the name you gave to it
   - ~P P~ to push the commit to =origin=
+
+** Git Blame Transient State
+
+| Key binding | Description                                              |
+|-------------+----------------------------------------------------------|
+| ~SPC g b~   | start magit-blame and open the git blame transient state |
+| ~?~         | toggle hint                                              |
+| ~p~         | prev chunk                                               |
+| ~P~         | prev chunk same commit                                   |
+| ~n~         | next chunk                                               |
+| ~N~         | next chunk same commit                                   |
+| ~RET~       | show commit                                              |
+| ~b~         | show commits with adding lines                           |
+| ~r~         | show commits with removing lines                         |
+| ~f~         | show last commits that still have lines                  |
+| ~e~         | show line revision info in echo area (not read only)     |
+| ~q~         | kill recursive blame buffer or disable magit-blame-mode  |
+| ~c~         | cycle style                                              |
+| ~Y~         | copy hash                                                |
+| ~B~         | magit-blame (magit transient)                            |
+| ~Q~         | quit transient state                                     |
 
 ** Git-Flow
 [[https://github.com/jtatarik/magit-gitflow][magit-gitflow]] provides git-flow commands in its own magit menu.
