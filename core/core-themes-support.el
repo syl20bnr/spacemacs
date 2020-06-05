@@ -184,6 +184,7 @@
     (doom-ephemeral                   . doom-themes)
     (doom-fairy-floss                 . doom-themes)
     (doom-gruvbox                     . doom-themes)
+    (doom-gruvbox-light               . doom-themes)
     (doom-horizon                     . doom-themes)
     (doom-laserwave                   . doom-themes)
     (doom-manegarm                    . doom-themes)
