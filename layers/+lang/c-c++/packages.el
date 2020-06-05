@@ -13,6 +13,7 @@
   '(
     cc-mode
     clang-format
+    company
     (company-c-headers :requires company)
     (cpp-auto-include
      :location (recipe :fetcher github
