@@ -104,6 +104,7 @@
 
 
 (defun spacemacs-layouts/post-init-helm ()
+  (with-eval-after-load 'helm (spacemacs//persp-helm-setup))
   (spacemacs/set-leader-keys
     "bB" 'spacemacs-layouts/non-restricted-buffer-list-helm
     "pl" 'spacemacs/helm-persp-switch-project))
@@ -229,7 +230,6 @@
         (advice-add fn
                     :around 'spacemacs-layouts//advice-with-persp-buffer-list))
       (spacemacs/declare-prefix "b" "persp-buffers")
-      ;; Override SPC TAB to only change buffers in perspective
       (spacemacs/set-leader-keys
         "ba"   'persp-add-buffer
         "br"   'persp-remove-buffer))))
