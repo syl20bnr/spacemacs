@@ -71,8 +71,9 @@ Cancels autosave on exiting perspectives mode."
     (persp-switch spacemacs--last-selected-layout)))
 
 (defun spacemacs-layouts/non-restricted-buffer-list-helm ()
+  "Show all buffers accross all layouts."
   (interactive)
-  (let ((ido-make-buffer-list-hook (remove #'persp-restrict-ido-buffers ido-make-buffer-list-hook)))
+  (let ((helm-buffer-list-reorder-fn #'helm-buffers-reorder-buffer-list))
     (helm-mini)))
 
 (defun spacemacs-layouts/non-restricted-buffer-list-ivy ()
@@ -450,7 +451,6 @@ perspectives does."
    :sources
    `(,(spacemacs//helm-perspectives-source)
      ,(helm-build-dummy-source "Create new perspective"
-        :requires-pattern t
         :action
         '(("Create new perspective" .
            spacemacs//create-persp-with-home-buffer)
@@ -547,6 +547,21 @@ Run PROJECT-ACTION on project."
                   'spacemacs/helm-project-smart-do-search))))
    :buffer "*Helm Projectile Layouts*"))
 
+(defun spacemacs//make-helm-list-reorder-fn (fn)
+  "Take a function `helm-buffer-list-reorder-fn' and return a
+`helm-buffer-list-reorder-fn' function.
+This the return function will filter out buffers not in layout and then
+pass results to FN."
+  (lambda (visibles others)
+    (funcall fn
+             (seq-remove #'spacemacs//layout-not-contains-buffer-p visibles)
+             (seq-remove #'spacemacs//layout-not-contains-buffer-p others))))
+
+(defun spacemacs//persp-helm-setup ()
+  "Set new `helm-buffer-list-reorder-fn'.
+Compose it with a new one that will filter out a buffers on in current layout."
+  (let ((my-wrapper (spacemacs//make-helm-list-reorder-fn helm-buffer-list-reorder-fn)))
+    (setq helm-buffer-list-reorder-fn my-wrapper)))
 
 ;; Ivy integration
 (defun spacemacs//ivy-persp-switch-project-action (project)
