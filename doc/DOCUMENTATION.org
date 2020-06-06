@@ -137,6 +137,7 @@
       - [[#buffers-manipulation-key-bindings][Buffers manipulation key bindings]]
       - [[#create-a-new-empty-buffer][Create a new empty buffer]]
       - [[#buffers-transient-state][Buffers transient state]]
+      - [[#select-buffers-transient-state][Select buffers transient state]]
       - [[#file-manipulation-key-bindings][File manipulation key bindings]]
       - [[#frame-manipulation-key-bindings][Frame manipulation key bindings]]
       - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
@@ -2474,11 +2475,19 @@ open buffers and closing them.
 | ~z~                    | recenter buffer in window                                                                  |
 | ~q~                    | quit transient state                                                                       |
 
-Unlike vim, emacs creates many buffers that most people do not need to see. Some
-examples are the =*Messages*= and =*Compile-Log*= buffers. Spacemacs tries to
-automatically ignore buffers that are not useful. However, you may want to
-change the way Spacemacs marks buffers as useful. For instructions, see the
-[[https://github.com/syl20bnr/spacemacs/blob/develop/doc/FAQ.org#change-special-buffer-rules][special buffer howto]].
+**** Select buffers transient state
+Provide quick access to buffers by order of most recent display or selection. On
+initiate state with ~SPC b .~ a single line of layout awared buffer list is
+showed. If the buffer list is too long it will be cut off to fit one line of the
+~minibuffer~ Curent active buffer is not showed in the list. Press the number
+prefixed to the buffer will switch to that buffer. Press ~b~ will show the whole
+normal buffer list.
+
+| Key binding  | Description                         |
+|--------------+-------------------------------------|
+| ~SPC b .~    | initiate transient state            |
+| ~[1..9]~     | move current buffer to nth window   |
+| ~b~          | list all buffers with helm/ivy      |
 
 **** File manipulation key bindings
 File manipulation commands (start with ~f~):
