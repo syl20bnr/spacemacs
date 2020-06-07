@@ -161,7 +161,12 @@ This might also be true for other linux distributions.
 
 ```
 brew tap d12frosted/emacs-plus
+# to install Emacs 26
 brew install emacs-plus
+# or to install Emacs 27
+brew install emacs-plus@27 --with-spacemacs-icon
+# or to install Emacs 28
+brew install emacs-plus@28 --with-spacemacs-icon
 brew link emacs-plus
 ```
 
