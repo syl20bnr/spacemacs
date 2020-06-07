@@ -47,8 +47,5 @@
 
 (defun cfengine/init-mustache-mode ()
   (use-package mustache-mode
+    :init (add-to-list 'auto-mode-alist '("\\.mustache\\'" . mustache-mode))
     :defer t))
-
-(defun cfengine/post-init-mustache-mode ()
-  (add-to-list 'auto-mode-alist '("\\.mustache\\'" . mustache-mode)))
-
