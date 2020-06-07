@@ -475,7 +475,7 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 
 Features:
 - Vim inspired key bindings are provided by [[https://github.com/Somelauw/evil-org-mode][evil-org-mode]]
-- Nicer bullet via [[https://github.com/sabof/org-bullets][org-bullets]]
+- Nicer bullet via [[https://github.com/integral-dw/org-superstar-mode][org-superstar-mode]]
 - A [[https://cirillocompany.de/pages/pomodoro-technique][pomodoro method]] integration via [[https://github.com/lolownia/org-pomodoro][org-pomodoro]]
 - Presentation mode via [[https://github.com/rlister/org-present][org-present]]
 - Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
@@ -2611,7 +2611,7 @@ Features:
 This layer adds support for CFEngine policies to Spacemacs.
 
 Features:
-- Syntax highlighting
+- Syntax highlighting (CFEngine DSL, Mustache)
 - On the fly syntax checking via =flycheck= integration.
 - Auto completion via =company= integration.
 - Execution of =cfengine3= =SRC= blocks in =org-mode= via =ob-cfengine3= package.
