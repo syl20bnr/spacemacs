@@ -18,7 +18,7 @@
 configuration.
 
 In order to use this macro the variable `use-package-inject-hooks'
-must be non-nil.
+must be non-nil. If it is not a warning will be issued.
 
 This is useful in the dotfile to override the default configuration
 of a package.
@@ -36,12 +36,6 @@ Usage:
 In practice the most useful hook is the `:post-config' where you can
 override lazy-loaded settings."
   (declare (indent 1))
-  ;; Make sure to yell when someone tries to call this without
-  ;; `use-package-inject-hooks'.
-  (when (not use-package-inject-hooks)
-    (message (concat "!!!!!!WARNING!!!!!! Called use-package-add-hook without"
-                     " "
-                     "use-package-inject-hooks non-nil, this will most probably not work.")))
   (let ((name-symbol (if (stringp name) (intern name) name))
         (expanded-forms '()))
     (dolist (keyword spacemacs--use-package-add-hook-keywords)
@@ -51,6 +45,12 @@ override lazy-loaded settings."
                                       name-symbol
                                       (substring (format "%s" keyword) 1)))))
             (push `(add-hook ',hook (lambda nil ,@body t)) expanded-forms)))))
+    (push `(when (not use-package-inject-hooks)
+             (message (concat "!!!!!!WARNING!!!!!! Called use-package-add-hook without"
+                              " "
+                              "use-package-inject-hooks non-nil, this will most probably not work.")))
+          expanded-forms)
+
     `(progn ,@expanded-forms)))
 
 (provide 'core-use-package-ext)
