@@ -36,6 +36,12 @@ Usage:
 In practice the most useful hook is the `:post-config' where you can
 override lazy-loaded settings."
   (declare (indent 1))
+  ;; Make sure to yell when someone tries to call this without
+  ;; `use-package-inject-hooks'.
+  (when (not use-package-inject-hooks)
+    (message (concat "!!!!!!WARNING!!!!!! Called use-package-add-hook without"
+                     " "
+                     "use-package-inject-hooks non-nil, this will most probably not work.")))
   (let ((name-symbol (if (stringp name) (intern name) name))
         (expanded-forms '()))
     (dolist (keyword spacemacs--use-package-add-hook-keywords)
