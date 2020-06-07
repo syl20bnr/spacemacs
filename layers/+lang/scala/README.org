@@ -203,7 +203,7 @@ variable =scala-auto-insert-asterisk-in-comments= to =t=.
 #+END_SRC
 
 * Deprecated: Automatic replacement of arrows with Unicode ones
-Scala used to support Unicode arrows =⇒=, =→= as aliases for ~=>~, =->= and =<-= , and the
+Scala used to support Unicode arrows =⇒=, =→= as aliases for ~=>~, =->= and =<-=, and the
 Scala layer would do the conversion to Unicode for you if you set
 =scala-use-unicode-arrows= to =t=. As the Unicode arrows are now [[https://github.com/scala/scala/pull/7540][deprecated]] in
 Scala, this variable has been dropped from the Scala layer. If it is still in
