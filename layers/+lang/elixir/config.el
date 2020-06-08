@@ -11,12 +11,6 @@
 
 ;; Variables
 
-(defvar elixir-enable-compilation-checking nil
-  "If non-nil syntax checking is enable for compilation.
-Default is nil because Elixir compilation is based on macros and thus it
-is unsafe. Activate this option only for trusted code, usage of a
-directory variable is recommended.")
-
 (defvar elixir-backend nil
   "The backend to use for IDE features.
 Possible values are `alchemist' and `lsp'.
