@@ -19,7 +19,6 @@
     evil-matchit
     flycheck
     flycheck-credo
-    flycheck-mix
     ggtags
     helm-gtags
     ob-elixir
@@ -176,18 +175,6 @@
   (use-package flycheck-credo
     :defer t
     :init (add-hook 'flycheck-mode-hook #'flycheck-credo-setup)))
-
-(defun elixir/init-flycheck-mix ()
-  (use-package flycheck-mix
-    :commands (flycheck-mix-setup)
-    :init
-    (progn
-      (add-to-list 'safe-local-variable-values
-                   (cons 'elixir-enable-compilation-checking nil))
-      (add-to-list 'safe-local-variable-values
-                   (cons 'elixir-enable-compilation-checking t))
-      (add-hook 'elixir-mode-local-vars-hook
-                'spacemacs//elixir-enable-compilation-checking))))
 
 (defun elixir/post-init-ggtags ()
   (add-hook 'elixir-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
