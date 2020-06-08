@@ -159,6 +159,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 - Key bindings;
   - Changed ~SPC m p t~ to ~SPC m t F~ for =alchemist-project-find-test=
     (thanks to Lyuben Petrov)
+- Remove flycheck-mix-compile in favour of alchemist and lsp syntax checking
 ***** Git
 - Improvements:
   - Adapted configuration to new transient commands of Magit (thanks to bmag)
