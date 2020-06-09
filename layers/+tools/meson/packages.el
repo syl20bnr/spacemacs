@@ -9,10 +9,6 @@
 ;;
 ;;; License: GPLv3
 
-;;; Commentary: A simple layer that wraps meson-mode
-
-;;; Code:
-
 (defconst meson-packages
   '(meson-mode))
 
@@ -20,5 +16,3 @@
   (use-package meson-mode
     :defer t
     :mode (("meson\\.build\\'" . meson-mode))))
-
-;;; packages.el ends here
