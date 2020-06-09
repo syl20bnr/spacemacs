@@ -152,7 +152,9 @@ mu4e-use-maildirs-extension-load to be evaluated after mu4e has been loaded."
 
 (defun mu4e/pre-init-org ()
   ;; load mu4e-org when org is actually loaded
-  (with-eval-after-load 'org (require 'mu4e-org nil 'noerror)))
+  (with-eval-after-load 'org
+    (require 'mu4e nil 'noerror)
+    (require 'mu4e-org nil 'noerror)))
 
 (defun mu4e/pre-init-window-purpose ()
   (spacemacs|use-package-add-hook window-purpose
