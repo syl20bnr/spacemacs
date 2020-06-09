@@ -3090,6 +3090,7 @@ Other:
   (thanks to Rodolfo Hansen)
 - Turned off ability to convert to Unicode arrows deprecated in Scala (and remove
   =scala-use-unicode-arrows= variable) (thanks to Keith Pinson)
+- Added =lsp-metals= and remove broken =lsp-treemacs= initialization (Bjarke Vad Andersen)
 **** Scheme
 - Added missing =parinfer= package declaration (thanks to Kalle Lindqvist)
 - Update install docs for Chicken 5 changes (thanks to Grant Shangreaux)

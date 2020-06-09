@@ -12,11 +12,11 @@
 (defconst scala-packages
   '(
     lsp-mode
+    (lsp-metals :toggle (spacemacs//scala-backend-metals-p))
     dap-mode
     eldoc
     flycheck
     flyspell
-    lsp-treemacs
     counsel-gtags
     ggtags
     helm-gtags
@@ -237,8 +237,10 @@
   (when (spacemacs//scala-backend-metals-p)
     (spacemacs//scala-setup-metals)))
 
-(defun scala/post-init-lsp-treemacs ()
-  (when (spacemacs//scala-backend-metals-p)
+(defun scala/init-lsp-metals ()
+  (use-package lsp-metals
+    :defer t
+    :init
     (spacemacs//scala-setup-treeview)))
 
 (defun scala/post-init-ggtags ()
