@@ -343,8 +343,8 @@
       (evil-define-key 'insert vterm-mode-map (kbd "C-y") 'vterm-yank)
 
       (evil-define-key 'normal vterm-mode-map
-        [escape] 'vterm--self-insert
-        [return] 'vterm--self-insert
+        [escape] 'vterm-send-escape
+        [return] 'vterm-send-return
         (kbd "p") 'vterm-yank
         (kbd "u") 'vterm-undo)
 

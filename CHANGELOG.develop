@@ -3179,6 +3179,7 @@ Other:
   - variable: =layouts-enable-local-variables=
   - function: =spacemacs/make-variable-layout-local=
   (thanks to JAremko and duianto)
+- Better keybindings for ~ESC~ and ~RET~ in vterm =evil-normal-state= (thanks to kenkangxgwe)
 **** Shell Scripts
 - Added new company-shell environment variable backend
   (thanks to Alexander-Miller)
