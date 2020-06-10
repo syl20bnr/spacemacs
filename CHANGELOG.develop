@@ -1035,6 +1035,11 @@ Other:
     (thanks to John Stevenson)
   - Added ~SPC c b~ to switch to last compilation buffer
     (thanks to Ivan Yonchovski)
+  - Fixed eyebrowse-next/previous-window-config commands key bindings,
+    over-ridden by tab-bar-switch functions in Emacs 27.1 onward
+   ~g>~ eyebrowse-next-window-config
+   ~g<~ eyebrowse-prev-window-config
+   (thanks to John Stevenson)
 - Improvements:
   - Rewrote window layout functions for ~SPC w 1~, ~SPC w 2~, ~SPC w 3~, and
     ~SPC w 4~ (thanks to Codruț Constantin Gușoi):

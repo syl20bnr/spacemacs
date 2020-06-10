@@ -11,6 +11,7 @@
   - [[#kill-buffers-when-killing-current-layout][Kill buffers when killing current layout]]
 - [[#usage][Usage]]
 - [[#key-bindings][Key bindings]]
+  - [[#evil-normal-key-bindings][Evil Normal key bindings]]
 
 * Description
 This layer adds support for distinct layouts/workspaces to Spacemacs.
@@ -160,3 +161,13 @@ See key bindings for more layout commands.
 | ~SPC l w~   | workspaces transient state                |
 | ~SPC l x~   | kill current layout                       |
 | ~SPC l X~   | kill other layout                         |
+
+
+** Evil Normal key bindings
+Evil normal state has the following shortcuts
+to switching between workspaces
+
+| Key binding | Description                  |
+|-------------+------------------------------|
+| ~g >~        | Switch to next workspace     |
+| ~g <~        | Switch to previous workspace |

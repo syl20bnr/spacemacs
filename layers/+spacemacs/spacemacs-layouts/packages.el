@@ -98,8 +98,8 @@
         (add-hook 'persp-after-load-state-functions
                   #'spacemacs/load-eyebrowse-after-loading-layout))
       ;; vim-style tab switching
-      (define-key evil-motion-state-map "gt" 'eyebrowse-next-window-config)
-      (define-key evil-motion-state-map "gT" 'eyebrowse-prev-window-config))))
+      (define-key evil-motion-state-map "g>" 'eyebrowse-next-window-config)
+      (define-key evil-motion-state-map "g<" 'eyebrowse-prev-window-config))))
 
 
 
