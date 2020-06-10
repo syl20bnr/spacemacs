@@ -2000,6 +2000,8 @@ Other:
   - Make flycheck disable checkers covered by golangci (thanks to zhuoyikang)
   - Updated build instructions for =golangci-lint= (thanks to pancho horrillo)
   - Added =dap-go= integration (ljupchokotev)
+  - Added =go-run-command= variable (thanks to Jay Z)
+  - Added =go-test-command= variable (thanks to Jay Z)
 - Key bindings
   - =godoctor= key bindings (thanks to TinySong and Eivind Fonn):
     - ~SPC m r n~ to rename
