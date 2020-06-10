@@ -92,7 +92,7 @@ or e.g. Archlinux:
 #+END_SRC
 
 **** Install with recommended features
-Download the latest tar.gz archive from[[https://www.gnu.org/software/global/download.html][ GNU Global Download page]].
+Download the latest tar.gz archive from [[https://www.gnu.org/software/global/download.html][GNU Global Download page]].
 
 Also check which version of gcc your system is using by default as this will influence the next steps:
 

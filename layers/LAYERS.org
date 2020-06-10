@@ -1790,7 +1790,6 @@ Features:
 - Smart code completion
 - Elixir project management
 - Integration with [[http://company-mode.github.io/][company-mode]]
-- Flycheck support for mix compile
 - Flycheck support for [[https://github.com/rrrene/credo][credo]]
 - Flycheck support for test results
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
