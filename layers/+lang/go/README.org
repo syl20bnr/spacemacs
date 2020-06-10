@@ -104,6 +104,14 @@ layers are enabled as well.
 
 * Configuration
 ** Execution
+By default, the go run command is =go run=. If you want to use a different
+command or run with environment variables, set the layer variable
+=go-run-command=.
+
+#+BEGIN_SRC emacs-lisp
+  (go :variables go-run-command "ENV_VAR=foo go run")
+#+END_SRC
+
 To run the current =main= package with command line arguments, set the value of
 =go-run-args= as a file local variable, e.g.
 
@@ -173,6 +181,14 @@ suite testing and to get single function testing to work.
 Tests are run in a compilation buffer displayed in a popup window that can be
 closed by pressing ~C-g~ from any other window. The variable =go-test-buffer-name=
 can be customized to set the output buffer name.
+
+By default, the go test command is =go test=. If you want to use a different
+command or test with environment variables, set the layer variable
+=go-test-command=.
+
+#+BEGIN_SRC emacs-lisp
+  (go :variables go-test-command "ENV_VAR=foo go test")
+#+END_SRC
 
 To provide additional arguments to =go test=, specify =go-use-test-args=.
 
