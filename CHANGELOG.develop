@@ -2920,6 +2920,7 @@ Other:
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 - Updated racket logo (thanks to Vityou)
 - Add racket-xp-mode to Racket layer (thanks to Shrutarshi Basu)
+- Correctly switch to insert state in REPL
 **** Ranger
 - Key bindings:
   - Added ~j D~ to jump other window (thanks to Rich Alesi)
