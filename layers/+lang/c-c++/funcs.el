@@ -162,7 +162,7 @@
      "mf" 'member-functions
      "mv" 'member-vars))
 
-  ;;(evil-set-initial-state 'ccls--tree-mode 'emacs)
+  (evil-set-initial-state 'ccls-tree-mode 'emacs)
   ;;(evil-make-overriding-map 'ccls-tree-mode-map)
   (setq-local lsp-disabled-clients '(clangd))
   (lsp))
