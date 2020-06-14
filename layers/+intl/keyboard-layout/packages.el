@@ -15,6 +15,7 @@
     avy
     comint
     company
+    ediff
     elfeed
     evil
     evil-cleverparens
@@ -104,6 +105,20 @@
       "C-j"
       "C-k"
       "C-l")))
+
+(defun keyboard-layout/pre-init-ediff ()
+  (kl|config ediff
+    :description
+    "Remap `ediff' bindings."
+    :loader
+    ;; HACK: ediff-mode-map is only defined when ediff is started
+    (add-hook 'ediff-startup-hook #'(lambda () BODY))
+    :common
+    (kl/correct-keys ediff-mode-map
+      "h"
+      "j"
+      "k"
+      "l")))
 
 (defun keyboard-layout/pre-init-elfeed ()
   (kl|config elfeed

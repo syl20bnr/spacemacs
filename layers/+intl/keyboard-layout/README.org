@@ -243,6 +243,7 @@ The available configurations are:
 - avy
 - comint
 - company
+- ediff
 - elfeed
 - evil
 - evil-escape
