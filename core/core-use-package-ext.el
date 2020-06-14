@@ -45,12 +45,6 @@ override lazy-loaded settings."
                                       name-symbol
                                       (substring (format "%s" keyword) 1)))))
             (push `(add-hook ',hook (lambda nil ,@body t)) expanded-forms)))))
-    (push `(when (not use-package-inject-hooks)
-             (message (concat "!!!!!!WARNING!!!!!! Called use-package-add-hook without"
-                              " "
-                              "use-package-inject-hooks non-nil, this will most probably not work.")))
-          expanded-forms)
-
     `(progn ,@expanded-forms)))
 
 (provide 'core-use-package-ext)
