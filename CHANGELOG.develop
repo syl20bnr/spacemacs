@@ -2395,6 +2395,7 @@ Other:
 - Fixed =bepo= layout, commented out broken evil-window :common bindings
   (thanks to CharlesHD)
 - Added evil-lisp-state mapping (thanks to Damien Picard)
+- Added ediff mapping (thanks to iv-nn)
 **** Kivy
 - Added the =kivy= package (thanks to Nasser Alshammari and Ryota Kayanuma)
 **** LaTeX
