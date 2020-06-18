@@ -264,7 +264,6 @@
           "hi"  'haskell-process-do-info
           "ht"  'haskell-process-do-type
           "hT"  'spacemacs/haskell-process-do-type-on-prev-line
-          "hy"  'hayoo
 
           "da"  'haskell-debug/abandon
           "db"  'haskell-debug/break-on-function
