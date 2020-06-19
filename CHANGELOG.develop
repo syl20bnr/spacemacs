@@ -663,6 +663,7 @@ Other:
     =spacemacs/show-hide-compilation-window= (thanks to Hans Jang)
   - Avoid unnecessary packages installation of tern layer
   - Fixed terminal mode line indicator overlapping (thanks to duianto)
+  - Fixed broken --timed-requires and --adv-timers under Emacs 27 and above (thanks to Ying Qu)
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
