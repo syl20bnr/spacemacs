@@ -25,4 +25,4 @@ file.
 
 | Key Binding | Description                              |
 |-------------+------------------------------------------|
-| ~F1~        | Lookup documentation for thing at point. |
+| ~SPC m h h~ | Lookup documentation for thing at point. |
