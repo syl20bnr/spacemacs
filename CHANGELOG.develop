@@ -2786,6 +2786,8 @@ Other:
   =hyper=, =super= or =alt= (thanks to Binbin Ye)
 - Added a layer variable =osx-swap-option-and-command= defaults to =nil=
   (thanks to Binbin Ye)
+- Enabled GNU =gls= support in dired without requiring
+  =exec-path-from-shell= (thanks to Aaron Zeng)
 **** Pandoc
 - Fixed =spacemacs/run-pandoc= not to reset =pandoc--local-settings=
   (thanks to martian-f)
