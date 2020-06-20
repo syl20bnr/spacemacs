@@ -216,6 +216,7 @@
   - [[#import-js][Import-js]]
   - [[#kubernetes][Kubernetes]]
   - [[#lsp][LSP]]
+  - [[#meson][Meson]]
   - [[#nginx][Nginx]]
   - [[#node][Node]]
   - [[#pandoc][Pandoc]]
@@ -1827,6 +1828,8 @@ Features:
 - Auto-Completion in REPL
 - Scaffolding support
 - Refactoring support
+- Running graphical Listeners
+- Reloading emacs-lisp portion of FUEL
 
 **** Go
 [[file:+lang/go/README.org][+lang/go/README.org]]
@@ -2787,6 +2790,15 @@ Features:
 - Symbol documentation in a child frame (=lsp-ui-doc=)
 - Navigation using imenu
 - Consistent core key bindings in LSP modes
+
+** Meson
+[[file:+tools/meson/README.org][+tools/meson/README.org]]
+
+This layer adds support [[https://mesonbuild.com/][Meson]] scripts.
+
+Features:
+- Support for meson build scripts through meson-mode.
+- Syntax highlighting.
 
 ** Nginx
 [[file:+tools/nginx/README.org][+tools/nginx/README.org]]

@@ -90,16 +90,14 @@ declaration elements a lot, as this will trigger a builtin snippet from
 prog-mode instead of advancing to the next field when pressing =<TAB>=.
 
 * Starting a Graphical Listener
-
 The command =factor/start-ui-listener= can be used to run a Factor process which
-sets up a FUEL server on the standard port and runs the graphical listener.  If successful, the
+sets up a FUEL server on the standard port and runs the graphical listener. If successful, the
 command =connect-to-factor= will connect to that factor instance.
 
 This procedure can be influenced with the following variables, which can also be
 set as directory-local variables to make it easier to work with projects which
-require different Factor versions, for example.  (See their respective
+require different Factor versions, for example. (See their respective
 documentation for details)
-
 - =fuel-factor-root-dir=
 - =fuel-listener-factor-binary=
 - =fuel-listener-factor-image=
