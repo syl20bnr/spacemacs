@@ -1,6 +1,6 @@
 ;;; packages.el --- terraform Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Brian Hicks <brian@brianthicks.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,6 +12,8 @@
 (setq terraform-packages
       '(
         (company-terraform :requires company)
+        (lsp-terraform :requires lsp-mode
+                       :toggle (eq terraform-backend 'lsp))
         terraform-mode
         ))
 
@@ -22,6 +24,13 @@
     (spacemacs|add-company-backends
       :backends company-terraform
       :modes terraform-mode)))
+
+(defun terraform/init-lsp-terraform ()
+  (use-package lsp-terraform
+    :defer t
+    :init
+    (when (eq terraform-backend 'lsp)
+      (add-hook 'terraform-mode-hook #'lsp))))
 
 (defun terraform/init-terraform-mode ()
   (use-package terraform-mode

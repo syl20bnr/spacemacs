@@ -13,3 +13,6 @@
 
 (defvar terraform-auto-format-on-save nil
   "If non-nil then call `terraform fmt' before saving the terraform buffer.")
+
+(defvar terraform-backend nil
+  "If 'lsp then use LSP for terraform.")

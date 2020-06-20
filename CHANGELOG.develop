@@ -3279,6 +3279,7 @@ Other:
 - Added opt-in layer variable =terraform-fmt-on-save= to format buffers on save
   with =terraform fmt= (thanks to Harry Hull)
 - Added support for =terraform-company= (thanks to Sylvain Benner)
+- Added LSP support for terraform-lsp
 **** Templates
 - Fixed issue with templates layer ignoring =templates-private-directory=
   (thanks to Seong Yong-ju)
