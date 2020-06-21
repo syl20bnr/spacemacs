@@ -221,21 +221,25 @@
   (use-package origami
     :defer t
     :init
-    (progn
+    (let
+        ((rebind-normal-to-motion-state-map
+         (lambda (key def)
+           (define-key evil-normal-state-map key nil)
+           (define-key evil-motion-state-map key def))))
       (global-origami-mode)
-      (define-key evil-motion-state-map "za" 'origami-forward-toggle-node)
-      (define-key evil-motion-state-map "zc" 'origami-close-node)
-      (define-key evil-motion-state-map "zC" 'origami-close-node-recursively)
-      (define-key evil-motion-state-map "zO" 'origami-open-node-recursively)
-      (define-key evil-motion-state-map "zo" 'origami-open-node)
-      (define-key evil-motion-state-map "zr" 'origami-open-all-nodes)
-      (define-key evil-motion-state-map "zm" 'origami-close-all-nodes)
-      (define-key evil-motion-state-map "zs" 'origami-show-only-node)
-      (define-key evil-motion-state-map "zn" 'origami-next-fold)
-      (define-key evil-motion-state-map "zp" 'origami-previous-fold)
-      (define-key evil-motion-state-map "zR" 'origami-reset)
-      (define-key evil-motion-state-map (kbd "z <tab>") 'origami-recursively-toggle-node)
-      (define-key evil-motion-state-map (kbd "z TAB") 'origami-recursively-toggle-node)
+      (funcall rebind-normal-to-motion-state-map "za" 'origami-forward-toggle-node)
+      (funcall rebind-normal-to-motion-state-map "zc" 'origami-close-node)
+      (funcall rebind-normal-to-motion-state-map "zC" 'origami-close-node-recursively)
+      (funcall rebind-normal-to-motion-state-map "zO" 'origami-open-node-recursively)
+      (funcall rebind-normal-to-motion-state-map "zo" 'origami-open-node)
+      (funcall rebind-normal-to-motion-state-map "zr" 'origami-open-all-nodes)
+      (funcall rebind-normal-to-motion-state-map "zm" 'origami-close-all-nodes)
+      (funcall rebind-normal-to-motion-state-map "zs" 'origami-show-only-node)
+      (funcall rebind-normal-to-motion-state-map "zn" 'origami-next-fold)
+      (funcall rebind-normal-to-motion-state-map "zp" 'origami-previous-fold)
+      (funcall rebind-normal-to-motion-state-map "zR" 'origami-reset)
+      (funcall rebind-normal-to-motion-state-map (kbd "z <tab>") 'origami-recursively-toggle-node)
+      (funcall rebind-normal-to-motion-state-map (kbd "z TAB") 'origami-recursively-toggle-node)
 
       (spacemacs|define-transient-state fold
         :title "Code Fold Transient State"
