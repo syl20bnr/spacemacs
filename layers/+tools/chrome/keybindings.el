@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(spacemacs/set-leader-keys "aF" 'flymd-flyit)
+(spacemacs/set-leader-keys "atc" 'flymd-flyit)

@@ -44,4 +44,4 @@ of the running containers.
 
 | Key binding | Description                 |
 |-------------+-----------------------------|
-| ~SPC a K~   | Opens =kubernetes-overview= |
+| ~SPC a t k~ | Opens =kubernetes-overview= |

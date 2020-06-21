@@ -125,8 +125,8 @@ To set the max files size (in MB), set the following parameter:
 
 | Key binding     | Description                                          |
 |-----------------+------------------------------------------------------|
-| ~SPC a r r~     | launch ranger                                        |
-| ~SPC a r d~     | deer (minimal ranger window in current directory)    |
+| ~SPC a t r r~   | launch ranger                                        |
+| ~SPC a t r d~   | deer (minimal ranger window in current directory)    |
 | ~C-p~           | (ranger) toggle ranger in dired buffer               |
 | ~j~             | (ranger) navigate down                               |
 | ~k~             | (ranger) navigate up                                 |

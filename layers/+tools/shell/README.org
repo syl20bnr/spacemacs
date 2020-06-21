@@ -286,22 +286,22 @@ Some advanced configuration is setup for =eshell= in this layer:
 
 * Key bindings
 
-| Key binding | Description                                                |
-|-------------+------------------------------------------------------------|
-| ~SPC '​~     | Open, close or go to the default shell                     |
-| ~SPC "​~     | Open external terminal emulator in current directory       |
-| ~SPC p '​~   | Open a shell in the project's root                         |
-| ~SPC p "​~   | Open external terminal emulator in project root            |
-| ~SPC a s e~ | Open, close or go to an =eshell=                           |
-| ~SPC a s i~ | Open, close or go to a =shell=                             |
-| ~SPC a s m~ | Open, close or go to a =multi-term=                        |
-| ~SPC a s t~ | Open, close or go to a =ansi-term=                         |
-| ~SPC a s T~ | Open, close or go to a =term=                              |
-| ~TAB~       | browse completion with =helm=                              |
-| ~SPC m H~   | browse history with =helm= (works in =eshell= and =shell=) |
-| ~SPC a s v~ | Open, close or go to a =vterm=                             |
-| ~C-j~       | next item in history                                       |
-| ~C-k~       | previous item in history                                   |
+| Key binding   | Description                                                |
+|---------------+------------------------------------------------------------|
+| ~SPC '​~       | Open, close or go to the default shell                     |
+| ~SPC "​~       | Open external terminal emulator in current directory       |
+| ~SPC p '​~     | Open a shell in the project's root                         |
+| ~SPC p "​~     | Open external terminal emulator in project root            |
+| ~SPC a t s e~ | Open, close or go to an =eshell=                           |
+| ~SPC a t s i~ | Open, close or go to a =shell=                             |
+| ~SPC a t s m~ | Open, close or go to a =multi-term=                        |
+| ~SPC a t s t~ | Open, close or go to a =ansi-term=                         |
+| ~SPC a t s T~ | Open, close or go to a =term=                              |
+| ~TAB~         | browse completion with =helm=                              |
+| ~SPC m H~     | browse history with =helm= (works in =eshell= and =shell=) |
+| ~SPC a s v~   | Open, close or go to a =vterm=                             |
+| ~C-j~         | next item in history                                       |
+| ~C-k~         | previous item in history                                   |
 
 *Note:* You can open multiple shells using a numerical prefix argument,
 for instance pressing ~2 SPC '​~ will a second default shell, the
