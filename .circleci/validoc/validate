@@ -14,21 +14,9 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "${DIR}/../shared"
 
-if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
-    echo "Skipping documentation validation for branch update."
-    exit 0
-fi
+skip_for_branch_update
 
-changed_f_as_args=()
-while read p
-do
-    if [ -f "$p" ]; then
-        if [ ${p: -4} == ".org" ]; then
-            changed_f_as_args+=("${p}")
-        fi
-    fi
-done </tmp/changed_files
-
+select_changed_orgs
 if [ ${#changed_f_as_args[@]} -ne 0 ]; then
     spacedoc validate -c"./.ci/spacedoc-cfg.edn" /tmp/exported/
     if [ $? -ne 0 ]; then
