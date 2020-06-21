@@ -12,8 +12,6 @@
 (setq terraform-packages
       '(
         (company-terraform :requires company)
-        (lsp-terraform :requires lsp-mode
-                       :toggle (eq terraform-backend 'lsp))
         terraform-mode
         ))
 
@@ -35,6 +33,8 @@
 (defun terraform/init-terraform-mode ()
   (use-package terraform-mode
     :defer t
+    :init (add-hook 'terraform-mode-hook
+                    'spacemacs//terraform-setup-backend)
     :config (when terraform-auto-format-on-save
               (add-hook 'terraform-mode-hook
                         'terraform-format-on-save-mode))))

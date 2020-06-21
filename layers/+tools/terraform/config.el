@@ -15,4 +15,8 @@
   "If non-nil then call `terraform fmt' before saving the terraform buffer.")
 
 (defvar terraform-backend nil
-  "If 'lsp then use LSP for terraform.")
+  "The backend to use for IDE features.
+Possible value is `lsp'.")
+
+(defvar terraform-lsp-server 'terraform-lsp
+  "Language server to use for lsp backend. Possible values are `terraform-lsp'.")
