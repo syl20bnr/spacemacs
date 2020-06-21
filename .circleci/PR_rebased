@@ -11,9 +11,6 @@
 ##
 ## License: GPLv3
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source "${DIR}/shared"
-
 skip_for_branch_update
 
 upstream_head_sha=$(curl -s "${upstream_data_URL}" | jq '.commit.sha')

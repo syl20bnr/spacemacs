@@ -11,9 +11,6 @@
 ##
 ## License: GPLv3
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source "${DIR}/shared"
-
 skip_for_branch_update
 
 pr_base=$(curl -s "${pr_data_URL}" | jq '.base.ref')
