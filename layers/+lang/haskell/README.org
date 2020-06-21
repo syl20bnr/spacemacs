@@ -558,7 +558,7 @@ with the following script:
 
 #+BEGIN_SRC bash
   #!/bin/bash
-  cd `stack --project-root`
+  cd `stack path --project-root`
   stack $*
 #+END_SRC
 
