@@ -11,6 +11,24 @@
 ##
 ## License: GPLv3
 
+# Vars
+dev_b="develop"
+mst_b="master"
+prj_owner="syl20bnr"
+prj_repo="spacemacs"
+bot_login="emacspace"
+upstream_data_URL_root="https://api.github.com/repos/"
+upstream_data_URL_root+="${prj_owner}/"
+upstream_data_URL_root+="${prj_repo}"
+CIRCLE_PR_NUMBER="${CIRCLE_PR_NUMBER:-${CIRCLE_PULL_REQUEST##*/}}"
+pr_data_URL="${upstream_data_URL_root}/pulls/${CIRCLE_PR_NUMBER}"
+upstream_data_URL="${upstream_data_URL_root}/branches/develop"
+pr_patch_URL="https://patch-diff.githubusercontent.com/raw/"
+pr_patch_URL+="${prj_owner}/"
+pr_patch_URL+="${prj_repo}/pull/"
+pr_patch_URL+="${CIRCLE_PR_NUMBER}.patch"
+
+# Helpers
 echo_headline () {
 	printf '=%.0s' {1..80}
 	printf "\n$1\n"
@@ -18,13 +36,24 @@ echo_headline () {
 	echo
 }
 
-upstream_data_URL_root="https://api.github.com/repos/"
-upstream_data_URL_root+="${CIRCLE_PROJECT_USERNAME}/"
-upstream_data_URL_root+="${CIRCLE_PROJECT_REPONAME}"
+select_changed_orgs () {
+    changed_f_as_args=()
+    while read p
+    do
+        if [ -f "$p" ]; then
+            if [ ${p: -4} == ".org" ]; then
+                changed_f_as_args+=("${p}")
+            fi
+        fi
+    done </tmp/changed_files
+}
 
-pr_data_URL="${upstream_data_URL_root}/pulls/${CIRCLE_PR_NUMBER}"
-
-upstream_data_URL="${upstream_data_URL_root}/branches/develop"
+skip_for_branch_update () {
+    if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
+        echo "Skipping for branch update."
+        exit 0
+    fi
+}
 
 cleanup () {
 	rm -rf ~/.emacs.d/elpa ~/.emacs.d/.cache -f ~/.spacemacs
