@@ -20,6 +20,8 @@
                                        ("/"   "search project")
                                        ("?"   "show keybindings")
                                        ("a"   "applications")
+                                       ("at"  "tools")
+                                       ("atg" "geolocation")
                                        ("A"   "other applications")
                                        ("c"   "compile/comments")
                                        ("C"   "capture/colors")

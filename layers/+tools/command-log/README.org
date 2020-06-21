@@ -25,4 +25,4 @@ file.
 
 | Key binding | Description            |
 |-------------+------------------------|
-| ~SPC a L~   | Toggle the command log |
+| ~SPC a t l~ | Toggle the command log |

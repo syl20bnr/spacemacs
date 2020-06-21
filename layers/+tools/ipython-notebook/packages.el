@@ -14,10 +14,10 @@
 (defun ipython-notebook/init-ein ()
   (use-package ein
     :init
-    (spacemacs/set-leader-keys "ayl" 'ein:login
-                               "ayr" 'ein:run
-                               "ays" 'ein:stop)
-    (spacemacs/declare-prefix "ay" "ipython notebook")
+    (spacemacs/set-leader-keys "atil" 'ein:login
+                               "atir" 'ein:run
+                               "atis" 'ein:stop)
+    (spacemacs/declare-prefix "ati" "ipython notebook")
     :config
     (with-eval-after-load 'ein-notebook
       (add-hook 'ein:notebook-mode-hook

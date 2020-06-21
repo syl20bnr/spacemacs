@@ -249,13 +249,13 @@
 
       (spacemacs/set-leader-keys
         "'"   'spacemacs/default-pop-shell
-        "ase" 'spacemacs/shell-pop-eshell
-        "asi" 'spacemacs/shell-pop-inferior-shell
-        "asm" 'spacemacs/shell-pop-multiterm
-        "ast" 'spacemacs/shell-pop-ansi-term
-        "asT" 'spacemacs/shell-pop-term)
+        "atse" 'spacemacs/shell-pop-eshell
+        "atsi" 'spacemacs/shell-pop-inferior-shell
+        "atsm" 'spacemacs/shell-pop-multiterm
+        "atst" 'spacemacs/shell-pop-ansi-term
+        "atsT" 'spacemacs/shell-pop-term)
       (spacemacs/declare-prefix "'" "open shell")
-      (spacemacs/declare-prefix "as" "shells"))
+      (spacemacs/declare-prefix "ats" "shells"))
     :config
     (add-hook 'shell-pop-out-hook #'spacemacs//shell-pop-restore-window)))
 

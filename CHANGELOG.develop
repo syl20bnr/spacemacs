@@ -1166,6 +1166,9 @@ Other:
   - Improved google-translate for set source language to "auto" and
     select target language interactively (thanks to Lin Sun)
   - Allowed users to specify layout local variables (thanks to CeleritasCelery, fauxsoup)
+  - Refactor +layers/+tools packages to use prefix ~at~
+    migrating most key bindings to lower cases and
+    expanding room for further aliases (thanks to John Stevenson)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)

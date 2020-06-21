@@ -59,7 +59,7 @@ Add =(transmission :variables transmission-auto-refresh-all t)= to
 
 | Key binding | Description        |
 |-------------+--------------------|
-| ~SPC a t~   | start transmission |
+| ~SPC a t t~ | start transmission |
 
 ** =transmission-mode=
 
