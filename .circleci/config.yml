@@ -53,6 +53,8 @@ jobs:
   "Validate PR":
     docker:
       - image: jare/spacemacs-circleci:latest
+    environment:
+      BASH_ENV: ".circleci/shared"
     working_directory: ~/.emacs.d
     steps:
       - checkout
@@ -67,18 +69,24 @@ jobs:
   "core Emacs25 (required)":
     docker:
       - image: jare/spacemacs-circleci:emacs25
+    environment:
+      BASH_ENV: ".circleci/shared"
     working_directory: ~/.emacs.d
     <<: *steps_core_steps
 
   "spacemacs-base dist. Emacs25 (required)":
     docker:
       - image: jare/spacemacs-circleci:emacs25
+    environment:
+      BASH_ENV: ".circleci/shared"
     working_directory: ~/.emacs.d
     <<: *spacemacs_base_steps
 
   "spacemacs dist. Emacs25 (required)":
     docker:
       - image: jare/spacemacs-circleci:emacs25
+    environment:
+      BASH_ENV: ".circleci/shared"
     working_directory: ~/.emacs.d
     <<: *spacemacs_steps
 
@@ -86,18 +94,24 @@ jobs:
   "core Emacs26 (required)":
     docker:
       - image: jare/spacemacs-circleci:latest
+    environment:
+      BASH_ENV: ".circleci/shared"
     working_directory: ~/.emacs.d
     <<: *steps_core_steps
 
   "spacemacs-base dist. Emacs26 (required)":
     docker:
       - image: jare/spacemacs-circleci:latest
+    environment:
+      BASH_ENV: ".circleci/shared"
     working_directory: ~/.emacs.d
     <<: *spacemacs_base_steps
 
   "spacemacs dist. Emacs26 (required)":
     docker:
       - image: jare/spacemacs-circleci:latest
+    environment:
+      BASH_ENV: ".circleci/shared"
     working_directory: ~/.emacs.d
     <<: *spacemacs_steps
 
@@ -105,24 +119,32 @@ jobs:
   "core Emacs snapshot (optional)":
     docker:
       - image: jare/spacemacs-circleci:emacs-snapshot
+    environment:
+      BASH_ENV: ".circleci/shared"
     working_directory: ~/.emacs.d
     <<: *steps_core_steps
 
   "spacemacs-base dist. Emacs snapshot (optional)":
     docker:
       - image: jare/spacemacs-circleci:emacs-snapshot
+    environment:
+      BASH_ENV: ".circleci/shared"
     working_directory: ~/.emacs.d
     <<: *spacemacs_base_steps
 
   "spacemacs dist. Emacs snapshot (optional)":
     docker:
       - image: jare/spacemacs-circleci:emacs-snapshot
+    environment:
+      BASH_ENV: ".circleci/shared"
     working_directory: ~/.emacs.d
     <<: *spacemacs_steps
 
   "CHANGELOG.develop updated (optional)":
     docker:
       - image: jare/spacemacs-circleci:latest
+    environment:
+      BASH_ENV: ".circleci/shared"
     working_directory: ~/.emacs.d
     steps:
       - checkout
@@ -136,6 +158,8 @@ jobs:
   "Validate Documentation (required)":
     docker:
       - image: jare/spacemacs-circleci:latest
+    environment:
+      BASH_ENV: ".circleci/shared"
     working_directory: ~/.emacs.d
     steps:
       - checkout
