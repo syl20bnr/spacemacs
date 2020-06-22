@@ -824,6 +824,10 @@ EL: `org-agenda' element to jump to."
         (goto-char (match-beginning 4))))
   (run-hooks 'org-agenda-after-show-hook))
 
+(defvar spacemacs-org-agenda-display-filename-only nil
+  "if nil the full path of the org file is displayed.
+  If non nil only the file name without the path is displayed")
+
 (defun spacemacs-buffer//insert-todo-list (list-display-name list)
   "Insert an interactive todo list of `org-agenda' entries in the home buffer.
 LIST-DISPLAY-NAME: the displayed title of the list.
@@ -851,8 +855,13 @@ LIST: list of `org-agenda' entries in the todo list."
                            :button-suffix ""
                            :format "%[%t%]"
                            (format "%s %s %s"
-                                   (abbreviate-file-name
-                                    (cdr (assoc "file" el)))
+                                   (
+                                    let ((filename (cdr (assoc "file" el))))
+                                    (
+                                    if spacemacs-org-agenda-display-filename-only
+                                       (file-name-nondirectory filename)
+                                       (abbreviate-file-name filename)
+                                    ))
                                    (if (not (eq "" (cdr (assoc "time" el))))
                                        (format "- %s -"
                                                (cdr (assoc "time" el)))
