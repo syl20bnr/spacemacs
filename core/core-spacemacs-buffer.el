@@ -851,7 +851,7 @@ LIST: list of `org-agenda' entries in the todo list."
                            :button-suffix ""
                            :format "%[%t%]"
                            (format "%s %s %s"
-                                   (abbreviate-file-name
+                                   (file-name-nondirectory
                                     (cdr (assoc "file" el)))
                                    (if (not (eq "" (cdr (assoc "time" el))))
                                        (format "- %s -"
