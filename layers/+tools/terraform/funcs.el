@@ -13,20 +13,24 @@
   "Returns selected backend."
   (if terraform-backend
       terraform-backend
-    nil))
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'company-terraform))))
+
+(defun spacemacs//terraform-setup-company ()
+  "Conditionally setup company based on backend."
+  (pcase (spacemacs//terraform-backend)
+    ('company-terraform (spacemacs|add-company-backends
+                          :backends company-terraform
+                          :modes terraform-mode))
+    ;; Activate lsp company explicitly to activate
+    ;; standard backends as well
+    (`lsp (spacemacs|add-company-backends
+            :backends company-capf
+            :modes terraform-mode))))
+
 
 (defun spacemacs//terraform-setup-backend ()
   "Conditionally setup terraform backend."
   (pcase (spacemacs//terraform-backend)
-    (`lsp (spacemacs//terraform-setup-lsp))))
-
-;; lsp
-
-(defun spacemacs//terraform-setup-lsp ()
-  "Setup lsp backend."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (when (eq terraform-lsp-server 'terraform-lsp)
-          (require 'lsp-terraform))
-        (lsp))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+    (`lsp (lsp))))

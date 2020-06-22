@@ -38,10 +38,11 @@ layer variable =terraform-auto-format-on-save= to =t=:
 
 ** LSP
 To enable LSP, install [[https://github.com/juliosueiras/terraform-lsp][terraform-lsp]].
-
-And set the layer variable =terraform-backend= to ='lsp= like shown below:
+Then set the layer variable =terraform-backend= to ='lsp= like shown below:
 
 #+BEGIN_SRC emacs-lisp
   (terraform :variables terraform-backend 'lsp)
 #+END_SRC
 
+Alternatively you can also keep the variable on nil, then lsp will be used if lsp
+layer is loaded.

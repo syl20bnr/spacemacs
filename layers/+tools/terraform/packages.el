@@ -11,24 +11,17 @@
 
 (setq terraform-packages
       '(
+        company
         (company-terraform :requires company)
         terraform-mode
         ))
 
+(defun terraform/post-init-company ()
+  (spacemacs//terraform-setup-company))
+
 (defun terraform/init-company-terraform ()
   (use-package company-terraform
-    :defer t
-    :init
-    (spacemacs|add-company-backends
-      :backends company-terraform
-      :modes terraform-mode)))
-
-(defun terraform/init-lsp-terraform ()
-  (use-package lsp-terraform
-    :defer t
-    :init
-    (when (eq terraform-backend 'lsp)
-      (add-hook 'terraform-mode-hook #'lsp))))
+    :defer t))
 
 (defun terraform/init-terraform-mode ()
   (use-package terraform-mode

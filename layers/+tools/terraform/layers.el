@@ -11,4 +11,4 @@
 
 (when (and (boundp 'terraform-backend)
            (eq terraform-backend 'lsp))
-  (configuration-layer/declare-layer-dependencies '(dap)))
+  (configuration-layer/declare-layer-dependencies '(lsp)))
