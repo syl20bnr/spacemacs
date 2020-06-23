@@ -11,7 +11,8 @@
 ##
 ## License: GPLv3
 
-skip_for_branch_update
+skip_when_branch_update
+fail_when_undefined_pr_number
 
 pr_base=$(curl -s "${pr_data_URL}" | jq '.base.ref')
 if [[ "${pr_base}" == "\"${dev_b}\"" ]]; then
