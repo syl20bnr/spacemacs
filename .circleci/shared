@@ -48,8 +48,18 @@ select_changed_orgs () {
     done </tmp/changed_files
 }
 
-skip_for_branch_update () {
+fail_when_undefined_pr_number () {
     if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
+        echo "CircleCI didn't set $CIRCLE_PR_NUMBER"
+        echo "nor $CIRCLE_PULL_REQUEST! This time..."
+        echo "Job restart sometimes helps."
+        echo "Aborting the job."
+        exit 1
+    fi
+}
+
+skip_when_branch_update () {
+    if [[ "${IS_BRANCH_UPDATE}" == "yes" ]]; then
         echo "Skipping for branch update."
         exit 0
     fi

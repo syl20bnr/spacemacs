@@ -11,12 +11,14 @@
 ##
 ## License: GPLv3
 
-skip_for_branch_update
+skip_when_branch_update
 
 if [[ "$CIRCLE_PR_USERNAME" == "${bot_login}" ]]; then
     echo "Fun fact. Bots can't climb stairs or update CHANGELOG.develop"
     exit 0
 fi
+
+fail_when_undefined_pr_number
 
 if grep -q CHANGELOG.develop /tmp/changed_files; then
     echo "CHANGELOG.develop was updated as required"

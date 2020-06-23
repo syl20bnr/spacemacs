@@ -11,7 +11,8 @@
 ##
 ## License: GPLv3
 
-skip_for_branch_update
+skip_when_branch_update
+fail_when_undefined_pr_number
 
 upstream_head_sha=$(curl -s "${upstream_data_URL}" | jq '.commit.sha')
 pr_base_sha=$(curl -s "${pr_data_URL}" | jq '.base.sha')
