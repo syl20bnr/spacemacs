@@ -50,10 +50,9 @@ select_changed_orgs () {
 
 fail_when_undefined_pr_number () {
     if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
-        echo "CircleCI didn't set $CIRCLE_PR_NUMBER"
-        echo "nor $CIRCLE_PULL_REQUEST! This time..."
+        echo "CircleCI didn't set CIRCLE_PR_NUMBER"
+        echo "nor CIRCLE_PULL_REQUEST."
         echo "Job restart sometimes helps."
-        echo "Aborting the job."
         exit 1
     fi
 }
