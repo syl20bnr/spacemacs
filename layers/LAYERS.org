@@ -2976,6 +2976,7 @@ This layer provides basic support for Terraform =.tf= files.
 Features:
 - Basic syntax highlighting via [[https://github.com/syohex/emacs-terraform-mode][terraform-mode]]
 - Auto formatting on save via =terraform fmt=
+- LSP support for terraform-lsp via =terraform-backend=
 
 ** Tide Layer
 [[file:+tools/tide/README.org][+tools/tide/README.org]]
@@ -3013,7 +3014,7 @@ This layer adds support for working with Vagrant using [[https://github.com/ottb
 [[https://github.com/dougm/vagrant-tramp][vagrant-tramp]].
 
 Features:
-- Manage boxes (under the ~SPC a V~ prefix)
+- Manage boxes (under the ~SPC a t v~ prefix)
 - Remote editing on Vagrant boxes via Tramp
 
 ** Web-beautify
