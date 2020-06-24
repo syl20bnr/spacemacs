@@ -577,7 +577,7 @@ to buffers)."
              (when (>= num-buffers-placed num-windows) (cl-return))
              (set-window-buffer (winum-get-window-by-number cur-win) buffer)
              (setq cur-win (+ 1 (mod cur-win num-windows)))
-             (incf num-buffers-placed))))
+             (cl-incf num-buffers-placed))))
 
 (defun spacemacs/helm-find-buffers-windows ()
   (interactive)
