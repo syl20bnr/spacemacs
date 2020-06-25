@@ -1,6 +1,6 @@
 ;;; funcs.el --- Shell Layer functions File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -72,17 +72,17 @@ SHELL is the SHELL function to use (i.e. when FUNC represents a terminal)."
      (if (equal '(4) index)
          ;; no popup
          (,func ,shell)
-        (shell-pop--set-shell-type
+       (shell-pop--set-shell-type
         'shell-pop-shell-type
         (list ,name
-            ,(if (bound-and-true-p layouts-enable-local-variables)
-                    `(concat "*" (spacemacs//current-layout-name) "-"
+              ,(if (bound-and-true-p layouts-enable-local-variables)
+                   `(concat "*" (spacemacs//current-layout-name) "-"
                             (if (file-remote-p default-directory)
                                 "remote-"
-                            "")
+                              "")
                             ,name "*")
-                (concat "*" name "*"))
-            (lambda nil (,func ,shell))))
+                 (concat "*" name "*"))
+              (lambda nil (,func ,shell))))
        (shell-pop index)
        (spacemacs/resize-shell-to-desired-width))))
 

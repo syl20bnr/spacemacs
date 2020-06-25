@@ -1,6 +1,6 @@
 ;;; packages.el --- shell packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,28 +9,29 @@
 ;;
 ;;; License: GPLv3
 
-(setq shell-packages
-      '(
-        (comint :location built-in)
-        company
-        esh-help
-        (eshell :location built-in)
-        eshell-prompt-extras
-        eshell-z
-        helm
-        ivy
-        magit
-        multi-term
-        org
-        projectile
-        (shell :location built-in)
-        shell-pop
-        (term :location built-in)
-        xterm-color
-        terminal-here
-        vi-tilde-fringe
-        (vterm :toggle (not (spacemacs/system-is-mswindows)))
-        ))
+(defconst shell-packages
+  '(
+    (comint :location built-in)
+    company
+    esh-help
+    (eshell :location built-in)
+    eshell-prompt-extras
+    eshell-z
+    helm
+    ivy
+    magit
+    multi-term
+    org
+    projectile
+    (shell :location built-in)
+    shell-pop
+    (term :location built-in)
+    xterm-color
+    terminal-here
+    vi-tilde-fringe
+    window-purpose
+    (vterm :toggle (not (spacemacs/system-is-mswindows)))))
+
 
 (defun shell/init-comint ()
   (setq comint-prompt-read-only t)
@@ -310,8 +311,8 @@
       (spacemacs/register-repl 'terminal-here 'terminal-here)
       (spacemacs/set-leader-keys
         "\"" 'terminal-here-launch
-        "p \"" 'terminal-here-project-launch)
-      )))
+        "p \"" 'terminal-here-project-launch))))
+
 
 (defun shell/post-init-vi-tilde-fringe ()
   (spacemacs/add-to-hooks 'spacemacs/disable-vi-tilde-fringe
@@ -351,11 +352,12 @@
       (add-hook 'vterm-mode-hook 'spacemacs/disable-hl-line-mode)
 
       (with-eval-after-load 'centered-cursor-mode
-        (add-hook 'vterm-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode))
+        (add-hook 'vterm-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode)))))
 
-      (with-eval-after-load 'window-purpose
-        (purpose-set-extension-configuration
-         :vterm
-         (purpose-conf "vterm"
-                       :mode-purposes
-                       '((vterm-mode . terminal))))))))
+(defun shell/post-init-window-purpose ()
+  (purpose-set-extension-configuration
+   :shell-layer
+   (purpose-conf :mode-purposes '((vterm-mode . terminal)
+                                  (eshell-mode . terminal)
+                                  (shell-mode . terminal)
+                                  (term-mode . terminal)))))
