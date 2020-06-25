@@ -190,7 +190,6 @@
     - [[#spacemacs-distribution][Spacemacs distribution]]
     - [[#spacemacs-base-distribution][Spacemacs-base distribution]]
     - [[#spacemacs-bootstrap-distribution][Spacemacs-bootstrap distribution]]
-    - [[#spacemacs-docker-distribution][Spacemacs-docker distribution]]
 - [[#tagging][Tagging]]
   - [[#cscope][Cscope]]
   - [[#helm-gtags][Helm Gtags]]
@@ -2471,26 +2470,6 @@ Features:
 - Loads =async= which is used to run background processes
 - Loads =bind-map= and =bind-key= which are used to realize various
   Spacemacs specific key binding commands
-
-*** Spacemacs-docker distribution
-[[file:+distributions/spacemacs-docker/README.org][+distributions/spacemacs-docker/README.org]]
-
-Spacemacs distribution that aims to automate dependency installation for
-Spacemacs layers and provide well tested Docker based development environment
-with GUI support on all major platforms and even [[https://i.imgur.com/wDLDMZN.gif][your web browser]].
-
-Features:
-- Automatically get Spacemacs layers dependency installed with [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/README.org][installer scripts]]
-- Reap the benefit of Emacs and other GNU/Linux tools on Windows or macOS machines
-- Use [[https://hub.docker.com/][docker hub]] to auto-build your environment and store full backups for free
-- Build once and work with the same development environment everywhere
-- Run untrusted/risky code in the tunable sandbox with CPU/network/disk quotas
-- Try new tools, experiment and roll back changes when something goes wrong
-- Share your setup with others or extend someone else's development environment
-- Run multiple Emacs instances on the same machine isolated
-- [[https://docs.docker.com/engine/reference/commandline/pause/][pause]] container to free resources temporarily
-- [[https://github.com/docker/docker/blob/1.13.x/experimental/checkpoint-restore.md][Checkpoint & Restore]] - maybe the fastest way to start a "heavy" environment
-- Friendly for networks with low upload speed/quotas.
 
 * Tagging
 ** Cscope
