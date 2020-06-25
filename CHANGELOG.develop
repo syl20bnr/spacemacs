@@ -3278,6 +3278,8 @@ Other:
 - Use correct error list faces when defining error levels with custom bitmaps
   (thanks to Alexander Miller)
 - Fixed =goto-flycheck-error-list= (thanks to Thanh Vuong)
+- Added lsp support for sqls
+  - Added layer variable =sql-lsp-sqls-workspace-config-path= to setting workspace configuration
 **** Swift
 - Update Swift REPL key bindings (thanks to Elliot Bulmer)
 **** Systemd

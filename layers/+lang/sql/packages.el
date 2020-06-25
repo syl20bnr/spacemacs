@@ -14,6 +14,7 @@
         company
         org
         sql
+        sql-mode
         ;; This mode is more up-to-date than the MELPA one.
         ;; Turns out that it is available in GNU ELPA but we cannot
         ;; force Spacemacs to fetch from it for now, it will always
@@ -172,7 +173,20 @@
         "bS" 'sql-save-connection)
 
       (add-hook 'sql-interactive-mode-hook
-                (lambda () (toggle-truncate-lines t))))))
+                (lambda () (toggle-truncate-lines t)))
+
+      ;; lsp-sqls
+      (let ((path-config (cond
+                          ((equal sql-lsp-sqls-workspace-config-path 'workspace) "workspace")
+                          ((equal sql-lsp-sqls-workspace-config-path 'root) "root")
+                          (t nil))))
+        (setq lsp-sqls-workspace-config-path path-config)))))
+
+(defun sql/init-sql-mode ()
+  (use-package sql-mode
+    :defer t
+    :init (add-hook 'sql-mode-hook
+                    'spacemacs//sql-setup-backend)))
 
 (defun sql/init-sql-indent ()
   (use-package sql-indent
@@ -207,9 +221,7 @@
                                     sql-capitalize-keywords-blacklist)))))
 
 (defun sql/post-init-company ()
-  (spacemacs|add-company-backends
-    :backends company-capf
-    :modes sql-mode))
+  (spacemacs//sql-setup-company))
 
 (defun sql/pre-init-org ()
   (spacemacs|use-package-add-hook org
