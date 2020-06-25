@@ -1,6 +1,6 @@
 ;;; packages.el --- erc Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -224,7 +224,7 @@
         "find current erc channel's log file in `erc-view-log-mode'"
         (interactive)
         (when (erc-logging-enabled)
-            (find-file-existing (erc-current-logfile)))))))
+          (find-file-existing (erc-current-logfile)))))))
 
 (defun erc/init-erc-image ()
   (use-package erc-image
@@ -256,6 +256,7 @@
               (erc/default-servers)
             (call-interactively 'erc)))))))
 
-(defun erc/pre-init-window-purpose ()
-  (spacemacs|use-package-add-hook window-purpose
-    :pre-config (add-to-list 'purpose-user-mode-purposes '(erc-mode . chat))))
+(defun erc/post-init-window-purpose ()
+  (purpose-set-extension-configuration
+   :erc-layer
+   (purpose-conf :mode-purposes '((erc-mode . chat)))))
