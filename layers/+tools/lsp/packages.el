@@ -11,7 +11,7 @@
 
 (defconst lsp-packages
   '(
-    (lsp-mode :requires yasnippet)
+    lsp-mode
     lsp-ui
     (helm-lsp :requires helm)
     (lsp-ivy :requires ivy)
