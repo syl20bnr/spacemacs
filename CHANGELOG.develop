@@ -2033,6 +2033,7 @@ Other:
     environment variables (thanks to Joshua Santos)
   - Fixed =go-run-test-current-function= for vanilla tests and gocheck suite
     tests (thanks to Mathieu Post)
+  - Fixed search for current test function to run (thanks to joelpet)
   - Disabled =go-eldoc-setup= for LSP backend (thanks to Seong Yong-ju)
 **** Graphviz
 - Use graphviz package from melpa (thanks to Matthew Boston)
