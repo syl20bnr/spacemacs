@@ -156,8 +156,4 @@
       (spacemacs|diminish purpose-mode)
       (purpose-x-golden-ratio-setup)
       ;; Show magit-log-select and diff in two windows
-      (purpose-x-magit-multi-on)
-      ;; Other layers may have modified `purpose-user-mode-purposes' by using
-      ;; `spacemacs|user-package-add-hook' to add pre-config hooks; we want to
-      ;; incorporate any such configuration now.
-      (purpose-compile-user-configuration))))
+      (purpose-x-magit-multi-on))))
