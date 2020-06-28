@@ -53,11 +53,11 @@ check out the corresponding section in the FAQ (~SPC h SPC $PATH RET~).
 
 * Key bindings
 
-| Key binding | Description                         |
-|-------------+-------------------------------------|
-| ~SPC a e c~ | create a new note                   |
-| ~SPC a e e~ | edit an existing note               |
-| ~SPC a e f~ | find a note using a keyword         |
-| ~SPC a e s~ | show an existing note               |
-| ~SPC a e r~ | remove an existing note             |
-| ~SPC a e m~ | move a note to a different notebook |
+| Key binding   | Description                         |
+|---------------+-------------------------------------|
+| ~SPC a w e c~ | create a new note                   |
+| ~SPC a w e e~ | edit an existing note               |
+| ~SPC a w e f~ | find a note using a keyword         |
+| ~SPC a w e s~ | show an existing note               |
+| ~SPC a w e r~ | remove an existing note             |
+| ~SPC a w e m~ | move a note to a different notebook |

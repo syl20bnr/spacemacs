@@ -1172,6 +1172,9 @@ Other:
   - Refactor +layers/+tools packages to use prefix ~at~
     migrating most key bindings to lower cases and
     expanding room for further aliases (thanks to John Stevenson)
+  - Refactor layers/+chat|email|fun|readers|web-services packages to use
+    relative key binding, migrating most key bindings to lower cases and
+    expanding room for further aliases (thanks to John Stevenson)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)

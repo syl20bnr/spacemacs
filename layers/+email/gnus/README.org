@@ -143,7 +143,7 @@ Basic and Spacemacs specific key bindings can be found in the following table.
 
 | Key binding          | Gnus mode - Description                             |
 |----------------------+-----------------------------------------------------|
-| ~SPC a g~            | Starts Gnus                                         |
+| ~SPC a e g~          | Starts Gnus                                         |
 | ~m~                  | New Message                                         |
 | ~O R~, ~G R~ (emacs) | Group Buffer - Add RSS feed                         |
 | ~g r~                | Group Buffer - Check for new mail                   |

@@ -56,14 +56,14 @@
     :commands (slack-start)
     :defer t
     :init
-    (spacemacs/declare-prefix "aC" "slack")
+    (spacemacs/declare-prefix "acs" "slack")
     (spacemacs/set-leader-keys
-      "aCs" 'slack-start
-      "aCj" 'slack-channel-select
-      "aCg" 'slack-group-select
-      "aCr" 'slack-select-rooms
-      "aCd" 'slack-im-select
-      "aCq" 'slack-ws-close)
+      "acss" 'slack-start
+      "acsj" 'slack-channel-select
+      "acsg" 'slack-group-select
+      "acsr" 'slack-select-rooms
+      "acsd" 'slack-im-select
+      "acsq" 'slack-ws-close)
     (setq slack-enable-emoji t)
     :config
     (dolist (mode '(slack-mode slack-message-buffer-mode))

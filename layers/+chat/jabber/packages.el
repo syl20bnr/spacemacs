@@ -20,7 +20,7 @@
     :init
     (progn
       (add-hook 'jabber-post-connect-hooks 'spacemacs/jabber-connect-hook)
-      (spacemacs/set-leader-keys "aj" 'jabber-connect-all))
+      (spacemacs/set-leader-keys "acj" 'jabber-connect-all))
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'jabber-roster-mode

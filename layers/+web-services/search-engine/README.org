@@ -51,9 +51,9 @@ file.
 
 * Key bindings
 
-| Evil      | Holy    | Command                                   |
-|-----------+---------+-------------------------------------------|
-| ~SPC a /~ | ~C-c /~ | Summon a Helm buffer to select any engine |
+| Evil        | Holy    | Command                                   |
+|-------------+---------+-------------------------------------------|
+| ~SPC a w /~ | ~C-c /~ | Summon a Helm buffer to select any engine |
 
 * Customize it!
 If you'd rather have emacs use chrome, or firefox or any other thing (=eww=) you

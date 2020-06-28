@@ -35,12 +35,12 @@
     :commands notmuch
     :init
     (progn
-      (spacemacs/declare-prefix "aN" "notmuch")
+      (spacemacs/declare-prefix "aen" "notmuch")
       (spacemacs/set-leader-keys
-        "aNN" 'notmuch
-        "aNi" 'spacemacs/notmuch-inbox
-        "aNj" 'notmuch-jump-search
-        "aNs" 'notmuch-search))
+        "aenN" 'notmuch
+        "aeni" 'spacemacs/notmuch-inbox
+        "aenj" 'notmuch-jump-search
+        "aens" 'notmuch-search))
     :config
     (progn
       (dolist (prefix '(("ms" . "stash")

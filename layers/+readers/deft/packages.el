@@ -23,7 +23,7 @@
     (progn
       (spacemacs/declare-prefix-for-mode 'deft-mode "mz" "zetteldeft")
       (spacemacs/declare-prefix-for-mode 'org-mode "mz" "zetteldeft")
-      (spacemacs/declare-prefix "anz" "zetteldeft")
+      (spacemacs/declare-prefix "ardz" "zetteldeft")
       ;; zetteldeft actions in deft mode
       (spacemacs/set-leader-keys-for-major-mode 'deft-mode
         "zT" 'zetteldeft-tag-buffer
@@ -46,10 +46,10 @@
       ;; new zetteldeft file under capture
       (spacemacs/set-leader-keys "Cz" 'zetteldeft-new-file)
       ;; actions under applications/deft/zetteldeft
-      (spacemacs/set-leader-keys "anzn" 'zetteldeft-new-file)
-      (spacemacs/set-leader-keys "anzT" 'zetteldeft-tag-buffer)
-      (spacemacs/set-leader-keys "anzs" 'zetteldeft-search-at-point)
-      (spacemacs/set-leader-keys "anzo" 'zetteldeft-find-file)
+      (spacemacs/set-leader-keys "ardzn" 'zetteldeft-new-file)
+      (spacemacs/set-leader-keys "ardzT" 'zetteldeft-tag-buffer)
+      (spacemacs/set-leader-keys "ardzs" 'zetteldeft-search-at-point)
+      (spacemacs/set-leader-keys "ardzo" 'zetteldeft-find-file)
     )))
 
 (defun deft/init-deft ()
@@ -64,9 +64,9 @@
       ;; in applications prefix, NOTE: backward incompatible keybindings
       (if deft-zetteldeft
           (progn
-            (spacemacs/declare-prefix "an" "deft")
-            (spacemacs/set-leader-keys "ann" 'spacemacs/deft))
-        (spacemacs/set-leader-keys "an" 'spacemacs/deft))
+            (spacemacs/declare-prefix "ard" "deft")
+            (spacemacs/set-leader-keys "ardn" 'spacemacs/deft))
+        (spacemacs/set-leader-keys "ard" 'spacemacs/deft))
       ;; put in capture prefix
       (spacemacs/set-leader-keys "Cd" 'deft-new-file)
 

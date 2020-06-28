@@ -102,21 +102,21 @@ read that in =:password=.
 
 * Key bindings
 
-| Key binding | Description                                           |
-|-------------+-------------------------------------------------------|
-| ~SPC a i e~ | Starts ERC                                            |
-| ~SPC a i E~ | Starts ERC via TLS/SSL                                |
-| ~SPC a i i~ | Switch to next active ERC buffer                      |
-| ~SPC a i D~ | Start ERC with default servers                        |
-| ~SPC m c~   | Open the log file of the current channel              |
-| ~SPC m b~   | Switch between ERC buffers                            |
-| ~SPC m d~   | Interactively input a user action and send it to IRC. |
-| ~SPC m D~   | Draw Social Graph using [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]]              |
-| ~SPC m j~   | Join a channel, executes the /join command            |
-| ~SPC m n~   | Run "/names #channel" in the current channel.         |
-| ~SPC m l~   | Run the /list command                                 |
-| ~SPC m p~   | Part from the channel                                 |
-| ~SPC m q~   | Quit server                                           |
+| Key binding   | Description                                           |
+|---------------+-------------------------------------------------------|
+| ~SPC a c i e~ | Starts ERC                                            |
+| ~SPC a c i E~ | Starts ERC via TLS/SSL                                |
+| ~SPC a c i i~ | Switch to next active ERC buffer                      |
+| ~SPC a c i D~ | Start ERC with default servers                        |
+| ~SPC m c~     | Open the log file of the current channel              |
+| ~SPC m b~     | Switch between ERC buffers                            |
+| ~SPC m d~     | Interactively input a user action and send it to IRC. |
+| ~SPC m D~     | Draw Social Graph using [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]]              |
+| ~SPC m j~     | Join a channel, executes the /join command            |
+| ~SPC m n~     | Run "/names #channel" in the current channel.         |
+| ~SPC m l~     | Run the /list command                                 |
+| ~SPC m p~     | Part from the channel                                 |
+| ~SPC m q~     | Quit server                                           |
 
 *Note:* If you want to connect securely to an IRC server, you must run =erc-tls=
  command on ~SPC a i E~ instead of the =erc= command.

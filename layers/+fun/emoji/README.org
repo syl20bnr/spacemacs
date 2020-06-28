@@ -35,7 +35,7 @@ Linux user could install [[https://zhm.github.io/symbola/][Symbola]] font to get
 
 | Key binding | Description                             |
 |-------------+-----------------------------------------|
-| ~SPC a E~   | open a dedicated buffer to browse Emoji |
+| ~SPC a f e~ | open a dedicated buffer to browse Emoji |
 | ~SPC i e~   | insert Emoji via a helm buffer          |
 
 ** Emoji dedicated buffer

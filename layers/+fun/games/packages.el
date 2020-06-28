@@ -38,8 +38,8 @@
     :commands helm-games
     :init
     (progn
-      (spacemacs/declare-prefix "aG" "games")
-      (spacemacs/set-leader-keys "aG" 'helm-games))))
+      (spacemacs/declare-prefix "afg" "games")
+      (spacemacs/set-leader-keys "afg" 'helm-games))))
 
 (defun games/init-pacmacs ()
   (use-package pacmacs
