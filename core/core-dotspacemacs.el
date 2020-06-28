@@ -828,7 +828,7 @@ error recovery."
                           "exists in filesystem" "path")
     (setq dotspacemacs-configuration-layers
           (mapcar (lambda (l) (if (listp l) (car l) l))
-                  dotspacemacs-configuration-layers))
+                  (remove nil dotspacemacs-configuration-layers)))
     (spacemacs//test-list 'configuration-layer/get-layer-path
                           'dotspacemacs-configuration-layers
                           "can be found" "layer")
