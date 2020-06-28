@@ -664,6 +664,8 @@ Other:
   - Avoid unnecessary packages installation of tern layer
   - Fixed terminal mode line indicator overlapping (thanks to duianto)
   - Fixed broken --timed-requires and --adv-timers under Emacs 27 and above (thanks to Ying Qu)
+  - Removed nils from =dotspacemacs-configuration-layers= when running tests
+    (thanks to Ag Ibragimov)
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
