@@ -109,7 +109,7 @@ In this case you can disable these by setting =elfeed-enable-goodies= to =nil=.
 
 | Key binding | Description  |
 |-------------+--------------|
-| ~SPC a f~   | start elfeed |
+| ~SPC a r e~ | start elfeed |
 
 Use =SPC ?= to discover major-mode key bindings.
 

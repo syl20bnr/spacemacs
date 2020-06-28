@@ -64,24 +64,24 @@ By default the values are:
 
 * Key bindings
 
-| Key binding | Description                             |
-|-------------+-----------------------------------------|
-| ~SPC a C d~ | Direct message someone                  |
-| ~SPC a C g~ | Join a group (private channel)          |
-| ~SPC a C j~ | Join a channel                          |
-| ~SPC a C q~ | Close connection                        |
-| ~SPC a C r~ | Join a channel, group, or direct messge |
-| ~SPC a C s~ | (Re)connects to Slack                   |
-| ~SPC m c~   | Embed mention of channel                |
-| ~SPC m e~   | Edit message at point                   |
-| ~SPC m j~   | Join a channel                          |
-| ~SPC m d~   | Direct message someone                  |
-| ~SPC m m~   | Embed mention of user                   |
-| ~SPC m p~   | Load previous messages                  |
-| ~SPC m )~   | Add reaction (emoji) to a message       |
-| ~SPC m (~   | Remove reaction (emoji) to a message    |
-| ~SPC m t~   | Show or create thread                   |
-| ~SPC m q~   | Quit Slack                              |
+| Key binding   | Description                             |
+|---------------+-----------------------------------------|
+| ~SPC a c s d~ | Direct message someone                  |
+| ~SPC a c s g~ | Join a group (private channel)          |
+| ~SPC a c s j~ | Join a channel                          |
+| ~SPC a c s q~ | Close connection                        |
+| ~SPC a c s r~ | Join a channel, group, or direct messge |
+| ~SPC a c s s~ | (Re)connects to Slack                   |
+| ~SPC m c~     | Embed mention of channel                |
+| ~SPC m e~     | Edit message at point                   |
+| ~SPC m j~     | Join a channel                          |
+| ~SPC m d~     | Direct message someone                  |
+| ~SPC m m~     | Embed mention of user                   |
+| ~SPC m p~     | Load previous messages                  |
+| ~SPC m )~     | Add reaction (emoji) to a message       |
+| ~SPC m (~     | Remove reaction (emoji) to a message    |
+| ~SPC m t~     | Show or create thread                   |
+| ~SPC m q~     | Quit Slack                              |
 
 The following bindings are provided to mimic bindings in the official Slack
 client.

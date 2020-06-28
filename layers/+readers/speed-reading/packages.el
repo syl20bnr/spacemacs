@@ -26,7 +26,7 @@
         (evil-insert-state)
         (spray-mode t)
         (internal-show-cursor (selected-window) nil))
-      (spacemacs/set-leader-keys "aR" 'speed-reading/start-spray)
+      (spacemacs/set-leader-keys "ars" 'speed-reading/start-spray)
 
       (defadvice spray-quit (after speed-reading//quit-spray activate)
         "Correctly quit spray."

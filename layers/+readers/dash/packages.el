@@ -22,7 +22,7 @@
   (use-package helm-dash
     :defer t
     :init (progn
-            (spacemacs/declare-prefix "az" "zeal/dash docs")
+            (spacemacs/declare-prefix "arz" "zeal/dash docs")
             (spacemacs/set-leader-keys
               "azh" 'helm-dash-at-point
               "azH" 'helm-dash))
@@ -33,10 +33,10 @@
   (use-package counsel-dash
     :defer t
     :init (progn
-            (spacemacs/declare-prefix "az" "zeal/dash docs")
+            (spacemacs/declare-prefix "arz" "zeal/dash docs")
             (spacemacs/set-leader-keys
-              "azh" 'counsel-dash-at-point
-              "azH" 'counsel-dash))
+              "arzh" 'counsel-dash-at-point
+              "arzH" 'counsel-dash))
     :config (when dash-autoload-common-docsets
               (dash//activate-package-docsets dash-docs-docset-newpath))))
 
@@ -44,19 +44,19 @@
   (use-package dash-at-point
     :defer t
     :init (progn
-            (spacemacs/declare-prefix "az" "zeal/dash docs")
+            (spacemacs/declare-prefix "arz" "zeal/dash docs")
             (spacemacs/set-leader-keys
-              "azd" 'dash-at-point
-              "azD" 'dash-at-point-with-docset))))
+              "arzd" 'dash-at-point
+              "arzD" 'dash-at-point-with-docset))))
 
 (defun dash/init-zeal-at-point ()
   (use-package zeal-at-point
     :defer t
     :init (progn
-            (spacemacs/declare-prefix "az" "zeal/dash docs")
+            (spacemacs/declare-prefix "arz" "zeal/dash docs")
             (spacemacs/set-leader-keys
-              "azd" 'zeal-at-point
-              "azD" 'zeal-at-point-set-docset))
+              "arzd" 'zeal-at-point
+              "arzD" 'zeal-at-point-set-docset))
     :config
     ;; This lets users search in multiple docsets
     (add-to-list 'zeal-at-point-mode-alist '(web-mode . "html,css,javascript"))))

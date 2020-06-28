@@ -45,7 +45,7 @@
     :commands (mu4e mu4e-compose-new)
     :init
     (progn
-      (spacemacs/set-leader-keys "a M" 'mu4e)
+      (spacemacs/set-leader-keys "aem" 'mu4e)
       (global-set-key (kbd "C-x m") 'mu4e-compose-new)
       (setq mu4e-completing-read-function 'completing-read
             mu4e-use-fancy-chars 't

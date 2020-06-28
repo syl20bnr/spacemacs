@@ -230,13 +230,13 @@ codes, set the variable =rcirc-enable-styles= to =t= in your dotfile:
 
 * Key bindings
 
-| Key binding | Description                                                                   |
-|-------------+-------------------------------------------------------------------------------|
-| ~SPC a i r~ | Open rcirc                                                                    |
-| ~SPC l o i~ | Open rcirc in a custom perspective "@RICRC" (need perspectives layer enabled) |
-| ~SPC m i a~ | Interactively insert a color code (if rcirc-styles is enabled)                |
-| ~SPC m i c~ | Interactively insert a text attribute code (if rcirc-styles is enabled)       |
-| ~SPC m i p~ | Toggle preview in input line (if rcirc-styles is enabled)                     |
+| Key binding   | Description                                                                   |
+|---------------+-------------------------------------------------------------------------------|
+| ~SPC a c i r~ | Open rcirc                                                                    |
+| ~SPC l o i~   | Open rcirc in a custom perspective "@RICRC" (need perspectives layer enabled) |
+| ~SPC m i a~   | Interactively insert a color code (if rcirc-styles is enabled)                |
+| ~SPC m i c~   | Interactively insert a text attribute code (if rcirc-styles is enabled)       |
+| ~SPC m i p~   | Toggle preview in input line (if rcirc-styles is enabled)                     |
 
 In normal state:
 

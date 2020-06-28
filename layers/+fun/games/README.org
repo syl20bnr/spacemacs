@@ -36,7 +36,7 @@ To run a game:
 
 | Key binding | Description                            |
 |-------------+----------------------------------------|
-| ~SPC a G~   | Open an =helm= buffer to select a game |
+| ~SPC a f g~ | Open an =helm= buffer to select a game |
 
 Possible helm actions:
 - run (default)

@@ -49,11 +49,11 @@
     :init
     (progn
       (spacemacs/set-leader-keys
-        "aie" 'erc
-        "aiE" 'erc-tls
-        "aii" 'erc-track-switch-buffer
-        "aiD" 'erc/default-servers)
-      (spacemacs/declare-prefix "ai"  "irc")
+        "acie" 'erc
+        "aciE" 'erc-tls
+        "acii" 'erc-track-switch-buffer
+        "aciD" 'erc/default-servers)
+      (spacemacs/declare-prefix "aci"  "irc")
       ;; utf-8 always and forever
       (setq erc-server-coding-system '(utf-8 . utf-8)))
     :config

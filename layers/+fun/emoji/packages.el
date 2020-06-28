@@ -23,7 +23,7 @@
                emoji-cheat-sheet-plus-display-mode)
     :init
     (progn
-      (spacemacs/set-leader-keys "aE" 'emoji-cheat-sheet-plus-buffer)
+      (spacemacs/set-leader-keys "afe" 'emoji-cheat-sheet-plus-buffer)
       (spacemacs/set-leader-keys "ie" 'emoji-cheat-sheet-plus-insert)
       (evilified-state-evilify emoji-cheat-sheet-plus-buffer-mode
         emoji-cheat-sheet-plus-buffer-mode-map

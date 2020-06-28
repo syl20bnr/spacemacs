@@ -31,12 +31,12 @@
     :commands gnus
     :init
     (progn
-      (spacemacs/declare-prefix "ag" "gnus" "Gnus newsreader")
+      (spacemacs/declare-prefix "aeg" "gnus" "Gnus newsreader")
       (spacemacs/set-leader-keys
-        "agg" 'gnus
-        "ags" 'gnus-slave
-        "agu" 'gnus-unplugged
-        "ago" 'gnus-slave-unplugged)
+        "aegg" 'gnus
+        "aegs" 'gnus-slave
+        "aegu" 'gnus-unplugged
+        "aego" 'gnus-slave-unplugged)
       (spacemacs/declare-prefix-for-mode 'message-mode "mi" "insert")
       (spacemacs/set-leader-keys-for-major-mode 'message-mode
         ;; RFC 1855
