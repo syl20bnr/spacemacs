@@ -39,4 +39,4 @@
         (unless spacemacs--vagrant-tramp-loaded
           (vagrant-tramp-add-method)
           (setq spacemacs--vagrant-tramp-loaded t)))
-      (spacemacs/set-leader-keys "atv" 'vagrant-tramp-term))))
+      (spacemacs/set-leader-keys "atvt" 'vagrant-tramp-term))))
