@@ -193,8 +193,8 @@ section in [Documentation][DOCUMENTATION.org].
 
 ### Windows
 
-You can download good quality builds from the [emacs-w64 project][emacs-for-windows].
-It is recommended to install the most recent [stable build][emacs-for-windows-stable].
+You can download good quality builds from the [https://ftp.gnu.org/gnu/emacs/windows/][emacs-for-windows].
+It is recommended to install the most recent [https://ftp.gnu.org/gnu/emacs/windows/[emacs-for-windows-stable].
 
 Be sure to declare a environment variable named `HOME` pointing to your user
 directory `C:\Users\<username>`. Then you can clone Spacemacs in this directory.
