@@ -193,7 +193,7 @@ section in [Documentation][DOCUMENTATION.org].
 
 ### Windows
 
-You can download good quality builds from the [emacs-w64 project][https://ftp.gnu.org/gnu/emacs/windows/].
+You can download good quality builds from the [GNU emacs for Windows project][https://ftp.gnu.org/gnu/emacs/windows/].
 It is recommended to install the most recent [stable][https://ftp.gnu.org/gnu/emacs/windows/].
 
 Be sure to declare a environment variable named `HOME` pointing to your user
