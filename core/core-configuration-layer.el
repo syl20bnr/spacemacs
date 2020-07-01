@@ -2687,6 +2687,10 @@ continue with the stable ELPA repository installation."
           (error (setq verification-err
                        (format "GnuPGP doesn't seem to be available. %s"
                                (cdr error)))))
+        (when package-gnupghome-dir
+          (with-file-modes 448
+            (make-directory package-gnupghome-dir t))
+          (setf (epg-context-home-directory context) package-gnupghome-dir))
         (unless verification-err
           (condition-case error
               (epg-import-keys-from-file
