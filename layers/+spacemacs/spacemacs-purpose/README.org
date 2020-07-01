@@ -91,6 +91,7 @@ that users can still overwrite these configs it is important
 to declare them uniformly in Spacemacs.
 
 To do so copy and adjust the following code:
+
 #+BEGIN_SRC emacs-lisp
   ;; This will only be called if `window-purpose` is listed
   ;; among the layer packages.
@@ -118,6 +119,7 @@ these allocations to match ones own personal needs.
 
 This can easily be achieved by adding below code in
 `dotspacemacs/user-config`:
+
 #+BEGIN_SRC emacs-lisp
   ;; This will add user allocations with a higher
   ;; priority than the ones from the layers.

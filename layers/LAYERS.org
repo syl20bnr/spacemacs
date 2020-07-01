@@ -1233,6 +1233,7 @@ Features:
 - Snippet insertion for the more general SQL constructs.
 - REPL support via =SQLi= buffer.
 - Automatic capitalization of keywords.
+- LSP support via [[https://github.com/lighttiger2505/sqls][sqls]].
 
 *** Lisp dialects
 **** Clojure
