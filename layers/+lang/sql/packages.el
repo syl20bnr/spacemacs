@@ -14,7 +14,6 @@
         company
         org
         sql
-        sql-mode
         ;; This mode is more up-to-date than the MELPA one.
         ;; Turns out that it is available in GNU ELPA but we cannot
         ;; force Spacemacs to fetch from it for now, it will always
@@ -31,7 +30,11 @@
 (defun sql/init-sql ()
   (use-package sql
     :defer t
-    :init (spacemacs/register-repl 'sql 'spacemacs/sql-start "sql")
+    :init
+    (progn
+      (spacemacs/register-repl 'sql 'spacemacs/sql-start "sql")
+      (add-hook 'sql-mode-hook
+                'spacemacs//sql-setup-backend))
     :config
     (progn
       (setq
@@ -41,7 +44,6 @@
       (advice-add 'sql-add-product :after #'spacemacs/sql-populate-products-list)
       (advice-add 'sql-del-product :after #'spacemacs/sql-populate-products-list)
       (spacemacs/sql-populate-products-list)
-
       (defun spacemacs//sql-source (products)
         "return a source for helm selection"
         `((name . "SQL Products")
@@ -181,12 +183,6 @@
                           ((equal sql-lsp-sqls-workspace-config-path 'root) "root")
                           (t nil))))
         (setq lsp-sqls-workspace-config-path path-config)))))
-
-(defun sql/init-sql-mode ()
-  (use-package sql-mode
-    :defer t
-    :init (add-hook 'sql-mode-hook
-                    'spacemacs//sql-setup-backend)))
 
 (defun sql/init-sql-indent ()
   (use-package sql-indent
