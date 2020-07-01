@@ -81,7 +81,7 @@ the .lock file at the root of the repository.")
   "Remote location of the signature file for the ELPA stable directory")
 
 (defconst configuration-layer--stable-elpa-gpg-keyring
-  (expand-file-name (concat spacemacs-core-directory "gnupg/spacemacs.pub"))
+  (expand-file-name (concat spacemacs-core-directory "gnupg/spacemacs.gpg"))
   "Absolute path to public GPG key used to signed the ELPA stable repository
 tarballs.")
 
