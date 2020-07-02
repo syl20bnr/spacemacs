@@ -438,6 +438,10 @@ indent handling like has been reported for `go-mode'.
 If it does deactivate it here.
 (default t)")
 
+(defvar dotspacemacs-home-shorten-agenda-source nil
+  "If nil the home buffer shows the full path of agenda items
+and todos. If non nil only the file name is shown.")
+
 (defvar dotspacemacs--pretty-ignore-subdirs
   '(".cache/junk")
   "Subdirectories of `spacemacs-start-directory' to ignore when
