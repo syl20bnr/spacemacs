@@ -13,7 +13,7 @@
   - [[#rjsx-mode][rjsx-mode]]
   - [[#formatting-web-beautify][Formatting (web-beautify)]]
     - [[#documentation-js-doc][Documentation (js-doc)]]
-  - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
+  - [[#documentation-tern][Documentation (tern)]]
 
 * Description
 ES6 and JSX ready configuration layer for React
@@ -151,7 +151,7 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m r d t~ | insert tag to comment                 |
 | ~SPC m r d h~ | show list of available jsdoc tags     |
 
-** Auto-complete and documentation (tern)
+** Documentation (tern)
 
 | Key binding   | Description                                                                              |
 |---------------+------------------------------------------------------------------------------------------|

@@ -21,7 +21,6 @@
 (defun spacemacs//react-setup-company ()
   "Conditionally setup company based on backend."
   (pcase javascript-backend
-    (`tern (spacemacs/tern-setup-tern-company 'rjsx-mode))
     (`tide (spacemacs//tide-setup-company 'rjsx-mode))))
 
 (defun spacemacs//react-setup-next-error-fn ()

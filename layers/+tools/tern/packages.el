@@ -1,6 +1,6 @@
 ;;; packages.el --- Tern Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,12 +9,8 @@
 ;;
 ;;; License: GPLv3
 
-(setq tern-packages '((company-tern :requires company)
-                      tern))
-
-(defun tern/init-company-tern ()
-  (use-package company-tern
-    :defer t))
+(defconst tern-packages
+  '(tern))
 
 (defun tern/init-tern ()
   (use-package tern
