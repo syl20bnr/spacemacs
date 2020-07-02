@@ -1,7 +1,6 @@
 ;;; packages.el --- twitter Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -10,16 +9,15 @@
 ;;
 ;;; License: GPLv3
 
-;; List of all packages to install and/or initialize. Built-in packages
-;; which require an initialization must be listed explicitly in the list.
-(setq twitter-packages '(twittering-mode))
+(defconst twitter-packages
+  '(twittering-mode))
 
 (defun twitter/init-twittering-mode ()
   (use-package twittering-mode
     :defer t
     :init
     (progn
-      (spacemacs/set-leader-keys "at" 'twit)
+      (spacemacs/set-leader-keys "awt" 'twit)
       (setq twittering-initial-timeline-spec-string '(":home")
             twittering-icon-mode t
             twittering-use-icon-storage 1
@@ -32,13 +30,11 @@
             twitter-images-directory (concat spacemacs-cache-directory "twitter")
             twittering-status-format "%i  %S, %RT{%FACE[bold]{%S}} %@  %FACE[shadow]{%p%f%L%r}\n%FOLD[        ]{%T}\n")
       (unless (file-exists-p twitter-images-directory)
-        (make-directory twitter-images-directory))
-
-      )
+        (make-directory twitter-images-directory)))
     :config
     (progn
-      ;; twittering mode overwrite the leader key
-      (define-key twittering-mode-map (kbd "SPC") spacemacs-default-map)
+      ;; twittering mode overwrite the leader key, make sure that our bindings prevail
+      (define-key twittering-mode-map (kbd "SPC") nil)
       ;; redefine better defaults
       (let ((map twittering-mode-map))
         (define-key map "?"   'spacemacs/twittering-mode-transient-state/body)
