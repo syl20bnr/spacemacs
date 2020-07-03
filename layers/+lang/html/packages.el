@@ -247,6 +247,7 @@
      ("\\.eco\\'"        . web-mode)
      ("\\.ejs\\'"        . web-mode)
      ("\\.svelte\\'"     . web-mode)
+     ("\\.ctp\\'"        . web-mode)
      ("\\.djhtml\\'"     . web-mode))))
 
 (defun html/post-init-yasnippet ()
