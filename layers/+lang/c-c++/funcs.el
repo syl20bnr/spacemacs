@@ -50,8 +50,6 @@
 (defun spacemacs//c-c++-setup-flycheck ()
   "Conditionally setup C/C++ flycheck integration based on backend."
   (pcase (spacemacs//c-c++-backend)
-    (`lsp-clangd (spacemacs//c-c++-setup-lsp-flycheck))
-    (`lsp-ccls (spacemacs//c-c++-setup-lsp-flycheck))
     (`rtags (spacemacs//c-c++-setup-rtags-flycheck))
     (`ycmd (spacemacs//c-c++-setup-ycmd-flycheck))))
 
@@ -168,14 +166,6 @@
 (defun spacemacs//c-c++-setup-lsp-dap ()
   "Setup DAP integration."
   (require 'dap-gdb-lldb))
-
-(defun spacemacs//c-c++-setup-lsp-flycheck ()
-  "Setup LSP syntax checking."
-  (when (or (spacemacs/enable-flycheck 'c-mode)
-            (spacemacs/enable-flycheck 'c++-mode))
-    (require 'lsp-ui-flycheck)
-    (lsp-ui-flycheck-enable nil)
-    (flycheck-mode)))
 
 
 ;; rtags

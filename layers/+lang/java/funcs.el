@@ -132,9 +132,5 @@
 
 (defun spacemacs//java-setup-lsp-flycheck ()
   "Setup LSP Java syntax checking."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (when (spacemacs/enable-flycheck 'java-mode)
-        (require 'lsp-ui-flycheck)
-        (lsp-ui-flycheck-enable nil)
-        (flycheck-mode))
+  (unless (configuration-layer/layer-used-p 'lsp)
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
