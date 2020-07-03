@@ -104,11 +104,13 @@
     (with-eval-after-load 'flycheck
       (flycheck-pos-tip-mode))))
 
-(defun syntax-checking/post-init-popwin ()
-  (push '("^\\*Flycheck.+\\*$"
-          :regexp t
-          :dedicated t
-          :position bottom
-          :stick t
-          :noselect t)
-        popwin:special-display-config))
+(defun syntax-checking/pre-init-popwin ()
+  (spacemacs|use-package-add-hook popwin
+    :post-config
+    (push '("^\\*Flycheck.+\\*$"
+            :regexp t
+            :dedicated t
+            :position bottom
+            :stick t
+            :noselect t)
+          popwin:special-display-config)))

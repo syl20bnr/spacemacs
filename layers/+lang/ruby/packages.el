@@ -138,19 +138,21 @@
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(ruby . t))))
 
-(defun ruby/post-init-popwin ()
-  (push '("*Bundler*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
-        popwin:special-display-config)
-  (push '("*projectile-rails-compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
-        popwin:special-display-config)
-  (push '("*projectile-rails-generate*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
-        popwin:special-display-config)
-  (push '("*rake-compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
-        popwin:special-display-config)
-  (push '("*rspec-compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
-        popwin:special-display-config)
-  (push '("^\\*RuboCop.+\\*$" :regexp t :dedicated t :position bottom :stick t :noselect t :height 0.4)
-        popwin:special-display-config))
+(defun ruby/pre-init-popwin ()
+  (spacemacs|use-package-add-hook popwin
+    :post-config
+    (push '("*Bundler*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
+          popwin:special-display-config)
+    (push '("*projectile-rails-compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
+          popwin:special-display-config)
+    (push '("*projectile-rails-generate*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
+          popwin:special-display-config)
+    (push '("*rake-compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
+          popwin:special-display-config)
+    (push '("*rspec-compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
+          popwin:special-display-config)
+    (push '("^\\*RuboCop.+\\*$" :regexp t :dedicated t :position bottom :stick t :noselect t :height 0.4)
+          popwin:special-display-config)))
 
 (defun ruby/init-rake ()
   (use-package rake

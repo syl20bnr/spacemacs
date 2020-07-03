@@ -185,6 +185,7 @@
             "rn" 'godoctor-rename
             "rt" 'godoctor-toggle)))
 
-(defun go/post-init-popwin ()
-  (push (cons go-test-buffer-name '(:dedicated t :position bottom :stick t :noselect t :height 0.4))
-        popwin:special-display-config))
+(defun go/pre-init-popwin ()
+  (spacemacs|use-package-add-hook popwin
+    :post-config
+    (push (cons go-test-buffer-name '(:dedicated t :position bottom :stick t :noselect t :height 0.4)) popwin:special-display-config)))

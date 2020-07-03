@@ -58,6 +58,8 @@
 (defun lsp/init-lsp-treemacs ()
   (use-package lsp-treemacs :defer t))
 
-(defun lsp/post-init-popwin ()
-  (push '("*lsp-help*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
-        popwin:special-display-config))
+(defun lsp/pre-init-popwin ()
+  (spacemacs|use-package-add-hook popwin
+    :post-config
+    (push '("*lsp-help*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
+          popwin:special-display-config)))
