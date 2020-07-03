@@ -782,8 +782,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
       (spacemacs/set-leader-keys-for-major-mode 'org-journal-mode
         "j" 'org-journal-new-entry
-        "n" 'org-journal-open-next-entry
-        "p" 'org-journal-open-previous-entry)
+        "n" 'org-journal-next-entry
+        "p" 'org-journal-previous-entry)
 
       (spacemacs//init-leader-mode-map 'org-journal-mode 'spacemacs-org-journal-mode-map))))
 
