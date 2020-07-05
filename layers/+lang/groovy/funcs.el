@@ -1,6 +1,6 @@
 ;;; funcs.el --- Groovy functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -8,6 +8,30 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
+
+(defun spacemacs//groovy-backend ()
+  "Return selected backend."
+  (if groovy-backend
+      groovy-backend
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'company-groovy))))
+
+(defun spacemacs//groovy-setup-company ()
+  "Conditionally setup company based on backend."
+  (pcase (spacemacs//groovy-backend)
+    ;; Activate lsp company explicitly to activate
+    ;; standard backends as well
+    (`lsp (spacemacs|add-company-backends
+            :backends company-capf
+            :modes groovy-mode))
+    (`company-groovy (spacemacs|add-company-backends)
+                     :modes groovy-mode)))
+
+(defun spacemacs//groovy-setup-backend ()
+  "Conditionally setup groovy backend."
+  (pcase (spacemacs//groovy-backend)
+    (`lsp (lsp))))
 
 
 ;; REPL
