@@ -1960,6 +1960,8 @@ Other:
     by upstream changes (thanks to Miciah Dashiel Butler Masters)
   - Unfolded org headings to a target line when a .org file is opened from a
     Magit diff or blame buffer (thanks to duianto and Miciah Masters)
+  - Allowed multichar major mode leader key for exiting magit commit edits
+    (thanks to tuh8888)
 **** Gnus
 - Key bindings:
   - Added ~g r~ for =gnus-group-get-new-news= (thanks to Matthew Leach)
