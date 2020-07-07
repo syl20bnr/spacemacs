@@ -604,6 +604,8 @@ The following refactoring key bindings are enabled by default in clojure-mode:
 
 | Key binding   | Description                                                    |
 |---------------+----------------------------------------------------------------|
+| ~SPC m r a n~ | insert a namespace form at the beginning of the buffer         |
+| ~SPC m r a N~ | insert a namespace form at point                               |
 | ~SPC m r c i~ | cycle between if and if-not forms                              |
 | ~SPC m r c p~ | cycle privacy of defn and def forms                            |
 | ~SPC m r c (~ | convert coll to list                                           |
@@ -611,6 +613,7 @@ The following refactoring key bindings are enabled by default in clojure-mode:
 | ~SPC m r c {~ | convert coll to map                                            |
 | ~SPC m r c #~ | convert coll to set                                            |
 | ~SPC m r c [~ | convert coll to vector                                         |
+| ~SPC m r s n~ | sort namespaces inside the ns form                             |
 | ~SPC m r t f~ | rewrite the following form to use the -> (thread first) macro. |
 | ~SPC m r t l~ | rewrite the following form to use the ->> (thread last) macro. |
 | ~SPC m r t h~ | thread another form into the surrounding threading macro       |
