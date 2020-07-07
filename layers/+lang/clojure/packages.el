@@ -352,6 +352,8 @@
                 clj-refactor--key-binding-prefixes)
           (spacemacs/set-leader-keys-for-major-mode m
             "=l" 'clojure-align
+            "ran" 'clojure-insert-ns-form
+            "raN" 'clojure-insert-ns-form-at-point
             "rci" 'clojure-cycle-if
             "rcp" 'clojure-cycle-privacy
             "rc#" 'clojure-convert-collection-to-set
@@ -360,6 +362,7 @@
             "rc[" 'clojure-convert-collection-to-vector
             "rc{" 'clojure-convert-collection-to-map
             "rc:" 'clojure-toggle-keyword-string
+            "rsn" 'clojure-sort-ns
             "rtf" 'clojure-thread-first-all
             "rth" 'clojure-thread
             "rtl" 'clojure-thread-last-all

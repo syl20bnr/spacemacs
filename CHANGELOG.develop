@@ -1591,6 +1591,11 @@ Other:
     (thanks to John Stevenson)
   - Changed evaluation keybinding - cider-clojure-interaction-mode
     ~SPC m e p l~ 'cider-eval-print-last-sexp
+  - Add refactor namespace key bindings
+    ~ran~ 'clojure-insert-ns-form
+    ~raN~ 'clojure-insert-ns-form-at-point
+    ~rsn~ 'clojure-sort-ns
+    (thanks to John Stevenson)
 - Fixes:
   - Removed =cider.nrepl/cider-middleware= in lein quick start setting
   - Fixed =cider-inspector-prev-page= binding, also add ~p~ as another key
