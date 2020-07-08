@@ -58,7 +58,8 @@ For evil states that also need an entry to `spacemacs-evil-cursors' use
   ;; visibly flashing in treemacs buffers
   (eval `(defface ,(intern (format "spacemacs-%s-face" state))
            `((t (:background ,color
-                             :foreground ,(face-background 'mode-line)
+                             :foreground ,(spacemacs/get-darker-color-of-face-fg-or-bg
+                                           'mode-line)
                              :inherit 'mode-line)))
            (format "%s state face." state)
            :group 'spacemacs)))
@@ -66,9 +67,37 @@ For evil states that also need an entry to `spacemacs-evil-cursors' use
 (defun spacemacs/set-state-faces ()
   (cl-loop for (state color cursor) in spacemacs-evil-cursors
            do
-           (set-face-attribute (intern (format "spacemacs-%s-face" state))
-                               nil
-                               :foreground (face-background 'mode-line))))
+           (set-face-attribute
+            (intern (format "spacemacs-%s-face" state))
+            nil
+            :foreground (spacemacs/get-darker-color-of-face-fg-or-bg 'mode-line))))
+
+(defun spacemacs/get-darker-color-of-face-fg-or-bg (face)
+  "Return the darker color of the FACE foreground or background,
+based on the luminance of the FACE background.
+
+If the FACE background is brighter than 0.5,
+return the FACE background,
+otherwise return the FACE foreground."
+  (if (> 0.5 (rainbow-x-color-luminance (face-background face)))
+      (face-background face)
+    (face-foreground face)))
+
+;; source: http://elpa.gnu.org/packages/rainbow-mode-1.0.4.el
+(defun rainbow-color-luminance (red green blue)
+  "Calculate the relative luminance of color composed of RED, GREEN and BLUE.
+Return a value between 0 and 1."
+  (/ (+ (* .2126 red) (* .7152 green) (* .0722 blue)) 255))
+
+;; source: http://elpa.gnu.org/packages/rainbow-mode-1.0.4.el
+(defun rainbow-x-color-luminance (color)
+  "Calculate the relative luminance of a color string (e.g. \"#ffaa00\", \"blue\").
+Return a value between 0 and 1."
+  (let* ((values (x-color-values color))
+         (r (/ (car values) 256.0))
+         (g (/ (cadr values) 256.0))
+         (b (/ (caddr values) 256.0)))
+    (rainbow-color-luminance r g b)))
 
 (defun evil-insert-state-cursor-hide ()
   (setq evil-insert-state-cursor '((hbar . 0))))
