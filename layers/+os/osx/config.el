@@ -57,7 +57,7 @@
    Possible values are `super' `meta' `hyper' `alt' `left' `none'.
    Default: `left'.")
 
-(defvar osx-use-dictionary-app t
+(defvar osx-use-dictionary-app (spacemacs/system-is-mac)
   "Use the macOS dictionary app instead of Wordnet.")
 
 (defvar osx-swap-option-and-command nil
