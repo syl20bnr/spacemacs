@@ -61,7 +61,7 @@ To set explicitly do the following in your dotfile:
 #+BEGIN_SRC emacs-lisp
   (groovy :variables
           groovy-backend 'lsp
-          lsp-jar-path "path/to/groovy/lsp/jar.jar"
+          lsp-jar-path "path/to/groovy/lsp/jar.jar")
 #+END_SRC
 
 For this to work you will also need to obtain
