@@ -1,6 +1,6 @@
 ;;; packages.el --- vimscript Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,14 +9,21 @@
 ;;
 ;;; License: GPLv3
 
-(setq vimscript-packages
-    '(
-      vimrc-mode
-      ggtags
-      counsel-gtags
-      helm-gtags
-      dactyl-mode
-      ))
+(defconst vimscript-packages
+  '(
+    company
+    flycheck
+    vimrc-mode
+    ggtags
+    counsel-gtags
+    helm-gtags
+    dactyl-mode))
+
+(defun vimscript/post-init-company ()
+  (spacemacs//vimscript-setup-company))
+
+(defun vimscript/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'vimrc-mode))
 
 (defun vimscript/init-vimrc-mode ()
   "Initialize vimrc package"
@@ -26,11 +33,12 @@
     :defer t
     :init
     (progn
-    (defun spacemacs//vimrc-mode-hook ()
-      "Hooked function for `vimrc-mode-hook'."
-      (highlight-numbers-mode -1)
-      (rainbow-delimiters-mode-disable))
-    (add-hook 'vimrc-mode-hook 'spacemacs//vimrc-mode-hook))))
+      (defun spacemacs//vimrc-mode-hook ()
+        "Hooked function for `vimrc-mode-hook'."
+        (highlight-numbers-mode -1)
+        (rainbow-delimiters-mode-disable)
+        (spacemacs//vimscript-setup-backend))
+      (add-hook 'vimrc-mode-hook 'spacemacs//vimrc-mode-hook))))
 
 (defun vimscript/init-dactyl-mode ()
   (use-package dactyl-mode
