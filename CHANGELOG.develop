@@ -747,6 +747,7 @@ Other:
   - Added =symbol-overlay= to the =spacemacs-navigation= layer
     (thanks to kenkangxgwe)
 - Key bindings:
+  - Fixed ~M-x~ prefix visualization for ~dotspacemacs-emacs-command-key~
   - New ~SPC a Q~ prefix for dispatching quickurl
     (thanks to Spenser "equwal" Truex:)
     - ~SPC a Q l~ List quickurls
