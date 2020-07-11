@@ -16,5 +16,5 @@
 Possible values are `lsp' and `company-groovy'.
 If `nil' then 'company-groovy` is the default backend unless `lsp' layer is used")
 
-(defvar lsp-jar-path "~/groovy-lsp-all.jar"
+(defvar groovy-lsp-jar-path "~/groovy-lsp-all.jar"
   "The path to the lsp jar file")

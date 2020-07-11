@@ -36,7 +36,7 @@
     :defer t
     :init
     (progn
-      (setq lsp-groovy-server-file lsp-jar-path)
+      (setq lsp-groovy-server-file groovy-lsp-jar-path)
       (spacemacs/declare-prefix-for-mode 'groovy-mode "ms" "REPL")
       (spacemacs/set-leader-keys-for-major-mode 'groovy-mode
         "'"  'run-groovy

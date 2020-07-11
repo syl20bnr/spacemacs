@@ -61,13 +61,13 @@ To set explicitly do the following in your dotfile:
 #+BEGIN_SRC emacs-lisp
   (groovy :variables
           groovy-backend 'lsp
-          lsp-jar-path "path/to/groovy/lsp/jar.jar")
+          groovy-lsp-jar-path "path/to/groovy/lsp/jar.jar")
 #+END_SRC
 
 For this to work you will also need to obtain
 the latest version of the lsp server from [[https://github.com/prominic/groovy-language-server][here]].
 The path to the server jar must be given in the layer
-variable =lsp-jar-path=.
+variable =groovy-lsp-jar-path=.
 
 NOTE: Keybindings for LSP are defined in the
 LSP layer. Also it is advisable to have a look
