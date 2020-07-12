@@ -12,8 +12,8 @@
   - [[#ktlint][Ktlint]]
 - [[#configuration][Configuration]]
   - [[#choosing-a-backend][Choosing a backend]]
-     - [[#company-groovy][Company-groovy]]
-     - [[#lsp][LSP]]
+    - [[#company-kotlin][Company-kotlin]]
+    - [[#lsp][LSP]]
 
 * Description
 This layer adds support for [[http://kotlinlang.org/][Kotlin]] to Spacemacs.
@@ -55,7 +55,7 @@ dotfile:
 *** LSP
 For proper IDE support this backend should be used. It is
 based on an external server which will be started automatically
-by emacs, once a kotlin file is opened. The keybindings are
+by emacs, once a kotlin file is opened. The key bindings are
 the same for all lsp modes so if you are already familiar with
 one you should be able to work the same in all modes.
 
@@ -72,7 +72,7 @@ the latest version of the lsp server from [[https://github.com/fwcd/kotlin-langu
 The path to the server jar must be given in the layer
 variable =kotlin-lsp-jar-path=.
 
-NOTE: Keybindings for LSP are defined in the
+NOTE: Key bindings for LSP are defined in the
 LSP layer. Also it is advisable to have a look
 at the autocomplete layer for an optimal
 intellisense config for LSP.

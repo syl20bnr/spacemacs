@@ -8,8 +8,8 @@
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#choosing-a-backend][Choosing a backend]]
-     - [[#company-vimscript][Company-vimscript]]
-     - [[#lsp][LSP]]
+    - [[#company-vimscript][Company-vimscript]]
+    - [[#lsp][LSP]]
 
 * Description
 This layer adds support for vimscript and pentadactyl config files.
@@ -45,7 +45,7 @@ dotfile:
 *** LSP
 For proper IDE support this backend should be used. It is
 based on an external server which will be started automatically
-by emacs, once a vimscript file is opened. The keybindings are
+by emacs, once a vimscript file is opened. The key bindings are
 the same for all lsp modes so if you are already familiar with
 one you should be able to work the same in all modes.
 
@@ -63,7 +63,7 @@ the latest version of the lsp server with below command:
   npm install -g vim-language-server
 #+END_SRC
 
-NOTE: Keybindings for LSP are defined in the
+NOTE: Key bindings for LSP are defined in the
 LSP layer. Also it is advisable to have a look
 at the autocomplete layer for an optimal
 intellisense config for LSP.
