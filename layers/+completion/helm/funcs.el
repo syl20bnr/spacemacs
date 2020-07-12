@@ -644,4 +644,4 @@ to buffers)."
   (interactive)
   (let ((completion-styles completion-styles))
     (add-to-list 'completion-styles `,(if (version< emacs-version "27") 'helm-flex 'flex) t)
-    (command-execute 'helm-M-x)))
+    (call-interactively 'helm-M-x)))
