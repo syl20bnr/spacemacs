@@ -10,8 +10,8 @@
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#choosing-a-backend][Choosing a backend]]
-     - [[#company-groovy][Company-groovy]]
-     - [[#lsp][LSP]]
+    - [[#company-groovy][Company-groovy]]
+    - [[#lsp][LSP]]
 - [[#key-bindings][Key bindings]]
   - [[#imports][Imports]]
   - [[#repl][REPL]]
@@ -52,7 +52,7 @@ dotfile:
 *** LSP
 For proper IDE support this backend should be used. It is
 based on an external server which will be started automatically
-by emacs, once a groovy file is opened. The keybindings are
+by emacs, once a groovy file is opened. The key bindings are
 the same for all lsp modes so if you are already familiar with
 one you should be able to work the same in all modes.
 
@@ -69,7 +69,7 @@ the latest version of the lsp server from [[https://github.com/prominic/groovy-l
 The path to the server jar must be given in the layer
 variable =groovy-lsp-jar-path=.
 
-NOTE: Keybindings for LSP are defined in the
+NOTE: Key bindings for LSP are defined in the
 LSP layer. Also it is advisable to have a look
 at the autocomplete layer for an optimal
 intellisense config for LSP.
