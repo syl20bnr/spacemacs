@@ -66,14 +66,20 @@ spacemacs/update-theme~.
 * Attributes
 See [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Face-Attributes.html#Face-Attributes][face attributes]] in the Emacs manual for more information. Some of the more
 common attributes you might want to tweak are the following:
-- the name of a face to inherit attributes from
-- Hexadecimal color strings
-- typically a floating point number (1.0 gives the same height as
-  the underlying face)
-- typically =bold= or =normal=
-- typically =nil= or =t=
-- typically =oblique=, =italic= or =normal=
-- set to =t= to draw a box around characters in the foreground
+- =:inherit= ::
+  the name of a face to inherit attributes from
+- =:foreground=  and =:background= ::
+  Hexadecimal color strings
+- =:height= ::
+  typically a floating point number (1.0 gives the same height as the underlying face)
+- =:weight= ::
+  typically =bold= or =normal=
+- =:underline= ::
+  typically =nil= or =t=
+- =:slant= ::
+  typically =oblique=, =italic= or =normal=
+- =:box= ::
+  set to =t= to draw a box around characters in the foreground
 
 * Faces
 To see a list over all loaded faces and what they look like, use ~SPC SPC
@@ -106,12 +112,12 @@ As well as the mode-line faces for the active and inactive windows:
 This layer includes three additional layer variables for tweaking headings.
 Allowed values are a list of themes in which the given effect should happen, or
 the symbol =all= to apply it on all themes.
-- inherits all headings from the
-  default face to avoid non-monospaced fonts
-- sets the =:height= attribute to one on all
-  headings to give them the same size as the rest of the text
-- sets the =:weight= attribute to bold on all
-  headings
+- =theming-headings-inherit-from-default= ::
+  inherits all headings from the default face to avoid non-monospaced fonts
+- =theming-headings-same-size= ::
+  sets the =:height= attribute to one on all headings to give them the same size as the rest of the text
+- =theming-headings-bold= ::
+  sets the =:weight= attribute to bold on all headings
 
 * Example
 An example of how to set the default font colour to be black in a custom theme leuven:
