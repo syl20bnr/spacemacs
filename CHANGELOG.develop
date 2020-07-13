@@ -3279,6 +3279,9 @@ Other:
 - Added key bindings (thanks to John Stevenson):
   - ~SPC S s~ Correct word at point
   - Transient State: ~SPC S . s~ Correct word at point
+- Added key binding:
+  - ~SPC S r~ flyspell-region
+  - Transient State: ~SPC S . r~ flyspell-region
 **** Syntax-checking
 - Key bindings:
   - ~SPC e e~ is now for triggering a syntax check, the old action
