@@ -2325,7 +2325,7 @@ Other:
   - Added support for multiple backends. Supported backends are: =meghanada=,
     =eclim=. The default backend is =meghanada=. (thanks to Ivan Yonchovski)
   - Added =ENSIME= jump handlers (thanks to Joao Azevedo)
-  - Improved =maven= and =gradle= support (thanks to Sylvain Benner)
+  - Improved =maven= (thanks to Sylvain Benner)
   - Made =java= layer depend on =groovy= layer (thanks to Sylvain Benner)
   - Added =org-babel= support (thanks to Michael Rohleder)
   - Remove broken =ENSIME= key bindings (thanks to Bjarke Vad Andersen)
@@ -2337,6 +2337,7 @@ Other:
   - Added /** */ smartparens pair (thanks to Ivan Yonchovski)
   - Added the prefix name "actionable" to ~SPC m a~ (thanks to duianto)
 - Fixes:
+  - Removed =gradle-mode= which is unsupported and was breaking other major modes
   - Replace usage of =ensime-print-type-at-point= by =ensime-type-at-point=
     (thanks to Joao Azevedo)
   - Added defalias for =ensime-type-at-point= for compatibility
@@ -2344,7 +2345,7 @@ Other:
   - Fixed syntax typo in configuration (thanks to EMayej)
   - Fixed yanking types (thanks to Bjarke Vad Andersen)
   - Fixed gtags related initialization (thanks to Guido Kraemer)
-  - Fixed prefixes for =java-mode= and =gradle-mode= (thanks to Seong Yong-ju)
+  - Fixed prefixes for =java-mode= (thanks to Seong Yong-ju)
   - Enabled =lsp-java= when the =java-backend= is =nil= and the =lsp= layer is
     enabled (thanks to Ivan Yonchovski)
   - Fixed =dap-java= shortcuts (thanks to Ivan Yonchovski)

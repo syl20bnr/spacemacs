@@ -15,7 +15,6 @@
     dap-mode
     flycheck
     ggtags
-    gradle-mode
     counsel-gtags
     helm-gtags
     (java-mode :location built-in)
@@ -43,33 +42,6 @@
 (defun java/post-init-smartparens ()
   (with-eval-after-load 'smartparens
     (sp-local-pair 'java-mode "/** " " */" :trigger "/**")))
-
-(defun java/init-gradle-mode ()
-  (use-package gradle-mode
-    :defer t
-    :init
-    (progn
-      (when (configuration-layer/package-used-p 'groovy-mode)
-        (add-hook 'groovy-mode-hook 'gradle-mode)
-        (spacemacs/declare-prefix-for-mode 'groovy-mode "ml" "gradle")
-        (spacemacs/declare-prefix-for-mode 'groovy-mode "mlc" "compile")
-        (spacemacs/declare-prefix-for-mode 'groovy-mode "mlt" "tests"))
-      (when (configuration-layer/package-used-p 'java-mode)
-        (add-hook 'java-mode-hook 'gradle-mode)
-        (spacemacs/declare-prefix-for-mode 'java-mode "ml" "gradle")
-        (spacemacs/declare-prefix-for-mode 'java-mode "mlc" "compile")
-        (spacemacs/declare-prefix-for-mode 'java-mode "mlt" "tests")))
-    :config
-    (progn
-      (spacemacs|hide-lighter gradle-mode)
-      (spacemacs/set-leader-keys-for-minor-mode 'gradle-mode
-        "lcc" 'gradle-build
-        "lcC" 'spacemacs/gradle-clean
-        "lcr" 'spacemacs/gradle-clean-build
-        "lta" 'gradle-test
-        "ltb" 'spacemacs/gradle-test-buffer
-        "ltt" 'gradle-single-test
-        "lx" 'gradle-execute))))
 
 (defun java/post-init-counsel-gtags ()
   (spacemacs/counsel-gtags-define-keys-for-mode 'java-mode))
