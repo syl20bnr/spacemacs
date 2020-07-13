@@ -28,7 +28,6 @@
     - [[#refactoring][Refactoring]]
     - [[#tasks][Tasks]]
   - [[#maven][Maven]]
-  - [[#gradle][Gradle]]
 
 * Description
 This layer adds support for the Java language.
@@ -39,7 +38,7 @@ This layer adds support for the Java language.
   - [[https://github.com/mopemope/meghanada-emacs][Meghanada]] client/server
 - Auto-completion using company
 - Linting using flycheck integration
-- Maven and Gradle integration
+- Maven integration
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 * Layer Installation
@@ -217,15 +216,3 @@ complete list of key bindings on the [[https://github.com/syl20bnr/spacemacs/tre
 | ~SPC m m t b~   | Run current buffer tests                             |
 | ~SPC m m t i~   | Test and install                                     |
 | ~SPC m m t t~   | Run a specific test                                  |
-
-** Gradle
-
-| Key binding   | Description              |
-|---------------+--------------------------|
-| ~SPC m l c c~ | Compile                  |
-| ~SPC m l c C~ | Clean                    |
-| ~SPC m l c r~ | Clean and compile        |
-| ~SPC m l t a~ | Run all tests            |
-| ~SPC m l t b~ | Run current buffer tests |
-| ~SPC m l t t~ | Run a specific test      |
-| ~SPC m l x~   | Execute a Gradle task    |

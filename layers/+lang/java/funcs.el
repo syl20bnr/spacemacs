@@ -82,24 +82,6 @@
   (mvn-compile))
 
 
-;; Gradle
-
-(defun spacemacs/gradle-clean ()
-  "Execute 'gradle clean' command."
-  (interactive)
-  (gradle-execute "clean"))
-
-(defun spacemacs/gradle-clean-build ()
-  "Execute 'gradle clean build' command."
-  (interactive)
-  (gradle-execute "clean build"))
-
-(defun spacemacs/gradle-test-buffer ()
-  "Execute 'gradle test' command against current buffer tests."
-  (interactive)
-  (gradle-single-test (file-name-base (buffer-file-name))))
-
-
 ;; Misc
 
 (defun spacemacs//java-delete-horizontal-space ()
