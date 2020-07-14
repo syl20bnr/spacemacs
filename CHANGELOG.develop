@@ -2116,6 +2116,7 @@ Other:
   - Added guard to check if =winum= is loaded (thanks to Dan Girshovich)
   - Updated =helm-xref= to set the correct =xref-show-xrefs-function= for
     Emacs 27 (thanks to Junxuan)
+  - Hide =helm-ff-cache-mode= mode-line indicator (thanks to duianto)
 - Key bindings:
   - Added Key bindings for directory search:
     - ~SPC s d for =spacemacs/helm-dir-smart-do-search=

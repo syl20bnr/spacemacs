@@ -64,6 +64,7 @@
     :defer (spacemacs/defer)
     :init
     (progn
+      (spacemacs|diminish helm-ff-cache-mode)
       (spacemacs|add-transient-hook completing-read
         (lambda (&rest _args) (require 'helm))
         lazy-load-helm-for-completing-read)
