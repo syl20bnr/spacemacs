@@ -80,7 +80,7 @@
   (use-package enh-ruby-mode
     :mode (("Appraisals\\'" . enh-ruby-mode)
            ("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . enh-ruby-mode)
-           ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))
+           ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\|pryrc\\)\\'" . enh-ruby-mode))
     :interpreter "ruby"
     :init
     (progn
@@ -279,7 +279,8 @@
   (use-package ruby-mode
     :defer t
     :mode (("Appraisals\\'" . ruby-mode)
-           ("Puppetfile" . ruby-mode))
+            ("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . ruby-mode)
+            ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\|pryrc\\)\\'" . ruby-mode))
     :init
     (progn
       (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "test")
