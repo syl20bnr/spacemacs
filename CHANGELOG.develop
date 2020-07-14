@@ -259,7 +259,7 @@ sane way, here is the complete list of changed key bindings
   - ~SPC m i t~ org-agenda-set-tags
   - ~SPC m i t~ org-set-tags
   - ~SPC m p~ org-priority
-  - ~SPC m s A~ org-archive-subtree
+  - ~SPC m s A~ org-archive-subtree-default
   - ~SPC m s N~ widen
   - ~SPC m s S~ org-sort
   - ~SPC m s b~ org-tree-to-indirect-buffer
