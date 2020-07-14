@@ -137,3 +137,18 @@ Called interactively it prompts for a directory."
     (highlight-lines-matching-regexp "byebug")
     (highlight-lines-matching-regexp "binding.irb")
     (highlight-lines-matching-regexp "binding.pry")))
+
+
+;; Insert text
+
+(defun spacemacs/ruby-insert-frozen-string-literal-comment ()
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (insert "# frozen_string_literal: true\n")))
+
+(defun spacemacs/ruby-insert-shebang ()
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (insert "#!/usr/bin/env ruby\n")))
