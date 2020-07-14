@@ -283,6 +283,9 @@
             ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\|pryrc\\)\\'" . ruby-mode))
     :init
     (progn
+      ;; This might have been important 10 years ago but now it's frustrating.
+      (setq ruby-insert-encoding-magic-comment nil)
+
       (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "test")
       (spacemacs/declare-prefix-for-mode 'ruby-mode "mT" "toggle")
 
