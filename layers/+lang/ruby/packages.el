@@ -86,6 +86,7 @@
     (progn
       (setq enh-ruby-deep-indent-paren nil
             enh-ruby-hanging-paren-deep-indent-level 2)
+      (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mi" "insert")
       (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mt" "test")
 
       (add-hook 'enh-ruby-mode-hook #'spacemacs//ruby-setup-backend)
