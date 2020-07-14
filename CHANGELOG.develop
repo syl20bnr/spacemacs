@@ -295,6 +295,18 @@ sane way, here is the complete list of changed key bindings
 ***** Ruby
 - Key bindings:
   - Changed ~SPC m h d~ to ~SPC m h h~ for =robe-doc= (thanks to Paweł Siudak)
+  - Changed ~SPC m T {~ to ~SPC m r {~ for =ruby-toggle-block= (thanks to Codruț
+    Constantin Gușoi)
+  - Changed ~SPC m T '~ to ~SPC m r '~ for =ruby-toggle-string-quotes= (thanks
+    to Codruț Constantin Gușoi)
+  - Added ~SPC m i f~ for =spacemacs/ruby-insert-frozen-string-literal-comment=
+    (thanks to Codruț Constantin Gușoi)
+  - Added ~SPC m i s~ for =spacemacs/ruby-insert-shebang= (thanks to Codruț
+    Constantin Gușoi)
+  - Added ~SPC m r }~ for =ruby-toggle-block= (thanks to Codruț Constantin
+    Gușoi)
+  - Added ~SPC m r "~ for =ruby-toggle-string-quotes= (thanks to Codruț
+    Constantin Gușoi)
 ***** Ruby on Rails
 - Key bindings:
   - New ~SPC m r f S~ to find serializer (thanks to Boris Buliga)
