@@ -93,6 +93,8 @@
                 #'spacemacs/ruby-maybe-highlight-debugger-keywords))
     :config
     (spacemacs/set-leader-keys-for-major-mode 'enh-ruby-mode
+      "if"  'spacemacs/ruby-insert-frozen-string-literal-comment
+      "is"  'spacemacs/ruby-insert-shebang
       "r{" 'enh-ruby-toggle-block
       "r}" 'enh-ruby-toggle-block)))
 
@@ -283,9 +285,7 @@
             ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\|pryrc\\)\\'" . ruby-mode))
     :init
     (progn
-      ;; This might have been important 10 years ago but now it's frustrating.
-      (setq ruby-insert-encoding-magic-comment nil)
-
+      (spacemacs/declare-prefix-for-mode 'ruby-mode "mi" "insert")
       (spacemacs/declare-prefix-for-mode 'ruby-mode "mt" "test")
       (spacemacs/declare-prefix-for-mode 'ruby-mode "mT" "toggle")
 
@@ -294,11 +294,18 @@
       (add-hook 'ruby-mode-hook #'spacemacs//ruby-setup-backend)
       (add-hook 'ruby-mode-local-vars-hook
                 #'spacemacs/ruby-maybe-highlight-debugger-keywords))
-    :config (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
-              "r'" 'ruby-toggle-string-quotes
-              "r\"" 'ruby-toggle-string-quotes
-              "r{" 'ruby-toggle-block
-              "r}" 'ruby-toggle-block)))
+    :config
+    (progn
+      ;; This might have been important 10 years ago but now it's frustrating.
+      (setq ruby-insert-encoding-magic-comment nil)
+
+      (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
+        "if"  'spacemacs/ruby-insert-frozen-string-literal-comment
+        "is"  'spacemacs/ruby-insert-shebang
+        "r'"  'ruby-toggle-string-quotes
+        "r\"" 'ruby-toggle-string-quotes
+        "r{"  'ruby-toggle-block
+        "r}"  'ruby-toggle-block))))
 
 (defun ruby/init-ruby-refactor ()
   (use-package ruby-refactor
