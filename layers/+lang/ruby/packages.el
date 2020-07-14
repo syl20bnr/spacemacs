@@ -87,14 +87,14 @@
       (setq enh-ruby-deep-indent-paren nil
             enh-ruby-hanging-paren-deep-indent-level 2)
       (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mt" "test")
-      (spacemacs/declare-prefix-for-mode 'enh-ruby-mode "mT" "toggle")
 
       (add-hook 'enh-ruby-mode-hook #'spacemacs//ruby-setup-backend)
       (add-hook 'enh-ruby-mode-local-vars-hook
                 #'spacemacs/ruby-maybe-highlight-debugger-keywords))
     :config
     (spacemacs/set-leader-keys-for-major-mode 'enh-ruby-mode
-      "T{" 'enh-ruby-toggle-block)))
+      "r{" 'enh-ruby-toggle-block
+      "r}" 'enh-ruby-toggle-block)))
 
 (defun ruby/post-init-evil-matchit ()
   (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
@@ -292,8 +292,10 @@
       (add-hook 'ruby-mode-local-vars-hook
                 #'spacemacs/ruby-maybe-highlight-debugger-keywords))
     :config (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
-              "T'" 'ruby-toggle-string-quotes
-              "T{" 'ruby-toggle-block)))
+              "r'" 'ruby-toggle-string-quotes
+              "r\"" 'ruby-toggle-string-quotes
+              "r{" 'ruby-toggle-block
+              "r}" 'ruby-toggle-block)))
 
 (defun ruby/init-ruby-refactor ()
   (use-package ruby-refactor
