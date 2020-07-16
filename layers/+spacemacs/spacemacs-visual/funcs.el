@@ -13,9 +13,10 @@
 ;; ansi-colors
 
 (defun spacemacs-visual//compilation-buffer-apply-ansi-colors ()
-  (let ((inhibit-read-only t))
-    (goto-char compilation-filter-start)
-    (ansi-color-apply-on-region (line-beginning-position) (point-max))))
+  (when (eq major-mode 'compilation-mode)
+    (let ((inhibit-read-only t))
+      (goto-char compilation-filter-start)
+      (ansi-color-apply-on-region (line-beginning-position) (point-max)))))
 
 
 ;; popwin
