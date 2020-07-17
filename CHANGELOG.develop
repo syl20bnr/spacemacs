@@ -326,6 +326,10 @@ sane way, here is the complete list of changed key bindings
 - Key bindings:
   - Vagrant key bindings prefix is now ~SPC a V~.
   - Actually use ~SPC a t v t~ for =vagrant-tramp-term=
+***** Version Control
+- Key bindings:
+  - Changed ~SPC g h o~ to ~SPC g o~ for =browse-at-remote= (thanks to Codruț
+    Constantin Gușoi)
 ***** YAML
 - Added LSP support (thanks to Seong Yong-ju)
 ***** ycmd

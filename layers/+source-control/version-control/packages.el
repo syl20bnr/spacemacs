@@ -307,4 +307,4 @@
 (defun version-control/init-browse-at-remote ()
   (use-package browse-at-remote
     :defer t
-    :init (spacemacs/set-leader-keys "gho" 'browse-at-remote)))
+    :init (spacemacs/set-leader-keys "go" 'browse-at-remote)))
