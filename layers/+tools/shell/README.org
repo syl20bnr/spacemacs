@@ -299,7 +299,7 @@ Some advanced configuration is setup for =eshell= in this layer:
 | ~SPC a t s T~ | Open, close or go to a =term=                              |
 | ~TAB~         | browse completion with =helm=                              |
 | ~SPC m H~     | browse history with =helm= (works in =eshell= and =shell=) |
-| ~SPC a s v~   | Open, close or go to a =vterm=                             |
+| ~SPC a t s v~ | Open, close or go to a =vterm=                             |
 | ~C-j~         | next item in history                                       |
 | ~C-k~         | previous item in history                                   |
 
