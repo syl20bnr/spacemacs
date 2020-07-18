@@ -25,8 +25,8 @@
     (`lsp (spacemacs|add-company-backends
             :backends company-capf
             :modes groovy-mode))
-    (`company-groovy (spacemacs|add-company-backends)
-                     :modes groovy-mode)))
+    (`company-groovy (spacemacs|add-company-backends
+                       :modes groovy-mode))))
 
 (defun spacemacs//groovy-setup-backend ()
   "Conditionally setup groovy backend."
