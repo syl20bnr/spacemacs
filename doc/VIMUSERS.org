@@ -272,7 +272,6 @@ To map ~<Leader>~ key bindings, use the =spacemacs/set-leader-keys= function.
 #+END_SRC
 
 **** Bind keys to a macro
-
 #+BEGIN_SRC emacs-lisp
   ;; H goes to beginning of the line
   (define-key evil-normal-state-map (kbd "H") (kbd "^"))
@@ -285,10 +284,10 @@ For example: To open a newline above, but stay on the current line.
 The remapping in Vim:
 
 #+BEGIN_SRC vimrc
-nmap <S-Enter> O<Esc>j
+  nmap <S-Enter> O<Esc>j
 #+END_SRC
 
-source: https://vim.fandom.com/wiki/Insert_newline_without_entering_insert_mode
+source: [[https://vim.fandom.com/wiki/Insert_newline_without_entering_insert_mode]]
 
 The equivalent remapping in Spac/Emacs:
 
