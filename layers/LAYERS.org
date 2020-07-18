@@ -1947,7 +1947,7 @@ Features:
   - [[https://github.com/mopemope/meghanada-emacs][Meghanada]] client/server
 - Auto-completion using company
 - Linting using flycheck integration
-- Maven and Gradle integration
+- Maven integration
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 **** JR Concurrent Programming Language
@@ -2223,8 +2223,7 @@ It relies on [[https://github.com/jcollard/elm-mode][elm-mode]] and [[https://gi
 Features:
 - Syntax highlighting.
 - Intelligent indentation
-- Auto-completion integration for company (default) or auto-complete modes,
-  with using elm-oracle
+- Auto-completion integration for company (default) or auto-complete modes
 - Syntax checking support using flycheck
 - Integration with elm-make
 - Integration with elm-repl
