@@ -281,7 +281,10 @@
     (poet-dark                        . poet-theme)
     (poet-monochrome                  . poet-theme)
     (poet-dark-monochrome             . poet-theme)
-    )
+    (almost-mono-white                . almost-mono-themes)
+    (almost-mono-black                . almost-mono-themes)
+    (almost-mono-cream                . almost-mono-themes)
+    (almost-mono-gray                 . almost-mono-themes))
   "alist matching a theme name with its package name, required when
 package name does not match theme name + `-theme' suffix.")
 
