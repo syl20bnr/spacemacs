@@ -3337,6 +3337,7 @@ Other:
 - Added support for eziam themes (thanks to Benno Fünfstück)
 - Enabled italics in spacemacs theme (thanks to Sylvain Benner)
 - Added support for =doom-dark+= theme (thanks to Ivan Yonchovski)
+- Added support for =almost-mono-themes= (thanks to Kirill Chernyshov)
 **** Visual
      - use the same window for =dap= log window and for compilation buffer.
 ***** Colors
