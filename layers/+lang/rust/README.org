@@ -96,7 +96,7 @@ To install the debug adapter you may run =M-x dap-gdb-lldb-setup= when you are o
 instructions can be found on the main page of [[http://doc.crates.io/index.html][Cargo]].
 
 *** cargo-edit
-[[https://github.com/killercup/cargo-edit][cargo-edit]] allows you to add, remove, and upgrade dependencies by modifying your =Cargo.toml` file.
+[[https://github.com/killercup/cargo-edit][cargo-edit]] allows you to add, remove, and upgrade dependencies by modifying your =Cargo.toml= file.
 
 #+BEGIN_SRC sh
   cargo install cargo-edit
