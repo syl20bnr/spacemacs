@@ -8,6 +8,7 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#error-checking--linting][Error checking / linting]]
   - [[#web-beautify][web-beautify]]
   - [[#prettier][prettier]]
   - [[#import-js][import-js]]
@@ -59,26 +60,30 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =javascript= to the existing =dotspacemacs-configuration-layers= list in
 this file.
 
-To enable the importing helper, install the =ImportJS=:
-
-#+BEGIN_SRC sh
-  $ npm install -g import-js
-#+END_SRC
-
-To activate error checking using flycheck, install one of the [[http://www.flycheck.org/en/latest/languages.html#javascript][available linters]]
-such as =ESLint= or =JSHint=:
+** Error checking / linting
+To activate error checking / linting using flycheck, install on your system one of the [[http://www.flycheck.org/en/latest/languages.html#javascript][available linters]]
+such as =ESLint=, =JSHint= or =StandardJS=:
 
 #+BEGIN_SRC sh
   $ npm install -g eslint
   # or
   $ npm install -g jshint
+  # or
+  $ npm install -g standard
 #+END_SRC
 
-If you install these in non-standard locations, then add the following to your
+If you install these in non-standard locations, add the following to your
 =dotspacemacs/user-init= function:
 
 #+BEGIN_SRC elisp
   (add-to-list 'exec-path "/path/to/node/bins" t)
+#+END_SRC
+
+Finally, you will want to turn off js2-mode warnings, since they might be
+in conflict with the linter you are using via flycheck:
+
+#+BEGIN_SRC elisp
+  (javascript :variables js2-mode-show-strict-warnings nil)
 #+END_SRC
 
 ** web-beautify
@@ -89,6 +94,12 @@ See [[file:../../+tools/prettier/README.org][prettier layer]] documentation.
 
 ** import-js
 See [[file:../../+tools/import-js/README.org][import-js layer]] documentation.
+
+Install =ImportJS= on your system:
+
+#+BEGIN_SRC sh
+  $ npm install -g import-js
+#+END_SRC
 
 To enable it, set the layer variable =javascript-import-tool=:
 
