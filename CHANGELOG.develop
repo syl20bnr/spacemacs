@@ -3430,6 +3430,7 @@ Other:
   linter, when =lsp= is set as the backend (thanks to Thanh Vuong)
 - Fix =tide= with =tsx= files (thanks to Aaron Jensen)
 - Added =eslint_d= support (thanks to Seong Yong-ju)
+- Added =tslint= support for =lsp= backend (thanks to Tommi Komulainen)
 **** Vagrant
 - Key bindings:
   - move key bindings prefix to ~SPC a V~ (thanks to Thomas de Beauchêne)
