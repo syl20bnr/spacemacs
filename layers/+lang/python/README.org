@@ -230,7 +230,7 @@ The root of the project is detected with a =.git= directory or a =setup.cfg= fil
 
 ** Buffer formatting
 One of [[https://github.com/google/yapf][YAPF]] (the default), [[https://github.com/ambv/black][black]] or =lsp= may be selected as the formatter, via
-=python-formatter=, as ='yapf=, ='black= or =lsp= respectively.
+=python-formatter=, as =yapf=, =black= or =lsp= respectively.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
