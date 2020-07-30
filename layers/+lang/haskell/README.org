@@ -46,6 +46,7 @@
   - [[#ghc-mod-doesnt-work][=ghc-mod= doesn't work]]
   - [[#indentation-doesnt-reset-when-pressing-return-after-an-empty-line][Indentation doesn't reset when pressing return after an empty line]]
   - [[#flycheck-displays-hlint-warnings-but-not-errors][Flycheck displays HLint warnings but not errors]]
+  - [[#hlint-fails-with-parse-error][HLint fails with parse error]]
   - [[#i-can-see-highlighted-errors-but-they-dont-appear-in-the-error-list][I can see highlighted errors but they don't appear in the error list]]
   - [[#flycheck-doesnt-work][Flycheck doesn't work]]
   - [[#flycheck-doesnt-work-with-stack][Flycheck doesn't work with =stack=]]
@@ -397,9 +398,11 @@ Flycheck has different Haskell checkers: =haskell-ghc=, =haskell-stack-ghc= and
 if it doesn't work, then you can change it with ~SPC e s~.
 
 ** HLint
-HLint is a linter for Haskell. It doesn't detect errors (as long as it can parse
+[[https://github.com/ndmitchell/hlint][HLint]] is a linter for Haskell. It doesn't detect errors (as long as it can parse
 the file) but bad coding style and code smell. The HLint checker is called
 *after* the flycheck GHC checker.
+
+HLint can be configured via .hlint.yaml.
 
 ** ghc-mod
 Ghc-mod, when enabled, also does syntax checking. It doesn't highlight errors,
@@ -510,6 +513,11 @@ following snippet into your =dotspacemacs/user-config= function.
 ** Flycheck displays HLint warnings but not errors
 The HLint checker is called *after* the normal flycheck checker, even if the
 checker fails. Check the [[#flycheck-doesnt-work][Flycheck doesn't work]] section.
+
+** HLint fails with parse error
+If HLint is not correctly configured (e.g. does not load some extensions that you are using in your project) it might fail while parsing the file.
+
+Check [[https://github.com/ndmitchell/hlint][HLint]] docs for more details.
 
 ** I can see highlighted errors but they don't appear in the error list
 The error list is only set by flycheck. You are probably seeing errors
