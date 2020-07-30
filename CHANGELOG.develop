@@ -3330,6 +3330,7 @@ Other:
 - Fixed =goto-flycheck-error-list= (thanks to Thanh Vuong)
 - Added lsp support for sqls
   - Added layer variable =sql-lsp-sqls-workspace-config-path= to setting workspace configuration
+- Added layer variable =syntax-checking-auto-hide-tooltips= (thanks to Martin Sosic)
 **** Swift
 - Update Swift REPL key bindings (thanks to Elliot Bulmer)
 **** Systemd
