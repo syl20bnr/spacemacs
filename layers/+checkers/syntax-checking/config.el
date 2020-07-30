@@ -14,6 +14,9 @@
 (defvar syntax-checking-enable-tooltips t
   "If non nil some feedback are displayed in tooltips.")
 
+(defvar syntax-checking-auto-hide-tooltips nil
+  "If non-nil and positive number, auto hide tooltips after number of seconds.")
+
 (defvar syntax-checking-enable-by-default t
   "Enable syntax-checking by default.")
 
