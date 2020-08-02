@@ -16,6 +16,7 @@
     treemacs
     (treemacs-evil :toggle (memq dotspacemacs-editing-style '(vim hybrid)))
     (treemacs-icons-dired :toggle treemacs-use-icons-dired)
+    (treemacs-all-the-icons :toggle treemacs-use-all-the-icons-theme)
     (treemacs-magit :requires magit)
     (treemacs-persp :requires persp-mode)
     treemacs-projectile
@@ -98,6 +99,11 @@
 (defun treemacs/init-treemacs-icons-dired ()
   (use-package treemacs-icons-dired
     :hook (dired-mode . treemacs-icons-dired-mode)))
+
+(defun treemacs/init-treemacs-all-the-icons ()
+  (use-package treemacs-all-the-icons
+    :if treemacs-use-all-the-icons-theme
+    :hook (treemacs-mode . (lambda () (treemacs-load-theme 'all-the-icons)))))
 
 (defun treemacs/pre-init-winum ()
   (spacemacs|use-package-add-hook winum

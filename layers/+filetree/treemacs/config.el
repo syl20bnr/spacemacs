@@ -39,3 +39,6 @@ There are 2 possible values:
 
 (defvar treemacs-use-icons-dired t
   "When non-nil use `treemacs-icons-dired'")
+
+(defvar treemacs-use-all-the-icons-theme nil
+  "Enable the treemacs supported `all-the-icons' theme")
