@@ -441,6 +441,8 @@
   "cC" 'compile
   "ck" 'kill-compilation
   "cr" 'recompile
+  "cn" 'next-error
+  "cN" 'previous-error
   "cd" 'spacemacs/show-hide-compilation-window
   "cb" 'spacemacs/switch-to-compilation-buffer)
 (with-eval-after-load 'compile
