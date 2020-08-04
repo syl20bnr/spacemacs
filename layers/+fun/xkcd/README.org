@@ -31,7 +31,7 @@ file.
 
 | Key binding | Description    |
 |-------------+----------------|
-| ~SPC a x~   | Open xkcd mode |
+| ~SPC a f x~ | Open xkcd mode |
 
 ** Okay, what now
 You can now move through the comics with these

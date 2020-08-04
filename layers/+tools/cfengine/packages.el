@@ -17,6 +17,7 @@
     flycheck
     (ob-cfengine3 :requires org)
     org
+    mustache-mode
     ))
 
 (defun cfengine/init-cfengine3-mode ()
@@ -43,3 +44,8 @@
   (when (configuration-layer/layer-used-p 'org)
     (spacemacs|use-package-add-hook org
       :post-config (add-to-list 'org-babel-load-languages '(cfengine3 . t)))))
+
+(defun cfengine/init-mustache-mode ()
+  (use-package mustache-mode
+    :init (add-to-list 'auto-mode-alist '("\\.mustache\\'" . mustache-mode))
+    :defer t))

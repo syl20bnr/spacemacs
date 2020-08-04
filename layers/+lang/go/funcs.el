@@ -66,6 +66,12 @@
         (lsp))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
+(defun spacemacs//go-setup-dap ()
+  "Conditionally setup go DAP integration."
+  ;; currently DAP is only available using LSP
+  (pcase (spacemacs//go-backend)
+    (`lsp (spacemacs//go-setup-lsp-dap))))
+
 (defun spacemacs//go-setup-lsp-dap ()
   "Setup DAP integration."
   (require 'dap-go)
@@ -79,20 +85,32 @@
   (setq flycheck-disabled-checkers '(go-gofmt
                                      go-golint
                                      go-vet
-                                     go-build
-                                     go-test
+                                     ;; go-build
+                                     ;; go-test
                                      go-errcheck
                                      go-staticcheck
-                                     go-unconvert
-                                     ))
-  (flycheck-golangci-lint-setup))
+                                     go-unconvert))
+  (flycheck-golangci-lint-setup)
+
+  ;; Make sure to only run golangci after go-build
+  ;; to ensure we show at least basic errors in the buffer
+  ;; when golangci fails. Make also sure to run go-test if possible.
+  ;; See #13580 for details
+  (flycheck-add-next-checker 'go-build '(warning . golangci-lint) t)
+  (flycheck-add-next-checker 'go-test '(warning . golangci-lint) t)
+
+  ;; Set basic checkers explicitly as flycheck will
+  ;; select the better golangci-lint automatically.
+  ;; However if it fails we require these as fallbacks.
+  (cond ((flycheck-may-use-checker 'go-test) (flycheck-select-checker 'go-test))
+        ((flycheck-may-use-checker 'go-build) (flycheck-select-checker 'go-build))))
 
 
 ;; run
 
 (defun spacemacs/go-run-tests (args)
   (interactive)
-  (compilation-start (concat "go test " (when go-test-verbose "-v ") args " " go-use-test-args)
+  (compilation-start (concat go-test-command " " (when go-test-verbose "-v ") args " " go-use-test-args)
                      nil (lambda (n) go-test-buffer-name) nil))
 
 (defun spacemacs/go-run-package-tests ()
@@ -107,6 +125,7 @@
   (interactive)
   (if (string-match "_test\\.go" buffer-file-name)
       (save-excursion
+        (move-end-of-line nil)
         (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?\\([[:alnum:]]+\\))[ ]+\\)?\\(Test[[:alnum:]_]+\\)(.*)")
         (spacemacs/go-run-tests
          (cond (go-use-testify-for-testing (concat "-run='Test" (match-string-no-properties 2) "' -testify.m='" (match-string-no-properties 3) "'"))
@@ -130,7 +149,7 @@
 (defun spacemacs/go-run-main ()
   (interactive)
   (shell-command
-   (format "go run %s %s"
+   (format (concat go-run-command " %s %s")
            (shell-quote-argument (or (file-remote-p (buffer-file-name (buffer-base-buffer)) 'localname)
                                      (buffer-file-name (buffer-base-buffer))))
            go-run-args)))

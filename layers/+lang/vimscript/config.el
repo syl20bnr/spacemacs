@@ -1,6 +1,6 @@
 ;;; config.el --- Vimscript Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -12,3 +12,8 @@
 ;; variables
 
 (spacemacs|define-jump-handlers vimrc-mode)
+
+(defvar vimscript-backend nil
+  "The backend to use for IDE features.
+Possible values are `lsp' and `company-vimscript'.
+If `nil' then 'company-vimscript` is the default backend unless `lsp' layer is used")

@@ -20,7 +20,7 @@
       (when (not (file-directory-p xkcd-cache-dir))
         (make-directory xkcd-cache-dir))
       (spacemacs/set-leader-keys
-        "ax" 'xkcd)
+        "afx" 'xkcd)
       (evilified-state-evilify xkcd-mode xkcd-mode-map
         "h" 'xkcd-prev
         "j" 'xkcd-next

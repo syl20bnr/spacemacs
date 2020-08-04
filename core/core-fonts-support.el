@@ -101,6 +101,11 @@ The return value is nil if no font was found, truthy otherwise."
 `dotspacemacs-mode-line-unicode-symbols'.
 If ASCII is not provided then UNICODE is used instead. If neither are provided,
 the mode will not show in the mode line."
+  (when (and unicode
+             (not (display-graphic-p)) ; terminal
+             ;; the new indicator is 3 chars (including the space), ex: " Ⓔh"
+             (= (length unicode) 3))
+    (setq unicode (spacemacs/terminal-fix-mode-line-indicator-overlap unicode)))
   `(let ((cell (assq ',mode spacemacs--diminished-minor-modes)))
      (if cell
          (setcdr cell '(,unicode ,ascii))

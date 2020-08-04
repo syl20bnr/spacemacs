@@ -1,6 +1,6 @@
 ;;; packages.el --- Groovy Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,16 +9,18 @@
 ;;
 ;;; License: GPLv3
 
-(setq groovy-packages
-      '(
-        company
-        groovy-imports
-        groovy-mode
-        org
-        ))
+(defconst groovy-packages
+  '(
+    company
+    groovy-imports
+    groovy-mode
+    org))
 
 (defun groovy/post-init-company ()
-  (spacemacs|add-company-backends :modes groovy-mode))
+  (spacemacs//groovy-setup-company))
+
+(defun groovy/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'groovy-mode))
 
 (defun groovy/init-groovy-imports ()
   (use-package groovy-imports
@@ -34,6 +36,7 @@
     :defer t
     :init
     (progn
+      (setq lsp-groovy-server-file groovy-lsp-jar-path)
       (spacemacs/declare-prefix-for-mode 'groovy-mode "ms" "REPL")
       (spacemacs/set-leader-keys-for-major-mode 'groovy-mode
         "'"  'run-groovy
@@ -43,7 +46,8 @@
         "sf" 'groovy-send-definition
         "si" 'run-groovy
         "sR" 'spacemacs/groovy-send-region-switch
-        "sr" 'groovy-send-region))))
+        "sr" 'groovy-send-region)
+      (add-hook 'groovy-mode-hook #'spacemacs//groovy-setup-backend))))
 
 (defun groovy/pre-init-org ()
   (spacemacs|use-package-add-hook org

@@ -8,6 +8,10 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+- [[#configuration][Configuration]]
+  - [[#choosing-a-backend][Choosing a backend]]
+    - [[#company-groovy][Company-groovy]]
+    - [[#lsp][LSP]]
 - [[#key-bindings][Key bindings]]
   - [[#imports][Imports]]
   - [[#repl][REPL]]
@@ -16,14 +20,59 @@
 This layer supports [[http://www.groovy-lang.org/][Groovy]] development in Spacemacs.
 
 ** Features:
-- Basic dabbrev auto-completion with company
+- Auto-completion
+- Syntax-checking
 - Auto-generate imports with [[https://github.com/mbezjak/emacs-groovy-imports][groovy-imports]]
 - Groovy REPL integration
+- Syntax highlighting
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =groovy= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+
+* Configuration
+All layer configurations can be done by setting layer variables in your dotfile.
+No custom user config lines are necessary
+
+** Choosing a backend
+This layer provides two alternative backends to choose from.
+
+*** Company-groovy
+This is the default choice if nothing is set and no lsp layer
+is loaded in your dotfile. This mode only provides very
+limited IDE capabilities. Used best if only small scripts
+are edited. To set explicitly set the following in your
+dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (groovy :variables groovy-backend 'company-groovy)
+#+END_SRC
+
+*** LSP
+For proper IDE support this backend should be used. It is
+based on an external server which will be started automatically
+by emacs, once a groovy file is opened. The key bindings are
+the same for all lsp modes so if you are already familiar with
+one you should be able to work the same in all modes.
+
+To set explicitly do the following in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (groovy :variables
+          groovy-backend 'lsp
+          groovy-lsp-jar-path "path/to/groovy/lsp/jar.jar")
+#+END_SRC
+
+For this to work you will also need to obtain
+the latest version of the lsp server from [[https://github.com/prominic/groovy-language-server][here]].
+The path to the server jar must be given in the layer
+variable =groovy-lsp-jar-path=.
+
+NOTE: Key bindings for LSP are defined in the
+LSP layer. Also it is advisable to have a look
+at the autocomplete layer for an optimal
+intellisense config for LSP.
 
 * Key bindings
 ** Imports

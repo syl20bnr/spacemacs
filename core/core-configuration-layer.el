@@ -81,7 +81,7 @@ the .lock file at the root of the repository.")
   "Remote location of the signature file for the ELPA stable directory")
 
 (defconst configuration-layer--stable-elpa-gpg-keyring
-  (expand-file-name (concat spacemacs-core-directory "gnupg/spacemacs.pub"))
+  (expand-file-name (concat spacemacs-core-directory "gnupg/spacemacs.gpg"))
   "Absolute path to public GPG key used to signed the ELPA stable repository
 tarballs.")
 
@@ -151,10 +151,10 @@ subdirectory of ROOT is used."
              :type list
              :documentation "List of package symbols declared in this layer.")
    (selected-packages :initarg :selected-packages
-             :initform 'all
-             :type (satisfies (lambda (x) (or (and (symbolp x) (eq 'all x))
-                                              (listp x))))
-             :documentation "List of selected package symbols.")
+                      :initform 'all
+                      :type (satisfies (lambda (x) (or (and (symbolp x) (eq 'all x))
+                                                       (listp x))))
+                      :documentation "List of selected package symbols.")
    (variables :initarg :variables
               :initform nil
               :type list
@@ -581,7 +581,7 @@ refreshed during the current session."
     (configuration-layer//load)
     (when (spacemacs/emacs-with-pdumper-set-p)
       (configuration-layer/message (concat "--force-dump passed on the command line, "
-                         "forcing a redump."))
+                                           "forcing a redump."))
       (configuration-layer//dump-emacs)))
    ((spacemacs-is-dumping-p)
     ;; dumping
@@ -620,7 +620,7 @@ To prevent package from being installed or uninstalled set the variable
   (configuration-layer//declare-used-packages configuration-layer--used-layers)
   ;; then load the functions and finally configure the layers
   (configuration-layer//load-layers-files configuration-layer--used-layers
-                        '("funcs.el"))
+                                          '("funcs.el"))
   (configuration-layer//configure-layers configuration-layer--used-layers)
   ;; load layers lazy settings
   (configuration-layer/load-auto-layer-file)
@@ -660,7 +660,7 @@ To prevent package from being installed or uninstalled set the variable
   ;; packages configuration above
   (configuration-layer//set-layers-variables configuration-layer--used-layers)
   (configuration-layer//load-layers-files configuration-layer--used-layers
-                        '("keybindings.el"))
+                                          '("keybindings.el"))
   (when (spacemacs-is-dumping-p)
     ;; dump stuff in layers
     (dolist (layer-name configuration-layer--used-layers)
@@ -685,8 +685,8 @@ layer directory."
   (interactive)
   (let* ((current-layer-paths (mapcar (lambda (dir) (expand-file-name dir))
                                       (cl-pushnew
-                               configuration-layer-private-layer-directory
-                               dotspacemacs-configuration-layer-path)))
+                                       configuration-layer-private-layer-directory
+                                       dotspacemacs-configuration-layer-path)))
          (other-choice "Another directory...")
          (helm-lp-source
           `((name . "Configuration Layer Paths")
@@ -702,12 +702,12 @@ layer directory."
          (layer-path (cond
                       ((string-equal layer-path-sel other-choice)
                        (read-directory-name (concat "Other configuration "
-                                                    "layer path: ") "~/" ))
+                                                    "layer path: ") "~/"))
                       ((member layer-path-sel current-layer-paths)
                        layer-path-sel)
                       (t
                        (error "Please select an option from the list"))))
-         (name (read-from-minibuffer "Configuration layer name: " ))
+         (name (read-from-minibuffer "Configuration layer name: "))
          (layer-dir (concat layer-path "/" name)))
     (cond
      ((string-equal "" name)
@@ -940,7 +940,7 @@ a new object."
   (purecopy (concat "mouse-2, RET: show a description of this package.")))
 
 (defun configuration-layer/describe-package (pkg-symbol
-                            &optional layer-list pkg-list)
+                                             &optional layer-list pkg-list)
   "Describe a package in the context of the configuration layer system."
   (interactive
    (list (intern
@@ -1271,8 +1271,8 @@ USEDP if non-nil indicates that made packages are used packages."
            'auto-mode-alist
            `(,ext . (lambda ()
                       (configuration-layer//auto-mode
-                       ',layer-name ',mode))))
-          ))
+                       ',layer-name ',mode))))))
+
       ;; configure `interpreter-mode-alist'
       (when interpreter
         (let ((regex (car interpreter))
@@ -1280,7 +1280,7 @@ USEDP if non-nil indicates that made packages are used packages."
           (add-to-list
            'interpreter-mode-alist
            `(,regex . (lambda () (configuration-layer//auto-mode
-                               ',layer-name ',mode)))))))))
+                                  ',layer-name ',mode)))))))))
 
 (defun configuration-layer//auto-mode (layer-name mode)
   "Auto mode support of lazily installed layers."
@@ -1601,7 +1601,7 @@ RNAME is the name symbol of another existing layer."
   (or (eq 'dotfile layer-name)
       (let ((obj (configuration-layer/get-layer layer-name)))
         (when obj (and (not (cfgl-layer-get-shadowing-layers obj))
-                   (memq layer-name configuration-layer--used-layers))))))
+                       (memq layer-name configuration-layer--used-layers))))))
 (defalias 'configuration-layer/layer-usedp
   'configuration-layer/layer-used-p)
 
@@ -1708,7 +1708,7 @@ RNAME is the name symbol of another existing layer."
             (configuration-layer//install-from-recipe pkg)
             (cfgl-package-set-property pkg :lazy-install nil))
            (t (configuration-layer//warning "Cannot install package %S."
-                                        pkg-name)))
+                                            pkg-name)))
         ('error
          (configuration-layer//error
           (concat "\nAn error occurred while installing %s "
@@ -2352,15 +2352,27 @@ depends on it."
     (unless (string-empty-p version-string)
       (version-to-list version-string))))
 
+(defun configuration-layer//system-package-p (pkg-desc)
+  "Take `PKG-DESC' and return true if it is a system package."
+  (not (string-prefix-p
+        (file-name-as-directory
+         (expand-file-name package-user-dir))
+        (expand-file-name
+         (package-desc-dir pkg-desc)))))
+
 (defun configuration-layer//package-delete (pkg-name)
   "Delete package with name PKG-NAME."
   (cond
    ((version<= "25.0.50" emacs-version)
     (let ((p (cadr (assq pkg-name package-alist))))
       ;; add force flag to ignore dependency checks in Emacs25
-      (when p (package-delete p t t))))
+      (if (not (configuration-layer//system-package-p p))
+          (package-delete p t t)
+        (message "Would have removed package %s but this is a system package so it has not been changed." pkg-name))))
    (t (let ((p (cadr (assq pkg-name package-alist))))
-        (when p (package-delete p))))))
+        (if (not (configuration-layer//system-package-p p))
+            (package-delete p)
+          (message "Would have removed package %s but this is a system package so it has not been changed." pkg-name))))))
 
 (defun configuration-layer/delete-orphan-packages (packages)
   "Delete PACKAGES if they are orphan."
@@ -2409,9 +2421,9 @@ depends on it."
                    (eq auto-mode mode))
           (push (car x) gather-extensions))))
     (when gather-extensions
-        (concat "\\("
-                (string-join gather-extensions "\\|")
-                "\\)"))))
+      (concat "\\("
+              (string-join gather-extensions "\\|")
+              "\\)"))))
 
 (defun configuration-layer//lazy-install-extensions-for-layer (layer-name)
   "Return an alist of owned modes and extensions for the passed layer."
@@ -2471,7 +2483,7 @@ depends on it."
                  (cadr (assq 'built-in stats))))
         (spacemacs-buffer//center-line)
         (spacemacs-buffer/append (format "\n(%.3fs spent in your user-config)"
-                           dotspacemacs--user-config-elapsed-time))
+                                         dotspacemacs--user-config-elapsed-time))
         (spacemacs-buffer//center-line)
         (insert "\n")))))
 
@@ -2502,9 +2514,9 @@ depends on it."
                      ,(package-desc-extras obj)])))
 
 (defun configuration-layer//patch-package-descriptor (desc)
-  "Return a patched DESC.
-The URL of the descriptor is patched to be the passed URL"
-  )
+  "Return a patched DESC.))))))
+The URL of the descriptor is patched to be the passed URL")
+
 
 (defun configuration-layer//download-elpa-file
     (pkg-name filename archive-url output-dir

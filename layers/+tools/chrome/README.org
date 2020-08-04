@@ -71,7 +71,7 @@ The following example works on macOS:
 
 | Key binding | Description |
 |-------------+-------------|
-| ~SPC a F~   | flymd-flyit |
+| ~SPC a t c~ | flymd-flyit |
 
 *Note:* You need to kill all google chrome process before using =flymd-flyit=.
 For details, see the upstream [[https://github.com/mola-T/flymd/blob/master/browser.md][flymd browser compatibility notes]].

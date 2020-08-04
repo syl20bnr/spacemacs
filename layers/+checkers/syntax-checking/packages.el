@@ -25,7 +25,7 @@
         (lambda () (when syntax-checking-enable-by-default
                      (global-flycheck-mode 1)))
         lazy-load-flycheck)
-      (setq flycheck-standard-error-navigation nil
+      (setq flycheck-standard-error-navigation syntax-checking-use-standard-error-navigation
             flycheck-global-modes nil)
       ;; key bindings
       (spacemacs/set-leader-keys
@@ -104,11 +104,13 @@
     (with-eval-after-load 'flycheck
       (flycheck-pos-tip-mode))))
 
-(defun syntax-checking/post-init-popwin ()
-  (push '("^\\*Flycheck.+\\*$"
-          :regexp t
-          :dedicated t
-          :position bottom
-          :stick t
-          :noselect t)
-        popwin:special-display-config))
+(defun syntax-checking/pre-init-popwin ()
+  (spacemacs|use-package-add-hook popwin
+    :post-config
+    (push '("^\\*Flycheck.+\\*$"
+            :regexp t
+            :dedicated t
+            :position bottom
+            :stick t
+            :noselect t)
+          popwin:special-display-config)))

@@ -23,7 +23,7 @@
     ;; Autoload for 'kubernetes-overview is defined in "kubernetes-overview.el".
     ;; Add an autoload for the whole 'kubernetes package when kubernetes-overview is called.
     :commands (kubernetes-overview)
-    :init (spacemacs/set-leader-keys "aK" 'kubernetes-overview)))
+    :init (spacemacs/set-leader-keys "atk" 'kubernetes-overview)))
 
 (defun kubernetes/init-kubernetes-evil ()
   (use-package kubernetes-evil

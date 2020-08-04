@@ -51,7 +51,7 @@ two keys at the same time. ~SPC 1~ is notation for a key sequence and means
 pressing ~Space~ first and pressing ~1~ after it. Key chords are notated by
 writing a ~-~ between the keys. Thus ~C-c~ means pressing ~Ctrl~ and the letter
 ~c~ simultaneously. Key chords and sequences can also be combined: ~C-c a~ means
-"First press ~Ctrl~ and ~c~ simultaneously, then press ~a~”. ~C-c C-a~ means
+"First press ~Ctrl~ and ~c~ simultaneously, then press ~a~". ~C-c C-a~ means
 "First press ~Ctrl~ and ~c~ simultaneously, then press ~Ctrl~ and ~a~
 simultaneously".
 

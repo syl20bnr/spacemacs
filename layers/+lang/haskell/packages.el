@@ -244,9 +244,6 @@
 
       (dolist (mode haskell-modes)
         (spacemacs/set-leader-keys-for-major-mode mode
-          "gi"  'haskell-navigate-imports
-          "F"   'haskell-mode-stylish-buffer
-
           "sb"  'haskell-process-load-file
           "sc"  'haskell-interactive-mode-clear
           "sS"  'spacemacs/haskell-interactive-bring
@@ -259,12 +256,9 @@
           "cv"  'haskell-cabal-visit-file
 
           "hd"  'inferior-haskell-find-haddock
-          "hh"  'hoogle
-          "hH"  'haskell-hoogle-lookup-from-local
           "hi"  'haskell-process-do-info
           "ht"  'haskell-process-do-type
           "hT"  'spacemacs/haskell-process-do-type-on-prev-line
-          "hy"  'hayoo
 
           "da"  'haskell-debug/abandon
           "db"  'haskell-debug/break-on-function
@@ -278,7 +272,20 @@
           "ds"  'haskell-debug/step
           "dt"  'haskell-debug/trace
 
-          "ri"  'spacemacs/haskell-format-imports))
+          "ri"  'spacemacs/haskell-format-imports)
+        (if (eq (spacemacs//haskell-backend) 'lsp)
+            (spacemacs/set-leader-keys-for-major-mode mode
+              "gl"  'haskell-navigate-imports
+              "S"   'haskell-mode-stylish-buffer
+
+              "hg"  'hoogle
+              "hG"  'haskell-hoogle-lookup-from-local)
+          (spacemacs/set-leader-keys-for-major-mode mode
+            "gi"  'haskell-navigate-imports
+            "F"   'haskell-mode-stylish-buffer
+
+            "hh"  'hoogle
+            "hG"  'haskell-hoogle-lookup-from-local)))
 
       (evilified-state-evilify haskell-debug-mode haskell-debug-mode-map
         "RET" 'haskell-debug/select

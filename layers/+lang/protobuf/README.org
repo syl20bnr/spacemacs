@@ -16,7 +16,7 @@ Highlighting and syntax checking for [[https://developers.google.com/protocol-bu
 - Syntax highlighting
 - Syntax checking using Flycheck (=protoc= compiler must be available)
 - Correct indentation and commenting
-- Quickly browse file contents using imenu (default key binding ~SPC j i~).
+- Quickly browse file contents using imenu (default key binding ~SPC b t~).
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to

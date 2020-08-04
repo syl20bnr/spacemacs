@@ -18,7 +18,7 @@
 configuration.
 
 In order to use this macro the variable `use-package-inject-hooks'
-must be non-nil.
+must be non-nil. If it is not a warning will be issued.
 
 This is useful in the dotfile to override the default configuration
 of a package.

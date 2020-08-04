@@ -63,7 +63,7 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 
 ** Features:
 - Vim inspired key bindings are provided by [[https://github.com/Somelauw/evil-org-mode][evil-org-mode]]
-- Nicer bullet via [[https://github.com/sabof/org-bullets][org-bullets]]
+- Nicer bullet via [[https://github.com/integral-dw/org-superstar-mode][org-superstar-mode]]
 - A [[https://cirillocompany.de/pages/pomodoro-technique][pomodoro method]] integration via [[https://github.com/lolownia/org-pomodoro][org-pomodoro]]
 - Presentation mode via [[https://github.com/rlister/org-present][org-present]]
 - Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
@@ -254,16 +254,16 @@ To install Trello support set the variable =org-enable-trello-support= to =t=.
 ** Different bullets
 You can tweak the bullets displayed in the org buffer in the function
 =dotspacemacs/user-config= of your dotfile by setting the variable
-=org-bullets-bullet-list=. By default the list is set to =("◉" "○" "✸" "✿")=.
+=org-superstar-headline-bullets-list=. By default the list is set to =("◉" "○" "✸" "✿")=.
 
 #+BEGIN_SRC emacs-lisp
-  (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
+  (setq org-superstar-bullet-list '("■" "◆" "▲" "▶"))
 #+END_SRC
 
-You can disable the fancy bullets entirely by adding =org-bullets= to =dotspacemacs-excluded-packages=.
+You can disable the fancy bullets entirely by adding =org-superstar= to =dotspacemacs-excluded-packages=.
 
 #+BEGIN_SRC emacs-lisp
-  (dotspacemacs-excluded-packages '(org-bullets))
+  (dotspacemacs-excluded-packages '(org-superstar))
 #+END_SRC
 
 ** Project support

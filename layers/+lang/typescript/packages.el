@@ -44,10 +44,10 @@
 (defun typescript/set-tide-linter ()
   (with-eval-after-load 'tide
     (with-eval-after-load 'flycheck
-      (cond ((eq typescript-linter `tslint)
+      (cond ((eq typescript-linter 'tslint)
              (flycheck-add-mode 'typescript-tide 'typescript-tsx-mode)
              (flycheck-add-mode 'typescript-tslint 'typescript-tsx-mode))
-            ((eq typescript-linter `eslint)
+            ((eq typescript-linter 'eslint)
              (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
              (flycheck-add-mode 'javascript-eslint 'typescript-mode)
              (add-to-list 'flycheck-disabled-checkers 'typescript-tslint)
@@ -62,15 +62,22 @@
 (defun typescript/set-lsp-linter ()
   (with-eval-after-load 'lsp-ui
     (with-eval-after-load 'flycheck
-      (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
-      (flycheck-add-mode 'javascript-eslint 'typescript-mode))))
+      (cond ((eq typescript-linter 'tslint)
+             (flycheck-add-mode 'typescript-tslint 'typescript-tsx-mode)
+             (flycheck-add-next-checker 'lsp 'typescript-tslint 'append))
+            ((eq typescript-linter 'eslint)
+             (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
+             (flycheck-add-mode 'javascript-eslint 'typescript-mode))
+            (t
+             (message
+              "Invalid typescript-layer configuration, no such linter: %s" typescript-linter))))))
 
 (defun typescript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'typescript-mode)
   (spacemacs/enable-flycheck 'typescript-tsx-mode)
-  (cond ((eq (spacemacs//typescript-backend) `tide)
+  (cond ((eq (spacemacs//typescript-backend) 'tide)
          (typescript/set-tide-linter))
-        ((eq (spacemacs//typescript-backend) `lsp)
+        ((eq (spacemacs//typescript-backend) 'lsp)
          (typescript/set-lsp-linter)))
 
   (spacemacs/add-to-hooks #'spacemacs//typescript-setup-checkers
@@ -124,6 +131,6 @@
         (add-to-list 'spacemacs--import-js-modes (cons 'typescript-tsx-mode 'typescript-tsx-mode-hook)))))
 
 (defun typescript/post-init-tide ()
-  (when (eq (spacemacs//typescript-backend) `tide)
+  (when (eq (spacemacs//typescript-backend) 'tide)
     (add-to-list 'tide-managed-modes 'typescript-mode)
     (add-to-list 'tide-managed-modes 'typescript-tsx-mode)))

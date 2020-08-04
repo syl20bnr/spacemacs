@@ -159,13 +159,6 @@ Additionally you can install the following other packages:
   # for mypy checking (python 3.4+ is needed)
   pip install pyls-mypy
   pip install pyls-black
-  pip install rope
-  pip install pyflakes
-  pip install mccabe
-  pip install pycodestyle
-  pip install pydocstyle
-  pip install autopep8
-  pip install yapf
 #+END_SRC
 
 If you've installed the language server and related packages as development
@@ -237,7 +230,7 @@ The root of the project is detected with a =.git= directory or a =setup.cfg= fil
 
 ** Buffer formatting
 One of [[https://github.com/google/yapf][YAPF]] (the default), [[https://github.com/ambv/black][black]] or =lsp= may be selected as the formatter, via
-=python-formatter=, as ='yapf=, ='black= or =lsp= respectively.
+=python-formatter=, as =yapf=, =black= or =lsp= respectively.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(

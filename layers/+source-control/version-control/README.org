@@ -81,8 +81,8 @@ VC commands:
 | Key binding | Description                                            |
 |-------------+--------------------------------------------------------|
 | ~SPC g .~   | Version control transient-state                        |
+| ~SPC g o~   | Browser at remote                                      |
 | ~SPC g r~   | Smerge mode transient-state                            |
-| ~SPC g h o~ | Browser at remote                                      |
 | ~SPC g v =~ | Open a hunk under the point in the diff buffer         |
 | ~SPC g v D~ | Compare the entire working tree with head              |
 | ~SPC g v e~ | Show diff against current head using ediff             |

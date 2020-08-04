@@ -137,6 +137,9 @@
             ;; `helm-org-headings-max-depth'.
             org-imenu-depth 8)
 
+      (with-eval-after-load 'org-agenda
+      (add-to-list 'org-modules 'org-habit))
+
       (with-eval-after-load 'org-indent
         (spacemacs|hide-lighter org-indent-mode))
 
@@ -443,7 +446,7 @@ Will work on both org-mode and any mode that accepts plain html."
         ("k" org-babel-previous-src-block)
         ("g" org-babel-goto-named-src-block)
         ("z" recenter-top-bottom)
-        ("e" org-babel-execute-maybe :exit t)
+        ("e" org-babel-execute-maybe)
         ("'" org-edit-special :exit t)))))
 
 (defun org/init-org-agenda ()
@@ -785,8 +788,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
       (spacemacs/set-leader-keys-for-major-mode 'org-journal-mode
         "j" 'org-journal-new-entry
-        "n" 'org-journal-open-next-entry
-        "p" 'org-journal-open-previous-entry)
+        "n" 'org-journal-next-entry
+        "p" 'org-journal-previous-entry)
 
       (spacemacs//init-leader-mode-map 'org-journal-mode 'spacemacs-org-journal-mode-map))))
 
@@ -825,7 +828,6 @@ Headline^^            Visit entry^^               Filter^^                    Da
   (use-package verb
     :defer t
     :init
-    (progn
       (spacemacs/set-leader-keys-for-major-mode
         'org-mode
         "rf" #'verb-send-request-on-point
@@ -837,12 +839,14 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "ru" #'verb-export-request-on-point-curl
         "rb" #'verb-export-request-on-point-verb
         "rv" #'verb-set-var)
+    :config
+    (progn
       (spacemacs/set-leader-keys-for-minor-mode
         'verb-response-body-mode
         "rr" #'verb-toggle-show-headers
         "rk" #'verb-kill-response-buffer-and-window
         "rf" #'verb-re-send-request)
-      (spacemacs/set-leader-keys-for-minor-mode
+      (spacemacs/set-leader-keys-for-major-mode
         'verb-response-headers-mode
         "rq" #'verb-kill-buffer-and-window))))
 

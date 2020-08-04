@@ -322,8 +322,8 @@ MIN-WIDTH is the minimal width of the frame, frame included.  The frame will not
             min-width (or min-width 1)
             max-width (if (< max-width min-width) min-width max-width)
             max-width (if (> max-width spacemacs-buffer--window-width)
-                              spacemacs-buffer--window-width
-                            max-width))
+                          spacemacs-buffer--window-width
+                        max-width))
       (when (< width min-width)
         (setq width min-width
               fill-column (max 0 (- min-width 2 (* hpadding 2)))))
@@ -391,7 +391,7 @@ ADDITIONAL-WIDGETS: a function for inserting a widget under the frame."
             (beginning-of-line)
             (insert (make-string padding ?\s))
             (forward-line))))
-     (save-excursion
+      (save-excursion
         (while (re-search-backward "\\[\\[\\(.*\\)\\]\\]" nil t)
           (make-text-button (match-beginning 1)
                             (match-end 1)
@@ -766,11 +766,11 @@ TYPES: list of `org-mode' types to fetch."
   (let ((date (calendar-gregorian-from-absolute (org-today))))
     (apply #'append
            (cl-loop for file in (org-agenda-files nil 'ifmode)
-                 collect
-                 (spacemacs-buffer//make-org-items
-                  file
-                  (apply 'org-agenda-get-day-entries file date
-                         types))))))
+                    collect
+                    (spacemacs-buffer//make-org-items
+                     file
+                     (apply 'org-agenda-get-day-entries file date
+                            types))))))
 
 (defun spacemacs-buffer//agenda-list ()
   "Return today's agenda."
@@ -851,8 +851,10 @@ LIST: list of `org-agenda' entries in the todo list."
                            :button-suffix ""
                            :format "%[%t%]"
                            (format "%s %s %s"
-                                   (abbreviate-file-name
-                                    (cdr (assoc "file" el)))
+                                   (let ((filename (cdr (assoc "file" el))))
+                                     (if dotspacemacs-home-shorten-agenda-source
+                                         (file-name-nondirectory filename)
+                                       (abbreviate-file-name filename)))
                                    (if (not (eq "" (cdr (assoc "time" el))))
                                        (format "- %s -"
                                                (cdr (assoc "time" el)))
@@ -1032,7 +1034,7 @@ If a prefix argument is given, switch to it in an other, possibly new window."
               (erase-buffer)))
           (spacemacs-buffer/set-mode-line "")
           (if dotspacemacs-startup-buffer-show-version
-            (spacemacs-buffer//insert-version)
+              (spacemacs-buffer//insert-version)
             (let ((inhibit-read-only t))
               (insert "\n")))
           (spacemacs-buffer/insert-banner-and-buttons)
@@ -1072,13 +1074,13 @@ If a prefix argument is given, switch to it in an other, possibly new window."
                                treemacs-bookmark
                                treemacs-find-file
                                treemacs-select-window))
-   (let ((home-buffer (get-buffer-window spacemacs-buffer-name))
-         (frame-win (frame-selected-window)))
-     (when (and dotspacemacs-startup-buffer-responsive
-                home-buffer
-                (not (window-minibuffer-p frame-win)))
-       (with-selected-window home-buffer
-         (spacemacs-buffer/goto-buffer))))))
+    (let ((home-buffer (get-buffer-window spacemacs-buffer-name))
+          (frame-win (frame-selected-window)))
+      (when (and dotspacemacs-startup-buffer-responsive
+                 home-buffer
+                 (not (window-minibuffer-p frame-win)))
+        (with-selected-window home-buffer
+          (spacemacs-buffer/goto-buffer))))))
 
 (defun spacemacs-buffer/refresh ()
   "Force recreation of the spacemacs buffer."

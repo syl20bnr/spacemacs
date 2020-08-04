@@ -82,6 +82,8 @@ seconds to load")
                                              (profiler-report)
                                              (profiler-stop))))))
 
+  (when (version<= "27.0" emacs-version)
+    (require 'time-date))
   (when spacemacs-debug-with-timed-requires
     (with-current-buffer (get-buffer-create "*load-times*")
       (insert (format "Threshold set at %.3f seconds\n\n"

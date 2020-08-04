@@ -15,9 +15,9 @@
       - [[#ubuntu][Ubuntu]]
     - [[#install-libtool][Install libtool]]
       - [[#ubuntu-1][Ubuntu]]
-    - [[#install-libvterm][Install libvterm]]
+    - [[#install-libvterm-optional][Install libvterm (Optional)]]
       - [[#macos-1][macOS]]
-      - [[#ubuntu-2][Ubuntu]]
+      - [[#linux][Linux]]
       - [[#windows][Windows]]
 - [[#configuration][Configuration]]
   - [[#default-shell][Default shell]]
@@ -82,18 +82,19 @@ If the =libtool= command does not exist in your system (usually in
   sudo apt install libtool-bin
 #+END_SRC
 
-*** Install libvterm
+*** Install libvterm (Optional)
 **** macOS
 #+BEGIN_SRC shell
   brew install libvterm
 #+END_SRC
 
-**** Ubuntu
-#+BEGIN_SRC shell
-  sudo apt install libvterm-dev
-#+END_SRC
-
-In other distros, find it and install it in your favorite package manager.
+**** Linux
+This library can be found in the official repositories of most distributions
+(e.g., Arch, Debian, Fedora, Gentoo, openSUSE, Ubuntu). If not available, it
+will be downloaded during the compilation process. Some distributions
+(e.g. Ubuntu 18.04) have versions of libvterm that are too old.
+If you find compilation errors related to VTERM_COLOR, you should
+not use your system libvterm.
 
 **** Windows
 Not supported at the moment, [[https://github.com/akermu/emacs-libvterm/issues/12][but possibly coming up]].
@@ -285,22 +286,22 @@ Some advanced configuration is setup for =eshell= in this layer:
 
 * Key bindings
 
-| Key binding | Description                                                |
-|-------------+------------------------------------------------------------|
-| ~SPC '​~     | Open, close or go to the default shell                     |
-| ~SPC "​~     | Open external terminal emulator in current directory       |
-| ~SPC p '​~   | Open a shell in the project's root                         |
-| ~SPC p "​~   | Open external terminal emulator in project root            |
-| ~SPC a s e~ | Open, close or go to an =eshell=                           |
-| ~SPC a s i~ | Open, close or go to a =shell=                             |
-| ~SPC a s m~ | Open, close or go to a =multi-term=                        |
-| ~SPC a s t~ | Open, close or go to a =ansi-term=                         |
-| ~SPC a s T~ | Open, close or go to a =term=                              |
-| ~TAB~       | browse completion with =helm=                              |
-| ~SPC m H~   | browse history with =helm= (works in =eshell= and =shell=) |
-| ~SPC a s v~ | Open, close or go to a =vterm=                             |
-| ~C-j~       | next item in history                                       |
-| ~C-k~       | previous item in history                                   |
+| Key binding   | Description                                                |
+|---------------+------------------------------------------------------------|
+| ~SPC '​~       | Open, close or go to the default shell                     |
+| ~SPC "​~       | Open external terminal emulator in current directory       |
+| ~SPC p '​~     | Open a shell in the project's root                         |
+| ~SPC p "​~     | Open external terminal emulator in project root            |
+| ~SPC a t s e~ | Open, close or go to an =eshell=                           |
+| ~SPC a t s i~ | Open, close or go to a =shell=                             |
+| ~SPC a t s m~ | Open, close or go to a =multi-term=                        |
+| ~SPC a t s t~ | Open, close or go to a =ansi-term=                         |
+| ~SPC a t s T~ | Open, close or go to a =term=                              |
+| ~TAB~         | browse completion with =helm=                              |
+| ~SPC m H~     | browse history with =helm= (works in =eshell= and =shell=) |
+| ~SPC a t s v~ | Open, close or go to a =vterm=                             |
+| ~C-j~         | next item in history                                       |
+| ~C-k~         | previous item in history                                   |
 
 *Note:* You can open multiple shells using a numerical prefix argument,
 for instance pressing ~2 SPC '​~ will a second default shell, the

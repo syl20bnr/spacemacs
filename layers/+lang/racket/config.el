@@ -11,4 +11,4 @@
 
 ;; variables
 
-(spacemacs|define-jump-handlers racket-mode racket-visit-definition)
+(spacemacs|define-jump-handlers racket-mode racket-xp-mode racket-xp-visit-definition)

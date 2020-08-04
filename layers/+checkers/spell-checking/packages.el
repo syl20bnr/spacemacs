@@ -51,14 +51,16 @@
 Spell Commands^^            Add To Dictionary^^               Other
 --------------^^----------  -----------------^^-------------  -----^^---------------------------
 [_b_] check whole buffer    [_B_] add word to dict (buffer)   [_t_] toggle spell check
-[_d_] change dictionary     [_G_] add word to dict (global)   [_q_] exit
-[_n_] next spell error      [_S_] add word to dict (session)  [_Q_] exit and disable spell check
+[_r_] check region          [_G_] add word to dict (global)   [_q_] exit
+[_d_] change dictionary     [_S_] add word to dict (session)  [_Q_] exit and disable spell check
+[_n_] next spell error
 [_c_] correct before point
 [_s_] correct at point"
         :on-enter (flyspell-mode)
         :bindings
         ("B" spacemacs/add-word-to-dict-buffer)
         ("b" flyspell-buffer)
+        ("r" flyspell-region)
         ("d" spell-checking/change-dictionary)
         ("G" spacemacs/add-word-to-dict-global)
         ("n" flyspell-goto-next-error)
@@ -93,6 +95,7 @@ Spell Commands^^            Add To Dictionary^^               Other
         "Sag" 'spacemacs/add-word-to-dict-global
         "Sas" 'spacemacs/add-word-to-dict-session
         "Sb" 'flyspell-buffer
+        "Sr" 'flyspell-region
         "Sd" 'spell-checking/change-dictionary
         "Sn" 'flyspell-goto-next-error
         "Ss" 'flyspell-correct-at-point))

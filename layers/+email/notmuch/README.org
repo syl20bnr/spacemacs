@@ -94,13 +94,13 @@ Refer to the official notmuch website for more information:
 * Key bindings
 ** Global bindings
 
-| Key binding | Command                                      |
-|-------------+----------------------------------------------|
-| ~SPC a N N~ | Start notmuch                                |
-| ~SPC a N n~ | Start helm notmuch                           |
-| ~SPC a N j~ | Start a notmuch jump search                  |
-| ~SPC a N s~ | Start a notmuch search                       |
-| ~SPC l o n~ | Start notmuch in a custom layout, "@Notmuch" |
+| Key binding   | Command                                      |
+|---------------+----------------------------------------------|
+| ~SPC a e n N~ | Start notmuch                                |
+| ~SPC a e n n~ | Start helm/counsil notmuch                   |
+| ~SPC a e n j~ | Start a notmuch jump search                  |
+| ~SPC a e n s~ | Start a notmuch search                       |
+| ~SPC l o n~   | Start notmuch in a custom layout, "@Notmuch" |
 
 ** Show mode
 

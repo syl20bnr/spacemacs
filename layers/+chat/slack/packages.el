@@ -1,6 +1,6 @@
 ;;; packages.el --- slack layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Kosta Harlan <kosta@kostaharlan.net>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -8,10 +8,6 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-
-;;; Commentary:
-
-;;; Code:
 
 ;; TODO: Integrate company-emoji.
 
@@ -23,8 +19,7 @@
     linum
     persp-mode
     slack
-    window-purpose
-    ))
+    window-purpose))
 
 (defun slack/init-alert ()
   (use-package alert
@@ -61,17 +56,17 @@
     :commands (slack-start)
     :defer t
     :init
-    (spacemacs/declare-prefix "aC" "slack")
+    (spacemacs/declare-prefix "acs" "slack")
     (spacemacs/set-leader-keys
-      "aCs" 'slack-start
-      "aCj" 'slack-channel-select
-      "aCg" 'slack-group-select
-      "aCr" 'slack-select-rooms
-      "aCd" 'slack-im-select
-      "aCq" 'slack-ws-close)
+      "acss" 'slack-start
+      "acsj" 'slack-channel-select
+      "acsg" 'slack-group-select
+      "acsr" 'slack-select-rooms
+      "acsd" 'slack-im-select
+      "acsq" 'slack-ws-close)
     (setq slack-enable-emoji t)
     :config
-    (dolist (mode '(slack-mode slack-message-buffer-mode))
+    (dolist (mode '(slack-mode slack-message-buffer-mode slack-thread-message-buffer-mode))
       (spacemacs/set-leader-keys-for-major-mode mode
         "j" 'slack-channel-select
         "g" 'slack-group-select
@@ -87,12 +82,14 @@
         "@" 'slack-message-embed-mention
         "#" 'slack-message-embed-channel
         ")" 'slack-message-add-reaction
-        "(" 'slack-message-remove-reaction))
-    (evil-define-key 'insert slack-mode-map
-      (kbd "@") 'slack-message-embed-mention
-      (kbd "#") 'slack-message-embed-channel)))
+        "(" 'slack-message-remove-reaction)
+      (let ((keymap (symbol-value (intern (concat (symbol-name mode) "-map")))))
+        (evil-define-key 'insert keymap
+          (kbd "@") 'slack-message-embed-mention
+          (kbd "#") 'slack-message-embed-channel
+          (kbd ":") 'slack-insert-emoji)))))
 
-(defun slack/pre-init-window-purpose ()
-  (spacemacs|use-package-add-hook window-purpose
-    :pre-config
-    (add-to-list 'purpose-user-mode-purposes '(slack-mode . chat))))
+(defun slack/post-init-window-purpose ()
+  (purpose-set-extension-configuration
+   :slack-layer
+   (purpose-conf :mode-purposes '((slack-mode . chat)))))

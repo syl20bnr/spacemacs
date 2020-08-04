@@ -52,6 +52,7 @@ function of your dotfile.
 
 | Key binding | Description                              |
 |-------------+------------------------------------------|
+| ~SPC a w t~ | Open twitter buffer                      |
 | ~?~         | Open/Quit transient state                |
 | ~/~         | Search                                   |
 | ~a~         | Toggle auto-refresh                      |

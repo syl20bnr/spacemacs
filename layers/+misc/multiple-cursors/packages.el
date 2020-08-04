@@ -57,7 +57,7 @@
         "smst" 'mc/reverse-regions)
       (setq mc/always-run-for-all t)
       (with-eval-after-load 'multiple-cursors-core
-        (add-to-list 'mc/cmds-to-run-once 'helm-M-x)
+        (add-to-list 'mc/cmds-to-run-once 'spacemacs/helm-M-x-fuzzy-matching)
         (add-to-list 'mc/cmds-to-run-once 'counsel-M-x)
         (add-to-list 'mc/cmds-to-run-once 'spacemacs/default-pop-shell)
         ))))

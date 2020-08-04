@@ -72,19 +72,19 @@ auto-completion of the running containers.
 
 * Key bindings
 
-| Key binding | Description                                 |
-|-------------+---------------------------------------------|
-| ~SPC m c b~ | build current buffer                        |
-| ~SPC m c B~ | build current buffer without cache          |
-| ~SPC a D c~ | list docker containers                      |
-| ~SPC a D C~ | docker-compose commands for current project |
-| ~SPC a D d~ | delete image                                |
-| ~SPC a D e~ | unpause container                           |
-| ~SPC a D F~ | pull image                                  |
-| ~SPC a D i~ | list docker images                          |
-| ~SPC a D k~ | delete container                            |
-| ~SPC a D o~ | stop container                              |
-| ~SPC a D p~ | pause container                             |
-| ~SPC a D P~ | push image                                  |
-| ~SPC a D r~ | restart container                           |
-| ~SPC a D s~ | start container                             |
+| Key binding   | Description                                 |
+|---------------+---------------------------------------------|
+| ~SPC m c b~   | build current buffer                        |
+| ~SPC m c B~   | build current buffer without cache          |
+| ~SPC a t d c~ | list docker containers                      |
+| ~SPC a t d C~ | docker-compose commands for current project |
+| ~SPC a t d d~ | delete image                                |
+| ~SPC a t d e~ | unpause container                           |
+| ~SPC a t d F~ | pull image                                  |
+| ~SPC a t d i~ | list docker images                          |
+| ~SPC a t d k~ | delete container                            |
+| ~SPC a t d o~ | stop container                              |
+| ~SPC a t d p~ | pause container                             |
+| ~SPC a t d P~ | push image                                  |
+| ~SPC a t d r~ | restart container                           |
+| ~SPC a t d s~ | start container                             |

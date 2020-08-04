@@ -23,7 +23,7 @@ file.
 
 | Key binding | Description   |
 |-------------+---------------|
-| ~SPC a R~   | Start Spray   |
+| ~SPC a r s~ | Start Spray   |
 | ~SPC~       | Pause Spray   |
 | ~h~         | Backward word |
 | ~l~         | Forward word  |

@@ -22,3 +22,13 @@
 
 (defvar sql-auto-indent t
   "If non nil use sql-indent.")
+
+(defvar sql-backend nil
+  "The backend to use for IDE features.
+Possible values are `lsp' and `company-sql'.
+If `nil' then 'company-sql` is the default backend unless `lsp' layer is used")
+
+(defvar sql-lsp-sqls-workspace-config-path 'workspace
+  "Setup workspace configuration with json file. Possible values are:
+`workspace': {workspace directory}/.sqls/config.json
+`root': {root directory of workspace}/.sqls/config.json")

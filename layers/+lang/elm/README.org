@@ -13,8 +13,13 @@
     - [[#macos-and-windows-installers][macOS and Windows installers]]
     - [[#universal-installer-using-npm][Universal installer using npm]]
     - [[#source-code][Source code]]
-  - [[#elm-oracle][elm-oracle]]
   - [[#elm-format][elm-format]]
+  - [[#elm-test][elm-test]]
+- [[#configuration][Configuration]]
+  - [[#choosing-a-backend][Choosing a backend]]
+    - [[#company-elm][Company-elm]]
+      - [[#elm-oracle][elm-oracle]]
+    - [[#lsp][LSP]]
 - [[#basic-usage-tips][Basic usage tips]]
   - [[#compilation][Compilation]]
   - [[#reactor][Reactor]]
@@ -42,8 +47,7 @@ It relies on [[https://github.com/jcollard/elm-mode][elm-mode]] and [[https://gi
 ** Features:
 - Syntax highlighting.
 - Intelligent indentation
-- Auto-completion integration for company (default) or auto-complete modes,
-  with using elm-oracle
+- Auto-completion integration for company (default) or auto-complete modes
 - Syntax checking support using flycheck
 - Integration with elm-make
 - Integration with elm-repl
@@ -88,7 +92,55 @@ run, see this issue [[https://github.com/kevva/elm-bin/issues/28][https://github
 To build from source, see instructions here:
 [[https://github.com/elm-lang/elm-platform][https://github.com/elm-lang/elm-platform]]
 
-** elm-oracle
+** elm-format
+=elm-format= can be used to format elm code according to a standard set of
+rules.
+
+To install =elm-format= run below command:
+
+#+BEGIN_SRC sh
+  npm install --global elm-format
+#+END_SRC
+
+If this does not work for you please check [[https://github.com/avh4/elm-format][here]].
+
+Also, note that if you use homebrew to install =elm-format= the installed exe
+has a version suffix, the installed command name can be set in your
+=~/spacemacs=:
+
+#+BEGIN_SRC emacs-lisp
+  (elm :variables
+       elm-format-command "elm-format-0.17")
+#+END_SRC
+
+** elm-test
+=elm-test= can be used to run unit tests.
+
+To install =elm-test= run below command:
+
+#+BEGIN_SRC sh
+  npm install --global elm-test
+#+END_SRC
+
+* Configuration
+All layer configurations can be done by setting layer variables in your dotfile.
+No custom user config lines are necessary
+
+** Choosing a backend
+This layer provides two alternative backends to choose from.
+
+*** Company-elm
+This is the default choice if nothing is set and no lsp layer
+is loaded in your dotfile. This mode only provides very
+limited IDE capabilities. Used best if only small programs
+are edited. To set explicitly set the following in your
+dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (elm :variables elm-backend 'company-elm)
+#+END_SRC
+
+**** elm-oracle
 =elm-oracle= can be used to show type signatures and docs for tokens under the
 cursor and provide support for auto-completion, but it is not part of the
 standard elm-platform.
@@ -103,21 +155,32 @@ run this command:
   npm install -g elm-oracle
 #+END_SRC
 
-** elm-format
-=elm-format= can be used to format elm code according to a standard set of
-rules.
+*** LSP
+For proper IDE support this backend should be used. It is
+based on an external server which will be started automatically
+by emacs, once an elm file is opened. The key bindings are
+the same for all lsp modes so if you are already familiar with
+one you should be able to work the same in all modes.
 
-To install =elm-format= follow the instructions for the version of elm
-installed: [[https://github.com/avh4/elm-format]]
-
-Also, note that if you use homebrew to install =elm-format= the installed exe
-has a version suffix, the installed command name can be set in your
-=~/spacemacs=:
+To set explicitly do the following in your dotfile:
 
 #+BEGIN_SRC emacs-lisp
   (elm :variables
-       elm-format-command "elm-format-0.17")
+          elm-backend 'lsp)
 #+END_SRC
+
+For this to work you will also need to install
+the lsp server and separate dependencies with below
+command:
+
+#+BEGIN_SRC sh
+  npm install -g elm-analysis @elm-tooling/elm-language-server
+#+END_SRC
+
+NOTE: Key bindings for LSP are defined in the
+LSP layer. Also it is advisable to have a look
+at the autocomplete layer for an optimal
+intellisense config for LSP.
 
 * Basic usage tips
 ** Compilation

@@ -11,24 +11,20 @@
 ##
 ## License: GPLv3
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source "${DIR}/shared"
+skip_when_branch_update
 
-## This seems to bug out when someone has a CircleCI setup at the source fork.
-# if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
-#     echo "Skipping changelogs check for branch update."
-#     exit 0
-# fi
-
-if [[ "$CIRCLE_PR_USERNAME" == "emacspace" ]]; then
+if [[ "$CIRCLE_PR_USERNAME" == "${bot_login}" ]]; then
     echo "Fun fact. Bots can't climb stairs or update CHANGELOG.develop"
     exit 0
 fi
 
+fail_when_undefined_pr_number
+
 if grep -q CHANGELOG.develop /tmp/changed_files; then
     echo "CHANGELOG.develop was updated as required"
 else
-    echo "Please mention your contribution in CHANGELOG.develop"
+    echo "Please describe your contribution in CHANGELOG.develop"
+    echo "if you want it to be mentioned in the release file."
     echo "See CONTRIBUTING.org for the details."
     exit 1
 fi

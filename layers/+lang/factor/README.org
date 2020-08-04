@@ -12,6 +12,7 @@
   - [[#factor-mode-editing-source-files][factor-mode (editing source files)]]
   - [[#fuel-listener-mode][fuel-listener-mode]]
 - [[#snippets][Snippets]]
+- [[#starting-a-graphical-listener][Starting a Graphical Listener]]
 
 * Description
 A spacemacs layer for Factor language support.
@@ -22,6 +23,8 @@ A spacemacs layer for Factor language support.
 - Auto-Completion in REPL
 - Scaffolding support
 - Refactoring support
+- Running graphical Listeners
+- Reloading emacs-lisp portion of FUEL
 
 * Install
 This layer depends on the elisp files that are bundled with factor. To use this
@@ -85,3 +88,21 @@ after typing a single ~:~. Note that you might have
 to set =yas-triggers-in-field= to nil if you use =x= for stack effect
 declaration elements a lot, as this will trigger a builtin snippet from
 prog-mode instead of advancing to the next field when pressing =<TAB>=.
+
+* Starting a Graphical Listener
+The command =factor/start-ui-listener= can be used to run a Factor process which
+sets up a FUEL server on the standard port and runs the graphical listener. If successful, the
+command =connect-to-factor= will connect to that factor instance.
+
+This procedure can be influenced with the following variables, which can also be
+set as directory-local variables to make it easier to work with projects which
+require different Factor versions, for example. (See their respective
+documentation for details)
+- =fuel-factor-root-dir=
+- =fuel-listener-factor-binary=
+- =fuel-listener-factor-image=
+- =factor-ui-listener-args=
+
+Note that the commands described in the [[#key-bindings][Key bindings]] section which start a
+factor listener are supplied by FUEL and don't take the last of these variables,
+=factor-ui-listener-args= into account.

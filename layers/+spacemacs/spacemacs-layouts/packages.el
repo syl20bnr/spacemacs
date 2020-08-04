@@ -104,6 +104,7 @@
 
 
 (defun spacemacs-layouts/post-init-helm ()
+  (with-eval-after-load 'helm (spacemacs//persp-helm-setup))
   (spacemacs/set-leader-keys
     "bB" 'spacemacs-layouts/non-restricted-buffer-list-helm
     "pl" 'spacemacs/helm-persp-switch-project))
@@ -223,9 +224,12 @@
       (add-hook 'persp-mode-hook 'spacemacs//layout-autosave)
       (advice-add 'persp-load-state-from-file
                   :before 'spacemacs//layout-wait-for-modeline)
+      (when layouts-enable-local-variables
+        (advice-add 'persp-switch :before #'spacemacs//load-layout-local-vars))
       (dolist (fn spacemacs-layouts-restricted-functions)
         (advice-add fn
                     :around 'spacemacs-layouts//advice-with-persp-buffer-list))
+      (spacemacs/declare-prefix "b" "persp-buffers")
       (spacemacs/set-leader-keys
         "ba"   'persp-add-buffer
         "br"   'persp-remove-buffer))))

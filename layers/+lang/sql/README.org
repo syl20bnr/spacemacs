@@ -44,6 +44,7 @@ This layer adds support for a wide range of SQL dialects to Spacemacs.
 - Snippet insertion for the more general SQL constructs.
 - REPL support via =SQLi= buffer.
 - Automatic capitalization of keywords.
+- LSP support via [[https://github.com/lighttiger2505/sqls][sqls]].
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -53,15 +54,38 @@ file.
 ** External Dependencies
 Some functionality, like linting, rely on external binaries:
 - *Syntax Checking*: Install [[https://www.ruby-lang.org/en/about/][ruby]] and the =sqlint= gem.
-- *Formatting*: Install [[https://github.com/mjibson/sqlfmt][sqlfmt]] and move it into your =$PATH=
 
 #+BEGIN_SRC ruby
   gem install sqlint
 #+END_SRC
+- *Formatting*: Install [[https://github.com/mjibson/sqlfmt][sqlfmt]] and move it into your =$PATH=
 
 #+BEGIN_SRC sh
   # Download and extract the binary 0.4.0 for linux
   wget -q -O - https://github.com/mjibson/sqlfmt/releases/latest/download/sqlfmt_0.4.0_linux_amd64.tar.gz | tar -xpvzf - --directory "${installdir}/bin"
+#+END_SRC
+- *LSP supporting (sqls)*:
+  - Install [[https://golang.org/dl/][Go]] lang and [[https://github.com/lighttiger2505/sqls][sqls]], then setting the variable =sql-backend= to ='lsp=.
+  - One of way to connect DB is setting variable =sql-lsp-sqls-workspace-config-path= to ='workspace= or ='root= and put json file at these directory.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (sql :variables
+         sql-backend 'lsp
+         sql-lsp-sqls-workspace-config-path 'workspace)))
+#+END_SRC
+
+#+BEGIN_SRC json
+  {
+    "sqls": {
+      "connections": [
+        {
+          "driver": "mysql",
+          "dataSourceName": "user1:password1@tcp(localhost:3306)/sample_db"
+        }
+      ]
+    }
+  }
 #+END_SRC
 
 ** SQL Keywords Capitalization

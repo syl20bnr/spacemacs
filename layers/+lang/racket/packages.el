@@ -54,7 +54,8 @@
     :defer t
     :init
     (progn
-      (spacemacs/register-repl 'racket-mode 'racket-repl "racket"))
+      (spacemacs/register-repl 'racket-mode 'racket-repl "racket")
+      (add-hook 'racket-mode-hook 'racket-xp-mode))
     :config
     (progn
       ;; smartparens configuration
@@ -74,7 +75,12 @@
 `insert state'."
         (interactive)
         (racket-run-and-switch-to-repl)
-        (evil-insert-state))
+        (when (buffer-live-p (get-buffer racket-repl-buffer-name))
+          ;; We don't need to worry about the first time the REPL is opened,
+          ;; since the first time, insert state is automatically entered (since
+          ;; it's registered as a REPL?).
+          (with-current-buffer racket-repl-buffer-name
+            (evil-insert-state))))
 
       (defun spacemacs/racket-send-last-sexp-focus ()
         "Call `racket-send-last-sexp' and switch to REPL buffer in
@@ -100,23 +106,36 @@
         (racket-repl)
         (evil-insert-state))
 
-      (dolist (prefix '(("mg" . "navigation")
+      (dolist (prefix '(("mE" . "errors")
+                        ("mg" . "navigation")
                         ("mh" . "doc")
                         ("mi" . "insert")
+                        ("mr" . "refactor")
                         ("ms" . "repl")
                         ("mt" . "tests")))
         (spacemacs/declare-prefix-for-mode 'racket-mode (car prefix) (cdr prefix)))
 
       (spacemacs/set-leader-keys-for-major-mode 'racket-mode
+        ;; errors
+        "En" 'racket-xp-next-error
+        "EN" 'racket-xp-previous-error
         ;; navigation
         "g`" 'racket-unvisit
+        "gg" 'racket-xp-visit-definition
+        "gn" 'racket-xp-next-definition
+        "gN" 'racket-xp-previous-definition
         "gm" 'racket-visit-module
         "gr" 'racket-open-require-path
+        "gu" 'racket-xp-next-use
+        "gU" 'racket-xp-previous-use
         ;; doc
-        "hd" 'racket-describe
-        "hh" 'racket-doc
+        "ha" 'racket-xp-annotate
+        "hd" 'racket-xp-describe
+        "hh" 'racket-xp-documentation
         ;; insert
         "il" 'racket-insert-lambda
+        ;; refactor
+        "mr" 'racket-xp-rename
         ;; REPL
         "'"  'racket-repl
         "sb" 'racket-run
@@ -128,8 +147,8 @@
         "si" 'racket-repl
         "sr" 'racket-send-region
         "sR" 'spacemacs/racket-send-region-focus
-        "ss" 'racket-repl
         ;; Tests
         "tb" 'racket-test
         "tB" 'spacemacs/racket-test-with-coverage)
       (define-key racket-mode-map (kbd "H-r") 'racket-run))))
+

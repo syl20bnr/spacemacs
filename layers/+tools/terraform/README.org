@@ -10,6 +10,7 @@
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#auto-format-on-save][Auto-format on save]]
+  - [[#lsp][LSP]]
 
 * Description
 This layer provides basic support for Terraform =.tf= files.
@@ -17,6 +18,7 @@ This layer provides basic support for Terraform =.tf= files.
 ** Features:
 - Basic syntax highlighting via [[https://github.com/syohex/emacs-terraform-mode][terraform-mode]]
 - Auto formatting on save via =terraform fmt=
+- LSP support for terraform-lsp via =terraform-backend=
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -33,3 +35,14 @@ layer variable =terraform-auto-format-on-save= to =t=:
 #+BEGIN_SRC emacs-lisp
   (terraform :variables terraform-auto-format-on-save t)
 #+END_SRC
+
+** LSP
+To enable LSP, install [[https://github.com/juliosueiras/terraform-lsp][terraform-lsp]].
+Then set the layer variable =terraform-backend= to ='lsp= like shown below:
+
+#+BEGIN_SRC emacs-lisp
+  (terraform :variables terraform-backend 'lsp)
+#+END_SRC
+
+Alternatively you can also keep the variable on nil, then lsp will be used if lsp
+layer is loaded.

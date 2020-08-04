@@ -27,7 +27,9 @@
   - [[#rake][Rake]]
   - [[#refactor][Refactor]]
   - [[#seeing-is-believing][Seeing is believing]]
-- [[#layer-options][Layer options]]
+- [[#configuration][Configuration]]
+  - [[#layer-options][Layer options]]
+  - [[#disabling-the-automatic-insertion-of-encoding-comment][Disabling the automatic insertion of encoding comment]]
 
 * Description
 This layer provides support for the Ruby programming language.
@@ -269,7 +271,8 @@ When =ruby-test-runner= equals =minitest=.
 | ~<SPC> m @ @~ | Run seeing is believing          |
 | ~<SPC> m @ c~ | Clear seeing is believing output |
 
-* Layer options
+* Configuration
+** Layer options
 
 | Variable                           | Default value | Description                                                                                  |
 |------------------------------------+---------------+----------------------------------------------------------------------------------------------|
@@ -278,3 +281,13 @@ When =ruby-test-runner= equals =minitest=.
 | =ruby-test-runner=                 | =ruby-test=   | Test runner to use. Possible values are =ruby-test=, =minitest= or =rspec=.                  |
 | =ruby-highlight-debugger-keywords= | =t=           | If non-nil, enable highlight for debugger keywords.                                          |
 | =ruby-backend=                     | =robe=        | Defines the backend for IDE feature. Possible values are =robe= or =lsp=.                    |
+
+** Disabling the automatic insertion of encoding comment
+Note that =ruby-mode= and =enh-ruby-mode= will automatically insert the encoding comment ~# coding: utf-8~ at the top of a =`.rb= file, if it contains UTF-8 characters. This might not be desired in Ruby 2.0+, since UTF-8 has become the default encoding. In fact, this will trigger [[https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Style/Encoding][an error]] with Robocop.
+
+[[https://stackoverflow.com/questions/6453955/how-do-i-prevent-emacs-from-adding-coding-information-in-the-first-line][The fix]] is to set the variable =ruby-insert-encoding-magic-comment= (=ruby-mode=) or =enh-ruby-add-encoding-comment-on-save= (=enh-ruby-mode=) to =nil=, e.g.
+
+#+BEGIN_SRC emacs-lisp
+  (defun dotspacemacs-configuration-layers ()
+     '((ruby :variables ruby-insert-encoding-magic-comment nil)))
+#+END_SRC

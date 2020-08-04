@@ -11,24 +11,10 @@
 ##
 ## License: GPLv3
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source "${DIR}/../shared"
+skip_when_branch_update
+fail_when_undefined_pr_number
 
-if [[ -z "${CIRCLE_PR_NUMBER// }" ]]; then
-    echo "Skipping documentation validation for branch update."
-    exit 0
-fi
-
-changed_f_as_args=()
-while read p
-do
-    if [ -f "$p" ]; then
-        if [ ${p: -4} == ".org" ]; then
-            changed_f_as_args+=("${p}")
-        fi
-    fi
-done </tmp/changed_files
-
+select_changed_orgs
 if [ ${#changed_f_as_args[@]} -ne 0 ]; then
     emacs -batch -l /opt/spacetools/spacedoc/sdnize/sdnize.el -no-site-file \
           -q /root/.emacs.d/ /tmp/exported/ \

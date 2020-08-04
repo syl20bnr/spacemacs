@@ -40,7 +40,7 @@
               ;; Toggle
               ("t" bm-toggle))
             (evil-leader/set-key
-              "ab" 'spacemacs/bm-transient-state/body)
+              "atb" 'spacemacs/bm-transient-state/body)
             (advice-add 'spacemacs/bm-transient-state/body
                         :before #'bm-buffer-restore))
     :config (progn

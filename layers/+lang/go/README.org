@@ -104,6 +104,14 @@ layers are enabled as well.
 
 * Configuration
 ** Execution
+By default, the go run command is =go run=. If you want to use a different
+command or run with environment variables, set the layer variable
+=go-run-command=.
+
+#+BEGIN_SRC emacs-lisp
+  (go :variables go-run-command "ENV_VAR=foo go run")
+#+END_SRC
+
 To run the current =main= package with command line arguments, set the value of
 =go-run-args= as a file local variable, e.g.
 
@@ -150,6 +158,21 @@ If you wish to use =golangci-lint=, set the following layer variable to non-nil:
 
 Check [[https://github.com/golangci/golangci-lint][golangci-lint]] and [[https://github.com/weijiangan/flycheck-golangci-lint][flycheck-golangci-lint]] for more details.
 
+Please remember that without properly configured =flycheck-golangci-lint= variables =golangci-lint=
+may not run as expected. The recommended way is to use a =.golangi.yml= in your project.
+But if this is not possible you can also set global command line flags for =golangci-lint=.
+Especially important is the selection of which linters to run and whether to lint test files too.
+
+It may happen from time to time that =golangci-lint= is not able to parse a buffers content
+properly. This normally happens when there are basic errors in the file which prevent more
+complex analytics to run. In this case a set of errors will be shown at the top of the
+current buffer which are not properly parsed by flycheck. Spacemacs still shows basic
+errors in your buffer. When these have been fixed =golangci-lint= will regenerate
+and further diagnostic data will be made available.
+
+When this happens please report a bug to `golangci-lint` they are working hard
+to fix these.
+
 ** Tests
 If you're using =gocheck= or =testify= in your project you can use the
 =go-use-gocheck-for-testing= or =go-use-testify-for-testing= variable to enable
@@ -158,6 +181,14 @@ suite testing and to get single function testing to work.
 Tests are run in a compilation buffer displayed in a popup window that can be
 closed by pressing ~C-g~ from any other window. The variable =go-test-buffer-name=
 can be customized to set the output buffer name.
+
+By default, the go test command is =go test=. If you want to use a different
+command or test with environment variables, set the layer variable
+=go-test-command=.
+
+#+BEGIN_SRC emacs-lisp
+  (go :variables go-test-command "ENV_VAR=foo go test")
+#+END_SRC
 
 To provide additional arguments to =go test=, specify =go-use-test-args=.
 

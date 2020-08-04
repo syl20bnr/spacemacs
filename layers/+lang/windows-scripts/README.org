@@ -28,9 +28,10 @@ file.
 * Key bindings
 ** Powershell (powershell.el)
 
-| Key binding | Description                      |
-|-------------+----------------------------------|
-| ~SPC m r r~ | Transform marked regexp to regex |
+| Key binding   | Description                      |
+|---------------+----------------------------------|
+| ~SPC m r r~   | Transform marked regexp to regex |
+| ~SPC a t s p~ | Start powershell shell           |
 
 ** Batch (dos.el)
 

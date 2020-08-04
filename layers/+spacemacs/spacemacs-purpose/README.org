@@ -10,6 +10,8 @@
   - [[#misc][misc]]
 - [[#install][Install]]
 - [[#usage][Usage]]
+  - [[#allocate-purposes-in-layers][Allocate purposes in layers]]
+  - [[#overwrite-purposes-in-dotfile][Overwrite purposes in dotfile]]
 - [[#key-bindings][Key bindings]]
 - [[#caveats][Caveats]]
   - [[#popwin-and-guide-key][Popwin and guide-key]]
@@ -75,6 +77,57 @@ should call =pupo/update-purpose-config= to update purpose-popwin with those
 changes.
 
 See [[https://github.com/bmag/emacs-purpose/wiki][window-purpose wiki]] to learn more about window-purpose.
+
+** Allocate purposes in layers
+Layers can allocated buffers, which have been created by their
+packages, to certain purposes. This can either be done
+by a simple mode mapping or according to the buffer's name.
+This follows the same idea as the autocomplete and
+syntax-checking layers.
+
+This means the configuration is not centralised in this layer but
+spread among the individual language layers. To ensure
+that users can still overwrite these configs it is important
+to declare them uniformly in Spacemacs.
+
+To do so copy and adjust the following code:
+
+#+BEGIN_SRC emacs-lisp
+  ;; This will only be called if `window-purpose` is listed
+  ;; among the layer packages.
+  ;; This code also takes care that the right loading
+  ;; order is followed so there is no need for any
+  ;; `with-eval-after-load` constructs.
+  (defun shell/post-init-window-purpose ()
+    (purpose-set-extension-configuration
+     :shell-layer
+     (purpose-conf :mode-purposes '((vterm-mode . terminal)
+                                    (eshell-mode . terminal)
+                                    (shell-mode . terminal)
+                                    (term-mode . terminal)))))
+     ;; This can also be a static name allocation
+     ;;            :name-purposes '(("*Anaconda Help*" . Help))
+     ;; or a dynamic one following a regexp
+     ;;            :regexp-purposes '(("^\\*Anaconda" . general))
+
+#+END_SRC
+
+** Overwrite purposes in dotfile
+With layers defining all kinds of purposes there will surely
+come the point where one wishes to change one or two of
+these allocations to match ones own personal needs.
+
+This can easily be achieved by adding below code in
+`dotspacemacs/user-config`:
+
+#+BEGIN_SRC emacs-lisp
+  ;; This will add user allocations with a higher
+  ;; priority than the ones from the layers.
+  ;; With this allocations can be completely
+  ;; customised.
+  (purpose-add-user-purposes :names '(("*Anaconda Help*" . general))
+                             :regexps '(("\\.hy$" . python)))
+#+END_SRC
 
 * Key bindings
 

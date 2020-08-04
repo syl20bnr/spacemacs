@@ -20,7 +20,7 @@
 - [[#enable-debug-adapter-protocol-dap][Enable Debug Adapter Protocol (DAP)]]
 - [[#automatically-show-the-type-of-the-symbol-under-the-cursor][Automatically show the type of the symbol under the cursor]]
 - [[#automatically-insert-asterisk-in-multiline-comments][Automatically insert asterisk in multiline comments]]
-- [[#automatically-replace-arrows-with-unicode-ones][Automatically replace arrows with unicode ones]]
+- [[#deprecated-automatic-replacement-of-arrows-with-unicode-ones][Deprecated: Automatic replacement of arrows with Unicode ones]]
 - [[#enable-gtags-as-a-fallback-navigation-utility][Enable GTags as a fallback navigation utility]]
 - [[#auto-start][Auto-start]]
 - [[#key-bindings][Key bindings]]
@@ -202,17 +202,22 @@ variable =scala-auto-insert-asterisk-in-comments= to =t=.
     (scala :variables scala-auto-insert-asterisk-in-comments t)))
 #+END_SRC
 
-* Automatically replace arrows with unicode ones
-To replace ~=>~, =->= and =<-= with unicode arrows =⇒=, =→= and =←=, set the
-variable =scala-use-unicode-arrows= to =t=.
-
-If in some occasions you don't want the arrows replaced (for example when
-defining compound operators like ~=>>~), you can always undo the change and get
-the ascii arrows back.
+* Deprecated: Automatic replacement of arrows with Unicode ones
+Scala used to support Unicode arrows =⇒=, =→= as aliases for ~=>~, =->= and =<-=, and the
+Scala layer would do the conversion to Unicode for you if you set
+=scala-use-unicode-arrows= to =t=. As the Unicode arrows are now [[https://github.com/scala/scala/pull/7540][deprecated]] in
+Scala, this variable has been dropped from the Scala layer. If it is still in
+your Scala layer variables like so:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (scala :variables scala-use-unicode-arrows t)))
+#+END_SRC
+
+Then you will need to remove it:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(scala))
 #+END_SRC
 
 * Enable GTags as a fallback navigation utility

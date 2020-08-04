@@ -19,7 +19,7 @@
 (defun elfeed/init-elfeed ()
   (use-package elfeed
     :defer t
-    :init (spacemacs/set-leader-keys "af" 'elfeed)
+    :init (spacemacs/set-leader-keys "are" 'elfeed)
     :config
     (progn
       (evilified-state-evilify-map elfeed-search-mode-map

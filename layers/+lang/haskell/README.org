@@ -231,7 +231,6 @@ Documentation commands are prefixed by ~SPC m h~
 | ~SPC m h H~ | do a local Hoogle lookup                                                   |
 | ~SPC m h i~ | gets information for the identifier under the cursor                       |
 | ~SPC m h t~ | gets the type of the identifier under the cursor                           |
-| ~SPC m h y~ | do a Hayoo lookup                                                          |
 
 ** Debug
 Debug commands are prefixed by ~SPC m d~:
@@ -558,7 +557,7 @@ with the following script:
 
 #+BEGIN_SRC bash
   #!/bin/bash
-  cd `stack --project-root`
+  cd `stack path --project-root`
   stack $*
 #+END_SRC
 

@@ -23,7 +23,7 @@
     :init
     (progn
       (spacemacs/set-leader-keys
-        "a/" 'spacemacs/search-engine-select)
+        "aw/" 'spacemacs/search-engine-select)
       (setq search-engine-alist
             `((amazon
                :name "Amazon"

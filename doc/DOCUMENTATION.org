@@ -3838,6 +3838,7 @@ retested.
 | 9000th star!!!!!!!!!       | [[https://github.com/deb0ch][deb0ch]]          |
 | 10000th star :star:        | [[https://github.com/colt365][colt365]]         |
 | 15000th star :star: :star: | [[https://github.com/missingfaktor][missingfaktor]]   |
+| 20000th star! :scream_cat: | [[https://github.com/davehorner][davehorner]]      |
 
 ** Gitter chat
 

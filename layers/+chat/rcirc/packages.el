@@ -1,6 +1,6 @@
 ;;; packages.el --- rcirc Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,27 +9,26 @@
 ;;
 ;;; License: GPLv3
 
-(setq rcirc-packages
-      '(
-        company
-        company-emoji
-        emoji-cheat-sheet-plus
-        emojify
-        (erc-image :toggle rcirc-enable-erc-image)
-        (erc-tweet :toggle rcirc-enable-erc-tweet)
-        (erc-yt :toggle rcirc-enable-erc-yt)
-        flyspell
-        (helm-rcirc :location local
-                    :requires helm)
-        persp-mode
-        rcirc
-        rcirc-color
-        (rcirc-late-fix :location local
-                        :toggle rcirc-enable-late-fix)
-        rcirc-notify
-        (rcirc-styles :toggle rcirc-enable-styles)
-        window-purpose
-        ))
+(defconst rcirc-packages
+  '(
+    company
+    company-emoji
+    emoji-cheat-sheet-plus
+    emojify
+    (erc-image :toggle rcirc-enable-erc-image)
+    (erc-tweet :toggle rcirc-enable-erc-tweet)
+    (erc-yt :toggle rcirc-enable-erc-yt)
+    flyspell
+    (helm-rcirc :location local
+                :requires helm)
+    persp-mode
+    rcirc
+    rcirc-color
+    (rcirc-late-fix :location local
+                    :toggle rcirc-enable-late-fix)
+    rcirc-notify
+    (rcirc-styles :toggle rcirc-enable-styles)
+    window-purpose))
 
 (defun rcirc/post-init-company ()
   (spacemacs|add-company-backends :backends company-capf :modes rcirc-mode))
@@ -111,10 +110,10 @@
     :init
     (progn
       (spacemacs/add-to-hook 'rcirc-mode-hook '(rcirc-omit-mode
-                                         rcirc-track-minor-mode))
+                                                rcirc-track-minor-mode))
 
-      (spacemacs/set-leader-keys "air" 'spacemacs/rcirc)
-      (spacemacs/declare-prefix "ai"  "irc")
+      (spacemacs/set-leader-keys "acir" 'spacemacs/rcirc)
+      (spacemacs/declare-prefix "aci"  "irc")
       (evil-set-initial-state 'rcirc-mode 'insert)
       (setq rcirc-fill-column 80
             rcirc-buffer-maximum-lines 2048
@@ -179,6 +178,7 @@
     (progn
       (add-hook 'rcirc-notify-page-me-hooks 'spacemacs/rcirc-notify-beep))))
 
-(defun rcirc/pre-init-window-purpose ()
-  (spacemacs|use-package-add-hook window-purpose
-    :pre-config (add-to-list 'purpose-user-mode-purposes '(rcirc-mode . chat))))
+(defun rcirc/post-init-window-purpose ()
+  (purpose-set-extension-configuration
+   :rcirc-layer
+   (purpose-conf :mode-purposes '((rcirc-mode . chat)))))

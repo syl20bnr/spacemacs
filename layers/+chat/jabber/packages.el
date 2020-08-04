@@ -1,6 +1,6 @@
 ;;; packages.el --- jabber Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Tosh Lyons <tosh.lyons@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,10 +9,10 @@
 ;;
 ;;; License: GPLv3
 
-(setq jabber-packages '(
-                        jabber
-                        window-purpose
-                        ))
+(defconst jabber-packages
+  '(
+    jabber
+    window-purpose))
 
 (defun jabber/init-jabber ()
   (use-package jabber
@@ -20,7 +20,7 @@
     :init
     (progn
       (add-hook 'jabber-post-connect-hooks 'spacemacs/jabber-connect-hook)
-      (spacemacs/set-leader-keys "aj" 'jabber-connect-all))
+      (spacemacs/set-leader-keys "acj" 'jabber-connect-all))
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'jabber-roster-mode
@@ -40,11 +40,10 @@
         "j" 'jabber-go-to-next-roster-item
         "k" 'jabber-go-to-previous-roster-item))))
 
-(defun jabber/pre-init-window-purpose ()
-  (spacemacs|use-package-add-hook window-purpose
-    :pre-config
-    (dolist (mode '(jabber-browse-mode
-                    jabber-chat-mode
-                    jabber-console-mode
-                    jabber-roster-mode))
-      (add-to-list 'purpose-user-mode-purposes (cons mode 'chat)))))
+(defun jabber/post-init-window-purpose ()
+  (purpose-set-extension-configuration
+   :jabber-layer
+   (purpose-conf :mode-purposes '((jabber-browse-mode . chat)
+                                  (jabber-chat-mode . chat)
+                                  (jabber-console-mode . chat)
+                                  (jabber-roster-mode . chat)))))

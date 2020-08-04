@@ -26,10 +26,10 @@
 (defun version-control/init-vc ()
   (use-package vc
     :defer t
+    :commands (vc-ignore)
     :init
-    (spacemacs/declare-prefix "gv" "version-control")
-    :config
     (progn
+      (spacemacs/declare-prefix "gv" "version-control")
       (spacemacs/set-leader-keys
         "gvv" 'vc-next-action
         "gvg" 'vc-annotate
@@ -38,12 +38,13 @@
         "gvd" 'vc-dir
         "gv+" 'vc-update
         "gvi" 'vc-register
+        "gvI" 'vc-ignore
         "gvu" 'vc-revert
         "gvl" 'vc-print-log
         "gvL" 'vc-print-root-log
-        "gvI" 'vc-ignore
-        "gvr" 'vc-resolve-conflicts)
-
+        "gvr" 'vc-resolve-conflicts))
+    :config
+    (progn
       (evilified-state-evilify vc-dir-mode vc-dir-mode-map
         "j" 'vc-dir-next-line
         (kbd "M-n") 'vc-dir-next-line
@@ -306,4 +307,4 @@
 (defun version-control/init-browse-at-remote ()
   (use-package browse-at-remote
     :defer t
-    :init (spacemacs/set-leader-keys "gho" 'browse-at-remote)))
+    :init (spacemacs/set-leader-keys "go" 'browse-at-remote)))

@@ -1,6 +1,6 @@
 ;;; packages.el --- Notmuch Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -9,25 +9,25 @@
 ;;
 ;;; License: GPLv3
 
-(setq notmuch-packages
-      '(
-        (counsel-notmuch :requires ivy)
-        (helm-notmuch :requires helm)
-        notmuch
-        org
-        persp-mode
-        window-purpose))
+(defconst notmuch-packages
+  '(
+    (counsel-notmuch :requires ivy)
+    (helm-notmuch :requires helm)
+    notmuch
+    org
+    persp-mode
+    window-purpose))
 
 
 (defun notmuch/init-counsel-notmuch ()
   (use-package counsel-notmuch
     :defer t
-    :init (spacemacs/set-leader-keys "aNn" 'counsel-notmuch)))
+    :init (spacemacs/set-leader-keys "aenn" 'counsel-notmuch)))
 
 (defun notmuch/init-helm-notmuch ()
   (use-package helm-notmuch
     :defer t
-    :init (spacemacs/set-leader-keys "aNn" 'helm-notmuch)))
+    :init (spacemacs/set-leader-keys "aenn" 'helm-notmuch)))
 
 (defun notmuch/init-notmuch ()
   (use-package notmuch
@@ -35,12 +35,12 @@
     :commands notmuch
     :init
     (progn
-      (spacemacs/declare-prefix "aN" "notmuch")
+      (spacemacs/declare-prefix "aen" "notmuch")
       (spacemacs/set-leader-keys
-        "aNN" 'notmuch
-        "aNi" 'spacemacs/notmuch-inbox
-        "aNj" 'notmuch-jump-search
-        "aNs" 'notmuch-search))
+        "aenN" 'notmuch
+        "aeni" 'spacemacs/notmuch-inbox
+        "aenj" 'notmuch-jump-search
+        "aens" 'notmuch-search))
     :config
     (progn
       (dolist (prefix '(("ms" . "stash")
@@ -154,8 +154,10 @@
               (add-hook hook #'spacemacs//notmuch-buffer-to-persp)))
           (call-interactively 'notmuch))))))
 
-(defun notmuch/pre-init-window-purpose ()
-  (spacemacs|use-package-add-hook window-purpose
-    :pre-config
+(defun notmuch/post-init-window-purpose ()
+  (let ((modes))
     (dolist (mode notmuch-modes)
-      (add-to-list 'purpose-user-mode-purposes (cons mode 'mail)))))
+      (add-to-list 'modes (cons mode 'mail)))
+    (purpose-set-extension-configuration
+     :notmuch-layer
+     (purpose-conf :mode-purposes modes))))

@@ -232,3 +232,10 @@ in your Spacemacs configuration:
   (if (company-tooltip-visible-p)
       (company-select-previous)
     (cider-repl-previous-input)))
+
+(defun spacemacs/cider-find-and-clear-repl-buffer ()
+  "Calls cider-find-and-clear-repl-output interactively with C-u prefix
+set so that it clears the whole REPL buffer, not just the output."
+  (interactive)
+  (let ((current-prefix-arg '(4)))
+    (call-interactively 'cider-find-and-clear-repl-output)))

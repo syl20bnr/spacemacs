@@ -30,7 +30,6 @@
 (defun spacemacs//javascript-setup-company ()
   "Conditionally setup company based on backend."
   (pcase (spacemacs//javascript-backend)
-    (`tern (spacemacs//javascript-setup-tern-company))
     (`tide (spacemacs//tide-setup-company 'js2-mode))))
 
 (defun spacemacs//javascript-setup-dap ()
@@ -71,20 +70,12 @@
     (message (concat "Tern was configured as the javascript backend but "
                      "the `tern' layer is not present in your `.spacemacs'!"))))
 
-(defun spacemacs//javascript-setup-tern-company ()
-  (if (configuration-layer/layer-used-p 'tern)
-      (when (locate-file "tern" exec-path)
-        (spacemacs/tern-setup-tern-company 'js2-mode))
-    (message (concat "Tern was configured as the javascript backend but "
-                     "the `tern' layer is not present in your `.spacemacs'!"))))
-
 
 ;; js-doc
 
 (defun spacemacs/js-doc-require ()
   "Lazy load js-doc"
   (require 'js-doc))
-(add-hook 'js2-mode-hook 'spacemacs/js-doc-require)
 
 (defun spacemacs/js-doc-set-key-bindings (mode)
   "Setup the key bindings for `js2-doc' for the given MODE."
@@ -155,7 +146,7 @@
     (call-interactively 'web-beautify-js))
    (t (error (concat "%s isn't valid javascript-fmt-tool value."
                      " It should be 'web-beutify or 'prettier.")
-                     (symbol-name javascript-fmt-tool)))))
+             (symbol-name javascript-fmt-tool)))))
 
 (defun spacemacs/javascript-fmt-before-save-hook ()
   (add-hook 'before-save-hook 'spacemacs/javascript-format t t))

@@ -30,7 +30,11 @@
 (defun sql/init-sql ()
   (use-package sql
     :defer t
-    :init (spacemacs/register-repl 'sql 'spacemacs/sql-start "sql")
+    :init
+    (progn
+      (spacemacs/register-repl 'sql 'spacemacs/sql-start "sql")
+      (add-hook 'sql-mode-hook
+                'spacemacs//sql-setup-backend))
     :config
     (progn
       (setq
@@ -40,7 +44,6 @@
       (advice-add 'sql-add-product :after #'spacemacs/sql-populate-products-list)
       (advice-add 'sql-del-product :after #'spacemacs/sql-populate-products-list)
       (spacemacs/sql-populate-products-list)
-
       (defun spacemacs//sql-source (products)
         "return a source for helm selection"
         `((name . "SQL Products")
@@ -172,7 +175,14 @@
         "bS" 'sql-save-connection)
 
       (add-hook 'sql-interactive-mode-hook
-                (lambda () (toggle-truncate-lines t))))))
+                (lambda () (toggle-truncate-lines t)))
+
+      ;; lsp-sqls
+      (let ((path-config (cond
+                          ((equal sql-lsp-sqls-workspace-config-path 'workspace) "workspace")
+                          ((equal sql-lsp-sqls-workspace-config-path 'root) "root")
+                          (t nil))))
+        (setq lsp-sqls-workspace-config-path path-config)))))
 
 (defun sql/init-sql-indent ()
   (use-package sql-indent
@@ -207,9 +217,7 @@
                                     sql-capitalize-keywords-blacklist)))))
 
 (defun sql/post-init-company ()
-  (spacemacs|add-company-backends
-    :backends company-capf
-    :modes sql-mode))
+  (spacemacs//sql-setup-company))
 
 (defun sql/pre-init-org ()
   (spacemacs|use-package-add-hook org

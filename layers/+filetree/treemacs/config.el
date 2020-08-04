@@ -1,4 +1,4 @@
-;;; config.el --- treemacs Layer configuration File for Spacemacs
+;;; config.el --- Treemacs Layer configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
@@ -36,3 +36,6 @@ There are 2 possible values:
 
 (defvar treemacs-lock-width nil
   "When non-nil the treemacs window will not be manually resizable by default.")
+
+(defvar treemacs-use-icons-dired t
+  "When non-nil use `treemacs-icons-dired'")

@@ -66,3 +66,12 @@ in case none of the regular names can be used for a new layout.")
 
 (defvar spacemacs-layouts-restrict-spc-tab nil
   "If `t' then `SPC-TAB' will be limited to the current layout's buffers.")
+
+(defvar layouts-enable-local-variables t
+  "Allow variables to be specified as layout-local (value local to a particular layout).")
+
+(defvar spacemacs--layout-local-variables nil
+  "List of variables that will be local to the current layout.")
+
+(defvar spacemacs--layout-local-map (ht-create)
+  "Map of layouts to their local variable values.")

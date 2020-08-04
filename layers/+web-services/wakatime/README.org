@@ -10,6 +10,7 @@
 - [[#install][Install]]
   - [[#wakatime-program][Wakatime Program]]
   - [[#layer][Layer]]
+    - [[#note-about-api-key-and-bug-submission][Note about api key and bug submission]]
   - [[#api-keys][API Keys]]
     - [[#note-to-venv-workon-users][Note to =venv-workon= users:]]
 
@@ -61,6 +62,20 @@ Example:
                   ;; ...
                  ))
 #+END_SRC
+
+*** Note about api key and bug submission
+If you use the built-in Spacemacs bug submission tool it will include
+all of your layer configs including your secret api key.
+Please remove it before submitting.
+
+Even better don't store your key directly in the layer config.
+Instead put the following code in your user-config which is set after your layer config:
+
+#+BEGIN_SRC emacs-lisp
+  (setq wakatime-api-key "your-api-key")
+#+END_SRC
+
+Everything you set there won't appear in the bug submitting tool.
 
 ** API Keys
 After this go to your wakatime account and have your API key handy

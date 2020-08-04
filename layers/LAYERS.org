@@ -64,29 +64,17 @@
   - [[#spacemacs-visual][Spacemacs-visual]]
 - [[#music][Music]]
   - [[#alda-layer][Alda Layer]]
+  - [[#extempore][Extempore]]
   - [[#pianobar][Pianobar]]
   - [[#spotify][Spotify]]
   - [[#tidalcycles][TidalCycles]]
 - [[#operating-systems][Operating systems]]
-  - [[#kubernetes][Kubernetes]]
   - [[#nixos][NixOS]]
   - [[#osx][OSX]]
 - [[#pair-programming][Pair programming]]
   - [[#floobits][Floobits]]
 - [[#programming-languages][Programming languages]]
   - [[#domain-specific-dsls][Domain-specific (DSLs)]]
-    - [[#coq][Coq]]
-    - [[#elasticsearch][Elasticsearch]]
-    - [[#ess-r][ESS (R)]]
-    - [[#extra-languages][Extra Languages]]
-    - [[#faust][Faust]]
-    - [[#gpu][GPU]]
-    - [[#kivy][Kivy]]
-    - [[#mercury][Mercury]]
-    - [[#octave][Octave]]
-    - [[#prolog][Prolog]]
-    - [[#solidity-layer][Solidity Layer]]
-    - [[#sql][SQL]]
     - [[#lisp-dialects][Lisp dialects]]
       - [[#clojure][Clojure]]
       - [[#common-lisp][Common Lisp]]
@@ -113,6 +101,18 @@
       - [[#shell-scripts][Shell Scripts]]
       - [[#vimscript-language][Vimscript language]]
       - [[#windows-scripting][Windows Scripting]]
+    - [[#coq][Coq]]
+    - [[#elasticsearch][Elasticsearch]]
+    - [[#ess-r][ESS (R)]]
+    - [[#extra-languages][Extra Languages]]
+    - [[#faust][Faust]]
+    - [[#gpu][GPU]]
+    - [[#kivy][Kivy]]
+    - [[#mercury][Mercury]]
+    - [[#octave][Octave]]
+    - [[#prolog][Prolog]]
+    - [[#solidity-layer][Solidity Layer]]
+    - [[#sql][SQL]]
   - [[#frameworks][Frameworks]]
     - [[#django][Django]]
     - [[#emberjs][Emberjs]]
@@ -125,6 +125,11 @@
       - [[#asm][Asm]]
       - [[#forth][Forth]]
     - [[#multi-paradigm][Multi-paradigm]]
+      - [[#javascript-dialects][JavaScript dialects]]
+        - [[#coffeescript][CoffeeScript]]
+        - [[#javascript][JavaScript]]
+        - [[#purescript][Purescript]]
+        - [[#typescript][TypeScript]]
       - [[#c][C#]]
       - [[#cc][C/C++]]
       - [[#crystal][Crystal]]
@@ -157,11 +162,6 @@
       - [[#sml][SML]]
       - [[#swift][Swift]]
       - [[#zig][Zig]]
-      - [[#javascript-dialects][JavaScript dialects]]
-        - [[#coffeescript][CoffeeScript]]
-        - [[#javascript][JavaScript]]
-        - [[#purescript][Purescript]]
-        - [[#typescript][TypeScript]]
     - [[#purely-functional][Purely functional]]
       - [[#agda][Agda]]
       - [[#elm][Elm]]
@@ -190,7 +190,6 @@
     - [[#spacemacs-distribution][Spacemacs distribution]]
     - [[#spacemacs-base-distribution][Spacemacs-base distribution]]
     - [[#spacemacs-bootstrap-distribution][Spacemacs-bootstrap distribution]]
-    - [[#spacemacs-docker-distribution][Spacemacs-docker distribution]]
 - [[#tagging][Tagging]]
   - [[#cscope][Cscope]]
   - [[#helm-gtags][Helm Gtags]]
@@ -214,7 +213,9 @@
   - [[#geolocation][Geolocation]]
   - [[#imenu-list][Imenu-list]]
   - [[#import-js][Import-js]]
+  - [[#kubernetes][Kubernetes]]
   - [[#lsp][LSP]]
+  - [[#meson][Meson]]
   - [[#nginx][Nginx]]
   - [[#node][Node]]
   - [[#pandoc][Pandoc]]
@@ -251,7 +252,7 @@
 
 * THIS FILE IS AUTO GENERATED
 Don't edit it directly.
-See [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#readmeorg-tags]["README.org tags" section of CONTRIBUTING.org for instructions]].
+See [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#readmeorg-tags]["README.org tags" section of CONTRIBUTING.org for the instructions]].
 
 * Chats
 ** ERC
@@ -474,7 +475,7 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 
 Features:
 - Vim inspired key bindings are provided by [[https://github.com/Somelauw/evil-org-mode][evil-org-mode]]
-- Nicer bullet via [[https://github.com/sabof/org-bullets][org-bullets]]
+- Nicer bullet via [[https://github.com/integral-dw/org-superstar-mode][org-superstar-mode]]
 - A [[https://cirillocompany.de/pages/pomodoro-technique][pomodoro method]] integration via [[https://github.com/lolownia/org-pomodoro][org-pomodoro]]
 - Presentation mode via [[https://github.com/rlister/org-present][org-present]]
 - Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
@@ -989,6 +990,16 @@ Features:
 - Play portions of a buffer, or the entire buffer,
   through a running Alda server.
 
+** Extempore
+[[file:+lang/extempore/README.org][+lang/extempore/README.org]]
+
+This layer adds support for the [[https://github.com/digego/extempore][Extempore]] programming environment.
+
+Features:
+- run Extempore (inferior extempore buffer)
+- connect to & evaluate code
+- eldoc support
+
 ** Pianobar
 [[file:+music/pianobar/README.org][+music/pianobar/README.org]]
 
@@ -1016,21 +1027,6 @@ Features:
 - Spacemacs friendly key bindings
 
 * Operating systems
-** Kubernetes
-[[file:+tools/kubernetes/README.org][+tools/kubernetes/README.org]]
-
-This layer provides the [[https://github.com/chrisbarrett/kubernetes-el#kubernetes-el][kubernetes-el]] package, a magit-style interface to the
-Kubernetes command-line client.
-
-Features:
-- Live-updating lists of kubernetes resources
-- Viewing and deleting pods, configmaps and secrets
-- Switching contexts and namespaces.
-- Showing logs and exec'ing into containers
-- Describing pods
-- Tramp support for pods
-- Evil bindings
-
 ** NixOS
 [[file:+os/nixos/README.org][+os/nixos/README.org]]
 
@@ -1066,178 +1062,6 @@ Features:
 
 * Programming languages
 ** Domain-specific (DSLs)
-*** Coq
-[[file:+lang/coq/README.org][+lang/coq/README.org]]
-
-This layer adds support for the [[https://coq.inria.fr/][Coq]] proof assistant (adapted from [[https://github.com/tchajed/spacemacs-coq][spacemacs-coq]]) to Spacemacs.
-
-Features:
-- Syntax highlighting
-- Syntax-checking
-- Auto-completion
-- Debugging of mathematical proofs from within Emacs using a special proof layout
-- Replacement of certain constants with the correct mathematical signs
-- Inserting of certain preconfigured proof elements
-
-*** Elasticsearch
-[[file:+tools/elasticsearch/README.org][+tools/elasticsearch/README.org]]
-
-This layer adds Elasticsearch query and monitoring support to Spacemacs.
-
-Features:
-- Autocompletion for Elasticsearch Query DSL
-- Support for Org-Babel
-- Support for an Elasticsearch Command Center to monitor a cluster
-
-*** ESS (R)
-[[file:+lang/ess/README.org][+lang/ess/README.org]]
-
-This layer adds support for statistical programming languages to Spacemacs.
-
-Features:
-- Syntax highlighting
-- Auto-completion
-- Syntax-checking via [[https://github.com/jimhester/lintr][lintr]]
-- Additional data viewer for R via [[https://github.com/myuhe/ess-R-data-view.el][ess-R-data-view]]
-- Support for Org-Babel
-- Showing of inline help for =R= constructs
-- Repl support via =R terminal=
-- Support for =S=, =SAS= and =R=
-- Much more via the [[https://ess.r-project.org/Manual/ess.html#Current-Features][ESS Project]]
-
-*** Extra Languages
-[[file:+lang/major-modes/README.org][+lang/major-modes/README.org]]
-
-This layer adds a number of packages for less common languages and major modes.
-
-Features:
-- Support for:
-  - Arch Linux PKGBUILDs
-  - Arduino
-  - Android Logcat (not associated with any file types by default)
-  - Gentoo ebuilds
-  - Hoon
-  - MATLAB
-  - QML
-  - OpenScad
-  - Stan
-  - Thrift
-  - Vala
-  - Wolfram Language / Mathematica
-
-*** Faust
-[[file:+lang/faust/README.org][+lang/faust/README.org]]
-
-This layer adds support for the [[https://en.wikipedia.org/wiki/FAUST_(programming_language)][faust language]] to Spacemacs.
-
-Features:
-- Syntax highlighting
-- Auto-completion
-
-*** GPU
-[[file:+lang/gpu/README.org][+lang/gpu/README.org]]
-
-This layer adds support for GPU related languages like CUDA, OpenCL and various Shader formats to Spacemacs.
-
-Features:
-- Syntax highlighting for
-  - =.cl= (OpenCL)
-  - =.cu= (CUDA)
-  - =.cuh= (CUDA)
-  - =.fsh= (Shaders)
-  - =.vsh= (Shaders)
-  - =.glsl= (Shaders)
-  - =.vert= (Shaders)
-  - =.frag= (Shaders)
-  - =.comp= (Shaders)
-  - =.geom= (Shaders)
-  - =.tesc= (Shaders)
-  - =.tese= (Shaders)
-- Simple auto-completion via [[https://github.com/Kaali/company-glsl][company-glsl]] for
-  - =.vert= (Shaders)
-  - =.geom= (Shaders)
-  - =.tesc= (Shaders)
-  - =.tese= (Shaders)
-  - =.frag= (Shaders)
-  - =.comp= (Shaders)
-
-*** Kivy
-[[file:+lang/kivy/README.org][+lang/kivy/README.org]]
-
-This layer adds support for Kivy, cross-platform GUI framework for Python.
-
-Features:
-- Syntax Highlighting
-
-*** Mercury
-[[file:+lang/mercury/README.org][+lang/mercury/README.org]]
-
-This layer adds support for the Mercury language.
-
-Features:
-- Indentation.
-- Syntax highlighting.
-- Compiling and running.
-
-*** Octave
-[[file:+lang/octave/README.org][+lang/octave/README.org]]
-
-This layer adds support for =GNU Octave= files to Spacemacs.
-
-Features:
-- Syntax highlighting for =.m= files via [[https://www.gnu.org/software/emacs/manual/html_mono/octave-mode.html][octave-mode]].
-- REPL support
-- Support for directly running =Octave= scripts from Emacs.
-- Integration with =Octaves= documentation search function.
-
-*** Prolog
-[[file:+lang/prolog/README.org][+lang/prolog/README.org]]
-
-This layer adds support for Prolog using the bundled Prolog mode for Emacs. In addition it also adds ediprolog support for better interaction with SWI-Prolog.
-
-Features:
-- Designed for SWI-Prolog as a default, but can be used with other Prologs that Prolog mode supports.
-- Interactive consulting and compiling.
-- Auto-formatting.
-- Apropos and help lookup.
-
-*** Solidity Layer
-[[file:+lang/solidity/README.org][+lang/solidity/README.org]]
-
-A layer to support Solidity development in Spacemacs.
-
-Features:
-- Syntax highlighting
-- Syntax checking
-- Gas estimation
-
-*** SQL
-[[file:+lang/sql/README.org][+lang/sql/README.org]]
-
-This layer adds support for a wide range of SQL dialects to Spacemacs.
-
-Features:
-- Syntax highlighting for the following SQL dialects
-  - ANSI
-  - DB2
-  - Informix
-  - Ingres
-  - Interbase
-  - Linter
-  - Microsoft
-  - MySQL
-  - Oracle
-  - Postgres
-  - Solid
-  - SQLite
-  - Sybase
-  - Vertica
-- Syntax-checking via [[https://github.com/purcell/sqlint][sqlint]] for ANSI SQL.
-- Format code with [[https://github.com/mjibson/sqlfmt][=sqlfmt=]]
-- Snippet insertion for the more general SQL constructs.
-- REPL support via =SQLi= buffer.
-- Automatic capitalization of keywords.
-
 *** Lisp dialects
 **** Clojure
 [[file:+lang/clojure/README.org][+lang/clojure/README.org]]
@@ -1249,7 +1073,6 @@ Features:
 - REPL via [[https://github.com/clojure-emacs/cider][CIDER]]
 - Code formatting via [[https://github.com/clojure-emacs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]]
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
-- Linting via [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]], [[https://github.com/borkdude/clj-kondo][clj-kondo]] or [[https://github.com/candid82/joker][joker]]
 - Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
 - Debugging with [[https://github.com/clojure-emacs/sayid][sayid]]
 - Clojure cheatsheet
@@ -1433,6 +1256,7 @@ This layer adds markdown support to Spacemacs.
 
 Features:
 - markdown files support via [[http://jblevins.org/git/markdown-mode.git/][markdown-mode]]
+- [[https://github.com/mdx-js/mdx][mdx]] file support via [[http://jblevins.org/git/markdown-mode.git/][markdown-mode]]
 - Fast GitHub-flavored live preview via [[https://github.com/blak3mill3r/vmd-mode][vmd-mode]]
 - TOC generation via [[https://github.com/ardumont/markdown-toc][markdown-toc]]
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
@@ -1556,10 +1380,12 @@ Features:
 **** Vimscript language
 [[file:+lang/vimscript/README.org][+lang/vimscript/README.org]]
 
-This layer adds basic support for vimscript and pentadactyl config files.
+This layer adds support for vimscript and pentadactyl config files.
 
 Features:
 - Syntax highlighting
+- Auto-completion (with LSP)
+- Syntax-checking (with LSP)
 
 **** Windows Scripting
 [[file:+lang/windows-scripts/README.org][+lang/windows-scripts/README.org]]
@@ -1570,6 +1396,179 @@ as support for batch files.
 Features:
 - Syntax highlighting of powershell =.ps1= files via [[https://github.com/jschaf/powershell.el][powershell.el]]
 - Syntax highlighting of batch =.bat= files via [[https://www.emacswiki.org/emacs/DosMode][dos.el]]
+
+*** Coq
+[[file:+lang/coq/README.org][+lang/coq/README.org]]
+
+This layer adds support for the [[https://coq.inria.fr/][Coq]] proof assistant (adapted from [[https://github.com/tchajed/spacemacs-coq][spacemacs-coq]]) to Spacemacs.
+
+Features:
+- Syntax highlighting
+- Syntax-checking
+- Auto-completion
+- Debugging of mathematical proofs from within Emacs using a special proof layout
+- Replacement of certain constants with the correct mathematical signs
+- Inserting of certain preconfigured proof elements
+
+*** Elasticsearch
+[[file:+tools/elasticsearch/README.org][+tools/elasticsearch/README.org]]
+
+This layer adds Elasticsearch query and monitoring support to Spacemacs.
+
+Features:
+- Autocompletion for Elasticsearch Query DSL
+- Support for Org-Babel
+- Support for an Elasticsearch Command Center to monitor a cluster
+
+*** ESS (R)
+[[file:+lang/ess/README.org][+lang/ess/README.org]]
+
+This layer adds support for statistical programming languages to Spacemacs.
+
+Features:
+- Syntax highlighting
+- Auto-completion
+- Syntax-checking via [[https://github.com/jimhester/lintr][lintr]]
+- Additional data viewer for R via [[https://github.com/myuhe/ess-R-data-view.el][ess-R-data-view]]
+- Support for Org-Babel
+- Showing of inline help for =R= constructs
+- Repl support via =R terminal=
+- Support for =S=, =SAS= and =R=
+- Much more via the [[https://ess.r-project.org/Manual/ess.html#Current-Features][ESS Project]]
+
+*** Extra Languages
+[[file:+lang/major-modes/README.org][+lang/major-modes/README.org]]
+
+This layer adds a number of packages for less common languages and major modes.
+
+Features:
+- Support for:
+  - Arch Linux PKGBUILDs
+  - Arduino
+  - Android Logcat (not associated with any file types by default)
+  - Gentoo ebuilds
+  - Hoon
+  - MATLAB
+  - QML
+  - OpenScad
+  - Stan
+  - Thrift
+  - Vala
+  - Wolfram Language / Mathematica
+
+*** Faust
+[[file:+lang/faust/README.org][+lang/faust/README.org]]
+
+This layer adds support for the [[https://en.wikipedia.org/wiki/FAUST_(programming_language)][faust language]] to Spacemacs.
+
+Features:
+- Syntax highlighting
+- Auto-completion
+
+*** GPU
+[[file:+lang/gpu/README.org][+lang/gpu/README.org]]
+
+This layer adds support for GPU related languages like CUDA, OpenCL and various Shader formats to Spacemacs.
+
+Features:
+- Syntax highlighting for
+  - =.cl= (OpenCL)
+  - =.cu= (CUDA)
+  - =.cuh= (CUDA)
+  - =.fsh= (Shaders)
+  - =.vsh= (Shaders)
+  - =.glsl= (Shaders)
+  - =.vert= (Shaders)
+  - =.frag= (Shaders)
+  - =.comp= (Shaders)
+  - =.geom= (Shaders)
+  - =.tesc= (Shaders)
+  - =.tese= (Shaders)
+- Simple auto-completion via [[https://github.com/Kaali/company-glsl][company-glsl]] for
+  - =.vert= (Shaders)
+  - =.geom= (Shaders)
+  - =.tesc= (Shaders)
+  - =.tese= (Shaders)
+  - =.frag= (Shaders)
+  - =.comp= (Shaders)
+
+*** Kivy
+[[file:+lang/kivy/README.org][+lang/kivy/README.org]]
+
+This layer adds support for Kivy, cross-platform GUI framework for Python.
+
+Features:
+- Syntax Highlighting
+
+*** Mercury
+[[file:+lang/mercury/README.org][+lang/mercury/README.org]]
+
+This layer adds support for the Mercury language.
+
+Features:
+- Indentation.
+- Syntax highlighting.
+- Compiling and running.
+
+*** Octave
+[[file:+lang/octave/README.org][+lang/octave/README.org]]
+
+This layer adds support for =GNU Octave= files to Spacemacs.
+
+Features:
+- Syntax highlighting for =.m= files via [[https://www.gnu.org/software/emacs/manual/html_mono/octave-mode.html][octave-mode]].
+- REPL support
+- Support for directly running =Octave= scripts from Emacs.
+- Integration with =Octaves= documentation search function.
+
+*** Prolog
+[[file:+lang/prolog/README.org][+lang/prolog/README.org]]
+
+This layer adds support for Prolog using the bundled Prolog mode for Emacs. In addition it also adds ediprolog support for better interaction with SWI-Prolog.
+
+Features:
+- Designed for SWI-Prolog as a default, but can be used with other Prologs that Prolog mode supports.
+- Interactive consulting and compiling.
+- Auto-formatting.
+- Apropos and help lookup.
+
+*** Solidity Layer
+[[file:+lang/solidity/README.org][+lang/solidity/README.org]]
+
+A layer to support Solidity development in Spacemacs.
+
+Features:
+- Syntax highlighting
+- Syntax checking
+- Gas estimation
+
+*** SQL
+[[file:+lang/sql/README.org][+lang/sql/README.org]]
+
+This layer adds support for a wide range of SQL dialects to Spacemacs.
+
+Features:
+- Syntax highlighting for the following SQL dialects
+  - ANSI
+  - DB2
+  - Informix
+  - Ingres
+  - Interbase
+  - Linter
+  - Microsoft
+  - MySQL
+  - Oracle
+  - Postgres
+  - Solid
+  - SQLite
+  - Sybase
+  - Vertica
+- Syntax-checking via [[https://github.com/purcell/sqlint][sqlint]] for ANSI SQL.
+- Format code with [[https://github.com/mjibson/sqlfmt][=sqlfmt=]]
+- Snippet insertion for the more general SQL constructs.
+- REPL support via =SQLi= buffer.
+- Automatic capitalization of keywords.
+- LSP support via [[https://github.com/lighttiger2505/sqls][sqls]].
 
 ** Frameworks
 *** Django
@@ -1700,6 +1699,65 @@ Features:
 - Passing interactive commands to current =Forth= session.
 
 *** Multi-paradigm
+**** JavaScript dialects
+***** CoffeeScript
+[[file:+lang/coffeescript/README.org][+lang/coffeescript/README.org]]
+
+This layer adds support for the CoffeeScript language using [[https://github.com/defunkt/coffee-mode][coffee-mode]].
+
+Features:
+- Syntax highlighting
+- Auto-completion with =auto-completion= layer
+- Syntax checking and linting with =syntax-checking= layer
+- =Org-Babel= integration
+- REPL support
+
+***** JavaScript
+[[file:+lang/javascript/README.org][+lang/javascript/README.org]]
+
+This layer adds support for the JavaScript language using [[https://github.com/mooz/js2-mode][js2-mode]].
+
+Features:
+- Multiple backends support: Tern and LSP
+- Smart code folding
+- Refactoring: done using [[https://github.com/magnars/js2-refactor.el][js2-refactor]].
+- Auto-completion and documentation
+- Browser based REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
+- Server based REPL with [[https://github.com/abicky/nodejs-repl.el][nodejs-repl]]
+- Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]] or [[https://github.com/prettier/prettier][prettier]]
+- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
+- Display Flow & Typescript type information
+
+***** Purescript
+[[file:+lang/purescript/README.org][+lang/purescript/README.org]]
+
+This layer provides basic Purescript editing support for spacemacs.
+
+Features:
+- Syntax highlighting through [[https://github.com/dysinger/purescript-mode][purescript-mode]]
+- Automatic insert of imports through [[https://github.com/epost/psc-ide-emacs][psc-ide-emacs]]
+- REPL through [[https://github.com/ardumont/emacs-psci][psci]]
+- Syntax checking through flycheck
+- Autocompletion through company
+
+***** TypeScript
+[[file:+lang/typescript/README.org][+lang/typescript/README.org]]
+
+This layer adds support for TypeScript and TSX editing.
+
+Features:
+- Multiple backends support: Tide and LSP
+- Eldoc-mode
+- Documentation at point
+- Auto complete
+- Flycheck with either tslint or eslint
+- Jump to definition, Jump to type definition
+- Find occurrences (Imenu-mode)
+- Rename symbol
+- tsx mode
+- formatting
+- TypeScript playground integration
+
 **** C#
 [[file:+lang/csharp/README.org][+lang/csharp/README.org]]
 
@@ -1794,7 +1852,6 @@ Features:
 - Smart code completion
 - Elixir project management
 - Integration with [[http://company-mode.github.io/][company-mode]]
-- Flycheck support for mix compile
 - Flycheck support for [[https://github.com/rrrene/credo][credo]]
 - Flycheck support for test results
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
@@ -1832,6 +1889,8 @@ Features:
 - Auto-Completion in REPL
 - Scaffolding support
 - Refactoring support
+- Running graphical Listeners
+- Reloading emacs-lisp portion of FUEL
 
 **** Go
 [[file:+lang/go/README.org][+lang/go/README.org]]
@@ -1858,9 +1917,11 @@ Features:
 This layer supports [[http://www.groovy-lang.org/][Groovy]] development in Spacemacs.
 
 Features:
-- Basic dabbrev auto-completion with company
+- Auto-completion
+- Syntax-checking
 - Auto-generate imports with [[https://github.com/mbezjak/emacs-groovy-imports][groovy-imports]]
 - Groovy REPL integration
+- Syntax highlighting
 
 **** Hy
 [[file:+lang/hy/README.org][+lang/hy/README.org]]
@@ -1886,7 +1947,7 @@ Features:
   - [[https://github.com/mopemope/meghanada-emacs][Meghanada]] client/server
 - Auto-completion using company
 - Linting using flycheck integration
-- Maven and Gradle integration
+- Maven integration
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 **** JR Concurrent Programming Language
@@ -1914,11 +1975,13 @@ Features:
 **** Kotlin
 [[file:+lang/kotlin/README.org][+lang/kotlin/README.org]]
 
-This layer adds support for [[http://kotlinlang.org/][Kotlin]] in Spacemacs
+This layer adds support for [[http://kotlinlang.org/][Kotlin]] to Spacemacs.
 
 Features:
-- Linting with [[https://github.com/shyiko/ktlint][ktlint]] and [[https://github.com/whirm/flycheck-kotlin][flycheck-kotlin]]
-- navigation with =ggtags=
+- Syntax highlighting
+- Auto-completion
+- Syntax-checking with [[https://github.com/shyiko/ktlint][ktlint]] and [[https://github.com/whirm/flycheck-kotlin][flycheck-kotlin]]
+- Navigation with =ggtags=
 
 **** Lua
 [[file:+lang/lua/README.org][+lang/lua/README.org]]
@@ -2005,7 +2068,7 @@ Features:
 - Complete and jump to define with [[https://github.com/xcwen/ac-php][company-php]]
 - Run tests with PHPUnit
 - Reformat code with PHP CBF
-- Debug your programs with XDebug (via [[https://github.com/ahungry/geben][geben]])
+- Debug your programs with XDebug (via [[https://github.com/ahungry/geben][geben]] or [[https://github.com/emacs-lsp/dap-mode][dap-mode]])
 - Refactor source files with help of [[https://github.com/emacs-php/phpactor.el][phpactor.el]]
 - Support for the [[https://langserver.org/][Language Server Protocol]] (experimental)
 
@@ -2138,65 +2201,6 @@ This layer adds support for the zig programming language [[https://ziglang.org/]
 Features:
 - Syntax Highlighting
 
-**** JavaScript dialects
-***** CoffeeScript
-[[file:+lang/coffeescript/README.org][+lang/coffeescript/README.org]]
-
-This layer adds support for the CoffeeScript language using [[https://github.com/defunkt/coffee-mode][coffee-mode]].
-
-Features:
-- Syntax highlighting
-- Auto-completion with =auto-completion= layer
-- Syntax checking and linting with =syntax-checking= layer
-- =Org-Babel= integration
-- REPL support
-
-***** JavaScript
-[[file:+lang/javascript/README.org][+lang/javascript/README.org]]
-
-This layer adds support for the JavaScript language using [[https://github.com/mooz/js2-mode][js2-mode]].
-
-Features:
-- Multiple backends support: Tern and LSP
-- Smart code folding
-- Refactoring: done using [[https://github.com/magnars/js2-refactor.el][js2-refactor]].
-- Auto-completion and documentation
-- Browser based REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
-- Server based REPL with [[https://github.com/abicky/nodejs-repl.el][nodejs-repl]]
-- Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]] or [[https://github.com/prettier/prettier][prettier]]
-- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
-- Display Flow & Typescript type information
-
-***** Purescript
-[[file:+lang/purescript/README.org][+lang/purescript/README.org]]
-
-This layer provides basic Purescript editing support for spacemacs.
-
-Features:
-- Syntax highlighting through [[https://github.com/dysinger/purescript-mode][purescript-mode]]
-- Automatic insert of imports through [[https://github.com/epost/psc-ide-emacs][psc-ide-emacs]]
-- REPL through [[https://github.com/ardumont/emacs-psci][psci]]
-- Syntax checking through flycheck
-- Autocompletion through company
-
-***** TypeScript
-[[file:+lang/typescript/README.org][+lang/typescript/README.org]]
-
-This layer adds support for TypeScript and TSX editing.
-
-Features:
-- Multiple backends support: Tide and LSP
-- Eldoc-mode
-- Documentation at point
-- Auto complete
-- Flycheck with either tslint or eslint
-- Jump to definition, Jump to type definition
-- Find occurrences (Imenu-mode)
-- Rename symbol
-- tsx mode
-- formatting
-- TypeScript playground integration
-
 *** Purely functional
 **** Agda
 [[file:+lang/agda/README.org][+lang/agda/README.org]]
@@ -2219,8 +2223,7 @@ It relies on [[https://github.com/jcollard/elm-mode][elm-mode]] and [[https://gi
 Features:
 - Syntax highlighting.
 - Intelligent indentation
-- Auto-completion integration for company (default) or auto-complete modes,
-  with using elm-oracle
+- Auto-completion integration for company (default) or auto-complete modes
 - Syntax checking support using flycheck
 - Integration with elm-make
 - Integration with elm-repl
@@ -2252,7 +2255,7 @@ Features:
 
 ** Utilities
 *** Conda Layer
-[[file:+lang/conda/README.org][+lang/conda/README.org]]
+[[file:+tools/conda/README.org][+tools/conda/README.org]]
 
 This layer adds support for the Anaconda python environment for
 numerical computations to Spacemacs.
@@ -2269,7 +2272,7 @@ Features:
 - dotnet operations
 
 *** IPython Notebook
-[[file:+lang/ipython-notebook/README.org][+lang/ipython-notebook/README.org]]
+[[file:+tools/ipython-notebook/README.org][+tools/ipython-notebook/README.org]]
 
 This layer adds support for the package =emacs-ipython-notebook=.
 
@@ -2289,7 +2292,7 @@ Features:
 - Syntax highlighting
 - Syntax checking using Flycheck (=protoc= compiler must be available)
 - Correct indentation and commenting
-- Quickly browse file contents using imenu (default key binding ~SPC j i~).
+- Quickly browse file contents using imenu (default key binding ~SPC b t~).
 
 *** Sailfish OS developer
 [[file:+tools/sailfish-developer/README.org][+tools/sailfish-developer/README.org]]
@@ -2474,26 +2477,6 @@ Features:
 - Loads =bind-map= and =bind-key= which are used to realize various
   Spacemacs specific key binding commands
 
-*** Spacemacs-docker distribution
-[[file:+distributions/spacemacs-docker/README.org][+distributions/spacemacs-docker/README.org]]
-
-Spacemacs distribution that aims to automate dependency installation for
-Spacemacs layers and provide well tested Docker based development environment
-with GUI support on all major platforms and even [[https://i.imgur.com/wDLDMZN.gif][your web browser]].
-
-Features:
-- Automatically get Spacemacs layers dependency installed with [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bdistributions/spacemacs-docker/deps-install/README.org][installer scripts]]
-- Reap the benefit of Emacs and other GNU/Linux tools on Windows or macOS machines
-- Use [[https://hub.docker.com/][docker hub]] to auto-build your environment and store full backups for free
-- Build once and work with the same development environment everywhere
-- Run untrusted/risky code in the tunable sandbox with CPU/network/disk quotas
-- Try new tools, experiment and roll back changes when something goes wrong
-- Share your setup with others or extend someone else's development environment
-- Run multiple Emacs instances on the same machine isolated
-- [[https://docs.docker.com/engine/reference/commandline/pause/][pause]] container to free resources temporarily
-- [[https://github.com/docker/docker/blob/1.13.x/experimental/checkpoint-restore.md][Checkpoint & Restore]] - maybe the fastest way to start a "heavy" environment
-- Friendly for networks with low upload speed/quotas.
-
 * Tagging
 ** Cscope
 [[file:+tags/cscope/README.org][+tags/cscope/README.org]]
@@ -2615,7 +2598,7 @@ Features:
 This layer adds support for CFEngine policies to Spacemacs.
 
 Features:
-- Syntax highlighting
+- Syntax highlighting (CFEngine DSL, Mustache)
 - On the fly syntax checking via =flycheck= integration.
 - Auto completion via =company= integration.
 - Execution of =cfengine3= =SRC= blocks in =org-mode= via =ob-cfengine3= package.
@@ -2755,6 +2738,21 @@ Features:
 - Import missing modules and remove unused one
 - Go to module location
 
+** Kubernetes
+[[file:+tools/kubernetes/README.org][+tools/kubernetes/README.org]]
+
+This layer provides the [[https://github.com/chrisbarrett/kubernetes-el#kubernetes-el][kubernetes-el]] package, a magit-style interface to the
+Kubernetes command-line client.
+
+Features:
+- Live-updating lists of kubernetes resources
+- Viewing and deleting pods, configmaps and secrets
+- Switching contexts and namespaces.
+- Showing logs and exec'ing into containers
+- Describing pods
+- Tramp support for pods
+- Evil bindings
+
 ** LSP
 [[file:+tools/lsp/README.org][+tools/lsp/README.org]]
 
@@ -2777,6 +2775,15 @@ Features:
 - Symbol documentation in a child frame (=lsp-ui-doc=)
 - Navigation using imenu
 - Consistent core key bindings in LSP modes
+
+** Meson
+[[file:+tools/meson/README.org][+tools/meson/README.org]]
+
+This layer adds support [[https://mesonbuild.com/][Meson]] scripts.
+
+Features:
+- Support for meson build scripts through meson-mode.
+- Syntax highlighting.
 
 ** Nginx
 [[file:+tools/nginx/README.org][+tools/nginx/README.org]]
@@ -2954,6 +2961,7 @@ This layer provides basic support for Terraform =.tf= files.
 Features:
 - Basic syntax highlighting via [[https://github.com/syohex/emacs-terraform-mode][terraform-mode]]
 - Auto formatting on save via =terraform fmt=
+- LSP support for terraform-lsp via =terraform-backend=
 
 ** Tide Layer
 [[file:+tools/tide/README.org][+tools/tide/README.org]]
@@ -2991,7 +2999,7 @@ This layer adds support for working with Vagrant using [[https://github.com/ottb
 [[https://github.com/dougm/vagrant-tramp][vagrant-tramp]].
 
 Features:
-- Manage boxes (under the ~SPC a V~ prefix)
+- Manage boxes (under the ~SPC a t v~ prefix)
 - Remote editing on Vagrant boxes via Tramp
 
 ** Web-beautify

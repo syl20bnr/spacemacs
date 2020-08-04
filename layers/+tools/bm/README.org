@@ -33,4 +33,4 @@ file.
 
 | Key binding | Description        |
 |-------------+--------------------|
-| ~SPC a b~   | bm transient state |
+| ~SPC a t b~ | bm transient state |

@@ -31,7 +31,7 @@ and `mspyls'")
 
 (defvar python-formatter nil
   "The formatter to use. Possible values are `yapf',
-  `black' and 'lsp'.")
+  `black' and `lsp'.")
 
 (defvar python-format-on-save nil
   "If non-nil, automatically format code with formatter selected

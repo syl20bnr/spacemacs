@@ -64,7 +64,7 @@ existing =dotspacemacs-configuration-layers= list in this file.
 
 | Key binding            | Command                         |
 |------------------------+---------------------------------|
-| ~SPC a M~              | Start mu4e                      |
+| ~SPC a e m~            | Start mu4e                      |
 | ~SPC m S~ or ~SPC m /~ | Search emails (requires helm)   |
 | ~SPC m C~              | Search contacts (requires helm) |
 | ~C-x m~                | Compose new message             |

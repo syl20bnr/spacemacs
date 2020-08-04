@@ -86,7 +86,7 @@ actually first used.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (treemacs :variables treemacs-use-persp-scope 'Perspectives)))
+    (treemacs :variables treemacs-use-scope-type 'Perspectives)))
 #+END_SRC
 
 Default is ='Frames=.
@@ -163,10 +163,6 @@ many other commands.
 | ~C-c C-p p~ | Select a projectile project to add to the workspace.                                                             |
 | ~C-c C-p d~ | Remove project at point from the workspace.                                                                      |
 | ~C-c C-p r~ | Rename project at point.                                                                                         |
-| ~th~        | Toggle the hiding and displaying of dotfiles.                                                                    |
-| ~tw~        | Toggle whether the treemacs buffer should have a fixed width.                                                    |
-| ~tf~        | Toggle treemacs-follow-mode.                                                                                     |
-| ~ta~        | treemacs-filewatch-mode.                                                                                         |
 | ~w~         | Set a new value for the width of the treemacs window.                                                            |
 | ~TAB~       | Do what I mean (as defined in ~treemacs-TAB-actions-config~). Prefers expanding nodes by default.                |
 | ~RET~       | Do what I mean (as defined in ~treemacs-RET-actions-config~). Prefers visiting nodes by default.                 |
@@ -187,10 +183,12 @@ many other commands.
 | ~oah~       | Open current file or tag by horizontally splitting a window selected by ace-window.                              |
 | ~oav~       | Open current file or tag by vertically splitting a window selected by ace-window.                                |
 | ~ox~        | Open current file according to its mime type in an external application. Linux, Windows and macOS are supported. |
-| ~ta~        | Toggle ~treemacs-filewatch-mode~.                                                                                |
 | ~tf~        | Toggle ~treemacs-follow-mode~.                                                                                   |
+| ~ta~        | Toggle ~treemacs-filewatch-mode~.                                                                                |
+| ~tg~        | Toggle ~git-mode~.                                                                                               |
 | ~th~        | Toggle the hiding and displaying of dotfiles.                                                                    |
 | ~tw~        | Toggle whether the treemacs buffer should have a fixed width.                                                    |
+| ~tv~        | Toggle the hiding and displaying of dotfiles.                                                                    |
 | ~yr~        | Copy the absolute path of the nearest project node at point.                                                     |
 | ~yy~        | Copy the absolute path of the node at point.                                                                     |
 
@@ -205,8 +203,9 @@ It is possible to set =ace mode= as default action for pressing RET on a file.
 To do this add following configuration to your dotfile.
 
 #+BEGIN_SRC emacs-lisp
-  (treemacs-define-RET-action 'file-node-closed #'treemacs-visit-node-ace)
-  (treemacs-define-RET-action 'file-node-open #'treemacs-visit-node-ace)
+  (with-eval-after-load 'treemacs
+    (treemacs-define-RET-action 'file-node-closed #'treemacs-visit-node-ace)
+    (treemacs-define-RET-action 'file-node-open #'treemacs-visit-node-ace))
 #+END_SRC
 
 **** Use digits in ace mode

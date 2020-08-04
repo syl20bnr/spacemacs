@@ -175,7 +175,7 @@
             "sjj" 'cider-jack-in-clj
             "sjm" 'cider-jack-in-clj&cljs
             "sjs" 'cider-jack-in-cljs
-            "sl" 'cider-repl-clear-buffer
+            "sl" 'spacemacs/cider-find-and-clear-repl-buffer
             "sL" 'cider-find-and-clear-repl-output
             "sn" 'spacemacs/cider-send-ns-form-to-repl
             "sN" 'spacemacs/cider-send-ns-form-to-repl-focus
@@ -222,7 +222,7 @@
       (spacemacs/set-leader-keys-for-major-mode 'cider-repl-mode
         "," 'cider-repl-handle-shortcut)
       (spacemacs/set-leader-keys-for-major-mode 'cider-clojure-interaction-mode
-        "ep" 'cider-eval-print-last-sexp))
+        "epl" 'cider-eval-print-last-sexp))
     :config
     (progn
       ;; add support for golden-ratio
@@ -352,6 +352,8 @@
                 clj-refactor--key-binding-prefixes)
           (spacemacs/set-leader-keys-for-major-mode m
             "=l" 'clojure-align
+            "ran" 'clojure-insert-ns-form
+            "raN" 'clojure-insert-ns-form-at-point
             "rci" 'clojure-cycle-if
             "rcp" 'clojure-cycle-privacy
             "rc#" 'clojure-convert-collection-to-set
@@ -360,6 +362,7 @@
             "rc[" 'clojure-convert-collection-to-vector
             "rc{" 'clojure-convert-collection-to-map
             "rc:" 'clojure-toggle-keyword-string
+            "rsn" 'clojure-sort-ns
             "rtf" 'clojure-thread-first-all
             "rth" 'clojure-thread
             "rtl" 'clojure-thread-last-all

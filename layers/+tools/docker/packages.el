@@ -23,23 +23,23 @@
     :defer t
     :init
     (progn
-      (spacemacs/declare-prefix "aD" "Docker")
+      (spacemacs/declare-prefix "atd" "Docker")
       (evil-leader/set-key
-        "aDc" 'docker-containers
-        "aDC" 'docker-compose
-        "aDd" 'docker-rmi
-        "aDe" 'docker-unpause
-        "aDF" 'docker-pull
-        "aDk" 'docker-rm
-        "aDi" 'docker-images
-        "aDm" 'docker-machines
-        "aDn" 'docker-networks
-        "aDo" 'docker-stop
-        "aDP" 'docker-push
-        "aDp" 'docker-pause
-        "aDr" 'docker-restart
-        "aDs" 'docker-start
-        "aDv" 'docker-volumes)))
+        "atdc" 'docker-containers
+        "atdC" 'docker-compose
+        "atdd" 'docker-rmi
+        "atde" 'docker-unpause
+        "atdF" 'docker-pull
+        "atdk" 'docker-rm
+        "atdi" 'docker-images
+        "atdm" 'docker-machines
+        "atdn" 'docker-networks
+        "atdo" 'docker-stop
+        "atdP" 'docker-push
+        "atdp" 'docker-pause
+        "atdr" 'docker-restart
+        "atds" 'docker-start
+        "atdv" 'docker-volumes)))
   (with-eval-after-load 'docker-containers
     (evilified-state-evilify-map docker-containers-mode-map
       :mode docker-containers-mode))

@@ -19,32 +19,28 @@
 (defun pass/init-helm-pass ()
   (use-package helm-pass
     :defer t
-    :init
-    (evil-leader/set-key
-      "Ap/" 'helm-pass)))
+    :init (spacemacs/set-leader-keys "atP/" 'helm-pass)))
 
 (defun pass/init-ivy-pass ()
   (use-package ivy-pass
     :defer t
-    :init
-    (evil-leader/set-key
-      "Ap/" 'ivy-pass)))
+    :init (spacemacs/set-leader-keys "atP/" 'ivy-pass)))
 
 (defun pass/init-password-store ()
   (use-package password-store
     :defer t
     :init
     (progn
-      (spacemacs/declare-prefix "Ap" "pass")
-      (evil-leader/set-key
-        "Apy" 'password-store-copy
-        "Apg" 'password-store-generate
-        "Api" 'password-store-insert
-        "Apc" 'password-store-edit
-        "Apr" 'password-store-rename
-        "Apd" 'password-store-remove
-        "ApD" 'password-store-clear
-        "ApI" 'password-store-init
-        "Apw" 'password-store-url
-        "Ap?" 'spacemacs/pass-describe
-        "ApY" 'spacemacs/pass-copy-and-describe))))
+      (spacemacs/declare-prefix "atP" "pass")
+      (spacemacs/set-leader-keys
+        "atPy" 'password-store-copy
+        "atPg" 'password-store-generate
+        "atPi" 'password-store-insert
+        "atPc" 'password-store-edit
+        "atPr" 'password-store-rename
+        "atPd" 'password-store-remove
+        "atPD" 'password-store-clear
+        "atPI" 'password-store-init
+        "atPw" 'password-store-url
+        "atP?" 'spacemacs/pass-describe
+        "atPY" 'spacemacs/pass-copy-and-describe))))

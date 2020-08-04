@@ -23,6 +23,7 @@
   - [[#emacs-lisp][Emacs Lisp]]
     - [[#variables][Variables]]
     - [[#key-bindings][Key bindings]]
+      - [[#bind-keys-to-a-macro][Bind keys to a macro]]
     - [[#functions][Functions]]
   - [[#activating-a-layer][Activating a Layer]]
   - [[#creating-a-layer][Creating a Layer]]
@@ -253,8 +254,6 @@ built-in =define-key= function is the best way to do that.
   (define-key map new-keybinding function) ; Syntax
   ;; Map H to go to the previous buffer in normal mode
   (define-key evil-normal-state-map (kbd "H") 'previous-buffer)
-  ;; Mapping keybinding to another keybinding
-  (define-key evil-normal-state-map (kbd "H") (kbd "^")) ; H goes to beginning of the line
 #+END_SRC
 
 The map is the keymap you want to bind the key in. Most of the time you will use
@@ -270,6 +269,31 @@ To map ~<Leader>~ key bindings, use the =spacemacs/set-leader-keys= function.
   ;; Map opening a link to <Leader> o l only in org-mode (works for any major-mode)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode
     "ol" 'org-open-at-point)
+#+END_SRC
+
+**** Bind keys to a macro
+#+BEGIN_SRC emacs-lisp
+  ;; H goes to beginning of the line
+  (define-key evil-normal-state-map (kbd "H") (kbd "^"))
+#+END_SRC
+
+Bind keys to multiple other keys.
+
+For example: To open a newline above, but stay on the current line.
+
+The remapping in Vim:
+
+#+BEGIN_SRC vimrc
+  nmap <S-Enter> O<Esc>j
+#+END_SRC
+
+source: [[https://vim.fandom.com/wiki/Insert_newline_without_entering_insert_mode]]
+
+The equivalent remapping in Spac/Emacs:
+
+#+BEGIN_SRC emacs-lisp
+  ;; S-return adds a newline above
+  (define-key evil-normal-state-map (kbd "S-<return>") (kbd "O <escape> j"))
 #+END_SRC
 
 *** Functions
