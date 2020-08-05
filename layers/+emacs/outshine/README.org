@@ -2,7 +2,7 @@
 
 #+TAGS: emacs|layer
 
-* Table of Contents                                       :TOC_4_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -23,7 +23,7 @@ file.
 
 * Key bindings
 
-| Key Binding   | Description                                                |
+| Key binding   | Description                                                |
 |---------------+------------------------------------------------------------|
 | ~SPC a O S~   | Show the contents of all outline sections                  |
 | ~SPC a O .~   | Structural navigation/editing transient state              |

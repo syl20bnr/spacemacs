@@ -24,6 +24,7 @@
   - [[#helpful][Helpful]]
   - [[#ibuffer][IBuffer]]
   - [[#org][Org]]
+  - [[#outshine][Outshine]]
   - [[#quickurl][Quickurl]]
   - [[#semantic][Semantic]]
   - [[#smex][Smex]]
@@ -481,6 +482,16 @@ Features:
 - Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
 - Project-specific TODOs via [[https://github.com/IvanMalison/org-projectile][org-projectile]]
 - Easy insert of URLs from clipboard with org format via [[https://github.com/rexim/org-cliplink][org-cliplink]]
+
+** Outshine
+[[file:+emacs/outshine/README.org][+emacs/outshine/README.org]]
+
+This layer adds support for [[https://github.com/alphapapa/outshine][outshine]] and [[https://github.com/alphapapa/outorg][outorg]]. They will be enabled in all
+programming modes.
+
+Features:
+- Navigate through code buffers via headings like you do with org buffers
+- Edit comments under outline headings in separate org-mode buffers
 
 ** Quickurl
 [[file:+tools/quickurl/README.org][+tools/quickurl/README.org]]
