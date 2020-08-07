@@ -139,7 +139,6 @@ To use the `all-the-icons` theme rather than the default one, set the `treemacs-
     (treemacs :variables treemacs-use-all-the-icons-theme t)))
 #+END_SRC
 
-
 * Key bindings
 ** Global
 
