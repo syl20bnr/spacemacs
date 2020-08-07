@@ -2012,9 +2012,9 @@ Features:
 This layer adds support for the multi-paradigm language =Nim=.
 
 Features:
-- Code completion.
+- Auto-completion
+- Syntax-checking
 - Jump to definition.
-- Syntax checking.
 
 **** Ocaml
 [[file:+lang/ocaml/README.org][+lang/ocaml/README.org]]

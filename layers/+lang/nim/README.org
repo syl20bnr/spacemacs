@@ -10,7 +10,7 @@
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#choosing-a-backend][Choosing a backend]]
-    - [[#company-nim][Company-nim]]
+    - [[#company-vim][Company-vim]]
     - [[#lsp][LSP]]
 - [[#key-bindings][Key bindings]]
 
@@ -65,7 +65,7 @@ For this to work you will also need to install the
 latest version of the lsp server by running:
 
 #+BEGIN_SRC sh
-   nimble install nimlsp
+  nimble install nimlsp
 #+END_SRC
 
 Should this not work than further instructions can
