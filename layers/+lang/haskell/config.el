@@ -11,7 +11,7 @@
 
 ;; Variables
 
-(setq haskell-modes '(haskell-mode literate-haskell-mode))
+(setq haskell-modes '(haskell-mode haskell-literate-mode))
 
 (spacemacs|define-jump-handlers haskell-mode haskell-mode-jump-to-def-or-tag)
 
