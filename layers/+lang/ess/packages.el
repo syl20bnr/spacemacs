@@ -70,9 +70,9 @@
     :init
     (progn
       (setq ess-use-company nil
-						ess-offset-continued 'straght
+						ess-offset-continued 'straight
             ess-nuke-trailing-whitespace-p t
-            ess-style 'DEFAULT)
+            ess-default-style 'DEFAULT)
 
       ;; add support for evil states
       (evil-set-initial-state 'ess-help-mode 'motion)
