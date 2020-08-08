@@ -70,12 +70,9 @@
     :init
     (progn
       (setq ess-use-company nil
-            ;; Follow Hadley Wickham's R style guide
-            ess-first-continued-statement-offset 2
-            ess-continued-statement-offset 0
-            ess-expression-offset 2
+						ess-offset-continued 'straght
             ess-nuke-trailing-whitespace-p t
-            ess-default-style 'DEFAULT)
+            ess-style 'DEFAULT)
 
       ;; add support for evil states
       (evil-set-initial-state 'ess-help-mode 'motion)
