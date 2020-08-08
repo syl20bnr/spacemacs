@@ -2,6 +2,8 @@ Thank you :heart: for contributing to Spacemacs!
 
 Before you submit this pull request, please ensure it is against the `develop` branch and that you have read the [CONTRIBUTING.org](https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org) file. It contains instructions on how to properly follow our conventions on commit messages, documentation, change log entries and other elements.
 
+Don't forget to update CHANGELOG.develop if you want to be mentioned in the release file!
+
 This message should be replaced with a description of your change.
 
 Cheers!

@@ -205,6 +205,6 @@ workflows:
       - "Validate Documentation (required)":
           requires:
             - "Validate PR"
-      - "CHANGELOG.develop updated (optional)":
-          requires:
-            - "Validate PR"
+      # - "CHANGELOG.develop updated (optional)":
+      #     requires:
+      #       - "Validate PR"
