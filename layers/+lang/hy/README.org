@@ -39,7 +39,7 @@ To install =hy= globally:
 #+END_SRC
 
 ** Auto-completion
-=[[https://github.com/hylang/hy-mode][hy-mode]]= relies on =[[https://github.com/ekaschalk/jedhy][jedhy]]= for auto-completion.
+[[https://github.com/hylang/hy-mode][hy-mode]] relies on [[https://github.com/ekaschalk/jedhy][jedhy]] for auto-completion.
 
 =jedhy= can be installed with:
 
