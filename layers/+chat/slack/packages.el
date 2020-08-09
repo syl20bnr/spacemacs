@@ -58,36 +58,40 @@
     :init
     (spacemacs/declare-prefix "acs" "slack")
     (spacemacs/set-leader-keys
-      "acss" 'slack-start
-      "acsj" 'slack-channel-select
-      "acsg" 'slack-group-select
-      "acsr" 'slack-select-rooms
+      "acsT" 'slack-all-threads
       "acsd" 'slack-im-select
-      "acsq" 'slack-ws-close)
+      "acsg" 'slack-group-select
+      "acsj" 'slack-channel-select
+      "acsq" 'slack-ws-close
+      "acsr" 'slack-select-rooms
+      "acss" 'slack-start
+      "acsu" 'slack-all-unreads)
     (setq slack-enable-emoji t)
     :config
     (dolist (mode '(slack-mode slack-message-buffer-mode slack-thread-message-buffer-mode))
       (spacemacs/set-leader-keys-for-major-mode mode
-        "j" 'slack-channel-select
-        "g" 'slack-group-select
-        "r" 'slack-select-rooms
-        "d" 'slack-im-select
-        "p" 'slack-room-load-prev-messages
-        "e" 'slack-message-edit
-        "t" 'slack-thread-show-or-create
-        "q" 'slack-ws-close
-        "mm" 'slack-message-embed-mention
-        "mc" 'slack-message-embed-channel
-        "k" 'slack-select-rooms
-        "@" 'slack-message-embed-mention
         "#" 'slack-message-embed-channel
+        "(" 'slack-message-remove-reaction
         ")" 'slack-message-add-reaction
-        "(" 'slack-message-remove-reaction)
+        "@" 'slack-message-embed-mention
+        "T" 'slack-all-threads
+        "d" 'slack-im-select
+        "e" 'slack-message-edit
+        "g" 'slack-group-select
+        "j" 'slack-channel-select
+        "k" 'slack-select-rooms
+        "mc" 'slack-message-embed-channel
+        "mm" 'slack-message-embed-mention
+        "p" 'slack-room-load-prev-messages
+        "q" 'slack-ws-close
+        "r" 'slack-select-rooms
+        "t" 'slack-thread-show-or-create
+        "u" 'slack-all-unreads)
       (let ((keymap (symbol-value (intern (concat (symbol-name mode) "-map")))))
         (evil-define-key 'insert keymap
-          (kbd "@") 'slack-message-embed-mention
           (kbd "#") 'slack-message-embed-channel
-          (kbd ":") 'slack-insert-emoji)))))
+          (kbd ":") 'slack-insert-emoji
+          (kbd "@") 'slack-message-embed-mention)))))
 
 (defun slack/post-init-window-purpose ()
   (purpose-set-extension-configuration
