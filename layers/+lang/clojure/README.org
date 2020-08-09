@@ -519,35 +519,36 @@ Evaluate Clojure code in the source code buffer
 Use these key bindings when working directly with a REPL buffer.
 Use the Evaluation key bindings when evaluating in source code buffer.
 
-| Key binding   | Description                                                                |
-|---------------+----------------------------------------------------------------------------|
-| ~SPC m s a~   | switch between REPL and last Clojure source code buffer (cider-repl)       |
-| ~SPC m s b~   | send and eval buffer in REPL                                               |
-| ~SPC m s B~   | send and eval buffer and switch to REPL in =insert state=                  |
-| ~SPC m s c j~ | connect to a running Clojure REPL (cider-connect-clj)                      |
-| ~SPC m s c m~ | connect to a running Clojure & ClojureScript REPL (cider-connect-clj&cljs) |
-| ~SPC m s c s~ | connect to a running ClojureScript REPL (cider-connect-cljs)               |
-| ~SPC m s e~   | send and eval last sexp in REPL                                            |
-| ~SPC m s E~   | send and eval last sexp and switch to REPL in =insert state=               |
-| ~SPC m s f~   | send and eval function in REPL                                             |
-| ~SPC m s F~   | send and eval function and switch to REPL in =insert state=                |
-| ~SPC m s i~   | start a REPL - prompt for REPL type (sesman-start)                         |
-| ~SPC m s j j~ | start Clojure REPL (=cider-jack-in-clj=)                                   |
-| ~SPC m s j m~ | start Clojure REPL (=cider-jack-in-clj&cljs=)                              |
-| ~SPC m s j s~ | start ClojureScript REPL (=cider-jack-in-cljs=)                            |
-| ~SPC m l~     | clear REPL buffer (cider-repl-clear-buffer)                                |
-| ~SPC m L~     | clear and switch to REPL buffer (cider-find-and-clear-repl-output)         |
-| ~SPC m s n~   | send and eval ns form in REPL                                              |
-| ~SPC m s N~   | send and eval ns form and switch to REPL in =insert state=                 |
-| ~SPC m s o~   | switch to other repl instance (cider-repl-switch-to-other)                 |
-| ~SPC m s q n~ | reload namespace in REPL (cider-ns-reload)                                 |
-| ~SPC m s q N~ | reload all namespace in REPL (cider-ns-reload-all)                         |
-| ~SPC m s q q~ | quit REPL (cider-quit)                                                     |
-| ~SPC m s q r~ | restart REPL (cider-restart)                                               |
-| ~SPC m s r~   | send and eval region in REPL                                               |
-| ~SPC m s R~   | send and eval region and switch to REPL in =insert state=                  |
-| ~SPC m e u~   | require Clojure utils into current namespace - i.e. =doc= =source=         |
-| ~SPC m s p~   | print last sexp (clojure interaction mode only)                            |
+| Key binding       | Description                                                                |
+|-------------------*----------------------------------------------------------------------------|
+| ~SPC m s a~       | switch between REPL and last Clojure source code buffer (cider-repl)       |
+| ~SPC m s b~       | send and eval buffer in REPL                                               |
+| ~SPC m s B~       | send and eval buffer and switch to REPL in =insert state=                  |
+| ~SPC u SPC m s B~ | same as ~SPC m s B~ including switching to the buffer namespace in REPL    |
+| ~SPC m s c j~     | connect to a running Clojure REPL (cider-connect-clj)                      |
+| ~SPC m s c m~     | connect to a running Clojure & ClojureScript REPL (cider-connect-clj&cljs) |
+| ~SPC m s c s~     | connect to a running ClojureScript REPL (cider-connect-cljs)               |
+| ~SPC m s e~       | send and eval last sexp in REPL                                            |
+| ~SPC m s E~       | send and eval last sexp and switch to REPL in =insert state=               |
+| ~SPC m s f~       | send and eval function in REPL                                             |
+| ~SPC m s F~       | send and eval function and switch to REPL in =insert state=                |
+| ~SPC m s i~       | start a REPL - prompt for REPL type (sesman-start)                         |
+| ~SPC m s j j~     | start Clojure REPL (=cider-jack-in-clj=)                                   |
+| ~SPC m s j m~     | start Clojure REPL (=cider-jack-in-clj&cljs=)                              |
+| ~SPC m s j s~     | start ClojureScript REPL (=cider-jack-in-cljs=)                            |
+| ~SPC m l~         | clear REPL buffer (cider-repl-clear-buffer)                                |
+| ~SPC m L~         | clear and switch to REPL buffer (cider-find-and-clear-repl-output)         |
+| ~SPC m s n~       | send and eval ns form in REPL                                              |
+| ~SPC m s N~       | send and eval ns form and switch to REPL in =insert state=                 |
+| ~SPC m s o~       | switch to other repl instance (cider-repl-switch-to-other)                 |
+| ~SPC m s q n~     | reload namespace in REPL (cider-ns-reload)                                 |
+| ~SPC m s q N~     | reload all namespace in REPL (cider-ns-reload-all)                         |
+| ~SPC m s q q~     | quit REPL (cider-quit)                                                     |
+| ~SPC m s q r~     | restart REPL (cider-restart)                                               |
+| ~SPC m s r~       | send and eval region in REPL                                               |
+| ~SPC m s R~       | send and eval region and switch to REPL in =insert state=                  |
+| ~SPC m e u~       | require Clojure utils into current namespace - i.e. =doc= =source=         |
+| ~SPC m s p~       | print last sexp (clojure interaction mode only)                            |
 
 *** Tests
 
