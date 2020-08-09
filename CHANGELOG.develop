@@ -3238,6 +3238,8 @@ Other:
   - ~SPC m )~ to add reaction (thanks to Swaroop C H)
   - ~SPC m (~ to remove reaction (thanks to Swaroop C H)
   - ~SPC m t~ to open message thread (thanks to Swaroop C H)
+  - ~SPC m T~ to open all threads in workspace (thanks to wang-d)
+  - ~SPC m u~ to open all unreads in workspace (thanks to wang-d)
 - New layer variable =slack-spacemacs-layout-name= to customize the name of
   the custom layer for Slack buffers (thanks to Benjamin Reynolds)
 - New layer variable =slack-spacemacs-layout-binding= to customize the key used
