@@ -3122,6 +3122,7 @@ Other:
   (thanks to Grant Shangreaux)
 - Added/Updated instructions on external dependencies, =cargo-edit=,
   =cargo-audit=, =rustfmt=, and =clippy= (thanks to Lucius Hu)
+- Added support for Rusty Object Notation (RON) (thanks to Daniel Hutzley)
 **** Sailfish-Developer
 - Key bindings:
   - Added =sailfish-scratchbox= key bindings (thanks to Victor Polevoy):

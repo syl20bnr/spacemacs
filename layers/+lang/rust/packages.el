@@ -121,5 +121,5 @@
 
 (defun rust/init-ron-mode ()
   (use-package ron-mode
-    :mode "\\.ron\\'" . ron-mode
+    :mode ("\\.ron\\'" . ron-mode)
     :defer t))
