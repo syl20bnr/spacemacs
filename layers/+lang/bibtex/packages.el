@@ -1,6 +1,6 @@
 ;;; packages.el --- BibTeX Layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Joshua Ellis <josh@jpellis.me>
 ;; URL: https://github.com/JP-Ellis
@@ -9,14 +9,14 @@
 ;;
 ;;; License: GPLv3
 
-(setq bibtex-packages
-      '(
-        auctex
-        (helm-bibtex :requires helm)
-        (ivy-bibtex :requires ivy)
-        markdown-mode
-        org
-        org-ref))
+(defconst bibtex-packages
+  '(
+    auctex
+    (helm-bibtex :requires helm)
+    (ivy-bibtex :requires ivy)
+    markdown-mode
+    org
+    org-ref))
 
 (defun bibtex/post-init-auctex ()
   (cond ((configuration-layer/layer-used-p 'helm)
@@ -62,6 +62,7 @@
     :commands (org-ref-bibtex-next-entry
                org-ref-bibtex-previous-entry
                org-ref-ivy-insert-cite-link
+               org-ref-helm-insert-cite-link
                org-ref-open-in-browser
                org-ref-open-bibtex-notes
                org-ref-open-bibtex-pdf
@@ -83,6 +84,7 @@
         "gj" 'org-ref-bibtex-next-entry
         "gk" 'org-ref-bibtex-previous-entry)
 
+      (spacemacs/declare-prefix-for-mode 'bibtex-mode "ml" "lookup")
       (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
         ;; Navigation
         "j" 'org-ref-bibtex-next-entry
@@ -105,6 +107,7 @@
         "li" 'isbn-to-bibtex
         "lp" 'pubmed-insert-bibtex-from-pmid))
     :config
-    ;; override org-ref's default helm completion with ivy
-    (when (configuration-layer/layer-used-p 'ivy)
-      (require 'org-ref-ivy))))
+    (progn
+      ;; override org-ref's default helm completion with ivy
+      (when (configuration-layer/layer-used-p 'ivy)
+        (require 'org-ref-ivy)))))
