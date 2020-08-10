@@ -435,8 +435,20 @@ visiting README.org files of Spacemacs.")
 If non nil activate `clean-aindent-mode' which tries to correct
 virtual indentation of simple modes. This can interfer with mode specific
 indent handling like has been reported for `go-mode'.
-If it does deactivate it here.
-(default t)")
+If it does deactivate it here. (default t)")
+
+(defvar dotspacemacs-use-snoopy-mode nil
+  "Shift number row for easier access.
+
+If non-nil activate `snoopy-mode' which shifts your number row
+to match the set of signs given in `dotspacemacs-snoopy-keyrow'
+in programming modes (insert-mode only). (default nil)")
+
+(defvar dotspacemacs-snoopy-keyrow "!@#$%^&*()"
+  "Keyboard layout to be used by snoopy mode.
+
+Text of shifted values from your
+keyboard's number row. (default '!@#$%^&*()')")
 
 (defvar dotspacemacs-home-shorten-agenda-source nil
   "If nil the home buffer shows the full path of agenda items
@@ -449,7 +461,7 @@ and todos. If non nil only the file name is shown.")
 
 (defun dotspacemacs//prettify-spacemacs-docs ()
   "Run `spacemacs/prettify-org-buffer' if `buffer-file-name'
-looks like Spacemacs documentation."
+  looks like Spacemacs documentation."
   (when (and dotspacemacs-pretty-docs
              spacemacs-start-directory
              buffer-file-name)
@@ -465,8 +477,8 @@ looks like Spacemacs documentation."
 
 (defmacro dotspacemacs|call-func (func &optional msg)
   "Call the function from the dotfile only if it is bound.
-If MSG is not nil then display a message in `*Messages*'. Errors
-are caught and signaled to user in spacemacs buffer."
+  If MSG is not nil then display a message in `*Messages*'. Errors
+  are caught and signaled to user in spacemacs buffer."
   `(progn
      (when ,msg (spacemacs-buffer/message ,msg))
      (when (fboundp ',func)
@@ -496,7 +508,7 @@ are caught and signaled to user in spacemacs buffer."
 
 (defun dotspacemacs//check-layers-changed ()
   "Check if the value of `dotspacemacs-configuration-layers'
-changed, and issue a warning if it did."
+  changed, and issue a warning if it did."
   (unless (eq dotspacemacs-configuration-layers
               dotspacemacs--configuration-layers-saved)
     (spacemacs-buffer/warning (concat
@@ -507,9 +519,9 @@ changed, and issue a warning if it did."
 
 (defun dotspacemacs//read-editing-style-config (config)
   "Read editing style CONFIG: apply variables and return the editing style.
-CONFIG can be the symbol of an editing style or a list where the car is
-the symbol of an editing style and the cdr is a list of keyword arguments like
-`:variables'."
+  CONFIG can be the symbol of an editing style or a list where the car is
+  the symbol of an editing style and the cdr is a list of keyword arguments like
+  `:variables'."
   (cond
    ((symbolp config) config)
    ((listp config)
@@ -531,7 +543,7 @@ the symbol of an editing style and the cdr is a list of keyword arguments like
 
 (defun dotspacemacs/add-layer (layer-name)
   "Add LAYER_NAME to dotfile and reload the it.
-Returns non nil if the layer has been effectively inserted."
+  Returns non nil if the layer has been effectively inserted."
   (unless (configuration-layer/layer-used-p layer-name)
     (with-current-buffer (find-file-noselect (dotspacemacs/location))
       (beginning-of-buffer)
@@ -558,8 +570,8 @@ Returns non nil if the layer has been effectively inserted."
 (defun dotspacemacs/sync-configuration-layers (&optional arg)
   "Synchronize declared layers in dotfile with spacemacs.
 
-Called with `C-u' skips `dotspacemacs/user-config'.
-Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preliminary tests."
+  Called with `C-u' skips `dotspacemacs/user-config'.
+  Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preliminary tests."
   (interactive "P")
   (when (file-exists-p dotspacemacs-filepath)
     (with-current-buffer (find-file-noselect dotspacemacs-filepath)
@@ -610,8 +622,8 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preliminary tests."
 
 (defmacro dotspacemacs|symbol-value (symbol)
   "Return the value of SYMBOL corresponding to a dotspacemacs variable.
-If SYMBOL value is `display-graphic-p' then return the result of
-`(display-graphic-p)', otherwise return the value of the symbol."
+  If SYMBOL value is `display-graphic-p' then return the result of
+  `(display-graphic-p)', otherwise return the value of the symbol."
   `(if (eq 'display-graphic-p ,symbol) (display-graphic-p) ,symbol))
 
 (defun dotspacemacs/location ()
@@ -620,7 +632,7 @@ If SYMBOL value is `display-graphic-p' then return the result of
 
 (defun dotspacemacs/copy-template ()
   "Copy `.spacemacs.template' in home directory. Ask for confirmation
-before copying the file if the destination already exists."
+  before copying the file if the destination already exists."
   (interactive)
   (let* ((copy? (if (file-exists-p dotspacemacs-filepath)
                     (y-or-n-p
@@ -634,7 +646,7 @@ before copying the file if the destination already exists."
 
 (defun dotspacemacs//ido-completing-read (prompt candidates)
   "Call `ido-completing-read' with a CANDIDATES alist where the key is
-a display strng and the value is the actual value to return."
+  a display strng and the value is the actual value to return."
   (let ((ido-max-window-height (1+ (length candidates))))
     (cadr (assoc (ido-completing-read prompt (mapcar 'car candidates))
                  candidates))))
@@ -649,7 +661,7 @@ a display strng and the value is the actual value to return."
 (defun dotspacemacs/install (arg)
   "Install the dotfile, return non nil if the doftile has been installed.
 
-If ARG is non nil then ask questions to the user before installing the dotfile."
+  If ARG is non nil then ask questions to the user before installing the dotfile."
   (interactive "P")
   ;; preferences is an alist where the key is the text to replace by
   ;; the value in the dotfile
@@ -775,9 +787,9 @@ If ARG is non nil then ask questions to the user before installing the dotfile."
 
 (defun dotspacemacs/safe-load ()
   "Error recovery from malformed .spacemacs.
-Loads default .spacemacs template and suspends pruning of orphan packages.
-Informs users of error and prompts for default editing style for use during
-error recovery."
+  Loads default .spacemacs template and suspends pruning of orphan packages.
+  Informs users of error and prompts for default editing style for use during
+  error recovery."
   (load (concat dotspacemacs-template-directory
                 ".spacemacs.template"))
   (defadvice dotspacemacs/layers
@@ -930,7 +942,7 @@ error recovery."
 
 (defun dotspacemacs/test-dotfile (&optional hide-buffer)
   "Test settings in dotfile for correctness.
-Return non-nil if all the tests passed."
+  Return non-nil if all the tests passed."
   (interactive)
   (configuration-layer/discover-layers 'refresh-index)
   (let ((min-version "0.0"))

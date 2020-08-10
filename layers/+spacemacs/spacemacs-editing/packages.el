@@ -26,6 +26,7 @@
         password-generator
         pcre2el
         smartparens
+        (snoopy :toggle dotspacemacs-use-snoopy-mode)
         (spacemacs-whitespace-cleanup :location local)
         string-inflection
         undo-tree
@@ -223,9 +224,9 @@
     :init
     (let
         ((rebind-normal-to-motion-state-map
-         (lambda (key def)
-           (define-key evil-normal-state-map key nil)
-           (define-key evil-motion-state-map key def))))
+          (lambda (key def)
+            (define-key evil-normal-state-map key nil)
+            (define-key evil-motion-state-map key def))))
       (global-origami-mode)
       (funcall rebind-normal-to-motion-state-map "za" 'origami-forward-toggle-node)
       (funcall rebind-normal-to-motion-state-map "zc" 'origami-close-node)
@@ -451,3 +452,12 @@
   ;; it to be loaded.
   (use-package ws-butler
     :config (spacemacs|hide-lighter ws-butler-mode)))
+
+(defun spacemacs-editing/init-snoopy ()
+  (use-package snoopy-mode
+    :defer t
+    :init
+    (progn
+      (setq snoopy-keyboard-layout 'spacemacs-custom-snoopy-keyboard-layout
+            spacemacs-custom-snoopy-keyboard-layout dotspacemacs-snoopy-keyrow)
+      (add-hook 'prog-mode-hook 'snoopy-mode))))
