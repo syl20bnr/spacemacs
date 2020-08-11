@@ -987,6 +987,14 @@ Other:
     - ~SPC x i c~ change symbol style to =lowerCamelCase=
     - ~SPC x i C~ change symbol style to =UpperCamelCase=
     (thanks to Ric da Silva)
+  - Improved UX on link opening key bindings:
+    - Added ~SPC x A~ for =link-hint-open-all-links=
+    - Added ~SPC x m~ for =link-hint-open-multiple-links=
+    - Added ~SPC x Y~ for =link-hint-copy-link=
+    - Changed ~SPC x o~ to =link-hint-open-link-at-point=
+    - Changed ~SPC x O~ to =link-hint-open-link=
+    - Changed ~SPC x y~ to =link-hint-copy-link-at-point=
+    (thanks to Codruț Constantin Gușoi)
   - New transpose sentences and transpose paragraphs keybindings
     (thanks to Daniel Gomez):
     - ~SPC x t p~ for =transpose-paragraphs=
