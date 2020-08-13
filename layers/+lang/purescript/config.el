@@ -18,3 +18,8 @@
 
 (defvar purescript-enable-rebuild-on-save nil
   "If non-nil rebuild on save is enabled")
+
+(defvar purescript-backend nil
+  "The backend to use for IDE features.
+Possible values are `lsp' and `psc-ide'.
+If `nil' then `psc-ide' is the default backend unless `lsp' layer is used.")

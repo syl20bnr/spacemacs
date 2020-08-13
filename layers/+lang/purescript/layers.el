@@ -10,3 +10,7 @@
 ;;; License: GPLv3
 
 (configuration-layer/declare-layer-dependencies '(node))
+
+(when (and (boundp 'purescript-backend)
+           (eq purescript-backend 'lsp))
+  (configuration-layer/declare-layer-dependencies '(lsp)))

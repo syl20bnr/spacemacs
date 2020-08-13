@@ -24,10 +24,7 @@
   (add-hook 'purescript-mode-hook 'add-node-modules-path))
 
 (defun purescript/post-init-company ()
-  (when (configuration-layer/package-used-p 'psc-ide)
-    (spacemacs|add-company-backends
-      :backends company-psc-ide-backend
-      :modes purescript-mode)))
+  (spacemacs//purescript-setup-company))
 
 (defun purescript/post-init-flycheck ()
   (spacemacs/enable-flycheck 'purescript-mode))
@@ -40,6 +37,7 @@
       (add-to-list 'spacemacs-indent-sensitive-modes 'purescript-mode)
       (add-hook 'purescript-mode-hook 'turn-on-purescript-indentation)
       (add-hook 'purescript-mode-hook 'purescript-decl-scan-mode)
+      (add-hook 'purescript-mode-hook #'spacemacs//purescript-setup-backend)
       (spacemacs/declare-prefix-for-mode 'purescript-mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode 'purescript-mode "mi" "imports")
       (spacemacs/set-leader-keys-for-major-mode 'purescript-mode
@@ -47,6 +45,7 @@
         "i`"  'purescript-navigate-imports-return
         "ia"  'purescript-align-imports
         "in"  'purescript-navigate-imports))))
+
 
 (defun purescript/init-psci ()
   (use-package psci
