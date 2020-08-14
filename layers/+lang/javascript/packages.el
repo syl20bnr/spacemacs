@@ -19,6 +19,7 @@
     flycheck
     ggtags
     helm-gtags
+    indium
     imenu
     impatient-mode
     import-js
@@ -259,6 +260,38 @@
           "sr" 'spacemacs/skewer-eval-region
           "sR" 'spacemacs/skewer-eval-region-and-focus
           "ss" 'skewer-repl)))))
+
+(defun javascript/init-indium ()
+  (when (eq javascript-repl 'indium)
+    (use-package indium
+      :defer t
+      :init
+      (progn
+        (require 'indium)
+        (add-hook 'js2-mode-hook 'indium-interaction-mode)
+        ;; prefixes
+        (spacemacs/declare-prefix-for-mode 'indium-interaction-mode "mdi" "debugger")
+        (spacemacs/declare-prefix-for-mode 'indium-debugger-mode "mdd" "debugger")
+        ;; keybindings
+        (spacemacs/set-leader-keys-for-minor-mode 'indium-interaction-mode
+          "dil" 'indium-launch
+          "dic" 'indium-connect
+          "die" 'indium-eval-defun
+          "dii" 'indium-inspect-expression
+          "dir" 'indium-repl-switch-from-buffer
+          "did" 'indium-switch-to-debugger
+          "dib" 'indium-toggle-breakpoint
+          "diB" 'indium-remove-all-breakpoints-from-buffer)
+        (spacemacs/set-leader-keys-for-minor-mode 'indium-debugger-mode
+          "ddp" 'indium-debugger-previous-frame
+          "ddn" 'indium-debugger-next-frame
+          "ddn" 'indium-debugger-next-frame
+          "ddi" 'indium-debugger-step-into
+          "dds" 'indium-debugger-step-over
+          "ddo" 'indium-debugger-step-out
+          "ddv" 'indium-debugger-evaluate
+          "ddl" 'indium-debugger-locals
+          "ddc" 'indium-debugger-resume)))))
 
 (defun javascript/post-init-tern ()
   (add-to-list 'tern--key-bindings-modes 'js2-mode))
