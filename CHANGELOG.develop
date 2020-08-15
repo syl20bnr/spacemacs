@@ -3343,7 +3343,7 @@ Other:
   (thanks to Seong Yong-ju)
 **** Themes
 - Added support for more doom themes (thanks to Dela Anthonio, Igor Kupczyński,
-  and DonHugo69)
+  DonHugo69 and Alex)
 - Added support for gruvbox theme variants (thanks to Dean Todevski)
 - Remove zonokai-theme theme as it is unavailable (thanks to nickclasener)
 - Updates to the spacemacs theme (thanks to Nasser Alshammari)
