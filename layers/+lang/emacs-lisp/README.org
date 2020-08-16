@@ -224,12 +224,61 @@ To start debugging:
 In =edebug-mode= (=*Debugging*= is displayed in the minor modes segment of the
 mode line)
 
-TODO
+| Key binding | Description                |
+|-------------+----------------------------|
+| ~s~         | step                       |
+| ~i~         | step in                    |
+| ~o~         | step out                   |
+| ~n~         | next                       |
+| ~f~         | forward-sexp               |
+| ~H~         | goto here                  |
+| ~I~         | instrument callee          |
+| ~g o~       | go                         |
+| ~g O~       | go nonstop                 |
+| ~c~         | continue                   |
+| ~C~         | fast continue              |
+| ~t~         | trace                      |
+| ~T~         | fast trace                 |
+| ~q~         | quit                       |
+| ~Q~         | quit nonstop               |
+| ~Q~         | quit nonstop               |
+| ~a~         | abort recursive edit       |
+| ~S~         | stop                       |
+| ~b~         | set breakpoint             |
+| ~u~         | unset breakpoint           |
+| ~B~         | next breakpoint            |
+| ~x~         | set conditional breakpoint |
+| ~r~         | previous result            |
+| ~e~         | evaluate expression        |
+| ~C-x C-e~   | evaluate last sexp         |
+| ~W W~       | where                      |
+| ~g ?~       | help                       |
+| ~d~         | backtrace                  |
 
 In =debugger-mode= (=Debugger= is displayed in major mode segment of the mode
 line)
 
-TODO
+| Key binding | Description       |
+|-------------+-------------------|
+| ~<tab>~     | forward           |
+| ~S-<tab>~   | backward          |
+| ~RET~       | help follow       |
+| ~SPC~       | next              |
+| ~R~         | record expression |
+| ~c~         | continue          |
+| ~d~         | step through      |
+| ~x~         | eval expression   |
+| ~E~         | eval expression   |
+| ~J~         | jump              |
+| ~g l~       | list functions    |
+| ~g b~       | frame             |
+| ~r~         | return value      |
+| ~u~         | frame clear       |
+| ~L~         | toggle locals     |
+| ~p~         | toggle locals     |
+| ~q~         | quit              |
+| ~Z Q~       | quit              |
+| ~Z Z~       | quit              |
 
 ** Refactoring with emr
 
