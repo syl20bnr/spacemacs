@@ -104,22 +104,19 @@ For information about setting up =$PATH=, check out the corresponding section in
 the FAQ (~SPC h SPC $PATH RET~).
 
 ** Choosing a backend
-To choose a backend set the layer variable =haskell-completion-backend=:
+First, ensure that you have =auto-completion= layer enabled.
+
+To choose a haskell backend, set the haskell layer variable =haskell-completion-backend=:
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-                '(auto-completion
-                  (haskell :variables haskell-completion-backend 'dante)))
+  (haskell :variables haskell-completion-backend 'dante)
 #+END_SRC
-
-Note that in order to enable completion, you'll have to enable the
-=auto-completion= layer as well.
 
 Supported values for =haskell-completion-backend= are =intero=, =dante=,
 =ghci=, =ghc-mod=, and =lsp=.
 
 If you haven't specified any value for =haskell-completion-backend=,
-=ghci= (aka =company-ghci=) will used as default backend, unless
+=ghci= (aka =company-ghci=) will be used as default backend, unless
 the layer =lsp= is enabled, in which case =lsp= is used as default backend.
 
 Backend can be chosen on a per project basis using directory local variables
