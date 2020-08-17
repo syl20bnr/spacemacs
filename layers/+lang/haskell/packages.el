@@ -138,8 +138,6 @@
     :defer t
     :config
     (progn
-      (add-hook 'dante-mode-hook
-                (lambda () (flycheck-add-next-checker 'haskell-dante '(info . haskell-hlint))))
       (dolist (mode haskell-modes)
         (spacemacs/set-leader-keys-for-major-mode mode
           "gb" 'xref-pop-marker-stack
@@ -162,7 +160,11 @@
       (spacemacs/set-leader-keys-for-major-mode mode "hf" 'helm-hoogle))))
 
 (defun haskell/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'haskell-mode))
+  (progn
+    (add-hook 'dante-mode-hook
+              (lambda () (flycheck-add-next-checker 'haskell-dante '(warning . haskell-hlint))))
+    (spacemacs/enable-flycheck 'haskell-mode))
+  )
 
 (defun haskell/init-flycheck-haskell ()
   (use-package flycheck-haskell
