@@ -437,18 +437,14 @@ virtual indentation of simple modes. This can interfer with mode specific
 indent handling like has been reported for `go-mode'.
 If it does deactivate it here. (default t)")
 
-(defvar dotspacemacs-use-snoopy-mode nil
+(defvar dotspacemacs-swap-number-row nil
   "Shift number row for easier access.
 
-If non-nil activate `snoopy-mode' which shifts your number row
-to match the set of signs given in `dotspacemacs-snoopy-keyrow'
-in programming modes (insert-mode only). (default nil)")
-
-(defvar dotspacemacs-snoopy-keyrow "!@#$%^&*()"
-  "Keyboard layout to be used by snoopy mode.
-
-Text of shifted values from your
-keyboard's number row. (default '!@#$%^&*()')")
+If non-nil shift your number row to match the entered keyboard layout
+(only in insert mode). Currently the keyboard layouts
+(qwerty-us qwertz-de) are supported.
+New layouts can be added in `spacemacs-editing' layer.
+(default nil)")
 
 (defvar dotspacemacs-home-shorten-agenda-source nil
   "If nil the home buffer shows the full path of agenda items

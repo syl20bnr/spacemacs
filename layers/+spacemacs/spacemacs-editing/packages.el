@@ -26,7 +26,7 @@
         password-generator
         pcre2el
         smartparens
-        (snoopy :toggle dotspacemacs-use-snoopy-mode)
+        (evil-swap-keys :toggle dotspacemacs-swap-number-row)
         (spacemacs-whitespace-cleanup :location local)
         string-inflection
         undo-tree
@@ -34,7 +34,6 @@
         ws-butler))
 
 ;; Initialization of packages
-
 (defun spacemacs-editing/init-aggressive-indent ()
   (use-package aggressive-indent
     :defer t
@@ -456,11 +455,31 @@
   (use-package ws-butler
     :config (spacemacs|hide-lighter ws-butler-mode)))
 
-(defun spacemacs-editing/init-snoopy ()
-  (use-package snoopy-mode
+(defun spacemacs-editing/init-evil-swap-keys ()
+  (use-package evil-swap-keys-mode
     :defer t
     :init
     (progn
-      (setq snoopy-keyboard-layout 'spacemacs-custom-snoopy-keyboard-layout
-            spacemacs-custom-snoopy-keyboard-layout dotspacemacs-snoopy-keyrow)
-      (add-hook 'prog-mode-hook 'snoopy-mode))))
+      (pcase dotspacemacs-swap-number-row
+        (`qwerty-us (setq evil-swap-keys-number-row-keys  '(("1" . "!")
+                                                            ("2" . "@")
+                                                            ("3" . "#")
+                                                            ("4" . "$")
+                                                            ("5" . "%")
+                                                            ("6" . "^")
+                                                            ("7" . "&")
+                                                            ("8" . "*")
+                                                            ("9" . "(")
+                                                            ("0" . ")"))))
+        (`qwertz-de (setq evil-swap-keys-number-row-keys  '(("1" . "!")
+                                                            ("2" . "\"")
+                                                            ("3" . "§")
+                                                            ("4" . "$")
+                                                            ("5" . "%")
+                                                            ("6" . "&")
+                                                            ("7" . "/")
+                                                            ("8" . "(")
+                                                            ("9" . ")")
+                                                            ("0" . "="))))
+        (_ (message "dotspacemacs-swap-number-row %s is not supported." dotspacemacs-swap-number-row)))
+      (add-hook 'prog-mode-hook #'evil-swap-keys-swap-number-row))))
