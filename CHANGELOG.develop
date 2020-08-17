@@ -453,7 +453,7 @@ sane way, here is the complete list of changed key bindings
   - New variable =dotspacemacs-gc-cons= (thanks to Sylvain Benner)
   - New variable =dotspacemacs-initial-scratch-message= for the initial message
     in the scratch buffer (thanks to Carl Lange)
-  - New variable =dotspacemacs-mode-line-themes= adds support for mode-line
+  - New variable =dotspacemacs-mode-line-theme= adds support for mode-line
     themes. Supported themes are =spacemacs=, =all-the-icons=, =vim-powerline=,
     =custom=, and =vanilla=. The first three are spaceline themes, =custom= is
     user defined, and =vanilla= is the default Emacs mode-line.
