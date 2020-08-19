@@ -2499,6 +2499,7 @@ Other:
   upstream (thanks to duianto)
 - Removed =company-lsp=. Now =lsp-mode= is responsible for configuring
   =company-backends= and it will use =company-capf=.
+- Fixed upstream removal of =lsp-clients= (thanks to Colin Woodbury)
 **** Debug Adapter Protocol (DAP)
 - Layer variables:
   - Added variable =dap-enable-mouse-support=
