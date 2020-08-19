@@ -12,7 +12,7 @@
   - [[#dependencies][Dependencies]]
   - [[#setup-path][Setup PATH]]
   - [[#choosing-a-backend][Choosing a backend]]
-    - [[#company-ghci][=company-ghci=]]
+    - [[#ghci-aka-company-ghci][=ghci= (aka =company-ghci)=]]
     - [[#intero][=intero=]]
     - [[#dante][=dante=]]
     - [[#ghc-mod][=ghc-mod=]]
@@ -62,8 +62,8 @@ This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
 
 ** Features:
 - syntax highlighting for [[https://github.com/haskell/haskell-mode][haskell source]], [[https://github.com/haskell/haskell-mode][cabal files]], [[https://github.com/bgamari/cmm-mode][C-- source]],
-- auto-completion with one of the selected backends (=intero=, =dante=, =ghci= or
-  =ghc-mod=).
+- auto-completion with one of the selected backends (=intero=, =dante=, =ghci=,
+  =ghc-mod= or =lsp=).
 
 *This layer is under construction, it needs your contributions and bug reports.*
 
@@ -80,8 +80,8 @@ This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:
 - =stylish-haskell= (optional for =haskell-mode=)
 - =hasktags= (optional)
 - =hoogle= (optional for =haskell-mode= and =helm-hoogle=)
-- =ghc-mod= (optional for completion)
-- =intero= (optional for completion)
+- =ghc-mod= (optional for completion if using =ghc-mod= as completion backend)
+- =intero= (optional for completion if using =intero= as completion backend)
 
 To install them, use the following command (or the =stack= equivalent):
 
@@ -105,20 +105,23 @@ For information about setting up =$PATH=, check out the corresponding section in
 the FAQ (~SPC h SPC $PATH RET~).
 
 ** Choosing a backend
-To choose a default backend set the layer variable =haskell-completion-backend=:
+First, ensure that you have =auto-completion= layer enabled.
 
-#+BEGIN_SRC elisp
-  (haskell :variables haskell-completion-backend 'ghci)
+To choose a haskell backend, set the haskell layer variable =haskell-completion-backend=:
+
+#+BEGIN_SRC emacs-lisp
+  (haskell :variables haskell-completion-backend 'dante)
 #+END_SRC
 
-Note that in order to enable completion, you'll have to enable the
-=auto-completion= layer as well.
+Supported values for =haskell-completion-backend= are =intero=, =dante=,
+=ghci=, =ghc-mod=, and =lsp=.
 
-Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
-is used and you did not specify any value for =haskell-completion-backend=.
+If you haven't specified any value for =haskell-completion-backend=,
+=ghci= (aka =company-ghci=) will be used as default backend, unless
+the layer =lsp= is enabled, in which case =lsp= is used as default backend.
 
 Backend can be chosen on a per project basis using directory local variables
-(files named =.dir-locals.el= at the root of a project), an example to use the
+(files named =.dir-locals.el= at the root of a project). An example of =.dir-locals.el= to use the
 =lsp= backend:
 
 #+BEGIN_SRC elisp
@@ -130,29 +133,28 @@ Backend can be chosen on a per project basis using directory local variables
 
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
 
-Supported values for =haskell-completion-backend= arer =intero=, =dante=,
-=ghci=, =ghc-mod=, and =lsp=. =ghci= (=company-ghci=) is used by default unless
-the layer =lsp= is used. =ghci= is the default backend because it doesn't
-require any dependencies, and it works with both =stack= and pure =cabal=
-projects.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-                '(auto-completion
-                  (haskell :variables haskell-completion-backend 'intero)))
-#+END_SRC
-
-*** =company-ghci=
+*** =ghci= (aka =company-ghci)=
 [[https://github.com/juiko/company-ghci][company-ghci]] communicates directly with =ghci=, in order to provide completion.
-To use it, you have to call =haskell-process-load-or-reload= (=SPC s b=).
+
+It doesn't require any dependencies and it works with both =stack= and pure =cabal= projects. 
+
+However, to activate completions in a file, you need to manually (re)load opened haskell file by calling =haskell-process-load-or-reload= (=SPC s b=).
 
 *** =intero=
 =Intero= only works for =stack= users. You can install the =intero= executable
 manually, by calling =stack install intero=, but this step is optional as
 =Intero= installs itself.
 
+NOTE: Intero is not actively maintained any more.
+
 *** =dante=
-=dante= works for =cabal=, =nix=, =sytx=, and =stack= users.
+[[[[https://github.com/jyp/dante]]][Dante]] is a fork of Intero mode which aims exclusively at providing a convenient frontend to GHCi.
+ 
+It brings features like syntax checking, auto completion, hlint suggestions, automatic error fixing, info at point, definition and use sites.
+
+=dante= works for =cabal=, =nix=, =sytx=, and =stack= users and requires no additional setup.
+
 =dante= requires Emacs 25.
 
 *** =ghc-mod=
@@ -178,6 +180,9 @@ To install it please refer to the official installation instructions [[https://g
 Enabling the =lsp= backend requires the =lsp= layer to be enabled, and provides access to
 all the additional =lsp-mode= key bindings. As such it is more of a full backend than just
 a completion backend.
+
+Alternatively, you can use [[https://github.com/haskell/haskell-language-server][Haskell Language Server]] instead of =hie= (check their docs for installation details).
+Haskell Language Server is meant to completely replace =hie= but it is still in early stages of development.
 
 ** Optional extras
 The Haskell layer supports some extra features, which can be enabled through the
@@ -374,26 +379,26 @@ This top-level command is prefixed by ~SPC m~:
 | ~SPC m g b~ | return from definition |
 
 * Syntax checking
-At the moment there are four components, which can check the syntax and indicate
+At the moment there are four components, which can indicate
 errors and warnings in the code. Those components are:
-- flycheck
+- dante, intero (via flycheck)
 - hlint (via flycheck)
 - ghc-mod
 - haskell-mode interactive
 
 Since all of these components can be active at the same time, it can be tricky to
 know which component is displaying which message, especially when they disagree,
-or if one isn't working. Only flycheck errors (ghc and hlint) are displayed in
+or if one isn't working. Only flycheck errors (from ghci and hlint) are displayed in
 the error list and can be navigated between, using the standard Spacemacs key
 bindings (under ~SPC e~) even though errors from other modes might highlight the
 actual buffer.
 
 ** Flycheck
 This is the standard Spacemacs way of syntax checking, and it's also the most
-elaborate. You need to install the syntax-checking layer first. Please read the
+elaborate. You need to install the syntax-checking layer first, which will bring flycheck. Please read the
 layer's [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/+checkers/syntax-checking][documentation]] on how to interact with flycheck.
 
-Flycheck has different Haskell checkers: =haskell-ghc=, =haskell-stack-ghc= and
+Flycheck has different Haskell checkers: =haskell-dante=, =haskell-ghc=, =haskell-stack-ghc= and
 =haskell-hlint=. Normally it can detect the best one to use automatically, but
 if it doesn't work, then you can change it with ~SPC e s~.
 
