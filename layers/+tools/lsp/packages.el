@@ -23,7 +23,11 @@
     :defer t
     :config
     (progn
-      (require 'lsp-clients)
+      (require 'lsp-mode)
+      (require 'dash)
+      (require 'dash-functional)
+      (require 'rx)
+      (require 'cl-lib)
       (spacemacs/lsp-bind-keys)
       (setq lsp-prefer-capf t)
       (add-hook 'lsp-after-open-hook (lambda ()
