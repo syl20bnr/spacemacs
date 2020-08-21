@@ -456,7 +456,7 @@
     :config (spacemacs|hide-lighter ws-butler-mode)))
 
 (defun spacemacs-editing/init-evil-swap-keys ()
-  (use-package evil-swap-keys-mode
+  (use-package evil-swap-keys
     :defer t
     :init
     (progn
