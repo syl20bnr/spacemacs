@@ -450,8 +450,8 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-use-clean-aindent-mode t
 
    ;; If non-nil shift your number row to match the entered keyboard layout
-   ;; (only in insert mode). Currently the keyboard layouts
-   ;; (qwerty-us qwertz-de) are supported.
+   ;; (only in insert state). Currently supported keyboard layouts are:
+   ;; `qwerty-us', `qwertz-de' and `querty-ca-fr'.
    ;; New layouts can be added in `spacemacs-editing' layer.
    ;; (default nil)
    dotspacemacs-swap-number-row nil
