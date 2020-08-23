@@ -19,12 +19,8 @@
     org-ref))
 
 (defun bibtex/post-init-auctex ()
-  (cond ((configuration-layer/layer-used-p 'helm)
-         (spacemacs/set-leader-keys-for-major-mode 'latex-mode
-           "ic" 'org-ref-helm-insert-cite-link))
-        ((configuration-layer/layer-used-p 'ivy)
-         (spacemacs/set-leader-keys-for-major-mode 'latex-mode
-           "ic" 'org-ref-ivy-insert-cite-link))))
+  (spacemacs/set-leader-keys-for-major-mode 'latex-mode
+    "ic" 'org-ref-insert-link))
 
 (defun bibtex/init-helm-bibtex ()
   (use-package helm-bibtex
@@ -41,28 +37,19 @@
       "m" 'ivy-bibtex)))
 
 (defun bibtex/post-init-markdown-mode ()
-  (cond ((configuration-layer/layer-used-p 'helm)
-         (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-           "ic" 'org-ref-helm-insert-cite-link))
-        ((configuration-layer/layer-used-p 'ivy)
-         (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-           "ic" 'org-ref-ivy-insert-cite-link))))
+  (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
+    "ic" 'org-ref-insert-link))
 
 (defun bibtex/post-init-org ()
-  (cond ((configuration-layer/layer-used-p 'helm)
-         (spacemacs/set-leader-keys-for-major-mode 'org-mode
-           "ic" 'org-ref-helm-insert-cite-link))
-        ((configuration-layer/layer-used-p 'ivy)
-         (spacemacs/set-leader-keys-for-major-mode 'org-mode
-           "ic" 'org-ref-ivy-insert-cite-link))))
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode
+    "ic" 'org-ref-insert-link))
 
 (defun bibtex/init-org-ref ()
   (use-package org-ref
     :defer t
     :commands (org-ref-bibtex-next-entry
                org-ref-bibtex-previous-entry
-               org-ref-ivy-insert-cite-link
-               org-ref-helm-insert-cite-link
+               org-ref-insert-link
                org-ref-open-in-browser
                org-ref-open-bibtex-notes
                org-ref-open-bibtex-pdf
@@ -77,6 +64,11 @@
     :init
     (progn
       (add-hook 'org-mode-hook (lambda () (require 'org-ref)))
+
+      (cond ((configuration-layer/layer-used-p 'helm)
+             (setq org-ref-completion-library 'org-ref-helm-bibtex))
+            ((configuration-layer/layer-used-p 'ivy)
+             (setq org-ref-completion-library 'org-ref-ivy-cite)))
 
       (evil-define-key 'normal bibtex-mode-map
         (kbd "C-j") 'org-ref-bibtex-next-entry
@@ -105,9 +97,4 @@
         "lA" 'arxiv-get-pdf-add-bibtex-entry
         "ld" 'doi-utils-add-bibtex-entry-from-doi
         "li" 'isbn-to-bibtex
-        "lp" 'pubmed-insert-bibtex-from-pmid))
-    :config
-    (progn
-      ;; override org-ref's default helm completion with ivy
-      (when (configuration-layer/layer-used-p 'ivy)
-        (require 'org-ref-ivy)))))
+        "lp" 'pubmed-insert-bibtex-from-pmid))))
