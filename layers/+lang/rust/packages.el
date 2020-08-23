@@ -19,7 +19,7 @@
     (flycheck-rust :requires flycheck)
     ggtags
     helm-gtags
-    (ron-mode :location (recipe :fetcher github :repo "nabero/ron-mode"))
+    ron-mode
     racer
     rust-mode
     smartparens
