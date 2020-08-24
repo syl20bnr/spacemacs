@@ -35,7 +35,6 @@
 ;; LSP Lua
 (defun spacemacs//lua-setup-lsp-emmy ()
   "Setup LSP Lua."
-  (require 'lsp-clients)
   (when lua-lsp-emmy-java-path
     (setq lsp-clients-emmy-lua-java-path lua-lsp-emmy-java-path))
   (when lua-lsp-emmy-jar-path
