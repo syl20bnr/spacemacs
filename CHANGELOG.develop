@@ -2472,6 +2472,7 @@ Other:
 **** Lua
 - Added support for auto-completion with =company= (thanks to halfcrazy)
 - Added support for =LSP= (EmmyLua-LS-all) (thanks to Lin.Sun)
+- Added =EmmyLua-LS-all.jar= to =.gitignore= (thanks to duianto)
 **** Language Server Protocol (LSP)
 - Added core keybindings and prefix declarations for all LSP-based language
   layers, and helper functions to bind server-specific extensions
