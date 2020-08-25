@@ -15,16 +15,6 @@
         company
         (company-cabal :requires company)
 
-        ;; ghci completion backend
-        (company-ghci :requires company)
-
-        ;; ghc-mod completion backend
-        (company-ghc :requires company)
-        ghc
-
-        ;; intero completion backend
-        (intero :requires company)
-
         ;; dante completion backend
         (dante :requires company)
         ;; dante auto refactor companion
@@ -63,75 +53,6 @@
     (spacemacs|add-company-backends
       :backends company-cabal
       :modes haskell-cabal-mode)))
-
-(defun haskell/init-company-ghci ()
-  (use-package company-ghci
-    :defer t))
-
-(defun haskell/init-company-ghc ()
-  (use-package company-ghc
-    :defer t))
-
-(defun haskell/init-ghc ()
-  (use-package ghc
-    :defer t
-    :config
-    (progn
-      (dolist (mode haskell-modes)
-        (spacemacs/declare-prefix-for-mode mode "mm" "haskell/ghc-mod")
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "mt" 'ghc-insert-template-or-signature
-          "mu" 'ghc-initial-code-from-signature
-          "ma" 'ghc-auto
-          "mf" 'ghc-refine
-          "me" 'ghc-expand-th
-          "mn" 'ghc-goto-next-hole
-          "mp" 'ghc-goto-prev-hole
-          "m>" 'ghc-make-indent-deeper
-          "m<" 'ghc-make-indent-shallower
-          "hi" 'ghc-show-info
-          "ht" 'ghc-show-type))
-      (when (configuration-layer/package-used-p 'flycheck)
-        ;; remove overlays from ghc-check.el if flycheck is enabled
-        (set-face-attribute 'ghc-face-error nil :underline nil)
-        (set-face-attribute 'ghc-face-warn nil :underline nil)))))
-
-(defun haskell/init-intero ()
-  (use-package intero
-    :defer t
-    :config
-    (progn
-      (spacemacs|diminish intero-mode " λ" " \\")
-      (advice-add 'intero-repl-load
-                  :around #'haskell-intero//preserve-focus)
-
-      (dolist (mode haskell-modes)
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "gb" 'xref-pop-marker-stack
-          "hi" 'intero-info
-          "ht" 'intero-type-at
-          "hT" 'haskell-intero/insert-type
-          "rs" 'intero-apply-suggestions
-          "sb" 'intero-repl-load))
-
-      (dolist (mode (cons 'haskell-cabal-mode haskell-modes))
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "sc"  nil
-          "sS"  'haskell-intero/display-repl
-          "ss"  'haskell-intero/pop-to-repl))
-
-      (dolist (mode (append haskell-modes '(haskell-cabal-mode intero-repl-mode)))
-        (spacemacs/declare-prefix-for-mode mode "mi" "haskell/intero")
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "ic"  'intero-cd
-          "id"  'intero-devel-reload
-          "ik"  'intero-destroy
-          "il"  'intero-list-buffers
-          "ir"  'intero-restart
-          "it"  'intero-targets))
-
-      (evil-define-key '(insert normal) intero-mode-map
-        (kbd "M-.") 'intero-goto-definition))))
 
 (defun haskell/init-dante ()
   (use-package dante
@@ -229,7 +150,6 @@
         (spacemacs/declare-prefix-for-mode mode "mr" "haskell/refactor"))
       (spacemacs/declare-prefix-for-mode 'haskell-interactive-mode "ms" "haskell/repl")
       (spacemacs/declare-prefix-for-mode 'haskell-cabal-mode "ms" "haskell/repl")
-      (spacemacs/declare-prefix-for-mode 'intero-repl-mode "ms" "haskell/repl")
 
       ;; key bindings
       (defun spacemacs/haskell-process-do-type-on-prev-line ()
@@ -310,8 +230,6 @@
       ;; Switch back to editor from REPL
       (spacemacs/set-leader-keys-for-major-mode 'haskell-interactive-mode
         "ss"  'haskell-interactive-switch-back)
-      (spacemacs/set-leader-keys-for-major-mode 'intero-repl-mode
-        "ss"  'intero-repl-switch-back)
 
       ;; Compile
       (spacemacs/set-leader-keys-for-major-mode 'haskell-cabal

@@ -174,6 +174,8 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   - Swapped key bindings for better usability (thanks to Tony Lotts):
     - ~SPC m s s~ for =haskell-interactive-switch=
     - ~SPC m s S~ for =spacemacs/haskell-interactive-bring=
+- Removed =intero=, =ghc-mod= (both not maintained any more) and =company-ghci= (not competitive) backends
+  and made =dante= default backend (thanks to Martin Sosic)
 ***** imenu-list
 - Improvements:
   - Added function/binding to focus the imenu sidebar, creating it if none found.

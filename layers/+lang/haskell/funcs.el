@@ -18,37 +18,21 @@
       haskell-completion-backend
     (cond
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
-     (t 'ghci))))
+     (t 'dante))))
 
 (defun spacemacs-haskell//setup-backend ()
   "Conditionally setup haskell backend."
   (pcase (spacemacs//haskell-backend)
-    (`ghci (spacemacs-haskell//setup-ghci))
     (`lsp (spacemacs-haskell//setup-lsp))
-    (`intero (spacemacs-haskell//setup-intero))
-    (`dante (spacemacs-haskell//setup-dante))
-    (`ghc-mod (spacemacs-haskell//setup-ghc-mod))))
+    (`dante (spacemacs-haskell//setup-dante))))
 
 (defun spacemacs-haskell//setup-company ()
   "Conditionally setup haskell completion backend."
   (pcase (spacemacs//haskell-backend)
-    (`ghci (spacemacs-haskell//setup-ghci-company))
     (`lsp nil) ;; nothing to do, auto-configured by lsp-mode
-    (`intero (spacemacs-haskell//setup-intero-company))
-    (`dante (spacemacs-haskell//setup-dante-company))
-    (`ghc-mod (spacemacs-haskell//setup-ghc-mod-company))))
+    (`dante (spacemacs-haskell//setup-dante-company))))
 
 
-;; ghci functions
-
-(defun spacemacs-haskell//setup-ghci ()
-  (interactive-haskell-mode))
-
-(defun spacemacs-haskell//setup-ghci-company ()
-  (spacemacs|add-company-backends
-    :backends (company-ghci company-dabbrev-code company-yasnippet)
-    :modes haskell-mode))
-
 ;; LSP functions
 
 (defun spacemacs-haskell//setup-lsp ()
@@ -61,17 +45,6 @@
         (require 'lsp-haskell)
         (lsp))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
-
-
-;; ghc-mod functions
-
-(defun spacemacs-haskell//setup-ghc-mod ()
-  (ghc-init))
-
-(defun spacemacs-haskell//setup-ghc-mod-company ()
-  (spacemacs|add-company-backends
-    :backends (company-ghc company-dabbrev-code company-yasnippet)
-    :modes haskell-mode))
 
 
 ;; Dante functions
@@ -88,38 +61,6 @@
 (defun spacemacs-haskell//dante-insert-type ()
   (interactive)
   (dante-type-at :insert))
-
-
-;; Intero functions
-
-(defun spacemacs-haskell//setup-intero ()
-  (interactive-haskell-mode)
-  (intero-mode)
-  (add-to-list 'spacemacs-jump-handlers 'intero-goto-definition))
-
-(defun spacemacs-haskell//setup-intero-company ()
-  (spacemacs|add-company-backends
-    :backends (company-intero company-dabbrev-code company-yasnippet)
-    :modes haskell-mode))
-
-(defun haskell-intero/insert-type ()
-  (interactive)
-  (intero-type-at :insert))
-
-(defun haskell-intero/display-repl (&optional prompt-options)
-  (interactive "P")
-  (let ((buffer (intero-repl-buffer prompt-options t)))
-    (unless (get-buffer-window buffer 'visible)
-      (display-buffer buffer))))
-
-(defun haskell-intero/pop-to-repl (&optional prompt-options)
-  (interactive "P")
-  (pop-to-buffer (intero-repl-buffer prompt-options t)))
-
-(defun haskell-intero//preserve-focus (f &rest args)
-  (let ((buffer (current-buffer)))
-    (apply f args)
-    (pop-to-buffer buffer)))
 
 
 ;; misc
