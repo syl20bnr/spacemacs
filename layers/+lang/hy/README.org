@@ -44,7 +44,7 @@ To install =hy= globally:
 =jedhy= can be installed with:
 
 #+BEGIN_SRC sh
-pip3 install jedhy
+  pip3 install jedhy
 #+END_SRC
 
 * Key bindings
