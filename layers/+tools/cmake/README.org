@@ -78,7 +78,6 @@ at the autocomplete layer for an optimal
 intellisense config for LSP.
 
 ** CMake-ide
-
 To enable CMake projects support set the layer variable =cmake-enable-cmake-ide-support=
 to =t= in your dotfile:
 

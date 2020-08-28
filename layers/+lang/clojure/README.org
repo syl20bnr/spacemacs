@@ -523,7 +523,7 @@ Use these key bindings when working directly with a REPL buffer.
 Use the Evaluation key bindings when evaluating in source code buffer.
 
 | Key binding       | Description                                                                |
-|-------------------*----------------------------------------------------------------------------|
+|-------------------+----------------------------------------------------------------------------|
 | ~SPC m s a~       | switch between REPL and last Clojure source code buffer (cider-repl)       |
 | ~SPC m s b~       | send and eval buffer in REPL                                               |
 | ~SPC m s B~       | send and eval buffer and switch to REPL in =insert state=                  |

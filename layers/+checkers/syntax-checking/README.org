@@ -94,7 +94,6 @@ variable =syntax-checking-use-original-bitmaps= to =t=:
     '((syntax-checking :variables syntax-checking-use-original-bitmaps t)))
 #+END_SRC
 
-
 ** Auto hide tooltips
 You can set time in seconds after which tooltips are automatically hidden by setting
 the variable =syntax-checking-auto-hide-tooltips= to a positive number of seconds.
