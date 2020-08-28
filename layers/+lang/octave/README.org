@@ -1,6 +1,6 @@
-#+TITLE: Octave layer
+#+title: Octave layer
 
-#+TAGS: dsl|layer|programming
+#+tags: dsl|layer|programming
 
 [[file:img/octave.png]]
 

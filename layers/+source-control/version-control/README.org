@@ -1,6 +1,6 @@
-#+TITLE: Version-Control layer
+#+title: Version-Control layer
 
-#+TAGS: layer|versioning
+#+tags: layer|versioning
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

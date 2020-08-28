@@ -1,6 +1,6 @@
-#+TITLE: Protocol Buffers layer
+#+title: Protocol Buffers layer
 
-#+TAGS: layer|programming|util
+#+tags: layer|programming|util
 
 [[file:img/protobuf.png]]
 

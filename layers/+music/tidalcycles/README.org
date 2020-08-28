@@ -1,6 +1,6 @@
-#+TITLE: TidalCycles layer
+#+title: TidalCycles layer
 
-#+TAGS: layer|music
+#+tags: layer|music
 
 [[file:img/tidalcycles.jpg]]
 

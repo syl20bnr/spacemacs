@@ -1,6 +1,6 @@
-#+TITLE: Spell Checking layer
+#+title: Spell Checking layer
 
-#+TAGS: checker|layer
+#+tags: checker|layer
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

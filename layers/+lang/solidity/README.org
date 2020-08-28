@@ -1,6 +1,6 @@
-#+TITLE: Solidity Layer
+#+title: Solidity Layer
 
-#+TAGS: dsl|layer|programming
+#+tags: dsl|layer|programming
 
 [[file:img/solidity.png]]
 

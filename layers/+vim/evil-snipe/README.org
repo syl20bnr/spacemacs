@@ -1,6 +1,6 @@
-#+TITLE: Evil-snipe layer
+#+title: Evil-snipe layer
 
-#+TAGS: layer|vim
+#+tags: layer|vim
 
 [[file:img/Cat_With_Rifle.jpg]]
 

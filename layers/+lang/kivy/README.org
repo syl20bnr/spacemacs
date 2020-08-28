@@ -1,6 +1,6 @@
-#+TITLE: Kivy layer
+#+title: Kivy layer
 
-#+TAGS: dsl|layer|programming
+#+tags: dsl|layer|programming
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

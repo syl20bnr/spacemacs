@@ -1,6 +1,6 @@
-#+TITLE: Coq layer
+#+title: Coq layer
 
-#+TAGS: dsl|layer|programming
+#+tags: dsl|layer|programming
 
 [[file:img/coq.png]]
 

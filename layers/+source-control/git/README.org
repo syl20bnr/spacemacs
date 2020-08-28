@@ -1,6 +1,6 @@
-#+TITLE: Git layer
+#+title: Git layer
 
-#+TAGS: layer|versioning
+#+tags: layer|versioning
 
 [[file:img/git.png]]
 

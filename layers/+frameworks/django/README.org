@@ -1,6 +1,6 @@
-#+TITLE: Django layer
+#+title: Django layer
 
-#+TAGS: framework|layer|programming
+#+tags: framework|layer|programming
 
 [[file:img/django.png]]
 

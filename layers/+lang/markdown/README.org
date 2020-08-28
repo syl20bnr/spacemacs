@@ -1,6 +1,6 @@
-#+TITLE: Markdown layer
+#+title: Markdown layer
 
-#+TAGS: dsl|layer|markup|programming
+#+tags: dsl|layer|markup|programming
 
 [[file:img/markdown.png]]
 

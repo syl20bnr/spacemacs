@@ -1,6 +1,6 @@
-#+TITLE: Elm layer
+#+title: Elm layer
 
-#+TAGS: general|layer|programming|pure
+#+tags: general|layer|programming|pure
 
 [[file:img/elm.png]]
 

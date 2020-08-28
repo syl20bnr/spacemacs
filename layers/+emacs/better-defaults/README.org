@@ -1,6 +1,6 @@
-#+TITLE: Better Defaults layer
+#+title: Better Defaults layer
 
-#+TAGS: emacs|layer
+#+tags: emacs|layer
 
 [[file:img/emacs.png]]
 

@@ -1,6 +1,6 @@
-#+TITLE: selectric layer
+#+title: selectric layer
 
-#+TAGS: fun|layer
+#+tags: fun|layer
 
 [[file:img/typewriter.jpg]]
 

@@ -1,4 +1,4 @@
-#+TITLE: Changelog
+#+title: Changelog
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#release-0200x][Release 0.200.x]]

@@ -1,6 +1,6 @@
-#+TITLE: spacemacs-editing layer
+#+title: spacemacs-editing layer
 
-#+TAGS: layer|misc|spacemacs
+#+tags: layer|misc|spacemacs
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

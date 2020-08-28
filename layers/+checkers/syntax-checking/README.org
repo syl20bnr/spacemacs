@@ -1,6 +1,6 @@
-#+TITLE: Syntax Checking layer
+#+title: Syntax Checking layer
 
-#+TAGS: checker|layer
+#+tags: checker|layer
 
 [[file:img/flycheck.png]]
 
@@ -93,7 +93,6 @@ variable =syntax-checking-use-original-bitmaps= to =t=:
   (setq-default dotspacemacs-configuration-layers
     '((syntax-checking :variables syntax-checking-use-original-bitmaps t)))
 #+END_SRC
-
 
 ** Auto hide tooltips
 You can set time in seconds after which tooltips are automatically hidden by setting

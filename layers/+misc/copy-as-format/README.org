@@ -1,6 +1,6 @@
-#+TITLE: copy-as-format layer
+#+title: copy-as-format layer
 
-#+TAGS: layer|misc
+#+tags: layer|misc
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

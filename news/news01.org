@@ -1,4 +1,4 @@
-#+TITLE: Newsletter #01: About the 0.200 release
+#+title: Newsletter #01: About the 0.200 release
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#introduction][Introduction]]

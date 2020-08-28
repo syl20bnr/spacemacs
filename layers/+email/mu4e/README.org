@@ -1,6 +1,6 @@
-#+TITLE: Mu4e layer
+#+title: Mu4e layer
 
-#+TAGS: e-mail|layer
+#+tags: e-mail|layer
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

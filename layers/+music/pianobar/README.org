@@ -1,6 +1,6 @@
-#+TITLE: Pianobar layer
+#+title: Pianobar layer
 
-#+TAGS: layer|music
+#+tags: layer|music
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

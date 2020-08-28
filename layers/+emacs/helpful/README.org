@@ -1,6 +1,6 @@
-#+TITLE: helpful layer
+#+title: helpful layer
 
-#+TAGS: emacs|layer
+#+tags: emacs|layer
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

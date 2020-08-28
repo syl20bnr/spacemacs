@@ -1,6 +1,6 @@
-#+TITLE: Elfeed layer
+#+title: Elfeed layer
 
-#+TAGS: layer|reader
+#+tags: layer|reader
 
 [[file:img/elfeed.png]]
 

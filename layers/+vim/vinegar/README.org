@@ -1,6 +1,6 @@
-#+TITLE: Vinegar layer
+#+title: Vinegar layer
 
-#+TAGS: layer|vim
+#+tags: layer|vim
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

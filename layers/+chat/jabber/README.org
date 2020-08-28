@@ -1,6 +1,6 @@
-#+TITLE: Jabber layer
+#+title: Jabber layer
 
-#+TAGS: chat|layer
+#+tags: chat|layer
 
 [[file:img/jabber-logo.gif]]
 

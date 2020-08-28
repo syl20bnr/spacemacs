@@ -1,6 +1,6 @@
-#+TITLE: Purescript layer
+#+title: Purescript layer
 
-#+TAGS: general|js|layer|multi-paradigm|programming
+#+tags: general|js|layer|multi-paradigm|programming
 
 [[file:img/purescript-logo.png]]
 

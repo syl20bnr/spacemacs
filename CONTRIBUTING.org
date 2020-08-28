@@ -1,4 +1,4 @@
-#+TITLE: Contribution guidelines
+#+title: Contribution guidelines
 
 Spacemacs is a volunteer effort. We encourage you to pitch in. The community
 makes Spacemacs what it is. We have a few guidelines, which we ask all

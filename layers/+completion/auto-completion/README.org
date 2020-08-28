@@ -1,6 +1,6 @@
-#+TITLE: Auto-completion layer
+#+title: Auto-completion layer
 
-#+TAGS: completion|layer
+#+tags: completion|layer
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

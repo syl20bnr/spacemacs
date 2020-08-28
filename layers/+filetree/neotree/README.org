@@ -1,6 +1,6 @@
-#+TITLE: Neotree layer
+#+title: Neotree layer
 
-#+TAGS: file tree|layer
+#+tags: file tree|layer
 
 [[file:img/neotree.png]]
 

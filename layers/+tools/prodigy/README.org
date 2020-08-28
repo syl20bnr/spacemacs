@@ -1,6 +1,6 @@
-#+TITLE: Prodigy layer
+#+title: Prodigy layer
 
-#+TAGS: layer|tool
+#+tags: layer|tool
 
 [[file:img/prodigy.png]]
 

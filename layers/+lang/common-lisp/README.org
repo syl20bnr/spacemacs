@@ -1,6 +1,6 @@
-#+TITLE: Common Lisp layer
+#+title: Common Lisp layer
 
-#+TAGS: dsl|layer|lisp|programming
+#+tags: dsl|layer|lisp|programming
 
 [[file:img/slime.png]]
 

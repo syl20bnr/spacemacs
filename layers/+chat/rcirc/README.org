@@ -1,6 +1,6 @@
-#+TITLE: RCIRC layer
+#+title: RCIRC layer
 
-#+TAGS: chat|layer
+#+tags: chat|layer
 
 [[file:img/irc.png]]
 

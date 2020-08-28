@@ -1,6 +1,6 @@
-#+TITLE: Helm layer
+#+title: Helm layer
 
-#+TAGS: completion|layer
+#+tags: completion|layer
 
 [[file:img/helm.png]]
 

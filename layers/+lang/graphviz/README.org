@@ -1,6 +1,6 @@
-#+TITLE: graphviz layer
+#+title: graphviz layer
 
-#+TAGS: dsl|layer|markup|programming
+#+tags: dsl|layer|markup|programming
 
 [[file:img/graphviz.png]]
 

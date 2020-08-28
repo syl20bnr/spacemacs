@@ -1,6 +1,6 @@
-#+TITLE: Emoji layer
+#+title: Emoji layer
 
-#+TAGS: fun|layer
+#+tags: fun|layer
 
 [[file:img/emojis.png]]
 

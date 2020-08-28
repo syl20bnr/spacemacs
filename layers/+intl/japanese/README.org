@@ -1,6 +1,6 @@
-#+TITLE: Japanese layer
+#+title: Japanese layer
 
-#+TAGS: i18n|layer
+#+tags: i18n|layer
 
 [[file:img/Japanese.png]]
 

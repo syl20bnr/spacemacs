@@ -1,6 +1,6 @@
-#+TITLE: Windows Scripting layer
+#+title: Windows Scripting layer
 
-#+TAGS: dsl|layer|programming|script
+#+tags: dsl|layer|programming|script
 
 [[file:img/ps.png]]
 

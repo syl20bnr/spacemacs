@@ -1,6 +1,6 @@
-#+TITLE: elasticsearch layer
+#+title: elasticsearch layer
 
-#+TAGS: dsl|layer|programming
+#+tags: dsl|layer|programming
 
 [[file:img/elasticsearch.png]]
 

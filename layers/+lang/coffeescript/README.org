@@ -1,6 +1,6 @@
-#+TITLE: CoffeeScript layer
+#+title: CoffeeScript layer
 
-#+TAGS: general|js|layer|multi-paradigm|programming
+#+tags: general|js|layer|multi-paradigm|programming
 
 [[file:img/coffee.png]]
 

@@ -1,6 +1,6 @@
-#+TITLE: xclipboard layer
+#+title: xclipboard layer
 
-#+TAGS: layer|tool
+#+tags: layer|tool
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

@@ -1,6 +1,6 @@
-#+TITLE: Docker layer
+#+title: Docker layer
 
-#+TAGS: layer|tool
+#+tags: layer|tool
 
 [[file:img/docker.png]]
 

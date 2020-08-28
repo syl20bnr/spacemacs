@@ -1,6 +1,6 @@
-#+TITLE: NixOS layer
+#+title: NixOS layer
 
-#+TAGS: layer|os
+#+tags: layer|os
 
 [[file:img/nixos.png]]
 

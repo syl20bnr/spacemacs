@@ -1,6 +1,6 @@
-#+TITLE: Slack layer
+#+title: Slack layer
 
-#+TAGS: chat|layer
+#+tags: chat|layer
 
 [[file:img/slack.png]]
 

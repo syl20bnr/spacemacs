@@ -1,6 +1,6 @@
-#+TITLE: Notmuch layer
+#+title: Notmuch layer
 
-#+TAGS: e-mail|layer
+#+tags: e-mail|layer
 
 [[file:img/notmuch.png]]
 

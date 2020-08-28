@@ -1,6 +1,6 @@
-#+TITLE: Floobits layer
+#+title: Floobits layer
 
-#+TAGS: layer|pairing
+#+tags: layer|pairing
 
 [[file:img/floobits.png]]
 

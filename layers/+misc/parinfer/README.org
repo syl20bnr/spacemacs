@@ -1,6 +1,6 @@
-#+TITLE: Parinfer layer
+#+title: Parinfer layer
 
-#+TAGS: layer|misc
+#+tags: layer|misc
 
 [[file:img/parinfer.png]]
 

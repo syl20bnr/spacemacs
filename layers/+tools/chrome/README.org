@@ -1,6 +1,6 @@
-#+TITLE: Chrome layer
+#+title: Chrome layer
 
-#+TAGS: layer|tool
+#+tags: layer|tool
 
 [[file:img/chrome.png]]
 

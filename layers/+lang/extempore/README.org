@@ -1,6 +1,6 @@
-#+TITLE: Extempore layer
+#+title: Extempore layer
 
-#+TAGS: layer|lisp|music|programming
+#+tags: layer|lisp|music|programming
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

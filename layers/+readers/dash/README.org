@@ -1,6 +1,6 @@
-#+TITLE: Dash layer
+#+title: Dash layer
 
-#+TAGS: layer|reader
+#+tags: layer|reader
 
 [[file:img/dash.png]]
 

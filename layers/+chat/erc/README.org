@@ -1,6 +1,6 @@
-#+TITLE: ERC layer
+#+title: ERC layer
 
-#+TAGS: chat|layer
+#+tags: chat|layer
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

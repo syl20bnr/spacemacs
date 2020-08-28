@@ -1,6 +1,6 @@
-#+TITLE: Zig layer
+#+title: Zig layer
 
-#+TAGS: general|layer|multi-paradigm|programming
+#+tags: general|layer|multi-paradigm|programming
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

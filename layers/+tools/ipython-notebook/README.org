@@ -1,6 +1,6 @@
-#+TITLE: IPython Notebook layer
+#+title: IPython Notebook layer
 
-#+TAGS: layer|programming|util
+#+tags: layer|programming|util
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

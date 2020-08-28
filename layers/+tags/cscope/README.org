@@ -1,6 +1,6 @@
-#+TITLE: Cscope layer
+#+title: Cscope layer
 
-#+TAGS: layer|tag
+#+tags: layer|tag
 
 [[file:img/cscope.jpg]]
 

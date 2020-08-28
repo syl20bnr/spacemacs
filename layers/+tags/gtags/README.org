@@ -1,6 +1,6 @@
-#+TITLE: Helm Gtags layer
+#+title: Helm Gtags layer
 
-#+TAGS: layer|tag
+#+tags: layer|tag
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

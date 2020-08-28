@@ -1,6 +1,6 @@
-#+TITLE: keyboard-layout layer
+#+title: keyboard-layout layer
 
-#+TAGS: i18n|layer
+#+tags: i18n|layer
 
 [[file:img/keyboard-layout-layer-logo.png]]
 

@@ -1,6 +1,6 @@
-#+TITLE: Elixir layer
+#+title: Elixir layer
 
-#+TAGS: general|layer|multi-paradigm|programming
+#+tags: general|layer|multi-paradigm|programming
 
 [[file:img/elixir.png]]
 

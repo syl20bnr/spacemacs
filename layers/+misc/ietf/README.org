@@ -1,6 +1,6 @@
-#+TITLE: ietf layer
+#+title: ietf layer
 
-#+TAGS: layer|misc
+#+tags: layer|misc
 
 [[file:img/ietf-logo.png]]
 

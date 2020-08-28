@@ -1,4 +1,4 @@
-#+TITLE: Spacemacs Community
+#+title: Spacemacs Community
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#philosophy][Philosophy]]

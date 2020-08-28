@@ -1,6 +1,6 @@
-#+TITLE: Colors layer
+#+title: Colors layer
 
-#+TAGS: layer|theme
+#+tags: layer|theme
 
 [[file:img/rainbow_dash.png]]
 

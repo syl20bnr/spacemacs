@@ -1,6 +1,6 @@
-#+TITLE: xkcd layer
+#+title: xkcd layer
 
-#+TAGS: fun|layer
+#+tags: fun|layer
 
 [[file:img/xkcd.png]]
 

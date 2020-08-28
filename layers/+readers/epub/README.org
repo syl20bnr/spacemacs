@@ -1,6 +1,6 @@
-#+TITLE: epub layer
+#+title: epub layer
 
-#+TAGS: layer|reader
+#+tags: layer|reader
 
 [[file:img/epub.png]]
 

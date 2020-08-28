@@ -1,6 +1,6 @@
-#+TITLE: YAML layer
+#+title: YAML layer
 
-#+TAGS: dsl|layer|markup|programming
+#+tags: dsl|layer|markup|programming
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

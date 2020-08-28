@@ -1,4 +1,4 @@
-#+TITLE: Configuration layers
+#+title: Configuration layers
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#this-file-is-auto-generated][THIS FILE IS AUTO GENERATED]]
@@ -1086,7 +1086,7 @@ Features:
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
 - Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
 - Debugging with [[https://github.com/clojure-emacs/sayid][sayid]]
-- Clojure cheatsheet
+- Advanced help with [[https://github.com/clojure-emacs/helm-cider][helm-cider]]
 - Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 - Linting via [[https://github.com/borkdude/clj-kondo][clj-kondo]] ([[https://github.com/candid82/joker][joker]] and [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] also available)
 
@@ -2158,7 +2158,8 @@ This layer supports [[https://www.rust-lang.org][Rust]] development in Spacemacs
 Features:
 - Auto-completion and navigation support through [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] or [[https://github.com/phildawes/racer][Racer]]
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
-- support for the Rust package manager [[http://doc.crates.io/index.html][Cargo]]
+- Support for the Rust package manager [[http://doc.crates.io/index.html][Cargo]]
+- Support for [[https://github.com/nabero/ron-mode][Rusty Object Notation (RON)]]
 
 **** Scala
 [[file:+lang/scala/README.org][+lang/scala/README.org]]
@@ -2629,10 +2630,12 @@ Features:
 This layer adds support [[https://cmake.org/][CMake]] scripts.
 
 Features:
-- Support for CMake configure/build (with limited support for other build systems),
-  automatic generation of =compile_commands.json= (compile flags), on-the-fly configuration
-  of flycheck, company-clang and RTags (if installed) with [[https://github.com/atilaneves/cmake-ide][cmake-ide]].
+- Syntax highlighting
+- Auto-completion
+- Support for CMake configure/build (with limited support for other build systems) and
+  automatic generation of =compile_commands.json= (compile flags).
 - Run selected test using =Helm= interface via =helm-ctest=.
+- Extraction of compile parameters from =compile_commands.json= with [[https://github.com/atilaneves/cmake-ide][cmake-ide]]
 
 ** Command-log
 [[file:+tools/command-log/README.org][+tools/command-log/README.org]]

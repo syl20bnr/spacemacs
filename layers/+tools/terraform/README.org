@@ -1,6 +1,6 @@
-#+TITLE: Terraform layer
+#+title: Terraform layer
 
-#+TAGS: layer|tool
+#+tags: layer|tool
 
 [[file:img/terraform.png]]
 

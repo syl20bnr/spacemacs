@@ -1,6 +1,6 @@
-#+TITLE: asm layer
+#+title: asm layer
 
-#+TAGS: general|imperative|layer|programming
+#+tags: general|imperative|layer|programming
 
 [[file:img/asm.png]]
 

@@ -1,6 +1,6 @@
-#+TITLE: Wakatime layer
+#+title: Wakatime layer
 
-#+TAGS: layer|web service
+#+tags: layer|web service
 
 [[file:img/wakatime.png]]
 

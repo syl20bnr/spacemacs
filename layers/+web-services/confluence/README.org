@@ -1,6 +1,6 @@
-#+TITLE: Confluence layer
+#+title: Confluence layer
 
-#+TAGS: layer|web service
+#+tags: layer|web service
 
 [[file:img/confluence.png]]
 

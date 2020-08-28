@@ -1,4 +1,4 @@
-#+TITLE: Quick start
+#+title: Quick start
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#configuration-layers][Configuration layers]]

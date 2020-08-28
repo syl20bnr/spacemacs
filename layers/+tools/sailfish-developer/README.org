@@ -1,6 +1,6 @@
-#+TITLE: Sailfish OS developer layer
+#+title: Sailfish OS developer layer
 
-#+TAGS: layer|programming|util
+#+tags: layer|programming|util
 
 [[file:img/logo.png]]
 

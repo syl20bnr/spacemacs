@@ -1,6 +1,6 @@
-#+TITLE: Conda Layer
+#+title: Conda Layer
 
-#+TAGS: layer|programming|util
+#+tags: layer|programming|util
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

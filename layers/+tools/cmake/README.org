@@ -1,6 +1,6 @@
-#+TITLE: CMake layer
+#+title: CMake layer
 
-#+TAGS: layer|tool
+#+tags: layer|tool
 
 [[file:img/cmake.png]]
 
@@ -78,7 +78,6 @@ at the autocomplete layer for an optimal
 intellisense config for LSP.
 
 ** CMake-ide
-
 To enable CMake projects support set the layer variable =cmake-enable-cmake-ide-support=
 to =t= in your dotfile:
 

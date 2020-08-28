@@ -1,6 +1,6 @@
-#+TITLE: jsonnet layer
+#+title: jsonnet layer
 
-#+TAGS: dsl|layer|markup|programming
+#+tags: dsl|layer|markup|programming
 
 [[file:img/jsonnet.png]]
 

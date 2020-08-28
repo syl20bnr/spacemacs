@@ -1,6 +1,6 @@
-#+TITLE: Chinese layer
+#+title: Chinese layer
 
-#+TAGS: i18n|layer
+#+tags: i18n|layer
 
 [[file:img/China.png]] [[file:img/Chinese.png]]
 

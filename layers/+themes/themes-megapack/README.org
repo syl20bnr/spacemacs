@@ -1,6 +1,6 @@
-#+TITLE: Themes Megapack layer
+#+title: Themes Megapack layer
 
-#+TAGS: layer|theme
+#+tags: layer|theme
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

@@ -1,6 +1,6 @@
-#+TITLE: Python layer
+#+title: Python layer
 
-#+TAGS: general|layer|multi-paradigm|programming
+#+tags: general|layer|multi-paradigm|programming
 
 [[file:img/python.png]]
 

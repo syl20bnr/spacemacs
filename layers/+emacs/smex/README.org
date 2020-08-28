@@ -1,6 +1,6 @@
-#+TITLE: Smex layer
+#+title: Smex layer
 
-#+TAGS: emacs|layer
+#+tags: emacs|layer
 
 [[file:img/smex.png]]
 

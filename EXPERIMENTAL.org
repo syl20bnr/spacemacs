@@ -1,4 +1,4 @@
-#+TITLE: Spacemacs experimental features
+#+title: Spacemacs experimental features
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#spacemacs-dumps-using-the-portable-dumper][Spacemacs dumps using the portable dumper]]

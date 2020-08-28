@@ -1,6 +1,6 @@
-#+TITLE: LaTeX layer
+#+title: LaTeX layer
 
-#+TAGS: dsl|layer|markup|programming
+#+tags: dsl|layer|markup|programming
 
 [[file:img/latex.png]]
 

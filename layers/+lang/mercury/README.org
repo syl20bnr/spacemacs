@@ -1,6 +1,6 @@
-#+TITLE: mercury layer
+#+title: mercury layer
 
-#+TAGS: dsl|layer|programming
+#+tags: dsl|layer|programming
 
 [[file:img/mercury.png]]
 

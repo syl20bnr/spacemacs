@@ -1,6 +1,6 @@
-#+TITLE: spacemacs-defaults
+#+title: spacemacs-defaults
 
-#+TAGS: layer|misc|spacemacs
+#+tags: layer|misc|spacemacs
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

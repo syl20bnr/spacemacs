@@ -1,6 +1,6 @@
-#+TITLE: Search Engine layer
+#+title: Search Engine layer
 
-#+TAGS: layer|web service
+#+tags: layer|web service
 
 [[file:img/searchengine.jpg]]
 

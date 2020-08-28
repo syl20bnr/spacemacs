@@ -1,6 +1,6 @@
-#+TITLE: PDF layer
+#+title: PDF layer
 
-#+TAGS: layer|reader
+#+tags: layer|reader
 
 [[file:img/pdf.png]]
 

@@ -1,6 +1,6 @@
-#+TITLE: GitHub layer
+#+title: GitHub layer
 
-#+TAGS: layer|versioning
+#+tags: layer|versioning
 
 [[file:img/github.png]]
 

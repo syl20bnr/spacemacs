@@ -1,6 +1,6 @@
-#+TITLE: Hy layer
+#+title: Hy layer
 
-#+TAGS: general|layer|multi-paradigm|programming
+#+tags: general|layer|multi-paradigm|programming
 
 [[file:img/hy.png]]
 
@@ -44,7 +44,7 @@ To install =hy= globally:
 =jedhy= can be installed with:
 
 #+BEGIN_SRC sh
-pip3 install jedhy
+  pip3 install jedhy
 #+END_SRC
 
 * Key bindings

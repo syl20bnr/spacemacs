@@ -1,4 +1,4 @@
-#+TITLE: Spacemacs documentation
+#+title: Spacemacs documentation
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#core-pillars][Core Pillars]]

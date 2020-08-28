@@ -1,6 +1,6 @@
-#+TITLE: Gnus layer
+#+title: Gnus layer
 
-#+TAGS: e-mail|layer
+#+tags: e-mail|layer
 
 [[file:img/gnus.gif]]
 

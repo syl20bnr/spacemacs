@@ -1,6 +1,6 @@
-#+TITLE: unicode-fonts layer
+#+title: unicode-fonts layer
 
-#+TAGS: font|layer
+#+tags: font|layer
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]

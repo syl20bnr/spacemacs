@@ -1,6 +1,6 @@
-#+TITLE: Twitter layer
+#+title: Twitter layer
 
-#+TAGS: layer|web service
+#+tags: layer|web service
 
 [[file:img/twitter.png]]
 

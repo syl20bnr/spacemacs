@@ -1,6 +1,6 @@
-#+TITLE: Games layer
+#+title: Games layer
 
-#+TAGS: fun|layer
+#+tags: fun|layer
 
 [[file:img/games.png]]
 

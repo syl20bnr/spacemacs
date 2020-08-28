@@ -1,6 +1,6 @@
-#+TITLE: Treemacs layer
+#+title: Treemacs layer
 
-#+TAGS: file tree|layer
+#+tags: file tree|layer
 
 [[file:img/treemacs.png]]
 

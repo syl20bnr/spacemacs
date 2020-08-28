@@ -1,6 +1,6 @@
-#+TITLE: Spotify layer
+#+title: Spotify layer
 
-#+TAGS: layer|music
+#+tags: layer|music
 
 [[file:img/spotify.png]]
 

@@ -1,6 +1,6 @@
-#+TITLE: Vagrant layer
+#+title: Vagrant layer
 
-#+TAGS: layer|tool
+#+tags: layer|tool
 
 [[file:img/vagrant.png]]
 

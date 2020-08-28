@@ -1,6 +1,6 @@
-#+TITLE: Org layer
+#+title: Org layer
 
-#+TAGS: emacs|layer
+#+tags: emacs|layer
 
 [[file:img/org.png]]
 

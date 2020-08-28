@@ -1,6 +1,6 @@
-#+TITLE: Perforce layer
+#+title: Perforce layer
 
-#+TAGS: layer|versioning
+#+tags: layer|versioning
 
 [[file:img/p4.png]]
 

@@ -1,6 +1,6 @@
-#+TITLE: Extra Languages
+#+title: Extra Languages
 
-#+TAGS: dsl|layer|programming
+#+tags: dsl|layer|programming
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
