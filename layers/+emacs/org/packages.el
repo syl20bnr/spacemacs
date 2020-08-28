@@ -122,7 +122,7 @@
                                                     ".org-timestamps/")
             org-directory "~/org" ;; needs to be defined for `org-default-notes-file'
             org-default-notes-file (expand-file-name "notes.org" org-directory)
-            org-log-done t
+            org-log-done 'time
             org-startup-with-inline-images t
             org-latex-prefer-user-labels t
             org-image-actual-width nil
