@@ -2251,8 +2251,6 @@ Features:
 - syntax highlighting for [[https://github.com/haskell/haskell-mode][haskell source]], [[https://github.com/haskell/haskell-mode][cabal files]], [[https://github.com/bgamari/cmm-mode][C-- source]],
 - auto-completion with one of the selected backends (=dante= or =lsp=).
 
-*This layer is under construction, it needs your contributions and bug reports.*
-
 **** Idris
 [[file:+lang/idris/README.org][+lang/idris/README.org]]
 
