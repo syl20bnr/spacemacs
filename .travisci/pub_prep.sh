@@ -36,7 +36,9 @@ echo $base_revision > /tmp/base_revision
 echo "Base revision $base_revision"
 
 fold_start "FORMATTING_DOCUMENTATION"
-docker run --rm \
+docker run \
+       --rm \
+       -v "/tmp/elpa/:/root/.emacs.d/elpa/" \
        -v "${TRAVIS_BUILD_DIR}/.ci/spacedoc-cfg.edn":/opt/spacetools/spacedoc-cfg.edn \
        -v "${TRAVIS_BUILD_DIR}":/tmp/docs/ \
        jare/spacetools docfmt /tmp/docs/
@@ -67,11 +69,13 @@ cp ./.travisci/.spacemacs ~/
 ln -sf ~/.emacs.d "${TRAVIS_BUILD_DIR}"
 
 fold_start "INSTALLING_DEPENDENCIES"
-docker run --rm \
-	-v "${TRAVIS_BUILD_DIR}:/root/.emacs.d" \
-	-v "${TRAVIS_BUILD_DIR}/.travisci/.spacemacs:/root/.spacemacs" \
-	--entrypoint emacs \
-	jare/spacetools -batch -l /root/.emacs.d/init.el
+docker run \
+       --rm \
+       -v "/tmp/elpa/:/root/.emacs.d/elpa/" \
+       -v "${TRAVIS_BUILD_DIR}:/root/.emacs.d" \
+       -v "${TRAVIS_BUILD_DIR}/.travisci/.spacemacs:/root/.spacemacs" \
+       --entrypoint emacs \
+       jare/spacetools -batch -l /root/.emacs.d/init.el
 if [ $? -ne 0 ]; then
     echo "Dependencies installation failed."
     exit 2
@@ -79,14 +83,16 @@ fi
 fold_end "INSTALLING_DEPENDENCIES"
 
 fold_start "EXPORTING_DOCUMENTATION"
-docker run --rm \
-	-v "${TRAVIS_BUILD_DIR}:/root/.emacs.d" \
-	-v "${TRAVIS_BUILD_DIR}/.travisci/.spacemacs:/root/.spacemacs" \
-	--entrypoint emacs \
-	jare/spacetools -batch \
-		-l /root/.emacs.d/init.el \
-		-l /root/.emacs.d/core/core-documentation.el \
-		-f spacemacs/publish-doc
+docker run \
+       --rm \
+       -v "/tmp/elpa/:/root/.emacs.d/elpa/" \
+       -v "${TRAVIS_BUILD_DIR}:/root/.emacs.d" \
+       -v "${TRAVIS_BUILD_DIR}/.travisci/.spacemacs:/root/.spacemacs" \
+       --entrypoint emacs \
+       jare/spacetools -batch \
+       -l /root/.emacs.d/init.el \
+       -l /root/.emacs.d/core/core-documentation.el \
+       -f spacemacs/publish-doc
 if [ $? -ne 0 ]; then
     echo "spacemacs/publish-doc failed"
     exit 2
