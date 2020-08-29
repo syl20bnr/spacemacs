@@ -11,6 +11,7 @@ branches:
 cache:
   directories:
   - /tmp/elpa
+  - !/tmp/elpa/gnupg
 env:
   global:
   - secure: "M8NF1Uw7VGkLdNmWiUF4T+VOJXwN8KCKVQb45/BWVpGm88Rcfom/9bxRTUme8VYuzIavph32QF+P9KyhX8aj2p2FMItNnxiEySzap5UrLrNiwB6ZxbQglMJj0yMQKASynNBai9KKI7mYlsM5jRpFJ9OSgj7Ko00RIFpO3EpJ+kE="
