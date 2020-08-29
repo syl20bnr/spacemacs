@@ -254,27 +254,23 @@ mode line)
 In =debugger-mode= (=Debugger= is displayed in major mode segment of the mode
 line)
 
-| Key binding | Description       |
-|-------------+-------------------|
-| ~<tab>~     | forward           |
-| ~S-<tab>~   | backward          |
-| ~RET~       | help follow       |
-| ~SPC~       | next              |
-| ~R~         | record expression |
-| ~c~         | continue          |
-| ~d~         | step through      |
-| ~x~         | eval expression   |
-| ~E~         | eval expression   |
-| ~J~         | jump              |
-| ~g l~       | list functions    |
-| ~g b~       | frame             |
-| ~r~         | return value      |
-| ~u~         | frame clear       |
-| ~L~         | toggle locals     |
-| ~p~         | toggle locals     |
-| ~q~         | quit              |
-| ~Z Q~       | quit              |
-| ~Z Z~       | quit              |
+| Key binding | Description              |
+|-------------+--------------------------|
+| ~<tab>~     | forward                  |
+| ~S-<tab>~   | backward                 |
+| ~RET~       | backtrace help follow    |
+| ~p~         | backtrace backward frame |
+| ~c~         | continue                 |
+| ~R~         | record expression        |
+| ~d~         | step through             |
+| ~e~         | eval expression          |
+| ~J~         | jump                     |
+| ~L~         | list functions           |
+| ~b~         | frame                    |
+| ~r~         | return value             |
+| ~u~         | frame clear              |
+| ~C-v~       | backtrace toggle locals  |
+| ~q~         | quit                     |
 
 ** Refactoring with emr
 
