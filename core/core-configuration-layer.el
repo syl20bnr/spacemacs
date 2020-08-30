@@ -580,8 +580,9 @@ refreshed during the current session."
     ;; force dump
     (configuration-layer//load)
     (when (spacemacs/emacs-with-pdumper-set-p)
-      (configuration-layer/message (concat "--force-dump passed on the command line, "
-                                           "forcing a redump."))
+      (configuration-layer/message
+       (concat "--force-dump passed on the command line or configuration has "
+               "been reloaded, forcing a redump."))
       (configuration-layer//dump-emacs)))
    ((spacemacs-is-dumping-p)
     ;; dumping
