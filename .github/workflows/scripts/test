@@ -16,7 +16,7 @@ abs_p() {
     [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
 }
 
-ln -s "$(pwd)" ~/.emacs.d
+ln -s "$(pwd)" $HOME/.emacs.d
 testdir=$(abs_p tests/$1)
 cd ..
 
