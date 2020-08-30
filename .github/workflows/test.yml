@@ -1,15 +1,12 @@
 name: emacs_test
-
 on:
   pull_request:
   push:
     branches:
       - master
       - develop
-
 env:
   SCRIPT: './.github/workflows/scripts/test'
-  
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -26,9 +23,19 @@ jobs:
       with:
         version: ${{ matrix.emacs_version }}
     - uses: actions/checkout@v2
-    - name: "Dependencies installation"
+    - name: 'Cache elpa'
+      id: elpa-cache
+      uses: actions/cache@v2
+      with:
+        path: '${{ GITHUB_WORKSPACE }}/elpa'
+        key: ${{ hashFiles('elpa/manifest') }}
+    - name: 'Dependencies installation"'
       run: '${{ env.SCRIPT }} ${{ matrix.test_root }} installation'
-    - name: "Unit testing"
+    - name: 'Unit testing'
       run: '${{ env.SCRIPT }} ${{ matrix.test_root }} unit_tests'
-    - name: "Functional testing"
+    - name: 'Functional testing'
       run: '${{ env.SCRIPT }} ${{ matrix.test_root }} func_tests'
+    - name: 'Generate elpa manifest'
+      run: |
+        'find ${{ GITHUB_WORKSPACE }}/elpa -type d >
+        ${{ GITHUB_WORKSPACE }}/elpa/manifest'
