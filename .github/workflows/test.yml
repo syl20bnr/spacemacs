@@ -1,0 +1,34 @@
+name: emacs_test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - develop
+
+env:
+  SCRIPT: './.github/workflows/scripts/test'
+  
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        emacs_version: [26.3, 27.1, snapshot]
+        test_root:
+          - 'core'
+          - 'layers/+distribution/spacemacs-base'
+          - 'layers/+distribution/spacemacs'
+    steps:
+    - uses: purcell/setup-emacs@master
+      with:
+        version: ${{ matrix.emacs_version }}
+    - uses: actions/checkout@v2
+    - name: "Dependencies installation"
+      run: '${{ env.SCRIPT }} ${{ matrix.test_root }} installation'
+    - name: "Unit testing"
+      run: '${{ env.SCRIPT }} ${{ matrix.test_root }} unit_tests'
+    - name: "Functional testing"
+      run: '${{ env.SCRIPT }} ${{ matrix.test_root }} func_tests'

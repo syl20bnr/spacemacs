@@ -65,5 +65,5 @@ skip_when_branch_update () {
 }
 
 cleanup () {
-	rm -rf ~/.emacs.d/elpa ~/.emacs.d/.cache -f ~/.spacemacs
+	rm -rf ~/.emacs.d/elpa ~/.emacs.d/.cache ~/.spacemacs
 }
