@@ -136,8 +136,8 @@ the end of the loading of the dump file."
            (list dotspacemacs-emacs-pdumper-executable-file
                  "--batch"
                  "-l" (concat spacemacs-start-directory "dump-init.el")
-                 "-eval" (concat "(dump-emacs-portable \"" dump-file-temp "\")"))))
-    (pop-to-buffer spacemacs-dump-buffer-name)))
+                 "-eval" (concat "(dump-emacs-portable \"" dump-file-temp "\")")
+                 )))))
 
 (defun spacemacs/dump-eval-delayed-functions ()
   "Evaluate delayed functions."
