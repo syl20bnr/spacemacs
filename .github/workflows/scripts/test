@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-## Testing script for CircleCI
+## Testing script for Emacs Lisp files on GNU/Linux and MacOS
 ##
 ## Copyright (c) 2012-2014 Sylvain Benner
 ## Copyright (c) 2014-2020 Sylvain Benner & Contributors
