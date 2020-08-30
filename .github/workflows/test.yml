@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        emacs_version: [26.3, 27.1, snapshot]
+        emacs_version: [25.1, 26.3, 27.1, snapshot]
         test_root:
           - 'core'
           - 'layers/+distribution/spacemacs-base'
