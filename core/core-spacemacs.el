@@ -52,6 +52,7 @@ the final step of executing code in `emacs-startup-hook'.")
 
 (defun spacemacs/init ()
   "Perform startup initialization."
+  (setq command-line-args (spacemacs//parse-command-line command-line-args))
   (when spacemacs-debugp (spacemacs/init-debug))
   ;; silence ad-handle-definition about advised functions getting redefined
   (setq ad-redefinition-action 'accept)

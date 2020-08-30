@@ -68,6 +68,4 @@ arguments is that we want to process these arguments as soon as possible."
       (setq i (1+ i)))
     (nreverse new-args)))
 
-(setq command-line-args (spacemacs//parse-command-line command-line-args))
-
 (provide 'core-command-line)
