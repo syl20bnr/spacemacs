@@ -1188,16 +1188,17 @@ Return nil if package object is not found."
   "Return a sorted list of PACKAGES objects."
   (sort packages (lambda (x y) (string< (symbol-name x) (symbol-name y)))))
 
-(defun configuration-layer/make-all-packages (&optional skip-layer-discovery)
+(defun configuration-layer/make-all-packages (&optional skip-layer-discovery skip-layer-deps)
   "Create objects for _all_ packages supported by Spacemacs.
-If SKIP-LAYER-DISCOVERY is non-nil then do not check for new layers."
+If SKIP-LAYER-DISCOVERY is non-nil then do not check for new layers.
+If SKIP-LAYER-DEPS is non-nil then skip declaration of layer dependencies."
   (let ((all-layers (configuration-layer/get-layers-list))
         (configuration-layer--load-packages-files t)
         (configuration-layer--package-properties-read-onlyp t)
         (configuration-layer--inhibit-warnings t))
     (unless skip-layer-discovery
       (configuration-layer/discover-layers))
-    (configuration-layer/declare-layers all-layers)
+    (configuration-layer/declare-layers all-layers skip-layer-deps)
     (configuration-layer/make-packages-from-layers all-layers)))
 
 (defun configuration-layer/make-packages-from-layers
@@ -1462,14 +1463,16 @@ discovery."
                 ;; layer not found, add it to search path
                 (setq search-paths (cons sub search-paths)))))))))))
 
-(defun configuration-layer/declare-layers (layers-specs)
+(defun configuration-layer/declare-layers (layers-specs &optional skip-layer-deps)
   "Declare layers with LAYERS-SPECS."
-  (mapc 'configuration-layer/declare-layer layers-specs))
+  (dolist (specs layers-specs)
+    (configuration-layer/declare-layer specs skip-layer-deps)))
 
-(defun configuration-layer/declare-layer (layer-specs)
+(defun configuration-layer/declare-layer (layer-specs &optional skip-layer-deps)
   "Declare a single layer with spec LAYER-SPECS.
 Set the variable `configuration-layer--declared-layers-usedp' to control
-whether the declared layer is an used one or not."
+whether the declared layer is an used one or not.
+If `SKIP-LAYER-DEPS' is non nil then skip loading of layer dependenciesl"
   (let* ((layer-name (if (listp layer-specs) (car layer-specs) layer-specs))
          (layer (configuration-layer/get-layer layer-name))
          (usedp configuration-layer--declared-layers-usedp))
@@ -1480,7 +1483,8 @@ whether the declared layer is an used one or not."
                     usedp)))
           (configuration-layer//add-layer obj usedp)
           (configuration-layer//set-layer-variables obj)
-          (when (and (not (oref layer :deps-loaded))
+          (when (and (not skip-layer-deps)
+                     (not (oref layer :deps-loaded))
                      (or usedp configuration-layer--load-packages-files))
             (oset layer :deps-loaded t)
             (configuration-layer//load-layer-files layer-name '("layers.el"))))

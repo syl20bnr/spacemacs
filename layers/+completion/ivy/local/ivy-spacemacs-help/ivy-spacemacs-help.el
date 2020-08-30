@@ -42,7 +42,7 @@
 
 (defun ivy-spacemacs-help//init (&optional arg)
   (when (or arg (null ivy-spacemacs--initialized))
-    (configuration-layer/make-all-packages)
+    (configuration-layer/make-all-packages nil t)
     (setq ivy-spacemacs--initialized t)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
