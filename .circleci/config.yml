@@ -178,30 +178,30 @@ workflows:
   build:
     jobs:
       - "Validate PR"
-      - "core Emacs25 (required)":
-          requires:
-            - "Validate PR"
-      - "spacemacs-base dist. Emacs25 (required)":
-          requires:
-            - "Validate PR"
-      - "core Emacs26 (required)":
-          requires:
-            - "Validate PR"
-      - "spacemacs-base dist. Emacs26 (required)":
-          requires:
-            - "Validate PR"
-      - "spacemacs dist. Emacs25 (required)":
-          requires:
-            - "Validate PR"
-      - "core Emacs snapshot (optional)":
-          requires:
-            - "Validate PR"
-      - "spacemacs-base dist. Emacs snapshot (optional)":
-          requires:
-            - "Validate PR"
-      - "spacemacs dist. Emacs snapshot (optional)":
-          requires:
-            - "Validate PR"
+      # - "core Emacs25 (required)":
+      #     requires:
+      #       - "Validate PR"
+      # - "spacemacs-base dist. Emacs25 (required)":
+      #     requires:
+      #       - "Validate PR"
+      # - "core Emacs26 (required)":
+      #     requires:
+      #       - "Validate PR"
+      # - "spacemacs-base dist. Emacs26 (required)":
+      #     requires:
+      #       - "Validate PR"
+      # - "spacemacs dist. Emacs25 (required)":
+      #     requires:
+      #       - "Validate PR"
+      # - "core Emacs snapshot (optional)":
+      #     requires:
+      #       - "Validate PR"
+      # - "spacemacs-base dist. Emacs snapshot (optional)":
+      #     requires:
+      #       - "Validate PR"
+      # - "spacemacs dist. Emacs snapshot (optional)":
+      #     requires:
+      #       - "Validate PR"
       - "Validate Documentation (required)":
           requires:
             - "Validate PR"
