@@ -15,7 +15,7 @@
     evil
     flycheck
     (flycheck-perl6 :requires flycheck)
-    perl6-mode
+    raku-mode
     ))
 
 (defun perl6/post-init-company ()
