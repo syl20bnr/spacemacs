@@ -1,0 +1,43 @@
+name: elpa mirror updater
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+  schedule: 
+  # Every 4 hours
+  - cron: '0 */4 * * *'
+
+env:
+  EM_SCRIPT_URL: "https://raw.githubusercontent.com/\
+  redguardtoo/\
+  elpa-mirror/\
+  master/\
+  elpa-mirror.el"
+  SCRIPT: ./.github/workflows/scripts/create_mirror
+  MIRROR_DIR: /tmp/elpa
+  EM_SCRIPT_PATH: /tmp/elpa-mirror.el
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Emacs
+      uses: purcell/setup-emacs@master
+      with:
+        version: 27.1
+
+    - name: Download elpa-mirror.el
+      run: curl -o /tmp/elpa-mirror.el ${{ env.EM_SCRIPT_URL }}
+
+    - uses: actions/checkout@v2
+
+    - name: Create local mirror
+      run: ${{ env.SCRIPT }}
+
+    - name: Upload mirror artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: elpa-mirror
+        path: ${{ env.MIRROR_DIR }}

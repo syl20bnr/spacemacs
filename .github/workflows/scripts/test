@@ -22,7 +22,7 @@ cd ..
 
 echo "Running '$2' for '$1' in '$testdir' folder"
 if [ -f $testdir/dotspacemacs.el ]; then
-	cp $testdir/dotspacemacs.el ~/.spacemacs
+    cp $testdir/dotspacemacs.el ~/.spacemacs
 fi
 cd $testdir && echo "Now in $(pwd)"
 make $2
