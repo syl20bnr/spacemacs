@@ -83,8 +83,8 @@
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
-        (when (eq python-lsp-server 'mspyls)
-          (require 'lsp-python-ms))
+        (cond ((eq python-lsp-server 'mspyls)  (require 'lsp-python-ms))
+              ((eq python-lsp-server 'pyright) (require 'lsp-pyright)))
         (lsp))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 

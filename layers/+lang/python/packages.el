@@ -45,7 +45,10 @@
     anaconda-mode
     (company-anaconda :requires company)
     ;; packages for Microsoft LSP backend
-    (lsp-python-ms :requires lsp-mode)))
+    (lsp-python-ms :requires lsp-mode)
+
+    ;; packages for Microsoft's pyright language server
+    (lsp-pyright :requires lsp-mode)))
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
@@ -452,3 +455,9 @@ fix this issue."
                                              "Microsoft.Python.LanguageServer"
                                              (and (eq system-type 'windows-nt)
                                                   ".exe"))))))
+
+(defun python/init-lsp-pyright ()
+  (use-package lsp-pyright
+    :if (eq python-lsp-server 'pyright)
+    :ensure nil
+    :defer t))
