@@ -15,6 +15,7 @@
   - [[#language-server-protocol][Language Server Protocol]]
     - [[#python-language-server][python-language-server]]
     - [[#microsoft-python-language-server][Microsoft python language server]]
+    - [[#microsoft-pyright-language-server][Microsoft pyright language server]]
 - [[#additional-tools][Additional tools]]
   - [[#syntax-checking][Syntax checking]]
   - [[#test-runner][Test runner]]
@@ -132,16 +133,22 @@ setting your =PYTHONPATH= as explained at
 ** Language Server Protocol
 The =lsp= backend can use either of the following language server implementations:
 
-| symbol  | description                              |
-|---------+------------------------------------------|
-| 'pyls   | python-language-server package (default) |
-| 'mspyls | Microsoft python language server         |
+| symbol   | description                              |
+|----------+------------------------------------------|
+| 'pyls    | python-language-server package (default) |
+| 'mspyls  | Microsoft python language server         |
+| 'pyright | Microsoft pyright language server        |
 
-=pyls= is used by default - to use the Microsoft server, set the =python-lsp-server=
-layer variable as follows:
+=pyls= is used by default - to use the Microsoft python language server, set the
+=python-lsp-server= layer variable as follows:
 
 #+BEGIN_SRC elisp
   (python :variables python-backend 'lsp python-lsp-server 'mspyls)
+#+END_SRC
+
+To setup the pyright language server instead, use:
+#+BEGIN_SRC elisp
+  (python :variables python-backend 'lsp python-lsp-server 'pyright)
 #+END_SRC
 
 *** python-language-server
@@ -192,6 +199,19 @@ To use the latest built version in a cloned git repo, use the ~python-lsp-git-ro
 
 N.B. If you're using Arch linux or a derivative distribution, you can install the =microsoft-python-language-server=
 package from the AUR.
+
+*** Microsoft pyright language server
+[[https://github.com/microsoft/pyright][Pyright]] is a new language server by Microsoft rewritten from scratch. Microsoft
+python language server is planned to be deprecated in favor of pyright. Pyright
+offers improved performance and better features compared to the old
+implementation. It can be installed via yarn or npm as follows:
+
+#+BEGIN_SRC sh
+  # via yarn
+  yarn global add pyright
+  # or via npm
+  npm install -g pyright
+#+END_SRC
 
 * Additional tools
 ** Syntax checking

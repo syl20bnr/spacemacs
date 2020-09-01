@@ -20,7 +20,7 @@ Possible values are `anaconda'and `lsp'.
 If `nil' then `anaconda' is the default backend unless `lsp' layer is used.")
 
 (defvar python-lsp-server 'pyls
-  "Language server to use for lsp backend. Possible values are `pyls'
+  "Language server to use for lsp backend. Possible values are `pyls', `pyright'
 and `mspyls'")
 
 (defvar python-lsp-git-root nil
