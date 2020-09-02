@@ -1,4 +1,4 @@
-name: emacs_test
+name: emacs tests
 
 on:
   pull_request:
@@ -6,16 +6,29 @@ on:
     branches:
       - master
       - develop
+  schedule: 
+  # Every 4 hours
+  - cron: '0 */4 * * *'
 
 env:
-  SCRIPT: ./.github/workflows/scripts/test
+  TEST_SCRIPT: ./.github/workflows/scripts/test
+  MIRROR_SCRIPT: ./.github/workflows/scripts/create_mirror
+  EM_SCRIPT_PATH: $HOME/elpa-mirror.el
+  MIRROR_DIR: $HOME/elpa
+  MIRROR_NAME: elpa-mirror
+  EM_SCRIPT_URL: "https://raw.githubusercontent.com/\
+  redguardtoo/\
+  elpa-mirror/\
+  master/\
+  elpa-mirror.el"
 
 defaults:
   run:
     shell: bash
 
 jobs:
-  build:
+  test:
+    if: ${{ github.event_name != 'schedule' }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -39,11 +52,45 @@ jobs:
         version: ${{ matrix.emacs_version }}
       if: ${{ matrix.os == 'windows-latest' }}
 
+    - name: Download elpa mirror
+      continue-on-error: true
+      uses: actions/download-artifact@v2
+      with:
+        name: ${{ env.MIRROR_NAME }}
+        path: ${{ env.MIRROR_DIR }}
+
+    - name: List mirror content
+      continue-on-error: true
+      run: find ${{ env.MIRROR_DIR }}
+
     - uses: actions/checkout@v2
 
     - name: Dependencies installation
-      run: ${{ env.SCRIPT }} ${{ matrix.test_root }} installation
+      run: ${{ env.TEST_SCRIPT }} ${{ matrix.test_root }} installation
     - name: Unit testing
-      run: ${{ env.SCRIPT }} ${{ matrix.test_root }} unit_tests
+      run: ${{ env.TEST_SCRIPT }} ${{ matrix.test_root }} unit_tests
     - name: Functional testing
-      run: ${{ env.SCRIPT }} ${{ matrix.test_root }} func_tests
+      run: ${{ env.TEST_SCRIPT }} ${{ matrix.test_root }} func_tests
+
+  update_mirror:
+    if: ${{ github.event_name == 'schedule' }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Emacs
+      uses: purcell/setup-emacs@master
+      with:
+        version: 27.1
+
+    - name: Download elpa-mirror.el
+      run: curl -o ${{ env.EM_SCRIPT_PATH }} ${{ env.EM_SCRIPT_URL }}
+
+    - uses: actions/checkout@v2
+
+    - name: Create local mirror
+      run: ${{ env.MIRROR_SCRIPT }}
+
+    - name: Upload mirror artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ env.MIRROR_NAME }}
+        path: ${{ env.MIRROR_DIR }}
