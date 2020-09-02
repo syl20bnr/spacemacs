@@ -1,14 +1,14 @@
-name: emacs tests
+name: elisp_tests
 
 on:
+  schedule: 
+  # Every 4 hours
+  - cron: '0 */4 * * *'
   pull_request:
   push:
     branches:
       - master
       - develop
-  schedule: 
-  # Every 4 hours
-  - cron: '0 */4 * * *'
 
 env:
   TEST_SCRIPT: ./.github/workflows/scripts/test
@@ -72,7 +72,7 @@ jobs:
     - name: Functional testing
       run: ${{ env.TEST_SCRIPT }} ${{ matrix.test_root }} func_tests
 
-  update_mirror:
+  update_elpa_mirror:
     if: ${{ github.event_name == 'schedule' }}
     runs-on: ubuntu-latest
     steps:
