@@ -1,0 +1,39 @@
+#+TITLE: Tabs layer
+#+TAGS: layer|spacemacs|emacs
+
+# TOC links should be GitHub style anchors.
+* Table of Contents                                        :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#hide-tabs][Hide tabs]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support for tabs. Implementation is done using [[https://github.com/ema2159/centaur-tabs][Centaur Tabs]].
+
+** Features:
+ - Sets up tabs using Centaur tabs as backend
+
+* Install
+
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =tabs= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Hide tabs
+
+You can set hooks for buffers in which it isn't desired to have tabs by
+customizing =centaur-tabs-hide-tabs-hooks=
+
+* Key bindings
+
+| Key binding | Description                                           |
+|-------------+-------------------------------------------------------|
+| ~C-{~       | Select the previous available tab                     |
+| ~C-}~       | Select the next available tab                         |
+| ~C-M-{~     | Move current tabe to left                             |
+| ~C-M-}~     | Move current tabe to right                            |
+| ~C-c t s~   | Display a list of current buffer groups using Counsel |
+| ~C-c t p~   | Group buffer tabs by projectile                       |
+| ~C-c t g~   | Group buffer tabs by groups                           |
