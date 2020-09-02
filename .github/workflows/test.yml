@@ -26,10 +26,6 @@ jobs:
           - core
           - layers/+distribution/spacemacs-base
           - layers/+distribution/spacemacs
-        exclude:
-          # Seems like we have the outdated cert problem or something.
-          - os: windows-latest
-            emacs_version: 25.3
     steps:
     - name: Install Emacs on UNIX
       uses: purcell/setup-emacs@master
