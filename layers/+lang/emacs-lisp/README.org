@@ -229,21 +229,17 @@ mode line)
 | ~s~         | step                       |
 | ~i~         | step in                    |
 | ~o~         | step out                   |
-| ~n~         | next                       |
+| ~S~         | next                       |
 | ~f~         | forward-sexp               |
 | ~H~         | goto here                  |
 | ~I~         | instrument callee          |
-| ~g o~       | go                         |
-| ~g O~       | go nonstop                 |
-| ~c~         | continue                   |
+| ~c~         | go                         |
 | ~C~         | fast continue              |
 | ~t~         | trace                      |
 | ~T~         | fast trace                 |
 | ~q~         | quit                       |
 | ~Q~         | quit nonstop               |
-| ~Q~         | quit nonstop               |
-| ~a~         | abort recursive edit       |
-| ~S~         | stop                       |
+| ~a~         | stop                       |
 | ~b~         | set breakpoint             |
 | ~u~         | unset breakpoint           |
 | ~B~         | next breakpoint            |
@@ -251,34 +247,30 @@ mode line)
 | ~r~         | previous result            |
 | ~e~         | evaluate expression        |
 | ~C-x C-e~   | evaluate last sexp         |
-| ~W W~       | where                      |
-| ~g ?~       | help                       |
+| ~w~         | where                      |
+| ~?~         | help                       |
 | ~d~         | backtrace                  |
 
 In =debugger-mode= (=Debugger= is displayed in major mode segment of the mode
 line)
 
-| Key binding | Description       |
-|-------------+-------------------|
-| ~<tab>~     | forward           |
-| ~S-<tab>~   | backward          |
-| ~RET~       | help follow       |
-| ~SPC~       | next              |
-| ~R~         | record expression |
-| ~c~         | continue          |
-| ~d~         | step through      |
-| ~x~         | eval expression   |
-| ~E~         | eval expression   |
-| ~J~         | jump              |
-| ~g l~       | list functions    |
-| ~g b~       | frame             |
-| ~r~         | return value      |
-| ~u~         | frame clear       |
-| ~L~         | toggle locals     |
-| ~p~         | toggle locals     |
-| ~q~         | quit              |
-| ~Z Q~       | quit              |
-| ~Z Z~       | quit              |
+| Key binding | Description              |
+|-------------+--------------------------|
+| ~<tab>~     | forward                  |
+| ~S-<tab>~   | backward                 |
+| ~RET~       | backtrace help follow    |
+| ~p~         | backtrace backward frame |
+| ~c~         | continue                 |
+| ~R~         | record expression        |
+| ~d~         | step through             |
+| ~e~         | eval expression          |
+| ~J~         | jump                     |
+| ~L~         | list functions           |
+| ~b~         | frame                    |
+| ~r~         | return value             |
+| ~u~         | frame clear              |
+| ~C-v~       | backtrace toggle locals  |
+| ~q~         | quit                     |
 
 ** Refactoring with emr
 
