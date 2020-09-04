@@ -61,7 +61,7 @@
 
 (defun spacemacs//scala-setup-treeview ()
   "Setup lsp-treemacs for Scala."
-  (setq lsp-metals-treeview-show-when-views-received t))
+  (setq lsp-metals-treeview-show-when-views-received scala-auto-treeview))
 
 (defun spacemacs//scala-disable-flycheck-scala ()
   (push 'scala flycheck-disabled-checkers))
