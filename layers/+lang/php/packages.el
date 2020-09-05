@@ -20,7 +20,7 @@
     counsel-gtags
     helm-gtags
     php-auto-yasnippets
-    (php-extras :location (recipe :fetcher github :repo "arnested/php-extras"))
+    (php-extras :location (recipe :fetcher github :repo "arnested/php-extras") :toggle (not (eq php-backend 'lsp)))
     php-mode
     phpcbf
     phpunit
