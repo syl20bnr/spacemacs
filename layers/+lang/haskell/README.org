@@ -33,7 +33,7 @@
   - [[#flycheck][Flycheck]]
   - [[#hlint][HLint]]
 - [[#faq][FAQ]]
-  - [[#dante-reports-missinghidden-imports-for-test-files][Dante reports missing/hidden imports for test files.]]
+  - [[#dante-reports-missinghidden-imports-for-test-files][Dante reports missing/hidden imports for test files]]
   - [[#the-repl-doesnt-work][The REPL doesn't work]]
   - [[#the-repl-is-stuck][The REPL is stuck]]
   - [[#indentation-doesnt-reset-when-pressing-return-after-an-empty-line][Indentation doesn't reset when pressing return after an empty line]]
@@ -345,7 +345,7 @@ the file) but bad coding style and code smell. The HLint checker is called
 HLint can be configured per project via .hlint.yaml (check Hlint docs for more details).
 
 * FAQ
-** Dante reports missing/hidden imports for test files.
+** Dante reports missing/hidden imports for test files
 The cause might be that Dante is not loading appropriate packages for the test suite target, instead it is loading packages for the library.
 
 Solution is to create =.dir-local.el= in the directory where the test suite (usually =test/= or =tests/=) is and to put the line =((haskell-mode . ((dante-target . "--test"))))= into it.
