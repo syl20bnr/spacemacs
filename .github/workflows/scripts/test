@@ -17,6 +17,8 @@ abs_p() {
 }
 
 ln -s "$(pwd)" $HOME/.emacs.d
+cp .github/workflows/scripts/dot_lock.el ~/.emacs.d/.lock
+
 testdir=$(abs_p tests/$1)
 cd ..
 
