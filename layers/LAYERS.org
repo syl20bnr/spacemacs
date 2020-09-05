@@ -2248,8 +2248,8 @@ Features:
 This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
 
 Features:
-- syntax highlighting for [[https://github.com/haskell/haskell-mode][haskell source]], [[https://github.com/haskell/haskell-mode][cabal files]], [[https://github.com/bgamari/cmm-mode][C-- source]],
-- auto-completion with one of the selected backends (=dante= or =lsp=).
+- syntax highlighting for [[https://github.com/haskell/haskell-mode][haskell source]], [[https://github.com/haskell/haskell-mode][cabal files]], [[https://github.com/bgamari/cmm-mode][C-- source]]
+- auto-completion and syntax-checking with one of the selected backends (=dante= or =lsp=).
 
 **** Idris
 [[file:+lang/idris/README.org][+lang/idris/README.org]]
