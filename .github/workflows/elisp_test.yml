@@ -9,7 +9,7 @@ on:
 
 env:
   TEST_SCRIPT: ./.github/workflows/scripts/test
-  MIRROR_SCRIPT: ./.github/workflows/scripts/create_mirror
+  TESTELPA_REPO: JAremko/testelpa-develop
 
 defaults:
   run:
@@ -41,6 +41,15 @@ jobs:
       if: ${{ matrix.os == 'windows-latest' }}
 
     - uses: actions/checkout@v2
+
+    - name: Fetch Spacemacs elpa mirror
+      run: |
+        curl -L \
+        https://github.com/$TESTELPA_REPO/releases/latest/download/elpa.zip \
+        --output elpa.zip
+
+    - name: Unpack elpa mirror
+      run: unzip elpa.zip -d testelpa_mirror
 
     - name: Dependencies installation
       run: ${{ env.TEST_SCRIPT }} ${{ matrix.test_root }} installation
