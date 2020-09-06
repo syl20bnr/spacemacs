@@ -1,0 +1,48 @@
+#+TITLE: Ligatures layer
+
+#+TAGS: font|layer
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#fonts][Fonts]]
+
+* Description
+This layer adds support for font ligature in Emacs 27 + via [[https://github.com/mickeynp/ligature.el][ligatures.el]].
+
+** Features:
+- Enable font ligatures with supported fonts in Emacs 27 +
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =ligatures= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+Your Emacs must also be built with =Harfbuzz= and a ligature font must be
+installed and configured you can see the [[https://github.com/mickeynp/ligature.el#compatibility-and-version-requirements][upsteam]] docs for a full list of
+requirements.
+
+By default all modes are enabled and all ligature are enabled. You can enable
+ligatures for specific modes with the =ligature-modes= variable.
+
+#+BEGIN_SRC emacs-lisp
+  (ligatures :variables ligature-modes '(php-mode js-mode))
+#+END_SRC
+
+To enable for only programming modes you can use =prog-mode=
+
+#+BEGIN_SRC emacs-lisp
+  (ligatures :variables ligature-modes '(prog-mode))
+#+END_SRC
+
+To configure the ligature set that gets used with your font there is a
+=ligature-set= variable. To only enable the ligatures in =if= statements you can
+limit the =ligature-set=
+
+#+BEGIN_SRC emacs-lisp
+  (ligatures :variables ligature-set '("==" "===" "!=" "!==" "||" "&&"))
+#+END_SRC
+
+* Fonts
+- [[https://github.com/tonsky/FiraCode][Fira Code]]
