@@ -17,16 +17,24 @@ mst_b="master"
 prj_owner="syl20bnr"
 prj_repo="spacemacs"
 bot_login="emacspace"
-upstream_data_URL_root="https://api.github.com/repos/"
+api_URL_root="https://api.github.com"
+
+upstream_data_URL_root="${api_URL_root}/"
+upstream_data_URL_root+="repos/"
 upstream_data_URL_root+="${prj_owner}/"
 upstream_data_URL_root+="${prj_repo}"
+
 CIRCLE_PR_NUMBER="${CIRCLE_PR_NUMBER:-${CIRCLE_PULL_REQUEST##*/}}"
 pr_data_URL="${upstream_data_URL_root}/pulls/${CIRCLE_PR_NUMBER}"
 upstream_data_URL="${upstream_data_URL_root}/branches/develop"
-pr_patch_URL="https://patch-diff.githubusercontent.com/raw/"
-pr_patch_URL+="${prj_owner}/"
-pr_patch_URL+="${prj_repo}/pull/"
-pr_patch_URL+="${CIRCLE_PR_NUMBER}.patch"
+
+pr_file_list_URL="${api_URL_root}/"
+pr_file_list_URL+="repos/"
+pr_file_list_URL+="${prj_owner}/"
+pr_file_list_URL+="${prj_repo}/"
+pr_file_list_URL+="pulls/"
+pr_file_list_URL+="${CIRCLE_PR_NUMBER}/"
+pr_file_list_URL+="files"
 
 # Helpers
 echo_headline () {

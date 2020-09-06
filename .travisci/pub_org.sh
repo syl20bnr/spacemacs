@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-## Documentation publishing script for Travis CI integration
+## ORG documentation publishing script for Travis CI integration
 ##
 ## Copyright (c) 2012-2014 Sylvain Benner
 ## Copyright (c) 2014-2018 Sylvain Benner & Contributors
