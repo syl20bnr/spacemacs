@@ -1,5 +1,5 @@
 ---
-# TravisCI YAML file
+# TravisCI YAML file for publishing/updating/formatting Spacemacs documentation.
 language: generic
 sudo: required
 services:
