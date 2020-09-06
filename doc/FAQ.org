@@ -378,6 +378,8 @@ include this on your =dotspacemacs/user-config=.
   (add-hook 'js2-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   ;; For all programming modes
   (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  ;; For all modes
+  (add-hook 'after-change-major-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 #+END_SRC
 
 ** Setup =$PATH=?
