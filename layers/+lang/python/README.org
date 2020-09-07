@@ -32,6 +32,7 @@
   - [[#pyvenv-pyenv-and-pipenv][Pyvenv, pyenv and pipenv]]
 - [[#management-of-python-versions-and-virtual-environments][Management of Python versions and virtual environments]]
   - [[#manage-virtual-environments-with-pyvenv][Manage virtual environments with pyvenv]]
+    - [[#automatic-activation-of-local-virtual-environment][Automatic activation of local virtual environment]]
   - [[#manage-multiple-python-versions-with-pyenv][Manage multiple Python versions with pyenv]]
     - [[#automatic-activation-of-local-pyenv-version][Automatic activation of local pyenv version]]
   - [[#manage-environments-and-packages-with-pipenv][Manage environments and packages with pipenv]]
@@ -364,6 +365,26 @@ by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides
 | ~SPC m V d~ | deactivate active virtual environment           |
 | ~SPC m V w~ | work on virtual environment in =WORKON_HOME=    |
 
+*** Automatic activation of local virtual environment
+By default Spacemacs uses the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package to manage virtual environments.
+Additionally it uses =pyvenv-tracking-mode= to activate a buffer's local virtual
+environment on change of focus. Pyvenv determines which virtual environment to
+use from the value of the =pyvenv-workon= or the =pyvenv-activate=
+buffer-local-variable. Spacemacs scans the project directory for a pattern
+=.venv=. If the found =.venv= is a directory then it sets that directory as the
+local virtual environment path. If the =.venv= pattern is a file then it checks if
+its first line matches an existing path and if so, it sets it as the local
+virtual environment path. Finally it checks if it finds an existing directory
+with the name of the first line in the ~pyvenv-workon-home~ directory. By default
+Spacemacs scans for a virtual environment and sets the local =pyvenv-workon= or
+the =pyvenv-activate= variables on visiting a file, but switches virtual
+environment on every change of focus using the local variables. The buffer
+tracking behavior can be disabled by setting the value of the customizable
+variable =pyvenv-tracking-mode= to =nil=. The scanning behavior can be set via the
+variable =python-auto-set-local-pyvenv-virtualenv= to:
+- =on-visit= (default) set the virtualenv when you visit a python buffer,
+- =on-project-switch= set the virtualenv when you switch projects,
+- =nil= to disable.
 ** Manage multiple Python versions with pyenv
 If you need multiple Python versions (e.g. Python 2 and Python 3) then take a
 look at [[https://github.com/yyuu/pyenv][pyenv]]. It enables the installation and management of multiple
@@ -388,15 +409,6 @@ the pyenv version. The behavior can be set with the variable
 =python-auto-set-local-pyenv-version= to:
 - =on-visit= (default) set the version when you visit a python buffer,
 - =on-project-switch= set the version when you switch projects,
-- =nil= to disable.
-
-The same is also possible on pyvenv with a file called =.venv= that specifies
-either an absolute or relative path to a virtualenv directory. A relative path
-is checked relative to the location of =.venv=, then relative to
-=pyvenv-workon-home=. =.venv= can also be a virtualenv directory. The behavior
-can be set with the variable =python-auto-set-local-pyvenv-virtualenv= to:
-- =on-visit= (default) set the virtualenv when you visit a python buffer,
-- =on-project-switch= set the virtualenv when you switch projects,
 - =nil= to disable.
 
 ** Manage environments and packages with pipenv

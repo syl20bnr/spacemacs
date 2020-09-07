@@ -267,6 +267,7 @@
     :defer t
     :init
     (progn
+      (add-hook 'python-mode-hook #'pyvenv-tracking-mode)
       (pcase python-auto-set-local-pyvenv-virtualenv
         (`on-visit
          (dolist (m spacemacs--python-pyvenv-modes)

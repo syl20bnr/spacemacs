@@ -286,6 +286,7 @@ sane way, here is the complete list of changed key bindings
 - New keybinding for =org-table-field-info= ~SPC m t f~
   (thanks to Dominik Schrempf)
 ***** Python
+- fix/implement pyvenv-tracking-mode (thanks to Daniel Nicolai)
 - Key bindings (thanks to Danny Freeman):
   - Changed ~SPC m s F~ to ~SPC m e F~ for =lisp-eval-defun-and-go=
   - Changed ~SPC m s R~ to ~SPC m e R~ for =lisp-eval-region-and-go=
