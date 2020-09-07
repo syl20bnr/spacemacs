@@ -46,7 +46,7 @@
                         ("o" ein:worksheet-insert-cell-below-km)
                         ("O" ein:worksheet-insert-cell-above-km)
                         ("t" ein:worksheet-toggle-cell-type-km)
-                        ("RET" ein:worksheet-execute-cell-km)
+                        ("RET" ein:worksheet-execute-cell-and-goto-next-km)
                         ("l" ein:worksheet-clear-output-km)
                         ("L" ein:worksheet-clear-all-output-km)
                         ("C-s" ein:notebook-save-notebook-command-km)
