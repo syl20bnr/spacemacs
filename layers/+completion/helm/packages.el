@@ -21,6 +21,7 @@
         (helm-ls-git :require git)
         helm-make
         helm-mode-manager
+        helm-org
         helm-projectile
         helm-swoop
         helm-themes
@@ -319,6 +320,10 @@
       "hM"    'helm-switch-major-mode
       ;; "hm"    'helm-disable-minor-mode
       "h C-m" 'helm-enable-minor-mode)))
+
+(defun helm/init-helm-org ()
+  (use-package helm-org
+    :defer (spacemacs/defer)))
 
 (defun helm/pre-init-helm-projectile ()
   ;; overwrite projectile settings
