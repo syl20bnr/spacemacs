@@ -449,8 +449,9 @@ A ~[ccls]~ suffix indicates that the binding is for the indicated backend only.
 | ~SPC m g R~ | rename symbol                   |
 | ~SPC m g s~ | print source arguments          |
 | ~SPC m g S~ | display summary                 |
-| ~SPC m g t~ | display include dependency tree |
+| ~SPC m g t~ | symbol type                     |
 | ~SPC m g T~ | taglist                         |
+| ~SPC m g u~ | display include dependency tree |
 | ~SPC m g v~ | find virtuals at point          |
 | ~SPC m g V~ | print enum value at point       |
 | ~SPC m g X~ | fix fixit at point              |
