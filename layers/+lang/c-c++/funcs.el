@@ -210,8 +210,9 @@
       "gR" 'rtags-rename-symbol
       "gs" 'rtags-print-source-arguments
       "gS" 'rtags-display-summary
-      "gt" 'rtags-dependency-tree
+      "gt" 'rtags-symbol-type
       "gT" 'rtags-taglist
+      "gu" 'rtags-dependency-tree 
       "gv" 'rtags-find-virtuals-at-point
       "gV" 'rtags-print-enum-value-at-point
       "gX" 'rtags-fix-fixit-at-point
