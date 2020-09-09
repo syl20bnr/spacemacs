@@ -108,7 +108,7 @@ The backend can be chosen on a per project basis using directory local variables
 *Note:* you can easily add a directory local variable with ~SPC f v d~.
 
 *** LSP
-LSP support is provided via the [[file:../../+tools/lsp/README.org][LSP layer]], using one of three available backends
+LSP support is provided via the [[file:../../+tools/lsp/README.org][LSP layer]], using one of two available backends
 (all based on libclang).
 - [[https://clang.llvm.org/extra/clangd/][clangd]]
 - [[https://github.com/MaskRay/ccls][ccls]]
