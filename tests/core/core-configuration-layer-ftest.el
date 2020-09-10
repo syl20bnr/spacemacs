@@ -50,8 +50,9 @@
 ;; ---------------------------------------------------------------------------
 
 (ert-deftest test-stable-elpa-verify-archive--verification-ok ()
-  ;; We gonna skip this test while testing PRs. FIXME: Handle this better.
-  (skip-unless (not (string= (getenv "CIRCLECI") "true")))
+  ;; FIXME: >_> @syl20bnr
+  (skip-unless (not (and (version< emacs-version "27.1")
+                         (string-equal system-type "windows-nt"))))
   (cl-letf (((symbol-function 'configuration-layer//stable-elpa-tarball-local-file)
              (lambda ()
                (concat spacemacs-test-directory
@@ -72,6 +73,9 @@
     (should (equal t (configuration-layer//stable-elpa-verify-archive)))))
 
 (ert-deftest test-stable-elpa-verify-archive--verification-failed ()
+  ;; FIXME: >_> @syl20bnr
+  (skip-unless (not (and (version< emacs-version "27.1")
+                         (string-equal system-type "windows-nt"))))
   (let (verification-error)
     (cl-letf (((symbol-function 'configuration-layer//stable-elpa-tarball-local-file)
                (lambda ()
