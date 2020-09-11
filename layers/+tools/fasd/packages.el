@@ -18,7 +18,7 @@
 
       (defun fasd-find-directory-only ()
         (interactive)
-        (fasd-find-file 1))
+        (fasd-find-file 2))
 
       (global-fasd-mode 1)
       (spacemacs/declare-prefix "fa" "fasd-find")
