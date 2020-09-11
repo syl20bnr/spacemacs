@@ -14,3 +14,9 @@
         ("melpa"    . 4)
         ("org"      . 2)
         ("gnu"      . 1)))
+
+
+;; NOTE: Testing if that bug with hanging/crushing dependency
+;; installation from local repos caused by child Emacs async process.
+(with-eval-after-load 'async-bytecomp
+ (setq async-bytecomp-allowed-packages nil))
