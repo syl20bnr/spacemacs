@@ -508,7 +508,8 @@
       (when (null sayid-version)
         (package-reinstall 'sayid)
         (unload-feature 'sayid)
-        (require 'sayid)))))
+        (require 'sayid)
+        (setq cider-jack-in-lein-plugins (delete `("com.billpiel/sayid" nil) cider-jack-in-lein-plugins))))))
 
 (defun clojure/post-init-parinfer ()
   (add-hook 'clojure-mode-hook 'parinfer-mode))
