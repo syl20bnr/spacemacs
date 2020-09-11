@@ -38,8 +38,8 @@
         popwin
         (sayid :toggle clojure-enable-sayid)
         smartparens
-        subword
-        ))
+        subword))
+
 
 (defun clojure/init-cider ()
   (use-package cider
@@ -81,8 +81,8 @@
                ("msj" . "jack-in")
                ("msq" . "quit/restart repl")
                ("mt" . "test")
-               ("mT" . "toggle")
-               )))
+               ("mT" . "toggle"))))
+
         (spacemacs|forall-clojure-modes m
           (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
                               m (car x) (cdr x)))
@@ -216,8 +216,8 @@
             "ps" 'cider-profile-var-summary
             "pS" 'cider-profile-summary
             "pt" 'cider-profile-toggle
-            "pv" 'cider-profile-var-profiled-p
-            )))
+            "pv" 'cider-profile-var-profiled-p)))
+
 
       ;; cider-repl-mode only
       (spacemacs/set-leader-keys-for-major-mode 'cider-repl-mode
@@ -479,8 +479,8 @@
           "dty" 'sayid-trace-all-ns-in-dir
           "dV" 'sayid-set-view
           "dw" 'sayid-get-workspace
-          "dx" 'sayid-reset-workspace
-          ))
+          "dx" 'sayid-reset-workspace))
+
 
       (evilified-state-evilify sayid-mode sayid-mode-map
         (kbd "H") 'sayid-buf-show-help
@@ -499,7 +499,16 @@
 
       (evilified-state-evilify sayid-traced-mode sayid-traced-mode-map
         (kbd "l") 'sayid-show-traced
-        (kbd "h") 'sayid-traced-buf-show-help))))
+        (kbd "h") 'sayid-traced-buf-show-help))
+    :config
+    (progn
+      ;; If sayid-version is null the .elc file
+      ;; is corrupted. Then force a reinstall and
+      ;; reload the feature.
+      (when (null sayid-version)
+        (package-reinstall 'sayid)
+        (unload-feature 'sayid)
+        (require 'sayid)))))
 
 (defun clojure/post-init-parinfer ()
   (add-hook 'clojure-mode-hook 'parinfer-mode))
