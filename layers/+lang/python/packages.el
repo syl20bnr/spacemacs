@@ -355,7 +355,7 @@
         "si" 'spacemacs/python-start-or-switch-repl
         "sR" 'spacemacs/python-shell-send-region-switch
         "sr" 'spacemacs/python-shell-send-region
-	"sl" 'spacemacs/python-shell-send-line)
+        "sl" 'spacemacs/python-shell-send-line)
 
       ;; Set `python-indent-guess-indent-offset' to `nil' to prevent guessing `python-indent-offset
       ;; (we call python-indent-guess-indent-offset manually so python-mode does not need to do it)
