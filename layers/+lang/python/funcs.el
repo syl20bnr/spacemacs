@@ -440,6 +440,15 @@ Bind formatter to '==' for LSP and '='for all other backends."
   (let ((python-mode-hook nil))
     (python-shell-send-region start end)))
 
+(defun spacemacs/python-shell-send-line ()
+	"Send the current line to shell"
+	(interactive)
+	(let ((python-mode-hook nil)
+	       (start (point-at-bol))
+	       (end (point-at-eol)))
+	      (python-shell-send-region start end))
+	)
+
 (defun spacemacs/python-start-or-switch-repl ()
   "Start and/or switch to the REPL."
   (interactive)
