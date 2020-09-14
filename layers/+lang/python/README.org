@@ -385,6 +385,7 @@ variable =python-auto-set-local-pyvenv-virtualenv= to:
 - =on-visit= (default) set the virtualenv when you visit a python buffer,
 - =on-project-switch= set the virtualenv when you switch projects,
 - =nil= to disable.
+
 ** Manage multiple Python versions with pyenv
 If you need multiple Python versions (e.g. Python 2 and Python 3) then take a
 look at [[https://github.com/yyuu/pyenv][pyenv]]. It enables the installation and management of multiple
