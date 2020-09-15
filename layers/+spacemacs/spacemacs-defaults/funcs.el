@@ -95,6 +95,17 @@ automatically applied to."
   :group 'spacemacs
   :type '(list symbol))
 
+(defun spacemacs/custom-newline (pos)
+  "Make `RET' in a Custom-mode search box trigger that field's action, rather
+than enter an actual newline, which is useless and unexpected in a search box.
+If not in such a search box, fall back on `Custom-newline'."
+  (interactive "d")
+  (let ((w (widget-at)))
+    (if (and w
+             (eq 'editable-field (widget-type w))
+             (string-prefix-p "Search" (widget-get w :help-echo)))
+        (funcall (widget-get w :action) w)
+        (Custom-newline pos))))
 
 ;; ido-mode remaps some commands to ido counterparts.  We want default Emacs key
 ;; bindings (those under C-x) to use ido, but we want to use the original

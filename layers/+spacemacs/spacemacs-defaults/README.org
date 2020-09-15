@@ -16,6 +16,7 @@ defaults.
   - archive-mode
   - bookmark
   - conf-mode
+  - cus-edit
   - dired
   - dired-x
   - display-line-numbers (only in Emacs 26.x and newer)
