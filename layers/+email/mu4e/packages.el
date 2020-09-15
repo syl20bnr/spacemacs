@@ -153,7 +153,7 @@ mu4e-use-maildirs-extension-load to be evaluated after mu4e has been loaded."
 (defun mu4e/pre-init-org ()
   (if mu4e-org-link-support
       (with-eval-after-load 'org
-        (require 'mu4e-org)
+        (require 'org-mu4e)
         ;; We require mu4e due to an existing bug https://github.com/djcb/mu/issues/1829
         ;; Note that this bug prevents lazy-loading.
         (require 'mu4e-meta)
