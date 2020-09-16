@@ -1,6 +1,6 @@
 ;;; funcs.el --- Protobuf Layer functions File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Amol Mandhane <https://github.com/amol-mandhane>
 ;; URL: https://github.com/syl20bnr/spacemacs

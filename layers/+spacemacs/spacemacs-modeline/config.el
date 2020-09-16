@@ -1,6 +1,6 @@
 ;;; config.el --- Spacemacs Mode-line Visual Layer configuration File
 ;;
-;; Copyright (c) 2016 Sylvain Benner & Contributors
+;; Copyright (c) 2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Riccardo Murri <riccardo.murri@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs

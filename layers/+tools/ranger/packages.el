@@ -1,6 +1,6 @@
 ;;; packages.el --- ranger Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Rich Alesi
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>

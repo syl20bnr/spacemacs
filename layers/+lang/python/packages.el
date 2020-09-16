@@ -64,7 +64,7 @@
         "ga" 'anaconda-mode-find-assignments
         "gb" 'xref-pop-marker-stack
         "gu" 'anaconda-mode-find-references)
-      ;; new anaconda-mode (2018-06-03) removed `anaconda-view-mode-map' in
+      ;; new anaconda-mode (2020-06-03) removed `anaconda-view-mode-map' in
       ;; favor of xref. Eventually we need to remove this part.
       (when (boundp 'anaconda-view-mode-map)
         (evilified-state-evilify-map anaconda-view-mode-map
