@@ -55,8 +55,8 @@
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
         (lsp-deferred)
-        (spacemacs/declare-prefix-for-mode 'rust-mode "ms" "switch")
-        (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+        (spacemacs/declare-prefix-for-mode 'rustic-mode "ms" "switch")
+        (spacemacs/set-leader-keys-for-major-mode 'rustic-mode
           "ss" 'spacemacs/lsp-rust-switch-server
           (if lsp-use-upstream-bindings "wR" "bR") 'spacemacs/lsp-rust-analyzer-reload-workspace))
     (spacemacs//lsp-layer-not-installed-message)))
@@ -136,7 +136,7 @@ When one of the following is true, it won't reload:
   "Setup racer auto-completion."
   (spacemacs|add-company-backends
     :backends company-capf
-    :modes rust-mode
+    :modes rustic-mode
     :variables company-tooltip-align-annotations t))
 
 (defun spacemacs/racer-describe ()

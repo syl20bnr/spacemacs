@@ -23,7 +23,7 @@
 
 ;; Variables
 
-(spacemacs|define-jump-handlers rust-mode)
+(spacemacs|define-jump-handlers rustic-mode)
 
 (defvar rust-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'racer)
   "The backend to use for completion.

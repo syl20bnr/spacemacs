@@ -100,9 +100,9 @@ You can call =spacemacs/lsp-rust-analyzer-reload-workspace=, which would be fast
 
 You can also set =cargo-process-reload-on-modify= to =t=, then it will automatically reload the workspace after
 one of the following is run:
-- =cargo-process-add=
-- =cargo-process-rm=
-- =cargo-process-upgrade=
+- =rustic-cargo-add=
+- =rustic-cargo-rm=
+- =rustic-cargo-upgrade=
 
 #+BEGIN_SRC elisp
   (setq-default dotspacemacs-configuration-layers
@@ -119,13 +119,6 @@ instructions can be found on the main page of [[http://doc.crates.io/index.html]
 
 #+BEGIN_SRC sh
   cargo install cargo-edit
-#+END_SRC
-
-*** cargo-audit
-[[https://github.com/RustSec/cargo-audit][cargo-audit]] audits =Cargo.lock= files for crates with security vulnerabilities.
-
-#+BEGIN_SRC sh
-  cargo install cargo-audit
 #+END_SRC
 
 *** cargo-outdated
@@ -158,18 +151,16 @@ To enable automatic buffer formatting on save, set the variable =rust-format-on-
 | ~SPC m = =~ | reformat the buffer                                         |
 | ~SPC m b R~ | reload Rust-Analyzer workspace                              |
 | ~SPC m c .~ | repeat the last Cargo command                               |
-| ~SPC m c /~ | search for packages on crates.io with Cargo                 |
 | ~SPC m c =~ | format all project files with rustfmt                       |
 | ~SPC m c a~ | add a new dependency with cargo-edit                        |
-| ~SPC m c A~ | audit dependencies for known vulnerability with cargo-audit |
 | ~SPC m c c~ | compile project                                             |
 | ~SPC m c C~ | remove build artifacts                                      |
-| ~SPC m c d~ | generate documentation                                      |
-| ~SPC m c D~ | generate documentation and open it in default browser       |
+| ~SPC m c d~ | generate documentation and open it in default browser       |
+| ~SPC m c s~ | search the documentation                    |
 | ~SPC m c e~ | run benchmarks                                              |
-| ~SPC m c E~ | run a project example                                       |
 | ~SPC m c i~ | initialise a new project with Cargo (init)                  |
 | ~SPC m c l~ | run linter ([[https://github.com/arcnmx/cargo-clippy][cargo-clippy]])                                   |
+| ~SPC m c f~ | run linter automatic fixes ([[https://github.com/arcnmx/cargo-clippy][cargo-clippy]])                |
 | ~SPC m c n~ | create a new project with Cargo (new)                       |
 | ~SPC m c o~ | display outdated dependencies ([[https://github.com/kbknapp/cargo-outdated][cargo-outdated]])              |
 | ~SPC m c r~ | remove a dependency with cargo-edit                         |
@@ -177,13 +168,11 @@ To enable automatic buffer formatting on save, set the variable =rust-format-on-
 | ~SPC m c U~ | upgrade dependencies to LATEST version with cargo-edit      |
 | ~SPC m c v~ | check (verify) a project with Cargo                         |
 | ~SPC m c x~ | execute the default binary                                  |
-| ~SPC m c X~ | execute a specific binary                                   |
 | ~SPC m g g~ | jump to definition                                          |
 | ~SPC m h h~ | describe symbol at point                                    |
 | ~SPC m s s~ | switch to other LSP server backend                          |
 | ~SPC m t a~ | test current project                                        |
 | ~SPC m t t~ | run the current test                                        |
-| ~SPC m t b~ | run all tests in current buffe                              |
 
 ** Debugger
 Using the =dap= layer you'll get access to all the DAP key bindings, see the
