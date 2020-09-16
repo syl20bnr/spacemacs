@@ -16,6 +16,7 @@
     (helm-lsp :requires helm)
     (lsp-ivy :requires ivy)
     (lsp-treemacs :requires treemacs)
+    (lsp-origami :requires lsp-mode)
     popwin))
 
 (defun lsp/init-lsp-mode ()
@@ -56,6 +57,12 @@
 
 (defun lsp/init-lsp-treemacs ()
   (use-package lsp-treemacs :defer t))
+
+(defun lsp/init-lsp-origami ()
+  (use-package lsp-origami
+    :defer t
+    :hook
+    (lsp-after-open lsp-origami-try-enable)))
 
 (defun lsp/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin

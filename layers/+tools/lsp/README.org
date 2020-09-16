@@ -37,6 +37,7 @@ details.
 - Symbol documentation in a child frame (=lsp-ui-doc=)
 - Navigation using imenu
 - Consistent core key bindings in LSP modes
+- Code folding (lsp-origami)
 
 * Configuration
 Enabling this layer will set the used backend for all supported languages to
