@@ -100,10 +100,8 @@
                                                 web-mode-hook))
     :config
     (progn
-      (evil-define-key 'insert emmet-mode-keymap (kbd "TAB") 'spacemacs/emmet-expand)
-      (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") 'spacemacs/emmet-expand)
-      (evil-define-key 'hybrid emmet-mode-keymap (kbd "TAB") 'spacemacs/emmet-expand)
-      (evil-define-key 'hybrid emmet-mode-keymap (kbd "<tab>") 'spacemacs/emmet-expand)
+      (local-set-key (kbd "<tab>") 'spacemacs/emmet-expand)
+      (local-set-key (kbd "TAB") 'spacemacs/emmet-expand)
       (spacemacs|hide-lighter emmet-mode))))
 
 (defun html/post-init-evil-matchit ()
