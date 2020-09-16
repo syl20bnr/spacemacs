@@ -1,6 +1,6 @@
 ;;; keybindings.el --- Quickurl dispatch layer.
 ;;
-;; Copyright (c) 2012-2019 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Spenser Truex <web@spensertruex.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
