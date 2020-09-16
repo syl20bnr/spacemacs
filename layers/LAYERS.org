@@ -2787,6 +2787,7 @@ Features:
 - Symbol documentation in a child frame (=lsp-ui-doc=)
 - Navigation using imenu
 - Consistent core key bindings in LSP modes
+- Code folding (lsp-origami)
 
 ** Meson
 [[file:+tools/meson/README.org][+tools/meson/README.org]]
