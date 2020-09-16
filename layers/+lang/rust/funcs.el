@@ -33,7 +33,7 @@
     (spacemacs//rust-setup-racer-company)))
 
 (defun spacemacs//rust-setup-dap ()
-  "Conditionally setup elixir DAP integration."
+  "Conditionally setup rust DAP integration."
   ;; currently DAP is only available using LSP
   (when (eq rust-backend 'lsp)
     (spacemacs//rust-setup-lsp-dap)))
