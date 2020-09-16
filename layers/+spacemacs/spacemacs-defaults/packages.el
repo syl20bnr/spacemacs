@@ -1,6 +1,6 @@
 ;;; packages.el --- Spacemacs Defaults Layer packages File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -15,7 +15,9 @@
         (archive-mode :location built-in)
         (bookmark :location built-in)
         (conf-mode :location built-in)
-        (cus-edit :location built-in)
+        (cus-edit :location built-in
+                  :toggle (or (eq 'vim dotspacemacs-editing-style)
+                              (eq 'hybrid dotspacemacs-editing-style)))
         (dired :location built-in)
         (dired-x :location built-in)
         (display-line-numbers :location built-in
@@ -72,37 +74,36 @@
   (add-hook 'conf-mode-hook 'spacemacs/run-text-mode-hooks))
 
 (defun spacemacs-defaults/init-cus-edit ()
-  (when (eq 'vim dotspacemacs-editing-style)
-    ;; Arguably a Vim user's first expectation for such a buffer would be a kind
-    ;; of normal mode; besides, `evilified' conflicts with text insertion for
-    ;; search.
-    (evil-set-initial-state 'Custom-mode 'normal)
-    ;; Notes on how this effects the default `custom-mode-map':
-    ;; - `TAB' works as `widget-forward' without modification
-    ;; - `<S-tab>' works as `widget-backward' without modification
-    ;; - `n' as `widget-forward' is redundant with `TAB' and collides with the
-    ;; - `evil-ex-search-next' mapping which is useful here. Omitting
-    ;;   intensionally.
-    ;; - `p' doesn't make any sense without `n' and is redundant with `<S-tab>'.
-    ;;   Omitting intensionally.
-    ;; - `q' as `Custom-buffer-done' conflicts with the Evil record macro
-    ;;   binding, which is, however, of questionable value in a Custom buffer;
-    ;;   and there is precedent in many other Spacemacs contexts to bind it to
-    ;;   quit actions rather than default evil one; choosing to restore.
-    ;; - `SPC' as `scroll-up-command' conflicts with the all-important Spacemacs
-    ;;   menu. Omitting intensionally. Evil `C-u' works instead.
-    ;; - `S-SPC' as `scroll-down-command' makes no sense without `SPC' as
-    ;;   `scroll-up-command'. Evil `C-u' works instead.
-    ;; - `C-x' as a prefix command still works.
-    ;; - `C-c' as a prefix command still works.
-    ;; - `u' as `Custom-goto-parent' conflicts with Evil undo. However it is
-    ;;   questionable whether this will work properly in a Custom buffer;
-    ;;   choosing to restore this binding.
-    (evil-define-key 'normal cus-edit-mode-map (kbd "q") 'Custom-buffer-done)
-    (evil-define-key 'normal cus-edit-mode-map (kbd "u") 'Custom-goto-parent)
-    ;; `RET' does not work well in the search field. Fix:
-    (evil-define-key 'insert cus-edit-mode-map (kbd "RET") 'spacemacs/custom-newline)
-    (evil-define-key 'normal cus-edit-mode-map (kbd "RET") 'spacemacs/custom-newline)))
+  ;; Arguably a Vim user's first expectation for such a buffer would be a kind
+  ;; of normal mode; besides, `evilified' conflicts with text insertion for
+  ;; search.
+  (evil-set-initial-state 'Custom-mode 'normal)
+  ;; Notes on how this effects the default `custom-mode-map':
+  ;; - `TAB' works as `widget-forward' without modification
+  ;; - `<S-tab>' works as `widget-backward' without modification
+  ;; - `n' as `widget-forward' is redundant with `TAB' and collides with the
+  ;; - `evil-ex-search-next' mapping which is useful here. Omitting
+  ;;   intensionally.
+  ;; - `p' doesn't make any sense without `n' and is redundant with `<S-tab>'.
+  ;;   Omitting intensionally.
+  ;; - `q' as `Custom-buffer-done' conflicts with the Evil record macro
+  ;;   binding, which is, however, of questionable value in a Custom buffer;
+  ;;   and there is precedent in many other Spacemacs contexts to bind it to
+  ;;   quit actions rather than default evil one; choosing to restore.
+  ;; - `SPC' as `scroll-up-command' conflicts with the all-important Spacemacs
+  ;;   menu. Omitting intensionally. Evil `C-u' works instead.
+  ;; - `S-SPC' as `scroll-down-command' makes no sense without `SPC' as
+  ;;   `scroll-up-command'. Evil `C-u' works instead.
+  ;; - `C-x' as a prefix command still works.
+  ;; - `C-c' as a prefix command still works.
+  ;; - `u' as `Custom-goto-parent' conflicts with Evil undo. However it is
+  ;;   questionable whether this will work properly in a Custom buffer;
+  ;;   choosing to restore this binding.
+  (evil-define-key 'normal cus-edit-mode-map (kbd "q") 'Custom-buffer-done)
+  (evil-define-key 'normal cus-edit-mode-map (kbd "u") 'Custom-goto-parent)
+  ;; `RET' does not work well in the search field. Fix:
+  (evil-define-key 'insert cus-edit-mode-map (kbd "RET") 'spacemacs/custom-newline)
+  (evil-define-key 'normal cus-edit-mode-map (kbd "RET") 'spacemacs/custom-newline))
 
 (defun spacemacs-defaults/init-dired ()
   (spacemacs/set-leader-keys

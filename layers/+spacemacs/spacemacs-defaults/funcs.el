@@ -1,6 +1,6 @@
 ;;; funcs.el --- Spacemacs Defaults Layer functions File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -105,7 +105,7 @@ If not in such a search box, fall back on `Custom-newline'."
              (eq 'editable-field (widget-type w))
              (string-prefix-p "Search" (widget-get w :help-echo)))
         (funcall (widget-get w :action) w)
-        (Custom-newline pos))))
+      (Custom-newline pos))))
 
 ;; ido-mode remaps some commands to ido counterparts.  We want default Emacs key
 ;; bindings (those under C-x) to use ido, but we want to use the original
