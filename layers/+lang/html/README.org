@@ -124,6 +124,7 @@ For more information visit the [[https://github.com/skeeto/impatient-mode/blob/m
 | ~SPC m r w~ | wrap current element                                      |
 | ~SPC m z~   | fold/unfold current element                               |
 | ~%~         | evil-matchit key binding to jump to closing tag           |
+| ~C-return~  | emmet-expand snippet                                      |
 
 A transient-state is also defined, start it with ~SPC m .~ or ~, .~
 

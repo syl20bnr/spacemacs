@@ -100,8 +100,7 @@
                                                 web-mode-hook))
     :config
     (progn
-      (local-set-key (kbd "<tab>") 'spacemacs/emmet-expand)
-      (local-set-key (kbd "TAB") 'spacemacs/emmet-expand)
+      (define-key emmet-mode-keymap (kbd "<C-return>") 'spacemacs/emmet-expand)
       (spacemacs|hide-lighter emmet-mode))))
 
 (defun html/post-init-evil-matchit ()
