@@ -254,6 +254,11 @@
       (spacemacs/set-leader-keys-for-major-mode 'ivy-occur-grep-mode
         "w" 'spacemacs/ivy-wgrep-change-to-wgrep-mode
         "s" 'wgrep-save-all-buffers)
+
+      ;; emacs 27 extend line for ivy highlight
+      (setf (alist-get 't ivy-format-functions-alist)
+            #'ivy-format-function-line)
+
       ;; Why do we do this ?
       (ido-mode -1)
 
