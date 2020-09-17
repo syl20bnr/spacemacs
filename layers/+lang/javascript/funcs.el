@@ -51,7 +51,7 @@
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
         (when (not javascript-lsp-linter)
-          (setq-local lsp-diagnostic-package :none))
+          (setq-local lsp-diagnostics-provider :none))
         (lsp))
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
