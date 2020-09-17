@@ -32,6 +32,7 @@
         org-pomodoro
         org-present
         org-cliplink
+        org-rich-yank
         (org-projectile :requires projectile)
         (ox-epub :toggle org-enable-epub-support)
         (ox-twbs :toggle org-enable-bootstrap-support)
@@ -704,6 +705,15 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :init
     (spacemacs/set-leader-keys-for-major-mode 'org-mode
       "iL" 'org-cliplink)))
+
+(defun org/init-org-rich-yank ()
+  (use-package org-rich-yank
+    :defer t
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'org-mode
+      ;; yank is a misnomer for this function which actually puts/pastes
+      ;; ir = "insert rich"
+      "ir" 'org-rich-yank)))
 
 (defun org/init-org-projectile ()
   (use-package org-projectile
