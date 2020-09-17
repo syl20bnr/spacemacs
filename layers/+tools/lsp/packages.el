@@ -61,8 +61,8 @@
 (defun lsp/init-lsp-origami ()
   (use-package lsp-origami
     :defer t
-    :hook
-    (lsp-after-open lsp-origami-try-enable)))
+    :init
+    (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable)))
 
 (defun lsp/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
