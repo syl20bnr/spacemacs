@@ -3509,6 +3509,7 @@ Other:
 - Avoided installing unused diff packages (thanks to Andriy Kmit)
 - Fixed error on =diff-hl-margin-mode= function being nil during startup
   (thanks to Voleking)
+- Fixed =git-gutter+= refresh when a buffer is staged or unstaged in Magit
 **** Vue
 - Added a toggle state minified/full to the transient state (thanks to duianto)
 **** Xclipboard

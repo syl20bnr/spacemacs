@@ -205,7 +205,9 @@
     (progn
       ;; If you enable global minor mode
       (when version-control-global-margin
-        (add-hook 'magit-pre-refresh-hook 'git-gutter+-refresh)
+        (add-hook 'magit-pre-refresh-hook
+                  (lambda ()
+                    (git-gutter+-in-all-buffers (git-gutter+-refresh))))
         (run-with-idle-timer 1 nil 'global-git-gutter+-mode))
       (setq
        git-gutter+-modified-sign " "
