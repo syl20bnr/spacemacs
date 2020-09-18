@@ -69,6 +69,7 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 - Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
 - Project-specific TODOs via [[https://github.com/IvanMalison/org-projectile][org-projectile]]
 - Easy insert of URLs from clipboard with org format via [[https://github.com/rexim/org-cliplink][org-cliplink]]
+- Rich insert of code (into a source block with highlighting, and a link) from other buffers via [[https://github.com/unhammer/org-rich-yank][org-rich-yank]]
 
 * BibTeX
 For more extensive support of references through BibTeX files, have a look at
@@ -520,8 +521,8 @@ are also available.
 
 ** Element insertion
 
-| Key binding   | Description                                   |
-|---------------+-----------------------------------------------|
+| Key binding | Description                                   |
+|-------------+-----------------------------------------------|
 | ~C-RET~       | Insert heading at end of current subtree      |
 | ~C-S-RET~     | Insert TODO heading at end of current subtree |
 | ~SPC m i d~   | org-insert-drawer                             |
@@ -537,6 +538,7 @@ are also available.
 | ~SPC m i L~   | insert URL with its page title from clipboard |
 | ~SPC m i n~   | org-add-note                                  |
 | ~SPC m i p~   | org-set-property                              |
+| ~SPC m i r~   | org-rick-yank (paste code into a =src= block)   |
 | ~SPC m i s~   | org-insert-subheading                         |
 | ~SPC m i t~   | org-set-tags                                  |
 

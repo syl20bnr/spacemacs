@@ -2685,6 +2685,7 @@ Other:
     - Added shortcuts for handling scheduled entries (thanks to Daniel Nicolai)
   - Added package for =org-sticky-header-mode= (thanks to Langston Barret)
   - Added package =org-jira= (thanks to Kirill A. Korinsky)
+  - Added package =org-rich-yank= (thanks to Keith Pinson)
 - Key bindings:
   - ~SPC m T i~ to toggle inline images
   - Move clock related key bindings to ~SPC a o C~
