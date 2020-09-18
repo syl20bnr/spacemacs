@@ -2990,6 +2990,7 @@ Other:
 - Fixed directory selection for self compiled mspyls (thanks Jee Lee)
 - Add python-test-last support for pytest runner
 - Added --last-failed support for pytest (thanks to Jaakko Luttinen)
+- Added =spacemacs/python-shell-send-statement= support (thanks to Lin Sun)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 - Updated racket logo (thanks to Vityou)
