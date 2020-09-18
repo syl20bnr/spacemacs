@@ -20,6 +20,7 @@
         helm-make
         imenu
         ivy
+        ivy-avy
         ivy-hydra
         (ivy-rich :toggle ivy-enable-advanced-buffer-information)
         (ivy-spacemacs-help :location local)
@@ -245,6 +246,9 @@
 
       ;; allow to select prompt in some ivy functions
       (setq ivy-use-selectable-prompt t))))
+
+(defun ivy/init-ivy-avy ()
+  (use-package ivy-avy))
 
 (defun ivy/init-ivy-hydra ()
   (use-package ivy-hydra)
