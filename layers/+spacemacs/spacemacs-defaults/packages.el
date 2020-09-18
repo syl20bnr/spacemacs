@@ -99,11 +99,17 @@
   ;; - `u' as `Custom-goto-parent' conflicts with Evil undo. However it is
   ;;   questionable whether this will work properly in a Custom buffer;
   ;;   choosing to restore this binding.
-  (evil-define-key 'normal cus-edit-mode-map (kbd "q") 'Custom-buffer-done)
-  (evil-define-key 'normal cus-edit-mode-map (kbd "u") 'Custom-goto-parent)
+  (evil-define-key 'normal custom-mode-map (kbd "q") 'Custom-buffer-done)
+  (evil-define-key 'normal custom-mode-map (kbd "u") 'Custom-goto-parent)
   ;; `RET' does not work well in the search field. Fix:
-  (evil-define-key 'insert cus-edit-mode-map (kbd "RET") 'spacemacs/custom-newline)
-  (evil-define-key 'normal cus-edit-mode-map (kbd "RET") 'spacemacs/custom-newline))
+  (evil-define-key '(insert normal) custom-mode-map (kbd "RET") 'spacemacs/custom-newline)
+  ;; There is a separate map for links, oddly enough. Separate it from the
+  ;; `custom-mode-map' bindings, which is its parent by default.
+  (set-keymap-parent custom-mode-link-map nil)
+  ;; Evil doesn't seem to be properly in control of what is going on in these
+  ;; widget-induced keymaps, so just use base bindings to sort this out
+  (define-key custom-mode-link-map (kbd "q") 'Custom-buffer-done)
+  (define-key custom-mode-link-map (kbd "u") 'Custom-goto-parent))
 
 (defun spacemacs-defaults/init-dired ()
   (spacemacs/set-leader-keys
