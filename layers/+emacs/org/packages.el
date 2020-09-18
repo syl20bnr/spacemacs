@@ -128,7 +128,7 @@
             org-imenu-depth 8)
 
       (with-eval-after-load 'org-agenda
-      (add-to-list 'org-modules 'org-habit))
+        (add-to-list 'org-modules 'org-habit))
 
       (with-eval-after-load 'org-indent
         (spacemacs|hide-lighter org-indent-mode))
@@ -708,7 +708,8 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-org-rich-yank ()
   (use-package org-rich-yank
-    :defer t
+    :ensure t
+    :demand t
     :init
     (spacemacs/set-leader-keys-for-major-mode 'org-mode
       ;; yank is a misnomer for this function which actually puts/pastes
@@ -826,17 +827,17 @@ Headline^^            Visit entry^^               Filter^^                    Da
   (use-package verb
     :defer t
     :init
-      (spacemacs/set-leader-keys-for-major-mode
-        'org-mode
-        "rf" #'verb-send-request-on-point
-        "rs" #'verb-send-request-on-point-other-window
-        "rr" #'verb-send-request-on-point-other-window-stay
-        "rm" #'verb-send-request-on-point-no-window
-        "rk" #'verb-kill-all-response-buffers
-        "re" #'verb-export-request-on-point
-        "ru" #'verb-export-request-on-point-curl
-        "rb" #'verb-export-request-on-point-verb
-        "rv" #'verb-set-var)
+    (spacemacs/set-leader-keys-for-major-mode
+      'org-mode
+      "rf" #'verb-send-request-on-point
+      "rs" #'verb-send-request-on-point-other-window
+      "rr" #'verb-send-request-on-point-other-window-stay
+      "rm" #'verb-send-request-on-point-no-window
+      "rk" #'verb-kill-all-response-buffers
+      "re" #'verb-export-request-on-point
+      "ru" #'verb-export-request-on-point-curl
+      "rb" #'verb-export-request-on-point-verb
+      "rv" #'verb-set-var)
     :config
     (progn
       (spacemacs/set-leader-keys-for-minor-mode
