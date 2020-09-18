@@ -9,7 +9,7 @@
 - [[#ligature-fonts][Ligature Fonts]]
 
 * Description
-This layer adds support for the [[https://github.com/rolandwalker/unicode-fonts][unicode-fonts]] package. It is recommended to
+This layer adds support for [[https://github.com/rolandwalker/unicode-fonts][unicode-fonts]] package. It is recommended to
 install the fonts listed in the [[https://github.com/rolandwalker/unicode-fonts#quickstart][Quickstart]] section of the unicode-fonts README.
 
 ** Features:
@@ -36,23 +36,21 @@ font must be installed and configured you can see the [[https://github.com/micke
 list of requirements. By default this is not enabled you can enable it with
 =unicode-fonts-enable-ligatures=.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC elisp
   (unicode-fonts :variables unicode-fonts-enable-ligatures t)
 #+END_SRC
 
-
-
-By default when ligatures are enabled all modes are will have ligatures. You can
+By default when ligatures are enabled all modes will have ligatures. You can
 enable ligatures for specific modes with the =unicode-fonts-ligature-modes=
 variable.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC elisp
   (unicode-fonts :variables unicode-fonts-ligature-modes '(php-mode js-mode))
 #+END_SRC
 
-To enable for only programming modes you can use =prog-mode=
+To enable only for programming modes you can use =prog-mode=
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC elisp
   (unicode-fonts :variables unicode-fonts-ligature-modes '(prog-mode))
 #+END_SRC
 
@@ -60,7 +58,7 @@ To configure the ligature set that gets used with your font there is a
 =unicode-fonts-ligature-setligature-set= variable. To only enable the ligatures
 in =if= statements you can limit the =unicode-fonts-ligature-setligature-set=
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC elisp
   (unicode-fonts :variables unicode-fonts-ligature-set '("==" "===" "!=" "!==" "||" "&&"))
 #+END_SRC
 
