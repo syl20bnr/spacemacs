@@ -32,6 +32,24 @@ Return nil if no scale is defined."
 
 ;; spaceline
 
+(defun spacemacs/spaceline-config-startup-hook ()
+  "Install a transient hook to delay spaceline config after Emacs starts."
+  (spacemacs|add-transient-hook window-configuration-change-hook
+    (lambda () (spacemacs/spaceline-config-startup)) lazy-load-spaceline))
+
+(defun spacemacs/spaceline-config-startup ()
+  "Compile the spaceline config."
+  (setq spaceline-byte-compile t)
+  ;; this must also be set in this hook because
+  ;; (spacemacs/compute-mode-line-height) returns incorrect
+  ;; results if it is called before the display system is
+  ;; initialized. see issue for details:
+  ;; https://github.com/syl20bnr/spacemacs/issues/10181
+  (setq powerline-height
+        (spacemacs/compute-mode-line-height))
+  (spaceline-compile))
+
+
 (defun spacemacs/customize-powerline-faces ()
   "Alter powerline face to make them work with more themes."
   (when (boundp 'powerline-inactive2)
