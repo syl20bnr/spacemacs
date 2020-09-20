@@ -39,6 +39,7 @@ Return nil if no scale is defined."
 
 (defun spacemacs/spaceline-config-startup ()
   "Compile the spaceline config."
+  (message "toto")
   (setq spaceline-byte-compile t)
   ;; this must also be set in this hook because
   ;; (spacemacs/compute-mode-line-height) returns incorrect

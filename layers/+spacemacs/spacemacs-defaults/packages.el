@@ -176,7 +176,7 @@
 (defun spacemacs-defaults/init-eldoc ()
   (use-package eldoc
     :defer (spacemacs/defer)
-    :init (spacemacs|require 'eldoc)
+    :init (spacemacs|require-when-dumping 'eldoc)
     :config
     (progn
       ;; enable eldoc in `eval-expression'
@@ -348,7 +348,7 @@
     :commands (recentf-save-list)
     :init
     (progn
-      (spacemacs|require 'recentf)
+      (spacemacs|require-when-dumping 'recentf)
       (when (spacemacs/defer)
         (add-hook 'find-file-hook (lambda () (unless recentf-mode
                                                (recentf-mode)

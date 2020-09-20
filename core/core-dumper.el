@@ -41,7 +41,7 @@
   (when (eq 'not-dumped spacemacs-dump-mode)
     (or idle-time t)))
 
-(defmacro spacemacs|require (&rest args)
+(defmacro spacemacs|require-when-dumping (&rest args)
   "Require feature if dumping."
   (spacemacs|when-dumping-strict `(require ,@args)))
 

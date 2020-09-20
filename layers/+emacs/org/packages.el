@@ -108,7 +108,7 @@
     :commands (orgtbl-mode)
     :init
     (progn
-      (spacemacs|require 'org)
+      (spacemacs|require-when-dumping 'org)
       (setq org-clock-persist-file (concat spacemacs-cache-directory
                                            "org-clock-save.el")
             org-id-locations-file (concat spacemacs-cache-directory

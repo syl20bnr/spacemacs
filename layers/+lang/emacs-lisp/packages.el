@@ -117,7 +117,7 @@
     :defer (spacemacs/defer)
     :init
     (progn
-      (spacemacs|require 'auto-compile)
+      (spacemacs|require-when-dumping 'auto-compile)
       (setq auto-compile-display-buffer nil
             ;; lets spaceline manage the mode-line
             auto-compile-use-mode-line nil
@@ -135,7 +135,7 @@
     :defer (spacemacs/defer)
     :init
     (progn
-      (spacemacs|require 'elisp-slime-nav)
+      (spacemacs|require-when-dumping 'elisp-slime-nav)
       (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
       (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
         (spacemacs/declare-prefix-for-mode mode "mg" "find-symbol")
@@ -198,7 +198,7 @@
     :defer (spacemacs/defer)
     :init
     (progn
-      (spacemacs|require 'nameless)
+      (spacemacs|require-when-dumping 'nameless)
       (setq
        ;; always show the separator since it can have a semantic purpose
        ;; like in Spacemacs where - is variable and / is a function.

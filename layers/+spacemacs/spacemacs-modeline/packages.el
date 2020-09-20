@@ -59,7 +59,7 @@
               '(spacemacs all-the-icons custom))
     :init
     (progn
-      (spacemacs|require 'spaceline)
+      (spacemacs|require-when-dumping 'spaceline)
       (spacemacs|when-dumping-strict
         (spacemacs/spaceline-config-startup))
       (spacemacs|unless-dumping
