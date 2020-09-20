@@ -18,8 +18,14 @@
 (defun spacemacs/mode-line-separator ()
   "Return the separator type for the mode-line.
 Return nil if no separator is defined."
-  (when (listp dotspacemacs-mode-line-theme)
-    (plist-get (cdr dotspacemacs-mode-line-theme) :separator)))
+  (let ((separator (when (listp dotspacemacs-mode-line-theme)
+                     (plist-get (cdr dotspacemacs-mode-line-theme) :separator))))
+    ;; `utf-8' separator is not supported by all-the-icons font
+    ;; we force `utf-8' to be `arrow'
+    (if (and (eq 'utf-8 separator)
+             (eq 'all-the-icons (spacemacs/get-mode-line-theme-name)))
+        'arrow
+      separator)))
 
 (defun spacemacs/mode-line-separator-scale ()
   "Return the separator scale for the mode-line.
@@ -39,7 +45,6 @@ Return nil if no scale is defined."
 
 (defun spacemacs/spaceline-config-startup ()
   "Compile the spaceline config."
-  (message "toto")
   (setq spaceline-byte-compile t)
   ;; this must also be set in this hook because
   ;; (spacemacs/compute-mode-line-height) returns incorrect
