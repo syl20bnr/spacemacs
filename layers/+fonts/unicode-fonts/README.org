@@ -2,7 +2,7 @@
 
 #+TAGS: font|layer
 
-* Table of Contents                     :TOC_5_gh:noexport:
+* Table of Contents                                       :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -32,7 +32,7 @@ enable color emoji.
 #+END_SRC
 
 If you want ligature support Emacs must be built with =Harfbuzz= and a ligature
-font must be installed and configured you can see the [[https://github.com/mickeynp/ligature.el#compatibility-and-version-requirements][upsteam]] docs for a full
+font must be installed and configured you can see the [[https://github.com/mickeynp/ligature.el#compatibility-and-version-requirements][upstream]] docs for a full
 list of requirements. By default this is not enabled you can enable it with
 =unicode-fonts-enable-ligatures=.
 
@@ -55,8 +55,8 @@ To enable only for programming modes you can use =prog-mode=
 #+END_SRC
 
 To configure the ligature set that gets used with your font there is a
-=unicode-fonts-ligature-setligature-set= variable. To only enable the ligatures
-in =if= statements you can limit the =unicode-fonts-ligature-setligature-set=
+=unicode-fonts-ligature-set= variable. To only enable the ligatures in
+=if= statements you can limit the =unicode-fonts-ligature-set=
 
 #+BEGIN_SRC elisp
   (unicode-fonts :variables unicode-fonts-ligature-set '("==" "===" "!=" "!==" "||" "&&"))
@@ -64,3 +64,5 @@ in =if= statements you can limit the =unicode-fonts-ligature-setligature-set=
 
 * Ligature Fonts
 - [[https://github.com/tonsky/FiraCode][Fira Code]]
+- [[https://github.com/microsoft/cascadia-code][Cascadia Code]]
+- [[https://github.com/be5invis/Iosevka/][Iosevka]]

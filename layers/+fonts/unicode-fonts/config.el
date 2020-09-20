@@ -11,10 +11,11 @@
 
 (defvar unicode-fonts-force-multi-color-on-mac nil
   "If non nil unicode-fonts will enable multi-color fonts (emoji)
-  on macs. This should only be set when using the multi-color
-  patch as emacs-plus does. It is unnecessary to set this when
-  using the macOS port version.")
+on macs.
 
+This should only be set when using the multi-color patch as
+emacs-plus does. It is unnecessary to set this when using the
+macOS port version.")
 (defvar unicode-fonts-enable-ligatures nil
   "If you want to enable font ligatures")
 
