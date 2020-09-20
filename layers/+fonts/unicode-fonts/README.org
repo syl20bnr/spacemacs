@@ -64,3 +64,5 @@ To configure the ligature set that gets used with your font there is a
 
 * Ligature Fonts
 - [[https://github.com/tonsky/FiraCode][Fira Code]]
+- [[https://github.com/microsoft/cascadia-code][Cascadia Code]]
+- [[https://github.com/be5invis/Iosevka/][Iosevka]]
