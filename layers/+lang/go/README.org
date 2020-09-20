@@ -10,7 +10,11 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#choosing-a-backend][Choosing a backend]]
-  - [[#pre-requisites][Pre-requisites]]
+    - [[#lsp-gopls][LSP (gopls)]]
+      - [[#debugger][Debugger]]
+    - [[#go-mode-deprecated][go-mode (deprecated)]]
+      - [[#documentation-lookup-binary][Documentation lookup binary]]
+  - [[#binary-dependencies][Binary dependencies]]
 - [[#configuration][Configuration]]
   - [[#execution][Execution]]
   - [[#indentation][Indentation]]
@@ -19,10 +23,7 @@
   - [[#tests][Tests]]
   - [[#coverage][Coverage]]
   - [[#guru][Guru]]
-  - [[#auto-completion][Auto-completion]]
-  - [[#lsp-backend][LSP backend]]
-    - [[#debugger][Debugger]]
-- [[#working-with-go][Working with Go]]
+- [[#keybindings][Keybindings]]
   - [[#go-commands-start-with-m][Go commands (start with =m=):]]
   - [[#go-guru][Go Guru]]
   - [[#refactoring][Refactoring]]
@@ -32,17 +33,17 @@ This layer adds extensive support for the [[https://golang.org][Go]] programming
 
 ** Features:
 - Run [[https://golang.org/cmd/gofmt/][gofmt]] / [[https://godoc.org/golang.org/x/tools/cmd/goimports][goimports]] on file save (see [[#autoformat][Autoformat]])
-- Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete.el]], via the =auto-completion= layer (see [[#auto-completion][Auto-completion]])
+- Auto-completion
 - Source analysis using [[https://docs.google.com/document/d/1_Y9xCEMj5S-7rv2ooHpZNH15JgRT5iM742gJkw5LtmQ][go-guru]] (see [[#guru][Guru]])
 - Refactoring with [[http://gorefactor.org/][godoctor]]
 - Edit struct field tags with [[https://github.com/fatih/gomodifytags][gomodifytags]]
-- Linting with flycheck's built-in checkers or [[https://github.com/golangci/golangci-lint][golangci-lint]] (see [[#linting][Linting]])
+- Syntax checking with flycheck's built-in checkers or [[https://github.com/golangci/golangci-lint][golangci-lint]] (see [[#linting][Linting]])
 - Test generation via [[https://github.com/s-kostyaev/go-gen-test][go-gen-test]] (see [[#tests][Tests]])
 - Coverage profile visualization (see [[#coverage][Coverage]])
 - List packages faster with [[https://github.com/haya14busa/gopkgs][gopkgs]]
 - Fill a structure with default values using the [[https://github.com/davidrjenni/reftools/tree/master/cmd/fillstruct][fillstruct]]
-- LSP backend (see [[#lsp-backend][LSP backend]])
-- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
+- Gopls backend support (see [[#lsp-gopls][LSP backend]])
+- Interactive debugger with LSP using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 * Install
 ** Layer
@@ -50,34 +51,95 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =go= to the existing =dotspacemacs-configuration-layers= list in this file.
 
 ** Choosing a backend
-To choose a default backend set the layer variable =go-backend=:
+Basically you have to choose between multiple language backends.
+This choice defines mainly which kind of IDE features spacemacs
+can deliver.
+
+Alternatively if non is set the =lsp= backend will be automatically
+chosen if the layer =lsp= is used otherwise =go-mode= will be used.
+
+For best results, make sure that the =auto-completion= and =syntax-checking=
+layers are enabled as well.
+
+*** LSP (gopls)
+This is the official IDE configuration for the current go versions.
+It includes auto-completion and syntax checking support.
+
+It is based on an external development server written in go itself,
+which must be installed separately before this layer can be used.
+
+Starting and stopping the server is done by emacs so you normally
+won't notice it happen.
+
+Detailed bindings and configuration can be found in [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/lsp#key-bindings][lsp layer description]].
+
+To choose this backend set the layer variable =go-backend=:
+
+#+BEGIN_SRC elisp
+  (go :variables go-backend 'lsp)
+#+END_SRC
+
+You also need to install gopls as the language server implementation
+and add it to your =PATH=. If your go environment is properly
+prepared you can simply run below command to install:
+
+#+BEGIN_SRC sh
+  GO111MODULE=on go get -v golang.org/x/tools/gopls@latest
+#+END_SRC
+
+**** Debugger
+Using the =dap= layer you'll get access to a graphical debugger integration.
+To do so add the layer =dap= to your dotfile. For a complete list of key bindings
+see the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
+
+*** go-mode (deprecated)
+This was the old elisp based go backend. Since the introduction of
+=go-modules= this has stopped working and will not be patched.
+
+To choose it nevertheless set the layer variable =go-backend=:
 
 #+BEGIN_SRC elisp
   (go :variables go-backend 'go-mode)
 #+END_SRC
 
-Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
-is used and you did not specify any value for =go-backend=.
-
-Backend can be chosen on a per project basis using directory local variables
-(files named =.dir-locals.el= at the root of a project), an example to use the
-=lsp= backend:
-
-#+BEGIN_SRC elisp
-  ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
-
-  ((go-mode (go-backend . lsp)))
-#+END_SRC
-
-*Note:* you can easily add a directory local variable with ~SPC f v d~.
-
-** Pre-requisites
-You will need =gocode=, =gogetdoc=, =godef=, =godoctor= and many others
-to get all the goodies of this layer:
+You will also need the following dependencies for auto-completion:
 
 #+BEGIN_SRC sh
-  GO111MODULE=on go get -v golang.org/x/tools/gopls@latest
+  go get -u -v github.com/mdempsky/gocode
+  go get -u -v github.com/zmb3/gogetdoc
+#+END_SRC
+
+**** Documentation lookup binary
+For auto-completion there are actually two choices. First there is the classic
+=gocode=. This has been around for quite a long time now, however =gocode= has many
+shortcomings, like not being able to show documentation for built-in objects or
+being fully dependent on installed binary files to provide its suggestions.
+
+A more modern and complete solution is provided by =gogetdoc=, which is able to
+precisely detect all documentations in your go projects independently from where
+they have been added. This is also the recommended choice from =go-mode.el=.
+
+To choose =gocode= nothing more needs to be done. To use =gogetdoc= you need to set
+the layer variable:
+
+#+BEGIN_SRC emacs-lisp
+  (go :variables godoc-at-point-function 'godoc-gogetdoc)
+#+END_SRC
+
+If you choose to use =gocode= there are some suggestions to improve its results.
+As =gocode= uses the output from installed binary files to provide its suggestions.
+You have a few options to ensure you always get up to date suggestions:
+- Run =go install ./...= in your package directory when you make a file change.
+- Run =gocode set autobuild true= to have gocode attempt to run =go install ./...=
+  for you.
+- You can configure your task runner to run the =go install ./...= command on every
+  file change.
+
+** Binary dependencies
+This section lists dependencies which are independent of the
+language backend, most are installed directly via =go get=:
+
+#+BEGIN_SRC sh
   GO111MODULE=on CGO_ENABLED=0 go get -v -trimpath -ldflags '-s -w' github.com/golangci/golangci-lint/cmd/golangci-lint
   go get -u -v golang.org/x/tools/cmd/godoc
   go get -u -v golang.org/x/tools/cmd/goimports
@@ -89,18 +151,8 @@ to get all the goodies of this layer:
   go get -u -v github.com/godoctor/godoctor
   go get -u -v github.com/haya14busa/gopkgs/cmd/gopkgs
   go get -u -v github.com/josharian/impl
-  go get -u -v github.com/mdempsky/gocode
   go get -u -v github.com/rogpeppe/godef
-  go get -u -v github.com/zmb3/gogetdoc
 #+END_SRC
-
-Make sure that the executables are in your search =$PATH=. Note that they are
-installed on =$(go env GOPATH)/bin=, or =$GOBIN= if that environment variable is
-defined. For information about setting up =$PATH=, check out the corresponding
-section in the FAQ (~SPC h f $PATH RET~).
-
-For best results, make sure that the =auto-completion= and =syntax-checking=
-layers are enabled as well.
 
 * Configuration
 ** Execution
@@ -207,59 +259,7 @@ will need to set the scope with ~SPC m f o~. The scope is a comma separated set
 of packages, and Go's recursive operator is supported. In addition, you can
 prefix it with =-= to exclude a package from searching.
 
-** Auto-completion
-For auto-completion there are actually two choices. First there is the classic
-=gocode=. This has been around for quite a long time now, however =gocode= has many
-shortcomings, like not being able to show documentation for built-in objects or
-being fully dependent on installed binary files to provide its suggestions.
-
-A more modern and complete solution is provided by =gogetdoc=, which is able to
-precisely detect all documentations in your go projects independently from where
-they have been added. This is also the recommended choice from =go-mode.el=.
-
-To choose =gocode= nothing more needs to be done. To use =gogetdoc= you need to set
-the layer variable:
-
-#+BEGIN_SRC emacs-lisp
-  (go :variables godoc-at-point-function 'godoc-gogetdoc)
-#+END_SRC
-
-If you choose to use =gocode= there are some suggestions to improve its results.
-As =gocode= uses the output from installed binary files to provide its suggestions.
-You have a few options to ensure you always get up to date suggestions:
-- Run =go install ./...= in your package directory when you make a file change.
-- Run =gocode set autobuild true= to have gocode attempt to run =go install ./...=
-  for you.
-- You can configure your task runner to run the =go install ./...= command on every
-  file change.
-
-** LSP backend
-To enable the LSP backend, ensure that the =lsp= layer is enabled, and set the
-layer variable =go-backend=:
-
-#+BEGIN_SRC elisp
-  (go :variables go-backend 'lsp)
-#+END_SRC
-
-You can check [[https://www.github.com/emacs-lsp/lsp-mode/][lsp-mode]] for the gory details.
-
-The backend can be chosen on a per project basis using directory local variables
-(files named =.dir-locals.el= at the root of a project), an example is to use the
-=go-mode= backend:
-
-#+BEGIN_SRC elisp
-  ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
-
-  ((go-mode (go-backend . go-mode)))
-#+END_SRC
-
-*Note:* you can easily add a directory local variable with ~SPC f v d~.
-
-*** Debugger
-Using the =dap= layer you'll get access to all the DAP key bindings, see the complete list of key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
-
-* Working with Go
+* Keybindings
 ** Go commands (start with =m=):
 
 | Key binding   | Description                                                                           |

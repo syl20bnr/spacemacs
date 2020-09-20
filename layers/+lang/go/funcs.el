@@ -25,31 +25,27 @@
 (defun spacemacs//go-setup-company ()
   "Conditionally setup go company based on backend"
   (pcase (spacemacs//go-backend)
-    ('go-mode (spacemacs//go-setup-company-go))))
+    ('go-mode (spacemacs|add-company-backends
+                :backends company-go
+                :modes go-mode
+                :variables company-go-show-annotation t
+                :append-hooks nil
+                :call-hooks t))
+    (`lsp (spacemacs|add-company-backends
+            :backends company-capf
+            :modes go-mode))))
 
 (defun spacemacs//go-setup-eldoc ()
   "Conditionally setup go eldoc based on backend"
   (pcase (spacemacs//go-backend)
     ('go-mode (go-eldoc-setup))))
 
-
 (defun spacemacs//go-setup-dap ()
   "Conditionally setup go DAP integration."
   ;; currently DAP is only available using LSP
   (pcase (spacemacs//go-backend)
-    (`lsp (spacemacs//go-setup-lsp-dap))))
-
-
-;; go-mode
-
-(defun spacemacs//go-setup-company-go ()
-  (spacemacs|add-company-backends
-    :backends company-go
-    :modes go-mode
-    :variables company-go-show-annotation t
-    :append-hooks nil
-    :call-hooks t)
-  (company-mode))
+    (`lsp (require 'dap-go)
+          (dap-go-setup))))
 
 
 ;; lsp
@@ -65,17 +61,6 @@
           (setq-local lsp-diagnostics-provider :none))
         (lsp))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
-
-(defun spacemacs//go-setup-dap ()
-  "Conditionally setup go DAP integration."
-  ;; currently DAP is only available using LSP
-  (pcase (spacemacs//go-backend)
-    (`lsp (spacemacs//go-setup-lsp-dap))))
-
-(defun spacemacs//go-setup-lsp-dap ()
-  "Setup DAP integration."
-  (require 'dap-go)
-  (dap-go-setup))
 
 
 ;; flycheck
