@@ -101,9 +101,10 @@ the end of the loading of the dump file."
         (message "Loading mode %S..." mode)
         (funcall-interactively mode)))))
 
-(defun spacemacs/dump-emacs ()
-  "Dump emacs in a subprocess."
-  (interactive)
+(defun spacemacs/dump-emacs (&optional display-buffer)
+  "Dump emacs in a subprocess.
+When universal prefix argument is passed then display the process buffer."
+  (interactive "P")
   (when spacemacs-dump-process
     (message "Cancel running dumping process to start a new one.")
     (delete-process spacemacs-dump-process))
@@ -136,8 +137,9 @@ the end of the loading of the dump file."
            (list dotspacemacs-emacs-pdumper-executable-file
                  "--batch"
                  "-l" (concat spacemacs-start-directory "dump-init.el")
-                 "-eval" (concat "(dump-emacs-portable \"" dump-file-temp "\")")
-                 )))))
+                 "-eval" (concat "(dump-emacs-portable \"" dump-file-temp "\")"))))
+    (when (equal '(4) display-buffer)
+      (pop-to-buffer spacemacs-dump-buffer-name))))
 
 (defun spacemacs/dump-eval-delayed-functions ()
   "Evaluate delayed functions."
