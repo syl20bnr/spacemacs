@@ -32,9 +32,13 @@
     (spaceline-all-the-icons--setup-anzu)))
 
 (defun spacemacs-modeline/init-doom-modeline ()
-  (use-package doom-modeline
-    :defer t
-    :init (doom-modeline-mode)))
+  ;; doom modeline depends on `display-graphic-p' so we delay its initialization
+  ;; as when dumping we don't know yet wether we are using a graphical emacs or
+  ;; not.
+  (spacemacs|unless-dumping-and-eval-after-loaded-dump doom-modeline
+    (use-package doom-modeline
+      :defer t
+      :init (doom-modeline-mode))))
 
 (defun spacemacs-modeline/init-fancy-battery ()
   (use-package fancy-battery
