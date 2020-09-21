@@ -17,5 +17,9 @@
 (defvar git-magit-status-fullscreen nil
   "If non nil magit-status buffer is displayed in fullscreen.")
 
+(defvar git-enable-magit-delta-plugin nil
+  "If non nil `magit-delta-mode' plugin is enabled.")
+
 (defvar spacemacs--git-blame-ts-full-hint-toggle nil
   "Display git blame transient state documentation.")
+

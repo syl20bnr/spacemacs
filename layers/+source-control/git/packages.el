@@ -25,6 +25,7 @@
         (helm-git-grep :requires helm)
         (helm-gitignore :requires helm)
         magit
+        (magit-delta :toggle git-enable-magit-delta-plugin)
         magit-gitflow
         magit-section
         magit-svn
@@ -250,6 +251,11 @@
       (evil-define-key 'normal magit-section-mode-map (kbd "M-7") 'winum-select-window-7)
       (evil-define-key 'normal magit-section-mode-map (kbd "M-8") 'winum-select-window-8)
       (evil-define-key 'normal magit-section-mode-map (kbd "M-9") 'winum-select-window-9))))
+
+(defun git/init-magit-delta ()
+  (use-package magit-delta
+    :defer t
+    :init (add-hook 'magit-mode-hook 'magit-delta-mode)))
 
 (defun git/init-magit-gitflow ()
   (use-package magit-gitflow
