@@ -1,0 +1,31 @@
+#+TITLE: evil-better-jumper layer
+#+TAGS: layer|vim
+
+* Table of Contents                                       :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+
+This layer adds support for [[https://github.com/gilbertw1/better-jumper][better-jumper]]. A configurable jump list
+implementation for Emacs that can be used to easily jump back to previous
+locations.
+
+** Features:
+- jump back and forth
+
+* Install
+
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =evil-better-jumper= to the existing =dotspacemacs-configuration-layers=
+list in this file.
+
+* Key bindings
+
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~C-o~       | better-jumper-jump-backward |
+| ~C-i~       | better-jumper-jump-forward  |
+
