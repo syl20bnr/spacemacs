@@ -2005,8 +2005,8 @@ thusly:
 | ~SPC h d p~ | describe a package (Emacs built-in function)              |
 | ~SPC h d P~ | describe a package (Spacemacs layer information)          |
 | ~SPC h d s~ | copy system information that you can paste in gitter chat |
-| ~SPC h d t~ | describe a theme                                          |
-| ~SPC h d T~ | describe text properties                                  |
+| ~SPC h d t~ | describe text properties                                  |
+| ~SPC h d T~ | describe a theme                                          |
 | ~SPC h d v~ | describe a variable                                       |
 
 Other help key bindings:

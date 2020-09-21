@@ -118,6 +118,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
     (thanks to duianto and Sylvain Benner)
   - Scrolling key bindings are now under ~SPC N~ instead of ~SPC n~ to be able
     to define more key bindings to scroll.
+  - Changed decribe themes from ~SPC h d t~ to ~SPC h d T~.
   - ~SPC q z~ is now ~SPC q f~ to kill a frame.
   - Remove ~SPC T N~ and make ~SPC T n~ cycle and start the theme transient
     state (thanks to Sylvain Benner)
@@ -519,7 +520,7 @@ Other:
 *** Core changes
 - Improvements:
   - Make =describe-text-properties= available in the help -> describe menu via
-    ~SPC h d T~ (thanks to Keith Pinson)
+    ~SPC h d t~ (thanks to Keith Pinson)
   - Bind ~SPC c n~ to ~:cn~ / ~next-error~ and ~SPC c N~ to ~:cN~ / ~previous-error~
     (thanks to Keith Pinson)
   - Display time spent in =user-config= in home buffer (thanks to Sylvain Benner)
