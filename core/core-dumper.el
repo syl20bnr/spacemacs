@@ -144,11 +144,13 @@ When universal prefix argument is passed then display the process buffer."
                    (with-current-buffer spacemacs-dump-buffer-name
                      (rename-file dump-file-temp dump-file t)
                      (goto-char (point-max))
+                     (message "Successfully dumped Spacemacs!")
                      (insert (format "Done!\n" dump-file-temp dump-file)))
                  (with-current-buffer spacemacs-dump-buffer-name
                    (delete-file dump-file-temp nil)
                    (goto-char (point-max))
-                   (insert "Failed\n")))
+                   (message "Error while dumping Spacemacs!")
+                   (insert "Failed!\n")))
                (spinner-stop)
                (setq global-mode-string spacemacs--dump-old-global-mode-string)
                (delete-process spacemacs-dump-process)
