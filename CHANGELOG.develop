@@ -2291,6 +2291,7 @@ Other:
   =spacemacs/swiper-all-region-or-symbol= and updated keybindings, because Ivy has
   more advanced implementation via =swiper-thing-at-point= and
   =swiper-all-thing-at-point=
+  - Add C-RET for ivy-alt-done (thanks to Daniel Nicolai)
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
 - Use new API to register additional transient state bindings
   (thanks to Andriy Kmit')
