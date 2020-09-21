@@ -1520,7 +1520,8 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
     (when (and (not exists)
                (not (eq major-mode dotspacemacs-scratch-mode))
                (fboundp dotspacemacs-scratch-mode))
-      (funcall dotspacemacs-scratch-mode))))
+      (funcall dotspacemacs-scratch-mode)
+      (run-hooks 'spacemacs-scratch-mode-hook))))
 
 (defvar spacemacs--killed-buffer-list nil
   "List of recently killed buffers.")

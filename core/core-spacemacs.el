@@ -43,6 +43,8 @@
   "Hook run after dotspacemacs/user-config")
 (defvar spacemacs-post-user-config-hook-run nil
   "Whether `spacemacs-post-user-config-hook' has been run")
+(defvar spacemacs-scratch-mode-hook nil
+  "Hook run on buffer *scratch* after `dotspacemacs-scratch-mode' is invoked.")
 
 (defvar spacemacs--default-mode-line mode-line-format
   "Backup of default mode line format.")
@@ -230,7 +232,8 @@ Note: the hooked function is not executed when in dumped mode."
      (setq spacemacs-post-user-config-hook-run t)
      (when (fboundp dotspacemacs-scratch-mode)
        (with-current-buffer "*scratch*"
-         (funcall dotspacemacs-scratch-mode)))
+         (funcall dotspacemacs-scratch-mode)
+         (run-hooks 'spacemacs-scratch-mode-hook)))
      (when spacemacs--delayed-user-theme
        (spacemacs/load-theme spacemacs--delayed-user-theme
                              spacemacs--fallback-theme t))

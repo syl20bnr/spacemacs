@@ -597,6 +597,8 @@ Other:
     (thanks to duianto)
   - Add =emacs-version= to the default value for
     =dotspacemacs-emacs-dumper-dump-file= (thanks to Evan Klitzke)
+  - Add =spacemacs-scratch-mode-hook= to run functions
+    after =spacemacs-scratch-mode= is applied to =*scratch*= buffer (thanks to rayw000)
 - Fixes:
   - Avoid non-idempotent use of push in init code (thanks to Miciah Masters)
   - Moved Spacemacs startup progress bar to =core-progress-bar.el=, removed
