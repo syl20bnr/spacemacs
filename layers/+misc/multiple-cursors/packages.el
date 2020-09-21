@@ -24,6 +24,7 @@
       (add-hook 'text-mode-hook 'turn-on-evil-mc-mode))
     :config
     (progn
+      (add-hook 'magit-mode-hook 'turn-off-evil-mc-mode)
       (setq-default evil-mc-one-cursor-show-mode-line-text nil)
       (when (or (spacemacs/system-is-mac) (spacemacs/system-is-mswindows))
         (setq evil-mc-enable-bar-cursor nil))
