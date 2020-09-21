@@ -521,8 +521,8 @@ are also available.
 
 ** Element insertion
 
-| Key binding | Description                                   |
-|-------------+-----------------------------------------------|
+| Key binding   | Description                                   |
+|---------------+-----------------------------------------------|
 | ~C-RET~       | Insert heading at end of current subtree      |
 | ~C-S-RET~     | Insert TODO heading at end of current subtree |
 | ~SPC m i d~   | org-insert-drawer                             |
@@ -538,7 +538,7 @@ are also available.
 | ~SPC m i L~   | insert URL with its page title from clipboard |
 | ~SPC m i n~   | org-add-note                                  |
 | ~SPC m i p~   | org-set-property                              |
-| ~SPC m i r~   | org-rick-yank (paste code into a =src= block)   |
+| ~SPC m i r~   | org-rich-yank (paste code into a =src= block) |
 | ~SPC m i s~   | org-insert-subheading                         |
 | ~SPC m i t~   | org-set-tags                                  |
 
