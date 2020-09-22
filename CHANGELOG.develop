@@ -1978,6 +1978,7 @@ Other:
     - ~SPC g l P~ adds region permalink URL to clipboard
   - Moved =magit-find-file= to view a file at a specific branch or commit
     from ~SPC g f f~ to ~SPC g f F~ (thanks to duianto and Hong Xu)
+  - Unbind ~C-f~ from =magit-gitflow-popup= (thanks to rayw000)
 - Fixes:
   - Install magit-svn by default and activate with git-enable-magit-svn-plugin
   - Added feature to toggle =evil-magit= based on editing style
