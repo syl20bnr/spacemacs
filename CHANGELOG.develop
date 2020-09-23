@@ -2629,6 +2629,7 @@ Other:
   - ~grI~ =evil-mc-make-cursor-in-visual-selection-beg=
   - ~grA~ =evil-mc-make-cursor-in-visual-selection-end=
   (thanks to duianto)
+- Disabled =evil-mc-mode= in =magit-mode= (thanks to duianto)
 **** Neotree
 - Made neotree an optional instead of a default layer
 - Move neotree to its own layer in new +filetree folder
