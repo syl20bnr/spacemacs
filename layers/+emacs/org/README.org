@@ -384,6 +384,7 @@ To install [[https://github.com/federicotdn/verb][Verb]], an HTTP client based o
 | ~SPC m T c~ | org-toggle-checkbox                           |
 | ~SPC m T e~ | org-toggle-pretty-entities                    |
 | ~SPC m T i~ | org-toggle-inline-images                      |
+| ~SPC m T n~ | org-num-mode                                  |
 | ~SPC m T l~ | org-toggle-link-display                       |
 | ~SPC m T t~ | org-show-todo-tree                            |
 | ~SPC m T T~ | org-todo                                      |
