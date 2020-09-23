@@ -153,6 +153,5 @@ the number of conflicts detected by `smerge-mode'."
   (setq spacemacs--smerge-ts-full-hint-toggle
         (not spacemacs--smerge-ts-full-hint-toggle)))
 
-(when (configuration-layer/package-used-p 'git-gutter+)
-  (defun spacemacs//git-gutter+-refresh-in-all-buffers ()
-    (git-gutter+-in-all-buffers (when git-gutter+-mode (git-gutter+-refresh)))))
+(defun spacemacs//git-gutter+-refresh-in-all-buffers ()
+  (git-gutter+-in-all-buffers (when git-gutter+-mode (git-gutter+-refresh))))
