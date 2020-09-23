@@ -18,11 +18,17 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ranger= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-To default with preview enabled when entering ranger:
+To use ranger/deer by default set ~ranger-override-dired~ to ~ranger/deer~ like
+shown in the example below (setting this via customize as explained by the
+original [[https://github.com/ralesi/ranger.el#installation][ranger installation instructions]] will not work). To default with
+preview enabled when entering ranger set ~ranger-show-preview~ to ~t~. The following
+example code shows how you can set both variables at once via the
+~dotspacemacs-configuration-layers~ of your dotfiles as follows:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '(ranger :variables
+                         ranger-override-dired 'ranger
                          ranger-show-preview t))
 #+END_SRC
 
