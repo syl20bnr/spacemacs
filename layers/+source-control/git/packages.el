@@ -254,7 +254,9 @@
 (defun git/init-magit-gitflow ()
   (use-package magit-gitflow
     :defer t
-    :init (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+    :init (progn
+            (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+            (setq magit-gitflow-popup-key "%"))
     :config
     (progn
       (spacemacs|diminish magit-gitflow-mode "Flow")
