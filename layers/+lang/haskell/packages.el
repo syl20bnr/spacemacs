@@ -44,6 +44,8 @@
 
 (defun haskell/post-init-company ()
   (add-hook 'haskell-mode-local-vars-hook #'spacemacs-haskell//setup-company)
+  (add-hook 'haskell-literate-mode-local-vars-hook #'spacemacs-haskell//setup-company)
+  ;; renamed as of 04/2020, delete in due course
   (add-hook 'literate-haskell-mode-local-vars-hook #'spacemacs-haskell//setup-company))
 
 (defun haskell/init-company-cabal ()
@@ -94,6 +96,8 @@
 
 (defun haskell/post-init-ggtags ()
   (add-hook 'haskell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
+  (add-hook 'haskell-literate-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
+  ;; renamed as of 04/2020, delete in due course
   (add-hook 'literate-haskell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
 (defun haskell/init-haskell-mode ()
@@ -102,6 +106,8 @@
     :init
     (progn
       (add-hook 'haskell-mode-local-vars-hook #'spacemacs-haskell//setup-backend)
+      (add-hook 'haskell-literate-mode-local-vars-hook #'spacemacs-haskell//setup-backend)
+      ;; renamed as of 04/2020, delete in due course
       (add-hook 'literate-haskell-mode-local-vars-hook #'spacemacs-haskell//setup-backend)
 
       (defun spacemacs//force-haskell-mode-loading ()
@@ -299,7 +305,7 @@
   (spacemacs/helm-gtags-define-keys-for-mode 'haskell-mode))
 
 
-;; doesn't support literate-haskell-mode :(
+;; doesn't support haskell-literate-mode :(
 (defun haskell/init-hindent ()
   (use-package hindent
     :defer t
