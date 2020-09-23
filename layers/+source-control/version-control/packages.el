@@ -205,10 +205,8 @@
     (progn
       ;; If you enable global minor mode
       (when version-control-global-margin
-        ;; (defun spacemacs//git-gutter+-refresh-in-all-buffers ()
-        ;;   (git-gutter+-in-all-buffers (git-gutter+-refresh)))
-        ;; (add-hook 'magit-pre-refresh-hook #'spacemacs//git-gutter+-refresh-in-all-buffers)
-        (add-hook 'magit-pre-refresh-hook 'git-gutter+-refresh)
+        (add-hook 'magit-pre-refresh-hook
+                  #'spacemacs//git-gutter+-refresh-in-all-buffers)
         (run-with-idle-timer 1 nil 'global-git-gutter+-mode))
       (setq
        git-gutter+-modified-sign " "
