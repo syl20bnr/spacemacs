@@ -100,6 +100,7 @@ the end of the loading of the dump file."
 (defun spacemacs/emacs-with-pdumper-set-p ()
   "Return non-nil if a portable dumper capable emacs executable is set."
   (and dotspacemacs-enable-emacs-pdumper
+       (fboundp 'dump-emacs-portable)
        (file-exists-p
         (locate-file (or dotspacemacs-emacs-pdumper-executable-file "emacs")
                      exec-path exec-suffixes 'file-executable-p))))
