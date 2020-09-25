@@ -2904,6 +2904,9 @@ Other:
   - bind ~q~ to quit-window in view mode (thanks to Saulius Menkevičius)
 **** Prolog
 - Fixed autoloading error (thanks to jpathy)
+**** Protobuf
+- Prompt user to install the =protobuf= layer if a =.proto= file is opened
+  (thanks to duianto)
 **** Purescript
 - Enabled =purescript-decl-scan-mode= when loading =purescript-mode=
   (thanks to Bjarke Vad Andersen)
