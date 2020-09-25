@@ -31,9 +31,17 @@
         (centaur-tabs-group-by-projectile-project)
       (centaur-tabs-group-buffer-groups))
     (centaur-tabs-mode t)
+
+    (spacemacs/declare-prefix "bt" "tabs")
+    (spacemacs/set-leader-keys
+      "btn" 'centaur-tabs-forward
+      "btp" 'centaur-tabs-backward)
+
     :bind
     ("C-{" . centaur-tabs-backward)
     ("C-}" . centaur-tabs-forward)
+    ("M-{" . centaur-tabs-backward)
+    ("M-}" . centaur-tabs-forward)
     ("C-M-{" . centaur-tabs-move-current-tab-to-left)
     ("C-M-}" . centaur-tabs-move-current-tab-to-right)
     ("C-c t s" . centaur-tabs-counsel-switch-group)
