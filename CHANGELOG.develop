@@ -1633,6 +1633,10 @@ Other:
     ~raN~ 'clojure-insert-ns-form-at-point
     ~rsn~ 'clojure-sort-ns
     (thanks to John Stevenson)
+  - Add key binding for new function cider-eval-list-around-point
+    added in CIDER 0.26
+    ~SPC m e (~ 'cider-eval-list-at-point
+    (thanks to John Stevenson)
 - Fixes:
   - Removed =cider.nrepl/cider-middleware= in lein quick start setting
   - Fixed =cider-inspector-prev-page= binding, also add ~p~ as another key
