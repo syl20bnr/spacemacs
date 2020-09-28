@@ -487,6 +487,7 @@ Evaluate Clojure code in the source code buffer
 |---------------+-------------------------------------------------------------------|
 | ~SPC m e ;~   | eval sexp and show result as comment                              |
 | ~SPC m e $~   | go to end of line and eval last sexp                              |
+| ~SPC m e (~   | eval 'list' around point (sequence, list, vector, map, set)       |
 | ~SPC m e b~   | eval buffer                                                       |
 | ~SPC m e e~   | eval last sexp                                                    |
 | ~SPC m e f~   | eval function at point                                            |
