@@ -80,11 +80,11 @@
   (evil-set-initial-state 'Custom-mode 'normal)
   ;; Notes on how this effects the default `custom-mode-map':
   ;; - `TAB' works as `widget-forward' without modification
-  ;; - `<S-tab>' works as `widget-backward' without modification
+  ;; - `<S-TAB>' works as `widget-backward' without modification
   ;; - `n' as `widget-forward' is redundant with `TAB' and collides with the
   ;; - `evil-ex-search-next' mapping which is useful here. Omitting
   ;;   intensionally.
-  ;; - `p' doesn't make any sense without `n' and is redundant with `<S-tab>'.
+  ;; - `p' doesn't make any sense without `n' and is redundant with `<S-TAB>'.
   ;;   Omitting intensionally.
   ;; - `q' as `Custom-buffer-done' conflicts with the Evil record macro
   ;;   binding, which is, however, of questionable value in a Custom buffer;
@@ -93,7 +93,7 @@
   ;; - `SPC' as `scroll-up-command' conflicts with the all-important Spacemacs
   ;;   menu. Omitting intensionally. Evil `C-u' works instead.
   ;; - `S-SPC' as `scroll-down-command' makes no sense without `SPC' as
-  ;;   `scroll-up-command'. Evil `C-u' works instead.
+  ;;   `scroll-up-command'. Evil `C-d' works instead.
   ;; - `C-x' as a prefix command still works.
   ;; - `C-c' as a prefix command still works.
   ;; - `u' as `Custom-goto-parent' conflicts with Evil undo. However it is
