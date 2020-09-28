@@ -37,6 +37,7 @@
     (python :location built-in)
     pyvenv
     semantic
+    sphinx-doc
     smartparens
     stickyfunc-enhance
     xcscope
@@ -236,6 +237,17 @@
       (add-hook 'before-save-hook 'spacemacs//python-sort-imports)
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "rI" 'py-isort-buffer))))
+
+(defun python/init-sphinx-doc ()
+  (use-package sphinx-doc
+    :defer t
+    :init
+    (progn
+      (add-hook 'python-mode-hook 'sphinx-doc-mode)
+      (spacemacs/declare-prefix-for-mode 'python-mode "mS" "sphinx-doc")
+      (spacemacs/set-leader-keys-for-major-mode 'python-mode
+        "Se" 'sphinx-doc-mode
+        "Sd" 'sphinx-doc))))
 
 (defun python/pre-init-pyenv-mode ()
   (add-to-list 'spacemacs--python-pyenv-modes 'python-mode))

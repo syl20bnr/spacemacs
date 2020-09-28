@@ -3002,6 +3002,7 @@ Other:
 - Add python-test-last support for pytest runner
 - Added --last-failed support for pytest (thanks to Jaakko Luttinen)
 - Added =spacemacs/python-shell-send-statement= support (thanks to Lin Sun)
+- Added =sphinx-doc= support (thanks to Stefan Ruschke)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 - Updated racket logo (thanks to Vityou)
