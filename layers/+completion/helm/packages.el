@@ -14,6 +14,7 @@
         ace-jump-helm-line
         auto-highlight-symbol
         bookmark
+        centaur-tabs
         helm
         helm-ag
         helm-descbinds
@@ -59,6 +60,13 @@
 
 (defun helm/post-init-bookmark ()
   (spacemacs/set-leader-keys "fb" 'helm-filtered-bookmarks))
+
+(defun helm/post-init-centaur-tabs ()
+  (spacemacs|spacebind
+   "Buffer tabs displayed at the top of the buffer."
+   :global
+   (("[" "Buffer Tabs"
+     ("[" centaur-tabs-build-helm-source "Select tab by name")))))
 
 (defun helm/init-helm ()
   (use-package helm
