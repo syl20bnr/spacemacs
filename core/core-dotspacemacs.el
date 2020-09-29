@@ -245,6 +245,9 @@ running Emacs in terminal.")
 (defvar dotspacemacs-folding-method 'evil
   "Code folding method. Possible values are `evil' and `origami'.")
 
+(defvar dotspacemacs-buffer-tabs nil
+  "If non-nil then display a tabbar for opened buffers.")
+
 (defvar dotspacemacs-default-layout-name "Default"
   "Name of the default layout.")
 

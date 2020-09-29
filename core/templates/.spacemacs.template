@@ -256,6 +256,11 @@ It should only modify the values of Spacemacs settings."
    ;; works in the GUI. (default nil)
    dotspacemacs-distinguish-gui-tab nil
 
+   ;; If non-nil then display a tabbar for opened buffers.
+   ;; See documentation of the `spacemacs-buffer-tabs' layer for more configuration variables
+   ;; (default nil)
+   dotspacemacs-buffer-tabs nil
+
    ;; Name of the default layout (default "Default")
    dotspacemacs-default-layout-name "Default"
 
