@@ -18,6 +18,7 @@
    helm
    treemacs
    spacemacs-base
+   spacemacs-buffer-tabs
    spacemacs-completion
    spacemacs-layouts
    spacemacs-editing
