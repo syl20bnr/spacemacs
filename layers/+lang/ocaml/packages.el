@@ -21,6 +21,7 @@
     imenu
     merlin
     merlin-eldoc
+    ocamlformat
     ocp-indent
     smartparens
     tuareg
@@ -128,6 +129,13 @@
   (use-package merlin-eldoc
     :defer t
     :hook (merlin-mode . merlin-eldoc-setup)))
+
+(defun ocaml/init-ocamlformat ()
+  (use-package ocamlformat
+    :defer t
+    :init
+    (when ocaml-format-before-save
+      (add-hook 'before-save-hook 'ocamlformat-before-save))))
 
 (defun ocaml/init-ocp-indent ()
   (use-package ocp-indent
