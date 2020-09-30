@@ -11,6 +11,7 @@
   - [[#layer][Layer]]
   - [[#using-merlin-for-error-reporting][Using merlin for error reporting]]
   - [[#opam-packages][OPAM packages]]
+  - [[#enabling-formatting-on-save][Enabling formatting on save]]
 - [[#key-bindings][Key bindings]]
   - [[#repl-utop][REPL (utop)]]
   - [[#dune][Dune]]
@@ -25,6 +26,7 @@ This is a very basic layer for editing ocaml files.
 - auto-completion with company mode via [[https://github.com/ocaml/merlin][merlin]]
 - syntax-checking via [[https://github.com/flycheck/flycheck-ocaml][flycheck-ocaml]] (or alternatively [[https://github.com/ocaml/merlin][merlin]])
 - =dune= file syntax highlighting and template insertion via [[https://github.com/ocaml/dune/][dune-mode]]
+- Automatic formatting via [[https://github.com/ocaml-ppx/ocamlformat][ocamlformat]]
 
 * Install
 ** Layer
@@ -47,11 +49,12 @@ This layer requires some [[http://opam.ocaml.org][opam]] packages:
 - =merlin= for auto-completion
 - =utop=
 - =ocp-indent=
+- =ocamlformat= for auto-formatting
 
 To install them, use the following command:
 
 #+BEGIN_SRC sh
-  opam install merlin utop ocp-indent
+  opam install merlin utop ocp-indent ocamlformat
 #+END_SRC
 
 Make sure opam is initialized and configured.
@@ -59,6 +62,14 @@ Make sure opam is initialized and configured.
 #+BEGIN_SRC sh
   opam init
   opam config setup -a
+#+END_SRC
+
+** Enabling formatting on save
+To enable automatic formatting on save with [[https://github.com/ocaml-ppx/ocamlformat][ocamlformat]], set the layer
+variable =ocaml-format-on-save=, e.g.,
+
+#+BEGIN_SRC emacs-lisp
+  (ocaml :variables ocaml-format-on-save t)
 #+END_SRC
 
 * Key bindings
