@@ -110,10 +110,10 @@ The power of Spacemacs lies in its efficient keybindings. Because it is built on
 Emacs, we will use Emacs conventions for keybinding notation. The most important
 modifier keys are:
 
-~SPC~ = ~Space~, used as the leader key in Vim editing style.
-~C-~ = ~Ctrl~
-~M-~ (for "meta") = ~Alt~
-~S-~ = ~Shift~
+- ~SPC~ = ~Space~, used as the leader key in Vim editing style.
+- ~C-~ = ~Ctrl~
+- ~M-~ (for "meta") = ~Alt~
+- ~S-~ = ~Shift~
 
 The modifier keys can be used either in a sequence or as key chords by pressing
 two keys at the same time. ~SPC 1~ is notation for a key sequence and means
