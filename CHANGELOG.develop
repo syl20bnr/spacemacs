@@ -2282,6 +2282,15 @@ Other:
   - Add ~d~ to create a project perspective and open a project root dired
     buffer, from the ~SPC p l~ persp switch project prompt
     (thanks to Magnus Therning and Muneeb Shaikh)
+  - Rebind =SPC s S= from =spacemacs/swiper-region-or-symbol= to Ivy native
+    =swiper-thing-at-point=
+  - Rebind =SPC s S= from =spacemacs/swiper-all-region-or-symbol= to Ivy native
+    =swiper-all-thing-at-point=
+    (last two points thanks to Daniel Nicolai)
+- Removed definitions for =spacemacs/swiper-region-or-symbol= and
+  =spacemacs/swiper-all-region-or-symbol= and updated keybindings, because Ivy has
+  more advanced implementation via =swiper-thing-at-point= and
+  =swiper-all-thing-at-point=
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
 - Use new API to register additional transient state bindings
   (thanks to Andriy Kmit')

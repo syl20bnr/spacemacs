@@ -43,8 +43,8 @@
            spacemacs--symbol-highlight-transient-state-doc
            "  Search: [_s_] swiper  [_b_] buffers  [_f_] files  [_/_] project"))
     (spacemacs/transient-state-register-add-bindings 'symbol-highlight
-      '(("s" spacemacs/swiper-region-or-symbol :exit t)
-        ("b" spacemacs/swiper-all-region-or-symbol :exit t)
+      '(("s" swiper-thing-at-point :exit t)
+        ("b" swiper-all-thing-at-point :exit t)
         ("f" spacemacs/search-auto-region-or-symbol :exit t)
         ("/" spacemacs/search-project-auto-region-or-symbol :exit t)))))
 
@@ -370,9 +370,9 @@
     (progn
       (spacemacs/set-leader-keys
         "ss" 'swiper
-        "sS" 'spacemacs/swiper-region-or-symbol
+        "sS" 'swiper-thing-at-point
         "sb" 'swiper-all
-        "sB" 'spacemacs/swiper-all-region-or-symbol)
+        "sB" 'swiper-all-thing-at-point)
       (global-set-key "\C-s" 'swiper))))
 
 (defun ivy/init-wgrep ()
