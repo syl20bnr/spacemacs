@@ -646,7 +646,28 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "aoJsc" 'org-jira-create-subtask
         "aoJsg" 'org-jira-get-subtasks
         "aoJcu" 'org-jira-update-comment
-        "aoJtj" 'org-jira-todo-to-jira))))
+        "aoJtj" 'org-jira-todo-to-jira)
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmj" "jira")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmjp" "projects")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmji" "issues")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmjs" "subtasks")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmjc" "comments")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmjt" "todos")
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "mjpg" 'org-jira-get-projects
+        "mjib" 'org-jira-browse-issue
+        "mjig" 'org-jira-get-issues
+        "mjih" 'org-jira-get-issues-headonly
+        "mjif" 'org-jira-get-issues-from-filter-headonly
+        "mjiu" 'org-jira-update-issue
+        "mjiw" 'org-jira-progress-issue
+        "mjir" 'org-jira-refresh-issue
+        "mjic" 'org-jira-create-issue
+        "mjiy" 'org-jira-copy-current-issue-key
+        "mjsc" 'org-jira-create-subtask
+        "mjsg" 'org-jira-get-subtasks
+        "mjcu" 'org-jira-update-comment
+        "mjtj" 'org-jira-todo-to-jira))))
 
 (defun org/init-org-mime ()
   (use-package org-mime
