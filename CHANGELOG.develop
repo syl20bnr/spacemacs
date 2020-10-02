@@ -2804,6 +2804,8 @@ Other:
   - Documented more insertion bindings (thanks to Lorenzo Manacorda):
     - ~C-RET~   Insert heading at end of current subtree
     - ~C-S-RET~ Insert TODO heading at end of current subtree
+  - Added additional prefix (~SPC m m j~) for org-jira bindings 
+    (thanks to Mariusz Klochowicz)
 - Made =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
 - Remove =mu4e= and =notmuch= from =org= (thanks to Sylvain Benner)
 - Use evil-org from MELPA (thanks to Eivind Fonn)
