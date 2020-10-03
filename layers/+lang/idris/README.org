@@ -41,7 +41,7 @@ Idris can be installed using =Haskell's cabal=:
 #+END_SRC
 
 Binaries are also available for some platforms at
-[[https://www.idris-lang.org/download/]]
+[[https://www.idris-lang.org/pages/download.html]]
 
 * Key bindings
 ** Shorthands
