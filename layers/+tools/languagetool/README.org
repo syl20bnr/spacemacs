@@ -13,6 +13,9 @@
 This layer adds grammar checking using [[https://www.languagetool.org/][LanguageTool]]. LanguageTool will use the
 language set using ~SPC S d~ if the =spell-checking= layer is enabled.
 
+** Features:
+- Spelling and grammar checking
+
 * Install
 ** Layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
