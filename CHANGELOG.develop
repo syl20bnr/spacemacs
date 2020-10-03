@@ -695,6 +695,8 @@ Other:
   - Fixed broken --timed-requires and --adv-timers under Emacs 27 and above (thanks to Ying Qu)
   - Removed nils from =dotspacemacs-configuration-layers= when running tests
     (thanks to Ag Ibragimov)
+  - Fixed duplicate quick help and release notes in home buffer
+    (thanks to mark30247)
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
