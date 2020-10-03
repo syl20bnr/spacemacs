@@ -2290,6 +2290,7 @@ Other:
   - Rebind =SPC s S= from =spacemacs/swiper-all-region-or-symbol= to Ivy native
     =swiper-all-thing-at-point=
     (last two points thanks to Daniel Nicolai)
+  - Bound =SPC s l= to =ivy-resume= (thanks to Wieland Hoffmann)
 - Removed definitions for =spacemacs/swiper-region-or-symbol= and
   =spacemacs/swiper-all-region-or-symbol= and updated keybindings, because Ivy has
   more advanced implementation via =swiper-thing-at-point= and
