@@ -28,6 +28,7 @@
   - [[#quickurl][Quickurl]]
   - [[#semantic][Semantic]]
   - [[#smex][Smex]]
+  - [[#tabs][Tabs]]
   - [[#typography][Typography]]
 - [[#file-trees][File trees]]
   - [[#neotree][Neotree]]
@@ -181,6 +182,8 @@
   - [[#epub][Epub]]
   - [[#pdf][PDF]]
   - [[#speed-reading][Speed Reading]]
+- [[#readmeorg-files-that-need-proper-tags][README.org files that need proper tags]]
+  - [[#languagetool][LanguageTool]]
 - [[#source-control][Source control]]
   - [[#git][Git]]
   - [[#github][GitHub]]
@@ -482,6 +485,7 @@ Features:
 - Insertion of images via [[https://github.com/abo-abo/org-download][org-download]]
 - Project-specific TODOs via [[https://github.com/IvanMalison/org-projectile][org-projectile]]
 - Easy insert of URLs from clipboard with org format via [[https://github.com/rexim/org-cliplink][org-cliplink]]
+- Rich insert of code (into a source block with highlighting, and a link) from other buffers via [[https://github.com/unhammer/org-rich-yank][org-rich-yank]]
 
 ** Outshine
 [[file:+emacs/outshine/README.org][+emacs/outshine/README.org]]
@@ -537,6 +541,14 @@ This layer provides a more traditional alternative to =helm-M-x= based on =ido=.
 Features:
 - Provides an alternative way for =helm-M-x= based on =ido= and [[https://github.com/nonsequitur/smex][smex]]
 
+** Tabs
+[[file:+emacs/tabs/README.org][+emacs/tabs/README.org]]
+
+This layer adds support for tabs. Implementation is done using [[https://github.com/ema2159/centaur-tabs][Centaur Tabs]].
+
+Features:
+- Sets up tabs using Centaur tabs as backend
+
 ** Typography
 [[file:+emacs/typography/README.org][+emacs/typography/README.org]]
 
@@ -591,7 +603,7 @@ readme]]. In short, Treemacs offers:
 ** Unicode-fonts
 [[file:+fonts/unicode-fonts/README.org][+fonts/unicode-fonts/README.org]]
 
-This layer adds support for the [[https://github.com/rolandwalker/unicode-fonts][unicode-fonts]] package. It is recommended to
+This layer adds support for [[https://github.com/rolandwalker/unicode-fonts][unicode-fonts]] package. It is recommended to
 install the fonts listed in the [[https://github.com/rolandwalker/unicode-fonts#quickstart][Quickstart]] section of the unicode-fonts README.
 
 Features:
@@ -599,6 +611,7 @@ Features:
 - Easily override glyphs or sections of glyphs.
 - Display color emoji on both the macOS port version of Emacs and emacs-plus (with
   =unicode-fonts-force-multi-color-on-mac= set to non nil).
+- Enable support for font ligature in Emacs 27 + via [[https://github.com/mickeynp/ligature.el][ligatures.el]].
 
 * Fun
 ** Emoji
@@ -674,7 +687,7 @@ Features:
 - [[https://github.com/emacs-jp/migemo][migemo]]: Japanese incremental search through dynamic pattern expansion
 - [[https://github.com/emacs-helm/helm/wiki/Migemo][helm-migemo-mode]]: helm with migemo
 - [[https://github.com/momomo5717/avy-migemo/blob/master/README.jp.org][avy-migemo]]: avy with migemo
-- [[https://github.com/hsaito/ddskk][ddskk]]: Simple Kana to Kanji conversion program (SKK)
+- [[https://github.com/skk-dev/ddskk][ddskk]]: Simple Kana to Kanji conversion program (SKK)
 - [[https://github.com/emacs-jp/japanese-holidays][japanese-holidays]]: calendar functions for the Japanese calendar
 - [[https://github.com/coldnew/pangu-spacing][pangu-spacing]]: emacs minor-mode to add space between Japanese and English
   characters.
@@ -1323,7 +1336,7 @@ Features:
 **** Semantic Web
 [[file:+lang/semantic-web/README.org][+lang/semantic-web/README.org]]
 
-This layer adds support for RDF files in N3 and [[https://www.w3.org/TR/turtle/][Turtle syntax]] using [[https://bitbucket.org/nxg/ttl-mode][ttl-mode]]
+This layer adds support for RDF files in N3 and [[https://www.w3.org/TR/turtle/][Turtle syntax]] using [[https://github.com/nxg/ttl-mode][ttl-mode]]
 and for [[https://www.w3.org/TR/sparql11-query/][SPARQL]] queries using [[https://github.com/ljos/sparql-mode][sparql-mode]].
 
 SPARQL-mode supports the execution of queries. When first called, you will be
@@ -1911,17 +1924,17 @@ This layer adds extensive support for the [[https://golang.org][Go]] programming
 
 Features:
 - Run [[https://golang.org/cmd/gofmt/][gofmt]] / [[https://godoc.org/golang.org/x/tools/cmd/goimports][goimports]] on file save (see [[file:+lang/go/README.org][Autoformat]])
-- Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete.el]], via the =auto-completion= layer (see [[file:+lang/go/README.org][Auto-completion]])
+- Auto-completion
 - Source analysis using [[https://docs.google.com/document/d/1_Y9xCEMj5S-7rv2ooHpZNH15JgRT5iM742gJkw5LtmQ][go-guru]] (see [[file:+lang/go/README.org][Guru]])
-- Refactoring with [[http://gorefactor.org/][godoctor]]
+- Refactoring with [[https://github.com/godoctor/godoctor][godoctor]]
 - Edit struct field tags with [[https://github.com/fatih/gomodifytags][gomodifytags]]
-- Linting with flycheck's built-in checkers or [[https://github.com/golangci/golangci-lint][golangci-lint]] (see [[file:+lang/go/README.org][Linting]])
+- Syntax checking with flycheck's built-in checkers or [[https://github.com/golangci/golangci-lint][golangci-lint]] (see [[file:+lang/go/README.org][Linting]])
 - Test generation via [[https://github.com/s-kostyaev/go-gen-test][go-gen-test]] (see [[file:+lang/go/README.org][Tests]])
 - Coverage profile visualization (see [[file:+lang/go/README.org][Coverage]])
 - List packages faster with [[https://github.com/haya14busa/gopkgs][gopkgs]]
 - Fill a structure with default values using the [[https://github.com/davidrjenni/reftools/tree/master/cmd/fillstruct][fillstruct]]
-- LSP backend (see [[file:+lang/go/README.org][LSP backend]])
-- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
+- Gopls backend support (see [[file:+lang/go/README.org][LSP backend]])
+- Interactive debugger with LSP using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 
 **** Groovy
 [[file:+lang/groovy/README.org][+lang/groovy/README.org]]
@@ -2095,7 +2108,7 @@ This layer adds support for the Python language.
 Features:
 - Support for the following backends:
   - [[https://github.com/proofit404/anaconda-mode][anaconda]] (default),
-  - [[https://github.com/emacs-lsp/lsp-python][Language Server Protocol]] (experimental - 2 implementations),
+  - [[https://github.com/emacs-lsp/lsp-python-ms][Language Server Protocol]] (experimental - 2 implementations),
     - python-language-server
     - Microsoft python language server
 - Auto-completion
@@ -2388,6 +2401,16 @@ A speed reading mode for Emacs.
 
 Features:
 - Support for =speed-reading= of arbitrary texts
+
+* README.org files that need proper tags
+** LanguageTool
+[[file:+tools/languagetool/README.org][+tools/languagetool/README.org]]
+
+This layer adds grammar checking using [[https://www.languagetool.org/][LanguageTool]]. LanguageTool will use the
+language set using ~SPC S d~ if the =spell-checking= layer is enabled.
+
+Features:
+- Spelling and grammar checking
 
 * Source control
 ** Git
@@ -2839,6 +2862,9 @@ function properly.
 
 Features:
 - Use Spacemacs as your password manager
+- Support for OTP via (password-store-otp)
+- Use password-store as an Emacs auth source (auth-source-pass)
+  See [[https://www.gnu.org/software/emacs/manual/html_node/auth/The-Unix-password-store.html][its info page]] for more details on using it.
 
 ** Prettier
 [[file:+tools/prettier/README.org][+tools/prettier/README.org]]
@@ -2882,11 +2908,17 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =ranger= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-To default with preview enabled when entering ranger:
+To use ranger/deer by default set ~ranger-override-dired~ to ~ranger/deer~ like
+shown in the example below (setting this via customize as explained by the
+original [[https://github.com/ralesi/ranger.el#installation][ranger installation instructions]] will not work). To default with
+preview enabled when entering ranger set ~ranger-show-preview~ to ~t~. The following
+example code shows how you can set both variables at once via the
+~dotspacemacs-configuration-layers~ of your dotfiles as follows:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '(ranger :variables
+                         ranger-override-dired 'ranger
                          ranger-show-preview t))
 #+END_SRC
 
