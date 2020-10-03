@@ -11,7 +11,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for RDF files in N3 and [[https://www.w3.org/TR/turtle/][Turtle syntax]] using [[https://bitbucket.org/nxg/ttl-mode][ttl-mode]]
+This layer adds support for RDF files in N3 and [[https://www.w3.org/TR/turtle/][Turtle syntax]] using [[https://github.com/nxg/ttl-mode][ttl-mode]]
 and for [[https://www.w3.org/TR/sparql11-query/][SPARQL]] queries using [[https://github.com/ljos/sparql-mode][sparql-mode]].
 
 SPARQL-mode supports the execution of queries. When first called, you will be
