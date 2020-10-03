@@ -1,13 +1,16 @@
 #+TITLE: LanguageTool layer
 
+#+TAGS: layer|uncategorized
+
 [[file:img/languagetool.png]]
 
-* Table of Contents                                        :TOC_4_gh:noexport:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#languagetool][LanguageTool]]
- - [[#key-bindings][Key bindings]]
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#languagetool][LanguageTool]]
+- [[#key-bindings][Key bindings]]
 
 * Description
 This layer adds grammar checking using [[https://www.languagetool.org/][LanguageTool]]. LanguageTool will use the
@@ -61,7 +64,7 @@ to the location of =languagetool-commandline.jar= or by setting
 
 * Key bindings
 
-| Key Binding | Description                                |
+| Key binding | Description                                |
 |-------------+--------------------------------------------|
 | ~SPC S l~   | Toggle LanguageTool for the current buffer |
 | ~SPC S L~   | Perform corrections in the current buffer  |

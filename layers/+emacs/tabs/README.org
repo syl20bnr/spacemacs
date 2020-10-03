@@ -1,8 +1,8 @@
 #+TITLE: Tabs layer
-#+TAGS: layer|spacemacs|emacs
 
-# TOC links should be GitHub style anchors.
-* Table of Contents                                        :TOC_4_gh:noexport:
+#+TAGS: emacs|layer|spacemacs
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -13,16 +13,14 @@
 This layer adds support for tabs. Implementation is done using [[https://github.com/ema2159/centaur-tabs][Centaur Tabs]].
 
 ** Features:
- - Sets up tabs using Centaur tabs as backend
+- Sets up tabs using Centaur tabs as backend
 
 * Install
-
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =tabs= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Hide tabs
-
 You can set hooks for buffers in which it isn't desired to have tabs by
 customizing =centaur-tabs-hide-tabs-hooks=
 
