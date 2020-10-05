@@ -87,7 +87,7 @@ current contents of the file will be overwritten."
           (dolist (shell-command-switch shell-command-switches)
             (call-process-shell-command
              (concat executable " > " (shell-quote-argument tmpfile)))
-            (insert-file tmpfile))
+            (insert-file-contents tmpfile))
           (delete-file tmpfile)
           ;; sort the environment variables
           (sort-regexp-fields nil "^.*$" ".*?=" env-point (point-max))

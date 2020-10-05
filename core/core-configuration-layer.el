@@ -214,7 +214,7 @@ LAYER has to be installed for this method to work properly."
     (when (and (numberp rank)
                (not (eq 'unspecified shadow-candidates))
                (listp shadow-candidates))
-      (mapcar
+      (mapc
        (lambda (other)
          (let ((orank (cl-position other configuration-layer--used-layers)))
            ;; OTHER shadows LAYER if and only if OTHER's rank is bigger than
@@ -2458,7 +2458,7 @@ depends on it."
   (let ((layer-name
          (intern (completing-read
                   "Choose a used layer"
-                  (sort (copy-list configuration-layer--used-layers) #'string<)))))
+                  (sort (cl-copy-list configuration-layer--used-layers) #'string<)))))
     (let ((mode-exts (configuration-layer//lazy-install-extensions-for-layer
                       layer-name)))
       (dolist (x mode-exts)
@@ -2604,7 +2604,7 @@ Returns nil if the version is unknown."
   (when (file-exists-p configuration-layer--stable-elpa-version-file)
     (with-current-buffer (find-file-noselect
                           configuration-layer--stable-elpa-version-file)
-      (when (called-interactively-p)
+      (when (called-interactively-p 'interactive)
         (message "Stable ELPA repository version is: %s" (buffer-string)))
       (buffer-string))))
 
@@ -2652,7 +2652,7 @@ MSG is an additional message append to the generic error."
   (with-current-buffer (find-file-noselect
                         configuration-layer--stable-elpa-version-file)
     (erase-buffer)
-    (beginning-of-buffer)
+    (goto-char (point-min))
     (insert (format "%s" configuration-layer-stable-elpa-version))
     (save-buffer)))
 
