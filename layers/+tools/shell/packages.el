@@ -159,7 +159,9 @@
 (defun shell/pre-init-ivy ()
   (spacemacs|use-package-add-hook ivy
     :post-init
-    (add-hook 'eshell-mode-hook 'spacemacs/init-ivy-eshell)))
+    (add-hook 'eshell-mode-hook 'spacemacs/init-ivy-eshell))
+  (spacemacs/set-leader-keys-for-major-mode 'shell-mode
+    "H" 'counsel-shell-history))
 
 (defun shell/pre-init-magit ()
   (spacemacs|use-package-add-hook magit
@@ -219,6 +221,7 @@
              (t (comint-simple-send proc command))))))
   (add-hook 'shell-mode-hook 'shell-comint-input-sender-hook)
   (add-hook 'shell-mode-hook 'spacemacs/disable-hl-line-mode)
+
   (with-eval-after-load 'centered-cursor-mode
     (add-hook 'shell-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode)))
 
@@ -339,6 +342,8 @@
       (define-key vterm-mode-map (kbd "M-p") 'vterm-send-up)
       (define-key vterm-mode-map (kbd "M-y") 'vterm-yank-pop)
       (define-key vterm-mode-map (kbd "M-/") 'vterm-send-tab)
+      (when spacemacs-vterm-history-file-location
+        (spacemacs//vterm-bind-m-r vterm-mode-map))
 
       (evil-define-key 'insert vterm-mode-map (kbd "C-y") 'vterm-yank)
 

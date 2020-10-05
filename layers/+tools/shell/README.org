@@ -34,6 +34,7 @@
 - [[#key-bindings][Key bindings]]
   - [[#multi-term][Multi-term]]
   - [[#eshell-1][Eshell]]
+  - [[#vterm][vterm]]
 
 * Description
 This layer configures the various shells available in Emacs.
@@ -326,3 +327,13 @@ in the current buffer instead of a popup.
 | Key binding        | Description                                       |
 |--------------------+---------------------------------------------------|
 | ~SPC m H~ or ~M-l~ | shell commands history using a helm or ivy buffer |
+
+** vterm
+~M-r~ will be bound to to search for command history when variable
+=spacemacs-vterm-history-file-location= is set to path to your shell history file.
+
+For example with bash
+#+begin_src elisp
+     (shell :variables
+            spacemacs-vterm-history-file-location "~/.bash_history")
+#+end_src

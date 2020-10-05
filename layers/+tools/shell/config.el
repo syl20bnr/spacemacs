@@ -52,3 +52,6 @@
 (defvar close-window-with-terminal nil
   "If non-nil, the window is closed when the terminal is stopped.
   This is only applied to `term' and `ansi-term' modes.")
+
+(defvar spacemacs-vterm-history-file-location nil
+  "Bash history full file name.")
