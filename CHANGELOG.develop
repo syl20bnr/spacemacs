@@ -2710,6 +2710,7 @@ Other:
   - Added package for =org-sticky-header-mode= (thanks to Langston Barret)
   - Added package =org-jira= (thanks to Kirill A. Korinsky)
   - Added package =org-rich-yank= (thanks to Keith Pinson)
+  - Added package =org-roam= (thanks to Mariusz Klochowicz)
 - Key bindings:
   - ~SPC m T i~ to toggle inline images
   - Move clock related key bindings to ~SPC a o C~
@@ -2804,6 +2805,19 @@ Other:
   - Documented more insertion bindings (thanks to Lorenzo Manacorda):
     - ~C-RET~   Insert heading at end of current subtree
     - ~C-S-RET~ Insert TODO heading at end of current subtree
+  - Changed =helm-org-rifle= keybindings to ~SPC a o /~, falling back to its
+    previous functionality if using ivy (thanks to Mariusz Klochowicz)
+  - Added keybindings for =org-roam= under menu prefix ~SPC a o r~ and ~SPC m r~
+    - ~SPC a o r l~   (~SPC m r l~)   Toggle org-roam links visibility
+    - ~SPC a o r f~   (~SPC m r f~)   Find file in org-roam
+    - ~SPC a o r i~   (~SPC m r i~)   Insert file into org-roam
+    - ~SPC a o r I~   (~SPC m r I~)   Immediately insert file into org-roam
+    - ~SPC a o r g~   (~SPC m r g~)   Visualize org-roam graph
+    - ~SPC a o r b~   (~SPC m r b~)   Switch org-roam buffer
+    - ~SPC a o r d y~ (~SPC m r d y~) Open yesterday's daily note
+    - ~SPC a o r d t~ (~SPC m r d t~) Open today's daily note
+    - ~SPC a o r d T~ (~SPC m r d T~) Open tomorrow's daily note
+    (thanks to Mariusz Klochowicz)
 - Made =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
 - Remove =mu4e= and =notmuch= from =org= (thanks to Sylvain Benner)
 - Use evil-org from MELPA (thanks to Eivind Fonn)

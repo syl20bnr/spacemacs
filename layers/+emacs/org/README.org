@@ -21,6 +21,7 @@
   - [[#different-bullets][Different bullets]]
   - [[#project-support][Project support]]
   - [[#org-brain-support][Org-brain support]]
+  - [[#org-roam-support][Org-roam support]]
   - [[#mode-line-support][Mode line support]]
   - [[#sticky-header-support][Sticky header support]]
   - [[#epub-support][Epub support]]
@@ -57,6 +58,7 @@
     - [[#verb-mode-bindings][Verb-mode bindings]]
     - [[#verb-response-body-mode-bindings][Verb-response-body-mode bindings]]
     - [[#verb-response-headers-mode-bindings][Verb-response-headers-mode bindings]]
+  - [[#org-roam][Org-roam]]
 
 * Description
 This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
@@ -293,6 +295,18 @@ the following snippet.
 ** Org-brain support
 For Emacs 25 or later, support for [[https://kungsgeten.github.io/org-brain.html][org-brain]] is included. See the [[https://github.com/Kungsgeten/org-brain][org-brain
 package documentation]] for more information.
+
+** Org-roam support
+
+To install org-roam support set the variable =org-enable-roam-support= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (org :variables
+         org-enable-roam-support t)))
+#+END_SRC
+
+More information about org-roam package (including manual) can be found at [[https://www.orgroam.com/][Org-roam]] website.
 
 ** Mode line support
 To temporarily enable mode line display of org clock, press ~SPC t m c~.
@@ -753,7 +767,7 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 
 | Key binding | Description                                |
 |-------------+--------------------------------------------|
-| ~SPC a o r~ | Search org files for keywords and headings |
+| ~SPC a o /~ | Search org files for keywords and headings |
 
 ** Org-projectile
 
@@ -883,3 +897,21 @@ are available.
 | Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC m r q~ | Kill current response headers buffer and its window |
+
+** Org-roam
+
+Key binding prefixes:
+ - ~SPC a o r~ (anywhere)
+ - ~SPC m r~   (in an org-mode buffer)
+
+| Key binding      | Description                           |
+|------------------+---------------------------------------|
+| ~[prefix] r l~   | Toggle org-roam links visibility      |
+| ~[prefix] r f~   | Find file in org-roam                 |
+| ~[prefix] r i~   | Insert file into org-roam             |
+| ~[prefix] r I~   | Immediately insert file into org-roam |
+| ~[prefix] r g~   | Visualize org-roam graph              |
+| ~[prefix] r b~   | Switch org-roam buffer                |
+| ~[prefix] r d y~ | Open yesterday's daily note           |
+| ~[prefix] r d t~ | Open today's daily note               |
+| ~[prefix] r d T~ | Open tomorrow's daily note            |
