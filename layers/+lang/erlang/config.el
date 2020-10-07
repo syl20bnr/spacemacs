@@ -12,3 +12,13 @@
 ;; variables
 
 (spacemacs|define-jump-handlers erlang-mode)
+
+(defvar erlang-fill-column 80
+  "Column beyond which automatic line-wrapping should happen.")
+
+;; lsp - erlang_ls
+
+(defvar erlang-backend nil
+  "The backend to use for IDE features.
+Possible values are `lsp' or `company-erlang'.
+If `nil' then `company-erlang' is the default backend unless `lsp' layer is used.")
