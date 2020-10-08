@@ -2536,6 +2536,9 @@ Other:
 - Removed =company-lsp=. Now =lsp-mode= is responsible for configuring
   =company-backends= and it will use =company-capf=.
 - Fixed upstream removal of =lsp-clients= (thanks to Colin Woodbury)
+- Added documentation for =lsp-headerline-breadcrumb-mode=, =lsp-lens-mode=,
+  =lsp-modeline-diagnostics-mode=, and =lsp-modeline-code-actions-mode=
+  (thanks to Lucius Hu)
 **** Debug Adapter Protocol (DAP)
 - Layer variables:
   - Added variable =dap-enable-mouse-support=
