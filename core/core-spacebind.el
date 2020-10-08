@@ -73,7 +73,7 @@ Otherwise binding happens at the next event loop.")
           (let ((mode (car args))
                 (prefix (string-join (cadr args) " "))
                 (label (caddr args)))
-            (spacemacs/declare-prefix prefix label)))
+            (spacemacs/declare-prefix-for-mode mode prefix label)))
 
         ;; `spacemacs/set-leader-keys'
         (dolist (args spacebind--bs-set-leader-keys)
