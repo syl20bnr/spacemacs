@@ -615,26 +615,26 @@ NOTE: `spacebind--eager-bind' set to true. "
          py-mode "s R" python-shell-send-region nil)
        (spacemacs/set-leader-keys
          "C-v b" bar-fn nil)
-       (spacemacs/declare-prefix
-         "C-p" "compile/execute" nil)
-       (spacemacs/declare-prefix
-         "d" "debug" nil)
-       (spacemacs/declare-prefix
-         "r" "refactor" nil)
-       (spacemacs/declare-prefix
-         "s" "REPL" nil)
-       (spacemacs/declare-prefix
-         "a" "section under a key" nil)
-       (spacemacs/declare-prefix
-         "a c" "sub section under c key" nil)
-       (spacemacs/declare-prefix
-         "a c d" "sub sub section under d key" nil)
-       (spacemacs/declare-prefix
-         "a" "section under a key" nil)
-       (spacemacs/declare-prefix
-         "a b" "sub section under b key" nil)
-       (spacemacs/declare-prefix
-         "a b c" "sub sub section under c key" nil)
+       (spacemacs/declare-prefix-for-mode
+         py-mode "C-p" "compile/execute" nil)
+       (spacemacs/declare-prefix-for-mode
+         py-mode "d" "debug" nil)
+       (spacemacs/declare-prefix-for-mode
+         py-mode "r" "refactor" nil)
+       (spacemacs/declare-prefix-for-mode
+         py-mode "s" "REPL" nil)
+       (spacemacs/declare-prefix-for-mode
+         some-minor-mode "a" "section under a key" nil)
+       (spacemacs/declare-prefix-for-mode
+         some-minor-mode "a c" "sub section under c key" nil)
+       (spacemacs/declare-prefix-for-mode
+         some-minor-mode "a c d" "sub sub section under d key" nil)
+       (spacemacs/declare-prefix-for-mode
+         some-another-minor-mode "a" "section under a key" nil)
+       (spacemacs/declare-prefix-for-mode
+         some-another-minor-mode "a b" "sub section under b key" nil)
+       (spacemacs/declare-prefix-for-mode
+         some-another-minor-mode "a b c" "sub sub section under c key" nil)
        (spacemacs/declare-prefix
          "C-v" "section under a key" nil)
        (which-key-add-major-mode-key-based-replacements
