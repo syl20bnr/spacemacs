@@ -7,7 +7,11 @@
   - [[#features][Features:]]
 - [[#configuration][Configuration]]
   - [[#variables][Variables]]
+  - [[#code-lens][Code Lens]]
+  - [[#error-statistics-on-modeline][Error statistics on modeline]]
+  - [[#code-actions-on-modeline][Code actions on modeline]]
   - [[#navigation-mode][Navigation mode]]
+  - [[#breadcrumb-on-headerline][Breadcrumb on headerline]]
 - [[#key-bindings][Key bindings]]
   - [[#key-binding-prefixes][Key binding prefixes]]
   - [[#core-key-bindings][Core key bindings]]
@@ -55,20 +59,98 @@ A number of configuration variables have been exposed via the LSP layer =config.
 Sensible defaults have been provided, however they may all be overridden in your .spacemacs, or dynamically using the bindings added
 under the derived mode t prefix by =(spacemacs/lsp-bind-keys-for-mode mode)=
 
-| Variable name                   | Default | Description                                                                               |
-|---------------------------------+---------+-------------------------------------------------------------------------------------------|
-| =lsp-navigation=                | `both'  | `simple' or `peek' to bind only xref OR lsp-ui-peek navigation functions                  |
-| =lsp-ui-remap-xref-keybindings= | nil     | When non-nil, xref key bindings remapped to lsp-ui-peek-find-{definition,references}      |
-| =lsp-ui-doc-enable=             | t       | When non-nil, the documentation overlay is displayed                                      |
-| =lsp-ui-doc-include-signature=  | nil     | When nil, signature omitted from lsp-ui-doc overlay (this is usually redundant)           |
-| =lsp-ui-sideline-enable=        | t       | When non-nil, the symbol information overlay is displayed                                 |
-| =lsp-ui-sideline-show-symbol=   | nil     | When non-nil, the symbol information overlay includes symbol name (redundant for c-modes) |
+| Variable name                      | Default | Description                                                                               |
+|------------------------------------+---------+-------------------------------------------------------------------------------------------|
+| =lsp-headerline-breadcrumb-enable= | nil     | When non-nil, shows breadcrumb on headerline.                                             |
+| =lsp-lens-enable=                  | nil     | When non-nil, shows code lens when it's supported.                                        |
+| =lsp-modeline-diagnostics-enable=  | t       | When non-nil, shows error diagnostics in modeline.                                        |
+| =lsp-modeline-code-actions-enable= | t       | When non-nil, shows available code actions in modeline.                                   |
+| =lsp-navigation=                   | `both'  | `simple' or `peek' to bind only xref OR lsp-ui-peek navigation functions                  |
+| =lsp-ui-remap-xref-keybindings=    | nil     | When non-nil, xref key bindings remapped to lsp-ui-peek-find-{definition,references}      |
+| =lsp-ui-doc-enable=                | t       | When non-nil, the documentation overlay is displayed                                      |
+| =lsp-ui-doc-include-signature=     | nil     | When nil, signature omitted from lsp-ui-doc overlay (this is usually redundant)           |
+| =lsp-ui-sideline-enable=           | t       | When non-nil, the symbol information overlay is displayed                                 |
+| =lsp-ui-sideline-show-symbol=      | nil     | When non-nil, the symbol information overlay includes symbol name (redundant for c-modes) |
+
+** Code Lens
+To always display code lens,
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+              '((lsp :variables lsp-lens-enable nil)))
+#+END_SRC
+
+
+
+
+This doesn't have any effect when code lens is not supported by current language server.
+
+** Error statistics on modeline
+By default, all error statistics of a project is displayed in the modeline.
+To disable this feature, set =lsp-modeline-diagnostics-enable= to =nil=.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+              '((lsp :variables lsp-modeline-diagnostics-enable nil)))
+#+END_SRC
+
+
+To only display errors for the current file, you can set =lsp-modeline-diagnostics-scope= to =:file=.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+              '((lsp :variables lsp-modeline-diagnostics-scopeope :file)))
+#+END_SRC
+
+
+
+Alternatively, if you want to see all errors across all projects, you can set it to =:global=.
+
+** Code actions on modeline
+By default, available code actions are displayed in modeline. To disable this feature, set =lsp-modeline-code-actions-enable= to =nil=.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+              '((lsp :variables lsp-modeline-code-actions-enable nil)))
+#+END_SRC
+
+
+You can also customize its appearance via =lsp-modeline-code-actions-segments=. Available segments are:
+- =icon= shows a lightbulb icon.
+- =name= shows the name of the preferred code action.
+- =count= shows the how many code actions are available.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+              '((lsp :variables
+                     ;; default segments
+                     lsp-modeline-code-actions-segments '(count icon))))
+#+END_SRC
+
 
 ** Navigation mode
 The ~lsp-navigation~ variable defined in =config.el= allows you to define a preference for lightweight or pretty
 (using =lsp-ui-peek=) source navigation styles. By default, the lightweight functions are bound under ~SPC m g~
 and the =lsp-ui-peek= variants under ~SPC m G~. Setting ~lsp-navigation~ to either ~'simple~ or ~'peek~ eliminates
 the bindings under ~SPC m G~ and creates bindings under ~SPC m g~ according to the specified preference.
+
+** Breadcrumb on headerline
+To display breadcrumb in the headerline, set =lsp-headerline-breadcrumb-segments= to =t=.
+
+You can customize the breadcrumb segments via =lsp-headerline-breadcrumb-segments=. Available segments are:
+- =project= shows the name of the current project.
+- =file= shows the name of the current file.
+- =path-up-to-project= shows the path up to the current project.
+- =symbols= shows the document symbols.
+
+For example, to display only the symbols,
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+              '((lsp :variables lsp-headerline-breadcrumb-segments '(symbols))))
+#+END_SRC
+
+
+
+
 
 * Key bindings
 A number of lsp features useful for all/most modes have been bound to the lsp minor mode, meaning they'll be
@@ -171,9 +253,9 @@ in a manner consistent with the ~lsp-navigation~ setting.
 Use this to define an extension to the lsp find functions. An example from the c-c++ layer:
 
 #+BEGIN_SRC elisp
-  (spacemacs/lsp-define-extensions "c-c++" 'refs-address
-                                   "textDocument/references"
-                                   '(plist-put (lsp--text-document-position-params) :context '(:role 128)))
+(spacemacs/lsp-define-extensions "c-c++" 'refs-address
+                                 "textDocument/references"
+                                 '(plist-put (lsp--text-document-position-params) :context '(:role 128)))
 #+END_SRC
 
 This defines the following interactive functions:
@@ -185,43 +267,43 @@ Use this to bind one or more extensions under ~SPC m g~ and/or ~SPC m G~, as dic
 Using another example from the c-c++ layer:
 
 #+BEGIN_SRC elisp
-  (spacemacs/lsp-bind-extensions-for-mode mode "c-c++"
-                                          "&" 'refs-address
-                                          "R" 'refs-read
-                                          "W" 'refs-write
-                                          "c" 'callers
-                                          "C" 'callees
-                                          "v" 'vars)
+(spacemacs/lsp-bind-extensions-for-mode mode "c-c++"
+                                        "&" 'refs-address
+                                        "R" 'refs-read
+                                        "W" 'refs-write
+                                        "c" 'callers
+                                        "C" 'callees
+                                        "v" 'vars)
 #+END_SRC
 
 With ~lsp-navigation~ set to ~'both~ (the default), this is equivalent to:
 
 #+BEGIN_SRC elisp
-  (spacemacs/set-leader-keys-for-major-mode mode
-    "g&" 'c-c++/find-refs-address
-    "gR" 'c-c++/find-refs-read
-    "gW" 'c-c++/find-refs-write
-    "gc" 'c-c++/find-callers
-    "gC" 'c-c++/find-callees
-    "gv" 'c-c++/find-vars
-    "G&" 'c-c++/peek-refs-address
-    "GR" 'c-c++/peek-refs-read
-    "GW" 'c-c++/peek-refs-write
-    "Gc" 'c-c++/peek-callers
-    "GC" 'c-c++/peek-callees
-    "Gv" 'c-c++/peek-vars)
+(spacemacs/set-leader-keys-for-major-mode mode
+  "g&" 'c-c++/find-refs-address
+  "gR" 'c-c++/find-refs-read
+  "gW" 'c-c++/find-refs-write
+  "gc" 'c-c++/find-callers
+  "gC" 'c-c++/find-callees
+  "gv" 'c-c++/find-vars
+  "G&" 'c-c++/peek-refs-address
+  "GR" 'c-c++/peek-refs-read
+  "GW" 'c-c++/peek-refs-write
+  "Gc" 'c-c++/peek-callers
+  "GC" 'c-c++/peek-callees
+  "Gv" 'c-c++/peek-vars)
 #+END_SRC
 
 whereas with ~lsp-navigation~ set to ~'peek~, this is equivalent to:
 
 #+BEGIN_SRC elisp
-  (spacemacs/set-leader-keys-for-major-mode mode
-    "g&" 'c-c++/peek-refs-address
-    "gR" 'c-c++/peek-refs-read
-    "gW" 'c-c++/peek-refs-write
-    "gc" 'c-c++/peek-callers
-    "gC" 'c-c++/peek-callees
-    "gv" 'c-c++/peek-vars)
+(spacemacs/set-leader-keys-for-major-mode mode
+  "g&" 'c-c++/peek-refs-address
+  "gR" 'c-c++/peek-refs-read
+  "gW" 'c-c++/peek-refs-write
+  "gc" 'c-c++/peek-callers
+  "gC" 'c-c++/peek-callees
+  "gv" 'c-c++/peek-vars)
 #+END_SRC
 
 etc.
