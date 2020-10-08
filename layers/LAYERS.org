@@ -46,6 +46,7 @@
   - [[#keyboard-layout][Keyboard-layout]]
 - [[#miscellaneous][Miscellaneous]]
   - [[#copy-as-format][Copy-as-format]]
+  - [[#dtrt-indent][Dtrt-indent]]
   - [[#ietf][Ietf]]
   - [[#multiple-cursors][Multiple-cursors]]
   - [[#nlinum][Nlinum]]
@@ -713,6 +714,16 @@ This layer adds support for [[https://github.com/sshaw/copy-as-format][copy-as-f
 
 Features:
 - Function to copy buffer locations as GitHub/Slack/JIRA/HipChat/... formatted code
+
+** Dtrt-indent
+[[file:+misc/dtrt-indent/README.org][+misc/dtrt-indent/README.org]]
+
+This is a simple layer wrapping the dtrt-indent Emacs package for automatic detection and switching of indentation style.
+
+It is automatically enabled using the method [[https://github.com/syl20bnr/spacemacs/issues/3203#issuecomment-264175032][suggested here]].
+
+Features:
+- Indentation style detection and automatic configuration to match file in open buffer.
 
 ** Ietf
 [[file:+misc/ietf/README.org][+misc/ietf/README.org]]
