@@ -416,13 +416,16 @@
 (defun spacemacs-editing/init-undo-tree ()
   (use-package undo-tree
     :defer t
-    :init (setq undo-tree-visualizer-timestamps t
-                undo-tree-visualizer-diff t
-                ;; 10X bump of the undo limits to avoid issues with premature
-                ;; Emacs GC which truncages the undo history very aggresively
-                undo-limit 800000
-                undo-strong-limit 12000000
-                undo-outer-limit 120000000)
+    :init
+    (progn
+      (setq undo-tree-visualizer-timestamps t
+            undo-tree-visualizer-diff t
+            ;; 10X bump of the undo limits to avoid issues with premature
+            ;; Emacs GC which truncages the undo history very aggresively
+            undo-limit 800000
+            undo-strong-limit 12000000
+            undo-outer-limit 120000000)
+      (global-undo-tree-mode))
     :config
     (progn
       ;; restore diff window after quit.  TODO fix upstream

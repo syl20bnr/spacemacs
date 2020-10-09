@@ -1363,6 +1363,7 @@ Other:
   - Fixed ~SPC h f~ =helm-spacemacs-help-faq= (thanks to duianto)
   - Fixed =cl= package deprecated =letf= (thanks to duianto)
   - Fixed origami bindings in normal mode (thanks to Tomasz Kowal)
+  - Set =evil-undo-system= to =undo-tree= (thanks to duianto)
 *** Layer changes and fixes
 **** Agda
 - Fixes
