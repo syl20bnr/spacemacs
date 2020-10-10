@@ -208,6 +208,7 @@
         "Cw" 'counsel-colors-web
         "fr" 'counsel-recentf
         "rl" 'ivy-resume
+        "sl" 'ivy-resume
         "bb" 'ivy-switch-buffer)
       ;; Moved C-k to C-M-k
       (define-key ivy-switch-buffer-map (kbd "C-M-k") 'ivy-switch-buffer-kill))

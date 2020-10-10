@@ -394,6 +394,7 @@ sane way, here is the complete list of changed key bindings
 - zig (thanks to Michael Hauser-Raspe)
 **** Misc
 - copy-as-format (thanks to Ruslan Kamashev)
+- dtrt-indent (thanks to Kevin Doherty)
 - ietf (thanks to Christian Hopps and Robby O'Connor)
 - multiple-cursors (thanks to Codruț Constantin Gușoi and Thomas de Beauchêne)
 - parinfer (thanks to Tianshu Shi)
@@ -694,6 +695,8 @@ Other:
   - Fixed broken --timed-requires and --adv-timers under Emacs 27 and above (thanks to Ying Qu)
   - Removed nils from =dotspacemacs-configuration-layers= when running tests
     (thanks to Ag Ibragimov)
+  - Fixed duplicate quick help and release notes in home buffer
+    (thanks to mark30247)
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
@@ -1361,6 +1364,7 @@ Other:
   - Fixed =cl= package deprecated =letf= (thanks to duianto)
   - Fixed origami bindings in normal mode (thanks to Tomasz Kowal)
   - Handled buffer move/select/swap to last window nr +1 (thanks to duianto)
+  - Set =evil-undo-system= to =undo-tree= (thanks to duianto)
 *** Layer changes and fixes
 **** Agda
 - Fixes
@@ -2288,6 +2292,7 @@ Other:
   - Rebind =SPC s S= from =spacemacs/swiper-all-region-or-symbol= to Ivy native
     =swiper-all-thing-at-point=
     (last two points thanks to Daniel Nicolai)
+  - Bound =SPC s l= to =ivy-resume= (thanks to Wieland Hoffmann)
 - Removed definitions for =spacemacs/swiper-region-or-symbol= and
   =spacemacs/swiper-all-region-or-symbol= and updated keybindings, because Ivy has
   more advanced implementation via =swiper-thing-at-point= and
