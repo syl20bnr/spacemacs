@@ -28,11 +28,12 @@ file.
 
 * Key bindings
 
-| Key binding | Description                |
-|-------------+----------------------------|
-| ~SPC m c c~ | Build the project          |
-| ~SPC m g g~ | Go to definition at point  |
-| ~SPC m h t~ | Show tooltip help at point |
+| Key binding | Description                   |
+|-------------+-------------------------------|
+| ~SPC m c c~ | Build the project             |
+| ~SPC m g g~ | Go to definition at point     |
+| ~SPC m h t~ | Show tooltip help at point    |
+| ~SPC m e E~ | Start Eglot (Language Server) |
 
 ** REPL
 
