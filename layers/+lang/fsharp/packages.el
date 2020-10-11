@@ -22,6 +22,7 @@
     :defer t
     :init
     (progn
+      (require 'eglot-fsharp)
       (setq fsharp-doc-idle-delay .2)
       (spacemacs/register-repl 'fsharp-mode 'fsharp-show-subshell "F#"))
     :config
@@ -51,6 +52,11 @@
         (switch-to-buffer-other-window inferior-fsharp-buffer-name)
         (evil-insert-state))
 
+      (defun spacemacs/fsharp-eglot-jack-in ()
+        "Start a new Eglot server instance or reconnect."
+        (interactive)
+        (call-interactively 'eglot))
+
       (spacemacs/declare-prefix-for-mode 'fsharp-mode "mf" "find")
       (spacemacs/declare-prefix-for-mode 'fsharp-mode "ms" "interpreter")
       (spacemacs/declare-prefix-for-mode 'fsharp-mode "mx" "executable")
@@ -61,6 +67,8 @@
       (spacemacs/set-leader-keys-for-major-mode 'fsharp-mode
         ;; Compile
         "cc" 'compile
+
+        "ej" 'spacemacs/fsharp-eglot-jack-in
 
         "fa" 'fsharp-find-alternate-file
 

@@ -16,7 +16,7 @@ This layer adds support for F# language using [[https://github.com/fsharp/fsharp
 
 ** Features:
 - Syntax highlighting
-- Code completion
+- Code completion (through Eglot)
 - Flycheck integration
 - REPL
 - Compile/Run/Interpreter and info tooltip shortcuts
@@ -33,6 +33,7 @@ file.
 | ~SPC m c c~ | Build the project          |
 | ~SPC m g g~ | Go to definition at point  |
 | ~SPC m h t~ | Show tooltip help at point |
+| ~SPC m e j~ | Start Eglot                |
 
 ** REPL
 
