@@ -16,6 +16,7 @@
 ;; see `SPC h . dotspacemacs-gc-cons' for more info
 (defconst emacs-start-time (current-time))
 (setq gc-cons-threshold 402653184 gc-cons-percentage 0.6)
+(setq spacemacs-start-directory (file-name-directory load-file-name))
 (load (concat (file-name-directory load-file-name)
               "core/core-versions.el")
       nil (not init-file-debug))
