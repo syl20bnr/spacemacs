@@ -58,7 +58,7 @@
       (spacemacs/set-leader-keys
         dotspacemacs-emacs-command-key 'counsel-M-x
         ;; files
-        "ff"  'counsel-find-file
+        "ff"  'spacemacs/counsel-find-file
         "fel" 'counsel-find-library
         "fL"  'counsel-locate
         ;; help
@@ -206,7 +206,7 @@
         "Ce" 'counsel-colors-emacs
         "Cf" 'counsel-faces
         "Cw" 'counsel-colors-web
-        "fr" 'counsel-recentf
+        "fr" 'spacemacs/counsel-recentf
         "rl" 'ivy-resume
         "sl" 'ivy-resume
         "bb" 'ivy-switch-buffer)

@@ -2350,6 +2350,8 @@ Other:
 - Fix visual selection expansion across the buffer on `SPC s S` and `SPC s B`
   (thanks to Andriy Kmit)
 - Fixed =cl= package deprecated =letf*= (thanks to duianto)
+- Fixed counsel find-file functions to use Spacemacs check for opening large
+files (thanks to Daniel Nicolai)
 **** Imenu-list
 - Changed ~SPC b i~ to ~SPC b t~ for =imenu= tree view
   (thansk to Sylvain Benner)
