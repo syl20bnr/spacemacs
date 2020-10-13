@@ -63,7 +63,6 @@ the [full installation instructions](#install) for other options.
     - [Default installation](#default-installation)
     - [Alternative installations](#alternative-installations)
         - [Modify HOME environment variable](#modify-home-environment-variable)
-        - [Modify spacemacs-start-directory variable](#modify-spacemacs-start-directory-variable)
     - [Spacemacs logo](#spacemacs-logo)
 - [Update](#update)
     - [Automatic update (on master branch)](#automatic-update-on-master-branch)
@@ -387,16 +386,6 @@ HOME=~/spacemacs emacs
 
 Note: If you're using the Fish shell, then you'll need to modify the last
 command to: `env HOME=$HOME/spacemacs emacs`
-
-### Modify spacemacs-start-directory variable
-This solution is better suited to "embed" Spacemacs into your own configuration.
-If you've cloned Spacemacs into `~/.emacs.d/spacemacs/`, then drop the following
-lines in the `~/.emacs.d/init.el` file:
-
-```elisp
-(setq spacemacs-start-directory "~/.emacs.d/spacemacs/")
-(load-file (concat spacemacs-start-directory "init.el"))
-```
 
 ## Spacemacs logo
 For Ubuntu users, follow this guide to

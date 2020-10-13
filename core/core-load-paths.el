@@ -18,7 +18,7 @@
 ;; paths
 (defvar spacemacs-start-directory
   user-emacs-directory
-  "Spacemacs start directory.")
+  "Spacemacs start directory.  This is set within `init.el'.")
 (defconst spacemacs-core-directory
   (expand-file-name (concat spacemacs-start-directory "core/"))
   "Spacemacs core directory.")
