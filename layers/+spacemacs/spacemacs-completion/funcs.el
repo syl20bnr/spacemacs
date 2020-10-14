@@ -203,7 +203,8 @@ See https://github.com/syl20bnr/spacemacs/issues/3700"
         (and (eq 'hybrid style)
              hybrid-style-enable-hjkl-bindings))
     (dolist (map (list ivy-minibuffer-map
-                       ivy-switch-buffer-map))
+                       ivy-switch-buffer-map
+                       ivy-reverse-i-search-map))
       (define-key map (kbd "C-j") 'ivy-next-line)
       (define-key map (kbd "C-k") 'ivy-previous-line))
     (define-key ivy-minibuffer-map (kbd "C-h") (kbd "DEL"))
