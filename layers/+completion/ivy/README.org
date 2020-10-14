@@ -89,6 +89,7 @@ Some useful key bindings are presented in the following table.
 | ~C-'~       | use avy to quickly select completion on current page (sometimes faster than using arrows)                                                           |
 | ~<ESC>~     | close minibuffer                                                                                                                                    |
 | ~C-M-k~     | kill buffer (in =ivy-switch-buffer= (~SPC b b~))                                                                                                    |
+| ~C-M-k~     | kill buffer (in =ivy-reverse-i-search= (~C-r~ at a prompt))                                                                                         |
 
 ** Transient state
 Press ~M-SPC~ (~m-M-SPC~ [[https://github.com/syl20bnr/spacemacs/blob/cb48ec74c1f401bd2945760799633c0e81e69088/doc/CONVENTIONS.org#transient-state][on macOS]]) anytime in Ivy to get into the transient state. Additional actions
