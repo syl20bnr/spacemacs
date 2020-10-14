@@ -47,8 +47,8 @@ LanguageTool and JRE 8+ are required to use this layer. You can install
 LanguageTool using your system's package manager or by extracting the standalone
 archive found on [[https://www.languagetool.org/][LanguageTool's website]]. You can tell the layer where
 LanguageTool is installed by setting the =langtool-language-tool-jar= variable
-to the location of =languagetool-commandline.jar= or by setting
-=langtool-java-classpath=:
+to the location of =languagetool-commandline.jar=, by setting
+=langtool-java-classpath=, or setting a host and port for a running server:
 
 #+BEGIN_SRC elisp
   ;; Standalone installation
@@ -60,6 +60,12 @@ to the location of =languagetool-commandline.jar= or by setting
   (setq-default dotspacemacs-configuration-layers
                 '((languagetool :variables
                                 langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*")))
+
+  ;; Server running in background
+  (setq-default dotspacemacs-configuration-layers
+                '((languagetool :variables
+                                langtool-http-server-host "localhost"
+                                langtool-http-server-port 8081)))
 #+END_SRC
 
 * Key bindings
