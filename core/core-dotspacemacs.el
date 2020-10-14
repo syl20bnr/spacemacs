@@ -243,7 +243,7 @@ pressing `<leader> m`. Set it to `nil` to disable it.")
 running Emacs in terminal.")
 
 (defvar dotspacemacs-folding-method 'evil
-  "Code folding method. Possible values are `evil' and `origami'.")
+  "Code folding method. Possible values are `evil', `origami' and `vimish'.")
 
 (defvar dotspacemacs-default-layout-name "Default"
   "Name of the default layout.")
