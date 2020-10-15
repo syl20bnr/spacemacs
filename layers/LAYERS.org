@@ -840,7 +840,7 @@ Features:
 - Support for selecting, copying and opening links using =avy= via =link-hint=.
 - Adding of sample text via =lorem-ipsum=.
 - Transient state for moving text via =move-text=.
-- Support for folding of code via =origami= or =evil-vimish-fold=.
+- Support for folding of code via =origami= and =evil-vimish-fold=.
 - Support for password generation via =password-generator=.
 - Support for improving parenthesis handling via =smartparens=.
 - Automatic whitespace cleanup on save via =spacemacs-whitespace-cleanup=.
@@ -1909,7 +1909,7 @@ This layer adds support for F# language using [[https://github.com/fsharp/fsharp
 
 Features:
 - Syntax highlighting
-- Code completion
+- Code completion (through Eglot)
 - Flycheck integration
 - REPL
 - Compile/Run/Interpreter and info tooltip shortcuts
@@ -2808,7 +2808,7 @@ This layer adds support for basic language server protocol packages speaking
 Different language servers may support the language server protocol to varying degrees
 and they may also provide extensions; check the language server's website for
 details.
-=M-x lsp-describe-session= in a LSP buffer to list capabilities of the server.
+~M-x lsp-describe-session~ in a LSP buffer to list capabilities of the server.
 
 Features:
 - Cross references (definitions, references, document symbol, workspace symbol
@@ -2816,12 +2816,12 @@ Features:
 - Workspace-wide symbol rename
 - Symbol highlighting
 - Flycheck
-- Completion with =lsp=
-- Signature help with eldoc
+- Completion with =LSP=
+- Signature help with =eldoc=
 - Symbol documentation in a child frame (=lsp-ui-doc=)
-- Navigation using imenu
+- Navigation using =imenu=
 - Consistent core key bindings in LSP modes
-- Code folding (lsp-origami)
+- Code folding (=lsp-origami=)
 
 ** Meson
 [[file:+tools/meson/README.org][+tools/meson/README.org]]
