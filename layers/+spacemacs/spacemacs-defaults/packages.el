@@ -251,6 +251,10 @@
             (t
              (setq display-line-numbers-type t)))
 
+      (spacemacs/declare-prefix "tn" "line-numbers")
+
+      ;; backwards compatibility of symbols:
+      ;; keep the spacemacs/toggle-line-numbers & friends around
       (spacemacs|add-toggle line-numbers
         :status (and (featurep 'display-line-numbers)
                      display-line-numbers-mode
@@ -260,8 +264,18 @@
         :off (display-line-numbers-mode -1)
         :on-message "Absolute line numbers enabled."
         :off-message "Line numbers disabled."
+        :documentation "Show the line numbers.")
+      (spacemacs|add-toggle absolute-line-numbers
+        :status (and (featurep 'display-line-numbers)
+                     display-line-numbers-mode
+                     (eq display-line-numbers t))
+        :on (prog1 (display-line-numbers-mode)
+              (setq display-line-numbers t))
+        :off (display-line-numbers-mode -1)
+        :on-message "Absolute line numbers enabled."
+        :off-message "Line numbers disabled."
         :documentation "Show the line numbers."
-        :evil-leader "tn")
+        :evil-leader "tna")
       (spacemacs|add-toggle relative-line-numbers
         :status (and (featurep 'display-line-numbers)
                      display-line-numbers-mode
@@ -272,7 +286,8 @@
         :documentation "Show relative line numbers."
         :on-message "Relative line numbers enabled."
         :off-message "Line numbers disabled."
-        :evil-leader "tr")
+        :evil-leader "tnr")
+
       (spacemacs|add-toggle visual-line-numbers
         :status (and (featurep 'display-line-numbers)
                      display-line-numbers-mode
@@ -283,7 +298,7 @@
         :documentation "Show relative visual line numbers."
         :on-message "Visual line numbers enabled."
         :off-message "Line numbers disabled."
-        :evil-leader "tV")
+        :evil-leader "tnv")
 
       (when (spacemacs//linum-backward-compabitility)
         (add-hook 'prog-mode-hook 'display-line-numbers-mode)
