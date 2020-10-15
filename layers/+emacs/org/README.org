@@ -297,7 +297,6 @@ For Emacs 25 or later, support for [[https://kungsgeten.github.io/org-brain.html
 package documentation]] for more information.
 
 ** Org-roam support
-
 To install org-roam support set the variable =org-enable-roam-support= to =t=.
 
 #+BEGIN_SRC emacs-lisp
@@ -902,10 +901,9 @@ Key binding prefixes:
 | ~SPC m r q~ | Kill current response headers buffer and its window |
 
 ** Org-roam
-
 Key binding prefixes:
- - ~SPC a o r~ (anywhere)
- - ~SPC m r~   (in an org-mode buffer)
+- ~SPC a o r~ (anywhere)
+- ~SPC m r~ (in an org-mode buffer)
 
 | Key binding      | Description                           |
 |------------------+---------------------------------------|
