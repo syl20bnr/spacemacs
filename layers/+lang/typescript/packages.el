@@ -104,7 +104,7 @@
     (add-hook 'typescript-tsx-mode-hook 'spacemacs/typescript-fmt-before-save-hook))
   (spacemacs/set-leader-keys-for-major-mode 'typescript-tsx-mode
     "p" 'spacemacs/typescript-open-region-in-playground)
-  (pcase typescript-backend
+  (pcase (spacemacs//typescript-backend)
     ('lsp (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
             "==" 'spacemacs/typescript-format))
     (_ (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
@@ -128,7 +128,7 @@
           (add-hook 'typescript-mode-hook 'spacemacs/typescript-fmt-before-save-hook))
         (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
           "p" 'spacemacs/typescript-open-region-in-playground)
-        (pcase typescript-backend
+        (pcase (spacemacs//typescript-backend)
           ('lsp (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
                   "==" 'spacemacs/typescript-format))
           (_ (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
