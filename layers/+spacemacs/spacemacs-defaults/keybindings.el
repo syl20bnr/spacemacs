@@ -30,7 +30,6 @@
                                        ("aw"  "web-services")
                                        ("c"   "compile/comments")
                                        ("C"   "capture/colors")
-                                       ("d"   "documentation")
                                        ("e"   "errors")
                                        ("g"   "git/versions-control")
                                        ("h"   "help")
