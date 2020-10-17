@@ -1,0 +1,38 @@
+#+TITLE: graphql layer
+#+TAGS: layer|language
+
+[[file:img/graphql.png]]
+
+* Table of Contents                                       :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support for graphql file. It builds around [[https://github.com/davazp/graphql-mode][graphql-mode]]. Please
+check its site for extra info.
+
+** Features:
+  - Syntax highlight and graphql calls with =graphql-mode= 
+  - Autocomplete with =comapy-dabbrev=
+  - Format buffer with =prettier=
+  - Go to definition with =ahs=
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =graphql= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+If you want to format graphql buffers you need to enable =prettier= layer also.
+
+* Key bindings
+
+| Key Binding | Description                   |
+|-------------+-------------------------------|
+| ~SPC m = =~ | graphql-edit-headers          |
+| ~SPC m e~   | graphql-select-endpoint       |
+| ~SPC m g G~ | jump to definition new window |
+| ~SPC m g g~ | jump to definition            |
+| ~SPC m h~   | graphql-edit-headers          |
+| ~SPC m s~   | graphql-send-query            |
