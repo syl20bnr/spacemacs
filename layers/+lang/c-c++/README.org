@@ -279,7 +279,7 @@ To enable automatic buffer formatting on save, set the variable
 
 ** Enable google-set-c-style
 If you have clang enabled with =clang-format= as described earlier in this page
-you may not have a lot of neeed for =google-set-c-style= if you are already
+you may not have a lot of need for =google-set-c-style= if you are already
 using a mode based on Google mode for most of your projects.
 
 However, if you don't have (or want) =clang-format=, or if you have to do a lot
