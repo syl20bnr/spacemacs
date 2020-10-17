@@ -61,7 +61,7 @@ or `spacemacs'.")
 (defvar dotspacemacs-enable-emacs-pdumper nil
   "If non-nil then enable support for the portable dumper. You'll need
 to compile Emacs 27 from source following the instructions in file
-EXPERIMENTAL.org at to root of the git repository.")
+EXPERIMENTAL.org at the root of the git repository.")
 
 (defvar dotspacemacs-emacs-pdumper-executable-file "emacs"
   "File path pointing to emacs 27 or later executable.")
