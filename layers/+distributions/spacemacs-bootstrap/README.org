@@ -10,7 +10,7 @@
 This layer loads the necessary packages for spacemacs to start-up.
 
 ** Features:
-- Loads =evil= key bindings and macros for auto-evilifcation of maps
+- Loads =evil= key bindings and macros for auto-evilification of maps
 - Loads =holy= and =hybrid= modes
 - Loads the official Spacemacs theme
 - Loads =use-package= which is used to load other packages more easily
