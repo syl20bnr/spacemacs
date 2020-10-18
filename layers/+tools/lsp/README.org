@@ -228,6 +228,7 @@ The lsp minor mode bindings are:
 | ~SPC m b s~ | ~lsp-workspace-shutdown~                                                         |
 | ~SPC m b r~ | ~lsp-workspace-restart~                                                          |
 | ~SPC m b d~ | ~lsp-describe-session~                                                           |
+| ~SPC m b v~ | ~lsp-version~                                                                    |
 |-------------+----------------------------------------------------------------------------------|
 | ~SPC m r r~ | rename                                                                           |
 |-------------+----------------------------------------------------------------------------------|
