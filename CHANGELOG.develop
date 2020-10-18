@@ -2543,6 +2543,7 @@ files (thanks to Daniel Nicolai)
 - Added documentation for =lsp-headerline-breadcrumb-mode=, =lsp-lens-mode=,
   =lsp-modeline-diagnostics-mode=, and =lsp-modeline-code-actions-mode=
   (thanks to Lucius Hu)
+- Added =lsp-version= to ~SPC m b v~ (thanks to nanashi0x74)
 **** Debug Adapter Protocol (DAP)
 - Layer variables:
   - Added variable =dap-enable-mouse-support=
