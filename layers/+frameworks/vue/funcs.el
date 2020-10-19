@@ -73,6 +73,7 @@
   "such as indent rules comment style etc"
   ;; https://stackoverflow.com/questions/36701024/how-can-i-indent-inline-javascript-in-web-mode
   (setq web-mode-script-padding 0)
+  (setq web-mode-style-padding 0)
   ;; https://emacs.stackexchange.com/questions/27683/change-comment-style-in-web-mode
   (add-to-list 'web-mode-comment-formats '("javascript" . "//")))
 

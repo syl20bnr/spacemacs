@@ -12,7 +12,7 @@
 
 ;; Counsel
 
-;; async
+;;; async
 
 (defvar spacemacs--counsel-initial-cands-shown nil)
 
@@ -61,7 +61,42 @@
           (ivy--insert-prompt))))
     (setq counsel--async-time (current-time))))
 
-;; search
+;;; find-file functions, leaving large file check to `spacemacs/check-large-file'
+
+(defun spacemacs//counsel-find-file-action (x)
+  "Find file X."
+  (with-ivy-window
+    (cond ((and counsel-find-file-speedup-remote
+                (file-remote-p ivy--directory))
+           (let ((find-file-hook nil))
+             (find-file (expand-file-name x ivy--directory))))
+          ((member (file-name-extension x) counsel-find-file-extern-extensions)
+           (counsel-find-file-extern x))
+          (t
+           (switch-to-buffer (find-file-noselect (expand-file-name x ivy--directory) t nil t))))))
+
+(defun spacemacs/counsel-find-file (&optional initial-input)
+  "Forward to `find-file'.
+When INITIAL-INPUT is non-nil, use it in the minibuffer during completion."
+  (interactive)
+  (counsel--find-file-1
+   "Find file: " initial-input
+   #'spacemacs//counsel-find-file-action
+   'counsel-find-file))
+
+(defun spacemacs/counsel-recentf ()
+  "Find a file on `recentf-list'."
+  (interactive)
+  (require 'recentf)
+  (recentf-mode)
+  (ivy-read "Recentf: " (counsel-recentf-candidates)
+            :action (lambda (f)
+                      (with-ivy-window
+                        (switch-to-buffer (find-file-noselect f t nil t))))
+            :require-match t
+            :caller 'counsel-recentf))
+
+;;; search
 
 (defvar spacemacs--counsel-search-cmd)
 
@@ -193,7 +228,7 @@ that directory."
                       (counsel-delete-process)
                       (swiper--cleanup)))))))
 
-;; Define search functions for each tool
+;;; Define search functions for each tool
 (cl-loop
  for (tools tool-name) in '((dotspacemacs-search-tools "auto")
                             ((list "rg") "rg")
@@ -327,7 +362,7 @@ To prevent this error we just wrap `describe-mode' to defeat the
           (swiper--cleanup)
           (swiper--add-overlays (ivy--regex ivy-text)))))))
 
-;; org
+;;; org
 
 ;; see https://github.com/abo-abo/swiper/issues/177
 (defun spacemacs//counsel-org-ctrl-c-ctrl-c-org-tag ()
@@ -373,7 +408,7 @@ To prevent this error we just wrap `describe-mode' to defeat the
     (t 'counsel-imenu))))
 
 
-;; Ivy
+;;; Ivy
 
 (defun spacemacs//ivy-command-not-implemented-yet (key)
   (let ((-key key))
@@ -399,7 +434,7 @@ To prevent this error we just wrap `describe-mode' to defeat the
   (ivy-wgrep-change-to-wgrep-mode)
   (evil-normal-state))
 
-;; Evil
+;;; Evil
 
 (defun spacemacs/ivy-evil-registers ()
   "Show evil registers"
@@ -418,7 +453,7 @@ To prevent this error we just wrap `describe-mode' to defeat the
   (insert (replace-regexp-in-string "\\^J" "\n"
                                     (substring-no-properties candidate 4))))
 
-;; Layouts
+;;; Layouts
 
 (defun spacemacs/ivy-spacemacs-layouts ()
   "Control Panel for Spacemacs layouts. Has many actions.

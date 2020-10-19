@@ -416,7 +416,8 @@ set."
         (min spacemacs--gne-max-line
              (max spacemacs--gne-min-line
                   (+ num spacemacs--gne-cur-line))))
-  (goto-line spacemacs--gne-cur-line)
+  (goto-char (point-min))
+  (forward-line (1- spacemacs--gne-cur-line))
   (funcall spacemacs--gne-line-func
            (buffer-substring (point-at-bol) (point-at-eol))))
 

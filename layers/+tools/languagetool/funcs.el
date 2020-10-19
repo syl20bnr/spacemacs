@@ -43,6 +43,8 @@
 (defun spacemacs//languagetool-detect ()
   "Detects whether the LanguageTool binary exists."
   (cond ((boundp 'langtool-java-classpath) t)
+        ((and (boundp 'langtool-http-server-host)
+              (boundp 'langtool-http-server-port)) t)
         ((boundp 'langtool-language-tool-jar)
          (if (file-readable-p langtool-language-tool-jar)
              t

@@ -55,3 +55,6 @@ are configured.")
 
 (defvar org-enable-verb-support nil
   "If non-nil, Verb (https://github.com/federicotdn/verb) is configured.")
+
+(defvar org-enable-roam-support nil
+  "If non-nil, org-roam (https://www.orgroam.com/) is configured")

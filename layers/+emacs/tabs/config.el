@@ -1,4 +1,4 @@
-;;; config.el --- Org configuration File for Spacemacs
+;;; config.el --- tabs configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;

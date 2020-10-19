@@ -108,6 +108,7 @@
             ;; evaluate in source code buffer
             "e;" 'cider-eval-defun-to-comment
             "e$" 'spacemacs/cider-eval-sexp-end-of-line
+            "e(" 'cider-eval-list-at-point
             "eb" 'cider-eval-buffer
             "ee" 'cider-eval-last-sexp
             "ef" 'cider-eval-defun-at-point

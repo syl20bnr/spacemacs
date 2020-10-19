@@ -31,6 +31,8 @@
         string-inflection
         undo-tree
         uuidgen
+        (vimish-fold :toggle (eq 'vimish dotspacemacs-folding-method))
+        (evil-vimish-fold :toggle (eq 'vimish dotspacemacs-folding-method))
         ws-butler))
 
 ;; Initialization of packages
@@ -275,6 +277,18 @@
 ;; Note: The key binding for the fold transient state is defined in
 ;; evil config
 
+(defun spacemacs-editing/init-vimish-fold ()
+  (use-package vimish-fold
+    :ensure
+    :after evil))
+
+(defun spacemacs-editing/init-evil-vimish-fold ()
+  (use-package evil-vimish-fold
+    :ensure
+    :after vimish-fold
+    :init
+    (setq evil-vimish-fold-target-modes '(prog-mode conf-mode text-mode))
+    :config (global-evil-vimish-fold-mode)))
 
 (defun spacemacs-editing/init-password-generator ()
   (use-package password-generator
@@ -416,13 +430,16 @@
 (defun spacemacs-editing/init-undo-tree ()
   (use-package undo-tree
     :defer t
-    :init (setq undo-tree-visualizer-timestamps t
-                undo-tree-visualizer-diff t
-                ;; 10X bump of the undo limits to avoid issues with premature
-                ;; Emacs GC which truncages the undo history very aggresively
-                undo-limit 800000
-                undo-strong-limit 12000000
-                undo-outer-limit 120000000)
+    :init
+    (progn
+      (setq undo-tree-visualizer-timestamps t
+            undo-tree-visualizer-diff t
+            ;; 10X bump of the undo limits to avoid issues with premature
+            ;; Emacs GC which truncages the undo history very aggresively
+            undo-limit 800000
+            undo-strong-limit 12000000
+            undo-outer-limit 120000000)
+      (global-undo-tree-mode))
     :config
     (progn
       ;; restore diff window after quit.  TODO fix upstream

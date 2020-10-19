@@ -67,6 +67,9 @@
   (require 'evil)
   (evil-mode 1)
 
+  (when (fboundp 'evil-set-undo-system)
+    (evil-set-undo-system 'undo-tree))
+
   ;; Use evil as a default jump handler
   (add-to-list 'spacemacs-default-jump-handlers 'evil-goto-definition)
 

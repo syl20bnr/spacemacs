@@ -46,6 +46,7 @@
         (org-trello :toggle org-enable-trello-support)
         (org-sticky-header :toggle org-enable-sticky-header)
         (verb :toggle org-enable-verb-support)
+        (org-roam :toggle org-enable-roam-support)
         ))
 
 (defun org/post-init-company ()
@@ -83,7 +84,7 @@
 (defun org/init-helm-org-rifle ()
   (use-package helm-org-rifle
     :defer t
-    :init (spacemacs/set-leader-keys "aor" 'helm-org-rifle)))
+    :init (spacemacs/set-leader-keys "ao/" 'helm-org-rifle)))
 
 (defun org/init-htmlize ()
   (use-package htmlize
@@ -356,10 +357,11 @@ Will work on both org-mode and any mode that accepts plain html."
       (spacemacs/declare-prefix "ao" "org")
       (spacemacs/declare-prefix "aof" "feeds")
       (spacemacs/declare-prefix "aoC" "clock")
+      ;; org-agenda
+      (when (configuration-layer/layer-used-p 'ivy)
+        (spacemacs/set-leader-keys "ao/" 'org-occur-in-agenda-files))
       (spacemacs/set-leader-keys
-        ;; org-agenda
         "ao#" 'org-agenda-list-stuck-projects
-        "ao/" 'org-occur-in-agenda-files
         "aoa" 'org-agenda-list
         "aoo" 'org-agenda
         "aoc" 'org-capture
@@ -644,7 +646,28 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "aoJsc" 'org-jira-create-subtask
         "aoJsg" 'org-jira-get-subtasks
         "aoJcu" 'org-jira-update-comment
-        "aoJtj" 'org-jira-todo-to-jira))))
+        "aoJtj" 'org-jira-todo-to-jira)
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmj" "jira")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmjp" "projects")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmji" "issues")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmjs" "subtasks")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmjc" "comments")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mmjt" "todos")
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "mjpg" 'org-jira-get-projects
+        "mjib" 'org-jira-browse-issue
+        "mjig" 'org-jira-get-issues
+        "mjih" 'org-jira-get-issues-headonly
+        "mjif" 'org-jira-get-issues-from-filter-headonly
+        "mjiu" 'org-jira-update-issue
+        "mjiw" 'org-jira-progress-issue
+        "mjir" 'org-jira-refresh-issue
+        "mjic" 'org-jira-create-issue
+        "mjiy" 'org-jira-copy-current-issue-key
+        "mjsc" 'org-jira-create-subtask
+        "mjsg" 'org-jira-get-subtasks
+        "mjcu" 'org-jira-update-comment
+        "mjtj" 'org-jira-todo-to-jira))))
 
 (defun org/init-org-mime ()
   (use-package org-mime
@@ -817,6 +840,38 @@ Headline^^            Visit entry^^               Filter^^                    Da
         "mtdc" 'spacemacs/org-trello-pull-card
         "mtub" 'spacemacs/org-trello-push-buffer
         "mtuc" 'spacemacs/org-trello-push-card))))
+
+(defun org/init-org-roam ()
+  (use-package org-roam
+    :init
+    (progn
+      (spacemacs/declare-prefix "aor" "org-roam")
+      (spacemacs/declare-prefix "aord" "org-roam-dailies")
+      (spacemacs/set-leader-keys
+        "aordy" 'org-roam-dailies-yesterday
+        "aordt" 'org-roam-dailies-today
+        "aordT" 'org-roam-dailies-tomorrow
+        "aorf" 'org-roam-find-file
+        "aorg" 'org-roam-graph
+        "aori" 'org-roam-insert
+        "aorI" 'org-roam-insert-immediate
+        "aorl" 'org-roam)
+
+      (spacemacs/declare-prefix-for-mode 'org-mode "mr" "org-roam")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mrd" "org-roam-dailies")
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "rb" 'org-roam-switch-to-buffer
+        "rdy" 'org-roam-dailies-yesterday
+        "rdt" 'org-roam-dailies-today
+        "rdT" 'org-roam-dailies-tomorrow
+        "rf" 'org-roam-find-file
+        "rg" 'org-roam-graph
+        "ri" 'org-roam-insert
+        "rI" 'org-roam-insert-immediate
+        "rl" 'org-roam))
+    :config
+    (progn
+      (spacemacs|hide-lighter org-roam-mode))))
 
 (defun org/init-org-sticky-header ()
   (use-package org-sticky-header

@@ -20,7 +20,7 @@ This layer adds packages to improve editing with Spacemacs.
 - Support for selecting, copying and opening links using =avy= via =link-hint=.
 - Adding of sample text via =lorem-ipsum=.
 - Transient state for moving text via =move-text=.
-- Support for folding of code via =origami=.
+- Support for folding of code via =origami= and =evil-vimish-fold=.
 - Support for password generation via =password-generator=.
 - Support for improving parenthesis handling via =smartparens=.
 - Automatic whitespace cleanup on save via =spacemacs-whitespace-cleanup=.

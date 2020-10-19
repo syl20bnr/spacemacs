@@ -394,6 +394,7 @@ sane way, here is the complete list of changed key bindings
 - zig (thanks to Michael Hauser-Raspe)
 **** Misc
 - copy-as-format (thanks to Ruslan Kamashev)
+- dtrt-indent (thanks to Kevin Doherty)
 - ietf (thanks to Christian Hopps and Robby O'Connor)
 - multiple-cursors (thanks to Codruț Constantin Gușoi and Thomas de Beauchêne)
 - parinfer (thanks to Tianshu Shi)
@@ -694,6 +695,8 @@ Other:
   - Fixed broken --timed-requires and --adv-timers under Emacs 27 and above (thanks to Ying Qu)
   - Removed nils from =dotspacemacs-configuration-layers= when running tests
     (thanks to Ag Ibragimov)
+  - Fixed duplicate quick help and release notes in home buffer
+    (thanks to mark30247)
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
@@ -1360,6 +1363,9 @@ Other:
   - Fixed ~SPC h f~ =helm-spacemacs-help-faq= (thanks to duianto)
   - Fixed =cl= package deprecated =letf= (thanks to duianto)
   - Fixed origami bindings in normal mode (thanks to Tomasz Kowal)
+  - Handled buffer move/select/swap to last window nr +1 (thanks to duianto)
+  - Set =evil-undo-system= to =undo-tree= (thanks to duianto)
+  - Checked that =evil-undo-system= exists before it's called (thanks to khjcph)
 *** Layer changes and fixes
 **** Agda
 - Fixes
@@ -1632,6 +1638,10 @@ Other:
     ~ran~ 'clojure-insert-ns-form
     ~raN~ 'clojure-insert-ns-form-at-point
     ~rsn~ 'clojure-sort-ns
+    (thanks to John Stevenson)
+  - Add key binding for new function cider-eval-list-around-point
+    added in CIDER 0.26
+    ~SPC m e (~ 'cider-eval-list-at-point
     (thanks to John Stevenson)
 - Fixes:
   - Removed =cider.nrepl/cider-middleware= in lein quick start setting
@@ -2283,10 +2293,14 @@ Other:
   - Rebind =SPC s S= from =spacemacs/swiper-all-region-or-symbol= to Ivy native
     =swiper-all-thing-at-point=
     (last two points thanks to Daniel Nicolai)
+  - Bound =SPC s l= to =ivy-resume= (thanks to Wieland Hoffmann)
+  - Rebind =C-k= to =C-M-k= in =ivy-reverse-i-search= (=C-r= at a prompt)
+    (thanks to duianto)
 - Removed definitions for =spacemacs/swiper-region-or-symbol= and
   =spacemacs/swiper-all-region-or-symbol= and updated keybindings, because Ivy has
   more advanced implementation via =swiper-thing-at-point= and
   =swiper-all-thing-at-point=
+  - Add C-RET for ivy-alt-done (thanks to Daniel Nicolai)
 - Limit =ripgrep= results to 150 columns (thanks to Aaron Jensen)
 - Use new API to register additional transient state bindings
   (thanks to Andriy Kmit')
@@ -2338,6 +2352,8 @@ Other:
 - Fix visual selection expansion across the buffer on `SPC s S` and `SPC s B`
   (thanks to Andriy Kmit)
 - Fixed =cl= package deprecated =letf*= (thanks to duianto)
+- Fixed counsel find-file functions to use Spacemacs check for opening large
+files (thanks to Daniel Nicolai)
 **** Imenu-list
 - Changed ~SPC b i~ to ~SPC b t~ for =imenu= tree view
   (thansk to Sylvain Benner)
@@ -2524,6 +2540,10 @@ Other:
 - Removed =company-lsp=. Now =lsp-mode= is responsible for configuring
   =company-backends= and it will use =company-capf=.
 - Fixed upstream removal of =lsp-clients= (thanks to Colin Woodbury)
+- Added documentation for =lsp-headerline-breadcrumb-mode=, =lsp-lens-mode=,
+  =lsp-modeline-diagnostics-mode=, and =lsp-modeline-code-actions-mode=
+  (thanks to Lucius Hu)
+- Added =lsp-version= to ~SPC m b v~ (thanks to nanashi0x74)
 **** Debug Adapter Protocol (DAP)
 - Layer variables:
   - Added variable =dap-enable-mouse-support=
@@ -2699,6 +2719,7 @@ Other:
   - Added package for =org-sticky-header-mode= (thanks to Langston Barret)
   - Added package =org-jira= (thanks to Kirill A. Korinsky)
   - Added package =org-rich-yank= (thanks to Keith Pinson)
+  - Added package =org-roam= (thanks to Mariusz Klochowicz)
 - Key bindings:
   - ~SPC m T i~ to toggle inline images
   - Move clock related key bindings to ~SPC a o C~
@@ -2793,6 +2814,21 @@ Other:
   - Documented more insertion bindings (thanks to Lorenzo Manacorda):
     - ~C-RET~   Insert heading at end of current subtree
     - ~C-S-RET~ Insert TODO heading at end of current subtree
+  - Changed =helm-org-rifle= keybindings to ~SPC a o /~, falling back to its
+    previous functionality if using ivy (thanks to Mariusz Klochowicz)
+  - Added keybindings for =org-roam= under menu prefix ~SPC a o r~ and ~SPC m r~
+    - ~SPC a o r l~   (~SPC m r l~)   Toggle org-roam links visibility
+    - ~SPC a o r f~   (~SPC m r f~)   Find file in org-roam
+    - ~SPC a o r i~   (~SPC m r i~)   Insert file into org-roam
+    - ~SPC a o r I~   (~SPC m r I~)   Immediately insert file into org-roam
+    - ~SPC a o r g~   (~SPC m r g~)   Visualize org-roam graph
+    - ~SPC a o r b~   (~SPC m r b~)   Switch org-roam buffer
+    - ~SPC a o r d y~ (~SPC m r d y~) Open yesterday's daily note
+    - ~SPC a o r d t~ (~SPC m r d t~) Open today's daily note
+    - ~SPC a o r d T~ (~SPC m r d T~) Open tomorrow's daily note
+    (thanks to Mariusz Klochowicz)
+  - Added additional prefix (~SPC m m j~) for org-jira bindings
+    (thanks to Mariusz Klochowicz)
 - Made =org= layer depend on =spacemacs-org= (thanks to Eivind Fonn)
 - Remove =mu4e= and =notmuch= from =org= (thanks to Sylvain Benner)
 - Use evil-org from MELPA (thanks to Eivind Fonn)
@@ -3007,6 +3043,7 @@ Other:
 - Add python-test-last support for pytest runner
 - Added --last-failed support for pytest (thanks to Jaakko Luttinen)
 - Added =spacemacs/python-shell-send-statement= support (thanks to Lin Sun)
+- Added =sphinx-doc= support (thanks to Stefan Ruschke)
 **** Racket
 - Restore smart closing paren behavior in racket-mode (thanks to Don March)
 - Updated racket logo (thanks to Vityou)
@@ -3585,21 +3622,21 @@ Other:
   Stone, Kainalu Hagiwara, Kalle Lindqvist, Kechao Cai, Keith Simmons, Keith
   Wygant, Kenji Miyazaki ,Kevin Ji, Kristoffer Haugsbakk, lawrsp, Leo Joseph
   Buchignani III, liuchong, Lucius Hu, Luke Winship, Luke Worth, Marco Ieni,
-  Marco Zucconelli, Martin Sosic, Max Beutelspacher, Max Deineko, Max Nordlund,
-  Maximilian Wolff, Miciah Dashiel Butler Masters, mjkramer, Mikhail Yakutovich,
-  Miloš Mošić, milserk, Muneeb Shaikh, Nasser Alshammari, Niko Felger, Nikolai
-  Myllymäki, nikolaiam, Nicolas Forgerit, Oguz Serbetci, Olivier Verdier, Pancho
-  Horrillo, Paul Milla, Paulo Schneider, Pawan Dubey, Paweł Siudak, Phil
-  Pirozhkov, Philippe Bourdages, Piotr Grzesik, Rafi Khan, Rand01ph, rakyi,
-  Raymond Wanyoike, Reverend Homer, Robby O'Connor, Robert Roland, Rhommel
-  Lamas, Sam Pablo Kuper, Saulius Menkevičius, sduthil, Serghei Iakovlev, Sergio
-  Ugalde, Shane Kilkelly, Sid Kapur, Som Poddar, Somelauw, Soobin Rho, sorawee,
-  SteveJobzniak, Sunghyun Hwang, Sunlin7, Swaroop C H, Sylvain Benner, Szunti,
-  Thijs Vermeir, Tianyi Wang, Tim Ruffing, Tim Stewart, timor, TinySong, Titov
-  Andrey, Thomas de Beauchêne, Tomasz Cichocinski, Trey Merkley, tzhao11,
-  Vincent Taing, Ullas Holla, Vlad Bokov, Vladimir Kochnev, weihua-lu, wenpin,
-  Wieland Hoffmann, Witoslaw Koczewski, Xiang Ji, Yi Liu, Zach Latta, Zane
-  Sterling, zer09, Zhige Xin)
+  Marco Zucconelli, mark30247, Martin Sosic, Max Beutelspacher, Max Deineko, Max
+  Nordlund, Maximilian Wolff, Miciah Dashiel Butler Masters, mjkramer, Mikhail
+  Yakutovich, Miloš Mošić, milserk, Muneeb Shaikh, nanashi0x74, Nasser
+  Alshammari, Niko Felger, Nikolai Myllymäki, nikolaiam, Nicolas Forgerit, Oguz
+  Serbetci, Olivier Verdier, Pancho Horrillo, Paul Milla, Paulo Schneider, Pawan
+  Dubey, Paweł Siudak, Phil Pirozhkov, Philippe Bourdages, Piotr Grzesik, Rafi
+  Khan, Rand01ph, rakyi, Raymond Wanyoike, Reverend Homer, Robby O'Connor,
+  Robert Roland, Rhommel Lamas, Sam Pablo Kuper, Saulius Menkevičius, sduthil,
+  Serghei Iakovlev, Sergio Ugalde, Shane Kilkelly, Sid Kapur, Som Poddar,
+  Somelauw, Soobin Rho, sorawee, SteveJobzniak, Sunghyun Hwang, Sunlin7, Swaroop
+  C H, Sylvain Benner, Szunti, Thijs Vermeir, Tianyi Wang, Tim Ruffing, Tim
+  Stewart, timor, TinySong, Titov Andrey, Thomas de Beauchêne, Tomasz
+  Cichocinski, Trey Merkley, tzhao11, Vincent Taing, Ullas Holla, Vlad Bokov,
+  Vladimir Kochnev, weihua-lu, wenpin, Wieland Hoffmann, Witoslaw Koczewski,
+  Xiang Ji, Yi Liu, Zach Latta, Zane Sterling, zer09, Zhige Xin)
 **** Documentation and website
   - DOCUMENTATION.org:
     - Fixed the example for how to change the separator style

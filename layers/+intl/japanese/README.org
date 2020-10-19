@@ -26,7 +26,7 @@ This Layer adds Japanese related packages.
 - [[https://github.com/emacs-jp/migemo][migemo]]: Japanese incremental search through dynamic pattern expansion
 - [[https://github.com/emacs-helm/helm/wiki/Migemo][helm-migemo-mode]]: helm with migemo
 - [[https://github.com/momomo5717/avy-migemo/blob/master/README.jp.org][avy-migemo]]: avy with migemo
-- [[https://github.com/hsaito/ddskk][ddskk]]: Simple Kana to Kanji conversion program (SKK)
+- [[https://github.com/skk-dev/ddskk][ddskk]]: Simple Kana to Kanji conversion program (SKK)
 - [[https://github.com/emacs-jp/japanese-holidays][japanese-holidays]]: calendar functions for the Japanese calendar
 - [[https://github.com/coldnew/pangu-spacing][pangu-spacing]]: emacs minor-mode to add space between Japanese and English
   characters.
@@ -101,7 +101,7 @@ inside =dotspacemacs/user-config=.
 
 *** ddskk
 You can write a configuration file =​~/.skk=. For detailed configuration, see
-some [[https://skk-dev.github.io/ddskk/skk.html][documents]].
+some [[http://openlab.ring.gr.jp/skk/ddskk.html][documents]].
 
 *** pangu-spacing
 By default, =pangu-spacing-mode= is applied to =text-mode=. If you prefer the

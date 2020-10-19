@@ -103,8 +103,12 @@
   (when typescript-fmt-on-save
     (add-hook 'typescript-tsx-mode-hook 'spacemacs/typescript-fmt-before-save-hook))
   (spacemacs/set-leader-keys-for-major-mode 'typescript-tsx-mode
-    "="  'spacemacs/typescript-format
-    "p" 'spacemacs/typescript-open-region-in-playground))
+    "p" 'spacemacs/typescript-open-region-in-playground)
+  (pcase (spacemacs//typescript-backend)
+    ('lsp (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
+            "==" 'spacemacs/typescript-format))
+    (_ (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
+         "=" 'spacemacs/typescript-format))))
 
 (defun typescript/post-init-yasnippet ()
   (spacemacs/add-to-hooks #'spacemacs/typescript-yasnippet-setup '(typescript-mode-hook
@@ -123,8 +127,12 @@
         (when typescript-fmt-on-save
           (add-hook 'typescript-mode-hook 'spacemacs/typescript-fmt-before-save-hook))
         (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
-          "="  'spacemacs/typescript-format
-          "p" 'spacemacs/typescript-open-region-in-playground)))))
+          "p" 'spacemacs/typescript-open-region-in-playground)
+        (pcase (spacemacs//typescript-backend)
+          ('lsp (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
+                  "==" 'spacemacs/typescript-format))
+          (_ (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
+               "=" 'spacemacs/typescript-format)))))))
 
 (defun typescript/pre-init-import-js ()
   (if (eq javascript-import-tool 'import-js)

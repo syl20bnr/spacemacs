@@ -57,6 +57,7 @@
     "bd" #'lsp-describe-session
     "br" #'lsp-workspace-restart
     "bs" #'lsp-workspace-shutdown
+    "bv" #'lsp-version
     ;; refactor
     "rr" #'lsp-rename
     ;; toggles

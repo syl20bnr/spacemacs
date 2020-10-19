@@ -23,7 +23,7 @@
   - [[#tests][Tests]]
   - [[#coverage][Coverage]]
   - [[#guru][Guru]]
-- [[#keybindings][Keybindings]]
+- [[#key-bindings][Key bindings]]
   - [[#go-commands-start-with-m][Go commands (start with =m=):]]
   - [[#go-guru][Go Guru]]
   - [[#refactoring][Refactoring]]
@@ -35,7 +35,7 @@ This layer adds extensive support for the [[https://golang.org][Go]] programming
 - Run [[https://golang.org/cmd/gofmt/][gofmt]] / [[https://godoc.org/golang.org/x/tools/cmd/goimports][goimports]] on file save (see [[#autoformat][Autoformat]])
 - Auto-completion
 - Source analysis using [[https://docs.google.com/document/d/1_Y9xCEMj5S-7rv2ooHpZNH15JgRT5iM742gJkw5LtmQ][go-guru]] (see [[#guru][Guru]])
-- Refactoring with [[http://gorefactor.org/][godoctor]]
+- Refactoring with [[https://github.com/godoctor/godoctor][godoctor]]
 - Edit struct field tags with [[https://github.com/fatih/gomodifytags][gomodifytags]]
 - Syntax checking with flycheck's built-in checkers or [[https://github.com/golangci/golangci-lint][golangci-lint]] (see [[#linting][Linting]])
 - Test generation via [[https://github.com/s-kostyaev/go-gen-test][go-gen-test]] (see [[#tests][Tests]])
@@ -259,7 +259,7 @@ will need to set the scope with ~SPC m f o~. The scope is a comma separated set
 of packages, and Go's recursive operator is supported. In addition, you can
 prefix it with =-= to exclude a package from searching.
 
-* Keybindings
+* Key bindings
 ** Go commands (start with =m=):
 
 | Key binding   | Description                                                                           |

@@ -60,7 +60,7 @@ To understand how to best implement a layer, we have to investigate how Emacs
 loads code.
 
 ** Emacs Lisp files
-Emacs Lisp files contains code that can be evaluated. When evaluated, the
+Emacs Lisp files contain code that can be evaluated. When evaluated, the
 functions, macros and modes defined in that file become available to the current
 Emacs session. Henceforth, this will be termed as /loading/ a file.
 

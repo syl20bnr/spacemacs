@@ -14,7 +14,6 @@
                                    :fetcher github
                                    :repo "ahungry/metal-mercury-mode"
                                    :commit "99e2d8fb7177cae3bfa2dec2910fc28216d5f5a8"))
-    (mercury-mode :excluded t)
     flycheck
     (flycheck-mercury :requires flycheck)
     smartparens))

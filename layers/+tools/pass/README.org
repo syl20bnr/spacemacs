@@ -17,7 +17,7 @@ function properly.
 - Use Spacemacs as your password manager
 - Support for OTP via (password-store-otp)
 - Use password-store as an Emacs auth source (auth-source-pass)
-  See [[info:auth#The Unix password store][its info page]] for more details on using it.
+  See [[https://www.gnu.org/software/emacs/manual/html_node/auth/The-Unix-password-store.html][its info page]] for more details on using it.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
