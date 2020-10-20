@@ -261,7 +261,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "sk" 'org-move-subtree-up
         "sl" 'org-demote-subtree
         "sn" 'org-narrow-to-subtree
-        "sN" 'widen
+        "sw" 'widen
         "sr" 'org-refile
         "ss" 'org-sparse-tree
         "sS" 'org-sort

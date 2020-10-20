@@ -528,7 +528,7 @@ are also available.
 | ~SPC m s k~   | org-move-subtree-up             |
 | ~SPC m s j~   | org-move-subtree-down           |
 | ~SPC m s n~   | org-narrow-to-subtree           |
-| ~SPC m s N~   | widen narrowed subtree          |
+| ~SPC m s w~   | widen narrowed subtree          |
 | ~SPC m s r~   | org-refile                      |
 | ~SPC m s s~   | show sparse tree                |
 | ~SPC m s S~   | sort trees                      |
