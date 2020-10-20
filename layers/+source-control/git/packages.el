@@ -234,6 +234,9 @@
       ;; whitespace
       (define-key magit-status-mode-map (kbd "C-S-w")
         'spacemacs/magit-toggle-whitespace)
+      ;; https://magit.vc/manual/magit/MacOS-Performance.html
+      (when (eq system-type 'darwin)
+        (setq magit-git-executable (s-trim (shell-command-to-string "which git"))))
       ;; full screen magit-status
       (when git-magit-status-fullscreen
         (setq magit-display-buffer-function
