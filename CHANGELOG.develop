@@ -2811,6 +2811,8 @@ files (thanks to Daniel Nicolai)
   - Key binding changes for archiving (thanks to Ag Ibragimov):
     - Added ~SPC m s a~ to toggle archive tag for subtree
     - Added ~SPC m s A~ to archive subtree (previously ~SPC m s a~)
+  - Change key binding for widening from Org menu from ~SPC m s N~ to ~SPC m s w~
+    to match mnemonics of regular binding ~SPC n w~ (thanks to Keith Pinson)
   - Added ~SPC m i L~ as =org-cliplink= into =org= layer (thanks to bb2020)
   - Added ~SPC m e s~ =org-mime-org-subtree-htmlize= (thanks to Nick Anderson)
   - Documented more insertion bindings (thanks to Lorenzo Manacorda):
