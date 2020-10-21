@@ -210,7 +210,6 @@
 - [[#emacs-server][Emacs Server]]
   - [[#connecting-to-the-emacs-server][Connecting to the Emacs server]]
   - [[#keeping-the-server-alive][Keeping the server alive]]
-  - [[#disabling-the-emacs-server][Disabling the Emacs server]]
 - [[#troubleshoot][Troubleshoot]]
   - [[#loading-fails][Loading fails]]
   - [[#upgradingdowngrading-emacs-version][Upgrading/Downgrading Emacs version]]
@@ -3634,8 +3633,13 @@ To customize your editorconfig experience, read [[https://github.com/editorconfi
 documentation]].
 
 * Emacs Server
-Spacemacs starts a server at launch. This server is killed whenever you close
-your Emacs windows.
+Spacemacs provides the ability to start a server at launch, and to kill that
+server whenever you close your Emacs windows. This can be enabled by setting the
+variable =dotspacemacs-enable-server= to =t= in your =~./spacemacs=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-enable-server t)
+#+END_SRC
 
 ** Connecting to the Emacs server
 You can open a file in Emacs from the terminal using =emacsclient=. Use
@@ -3688,14 +3692,6 @@ server is to use the following bindings:
 | ~SPC q f~   | Kill the current frame                                                   |
 | ~SPC q t~   | Restart Emacs and debug with --with-timed-requires                       |
 | ~SPC q T~   | Restart Emacs and debug with --adv-timers                                |
-
-** Disabling the Emacs server
-You can disable the built-in server by setting the variable
-=dotspacemacs-enable-server= to =nil= in your =~/.spacemacs=.
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-enable-server nil)
-#+END_SRC
 
 * Troubleshoot
 ** Loading fails
