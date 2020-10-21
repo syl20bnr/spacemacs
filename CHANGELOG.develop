@@ -2165,6 +2165,8 @@ Other:
   - Updated =helm-xref= to set the correct =xref-show-xrefs-function= for
     Emacs 27 (thanks to Junxuan)
   - Hide =helm-ff-cache-mode= mode-line indicator (thanks to duianto)
+  - Ignored =helm-full-frame= and =pop-up-windows= in =helm-swoop= to fix
+    selection navigation (thanks to Boris Sergeyev)
 - Key bindings:
   - Added Key bindings for directory search:
     - ~SPC s d for =spacemacs/helm-dir-smart-do-search=
