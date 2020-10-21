@@ -394,8 +394,15 @@
       (setq helm-swoop-split-with-multiple-windows t
             helm-swoop-split-direction 'split-window-vertically
             helm-swoop-speed-or-color t
-            helm-swoop-split-window-function 'helm-default-display-buffer
+            helm-swoop-split-window-function 'spacemacs/helm-swoop-split-window-function
             helm-swoop-pre-input-function (lambda () ""))
+
+      (defun spacemacs/helm-swoop-split-window-function (&rest args)
+        "Override to make helm settings (like `helm-split-window-default-side') work"
+        (let (;; current helm-swoop implemenatation prevents it from being used fullscreen
+               (helm-full-frame nil)
+               (pop-up-windows t))
+          (apply 'helm-default-display-buffer args)))
 
       (defun spacemacs/helm-swoop-region-or-symbol ()
         "Call `helm-swoop' with default input."
