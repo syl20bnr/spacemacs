@@ -1724,3 +1724,24 @@ Decision is based on `dotspacemacs-line-numbers'."
            (mapcar 'cdr
                    (sort (mapcar (lambda (x) (cons (random) (concat x "\n"))) lines)
                          (lambda (a b) (< (car a) (car b))))))))
+
+
+;; narrow region
+
+(defun spacemacs/narrow-to-defun-indirect-buffer ()
+  (interactive)
+  (call-interactively 'clone-indirect-buffer)
+  (call-interactively 'narrow-to-defun)
+  (message "Function narrowed to an indirect buffer"))
+
+(defun spacemacs/narrow-to-page-indirect-buffer ()
+  (interactive)
+  (call-interactively 'clone-indirect-buffer)
+  (call-interactively 'narrow-to-page)
+  (message "Page narrowed to an indirect buffer"))
+
+(defun spacemacs/narrow-to-region-indirect-buffer ()
+  (interactive)
+  (call-interactively 'clone-indirect-buffer)
+  (call-interactively 'narrow-to-region)
+  (message "Region narrowed to an indirect buffer"))
