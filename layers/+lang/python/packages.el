@@ -247,7 +247,8 @@
       (spacemacs/declare-prefix-for-mode 'python-mode "mS" "sphinx-doc")
       (spacemacs/set-leader-keys-for-major-mode 'python-mode
         "Se" 'sphinx-doc-mode
-        "Sd" 'sphinx-doc))))
+        "Sd" 'sphinx-doc))
+    :config (spacemacs|hide-lighter sphinx-doc-mode)))
 
 (defun python/pre-init-pyenv-mode ()
   (add-to-list 'spacemacs--python-pyenv-modes 'python-mode))
