@@ -1,4 +1,4 @@
-#+TITLE: Configuration layers
+#+TITLE: Configuration layers development
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#introduction][Introduction]]
@@ -35,7 +35,8 @@
 This document is intended as a tutorial for users who are interested in writing
 their first configuration layer, whether for private use or for contributing
 upstream. It should help clear up some confusion regarding how layers work and
-how Spacemacs (and Emacs) loads packages.
+how Spacemacs (and Emacs) loads packages. For an overview of configuration
+layers with descriptions see [[https://develop.spacemacs.org/layers/LAYERS.html][Spacemacs layers list]].
 
 * Nomenclature
 Layers and packages. What gives?

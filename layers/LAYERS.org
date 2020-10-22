@@ -1,4 +1,4 @@
-#+TITLE: Configuration layers
+#+TITLE: Spacemacs layers list
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -256,9 +256,11 @@
   - [[#wakatime][Wakatime]]
 
 * Description
-This file is auto-generated!
-Don't edit it directly.
-See [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#readmeorg-tags]["README.org tags" section of CONTRIBUTING.org for the instructions]].
+THIS FILE IS AUTO-GENERATED!
+Don't edit it directly. See [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#readmeorg-tags]["README.org tags" section of CONTRIBUTING.org for the instructions]].
+
+This is an overview of Spacemacs configuration layers. For information about
+configuration layer development see [[https://develop.spacemacs.org/doc/LAYERS.html][Configuration layers development]].
 
 * Chats
 ** ERC
