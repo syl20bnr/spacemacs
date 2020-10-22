@@ -1,7 +1,7 @@
-#+TITLE: Configuration layers
+#+TITLE: Spacemacs layers list
 
 * Table of Contents                     :TOC_5_gh:noexport:
-- [[#this-file-is-auto-generated][THIS FILE IS AUTO GENERATED]]
+- [[#description][Description]]
 - [[#chats][Chats]]
   - [[#erc][ERC]]
   - [[#jabber][Jabber]]
@@ -255,9 +255,13 @@
   - [[#twitter][Twitter]]
   - [[#wakatime][Wakatime]]
 
-* THIS FILE IS AUTO GENERATED
-Don't edit it directly.
-See [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#readmeorg-tags]["README.org tags" section of CONTRIBUTING.org for the instructions]].
+* Description
+
+THIS FILE IS AUTO-GENERATED!
+Don't edit it directly. See [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#readmeorg-tags]["README.org tags" section of CONTRIBUTING.org for the instructions]].
+
+This is an overview of Spacemacs configuration layers. For information about
+configuration layer development see [[https://develop.spacemacs.org/doc/LAYERS.html][Configuration layers development]].
 
 * Chats
 ** ERC
@@ -2511,7 +2515,7 @@ Features:
 This layer loads the necessary packages for spacemacs to start-up.
 
 Features:
-- Loads =evil= key bindings and macros for auto-evilifcation of maps
+- Loads =evil= key bindings and macros for auto-evilification of maps
 - Loads =holy= and =hybrid= modes
 - Loads the official Spacemacs theme
 - Loads =use-package= which is used to load other packages more easily
