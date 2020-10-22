@@ -454,6 +454,9 @@
   "nr" 'narrow-to-region
   "np" 'narrow-to-page
   "nf" 'narrow-to-defun
+  "nR" 'spacemacs/narrow-to-region-indirect-buffer
+  "nP" 'spacemacs/narrow-to-page-indirect-buffer
+  "nF" 'spacemacs/narrow-to-defun-indirect-buffer
   "nw" 'widen)
 ;; toggle ---------------------------------------------------------------------
 (spacemacs|add-toggle highlight-current-line-globally
