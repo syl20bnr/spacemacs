@@ -238,9 +238,8 @@
       ;; But modified according Tommi Komulainen's advice: "...going through
       ;; shell raises an eyebrow, and in the odd edge case of not having git
       ;; setting the executable to empty string(?) feels slightly wrong."
-      (when (eq system-type 'darwin)
-        (when-let ((git (executable-find "git")))
-          (setq magit-git-executable git)))
+      (when-let ((git (executable-find "git")))
+        (setq magit-git-executable git))
       ;; full screen magit-status
       (when git-magit-status-fullscreen
         (setq magit-display-buffer-function
