@@ -12,6 +12,7 @@
   - [[#add-import-on-completion][Add import on completion]]
   - [[#node-modules][Node Modules]]
   - [[#error-popup][Error popup]]
+  - [[#lsp][LSP]]
 - [[#key-bindings][Key bindings]]
   - [[#purescript][Purescript]]
     - [[#imports][Imports]]
@@ -57,6 +58,33 @@ doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472
 If you set =purescript-enable-rebuild-on-save= to non-nil, you will get a popup
 buffer showing you your current warnings/errors one at a time. This is primarily
 meant as an alternative to using flycheck. Default value is nil.
+
+** LSP
+For proper IDE support this backend should be used. It is
+based on an external server which will be started automatically
+by emacs, once an purescript file is opened. The key bindings are
+the same for all lsp modes so if you are already familiar with
+one you should be able to work the same in all modes.
+
+To set explicitly do the following in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (purescript :variables
+          purescript-backend 'lsp)
+#+END_SRC
+
+For this to work you will also need to install
+the lsp server and separate dependencies with below
+command:
+
+#+BEGIN_SRC sh
+  npm i -g purescript-language-server
+#+END_SRC
+
+NOTE: Key bindings for LSP are defined in the
+LSP layer. Also it is advisable to have a look
+at the autocomplete layer for an optimal
+intellisense config for LSP.
 
 * Key bindings
 ** Purescript
