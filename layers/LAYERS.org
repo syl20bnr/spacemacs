@@ -1,7 +1,7 @@
 #+TITLE: Configuration layers
 
 * Table of Contents                     :TOC_5_gh:noexport:
-- [[#this-file-is-auto-generated][THIS FILE IS AUTO GENERATED]]
+- [[#description][Description]]
 - [[#chats][Chats]]
   - [[#erc][ERC]]
   - [[#jabber][Jabber]]
@@ -255,7 +255,8 @@
   - [[#twitter][Twitter]]
   - [[#wakatime][Wakatime]]
 
-* THIS FILE IS AUTO GENERATED
+* Description
+This file is auto-generated!
 Don't edit it directly.
 See [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#readmeorg-tags]["README.org tags" section of CONTRIBUTING.org for the instructions]].
 
@@ -2052,6 +2053,7 @@ Features:
 - auto-completion with company mode via [[https://github.com/ocaml/merlin][merlin]]
 - syntax-checking via [[https://github.com/flycheck/flycheck-ocaml][flycheck-ocaml]] (or alternatively [[https://github.com/ocaml/merlin][merlin]])
 - =dune= file syntax highlighting and template insertion via [[https://github.com/ocaml/dune/][dune-mode]]
+- Automatic formatting via [[https://github.com/ocaml-ppx/ocamlformat][ocamlformat]]
 
 **** Pact
 [[file:+lang/pact/README.org][+lang/pact/README.org]]
