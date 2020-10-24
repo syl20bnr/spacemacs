@@ -1,0 +1,55 @@
+#+TITLE: scratch layer
+
+#+TAGS: layer|emacs
+
+* Table of Contents                                        :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+- [[#customizations][Customizations]]
+
+* Description
+This layer makes your =*scratch*= buffer persistent and not killable.
+That makes sense if you want to save your drafts in =*scratch*= buffer temporarily.
+Things you write down in =*scratch*= buffer will be automatically saved and restored.
+
+** Features:
+   - This layer makes your =*scratch*= buffer persistent and not killable.
+
+Packages used by this layer:
+[[https://github.com/Fanael/persistent-scratch][persistent-scratch]], [[https://github.com/EricCrosson/unkillable-scratch][unkillable-scratch]]
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =scratch= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding | Description                       |
+|-------------+-----------------------------------|
+| C-x C-s     | save =*scratch*= buffer temporarily |
+| C-x C-w     | write =*scratch*= buffer to a file |
+
+See URL: https://github.com/Fanael/persistent-scratch
+
+* Customizations
+You can customize this layer by setting variables of package [[https://github.com/Fanael/persistent-scratch][persistent-scratch]] and [[https://github.com/EricCrosson/unkillable-scratch][unkillable-scratch]].
+
+For example, enable =scratch= layer with these following variables configured in =dotspacemacs-configuration-layers= in your =.spacemacs=.
+
+#+BEGIN_SRC emacs-lisp
+  (defun dotspacemacs/layers()
+    (setq-default
+     dotspacemacs-configuration-layers
+     '(
+       ;; other layers...
+       (scratch :variables
+                persistent-scratch-save-file (concat spacemacs-cache-directory ".persistent-scratch")
+                persistent-scratch-autosave-interval 60
+                persistent-scratch-what-to-save '(point narrowing))
+       ;; other layers
+       )
+     ))
+#+END_SRC
