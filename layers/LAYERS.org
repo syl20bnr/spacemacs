@@ -1898,12 +1898,28 @@ Features:
 **** Erlang
 [[file:+lang/erlang/README.org][+lang/erlang/README.org]]
 
-This layer adds very basic support for Erlang to Spacemacs.
+This layer adds support for [[https://erlang.org/][Erlang]].
+
+Enabling [[https://github.com/emacs-lsp/lsp-mode][Lsp-mode]] brings IDE like
+features following =Language Server Protocol=, through [[https://erlang-ls.github.io/][erlang_ls]]
 
 Features:
 - Syntax highlighting
 - Syntax checking via =Flycheck= integration
 - Auto-completion via =Company= integration
+- Code Completion
+- Go To Definition
+- Go To Implementation for OTP Behaviours
+- Signature Suggestions
+- Compiler Diagnostics
+- [[https://erlang.org/doc/man/dialyzer.html][Dialyzer]] Diagnostics
+- [[https://github.com/inaka/elvis][Elvis]] Diagnostics
+- [[http://erlang.org/doc/apps/edoc/chapter.html][Edoc]]
+- Navigation for Included Files
+- Find/Peek References
+- Outline
+- Workspace Symbols
+- Code Folding
 
 **** F#
 [[file:+lang/fsharp/README.org][+lang/fsharp/README.org]]
