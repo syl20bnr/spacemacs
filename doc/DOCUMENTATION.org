@@ -3142,12 +3142,18 @@ With [[https://github.com/TheBB/evil-indent-plus][evil-indent-plus]] the followi
 The displayed text of a buffer can be narrowed with the commands (start with
 ~n~):
 
-| Key binding | Description                               |
-|-------------+-------------------------------------------|
-| ~SPC n f~   | narrow the buffer to the current function |
-| ~SPC n p~   | narrow the buffer to the visible page     |
-| ~SPC n r~   | narrow the buffer to the selected text    |
-| ~SPC n w~   | widen, i.e. show the whole buffer again   |
+| Key binding | Description                                          |
+|-------------+------------------------------------------------------|
+| ~SPC n f~   | narrow the buffer to the current function            |
+| ~SPC n p~   | narrow the buffer to the visible page                |
+| ~SPC n r~   | narrow the buffer to the selected text               |
+| ~SPC n w~   | widen, i.e. show the whole buffer again              |
+| ~SPC n F~   | narrow to the current function in an indirect buffer |
+| ~SPC n P~   | narrow to the visible page in an indirect buffer     |
+| ~SPC n R~   | narrow to the selected text in an indirect buffer    |
+
+Narrowing in an indirect buffer overcomes the problem that a buffer can only be
+narrowed in one place at a given time.
 
 *** Replacing text with iedit
 Spacemacs uses the powerful [[https://github.com/tsdh/iedit][iedit]] mode through [[https://github.com/syl20bnr/evil-iedit-state][evil-iedit-state]] to quickly
