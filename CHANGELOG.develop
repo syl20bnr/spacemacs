@@ -521,7 +521,8 @@ Other:
     terminal mode, but no longer in GUI mode. (emacs18)
 *** Core changes
 - Improvements:
-  - Provide keybindings for using narrow with an indirect buffer, for when you
+  - Provide keybindings for using narrow with an indirect buffer (to function
+    definition, ~SPC n F~; to page, ~SPC n P~; to region, ~SPC n R~) for when you
     want narrowing multiple times in the same base buffer (thanks to Keith
     Pinson and duianto)
   - Make =describe-text-properties= available in the help -> describe menu via
