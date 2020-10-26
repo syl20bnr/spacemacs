@@ -302,7 +302,13 @@
 (defun helm/init-helm-ls-git ()
   (use-package helm-ls-git
     :defer t
-    :init (spacemacs/set-leader-keys "gff" 'helm-ls-git-ls)))
+    :init (spacemacs/set-leader-keys "gff" 'helm-ls-git-ls)
+    :config
+    ;; Set `helm-ls-git-status-command' conditonally on `git' layer
+    ;; If `git' is in use, use default `\'magit-status-setup-buffer'
+    ;; Otherwise, use defaault `\'vc-dir'
+    (when (configuration-layer/package-usedp 'magit)
+      (setq helm-ls-git-status-command 'magit-status-setup-buffer))))
 
 (defun helm/init-helm-make ()
   (use-package helm-make
