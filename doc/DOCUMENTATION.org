@@ -143,6 +143,7 @@
       - [[#frame-manipulation-key-bindings][Frame manipulation key bindings]]
       - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
       - [[#browsing-files-in-completion-buffer][Browsing files in completion buffer]]
+      - [[#popup-buffers][Popup buffers]]
     - [[#ido][Ido]]
     - [[#ido-transient-state][Ido transient state]]
     - [[#bookmarks][Bookmarks]]
@@ -2592,6 +2593,11 @@ In =vim= style and =hybrid= style with the variable
 | ~C-j~       | go to previous candidate          |
 | ~C-k~       | go to next candidate              |
 | ~C-l~       | enter current directory           |
+
+**** Popup buffers
+=popwin= is used to manage buffers such as ~*Help*~, ~*Completions*~,
+~*compilation*~, and etc. Use =C-g= to close them or most of the time you can
+close them with =q= also. Use ~SPC-r-w~ to view the last closed popup buffer.
 
 *** Ido
 Spacemacs displays the =ido= minibuffer vertically thanks to the
