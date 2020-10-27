@@ -9,16 +9,52 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//latex-backend ()
+  "Returns selected backend."
+  (if latex-backend
+      latex-backend
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'company-auctex))))
+
+(defun spacemacs//latex-setup-company ()
+  "Conditionally setup company based on backend."
+  (pcase (spacemacs//latex-backend)
+    ;; Activate lsp company explicitly to activate
+    ;; standard backends as well
+    (`lsp (spacemacs|add-company-backends
+            :backends company-capf
+            :modes LaTeX-mode))
+    (_    (when (configuration-layer/package-used-p 'company-auctex)
+            (spacemacs|add-company-backends
+              :backends
+              (company-auctex-macros)
+              company-auctex-symbols
+              company-auctex-environments
+              :modes LaTeX-mode))
+          (when (configuration-layer/package-used-p 'company-reftex)
+            (spacemacs|add-company-backends
+              :backends
+              company-reftex-labels
+              company-reftex-citations
+              :modes LaTeX-mode)))))
+
+(defun spacemacs//latex-setup-backend ()
+  "Conditionally setup latex backend."
+  (pcase (spacemacs//latex-backend)
+    (`lsp (require 'lsp-latex)
+          (lsp))))
+
 (defun latex/build ()
   (interactive)
   (progn
     (let ((TeX-save-query nil))
       (TeX-save-document (TeX-master-file)))
     (TeX-command latex-build-command 'TeX-master-file -1)))
-    ;; (setq build-proc (TeX-command latex-build-command 'TeX-master-file -1))
-    ;; ;; Sometimes, TeX-command returns nil causing an error in set-process-sentinel
-    ;; (when build-proc
-    ;;   (set-process-sentinel build-proc 'latex//build-sentinel))))
+;; (setq build-proc (TeX-command latex-build-command 'TeX-master-file -1))
+;; ;; Sometimes, TeX-command returns nil causing an error in set-process-sentinel
+;; (when build-proc
+;;   (set-process-sentinel build-proc 'latex//build-sentinel))))
 
 (defun latex//build-sentinel (process event)
   (if (string= event "finished\n")

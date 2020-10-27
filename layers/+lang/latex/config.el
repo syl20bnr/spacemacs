@@ -41,3 +41,8 @@
                            "tabu*"
                            "tikzpicture")
   "List of environment names in which `auto-fill-mode' will be inhibited.")
+
+(defvar latex-backend nil
+  "The backend to use for IDE features.
+Possible values are `lsp' and `company-auctex'.
+If `nil' then 'company-auctex` is the default backend unless `lsp' layer is used")
