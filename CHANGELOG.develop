@@ -521,10 +521,12 @@ Other:
     terminal mode, but no longer in GUI mode. (emacs18)
 *** Core changes
 - Improvements:
-  - Provide keybindings for using narrow with an indirect buffer (to function
-    definition, ~SPC n F~; to page, ~SPC n P~; to region, ~SPC n R~) for when you
-    want narrowing multiple times in the same base buffer (thanks to Keith
-    Pinson and duianto)
+  - Provide keybindings for using narrow with an indirect buffer for when you
+    want narrowing multiple times in the same base buffer:
+    - ~SPC n F~ for narrow to function
+    - ~SPC n P~ for narrow to page
+    - ~SPC n R~ for narrow to region
+    (thanks to Keith Pinson and duianto)
   - Make =describe-text-properties= available in the help -> describe menu via
     ~SPC h d t~ (thanks to Keith Pinson)
   - Bind ~SPC c n~ to ~:cn~ / ~next-error~ and ~SPC c N~ to ~:cN~ / ~previous-error~
