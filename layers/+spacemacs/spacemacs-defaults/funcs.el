@@ -1728,26 +1728,36 @@ Decision is based on `dotspacemacs-line-numbers'."
 
 ;; narrow region
 
+(defun spacemacs/clone-indirect-buffer-de-activate-mark ()
+  "This is a workaround for the evil visual state error message like:
+Error in post-command-hook (evil-visual-post-command):
+(error \"Marker points into wrong buffer\" #<marker at 27875 in .spacemacs<2>>)"
+  (let ((region-was-active (region-active-p)))
+    (when region-was-active (deactivate-mark))
+    (call-interactively 'clone-indirect-buffer)
+    (when region-was-active (activate-mark))))
+
+(defun spacemacs/narrow-to-indirect-buffer (f x)
+  "Use the function `f' to narrow within an indirect buffer, except where the
+starting buffer is in a state (such as visual block mode) that would cause this
+to work incorrectly. `x' is the string name of the entity being narrowed to."
+  ;; There may be a way to get visual block mode working similar to the
+  ;; workaround we did for visual line mode; this usecase however seems like an
+  ;; edgecase at best, so let's patch it if we find out it's needed; otherwise
+  ;; let's not hold up the base functionality anymore.
+  (when (not (and (eq evil-state 'visual) (eq evil-visual-selection 'block)))
+    (spacemacs/clone-indirect-buffer-de-activate-mark)
+    (call-interactively f)
+    (message (format "%s narrowed to an indirect buffer" x))))
+
 (defun spacemacs/narrow-to-defun-indirect-buffer ()
   (interactive)
-  (deactivate-mark)
-  (call-interactively 'clone-indirect-buffer)
-  (activate-mark)
-  (call-interactively 'narrow-to-defun)
-  (message "Function narrowed to an indirect buffer"))
+  (spacemacs/narrow-to-indirect-buffer 'narrow-to-defun "Function"))
 
 (defun spacemacs/narrow-to-page-indirect-buffer ()
   (interactive)
-  (deactivate-mark)
-  (call-interactively 'clone-indirect-buffer)
-  (activate-mark)
-  (call-interactively 'narrow-to-page)
-  (message "Page narrowed to an indirect buffer"))
+  (spacemacs/narrow-to-indirect-buffer 'narrow-to-page "Page"))
 
 (defun spacemacs/narrow-to-region-indirect-buffer ()
   (interactive)
-  (deactivate-mark)
-  (call-interactively 'clone-indirect-buffer)
-  (activate-mark)
-  (call-interactively 'narrow-to-region)
-  (message "Region narrowed to an indirect buffer"))
+  (spacemacs/narrow-to-indirect-buffer 'narrow-to-region "Region"))
