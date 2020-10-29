@@ -32,9 +32,8 @@
     (progn
       (ranger//set-leader-keys)
 
-      ;; allow '-' to enter ranger
-      (when ranger-enter-with-minus
-        (define-key evil-normal-state-map (kbd "-") 'deer))
+      (when (memq ranger-enter-with-minus '(deer ranger))
+        (define-key evil-motion-state-map (kbd "-") ranger-enter-with-minus))
 
       ;; set up image-dired to allow picture resize
       (setq image-dired-dir (concat spacemacs-cache-directory "image-dir"))

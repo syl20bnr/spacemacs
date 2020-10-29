@@ -10,5 +10,10 @@
 ;;
 ;;; License: GPLv3
 
-(defvar ranger-enter-with-minus t
-  "Option to enter `deer' when `-' is pressed.  Idea from `vim-vinegar'.")
+(defvar ranger-enter-with-minus 'deer
+  "Option to enter `deer' or `ranger' when `-' is pressed.
+Idea from `vim-vinegar'.
+
+The possible values are:
+'deer (default)
+'ranger")
