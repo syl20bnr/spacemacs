@@ -15,6 +15,7 @@
 
 (defconst dhall-packages
   '(
+    lsp-mode
     dhall-mode
     ))
 
@@ -24,5 +25,8 @@
     :defer t
 
     ))
+
+(defun dhall/post-init-lsp-mode ()
+  (add-hook 'dhall-mode-hook #'lsp))
 
 ;;; packages.el ends here
