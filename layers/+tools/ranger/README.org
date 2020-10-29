@@ -40,10 +40,13 @@ Most parameters can be toggled on and off and stay within the current emacs
 session. Any settings that are desired on startup should be set below.
 
 ** Customizing
-You toggle the use of =-= to enter ranger with `ranger-enter-with-minus`.
+Toggle the use of =-= to enter deer or ranger with =ranger-enter-with-minus=.
+The possible values are:
+- ='deer= (default)
+- ='ranger=
 
 #+BEGIN_SRC elisp
-  (setq ranger-enter-with-minus t)
+  (setq ranger-enter-with-minus 'deer)
 #+END_SRC
 
 When disabling the mode you can choose to kill the buffers that were opened

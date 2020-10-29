@@ -3066,6 +3066,8 @@ files (thanks to Daniel Nicolai)
 - Fixed conflict with =golden-ratio= (thanks to Thomas de Beauchêne)
 - Load =helm= before =ranger= (thanks to duianto)
 - Add instruction to use ranger by default (thanks to Daniel Nicolai)
+- Added ='ranger= as an option to the variable: =ranger-enter-with-minus=
+  (thanks to duianto)
 **** Rcirc
 - New variable =rcirc-enable-late-fix= to enable or disable the included
   =rcirc-late-fix= package (disabled by default).
