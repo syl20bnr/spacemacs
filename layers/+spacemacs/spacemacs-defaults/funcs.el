@@ -1737,18 +1737,22 @@ Error in post-command-hook (evil-visual-post-command):
     (call-interactively 'clone-indirect-buffer)
     (when region-was-active (activate-mark))))
 
-(defun spacemacs/narrow-to-indirect-buffer (f x)
-  "Use the function `f' to narrow within an indirect buffer, except where the
-starting buffer is in a state (such as visual block mode) that would cause this
-to work incorrectly. `x' is the string name of the entity being narrowed to."
+(defun spacemacs/narrow-to-indirect-buffer (narrower target-name)
+  "Use the function `narrower' to narrow within an indirect buffer, except where
+the starting buffer is in a state (such as visual block mode) that would cause
+this to work incorrectly. `target-name' is the string name of the entity being
+narrowed to."
   ;; There may be a way to get visual block mode working similar to the
   ;; workaround we did for visual line mode; this usecase however seems like an
   ;; edgecase at best, so let's patch it if we find out it's needed; otherwise
   ;; let's not hold up the base functionality anymore.
-  (when (not (and (eq evil-state 'visual) (eq evil-visual-selection 'block)))
+  (if (and (eq evil-state 'visual) (eq evil-visual-selection 'block))
+      (message "Cannot narrow to indirect buffer from visual block mode.")
+    (when evil-ex-active-highlights-alist
+      (spacemacs/evil-search-clear-highlight))
     (spacemacs/clone-indirect-buffer-de-activate-mark)
-    (call-interactively f)
-    (message (format "%s narrowed to an indirect buffer" x))))
+    (call-interactively narrower)
+    (message (format "%s narrowed to an indirect buffer" target-name))))
 
 (defun spacemacs/narrow-to-defun-indirect-buffer ()
   (interactive)
