@@ -244,7 +244,7 @@ tries to restore a dead buffer or window."
 (defun spacemacs/helm-vterm-search-history ()
   "Narrow down bash history with helm."
   (interactive)
-  (assert (string-equal mode-name "Vterm") nil "Not in VTerm mode")
+  (assert (string-equal mode-name "VTerm") nil "Not in VTerm mode")
   (helm :sources (helm-build-sync-source "Bash history"
                                          :candidates (spacemacs//vterm-make-history-candidates)
                                          :action #'vterm-send-string)
