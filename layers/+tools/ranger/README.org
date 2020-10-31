@@ -44,6 +44,7 @@ Toggle the use of =-= to enter deer or ranger with =ranger-enter-with-minus=.
 The possible values are:
 - ='deer= (default)
 - ='ranger=
+- =nil= (restores the default behavior of =-=)
 
 #+BEGIN_SRC elisp
   (setq ranger-enter-with-minus 'deer)

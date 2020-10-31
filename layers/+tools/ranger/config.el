@@ -16,4 +16,5 @@ Idea from `vim-vinegar'.
 
 The possible values are:
 'deer (default)
-'ranger")
+'ranger
+nil (restores the default behavior of `-')")
