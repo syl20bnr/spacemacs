@@ -333,7 +333,8 @@ in the current buffer instead of a popup.
 =spacemacs-vterm-history-file-location= is set to the path to your shell history file.
 
 For example with bash
-#+begin_src elisp
-     (shell :variables
-            spacemacs-vterm-history-file-location "~/.bash_history")
-#+end_src
+
+#+BEGIN_SRC elisp
+  (shell :variables
+         spacemacs-vterm-history-file-location "~/.bash_history")
+#+END_SRC
