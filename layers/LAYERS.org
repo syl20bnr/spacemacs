@@ -256,6 +256,7 @@
   - [[#wakatime][Wakatime]]
 
 * Description
+
 THIS FILE IS AUTO-GENERATED!
 Don't edit it directly. See [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#readmeorg-tags]["README.org tags" section of CONTRIBUTING.org for the instructions]].
 
@@ -1284,7 +1285,8 @@ This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects
 
 Features:
 - Auto-build with [[https://github.com/tom-tan/auctex-latexmk/][auctex-latexmk]]
-- Auto-completion with [[https://github.com/alexeyr/company-auctex][company-auctex]]
+- Syntax highlighting
+- Auto-completion
 - Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
 

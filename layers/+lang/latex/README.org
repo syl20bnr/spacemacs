@@ -70,7 +70,7 @@ To set explicitly do the following in your dotfile:
 
 #+BEGIN_SRC emacs-lisp
   (latex :variables
-	 latex-backend 'lsp)
+  	 latex-backend 'lsp)
 #+END_SRC
 
 For this to work you will also need to obtain
