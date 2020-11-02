@@ -905,8 +905,8 @@ Key binding prefixes:
 - ~SPC a o r~ (anywhere)
 - ~SPC m r~ (in an org-mode buffer)
 
-| Key binding      | Description                           |
-|------------------+---------------------------------------|
+| Key binding    | Description                           |
+|----------------+---------------------------------------|
 | ~[prefix] r l~   | Toggle org-roam links visibility      |
 | ~[prefix] r f~   | Find file in org-roam                 |
 | ~[prefix] r i~   | Insert file into org-roam             |
@@ -916,3 +916,5 @@ Key binding prefixes:
 | ~[prefix] r d y~ | Open yesterday's daily note           |
 | ~[prefix] r d t~ | Open today's daily note               |
 | ~[prefix] r d T~ | Open tomorrow's daily note            |
+| [prefix] r t a | add org-roam tag to file              |
+| [prefix] r t d | delete org-roam tag from file         |
