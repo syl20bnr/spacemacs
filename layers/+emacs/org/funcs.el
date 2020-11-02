@@ -50,6 +50,14 @@
     (add-to-list 'evil-surround-pairs-alist '(?: . spacemacs//surround-drawer))
     (add-to-list 'evil-surround-pairs-alist '(?# . spacemacs//surround-code))))
 
+(defun spacemacs//org-maybe-activate-evil-insert (&rest _)
+  "Switch to evil insert state if the current state is normal.
+Useful as an :after advice for commands that insert something
+into buffer, but are not Evil-aware (e.g. `org-insert-item')."
+  (when (and (member dotspacemacs-editing-style '(vim hybrid))
+             (evil-normal-state-p))
+    (evil-insert-state)))
+
 
 
 (defun spacemacs/org-trello-pull-buffer ()

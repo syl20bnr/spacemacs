@@ -391,6 +391,13 @@ Will work on both org-mode and any mode that accepts plain html."
       (define-key global-map "\C-cc" 'org-capture))
     :config
     (progn
+      ;; Activate evil insert state after these commands.
+      (dolist (fn '(org-insert-drawer
+                    org-insert-heading
+                    org-insert-item
+                    org-insert-structure-template))
+        (advice-add fn :after #'spacemacs//org-maybe-activate-evil-insert))
+
       ;; We add this key mapping because an Emacs user can change
       ;; `dotspacemacs-major-mode-emacs-leader-key' to `C-c' and the key binding
       ;; C-c ' is shadowed by `spacemacs/default-pop-shell', effectively making
