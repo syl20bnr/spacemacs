@@ -2895,6 +2895,9 @@ files (thanks to Daniel Nicolai)
 - Enabled =org-habit= module
   (thanks to Mariusz Klochowicz)
 - Fixed evil paste in a =org-src-mode= table (thanks to duianto)
+- Implemented automatic activation of evil insert state after
+  =org-insert-drawer=, =org-insert-heading=, =org-insert-item= and
+  =org-insert-structure-template= commands (thanks to Andriy Kmit')
 **** Osx
 - Key bindings:
   - Added key bindings to use ~command-1..9~ for selecting window
