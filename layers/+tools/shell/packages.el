@@ -71,8 +71,6 @@
             eshell-history-size 350
             ;; no duplicates in history
             eshell-hist-ignoredups t
-            ;; buffer shorthand -> echo foo > #'buffer
-            eshell-buffer-shorthand t
             ;; my prompt is easy enough to see
             eshell-highlight-prompt nil
             ;; treat 'echo' like shell echo
