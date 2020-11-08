@@ -17,6 +17,7 @@
         gist
         github-clone
         github-search
+        grip-mode
         ;; this package does not exits, we need it to wrap
         ;; the call to spacemacs/declare-prefix.
         (spacemacs-github :location built-in)
@@ -79,6 +80,14 @@
   (use-package github-search
     :commands (github-search-clone-repo github-search-user-clone-repo)
     :init (spacemacs/set-leader-keys "ghc/" 'github-search-clone-repo)))
+
+(defun github/init-grip-mode ()
+  (use-package grip-mode
+    :defer t
+    :init
+    (progn
+      (spacemacs/set-leader-keys
+        "ghp" 'grip-mode))))
 
 (defun github/init-spacemacs-github ()
   (spacemacs/declare-prefix "gh" "github"))

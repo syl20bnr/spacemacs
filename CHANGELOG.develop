@@ -1962,6 +1962,7 @@ Other:
     (thanks to Sylvain Benner)
   - Remove package =github-browse-file= which has been replaced by
    =browse-at-remote= in =version-control= layer
+  - Added package =grip=mode= (thanks to Daniel Nicolai)
 - Key bindings:
   - Added ~g r~ evilified binding to gist-list-mode
     (thanks to Jean-Sebastien A. Beaudry)
@@ -1971,6 +1972,8 @@ Other:
   - Forge-post buffer (thanks to Miciah Masters and yuhan0):
     - ~SPC m c~ or ~SPC m ,~ submit post
     - ~SPC m k~ or ~SPC m k~ cancel post
+  - md/org buffer (thanks to Daniel Nicolai)
+    - ~SPC g h p~ (toggle) grip-mode
 - Replace =evilified-state-evilify= by =evilified-state-evilify-map=
   (thanks to Sylvain Benner)
 - Disabled status, issues, and PRs by default (thanks to Miciah Masters)
