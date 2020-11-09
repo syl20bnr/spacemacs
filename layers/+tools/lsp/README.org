@@ -166,6 +166,7 @@ The key bindings are grouped under the following prefixes:
 
 | prefix    | name          | functional area                                                            |
 |-----------+---------------+----------------------------------------------------------------------------|
+| ~SPC m a~ | action        | Code actions                                                               |
 | ~SPC m =~ | format        | Source formatting                                                          |
 | ~SPC m g~ | goto          | Source navigation                                                          |
 | ~SPC m G~ | peek          | Source navigation (lsp-ui-peek overlay)                                    |
