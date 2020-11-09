@@ -11,9 +11,8 @@
 
 ;; List of all packages to install and/or initialize. Built-in packages
 ;; which require an initialization must be listed explicitly in the list.
-(setq search-engine-packages
-      '(
-        engine-mode))
+(defconst search-engine-packages
+  '(engine-mode))
 
 
 (defun search-engine/init-engine-mode ()
@@ -97,6 +96,9 @@
               (wolfram-alpha
                :name "Wolfram Alpha"
                :url "https://www.wolframalpha.com/input/?i=%s")
+              (melpa
+               :name "Melpa Package Search"
+               :url "https://melpa.org/#/?q=%s")
               (ctan
                :name "CTAN"
                :url "https://ctan.org/search?phrase=%s")
