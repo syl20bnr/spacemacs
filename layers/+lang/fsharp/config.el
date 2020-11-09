@@ -10,3 +10,8 @@
 ;;; License: GPLv3
 
 (spacemacs|define-jump-handlers fsharp-mode fsharp-ac/gotodefn-at-point)
+
+(defvar fsharp-backend nil
+  "The backend to use for IDE features.
+Possible values are `lsp' and `eglot'.
+If `nil' then 'eglot` is the default backend unless `lsp' layer is used")
