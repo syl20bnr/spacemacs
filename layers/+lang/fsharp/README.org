@@ -79,10 +79,10 @@ intellisense config for LSP.
 
 * Key bindings
 
-| Key binding | Description                |
-|-------------+----------------------------|
-| ~SPC m c c~ | Build the project          |
-| ~SPC m g a~ | Go to alternate file       |
+| Key binding | Description          |
+|-------------+----------------------|
+| ~SPC m c c~ | Build the project    |
+| ~SPC m g a~ | Go to alternate file |
 
 ** REPL
 

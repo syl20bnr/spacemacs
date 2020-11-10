@@ -1843,13 +1843,14 @@ Features:
 This layer provides support for the Crystal language.
 
 Features:
-- =crystal tool format= on file save
-- integration [[https://play.crystal-lang.org][play.crystal-lang.org]] using [[https://github.com/veelenga/play-crystal.el][play-crystal.el]]
-- Linting with flycheck
-- test runner (=crystal spec=)
+- Format on save
+- Integration of [[https://play.crystal-lang.org][play.crystal-lang.org]] using [[https://github.com/veelenga/play-crystal.el][play-crystal.el]]
+- Syntax checking
+- Auto completion
+- Test execution (=crystal spec=)
 - =crystal tool= integration
 - Interactive REPL ([[https://github.com/brantou/inf-crystal.el][inf-crystal.el]] and [[https://github.com/crystal-community/icr][icr]])
-- static code analysis using [[https://github.com/veelenga/ameba.el][ameba]]
+- Static code analysis using [[https://github.com/veelenga/ameba.el][ameba]]
 
 **** D language
 [[file:+lang/d/README.org][+lang/d/README.org]]
@@ -1929,11 +1930,10 @@ Features:
 This layer adds support for F# language using [[https://github.com/fsharp/fsharpbinding][fsharpbinding]] and [[https://github.com/fsharp/fsharpbinding][fsharp-mode]].
 
 Features:
+- Auto-completion
+- Syntax-checking
 - Syntax highlighting
-- Code completion (through Eglot)
-- Flycheck integration
 - REPL
-- Compile/Run/Interpreter and info tooltip shortcuts
 
 **** Factor Layer
 [[file:+lang/factor/README.org][+lang/factor/README.org]]
