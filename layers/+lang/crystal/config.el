@@ -15,3 +15,8 @@
 
 (defvar crystal-enable-auto-format nil
   "If non-nil then auto-format on save.")
+
+(defvar crystal-backend nil
+  "The backend to use for IDE features.
+Possible values are `lsp' and `company-crystal'.
+If `nil' then 'company-crystal` is the default backend unless `lsp' layer is used")
