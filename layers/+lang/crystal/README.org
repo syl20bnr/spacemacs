@@ -10,7 +10,7 @@
 - [[#install][Install]]
 - [[#configuration][Configuration]]
   - [[#choosing-a-backend][Choosing a backend]]
-    - [[#company-crystal][company-crystal]]
+    - [[#company-crystal][Company-crystal]]
     - [[#lsp][LSP]]
   - [[#repl][REPL]]
   - [[#ameba][Ameba]]
