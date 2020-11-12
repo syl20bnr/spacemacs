@@ -1,4 +1,4 @@
-;;; config.el --- vue layer config file for Spacemacs. -*- lexical-binding: t -*-
+;;; config.el --- graphql layer config file for Spacemacs. -*- lexical-binding: t -*-
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
