@@ -180,9 +180,9 @@
     (spacemacs/set-leader-keys-for-major-mode 'latex-mode
       (concat prefix "c")    'reftex-citation
       (concat prefix "g")    'reftex-grep-document
-      (concat prefix" i")    'reftex-index-selection-or-word
+      (concat prefix "i")    'reftex-index-selection-or-word
       (concat prefix "I")    'reftex-display-index
-      (concat prefix "TAB") 'reftex-index
+      (concat prefix " " "TAB") 'reftex-index
       (concat prefix "l")    'reftex-label
       (concat prefix "p")    'reftex-index-phrase-selection-or-word
       (concat prefix "P")    'reftex-index-visit-phrases-buffer
