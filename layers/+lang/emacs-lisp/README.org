@@ -66,10 +66,16 @@ As this state works the same for all files, the documentation is in global
 [[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
 
 * Debugging Elisp
-Here is an interactive quick start to debug Emacs Lisp.
+Here is an interactive quick start to debug Emacs Lisp from an =emacs-lisp-mode= buffer.
 
-First you need to read this file in Emacs in order to have the following code
-block to be interactively opened as Emacs Lisp.
+To follow this tutorial open the code of the following source block in an
+=emacs-lisp-mode= buffer. One way to do this is to first find this emacs-lisp
+layer documentation file in Spacemacs using ~SPC h l emacs-lisp RET~. This will
+open the current file in =space-doc-mode=. Toggle off =space-doc-mode= using =,
+T V= so that Spacemacs will switch to =org-mode=. Now you can place the cursor
+somewhere inside the code block and press ~, '~ to open the code in an
+interactive =emacs-lisp-buffer=. [fn:: [[https://orgmode.org/manual/Working-with-Source-Code.html][Source blocks]] provide literate
+programming functionality to =org-mode= buffers.]
 
 #+BEGIN_SRC elisp
   (defun helloworld (name)
@@ -83,26 +89,26 @@ block to be interactively opened as Emacs Lisp.
 #+END_SRC
 
 Steps:
-1) To start the tutorial put your point in the source block above and press ~, '~
+Now from within the =emacs-lisp-buffer=
 
-it will open a new buffer in =emacs-lisp-mode=.
-2) Evaluate each sexp by putting your point in each of them and press ~, e f~.
-3) To debug the =helloworld= function, put your cursor on the =defun= keyword and
+1) Evaluate each sexp by putting your point in each of them and press ~, e f~ or
+   press ~, e b~ to evaluate all code in the buffer at once.
+2) To debug the =helloworld= function, put your cursor on the =defun= keyword and
 
 press ~SPC m d f~ (or ~, d f~), it will put a breakpoint on the function (we say
 that we instrumentalise this function) so whenever the Lisp interpreter
 encounters this function it will start the debugger.
-4) Then go to the closing parenthesis of =(helloworld "Spacemacs")= and press
+3) Then go to the closing parenthesis of =(helloworld "Spacemacs")= and press
 
 ~, e e~ to evaluate it, if you are using =vim= editing style you end up in
 evilified state otherwise you end up in emacs state and =*Debugging*= is
 displayed in the mode line.
-5) Press ~s~ to go to next step up to the opening parenthesis of
+4) Press ~s~ to go to next step up to the opening parenthesis of
    =(subroutine name)=,
-6) Press ~i~ to go into the =subroutine= where you can press ~s~ to step in
+5) Press ~i~ to go into the =subroutine= where you can press ~s~ to step in
 
 function or press ~o~ to go out of it.
-7) Press ~a~ to stop debugging.
+6) Press ~a~ to stop debugging.
 
 * Nameless
 Nameless hides package namespaces in your emacs-lisp code, and replaces it by
