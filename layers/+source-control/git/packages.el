@@ -13,6 +13,9 @@
       '(
         evil-magit
         fill-column-indicator
+        ;; forge requires a C compiler on Windows so we disable
+        ;; it by default on Windows.
+        (forge :toggle (not (spacemacs/system-is-mswindows)))
         gitattributes-mode
         gitconfig-mode
         gitignore-mode
@@ -331,3 +334,19 @@
      (expand-file-name "transient/values.el" spacemacs-cache-directory)
      transient-history-file
      (expand-file-name "transient/history.el" spacemacs-cache-directory))))
+
+(defun github/init-forge ()
+  (use-package forge
+    :after magit
+    :init
+    (progn
+      (setq forge-database-file (concat spacemacs-cache-directory
+                                        "forge-database.sqlite"))
+      (spacemacs/set-leader-keys-for-major-mode 'forge-topic-mode
+        "c" 'forge-create-post
+        "e" 'forge-edit-post)
+      (spacemacs/set-leader-keys-for-major-mode 'forge-post-mode
+        dotspacemacs-major-mode-leader-key 'forge-post-submit
+        "c" 'forge-post-submit
+        "k" 'forge-post-cancel
+        "a" 'forge-post-cancel))))
