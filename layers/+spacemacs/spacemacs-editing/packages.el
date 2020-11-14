@@ -24,12 +24,14 @@
         move-text
         (origami :toggle (eq 'origami dotspacemacs-folding-method))
         password-generator
+        persistent-scratch
         pcre2el
         smartparens
         (evil-swap-keys :toggle dotspacemacs-swap-number-row)
         (spacemacs-whitespace-cleanup :location local)
         string-inflection
         undo-tree
+        unkillable-scratch
         uuidgen
         (vimish-fold :toggle (eq 'vimish dotspacemacs-folding-method))
         (evil-vimish-fold :toggle (eq 'vimish dotspacemacs-folding-method))
@@ -510,3 +512,20 @@
                                                                ("0" . ")"))))
         (_ (message "dotspacemacs-swap-number-row %s is not supported." dotspacemacs-swap-number-row)))
       (add-hook 'prog-mode-hook #'evil-swap-keys-swap-number-row))))
+
+(defun spacemacs-editing/init-persistent-scratch ()
+  (use-package persistent-scratch
+    :ensure t
+    :init (when dotspacemacs-scratch-buffer-persistent
+            (setq persistent-scratch-save-file (concat spacemacs-cache-directory ".persistent-scratch")
+                  persistent-scratch-autosave-interval 60
+                  persistent-scratch-what-to-save '(point narrowing))
+            (add-hook 'spacemacs-scratch-mode-hook 'persistent-scratch-mode)
+            (persistent-scratch-autosave-mode t))))
+
+(defun spacemacs-editing/init-unkillable-scratch ()
+  (use-package unkillable-scratch
+    :ensure t
+    :init (when dotspacemacs-scratch-buffer-unkillable
+            (setq unkillable-scratch-do-not-reset-scratch-buffer t)
+            (unkillable-scratch dotspacemacs-scratch-buffer-unkillable))))

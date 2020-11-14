@@ -27,3 +27,5 @@ This layer adds packages to improve editing with Spacemacs.
 - Support for converting definitions to certain styles via =string-inflection=.
 - Support for generating UUIDs via =uuidgen=.
 - Support for conversion between Emacs regexps and PCRE regexps.
+- Support for persistent scratch via =persistent-scratch=.
+- Support for unkillable scratch via =unkillable-scratch=.

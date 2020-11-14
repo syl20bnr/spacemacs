@@ -456,6 +456,14 @@ and todos. If non nil only the file name is shown.")
   "Subdirectories of `spacemacs-start-directory' to ignore when
 prettifying Org files.")
 
+(defvar dotspacemacs-scratch-buffer-persistent nil
+  "If non-nil, *scratch* buffer will be persistent. Things you write down in
+   *scratch* buffer will be saved automatically.")
+
+(defvar dotspacemacs-scratch-buffer-unkillable nil
+  "If non-nil, `kill-buffer' on *scratch* buffer
+will bury it instead of killing.")
+
 (defun dotspacemacs//prettify-spacemacs-docs ()
   "Run `spacemacs/prettify-org-buffer' if `buffer-file-name'
 looks like Spacemacs documentation."

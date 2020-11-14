@@ -756,6 +756,10 @@ Other:
     (thanks to Vladimir Kochnev and Eivind Fonn)
   - Added =password-generator= package to =spacemacs-editing= layer
     (thanks to Sylvain Benner)
+  - Added =persistent-scratch= package to =spacemacs-editing= layer
+    (thanks to Ray Wang)
+  - Added =unkillable-scratch= package to =spacemacs-editing= layer
+    (thanks to Ray Wang)
   - Added =symon= package to =spacemacs-modeline= layer
     (thanks to Eugene Yaremenko)
   - Added =evil-goggles= to the =spacemacs-evil= layer

@@ -198,6 +198,9 @@
       - [[#emacs-keyboard-macros][Emacs keyboard macros]]
         - [[#macro-counter][Macro counter]]
         - [[#key-bindings-1][Key bindings]]
+    - [[#scratch-buffer][Scratch buffer]]
+      - [[#persistent-scratch][Persistent scratch]]
+      - [[#unkillable-scratch][Unkillable scratch]]
     - [[#mouse-usage][Mouse usage]]
   - [[#comparing-diff][Comparing (diff)]]
   - [[#managing-projects][Managing projects]]
@@ -3474,6 +3477,17 @@ When recording a macro it's possible to insert the current value by pressing:
 | ~SPC K r p~ | cycle to previous macro in ring                                           |
 | ~SPC K r s~ | swap the first two macros in ring                                         |
 | ~SPC K v~   | view last macro string in minibuffer                                      |
+
+*** Scratch buffer
+Some features which could improve editing experience in =*scratch*= buffer.
+
+**** Persistent scratch
+Make your =*scratch*= buffer persistent. Everything you write down in =*scratch*= buffer will be automatically saved and restored.
+You can set variable =dotspacemacs-scratch-buffer-persistent= with a non-nil value in your =.spacemacs= file to enable this feature.
+
+**** Unkillable scratch
+Make your =*scratch*= buffer not killable (bury instead).
+You can set variable =dotspacemacs-scratch-buffer-unkillable= with a non-nil value in your =.spacemacs= file to enable this feature.
 
 *** Mouse usage
 There are some added mouse features set for the line number margin (if shown):
