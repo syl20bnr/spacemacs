@@ -11,9 +11,6 @@
 
 (setq github-packages
       '(
-        ;; forge requires a C compiler on Windows so we disable
-        ;; it by default on Windows.
-        (forge :toggle (not (spacemacs/system-is-mswindows)))
         gist
         github-clone
         github-search
@@ -22,22 +19,6 @@
         ;; the call to spacemacs/declare-prefix.
         (spacemacs-github :location built-in)
         ))
-
-(defun github/init-forge ()
-  (use-package forge
-    :after magit
-    :init
-    (progn
-      (setq forge-database-file (concat spacemacs-cache-directory
-                                        "forge-database.sqlite"))
-      (spacemacs/set-leader-keys-for-major-mode 'forge-topic-mode
-        "c" 'forge-create-post
-        "e" 'forge-edit-post)
-      (spacemacs/set-leader-keys-for-major-mode 'forge-post-mode
-        dotspacemacs-major-mode-leader-key 'forge-post-submit
-        "c" 'forge-post-submit
-        "k" 'forge-post-cancel
-        "a" 'forge-post-cancel))))
 
 (defun github/init-gist ()
   (use-package gist

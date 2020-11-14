@@ -15,6 +15,7 @@
   - [[#global-git-commit-mode][Global git commit mode]]
   - [[#git][Git]]
   - [[#git-flow][Git-Flow]]
+  - [[#forge][Forge]]
   - [[#org-integration][Org integration]]
 - [[#working-with-git][Working with Git]]
   - [[#magit][Magit]]
@@ -28,12 +29,14 @@
   - [[#git-time-machine][Git time machine]]
   - [[#git-links-to-web-services][Git links to web services]]
   - [[#repository-list][Repository list]]
+  - [[#forge-1][Forge]]
 
 * Description
 This layers adds extensive support for [[http://git-scm.com/][git]] to Spacemacs.
 
 ** Features:
 - git repository management the indispensable [[http://magit.vc/][magit]] package
+- [[https://github.com/magit/forge/][forge]] add-on for magit.
 - [[https://github.com/jtatarik/magit-gitflow][git-flow]] add-on for magit.
 - quick in buffer history browsing with [[https://melpa.org/#/git-timemachine][git-timemachine]].
 - quick in buffer last commit message per line with [[https://github.com/syohex/emacs-git-messenger][git-messenger]]
@@ -101,6 +104,19 @@ this easier, these do nothing you couldn't do manually.
 Support requires installation of the git-flow extensions. Please reference their
 [[https://github.com/petervanderdoes/gitflow/wiki][installation page]] for assistance.
 
+** Forge
+The =forge= package uses =emacsql= which requires a C compiler to be available
+on MS Windows, see issue [[https://github.com/skeeto/emacsql/issues/46]].
+
+For this reason the =forge= package is not installed on MS Windows by default.
+If you still want to install it (which means you do have a C compiler available
+in your PATH) then use the =dotspacemacs-additional-packages= variable in your
+dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (dotspacemacs-additional-packages '((forge :toggle t)))
+#+END_SRC
+
 ** Org integration
 See the commentary section of the package [[https://github.com/magit/orgit/blob/master/orgit.el#L28][here]].
 
@@ -139,6 +155,10 @@ Spacemacs uses [[http://magit.vc/][magit]] to manage Git repositories.
 
 To open a =status buffer=, type in a buffer of a Git repository: ~SPC g s~.
 The central key binding hub of Magit is available on ~SPC g m~.
+
+Spacemacs uses [[https://github.com/magit/forge/][forge]] for integration with remote forges, it is available from
+the =status buffer= with the ~@~ key binding. For information on setting up
+remotes check the manual's [[https://magit.vc/manual/forge/Getting-Started.html][Getting Started page]].
 
 Spacemacs uses [[https://github.com/justbur/evil-magit][evil-magit]] for key bindings in magit buffers (unless your editing
 style is set to emacs, in which case you get the default magit bindings), which
@@ -331,3 +351,34 @@ The DIRECTORY should end up with a ~/~ to respect Emacs conventions.
 | ~gr~        | refresh the project list                            |
 
 For more information, look into [[http://magit.vc/manual/magit.html#Status-Buffer][Magit-User-Manual#Status-Buffer]]
+
+** Forge
+In a =magit-status= buffer (~SPC g s~):
+
+| Key binding | Description                                               |
+|-------------+-----------------------------------------------------------|
+| ~b Y~       | create branch from pull-request                           |
+| ~b y~       | create and check out branch from pull-request             |
+| ~F f~       | fetch issues and pull-requests                            |
+| ~F n~       | fetch notifications                                       |
+| ~F p~       | create pull-request                                       |
+| ~F i~       | create issue                                              |
+| ~F F~       | list notifications                                        |
+| ~F P~       | list pull-requests                                        |
+| ~F I~       | list issues                                               |
+| ~p y~       | pull pull-requests and issues for the current repository  |
+| ~p Y~       | pull all notifications for the current repository's forge |
+
+In a =forge-topic= buffer:
+
+| Key binding | Description     |
+|-------------+-----------------|
+| ~SPC m c~   | create new post |
+| ~SPC m e~   | edit post       |
+
+In a =forge-post= buffer (assuming the major mode leader key is ~,~)
+
+| Key binding            | Description |
+|------------------------+-------------|
+| ~SPC m c~ or ~SPC m ,~ | submit post |
+| ~SPC m k~ or ~SPC m k~ | cancel post |
