@@ -111,6 +111,14 @@ See `spacemacs//fetch-docs-from-root'"
 (defun spacemacs//format-content (&rest r)
   (let* ((content (car r))
          (div-string "<div id=\"content\">")
+         (doc-warning "<div class=\"admonition warning\">
+<p class=\"first last\">
+You are viewing the documentation for the develop branch. 
+The documentation for the release version is
+<a href=\"link/to/thing\">here</a>
+.
+</p>
+</div>")
          (toc-string "<div id=\"toggle-sidebar\"><a href=\"#table-of-contents\"><h2>Table of Contents</h2></a></div>")
          (has-toc (s-index-of "Table of Contents" content))
          (beginning-of-content-div-pos (+ (length div-string)
@@ -119,8 +127,9 @@ See `spacemacs//fetch-docs-from-root'"
                                           0 beginning-of-content-div-pos))
          (rest-of-content (substring content beginning-of-content-div-pos)))
     (if (not (null has-toc))
-        (format "%s\n%s%s" beginning-of-content toc-string rest-of-content)
+        (format "%s\n%s\n%s%s" beginning-of-content doc-warning toc-string rest-of-content)
       content)))
+
 
 (defun spacemacs//toc-org-unhrefify-toc ()
   "Make TOC classical org-mode TOC."
