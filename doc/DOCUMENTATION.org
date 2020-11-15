@@ -1115,11 +1115,12 @@ key-discovery tools can use (e.g., which-key).
 Example to create binding in major mode:
 
 #+BEGIN_SRC emacs-lisp
-  (spacemacs/declare-prefix-for-mode 'org-mode "o" "custom")
+  (spacemacs/declare-prefix-for-mode 'org-mode "mo" "custom")
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "oi" 'org-id-get-create)
 #+END_SRC
 
-This would add binding as ~, oi~ and ~SPC moi~.
+This would add binding as ~, oi~ and ~SPC moi~ (note that the "m" in the prefix
+declaration must be include).
 
 There is much more to say about bindings keys, but these are the basics. Keys
 can be bound in your =~/.spacemacs= file or in individual layers.
