@@ -29,3 +29,6 @@
 
 (defvar scala-auto-start-backend nil
   "If non nil then ensime/metals will be started when a scala file is opened.")
+
+(defvar scala-auto-treeview t
+  "If non-nil automatically show treeview when views are recieved by metals.")
