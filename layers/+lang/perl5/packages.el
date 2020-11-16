@@ -9,23 +9,27 @@
 ;;
 ;;; License: GPLv3
 
-(setq perl5-packages
-      '(
-        (company-plsense :requires company)
-        (cperl-mode :location built-in)
-        flycheck
-        org
-        realgud
-        smartparens
-        ))
+(defconst perl5-packages
+  '(
+    (company-plsense :requires company)
+    (cperl-mode :location built-in)
+    flycheck
+    org
+    dap-mode
+    realgud
+    smartparens))
+
+(defun perl5/pre-init-dap-mode ()
+  (pcase (spacemacs//perl5-backend)
+    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'cperl-mode)
+          (add-hook 'cperl-mode-hook #'dap-mode))))
+
+(defun perl5/post-init-company ()
+  (spacemacs//perl5-setup-company))
 
 (defun perl5/init-company-plsense ()
   (use-package company-plsense
-    :defer t
-    :init
-    (spacemacs|add-company-backends
-     :backends company-plsense
-     :modes cperl-mode)))
+    :defer t))
 
 (defun perl5/init-cperl-mode ()
   (use-package cperl-mode
@@ -33,7 +37,6 @@
     :mode "\\.\\(p[lm]x?\\|P[LM]X?\\)\\'"
     :interpreter "perl"
     :interpreter "perl5"
-
     :init
     (progn
       (setq
@@ -42,8 +45,8 @@
        cperl-indent-level 4        ; 4 spaces is the standard indentation
        cperl-close-paren-offset -4 ; indent the closing paren back four spaces
        cperl-continued-statement-offset 4 ; if a statement continues indent it to four spaces
-       cperl-indent-parens-as-block t)) ; parentheses are indented with the block and not with scope
-
+       cperl-indent-parens-as-block t) ; parentheses are indented with the block and not with scope
+      (add-hook 'cperl-mode-hook #'spacemacs//perl5-setup-backend))
     :config
     (progn
       ;; Don't highlight arrays and hashes in comments
@@ -106,19 +109,20 @@
       (add-hook 'cperl-mode-hook
                 (lambda () (local-set-key (kbd "<tab>") 'indent-for-tab-command)))
 
-      (spacemacs/declare-prefix-for-mode 'cperl-mode "m=" "format")
-      (spacemacs/declare-prefix-for-mode 'cperl-mode "mg" "find-symbol")
-      (spacemacs/declare-prefix-for-mode 'cperl-mode "mh" "perldoc")
+      (unless (eq (spacemacs//perl5-backend) 'lsp)
+        (spacemacs/declare-prefix-for-mode 'cperl-mode "m=" "format")
+        (spacemacs/declare-prefix-for-mode 'cperl-mode "mg" "find-symbol")
+        (spacemacs/declare-prefix-for-mode 'cperl-mode "mh" "perldoc"))
       (spacemacs/set-leader-keys-for-major-mode 'cperl-mode
+        "hh" 'cperl-perldoc-at-point
         "==" 'spacemacs/perltidy-format
         "=b" 'spacemacs/perltidy-format-buffer
         "=f" 'spacemacs/perltidy-format-function
-        "hh" 'cperl-perldoc-at-point
         "hd" 'cperl-perldoc
         "v" 'cperl-select-this-pod-or-here-doc)
 
       (font-lock-add-keywords 'cperl-mode
-                      '(("\\_<say\\_>" . cperl-nonoverridable-face))))))
+                              '(("\\_<say\\_>" . cperl-nonoverridable-face))))))
 
 (defun perl5/post-init-flycheck ()
   (spacemacs/enable-flycheck 'cperl-mode))

@@ -9,6 +9,36 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//perl5-backend ()
+  "Return selected backend."
+  (if perl5-backend
+      perl5-backend
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'company-plsense))))
+
+(defun spacemacs//perl5-setup-company ()
+  "Conditionally setup company based on backend."
+  (pcase (spacemacs//perl5-backend)
+    ;; Activate lsp company explicitly to activate
+    ;; standard backends as well
+    (`lsp (spacemacs|add-company-backends
+            :backends company-capf
+            :modes cperl-mode))
+    (`company-plsense (spacemacs|add-company-backends)
+                      :backends company-plsense
+                      :modes cperl-mode)))
+
+(defun spacemacs//perl5-setup-backend ()
+  "Conditionally setup perl5 backend."
+  (pcase (spacemacs//perl5-backend)
+    (`lsp (lsp))))
+
+(defun spacemacs//perl5-setup-dap ()
+  "Conditionally setup perl5 DAP integration."
+  ;; currently DAP is only available using LSP
+  (pcase (spacemacs//perl5-backend)
+    (`lsp (add-hook 'cperl-mode-hook #'dap-mode))))
 
 (defun spacemacs//perl5-smartparens-enable ()
   (define-key cperl-mode-map "{" nil))
