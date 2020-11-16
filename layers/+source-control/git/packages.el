@@ -335,7 +335,7 @@
      transient-history-file
      (expand-file-name "transient/history.el" spacemacs-cache-directory))))
 
-(defun github/init-forge ()
+(defun git/init-forge ()
   (use-package forge
     :after magit
     :init
