@@ -22,4 +22,3 @@ If `both', binds lightweight navigation functions under `SPC m g' and lsp-ui fun
 (defvar lsp-ui-sideline-enable t "Enable/disable lsp-ui-sideline overlay")
 (defvar lsp-ui-sideline-show-symbol nil "When non-nil, sideline includes symbol info (largely redundant for c modes)")  ; don't show symbol on the right of info
 (defvar lsp-ui-sideline-ignore-duplicate t "Ignore duplicates")
-(defvar lsp-layer--active-mode-list nil "internal variable to store active major modes")
