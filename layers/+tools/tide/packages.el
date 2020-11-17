@@ -18,6 +18,5 @@
     :defer t
     :commands (typescript/jump-to-type-def)
     :config
-    (spacemacs//tide-setup-prefix)
     (spacemacs//tide-setup-bindings)
     (spacemacs//tide-setup-jump-handle)))

@@ -10,17 +10,6 @@
 ;;; License: GPLv3
 
 ;; variables
-
-(defvar tide-managed-modes '(
-                            ;; typescript-mode
-                            ;; typescript-tsx-mode
-                            ;; js2-mode
-                            ;; js-mode
-                            ;; rjsx-mode
-                            )
-  "List of major modes that `tide layer` can manage.
-Client layers must add its major-mode to this list")
-
 (defvar tide-jsconfig-content
   "{\n\
     \"compilerOptions\": {\n\

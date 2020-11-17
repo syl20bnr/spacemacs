@@ -9,29 +9,26 @@
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//tide-setup-prefix ()
-  "This one should run only once, otherwise `which-key' will become very slow #12455"
-  (dolist (mode tide-managed-modes)
-    (spacemacs/declare-prefix-for-mode mode "mE" "errors")
-    (spacemacs/declare-prefix-for-mode mode "mg" "goto")
-    (spacemacs/declare-prefix-for-mode mode "mh" "help")
-    (spacemacs/declare-prefix-for-mode mode "mn" "name")
-    (spacemacs/declare-prefix-for-mode mode "mr" "refactor")
-    (spacemacs/declare-prefix-for-mode mode "mS" "server")))
-
 (defun spacemacs//tide-setup-bindings ()
   "Define keys bindings for `tide-mode'"
   (spacemacs/set-leader-keys-for-minor-mode 'tide-mode
+    "E" "errors"
     "Ee" #'tide-fix
     "Ed" #'tide-add-tslint-disable-next-line
+    "Ep" #'tide-project-errors
+    "g" "goto"
+    "ge" #'tide-project-errors
     "gb" #'tide-jump-back
     "gg" #'tide-jump-to-definition
     "gt" #'spacemacs/typescript-jump-to-type-def
     "gr" #'tide-references
+    "h" "help"
     "hh" #'tide-documentation-at-point
+    "r" "refactor"
     "ri" #'tide-organize-imports
     "rr" #'tide-rename-symbol
     "rf" #'tide-rename-file
+    "S" "server"
     "Sr" #'tide-restart-server
     "Sj" #'spacemacs//tide-create-jsconfig-file))
 
