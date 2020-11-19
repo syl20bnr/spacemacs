@@ -67,6 +67,7 @@
              '(("m=" . "format")
                ("m=e" . "edn")
                ("md" . "debug")
+               ("mdv" . "inspect values")
                ("me" . "evaluation")
                ("mep" . "pretty print")
                ("mg" . "goto")
@@ -205,10 +206,14 @@
             "tr" 'spacemacs/cider-test-rerun-failed-tests
             "tt" 'spacemacs/cider-test-run-focused-test
 
-            ;; cider-debug
+            ;; cider-debug and inspect
             "db" 'cider-debug-defun-at-point
             "de" 'spacemacs/cider-display-error-buffer
-            "dv" 'cider-inspect
+            "dve" 'cider-inspect-last-sexp
+            "dvf" 'cider-inspect-defun-at-point
+            "dvi" 'cider-inspect
+            "dvl" 'cider-inspect-last-result
+            "dvv" 'cider-inspect-expr
 
             ;; profile
             "p+" 'cider-profile-samples

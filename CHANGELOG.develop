@@ -1661,6 +1661,13 @@ Other:
     added in CIDER 0.26
     ~SPC m e (~ 'cider-eval-list-at-point
     (thanks to John Stevenson)
+  - Add key binding for existing cider-inspect functions
+    ~SPC m v e~ 'cider-inspect-last-sexp
+    ~SPC m v f~ 'cider-inspect-defun-at-point
+    ~SPC m v i~ 'cider-inspect
+    ~SPC m v l~ 'cider-inspect-last-result
+    ~SPC m v v~ 'cider-inspect-expr
+    (thanks to John Stevenson)
 - Fixes:
   - Removed =cider.nrepl/cider-middleware= in lein quick start setting
   - Fixed =cider-inspector-prev-page= binding, also add ~p~ as another key
