@@ -261,7 +261,7 @@ Dedicated (locked) windows are left untouched."
   "Moves a buffer to a window, using the spacemacs numbering. follow-focus-p
 controls whether focus moves to new window (with buffer), or stays on current"
   (interactive)
-  (if (> windownum (length (window-list)))
+  (if (> windownum (length (window-list-1 nil nil t)))
       (message "No window numbered %s" windownum)
     (let ((b (current-buffer))
           (w1 (selected-window))
@@ -278,7 +278,7 @@ controls whether focus moves to new window (with buffer), or stays on current"
 follow-focus-p controls whether focus moves to new window (with buffer), or
 stays on current"
   (interactive)
-  (if (> windownum (length (window-list)))
+  (if (> windownum (length (window-list-1 nil nil t)))
       (message "No window numbered %s" windownum)
     (let* ((b1 (current-buffer))
            (w1 (selected-window))
