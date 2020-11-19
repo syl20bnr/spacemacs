@@ -599,7 +599,11 @@ TODO: separate clojure-mode and sayid key bindings
 | ~SPC m d t p~ | trace namespaces by regex                          |
 | ~SPC m d t r~ | remove trace on function                           |
 | ~SPC m d t y~ | recursively trace every namespace in given dir     |
-| ~SPC m d v~   | inspect expression at point                        |
+| ~SPC m d v e~ | inspect last expression                            |
+| ~SPC m d v f~ | inspect function at point                          |
+| ~SPC m d v i~ | inspect value at point (=cider-inspect=)           |
+| ~SPC m d v l~ | inspect last result                                |
+| ~SPC m d v v~ | inspect expression at point                        |
 | ~SPC m d V~   | set the view                                       |
 | ~SPC m d w~   | open sayid workspace window                        |
 | ~SPC m d x~   | clear workspace traces and log                     |
