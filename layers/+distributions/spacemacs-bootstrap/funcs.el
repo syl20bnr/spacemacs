@@ -230,3 +230,18 @@ the scroll transient state.")
       (use-package-concat
        body
        `((spacemacs|spacebind ,@args))))))
+
+
+
+;; As suggested in the Emacs wiki https://www.emacswiki.org/emacs/HideShow#toc5
+(defun spacemacs/toggle-selective-display (column)
+  "Toggle selective display by column, a.k.a. folding by indentation.
+
+Invokes `set-selective-display', but if a prefix argument is not supplied and
+`selective-display' is not already true, source the prefix argument from the
+column."
+  (interactive "P")
+  (set-selective-display
+   (or column
+       (unless selective-display
+         (1+ (current-column))))))

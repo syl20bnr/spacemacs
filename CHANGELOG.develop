@@ -521,6 +521,10 @@ Other:
     terminal mode, but no longer in GUI mode. (emacs18)
 *** Core changes
 - Improvements:
+  - Make =set-selective-display=, which is a kind of built-in Emacs quick-n-dirty
+    whole-file folding mechanism for indentation-based syntaxes, more
+    discoverable for Evil users by placing it (with a small DWIM wrapper) in the
+    folding menu as ~z $~ (thanks to Keith Pinson)
   - Provide keybindings for using narrow with an indirect buffer for when you
     want narrowing multiple times in the same base buffer:
     - ~SPC n F~ for narrow to function
