@@ -36,31 +36,38 @@
 
   (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
     ;; format
+    "=" "format"
     "=b" #'lsp-format-buffer
     "=r" #'lsp-format-region
     "=o" #'lsp-organize-imports
     ;; code actions
+    "a" "code actions"
     "aa" #'lsp-execute-code-action
     "af" #'spacemacs//lsp-action-placeholder
     "ar" #'spacemacs//lsp-action-placeholder
     "as" #'spacemacs//lsp-action-placeholder
     ;; goto
     ;; N.B. implementation and references covered by xref bindings / lsp provider...
+    "g" "goto"
     "gt" #'lsp-find-type-definition
     "gk" #'spacemacs/lsp-avy-goto-word
     "gK" #'spacemacs/lsp-avy-goto-symbol
     "gM" #'lsp-ui-imenu
     ;; help
+    "h" "help"
     "hh" #'lsp-describe-thing-at-point
     ;; jump
     ;; backend
+    "b" "backend"
     "bd" #'lsp-describe-session
     "br" #'lsp-workspace-restart
     "bs" #'lsp-workspace-shutdown
     "bv" #'lsp-version
     ;; refactor
+    "r" "refactor"
     "rr" #'lsp-rename
     ;; toggles
+    "T" "toggle"
     "Td" #'lsp-ui-doc-mode
     "Ts" #'lsp-ui-sideline-mode
     "TF" #'spacemacs/lsp-ui-doc-func
@@ -68,10 +75,12 @@
     "TI" #'spacemacs/lsp-ui-sideline-ignore-duplicate
     "Tl" #'lsp-lens-mode
     ;; folders
+    "F" "folder"
     "Fs" #'lsp-workspace-folders-switch
     "Fr" #'lsp-workspace-folders-remove
     "Fa" #'lsp-workspace-folders-add
     ;; text/code
+    "x" "text/code"
     "xh" #'lsp-document-highlight
     "xl" #'lsp-lens-show
     "xL" #'lsp-lens-hide))
@@ -97,6 +106,7 @@
 
 (defun spacemacs//lsp-bind-peek-navigation-functions (prefix-char)
   (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+    "G" "peek"
     (concat prefix-char "i") #'lsp-ui-peek-find-implementation
     (concat prefix-char "d") #'lsp-ui-peek-find-definitions
     (concat prefix-char "r") #'lsp-ui-peek-find-references
@@ -105,24 +115,6 @@
     (concat prefix-char "b") #'lsp-ui-peek-jump-backward
     (concat prefix-char "e") #'lsp-ui-flycheck-list
     (concat prefix-char "n") #'lsp-ui-peek-jump-forward))
-
-(defun spacemacs//lsp-declare-prefixes-for-mode (mode)
-  "Define key binding prefixes for the specific MODE."
-  (unless (member mode lsp-layer--active-mode-list)
-    (add-to-list 'lsp-layer--active-mode-list mode)
-    (spacemacs/declare-prefix-for-mode mode "m=" "format")
-    (spacemacs/declare-prefix-for-mode mode "ma" "code actions")
-    (spacemacs/declare-prefix-for-mode mode "mb" "backend")
-    (spacemacs/declare-prefix-for-mode mode "mF" "folder")
-    (spacemacs/declare-prefix-for-mode mode "mg" "goto")
-    (spacemacs/declare-prefix-for-mode mode "mG" "peek")
-    (spacemacs/declare-prefix-for-mode mode "mh" "help")
-    (spacemacs/declare-prefix-for-mode mode "mr" "refactor")
-    (spacemacs/declare-prefix-for-mode mode "mT" "toggle")
-    (spacemacs/declare-prefix-for-mode mode "mx" "text/code")
-    (dolist (prefix '("mg" "mG"))
-      (spacemacs/declare-prefix-for-mode mode (concat prefix "h") "hierarchy")
-      (spacemacs/declare-prefix-for-mode mode (concat prefix "m") "members"))))
 
 (defun spacemacs//lsp-bind-extensions-for-mode (mode
                                                 layer-name
