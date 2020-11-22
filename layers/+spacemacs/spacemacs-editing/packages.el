@@ -14,6 +14,7 @@
         avy
         (bracketed-paste :toggle (version<= emacs-version "25.0.92"))
         (clean-aindent-mode :toggle dotspacemacs-use-clean-aindent-mode)
+        dired-quick-sort
         editorconfig
         eval-sexp-fu
         expand-region
@@ -98,6 +99,12 @@
     (progn
       (clean-aindent-mode)
       (add-hook 'prog-mode-hook 'spacemacs//put-clean-aindent-last t))))
+
+(defun spacemacs-editing/init-dired-quick-sort ()
+  (use-package dired-quick-sort
+    :defer t
+    :init
+    (dired-quick-sort-setup)))
 
 (defun spacemacs-editing/init-editorconfig ()
   (use-package editorconfig
