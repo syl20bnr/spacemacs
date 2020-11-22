@@ -1,5 +1,5 @@
 #+TITLE: graphql layer
-#+TAGS: layer|language
+#+TAGS: dsl|layer|script|programming
 
 [[file:img/graphql.png]]
 
