@@ -48,7 +48,7 @@ Grip-mode [[https://github.com/seagle0128/grip-mode#prerequisite][requires pytho
 system. Grip can usually be installed with the command =pip install grip=,
 on debian based systems make sure you use the python 3 version
 of pip, it is normally called =pip3=.
-   
+
 * Key bindings
 ** gist.el
 

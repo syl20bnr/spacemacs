@@ -74,8 +74,7 @@ layer documentation file in Spacemacs using ~SPC h l emacs-lisp RET~. This will
 open the current file in =space-doc-mode=. Toggle off =space-doc-mode= using =,
 T V= so that Spacemacs will switch to =org-mode=. Now you can place the cursor
 somewhere inside the code block and press ~, '~ to open the code in an
-interactive =emacs-lisp-buffer=. [fn:: [[https://orgmode.org/manual/Working-with-Source-Code.html][Source blocks]] provide literate
-programming functionality to =org-mode= buffers.]
+interactive =emacs-lisp-buffer=. 
 
 #+BEGIN_SRC elisp
   (defun helloworld (name)
@@ -90,7 +89,6 @@ programming functionality to =org-mode= buffers.]
 
 Steps:
 Now from within the =emacs-lisp-buffer=
-
 1) Evaluate each sexp by putting your point in each of them and press ~, e f~ or
    press ~, e b~ to evaluate all code in the buffer at once.
 2) To debug the =helloworld= function, put your cursor on the =defun= keyword and
