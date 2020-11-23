@@ -524,8 +524,10 @@ Evaluate Clojure code in the source code buffer
 | ~SPC m e l~   | go to end of line and eval last sexp                              |
 | ~SPC m e m~   | cider macroexpand 1                                               |
 | ~SPC m e M~   | cider macroexpand all                                             |
-| ~SPC m e n~   | refresh namespace (cider-ns-refresh)                              |
-| ~SPC m e N~   | reload namespace (cider-ns-reload), ~SPC u~ (cider-ns-reload-all) |
+| ~SPC m e n a~ | reload all namespaces (cider-ns-reload-all)                       |
+| ~SPC m e n n~ | eval current namespace form (cider-eval-ns-form)                  |
+| ~SPC m e n r~ | refresh namespace (cider-ns-refresh)                              |
+| ~SPC m e n l~ | reload namespace (cider-ns-reload), ~SPC u~ (cider-ns-reload-all) |
 | ~SPC m e p ;~ | eval top-level sexp, pretty print result as a comment             |
 | ~SPC m e p :~ | eval last sexp, pretty print result as a comment                  |
 | ~SPC m e p f~ | eval top-level sexp, pretty print result in separate buffer       |

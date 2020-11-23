@@ -68,6 +68,7 @@
                ("md" . "debug")
                ("mdv" . "inspect values")
                ("me" . "evaluation")
+               ("men" . "namespace")
                ("mep" . "pretty print")
                ("mm" . "manage repls")
                ("mml" . "link session")
@@ -122,8 +123,10 @@
             "el" 'spacemacs/cider-eval-sexp-end-of-line
             "em" 'cider-macroexpand-1
             "eM" 'cider-macroexpand-all
-            "en" 'cider-ns-refresh
-            "eN" 'cider-ns-reload  ;; SPC u for cider-ns-reload-all
+            "ena" 'cider-ns-reload-all
+            "enn" 'cider-eval-ns-form
+            "enr" 'cider-ns-refresh
+            "enl" 'cider-ns-reload  ;; SPC u for cider-ns-reload-all
             "ep;" 'cider-pprint-eval-defun-to-comment
             "ep:" 'cider-pprint-eval-last-sexp-to-comment
             "epf" 'cider-pprint-eval-defun-at-point

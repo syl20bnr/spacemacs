@@ -1668,6 +1668,12 @@ Other:
     ~SPC m v l~ 'cider-inspect-last-result
     ~SPC m v v~ 'cider-inspect-expr
     (thanks to John Stevenson)
+  - Add key bindings for existing cider namespace functions
+    ~SPC m e n a~ 'cider-ns-reload-all
+    ~SPC m e n n~ 'cider-eval-ns-form
+    ~SPC m e n r~ 'cider-ns-refresh
+    ~SPC m e n l~ 'cider-ns-reload
+    (thanks to John Stevenson)
 - Fixes:
   - Removed =cider.nrepl/cider-middleware= in lein quick start setting
   - Fixed =cider-inspector-prev-page= binding, also add ~p~ as another key
