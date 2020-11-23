@@ -77,13 +77,34 @@
     (when javascript-fmt-on-save
       (add-hook 'rjsx-mode-local-vars-hook #'spacemacs//react-fmt-before-save-hook))
 
+    ;; set the javascript layers keymap as parent to the react layers keymap
+    (set-keymap-parent spacemacs-rjsx-mode-map spacemacs-js2-mode-map)
+
     :config
-    ;; declare prefix
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mr" "refactor")
+    ;; declare prefixes
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "m="  "format")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mT"  "toggle")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "me"  "eval")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mg"  "goto")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mh"  "documentation")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mr"  "refactor")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mr3" "ternary")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mra" "add/args")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mrb" "barf")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mrc" "contract")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mre" "expand/extract")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mri" "inline/inject/introduct")
     (spacemacs/declare-prefix-for-mode 'rjsx-mode "mrl" "localize/log")
     (spacemacs/declare-prefix-for-mode 'rjsx-mode "mrr" "rename")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mh" "documentation")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mg" "goto")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mrs" "split/slurp")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mrt" "toggle")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mru" "unwrap")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mrv" "var")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mrw" "wrap")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "ms"  "skewer")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mx"  "text")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mxm" "move")
+    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mz"  "folding")
 
     (spacemacs/set-leader-keys-for-major-mode 'rjsx-mode "rlt" 'js2r-log-this)
     (spacemacs/set-leader-keys-for-major-mode 'rjsx-mode "rt" 'rjsx-rename-tag-at-point)
