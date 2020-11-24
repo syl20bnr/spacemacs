@@ -9,30 +9,43 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//clojure-backend ()
+  "Return selected backend."
+  (if clojure-backend
+      clojure-backend
+    (cond
+     ((configuration-layer/layer-used-p 'lsp) 'lsp)
+     (t 'cider))))
+
+(defun spacemacs//clojure-setup-backend ()
+  "Conditionally setup clojure backend."
+  (pcase (spacemacs//clojure-backend)
+    (`lsp (lsp))))
+
 (defun clojure/fancify-symbols (mode)
   "Pretty symbols for Clojure's anonymous functions and sets,
    like (λ [a] (+ a 5)), ƒ(+ % 5), and ∈{2 4 6}."
   (font-lock-add-keywords mode
-    `(("(\\(fn\\)[[[:space:]]"
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "λ")
-                 nil)))
-      ("(\\(partial\\)[[[:space:]]"
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "Ƥ")
-                 nil)))
-      ("(\\(comp\\)[[[:space:]]"
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "∘")
-                 nil)))
-      ("\\(#\\)("
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "ƒ")
-                 nil)))
-      ("\\(#\\){"
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "∈")
-                 nil))))))
+                          `(("(\\(fn\\)[[[:space:]]"
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "λ")
+                                       nil)))
+                            ("(\\(partial\\)[[[:space:]]"
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "Ƥ")
+                                       nil)))
+                            ("(\\(comp\\)[[[:space:]]"
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "∘")
+                                       nil)))
+                            ("\\(#\\)("
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "ƒ")
+                                       nil)))
+                            ("\\(#\\){"
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "∈")
+                                       nil))))))
 
 
 (defun spacemacs/cider-eval-sexp-end-of-line ()
@@ -54,7 +67,7 @@
       (indent-region pt-max (point))
       (cider-repl-return)
       (with-selected-window (get-buffer-window (cider-current-connection))
-               (goto-char (point-max))))))
+        (goto-char (point-max))))))
 
 (defun spacemacs/cider-send-last-sexp-to-repl ()
   "Send last sexp to REPL and evaluate it without changing

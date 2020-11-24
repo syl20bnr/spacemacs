@@ -28,3 +28,8 @@
 
 (defvar clojure-enable-linters nil
   "If non-nil, enable clojure linters.")
+
+(defvar clojure-backend nil
+  "The backend to use for IDE features.
+Possible values are `lsp' and `cider'.
+If `nil' then 'cider` is the default backend unless `lsp' layer is used")

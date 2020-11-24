@@ -13,6 +13,7 @@
 - [[#install][Install]]
   - [[#add-the-clojure-layer-manually][Add the Clojure Layer manually]]
   - [[#pretty-symbols][Pretty Symbols]]
+  - [[#optional-lsp-server][Optional LSP server]]
   - [[#enabling-automatic-linting][Enabling Automatic Linting]]
     - [[#enable-clj-kondo-linter][Enable clj-kondo linter]]
     - [[#enable-joker-linter][Enable joker linter]]
@@ -75,10 +76,11 @@ and a full suite of tooling for Clojure development.
 The following Spacemacs layers should also be added for a complete experience.
 - auto-completion
 - syntax-checking (provides flycheck for linter support)
+- LSP
 
 *** Other optional features
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
-- Debugging with [[https://github.com/clojure-emacs/sayid][sayid]] (beta)
+- Debugging with [[https://github.com/clojure-emacs/sayid][sayid]]
 
 *** References
 - [[https://docs.cider.mx/cider/][CIDER documentation]]
@@ -110,6 +112,33 @@ Or set this variable when loading the configuration layer:
   (setq-default dotspacemacs-configuration-layers
   '((clojure :variables clojure-enable-fancify-symbols t)))
 #+END_SRC
+
+** Optional LSP server
+Traditionally the clojure developing environment is working
+exclusively with an external server called CIDER.
+This has some drawbacks especially that most features require
+a working REPL session in the background. Newer layers work
+with a standard LSP server providing standard
+bindings for most features. In addition =lsp-UI= provides a more
+modern UI for visualising linter results and providing
+code actions.
+
+The server is automatically activated when you have the =lsp-layer=
+installed in your dotfile. Alternatively you can force a
+certain backend by setting the =clojure-backend= variable
+in your dotfile:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+  '((clojure :variables clojure-backend 'lsp)))
+#+END_SRC
+
+The server is started automatically when a supported file is opened.
+It will also provide a flycheck integration via =lsp-flycheck= which
+will run the configured linter from your project config.
+See [[https://github.com/snoe/clojure-lsp][here]] for details. The server is installed automatically
+in your emacs directory however if this does not work
+it can also be installed manually from [[https://github.com/snoe/clojure-lsp/releases/latest/download/clojure-lsp][here]].
 
 ** Enabling Automatic Linting
 [[https://github.com/borkdude/clj-kondo][clj-kondo]], [[https://github.com/candid82/joker][joker]] and [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] provide automated linting via =flycheck=.
