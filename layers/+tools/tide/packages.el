@@ -19,4 +19,4 @@
     :commands (typescript/jump-to-type-def)
     :config
     (spacemacs//tide-setup-bindings)
-    (spacemacs//tide-setup-jump-handle)))
+    (add-hook 'tide-mode-hook #'spacemacs//tide-setup-jump-handle)))
