@@ -64,6 +64,8 @@
   ;; evil-mode is mandatory for Spacemacs to work properly
   ;; evil must be require explicitly, the autoload seems to not
   ;; work properly sometimes.
+  ;; `evil-collection' wants this value
+  (setq evil-want-keybinding nil)
   (require 'evil)
   (evil-mode 1)
 
