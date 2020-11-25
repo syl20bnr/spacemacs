@@ -63,11 +63,8 @@ Must be called by a layer using tide."
   (eldoc-mode))
 
 (defun spacemacs//tide-setup-jump-handle ()
-  "Loop through `tide-managed-modes' and set jump handlers for these modes."
-  (dolist (mode tide-managed-modes)
-    (add-to-list
-     (intern (format "spacemacs-jump-handlers-%S" mode))
-     '(tide-jump-to-definition :async t))))
+  "Set jump handlers."
+  (add-to-list 'spacemacs-jump-handlers '(tide-jump-to-definition :async t)))
 
 (defun spacemacs//tide-create-jsconfig-file ()
   "Create a jsconfig file at project root."
