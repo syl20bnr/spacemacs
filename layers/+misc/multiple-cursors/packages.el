@@ -20,6 +20,8 @@
   (use-package evil-mc
     :init
     (progn
+      (which-key-add-key-based-replacements
+        "gr" "evil-mc")
       (add-hook 'prog-mode-hook 'turn-on-evil-mc-mode)
       (add-hook 'text-mode-hook 'turn-on-evil-mc-mode))
     :config
@@ -60,5 +62,4 @@
       (with-eval-after-load 'multiple-cursors-core
         (add-to-list 'mc/cmds-to-run-once 'spacemacs/helm-M-x-fuzzy-matching)
         (add-to-list 'mc/cmds-to-run-once 'counsel-M-x)
-        (add-to-list 'mc/cmds-to-run-once 'spacemacs/default-pop-shell)
-        ))))
+        (add-to-list 'mc/cmds-to-run-once 'spacemacs/default-pop-shell)))))
