@@ -854,6 +854,7 @@ Features:
 - Support for conversion between Emacs regexps and PCRE regexps.
 - Support for persistent scratch via =persistent-scratch=.
 - Support for unkillable scratch via =unkillable-scratch=.
+- In =dired-mode=, press ~Shift S~ to select sorting.
 
 ** Spacemacs-editing-visual
 [[file:+spacemacs/spacemacs-editing-visual/README.org][+spacemacs/spacemacs-editing-visual/README.org]]
@@ -1128,11 +1129,12 @@ Related layers
 The following Spacemacs layers should also be added for a complete experience.
 - auto-completion
 - syntax-checking (provides flycheck for linter support)
+- LSP
 
 
 Other optional features
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
-- Debugging with [[https://github.com/clojure-emacs/sayid][sayid]] (beta)
+- Debugging with [[https://github.com/clojure-emacs/sayid][sayid]]
 
 
 References
