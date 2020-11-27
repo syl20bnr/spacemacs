@@ -318,12 +318,13 @@
     (define-key evilem-map "/" #'evil-avy-goto-char-timer)
     (define-key evilem-map (kbd "SPC") #'buffer-evil-avy-goto-char-timer)
 
-    ;; Provide proper prefixes for which
-    (which-key-add-key-based-replacements
-      "gsg" "misc"
-      "gs"  "evil-easymotion"
-      "gs[" "section backward"
-      "gs]" "section forward")
+    ;; Provide proper prefixes for which key
+    (which-key-add-keymap-based-replacements evil-motion-state-map
+      "gs"  "evil-easymotion")
+    (which-key-add-keymap-based-replacements evilem-map
+      "g" "misc"
+      "[" "section backward"
+      "]" "section forward")
 
     ;; Use evil-search backend, instead of isearch
     (evilem-make-motion evilem-motion-search-next #'evil-ex-search-next

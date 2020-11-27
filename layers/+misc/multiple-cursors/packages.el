@@ -20,8 +20,8 @@
   (use-package evil-mc
     :init
     (progn
-      (which-key-add-key-based-replacements
-        "gr" "evil-mc")
+      (which-key-add-keymap-based-replacements evil-motion-state-map
+        "gr"  "evil-mc")
       (add-hook 'prog-mode-hook 'turn-on-evil-mc-mode)
       (add-hook 'text-mode-hook 'turn-on-evil-mc-mode))
     :config
