@@ -148,14 +148,6 @@
     (spacemacs/set-leader-keys
       "gfi" 'gitignore-templates-new-file)))
 
-(defun git/post-init-magit ()
-  ;; Remove inherited bindings from evil-mc and evil-easymotion
-  (which-key-add-keymap-based-replacements magit-mode-map
-    "<normal-state> g r" nil
-    "<visual-state> g r" nil
-    "<normal-state> g s" nil
-    "<visual-state> g s" nil))
-
 (defun git/init-magit ()
   (use-package magit
     :defer (spacemacs/defer)
@@ -271,7 +263,13 @@
       (evil-define-key 'normal magit-section-mode-map (kbd "M-6") 'winum-select-window-6)
       (evil-define-key 'normal magit-section-mode-map (kbd "M-7") 'winum-select-window-7)
       (evil-define-key 'normal magit-section-mode-map (kbd "M-8") 'winum-select-window-8)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-9") 'winum-select-window-9))))
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-9") 'winum-select-window-9)
+      ;; Remove inherited bindings from evil-mc and evil-easymotion
+      (which-key-add-keymap-based-replacements magit-mode-map
+        "<normal-state> g r" nil
+        "<visual-state> g r" nil
+        "<normal-state> g s" nil
+        "<visual-state> g s" nil))))
 
 (defun git/init-magit-delta ()
   (use-package magit-delta
