@@ -49,7 +49,14 @@
     (when (spacemacs//support-evilified-buffer-p dotspacemacs-editing-style)
       (evil-magit-init))
     (evil-define-key 'motion magit-mode-map
-      (kbd dotspacemacs-leader-key) spacemacs-default-map)))
+      (kbd dotspacemacs-leader-key) spacemacs-default-map)
+    ;; Remove inherited bindings from evil-mc and evil-easymotion
+    ;; do this after the config to make sure the keymap is available
+    (which-key-add-keymap-based-replacements magit-mode-map
+      "<normal-state> g r" nil
+      "<visual-state> g r" nil
+      "<normal-state> g s" nil
+      "<visual-state> g s" nil)))
 
 (defun git/init-evil-magit ()
   (use-package evil-magit
@@ -147,14 +154,6 @@
       "i" 'gitignore-templates-insert)
     (spacemacs/set-leader-keys
       "gfi" 'gitignore-templates-new-file)))
-
-(defun git/post-init-magit ()
-  ;; Remove inherited bindings from evil-mc and evil-easymotion
-  (which-key-add-keymap-based-replacements magit-mode-map
-    "<normal-state> g r" nil
-    "<visual-state> g r" nil
-    "<normal-state> g s" nil
-    "<visual-state> g s" nil))
 
 (defun git/init-magit ()
   (use-package magit
