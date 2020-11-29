@@ -2172,8 +2172,11 @@ to update."
         (spacemacs-buffer/append
          (format
           (concat "\nEmacs has to be restarted to actually install the "
-                  "new version of the packages%s.\n")
-          (if (member "restart-emacs" update-packages) "" " (SPC q r)")))
+                  "new version of the packages %s.\n")
+          (if (member 'restart-emacs update-packages)
+              (concat "\n(SPC q r) won't work this time, "
+                      "because the restart-emacs package is being updated")
+            "(SPC q r)")))
         (configuration-layer//cleanup-rollback-directory)
         (spacemacs//redisplay)))
     (when (eq upgrade-count 0)
