@@ -36,7 +36,7 @@
         uuidgen
         (vimish-fold :toggle (eq 'vimish dotspacemacs-folding-method))
         (evil-vimish-fold :toggle (eq 'vimish dotspacemacs-folding-method))
-        (evil-easymotion :toggle (memq dotspacemacs-editing-style '(vim, hybrid)))
+        (evil-easymotion :toggle (memq dotspacemacs-editing-style '(vim hybrid)))
         ws-butler))
 
 ;; Initialization of packages
