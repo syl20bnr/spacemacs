@@ -1,11 +1,11 @@
-;;; config.el --- tabs configuration File for Spacemacs
+;;; config.el --- tabs configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -32,7 +32,7 @@ The following scopes are possible:
 (defvar tabs-set-modified-marker t
   "When non nil, display a marker when buffer is modified")
 
-(defvar tabs-modified-marker "⚠"
+(defvar tabs-modified-marker "âš "
   "Display appearance of modified marker if enabled")
 
 (defvar tabs-show-navigation-buttons nil
@@ -55,3 +55,5 @@ The following scopes are possible:
   - 'left: displays the bar at the left of the currently selected tab.
   - 'under: displays the bar under the currently selected tab.
   - 'over: displays the bar over the currently selected tab.")
+
+

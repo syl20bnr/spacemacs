@@ -1,4 +1,4 @@
-#+TITLE: Spacemacs documentation
+#+TITLE: Space-macs documentation
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#core-pillars][Core Pillars]]
@@ -10,9 +10,9 @@
 - [[#screenshots][Screenshots]]
 - [[#who-can-benefit-from-this][Who can benefit from this?]]
 - [[#update-and-rollback][Update and Rollback]]
-  - [[#update-spacemacs-repository][Update Spacemacs repository]]
+  - [[#update-space-macs-repository][Update Space-macs repository]]
     - [[#automatic-updates][Automatic Updates]]
-    - [[#updating-from-the-spacemacs-buffer][Updating from the Spacemacs Buffer]]
+    - [[#updating-from-the-space-macs-buffer][Updating from the Space-macs Buffer]]
     - [[#updating-manually-with-git][Updating Manually with git]]
   - [[#update-packages][Update packages]]
 - [[#configuration-layers][Configuration layers]]
@@ -49,7 +49,7 @@
 - [[#concepts][Concepts]]
   - [[#editing-styles][Editing Styles]]
     - [[#vim][Vim]]
-    - [[#emacs][Emacs]]
+    - [[#e-macs][e-macs]]
     - [[#hybrid][Hybrid]]
   - [[#states][States]]
   - [[#evilified-modes][Evilified modes]]
@@ -58,13 +58,13 @@
   - [[#transient-states][Transient-states]]
   - [[#toggles][Toggles]]
     - [[#configuring-toggles-in-the-dotfile][Configuring toggles in the dotfile]]
-- [[#differences-between-vim-evil-and-spacemacs][Differences between Vim, Evil and Spacemacs]]
+- [[#differences-between-vim-evil-and-space-macs][Differences between Vim, Evil and Space-macs]]
   - [[#the-vim-surround-case][The vim-surround case]]
 - [[#evil-plugins][Evil plugins]]
 - [[#environment-variables-and-path][Environment variables and PATH]]
   - [[#default-behavior][Default behavior]]
   - [[#managing-environment-variables-by-yourself][Managing environment variables by yourself]]
-  - [[#note-about-the-function-dotspacemacsuser-env][Note about the function dotspacemacs/user-env]]
+  - [[#note-about-the-function-dotspace-macsuser-env][Note about the function dotspace-macs/user-env]]
 - [[#binding-keys][Binding keys]]
 - [[#gui-elements][GUI Elements]]
   - [[#color-themes][Color themes]]
@@ -80,7 +80,7 @@
     - [[#mode-line-themes][Mode-line themes]]
     - [[#separators][Separators]]
     - [[#separator-scale][Separator scale]]
-    - [[#spacemacs-mode-line-theme][Spacemacs mode-line theme]]
+    - [[#space-macs-mode-line-theme][Space-macs mode-line theme]]
       - [[#flycheck-integration][Flycheck integration]]
       - [[#anzu-integration][Anzu integration]]
       - [[#battery-status-integration][Battery status integration]]
@@ -105,7 +105,7 @@
 - [[#commands][Commands]]
   - [[#vim-key-bindings][Vim key bindings]]
     - [[#escaping][Escaping]]
-    - [[#executing-vim-and-emacs-exm-x-commands][Executing Vim and Emacs ex/M-x commands]]
+    - [[#executing-vim-and-e-macs-exm-x-commands][Executing Vim and e-macs ex/M-x commands]]
     - [[#leader-key][Leader key]]
     - [[#major-mode-leader-key][Major Mode leader key]]
     - [[#additional-text-objects][Additional text objects]]
@@ -117,7 +117,7 @@
       - [[#describe-key-bindings][Describe key bindings]]
     - [[#getting-help][Getting help]]
     - [[#available-layers][Available layers]]
-      - [[#available-packages-in-spacemacs][Available packages in Spacemacs]]
+      - [[#available-packages-in-space-macs][Available packages in Space-macs]]
       - [[#new-packages-from-elpa-repositories][New packages from ELPA repositories]]
     - [[#toggles-1][Toggles]]
   - [[#navigating][Navigating]]
@@ -139,7 +139,7 @@
       - [[#buffers-transient-state][Buffers transient state]]
       - [[#file-manipulation-key-bindings][File manipulation key bindings]]
       - [[#frame-manipulation-key-bindings][Frame manipulation key bindings]]
-      - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
+      - [[#e-macs-and-space-macs-files][e-macs and Space-macs files]]
       - [[#browsing-files-in-completion-buffer][Browsing files in completion buffer]]
     - [[#ido][Ido]]
     - [[#ido-transient-state][Ido transient state]]
@@ -192,10 +192,10 @@
     - [[#editing-lisp-code][Editing Lisp code]]
       - [[#lisp-key-bindings][Lisp Key bindings]]
         - [[#lisp-state-key-bindings][Lisp state key bindings]]
-        - [[#emacs-lisp-specific-key-bindings][Emacs lisp specific key bindings]]
+        - [[#e-macs-lisp-specific-key-bindings][e-macs lisp specific key bindings]]
     - [[#keyboard-macros][Keyboard macros]]
       - [[#vim-keyboard-macros][Vim keyboard macros]]
-      - [[#emacs-keyboard-macros][Emacs keyboard macros]]
+      - [[#e-macs-keyboard-macros][e-macs keyboard macros]]
         - [[#macro-counter][Macro counter]]
         - [[#key-bindings-1][Key bindings]]
     - [[#scratch-buffer][Scratch buffer]]
@@ -210,16 +210,16 @@
     - [[#custom-fringe-bitmaps][Custom fringe bitmaps]]
   - [[#compiling][Compiling]]
 - [[#editorconfig][EditorConfig]]
-- [[#emacs-server][Emacs Server]]
-  - [[#connecting-to-the-emacs-server][Connecting to the Emacs server]]
+- [[#e-macs-server][e-macs Server]]
+  - [[#connecting-to-the-e-macs-server][Connecting to the e-macs server]]
   - [[#keeping-the-server-alive][Keeping the server alive]]
 - [[#troubleshoot][Troubleshoot]]
   - [[#loading-fails][Loading fails]]
-  - [[#upgradingdowngrading-emacs-version][Upgrading/Downgrading Emacs version]]
+  - [[#upgradingdowngrading-e-macs-version][Upgrading/Downgrading e-macs version]]
   - [[#general-layer-errors][General layer errors]]
     - [[#step-by-step-instructions-for-minimal-layer-bug-reports][Step by step instructions for minimal layer bug reports]]
-  - [[#general-emacs-package-errors][General emacs package errors]]
-    - [[#step-by-step-instructions-for-minimal-emacs-package-bug-reports][Step by step instructions for minimal emacs package bug reports]]
+  - [[#general-e-macs-package-errors][General e-macs package errors]]
+    - [[#step-by-step-instructions-for-minimal-e-macs-package-bug-reports][Step by step instructions for minimal e-macs package bug reports]]
 - [[#achievements][Achievements]]
   - [[#issues][Issues]]
   - [[#merged-pull-requests][Merged Pull Requests]]
@@ -247,79 +247,79 @@ system to quickly find available layers, packages, and more.
 ** Consistent
 Similar functionalities have the same key binding everywhere, thanks to a
 clearly defined set of conventions. Documentation is mandatory for any layer
-that ships with Spacemacs.
+that ships with Space-macs.
 
 ** Crowd-Configured
 Community-driven configuration provides curated packages tuned by power users
 and bugs are fixed quickly.
 
 * Highlighted features
-- *Bring the efficiency of modal editing* to the powerful Emacs lisp platform.
-  Modal UX is optional and Spacemacs can be used with only Emacs key bindings.
+- *Bring the efficiency of modal editing* to the powerful e-macs lisp platform.
+  Modal UX is optional and Space-macs can be used with only e-macs key bindings.
 - Integrate nicely with =Evil= states (=Vim= modes).
 - *Keep your fingers on the home row* for quicker editing with support for
   QWERTY and BEPO layouts.
 - *Minimalistic and nice graphical UI* keeps your available screen space for
   what matters: your text files.
 - *Fast boot time*: packages and configuration are lazy-loaded as much as
-  possible. For even faster boot time, Spacemacs now provides full support for
-  the new portable dumper available in Emacs 27 and later.
+  possible. For even faster boot time, Space-macs now provides full support for
+  the new portable dumper available in e-macs 27 and later.
 - *Lower the risk of RSI* by heavily using the space bar instead of modifiers.
-  If you have issues with your thumbs you can still use Spacemacs using
+  If you have issues with your thumbs you can still use Space-macs using
   modifiers.
 - Contribute easily with your improvements and new configuration layers.
 - *Very active and helpful community* on =Gitter= and =IRC=
   (via Gitter IRC bridge)
 
 * Screenshots
-[[file:img/spacemacs-python.png]]
+[[file:img/space-macs-python.png]]
 /Python/
 
-*Note*: Even though screenshots are updated frequently, Spacemacs is evolving
+*Note*: Even though screenshots are updated frequently, Space-macs is evolving
 quickly and the screenshots may not reflect exactly the current state of the
 project.
 
 * Who can benefit from this?
-- Spacemacs was initially intended to be used by *Vim users* who want to go to
-  the next level by using Emacs (see [[https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org][guide]] for Vimmers). But it is now
-  perfectly *usable by non Vim users* by choosing the =emacs= editing style.
+- Space-macs was initially intended to be used by *Vim users* who want to go to
+  the next level by using e-macs (see [[https://github.com/syl20bnr/space-macs/blob/master/doc/VIMUSERS.org][guide]] for Vimmers). But it is now
+  perfectly *usable by non Vim users* by choosing the =e-macs= editing style.
 - It is also a good fit for people wanting to *lower the [[https://en.wikipedia.org/wiki/Repetitive_strain_injury][risk of RSI]]* induced by
-  the default Emacs key bindings. (This is an assumption, there are no official
+  the default e-macs key bindings. (This is an assumption, there are no official
   studies to prove this!) If you have issues using your thumbs you can still
-  use the =emacs= editing style which puts the leader key on a modifier
+  use the =e-macs= editing style which puts the leader key on a modifier
   combination.
-- Emacs users wanting to learn *a different way to edit files* or wanting to
+- e-macs users wanting to learn *a different way to edit files* or wanting to
   learn Vim key bindings or even wanting to mix both editing styles by setting
   their style to =hybrid=.
-- Emacs users wanting a simple but deep configuration system that greatly
-  *lowers the risk of .emacs bankruptcy*.
+- e-macs users wanting a simple but deep configuration system that greatly
+  *lowers the risk of .e-macs bankruptcy*.
 - *Pair-programming* users thanks to out of the box support for dynamic
-  switching of editing style. A Vim user and an Emacs user can use the same
-  Spacemacs comfortably.
+  switching of editing style. A Vim user and an e-macs user can use the same
+  Space-macs comfortably.
 
 * Update and Rollback
-** Update Spacemacs repository
+** Update Space-macs repository
 There are several methods of updating the core files and layer information for
-Spacemacs. It is recommended to update the packages first; see the next section.
+Space-macs. It is recommended to update the packages first; see the next section.
 
 *** Automatic Updates
-Spacemacs will automatically check for a new version periodically. When it
+Space-macs will automatically check for a new version periodically. When it
 detects that a new version is available an arrow will appear in the modeline.
-Click it to update Spacemacs. You must restart Emacs after updating.
+Click it to update Space-macs. You must restart e-macs after updating.
 [[file:img/powerline-update.png]]
 /Update Button/
 
-*Note*: If you use the =develop= branch of Spacemacs, automatic update is
+*Note*: If you use the =develop= branch of Space-macs, automatic update is
 disabled---you have to update manually using git.
 
-*** Updating from the Spacemacs Buffer
-Use the button labeled "Update Spacemacs" in the Spacemacs buffer. You will be
+*** Updating from the Space-macs Buffer
+Use the button labeled "Update Space-macs" in the Space-macs buffer. You will be
 prompted for the version you would like to use.
 
-*Note*: If you use the =develop= branch of Spacemacs, you cannot use this method.
+*Note*: If you use the =develop= branch of Space-macs, you cannot use this method.
 
 *** Updating Manually with git
-To update manually close Emacs and update the git repository:
+To update manually close e-macs and update the git repository:
 
 #+BEGIN_SRC sh
   $ git pull origin master
@@ -327,13 +327,13 @@ To update manually close Emacs and update the git repository:
 
 *Note*: The master branch is considered to be immutable in the sense that you
 must not modify it by adding your own commit. If you do so you will break the
-automatic update of Spacemacs on the master branch. To fork Spacemacs code you
+automatic update of Space-macs on the master branch. To fork Space-macs code you
 have to use a custom branch that you manage manually.
 
 ** Update packages
-To update the Emacs packages used by Spacemacs press RET (enter) or click on the
+To update the e-macs packages used by Space-macs press RET (enter) or click on the
 link =[Update Packages]= in the startup page under the banner then restart
-Emacs. If you prefer, you can use the command
+e-macs. If you prefer, you can use the command
 =configuration-layer/update-packages= instead of the button.
 
 If anything goes wrong you should be able to rollback the update by pressing
@@ -343,7 +343,7 @@ and choosing a rollback slot (sorted by date). This button uses the command
 
 * Configuration layers
 This section is an overview of layers. A more extensive introduction to writing
-configuration layers can be found [[https://github.com/syl20bnr/spacemacs/blob/master/doc/LAYERS.org][here]] (recommended reading!).
+configuration layers can be found [[https://github.com/syl20bnr/space-macs/blob/master/doc/LAYERS.org][here]] (recommended reading!).
 
 ** Purpose
 Layers help collect related packages together to provide features. For example,
@@ -394,7 +394,7 @@ is the name of the layer.
 
 Example:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq <layer>-packages '(package1 package2 ...)
 #+END_SRC
 
@@ -403,33 +403,33 @@ you'll have to use some =with-eval-after-load= black magic to configure them
 properly. For instance, if package =A= depends on =B= then you can configure
 =A= with:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (with-eval-after-load 'B ...)
 #+END_SRC
 
-For details on installing packages using quelpa or local packages see [[https://github.com/syl20bnr/spacemacs/blob/master/doc/LAYERS.org#packagesel][LAYERS]].
+For details on installing packages using quelpa or local packages see [[https://github.com/syl20bnr/space-macs/blob/master/doc/LAYERS.org#packagesel][LAYERS]].
 
 **** Initialization
 To initialize a package =xxx=, define a function with this format in
 =packages.el=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (defun <layer>/init-xxx () ...body )
 #+END_SRC
 
 It is common to define the body with the [[https://github.com/jwiegley/use-package][use-package]] macro.
 
 **** Exclusion
-It is possible to exclude some packages from Spacemacs on a per-layer basis.
+It is possible to exclude some packages from Space-macs on a per-layer basis.
 This is useful when a configuration layer aims to replace a stock package
-declared in the Spacemacs layer.
+declared in the Space-macs layer.
 
 To do so add the package names to exclude to the variable
 =<layer>-excluded-packages=.
 
 Example:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq <layer>-excluded-packages '(package1 package2 ...)
 #+END_SRC
 
@@ -440,29 +440,29 @@ example is some niche language where you are only interested in syntax
 highlighting.
 
 You can install such packages by adding them to the variable
-=dotspacemacs-additional-packages= under the =dotspacemacs/layers= function in your dotfile.
+=dotspace-macs-additional-packages= under the =dotspace-macs/layers= function in your dotfile.
 
 For example, to install =llvm-mode= and =dts-mode=:
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/layers ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs/layers ()
     "Configuration Layers declaration..."
     (setq-default
      ;; ...
-     dotspacemacs-additional-packages '(llvm-mode dts-mode)
+     dotspace-macs-additional-packages '(llvm-mode dts-mode)
      ;; ...
      ))
 #+END_SRC
 
 If you want to add some configuration for them, do so in the
-=dotspacemacs/user-config= function, or consider creating a layer.
+=dotspace-macs/user-config= function, or consider creating a layer.
 
 ** Packages synchronization
-Spacemacs will only install the packages that are explicitly used by the user.
+Space-macs will only install the packages that are explicitly used by the user.
 A package is considered to be used if its layer is used (i.e. listed in
-=dotspacemacs-configuration-layers=).
+=dotspace-macs-configuration-layers=).
 Any package that is not used will be considered an orphan and will be deleted at
-the next startup of Emacs.
+the next startup of e-macs.
 
 ** Types of configuration layers
 There are two types of configuration layers:
@@ -472,23 +472,23 @@ There are two types of configuration layers:
 
 ** Submitting a configuration layer upstream
 If you decide to provide a configuration layer, please check the contribution
-guidelines first in [[https://github.com/syl20bnr/spacemacs/blob/develop/COMMUNITY.org][CONTRIBUTING]].
+guidelines first in [[https://github.com/syl20bnr/space-macs/blob/develop/COMMUNITY.org][CONTRIBUTING]].
 
 ** Example: Themes Megapack example
 This is a simple configuration layer listing a bunch of themes which you can
-find [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bthemes/themes-megapack/README.org][here]].
+find [[https://github.com/syl20bnr/space-macs/blob/develop/layers/%2Bthemes/themes-megapack/README.org][here]].
 
-To install it, just add =themes-megapack= to your =~/.spacemacs= like so:
+To install it, just add =themes-megapack= to your =~/.space-macs= like so:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(themes-megapack))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(themes-megapack))
 #+END_SRC
 
 Adding this layer will install around 100 themes; to uninstall them remove the
-layer from the =dotspacemacs-configuration-layers= and press ~SPC f e R~.
+layer from the =dotspace-macs-configuration-layers= and press ~SPC f e R~.
 
 ** Managing private configuration layers
-Spacemacs's configuration system is flexible enough to let you manage your
+Space-macs's configuration system is flexible enough to let you manage your
 private layers in different ways.
 
 *** Using the private directory
@@ -501,114 +501,114 @@ This is the recommended way to manage your private layers.
 
 The best approach is to store all your private layers in an external Git
 repository. For example, if you have a =dotfiles= repository it is a good
-practice to store these layers in there, along with your =~/.spacemacs= file.
+practice to store these layers in there, along with your =~/.space-macs= file.
 
-Then you are free to symlink your layers into =~/emacs.d/private= /or/ leave them
+Then you are free to symlink your layers into =~/e-macs.d/private= /or/ leave them
 anywhere you want, and reference the parent directory in the variable
-=dotspacemacs-configuration-layer-path= of your =~/.spacemacs=.
+=dotspace-macs-configuration-layer-path= of your =~/.space-macs=.
 
 *Note*: You could also have a dedicated repository for all your private layers
-and then directly clone this repository in =~/.emacs.d/private=.
+and then directly clone this repository in =~/.e-macs.d/private=.
 
 *** Using a personal branch
 The final main way to manage your private layers is to push them in a personal
 branch that you keep up to date with upstream =master= or =develop=.
 
 ** Tips for writing layers
-Please refer to [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][this]] introduction for some tips on writing layers, and how to
-best make them fit with the Spacemacs philosophy and loading strategy.
+Please refer to [[https://github.com/syl20bnr/space-macs/blob/develop/doc/LAYERS.org][this]] introduction for some tips on writing layers, and how to
+best make them fit with the Space-macs philosophy and loading strategy.
 
 * Dotfile Configuration
-User configuration can be stored in your =~/.spacemacs= file.
+User configuration can be stored in your =~/.space-macs= file.
 
 ** Dotfile Installation
-The very first time Spacemacs starts up, it will ask you several questions
-and then install the =.spacemacs= file in your =HOME= directory.
+The very first time Space-macs starts up, it will ask you several questions
+and then install the =.space-macs= file in your =HOME= directory.
 
 ** Alternative dotdirectory
-A dotdirectory =~/.spacemacs.d/= can be used instead of a dotfile.
-If you want to use this option, move =~/.spacemacs= to =~/.spacemacs.d/init.el=.
+A dotdirectory =~/.space-macs.d/= can be used instead of a dotfile.
+If you want to use this option, move =~/.space-macs= to =~/.space-macs.d/init.el=.
 
-It is also possible to override the location of =~/.spacemacs.d/= using the
-environment variable =SPACEMACSDIR=. Of course, you can also use symlinks to
+It is also possible to override the location of =~/.space-macs.d/= using the
+environment variable =SPACe-macsDIR=. Of course, you can also use symlinks to
 change the location of this directory.
 
-*Note*: =~/.spacemacs= will always take priority over =~/.spacemacs.d/init.el=,
-so =~/.spacemacs= must not exist for =~/.spacemacs.d/init.el= to be used by
-Spacemacs.
+*Note*: =~/.space-macs= will always take priority over =~/.space-macs.d/init.el=,
+so =~/.space-macs= must not exist for =~/.space-macs.d/init.el= to be used by
+Space-macs.
 
 ** Synchronization of dotfile changes
-To apply the modifications made in =~/.spacemacs= press ~SPC f e R~. It will
-re-execute the Spacemacs initialization process.
+To apply the modifications made in =~/.space-macs= press ~SPC f e R~. It will
+re-execute the Space-macs initialization process.
 
-*Note*: A synchronization re-executes the functions =dotspacemacs/init=,
-=dotspacemacs/user-init= and =dotspacemacs/user-config=.
+*Note*: A synchronization re-executes the functions =dotspace-macs/init=,
+=dotspace-macs/user-init= and =dotspace-macs/user-config=.
 Depending on the contents of these functions, you may encounter some unwanted side
 effects. For instance, if you use a toggle in =dotspacemac/user-config= to enable
 some behavior, this behavior will be turned off whenever the dotfile is
 re-synchronized. To avoid these side-effects, it is recommended to either use
 =setq= expressions instead of toggle functions, or to use the =on= or =off=
-versions instead (i.e. instead of =spacemacs/toggle-<thing>=, use
-=spacemacs/toggle-<thing>-on= or =spacemacs/toggle-<thing>-off=).
+versions instead (i.e. instead of =space-macs/toggle-<thing>=, use
+=space-macs/toggle-<thing>-on= or =space-macs/toggle-<thing>-off=).
 
-It is possible to /skip/ the execution of =dotspacemacs/user-config= with the
+It is possible to /skip/ the execution of =dotspace-macs/user-config= with the
 universal argument (~SPC u SPC f e R~).
 
 ** Testing the dotfile
-You can use the command =SPC SPC dotspacemacs/test-dotfile= to check if your
-=~/.spacemacs= looks correct. This will check, among other things, whether the
+You can use the command =SPC SPC dotspace-macs/test-dotfile= to check if your
+=~/.space-macs= looks correct. This will check, among other things, whether the
 declared layers can be found and that the variables have sensible values. These
 tests are also run automatically when you synchronize with ~SPC f e R~.
 
 ** Dotfile Contents
 *** Configuration functions
-Five special functions in the =~/.spacemacs= file can be used to perform
-configuration at the beginning and end of Spacemacs loading process:
-- =dotspacemacs/init= is called at the very startup of Spacemacs initialization
+Five special functions in the =~/.space-macs= file can be used to perform
+configuration at the beginning and end of Space-macs loading process:
+- =dotspace-macs/init= is called at the very startup of Space-macs initialization
   before layers configuration. *You should not put any user code* in there
-  besides modifying the Spacemacs variable values prefixed with =dotspacemacs-=.
-- =dotspacemacs/user-init= is called immediately after =dotspacemacs/init=,
+  besides modifying the Space-macs variable values prefixed with =dotspace-macs-=.
+- =dotspace-macs/user-init= is called immediately after =dotspace-macs/init=,
   before layer configuration. This function is mostly useful for variables
   that need to be set before packages are loaded.
-- =dotspacemacs/user-env= is called before the layers and packages configuration
+- =dotspace-macs/user-env= is called before the layers and packages configuration
   and it is responsible to setup environment variables.
-- =dotspacemacs/layers= is called at the startup of Spacemacs initialization,
-  this is where you set the Spacemacs distribution and declare layers to be used
+- =dotspace-macs/layers= is called at the startup of Space-macs initialization,
+  this is where you set the Space-macs distribution and declare layers to be used
   in your configuration. You can also add or exclude packages of your choice
-  and tweak some behaviors of Spacemacs loading.
-- =dotspacemacs/user-config= is called at the very end of Spacemacs
+  and tweak some behaviors of Space-macs loading.
+- =dotspace-macs/user-config= is called at the very end of Space-macs
   initialization after layers configuration. This is the place where most of
   your configurations should be done. Unless it is explicitly specified that a
   variable should be set before a package is loaded, you should place your code
   here.
-- =dotspacemacs/emacs-custom-settings= is a generated function where all Emacs
+- =dotspace-macs/e-macs-custom-settings= is a generated function where all e-macs
   custom settings are written. You should not edit this function. See
   =Custom variables= section for more information.
 
 *** Custom variables
 By default custom variables from =M-x customize-group= are automatically saved
-at the end of your =~/.spacemacs= file in the function
-=dotspacemacs/emacs-custom-settings= unless you declare a custom =custom-file=
-in the =dotspacemacs/user-init= function, in this case custom variables will be
+at the end of your =~/.space-macs= file in the function
+=dotspace-macs/e-macs-custom-settings= unless you declare a custom =custom-file=
+in the =dotspace-macs/user-init= function, in this case custom variables will be
 written to the user defined =custom-file= and the function
-=dotspacemacs/emacs-custom-settings= will remain empty.
+=dotspace-macs/e-macs-custom-settings= will remain empty.
 
 *Note*: If you set a custom =custom-file= value then it is your responsibility
 to load this file at the appropriate time. Often the best time to load it is
-just after setting the value for =custom-file= in the =dotspacemacs/user-init=
+just after setting the value for =custom-file= in the =dotspace-macs/user-init=
 function.
 
 ** Declaring Configuration layers
 To use a configuration layer, declare it in your dotfile by adding it to the
-=dotspacemacs-configuration-layers= variable of your =~/.spacemacs=.
+=dotspace-macs-configuration-layers= variable of your =~/.space-macs=.
 
 *Note*: In this documentation a =used layer= is equivalent to a =declared
 layer=.
 
 For instance, [[#thank-you][RMS]] can add his private configuration layer like this:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '(
                   ;; other layers
                   ;; rms layer added at the end of the list
@@ -616,26 +616,26 @@ For instance, [[#thank-you][RMS]] can add his private configuration layer like t
                   ))
 #+END_SRC
 
-Official layers shipped with Spacemacs are stored in =~/.emacs.d/layers=. The
-directory =~/.emacs.d/private= is a drop-in location for your private layers.
+Official layers shipped with Space-macs are stored in =~/.e-macs.d/layers=. The
+directory =~/.e-macs.d/private= is a drop-in location for your private layers.
 It is possible to put layers at the location of your choice provided you tell
-Spacemacs where to look for them. This is done by setting the list
-=dotspacemacs-configuration-layer-path= in your =~/.spacemacs=. For instance
+Space-macs where to look for them. This is done by setting the list
+=dotspace-macs-configuration-layer-path= in your =~/.space-macs=. For instance
 to add some layers in =~/.myconfig=, set the variable like this:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layer-path '("~/.myconfig/"))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layer-path '("~/.myconfig/"))
 #+END_SRC
 
 *** Setting configuration layers variables
 Some configuration layers have configuration variables to enable specific
-features. For instance the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bsource-control/git/README.org][git layer]] has several configuration variables, they
-can be set directly in the =dotspacemacs-configuration-layers= like this:
+features. For instance the [[https://github.com/syl20bnr/space-macs/blob/develop/layers/%2Bsource-control/git/README.org][git layer]] has several configuration variables, they
+can be set directly in the =dotspace-macs-configuration-layers= like this:
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/layers ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs/layers ()
     ;; List of configuration layers to load.
-    (setq-default dotspacemacs-configuration-layers
+    (setq-default dotspace-macs-configuration-layers
       '(auto-completion
         (git :variables
              git-magit-status-fullscreen t
@@ -644,7 +644,7 @@ can be set directly in the =dotspacemacs-configuration-layers= like this:
 #+END_SRC
 
 The =:variables= keyword is a convenience to keep layer configuration close to
-their declaration. Setting layer variables in the =dotspacemacs/user-init=
+their declaration. Setting layer variables in the =dotspace-macs/user-init=
 function of your dotfile is also a perfectly valid way to configure a layer.
 
 *** Disabling layer services in other layers
@@ -656,10 +656,10 @@ Sometimes you may want to disable a service added by a layer in some specific
 layers. Say you want to disable =auto-completion= in =org= and =git= layers,
 you can do it with the following layer declaration.
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/layers ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs/layers ()
     ;; List of configuration layers to load.
-    (setq-default dotspacemacs-configuration-layers
+    (setq-default dotspace-macs-configuration-layers
       '(org git
         (auto-completion :disabled-for org git))))
 #+END_SRC
@@ -667,20 +667,20 @@ you can do it with the following layer declaration.
 You can also use the =:enabled-for= construct to disable it for /all/ layers
 /except/ those explicitly identified.
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/layers ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs/layers ()
     ;; List of configuration layers to load.
-    (setq-default dotspacemacs-configuration-layers
+    (setq-default dotspace-macs-configuration-layers
       '(java python c-c++
         (auto-completion :enabled-for java python))))
 #+END_SRC
 
 Note that =:enabled-for= may be an empty list.
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/layers ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs/layers ()
     ;; List of configuration layers to load.
-    (setq-default dotspacemacs-configuration-layers
+    (setq-default dotspace-macs-configuration-layers
       '(java python c-c++
         (auto-completion :enabled-for))))
 #+END_SRC
@@ -692,26 +692,26 @@ By default a declared layer installs/configures all its associated packages. You
 may want to select only some of them or ignoring some of them. This is possible
 with the =:packages= keyword.
 
-For instance to ignore the =treemacs= and =fancy-battery= packages from
-=spacemacs-ui-visual= layer:
+For instance to ignore the =tree-macs= and =fancy-battery= packages from
+=space-macs-ui-visual= layer:
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/layers ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs/layers ()
     ;; List of configuration layers to load.
-    (setq-default dotspacemacs-configuration-layers
+    (setq-default dotspace-macs-configuration-layers
       '(auto-completion
-        (spacemacs-ui-visual :packages (not treemacs fancy-battery))))
+        (space-macs-ui-visual :packages (not tree-macs fancy-battery))))
 #+END_SRC
 
-The opposite would be to ignore all packages except =treemacs= and
+The opposite would be to ignore all packages except =tree-macs= and
 =fancy-battery=:
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/layers ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs/layers ()
     ;; List of configuration layers to load.
-    (setq-default dotspacemacs-configuration-layers
+    (setq-default dotspace-macs-configuration-layers
       '(auto-completion
-        (spacemacs-ui-visual :packages treemacs fancy-battery)))
+        (space-macs-ui-visual :packages tree-macs fancy-battery)))
 #+END_SRC
 
 *Note*: Ignoring a package from a layer is different than excluding a package.
@@ -719,59 +719,59 @@ An excluded packages is completely removed from your configuration whereas an
 ignored package is ignored only for a given layer but it can remain on your
 system. It happens that if the given layer is the owner of the package then
 ignoring this package is the same as excluding it (because the package becomes
-orphan so it is considered unused by Spacemacs).
+orphan so it is considered unused by Space-macs).
 
 *** Excluding packages
 You can exclude packages you don't want to install with the variable
-=dotspacemacs-excluded-packages= (see [[#configuration-layers][Configuration layers]] for more info
+=dotspace-macs-excluded-packages= (see [[#configuration-layers][Configuration layers]] for more info
 on packages).
 
 For instance, to disable the =rainbow-delimiters= package:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-excluded-packages '(rainbow-delimiters))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-excluded-packages '(rainbow-delimiters))
 #+END_SRC
 
-When you exclude a package, Spacemacs will automatically delete it for you the
-next time you launch Emacs or at the next dotfile synchronization. All the
+When you exclude a package, Space-macs will automatically delete it for you the
+next time you launch e-macs or at the next dotfile synchronization. All the
 orphan dependencies are also deleted automatically. Excluding a package
-effectively remove _all_ references to it in Spacemacs without breaking the rest
+effectively remove _all_ references to it in Space-macs without breaking the rest
 of the configuration, this is a powerful feature which allows you to quickly
-remove any feature from Spacemacs.
+remove any feature from Space-macs.
 
-*Note*: A few packages are essential for Spacemacs to correctly operate, those
+*Note*: A few packages are essential for Space-macs to correctly operate, those
 packages are protected and cannot be excluded or uninstalled even if they become
 orphans or are excluded. =use-package= is an example of a protected package that
-cannot be removed from Spacemacs.
+cannot be removed from Space-macs.
 
 * Concepts
 ** Editing Styles
-Spacemacs comes with several editing styles which can be switched dynamically
+Space-macs comes with several editing styles which can be switched dynamically
 providing an easier way to do pair programming, for instance between a Vim user
-and an Emacs user.
+and an e-macs user.
 
 Three styles are available:
 - Vim,
-- Emacs,
-- Hybrid (a mix between Vim and Emacs).
+- e-macs,
+- Hybrid (a mix between Vim and e-macs).
 
-To set the editing style set the variable =dotspacemacs-editing-style= to
-either =vim=, =hybrid=, or =emacs=. It possible to pass a list of variables
+To set the editing style set the variable =dotspace-macs-editing-style= to
+either =vim=, =hybrid=, or =e-macs=. It possible to pass a list of variables
 as well with the keyword =:variables=, just like for layer variables.
 
 *** Vim
-Spacemacs behaves like in Vim using the [[https://github.com/emacs-evil/evil/][Evil]] mode package to emulate Vim key
-bindings. This is the default style of Spacemacs; it can be set explicitly by
-setting the =dotspacemacs-editing-style= variable to =vim= in the dotfile.
+Space-macs behaves like in Vim using the [[https://github.com/e-macs-evil/evil/][Evil]] mode package to emulate Vim key
+bindings. This is the default style of Space-macs; it can be set explicitly by
+setting the =dotspace-macs-editing-style= variable to =vim= in the dotfile.
 
 To bind keys in Vim editing style (=insert state=):
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (define-key evil-insert-state-map (kbd "C-]") 'forward-char)
 #+END_SRC
 
 When setting the Vim style you can pass any variable supported by =evil-mode=
-with the keyword =:variables=. Spacemacs also supports the following editing
+with the keyword =:variables=. Space-macs also supports the following editing
 style variables for Vim:
 
 | Variables                                | Description                                                             |
@@ -784,8 +784,8 @@ style variables for Vim:
 
 Default configuration is:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-editing-style '(vim :variables
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-editing-style '(vim :variables
                                                  vim-style-visual-feedback nil
                                                  vim-style-remap-Y-to-y$ nil
                                                  vim-style-retain-visual-state-on-shift t
@@ -793,48 +793,48 @@ Default configuration is:
                                                  vim-style-ex-substitute-global nil)
 #+END_SRC
 
-*** Emacs
-Spacemacs behaves like in raw Emacs using the Holy mode which configures Evil to
-make the =emacs state= the default state everywhere.
-Set the =dotspacemacs-editing-style= variable to =emacs= in the dotfile.
+*** e-macs
+Space-macs behaves like in raw e-macs using the Holy mode which configures Evil to
+make the =e-macs state= the default state everywhere.
+Set the =dotspace-macs-editing-style= variable to =e-macs= in the dotfile.
 
-In Emacs style the leader is available on ~M-m~. It is possible to toggle it on
+In e-macs style the leader is available on ~M-m~. It is possible to toggle it on
 and off with ~SPC t E e~ and ~M-m t E e~. When off the =vim= style is enabled.
 
-To bind keys in Emacs editing style (=emacs state=):
+To bind keys in e-macs editing style (=e-macs state=):
 
-#+BEGIN_SRC emacs-lisp
-  (define-key evil-emacs-state-map (kbd "C-]") 'forward-char)
+#+BEGIN_SRC e-macs-lisp
+  (define-key evil-e-macs-state-map (kbd "C-]") 'forward-char)
 #+END_SRC
 
 *** Hybrid
 The hybrid editing style is like the Vim style except that =insert state= is
-replaced by a new state called =hybrid state=. In =hybrid state= all the Emacs
+replaced by a new state called =hybrid state=. In =hybrid state= all the e-macs
 key bindings are available; this is like replacing the =insert state= with the
-=emacs state= but provides an isolated key map =evil-hybrid-state-map=.
+=e-macs state= but provides an isolated key map =evil-hybrid-state-map=.
 
 To bind keys in Hybrid editing style (=hybrid state=):
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (define-key evil-hybrid-state-map (kbd "C-]") 'forward-char)
 #+END_SRC
 
-This style can be tweaked to be more like Emacs or more like Vim depending
+This style can be tweaked to be more like e-macs or more like Vim depending
 on the user preferences. The following variables are available to change the
 style configuration:
 
 | Variables                             | Description                                                                            |
 |---------------------------------------+----------------------------------------------------------------------------------------|
 | =hybrid-style-visual-feedback=        | If non-nil then objects are briefly highlighted                                        |
-| =hybrid-style-default-state=          | The default state when opening a new buffer. Set it to =emacs= for a more emacsy style |
+| =hybrid-style-default-state=          | The default state when opening a new buffer. Set it to =e-macs= for a more e-macsy style |
 | =hybrid-style-enable-hjkl-bindings=   | If non-nil then packages will configure =h j k l= key bindings for navigation          |
-| =hybrid-style-enable-evilified-state= | If non-nil buffer are =evilified= when supported, if nil then =emacs= state is enabled |
+| =hybrid-style-enable-evilified-state= | If non-nil buffer are =evilified= when supported, if nil then =e-macs= state is enabled |
 | =hybrid-style-use-evil-search-module= | If non-nil then use evil own search module which is closer to Vim search behavior      |
 
 Default configuration is:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-editing-style '(hybrid :variables
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-editing-style '(hybrid :variables
                                                     hybrid-style-visual-feedback nil
                                                     hybrid-style-enable-evilified-state t
                                                     hybrid-style-enable-hjkl-bindings nil
@@ -846,7 +846,7 @@ To toggle the hybrid style on and off use ~SPC t E h~ and ~M-m t E h~. When
 off the =vim= style is enabled.
 
 ** States
-Spacemacs has 10 states:
+Space-macs has 10 states:
 
 | State        | Default Color | Description                                                                                                |
 |--------------+---------------+------------------------------------------------------------------------------------------------------------|
@@ -854,13 +854,13 @@ Spacemacs has 10 states:
 | insert       | green         | like the =insert mode of Vim=, used to actually insert text                                                |
 | visual       | gray          | like the =visual mode of Vim=, used to make text selection                                                 |
 | motion       | purple        | exclusive to =Evil=, used to navigate read only buffers                                                    |
-| emacs        | blue          | exclusive to =Evil=, using this state is like using a regular Emacs without Vim                            |
+| e-macs        | blue          | exclusive to =Evil=, using this state is like using a regular e-macs without Vim                            |
 | replace      | chocolate     | like =replace mode of Vim=, overwrites the character under point instead of inserting a new one            |
-| hybrid       | blue          | exclusive to Spacemacs, this is like the insert state except that all the emacs key bindings are available |
-| evilified    | light brown   | exclusive to Spacemacs, this is an =emacs state= modified to bring Vim navigation, selection and search.   |
-| lisp         | pink          | exclusive to Spacemacs, used to navigate Lisp code and modify it (more [[#editing-lisp-code][info]])                               |
-| iedit        | red           | exclusive to Spacemacs, used to navigate between multiple regions of text using =iedit= (more [[#replacing-text-with-iedit][info]])        |
-| iedit-insert | red           | exclusive to Spacemacs, used to replace multiple regions of text using =iedit= (more [[#replacing-text-with-iedit][info]])                 |
+| hybrid       | blue          | exclusive to Space-macs, this is like the insert state except that all the e-macs key bindings are available |
+| evilified    | light brown   | exclusive to Space-macs, this is an =e-macs state= modified to bring Vim navigation, selection and search.   |
+| lisp         | pink          | exclusive to Space-macs, used to navigate Lisp code and modify it (more [[#editing-lisp-code][info]])                               |
+| iedit        | red           | exclusive to Space-macs, used to navigate between multiple regions of text using =iedit= (more [[#replacing-text-with-iedit][info]])        |
+| iedit-insert | red           | exclusive to Space-macs, used to replace multiple regions of text using =iedit= (more [[#replacing-text-with-iedit][info]])                 |
 
 *Note*: Technically speaking there is also the =operator= evil state.
 
@@ -873,7 +873,7 @@ behave more like Vim in a consistent manner, they use a special state called
 =C-d=, =C-e=, =C-u=, =C-y= and =C-z=. All other keys work as intended by the
 underlying mode.
 
-Shadowed keys are moved according to the pattern: =a= → =A= → =C-a= → =C-A=
+Shadowed keys are moved according to the pattern: =a= â†’ =A= â†’ =C-a= â†’ =C-A=
 
 For example, if the mode binds a function to =n=, that is found under =C-n= in
 evilified state, since both =n= and =N= are reserved, but =C-n= is not. On the
@@ -881,20 +881,20 @@ other hand, anything originally bound to =k= will be found on =K=, since =k= is
 reserved but =K= is not. If there is a binding on =K=, that will be moved to
 =C-k=.
 
-In addition to this, =C-g=, being an important escape key in Emacs, is skipped.
+In addition to this, =C-g=, being an important escape key in e-macs, is skipped.
 So anything bound to =g= originally will be found on =C-G=, since =g=, =G= and
 =C-g= are all reserved.
 
 ** Evil leader
-Spacemacs uses a leader key to bind almost all its key bindings.
+Space-macs uses a leader key to bind almost all its key bindings.
 
-This leader key is commonly set to ~​,​~ by Vim users. In Spacemacs the leader
-key is set on ~SPC~ (the space bar, hence the name =spacemacs=). This key is the
+This leader key is commonly set to ~â€‹,â€‹~ by Vim users. In Space-macs the leader
+key is set on ~SPC~ (the space bar, hence the name =space-macs=). This key is the
 most accessible key on a keyboard and it is pressed with the thumb which is a
 good choice to lower the risk of [[https://en.wikipedia.org/wiki/Repetitive_strain_injury][RSI]]. It can be customized to any other key
-using the variable =dotspacemacs-leader-key= and =dotspacemacs-emacs-leader-key=.
+using the variable =dotspace-macs-leader-key= and =dotspace-macs-e-macs-leader-key=.
 
-With Spacemacs there is no need to remap your keyboard modifiers to attempt
+With Space-macs there is no need to remap your keyboard modifiers to attempt
 to reduce the risk of RSI, every command can be executed very easily while you
 are in =normal= mode by pressing the ~SPC~ leader key, here are a few examples:
 - Save a buffer: ~SPC f s~
@@ -902,14 +902,14 @@ are in =normal= mode by pressing the ~SPC~ leader key, here are a few examples:
 - Open (switch) to a buffer: ~SPC b b~
 
 ** Universal argument
-The universal argument ~C-u~ is an important command in Emacs but it is also a
+The universal argument ~C-u~ is an important command in e-macs but it is also a
 very handy Vim key binding to scroll up.
 
-Spacemacs binds ~C-u~ to =scroll-up= and changes the universal argument binding
+Space-macs binds ~C-u~ to =scroll-up= and changes the universal argument binding
 to ~SPC u~.
 
 ** Transient-states
-Spacemacs defines a wide variety of =transient states= (temporary overlay maps)
+Space-macs defines a wide variety of =transient states= (temporary overlay maps)
 where it makes sense. This prevents one from doing repetitive and tedious
 presses on the ~SPC~ key.
 
@@ -917,14 +917,14 @@ When a =transient state= is active, documentation is displayed in the
 minibuffer. Additional information may also be displayed in the minibuffer.
 
 Auto-highlight-symbol transient state:
-[[file:img/spacemacs-ahs-transient-state.png]]
+[[file:img/space-macs-ahs-transient-state.png]]
 [[#text][Text scale transient state]]:
 
-[[file:img/spacemacs-scale-transient-state.png]]
+[[file:img/space-macs-scale-transient-state.png]]
 
 ** Toggles
-Spacemacs tries to unify the interface to handle toggles using a custom macro
-called =spacemacs|add-toggle=.
+Space-macs tries to unify the interface to handle toggles using a custom macro
+called =space-macs|add-toggle=.
 
 There exists two type of toggles:
 - globally available toggles under the key prefixes ~SPC t~ and ~SPC T~
@@ -936,42 +936,42 @@ letter for major mode specific toggles. The letter corresponds to the key
 binding for this toggle.
 
 For instance the globally available toggle for =which-key= is under ~SPC t K~
-and its corresponding symbol in the mode-line is =Ⓚ=. Also the major mode
-specific toggle for =nameless= available only in =emacs-lisp= mode is under
-~SPC m T n~ and its corresponding symbol in the mode-line is =🅽=.
+and its corresponding symbol in the mode-line is =â“€=. Also the major mode
+specific toggle for =nameless= available only in =e-macs-lisp= mode is under
+~SPC m T n~ and its corresponding symbol in the mode-line is =ðŸ…½=.
 
-All toggles can be browsed via the Spacemacs help system under ~SPC h t~.
+All toggles can be browsed via the Space-macs help system under ~SPC h t~.
 
 *** Configuring toggles in the dotfile
 To set the toggle states to your preference you can use a set of functions
-that should be called in your =dotspacemacs/user-config= function of your
+that should be called in your =dotspace-macs/user-config= function of your
 dotfile.
 
 Globally available toggles can be turned on and off using the functions
-=spacemacs/toggle-NAME-on= and =spacemacs/toggle-NAME-off= respectively.
+=space-macs/toggle-NAME-on= and =space-macs/toggle-NAME-off= respectively.
 =NAME= corresponds to the name of the toggle, for instance =which-key=
 for the toggle to turn on and off the =which-key= minor mode.
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs/toggle-which-key-on)
+#+BEGIN_SRC e-macs-lisp
+  (space-macs/toggle-which-key-on)
 #+END_SRC
 
 Major mode specific toggles can be turned on by registering a hook on them to
 call the "toggle on" function automatically whenever a buffer using this major
 mode is opened. It can be done convenienty using the function
-=spacemacs/toggle-NAME-on-register-hooks=. It also exists variants of this
+=space-macs/toggle-NAME-on-register-hooks=. It also exists variants of this
 function for each supported major mode like
-=spacemacs/toggle-NAME-on-register-hook-MODE=.
+=space-macs/toggle-NAME-on-register-hook-MODE=.
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs/toggle-nameless-on-register-hooks)
-  ;; or to enable it for emacs-lips buffers only
-  (spacemacs/toggle-nameless-on-register-hook-emacs-lisp-mode)
+#+BEGIN_SRC e-macs-lisp
+  (space-macs/toggle-nameless-on-register-hooks)
+  ;; or to enable it for e-macs-lips buffers only
+  (space-macs/toggle-nameless-on-register-hook-e-macs-lisp-mode)
 #+END_SRC
 
-* Differences between Vim, Evil and Spacemacs
-- The ~​,​~ key does repeat last ~f~, ~t~, ~F~, or ~T~ command in
-  opposite direction in =Vim=, but in Spacemacs it is the major mode specific
+* Differences between Vim, Evil and Space-macs
+- The ~â€‹,â€‹~ key does repeat last ~f~, ~t~, ~F~, or ~T~ command in
+  opposite direction in =Vim=, but in Space-macs it is the major mode specific
   leader key by default (which can be set on another key binding in the
   dotfile).
 
@@ -979,8 +979,8 @@ Send a PR to add the differences you found in this section.
 
 ** The vim-surround case
 There is one obvious visible difference though. It is not between =Evil= and
-=Vim= but between Spacemacs and [[https://github.com/tpope/vim-surround][vim-surround]]: in visual mode the =surround=
-command is on ~S~ in =vim-surround= whereas it is on ~s~ in Spacemacs.
+=Vim= but between Space-macs and [[https://github.com/tpope/vim-surround][vim-surround]]: in visual mode the =surround=
+command is on ~S~ in =vim-surround= whereas it is on ~s~ in Space-macs.
 
 This is something that can surprise some Vim users so here are some motivations
 behind this change:
@@ -993,15 +993,15 @@ behind this change:
 - =surround= command is just a more powerful command than ~s~.
 
 If you are not convinced, then here is the snippet to revert back to the default
-=Vim + vim-surround= setup (add it to your =dotspacemacs/user-config=):
+=Vim + vim-surround= setup (add it to your =dotspace-macs/user-config=):
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (evil-define-key 'visual evil-surround-mode-map "s" 'evil-substitute)
   (evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region)
 #+END_SRC
 
 * Evil plugins
-Spacemacs ships with the following evil plugins:
+Space-macs ships with the following evil plugins:
 
 | Mode                          | Description                                |
 |-------------------------------+--------------------------------------------|
@@ -1014,60 +1014,60 @@ Spacemacs ships with the following evil plugins:
 | [[https://github.com/juanjux/evil-search-highlight-persist][evil-search-highlight-persist]] | emulation of hlsearch behavior             |
 | [[https://github.com/timcharper/evil-surround][evil-surround]]                 | port of [[https://github.com/tpope/vim-surround][vim-surround]]                       |
 | [[https://github.com/bling/evil-visualstar][evil-visualstar]]               | search for current selection with ~*~      |
-| [[https://github.com/Alexander-Miller/treemacs][Treemacs]]                      | a file explorer like [[https://github.com/scrooloose/nerdtree][NERD Tree]]             |
+| [[https://github.com/Alexander-Miller/tree-macs][Tree-macs]]                      | a file explorer like [[https://github.com/scrooloose/nerdtree][NERD Tree]]             |
 
 * Environment variables and PATH
-Environment variables are handled by the function =dotspacemacs/user-env= of
+Environment variables are handled by the function =dotspace-macs/user-env= of
 your dotfile.
 
 ** Default behavior
-By default, the function =dotspacemacs/user-env= only calls the function
-=spacemacs/load-spacemacs-env= which loads the environment variables from
-the file =~/.spacemacs.env=. This file is automatically created for you by
-Spacemacs and it is initialized with the environment variables of your
+By default, the function =dotspace-macs/user-env= only calls the function
+=space-macs/load-space-macs-env= which loads the environment variables from
+the file =~/.space-macs.env=. This file is automatically created for you by
+Space-macs and it is initialized with the environment variables of your
 system as well as the environment variables of your default shell.
 
 To open this file use ~SPC f e e~. You can edit it to change or add/remove
 environment variables. Use ~SPC f e E~ to reload it.
 
-Some dynamic environment variables are ignored by Spacemacs when it first
-creates the =~/.spacemacs.env= file. These ignored variables are listed in
-the variable =spacemacs-ignored-environment-variables=.
+Some dynamic environment variables are ignored by Space-macs when it first
+creates the =~/.space-macs.env= file. These ignored variables are listed in
+the variable =space-macs-ignored-environment-variables=.
 
 It is possible to force a new import of system and shell environment variables
-with ~SPC f e C-e~. Note that this action will overwrite =~/.spacemacs.env=.
+with ~SPC f e C-e~. Note that this action will overwrite =~/.space-macs.env=.
 
 ** Managing environment variables by yourself
 For full flexibility you can bypass the default behavior simply by removing
-the call to =spacemacs/load-spacemacs-env= from your =dotspacemacs/user-env=
+the call to =space-macs/load-space-macs-env= from your =dotspace-macs/user-env=
 function.
 
 From there you can choose to use the popular package =exec-path-from-shell=
 or just call built-in functions like =setenv= or =(add-to-list 'exec-path ...)=.
 
 If you choose to handle the environment variables by yourself then ~SPC f e e~
-will go to the function =dotspacemacs/user-env= instead of opening the file
-=~/.spacemacs.env=. In all cases ~SPC f e E~ calls the function
-=dotspacemacs/user-env= so you can update your variables in place.
+will go to the function =dotspace-macs/user-env= instead of opening the file
+=~/.space-macs.env=. In all cases ~SPC f e E~ calls the function
+=dotspace-macs/user-env= so you can update your variables in place.
 
-** Note about the function dotspacemacs/user-env
+** Note about the function dotspace-macs/user-env
 It's possible that you don't have this function defined if you have an older
 dotfile. It is recommended to update your dotfile by adding this function,
-see the file =~/.emacs.d/core/template/.spacemacs.template= to copy it.
-If you don't create such function then Spacemacs assumes you are using the
+see the file =~/.e-macs.d/core/template/.space-macs.template= to copy it.
+If you don't create such function then Space-macs assumes you are using the
 default behavior described above.
 
 * Binding keys
-To be compatible with all Spacemacs bindings, please refer to [[https://github.com/syl20bnr/spacemacs/blob/master/doc/CONVENTIONS.org#key-bindings-conventions][Conventions]].
+To be compatible with all Space-macs bindings, please refer to [[https://github.com/syl20bnr/space-macs/blob/master/doc/CONVENTIONS.org#key-bindings-conventions][Conventions]].
 In brief, ~SPC o~ is reserved for user custom bindings in =global-map=,
 and ~SPC m o~ in major modes.
 
-Key sequences are bound to commands in Emacs in various keymaps. The most basic
+Key sequences are bound to commands in e-macs in various keymaps. The most basic
 map is the =global-map=. Setting a key binding in the =global-map= is achieved
 with the function =global-set-key=. Example to bind a key to the command
 =forward-char=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (global-set-key (kbd "C-]") 'forward-char)
 #+END_SRC
 
@@ -1077,34 +1077,34 @@ target states (or modes in vim terminology). Here is an example that creates the
 same binding as above but only in =insert state= (=define-key= is a built-in
 function. =Evil-mode= has its own functions for defining keys).
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (define-key evil-insert-state-map (kbd "C-]") 'forward-char)
 #+END_SRC
 
-Perhaps most importantly for Spacemacs is the use of the bind-map package to
+Perhaps most importantly for Space-macs is the use of the bind-map package to
 bind keys behind a leader key.
-This is where most of the Spacemacs bindings live. Binding keys behind the
-leader key is achieved with the functions =spacemacs/set-leader-keys= and
-=spacemacs/set-leader-keys-for-major-mode=, example:
+This is where most of the Space-macs bindings live. Binding keys behind the
+leader key is achieved with the functions =space-macs/set-leader-keys= and
+=space-macs/set-leader-keys-for-major-mode=, example:
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs/set-leader-keys "C-]" 'forward-char)
-  (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode "C-]" 'forward-char)
+#+BEGIN_SRC e-macs-lisp
+  (space-macs/set-leader-keys "C-]" 'forward-char)
+  (space-macs/set-leader-keys-for-major-mode 'e-macs-lisp-mode "C-]" 'forward-char)
 #+END_SRC
 
 These functions use a macro like =kbd= to translate the key sequences for you.
-The second function, =spacemacs/set-leader-keys-for-major-mode=, binds the key
+The second function, =space-macs/set-leader-keys-for-major-mode=, binds the key
 only in the specified mode. The second key binding is active only when the
-major mode is =emacs-lisp=.
+major mode is =e-macs-lisp=.
 
 Finally, one should be aware of prefix keys. Essentially, all keymaps can be
-nested. Nested keymaps are used extensively in spacemacs, and in vanilla Emacs
+nested. Nested keymaps are used extensively in space-macs, and in vanilla e-macs
 for that matter. For example, ~SPC a~ points to key bindings for "applications",
 like ~SPC a c~ for =calc-dispatch=. Nesting bindings is easy.
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs/declare-prefix "o" "custom")
-  (spacemacs/set-leader-keys "oc" 'my-custom-command)
+#+BEGIN_SRC e-macs-lisp
+  (space-macs/declare-prefix "o" "custom")
+  (space-macs/set-leader-keys "oc" 'my-custom-command)
 #+END_SRC
 
 The first line declares ~SPC o~ to be a prefix and the second binds the key
@@ -1114,64 +1114,64 @@ key-discovery tools can use (e.g., which-key).
 
 Example to create binding in major mode:
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs/declare-prefix-for-mode 'org-mode "mo" "custom")
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode "oi" 'org-id-get-create)
+#+BEGIN_SRC e-macs-lisp
+  (space-macs/declare-prefix-for-mode 'org-mode "mo" "custom")
+  (space-macs/set-leader-keys-for-major-mode 'org-mode "oi" 'org-id-get-create)
 #+END_SRC
 
 This would add binding as ~, oi~ and ~SPC moi~ (note that the "m" in the prefix
 declaration must be include).
 
 There is much more to say about bindings keys, but these are the basics. Keys
-can be bound in your =~/.spacemacs= file or in individual layers.
+can be bound in your =~/.space-macs= file or in individual layers.
 
 * GUI Elements
-Spacemacs has a minimalistic and distraction free graphical UI:
+Space-macs has a minimalistic and distraction free graphical UI:
 - custom [[https://github.com/milkypostman/powerline][powerline]] mode-line [[#flycheck-integration][with color feedback]] according to current [[https://github.com/flycheck/flycheck][Flycheck]] status
 - Unicode symbols for minor mode lighters which appear in the mode-line
 - [[#errors-handling][custom fringe bitmaps]] and error feedbacks for [[https://github.com/flycheck/flycheck][Flycheck]]
 
 ** Color themes
 *** Default theme
-The official Spacemacs theme is [[https://github.com/nashamri/spacemacs-theme][spacemacs-dark]] and it is the default theme
-installed when you first started Spacemacs. There are two variants of the
+The official Space-macs theme is [[https://github.com/nashamri/space-macs-theme][space-macs-dark]] and it is the default theme
+installed when you first started Space-macs. There are two variants of the
 theme, a dark one and a light one. Some aspects of these themes can be customized
-in the function =dotspacemacs/user-init= of your =~/.spacemacs=:
-- the comment background with the boolean =spacemacs-theme-comment-bg=
-- the height of org section titles with =spacemacs-theme-org-height=
+in the function =dotspace-macs/user-init= of your =~/.space-macs=:
+- the comment background with the boolean =space-macs-theme-comment-bg=
+- the height of org section titles with =space-macs-theme-org-height=
 
 *** Choosing themes
-It is possible to define your default themes in your =~/.spacemacs= with the
-variable =dotspacemacs-themes=. For instance, to specify =spacemacs-light=,
+It is possible to define your default themes in your =~/.space-macs= with the
+variable =dotspace-macs-themes=. For instance, to specify =space-macs-light=,
 =leuven= and =zenburn=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-themes '(spacemacs-light leuven zenburn))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-themes '(space-macs-light leuven zenburn))
 #+END_SRC
 
-=dotspacemacs-themes= entries accept the same properties as packages listed
-in layers package lists or in =dotspacemacs-additional-packages=. So it is
+=dotspace-macs-themes= entries accept the same properties as packages listed
+in layers package lists or in =dotspace-macs-additional-packages=. So it is
 possible to fetch a package from a specific location. For example, you could
 fetch =zenburn= theme directly from the GitHub repository with the following
 declaration:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-themes
-                '(spacemacs-light
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-themes
+                '(space-macs-light
                   leuven
                   (zenburn :location (recipe :fetcher github
-                                             :repo "bbatsov/zenburn-emacs"))
+                                             :repo "bbatsov/zenburn-e-macs"))
                   ))
 #+END_SRC
 
 *Important note:* If you use =:location local= then you have to put your theme
 in the directory =private/local/<theme-package-name>/= with =theme-package-name=
-being the name of your package suffixed with =-theme= as mentioned in the Emacs
+being the name of your package suffixed with =-theme= as mentioned in the e-macs
 conventions.
  For instance if your theme is =foo= then you have to put our theme
 files in the directory =private/local/foo-theme=.
 
-You can cycle between the themes declared in =dotspacemacs-themes= with
+You can cycle between the themes declared in =dotspace-macs-themes= with
 ~SPC T n~ and select an installed theme with ~SPC T s~.
 
 **** Themes Transient State
@@ -1188,25 +1188,25 @@ in this [[http://themegallery.robdor.com][theme gallery]] from [[https://twitter
 
 *** Notes
 - You don't need to explicitly list in a layer the theme packages you are
-  defining in =dotspacemacs-themes=, Spacemacs is smart enough to remove those
+  defining in =dotspace-macs-themes=, Space-macs is smart enough to remove those
   packages from the list of orphans.
-- Due to the inner working of themes in Emacs, switching theme during the same
+- Due to the inner working of themes in e-macs, switching theme during the same
   session may have some weird side effects. Although these side effects should
   be pretty rare.
-- In the terminal version of Emacs, color themes will not render correctly as
-  colors are rendered by the terminal and not by emacs. You will probably have
+- In the terminal version of e-macs, color themes will not render correctly as
+  colors are rendered by the terminal and not by e-macs. You will probably have
   to change your terminal color palette. More explanations can be found on
-  [[https://github.com/sellout/emacs-color-theme-solarized#important-note-for-terminal-users][emacs-color-theme-solarized webpage]].
+  [[https://github.com/sellout/e-macs-color-theme-solarized#important-note-for-terminal-users][e-macs-color-theme-solarized webpage]].
 
 ** Font
-The default font used by Spacemacs is [[https://github.com/adobe-fonts/source-code-pro][Source Code Pro]] by Adobe. It is
+The default font used by Space-macs is [[https://github.com/adobe-fonts/source-code-pro][Source Code Pro]] by Adobe. It is
 recommended to install it on your system if you wish to use it.
 
-To change the default font set the variable =dotspacemacs-default-font= in your
-=.spacemacs= file. By default its value is:
+To change the default font set the variable =dotspace-macs-default-font= in your
+=.space-macs= file. By default its value is:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-default-font '("Source Code Pro"
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-default-font '("Source Code Pro"
                                             :size 10.0
                                             :weight normal
                                             :width normal))
@@ -1214,10 +1214,10 @@ To change the default font set the variable =dotspacemacs-default-font= in your
 
 If the specified font is not found, the fallback one will be used (depends on
 your system). Also note that changing this value has no effect if you are
-running Emacs in terminal.
+running e-macs in terminal.
 
 The properties should be pretty straightforward, it is possible to set any valid
-property of a [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Low_002dLevel-Font.html][font-spec]]:
+property of a [[https://www.gnu.org/software/e-macs/manual/html_node/elisp/Low_002dLevel-Font.html][font-spec]]:
 - =:family= Font family or fontset (a string).
 - =:width= Relative character width. This should be one of the symbols:
   - ultra-condensed
@@ -1286,31 +1286,31 @@ and ~T~):
 | ~SPC T t~   | toggle tool bar                                                  |
 | ~SPC T T~   | toggle frame transparency and enter transparency transient state |
 
-*Note*: These toggles are all available via the =spacemacs-help= interfaces
-(press ~SPC h SPC~ to display the =spacemacs-help= buffer).
+*Note*: These toggles are all available via the =space-macs-help= interfaces
+(press ~SPC h SPC~ to display the =space-macs-help= buffer).
 
 *** Global line numbers
 Line numbers can be toggled on in all =prog-mode= and =text-mode= buffers by
-setting the =dotspacemacs-line-numbers= variable in your =~/.spacemacs= to =t=.
+setting the =dotspace-macs-line-numbers= variable in your =~/.space-macs= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-line-numbers t)
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-line-numbers t)
 #+END_SRC
 
 If it is set to =relative=, line numbers are show in a relative way:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-line-numbers 'relative)
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-line-numbers 'relative)
 #+END_SRC
 
 If it is set to =visual=, line numbers are shown in a relative way, but wrapped
 lines will be treated as multiple lines:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-line-numbers 'visual)
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-line-numbers 'visual)
 #+END_SRC
 
-=dotspacemacs-line-numbers= can also be set to a property list for finer control
+=dotspace-macs-line-numbers= can also be set to a property list for finer control
 over line numbers activation.
 
 Available properties:
@@ -1335,8 +1335,8 @@ Examples:
 Disable *line numbers* in dired-mode, doc-view-mode, markdown-mode, org-mode,
 pdf-view-mode, text-mode as well as buffers over 1Mb:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-line-numbers '(:relative nil
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-line-numbers '(:relative nil
                                              :disabled-for-modes dired-mode
                                                                  doc-view-mode
                                                                  markdown-mode
@@ -1346,48 +1346,48 @@ pdf-view-mode, text-mode as well as buffers over 1Mb:
                                              :size-limit-kb 1000))
 #+END_SRC
 
-Enable *relative line numbers* only in c-mode and c++ mode with a size limit of =dotspacemacs-large-file-size=:
+Enable *relative line numbers* only in c-mode and c++ mode with a size limit of =dotspace-macs-large-file-size=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-line-numbers '(:relative t
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-line-numbers '(:relative t
                                              :enabled-for-modes c-mode
                                                                 c++-mode
-                                             :size-limit-kb (* dotspacemacs-large-file-size 1000))
+                                             :size-limit-kb (* dotspace-macs-large-file-size 1000))
 #+END_SRC
 
 Enable *line numbers* everywhere, except for buffers over 1Mb:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-line-numbers '(:relative nil
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-line-numbers '(:relative nil
                                              :size-limit-kb 1000))
 #+END_SRC
 
 Enable *line numbers* only in programming modes, except for c-mode and c++ mode:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-line-numbers '(:relative nil
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-line-numbers '(:relative nil
                                              :enabled-for-modes prog-mode
                                              :disabled-for-modes c-mode c++-mode
-                                             :size-limit-kb (* dotspacemacs-large-file-size 1000))
+                                             :size-limit-kb (* dotspace-macs-large-file-size 1000))
 #+END_SRC
 
 Enable *line numbers* everywhere, even in non-prog-mode and non-text-mode buffers:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-line-numbers '(:enabled-for-modes 'all))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-line-numbers '(:enabled-for-modes 'all))
 #+END_SRC
 
 ** Mode-line
 *** Mode-line themes
-Spacemacs supports different mode-line themes. The mode-line theme is set in the
-dotfile with the variable =dotspacemacs-mode-line-theme=.
+Space-macs supports different mode-line themes. The mode-line theme is set in the
+dotfile with the variable =dotspace-macs-mode-line-theme=.
 
 Currently supported themes are:
-- spaceline themes: =spacemacs=, =all-the-icons=, =custom=
+- spaceline themes: =space-macs=, =all-the-icons=, =custom=
 - a powerline theme: =vim-powerline=
 - no theme at all: =vanilla=
 
-The default theme is =spacemacs= and this theme is described in more detailed in
+The default theme is =space-macs= and this theme is described in more detailed in
 the next section.
 
 =all-the-icons= is the theme defined in the package [[https://github.com/domtronn/spaceline-all-the-icons.el][spaceline-all-the-icons]].
@@ -1397,19 +1397,19 @@ the next section.
 =vim-powerline= is for the Vim users who are nostalgic of the good old Vim
 powerline.
 
-=vanilla= is the stock mode-line that comes with Emacs.
+=vanilla= is the stock mode-line that comes with e-macs.
 
 *** Separators
-For =spacemacs=, =all-the-icons= and =custom= themes you can specify the type
+For =space-macs=, =all-the-icons= and =custom= themes you can specify the type
 of separator you want with the property =:separator=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq dotspacemacs-mode-line-theme '(all-the-icons :separator slant))
+#+BEGIN_SRC e-macs-lisp
+  (setq dotspace-macs-mode-line-theme '(all-the-icons :separator slant))
 #+END_SRC
 
 Supported separators and preview:
 
-| Separator    | Spacemacs | All-the-icons | Screenshot                        |
+| Separator    | Space-macs | All-the-icons | Screenshot                        |
 |--------------+-----------+---------------+-----------------------------------|
 | =alternate=  | X         |               | [[file:img/powerline-alternate.png]]  |
 | =arrow=      | X         | X             | [[file:img/powerline-arrow.png]]      |
@@ -1432,11 +1432,11 @@ Supported separators and preview:
 
 A last special separator is supported, it is =utf-8= which uses actual font
 glyphs so it can be rendered in a terminal. You'll need a font patched for the
-Vim powerline to be able to use it. The default font used by Spacemacs =Source
+Vim powerline to be able to use it. The default font used by Space-macs =Source
 Code Pro= already contains the glyphs.
 
 *** Separator scale
-For =spacemacs=, =all-the-icons= and =custom= themes you can specify the size of
+For =space-macs=, =all-the-icons= and =custom= themes you can specify the size of
 the separator with the property =:separator-scale=. It allows to avoid crappy
 rendering of the separators like on the following screenshot.
 
@@ -1446,13 +1446,13 @@ rendering of the separators like on the following screenshot.
 Example:
 
 #+BEGIN_SRC elisp
-  (setq dotspacemacs-mode-line-theme '(all-the-icons :separator-scale 1.5))
+  (setq dotspace-macs-mode-line-theme '(all-the-icons :separator-scale 1.5))
 #+END_SRC
 
 Note that this setting won't work correctly when the separator is =utf-8=, if
 you use this separator then it is recommended to set =:separator-scale= to =1.0=.
 
-*** Spacemacs mode-line theme
+*** Space-macs mode-line theme
 This theme is a heavily customized [[https://github.com/milkypostman/powerline][powerline]] using [[https://github.com/TheBB/spaceline][spaceline]].
 It has the following capabilities among others:
 - show the window number
@@ -1469,7 +1469,7 @@ Reminder of the color codes for the states:
 | Normal             | Orange    |
 | Insert             | Green     |
 | Visual             | Grey      |
-| Emacs              | Blue      |
+| e-macs              | Blue      |
 | Motion             | Purple    |
 | Replace            | Chocolate |
 | Lisp               | Pink      |
@@ -1500,7 +1500,7 @@ errors, warnings and info.
 /Flycheck integration in mode-line/
 
 **** Anzu integration
-[[https://github.com/syohex/emacs-anzu][Anzu]] shows the number of occurrence when performing a search. Spacemacs
+[[https://github.com/syohex/e-macs-anzu][Anzu]] shows the number of occurrence when performing a search. Space-macs
 integrates the Anzu status nicely by displaying it temporarily when ~n~ or ~N~
 are being pressed. See the =5/6= segment on the screenshot below.
 
@@ -1527,15 +1527,15 @@ fonts from the package repository, see [[https://github.com/domtronn/all-the-ico
 
 *** Custom spaceline theme
 You can create your own Spaceline theme by setting the variable
-=dotspacemacs-mode-line-theme= to =custom= and define a function called
-=spaceline-custom-theme= in your =dotspacemacs/user-init= function of your
+=dotspace-macs-mode-line-theme= to =custom= and define a function called
+=spaceline-custom-theme= in your =dotspace-macs/user-init= function of your
 dotfile. This function must accept a variadic number of arguments which are
-additional segments added by Spacemacs (like a segment to notify about available
+additional segments added by Space-macs (like a segment to notify about available
 updates etc...).
 
 Example:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (defun spaceline-custom-theme (&rest additional-segments)
       "My custom spaceline theme."
       (spaceline-compile
@@ -1545,15 +1545,15 @@ Example:
       (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
 #+END_SRC
 
-Restart Emacs and enjoy your very own mode-line!
+Restart e-macs and enjoy your very own mode-line!
 
 *** Minor Modes
-Spacemacs uses [[https://www.emacswiki.org/emacs/DiminishedModes][diminish]] mode to reduce the size of minor mode indicators:
+Space-macs uses [[https://www.e-macswiki.org/e-macs/DiminishedModes][diminish]] mode to reduce the size of minor mode indicators:
 
 The minor mode area can be toggled on and off with ~SPC t m m~
 
 Unicode symbols are displayed by default. Setting the variable
-=dotspacemacs-mode-line-unicode-symbols= to =nil= in your =~/.spacemacs= will
+=dotspace-macs-mode-line-unicode-symbols= to =nil= in your =~/.space-macs= will
 display ASCII characters instead (may be useful in terminal if you cannot set an
 appropriate font).
 
@@ -1564,47 +1564,47 @@ Some toggle have two flavors: local and global. The global version of the toggle
 can be reached using the =control= key.
 
 Additionally all globally available toggles have a circled unicode symbols like
-=ⓟ=. Toggles specific to a major mode under the ~SPC m T~ prefix have plain
-squared symbols like =🅿=.
+=â“Ÿ=. Toggles specific to a major mode under the ~SPC m T~ prefix have plain
+squared symbols like =ðŸ…¿=.
 
 | Key binding   | Unicode | ASCII | Mode                                                                 |
 |---------------+---------+-------+----------------------------------------------------------------------|
-| ~SPC t -~     | =⊝=     | -     | [[https://www.emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]] mode                                                 |
-| ~SPC t 8~     | =⑧=     | 8     | toggle highlight of characters for long lines                        |
-| ~SPC t C-8~   | =⑧=     | 8     | global toggle highlight of characters for long lines                 |
-| ~SPC t C--~   | =⊝=     | -     | global centered cursor                                               |
-| ~SPC t a~     | =ⓐ=     | a     | auto-completion                                                      |
-| ~SPC t c~     | =ⓒ=     | c     | camel case motion with subword mode                                  |
-| =none=        | =ⓔ=     | e     | [[https://github.com/Somelauw/evil-org-mode][evil-org]] mode                                                        |
-| ~SPC t E e~   | =Ⓔe=    | Ee    | emacs editing style (holy mode)                                      |
-| ~SPC t E h~   | =Ⓔh=    | Eh    | hybrid editing style (hybrid mode)                                   |
-| ~SPC t f~     | =ⓕ=     | f     | fill-column-indicator mode                                           |
-| ~SPC t F~     | =Ⓕ=     | F     | auto-fill mode                                                       |
-| ~SPC t G~     | =Ⓖ=     | G     | [[http://spacemacs.org/layers/+tags/gtags/README.html][ggtags]] mode                                                          |
-| ~SPC t g~     | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                                                    |
-| ~SPC t h i~   | =ⓗi=    | hi    | toggle highlight indentation levels                                  |
-| ~SPC t h c~   | =ⓗc=    | hc    | toggle highlight indentation current column                          |
-| ~SPC t i~     | =ⓘ=     | i     | indentation guide                                                    |
-| ~SPC t C-i~   | =ⓘ=     | i     | global indentation guide                                             |
-| ~SPC t I~     | =Ⓘ=     | I     | aggressive indent mode                                               |
-| ~SPC t K~     | =Ⓚ=     | K     | which-key mode                                                       |
-| ~SPC t L~     | =Ⓛ=     | L     | visual line navigation                                               |
-| ~SPC t C-S-l~ | =Ⓛ=     | L     | visual line navigation globally                                      |
-| ~SPC t p~     | =ⓟ=     | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                                                     |
-| ~SPC t C-p~   | =ⓟ=     | p     | global smartparens                                                   |
-| ~SPC t s~     | =ⓢ=     | s     | syntax checking (flycheck)                                           |
-| ~SPC t S~     | =Ⓢ=     | S     | enabled in [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell checking layer]] (flyspell)                           |
-| ~SPC t w~     | =ⓦ=     | w     | whitespace mode                                                      |
-| ~SPC t C-w~   | =ⓦ=     | w     | global whitespace                                                    |
-| ~SPC t W~     | =Ⓦ=     | W     | automatic whitespace cleanup (see =dotspacemacs-whitespace-cleanup=) |
-| ~SPC t C-W~   | =Ⓦ=     | W     | automatic whitespace cleanup globally                                |
-| ~SPC t y~     | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
+| ~SPC t -~     | =âŠ=     | -     | [[https://www.e-macswiki.org/e-macs/centered-cursor-mode.el][centered-cursor]] mode                                                 |
+| ~SPC t 8~     | =â‘§=     | 8     | toggle highlight of characters for long lines                        |
+| ~SPC t C-8~   | =â‘§=     | 8     | global toggle highlight of characters for long lines                 |
+| ~SPC t C--~   | =âŠ=     | -     | global centered cursor                                               |
+| ~SPC t a~     | =â“=     | a     | auto-completion                                                      |
+| ~SPC t c~     | =â“’=     | c     | camel case motion with subword mode                                  |
+| =none=        | =â“”=     | e     | [[https://github.com/Somelauw/evil-org-mode][evil-org]] mode                                                        |
+| ~SPC t E e~   | =â’ºe=    | Ee    | e-macs editing style (holy mode)                                      |
+| ~SPC t E h~   | =â’ºh=    | Eh    | hybrid editing style (hybrid mode)                                   |
+| ~SPC t f~     | =â“•=     | f     | fill-column-indicator mode                                           |
+| ~SPC t F~     | =â’»=     | F     | auto-fill mode                                                       |
+| ~SPC t G~     | =â’¼=     | G     | [[http://space-macs.org/layers/+tags/gtags/README.html][ggtags]] mode                                                          |
+| ~SPC t g~     | =â“–=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                                                    |
+| ~SPC t h i~   | =â“—i=    | hi    | toggle highlight indentation levels                                  |
+| ~SPC t h c~   | =â“—c=    | hc    | toggle highlight indentation current column                          |
+| ~SPC t i~     | =â“˜=     | i     | indentation guide                                                    |
+| ~SPC t C-i~   | =â“˜=     | i     | global indentation guide                                             |
+| ~SPC t I~     | =â’¾=     | I     | aggressive indent mode                                               |
+| ~SPC t K~     | =â“€=     | K     | which-key mode                                                       |
+| ~SPC t L~     | =â“=     | L     | visual line navigation                                               |
+| ~SPC t C-S-l~ | =â“=     | L     | visual line navigation globally                                      |
+| ~SPC t p~     | =â“Ÿ=     | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                                                     |
+| ~SPC t C-p~   | =â“Ÿ=     | p     | global smartparens                                                   |
+| ~SPC t s~     | =â“¢=     | s     | syntax checking (flycheck)                                           |
+| ~SPC t S~     | =â“ˆ=     | S     | enabled in [[https://github.com/syl20bnr/space-macs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell checking layer]] (flyspell)                           |
+| ~SPC t w~     | =â“¦=     | w     | whitespace mode                                                      |
+| ~SPC t C-w~   | =â“¦=     | w     | global whitespace                                                    |
+| ~SPC t W~     | =â“Œ=     | W     | automatic whitespace cleanup (see =dotspace-macs-whitespace-cleanup=) |
+| ~SPC t C-W~   | =â“Œ=     | W     | automatic whitespace cleanup globally                                |
+| ~SPC t y~     | =â“¨=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                                       |
 
 ** Frame
 *** Title
 Default frame title displays name of current process and hostname of system. You
 can include more information (like name of current file, name of current project
-etc) by setting =dotspacemacs-frame-title-format= variable.
+etc) by setting =dotspace-macs-frame-title-format= variable.
 
 Following format short codes are available:
 
@@ -1628,11 +1628,11 @@ Following format short codes are available:
 
 **** Iconified (tabified) title
 If you are using tiling window manager with tab support you may want to display
-different title for inactive tabs with =dotspacemacs-icon-title-format=
+different title for inactive tabs with =dotspace-macs-icon-title-format=
 variable. Short codes are same as for frame title.
 
 If this variable is set to =nil= (default) its value will be same as
-=dotspacemacs-frame-title-format=.
+=dotspace-macs-frame-title-format=.
 
 *** Transparency
 The Frame transparency can be toggled with: ~SPC T T~
@@ -1655,7 +1655,7 @@ buffers as their parent layout.
 
 ** Layouts
 A layout is a window configuration associated with a list of buffers. The list
-of buffers can be an arbitrarily chosen set of buffers. Spacemacs provides
+of buffers can be an arbitrarily chosen set of buffers. Space-macs provides
 some facilities to create meaningful sets of buffers, for instance the buffers
 related to a projectile project.
 
@@ -1667,12 +1667,12 @@ For instance if you have two layouts currently then type ~SPC l 3~ to create a
 third layout.
 
 *** The default layout
-The =default= layout (the layout created at the startup of Emacs) is not
+The =default= layout (the layout created at the startup of e-macs) is not
 displayed in the mode-line but it is possible to display it by setting the
-variable =dotspacemacs-display-default-layout= to =t=.
+variable =dotspace-macs-display-default-layout= to =t=.
 
 Its name is "default" by default but it can be changed by setting the variable
-=dotspacemacs-default-layout-name=.
+=dotspace-macs-default-layout-name=.
 
 The =default= layout is special because it has a global scope which means that
 all the opened buffers belong to it. So using only the =default= layout feels
@@ -1685,24 +1685,24 @@ use ~SPC p l~.
 The name of the layout is the name of the project root directory.
 
 *** Custom Layouts
-Custom layouts can be defined using the macro ~spacemacs|define-custom-layout~,
+Custom layouts can be defined using the macro ~space-macs|define-custom-layout~,
 they are accessible via ~SPC l o~.
 
 By convention the name of a custom layout should start with =@=.
 
 Example of custom layout definition for =ERC= buffers:
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs|define-custom-layout "@ERC"
+#+BEGIN_SRC e-macs-lisp
+  (space-macs|define-custom-layout "@ERC"
     :binding "E"
     :body
     (progn
       ;; hook to add all ERC buffers to the layout
-      (defun spacemacs-layouts/add-erc-buffer-to-persp ()
+      (defun space-macs-layouts/add-erc-buffer-to-persp ()
         (persp-add-buffer (current-buffer)
                           (persp-get-by-name
-                           erc-spacemacs-layout-name)))
-      (add-hook 'erc-mode-hook #'spacemacs-layouts/add-erc-buffer-to-persp)
+                           erc-space-macs-layout-name)))
+      (add-hook 'erc-mode-hook #'space-macs-layouts/add-erc-buffer-to-persp)
       ;; Start ERC
       (call-interactively 'erc)))
 #+END_SRC
@@ -1710,11 +1710,11 @@ Example of custom layout definition for =ERC= buffers:
 Then use ~SPC l o E~ to start ERC inside its own layout. Any new ERC buffer
 will be part of the custom layout.
 
-Some custom layouts that ship with Spacemacs:
+Some custom layouts that ship with Space-macs:
 
 | Name       | Key binding | Description                                                                     |
 |------------+-------------+---------------------------------------------------------------------------------|
-| @Spacemacs | ~e~         | Custom perspective containing all buffers of =~/.emacs.d=                       |
+| @Space-macs | ~e~         | Custom perspective containing all buffers of =~/.e-macs.d=                       |
 | @Mu4e      | ~m~         | Custom perspective containing all mu4e buffers (needs the mu4e layer enabled)   |
 | @ERC       | ~E~         | Custom perspective containing all ERC buffers (needs the erc layer enabled)     |
 | @RCIRC     | ~i~         | Custom perspective containing all RCIRC buffers (needs the rcirc layer enabled) |
@@ -1724,10 +1724,10 @@ Some custom layouts that ship with Spacemacs:
 *** Save/Load layouts into a file
 With ~SPC l s~ and ~SPC l L~ you can save and load layouts to/from a file.
 
-*Note*: By default, Spacemacs will automatically save the layouts under the name
+*Note*: By default, Space-macs will automatically save the layouts under the name
 =persp-auto-save=.
 
-Setting the variable =dotspacemacs-auto-resume-layouts= to =t= will
+Setting the variable =dotspace-macs-auto-resume-layouts= to =t= will
 automatically resume the last saved layouts.
 
 *** Layout key bindings
@@ -1777,37 +1777,37 @@ minibuffer:
 #+END_QUOTE
 
 To allow ~SPC TAB~ to switch to the last opened buffer from another layout set
-this variable =spacemacs-layouts-restrict-spc-tab= to =nil=. For instance in
+this variable =space-macs-layouts-restrict-spc-tab= to =nil=. For instance in
 your used layer list with layer variables:
 
 #+BEGIN_EXAMPLE
-  (spacemacs-layouts :variables spacemacs-layouts-restrict-spc-tab t)
+  (space-macs-layouts :variables space-macs-layouts-restrict-spc-tab t)
 #+END_EXAMPLE
 
 *** Restrict a given function to the current layout
 You can make any function "layout aware" by adding it to the list
-=spacemacs-layouts-restricted-functions=. It is not possible to change this
-variable when Emacs is running. You have to define it using layer variables.
-If you change this variable then Emacs must be restarted for the change to
+=space-macs-layouts-restricted-functions=. It is not possible to change this
+variable when e-macs is running. You have to define it using layer variables.
+If you change this variable then e-macs must be restarted for the change to
 take effect.
 
 Default value for this variable is:
 
 #+BEGIN_EXAMPLE
-  '(spacemacs/window-split-double-columns
-    spacemacs/window-split-triple-columns
-    spacemacs/window-split-grid)
+  '(space-macs/window-split-double-columns
+    space-macs/window-split-triple-columns
+    space-macs/window-split-grid)
 #+END_EXAMPLE
 
 If you want to add the function =my-func= to this list you need to redefine
 the complete list using layer variables:
 
 #+BEGIN_EXAMPLE
-  (spacemacs-layouts :variables
-                     spacemacs-layouts-restricted-functions
-                     '(spacemacs/window-split-double-columns
-                       spacemacs/window-split-triple-columns
-                       spacemacs/window-split-grid
+  (space-macs-layouts :variables
+                     space-macs-layouts-restricted-functions
+                     '(space-macs/window-split-double-columns
+                       space-macs/window-split-triple-columns
+                       space-macs/window-split-grid
                        my-func))
 #+END_EXAMPLE
 
@@ -1816,7 +1816,7 @@ Workspaces are sub-layouts, they allow to define multiple layouts into a given
 layout, those layouts share the same buffers as the parent layout.
 
 The currently active workspace number is displayed before the window number,
-for instance "➊|➍" or "1|4" means the fourth window of the first workspace.
+for instance "âžŠ|âž" or "1|4" means the fourth window of the first workspace.
 
 Any new layout comes with a default workspace which is the workspace 1.
 
@@ -1860,17 +1860,17 @@ There are also some handy globally available key bindings related to workspaces:
 
 * Commands
 ** Vim key bindings
-Spacemacs is based on the =Vim= modal user interface to navigate and edit text.
+Space-macs is based on the =Vim= modal user interface to navigate and edit text.
 If you are not familiar with the =Vim= way of editing text, then you can try the
 [[https://github.com/syl20bnr/evil-tutor][evil-tutor]] lessons by pressing ~SPC h T v~ at any time.
 
 *** Escaping
-Spacemacs uses [[https://github.com/syl20bnr/evil-escape][evil-escape]] to
+Space-macs uses [[https://github.com/syl20bnr/evil-escape][evil-escape]] to
 easily switch between =insert state= and =normal state= by quickly pressing the
 ~fd~ keys.
 
 The choice of ~fd~ was made to be able to use the same sequence to escape from
-"everything" in Emacs:
+"everything" in e-macs:
 - escape from all stock evil states to normal state
 - escape from evil-lisp-state to normal state
 - escape from evil-iedit-state to normal state
@@ -1887,53 +1887,53 @@ The choice of ~fd~ was made to be able to use the same sequence to escape from
 - quit helm-ag-edit
 - hide neotree buffer
 
-If you find yourself in a buffer where the Spacemacs (~SPC~) or Vim keybindings
+If you find yourself in a buffer where the Space-macs (~SPC~) or Vim keybindings
 don't work you can use this to get back to =normal state= (for example in ~SPC
 SPC customize~ press ~fd~ to make ~SPC b b~ work again).
 
-This sequence can be customized in your =~/.spacemacs=.
+This sequence can be customized in your =~/.space-macs=.
 Example to set it to ~jj~:
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/user-config ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs/user-config ()
     (setq-default evil-escape-key-sequence "jj"))
 #+END_SRC
 
 *Note*: Although ~jj~ or ~jk~ are popular choices of vim users, these key
-sequences are not optimal for Spacemacs. Indeed it is very easy in =visual
+sequences are not optimal for Space-macs. Indeed it is very easy in =visual
 state= to press quickly ~jj~ and inadvertently escape to =normal state=.
 
-*** Executing Vim and Emacs ex/M-x commands
+*** Executing Vim and e-macs ex/M-x commands
 
 | Command          | Key binding |
 |------------------+-------------|
 | Vim (ex-command) | ~:~         |
-| Emacs (M-x)      | ~SPC SPC~   |
+| e-macs (M-x)      | ~SPC SPC~   |
 
-The emacs command key ~SPC~ (executed after the leader key) can be changed
-with the variable =dotspacemacs-emacs-command-key= of your =~/.spacemacs=.
+The e-macs command key ~SPC~ (executed after the leader key) can be changed
+with the variable =dotspace-macs-e-macs-command-key= of your =~/.space-macs=.
 
 *** Leader key
-On top of =Vim= modes (modes are called states in Spacemacs) there is a
+On top of =Vim= modes (modes are called states in Space-macs) there is a
 special key called the leader key which once pressed gives a whole new keyboard
 layer. The leader key is by default ~SPC~ (space). It is possible to change this
-key with the variable =dotspacemacs-leader-key=.
+key with the variable =dotspace-macs-leader-key=.
 
 *** Major Mode leader key
 Key bindings specific to the current =major mode= start with ~SPC m~. For
 convenience a shortcut key called the major mode leader key is set by default on
-~​,​~ which saves one precious keystroke.
+~â€‹,â€‹~ which saves one precious keystroke.
 
 It is possible to change the major mode leader key by defining the variable
-=dotspacemacs-major-mode-leader-key= in your =~/.spacemacs=. For example to
+=dotspace-macs-major-mode-leader-key= in your =~/.space-macs=. For example to
 setup the key on tabulation:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-major-mode-leader-key "<tab>")
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-major-mode-leader-key "<tab>")
 #+END_SRC
 
 *** Additional text objects
-Additional text objects are defined in Spacemacs:
+Additional text objects are defined in Space-macs:
 
 | Object  | Description                |
 |---------+----------------------------|
@@ -1948,29 +1948,29 @@ Additional text objects are defined in Spacemacs:
 
 ** Reserved prefix command for user
 ~SPC o~ and ~SPC m o~ are reserved for the user. Setting key bindings behind
-these is *guaranteed* to never conflict with Spacemacs default key bindings.
+these is *guaranteed* to never conflict with Space-macs default key bindings.
 
-*Example:* Put =(spacemacs/set-leader-keys "oc" 'org-capture)= inside
-=dotspacemacs/user-config= in your =~/.spacemacs= file, to be able to use
+*Example:* Put =(space-macs/set-leader-keys "oc" 'org-capture)= inside
+=dotspace-macs/user-config= in your =~/.space-macs= file, to be able to use
 ~SPC o c~ to run org mode capture.
 
 ** Completion
-Spacemacs is powered by one of two incremental completion and selection
-narrowing frameworks: [[https://github.com/emacs-helm/helm][Helm]] (default) or [[https://github.com/abo-abo/swiper][Ivy]]. To use Ivy, add the =ivy= layer to
+Space-macs is powered by one of two incremental completion and selection
+narrowing frameworks: [[https://github.com/e-macs-helm/helm][Helm]] (default) or [[https://github.com/abo-abo/swiper][Ivy]]. To use Ivy, add the =ivy= layer to
 your list of enabled layers. If the =ivy= layer is not enabled, Helm will be
 enabled automatically. (Please note that, as Helm is the more mature of the two,
 some functions may be unavailable if you choose Ivy.)
 
-These completion systems are the central control towers of Spacemacs, they are
+These completion systems are the central control towers of Space-macs, they are
 used to manage buffers, projects, search results, configuration layers, toggles
 and more...
 
-Mastering your choice of completion system will make you a Spacemacs power user.
+Mastering your choice of completion system will make you a Space-macs power user.
 
-For more information go to the layers documentation for [[https://github.com/syl20bnr/spacemacs/blob/master/layers/+completion/helm/README.org][Helm]] and [[https://github.com/syl20bnr/spacemacs/blob/master/layers/+completion/ivy/README.org][Ivy]].
+For more information go to the layers documentation for [[https://github.com/syl20bnr/space-macs/blob/master/layers/+completion/helm/README.org][Helm]] and [[https://github.com/syl20bnr/space-macs/blob/master/layers/+completion/ivy/README.org][Ivy]].
 
-*Note*: To open the Spacemacs documentation for Helm of Ivy in Emacs, open the
-=spacemacs-help= menu with ~SPC h SPC~ and type ~helm~ or ~ivy~ then ~return~.
+*Note*: To open the Space-macs documentation for Helm of Ivy in e-macs, open the
+=space-macs-help= menu with ~SPC h SPC~ and type ~helm~ or ~ivy~ then ~return~.
 
 ** Discovering
 *** Key bindings
@@ -1978,9 +1978,9 @@ For more information go to the layers documentation for [[https://github.com/syl
 A help buffer is displayed each time the ~SPC~ key is pressed in normal mode.
 It lists the available key bindings and their associated commands.
 
-By default the [[https://github.com/justbur/emacs-which-key][which-key]] buffer will be displayed quickly after the key has been
+By default the [[https://github.com/justbur/e-macs-which-key][which-key]] buffer will be displayed quickly after the key has been
 pressed. You can change the delay by setting the variable
-=dotspacemacs-which-key-delay= to your liking (the value is in seconds).
+=dotspace-macs-which-key-delay= to your liking (the value is in seconds).
 
 **** Describe key bindings
 It is possible to search for specific key bindings by pressing ~SPC ?~.
@@ -1990,7 +1990,7 @@ this regular expression: ~SPC\ b~ which would list all =buffer= related
 bindings.
 
 *** Getting help
-=Describe functions= are powerful Emacs introspection commands to get
+=Describe functions= are powerful e-macs introspection commands to get
 information about functions, variables, modes etc. These commands are bound
 thusly:
 
@@ -2005,8 +2005,8 @@ thusly:
 | ~SPC h d K~ | describe a keymap                                         |
 | ~SPC h d l~ | copy last pressed keys that you can paste in gitter chat  |
 | ~SPC h d m~ | describe current modes                                    |
-| ~SPC h d p~ | describe a package (Emacs built-in function)              |
-| ~SPC h d P~ | describe a package (Spacemacs layer information)          |
+| ~SPC h d p~ | describe a package (e-macs built-in function)              |
+| ~SPC h d P~ | describe a package (Space-macs layer information)          |
 | ~SPC h d s~ | copy system information that you can paste in gitter chat |
 | ~SPC h d t~ | describe text properties                                  |
 | ~SPC h d T~ | describe a theme                                          |
@@ -2016,14 +2016,14 @@ Other help key bindings:
 
 | Key binding | Description                                           |
 |-------------+-------------------------------------------------------|
-| ~SPC h SPC~ | discover Spacemacs documentation, layers and packages |
+| ~SPC h SPC~ | discover Space-macs documentation, layers and packages |
 | ~SPC h .~   | search dotfile variables                              |
 | ~SPC h f~   | discover the =FAQ=                                    |
 | ~SPC h i~   | search in info pages with the symbol at point         |
 | ~SPC h k~   | show top-level bindings with =which-key=              |
 | ~SPC h l~   | search layers                                         |
 | ~SPC h m~   | search available man pages                            |
-| ~SPC h n~   | browse emacs news                                     |
+| ~SPC h n~   | browse e-macs news                                     |
 | ~SPC h p~   | search packages                                       |
 | ~SPC h r~   | search documentation files                            |
 | ~SPC h t~   | search toggles                                        |
@@ -2050,8 +2050,8 @@ Reporting an issue:
 
 | Key binding     | Description                                                                              |
 |-----------------+------------------------------------------------------------------------------------------|
-| ~SPC h I~       | Open Spacemacs GitHub issue page with pre-filled information                             |
-| ~SPC u SPC h I~ | Open Spacemacs GitHub issue page with pre-filled information - include last pressed keys |
+| ~SPC h I~       | Open Space-macs GitHub issue page with pre-filled information                             |
+| ~SPC u SPC h I~ | Open Space-macs GitHub issue page with pre-filled information - include last pressed keys |
 
 *Note*: To be able to report an issue you need to be logged into GitHub
 
@@ -2059,15 +2059,15 @@ Reporting an issue:
 backtrace is automatically included
 
 *** Available layers
-All layers can be easily discovered via =spacemacs-help= accessible with
+All layers can be easily discovered via =space-macs-help= accessible with
  ~SPC h SPC~.
 
 The following actions on the selected candidate are available:
 - default: open the layer =README.org=
 - 2nd: open the layer =packages.el=
 
-**** Available packages in Spacemacs
-=spacemacs-help= also lists all the packages available in Spacemacs. The
+**** Available packages in Space-macs
+=space-macs-help= also lists all the packages available in Space-macs. The
 entry format is =(layer) packages=. If you type =flycheck= you'll be able to see
 all the layers where =flycheck= is used.
 
@@ -2077,10 +2077,10 @@ The following actions are available on selected package:
 **** New packages from ELPA repositories
 =package-list-packages= is where you can browse for all available packages in the
 different Elpa repositories. It is possible to upgrade packages from there but
-it is not recommended, use the =[Update Packages]= link on the Spacemacs startup
+it is not recommended, use the =[Update Packages]= link on the Space-macs startup
 page instead.
 
-Spacemacs uses [[https://github.com/Bruce-Connor/paradox][Paradox]] instead of =package-list-packages= to list available
+Space-macs uses [[https://github.com/Bruce-Connor/paradox][Paradox]] instead of =package-list-packages= to list available
 ELPA packages. Paradox enhances the package list buffer with better feedbacks,
 new filters and GitHub information like the number of stars. Optionally you can
 also star packages directly in the buffer.
@@ -2091,7 +2091,7 @@ configuration layer.
 
 *Important Note 2*: Don't /update/ your packages from =Paradox= or
 =package-list-packages= because they don't support the rollback feature of
-Spacemacs.
+Space-macs.
 
 | Key binding | Description                                           |
 |-------------+-------------------------------------------------------|
@@ -2118,7 +2118,7 @@ Spacemacs.
 | ~x~         | execute (action flags)                                |
 
 *** Toggles
-=spacemacs-help= is also a central place to discover the available toggles.
+=space-macs-help= is also a central place to discover the available toggles.
 To display only the toggles source press ~C-l~.
 
 The following actions are available on selected toggle:
@@ -2145,16 +2145,16 @@ Navigation is performed using the Vi key bindings ~hjkl~.
 bottom of the screen. It is enabled by default.
 
 On Windows, you may want to disable it. To disable the smooth scrolling set the
-=dotspacemacs-smooth-scrolling= variable in your =~/.spacemacs= to =nil=:
+=dotspace-macs-smooth-scrolling= variable in your =~/.space-macs= to =nil=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-smooth-scrolling nil)
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-smooth-scrolling nil)
 #+END_SRC
 
 You can also toggle smooth scrolling with ~SPC t v~.
 
 *** Vim motions with avy
-Spacemacs uses the =evil= integration of [[https://github.com/abo-abo/avy][avy]] which enables the
+Space-macs uses the =evil= integration of [[https://github.com/abo-abo/avy][avy]] which enables the
 invocation of =avy= during motions.
 
 For instance, it is useful for deleting a set of visual lines from the current line.
@@ -2177,7 +2177,7 @@ Similar to =avy=, [[https://github.com/abo-abo/ace-link][ace-link]] allows one t
 | ~o~         | initiate ace link mode in =help-mode= and =info-mode= |
 
 *** Unimpaired bindings
-Spacemacs comes with a built-in port of [[https://github.com/tpope/vim-unimpaired][tpope's vim-unimpaired]].
+Space-macs comes with a built-in port of [[https://github.com/tpope/vim-unimpaired][tpope's vim-unimpaired]].
 
 This plugin provides several pairs of bracket maps using ~[~ to denote
 previous, and ~]~ as next.
@@ -2220,7 +2220,7 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 | ~SPC j c~   | go to last change                                                                 |
 | ~SPC j d~   | jump to a listing of the current directory                                        |
 | ~SPC j D~   | jump to a listing of the current directory (other window)                         |
-| ~SPC j f~   | jump to the definition of an Emacs Lisp function                                  |
+| ~SPC j f~   | jump to the definition of an e-macs Lisp function                                  |
 | ~SPC j i~   | jump to a definition in buffer (imenu)                                            |
 | ~SPC j I~   | jump to a definition in any buffer (imenu)                                        |
 | ~SPC j j~   | jump to one or more characters in the buffer (works as an evil motion)            |
@@ -2229,7 +2229,7 @@ The ~SPC j~ prefix is for jumping, joining and splitting.
 | ~SPC j q~   | show the dumb-jump quick look tooltip                                             |
 | ~SPC j u~   | jump to a URL in the current buffer                                               |
 | ~SPC j U~   | select a URL in the current buffer and follow it                                  |
-| ~SPC j v~   | jump to the definition/declaration of an Emacs Lisp variable                      |
+| ~SPC j v~   | jump to the definition/declaration of an e-macs Lisp variable                      |
 | ~SPC j w~   | jump to a word in the current buffer (works as an evil motion)                    |
 
 **** Joining and splitting
@@ -2262,7 +2262,7 @@ can be quickly accessed using =SPC number=.
 | ~SPC 8~     | go to window number 8 |
 | ~SPC 9~     | go to window number 9 |
 
-Window number 0 is a special case and selects sidebar windows, like treemacs. If there is no window
+Window number 0 is a special case and selects sidebar windows, like tree-macs. If there is no window
 number 0, =SPC 0= attempts to select window number 10.
 
 Windows manipulation commands (start with ~w~):
@@ -2323,7 +2323,7 @@ following commands:
 | ~SPC w 3~   | make 3 windows layout (split vertically)  |
 | ~SPC w 4~   | make 4 windows layout (split in 2x2 grid) |
 
-By default, the commands above ignore some windows, like the filetrees (treemacs
+By default, the commands above ignore some windows, like the filetrees (tree-macs
 and neotree) but you can use a prefix argument to force delete them.
 
 | Key binding     | Description                                                 |
@@ -2334,27 +2334,27 @@ and neotree) but you can use a prefix argument to force delete them.
 | ~SPC u SPC w 4~ | make 4 windows layout (split in 2x2 grid) with force delete |
 
 You can also configure which windows get ignored when executing the above
-commands by adding a prefix to the =spacemacs-window-split-ignore-prefixes=
+commands by adding a prefix to the =space-macs-window-split-ignore-prefixes=
 list:
 
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'spacemacs-window-split-ignore-prefixes "My Favourite Window")
+#+BEGIN_SRC e-macs-lisp
+  (add-to-list 'space-macs-window-split-ignore-prefixes "My Favourite Window")
 #+END_SRC
 
 Or if you want a certain ignored window to always be deleted you can remote it
 from the list:
 
-#+BEGIN_SRC emacs-lisp
-  (setq spacemacs-window-split-ignore-prefixes
-    (remove treemacs--buffer-name-prefix spacemacs-window-split-ignore-prefixes))
+#+BEGIN_SRC e-macs-lisp
+  (setq space-macs-window-split-ignore-prefixes
+    (remove tree-macs--buffer-name-prefix space-macs-window-split-ignore-prefixes))
 #+END_SRC
 
 And if you want even more control over the way windows are removed you can
 define your own deletion function:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (defun my-delete-other-windows () (delete-other-windows))
-  (setq spacemacs-window-split-delete-function 'my-delete-other-windows)
+  (setq space-macs-window-split-delete-function 'my-delete-other-windows)
 #+END_SRC
 
 **** Window transient state
@@ -2430,13 +2430,13 @@ Buffer manipulation commands (start with ~b~):
 | ~SPC b C-d~     | kill other buffers                                                                     |
 | ~SPC b C-D~     | kill buffers using a regular expression                                                |
 | ~SPC b e~       | erase the content of the buffer (ask for confirmation)                                 |
-| ~SPC b h~       | open =*spacemacs*= home buffer                                                         |
+| ~SPC b h~       | open =*space-macs*= home buffer                                                         |
 | ~SPC b H~       | open or select the =*Help*= buffer                                                     |
-| ~SPC b n~       | switch to next buffer avoiding buffers matching =spacemacs-useless-buffers-regexp=     |
+| ~SPC b n~       | switch to next buffer avoiding buffers matching =space-macs-useless-buffers-regexp=     |
 | ~SPC b m~       | open =*Messages*= buffer                                                               |
 | ~SPC u SPC b m~ | kill all buffers and windows except the current one                                    |
 | ~SPC b M~       | kill all buffers matching the regexp                                                   |
-| ~SPC b p~       | switch to previous buffer avoiding buffers matching =spacemacs-useless-buffers-regexp= |
+| ~SPC b p~       | switch to previous buffer avoiding buffers matching =space-macs-useless-buffers-regexp= |
 | ~SPC b P~       | copy clipboard and replace buffer (useful when pasting from a browser)                 |
 | ~SPC b R~       | revert the current buffer (reload from disk)                                           |
 | ~SPC b s~       | switch to the =*scratch*= buffer (create it if needed)                                 |
@@ -2469,20 +2469,20 @@ open buffers and closing them.
 | ~[1..9]~               | move current buffer to nth window                                                          |
 | ~[C-1..C-9]~           | switch focus to nth window                                                                 |
 | ~[M-1..M-9]~           | swap current buffer with nth window                                                        |
-| ~b~                    | list all buffers with helm/ivy (avoid buffers matching =spacemacs-useless-buffers-regexp=) |
+| ~b~                    | list all buffers with helm/ivy (avoid buffers matching =space-macs-useless-buffers-regexp=) |
 | ~d~                    | kill current buffer                                                                        |
 | ~C-d~                  | bury current buffer                                                                        |
-| ~n~ or ~<right>~       | go to next buffer (avoid buffers matching =spacemacs-useless-buffers-regexp=)              |
-| ~N~ or ~p~ or ~<left>~ | go to previous buffer (avoid buffers matching =spacemacs-useless-buffers-regexp=)          |
+| ~n~ or ~<right>~       | go to next buffer (avoid buffers matching =space-macs-useless-buffers-regexp=)              |
+| ~N~ or ~p~ or ~<left>~ | go to previous buffer (avoid buffers matching =space-macs-useless-buffers-regexp=)          |
 | ~o~                    | switch focus to other window                                                               |
 | ~z~                    | recenter buffer in window                                                                  |
 | ~q~                    | quit transient state                                                                       |
 
-Unlike vim, emacs creates many buffers that most people do not need to see. Some
-examples are the =*Messages*= and =*Compile-Log*= buffers. Spacemacs tries to
+Unlike vim, e-macs creates many buffers that most people do not need to see. Some
+examples are the =*Messages*= and =*Compile-Log*= buffers. Space-macs tries to
 automatically ignore buffers that are not useful. However, you may want to
-change the way Spacemacs marks buffers as useful. For instructions, see the
-[[https://github.com/syl20bnr/spacemacs/blob/develop/doc/FAQ.org#change-special-buffer-rules][special buffer howto]].
+change the way Space-macs marks buffers as useful. For instructions, see the
+[[https://github.com/syl20bnr/space-macs/blob/develop/doc/FAQ.org#change-special-buffer-rules][special buffer howto]].
 
 **** File manipulation key bindings
 File manipulation commands (start with ~f~):
@@ -2508,7 +2508,7 @@ File manipulation commands (start with ~f~):
 | ~SPC f s~   | save a file                                                                                            |
 | ~SPC f S~   | save all files                                                                                         |
 | ~SPC f r~   | open a recent file                                                                                     |
-| ~SPC f t~   | toggle file tree side bar using [[https://github.com/Alexander-Miller/treemacs][Treemacs]]                                                               |
+| ~SPC f t~   | toggle file tree side bar using [[https://github.com/Alexander-Miller/tree-macs][Tree-macs]]                                                               |
 | ~SPC f v d~ | add a directory variable                                                                               |
 | ~SPC f v f~ | add a local variable to the current file                                                               |
 | ~SPC f v p~ | add a local variable to the first line of the current file                                             |
@@ -2533,22 +2533,22 @@ Frame manipulation commands (start with ~F~):
 | ~SPC F O~   | open a dired buffer in another frame                |
 | ~SPC F n~   | create a new frame                                  |
 
-**** Emacs and Spacemacs files
+**** e-macs and Space-macs files
 Convenient key bindings are located under the prefix ~SPC f e~ to quickly
-navigate between =Emacs= and Spacemacs specific files.
+navigate between =e-macs= and Space-macs specific files.
 
 | Key binding   | Description                                                                                             |
 |---------------+---------------------------------------------------------------------------------------------------------|
-| ~SPC f e d~   | open the spacemacs dotfile (=~/.spacemacs=)                                                             |
-| ~SPC f e D~   | open =ediff= buffer of =~/.spacemacs= and =.spacemacs.template=                                         |
-| ~SPC f e e~   | open the =~/.spacemacs.env= file where environment variables are set or goes to =dotspacemacs/user-env= |
-| ~SPC f e E~   | reload the environment variables by executing the function =dotspacemacs/user-env=                      |
-| ~SPC f e C-e~ | reinitialize the =~/.spacemacs.env= file by importing system and shell environment variables            |
+| ~SPC f e d~   | open the space-macs dotfile (=~/.space-macs=)                                                             |
+| ~SPC f e D~   | open =ediff= buffer of =~/.space-macs= and =.space-macs.template=                                         |
+| ~SPC f e e~   | open the =~/.space-macs.env= file where environment variables are set or goes to =dotspace-macs/user-env= |
+| ~SPC f e E~   | reload the environment variables by executing the function =dotspace-macs/user-env=                      |
+| ~SPC f e C-e~ | reinitialize the =~/.space-macs.env= file by importing system and shell environment variables            |
 | ~SPC f e i~   | open the all mighty =init.el=                                                                           |
-| ~SPC f e l~   | locate an Emacs library                                                                                 |
-| ~SPC f e R~   | resync the dotfile with spacemacs                                                                       |
+| ~SPC f e l~   | locate an e-macs library                                                                                 |
+| ~SPC f e R~   | resync the dotfile with space-macs                                                                       |
 | ~SPC f e U~   | update packages                                                                                         |
-| ~SPC f e v~   | display and copy the spacemacs version                                                                  |
+| ~SPC f e v~   | display and copy the space-macs version                                                                  |
 | ~SPC f e c~   | recompile all elpa packages                                                                             |
 
 **** Browsing files in completion buffer
@@ -2564,7 +2564,7 @@ In =vim= style and =hybrid= style with the variable
 | ~C-l~       | enter current directory           |
 
 *** Ido
-Spacemacs displays the =ido= minibuffer vertically thanks to the
+Space-macs displays the =ido= minibuffer vertically thanks to the
 [[https://github.com/gempesaw/ido-vertical-mode.el][ido-vertical-mode]].
 
 Basic =ido= operations can be done with ~Ctrl~ key:
@@ -2590,7 +2590,7 @@ Basic =ido= operations can be done with ~Ctrl~ key:
 | ~C-S-l~            | go to next directory                              |
 
 *** Ido transient state
-Spacemacs defines a [[#transient-states][transient state]] for =ido=.
+Space-macs defines a [[#transient-states][transient state]] for =ido=.
 
 Initiate the transient state with ~M-SPC~ or ~s-M-SPC~ while in an =ido= buffer.
 
@@ -2668,9 +2668,9 @@ respectively.
 *** Location of auto-saved files
 Auto-save of modified files can be performed in-place on the original file
 itself /or/ in the cache directory (in this case the original file will remain
-unsaved). By default Spacemacs auto-save the file in the cache directory.
+unsaved). By default Space-macs auto-save the file in the cache directory.
 
-To modify the location set the variable =dotspacemacs-auto-save-file-location=
+To modify the location set the variable =dotspace-macs-auto-save-file-location=
 to =original= or =cache=.
 
 Local files are auto-saved in a sub-directory called =site= in the =cache=
@@ -2678,21 +2678,21 @@ directory whereas remote files (i.e. files edited over TRAMP) are auto-saved
 in a sub-directory called =dist=.
 
 *** Disable auto-save
-To disable auto-saving set the variable =dotspacemacs-auto-save-file-location=
+To disable auto-saving set the variable =dotspace-macs-auto-save-file-location=
 to =nil=.
 
 You can toggle auto-save in a buffer by calling the command =auto-save-mode=.
 
 ** Searching
 *** With an external tool
-Spacemacs can be interfaced with different search utilities like:
+Space-macs can be interfaced with different search utilities like:
 - [[https://github.com/BurntSushi/ripgrep][rg]]
 - [[https://github.com/ggreer/the_silver_searcher][ag]]
 - [[https://github.com/monochromegane/the_platinum_searcher][pt]]
 - [[https://beyondgrep.com/][ack]]
 - grep
 
-The search commands in Spacemacs are organized under the ~SPC s~ prefix with the
+The search commands in Space-macs are organized under the ~SPC s~ prefix with the
 next key is the tool to use and the last key is the scope. For instance
 ~SPC s a b~ will search in all opened buffers using =ag=.
 
@@ -2702,7 +2702,7 @@ symbol under point is used as default input for the search. For instance
 
 If the tool key is omitted then a default tool will be automatically selected
 for the search. This tool corresponds to the first tool found on the system of
-the list =dotspacemacs-search-tools=, the default order is =rg=, =ag=, =pt=,
+the list =dotspace-macs-search-tools=, the default order is =rg=, =ag=, =pt=,
 =ack= then =grep=. For instance ~SPC s b~ will search in the opened buffers
 using =pt= if =rg= and =ag= have not been found on the system.
 
@@ -2748,7 +2748,7 @@ called =pt=.
 | Prefix argument        | will ask for file extensions                                 |
 
 When results have been saved in a regular buffer with ~F3~, that buffer supports
-browsing through the matches with Spacemacs' =next-error= and =previous-error=
+browsing through the matches with Space-macs' =next-error= and =previous-error=
 bindings (~SPC e n~ and ~SPC e p~) as well as the error transient state (~SPC e .~).
 
 **** Searching in current file
@@ -2838,16 +2838,16 @@ directly search into it like with ~SPC s p~.
 
 | Key binding | Description                                                       |
 |-------------+-------------------------------------------------------------------|
-| ~SPC s w g~ | Get Google suggestions in emacs. Opens Google results in Browser. |
+| ~SPC s w g~ | Get Google suggestions in e-macs. Opens Google results in Browser. |
 
 *** Persistent highlighting
-Spacemacs uses =evil-search-highlight-persist= to keep the searched expression
+Space-macs uses =evil-search-highlight-persist= to keep the searched expression
 highlighted until the next search. It is also possible to clear the highlighting
 by pressing ~SPC s c~ or executing the ex command =:noh=.
 
 *** Highlight current symbol
-Spacemacs supports highlighting of the current symbol on demand (provided by
-[[https://github.com/emacsmirror/auto-highlight-symbol][auto-highlight-symbol]] mode) and adds a transient state to easily navigate and rename
+Space-macs supports highlighting of the current symbol on demand (provided by
+[[https://github.com/e-macsmirror/auto-highlight-symbol][auto-highlight-symbol]] mode) and adds a transient state to easily navigate and rename
 this symbol.
 
 It is also possible to change the range of the navigation on the fly to:
@@ -2918,7 +2918,7 @@ To list all the symbols of a buffer press ~SPC s j~
 *** Paste text
 **** Paste transient state
 The paste transient state can be enabled by setting the variable
-=dotspacemacs-enable-paste-transient-state= to =t=. By default it is disabled.
+=dotspace-macs-enable-paste-transient-state= to =t=. By default it is disabled.
 
 When the transient state is enabled, after you paste something, pressing ~C-j~
 or ~C-k~ will replace the pasted text with the previous or next yanked (copied)
@@ -2938,8 +2938,8 @@ By default any pasted text will be auto-indented. To paste text un-indented use
 the universal argument.
 
 It is possible to disable the auto-indentation for specific major-modes by
-adding a major-mode to the variable =spacemacs-indent-sensitive-modes= in your
-=dotspacemacs/user-config= function.
+adding a major-mode to the variable =space-macs-indent-sensitive-modes= in your
+=dotspace-macs/user-config= function.
 
 *** Text manipulation commands
 Text related commands (start with ~x~):
@@ -2954,7 +2954,7 @@ Text related commands (start with ~x~):
 | ~SPC x a ]~   | align region at ]                                             |
 | ~SPC x a {~   | align region at {                                             |
 | ~SPC x a }~   | align region at }                                             |
-| ~SPC x a ​,​~   | align region at ,                                             |
+| ~SPC x a â€‹,â€‹~   | align region at ,                                             |
 | ~SPC x a .~   | align region at . (for numeric tables)                        |
 | ~SPC x a :~   | align region at :                                             |
 | ~SPC x a ;~   | align region at ;                                             |
@@ -2965,7 +2965,7 @@ Text related commands (start with ~x~):
 | ~SPC x a L~   | right-align with evil-lion                                    |
 | ~SPC x a r~   | align region using user-specified regexp                      |
 | ~SPC x a m~   | align region at arithmetic operators (+-*/)                   |
-| ~SPC x a ¦~   | align region at ¦                                             |
+| ~SPC x a Â¦~   | align region at Â¦                                             |
 | ~SPC x c~     | count the number of chars/words/lines in the selection region |
 | ~SPC x d l~   | delete blank lines but one or the single blank line           |
 | ~SPC x d w~   | delete trailing whitespaces                                   |
@@ -3037,10 +3037,10 @@ This mode can be frustrating for novices, this is why it is not enabled by
 default.
 
 It is possible to enable it easily for /all programming modes/ with the variable
-=dotspacemacs-smartparens-strict-mode= of you =~/.spacemacs=.
+=dotspace-macs-smartparens-strict-mode= of you =~/.space-macs=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-smartparens-strict-mode t)
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-smartparens-strict-mode t)
 #+END_SRC
 
 *** Zooming
@@ -3085,7 +3085,7 @@ In the transient state:
 | ~q~           | quit transient state |
 
 *** Increase/Decrease numbers
-Spacemacs uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily increase or decrease numbers.
+Space-macs uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily increase or decrease numbers.
 
 | Key binding          | Description                                                         |
 |----------------------+---------------------------------------------------------------------|
@@ -3106,7 +3106,7 @@ using a prefix argument (i.e. ~10 SPC n +~ will add =10= to the number under
 point).
 
 *** Spell checking
-Spell checking is enabled by including the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell
+Spell checking is enabled by including the [[https://github.com/syl20bnr/space-macs/blob/develop/layers/%2Bcheckers/spell-checking/README.org][spell
 checking]] layer in your dotfile.
 
 Key bindings are listed in the layer documentation.
@@ -3115,7 +3115,7 @@ Key bindings are listed in the layer documentation.
 Vi =Visual= modes are all supported by =evil=.
 
 **** Expand-region
-Spacemacs adds another =Visual= mode via the [[https://github.com/magnars/expand-region.el][expand-region]] mode.
+Space-macs adds another =Visual= mode via the [[https://github.com/magnars/expand-region.el][expand-region]] mode.
 
 | Key binding | Description                              |
 |-------------+------------------------------------------|
@@ -3132,7 +3132,7 @@ With [[https://github.com/TheBB/evil-indent-plus][evil-indent-plus]] the followi
 - ~iJ~ - Above, Below and Indentation+: ~iI~ + the line below with a different indentation
 - There are also ~a~ variants that include whitespace. Example (=|= indicates point):
 
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC e-macs-lisp
     (while (not done)
       (messa|ge "All work and no play makes Jack a dull boy."))
     (1+ 41)
@@ -3160,7 +3160,7 @@ Narrowing in an indirect buffer overcomes the problem that a buffer can only be
 narrowed in one place at a given time.
 
 *** Replacing text with iedit
-Spacemacs uses the powerful [[https://github.com/tsdh/iedit][iedit]] mode through [[https://github.com/syl20bnr/evil-iedit-state][evil-iedit-state]] to quickly
+Space-macs uses the powerful [[https://github.com/tsdh/iedit][iedit]] mode through [[https://github.com/syl20bnr/evil-iedit-state][evil-iedit-state]] to quickly
 edit multiple occurrences of a symbol or selection.
 
 =evil-iedit-state= defines two new evil states:
@@ -3240,7 +3240,7 @@ an ~occurrence~.
 
 *** Replacing text in several files
 If you have =rg=, =ag=, =pt= or =ack= installed, replacing an occurrence of text
-in several files can be performed via [[https://github.com/syohex/emacs-helm-ag][helm-ag]].
+in several files can be performed via [[https://github.com/syohex/e-macs-helm-ag][helm-ag]].
 
 Say you want to replace all =foo= occurrences by =bar= in your current
 project:
@@ -3250,7 +3250,7 @@ project:
 - edit the occurrences then leave the =iedit state=
 - press ~C-c C-c~
 
-*Note*: In Spacemacs, =helm-ag= despite its name works with =rg=, =pt= and =ack=
+*Note*: In Space-macs, =helm-ag= despite its name works with =rg=, =pt= and =ack=
 as well (but not with =grep=).
 
 *** Renaming files in a directory
@@ -3280,9 +3280,9 @@ Comments are handled by [[https://github.com/redguardtoo/evil-nerd-commenter][ev
 *Tips:* To comment efficiently a block of line use the combo ~SPC ; SPC j l~
 
 *** Regular expressions
-Spacemacs uses the packages [[https://github.com/joddie/pcre2el][pcre2el]] to manipulate regular expressions. It is
-useful when working with =Emacs Lisp= buffers since it allows to easily converts
-=PCRE= (Perl Compatible RegExp) to Emacs RegExp or =rx=. It can also be used to
+Space-macs uses the packages [[https://github.com/joddie/pcre2el][pcre2el]] to manipulate regular expressions. It is
+useful when working with =e-macs Lisp= buffers since it allows to easily converts
+=PCRE= (Perl Compatible RegExp) to e-macs RegExp or =rx=. It can also be used to
 "explain" a PCRE RegExp around point in =rx= form.
 
 The key bindings start with ~SPC x r~ and have the following mnemonic structure:
@@ -3292,18 +3292,18 @@ The key bindings start with ~SPC x r~ and have the following mnemonic structure:
 | Key binding   | Description                                                                            |
 |---------------+----------------------------------------------------------------------------------------|
 | ~SPC x r /~   | Explain the regexp around point with =rx=                                              |
-| ~SPC x r '​~   | Generate strings given by a regexp given this list is finite                           |
+| ~SPC x r 'â€‹~   | Generate strings given by a regexp given this list is finite                           |
 | ~SPC x r t~   | Replace regexp around point by the =rx= form or vice versa                             |
 | ~SPC x r x~   | Convert regexp around point in =rx= form and display the result in the minibuffer      |
 | ~SPC x r c~   | Convert regexp around point to the other form and display the result in the minibuffer |
-| ~SPC x r e /~ | Explain Emacs Lisp regexp                                                              |
-| ~SPC x r e '​~ | Generate strings from Emacs Lisp regexp                                                |
-| ~SPC x r e p~ | Convert Emacs Lisp regexp to PCRE                                                      |
-| ~SPC x r e t~ | Replace Emacs Lisp regexp by =rx= form or vice versa                                   |
-| ~SPC x r e x~ | Convert Emacs Lisp regexp to =rx= form                                                 |
+| ~SPC x r e /~ | Explain e-macs Lisp regexp                                                              |
+| ~SPC x r e 'â€‹~ | Generate strings from e-macs Lisp regexp                                                |
+| ~SPC x r e p~ | Convert e-macs Lisp regexp to PCRE                                                      |
+| ~SPC x r e t~ | Replace e-macs Lisp regexp by =rx= form or vice versa                                   |
+| ~SPC x r e x~ | Convert e-macs Lisp regexp to =rx= form                                                 |
 | ~SPC x r p /~ | Explain PCRE regexp                                                                    |
-| ~SPC x r p '​~ | Generate strings from PCRE regexp                                                      |
-| ~SPC x r p e~ | Convert PCRE regexp to Emacs Lisp                                                      |
+| ~SPC x r p 'â€‹~ | Generate strings from PCRE regexp                                                      |
+| ~SPC x r p e~ | Convert PCRE regexp to e-macs Lisp                                                      |
 | ~SPC x r p x~ | Convert PCRE to =rx= form                                                              |
 
 *** Deleting files
@@ -3317,7 +3317,7 @@ the following command:
 #+END_SRC
 
 To disable the trash you can set the variable =delete-by-moving-to-trash= to
-=nil= in your =~/.spacemacs=.
+=nil= in your =~/.space-macs=.
 
 *** Editing Lisp code
 Editing of lisp code is provided by [[https://github.com/syl20bnr/evil-lisp-state][evil-lisp-state]].
@@ -3386,7 +3386,7 @@ These commands automatically switch to =lisp state=.
 | ~SPC k W~   | unwrap expression                                                   |
 | ~SPC k y~   | copy expression                                                     |
 
-***** Emacs lisp specific key bindings
+***** e-macs lisp specific key bindings
 
 | Key binding | Description                                        |
 |-------------+----------------------------------------------------|
@@ -3404,7 +3404,7 @@ These commands automatically switch to =lisp state=.
 | ~SPC m t q~ | ask for test function to execute                   |
 
 *** Keyboard macros
-Keyboard macros are a powerful feature of Emacs. A keyboard macro is a record of
+Keyboard macros are a powerful feature of e-macs. A keyboard macro is a record of
 keystrokes that can be replayed at any time.
 
 *Important note:* When creating a macro, do not use the =evil-escape= key
@@ -3412,7 +3412,7 @@ sequence (by default press ~fd~ quickly), instead press the ~ESC~ key
 explicitly. Currently =evil-escape= does not support being replayed in macros.
 
 **** Vim keyboard macros
-Spacemacs supports the VIM interface for creating macros in normal state using
+Space-macs supports the VIM interface for creating macros in normal state using
 ~q~ to start a macro and ~@~ to play a macro.
 
 To record a keyboard macro:
@@ -3433,8 +3433,8 @@ the macro)
 - The macro can be repeated by pressing the repeat last editing command key:
   ~.~ (period).
 
-**** Emacs keyboard macros
-The Emacs way to define macros is available behind the prefix: ~SPC K~
+**** e-macs keyboard macros
+The e-macs way to define macros is available behind the prefix: ~SPC K~
 
 To start recording a keyboard macro:
 - Press ~SPC K k~ (uppercase then lowercase) to start recording a macro.
@@ -3446,7 +3446,7 @@ The macro can be executed again by pressing ~K~ one or more times.
 The single character replay works until another key than ~K~ is pressed.
 
 ***** Macro counter
-Emacs has an interesting concept: The macro counter.
+e-macs has an interesting concept: The macro counter.
 
 When starting to record a macro, the counter starts at 0 (you can also set it to
 a specific value), then each time the counter is inserted, it is incremented
@@ -3484,11 +3484,11 @@ Some features which could improve editing experience in =*scratch*= buffer.
 
 **** Persistent scratch
 Make your =*scratch*= buffer persistent. Everything you write down in =*scratch*= buffer will be automatically saved and restored.
-You can set variable =dotspacemacs-scratch-buffer-persistent= with a non-nil value in your =.spacemacs= file to enable this feature.
+You can set variable =dotspace-macs-scratch-buffer-persistent= with a non-nil value in your =.space-macs= file to enable this feature.
 
 **** Unkillable scratch
 Make your =*scratch*= buffer not killable (bury instead).
-You can set variable =dotspacemacs-scratch-buffer-unkillable= with a non-nil value in your =.spacemacs= file to enable this feature.
+You can set variable =dotspace-macs-scratch-buffer-unkillable= with a non-nil value in your =.space-macs= file to enable this feature.
 
 *** Mouse usage
 There are some added mouse features set for the line number margin (if shown):
@@ -3498,7 +3498,7 @@ There are some added mouse features set for the line number margin (if shown):
 
 ** Comparing (diff)
 To compare buffers, files, directories or even windows use the prefix ~SPC D~.
-Spacemacs uses the powerful embedded =ediff= to do comparisons, help for =ediff=
+Space-macs uses the powerful embedded =ediff= to do comparisons, help for =ediff=
 can be opened using ~SPC D h~.
 
 All =ediff= commands starts with D:
@@ -3512,12 +3512,12 @@ All =ediff= commands starts with D:
 | ~SPC D d 3~   | ask for 3 directories and run ediff on them comparing files that have the same name in all of them                                |
 | ~SPC D d d~   | ask for 2 directories and run ediff on them comparing files that have the same name in both                                       |
 | ~SPC D d r~   | run ediff on a directory comparing its files with their revisions if under version control                                        |
-| ~SPC D f .~   | start an ediff session between your =.spacemacs= and its default template in Spacemacs =core=                                     |
+| ~SPC D f .~   | start an ediff session between your =.space-macs= and its default template in Space-macs =core=                                     |
 | ~SPC D f 3~   | ask for 3 files and start an ediff session with them                                                                              |
 | ~SPC D f f~   | ask for 2 files and start an ediff session with them                                                                              |
 | ~SPC D f p~   | ask for a buffer or file that contains a patch to apply to a file and start an ediff session with the result                      |
 | ~SPC D f v~   | start ediff between versions of a file                                                                                            |
-| ~SPC D h~     | open ediff documentation within Emacs                                                                                             |
+| ~SPC D h~     | open ediff documentation within e-macs                                                                                             |
 | ~SPC D m b 3~ | start an ediff merge session between 2 buffers and their ancestor                                                                 |
 | ~SPC D m b b~ | start an ediff merge session between 2 buffers                                                                                    |
 | ~SPC D m d 3~ | start an ediff merge session between files with the same name in 2 directories and with a 3rd directory containing their ancestor |
@@ -3533,7 +3533,7 @@ All =ediff= commands starts with D:
 | ~SPC D w w~   | compare wordwise the portions of visible text of 2 windows which are selected by clicking                                         |
 
 ** Managing projects
-Projects in Spacemacs are managed with [[https://github.com/bbatsov/projectile][projectile]]. In =projectile= projects
+Projects in Space-macs are managed with [[https://github.com/bbatsov/projectile][projectile]]. In =projectile= projects
 are defined implicitly, for instance the root of a project is found when a
 =.git= repository or =.projectile= file is encountered in the file tree.
 
@@ -3543,7 +3543,7 @@ To search in a project see [[#searching-in-a-project][project searching]].
 
 | Key binding | Description                                                                              |
 |-------------+------------------------------------------------------------------------------------------|
-| ~SPC p '​~   | open a shell in project's root (with the =shell= layer)                                  |
+| ~SPC p 'â€‹~   | open a shell in project's root (with the =shell= layer)                                  |
 | ~SPC p !~   | run shell command in project's root                                                      |
 | ~SPC p &~   | run async shell command in project's root                                                |
 | ~SPC p %~   | replace a regexp                                                                         |
@@ -3564,7 +3564,7 @@ To search in a project see [[#searching-in-a-project][project searching]].
 | ~SPC p p~   | switch project                                                                           |
 | ~SPC p r~   | open a recent file                                                                       |
 | ~SPC p R~   | replace a string                                                                         |
-| ~SPC p t~   | open =Treemacs= and add current =projectile= root to its list of projects                |
+| ~SPC p t~   | open =Tree-macs= and add current =projectile= root to its list of projects                |
 | ~SPC p T~   | test project                                                                             |
 | ~SPC p v~   | open project root in =vc-dir= or =magit=                                                 |
 | ~SPC /~     | search in project with the best search tool available                                    |
@@ -3593,7 +3593,7 @@ Access commands to the various registers start with =r=:
 | ~SPC r y~   | show kill ring                     |
 
 ** Errors handling
-Spacemacs uses [[https://github.com/flycheck/flycheck][Flycheck]] to gives error feedback on the fly. The checks are
+Space-macs uses [[https://github.com/flycheck/flycheck][Flycheck]] to gives error feedback on the fly. The checks are
 only performed at save time by default.
 
 Errors management commands (start with ~e~):
@@ -3612,7 +3612,7 @@ Errors management commands (start with ~e~):
 
 The next/previous error bindings and the error transient state can be used to
 browse errors from flycheck as well as errors from compilation buffers, and
-indeed anything that supports Emacs' =next-error= API. This includes for example
+indeed anything that supports e-macs' =next-error= API. This includes for example
 search results that have been saved to a separate buffer.
 
 *** Error transient state
@@ -3633,7 +3633,7 @@ The following key bindings are active in the error transient state:
 | [[file:img/dot-info.png]]    | Info        |
 
 ** Compiling
-Spacemacs binds a few commands to support compiling a project.
+Space-macs binds a few commands to support compiling a project.
 
 | Key binding | Description                    |
 |-------------+--------------------------------|
@@ -3645,91 +3645,91 @@ Spacemacs binds a few commands to support compiling a project.
 | ~SPC c r~   | recompile                      |
 
 * EditorConfig
-Spacemacs has support for [[http://editorconfig.org/][EditorConfig]], a configuration file to "define and
+Space-macs has support for [[http://editorconfig.org/][EditorConfig]], a configuration file to "define and
 maintain consistent coding styles between different editors and IDEs."
 
 To enable this feature, [[https://github.com/editorconfig/editorconfig-core-c/blob/master/INSTALL.md][install the editorconfig command]].
 
-To customize your editorconfig experience, read [[https://github.com/editorconfig/editorconfig-emacs/blob/master/README.md#customize][the editorconfig-emacs package's
+To customize your editorconfig experience, read [[https://github.com/editorconfig/editorconfig-e-macs/blob/master/README.md#customize][the editorconfig-e-macs package's
 documentation]].
 
-* Emacs Server
-Spacemacs provides the ability to start a server at launch, and to kill that
-server whenever you close your Emacs windows. This can be enabled by setting the
-variable =dotspacemacs-enable-server= to =t= in your =~./spacemacs=.
+* e-macs Server
+Space-macs provides the ability to start a server at launch, and to kill that
+server whenever you close your e-macs windows. This can be enabled by setting the
+variable =dotspace-macs-enable-server= to =t= in your =~./space-macs=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-enable-server t)
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-enable-server t)
 #+END_SRC
 
-** Connecting to the Emacs server
-You can open a file in Emacs from the terminal using =emacsclient=. Use
-=emacsclient -c= to open the file in Emacs GUI. Use =emacsclient -t= to open the
-file in Emacs within the terminal. If you set Emacs server socket by setting =dotspacemacs-server-socket-dir=,
-then pass its location as =-s ~/.emacs.d/server/server= additionally.
+** Connecting to the e-macs server
+You can open a file in e-macs from the terminal using =e-macsclient=. Use
+=e-macsclient -c= to open the file in e-macs GUI. Use =e-macsclient -t= to open the
+file in e-macs within the terminal. If you set e-macs server socket by setting =dotspace-macs-server-socket-dir=,
+then pass its location as =-s ~/.e-macs.d/server/server= additionally.
 
-If you want your Linux or macOS system to use Emacs by default for any prompt,
+If you want your Linux or macOS system to use e-macs by default for any prompt,
 you need to set it in your shell configuration, e.g. =~/.bashrc= or =~/.zshrc=:
 
 #+BEGIN_SRC sh-mode
-  export EDITOR="emacsclient -c"
+  export EDITOR="e-macsclient -c"
 #+END_SRC
 
-Note that if you're using macOS, you may have to refer to the emacsclient that
-comes with your GUI Emacs, e.g.:
+Note that if you're using macOS, you may have to refer to the e-macsclient that
+comes with your GUI e-macs, e.g.:
 
 #+BEGIN_SRC sh-mode
-  export EDITOR="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c"
+  export EDITOR="/Applications/e-macs.app/Contents/MacOS/bin/e-macsclient -c"
 #+END_SRC
 
 Tip: Remember to use ~:wq~ or ~C-x #~ after you are done editing the file in
-Emacs.
+e-macs.
 
-You can set the location of the Emacs server socket by setting =dotspacemacs-server-socket-dir= in your =~./spacemacs=:
+You can set the location of the e-macs server socket by setting =dotspace-macs-server-socket-dir= in your =~./space-macs=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-server-socket-dir "~/.emacs/server")
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-server-socket-dir "~/.e-macs/server")
 #+END_SRC
 
-See [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.html][Emacs as a Server]] in the official Emacs manual for more details.
+See [[https://www.gnu.org/software/e-macs/manual/html_node/e-macs/e-macs-Server.html][e-macs as a Server]] in the official e-macs manual for more details.
 
 ** Keeping the server alive
-It is possible to keep the server alive when you close Emacs by setting the
-variable =dotspacemacs-persistent-server= to =t= in your =~/.spacemacs=.
+It is possible to keep the server alive when you close e-macs by setting the
+variable =dotspace-macs-persistent-server= to =t= in your =~/.space-macs=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-persistent-server t)
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-persistent-server t)
 #+END_SRC
 
-When this variable is set to =t=, the only way to quit Emacs /and/ kill the
+When this variable is set to =t=, the only way to quit e-macs /and/ kill the
 server is to use the following bindings:
 
 | Key binding | Description                                                              |
 |-------------+--------------------------------------------------------------------------|
-| ~SPC q q~   | Quit Emacs and kill the server, prompt for changed buffers to save       |
-| ~SPC q Q~   | Quit Emacs and kill the server, lose all unsaved changes.                |
-| ~SPC q r~   | Restart both Emacs and the server, prompting to save any changed buffers |
-| ~SPC q s~   | Save the buffers, quit Emacs and kill the server                         |
+| ~SPC q q~   | Quit e-macs and kill the server, prompt for changed buffers to save       |
+| ~SPC q Q~   | Quit e-macs and kill the server, lose all unsaved changes.                |
+| ~SPC q r~   | Restart both e-macs and the server, prompting to save any changed buffers |
+| ~SPC q s~   | Save the buffers, quit e-macs and kill the server                         |
 | ~SPC q f~   | Kill the current frame                                                   |
-| ~SPC q t~   | Restart Emacs and debug with --with-timed-requires                       |
-| ~SPC q T~   | Restart Emacs and debug with --adv-timers                                |
+| ~SPC q t~   | Restart e-macs and debug with --with-timed-requires                       |
+| ~SPC q T~   | Restart e-macs and debug with --adv-timers                                |
 
 * Troubleshoot
 ** Loading fails
 If any errors happen during the loading the mode-line will turn red and the
-errors should appear inline in the startup buffer. Spacemacs should still be
-usable; if it is not then restart Emacs with =emacs --debug-init= and open a
-[[https://github.com/syl20bnr/spacemacs/issues][GitHub issue]] with the backtrace.
+errors should appear inline in the startup buffer. Space-macs should still be
+usable; if it is not then restart e-macs with =e-macs --debug-init= and open a
+[[https://github.com/syl20bnr/space-macs/issues][GitHub issue]] with the backtrace.
 
-** Upgrading/Downgrading Emacs version
-To ensure that packages are correctly compiled for the new Emacs version you
-installed, be sure to run the interactive command =spacemacs/recompile-elpa=
-with ~SPC u SPC SPC spacemacs/recompile-elpa~.
+** Upgrading/Downgrading e-macs version
+To ensure that packages are correctly compiled for the new e-macs version you
+installed, be sure to run the interactive command =space-macs/recompile-elpa=
+with ~SPC u SPC SPC space-macs/recompile-elpa~.
 
 ** General layer errors
 It happens from time to time that some of the layers go stale and stop
 working properly for some commands. If this happens stay calm and try
-to produce a minimal bug report on the [[https://github.com/syl20bnr/spacemacs/issues][GitHub issue page]].
+to produce a minimal bug report on the [[https://github.com/syl20bnr/space-macs/issues][GitHub issue page]].
 
 *** Step by step instructions for minimal layer bug reports
 - Load the standard dotfile. You can get it with ~SPC f e D~.
@@ -3750,18 +3750,18 @@ to produce a minimal bug report on the [[https://github.com/syl20bnr/spacemacs/i
   it goes without saying that you should answer him
   politely and assist in testing a possible fix.
 
-** General emacs package errors
+** General e-macs package errors
 It can also happen that your issue is not related to any layer but
-rather to a specific package in the emacs universe. In this case
-you should provide a minimalistic emacs only reproduction guide for the
+rather to a specific package in the e-macs universe. In this case
+you should provide a minimalistic e-macs only reproduction guide for the
 respective package and open an issue upstream. If there is already
-a spacemacs issue for your problem your upstream bug report should
+a space-macs issue for your problem your upstream bug report should
 mention its ticket number so it is clear when this issue can be
 retested.
 
-*** Step by step instructions for minimal emacs package bug reports
-- Start emacs with ~emacs -q~, this will load a vanilla
-  emacs without any non-system packages loaded.
+*** Step by step instructions for minimal e-macs package bug reports
+- Start e-macs with ~e-macs -q~, this will load a vanilla
+  e-macs without any non-system packages loaded.
 - There open a scratch buffer with ~C-x b *scratch* RET~
 - Add initialization code for your package there
 
@@ -3786,7 +3786,7 @@ retested.
 - Reproduce your issue. Note down step by step instructions.
 - With this information open an upstream issue following
   their issue templates. If they have non its a good idea
-  to start with the infos required in the spacemacs issue
+  to start with the infos required in the space-macs issue
   template and add missing information when required from
   the package maintainers.
 
@@ -3795,39 +3795,39 @@ retested.
 
 | Achievements                   | Account      |
 |--------------------------------+--------------|
-| [[https://github.com/syl20bnr/spacemacs/pull/100][100th issue (PR)]]               | [[https://github.com/danielwuz][danielwuz]]    |
-| [[https://github.com/syl20bnr/spacemacs/issues/200][200th issue (question)]]         | [[https://github.com/justrajdeep][justrajdeep]]  |
-| [[https://github.com/syl20bnr/spacemacs/pull/300][300th issue (PR)]]               | [[https://github.com/danielwuz][danielwuz]]    |
-| [[https://github.com/syl20bnr/spacemacs/pull/400][400th issue (PR)]]               | [[https://github.com/CestDiego][CestDiego]]    |
-| [[https://github.com/syl20bnr/spacemacs/pull/500][500th issue (PR)]]               | [[https://github.com/bjarkevad][bjarkevad]]    |
-| [[https://github.com/syl20bnr/spacemacs/pull/600][600th issue (PR)]]               | [[https://github.com/bjarkevad][bjarkevad]]    |
-| [[https://github.com/syl20bnr/spacemacs/pull/700][700th issue (enhancement)]]      | [[https://github.com/jcpetkovich][jcpetkovich]]  |
-| [[https://github.com/syl20bnr/spacemacs/pull/800][800th issue (PR)]]               | [[https://github.com/laat][ryansroberts]] |
-| [[https://github.com/syl20bnr/spacemacs/pull/900][900th issue (PR)]]               | [[https://github.com/jcpetkovich][jcpetkovich]]  |
-| [[https://github.com/syl20bnr/spacemacs/pull/1000][1000th issue (PR)]]              | [[https://github.com/tuhdo][tuhdo]]        |
-| [[https://github.com/syl20bnr/spacemacs/pull/2000][2000th issue (PR)]]              | [[https://github.com/IvanMalison][IvanMalison]]  |
-| [[https://github.com/syl20bnr/spacemacs/issues/3000][3000th issue (bug)]]             | [[https://github.com/malchmih][malchmih]]     |
-| [[https://github.com/syl20bnr/spacemacs/issues/4000][4000th issue (bug)]]             | [[https://github.com/icymist][icymist]]      |
-| [[https://github.com/syl20bnr/spacemacs/issues/5000][5000th issue (too many issues)]] | [[https://github.com/justbur][justbur]]      |
-| [[https://github.com/syl20bnr/spacemacs/pull/6000][6000th issue (PR)]]              | [[https://github.com/d12frosted][d12frosted]]   |
-| [[https://github.com/syl20bnr/spacemacs/pull/7000][7000th issue (PR)]]              | [[https://github.com/deb0ch][deb0ch]]       |
-| [[https://github.com/syl20bnr/spacemacs/issues/8000][8000th issue (bug)]]             | [[https://github.com/jonbash][jonbash]]      |
-| [[https://github.com/syl20bnr/spacemacs/issues/9000][9000th issue (bug)]]             | [[https://github.com/shaunpatel][shaunpatel]]   |
-| [[https://github.com/syl20bnr/spacemacs/pull/10000][10000th issue (PR)]]             | [[https://github.com/nikital][nikital]]      |
+| [[https://github.com/syl20bnr/space-macs/pull/100][100th issue (PR)]]               | [[https://github.com/danielwuz][danielwuz]]    |
+| [[https://github.com/syl20bnr/space-macs/issues/200][200th issue (question)]]         | [[https://github.com/justrajdeep][justrajdeep]]  |
+| [[https://github.com/syl20bnr/space-macs/pull/300][300th issue (PR)]]               | [[https://github.com/danielwuz][danielwuz]]    |
+| [[https://github.com/syl20bnr/space-macs/pull/400][400th issue (PR)]]               | [[https://github.com/CestDiego][CestDiego]]    |
+| [[https://github.com/syl20bnr/space-macs/pull/500][500th issue (PR)]]               | [[https://github.com/bjarkevad][bjarkevad]]    |
+| [[https://github.com/syl20bnr/space-macs/pull/600][600th issue (PR)]]               | [[https://github.com/bjarkevad][bjarkevad]]    |
+| [[https://github.com/syl20bnr/space-macs/pull/700][700th issue (enhancement)]]      | [[https://github.com/jcpetkovich][jcpetkovich]]  |
+| [[https://github.com/syl20bnr/space-macs/pull/800][800th issue (PR)]]               | [[https://github.com/laat][ryansroberts]] |
+| [[https://github.com/syl20bnr/space-macs/pull/900][900th issue (PR)]]               | [[https://github.com/jcpetkovich][jcpetkovich]]  |
+| [[https://github.com/syl20bnr/space-macs/pull/1000][1000th issue (PR)]]              | [[https://github.com/tuhdo][tuhdo]]        |
+| [[https://github.com/syl20bnr/space-macs/pull/2000][2000th issue (PR)]]              | [[https://github.com/IvanMalison][IvanMalison]]  |
+| [[https://github.com/syl20bnr/space-macs/issues/3000][3000th issue (bug)]]             | [[https://github.com/malchmih][malchmih]]     |
+| [[https://github.com/syl20bnr/space-macs/issues/4000][4000th issue (bug)]]             | [[https://github.com/icymist][icymist]]      |
+| [[https://github.com/syl20bnr/space-macs/issues/5000][5000th issue (too many issues)]] | [[https://github.com/justbur][justbur]]      |
+| [[https://github.com/syl20bnr/space-macs/pull/6000][6000th issue (PR)]]              | [[https://github.com/d12frosted][d12frosted]]   |
+| [[https://github.com/syl20bnr/space-macs/pull/7000][7000th issue (PR)]]              | [[https://github.com/deb0ch][deb0ch]]       |
+| [[https://github.com/syl20bnr/space-macs/issues/8000][8000th issue (bug)]]             | [[https://github.com/jonbash][jonbash]]      |
+| [[https://github.com/syl20bnr/space-macs/issues/9000][9000th issue (bug)]]             | [[https://github.com/shaunpatel][shaunpatel]]   |
+| [[https://github.com/syl20bnr/space-macs/pull/10000][10000th issue (PR)]]             | [[https://github.com/nikital][nikital]]      |
 
 ** Merged Pull Requests
 
 | Achievements        | Account        |
 |---------------------+----------------|
-| [[https://github.com/syl20bnr/spacemacs/pull/228][100th pull request]]  | [[https://github.com/bru][bru]]            |
-| [[https://github.com/syl20bnr/spacemacs/pull/418][200th pull request]]  | [[https://github.com/smt][smt]]            |
-| [[https://github.com/syl20bnr/spacemacs/pull/617][300th pull request]]  | [[https://github.com/BrianHicks][BrianHicks]]     |
-| [[https://github.com/syl20bnr/spacemacs/pull/806][400th pull request]]  | [[https://github.com/cpaulik][cpaulik]]        |
-| [[https://github.com/syl20bnr/spacemacs/pull/993][500th pull request]]  | [[https://github.com/tuhdo][tuhdo]]          |
-| [[https://github.com/syl20bnr/spacemacs/pull/1205][600th pull request]]  | [[https://github.com/trishume][trishume]]       |
-| [[https://github.com/syl20bnr/spacemacs/pull/1995][1000th pull request]] | [[https://github.com/justbur][justbur]]        |
-| [[https://github.com/syl20bnr/spacemacs/pull/4089][2000th pull request]] | [[https://github.com/channingwalton][channingwalton]] |
-| [[https://github.com/syl20bnr/spacemacs/pull/6338][3000th pull request]] | [[https://github.com/darkfeline][darkfeline]]     |
+| [[https://github.com/syl20bnr/space-macs/pull/228][100th pull request]]  | [[https://github.com/bru][bru]]            |
+| [[https://github.com/syl20bnr/space-macs/pull/418][200th pull request]]  | [[https://github.com/smt][smt]]            |
+| [[https://github.com/syl20bnr/space-macs/pull/617][300th pull request]]  | [[https://github.com/BrianHicks][BrianHicks]]     |
+| [[https://github.com/syl20bnr/space-macs/pull/806][400th pull request]]  | [[https://github.com/cpaulik][cpaulik]]        |
+| [[https://github.com/syl20bnr/space-macs/pull/993][500th pull request]]  | [[https://github.com/tuhdo][tuhdo]]          |
+| [[https://github.com/syl20bnr/space-macs/pull/1205][600th pull request]]  | [[https://github.com/trishume][trishume]]       |
+| [[https://github.com/syl20bnr/space-macs/pull/1995][1000th pull request]] | [[https://github.com/justbur][justbur]]        |
+| [[https://github.com/syl20bnr/space-macs/pull/4089][2000th pull request]] | [[https://github.com/channingwalton][channingwalton]] |
+| [[https://github.com/syl20bnr/space-macs/pull/6338][3000th pull request]] | [[https://github.com/darkfeline][darkfeline]]     |
 
 ** Stars, forks and watchers
 
@@ -3869,24 +3869,24 @@ retested.
 
 | Achievements                    | Account      |
 |---------------------------------+--------------|
-| [[https://github.com/syl20bnr/spacemacs/pull/19][First contribution]]              | [[https://github.com/trishume][trishume]]     |
-| [[https://github.com/syl20bnr/spacemacs/commit/e802027d75d0c0aed55539b0da2dfa0df94dfd39][First contributed layer]]         | [[https://github.com/trishume][trishume]]     |
-| [[http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/][First blog article on Spacemacs]] | Wolfy87      |
-| [[https://github.com/syl20bnr/spacemacs/commit/7b44a56263049482ed540ed6815a295633ffe9d1][First contributed banner]]        | [[https://github.com/chrisbarrett][chrisbarrett]] |
+| [[https://github.com/syl20bnr/space-macs/pull/19][First contribution]]              | [[https://github.com/trishume][trishume]]     |
+| [[https://github.com/syl20bnr/space-macs/commit/e802027d75d0c0aed55539b0da2dfa0df94dfd39][First contributed layer]]         | [[https://github.com/trishume][trishume]]     |
+| [[http://oli.me.uk/2014/11/06/space-macs-e-macs-vim/][First blog article on Space-macs]] | Wolfy87      |
+| [[https://github.com/syl20bnr/space-macs/commit/7b44a56263049482ed540ed6815a295633ffe9d1][First contributed banner]]        | [[https://github.com/chrisbarrett][chrisbarrett]] |
 
 ** Special Mentions
 
 | Reason                                                              | Account         |
 |---------------------------------------------------------------------+-----------------|
-| Autumnal Cleanup 2015 ([[https://github.com/syl20bnr/spacemacs/wiki/Autumnal-Cleanup-2015][wiki]])                                        | [[https://github.com/StreakyCobra][StreakyCobra]]    |
+| Autumnal Cleanup 2015 ([[https://github.com/syl20bnr/space-macs/wiki/Autumnal-Cleanup-2015][wiki]])                                        | [[https://github.com/StreakyCobra][StreakyCobra]]    |
 | Test and debug tools                                                | [[https://github.com/justbur][justbur]]         |
 | Integration of Ivy                                                  | [[https://github.com/justbur][justbur]]         |
 | Transient States                                                    | [[https://github.com/justbur][justbur]]         |
 | Integration of Persp-mode                                           | [[https://github.com/CestDiego][CestDiego]]       |
-| Cleanest PR ([[https://github.com/syl20bnr/spacemacs/pull/5545][PR #5545]])                                              | [[https://github.com/JAremko][JAremko]]         |
+| Cleanest PR ([[https://github.com/syl20bnr/space-macs/pull/5545][PR #5545]])                                              | [[https://github.com/JAremko][JAremko]]         |
 | Documentation tools and GitHub support                              | [[https://github.com/JAremko][JAremko]]         |
 | Code navigation improvement (jump handlers, generalized next error) | [[https://github.com/TheBB][TheBB]]           |
-| Better support for GUI using an Emacs daemon (after-display macro)  | [[https://github.com/travisbhartwell][travisbhartwell]] |
+| Better support for GUI using an e-macs daemon (after-display macro)  | [[https://github.com/travisbhartwell][travisbhartwell]] |
 
 ** Special Titles
 
@@ -3894,21 +3894,23 @@ retested.
 |-------------------------------------------------+---------------|
 | The Gunner (18 PRs in a row)                    | [[https://github.com/ralesi][ralesi]]        |
 | The Saint (unlocked the holy-mode)              | [[https://github.com/trishume][trishume]]      |
-| The Artist ([[https://github.com/nashamri/spacemacs-logo][logo]] and [[https://github.com/nashamri/spacemacs-theme][theme]])                     | [[https://github.com/nashamri][nashamri]]      |
+| The Artist ([[https://github.com/nashamri/space-macs-logo][logo]] and [[https://github.com/nashamri/space-macs-theme][theme]])                     | [[https://github.com/nashamri][nashamri]]      |
 | The Meme Master (doge banner)                   | [[https://github.com/chrisbarrett][chrisbarrett]]  |
 | The Helm captain ([[https://tuhdo.github.io/helm-intro.html][helm guide]])                   | [[https://github.com/tuhdo][tuhdo]]         |
-| The Master of the Keys ([[https://github.com/justbur/emacs-which-key][which-key]] and [[https://github.com/justbur/emacs-bind-map][bind-map]]) | [[https://github.com/justbur][justbur]]       |
+| The Master of the Keys ([[https://github.com/justbur/e-macs-which-key][which-key]] and [[https://github.com/justbur/e-macs-bind-map][bind-map]]) | [[https://github.com/justbur][justbur]]       |
 | The PR Patrol Officer                           | [[https://github.com/robbyoconnor][robbyoconnor]]  |
-| The Expert in Latin Language ([[https://github.com/syl20bnr/spacemacs/pull/4043][PR]])               | [[https://github.com/vijaykiran][vijaykiran]]    |
-| The Tiler ([[https://github.com/syl20bnr/spacemacs/pull/4068][eyebrowse integration]])               | [[https://github.com/bmag][bmag]]          |
+| The Expert in Latin Language ([[https://github.com/syl20bnr/space-macs/pull/4043][PR]])               | [[https://github.com/vijaykiran][vijaykiran]]    |
+| The Tiler ([[https://github.com/syl20bnr/space-macs/pull/4068][eyebrowse integration]])               | [[https://github.com/bmag][bmag]]          |
 | The Geometer ([[https://github.com/TheBB/spaceline][spaceline]])                        | [[https://github.com/TheBB][TheBB]]         |
 | The Librarian (doc-fmt tool and space-doc mode) | [[https://github.com/JAremko][JAremko]]       |
-| The Orgonaut ([[https://github.com/syl20bnr/spacemacs/issues/9476][fixed most of the Org READMEs]])    | [[https://github.com/smile13241324][smile13241324]] |
+| The Orgonaut ([[https://github.com/syl20bnr/space-macs/issues/9476][fixed most of the Org READMEs]])    | [[https://github.com/smile13241324][smile13241324]] |
 | The Ticketmaster                                | [[https://github.com/StreakyCobra][StreakyCobra]]  |
 | The ASCII Scribe                                | [[https://github.com/JAremko][JAremko]]       |
 
 * Thank you
 Thank you Richard for this great piece of software.
 
-Thank you to all the contributors and the whole Emacs community from core
+Thank you to all the contributors and the whole e-macs community from core
 developers to elisp hackers!
+
+

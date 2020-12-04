@@ -31,8 +31,8 @@ This layer adds support for JSON files with [[https://github.com/joshwnj/json-mo
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]] or [[https://github.com/prettier/prettier][prettier]]
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =json= to the existing =dotspacemacs-configuration-layers= list in this file.
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =json= to the existing =dotspace-macs-configuration-layers= list in this file.
 
 * Configuration
 To define the default indentation set the variable =js-indent-level=.
@@ -56,7 +56,7 @@ The formatter can be chosen on a per project basis using directory local variabl
 
 #+BEGIN_SRC elisp
   ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
+  ;;; For more information see (info "(e-macs) Directory Variables")
 
   ((json-mode (json-fmt-tool . prettier)))
 #+END_SRC
@@ -74,7 +74,7 @@ To enable using the selected formatter on save, set the layer variable =json-fmt
 To enable LSP, install the lsp server via npm,
 then set the layer variable =json-backend= to ='lsp= like shown below:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (json :variables json-backend 'lsp)
 #+END_SRC
 
@@ -100,7 +100,7 @@ Use the universal prefix argument to print decoded strings, for instance:
 
   {
     "name": "foo\"bar",
-    "nick": "foo ä bar",
+    "nick": "foo Ã¤ bar",
     "description": "<pre>
     baz
     </pre>",
@@ -128,3 +128,5 @@ hierarchy for the JSON *after* the point.
 | ~RET~       | Expand/Collapse node |
 | ~TAB~       | Select next node     |
 | ~S-TAB~     | Select previous node |
+
+

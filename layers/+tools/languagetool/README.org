@@ -21,14 +21,14 @@ language set using ~SPC S d~ if the =spell-checking= layer is enabled.
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =languagetool= to the existing =dotspacemacs-configuration-layers= list in
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =languagetool= to the existing =dotspace-macs-configuration-layers= list in
 this file. You can set the default language by setting
 ~langtool-default-language~. This value will be used when no custom language has
 been set using ~SPC S d~:
 
 #+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers
+  (setq-default dotspace-macs-configuration-layers
                 '((languagetool :variables
                                 langtool-default-language "en-GB")))
 #+END_SRC
@@ -37,7 +37,7 @@ It's also possible to immediately show the error when jumping to errors with ~[
 a~ and ~] a~ by setting ~languagetool-show-error-on-jump~:
 
 #+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers
+  (setq-default dotspace-macs-configuration-layers
                 '((languagetool :variables
                                 languagetool-show-error-on-jump t)))
 #+END_SRC
@@ -52,17 +52,17 @@ to the location of =languagetool-commandline.jar=, by setting
 
 #+BEGIN_SRC elisp
   ;; Standalone installation
-  (setq-default dotspacemacs-configuration-layers
+  (setq-default dotspace-macs-configuration-layers
                 '((languagetool :variables
                                 langtool-language-tool-jar "/home/username/languagetool/languagetool-commandline.jar")))
 
   ;; Classpath (e.g. after installing with `pacman -S languagetool')
-  (setq-default dotspacemacs-configuration-layers
+  (setq-default dotspace-macs-configuration-layers
                 '((languagetool :variables
                                 langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*")))
 
   ;; Server running in background
-  (setq-default dotspacemacs-configuration-layers
+  (setq-default dotspace-macs-configuration-layers
                 '((languagetool :variables
                                 langtool-http-server-host "localhost"
                                 langtool-http-server-port 8081)))
@@ -76,3 +76,5 @@ to the location of =languagetool-commandline.jar=, by setting
 | ~SPC S L~   | Perform corrections in the current buffer  |
 | ~[ a~       | Jump to the previous LanguageTool error    |
 | ~] a~       | Jump to the next LanguageTool error        |
+
+

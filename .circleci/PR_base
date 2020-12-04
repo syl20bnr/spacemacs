@@ -5,9 +5,9 @@
 ## Copyright (c) 2014-2018 Sylvain Benner & Contributors
 ##
 ## Author: Eugene Yaremenko
-## URL: https://github.com/syl20bnr/spacemacs
+## URL: https://github.com/syl20bnr/space-macs
 ##
-## This file is not part of GNU Emacs.
+## This file is not part of GNU e-macs.
 ##
 ## License: GPLv3
 
@@ -20,13 +20,15 @@ if [[ "${pr_base}" == "\"${dev_b}\"" ]]; then
     exit 0
 elif [[ "${pr_base}" == "\"${mst_b}\"" ]]; then
     printf '=%.0s' {1..80}
-    printf "\n       し(*･∀･)／   Thanks for the contribution!  ＼(･∀･*)ノ\n"
+    printf "\n       ã—(*ï½¥âˆ€ï½¥)ï¼   Thanks for the contribution!  ï¼¼(ï½¥âˆ€ï½¥*)ãƒŽ\n"
     printf '=%.0s' {1..80}
-    printf "\n( ＾◡＾)っ Please submit your PR against the develop branch.\n"
+    printf "\n( ï¼¾â—¡ï¼¾)ã£ Please submit your PR against the develop branch.\n"
     echo   "You can read the contribution guidelines at:"
-    echo   "https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org"
+    echo   "https://github.com/syl20bnr/space-macs/blob/develop/CONTRIBUTING.org"
     exit 2
 else
     echo_headline  "Your PR has unrecognized base: \"${pr_base}\""
     exit 2
 fi
+
+

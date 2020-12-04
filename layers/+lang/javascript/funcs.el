@@ -1,18 +1,18 @@
-;;; funcs.el --- Javascript Layer functions File for Spacemacs
+;;; funcs.el --- Javascript Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Muneeb Shaikh <muneeb@reversehack.in>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 
 ;; backend
 
-(defun spacemacs//javascript-backend ()
+(defun space-macs//javascript-backend ()
   "Returns selected backend."
   (if javascript-backend
       javascript-backend
@@ -20,25 +20,25 @@
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
      (t 'tern))))
 
-(defun spacemacs//javascript-setup-backend ()
+(defun space-macs//javascript-setup-backend ()
   "Conditionally setup javascript backend."
-  (pcase (spacemacs//javascript-backend)
-    (`tern (spacemacs//javascript-setup-tern))
-    (`tide (spacemacs//tide-setup))
-    (`lsp (spacemacs//javascript-setup-lsp))))
+  (pcase (space-macs//javascript-backend)
+    (`tern (space-macs//javascript-setup-tern))
+    (`tide (space-macs//tide-setup))
+    (`lsp (space-macs//javascript-setup-lsp))))
 
-(defun spacemacs//javascript-setup-company ()
+(defun space-macs//javascript-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//javascript-backend)
-    (`tide (spacemacs//tide-setup-company 'js2-mode))))
+  (pcase (space-macs//javascript-backend)
+    (`tide (space-macs//tide-setup-company 'js2-mode))))
 
-(defun spacemacs//javascript-setup-dap ()
+(defun space-macs//javascript-setup-dap ()
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase (spacemacs//javascript-backend)
-    (`lsp (spacemacs//javascript-setup-lsp-dap))))
+  (pcase (space-macs//javascript-backend)
+    (`lsp (space-macs//javascript-setup-lsp-dap))))
 
-(defun spacemacs//javascript-setup-next-error-fn ()
+(defun space-macs//javascript-setup-next-error-fn ()
   "If the `syntax-checking' layer is enabled, then disable `js2-mode''s
 `next-error-function', and let `flycheck' handle any errors."
   (when (configuration-layer/layer-used-p 'syntax-checking)
@@ -46,7 +46,7 @@
 
 ;; lsp
 
-(defun spacemacs//javascript-setup-lsp ()
+(defun space-macs//javascript-setup-lsp ()
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
@@ -56,31 +56,31 @@
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
 
-(defun spacemacs//javascript-setup-lsp-dap ()
+(defun space-macs//javascript-setup-lsp-dap ()
   "Setup DAP integration."
   (require 'dap-firefox)
   (require 'dap-chrome))
 
 
 ;; tern
-(defun spacemacs//javascript-setup-tern ()
+(defun space-macs//javascript-setup-tern ()
   (if (configuration-layer/layer-used-p 'tern)
       (when (locate-file "tern" exec-path)
-        (spacemacs/tern-setup-tern))
+        (space-macs/tern-setup-tern))
     (message (concat "Tern was configured as the javascript backend but "
-                     "the `tern' layer is not present in your `.spacemacs'!"))))
+                     "the `tern' layer is not present in your `.space-macs'!"))))
 
 
 ;; js-doc
 
-(defun spacemacs/js-doc-require ()
+(defun space-macs/js-doc-require ()
   "Lazy load js-doc"
   (require 'js-doc))
 
-(defun spacemacs/js-doc-set-key-bindings (mode)
+(defun space-macs/js-doc-set-key-bindings (mode)
   "Setup the key bindings for `js2-doc' for the given MODE."
-  (spacemacs/declare-prefix-for-mode mode "mrd" "documentation")
-  (spacemacs/set-leader-keys-for-major-mode mode
+  (space-macs/declare-prefix-for-mode mode "mrd" "documentation")
+  (space-macs/set-leader-keys-for-major-mode mode
     "rdb" 'js-doc-insert-file-doc
     "rdf" (if (configuration-layer/package-used-p 'yasnippet)
               'js-doc-insert-function-doc-snippet
@@ -90,53 +90,53 @@
 
 ;; js-refactor
 
-(defun spacemacs/js2-refactor-require ()
+(defun space-macs/js2-refactor-require ()
   "Lazy load js2-refactor"
   (require 'js2-refactor))
 
 
 ;; skewer
 
-(defun spacemacs/skewer-start-repl ()
-  "Attach a browser to Emacs and start a skewer REPL."
+(defun space-macs/skewer-start-repl ()
+  "Attach a browser to e-macs and start a skewer REPL."
   (interactive)
   (run-skewer)
   (skewer-repl))
 
-(defun spacemacs/skewer-load-buffer-and-focus ()
+(defun space-macs/skewer-load-buffer-and-focus ()
   "Execute whole buffer in browser and switch to REPL in insert state."
   (interactive)
   (skewer-load-buffer)
   (skewer-repl)
   (evil-insert-state))
 
-(defun spacemacs/skewer-eval-defun-and-focus ()
+(defun space-macs/skewer-eval-defun-and-focus ()
   "Execute function at point in browser and switch to REPL in insert state."
   (interactive)
   (skewer-eval-defun)
   (skewer-repl)
   (evil-insert-state))
 
-(defun spacemacs/skewer-eval-region (beg end)
+(defun space-macs/skewer-eval-region (beg end)
   "Execute the region as JavaScript code in the attached browser."
   (interactive "r")
   (skewer-eval (buffer-substring beg end) #'skewer-post-minibuffer))
 
-(defun spacemacs/skewer-eval-region-and-focus (beg end)
+(defun space-macs/skewer-eval-region-and-focus (beg end)
   "Execute the region in browser and swith to REPL in insert state."
   (interactive "r")
-  (spacemacs/skewer-eval-region beg end)
+  (space-macs/skewer-eval-region beg end)
   (skewer-repl)
   (evil-insert-state))
 
 
 ;; Others
 
-(defun spacemacs//javascript-setup-checkers ()
+(defun space-macs//javascript-setup-checkers ()
   (when-let* ((found (executable-find "eslint_d")))
     (set (make-local-variable 'flycheck-javascript-eslint-executable) found)))
 
-(defun spacemacs/javascript-format ()
+(defun space-macs/javascript-format ()
   "Call formatting tool specified in `javascript-fmt-tool'."
   (interactive)
   (cond
@@ -148,5 +148,7 @@
                      " It should be 'web-beutify or 'prettier.")
              (symbol-name javascript-fmt-tool)))))
 
-(defun spacemacs/javascript-fmt-before-save-hook ()
-  (add-hook 'before-save-hook 'spacemacs/javascript-format t t))
+(defun space-macs/javascript-fmt-before-save-hook ()
+  (add-hook 'before-save-hook 'space-macs/javascript-format t t))
+
+

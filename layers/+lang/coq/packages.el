@@ -1,11 +1,11 @@
-;;; packages.el --- coq layer packages file for Spacemacs.
+;;; packages.el --- coq layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Jeremy Bi <bixuanxbi@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -23,18 +23,18 @@
     :init
     (progn
       (add-hook 'coq-mode-hook #'company-coq-mode)
-      (add-to-list 'spacemacs-jump-handlers-coq-mode
+      (add-to-list 'space-macs-jump-handlers-coq-mode
                    'company-coq-jump-to-definition)
       (setq company-coq-disabled-features '(hello)))
     :config
     (progn
-      (spacemacs|hide-lighter company-coq-mode)
+      (space-macs|hide-lighter company-coq-mode)
       (dolist (prefix '(("mi" . "coq/insert")
                         ("mh" . "coq/document")))
-        (spacemacs/declare-prefix-for-mode
+        (space-macs/declare-prefix-for-mode
           'coq-mode
           (car prefix) (cdr prefix)))
-      (spacemacs/set-leader-keys-for-major-mode 'coq-mode
+      (space-macs/set-leader-keys-for-major-mode 'coq-mode
         "il" 'company-coq-lemma-from-goal
         "im" 'company-coq-insert-match-construct
         "ao" 'company-coq-occur
@@ -57,18 +57,18 @@
       (add-to-list 'load-path coq/proof-general-load-path))
     :config
     (progn
-      (spacemacs|hide-lighter holes-mode)
-      (spacemacs|hide-lighter proof-active-buffer-fake-minor-mode)
+      (space-macs|hide-lighter holes-mode)
+      (space-macs|hide-lighter proof-active-buffer-fake-minor-mode)
       ;; key bindings
       (dolist (prefix '(("ml" . "pg/layout")
                         ("mp" . "pg/prover")
                         ("ma" . "pg/ask-prover")
                         ("mai" . "show-implicits")
                         ("mg" . "pg/goto")))
-        (spacemacs/declare-prefix-for-mode
+        (space-macs/declare-prefix-for-mode
          'coq-mode
          (car prefix) (cdr prefix)))
-      (spacemacs/set-leader-keys-for-major-mode 'coq-mode
+      (space-macs/set-leader-keys-for-major-mode 'coq-mode
         ;; Basic proof management
         "]" 'proof-assert-next-command-interactive
         "[" 'proof-undo-last-successful-command
@@ -109,12 +109,14 @@
         "Te" 'proof-electric-terminator-toggle))))
 
 (defun coq/post-init-smartparens ()
-  (spacemacs/add-to-hooks (if dotspacemacs-smartparens-strict-mode
+  (space-macs/add-to-hooks (if dotspace-macs-smartparens-strict-mode
                               'smartparens-strict-mode
                             'smartparens-mode)
                           '(coq-mode-hook)))
 
 (defun coq/post-init-vi-tilde-fringe ()
-  (spacemacs/add-to-hooks 'spacemacs/disable-vi-tilde-fringe
+  (space-macs/add-to-hooks 'space-macs/disable-vi-tilde-fringe
                           '(coq-response-mode-hook
                             coq-goals-mode-hook)))
+
+

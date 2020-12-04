@@ -3,9 +3,9 @@
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -23,7 +23,7 @@
         ivy-avy
         ivy-hydra
         (ivy-rich :toggle ivy-enable-advanced-buffer-information)
-        (ivy-spacemacs-help :location local)
+        (ivy-space-macs-help :location local)
         ivy-xref
         org
         persp-mode
@@ -35,30 +35,30 @@
         ))
 
 (defun ivy/pre-init-auto-highlight-symbol ()
-  (spacemacs|use-package-add-hook auto-highlight-symbol
+  (space-macs|use-package-add-hook auto-highlight-symbol
     :post-init
     ;; add some functions to ahs transient states
-    (setq spacemacs--symbol-highlight-transient-state-doc
+    (setq space-macs--symbol-highlight-transient-state-doc
           (concat
-           spacemacs--symbol-highlight-transient-state-doc
+           space-macs--symbol-highlight-transient-state-doc
            "  Search: [_s_] swiper  [_b_] buffers  [_f_] files  [_/_] project"))
-    (spacemacs/transient-state-register-add-bindings 'symbol-highlight
+    (space-macs/transient-state-register-add-bindings 'symbol-highlight
       '(("s" swiper-thing-at-point :exit t)
         ("b" swiper-all-thing-at-point :exit t)
-        ("f" spacemacs/search-auto-region-or-symbol :exit t)
-        ("/" spacemacs/search-project-auto-region-or-symbol :exit t)))))
+        ("f" space-macs/search-auto-region-or-symbol :exit t)
+        ("/" space-macs/search-project-auto-region-or-symbol :exit t)))))
 
 (defun ivy/post-init-bookmark ()
-  (spacemacs/set-leader-keys "fb" 'counsel-bookmark))
+  (space-macs/set-leader-keys "fb" 'counsel-bookmark))
 
 (defun ivy/init-counsel ()
   (use-package counsel
     :init
     (progn
-      (spacemacs/set-leader-keys
-        dotspacemacs-emacs-command-key 'counsel-M-x
+      (space-macs/set-leader-keys
+        dotspace-macs-e-macs-command-key 'counsel-M-x
         ;; files
-        "ff"  'spacemacs/counsel-find-file
+        "ff"  'space-macs/counsel-find-file
         "fel" 'counsel-find-library
         "fL"  'counsel-locate
         ;; help
@@ -67,11 +67,11 @@
         "hda" 'counsel-apropos
         "hdf" 'counsel-describe-function
         "hdF" 'counsel-describe-face
-        "hdm" 'spacemacs/describe-mode
+        "hdm" 'space-macs/describe-mode
         "hdv" 'counsel-describe-variable
         "hi"  'counsel-info-lookup-symbol
-        "hm"  (if (spacemacs/system-is-mswindows) 'woman 'man)
-        "hR"  'spacemacs/counsel-search-docs
+        "hm"  (if (space-macs/system-is-mswindows) 'woman 'man)
+        "hR"  'space-macs/counsel-search-docs
         ;; insert
         "iu"  'counsel-unicode-char
         ;; jump
@@ -79,48 +79,48 @@
         "ry"  'counsel-yank-pop
         "rm"  'counsel-mark-ring
         ;; jumping
-        "sj"  'spacemacs/counsel-jump-in-buffer
+        "sj"  'space-macs/counsel-jump-in-buffer
         ;; themes
         "Ts"  'counsel-load-theme
         ;; search
-        "/"   'spacemacs/search-project-auto
-        "*"   'spacemacs/search-project-auto-region-or-symbol
-        "sd"  'spacemacs/search-dir-auto
-        "sD"  'spacemacs/search-dir-auto-region-or-symbol
-        "sf"  'spacemacs/search-auto
-        "sF"  'spacemacs/search-auto-region-or-symbol
-        "sp"  'spacemacs/search-project-auto
-        "sP"  'spacemacs/search-project-auto-region-or-symbol
-        "sad" 'spacemacs/search-dir-ag
-        "saD" 'spacemacs/search-dir-ag-region-or-symbol
-        "saf" 'spacemacs/search-ag
-        "saF" 'spacemacs/search-ag-region-or-symbol
-        "sap" 'spacemacs/search-project-ag
-        "saP" 'spacemacs/search-project-ag-region-or-symbol
-        "sgd" 'spacemacs/search-dir-grep
-        "sgD" 'spacemacs/search-dir-grep-region-or-symbol
-        "sgf" 'spacemacs/search-grep
-        "sgF" 'spacemacs/search-grep-region-or-symbol
+        "/"   'space-macs/search-project-auto
+        "*"   'space-macs/search-project-auto-region-or-symbol
+        "sd"  'space-macs/search-dir-auto
+        "sD"  'space-macs/search-dir-auto-region-or-symbol
+        "sf"  'space-macs/search-auto
+        "sF"  'space-macs/search-auto-region-or-symbol
+        "sp"  'space-macs/search-project-auto
+        "sP"  'space-macs/search-project-auto-region-or-symbol
+        "sad" 'space-macs/search-dir-ag
+        "saD" 'space-macs/search-dir-ag-region-or-symbol
+        "saf" 'space-macs/search-ag
+        "saF" 'space-macs/search-ag-region-or-symbol
+        "sap" 'space-macs/search-project-ag
+        "saP" 'space-macs/search-project-ag-region-or-symbol
+        "sgd" 'space-macs/search-dir-grep
+        "sgD" 'space-macs/search-dir-grep-region-or-symbol
+        "sgf" 'space-macs/search-grep
+        "sgF" 'space-macs/search-grep-region-or-symbol
         "sgp" 'counsel-git-grep
-        "sgP" 'spacemacs/counsel-git-grep-region-or-symbol
-        "skd" 'spacemacs/search-dir-ack
-        "skD" 'spacemacs/search-dir-ack-region-or-symbol
-        "skf" 'spacemacs/search-ack
-        "skF" 'spacemacs/search-ack-region-or-symbol
-        "skp" 'spacemacs/search-project-ack
-        "skP" 'spacemacs/search-project-ack-region-or-symbol
-        "srd" 'spacemacs/search-dir-rg
-        "srD" 'spacemacs/search-dir-rg-region-or-symbol
-        "srf" 'spacemacs/search-rg
-        "srF" 'spacemacs/search-rg-region-or-symbol
-        "srp" 'spacemacs/search-project-rg
-        "srP" 'spacemacs/search-project-rg-region-or-symbol
-        "std" 'spacemacs/search-dir-pt
-        "stD" 'spacemacs/search-dir-pt-region-or-symbol
-        "stf" 'spacemacs/search-pt
-        "stF" 'spacemacs/search-pt-region-or-symbol
-        "stp" 'spacemacs/search-project-pt
-        "stP" 'spacemacs/search-project-pt-region-or-symbol))
+        "sgP" 'space-macs/counsel-git-grep-region-or-symbol
+        "skd" 'space-macs/search-dir-ack
+        "skD" 'space-macs/search-dir-ack-region-or-symbol
+        "skf" 'space-macs/search-ack
+        "skF" 'space-macs/search-ack-region-or-symbol
+        "skp" 'space-macs/search-project-ack
+        "skP" 'space-macs/search-project-ack-region-or-symbol
+        "srd" 'space-macs/search-dir-rg
+        "srD" 'space-macs/search-dir-rg-region-or-symbol
+        "srf" 'space-macs/search-rg
+        "srF" 'space-macs/search-rg-region-or-symbol
+        "srp" 'space-macs/search-project-rg
+        "srP" 'space-macs/search-project-rg-region-or-symbol
+        "std" 'space-macs/search-dir-pt
+        "stD" 'space-macs/search-dir-pt-region-or-symbol
+        "stf" 'space-macs/search-pt
+        "stF" 'space-macs/search-pt-region-or-symbol
+        "stp" 'space-macs/search-project-pt
+        "stP" 'space-macs/search-project-pt-region-or-symbol))
     :config
     (progn
       ;; Temporarily handle older versions of ivy
@@ -131,22 +131,22 @@
       ;; set additional ivy actions
       (ivy-set-actions
        'counsel-find-file
-       spacemacs--ivy-file-actions)
+       space-macs--ivy-file-actions)
 
-      (when (or (eq 'vim dotspacemacs-editing-style)
-                (and (eq 'hybrid dotspacemacs-editing-style)
+      (when (or (eq 'vim dotspace-macs-editing-style)
+                (and (eq 'hybrid dotspace-macs-editing-style)
                      hybrid-style-enable-hjkl-bindings))
         (define-key counsel-find-file-map (kbd "C-h") 'counsel-up-directory))
 
       (define-key read-expression-map (kbd "C-r") 'counsel-minibuffer-history)
-      (spacemacs//counsel-search-add-extra-bindings counsel-ag-map)
+      (space-macs//counsel-search-add-extra-bindings counsel-ag-map)
       ;; remaps built-in commands that have a counsel replacement
       (counsel-mode 1)
-      (spacemacs|hide-lighter counsel-mode)
+      (space-macs|hide-lighter counsel-mode)
       ;; TODO Commands to port
-      (spacemacs//ivy-command-not-implemented-yet "jI")
+      (space-macs//ivy-command-not-implemented-yet "jI")
       ;; Set syntax highlighting for counsel search results
-      (ivy-set-display-transformer 'spacemacs/counsel-search
+      (ivy-set-display-transformer 'space-macs/counsel-search
                                    'counsel-git-grep-transformer)
       ;; Enable better auto completion of counsel-find-file
       ;; by recognizing file at point.
@@ -154,14 +154,14 @@
 
 (defun ivy/pre-init-counsel-projectile ()
   ;; overwrite projectile settings
-  (spacemacs|use-package-add-hook projectile
+  (space-macs|use-package-add-hook projectile
     :post-init
     (progn
       (setq projectile-switch-project-action 'counsel-projectile-find-file)
 
       (ivy-set-actions
        'counsel-projectile-find-file
-       (append spacemacs--ivy-file-actions
+       (append space-macs--ivy-file-actions
                '(("R" (lambda (arg)
                         (interactive)
                         (call-interactively
@@ -169,7 +169,7 @@
                         (ivy-resume)) "refresh list")
                  )))
 
-      (spacemacs/set-leader-keys
+      (space-macs/set-leader-keys
         "p SPC" 'counsel-projectile
         "pb"    'counsel-projectile-switch-to-buffer
         "pd"    'counsel-projectile-find-dir
@@ -177,8 +177,8 @@
         "pf"    'counsel-projectile-find-file))))
 
 (defun ivy/post-init-evil ()
-  (spacemacs/set-leader-keys
-    "re" 'spacemacs/ivy-evil-registers))
+  (space-macs/set-leader-keys
+    "re" 'space-macs/ivy-evil-registers))
 
 (defun ivy/init-flx ()
   (use-package flx))
@@ -189,24 +189,24 @@
     :init
     (progn
       (setq helm-make-completion-method 'ivy)
-      (spacemacs/set-leader-keys
+      (space-macs/set-leader-keys
         "cc" 'helm-make-projectile
         "cm" 'helm-make))))
 
 (defun ivy/post-init-imenu ()
-  (spacemacs/set-leader-keys "ji" 'spacemacs/counsel-jump-in-buffer))
+  (space-macs/set-leader-keys "ji" 'space-macs/counsel-jump-in-buffer))
 
 (defun ivy/init-ivy ()
   (use-package ivy
     :init
     (progn
       ;; Key bindings
-      (spacemacs/set-leader-keys
-        "a'" 'spacemacs/ivy-available-repls
-        "Ce" 'counsel-colors-emacs
+      (space-macs/set-leader-keys
+        "a'" 'space-macs/ivy-available-repls
+        "Ce" 'counsel-colors-e-macs
         "Cf" 'counsel-faces
         "Cw" 'counsel-colors-web
-        "fr" 'spacemacs/counsel-recentf
+        "fr" 'space-macs/counsel-recentf
         "rl" 'ivy-resume
         "sl" 'ivy-resume
         "bb" 'ivy-switch-buffer)
@@ -219,10 +219,10 @@
       ;; custom actions for recentf
       (ivy-set-actions
        'counsel-recentf
-       spacemacs--ivy-file-actions)
+       space-macs--ivy-file-actions)
 
-      ;; add spacemacs/counsel-search command to ivy-highlight-grep-commands
-      (add-to-list 'ivy-highlight-grep-commands 'spacemacs/counsel-search)
+      ;; add space-macs/counsel-search command to ivy-highlight-grep-commands
+      (add-to-list 'ivy-highlight-grep-commands 'space-macs/counsel-search)
 
       ;; mappings to quit minibuffer or enter transient state
       (define-key ivy-minibuffer-map [escape] 'minibuffer-keyboard-quit)
@@ -239,10 +239,10 @@
       ;; Occur
       (evil-set-initial-state 'ivy-occur-grep-mode 'normal)
       (evil-make-overriding-map ivy-occur-mode-map 'normal)
-      (ivy-set-occur 'spacemacs/counsel-search
-                     'spacemacs//counsel-occur)
-      (spacemacs/set-leader-keys-for-major-mode 'ivy-occur-grep-mode
-        "w" 'spacemacs/ivy-wgrep-change-to-wgrep-mode
+      (ivy-set-occur 'space-macs/counsel-search
+                     'space-macs//counsel-occur)
+      (space-macs/set-leader-keys-for-major-mode 'ivy-occur-grep-mode
+        "w" 'space-macs/ivy-wgrep-change-to-wgrep-mode
         "s" 'wgrep-save-all-buffers)
       ;; Why do we do this ?
       (ido-mode -1)
@@ -273,23 +273,23 @@
     (progn
       (ivy-rich-mode))))
 
-(defun ivy/init-ivy-spacemacs-help ()
-  (use-package ivy-spacemacs-help
-    :commands (ivy-spacemacs-help-dotspacemacs
-               ivy-spacemacs-help
-               ivy-spacemacs-help-faq
-               ivy-spacemacs-help-layers
-               ivy-spacemacs-help-packages
-               ivy-spacemacs-help-docs
-               ivy-spacemacs-help-toggles)
-    :init (spacemacs/set-leader-keys
-            "h ."   'ivy-spacemacs-help-dotspacemacs
-            "h SPC" 'ivy-spacemacs-help
-            "h f"   'ivy-spacemacs-help-faq
-            "h l"   'ivy-spacemacs-help-layers
-            "h p"   'ivy-spacemacs-help-packages
-            "h r"   'ivy-spacemacs-help-docs
-            "h t"   'ivy-spacemacs-help-toggles)))
+(defun ivy/init-ivy-space-macs-help ()
+  (use-package ivy-space-macs-help
+    :commands (ivy-space-macs-help-dotspace-macs
+               ivy-space-macs-help
+               ivy-space-macs-help-faq
+               ivy-space-macs-help-layers
+               ivy-space-macs-help-packages
+               ivy-space-macs-help-docs
+               ivy-space-macs-help-toggles)
+    :init (space-macs/set-leader-keys
+            "h ."   'ivy-space-macs-help-dotspace-macs
+            "h SPC" 'ivy-space-macs-help
+            "h f"   'ivy-space-macs-help-faq
+            "h l"   'ivy-space-macs-help-layers
+            "h p"   'ivy-space-macs-help-packages
+            "h r"   'ivy-space-macs-help-docs
+            "h t"   'ivy-space-macs-help-toggles)))
 
 (defun ivy/init-ivy-xref ()
   (use-package ivy-xref
@@ -300,24 +300,24 @@
                                              xref-find-definitions-other-window
                                              xref-find-definitions-other-frame
                                              xref-find-references
-                                             spacemacs/jump-to-definition))
+                                             space-macs/jump-to-definition))
 
       ;; Use ivy-xref to display `xref.el' results.
       (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))))
 
 (defun ivy/post-init-org ()
-  (add-hook 'org-ctrl-c-ctrl-c-hook 'spacemacs//counsel-org-ctrl-c-ctrl-c-org-tag))
+  (add-hook 'org-ctrl-c-ctrl-c-hook 'space-macs//counsel-org-ctrl-c-ctrl-c-org-tag))
 
 (defun ivy/pre-init-persp-mode ()
-  (spacemacs|use-package-add-hook persp-mode
+  (space-macs|use-package-add-hook persp-mode
     :post-config
     (setq
-     spacemacs--persp-display-buffers-func 'spacemacs/ivy-spacemacs-layout-buffer
-     spacemacs--persp-display-perspectives-func 'spacemacs/ivy-spacemacs-layouts)))
+     space-macs--persp-display-buffers-func 'space-macs/ivy-space-macs-layout-buffer
+     space-macs--persp-display-perspectives-func 'space-macs/ivy-space-macs-layouts)))
 
 (defun ivy/post-init-persp-mode ()
   ;; based on https://gist.github.com/Bad-ptr/1aca1ec54c3bdb2ee80996eb2b68ad2d#file-persp-ivy-el
-  (add-hook 'ivy-ignore-buffers #'spacemacs//layout-not-contains-buffer-p)
+  (add-hook 'ivy-ignore-buffers #'space-macs//layout-not-contains-buffer-p)
   (setq ivy-sort-functions-alist
         (append ivy-sort-functions-alist
                 '((persp-kill-buffer . nil)
@@ -328,30 +328,30 @@
                   (persp-frame-switch . nil))))
 
   (ivy-set-actions
-   'spacemacs/ivy-spacemacs-layouts
+   'space-macs/ivy-space-macs-layouts
    '(("c" persp-kill-without-buffers "Close layout(s)")
      ("k" persp-kill  "Kill layout(s)")
      ("n" persp-copy "Copy Current Layout")
-     ("p" spacemacs//create-persp-with-current-project-buffers
+     ("p" space-macs//create-persp-with-current-project-buffers
       "Create Project Layout")))
   ;; TODO: better handling of C and X bindings for ivy
   ;;       check ivy/pre-init-persp-mode
-  (spacemacs/transient-state-register-remove-bindings 'layouts
+  (space-macs/transient-state-register-remove-bindings 'layouts
     '("C" "X"))
-  (spacemacs/transient-state-register-add-bindings 'layouts
-    '(("C" spacemacs/ivy-spacemacs-layout-close-other :exit t)
-      ("X" spacemacs/ivy-spacemacs-layout-kill-other :exit t))))
+  (space-macs/transient-state-register-add-bindings 'layouts
+    '(("C" space-macs/ivy-space-macs-layout-close-other :exit t)
+      ("X" space-macs/ivy-space-macs-layout-kill-other :exit t))))
 
 (defun ivy/post-init-projectile ()
   (setq projectile-completion-system 'ivy)
-  (spacemacs/set-leader-keys
+  (space-macs/set-leader-keys
     "pv"  'projectile-vc))
 
 (defun ivy/post-init-recentf ()
   ;; custom actions for recentf
   (ivy-set-actions
    'counsel-recentf
-   (append spacemacs--ivy-file-actions
+   (append space-macs--ivy-file-actions
            '(("R" (lambda (arg)
                     (interactive)
                     (recentf-cleanup)
@@ -367,14 +367,14 @@
   (use-package smex
     :defer t
     :init (setq-default smex-history-length 32
-                        smex-save-file (concat spacemacs-cache-directory
+                        smex-save-file (concat space-macs-cache-directory
                                                ".smex-items"))))
 
 (defun ivy/init-swiper ()
   (use-package swiper
     :config
     (progn
-      (spacemacs/set-leader-keys
+      (space-macs/set-leader-keys
         "ss" 'swiper
         "sS" 'swiper-thing-at-point
         "sb" 'swiper-all
@@ -386,3 +386,5 @@
   (evil-define-key 'normal wgrep-mode-map ",c" 'wgrep-finish-edit)
   (evil-define-key 'normal wgrep-mode-map ",a" 'wgrep-abort-changes)
   (evil-define-key 'normal wgrep-mode-map ",k" 'wgrep-abort-changes))
+
+

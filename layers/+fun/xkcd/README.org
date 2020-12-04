@@ -13,7 +13,7 @@
   - [[#okay-what-now][Okay, what now]]
 
 * Description
-This layer adds a [[http://xkcd.com/][xkcd]] navigation mode using [[https://github.com/vibhavp/emacs-xkcd][emacs-xkcd]].
+This layer adds a [[http://xkcd.com/][xkcd]] navigation mode using [[https://github.com/vibhavp/e-macs-xkcd][e-macs-xkcd]].
 
 ** Features:
 - Load a random xkcd
@@ -22,8 +22,8 @@ This layer adds a [[http://xkcd.com/][xkcd]] navigation mode using [[https://git
 - Cache the comics in =.cache/xkcd=
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =xkcd= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =xkcd= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -45,3 +45,5 @@ You can now move through the comics with these
 | ~q~         | Quit the buffer                     |
 | ~r~         | Random comic                        |
 | ~t~         | Show alternate text in the modeline |
+
+

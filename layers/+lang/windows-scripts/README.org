@@ -18,11 +18,11 @@ as support for batch files.
 
 ** Features:
 - Syntax highlighting of powershell =.ps1= files via [[https://github.com/jschaf/powershell.el][powershell.el]]
-- Syntax highlighting of batch =.bat= files via [[https://www.emacswiki.org/emacs/DosMode][dos.el]]
+- Syntax highlighting of batch =.bat= files via [[https://www.e-macswiki.org/e-macs/DosMode][dos.el]]
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =windows-scripts= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =windows-scripts= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -44,3 +44,5 @@ file.
 | ~SPC m t~   | mini snippet to start a batch script |
 | ~SPC m T~   | big snippet to start a batch script  |
 | ~SPC m z~   | toggle outline                       |
+
+

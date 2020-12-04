@@ -1,11 +1,11 @@
-;;; packages.el --- Extempore Layer packages File for Spacemacs
+;;; packages.el --- Extempore Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Ben Swift <ben@benswift.me>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -19,13 +19,13 @@
     :mode
     (("\\.xtm$" . extempore-mode))
     :init
-    (spacemacs/register-repl 'extempore-mode 'extempore-repl "extempore")
+    (space-macs/register-repl 'extempore-mode 'extempore-repl "extempore")
     :config
     (progn
-      (spacemacs/declare-prefix-for-mode 'extempore-mode "mc" "process")
-      (spacemacs/declare-prefix-for-mode 'extempore-mode "me" "eval")
+      (space-macs/declare-prefix-for-mode 'extempore-mode "mc" "process")
+      (space-macs/declare-prefix-for-mode 'extempore-mode "me" "eval")
 
-      (spacemacs/set-leader-keys-for-major-mode 'extempore-mode
+      (space-macs/set-leader-keys-for-major-mode 'extempore-mode
         "'"  'extempore-repl
         ","  'lisp-state-toggle-lisp-state
 
@@ -47,4 +47,6 @@
           (sp-local-pair 'extempore-mode "`" nil :actions nil))))))
 
 (defun extempore/post-init-eldoc ()
-  (add-hook 'extempore-mode-hook #'spacemacs//extempore-setup-eldoc))
+  (add-hook 'extempore-mode-hook #'space-macs//extempore-setup-eldoc))
+
+

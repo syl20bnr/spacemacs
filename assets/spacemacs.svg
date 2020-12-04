@@ -16,7 +16,7 @@
    id="svg4774"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="spacemacs-logo.svg">
+   sodipodi:docname="space-macs-logo.svg">
   <defs
      id="defs4776">
     <radialGradient
@@ -310,7 +310,7 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="spacemacs"
+     inkscape:label="space-macs"
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-386.36216)"
@@ -403,3 +403,5 @@
        transform="matrix(-0.99900978,0.04449109,0.3468689,-0.93791362,0,0)" />
   </g>
 </svg>
+
+

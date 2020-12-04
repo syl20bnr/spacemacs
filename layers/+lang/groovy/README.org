@@ -17,18 +17,18 @@
   - [[#repl][REPL]]
 
 * Description
-This layer supports [[http://www.groovy-lang.org/][Groovy]] development in Spacemacs.
+This layer supports [[http://www.groovy-lang.org/][Groovy]] development in Space-macs.
 
 ** Features:
 - Auto-completion
 - Syntax-checking
-- Auto-generate imports with [[https://github.com/mbezjak/emacs-groovy-imports][groovy-imports]]
+- Auto-generate imports with [[https://github.com/mbezjak/e-macs-groovy-imports][groovy-imports]]
 - Groovy REPL integration
 - Syntax highlighting
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =groovy= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =groovy= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
@@ -45,20 +45,20 @@ limited IDE capabilities. Used best if only small scripts
 are edited. To set explicitly set the following in your
 dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (groovy :variables groovy-backend 'company-groovy)
 #+END_SRC
 
 *** LSP
 For proper IDE support this backend should be used. It is
 based on an external server which will be started automatically
-by emacs, once a groovy file is opened. The key bindings are
+by e-macs, once a groovy file is opened. The key bindings are
 the same for all lsp modes so if you are already familiar with
 one you should be able to work the same in all modes.
 
 To set explicitly do the following in your dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (groovy :variables
           groovy-backend 'lsp
           groovy-lsp-jar-path "path/to/groovy/lsp/jar.jar")
@@ -92,3 +92,5 @@ intellisense config for LSP.
 | ~SPC m s F~ | send function to REPL and switch to REPL buffer       |
 | ~SPC m s r~ | send current region to REPL and stay in buffer        |
 | ~SPC m s R~ | send current region to REPL and switch to REPL buffer |
+
+

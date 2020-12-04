@@ -2,9 +2,9 @@
 
 ;; Copyright (C) 2015 Free Software Foundation, Inc.
 
-;; Author: Artur Malabarba <emacs@endlessparentheses.com>
+;; Author: Artur Malabarba <e-macs@endlessparentheses.com>
 ;; Version: 1.7.3
-;; Package-Requires: ((emacs "24.3"))
+;; Package-Requires: ((e-macs "24.3"))
 ;; URL: https://github.com/Malabarba/spinner.el
 ;; Keywords: processes mode-line
 
@@ -24,14 +24,14 @@
 ;;; Commentary:
 ;;
 ;; 1 Usage
-;; ═══════
+;; â•â•â•â•â•â•â•
 ;;
-;;   First of all, don’t forget to add `(spinner "VERSION")' to your
-;;   package’s dependencies.
+;;   First of all, donâ€™t forget to add `(spinner "VERSION")' to your
+;;   packageâ€™s dependencies.
 ;;
 ;;
 ;; 1.1 Major-modes
-;; ───────────────
+;; â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 ;;
 ;;   1. Just call `(spinner-start)' and a spinner will be added to the
 ;;      mode-line.
@@ -43,31 +43,31 @@
 ;;   possibilities are listed in the `spinner-types' variable, but here are
 ;;   a few examples for you to try:
 ;;
-;;   • `(spinner-start 'vertical-breathing 10)'
-;;   • `(spinner-start 'minibox)'
-;;   • `(spinner-start 'moon)'
-;;   • `(spinner-start 'triangle)'
+;;   â€¢ `(spinner-start 'vertical-breathing 10)'
+;;   â€¢ `(spinner-start 'minibox)'
+;;   â€¢ `(spinner-start 'moon)'
+;;   â€¢ `(spinner-start 'triangle)'
 ;;
 ;;   You can also define your own as a vector of strings (see the examples
 ;;   in `spinner-types').
 ;;
 ;;
 ;; 1.2 Minor-modes
-;; ───────────────
+;; â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 ;;
 ;;   Minor-modes can create a spinner with `spinner-create' and then add it
 ;;   to their mode-line lighter. They can then start the spinner by setting
 ;;   a variable and calling `spinner-start-timer'. Finally, they can stop
 ;;   the spinner (and the timer) by just setting the same variable to nil.
 ;;
-;;   Here’s an example for a minor-mode named `foo'. Assuming that
+;;   Hereâ€™s an example for a minor-mode named `foo'. Assuming that
 ;;   `foo--lighter' is used as the mode-line lighter, the following code
 ;;   will add an *inactive* global spinner to the mode-line.
-;;   ┌────
-;;   │ (defvar foo--spinner (spinner-create 'rotating-line))
-;;   │ (defconst foo--lighter
-;;   │   '(" foo" (:eval (spinner-print foo--spinner))))
-;;   └────
+;;   â”Œâ”€â”€â”€â”€
+;;   â”‚ (defvar foo--spinner (spinner-create 'rotating-line))
+;;   â”‚ (defconst foo--lighter
+;;   â”‚   '(" foo" (:eval (spinner-print foo--spinner))))
+;;   â””â”€â”€â”€â”€
 ;;
 ;;   1. To activate the spinner, just call `(spinner-start foo--spinner)'.
 ;;      It will show up on the mode-line and start animating.
@@ -79,16 +79,16 @@
 ;;   third argument of the `spinner-create' function. The snippet below is an
 ;;   example.
 ;;
-;;   ┌────
-;;   │ (defvar-local foo--spinner nil)
-;;   │ (defconst foo--lighter
-;;   │   '(" foo" (:eval (spinner-print foo--spinner))))
-;;   │ (defun foo--start-spinner ()
-;;   │   "Create and start a spinner on this buffer."
-;;   │   (unless foo--spinner
-;;   │     (setq foo--spinner (spinner-create 'moon t)))
-;;   │   (spinner-start foo--spinner))
-;;   └────
+;;   â”Œâ”€â”€â”€â”€
+;;   â”‚ (defvar-local foo--spinner nil)
+;;   â”‚ (defconst foo--lighter
+;;   â”‚   '(" foo" (:eval (spinner-print foo--spinner))))
+;;   â”‚ (defun foo--start-spinner ()
+;;   â”‚   "Create and start a spinner on this buffer."
+;;   â”‚   (unless foo--spinner
+;;   â”‚     (setq foo--spinner (spinner-create 'moon t)))
+;;   â”‚   (spinner-start foo--spinner))
+;;   â””â”€â”€â”€â”€
 ;;
 ;;   1. To activate the spinner, just call `(foo--start-spinner)'.
 ;;   2. To get rid of it, call `(spinner-stop foo--spinner)'.
@@ -102,24 +102,24 @@
   (require 'cl-lib))
 
 (defconst spinner-types
-  '((3-line-clock . ["┤" "┘" "┴" "└" "├" "┌" "┬" "┐"])
-    (2-line-clock . ["┘" "└" "┌" "┐"])
+  '((3-line-clock . ["â”¤" "â”˜" "â”´" "â””" "â”œ" "â”Œ" "â”¬" "â”"])
+    (2-line-clock . ["â”˜" "â””" "â”Œ" "â”"])
     (flipping-line . ["_" "\\" "|" "/"])
     (rotating-line . ["-" "\\" "|" "/"])
     (progress-bar . ["[    ]" "[=   ]" "[==  ]" "[=== ]" "[====]" "[ ===]" "[  ==]" "[   =]"])
-    (progress-bar-filled . ["|    |" "|█   |" "|██  |" "|███ |" "|████|" "| ███|" "|  ██|" "|   █|"])
-    (vertical-breathing . ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" "▇" "▆" "▅" "▄" "▃" "▂" "▁" " "])
-    (vertical-rising . ["▁" "▄" "█" "▀" "▔"])
-    (horizontal-breathing . [" " "▏" "▎" "▍" "▌" "▋" "▊" "▉" "▉" "▊" "▋" "▌" "▍" "▎" "▏"])
+    (progress-bar-filled . ["|    |" "|â–ˆ   |" "|â–ˆâ–ˆ  |" "|â–ˆâ–ˆâ–ˆ |" "|â–ˆâ–ˆâ–ˆâ–ˆ|" "| â–ˆâ–ˆâ–ˆ|" "|  â–ˆâ–ˆ|" "|   â–ˆ|"])
+    (vertical-breathing . ["â–" "â–‚" "â–ƒ" "â–„" "â–…" "â–†" "â–‡" "â–ˆ" "â–‡" "â–†" "â–…" "â–„" "â–ƒ" "â–‚" "â–" " "])
+    (vertical-rising . ["â–" "â–„" "â–ˆ" "â–€" "â–”"])
+    (horizontal-breathing . [" " "â–" "â–Ž" "â–" "â–Œ" "â–‹" "â–Š" "â–‰" "â–‰" "â–Š" "â–‹" "â–Œ" "â–" "â–Ž" "â–"])
     (horizontal-breathing-long
-     . ["  " "▎ " "▌ " "▊ " "█ " "█▎" "█▌" "█▊" "██" "█▊" "█▌" "█▎" "█ " "▊ " "▋ " "▌ " "▍ " "▎ " "▏ "])
-    (horizontal-moving . ["  " "▌ " "█ " "▐▌" " █" " ▐"])
-    (minibox . ["▖" "▘" "▝" "▗"])
-    (triangle . ["◢" "◣" "◤" "◥"])
-    (box-in-box . ["◰" "◳" "◲" "◱"])
-    (box-in-circle . ["◴" "◷" "◶" "◵"])
-    (half-circle . ["◐" "◓" "◑" "◒"])
-    (moon . ["🌑" "🌘" "🌗" "🌖" "🌕" "🌔" "🌓" "🌒"]))
+     . ["  " "â–Ž " "â–Œ " "â–Š " "â–ˆ " "â–ˆâ–Ž" "â–ˆâ–Œ" "â–ˆâ–Š" "â–ˆâ–ˆ" "â–ˆâ–Š" "â–ˆâ–Œ" "â–ˆâ–Ž" "â–ˆ " "â–Š " "â–‹ " "â–Œ " "â– " "â–Ž " "â– "])
+    (horizontal-moving . ["  " "â–Œ " "â–ˆ " "â–â–Œ" " â–ˆ" " â–"])
+    (minibox . ["â––" "â–˜" "â–" "â–—"])
+    (triangle . ["â—¢" "â—£" "â—¤" "â—¥"])
+    (box-in-box . ["â—°" "â—³" "â—²" "â—±"])
+    (box-in-circle . ["â—´" "â—·" "â—¶" "â—µ"])
+    (half-circle . ["â—" "â—“" "â—‘" "â—’"])
+    (moon . ["ðŸŒ‘" "ðŸŒ˜" "ðŸŒ—" "ðŸŒ–" "ðŸŒ•" "ðŸŒ”" "ðŸŒ“" "ðŸŒ’"]))
   "Predefined alist of spinners.
 Each car is a symbol identifying the spinner, and each cdr is a
 vector, the spinner itself.")
@@ -325,3 +325,5 @@ active spinner."
 (provide 'spinner)
 
 ;;; spinner.el ends here
+
+

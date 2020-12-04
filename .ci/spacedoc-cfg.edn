@@ -1,11 +1,11 @@
-{:spacetools.spacedoc.config/layers-org-title-text "Spacemacs layers list"
+{:spacetools.spacedoc.config/layers-org-title-text "Space-macs layers list"
 
  :spacetools.spacedoc.config/layers-org-description
  "\nTHIS FILE IS AUTO-GENERATED!
-Don't edit it directly. See [[https://github.com/syl20bnr/spacemacs/blob/develop/CONTRIBUTING.org#readmeorg-tags][\"README.org  tags\" section of CONTRIBUTING.org for the instructions]].
+Don't edit it directly. See [[https://github.com/syl20bnr/space-macs/blob/develop/CONTRIBUTING.org#readmeorg-tags][\"README.org  tags\" section of CONTRIBUTING.org for the instructions]].
 
-This is an overview of Spacemacs configuration layers. For information about
-configuration layer development see [[https://develop.spacemacs.org/doc/LAYERS.html][Configuration layers development]].
+This is an overview of Space-macs configuration layers. For information about
+configuration layer development see [[https://develop.space-macs.org/doc/LAYERS.html][Configuration layers development]].
 "
 
  :spacetools.spacedoc.config/layers-org-query
@@ -15,7 +15,7 @@ configuration layer development see [[https://develop.spacemacs.org/doc/LAYERS.h
            "e-mail"
            "file tree"
            "font"
-           "emacs"
+           "e-macs"
            "fun"
            "i18n"
            "misc"
@@ -39,7 +39,7 @@ configuration layer development see [[https://develop.spacemacs.org/doc/LAYERS.h
                            "util"
                            ]}
            "versioning"
-           {"spacemacs" ["distribution"
+           {"space-macs" ["distribution"
                          "misc"
                          ]}
            "tag"
@@ -58,7 +58,7 @@ configuration layer development see [[https://develop.spacemacs.org/doc/LAYERS.h
   "distribution" "Distributions"
   "dsl" "Domain-specific (DSLs)"
   "e-mail" "E-mail"
-  "emacs" "Emacs"
+  "e-macs" "e-macs"
   "file tree" "File trees"
   "font" "Fonts"
   "framework" "Frameworks"
@@ -79,7 +79,7 @@ configuration layer development see [[https://develop.spacemacs.org/doc/LAYERS.h
   "pure" "Purely functional"
   "reader" "Readers"
   "script" "Scripting"
-  "spacemacs" "Spacemacs"
+  "space-macs" "Space-macs"
   "tag" "Tagging"
   "theme" "Themes"
   "tool" "Tools"
@@ -91,3 +91,5 @@ configuration layer development see [[https://develop.spacemacs.org/doc/LAYERS.h
   }
  :spacetools.spacedoc.config/org-toc-max-depth 5
  }
+
+

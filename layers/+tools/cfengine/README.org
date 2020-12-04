@@ -17,7 +17,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for CFEngine policies to Spacemacs.
+This layer adds support for CFEngine policies to Space-macs.
 
 ** Features:
 - Syntax highlighting (CFEngine DSL, Mustache)
@@ -26,7 +26,7 @@ This layer adds support for CFEngine policies to Spacemacs.
 - Execution of =cfengine3= =SRC= blocks in =org-mode= via =ob-cfengine3= package.
 
 * Install
-Add =cfengine= to the =dotspacemacs-configuration-layers= in your =~/.spacemacs=
+Add =cfengine= to the =dotspace-macs-configuration-layers= in your =~/.space-macs=
 to use this layer.
 
 * Configuration
@@ -79,10 +79,12 @@ stdlib, definition of classes and controlling the =bundlesequence= using header
 args.
 
 To suppress the confirmation when executing a block set
-=(setq org-confirm-babel-evaluate nil)= in =dotspacemacs/user-config()=.
+=(setq org-confirm-babel-evaluate nil)= in =dotspace-macs/user-config()=.
 
 * Key bindings
 
 | Key binding | Description           |
 |-------------+-----------------------|
 | ~SPC m j~   | Reformats JSON string |
+
+

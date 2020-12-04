@@ -1,27 +1,27 @@
-;;; config.el --- shell configuration File for Spacemacs
+;;; config.el --- shell configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-;; Emacs built-in variables
+;; e-macs built-in variables
 
 ;; move point to the end of buffer on new output
 (setq comint-move-point-for-output t)
 
-;; allow moving around the buffer in emacs >= 26.1 in evil's normal mode
+;; allow moving around the buffer in e-macs >= 26.1 in evil's normal mode
 (setq term-char-mode-point-at-process-mark nil)
 
 ;; Variables
-(defvar shell-default-shell (if (spacemacs/system-is-mswindows)
+(defvar shell-default-shell (if (space-macs/system-is-mswindows)
                                 'eshell
                               'ansi-term)
-  "Default shell to use in Spacemacs. Possible values are `eshell' (default),
+  "Default shell to use in Space-macs. Possible values are `eshell' (default),
 `shell', `term', `ansi-term', `multi-term' and `vterm'.")
 
 (defvar shell-default-position 'bottom
@@ -53,5 +53,7 @@
   "If non-nil, the window is closed when the terminal is stopped.
   This is only applied to `term' and `ansi-term' modes.")
 
-(defvar spacemacs-vterm-history-file-location nil
+(defvar space-macs-vterm-history-file-location nil
   "Bash history full file name.")
+
+

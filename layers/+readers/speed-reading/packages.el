@@ -1,11 +1,11 @@
-;;; packages.el --- speed-reading Layer packages File for Spacemacs
+;;; packages.el --- speed-reading Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -26,7 +26,7 @@
         (evil-insert-state)
         (spray-mode t)
         (internal-show-cursor (selected-window) nil))
-      (spacemacs/set-leader-keys "ars" 'speed-reading/start-spray)
+      (space-macs/set-leader-keys "ars" 'speed-reading/start-spray)
 
       (defadvice spray-quit (after speed-reading//quit-spray activate)
         "Correctly quit spray."
@@ -41,3 +41,5 @@
 (defun speed-reading/post-init-which-key ()
   (push '((nil . "\\`speed-reading/\\(.+\\)\\'") . (nil . "\\1"))
         which-key-replacement-alist))
+
+

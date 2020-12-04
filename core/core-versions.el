@@ -1,13 +1,15 @@
-;;; core-versions.el --- Spacemacs Core File
+;;; core-versions.el --- Space-macs Core File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defconst spacemacs-version          "0.300.0" "Spacemacs version.")
-(defconst spacemacs-emacs-min-version   "25.1" "Minimal version of Emacs.")
+(defconst space-macs-version          "0.300.0" "Space-macs version.")
+(defconst space-macs-e-macs-min-version   "25.1" "Minimal version of e-macs.")
+
+

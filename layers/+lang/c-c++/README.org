@@ -21,7 +21,7 @@
         - [[#path-to-lsp-server-executables][Path to LSP server executables]]
         - [[#semantic-highlighting][Semantic highlighting]]
         - [[#cache-directory-absolute-or-relative][Cache directory (absolute or relative)]]
-        - [[#example-dotspacemacs-configuration-layers-entry][Example dotspacemacs-configuration-layers entry]]
+        - [[#example-dotspace-macs-configuration-layers-entry][Example dotspace-macs-configuration-layers entry]]
       - [[#completion][Completion]]
       - [[#debugger-dap-integration][Debugger (dap integration)]]
     - [[#rtags][rtags]]
@@ -55,8 +55,8 @@ This layer adds configuration for C/C++ language.
 - Multiple backends support:
   - LSP with either =clangd= or [[https://github.com/MaskRay/ccls][ccls]]
   - [[https://github.com/Andersbakken/rtags][rtags]] (gtags)
-  - [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]]
-- Support for debuggers [[https://github.com/realgud/realgud][realgud]] and [[https://github.com/emacs-lsp/dap-mode][dap]] (with LSP backend)
+  - [[https://github.com/abingham/e-macs-ycmd][e-macs-ycmd]]
+- Support for debuggers [[https://github.com/realgud/realgud][realgud]] and [[https://github.com/e-macs-lsp/dap-mode][dap]] (with LSP backend)
 - Support syntax checking via flycheck (=syntax-checking= layer required)
 - Auto-completion via company (=auto-completion= layer required)
 - Support code reformatting with [[http://clang.llvm.org/docs/ClangFormat.html][clang-format]].
@@ -72,8 +72,8 @@ This layer adds configuration for C/C++ language.
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =c-c++= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =c-c++= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Backends
@@ -81,7 +81,7 @@ Supported backends are:
 - =lsp-clangd= using clangd LSP server
 - =lsp-ccls= using ccls LSP server
 - =rtags= using [[https://github.com/Andersbakken/rtags][rtags]]
-- =ycmd= using [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]]
+- =ycmd= using [[https://github.com/abingham/e-macs-ycmd][e-macs-ycmd]]
 
 To choose a default backend set the layer variable =c-c++-backend=:
 
@@ -100,7 +100,7 @@ The backend can be chosen on a per project basis using directory local variables
 
 #+BEGIN_SRC elisp
   ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
+  ;;; For more information see (info "(e-macs) Directory Variables")
 
   ((c++-mode (c-c++-backend . lsp-ccls)))
 #+END_SRC
@@ -128,7 +128,7 @@ Install one (or more) of the following (=clangd= is used by default):
 ***** clangd
 Install =clang= using a binary distribution downloaded from the [[http://releases.llvm.org/download.html][LLVM releases
 page]] or via your package manager. This is the default implementation that's used by the
-Emacs =lsp-mode= package and probably the easiest to install.
+e-macs =lsp-mode= package and probably the easiest to install.
 - [[https://clang.llvm.org/extra/clangd/Extensions.html][clangd protocol extensions page]]
 
 ***** ccls server
@@ -144,8 +144,8 @@ Homebrew.
 To use the default =clangd= language server, select =lsp-clangd= as the =c-c++=
 layer backend by adding the following to your dotfile:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((c-c++ :variables c-c++-backend 'lsp-clangd)))
 #+END_SRC
 
@@ -153,8 +153,8 @@ layer backend by adding the following to your dotfile:
 To choose an alternate LSP server set the layer variable =c-c++-backend= to
 another supported backend, for instance =lsp-ccls=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((c-c++ :variables c-c++-backend 'lsp-ccls)))
 #+END_SRC
 
@@ -177,7 +177,7 @@ Semantic highlighting is disabled by default. To enable it set the layer
 different color for each identifier by setting the variable to ='rainbow=.
 
 When semantic highlighting is enabled then the method that's used to highlight the text
-relies on Emacs' fastest =font-lock= mechanism. A more
+relies on e-macs' fastest =font-lock= mechanism. A more
 accurate but also slower method is to use overlays. To use overlays set
 the layer variable =c-c++-lsp-semantic-highlight-method= to ='overlay=.
 
@@ -188,11 +188,11 @@ the layer variable =c-c++-lsp-semantic-highlight-method= to ='overlay=.
 =:cache= option in the variable =ccls-initialization-options=.
 
 See the full list of configuration options you can set at:
-- [[https://github.com/MaskRay/ccls/wiki/Emacs][Emacs section of =ccls= wiki]]
+- [[https://github.com/MaskRay/ccls/wiki/e-macs][e-macs section of =ccls= wiki]]
 
-***** Example dotspacemacs-configuration-layers entry
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+***** Example dotspace-macs-configuration-layers entry
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((c-c++ :variables
                          c-c++-adopt-subprojects t
                          c-c++-backend 'lsp-ccls
@@ -222,8 +222,8 @@ writing, although there is an [[https://github.com/Andersbakken/rtags/issues/770
 **** Configuration
 To enable support for =rtags=, set the layer variable =c-c++-backend=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((c-c++ :variables c-c++-backend 'rtags)))
 #+END_SRC
 
@@ -232,33 +232,33 @@ auto-completion (when the =auto-completion= layer is enabled).
 To prevent this, while retaining the rest of Rtags' functionality,
 set the variable =c-c++-rtags-completion= to =nil=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((c-c++ :variables
                          c-c++-backend 'rtags
                          c-c++-enable-rtags-completion nil)))
 #+END_SRC
 
 ** Default mode for header files
-The mode for header files is auto detected by `c-or-c++-mode' in Emacs > 26.1+.
-Older versions of Emacs will open header files in =c-mode= by default, you can open them in
+The mode for header files is auto detected by `c-or-c++-mode' in e-macs > 26.1+.
+Older versions of e-macs will open header files in =c-mode= by default, you can open them in
 =c++-mode= by setting the variable =c-c++-default-mode-for-headers= as follow.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((c-c++ :variables c-c++-default-mode-for-headers 'c++-mode)))
 #+END_SRC
 
 *Note:* To set the variable for a given project, create a directory local
 variable at the root of your project. More info on directory local variables
-can be found in the manual: [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Directory-Local-Variables.html][dir-locals]].
+can be found in the manual: [[http://www.gnu.org/software/e-macs/manual/html_node/elisp/Directory-Local-Variables.html][dir-locals]].
 
 ** Organize file header includes on save
 To organize the file header includes on save, set the layer variable
 =c++-enable-organize-includes-on-save= to =t= in the dotfile:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((c-c++ :variables c++-enable-organize-includes-on-save t)))
 #+END_SRC
 
@@ -272,8 +272,8 @@ directory as the file being edited, or in any of its parent directories. If no
 To enable automatic buffer formatting on save, set the variable
 =c-c++-enable-clang-format-on-save= to =t=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((c-c++ :variables c-c++-enable-clang-format-on-save t)))
 #+END_SRC
 
@@ -283,16 +283,16 @@ you may not have a lot of need for =google-set-c-style= if you are already
 using a mode based on Google mode for most of your projects.
 
 However, if you don't have (or want) =clang-format=, or if you have to do a lot
-[[https://www.emacswiki.org/emacs/TrampMode][Tramp]] remote editing on systems that don't have =clang-format= installed, you
+[[https://www.e-macswiki.org/e-macs/TrampMode][Tramp]] remote editing on systems that don't have =clang-format= installed, you
 may want =google-c-style= enabled and added to your common hooks.
 
 To get =google-c-style= actually install itself into your C/C++ common hooks,
 you need to have =c-c++-enable-google-style= defined to true when you load the
-C-C++ lang in Spacemacs. In your =~/.spacemacs= file, a possible way that this
-would look is that in your list of =dostpacemacs-configuration-layers= you have
+C-C++ lang in Space-macs. In your =~/.space-macs= file, a possible way that this
+would look is that in your list of =dostpace-macs-configuration-layers= you have
 an entry like
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (c-c++ :variables c-c++-enable-google-style t)
 #+END_SRC
 
@@ -300,7 +300,7 @@ Additionally, if you have =c-c++-enable-google-newline= variable set then
 =`google-make-newline-indent= will be set as a =c-mode-common-hook=. You would
 set that up like this:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (c-c++ :variables c-c++-enable-google-style t
                     c-c++-enable-google-newline t)
 #+END_SRC
@@ -309,7 +309,7 @@ set that up like this:
 You can enable the =Auto-newline= minor mode that automatically adds newlines
 after certain characters by setting the =c-c++-enable-auto-newline= variable.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (c-c++ :variables c-c++-enable-auto-newline t)
 #+END_SRC
 
@@ -317,7 +317,7 @@ after certain characters by setting the =c-c++-enable-auto-newline= variable.
 To prevent projectile from using subproject root when visiting files in a subproject,
 set =c-c++-adopt-subprojects= to =t=.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (c-c++ :variables c-c++-adopt-subprojects t)
 #+END_SRC
 
@@ -486,3 +486,5 @@ A ~[ccls]~ suffix indicates that the binding is for the indicated backend only.
 |-------------+-------------------------------------|
 | ~SPC m r .~ | srefactor: refactor thing at point. |
 | ~SPC m r i~ | organize includes                   |
+
+

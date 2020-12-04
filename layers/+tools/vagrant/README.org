@@ -23,8 +23,8 @@ This layer adds support for working with Vagrant using [[https://github.com/ottb
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =vagrant= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =vagrant= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 *Note:* Since vagrant files are written in =ruby= it is recommended
@@ -53,3 +53,5 @@ in this directory.
 | ~SPC a t v S~ | suspend a box                                                                                  |
 | ~SPC a t v t~ | start a =vagrant-tramp-term= session - after start, edit files at =/vagrant:box_name:filename= |
 | ~SPC a t v V~ | bring up a Vagrant box                                                                         |
+
+

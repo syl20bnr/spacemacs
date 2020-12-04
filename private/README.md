@@ -15,7 +15,9 @@ on the meaning of those files can be found in the [documentation][conf_layers]).
 
 Each created file has further guidance written in them.
 
-Once the configuration is done, restart Emacs to load, install and configure
+Once the configuration is done, restart e-macs to load, install and configure
 your layer.
 
-[conf_layers]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#extensions-and-packages
+[conf_layers]: https://github.com/syl20bnr/space-macs/blob/master/doc/DOCUMENTATION.org#extensions-and-packages
+
+

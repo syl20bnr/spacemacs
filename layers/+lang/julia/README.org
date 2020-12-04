@@ -13,7 +13,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for [[https://julialang.org][Julia]] to Spacemacs.
+This layer adds support for [[https://julialang.org][Julia]] to Space-macs.
 
 ** Features:
 - Syntax highlighting
@@ -24,12 +24,12 @@ This layer adds support for [[https://julialang.org][Julia]] to Spacemacs.
 - Documentation on hover
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =julia= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =julia= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** LSP
-This layer can be used with [[https://github.com/JuliaEditorSupport/LanguageServer.jl][LanguageServer.jl]] and Emacs [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] to provide
+This layer can be used with [[https://github.com/JuliaEditorSupport/LanguageServer.jl][LanguageServer.jl]] and e-macs [[https://github.com/e-macs-lsp/lsp-mode][lsp-mode]] to provide
 richer, IDE-like capabilities. To use this layer with lsp, you must do the
 following:
 1. =LanguageServer.jl= should be configured automatically, if not, see the
@@ -39,9 +39,9 @@ following:
 To enable language server functionality with this layer, follow the instructions
 for installation, and then install this layer with:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq-default
-   dotspacemacs-configuration-layers
+   dotspace-macs-configuration-layers
    '(
      (julia :variables julia-backend 'lsp)))
 #+END_SRC
@@ -57,9 +57,9 @@ you can choose to replace the default functionality of using [[https://github.co
 layer's interactive REPL with the ess REPL and other functionality that comes
 with it. To do so, install this layer with:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq-default
-   dotspacemacs-configuration-layers
+   dotspace-macs-configuration-layers
    '(
      (julia :variables julia-mode-enable-ess t)))
 #+END_SRC
@@ -102,3 +102,5 @@ with it. To do so, install this layer with:
 | ~SPC m e m~ | Call ~@macroexpand~ on an expression                                                   |
 | ~SPC m e e~ | Call ~@edit~ on an expression                                                          |
 | ~SPC m e v~ | Prompt and set a Julia REPL inferior buffer name for the current buffer                |
+
+

@@ -1,16 +1,16 @@
-;;; funcs.el --- keyboard-layout Layer functions File for Spacemacs
+;;; funcs.el --- keyboard-layout Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Fabien Dubosson <fabien.dubosson@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 ;; Map multiple states at once. Courtesy of Michael Markert;
-;; http://permalink.gmane.org/gmane.emacs.vim-emulation/1674
+;; http://permalink.gmane.org/gmane.e-macs.vim-emulation/1674
 
 ;;------------------------------------------------------------------------------
 ;; PRIVATE FUNCTIONS
@@ -121,13 +121,13 @@ evil states, except insert."
 
 (defun kl/leader-alias-of (key1 key2)
   "Define a leader key as an alias of another one."
-  (spacemacs/set-leader-keys key1 (lookup-key spacemacs-default-map key2)))
+  (space-macs/set-leader-keys key1 (lookup-key space-macs-default-map key2)))
 
 (defun kl/leader-swap-keys (key1 key2)
   "Invert the behaviour of two leader keys."
-  (let ((map1 (lookup-key spacemacs-default-map key1))
-        (map2 (lookup-key spacemacs-default-map key2)))
-    (spacemacs/set-leader-keys key1 map2 key2 map1)))
+  (let ((map1 (lookup-key space-macs-default-map key1))
+        (map2 (lookup-key space-macs-default-map key2)))
+    (space-macs/set-leader-keys key1 map2 key2 map1)))
 
 ;;------------------------------------------------------------------------------
 ;; CORRECTION FUNCTIONS
@@ -144,7 +144,7 @@ evil states, except insert."
 
 (defun kl/leader-correct-keys (&rest keys)
   (declare (indent 0))
-  (apply #'kl/correct-keys spacemacs-default-map keys))
+  (apply #'kl/correct-keys space-macs-default-map keys))
 
 ;;------------------------------------------------------------------------------
 ;; MAIN MACRO
@@ -207,3 +207,5 @@ before or after the keyboard-layout's configurations."
              ,special
              ,description
              ))))))
+
+

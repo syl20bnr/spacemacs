@@ -1,6 +1,6 @@
-#+TITLE: spacemacs-evil layer
+#+TITLE: space-macs-evil layer
 
-#+TAGS: layer|misc|spacemacs
+#+TAGS: layer|misc|space-macs
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -8,11 +8,11 @@
 
 * Description
 This layer adds various adjustments to packages to create an evilified experience
-throughout the entirety of Spacemacs.
+throughout the entirety of Space-macs.
 
 ** Features:
 - Add evil tutorial with =evil-tutor=
-- Add relative line number with =linum-relative= (only in Emacs 25.x and older)
+- Add relative line number with =linum-relative= (only in e-macs 25.x and older)
 - Add escaping under ~fd~ by default with =evil-escape=
 - Add occurrences count in mode-line when searching a buffer
 - Add support for lisp structure manipulation with =evil-lisp-state=
@@ -31,3 +31,5 @@ throughout the entirety of Spacemacs.
 - Improves the comment function to be able to also do the inverse operation
 - Persistent highlight of searched text with =evil-search-highlight-persist=
 - Display tildes in non-buffer area with =vi-tilde-fringe=
+
+

@@ -11,7 +11,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-Syntax highlighting and Emacs functions for use with [[https://autohotkey.com/][AutoHotkey]] or
+Syntax highlighting and e-macs functions for use with [[https://autohotkey.com/][AutoHotkey]] or
 [[http://ahkscript.org][AutoHotkey_L]].
 
 Using a combined implementation of ahk-mode from Xah Lee's =xahk-mode=
@@ -28,8 +28,8 @@ Contributed and maintained by [[https://www.github.com/ralesi][Rich Alesi]].
 - Correct Indentation and Commenting
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =autohotkey= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =autohotkey= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -41,3 +41,5 @@ file.
 | ~SPC m e b~ | execute file with =autohotkey.exe= |
 | ~SPC m h h~ | open documentation in =browser=    |
 | ~SPC m h H~ | open documentation in local =chm=  |
+
+

@@ -27,14 +27,14 @@ This layer adds support for editing HTML and CSS.
 - Support for Sass/Scss and Less files
 - Generate HTML and CSS coding using [[https://github.com/smihica/emmet-mode][emmet-mode]]
 - Tags navigation on key ~%~ using [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
-- Support for editing Slim and Pug templates using [[https://github.com/slim-template/emacs-slim][slim-mode]] and [[https://github.com/hlissner/emacs-pug-mode][pug-mode]]
+- Support for editing Slim and Pug templates using [[https://github.com/slim-template/e-macs-slim][slim-mode]] and [[https://github.com/hlissner/e-macs-pug-mode][pug-mode]]
 - See the effects of typed HTML using [[https://github.com/skeeto/impatient-mode][impatient-mode]]
-- imenu support for CSS and Sass through [[https://github.com/hlissner/emacs-counsel-css][counsel-css]]
+- imenu support for CSS and Sass through [[https://github.com/hlissner/e-macs-counsel-css][counsel-css]]
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =html= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =html= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 SCSS linting requires SCSS-Lint version >= 0.43.0. You can get it from GitHub:
@@ -71,7 +71,7 @@ Formatter can be chosen on a per project basis using directory local variables
 
 #+BEGIN_SRC elisp
   ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
+  ;;; For more information see (info "(e-macs) Directory Variables")
 
   ((html-mode (web-fmt-tool . prettier)))
 #+END_SRC
@@ -152,3 +152,5 @@ A transient-state is also defined, start it with ~SPC m .~ or ~, .~
 | ~SPC m g h~ | quickly navigate CSS rules       |
 | ~SPC m z c~ | fold css statement to one line   |
 | ~SPC m z o~ | unfold css statement to one line |
+
+

@@ -1,35 +1,35 @@
-;;; core-emacs-backports.el --- Spacemacs Core File
+;;; core-e-macs-backports.el --- Space-macs Core File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 ;; nothing for now
 
-(provide 'core-emacs-backports)
+(provide 'core-e-macs-backports)
 
-(when (and (version<  "25" emacs-version)
-           (version< emacs-version "26.3"))
-  ;; Hack to prevent TLS error with Emacs 26.1 and 26.2 and gnutls 3.6.4 and
+(when (and (version<  "25" e-macs-version)
+           (version< e-macs-version "26.3"))
+  ;; Hack to prevent TLS error with e-macs 26.1 and 26.2 and gnutls 3.6.4 and
   ;; above see https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
-  (message (concat "Testing if your Emacs version %s and GnuTLS version "
+  (message (concat "Testing if your e-macs version %s and GnuTLS version "
                    "need the TLS work-around...")
-           emacs-version)
+           e-macs-version)
   (message "More info at https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341")
   (unless (<= libgnutls-version 30603)
-    (message (concat "Your Emacs version %s and GnutTLS version %s "
+    (message (concat "Your e-macs version %s and GnutTLS version %s "
                      "need the work-around, applying it...")
-             emacs-version libgnutls-version)
+             e-macs-version libgnutls-version)
     (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")))
 
-(when (version< emacs-version "26")
+(when (version< e-macs-version "26")
   ;; backport fix for macOS battery status
-  ;; https://github.com/emacs-mirror/emacs/commit/25dca60d5e3b2447352b7c51496baefb4ccd579d#diff-d1b82d59371a01a39cca34f1f64c3447
+  ;; https://github.com/e-macs-mirror/e-macs/commit/25dca60d5e3b2447352b7c51496baefb4ccd579d#diff-d1b82d59371a01a39cca34f1f64c3447
   (with-eval-after-load 'battery
     (defun battery-pmset ()
       "Get battery status information using `pmset'.
@@ -79,3 +79,5 @@ The following %-sequences are provided:
               (cons ?h (or hours "N/A"))
               (cons ?m (or minutes "N/A"))
               (cons ?t (or remaining-time "N/A")))))))
+
+

@@ -1,4 +1,4 @@
-;;; packages.el --- plantuml layer packages file for Spacemacs.
+;;; packages.el --- plantuml layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
@@ -8,8 +8,8 @@
 ;;
 ;;; Commentary:
 ;;
-;; Adds PlantUML support to Spacemacs using plantuml-mode.
-;; This file is not part of GNU Emacs.
+;; Adds PlantUML support to Space-macs using plantuml-mode.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -21,7 +21,7 @@
     ))
 
 (defun plantuml/pre-init-org ()
-  (spacemacs|use-package-add-hook org
+  (space-macs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(plantuml . t))))
 
 (defun plantuml/init-plantuml-mode ()
@@ -32,13 +32,15 @@
     (progn
       ;; Our default is jar execution, not server as server is not working reliable see #13574
       (setq plantuml-default-exec-mode 'jar)
-      (when (boundp 'spacemacs-indent-sensitive-modes)
+      (when (boundp 'space-macs-indent-sensitive-modes)
         ;; for now plantuml electric indentation is buggy and does not
         ;; really work, let's disable auto-indentation on paste for
         ;; this mode
-        (add-to-list 'spacemacs-indent-sensitive-modes 'plantuml-mode))
-      (spacemacs/declare-prefix-for-mode 'plantuml-mode
+        (add-to-list 'space-macs-indent-sensitive-modes 'plantuml-mode))
+      (space-macs/declare-prefix-for-mode 'plantuml-mode
         "mc" "compile")
-      (spacemacs/set-leader-keys-for-major-mode 'plantuml-mode
+      (space-macs/set-leader-keys-for-major-mode 'plantuml-mode
         "cc" 'plantuml-preview
         "co" 'plantuml-set-output-type))))
+
+

@@ -1,4 +1,4 @@
-;;; nose.el --- Easy Python test running in Emacs
+;;; nose.el --- Easy Python test running in e-macs
 
 ;; Copyright (C) 2009 Jason Pellerin, Augie Fackler
 ;; Copyright (C) 2013-2015 Sylvain Benner
@@ -7,9 +7,9 @@
 ;; Version: 0.3
 ;; Keywords: nose python testing
 
-;; This file is NOT part of GNU Emacs.
+;; This file is NOT part of GNU e-macs.
 
-;; Licensed under the same terms as Emacs.
+;; Licensed under the same terms as e-macs.
 
 ;;; Commentary:
 ;; This gives a bunch of functions that handle running nosetests on a
@@ -17,7 +17,7 @@
 
 ;;; Installation
 
-;; In your emacs config:
+;; In your e-macs config:
 ;;
 ;; (require 'nose)
 
@@ -67,7 +67,7 @@
 (defun run-nose (&optional tests suite debug failed)
   "run nosetests by calling python instead of nosetests script.
 To be able to debug on Windows platform python output must be not buffered.
-For more details: http://pswinkels.blogspot.ca/2010/04/debugging-python-code-from-within-emacs.html
+For more details: http://pswinkels.blogspot.ca/2010/04/debugging-python-code-from-within-e-macs.html
 "
   (setq nose--last-run-params (list tests suite debug failed))
   (let* ((nose (nosetests-nose-command))
@@ -80,7 +80,7 @@ For more details: http://pswinkels.blogspot.ca/2010/04/debugging-python-code-fro
          (tnames (if tests tests "")))
     (if (not where)
         (error
-         (format (concat "abort: nosemacs couldn't find a project root, "
+         (format (concat "abort: nose-macs couldn't find a project root, "
                          "looked for any of %S") nose-project-root-files)))
     (funcall (if debug
                  'pdb
@@ -98,7 +98,7 @@ For more details: http://pswinkels.blogspot.ca/2010/04/debugging-python-code-fro
 (defun nosetests-nose-command ()
   (let ((nose "python -u -c \"import nose; nose.main()\""))
     (if python-shell-virtualenv-path
-        (if (spacemacs/system-is-mswindows)
+        (if (space-macs/system-is-mswindows)
             (format "%s/Scripts/%s" python-shell-virtualenv-path nose)
          (format "%s/bin/%s" python-shell-virtualenv-path nose))
       nose)))
@@ -194,3 +194,5 @@ For more details: http://pswinkels.blogspot.ca/2010/04/debugging-python-code-fro
 (provide 'nose)
 
 ;;; nose.el ends here
+
+

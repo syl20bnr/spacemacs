@@ -22,9 +22,9 @@
     - [[#enable-clojure-fancify-symbols][Enable Clojure fancify Symbols]]
     - [[#enabling-sayid-or-clj-refactor][Enabling sayid or clj-refactor]]
 - [[#usage][Usage]]
-  - [[#starting-a-repl-from-spacemacs][Starting a REPL from Spacemacs]]
+  - [[#starting-a-repl-from-space-macs][Starting a REPL from Space-macs]]
     - [[#troubleshooting][Troubleshooting]]
-  - [[#connecting-to-a-clojure-repl-outside-of-emacs][Connecting to a Clojure REPL outside of Emacs]]
+  - [[#connecting-to-a-clojure-repl-outside-of-e-macs][Connecting to a Clojure REPL outside of e-macs]]
     - [[#quick-start-with-boot][Quick Start with boot]]
     - [[#quick-start-with-lein][Quick Start with lein]]
     - [[#more-details][More details]]
@@ -59,57 +59,57 @@
   - [[#indentation][Indentation]]
 
 * Description
-This layer adds support for [[https://clojure.org/][Clojure]] language using [[https://github.com/clojure-emacs/cider][CIDER]], providing Clojure REPL management
+This layer adds support for [[https://clojure.org/][Clojure]] language using [[https://github.com/clojure-e-macs/cider][CIDER]], providing Clojure REPL management
 and a full suite of tooling for Clojure development.
 
 ** Features:
-- REPL via [[https://github.com/clojure-emacs/cider][CIDER]]
-- Code formatting via [[https://github.com/clojure-emacs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]]
-- Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
-- Aligning of code forms via [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]]
-- Debugging with [[https://github.com/clojure-emacs/sayid][sayid]]
-- Advanced help with [[https://github.com/clojure-emacs/helm-cider][helm-cider]]
+- REPL via [[https://github.com/clojure-e-macs/cider][CIDER]]
+- Code formatting via [[https://github.com/clojure-e-macs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]]
+- Refactoring via [[https://github.com/clojure-e-macs/clj-refactor.el][clj-refactor]]
+- Aligning of code forms via [[https://github.com/clojure-e-macs/clojure-mode][clojure-mode]]
+- Debugging with [[https://github.com/clojure-e-macs/sayid][sayid]]
+- Advanced help with [[https://github.com/clojure-e-macs/helm-cider][helm-cider]]
 - Structuraly safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
-- Linting via [[https://github.com/borkdude/clj-kondo][clj-kondo]] ([[https://github.com/candid82/joker][joker]] and [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] also available)
+- Linting via [[https://github.com/borkdude/clj-kondo][clj-kondo]] ([[https://github.com/candid82/joker][joker]] and [[https://github.com/clojure-e-macs/squiggly-clojure][squiggly-clojure]] also available)
 
 *** Related layers
-The following Spacemacs layers should also be added for a complete experience.
+The following Space-macs layers should also be added for a complete experience.
 - auto-completion
 - syntax-checking (provides flycheck for linter support)
 - LSP
 
 *** Other optional features
-- Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
-- Debugging with [[https://github.com/clojure-emacs/sayid][sayid]]
+- Refactoring via [[https://github.com/clojure-e-macs/clj-refactor.el][clj-refactor]]
+- Debugging with [[https://github.com/clojure-e-macs/sayid][sayid]]
 
 *** References
 - [[https://docs.cider.mx/cider/][CIDER documentation]]
-- [[https://practicalli.github.io/spacemacs][Practicalli Spacemacs]]
+- [[https://practicalli.github.io/space-macs][Practicalli Space-macs]]
 
 * Install
-Spacemacs will prompt to install the Clojure layer automatically when opening a file ending in =.clj=
+Space-macs will prompt to install the Clojure layer automatically when opening a file ending in =.clj=
 =.cljs=, =.cljc= or =.edn=. Replying ~y~ will download all the packages for the Clojure layer.
-Restarting Spacemacs, ~SPC q r~, is recommended to ensure all changes are loaded.
+Restarting Space-macs, ~SPC q r~, is recommended to ensure all changes are loaded.
 
 ** Add the Clojure Layer manually
-Edit the =~/.spacemacs= file and add the word =clojure= to the existing
-=dotspacemacs-configuration-layers= list.
+Edit the =~/.space-macs= file and add the word =clojure= to the existing
+=dotspace-macs-configuration-layers= list.
 
 ** Pretty Symbols
-Pretty symbols for anonymous functions, set literals and partial, like =(λ [a]
-(+ a 5))=, =ƒ(+ % 5)=, =∈{2 4 6}= and =Ƥ=.
+Pretty symbols for anonymous functions, set literals and partial, like =(Î» [a]
+(+ a 5))=, =Æ’(+ % 5)=, =âˆˆ{2 4 6}= and =Æ¤=.
 
 To enable this feature, add the following snippet to the
-=dotspacemacs/user-config= section of your =~/.spacemacs= file:
+=dotspace-macs/user-config= section of your =~/.space-macs= file:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq clojure-enable-fancify-symbols t)
 #+END_SRC
 
 Or set this variable when loading the configuration layer:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
   '((clojure :variables clojure-enable-fancify-symbols t)))
 #+END_SRC
 
@@ -128,8 +128,8 @@ installed in your dotfile. Alternatively you can force a
 certain backend by setting the =clojure-backend= variable
 in your dotfile:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
   '((clojure :variables clojure-backend 'lsp)))
 #+END_SRC
 
@@ -137,11 +137,11 @@ The server is started automatically when a supported file is opened.
 It will also provide a flycheck integration via =lsp-flycheck= which
 will run the configured linter from your project config.
 See [[https://github.com/snoe/clojure-lsp][here]] for details. The server is installed automatically
-in your emacs directory however if this does not work
+in your e-macs directory however if this does not work
 it can also be installed manually from [[https://github.com/snoe/clojure-lsp/releases/latest/download/clojure-lsp][here]].
 
 ** Enabling Automatic Linting
-[[https://github.com/borkdude/clj-kondo][clj-kondo]], [[https://github.com/candid82/joker][joker]] and [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] provide automated linting via =flycheck=.
+[[https://github.com/borkdude/clj-kondo][clj-kondo]], [[https://github.com/candid82/joker][joker]] and [[https://github.com/clojure-e-macs/squiggly-clojure][squiggly-clojure]] provide automated linting via =flycheck=.
 These packages are disabled by default as they require the relevant linter binaries
 to be installed locally.
 
@@ -154,22 +154,22 @@ added to the development dependencies of your projects or build tool when using
 
 *** Enable clj-kondo linter
 This linter based on static syntax checking and requires the [[https://github.com/borkdude/clj-kondo][clj-kondo]] binary
-installed on the system PATH that =spacemacs.env= includes. Please read the
+installed on the system PATH that =space-macs.env= includes. Please read the
 [[https://github.com/borkdude/clj-kondo/blob/master/doc/install.md][clj-kondo binary installation instructions]]
 
-Enable the clj-kondo automatic linter in Spacemacs by adding a =:variables= option
-to your Spacemacs configuration:
+Enable the clj-kondo automatic linter in Space-macs by adding a =:variables= option
+to your Space-macs configuration:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;; Witout any variables your configuration would just include clojure
-  dotspacemacs-configuration-layers
+  dotspace-macs-configuration-layers
   '(...
     clojure
     )
 
   ;; to use clj-kondo as a linter, add this variable to the clojure layer
   ;; wrapping the clojure layer in a list
-  dotspacemacs-configuration-layers
+  dotspace-macs-configuration-layers
   '(...
     (clojure :variables
              clojure-enable-linters 'clj-kondo)
@@ -178,22 +178,22 @@ to your Spacemacs configuration:
 
 *** Enable joker linter
 This linter is based on static syntax checking and requires the [[https://github.com/candid82/joker][joker]] binary
-installed on the system PATH that =spacemacs.env= includes. Please read the
+installed on the system PATH that =space-macs.env= includes. Please read the
 [[https://github.com/candid82/joker#installation][joker binary installation instructions]]
 
-Enable the joker automatic linter in Spacemacs by adding a =:variables= option
-to your Spacemacs configuration:
+Enable the joker automatic linter in Space-macs by adding a =:variables= option
+to your Space-macs configuration:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;; Witout any variables your configuration would just include clojure
-  dotspacemacs-configuration-layers
+  dotspace-macs-configuration-layers
   '(...
     clojure
     )
 
   ;; to use joker as a linter, add this variable to the clojure layer
   ;; wrapping the clojure layer in a list
-  dotspacemacs-configuration-layers
+  dotspace-macs-configuration-layers
   '(...
     (clojure :variables
              clojure-enable-linters 'joker)
@@ -201,25 +201,25 @@ to your Spacemacs configuration:
 #+END_SRC
 
 *** Enable Squiggly linter
-[[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] uses [[https://github.com/jonase/eastwood][Eastwood]] and [[https://github.com/jonase/kibit][Kibit]] for linting. Please install these projects
-before configuring Spacemacs with =squiggly=.
+[[https://github.com/clojure-e-macs/squiggly-clojure][squiggly-clojure]] uses [[https://github.com/jonase/eastwood][Eastwood]] and [[https://github.com/jonase/kibit][Kibit]] for linting. Please install these projects
+before configuring Space-macs with =squiggly=.
 
-Make sure to read the [[https://github.com/clojure-emacs/squiggly-clojure#warnings][squiggly-clojure warnings section]].
+Make sure to read the [[https://github.com/clojure-e-macs/squiggly-clojure#warnings][squiggly-clojure warnings section]].
 
-Please read the section on [[https://github.com/clojure-emacs/squiggly-clojure#dependencies-in-clojure][squiggly dependencies]] if you are using =cider-connect=
+Please read the section on [[https://github.com/clojure-e-macs/squiggly-clojure#dependencies-in-clojure][squiggly dependencies]] if you are using =cider-connect=
 
-Enable the squiggly (eastwood, kibit and core.typed) automatic linter in Spacemacs by adding a =:variables= option to your Spacemacs configuration:
+Enable the squiggly (eastwood, kibit and core.typed) automatic linter in Space-macs by adding a =:variables= option to your Space-macs configuration:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;; Without any variables your configuration would just include Clojure
-  dotspacemacs-configuration-layers
+  dotspace-macs-configuration-layers
   '(...
     clojure
     )
 
   ;; to use squiggly as a linter, add this variable to the clojure layer
   ;; wrapping the clojure layer in a list
-  dotspacemacs-configuration-layers
+  dotspace-macs-configuration-layers
     '(...
       (clojure :variables
                clojure-enable-linters 'squiggly)
@@ -227,25 +227,25 @@ Enable the squiggly (eastwood, kibit and core.typed) automatic linter in Spacema
 
 #+END_SRC
 
-Troubleshooting: please read [[https://github.com/clojure-emacs/squiggly-clojure#debugging-and-bug-reporting][debugging and bug reporting]] and try to reproduce using the [[https://github.com/clojure-emacs/squiggly-clojure/tree/master/sample-project][sample project]].
+Troubleshooting: please read [[https://github.com/clojure-e-macs/squiggly-clojure#debugging-and-bug-reporting][debugging and bug reporting]] and try to reproduce using the [[https://github.com/clojure-e-macs/squiggly-clojure/tree/master/sample-project][sample project]].
 
 *** Enable multiple linters
 You can choose to enable multiple linters and have them all run together. This gives you better linting coverage, as they don't catch all the same issues.
 
-You will need to follow their individual install instructions first, to get all their necessary binaries and configs on the system PATH that =spacemacs.env= includes. Please refer to their individual Enable ... linter section respectively.
+You will need to follow their individual install instructions first, to get all their necessary binaries and configs on the system PATH that =space-macs.env= includes. Please refer to their individual Enable ... linter section respectively.
 
-Once all the linters you want to enable are installed, you simply need to specify a list of them in the =:variables= option to your Spacemacs configuration:
+Once all the linters you want to enable are installed, you simply need to specify a list of them in the =:variables= option to your Space-macs configuration:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;; Witout any variables your configuration would just include clojure
-  dotspacemacs-configuration-layers
+  dotspace-macs-configuration-layers
   '(...
     clojure
     )
 
   ;; to enable multiple linters, say clj-kondo and joker, add a list variable to the clojure layer
   ;; listing each one in the order you want them running, wrapping the clojure layer in a list
-  dotspacemacs-configuration-layers
+  dotspace-macs-configuration-layers
   '(...
     (clojure :variables
              clojure-enable-linters '(clj-kondo joker))
@@ -254,21 +254,21 @@ Once all the linters you want to enable are installed, you simply need to specif
 
 *** Enable Clojure fancify Symbols
 Fancify symbols re-writes your code and displays symbols for:
-- function definitions with fn =(λ [a] (+ a 5))= and its syntax shortcut =ƒ(+ % 5)=
-- set literals =∈{2 4 6}=
-- partial functions =Ƥ=.
+- function definitions with fn =(Î» [a] (+ a 5))= and its syntax shortcut =Æ’(+ % 5)=
+- set literals =âˆˆ{2 4 6}=
+- partial functions =Æ¤=.
 
 To enable this feature, add the following snippet to the
-=dotspacemacs/user-config= section of your =~/.spacemacs= file:
+=dotspace-macs/user-config= section of your =~/.space-macs= file:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq clojure-enable-fancify-symbols t)
 #+END_SRC
 
 Or set this variable when loading the configuration layer:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
   '((clojure :variables clojure-enable-fancify-symbols t)))
 #+END_SRC
 
@@ -280,17 +280,17 @@ and may cause issues when running CIDER.
 To enable them, add a =:variables= option when enabling the =clojure= layer,
 specifying =clojure-enable-sayid=, or =clojure-enable-clj-refactor=, or both.
 
-In your Spacemacs configuration:
+In your Space-macs configuration:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;; before
-  dotspacemacs-configuration-layers
+  dotspace-macs-configuration-layers
   '(...
     clojure
     )
 
   ;; after
-  dotspacemacs-configuration-layers
+  dotspace-macs-configuration-layers
   '(...
     (clojure :variables
              clojure-enable-sayid t
@@ -302,13 +302,13 @@ Enabling either of these packages will cause extra nREPL middleware to be
 injected when jacking in CIDER.
 
 If you are experiencing issues when running a REPL, try disabling these
-packages first and restart Spacemacs to see if the error persists.
+packages first and restart Space-macs to see if the error persists.
 
 * Usage
 Read the key bindings section to see all the functionality available, or simply
 use the ~,~ or ~SPC m~ to open the which-key menu for the Clojure layer.
 
-** Starting a REPL from Spacemacs
+** Starting a REPL from Space-macs
 Open a Clojure file (=.clj=, =.cljs=, =.cljc=, =.edn=) and start a Clojure REPL,
 choosing the REPL session type (Clojure, ClojureScript or both Clojure & ClojureScript).
 
@@ -334,13 +334,13 @@ If the REPL does not start, ~SPC b m~ opens the message buffer and should show e
 Also check the REPL buffer, ~, s a~ for error messages.
 
 Remove optional features from the Clojure layer, specifically sayid and clj-refactor.
-Restart Emacs and confirm the issue still occurs.
+Restart e-macs and confirm the issue still occurs.
 
 Visit [[https://clojurians.slack.com/messages/cider][#cider channel on Clojurians Slack community]] for help with CIDER,
-and [[https://clojurians.slack.com/messages/spacemacs][#spacemacs channel]] for Spacemacs specific help
+and [[https://clojurians.slack.com/messages/space-macs][#space-macs channel]] for Space-macs specific help
 
-** Connecting to a Clojure REPL outside of Emacs
-Start a REPL outside of Emacs that includes an nREPL server. The IP address and port
+** Connecting to a Clojure REPL outside of e-macs
+Start a REPL outside of e-macs that includes an nREPL server. The IP address and port
 the nREPL runs on should be printed.
 
 ~, '_~ or ~SPC m s i~ displays the sesman prompt, select the connect command relevant
@@ -358,7 +358,7 @@ this will be handled automatically, and so most users should be able to just run
 ~SPC m s i~ to connect to the CIDER REPL and skip the rest of this section.
 
 If you are running an older version of CIDER (0.10 or older), or if you are
-starting the Clojure process yourself outside of Emacs, then you need to make
+starting the Clojure process yourself outside of e-macs, then you need to make
 sure the necessary dependencies are present, and the necessary nREPL middlewares
 are enabled.
 
@@ -415,7 +415,7 @@ are enabled.
 *** More details
 More info regarding installation of nREPL middleware can be found here:
 - CIDER: [[https://cider.readthedocs.io/en/latest/installation/][CIDER installation (official docs)]]
-- clj-refactor: [[https://github.com/clojure-emacs/refactor-nrepl][refactor-nrepl]]
+- clj-refactor: [[https://github.com/clojure-e-macs/refactor-nrepl][refactor-nrepl]]
 
 ** Managing REPL connections
 Sesman is used for [[https://docs.cider.mx/cider/usage/managing_connections.html][managing REPL connections]] when working simultaneously on
@@ -428,7 +428,7 @@ multiple projects or have multiple connections opened for the same project
 See REPL connections in the key bindings section for all the commands.
 
 ** Advanced help
-This layer installs the [[https://github.com/clojure-emacs/helm-cider][helm-cider]] package which provides helm integration
+This layer installs the [[https://github.com/clojure-e-macs/helm-cider][helm-cider]] package which provides helm integration
 with cider apropos. It also embeds cider cheatsheet.
 
 Type ~SPC m h a~ to display advanced apropos window.
@@ -445,28 +445,28 @@ lisp code by keeping the s-expressions balanced.
 ~SPC m T s~ will toggle safe structured editing, off by default.
 
 Enable safe structural editing for all =clojure= buffers using the following
-in the =dotspacemacs/user-config= function of your .spacemacs file
+in the =dotspace-macs/user-config= function of your .space-macs file
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-clojure-mode)
+#+BEGIN_SRC e-macs-lisp
+  (space-macs/toggle-evil-safe-lisp-structural-editing-on-register-hook-clojure-mode)
 #+END_SRC
 
 Or enable safe structural editing for all supported modes:
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+#+BEGIN_SRC e-macs-lisp
+  (space-macs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 #+END_SRC
 
-When enabled the symbol =🆂= will display in the mode-line.
+When enabled the symbol =ðŸ†‚= will display in the mode-line.
 
 * Key bindings
 ** Working with clojure files (barfage, slurpage & more)
-Spacemacs comes with a special =lisp-state= for working with lisp code that
+Space-macs comes with a special =lisp-state= for working with lisp code that
 supports slurpage, barfage and more tools you'll likely want when working with
 lisp.
 
 As this state works the same for all files, the documentation is in global
-[[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
+[[https://github.com/syl20bnr/space-macs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
 
 ** Leader
 *** Shortcuts
@@ -543,7 +543,7 @@ Evaluate Clojure code in the source code buffer
 |-------------+----------------------------------------------|
 | ~SPC m g b~ | go back                                      |
 | ~SPC m g C~ | browse classpath                             |
-| ~SPC m g g~ | goto var definition =spacemacs/clj-find-var= |
+| ~SPC m g g~ | goto var definition =space-macs/clj-find-var= |
 | ~SPC m g e~ | goto error                                   |
 | ~SPC m g n~ | goto namespace                               |
 | ~SPC m g r~ | goto resource                                |
@@ -829,7 +829,9 @@ In general, ~q~ should always quit the popped up buffer.
 
 * Development Notes
 ** Indentation
-With a [[https://github.com/clojure-emacs/cider/blob/master/doc/modules/ROOT/pages/indent_spec.adoc][Indentation spec]] functionality of Cider to read the custom indentation rules from the
+With a [[https://github.com/clojure-e-macs/cider/blob/master/doc/modules/ROOT/pages/indent_spec.adoc][Indentation spec]] functionality of Cider to read the custom indentation rules from the
 var's metadata, it is better for consistency reasons to not add the custom
-indentation rules to Spacemacs, but to add them to the metadata of those
+indentation rules to Space-macs, but to add them to the metadata of those
 specific vars.
+
+

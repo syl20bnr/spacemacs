@@ -1,11 +1,11 @@
-;;; packages.el --- ietf layer packages file for Spacemacs.
+;;; packages.el --- ietf layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Christian Hopps <chopps@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -20,7 +20,7 @@
     :commands ietf-docs-open-at-point
     :init
     (progn
-      (spacemacs/set-leader-keys "f I" 'ietf-docs-open-at-point)
+      (space-macs/set-leader-keys "f I" 'ietf-docs-open-at-point)
       (setq ietf-docs-cache-directory ietf-docs-cache))))
 
 (defun ietf/init-irfc ()
@@ -40,8 +40,10 @@
 
 
 (defun ietf/pre-init-ox-rfc ()
-  (spacemacs|use-package-add-hook org :post-config (require 'ox-rfc)))
+  (space-macs|use-package-add-hook org :post-config (require 'ox-rfc)))
 (defun ietf/init-ox-rfc ())
 
 
 ;;; packages.el ends here
+
+

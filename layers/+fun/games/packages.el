@@ -1,11 +1,11 @@
-;;; packages.el --- games Layer packages File for Spacemacs
+;;; packages.el --- games Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -38,8 +38,8 @@
     :commands helm-games
     :init
     (progn
-      (spacemacs/declare-prefix "afg" "games")
-      (spacemacs/set-leader-keys "afg" 'helm-games))))
+      (space-macs/declare-prefix "afg" "games")
+      (space-macs/set-leader-keys "afg" 'helm-games))))
 
 (defun games/init-pacmacs ()
   (use-package pacmacs
@@ -59,9 +59,9 @@
     :defer t
     :init
     (progn
-      (push '("Tetris" . (tetris :quit spacemacs/tetris-quit-game
+      (push '("Tetris" . (tetris :quit space-macs/tetris-quit-game
                                  :reset tetris-start-game)) helm-games-list)
-      (setq tetris-score-file (concat spacemacs-games-cache-directory
+      (setq tetris-score-file (concat space-macs-games-cache-directory
                                       "tetris-scores.txt")))
     :config
     (progn
@@ -71,7 +71,7 @@
         "j" 'tetris-move-bottom
         "k" 'tetris-rotate-next
         "l" 'tetris-move-right
-        "q" 'spacemacs/tetris-quit-game))))
+        "q" 'space-macs/tetris-quit-game))))
 
 (defun games/init-sudoku ()
   (use-package sudoku
@@ -112,7 +112,7 @@
         "8" 'sudoku-change-point
         "9" 'sudoku-change-point)
 
-      (spacemacs/set-leader-keys-for-major-mode 'sudoku-mode
+      (space-macs/set-leader-keys-for-major-mode 'sudoku-mode
         "c" 'sudoku-comment-puzzle
         "h" 'sudoku-hint
         "l" 'sudoku-load-puzzle
@@ -125,12 +125,14 @@
     :init
     (progn
       (push '("typit (beginner)" .
-              (spacemacs/games-start-typit-beginner
+              (space-macs/games-start-typit-beginner
                :quit (kill-buffer-ask (get-buffer "*typit*"))
-               :reset spacemacs/games-start-typit-beginner))
+               :reset space-macs/games-start-typit-beginner))
             helm-games-list)
       (push '("typit (expert)" .
-              (spacemacs/games-start-typit-expert
+              (space-macs/games-start-typit-expert
                :quit (kill-buffer-ask (get-buffer "*typit*"))
-               :reset spacemacs/games-start-typit-expert))
+               :reset space-macs/games-start-typit-expert))
             helm-games-list))))
+
+

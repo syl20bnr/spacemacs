@@ -5,7 +5,7 @@
 ;; Author: Steve Purcell <steve@sanityinc.com>
 ;; URL: https://github.com/purcell/page-break-lines
 ;; Package-Version: 0
-;; Package-Requires: ((emacs "24.4"))
+;; Package-Requires: ((e-macs "24.4"))
 ;; Keywords: convenience, faces
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -38,7 +38,7 @@
 ;; If `page-break-lines-char' is displayed at a different width to
 ;; regular characters, the rule may be either too short or too long:
 ;; rules may then wrap if `truncate-lines' is nil.  On some systems,
-;; Emacs may erroneously choose a different font for the page break
+;; e-macs may erroneously choose a different font for the page break
 ;; symbol, which choice can be overridden using code such as:
 
 ;; (set-fontset-font "fontset-default"
@@ -54,7 +54,7 @@
 ;; be the width in the frame's default font, not the scaled font used to
 ;; display the rule.
 
-;; Adapted from code http://www.emacswiki.org/emacs/PageBreaks
+;; Adapted from code http://www.e-macswiki.org/e-macs/PageBreaks
 
 ;;; Code:
 
@@ -63,7 +63,7 @@
   :prefix "page-break-lines-"
   :group 'faces)
 
-(defcustom page-break-lines-char ?─
+(defcustom page-break-lines-char ?â”€
   "Character used to render page break lines."
   :type 'character
   :group 'page-break-lines)
@@ -80,7 +80,7 @@ If nil, indicator will span the width of the frame."
   :group 'page-break-lines)
 
 (defcustom page-break-lines-modes
-  '(emacs-lisp-mode lisp-mode scheme-mode compilation-mode outline-mode help-mode)
+  '(e-macs-lisp-mode lisp-mode scheme-mode compilation-mode outline-mode help-mode)
   "Modes in which to enable `page-break-lines-mode'."
   :type '(repeat symbol)
   :group 'page-break-lines)
@@ -172,3 +172,5 @@ When `major-mode' is listed in `page-break-lines-modes', then
 (provide 'page-break-lines)
 ;; End:
 ;;; page-break-lines.el ends here
+
+

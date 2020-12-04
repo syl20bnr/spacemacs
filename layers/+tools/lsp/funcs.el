@@ -1,23 +1,23 @@
-;;; funcs.el --- Language Server Protocol Layer functions file for Spacemacs
+;;; funcs.el --- Language Server Protocol Layer functions file for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Fangrui Song <i@maskray.me>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//setup-lsp-jump-handler ()
+(defun space-macs//setup-lsp-jump-handler ()
   "Set jump handler for LSP with the given MODE."
-    (add-to-list 'spacemacs-jump-handlers '(lsp-ui-peek-find-definitions :async t)))
+    (add-to-list 'space-macs-jump-handlers '(lsp-ui-peek-find-definitions :async t)))
 
 
 ;; Key bindings
 
-;; Used for lsp-ui-peek-mode, but may be able to use some spacemacs fn. instead?
-(defun spacemacs/lsp-define-key (keymap key def &rest bindings)
+;; Used for lsp-ui-peek-mode, but may be able to use some space-macs fn. instead?
+(defun space-macs/lsp-define-key (keymap key def &rest bindings)
   "Define multiple key bindings with KEYMAP KEY DEF BINDINGS."
   (interactive)
   (while key
@@ -25,16 +25,16 @@
     (setq key (pop bindings)
           def (pop bindings))))
 
-(defun spacemacs/lsp-bind-keys ()
+(defun space-macs/lsp-bind-keys ()
   "Define key bindings for the lsp minor mode."
   (cl-ecase lsp-navigation
-    ('simple (spacemacs//lsp-bind-simple-navigation-functions "g"))
-    ('peek (spacemacs//lsp-bind-peek-navigation-functions "g"))
+    ('simple (space-macs//lsp-bind-simple-navigation-functions "g"))
+    ('peek (space-macs//lsp-bind-peek-navigation-functions "g"))
     ('both
-     (spacemacs//lsp-bind-simple-navigation-functions "g")
-     (spacemacs//lsp-bind-peek-navigation-functions "G")))
+     (space-macs//lsp-bind-simple-navigation-functions "g")
+     (space-macs//lsp-bind-peek-navigation-functions "G")))
 
-  (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+  (space-macs/set-leader-keys-for-minor-mode 'lsp-mode
     ;; format
     "=" "format"
     "=b" #'lsp-format-buffer
@@ -43,15 +43,15 @@
     ;; code actions
     "a" "code actions"
     "aa" #'lsp-execute-code-action
-    "af" #'spacemacs//lsp-action-placeholder
-    "ar" #'spacemacs//lsp-action-placeholder
-    "as" #'spacemacs//lsp-action-placeholder
+    "af" #'space-macs//lsp-action-placeholder
+    "ar" #'space-macs//lsp-action-placeholder
+    "as" #'space-macs//lsp-action-placeholder
     ;; goto
     ;; N.B. implementation and references covered by xref bindings / lsp provider...
     "g" "goto"
     "gt" #'lsp-find-type-definition
-    "gk" #'spacemacs/lsp-avy-goto-word
-    "gK" #'spacemacs/lsp-avy-goto-symbol
+    "gk" #'space-macs/lsp-avy-goto-word
+    "gK" #'space-macs/lsp-avy-goto-symbol
     "gM" #'lsp-ui-imenu
     ;; help
     "h" "help"
@@ -70,9 +70,9 @@
     "T" "toggle"
     "Td" #'lsp-ui-doc-mode
     "Ts" #'lsp-ui-sideline-mode
-    "TF" #'spacemacs/lsp-ui-doc-func
-    "TS" #'spacemacs/lsp-ui-sideline-symb
-    "TI" #'spacemacs/lsp-ui-sideline-ignore-duplicate
+    "TF" #'space-macs/lsp-ui-doc-func
+    "TS" #'space-macs/lsp-ui-sideline-symb
+    "TI" #'space-macs/lsp-ui-sideline-ignore-duplicate
     "Tl" #'lsp-lens-mode
     ;; folders
     "F" "folder"
@@ -85,38 +85,38 @@
     "xl" #'lsp-lens-show
     "xL" #'lsp-lens-hide))
 
-(defun spacemacs//lsp-bind-simple-navigation-functions (prefix-char)
-  (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+(defun space-macs//lsp-bind-simple-navigation-functions (prefix-char)
+  (space-macs/set-leader-keys-for-minor-mode 'lsp-mode
     (concat prefix-char "i") #'lsp-find-implementation
     (concat prefix-char "d") #'xref-find-definitions
     (concat prefix-char "r") #'xref-find-references
-    (concat prefix-char "e") #'lsp-treemacs-errors-list
+    (concat prefix-char "e") #'lsp-tree-macs-errors-list
     (concat prefix-char "b") #'xref-pop-marker-stack)
   (cond
    ((configuration-layer/package-usedp 'helm)
-    (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+    (space-macs/set-leader-keys-for-minor-mode 'lsp-mode
       (concat prefix-char "s") #'helm-lsp-workspace-symbol
       (concat prefix-char "S") #'helm-lsp-global-workspace-symbol))
    ((configuration-layer/package-usedp 'ivy)
-    (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+    (space-macs/set-leader-keys-for-minor-mode 'lsp-mode
       (concat prefix-char "s") #'lsp-ivy-workspace-symbol
       (concat prefix-char "S") #'lsp-ivy-global-workspace-symbol))
-   (t (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+   (t (space-macs/set-leader-keys-for-minor-mode 'lsp-mode
         (concat prefix-char "s") #'lsp-ui-find-workspace-symbol))))
 
-(defun spacemacs//lsp-bind-peek-navigation-functions (prefix-char)
-  (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+(defun space-macs//lsp-bind-peek-navigation-functions (prefix-char)
+  (space-macs/set-leader-keys-for-minor-mode 'lsp-mode
     "G" "peek"
     (concat prefix-char "i") #'lsp-ui-peek-find-implementation
     (concat prefix-char "d") #'lsp-ui-peek-find-definitions
     (concat prefix-char "r") #'lsp-ui-peek-find-references
     (concat prefix-char "s") #'lsp-ui-peek-find-workspace-symbol
-    (concat prefix-char "S") #'lsp-treemacs-symbols
+    (concat prefix-char "S") #'lsp-tree-macs-symbols
     (concat prefix-char "b") #'lsp-ui-peek-jump-backward
     (concat prefix-char "e") #'lsp-ui-flycheck-list
     (concat prefix-char "n") #'lsp-ui-peek-jump-forward))
 
-(defun spacemacs//lsp-bind-extensions-for-mode (mode
+(defun space-macs//lsp-bind-extensions-for-mode (mode
                                                 layer-name
                                                 backend-name
                                                 key
@@ -130,23 +130,23 @@ KEY is a string corresponding to a key sequence
 KIND is a quoted symbol corresponding to an extension defined using
 `lsp-define-extensions'."
   (cl-ecase lsp-navigation
-    ('simple (spacemacs/set-leader-keys-for-major-mode mode
+    ('simple (space-macs/set-leader-keys-for-major-mode mode
                (concat "g" key)
-               (spacemacs//lsp-extension-name
+               (space-macs//lsp-extension-name
                 layer-name backend-name "find" kind)))
-    ('peek (spacemacs/set-leader-keys-for-major-mode mode
+    ('peek (space-macs/set-leader-keys-for-major-mode mode
              (concat "g" key)
-             (spacemacs//lsp-extension-name
+             (space-macs//lsp-extension-name
               layer-name backend-name "peek" kind)))
-    ('both (spacemacs/set-leader-keys-for-major-mode mode
+    ('both (space-macs/set-leader-keys-for-major-mode mode
              (concat "g" key)
-             (spacemacs//lsp-extension-name
+             (space-macs//lsp-extension-name
               layer-name backend-name "find" kind)
              (concat "G" key)
-             (spacemacs//lsp-extension-name
+             (space-macs//lsp-extension-name
               layer-name backend-name "peek" kind)))))
 
-(defun spacemacs/lsp-bind-extensions-for-mode (mode
+(defun space-macs/lsp-bind-extensions-for-mode (mode
                                                layer-name
                                                backend-name
                                                key
@@ -162,14 +162,14 @@ KIND is a quoted symbol corresponding to an extension defined using
 `lsp-define-extensions'.
 BINDINGS is other KEY and KIND to create other key bindings."
   (while key
-    (spacemacs//lsp-bind-extensions-for-mode mode layer-name backend-name key kind)
+    (space-macs//lsp-bind-extensions-for-mode mode layer-name backend-name key kind)
     (setq key (pop bindings)
           kind (pop bindings))))
 
 
 ;; Extensions
 
-(defun spacemacs/lsp-define-extensions (layer-name
+(defun space-macs/lsp-define-extensions (layer-name
                                         backend-name
                                         kind
                                         request
@@ -177,22 +177,22 @@ BINDINGS is other KEY and KIND to create other key bindings."
   "Wrap backend-specific LSP extensions.
 
 This function uses `lsp-find-custom' and `lsp-ui-peek-find-custom'.
-The function names are defined in `spacemacs//lsp-extension-name.'"
+The function names are defined in `space-macs//lsp-extension-name.'"
   (dolist (nav-mode '("find" "peek"))
     (if extra
-        (spacemacs//lsp-define-custom-extension
+        (space-macs//lsp-define-custom-extension
          layer-name backend-name nav-mode kind request extra)
-      (spacemacs//lsp-define-custom-extension
+      (space-macs//lsp-define-custom-extension
        layer-name backend-name nav-mode kind request))))
 
-(defun spacemacs//lsp-extension-name (layer-name backend-name nav-mode kind)
+(defun space-macs//lsp-extension-name (layer-name backend-name nav-mode kind)
   "Return the extension name.
 
-Pattern is `spacemacs/<layer-name>-<backend-end>-<nav-mode>-<kind>'.
+Pattern is `space-macs/<layer-name>-<backend-end>-<nav-mode>-<kind>'.
 
 Examples of return name:
-  - spacemacs/c-c++-lsp-clangd-find-clangd-other-file
-  - spacemacs/c-c++-lsp-clangd-peek-clangd-other-file
+  - space-macs/c-c++-lsp-clangd-find-clangd-other-file
+  - space-macs/c-c++-lsp-clangd-peek-clangd-other-file
 
 LAYER-NAME is a string, the name of the layer
 BACKEND-NAME is a string, the name of the backend that's set for the layer
@@ -200,10 +200,10 @@ NAV-MODE is a string with value `peek' or `find'
 KIND is a quoted symbol corresponding to an extension defined using
 `lsp-define-extensions'."
   (intern
-   (concat "spacemacs/"
+   (concat "space-macs/"
            layer-name "-" backend-name "-" nav-mode "-" (symbol-name kind))))
 
-(defun spacemacs//lsp-define-custom-extension (layer-name
+(defun space-macs//lsp-define-custom-extension (layer-name
                                                backend-name
                                                nav-mode
                                                kind
@@ -221,7 +221,7 @@ EXTRA is an additional parameter that's passed to the LSP function"
   (let ((lsp-extension-fn (if (equal nav-mode "find")
                               'lsp-find-locations
                             'lsp-ui-peek-find-custom))
-        (extension-name (spacemacs//lsp-extension-name
+        (extension-name (space-macs//lsp-extension-name
                          layer-name backend-name nav-mode kind))
         (extension-descriptor (format (concat nav-mode " %s")
                                       (symbol-name kind))))
@@ -240,31 +240,31 @@ EXTRA is an additional parameter that's passed to the LSP function"
 
 ;; Utils
 
-(defun spacemacs/lsp-ui-doc-func ()
+(defun space-macs/lsp-ui-doc-func ()
   "Toggle the function signature in the lsp-ui-doc overlay"
   (interactive)
   (setq lsp-ui-doc-include-signature (not lsp-ui-doc-include-signature)))
 
-(defun spacemacs/lsp-ui-sideline-symb ()
+(defun space-macs/lsp-ui-sideline-symb ()
   "Toggle the symbol in the lsp-ui-sideline overlay.
 (generally redundant in C modes)"
   (interactive)
   (setq lsp-ui-sideline-show-symbol (not lsp-ui-sideline-show-symbol)))
 
-(defun spacemacs/lsp-ui-sideline-ignore-duplicate ()
+(defun space-macs/lsp-ui-sideline-ignore-duplicate ()
   "Toggle ignore duplicates for lsp-ui-sideline overlay"
   (interactive)
   (setq lsp-ui-sideline-ignore-duplicate
         (not lsp-ui-sideline-ignore-duplicate)))
 
-(defun spacemacs//lsp-action-placeholder ()
+(defun space-macs//lsp-action-placeholder ()
   (interactive)
   (message "Not supported yet... (to be implemented in 'lsp-mode')"))
 
 
 ;; ivy integration
 
-(defun spacemacs//lsp-avy-document-symbol (all)
+(defun space-macs//lsp-avy-document-symbol (all)
   (interactive)
   (let ((line 0) (col 0) (w (selected-window))
         (ccls (and (memq major-mode '(c-mode c++-mode objc-mode)) (eq c-c++-backend 'lsp-ccls)))
@@ -305,10 +305,12 @@ EXTRA is an additional parameter that's passed to the LSP function"
       (avy--process candidates
                     (avy--style-fn avy-style)))))
 
-(defun spacemacs/lsp-avy-goto-word ()
+(defun space-macs/lsp-avy-goto-word ()
   (interactive)
-  (spacemacs//lsp-avy-document-symbol t))
+  (space-macs//lsp-avy-document-symbol t))
 
-(defun spacemacs/lsp-avy-goto-symbol ()
+(defun space-macs/lsp-avy-goto-symbol ()
   (interactive)
-  (spacemacs//lsp-avy-document-symbol nil))
+  (space-macs//lsp-avy-document-symbol nil))
+
+

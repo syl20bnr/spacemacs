@@ -1,11 +1,11 @@
-;;; packages.el --- terraform Layer packages File for Spacemacs
+;;; packages.el --- terraform Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Brian Hicks <brian@brianthicks.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -17,7 +17,7 @@
         ))
 
 (defun terraform/post-init-company ()
-  (spacemacs//terraform-setup-company))
+  (space-macs//terraform-setup-company))
 
 (defun terraform/init-company-terraform ()
   (use-package company-terraform
@@ -27,7 +27,9 @@
   (use-package terraform-mode
     :defer t
     :init (add-hook 'terraform-mode-hook
-                    'spacemacs//terraform-setup-backend)
+                    'space-macs//terraform-setup-backend)
     :config (when terraform-auto-format-on-save
               (add-hook 'terraform-mode-hook
                         'terraform-format-on-save-mode))))
+
+

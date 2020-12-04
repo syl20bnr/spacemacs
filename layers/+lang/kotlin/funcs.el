@@ -1,15 +1,15 @@
-;;; funcs.el --- kotlin Layer functions File for Spacemacs
+;;; funcs.el --- kotlin Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Maximilian Wolff <smile13241324@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//kotlin-backend ()
+(defun space-macs//kotlin-backend ()
   "Returns selected backend."
   (if kotlin-backend
       kotlin-backend
@@ -17,16 +17,18 @@
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
      (t 'company-kotlin))))
 
-(defun spacemacs//kotlin-setup-company ()
+(defun space-macs//kotlin-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//kotlin-backend)
+  (pcase (space-macs//kotlin-backend)
     ;; Activate lsp company explicitly to activate
     ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
+    (`lsp (space-macs|add-company-backends
             :backends company-capf
             :modes kotlin-mode))))
 
-(defun spacemacs//kotlin-setup-backend ()
+(defun space-macs//kotlin-setup-backend ()
   "Conditionally setup kotlin backend."
-  (pcase (spacemacs//kotlin-backend)
+  (pcase (space-macs//kotlin-backend)
     (`lsp (lsp))))
+
+

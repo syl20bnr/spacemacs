@@ -12,7 +12,7 @@
 - [[#notes][Notes]]
 
 * Description
-This layer makes your Emacs sound like an IBM Selectric typewriter, for those
+This layer makes your e-macs sound like an IBM Selectric typewriter, for those
 moments when your loud, clicky mechanical keyboard is not at hand, yet, you'd
 still wish to enjoy the sound.
 
@@ -22,8 +22,8 @@ still wish to enjoy the sound.
   the latest IBM Iseries server.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =selectric= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =selectric= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -34,3 +34,5 @@ file.
 
 * Notes
 IBM Selectric image by Oliver Kurmis
+
+

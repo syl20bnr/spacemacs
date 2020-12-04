@@ -1,11 +1,11 @@
-;;; packages.el --- Javascript Layer packages File for Spacemacs
+;;; packages.el --- Javascript Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -34,50 +34,50 @@
     web-beautify))
 
 (defun javascript/post-init-add-node-modules-path ()
-  (spacemacs/add-to-hooks #'add-node-modules-path '(css-mode-hook
+  (space-macs/add-to-hooks #'add-node-modules-path '(css-mode-hook
                                                     js2-mode-hook)))
 
 (defun javascript/post-init-company ()
-  (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-company))
+  (add-hook 'js2-mode-local-vars-hook #'space-macs//javascript-setup-company))
 
 (defun javascript/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'js2-mode))
+  (space-macs/counsel-gtags-define-keys-for-mode 'js2-mode))
 
 (defun javascript/pre-init-dap-mode ()
-  (pcase (spacemacs//javascript-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'js2-mode)))
-  (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-dap))
+  (pcase (space-macs//javascript-backend)
+    (`lsp (add-to-list 'space-macs--dap-supported-modes 'js2-mode)))
+  (add-hook 'js2-mode-local-vars-hook #'space-macs//javascript-setup-dap))
 
 (defun javascript/post-init-evil-matchit ()
   (add-hook `js2-mode-hook `turn-on-evil-matchit-mode))
 
 (defun javascript/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'js2-mode)
-  (add-hook 'js2-mode-hook #'spacemacs//javascript-setup-checkers 'append))
+  (space-macs/enable-flycheck 'js2-mode)
+  (add-hook 'js2-mode-hook #'space-macs//javascript-setup-checkers 'append))
 
 (defun javascript/post-init-ggtags ()
-  (add-hook 'js2-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'js2-mode-local-vars-hook #'space-macs/ggtags-mode-enable))
 
 (defun javascript/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'js2-mode))
+  (space-macs/helm-gtags-define-keys-for-mode 'js2-mode))
 
 (defun javascript/post-init-imenu ()
   ;; Required to make imenu functions work correctly
   (add-hook 'js2-mode-hook 'js2-imenu-extras-mode))
 
 (defun javascript/post-init-impatient-mode ()
-  (spacemacs/set-leader-keys-for-major-mode 'js2-mode
-    "I" 'spacemacs/impatient-mode))
+  (space-macs/set-leader-keys-for-major-mode 'js2-mode
+    "I" 'space-macs/impatient-mode))
 
 (defun javascript/pre-init-import-js ()
   (when (eq javascript-import-tool 'import-js)
-    (add-to-list 'spacemacs--import-js-modes (cons 'js2-mode 'js2-mode-hook))))
+    (add-to-list 'space-macs--import-js-modes (cons 'js2-mode 'js2-mode-hook))))
 
 (defun javascript/init-js-doc ()
   (use-package js-doc
     :defer t
-    :init (spacemacs/js-doc-set-key-bindings 'js2-mode)
-    (add-hook 'js2-mode-hook 'spacemacs/js-doc-require)))
+    :init (space-macs/js-doc-set-key-bindings 'js2-mode)
+    (add-hook 'js2-mode-hook 'space-macs/js-doc-require)))
 
 (defun javascript/init-js2-mode ()
   (use-package js2-mode
@@ -85,8 +85,8 @@
     :mode (("\\.m?js\\'"  . js2-mode))
     :init
     (progn
-      (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-backend)
-      (add-hook 'js2-mode-local-vars-hook #'spacemacs//javascript-setup-next-error-fn)
+      (add-hook 'js2-mode-local-vars-hook #'space-macs//javascript-setup-backend)
+      (add-hook 'js2-mode-local-vars-hook #'space-macs//javascript-setup-next-error-fn)
       ;; safe values for backend to be used in directory file variables
       (dolist (value '(lsp tern tide))
         (add-to-list 'safe-local-variable-values
@@ -94,14 +94,14 @@
     :config
     (progn
       (when javascript-fmt-on-save
-        (add-hook 'js2-mode-local-vars-hook 'spacemacs/javascript-fmt-before-save-hook))
+        (add-hook 'js2-mode-local-vars-hook 'space-macs/javascript-fmt-before-save-hook))
       ;; prefixes
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mh" "documentation")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mr" "refactor")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mz" "folding")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mh" "documentation")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mg" "goto")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mr" "refactor")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mz" "folding")
       ;; key bindings
-      (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+      (space-macs/set-leader-keys-for-major-mode 'js2-mode
         "w" 'js2-mode-toggle-warnings-and-errors
         "zc" 'js2-mode-hide-element
         "zo" 'js2-mode-show-element
@@ -115,25 +115,25 @@
     :defer t
     :init
     (progn
-      (add-hook 'js2-mode-hook 'spacemacs/js2-refactor-require)
+      (add-hook 'js2-mode-hook 'space-macs/js2-refactor-require)
       ;; prefixes
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mr3" "ternary")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mra" "add/args")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mrb" "barf")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mrc" "contract")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mre" "expand/extract")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mri" "inline/inject/introduct")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mrl" "localize/log")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mrr" "rename")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mrs" "split/slurp")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mrt" "toggle")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mru" "unwrap")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mrv" "var")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mrw" "wrap")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mx" "text")
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mxm" "move")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mr3" "ternary")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mra" "add/args")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mrb" "barf")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mrc" "contract")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mre" "expand/extract")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mri" "inline/inject/introduct")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mrl" "localize/log")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mrr" "rename")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mrs" "split/slurp")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mrt" "toggle")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mru" "unwrap")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mrv" "var")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mrw" "wrap")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mx" "text")
+      (space-macs/declare-prefix-for-mode 'js2-mode "mxm" "move")
       ;; key bindings
-      (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+      (space-macs/set-leader-keys-for-major-mode 'js2-mode
         "r3i" 'js2r-ternary-to-if
         "rag" 'js2r-add-to-globals-annotation
         "rao" 'js2r-arguments-to-object
@@ -171,25 +171,25 @@
       :defer t
       :init
       (progn
-        (spacemacs/declare-prefix-for-mode 'js2-mode "mT" "toggle")
-        (spacemacs|add-toggle javascript-repl-live-evaluation
+        (space-macs/declare-prefix-for-mode 'js2-mode "mT" "toggle")
+        (space-macs|add-toggle javascript-repl-live-evaluation
           :mode livid-mode
           :documentation "Live evaluation of JS buffer change."
           :evil-leader-for-mode (js2-mode . "Tl"))
-        (spacemacs|diminish livid-mode " 🅻" " [l]")))))
+        (space-macs|diminish livid-mode " ðŸ…»" " [l]")))))
 
 (defun javascript/init-nodejs-repl ()
   (when (eq javascript-repl 'nodejs)
     (use-package nodejs-repl
       :defer nil
       :init
-      (spacemacs/register-repl 'nodejs-repl
+      (space-macs/register-repl 'nodejs-repl
                                'nodejs-repl
                                "nodejs-repl")
       :config
       (progn
-        (spacemacs/declare-prefix-for-mode 'js2-mode "ms" "nodejs-repl")
-        (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+        (space-macs/declare-prefix-for-mode 'js2-mode "ms" "nodejs-repl")
+        (space-macs/set-leader-keys-for-major-mode 'js2-mode
           "'" 'nodejs-repl
           "ss" 'nodejs-repl
           "si" 'nodejs-repl-switch-to-repl
@@ -213,23 +213,23 @@
                  (interactive "r")
                  (nodejs-repl-send-region start end)
                  (nodejs-repl-switch-to-repl)))
-        (spacemacs/declare-prefix-for-mode 'js2-mode
+        (space-macs/declare-prefix-for-mode 'js2-mode
           "msE" "nodejs-send-last-expression-and-focus")
-        (spacemacs/declare-prefix-for-mode 'js2-mode
+        (space-macs/declare-prefix-for-mode 'js2-mode
           "msB" "nodejs-send-buffer-and-focus")
-        (spacemacs/declare-prefix-for-mode 'js2-mode
+        (space-macs/declare-prefix-for-mode 'js2-mode
           "msL" "nodejs-send-line-and-focus")
-        (spacemacs/declare-prefix-for-mode 'js2-mode
+        (space-macs/declare-prefix-for-mode 'js2-mode
           "msR" "nodejs-send-region-and-focus")))))
 
 
 (defun javascript/pre-init-org ()
-  (spacemacs|use-package-add-hook org
+  (space-macs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(js . t))))
 
 (defun javascript/pre-init-prettier-js ()
   (when (eq javascript-fmt-tool 'prettier)
-    (add-to-list 'spacemacs--prettier-modes 'js2-mode)))
+    (add-to-list 'space-macs--prettier-modes 'js2-mode)))
 
 (defun javascript/init-skewer-mode ()
   (when (eq javascript-repl 'skewer)
@@ -237,26 +237,26 @@
       :defer t
       :init
       (progn
-        (spacemacs/register-repl 'skewer-mode
-                                 'spacemacs/skewer-start-repl
+        (space-macs/register-repl 'skewer-mode
+                                 'space-macs/skewer-start-repl
                                  "skewer")
         (add-hook 'js2-mode-hook 'skewer-mode))
       :config
       (progn
-        (spacemacs|hide-lighter skewer-mode)
-        (spacemacs/declare-prefix-for-mode 'js2-mode "ms" "skewer")
-        (spacemacs/declare-prefix-for-mode 'js2-mode "me" "eval")
-        (spacemacs/set-leader-keys-for-major-mode 'js2-mode
-          "'" 'spacemacs/skewer-start-repl
+        (space-macs|hide-lighter skewer-mode)
+        (space-macs/declare-prefix-for-mode 'js2-mode "ms" "skewer")
+        (space-macs/declare-prefix-for-mode 'js2-mode "me" "eval")
+        (space-macs/set-leader-keys-for-major-mode 'js2-mode
+          "'" 'space-macs/skewer-start-repl
           "ee" 'skewer-eval-last-expression
           "eE" 'skewer-eval-print-last-expression
           "sb" 'skewer-load-buffer
-          "sB" 'spacemacs/skewer-load-buffer-and-focus
-          "si" 'spacemacs/skewer-start-repl
+          "sB" 'space-macs/skewer-load-buffer-and-focus
+          "si" 'space-macs/skewer-start-repl
           "sf" 'skewer-eval-defun
-          "sF" 'spacemacs/skewer-eval-defun-and-focus
-          "sr" 'spacemacs/skewer-eval-region
-          "sR" 'spacemacs/skewer-eval-region-and-focus
+          "sF" 'space-macs/skewer-eval-defun-and-focus
+          "sr" 'space-macs/skewer-eval-region
+          "sR" 'space-macs/skewer-eval-region-and-focus
           "ss" 'skewer-repl)))))
 
 (defun javascript/post-init-tern ()
@@ -264,5 +264,7 @@
 
 (defun javascript/pre-init-web-beautify ()
   (when (eq javascript-fmt-tool 'web-beautify)
-    (add-to-list 'spacemacs--web-beautify-modes
+    (add-to-list 'space-macs--web-beautify-modes
                  (cons 'js2-mode 'web-beautify-js))))
+
+

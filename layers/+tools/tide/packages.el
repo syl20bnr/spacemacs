@@ -1,11 +1,11 @@
-;;; packages.el --- Tide Layer packages file for Spacemacs. -*- lexical-binding: t -*-
+;;; packages.el --- Tide Layer packages file for Space-macs. -*- lexical-binding: t -*-
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Thanh Vuong <thanhvg@gmail.com>
 ;; URL: https://github.com/thanhvg
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -18,5 +18,7 @@
     :defer t
     :commands (typescript/jump-to-type-def)
     :config
-    (spacemacs//tide-setup-bindings)
-    (add-hook 'tide-mode-hook #'spacemacs//tide-setup-jump-handle)))
+    (space-macs//tide-setup-bindings)
+    (add-hook 'tide-mode-hook #'space-macs//tide-setup-jump-handle)))
+
+

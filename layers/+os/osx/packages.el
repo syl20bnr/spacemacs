@@ -1,11 +1,11 @@
-;;; packages.el --- OSX Layer packages File for Spacemacs
+;;; packages.el --- OSX Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -20,8 +20,8 @@
         term
         ))
 
-(when (spacemacs/system-is-mac)
-  ;; Enable built-in trash support via finder API if available (only on Emacs
+(when (space-macs/system-is-mac)
+  ;; Enable built-in trash support via finder API if available (only on e-macs
   ;; macOS Port)
   (when (boundp 'mac-system-move-file-to-trash-use-finder)
     (setq mac-system-move-file-to-trash-use-finder t))
@@ -36,22 +36,22 @@
 
 (defun osx/pre-init-helm ()
   ;; Use `mdfind' instead of `locate'.
-  (when (spacemacs/system-is-mac)
-    (spacemacs|use-package-add-hook helm
+  (when (space-macs/system-is-mac)
+    (space-macs|use-package-add-hook helm
       :post-config
       ;; Disable fuzzy matchting to make mdfind work with helm-locate
-      ;; https://github.com/emacs-helm/helm/issues/799
+      ;; https://github.com/e-macs-helm/helm/issues/799
       (setq helm-locate-fuzzy-match nil)
       (setq helm-locate-command "mdfind -name %s %s"))))
 
 (defun osx/init-launchctl ()
   (use-package launchctl
-    :if (spacemacs/system-is-mac)
+    :if (space-macs/system-is-mac)
     :defer t
     :init
     (progn
       (add-to-list 'auto-mode-alist '("\\.plist\\'" . nxml-mode))
-      (spacemacs/set-leader-keys "al" 'launchctl))
+      (space-macs/set-leader-keys "al" 'launchctl))
     :config
     (progn
       (evilified-state-evilify launchctl-mode launchctl-mode-map
@@ -79,7 +79,7 @@
 (defun osx/init-osx-dictionary ()
   (use-package osx-dictionary
     :if osx-use-dictionary-app
-    :init (spacemacs/set-leader-keys "xwd" 'osx-dictionary-search-pointer)
+    :init (space-macs/set-leader-keys "xwd" 'osx-dictionary-search-pointer)
     :commands (osx-dictionary-search-pointer
                osx-dictionary-search-input
                osx-dictionary-cli-find-or-recompile)
@@ -95,13 +95,13 @@
 
 (defun osx/init-osx-trash ()
   (use-package osx-trash
-    :if (and (spacemacs/system-is-mac)
+    :if (and (space-macs/system-is-mac)
              (not (boundp 'mac-system-move-file-to-trash-use-finder)))
     :init (osx-trash-setup)))
 
 (defun osx/init-osx-clipboard ()
   (use-package osx-clipboard
-    :if (spacemacs/system-is-mac)
+    :if (space-macs/system-is-mac)
     :commands
     (osx-clipboard-paste-function osx-clipboard-cut-function)
     :init
@@ -117,9 +117,11 @@
 
 (defun osx/init-reveal-in-osx-finder ()
   (use-package reveal-in-osx-finder
-    :if (spacemacs/system-is-mac)
+    :if (space-macs/system-is-mac)
     :commands reveal-in-osx-finder))
 
 (defun osx/post-init-term ()
   (with-eval-after-load 'term
     (define-key term-raw-map (kbd "s-v") 'term-paste)))
+
+

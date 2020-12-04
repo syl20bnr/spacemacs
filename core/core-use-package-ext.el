@@ -1,19 +1,19 @@
-;;; core-use-package-ext.el --- Spacemacs Core File
+;;; core-use-package-ext.el --- Space-macs Core File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
-(defconst spacemacs--use-package-add-hook-keywords '(:pre-init
+(defconst space-macs--use-package-add-hook-keywords '(:pre-init
                                                      :post-init
                                                      :pre-config
                                                      :post-config))
 
-(defmacro spacemacs|use-package-add-hook (name &rest plist)
+(defmacro space-macs|use-package-add-hook (name &rest plist)
   "Add post hooks to `:init' or `:config' arguments of an existing
 configuration.
 
@@ -25,7 +25,7 @@ of a package.
 
 Usage:
 
-  (spacemacs|use-package-add-hook package-name
+  (space-macs|use-package-add-hook package-name
      [:keyword [option]]...)
 
 :pre-init      Code to run before the default `:init' configuration.
@@ -38,8 +38,8 @@ override lazy-loaded settings."
   (declare (indent 1))
   (let ((name-symbol (if (stringp name) (intern name) name))
         (expanded-forms '()))
-    (dolist (keyword spacemacs--use-package-add-hook-keywords)
-      (let ((body (spacemacs/mplist-get-values plist keyword)))
+    (dolist (keyword space-macs--use-package-add-hook-keywords)
+      (let ((body (space-macs/mplist-get-values plist keyword)))
         (when body
           (let ((hook (intern (format "use-package--%S--%s-hook"
                                       name-symbol
@@ -48,3 +48,5 @@ override lazy-loaded settings."
     `(progn ,@expanded-forms)))
 
 (provide 'core-use-package-ext)
+
+

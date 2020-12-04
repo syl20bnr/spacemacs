@@ -1,31 +1,31 @@
-;;; core-command-line.el --- Spacemacs Core File
+;;; core-command-line.el --- Space-macs Core File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defvar spacemacs-force-resume-layouts nil
-  "If non-nil force the current emacs instance to resume layouts
-  at start time despite the value of `dotspacemacs-auto-resume-layouts'.")
+(defvar space-macs-force-resume-layouts nil
+  "If non-nil force the current e-macs instance to resume layouts
+  at start time despite the value of `dotspace-macs-auto-resume-layouts'.")
 
-(defvar spacemacs-insecure nil
-  "If non-nil force Spacemacs to operate without secured protocols.")
+(defvar space-macs-insecure nil
+  "If non-nil force Space-macs to operate without secured protocols.")
 
-(defvar spacemacs-sync-packages t
+(defvar space-macs-sync-packages t
   "If non-nil packages are synchronized when the configuration layer system is
 loaded.")
 
-(defvar spacemacs-force-dump nil
-  "If non-nil then force a redump of Emacs.")
+(defvar space-macs-force-dump nil
+  "If non-nil then force a redump of e-macs.")
 
-(defun spacemacs//parse-command-line (args)
-  "Handle Spacemacs specific command line arguments.
-The reason why we don't use the Emacs hooks for processing user defined
+(defun space-macs//parse-command-line (args)
+  "Handle Space-macs specific command line arguments.
+The reason why we don't use the e-macs hooks for processing user defined
 arguments is that we want to process these arguments as soon as possible."
   (let ((i 0) new-args)
     (while (< i (length args))
@@ -37,35 +37,37 @@ arguments is that we want to process these arguments as soon as possible."
           (setq next-arg-digit nil))
         (pcase arg
           ("--profile"
-           (setq spacemacs-debug-with-profile t)
-           (setq spacemacs-debugp t))
+           (setq space-macs-debug-with-profile t)
+           (setq space-macs-debugp t))
           ("--timed-requires"
-           (setq spacemacs-debug-with-timed-requires t)
+           (setq space-macs-debug-with-timed-requires t)
            (when next-arg-digit
-             (setq spacemacs-debug-timer-threshold next-arg-digit
+             (setq space-macs-debug-timer-threshold next-arg-digit
                    i (1+ i)))
-           (setq spacemacs-debugp t))
+           (setq space-macs-debugp t))
           ("--adv-timers"
-           (setq spacemacs-debug-with-adv-timers t)
+           (setq space-macs-debug-with-adv-timers t)
            (when next-arg-digit
-             (setq spacemacs-debug-timer-threshold next-arg-digit
+             (setq space-macs-debug-timer-threshold next-arg-digit
                    i (1+ 1)))
-           (setq spacemacs-debugp t))
+           (setq space-macs-debugp t))
           ("--insecure"
-           (setq spacemacs-insecure t))
+           (setq space-macs-insecure t))
           ("--no-layer"
            (setq configuration-layer-exclude-all-layers t))
           ("--distribution"
            (setq configuration-layer-force-distribution (intern (nth (1+ i) args))
                  i (1+ i)))
           ("--resume-layouts"
-           (setq spacemacs-force-resume-layouts t))
+           (setq space-macs-force-resume-layouts t))
           ("--no-package-sync"
-           (setq spacemacs-sync-packages nil))
+           (setq space-macs-sync-packages nil))
           ("--force-dump"
-           (setq spacemacs-force-dump t))
+           (setq space-macs-force-dump t))
           (_ (push arg new-args))))
       (setq i (1+ i)))
     (nreverse new-args)))
 
 (provide 'core-command-line)
+
+

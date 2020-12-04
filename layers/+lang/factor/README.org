@@ -15,7 +15,7 @@
 - [[#starting-a-graphical-listener][Starting a Graphical Listener]]
 
 * Description
-A spacemacs layer for Factor language support.
+A space-macs layer for Factor language support.
 
 ** Features:
 - Syntax Highlighting
@@ -24,15 +24,15 @@ A spacemacs layer for Factor language support.
 - Scaffolding support
 - Refactoring support
 - Running graphical Listeners
-- Reloading emacs-lisp portion of FUEL
+- Reloading e-macs-lisp portion of FUEL
 
 * Install
 This layer depends on the elisp files that are bundled with factor. To use this
 layer, make sure that factor is installed and the bundled elisp files are picked
-up by emacs (usually somewhere in site-lisp).
+up by e-macs (usually somewhere in site-lisp).
 
-To use this layer, add it to your =./spacemacs= file. Add =factor= to the
-=dotspacemacs-configuration-layers= list there.
+To use this layer, add it to your =./space-macs= file. Add =factor= to the
+=dotspace-macs-configuration-layers= list there.
 
 * Key bindings
 ** factor-mode (editing source files)
@@ -106,3 +106,5 @@ documentation for details)
 Note that the commands described in the [[#key-bindings][Key bindings]] section which start a
 factor listener are supplied by FUEL and don't take the last of these variables,
 =factor-ui-listener-args= into account.
+
+

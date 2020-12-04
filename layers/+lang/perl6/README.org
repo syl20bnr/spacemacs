@@ -28,8 +28,8 @@ This layer provides an environment for the [[https://perl6.org/][Perl 6 Programm
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =perl6= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =perl6= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Jump to definition
@@ -46,3 +46,5 @@ Then you can generate the =TAGS= file for your projects like this:
 | Key binding | Description                                    |
 |-------------+------------------------------------------------|
 | ~SPC m g g~ | Jump to definition (requires =ctags-universal= |
+
+

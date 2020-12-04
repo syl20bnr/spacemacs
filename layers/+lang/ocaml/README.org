@@ -30,18 +30,18 @@ This is a very basic layer for editing ocaml files.
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =ocaml= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =ocaml= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Using merlin for error reporting
 By default [[https://github.com/flycheck/flycheck-ocaml][flycheck-ocaml]] is used for error reporting when the
-=syntax-checking= layer is also enabled as this is common throughout spacemacs.
+=syntax-checking= layer is also enabled as this is common throughout space-macs.
 You can disable this and switch back to [[https://github.com/ocaml/merlin][merlin]]'s default error reporting method
-by adding [[https://github.com/flycheck/flycheck-ocaml][flycheck-ocaml]] to your excluded packages list in =.spacemacs=:
+by adding [[https://github.com/flycheck/flycheck-ocaml][flycheck-ocaml]] to your excluded packages list in =.space-macs=:
 
-#+BEGIN_SRC emacs-lisp
-  dotspacemacs-excluded-packages '(... flycheck-ocaml ... )
+#+BEGIN_SRC e-macs-lisp
+  dotspace-macs-excluded-packages '(... flycheck-ocaml ... )
 #+END_SRC
 
 ** OPAM packages
@@ -68,7 +68,7 @@ Make sure opam is initialized and configured.
 To enable automatic formatting on save with [[https://github.com/ocaml-ppx/ocamlformat][ocamlformat]], set the layer
 variable =ocaml-format-on-save=, e.g.,
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (ocaml :variables ocaml-format-on-save t)
 #+END_SRC
 
@@ -134,6 +134,8 @@ variable =ocaml-format-on-save=, e.g.,
 | ~SPC m t P~ | Dune promote.                  |
 
 * TODO layer improvements list
-1. Add more proper spacemacs key bindings for basic merlin tasks
+1. Add more proper space-macs key bindings for basic merlin tasks
 2. Add proper key bindings for ocamldebug
 3. Add more key bindings for tuareg-mode
+
+

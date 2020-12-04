@@ -1,11 +1,11 @@
-;;; packages.el --- Github Layer packages File for Spacemacs
+;;; packages.el --- Github Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -16,8 +16,8 @@
         github-search
         grip-mode
         ;; this package does not exits, we need it to wrap
-        ;; the call to spacemacs/declare-prefix.
-        (spacemacs-github :location built-in)
+        ;; the call to space-macs/declare-prefix.
+        (space-macs-github :location built-in)
         ))
 
 (defun github/init-gist ()
@@ -25,8 +25,8 @@
     :defer t
     :init
     (progn
-      (spacemacs/declare-prefix "gg" "github gist")
-      (spacemacs/set-leader-keys
+      (space-macs/declare-prefix "gg" "github gist")
+      (space-macs/set-leader-keys
         "ggb" 'gist-buffer
         "ggB" 'gist-buffer-private
         "ggl" 'gist-list
@@ -50,8 +50,8 @@
     :defer t
     :init
     (progn
-      (spacemacs/declare-prefix "ghc" "clone")
-      (spacemacs/set-leader-keys
+      (space-macs/declare-prefix "ghc" "clone")
+      (space-macs/set-leader-keys
         "ghcc" 'github-clone
         "ghcr" 'github-clone-add-existing-remote
         "ghcf" 'github-clone-fork-remote
@@ -60,15 +60,17 @@
 (defun github/init-github-search ()
   (use-package github-search
     :commands (github-search-clone-repo github-search-user-clone-repo)
-    :init (spacemacs/set-leader-keys "ghc/" 'github-search-clone-repo)))
+    :init (space-macs/set-leader-keys "ghc/" 'github-search-clone-repo)))
 
 (defun github/init-grip-mode ()
   (use-package grip-mode
     :defer t
     :init
     (progn
-      (spacemacs/set-leader-keys
+      (space-macs/set-leader-keys
         "ghp" 'grip-mode))))
 
-(defun github/init-spacemacs-github ()
-  (spacemacs/declare-prefix "gh" "github"))
+(defun github/init-space-macs-github ()
+  (space-macs/declare-prefix "gh" "github"))
+
+

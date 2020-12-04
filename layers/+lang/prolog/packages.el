@@ -1,11 +1,11 @@
-;;; packages.el --- prolog layer packages file for Spacemacs.
+;;; packages.el --- prolog layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Newres Al Haider <newrescode@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -27,7 +27,7 @@
                                     auto-mode-alist))        )
     :config
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'prolog-mode
+      (space-macs/set-leader-keys-for-major-mode 'prolog-mode
         ;;Key Mappings
         ;;Consulting
         "sb" 'prolog-consult-buffer
@@ -56,16 +56,18 @@
                         ("mh" . "help")
                         ("mi" . "inserting")
                         ))
-        (spacemacs/declare-prefix-for-mode 'prolog-mode (car prefix) (cdr prefix))))
+        (space-macs/declare-prefix-for-mode 'prolog-mode (car prefix) (cdr prefix))))
     ))
 
 (defun prolog/init-ediprolog ()
   (use-package ediprolog
     :config
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'prolog-mode
+      (space-macs/set-leader-keys-for-major-mode 'prolog-mode
         ;;Key Mappings
         "ee" 'ediprolog-dwim)
-      (spacemacs/declare-prefix-for-mode 'prolog-mode "me" "evaluating" ))))
+      (space-macs/declare-prefix-for-mode 'prolog-mode "me" "evaluating" ))))
 
 ;;; packages.el ends here
+
+

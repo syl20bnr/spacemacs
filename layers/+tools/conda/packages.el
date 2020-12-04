@@ -1,11 +1,11 @@
-;;; packages.el --- Conda Layer packages File for Spacemacs
+;;; packages.el --- Conda Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Zach Pearson <zach@zjp.codes>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -24,10 +24,12 @@
                conda-env-activate-for-buffer)
     :init
     (progn
-      (spacemacs/declare-prefix-for-mode 'python-mode "mn" "anaconda")
-      (spacemacs/set-leader-keys-for-major-mode 'python-mode
+      (space-macs/declare-prefix-for-mode 'python-mode "mn" "anaconda")
+      (space-macs/set-leader-keys-for-major-mode 'python-mode
         "nl" 'conda-env-list
         "na" 'conda-env-activate
         "nd" 'conda-env-deactivate
         "nA" 'conda-env-autoactivate-mode
         "nb" 'conda-env-activate-for-buffer))))
+
+

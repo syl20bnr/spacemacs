@@ -1,11 +1,11 @@
-;;; packages.el --- search-engine Layer packages File for Spacemacs
+;;; packages.el --- search-engine Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -17,12 +17,12 @@
 
 (defun search-engine/init-engine-mode ()
   (use-package engine-mode
-    :commands (defengine spacemacs/search-engine-select)
+    :commands (defengine space-macs/search-engine-select)
     :defines search-engine-alist
     :init
     (progn
-      (spacemacs/set-leader-keys
-        "aw/" 'spacemacs/search-engine-select)
+      (space-macs/set-leader-keys
+        "aw/" 'space-macs/search-engine-select)
       (setq search-engine-alist
             `((amazon
                :name "Amazon"
@@ -60,12 +60,12 @@
               (stack-overflow
                :name "Stack Overflow"
                :url "https://stackoverflow.com/search?q=%s")
-              (spacemacs-issues
-               :name "Spacemacs Issues"
-               :url "https://github.com/syl20bnr/spacemacs/issues?utf8=%%E2%%9C%%93&q=is%%3Aissue+is%%3Aopen+%s")
-              (spacemacs-pullrequests
-               :name "Spacemacs Pull Requests"
-               :url "https://github.com/syl20bnr/spacemacs/pulls?utf8=%%E2%%9C%%93&q=is%%3Aissue+is%%3Aopen+%s")
+              (space-macs-issues
+               :name "Space-macs Issues"
+               :url "https://github.com/syl20bnr/space-macs/issues?utf8=%%E2%%9C%%93&q=is%%3Aissue+is%%3Aopen+%s")
+              (space-macs-pullrequests
+               :name "Space-macs Pull Requests"
+               :url "https://github.com/syl20bnr/space-macs/pulls?utf8=%%E2%%9C%%93&q=is%%3Aissue+is%%3Aopen+%s")
               (wikipedia
                :name "Wikipedia"
                :url "https://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s")
@@ -114,3 +114,5 @@
                (engine-url (plist-get (cdr engine) :url))
                (engine-keywords (plist-get (cdr engine) :keywords)))
           (eval `(defengine ,cur-engine ,engine-url ,@engine-keywords)))))))
+
+

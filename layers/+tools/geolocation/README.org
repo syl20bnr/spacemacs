@@ -15,7 +15,7 @@
   - [[#weather][Weather]]
 
 * Description
-This layer offers location sensitive adjustments to Emacs.
+This layer offers location sensitive adjustments to e-macs.
 
 ** Features:
 - Supports the following adjustments:
@@ -25,14 +25,14 @@ This layer offers location sensitive adjustments to Emacs.
   - Manual location setting via variables in your dotfile
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =geolocation= to the existing =dotspacemacs-configuration-layers= list in
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =geolocation= to the existing =dotspace-macs-configuration-layers= list in
 this file.
 
 All services are disable by default. To enable all, or some of them, add instead
 something like this:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (geolocation :variables
                geolocation-enable-automatic-theme-changer t
                geolocation-enable-location-service t
@@ -43,7 +43,7 @@ something like this:
 ** Location
 Set location manually by setting the following variables in your dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq calendar-location-name "Barcelona, Spain"
         calendar-latitude 41.23
         calendar-longitude 1.80)
@@ -58,11 +58,11 @@ explained in installation instructions.
 A helper script will need to be given proper access first time this layer is
 activated.
 
-[[file:img/emacs-location-helper.jpg]]
+[[file:img/e-macs-location-helper.jpg]]
 
 ** Theme-changer
 This layer implement a simple "theme changer" which, when enabled, will switch
-between first two themes the user has setup in ~dotspacemacs-themes~. First
+between first two themes the user has setup in ~dotspace-macs-themes~. First
 theme listed will be used as the light variant, while the second as the dark.
 Other themes will be ignored by this layer, though they are still available for
 cycling, etc.
@@ -75,7 +75,7 @@ Sunshine display local weather forecast.
 Setup [[https://home.openweathermap.org/users/sign_in][OpenWeatherMap]] API key. Set ~sunshine-appid~ to some hash string from the
 openweathermap website. You need to sign up to the website to get a API key.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq sunshine-appid "your-apikey")
 #+END_SRC
 
@@ -88,14 +88,14 @@ is due to weird behavior from OpenWeatherMap. To resolve this, append a comma
 and the country code after the ZIP code. Note the lack of a space in the example
 below.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq sunshine-location "90210,USA")
 #+END_SRC
 
 It will use the imperial unit system by default. To switch to metric, add
 ~sunshine-units 'metric~ to the variables list for this layer, or add this.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq sunshine-units 'metric)
 #+END_SRC
 
@@ -105,11 +105,11 @@ Weather forecast icons are disabled by default, and can be toggled by pressing
 To display weather forecast icons by default ("pretty mode"), add
 ~sunshine-show-icons t~ to the variables list for this layer, or add this:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq sunshine-show-icons t)
 #+END_SRC
 
-[[file:img/emacs-sunshine.jpg]]
+[[file:img/e-macs-sunshine.jpg]]
 
 * Key bindings
 ** Weather
@@ -118,3 +118,5 @@ To display weather forecast icons by default ("pretty mode"), add
 |---------------+-----------------------------------------------|
 | ~SPC a t g w~ | Display pretty weather forecast               |
 | ~SPC a t g W~ | Display quick weather forecast in mini buffer |
+
+

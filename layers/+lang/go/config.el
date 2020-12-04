@@ -1,17 +1,17 @@
-;;; config.el --- Go Layer config File for Spacemacs
+;;; config.el --- Go Layer config File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 ;; variables
 
-(spacemacs|define-jump-handlers go-mode godef-jump)
+(space-macs|define-jump-handlers go-mode godef-jump)
 
 (defvar go-backend nil
   "The backend to use for IDE features.
@@ -50,3 +50,5 @@ If `nil' then `go-mode' is the default backend unless `lsp' layer is used.")
 
 (defvar go-test-command "go test"
   "Go test command. Default is `go test`.")
+
+

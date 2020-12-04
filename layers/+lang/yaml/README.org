@@ -19,8 +19,8 @@ This layer provides support for the YAML file format.
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =yaml= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =yaml= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** LSP
@@ -32,8 +32,8 @@ To enable LSP, install [[https://github.com/redhat-developer/yaml-language-serve
 
 And set the layer variable =yaml-enable-lsp= to =t= like shown below:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((yaml :variables yaml-enable-lsp t)))
 #+END_SRC
 
@@ -44,3 +44,5 @@ Flycheck checks YAML files with either:
 - or =yaml-ruby= (requires that =ruby= is installed on your system)
 
 The flycheck YAML documentation can be found at the [[http://www.flycheck.org/en/latest/languages.html#yaml][flycheck website]].
+
+

@@ -1,11 +1,11 @@
-;;; config.el --- Groovy layer configuration File for Spacemacs
+;;; config.el --- Groovy layer configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Maximilian Wolff <smile13241324@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -18,3 +18,5 @@ If `nil' then 'company-groovy` is the default backend unless `lsp' layer is used
 
 (defvar groovy-lsp-jar-path "~/groovy-lsp-all.jar"
   "The path to the lsp jar file")
+
+

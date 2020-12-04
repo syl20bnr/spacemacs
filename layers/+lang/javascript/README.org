@@ -52,12 +52,12 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 - Browser based REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
 - Server based REPL with [[https://github.com/abicky/nodejs-repl.el][nodejs-repl]]
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]] or [[https://github.com/prettier/prettier][prettier]]
-- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
+- Interactive debugger using [[https://github.com/e-macs-lsp/dap-mode][dap-mode]]
 - Display Flow & Typescript type information
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =javascript= to the existing =dotspacemacs-configuration-layers= list in
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =javascript= to the existing =dotspace-macs-configuration-layers= list in
 this file.
 
 ** Error checking / linting
@@ -73,7 +73,7 @@ such as =ESLint=, =JSHint= or =StandardJS=:
 #+END_SRC
 
 If you install these in non-standard locations, add the following to your
-=dotspacemacs/user-init= function:
+=dotspace-macs/user-init= function:
 
 #+BEGIN_SRC elisp
   (add-to-list 'exec-path "/path/to/node/bins" t)
@@ -123,7 +123,7 @@ Backend can be chosen on a per project basis using directory local variables
 
 #+BEGIN_SRC elisp
   ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
+  ;;; For more information see (info "(e-macs) Directory Variables")
 
   ((js2-mode (javascript-backend . lsp)))
 #+END_SRC
@@ -150,7 +150,7 @@ to use the =prettier= formatter:
 
 #+BEGIN_SRC elisp
   ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
+  ;;; For more information see (info "(e-macs) Directory Variables")
 
   ((js2-mode (javascript-fmt-tool . prettier)))
 #+END_SRC
@@ -160,12 +160,12 @@ to use the =prettier= formatter:
 You can choose formatting tool:
 
 #+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers '(
+  (setq-default dotspace-macs-configuration-layers '(
     (javascript :variables
                 javascript-fmt-tool 'prettier)))
 #+END_SRC
 
-Default is =’web-beautify=.
+Default is =â€™web-beautify=.
 
 ** Format buffer before saving
 #+BEGIN_SRC elisp
@@ -181,10 +181,10 @@ See [[file:../../+tools/tide/README.org][tide layer]] documentation.
 
 ** Language Server Protocol
 To use an LSP server with JavaScript, add it as a =javascript-backend= to your
-=~/.spacemacs=.
+=~/.space-macs=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((javascript :variables
                               javascript-backend 'lsp)))
 #+END_SRC
@@ -218,33 +218,33 @@ To install the debug adapter you may run =M-x dap-firefox-setup= or
 =M-x dap-chrome-setup= if you are using Linux or download it manually from
 [[https://marketplace.visualstudio.com/items?itemName=hbenl.vscode-firefox-debug][Firefox Debug Adapter]] or [[https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome][Chrome Debug Adapter]] and adjust
 =dap-firefox-debug-path= or =dap-chrome-debug-path=. For usage instructions
-refer to [[https://github.com/emacs-lsp/dap-mode][dap-mode]] readme.
+refer to [[https://github.com/e-macs-lsp/dap-mode][dap-mode]] readme.
 
 * Configuration
 ** Indentation
 To change how js2-mode indents code, set the variable =js2-basic-offset=, as
 such:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq-default js2-basic-offset 2)
 #+END_SRC
 
 or when adding the =javascript= configuration layer:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (javascript :variables js2-basic-offset 2)
 #+END_SRC
 
 Similarly, to change how js-mode indents JSON files, set the variable
 =js-indent-level=, as such:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq-default js-indent-level 2)
 #+END_SRC
 
 or when adding the =javascript= configuration layer:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (javascript :variables js-indent-level 2)
 #+END_SRC
 
@@ -253,7 +253,7 @@ or when adding the =javascript= configuration layer:
 To use the browser based REPL set the =javascript-repl= variable as shown below:
 
 #+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers
+  (setq-default dotspace-macs-configuration-layers
     '((javascript :variables javascript-repl `skewer)))
 #+END_SRC
 
@@ -267,7 +267,7 @@ in the top-right corner - if it turns green, you're good to go).
 To use the server based REPL set the =javascript-repl= variable as shown below:
 
 #+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers
+  (setq-default dotspace-macs-configuration-layers
     '((javascript :variables javascript-repl `nodejs)))
 #+END_SRC
 
@@ -281,7 +281,7 @@ local =exec_path=, e.g. to support project local eslint installations, set the
 doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472][introduces a security risk]]:
 
 #+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers
+  (setq-default dotspace-macs-configuration-layers
     '((javascript :variables node-add-modules-path t)))
 #+END_SRC
 
@@ -291,7 +291,7 @@ system (for completion purposes /i.a./) set the =js2-include-node-exters=
 variable to =t= in the =javascript= config section:
 
 #+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers
+  (setq-default dotspace-macs-configuration-layers
     '((javascript :variables js2-include-node-externs t)))
 #+END_SRC
 
@@ -301,7 +301,7 @@ Enable the [[#language-server-protocol][lsp]] backend to view type information, 
 js2-mode is sometimes confused by the type syntax, so you may wish to disable their
 parse warnings:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (javascript :variables javascript-backend 'lsp
               js2-mode-show-strict-warnings nil
               js2-mode-show-parse-errors nil)
@@ -335,7 +335,7 @@ parse warnings:
 | ~SPC m g i~ | Go to the module of the variable under cursor                       |
 
 ** Refactoring (js2-refactor)
-Bindings should match the plain emacs assignments.
+Bindings should match the plain e-macs assignments.
 
 | Key binding   | Description                                                                                                    |
 |---------------+----------------------------------------------------------------------------------------------------------------|
@@ -416,4 +416,6 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 
 ** debugger (dap mode)
 Using the =dap= layer you'll get access to all the DAP key bindings, see the
-complete list of key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
+complete list of key bindings on the [[https://github.com/syl20bnr/space-macs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
+
+

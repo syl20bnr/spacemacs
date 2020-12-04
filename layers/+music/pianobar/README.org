@@ -11,20 +11,20 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer integrates an online music service into Spacemacs.
+This layer integrates an online music service into Space-macs.
 
 ** Features:
-- Support for listening to music from within Emacs via [[https://6xq.net/pianobar/][Pianobar]].
+- Support for listening to music from within e-macs via [[https://6xq.net/pianobar/][Pianobar]].
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =pianobar= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =pianobar= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 For example:
 
-#+BEGIN_SRC emacs-elisp
-  dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-elisp
+  dotspace-macs-configuration-layers
      '((pianobar :variables pianobar-config t))
 #+END_SRC
 
@@ -59,3 +59,5 @@ With the above configuration, pianobar will login and start playing the autostar
 | ~SPC a m p -~ | Ban current song       |
 | ~SPC a m p t~ | Tired of current song  |
 | ~SPC a m p s~ | Switch station         |
+
+

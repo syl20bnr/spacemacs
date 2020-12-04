@@ -18,13 +18,13 @@
   - [[#transmission-peers-mode][=transmission-peers-mode=]]
 
 * Description
-This layer integrates a BitTorrent client into Spacemacs.
+This layer integrates a BitTorrent client into Space-macs.
 
 ** Features:
-- Integration of [[https://transmissionbt.com/][Transmission]] into Emacs.
+- Integration of [[https://transmissionbt.com/][Transmission]] into e-macs.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
 install and configure =transmission-daemon=. Debian example:
 
 #+BEGIN_SRC sh
@@ -45,9 +45,9 @@ Start the daemon:
 * FAQ
 ** How to enable status auto refresh?
 Add =(transmission :variables transmission-auto-refresh-all t)= to
-=dotspacemacs-configuration-layers= or pick modes manually:
+=dotspace-macs-configuration-layers= or pick modes manually:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq transmission-refresh-modes '(transmission-mode
                                      transmission-files-mode
                                      transmission-info-mode
@@ -112,3 +112,5 @@ Add =(transmission :variables transmission-auto-refresh-all t)= to
 | Key binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
 | ~SPC m g i~ | Open a =transmission-info-mode= buffer for torrent at point. |
+
+

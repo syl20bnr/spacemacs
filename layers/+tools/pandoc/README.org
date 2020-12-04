@@ -24,8 +24,8 @@ DOCX.
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =pandoc= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =pandoc= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Pandoc
@@ -41,3 +41,5 @@ An explanation of all the options offered by =pandoc-mode= can be found at the
 | Key binding | Description                     |
 |-------------+---------------------------------|
 | ~SPC P /~   | Start pandoc-mode and open menu |
+
+

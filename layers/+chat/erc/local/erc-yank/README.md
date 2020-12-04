@@ -17,3 +17,5 @@ Or, if you want to use my `use-package' macro:
         (bind-key "C-y" 'erc-yank erc-mode-map)))
 
 This module requires gist.el, from: https://github.com/defunkt/gist.el
+
+

@@ -22,28 +22,28 @@
 This Layer adds Japanese related packages.
 
 ** Features:
-- [[https://github.com/kenjimyzk/evil-tutor-ja][evil-tutor-ja]]: Japanese Vimtutor adapted to Emacs+Evil and wrapped in a major mode
-- [[https://github.com/emacs-jp/migemo][migemo]]: Japanese incremental search through dynamic pattern expansion
-- [[https://github.com/emacs-helm/helm/wiki/Migemo][helm-migemo-mode]]: helm with migemo
+- [[https://github.com/kenjimyzk/evil-tutor-ja][evil-tutor-ja]]: Japanese Vimtutor adapted to e-macs+Evil and wrapped in a major mode
+- [[https://github.com/e-macs-jp/migemo][migemo]]: Japanese incremental search through dynamic pattern expansion
+- [[https://github.com/e-macs-helm/helm/wiki/Migemo][helm-migemo-mode]]: helm with migemo
 - [[https://github.com/momomo5717/avy-migemo/blob/master/README.jp.org][avy-migemo]]: avy with migemo
 - [[https://github.com/skk-dev/ddskk][ddskk]]: Simple Kana to Kanji conversion program (SKK)
-- [[https://github.com/emacs-jp/japanese-holidays][japanese-holidays]]: calendar functions for the Japanese calendar
-- [[https://github.com/coldnew/pangu-spacing][pangu-spacing]]: emacs minor-mode to add space between Japanese and English
+- [[https://github.com/e-macs-jp/japanese-holidays][japanese-holidays]]: calendar functions for the Japanese calendar
+- [[https://github.com/coldnew/pangu-spacing][pangu-spacing]]: e-macs minor-mode to add space between Japanese and English
   characters.
 - Join consecutive Japanese lines into a single long line without unwanted space
   when exporting org-mode to html.
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =japanese= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =japanese= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Configuration
-For a basic configuration, add this to your =~/.spacemacs= inside =dotspacemacs/user-config=:
+For a basic configuration, add this to your =~/.space-macs= inside =dotspace-macs/user-config=:
 
 *** evil-tutor-ja
-By default, the variable =evil-tutor-working-ja-directory= is assigned =~/.emacs.d/.tutor-ja=.
+By default, the variable =evil-tutor-working-ja-directory= is assigned =~/.e-macs.d/.tutor-ja=.
 
 *** migemo
 By default, the variable =migemo-dictionary= is assigned
@@ -51,36 +51,36 @@ By default, the variable =migemo-dictionary= is assigned
 If you want it to be another directory, you must re-set the variable.
 For example, if you install [[https://www.kaoriya.net/software/cmigemo/][C/Migemo for Windows 64bit]] in the directory =c:\app\cmigemo-default-win64=, you should add:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (with-eval-after-load "migemo"
     (setq migemo-dictionary "c:/app/cmigemo-default-win64/dict/utf-8/migemo-dict"))
 #+END_SRC
 
-inside =dotspacemacs/user-config=, or
+inside =dotspace-macs/user-config=, or
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (japanese :variables
             migemo-dictionary "c:/app/cmigemo-default-win64/dict/utf-8/migemo-dict")
 #+END_SRC
 
-inside =dotspacemacs-configuration-layers=.
+inside =dotspace-macs-configuration-layers=.
 
 *** helm-with-migemo
 If you want to use helm with migemo, you should add:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (with-eval-after-load "migemo"
     (helm-migemo-mode 1))
 #+END_SRC
 
-inside =dotspacemacs/user-config=, or
+inside =dotspace-macs/user-config=, or
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (japanese :variables
              helm-migemo-mode 1)
 #+END_SRC
 
-inside =dotspacemacs-configuration-layers=. Note that you may find in a package called
+inside =dotspace-macs-configuration-layers=. Note that you may find in a package called
 =helm-migemo.el= in MELPA. However, this package is deprecated and not supported
 by helm.
 
@@ -90,28 +90,30 @@ currently, so you had better use a [[https://github.com/tam17aki/avy-migemo][for
 
 By default, you can use =avy-migemo= for =helm-mode=. For =ivy-mode=, you should add:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (with-eval-after-load "migemo"
     (require 'avy-migemo-e.g.ivy)
     (require 'avy-migemo-e.g.swiper)
     (require 'avy-migemo-e.g.counsel))
 #+END_SRC
 
-inside =dotspacemacs/user-config=.
+inside =dotspace-macs/user-config=.
 
 *** ddskk
-You can write a configuration file =​~/.skk=. For detailed configuration, see
+You can write a configuration file =â€‹~/.skk=. For detailed configuration, see
 some [[http://openlab.ring.gr.jp/skk/ddskk.html][documents]].
 
 *** pangu-spacing
 By default, =pangu-spacing-mode= is applied to =text-mode=. If you prefer the
 mode globally, add:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (global-pangu-spacing-mode 1)
 #+END_SRC
 
-inside =dotspacemacs/user-config=.
+inside =dotspace-macs/user-config=.
 
 * Key bindings
 By default, ~C-x j~ toggles =skk-mode=.
+
+

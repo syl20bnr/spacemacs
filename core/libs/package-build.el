@@ -7,29 +7,29 @@
 
 ;; Author: Donald Ephraim Curtis <dcurtis@milkbox.net>
 ;; Keywords: tools
-;; Package-Requires: ((cl-lib "0.5") (emacs "24.1"))
+;; Package-Requires: ((cl-lib "0.5") (e-macs "24.1"))
 
-;; This file is not (yet) part of GNU Emacs.
+;; This file is not (yet) part of GNU e-macs.
 ;; However, it is distributed under the same license.
 
-;; GNU Emacs is free software; you can redistribute it and/or modify
+;; GNU e-macs is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation; either version 3, or (at your option)
 ;; any later version.
 
-;; GNU Emacs is distributed in the hope that it will be useful,
+;; GNU e-macs is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to the
+;; along with GNU e-macs; see the file COPYING.  If not, write to the
 ;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
 
-;; This file allows a curator to publish an archive of Emacs packages.
+;; This file allows a curator to publish an archive of e-macs packages.
 
 ;; The archive is generated from a set of recipes which describe elisp
 ;; projects and repositories from which to get them.  The term
@@ -235,7 +235,7 @@ is used instead."
                           (substring (symbol-name
                                       (with-no-warnings
                                         ;; Use eieio-object-class once we
-                                        ;; no longer support Emacs 24.3.
+                                        ;; no longer support e-macs 24.3.
                                         (object-class-fast rcp)))
                                      8 -7))
   (package-build--message "Source:  %s\n" (package-recipe--upstream-url rcp)))
@@ -350,7 +350,7 @@ is used instead."
                        (let ((value (cdr entry)))
                          (when (or (symbolp value) (listp value))
                            ;; We must quote lists and symbols,
-                           ;; because Emacs 24.3 and earlier evaluate
+                           ;; because e-macs 24.3 and earlier evaluate
                            ;; the package information, which would
                            ;; break for unquoted symbols or lists
                            (setq value (list 'quote value)))
@@ -453,8 +453,8 @@ still be renamed."
 
 (defun package-build--package-buffer-info-vec ()
   "Return a vector of package info.
-`package-buffer-info' returns a vector in older Emacs versions,
-and a cl struct in Emacs HEAD.  This wrapper normalises the results."
+`package-buffer-info' returns a vector in older e-macs versions,
+and a cl struct in e-macs HEAD.  This wrapper normalises the results."
   (let ((desc (package-buffer-info))
         (keywords (lm-keywords-list)))
     (if (fboundp 'package-desc-create)
@@ -1024,7 +1024,7 @@ line per entry."
 
 (defun package-build--lm-homepage (&optional file)
   "Return the homepage in file FILE, or current buffer if FILE is nil.
-This is a copy of `lm-homepage', which first appeared in Emacs 24.4."
+This is a copy of `lm-homepage', which first appeared in e-macs 24.4."
   (let ((page (lm-with-file file
                 (lm-header "\\(?:x-\\)?\\(?:homepage\\|url\\)"))))
     (if (and page (string-match "^<.+>$" page))
@@ -1042,3 +1042,5 @@ This is a copy of `lm-homepage', which first appeared in Emacs 24.4."
 (require 'package-recipe-mode)
 ;; End:
 ;;; package-build.el ends here
+
+

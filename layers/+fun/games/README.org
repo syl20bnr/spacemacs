@@ -17,18 +17,18 @@
     - [[#create-a-new-dictionary][Create a new dictionary]]
 
 * Description
-This layer allows you to play evilified games in Spacemacs.
+This layer allows you to play evilified games in Space-macs.
 
 ** Features:
 - 2048-game
-- Pacmacs (Pacman for Emacs)
+- Pacmacs (Pacman for e-macs)
 - Sudoku
 - Tetris
 - Typit
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =games= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =games= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Games instructions
@@ -113,3 +113,5 @@ To add a new dictionary, you need to create a text file named your-language.txt
 and put it under the dict directory. That file should contain 1000 most common
 words from the language, a word per line. Please make sure that it uses
 Unix-style (that is, LF) end-of-line sequence and the file ends with a newline.
+
+

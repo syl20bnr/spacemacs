@@ -1,16 +1,16 @@
-;;; keybindings.el --- OSX Layer keybindings File for Spacemacs
+;;; keybindings.el --- OSX Layer keybindings File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(when (spacemacs/system-is-mac)
-  (spacemacs/set-leader-keys "bf" 'reveal-in-osx-finder)
+(when (space-macs/system-is-mac)
+  (space-macs/set-leader-keys "bf" 'reveal-in-osx-finder)
 
   ;; `Command' key is by default bound to HYPER (H-*),
   ;; `Option' key is by default bound to META (M-*).
@@ -21,7 +21,7 @@
   ;; default.
 
   ;; `Alist' linking the layer config variables to
-  ;; the internal Emacs variables for the modifier keys.
+  ;; the internal e-macs variables for the modifier keys.
   (setq modifier-keys '((osx-command-as       . mac-command-modifier)
                         (osx-option-as        . mac-option-modifier)
                         (osx-function-as      . mac-function-modifier)
@@ -49,7 +49,7 @@
     (cl-rotatef mac-command-modifier mac-option-modifier))
 
   (defun kbd-mac-command (keys)
-    "Call `kbd' with a macOS-compatible Command-key (⌘) prefixed.
+    "Call `kbd' with a macOS-compatible Command-key (âŒ˜) prefixed.
 KEYS should be a string suitable as input to `kbd'.
 `mac-commmand-modifier' determines which prefix will be added; it
 should be set to one of `hyper', `super', or `alt'.  For example,
@@ -69,9 +69,9 @@ default."
         (kbd (concat "H-" keys)))))
 
   ;; Keybindings
-  (global-set-key (kbd-mac-command "=") 'spacemacs/scale-up-font)
-  (global-set-key (kbd-mac-command "-") 'spacemacs/scale-down-font)
-  (global-set-key (kbd-mac-command "0") 'spacemacs/reset-font-size)
+  (global-set-key (kbd-mac-command "=") 'space-macs/scale-up-font)
+  (global-set-key (kbd-mac-command "-") 'space-macs/scale-down-font)
+  (global-set-key (kbd-mac-command "0") 'space-macs/reset-font-size)
   (global-set-key (kbd-mac-command "q") 'save-buffers-kill-terminal)
   (global-set-key (kbd-mac-command "v") 'yank)
   (global-set-key (kbd-mac-command "c") 'evil-yank)
@@ -99,10 +99,12 @@ default."
   (global-set-key (kbd-mac-command "9") 'winum-select-window-9)
 
   (global-set-key (kbd-mac-command "Z") 'undo-tree-redo)
-  (global-set-key (kbd-mac-command "C-f") 'spacemacs/toggle-frame-fullscreen)
+  (global-set-key (kbd-mac-command "C-f") 'space-macs/toggle-frame-fullscreen)
   (global-set-key (kbd "M-s-h") 'ns-do-hide-others)
 
-  ;; Emacs sometimes registers C-s-f as this weird keycode
-  ;; (global-set-key (kbd "<C-s-268632070>") 'spacemacs/toggle-frame-fullscreen)
+  ;; e-macs sometimes registers C-s-f as this weird keycode
+  ;; (global-set-key (kbd "<C-s-268632070>") 'space-macs/toggle-frame-fullscreen)
   ;; (global-set-key [142607065] 'ns-do-hide-others)
   )
+
+

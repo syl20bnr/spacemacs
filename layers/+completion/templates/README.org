@@ -11,7 +11,7 @@
   - [[#querying][Querying]]
 
 * Description
-This layer provides templates to Spacemacs. A template consists of text that is
+This layer provides templates to Space-macs. A template consists of text that is
 automatically inserted into a new file when it is opened. This is done via
 [[https://github.com/mineo/yatemplate][yatemplate]], which leverages [[https://github.com/joaotavora/yasnippet][yasnippet]].
 
@@ -19,18 +19,18 @@ automatically inserted into a new file when it is opened. This is done via
 - Auto-insert snippets when creating specific new files.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =templates= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =templates= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
-Drop your templates in =~/.emacs.d/private/templates=.
+Drop your templates in =~/.e-macs.d/private/templates=.
 
 You can also specify a different location with =templates-private-directory=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-    '((templates :variables templates-private-directory "~/.spacemacs.d/templates")))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
+    '((templates :variables templates-private-directory "~/.space-macs.d/templates")))
 #+END_SRC
 
 Each file in this directory must be of the form =XXX:regexp= where =regexp= is a
@@ -48,11 +48,11 @@ See the [[https://github.com/mineo/yatemplate][yatemplate]] documentation for sp
 supported, so consult the [[http://joaotavora.github.io/yasnippet/snippet-development.html][yasnippet]] documentation for details.
 
 ** Default insertions
-Note that Emacs ships with some default templates. If these are not to your
+Note that e-macs ships with some default templates. If these are not to your
 liking, set the layer variable =templates-use-default-templates= to =nil=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((templates :variables templates-use-default-templates nil)))
 #+END_SRC
 
@@ -60,6 +60,8 @@ liking, set the layer variable =templates-use-default-templates= to =nil=.
 To disable the automatic querying each time a new file is opened, set
 =auto-insert-query= to =nil=.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq auto-insert-query nil)
 #+END_SRC
+
+

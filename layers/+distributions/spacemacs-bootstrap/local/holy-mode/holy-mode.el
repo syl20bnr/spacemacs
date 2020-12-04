@@ -1,4 +1,4 @@
-;;; holy-mode.el --- Enter the church of Emacs
+;;; holy-mode.el --- Enter the church of e-macs
 
 ;; Copyright (c) 2015-2020 Sylvain Benner
 ;;
@@ -6,10 +6,10 @@
 ;; Keywords: convenience editing
 ;; Created: 18 Mar 2015
 ;; Version: 1.00
-;; Package-Requires: ((emacs "24") (evil "1.0.9"))
-;; URL: https://github.com/syl20bnr/spacemacs
+;; Package-Requires: ((e-macs "24") (evil "1.0.9"))
+;; URL: https://github.com/syl20bnr/space-macs
 
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -28,65 +28,65 @@
 
 ;;; Code:
 
-(defadvice evil-insert-state (around holy-insert-to-emacs-state disable)
-  "Forces Emacs state."
+(defadvice evil-insert-state (around holy-insert-to-e-macs-state disable)
+  "Forces e-macs state."
   (if (equal -1 (ad-get-arg 0))
       ad-do-it
-    (evil-emacs-state)))
+    (evil-e-macs-state)))
 
-(defadvice evil-motion-state (around holy-motion-to-emacs-state disable)
-  "Forces Emacs state."
+(defadvice evil-motion-state (around holy-motion-to-e-macs-state disable)
+  "Forces e-macs state."
   (if (equal -1 (ad-get-arg 0))
       ad-do-it
-    (evil-emacs-state)))
+    (evil-e-macs-state)))
 
-(defadvice evil-normal-state (around holy-normal-to-emacs-state disable)
-  "Forces Emacs state."
+(defadvice evil-normal-state (around holy-normal-to-e-macs-state disable)
+  "Forces e-macs state."
   (if (equal -1 (ad-get-arg 0))
       ad-do-it
-    (evil-emacs-state)))
+    (evil-e-macs-state)))
 
 ;;;###autoload
 (define-minor-mode holy-mode
-  "Global minor mode to repulse the evil from spacemacs.
+  "Global minor mode to repulse the evil from space-macs.
 
-The `insert state' is replaced by the `emacs state'."
+The `insert state' is replaced by the `e-macs state'."
   :global t
   :lighter " holy"
-  :group 'spacemacs
+  :group 'space-macs
   (if holy-mode
       (in-nomine-patris-et-filii-et-spiritus-sancti)
     (amen)))
 
 (defun in-nomine-patris-et-filii-et-spiritus-sancti ()
-  "Enter the church of Emacs (wash your hands)."
-  ;; make all buffers' initial state emacs
-  (push '("." . emacs) evil-buffer-regexps)
-  ;; replace evil states by `emacs state'
-  (ad-enable-advice 'evil-insert-state 'around 'holy-insert-to-emacs-state)
-  (ad-enable-advice 'evil-motion-state 'around 'holy-motion-to-emacs-state)
-  (ad-enable-advice 'evil-normal-state 'around 'holy-normal-to-emacs-state)
+  "Enter the church of e-macs (wash your hands)."
+  ;; make all buffers' initial state e-macs
+  (push '("." . e-macs) evil-buffer-regexps)
+  ;; replace evil states by `e-macs state'
+  (ad-enable-advice 'evil-insert-state 'around 'holy-insert-to-e-macs-state)
+  (ad-enable-advice 'evil-motion-state 'around 'holy-motion-to-e-macs-state)
+  (ad-enable-advice 'evil-normal-state 'around 'holy-normal-to-e-macs-state)
   (ad-activate 'evil-insert-state)
   (ad-activate 'evil-motion-state)
   (ad-activate 'evil-normal-state)
   ;; key bindings hooks for dynamic switching of editing styles
-  (run-hook-with-args 'spacemacs-editing-style-hook 'emacs)
-  ;; initiate `emacs state' and enter the church
-  (holy-mode//update-states-for-current-buffers 'emacs))
+  (run-hook-with-args 'space-macs-editing-style-hook 'e-macs)
+  ;; initiate `e-macs state' and enter the church
+  (holy-mode//update-states-for-current-buffers 'e-macs))
 
 (defun amen ()
   "May the force be with you my son (or not)."
   ;; restore defaults
-  (setq evil-buffer-regexps (delete '("." . emacs) evil-buffer-regexps))
+  (setq evil-buffer-regexps (delete '("." . e-macs) evil-buffer-regexps))
   ;; restore evil states
-  (ad-disable-advice 'evil-insert-state 'around 'holy-insert-to-emacs-state)
-  (ad-disable-advice 'evil-motion-state 'around 'holy-motion-to-emacs-state)
-  (ad-disable-advice 'evil-normal-state 'around 'holy-normal-to-emacs-state)
+  (ad-disable-advice 'evil-insert-state 'around 'holy-insert-to-e-macs-state)
+  (ad-disable-advice 'evil-motion-state 'around 'holy-motion-to-e-macs-state)
+  (ad-disable-advice 'evil-normal-state 'around 'holy-normal-to-e-macs-state)
   (ad-activate 'evil-insert-state)
   (ad-activate 'evil-motion-state)
   (ad-activate 'evil-normal-state)
   ;; restore key bindings
-  (run-hook-with-args 'spacemacs-editing-style-hook 'vim)
+  (run-hook-with-args 'space-macs-editing-style-hook 'vim)
   ;; restore the states
   (holy-mode//update-states-for-current-buffers 'vim))
 
@@ -95,10 +95,12 @@ The `insert state' is replaced by the `emacs state'."
   (dolist (buffer (buffer-list))
     (with-current-buffer buffer
       (cond
-       ((eq 'emacs style) (evil-emacs-state))
+       ((eq 'e-macs style) (evil-e-macs-state))
        ((and (eq 'vim style)
-             (eq 'emacs evil-state))
+             (eq 'e-macs evil-state))
         (cond
          ((memq major-mode evil-evilified-state-modes) (evil-evilified-state))
          ((memq major-mode evil-motion-state-modes) (evil-motion-state))
          (t (evil-normal-state))))))))
+
+

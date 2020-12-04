@@ -1,12 +1,12 @@
 ;; -*- nameless-current-name: "configuration-layer" -*-
-;;; core-configuration-layer.el --- Spacemacs Core File
+;;; core-configuration-layer.el --- Space-macs Core File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -18,41 +18,41 @@
 (require 'warnings)
 (require 'help-mode)
 (require 'ht)
-(require 'core-dotspacemacs)
+(require 'core-dotspace-macs)
 (require 'core-funcs)
 (require 'core-progress-bar)
-(require 'core-spacemacs-buffer)
+(require 'core-space-macs-buffer)
 
-(defvar configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout
+(defvar configuration-layer--refresh-package-timeout dotspace-macs-elpa-timeout
   "Timeout in seconds to reach a package archive page.")
 
-(defvar configuration-layer--last-dotspacemacs-configuration-layers-file
-  (concat spacemacs-cache-directory "last-configuration-layers"))
+(defvar configuration-layer--last-dotspace-macs-configuration-layers-file
+  (concat space-macs-cache-directory "last-configuration-layers"))
 
 (defconst configuration-layer-template-directory
-  (expand-file-name (concat spacemacs-core-directory "templates/"))
+  (expand-file-name (concat space-macs-core-directory "templates/"))
   "Configuration layer templates directory.")
 
 (defconst configuration-layer-directory
-  (expand-file-name (concat spacemacs-start-directory "layers/"))
-  "Spacemacs layers directory.")
+  (expand-file-name (concat space-macs-start-directory "layers/"))
+  "Space-macs layers directory.")
 
 (defconst configuration-layer-private-layer-directory
-  (let ((dotspacemacs-layer-dir
-         (when dotspacemacs-directory
+  (let ((dotspace-macs-layer-dir
+         (when dotspace-macs-directory
            (expand-file-name
-            (concat dotspacemacs-directory "layers/")))))
-    (if (and dotspacemacs-directory
-             (file-exists-p dotspacemacs-layer-dir))
-        dotspacemacs-layer-dir
-      spacemacs-private-directory))
-  "Spacemacs default directory for private layers.")
+            (concat dotspace-macs-directory "layers/")))))
+    (if (and dotspace-macs-directory
+             (file-exists-p dotspace-macs-layer-dir))
+        dotspace-macs-layer-dir
+      space-macs-private-directory))
+  "Space-macs default directory for private layers.")
 
 (defconst configuration-layer-lock-file
-  (concat spacemacs-start-directory ".lock")
+  (concat space-macs-start-directory ".lock")
   "Absolute path to the lock file.")
 
-(defvar configuration-layer-stable-elpa-version spacemacs-version
+(defvar configuration-layer-stable-elpa-version space-macs-version
   "Version of ELPA stable repository. This value is aimed to be defined in
 the .lock file at the root of the repository.")
 
@@ -65,7 +65,7 @@ the lock file.")
 
 (defconst configuration-layer-stable-elpa-directory
   (expand-file-name
-   (concat spacemacs-cache-directory "stable-elpa/" emacs-version "/"))
+   (concat space-macs-cache-directory "stable-elpa/" e-macs-version "/"))
   "Remote location of the tarball for the ELPA stable directory")
 
 (defconst configuration-layer-stable-elpa-archive nil
@@ -81,7 +81,7 @@ the .lock file at the root of the repository.")
   "Remote location of the signature file for the ELPA stable directory")
 
 (defconst configuration-layer--stable-elpa-gpg-keyring
-  (expand-file-name (concat spacemacs-core-directory "gnupg/spacemacs.gpg"))
+  (expand-file-name (concat space-macs-core-directory "gnupg/space-macs.gpg"))
   "Absolute path to public GPG key used to signed the ELPA stable repository
 tarballs.")
 
@@ -92,21 +92,21 @@ version")
 
 (defun configuration-layer/elpa-directory (root)
   "Evaluate the correct package subdirectory of ROOT. This is
-done according to the value of `dotspacemacs-elpa-subdirectory'.
-This function also appends the name of the current branch of Spacemacs.
-If `dotspacemacs-elpa-subdirectory' is nil, then ROOT is used. Otherwise the
+done according to the value of `dotspace-macs-elpa-subdirectory'.
+This function also appends the name of the current branch of Space-macs.
+If `dotspace-macs-elpa-subdirectory' is nil, then ROOT is used. Otherwise the
 subdirectory of ROOT is used."
   (file-name-as-directory
    (expand-file-name
     configuration-layer-elpa-subdirectory
-    (if (not dotspacemacs-elpa-subdirectory)
+    (if (not dotspace-macs-elpa-subdirectory)
         root
-      (let ((subdir (if (eq 'emacs-version dotspacemacs-elpa-subdirectory)
+      (let ((subdir (if (eq 'e-macs-version dotspace-macs-elpa-subdirectory)
                         (format "%d%s%d"
-                                emacs-major-version
+                                e-macs-major-version
                                 version-separator
-                                emacs-minor-version)
-                      (eval dotspacemacs-elpa-subdirectory))))
+                                e-macs-minor-version)
+                      (eval dotspace-macs-elpa-subdirectory))))
         (expand-file-name subdir root))))))
 
 (defun configuration-layer/get-elpa-package-install-directory (pkg)
@@ -124,19 +124,19 @@ subdirectory of ROOT is used."
   "Hook executed at the end of configuration loading.")
 
 (defconst configuration-layer--elpa-root-directory
-  (concat spacemacs-start-directory "elpa/")
-  "Spacemacs ELPA root directory.")
+  (concat space-macs-start-directory "elpa/")
+  "Space-macs ELPA root directory.")
 
 (defconst configuration-layer--rollback-root-directory
-  (concat spacemacs-cache-directory ".rollback/")
-  "Spacemacs rollback root directory.")
+  (concat space-macs-cache-directory ".rollback/")
+  "Space-macs rollback root directory.")
 
 (defvar configuration-layer-rollback-directory
   configuration-layer--rollback-root-directory
-  "Spacemacs current rollback directory.")
+  "Space-macs current rollback directory.")
 
 (defconst configuration-layer-rollback-info "rollback-info"
-  "Spacemacs rollback information file.")
+  "Space-macs rollback information file.")
 
 (defclass cfgl-layer ()
   ((name :initarg :name
@@ -179,7 +179,7 @@ subdirectory of ROOT is used."
    ;;     if Y 'can-shadow' X then X 'can-shadow' Y
    ;; but the 'shadow' operation is not commutative, the order of the operands
    ;; is determined by the order of the layers in the dotfile
-   ;; (variable: dotspacemacs-configuration-layers)
+   ;; (variable: dotspace-macs-configuration-layers)
    (can-shadow :initarg :can-shadow
                :initform 'unspecified
                :type (satisfies (lambda (x) (or (listp x) (eq 'unspecified x))))
@@ -332,7 +332,7 @@ is ignored."
        (cfgl-package-enabled-p pkg t)))
 
 (defmethod cfgl-package-distant-p ((pkg cfgl-package))
-  "Return non-nil if PKG is a distant package (i.e. not built-in Emacs)."
+  "Return non-nil if PKG is a distant package (i.e. not built-in e-macs)."
   (and (not (memq (oref pkg :location) '(built-in site local)))
        (not (stringp (oref pkg :location)))))
 
@@ -356,14 +356,14 @@ is not set for the given SLOT."
     (eval `(oset pkg ,slot value))))
 
 (defvar configuration-layer-elpa-archives nil
-  "List of ELPA archives required by Spacemacs. This value is set by the lock
+  "List of ELPA archives required by Space-macs. This value is set by the lock
 file.")
 
 (defvar configuration-layer-exclude-all-layers nil
   "If non nil then only the distribution layer is loaded.")
 
 (defvar configuration-layer-force-distribution nil
-  "If set, bypass the user's choice `dotspacemacs-distribution'.")
+  "If set, bypass the user's choice `dotspace-macs-distribution'.")
 
 (defvar configuration-layer--package-archives-refreshed nil
   "Non nil if package archives have already been refreshed.")
@@ -426,9 +426,9 @@ cache folder.")
 
 (defun configuration-layer/initialize ()
   "Initialize `package.el'."
-  (unless dotspacemacs-use-spacelpa
+  (unless dotspace-macs-use-spacelpa
     (configuration-layer//stable-elpa-disable-repository))
-  (setq configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout)
+  (setq configuration-layer--refresh-package-timeout dotspace-macs-elpa-timeout)
   (unless package--initialized
     (setq configuration-layer-rollback-directory
           (configuration-layer/elpa-directory
@@ -443,13 +443,13 @@ cache folder.")
     (package-initialize 'noactivate)
     ;; hack to be sure to enable insalled org from Org ELPA repository
     (when (package-installed-p 'org-plus-contrib)
-      (spacemacs-buffer/message "Initializing Org early...")
+      (space-macs-buffer/message "Initializing Org early...")
       (configuration-layer//activate-package 'org-plus-contrib))))
 
 (defun configuration-layer//configure-quelpa ()
   "Configure `quelpa' package."
   (setq quelpa-verbose init-file-debug
-        quelpa-dir (concat spacemacs-cache-directory "quelpa/")
+        quelpa-dir (concat space-macs-cache-directory "quelpa/")
         quelpa-build-dir (expand-file-name "build" quelpa-dir)
         quelpa-persistent-cache-file (expand-file-name "cache" quelpa-dir)
         quelpa-update-melpa-p nil)
@@ -485,8 +485,8 @@ The returned list has a `package-archives' compliant format."
              (if (configuration-layer//package-archive-absolute-path-p x)
                  apath
                (concat
-                (if (and dotspacemacs-elpa-https
-                         (not spacemacs-insecure))
+                (if (and dotspace-macs-elpa-https
+                         (not space-macs-insecure))
                     "https://"
                   "http://")
                 apath)))))
@@ -502,7 +502,7 @@ Note that this simple GET is a heuristic to determine the availability
 likelihood of an archive, so it can gives false positive if the archive
 page is served but the archive is not.
 
-If QUIET is non nil then the function does not print message in the Spacemacs
+If QUIET is non nil then the function does not print message in the Space-macs
 home buffer.
 
 If FORCE is non nil then refresh the archives even if they have been already
@@ -516,20 +516,20 @@ refreshed during the current session."
         (let ((aname (car archive))
               (apath (cdr archive)))
           (unless quiet
-            (spacemacs-buffer/replace-last-line
+            (space-macs-buffer/replace-last-line
              (format "--> refreshing package archive: %s... [%s/%s]"
                      aname i count) t))
-          (spacemacs//redisplay)
+          (space-macs//redisplay)
           (setq i (1+ i))
           (unless
               (and (not (configuration-layer//package-archive-local-path-p
                          archive))
                    (eq 'error
                        (with-timeout
-                           (dotspacemacs-elpa-timeout
+                           (dotspace-macs-elpa-timeout
                             (progn
                               (display-warning
-                               'spacemacs
+                               'space-macs
                                (format
                                 "\nError connection time out for %s repository!"
                                 aname) :warning)
@@ -538,7 +538,7 @@ refreshed during the current session."
                              (url-retrieve-synchronously apath)
                            ('error
                             (display-warning
-                             'spacemacs
+                             'space-macs
                              (format
                               "\nError while contacting %s repository!"
                               aname) :warning)
@@ -546,7 +546,7 @@ refreshed during the current session."
             (let ((package-archives (list archive)))
               (package-refresh-contents)))))
       (package-read-all-archive-contents)
-      (unless quiet (spacemacs-buffer/append "\n")))))
+      (unless quiet (space-macs-buffer/append "\n")))))
 
 (defun configuration-layer/load ()
   "Load layers declared in dotfile if necessary."
@@ -554,70 +554,70 @@ refreshed during the current session."
   (setq changed-since-last-dump-p nil)
   ;; check if layer list has changed since last dump
   (when (file-exists-p
-         configuration-layer--last-dotspacemacs-configuration-layers-file)
+         configuration-layer--last-dotspace-macs-configuration-layers-file)
     (configuration-layer/load-file
-     configuration-layer--last-dotspacemacs-configuration-layers-file))
-  (let ((layers dotspacemacs-configuration-layers))
-    (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
-    ;; `dotspacemacs--configuration-layers-saved' is used to detect if the layer
-    ;; list has been changed outside of function `dotspacemacs/layers'
-    (setq dotspacemacs--configuration-layers-saved
-          dotspacemacs-configuration-layers)
+     configuration-layer--last-dotspace-macs-configuration-layers-file))
+  (let ((layers dotspace-macs-configuration-layers))
+    (dotspace-macs|call-func dotspace-macs/layers "Calling dotfile layers...")
+    ;; `dotspace-macs--configuration-layers-saved' is used to detect if the layer
+    ;; list has been changed outside of function `dotspace-macs/layers'
+    (setq dotspace-macs--configuration-layers-saved
+          dotspace-macs-configuration-layers)
     (setq changed-since-last-dump-p
-          (not (equal layers dotspacemacs-configuration-layers)))
+          (not (equal layers dotspace-macs-configuration-layers)))
     ;; save layers list to file
-    (spacemacs/dump-vars-to-file
-     '(dotspacemacs-configuration-layers)
-     configuration-layer--last-dotspacemacs-configuration-layers-file))
+    (space-macs/dump-vars-to-file
+     '(dotspace-macs-configuration-layers)
+     configuration-layer--last-dotspace-macs-configuration-layers-file))
   (cond
    (changed-since-last-dump-p
     ;; dump
     (configuration-layer//load)
-    (when (spacemacs/emacs-with-pdumper-set-p)
+    (when (space-macs/e-macs-with-pdumper-set-p)
       (configuration-layer/message "Layer list has changed since last dump.")
-      (configuration-layer//dump-emacs)))
-   (spacemacs-force-dump
+      (configuration-layer//dump-e-macs)))
+   (space-macs-force-dump
     ;; force dump
     (configuration-layer//load)
-    (when (spacemacs/emacs-with-pdumper-set-p)
+    (when (space-macs/e-macs-with-pdumper-set-p)
       (configuration-layer/message
        (concat "--force-dump passed on the command line or configuration has "
                "been reloaded, forcing a redump."))
-      (configuration-layer//dump-emacs)))
-   ((spacemacs-is-dumping-p)
+      (configuration-layer//dump-e-macs)))
+   ((space-macs-is-dumping-p)
     ;; dumping
     (configuration-layer//load))
-   ((and (spacemacs/emacs-with-pdumper-set-p)
-         (spacemacs-run-from-dump-p))
+   ((and (space-macs/e-macs-with-pdumper-set-p)
+         (space-macs-run-from-dump-p))
     ;; dumped
     (configuration-layer/message
      "Running from a dumped file. Skipping the loading process!"))
    (t
     ;; standard loading
     (configuration-layer//load)
-    (when (spacemacs/emacs-with-pdumper-set-p)
+    (when (space-macs/e-macs-with-pdumper-set-p)
       (configuration-layer/message
        (concat "Layer list has not changed since last time. "
                "Skipping dumping process!")))))
   (run-hooks 'configuration-layer-post-load-hook))
 
-(defun configuration-layer//dump-emacs ()
-  "Dump emacs."
+(defun configuration-layer//dump-e-macs ()
+  "Dump e-macs."
   (configuration-layer/message
-   (concat "Dumping Emacs asynchronously, "
-           "you should not quit this Emacs "
+   (concat "Dumping e-macs asynchronously, "
+           "you should not quit this e-macs "
            "session until the dump is finished."))
-  (spacemacs/dump-emacs))
+  (space-macs/dump-e-macs))
 
 (defun configuration-layer//load ()
   "Actually load the layers.
 CHANGEDP non-nil means that layers list has changed since last dump
 To prevent package from being installed or uninstalled set the variable
-`spacemacs-sync-packages' to nil."
+`space-macs-sync-packages' to nil."
   ;; declare used layers then packages as soon as possible to resolve
   ;; usage and ownership
   (configuration-layer/discover-layers 'refresh-index)
-  (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
+  (configuration-layer//declare-used-layers dotspace-macs-configuration-layers)
   (configuration-layer//declare-used-packages configuration-layer--used-layers)
   ;; then load the functions and finally configure the layers
   (configuration-layer//load-layers-files configuration-layer--used-layers
@@ -626,7 +626,7 @@ To prevent package from being installed or uninstalled set the variable
   ;; load layers lazy settings
   (configuration-layer/load-auto-layer-file)
   ;; install and/or uninstall packages
-  (when spacemacs-sync-packages
+  (when space-macs-sync-packages
     (let ((packages
            (append
             ;; install used packages
@@ -634,7 +634,7 @@ To prevent package from being installed or uninstalled set the variable
              configuration-layer--used-packages t
              '(not (oref pkg :lazy-install)))
             ;; also install all other packages if requested
-            (when (eq 'all dotspacemacs-install-packages)
+            (when (eq 'all dotspace-macs-install-packages)
               (let (all-other-packages)
                 (dolist (layer (configuration-layer/get-layers-list))
                   (let ((configuration-layer--declared-layers-usedp nil)
@@ -650,8 +650,8 @@ To prevent package from being installed or uninstalled set the variable
                 (configuration-layer//filter-distant-packages
                  all-other-packages nil))))))
       (configuration-layer//install-packages packages)
-      (when (and (or (eq 'used dotspacemacs-install-packages)
-                     (eq 'used-only dotspacemacs-install-packages))
+      (when (and (or (eq 'used dotspace-macs-install-packages)
+                     (eq 'used-only dotspace-macs-install-packages))
                  (not configuration-layer-force-distribution)
                  (not configuration-layer-exclude-all-layers))
         (configuration-layer/delete-orphan-packages packages))))
@@ -662,21 +662,21 @@ To prevent package from being installed or uninstalled set the variable
   (configuration-layer//set-layers-variables configuration-layer--used-layers)
   (configuration-layer//load-layers-files configuration-layer--used-layers
                                           '("keybindings.el"))
-  (when (spacemacs-is-dumping-p)
+  (when (space-macs-is-dumping-p)
     ;; dump stuff in layers
     (dolist (layer-name configuration-layer--used-layers)
       (let ((layer-dump-func (intern (format "%S/pre-dump" layer-name))))
         (when (fboundp layer-dump-func)
           (configuration-layer/message "Pre-dumping layer %S..." layer-name)
           (funcall layer-dump-func))))
-    (dotspacemacs|call-func dotspacemacs/user-load
+    (dotspace-macs|call-func dotspace-macs/user-load
                             "Calling dotfile user-load...")))
 
 (defun configuration-layer/load-auto-layer-file ()
   "Load `auto-layer.el' file"
   (let ((file (concat configuration-layer-directory "auto-layer.el")))
     (when (file-exists-p file)
-      (spacemacs-buffer/message "Loading auto-layer file...")
+      (space-macs-buffer/message "Loading auto-layer file...")
       (configuration-layer/load-file file))))
 
 (defun configuration-layer/create-layer ()
@@ -687,7 +687,7 @@ layer directory."
   (let* ((current-layer-paths (mapcar (lambda (dir) (expand-file-name dir))
                                       (cl-pushnew
                                        configuration-layer-private-layer-directory
-                                       dotspacemacs-configuration-layer-path)))
+                                       dotspace-macs-configuration-layer-path)))
          (other-choice "Another directory...")
          (helm-lp-source
           `((name . "Configuration Layer Paths")
@@ -729,7 +729,7 @@ layer directory."
 (defun configuration-layer//select-packages (layer-specs packages)
   "Return the selected packages of LAYER-SPECS from given PACKAGES list."
   (let* ((value (when (listp layer-specs)
-                  (spacemacs/mplist-get-values layer-specs :packages)))
+                  (space-macs/mplist-get-values layer-specs :packages)))
          (selected-packages (if (and (not (null (car value)))
                                      (listp (car value)))
                                 (car value)
@@ -770,17 +770,17 @@ If USEDP or `configuration-layer--load-packages-files' is non-nil then the
          layer-name)
       (let* ((dir (file-name-as-directory dir))
              (disabled (when (listp layer-specs)
-                         (spacemacs/mplist-get-values layer-specs :disabled-for)))
+                         (space-macs/mplist-get-values layer-specs :disabled-for)))
              (enabled (if (and (listp layer-specs)
                                (memq :enabled-for layer-specs))
-                          (spacemacs/mplist-get-values layer-specs :enabled-for)
+                          (space-macs/mplist-get-values layer-specs :enabled-for)
                         'unspecified))
              (variables (when (listp layer-specs)
-                          (spacemacs/mplist-get-values layer-specs :variables)))
+                          (space-macs/mplist-get-values layer-specs :variables)))
              (shadow
               (if (and (listp layer-specs)
                        (memq :can-shadow layer-specs))
-                  (spacemacs/mplist-get-values layer-specs :can-shadow)
+                  (space-macs/mplist-get-values layer-specs :can-shadow)
                 'unspecified))
              (packages-file (concat dir "packages.el"))
              (packages (when (and (null packages)
@@ -922,7 +922,7 @@ a new object."
   :supertype 'help-xref
   'help-function
   (lambda (variable)
-    (with-current-buffer (find-file-noselect dotspacemacs-filepath)
+    (with-current-buffer (find-file-noselect dotspace-macs-filepath)
       (pop-to-buffer (current-buffer))
       (goto-char (point-min))
       ;; try to exclude comments
@@ -932,7 +932,7 @@ a new object."
         (configuration-layer/message "Unable to find location in file"))))
   'help-echo
   (purecopy (concat "mouse-2, RET: "
-                    "visit the Spacemacs dotfile where variable is defined.")))
+                    "visit the Space-macs dotfile where variable is defined.")))
 
 (define-button-type 'help-describe-package
   :supertype 'help-xref
@@ -955,19 +955,19 @@ a new object."
       (princ " is a package declared and configured ")
       (cond
        ((eq 'dotfile owner)
-        (princ "by the variable `dotspacemacs-additional-packages' ")
+        (princ "by the variable `dotspace-macs-additional-packages' ")
         (with-current-buffer standard-output
           (save-excursion
             (re-search-backward "`\\([^`']+\\)'" nil t)
             (help-xref-button 1 'help-variable
-                              'dotspacemacs-additional-packages
-                              dotspacemacs-filepath)))
+                              'dotspace-macs-additional-packages
+                              dotspace-macs-filepath)))
         (princ "in your `dotfile'.\n")
         (with-current-buffer standard-output
           (save-excursion
             (re-search-backward "`\\([^`']+\\)'" nil t)
             (help-xref-button
-             1 'help-dotfile-variable 'dotspacemacs-additional-packages))))
+             1 'help-dotfile-variable 'dotspace-macs-additional-packages))))
        ((not (null owner))
         (let* ((layer (configuration-layer/get-layer owner))
                (path (concat (oref layer dir) "packages.el")))
@@ -1037,7 +1037,7 @@ a new object."
         (let ((location (oref pkg :location)))
           (cond
            ((eq 'built-in location)
-            (princ "\nThis is a built-in package distributed with Emacs.\n"))
+            (princ "\nThis is a built-in package distributed with e-macs.\n"))
            ((eq 'local location)
             (let* ((layer (configuration-layer/get-layer owner))
                    (path (format "%slocal/%S" (oref layer dir) pkg-symbol)))
@@ -1107,7 +1107,7 @@ a new object."
                   (princ " (disabled)")))
               (princ " "))
             (princ "\n"))))
-      (princ (concat "\nClick [here] to display an Emacs description "
+      (princ (concat "\nClick [here] to display an e-macs description "
                      "for this package.\n"))
       (with-current-buffer standard-output
         (save-excursion
@@ -1119,7 +1119,7 @@ a new object."
 If `configuration-layer--inhibit-warnings' is non nil then this function is a
 no-op."
   (unless configuration-layer--inhibit-warnings
-    (apply 'spacemacs-buffer/warning msg args)))
+    (apply 'space-macs-buffer/warning msg args)))
 
 (defun configuration-layer//error (msg &rest args)
   "Display MSG as a warning message in buffer `*Messages*'.
@@ -1127,7 +1127,7 @@ If `configuration-layer--inhibit-errors' is non nil then this function is a
 no-op."
   (unless configuration-layer--inhibit-errors
     (configuration-layer//increment-error-count)
-    (apply 'spacemacs-buffer/error msg args)))
+    (apply 'space-macs-buffer/error msg args)))
 
 (defun configuration-layer//add-layer (layer &optional usedp)
   "Add a LAYER object to the system.
@@ -1189,7 +1189,7 @@ Return nil if package object is not found."
   (sort packages (lambda (x y) (string< (symbol-name x) (symbol-name y)))))
 
 (defun configuration-layer/make-all-packages (&optional skip-layer-discovery skip-layer-deps)
-  "Create objects for _all_ packages supported by Spacemacs.
+  "Create objects for _all_ packages supported by Space-macs.
 If SKIP-LAYER-DISCOVERY is non-nil then do not check for new layers.
 If SKIP-LAYER-DEPS is non-nil then skip declaration of layer dependencies."
   (let ((all-layers (configuration-layer/get-layers-list))
@@ -1209,7 +1209,7 @@ USEDP if non-nil indicates that made packages are used packages."
     (let* ((layer (configuration-layer/get-layer layer-name))
            (shadowed-by (cfgl-layer-get-shadowing-layers layer)))
       (if shadowed-by
-          (spacemacs-buffer/message
+          (space-macs-buffer/message
            "Ignoring layer '%s' because it is shadowed by layer(s) '%s'."
            layer-name shadowed-by)
         (dolist (pkg (cfgl-layer-get-packages layer 'with-props))
@@ -1222,15 +1222,15 @@ USEDP if non-nil indicates that made packages are used packages."
 (defun configuration-layer/make-packages-from-dotfile (&optional usedp)
   "Read the additional packages declared in the dotfile and create packages.
 USEDP if non-nil indicates that made packages are used packages."
-  (dolist (pkg (append dotspacemacs-additional-packages
-                       dotspacemacs--additional-theme-packages))
+  (dolist (pkg (append dotspace-macs-additional-packages
+                       dotspace-macs--additional-theme-packages))
     (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
            (obj (configuration-layer/get-package pkg-name)))
       (if obj
           (setq obj (configuration-layer/make-package pkg 'dotfile obj))
         (setq obj (configuration-layer/make-package pkg 'dotfile)))
       (configuration-layer//add-package obj usedp)))
-  (dolist (xpkg dotspacemacs-excluded-packages)
+  (dolist (xpkg dotspace-macs-excluded-packages)
     (let ((obj (configuration-layer/get-package xpkg)))
       (unless obj
         (setq obj (configuration-layer/make-package xpkg 'dotfile)))
@@ -1241,7 +1241,7 @@ USEDP if non-nil indicates that made packages are used packages."
   "Configure auto-installation of layer with name LAYER-NAME."
   (declare (indent 1))
   (when (configuration-layer//lazy-install-p layer-name)
-    (let ((extensions (spacemacs/mplist-get-values props :extensions))
+    (let ((extensions (space-macs/mplist-get-values props :extensions))
           (interpreter (plist-get props :interpreter)))
       (when (configuration-layer/layer-used-p layer-name)
         (let* ((layer (configuration-layer/get-layer layer-name))
@@ -1249,7 +1249,7 @@ USEDP if non-nil indicates that made packages are used packages."
           ;; set lazy install flag for a layer if and only if its owned
           ;; distant packages are all not already installed
           (let ((lazy
-                 (or (eq 'all dotspacemacs-enable-lazy-installation)
+                 (or (eq 'all dotspace-macs-enable-lazy-installation)
                      (cl-reduce
                       (lambda (x y) (and x y))
                       (mapcar
@@ -1314,7 +1314,7 @@ PREDICATE is an additional expression that eval to a boolean."
                     (cfgl-package-used-p pkg))
                 (or (null predicate)
                     (eval predicate)))
-         (spacemacs-buffer/warning "Cannot find package for %s" x)
+         (space-macs-buffer/warning "Cannot find package for %s" x)
          nil)))))
 
 (defun configuration-layer//get-private-layer-dir (name)
@@ -1387,23 +1387,23 @@ If REFRESH-INDEX is non-nil, the layer index is cleared before
 discovery."
   ;; load private layers at the end on purpose we assume that the user layers
   ;; must have the final word on configuration choices. Let
-  ;; `dotspacemacs-directory' override the private directory if it exists.
+  ;; `dotspace-macs-directory' override the private directory if it exists.
   (when refresh-index
     (setq configuration-layer--indexed-layers (make-hash-table :size 1024)))
-  (spacemacs-buffer/set-mode-line "Indexing layers..." t)
+  (space-macs-buffer/set-mode-line "Indexing layers..." t)
   (let ((search-paths (append
-                       ;; layers shipped with spacemacs
+                       ;; layers shipped with space-macs
                        (list configuration-layer-directory)
-                       ;; layers in private folder ~/.emacs.d/private
-                       (list spacemacs-private-directory)
+                       ;; layers in private folder ~/.e-macs.d/private
+                       (list space-macs-private-directory)
                        ;; layers in dotdirectory
                        ;; this path may not exist, so check if it does
-                       (when dotspacemacs-directory
-                         (let ((dir (expand-file-name (concat dotspacemacs-directory
+                       (when dotspace-macs-directory
+                         (let ((dir (expand-file-name (concat dotspace-macs-directory
                                                               "layers/"))))
                            (when (file-exists-p dir) (list dir))))
                        ;; additional layer directories provided by the user
-                       dotspacemacs-configuration-layer-path))
+                       dotspace-macs-configuration-layer-path))
         (discovered '()))
     ;; filter out directories that don't exist
     (setq search-paths (configuration-layer/filter-objects
@@ -1429,7 +1429,7 @@ discovery."
                ((eq 'category type)
                 (let ((category (configuration-layer//get-category-from-path
                                  sub)))
-                  (spacemacs-buffer/message "-> Discovered category: %S"
+                  (space-macs-buffer/message "-> Discovered category: %S"
                                             category)
                   (add-to-list 'configuration-layer-categories category)
                   (setq search-paths (cons sub search-paths))))
@@ -1451,7 +1451,7 @@ discovery."
                           "replacing old directory \"%s\" with new directory.")
                          layer-name-str sub (oref indexed-layer :dir))
                         (oset indexed-layer :dir sub))
-                    (spacemacs-buffer/message
+                    (space-macs-buffer/message
                      "-> Discovered configuration layer: %s" layer-name-str)
                     (let ((configuration-layer--load-packages-files nil))
                       (configuration-layer//add-layer
@@ -1521,10 +1521,10 @@ If `SKIP-LAYER-DEPS' is non nil then skip loading of layer dependenciesl"
     ;; distribution and bootstrap layers are always first
     (let ((distribution (if configuration-layer-force-distribution
                             configuration-layer-force-distribution
-                          dotspacemacs-distribution)))
-      (unless (eq 'spacemacs-bootstrap distribution)
+                          dotspace-macs-distribution)))
+      (unless (eq 'space-macs-bootstrap distribution)
         (configuration-layer/declare-layer distribution)))
-    (configuration-layer/declare-layer 'spacemacs-bootstrap)))
+    (configuration-layer/declare-layer 'space-macs-bootstrap)))
 
 (defun configuration-layer/declare-shadow-relation (layer-name &rest onames)
   "Declare 'can-shadow' relationship between LAYER_NAME and OTHER-NAMES layers.
@@ -1551,7 +1551,7 @@ RNAME is the name symbol of another existing layer."
             (when rshadow
               (cl-pushnew rname (oref llayer :can-shadow))))
            ((null lshadow)
-            (spacemacs-buffer/message
+            (space-macs-buffer/message
              (concat "Ignore shadow relation between layers %s and %s because "
                      ":can-shadow of layer %s has been set to nil by the user.")
              lname rname lname)))
@@ -1564,7 +1564,7 @@ RNAME is the name symbol of another existing layer."
             (when lshadow
               (cl-pushnew lname (oref rlayer :can-shadow))))
            ((null rshadow)
-            (spacemacs-buffer/message
+            (space-macs-buffer/message
              (concat "Ignore shadow relation between layers %s and %s because "
                      ":can-shadow of layer %s has been set to nil by the user.")
              rname lname rname))))
@@ -1697,12 +1697,12 @@ RNAME is the name symbol of another existing layer."
   (let* ((layer (when pkg (car (oref pkg :owners))))
          (location (when pkg (oref pkg :location)))
          (min-version (when pkg (oref pkg :min-version))))
-    (spacemacs-buffer/replace-last-line
+    (space-macs-buffer/replace-last-line
      (format "--> installing %s: %s%s... [%s/%s]"
              (if layer "package" "dependency")
              pkg-name (if layer (format "@%S" layer) "")
              installed-count not-inst-count) t)
-    (spacemacs//redisplay)
+    (space-macs//redisplay)
     (unless (package-installed-p pkg-name min-version)
       (condition-case-unless-debug err
           (cond
@@ -1718,25 +1718,25 @@ RNAME is the name symbol of another existing layer."
          (configuration-layer//error
           (concat "\nAn error occurred while installing %s "
                   "(error: %s)\n") pkg-name err)
-         (spacemacs//redisplay))))))
+         (space-macs//redisplay))))))
 
 (defun configuration-layer//lazy-install-p (layer-name)
   "Return non nil if the layer with LAYER-NAME should be lazy installed."
-  (or (eq 'all dotspacemacs-enable-lazy-installation)
-      (and (memq dotspacemacs-enable-lazy-installation '(unused t))
+  (or (eq 'all dotspace-macs-enable-lazy-installation)
+      (and (memq dotspace-macs-enable-lazy-installation '(unused t))
            (not (configuration-layer/layer-used-p layer-name)))))
 
 (defun configuration-layer//lazy-install-packages (layer-name mode)
   "Install layer with LAYER-NAME to support MODE."
-  (when (or (not dotspacemacs-ask-for-lazy-installation)
+  (when (or (not dotspace-macs-ask-for-lazy-installation)
             (and
              (not noninteractive)
              (yes-or-no-p (format
                            (concat "Support for %s requires installation of "
                                    "layer %s, do you want to install it?")
                            mode layer-name))))
-    (when (dotspacemacs/add-layer layer-name)
-      (let (spacemacs-sync-packages)
+    (when (dotspace-macs/add-layer layer-name)
+      (let (space-macs-sync-packages)
         (configuration-layer/load)))
     (let* ((layer (configuration-layer/get-layer layer-name))
            (inst-pkgs
@@ -1751,7 +1751,7 @@ RNAME is the name symbol of another existing layer."
                    (oref layer :packages)))))
       (let ((last-buffer (current-buffer))
             (sorted-pkg (configuration-layer//sort-packages inst-pkgs)))
-        (spacemacs-buffer/goto-buffer)
+        (space-macs-buffer/goto-buffer)
         (goto-char (point-max))
         (configuration-layer//install-packages sorted-pkg)
         (configuration-layer//configure-packages sorted-pkg)
@@ -1776,14 +1776,14 @@ RNAME is the name symbol of another existing layer."
            installed-count)
       ;; installation
       (when upkg-names
-        (spacemacs-buffer/set-mode-line "Installing packages..." t)
+        (space-macs-buffer/set-mode-line "Installing packages..." t)
         (let ((delayed-warnings-backup delayed-warnings-list))
-          (spacemacs-buffer/append
+          (space-macs-buffer/append
            (format "Found %s new package(s) to install...\n"
                    not-inst-count))
           (configuration-layer/retrieve-package-archives)
           (setq installed-count 0)
-          (spacemacs//redisplay)
+          (space-macs//redisplay)
           ;; bootstrap and pre step packages first
           (dolist (pkg-name upkg-names)
             (let ((pkg (configuration-layer/get-package pkg-name)))
@@ -1796,7 +1796,7 @@ RNAME is the name symbol of another existing layer."
               (unless (and pkg (memq (oref pkg :step) '(bootstrap pre)))
                 (setq installed-count (1+ installed-count))
                 (configuration-layer//install-package pkg))))
-          (spacemacs-buffer/append "\n")
+          (space-macs-buffer/append "\n")
           (unless init-file-debug
             ;; get rid of all delayed warnings when byte-compiling packages
             ;; unless --debug-init was passed on the command line
@@ -1805,7 +1805,7 @@ RNAME is the name symbol of another existing layer."
 (defun configuration-layer//install-from-elpa (pkg-name)
   "Install PKG from ELPA."
   (if (not (assq pkg-name package-archive-contents))
-      (spacemacs-buffer/append
+      (space-macs-buffer/append
        (format (concat "\nPackage %s is unavailable. "
                        "Is the package name misspelled?\n")
                pkg-name))
@@ -1911,20 +1911,20 @@ RNAME is the name symbol of another existing layer."
 
 (defun configuration-layer//configure-packages (packages)
   "Configure all passed PACKAGES honoring the steps order."
-  (spacemacs/init-progress-bar (length packages))
-  (spacemacs-buffer/message "+ Configuring bootstrap packages...")
+  (space-macs/init-progress-bar (length packages))
+  (space-macs-buffer/message "+ Configuring bootstrap packages...")
   (configuration-layer//configure-packages-2
    (configuration-layer/filter-objects
     packages (lambda (x)
                (let ((pkg (configuration-layer/get-package x)))
                  (eq 'bootstrap (oref pkg :step))))))
-  (spacemacs-buffer/message "+ Configuring pre packages...")
+  (space-macs-buffer/message "+ Configuring pre packages...")
   (configuration-layer//configure-packages-2
    (configuration-layer/filter-objects
     packages (lambda (x)
                (let ((pkg (configuration-layer/get-package x)))
                  (eq 'pre (oref pkg :step))))))
-  (spacemacs-buffer/message "+ Configuring packages...")
+  (space-macs-buffer/message "+ Configuring packages...")
   (configuration-layer//configure-packages-2
    (configuration-layer/filter-objects
     packages (lambda (x)
@@ -1938,21 +1938,21 @@ RNAME is the name symbol of another existing layer."
       (let ((pkg (configuration-layer/get-package pkg-name)))
         (cond
          ((oref pkg :lazy-install)
-          (spacemacs-buffer/message
+          (space-macs-buffer/message
            (format "%S ignored since it can be lazily installed." pkg-name)))
          ((and (oref pkg :excluded)
                (not (oref pkg :protected)))
-          (spacemacs-buffer/message
+          (space-macs-buffer/message
            (format "%S ignored since it has been excluded." pkg-name)))
          ((null (oref pkg :owners))
-          (spacemacs-buffer/message
+          (space-macs-buffer/message
            (format "%S ignored since it has no owner layer." pkg-name)))
          ((not (configuration-layer//package-reqs-used-p pkg))
-          (spacemacs-buffer/message
+          (space-macs-buffer/message
            (format (concat "%S is ignored since it has dependencies "
                            "that are not used.") pkg-name)))
          ((not (cfgl-package-enabled-p pkg))
-          (spacemacs-buffer/message (format "%S is disabled." pkg-name)))
+          (space-macs-buffer/message (format "%S is disabled." pkg-name)))
          (t
           ;; load-path
           (let ((dir (configuration-layer/get-location-directory
@@ -1966,7 +1966,7 @@ RNAME is the name symbol of another existing layer."
             (configuration-layer//activate-package pkg-name))
           (cond
            ((eq 'dotfile (car (oref pkg :owners)))
-            (spacemacs-buffer/message
+            (space-macs-buffer/message
              (format "%S is configured in the dotfile." pkg-name)))
            (t
             ;; first loop executes pre-init functions, this allows to setup
@@ -1997,7 +1997,7 @@ RNAME is the name symbol of another existing layer."
       nil))
    ((eq 'local location)
     (let ((dir (if (eq 'dotfile owner)
-                   spacemacs-private-directory
+                   space-macs-private-directory
                  (let* ((owner (configuration-layer/get-layer owner)))
                    (when owner (oref owner :dir))))))
       (if dir
@@ -2031,9 +2031,9 @@ LAYER must not be the owner of PKG."
      (lambda (layer)
        (when (configuration-layer/layer-used-p layer)
          (if (not (configuration-layer//package-enabled-p pkg layer))
-             (spacemacs-buffer/message
+             (space-macs-buffer/message
               (format "%S -> ignored pre-init (%S)..." pkg-name layer))
-           (spacemacs-buffer/message
+           (space-macs-buffer/message
             (format "%S -> pre-init (%S)..." pkg-name layer))
            (condition-case-unless-debug err
                (funcall (intern (format "%S/pre-init-%S" layer pkg-name)))
@@ -2046,11 +2046,11 @@ LAYER must not be the owner of PKG."
 
 (defun configuration-layer//configure-package (pkg)
   "Configure PKG object, i.e. call its post-init function."
-  (spacemacs/update-progress-bar)
+  (space-macs/update-progress-bar)
   (let* ((pkg-name (oref pkg :name))
          (owner (car (oref pkg :owners))))
     ;; init
-    (spacemacs-buffer/message (format "%S -> init (%S)..." pkg-name owner))
+    (space-macs-buffer/message (format "%S -> init (%S)..." pkg-name owner))
     (funcall (intern (format "%S/init-%S" owner pkg-name)))))
 
 (defun configuration-layer//post-configure-package (pkg)
@@ -2061,9 +2061,9 @@ LAYER must not be the owner of PKG."
      (lambda (layer)
        (when (configuration-layer/layer-used-p layer)
          (if (not (configuration-layer//package-enabled-p pkg layer))
-             (spacemacs-buffer/message
+             (space-macs-buffer/message
               (format "%S -> ignored post-init (%S)..." pkg-name layer))
-           (spacemacs-buffer/message
+           (space-macs-buffer/message
             (format "%S -> post-init (%S)..." pkg-name layer))
            (condition-case-unless-debug err
                (funcall (intern (format "%S/post-init-%S" layer pkg-name)))
@@ -2085,7 +2085,7 @@ LAYER must not be the owner of PKG."
          (dirs (sort dirattrs
                      (lambda (d e)
                        (time-less-p (nth 6 d) (nth 6 e))))))
-    (dotimes (c (- (length dirs) dotspacemacs-max-rollback-slots))
+    (dotimes (c (- (length dirs) dotspace-macs-max-rollback-slots))
       (delete-directory (concat configuration-layer-rollback-directory
                                 "/" (car (pop dirs)))
                         t t))))
@@ -2096,8 +2096,8 @@ LAYER must not be the owner of PKG."
 If called with a prefix argument or NO-CONFIRMATION is non-nil then assume yes
 to update."
   (interactive "P")
-  (spacemacs-buffer/insert-page-break)
-  (spacemacs-buffer/append "\nUpdating package archives, please wait...\n")
+  (space-macs-buffer/insert-page-break)
+  (space-macs-buffer/append "\nUpdating package archives, please wait...\n")
   (configuration-layer/retrieve-package-archives nil 'force)
   (setq configuration-layer--check-new-version-error-packages nil)
   (let* ((distant-packages (configuration-layer//filter-distant-packages
@@ -2114,7 +2114,7 @@ to update."
          (upgraded-count 0)
          (update-packages-alist))
     (when configuration-layer--check-new-version-error-packages
-      (spacemacs-buffer/warning
+      (space-macs-buffer/warning
        (concat "--> Warning: cannot update %s package(s), possibly due"
                " to a temporary network problem: %s\n")
        skipped-count
@@ -2123,15 +2123,15 @@ to update."
                   " ")))
     ;; (message "packages to udpate: %s" update-packages)
     (when (> upgrade-count 0)
-      (spacemacs-buffer/append
+      (space-macs-buffer/append
        (format (concat "--> Found %s package(s) to update"
                        (if (> skipped-count 0)
                            (format " (skipped %s):\n" skipped-count)
                          ":\n"))
                upgrade-count) t)
       (mapc (lambda (x)
-              (spacemacs-buffer/append
-               (format (if (memq (intern x) dotspacemacs-frozen-packages)
+              (space-macs-buffer/append
+               (format (if (memq (intern x) dotspace-macs-frozen-packages)
                            "%s (won't be updated because package is frozen)\n"
                          "%s\n") x) t))
             (sort (mapcar 'symbol-name update-packages) 'string<))
@@ -2139,14 +2139,14 @@ to update."
                (not (yes-or-no-p
                      (format "Do you want to update %s package(s)? "
                              upgrade-count))))
-          (spacemacs-buffer/append "Packages update has been cancelled.\n" t)
+          (space-macs-buffer/append "Packages update has been cancelled.\n" t)
         ;; backup the package directory and construct an alist
         ;; variable to be cached for easy update and rollback
-        (spacemacs-buffer/append
+        (space-macs-buffer/append
          "--> performing backup of package(s) to update...\n" t)
-        (spacemacs//redisplay)
+        (space-macs//redisplay)
         (dolist (pkg update-packages)
-          (unless (memq pkg dotspacemacs-frozen-packages)
+          (unless (memq pkg dotspace-macs-frozen-packages)
             (let* ((src-dir (configuration-layer//get-package-directory pkg))
                    (dest-dir (expand-file-name
                               (concat rollback-dir
@@ -2155,30 +2155,30 @@ to update."
               (copy-directory src-dir dest-dir 'keeptime 'create 'copy-content)
               (push (cons pkg (file-name-nondirectory src-dir))
                     update-packages-alist))))
-        (spacemacs/dump-vars-to-file
+        (space-macs/dump-vars-to-file
          '(update-packages-alist)
          (expand-file-name (concat rollback-dir
                                    configuration-layer-rollback-info)))
         (dolist (pkg update-packages)
-          (unless (memq pkg dotspacemacs-frozen-packages)
+          (unless (memq pkg dotspace-macs-frozen-packages)
             (setq upgraded-count (1+ upgraded-count))
-            (spacemacs-buffer/replace-last-line
+            (space-macs-buffer/replace-last-line
              (format "--> preparing update of package %s... [%s/%s]"
                      pkg upgraded-count upgrade-count) t)
-            (spacemacs//redisplay)
+            (space-macs//redisplay)
             (configuration-layer//package-delete pkg)))
-        (spacemacs-buffer/append
+        (space-macs-buffer/append
          (format "\n--> %s package(s) to be updated.\n" upgraded-count))
-        (spacemacs-buffer/append
+        (space-macs-buffer/append
          (format
-          (concat "\nEmacs has to be restarted to actually install the "
+          (concat "\ne-macs has to be restarted to actually install the "
                   "new version of the packages%s.\n")
-          (if (member "restart-emacs" update-packages) "" " (SPC q r)")))
+          (if (member "restart-e-macs" update-packages) "" " (SPC q r)")))
         (configuration-layer//cleanup-rollback-directory)
-        (spacemacs//redisplay)))
+        (space-macs//redisplay)))
     (when (eq upgrade-count 0)
-      (spacemacs-buffer/append "--> All packages are up to date.\n")
-      (spacemacs//redisplay))))
+      (space-macs-buffer/append "--> All packages are up to date.\n")
+      (space-macs//redisplay))))
 
 (defun configuration-layer//ido-candidate-rollback-slot ()
   "Return a list of candidates to select a rollback slot."
@@ -2206,7 +2206,7 @@ to select one."
         (when candidates
           (ido-completing-read "Rollback slots (most recent are first): "
                                candidates))))))
-  (spacemacs-buffer/insert-page-break)
+  (space-macs-buffer/insert-page-break)
   (if (not slot)
       (configuration-layer/message "No rollback slot available.")
     (string-match "^\\(.+?\\)\s.*$" slot)
@@ -2217,14 +2217,14 @@ to select one."
            (info-file (expand-file-name
                        (concat rollback-dir
                                configuration-layer-rollback-info))))
-      (spacemacs-buffer/append
+      (space-macs-buffer/append
        (format "\nRollbacking ELPA packages from slot %s...\n" slot-dir))
       (configuration-layer/load-file info-file)
       (let ((rollback-count (length update-packages-alist))
             (rollbacked-count 0))
-        (spacemacs-buffer/append
+        (space-macs-buffer/append
          (format "Found %s package(s) to rollback...\n" rollback-count))
-        (spacemacs//redisplay)
+        (space-macs//redisplay)
         (dolist (apkg update-packages-alist)
           (let* ((pkg (car apkg))
                  (pkg-dir-name (cdr apkg))
@@ -2237,24 +2237,24 @@ to select one."
                  (dest-dir (expand-file-name
                             (concat elpa-dir (file-name-as-directory
                                               pkg-dir-name)))))
-            (unless (memq pkg dotspacemacs-frozen-packages)
+            (unless (memq pkg dotspace-macs-frozen-packages)
               (setq rollbacked-count (1+ rollbacked-count))
               (if (string-equal (format "%S-%s" pkg installed-ver) pkg-dir-name)
-                  (spacemacs-buffer/replace-last-line
+                  (space-macs-buffer/replace-last-line
                    (format "--> package %s already rolled back! [%s/%s]"
                            pkg rollbacked-count rollback-count) t)
                 ;; rollback the package
-                (spacemacs-buffer/replace-last-line
+                (space-macs-buffer/replace-last-line
                  (format "--> rolling back package %s... [%s/%s]"
                          pkg rollbacked-count rollback-count) t)
                 (configuration-layer//package-delete pkg)
                 (copy-directory src-dir dest-dir
                                 'keeptime 'create 'copy-content)))
-            (spacemacs//redisplay)))
-        (spacemacs-buffer/append
+            (space-macs//redisplay)))
+        (space-macs-buffer/append
          (format "\n--> %s packages rolled back.\n" rollbacked-count))
-        (spacemacs-buffer/append
-         "\nEmacs has to be restarted for the changes to take effect.\n")))))
+        (space-macs-buffer/append
+         "\ne-macs has to be restarted for the changes to take effect.\n")))))
 
 (defun configuration-layer//activate-package (pkg)
   "Activate PKG."
@@ -2368,9 +2368,9 @@ depends on it."
 (defun configuration-layer//package-delete (pkg-name)
   "Delete package with name PKG-NAME."
   (cond
-   ((version<= "25.0.50" emacs-version)
+   ((version<= "25.0.50" e-macs-version)
     (let ((p (cadr (assq pkg-name package-alist))))
-      ;; add force flag to ignore dependency checks in Emacs25
+      ;; add force flag to ignore dependency checks in e-macs25
       (if (not (configuration-layer//system-package-p p))
           (package-delete p t t)
         (message "Would have removed package %s but this is a system package so it has not been changed." pkg-name))))
@@ -2398,22 +2398,22 @@ depends on it."
     ;; (message "orphans: %s" orphans)
     (if orphans
         (progn
-          (spacemacs-buffer/set-mode-line "Uninstalling unused packages..." t)
-          (spacemacs-buffer/append
+          (space-macs-buffer/set-mode-line "Uninstalling unused packages..." t)
+          (space-macs-buffer/append
            (format "Found %s orphan package(s) to delete...\n"
                    orphans-count))
           (setq deleted-count 0)
           (dolist (orphan orphans)
             (setq deleted-count (1+ deleted-count))
-            (spacemacs-buffer/replace-last-line
+            (space-macs-buffer/replace-last-line
              (format "--> deleting %s... [%s/%s]"
                      orphan
                      deleted-count
                      orphans-count) t)
             (configuration-layer//package-delete orphan)
-            (spacemacs//redisplay))
-          (spacemacs-buffer/append "\n"))
-      (spacemacs-buffer/message "No orphan package to delete."))))
+            (space-macs//redisplay))
+          (space-macs-buffer/append "\n"))
+      (space-macs-buffer/message "No orphan package to delete."))))
 
 (defun configuration-layer//gather-auto-mode-extensions (mode)
   "Return a regular expression matching all the extensions associate to MODE."
@@ -2465,31 +2465,31 @@ depends on it."
         (configuration-layer//insert-lazy-install-form
          layer-name (car x) (cdr x))))))
 
-(defvar configuration-layer--spacemacs-startup-time nil
-  "Spacemacs full startup duration.")
+(defvar configuration-layer--space-macs-startup-time nil
+  "Space-macs full startup duration.")
 
 (defun configuration-layer/display-summary (start-time)
   "Display a summary of loading time."
-  (unless configuration-layer--spacemacs-startup-time
-    (setq configuration-layer--spacemacs-startup-time
-          (float-time (time-subtract (current-time) emacs-start-time))))
+  (unless configuration-layer--space-macs-startup-time
+    (setq configuration-layer--space-macs-startup-time
+          (float-time (time-subtract (current-time) e-macs-start-time))))
   (let ((stats (configuration-layer/configured-packages-stats
                 configuration-layer--used-packages)))
-    (spacemacs-buffer/insert-page-break)
-    (with-current-buffer (get-buffer-create spacemacs-buffer-name)
+    (space-macs-buffer/insert-page-break)
+    (with-current-buffer (get-buffer-create space-macs-buffer-name)
       (let ((buffer-read-only nil))
-        (spacemacs-buffer/append
+        (space-macs-buffer/append
          (format "\n%s packages loaded in %.3fs (e:%s r:%s l:%s b:%s)"
                  (cadr (assq 'total stats))
-                 configuration-layer--spacemacs-startup-time
+                 configuration-layer--space-macs-startup-time
                  (cadr (assq 'elpa stats))
                  (cadr (assq 'recipe stats))
                  (cadr (assq 'local stats))
                  (cadr (assq 'built-in stats))))
-        (spacemacs-buffer//center-line)
-        (spacemacs-buffer/append (format "\n(%.3fs spent in your user-config)"
-                                         dotspacemacs--user-config-elapsed-time))
-        (spacemacs-buffer//center-line)
+        (space-macs-buffer//center-line)
+        (space-macs-buffer/append (format "\n(%.3fs spent in your user-config)"
+                                         dotspace-macs--user-config-elapsed-time))
+        (space-macs-buffer//center-line)
         (insert "\n")))))
 
 (defun configuration-layer//get-indexed-elpa-package-names ()
@@ -2575,7 +2575,7 @@ Original code from dochang at https://github.com/dochang/elpa-clone"
         (delete-file (concat output-dir ofilename))))))
 
 (defun configuration-layer/create-elpa-repository (name output-dir)
-  "Create an ELPA repository containing all packages supported by Spacemacs."
+  "Create an ELPA repository containing all packages supported by Space-macs."
   (configuration-layer/make-all-packages 'no-discover)
   (let (package-archive-contents
         (package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -2644,7 +2644,7 @@ MSG is an additional message append to the generic error."
    (format
     (concat
      "Cannot find %s executable in your PATH.\n"
-     "Verify your spacemacs environment variables with [SPC f e e].%s\n"
+     "Verify your space-macs environment variables with [SPC f e e].%s\n"
      "Spacelpa installation has been skipped!") exec msg)))
 
 (defun configuration-layer//stable-elpa-update-version-file ()
@@ -2666,9 +2666,9 @@ MSG is an additional message append to the generic error."
       (delete-file tarball-sig))))
 
 (defun configuration-layer//stable-elpa-ask-to-continue (reason)
-  "Prompt the users to continue when Spacemacs cannot verify the archive."
+  "Prompt the users to continue when Space-macs cannot verify the archive."
   (y-or-n-p
-   (format (concat "Spacemacs cannot verify the authenticity of "
+   (format (concat "Space-macs cannot verify the authenticity of "
                    "the stable ELPA archive (%s)!\n"
                    "The reason is: %s\n"
                    "\n"
@@ -2681,7 +2681,7 @@ MSG is an additional message append to the generic error."
 
 Returns non nil if the verification succeeded.
 
-If Spacemacs cannot verify the archive a prompt ask the user if they want to
+If Space-macs cannot verify the archive a prompt ask the user if they want to
 continue with the stable ELPA repository installation."
   (let (context
         good-signatures
@@ -2696,7 +2696,7 @@ continue with the stable ELPA repository installation."
                               "archive or its signature file.")))
     (unless fatal-err
       (with-current-buffer (find-file-noselect archive)
-        (spacemacs-buffer/set-mode-line
+        (space-macs-buffer/set-mode-line
          (format "Verifying %s archive..."
                  configuration-layer-stable-elpa-name) t)
         (condition-case error
@@ -2749,7 +2749,7 @@ continue with the stable ELPA repository installation."
         (sig-file (configuration-layer//stable-elpa-tarball-local-sign-file))
         large-file-warning-threshold)
     (with-current-buffer (find-file-noselect archive)
-      (spacemacs-buffer/set-mode-line
+      (space-macs-buffer/set-mode-line
        (format "Extracting %s archive..."
                configuration-layer-stable-elpa-name) t)
       (if (not (executable-find "tar"))
@@ -2772,7 +2772,7 @@ happened during the download."
             (local (configuration-layer//stable-elpa-tarball-local-file))
             (url-sig (configuration-layer//stable-elpa-tarball-distant-sign-file))
             (local-sig (configuration-layer//stable-elpa-tarball-local-sign-file)))
-        (spacemacs-buffer/set-mode-line
+        (space-macs-buffer/set-mode-line
          (format (concat "Downloading stable ELPA repository: %s... "
                          "(please wait)")
                  configuration-layer-stable-elpa-name) t)
@@ -2781,7 +2781,7 @@ happened during the download."
         (condition-case-unless-debug err
             (progn
               (url-copy-file url local 'ok-if-already-exists)
-              (when dotspacemacs-verify-spacelpa-archives
+              (when dotspace-macs-verify-spacelpa-archives
                 (url-copy-file url-sig local-sig 'ok-if-already-exists))
               (setq result t))
           (error nil))))
@@ -2806,7 +2806,7 @@ if required. The last step is to uncompress the tarball and clean the temporary
 files."
   (unwind-protect
       (if (and (configuration-layer//stable-elpa-download-tarball)
-               (or (not dotspacemacs-verify-spacelpa-archives)
+               (or (not dotspace-macs-verify-spacelpa-archives)
                    (configuration-layer//stable-elpa-verify-archive)))
           (progn
             (configuration-layer//stable-elpa-untar-archive)
@@ -2816,7 +2816,7 @@ files."
 
 ;; (configuration-layer/create-elpa-repository
 ;;  "spacelpa"
-;;  spacemacs-cache-directory)
+;;  space-macs-cache-directory)
 
 (defun configuration-layer//package-install-org (func &rest args)
   "Advice around `package-install' to patch package name and dependencies at
@@ -2860,9 +2860,9 @@ install time in order to replace all `org' package installation by
     (setq configuration-layer-error-count 1)))
 
 (defun configuration-layer/message (msg &rest args)
-  "Display MSG in *Messages* prepended with '(Spacemacs)'.
+  "Display MSG in *Messages* prepended with '(Space-macs)'.
 ARGS: format string arguments."
-  (message "(Spacemacs) %s" (apply 'format msg args)))
+  (message "(Space-macs) %s" (apply 'format msg args)))
 
 (defun configuration-layer/load-file (file)
   "Load file silently except if in debug mode."
@@ -2871,3 +2871,5 @@ ARGS: format string arguments."
 (provide 'core-configuration-layer)
 
 ;;; core-configuration-layer.el ends here
+
+

@@ -31,8 +31,8 @@ This layer adds support for the Perl5 language.
 - LSP and DAP support
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =perl5= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =perl5= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
@@ -49,7 +49,7 @@ limited IDE capabilities. Used best if only small files
 are edited. To set explicitly set the following in your
 dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (perl5 :variables perl5-backend 'company-plsense)
 #+END_SRC
 
@@ -59,13 +59,13 @@ dotfile:
 *** LSP
 For proper IDE support this backend should be used. It is
 based on an external server which will be started automatically
-by emacs, once a perl5 file is opened. The key bindings are
+by e-macs, once a perl5 file is opened. The key bindings are
 the same for all lsp modes so if you are already familiar with
 one you should be able to work the same in all modes.
 
 To set explicitly do the following in your dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (perl5 :variables
          perl5-backend 'lsp)
 #+END_SRC
@@ -115,3 +115,5 @@ Jump to symbol definition.
 | ~SPC m = =~ | format current line or region |
 | ~SPC m = b~ | format current buffer         |
 | ~SPC m = f~ | format current function       |
+
+

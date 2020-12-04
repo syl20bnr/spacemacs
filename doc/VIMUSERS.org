@@ -19,8 +19,8 @@
   - [[#exploring][Exploring]]
   - [[#regular-expression-syntax][Regular expression syntax]]
 - [[#customization][Customization]]
-  - [[#the-spacemacs-file][The .spacemacs file]]
-  - [[#emacs-lisp][Emacs Lisp]]
+  - [[#the-space-macs-file][The .space-macs file]]
+  - [[#e-macs-lisp][e-macs Lisp]]
     - [[#variables][Variables]]
     - [[#key-bindings][Key bindings]]
       - [[#bind-keys-to-a-macro][Bind keys to a macro]]
@@ -39,53 +39,53 @@
 - [[#other-useful-links][Other useful links]]
 
 * Purpose of this document
-This document is intended to supplement the Spacemacs documentation by bridging
-the gap between vim and Spacemacs. While some information may be duplicated,
-this does not replace the Spacemacs documentation. It is recommended that you
-read both files to fully understand Spacemacs.
+This document is intended to supplement the Space-macs documentation by bridging
+the gap between vim and Space-macs. While some information may be duplicated,
+this does not replace the Space-macs documentation. It is recommended that you
+read both files to fully understand Space-macs.
 
-[[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][Spacemacs Documentation]]
+[[https://github.com/syl20bnr/space-macs/blob/develop/doc/DOCUMENTATION.org][Space-macs Documentation]]
 
 * Philosophy
-One misconception many vim users have is that Spacemacs is an Emacs /clone/ of
-vim. Spacemacs does not seek to completely mimic the behavior of vim
+One misconception many vim users have is that Space-macs is an e-macs /clone/ of
+vim. Space-macs does not seek to completely mimic the behavior of vim
 everywhere, only when editing. You should not expect every vim command to be
-available, although many are. You cannot use Vimscript to configure Spacemacs,
-but who likes Vimscript anyway? It is important to understand that Spacemacs is
-an attempt to improve on both vim and Emacs using the superior modal editing of
-vim and the nicer configuration language of Emacs.
+available, although many are. You cannot use Vimscript to configure Space-macs,
+but who likes Vimscript anyway? It is important to understand that Space-macs is
+an attempt to improve on both vim and e-macs using the superior modal editing of
+vim and the nicer configuration language of e-macs.
 
 * Basic orientation
 ** Terms
-Spacemacs uses some different terminology than vim, which can cause confusion
+Space-macs uses some different terminology than vim, which can cause confusion
 for new users. This section attempts to clear up any confusion.
 
 *** Modes vs. States
 In vim you have various editing modes like =insert mode= and =visual mode= to
-manipulate text. In Emacs, we have [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#states][states]]. These are equivalent to vim modes.
+manipulate text. In e-macs, we have [[https://github.com/syl20bnr/space-macs/blob/develop/doc/DOCUMENTATION.org#states][states]]. These are equivalent to vim modes.
 For example, =evil-insert-state= is the same as =insert-mode= in vim.
 
-A =minor-mode= in Emacs is like a feature that is activated. For example,
+A =minor-mode= in e-macs is like a feature that is activated. For example,
 =aggressive-indent-mode= is a =minor-mode= that automatically indents code as you
 type. It is important to know that there can be many =minor-modes= activated in a
-buffer. Many Emacs packages work by providing a =minor-mode=. A =major-mode=
-determines the editing behavior of Emacs in the current buffer. There is
+buffer. Many e-macs packages work by providing a =minor-mode=. A =major-mode=
+determines the editing behavior of e-macs in the current buffer. There is
 generally a corresponding =major-mode= per filetype. An example of a =major-mode= is
 =python-mode=, which provides python specific settings in python files. There is
 only one =major-mode= per buffer.
 
 *** Layers
-Spacemacs has the concept of layers. Layers are similar to vim plugins. They
-provide new features to use in Spacemacs. However, layers are often comprised of
+Space-macs has the concept of layers. Layers are similar to vim plugins. They
+provide new features to use in Space-macs. However, layers are often comprised of
 several packages that integrate well with each other. For example, the =python=
 layer includes support for auto-completion, documentation look-up, tests, and
 much more by using several different packages. This keeps you from thinking
 about what packages to install, and instead worry about what features you want.
 More information on layers can be found in the [[#customization][customization]] section and in the
-[[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#configuration-layers][documentation]]. There is also a more in-depth guide on writing layers [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][here]].
+[[https://github.com/syl20bnr/space-macs/blob/develop/doc/DOCUMENTATION.org#configuration-layers][documentation]]. There is also a more in-depth guide on writing layers [[https://github.com/syl20bnr/space-macs/blob/develop/doc/LAYERS.org][here]].
 
 *** Transient-states
-Spacemacs provides a special functionality called transient-states. Transient-states
+Space-macs provides a special functionality called transient-states. Transient-states
 allow similar commands to be run in succession without repeatedly pressing the
 ~<Leader>~ key. Transient-states are usually triggered by using a key binding with the
 following pattern: ~<Leader> <group> .~ where group is the category the
@@ -94,32 +94,32 @@ bottom of your window. To exit a transient-state press ~q~.
 
 #+CAPTION: Transient-state documentation window
 
-[[file:img/spacemacs-scale-transient-state.png]]
+[[file:img/space-macs-scale-transient-state.png]]
 
 ** Key binding conventions
-Spacemacs uses ~SPC~ as its ~<Leader>~ key. This document will use ~SPC~ to refer to
+Space-macs uses ~SPC~ as its ~<Leader>~ key. This document will use ~SPC~ to refer to
 the ~<Leader>~ key. All key bindings are mnemonic and are organized under the
 ~<Leader>~ key. For example, the key bindings for language-specific commands are
-always under the ~SPC m~ prefix. A full list of conventions used in Spacemacs is
-[[https://github.com/syl20bnr/spacemacs/blob/develop/doc/CONVENTIONS.org][here]]. Note that all key bindings can be changed.
+always under the ~SPC m~ prefix. A full list of conventions used in Space-macs is
+[[https://github.com/syl20bnr/space-macs/blob/develop/doc/CONVENTIONS.org][here]]. Note that all key bindings can be changed.
 
-Spacemacs uses [[https://github.com/justbur/emacs-which-key][which-key]] to show available key bindings after a delay:
+Space-macs uses [[https://github.com/justbur/e-macs-which-key][which-key]] to show available key bindings after a delay:
 
 #+CAPTION: Which-key window
 
 [[file:img/which-key.png]]
 
 ** Running commands
-Emacs commands can be run using ~SPC SPC~. This will pop up a buffer using [[https://github.com/emacs-helm/helm][Helm]]
-which can be used to run any Emacs command. You can also run many ex commands
+e-macs commands can be run using ~SPC SPC~. This will pop up a buffer using [[https://github.com/e-macs-helm/helm][Helm]]
+which can be used to run any e-macs command. You can also run many ex commands
 using ~:~, just like in vim.
 
-Note: You can run Emacs interactive commands using ~:~, but you cannot run ex
+Note: You can run e-macs interactive commands using ~:~, but you cannot run ex
 commands using ~SPC SPC~.
 
 ** Buffer and window management
 *** Buffers
-Buffers in Emacs and vim are essentially the same. The key bindings for buffers
+Buffers in e-macs and vim are essentially the same. The key bindings for buffers
 are located under the ~SPC b~ prefix.
 
 | Key binding               | Function                                             |
@@ -134,9 +134,9 @@ are located under the ~SPC b~ prefix.
 | ~SPC b .~                 | Buffer transient-state.                              |
 
 **** Special buffers
-By default Emacs creates a lot of buffers that most people will never need, like
-=*Messages*=. Spacemacs automatically ignores these when using these
-key bindings. More information can be found [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#special-buffers][here]].
+By default e-macs creates a lot of buffers that most people will never need, like
+=*Messages*=. Space-macs automatically ignores these when using these
+key bindings. More information can be found [[https://github.com/syl20bnr/space-macs/blob/develop/doc/DOCUMENTATION.org#special-buffers][here]].
 
 *** Windows
 Windows are like splits in vim. They are useful for editing multiple files at
@@ -151,7 +151,7 @@ once. All window key bindings are under the ~SPC w~ prefix.
 | ~SPC w .~              | Window transient-state.              |
 
 ** Files
-All file commands in Spacemacs are available under the ~SPC f~ prefix.
+All file commands in Space-macs are available under the ~SPC f~ prefix.
 
 | Key binding       | Function                                                     |
 |-------------------+--------------------------------------------------------------|
@@ -162,7 +162,7 @@ All file commands in Spacemacs are available under the ~SPC f~ prefix.
 | ~:e <file>~       | Open =<file>=                                                |
 
 ** The Help System
-Emacs has an extensive help system. All key bindings under the ~SPC h d~ prefix
+e-macs has an extensive help system. All key bindings under the ~SPC h d~ prefix
 allow convenient access to the help system. The most important of these
 keybindings are ~SPC h d f~, ~SPC h d k~, and ~SPC h d v~. There is also the
 ~SPC <f1>~ key binding which allows you to search for documentation.
@@ -178,9 +178,9 @@ Whenever, you see weird behavior or want to know what something does, these
 functions are the first thing you should refer to.
 
 ** Exploring
-There are a few ways to explore the functionality of Spacemacs. One is to read
-the [[https://github.com/syl20bnr/spacemacs][source code]] on GitHub. You can begin to feel your way around Emacs Lisp and
-how Spacemacs works this way. You can also use the following key bindings to
+There are a few ways to explore the functionality of Space-macs. One is to read
+the [[https://github.com/syl20bnr/space-macs][source code]] on GitHub. You can begin to feel your way around e-macs Lisp and
+how Space-macs works this way. You can also use the following key bindings to
 explore:
 
 | Key binding | Function                                                      |
@@ -190,8 +190,8 @@ explore:
 
 ** Regular expression syntax
 One thing that might catch you off guard is the difference in regex syntax
-between Vim and Emacs. In Emacs, even when you search under =evil-mode=
-with the =/= key, you'll be using the Emacs flavor of regular expression,
+between Vim and e-macs. In e-macs, even when you search under =evil-mode=
+with the =/= key, you'll be using the e-macs flavor of regular expression,
 instead of the Vim one.
 
 Some idiosyncrasies of Elisp regex:
@@ -200,45 +200,45 @@ Some idiosyncrasies of Elisp regex:
   - alternation ~|~ :: ~\|~
   - grouping ~(~ and ~)~ :: ~\(~ and ~\)~
   - counting ~{~ and ~}~ :: ~\{~ and ~\}~
-- ~\s~ begins a [[https://www.emacswiki.org/emacs/RegularExpression][syntax class]]. Whitespaces are denoted as ~\s-~ instead of ~\s~.
+- ~\s~ begins a [[https://www.e-macswiki.org/e-macs/RegularExpression][syntax class]]. Whitespaces are denoted as ~\s-~ instead of ~\s~.
 - Use ~[0-9]~ or ~[:digit:]~ instead of ~\d~ to denote digits.
 
-For more details, refer to [[https://www.emacswiki.org/emacs/RegularExpression][The EmacsWiki]], this [[https://stackoverflow.com/questions/1946352/comparison-table-for-emacs-regexp-and-perl-compatible-regular-expression-pcre][SO question]]
-and [[https://github.com/joddie/pcre2el][this tool]] which converts PCRE regex to Emacs regex.
+For more details, refer to [[https://www.e-macswiki.org/e-macs/RegularExpression][The e-macsWiki]], this [[https://stackoverflow.com/questions/1946352/comparison-table-for-e-macs-regexp-and-perl-compatible-regular-expression-pcre][SO question]]
+and [[https://github.com/joddie/pcre2el][this tool]] which converts PCRE regex to e-macs regex.
 
 * Customization
-** The .spacemacs file
-When you first start spacemacs, you will be prompted to choose an editing style.
-If you are reading this, you likely want to choose the vim style. A =.spacemacs=
+** The .space-macs file
+When you first start space-macs, you will be prompted to choose an editing style.
+If you are reading this, you likely want to choose the vim style. A =.space-macs=
 file will be created with the appropriate style selected. Most trivial
 configuration will go in this file.
 
-There are four top-level functions in the file: =dotspacemacs/layers=,
-=dotspacemacs/init=, =dotspacemacs/user-init= and =dotspacemacs/user-config=.
-The =dotspacemacs/layers= function exist only to enable and disable layers and
-packages. The =dotspacemacs/init= function is run before anything else during
-startup and contains Spacemacs settings. You will never need to touch this
-function except to change default Spacemacs settings.
-The =dotspacemacs/user-init= function is also run before anything else and
-contains user specific configuration. The =dotspacemacs/user-config= function
+There are four top-level functions in the file: =dotspace-macs/layers=,
+=dotspace-macs/init=, =dotspace-macs/user-init= and =dotspace-macs/user-config=.
+The =dotspace-macs/layers= function exist only to enable and disable layers and
+packages. The =dotspace-macs/init= function is run before anything else during
+startup and contains Space-macs settings. You will never need to touch this
+function except to change default Space-macs settings.
+The =dotspace-macs/user-init= function is also run before anything else and
+contains user specific configuration. The =dotspace-macs/user-config= function
 is the one you will use the most. This is where you define any user configuration.
 
 | Key binding | Function                                                                 |
 |-------------+--------------------------------------------------------------------------|
-| ~SPC f e d~ | Open your =.spacemacs=                                                   |
-| ~SPC f e D~ | Update your =.spacemacs= manually using a diff with the default template |
+| ~SPC f e d~ | Open your =.space-macs=                                                   |
+| ~SPC f e D~ | Update your =.space-macs= manually using a diff with the default template |
 
-** Emacs Lisp
-This section introduces a few emacs lisp functions that are needed to configure
-Spacemacs. For a more detailed look at the language, see [[http://learnxinyminutes.com/docs/elisp/][this]] link. If you
-really want to learn everything there is about emacs lisp, use the info page
+** e-macs Lisp
+This section introduces a few e-macs lisp functions that are needed to configure
+Space-macs. For a more detailed look at the language, see [[http://learnxinyminutes.com/docs/elisp/][this]] link. If you
+really want to learn everything there is about e-macs lisp, use the info page
 found at ~SPC h i elisp RET~.
 
 *** Variables
-Setting variables is the most common way to customize the behavior of Spacemacs.
+Setting variables is the most common way to customize the behavior of Space-macs.
 The syntax is simple:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq variable value) ; Syntax
   ;; Setting variables example
   (setq variable1 t ; True
@@ -250,7 +250,7 @@ The syntax is simple:
 Defining key bindings is something that almost everyone will want to do. The
 built-in =define-key= function is the best way to do that.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (define-key map new-keybinding function) ; Syntax
   ;; Map H to go to the previous buffer in normal mode
   (define-key evil-normal-state-map (kbd "H") 'previous-buffer)
@@ -260,19 +260,19 @@ The map is the keymap you want to bind the key in. Most of the time you will use
 =evil-<state-name>-state-map=. These correspond to different =evil-mode= states.
 For example, using =evil-insert-state-map= maps the key binding in insert mode.
 
-To map ~<Leader>~ key bindings, use the =spacemacs/set-leader-keys= function.
+To map ~<Leader>~ key bindings, use the =space-macs/set-leader-keys= function.
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs/set-leader-keys key function) ; Syntax
+#+BEGIN_SRC e-macs-lisp
+  (space-macs/set-leader-keys key function) ; Syntax
   ;; Map killing a buffer to <Leader> b c
-  (spacemacs/set-leader-keys "bc" 'spacemacs/kill-this-buffer)
+  (space-macs/set-leader-keys "bc" 'space-macs/kill-this-buffer)
   ;; Map opening a link to <Leader> o l only in org-mode (works for any major-mode)
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode
+  (space-macs/set-leader-keys-for-major-mode 'org-mode
     "ol" 'org-open-at-point)
 #+END_SRC
 
 **** Bind keys to a macro
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;; H goes to beginning of the line
   (define-key evil-normal-state-map (kbd "H") (kbd "^"))
 #+END_SRC
@@ -289,9 +289,9 @@ The remapping in Vim:
 
 source: [[https://vim.fandom.com/wiki/Insert_newline_without_entering_insert_mode]]
 
-The equivalent remapping in Spac/Emacs:
+The equivalent remapping in Spac/e-macs:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;; S-return adds a newline above
   (define-key evil-normal-state-map (kbd "S-<return>") (kbd "O <escape> j"))
 #+END_SRC
@@ -300,7 +300,7 @@ The equivalent remapping in Spac/Emacs:
 You may occasionally want to define a function to do a more complex
 customization. The syntax is simple:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (defun func-name (arg1 arg2)
     "docstring"
     ;; Body
@@ -312,7 +312,7 @@ customization. The syntax is simple:
 
 Here is an example of a function that is useful in real life:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;; This snippet allows you to run clang-format before saving
   ;; given the current file as the correct filetype.
   ;; This relies on the c-c++ layer being enabled.
@@ -323,24 +323,24 @@ Here is an example of a function that is useful in real life:
       (when (member (file-name-extension (buffer-file-name)) filetypes)
         (clang-format-buffer))))
 
-  ;; See http://www.gnu.org/software/emacs/manual/html_node/emacs/Hooks.html for
+  ;; See http://www.gnu.org/software/e-macs/manual/html_node/e-macs/Hooks.html for
   ;; what this line means
   (add-hook 'before-save-hook 'clang-format-for-filetype)
 #+END_SRC
 
 ** Activating a Layer
 As said in the terms section, layers provide an easy way to add features.
-Activating a layer is done in the =.spacemacs= file. In the file search for the
-=dotspacemacs-configuration-layers= variable. By default, it should look like
+Activating a layer is done in the =.space-macs= file. In the file search for the
+=dotspace-macs-configuration-layers= variable. By default, it should look like
 this:
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/layers ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs/layers ()
     (setq-default
      ;; ...
-     dotspacemacs-configuration-layers '(;; auto-completion
+     dotspace-macs-configuration-layers '(;; auto-completion
                                          ;; better-defaults
-                                         emacs-lisp
+                                         e-macs-lisp
                                          ;; (git :variables
                                          ;;      git-gutter-use-fringe t)
                                          ;; markdown
@@ -351,12 +351,12 @@ this:
 
 You can uncomment these suggested layers by deleting the semi-colons for a nice
 out-of-the-box experience. To add a layer, add its name to the list and restart
-Emacs or press ~SPC f e R~. To view all layers and their documentation use
+e-macs or press ~SPC f e R~. To view all layers and their documentation use
 ~SPC h SPC~.
 
 ** Creating a Layer
 To group configuration or when configuration doesn't fit well in your
-=.spacemacs= file, you can create a configuration layer. Spacemacs provides a
+=.space-macs= file, you can create a configuration layer. Space-macs provides a
 builtin command to generate the layer boilerplate:
 ~SPC SPC configuration-layer/create-layer RET~. This generates a folder that
 looks like this:
@@ -385,7 +385,7 @@ with this pattern: =<layer-name>/init-<package-name>=. This function contains
 configuration for the package. There are also =pre/post-init= functions to
 execute code before or after a package loads. It would look like this:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq layer-name-packages '(example-package
                               ;; This layer uninstalls example-package-2
                               ;; by setting the :excluded property to true (t)
@@ -402,33 +402,33 @@ execute code before or after a package loads. It would look like this:
 
 **Note**: Only one layer can have a =init= function for a package. If you want
 to override the configuration of a package in another layer, use a
-=<layer-name>/pre-init= function in addition to [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org#use-package-hooks][use-package hooks]].
+=<layer-name>/pre-init= function in addition to [[https://github.com/syl20bnr/space-macs/blob/develop/doc/LAYERS.org#use-package-hooks][use-package hooks]].
 
 If a package is not available on MELPA, you must use a local package or a
-package recipe. For more details see [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org#anatomy-of-a-layer][anatomy of a layer]].
+package recipe. For more details see [[https://github.com/syl20bnr/space-macs/blob/develop/doc/LAYERS.org#anatomy-of-a-layer][anatomy of a layer]].
 
-Make sure you [[#activating-a-layer][add]] your layer to your =.spacemacs= file and restart to
+Make sure you [[#activating-a-layer][add]] your layer to your =.space-macs= file and restart to
 activate it.
 
 A detailed description of the loading process and how layers work can be found in
-the [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][configuration layers documentation.]]
+the [[https://github.com/syl20bnr/space-macs/blob/develop/doc/LAYERS.org][configuration layers documentation.]]
 
 ** Installing a single package
 Sometimes creating a layer is a bit overkill. Maybe you just want one package
-and don't want to maintain a whole layer. Spacemacs provides a variable in the
-=dotspacemacs/layers= function in =.spacemacs= called
-=dotspacemacs-additional-packages=. Just add a package name to the list and it
+and don't want to maintain a whole layer. Space-macs provides a variable in the
+=dotspace-macs/layers= function in =.space-macs= called
+=dotspace-macs-additional-packages=. Just add a package name to the list and it
 will be installed when you restart. Loading the package is covered in the next
 [[#loading-packages][section]].
 
 ** Loading packages
-Ever wonder how Spacemacs can load over a 100 packages in just a few seconds?
+Ever wonder how Space-macs can load over a 100 packages in just a few seconds?
 Such low loading times must require some kind of unreadable black magic that no
 one can understand. Thanks to [[https://github.com/jwiegley/use-package][use-package]], this is not true. It is a package
 that allows easy lazy-loading and configuration of packages. Here are the basics
 to using it:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;; Basic form of use-package declaration. The :defer t tells use-package to
   ;; try to lazy load the package.
   (use-package package-name
@@ -454,21 +454,21 @@ This is just a very basic overview of =use-package=. There are many other ways
 to control how a package loads using it that aren't covered here.
 
 ** Uninstalling a package
-Spacemacs provides a variable in the =dotspacemacs/init= function in
-=.spacemacs= called =dotspacemacs-excluded-packages=. Just add a package name to
+Space-macs provides a variable in the =dotspace-macs/init= function in
+=.space-macs= called =dotspace-macs-excluded-packages=. Just add a package name to
 the list and it will be uninstalled when you restart.
 
 ** Common tweaks
 This section is for things many will want to change. All of these settings go in
-the =dotspacemacs/user-config= function in your =.spacemacs= unless otherwise noted.
+the =dotspace-macs/user-config= function in your =.space-macs= unless otherwise noted.
 
 *** Changing the escape key
-Spacemacs uses [[https://github.com/syl20bnr/evil-escape][evil-escape]] to
+Space-macs uses [[https://github.com/syl20bnr/evil-escape][evil-escape]] to
 allow escaping from many =major-modes= with one key binding. You can customize
-the variable in your =dotspacemacs/user-config= like this:
+the variable in your =dotspace-macs/user-config= like this:
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/user-config ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs/user-config ()
     ;; ...
     ;; Set escape keybinding to "jk"
     (setq-default evil-escape-key-sequence "jk"))
@@ -477,18 +477,18 @@ the variable in your =dotspacemacs/user-config= like this:
 More documentation is found in the =evil-escape= [[https://github.com/syl20bnr/evil-escape/blob/master/README.md][README]].
 
 *** Changing the colorscheme
-The =.spacemacs= file contains the =dotspacemacs-themes= variable in the
-=dotspacemacs/init= function. This is a list of themes that can be cycled
+The =.space-macs= file contains the =dotspace-macs-themes= variable in the
+=dotspace-macs/init= function. This is a list of themes that can be cycled
 through with the ~SPC T n~ key binding. The first theme in the list is the one
 that is loaded at startup. Here is an example:
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/init
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs/init
       ;; Darktooth theme is the default theme
       ;; Each theme is automatically installed.
       ;; Note that we drop the -theme from the package name.
       ;; Ex. darktooth-theme -> darktooth
-      (setq-default dotspacemacs-themes '(darktooth
+      (setq-default dotspace-macs-themes '(darktooth
                                           soothe
                                           gotham)))
 #+END_SRC
@@ -496,7 +496,7 @@ that is loaded at startup. Here is an example:
 All installed themes can be listed and chosen using the ~SPC T h~ key binding.
 
 *** Nohlsearch
-Spacemacs emulates the default vim behavior which highlights search results even
+Space-macs emulates the default vim behavior which highlights search results even
 when you are not navigating between them. You can use ~SPC s c~ or ~:nohlsearch~
 to disable search result highlighting.
 
@@ -504,25 +504,27 @@ To disable the result highlighting when it is not needed anymore automatically,
 you can [[#uninstalling-a-package][uninstall]] the =evil-search-highlight-persist= package.
 
 *** Sessions
-Spacemacs does not automatically restore your windows and buffers when you
+Space-macs does not automatically restore your windows and buffers when you
 reopen it. If you use vim sessions regularly you may want to set
-=dotspacemacs-auto-resume-layouts= to =t= in your =.spacemacs=.
+=dotspace-macs-auto-resume-layouts= to =t= in your =.space-macs=.
 
 *** Navigating using visual lines
-Spacemacs uses the vim default of navigating by actual lines, even if they are
+Space-macs uses the vim default of navigating by actual lines, even if they are
 wrapped. If you want ~j~ and ~k~ to behave like ~g j~ and ~g k~, add this to
-your =.spacemacs=:
+your =.space-macs=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
 #+END_SRC
 
 * Other useful links
-- [[https://www.gnu.org/software/emacs/manual/emacs.html][Emacs Manual]]
-- [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org][Spacemacs Documentation]]
-- [[http://ian.mccowan.space/2015/04/07/Spacemacs/][Spacemacs: A Vimmer's Emacs Prerequisites]]
+- [[https://www.gnu.org/software/e-macs/manual/e-macs.html][e-macs Manual]]
+- [[https://github.com/syl20bnr/space-macs/blob/develop/doc/DOCUMENTATION.org][Space-macs Documentation]]
+- [[http://ian.mccowan.space/2015/04/07/Space-macs/][Space-macs: A Vimmer's e-macs Prerequisites]]
   - Note: The article refers to ~SPC b s~ as the key binding to switch buffers.
     It is ~SPC b b~
-- [[http://thume.ca/howto/2015/03/07/configuring-spacemacs-a-tutorial/][Configuring Spacemacs: A Tutorial]]
-- [[https://web.archive.org/web/20190423065450/https://juanjoalvarez.net/es/detail/2014/sep/19/vim-emacsevil-chaotic-migration-guide/][From Vim to Emacs+Evil chaotic migration guide]]
+- [[http://thume.ca/howto/2015/03/07/configuring-space-macs-a-tutorial/][Configuring Space-macs: A Tutorial]]
+- [[https://web.archive.org/web/20190423065450/https://juanjoalvarez.net/es/detail/2014/sep/19/vim-e-macsevil-chaotic-migration-guide/][From Vim to e-macs+Evil chaotic migration guide]]
+
+

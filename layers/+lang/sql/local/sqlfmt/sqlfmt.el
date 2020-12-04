@@ -1,5 +1,5 @@
 (defgroup sqlfmt nil
-  "Easy sqlfmt invocation in Emacs"
+  "Easy sqlfmt invocation in e-macs"
   :group 'sql)
 
 (defcustom sqlfmt-executable
@@ -52,3 +52,5 @@
             (goto-char orig-point))
           (message "sqlfmt applied"))
       (error "sqlfmt failed, see %s buffer for details." (buffer-name tmpbuf)))))
+
+

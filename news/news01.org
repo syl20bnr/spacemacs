@@ -3,7 +3,7 @@
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#introduction][Introduction]]
 - [[#breaking-changes][Breaking changes]]
-  - [[#support-for-emacs-243-has-been-dropped][Support for Emacs 24.3 has been dropped]]
+  - [[#support-for-e-macs-243-has-been-dropped][Support for e-macs 24.3 has been dropped]]
   - [[#some-modifications-in-the-layer-format][Some modifications in the layer format]]
   - [[#controlling-downloaded-packages][Controlling downloaded packages]]
   - [[#key-bindings][Key bindings]]
@@ -20,9 +20,9 @@
   - [[#directory-and-file-local-variables][Directory and file local variables]]
   - [[#more-useful-abstraction][More useful abstraction]]
   - [[#new-welcome-screen][New welcome screen]]
-  - [[#about-spacemacs-update-notifications][About Spacemacs update notifications]]
+  - [[#about-space-macs-update-notifications][About Space-macs update notifications]]
   - [[#a-new-community-document][A new community document]]
-  - [[#the-spacemacs-shop][The Spacemacs shop]]
+  - [[#the-space-macs-shop][The Space-macs shop]]
 - [[#whats-next-][What's next ?]]
   - [[#even-more-stability][Even more stability]]
   - [[#more-consistent-window-behaviour][More consistent window behaviour]]
@@ -46,7 +46,7 @@ Let's start with the hottest section: breaking changes!
 
 * Breaking changes
 Before starting with the breaking changes let me begin with a few words about
-the motivation behind those changes. Spacemacs moves at an incredible pace
+the motivation behind those changes. Space-macs moves at an incredible pace
 thanks to a big and active community, the project already counts more than 400
 contributors! With such a high number of contributors lots of new ideas are
 proposed to constantly evolve and improve the project, some of them make a lot
@@ -55,14 +55,14 @@ especially true with key bindings. In this release quite a few changes have been
 made to the key bindings, some of them are deep changes and anyone using the
 develop branch had to adapt to them at some point, the result seems to worth it.
 
-** Support for Emacs 24.3 has been dropped
-The packages ecosystem moves even faster than Spacemacs and a lot of packages
-are now incompatible with the version 24.3 of Emacs which has been released
-in 2013. Supporting this version in Spacemacs is more and more work for
-maintainers so we decided to drop all the 24.3 related code in Spacemacs
-effectively raising the minimum Emacs version required to 24.4. We believe that
-users are able to switch to a newer version of Emacs, if you need help in this
-process you can try the [[https://gitter.im/syl20bnr/spacemacs][Gitter chat]], I'm sure you'll find solutions there.
+** Support for e-macs 24.3 has been dropped
+The packages ecosystem moves even faster than Space-macs and a lot of packages
+are now incompatible with the version 24.3 of e-macs which has been released
+in 2013. Supporting this version in Space-macs is more and more work for
+maintainers so we decided to drop all the 24.3 related code in Space-macs
+effectively raising the minimum e-macs version required to 24.4. We believe that
+users are able to switch to a newer version of e-macs, if you need help in this
+process you can try the [[https://gitter.im/syl20bnr/space-macs][Gitter chat]], I'm sure you'll find solutions there.
 
 ** Some modifications in the layer format
 We renamed =extensions= directories in layers to =local= and the file
@@ -72,7 +72,7 @@ We renamed =extensions= directories in layers to =local= and the file
 
 _Before:_
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;; in extensions.el
   (setq python-post-extensions
     '(
@@ -85,7 +85,7 @@ _Before:_
 
 _After:_
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;; in packages.el
   (setq python-packages
     '(
@@ -101,7 +101,7 @@ replaced by the =:excluded= keyword in =<layer>-packages= variables.
 
 _Before:_
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq vim-empty-lines-packages
         '(
           (vim-empty-lines-mode :location local)
@@ -113,7 +113,7 @@ _Before:_
 
 _After:_
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq vim-empty-lines-packages
         '(
           (vim-empty-lines-mode :location local)
@@ -126,31 +126,31 @@ layer needs to declare additional layers. Previously this was done in the
 =config.el= file, to avoid errors you'll have to move the calls to the functions
 =configuration-layer/declare-layer= and =configuration-layer/declare-layers= to
 a dedicated =layers.el= file. An example can be found in the
-[[https://github.com/syl20bnr/spacemacs/blob/564cbc40eda936985325c9b79088fbcb39d9a69d/layers/%2Bdistributions/spacemacs/layers.el][spacemacs distribution layer]].
+[[https://github.com/syl20bnr/space-macs/blob/564cbc40eda936985325c9b79088fbcb39d9a69d/layers/%2Bdistributions/space-macs/layers.el][space-macs distribution layer]].
 
 ** Controlling downloaded packages
-The method to install all packages supported by Spacemacs has been improved. The
-old way was to set the variable =dotspacemacs-configuration-layers= to the value
+The method to install all packages supported by Space-macs has been improved. The
+old way was to set the variable =dotspace-macs-configuration-layers= to the value
 =all=. This method had several major drawbacks like forcing all layers to be
 marked as =used= and it triggered various bad side effects. We removed the
 support for the value =all=.
 
-A new variable =dotspacemacs-install-packages= is now dedicated to control what
-packages are downloaded by Spacemacs. Three behaviours are supported:
+A new variable =dotspace-macs-install-packages= is now dedicated to control what
+packages are downloaded by Space-macs. Three behaviours are supported:
 - =used-only= (default) will download only the used packages
 - =used-but-keep-unused= will download only the used packages but won't uninstall
   them if they become unused
-- =all= will download _all_ the supported packages by Spacemacs.
+- =all= will download _all_ the supported packages by Space-macs.
 
 ** Key bindings
 Here is the scary section, the one feared by most users :-) Let be honest, there
 is a rather big amount of changes for users jumping from master 0.105 to 0.200.
 
 First of all the most visible change is for ~SPC SPC~ which triggers now ~M-x~
-instead of =avy= to jump to a character. The ~SPC~ key in Spacemacs is a central
+instead of =avy= to jump to a character. The ~SPC~ key in Space-macs is a central
 key as it acts as the leader key for _all_ the key bindings, it made sense to
 give the same sense of "root" key to the sequence ~SPC SPC~, so now ~SPC SPC~ is
-the central sequence to execute _any_ interactive function in Emacs.
+the central sequence to execute _any_ interactive function in e-macs.
 
 Where is the =avy= command then ? We reorganised from the ground up the prefix
 ~SPC j~ for all jump commands. In the conventions a doubled key is often used
@@ -172,7 +172,7 @@ A lot of other handy commands are under this prefix, I let you discover them wit
 the =which key= menus.
 
 Closing, deleting or killing things ? This can be a tough call to distinguish
-them and we can find such confusion in the Spacemacs key bindings, for instance
+them and we can find such confusion in the Space-macs key bindings, for instance
 we close a window but we delete a buffer and we can also kill a buffer. Whereas
 it can make sense for a lot of users, there are still users finding this
 confusing. So we decided to simplify the notion of "closing/deleting" things
@@ -216,84 +216,84 @@ bindings directly under ~SPC g~ like =git-link= which is now under ~SPC g l~,
 it makes more sense to have it under ~SPC g l~ since it is agnostic of the
 hosting platform (i.e. it works with =GitHub=, =GitLab= etc...).
 
-Spacemacs layouts now restrict the scope of the buffer list opened with
+Space-macs layouts now restrict the scope of the buffer list opened with
 ~SPC b b~. Use ~SPC b B~ to list all the buffers of all the layouts. Also
 ~1,2,...,9,0~ keys now select a layout and close the layout menu, use
 ~C-1,C-2,...,C-9,C-0~ to switch to a layout and keep the menu opened.
 
 To conclude this section about key binding changes and breaking changes the
-=micro-states= in Spacemacs are dead, say hi to the =transient-states=. We took
+=micro-states= in Space-macs are dead, say hi to the =transient-states=. We took
 advantage of the =micro-states= refactoring to change the name to a more
 accurate new name =transient-states=, indeed these states leverage the notion
-of transient maps in Emacs. The refactoring replaces the custom back-end by
+of transient maps in e-macs. The refactoring replaces the custom back-end by
 =hydra= a powerful and very popular package to define transient maps. In effect
-the macro =spacemacs|define-micro-state= is deprecated and is replaced by the
-new =hydra= powered macro =spacemacs|define-transient-state=.
+the macro =space-macs|define-micro-state= is deprecated and is replaced by the
+new =hydra= powered macro =space-macs|define-transient-state=.
 
 * What's new ?
 ** Startup improvments
 The layer system has been rewritten to index packages information, the startup
-time of Spacemacs should be reduced by 20~25%. Also this refactoring will better
+time of Space-macs should be reduced by 20~25%. Also this refactoring will better
 scale as we add new layers and packages to the distribution.
 
 ** Improved composability
-The =spacemacs= distribution layer has been split into several layers under the
-=spacemacs= directory. Users can now easily customize their Spacemacs experience
-by choosing the spacemacs-base distribution and using only the spacemacs layers
+The =space-macs= distribution layer has been split into several layers under the
+=space-macs= directory. Users can now easily customize their Space-macs experience
+by choosing the space-macs-base distribution and using only the space-macs layers
 they want.
 
-An exhaustive list of all the =spacemacs= layers:
-- spacemacs-completion
-- spacemacs-editing
-- spacemacs-editing-visual
-- spacemacs-evil
-- spacemacs-language
-- spacemacs-layouts
-- spacemacs-misc
-- spacemacs-org
-- spacemacs-ui
-- spacemacs-ui-visual
+An exhaustive list of all the =space-macs= layers:
+- space-macs-completion
+- space-macs-editing
+- space-macs-editing-visual
+- space-macs-evil
+- space-macs-language
+- space-macs-layouts
+- space-macs-misc
+- space-macs-org
+- space-macs-ui
+- space-macs-ui-visual
 
-For people wanting an even more bare Emacs experience try the distribution
-layer =spacemacs-bootstrap= which installs only essential packages like
+For people wanting an even more bare e-macs experience try the distribution
+layer =space-macs-bootstrap= which installs only essential packages like
 =use-package=, =which-key=, etc...
 
 Also it is easier to select or exclude a sub-list of packages in a layer with
 the new keyword =:packages=. For instance here is an example to select only the
 packages =fill-column-indicator= and =golden-ratio= in the layer
-=spacemacs-ui-visual=:
+=space-macs-ui-visual=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq dotspacemacs-configuration-layers
-    (spacemacs-ui-visual :packages fill-column-indicator golden-ratio))
+#+BEGIN_SRC e-macs-lisp
+  (setq dotspace-macs-configuration-layers
+    (space-macs-ui-visual :packages fill-column-indicator golden-ratio))
 #+END_SRC
 
 Another example to select all the packages except =fancy-battery=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq dotspacemacs-configuration-layers
-    (spacemacs-ui-visual :packages (not fancy-battery))
+#+BEGIN_SRC e-macs-lisp
+  (setq dotspace-macs-configuration-layers
+    (space-macs-ui-visual :packages (not fancy-battery))
 #+END_SRC
 
 ** Improved stability
-This is one of the Achilles' heel of Spacemacs. We rely on bleeding edge version
-of packages from =melpa= repository to install a fresh version of Spacemacs. If
+This is one of the Achilles' heel of Space-macs. We rely on bleeding edge version
+of packages from =melpa= repository to install a fresh version of Space-macs. If
 the repository is down then no sugar, try again later.
 
-With 0.200 we introduce [[https://github.com/syl20bnr/spacemacs-elpa-mirror][mirrors]] for all =elpa= repositories used by Spacemacs.
-If one of them is down then Spacemacs falls back on the mirror hosted on GitHub.
+With 0.200 we introduce [[https://github.com/syl20bnr/space-macs-elpa-mirror][mirrors]] for all =elpa= repositories used by Space-macs.
+If one of them is down then Space-macs falls back on the mirror hosted on GitHub.
 Obviously the fall-back repository should not be used as a primary repository
 and should only be used when official =elpa= repositories are down.
 
 It is also possible to freeze packages by adding their name to the new variable
-=dotspacemacs-frozen-packages=. Frozen packages cannot be updated or rollbacked.
+=dotspace-macs-frozen-packages=. Frozen packages cannot be updated or rollbacked.
 This is useful if a package upstream needs a fix, the package can be frozen
 until the fix is released.
 
 Packages can be stored in different =elpa= directories, the most useful setting
-is maybe to define a different directory per Emacs version. You can do it by
-setting the new variable =dotspacemacs-elpa-subdirectory= to the value
-=emacs-version=. By default the value of this variable is =nil= which means that
+is maybe to define a different directory per e-macs version. You can do it by
+setting the new variable =dotspace-macs-elpa-subdirectory= to the value
+=e-macs-version=. By default the value of this variable is =nil= which means that
 all packages are installed in the same =elpa= directory.
 
 ** Lazy installation of layers
@@ -301,22 +301,22 @@ A feature borrowed to [[https://github.com/bbatsov/prelude][Prelude]] distributi
 allows to install a layer and all its packages when opening a new file with a
 supported extension.
 
-For instance, when opening an Elixir file with extension =.ex= Spacemacs will
+For instance, when opening an Elixir file with extension =.ex= Space-macs will
 ask to install the =elixir= layer if it is not already used. The =elixir= layer
 is automatically added to the dotfile so it won't be uninstalled after a
 restart.
 
 By default this feature is _disabled_, you have to opt-in for it by setting
-the variable =dotspacemacs-enable-lazy-installation= to one of the following
+the variable =dotspace-macs-enable-lazy-installation= to one of the following
 values:
 - =unused= to lazy install only layers not listed in
-  =dotspacemacs-configuration-layers=
+  =dotspace-macs-configuration-layers=
 - =all= to lazy install any layer supporting lazy installation (i.e. even the
   used layers won't be installed at startup until you open a file with a
   supported extension).
 
 ** A better hybrid editing style
-The Hybrid state wanders between the Emacs style and the Evil style, three
+The Hybrid state wanders between the e-macs style and the Evil style, three
 new variables allow to fine tune the Hybrid style experience:
 - =hybrid-mode-enable-evilified-state=, if non nil then buffers are evilified,
 - =hybrid-mode-enable-hjkl-bindings=, if non nil navigation on ~hjkl~ keys is
@@ -326,15 +326,15 @@ new variables allow to fine tune the Hybrid style experience:
 
 To define these new variables use the =:variables= keyword. For example:
 
-#+BEGIN_SRC emacs-lisp
-  (setq dotspacemacs-editing-style '(hybrid :variables
+#+BEGIN_SRC e-macs-lisp
+  (setq dotspace-macs-editing-style '(hybrid :variables
                                      hybrid-mode-enable-evilified-state t
                                      hybrid-mode-enable-hjkl-bindings t
                                      hybrid-mode-default-state 'normal))
 #+END_SRC
 
 ** Support for Ivy
-The community has made a wonderful work to bring [[https://github.com/abo-abo/swiper][ivy]] support to Spacemacs.
+The community has made a wonderful work to bring [[https://github.com/abo-abo/swiper][ivy]] support to Space-macs.
 
 Want to switch from =helm= to =ivy=? This is as simple as adding the =ivy=
 layer to your dotfile and reloading it with ~SPC f e R~!
@@ -347,33 +347,33 @@ enjoy it. Nice work guys!
 ** Better transient-states
 =Transient-states= replace the =micro-states=. They are powered by [[https://github.com/abo-abo/hydra][hydra]]
 making =hydra= part of the bootstrap packages (pillars of the distribution).
-=Hydra= is now 100% supported in Spacemacs and does not require hacks to
+=Hydra= is now 100% supported in Space-macs and does not require hacks to
 work correctly.
 
 We tried to get consistent =transient-states= in all the layers by keeping
 the same documentation strings format everywhere.
 
 ** More debugging tools
-Emacs comes with lots of tools to help the user to debug their configuration.
-Spacemacs adds several concepts which can make harder for a user to debug
+e-macs comes with lots of tools to help the user to debug their configuration.
+Space-macs adds several concepts which can make harder for a user to debug
 his configuration, especially the layer system.
 
 In this new release we are eager to introduce new easy way to debug your
 configuration:
-- press ~SPC q d~ to restart Emacs in debug mode with command line parameter
+- press ~SPC q d~ to restart e-macs in debug mode with command line parameter
   =--debug-init= fed in for you
-- press ~SPC q D~ to restart Emacs with a selected list of packages to load,
-  in this mode Spacemacs is completely disabled so you get the perfect way
-  to test whether a bug comes from Spacemacs configuration or not
+- press ~SPC q D~ to restart e-macs with a selected list of packages to load,
+  in this mode Space-macs is completely disabled so you get the perfect way
+  to test whether a bug comes from Space-macs configuration or not
 - press ~SPC h I~ to open an org buffer with an issue template, fill it then
   press ~C-c C-c~ to submit it with your default internet browser.
 
-Along with these new key bindings, new Spacemacs specific command line
+Along with these new key bindings, new Space-macs specific command line
 parameters are available to help you change the scope of an issue investigation:
 - =--no-layer= deactivates all the layers _except_ the distribution layer
 - =--distribution x= allows to change temporarily the distribution to =x=.
 
-This is a good time to remind you about the other useful Spacemacs specific
+This is a good time to remind you about the other useful Space-macs specific
 command line parameters:
 - =--profile== will display profiling information on startup
 - =--timed-requires= will display the time taken by each =require= commands
@@ -381,14 +381,14 @@ command line parameters:
 
 ** New keyboard layouts
 A new layer =keyboard-layout= aims to provide the tools to define more easily
-new keyboard layouts. This release ships with support for =bépo= and =dvorak=
+new keyboard layouts. This release ships with support for =bÃ©po= and =dvorak=
 layouts.
 
 Be sure to follow the =README.org= of the =keyboard-layout= layer for more
 information about layout definition.
 
 ** Directory and file local variables
-[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Directory-Variables.html][Per-directory and file local variables]] are a standard feature of Emacs, we try
+[[https://www.gnu.org/software/e-macs/manual/html_node/e-macs/Directory-Variables.html][Per-directory and file local variables]] are a standard feature of e-macs, we try
 to leverage them starting with 0.200. Some layers support several tools to do
 the same thing, for instance in the =ruby= layer both =rspec= and =ruby-test=
 are supported to run tests; the =haskell= layer supports several completion
@@ -399,8 +399,8 @@ for =ruby= or the completion back-end for =haskell= can be setup differently for
 different directories (i.e. projects).
 
 Supporting directory and file local variable dynamically greatly improves the
-flexibility of Spacemacs and make it an even better choice to handle various
-types of projects. We don´t support multiple options for the sake of supporting
+flexibility of Space-macs and make it an even better choice to handle various
+types of projects. We donÂ´t support multiple options for the sake of supporting
 them but for a more robust solution capable to deal easily with your day-to-day
 requirements.
 
@@ -409,7 +409,7 @@ We have even more abstraction of useful concepts in 0.200 like jumping to the
 definition of a symbol or opening a REPL.
 
 Like text searching tools, there is now the concept of jump handlers, each mode
-can set a list of jump handlers and Spacemacs will try them in order to get you
+can set a list of jump handlers and Space-macs will try them in order to get you
 to a symbol definition. This new abstraction alows to merge the different
 jumping tools under the same key binding, for instance =dumb-jump=, =tags=
 etc...
@@ -421,15 +421,15 @@ REPL with ~SPC a '~.
 The contents of the welcome screen are now centered, there is also a nice new
 footer.
 The contents are recentered when the window is resized, to disable this
-behaviour set the variable =dotspacemacs-startup-buffer-responsive= to =nil=.
+behaviour set the variable =dotspace-macs-startup-buffer-responsive= to =nil=.
 
 Sizes of lists in the welcome screen can be customized independently for each
-list with the variable =dotspacemacs-startup-list=, for instance the following
+list with the variable =dotspace-macs-startup-list=, for instance the following
 value will display a maximum of 5 items for the recent files list and a maximum
 of 7 items for the projects list:
 
-#+BEGIN_SRC emacs-lisp
-  (setq dotspacemacs-startup-lists '((recents  . 5)
+#+BEGIN_SRC e-macs-lisp
+  (setq dotspace-macs-startup-lists '((recents  . 5)
                                      (projects . 7)))
 #+END_SRC
 
@@ -437,9 +437,9 @@ There are two new lists of items which can be displayed on the welcome screen:
 - agenda
 - todos
 
-** About Spacemacs update notifications
-In previous versions Spacemacs checked for a new version at every startup of
-Emacs and every 6 hours. It was [[https://github.com/syl20bnr/spacemacs/issues/6692][stressing the GitHub infrastructure]] enough to
+** About Space-macs update notifications
+In previous versions Space-macs checked for a new version at every startup of
+e-macs and every 6 hours. It was [[https://github.com/syl20bnr/space-macs/issues/6692][stressing the GitHub infrastructure]] enough to
 make GitHub throttle down the traffic for the repository.
 
 In this version we changed the notification frequency and took several measures
@@ -448,21 +448,21 @@ to reduce the =git= commands monitored by GitHub:
 - remove recurrent version check every 6 hours, i.e. the check happens only
   at startup
 - rate limit the checks to once per day
-- change default value of variable =dotspacemacs-check-for-update= to =nil=
-- make function =spacemacs/check-for-new-version= interactive so checking
+- change default value of variable =dotspace-macs-check-for-update= to =nil=
+- make function =space-macs/check-for-new-version= interactive so checking
   for a new version can be done on demand.
 
 If you want automatic check of new version you have now to opt-in by setting
-=dotspacemacs-check-for-update= to =t=.
+=dotspace-macs-check-for-update= to =t=.
 
 ** A new community document
 At the root of the project directory the new file =COMMUNITY.org= describes
 the values of the project and the moderation rules. There is also an exhaustive
 list of the moderation actions taken by collaborators.
 
-** The Spacemacs shop
-You can now show your support for Spacemacs by buying tee-shirts and goodies
-in the new [[https://shop.spreadshirt.com/spacemacs-shop][Spacemacs shop]]!
+** The Space-macs shop
+You can now show your support for Space-macs by buying tee-shirts and goodies
+in the new [[https://shop.spreadshirt.com/space-macs-shop][Space-macs shop]]!
 
 There is a limited number of models for women but all the men tee-shirts
 will be available for women as well in the coming weeks!
@@ -470,18 +470,18 @@ will be available for women as well in the coming weeks!
 * What's next ?
 ** Even more stability
 =Elpa= mirrors are a good start but it does not fix the bleeding edge packages
-issue, especially when installing a fresh version of Spacemacs.
+issue, especially when installing a fresh version of Space-macs.
 
 For 0.201 we plan to introduce stable snapshots of =elpa= repositories, a new
-installation of Spacemacs will always install packages from this stable source.
+installation of Space-macs will always install packages from this stable source.
 Users will then be able to manually trigger an upgrade of packages if they
 want the bleeding edge versions but they will always be able to rollback to the
 previous stable state if required.
 
 ** More consistent window behaviour
-One of the main focus for 0.201 will be to integrate [[https://github.com/bmag/emacs-purpose][emacs-purpose]]. It is a
+One of the main focus for 0.201 will be to integrate [[https://github.com/bmag/e-macs-purpose][e-macs-purpose]]. It is a
 package to display buffer in the same windows. The current pull request is very
-popular and I'm sure you'll like what it will bring to the Spacemacs experience.
+popular and I'm sure you'll like what it will bring to the Space-macs experience.
 
 ** New layers
 Pull requests with new layers are low on the priority list because reviewing
@@ -490,7 +490,7 @@ new layers in order to speed up the merge so you can expect more new layers for
 0.201 than 0.200.
 
 * A few thanks
-This first newsletter is a great opportunity to thanks the Emacs community and
+This first newsletter is a great opportunity to thanks the e-macs community and
 more specifically:
 - =Justin Burkett= (aka [[https://github.com/justbur][justbur]]) and =Fabien Dubosson= (aka [[https://github.com/StreakyCobra][StreakyCobra]])
   who were collaborators during several months. This version would not be so
@@ -498,7 +498,7 @@ more specifically:
   their future projects.
 - =Boris= (aka [[https://github.com/d12frosted][d12frosted]]) who joined =TheBB= and myself as collaborator.
 - Of course the unique =Eivind Fonn= (aka [[https://github.com/TheBB][TheBB]]) without his constant support
-  Spacemacs could not be successful and I think I would have burn-out a long
+  Space-macs could not be successful and I think I would have burn-out a long
   time ago.
 - All the package maintainers, especially =Oleh Krehel= (aka [[https://github.com/abo-abo][abo-abo]]) for the
   great help with =ivy= and obviously =Frank Fischer= (aka [[https://bitbucket.org/lyro/][lyro]]) the author
@@ -506,4 +506,6 @@ more specifically:
 - In no specific order: =Diego Berrocal= (aka [[https://github.com/CestDiego][CestDiego]]), [[https://github.com/bmag][bmag]], [[https://github.com/NJBS][NJBS]],
   =Eugene Yaremenko= (aka [[https://github.com/JAremko][JAremko]]), [[https://github.com/travisbhartwell][Travis B. Hartwell]], =Tristan Hume=
   (aka [[https://github.com/trishume][trishume]])
-- All the Spacemacs community, you are the heart of Spacemacs!
+- All the Space-macs community, you are the heart of Space-macs!
+
+

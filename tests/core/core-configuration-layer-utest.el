@@ -1,11 +1,11 @@
-;;; core-configuration-layer-utest.el --- Spacemacs Unit Test File
+;;; core-configuration-layer-utest.el --- Space-macs Unit Test File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 (require 'mocker)
@@ -882,31 +882,31 @@
 
 (ert-deftest test-resolve-package-archives--simple-https ()
   (let ((input '(("melpa" . "melpa.org/packages/")))
-        (dotspacemacs-elpa-https t))
+        (dotspace-macs-elpa-https t))
     (should (equal '(("melpa" . "https://melpa.org/packages/"))
                    (configuration-layer//resolve-package-archives input)))))
 
 (ert-deftest test-resolve-package-archives--simple-http ()
   (let ((input '(("melpa" . "melpa.org/packages/")))
-        dotspacemacs-elpa-https)
+        dotspace-macs-elpa-https)
     (should (equal '(("melpa" . "http://melpa.org/packages/"))
                    (configuration-layer//resolve-package-archives input)))))
 
 (ert-deftest test-resolve-package-archives--org-supports-https ()
   (let ((input '(("org"   . "orgmode.org/elpa/")))
-        (dotspacemacs-elpa-https t))
+        (dotspace-macs-elpa-https t))
     (should (equal '(("org" . "https://orgmode.org/elpa/"))
                    (configuration-layer//resolve-package-archives input)))))
 
 (ert-deftest test-resolve-package-archives--idempotent-when-already-http-prefix ()
   (let ((input '(("melpa"   . "http://melpa.org/packages/")))
-        (dotspacemacs-elpa-https t))
+        (dotspace-macs-elpa-https t))
     (should (equal '(("melpa" . "http://melpa.org/packages/"))
                    (configuration-layer//resolve-package-archives input)))))
 
 (ert-deftest test-resolve-package-archives--idempotent-when-already-https-prefix ()
   (let ((input '(("melpa"   . "https://melpa.org/packages/")))
-        dotspacemacs-elpa-https)
+        dotspace-macs-elpa-https)
     (should (equal '(("melpa" . "https://melpa.org/packages/"))
                    (configuration-layer//resolve-package-archives input)))))
 
@@ -917,7 +917,7 @@
 (ert-deftest test-retrieve-package-archives--catch-time-out-error ()
   (let ((package-archives '(("gnu" . "https://elpa.gnu.org/packages/")))
         (configuration-layer--package-archives-refreshed nil)
-        (dotspacemacs-elpa-timeout -1))
+        (dotspace-macs-elpa-timeout -1))
     (mocker-let
         ((message (format-string &rest args)
                   ((:record-cls 'mocker-stub-record :output nil))))
@@ -988,16 +988,16 @@
 (ert-deftest test-make-layer--make-layer-from-symbol-with-a-dir ()
   (should (equal (cfgl-layer "layer"
                              :name 'layer
-                             :dir spacemacs-start-directory)
+                             :dir space-macs-start-directory)
                  (configuration-layer/make-layer
-                  'layer nil nil spacemacs-start-directory))))
+                  'layer nil nil space-macs-start-directory))))
 
 (ert-deftest test-make-layer--make-layer-from-spec-with-a-dir ()
   (should (equal (cfgl-layer "layer"
                              :name 'layer
-                             :dir spacemacs-start-directory)
+                             :dir space-macs-start-directory)
                  (configuration-layer/make-layer
-                  '(layer :name 'layer) nil nil spacemacs-start-directory))))
+                  '(layer :name 'layer) nil nil space-macs-start-directory))))
 
 (ert-deftest test-make-layer--cannot-make-layer-without-a-directory ()
   (mocker-let
@@ -1016,10 +1016,10 @@
 (ert-deftest test-make-layer--make-layer-without-a-dir-requires-an-initial-obj ()
   (let ((layer (cfgl-layer "layer"
                            :name 'layer
-                           :dir spacemacs-start-directory)))
+                           :dir space-macs-start-directory)))
     (should (equal (cfgl-layer "layer"
                                :name 'layer
-                               :dir spacemacs-start-directory)
+                               :dir space-macs-start-directory)
                    (configuration-layer/make-layer 'layer layer)))))
 
 ;; load packages
@@ -1027,7 +1027,7 @@
 (ert-deftest test-make-layer--make-used-layer-loads-packages-file ()
   (let ((layer (cfgl-layer "layer"
                            :name 'layer
-                           :dir spacemacs-start-directory))
+                           :dir space-macs-start-directory))
         (layer-packages '(pkg1 pkg2 pkg3))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (mocker-let
@@ -1039,13 +1039,13 @@
                                 :variables nil
                                 :packages '(pkg1 pkg2 pkg3)
                                 :selected-packages 'all
-                                :dir spacemacs-start-directory)
+                                :dir space-macs-start-directory)
               (configuration-layer/make-layer 'layer layer 'used))))))
 
 (ert-deftest test-make-layer--make-layer-force-load-packages-file-with-var ()
   (let ((layer (cfgl-layer "layer"
                            :name 'layer
-                           :dir spacemacs-start-directory))
+                           :dir space-macs-start-directory))
         (layer-packages '(pkg1 pkg2 pkg3))
         (configuration-layer--load-packages-files t)
         (mocker-mock-default-record-cls 'mocker-stub-record))
@@ -1058,13 +1058,13 @@
                                 :variables nil
                                 :packages '(pkg1 pkg2 pkg3)
                                 :selected-packages 'all
-                                :dir spacemacs-start-directory)
+                                :dir space-macs-start-directory)
                     (configuration-layer/make-layer 'layer layer))))))
 
 (ert-deftest test-make-layer--make-layer-does-not-load-packages-file-by-default ()
   (let ((layer (cfgl-layer "layer"
                            :name 'layer
-                           :dir spacemacs-start-directory))
+                           :dir space-macs-start-directory))
         (layer-packages '(pkg1))
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (mocker-let
@@ -1076,7 +1076,7 @@
 (ert-deftest test-make-layer--make-used-layer-can-set-additional-properties ()
   (let ((layer (cfgl-layer "layer"
                            :name 'layer
-                           :dir spacemacs-start-directory))
+                           :dir space-macs-start-directory))
         (layer-specs '(layer :disabled-for pkg8 pkg9
                              :can-shadow layer2 layer3
                              :variables foo bar toto 1))
@@ -1092,13 +1092,13 @@
                                 :variables '(foo bar toto 1)
                                 :packages '(pkg1 pkg2 pkg3)
                                 :selected-packages 'all
-                                :dir spacemacs-start-directory)
+                                :dir space-macs-start-directory)
                     (configuration-layer/make-layer layer-specs layer 'used))))))
 
 (ert-deftest test-make-layer--make-not-used-layer-cannot-set-additional-properties ()
   (let ((layer (cfgl-layer "layer"
                            :name 'layer
-                           :dir spacemacs-start-directory))
+                           :dir space-macs-start-directory))
         (layer-specs '(layer :disabled-for pkg8 pkg9
                              :can-shadow layer2
                              :variables foo bar toto 1))
@@ -1110,7 +1110,7 @@
                                :variables nil
                                :packages nil
                                :selected-packages 'all
-                               :dir spacemacs-start-directory)
+                               :dir space-macs-start-directory)
                    (configuration-layer/make-layer layer-specs layer)))))
 
 (ert-deftest test-make-layer--make-used-layer-can-override-additional-properties ()
@@ -1119,7 +1119,7 @@
                            :disabled-for '(pkg10)
                            :can-shadow '()
                            :variables '(titi tata tutu 1)
-                           :dir spacemacs-start-directory))
+                           :dir space-macs-start-directory))
         (layer-specs '(layer :disabled-for pkg8 pkg9
                              :can-shadow layer2
                              :variables foo bar toto 1))
@@ -1135,7 +1135,7 @@
                                 :variables '(foo bar toto 1)
                                 :packages '(pkg1 pkg2 pkg3)
                                 :selected-packages 'all
-                                :dir spacemacs-start-directory)
+                                :dir space-macs-start-directory)
                     (configuration-layer/make-layer layer-specs layer 'used))))))
 
 (ert-deftest test-make-layer--make-not-used-layer-cannot-override-additional-properties ()
@@ -1146,7 +1146,7 @@
                            :variables '(titi tata tutu 1)
                            :packages '(pkg1 pkg2 pkg3)
                            :selected-packages 'all
-                           :dir spacemacs-start-directory))
+                           :dir space-macs-start-directory))
         (layer-specs '(layer :disabled-for pkg8 pkg9
                              :can-shadow '(layer2)
                              :variables foo bar toto 1))
@@ -1158,7 +1158,7 @@
                                :variables '(titi tata tutu 1)
                                :packages '(pkg1 pkg2 pkg3)
                                :selected-packages 'all
-                               :dir spacemacs-start-directory)
+                               :dir space-macs-start-directory)
                    (configuration-layer/make-layer layer-specs layer)))))
 
 ;; ---------------------------------------------------------------------------
@@ -2120,7 +2120,7 @@
                               :name 'layer-dotfile-1
                               :dir "/path/"
                               :packages '(pkg1 pkg2)))
-         (dotspacemacs-additional-packages '(pkg3))
+         (dotspace-macs-additional-packages '(pkg3))
          configuration-layer--used-layers
          (configuration-layer--indexed-layers (make-hash-table :size 1024))
          configuration-layer--used-packages
@@ -2143,7 +2143,7 @@
                                       :name 'layer-dotfile-2
                                       :dir "/path/"
                                       :packages '(pkg1)))
-         (dotspacemacs-additional-packages '(pkg1))
+         (dotspace-macs-additional-packages '(pkg1))
          configuration-layer--used-layers
          (configuration-layer--indexed-layers (make-hash-table :size 1024))
          configuration-layer--used-packages
@@ -2161,7 +2161,7 @@
                               :name 'layer-dotfile-3
                               :dir "/path/"
                               :packages '(pkg1 pkg2 pkg3)))
-         (dotspacemacs-excluded-packages '(pkg2))
+         (dotspace-macs-excluded-packages '(pkg2))
          configuration-layer--used-layers
          (configuration-layer--indexed-layers (make-hash-table :size 1024))
          configuration-layer--used-packages
@@ -2256,7 +2256,7 @@
     (defun layer1/init-pkg nil)
     (defun layer2/pre-init-pkg nil)
     (mocker-let
-     ((spacemacs-buffer/message (m) ((:output nil)))
+     ((space-macs-buffer/message (m) ((:output nil)))
       (layer2/pre-init-pkg nil ((:output nil :occur 1))))
      (configuration-layer//pre-configure-package pkg))))
 
@@ -2274,7 +2274,7 @@
     (defun layer1/init-pkg nil)
     (defun layer2/post-init-pkg nil)
     (mocker-let
-     ((spacemacs-buffer/message (m) ((:output nil)))
+     ((space-macs-buffer/message (m) ((:output nil)))
       (layer2/post-init-pkg nil ((:output nil :occur 1))))
      (configuration-layer//post-configure-package pkg))))
 
@@ -2290,8 +2290,8 @@
     (helper--add-layers `(,(cfgl-layer "layer1" :name 'layer1)) t)
     (defun layer1/init-pkg nil)
     (mocker-let
-     ((spacemacs/update-progress-bar nil ((:output nil)))
-      (spacemacs-buffer/message (m) ((:output nil)))
+     ((space-macs/update-progress-bar nil ((:output nil)))
+      (space-macs-buffer/message (m) ((:output nil)))
       (layer1/init-pkg nil ((:output nil :occur 1))))
      (configuration-layer//configure-package pkg))))
 
@@ -2311,8 +2311,8 @@
     (defun layer2/pre-init-pkg () (push 'pre-init witness))
     (defun layer3/post-init-pkg () (push 'post-init witness))
     (mocker-let
-     ((spacemacs/update-progress-bar nil ((:output nil)))
-      (spacemacs-buffer/message (m) ((:output nil))))
+     ((space-macs/update-progress-bar nil ((:output nil)))
+      (space-macs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-package pkg)
      (should (equal '(init) witness)))))
 
@@ -2332,8 +2332,8 @@
     (defun layer2/pre-init-pkg () (push 'pre-init witness))
     (defun layer3/post-init-pkg () (push 'post-init witness))
     (mocker-let
-     ((spacemacs/update-progress-bar nil ((:output nil)))
-      (spacemacs-buffer/message (m) ((:output nil))))
+     ((space-macs/update-progress-bar nil ((:output nil)))
+      (space-macs-buffer/message (m) ((:output nil))))
      (configuration-layer//pre-configure-package pkg)
      (configuration-layer//configure-package pkg)
      (configuration-layer//post-configure-package pkg)
@@ -2355,8 +2355,8 @@
     (defun layer2/pre-init-pkg () (push 'pre-init witness))
     (defun layer3/post-init-pkg () (push 'post-init witness))
     (mocker-let
-     ((spacemacs/update-progress-bar nil ((:output nil)))
-      (spacemacs-buffer/message (m) ((:output nil))))
+     ((space-macs/update-progress-bar nil ((:output nil)))
+      (space-macs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-package pkg)
      (should (equal '(init) witness)))))
 
@@ -2376,8 +2376,8 @@
     (defun layer2/pre-init-pkg () (push 'pre-init witness))
     (defun layer3/post-init-pkg () (push 'post-init witness))
     (mocker-let
-     ((spacemacs/update-progress-bar nil ((:output nil)))
-      (spacemacs-buffer/message (m) ((:output nil))))
+     ((space-macs/update-progress-bar nil ((:output nil)))
+      (space-macs-buffer/message (m) ((:output nil))))
      (configuration-layer//pre-configure-package pkg)
      (configuration-layer//configure-package pkg)
      (should (equal '(init pre-init) witness)))))
@@ -2456,7 +2456,7 @@
     (helper--add-packages (list pkg) t)
     (mocker-let
      ((configuration-layer//configure-package (p) nil)
-      (spacemacs-buffer/message (m) ((:output nil))))
+      (space-macs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest test-configure-packages-2--protected-package-is-configured()
@@ -2487,7 +2487,7 @@
     (helper--add-packages (list pkg) t)
     (mocker-let
      ((configuration-layer//configure-package (p) nil)
-      (spacemacs-buffer/message (m) ((:output nil))))
+      (space-macs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest test-configure-packages-2--package-w/o-owner-is-not-configured()
@@ -2498,7 +2498,7 @@
     (helper--add-packages (list pkg) t)
     (mocker-let
      ((configuration-layer//configure-package (p) nil)
-      (spacemacs-buffer/message (m) ((:output nil))))
+      (space-macs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest
@@ -2510,7 +2510,7 @@
     (helper--add-packages (list pkg) t)
     (mocker-let
      ((configuration-layer//configure-package (p) nil)
-      (spacemacs-buffer/message (m) ((:output nil))))
+      (space-macs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest test-configure-packages-2--lazy-install-package-is-not-configured()
@@ -2521,7 +2521,7 @@
     (helper--add-packages (list pkg) t)
     (mocker-let
      ((configuration-layer//configure-package (p) nil)
-      (spacemacs-buffer/message (m) ((:output nil))))
+      (space-macs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name))))))
 
 (ert-deftest
@@ -2551,7 +2551,7 @@
     (helper--add-packages (list pkg) t)
     (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
     (push (file-name-as-directory
-           (concat spacemacs-private-directory "local/pkg"))
+           (concat space-macs-private-directory "local/pkg"))
           expected-load-path)
     (should (equal expected-load-path load-path))))
 
@@ -2564,7 +2564,7 @@
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (mocker-let
-     ((spacemacs-buffer/message (m) ((:output nil))))
+     ((space-macs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
      (should (equal load-path old-load-path)))))
 
@@ -2573,14 +2573,14 @@
   (let ((pkg (cfgl-package "pkg"
                            :name 'pkg
                            :owners '(dotfile)
-                           :location spacemacs-docs-directory))
+                           :location space-macs-docs-directory))
         configuration-layer--used-packages
         (configuration-layer--indexed-packages (make-hash-table :size 2048))
         (expected-load-path load-path)
         (mocker-mock-default-record-cls 'mocker-stub-record))
     (helper--add-packages (list pkg) t)
     (configuration-layer//configure-packages-2 `(,(oref pkg :name)))
-    (push spacemacs-docs-directory expected-load-path)
+    (push space-macs-docs-directory expected-load-path)
     (should (equal expected-load-path load-path))))
 
 (ert-deftest
@@ -2954,17 +2954,17 @@
 ;; ---------------------------------------------------------------------------
 
 (ert-deftest test-gather-auto-mode-extensions--one-entry-in-auto-mode-alist ()
-  (let ((auto-mode-alist '(("\\.spacemacs\\'" . mode))))
+  (let ((auto-mode-alist '(("\\.space-macs\\'" . mode))))
     (should (equal
-             "\\(\\.spacemacs\\'\\)"
+             "\\(\\.space-macs\\'\\)"
              (configuration-layer//gather-auto-mode-extensions 'mode)))))
 
 (ert-deftest test-gather-auto-mode-extensions--several-entries-in-auto-mode-alist ()
-  (let ((auto-mode-alist '(("\\.spacemacs\\'" . mode)
-                           ("\\.dotspacemacs\\'" . mode)
+  (let ((auto-mode-alist '(("\\.space-macs\\'" . mode)
+                           ("\\.dotspace-macs\\'" . mode)
                            ("\\.spacelayer\\'" . mode))))
     (should (equal
-             "\\(\\.spacelayer\\'\\|\\.dotspacemacs\\'\\|\\.spacemacs\\'\\)"
+             "\\(\\.spacelayer\\'\\|\\.dotspace-macs\\'\\|\\.space-macs\\'\\)"
              (configuration-layer//gather-auto-mode-extensions 'mode)))))
 
 (ert-deftest test-gather-auto-mode-extensions--ext-entry-is-not-symbol ()
@@ -2978,13 +2978,13 @@
 (ert-deftest test-gather-auto-mode-extensions--regexp-correctness ()
   "Correctness is a big word here :-)"
   (let ((regexp (configuration-layer//gather-auto-mode-extensions
-                 'emacs-lisp-mode)))
-    (should (string-match-p regexp "/_emacs"))
+                 'e-macs-lisp-mode)))
+    (should (string-match-p regexp "/_e-macs"))
     (should (string-match-p regexp "/.toto_gnus"))
     (should (string-match-p regexp "/.toto_viper"))
-    (should (string-match-p regexp "/toto/emacs.el"))
+    (should (string-match-p regexp "/toto/e-macs.el"))
     (should (string-match-p regexp "/toto/project.ede"))
-    (should (not (string-match-p regexp "/toto/emacs.dummy")))))
+    (should (not (string-match-p regexp "/toto/e-macs.dummy")))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//lazy-install-extensions-for-layer
@@ -3200,13 +3200,13 @@
    ((configuration-layer//stable-elpa-tarball-local-file
      nil ((:record-cls 'mocker-stub-record
                        :output
-                       (concat spacemacs-test-directory
+                       (concat space-macs-test-directory
                                "core/data/not-found.tar.gz")
                        :occur 1)))
     (configuration-layer//stable-elpa-tarball-local-sign-file
      nil ((:record-cls 'mocker-stub-record
                        :output
-                       (concat spacemacs-test-directory
+                       (concat space-macs-test-directory
                                "core/data/stable-elpa.sig")
                        :occur 1)))
     (configuration-layer//error
@@ -3219,15 +3219,17 @@
    ((configuration-layer//stable-elpa-tarball-local-file
      nil ((:record-cls 'mocker-stub-record
                        :output
-                       (concat spacemacs-test-directory
+                       (concat space-macs-test-directory
                                "core/data/signed-stable-elpa.tar.gz")
                        :occur 1)))
     (configuration-layer//stable-elpa-tarball-local-sign-file
      nil ((:record-cls 'mocker-stub-record
                        :output
-                       (concat spacemacs-test-directory
+                       (concat space-macs-test-directory
                                "core/data/not-found.sig")
                        :occur 1)))
     (configuration-layer//error
      (msg &rest args) ((:record-cls 'mocker-stub-record :occur 1))))
    (should (null (configuration-layer//stable-elpa-verify-archive)))))
+
+

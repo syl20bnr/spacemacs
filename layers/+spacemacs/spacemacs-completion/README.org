@@ -1,6 +1,6 @@
-#+TITLE: spacemacs-completion layer
+#+TITLE: space-macs-completion layer
 
-#+TAGS: layer|misc|spacemacs
+#+TAGS: layer|misc|space-macs
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -20,3 +20,5 @@ layers in =+completion= layer directory.
 ** Features:
 - Base preconfiguration of =helm= and =ivy= for other layers to use.
 - Basic support for =ido-navigation= configuration and transient state.
+
+

@@ -1,11 +1,11 @@
-;;; packages.el --- pianobar Layer packages File for Spacemacs
+;;; packages.el --- pianobar Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Leo Littlebook  <texas.cyberthal@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -18,9 +18,9 @@
   (use-package pianobar
     :defer t
     :init (progn
-            (spacemacs/declare-prefix "am" "music")
-            (spacemacs/declare-prefix "amp" "Pianobar")
-            (spacemacs/set-leader-keys
+            (space-macs/declare-prefix "am" "music")
+            (space-macs/declare-prefix "amp" "Pianobar")
+            (space-macs/set-leader-keys
               "ampp" 'pianobar-play-or-pause
               "ampn" 'pianobar-next-song
               "amp+" 'pianobar-love-current-song
@@ -28,3 +28,5 @@
               "ampt" 'pianobar-shelve-current-song
               "amps" 'pianobar-change-station
               ))))
+
+

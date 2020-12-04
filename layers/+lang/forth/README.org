@@ -9,7 +9,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds basic support for the Forth family of languages to spacemacs.
+This layer adds basic support for the Forth family of languages to space-macs.
 
 ** Features:
 - Syntax highlighting
@@ -18,8 +18,8 @@ This layer adds basic support for the Forth family of languages to spacemacs.
 - Passing interactive commands to current =Forth= session.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =forth= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =forth= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 A local installation of =Forth= needs to be present as well. =GNU Forth= is
@@ -27,8 +27,8 @@ commonly available on Unix systems via the package manager. To bypass the query
 when calling ~run-forth~, the default Forth can be configured by setting the
 appropriate variable.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((forth :variables forth-executable "gforth")))
 #+END_SRC
 
@@ -43,3 +43,5 @@ appropriate variable.
 | ~SPC m s b~ | Load file in interactive Forth                                    |
 | ~SPC m s i~ | Start interactive Forth (prompts for Forth executable if not set) |
 | ~SPC m s k~ | Kill interactive Forth                                            |
+
+

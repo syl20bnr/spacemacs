@@ -25,8 +25,8 @@ This layer aims at providing support for the Ruby on Rails framework.
 - Interactive Rails console
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =ruby-on-rails= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =ruby-on-rails= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -95,3 +95,5 @@ file.
 | Key binding | Description                             |
 |-------------+-----------------------------------------|
 | ~:A~        | Switch between implementation and tests |
+
+

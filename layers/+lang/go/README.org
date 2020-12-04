@@ -43,16 +43,16 @@ This layer adds extensive support for the [[https://golang.org][Go]] programming
 - List packages faster with [[https://github.com/haya14busa/gopkgs][gopkgs]]
 - Fill a structure with default values using the [[https://github.com/davidrjenni/reftools/tree/master/cmd/fillstruct][fillstruct]]
 - Gopls backend support (see [[#lsp-gopls][LSP backend]])
-- Interactive debugger with LSP using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
+- Interactive debugger with LSP using [[https://github.com/e-macs-lsp/dap-mode][dap-mode]]
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =go= to the existing =dotspacemacs-configuration-layers= list in this file.
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =go= to the existing =dotspace-macs-configuration-layers= list in this file.
 
 ** Choosing a backend
 Basically you have to choose between multiple language backends.
-This choice defines mainly which kind of IDE features spacemacs
+This choice defines mainly which kind of IDE features space-macs
 can deliver.
 
 Alternatively if non is set the =lsp= backend will be automatically
@@ -68,10 +68,10 @@ It includes auto-completion and syntax checking support.
 It is based on an external development server written in go itself,
 which must be installed separately before this layer can be used.
 
-Starting and stopping the server is done by emacs so you normally
+Starting and stopping the server is done by e-macs so you normally
 won't notice it happen.
 
-Detailed bindings and configuration can be found in [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/lsp#key-bindings][lsp layer description]].
+Detailed bindings and configuration can be found in [[https://github.com/syl20bnr/space-macs/tree/develop/layers/%2Btools/lsp#key-bindings][lsp layer description]].
 
 To choose this backend set the layer variable =go-backend=:
 
@@ -90,7 +90,7 @@ prepared you can simply run below command to install:
 **** Debugger
 Using the =dap= layer you'll get access to a graphical debugger integration.
 To do so add the layer =dap= to your dotfile. For a complete list of key bindings
-see the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
+see the [[https://github.com/syl20bnr/space-macs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
 
 *** go-mode (deprecated)
 This was the old elisp based go backend. Since the introduction of
@@ -122,7 +122,7 @@ they have been added. This is also the recommended choice from =go-mode.el=.
 To choose =gocode= nothing more needs to be done. To use =gogetdoc= you need to set
 the layer variable:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (go :variables godoc-at-point-function 'godoc-gogetdoc)
 #+END_SRC
 
@@ -160,14 +160,14 @@ By default, the go run command is =go run=. If you want to use a different
 command or run with environment variables, set the layer variable
 =go-run-command=.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (go :variables go-run-command "ENV_VAR=foo go run")
 #+END_SRC
 
 To run the current =main= package with command line arguments, set the value of
 =go-run-args= as a file local variable, e.g.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   // Local Variables:
   // go-run-args: "--output run.log"
   // End:
@@ -177,34 +177,34 @@ To run the current =main= package with command line arguments, set the value of
 By default, the tab width in Go mode is 8 spaces. To use a different value, set
 the layer variable =go-tab-width=, e.g.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (go :variables go-tab-width 4)
 #+END_SRC
 
 If you're using =.editorconfig= in your project, set the value to nil to avoid
 conflicts, i.e.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (go :variables go-tab-width nil)
 #+END_SRC
 
 ** Autoformat
 To run =gofmt= before save, set the value to a non-nil, i.e.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (go :variables go-format-before-save t)
 #+END_SRC
 
 To use a different formatter, set the value of =gofmt-command=, e.g.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (go :variables gofmt-command "goimports")
 #+END_SRC
 
 ** Linting
 If you wish to use =golangci-lint=, set the following layer variable to non-nil:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (go :variables go-use-golangci-lint t)
 #+END_SRC
 
@@ -218,7 +218,7 @@ Especially important is the selection of which linters to run and whether to lin
 It may happen from time to time that =golangci-lint= is not able to parse a buffers content
 properly. This normally happens when there are basic errors in the file which prevent more
 complex analytics to run. In this case a set of errors will be shown at the top of the
-current buffer which are not properly parsed by flycheck. Spacemacs still shows basic
+current buffer which are not properly parsed by flycheck. Space-macs still shows basic
 errors in your buffer. When these have been fixed =golangci-lint= will regenerate
 and further diagnostic data will be made available.
 
@@ -238,19 +238,19 @@ By default, the go test command is =go test=. If you want to use a different
 command or test with environment variables, set the layer variable
 =go-test-command=.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (go :variables go-test-command "ENV_VAR=foo go test")
 #+END_SRC
 
 To provide additional arguments to =go test=, specify =go-use-test-args=.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (go :variables go-use-test-args "-race -timeout 10s")
 #+END_SRC
 
 ** Coverage
 =go-coverage-display-buffer-func= controls how =go-coverage= should display
-the coverage buffer. See [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html][display-buffer]] for a list of possible functions.
+the coverage buffer. See [[https://www.gnu.org/software/e-macs/manual/html_node/elisp/Choosing-Window.html][display-buffer]] for a list of possible functions.
 The default value is =display-buffer-reuse-window=.
 
 ** Guru
@@ -315,3 +315,5 @@ prefix it with =-= to exclude a package from searching.
 | ~SPC m r N~ | Rename (with =go-rename=)                                       |
 | ~SPC m r s~ | Fill structure with default values (with =go-fillstruct=)       |
 | ~SPC m r t~ | Toggle declaration and assignment                               |
+
+

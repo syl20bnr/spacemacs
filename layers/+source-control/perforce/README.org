@@ -11,14 +11,14 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer integrates =Perforce= SCM system into Spacemacs.
+This layer integrates =Perforce= SCM system into Space-macs.
 
 ** Features:
-- Support for running [[https://www.perforce.com/][Perforce]] (p4) SCM commands directly from Emacs.
+- Support for running [[https://www.perforce.com/][Perforce]] (p4) SCM commands directly from e-macs.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =perforce= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =perforce= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 You'll have to install the =p4= command line tool from the [[https://www.perforce.com/downloads/helix][download page]].
@@ -69,7 +69,7 @@ Don't forget to setup the environment variables:
 | ~SPC p 4 t~ | toggle perfore server check when opening files.              |
 | ~SPC p 4 u~ | create or edit user specification                            |
 | ~SPC p 4 U~ | list perforce users                                          |
-| ~SPC p 4 v~ | emacs perforce integration version                           |
+| ~SPC p 4 v~ | e-macs perforce integration version                           |
 | ~SPC p 4 V~ | p4 blame                                                     |
 | ~SPC p 4 w~ | show how file names are mapped by client view                |
 | ~SPC p 4 x~ | delete a file from the depot                                 |
@@ -78,3 +78,5 @@ Don't forget to setup the environment variables:
 | ~SPC p 4 =~ | p4 diff                                                      |
 | ~SPC p 4 +~ | p4 diff on all opened files                                  |
 | ~SPC p 4 -~ | p4 ediff                                                     |
+
+

@@ -3,10 +3,11 @@
 # key: micro
 # binding: direct-keybinding
 # --
-(spacemacs|define-micro-state ${1:micro-state-name}
-    ${2::doc (spacemacs//$1-ms-documentation)}
+(space-macs|define-micro-state ${1:micro-state-name}
+    ${2::doc (space-macs//$1-ms-documentation)}
     ${3::use-minibuffer t}
     ${4::evil-leader "${5:Leader-key}"}
     :bindings
     ${}
     )
+

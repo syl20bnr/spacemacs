@@ -11,7 +11,7 @@
 ;;
 ;;; Commentary:
 
-;; This file provides funcationalities for Emacs rst-mode.
+;; This file provides funcationalities for e-macs rst-mode.
 
 (defgroup rst-list nil
   "Functions supporting of directives with \\[rst-lists]."
@@ -248,4 +248,6 @@ use a prefix (\\[universal-argument]).
 
 
 (provide 'rst-lists)
+
+
 

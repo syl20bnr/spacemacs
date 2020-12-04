@@ -9,7 +9,7 @@
 # README
 
  Pylookup stole idea from 'http://furius.ca/haddoc', one of my favorite
- emacs mode for python documentation lookup. I reimplemented python code and
+ e-macs mode for python documentation lookup. I reimplemented python code and
  elisp code not just to support new version of python 2.7 but also to extend
  it for other documentation lookup interfaces with easy. Importantly, pylookup
  mode is much faster and supports fancy highlighting.
@@ -40,12 +40,12 @@
 
 ## Elisp
 
- Here is lisp part for emacs.
+ Here is lisp part for e-macs.
 
- - [PATH] parameter depends on your environment (i.e. "~/.emacs.d/pylookup")
+ - [PATH] parameter depends on your environment (i.e. "~/.e-macs.d/pylookup")
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{.cl}
-;; add pylookup to your loadpath, ex) ~/.emacs.d/pylookup
+;; add pylookup to your loadpath, ex) ~/.e-macs.d/pylookup
 (setq pylookup-dir "[PATH]")
 (add-to-list 'load-path pylookup-dir)
 
@@ -86,3 +86,5 @@
   ./pylookup.py -u http://matplotlib.sourceforge.net/genindex.html
 
  You probably like to type './pylookup.py -h' to see more options.
+
+

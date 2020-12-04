@@ -1,11 +1,11 @@
-;;; packages.el --- Outshine layer packages file for Spacemacs.
+;;; packages.el --- Outshine layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Langston Barrett <langston.barrett@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -22,13 +22,13 @@
       (add-hook 'outline-minor-mode-hook 'outshine-mode))
     :config
     (progn
-      (spacemacs|hide-lighter outline-minor-mode)
-      (spacemacs|hide-lighter outshine-mode)
-      (spacemacs/declare-prefix "aO" "out(line/org/shine)")
-      (spacemacs/declare-prefix "aOg" "goto")
-      (spacemacs/declare-prefix "aOi" "insert")
-      (spacemacs/set-leader-keys
-        "aO."  'spacemacs/outshine-transient-state/body
+      (space-macs|hide-lighter outline-minor-mode)
+      (space-macs|hide-lighter outshine-mode)
+      (space-macs/declare-prefix "aO" "out(line/org/shine)")
+      (space-macs/declare-prefix "aOg" "goto")
+      (space-macs/declare-prefix "aOi" "insert")
+      (space-macs/set-leader-keys
+        "aO."  'space-macs/outshine-transient-state/body
         "aOS"  'outline-show-all
         "aOgu" 'outline-up-heading
         "aOgn" 'outline-next-heading
@@ -40,11 +40,11 @@
         "aOJ"  'outline-move-subtree-down
         "aO>"  'outline-demote
         "aO<"  'outline-promote))
-    (spacemacs|define-transient-state outshine
+    (space-macs|define-transient-state outshine
       :title "Outshine Transient State"
       :doc "
 Navigate headings^^^^      Move subtrees^^^^               Other^^
-─────────────────^^^^────  ─────────────^^^^─────────────  ─────^^─────────────
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€^^^^â”€â”€â”€â”€  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€^^^^â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€  â”€â”€â”€â”€â”€^^â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 [_j_/_k_] down/up          [_J_/_K_] move subtree down/up  [_q_] quit
 [_n_/_N_] next/up heading  [_>_/_<_] demote/promote        [_i_] insert heading
 [_I_]^^   heading imenu"
@@ -69,8 +69,10 @@ Navigate headings^^^^      Move subtrees^^^^               Other^^
     :defer t
     :config
     (progn
-      (spacemacs/set-leader-keys
+      (space-macs/set-leader-keys
         "aOc"  'outorg-copy-edits-and-exit
         "aOe"  'outorg-edit-as-org))))
 
 ;;; packages.el ends here
+
+

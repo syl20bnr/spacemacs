@@ -1,11 +1,11 @@
-;;; packages.el --- Chinese Layer packages File for Spacemacs
+;;; packages.el --- Chinese Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -29,7 +29,7 @@
     :init (fcitx-evil-turn-on)
     :config
     (progn
-      (setq fcitx-active-evil-states '(insert emacs hybrid))
+      (setq fcitx-active-evil-states '(insert e-macs hybrid))
       (when chinese-use-fcitx5
         (setq fcitx-remote-command "fcitx5-remote"))
       (fcitx-default-setup)
@@ -44,12 +44,12 @@
     :init
     (progn
       (autoload 'chinese-wbim-use-package "chinese-wubi"
-        "Another emacs input method")
+        "Another e-macs input method")
       ;; Tooptip is not good enough, so disable it here.
       (setq chinese-wbim-use-tooltip nil)
       (register-input-method
        "chinese-wubi" "euc-cn" 'chinese-wbim-use-package
-       "五笔" "汉字五笔输入法" "wb.txt")
+       "äº”ç¬”" "æ±‰å­—äº”ç¬”è¾“å…¥æ³•" "wb.txt")
       (require 'chinese-wbim-extra)
       (global-set-key ";" 'chinese-wbim-insert-ascii)
       (setq default-input-method 'chinese-wubi))))
@@ -64,7 +64,7 @@
       (setq url-automatic-caching t
             ;; Set file path for saving search history
             youdao-dictionary-search-history-file
-            (concat spacemacs-cache-directory ".youdao")
+            (concat space-macs-cache-directory ".youdao")
             ;; Enable Chinese word segmentation support
             youdao-dictionary-use-chinese-word-segmentation t))))
 
@@ -74,7 +74,7 @@
     :init
     (progn
       (setq pyim-page-tooltip t
-            pyim-directory (expand-file-name "pyim/" spacemacs-cache-directory)
+            pyim-directory (expand-file-name "pyim/" space-macs-cache-directory)
             pyim-dcache-directory (expand-file-name "dcache/" pyim-directory)
             default-input-method "pyim")
       (evilified-state-evilify pyim-dm-mode pyim-dm-mode-map))))
@@ -91,13 +91,13 @@
       (if chinese-enable-avy-pinyin
           (setq ace-pinyin-use-avy t))
       (ace-pinyin-global-mode t)
-      (spacemacs|hide-lighter ace-pinyin-mode))))
+      (space-macs|hide-lighter ace-pinyin-mode))))
 
 (defun chinese/init-pangu-spacing ()
   (use-package pangu-spacing
     :defer t
     :init (progn (global-pangu-spacing-mode 1)
-                 (spacemacs|hide-lighter pangu-spacing-mode)
+                 (space-macs|hide-lighter pangu-spacing-mode)
                  ;; Always insert `real' space in org-mode.
                  (add-hook 'org-mode-hook
                            '(lambda ()
@@ -119,3 +119,5 @@ unwanted space when exporting org-mode to html."
              (concat
               "\\(" fix-regexp "\\) *\n *\\(" fix-regexp "\\)") "\\1\\2" origin-contents)))
       (ad-set-arg 1 fixed-contents))))
+
+

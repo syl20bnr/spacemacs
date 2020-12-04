@@ -3,15 +3,15 @@
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 
 
-(spacemacs|add-toggle auto-completion
+(space-macs|add-toggle auto-completion
   :status
   (if (eq 'company auto-completion-front-end)
       (bound-and-true-p company-mode)
@@ -35,7 +35,7 @@
 
 ;; company backends declaration macro
 
-(defmacro spacemacs|add-company-backends (&rest props)
+(defmacro space-macs|add-company-backends (&rest props)
   "Add and enable company backends.
 This function should be called exclusively in `post-init-company' functions or
 `init-company-xxx' function where xxx is company backend package.
@@ -66,28 +66,28 @@ Available PROPS:
 `:call-hooks BOOLEAN'
     if non-nil then hooked functions are called right away."
   (declare (indent 0))
-  (let* ((backends (spacemacs/mplist-get-values props :backends))
-         (modes (spacemacs/mplist-get-values props :modes))
-         (variables (spacemacs/mplist-get-values props :variables))
-         (from (spacemacs/mplist-get-value props :from))
+  (let* ((backends (space-macs/mplist-get-values props :backends))
+         (modes (space-macs/mplist-get-values props :modes))
+         (variables (space-macs/mplist-get-values props :variables))
+         (from (space-macs/mplist-get-value props :from))
          (hooks (if (memq :append-hooks props)
-                    (spacemacs/mplist-get-value props :append-hooks)
+                    (space-macs/mplist-get-value props :append-hooks)
                   t))
          (call-hooks (when (memq :call-hooks props)
-                       (spacemacs/mplist-get-value props :call-hooks)))
+                       (space-macs/mplist-get-value props :call-hooks)))
          (result '(progn)))
     (dolist (mode modes)
       (let ((backends-var-name (intern (format "company-backends-%S" mode)))
             (raw-backends-var-name (intern (format "company-backends-%S-raw"
                                                    mode)))
-            (init-func-name (intern (format "spacemacs//init-company-%S" mode)))
+            (init-func-name (intern (format "space-macs//init-company-%S" mode)))
             (vars-func-name (intern
-                             (format "spacemacs//init-company-vars-%S%s" mode
+                             (format "space-macs//init-company-vars-%S%s" mode
                                      (if from (format "-%S" from) ""))))
             (mode-hook-name (intern (format "%S-hook" mode))))
         ;; declare buffer local company-backends variable
         (push `(defvar ,raw-backends-var-name
-                 spacemacs-default-company-backends
+                 space-macs-default-company-backends
                  ,(format "Company backend list for %S." mode)) result)
         (push `(defvar ,backends-var-name ,raw-backends-var-name
                  ,(format "Company backend list for %S." mode)) result)
@@ -99,7 +99,7 @@ Available PROPS:
                 ,(format "Initialize company for %S." mode)
                 (if auto-completion-enable-snippets-in-popup
                     (setq ,backends-var-name
-                          (mapcar 'spacemacs//show-snippets-in-company
+                          (mapcar 'space-macs//show-snippets-in-company
                                   ,raw-backends-var-name))
                   (setq ,backends-var-name ,raw-backends-var-name))
                 (set (make-variable-buffer-local 'auto-completion-front-end)
@@ -134,17 +134,17 @@ Available PROPS:
     ;; return the expanded macro in correct order
     (reverse result)))
 
-(defmacro spacemacs|disable-company (mode)
+(defmacro space-macs|disable-company (mode)
   "Disable company for the given MODE.
 MODE parameter must match the :modes values used in the call to
-`spacemacs|add-company-backends'."
+`space-macs|add-company-backends'."
   (let ((mode-hook-name (intern (format "%S-hook" mode)))
-        (func (intern (format "spacemacs//init-company-%S" mode))))
+        (func (intern (format "space-macs//init-company-%S" mode))))
     `(progn
        (remove-hook ',mode-hook-name ',func)
        (remove-hook ',mode-hook-name 'company-mode))))
 
-(defun spacemacs//show-snippets-in-company (backend)
+(defun space-macs//show-snippets-in-company (backend)
   (if (or (not auto-completion-enable-snippets-in-popup)
           (and (listp backend) (member 'company-yasnippet backend)))
       backend
@@ -154,7 +154,7 @@ MODE parameter must match the :modes values used in the call to
 
 ;; auto-completion key bindings functions
 
-(defun spacemacs//auto-completion-set-RET-key-behavior (package)
+(defun space-macs//auto-completion-set-RET-key-behavior (package)
   "Bind RET key appropriately for the given PACKAGE and value of
 `auto-completion-return-key-behavior'."
   (cond
@@ -169,7 +169,7 @@ MODE parameter must match the :modes values used in the call to
         (define-key map (kbd "RET") 'nil)))))
    (t (message "Not yet implemented for package %S" package))))
 
-(defun spacemacs//auto-completion-set-TAB-key-behavior (package)
+(defun space-macs//auto-completion-set-TAB-key-behavior (package)
   "Bind TAB key appropriately for the given PACKAGE and value of
 `auto-completion-tab-key-behavior'."
   (cond
@@ -183,74 +183,74 @@ MODE parameter must match the :modes values used in the call to
         (define-key map (kbd "TAB") 'company-complete-common-or-cycle)
         (define-key map (kbd "<tab>") 'company-complete-common-or-cycle)
         (define-key map (kbd "<S-tab>")
-          'spacemacs//company-complete-common-or-cycle-backward)
+          'space-macs//company-complete-common-or-cycle-backward)
         (define-key map (kbd "<backtab>")
-          'spacemacs//company-complete-common-or-cycle-backward))
+          'space-macs//company-complete-common-or-cycle-backward))
        (t
         (define-key map (kbd "TAB") nil)
         (define-key map (kbd "<tab>") nil)))))
    (t (message "Not yet implemented for package %S" package))))
 
-(defun spacemacs//auto-completion-setup-key-sequence (package)
+(defun space-macs//auto-completion-setup-key-sequence (package)
   "Setup the key sequence to complete current selection."
   (when auto-completion-complete-with-key-sequence
     (let ((first-key (elt auto-completion-complete-with-key-sequence 0)))
       (cond ((eq 'company package)
              (define-key company-active-map (kbd (char-to-string first-key))
-               'spacemacs//auto-completion-key-sequence-start))
+               'space-macs//auto-completion-key-sequence-start))
             (t (message "Not yet implemented for package %S" package))))))
 
 
 ;; key sequence to complete selection
 
-(defvar spacemacs--auto-completion-time nil)
-(defvar spacemacs--auto-completion-complete-last-candidate nil)
-(defvar spacemacs--auto-completion-shadowed-insert-binding nil)
-(defvar spacemacs--auto-completion-shadowed-emacs-binding nil)
-(defvar spacemacs--auto-completion-shadowed-hybrid-binding nil)
+(defvar space-macs--auto-completion-time nil)
+(defvar space-macs--auto-completion-complete-last-candidate nil)
+(defvar space-macs--auto-completion-shadowed-insert-binding nil)
+(defvar space-macs--auto-completion-shadowed-e-macs-binding nil)
+(defvar space-macs--auto-completion-shadowed-hybrid-binding nil)
 
-(defun spacemacs//auto-completion-key-sequence-start ()
+(defun space-macs//auto-completion-key-sequence-start ()
   "Initiate auto-completion sequence."
   (interactive)
   (self-insert-command 1)
-  (setq spacemacs--auto-completion-complete-last-candidate
+  (setq space-macs--auto-completion-complete-last-candidate
         (cond
          ((bound-and-true-p company-mode)
           (nth company-selection company-candidates))))
   ;; enable second key of the sequence
   (let ((second-key (kbd (char-to-string
                           (elt auto-completion-complete-with-key-sequence 1)))))
-    (setq spacemacs--auto-completion-shadowed-insert-binding
+    (setq space-macs--auto-completion-shadowed-insert-binding
           (lookup-key evil-insert-state-map second-key))
-    (setq spacemacs--auto-completion-shadowed-emacs-binding
-          (lookup-key evil-emacs-state-map second-key))
-    (setq spacemacs--auto-completion-shadowed-hybrid-binding
+    (setq space-macs--auto-completion-shadowed-e-macs-binding
+          (lookup-key evil-e-macs-state-map second-key))
+    (setq space-macs--auto-completion-shadowed-hybrid-binding
           (lookup-key evil-hybrid-state-map second-key))
     (define-key
       evil-insert-state-map
       second-key
-      'spacemacs//auto-completion-key-sequence-end)
+      'space-macs//auto-completion-key-sequence-end)
     (define-key
-      evil-emacs-state-map
+      evil-e-macs-state-map
       second-key
-      'spacemacs//auto-completion-key-sequence-end)
+      'space-macs//auto-completion-key-sequence-end)
     (define-key
       evil-hybrid-state-map
       second-key
-      'spacemacs//auto-completion-key-sequence-end))
+      'space-macs//auto-completion-key-sequence-end))
   ;; set a timer to restore the old bindings
   (run-at-time auto-completion-complete-with-key-sequence-delay
                nil
-               'spacemacs//auto-completion-key-sequence-restore)
-  (when spacemacs--auto-completion-complete-last-candidate
-    (setq spacemacs--auto-completion-time (current-time))))
+               'space-macs//auto-completion-key-sequence-restore)
+  (when space-macs--auto-completion-complete-last-candidate
+    (setq space-macs--auto-completion-time (current-time))))
 
-(defun spacemacs//auto-completion-key-sequence-end ()
+(defun space-macs//auto-completion-key-sequence-end ()
   "Check if the auto-completion key sequence has been entered."
   (interactive)
-  (if (or (null spacemacs--auto-completion-time)
+  (if (or (null space-macs--auto-completion-time)
           (< auto-completion-complete-with-key-sequence-delay
-             (float-time (time-since spacemacs--auto-completion-time))))
+             (float-time (time-since space-macs--auto-completion-time))))
       (self-insert-command 1)
     (cond
      ((bound-and-true-p company-mode)
@@ -260,31 +260,31 @@ MODE parameter must match the :modes values used in the call to
         (delete-char -1))
       (let ((company-idle-delay))
         (company-auto-begin)
-        (company-finish spacemacs--auto-completion-complete-last-candidate)))))
-  (spacemacs//auto-completion-key-sequence-restore)
-  (setq spacemacs--auto-completion-time nil))
+        (company-finish space-macs--auto-completion-complete-last-candidate)))))
+  (space-macs//auto-completion-key-sequence-restore)
+  (setq space-macs--auto-completion-time nil))
 
-(defun spacemacs//auto-completion-key-sequence-restore ()
+(defun space-macs//auto-completion-key-sequence-restore ()
   "Restore the shadowed key bindings used to auto-complete."
   (let ((second-key (kbd (char-to-string
                           (elt auto-completion-complete-with-key-sequence 1)))))
     (define-key
       evil-insert-state-map
       second-key
-      spacemacs--auto-completion-shadowed-insert-binding)
+      space-macs--auto-completion-shadowed-insert-binding)
     (define-key
-      evil-emacs-state-map
+      evil-e-macs-state-map
       second-key
-      spacemacs--auto-completion-shadowed-emacs-binding)
+      space-macs--auto-completion-shadowed-e-macs-binding)
     (define-key
       evil-hybrid-state-map
       second-key
-      spacemacs--auto-completion-shadowed-hybrid-binding)))
+      space-macs--auto-completion-shadowed-hybrid-binding)))
 
 
 ;; Editing style
 
-(defun spacemacs//company-active-navigation (style)
+(defun space-macs//company-active-navigation (style)
   "Set navigation for the given editing STYLE."
   (cond
    ((or (eq 'vim style)
@@ -296,14 +296,14 @@ MODE parameter must match the :modes values used in the call to
       (define-key map (kbd "C-l") 'company-complete-selection))
     ;; Fix company-quickhelp Evil C-k
     (let ((prev nil))
-      (defun spacemacs//set-C-k-company-select-previous (&rest args)
+      (defun space-macs//set-C-k-company-select-previous (&rest args)
         (setf prev (lookup-key evil-insert-state-map (kbd "C-k")))
         (define-key evil-insert-state-map (kbd "C-k") 'company-select-previous))
-      (defun spacemacs//restore-C-k-evil-insert-digraph (&rest args)
+      (defun space-macs//restore-C-k-evil-insert-digraph (&rest args)
         (define-key evil-insert-state-map (kbd "C-k") prev)))
-    (add-hook 'company-completion-started-hook 'spacemacs//set-C-k-company-select-previous)
-    (add-hook 'company-completion-finished-hook 'spacemacs//restore-C-k-evil-insert-digraph)
-    (add-hook 'company-completion-cancelled-hook 'spacemacs//restore-C-k-evil-insert-digraph))
+    (add-hook 'company-completion-started-hook 'space-macs//set-C-k-company-select-previous)
+    (add-hook 'company-completion-finished-hook 'space-macs//restore-C-k-evil-insert-digraph)
+    (add-hook 'company-completion-cancelled-hook 'space-macs//restore-C-k-evil-insert-digraph))
    (t
     (let ((map company-active-map))
       (define-key map (kbd "C-n") 'company-select-next)
@@ -312,7 +312,7 @@ MODE parameter must match the :modes values used in the call to
 
 ;; Transformers
 
-(defun spacemacs//company-transformer-cancel (candidates)
+(defun space-macs//company-transformer-cancel (candidates)
   "Cancel completion if prefix is in the list
 `company-mode-completion-cancel-keywords'"
   (unless (member company-prefix company-mode-completion-cancel-keywords)
@@ -333,38 +333,38 @@ MODE parameter must match the :modes values used in the call to
 
 ;; helm-yas
 
-(defun spacemacs/helm-yas ()
+(defun space-macs/helm-yas ()
   "Properly lazy load helm-c-yasnipper."
   (interactive)
-  (spacemacs/load-yasnippet)
+  (space-macs/load-yasnippet)
   (require 'helm-c-yasnippet)
   (call-interactively 'helm-yas-complete))
 
 
 ;; ivy-yas
 
-(defun spacemacs/ivy-yas ()
+(defun space-macs/ivy-yas ()
   "Lazy load ivy-yasnippet"
   (interactive)
-  (spacemacs/load-yasnippet)
+  (space-macs/load-yasnippet)
   (require 'ivy-yasnippet)
   (call-interactively 'ivy-yasnippet))
 
 
 ;; Yasnippet
 
-(defun spacemacs/load-yasnippet ()
+(defun space-macs/load-yasnippet ()
   (unless yas-global-mode (yas-global-mode 1))
   (yas-minor-mode 1))
 
-(defun spacemacs/force-yasnippet-off ()
+(defun space-macs/force-yasnippet-off ()
   (yas-minor-mode -1)
   (setq yas-dont-activate t))
 
 
 ;; Auto-Yasnippet
 
-(defun spacemacs/auto-yasnippet-expand ()
+(defun space-macs/auto-yasnippet-expand ()
   "Call `yas-expand' and switch to `insert state'"
   (interactive)
   (call-interactively 'aya-expand)
@@ -383,25 +383,27 @@ MODE parameter must match the :modes values used in the call to
 ;; * `yas-after-exit-snippet-hook' is called only for the top level snippet,
 ;; but NOT for the nested ones.
 ;;
-;; That's why we introduce `spacemacs--yasnippet-expanding' below.
+;; That's why we introduce `space-macs--yasnippet-expanding' below.
 
-(defvar spacemacs--smartparens-enabled-initially t
+(defvar space-macs--smartparens-enabled-initially t
   "Stored whether smartparens is originally enabled or not.")
-(defvar spacemacs--yasnippet-expanding nil
+(defvar space-macs--yasnippet-expanding nil
   "Whether the snippet expansion is in progress.")
 
-(defun spacemacs//smartparens-disable-before-expand-snippet ()
+(defun space-macs//smartparens-disable-before-expand-snippet ()
   "Handler for `yas-before-expand-snippet-hook'.
 Disable smartparens and remember its initial state."
   ;; Remember the initial smartparens state only once, when expanding a top-level snippet.
-  (unless spacemacs--yasnippet-expanding
-    (setq spacemacs--yasnippet-expanding t
-          spacemacs--smartparens-enabled-initially smartparens-mode))
+  (unless space-macs--yasnippet-expanding
+    (setq space-macs--yasnippet-expanding t
+          space-macs--smartparens-enabled-initially smartparens-mode))
   (smartparens-mode -1))
 
-(defun spacemacs//smartparens-restore-after-exit-snippet ()
+(defun space-macs//smartparens-restore-after-exit-snippet ()
   "Handler for `yas-after-exit-snippet-hook'.
  Restore the initial state of smartparens."
-  (setq spacemacs--yasnippet-expanding nil)
-  (when spacemacs--smartparens-enabled-initially
+  (setq space-macs--yasnippet-expanding nil)
+  (when space-macs--smartparens-enabled-initially
     (smartparens-mode 1)))
+
+

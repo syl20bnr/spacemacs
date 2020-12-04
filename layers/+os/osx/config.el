@@ -1,11 +1,11 @@
-;;; config.el --- OSX Layer config File for Spacemacs
+;;; config.el --- OSX Layer config File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -22,7 +22,7 @@
    Default: `hyper'.")
 ;; There are problems setting osx-command-as to `alt' and `super',
 ;; so we use `hyper' as a default instead because, for example:
-;;   - Using `alt':   Command-x or Command-m inserts, respectively: × µ
+;;   - Using `alt':   Command-x or Command-m inserts, respectively: Ã— Âµ
 ;;   - Using `super': Control-Command-f produces keycode: <C-s-268632078>
 ;; Setting to `hyper' seems to avoid both types of the above problems.
 ;; Also, while it is possible, it is not recommended to set to `meta'
@@ -57,7 +57,7 @@
    Possible values are `super' `meta' `hyper' `alt' `left' `none'.
    Default: `left'.")
 
-(defvar osx-use-dictionary-app (spacemacs/system-is-mac)
+(defvar osx-use-dictionary-app (space-macs/system-is-mac)
   "Use the macOS dictionary app instead of Wordnet.")
 
 (defvar osx-swap-option-and-command nil
@@ -68,3 +68,5 @@
   (set-fontset-font "fontset-default"
                     '(#x1F600 . #x1F64F)
                     (font-spec :name "Apple Color Emoji") nil 'prepend))
+
+

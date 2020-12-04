@@ -1,11 +1,11 @@
-;;; extensions.el --- geolocation configuration File for Spacemacs
+;;; extensions.el --- geolocation configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Uri Sharf <uri.sharf@me.com>
-;; URL: https://github.com/usharf/spacemacs
+;; URL: https://github.com/usharf/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -15,4 +15,6 @@
   "Initialize theme-changer"
   (use-package theme-changer
     :if (and geolocation-enable-automatic-theme-changer
-             (> (length dotspacemacs-themes) 1))))
+             (> (length dotspace-macs-themes) 1))))
+
+

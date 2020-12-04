@@ -1,18 +1,18 @@
-;;; config.el --- Python Layer Configuration File for Spacemacs
+;;; config.el --- Python Layer Configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 ;; variables
 
-(spacemacs|define-jump-handlers python-mode)
-(spacemacs|define-jump-handlers cython-mode anaconda-mode-goto)
+(space-macs|define-jump-handlers python-mode)
+(space-macs|define-jump-handlers cython-mode anaconda-mode-goto)
 
 (defvar python-backend 'nil
   "The backend to use for IDE features.
@@ -49,7 +49,7 @@ and `mspyls'")
 (defvar python-tab-width 4
   "Tab width value for python buffers")
 
-(defvar python-spacemacs-indent-guess t
+(defvar python-space-macs-indent-guess t
   "If non-nil, try to guess correct indentation settings for python buffers on opening")
 
 (defvar python-auto-set-local-pyenv-version 'on-visit
@@ -65,16 +65,18 @@ Possible values are `on-visit', `on-project-switch' or `nil'.")
 (defvar python-sort-imports-on-save nil
   "If non-nil, automatically sort imports on save.")
 
-(defvar spacemacs--python-pyenv-modes nil
+(defvar space-macs--python-pyenv-modes nil
   "List of major modes where to add pyenv support.")
 
-(defvar spacemacs--python-pyvenv-modes nil
+(defvar space-macs--python-pyvenv-modes nil
   "List of major modes where to add pyvenv support.")
 
-(defvar spacemacs--python-pipenv-modes nil
+(defvar space-macs--python-pipenv-modes nil
   "List of major modes where to add pipenv support.")
 
 ;; inferior-python-mode needs these variables to be defined.  The python
 ;; package declares them but does not initialize them.
 (defvar python-shell--interpreter nil)
 (defvar python-shell--interpreter-args nil)
+
+

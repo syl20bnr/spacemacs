@@ -18,19 +18,19 @@
   - [[#test][Test]]
 
 * Description
-This layer adds support for the Python web framework [[https://www.djangoproject.com/][Django]] to Spacemacs.
+This layer adds support for the Python web framework [[https://www.djangoproject.com/][Django]] to Space-macs.
 
 ** Features:
-- Test execution directly from emacs
+- Test execution directly from e-macs
 - Starting/stopping of the Django test server
 - Starting of an interactive Python shell in the current project for debugging
 - Fixed commands to open various Django specific settings files
-- Automatic deployment with [[http://www.fabfile.org][Fabric]] directly from emacs
+- Automatic deployment with [[http://www.fabfile.org][Fabric]] directly from e-macs
 - Control of [[http://south.aeracode.org/][South]] database migration tool
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =django= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =django= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -97,3 +97,5 @@ Various configuration options for =pony-mode= are documented at [[http://www.dea
 | ~SPC m j t o~ | Open the file in a traceback at the line specified               |
 | ~SPC m j t t~ | Run the test(s) given by =command=                               |
 | ~SPC m j t u~ | Move up the traceback one level                                  |
+
+

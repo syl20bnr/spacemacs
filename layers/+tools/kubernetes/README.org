@@ -26,8 +26,8 @@ Kubernetes command-line client.
 - Evil bindings
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =kubernetes= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =kubernetes= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Usage
@@ -45,3 +45,5 @@ of the running containers.
 | Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC a t k~ | Opens =kubernetes-overview= |
+
+

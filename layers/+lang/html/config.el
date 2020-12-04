@@ -1,18 +1,18 @@
-;;; config.el --- html layer configuration file for Spacemacs
+;;; config.el --- html layer configuration file for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Seong Yong-ju <sei40kr@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(spacemacs|define-jump-handlers css-mode)
-(spacemacs|define-jump-handlers less-css-mode)
-(spacemacs|define-jump-handlers scss-mode)
-(spacemacs|define-jump-handlers web-mode)
+(space-macs|define-jump-handlers css-mode)
+(space-macs|define-jump-handlers less-css-mode)
+(space-macs|define-jump-handlers scss-mode)
+(space-macs|define-jump-handlers web-mode)
 
 (defvar web-fmt-tool 'web-beautify
   "The formatter to format a CSS/SCSS/Less file. Possible values are `web-beautify' and `prettier'.")
@@ -28,3 +28,5 @@
 
 (defvar html-enable-lsp nil
   "If non-nil, enable lsp-mode in web-mode html buffers having.")
+
+

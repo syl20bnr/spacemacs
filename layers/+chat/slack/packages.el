@@ -1,11 +1,11 @@
-;;; packages.el --- slack layer packages file for Spacemacs.
+;;; packages.el --- slack layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Kosta Harlan <kosta@kostaharlan.net>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -33,19 +33,19 @@
   (add-hook 'lui-mode-hook 'flyspell-mode))
 
 (defun slack/post-init-linum ()
-  (add-hook 'slack-mode-hook 'spacemacs/no-linum))
+  (add-hook 'slack-mode-hook 'space-macs/no-linum))
 
 (defun slack/pre-init-persp-mode ()
-  (spacemacs|use-package-add-hook persp-mode
+  (space-macs|use-package-add-hook persp-mode
     :post-config
     (progn
       (add-to-list 'persp-filter-save-buffers-functions
-                   'spacemacs//slack-persp-filter-save-buffers-function)
-      (spacemacs|define-custom-layout slack-spacemacs-layout-name
-        :binding slack-spacemacs-layout-binding
+                   'space-macs//slack-persp-filter-save-buffers-function)
+      (space-macs|define-custom-layout slack-space-macs-layout-name
+        :binding slack-space-macs-layout-binding
         :body
         (progn
-          (add-hook 'slack-mode #'spacemacs//slack-buffer-to-persp)
+          (add-hook 'slack-mode #'space-macs//slack-buffer-to-persp)
           ;; TODO: We don't want to slack-start every time someone types `SPC l o s`
           (call-interactively 'slack-start)
           (call-interactively 'slack-channel-select))))))
@@ -56,8 +56,8 @@
     :commands (slack-start)
     :defer t
     :init
-    (spacemacs/declare-prefix "acs" "slack")
-    (spacemacs/set-leader-keys
+    (space-macs/declare-prefix "acs" "slack")
+    (space-macs/set-leader-keys
       "acsT" 'slack-all-threads
       "acsd" 'slack-im-select
       "acsg" 'slack-group-select
@@ -69,7 +69,7 @@
     (setq slack-enable-emoji t)
     :config
     (dolist (mode '(slack-mode slack-message-buffer-mode slack-thread-message-buffer-mode))
-      (spacemacs/set-leader-keys-for-major-mode mode
+      (space-macs/set-leader-keys-for-major-mode mode
         "#" 'slack-message-embed-channel
         "(" 'slack-message-remove-reaction
         ")" 'slack-message-add-reaction
@@ -97,3 +97,5 @@
   (purpose-set-extension-configuration
    :slack-layer
    (purpose-conf :mode-purposes '((slack-mode . chat)))))
+
+

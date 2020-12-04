@@ -1,11 +1,11 @@
-;;; packages.el --- Evernote Layer packages File for Spacemacs
+;;; packages.el --- Evernote Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 (setq evernote-packages
@@ -24,11 +24,13 @@
                geeknote-move)
     :init
     (progn
-      (spacemacs/declare-prefix "awe" "applications-evernote")
-      (spacemacs/set-leader-keys
+      (space-macs/declare-prefix "awe" "applications-evernote")
+      (space-macs/set-leader-keys
         "awec" 'geeknote-create
         "awee" 'geeknote-edit
         "awef" 'geeknote-find
         "awes" 'geeknote-show
         "awer" 'geeknote-remove
         "awem" 'geeknote-move))))
+
+

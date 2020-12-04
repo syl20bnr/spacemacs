@@ -1,11 +1,11 @@
-;;; packages.el --- Pact Layer packages File for Spacemacs
+;;; packages.el --- Pact Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Colin Woodbury <colin@kadena.io>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -22,7 +22,7 @@
 
 (defun pact/post-init-flycheck ()
   "Initialize flycheck."
-  (spacemacs/enable-flycheck 'pact-mode))
+  (space-macs/enable-flycheck 'pact-mode))
 
 (defun pact/init-flycheck-pact ()
   "Initialize flycheck-pact."
@@ -37,11 +37,11 @@
 
     :init
     (progn
-      (spacemacs/register-repl 'pact-mode 'spacemacs/pact-repl "pact"))
+      (space-macs/register-repl 'pact-mode 'space-macs/pact-repl "pact"))
 
     :config
     (progn
-      (defun spacemacs/pact-repl ()
+      (defun space-macs/pact-repl ()
         "Open a pact repl in a side frame."
         (interactive)
         (if (get-buffer-process inferior-lisp-buffer)
@@ -53,28 +53,30 @@
                        (get-buffer-window inferior-lisp-buffer t))))
               (pop-to-buffer inferior-lisp-buffer))
           (progn
-            (spacemacs/new-empty-buffer-right)
+            (space-macs/new-empty-buffer-right)
             (pact-mode)
             (run-lisp inferior-lisp-program))))
 
-      (defun spacemacs/pact-load-file ()
+      (defun space-macs/pact-load-file ()
         "Load the current buffer into the Pact repl, optionally starting
 the repl if it hasn't yet been."
         (interactive)
         (let ((curr (current-buffer)))
           (progn
             (unless (get-buffer-process inferior-lisp-buffer)
-              (spacemacs/pact-repl)
+              (space-macs/pact-repl)
               (pop-to-buffer curr))
             (pact-load-file nil)
             (pop-to-buffer curr))))
 
       (dolist (prefix '(("ms" . "repl")))
-        (spacemacs/declare-prefix-for-mode 'pact-mode (car prefix) (cdr prefix)))
+        (space-macs/declare-prefix-for-mode 'pact-mode (car prefix) (cdr prefix)))
 
-      (spacemacs/set-leader-keys-for-major-mode 'pact-mode
+      (space-macs/set-leader-keys-for-major-mode 'pact-mode
         ;; REPL
-        "s'" 'spacemacs/pact-repl
-        "sb" 'spacemacs/pact-load-file))))
+        "s'" 'space-macs/pact-repl
+        "sb" 'space-macs/pact-load-file))))
 
 ;;; packages.el ends here
+
+

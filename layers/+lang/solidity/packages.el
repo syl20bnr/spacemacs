@@ -1,11 +1,11 @@
-;;; packages.el --- solidity layer packages file for Spacemacs.
+;;; packages.el --- solidity layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Brooklyn Zelenka <be.zelenka@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -25,14 +25,16 @@
   (use-package solidity-mode
     :defer t
     :config
-    (spacemacs/set-leader-keys-for-major-mode 'solidity-mode
+    (space-macs/set-leader-keys-for-major-mode 'solidity-mode
       "g" #'solidity-estimate-gas-at-point)))
 
 (defun solidity/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'solidity-mode))
+  (space-macs/enable-flycheck 'solidity-mode))
 
 (defun solidity/init-solidity-flycheck ()
   (use-package solidity-flycheck
     :defer t
     :init
     (add-hook 'solidity-mode-hook #'(lambda () (require 'solidity-flycheck)))))
+
+

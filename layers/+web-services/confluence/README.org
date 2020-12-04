@@ -24,15 +24,15 @@ This layer adds support for Atlassian [[https://www.atlassian.com/software/confl
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =confluence= to the existing =dotspacemacs-configuration-layers= list in
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =confluence= to the existing =dotspace-macs-configuration-layers= list in
 this file.
 
 * Configuration
 Define the variable =confluence-url= to point on your Confluence server
 =xmlrpc= endpoint.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq confluence-url "https://<host>/confluence/rpc/xmlrpc")
 #+END_SRC
 
@@ -67,3 +67,5 @@ convert =xml= content to =wiki= content on page load.
 | Key binding | Description                                                    |
 |-------------+----------------------------------------------------------------|
 | ~SPC m e c~ | in a org buffer, export the buffer to Confluence =wiki= format |
+
+

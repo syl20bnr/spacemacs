@@ -5,9 +5,9 @@
 ## Copyright (c) 2014-2018 Sylvain Benner & Contributors
 ##
 ## Author: Eugene Yaremenko
-## URL: https://github.com/syl20bnr/spacemacs
+## URL: https://github.com/syl20bnr/space-macs
 ##
-## This file is not part of GNU Emacs.
+## This file is not part of GNU e-macs.
 ##
 ## License: GPLv3
 
@@ -38,7 +38,7 @@ echo "Base revision $base_revision"
 fold_start "FORMATTING_DOCUMENTATION"
 docker run \
        --rm \
-       -v "/tmp/elpa/:/root/.emacs.d/elpa/" \
+       -v "/tmp/elpa/:/root/.e-macs.d/elpa/" \
        -v "${TRAVIS_BUILD_DIR}/.ci/spacedoc-cfg.edn":/opt/spacetools/spacedoc-cfg.edn \
        -v "${TRAVIS_BUILD_DIR}":/tmp/docs/ \
        jare/spacetools docfmt /tmp/docs/
@@ -62,20 +62,20 @@ else
 fi
 fold_end "CREATING_DOCUMENTATION_PATCH_FILE"
 
-rm -rf ~/.emacs.d
-mv "${TRAVIS_BUILD_DIR}" ~/.emacs.d
-cd  ~/.emacs.d
-cp ./.travisci/.spacemacs ~/
-ln -sf ~/.emacs.d "${TRAVIS_BUILD_DIR}"
+rm -rf ~/.e-macs.d
+mv "${TRAVIS_BUILD_DIR}" ~/.e-macs.d
+cd  ~/.e-macs.d
+cp ./.travisci/.space-macs ~/
+ln -sf ~/.e-macs.d "${TRAVIS_BUILD_DIR}"
 
 fold_start "INSTALLING_DEPENDENCIES"
 docker run \
        --rm \
-       -v "/tmp/elpa/:/root/.emacs.d/elpa/" \
-       -v "${TRAVIS_BUILD_DIR}:/root/.emacs.d" \
-       -v "${TRAVIS_BUILD_DIR}/.travisci/.spacemacs:/root/.spacemacs" \
-       --entrypoint emacs \
-       jare/spacetools -batch -l /root/.emacs.d/init.el
+       -v "/tmp/elpa/:/root/.e-macs.d/elpa/" \
+       -v "${TRAVIS_BUILD_DIR}:/root/.e-macs.d" \
+       -v "${TRAVIS_BUILD_DIR}/.travisci/.space-macs:/root/.space-macs" \
+       --entrypoint e-macs \
+       jare/spacetools -batch -l /root/.e-macs.d/init.el
 if [ $? -ne 0 ]; then
     echo "Dependencies installation failed."
     exit 2
@@ -85,16 +85,16 @@ fold_end "INSTALLING_DEPENDENCIES"
 fold_start "EXPORTING_DOCUMENTATION"
 docker run \
        --rm \
-       -v "/tmp/elpa/:/root/.emacs.d/elpa/" \
-       -v "${TRAVIS_BUILD_DIR}:/root/.emacs.d" \
-       -v "${TRAVIS_BUILD_DIR}/.travisci/.spacemacs:/root/.spacemacs" \
-       --entrypoint emacs \
+       -v "/tmp/elpa/:/root/.e-macs.d/elpa/" \
+       -v "${TRAVIS_BUILD_DIR}:/root/.e-macs.d" \
+       -v "${TRAVIS_BUILD_DIR}/.travisci/.space-macs:/root/.space-macs" \
+       --entrypoint e-macs \
        jare/spacetools -batch \
-       -l /root/.emacs.d/init.el \
-       -l /root/.emacs.d/core/core-documentation.el \
-       -f spacemacs/publish-doc
+       -l /root/.e-macs.d/init.el \
+       -l /root/.e-macs.d/core/core-documentation.el \
+       -f space-macs/publish-doc
 if [ $? -ne 0 ]; then
-    echo "spacemacs/publish-doc failed"
+    echo "space-macs/publish-doc failed"
     exit 2
 fi
 fold_end "EXPORTING_DOCUMENTATION"
@@ -114,3 +114,5 @@ if [ $? -ne 0 ]; then
     exit 2
 fi
 fold_end "INSTALLING_HUB"
+
+

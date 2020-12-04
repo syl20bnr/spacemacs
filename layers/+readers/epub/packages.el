@@ -1,11 +1,11 @@
-;;; packages.el --- epub layer packages file for Spacemacs.
+;;; packages.el --- epub layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Jeremy Dormitzer <jeremy.dormitzer@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -30,3 +30,5 @@
       (kbd "gt") 'nov-goto-toc
       (kbd "gv") 'nov-view-source
       (kbd "gV") 'nov-view-content-source)))
+
+

@@ -1,11 +1,11 @@
-;;; packages.el --- rebox layer packages file for Spacemacs.
+;;; packages.el --- rebox layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Christian E. Hopps <chopps@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -20,25 +20,25 @@
         (add-hook 'text-mode-hook 'rebox-mode))
       (add-hook 'prog-mode-hook 'rebox-enable-hook)
 
-      (spacemacs|define-transient-state rebox
+      (space-macs|define-transient-state rebox
         :title "Rebox Transient State"
         :bindings
         (">" rebox-space "Move right")
         ("<" rebox-backspace "Move left")
         ("b" rebox-dwim "Cycle next")
-        ("B" spacemacs/rebox-dwim-previous "Cycle previous")
+        ("B" space-macs/rebox-dwim-previous "Cycle previous")
         ("c" rebox-center "Center"))
 
-      (spacemacs/declare-prefix "xb" "boxes")
-      (spacemacs/set-leader-keys
-        "xb>" 'spacemacs/rebox-transient-state/rebox-space
-        "xb<" 'spacemacs/rebox-transient-state/rebox-backspace
-        "xbb" 'spacemacs/rebox-transient-state/rebox-dwim
-        "xbB" 'spacemacs/rebox-transient-state/spacemacs/rebox-dwim-previous
-        "xbc" 'spacemacs/rebox-transient-state/rebox-center))
+      (space-macs/declare-prefix "xb" "boxes")
+      (space-macs/set-leader-keys
+        "xb>" 'space-macs/rebox-transient-state/rebox-space
+        "xb<" 'space-macs/rebox-transient-state/rebox-backspace
+        "xbb" 'space-macs/rebox-transient-state/rebox-dwim
+        "xbB" 'space-macs/rebox-transient-state/space-macs/rebox-dwim-previous
+        "xbc" 'space-macs/rebox-transient-state/rebox-center))
     :config
     (progn
-      (spacemacs|hide-lighter rebox-mode)
+      (space-macs|hide-lighter rebox-mode)
       (rebox-register-template 71 176 ["?"
                                        "? box123456"
                                        "?"])
@@ -75,3 +75,5 @@
       (rebox-register-template 86 486 ["??==========="
                                        "?? box123456 "
                                        "??==========="]))))
+
+

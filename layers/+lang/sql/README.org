@@ -21,7 +21,7 @@
   - [[#code-formatting][Code Formatting]]
 
 * Description
-This layer adds support for a wide range of SQL dialects to Spacemacs.
+This layer adds support for a wide range of SQL dialects to Space-macs.
 
 ** Features:
 - Syntax highlighting for the following SQL dialects
@@ -47,8 +47,8 @@ This layer adds support for a wide range of SQL dialects to Spacemacs.
 - LSP support via [[https://github.com/lighttiger2505/sqls][sqls]].
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =sql= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =sql= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** External Dependencies
@@ -68,8 +68,8 @@ Some functionality, like linting, rely on external binaries:
   - Install [[https://golang.org/dl/][Go]] lang and [[https://github.com/lighttiger2505/sqls][sqls]], then setting the variable =sql-backend= to ='lsp=.
   - One of way to connect DB is setting variable =sql-lsp-sqls-workspace-config-path= to ='workspace= or ='root= and put json file at these directory.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (sql :variables
          sql-backend 'lsp
          sql-lsp-sqls-workspace-config-path 'workspace)))
@@ -96,8 +96,8 @@ parse the code much more quickly.
 To install [[https://github.com/Trevoke/sqlup-mode.el][sqlup-mode]] which enables auto capitalization in =sql mode= set the
 variable =sql-capitalize-keywords= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (sql :variables sql-capitalize-keywords t)))
 #+END_SRC
 
@@ -111,8 +111,8 @@ you can set the variable =sql-capitalize-keywords-disable-interactive= to =t=.
 this behaviour by setting the variable =sql-capitalize-keywords-blacklist= to
 a list with keywords to ignore, e.g.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (sql :variables
          sql-capitalize-keywords t
          sql-capitalize-keywords-blacklist '("name" "varchar"))))
@@ -122,12 +122,12 @@ This layer is blacklisting =name= by default as it is a very common name for
 column and NAME is non-reserved SQL keyword.
 
 ** Auto-Indent
-This mode use [[https://github.com/alex-hhh/emacs-sql-indent][sql-indent]] to indent the code. You can check the package's README
+This mode use [[https://github.com/alex-hhh/e-macs-sql-indent][sql-indent]] to indent the code. You can check the package's README
 to adjust the rules. If that's not what you want, you can also disable
 auto-indent by setting the variable =sql-auto-indent= to =nil=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (sql :variables sql-auto-indent nil)))
 #+END_SRC
 
@@ -178,3 +178,5 @@ auto-indent by setting the variable =sql-auto-indent= to =nil=.
 | ~SPC m = c~ | capitalize SQL keywords in region (if capitalize is enabled) |
 | ~SPC m = =~ | ~sqlfmt~ whole buffer                                        |
 | ~SPC m = r~ | ~sqlfmt~ active region                                       |
+
+

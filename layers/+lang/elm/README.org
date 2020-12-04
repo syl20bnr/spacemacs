@@ -56,8 +56,8 @@ It relies on [[https://github.com/jcollard/elm-mode][elm-mode]] and [[https://gi
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =elm= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =elm= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Elm Platform
@@ -83,7 +83,7 @@ Also, note that you might need to set the =ELM_HOME= environment variables to
 the corresponding directory created by the installer.
 
 If you are facing problems with previewing a buffer with =elm-reactor= ensure
-that the absolute path of the npm global bin file is on your path within emacs
+that the absolute path of the npm global bin file is on your path within e-macs
 
 MacOS users facing problems with =elm-reactor= failing to properly install or
 run, see this issue [[https://github.com/kevva/elm-bin/issues/28][https://github.com/kevva/elm-bin/issues/28]].
@@ -106,9 +106,9 @@ If this does not work for you please check [[https://github.com/avh4/elm-format]
 
 Also, note that if you use homebrew to install =elm-format= the installed exe
 has a version suffix, the installed command name can be set in your
-=~/spacemacs=:
+=~/space-macs=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (elm :variables
        elm-format-command "elm-format-0.17")
 #+END_SRC
@@ -136,7 +136,7 @@ limited IDE capabilities. Used best if only small programs
 are edited. To set explicitly set the following in your
 dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (elm :variables elm-backend 'company-elm)
 #+END_SRC
 
@@ -158,13 +158,13 @@ run this command:
 *** LSP
 For proper IDE support this backend should be used. It is
 based on an external server which will be started automatically
-by emacs, once an elm file is opened. The key bindings are
+by e-macs, once an elm file is opened. The key bindings are
 the same for all lsp modes so if you are already familiar with
 one you should be able to work the same in all modes.
 
 To set explicitly do the following in your dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (elm :variables
           elm-backend 'lsp)
 #+END_SRC
@@ -203,9 +203,9 @@ a custom html, you'd need to load the debuger excplictly and use an http daemon
 to serve your custom file.
 
 If needed, default values for host and port used by for the elm-reactor server
-can be controlled by passing in these variables in your =~/.spacemacs=:
+can be controlled by passing in these variables in your =~/.space-macs=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (elm :variables
        elm-reactor-port "3000"          ; default 8000
        elm-reactor-address "0.0.0.0") ; default 127.0.0.1
@@ -216,14 +216,14 @@ can be controlled by passing in these variables in your =~/.spacemacs=:
 Set =elm-sort-imports-on-save= to =t= to sort the imports in the current file on
 every save.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (elm :variables elm-sort-imports-on-save t)
 #+END_SRC
 
 *** File format
 Set =elm-format-on-save= to =t= to format current file on every save.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (elm :variables elm-format-on-save t)
 #+END_SRC
 
@@ -240,7 +240,7 @@ You may want to customize the default suffix for test files. For example, if you
 prefer to put your tests in =HelloSpec.elm= instead of =HelloTest.elm=, set the
 following variable:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (elm :variables
        elm-test-runner-preferred-test-suffix "Spec")
 #+END_SRC
@@ -254,7 +254,7 @@ using a =dir-locals.el= file.
 | Key binding | Description                                  |
 |-------------+----------------------------------------------|
 | ~SPC m c b~ | elm-compile-buffer                           |
-| ~SPC m c B~ | spacemacs/elm-compile-buffer-override-output |
+| ~SPC m c B~ | space-macs/elm-compile-buffer-override-output |
 | ~SPC m c m~ | elm-compile-main                             |
 
 ** elm-repl
@@ -321,3 +321,5 @@ using a =dir-locals.el= file.
 | Key binding | Description      |
 |-------------+------------------|
 | ~SPC m r i~ | elm-sort-imports |
+
+

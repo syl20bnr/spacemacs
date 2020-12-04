@@ -1,59 +1,59 @@
-;;; funcs.el --- Notmuch Layer functions File for Spacemacs
+;;; funcs.el --- Notmuch Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//notmuch-inbox-p (saved-search-property-item)
+(defun space-macs//notmuch-inbox-p (saved-search-property-item)
   "Returns non-nil if item is the inbox."
   (string-equal (plist-get saved-search-property-item :name) "inbox"))
 
-(defun spacemacs/notmuch-inbox ()
+(defun space-macs/notmuch-inbox ()
   "Search inbox."
   (interactive)
   (notmuch-search
-   (plist-get (nth 0 (-filter 'spacemacs//notmuch-inbox-p notmuch-saved-searches))
+   (plist-get (nth 0 (-filter 'space-macs//notmuch-inbox-p notmuch-saved-searches))
               :query)))
 
-(defun spacemacs/notmuch-search-archive-thread-down ()
+(defun space-macs/notmuch-search-archive-thread-down ()
   "Search thread up."
   (interactive)
   (notmuch-search-archive-thread))
 
-(defun spacemacs/notmuch-search-archive-thread-up ()
+(defun space-macs/notmuch-search-archive-thread-up ()
   "Search thread down."
   (interactive)
   (notmuch-search-archive-thread)
   (notmuch-search-previous-thread)
   (notmuch-search-previous-thread))
 
-(defun spacemacs//notmuch-message-delete (go-next)
+(defun space-macs//notmuch-message-delete (go-next)
   "Delete message and select GO-NEXT message."
   (notmuch-search-tag notmuch-message-deleted-tags)
   (if (eq 'up go-next)
       (notmuch-search-previous-thread)
     (notmuch-search-next-thread)))
 
-(defun spacemacs/notmuch-show-as-patch ()
+(defun space-macs/notmuch-show-as-patch ()
   (interactive)
   (notmuch-show-choose-mime-of-part "text/x-patch"))
 
-(defun spacemacs/notmuch-message-delete-down ()
+(defun space-macs/notmuch-message-delete-down ()
   "Delete a message and select the next message."
   (interactive)
-  (spacemacs//notmuch-message-delete 'down))
+  (space-macs//notmuch-message-delete 'down))
 
-(defun spacemacs/notmuch-message-delete-up ()
+(defun space-macs/notmuch-message-delete-up ()
   "Delete a message and select the previous message."
   (interactive)
-  (spacemacs//notmuch-message-delete 'up))
+  (space-macs//notmuch-message-delete 'up))
 
-(defun spacemacs/notmuch-show-close-all ()
+(defun space-macs/notmuch-show-close-all ()
   "Close all."
   (interactive)
   (goto-char (point-min))
@@ -63,7 +63,7 @@
 
 ;; git
 
-(defun spacemacs/notmuch-git-apply-patch (entire-thread)
+(defun space-macs/notmuch-git-apply-patch (entire-thread)
   "Apply patch from a notmuch-show email buffer to a git repository
 
 If ENTIRE-THREAD is non-nil it will apply patches from all open
@@ -71,7 +71,7 @@ messages in the current thread"
   (interactive "P")
   (notmuch-show-pipe-message entire-thread "git am"))
 
-(defun spacemacs/notmuch-git-apply-patch-part ()
+(defun space-macs/notmuch-git-apply-patch-part ()
   "Apply patch attached to a message as MIME part to a git repository."
   (interactive)
   (let ((mime-type nil))
@@ -83,7 +83,7 @@ messages in the current thread"
 ;; GitHub
 
 ;; Thanks to Kyle Meyer (@kyleam)
-(defun spacemacs//notmuch-open-github-patch (buffer)
+(defun space-macs//notmuch-open-github-patch (buffer)
   "Find GitHub patch link in BUFFER and show it in a new buffer."
   (let ((url
          (with-current-buffer buffer
@@ -107,21 +107,23 @@ messages in the current thread"
       (view-mode 1)
       (pop-to-buffer-same-window (current-buffer)))))
 
-(defun spacemacs/notmuch-show-open-github-patch ()
+(defun space-macs/notmuch-show-open-github-patch ()
   "Open patch from GitHub email."
   (interactive)
   (with-current-notmuch-show-message
-   (spacemacs//notmuch-open-github-patch (current-buffer))))
+   (space-macs//notmuch-open-github-patch (current-buffer))))
 
 
 ;; persp
 
-(defun spacemacs//notmuch-persp-filter-save-buffers-function (buffer)
+(defun space-macs//notmuch-persp-filter-save-buffers-function (buffer)
   "Filter for notmuch layout."
   (with-current-buffer buffer
     (memq major-mode notmuch-modes)))
 
-(defun spacemacs//notmuch-buffer-to-persp ()
+(defun space-macs//notmuch-buffer-to-persp ()
   "Add buffer to notmuch layout."
   (persp-add-buffer (current-buffer)
-                    (persp-get-by-name notmuch-spacemacs-layout-name)))
+                    (persp-get-by-name notmuch-space-macs-layout-name)))
+
+

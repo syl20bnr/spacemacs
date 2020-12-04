@@ -5,10 +5,10 @@ version: 2.0
 jobs:
   "Validate PR":
     docker:
-      - image: jare/spacemacs-circleci:latest
+      - image: jare/space-macs-circleci:latest
     environment:
       BASH_ENV: ".circleci/shared"
-    working_directory: ~/.emacs.d
+    working_directory: ~/.e-macs.d
     steps:
       - checkout
       - run:
@@ -19,10 +19,10 @@ jobs:
           command: ./.circleci/PR_rebased
   "Validate Documentation":
     docker:
-      - image: jare/spacemacs-circleci:latest
+      - image: jare/space-macs-circleci:latest
     environment:
       BASH_ENV: ".circleci/shared"
-    working_directory: ~/.emacs.d
+    working_directory: ~/.e-macs.d
     steps:
       - checkout
       - run:
@@ -41,3 +41,5 @@ workflows:
     jobs:
       - "Validate PR"
       - "Validate Documentation"
+
+

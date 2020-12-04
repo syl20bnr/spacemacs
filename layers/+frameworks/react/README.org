@@ -28,8 +28,8 @@ It will automatically recognize =.jsx= files and files with =react= imported.
 - js-doc
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =react= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =react= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 React layer uses the same backend defined in javascript layer. Options are =tern= and =lsp=.
@@ -60,7 +60,7 @@ with:
 #+END_SRC
 
 If you install these in non-standard locations, then add the following to your
-=dotspacemacs/user-init= function:
+=dotspace-macs/user-init= function:
 
 #+BEGIN_SRC elisp
   (add-to-list 'exec-path "/path/to/node/bins" t)
@@ -103,7 +103,7 @@ behaviour.
 For example to have a consistent 2 spaces indenting both on =js= and =jsx= you
 may use these settings:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq-default
    ;; js2-mode
    js2-basic-offset 2
@@ -118,7 +118,7 @@ may use these settings:
 And if you want to have 2 space indent also for element's attributes,
 concatenations and contiguous function calls:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (with-eval-after-load 'web-mode
     (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
     (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
@@ -128,7 +128,7 @@ concatenations and contiguous function calls:
 * Key bindings
 ** rjsx-mode
 The =javascript= layers keymap is set as the parent of the =react= layers keymap.
-Check the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+lang/javascript/README.org#key-bindings][javascript layers documentation]] for additional key bindings.
+Check the [[https://github.com/syl20bnr/space-macs/blob/develop/layers/+lang/javascript/README.org#key-bindings][javascript layers documentation]] for additional key bindings.
 
 | Key binding   | Description                                                                      |
 |---------------+----------------------------------------------------------------------------------|
@@ -163,3 +163,5 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m h d~   | find docs of the thing under the cursor. Press again to open the associated URL (if any) |
 | ~SPC m h t~   | find the type of the thing under the cursor                                              |
 | ~SPC m r r V~ | rename variable under the cursor using tern                                              |
+
+

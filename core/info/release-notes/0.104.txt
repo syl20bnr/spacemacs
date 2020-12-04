@@ -2,7 +2,7 @@
 
 `org-plus-contrib` is now installed from org ELPA repository, you may
 encounter strange behaviours from Org. In this case delete the `org`
-directory in the `elpa` directory and restart Emacs.
+directory in the `elpa` directory and restart e-macs.
 
 2. Helm
 
@@ -19,7 +19,7 @@ directory in the `elpa` directory and restart Emacs.
 3. Vim keys
 
 `Y` has been remapped to `y$`, if you don't like this behavior you can
-set the variable `dotspacemacs-remap-Y-to-y$` to nil in your dotfile.
+set the variable `dotspace-macs-remap-Y-to-y$` to nil in your dotfile.
 
 4. Guide-key
 
@@ -30,8 +30,8 @@ configuration and check the options offered by `which-key`.
 5. Bookmarks
 
 The `bookmark` save file has been moved to the `.cache` directory, if
-you have a bookmark file `~/.emacs.d/bookmarks` then you'll have to move
-it to file `~/.emacs.d/.cache/bookmarks`
+you have a bookmark file `~/.e-macs.d/bookmarks` then you'll have to move
+it to file `~/.e-macs.d/.cache/bookmarks`
 
 6. Ruby on Rails
 
@@ -42,3 +42,5 @@ be sure to add this layer to your dotfile if you use it.
 
 Django framework has now its own layer called `django`,
 be sure to add this layer to your dotfile if you use it.
+
+

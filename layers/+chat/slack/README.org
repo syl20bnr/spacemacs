@@ -9,38 +9,38 @@
   - [[#features][Features:]]
 - [[#install][Install]]
 - [[#configuration][Configuration]]
-  - [[#spacemacs-layout-integration][Spacemacs layout integration]]
+  - [[#space-macs-layout-integration][Space-macs layout integration]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer provides an interface to the Slack chat service via the emacs-slack
+This layer provides an interface to the Slack chat service via the e-macs-slack
 package. Where possible, this layer aims to reuse key bindings from the IRC
-packages in Spacemacs.
+packages in Space-macs.
 
 ** Features:
-- Real time messaging with [[https://github.com/ahyatt/emacs-websocket][emacs-websocket]]
+- Real time messaging with [[https://github.com/ahyatt/e-macs-websocket][e-macs-websocket]]
 - Connect to multiple slack instances
 - Notifications with [[https://github.com/jwiegley/alert][alert.el]]
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =slack= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =slack= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
-Follow the instructions in the [[https://github.com/yuya373/emacs-slack/blob/master/README.md][emacs-slack]] package for obtaining your client ID,
+Follow the instructions in the [[https://github.com/yuya373/e-macs-slack/blob/master/README.md][e-macs-slack]] package for obtaining your client ID,
 client secret, and token.
 
 To test that everything is alright put the following snippet in your
-=dotspacemacs/user-config()= replacing =client-id=, =client-secret= and =token=
+=dotspace-macs/user-config()= replacing =client-id=, =client-secret= and =token=
 with your info.
 
 *Important* Do not keep private data in your dotfile. You can put your private
 stuff elsewhere (like Dropbox for instance) and load the file in your dotfile.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (slack-register-team
-    :name "emacs-slack"
+    :name "e-macs-slack"
     :default t
     :client-id "my@email.address"
     :client-secret "mypassword"
@@ -48,18 +48,18 @@ stuff elsewhere (like Dropbox for instance) and load the file in your dotfile.
     :subscribed-channels '(general slackbot))
 #+END_SRC
 
-** Spacemacs layout integration
-A [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces][Spacemacs custom layout]] is defined by the layer. The name and the key binding
+** Space-macs layout integration
+A [[https://github.com/syl20bnr/space-macs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces][Space-macs custom layout]] is defined by the layer. The name and the key binding
 for it can be customized with the following layer variables:
-- =slack-spacemacs-layout-name= for the layout name,
-- =slack-spacemacs-layout-binding= for the key binding.
+- =slack-space-macs-layout-name= for the layout name,
+- =slack-space-macs-layout-binding= for the key binding.
 
 By default the values are:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (slack :variables slack-spacemacs-layout-name "@Slack"
-                      slack-spacemacs-layout-binding "s")))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
+    (slack :variables slack-space-macs-layout-name "@Slack"
+                      slack-space-macs-layout-binding "s")))
 #+END_SRC
 
 * Key bindings
@@ -98,3 +98,5 @@ client.
 
 In insert state, one can also use ~:~, ~@~, and ~#~ directly without the leader
 key prefix.
+
+

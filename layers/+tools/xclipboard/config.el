@@ -1,11 +1,11 @@
-;;; config.el --- xclipboard configuration File for Spacemacs
+;;; config.el --- xclipboard configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Hong Xu <hong@topbug.net>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -19,3 +19,5 @@
 
 (defvar xclipboard-paste-command nil
   "If non-nil, use this cmd for paste")
+
+

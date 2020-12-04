@@ -12,7 +12,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for the peer programming tool [[https://github.com/Floobits/floobits-emacs][floobits]] to Spacemacs.
+This layer adds support for the peer programming tool [[https://github.com/Floobits/floobits-e-macs][floobits]] to Space-macs.
 
 ** Features:
 - Loading of floobits configuration files with fixed commands
@@ -22,8 +22,8 @@ This layer adds support for the peer programming tool [[https://github.com/Floob
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =floobits= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =floobits= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -41,3 +41,5 @@ file.
 | ~SPC P t~   | Toggle following of recent changes.                                                      |
 | ~SPC P U~   | Create a workspace and populate it with the contents of the directory, DIR (or make it). |
 |             | The workspace will be shared publicly.                                                   |
+
+

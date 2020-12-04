@@ -9,16 +9,16 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds a handy command demonstration mode to Spacemacs.
+This layer adds a handy command demonstration mode to Space-macs.
 
 ** Features:
 - Support for logging all entered keys and triggered commands in a designated buffer via [[https://github.com/lewang/command-log-mode][command-log-mode]].
-- Provides the best way to demonstrate the connection between keystrokes and commands in Emacs.
+- Provides the best way to demonstrate the connection between keystrokes and commands in e-macs.
 - Provides an easy way to create command logs for training classes.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =command-log= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =command-log= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -26,3 +26,5 @@ file.
 | Key binding | Description            |
 |-------------+------------------------|
 | ~SPC a t l~ | Toggle the command log |
+
+

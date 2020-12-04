@@ -1,31 +1,33 @@
-;;; core-release-management-ftest.el --- Spacemacs Functional Test File
+;;; core-release-management-ftest.el --- Space-macs Functional Test File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Alberto Zaccagni <me@lazywithclass.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
-(require 'core-spacemacs)
+(require 'core-space-macs)
 
 ;; ---------------------------------------------------------------------------
-;; spacemacs//git-has-remote
+;; space-macs//git-has-remote
 ;; ---------------------------------------------------------------------------
 
 (ert-deftest test-git-has-remote--command-is-working ()
-  (should (numberp (spacemacs//git-has-remote "origin"))))
+  (should (numberp (space-macs//git-has-remote "origin"))))
 
 (ert-deftest test-git-has-remote--input-is-not-a-remote ()
-  (should (equal (spacemacs//git-has-remote "clearly-not-a-R3M0T3!") nil)))
+  (should (equal (space-macs//git-has-remote "clearly-not-a-R3M0T3!") nil)))
 
 ;; ---------------------------------------------------------------------------
-;; spacemacs//git-fetch-tags
+;; space-macs//git-fetch-tags
 ;; ---------------------------------------------------------------------------
 
 (ert-deftest test-git-fetch-tags--command-is-working ()
-  (should (equal t (spacemacs//git-fetch-tags "origin" "master"))))
+  (should (equal t (space-macs//git-fetch-tags "origin" "master"))))
 
 (ert-deftest test-git-fetch-tags--input-is-not-a-remote ()
-  (should (equal nil (spacemacs//git-fetch-tags "qwerty" "master"))))
+  (should (equal nil (space-macs//git-fetch-tags "qwerty" "master"))))
+
+

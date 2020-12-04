@@ -5,7 +5,7 @@
 ;; Author:   Arni Magnusson
 ;; Version:  2.18
 ;; Keywords: languages
-;; URL:      http://emacswiki.org/emacs/dos.el
+;; URL:      http://e-macswiki.org/e-macs/dos.el
 
 (defconst dos-mode-version "2.18" "Dos Mode version number.")
 
@@ -26,11 +26,11 @@
 ;;
 ;; Installation:
 ;;
-;; 1. Copy this file (dos.el) to a directory in `load-path', or edit .emacs to add the directory to `load-path':
+;; 1. Copy this file (dos.el) to a directory in `load-path', or edit .e-macs to add the directory to `load-path':
 ;;      (add-to-list 'load-path "mypath/dos")
 ;; 2. Byte-compile this file to dos.elc for faster startup:
 ;;      M-x byte-compile-file
-;; 3. Edit .emacs so that `dos-mode' is autoloaded and assigned to *.bat files:
+;; 3. Edit .e-macs so that `dos-mode' is autoloaded and assigned to *.bat files:
 ;;      (autoload 'dos-mode "dos" "Edit Dos scripts." t)
 ;;      (add-to-list 'auto-mode-alist '("\\.bat$" . dos-mode))
 ;;
@@ -139,7 +139,7 @@ that:\n
     ["Mini Template" dos-template-mini] ; :help "Insert minimal template"
     "--"
     ["Help (cmd)"    dos-help-cmd     ]   ; :help "Show help page for Dos command"
-    ["Help (mode)"   dos-help-mode    ]   ; :help "Show help page for Emacs dos-mode"
+    ["Help (mode)"   dos-help-mode    ]   ; :help "Show help page for e-macs dos-mode"
     ["Version"       dos-mode-version ])) ; :help "Show Dos Mode version"
 (defvar dos-mode-abbrev-table nil)(define-abbrev-table 'dos-mode-abbrev-table ())
 (defvar dos-mode-map
@@ -253,3 +253,5 @@ save keystrokes. Read help for Dos command with `dos-help-cmd'. Run script using
 (provide 'dos)
 
 ;;; dos.el ends here
+
+

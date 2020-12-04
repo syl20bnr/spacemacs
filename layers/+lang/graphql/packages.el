@@ -1,11 +1,11 @@
-;;; packages.el --- graphql layer packages file for Spacemacs.
+;;; packages.el --- graphql layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Thanh Vuong <thanh@gmail.com>
 ;; URL: https://github.com/thanhvg
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -19,19 +19,21 @@
     :defer t
     :init
     (progn
-      (add-to-list 'spacemacs-jump-handlers-graphql-mode 'ahs-backward-definition)
+      (add-to-list 'space-macs-jump-handlers-graphql-mode 'ahs-backward-definition)
       (when (configuration-layer/layer-used-p 'prettier)
-        (spacemacs/declare-prefix-for-mode 'graphql-mode "m=" "format"))
-      (spacemacs/declare-prefix-for-mode 'graphql-mode "mg" "goto")
-      (spacemacs/set-leader-keys-for-major-mode 'graphql-mode
+        (space-macs/declare-prefix-for-mode 'graphql-mode "m=" "format"))
+      (space-macs/declare-prefix-for-mode 'graphql-mode "mg" "goto")
+      (space-macs/set-leader-keys-for-major-mode 'graphql-mode
         "s" 'graphql-send-query
         "e" 'graphql-select-endpoint
         "h" 'graphql-edit-headers))))
 
 (defun graphql/post-init-company ()
-  (spacemacs|add-company-backends
+  (space-macs|add-company-backends
     :backends company-dabbrev
     :modes graphql-mode))
 
 (defun graphql/pre-init-prettier-js ()
-  (add-to-list 'spacemacs--prettier-modes 'graphql-mode))
+  (add-to-list 'space-macs--prettier-modes 'graphql-mode))
+
+

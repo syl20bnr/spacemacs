@@ -12,10 +12,10 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer brings Ranger features to spacemacs from the =ranger= package.
+This layer brings Ranger features to space-macs from the =ranger= package.
 
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =ranger= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =ranger= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 To use ranger/deer by default set ~ranger-override-dired~ to ~ranger/deer~ like
@@ -23,10 +23,10 @@ shown in the example below (setting this via customize as explained by the
 original [[https://github.com/ralesi/ranger.el#installation][ranger installation instructions]] will not work). To default with
 preview enabled when entering ranger set ~ranger-show-preview~ to ~t~. The following
 example code shows how you can set both variables at once via the
-~dotspacemacs-configuration-layers~ of your dotfiles as follows:
+~dotspace-macs-configuration-layers~ of your dotfiles as follows:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '(ranger :variables
                          ranger-override-dired 'ranger
                          ranger-show-preview t))
@@ -36,7 +36,7 @@ example code shows how you can set both variables at once via the
 - use ranger to display dired with ranger like preview and stacked parent windows.
 
 * Configuration
-Most parameters can be toggled on and off and stay within the current emacs
+Most parameters can be toggled on and off and stay within the current e-macs
 session. Any settings that are desired on startup should be set below.
 
 ** Customizing
@@ -165,3 +165,5 @@ To set the max files size (in MB), set the following parameter:
 | ~S~             | (ranger) enter shell                                 |
 | ~;C~            | (ranger) copy directory / copy and move directory    |
 | ~;+~            | (ranger) create directory                            |
+
+

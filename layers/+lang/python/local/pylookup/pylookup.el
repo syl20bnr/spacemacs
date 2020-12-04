@@ -1,4 +1,4 @@
-;;; pylookup.el --- Look up python documents (reference) in Emacs
+;;; pylookup.el --- Look up python documents (reference) in e-macs
 
 ;; Copyright (C) 2010-2013 Taesoo Kim
 
@@ -7,7 +7,7 @@
 ;; Created: 19 June 2009
 ;; Keywords: python,reference,document,help
 
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -164,7 +164,7 @@
          (apply 'call-process pylookup-program nil standard-output nil
                 "-d" (expand-file-name pylookup-db-file)
                 "-l" search-term
-                "-f" "Emacs"
+                "-f" "e-macs"
                 pylookup-search-options))
      "\n" t)))
 
@@ -329,3 +329,5 @@
 
 (provide 'pylookup)
 ;;; pylookup.el ends here
+
+

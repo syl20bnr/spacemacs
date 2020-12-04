@@ -11,7 +11,7 @@
 ;;
 ;;; Commentary:
 
-;; This file enable building Sphinx project in Emacs.
+;; This file enable building Sphinx project in e-macs.
 
 ;;; Code:
 
@@ -180,3 +180,5 @@ If CLEAN is non-nil then clean the project before compiling."
 
 
 (provide 'rst-sphinx)
+
+

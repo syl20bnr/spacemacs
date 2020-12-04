@@ -1,6 +1,6 @@
-#+TITLE: spacemacs-language layer
+#+TITLE: space-macs-language layer
 
-#+TAGS: layer|misc|spacemacs
+#+TAGS: layer|misc|space-macs
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -8,11 +8,11 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support various language related services to Spacemacs.
+This layer adds support various language related services to Space-macs.
 
 ** Features:
 - Show definition of word at point via [[https://github.com/abo-abo/define-word][define-word]].
-- Integration of google-translate into Emacs via [[https://github.com/atykhonov/google-translate][google-translate]].
+- Integration of google-translate into e-macs via [[https://github.com/atykhonov/google-translate][google-translate]].
 
 * Key bindings
 
@@ -25,3 +25,5 @@ This layer adds support various language related services to Spacemacs.
 | ~SPC x g q~ | Send marked area to google translate as forward query    |
 | ~SPC x g T~ | Send word at point to google translate as reverse query  |
 | ~SPC x g t~ | Send word at point to google translate as forward query  |
+
+

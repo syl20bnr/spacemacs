@@ -29,10 +29,10 @@ or globally:
   npm install -g typescript
 #+END_SRC
 
-Next enable this layer in your =~/.spacemacs=. You will need to add =tide= to the
-existing =dotspacemacs-configuration-layers= list in this file. Then set the
+Next enable this layer in your =~/.space-macs=. You will need to add =tide= to the
+existing =dotspace-macs-configuration-layers= list in this file. Then set the
 backend variables for JavaScript layer, React layer and TypeScript layer to =tide=
-in =dotspacemacs-configuration-layers=
+in =dotspace-macs-configuration-layers=
 
 #+BEGIN_SRC elisp
   (javascript :variables
@@ -47,7 +47,7 @@ Both =javascript-backend= and =typescript-backend= can be set per project.
 When using this layer, make sure [[http://www.typescriptlang.org/docs/handbook/tsconfig-json.html][tsconfig.json]] or [[https://code.visualstudio.com/docs/languages/jsconfig][jsconfig.json]] is present in
 the root folder of the project.
 
-Example from emacs tide package: For JavaScript projects you may want to create
+Example from e-macs tide package: For JavaScript projects you may want to create
 =jsconfig.json= in the root folder of your project. =jsconfig.json= is =tsconfig.json=
 with allowjs attribute set to true.
 
@@ -91,3 +91,5 @@ Without this file =tsserver= will pick up current folder as project root.
 | ~C-j~       | find previous reference |
 | ~C-k~       | find next reference     |
 | ~C-l~       | goto reference          |
+
+

@@ -48,3 +48,5 @@ This layer adds a number of packages for less common languages and major modes.
 | ~SPC m k~   | Edit keywords          |
 | ~SPC m e~   | Run ebuild command     |
 | ~SPC m a~   | Add ChangeLog entry    |
+
+

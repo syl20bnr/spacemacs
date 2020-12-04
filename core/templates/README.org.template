@@ -1,7 +1,7 @@
 #+TITLE: %LAYER_NAME% layer
 # Document tags are separated with "|" char
 # The example below contains 2 tags: "layer" and "web service"
-# Avaliable tags are listed in <spacemacs_root>/.ci/spacedoc-cfg.edn
+# Avaliable tags are listed in <space-macs_root>/.ci/spacedoc-cfg.edn
 # under ":spacetools.spacedoc.config/valid-tags" section.
 #+TAGS: layer|web service
 
@@ -25,8 +25,8 @@ This layer adds support for something.
   - ...
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =%LAYER_NAME%= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =%LAYER_NAME%= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -35,8 +35,10 @@ file.
 |-------------+----------------|
 | ~SPC x x x~ | Does thing01   |
 
-# Use GitHub URLs if you wish to link a Spacemacs documentation file or its heading.
+# Use GitHub URLs if you wish to link a Space-macs documentation file or its heading.
 # Examples:
-# [[https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org#sessions]]
-# [[https://github.com/syl20bnr/spacemacs/blob/master/layers/%2Bfun/emoji/README.org][Link to Emoji layer README.org]]
-# If space-doc-mode is enabled, Spacemacs will open a local copy of the linked file.
+# [[https://github.com/syl20bnr/space-macs/blob/master/doc/VIMUSERS.org#sessions]]
+# [[https://github.com/syl20bnr/space-macs/blob/master/layers/%2Bfun/emoji/README.org][Link to Emoji layer README.org]]
+# If space-doc-mode is enabled, Space-macs will open a local copy of the linked file.
+
+

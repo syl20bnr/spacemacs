@@ -101,12 +101,12 @@ and if not, try to get the corresponding
                                                            (powerline-current-separator)
                                                            (cdr powerline-default-separator-dir))))
                           (softdiv-left (cl-case powerline-default-separator
-                                          ((utf-8 arrow) "")
+                                          ((utf-8 arrow) "î‚±")
                                           ((bar nil) "|")
                                           (brace "}")
                                           (t ">")))
                           (softdiv-right (cl-case powerline-default-separator
-                                          ((utf-8 arrow) "")
+                                          ((utf-8 arrow) "î‚³")
                                           ((bar nil) "|")
                                           (brace "{")
                                           (t "<")))
@@ -174,3 +174,5 @@ and if not, try to get the corresponding
 (provide 'vim-powerline-theme)
 
 ;;; powerline-themes.el ends here
+
+

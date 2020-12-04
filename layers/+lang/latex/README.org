@@ -30,15 +30,15 @@ This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects
 - Syntax highlighting
 - Auto-completion
 - Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
-- Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
+- Labels, references, citations and index entries management with [[http://www.gnu.org/software/e-macs/manual/html_node/reftex/index.html][RefTeX]]
 
 * BibTeX
 For more extensive support of BibTeX files than RefTeX provides, have a look at
-the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Blang/bibtex/README.org][BibTeX layer]].
+the [[https://github.com/syl20bnr/space-macs/blob/develop/layers/%2Blang/bibtex/README.org][BibTeX layer]].
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =latex= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =latex= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
@@ -55,20 +55,20 @@ limited IDE capabilities. Used best for smaller documents.
 To set explicitly set the following in your
 dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (latex :variables latex-backend 'company-auctex)
 #+END_SRC
 
 *** LSP
 For proper IDE support this backend should be used. It is
 based on an external server which will be started automatically
-by emacs, once a latex file is opened. The key bindings are
+by e-macs, once a latex file is opened. The key bindings are
 the same for all lsp modes so if you are already familiar with
 one you should be able to work the same in all modes.
 
 To set explicitly do the following in your dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (latex :variables
   	 latex-backend 'lsp)
 #+END_SRC
@@ -84,10 +84,10 @@ intellisense config for LSP.
 
 ** Previewing
 To perform full-document previews (that is, aside from the inline previewing
-under ~SPC m p~), add the following to your =.spacemacs= under
-=dotspacemacs/user-config=:
+under ~SPC m p~), add the following to your =.space-macs= under
+=dotspace-macs/user-config=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 #+END_SRC
 
@@ -103,8 +103,8 @@ be set to any of the entities in =TeX-command-list=, including any custom
 entries you may have added there. To use the regular =AucTeX= command set
 =latex-build-command= to =LaTeX= as shown below.
 
-#+BEGIN_SRC emacs-lisp
-  dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  dotspace-macs-configuration-layers '(
     (latex :variables latex-build-command "LaTeX"))
 #+END_SRC
 
@@ -115,8 +115,8 @@ To disable auto-fill (which is on by default) set the variable
 The variable =latex-nofill-env= provide the list of environment names where
 =auto-fill-mode= will be inhibited.
 
-#+BEGIN_SRC emacs-lisp
-  dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  dotspace-macs-configuration-layers '(
     (latex :variables latex-enable-auto-fill nil))
 #+END_SRC
 
@@ -124,8 +124,8 @@ The variable =latex-nofill-env= provide the list of environment names where
 Enable folding of text by setting =latex-enable-folding= to =t=. Default value
 is nil.
 
-#+BEGIN_SRC emacs-lisp
-  dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  dotspace-macs-configuration-layers '(
     (latex :variables latex-enable-folding t))
 #+END_SRC
 
@@ -133,8 +133,8 @@ is nil.
 To enable "magic" symbols in latex buffers, set the variable
 =latex-enable-magic= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  dotspace-macs-configuration-layers '(
     (latex :variables latex-enable-magic t))
 #+END_SRC
 
@@ -156,7 +156,7 @@ By default, the underlying latex code is echoed in the echo area.
 | Key binding                       | Description                                |
 |-----------------------------------+--------------------------------------------|
 | ~SPC m -~                         | recenter output buffer                     |
-| ~SPC m ,​~                         | TeX command on master file                 |
+| ~SPC m ,â€‹~                         | TeX command on master file                 |
 | ~SPC m .~                         | mark LaTeX environment                     |
 | ~SPC m *~                         | mark LaTeX section                         |
 | ~SPC m %~                         | comment or uncomment a paragraph           |
@@ -229,3 +229,5 @@ Available only when =latex-enable-folding= is non nil.
 | ~SPC m r t~ or with LSP ~SPC m R t~     | reftex-toc                            |
 | ~SPC m r T~ or with LSP ~SPC m R T~     | reftex-toc-recenter                   |
 | ~SPC m r v~ or with LSP ~SPC m R v~     | reftex-view-crossref                  |
+
+

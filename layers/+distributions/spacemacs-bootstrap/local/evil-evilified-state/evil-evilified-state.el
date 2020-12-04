@@ -3,12 +3,12 @@
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; Keywords: convenience editing evil spacemacs
+;; Keywords: convenience editing evil space-macs
 ;; Created: 22 Mar 2015
 ;; Version: 1.0
 ;; Package-Requires: ((evil "1.0.9"))
 
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 
 ;;; Commentary:
 
-;; Define a `evilified' evil state inheriting from `emacs' state and
+;; Define a `evilified' evil state inheriting from `e-macs' state and
 ;; setting a minimalist list of Vim key bindings (like navigation, search, ...)
 
 ;; The shadowed original mode key bindings are automatically reassigned
@@ -37,7 +37,7 @@
 ;; a -> A -> C-a -> C-A
 ;; The first unreserved key will be used.
 ;; There is an exception for g, which will be directly
-;; bound to C-G, since G and C-g (latest being an important escape key in Emacs)
+;; bound to C-G, since G and C-g (latest being an important escape key in e-macs)
 ;; are already being used.
 
 ;;; Code:
@@ -55,19 +55,19 @@
 
 (evil-define-state evilified
   "Evilified state.
- Hybrid `emacs state' with carefully selected Vim key bindings.
- See spacemacs conventions for more info."
+ Hybrid `e-macs state' with carefully selected Vim key bindings.
+ See space-macs conventions for more info."
   :tag " <N'> "
-  :enable (emacs)
+  :enable (e-macs)
   :message "-- EVILIFIED BUFFER --"
   :cursor box)
 
-(bind-map spacemacs-default-map
-  :prefix-cmd spacemacs-cmds
-  :evil-keys (dotspacemacs-leader-key)
+(bind-map space-macs-default-map
+  :prefix-cmd space-macs-cmds
+  :evil-keys (dotspace-macs-leader-key)
   :evil-states (evilified)
   :override-minor-modes t
-  :override-mode-name spacemacs-leader-override-mode)
+  :override-mode-name space-macs-leader-override-mode)
 
 (evil-define-command evil-force-evilified-state ()
   "Switch to evilified state without recording current command."
@@ -165,7 +165,7 @@ Needed to bypass keymaps set as text properties."
 (define-key evil-evilified-state-map (kbd "C-y") 'evil-scroll-line-up)
 (define-key evil-evilified-state-map (kbd "C-d") 'evil-scroll-down)
 (define-key evil-evilified-state-map (kbd "C-u") 'evil-scroll-up)
-(define-key evil-evilified-state-map (kbd "C-z") 'evil-emacs-state)
+(define-key evil-evilified-state-map (kbd "C-z") 'evil-e-macs-state)
 (define-key evil-evilified-state-map (kbd "C-w") 'evil-window-map)
 (setq evil-evilified-state-map-original (copy-keymap evil-evilified-state-map))
 
@@ -341,3 +341,5 @@ Currently this function infloops when the list is circular."
 (provide 'evil-evilified-state)
 
 ;;; core-evilified-state.el ends here
+
+

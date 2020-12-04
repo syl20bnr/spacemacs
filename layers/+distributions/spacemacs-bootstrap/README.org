@@ -1,21 +1,23 @@
-#+TITLE: spacemacs-bootstrap distribution
+#+TITLE: space-macs-bootstrap distribution
 
-#+TAGS: distribution|layer|spacemacs
+#+TAGS: distribution|layer|space-macs
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 
 * Description
-This layer loads the necessary packages for spacemacs to start-up.
+This layer loads the necessary packages for space-macs to start-up.
 
 ** Features:
 - Loads =evil= key bindings and macros for auto-evilification of maps
 - Loads =holy= and =hybrid= modes
-- Loads the official Spacemacs theme
+- Loads the official Space-macs theme
 - Loads =use-package= which is used to load other packages more easily
 - Loads =hydra= which is used to create transient modes
 - Loads =which-key= which is used to show key bindings in other modes
 - Loads =async= which is used to run background processes
 - Loads =bind-map= and =bind-key= which are used to realize various
-  Spacemacs specific key binding commands
+  Space-macs specific key binding commands
+
+

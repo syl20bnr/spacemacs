@@ -6,8 +6,10 @@
     :init
     (add-hook 'prog-mode-hook 'wakatime-mode)
     :config
-    (defun spacemacs/wakatime-dashboard ()
+    (defun space-macs/wakatime-dashboard ()
       (interactive)
       (browse-url "https://wakatime.com/dashboard"))
-    (spacemacs/set-leader-keys
-      "aW" 'spacemacs/wakatime-dashboard)))
+    (space-macs/set-leader-keys
+      "aW" 'space-macs/wakatime-dashboard)))
+
+

@@ -1,19 +1,19 @@
-;;; spacemacs-xclipboard.el --- Add support for xclipboard in the terminal
+;;; space-macs-xclipboard.el --- Add support for xclipboard in the terminal
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Authors: Charles Weill <weill@google.com>
 ;;          Google LLC.
 ;;; Commentary:
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 ;;
 ;;; Code:
 
-(defun spacemacs/xclipboard-get-display ()
+(defun space-macs/xclipboard-get-display ()
   (shell-command-to-string "if [[ -n $TMUX ]]; then
       export DISPLAY=$(tmux show-environment | grep -o '^DISPLAY.*$' | sed 's/DISPLAY=//')
     fi
@@ -22,7 +22,7 @@
     fi
     printf $DISPLAY"))
 
-(defun spacemacs//xclipboard-get-copy-command ()
+(defun space-macs//xclipboard-get-copy-command ()
   (if xclipboard-copy-command
       xclipboard-copy-command
     (shell-command-to-string "command_exists() {
@@ -45,7 +45,7 @@
           printf \"putclip\"
       fi")))
 
-(defun spacemacs//xclipboard-get-paste-command ()
+(defun space-macs//xclipboard-get-paste-command ()
   (if xclipboard-paste-command
       xclipboard-paste-command
     (shell-command-to-string "command_exists() {
@@ -68,7 +68,7 @@
           printf \"getclip\"
       fi")))
 
-(defun spacemacs/xclipboard-copy ()
+(defun space-macs/xclipboard-copy ()
   "Copies selection to x-clipboard."
   (interactive)
   (if (display-graphic-p)
@@ -80,14 +80,14 @@
         (shell-command-on-region
          (region-beginning) (region-end)
          (format "DISPLAY=%s %s"
-                 (spacemacs/xclipboard-get-display)
-                 (spacemacs//xclipboard-get-copy-command)))
+                 (space-macs/xclipboard-get-display)
+                 (space-macs//xclipboard-get-copy-command)))
         (message (format "Copied region to clipboard \"%s\"!"
-                         (spacemacs/xclipboard-get-display)))
+                         (space-macs/xclipboard-get-display)))
         (deactivate-mark))
       (message "No region active; can't copy to clipboard!"))))
 
-(defun spacemacs/xclipboard-paste ()
+(defun space-macs/xclipboard-paste ()
   "Pastes from x-clipboard."
   (interactive)
   (if (display-graphic-p)
@@ -96,9 +96,11 @@
       (message "graphics active"))
     (insert (shell-command-to-string
              (format "DISPLAY=%s %s"
-                     (spacemacs/xclipboard-get-display)
-                     (spacemacs//xclipboard-get-paste-command)))))
+                     (space-macs/xclipboard-get-display)
+                     (space-macs//xclipboard-get-paste-command)))))
   (message (format "Pasted from clipboard \"%s\"!"
-                   (spacemacs/xclipboard-get-display))))
+                   (space-macs/xclipboard-get-display))))
 
-(provide 'spacemacs-xclipboard)
+(provide 'space-macs-xclipboard)
+
+

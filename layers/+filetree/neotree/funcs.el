@@ -1,15 +1,15 @@
-;;; funcs.el --- Neotree Layer functions File for Spacemacs
+;;; funcs.el --- Neotree Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs/neotree-expand-or-open (&optional arg)
+(defun space-macs/neotree-expand-or-open (&optional arg)
   "Expand or open a neotree node."
   (interactive "P")
   (let ((node (neo-buffer--get-filename-current-line)))
@@ -26,7 +26,7 @@
           (let ((mru-winum (winum-get-number (get-mru-window))))
             (apply 'neotree-enter (list mru-winum))))))))
 
-(defun spacemacs/neotree-collapse ()
+(defun space-macs/neotree-collapse ()
   "Collapse a neotree node."
   (interactive)
   (let ((node (neo-buffer--get-filename-current-line)))
@@ -37,14 +37,14 @@
       (when neo-auto-indent-point
         (neo-point-auto-indent)))))
 
-(defun spacemacs/neotree-collapse-or-up ()
+(defun space-macs/neotree-collapse-or-up ()
   "Collapse an expanded directory node or go to the parent node."
   (interactive)
   (let ((node (neo-buffer--get-filename-current-line)))
     (when node
       (if (file-directory-p node)
           (if (neo-buffer--expanded-node-p node)
-              (spacemacs/neotree-collapse)
+              (space-macs/neotree-collapse)
             (neotree-select-up-node))
         (neotree-select-up-node)))))
 
@@ -56,14 +56,14 @@
       (neotree-find (projectile-project-root))
       (neotree-find origin-buffer-file-name))))
 
-(defun spacemacs//neotree-maybe-attach-window ()
+(defun space-macs//neotree-maybe-attach-window ()
   (when (get-buffer-window (neo-global--get-buffer))
     (neo-global--attach)))
 
 
 ;; winum
 
-(defun spacemacs//winum-neotree-assign-func ()
+(defun space-macs//winum-neotree-assign-func ()
   "Custom number assignment for neotree."
   (when (and (boundp 'neo-buffer-name)
              (string= (buffer-name) neo-buffer-name)
@@ -74,3 +74,5 @@
              ;; assigning 0 only to the top-left window
              (eq (selected-window) (frame-first-window)))
     0))
+
+

@@ -23,8 +23,8 @@ This layer adds support for the multi-paradigm language =Nim=.
 - Jump to definition.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =nim= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =nim= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 For syntax checking, the =syntax-checking= layer must also be added.
@@ -43,20 +43,20 @@ limited IDE capabilities. Used best if only small scripts
 are edited. To set explicitly set the following in your
 dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (nim :variables nim-backend 'company-nim)
 #+END_SRC
 
 *** LSP
 For proper IDE support this backend should be used. It is
 based on an external server which will be started automatically
-by emacs, once a nim file is opened. The key bindings are
+by e-macs, once a nim file is opened. The key bindings are
 the same for all lsp modes so if you are already familiar with
 one you should be able to work the same in all modes.
 
 To set explicitly do the following in your dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (nim :variables
         nim-backend 'lsp)
 #+END_SRC
@@ -84,3 +84,5 @@ intellisense config for LSP.
 | ~SPC m g b~ | Jump back                    |
 | ~SPC m h h~ | Show symbol's documentation  |
 |-------------+------------------------------|
+
+

@@ -14,14 +14,14 @@ You must have ~pass~ installed and available in your path for this layer to
 function properly.
 
 ** Features:
-- Use Spacemacs as your password manager
+- Use Space-macs as your password manager
 - Support for OTP via (password-store-otp)
-- Use password-store as an Emacs auth source (auth-source-pass)
-  See [[https://www.gnu.org/software/emacs/manual/html_node/auth/The-Unix-password-store.html][its info page]] for more details on using it.
+- Use password-store as an e-macs auth source (auth-source-pass)
+  See [[https://www.gnu.org/software/e-macs/manual/html_node/auth/The-Unix-password-store.html][its info page]] for more details on using it.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =pass= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =pass= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -45,3 +45,5 @@ file.
 | ~SPC a t P o i~ | insert new OTP                                         |
 | ~SPC a t P o a~ | append OTP to an entry                                 |
 | ~SPC a t P o A~ | append OTP to an entry from QR code image in clipboard |
+
+

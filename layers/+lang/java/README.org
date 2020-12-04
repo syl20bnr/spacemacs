@@ -34,17 +34,17 @@ This layer adds support for the Java language.
 
 ** Features:
 - Support for the following backends:
-  - [[https://github.com/emacs-lsp/lsp-java][LSP Java]] client/server (default)
-  - [[https://github.com/mopemope/meghanada-emacs][Meghanada]] client/server
+  - [[https://github.com/e-macs-lsp/lsp-java][LSP Java]] client/server (default)
+  - [[https://github.com/mopemope/meghanada-e-macs][Meghanada]] client/server
 - Auto-completion using company
 - Linting using flycheck integration
 - Maven integration
-- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
+- Interactive debugger using [[https://github.com/e-macs-lsp/dap-mode][dap-mode]]
 
 * Layer Installation
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =java= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =java= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Choosing a backend
@@ -63,7 +63,7 @@ Backend can be chosen on a per project basis using directory local variables
 
 #+BEGIN_SRC elisp
   ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
+  ;;; For more information see (info "(e-macs) Directory Variables")
 
   ((java-mode (java-backend . lsp)))
 #+END_SRC
@@ -72,7 +72,7 @@ Backend can be chosen on a per project basis using directory local variables
 
 * Backends
 ** LSP Java
-LSP Java is the Java adapter for [[https://github.com/emacs-lsp/lsp-mode][LSP Mode]] which is the Emacs client for [[https://github.com/Microsoft/language-server-protocol][Language Server Protocol]].
+LSP Java is the Java adapter for [[https://github.com/e-macs-lsp/lsp-mode][LSP Mode]] which is the e-macs client for [[https://github.com/Microsoft/language-server-protocol][Language Server Protocol]].
 
 It integrates with =company= and =flycheck=. In addition it also provides
 full graphical debugging support via =DAP mode=.
@@ -85,7 +85,7 @@ The lsp server will be installed automatically whenever a Java file
 is opened.
 
 ** Meghanada
-Meghanada is composed of a lightweight server and an Emacs minor mode. It
+Meghanada is composed of a lightweight server and an e-macs minor mode. It
 is unintrusive and integrates with =company= and =flycheck=.
 
 Both =Gradle= and =Maven= projects are compatible with Meghanada.
@@ -96,7 +96,7 @@ is opened.
 
 If you get issues with the auto-installation you can either download the last
 version of the server manually [[https://dl.bintray.com/mopemope/meghanada/][there]] or build from source hosted on [[https://github.com/mopemope/meghanada-server][the GitHub
-repository]] and copy the =jar= file to =.emacs.d/.cache/meghanada= folder.
+repository]] and copy the =jar= file to =.e-macs.d/.cache/meghanada= folder.
 
 No additional configuration is necessary!
 
@@ -146,7 +146,7 @@ at the root of your project first.
 
 *** Debugger
 Using the =dap= layer you'll get access to all the DAP key bindings, see the
-complete list of key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
+complete list of key bindings on the [[https://github.com/syl20bnr/space-macs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
 
 ** Meghanada
 *** Server
@@ -216,3 +216,5 @@ complete list of key bindings on the [[https://github.com/syl20bnr/spacemacs/tre
 | ~SPC m m t b~   | Run current buffer tests                             |
 | ~SPC m m t i~   | Test and install                                     |
 | ~SPC m m t t~   | Run a specific test                                  |
+
+

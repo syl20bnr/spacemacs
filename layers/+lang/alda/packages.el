@@ -1,11 +1,11 @@
-;;; packages.el --- Alda Layer packages File for Spacemacs
+;;; packages.el --- Alda Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Andrew Hill <andrew@andrewkhill.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -23,8 +23,10 @@
                alda-play-buffer)
     :init
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'alda-mode
+      (space-macs/set-leader-keys-for-major-mode 'alda-mode
         "b" 'alda-play-buffer
         "c" 'alda-play-block
         "n" 'alda-play-line
         "r" 'alda-play-region))))
+
+

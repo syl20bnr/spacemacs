@@ -1,27 +1,29 @@
-;;; funcs.el --- Debug layer function file for Spacemacs.
+;;; funcs.el --- Debug layer function file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Troy Hinckley <troy.hinckley@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs/debug-short-key-state (mode-on)
+(defun space-macs/debug-short-key-state (mode-on)
   "Set evil-evilified-state explicitly."
   (if mode-on
       (evil-evilified-state)
     (evil-normal-state)))
 
-(defun spacemacs/debug-generate-symbol (debugger)
+(defun space-macs/debug-generate-symbol (debugger)
   "Create RealGUD interactive function name from DEBUGGER."
   (intern (concat "realgud:" debugger)))
 
-(defun spacemacs/add-realgud-debugger (mode debugger)
+(defun space-macs/add-realgud-debugger (mode debugger)
   "Add RealGUD DEBUGGER to MODE."
-  (let ((dbg-name (spacemacs/debug-generate-symbol debugger)))
-    (spacemacs/set-leader-keys-for-major-mode mode
+  (let ((dbg-name (space-macs/debug-generate-symbol debugger)))
+    (space-macs/set-leader-keys-for-major-mode mode
       "dd" dbg-name)
     (autoload dbg-name "realgud" nil t)))
+
+

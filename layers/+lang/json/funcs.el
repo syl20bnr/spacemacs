@@ -1,15 +1,15 @@
-;;; funcs.el --- JSON Layer functions File for Spacemacs
+;;; funcs.el --- JSON Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Muneeb Shaikh <muneeb@reversehack.in>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//json-backend ()
+(defun space-macs//json-backend ()
   "Returns selected backend."
   (if json-backend
       json-backend
@@ -17,21 +17,21 @@
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
      (t 'company-json))))
 
-(defun spacemacs//json-setup-company ()
+(defun space-macs//json-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//json-backend)
+  (pcase (space-macs//json-backend)
     ;; Activate lsp company explicitly to activate
     ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
+    (`lsp (space-macs|add-company-backends
             :backends company-capf
             :modes json-mode))))
 
-(defun spacemacs//json-setup-backend ()
+(defun space-macs//json-setup-backend ()
   "Conditionally setup json backend."
-  (pcase (spacemacs//json-backend)
+  (pcase (space-macs//json-backend)
     (`lsp (lsp))))
 
-(defun spacemacs/json-navigator-dwim (arg &optional start end)
+(defun space-macs/json-navigator-dwim (arg &optional start end)
   "Display the JSON hierarchy of the whole buffer or the active region.
 If ARG is a universal prefix argument then display the hierarchy after point."
   (interactive "P\nr")
@@ -41,7 +41,7 @@ If ARG is a universal prefix argument then display the hierarchy after point."
         (save-excursion (json-navigator-navigate-region (point-min) (point-max)))
       (json-navigator-navigate-region start end))))
 
-(defun spacemacs/json-reformat-dwim (arg &optional start end)
+(defun space-macs/json-reformat-dwim (arg &optional start end)
   "Reformat the whole buffer of the active region.
 If ARG is non-nil (universal prefix argument) then try to decode the strings.
 If ARG is a numerical prefix argument then specify the indentation level."
@@ -55,7 +55,9 @@ If ARG is a numerical prefix argument then specify the indentation level."
         (save-excursion (json-reformat-region (point-min) (point-max)))
       (json-reformat-region start end))))
 
-(defun spacemacs/json-setup-prettier ()
+(defun space-macs/json-setup-prettier ()
   "Tell prettier the content is to be parsed as JSON regardless of any file
 extensions."
   (setq-local prettier-js-args '("--parser=json")))
+
+

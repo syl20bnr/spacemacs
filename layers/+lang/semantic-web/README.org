@@ -23,8 +23,8 @@ that buffer. Results will be displayed in another buffer in CSV format.
 - Provides an alternative way to search the web using SPARQL queries.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =semantic-web= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =semantic-web= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -32,3 +32,5 @@ file.
 | Key binding | Description          |
 |-------------+----------------------|
 | ~SPC m q~   | Execute SPARQL query |
+
+

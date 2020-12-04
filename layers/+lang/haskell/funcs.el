@@ -1,18 +1,18 @@
-;;; funcs.el --- Haskell Layer funcs File for Spacemacs
+;;; funcs.el --- Haskell Layer funcs File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 
 ;; Completion setup functions
 
-(defun spacemacs//haskell-backend ()
+(defun space-macs//haskell-backend ()
   "Returns selected backend."
   (if haskell-completion-backend
       haskell-completion-backend
@@ -20,22 +20,22 @@
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
      (t 'dante))))
 
-(defun spacemacs-haskell//setup-backend ()
+(defun space-macs-haskell//setup-backend ()
   "Conditionally setup haskell backend."
-  (pcase (spacemacs//haskell-backend)
-    (`lsp (spacemacs-haskell//setup-lsp))
-    (`dante (spacemacs-haskell//setup-dante))))
+  (pcase (space-macs//haskell-backend)
+    (`lsp (space-macs-haskell//setup-lsp))
+    (`dante (space-macs-haskell//setup-dante))))
 
-(defun spacemacs-haskell//setup-company ()
+(defun space-macs-haskell//setup-company ()
   "Conditionally setup haskell completion backend."
-  (pcase (spacemacs//haskell-backend)
+  (pcase (space-macs//haskell-backend)
     (`lsp nil) ;; nothing to do, auto-configured by lsp-mode
-    (`dante (spacemacs-haskell//setup-dante-company))))
+    (`dante (space-macs-haskell//setup-dante-company))))
 
 
 ;; LSP functions
 
-(defun spacemacs-haskell//setup-lsp ()
+(defun space-macs-haskell//setup-lsp ()
   "Setup lsp backend"
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
@@ -49,31 +49,33 @@
 
 ;; Dante functions
 
-(defun spacemacs-haskell//setup-dante ()
+(defun space-macs-haskell//setup-dante ()
   (dante-mode)
-  (add-to-list 'spacemacs-jump-handlers 'xref-find-definitions))
+  (add-to-list 'space-macs-jump-handlers 'xref-find-definitions))
 
-(defun spacemacs-haskell//setup-dante-company ()
-  (spacemacs|add-company-backends
+(defun space-macs-haskell//setup-dante-company ()
+  (space-macs|add-company-backends
     :backends (dante-company company-dabbrev-code company-yasnippet)
     :modes haskell-mode))
 
-(defun spacemacs-haskell//dante-insert-type ()
+(defun space-macs-haskell//dante-insert-type ()
   (interactive)
   (dante-type-at :insert))
 
 
 ;; misc
 
-(defun spacemacs-haskell//disable-electric-indent ()
+(defun space-macs-haskell//disable-electric-indent ()
   "Disable electric indent mode if available"
   ;; use only internal indentation system from haskell
   (if (fboundp 'electric-indent-local-mode)
       (electric-indent-local-mode -1)))
 
-(defun spacemacs/haskell-format-imports ()
+(defun space-macs/haskell-format-imports ()
   "Sort and align import statements from anywhere in the source file."
   (interactive)
   (save-excursion
     (haskell-navigate-imports)
     (haskell-mode-format-imports)))
+
+

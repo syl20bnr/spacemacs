@@ -1,11 +1,11 @@
-;;; config.el --- keyboard-layout Layer configuration File for Spacemacs
+;;; config.el --- keyboard-layout Layer configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Fabien Dubosson <fabien.dubosson@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -137,7 +137,7 @@ should be once in each column.")
     (list evil-normal-state-map
           evil-visual-state-map
           evil-insert-state-map
-          evil-emacs-state-map
+          evil-e-macs-state-map
           evil-motion-state-map)
     "The list of all evil states.")
 
@@ -146,3 +146,5 @@ should be once in each column.")
           evil-visual-state-map
           evil-motion-state-map)
     "The list of all evil states except insert."))
+
+

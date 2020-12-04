@@ -1,8 +1,8 @@
-#+TITLE: Treemacs layer
+#+TITLE: Tree-macs layer
 
 #+TAGS: file tree|layer
 
-[[file:img/treemacs.png]]
+[[file:img/tree-macs.png]]
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -18,22 +18,22 @@
   - [[#theme][Theme]]
 - [[#key-bindings][Key bindings]]
   - [[#global][Global]]
-  - [[#inside-treemacs][Inside Treemacs]]
+  - [[#inside-tree-macs][Inside Tree-macs]]
     - [[#ace-mode-to-open-files][Ace mode to open files]]
       - [[#set-ace-mode-as-default-action][Set ace mode as default action]]
       - [[#use-digits-in-ace-mode][Use digits in ace mode]]
 
 * Description
-This layer sets up a file navigation and project explorer side-window via [[https://github.com/Alexander-Miller/treemacs][Treemacs]].
+This layer sets up a file navigation and project explorer side-window via [[https://github.com/Alexander-Miller/tree-macs][Tree-macs]].
 
 ** Features:
-A detailed overview of the features of Treemacs is available in [[https://github.com/Alexander-Miller/treemacs#detailed-feature-list][the Treemacs
-readme]]. In short, Treemacs offers:
+A detailed overview of the features of Tree-macs is available in [[https://github.com/Alexander-Miller/tree-macs#detailed-feature-list][the Tree-macs
+readme]]. In short, Tree-macs offers:
 - Simple and powerful navigation and ability to detail exactly how and where a
   file should be opened.
 - Good looking icons.
 - Display of multiple file trees organized as projects residing in a workspace.
-- Ability to show tags contained in files. Tags are provided by [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Imenu.html][Imenu]], so nearly
+- Ability to show tags contained in files. Tags are provided by [[https://www.gnu.org/software/e-macs/manual/html_node/e-macs/Imenu.html][Imenu]], so nearly
   every filetype is supported.
 - Mouse interface for single and double left clicks in line with modern GUI
   standards (clicking on an icon will also display the file's tags).
@@ -47,60 +47,60 @@ readme]]. In short, Treemacs offers:
   after) changes to the shown filesystem.
 
 * Install
-To use this layer, add =treemacs= to =dotspacemacs-configuration-layers= in your
-=dotspacemacs= file.
+To use this layer, add =tree-macs= to =dotspace-macs-configuration-layers= in your
+=dotspace-macs= file.
 
 * Configuration
 ** Follow mode
-To have Treemacs automatically sync with your current:
-- Buffer's file, set the layer variable =treemacs-use-follow-mode= to =t=.
-- Tag, set the layer variable =treemacs-use-follow-mode= to =tag=.
+To have Tree-macs automatically sync with your current:
+- Buffer's file, set the layer variable =tree-macs-use-follow-mode= to =t=.
+- Tag, set the layer variable =tree-macs-use-follow-mode= to =tag=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (treemacs :variables treemacs-use-follow-mode 'tag)))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
+    (tree-macs :variables tree-macs-use-follow-mode 'tag)))
 #+END_SRC
 
 Default is =t=.
 
 ** File watch
-To automatically refresh the Treemacs buffer when there is a change in the
-part of the file system shown by treemacs set the layer variable
-=treemacs-use-filewatch-mode= to non-nil.
+To automatically refresh the Tree-macs buffer when there is a change in the
+part of the file system shown by tree-macs set the layer variable
+=tree-macs-use-filewatch-mode= to non-nil.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (treemacs :variables treemacs-use-filewatch-mode t)))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
+    (tree-macs :variables tree-macs-use-filewatch-mode t)))
 #+END_SRC
 
 Default is =t=.
 
 ** Scope Settings
-By default treemacs buffers and their workspaces will be uniquely scoped within
-the current frame. As an alternative it is possible to scope treemacs to the
+By default tree-macs buffers and their workspaces will be uniquely scoped within
+the current frame. As an alternative it is possible to scope tree-macs to the
 currently active perspective, including the automatic creation of a workspace
 for every perspective. The scope type is determined by setting the layer
-variable =treemacs-use-scope-type= to either ='Frames= or ='Perspectives=.
+variable =tree-macs-use-scope-type= to either ='Frames= or ='Perspectives=.
 
 Note that persective-based scoping will only take effect when =persp-mode= is
 actually first used.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (treemacs :variables treemacs-use-scope-type 'Perspectives)))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
+    (tree-macs :variables tree-macs-use-scope-type 'Perspectives)))
 #+END_SRC
 
 Default is ='Frames=.
 
 ** Git mode
-To enable Treemacs to check for the git status information of files and directories
-and highlight them accordingly, set the layer variable =treemacs-use-git-mode=
-to =simple=, =extended=, or =deferred=. See the [[https://github.com/Alexander-Miller/treemacs#git-mode][Treemacs documentation]] for a more detailed
+To enable Tree-macs to check for the git status information of files and directories
+and highlight them accordingly, set the layer variable =tree-macs-use-git-mode=
+to =simple=, =extended=, or =deferred=. See the [[https://github.com/Alexander-Miller/tree-macs#git-mode][Tree-macs documentation]] for a more detailed
 explanation.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (treemacs :variables treemacs-use-git-mode 'deferred)))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
+    (tree-macs :variables tree-macs-use-git-mode 'deferred)))
 #+END_SRC
 
 Default is =nil=.
@@ -108,35 +108,35 @@ Default is =nil=.
 ** Flattening of directories
 *This feature requires Python to be installed*.
 
-Treemacs tries to flatten empty directory names into one name. It is possible
-to control how deep Treemacs will search for empty directories by settings the
-layer variable =treemacs-collapse-dirs= to a positive number.
+Tree-macs tries to flatten empty directory names into one name. It is possible
+to control how deep Tree-macs will search for empty directories by settings the
+layer variable =tree-macs-collapse-dirs= to a positive number.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (treemacs :variables treemacs-collapse-dirs 3)))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
+    (tree-macs :variables tree-macs-collapse-dirs 3)))
 #+END_SRC
 
 Default is 3 (or 0 when Python is not installed).
 
 ** Locking width
-To have the width of the treemacs window locked by default, so that it is not manually
-resizable, set the variable =treemacs-lock-width= to non-nil. It will still be
-resizable through Treemacs commands and key bindings.
+To have the width of the tree-macs window locked by default, so that it is not manually
+resizable, set the variable =tree-macs-lock-width= to non-nil. It will still be
+resizable through Tree-macs commands and key bindings.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (treemacs :variables treemacs-lock-width t)))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
+    (tree-macs :variables tree-macs-lock-width t)))
 #+END_SRC
 
 Default is =nil=.
 
 ** Theme
-To use the `all-the-icons` theme rather than the default one, set the `treemacs-use-all-the-icons-theme` variable:
+To use the `all-the-icons` theme rather than the default one, set the `tree-macs-use-all-the-icons-theme` variable:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (treemacs :variables treemacs-use-all-the-icons-theme t)))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
+    (tree-macs :variables tree-macs-use-all-the-icons-theme t)))
 #+END_SRC
 
 * Key bindings
@@ -144,23 +144,23 @@ To use the `all-the-icons` theme rather than the default one, set the `treemacs-
 
 | Key binding | Description                                                                                                                                    |
 |-------------+------------------------------------------------------------------------------------------------------------------------------------------------|
-| ~M-0~       | Selected the treemacs window. Actually selects window #10, which is always assigned to treemacs.                                               |
-| ~SPC 0~     | Open treemacs in the current directory. When not visiting a file use $HOME as fallback. With a prefix arg manually select the root instead.    |
+| ~M-0~       | Selected the tree-macs window. Actually selects window #10, which is always assigned to tree-macs.                                               |
+| ~SPC 0~     | Open tree-macs in the current directory. When not visiting a file use $HOME as fallback. With a prefix arg manually select the root instead.    |
 | ~SPC f B~   | Find and select a bookmark. If it cannot be found rebuild view with the bookmark's location as root. Also open the bookmark with a prefix arg. |
-| ~SPC f t~   | Hide/show existing treemacs buffer. Create one for the current directory if no buffer exists.                                                  |
-| ~SPC f T~   | Manually focus the treemacs view on the currently selected file. Not needed when =treemacs-follow-mode= is enabled.                            |
-| ~SPC f M-t~ | Manually focus the treemacs view on the currently selected file and tag.                                                                       |
-| ~SPC p t~   | Hide/show existing treemacs buffer. Add the current project to treemacs if not already added.                                                  |
+| ~SPC f t~   | Hide/show existing tree-macs buffer. Create one for the current directory if no buffer exists.                                                  |
+| ~SPC f T~   | Manually focus the tree-macs view on the currently selected file. Not needed when =tree-macs-follow-mode= is enabled.                            |
+| ~SPC f M-t~ | Manually focus the tree-macs view on the currently selected file and tag.                                                                       |
+| ~SPC p t~   | Hide/show existing tree-macs buffer. Add the current project to tree-macs if not already added.                                                  |
 
-** Inside Treemacs
-Treemacs will use either ~j/k~ or ~n/p~ to go to the next/previous line,
+** Inside Tree-macs
+Tree-macs will use either ~j/k~ or ~n/p~ to go to the next/previous line,
 depending on whether vim/hybrid editing style is used. Likewise refresh is only
-bound to g when emacs editing style is used, since under vim g is a prefix for
+bound to g when e-macs editing style is used, since under vim g is a prefix for
 many other commands.
 
 | Key binding | Description                                                                                                      |
 |-------------+------------------------------------------------------------------------------------------------------------------|
-| ~?~         | Summon the helpful hydra to show you the treemacs keymap.                                                        |
+| ~?~         | Summon the helpful hydra to show you the tree-macs keymap.                                                        |
 | ~M-j/M-n~   | Select next node at the same depth as currently selected node, if possible.                                      |
 | ~j/n~       | Goto next line.                                                                                                  |
 | ~k/p~       | Goto previous line.                                                                                              |
@@ -168,23 +168,23 @@ many other commands.
 | ~M-K/P~     | Go to the previous line in ~next-window~..                                                                       |
 | ~M-j/M-n~   | Select next node at the same depth as currently selected node, if possible.                                      |
 | ~M-k/M-p~   | Select previous node at the same depth as currently selected node, if possible.                                  |
-| ~C-c C-p a~ | Select a new project to add to the treemacs workspace.                                                           |
+| ~C-c C-p a~ | Select a new project to add to the tree-macs workspace.                                                           |
 | ~C-c C-p p~ | Select a projectile project to add to the workspace.                                                             |
 | ~C-c C-p d~ | Remove project at point from the workspace.                                                                      |
 | ~C-c C-p r~ | Rename project at point.                                                                                         |
-| ~w~         | Set a new value for the width of the treemacs window.                                                            |
-| ~TAB~       | Do what I mean (as defined in ~treemacs-TAB-actions-config~). Prefers expanding nodes by default.                |
-| ~RET~       | Do what I mean (as defined in ~treemacs-RET-actions-config~). Prefers visiting nodes by default.                 |
+| ~w~         | Set a new value for the width of the tree-macs window.                                                            |
+| ~TAB~       | Do what I mean (as defined in ~tree-macs-TAB-actions-config~). Prefers expanding nodes by default.                |
+| ~RET~       | Do what I mean (as defined in ~tree-macs-RET-actions-config~). Prefers visiting nodes by default.                 |
 | ~mouse1~    | Move point to clicked line                                                                                       |
-| ~2x mouse1~ | Do what I mean (as defined in ~treemacs-doubleclick-actions-config~). Behaves like ~RET~ by default.             |
-| ~g/r/gr~    | Refresh and rebuild the treemacs buffer.                                                                         |
+| ~2x mouse1~ | Do what I mean (as defined in ~tree-macs-doubleclick-actions-config~). Behaves like ~RET~ by default.             |
+| ~g/r/gr~    | Refresh and rebuild the tree-macs buffer.                                                                         |
 | ~d~         | Delete node at point. A delete action must always be confirmed. Directories are deleted recursively.             |
 | ~cf~        | Create a file.                                                                                                   |
 | ~cd~        | Create a directory.                                                                                              |
 | ~R~         | Rename the currently selected node. Reload buffers visiting renamed files or files in renamed directories.       |
 | ~u~         | Select parent of selected node, if possible.                                                                     |
-| ~q~         | Hide/show an existing treemacs buffer.                                                                           |
-| ~Q~         | Kill the treemacs buffer.                                                                                        |
+| ~q~         | Hide/show an existing tree-macs buffer.                                                                           |
+| ~Q~         | Kill the tree-macs buffer.                                                                                        |
 | ~ov~        | Open current file or tag by vertically splitting ~next-window~.                                                  |
 | ~oh~        | Open current file or tag by horizontally splitting ~next-window~.                                                |
 | ~oo~        | Open current file or tag, performing no split and using ~next-window~ directly.                                  |
@@ -192,11 +192,11 @@ many other commands.
 | ~oah~       | Open current file or tag by horizontally splitting a window selected by ace-window.                              |
 | ~oav~       | Open current file or tag by vertically splitting a window selected by ace-window.                                |
 | ~ox~        | Open current file according to its mime type in an external application. Linux, Windows and macOS are supported. |
-| ~tf~        | Toggle ~treemacs-follow-mode~.                                                                                   |
-| ~ta~        | Toggle ~treemacs-filewatch-mode~.                                                                                |
+| ~tf~        | Toggle ~tree-macs-follow-mode~.                                                                                   |
+| ~ta~        | Toggle ~tree-macs-filewatch-mode~.                                                                                |
 | ~tg~        | Toggle ~git-mode~.                                                                                               |
 | ~th~        | Toggle the hiding and displaying of dotfiles.                                                                    |
-| ~tw~        | Toggle whether the treemacs buffer should have a fixed width.                                                    |
+| ~tw~        | Toggle whether the tree-macs buffer should have a fixed width.                                                    |
 | ~tv~        | Toggle the hiding and displaying of dotfiles.                                                                    |
 | ~yr~        | Copy the absolute path of the nearest project node at point.                                                     |
 | ~yy~        | Copy the absolute path of the node at point.                                                                     |
@@ -211,16 +211,18 @@ That behavior can be changed in two ways.
 It is possible to set =ace mode= as default action for pressing RET on a file.
 To do this add following configuration to your dotfile.
 
-#+BEGIN_SRC emacs-lisp
-  (with-eval-after-load 'treemacs
-    (treemacs-define-RET-action 'file-node-closed #'treemacs-visit-node-ace)
-    (treemacs-define-RET-action 'file-node-open #'treemacs-visit-node-ace))
+#+BEGIN_SRC e-macs-lisp
+  (with-eval-after-load 'tree-macs
+    (tree-macs-define-RET-action 'file-node-closed #'tree-macs-visit-node-ace)
+    (tree-macs-define-RET-action 'file-node-open #'tree-macs-visit-node-ace))
 #+END_SRC
 
 **** Use digits in ace mode
 Just add the following to use digits instead of ~a s d f~ in ace (window selection) mode.
 Please note that the following code changes ace mode globally.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9 ?0))
 #+END_SRC
+
+

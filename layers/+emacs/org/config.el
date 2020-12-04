@@ -1,18 +1,18 @@
-;;; config.el --- Org configuration File for Spacemacs
+;;; config.el --- Org configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 ;; Dumper
 
 (defun org/pre-dump ()
-  (spacemacs/dump-modes '(org-mode)))
+  (space-macs/dump-modes '(org-mode)))
 
 ;; Variables
 
@@ -58,3 +58,5 @@ are configured.")
 
 (defvar org-enable-roam-support nil
   "If non-nil, org-roam (https://www.orgroam.com/) is configured")
+
+

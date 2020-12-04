@@ -24,6 +24,8 @@ found here]].
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =dhall= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =dhall= to the existing =dotspace-macs-configuration-layers= list in this
 file.
+
+

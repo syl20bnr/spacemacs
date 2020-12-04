@@ -17,6 +17,8 @@
 
 
 ;; NOTE: Testing if that bug with hanging/crushing dependency
-;; installation from local repos caused by child Emacs async process.
+;; installation from local repos caused by child e-macs async process.
 (with-eval-after-load 'async-bytecomp
  (setq async-bytecomp-allowed-packages nil))
+
+

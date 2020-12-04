@@ -1,17 +1,17 @@
-;;; config.el --- Purescript Layer config File for Spacemacs
+;;; config.el --- Purescript Layer config File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Ryan L. Bell
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 ;; variables
 
-(spacemacs|define-jump-handlers purescript-mode)
+(space-macs|define-jump-handlers purescript-mode)
 
 (defvar purescript-add-import-on-completion t
   "If non-nil adds imports for completed identifiers")
@@ -23,3 +23,5 @@
   "The backend to use for IDE features.
 Possible values are `lsp' and `psc-ide'.
 If `nil' then `psc-ide' is the default backend unless `lsp' layer is used.")
+
+

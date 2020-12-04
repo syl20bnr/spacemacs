@@ -1,30 +1,30 @@
-;;; funcs.el --- vue layer funcs file for Spacemacs. -*- lexical-binding: t -*-
+;;; funcs.el --- vue layer funcs file for Space-macs. -*- lexical-binding: t -*-
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Thanh Vuong <thanhvg@gmail.com>
 ;; URL: https://github.com/thanhvg
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 
 ;; backend
-(defun spacemacs//vue-setup-backend ()
+(defun space-macs//vue-setup-backend ()
   "Conditionally setup vue backend."
   (pcase vue-backend
-    ('dumb (spacemacs//vue-setup-dumb))
-    ('lsp (spacemacs//vue-setup-lsp))))
+    ('dumb (space-macs//vue-setup-dumb))
+    ('lsp (space-macs//vue-setup-lsp))))
 
-(defun spacemacs//vue-setup-company ()
+(defun space-macs//vue-setup-company ()
   "Conditionally setup company based on backend."
   (pcase vue-backend
-    ('dumb (spacemacs//vue-setup-dumb-company))))
+    ('dumb (space-macs//vue-setup-dumb-company))))
 
 
 ;; lsp
-(defun spacemacs//vue-setup-lsp ()
+(defun space-macs//vue-setup-lsp ()
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
@@ -38,7 +38,7 @@
 
 ;; dumb
 
-(defun spacemacs//vue-setup-dumb-imenu ()
+(defun space-macs//vue-setup-dumb-imenu ()
   (setq imenu-generic-expression '(("html" "^<template>$" 0)
                                    ("js" "^<script>$" 0)
                                    ("js" "^\\s-*\\(data\\).*()\\s-?{" 1)
@@ -53,40 +53,40 @@
                                    ("css" "^<css>$" 0))
         imenu-create-index-function #'imenu-default-create-index-function))
 
-(defun spacemacs//vue-setup-dumb ()
-  (add-to-list 'spacemacs-jump-handlers-vue-mode 'dumb-jump-go)
-  (spacemacs//vue-setup-dumb-imenu))
+(defun space-macs//vue-setup-dumb ()
+  (add-to-list 'space-macs-jump-handlers-vue-mode 'dumb-jump-go)
+  (space-macs//vue-setup-dumb-imenu))
 
-(defun spacemacs//vue-setup-dumb-company ()
-  (spacemacs|add-company-backends :backends (company-web-html company-css company-files company-dabbrev)
+(defun space-macs//vue-setup-dumb-company ()
+  (space-macs|add-company-backends :backends (company-web-html company-css company-files company-dabbrev)
                                   :modes vue-mode
                                   :variables company-minimum-prefix-length 2)
   (company-mode))
 
 
 ;; Others
-(defun spacemacs//vue-setup-yasnippet ()
-  (spacemacs/load-yasnippet)
+(defun space-macs//vue-setup-yasnippet ()
+  (space-macs/load-yasnippet)
   (yas-activate-extra-mode 'js-mode))
 
-(defun spacemacs//vue-setup-editor-style ()
+(defun space-macs//vue-setup-editor-style ()
   "such as indent rules comment style etc"
   ;; https://stackoverflow.com/questions/36701024/how-can-i-indent-inline-javascript-in-web-mode
   (setq web-mode-script-padding 0)
   (setq web-mode-style-padding 0)
-  ;; https://emacs.stackexchange.com/questions/27683/change-comment-style-in-web-mode
+  ;; https://e-macs.stackexchange.com/questions/27683/change-comment-style-in-web-mode
   (add-to-list 'web-mode-comment-formats '("javascript" . "//")))
 
-(defun spacemacs//vue-setup-keybindings ()
+(defun space-macs//vue-setup-keybindings ()
   "free stuff from `html' layer"
-  (spacemacs/declare-prefix-for-mode 'vue-mode "m=" "format")
-  (spacemacs/declare-prefix-for-mode 'vue-mode "mE" "errors")
-  (spacemacs/declare-prefix-for-mode 'vue-mode "me" "element")
-  (spacemacs/declare-prefix-for-mode 'vue-mode "mg" "goto")
+  (space-macs/declare-prefix-for-mode 'vue-mode "m=" "format")
+  (space-macs/declare-prefix-for-mode 'vue-mode "mE" "errors")
+  (space-macs/declare-prefix-for-mode 'vue-mode "me" "element")
+  (space-macs/declare-prefix-for-mode 'vue-mode "mg" "goto")
   (unless (equal vue-backend 'lsp)
-    (spacemacs/declare-prefix-for-mode 'vue-mode "mh" "help")
-    (spacemacs/declare-prefix-for-mode 'vue-mode "mr" "refactor"))
-  (spacemacs/set-leader-keys-for-major-mode 'vue-mode
+    (space-macs/declare-prefix-for-mode 'vue-mode "mh" "help")
+    (space-macs/declare-prefix-for-mode 'vue-mode "mr" "refactor"))
+  (space-macs/set-leader-keys-for-major-mode 'vue-mode
     "El" 'web-mode-dom-errors-show
     "eb" 'web-mode-element-beginning
     "ec" 'web-mode-element-child
@@ -100,37 +100,37 @@
     "rw" 'web-mode-element-wrap
     "z" 'web-mode-fold-or-unfold))
 
-(defun spacemacs//vue-setup-transient-state ()
-  (defvar spacemacs--vue-ts-full-hint-toggle nil
+(defun space-macs//vue-setup-transient-state ()
+  (defvar space-macs--vue-ts-full-hint-toggle nil
     "Toggle the state of the vue transient state documentation.")
 
-  (defvar spacemacs--vue-ts-full-hint nil
+  (defvar space-macs--vue-ts-full-hint nil
     "Display full vue transient state documentation.")
 
-  (defvar spacemacs--vue-ts-minified-hint nil
+  (defvar space-macs--vue-ts-minified-hint nil
     "Display minified vue transient state documentation.")
 
-  (defun spacemacs//vue-ts-toggle-hint ()
+  (defun space-macs//vue-ts-toggle-hint ()
     "Toggle the full hint docstring for the vue transient state."
     (interactive)
-    (setq spacemacs--vue-ts-full-hint-toggle
-          (not spacemacs--vue-ts-full-hint-toggle)))
+    (setq space-macs--vue-ts-full-hint-toggle
+          (not space-macs--vue-ts-full-hint-toggle)))
 
-  (defun spacemacs//vue-ts-hint ()
+  (defun space-macs//vue-ts-hint ()
     "Return a condensed/full hint for the vue transient state"
     (concat
      " "
-     (if spacemacs--vue-ts-full-hint-toggle
-         spacemacs--vue-ts-full-hint
+     (if space-macs--vue-ts-full-hint-toggle
+         space-macs--vue-ts-full-hint
        (concat "[" (propertize "?" 'face 'hydra-face-red) "] help"
-               spacemacs--vue-ts-minified-hint))))
+               space-macs--vue-ts-minified-hint))))
 
-  (spacemacs|transient-state-format-hint vue
-    spacemacs--vue-ts-minified-hint "\n
+  (space-macs|transient-state-format-hint vue
+    space-macs--vue-ts-minified-hint "\n
 Navigate: _j_ _k_ _J_ _K_ _h_ _l_ Element: _c_ _d_ _D_ _r_ _w_ Other: _p_")
 
-  (spacemacs|transient-state-format-hint vue
-    spacemacs--vue-ts-full-hint
+  (space-macs|transient-state-format-hint vue
+    space-macs--vue-ts-full-hint
     (format "\n[_?_] toggle help
 Navigate^^^^                 Element^^                    Other
 [_j_/_k_] next/prev element  [_c_] clone                  [_p_] xpath (display path)
@@ -139,14 +139,14 @@ Navigate^^^^                 Element^^                    Other
 ^^^^                         [_r_] rename
 ^^^^                         [_w_] wrap"))
 
-  (spacemacs|define-transient-state vue
+  (space-macs|define-transient-state vue
     :title "Vue Transient State"
     :hint-is-doc t
-    :dynamic-hint (spacemacs//vue-ts-hint)
+    :dynamic-hint (space-macs//vue-ts-hint)
     :foreign-keys run
     :evil-leader-for-mode (vue-mode . ".")
     :bindings
-    ("?" spacemacs//vue-ts-toggle-hint)
+    ("?" space-macs//vue-ts-toggle-hint)
     ;; Navigate
     ("j"  web-mode-element-next)
     ("k"  web-mode-element-previous)
@@ -166,3 +166,5 @@ Navigate^^^^                 Element^^                    Other
     ("p" web-mode-dom-xpath)
     ("q" nil :exit t)
     ("<escape>" nil :exit t)))
+
+

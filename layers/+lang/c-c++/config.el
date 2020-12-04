@@ -1,18 +1,18 @@
-;;; config.el --- C/C++ Layer config File for Spacemacs
+;;; config.el --- C/C++ Layer config File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 ;; variables
 
-(spacemacs|define-jump-handlers c++-mode)
-(spacemacs|define-jump-handlers c-mode)
+(space-macs|define-jump-handlers c++-mode)
+(space-macs|define-jump-handlers c-mode)
 
 (defvar c-c++-backend nil
   "The backend to use for IDE features.
@@ -67,7 +67,7 @@ By default `font-lock' is used to highlight the text, set the variable to
 ;; misc
 
 (defvar c-c++-default-mode-for-headers (when (not (functionp 'c-or-c++-mode)) 'c-mode)
-  "Default mode to open header files. Can be `c-mode' or `c++-mode', or `c-or-c++-mode' for Emacs > 26+.")
+  "Default mode to open header files. Can be `c-mode' or `c++-mode', or `c-or-c++-mode' for e-macs > 26+.")
 
 (defvar c-c++-adopt-subprojects nil
   "When non-nil, projectile will remember project root when visiting files in subprojects")
@@ -80,3 +80,5 @@ By default `font-lock' is used to highlight the text, set the variable to
 
 (defconst c-c++-mode-hooks '(c-mode-hook c++-mode-hook)
   "Primary hooks of the `c-c++' layer.")
+
+

@@ -1,11 +1,11 @@
-;;; packages.el --- Asm Layer packages File for Spacemacs
+;;; packages.el --- Asm Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Tu, Do Hoang <tuhdo1710@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -25,7 +25,7 @@
 (defun asm/init-asm-mode ()
   (use-package asm-mode
     :init
-    (spacemacs/set-leader-keys-for-major-mode 'asm-mode "h" 'x86-lookup)
+    (space-macs/set-leader-keys-for-major-mode 'asm-mode "h" 'x86-lookup)
     :config
     (progn
       ;; We need to insert a non-indented line, otherwise it's annoying
@@ -34,7 +34,7 @@
       (add-hook 'asm-mode-hook #'asm-generic-setup))))
 
 (defun asm/post-init-electric-indent-mode ()
-  (spacemacs/add-to-hooks 'asm-electric-indent-local-mode-off
+  (space-macs/add-to-hooks 'asm-electric-indent-local-mode-off
                    '(asm-mode-hook nasm-mode-hook)))
 
 (defun asm/init-nasm-mode ()
@@ -44,7 +44,7 @@
     (progn
       (add-hook 'nasm-mode-hook #'asm-generic-setup)
       (add-to-list 'auto-mode-alist '("\\.[n]*\\(asm\\|s\\)\\'" . nasm-mode))
-      (spacemacs/set-leader-keys-for-major-mode 'nasm-mode "h" 'x86-lookup))
+      (space-macs/set-leader-keys-for-major-mode 'nasm-mode "h" 'x86-lookup))
     :config
     (progn
       ;; We need to insert a non-indented line, otherwise it's annoying
@@ -63,13 +63,15 @@
         (setq x86-lookup-browse-pdf-function 'x86-lookup-browse-pdf-pdf-tools)))))
 
 (defun asm/post-init-company ()
-  (spacemacs|add-company-backends :modes asm-mode nasm-mode))
+  (space-macs|add-company-backends :modes asm-mode nasm-mode))
 
 (defun asm/post-init-ggtags ()
-  (add-hook 'asm-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'asm-mode-local-vars-hook #'space-macs/ggtags-mode-enable))
 
 (defun asm/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'asm-mode))
+  (space-macs/counsel-gtags-define-keys-for-mode 'asm-mode))
 
 (defun asm/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'asm-mode))
+  (space-macs/helm-gtags-define-keys-for-mode 'asm-mode))
+
+

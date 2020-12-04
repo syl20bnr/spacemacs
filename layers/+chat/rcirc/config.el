@@ -1,11 +1,11 @@
-;;; config.el --- rcirc Layer configuration File for Spacemacs
+;;; config.el --- rcirc Layer configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -35,8 +35,10 @@
 (defvar rcirc-enable-znc-support nil
   "if non nil then znc is enabled.")
 
-(defvar rcirc-spacemacs-layout-name "@RCIRC"
-  "Name used in the setup for `spacemacs-layouts' micro-state")
+(defvar rcirc-space-macs-layout-name "@RCIRC"
+  "Name used in the setup for `space-macs-layouts' micro-state")
 
-(defvar rcirc-spacemacs-layout-binding "i"
-  "Binding used in the setup for `spacemacs-layouts' micro-state")
+(defvar rcirc-space-macs-layout-binding "i"
+  "Binding used in the setup for `space-macs-layouts' micro-state")
+
+

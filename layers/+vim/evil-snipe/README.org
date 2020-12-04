@@ -26,21 +26,21 @@ This layer adds various replacements for vim's default search functions.
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =evil-snipe= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =evil-snipe= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Improved f and t search behavior
 With evil-snipe you can define your own search scope for ~f~ and ~t~ searches
 which means that you won't have to jump to the correct line before searching
 with ~f~ / ~t~ / ~F~ / ~T~. And after you have found a match, you can just press
-~f~ or ~t~ again afterwards to continue the search. No need to use ~;~ / ~​,​~.
+~f~ or ~t~ again afterwards to continue the search. No need to use ~;~ / ~â€‹,â€‹~.
 
 This alternate behavior is disabled by default, to enable it set the
 layer variable =evil-snipe-enable-alternate-f-and-t-behaviors= to =t=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)))
 #+END_SRC
 
@@ -76,7 +76,7 @@ group of characters. By adding a pair of =(CHAR REGEX)= to the list
 - Here we set the ~[~ character to mean =all characters [({= *in all modes* so a
   search with ~sa[~ would find ~a[~, ~a{~ or ~a(~.
 
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC e-macs-lisp
     ;; Alias [ and ] to all types of brackets
     (push '(?\[ "[[{(]") evil-snipe-aliases)
     (push '(?\] "[]})]") evil-snipe-aliases)
@@ -86,7 +86,7 @@ group of characters. By adding a pair of =(CHAR REGEX)= to the list
   definitions" (but only in python-mode), so by searching with ~f:fff~ you can
   quickly cycle through all function definitions in a buffer!
 
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC e-macs-lisp
     ;; For python style functions
     (add-hook 'python-mode-hook
               (lambda ()
@@ -104,3 +104,5 @@ group of characters. By adding a pair of =(CHAR REGEX)= to the list
 | ~T~         | search backward for the next entered character and set the cursor before it's position  |
 | ~s~         | search forward for the next entered two characters and set the cursor to it's position  |
 | ~S~         | search backward for the next entered two characters and set the cursor to it's position |
+
+

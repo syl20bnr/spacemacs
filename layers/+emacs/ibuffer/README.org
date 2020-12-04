@@ -1,6 +1,6 @@
 #+TITLE: IBuffer layer
 
-#+TAGS: emacs|layer
+#+TAGS: e-macs|layer
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -12,15 +12,15 @@
   - [[#ibuffer][IBuffer]]
 
 * Description
-This layer configures Emacs IBuffer for Spacemacs.
+This layer configures e-macs IBuffer for Space-macs.
 
 ** Features:
 - Grouping of buffers by major-modes
 - Grouping of buffers by projects
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =ibuffer= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =ibuffer= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Grouping buffers
@@ -35,8 +35,8 @@ To change how buffers are grouped set the layer variable
 
 Example:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (ibuffer :variables ibuffer-group-buffers-by 'projects)))
 #+END_SRC
 
@@ -56,3 +56,5 @@ Example:
 | ~g r~                         | update IBuffer ("refresh")    |
 | ~g j~ / ~]~ / ~TAB~ / ~M-n~   | move to next filter group     |
 | ~g k~ / ~[~ / ~S-TAB~ / ~M-p~ | move to previous filter group |
+
+

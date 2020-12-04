@@ -1,11 +1,11 @@
-;;; packages.el --- Neotree Layer packages File for Spacemacs
+;;; packages.el --- Neotree Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -37,11 +37,11 @@
       (when (eq 'darwin system-type)
        (setq neo-default-system-application "open"))
 
-      (spacemacs|define-transient-state neotree
+      (space-macs|define-transient-state neotree
         :title "NeoTree Key Hints"
         :doc "
 Navigation^^^^             Actions^^         Visual actions/config^^^
-───────^^^^─────────────── ───────^^──────── ───────^^^────────────────
+â”€â”€â”€â”€â”€â”€â”€^^^^â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ â”€â”€â”€â”€â”€â”€â”€^^â”€â”€â”€â”€â”€â”€â”€â”€ â”€â”€â”€â”€â”€â”€â”€^^^â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 [_L_]   next sibling^^     [_c_] create      [_TAB_] shrink/enlarge
 [_H_]   previous sibling^^ [_C_] copy        [_|_]   vertical split
 [_J_]   goto child^^       [_d_] delete      [_-_]   horizontal split
@@ -54,7 +54,7 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
 [_RET_] open               ^^^^              [_?_]   close hints
 "
         :bindings
-        ("RET" spacemacs/neotree-expand-or-open)
+        ("RET" space-macs/neotree-expand-or-open)
         ("TAB" neotree-stretch-toggle)
         ("|" neotree-enter-vertical-split)
         ("-" neotree-enter-horizontal-split)
@@ -64,25 +64,25 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
         ("C" neotree-copy-node)
         ("d" neotree-delete-node)
         ("gr" neotree-refresh)
-        ("h" spacemacs/neotree-collapse-or-up)
+        ("h" space-macs/neotree-collapse-or-up)
         ("H" neotree-select-previous-sibling-node)
         ("j" neotree-next-line)
         ("J" neotree-select-down-node)
         ("k" neotree-previous-line)
         ("K" neotree-select-up-node)
-        ("l" spacemacs/neotree-expand-or-open)
+        ("l" space-macs/neotree-expand-or-open)
         ("L" neotree-select-next-sibling-node)
         ("r" neotree-rename-node)
         ("R" neotree-change-root)
         ("s" neotree-hidden-file-toggle))
 
-      (defun spacemacs//neotree-key-bindings ()
+      (defun space-macs//neotree-key-bindings ()
         "Set the key bindings for a neotree buffer."
         (evilified-state-evilify-map neotree-mode-map
           :mode neotree-mode
           :bindings
           (kbd "TAB")  'neotree-stretch-toggle
-          (kbd "RET") 'spacemacs/neotree-expand-or-open
+          (kbd "RET") 'space-macs/neotree-expand-or-open
           (kbd "|") 'neotree-enter-vertical-split
           (kbd "-") 'neotree-enter-horizontal-split
           (kbd "'") 'neotree-quick-look
@@ -90,31 +90,31 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
           (kbd "C") 'neotree-copy-node
           (kbd "d") 'neotree-delete-node
           (kbd "gr") 'neotree-refresh
-          (kbd "h") 'spacemacs/neotree-collapse-or-up
+          (kbd "h") 'space-macs/neotree-collapse-or-up
           (kbd "H") 'neotree-select-previous-sibling-node
           (kbd "j") 'neotree-next-line
           (kbd "J") 'neotree-select-down-node
           (kbd "k") 'neotree-previous-line
           (kbd "K") 'neotree-select-up-node
-          (kbd "l") 'spacemacs/neotree-expand-or-open
+          (kbd "l") 'space-macs/neotree-expand-or-open
           (kbd "L") 'neotree-select-next-sibling-node
           (kbd "q") 'neotree-hide
           (kbd "r") 'neotree-rename-node
           (kbd "R") 'neotree-change-root
-          (kbd "?") 'spacemacs/neotree-transient-state/body
+          (kbd "?") 'space-macs/neotree-transient-state/body
           (kbd "s") 'neotree-hidden-file-toggle))
 
-      (spacemacs/set-leader-keys
+      (space-macs/set-leader-keys
         "ft" 'neotree-toggle
         "fT" 'neotree-show
         "pt" 'neotree-find-project-root))
     :config
     (progn
-      (spacemacs//neotree-key-bindings)
-      (add-to-list 'spacemacs-window-split-ignore-prefixes neo-buffer-name))))
+      (space-macs//neotree-key-bindings)
+      (add-to-list 'space-macs-window-split-ignore-prefixes neo-buffer-name))))
 
 (defun neotree/pre-init-winum ()
-  (spacemacs|use-package-add-hook winum
+  (space-macs|use-package-add-hook winum
     :post-config
     ;; `0', `M-0' and `C-x w 0' are bound to `winum-select-window-0-or-10'
     (define-key winum-keymap [remap winum-select-window-0-or-10] #'neotree-show)
@@ -122,4 +122,6 @@ Navigation^^^^             Actions^^         Visual actions/config^^^
     (push '((nil . "winum-select-window-0-or-10") . (nil . "neotree-show"))
           which-key-replacement-alist)
     (add-to-list 'winum-assign-functions
-                 #'spacemacs//winum-neotree-assign-func)))
+                 #'space-macs//winum-neotree-assign-func)))
+
+

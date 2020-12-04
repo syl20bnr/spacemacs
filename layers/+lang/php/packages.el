@@ -1,11 +1,11 @@
-;;; packages.el --- PHP Layer packages File for Spacemacs
+;;; packages.el --- PHP Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -31,8 +31,8 @@
 
 (defun php/pre-init-dap-mode ()
   (pcase php-backend
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'php-mode)))
-  (add-hook 'php-mode-local-vars-hook #'spacemacs//php-setup-dap))
+    (`lsp (add-to-list 'space-macs--dap-supported-modes 'php-mode)))
+  (add-hook 'php-mode-local-vars-hook #'space-macs//php-setup-dap))
 
 (defun php/init-drupal-mode ()
   (use-package drupal-mode
@@ -42,16 +42,16 @@
   (add-hook 'php-mode-hook 'eldoc-mode))
 
 (defun php/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'php-mode))
+  (space-macs/enable-flycheck 'php-mode))
 
 (defun php/post-init-ggtags ()
-  (add-hook 'php-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'php-mode-local-vars-hook #'space-macs/ggtags-mode-enable))
 
 (defun php/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'php-mode))
+  (space-macs/counsel-gtags-define-keys-for-mode 'php-mode))
 
 (defun php/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'php-mode))
+  (space-macs/helm-gtags-define-keys-for-mode 'php-mode))
 
 (defun php/post-init-evil-matchit ()
   (add-hook 'php-mode-hook 'turn-on-evil-matchit-mode))
@@ -70,12 +70,12 @@
     :mode ("\\.php\\'" . php-mode)
     :init
     (progn
-      (add-hook 'php-mode-hook 'spacemacs//php-setup-backend))
+      (add-hook 'php-mode-hook 'space-macs//php-setup-backend))
     :config
     (progn
-      (spacemacs/declare-prefix-for-mode 'php-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'php-mode "mt" "tests")
-      (spacemacs/set-leader-keys-for-major-mode 'php-mode
+      (space-macs/declare-prefix-for-mode 'php-mode "mg" "goto")
+      (space-macs/declare-prefix-for-mode 'php-mode "mt" "tests")
+      (space-macs/set-leader-keys-for-major-mode 'php-mode
         "tt" 'phpunit-current-test
         "tc" 'phpunit-current-class
         "tp" 'phpunit-current-project))))
@@ -85,14 +85,14 @@
     :defer t
     :config
     (progn
-      (spacemacs/declare-prefix-for-mode 'php-mode "mrg" "generate")
-      (spacemacs/declare-prefix-for-mode 'php-mode "mre" "extract")
-      (spacemacs/declare-prefix-for-mode 'php-mode "mrm" "methods")
-      (spacemacs/declare-prefix-for-mode 'php-mode "mrc" "classes")
-      (spacemacs/declare-prefix-for-mode 'php-mode "mrp" "properties")
-      (spacemacs/declare-prefix-for-mode 'php-mode "mP" "phpactor")
-      (spacemacs/declare-prefix-for-mode 'php-mode "mr" "refactoring")
-      (spacemacs/set-leader-keys-for-major-mode 'php-mode
+      (space-macs/declare-prefix-for-mode 'php-mode "mrg" "generate")
+      (space-macs/declare-prefix-for-mode 'php-mode "mre" "extract")
+      (space-macs/declare-prefix-for-mode 'php-mode "mrm" "methods")
+      (space-macs/declare-prefix-for-mode 'php-mode "mrc" "classes")
+      (space-macs/declare-prefix-for-mode 'php-mode "mrp" "properties")
+      (space-macs/declare-prefix-for-mode 'php-mode "mP" "phpactor")
+      (space-macs/declare-prefix-for-mode 'php-mode "mr" "refactoring")
+      (space-macs/set-leader-keys-for-major-mode 'php-mode
         "ri"  #'phpactor-import-class
         "rr"  #'phpactor-rename-variable-local
         "rR"  #'phpactor-rename-variable-file
@@ -131,9 +131,9 @@
     :defer t
     :init
     (progn
-      (add-to-list 'spacemacs-jump-handlers-php-mode 'ac-php-find-symbol-at-point)
+      (add-to-list 'space-macs-jump-handlers-php-mode 'ac-php-find-symbol-at-point)
       (add-hook 'php-mode-hook 'ac-php-core-eldoc-setup)
-      (spacemacs|add-company-backends
+      (space-macs|add-company-backends
         :modes php-mode
         :backends (company-ac-php-backend company-phpactor)))))
 
@@ -141,10 +141,10 @@
   (use-package geben
     :config
     (progn
-      (setq geben-temporary-file-directory (concat spacemacs-cache-directory "geben"))
+      (setq geben-temporary-file-directory (concat space-macs-cache-directory "geben"))
 
-      (spacemacs/declare-prefix-for-mode 'php-mode "md" "debug")
-      (spacemacs/set-leader-keys-for-major-mode 'php-mode
+      (space-macs/declare-prefix-for-mode 'php-mode "md" "debug")
+      (space-macs/set-leader-keys-for-major-mode 'php-mode
         "dx" #'geben
         "dX" #'geben-end
         "db" #'geben-add-current-line-to-predefined-breakpoints
@@ -175,3 +175,5 @@
         (kbd "<tab>") 'widget-button-press)
       (evilified-state-evilify-map geben-backtrace-mode-map
         :mode geben-backtrace-mode))))
+
+

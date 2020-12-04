@@ -1,11 +1,11 @@
-;;; packages.el --- Common Lisp Layer packages File for Spacemacs
+;;; packages.el --- Common Lisp Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -42,24 +42,24 @@
       ad-do-it)))
 
 (defun common-lisp/pre-init-evil-cleverparens ()
-  (spacemacs|use-package-add-hook evil-cleverparens
+  (space-macs|use-package-add-hook evil-cleverparens
     :pre-init
     (progn
       (add-to-list 'evil-lisp-safe-structural-editing-modes 'common-lisp-mode)
       (add-to-list 'evil-lisp-safe-structural-editing-modes 'lisp-mode))))
 
 (defun common-lisp/post-init-helm ()
-  (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
-    "sI" 'spacemacs/helm-slime))
+  (space-macs/set-leader-keys-for-major-mode 'lisp-mode
+    "sI" 'space-macs/helm-slime))
 
 (defun common-lisp/post-init-ggtags ()
-  (add-hook 'common-lisp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'common-lisp-mode-local-vars-hook #'space-macs/ggtags-mode-enable))
 
 (defun common-lisp/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'common-lisp-mode))
+  (space-macs/counsel-gtags-define-keys-for-mode 'common-lisp-mode))
 
 (defun common-lisp/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'common-lisp-mode))
+  (space-macs/helm-gtags-define-keys-for-mode 'common-lisp-mode))
 
 (defun common-lisp/post-init-parinfer ()
   (add-hook 'lisp-mode-hook 'parinfer-mode))
@@ -68,7 +68,7 @@
   (add-hook 'lisp-mode-hook #'colors//rainbow-identifiers-ignore-keywords))
 
 (defun common-lisp/pre-init-slime-company ()
-  (spacemacs|use-package-add-hook slime
+  (space-macs|use-package-add-hook slime
     :pre-config
     (progn
       (setq slime-company-completion 'fuzzy)
@@ -80,7 +80,7 @@
     :commands slime-mode
     :init
     (progn
-      (spacemacs/register-repl 'slime 'slime)
+      (space-macs/register-repl 'slime 'slime)
       (setq slime-contribs '(slime-asdf
                              slime-fancy
                              slime-indentation
@@ -96,12 +96,12 @@
         (smartparens-strict-mode -1)
         (turn-off-smartparens-mode))
       (add-hook 'slime-repl-mode-hook #'slime/disable-smartparens)
-      (spacemacs/add-to-hooks 'slime-mode '(lisp-mode-hook)))
+      (space-macs/add-to-hooks 'slime-mode '(lisp-mode-hook)))
     :config
     (progn
       (slime-setup)
       ;; TODO: Add bindings for the SLIME debugger?
-      (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
+      (space-macs/set-leader-keys-for-major-mode 'lisp-mode
         "'" 'slime
 
         "cc" 'slime-compile-file
@@ -115,7 +115,7 @@
         "ef" 'slime-eval-defun
         "eF" 'slime-undefine-function
         "ee" 'slime-eval-last-expression
-        "el" 'spacemacs/slime-eval-sexp-end-of-line
+        "el" 'space-macs/slime-eval-sexp-end-of-line
         "er" 'slime-eval-region
 
         "gb" 'slime-pop-find-definition-stack
@@ -148,13 +148,13 @@
         "tf" 'slime-toggle-fancy-trace
 
         ;; Add key bindings for custom eval functions
-        "ec" 'spacemacs/cl-eval-current-form-sp
-        "eC" 'spacemacs/cl-eval-current-form
-        "es" 'spacemacs/cl-eval-current-symbol-sp
+        "ec" 'space-macs/cl-eval-current-form-sp
+        "eC" 'space-macs/cl-eval-current-form
+        "es" 'space-macs/cl-eval-current-symbol-sp
         )
       ;; prefix names for which-key
       (mapc (lambda (x)
-              (spacemacs/declare-prefix-for-mode 'lisp-mode (car x) (cdr x)))
+              (space-macs/declare-prefix-for-mode 'lisp-mode (car x) (cdr x)))
             '(("mh" . "help")
               ("me" . "eval")
               ("ms" . "repl")
@@ -162,3 +162,5 @@
               ("mg" . "nav")
               ("mm" . "macro")
               ("mt" . "toggle"))))))
+
+

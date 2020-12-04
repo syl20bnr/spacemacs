@@ -11,10 +11,10 @@
 ;; Last-Updated: Thu Feb 23 07:40:11 2017 (-0800)
 ;;           By: dradams
 ;;     Update #: 228
-;; URL: https://www.emacswiki.org/emacs/download/hide-comnt.el
-;; Doc URL: http://www.emacswiki.org/HideOrIgnoreComments
+;; URL: https://www.e-macswiki.org/e-macs/download/hide-comnt.el
+;; Doc URL: http://www.e-macswiki.org/HideOrIgnoreComments
 ;; Keywords: comment, hide, show
-;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
+;; Compatibility: GNU e-macs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -48,18 +48,18 @@
 ;;    `hide/show-comments-1'.
 ;;
 ;;
-;;  Put this in your init file (`~/.emacs'):
+;;  Put this in your init file (`~/.e-macs'):
 ;;
 ;;   (require 'hide-comnt)
 ;;
 ;;
-;;  Note for Emacs 20: The commands and option defined here DO NOTHING
-;;  IN EMACS 20.  Nevertheless, the library can be byte-compiled in
-;;  Emacs 20 and `hide-comnt.elc' can be loaded in later Emacs
+;;  Note for e-macs 20: The commands and option defined here DO NOTHING
+;;  IN e-macs 20.  Nevertheless, the library can be byte-compiled in
+;;  e-macs 20 and `hide-comnt.elc' can be loaded in later e-macs
 ;;  versions and used there.  This is the only real use of this
-;;  library for Emacs 20: it provides macro `with-comments-hidden'.
+;;  library for e-macs 20: it provides macro `with-comments-hidden'.
 ;;
-;;  Note for Emacs 21: It lacks the `comment-forward' function, so we
+;;  Note for e-macs 21: It lacks the `comment-forward' function, so we
 ;;  rely on the `comment-end' variable to determine the end of a
 ;;  comment. This means that only one type of comment terminator is
 ;;  supported.  For example, `c++-mode' sets `comment-end' to "",
@@ -74,7 +74,7 @@
 ;;
 ;; 2017/01/16 dadams
 ;;     hide/show-comments-1: ((add-to|remove-from)-invisibility-spec 'hide-comment).
-;;     See https://github.com/syl20bnr/spacemacs/issues/8123.
+;;     See https://github.com/syl20bnr/space-macs/issues/8123.
 ;; 2016/12/27 dadams
 ;;     Added: show-invisible-comments-shows-all.
 ;;     hide/show-comments(-1): Respect show-invisible-comments-shows-all.
@@ -168,7 +168,7 @@ But if `ignore-comments-flag' is nil, just evaluate BODY,
 without hiding comments.  Show comments again when BODY is finished.
 
 See `hide/show-comments', which is used to hide and show the comments.
-Note that prior to Emacs 21, this never hides comments."
+Note that prior to e-macs 21, this never hides comments."
   (let ((result  (make-symbol "result"))
         (ostart  (make-symbol "ostart"))
         (oend    (make-symbol "oend")))
@@ -210,7 +210,7 @@ Option `show-invisible-comments-shows-all':
 From Lisp, a HIDE/SHOW value of `hide' hides comments.  Other values
 show them.
 
-This command does nothing in Emacs versions prior to Emacs 21, because
+This command does nothing in e-macs versions prior to e-macs 21, because
 it needs `comment-search-forward'."
 
   (interactive
@@ -219,22 +219,22 @@ it needs `comment-search-forward'."
              (list (point-min) (point-max))
            (if (< (point) (mark)) (list (point) (mark)) (list (mark) (point))))))
   (when (and comment-start              ; No-op if no comment syntax defined.
-             (require 'newcomment nil t)) ; `comment-search-forward', Emacs 21+.
+             (require 'newcomment nil t)) ; `comment-search-forward', e-macs 21+.
     (comment-normalize-vars 'NO-ERROR)  ; Must call this first.
     (unless start (setq start  (point-min)))
     (unless end   (setq end    (point-max)))
     (unless (<= start end) (setq start  (prog1 end (setq end  start)))) ; Swap.
     (if (fboundp 'with-silent-modifications)
-        (with-silent-modifications      ; Emacs 23+.
+        (with-silent-modifications      ; e-macs 23+.
             (restore-buffer-modified-p nil) (hide/show-comments-1 hide/show start end))
-      (let ((bufmodp           (buffer-modified-p)) ; Emacs < 23.
+      (let ((bufmodp           (buffer-modified-p)) ; e-macs < 23.
             (buffer-read-only  nil)
             (buffer-file-name  nil))    ; Inhibit `ask-user-about-supersession-threat'.
         (set-buffer-modified-p nil)
         (unwind-protect (hide/show-comments-1 hide/show start end)
           (set-buffer-modified-p bufmodp))))))
 
-;; Used only so that we can use `hide/show-comments' with older Emacs releases that do not
+;; Used only so that we can use `hide/show-comments' with older e-macs releases that do not
 ;; have macro `with-silent-modifications' and built-in `restore-buffer-modified-p', which
 ;; it uses.
 (defun hide/show-comments-1 (hide/show start end)
@@ -249,14 +249,14 @@ it needs `comment-search-forward'."
                                    (setq cbeg  (comment-search-forward end 'NOERROR))))
         (goto-char cbeg)
         (save-excursion
-          (setq cend  (cond ((fboundp 'comment-forward) ; Emacs 22+
+          (setq cend  (cond ((fboundp 'comment-forward) ; e-macs 22+
                              (if (comment-forward 1)
                                  (if (= (char-before) ?\n) (1- (point)) (point))
                                end))
                             ((string= "" comment-end) (min (line-end-position) end))
                             (t (search-forward comment-end end 'NOERROR)))))
         (when hide-whitespace-before-comment-flag ; Hide preceding whitespace.
-          (if (fboundp 'looking-back)   ; Emacs 22+
+          (if (fboundp 'looking-back)   ; e-macs 22+
               (when (looking-back "\n?\\s-*" nil 'GREEDY)
                 (setq cbeg  (match-beginning 0)))
             (while (memq (char-before cbeg) '(?\   ?\t ?\f)) (setq cbeg  (1- cbeg)))
@@ -282,7 +282,7 @@ it needs `comment-search-forward'."
 If the region is active then toggle in the region.  Otherwise, in the
 whole buffer.
 
-This command does nothing in Emacs versions prior to Emacs 21, because
+This command does nothing in e-macs versions prior to e-macs 21, because
 it needs `comment-search-forward'.
 
 Interactively, START and END default to the region limits, if active.
@@ -293,7 +293,7 @@ See `hide/show-comments' for more information."
   (interactive (if (or (not mark-active)  (null (mark))  (= (point) (mark)))
                    (list (point-min) (point-max))
                  (if (< (point) (mark)) (list (point) (mark)) (list (mark) (point)))))
-  (when (require 'newcomment nil t)     ; `comment-search-forward', Emacs 21+.
+  (when (require 'newcomment nil t)     ; `comment-search-forward', e-macs 21+.
     (comment-normalize-vars)            ; Must call this first.
     (if (save-excursion
           (goto-char start)
@@ -310,3 +310,5 @@ See `hide/show-comments' for more information."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; hide-comnt.el ends here
+
+

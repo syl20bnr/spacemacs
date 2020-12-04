@@ -20,8 +20,8 @@ This layer adds support for vimscript and pentadactyl config files.
 - Syntax-checking (with LSP)
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =vimscript= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =vimscript= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
@@ -38,20 +38,20 @@ limited IDE capabilities. Used best if only small scripts
 are edited. To set explicitly set the following in your
 dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (vimscript :variables vimscript-backend 'company-vimscript)
 #+END_SRC
 
 *** LSP
 For proper IDE support this backend should be used. It is
 based on an external server which will be started automatically
-by emacs, once a vimscript file is opened. The key bindings are
+by e-macs, once a vimscript file is opened. The key bindings are
 the same for all lsp modes so if you are already familiar with
 one you should be able to work the same in all modes.
 
 To set explicitly do the following in your dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (vimscript :variables
              vimscript-backend 'lsp)
 #+END_SRC
@@ -67,3 +67,5 @@ NOTE: Key bindings for LSP are defined in the
 LSP layer. Also it is advisable to have a look
 at the autocomplete layer for an optimal
 intellisense config for LSP.
+
+

@@ -11,10 +11,10 @@
 ;; Last-Updated: Thu Jan  1 10:45:03 2015 (-0800)
 ;;           By: dradams
 ;;     Update #: 227
-;; URL: http://www.emacswiki.org/frame-fns.el
-;; Doc URL: http://emacswiki.org/FrameModes
+;; URL: http://www.e-macswiki.org/frame-fns.el
+;; Doc URL: http://e-macswiki.org/FrameModes
 ;; Keywords: internal, extensions, local, frames
-;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
+;; Compatibility: GNU e-macs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -78,7 +78,7 @@
 ;;
 ;;; Code:
 
-(eval-when-compile (when (< emacs-major-version 21) (require 'cl)))
+(eval-when-compile (when (< e-macs-major-version 21) (require 'cl)))
  ;; dolist, push
 (require 'avoid nil t) ;; mouse-avoidance-point-position
 
@@ -311,3 +311,5 @@ Terminates any keyboard macro executing, unless arg DO-NOT-TERMINATE non-nil."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; frame-fns.el ends here
+
+

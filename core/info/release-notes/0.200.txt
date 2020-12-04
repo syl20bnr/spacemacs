@@ -13,4 +13,6 @@ mwillsey, robbyoconnor and alimoeeny. And of course, last but
 not least, the hard working organizer d12frosted!
 
 For more info on release 0.200.x see the newsletter #01 at
-[[http://spacemacs.org/news/news01.html]]
+[[http://space-macs.org/news/news01.html]]
+
+

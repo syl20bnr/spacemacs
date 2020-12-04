@@ -19,7 +19,7 @@
   - [[#notifications][Notifications]]
     - [[#os-notifications][OS notifications]]
     - [[#mode-line-notifications][Mode-line notifications]]
-  - [[#spacemacs-layout-integration][Spacemacs layout integration]]
+  - [[#space-macs-layout-integration][Space-macs layout integration]]
 - [[#see-also][See also]]
 
 * Description
@@ -40,24 +40,24 @@ Typically =mu4e= will be bundled with =mu= (this is the case on many Linux
 distributions).
 
 If you're on macOS and install =mu= using Homebrew, you must specify the
-location of your Emacs binary at install time using the EMACS environment
-variable, as well as passing the =--with-emacs= option:
+location of your e-macs binary at install time using the e-macs environment
+variable, as well as passing the =--with-e-macs= option:
 
 #+BEGIN_SRC shell
-  brew install mu --with-emacs
+  brew install mu --with-e-macs
 #+END_SRC
 
-If the installation directory of =mu4e= is not in Emacs' load path, you can set
+If the installation directory of =mu4e= is not in e-macs' load path, you can set
 the layer variable =mu4e-installation-path=, for example:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((mu4e :variables
-                        mu4e-installation-path "/usr/share/emacs/site-lisp")))
+                        mu4e-installation-path "/usr/share/e-macs/site-lisp")))
 #+END_SRC
 
-Then add this layer to your =~/.spacemacs=. You will need to add =mu4e= to the
-existing =dotspacemacs-configuration-layers= list in this file.
+Then add this layer to your =~/.space-macs=. You will need to add =mu4e= to the
+existing =dotspace-macs-configuration-layers= list in this file.
 
 * Commands
 ** Global bindings
@@ -98,8 +98,8 @@ your base mail directory.
 The maildirs extension is not enabled by default. To activate it, change the
 variable =mu4e-use-maildirs-extension= to a non-nil value:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((mu4e :variables
                         mu4e-use-maildirs-extension t)))
 #+END_SRC
@@ -110,7 +110,7 @@ multiple accounts.
 
 The following example is taken from the manual:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq mu4e-contexts
     `( ,(make-mu4e-context
     :name "Private"
@@ -163,8 +163,8 @@ to wait for the email to be sent. This is off by default but you can enable
 it by setting the ~mu4e-enable-async-operations~ variable when including the
 layer.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((mu4e :variables
                         mu4e-enable-async-operations t)))
 #+END_SRC
@@ -172,14 +172,14 @@ layer.
 ** Attachment directory
 By default =mu4e= will save attachment files to =$HOME=, but this layer changes
 that to =$HOME/Downloads= if it exists. You can override this in your
-=dotspacemacs/user-config=:
+=dotspace-macs/user-config=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq mu4e-attachment-dir "~/files")
 #+END_SRC
 
 ** Example configuration
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;;; Set up some common mu4e variables
   (setq mu4e-maildir "~/.mail"
         mu4e-trash-folder "/Trash"
@@ -220,25 +220,25 @@ For an extended documentation of the available customizations please refer to
 
 *** OS notifications
 To enable notifications about new messages, add the following line to your
-=dotspacemacs/user-config=:
+=dotspace-macs/user-config=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq mu4e-enable-notifications t)
 #+END_SRC
 
 or use layer variables when you add the layer to
-=dotspacemacs-configuration-layers=:
+=dotspace-macs-configuration-layers=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (mu4e :variables mu4e-enable-notifications t)
 #+END_SRC
 
 By default, notifications will be shown in the =*Messages*= buffer. To enable
 desktop notifications about new messages, add the following lines to
-your =dotspacemacs/user-config=, according to your operating system and the
+your =dotspace-macs/user-config=, according to your operating system and the
 installed libraries:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (with-eval-after-load 'mu4e-alert
     ;; Enable Desktop notifications
     (mu4e-alert-set-default-style 'notifications)) ; For Linux.
@@ -250,36 +250,38 @@ installed libraries:
 
 *** Mode-line notifications
 To enable mode-line display about new messages, add the following line to
-your =dotspacemacs/user-config=:
+your =dotspace-macs/user-config=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq mu4e-enable-mode-line t)
 #+END_SRC
 
 or use layer variables when you add the layer to
-=dotspacemacs-configuration-layers=:
+=dotspace-macs-configuration-layers=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (mu4e :variables mu4e-enable-mode-line t)
 #+END_SRC
 
-** Spacemacs layout integration
-A [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces][Spacemacs custom layout]] is defined by the layer. The name and the key binding
+** Space-macs layout integration
+A [[https://github.com/syl20bnr/space-macs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces][Space-macs custom layout]] is defined by the layer. The name and the key binding
 for it can be customized with the following layer variables:
-- =mu4e-spacemacs-layout-name= for the layout name,
-- =mu4e-spacemacs-layout-binding= for the key binding.
-- =mu4e-spacemacs-kill-layout-on-exit= for automatically removing layout when
+- =mu4e-space-macs-layout-name= for the layout name,
+- =mu4e-space-macs-layout-binding= for the key binding.
+- =mu4e-space-macs-kill-layout-on-exit= for automatically removing layout when
   quitting =mu4e=.
 
 By default the values are:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-                '((mu4e :variables mu4e-spacemacs-layout-name "@Mu4e"
-                        mu4e-spacemacs-layout-binding "m"
-                        mu4e-spacemacs-kill-layout-on-exit t)))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
+                '((mu4e :variables mu4e-space-macs-layout-name "@Mu4e"
+                        mu4e-space-macs-layout-binding "m"
+                        mu4e-space-macs-kill-layout-on-exit t)))
 #+END_SRC
 
 * See also
 Refer to the official =mu= and =mu4e= documentation for additional info.
 - [[http://www.djcbsoftware.nl/code/mu/mu4e/index.html][mu4e Manual]]
+
+

@@ -23,13 +23,13 @@
     - [[#search-mode][Search mode]]
     - [[#show-mode-1][Show mode]]
     - [[#tree-mode][Tree mode]]
-- [[#spacemacs-layout-integration][Spacemacs layout integration]]
+- [[#space-macs-layout-integration][Space-macs layout integration]]
 
 * Description
 Notmuch offers a fast, global-search and tag-based email system to
 use within your text editor or in a terminal.
 
-This layer integrates the Notmuch Emacs package into Spacemacs.
+This layer integrates the Notmuch e-macs package into Space-macs.
 
 ** Features:
 - Email searching
@@ -38,10 +38,10 @@ This layer integrates the Notmuch Emacs package into Spacemacs.
 * Install
 In order to use this layer you must install Notmuch separately.
 
-To install not much follow the instructions in [[https://notmuchmail.org/notmuch-emacs/#index2h2][installation instructions]].
+To install not much follow the instructions in [[https://notmuchmail.org/notmuch-e-macs/#index2h2][installation instructions]].
 
-Then add this layer to your =~/.spacemacs=. You will need to add =notmuch= to
-the existing =dotspacemacs-configuration-layers= list in this file.
+Then add this layer to your =~/.space-macs=. You will need to add =notmuch= to
+the existing =dotspace-macs-configuration-layers= list in this file.
 
 * Configuration
 ** Sending and Receiving emails
@@ -58,7 +58,7 @@ that calls your email syncing utility.
 
 *** Sending emails with Thunderbird
 You could use thunderbird
-[[http://pragmaticemacs.com/emacs/use-emacs-for-thunderbird-emails/]]
+[[http://pragmatice-macs.com/e-macs/use-e-macs-for-thunderbird-emails/]]
 
 *** Sending emails with msmtp
 Download and Install [[http://msmtp.sourceforge.net/download.html][msmtp]]
@@ -82,8 +82,8 @@ setting the layer variable =notmuch-message-deleted-tags=.
 Default value is to add the =deleted= tag and remove both =inbox= and
 =unread= tags.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((notmuch :variables notmuch-message-deleted-tags '("+deleted" "-inbox" "-unread"))))
 #+END_SRC
 
@@ -189,17 +189,19 @@ Refer to the official notmuch website for more information:
 | ~-~         | [Message] Remove tags    |
 | ~a~         | [Message] Archive        |
 
-* Spacemacs layout integration
-This layer defines a [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces][Spacemacs custom layout]] and automatically adds notmuch
+* Space-macs layout integration
+This layer defines a [[https://github.com/syl20bnr/space-macs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces][Space-macs custom layout]] and automatically adds notmuch
 buffers to this layout. The name and the key binding for the layout can be
 customized with the following layer variables:
-- =notmuch-spacemacs-layout-name= for the layout name,
-- =notmuch-spacemacs-layout-binding= for the key binding.
+- =notmuch-space-macs-layout-name= for the layout name,
+- =notmuch-space-macs-layout-binding= for the key binding.
 
 The following example configures the layout with the default name and binding:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (notmuch :variables notmuch-spacemacs-layout-name "@Notmuch"
-                        notmuch-spacemacs-layout-binding "n")))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
+    (notmuch :variables notmuch-space-macs-layout-name "@Notmuch"
+                        notmuch-space-macs-layout-binding "n")))
 #+END_SRC
+
+

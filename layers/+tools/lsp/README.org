@@ -16,8 +16,8 @@
   - [[#key-binding-prefixes][Key binding prefixes]]
   - [[#core-key-bindings][Core key bindings]]
   - [[#language-specific-key-binding-extensions][Language-specific key binding extensions]]
-    - [[#spacemacslsp-define-extensions-layer-name-kind-request-optional-extra-parameters][~spacemacs/lsp-define-extensions layer-name kind request &optional extra-parameters~]]
-    - [[#spacemacslsp-bind-extensions-for-mode][~spacemacs/lsp-bind-extensions-for-mode~]]
+    - [[#space-macslsp-define-extensions-layer-name-kind-request-optional-extra-parameters][~space-macs/lsp-define-extensions layer-name kind request &optional extra-parameters~]]
+    - [[#space-macslsp-bind-extensions-for-mode][~space-macs/lsp-bind-extensions-for-mode~]]
 - [[#dap-integration][DAP integration]]
 - [[#diagnostics][Diagnostics]]
 - [[#references][References]]
@@ -48,7 +48,7 @@ details.
 Enabling this layer will set the used backend for all supported languages to
 =LSP= unless you explicitly set a specific backend for the language.
 
-The LSP ecosystem is based on two packages: [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] and [[https://github.com/emacs-lsp/lsp-ui][lsp-ui]].
+The LSP ecosystem is based on two packages: [[https://github.com/e-macs-lsp/lsp-mode][lsp-mode]] and [[https://github.com/e-macs-lsp/lsp-ui][lsp-ui]].
 Please check out their documentation.
 
 If you add =lsp-**-enable= to major mode hooks for auto initialization of
@@ -57,8 +57,8 @@ disable projects you don't want to enable LSP.
 
 ** Variables
 A number of configuration variables have been exposed via the LSP layer =config.el=.
-Sensible defaults have been provided, however they may all be overridden in your .spacemacs, or dynamically using the bindings added
-under the derived mode t prefix by =(spacemacs/lsp-bind-keys-for-mode mode)=
+Sensible defaults have been provided, however they may all be overridden in your .space-macs, or dynamically using the bindings added
+under the derived mode t prefix by =(space-macs/lsp-bind-keys-for-mode mode)=
 
 | Variable name                        | Default                              | Description                                                                                                     |
 |--------------------------------------+--------------------------------------+-----------------------------------------------------------------------------------------------------------------|
@@ -83,8 +83,8 @@ For example, the LSP server may decorate the entry point of a program, and also 
 
 To always display code lens,
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((lsp :variables lsp-lens-enable nil)))
 #+END_SRC
 
@@ -94,15 +94,15 @@ This doesn't have any effect when code lens is not supported by current language
 By default, all error statistics of a project is displayed in the modeline.
 To disable this feature, set ~lsp-modeline-diagnostics-enable~ to ~nil~.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((lsp :variables lsp-modeline-diagnostics-enable nil)))
 #+END_SRC
 
 To only display errors for the current file, you can set ~lsp-modeline-diagnostics-scope~ to ~:file~.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((lsp :variables lsp-modeline-diagnostics-scope :file)))
 #+END_SRC
 
@@ -111,8 +111,8 @@ Alternatively, if you want to see all errors across all projects, you can set it
 ** Code actions on modeline
 By default, available code actions are displayed in modeline. To disable this feature, set ~lsp-modeline-code-actions-enable~ to ~nil~.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((lsp :variables lsp-modeline-code-actions-enable nil)))
 #+END_SRC
 
@@ -121,8 +121,8 @@ You can also customize its appearance via ~lsp-modeline-code-actions-segments~. 
 - ~name~ shows the name of the preferred code action.
 - ~count~ shows the how many code actions are available.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((lsp :variables
                        ;; default segments
                        lsp-modeline-code-actions-segments '(count icon))))
@@ -145,15 +145,15 @@ You can customize the breadcrumb segments via ~lsp-headerline-breadcrumb-segment
 
 For example, to display only the symbols,
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((lsp :variables lsp-headerline-breadcrumb-segments '(symbols))))
 #+END_SRC
 
 To display the current project, current file, and document symbols,
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((lsp :variables lsp-headerline-breadcrumb-segments '(project file symbols))))
 #+END_SRC
 
@@ -202,7 +202,7 @@ The lsp minor mode bindings are:
 | ~SPC m g t~ | goto type-definition (=lsp-mode=)                                                |
 | ~SPC m g k~ | goto viewport word (=avy=) (See Note 1)                                          |
 | ~SPC m g K~ | goto viewport symbol (=avy=) (See Note 1)                                        |
-| ~SPC m g e~ | browse flycheck errors (=lsp-treemacs=)                                          |
+| ~SPC m g e~ | browse flycheck errors (=lsp-tree-macs=)                                          |
 | ~SPC m g M~ | browse file symbols (=lsp-ui-imenu=)                                             |
 |-------------+----------------------------------------------------------------------------------|
 | Note        | /Replaced by the lsp-ui-peek equivalents when ~lsp-navigation~ is ~'peek~ /      |
@@ -219,7 +219,7 @@ The lsp minor mode bindings are:
 | ~SPC m G d~ | find definitions (=lsp-ui-peek=)                                                 |
 | ~SPC m G r~ | find references (=lsp-ui-peek=)                                                  |
 | ~SPC m G s~ | find workspace symbol (=lsp-ui-peek=)                                            |
-| ~SPC m G S~ | goto workspace symbol (~lsp-treemacs-symbols~)                                   |
+| ~SPC m G S~ | goto workspace symbol (~lsp-tree-macs-symbols~)                                   |
 | ~SPC m G p~ | goto previous (=lsp-ui-peek= stack - see Note 2)                                 |
 | ~SPC m G n~ | goto next (=lsp-ui-peek stack= - see Note 2)                                     |
 | ~SPC m G E~ | browse flycheck errors (=lsp-ui=)                                                |
@@ -256,11 +256,11 @@ Some LSP server implementations provide extensions to the protocol, which can be
 or ~lsp-ui-peek-find-custom~. A number of additional functions have been provided to facilitate wrapping these extensions
 in a manner consistent with the ~lsp-navigation~ setting.
 
-*** ~spacemacs/lsp-define-extensions layer-name kind request &optional extra-parameters~
+*** ~space-macs/lsp-define-extensions layer-name kind request &optional extra-parameters~
 Use this to define an extension to the lsp find functions. An example from the c-c++ layer:
 
 #+BEGIN_SRC elisp
-  (spacemacs/lsp-define-extensions "c-c++" 'refs-address
+  (space-macs/lsp-define-extensions "c-c++" 'refs-address
                                    "textDocument/references"
                                    '(plist-put (lsp--text-document-position-params) :context '(:role 128)))
 #+END_SRC
@@ -269,12 +269,12 @@ This defines the following interactive functions:
 - ~c-c++/find-refs-address~
 - ~c-c++/peek-refs-address~
 
-*** ~spacemacs/lsp-bind-extensions-for-mode~
+*** ~space-macs/lsp-bind-extensions-for-mode~
 Use this to bind one or more extensions under ~SPC m g~ and/or ~SPC m G~, as dictated by the value of ~lsp-navigation~.
 Using another example from the c-c++ layer:
 
 #+BEGIN_SRC elisp
-  (spacemacs/lsp-bind-extensions-for-mode mode "c-c++"
+  (space-macs/lsp-bind-extensions-for-mode mode "c-c++"
                                           "&" 'refs-address
                                           "R" 'refs-read
                                           "W" 'refs-write
@@ -286,7 +286,7 @@ Using another example from the c-c++ layer:
 With ~lsp-navigation~ set to ~'both~ (the default), this is equivalent to:
 
 #+BEGIN_SRC elisp
-  (spacemacs/set-leader-keys-for-major-mode mode
+  (space-macs/set-leader-keys-for-major-mode mode
     "g&" 'c-c++/find-refs-address
     "gR" 'c-c++/find-refs-read
     "gW" 'c-c++/find-refs-write
@@ -304,7 +304,7 @@ With ~lsp-navigation~ set to ~'both~ (the default), this is equivalent to:
 whereas with ~lsp-navigation~ set to ~'peek~, this is equivalent to:
 
 #+BEGIN_SRC elisp
-  (spacemacs/set-leader-keys-for-major-mode mode
+  (space-macs/set-leader-keys-for-major-mode mode
     "g&" 'c-c++/peek-refs-address
     "gR" 'c-c++/peek-refs-read
     "gW" 'c-c++/peek-refs-write
@@ -327,5 +327,7 @@ If some features do not work as expected, here is a common check list.
   completion
 
 * References
-- [[https://github.com/emacs-lsp/lsp-mode][lsp-mode repo]]
-- [[https://github.com/emacs-lsp/lsp-ui][lsp-ui repo]]
+- [[https://github.com/e-macs-lsp/lsp-mode][lsp-mode repo]]
+- [[https://github.com/e-macs-lsp/lsp-ui][lsp-ui repo]]
+
+

@@ -1,9 +1,11 @@
-If you are posting about a *bug* please close this issue and open a new one from within Spacemacs using:
+If you are posting about a *bug* please close this issue and open a new one from within Space-macs using:
 - `SPC h I`
 - `M-m h I`
 
 (I = capital i)
 
-If the bug makes Spacemacs unusable, you can find the bug report template [here](https://github.com/syl20bnr/spacemacs/blob/develop/core/templates/REPORTING.template).
+If the bug makes Space-macs unusable, you can find the bug report template [here](https://github.com/syl20bnr/space-macs/blob/develop/core/templates/REPORTING.template).
 
 You can delete this message to start typing.
+
+

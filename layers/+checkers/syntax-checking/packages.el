@@ -1,11 +1,11 @@
-;;; packages.el --- Syntax Checking Layer packages File for Spacemacs
+;;; packages.el --- Syntax Checking Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -21,31 +21,31 @@
     :defer t
     :init
     (progn
-      (spacemacs|add-transient-hook prog-mode-hook
+      (space-macs|add-transient-hook prog-mode-hook
         (lambda () (when syntax-checking-enable-by-default
                      (global-flycheck-mode 1)))
         lazy-load-flycheck)
       (setq flycheck-standard-error-navigation syntax-checking-use-standard-error-navigation
             flycheck-global-modes nil)
       ;; key bindings
-      (spacemacs/set-leader-keys
+      (space-macs/set-leader-keys
         "eb" 'flycheck-buffer
         "ec" 'flycheck-clear
         "eh" 'flycheck-describe-checker
-        "el" 'spacemacs/toggle-flycheck-error-list
-        "eL" 'spacemacs/goto-flycheck-error-list
+        "el" 'space-macs/toggle-flycheck-error-list
+        "eL" 'space-macs/goto-flycheck-error-list
         "es" 'flycheck-select-checker
         "eS" 'flycheck-set-checker-executable
         "ev" 'flycheck-verify-setup
         "ey" 'flycheck-copy-errors-as-kill
         "ex" 'flycheck-explain-error-at-point)
-      (spacemacs|add-toggle syntax-checking
+      (space-macs|add-toggle syntax-checking
         :mode flycheck-mode
         :documentation "Enable error and syntax checking."
         :evil-leader "ts"))
     :config
     (progn
-      (spacemacs|diminish flycheck-mode " ⓢ" " s")
+      (space-macs|diminish flycheck-mode " â“¢" " s")
       ;; Custom fringe indicator
       (when (and (fboundp 'define-fringe-bitmap)
                  (not syntax-checking-use-original-bitmaps))
@@ -106,7 +106,7 @@
       (setq flycheck-pos-tip-timeout (or syntax-checking-auto-hide-tooltips 0)))))
 
 (defun syntax-checking/pre-init-popwin ()
-  (spacemacs|use-package-add-hook popwin
+  (space-macs|use-package-add-hook popwin
     :post-config
     (push '("^\\*Flycheck.+\\*$"
             :regexp t
@@ -115,3 +115,5 @@
             :stick t
             :noselect t)
           popwin:special-display-config)))
+
+

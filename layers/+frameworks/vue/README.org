@@ -37,8 +37,8 @@ you don't use that package together with this layer.
 - =emmet-mode= and =yasnippet= for code expanding with the =TAB= key
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =vue= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =vue= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 The Vue layer uses the backend that's defined by the variable =vue-backend=. The options are =dumb=
@@ -64,7 +64,7 @@ To use automatic code formatting you need to install =prettier= with:
 #+END_SRC
 
 If you want to use local =eslint= and =prettier= in your project, turn on node
- layer =dotspacemacs-configuration-layers= function:
+ layer =dotspace-macs-configuration-layers= function:
 
 #+BEGIN_SRC elisp
   (node :variables node-add-modules-path t)
@@ -99,9 +99,9 @@ Same as =react= layer, you may refer to the =web-mode= configuration for fine
 tuning the indenting behaviour.
 
 For example, if you wan't two space indentation, put this in your
-=dotspacemacs/user-config=
+=dotspace-macs/user-config=
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq-default
    ;; web-mode
    web-mode-markup-indent-offset 2
@@ -162,4 +162,6 @@ A transient-state is also defined, start it with ~SPC m .~ or ~, .~
 | ~SPC m G~   | jump to definition for the given name                |
 
 ** Lsp key bindings
-See the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/lsp][lsp layer]].
+See the [[https://github.com/syl20bnr/space-macs/tree/develop/layers/%2Btools/lsp][lsp layer]].
+
+

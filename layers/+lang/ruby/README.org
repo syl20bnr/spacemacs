@@ -41,19 +41,19 @@ This layer provides support for the Ruby programming language.
 - Rake runner
 - Linter (rubocop)
 - Interactive REPL and code navigation (robe)
-- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
+- Interactive debugger using [[https://github.com/e-macs-lsp/dap-mode][dap-mode]]
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =ruby= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =ruby= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
-This layer supports two different Ruby modes: Emacs's built-in Ruby Mode and
+This layer supports two different Ruby modes: e-macs's built-in Ruby Mode and
 [[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]]. By default the built-in Ruby mode is enabled. To switch to the
 =enh-ruby-mode= set =ruby-enable-enh-ruby-mode= to t:
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs-configuration-layers ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs-configuration-layers ()
      '((ruby :variables ruby-enable-enh-ruby-mode t)))
 #+END_SRC
 
@@ -73,7 +73,7 @@ Backend can be chosen on a per project basis using directory local variables
 
 #+BEGIN_SRC elisp
   ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
+  ;;; For more information see (info "(e-macs) Directory Variables")
 
   ((ruby-mode (ruby-backend . lsp)))
 #+END_SRC
@@ -93,7 +93,7 @@ installed globally with:
 
 LSP also supports the DAP debugger which will be automatically configured upon
 using the LSP backend. Dap-mode can be setup here:
-[[https://github.com/emacs-lsp/dap-mode#ruby]]
+[[https://github.com/e-macs-lsp/dap-mode#ruby]]
 
 ** Prerequisites
 Some of the advanced features supported by this layer depend on external gems
@@ -124,8 +124,8 @@ This layer supports [[https://rvm.io/][RVM]], [[https://github.com/rbenv/rbenv][
 manager by setting the variable =ruby-version-manager= in your dotfile, for
 example:
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs-configuration-layers ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs-configuration-layers ()
      '((ruby :variables ruby-version-manager 'rvm)))
 #+END_SRC
 
@@ -144,8 +144,8 @@ set the layer variable =ruby-test-runner=.
 
 Example to set the test runner to =RSpec=:
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs-configuration-layers ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs-configuration-layers ()
      '((ruby :variables ruby-test-runner 'rspec)))
 #+END_SRC
 
@@ -169,15 +169,15 @@ directory local variables.
 | ~SPC m s r~ | send region                                       |
 | ~SPC m s R~ | send region and switch to REPL                    |
 | ~SPC m s s~ | switch to REPL                                    |
-| ~SPC m x '​~ | Change symbol or ="= string to ='=                |
-| ~SPC m x "​~ | Change symbol or ='= string to ="=                |
+| ~SPC m x 'â€‹~ | Change symbol or ="= string to ='=                |
+| ~SPC m x "â€‹~ | Change symbol or ='= string to ="=                |
 | ~SPC m x :~ | Change string to symbol                           |
 | ~SPC m x h~ | toggle hash syntax in active region               |
 | ~%~         | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] jumps between blocks                 |
 
 ** Debugger
 Using the =dap= layer you'll get access to all the DAP key bindings, see the
-complete list of key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
+complete list of key bindings on the [[https://github.com/syl20bnr/space-macs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
 
 ** Bundler
 
@@ -285,9 +285,11 @@ When =ruby-test-runner= equals =minitest=.
 ** Disabling the automatic insertion of encoding comment
 Note that =ruby-mode= and =enh-ruby-mode= will automatically insert the encoding comment ~# coding: utf-8~ at the top of a =`.rb= file, if it contains UTF-8 characters. This might not be desired in Ruby 2.0+, since UTF-8 has become the default encoding. In fact, this will trigger [[https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Style/Encoding][an error]] with Robocop.
 
-[[https://stackoverflow.com/questions/6453955/how-do-i-prevent-emacs-from-adding-coding-information-in-the-first-line][The fix]] is to set the variable =ruby-insert-encoding-magic-comment= (=ruby-mode=) or =enh-ruby-add-encoding-comment-on-save= (=enh-ruby-mode=) to =nil=, e.g.
+[[https://stackoverflow.com/questions/6453955/how-do-i-prevent-e-macs-from-adding-coding-information-in-the-first-line][The fix]] is to set the variable =ruby-insert-encoding-magic-comment= (=ruby-mode=) or =enh-ruby-add-encoding-comment-on-save= (=enh-ruby-mode=) to =nil=, e.g.
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs-configuration-layers ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs-configuration-layers ()
      '((ruby :variables ruby-insert-encoding-magic-comment nil)))
 #+END_SRC
+
+

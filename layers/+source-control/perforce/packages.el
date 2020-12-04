@@ -1,11 +1,11 @@
-;;; packages.el --- Perforce Layer packages File for Spacemacs
+;;; packages.el --- Perforce Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -60,8 +60,8 @@
                p4-ediff)
     :init
     (progn
-      (spacemacs/declare-prefix "p4" "perforce")
-      (spacemacs/set-leader-keys
+      (space-macs/declare-prefix "p4" "perforce")
+      (space-macs/set-leader-keys
         "p4a" 'p4-add
         "p4b" 'p4-branch
         "p4B" 'p4-branches
@@ -107,3 +107,5 @@
         "p4=" 'p4-diff
         "p4+" 'p4-diff-all-opened
         "p4-" 'p4-ediff))))
+
+

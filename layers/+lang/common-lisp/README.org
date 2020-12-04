@@ -20,7 +20,7 @@
     - [[#macroexpansion][Macroexpansion]]
 
 * Description
-This layer provides support for Common Lisp to Spacemacs.
+This layer provides support for Common Lisp to Space-macs.
 
 ** Features:
 - Syntax highlighting
@@ -35,15 +35,15 @@ you uninstall it before proceeding. You should clean up any config files tied to
 slime that are left behind as well. Linux users can just purge the slime package
 if it was a distribution install.
 
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =common-lisp= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =common-lisp= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 This layer defaults to using [[http://www.sbcl.org/][sbcl]]. If you want to use a different implementation
-of Common Lisp, you can specify it in your =~/.spacemacs=
+of Common Lisp, you can specify it in your =~/.space-macs=
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/user-config ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs/user-config ()
     (setq inferior-lisp-program "/path/to/your/lisp"))
 #+END_SRC
 
@@ -55,28 +55,28 @@ By default this mode is not activated. You can turn it on locally on the active
 buffer with ~SPC m T s~ (=s= for safe).
 
 To turn it on automatically for all =common-lisp= buffers call the following
-function in your =dotspacemacs/user-config= function:
+function in your =dotspace-macs/user-config= function:
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-common-lisp-mode)
+#+BEGIN_SRC e-macs-lisp
+  (space-macs/toggle-evil-safe-lisp-structural-editing-on-register-hook-common-lisp-mode)
 #+END_SRC
 
 or to enable it for all supported modes:
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+#+BEGIN_SRC e-macs-lisp
+  (space-macs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 #+END_SRC
 
-When enabled the symbol =🆂= should be displayed in the mode-line.
+When enabled the symbol =ðŸ†‚= should be displayed in the mode-line.
 
 * Key bindings
 ** Working with lisp files (barfage, slurpage & more)
-Spacemacs comes with a special =lisp-state= for working with lisp code that
+Space-macs comes with a special =lisp-state= for working with lisp code that
 supports slurpage, barfage and more tools you'll likely want when working with
 lisp.
 
 As this state works the same for all files, the documentation is in global
-[[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
+[[https://github.com/syl20bnr/space-macs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
 
 ** Leader
 *** Help
@@ -145,3 +145,5 @@ As this state works the same for all files, the documentation is in global
 |-------------+-----------------------------------------------|
 | ~SPC m m a~ | Macroexpand the expression at point completly |
 | ~SPC m m o~ | Macroexpand the expression at point once      |
+
+

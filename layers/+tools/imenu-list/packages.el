@@ -1,11 +1,11 @@
-;;; packages.el --- imenu-list Layer packages File for Spacemacs
+;;; packages.el --- imenu-list Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -16,7 +16,7 @@
     ))
 
 (defun imenu-list/pre-init-golden-ratio ()
-  (spacemacs|use-package-add-hook golden-ratio
+  (space-macs|use-package-add-hook golden-ratio
     :post-config
     (add-to-list 'golden-ratio-exclude-buffer-regexp "^\\*Ilist\\*")))
 
@@ -34,5 +34,7 @@
       "r" #'imenu-list-refresh)
     :spacebind
     (:global
-     (("b" "Buffers" ("i" spacemacs/imenu-list-smart-focus "Focus imenu sidebar"))
+     (("b" "Buffers" ("i" space-macs/imenu-list-smart-focus "Focus imenu sidebar"))
       ("T" "UI toggles/themes" ("i" imenu-list-smart-toggle "Toggle imenu sidebar"))))))
+
+

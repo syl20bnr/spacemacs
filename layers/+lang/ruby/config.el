@@ -1,18 +1,18 @@
-;;; config.el --- Ruby Layer configuration File for Spacemacs
+;;; config.el --- Ruby Layer configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 ;; Variables
 
-(spacemacs|define-jump-handlers enh-ruby-mode)
-(spacemacs|define-jump-handlers ruby-mode)
+(space-macs|define-jump-handlers enh-ruby-mode)
+(space-macs|define-jump-handlers ruby-mode)
 
 (defvar ruby-backend 'robe
   "Defines the backend for IDE features, defaulting to robe.
@@ -31,3 +31,5 @@ Possible values are `rbenv', `rvm' or `chruby'.)")
 
 (defvar ruby-highlight-debugger-keywords t
   "If non-nil, enable highlight for debugger keywords.")
+
+

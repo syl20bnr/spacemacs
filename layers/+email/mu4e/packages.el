@@ -1,11 +1,11 @@
-;;; packages.el --- mu4e Layer packages File for Spacemacs
+;;; packages.el --- mu4e Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -20,15 +20,15 @@
     window-purpose))
 
 (defun mu4e/post-init-persp-mode ()
-  (spacemacs|define-custom-layout mu4e-spacemacs-layout-name
-    :binding mu4e-spacemacs-layout-binding
+  (space-macs|define-custom-layout mu4e-space-macs-layout-name
+    :binding mu4e-space-macs-layout-binding
     :body
     (progn
-      (defun spacemacs-layouts/add-mu4e-buffer-to-persp ()
+      (defun space-macs-layouts/add-mu4e-buffer-to-persp ()
         (persp-add-buffer (current-buffer)
                           (persp-get-by-name
-                           mu4e-spacemacs-layout-name)))
-      (spacemacs/add-to-hooks 'spacemacs-layouts/add-mu4e-buffer-to-persp
+                           mu4e-space-macs-layout-name)))
+      (space-macs/add-to-hooks 'space-macs-layouts/add-mu4e-buffer-to-persp
                               '(mu4e-main-mode-hook
                                 mu4e-headers-mode-hook
                                 mu4e-view-mode-hook
@@ -37,15 +37,15 @@
       (call-interactively 'mu4e-update-index)
 
       (define-advice mu4e~stop (:after nil kill-mu4e-layout-after-mu4e~stop)
-        (when mu4e-spacemacs-kill-layout-on-exit
-          (persp-kill mu4e-spacemacs-layout-name))))))
+        (when mu4e-space-macs-kill-layout-on-exit
+          (persp-kill mu4e-space-macs-layout-name))))))
 
 (defun mu4e/init-mu4e ()
   (use-package mu4e
     :commands (mu4e mu4e-compose-new)
     :init
     (progn
-      (spacemacs/set-leader-keys "aem" 'mu4e)
+      (space-macs/set-leader-keys "aem" 'mu4e)
       (global-set-key (kbd "C-x m") 'mu4e-compose-new)
       (setq mu4e-completing-read-function 'completing-read
             mu4e-use-fancy-chars 't
@@ -85,8 +85,8 @@
                     (mu4e-view-mark-thread '(read)))
         (kbd "gu") 'mu4e-view-go-to-url)
 
-      (spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode
-        dotspacemacs-major-mode-leader-key 'message-send-and-exit
+      (space-macs/set-leader-keys-for-major-mode 'mu4e-compose-mode
+        dotspace-macs-major-mode-leader-key 'message-send-and-exit
         "c" 'message-send-and-exit
         "k" 'message-kill-buffer
         "a" 'message-kill-buffer
@@ -137,7 +137,7 @@
   (use-package helm-mu
     :defer t
     :init (dolist (m mu4e-modes)
-            (spacemacs/set-leader-keys-for-major-mode m
+            (space-macs/set-leader-keys-for-major-mode m
               "S" 'helm-mu
               "/" 'helm-mu
               "C" 'helm-mu-contacts))))
@@ -164,3 +164,5 @@ mu4e-use-maildirs-extension-load to be evaluated after mu4e has been loaded."
     (purpose-set-extension-configuration
      :mu4e-layer
      (purpose-conf :mode-purposes modes))))
+
+

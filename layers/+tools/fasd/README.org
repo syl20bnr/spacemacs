@@ -11,17 +11,17 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer integrates the [[https://github.com/clvv/fasd][fasd]] command line tool into Spacemacs.
+This layer integrates the [[https://github.com/clvv/fasd][fasd]] command line tool into Space-macs.
 
 ** Features:
 - Adds easy shortcuts to reference recent files and directories.
-- Provides =fasd= with recent open file lists from Emacs.
+- Provides =fasd= with recent open file lists from e-macs.
 - Allows to filter =fasd= results with =helm= or =ivy=.
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =fasd= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =fasd= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** fasd
@@ -41,3 +41,5 @@ On macOS, it can be installed via [[https://github.com/Homebrew/legacy-homebrew]
 | ~SPC f a s~ | find a file or directory with fasd |
 | ~SPC f a d~ | find a directory with fasd         |
 | ~SPC f a f~ | find a file with fasd              |
+
+

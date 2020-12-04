@@ -29,8 +29,8 @@ This layer adds support for the Hy language based on Python.
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =hy= to the existing =dotspacemacs-configuration-layers= list in this file.
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =hy= to the existing =dotspace-macs-configuration-layers= list in this file.
 
 To install =hy= globally:
 
@@ -98,3 +98,5 @@ Send code to hy REPL commands:
 | ~SPC m v p o~ | open pipenv module in buffer                    |
 | ~SPC m v p s~ | launch pipenv shell in current project          |
 | ~SPC m v p u~ | uninstall module from pipenv environment        |
+
+

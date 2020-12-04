@@ -1,12 +1,12 @@
-;;; packages.el --- gtags Layer packages File for Spacemacs
+;;; packages.el --- gtags Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;;    and: Christian E. Hopps <chopps@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -25,12 +25,12 @@
       (setq counsel-gtags-ignore-case t
             counsel-gtags-auto-update t)
       ;; modes that do not have a layer, define here
-      (spacemacs/counsel-gtags-define-keys-for-mode 'tcl-mode)
-      (spacemacs/counsel-gtags-define-keys-for-mode 'vhdl-mode)
-      (spacemacs/counsel-gtags-define-keys-for-mode 'awk-mode)
-      (spacemacs/counsel-gtags-define-keys-for-mode 'dired-mode)
-      (spacemacs/counsel-gtags-define-keys-for-mode 'compilation-mode)
-      (spacemacs/counsel-gtags-define-keys-for-mode 'shell-mode))))
+      (space-macs/counsel-gtags-define-keys-for-mode 'tcl-mode)
+      (space-macs/counsel-gtags-define-keys-for-mode 'vhdl-mode)
+      (space-macs/counsel-gtags-define-keys-for-mode 'awk-mode)
+      (space-macs/counsel-gtags-define-keys-for-mode 'dired-mode)
+      (space-macs/counsel-gtags-define-keys-for-mode 'compilation-mode)
+      (space-macs/counsel-gtags-define-keys-for-mode 'shell-mode))))
 
 (defun gtags/init-ggtags ()
   (use-package ggtags
@@ -38,11 +38,11 @@
     :init
     (progn
       ;; modes that do not have a layer, add here.
-      (add-hook 'awk-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
-      (add-hook 'shell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
-      (add-hook 'tcl-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
-      (add-hook 'vhdl-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
-      (spacemacs|add-toggle ggtags-mode
+      (add-hook 'awk-mode-local-vars-hook #'space-macs/ggtags-mode-enable)
+      (add-hook 'shell-mode-local-vars-hook #'space-macs/ggtags-mode-enable)
+      (add-hook 'tcl-mode-local-vars-hook #'space-macs/ggtags-mode-enable)
+      (add-hook 'vhdl-mode-local-vars-hook #'space-macs/ggtags-mode-enable)
+      (space-macs|add-toggle ggtags-mode
         :status ggtags-mode
         :on (ggtags-mode nil)
         :off (ggtags-mode -1)
@@ -64,7 +64,7 @@
         (dired-mode . "Tg")
         (dos-mode . "Tg")
         (elixir-mode . "Tg")
-        (emacs-lisp-mode . "Tg")
+        (e-macs-lisp-mode . "Tg")
         (erlang-mode . "Tg")
         (fsharp-mode . "Tg")
         (go-mode . "Tg")
@@ -99,7 +99,7 @@
         (define-key ggtags-mode-map (kbd "C-x 4 .") 'helm-gtags-find-tag-other-window)
         (define-key ggtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
         (define-key ggtags-mode-map (kbd "M-*") 'helm-gtags-pop-stack))
-      (spacemacs|diminish ggtags-mode " 🅶" " [g]"))))
+      (space-macs|diminish ggtags-mode " ðŸ…¶" " [g]"))))
 
 (defun gtags/init-helm-gtags ()
   (use-package helm-gtags
@@ -111,9 +111,11 @@
             helm-gtags-use-input-at-cursor t
             helm-gtags-pulse-at-cursor t)
       ;; modes that do not have a layer, define here
-      (spacemacs/helm-gtags-define-keys-for-mode 'tcl-mode)
-      (spacemacs/helm-gtags-define-keys-for-mode 'vhdl-mode)
-      (spacemacs/helm-gtags-define-keys-for-mode 'awk-mode)
-      (spacemacs/helm-gtags-define-keys-for-mode 'dired-mode)
-      (spacemacs/helm-gtags-define-keys-for-mode 'compilation-mode)
-      (spacemacs/helm-gtags-define-keys-for-mode 'shell-mode))))
+      (space-macs/helm-gtags-define-keys-for-mode 'tcl-mode)
+      (space-macs/helm-gtags-define-keys-for-mode 'vhdl-mode)
+      (space-macs/helm-gtags-define-keys-for-mode 'awk-mode)
+      (space-macs/helm-gtags-define-keys-for-mode 'dired-mode)
+      (space-macs/helm-gtags-define-keys-for-mode 'compilation-mode)
+      (space-macs/helm-gtags-define-keys-for-mode 'shell-mode))))
+
+

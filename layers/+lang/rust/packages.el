@@ -1,11 +1,11 @@
-;;; packages.el --- Rust Layer packages File for Spacemacs
+;;; packages.el --- Rust Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Chris Hoeppner <me@mkaito.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -30,8 +30,8 @@
     :defer t
     :init
     (progn
-      (spacemacs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
-      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+      (space-macs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
+      (space-macs/set-leader-keys-for-major-mode 'rust-mode
         "c." 'cargo-process-repeat
         "ca" 'cargo-process-add
         "cA" 'cargo-process-audit
@@ -58,18 +58,18 @@
 
 (defun rust/post-init-company ()
   ;; backend specific
-  (spacemacs//rust-setup-company))
+  (space-macs//rust-setup-company))
 
 (defun rust/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'rust-mode))
+  (space-macs/counsel-gtags-define-keys-for-mode 'rust-mode))
 
 (defun rust/pre-init-dap-mode ()
-  (pcase (spacemacs//rust-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'rust-mode)))
-  (add-hook 'rust-mode-local-vars-hook #'spacemacs//rust-setup-dap))
+  (pcase (space-macs//rust-backend)
+    (`lsp (add-to-list 'space-macs--dap-supported-modes 'rust-mode)))
+  (add-hook 'rust-mode-local-vars-hook #'space-macs//rust-setup-dap))
 
 (defun rust/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'rust-mode))
+  (space-macs/enable-flycheck 'rust-mode))
 
 (defun rust/init-flycheck-rust ()
   (use-package flycheck-rust
@@ -77,10 +77,10 @@
     :init (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
 (defun rust/post-init-ggtags ()
-  (add-hook 'rust-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'rust-mode-local-vars-hook #'space-macs/ggtags-mode-enable))
 
 (defun rust/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'rust-mode))
+  (space-macs/helm-gtags-define-keys-for-mode 'rust-mode))
 
 (defun rust/init-racer ()
   (use-package racer
@@ -88,12 +88,12 @@
     :commands racer-mode
     :config
     (progn
-      (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode))
-      (spacemacs/add-to-hook 'racer-mode-hook '(eldoc-mode))
-      (add-to-list 'spacemacs-jump-handlers-rust-mode 'racer-find-definition)
-      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-        "hh" 'spacemacs/racer-describe)
-      (spacemacs|hide-lighter racer-mode)
+      (space-macs/add-to-hook 'rust-mode-hook '(racer-mode))
+      (space-macs/add-to-hook 'racer-mode-hook '(eldoc-mode))
+      (add-to-list 'space-macs-jump-handlers-rust-mode 'racer-find-definition)
+      (space-macs/set-leader-keys-for-major-mode 'rust-mode
+        "hh" 'space-macs/racer-describe)
+      (space-macs|hide-lighter racer-mode)
       (evilified-state-evilify-map racer-help-mode-map
         :mode racer-help-mode))))
 
@@ -102,13 +102,13 @@
     :defer t
     :init
     (progn
-      (spacemacs/add-to-hook 'rust-mode-hook '(spacemacs//rust-setup-backend))
-      (spacemacs/declare-prefix-for-mode 'rust-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'rust-mode "mh" "help")
-      (spacemacs/declare-prefix-for-mode 'rust-mode "m=" "format")
-      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+      (space-macs/add-to-hook 'rust-mode-hook '(space-macs//rust-setup-backend))
+      (space-macs/declare-prefix-for-mode 'rust-mode "mg" "goto")
+      (space-macs/declare-prefix-for-mode 'rust-mode "mh" "help")
+      (space-macs/declare-prefix-for-mode 'rust-mode "m=" "format")
+      (space-macs/set-leader-keys-for-major-mode 'rust-mode
         "==" 'rust-format-buffer
-        "q" 'spacemacs/rust-quick-run))))
+        "q" 'space-macs/rust-quick-run))))
 
 (defun rust/post-init-smartparens ()
   (with-eval-after-load 'smartparens
@@ -123,3 +123,5 @@
   (use-package ron-mode
     :mode ("\\.ron\\'" . ron-mode)
     :defer t))
+
+

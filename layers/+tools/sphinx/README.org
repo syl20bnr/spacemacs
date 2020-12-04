@@ -23,8 +23,8 @@ the =restructuredtext= layer.
 - Support for opening =Sphinx= config file
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =sphinx= to the existing =dotspacemacs-configuration-layers= list
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =sphinx= to the existing =dotspace-macs-configuration-layers= list
 in this file.
 
 * Configuration
@@ -33,7 +33,7 @@ To use the layer's Sphinx feature, the following variables should be set.
 
 A parent directory is needed for all your Sphinx project builds:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (sphinx :variables
           rst-sphinx-target-parent "~/MyProjects/")
 #+END_SRC
@@ -42,7 +42,7 @@ Create a directory in the parent directory for each Sphinx project.
 This will be used as the project name for the layer. In addition
 you need to define where the output folder should be for each project.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (sphinx :variables
           rst-sphinx-target-parent "~/MyProjects/"
           rst-sphinx-target-projects
@@ -54,7 +54,7 @@ you need to define where the output folder should be for each project.
 Set the browser for viewing the HTML page of current rst file. This one
 is optional. If not set, the default browser will be used.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (sphinx :variables
           rst-slides-program "chromium")
 #+END_SRC
@@ -68,3 +68,5 @@ is optional. If not set, the default browser will be used.
 | ~SPC m c r~ | rebuild projects                        |
 | ~SPC m g c~ | open =conf.py= of current project       |
 | ~SPC m o~   | open compiled HTML page of current page |
+
+

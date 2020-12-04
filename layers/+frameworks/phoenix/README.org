@@ -17,8 +17,8 @@ This layer adds key bindings for [[https://github.com/tonini/alchemist.el][Alche
 - Key bindings for navigation to files
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =phoenix= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =phoenix= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -34,3 +34,5 @@ file.
 | ~SPC m f f m~ | Find model         |
 | ~SPC m f f s~ | Find static        |
 | ~SPC m f f r~ | Find router        |
+
+

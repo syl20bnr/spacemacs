@@ -1,18 +1,18 @@
-;;; packages.el --- Major modes Layer packages File for Spacemacs
+;;; packages.el --- Major modes Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 (setq major-modes-packages
       '(
         arduino-mode
-        (ebuild-mode :location (recipe :fetcher github :repo "emacsmirror/ebuild-mode"))
+        (ebuild-mode :location (recipe :fetcher github :repo "e-macsmirror/ebuild-mode"))
         (hoon-mode :location (recipe :fetcher github :repo "urbit/hoon-mode.el"))
         (logcat :location (recipe :fetcher github :repo "dcolascione/logcat-mode"))
         matlab-mode
@@ -33,7 +33,7 @@
     :mode ("\\.\\(ebuild\\|eclass\\)" . ebuild-mode)
     :init
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'ebuild-mode
+      (space-macs/set-leader-keys-for-major-mode 'ebuild-mode
         "n" 'ebuild-mode-insert-skeleton
         "k" 'ebuild-mode-keyword
         "e" 'ebuild-run-command
@@ -51,7 +51,7 @@
     :init
     ;; Explicitly run prog-mode hooks since matlab-mode does not derive from
     ;; prog-mode major-mode
-    (add-hook 'matlab-mode-hook 'spacemacs/run-prog-mode-hooks)))
+    (add-hook 'matlab-mode-hook 'space-macs/run-prog-mode-hooks)))
 
 (defun major-modes/init-pkgbuild-mode ()
   (use-package pkgbuild-mode
@@ -59,7 +59,7 @@
     :defer t
     :init
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'pkgbuild-mode
+      (space-macs/set-leader-keys-for-major-mode 'pkgbuild-mode
         "r" 'pkgbuild-increase-release-tag
         "b" 'pkgbuild-makepkg
         "a" 'pkgbuild-tar
@@ -85,7 +85,7 @@
     :init
     ;; Explicitly run prog-mode hooks since vala-mode does not derive from
     ;; prog-mode major-mode
-    (add-hook 'vala-mode-hook 'spacemacs/run-prog-mode-hooks)))
+    (add-hook 'vala-mode-hook 'space-macs/run-prog-mode-hooks)))
 
 (defun major-modes/init-vala-snippets ())
 
@@ -96,3 +96,5 @@
     :defer t
     :interpreter "\\(Wolfram\\|Mathematica\\)Script\\( -script\\)?"
     :mode "\\.wl\\'"))
+
+

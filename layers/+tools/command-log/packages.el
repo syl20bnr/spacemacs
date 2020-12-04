@@ -1,11 +1,11 @@
-;;; packages.el --- command-log Layer packages File for Spacemacs
+;;; packages.el --- command-log Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -21,9 +21,9 @@
 (defun command-log/init-command-log-mode ()
   (use-package command-log-mode
     :commands global-command-log-mode
-    ;; :commands (clm/open-command-log-buffer global-command-log-mode spacemacs/toggle-command-log-mode)
+    ;; :commands (clm/open-command-log-buffer global-command-log-mode space-macs/toggle-command-log-mode)
     :init
-    (spacemacs/set-leader-keys "atl" #'global-command-log-mode)
+    (space-macs/set-leader-keys "atl" #'global-command-log-mode)
     :config
     (setq clm/log-command-exceptions* (append clm/log-command-exceptions*
                                               '(evil-next-line
@@ -31,3 +31,5 @@
                                                 evil-forward-char
                                                 evil-backward-char))
           command-log-mode-auto-show t)))
+
+

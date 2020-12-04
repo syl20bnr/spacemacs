@@ -1,11 +1,11 @@
-;;; packages.el --- kubernetes layer packages file for Spacemacs.
+;;; packages.el --- kubernetes layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Matt Bray <mattjbray@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -23,7 +23,7 @@
     ;; Autoload for 'kubernetes-overview is defined in "kubernetes-overview.el".
     ;; Add an autoload for the whole 'kubernetes package when kubernetes-overview is called.
     :commands (kubernetes-overview)
-    :init (spacemacs/set-leader-keys "atk" 'kubernetes-overview)))
+    :init (space-macs/set-leader-keys "atk" 'kubernetes-overview)))
 
 (defun kubernetes/init-kubernetes-evil ()
   (use-package kubernetes-evil
@@ -32,3 +32,5 @@
 (defun kubernetes/init-kubernetes-tramp ()
   (use-package kubernetes-tramp
     :defer t))
+
+

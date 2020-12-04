@@ -1,6 +1,6 @@
-#+TITLE: spacemacs-editing-visual layer
+#+TITLE: space-macs-editing-visual layer
 
-#+TAGS: layer|misc|spacemacs
+#+TAGS: layer|misc|space-macs
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -8,7 +8,7 @@
 
 * Description
 This layer defines a lot of functions used to visually enhance the currently
-edited line in Spacemacs.
+edited line in Space-macs.
 
 ** Features:
 - Adaptive wrapping
@@ -17,3 +17,5 @@ edited line in Spacemacs.
 - Highlighting of different indentations
 - Automatic highlighting of numbers
 - Automatic highlighting of parentheses
+
+

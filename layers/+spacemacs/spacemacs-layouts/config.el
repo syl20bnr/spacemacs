@@ -1,18 +1,18 @@
-;;; config.el --- Spacemacs Layouts Layer configuration File for Spacemacs
+;;; config.el --- Space-macs Layouts Layer configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 ;; Variables
 
-(defvar spacemacs-layouts-directory
-  (expand-file-name (concat spacemacs-cache-directory "layouts/"))
+(defvar space-macs-layouts-directory
+  (expand-file-name (concat space-macs-cache-directory "layouts/"))
   "Save layouts in this directory.")
 
 (defvar layouts-enable-autosave nil
@@ -21,23 +21,23 @@
 (defvar layouts-autosave-delay 900
   "Delay in seconds between each layouts auto-save.")
 
-(defvar spacemacs--layouts-ts-full-hint-toggle nil
+(defvar space-macs--layouts-ts-full-hint-toggle nil
   "Toggle display of layouts transient-state documentation.")
 
-(defvar spacemacs--workspaces-ts-full-hint-toggle nil
+(defvar space-macs--workspaces-ts-full-hint-toggle nil
   "Toggle display of workspaces transient-state documentation.")
 
-(defvar spacemacs--last-selected-layout dotspacemacs-default-layout-name
+(defvar space-macs--last-selected-layout dotspace-macs-default-layout-name
   "Previously selected layout.")
 
-(defvar spacemacs--custom-layout-alist nil
+(defvar space-macs--custom-layout-alist nil
   "List of custom layouts with their bound keys.
- Do not modify directly, use provided `spacemacs|define-custom-layout'")
+ Do not modify directly, use provided `space-macs|define-custom-layout'")
 
-(defvar spacemacs--layouts-autosave-timer nil
+(defvar space-macs--layouts-autosave-timer nil
   "Timer for layouts auto-save.")
 
-(defvar spacemacs-generic-layout-names
+(defvar space-macs-generic-layout-names
   '(("zebra" "zucchini" "zen" "yellow" "yeti" "yard") ; grab-bag
     ("baboon" "banana" "blue")                        ; 2nd layout
     ("crab" "cabbage" "crayon")                       ; 3rd
@@ -49,7 +49,7 @@
     ("iguana" "ice-cream" "internet")                 ; 9th
     ("jellyfish" "jalapeno" "jolt"))                  ; 10th (aka 0th)
   "Names for auto-generated layout names.
-Used by `spacemacs//generate-layout-name'.
+Used by `space-macs//generate-layout-name'.
 
 Must be a list with 10 entries, where each entry is a list of
 names. The 2nd list contains possible names for the 2nd
@@ -58,20 +58,22 @@ layout, the 4th for the 4th, and so on until the 10th (aka layout
 number 0). The first list is sepcial - it is a grab-bag for names
 in case none of the regular names can be used for a new layout.")
 
-(defvar spacemacs-layouts-restricted-functions
-  '(spacemacs/window-split-double-columns
-    spacemacs/window-split-triple-columns
-    spacemacs/window-split-grid)
+(defvar space-macs-layouts-restricted-functions
+  '(space-macs/window-split-double-columns
+    space-macs/window-split-triple-columns
+    space-macs/window-split-grid)
   "List of functions to be wrapped by `with-persp-buffer-list'")
 
-(defvar spacemacs-layouts-restrict-spc-tab nil
+(defvar space-macs-layouts-restrict-spc-tab nil
   "If `t' then `SPC-TAB' will be limited to the current layout's buffers.")
 
 (defvar layouts-enable-local-variables t
   "Allow variables to be specified as layout-local (value local to a particular layout).")
 
-(defvar spacemacs--layout-local-variables nil
+(defvar space-macs--layout-local-variables nil
   "List of variables that will be local to the current layout.")
 
-(defvar spacemacs--layout-local-map (ht-create)
+(defvar space-macs--layout-local-map (ht-create)
   "Map of layouts to their local variable values.")
+
+

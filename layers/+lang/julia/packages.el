@@ -1,11 +1,11 @@
-;;; packages.el --- Julia layer packages file for Spacemacs.
+;;; packages.el --- Julia layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Adam Beckmeyer <adam_git@thebeckmeyers.xyz>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -23,8 +23,8 @@
     :defer t
     :init
     (progn
-      (add-hook 'julia-mode-hook #'spacemacs//julia-setup-buffer)
-      (add-hook 'julia-mode-local-vars-hook #'spacemacs//julia-setup-backend)
+      (add-hook 'julia-mode-hook #'space-macs//julia-setup-buffer)
+      (add-hook 'julia-mode-local-vars-hook #'space-macs//julia-setup-backend)
       (if (and (configuration-layer/layer-used-p 'ess)
                julia-mode-enable-ess)
           (add-to-list 'auto-mode-alist
@@ -34,30 +34,30 @@
           (message "`ess' layer is not installed. Please add `ess' layer to your dotfile.")))
     :config
     (progn
-      (spacemacs/declare-prefix-for-mode 'julia-mode "m=" "format")
-      (spacemacs/set-leader-keys-for-major-mode 'julia-mode
+      (space-macs/declare-prefix-for-mode 'julia-mode "m=" "format")
+      (space-macs/set-leader-keys-for-major-mode 'julia-mode
         "l" 'julia-latexsub-or-indent
         "==" 'julia-indent-line
         "=d" 'julia-manual-deindent
         "=q" 'prog-indent-sexp)
 
       (when (configuration-layer/package-used-p 'helm)
-        (spacemacs/declare-prefix-for-mode 'julia-mode "mi" "insert")
-        (spacemacs/set-leader-keys-for-minor-mode 'julia-mode
-          "ii" 'spacemacs//julia-helm-math-insert)))))
+        (space-macs/declare-prefix-for-mode 'julia-mode "mi" "insert")
+        (space-macs/set-leader-keys-for-minor-mode 'julia-mode
+          "ii" 'space-macs//julia-helm-math-insert)))))
 
 (defun julia/init-julia-repl ()
   (use-package julia-repl
     :defer t
     :init
     (progn
-      (spacemacs/register-repl 'julia-repl 'julia-repl "julia-repl"))
+      (space-macs/register-repl 'julia-repl 'julia-repl "julia-repl"))
     :config
     (progn
-      (spacemacs/declare-prefix-for-mode 'julia-mode "mh" "help")
-      (spacemacs/declare-prefix-for-mode 'julia-mode "me" "eval")
-      (spacemacs/declare-prefix-for-mode 'julia-mode "ms" "send")
-      (spacemacs/set-leader-keys-for-minor-mode 'julia-repl-mode
+      (space-macs/declare-prefix-for-mode 'julia-mode "mh" "help")
+      (space-macs/declare-prefix-for-mode 'julia-mode "me" "eval")
+      (space-macs/declare-prefix-for-mode 'julia-mode "ms" "send")
+      (space-macs/set-leader-keys-for-minor-mode 'julia-repl-mode
         "'" 'julia-repl
         "r" 'julia-repl
         "hh" 'julia-repl-doc
@@ -102,7 +102,9 @@
   (use-package lsp-julia
     :config
     (progn
-      (push 'xref-find-definitions spacemacs-jump-handlers-julia-mode))))
+      (push 'xref-find-definitions space-macs-jump-handlers-julia-mode))))
 
 (defun julia/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'julia-mode))
+  (space-macs/enable-flycheck 'julia-mode))
+
+

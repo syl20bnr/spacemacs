@@ -1,25 +1,25 @@
-;;; funcs.el --- languagetool layer packages file for Spacemacs.
+;;; funcs.el --- languagetool layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
 ;; Author: Robbert van der Helm <mail@robbertvanderhelm.nl>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs/languagetool-next-error (count)
+(defun space-macs/languagetool-next-error (count)
   (interactive "p")
   (dotimes (_ count) (langtool-goto-next-error))
   (when languagetool-show-error-on-jump (langtool-show-message-at-point)))
 
-(defun spacemacs/languagetool-previous-error (count)
+(defun space-macs/languagetool-previous-error (count)
   (interactive "p")
   (dotimes (_ count) (langtool-goto-previous-error))
   (when languagetool-show-error-on-jump (langtool-show-message-at-point)))
 
-(defun spacemacs/languagetool-toggle ()
+(defun space-macs/languagetool-toggle ()
   "Performs grammar and spell checking on the current buffer
   using LanguageTool for grammar and flyspell for spell checking.
   Flyspell errors will be cleared if the 'spell-checking' layer
@@ -35,12 +35,12 @@
           (if has-ran
               (langtool-check-done)
             (progn
-              (langtool-check-buffer (spacemacs//languagetool-get-language))
+              (langtool-check-buffer (space-macs//languagetool-get-language))
               (when (package-installed-p 'flyspell)
                 (flyspell-delete-all-overlays))))))
     (error "LanguageTool has not been set up yet")))
 
-(defun spacemacs//languagetool-detect ()
+(defun space-macs//languagetool-detect ()
   "Detects whether the LanguageTool binary exists."
   (cond ((boundp 'langtool-java-classpath) t)
         ((and (boundp 'langtool-http-server-host)
@@ -48,10 +48,10 @@
         ((boundp 'langtool-language-tool-jar)
          (if (file-readable-p langtool-language-tool-jar)
              t
-           (spacemacs-buffer/warning "LanguageTool binary not found")))
-        (t (spacemacs-buffer/warning "LanguageTool binary not set"))))
+           (space-macs-buffer/warning "LanguageTool binary not found")))
+        (t (space-macs-buffer/warning "LanguageTool binary not set"))))
 
-(defun spacemacs//languagetool-get-language ()
+(defun space-macs//languagetool-get-language ()
   "Tries to parse the current spell checking language for a
   usable locale string. This won't do anything if the
   'spell-checking' layer is not active."
@@ -67,3 +67,5 @@
              ;; dash (e.g. "en_US" => "en-US")
              (langtool-code (replace-regexp-in-string "_" "-" locale)))
         langtool-code))))
+
+

@@ -17,11 +17,11 @@ for live coding.
 
 ** Features:
 - =tidal-mode= to interact with TidalCycles
-- Spacemacs friendly key bindings
+- Space-macs friendly key bindings
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =tidalcycles= to the existing =dotspacemacs-configuration-layers= list in
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =tidalcycles= to the existing =dotspace-macs-configuration-layers= list in
 this file.
 
 * Usage
@@ -58,3 +58,5 @@ You can evaluate a piece of code with =SPC m RET= or the original key binding
 | ~SPC m s 9~ | Stop orbit d9         |
 | ~SPC m m u~ | Unmute all orbits     |
 | ~SPC m o u~ | Unsolo all orbits     |
+
+

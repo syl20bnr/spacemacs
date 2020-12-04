@@ -1,6 +1,6 @@
 #+TITLE: Tabs layer
 
-#+TAGS: emacs|layer|spacemacs
+#+TAGS: e-macs|layer|space-macs
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -16,8 +16,8 @@ This layer adds support for tabs. Implementation is done using [[https://github.
 - Sets up tabs using Centaur tabs as backend
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =tabs= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =tabs= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Hide tabs
@@ -35,3 +35,5 @@ customizing =centaur-tabs-hide-tabs-hooks=
 | ~C-c t s~   | Display a list of current buffer groups using Counsel |
 | ~C-c t p~   | Group buffer tabs by projectile                       |
 | ~C-c t g~   | Group buffer tabs by groups                           |
+
+

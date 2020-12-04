@@ -1,11 +1,11 @@
-;;; config.el --- Spacemacs-evil Layer Configuration File for Spacemacs
+;;; config.el --- Space-macs-evil Layer Configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -18,3 +18,5 @@
 
 (defvar evil-lisp-safe-structural-editing-modes '()
   "A list of major mode symbols where safe structural editing is supported.")
+
+

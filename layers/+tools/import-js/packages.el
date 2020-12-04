@@ -1,11 +1,11 @@
-;;; packages.el --- import-js Layer packages file for Spacemacs
+;;; packages.el --- import-js Layer packages file for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Thanh Vuong <thanhvg@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -15,10 +15,12 @@
   (use-package import-js
     :defer t
     :init
-    (dolist (x spacemacs--import-js-modes)
+    (dolist (x space-macs--import-js-modes)
       (add-hook (cdr x) #'run-import-js)
-      (spacemacs/declare-prefix-for-mode (car x) "mi" "import")
-      (spacemacs/set-leader-keys-for-major-mode (car x)
-        "if" #'spacemacs/import-js-fix
-        "ii" #'spacemacs/import-js-import
+      (space-macs/declare-prefix-for-mode (car x) "mi" "import")
+      (space-macs/set-leader-keys-for-major-mode (car x)
+        "if" #'space-macs/import-js-fix
+        "ii" #'space-macs/import-js-import
         "ig" #'import-js-goto))))
+
+

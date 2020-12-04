@@ -11,10 +11,10 @@
 ;; Last-Updated: Thu Feb 23 07:33:32 2017 (-0800)
 ;;           By: dradams
 ;;     Update #: 2226
-;; URL: https://www.emacswiki.org/emacs/download/help-fns%2b.el
-;; Doc URL: http://emacswiki.org/HelpPlus
+;; URL: https://www.e-macswiki.org/e-macs/download/help-fns%2b.el
+;; Doc URL: http://e-macswiki.org/HelpPlus
 ;; Keywords: help, faces, characters, packages, description
-;; Compatibility: GNU Emacs: 22.x, 23.x, 24.x, 25.x
+;; Compatibility: GNU e-macs: 22.x, 23.x, 24.x, 25.x
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -28,8 +28,8 @@
 ;;    Extensions to `help-fns.el'.  Also includes a redefinition of
 ;;    `describe-face', which is from `faces.el'.
 ;;
-;;    Note: As of Emacs 24.4, byte-compiling this file in one Emacs
-;;    version and using the compiled file in another Emacs version
+;;    Note: As of e-macs 24.4, byte-compiling this file in one e-macs
+;;    version and using the compiled file in another e-macs version
 ;;    does not work.
 ;;
 ;;
@@ -52,30 +52,30 @@
 ;;
 ;;  User options defined here:
 ;;
-;;    `help-cross-reference-manuals' (Emacs 23.2+).
+;;    `help-cross-reference-manuals' (e-macs 23.2+).
 ;;
 ;;  Faces defined here:
 ;;
-;;    `describe-variable-value' (Emacs 24+).
+;;    `describe-variable-value' (e-macs 24+).
 ;;
 ;;  Non-interactive functions defined here:
 ;;
 ;;    `describe-mode-1', `help-all-exif-data',
 ;;    `help-commands-to-key-buttons', `help-custom-type',
-;;    `help-documentation', `help-documentation-property' (Emacs 23+),
+;;    `help-documentation', `help-documentation-property' (e-macs 23+),
 ;;    `help-key-button-string', `help-remove-duplicates',
 ;;    `help-substitute-command-keys', `help-value-satisfies-type-p',
 ;;    `help-var-inherits-type-p', `help-var-is-of-type-p',
 ;;    `help-var-matches-type-p', `help-var-val-satisfies-type-p',
-;;    `Info-first-index-occurrence' (Emacs 23.2+),
-;;    `Info-indexed-find-file' (Emacs 23.2+), `Info-indexed-find-node'
-;;    (Emacs 23.2+), `Info-index-entries-across-manuals' (Emacs
-;;    23.2+), `Info-index-occurrences' (Emacs 23.2+),
-;;    `Info-make-manuals-xref' (Emacs 23.2+).
+;;    `Info-first-index-occurrence' (e-macs 23.2+),
+;;    `Info-indexed-find-file' (e-macs 23.2+), `Info-indexed-find-node'
+;;    (e-macs 23.2+), `Info-index-entries-across-manuals' (e-macs
+;;    23.2+), `Info-index-occurrences' (e-macs 23.2+),
+;;    `Info-make-manuals-xref' (e-macs 23.2+).
 ;;
 ;;  Internal variables defined here:
 ;;
-;;    `Info-indexed-file' (Emacs 23.2+), `Info-indexed-nodes' (Emacs
+;;    `Info-indexed-file' (e-macs 23.2+), `Info-indexed-nodes' (e-macs
 ;;    23.2+), `variable-name-history'.
 ;;
 ;;
@@ -104,13 +104,13 @@
 ;;  `describe-package'.
 ;;
 ;;
-;;  Put this in your initialization file (`~/.emacs'):
+;;  Put this in your initialization file (`~/.e-macs'):
 ;;
 ;;    (require 'help-fns+)
 ;;
 ;;  Acknowledgement: Passing text properties on doc strings to the
 ;;  *Help* buffer is an idea from Johan bockgard.  He sent it on
-;;  2007-01-24 to emacs-devel@gnu.org, Subject
+;;  2007-01-24 to e-macs-devel@gnu.org, Subject
 ;;  "display-completion-list should not strip text properties".
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -118,7 +118,7 @@
 ;;; Change Log:
 ;;
 ;; 2016/09/17 dadams
-;;     describe-function: Fix Emacs bug #24221: let FUNCTION be anonymous.
+;;     describe-function: Fix e-macs bug #24221: let FUNCTION be anonymous.
 ;; 2015/12/15 dadams
 ;;     describe-file: Remove `' around file name in title.
 ;; 2015/09/09 dadams
@@ -134,9 +134,9 @@
 ;; 2015/08/13 dadams
 ;;     describe-variable:
 ;;       PREDICATE arg to completing-read needs to use original buffer, not minibuffer, when test boundp.
-;;       Fixes Emacs BUG #21252.
+;;       Fixes e-macs BUG #21252.
 ;; 2015/08/02 dadams
-;;     Updated for Emacs 25
+;;     Updated for e-macs 25
 ;;      help-fns--signature:
 ;;        Added arg RAW.  Return DOC if FUNCTION is a keymap.  Use help--make-usage-docstring.
 ;;        Use help--docstring-quote.  Insert "`X", not "(\` X)", when documenting `X.  Use substitute-command-keys
@@ -145,22 +145,22 @@
 ;;        Use indirect-function if subr (SIG-KEY).  Moved autoloads forward).  Use help-fns-short-filename.
 ;;        Use auto-do-load.  But do NOT use curly quotes - e.g., no extra substitute-command-name calls.
 ;; 2015/04/03 dadams
-;;     Use char-before in place of looking-back, for chars before.  See Emacs bug #17284.
+;;     Use char-before in place of looking-back, for chars before.  See e-macs bug #17284.
 ;; 2015/03/26 dadams
-;;     describe-package: Fix guard to use emacs-minor-version 3, not 24.  Thx to Roshan Shariff.
+;;     describe-package: Fix guard to use e-macs-minor-version 3, not 24.  Thx to Roshan Shariff.
 ;; 2015/03/23 dadams
-;;     describe-variable (Emacs 24+): Fix terpri's so appearance is better.  Fill region for global value.
+;;     describe-variable (e-macs 24+): Fix terpri's so appearance is better.  Fill region for global value.
 ;; 2014/11/29 dadams
 ;;     Info-make-manuals-xref: Control number of newlines before.
-;;     describe-function-1: Use same def for Emacs 25.
+;;     describe-function-1: Use same def for e-macs 25.
 ;;     describe-variable-value: Changed the default colors.
 ;;     describe-variable: Use face describe-variable-value always.  Fill region for value always.
 ;;                        Control number of newlines before and after Value:, and after manuals xref.
 ;; 2014/11/12 dadams
 ;;     describe-package:
-;;       Added version for Emacs 24.4+ - Use package-alist, package--builtins, or package-archive-contents.
+;;       Added version for e-macs 24.4+ - Use package-alist, package--builtins, or package-archive-contents.
 ;; 2014/11/08 dadams
-;;     describe-mode-1: Show major-mode and mode-function also, on a separate line (Emacs bug #18992), filling.
+;;     describe-mode-1: Show major-mode and mode-function also, on a separate line (e-macs bug #18992), filling.
 ;; 2014/08/10 dadams
 ;;     describe-command: Bind completion-annotate-function for use with Icicles.
 ;; 2014/05/11 dadams
@@ -168,15 +168,15 @@
 ;;       Small loop for \=: changed \\\\=$ to \\\\=.
 ;;       Main loop, when escaped (\=) and odd: Skip the \=: concat before \= with after \=.
 ;; 2014/05/04 dadams
-;;     Use called-interactively only for Emacs 23.2+, since we pass it an arg.
+;;     Use called-interactively only for e-macs 23.2+, since we pass it an arg.
 ;; 2014/05/02 dadams
-;;     describe-package: Updated for Emacs 24.4 - defstruct package-desc.
+;;     describe-package: Updated for e-macs 24.4 - defstruct package-desc.
 ;; 2014/04/21 dadams
-;;     with-selected-frame: Updated for Emacs 24.4.
-;;     describe-face: Updated for Emacs 24.4: Try face-at-point for read-face-name default.
+;;     with-selected-frame: Updated for e-macs 24.4.
+;;     describe-face: Updated for e-macs 24.4: Try face-at-point for read-face-name default.
 ;;     describe-file, describe-keymap, describe-function:
-;;       Updated for Emacs 24.4: Use with-help-window, not with-output-to-temp-buffer.  See bug #17109.
-;;     describe-function-1: Created version for Emacs 24.4+
+;;       Updated for e-macs 24.4: Use with-help-window, not with-output-to-temp-buffer.  See bug #17109.
+;;     describe-function-1: Created version for e-macs 24.4+
 ;;     help-key-button-string: Do not quote :type.
 ;;     describe-buffer, describe-mode-1, describe-function: Use called-interactively, if available.
 ;;     Removed autoload cookie for describe-function, describe-keymap (but why?).
@@ -184,28 +184,28 @@
 ;;     describe-variable: Fixed typo in regexp: [n] -> [\n].
 ;; 2014/01/04 dadams
 ;;     Added: describe-variable-value.
-;;     describe-variable (Emacs 24+): Highlight the value with face describe-variable-value.
+;;     describe-variable (e-macs 24+): Highlight the value with face describe-variable-value.
 ;; 2013/08/06 dadams
-;;     describe-function: Ensure arg is a defined function before calling describe-function-1 (for Emacs 24+).
+;;     describe-function: Ensure arg is a defined function before calling describe-function-1 (for e-macs 24+).
 ;; 2013/07/01 dadams
 ;;     Revert the filling part of yesterday's update.
 ;; 2013/06/30 dadams
-;;     describe-variable for Emacs 24+:
-;;       Update for vanilla Emacs 24.4.  Update for Emacs bug #14754: fill printed value so no long lines.
+;;     describe-variable for e-macs 24+:
+;;       Update for vanilla e-macs 24.4.  Update for e-macs bug #14754: fill printed value so no long lines.
 ;; 2013/06/16 dadams
 ;;     describe-(variable|option(-of-type)): Fixed for dumb variable-at-point, which returns 0 for no var.
 ;; 2013/04/29 dadams
 ;;     describe-(function|command|variable|option|option-of-type):
 ;;       Provide default only if symbol is of the right type.  Put default in prompt.
 ;; 2013/02/08 dadams
-;;     describe-variable: Updated wrt Emacs 24 build of 2013-01-30.
+;;     describe-variable: Updated wrt e-macs 24 build of 2013-01-30.
 ;; 2012/11/18 dadams
 ;;     describe-(variable|function): Add completion-candidate annotation: (option|comand).
 ;; 2012/10/28 dadams
 ;;     help-fns--key-bindings: Fixed: forgot to mapconcat over keys.
 ;; 2012/10/26 dadams
 ;;     Added: help-fns--key-bindings, help-fns--signature,
-;;     Added Emacs 24.3+ version of describe-function-1.  Updated version for 23.2-24.2.
+;;     Added e-macs 24.3+ version of describe-function-1.  Updated version for 23.2-24.2.
 ;;     help-substitute-command-keys: Fix for \= when no match for \[, \<, \{ past it.
 ;; 2012/09/24 dadams
 ;;     describe-file: Added optional arg NO-ERROR-P.
@@ -234,7 +234,7 @@
 ;; 2011/11/25 dadams
 ;;     Reverted yesterday's change and added IMPORTANT note to Commentary.
 ;; 2011/11/24 dadams
-;;     Added Emacs 24 version of with-help-window.  They changed the signature of help-window-setup.
+;;     Added e-macs 24 version of with-help-window.  They changed the signature of help-window-setup.
 ;; 2011/10/14 dadams
 ;;     describe-mode: Call help-documentation while in mode's buffer, in case no \\<...>.
 ;; 2011/10/08 dadams
@@ -243,35 +243,35 @@
 ;;     Added soft require of naked.el.
 ;;     help-substitute-command-keys, describe-function-1: Use naked-key-description if available.
 ;; 2011/08/22 dadams
-;;     describe-variable (Emacs 23+): Added terpri after Value: (for multiline value).
+;;     describe-variable (e-macs 23+): Added terpri after Value: (for multiline value).
 ;; 2011/07/25 dadams
 ;;     describe-mode:
 ;;       Put call to help-documentation inside let for maj: else major-mode gets changed to help-mode.
 ;; 2011/06/26 dadams
 ;;     Added: help-commands-to-key-buttons, help-documentation(-property),
-;;            help-key-button-string, help-substitute-command-keys (Emacs 23+).
-;;     describe-(mode|variable|function-1|keymap) for Emacs 23+:
+;;            help-key-button-string, help-substitute-command-keys (e-macs 23+).
+;;     describe-(mode|variable|function-1|keymap) for e-macs 23+:
 ;;       Use help-documentation (with insert and button arg), instead of documentation (with princ).
 ;; 2011/06/22 dadams
 ;;     Info-make-manuals-xref: Added optional arg MANUALS.
 ;; 2011/06/20 dadams
 ;;     Info(-any)-index-occurrences(-p): Fix pattern: remove arbitrary prefix [^\n]*.
-;;     Added, for Emacs 24+: describe-package.
+;;     Added, for e-macs 24+: describe-package.
 ;; 2011/06/14 dadams
-;;     Added, for Emacs 23.2+: describe-mode.
+;;     Added, for e-macs 23.2+: describe-mode.
 ;;     Info-make-manuals-xref: Added optional arg NO-NEWLINES-AFTER-P.
 ;; 2011/06/13 dadams
 ;;     Added: Info-any-index-occurrences-p.
 ;;     Info-make-manuals-xref: Use Info-any-index-occurrences-p, not Info-index-occurrences.
 ;; 2011/06/11 dadams
-;;     Added, for Emacs 23.2+:
+;;     Added, for e-macs 23.2+:
 ;;       describe-face, describe-function-1, help-cross-reference-manuals, Info-indexed-find-file,
 ;;       Info-indexed-find-node, Info-index-entries-across-manuals, Info-index-occurrences,
 ;;       Info-make-manuals-xref, Info-indexed-file, Info-indexed-nodes.
-;;     describe-keymap: Emacs 23.2+: Added link to manuals.
-;;     describe-variable: Updated Emacs 23 version, per vanilla.
-;;                        Emacs 23.2+: Added link to manuals.
-;;     Require info.el for Emacs 23.2+.
+;;     describe-keymap: e-macs 23.2+: Added link to manuals.
+;;     describe-variable: Updated e-macs 23 version, per vanilla.
+;;                        e-macs 23.2+: Added link to manuals.
+;;     Require info.el for e-macs 23.2+.
 ;; 2011/04/25 dadams
 ;;     describe-file: Incorporate autofile bookmark description.  Added optional arg.
 ;; 2011/03/31 dadams
@@ -290,17 +290,17 @@
 ;; 2009/08/30 dadams
 ;;     describe-keymap: Don't print nil if the map has no doc.
 ;; 2009/05/26 dadams
-;;     describe-variable: Updated wrt latest Emacs 23:
+;;     describe-variable: Updated wrt latest e-macs 23:
 ;;       Added file-name-non-directory; removed substitute-command-keys.
 ;; 2008/09/13 dadams
-;;     Updated for latest Emacs 23 CVS.
-;;       describe-variable: Create separate version for Emacs 23.
-;;       describe-function-1: No longer needed for Emacs 23, since my patch added.
+;;     Updated for latest e-macs 23 CVS.
+;;       describe-variable: Create separate version for e-macs 23.
+;;       describe-function-1: No longer needed for e-macs 23, since my patch added.
 ;;       Added: with-selected-frame, with-help-window, at least temporarily.
 ;;     Require wid-edit.el.
 ;; 2008/09/02 dadams
 ;;     describe-function-1, describe-variable:
-;;       Emacs 23 uses find-lisp-object-file-name.  Thx to Per Nordlow.
+;;       e-macs 23 uses find-lisp-object-file-name.  Thx to Per Nordlow.
 ;; 2008/08/19 dadams
 ;;     describe-keymap: Use insert instead of princ for map part.  Thx to Chong Yidong.
 ;; 2008/05/20 dadams
@@ -390,7 +390,7 @@
 
 (require 'naked nil t) ;; (no error if not found): naked-key-description
 
-(when (or (> emacs-major-version 23)  (and (= emacs-major-version 23)  (> emacs-minor-version 1)))
+(when (or (> e-macs-major-version 23)  (and (= e-macs-major-version 23)  (> e-macs-minor-version 1)))
   (require 'info)) ;; Info-virtual-files
 
 (eval-when-compile (require 'cl-lib)) ;; case, gentemp
@@ -404,8 +404,8 @@
 (defvar icicle-mode)                    ; In `icicles-mode.el'
 (defvar icicle-pre-minibuffer-buffer)   ; In `icicles-var.el'
 (defvar Info-indexed-nodes)             ; In `info.el'
-(defvar help-cross-reference-manuals)   ; For Emacs < 23.2
-(defvar help-enable-auto-load)          ; For Emacs < 24.3
+(defvar help-cross-reference-manuals)   ; For e-macs < 23.2
+(defvar help-enable-auto-load)          ; For e-macs < 24.3
 (defvar package-alist)
 (defvar package-archive-contents)
 (defvar package--builtins)
@@ -426,8 +426,8 @@
 (define-key help-map "\M-l" 'find-function-on-key)
 
 
-;; Need Emacs 23 for version of `make-text-button' that accepts a string.
-(when (> emacs-major-version 22)
+;; Need e-macs 23 for version of `make-text-button' that accepts a string.
+(when (> e-macs-major-version 22)
   (defun help-documentation (function &optional raw add-help-buttons)
     "Same as `documentation', but optionally adds buttons for help.
 Non-nil optional arg ADD-HELP-BUTTONS does that, adding buttons to key
@@ -458,7 +458,7 @@ descriptions, which link to the key's command help."
     ;;  If pattern is a keymap (\<...>): use it from then on.
     ;;  If pattern is a command (\[...]): (a) substitute its key description, (b) put a button on it.
     ;;  If pattern is a bindings spec (\{...}): just substitute the usual text.
-    (with-syntax-table emacs-lisp-mode-syntax-table
+    (with-syntax-table e-macs-lisp-mode-syntax-table
       (let* ((strg          (copy-sequence string))
              (len-strg      (length strg))
              (ii            0)
@@ -573,8 +573,8 @@ Clicking the button shows the help for COMMAND."
       new-key)))
 
 
-(when (boundp 'Info-virtual-files)      ; Emacs 23.2+
-  (defcustom help-cross-reference-manuals '(("emacs" "elisp"))
+(when (boundp 'Info-virtual-files)      ; e-macs 23.2+
+  (defcustom help-cross-reference-manuals '(("e-macs" "elisp"))
     "*Manuals to search, for a `*Help*' buffer link to the manuals.
 A cons.
 
@@ -668,7 +668,7 @@ the manuals."
               (insert ".")
               (unless no-newlines-after-p (insert "\n\n"))))))))
 
-  (when (and (> emacs-major-version 21)
+  (when (and (> e-macs-major-version 21)
              (condition-case nil (require 'help-mode nil t) (error nil))
              (get 'help-xref 'button-category-symbol)) ; In `button.el'
     (define-button-type 'help-info-manual-lookup
@@ -967,11 +967,11 @@ have their own back/forward buttons."
 ;; 1. Preferred candidate is `symbol-nearest-point'.
 ;; 2. With a prefix argument, candidates are commands only.
 ;; 3. No no-function message if not called interactively.
-;; 4. Works for anonymous functions too: lambda forms and byte-compiled functions. (Fixes Emacs bug #24221.)
+;; 4. Works for anonymous functions too: lambda forms and byte-compiled functions. (Fixes e-macs bug #24221.)
 ;;
 (defun describe-function (function &optional commandp)
   "Display the full documentation of FUNCTION (a symbol).
-FUNCTION names an Emacs Lisp function, possibly a user command.
+FUNCTION names an e-macs Lisp function, possibly a user command.
 With a prefix argument, candidates are only commands (interactive).
 
 Default candidate is: preferably the `symbol-nearest-point', or else
@@ -992,8 +992,8 @@ Return the description that was displayed, as a string."
      (setq val  (completing-read prompt obarray (if current-prefix-arg 'commandp 'fboundp) t nil nil
                                  (and (if current-prefix-arg (commandp fn) (fboundp fn))  (symbol-name fn))))
      (list (if (equal val "") fn (intern val)) current-prefix-arg)))
-  (let* ((interactivep  (if (or (> emacs-major-version 23) ; Emacs 23.1 `called-interactively' accepts no arg.
-                                (and (= emacs-major-version 23)  (> emacs-minor-version 1)))
+  (let* ((interactivep  (if (or (> e-macs-major-version 23) ; e-macs 23.1 `called-interactively' accepts no arg.
+                                (and (= e-macs-major-version 23)  (> e-macs-minor-version 1)))
                             (called-interactively-p 'interactive)
                           (interactive-p)))
          (err/msg-fn    (if interactivep #'message #'error))
@@ -1002,17 +1002,17 @@ Return the description that was displayed, as a string."
         (funcall err/msg-fn "You did not specify a function symbol") ; Avoid "Not a defined function: `nil'".
       (if (not (if commandp
                    (commandp function)
-                 (or (functionp function) ; Allow anonymous functions (Emacs bug #24221).
+                 (or (functionp function) ; Allow anonymous functions (e-macs bug #24221).
                      (and function  (fboundp (intern-soft function)))))) ; Allow macros and special forms.
           (funcall err/msg-fn "Not a defined %s: `%S'" fn/cmd-txt function)
         (help-setup-xref (list #'describe-function function)
-                         (if (or (> emacs-major-version 23) ; Emacs 23.1 `called-interactively' accepts no arg.
-                                 (and (= emacs-major-version 23)  (> emacs-minor-version 1)))
+                         (if (or (> e-macs-major-version 23) ; e-macs 23.1 `called-interactively' accepts no arg.
+                                 (and (= e-macs-major-version 23)  (> e-macs-minor-version 1)))
                              (called-interactively-p 'interactive)
                            (interactive-p)))
         (save-excursion
           (if (fboundp 'with-help-window)
-              (with-help-window  (help-buffer) ; Emacs 24.4 needs this - see Emacs bug #17109.
+              (with-help-window  (help-buffer) ; e-macs 24.4 needs this - see e-macs bug #17109.
                 (prin1 function)
                 ;; Use " is " instead of ": " so it is easier to get the function name using `forward-sexp'.
                 (princ " is ")
@@ -1028,11 +1028,11 @@ Return the description that was displayed, as a string."
 
 
 
-;; REPLACE ORIGINAL in `help-fns.el' (`help.el', for Emacs < 22):
+;; REPLACE ORIGINAL in `help-fns.el' (`help.el', for e-macs < 22):
 ;;
 ;; Fill long lines.  Add `,' before "which".
 ;;
-(when (< emacs-major-version 23)
+(when (< e-macs-major-version 23)
   (defun describe-function-1 (function)
     (let* ((def  (if (symbolp function) (symbol-function function) function))
            (beg  (if (commandp def)  "an interactive "  "a "))
@@ -1172,7 +1172,7 @@ Return the description that was displayed, as a string."
 ;; 1. Call `Info-make-manuals-xref' to create a cross-ref link to manuals.
 ;; 2. Add key-description buttons to command help.
 ;;
-(when (and (boundp 'Info-virtual-files)      ; Emacs 23.2 through 24.2
+(when (and (boundp 'Info-virtual-files)      ; e-macs 23.2 through 24.2
            (not (fboundp 'help-fns--autoloaded-p)))
   (defun describe-function-1 (function)
     (let* ((advised        (and (symbolp function)  (featurep 'advice)  (ad-get-advice-info function)))
@@ -1338,11 +1338,11 @@ Return the description that was displayed, as a string."
                               (t  "."))
                         "\n"))
               (insert "\n")
-              (when (and doc  (boundp 'Info-virtual-files)) ; Emacs 23.2+
+              (when (and doc  (boundp 'Info-virtual-files)) ; e-macs 23.2+
                 (Info-make-manuals-xref function)) ; Link to manuals.  (With progress message.)
               (insert (or doc  "Not documented.")))))))))
 
-(when (fboundp 'help-fns--autoloaded-p) ; Emacs 24.3+
+(when (fboundp 'help-fns--autoloaded-p) ; e-macs 24.3+
 
 
   ;; REPLACE ORIGINAL in `help-fns.el':
@@ -1393,9 +1393,9 @@ Return the description that was displayed, as a string."
   ;; REPLACE ORIGINAL in `help-fns.el'
   ;;
   ;; 1. Add key-description buttons to command help: Use `help-documentation', not `documentation'.
-  ;; 2. Arg RAW is optional, so we can use this with older Emacs versions.
+  ;; 2. Arg RAW is optional, so we can use this with older e-macs versions.
   ;;
-  (defun help-fns--signature (function doc real-def real-function &optional raw) ; Keep RAW optional for old Emacs.
+  (defun help-fns--signature (function doc real-def real-function &optional raw) ; Keep RAW optional for old e-macs.
     (if (keymapp function)
         doc            ; If definition is a keymap, skip arglist note.
       (let* ((advertised  (gethash real-def advertised-signature-table t))
@@ -1405,7 +1405,7 @@ Return the description that was displayed, as a string."
         (let* ((use   (cond ((and usage  (not (listp advertised))) (car usage))
                             ((listp arglist)
                              (if (fboundp 'help--make-usage-docstring)
-                                 (help--make-usage-docstring function arglist) ; Emacs 25+.
+                                 (help--make-usage-docstring function arglist) ; e-macs 25+.
                                (format "%S" (help-make-usage function arglist))))
                             ((stringp arglist) arglist)
                             ;; Maybe the arglist is in the docstring of a symbol this one is aliased to.
@@ -1420,7 +1420,7 @@ Return the description that was displayed, as a string."
                             ((or (stringp real-def)  (vectorp real-def))
                              (format "\nMacro: %s"
                                      (if (fboundp 'help--docstring-quote)
-                                         (help--docstring-quote (format-kbd-macro real-def)) ; Emacs 25+.
+                                         (help--docstring-quote (format-kbd-macro real-def)) ; e-macs 25+.
                                        (format-kbd-macro real-def))))
                             (t "[Missing arglist.  Please submit a bug report.]")))
                ;; Insert "`X", not "(\` X)", when documenting `X.
@@ -1436,7 +1436,7 @@ Return the description that was displayed, as a string."
             high-doc)))))
   )
 
-(when (and (= emacs-major-version 24)  (= emacs-minor-version 3))
+(when (and (= e-macs-major-version 24)  (= e-macs-minor-version 3))
   (defun describe-function-1 (function)
     (let* ((advised        (and (symbolp function)  (featurep 'advice)  (ad-get-advice-info function)))
            ;; If the function is advised, use the symbol that has the real def, if already set up.
@@ -1521,11 +1521,11 @@ Return the description that was displayed, as a string."
             (help-fns--parent-mode function)
             (help-fns--obsolete function)
             (insert "\n")
-            (when (and doc  (boundp 'Info-virtual-files)) ; Emacs 23.2+
+            (when (and doc  (boundp 'Info-virtual-files)) ; e-macs 23.2+
               (Info-make-manuals-xref function)) ; Link to manuals.  (With progress message.)
             (insert (or doc  "Not documented."))))))))
 
-(when (or (> emacs-major-version 24)  (and (= emacs-major-version 24)  (> emacs-minor-version 3)))
+(when (or (> e-macs-major-version 24)  (and (= e-macs-major-version 24)  (> e-macs-minor-version 3)))
   (defun describe-function-1 (function)
     (let* ((advised        (and (symbolp function)
                                 (featurep 'nadvice)
@@ -1593,7 +1593,7 @@ Return the description that was displayed, as a string."
           (princ (if (eq file-name 'C-source)
                      "C source code"
                    (if (fboundp 'help-fns-short-filename)
-                       (help-fns-short-filename file-name) ; Emacs 25+
+                       (help-fns-short-filename file-name) ; e-macs 25+
                      (file-name-nondirectory file-name))))
           (princ "'")
           ;; Make a hyperlink to the library.
@@ -1618,18 +1618,18 @@ Return the description that was displayed, as a string."
                              (error (format "No Doc! %S" err))))))
           (help-fns--key-bindings function)
           (with-current-buffer standard-output
-            (setq doc  (if (> emacs-major-version 24)
+            (setq doc  (if (> e-macs-major-version 24)
                            (help-fns--signature function doc-raw sig-key real-function nil)
                          (help-fns--signature function doc real-def real-function)))
             (run-hook-with-args 'help-fns-describe-function-functions function)
             (insert "\n")
-            (when (and doc  (boundp 'Info-virtual-files)) ; Emacs 23.2+
+            (when (and doc  (boundp 'Info-virtual-files)) ; e-macs 23.2+
               (Info-make-manuals-xref function)) ; Link to manuals.  (With progress message.)
             (insert (or doc  "Not documented."))))))))
 
 ;;;###autoload
 (defun describe-command (function)      ; Bound to `C-h c'
-  "Describe an Emacs command (interactive function).
+  "Describe an e-macs command (interactive function).
 Equivalent to using a prefix arg with `describe-function'.
 
 If you use Icicles then in Icicle mode keys bound to the commands are
@@ -1664,10 +1664,10 @@ display on/off using `C-x C-a'."
 ;; 6. Preserve text properties.
 ;; 7. No message if not called interactively.
 ;;
-(when (< emacs-major-version 23)
+(when (< e-macs-major-version 23)
   (defun describe-variable (variable &optional buffer optionp)
     "Display the full documentation of VARIABLE (a symbol).
-VARIABLE names an Emacs Lisp variable, possibly a user option.
+VARIABLE names an e-macs Lisp variable, possibly a user option.
 With a prefix argument, candidates are user variables (options) only.
 Default candidate is the `symbol-nearest-point'.
 Return the documentation, as a string.
@@ -1696,8 +1696,8 @@ it is displayed along with the global value."
     (if (not (symbolp variable))
         (when (interactive-p) (message "You did not specify a variable"))
       (unless (or (not optionp)  (user-variable-p variable))
-        (error "Not a defined Emacs user option: `%s'" variable))
-      ;;$$ (unless (boundp variable) (error "Not a defined Emacs variable: `%s'" variable))
+        (error "Not a defined e-macs user option: `%s'" variable))
+      ;;$$ (unless (boundp variable) (error "Not a defined e-macs variable: `%s'" variable))
       (save-excursion
         (let* ((valvoid  (not (with-current-buffer buffer (boundp variable))))
                ;; Extract the value before setting up the output buffer,
@@ -1775,7 +1775,7 @@ it is displayed along with the global value."
                 (when (> (count-lines (point-min) (point-max)) 10)
                   ;; Note that setting the syntax table like below makes `forward-sexp' move over a
                   ;; `'s' at the end of a symbol.
-                  (set-syntax-table emacs-lisp-mode-syntax-table)
+                  (set-syntax-table e-macs-lisp-mode-syntax-table)
                   (goto-char val-start-pos)
                   ;; The line below previously read as
                   ;; (delete-region (point) (progn (end-of-line) (point)))
@@ -1827,8 +1827,8 @@ it is displayed along with the global value."
               (print-help-return-message)
               (with-current-buffer standard-output (buffer-string))))))))) ; Return the text displayed.
 
-;;; This macro is no different from what is in vanilla Emacs 23+.
-;;; Add it here so this file can be byte-compiled with Emacs 22 and used with Emacs 23+.
+;;; This macro is no different from what is in vanilla e-macs 23+.
+;;; Add it here so this file can be byte-compiled with e-macs 22 and used with e-macs 23+.
 (defmacro with-selected-frame (frame &rest body)
   "Execute the forms in BODY with FRAME as the selected frame.
 Save the selected frame, select FRAME, execute BODY, then restore the
@@ -1842,10 +1842,10 @@ nor the buffers in the buffer list.  See also `with-temp-buffer'."
     `(let ((,old-frame   (selected-frame))
            (,old-buffer  (current-buffer)))
        (unwind-protect
-            (progn (if (> emacs-major-version 22) (select-frame ,frame 'NORECORD) (select-frame ,frame))
+            (progn (if (> e-macs-major-version 22) (select-frame ,frame 'NORECORD) (select-frame ,frame))
                    ,@body)
          (when (frame-live-p ,old-frame)
-           (if (> emacs-major-version 22) (select-frame ,old-frame 'NORECORD) (select-frame ,old-frame)))
+           (if (> e-macs-major-version 22) (select-frame ,old-frame 'NORECORD) (select-frame ,old-frame)))
          (when (buffer-live-p ,old-buffer) (set-buffer ,old-buffer))))))
 
 
@@ -1856,14 +1856,14 @@ nor the buffers in the buffer list.  See also `with-temp-buffer'."
 ;; 3. PREDICATE to `completing-read' uses original buffer (not minibuffer), when testing `boundp'.  (BUG #21252)
 ;; 4. Preserve text properties.
 ;; 5. Remove initial `*' from doc string (indicates it is a user variable).
-;; 6. Call `Info-make-manuals-xref' to create a cross-ref link to manuals (Emacs 23.3).
+;; 6. Call `Info-make-manuals-xref' to create a cross-ref link to manuals (e-macs 23.3).
 ;; 7. Add key-description buttons to command help.  Use `insert', not `princ'.
 ;; 8. No no-function message if not called interactively.
 ;;
-(when (= emacs-major-version 23)
+(when (= e-macs-major-version 23)
   (defun describe-variable (variable &optional buffer frame optionp)
     "Display the full documentation of VARIABLE (a symbol).
-VARIABLE names an Emacs Lisp variable, possibly a user option.
+VARIABLE names an e-macs Lisp variable, possibly a user option.
 With a prefix argument, candidates are user variables (options) only.
 Default candidate is the `symbol-nearest-point'.
 Return the documentation, as a string.
@@ -1895,14 +1895,14 @@ it is displayed along with the global value."
       (unless (buffer-live-p buffer) (setq buffer (current-buffer)))
       (unless (frame-live-p frame) (setq frame (selected-frame)))
       (if (not (symbolp variable))
-          (when (if (or (> emacs-major-version 23) ; Emacs 23.1 `called-interactively' accepts no arg.
-                        (and (= emacs-major-version 23)  (> emacs-minor-version 1)))
+          (when (if (or (> e-macs-major-version 23) ; e-macs 23.1 `called-interactively' accepts no arg.
+                        (and (= e-macs-major-version 23)  (> e-macs-minor-version 1)))
                     (called-interactively-p 'interactive)
                   (interactive-p))
             (message "You did not specify a variable"))
         (unless (or (not optionp)  (user-variable-p variable))
-          (error "Not a defined Emacs user option: `%s'" variable))
-        ;;$$ (unless (boundp variable) (error "Not a defined Emacs variable: `%s'" variable))
+          (error "Not a defined e-macs user option: `%s'" variable))
+        ;;$$ (unless (boundp variable) (error "Not a defined e-macs variable: `%s'" variable))
         (save-excursion
           (let ((valvoid  (not (with-current-buffer buffer (boundp variable))))
                 val val-start-pos locus)
@@ -1914,8 +1914,8 @@ it is displayed along with the global value."
                   (setq val    (symbol-value variable)
                         locus  (variable-binding-locus variable)))))
             (help-setup-xref (list #'describe-variable variable buffer)
-                             (if (or (> emacs-major-version 23)
-                                     (and (= emacs-major-version 23)  (> emacs-minor-version 1)))
+                             (if (or (> e-macs-major-version 23)
+                                     (and (= e-macs-major-version 23)  (> e-macs-minor-version 1)))
                                  (called-interactively-p 'interactive)
                                (interactive-p)))
             (with-help-window (help-buffer)
@@ -1969,7 +1969,7 @@ it is displayed along with the global value."
                 (when (> (count-lines (point-min) (point-max))  10)
                   ;; Note that setting the syntax table like below makes `forward-sexp' move over a
                   ;; `'s' at the end of a symbol.
-                  (set-syntax-table emacs-lisp-mode-syntax-table)
+                  (set-syntax-table e-macs-lisp-mode-syntax-table)
                   (goto-char val-start-pos)
                   ;; The line below previously read as
                   ;; (delete-region (point) (progn (end-of-line) (point)))
@@ -2058,13 +2058,13 @@ file local variable.\n")
                 ;; Note variable's version or package version
                 (let ((output  (describe-variable-custom-version-info variable)))
                   (when output (terpri) (terpri) (princ output))))
-              (when (boundp 'Info-virtual-files) ; Emacs 23.2+
+              (when (boundp 'Info-virtual-files) ; e-macs 23.2+
                 (unless valvoid
                   (with-current-buffer standard-output ; Link to manuals.
                     (Info-make-manuals-xref variable nil nil
-                                            (not (if (or (> emacs-major-version 23)
-                                                         (and (= emacs-major-version 23)
-                                                              (> emacs-minor-version 1)))
+                                            (not (if (or (> e-macs-major-version 23)
+                                                         (and (= e-macs-major-version 23)
+                                                              (> e-macs-minor-version 1)))
                                                      (called-interactively-p 'interactive)
                                                    (interactive-p)))))))
               (with-current-buffer standard-output (buffer-string))))))))) ; Return the text displayed.
@@ -2077,11 +2077,11 @@ file local variable.\n")
 ;; 3. PREDICATE to `completing-read' uses original buffer (not minibuffer), when testing `boundp'.  (BUG #21252)
 ;; 4. Preserve text properties.
 ;; 5. Remove initial `*' from doc string (indicates it is a user variable).
-;; 6. Call `Info-make-manuals-xref' to create a cross-ref link to manuals (Emacs 23.3).
+;; 6. Call `Info-make-manuals-xref' to create a cross-ref link to manuals (e-macs 23.3).
 ;; 7. Add key-description buttons to command help.  Use `insert', not `princ'.
 ;; 8. No no-function message if not called interactively.
 ;;
-(when (> emacs-major-version 23)
+(when (> e-macs-major-version 23)
 
   (defface describe-variable-value '((((background dark)) (:foreground "#58DFFA4FFFFF")) ; a dark cyan
                                      (t (:foreground "Firebrick")))
@@ -2094,7 +2094,7 @@ With a prefix argument, candidates are user variables (options) only.
 Default candidate is the `symbol-nearest-point'.
 Return the documentation, as a string.
 
-VARIABLE names an Emacs Lisp variable, possibly a user option.
+VARIABLE names an e-macs Lisp variable, possibly a user option.
 If VARIABLE has a buffer-local value in BUFFER or FRAME (default to
 the current buffer and current frame) then it is displayed, along with
 the global value."
@@ -2125,8 +2125,8 @@ the global value."
       (if (not (symbolp variable))
           (when (called-interactively-p 'interactive) (message "You did not specify a variable"))
         (unless (or (not optionp)  (user-variable-p variable))
-          (error "Not a defined Emacs user option: `%s'" variable))
-        ;;$$ (unless (boundp variable) (error "Not a defined Emacs variable: `%s'" variable))
+          (error "Not a defined e-macs user option: `%s'" variable))
+        ;;$$ (unless (boundp variable) (error "Not a defined e-macs variable: `%s'" variable))
         (save-excursion
           (let ((valvoid           (not (with-current-buffer buffer (boundp variable))))
                 (permanent-local   (get variable 'permanent-local))
@@ -2226,7 +2226,7 @@ the global value."
                 (when (> (count-lines (point-min) (point-max)) 10)
                   ;; Note that setting the syntax table like below makes `forward-sexp' move over a
                   ;; `'s' at the end of a symbol.
-                  (set-syntax-table emacs-lisp-mode-syntax-table)
+                  (set-syntax-table e-macs-lisp-mode-syntax-table)
                   (goto-char val-start-pos)
                   ;; The line below previously read as (delete-region (point) (progn (end-of-line) (point))),
                   ;; which suppressed display of the buffer local value for large values.
@@ -2339,7 +2339,7 @@ the global value."
 
 ;;;###autoload
 (defun describe-option (variable &optional buffer) ; Bound to `C-h o'
-  "Describe an Emacs user variable (option).
+  "Describe an e-macs user variable (option).
 Same as using a prefix arg with `describe-variable'."
   (interactive (let ((symb                          (or (and (fboundp 'symbol-nearest-point)
                                                              (symbol-nearest-point))
@@ -2357,7 +2357,7 @@ Same as using a prefix arg with `describe-variable'."
 
 ;;;###autoload
 (defun describe-option-of-type (type option) ; Bound to `C-h C-o'
-  "Describe an Emacs user OPTION (variable) of a given `defcustom' TYPE.
+  "Describe an e-macs user OPTION (variable) of a given `defcustom' TYPE.
 A prefix argument determines the type-checking behavior:
  - None:         OPTION is defined with TYPE or a subtype of TYPE.
  - Plain `C-u':  OPTION is defined with TYPE or a subtype of TYPE,
@@ -2533,7 +2533,7 @@ before you call this function."
 ;;
 ;; Call `Info-make-manuals-xref' to create a cross-ref link to manuals.
 ;;
-(when (or (> emacs-major-version 23)  (and (= emacs-major-version 23)  (> emacs-minor-version 1)))
+(when (or (> e-macs-major-version 23)  (and (= e-macs-major-version 23)  (> e-macs-minor-version 1)))
   (defun describe-face (face &optional frame)
     "Display the properties of face FACE on FRAME.
 Interactively, FACE defaults to the faces of the character after point
@@ -2543,7 +2543,7 @@ If the optional argument FRAME is given, report on face FACE in that frame.
 If FRAME is t, report on the defaults for face FACE (for new frames).
 If FRAME is omitted or nil, use the selected frame."
     (interactive
-     (list (read-face-name "Describe face" (if (> emacs-major-version 23)
+     (list (read-face-name "Describe face" (if (> e-macs-major-version 23)
                                                (or (face-at-point t)  'default)
                                              "= `default' face")
                            t)))
@@ -2617,7 +2617,7 @@ If FRAME is omitted or nil, use the selected frame."
                           (re-search-backward ": \\([^:]+\\)" nil t)
                           (help-xref-button 1 'help-face attr)))
                       (insert "\n")))
-                  (when (boundp 'Info-virtual-files) ; Emacs 23.2+
+                  (when (boundp 'Info-virtual-files) ; e-macs 23.2+
                     (with-current-buffer standard-output ; Link to manuals.
                       (Info-make-manuals-xref f nil nil (not (called-interactively-p 'interactive)))))))
               (terpri))))))))
@@ -2627,11 +2627,11 @@ If FRAME is omitted or nil, use the selected frame."
   "Describe the file named FILENAME.
 If FILENAME is nil, describe current directory (`default-directory').
 
-Starting with Emacs 22, if the file is an image file then:
+Starting with e-macs 22, if the file is an image file then:
  * Show a thumbnail of the image as well.
  * If you have command-line tool `exiftool' installed and in your
    `$PATH' or `exec-path', then show EXIF data (metadata) about the
-   image.  See standard Emacs library `image-dired.el' for more
+   image.  See standard e-macs library `image-dired.el' for more
    information about `exiftool'.
 
 If FILENAME is the name of an autofile bookmark and you use library
@@ -2646,8 +2646,8 @@ Non-nil optional arg NO-ERROR-P prints an error message but does not
   (interactive "FDescribe file: \nP")
   (unless filename (setq filename default-directory))
   (help-setup-xref `(describe-file ,filename ,internal-form-p ,no-error-p)
-                   (if (or (> emacs-major-version 23) ; Emacs 23.1 `called-interactively' accepts no arg.
-                           (and (= emacs-major-version 23)  (> emacs-minor-version 1)))
+                   (if (or (> e-macs-major-version 23) ; e-macs 23.1 `called-interactively' accepts no arg.
+                           (and (= e-macs-major-version 23)  (> e-macs-minor-version 1)))
                        (called-interactively-p 'interactive)
                      (interactive-p)))
   (let ((attrs  (file-attributes filename))
@@ -2667,7 +2667,7 @@ Non-nil optional arg NO-ERROR-P prints an error message but does not
              ;; Skip 9: t iff file's gid would change if file were deleted and recreated.
              (inode            (nth 10 attrs))
              (device           (nth 11 attrs))
-             (thumb-string     (and (fboundp 'image-file-name-regexp) ; In `image-file.el' (Emacs 22+).
+             (thumb-string     (and (fboundp 'image-file-name-regexp) ; In `image-file.el' (e-macs 22+).
                                     (if (fboundp 'string-match-p)
                                         (string-match-p (image-file-name-regexp) filename)
                                       (save-match-data
@@ -2693,9 +2693,9 @@ Non-nil optional arg NO-ERROR-P prints an error message but does not
                                         (string-match-p (image-file-name-regexp) filename)
                                       (save-match-data
                                         (string-match (image-file-name-regexp) filename)))
-                                    (progn (when (if (or (> emacs-major-version 23)
-                                                         (and (= emacs-major-version 23)
-                                                              (> emacs-minor-version 1)))
+                                    (progn (when (if (or (> e-macs-major-version 23)
+                                                         (and (= e-macs-major-version 23)
+                                                              (> e-macs-minor-version 1)))
                                                      (called-interactively-p 'interactive)
                                                    (interactive-p))
                                              (message "Gathering image data..."))  t)
@@ -2795,24 +2795,24 @@ Non-interactively:
         (setq keymap  sym))))
   (setq keymap  (or (condition-case nil (indirect-variable keymap) (error nil))  keymap)) ; Follow aliasing.
   (let* ((name  (symbol-name keymap))
-         (doc   (if (fboundp 'help-documentation-property) ; Emacs 23+
+         (doc   (if (fboundp 'help-documentation-property) ; e-macs 23+
                     (help-documentation-property keymap 'variable-documentation nil 'ADD-HELP-BUTTONS)
                   (documentation-property keymap 'variable-documentation)))
          (doc   (and (not (equal "" doc))  doc)))
     (help-setup-xref (list #'describe-keymap keymap)
-                     (if (or (> emacs-major-version 23) ; Emacs 23.1 `called-interactively' accepts no arg.
-                             (and (= emacs-major-version 23)  (> emacs-minor-version 1)))
+                     (if (or (> e-macs-major-version 23) ; e-macs 23.1 `called-interactively' accepts no arg.
+                             (and (= e-macs-major-version 23)  (> e-macs-minor-version 1)))
                          (called-interactively-p 'interactive)
                        (interactive-p)))
     (if (fboundp 'with-help-window)
         (with-help-window (help-buffer)
           (princ name) (terpri) (princ (make-string (length name) ?-)) (terpri) (terpri)
           (when doc
-            (when (boundp 'Info-virtual-files) ; Emacs 23.2+
+            (when (boundp 'Info-virtual-files) ; e-macs 23.2+
               (with-current-buffer "*Help*"    ; Link to manuals.
-                (Info-make-manuals-xref name nil nil (not (if (or (> emacs-major-version 23)
-                                                                  (and (= emacs-major-version 23)
-                                                                       (> emacs-minor-version 1)))
+                (Info-make-manuals-xref name nil nil (not (if (or (> e-macs-major-version 23)
+                                                                  (and (= e-macs-major-version 23)
+                                                                       (> e-macs-minor-version 1)))
                                                               (called-interactively-p 'interactive)
                                                             (interactive-p))))))
             (princ doc) (terpri) (terpri))
@@ -2821,11 +2821,11 @@ Non-interactively:
       (with-output-to-temp-buffer "*Help*"
         (princ name) (terpri) (princ (make-string (length name) ?-)) (terpri) (terpri)
         (when doc
-          (when (boundp 'Info-virtual-files) ; Emacs 23.2+
+          (when (boundp 'Info-virtual-files) ; e-macs 23.2+
             (with-current-buffer "*Help*"    ; Link to manuals.
-              (Info-make-manuals-xref name nil nil (not (if (or (> emacs-major-version 23)
-                                                                (and (= emacs-major-version 23)
-                                                                     (> emacs-minor-version 1)))
+              (Info-make-manuals-xref name nil nil (not (if (or (> e-macs-major-version 23)
+                                                                (and (= e-macs-major-version 23)
+                                                                     (> e-macs-minor-version 1)))
                                                             (called-interactively-p 'interactive)
                                                           (interactive-p))))))
           (princ doc) (terpri) (terpri))
@@ -2837,9 +2837,9 @@ Non-interactively:
 ;;
 ;; Call `Info-make-manuals-xref' to create a cross-ref link to manuals.
 ;;
-(when (fboundp 'describe-package)       ; Emacs 24+
+(when (fboundp 'describe-package)       ; e-macs 24+
 
-  (when (or (> emacs-major-version 24)  (and (= emacs-major-version 24)  (> emacs-minor-version 3)))
+  (when (or (> e-macs-major-version 24)  (and (= e-macs-major-version 24)  (> e-macs-minor-version 3)))
     (defun describe-package (package)
       "Display the full documentation of PACKAGE (a symbol)."
       (interactive
@@ -2879,7 +2879,7 @@ Non-interactively:
               (Info-make-manuals-xref (concat (symbol-name package) " package")
                                       nil nil (not (called-interactively-p 'interactive))))))))) ; Link to manuals
 
-  (unless (or (> emacs-major-version 24)  (and (= emacs-major-version 24)  (> emacs-minor-version 3)))
+  (unless (or (> e-macs-major-version 24)  (and (= e-macs-major-version 24)  (> e-macs-minor-version 3)))
     (defun describe-package (package)
       "Display the full documentation of PACKAGE (a symbol)."
       (interactive
@@ -2903,7 +2903,7 @@ Non-interactively:
         (with-help-window (help-buffer)
           (with-current-buffer standard-output
             (describe-package-1 package)
-            (when (fboundp 'package-desc-name)  (setq package  (package-desc-name package))) ; Emacs 24.4
+            (when (fboundp 'package-desc-name)  (setq package  (package-desc-name package))) ; e-macs 24.4
             (Info-make-manuals-xref (concat (symbol-name package) " package")
                                     nil nil (not (called-interactively-p 'interactive)))))))) ; Link to manuals
 
@@ -2916,3 +2916,5 @@ Non-interactively:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; help-fns+.el ends here
+
+

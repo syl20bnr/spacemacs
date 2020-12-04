@@ -26,9 +26,9 @@
 - [[#bonus][Bonus]]
 
 * Description
-This layer adds support for the package =emacs-ipython-notebook=.
+This layer adds support for the package =e-macs-ipython-notebook=.
 
-Do not hesitate to check the original package README [[https://github.com/millejoh/emacs-ipython-notebook][here]]. Also the wiki has
+Do not hesitate to check the original package README [[https://github.com/millejoh/e-macs-ipython-notebook][here]]. Also the wiki has
 lots of informative stuff.
 
 ** Features:
@@ -46,8 +46,8 @@ This is a WIP, feel free to collaborate.
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =ipython-notebook= to the existing =dotspacemacs-configuration-layers= list
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =ipython-notebook= to the existing =dotspace-macs-configuration-layers= list
 in this file.
 
 ** Dependencies
@@ -105,7 +105,7 @@ prefix with ~SPC m~ to use with your evil-leader.
 | ~C-S-l~ | ein:worksheet-clear-all-output            |
 | ~C-o~   | ein:console-open                          |
 | ~C-k~   | ein:worksheet-merge-cell                  |
-| ~C-j~   | spacemacs/ein:worksheet-merge-cell-next   |
+| ~C-j~   | space-macs/ein:worksheet-merge-cell-next   |
 | ~s~     | ein:worksheet-split-cell-at-point         |
 | ~C-s~   | ein:notebook-save-notebook-command        |
 | ~C-r~   | ein:notebook-rename-command               |
@@ -163,3 +163,5 @@ In traceback mode the following key bindings are defined:
 If you want to have a matplotlibrc that looks good with a dark background try
 using [[https://gist.github.com/anonymous/80219c49cb674d01e6b5fab94e759f54][this]] =matplotlibrc=. Plot background is always transparent by default so
 it will look okay for most dark themes out there.
+
+

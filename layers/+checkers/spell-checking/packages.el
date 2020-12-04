@@ -1,11 +1,11 @@
-;;; packages.el --- Spell Checking Layer packages File for Spacemacs
+;;; packages.el --- Spell Checking Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -31,13 +31,13 @@
       ;; Select the buffer local dictionary if it was set, otherwise
       ;; auto-dictionary will replace it with a guessed one at each activation.
       ;; https://github.com/nschum/auto-dictionary-mode/issues/5
-      (defun spacemacs//adict-set-local-dictionary ()
+      (defun space-macs//adict-set-local-dictionary ()
         "Set the local dictionary if not nil."
         (when (and (fboundp 'adict-change-dictionary)
                    ispell-local-dictionary)
           (adict-change-dictionary ispell-local-dictionary)))
       (add-hook 'auto-dictionary-mode-hook
-                'spacemacs//adict-set-local-dictionary 'append))))
+                'space-macs//adict-set-local-dictionary 'append))))
 
 (defun spell-checking/init-flyspell ()
   (use-package flyspell
@@ -45,7 +45,7 @@
     :commands (spell-checking/change-dictionary)
     :init
     (progn
-      (spacemacs|define-transient-state spell-checking
+      (space-macs|define-transient-state spell-checking
         :title "Spell Checking Transient State"
         :doc "
 Spell Commands^^            Add To Dictionary^^               Other
@@ -58,25 +58,25 @@ Spell Commands^^            Add To Dictionary^^               Other
 [_s_] correct at point"
         :on-enter (flyspell-mode)
         :bindings
-        ("B" spacemacs/add-word-to-dict-buffer)
+        ("B" space-macs/add-word-to-dict-buffer)
         ("b" flyspell-buffer)
         ("r" flyspell-region)
         ("d" spell-checking/change-dictionary)
-        ("G" spacemacs/add-word-to-dict-global)
+        ("G" space-macs/add-word-to-dict-global)
         ("n" flyspell-goto-next-error)
         ("c" flyspell-correct-wrapper)
         ("Q" flyspell-mode :exit t)
         ("q" nil :exit t)
-        ("S" spacemacs/add-word-to-dict-session)
+        ("S" space-macs/add-word-to-dict-session)
         ("s" flyspell-correct-at-point)
-        ("t" spacemacs/toggle-spelling-checking))
+        ("t" space-macs/toggle-spelling-checking))
 
-      (spacemacs/set-leader-keys "S." 'spacemacs/spell-checking-transient-state/body)
+      (space-macs/set-leader-keys "S." 'space-macs/spell-checking-transient-state/body)
       (spell-checking/add-flyspell-hook 'text-mode-hook)
       (when spell-checking-enable-by-default
         (add-hook 'prog-mode-hook 'flyspell-prog-mode))
 
-      (spacemacs|add-toggle spelling-checking
+      (space-macs|add-toggle spelling-checking
         :status flyspell-mode
         :on (if (derived-mode-p 'prog-mode)
                 (flyspell-prog-mode)
@@ -88,25 +88,25 @@ Spell Commands^^            Add To Dictionary^^               Other
         :documentation "Enable automatic spell checking."
         :evil-leader "tS")
 
-      (spacemacs/declare-prefix "S" "spelling")
-      (spacemacs/declare-prefix "Sa" "add word to dict")
-      (spacemacs/set-leader-keys
-        "Sab" 'spacemacs/add-word-to-dict-buffer
-        "Sag" 'spacemacs/add-word-to-dict-global
-        "Sas" 'spacemacs/add-word-to-dict-session
+      (space-macs/declare-prefix "S" "spelling")
+      (space-macs/declare-prefix "Sa" "add word to dict")
+      (space-macs/set-leader-keys
+        "Sab" 'space-macs/add-word-to-dict-buffer
+        "Sag" 'space-macs/add-word-to-dict-global
+        "Sas" 'space-macs/add-word-to-dict-session
         "Sb" 'flyspell-buffer
         "Sr" 'flyspell-region
         "Sd" 'spell-checking/change-dictionary
         "Sn" 'flyspell-goto-next-error
         "Ss" 'flyspell-correct-at-point))
-    :config (spacemacs|diminish flyspell-mode " Ⓢ" " S")))
+    :config (space-macs|diminish flyspell-mode " â“ˆ" " S")))
 
 (defun spell-checking/init-flyspell-correct ()
   (use-package flyspell-correct
     :commands (flyspell-correct-at-point
                flyspell-correct-wrapper)
     :init
-    (spacemacs/set-leader-keys "Sc" #'flyspell-correct-wrapper)))
+    (space-macs/set-leader-keys "Sc" #'flyspell-correct-wrapper)))
 
 (defun spell-checking/init-flyspell-correct-ivy ()
   (use-package flyspell-correct-ivy
@@ -133,3 +133,5 @@ Spell Commands^^            Add To Dictionary^^               Other
     (progn
       (setq flyspell-popup-correct-delay 0.8)
       (add-hook 'flyspell-mode-hook 'flyspell-popup-auto-correct-mode))))
+
+

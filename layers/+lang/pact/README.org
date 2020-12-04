@@ -23,14 +23,14 @@ This layer adds support for the [[https://github.com/kadena-io/pact][Pact Smart 
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =pact= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =pact= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Flycheck
-To enable flycheck, add the following to your =dotspacemacs/user-config=:
+To enable flycheck, add the following to your =dotspace-macs/user-config=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (add-hook 'pact-mode-hook 'flycheck-mode)
 #+END_SRC
 
@@ -44,3 +44,5 @@ REPL commands are prefixed by ~SPC m s~:
 |-------------+-------------------------------------------------|
 | ~SPC m s '~ | Open a Pact REPL in a new frame                 |
 | ~SPC m s b~ | Load or reload the current buffer into the REPL |
+
+

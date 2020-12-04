@@ -1,11 +1,11 @@
-;;; core-spacemacs.el --- Spacemacs Core File
+;;; core-space-macs.el --- Space-macs Core File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -17,16 +17,16 @@
 (require 'toc-org)
 (require 'org-id)
 
-(defvar spacemacs--category-names
+(defvar space-macs--category-names
   '(("config-files" . "Configuration files")
     ("email" . "E-mail")
     ("intl" . "International support")
     ("lang" . "Programming and markup languages")
     ("os" . "Operating systems")
-    ("spacemacs" . "Spacemacs distribution layers"))
+    ("space-macs" . "Space-macs distribution layers"))
   "Special names for categories. Used to generate the layers list.")
 
-(defun spacemacs//generate-layers-from-path (path level)
+(defun space-macs//generate-layers-from-path (path level)
   "Add all layers found in PATH to the current buffer, at org level LEVEL."
   (let* ((all-subs (directory-files path t nil nil))
          (layers (-filter (lambda (p)
@@ -43,32 +43,32 @@
         (if (file-exists-p layer-readme)
             (insert (format "- [[file:%s][%s]]\n" (file-relative-name
                                                    layer-readme
-                                                   (concat spacemacs-start-directory "layers"))
+                                                   (concat space-macs-start-directory "layers"))
                             layer-name)))))
     (dolist (c categories)
       (let* ((category-name (substring (file-name-nondirectory c) 1))
              (pretty-name
-              (or (cdr (assoc category-name spacemacs--category-names))
+              (or (cdr (assoc category-name space-macs--category-names))
                   (s-capitalize (replace-regexp-in-string
                                  "-" " " category-name)))))
         (message "%S" category-name)
         (insert (format "\n%s %s\n" level pretty-name))
-        (spacemacs//generate-layers-from-path c (concat level "*"))))))
+        (space-macs//generate-layers-from-path c (concat level "*"))))))
 
-(defun spacemacs//fetch-docs-from-root (project-plist)
+(defun space-macs//fetch-docs-from-root (project-plist)
   "Add missing CONTRIBUTING and COMMUNITY files to doc folder for publishing.
    Have been moved out of the doc folder to let github show the documentation.
    See commit 315528c89fd351d559a262bb88bd15ed961e4b4e"
-  (copy-file (concat spacemacs-start-directory "CONTRIBUTING.org")
-             (concat spacemacs-docs-directory "CONTRIBUTING.org")
+  (copy-file (concat space-macs-start-directory "CONTRIBUTING.org")
+             (concat space-macs-docs-directory "CONTRIBUTING.org")
              "overwrite-existing-file")
-  (copy-file (concat spacemacs-start-directory "COMMUNITY.org")
-             (concat spacemacs-docs-directory "COMMUNITY.org")
+  (copy-file (concat space-macs-start-directory "COMMUNITY.org")
+             (concat space-macs-docs-directory "COMMUNITY.org")
              "overwrite-existing-file"))
 
-(defun spacemacs//copy-fetched-docs-html-to-pub-root (project-plist)
+(defun space-macs//copy-fetched-docs-html-to-pub-root (project-plist)
   "Move CONTRIBUTING.html and COMMUNITY.html to `publish-target'.
-See `spacemacs//fetch-docs-from-root'"
+See `space-macs//fetch-docs-from-root'"
   (dolist (file-name '("CONTRIBUTING.html" "COMMUNITY.html"))
     (let ((file-to-move (concat (plist-get project-plist
                                            :publishing-directory)
@@ -81,7 +81,7 @@ See `spacemacs//fetch-docs-from-root'"
       (f-move file-to-move
               (concat publish-target file-name)))))
 
-(defun spacemacs/generate-layers-file (project-plist)
+(defun space-macs/generate-layers-file (project-plist)
   "Generate the layers list file."
   (interactive)
   (with-temp-buffer
@@ -92,10 +92,10 @@ See `spacemacs//fetch-docs-from-root'"
     ;; there is no layer at the root level for now
     ;; uncomment this line if any new layer is added at the root level
     ;; (insert "* General layers\n")
-    (spacemacs//generate-layers-from-path configuration-layer-directory "*")
-    (write-file (concat spacemacs-start-directory "layers/LAYERS.org"))))
+    (space-macs//generate-layers-from-path configuration-layer-directory "*")
+    (write-file (concat space-macs-start-directory "layers/LAYERS.org"))))
 
-(defun spacemacs//format-toc (&rest r)
+(defun space-macs//format-toc (&rest r)
   (if (not (null (car r)))
       (let* ((toc (car r))
              (heading-pos (s-index-of "Contents</h" toc)))
@@ -108,7 +108,7 @@ See `spacemacs//fetch-docs-from-root'"
           toc))
     (car r)))
 
-(defun spacemacs//format-content (&rest r)
+(defun space-macs//format-content (&rest r)
   (let* ((content (car r))
          (div-string "<div id=\"content\">")
          (toc-string "<div id=\"toggle-sidebar\"><a href=\"#table-of-contents\"><h2>Table of Contents</h2></a></div>")
@@ -122,39 +122,39 @@ See `spacemacs//fetch-docs-from-root'"
         (format "%s\n%s%s" beginning-of-content toc-string rest-of-content)
       content)))
 
-(defun spacemacs//toc-org-unhrefify-toc ()
+(defun space-macs//toc-org-unhrefify-toc ()
   "Make TOC classical org-mode TOC."
   (let ((toc-org-hrefify-default "org"))
     (toc-org-insert-toc)))
 
-(defvar-local  spacemacs--org-custom-id-hash nil
-  "Stores repetition count for `spacemacs//org-custom-id-uniquify' func")
+(defvar-local  space-macs--org-custom-id-hash nil
+  "Stores repetition count for `space-macs//org-custom-id-uniquify' func")
 
-(defun spacemacs//org-custom-id-uniquify (id)
+(defun space-macs//org-custom-id-uniquify (id)
   "Make ID unique by attaching -<N> postfix if org heading repeats
 in the current buffer. N is repetition count.
 NOTE: We probably should handle differently the corner cases when
 the current buffer already has headlines with -<N> postfixes.
 :see_no_evil:"
-  (unless spacemacs--org-custom-id-hash
-    (setq spacemacs--org-custom-id-hash
+  (unless space-macs--org-custom-id-hash
+    (setq space-macs--org-custom-id-hash
           (make-hash-table :test 'equal)))
   (let* ((old-count (gethash
                      id
-                     spacemacs--org-custom-id-hash
+                     space-macs--org-custom-id-hash
                      0))
          (new-count (puthash
                      id
                      (1+ old-count)
-                     spacemacs--org-custom-id-hash)))
+                     space-macs--org-custom-id-hash)))
     (if (> new-count 1)
         (concat id "-" (int-to-string old-count))
       id)))
 
-(defun spacemacs//org-heading-annotate-custom-id ()
+(defun space-macs//org-heading-annotate-custom-id ()
   "Annotate headings with the indexes that GitHub uses for linking.
 `org-html-publish-to-html' will use them instead of the default #orgheadline{N}.
-This way the GitHub links and the http://spacemacs.org/ links will be
+This way the GitHub links and the http://space-macs.org/ links will be
 compatible."
   (let ((heading-regexp "^[\\*]+\s\\(.*\\).*$"))
     (goto-char (point-min))
@@ -172,28 +172,28 @@ compatible."
           (insert (format (concat "\n:PROPERTIES:\n"
                                   ":CUSTOM_ID: %s\n"
                                   ":END:\n")
-                          (spacemacs//org-custom-id-uniquify id))))))))
+                          (space-macs//org-custom-id-uniquify id))))))))
 
-(defun spacemacs//reroot-links ()
-  "Find the links that start with https://github.com/syl20bnr/spacemacs/blob/
+(defun space-macs//reroot-links ()
+  "Find the links that start with https://github.com/syl20bnr/space-macs/blob/
 and end with .org{#an-optional-heading-link} (i.e the links between the local
 org files) and make it relative .For the file to file links to work properly
 exported org files should be processed with
-`spacemacs//org-heading-annotate-custom-id' function."
+`space-macs//org-heading-annotate-custom-id' function."
   (let ((git-url-root-regexp
          (concat "\\[\\[[\\s]*\\(https\\:\\/\\/github\\.com\\/syl20bnr"
-                 "\\/spacemacs\\/blob\\/[^/]+\\/\\)\\([^]]+\\)\\(\\.org\\)"))
+                 "\\/space-macs\\/blob\\/[^/]+\\/\\)\\([^]]+\\)\\(\\.org\\)"))
         (case-fold-search t))
     (goto-char (point-min))
     (while (re-search-forward git-url-root-regexp nil t)
       (replace-match "file:" nil t nil 1)
-      (replace-match (f-relative (concat spacemacs-start-directory
+      (replace-match (f-relative (concat space-macs-start-directory
                                          (match-string 2))
                                  (let* ((bfn (buffer-file-name))
                                         (bfnd (file-name-directory bfn)))
                                    ;; NOTE: Quick and dirty fix
                                    ;; for the moved files
-                                   ;; see `spacemacs//fetch-docs-from-root'
+                                   ;; see `space-macs//fetch-docs-from-root'
                                    ;; FIXME: maybe?
                                    (if (or
                                         (string-suffix-p
@@ -209,7 +209,7 @@ exported org files should be processed with
                      nil t nil 2)
       (replace-match ".html" nil t nil 3))))
 
-(defun spacemacs//add-org-meta-readtheorg-css (filename)
+(defun space-macs//add-org-meta-readtheorg-css (filename)
   (let* ((head-css-extra-readtheorg-head (concat
                                           "#+HTML_HEAD_EXTRA:"
                                           "<link rel=\"stylesheet\" "
@@ -225,11 +225,11 @@ exported org files should be processed with
              (error (format "Can't find #+TITLE: in %s"
                             (buffer-file-name))))
            (insert (concat head-css-extra-readtheorg-head
-                           (f-relative spacemacs-start-directory
+                           (f-relative space-macs-start-directory
                                        (file-name-directory filename))
                            head-css-extra-readtheorg-tail)))))
 
-(defun spacemacs//pub-doc-html-advice (origfunc &rest args)
+(defun space-macs//pub-doc-html-advice (origfunc &rest args)
   "Wrapper for `org-html-publish-to-html' use it to insert
 preprocessors for the exported .org files."
   (save-current-buffer
@@ -243,10 +243,10 @@ preprocessors for the exported .org files."
           (save-match-data
             (insert-file-contents filename t)
             ;; ===========Add preprocessors here===============
-            (spacemacs//org-heading-annotate-custom-id)
-            (spacemacs//add-org-meta-readtheorg-css filename)
-            (spacemacs//toc-org-unhrefify-toc)
-            (spacemacs//reroot-links)
+            (space-macs//org-heading-annotate-custom-id)
+            (space-macs//add-org-meta-readtheorg-css filename)
+            (space-macs//toc-org-unhrefify-toc)
+            (space-macs//reroot-links)
             (apply origfunc args)
             (set-buffer-modified-p nil)))
         ;; Restore `buffer-file-name' for the buffers that previously visited
@@ -254,12 +254,12 @@ preprocessors for the exported .org files."
         (when visitingp (with-current-buffer visitingp
                           (setq buffer-file-name filename)))))))
 
-(defun spacemacs/publish-doc ()
+(defun space-macs/publish-doc ()
   "Publish the documentation to doc/export/."
   (interactive)
-  (advice-add 'org-html-toc :filter-return #'spacemacs//format-toc)
-  (advice-add 'org-html-template :filter-return #'spacemacs//format-content)
-  (advice-add 'org-html-publish-to-html :around #'spacemacs//pub-doc-html-advice)
+  (advice-add 'org-html-toc :filter-return #'space-macs//format-toc)
+  (advice-add 'org-html-template :filter-return #'space-macs//format-content)
+  (advice-add 'org-html-publish-to-html :around #'space-macs//pub-doc-html-advice)
   (let* ((header
           "<link rel=\"stylesheet\" type=\"text/css\"
                  href=\"http://www.pirilampo.org/styles/readtheorg/css/htmlize.css\"/>
@@ -284,63 +284,65 @@ preprocessors for the exported .org files."
                           var node = $(this).attr(\"id\");
                           var full_url = page_url + \"#\" + node;
                           $(this).contents().last().after('<span id=\"permalink\"><a href=\"'
-                                                          + full_url + '\">¶</a></span>');
+                                                          + full_url + '\">Â¶</a></span>');
                   });
               });
           });
           </script>")
-         (publish-target (concat spacemacs-start-directory "export/"))
+         (publish-target (concat space-macs-start-directory "export/"))
          (org-html-htmlize-output-type 'css)
          (org-publish-project-alist
-          `(("spacemacs"
-             :components ("spacemacs-news"
-                          "spacemacs-doc"
-                          "spacemacs-doc-static"
+          `(("space-macs"
+             :components ("space-macs-news"
+                          "space-macs-doc"
+                          "space-macs-doc-static"
                           "layers-doc"
                           "layers-doc-static"))
-            ("spacemacs-news"
-             :base-directory ,spacemacs-news-directory
+            ("space-macs-news"
+             :base-directory ,space-macs-news-directory
              :base-extension "org"
              :publishing-directory ,(concat publish-target "news/")
              :publishing-function org-html-publish-to-html
              :headline-levels 4
              :html-head ,header)
-            ("spacemacs-doc"
-             :base-directory ,spacemacs-docs-directory
+            ("space-macs-doc"
+             :base-directory ,space-macs-docs-directory
              :base-extension "org"
              :publishing-directory ,(concat publish-target "doc/")
              :publishing-function org-html-publish-to-html
-             :preparation-function spacemacs//fetch-docs-from-root
-             :completion-function spacemacs//copy-fetched-docs-html-to-pub-root
+             :preparation-function space-macs//fetch-docs-from-root
+             :completion-function space-macs//copy-fetched-docs-html-to-pub-root
              :headline-levels 4
              :html-head ,header)
             ("layers-doc"
-             :base-directory ,(concat spacemacs-start-directory "layers/")
+             :base-directory ,(concat space-macs-start-directory "layers/")
              :base-extension "org"
              :recursive t
              :publishing-directory ,(concat publish-target "layers/")
              :publishing-function org-html-publish-to-html
-             ;; :preparation-function spacemacs/generate-layers-file
+             ;; :preparation-function space-macs/generate-layers-file
              ;; NOTE: Local exclusion disabled because we have files like:
              ;; /layers/+themes/colors/local/nyan-mode/README.org
              ;; :exclude "local\\|dockerfiles"
              :exclude "dockerfiles"
              :html-head ,header)
-            ("spacemacs-doc-static"
-             :base-directory ,spacemacs-docs-directory
+            ("space-macs-doc-static"
+             :base-directory ,space-macs-docs-directory
              :base-extension "png"
              :recursive t
              :publishing-directory ,(concat publish-target "doc/")
              :publishing-function org-publish-attachment)
             ("layers-doc-static"
-             :base-directory ,(concat spacemacs-start-directory "layers/")
+             :base-directory ,(concat space-macs-start-directory "layers/")
              :base-extension "jpg\\|png\\|gif"
              :recursive t
              :publishing-directory ,(concat publish-target "layers/")
              :publishing-function org-publish-attachment))))
-    (org-publish-project "spacemacs"))
-  (advice-remove 'org-html-toc #'spacemacs//format-toc)
-  (advice-remove 'org-html-template #'spacemacs//format-content)
-  (advice-remove 'org-html-publish-to-html #'spacemacs//pub-doc-html-advice))
+    (org-publish-project "space-macs"))
+  (advice-remove 'org-html-toc #'space-macs//format-toc)
+  (advice-remove 'org-html-template #'space-macs//format-content)
+  (advice-remove 'org-html-publish-to-html #'space-macs//pub-doc-html-advice))
 
 (provide 'core-documentation)
+
+

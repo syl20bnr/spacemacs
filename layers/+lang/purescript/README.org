@@ -20,18 +20,18 @@
   - [[#repl][REPL]]
 
 * Description
-This layer provides basic Purescript editing support for spacemacs.
+This layer provides basic Purescript editing support for space-macs.
 
 ** Features:
 - Syntax highlighting through [[https://github.com/dysinger/purescript-mode][purescript-mode]]
-- Automatic insert of imports through [[https://github.com/epost/psc-ide-emacs][psc-ide-emacs]]
-- REPL through [[https://github.com/ardumont/emacs-psci][psci]]
+- Automatic insert of imports through [[https://github.com/epost/psc-ide-e-macs][psc-ide-e-macs]]
+- REPL through [[https://github.com/ardumont/e-macs-psci][psci]]
 - Syntax checking through flycheck
 - Autocompletion through company
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =purescript= to the existing =dotspacemacs-configuration-layers= list in
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =purescript= to the existing =dotspace-macs-configuration-layers= list in
 this file.
 
 You'll also need to make sure the PureScript compiler and its associated
@@ -50,7 +50,7 @@ local =exec_path=, e.g. to support project local purs/pulp installations, set th
 doing this [[https://stackoverflow.com/questions/9679932#comment33532258_9683472][introduces a security risk]]:
 
 #+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers
+  (setq-default dotspace-macs-configuration-layers
     '((purescript :variables node-add-modules-path t)))
 #+END_SRC
 
@@ -62,13 +62,13 @@ meant as an alternative to using flycheck. Default value is nil.
 ** LSP
 For proper IDE support this backend should be used. It is
 based on an external server which will be started automatically
-by emacs, once an purescript file is opened. The key bindings are
+by e-macs, once an purescript file is opened. The key bindings are
 the same for all lsp modes so if you are already familiar with
 one you should be able to work the same in all modes.
 
 To set explicitly do the following in your dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (purescript :variables
           purescript-backend 'lsp)
 #+END_SRC
@@ -114,7 +114,7 @@ intellisense config for LSP.
 | ~SPC m g g~   | Goto definition for identifier at point                                   |
 
 ** REPL
-[[https://github.com/ardumont/emacs-psci][psci]] provides a very basic REPL for purescript. The following key
+[[https://github.com/ardumont/e-macs-psci][psci]] provides a very basic REPL for purescript. The following key
 bindings are available:
 
 | Key binding | Description                                                                      |
@@ -123,3 +123,5 @@ bindings are available:
 | ~SPC m s i~ | Launch a psci console buffer                                                     |
 | ~SPC m s m~ | Equivalent of =:i your.current.module.name= - Import <module> for use in PSCI    |
 | ~SPC m s p~ | Load or reload files defined in the project file .psci                           |
+
+

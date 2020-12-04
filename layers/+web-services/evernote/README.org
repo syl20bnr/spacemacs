@@ -14,7 +14,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for the famous [[https://evernote.com/][Evernote]] note taking service to Spacemacs.
+This layer adds support for the famous [[https://evernote.com/][Evernote]] note taking service to Space-macs.
 It does so by grouping together various packages to work with [[https://evernote.com/][Evernote]].
 
 ** Features:
@@ -24,8 +24,8 @@ It does so by grouping together various packages to work with [[https://evernote
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =evernote= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =evernote= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Geeknote
@@ -35,7 +35,7 @@ to be present in your =$PATH=. To obtain this utility, please refer to the
 official =geeknote= [[http://www.geeknote.me/documentation/][documentation]].
 
 ** Geeknote.el
-[[https://github.com/avendael/emacs-geeknote][geeknote.el]] is a wrapper for some of the most used =geeknote= commands.
+[[https://github.com/avendael/e-macs-geeknote][geeknote.el]] is a wrapper for some of the most used =geeknote= commands.
 By default, =geeknote.el= doesn't have any key bindings defined.
 This layer provides key bindings for all of =geeknote.el's= exposed features.
 =geeknote.el= relies on having a correctly setup =geeknote= editor.
@@ -43,12 +43,12 @@ To set this up, run the following command in your terminal after successfully
 installing =geeknote=:
 
 #+BEGIN_SRC sh
-  $ geeknote settings --editor "emacsclient"
+  $ geeknote settings --editor "e-macsclient"
 #+END_SRC
 
 If you would prefer to customize the =geeknote= command to be used such as
 specifying the path to the =geeknote= python script, please refer to the
-=geeknote.el= [[https://github.com/avendael/emacs-geeknote][documentation]]. For more information about setting up =$PATH=,
+=geeknote.el= [[https://github.com/avendael/e-macs-geeknote][documentation]]. For more information about setting up =$PATH=,
 check out the corresponding section in the FAQ (~SPC h SPC $PATH RET~).
 
 * Key bindings
@@ -61,3 +61,5 @@ check out the corresponding section in the FAQ (~SPC h SPC $PATH RET~).
 | ~SPC a w e s~ | show an existing note               |
 | ~SPC a w e r~ | remove an existing note             |
 | ~SPC a w e m~ | move a note to a different notebook |
+
+

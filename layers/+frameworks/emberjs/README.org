@@ -22,7 +22,7 @@ This also includes [[https://github.com/ronco/ember-yasnippets.el][ember-yasnipp
 
 To use this, you need to add add a =.dir-locals.el= file with the following in the root of your ember project:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ((nil . ((mode . ember))))
 #+END_SRC
 
@@ -30,9 +30,9 @@ If you do not wish to do the following, you may also just do =M-x ember-mode=, h
 
 Additionally, temporary backup, autosave, and lockfiles interfere with broccoli watcher, so they need to either be moved out of the way or disabled.
 
-Add the following to your =dotspacemacs/user-config=:
+Add the following to your =dotspace-macs/user-config=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
   (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
   (setq create-lockfiles nil)
@@ -44,17 +44,17 @@ Add the following to your =dotspacemacs/user-config=:
 - Ability to build, start server, and run tests
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
+To use this contribution add it to your =~/.space-macs=
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(emberjs))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(emberjs))
 #+END_SRC
 
 * Completion System
 By default this will use =ido=,
-but it may be configured to use helm by adding the following in your =dotspacemacs/user-config= function:
+but it may be configured to use helm by adding the following in your =dotspace-macs/user-config= function:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq ember-completion-system 'helm)
 #+END_SRC
 
@@ -116,3 +116,5 @@ but it may be configured to use helm by adding the following in your =dotspacema
 | SPC m f r b | ember-build            |
 | SPC m f r s | ember-serve-or-display |
 | SPC m f r t | ember-test             |
+
+

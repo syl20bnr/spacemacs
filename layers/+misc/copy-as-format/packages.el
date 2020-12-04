@@ -1,11 +1,11 @@
-;;; packages.el --- copy-as-format layer packages file for Spacemacs.
+;;; packages.el --- copy-as-format layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Ruslan Kamashev <rynffoll@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -15,8 +15,8 @@
   (use-package copy-as-format
     :defer t
     :init
-    (spacemacs/declare-prefix "xf" "copy-as-format")
-    (spacemacs/set-leader-keys
+    (space-macs/declare-prefix "xf" "copy-as-format")
+    (space-macs/set-leader-keys
       "xff" 'copy-as-format
       "xfa" 'copy-as-format-asciidoc
       "xfb" 'copy-as-format-bitbucket
@@ -32,3 +32,5 @@
       "xfp" 'copy-as-format-pod
       "xfr" 'copy-as-format-rst
       "xfs" 'copy-as-format-slack)))
+
+

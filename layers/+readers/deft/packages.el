@@ -1,12 +1,12 @@
-;;; packages.el --- deft Layer packages File for Spacemacs
+;;; packages.el --- deft Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;;         Bruno Morais <brunosmmm@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -21,16 +21,16 @@
     :if (eq deft-zetteldeft t)
     :init
     (progn
-      (spacemacs/declare-prefix-for-mode 'deft-mode "mz" "zetteldeft")
-      (spacemacs/declare-prefix-for-mode 'org-mode "mz" "zetteldeft")
-      (spacemacs/declare-prefix "ardz" "zetteldeft")
+      (space-macs/declare-prefix-for-mode 'deft-mode "mz" "zetteldeft")
+      (space-macs/declare-prefix-for-mode 'org-mode "mz" "zetteldeft")
+      (space-macs/declare-prefix "ardz" "zetteldeft")
       ;; zetteldeft actions in deft mode
-      (spacemacs/set-leader-keys-for-major-mode 'deft-mode
+      (space-macs/set-leader-keys-for-major-mode 'deft-mode
         "zT" 'zetteldeft-tag-buffer
         "zn" 'zetteldeft-new-file
         )
       ;; zetteldeft actions in org mode
-      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+      (space-macs/set-leader-keys-for-major-mode 'org-mode
         "zc" 'zetteldeft-search-current-id
         "zf" 'zetteldeft-follow-link
         "zt" 'zetteldeft-avy-tag-search
@@ -44,12 +44,12 @@
         "zo" 'zetteldeft-find-file
         )
       ;; new zetteldeft file under capture
-      (spacemacs/set-leader-keys "Cz" 'zetteldeft-new-file)
+      (space-macs/set-leader-keys "Cz" 'zetteldeft-new-file)
       ;; actions under applications/deft/zetteldeft
-      (spacemacs/set-leader-keys "ardzn" 'zetteldeft-new-file)
-      (spacemacs/set-leader-keys "ardzT" 'zetteldeft-tag-buffer)
-      (spacemacs/set-leader-keys "ardzs" 'zetteldeft-search-at-point)
-      (spacemacs/set-leader-keys "ardzo" 'zetteldeft-find-file)
+      (space-macs/set-leader-keys "ardzn" 'zetteldeft-new-file)
+      (space-macs/set-leader-keys "ardzT" 'zetteldeft-tag-buffer)
+      (space-macs/set-leader-keys "ardzs" 'zetteldeft-search-at-point)
+      (space-macs/set-leader-keys "ardzo" 'zetteldeft-find-file)
     )))
 
 (defun deft/init-deft ()
@@ -64,13 +64,13 @@
       ;; in applications prefix, NOTE: backward incompatible keybindings
       (if deft-zetteldeft
           (progn
-            (spacemacs/declare-prefix "ard" "deft")
-            (spacemacs/set-leader-keys "ardn" 'spacemacs/deft))
-        (spacemacs/set-leader-keys "ard" 'spacemacs/deft))
+            (space-macs/declare-prefix "ard" "deft")
+            (space-macs/set-leader-keys "ardn" 'space-macs/deft))
+        (space-macs/set-leader-keys "ard" 'space-macs/deft))
       ;; put in capture prefix
-      (spacemacs/set-leader-keys "Cd" 'deft-new-file)
+      (space-macs/set-leader-keys "Cd" 'deft-new-file)
 
-      (defun spacemacs/deft ()
+      (defun space-macs/deft ()
         "Helper to call deft and then fix things so that it is nice and works"
         (interactive)
         (deft)
@@ -79,7 +79,7 @@
           (hungry-delete-mode -1))
         ;; When opening it you always want to filter right away
         (evil-insert-state nil)))
-    :config (spacemacs/set-leader-keys-for-major-mode 'deft-mode
+    :config (space-macs/set-leader-keys-for-major-mode 'deft-mode
         "c" 'deft-filter-clear
         "d" 'deft-delete-file
         "i" 'deft-toggle-incremental-search
@@ -88,3 +88,5 @@
         "q" 'quit-window
         "o" 'deft-open-file-other-window
         "r" 'deft-rename-file)))
+
+

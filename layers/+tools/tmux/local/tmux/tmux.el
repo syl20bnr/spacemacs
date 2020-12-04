@@ -1,4 +1,4 @@
-;;; tmux.el --- Seamlessly navigate between Emacs and tmux
+;;; tmux.el --- Seamlessly navigate between e-macs and tmux
 
 ;; Author:   Keith Smiley <keithbsmiley@gmail.com>
 ;; Created:  April 25 2014
@@ -20,7 +20,7 @@
 (require 'evil)
 
 (defgroup navigate nil
-  "seamlessly navigate between Emacs and tmux"
+  "seamlessly navigate between e-macs and tmux"
   :prefix "navigate-"
   :group 'evil)
 
@@ -82,3 +82,5 @@
 (provide 'tmux)
 
 ;;; tmux.el ends here
+
+

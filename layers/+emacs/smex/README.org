@@ -1,6 +1,6 @@
 #+TITLE: Smex layer
 
-#+TAGS: emacs|layer
+#+TAGS: e-macs|layer
 
 [[file:img/smex.png]]
 
@@ -17,13 +17,15 @@ This layer provides a more traditional alternative to =helm-M-x= based on =ido=.
 - Provides an alternative way for =helm-M-x= based on =ido= and [[https://github.com/nonsequitur/smex][smex]]
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =smex= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =smex= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
 
 | Key binding | Description                                |
 |-------------+--------------------------------------------|
-| ~SPC SPC~   | all Emacs commands (interactive functions) |
+| ~SPC SPC~   | all e-macs commands (interactive functions) |
 | ~SPC m :~   | current major mode commands                |
+
+

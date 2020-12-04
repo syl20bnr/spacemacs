@@ -1,23 +1,23 @@
-;;; config.el --- Auto-completion configuration File for Spacemacs
+;;; config.el --- Auto-completion configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 ;; Company -------------------------------------------------------------------
 
-(defvar spacemacs-default-company-backends
+(defvar space-macs-default-company-backends
   '((company-semantic company-dabbrev-code company-gtags company-etags company-keywords)
     company-files company-dabbrev)
-  "The list of default company backends used by spacemacs.
-This variable is used to configure mode-specific company backends in spacemacs.
+  "The list of default company backends used by space-macs.
+This variable is used to configure mode-specific company backends in space-macs.
 Backends in this list will always be active in these modes, as well as any
-backends added by individual spacemacs layers.")
+backends added by individual space-macs layers.")
 
 (defvar-local auto-completion-front-end 'company
   "Which auto-completion front end to use.")
@@ -68,3 +68,5 @@ to complet without blocking common line endings.")
 
 (defvar auto-completion-private-snippets-directory nil
   "Configurable private snippets directory.")
+
+

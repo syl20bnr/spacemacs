@@ -7,28 +7,28 @@
 ;; Author: Donald Ephraim Curtis <dcurtis@milkbox.net>
 ;; Keywords: tools
 
-;; This file is not (yet) part of GNU Emacs.
+;; This file is not (yet) part of GNU e-macs.
 ;; However, it is distributed under the same license.
 
-;; GNU Emacs is free software; you can redistribute it and/or modify
+;; GNU e-macs is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation; either version 3, or (at your option)
 ;; any later version.
 
-;; GNU Emacs is distributed in the hope that it will be useful,
+;; GNU e-macs is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to the
+;; along with GNU e-macs; see the file COPYING.  If not, write to the
 ;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
 
 ;; This library defines the minor mode `package-build-minor-mode',
-;; which will likely be replaced with the `emacs-lisp-mode' derived
+;; which will likely be replaced with the `e-macs-lisp-mode' derived
 ;; `package-recipe-mode' eventually.
 
 ;;; Code:
@@ -67,7 +67,7 @@
                             ,@(cl-case fetcher
                                 (github (list :repo "USER/REPO"))
                                 (t (list :url "SCM_URL_HERE"))))))
-    (emacs-lisp-mode)
+    (e-macs-lisp-mode)
     (package-build-minor-mode)
     (goto-char (point-min))))
 
@@ -93,7 +93,7 @@
         (princ ";; then the source .el file is likely malformed, and should be fixed.\n")
         (pp (assoc (intern name) (package-build-archive-alist))))
       (with-current-buffer output-buffer-name
-        (emacs-lisp-mode)
+        (e-macs-lisp-mode)
         (view-mode)))
     (when (yes-or-no-p "Install new package? ")
       (package-install-file
@@ -103,3 +103,5 @@
 (provide 'package-recipe-mode)
 ;; End:
 ;;; package-recipe-mode.el ends here
+
+

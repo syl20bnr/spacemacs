@@ -1,11 +1,11 @@
-;;; funcs.el --- Asm Layer functions File for Spacemacs
+;;; funcs.el --- Asm Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Tu, Do Hoang <tuhdo1710@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -38,3 +38,5 @@
     (call-interactively 'delete-horizontal-space)))
 (advice-add 'asm-colon :before 'asm-colon-check-space)
 (advice-add 'asm-colon :after 'asm-colon-delete-spaces)
+
+

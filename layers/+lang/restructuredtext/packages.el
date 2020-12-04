@@ -1,11 +1,11 @@
-;;; packages.el --- rest layer packages file for Spacemacs.
+;;; packages.el --- rest layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author:  <wwguo@hiGDP>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -31,7 +31,7 @@
 ;;   (use-package auto-complete-rst
 ;;     :commands (auto-complete-rst-add-sources
 ;;                auto-complete-rst-init)
-;;     :init (spacemacs/add-to-hook 'rst-mode-hook '(auto-complete-rst-init
+;;     :init (space-macs/add-to-hook 'rst-mode-hook '(auto-complete-rst-init
 ;;                                                   auto-complete-rst-add-sources))))
 
 ;; (defun restructuredtext/post-init-linum ()
@@ -59,7 +59,9 @@
     (add-hook 'rst-mode-hook 'ac-flyspell-workaround t)))
 
 (defun restructuredtext/post-init-yasnippet ()
-  (add-hook 'rst-mode-hook 'spacemacs/load-yasnippet))
+  (add-hook 'rst-mode-hook 'space-macs/load-yasnippet))
 
 (defun restructuredtext/post-init-smartparens ()
   (add-hook 'rst-mode-hook 'smartparens-mode))
+
+

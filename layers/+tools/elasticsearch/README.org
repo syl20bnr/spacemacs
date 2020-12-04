@@ -11,7 +11,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds Elasticsearch query and monitoring support to Spacemacs.
+This layer adds Elasticsearch query and monitoring support to Space-macs.
 
 ** Features:
 - Autocompletion for Elasticsearch Query DSL
@@ -19,9 +19,11 @@ This layer adds Elasticsearch query and monitoring support to Spacemacs.
 - Support for an Elasticsearch Command Center to monitor a cluster
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =elasticsearch= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =elasticsearch= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
 This layer makes use of [[https://github.com/dakrone/es-mode#keyboard-shortcuts][es-mode key bindings]]
+
+

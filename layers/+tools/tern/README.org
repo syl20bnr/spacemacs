@@ -21,8 +21,8 @@ JavaScript.
 - TODO: list the feature of tern supported by tern package
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =tern= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =tern= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 You can install =tern= globally with the following command:
@@ -33,12 +33,12 @@ You can install =tern= globally with the following command:
 
 * Configuration
 ** Custom tern command
-Windows users may need to set the variable =tern-command= in order for emacs to
-locate and launch tern server successfully. See [[https://github.com/syl20bnr/spacemacs/issues/5733][this open issue for more
+Windows users may need to set the variable =tern-command= in order for e-macs to
+locate and launch tern server successfully. See [[https://github.com/syl20bnr/space-macs/issues/5733][this open issue for more
 details]]. The variable can be set by adding the =tern= layer with this
 configuration layer:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (tern :variables tern-command '("node" "/path/to/tern/bin/tern"))
 #+END_SRC
 
@@ -52,7 +52,7 @@ To make tern re-use the server across multiple different editing sessions (thus
 creating multiple =.tern-port= files for each document you have open [[http://ternjs.net/doc/manual.html][see here
 for more details]]) set the variable =tern-disable-port-files= to nil:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (tern :variables tern-disable-port-files nil)
 #+END_SRC
 
@@ -66,3 +66,5 @@ for more details]]) set the variable =tern-disable-port-files= to nil:
 | ~SPC m h d~   | find docs of the thing under the cursor. Press again to open the associated URL (if any) |
 | ~SPC m h t~   | find the type of the thing under the cursor                                              |
 | ~SPC m r r V~ | rename variable under the cursor using tern                                              |
+
+

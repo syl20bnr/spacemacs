@@ -1,11 +1,11 @@
-;;; config.el --- Better Emacs Defaults Layer configuration variables File
+;;; config.el --- Better e-macs Defaults Layer configuration variables File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
-;; Author: Thomas de Beauchêne <thomas.de.beauchene@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; Author: Thomas de BeauchÃªne <thomas.de.beauchene@gmail.com>
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -18,3 +18,5 @@ Subsequent strokes will toggle between beginning of line and beginning of code."
   "when t, first stroke of C-e will move the cursor to the end of code (before comments).
 When nil, first stroke will go to the end of line (after comments).
 Subsequent strokes will toggle between end of line and end of code.")
+
+

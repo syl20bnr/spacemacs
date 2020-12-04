@@ -1,46 +1,48 @@
-;;; funcs.el --- Theming Layer functions File for Spacemacs
+;;; funcs.el --- Theming Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//in-or-all (key seq)
+(defun space-macs//in-or-all (key seq)
   (or (eq 'all seq) (memq key seq)))
 
-(defun spacemacs//theming (theme &optional no-confirm no-enable)
+(defun space-macs//theming (theme &optional no-confirm no-enable)
   "Removes existing user theming and applies customizations for the given
 theme."
   (unless no-enable
 
     ;; Remove existing modifications
-    (dolist (face spacemacs--theming-modified-faces)
+    (dolist (face space-macs--theming-modified-faces)
       (custom-set-faces `(,face ((t ())))))
-    (setq spacemacs--theming-modified-faces nil)
+    (setq space-macs--theming-modified-faces nil)
 
     ;; Headings
     (let ((mods nil))
-      (when (spacemacs//in-or-all theme theming-headings-inherit-from-default)
+      (when (space-macs//in-or-all theme theming-headings-inherit-from-default)
         (setq mods (plist-put mods :inherit 'default)))
-      (when (spacemacs//in-or-all theme theming-headings-same-size)
+      (when (space-macs//in-or-all theme theming-headings-same-size)
         (setq mods (plist-put mods :height 1.0)))
-      (when (spacemacs//in-or-all theme theming-headings-bold)
+      (when (space-macs//in-or-all theme theming-headings-bold)
         (setq mods (plist-put mods :weight 'bold)))
       (when mods
-        (dolist (face spacemacs--theming-header-faces)
+        (dolist (face space-macs--theming-header-faces)
           (custom-set-faces `(,face ((t ,mods))))
-          (push face spacemacs--theming-modified-faces))))
+          (push face space-macs--theming-modified-faces))))
 
     ;; Add new modifications
     (dolist (spec (append (cdr (assq theme theming-modifications))
                           (cdr (assq t theming-modifications))))
       (custom-set-faces `(,(car spec) ((t ,(cdr spec)))))
-      (push (car spec) spacemacs--theming-modified-faces))))
+      (push (car spec) space-macs--theming-modified-faces))))
 
-(defun spacemacs/update-theme ()
+(defun space-macs/update-theme ()
   (interactive)
-  (spacemacs//theming spacemacs--cur-theme))
+  (space-macs//theming space-macs--cur-theme))
+
+

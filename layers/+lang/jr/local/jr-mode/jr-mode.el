@@ -4,7 +4,7 @@
 ;; Maintainer: Bryan Bell
 ;; Created:    February 2007
 ;; Version:    0.12
-;; Keywords:    JR programming language, cc-mode, emacs
+;; Keywords:    JR programming language, cc-mode, e-macs
 
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -143,3 +143,5 @@ Key bindings:
   (c-update-modeline))
 
 (provide 'jr-mode)
+
+

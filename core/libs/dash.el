@@ -1,4 +1,4 @@
-;;; dash.el --- A modern list library for Emacs  -*- lexical-binding: t -*-
+;;; dash.el --- A modern list library for e-macs  -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2012-2016 Free Software Foundation, Inc.
 
@@ -21,7 +21,7 @@
 
 ;;; Commentary:
 
-;; A modern list api for Emacs.
+;; A modern list api for e-macs.
 ;;
 ;; See documentation on https://github.com/magnars/dash.el#functions
 ;;
@@ -33,7 +33,7 @@
 
 ;;; Code:
 
-;; TODO: `gv' was introduced in Emacs 24.3, so remove this and all
+;; TODO: `gv' was introduced in e-macs 24.3, so remove this and all
 ;; calls to `defsetf' when support for earlier versions is dropped.
 (eval-when-compile
   (unless (fboundp 'gv-define-setter)
@@ -719,7 +719,7 @@ See also: `-last-item'."
 
 ;; Use `with-no-warnings' to suppress unbound `-last-item' or
 ;; undefined `gv--defsetter' warnings arising from both
-;; `gv-define-setter' and `defsetf' in certain Emacs versions.
+;; `gv-define-setter' and `defsetf' in certain e-macs versions.
 (with-no-warnings
   (if (fboundp 'gv-define-setter)
       (gv-define-setter -last-item (val x) `(setcar (last ,x) ,val))
@@ -3057,16 +3057,18 @@ structure such as plist or alist."
                                   "acc"
                                   "other"
                                   )))
-         (font-lock-add-keywords 'emacs-lisp-mode `((,(concat "\\_<" (regexp-opt special-variables 'paren) "\\_>")
+         (font-lock-add-keywords 'e-macs-lisp-mode `((,(concat "\\_<" (regexp-opt special-variables 'paren) "\\_>")
                                                      1 font-lock-variable-name-face)) 'append)
-         (font-lock-add-keywords 'emacs-lisp-mode `((,(concat "(\\s-*" (regexp-opt new-keywords 'paren) "\\_>")
+         (font-lock-add-keywords 'e-macs-lisp-mode `((,(concat "(\\s-*" (regexp-opt new-keywords 'paren) "\\_>")
                                                      1 font-lock-keyword-face)) 'append))
        (--each (buffer-list)
          (with-current-buffer it
-           (when (and (eq major-mode 'emacs-lisp-mode)
+           (when (and (eq major-mode 'e-macs-lisp-mode)
                       (boundp 'font-lock-mode)
                       font-lock-mode)
              (font-lock-refresh-defaults)))))))
 
 (provide 'dash)
 ;;; dash.el ends here
+
+

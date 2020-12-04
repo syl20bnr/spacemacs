@@ -1,11 +1,11 @@
-;;; packages.el --- tabs layer packages file for Spacemacs.
+;;; packages.el --- tabs layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2018, 2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Deepu Puthrote <git@deepumohan.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -39,3 +39,5 @@
     ("C-c t s" . centaur-tabs-counsel-switch-group)
     ("C-c t p" . centaur-tabs-group-by-projectile-project)
     ("C-c t g" . centaur-tabs-group-buffer-groups)))
+
+

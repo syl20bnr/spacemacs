@@ -1,12 +1,12 @@
-;;; packages.el --- ranger Layer packages File for Spacemacs
+;;; packages.el --- ranger Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Rich Alesi
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -18,8 +18,8 @@
         ))
 
 (defun ranger//set-leader-keys ()
-  (spacemacs/declare-prefix "atr" "ranger/deer")
-  (spacemacs/set-leader-keys
+  (space-macs/declare-prefix "atr" "ranger/deer")
+  (space-macs/set-leader-keys
     "atrr" 'ranger
     "atrd" 'deer
     "jD" 'deer-jump-other-window
@@ -36,12 +36,12 @@
         (define-key evil-motion-state-map (kbd "-") ranger-enter-with-minus))
 
       ;; set up image-dired to allow picture resize
-      (setq image-dired-dir (concat spacemacs-cache-directory "image-dir"))
+      (setq image-dired-dir (concat space-macs-cache-directory "image-dir"))
       (unless (file-directory-p image-dired-dir)
         (make-directory image-dired-dir)))
     :config
     (progn
-      (when (memq 'helm dotspacemacs-configuration-layers)
+      (when (memq 'helm dotspace-macs-configuration-layers)
         (require 'helm))
       (define-key ranger-mode-map (kbd "-") 'ranger-up-directory))))
 
@@ -52,3 +52,5 @@
 (defun ranger/post-init-golden-ratio ()
   (with-eval-after-load 'golden-ratio
     (add-to-list 'golden-ratio-exclude-modes "ranger-mode")))
+
+

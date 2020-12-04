@@ -52,7 +52,7 @@ This layer adds support for the Python language.
 ** Features:
 - Support for the following backends:
   - [[https://github.com/proofit404/anaconda-mode][anaconda]] (default),
-  - [[https://github.com/emacs-lsp/lsp-python-ms][Language Server Protocol]] (experimental - 2 implementations),
+  - [[https://github.com/e-macs-lsp/lsp-python-ms][Language Server Protocol]] (experimental - 2 implementations),
     - python-language-server
     - Microsoft python language server
 - Auto-completion
@@ -68,12 +68,12 @@ This layer adds support for the Python language.
 - Sort imports with [[https://pypi.python.org/pypi/isort][isort]]
 - Fix a missing import statement with [[https://github.com/anachronic/importmagic.el][importmagic]]
 - Pip package manager with [[https://github.com/brotzeit/pippel][pippel]]
-- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
+- Interactive debugger using [[https://github.com/e-macs-lsp/dap-mode][dap-mode]]
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =python= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =python= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Choosing a backend
@@ -92,7 +92,7 @@ Backend can be chosen on a per project basis using directory local variables
 
 #+BEGIN_SRC elisp
   ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
+  ;;; For more information see (info "(e-macs) Directory Variables")
 
   ((python-mode (python-backend . lsp)))
 #+END_SRC
@@ -192,7 +192,7 @@ The default package configuration assumes the executable is located in a folder 
 To use the latest built version in a cloned git repo, use the ~python-lsp-git-root~ config variable, e.g.:
 
 #+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers
+  (setq-default dotspace-macs-configuration-layers
     '((python :variables
               python-backend 'lsp
               python-lsp-server 'mspyls
@@ -228,15 +228,15 @@ Both =nose= and =pytest= are supported. By default =nose= is used.
 To choose your test runner set the layer variable =python-test-runner= to
 either =nose= or =pytest=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((python :variables python-test-runner 'pytest)))
 #+END_SRC
 
 If you need both then you can set =python-test-runner= to a list like this:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((python :variables python-test-runner '(pytest nose))))
 #+END_SRC
 
@@ -245,8 +245,8 @@ runner you can call the test functions with a prefix argument e.g. ~SPC u SPC m
 t t~ to run one test with =nose=.
 
 To set project specific test runners you can set =python-test-runner= in a
-directory local variable in your project root. ~SPC f v d~ in Spacemacs. See
-[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Directory-Variables.html][the official documentation]] for more information.
+directory local variable in your project root. ~SPC f v d~ in Space-macs. See
+[[https://www.gnu.org/software/e-macs/manual/html_node/e-macs/Directory-Variables.html][the official documentation]] for more information.
 
 The root of the project is detected with a =.git= directory or a =setup.cfg= file.
 
@@ -254,8 +254,8 @@ The root of the project is detected with a =.git= directory or a =setup.cfg= fil
 One of [[https://github.com/google/yapf][YAPF]] (the default), [[https://github.com/ambv/black][black]] or =lsp= may be selected as the formatter, via
 =python-formatter=, as =yapf=, =black= or =lsp= respectively.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (python :variables python-formatter 'yapf)))
 #+END_SRC
 
@@ -274,8 +274,8 @@ To enable automatic buffer formatting on save set the variable
 =python-format-on-save= to =t=. The formatter specified by =python-formatter=
 will be used.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (python :variables python-format-on-save t)))
 #+END_SRC
 
@@ -283,8 +283,8 @@ will be used.
 By default a buffer is automatically saved before tests are executed upon it,
 you can disable this feature by setting =python-save-before-test= to =nil=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (python :variables python-save-before-test nil)))
 #+END_SRC
 
@@ -309,10 +309,10 @@ To use =dap-mode= for debugging do:
 * Configuration
 ** Fill column
 If you want to customize the fill column value, use something like this inside
-the =user-init= function in your =.spacemacs=:
+the =user-init= function in your =.space-macs=:
 
 #+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers '(
+  (setq-default dotspace-macs-configuration-layers '(
       (python :variables python-fill-column 99)))
 #+END_SRC
 
@@ -322,7 +322,7 @@ If you want imports to be automatically sorted when you save a file (using
 config section:
 
 #+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers
+  (setq-default dotspace-macs-configuration-layers
     '((python :variables python-sort-imports-on-save t)))
 #+END_SRC
 
@@ -338,12 +338,12 @@ Install importmagic and epc for importmagic functionality.
 ** Pyvenv, pyenv and pipenv
 Sometimes, it is convenient to be able to use python virtual environments from
 other modes. For this reason, the python layer provides the variables
-=spacemacs--python-pyenv-modes=, =spacemacs--python-pyvenv-modes= and
-=spacemacs--python-pipenv-modes=. If you wish to be able to access these
+=space-macs--python-pyenv-modes=, =space-macs--python-pyvenv-modes= and
+=space-macs--python-pipenv-modes=. If you wish to be able to access these
 functionalities from other modes, in your user config section, do:
 
 #+BEGIN_SRC elisp
-  (add-to-list 'spacemacs--python-pipenv-mode 'your-mode)
+  (add-to-list 'space-macs--python-pipenv-mode 'your-mode)
 #+END_SRC
 
 This will allow you to use [[https://github.com/pwalsh/pipenv.el][pipenv]] bindings from the mode your-mode.
@@ -356,7 +356,7 @@ general overview see [[http://docs.python-guide.org/en/latest/dev/virtualenvs/][
 previous link, is a program which manages your virtual environments in a central
 location set by the =WORKON_HOME= environment variable.
 
-Spacemacs integration of virtual environments and virtualenvwrapper is provided
+Space-macs integration of virtual environments and virtualenvwrapper is provided
 by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides the following key bindings:
 
 | Key binding | Description                                     |
@@ -366,17 +366,17 @@ by the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package. It provides
 | ~SPC m V w~ | work on virtual environment in =WORKON_HOME=    |
 
 *** Automatic activation of local virtual environment
-By default Spacemacs uses the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package to manage virtual environments.
+By default Space-macs uses the [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] package to manage virtual environments.
 Additionally it uses =pyvenv-tracking-mode= to activate a buffer's local virtual
 environment on change of focus. Pyvenv determines which virtual environment to
 use from the value of the =pyvenv-workon= or the =pyvenv-activate=
-buffer-local-variable. Spacemacs scans the project directory for a pattern
+buffer-local-variable. Space-macs scans the project directory for a pattern
 =.venv=. If the found =.venv= is a directory then it sets that directory as the
 local virtual environment path. If the =.venv= pattern is a file then it checks if
 its first line matches an existing path and if so, it sets it as the local
 virtual environment path. Finally it checks if it finds an existing directory
 with the name of the first line in the ~pyvenv-workon-home~ directory. By default
-Spacemacs scans for a virtual environment and sets the local =pyvenv-workon= or
+Space-macs scans for a virtual environment and sets the local =pyvenv-workon= or
 the =pyvenv-activate= variables on visiting a file, but switches virtual
 environment on every change of focus using the local variables. The buffer
 tracking behavior can be disabled by setting the value of the customizable
@@ -390,7 +390,7 @@ variable =python-auto-set-local-pyvenv-virtualenv= to:
 If you need multiple Python versions (e.g. Python 2 and Python 3) then take a
 look at [[https://github.com/yyuu/pyenv][pyenv]]. It enables the installation and management of multiple
 Python versions.
-[[https://www.brianthicks.com/post/2015/04/15/automate-your-python-environment-with-pyenv/][This blogpost]] gives a good overview on how to use the tool. Spacemacs
+[[https://www.brianthicks.com/post/2015/04/15/automate-your-python-environment-with-pyenv/][This blogpost]] gives a good overview on how to use the tool. Space-macs
 integration is provided by [[https://github.com/proofit404/pyenv-mode][pyenv mode]] which has the following key bindings.
 
 | Key binding | Description                          |
@@ -405,7 +405,7 @@ has installed. Those will be listed alongside your Python versions.
 A project-specific pyenv version may be written to a file called
 =.python-version= using the [[https://github.com/yyuu/pyenv/blob/master/COMMANDS.md#user-content-pyenv-local][pyenv local]] command.
 
-Spacemacs can search in parent directories for this file, and automatically set
+Space-macs can search in parent directories for this file, and automatically set
 the pyenv version. The behavior can be set with the variable
 =python-auto-set-local-pyenv-version= to:
 - =on-visit= (default) set the version when you visit a python buffer,
@@ -417,7 +417,7 @@ the pyenv version. The behavior can be set with the variable
 a replacement for both =pyenv= and =venv= on a per-repository basis. An overview
 of how to use the tool is provided [[https://pipenv.kennethreitz.org/en/latest/basics/][here]].
 
-Spacemacs integration for pipenv is provided by the [[https://github.com/pwalsh/pipenv.el][pipenv package]].
+Space-macs integration for pipenv is provided by the [[https://github.com/pwalsh/pipenv.el][pipenv package]].
 It provides the following key bindings:
 
 | Key binding   | Description                                                |
@@ -552,4 +552,6 @@ Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][li
 
 ** Debugger
 Using the =dap= layer you'll get access to all the DAP key bindings, see the
-complete list of key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
+complete list of key bindings on the [[https://github.com/syl20bnr/space-macs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
+
+

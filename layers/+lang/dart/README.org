@@ -32,19 +32,19 @@ This layer adds support for Dart language, and could be optionally used for Flut
 - Key bindings
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =dart= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =dart= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(dart))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(dart))
 #+END_SRC
 
 ** Choosing a backend
 To choose a default backend set the layer variable =dart-backend=:
 
 #+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers '(
+  (setq-default dotspace-macs-configuration-layers '(
     (dart :variables dart-backend 'lsp)))
 #+END_SRC
 
@@ -57,23 +57,23 @@ Backend can be chosen on a per project basis using directory local variables
 
 #+BEGIN_SRC elisp
   ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
+  ;;; For more information see (info "(e-macs) Directory Variables")
   ((dart-mode (dart-backend . lsp)))
 #+END_SRC
 
 * Backends
 ** LSP
 This is the recommended backend it is a full IDE server using the standard
-language server protocol to communicate with emacs.
+language server protocol to communicate with e-macs.
 
 Current versions of the dart-sdk ship with lsp support directly integrated in
 the =dart-server=. You do not need to worry about starting and stopping the
-server this will be done by spacemacs automatically.
+server this will be done by space-macs automatically.
 
 However to get all features make sure that you also load the
 auto-completion and syntax-checking layer in your dotfile.
 
-Emacs will look in the standard SDK location for the lsp server.
+e-macs will look in the standard SDK location for the lsp server.
 If this is not working for you, please set the custom path via =lsp-dart-sdk-dir=.
 
 #+BEGIN_SRC elisp
@@ -102,7 +102,7 @@ This backend is not longer officially supported from [[https://github.com/bradyt
 Dart analyzer supported via [[https://github.com/bradyt/dart-server][dart-server]]. You need to enable =dart-server-enable-analysis-server=
 to use analyzer features.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (dart :variables dart-server-enable-analysis-server t)
 #+END_SRC
 
@@ -162,3 +162,5 @@ become Async, and there might be a delay when executing them.
 |-------------+-------------------------------------------|
 | ~q~         | Close popup                               |
 | ~gr~        | Execute last command to repopulate buffer |
+
+

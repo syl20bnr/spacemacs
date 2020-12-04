@@ -1,17 +1,17 @@
-;;; packages.el --- Factor Layer packages File for Spacemacs
+;;; packages.el --- Factor Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: timor <timor.dd@googlemail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 (defconst factor-packages
   '(
-    ;; Assume that factor is installed, and emacs lisp files are correctly
+    ;; Assume that factor is installed, and e-macs lisp files are correctly
     ;; located in site-lisp
     (fuel :location site)
     yasnippet
@@ -24,7 +24,7 @@
                                  (configuration-layer/get-layer-local-dir
                                   'factor))
                t)
-  (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(factor-mode-hook fuel-mode-hook)))
+  (space-macs/add-to-hooks 'space-macs/load-yasnippet '(factor-mode-hook fuel-mode-hook)))
 
 (defun factor/init-fuel()
   (use-package factor-mode
@@ -32,19 +32,19 @@
     :mode ("factor\\'" . factor-mode)
     :init
     (progn
-      (spacemacs/register-repl 'fuel-mode 'run-factor))
+      (space-macs/register-repl 'fuel-mode 'run-factor))
     :config
     (progn
       (require 'fuel-mode)
       (mapc (lambda (x)
-              (spacemacs/declare-prefix-for-mode 'factor-mode (car x) (cdr x)))
+              (space-macs/declare-prefix-for-mode 'factor-mode (car x) (cdr x)))
             '(("mh" . "help")
               ("me" . "eval")
               ("mc" . "compile")
               ("mg" . "nav")
               ("ms" . "repl")
               ("mS" . "scaffold")))
-      (spacemacs/set-leader-keys-for-major-mode 'factor-mode
+      (space-macs/set-leader-keys-for-major-mode 'factor-mode
         "'" 'run-factor
 
         "cc" 'fuel-run-file
@@ -80,7 +80,7 @@
         "Sh" 'fuel-scaffold-help
         )
 
-      (spacemacs/set-leader-keys-for-major-mode 'fuel-listener-mode
+      (space-macs/set-leader-keys-for-major-mode 'fuel-listener-mode
         "v" 'fuel-edit-vocabulary
         "r" 'fuel-refresh-all
         "Ts" 'fuel-stack-mode
@@ -92,3 +92,5 @@
       (dolist (mode '(fuel-debug-uses-mode fuel-debug-mode))
         (evil-set-initial-state mode 'insert))))
   )
+
+

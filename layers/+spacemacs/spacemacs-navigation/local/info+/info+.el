@@ -11,10 +11,10 @@
 ;; Last-Updated: Fri Nov 17 10:02:09 2017 (-0800)
 ;;           By: dradams
 ;;     Update #: 6275
-;; URL: https://www.emacswiki.org/emacs/download/info%2b.el
-;; Doc URL: https://www.emacswiki.org/emacs/InfoPlus
+;; URL: https://www.e-macswiki.org/e-macs/download/info%2b.el
+;; Doc URL: https://www.e-macswiki.org/e-macs/InfoPlus
 ;; Keywords: help, docs, internal
-;; Compatibility: GNU Emacs: 23.x, 24.x, 25.x
+;; Compatibility: GNU e-macs: 23.x, 24.x, 25.x
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -37,7 +37,7 @@
 ;;
 ;;  More description below.
 ;;
-;;  If you use Emacs 20, 21, or 22 then use library `info+20.el'
+;;  If you use e-macs 20, 21, or 22 then use library `info+20.el'
 ;;  instead of `info+.el'.
 
 ;;(@> "Index")
@@ -50,7 +50,7 @@
 ;;  of this doc.  Linkd mode will highlight this Index, as well as the
 ;;  cross-references and section headings throughout this file.  You
 ;;  can get `linkd.el' here:
-;;  https://www.emacswiki.org/emacs/download/linkd.el.
+;;  https://www.e-macswiki.org/e-macs/download/linkd.el.
 ;;
 ;;  (@> "Things Defined Here")
 ;;  (@> "Documentation")
@@ -70,23 +70,23 @@
 ;;  Commands defined here:
 ;;
 ;;    `Info-breadcrumbs-in-mode-line-mode',
-;;    `Info-change-visited-status' (Emacs 24+),
-;;    `Info-describe-bookmark' (Emacs 24.2+),
+;;    `Info-change-visited-status' (e-macs 24+),
+;;    `Info-describe-bookmark' (e-macs 24.2+),
 ;;    `Info-follow-nearest-node-new-window', `Info-goto-node-web',
 ;;    `Info-history-clear', `Info-make-node-unvisited', `info-manual',
 ;;    `Info-merge-subnodes',
 ;;    `Info-mouse-follow-nearest-node-new-window',
 ;;    `Info-outline-demote', `Info-outline-promote',
-;;    `Info-persist-history-mode' (Emacs 24.4+),
+;;    `Info-persist-history-mode' (e-macs 24.4+),
 ;;    `Info-save-current-node', `Info-set-breadcrumbs-depth',
-;;    `Info-set-face-for-bookmarked-xref' (Emacs 24.2+),
+;;    `Info-set-face-for-bookmarked-xref' (e-macs 24.2+),
 ;;    `Info-toggle-breadcrumbs-in-header',
 ;;    `Info-toggle-fontify-angle-bracketed',
-;;    `Info-toggle-fontify-bookmarked-xrefs' (Emacs 24.2+),
+;;    `Info-toggle-fontify-bookmarked-xrefs' (e-macs 24.2+),
 ;;    `Info-toggle-fontify-emphasis',
 ;;    `Info-toggle-fontify-quotations',
 ;;    `Info-toggle-fontify-single-quote',
-;;    `Info-toggle-node-access-invokes-bookmark' (Emacs 24.4+),
+;;    `Info-toggle-node-access-invokes-bookmark' (e-macs 24.4+),
 ;;    `Info-toc-outline', `Info-toc-outline-refontify-region',
 ;;    `Info-url-for-node', `Info-virtual-book'.
 ;;
@@ -99,20 +99,20 @@
 ;;    `info-single-quote', `info-special-form-ref-item',
 ;;    `info-string', `info-syntax-class-item',
 ;;    `info-user-option-ref-item', `info-variable-ref-item',
-;;    `info-xref-bookmarked' (Emacs 24.2+).
+;;    `info-xref-bookmarked' (e-macs 24.2+).
 ;;
 ;;  Options (user variables) defined here:
 ;;
-;;    `Info-bookmarked-node-xref-faces' (Emacs 24.2+),
+;;    `Info-bookmarked-node-xref-faces' (e-macs 24.2+),
 ;;    `Info-breadcrumbs-in-header-flag',
 ;;    `Info-display-node-header-fn', `Info-emphasis-regexp',
 ;;    `Info-fit-frame-flag', `Info-fontify-angle-bracketed-flag',
-;;    `Info-fontify-bookmarked-xrefs-flag' (Emacs 24.2+),
+;;    `Info-fontify-bookmarked-xrefs-flag' (e-macs 24.2+),
 ;;    `Info-fontify-emphasis-flag', `Info-fontify-quotations-flag',
 ;;    `Info-fontify-reference-items-flag',
 ;;    `Info-fontify-single-quote-flag',
-;;    `Info-node-access-invokes-bookmark-flag' (Emacs 24.4+),
-;;    `Info-saved-history-file' (Emacs 24.4+), `Info-saved-nodes',
+;;    `Info-node-access-invokes-bookmark-flag' (e-macs 24.4+),
+;;    `Info-saved-history-file' (e-macs 24.4+), `Info-saved-nodes',
 ;;    `Info-subtree-separator', `Info-toc-outline-no-redundancy-flag'.
 ;;
 ;;  Macros defined here:
@@ -127,8 +127,8 @@
 ;;    `info-fontify-reference-items',
 ;;    `Info-insert-breadcrumbs-in-mode-line', `Info-isearch-search-p',
 ;;    `Info-node-name-at-point', `Info-read-bookmarked-node-name',
-;;    `Info-restore-history-list' (Emacs 24.4+),
-;;    `Info-save-history-list' (Emacs 24.4+), `Info-search-beg',
+;;    `Info-restore-history-list' (e-macs 24.4+),
+;;    `Info-save-history-list' (e-macs 24.4+), `Info-search-beg',
 ;;    `Info-search-end', `Info-toc-outline-find-node',
 ;;    `Info-toc-outline-refontify-links'.
 ;;
@@ -150,7 +150,7 @@
 ;;              have been REDEFINED or ADVISED HERE:
 ;;
 ;;  `info-display-manual' - Use completion to input manual name.
-;;  `Info-find-emacs-command-nodes' - Added arg MSGP and message.
+;;  `Info-find-e-macs-command-nodes' - Added arg MSGP and message.
 ;;  `Info-find-file' - Handle virtual books.
 ;;  `Info-find-node', `Info-find-node-2' -
 ;;     Call `fit-frame' if `Info-fit-frame-flag'.
@@ -163,8 +163,8 @@
 ;;     5. Only 5th and 9th menu items have their `*' colored.
 ;;     6. Notes in face `info-xref'.
 ;;     7. If `Info-fontify-emphasis-flag', then fontify _..._.
-;;     8. If `Info-fontify-quotations-flag', then fontify ‘...’ or
-;;        `...' in face `info-quoted-name', “...” in face
+;;     8. If `Info-fontify-quotations-flag', then fontify â€˜...â€™ or
+;;        `...' in face `info-quoted-name', â€œ...â€ in face
 ;;        `info-double-quoted-name',  and "..." in face `info-string'.
 ;;     9. If `Info-fontify-angle-bracketed-flag' and
 ;;        `Info-fontify-quotations-flag' then fontify <...> in face
@@ -172,18 +172,18 @@
 ;;    10. If `Info-fontify-single-quote-flag' and
 ;;        `Info-fontify-quotations-flag', then fontify ' in face
 ;;        `info-single-quote'.
-;;  `Info-goto-emacs-command-node' -
+;;  `Info-goto-e-macs-command-node' -
 ;;     1. Uses `completing-read' in interactive spec, with,
 ;;        as default, `symbol-nearest-point'.
 ;;     2. Added optional arg MSGP.
 ;;     3. Message if single node found.
 ;;     4. Returns `num-matches' if found; nil if not.
-;;  `Info-goto-emacs-key-command-node' -
+;;  `Info-goto-e-macs-key-command-node' -
 ;;     1. Added optional arg MSGP.
 ;;     2. If key's command not found, then `Info-search's for key
 ;;        sequence in text and displays message about repeating.
 ;;  `Info-goto-node' - Respect option
-;;     `Info-node-access-invokes-bookmark-flag' (Emacs 24.4+).
+;;     `Info-node-access-invokes-bookmark-flag' (e-macs 24.4+).
 ;;  `Info-history' - A prefix arg clears the history.
 ;;  `Info-insert-dir' -
 ;;     Added optional arg NOMSG to inhibit showing progress msgs.
@@ -201,14 +201,14 @@
 ;;  ***** NOTE: The following standard function
 ;;              has been REDEFINED HERE:
 ;;
-;;  `outline-invisible-p' - Fixes Emacs bug #28080.
+;;  `outline-invisible-p' - Fixes e-macs bug #28080.
 
 ;;(@* "Documentation")
 ;;
 ;;  Documentation
 ;;  -------------
 ;;
-;;  Library `info+.el' extends the standard Emacs library `info.el' in
+;;  Library `info+.el' extends the standard e-macs library `info.el' in
 ;;  several ways.  It provides:
 ;;
 ;;  * Association of additional information (metadata) with Info
@@ -308,13 +308,13 @@
 ;;      then there is no such highlighting, and that option has no
 ;;      effect.)
 ;;
-;;    - In the Emacs Lisp manual, reference items are highlighted, so
+;;    - In the e-macs Lisp manual, reference items are highlighted, so
 ;;      they stand out.  This means: constants, commands, functions,
 ;;      macros, special forms, syntax classes, user options, and other
 ;;      variables.
 ;;
 ;;    Be aware that such highlighting is not 100% foolproof.
-;;    Especially for a manual such as Emacs or Elisp, where arbitrary
+;;    Especially for a manual such as e-macs or Elisp, where arbitrary
 ;;    keys and characters can be present anywhere, the highlighting
 ;;    can be thrown off.
 ;;
@@ -329,15 +329,15 @@
 ;;
 ;;    - In the mode line.  Turned on by default.
 ;;
-;;      See ‘Toggle Breadcrumbs’ in the `mouse-3' mode-line menu and
+;;      See â€˜Toggle Breadcrumbsâ€™ in the `mouse-3' mode-line menu and
 ;;      `Toggle Breadcrumbs in Mode Line' in the `Info' menu (in the
 ;;      menu-bar or in the minor-mode indicator). You can customize
 ;;      option `Info-breadcrumbs-in-mode-line-mode' if you want to
-;;      turn this off by default. (Available for Emacs 23+ only.)
+;;      turn this off by default. (Available for e-macs 23+ only.)
 ;;
 ;;    - In the header (just below the header line).
 ;;
-;;      (I also added this to vanilla Emacs 23.)  This is OFF by
+;;      (I also added this to vanilla e-macs 23.)  This is OFF by
 ;;      default in `Info+'.  See `Toggle Breadcrumbs in Header Line'
 ;;      in `Info' menu.  Be aware that unlike breadcrumbs in the mode
 ;;      line, this can occasionally throw off the destination accuracy
@@ -345,19 +345,19 @@
 ;;
 ;;  * Some of the commands defined here:
 ;;
-;;    - `Info-virtual-book' (bound to `v') – Open a virtual Info
+;;    - `Info-virtual-book' (bound to `v') â€“ Open a virtual Info
 ;;      manual of saved nodes from any number of manuals.  The nodes
 ;;      are those saved in option `Info-virtual-book'.  With `C-u',
 ;;      bookmarked Info nodes are also included.  (If you use Icicles,
 ;;      see also `icicle-Info-virtual-book'.)
 ;;
 ;;    - `Info-persist-history-mode' - Enabling this minor mode saves
-;;      the list of your visited Info nodes between Emacs sessions.
+;;      the list of your visited Info nodes between e-macs sessions.
 ;;      Together with command `Info-history' (bound to `L' by
 ;;      default), this gives you a persistent virtual manual of the
 ;;      nodes you have visited in the past.  If the mode is enabled
 ;;      then the list of visited nodes is saved to the file named by
-;;      option `Info-saved-history-file' when you quit Emacs (not
+;;      option `Info-saved-history-file' when you quit e-macs (not
 ;;      Info) or when you kill an Info buffer.
 ;;
 ;;      (If you also use library Bookmark+ then you can bookmark Info
@@ -371,11 +371,11 @@
 ;;      visited.  No prefix arg: toggle.  Non-negative prefix arg: set
 ;;      to visited.  Negative prefix arg: set to unvisited.
 ;;
-;;    - `Info-save-current-node' (bound to `.') – Save the name of the
+;;    - `Info-save-current-node' (bound to `.') â€“ Save the name of the
 ;;      current node to list `Info-saved-nodes', for use by `v'
 ;;      (`Info-virtual-book').
 ;;
-;;    - `Info-merge-subnodes' – Integrate the current Info node with
+;;    - `Info-merge-subnodes' â€“ Integrate the current Info node with
 ;;      its subnodes (the nodes in its Menu), perhaps recursively.
 ;;
 ;;      Use `Info-merge-subnodes' to extract a self-contained report
@@ -413,7 +413,7 @@
 ;;    `TAB'            `Info-next-reference'
 ;;    `ESC TAB'        `Info-prev-reference'
 ;;
-;;  The global binding `C-h r' is changed from `info-emacs-manual' to
+;;  The global binding `C-h r' is changed from `info-e-macs-manual' to
 ;;  `info-manual', which behaves the same except if you use a prefix
 ;;  arg.  With a prefix arg you can open any manual, choosing either
 ;;  from all installed manuals or from those that are already shown in
@@ -425,7 +425,7 @@
 ;;
 ;;  Suggestion: Use a medium-dark background for Info.  Try, for
 ;;  example, setting the background to "LightSteelBlue" in your
-;;  `~/.emacs' file.  You can do this as follows:
+;;  `~/.e-macs' file.  You can do this as follows:
 ;;
 ;;         (setq special-display-buffer-names
 ;;               (cons '("*info*" (background-color . "LightSteelBlue"))
@@ -447,7 +447,7 @@
 ;;  attribute.
 ;;
 ;;  This file should be loaded after loading the standard GNU file
-;;  `info.el'.  So, in your `~/.emacs' file, do this:
+;;  `info.el'.  So, in your `~/.e-macs' file, do this:
 ;;  (eval-after-load "info" '(require 'info+))
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -479,9 +479,9 @@
 ;;     Bind Info-toc-outline to O.
 ;;     Info-mode-menu: Added Editable Outline TOC item for Info-toc-outline.
 ;;     Info-node-access-invokes-bookmark-flag, Info-toggle-node-access-invokes-bookmark, Info-goto-node advice:
-;;       Reserve for Emacs 24.4+.
+;;       Reserve for e-macs 24.4+.
 ;; 2017/08/10 dadams
-;;     Info-goto-node: Define it for Emacs 23 also.
+;;     Info-goto-node: Define it for e-macs 23 also.
 ;;     Info-mode-menu: Add menu items for Info-toggle-node-access-invokes-bookmark, Info-toggle-fontify-bookmarked-xrefs.
 ;; 2017/08/07 dadams
 ;;     Added: Info-make-node-unvisited.  Bound to C-x DEL.
@@ -491,11 +491,11 @@
 ;;     Bind Info-set-face-for-bookmarked-xref to C-x f.
 ;;     Info-describe-bookmark: If no bookmarked node name at point, use Info-read-bookmarked-node-name.
 ;;     Info-bookmark-for-node: Made NODE arg optional - if nil then read the node name.  Added LOCALP arg.
-;;     Info-fontify-node (Emacs 24.2+): Get face for bookmarked xref from bmkp-info-face tag value, if any.
+;;     Info-fontify-node (e-macs 24.2+): Get face for bookmarked xref from bmkp-info-face tag value, if any.
 ;;                                      Call Info-bookmark-for-node with arg LOCALP.
 ;; 2017/08/04 dadams
 ;;     Info-describe-bookmark: Use Info-bookmark-name-at-point, not Info-node-name-at-point.
-;;     Info-goto-node: Do it only for Emacs 24.2+.
+;;     Info-goto-node: Do it only for e-macs 24.2+.
 ;; 2017/08/02 dadams
 ;;     Info-goto-node: Define only if can soft-require bookmark+.el.
 ;;                     No-op if NODE is in Info-index-nodes.
@@ -521,11 +521,11 @@
 ;;     Added autoload cookies: Info-breadcrumbs-in-mode-line-mode, Info-set-breadcrumbs-depth,
 ;;           Info-search, Info-mouse-follow-nearest-node, info-display-manual.
 ;; 2017/01/09 dadams
-;;     Info-find-emacs-command-nodes: Updated for handle LINE-NUMBER (Emacs 24.5+).
+;;     Info-find-e-macs-command-nodes: Updated for handle LINE-NUMBER (e-macs 24.5+).
 ;; 2016/12/13 dadams
 ;;     Removed obsolete face aliases: info-menu-5, Info-title-*-face.
 ;; 2016/12/11 dadams
-;;     Added defvars for isearch(-regexp)-lax-whitespace for Emacs 24.1 and 24.2.
+;;     Added defvars for isearch(-regexp)-lax-whitespace for e-macs 24.1 and 24.2.
 ;; 2016/12/10 dadams
 ;;     Use string as 3rd arg to make-obsolete.
 ;; 2016/10/31 dadams
@@ -533,7 +533,7 @@
 ;; 2016/07/02 dadams
 ;;     Added: Info-toggle-fontify-emphasis, Info-breadcrumbs-in-header-flag, Info-emphasis-regexp,
 ;;            Info-fontify-emphasis-flag, info-fontify-emphasis, and face info-emphasis.
-;;     Added some doc from Emacs Wiki to commentary.
+;;     Added some doc from e-macs Wiki to commentary.
 ;;     Info-mode-menu:
 ;;       Add toggle indicators.  Moved toggle commands to Toggle submenu.  Added Info-toggle-fontify-emphasis.
 ;;     Info-fontify-node: Fontify emphasis.
@@ -541,15 +541,15 @@
 ;;     info-double-quoted-name: Changed default colors.
 ;; 2015/09/13 dadams
 ;;     Added face info-double-quoted-name.
-;;     info-quotation-regexp, info-quoted+<>-regexp: Added pattern for curly double-quotes (“...”).
+;;     info-quotation-regexp, info-quoted+<>-regexp: Added pattern for curly double-quotes (â€œ...â€).
 ;;                                                   Use shy groups for all parts.
-;;     info-fontify-quotations: Fontify text between curly double-quotes (“...”).
+;;     info-fontify-quotations: Fontify text between curly double-quotes (â€œ...â€).
 ;; 2015/03/19 dadams
 ;;     info-quoted+<>-regexp: Highlight <...> only if the first char is alphabetic.
 ;; 2015/03/06 dadams
 ;;     Added: info-manual.  Bound it globally to C-h r.
-;;     Info-fontify-node (Emacs 24.1.N+): Updated per Emacs 24.4: allow Info-fontify-maximum-menu-size to be t.
-;;     info-display-manual: Updated for Emacs 25: use info--manual-names with prefix arg.
+;;     Info-fontify-node (e-macs 24.1.N+): Updated per e-macs 24.4: allow Info-fontify-maximum-menu-size to be t.
+;;     info-display-manual: Updated for e-macs 25: use info--manual-names with prefix arg.
 ;; 2015/02/28 dadams
 ;;     Added: redefinition of Info-read-node-name.
 ;;     Info-goto-node-web, Info-url-for-node: Use Info-current-node as default.
@@ -561,18 +561,18 @@
 ;;     Info-display-node-default-header: (goto-char (point-min)), not (beginning-of-buffer).
 ;;     Info-merge-subnodes: with-current-buffer, not save-excursion + set-buffer.
 ;; 2014/05/04 dadams
-;;     REMOVED SUPPORT for Emacs 20-22.  That support is offered by a new library now: info+20.el.
-;;     Added coding:utf-8 declaration.  Replace \x2018, \x2019 with literal ‘ and ’, since now Emacs 23+.
+;;     REMOVED SUPPORT for e-macs 20-22.  That support is offered by a new library now: info+20.el.
+;;     Added coding:utf-8 declaration.  Replace \x2018, \x2019 with literal â€˜ and â€™, since now e-macs 23+.
 ;; 2014/05/03 dadams
-;;     info-quotation-regexp, info-quoted+<>-regexp: Handle also curly single quotes (Emacs 24.4+).
+;;     info-quotation-regexp, info-quoted+<>-regexp: Handle also curly single quotes (e-macs 24.4+).
 ;;                                                   Removed double * and moved openers outside \(...\) group.
-;;     info-fontify-quotations: Handle also curly single quotes (Emacs 24.4+).
+;;     info-fontify-quotations: Handle also curly single quotes (e-macs 24.4+).
 ;; 2014/03/04 dadams
 ;;     Renamed Info-toggle-breadcrumbs-in-header-line to Info-toggle-breadcrumbs-in-header.
 ;;       Declared old name obsolete.
 ;; 2014/03/02 dadams
-;;     Info-find-file: Go to directory if no previous file (per Emacs 24.4+).
-;;     Info-find-node-2 (Emacs > 22): Go to Top node at end, if no history.
+;;     Info-find-file: Go to directory if no previous file (per e-macs 24.4+).
+;;     Info-find-node-2 (e-macs > 22): Go to Top node at end, if no history.
 ;; 2013/10/17 dadams
 ;;     Added: Info-search-beg, Info-search-end, Info-isearch-search-p.
 ;;     Added redefinition: Info-isearch-wrap, Info-isearch-search.
@@ -583,7 +583,7 @@
 ;; 2013/02/26 dadams
 ;;     Info-mode-menu and Info-mode doc string: Removed Info-edit, Info-enable-edit (now obsolete).
 ;; 2013/02/09 dadams
-;;     Info-read-node-name-1: Removed Emacs 23+ redefinition.
+;;     Info-read-node-name-1: Removed e-macs 23+ redefinition.
 ;; 2013/02/03 dadams
 ;;     Added: Info-fontify-angle-bracketed-flag, Info-toggle-fontify-angle-bracketed,
 ;;            Info-toggle-fontify-quotations, Info-toggle-fontify-single-quote, info-quoted+<>-regexp.
@@ -591,17 +591,17 @@
 ;;                              Handle also Info-fontify-angle-bracketed-flag.
 ;;     Added  Info-fontify-*-flag to Info menu (so menu bar and C-mouse-3).
 ;; 2012/09/24 dadams
-;;     Info-search. Info-mode: Applied latest Emacs 24 updates by Juri (from 2012-09-12).
+;;     Info-search. Info-mode: Applied latest e-macs 24 updates by Juri (from 2012-09-12).
 ;; 2012/08/25 dadams
 ;;     Info-fontify-node: Hide any empty lines at end of node (fixes bug #12272).
 ;; 2012/08/24 dadams
 ;;     info-fontify-reference-items: Fontify parameters on continuation lines also.
-;;     Info-fontify-node: Juri's fix for Emacs bug #12187.
+;;     Info-fontify-node: Juri's fix for e-macs bug #12187.
 ;;     Reverted Juri's change from 08/20, since Juri fixed it elsewhere afterward.
 ;; 2012/08/21 dadams
 ;;     Call tap-put-thing-at-point-props after load thingatpt+.el.
 ;; 2012/08/20 dadams
-;;     Applied Juri's fix for Emacs bug #12230:
+;;     Applied Juri's fix for e-macs bug #12230:
 ;;       Added: Info-file-attributes.
 ;;       Info-find-file: Clear caches of modified Info files.
 ;; 2012/08/18 dadams
@@ -611,22 +611,22 @@
 ;;     info-fontify-reference-items: Handle constants, using face info-constant-ref-item.
 ;;     Info-toggle-breadcrumbs-in-header-line, Info-save-current-node: Added MSGP arg.
 ;; 2012/08/10 dadams
-;;     Info-search: Use latest Emacs 24 msg: _end of node_, not _initial node_.
+;;     Info-search: Use latest e-macs 24 msg: _end of node_, not _initial node_.
 ;; 2012/08/09 dadams
-;;     Info-fontify-node: Updated guards for Emacs 24 versions.
+;;     Info-fontify-node: Updated guards for e-macs 24 versions.
 ;; 2012/07/28 dadams
-;;     Info-fontify-node: Typo on guard: (/= 1 emacs-minor-version) should have been =, not /=.
+;;     Info-fontify-node: Typo on guard: (/= 1 e-macs-minor-version) should have been =, not /=.
 ;; 2012/07/17 dadams
-;;     Added redefinition of Info-fontify-node for post-Emacs 24.1.
+;;     Added redefinition of Info-fontify-node for post-e-macs 24.1.
 ;;     Added redefinitions of Info-insert-dir, Info(-directory)-find-node, with args controlling msgs.
 ;;     info-find-node-2: Added optional arg NOMSG.
-;;     Info-find-emacs-command-nodes, Info-goto-emacs(-key)-command-node: Added optional arg MSGP.
+;;     Info-find-e-macs-command-nodes, Info-goto-e-macs(-key)-command-node: Added optional arg MSGP.
 ;;     Info-search, Info-save-current-node: Show messages only if interactive-p.
 ;; 2012/01/15 dadams
 ;;     Added: info-display-manual (redefinition).
-;;     Info-find-file: Do not define for < Emacs 23.2 - no virtual books.
+;;     Info-find-file: Do not define for < e-macs 23.2 - no virtual books.
 ;; 2011/11/15 dadams
-;;     Added: redefinition of Info-find-file for Emacs 23+, to handle virtual books.
+;;     Added: redefinition of Info-find-file for e-macs 23+, to handle virtual books.
 ;; 2011/08/23 dadams
 ;;     Removed hard-code removal of info from same-window-(regexps|buffer-names).  Thx to PasJa.
 ;; 2011/02/06 dadams
@@ -638,27 +638,27 @@
 ;; 2010/05/27 dadams
 ;;     Added: Info-set-mode-line.
 ;;     Info-find-node-2:
-;;       Added redefinition of it for Emacs 23.2 (they keep twiddling it).
+;;       Added redefinition of it for e-macs 23.2 (they keep twiddling it).
 ;;       Do not call Info-insert-breadcrumbs-in-mode-line.  Do that in Info-set-mode-line now.
 ;; 2010/04/06 dadams
 ;;     Added: Info-breadcrumbs-in-header-flag, Info-toggle-breadcrumbs-in-header-line,
 ;;            Info-breadcrumbs-in-mode-line-mode, Info-set-breadcrumbs-depth,
 ;;            Info-insert-breadcrumbs-in-mode-line, Info-breadcrumbs-depth-internal.
-;;     Added to Info-mode-menu (Emacs 23+): Info-breadcrumbs-in-mode-line-mode.
-;;     Info-find-node-2 (Emacs 23+): Add breadcrumbs to header line & mode line only according to vars.
-;;     Info-fontify-node (Emacs 23+): Handle breadcrumbs in header only if flag says to.
+;;     Added to Info-mode-menu (e-macs 23+): Info-breadcrumbs-in-mode-line-mode.
+;;     Info-find-node-2 (e-macs 23+): Add breadcrumbs to header line & mode line only according to vars.
+;;     Info-fontify-node (e-macs 23+): Handle breadcrumbs in header only if flag says to.
 ;; 2010/01/12 dadams
-;;     Info-find-node for Emacs 20, Info-find-node-2 for Emacs 21, 22, Info-search:
+;;     Info-find-node for e-macs 20, Info-find-node-2 for e-macs 21, 22, Info-search:
 ;;       save-excursion + set-buffer -> with-current-buffer.
 ;; 2010/01/10 dadams
-;;     Info-find-node-2 for Emacs 23+: Updated for Emacs 23.2 (pretest) - virtual function stuff.
+;;     Info-find-node-2 for e-macs 23+: Updated for e-macs 23.2 (pretest) - virtual function stuff.
 ;; 2009/12/13 dadams
-;;     Typo: Incorrectly used Emacs 22 version for Emacs 21 also.
+;;     Typo: Incorrectly used e-macs 22 version for e-macs 21 also.
 ;; 2009/12/11 dadams
 ;;     info-fontify-(node|quotations|reference-items), Info-merge-subnodes:
-;;       Use font-lock-face property, not face, if > Emacs 21.
+;;       Use font-lock-face property, not face, if > e-macs 21.
 ;; 2009/08/03 dadams
-;;     Updated for Emacs 23.1 release: Info-find-node-2, Info-fontify-node, Info-search: new version.
+;;     Updated for e-macs 23.1 release: Info-find-node-2, Info-fontify-node, Info-search: new version.
 ;; 2009/06/10 dadams
 ;;     Added: Info-fontify-reference-items-flag, Info-mode-syntax-table.
 ;;     Info-mode: Use Info-mode-syntax-table, not text-mode-syntax-table.
@@ -674,7 +674,7 @@
 ;; 2009/05/25 dadams
 ;;     Info-virtual-book: Treat info-node bookmarks too.
 ;; 2009/05/23 dadams
-;;     Added: Info-mode for Emacs 23.
+;;     Added: Info-mode for e-macs 23.
 ;;            They added Info-isearch-filter, Info-revert-buffer-function, Info-bookmark-make-record.
 ;; 2009/05/22 dadams
 ;;     Added: Info-saved-nodes, Info-save-current-node, Info-virtual-book.  Added to Info-mode-menu.
@@ -683,27 +683,27 @@
 ;; 2009/04/26 dadams
 ;;     Info-merge-subnodes: Bind inhibit-field-text-motion to t, for end-of-line.
 ;; 2008/10/07 dadams
-;;     Require cl.el at compile time for all Emacs versions, because of case.
+;;     Require cl.el at compile time for all e-macs versions, because of case.
 ;; 2008/10/05 dadams
 ;;     Added: Info-read-node-name-1, Info-read-node-name-2.
 ;; 2008-07-11 dadams
-;;     Info-fontify-node (Emacs 22+): Protect histories when getting ancestor nodes for breadcrumbs.
-;;     (Emacs 22+) Don't change faces info-menu-header, *-title-*, *(-header)-node, header-line.
-;;     (Emacs 20, 21): Removed bold and italic attributes from info-node and info-xref.
+;;     Info-fontify-node (e-macs 22+): Protect histories when getting ancestor nodes for breadcrumbs.
+;;     (e-macs 22+) Don't change faces info-menu-header, *-title-*, *(-header)-node, header-line.
+;;     (e-macs 20, 21): Removed bold and italic attributes from info-node and info-xref.
 ;;     Removed commented out defface for info-xref and info-node.
 ;;     Face info-file: Blue, not DarkBlue, foreground, by default.
 ;; 2008/06/12 dadams
-;;     Info-fontify-node (Emacs 22+):
+;;     Info-fontify-node (e-macs 22+):
 ;;       Prevent infinite recursion from Info-goto-node calling Info-fontify-node.
 ;;       Fixed for nil Info-hide-note-references.
 ;; 2008/06/10 dadams
-;;     Info-fontify-node (Emacs 22+): Added breadcrumbs.
+;;     Info-fontify-node (e-macs 22+): Added breadcrumbs.
 ;; 2008/03/06 dadams
-;;     info-mode: Use fboundp for Info-clone-buffer, not version test, for Emacs 22+. Thx to Sebastien Vauban.
+;;     info-mode: Use fboundp for Info-clone-buffer, not version test, for e-macs 22+. Thx to Sebastien Vauban.
 ;; 2008/02/01 dadams
-;;     Info-mode: Renamed Info-clone-buffer-hook to Info-clone-buffer for Emacs 22.1.90.
+;;     Info-mode: Renamed Info-clone-buffer-hook to Info-clone-buffer for e-macs 22.1.90.
 ;; 2008/01/08 dadams
-;;     Info-search (Emacs 22): Removed phony pred arg.
+;;     Info-search (e-macs 22): Removed phony pred arg.
 ;; 2008/01/06 dadams
 ;;     Removed soft require of Icicles due to cirular dependency.  Thx to Tennis Smith.
 ;; 2007/11/27 dadams
@@ -715,15 +715,15 @@
 ;;     Better default color for info-quoted-name.  Added group face to all deffaces.
 ;; 2007/09/25 dadams
 ;;     Bound Info-mouse-*-new-* to S-down-mouse-2, not S-mouse-2, because of mouse-scan-lines-or-M-:.
-;;     Info-goto-emacs-command-node: Convert completion default value to string.
+;;     Info-goto-e-macs-command-node: Convert completion default value to string.
 ;; 2007/08/27 dadams
-;;     Info-fontify-node: Ensure Info-fontify-node is a string when fontifiy quotations. Updated for Emacs 22.
+;;     Info-fontify-node: Ensure Info-fontify-node is a string when fontifiy quotations. Updated for e-macs 22.
 ;; 2007/07/13 dadams
-;;     Info-find-node: Redefine only for Emacs < 21.
+;;     Info-find-node: Redefine only for e-macs < 21.
 ;; 2006/09/15 dadams
-;;     Info-mouse-follow-nearest-node redefinition is only for Emacs >= 22.
-;;     Changed Emacs 22 tests to just (>= emacs-major-version 22).
-;;     Bind tool-bar-map for Emacs 21.  Otherwise, binding of [tool-bar] gives an error (why?).
+;;     Info-mouse-follow-nearest-node redefinition is only for e-macs >= 22.
+;;     Changed e-macs 22 tests to just (>= e-macs-major-version 22).
+;;     Bind tool-bar-map for e-macs 21.  Otherwise, binding of [tool-bar] gives an error (why?).
 ;; 2006/08/18 dadams
 ;;     Everywhere: Corrected previous change: minibuffer-selected-window to window-minibuffer-p.
 ;; 2006/08/14 dadams
@@ -738,7 +738,7 @@
 ;; 2006/06/10 dadams
 ;;     Added: Info(-mouse)-follow-nearest-node-new-window.  Bound to S-RET, S-mouse-2.
 ;; 2006/03/31 dadams
-;;     info-menu-header: Removed :underline, because links are underlined in Emacs 22.
+;;     info-menu-header: Removed :underline, because links are underlined in e-macs 22.
 ;;     No longer use display-in-minibuffer.
 ;; 2006/01/08 dadams
 ;;     Added: redefinition of Info-mouse-follow-nearest-node.
@@ -752,32 +752,32 @@
 ;;     Use minibuffer-prompt face, not info-msg-face.
 ;;     No longer require setup-info.el.  No longer require cl.el when compile.
 ;; 2005/11/21 dadams
-;;     Info-search for Emacs 22: Don't display repeat `s' message if isearch-mode.
+;;     Info-search for e-macs 22: Don't display repeat `s' message if isearch-mode.
 ;; 2005/11/09 dadams
 ;;     Info-fontify-node: Updated to reflect latest CVS (replaced Info-escape-percent header).
 ;; 2005/10/31 dadams
 ;;     Use nil as init-value arg in calls to completing-read, everywhere.
 ;; 2005/07/04 dadams
-;;     info-fontify-quotations: Use font-lock-face property, instead of face, for Emacs 22.
+;;     info-fontify-quotations: Use font-lock-face property, instead of face, for e-macs 22.
 ;;                              Wrap re-search-forward in condition-case for stack overflow.
 ;; 2005/07/02 dadams
-;;     Info-search: fit-frame. Added Emacs 22 version too.
-;;     Info-goto-emacs-command-node, Info-goto-emacs-key-command-node, Info-merge-subnodes:
-;;       Use Info-history-back for Emacs 22.
-;;     Info-mode: Added Emacs 22 version.
+;;     Info-search: fit-frame. Added e-macs 22 version too.
+;;     Info-goto-e-macs-command-node, Info-goto-e-macs-key-command-node, Info-merge-subnodes:
+;;       Use Info-history-back for e-macs 22.
+;;     Info-mode: Added e-macs 22 version.
 ;; 2005/06/23 dadams
-;;     Info-fontify-node: Fontify reference items if in Emacs-Lisp manual.
+;;     Info-fontify-node: Fontify reference items if in e-macs-Lisp manual.
 ;;     Added: info-fontify-reference-items
 ;; 2005/05/17 dadams
-;;     Updated to work with Emacs 22.x.
+;;     Updated to work with e-macs 22.x.
 ;; 2004/11/20 dadams
-;;     Info-find-emacs-command-nodes: bug fix: regexp (cmd-desc) was only for Emacs 21.
-;;     Refined to deal with Emacs 21 < 21.3.50 (soon to be 22.x)
+;;     Info-find-e-macs-command-nodes: bug fix: regexp (cmd-desc) was only for e-macs 21.
+;;     Refined to deal with e-macs 21 < 21.3.50 (soon to be 22.x)
 ;; 2004/10/09 dadams
 ;;     info-fontify-quotations:
 ;;       1) Allow all characters inside `...'.
 ;;       2) Treat case of "..." preceded by backslashes
-;;     Info-fontify-node (for Emacs 21): Moved info-fontify-quotations before fontification of titles.
+;;     Info-fontify-node (for e-macs 21): Moved info-fontify-quotations before fontification of titles.
 ;; 2004/10/07 dadams
 ;;     Renamed Info-resize-frame-p to Info-fit-frame-flag.
 ;; 2004/10/05 dadams
@@ -787,13 +787,13 @@
 ;;       Added info-fontify-quotations. Removed info-fontify-strings-p.
 ;;       Renamed Info-fontify-quotations-p to Info-fontify-quotations-flag.
 ;; 2004/10/03/dadams
-;;     Major update: updated to work with Emacs 21 also.
+;;     Major update: updated to work with e-macs 21 also.
 ;;       Made require of setup-info.el mandatory.
 ;;       Removed all variables and keys to setup-info.el.
-;;       Renamed to Emacs 21 names and only define for Emacs < 21: emacs-info -> info-emacs-manual.
+;;       Renamed to e-macs 21 names and only define for e-macs < 21: e-macs-info -> info-e-macs-manual.
 ;; 2004/09/28 dadams
 ;;     Removed dir-info (same as Info-directory).
-;;     Renamed to Emacs 21 names and only define for Emacs < 21: emacs-lisp-info -> menu-bar-read-lispref
+;;     Renamed to e-macs 21 names and only define for e-macs < 21: e-macs-lisp-info -> menu-bar-read-lispref
 ;; 2004/06/01 dadams
 ;;     Renamed: Info-fit-frame-p to Info-resize-frame-p, shrink-frame-to-fit to resize-frame.
 ;; 2000/09/27 dadams
@@ -811,44 +811,44 @@
 ;;     4. Info-mode: Redefined like original, but: no make-face's; use face vars.
 ;;                   Added user options description to doc string.
 ;; 1999/04/08 dadams
-;;     Info-goto-emacs-key-command-node: regexp-quote pp-key for Info-search.
+;;     Info-goto-e-macs-key-command-node: regexp-quote pp-key for Info-search.
 ;; 1999/04/07 dadams
-;;     Info-goto-emacs-key-command-node: a) msgs only if interactive, b) return nil if not found, else non-nil,
+;;     Info-goto-e-macs-key-command-node: a) msgs only if interactive, b) return nil if not found, else non-nil,
 ;;       c) "is undefined" -> "doc not found", d) use display-in-minibuffer more, e) corrected error handler.
 ;; 1999/04/01 dadams
 ;;     1. Added: (remove-hook 'same-window-buffer-names "*info*").
 ;;     2. Info-find-node: switch-to-buffer-other-window -> pop-to-buffer.
 ;; 1999/03/31 dadams
-;;     1. Added (put 'Info-goto-emacs-(key-)command-node 'info-file "emacs").
+;;     1. Added (put 'Info-goto-e-macs-(key-)command-node 'info-file "e-macs").
 ;;     2. Info-find-node: Mention searched file in error messages.
-;;     3. Added (replacement): Info-find-emacs-command-nodes, with progress msg.
-;;     4. a. Info-goto-emacs-key-command-node: Use global-map, unless menu item.
+;;     3. Added (replacement): Info-find-e-macs-command-nodes, with progress msg.
+;;     4. a. Info-goto-e-macs-key-command-node: Use global-map, unless menu item.
 ;;        b. Added message "Not found using Index ...".
 ;; 1999/03/31 dadams
-;;     1. Info-goto-emacs(-key)-command-node: Only display-in-minibuffer if
+;;     1. Info-goto-e-macs(-key)-command-node: Only display-in-minibuffer if
 ;;        interactive-p.
-;;     2. Info-goto-emacs-key-command-node: Messages: "key"; other entries.
+;;     2. Info-goto-e-macs-key-command-node: Messages: "key"; other entries.
 ;; 1999/03/31 dadams
-;;     1. Added (put 'info 'info-file "emacs") so find doc on `info' cmd.
-;;     2. Info-goto-emacs-command-node:
+;;     1. Added (put 'info 'info-file "e-macs") so find doc on `info' cmd.
+;;     2. Info-goto-e-macs-command-node:
 ;;        a. Added message when =< 1 match.
 ;;        b. Return num-matches if found.
 ;;        c. Uses `display-in-minibuffer' instead of `message'.
 ;;     3. a. Wrapped call to Info-search in condition-case, not if.
-;;        b. Info-goto-emacs-key-command-node: Return num-matches if found.
+;;        b. Info-goto-e-macs-key-command-node: Return num-matches if found.
 ;; 1999/03/30 dadams
 ;;     1. Added Info menu bar menu.
-;;     2. Info-goto-emacs-command-node: Only error if interactive-p.
-;;     3. Info-goto-emacs-key-command-node:
+;;     2. Info-goto-e-macs-command-node: Only error if interactive-p.
+;;     3. Info-goto-e-macs-key-command-node:
 ;;        a. Print key in msgs
-;;        b. If Info-goto-emacs-command-node doesn't find it, then try Info-search.
+;;        b. If Info-goto-e-macs-command-node doesn't find it, then try Info-search.
 ;;           If found & interactive-p, then msg ("repeat").  Else error.
 ;;     4. Info-search: Msg ("repeat") if found & interactive-p.
 ;; 1999/03/17 dadams
-;;     1. Updated to correspond with Emacs 34.1 version.
+;;     1. Updated to correspond with e-macs 34.1 version.
 ;;     2. Protect with fboundp.
 ;; 1996/07/11 dadams
-;;     Added redefinitions of Info-goto-emacs-(key-)command-node.
+;;     Added redefinitions of Info-goto-e-macs-(key-)command-node.
 ;; 1996/04/26 dadams
 ;;     Put escaped newlines on long-line strings.
 ;; 1996/04/16 dadams
@@ -926,8 +926,8 @@
 (defvar Info-breadcrumbs-in-mode-line-mode)
 (defvar Info-current-node-virtual)
 (defvar isearch-filter-predicate)
-(defvar Info-bookmarked-node-xref-faces) ; Here, Emacs 24.2+, with Bookmark+.
-(defvar Info-fontify-bookmarked-xrefs-flag) ; Here, Emacs 24.2+, with Bookmark+.
+(defvar Info-bookmarked-node-xref-faces) ; Here, e-macs 24.2+, with Bookmark+.
+(defvar Info-fontify-bookmarked-xrefs-flag) ; Here, e-macs 24.2+, with Bookmark+.
 (defvar Info-fontify-visited-nodes)
 (defvar Info-hide-note-references)
 (defvar Info-history-list)
@@ -974,7 +974,7 @@
   `(if (fboundp 'user-error) (user-error ,@args) (error ,@args)))
 
 (font-lock-add-keywords
- 'emacs-lisp-mode
+ 'e-macs-lisp-mode
  '(("(\\(info-user-error\\)\\>" 1 font-lock-warning-face)))
 
 ;;; KEYS & MENUS ;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1003,21 +1003,21 @@
   :link `(url-link :tag "Send Bug Report"
                    ,(concat "mailto:" "drew.adams" "@" "oracle" ".com?subject=\
 info+.el bug: \
-&body=Describe bug here, starting with `emacs -q'.  \
-Don't forget to mention your Emacs and library versions."))
+&body=Describe bug here, starting with `e-macs -q'.  \
+Don't forget to mention your e-macs and library versions."))
   :link '(url-link :tag "Other Libraries by Drew"
-          "https://www.emacswiki.org/DrewsElispLibraries")
-  :link '(url-link :tag "Download" "https://www.emacswiki.org/info+.el")
-  :link '(url-link :tag "Description" "https://www.emacswiki.org/InfoPlus")
-  :link '(emacs-commentary-link :tag "Commentary" "info+")
+          "https://www.e-macswiki.org/DrewsElispLibraries")
+  :link '(url-link :tag "Download" "https://www.e-macswiki.org/info+.el")
+  :link '(url-link :tag "Description" "https://www.e-macswiki.org/InfoPlus")
+  :link '(e-macs-commentary-link :tag "Commentary" "info+")
   )
 
 ;; FWIW, I use a `LightSteelBlue' background for `*info*', and I use `red3' for this face.
 ;;;###autoload
-(defface info-double-quoted-name        ; For “...”
+(defface info-double-quoted-name        ; For â€œ...â€
     '((((background dark)) (:inherit font-lock-string-face :foreground "Cyan"))
       (t (:inherit font-lock-string-face :foreground "DarkOrange")))
-  "*Face for names enclosed in curly double-quotes (“...”) in `info'."
+  "*Face for names enclosed in curly double-quotes (â€œ...â€) in `info'."
   :group 'Info-Plus :group 'faces)
 
 ;;;###autoload
@@ -1040,11 +1040,11 @@ Don't forget to mention your Emacs and library versions."))
 
 ;; FWIW, I use a `LightSteelBlue' background for `*info*', and I use `yellow' for this face.
 ;;;###autoload
-(defface info-quoted-name               ; For ‘...’ and `...'
+(defface info-quoted-name               ; For â€˜...â€™ and `...'
     '((((background dark)) (:inherit font-lock-string-face :foreground "#6B6BFFFF2C2C")) ; ~ bright green
       (((background light)) (:inherit font-lock-string-face :foreground "DarkViolet"))
       (t (:foreground "yellow")))
-  "*Face for quoted names (‘...’ or `...') in `info'."
+  "*Face for quoted names (â€˜...â€™ or `...') in `info'."
   :group 'Info-Plus :group 'faces)
 
 ;; FWIW, I use a `LightSteelBlue' background for `*info*', and I use `red3' for this face.
@@ -1062,7 +1062,7 @@ Don't forget to mention your Emacs and library versions."))
   "*Face for isolated single-quote marks (') in `info'."
   :group 'Info-Plus :group 'faces)
 
-;; Standard faces from vanilla Emacs `info.el', but without `:weight', `:height' and `:inherit'.
+;; Standard faces from vanilla e-macs `info.el', but without `:weight', `:height' and `:inherit'.
 ;;;###autoload
 (defface info-title-1
     '((((type tty pc) (class color) (background dark))  :foreground "yellow" :weight bold)
@@ -1150,8 +1150,8 @@ Don't forget to mention your Emacs and library versions."))
   "*Face used for \"Variable:\" reference items in `info' manual."
   :group 'Info-Plus :group 'faces)
 
-(when (and (require 'bookmark+ nil t) ; Emacs 24.2+ (do not bother for Emacs 23-24.1)
-           (or (> emacs-major-version 24)  (and (= emacs-major-version 24)  (> emacs-minor-version 1))))
+(when (and (require 'bookmark+ nil t) ; e-macs 24.2+ (do not bother for e-macs 23-24.1)
+           (or (> e-macs-major-version 24)  (and (= e-macs-major-version 24)  (> e-macs-minor-version 1))))
 
   (defface info-xref-bookmarked
       '((((background dark)) (:foreground "violet"))
@@ -1202,15 +1202,15 @@ Note that any value can be problematic for some Info text - see
   "*Non-nil means call `fit-frame' on Info buffer."
   :type 'boolean :group 'Info-Plus :group 'Fit-Frame)
 
-(when (and (require 'bookmark+ nil t)   ; Emacs 24.4+
-           (or (> emacs-major-version 24)  (and (= emacs-major-version 24)  (> emacs-minor-version 3))))
+(when (and (require 'bookmark+ nil t)   ; e-macs 24.4+
+           (or (> e-macs-major-version 24)  (and (= e-macs-major-version 24)  (> e-macs-minor-version 3))))
 
   (defcustom Info-node-access-invokes-bookmark-flag t
     "*Non-nil means invoke the bookmark when you access an Info node.
 This applies to Info bookmarks whose names correspond to the default
 name.  This is normally the full node name, `(MANUAL) NODE', where
 MANUAL is the lowercase name of the Info manual.  For example, node
-`Modes' in the Emacs manual has full name `(emacs) Modes', and the
+`Modes' in the e-macs manual has full name `(e-macs) Modes', and the
 bookmark must have that same name.
 
 This automatic bookmark invocation can be useful to update the
@@ -1234,8 +1234,8 @@ useful.  You can use command `Info-toggle-fontify-angle-bracketed' to
 toggle the option value."
   :type 'boolean :group 'Info-Plus)
 
-(when (and (require 'bookmark+ nil t) ; Emacs 24.2+ (do not bother for prior)
-           (or (> emacs-major-version 24)  (and (= emacs-major-version 24)  (> emacs-minor-version 1))))
+(when (and (require 'bookmark+ nil t) ; e-macs 24.2+ (do not bother for prior)
+           (or (> e-macs-major-version 24)  (and (= e-macs-major-version 24)  (> e-macs-minor-version 1))))
 
   (defcustom Info-bookmarked-node-xref-faces '()
     "List of faces to use to classify bookmarked nodes.
@@ -1286,8 +1286,8 @@ way to turn off all matching of `Info-emphasis-regexp'."
 ;;;###autoload
 (defcustom Info-fontify-quotations-flag t
   "*Non-nil means `info' fontifies text between quotes.
-This applies to double-quoted text (“...” or \"...\") and text
-between single-quotes (‘...’ or `...').
+This applies to double-quoted text (â€œ...â€ or \"...\") and text
+between single-quotes (â€˜...â€™ or `...').
 
 Note: This fontification can never be 100% reliable.  It aims to be
 useful in most Info texts, but it can occasionally result in
@@ -1303,9 +1303,9 @@ toggle the option value."
   "*Non-nil means `info' fontifies reference items such as \"Function:\"."
   :type 'boolean :group 'Info-Plus)
 
-(when (fboundp 'advice-add)             ; Emacs 24.4+
+(when (fboundp 'advice-add)             ; e-macs 24.4+
 
-  (defcustom Info-saved-history-file (locate-user-emacs-file "info-history" ".emacs.info-history")
+  (defcustom Info-saved-history-file (locate-user-e-macs-file "info-history" ".e-macs.info-history")
     "File where `Info-persist-history-mode' saves `Info-history-list'."
     :type '(file :must-match t) :group 'Info-Plus)
 
@@ -1315,7 +1315,7 @@ toggle the option value."
 (defcustom Info-saved-nodes ()
   "*List of Info node names you can visit using `\\<Info-mode-map>\\[Info-virtual-book]'.
 Each node name is a string.  The node name can be absolute, including
-a filename, such as \"(emacs)Basic\", or it can be relative, such as
+a filename, such as \"(e-macs)Basic\", or it can be relative, such as
 \"Basic\".
 You can customize this option, but you can also add node names to it
 easily using `\\<Info-mode-map>\\[Info-save-current-node]'."
@@ -1363,7 +1363,7 @@ nodes can be repeated because they are in more than one section."
   "Non-nil means allow `Info-fontify-emphasis-flag' to work.
 If nil then emphasis is never fontified, regardless of that flag.")
 
-;; I reported this as Emacs bug #3312.  If it gets fixed, this can be removed.
+;; I reported this as e-macs bug #3312.  If it gets fixed, this can be removed.
 (defvar Info-mode-syntax-table
   (let ((table  (copy-syntax-table text-mode-syntax-table)))
     (modify-syntax-entry ?'    "." table) ; Punctuation syntax for apostrophe (').
@@ -1387,24 +1387,24 @@ If nil then emphasis is never fontified, regardless of that flag.")
 (defvar Info-breadcrumbs-depth-internal Info-breadcrumbs-depth
   "Current breadcrumbs depth for Info.")
 
-;; Match has, inside “...”, "...", ‘...’, or `...', zero or more of these characters:
-;;   - any character except ”, ", ’, or ', respectively
+;; Match has, inside â€œ...â€, "...", â€˜...â€™, or `...', zero or more of these characters:
+;;   - any character except â€, ", â€™, or ', respectively
 ;;   - \ followed by any character
 ;;
 ;; The `... in `...' is optional, so the regexp can also match just '.
 ;;
-;; The regexp matches also ‘...’, `...', “...”, and "..." where at least one of the
-;; ‘, ’, `, ', “, ”, or " is escaped by a backslash.
+;; The regexp matches also â€˜...â€™, `...', â€œ...â€, and "..." where at least one of the
+;; â€˜, â€™, `, ', â€œ, â€, or " is escaped by a backslash.
 ;; So we check those cases explicitly and do not highlight them.
 ;;
 (defvar info-quotation-regexp
   (concat
    "\"\\(?:[^\\\"]\\|\\\\\\(?:.\\|[\n]\\)\\)*\"\\|" ; "..."
    "`\\(?:[^\\']\\|\\\\\\(.\\|[\n]\\)\\)*'\\|"      ; `...'
-   "‘\\(?:[^\\’]\\|\\\\\\(.\\|[\n]\\)\\)*’\\|"      ; ‘...’
-   "\“\\(?:[^\\”]\\|\\\\\\(.\\|[\n]\\)\\)*”"        ; “...”
+   "â€˜\\(?:[^\\â€™]\\|\\\\\\(.\\|[\n]\\)\\)*â€™\\|"      ; â€˜...â€™
+   "\â€œ\\(?:[^\\â€]\\|\\\\\\(.\\|[\n]\\)\\)*â€"        ; â€œ...â€
    )
-  "Regexp to match `...', ‘...’, “...”, \"...\", or just '.
+  "Regexp to match `...', â€˜...â€™, â€œ...â€, \"...\", or just '.
 If ... contains an end char then that char must be backslashed.")
 
 
@@ -1412,8 +1412,8 @@ If ... contains an end char then that char must be backslashed.")
   (concat
    "\"\\(?:[^\\\"]\\|\\\\\\(?:.\\|[\n]\\)\\)*\"\\|"           ; "..."
    "`\\(?:[^\\']\\|\\\\\\(.\\|[\n]\\)\\)*'\\|"                ; `...'
-   "‘\\(?:[^\\’]\\|\\\\\\(.\\|[\n]\\)\\)*’\\|"                ; ‘...’
-   "\“\\(?:[^\\”]\\|\\\\\\(.\\|[\n]\\)\\)*”\\|"               ; “...”
+   "â€˜\\(?:[^\\â€™]\\|\\\\\\(.\\|[\n]\\)\\)*â€™\\|"                ; â€˜...â€™
+   "\â€œ\\(?:[^\\â€]\\|\\\\\\(.\\|[\n]\\)\\)*â€\\|"               ; â€œ...â€
    "<\\(?:[[:alpha:]][^\\>]*\\|\\(\\\\\\(.\\|[\n]\\)\\)*\\)>" ; <...>
    )
   "Same as `info-quotation-regexp', but matches also <...>.
@@ -1425,11 +1425,11 @@ If ... contains an end char then that char must be backslashed.")
 ;;(@* "New Commands")
 ;;; New Commands -----------------------------------------------------
 
-;; Make `Info-find-emacs-command-nodes' look for these commands in the Emacs manual.
+;; Make `Info-find-e-macs-command-nodes' look for these commands in the e-macs manual.
 ;; In particular, don't look for command `info' in Info manual, because that has no index.
-(put 'info 'info-file "emacs")
-(put 'Info-goto-emacs-command-node 'info-file "emacs")
-(put 'Info-goto-emacs-key-command-node 'info-file "emacs")
+(put 'info 'info-file "e-macs")
+(put 'Info-goto-e-macs-command-node 'info-file "e-macs")
+(put 'Info-goto-e-macs-key-command-node 'info-file "e-macs")
 
 ;;;###autoload (autoload 'Info-mouse-follow-nearest-node-new-window "info+")
 (defun Info-mouse-follow-nearest-node-new-window (click)
@@ -1453,23 +1453,23 @@ If ... contains an end char then that char must be backslashed.")
   (when (derived-mode-p 'Info-mode) (revert-buffer nil t))
   (when msgp (message "Info history cleared")))
 
-(when (fboundp 'advice-add)             ; Emacs 24.4+
+(when (fboundp 'advice-add)             ; e-macs 24.4+
 
   (define-minor-mode Info-persist-history-mode
       "Automatically persist the Info history in `Info-saved-history-file'."
     :init-value nil :global t :group 'Info-Plus
     (cond (Info-persist-history-mode
-           (add-hook 'kill-emacs-hook 'Info-save-history-list)
+           (add-hook 'kill-e-macs-hook 'Info-save-history-list)
            (advice-add 'Info-kill-buffer :before 'Info-save-history-list)
            (advice-add 'Info-directory :after 'Info-restore-history-list))
           (t
-           (remove-hook 'kill-emacs-hook 'Info-save-history-list)
+           (remove-hook 'kill-e-macs-hook 'Info-save-history-list)
            (advice-remove 'Info-kill-buffer 'Info-save-history-list)
            (advice-remove 'Info-directory 'Info-restore-history-list))))
 
   )
 
-(when (> emacs-major-version 23) ; Emacs 23 `revert-buffer' invokes a brain-dead `kill-buffer' etc.
+(when (> e-macs-major-version 23) ; e-macs 23 `revert-buffer' invokes a brain-dead `kill-buffer' etc.
 
   (defun Info-change-visited-status (start end &optional arg)
     "Change whether the nodes in the region have been visited.
@@ -1537,8 +1537,8 @@ A negative prefix arg means consider the nodes not visited."
     (when (or (not file)  (string= file "")) (setq file  Info-current-file))
     (setq file               (Info-find-file file)
           Info-history-list  (remove (list file (substring-no-properties node)) Info-history-list))
-    ;; Emacs 23 has brain-dead `kill-buffer', which is invoked by `revert-buffer' and deletes the window/frame if dedicated.
-    (when (and (> emacs-major-version 23)  (derived-mode-p 'Info-mode)) (revert-buffer nil t))
+    ;; e-macs 23 has brain-dead `kill-buffer', which is invoked by `revert-buffer' and deletes the window/frame if dedicated.
+    (when (and (> e-macs-major-version 23)  (derived-mode-p 'Info-mode)) (revert-buffer nil t))
     (when msgp (message "Node %sis now unvisited"
                         (if (string= "dir" Info-current-file) ""
                           (format "`%s%s' "
@@ -1578,7 +1578,7 @@ line from non-nil `Info-use-header-line'."
 (make-obsolete 'Info-toggle-breadcrumbs-in-header-line 'Info-toggle-breadcrumbs-in-header "2014/03/04")
 
 
-(when (boundp 'Info-node-access-invokes-bookmark-flag) ; Emacs 24.4+
+(when (boundp 'Info-node-access-invokes-bookmark-flag) ; e-macs 24.4+
 
   (defun Info-toggle-node-access-invokes-bookmark (&optional msgp)
     "Toggle option `Info-node-access-invokes-bookmark-flag'."
@@ -1594,8 +1594,8 @@ line from non-nil `Info-use-header-line'."
 
   )
 
-(when (and (require 'bookmark+ nil t) ; Emacs 24.2+ (do not bother for prior)
-           (or (> emacs-major-version 24)  (and (= emacs-major-version 24)  (> emacs-minor-version 1))))
+(when (and (require 'bookmark+ nil t) ; e-macs 24.2+ (do not bother for prior)
+           (or (> e-macs-major-version 24)  (and (= e-macs-major-version 24)  (> e-macs-minor-version 1))))
 
   (defun Info-set-face-for-bookmarked-xref (node)
     "Specify the face to use for Info links to bookmarked NODE.
@@ -1745,14 +1745,14 @@ Optional arg LOCALP means read a node name from the current manual."
 
 ;; REPLACE ORIGINAL in `outline.el':
 ;;
-;; See Emacs bug #28080.
+;; See e-macs bug #28080.
 ;;
 (defun outline-invisible-p (&optional pos)
   "Non-nil if the character after point has been made invisible by Outline."
   (eq (get-char-property (or pos (point)) 'invisible) 'outline))
 
 
-(when (boundp 'Info-virtual-nodes)      ; Emacs 23.4+
+(when (boundp 'Info-virtual-nodes)      ; e-macs 23.4+
 
   (add-to-list 'Info-virtual-nodes '("\\`\\*TOC Outline\\* (.*)\\'" (find-node . Info-toc-outline-find-node)))
 
@@ -2275,7 +2275,7 @@ subnodes (outside Info)? ")
 BOOK is a string naming the virtual book.
 NODES is a list of strings naming Info nodes.
   Each node name is normally absolute, that is, a
-  filename-plus-nodename string such as \"(emacs)Basic\".  But if you
+  filename-plus-nodename string such as \"(e-macs)Basic\".  But if you
   call this command from an Info buffer, then a node name can be
   relative, such as \"Basic\".
 Non-nil optional arg INCLUDE-BOOKMARK-NODES-P means that all Info
@@ -2337,9 +2337,9 @@ argument says to include Info nodes recorded as bookmarks."
 With a prefix arg, reverse the effect of option
 option`browse-url-new-window-flag'.
 
-NODE is the name of a node in the GNU Emacs or Elisp manual.
+NODE is the name of a node in the GNU e-macs or Elisp manual.
 Alternatively, NODE can have the form (MANUAL)NODE, where MANUAL is
-\"emacs\" or \"elisp\" and NODE is the name of the node in that
+\"e-macs\" or \"elisp\" and NODE is the name of the node in that
 manual.  Empty NODE in (MANUAL) defaults to the `Top' node."
   (interactive (list (Info-read-node-name "Go to node: " Info-current-node) current-prefix-arg))
   (require 'browse-url)
@@ -2359,30 +2359,30 @@ manual.  Empty NODE in (MANUAL) defaults to the `Top' node."
 ;;    below.
 ;;
 ;; 3. Multiple consecutive space, tab and newline characters are
-;;    transformed into just one space. (It’s not possible to have
+;;    transformed into just one space. (Itâ€™s not possible to have
 ;;    newlines in node names with the current implementation, but we
 ;;    specify it anyway, just in case.)
 ;;
 ;; 4. Leading and trailing spaces are removed.
 ;;
 ;; 5. After the above has been applied, each remaining space character is
-;;    converted into a ‘-’ character.
+;;    converted into a â€˜-â€™ character.
 ;;
-;; 6. Other ASCII 7-bit characters are transformed into ‘_00xx’, where xx
+;; 6. Other ASCII 7-bit characters are transformed into â€˜_00xxâ€™, where xx
 ;;    is the ASCII character code in (lowercase) hexadecimal. This includes
-;;    ‘_’, which is mapped to ‘_005f’.
+;;    â€˜_â€™, which is mapped to â€˜_005fâ€™.
 ;;
 ;; 7. If the node name does not begin with a letter, the literal string
-;;    ‘g_t’ is prefixed to the result. (Due to the rules above, that
+;;    â€˜g_tâ€™ is prefixed to the result. (Due to the rules above, that
 ;;    string can never occur otherwise; it is an arbitrary choice,
-;;    standing for “GNU Texinfo”.) This is necessary because XHTML
+;;    standing for â€œGNU Texinfoâ€.) This is necessary because XHTML
 ;;    requires that identifiers begin with a letter.
 ;;
 ;;;###autoload (autoload 'Info-url-for-node "info+")
 (defun Info-url-for-node (node)
-  "Return a URL for NODE, a node in the GNU Emacs or Elisp manual.
+  "Return a URL for NODE, a node in the GNU e-macs or Elisp manual.
 Alternatively, NODE can have the form (MANUAL)NODE, where MANUAL is
-\"emacs\" or \"elisp\" and NODE is the name of the node in that
+\"e-macs\" or \"elisp\" and NODE is the name of the node in that
 manual.  Empty NODE in (MANUAL) defaults to the `Top' node."
   (interactive (list (Info-read-node-name "Node: " Info-current-node)))
   (unless Info-current-file (error "This command must be invoked from Info"))
@@ -2397,8 +2397,8 @@ manual.  Empty NODE in (MANUAL) defaults to the `Top' node."
       (when trim (setq node (substring node 0 trim))))
     (when (equal file "") (setq file  Info-current-file))
     (setq file  (file-name-sans-extension (file-name-nondirectory file)))
-    (unless (member file '("emacs" "elisp"))
-      (error "Manual cannot be `%s'; it can only be `emacs' or `elisp'" file))
+    (unless (member file '("e-macs" "elisp"))
+      (error "Manual cannot be `%s'; it can only be `e-macs' or `elisp'" file))
     (setq node  (mapconcat (lambda (ch)
                              (if (or (< ch 32) ; ^@^A-^Z^[^\^]^^^-
                                      (and (<= 33 ch)   (<= ch 47)) ; !"#$%&'()*+,-./
@@ -2411,23 +2411,23 @@ manual.  Empty NODE in (MANUAL) defaults to the `Top' node."
                            ""))
     (setq node  (replace-regexp-in-string "[ \t]+" "-" node t t))
     (unless (string-match-p "[[:alpha:]]" node) (setq node  (concat "g_t" node)))
-    (setq url  (concat "https://www.gnu.org/software/emacs/manual/html_node/"
+    (setq url  (concat "https://www.gnu.org/software/e-macs/manual/html_node/"
                        file "/" node ".html"))
     (message "URL: %s" url)
     url))
 
 ;;;###autoload (autoload 'info-manual "info+")
-(defun info-manual (arg) ; Bound to `C-h r' globally (replaces `info-emacs-manual').
-  "Display a manual in Info mode - by default, the Emacs manual.
+(defun info-manual (arg) ; Bound to `C-h r' globally (replaces `info-e-macs-manual').
+  "Display a manual in Info mode - by default, the e-macs manual.
 With a prefix arg, prompt for the manual name.
 With a numeric prefix arg, only currently visited manuals are
 candidates."
   (interactive "P")
   (if arg
       (let ((current-prefix-arg  (numberp arg))) (call-interactively #'info-display-manual))
-    (info "emacs")))
+    (info "e-macs")))
 
-(global-set-key [remap info-emacs-manual] 'info-manual) ; `C-h r'
+(global-set-key [remap info-e-macs-manual] 'info-manual) ; `C-h r'
 
 
 
@@ -2448,7 +2448,7 @@ candidates."
      ["Highlighting _..._ (emphasis)" Info-toggle-fontify-emphasis
       :visible info-fontify-emphasis :style toggle :selected Info-fontify-emphasis-flag
       :help "Toggle option `Info-fontify-emphasis-flag'"]
-     ["Highlighting ‘...’ or `...', and \"...\"" Info-toggle-fontify-quotations
+     ["Highlighting â€˜...â€™ or `...', and \"...\"" Info-toggle-fontify-quotations
       :style toggle :selected Info-fontify-quotations-flag :help "Toggle option `Info-fontify-quotations-flag'"]
      ["Highlighting <...>" Info-toggle-fontify-angle-bracketed
       :style toggle :selected Info-fontify-angle-bracketed-flag
@@ -2493,8 +2493,8 @@ candidates."
     ["Up" Info-up :active (Info-check-pointer "up") :help "Go up in the Info tree"]
     ["Next" Info-next :active (Info-check-pointer "next") :help "Go to the next node"]
     ["Previous" Info-prev :active (Info-check-pointer "prev[ious]*") :help "Go to the previous node"]
-    ("Menu Item" ["You should never see this" report-emacs-bug t])
-    ("Reference" ["You should never see this" report-emacs-bug t])
+    ("Menu Item" ["You should never see this" report-e-macs-bug t])
+    ("Reference" ["You should never see this" report-e-macs-bug t])
     ["Go to Node on Web..." Info-goto-node-web :help "Go to a named node on the Web (HTML doc)"]
     ["Go to Node..." Info-goto-node :help "Go to a named node"]
 
@@ -2532,13 +2532,13 @@ candidates."
 ;;
 ;; Respect option `Info-node-access-invokes-bookmark-flag'.
 ;;
-(when (boundp 'Info-node-access-invokes-bookmark-flag) ; Emacs 24.4+
+(when (boundp 'Info-node-access-invokes-bookmark-flag) ; e-macs 24.4+
 
   (defadvice Info-goto-node (around bmkp-invoke-Info-bookmark activate)
     "Respect option `Info-node-access-invokes-bookmark-flag'.
 If the option is non-nil then a bookmark for the node is invoked when
 the node is visited, provided that the bookmark name has the default
-form: `(MANUAL) NODE' (e.g.,`(emacs) Modes')."
+form: `(MANUAL) NODE' (e.g.,`(e-macs) Modes')."
     (if Info-node-access-invokes-bookmark-flag
         (let ((node  (ad-get-arg 0)))
           (if (member node (Info-index-nodes))
@@ -2568,9 +2568,9 @@ form: `(MANUAL) NODE' (e.g.,`(emacs) Modes')."
 
 ;; REPLACE ORIGINAL in `info.el':
 ;;
-;; Added final clause to `cond', to handle virtual books.  (Emacs 23.2+)
+;; Added final clause to `cond', to handle virtual books.  (e-macs 23.2+)
 ;;
-(when (or (> emacs-major-version 23)  (and (= emacs-major-version 23)  (> emacs-minor-version 1)))
+(when (or (> e-macs-major-version 23)  (and (= e-macs-major-version 23)  (> e-macs-minor-version 1)))
 
   (defun Info-find-file (filename &optional noerror no-pop-to-dir)
     "Return expanded FILENAME, or t if FILENAME is \"dir\".
@@ -2661,7 +2661,7 @@ it says do not attempt further (recursive) error recovery."
   (setq Info-current-node  nil)
   (unwind-protect
        (let ((case-fold-search  t)
-             (virtual-fun       (and (fboundp 'Info-virtual-fun) ; Emacs 23.2.
+             (virtual-fun       (and (fboundp 'Info-virtual-fun) ; e-macs 23.2.
                                      (Info-virtual-fun 'find-node (or filename  Info-current-file) nodename)))
              anchorpos)
          (cond ((functionp virtual-fun)
@@ -2779,7 +2779,7 @@ it says do not attempt further (recursive) error recovery."
              (Info-select-node)
              (goto-char (point-min))
              (forward-line 1)           ; skip header line
-             (when (and (not (fboundp 'Info-breadcrumbs)) ; Before Emacs 23.2
+             (when (and (not (fboundp 'Info-breadcrumbs)) ; Before e-macs 23.2
                         Info-breadcrumbs-in-header-flag
                         (> Info-breadcrumbs-depth 0))
                (forward-line 1))        ; skip breadcrumbs line
@@ -2855,7 +2855,7 @@ it says do not attempt further (recursive) error recovery."
                                         (file-attributes file))
                                  ;; Shouldn't really happen, but sometimes does, eg on Debian systems with
                                  ;; buggy packages; so may as well try it.
-                                 ;; https://lists.gnu.org/archive/html/emacs-devel/2012-03/msg00005.html
+                                 ;; https://lists.gnu.org/archive/html/e-macs-devel/2012-03/msg00005.html
                                  (progn (setq file  (expand-file-name "dir.gz" truename))
                                         (file-attributes file)))))
                 (setq dirs-done  (cons truename (cons (directory-file-name truename) dirs-done)))
@@ -2874,7 +2874,7 @@ it says do not attempt further (recursive) error recovery."
             (set (make-local-variable 'Info-dir-contents-directory) (file-name-as-directory (car dirs))))
           (setq dirs  (cdr dirs))))
       (unless buffers  (info-user-error "Can't find the Info directory node"))
-      ;; Distinguish the dir file that comes with Emacs from all the others.  Yes, that is really what this
+      ;; Distinguish the dir file that comes with e-macs from all the others.  Yes, that is really what this
       ;; is supposed to do.  The definition of `Info-directory-list' puts it first on that list and so last in
       ;; `buffers' at this point.
       (setq buffer  (car (last buffers))
@@ -3027,7 +3027,7 @@ If `Info-breadcrumbs-in-mode-line-mode' is non-nil, insert breadcrumbs."
                                                     Info-current-file))
                                    node))))
           (setq text  (concat text (if (equal node "Top") "" " > ") (if node nodetext "...")))))
-      (make-local-variable 'mode-line-format) ; Needed for Emacs 21+.
+      (make-local-variable 'mode-line-format) ; Needed for e-macs 21+.
       (setq mode-line-format  text))))
 
 
@@ -3041,11 +3041,11 @@ If `Info-breadcrumbs-in-mode-line-mode' is non-nil, insert breadcrumbs."
 ;;;   (defun Info-read-node-name-1 (string predicate code)
 ;;;   "Internal function used by `Info-read-node-name'.
 ;;; See `completing-read' for a description of arguments and usage."
-;;;     (cond ((string-match "\\`(\\([^)]*\\))\\'" string) ; e.g. (emacs) or (emacs-mime)
+;;;     (cond ((string-match "\\`(\\([^)]*\\))\\'" string) ; e.g. (e-macs) or (e-macs-mime)
 ;;;            (cond ((eq code nil) string)
 ;;;                  ((eq code t) (list string))
 ;;;                  (t t)))
-;;;           ((string-match "\\`(\\([^)]*\\)\\'" string) ; e.g. (emacs
+;;;           ((string-match "\\`(\\([^)]*\\)\\'" string) ; e.g. (e-macs
 ;;;            (let ((ctwc  (completion-table-with-context
 ;;;                          "("
 ;;;                          (apply-partially
@@ -3059,7 +3059,7 @@ If `Info-breadcrumbs-in-mode-line-mode' is non-nil, insert breadcrumbs."
 ;;;              (cond ((eq code nil) ctwc)
 ;;;                    ((eq code t) (mapcar (lambda (file) (concat "(" file ")")) ctwc))
 ;;;                    (t t))))
-;;;           ((string-match "\\`(" string) ; e.g. (emacs)Mac OS or (jlkj - just punt.
+;;;           ((string-match "\\`(" string) ; e.g. (e-macs)Mac OS or (jlkj - just punt.
 ;;;            (cond ((eq code nil) string)
 ;;;                  ((eq code t) nil)
 ;;;                  (t t)))
@@ -3074,29 +3074,29 @@ If `Info-breadcrumbs-in-mode-line-mode' is non-nil, insert breadcrumbs."
 ;; 2. Added in-progress message ("Looking...")
 ;; 3, Return nil if not found.
 ;;
-(defun Info-find-emacs-command-nodes (command &optional msgp)
+(defun Info-find-e-macs-command-nodes (command &optional msgp)
   "Return a list of locations documenting COMMAND.
 The `info-file' property of COMMAND says which Info manual to search.
-If COMMAND has no property, the variable `Info-file-list-for-emacs'
+If COMMAND has no property, the variable `Info-file-list-for-e-macs'
 defines heuristics for which Info manual to try.
 
 The locations are of the format used in variable `Info-history', that
 is, (FILENAME NODENAME BUFFERPOS\), where BUFFERPOS is the line number
 of the first element of the returned list (which is treated specially
-in `Info-goto-emacs-command-node'), and 0 for the other elements of
+in `Info-goto-e-macs-command-node'), and 0 for the other elements of
 the list."
   (let ((where      ())
         (cmd-desc   (concat "^\\* +" (regexp-quote (symbol-name command))
                             "\\( <[0-9]+>\\)?:\\s *\\(.*\\)\\."
                             "\\(?:[ \t\n]+(line +\\([0-9]+\\))\\)?"))
-        (info-file  "emacs")            ;default
+        (info-file  "e-macs")            ;default
         line-number)
     ;; Determine which info file this command is documented in.
     (if (get command 'info-file)
         (setq info-file  (get command 'info-file))
       ;; If it doesn't say explicitly, test its name against
       ;; various prefixes that we know.
-      (let ((file-list  Info-file-list-for-emacs))
+      (let ((file-list  Info-file-list-for-e-macs))
         (while file-list
           (let* ((elt               (car file-list))
                  (name              (if (consp elt) (car elt) elt))
@@ -3144,14 +3144,14 @@ the list."
 ;; 2. Added optional arg MSGP (interactive-p).
 ;; 3. Message if single node found.
 ;; 4. Returns `num-matches' if found; nil if not.
-;; 4. Pass MSGP to `Info-find-emacs-command-nodes'.
+;; 4. Pass MSGP to `Info-find-e-macs-command-nodes'.
 ;;
 ;;;###autoload
-(defun Info-goto-emacs-command-node (command &optional msgp)
-  "Go to the Info node in the Emacs manual for command COMMAND.
-The command is found by looking it up in Emacs manual's indexes,
+(defun Info-goto-e-macs-command-node (command &optional msgp)
+  "Go to the Info node in the e-macs manual for command COMMAND.
+The command is found by looking it up in e-macs manual's indexes,
 or in another manual found via COMMAND's `info-file' property or
-the variable `Info-file-list-for-emacs'.
+the variable `Info-file-list-for-e-macs'.
 COMMAND must be a symbol or string."
   (interactive
    (let ((symb  (cond ((fboundp 'symbol-nearest-point) (symbol-nearest-point))
@@ -3163,14 +3163,14 @@ COMMAND must be a symbol or string."
            t)))
   (unless (commandp command)
     (signal 'wrong-type-argument (list 'commandp command)))
-  (let ((where  (Info-find-emacs-command-nodes command msgp)))
+  (let ((where  (Info-find-e-macs-command-nodes command msgp)))
     (if where
         (let ((num-matches  (length where)))
           ;; Get Info running, and pop to it in another window.
           (save-window-excursion (info))
           (unless (eq major-mode 'Info-mode) (pop-to-buffer "*info*"))
           ;; Bind Info-history to nil, to prevent the last Index node visited by
-          ;; `Info-find-emacs-command-nodes' from being pushed onto the history.
+          ;; `Info-find-e-macs-command-nodes' from being pushed onto the history.
           (let ((Info-history       ())
                 (Info-history-list  ()))
             (Info-find-node (car (car where)) (car (cdr (car where)))))
@@ -3198,16 +3198,16 @@ COMMAND must be a symbol or string."
 ;; 3. Message for repeating.
 ;;
 ;;;###autoload
-(defun Info-goto-emacs-key-command-node (key &optional msgp)
-  "Go to the node in the Emacs manual describing command bound to KEY.
+(defun Info-goto-e-macs-key-command-node (key &optional msgp)
+  "Go to the node in the e-macs manual describing command bound to KEY.
 KEY is a string.
 
 Interactively, if the binding is `execute-extended-command', then a
 command is read.
 
-The command is found by looking it up in Emacs manual's indexes,
+The command is found by looking it up in e-macs manual's indexes,
 or in another manual's index found via COMMAND's `info-file' property
-or the variable `Info-file-list-for-emacs'.
+or the variable `Info-file-list-for-e-macs'.
 
 If key's command cannot be found by looking in indexes, then
 `Info-search' is used to search for the key sequence in the info text."
@@ -3219,11 +3219,11 @@ If key's command cannot be found by looking in indexes, then
            (when msgp (message "No doc found for key sequence `%s'." pp-key))
            nil)                         ; RETURN nil: not found.
           ((and (interactive-p)  (eq command 'execute-extended-command)) ; Read a new command name.
-           (Info-goto-emacs-command-node (read-command "Find documentation for command: ") msgp))
+           (Info-goto-e-macs-command-node (read-command "Find documentation for command: ") msgp))
           (t
            (let ((this-file        Info-current-file)
                  (this-node        Info-current-node)
-                 (num-cmd-matches  (Info-goto-emacs-command-node command msgp)))
+                 (num-cmd-matches  (Info-goto-e-macs-command-node command msgp)))
              (cond (num-cmd-matches
                     ;; Found key's command via a manual index.
                     (when msgp
@@ -3261,14 +3261,14 @@ If key's command cannot be found by looking in indexes, then
 ;; REPLACES ORIGINAL in `info.el':
 ;; 1. File name in face `info-file'.
 ;; 2. If `Info-fontify-emphasis-flag', fontify _..._.
-;; 3. If `Info-fontify-quotations-flag', fontify ‘...’ or `...' in face `info-quoted-name',
-;;    “...” in face `info-double-quoted-name', and "..." in face `info-string'.
+;; 3. If `Info-fontify-quotations-flag', fontify â€˜...â€™ or `...' in face `info-quoted-name',
+;;    â€œ...â€ in face `info-double-quoted-name', and "..." in face `info-string'.
 ;; 4. If `Info-fontify-quotations-flag' and `Info-fontify-single-quote-flag' then
 ;;    fontify ' in face `info-single-quote'.
 ;; 5. If `Info-fontify-quotations-flag' and `Info-fontify-angle-bracketed-flag' then
 ;;    fontify <...> in face `info-quoted-name'.
 ;;
-(when (not (fboundp 'Info-breadcrumbs)) ; Emacs 23.1, not 23.2+
+(when (not (fboundp 'Info-breadcrumbs)) ; e-macs 23.1, not 23.2+
 
   (defun Info-fontify-node ()
     "Fontify the node."
@@ -3361,7 +3361,7 @@ If key's command cannot be found by looking in indexes, then
                      (skip-chars-backward " \t,")
                      (put-text-property (point) header-end 'invisible t))))))
 
-        ;; Fontify ‘...’, `...', “...”, and "..."
+        ;; Fontify â€˜...â€™, `...', â€œ...â€, and "..."
         (goto-char (point-min))
         (when Info-fontify-quotations-flag (info-fontify-quotations))
 
@@ -3635,16 +3635,16 @@ If key's command cannot be found by looking in indexes, then
 ;;
 ;; 1. File name in face `info-file'.
 ;; 2. If `Info-fontify-emphasis-flag', fontify _..._.
-;; 3. If `Info-fontify-quotations-flag', fontify ‘...’ or `...' in face `info-quoted-name',
-;;    “...” in face `info-double-quoted-name', and "..." in face `info-string'.
+;; 3. If `Info-fontify-quotations-flag', fontify â€˜...â€™ or `...' in face `info-quoted-name',
+;;    â€œ...â€ in face `info-double-quoted-name', and "..." in face `info-string'.
 ;; 4. If `Info-fontify-quotations-flag' and `Info-fontify-single-quote-flag' then
 ;;    fontify ' in face `info-single-quote'.
 ;; 5. If `Info-fontify-quotations-flag' and `Info-fontify-angle-bracketed-flag' then
 ;;    fontify <...> in face `info-quoted-name'.
 ;;
-(when (and (fboundp 'Info-breadcrumbs)  ; Emacs 23.2 through 24.1
-           (or (= emacs-major-version 23)
-               (and (= emacs-major-version 24)  (= emacs-minor-version 1))))
+(when (and (fboundp 'Info-breadcrumbs)  ; e-macs 23.2 through 24.1
+           (or (= e-macs-major-version 23)
+               (and (= e-macs-major-version 24)  (= e-macs-minor-version 1))))
 
   (defun Info-fontify-node ()
     "Fontify the node."
@@ -3736,7 +3736,7 @@ If key's command cannot be found by looking in indexes, then
                      (skip-chars-backward " \t,")
                      (put-text-property (point) header-end 'invisible t))))))
 
-        ;; Fontify ‘...’, `...', “...”, and "..."
+        ;; Fontify â€˜...â€™, `...', â€œ...â€, and "..."
         (goto-char (point-min))
         (when Info-fontify-quotations-flag (info-fontify-quotations))
 
@@ -3992,15 +3992,15 @@ If key's command cannot be found by looking in indexes, then
 ;;
 ;; 1. File name in face `info-file'.
 ;; 2. If `Info-fontify-emphasis-flag', fontify _..._.
-;; 3. If `Info-fontify-quotations-flag', fontify ‘...’ or `...' in face `info-quoted-name',
-;;    “...” in face `info-double-quoted-name', and "..." in face `info-string'.
+;; 3. If `Info-fontify-quotations-flag', fontify â€˜...â€™ or `...' in face `info-quoted-name',
+;;    â€œ...â€ in face `info-double-quoted-name', and "..." in face `info-string'.
 ;; 4. If `Info-fontify-quotations-flag' and `Info-fontify-single-quote-flag' then
 ;;    fontify ' in face `info-single-quote'.
 ;; 5. If `Info-fontify-quotations-flag' and `Info-fontify-angle-bracketed-flag' then
 ;;    fontify <...> in face `info-quoted-name'.
 ;;
-(when (or (> emacs-major-version 24)    ; Emacs 24.2+
-          (and (= emacs-major-version 24)  (> emacs-minor-version 1)))
+(when (or (> e-macs-major-version 24)    ; e-macs 24.2+
+          (and (= e-macs-major-version 24)  (> e-macs-minor-version 1)))
 
   (defun Info-fontify-node ()
     "Fontify the node."
@@ -4100,7 +4100,7 @@ If key's command cannot be found by looking in indexes, then
                                             header-end t)
                          (put-text-property (match-beginning 1) (match-end 1) 'invisible t)))))))
 
-        ;; Fontify ‘...’, `...', “...”, and "..."
+        ;; Fontify â€˜...â€™, `...', â€œ...â€, and "..."
         (goto-char (point-min))
         (when Info-fontify-quotations-flag (info-fontify-quotations))
 
@@ -4374,12 +4374,12 @@ You are prompted for the depth value."
   (when Info-breadcrumbs-in-mode-line-mode (Info-insert-breadcrumbs-in-mode-line)))
 
 (defun info-fontify-quotations ()
-  "Fontify ‘...’, `...', “...”, \"...\", and possibly <...> and single '.
+  "Fontify â€˜...â€™, `...', â€œ...â€, \"...\", and possibly <...> and single '.
 If `Info-fontify-angle-bracketed-flag' then fontify <...> also.
 If `Info-fontify-single-quote-flag' then fontify singleton ' also.
 
- ‘...’, `...', and <...>\t- use face `info-quoted-name'.
- “...” uses face `info-double-quoted-name'.
+ â€˜...â€™, `...', and <...>\t- use face `info-quoted-name'.
+ â€œ...â€ uses face `info-double-quoted-name'.
  \"...\"\t- uses face `info-string'.
  '\t- uses face `info-single-quote'."
   (let ((regexp    (if Info-fontify-angle-bracketed-flag info-quoted+<>-regexp info-quotation-regexp))
@@ -4390,13 +4390,13 @@ If `Info-fontify-single-quote-flag' then fontify singleton ' also.
                   (save-match-data (looking-at "\\(`\\\\+'\\)")))
              (put-text-property (1+ (match-beginning 0)) (1- (match-end 0)) property 'info-quoted-name)
              (goto-char (match-end 0)))
-            ((and (eq (aref (match-string 0) 0) ?‘) ; Single-quote wrapped backslashes:
-                  (goto-char (match-beginning 0)) ; ‘\’, ‘\\’, ‘\\\’, etc.
-                  (save-match-data (looking-at "\\(‘\\\\+’\\)")))
+            ((and (eq (aref (match-string 0) 0) ?â€˜) ; Single-quote wrapped backslashes:
+                  (goto-char (match-beginning 0)) ; â€˜\â€™, â€˜\\â€™, â€˜\\\â€™, etc.
+                  (save-match-data (looking-at "\\(â€˜\\\\+â€™\\)")))
              (put-text-property (1+ (match-beginning 0)) (1- (match-end 0)) property 'info-quoted-name)
              (goto-char (match-end 0)))
-            ((and (memq (aref (match-string 0) 0) '(?` ?‘)) ; ‘...’, `...'
-                  (goto-char (match-beginning 0)) ; If ` or ‘ is preceded by \, then skip it
+            ((and (memq (aref (match-string 0) 0) '(?` ?â€˜)) ; â€˜...â€™, `...'
+                  (goto-char (match-beginning 0)) ; If ` or â€˜ is preceded by \, then skip it
                   (< (save-excursion (skip-chars-backward "\\\\")) 0))
              (goto-char (1+ (match-beginning 0))))
             ((and Info-fontify-angle-bracketed-flag
@@ -4404,14 +4404,14 @@ If `Info-fontify-single-quote-flag' then fontify singleton ' also.
                   (goto-char (match-beginning 0))
                   (< (save-excursion (skip-chars-backward "\\\\")) 0))
              (goto-char (1+ (match-beginning 0))))
-            ((memq (aref (match-string 0) 0) '(?` ?‘)) ; ‘...’, `...'
+            ((memq (aref (match-string 0) 0) '(?` ?â€˜)) ; â€˜...â€™, `...'
              (put-text-property (1+ (match-beginning 0)) (1- (match-end 0)) property 'info-quoted-name)
              (goto-char (match-end 0)) (forward-char 1))
             ((and Info-fontify-angle-bracketed-flag
                   (eq ?< (aref (match-string 0) 0))) ; <...>
              (put-text-property (1+ (match-beginning 0)) (1- (match-end 0)) property 'info-quoted-name)
              (goto-char (match-end 0)) (forward-char 1))
-            ((eq (aref (match-string 0) 0) ?“) ; “...”
+            ((eq (aref (match-string 0) 0) ?â€œ) ; â€œ...â€
              (put-text-property (1+ (match-beginning 0)) (1- (match-end 0)) property 'info-double-quoted-name)
              (goto-char (match-end 0)) (forward-char 1))
             ;; Don't try to handle strings correctly.  Check only the first " for being escaped.
@@ -4425,7 +4425,7 @@ If `Info-fontify-single-quote-flag' then fontify singleton ' also.
                                 property 'info-single-quote)
              (goto-char (match-end 0)) (forward-char 1))
             ((and (not (string= "'" (buffer-substring (match-beginning 0) (match-end 0)))) ; "..."
-                  (not (string= "’" (buffer-substring (match-beginning 0) (match-end 0)))))
+                  (not (string= "â€™" (buffer-substring (match-beginning 0) (match-end 0)))))
              (put-text-property (match-beginning 0) (match-end 0) property 'info-string)
              (goto-char (match-end 0)) (forward-char 1))
             (t
@@ -4454,11 +4454,11 @@ Syntax class:\\|User Option:\\|Variable:\\)\\(.*\\)\\([\n]          \\(.*\\)\\)*
                            'font-lock-face 'info-reference-item)))))
 
 
-(defun Info-search-beg () ;; `isearchp-reg-beg' is defined in library `isearch+.el' for Emacs 24.3+.
+(defun Info-search-beg () ;; `isearchp-reg-beg' is defined in library `isearch+.el' for e-macs 24.3+.
   "`isearchp-reg-beg', if defined and non-nil; else `point-min'."
   (or (and (boundp 'isearchp-reg-beg)  isearchp-reg-beg)  (point-min)))
 
-(defun Info-search-end () ;; `isearchp-reg-end' is defined in library `isearch+.el' for Emacs 24.3+.
+(defun Info-search-end () ;; `isearchp-reg-end' is defined in library `isearch+.el' for e-macs 24.3+.
   "`isearchp-reg-end', if defined and non-nil; else `point-max'."
   (or (and (boundp 'isearchp-reg-end)  isearchp-reg-end)  (point-max)))
 
@@ -4486,7 +4486,7 @@ Syntax class:\\|User Option:\\|Variable:\\)\\(.*\\)\\([\n]          \\(.*\\)\\)*
 ;;
 ;; Use `Info-isearch-search-p', not var `Info-isearch-search'.
 ;;
-(when (= emacs-major-version 23)        ; Emacs 23 only
+(when (= e-macs-major-version 23)        ; e-macs 23 only
   (defun Info-isearch-search () ; Use `Info-isearch-search-p', not var `Info-isearch-search'.
     (if (Info-isearch-search-p)
         (lambda (string &optional bound noerror count)
@@ -4510,9 +4510,9 @@ Syntax class:\\|User Option:\\|Variable:\\)\\(.*\\)\\([\n]          \\(.*\\)\\)*
 ;;
 ;; Use `Info-isearch-search-p', not var `Info-isearch-search'.
 ;;
-(when (> emacs-major-version 23)        ; Emacs 24+
+(when (> e-macs-major-version 23)        ; e-macs 24+
 
-  (unless (boundp 'isearch-lax-whitespace) ; Emacs 24.1, 24.2.
+  (unless (boundp 'isearch-lax-whitespace) ; e-macs 24.1, 24.2.
 
     (defvar isearch-lax-whitespace t
       "If non-nil, a space will match a sequence of whitespace chars.
@@ -4810,7 +4810,7 @@ in its Menu.
 User options you can customize
 ------------------------------
 `Info-fontify-quotations-flag' -
-  Fontify quoted names (‘...’ or `...') and strings (\"...\").
+  Fontify quoted names (â€˜...â€™ or `...') and strings (\"...\").
   Toggle with \\[Info-toggle-fontify-quotations].
 `Info-fontify-angle-bracketed-flag' -
   Fontify angle-bracketd names (<...>).
@@ -4825,8 +4825,8 @@ Faces you can customize
 `info-file'   - Face used for file heading labels
 `info-string' - Face used for strings (e.g. \"toto\")
 `info-double-quoted-name'
-              - Face used for curly double-quoted names (e.g. “toto”)
-`info-quoted-name'  - Face used for quoted names (e.g. ‘toto’ or `toto')
+              - Face used for curly double-quoted names (e.g. â€œtotoâ€)
+`info-quoted-name'  - Face used for quoted names (e.g. â€˜totoâ€™ or `toto')
 `info-single-quote' - Face used for isolated single-quote (e.g. 'foo)
 
 These are all of the current Info Mode bindings:
@@ -4871,7 +4871,7 @@ These are all of the current Info Mode bindings:
   (set (make-local-variable 'isearch-wrap-function) 'Info-isearch-wrap)
   (set (make-local-variable 'isearch-push-state-function) 'Info-isearch-push-state)
   (set (make-local-variable 'isearch-filter-predicate) 'Info-isearch-filter)
-  (unless (or (> emacs-major-version 24)  (and (= emacs-major-version 24)  (> emacs-minor-version 2)))
+  (unless (or (> e-macs-major-version 24)  (and (= e-macs-major-version 24)  (> e-macs-minor-version 2)))
     (set (make-local-variable 'search-whitespace-regexp) Info-search-whitespace-regexp))
   (set (make-local-variable 'revert-buffer-function) 'Info-revert-buffer-function)
   (Info-set-mode-line)
@@ -4881,7 +4881,7 @@ These are all of the current Info Mode bindings:
 
 ;; REPLACES ORIGINAL in `info.el':
 ;;
-;; Use completion for inputting the manual name, for all Emacs versions 23+.
+;; Use completion for inputting the manual name, for all e-macs versions 23+.
 ;;
 ;;;###autoload (autoload 'info-display-manual "info+")
 (defun info-display-manual (manual)
@@ -4889,12 +4889,12 @@ These are all of the current Info Mode bindings:
 If there is an existing Info buffer for MANUAL, display it.
 Otherwise, visit the manual in a new Info buffer.
 
-With a prefix arg (Emacs 24.4+), completion candidates are limited to
+With a prefix arg (e-macs 24.4+), completion candidates are limited to
 currently visited manuals."
   (interactive
    (let ((manuals  (and (fboundp 'info--manual-names)
                         (condition-case nil
-                            (info--manual-names current-prefix-arg) ; Arg was added in Emacs 25.
+                            (info--manual-names current-prefix-arg) ; Arg was added in e-macs 25.
                           (error nil)))))
      (unless manuals
        (condition-case nil
@@ -4973,8 +4973,8 @@ Non-nil NODE can have the form `NODE' or `(MANUAL) NODE'.
 The name of the bookmark must be the default name that
 `Info-bookmark-make-record' would use.  This is normally the full node
 name, `(MANUAL) NODE', where MANUAL is the lowercase name of the Info
-manual.  For example, node `Modes' in the Emacs manual has full
-name `(emacs) Modes', and the bookmark must have that same name."
+manual.  For example, node `Modes' in the e-macs manual has full
+name `(e-macs) Modes', and the bookmark must have that same name."
     (let ((bmk  (Info-bookmark-for-node node)))
       (and bmk  (bmkp-bookmark-name-from-record bmk))))
 
@@ -4998,7 +4998,7 @@ See `Info-bookmark-name-for-node' for the form of the bookmark name."
 
   )
 
-(when (fboundp 'advice-add)             ; Emacs 24.4+
+(when (fboundp 'advice-add)             ; e-macs 24.4+
 
   (defun Info-save-history-list ()
     "Save `Info-history-list' to `Info-saved-history-file'."
@@ -5044,3 +5044,5 @@ See `Info-bookmark-name-for-node' for the form of the bookmark name."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; info+.el ends here
+
+

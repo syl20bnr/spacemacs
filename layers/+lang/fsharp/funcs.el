@@ -1,15 +1,15 @@
-;;; packages.el --- F# Layer packages File for Spacemacs
+;;; packages.el --- F# Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Maximilian Wolff <smile13241324@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//fsharp-backend ()
+(defun space-macs//fsharp-backend ()
   "Returns selected backend."
   (if fsharp-backend
       fsharp-backend
@@ -17,22 +17,24 @@
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
      (t 'eglot))))
 
-(defun spacemacs//fsharp-setup-company ()
+(defun space-macs//fsharp-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//fsharp-backend)
+  (pcase (space-macs//fsharp-backend)
     ;; Activate lsp company explicitly to activate
     ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
+    (`lsp (space-macs|add-company-backends
             :backends company-capf
             :modes fsharp-mode))))
 
-(defun spacemacs//fsharp-setup-backend ()
+(defun space-macs//fsharp-setup-backend ()
   "Conditionally setup fsharp backend."
-  (pcase (spacemacs//fsharp-backend)
+  (pcase (space-macs//fsharp-backend)
     (`lsp (lsp))
-    (_ (spacemacs/fsharp-eglot-jack-in))))
+    (_ (space-macs/fsharp-eglot-jack-in))))
 
-(defun spacemacs/fsharp-eglot-jack-in ()
+(defun space-macs/fsharp-eglot-jack-in ()
   "Start a new Eglot server instance or reconnect."
   (interactive)
   (call-interactively 'eglot))
+
+

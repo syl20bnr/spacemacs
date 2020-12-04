@@ -41,8 +41,8 @@ Fully featured IDE-like debugger providing:
 - Debug REPL
 
 * Layer installation
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =dap= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =dap= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
@@ -52,11 +52,11 @@ want to have debug bindings under major mode leader you may do the following:
 
 For instance the =java= layer:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (defun java/pre-init-dap-mode ()
-    (pcase (spacemacs//java-backend)
-       (`lsp (add-to-list 'spacemacs--dap-supported-modes 'java-mode)))
-    (add-hook 'java-mode-local-vars-hook #'spacemacs//java-setup-dap))
+    (pcase (space-macs//java-backend)
+       (`lsp (add-to-list 'space-macs--dap-supported-modes 'java-mode)))
+    (add-hook 'java-mode-local-vars-hook #'space-macs//java-setup-dap))
 #+END_SRC
 
 See the =java= layer for further example on how to setup =dap-mode= correctly
@@ -151,4 +151,6 @@ transient state which can be initiate with ~SPC m d .~.
 
 * References
 - [[https://github.com/yyoncho/dap-mode][dap-mode repo]]
-- [[https://github.com/emacs-lsp/lsp-mode][lsp-mode repo]]
+- [[https://github.com/e-macs-lsp/lsp-mode][lsp-mode repo]]
+
+

@@ -15,14 +15,14 @@
   - [[#joining-rooms][Joining rooms]]
 
 * Description
-This layer adds support for the Jabber (XMPP) client for Emacs
+This layer adds support for the Jabber (XMPP) client for e-macs
 
 ** Features:
-- Use Jabber without having to leave Spacemacs
+- Use Jabber without having to leave Space-macs
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =jabber= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =jabber= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -50,7 +50,7 @@ file.
 ** Authentication
 To find YOUR_JABBER_ID visit "XMPP/Jabber info" section on your profile page at hipchat.com
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
 
   (setq ssl-program-name "gnutls-cli"
         ssl-program-arguments '("--insecure" "-p" service host)
@@ -65,7 +65,7 @@ To find YOUR_JABBER_ID visit "XMPP/Jabber info" section on your profile page at 
 ** Joining rooms
 To simplify joining rooms, you can use something like this:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (defvar hipchat-room-list '(
                               ("HIPCHAT NAME" . "XMPP/JABBER NAME")
                               ))
@@ -83,3 +83,5 @@ To simplify joining rooms, you can use something like this:
        hipchat-nickname
        t)))
 #+END_SRC
+
+

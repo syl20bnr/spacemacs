@@ -1,11 +1,11 @@
-;;; funcs.el --- Spacemacs ERC Layer functions File
+;;; funcs.el --- Space-macs ERC Layer functions File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -29,12 +29,14 @@
 
 ;; persp
 
-(defun spacemacs//erc-persp-filter-save-buffers-function (buffer)
+(defun space-macs//erc-persp-filter-save-buffers-function (buffer)
   "Filter for erc layout."
   (with-current-buffer buffer
     (eq major-mode 'erc-mode)))
 
-(defun spacemacs//erc-buffer-to-persp ()
+(defun space-macs//erc-buffer-to-persp ()
   "Add buffer to erc layout."
   (persp-add-buffer (current-buffer) (persp-get-by-name
-                                      erc-spacemacs-layout-name)))
+                                      erc-space-macs-layout-name)))
+
+

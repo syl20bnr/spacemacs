@@ -20,7 +20,7 @@
   - [[#debugging][Debugging]]
 
 * Description
-This layer adds support for statistical programming languages to Spacemacs.
+This layer adds support for statistical programming languages to Space-macs.
 
 ** Features:
 - Syntax highlighting
@@ -35,8 +35,8 @@ This layer adds support for statistical programming languages to Spacemacs.
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =ess= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =ess= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Linting
@@ -49,7 +49,7 @@ To do so start the R terminal and type below code.
 
 ** LSP
 This backend uses an external server to provide the various IDE integrations
-and a more modern UI integration in =spacemacs=.
+and a more modern UI integration in =space-macs=.
 
 It requires installing the external server via:
 
@@ -67,8 +67,8 @@ variable =ess-r-backend=:
 * Options
 Use a key binding to insert =<-=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '((ess :variables
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '((ess :variables
                                                          ess-assign-key "\M--")))
 #+END_SRC
 
@@ -78,8 +78,8 @@ Send code to inferior process with these commands:
 
 | Key binding | Description                                          |
 |-------------+------------------------------------------------------|
-| ~SPC m '​~   | start REPL                                           |
-| ~SPC m ,​~   | send region, current function, or paragraph and step |
+| ~SPC m 'â€‹~   | start REPL                                           |
+| ~SPC m ,â€‹~   | send region, current function, or paragraph and step |
 | ~SPC m s i~ | start REPL                                           |
 | ~SPC m s s~ | switch between file and REPL                         |
 | ~SPC m s S~ | switch the process associate with file               |
@@ -171,3 +171,5 @@ Tools for debugging
 | ~SPC m d t~  | toggle tracebug                                                   |
 | ~SPC m d u~  | unflag function for debug                                         |
 | ~SPC m d w~  | trigger ESS watch mode                                            |
+
+

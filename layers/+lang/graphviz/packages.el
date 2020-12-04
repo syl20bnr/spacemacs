@@ -1,11 +1,11 @@
-;;; packages.el --- graphviz layer packages file for Spacemacs.
+;;; packages.el --- graphviz layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: luxbock <opieppo@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -27,24 +27,24 @@
     :init (setq graphviz-dot-indent-width tab-width)
     :config
     (progn
-      (spacemacs|add-toggle graphviz-live-reload
+      (space-macs|add-toggle graphviz-live-reload
         :status graphviz-dot-auto-preview-on-save
         :on (graphviz-turn-on-live-preview)
         :off (graphviz-turn-off-live-preview)
         :documentation "Enable Graphviz live reload.")
-      (spacemacs/set-leader-keys-for-major-mode 'graphviz-dot-mode
+      (space-macs/set-leader-keys-for-major-mode 'graphviz-dot-mode
         "=" 'graphviz-dot-indent-graph
         "c" 'compile
-        "t" 'spacemacs/toggle-graphviz-live-reload)
-      (when dotspacemacs-major-mode-emacs-leader-key
-        (spacemacs/set-leader-keys-for-major-mode 'graphviz-dot-mode
-          dotspacemacs-major-mode-emacs-leader-key 'graphviz-dot-preview))
-      (when dotspacemacs-major-mode-leader-key
-        (spacemacs/set-leader-keys-for-major-mode 'graphviz-dot-mode
-          dotspacemacs-major-mode-leader-key 'graphviz-dot-preview)))))
+        "t" 'space-macs/toggle-graphviz-live-reload)
+      (when dotspace-macs-major-mode-e-macs-leader-key
+        (space-macs/set-leader-keys-for-major-mode 'graphviz-dot-mode
+          dotspace-macs-major-mode-e-macs-leader-key 'graphviz-dot-preview))
+      (when dotspace-macs-major-mode-leader-key
+        (space-macs/set-leader-keys-for-major-mode 'graphviz-dot-mode
+          dotspace-macs-major-mode-leader-key 'graphviz-dot-preview)))))
 
 (defun graphviz/pre-init-smartparens ()
-  (spacemacs|use-package-add-hook graphviz-dot-mode
+  (space-macs|use-package-add-hook graphviz-dot-mode
     :post-config
     (progn
       ;; allow smartparens to work properly
@@ -52,7 +52,7 @@
       (define-key graphviz-dot-mode-map "}" nil))))
 
 (defun graphviz/pre-init-org ()
-  (spacemacs|use-package-add-hook org
+  (space-macs|use-package-add-hook org
     :post-config
     (progn
       (add-to-list 'org-babel-load-languages '(dot . t))
@@ -60,3 +60,5 @@
       (setq org-src-lang-modes
             (append '(("dot" . graphviz-dot))
                     (delete '("dot" . fundamental) org-src-lang-modes))))))
+
+

@@ -67,8 +67,8 @@ After that, check the rest of the README to:
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =haskell= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =haskell= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Dependencies
@@ -108,7 +108,7 @@ To get the most out of the language backend, you will want to ensure that you ha
 
 Then, to choose a haskell backend, set the haskell layer variable =haskell-completion-backend=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (haskell :variables haskell-completion-backend 'dante)
 #+END_SRC
 
@@ -124,7 +124,7 @@ Backend can be chosen on a per project basis using directory local variables
 
 #+BEGIN_SRC elisp
   ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
+  ;;; For more information see (info "(e-macs) Directory Variables")
 
   ((haskell-mode (haskell-completion-backend . lsp)))
 #+END_SRC
@@ -172,7 +172,7 @@ NOTE: =hie= is being superseded by =hls=, which is still in early development th
 =hls= is meant to supersede =hie= and is therefore the cutting-edge and most ambitious implementation of Haskell language backend.
 However, it is still in early stages of development.
 
-Check their docs for installation details and how to use it with emacs/spacemacs.
+Check their docs for installation details and how to use it with e-macs/space-macs.
 
 ** Optional extras
 The Haskell layer supports some extra features, which can be enabled through the
@@ -180,11 +180,11 @@ layer variables.
 
 *** structured-haskell-mode
 Currently there is no support for [[https://github.com/chrisdone/structured-haskell-mode][structured-haskell-mode]], since it doesn't play
-very well with non-emacs editing styles ([[https://github.com/chrisdone/structured-haskell-mode/issues/81][structured-haskell-mode/#81]]). Emacs
+very well with non-e-macs editing styles ([[https://github.com/chrisdone/structured-haskell-mode/issues/81][structured-haskell-mode/#81]]). e-macs
 editing style users can easily enable it by adding =structured-haskell-mode= to
-the list of =dotspacemacs-additional-packages= in your =.spacemacs= file. For
+the list of =dotspace-macs-additional-packages= in your =.space-macs= file. For
 more installation instructions, please refer to the official documentation at
-the [[https://github.com/chrisdone/structured-haskell-mode#features][structured-haskell-mode]] page. In case you are a non-emacs editing style user
+the [[https://github.com/chrisdone/structured-haskell-mode#features][structured-haskell-mode]] page. In case you are a non-e-macs editing style user
 and still want to use =structured-haskell-mode= - use it at your own risk.
 
 Any contributions that will help to solve issues with =structured-haskell-mode=
@@ -199,8 +199,8 @@ To enable it you have to toggle the variable =haskell-enable-hindent=.
 
 See examples [[https://github.com/commercialhaskell/hindent/blob/master/TESTS.md][here]].
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((haskell :variables haskell-enable-hindent t)))
 #+END_SRC
 
@@ -324,14 +324,14 @@ errors and warnings in the code. Those components are:
 Since some of these components can be active at the same time, it can be tricky to
 know which component is displaying which message, especially when they disagree,
 or if one isn't working. Only flycheck errors (from ghci and hlint) are displayed in
-the error list and can be navigated between, using the standard Spacemacs key
+the error list and can be navigated between, using the standard Space-macs key
 bindings (under ~SPC e~) even though errors from other modes might highlight the
 actual buffer.
 
 ** Flycheck
-This is the standard Spacemacs way of syntax checking, and it's also the most
+This is the standard Space-macs way of syntax checking, and it's also the most
 elaborate. You need to install the syntax-checking layer first, which will bring flycheck. Please read the
-layer's [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/+checkers/syntax-checking][documentation]] on how to interact with flycheck.
+layer's [[https://github.com/syl20bnr/space-macs/tree/develop/layers/+checkers/syntax-checking][documentation]] on how to interact with flycheck.
 
 Flycheck has different Haskell checkers: =haskell-dante=, =haskell-ghc=, =haskell-stack-ghc= and
 =haskell-hlint=. Normally it can detect the best one to use automatically, but
@@ -356,8 +356,8 @@ Usually =haskell-mode= is great at figuring out which interactive process to
 bring up. But if you are experiencing problems with it, then you can help
 =haskell-mode= by setting =haskell-process-type= as in following code:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((haskell :variables haskell-process-type 'stack-ghci)))
 #+END_SRC
 
@@ -370,14 +370,14 @@ Available options are:
 - stack-ghci
 
 ** The REPL is stuck
-Make sure that there's a space between the REPL's =λ>= prompt and the cursor.
+Make sure that there's a space between the REPL's =Î»>= prompt and the cursor.
 When there is no space, then the REPL will behave as if it's stuck. Usually,
 when you enter normal state, the cursor moves backwards by one character, so there
 is no required space when you switch to insert mode. There is a possible
-workaround - just add the following snippet to your =dotspacemacs/user-config=
+workaround - just add the following snippet to your =dotspace-macs/user-config=
 function:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (when (configuration-layer/layer-used-p 'haskell)
     (add-hook 'haskell-interactive-mode-hook
               (lambda ()
@@ -389,21 +389,21 @@ normal state. Which in most cases helps you to avoid the problem with 'stuck'
 REPL.
 
 Also, some users might want to start the REPL in insert mode. This is done by
-placing the following snippet in your =dotspacemacs/user-config= function:
+placing the following snippet in your =dotspace-macs/user-config= function:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (when (configuration-layer/layer-used-p 'haskell)
-      (defadvice haskell-interactive-switch (after spacemacs/haskell-interactive-switch-advice activate)
-        (when (eq dotspacemacs-editing-style 'vim)
+      (defadvice haskell-interactive-switch (after space-macs/haskell-interactive-switch-advice activate)
+        (when (eq dotspace-macs-editing-style 'vim)
           (call-interactively 'evil-insert))))
 #+END_SRC
 
 ** Indentation doesn't reset when pressing return after an empty line
 This is the intended behavior in =haskell-indentation-mode=. If you want to
 reset the indentation when pressing return after an empty line, add the
-following snippet into your =dotspacemacs/user-config= function.
+following snippet into your =dotspace-macs/user-config= function.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (defun haskell-indentation-advice ()
     (when (and (< 1 (line-number-at-pos))
                (save-excursion
@@ -479,3 +479,5 @@ Make sure you set =flycheck-haskell-stack-ghc-executable= to this script.
 Some (most) of the haskell-mode commands only work when haskell-mode is in
 interactive mode, i.e. has an interactive session associated with it. Load it
 using ~SPC m s b~.
+
+

@@ -1,11 +1,11 @@
-;;; packages.el --- Chrome Layer packages File for Spacemacs
+;;; packages.el --- Chrome Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Ben Hayden <hayden767@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -26,17 +26,19 @@
     :defer t
     :config
     (when (configuration-layer/layer-used-p 'markdown)
-      (spacemacs/set-markdown-keybindings
+      (space-macs/set-markdown-keybindings
        'gmail-message-client-mode gmail-message-client-mode-map))))
 
 (defun chrome/init-flymd ()
   (use-package flymd
     :defer t
     :init (setq flymd-browser-open-function
-                'spacemacs//flymd-browser-function)))
+                'space-macs//flymd-browser-function)))
 
 (defun chrome/pre-init-markdown-mode ()
-  (spacemacs|use-package-add-hook markdown-mode
+  (space-macs|use-package-add-hook markdown-mode
     :pre-config
     (when (configuration-layer/package-used-p 'gmail-message-mode)
       (add-to-list 'markdown--key-bindings-modes 'gmail-message-client-mode))))
+
+

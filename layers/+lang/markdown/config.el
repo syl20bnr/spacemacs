@@ -1,11 +1,11 @@
-;;; config.el --- Markdown Layer Configuration File for Spacemacs
+;;; config.el --- Markdown Layer Configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -27,7 +27,7 @@
     "rust"
     "scala"
 
-    ("elisp" "emacs-lisp")
+    ("elisp" "e-macs-lisp")
     ("ess" "R")
     ("ini" "conf-unix")
     ("html" "web")
@@ -37,3 +37,5 @@ generate mmm classes.")
 
 (defvar markdown--key-bindings-modes '(markdown-mode gfm-mode)
   "Modes using markdown key bindings.")
+
+

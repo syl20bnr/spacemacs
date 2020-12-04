@@ -1,11 +1,11 @@
-;;; packages.el --- Markdown Layer packages File for Spacemacs
+;;; packages.el --- Markdown Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -25,13 +25,13 @@
 
 (defun markdown/post-init-company ()
   (dolist (mode markdown--key-bindings-modes)
-    (eval `(spacemacs|add-company-backends
+    (eval `(space-macs|add-company-backends
              :backends company-capf
              :modes ,mode))))
 
 (defun markdown/post-init-company-emoji ()
   (dolist (mode markdown--key-bindings-modes)
-    (eval `(spacemacs|add-company-backends
+    (eval `(space-macs|add-company-backends
              :backends company-emoji
              :modes ,mode))))
 
@@ -43,7 +43,7 @@
     :defer t
     :init
     (dolist (mode markdown--key-bindings-modes)
-      (spacemacs/set-leader-keys-for-major-mode mode
+      (space-macs/set-leader-keys-for-major-mode mode
         "cr" 'gh-md-render-buffer))))
 
 (defun markdown/post-init-smartparens ()
@@ -67,10 +67,10 @@
                         ("mT" . "markdown/toggle")
                         ("mx" . "markdown/text")))
         (dolist (mode markdown--key-bindings-modes)
-          (spacemacs/declare-prefix-for-mode
+          (space-macs/declare-prefix-for-mode
             mode (car prefix) (cdr prefix))))
       (dolist (mode markdown--key-bindings-modes)
-        (spacemacs/set-leader-keys-for-major-mode mode
+        (space-macs/set-leader-keys-for-major-mode mode
           ;; rebind this so terminal users can use it
           "M-RET" 'markdown-insert-list-item
           ;; Movement
@@ -106,7 +106,7 @@
           "-"   'markdown-insert-hr
           "if"  'markdown-insert-footnote
           "ii"  'markdown-insert-image
-          "ik"  'spacemacs/insert-keybinding-markdown
+          "ik"  'space-macs/insert-keybinding-markdown
           "il"  'markdown-insert-link
           "iw"  'markdown-insert-wiki-link
           "iu"  'markdown-insert-uri
@@ -150,7 +150,7 @@
           "P"   'markdown-previous-link
           "<RET>" 'markdown-do)
         (when (eq 'eww markdown-live-preview-engine)
-          (spacemacs/set-leader-keys-for-major-mode mode
+          (space-macs/set-leader-keys-for-major-mode mode
             "cP" 'markdown-live-preview-mode)))
       ;; Header navigation in normal state movements
       (evil-define-key 'normal markdown-mode-map
@@ -160,9 +160,9 @@
         ;; next visible heading is not exactly what we want but close enough
         "gl" 'outline-next-visible-heading)
       ;; Promotion, Demotion
-      (add-hook 'spacemacs-editing-style-hook
-         'spacemacs//markdown-hjkl-promotion-demotion)
-      (spacemacs//markdown-hjkl-promotion-demotion dotspacemacs-editing-style)
+      (add-hook 'space-macs-editing-style-hook
+         'space-macs//markdown-hjkl-promotion-demotion)
+      (space-macs//markdown-hjkl-promotion-demotion dotspace-macs-editing-style)
       (define-key markdown-mode-map (kbd "M-<down>") 'markdown-move-down)
       (define-key markdown-mode-map (kbd "M-<left>") 'markdown-promote)
       (define-key markdown-mode-map (kbd "M-<right>") 'markdown-demote)
@@ -173,29 +173,31 @@
     :defer t
     :init
     (dolist (mode markdown--key-bindings-modes)
-      (spacemacs/set-leader-keys-for-major-mode mode
+      (space-macs/set-leader-keys-for-major-mode mode
         "it" 'markdown-toc-generate-toc))))
 
 (defun markdown/init-mmm-mode ()
   (use-package mmm-mode
     :commands mmm-mode
-    :init (add-hook 'markdown-mode-hook 'spacemacs/activate-mmm-mode)
+    :init (add-hook 'markdown-mode-hook 'space-macs/activate-mmm-mode)
     ;; Automatically add mmm class for languages
     :config
     (progn
       (mapc 'markdown/mmm-auto-class markdown-mmm-auto-modes)
-      (spacemacs|hide-lighter mmm-mode))))
+      (space-macs|hide-lighter mmm-mode))))
 
 (defun markdown/init-vmd-mode ()
   (use-package vmd-mode
     :defer t
     :init
     (dolist (mode markdown--key-bindings-modes)
-      (spacemacs/set-leader-keys-for-major-mode mode
+      (space-macs/set-leader-keys-for-major-mode mode
         "cP" 'vmd-mode))))
 
 (defun markdown/post-init-org ()
   (when (configuration-layer/layer-used-p 'org)
     (add-hook 'markdown-mode-hook 'orgtbl-mode)
-    (spacemacs|diminish orgtbl-mode)
-    (add-hook 'markdown-mode-hook 'spacemacs//cleanup-org-tables-on-save)))
+    (space-macs|diminish orgtbl-mode)
+    (add-hook 'markdown-mode-hook 'space-macs//cleanup-org-tables-on-save)))
+
+

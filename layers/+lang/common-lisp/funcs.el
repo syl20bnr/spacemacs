@@ -1,33 +1,33 @@
-;;; funcs.el --- Slime Layer functions File for Spacemacs
+;;; funcs.el --- Slime Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 
 ;; Helm integration
 
-(defun spacemacs//slime-helm-source (&optional table)
+(defun space-macs//slime-helm-source (&optional table)
   (or table (setq table slime-lisp-implementations))
   `((name . "Slime")
     (candidates . ,(mapcar #'car table))
     (action . (lambda (candidate)
                 (car (helm-marked-candidates))))))
 
-(defun spacemacs/helm-slime ()
+(defun space-macs/helm-slime ()
   (interactive)
-  (let ((command (helm :sources (spacemacs//slime-helm-source))))
+  (let ((command (helm :sources (space-macs//slime-helm-source))))
     (and command (slime (intern command)))))
 
 
 ;; Evil integration
 
-(defun spacemacs/slime-eval-sexp-end-of-line ()
+(defun space-macs/slime-eval-sexp-end-of-line ()
   "Evaluate current line."
   (interactive)
   (move-end-of-line 1)
@@ -38,7 +38,7 @@
 ;; Functions are taken from the elisp layer `eval-last-sexp' was replaced with
 ;; its slime equivalent `slime-eval-last-expression'
 
-(defun spacemacs/cl-eval-current-form ()
+(defun space-macs/cl-eval-current-form ()
   "Find and evaluate the current def* or set* command.
 Unlike `eval-defun', this does not go to topmost function."
   (interactive)
@@ -48,7 +48,7 @@ Unlike `eval-defun', this does not go to topmost function."
     (call-interactively 'slime-eval-last-expression)))
 
 
-(defun spacemacs/cl-eval-current-form-sp (&optional arg)
+(defun space-macs/cl-eval-current-form-sp (&optional arg)
   "Call `eval-last-sexp' after moving out of one level of
 parentheses. Will exit any strings and/or comments first.
 An optional ARG can be used which is passed to `sp-up-sexp' to move out of more
@@ -68,7 +68,7 @@ Requires smartparens because all movement is done using `sp-up-sexp'."
       (call-interactively 'slime-eval-last-expression))))
 
 
-(defun spacemacs/cl-eval-current-symbol-sp ()
+(defun space-macs/cl-eval-current-symbol-sp ()
   "Call `eval-last-sexp' on the symbol around point.
 Requires smartparens because all movement is done using `sp-forward-symbol'."
   (interactive)
@@ -78,3 +78,5 @@ Requires smartparens because all movement is done using `sp-forward-symbol'."
     (save-excursion
       (sp-forward-symbol)
       (call-interactively 'slime-eval-last-expression))))
+
+

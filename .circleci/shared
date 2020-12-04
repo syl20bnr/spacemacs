@@ -5,9 +5,9 @@
 ## Copyright (c) 2014-2018 Sylvain Benner & Contributors
 ##
 ## Author: Eugene Yaremenko
-## URL: https://github.com/syl20bnr/spacemacs
+## URL: https://github.com/syl20bnr/space-macs
 ##
-## This file is not part of GNU Emacs.
+## This file is not part of GNU e-macs.
 ##
 ## License: GPLv3
 
@@ -15,8 +15,8 @@
 dev_b="develop"
 mst_b="master"
 prj_owner="syl20bnr"
-prj_repo="spacemacs"
-bot_login="emacspace"
+prj_repo="space-macs"
+bot_login="e-macspace"
 api_URL_root="https://api.github.com"
 
 upstream_data_URL_root="${api_URL_root}/"
@@ -73,5 +73,7 @@ skip_when_branch_update () {
 }
 
 cleanup () {
-	rm -rf ~/.emacs.d/elpa ~/.emacs.d/.cache ~/.spacemacs
+	rm -rf ~/.e-macs.d/elpa ~/.e-macs.d/.cache ~/.space-macs
 }
+
+

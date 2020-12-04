@@ -1,13 +1,13 @@
-#+TITLE: spacemacs-defaults
+#+TITLE: space-macs-defaults
 
-#+TAGS: layer|misc|spacemacs
+#+TAGS: layer|misc|space-macs
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 
 * Description
-This layer configures mostly Emacs built-in packages to given them better
+This layer configures mostly e-macs built-in packages to given them better
 defaults.
 
 ** Features:
@@ -19,7 +19,7 @@ defaults.
   - cus-edit
   - dired
   - dired-x
-  - display-line-numbers (only in Emacs 26.x and newer)
+  - display-line-numbers (only in e-macs 26.x and newer)
   - electric-indent-mode
   - easypg
   - ediff
@@ -28,7 +28,7 @@ defaults.
   - hi-lock
   - image-mode
   - imenu
-  - linum (only in Emacs 25.x and older)
+  - linum (only in e-macs 25.x and older)
   - occur-mode
   - package-menu
   - page-break-lines
@@ -44,3 +44,5 @@ defaults.
   - whitespace
   - winner
   - zone
+
+

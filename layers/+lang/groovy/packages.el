@@ -1,11 +1,11 @@
-;;; packages.el --- Groovy Layer packages File for Spacemacs
+;;; packages.el --- Groovy Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -17,10 +17,10 @@
     org))
 
 (defun groovy/post-init-company ()
-  (spacemacs//groovy-setup-company))
+  (space-macs//groovy-setup-company))
 
 (defun groovy/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'groovy-mode))
+  (space-macs/enable-flycheck 'groovy-mode))
 
 (defun groovy/init-groovy-imports ()
   (use-package groovy-imports
@@ -28,7 +28,7 @@
     :init
     (progn
       (add-hook 'groovy-mode-hook 'groovy-imports-scan-file)
-      (spacemacs/set-leader-keys-for-major-mode 'groovy-mode
+      (space-macs/set-leader-keys-for-major-mode 'groovy-mode
         "ri" 'groovy-imports-add-import-dwim))))
 
 (defun groovy/init-groovy-mode ()
@@ -37,18 +37,20 @@
     :init
     (progn
       (setq lsp-groovy-server-file groovy-lsp-jar-path)
-      (spacemacs/declare-prefix-for-mode 'groovy-mode "ms" "REPL")
-      (spacemacs/set-leader-keys-for-major-mode 'groovy-mode
+      (space-macs/declare-prefix-for-mode 'groovy-mode "ms" "REPL")
+      (space-macs/set-leader-keys-for-major-mode 'groovy-mode
         "'"  'run-groovy
-        "sB" 'spacemacs/groovy-load-file-switch
-        "sb" 'spacemacs/groovy-load-file
-        "sF" 'spacemacs/groovy-send-definition-switch
+        "sB" 'space-macs/groovy-load-file-switch
+        "sb" 'space-macs/groovy-load-file
+        "sF" 'space-macs/groovy-send-definition-switch
         "sf" 'groovy-send-definition
         "si" 'run-groovy
-        "sR" 'spacemacs/groovy-send-region-switch
+        "sR" 'space-macs/groovy-send-region-switch
         "sr" 'groovy-send-region)
-      (add-hook 'groovy-mode-hook #'spacemacs//groovy-setup-backend))))
+      (add-hook 'groovy-mode-hook #'space-macs//groovy-setup-backend))))
 
 (defun groovy/pre-init-org ()
-  (spacemacs|use-package-add-hook org
+  (space-macs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(groovy . t))))
+
+

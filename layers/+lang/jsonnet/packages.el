@@ -1,11 +1,11 @@
-;;; packages.el --- jsonnet layer packages file for Spacemacs.
+;;; packages.el --- jsonnet layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Liz <liz@kazkaan>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -16,14 +16,16 @@
         ))
 
 (defun jsonnet/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'jsonnet-mode))
+  (space-macs/enable-flycheck 'jsonnet-mode))
 
 (defun jsonnet/init-jsonnet-mode ()
   (use-package jsonnet-mode
     :defer t
     :init
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'jsonnet-mode
+      (space-macs/set-leader-keys-for-major-mode 'jsonnet-mode
         "=" 'jsonnet-reformat-buffer
         "gg" 'jsonnet-jump
         "eb" 'jsonnet-eval-buffer))))
+
+

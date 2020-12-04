@@ -1,11 +1,11 @@
-;;; packages.el --- Scheme Layer packages File for Spacemacs
+;;; packages.el --- Scheme Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -22,28 +22,28 @@
 
 (defun scheme/post-init-company ()
   ;; Geiser provides completion as long as company mode is loaded.
-  (spacemacs|add-company-backends :modes scheme-mode))
+  (space-macs|add-company-backends :modes scheme-mode))
 
 (defun scheme/pre-init-evil-cleverparens ()
-  (spacemacs|use-package-add-hook evil-cleverparens
+  (space-macs|use-package-add-hook evil-cleverparens
     :pre-init
     (add-to-list 'evil-lisp-safe-structural-editing-modes 'scheme-mode)))
 
 (defun scheme/init-geiser ()
   (use-package geiser
     :commands run-geiser
-    :init (spacemacs/register-repl 'geiser 'geiser-mode-switch-to-repl "geiser")
+    :init (space-macs/register-repl 'geiser 'geiser-mode-switch-to-repl "geiser")
     :config
     (progn
       ;; prefixes
-      (spacemacs/declare-prefix-for-mode 'scheme-mode "mc" "compiling")
-      (spacemacs/declare-prefix-for-mode 'scheme-mode "mg" "navigation")
-      (spacemacs/declare-prefix-for-mode 'scheme-mode "mh" "documentation")
-      (spacemacs/declare-prefix-for-mode 'scheme-mode "mi" "insertion")
-      (spacemacs/declare-prefix-for-mode 'scheme-mode "mm" "macroexpansion")
-      (spacemacs/declare-prefix-for-mode 'scheme-mode "ms" "repl")
+      (space-macs/declare-prefix-for-mode 'scheme-mode "mc" "compiling")
+      (space-macs/declare-prefix-for-mode 'scheme-mode "mg" "navigation")
+      (space-macs/declare-prefix-for-mode 'scheme-mode "mh" "documentation")
+      (space-macs/declare-prefix-for-mode 'scheme-mode "mi" "insertion")
+      (space-macs/declare-prefix-for-mode 'scheme-mode "mm" "macroexpansion")
+      (space-macs/declare-prefix-for-mode 'scheme-mode "ms" "repl")
       ;; key bindings
-      (spacemacs/set-leader-keys-for-major-mode 'scheme-mode
+      (space-macs/set-leader-keys-for-major-mode 'scheme-mode
         "'"  'geiser-mode-switch-to-repl
         ","  'lisp-state-toggle-lisp-state
 
@@ -84,13 +84,15 @@
         "ss" 'geiser-set-scheme))))
 
 (defun scheme/post-init-ggtags ()
-  (add-hook 'scheme-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'scheme-mode-local-vars-hook #'space-macs/ggtags-mode-enable))
 
 (defun scheme/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'scheme-mode))
+  (space-macs/counsel-gtags-define-keys-for-mode 'scheme-mode))
 
 (defun scheme/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'scheme-mode))
+  (space-macs/helm-gtags-define-keys-for-mode 'scheme-mode))
 
 (defun scheme/post-init-parinfer ()
   (add-hook 'scheme-mode-hook 'parinfer-mode))
+
+

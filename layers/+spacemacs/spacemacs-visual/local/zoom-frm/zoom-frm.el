@@ -11,10 +11,10 @@
 ;; Last-Updated: Thu Jan  1 11:24:13 2015 (-0800)
 ;;           By: dradams
 ;;     Update #: 322
-;; URL: http://www.emacswiki.org/zoom-frm.el
-;; Doc URL: http://emacswiki.org/SetFonts
+;; URL: http://www.e-macswiki.org/zoom-frm.el
+;; Doc URL: http://e-macswiki.org/SetFonts
 ;; Keywords: frames, extensions, convenience
-;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
+;; Compatibility: GNU e-macs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -47,7 +47,7 @@
 ;;
 ;;  User option `zoom-frame/buffer' determines which kind of zooming
 ;;  (frame or buffer) is used by default.  You can customize this
-;;  option, but (in Emacs 23 or later) you can also toggle it just by
+;;  option, but (in e-macs 23 or later) you can also toggle it just by
 ;;  providing a prefix arg (`C-u') to `zoom-in/out', `zoom-in', or
 ;;  `zoom-out'.
 ;;
@@ -90,34 +90,34 @@
 ;;
 ;;    `toggle-zoom-frame', `zoom-all-frames-in',
 ;;    `zoom-all-frames-out', `zoom-frm-in', `zoom-frm-out',
-;;    `zoom-frm-unzoom', `zoom-in', `zoom-in/out' (Emacs 23+),
+;;    `zoom-frm-unzoom', `zoom-in', `zoom-in/out' (e-macs 23+),
 ;;    `zoom-out'.
 ;;
 ;;
 ;;  User options (variables) defined here:
 ;;
-;;    `frame-zoom-font-difference', `zoom-frame/buffer' (Emacs 23+).
+;;    `frame-zoom-font-difference', `zoom-frame/buffer' (e-macs 23+).
 ;;
 ;;
-;;  Put this in your init file (`~/.emacs'): (require 'zoom-frm)
+;;  Put this in your init file (`~/.e-macs'): (require 'zoom-frm)
 ;;
 ;;  Suggested key bindings:
 ;;
-;;    Emacs 23 and later:
+;;    e-macs 23 and later:
 ;;
 ;;    (define-key ctl-x-map [(control ?+)] 'zoom-in/out)
 ;;    (define-key ctl-x-map [(control ?-)] 'zoom-in/out)
 ;;    (define-key ctl-x-map [(control ?=)] 'zoom-in/out)
 ;;    (define-key ctl-x-map [(control ?0)] 'zoom-in/out)
 ;;
-;;    Any Emacs version:
+;;    Any e-macs version:
 ;;
-;;    (global-set-key (if (boundp 'mouse-wheel-down-event) ; Emacs 22+
+;;    (global-set-key (if (boundp 'mouse-wheel-down-event) ; e-macs 22+
 ;;                        (vector (list 'control
 ;;                                      mouse-wheel-down-event))
-;;                      [C-mouse-wheel])    ; Emacs 20, 21
+;;                      [C-mouse-wheel])    ; e-macs 20, 21
 ;;                    'zoom-in)
-;;    (when (boundp 'mouse-wheel-up-event) ; Emacs 22+
+;;    (when (boundp 'mouse-wheel-up-event) ; e-macs 22+
 ;;      (global-set-key (vector (list 'control mouse-wheel-up-event))
 ;;                      'zoom-out))
 ;;
@@ -126,13 +126,13 @@
 ;;    ;; Get rid of `mouse-set-font' or `mouse-appearance-menu':
 ;;    (global-set-key [S-down-mouse-1] nil)
 ;;
-;;  The first two of the mouse bindings mean that in Emacs 22 or later
+;;  The first two of the mouse bindings mean that in e-macs 22 or later
 ;;  you can hold the Control key and rotate the mouse wheel to zoom in
 ;;  and out, just as you might do in a Web browser.
 ;;
-;;  (In Emacs 20 and 21, Control plus mouse wheeling zooms in, but to
+;;  (In e-macs 20 and 21, Control plus mouse wheeling zooms in, but to
 ;;  zoom out you need to use `C--' before wheeling with Control.  This
-;;  is because Emacs 20 and 21 do not have separate events for the
+;;  is because e-macs 20 and 21 do not have separate events for the
 ;;  mouse wheel directions, and it is the prefix arg, not the wheel
 ;;  direction, that determines the effect.)
 ;;
@@ -160,7 +160,7 @@
 ;; 2013/12/31 dadams
 ;;     zoom-in/out: Use set-transient-map, if defined.
 ;; 2013/09//29 dadams
-;;     zoom-in/out: Only for Emacs 24.3+ (needs set-temporary-overlay-map).
+;;     zoom-in/out: Only for e-macs 24.3+ (needs set-temporary-overlay-map).
 ;; 2013/09/13 dadams
 ;;     Added: zoom-all-frames-in, zoom-all-frames-out.
 ;; 2013/04/21 dadams
@@ -170,7 +170,7 @@
 ;; 2010/07/06 dadams
 ;;     zoom-(in|out): Put doc strings before interactive spec.  Thx to Yidong Chong.
 ;; 2009/06/11 dadams
-;;     Added buffer zooming, for Emacs 23.
+;;     Added buffer zooming, for e-macs 23.
 ;;       Added zoom-(in|out), group zoom, zoom-frame/buffer.
 ;; 2006/01/07 dadams
 ;;     Added :link for sending bug report.
@@ -204,7 +204,7 @@
 (require 'frame-cmds) ;; enlarge-font
 
 
-(defvar zoom-frame/buffer) ;; Defined here for Emacs 22+.
+(defvar zoom-frame/buffer) ;; Defined here for e-macs 22+.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -218,15 +218,15 @@
   :link `(url-link :tag "Send Bug Report"
           ,(concat "mailto:" "drew.adams" "@" "oracle" ".com?subject=\
 zoom-frm.el bug: \
-&body=Describe bug here, starting with `emacs -q'.  \
-Don't forget to mention your Emacs and library versions."))
+&body=Describe bug here, starting with `e-macs -q'.  \
+Don't forget to mention your e-macs and library versions."))
   :link '(url-link :tag "Other Libraries by Drew"
-          "http://www.emacswiki.org/DrewsElispLibraries")
+          "http://www.e-macswiki.org/DrewsElispLibraries")
   :link '(url-link :tag "Download"
-          "http://www.emacswiki.org/emacs-en/download/zoom-frm.el")
+          "http://www.e-macswiki.org/e-macs-en/download/zoom-frm.el")
   :link '(url-link :tag "Description"
-          "http://www.emacswiki.org/SetFonts#ChangingFontSize")
-  :link '(emacs-commentary-link :tag "Commentary" "zoom-frm"))
+          "http://www.e-macswiki.org/SetFonts#ChangingFontSize")
+  :link '(e-macs-commentary-link :tag "Commentary" "zoom-frm"))
 
 ;;;###autoload
 (defcustom frame-zoom-font-difference 1
@@ -239,7 +239,7 @@ size for the frame, because the new font size cannot be less than one
 point."
   :type 'integer :group 'zoom)
 
-(when (> emacs-major-version 22)
+(when (> e-macs-major-version 22)
   (defcustom zoom-frame/buffer 'frame
     "*What to zoom: current frame or current buffer.
 See command `zoom-in/out', `zoom-in', or `zoom-out'."
@@ -249,7 +249,7 @@ See command `zoom-in/out', `zoom-in', or `zoom-out'."
 
 ;;; FUNCTIONS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(unless (> emacs-major-version 22) (defalias 'zoom-in 'zoom-frm-in))
+(unless (> e-macs-major-version 22) (defalias 'zoom-in 'zoom-frm-in))
 ;;;###autoload
 (defun zoom-frm-in (&optional frame flip)
   "Zoom FRAME in by `frame-zoom-font-difference', making text larger.
@@ -266,7 +266,7 @@ This is equal but opposite to `zoom-frm-out'."
     (enlarge-font increment frame)
     (modify-frame-parameters frame (list (cons 'zoomed zoom-factor)))))
 
-(unless (> emacs-major-version 22) (defalias 'zoom-out 'zoom-frm-out))
+(unless (> e-macs-major-version 22) (defalias 'zoom-out 'zoom-frm-out))
 ;;;###autoload
 (defun zoom-frm-out (&optional frame flip)
   "Zoom FRAME out by `frame-zoom-font-difference', making text smaller.
@@ -299,7 +299,7 @@ This is equal but opposite to `zoom-frm-in'."
       (zoom-frm-unzoom frame)
     (zoom-frm-in frame)))
 
-(when (> emacs-major-version 22)
+(when (> e-macs-major-version 22)
   (defun zoom-in (arg)
     "Zoom current frame or buffer in.
 With a prefix arg, toggle between zooming frame and zooming buffer.
@@ -334,8 +334,8 @@ Buffer zooming uses command `text-scale-decrease'."
             (current-buffer))
         (text-scale-decrease 1))))
 
-  (when (or (fboundp 'set-transient-map) ; Emacs 24.4+
-            (fboundp 'set-temporary-overlay-map)) ; Emacs 24.3
+  (when (or (fboundp 'set-transient-map) ; e-macs 24.4+
+            (fboundp 'set-temporary-overlay-map)) ; e-macs 24.3
 
     (defun zoom-in/out (arg)
       "Zoom current frame or buffer in or out.
@@ -404,7 +404,7 @@ plain `C-u' with this command then it acts like `text-scale-adjust'."
                      map)))))))
 
 ;; These are not so useful, but some people might like them.
-(when (fboundp 'set-face-attribute)     ; Emacs 22+
+(when (fboundp 'set-face-attribute)     ; e-macs 22+
   (defun zoom-all-frames-in (&optional flip)
     "Zoom all frames in by `frame-zoom-font-difference', making text larger.
 If `frame-zoom-font-difference' is negative, make text smaller.
@@ -437,3 +437,5 @@ Note: This zooming is unaffected by `zoom-frm-unzoom'."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; zoom-frm.el ends here
+
+

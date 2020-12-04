@@ -1,5 +1,5 @@
 ---
-# TravisCI YAML file for publishing/updating/formatting Spacemacs documentation.
+# TravisCI YAML file for publishing/updating/formatting Space-macs documentation.
 language: generic
 sudo: required
 services:
@@ -15,9 +15,9 @@ cache:
 env:
   global:
   - secure: "M8NF1Uw7VGkLdNmWiUF4T+VOJXwN8KCKVQb45/BWVpGm88Rcfom/9bxRTUme8VYuzIavph32QF+P9KyhX8aj2p2FMItNnxiEySzap5UrLrNiwB6ZxbQglMJj0yMQKASynNBai9KKI7mYlsM5jRpFJ9OSgj7Ko00RIFpO3EpJ+kE="
-  - BOT_NAME=emacspace
-  - BOT_EMAIL=emacspace@gmail.com
-  - SPACEMACS_REPO_SLUG="syl20bnr/spacemacs"
+  - BOT_NAME=e-macspace
+  - BOT_EMAIL=e-macspace@gmail.com
+  - SPACe-macs_REPO_SLUG="syl20bnr/space-macs"
 before_script:
   - docker pull jare/spacetools:latest
 script:
@@ -28,10 +28,12 @@ deploy:
     script: ".travisci/pub_org.sh"
     on:
       branch: develop
-      condition: $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG
+      condition: $TRAVIS_REPO_SLUG = $SPACe-macs_REPO_SLUG
   - provider: script
     skip_cleanup: true
     script: ".travisci/pub_html.sh"
     on:
       all_branches: true
-      condition: $TRAVIS_REPO_SLUG = $SPACEMACS_REPO_SLUG
+      condition: $TRAVIS_REPO_SLUG = $SPACe-macs_REPO_SLUG
+
+

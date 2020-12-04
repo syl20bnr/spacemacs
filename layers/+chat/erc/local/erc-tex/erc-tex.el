@@ -19,7 +19,7 @@
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to
+;; along with GNU e-macs; see the file COPYING.  If not, write to
 ;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
@@ -29,7 +29,7 @@
 ;; in your ERC chats. You will need both latex and dvipng in order to use this
 ;; module.
 ;;
-;; Once erc-tex is avalaible for your Emacs, you can use `erc-tex-mode' to
+;; Once erc-tex is avalaible for your e-macs, you can use `erc-tex-mode' to
 ;; toggle the module. This will render the text between $...$ as a LaTeX
 ;; expression. Indeed, you can use `erc-tex-image-edit', bound to `RET' on TeX
 ;; formulas to edit the TeX code in the prompt and resend the image.
@@ -174,3 +174,5 @@
 ;; End:
 
 ;;; erc-tex.el ends here
+
+

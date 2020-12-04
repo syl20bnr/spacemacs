@@ -1,11 +1,11 @@
-;;; evil-evilified-state-utest.el --- Spacemacs Unit Test File
+;;; evil-evilified-state-utest.el --- Space-macs Unit Test File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 ;; ---------------------------------------------------------------------------
@@ -115,3 +115,5 @@
                      (remap keymap (func1 . func4) (func2. func5) (func3 . func6))
                      (s-tab . func8))
                    (evilified-state--sort-keymap map)))))
+
+

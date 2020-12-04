@@ -17,12 +17,12 @@ This layer provides support for the YANG file format.
 - Syntax checking via [[http://www.flycheck.org/en/latest/languages.html#yaml][flycheck]]
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =yang= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =yang= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(yang))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(yang))
 #+END_SRC
 
 * Syntax checking with flycheck
@@ -40,15 +40,17 @@ rules outlined in RFC 6020. To use a different set of rules set the
 - ieee Validate the module(s) according to IEEE rules.
 - lint Validate the module(s) according to RFC 6087 rules.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((yang :variables yang-pyang-rules "ietf")))
 #+END_SRC
 
 To allow further customization one can set the ~yang-pyang-extra-args~
 variable to a string that will be passed directly to the =pyang= command.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((yang :variables yang-pyang-extra-args "--max-line-length=69")))
 #+END_SRC
+
+

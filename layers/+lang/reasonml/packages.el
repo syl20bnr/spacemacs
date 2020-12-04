@@ -1,11 +1,11 @@
-;;; packages.el --- reasonml layer packages file for Spacemacs.
+;;; packages.el --- reasonml layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Fredrik Dyrkell
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -21,7 +21,7 @@
 
 (defun reasonml/post-init-company ()
   (when (configuration-layer/package-usedp 'merlin)
-    (spacemacs|add-company-backends
+    (space-macs|add-company-backends
       :backends merlin-company-backend
       :modes reason-mode)))
 
@@ -49,7 +49,7 @@
 
 (defun reasonml/post-init-flycheck ()
   (when (configuration-layer/layer-used-p 'syntax-checking)
-    (spacemacs/enable-flycheck 'reason-mode)))
+    (space-macs/enable-flycheck 'reason-mode)))
 
 (defun reasonml/post-init-flycheck-ocaml ()
   (when (configuration-layer/layer-used-p 'syntax-checking)
@@ -62,7 +62,7 @@
     (progn
       (setq merlin-completion-with-doc t)
 
-      (spacemacs/set-leader-keys-for-major-mode 'reason-mode
+      (space-macs/set-leader-keys-for-major-mode 'reason-mode
         "cp" 'merlin-project-check
         "cv" 'merlin-goto-project-file
         "eC" 'merlin-error-check
@@ -70,7 +70,7 @@
         "eN" 'merlin-error-prev
         "gb" 'merlin-pop-stack
         "gg" 'merlin-locate
-        "gG" 'spacemacs/merlin-locate-other-window
+        "gG" 'space-macs/merlin-locate-other-window
         "gl" 'merlin-locate-ident
         "gi" 'merlin-switch-to-ml
         "gI" 'merlin-switch-to-mli
@@ -81,7 +81,7 @@
         "rd" 'merlin-destruct))))
 
 (defun reasonml/pre-init-popwin ()
-  (spacemacs|use-package-add-hook popwin
+  (space-macs|use-package-add-hook popwin
     :post-config
     (push '("*Refmt Errors*" :tail t :position bottom :noselect t)
           popwin:special-display-config)))
@@ -102,7 +102,7 @@
                   (when reason-auto-refmt
                     (add-hook 'before-save-hook 'refmt nil t))))
 
-      (spacemacs|add-toggle reason-auto-refmt
+      (space-macs|add-toggle reason-auto-refmt
         :documentation "Toggle automatic refmt on save."
         :status reason-auto-refmt
         :on (progn
@@ -114,37 +114,39 @@
 
     :config
     (progn
-      (spacemacs/declare-prefix-for-mode 'reason-mode "mc" "compile")
-      (spacemacs/declare-prefix-for-mode 'reason-mode "mt" "toggle")
-      (spacemacs/declare-prefix-for-mode 'reason-mode "me" "errors/eval")
-      (spacemacs/declare-prefix-for-mode 'reason-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'reason-mode "mh" "help/show")
-      (spacemacs/declare-prefix-for-mode 'reason-mode "mr" "refactor")
-      (spacemacs/declare-prefix-for-mode 'reason-mode "m=" "refmt")
+      (space-macs/declare-prefix-for-mode 'reason-mode "mc" "compile")
+      (space-macs/declare-prefix-for-mode 'reason-mode "mt" "toggle")
+      (space-macs/declare-prefix-for-mode 'reason-mode "me" "errors/eval")
+      (space-macs/declare-prefix-for-mode 'reason-mode "mg" "goto")
+      (space-macs/declare-prefix-for-mode 'reason-mode "mh" "help/show")
+      (space-macs/declare-prefix-for-mode 'reason-mode "mr" "refactor")
+      (space-macs/declare-prefix-for-mode 'reason-mode "m=" "refmt")
 
-      (spacemacs/set-leader-keys-for-major-mode 'reason-mode
+      (space-macs/set-leader-keys-for-major-mode 'reason-mode
         "cr" 'refmt
         "==" 'refmt
-        "tr" 'spacemacs/toggle-reason-auto-refmt
+        "tr" 'space-macs/toggle-reason-auto-refmt
         "=mr" 'reason/refmt-ml-to-re
         "=rm" 'reason/refmt-re-to-ml))))
 
 (defun reasonml/pre-init-utop ()
-  (spacemacs|use-package-add-hook utop
+  (space-macs|use-package-add-hook utop
     :post-init
     (add-hook
      'reason-mode-hook
      (lambda ()
-       (setq utop-command "rtop -emacs")
+       (setq utop-command "rtop -e-macs")
        (setq utop-edit-command nil)
        (setq utop-prompt 'reason/rtop-prompt)
        (setq utop-initial-command "let myVar = \"Hello Reason!\";")
        (setq utop-phrase-terminator ";")))
     :post-config
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'reason-mode
+      (space-macs/set-leader-keys-for-major-mode 'reason-mode
         "er" 'utop-eval-region
         "eb" 'utop-eval-buffer
         "ee" 'utop-eval-phrase))))
 
 ;;; packages.el ends here
+
+

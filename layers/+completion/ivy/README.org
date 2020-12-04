@@ -15,13 +15,13 @@
 
 * Description
 This layer enables Ivy for completion. It will replace the default completion by
-[[https://github.com/emacs-helm/helm][Helm]].
+[[https://github.com/e-macs-helm/helm][Helm]].
 
-These completion systems are the central control towers of Spacemacs, they are
+These completion systems are the central control towers of Space-macs, they are
 used to manage buffers, projects, search results, configuration layers, toggles
 and more...
 
-Mastering your choice of completion system will make you a Spacemacs power user.
+Mastering your choice of completion system will make you a Space-macs power user.
 
 ** Features:
 - Project wide =grep= like text search via =search-auto=
@@ -32,8 +32,8 @@ Mastering your choice of completion system will make you a Spacemacs power user.
 - Advanced buffer information with =ivy-rich=
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =ivy= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =ivy= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
@@ -45,15 +45,15 @@ You can customize ivy with the following variables:
   file name completion. You can still go up a directory up by ~DEL~.
   The default value is ("../", "./").
 - =ivy-use-virtual-buffers= Add bookmarks and recent files to buffer completion
-  menu. The Spacemacs default is t.
-- =ivy-height= The height of the minibuffer. The Spacemacs default is 15.
+  menu. The Space-macs default is t.
+- =ivy-height= The height of the minibuffer. The Space-macs default is 15.
 - =ivy-use-selectable-prompt= When non-nil, make the prompt line selectable like
-  a candidate. The Spacemacs default value is =t=.
+  a candidate. The Space-macs default value is =t=.
 - =ivy-re-builders-alist= An alist of regex building functions for each
   collection function. See ivy documentation for possible choices. Use
-  =spacemacs/ivy--regex-plus= instead of =ivy--regex-plus= to get correct
-  highlighting in the search results of =spacemacs/search-project-auto= and
-  similar search commands provided by Spacemacs.
+  =space-macs/ivy--regex-plus= instead of =ivy--regex-plus= to get correct
+  highlighting in the search results of =space-macs/search-project-auto= and
+  similar search commands provided by Space-macs.
 - =ivy-ret-visits-directory= Whether ~RET~ and ~C-j~ should be swapped in ivy
   minibuffer so ~RET~ acts like Ido and descends into directory. It is described
   [[https://github.com/abo-abo/swiper/wiki/ido-style-folder-navigation][here]] (probably outdated). Default value is =nil=.
@@ -65,15 +65,15 @@ To display more information about buffers set the layer variable
 Note that =ivy-rich= has been reported to be very slow on =macOS=. This feature
 is disabled by default.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (ivy :variables ivy-enable-advanced-buffer-information t)))
 #+END_SRC
 
 * Key bindings
-If you choose =ivy= as completion system, make sure to read the [[http://oremacs.com/swiper/][official manual]].
+If you choose =ivy= as completion system, make sure to read the [[http://ore-macs.com/swiper/][official manual]].
 In case you don't want to read everything, at least familiarise with
-[[http://oremacs.com/swiper/#minibuffer-key-bindings][minibuffer key bindings]].
+[[http://ore-macs.com/swiper/#minibuffer-key-bindings][minibuffer key bindings]].
 
 Some useful key bindings are presented in the following table.
 
@@ -92,8 +92,8 @@ Some useful key bindings are presented in the following table.
 | ~C-M-k~     | kill buffer (in =ivy-reverse-i-search= (~C-r~ at a prompt))                                                                                         |
 
 ** Transient state
-Press ~M-SPC~ (~m-M-SPC~ [[https://github.com/syl20bnr/spacemacs/blob/cb48ec74c1f401bd2945760799633c0e81e69088/doc/CONVENTIONS.org#transient-state][on macOS]]) anytime in Ivy to get into the transient state. Additional actions
-are found in [[https://oremacs.com/swiper/#minibuffer-key-bindings][the Hydra section of the official manual]].
+Press ~M-SPC~ (~m-M-SPC~ [[https://github.com/syl20bnr/space-macs/blob/cb48ec74c1f401bd2945760799633c0e81e69088/doc/CONVENTIONS.org#transient-state][on macOS]]) anytime in Ivy to get into the transient state. Additional actions
+are found in [[https://ore-macs.com/swiper/#minibuffer-key-bindings][the Hydra section of the official manual]].
 
 | Key binding | Description                                             |
 |-------------+---------------------------------------------------------|
@@ -111,7 +111,9 @@ are found in [[https://oremacs.com/swiper/#minibuffer-key-bindings][the Hydra se
 
 | Key binding | Description             |
 |-------------+-------------------------|
-| ~SPC C e~   | =counsel-colors-emacs=  |
+| ~SPC C e~   | =counsel-colors-e-macs=  |
 | ~SPC C f~   | =counsel-colors-faces=  |
 | ~SPC C w~   | =counsel-colors-web=    |
 | ~SPC h d F~ | =counsel-describe-face= |
+
+

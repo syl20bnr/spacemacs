@@ -32,8 +32,8 @@ A nice video demonstration by the package author can be found [[https://www.yout
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =rebox= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =rebox= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Configuration
@@ -42,7 +42,7 @@ Box styles are identified by numbers, it is possible to cycle through a list
 of styles using ~SPC x b n~. This list can be customized by setting the variable
 =rebox-style-loop=.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq rebox-style-loop '(71 72 73))
 #+END_SRC
 
@@ -51,8 +51,8 @@ As text mode usage could surprise some users (e.g., when they enter M-q to fill
 a paragraph) =rebox= is not enabled by default in =text-mode=. To enable it you
 need to set the layer variable =rebox-enable-in-text-mode= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
       (rebox :variables rebox-enable-in-text-mode t)))
 #+END_SRC
 
@@ -67,7 +67,7 @@ illustration; however, it will work equally well if the comment character is
 different (e.g., lisp's =;= comment character).
 
 ** Additional Templates
-These templates are added by the Spacemacs layer.
+These templates are added by the Space-macs layer.
 
 #+BEGIN_SRC sh
   #
@@ -131,3 +131,5 @@ These templates are added by the Spacemacs layer.
 | ~SPC x b B~ | Draw previous box defined in =rebox-style-loop=                   |
 | ~SPC x b c~ | Center box (point must be around left side of the box)            |
 | ~S-RET~     | rebox-indent-new-line                                             |
+
+

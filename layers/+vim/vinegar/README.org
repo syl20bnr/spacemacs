@@ -13,7 +13,7 @@
   - [[#key-bindings][Key bindings]]
 
 * Description
-This layer is a port of vim-vinegar for Emacs.
+This layer is a port of vim-vinegar for e-macs.
 
 It is based on tpope's [[https://github.com/tpope/vim-vinegar][vinegar.vim]], simplifying =dired=
 with a limited number of details and exposing the ~-~ command in all
@@ -31,13 +31,13 @@ buffers to enter dired.
 * Install
 ** Layer
 To use this configuration layer add =vinegar= to the 
-=dotspacemacs-configuration-layers= list.
+=dotspace-macs-configuration-layers= list.
 
 ** Reuse dired buffer
 To reuse dired buffers set the variable =vinegar-reuse-dired-buffer= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (vinegar :variables
              vinegar-reuse-dired-buffer nil))
 #+END_SRC
@@ -46,8 +46,8 @@ To reuse dired buffers set the variable =vinegar-reuse-dired-buffer= to =t=.
 Per default extensive details in dired are hidden with this layer.
 This can be deactivated by setting the variable =vinegar-dired-hide-details= to =nil=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (vinegar :variables
              vinegar-dired-hide-details t)))
 #+END_SRC
@@ -78,3 +78,5 @@ This can be deactivated by setting the variable =vinegar-dired-hide-details= to 
 | ~T~         | (Dired) Move down in dired tree                    |
 | ~K~         | (Dired) Kill marked lines (hide, do not delete)    |
 | ~r~         | (Dired) Redisplay buffer                           |
+
+

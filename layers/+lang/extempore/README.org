@@ -18,15 +18,15 @@ This layer adds support for the [[https://github.com/digego/extempore][Extempore
 - eldoc support
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =extempore= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =extempore= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Configuration
 The only configuration variable you might want to set out-of-the-box is
 =extempore-path=, so that you don't have to answer the "which directory?" prompt
 every time you call =switch-to-extempore=. You can set it when you add
-=extempore= to your =dotspacemacs-configuration-layers= like so:
+=extempore= to your =dotspace-macs-configuration-layers= like so:
 
 #+BEGIN_SRC elisp
   (extempore :variables extempore-path "/path/to/extempore/")
@@ -49,3 +49,5 @@ will be ok if you're just starting out. If you want to see them all, open up
 | ~SPC m e e~ | Eval last sexp          |
 | ~SPC m e r~ | Eval region             |
 | ~SPC m e b~ | Eval buffer             |
+
+

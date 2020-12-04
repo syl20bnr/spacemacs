@@ -1,11 +1,11 @@
-;;; config.el --- Colors Layer configuration File for Spacemacs
+;;; config.el --- Colors Layer configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -51,10 +51,12 @@ programming language buffers.")
     (sanityinc-tomorrow-eighties . (30 80))
     (solarized-dark . (65 55))
     (solarized-light . (60 55))
-    (spacemacs-dark . (45 70))
-    (spacemacs-light . (60 45))
+    (space-macs-dark . (45 70))
+    (space-macs-light . (60 45))
     (subatomic . (35 90))
     (subatomic256 . (30 85))
     (zenburn . (40 65))
     )
   "alist of theme symbols and pair of saturation and lightness values.")
+
+

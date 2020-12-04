@@ -29,14 +29,14 @@
 - [[#external-resources][External resources]]
 
 * Description
-This layer enables Helm everywhere in Spacemacs. The alternative to this
+This layer enables Helm everywhere in Space-macs. The alternative to this
 layer is the Ivy layer which brings the same level of integration as Helm.
 
-These completion systems are the central control towers of Spacemacs, they are
+These completion systems are the central control towers of Space-macs, they are
 used to manage buffers, projects, search results, configuration layers, toggles
 and more...
 
-Mastering your choice of completion system will make you a Spacemacs power user.
+Mastering your choice of completion system will make you a Space-macs power user.
 
 ** Features:
 - Project wide =grep= like text search via =helm-dir-smart-do-search=
@@ -47,19 +47,19 @@ Mastering your choice of completion system will make you a Spacemacs power user.
 - Intuitive =transient state=
 
 * Install
-Helm is part of the standard distribution of Spacemacs so you don't have to do
+Helm is part of the standard distribution of Space-macs so you don't have to do
 anything to install it if you chose this distribution.
 
-If you want/need to explicitly install Helm then add it to your =~/.spacemacs=.
-You will need to add =helm= to the existing =dotspacemacs-configuration-layers=
+If you want/need to explicitly install Helm then add it to your =~/.space-macs=.
+You will need to add =helm= to the existing =dotspace-macs-configuration-layers=
 list in this file.
 
 ** Alternative layers
 Ivy layer is a replacement layer for Helm. When you add =ivy= to the existing
 == list in your dotfile, it will completely replace the =helm= layer.
 
-To switch from Ivy to Helm, modify your =~/.spacemacs=. You will need to add
-=helm= to the existing =dotspacemacs-configuration-layers= list in this file,
+To switch from Ivy to Helm, modify your =~/.space-macs=. You will need to add
+=helm= to the existing =dotspace-macs-configuration-layers= list in this file,
 and remove =ivy=.
 
 * Configuration
@@ -72,8 +72,8 @@ It is possible to have Helm to resize its buffer window to adapt to the length
 of the candidate list. By default the buffer size is fixed, to enable automatic
 resizing set the layer variable =helm-enable-auto-resize= to non-nil.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (helm :variables helm-enable-auto-resize t)))
 #+END_SRC
 
@@ -83,8 +83,8 @@ Default value is =nil=.
 To hide the header in the Helm buffer set the layer variable =helm-no-header=
 to non-nil.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (helm :variables helm-no-header t)))
 #+END_SRC
 
@@ -96,8 +96,8 @@ to your dotfile.
 
 The supported values are =bottom=, =top=, =left= and =right=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (helm :variables helm-position 'top)))
 #+END_SRC
 
@@ -109,8 +109,8 @@ By default this layer /tries/ to enable fuzzy search to all Helm sources.
 You can limit the fuzzy search to helm own defaults by setting the layer
 variable =helm-use-fuzzy= to the value ='source=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (helm :variables helm-use-fuzzy 'source)))
 #+END_SRC
 
@@ -118,17 +118,17 @@ Default value is =always=.
 
 ** Ripgrep: maximum number of column
 If you use =ripgrep= the default value for =--max-columns= is =512=. To change
-if set the layer variable =spacemacs-helm-rg-max-column-number=.
+if set the layer variable =space-macs-helm-rg-max-column-number=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (helm :variables spacemacs-helm-rg-max-column-number 1024)))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
+    (helm :variables space-macs-helm-rg-max-column-number 1024)))
 #+END_SRC
 
 * Key bindings
 ** hjkl navigation
 When using the Vim style or Hybrid style with the variable
-=hybrid-style-enable-hjkl-bindings= set to =t=, Spacemacs adds navigation in the
+=hybrid-style-enable-hjkl-bindings= set to =t=, Space-macs adds navigation in the
 Helm buffers with ~hjkl~.
 
 | Key binding | Description                  |
@@ -140,7 +140,7 @@ Helm buffers with ~hjkl~.
 | ~C-l~       | same as ~return~             |
 
 ** Transient state
-Spacemacs defines a transient state for =Helm= to make it work like [[https://github.com/Shougo/unite.vim][Vim's Unite]]
+Space-macs defines a transient state for =Helm= to make it work like [[https://github.com/Shougo/unite.vim][Vim's Unite]]
 plugin.
 
 Initiate the transient state with ~M-SPC~ or ~s-M-SPC~ while in a =Helm= buffer.
@@ -186,7 +186,7 @@ In the =helm-bookmarks= buffer:
 | Key binding | Description            |
 |-------------+------------------------|
 | ~SPC C l~   | =helm-colors=          |
-| ~SPC h d F~ | =spacemacs/helm-faces= |
+| ~SPC h d F~ | =space-macs/helm-faces= |
 
 ** C-z and Tab switch
 The command bound to ~C-z~ is much more useful than the one bound to Tab, so it
@@ -218,7 +218,7 @@ first, select the command you want to run, and press ~C-u~ before pressing
 
 ** Replacing text in several files
 If you have =rg=, =ag=, =pt= or =ack= installed, replacing an occurrence of text
-in several files can be performed via [[https://github.com/syohex/emacs-helm-ag][helm-ag]].
+in several files can be performed via [[https://github.com/syohex/e-macs-helm-ag][helm-ag]].
 
 To replace all occurrences of =foo= with =bar= in your current project:
 - Initiate a search with ~SPC /~ (in a project)
@@ -228,7 +228,7 @@ To replace all occurrences of =foo= with =bar= in your current project:
 - Save the modifications and leave =helm-ag-edit= with ~C-c C-c~
 - Alternatively, discard all changes and leave =helm-ag-edit= with ~C-c C-k~
 
-*Note*: In Spacemacs, =helm-ag= despite its name works with =rg=, =pt= and =ack=
+*Note*: In Space-macs, =helm-ag= despite its name works with =rg=, =pt= and =ack=
 as well (but not with =grep=).
 
 ** Resume last session
@@ -236,5 +236,7 @@ Use ~SPC r l~ to resume the last helm session. For instance it is handy to
 quickly toggle on and off a toggle using ~SPC h t~.
 
 * External resources
-- [[https://github.com/emacs-helm/helm/wiki][The Helm wiki]]
+- [[https://github.com/e-macs-helm/helm/wiki][The Helm wiki]]
 - [[http://tuhdo.github.io/helm-intro.html][The Helm guide]]
+
+

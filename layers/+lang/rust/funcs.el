@@ -1,15 +1,15 @@
-;;; funcs.el --- rust Layer functions File for Spacemacs
+;;; funcs.el --- rust Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: NJBS <DoNotTrackMeUsingThis@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//rust-backend ()
+(defun space-macs//rust-backend ()
   "Returns selected backend."
   (if rust-backend
       rust-backend
@@ -17,59 +17,59 @@
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
      (t 'racer))))
 
-(defun spacemacs//rust-setup-backend ()
+(defun space-macs//rust-setup-backend ()
   "Conditionally setup rust backend."
-  (pcase (spacemacs//rust-backend)
-    (`racer (spacemacs//rust-setup-racer))
-    (`lsp (spacemacs//rust-setup-lsp))))
+  (pcase (space-macs//rust-backend)
+    (`racer (space-macs//rust-setup-racer))
+    (`lsp (space-macs//rust-setup-lsp))))
 
-(defun spacemacs//rust-setup-company ()
+(defun space-macs//rust-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//rust-backend)
-    (`racer (spacemacs//rust-setup-racer-company))))
+  (pcase (space-macs//rust-backend)
+    (`racer (space-macs//rust-setup-racer-company))))
 
-(defun spacemacs//rust-setup-dap ()
+(defun space-macs//rust-setup-dap ()
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase (spacemacs//rust-backend)
-    (`lsp (spacemacs//rust-setup-lsp-dap))))
+  (pcase (space-macs//rust-backend)
+    (`lsp (space-macs//rust-setup-lsp-dap))))
 
 
 ;; lsp
-(defun spacemacs//lsp-layer-not-installed-message ()
+(defun space-macs//lsp-layer-not-installed-message ()
   (message (concat "`lsp' layer is not installed, "
                    "please add `lsp' layer to your dotfile.")))
 
-(defun spacemacs//rust-setup-lsp ()
+(defun space-macs//rust-setup-lsp ()
   "Setup lsp backend"
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
         (lsp)
-        (spacemacs/declare-prefix-for-mode 'rust-mode "ms" "switch")
-        (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+        (space-macs/declare-prefix-for-mode 'rust-mode "ms" "switch")
+        (space-macs/set-leader-keys-for-major-mode 'rust-mode
           "ss" 'lsp-rust-switch-server))
-    (spacemacs//lsp-layer-not-installed-message)))
+    (space-macs//lsp-layer-not-installed-message)))
 
-(defun spacemacs//rust-setup-lsp-dap ()
+(defun space-macs//rust-setup-lsp-dap ()
   "Setup DAP integration."
   (require 'dap-gdb-lldb))
 
 
 ;; racer
 
-(defun spacemacs//rust-setup-racer ()
+(defun space-macs//rust-setup-racer ()
   "Setup racer backend"
   (progn
     (racer-mode)))
 
-(defun spacemacs//rust-setup-racer-company ()
+(defun space-macs//rust-setup-racer-company ()
   "Setup racer auto-completion."
-  (spacemacs|add-company-backends
+  (space-macs|add-company-backends
     :backends company-capf
     :modes rust-mode
     :variables company-tooltip-align-annotations t))
 
-(defun spacemacs/racer-describe ()
+(defun space-macs/racer-describe ()
   "Show a *Racer Help* buffer for the function or type at point.
 If `help-window-select' is non-nil, also select the help window."
   (interactive)
@@ -79,36 +79,38 @@ If `help-window-select' is non-nil, also select the help window."
 
 ;; Misc
 
-(defvar spacemacs//rust-quick-run-tmp-file nil
+(defvar space-macs//rust-quick-run-tmp-file nil
   "Stores filename for the rust-quick-run function")
 
-(defun spacemacs//rust-quick-run-generate-tmp-file-name (input-file-name)
+(defun space-macs//rust-quick-run-generate-tmp-file-name (input-file-name)
   (concat temporary-file-directory
           (file-name-nondirectory (buffer-file-name))
           "-"
           (md5 (buffer-file-name))))
 
-(defun spacemacs//rust-quick-run-compilation-finish-function (buffer status)
+(defun space-macs//rust-quick-run-compilation-finish-function (buffer status)
   (setq compilation-finish-functions
-        (delete 'spacemacs//rust-quick-run-compilation-finish-function
+        (delete 'space-macs//rust-quick-run-compilation-finish-function
                 compilation-finish-functions))
   (when (string-match "finished" status)
     (newline)
     (shell-command
-     (shell-quote-argument spacemacs//rust-quick-run-tmp-file) t)))
+     (shell-quote-argument space-macs//rust-quick-run-tmp-file) t)))
 
-(defun spacemacs/rust-quick-run ()
+(defun space-macs/rust-quick-run ()
   "Quickly run a Rust file using rustc.
-Meant for a quick-prototype flow only - use `spacemacs/open-junk-file' to open a
+Meant for a quick-prototype flow only - use `space-macs/open-junk-file' to open a
 junk Rust file, type in some code and quickly run it. If you want to use
 third-party crates, create a new project using `cargo-process-new' and run using
 `cargo-process-run'."
   (interactive)
-  (setq spacemacs//rust-quick-run-tmp-file
-        (spacemacs//rust-quick-run-generate-tmp-file-name(buffer-file-name)))
+  (setq space-macs//rust-quick-run-tmp-file
+        (space-macs//rust-quick-run-generate-tmp-file-name(buffer-file-name)))
   (add-to-list 'compilation-finish-functions
-               'spacemacs//rust-quick-run-compilation-finish-function)
+               'space-macs//rust-quick-run-compilation-finish-function)
   (compile
    (format "rustc -o %s %s"
-           (shell-quote-argument spacemacs//rust-quick-run-tmp-file)
+           (shell-quote-argument space-macs//rust-quick-run-tmp-file)
            (shell-quote-argument buffer-file-name))))
+
+

@@ -1,11 +1,11 @@
-;;; packages.el --- Japanese Layer packages File for Spacemacs
+;;; packages.el --- Japanese Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Kenji Miyazaki <kenjimyzk@gmail.com>
 ;; URL: https://github.com/kenjimyzk/
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -30,7 +30,7 @@
   (use-package migemo
     :config
     (setq migemo-command "cmigemo")
-    (setq migemo-options '("-q" "--emacs" "-i" "\a"))
+    (setq migemo-options '("-q" "--e-macs" "-i" "\a"))
     (setq migemo-user-dictionary nil)
     (setq migemo-regex-dictionary nil)
     (setq migemo-coding-system 'utf-8-unix)
@@ -75,7 +75,7 @@
       (setq pangu-spacing-chinese-after-english-regexp
             (rx (group-n 1 (in "a-zA-Z0-9"))
                 (group-n 2 (category japanese))))
-      (spacemacs|hide-lighter pangu-spacing-mode)
+      (space-macs|hide-lighter pangu-spacing-mode)
       ;; Always insert `real' space in text-mode including org-mode.
       (setq pangu-spacing-real-insert-separtor t)
       ;; (global-pangu-spacing-mode 1)
@@ -93,3 +93,5 @@ unwanted space when exporting org-mode to html."
              (concat
               "\\(" fix-regexp "\\) *\n *\\(" fix-regexp "\\)") "\\1\\2" origin-contents)))
       (ad-set-arg 1 fixed-contents))))
+
+

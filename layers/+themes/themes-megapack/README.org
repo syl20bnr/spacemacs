@@ -8,13 +8,15 @@
 - [[#install][Install]]
 
 * Description
-This layer installs around 100 themes for Emacs.
+This layer installs around 100 themes for e-macs.
 
 ** Features:
 - Have access to all included themes in this [[http://themegallery.robdor.com][theme gallery]] from [[http://www.twitter.com/robmerrell][Rob Merrell]].
 - Easily try a theme by invoking helm-themes with: ~SPC T s~.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =themes-megapack= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =themes-megapack= to the existing =dotspace-macs-configuration-layers= list in this
 file.
+
+

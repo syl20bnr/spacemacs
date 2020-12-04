@@ -7,17 +7,17 @@ available in the dotfile.
 *Important* You should replace your `(defvar <layer>-packages ...)`,
 `(defvar <layer>-pre-extensions ...)`, `(defvar <layer>-post-extensions ...)`
 and `(defvar <layer>-excluded-packages ...)` by `(setq ...)`. This will
-allow to install newly added packages to a layer without restarting spacemacs
+allow to install newly added packages to a layer without restarting space-macs
 by pressing `SPC f e R`. Be sure to remove the docstring when replacing the
 `defvar` since `setq` does not take a third argument.
 
 `:variables` keyword now behaves like a regular `setq` so you'll have to
 quote any value appropriately.
 
-2. Emacs lisp and Shell config are now in their own layers
+2. e-macs lisp and Shell config are now in their own layers
 
-Be sure to add the new layers `emacs-lisp` and `shell` to your dotfile to
-continue to enjoy the emacs-lisp and shell configurations of Spacemacs.
+Be sure to add the new layers `e-macs-lisp` and `shell` to your dotfile to
+continue to enjoy the e-macs-lisp and shell configurations of Space-macs.
 
 Also be sure to check the key binding `SPC '` to open a shell buffer.
 
@@ -25,10 +25,12 @@ Also be sure to check the key binding `SPC '` to open a shell buffer.
 
 `SPC b s` to switch buffer is now on `SPC b b`.
 `SPC f f` uses helm instead of ido, set the new variable.
-`dotspacemacs-use-ido` to t to get back the old ido behavior.
+`dotspace-macs-use-ido` to t to get back the old ido behavior.
 `TAB` and `C-z` in helm buffers have been *swapped*.
 
 4. Sentence delimiter
 
-Sentence delimiter is now a *single space* as opposed to Emacs default
+Sentence delimiter is now a *single space* as opposed to e-macs default
 which is double spaces.
+
+

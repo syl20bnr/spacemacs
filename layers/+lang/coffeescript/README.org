@@ -24,8 +24,8 @@ This layer adds support for the CoffeeScript language using [[https://github.com
 - REPL support
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =coffeescript= to the existing =dotspacemacs-configuration-layers= list in
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =coffeescript= to the existing =dotspace-macs-configuration-layers= list in
 this file.
 
 * Configuration
@@ -53,3 +53,5 @@ To enable linting, install [[https://github.com/clutchski/coffeelint][CoffeeLint
 | ~SPC m s i~ | Create or go to REPL                               |
 | ~SPC m s l~ | Send line to REPL                                  |
 | ~SPC m s r~ | send current region to the REPL and stay in buffer |
+
+

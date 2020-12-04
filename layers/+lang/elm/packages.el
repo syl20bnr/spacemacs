@@ -1,11 +1,11 @@
-;;; packages.el --- elm Layer packages File for Spacemacs
+;;; packages.el --- elm Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -20,10 +20,10 @@
     smartparens))
 
 (defun elm/post-init-company ()
-  (spacemacs//elm-setup-company))
+  (space-macs//elm-setup-company))
 
 (defun elm/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'elm-mode))
+  (space-macs/enable-flycheck 'elm-mode))
 
 (defun elm/init-flycheck-elm ()
   "Initialize flycheck-elm"
@@ -38,13 +38,13 @@
     :defer t
     :init
     (progn
-      (spacemacs/register-repl 'elm-mode 'elm-repl-load "elm")
-      (add-hook 'elm-mode-hook 'spacemacs//elm-setup-backend))
+      (space-macs/register-repl 'elm-mode 'elm-repl-load "elm")
+      (add-hook 'elm-mode-hook 'space-macs//elm-setup-backend))
     :config
     (progn
       ;; Bind non-lsp keys
-      (when (eq (spacemacs//elm-backend) 'company-elm)
-        (spacemacs/set-leader-keys-for-major-mode 'elm-mode
+      (when (eq (space-macs//elm-backend) 'company-elm)
+        (space-macs/set-leader-keys-for-major-mode 'elm-mode
           ;; format
           "=b" 'elm-format-buffer
           ;; oracle
@@ -56,22 +56,22 @@
                      ("mh" . "help")
                      ("mg" . "goto")
                      ("mr" . "refactor")))
-          (spacemacs/declare-prefix-for-mode 'elm-mode (car x) (cdr x))))
+          (space-macs/declare-prefix-for-mode 'elm-mode (car x) (cdr x))))
 
       ;; Bind general keys
-      (spacemacs/set-leader-keys-for-major-mode 'elm-mode
+      (space-macs/set-leader-keys-for-major-mode 'elm-mode
         ;; refactoring
         "ri" 'elm-sort-imports
         ;; repl
         "'"  'elm-repl-load
         "si" 'elm-repl-load
         "sf" 'elm-repl-push-decl
-        "sF" 'spacemacs/elm-repl-push-decl-focus
+        "sF" 'space-macs/elm-repl-push-decl-focus
         "sr" 'elm-repl-push
-        "sR" 'spacemacs/elm-repl-push-focus
+        "sR" 'space-macs/elm-repl-push-focus
         ;; make
         "cb" 'elm-compile-buffer
-        "cB" 'spacemacs/elm-compile-buffer-output
+        "cB" 'space-macs/elm-compile-buffer-output
         "cm" 'elm-compile-main
         ;; reactor
         "Rn" 'elm-preview-buffer
@@ -86,7 +86,7 @@
                    ("mc" . "compile")
                    ("mR" . "reactor")
                    ("ms" . "repl")))
-        (spacemacs/declare-prefix-for-mode 'elm-mode (car x) (cdr x)))
+        (space-macs/declare-prefix-for-mode 'elm-mode (car x) (cdr x)))
 
       (evilified-state-evilify elm-package-mode elm-package-mode-map
         "g" 'elm-package-refresh
@@ -101,8 +101,8 @@
     :after elm-mode
     :init
     (progn
-      (spacemacs/declare-prefix-for-mode 'elm-mode "mt" "test")
-      (spacemacs/set-leader-keys-for-major-mode 'elm-mode
+      (space-macs/declare-prefix-for-mode 'elm-mode "mt" "test")
+      (space-macs/set-leader-keys-for-major-mode 'elm-mode
         "tb" 'elm-test-runner-run
         "td" 'elm-test-runner-run-directory
         "tp" 'elm-test-runner-run-project
@@ -111,12 +111,14 @@
         "t TAB" 'elm-test-runner-toggle-test-and-target))))
 
 (defun elm/pre-init-popwin ()
-  (spacemacs|use-package-add-hook popwin
+  (space-macs|use-package-add-hook popwin
     :post-config
     (push '("*elm*" :tail t :noselect t) popwin:special-display-config)
     (push '("*elm-make*" :tail t :noselect t) popwin:special-display-config)))
 
 (defun elm/post-init-smartparens ()
-  (if dotspacemacs-smartparens-strict-mode
+  (if dotspace-macs-smartparens-strict-mode
       (add-hook 'elm-mode-hook #'smartparens-strict-mode)
     (add-hook 'elm-mode-hook #'smartparens-mode)))
+
+

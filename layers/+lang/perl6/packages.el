@@ -1,11 +1,11 @@
-;;; packages.el --- perl6 layer packages file for Spacemacs.
+;;; packages.el --- perl6 layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author:  Bahtiar `kalkin-`''Gadimov <bahtiar@gadimov.de>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -19,15 +19,15 @@
     ))
 
 (defun perl6/post-init-company ()
-  (spacemacs|add-company-backends
+  (space-macs|add-company-backends
     :backends company-capf
     :modes perl6-mode))
 
 (defun perl6/post-init-evil ()
-  (add-to-list 'spacemacs-jump-handlers-perl6-mode 'evil-jump-to-tag))
+  (add-to-list 'space-macs-jump-handlers-perl6-mode 'evil-jump-to-tag))
 
 (defun perl6/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'perl6-mode))
+  (space-macs/enable-flycheck 'perl6-mode))
 
 (defun perl6/init-flycheck-perl6 ()
   (with-eval-after-load 'flycheck
@@ -37,3 +37,5 @@
   (use-package raku-mode
     :defer t
     :mode (("/perl6/site/sources/" . perl6-mode))))
+
+

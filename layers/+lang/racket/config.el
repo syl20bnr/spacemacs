@@ -1,14 +1,16 @@
-;;; config.el --- Racket Layer Configuration File for Spacemacs
+;;; config.el --- Racket Layer Configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 ;; variables
 
-(spacemacs|define-jump-handlers racket-mode racket-xp-mode racket-xp-visit-definition)
+(space-macs|define-jump-handlers racket-mode racket-xp-mode racket-xp-visit-definition)
+
+

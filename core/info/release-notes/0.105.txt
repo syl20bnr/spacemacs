@@ -1,7 +1,7 @@
 1. Key binding changes
 
 - `SPC l` for `avy-goto-line` is now under `SPC y`. `SPC l` is now for
-  spacemacs layouts.
+  space-macs layouts.
 
 - `SPC a p` is now for `list-processes` and `SPC a P` for `proced`,
   `paradox` to list ELPA packages is now on `SPC a k`.
@@ -16,7 +16,7 @@
 Magit key bindings have been revamped thanks to the official `evil-magit`
 package. `evil-magit` provides a faithful port of Magit UX using Vim key
 bindings. If you want to continue to use the old evilified bindings add
-`evil-magit` package to the `dotspacemacs-excluded-packages` variable
+`evil-magit` package to the `dotspace-macs-excluded-packages` variable
 of your dotfile.
 
 3. Projectile
@@ -27,6 +27,8 @@ activate it explicitly with `(setq projectile-enable-caching t)`.
 
 4. Ruby
 
-The default major mode is now the Emacs built-in `ruby-mode`. If you want
+The default major mode is now the e-macs built-in `ruby-mode`. If you want
 to continue to use `enh-ruby-mode` set the layer variable
 `ruby-enable-enh-ruby-mode` to `t`.
+
+

@@ -20,8 +20,8 @@
 - support for multiple cursors.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =multiple-cursors= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =multiple-cursors= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
@@ -32,8 +32,8 @@ Currently supported backends are:
 To set your choice of backend, configure =multiple-cursors-backend= variable of
 the layer.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (multiple-cursors :variables multiple-cursors-backend 'evil-mc))
 #+END_SRC
 
@@ -107,9 +107,9 @@ These special bindings manipulate text under cursors:
 
 * Notes
 ** =multiple-cursors=
-Some commands executed during =multiple-cursors= enabled may lead Emacs to go frenzy.
+Some commands executed during =multiple-cursors= enabled may lead e-macs to go frenzy.
 Commands like window manipulation will be executed multiple times if =mc= is active.
-Not all Emacs commands may be compatible with =mc=.
+Not all e-macs commands may be compatible with =mc=.
 
 To run interactive ~M-x~ commands with =mc=, run the command first. This will result
 with application of the command to the leading cursor. Then press =C-:= to apply the
@@ -117,9 +117,11 @@ command to consequtive cursors. If this is not the case or you want a command to
 executed only once, configure the =mc/cmds-to-run-once= variable of the layer like
 in the following example.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (multiple-cursors :variables
                       multiple-cursors-backend 'mc
                       mc/cmds-to-run-once '(upcase-region))))
 #+END_SRC
+
+

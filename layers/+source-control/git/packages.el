@@ -1,11 +1,11 @@
-;;; packages.el --- Git Layer packages File for Spacemacs
+;;; packages.el --- Git Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -15,7 +15,7 @@
         fill-column-indicator
         ;; forge requires a C compiler on Windows so we disable
         ;; it by default on Windows.
-        (forge :toggle (not (spacemacs/system-is-mswindows)))
+        (forge :toggle (not (space-macs/system-is-mswindows)))
         gitattributes-mode
         gitconfig-mode
         gitignore-mode
@@ -39,17 +39,17 @@
 
 
 (defun git/pre-init-golden-ratio ()
-  (spacemacs|use-package-add-hook golden-ratio
+  (space-macs|use-package-add-hook golden-ratio
     :post-config
     (add-to-list 'golden-ratio-exclude-buffer-names " *transient*")))
 
 (defun git/pre-init-evil-magit ()
-  (spacemacs|use-package-add-hook magit
+  (space-macs|use-package-add-hook magit
     :post-config
-    (when (spacemacs//support-evilified-buffer-p dotspacemacs-editing-style)
+    (when (space-macs//support-evilified-buffer-p dotspace-macs-editing-style)
       (evil-magit-init))
     (evil-define-key 'motion magit-mode-map
-      (kbd dotspacemacs-leader-key) spacemacs-default-map)
+      (kbd dotspace-macs-leader-key) space-macs-default-map)
     ;; Remove inherited bindings from evil-mc and evil-easymotion
     ;; do this after the config to make sure the keymap is available
     (which-key-add-keymap-based-replacements magit-mode-map
@@ -61,8 +61,8 @@
 (defun git/init-evil-magit ()
   (use-package evil-magit
     :defer t
-    :init (add-hook 'spacemacs-editing-style-hook
-                    'spacemacs//magit-evil-magit-bindings)))
+    :init (add-hook 'space-macs-editing-style-hook
+                    'space-macs//magit-evil-magit-bindings)))
 
 (defun git/post-init-fill-column-indicator ()
   (add-hook 'git-commit-mode-hook 'fci-mode))
@@ -70,14 +70,14 @@
 (defun git/init-helm-git-grep ()
   (use-package helm-git-grep
     :defer t
-    :init (spacemacs/set-leader-keys
+    :init (space-macs/set-leader-keys
             "g/" 'helm-git-grep
             "g*" 'helm-git-grep-at-point)))
 
 (defun git/init-helm-gitignore ()
   (use-package helm-gitignore
     :defer t
-    :init (spacemacs/set-leader-keys "gI" 'helm-gitignore)))
+    :init (space-macs/set-leader-keys "gI" 'helm-gitignore)))
 
 (defun git/init-git-commit ()
   (use-package git-commit
@@ -88,14 +88,14 @@
     :defer t
     :init
     (progn
-      (spacemacs/declare-prefix "gl" "links")
-      (spacemacs/set-leader-keys
+      (space-macs/declare-prefix "gl" "links")
+      (space-macs/set-leader-keys
         "glc" 'git-link-commit
-        "glC" 'spacemacs/git-link-commit-copy-url-only
+        "glC" 'space-macs/git-link-commit-copy-url-only
         "gll" 'git-link
-        "glL" 'spacemacs/git-link-copy-url-only
-        "glp" 'spacemacs/git-permalink
-        "glP" 'spacemacs/git-permalink-copy-url-only)
+        "glL" 'space-macs/git-link-copy-url-only
+        "glp" 'space-macs/git-permalink
+        "glP" 'space-macs/git-permalink-copy-url-only)
 
       ;; default is to open the generated link
       (setq git-link-open-in-browser t))))
@@ -103,19 +103,19 @@
 (defun git/init-git-messenger ()
   (use-package git-messenger
     :defer t
-    :init (spacemacs/set-leader-keys "gM" 'git-messenger:popup-message)
+    :init (space-macs/set-leader-keys "gM" 'git-messenger:popup-message)
     :config (define-key git-messenger-map [escape] 'git-messenger:popup-close)))
 
 (defun git/init-git-timemachine ()
   (use-package git-timemachine
     :defer t
-    :commands spacemacs/time-machine-transient-state/body
+    :commands space-macs/time-machine-transient-state/body
     :init
-    (spacemacs/set-leader-keys
-      "gt" 'spacemacs/time-machine-transient-state/body)
+    (space-macs/set-leader-keys
+      "gt" 'space-macs/time-machine-transient-state/body)
     :config
     (progn
-      (spacemacs|define-transient-state time-machine
+      (space-macs|define-transient-state time-machine
         :title "Git Timemachine Transient State"
         :doc "
 [_p_/_N_] previous [_n_] next [_c_] current [_g_] goto nth rev [_Y_] copy hash [_q_] quit"
@@ -150,19 +150,19 @@
   (use-package gitignore-templates
     :defer t
     :init
-    (spacemacs/set-leader-keys-for-major-mode 'gitignore-mode
+    (space-macs/set-leader-keys-for-major-mode 'gitignore-mode
       "i" 'gitignore-templates-insert)
-    (spacemacs/set-leader-keys
+    (space-macs/set-leader-keys
       "gfi" 'gitignore-templates-new-file)))
 
 (defun git/init-magit ()
   (use-package magit
-    :defer (spacemacs/defer)
+    :defer (space-macs/defer)
     :init
     (progn
-      (push "magit: .*" spacemacs-useless-buffers-regexp)
-      (push "magit-.*: .*"  spacemacs-useless-buffers-regexp)
-      (spacemacs|require-when-dumping 'magit)
+      (push "magit: .*" space-macs-useless-buffers-regexp)
+      (push "magit-.*: .*"  space-macs-useless-buffers-regexp)
+      (space-macs|require-when-dumping 'magit)
       (setq magit-completing-read-function
             (if (configuration-layer/layer-used-p 'ivy)
                 'ivy-completing-read
@@ -173,9 +173,9 @@
       (when (eq window-system 'w32)
         (setenv "GIT_ASKPASS" "git-gui--askpass"))
       ;; key bindings
-      (spacemacs/declare-prefix "gf" "file")
-      (spacemacs/set-leader-keys
-        "gb"  'spacemacs/git-blame-transient-state/body
+      (space-macs/declare-prefix "gf" "file")
+      (space-macs/set-leader-keys
+        "gb"  'space-macs/git-blame-transient-state/body
         "gc"  'magit-clone
         "gfF" 'magit-find-file
         "gfl" 'magit-log-buffer-file
@@ -186,15 +186,15 @@
         "gs"  'magit-status
         "gS"  'magit-stage-file
         "gU"  'magit-unstage-file)
-      (spacemacs|define-transient-state git-blame
+      (space-macs|define-transient-state git-blame
         :title "Git Blame Transient State"
         :hint-is-doc t
-        :dynamic-hint (spacemacs//git-blame-ts-hint)
+        :dynamic-hint (space-macs//git-blame-ts-hint)
         :on-enter (let (golden-ratio-mode)
                     (unless (bound-and-true-p magit-blame-mode)
                       (call-interactively 'magit-blame-addition)))
         :bindings
-        ("?" spacemacs//git-blame-ts-toggle-hint)
+        ("?" space-macs//git-blame-ts-toggle-hint)
         ;; chunks
         ("p" magit-blame-previous-chunk)
         ("P" magit-blame-previous-chunk-same-commit)
@@ -227,9 +227,9 @@
         (kbd "gr") 'magit-list-repositories
         (kbd "RET") 'magit-repolist-status)
       ;; confirm/abort
-      (when dotspacemacs-major-mode-leader-key
+      (when dotspace-macs-major-mode-leader-key
         (add-hook 'with-editor-mode-hook 'evil-normalize-keymaps)
-        (let ((mm-key dotspacemacs-major-mode-leader-key))
+        (let ((mm-key dotspace-macs-major-mode-leader-key))
           (dolist (state '(normal motion))
             (evil-define-key state with-editor-mode-map
               (concat (kbd mm-key) (kbd mm-key)) 'with-editor-finish
@@ -243,9 +243,9 @@
               (concat (kbd mm-key) "k")    'magit-log-select-quit))))
       ;; whitespace
       (define-key magit-status-mode-map (kbd "C-S-w")
-        'spacemacs/magit-toggle-whitespace)
+        'space-macs/magit-toggle-whitespace)
       ;; Add missing which-key prefixes using the new keymap api
-      (when (memq dotspacemacs-editing-style '(vim hybrid))
+      (when (memq dotspace-macs-editing-style '(vim hybrid))
         (which-key-add-keymap-based-replacements magit-status-mode-map
           "gf"  "jump-to-unpulled"
           "gp"  "jump-to-unpushed"))
@@ -259,7 +259,7 @@
       (when git-magit-status-fullscreen
         (setq magit-display-buffer-function
               'magit-display-buffer-fullframe-status-v1))
-      (spacemacs|hide-lighter with-editor-mode)
+      (space-macs|hide-lighter with-editor-mode)
       ;; Workaround for #12747 - org-mode
       (evil-define-key 'normal magit-blame-read-only-mode-map (kbd "RET") 'magit-show-commit)
       ;; Make sure that M-m still switch windows in all magit buffers
@@ -286,7 +286,7 @@
             (setq magit-gitflow-popup-key "%"))
     :config
     (progn
-      (spacemacs|diminish magit-gitflow-mode "Flow")
+      (space-macs|diminish magit-gitflow-mode "Flow")
       (define-key magit-mode-map "%" 'magit-gitflow-popup))))
 
 (defun git/init-magit-section ()
@@ -299,7 +299,7 @@
     :commands turn-on-magit-svn
     :init (add-hook 'magit-mode-hook 'turn-on-magit-svn)
     :config (progn
-              (spacemacs|diminish magit-svn-mode "SVN")
+              (space-macs|diminish magit-svn-mode "SVN")
               (define-key magit-mode-map "~" 'magit-svn))))
 
 (defun git/init-orgit ()
@@ -308,17 +308,17 @@
 
 (defun git/post-init-org ()
   ;; unfold the org headings for a target line
-  (advice-add 'magit-blame-addition :after #'spacemacs/org-reveal-advice)
-  (advice-add 'magit-diff-visit-file :after #'spacemacs/org-reveal-advice)
+  (advice-add 'magit-blame-addition :after #'space-macs/org-reveal-advice)
+  (advice-add 'magit-diff-visit-file :after #'space-macs/org-reveal-advice)
   (advice-add 'magit-diff-visit-worktree-file
-              :after #'spacemacs/org-reveal-advice))
+              :after #'space-macs/org-reveal-advice))
 
 (defun git/init-smeargle ()
   (use-package smeargle
     :defer t
     :init
     (progn
-      (spacemacs/declare-prefix "gH" "highlight")
+      (space-macs/declare-prefix "gH" "highlight")
       (when (configuration-layer/package-used-p 'which-key)
         ;; TODO abstract this to a function
         (let ((descr
@@ -330,7 +330,7 @@
             (push (cons (cons nil (concat "\\`" (car nd) "\\'"))
                         (cons nil (cdr nd)))
                   which-key-replacement-alist))))
-      (spacemacs/set-leader-keys
+      (space-macs/set-leader-keys
         "gHc" 'smeargle-clear
         "gHh" 'smeargle-commits
         "gHt" 'smeargle))))
@@ -341,24 +341,26 @@
     :init
     (setq
      transient-levels-file
-     (expand-file-name "transient/levels.el" spacemacs-cache-directory)
+     (expand-file-name "transient/levels.el" space-macs-cache-directory)
      transient-values-file
-     (expand-file-name "transient/values.el" spacemacs-cache-directory)
+     (expand-file-name "transient/values.el" space-macs-cache-directory)
      transient-history-file
-     (expand-file-name "transient/history.el" spacemacs-cache-directory))))
+     (expand-file-name "transient/history.el" space-macs-cache-directory))))
 
 (defun git/init-forge ()
   (use-package forge
     :after magit
     :init
     (progn
-      (setq forge-database-file (concat spacemacs-cache-directory
+      (setq forge-database-file (concat space-macs-cache-directory
                                         "forge-database.sqlite"))
-      (spacemacs/set-leader-keys-for-major-mode 'forge-topic-mode
+      (space-macs/set-leader-keys-for-major-mode 'forge-topic-mode
         "c" 'forge-create-post
         "e" 'forge-edit-post)
-      (spacemacs/set-leader-keys-for-major-mode 'forge-post-mode
-        dotspacemacs-major-mode-leader-key 'forge-post-submit
+      (space-macs/set-leader-keys-for-major-mode 'forge-post-mode
+        dotspace-macs-major-mode-leader-key 'forge-post-submit
         "c" 'forge-post-submit
         "k" 'forge-post-cancel
         "a" 'forge-post-cancel))))
+
+

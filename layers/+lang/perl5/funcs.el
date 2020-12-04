@@ -1,15 +1,15 @@
-;;; funcs.el --- Perl5 Layer functions File for Spacemacs
+;;; funcs.el --- Perl5 Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Eivind Fonn <evfonn@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//perl5-backend ()
+(defun space-macs//perl5-backend ()
   "Return selected backend."
   (if perl5-backend
       perl5-backend
@@ -17,36 +17,36 @@
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
      (t 'company-plsense))))
 
-(defun spacemacs//perl5-setup-company ()
+(defun space-macs//perl5-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//perl5-backend)
+  (pcase (space-macs//perl5-backend)
     ;; Activate lsp company explicitly to activate
     ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
+    (`lsp (space-macs|add-company-backends
             :backends company-capf
             :modes cperl-mode))
-    (`company-plsense (spacemacs|add-company-backends)
+    (`company-plsense (space-macs|add-company-backends)
                       :backends company-plsense
                       :modes cperl-mode)))
 
-(defun spacemacs//perl5-setup-backend ()
+(defun space-macs//perl5-setup-backend ()
   "Conditionally setup perl5 backend."
-  (pcase (spacemacs//perl5-backend)
+  (pcase (space-macs//perl5-backend)
     (`lsp (lsp))))
 
-(defun spacemacs//perl5-setup-dap ()
+(defun space-macs//perl5-setup-dap ()
   "Conditionally setup perl5 DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase (spacemacs//perl5-backend)
+  (pcase (space-macs//perl5-backend)
     (`lsp (add-hook 'cperl-mode-hook #'dap-mode))))
 
-(defun spacemacs//perl5-smartparens-enable ()
+(defun space-macs//perl5-smartparens-enable ()
   (define-key cperl-mode-map "{" nil))
 
-(defun spacemacs//perl5-spartparens-disable ()
+(defun space-macs//perl5-spartparens-disable ()
   (define-key cperl-mode-map "{" 'cperl-electric-lbrace))
 
-(defun spacemacs/perltidy-format ()
+(defun space-macs/perltidy-format ()
   "Format Perl code with perltidy.
 If region is active, operate on it, else operate on line."
   (interactive)
@@ -67,22 +67,24 @@ If region is active, operate on it, else operate on line."
            perl5-perltidy-options)
     (goto-char old-point)))
 
-(defun spacemacs/perltidy-format-buffer ()
+(defun space-macs/perltidy-format-buffer ()
   "Format current buffer with perltidy."
   (interactive)
   (let ((old-point (point))
         (old-window-start (window-start)))
     (mark-whole-buffer)
-    (spacemacs/perltidy-format)
+    (space-macs/perltidy-format)
     (goto-char old-point)
     (set-window-start (selected-window) old-window-start)))
 
-(defun spacemacs/perltidy-format-function ()
+(defun space-macs/perltidy-format-function ()
   "Format current function with perltidy."
   (interactive)
   (let ((old-point (point))
         (old-window-start (window-start)))
     (mark-defun)
-    (spacemacs/perltidy-format)
+    (space-macs/perltidy-format)
     (goto-char old-point)
     (set-window-start (selected-window) old-window-start)))
+
+

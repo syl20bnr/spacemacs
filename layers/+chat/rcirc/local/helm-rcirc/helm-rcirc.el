@@ -37,3 +37,5 @@ channel name."
   (helm :buffer "*helm: Auto Join Channels (rcirc)*"
         :sources (mapcar 'helm-rcirc-auto-join-channels-source
                          (helm-rcirc-auto-join-channels-alist))))
+
+

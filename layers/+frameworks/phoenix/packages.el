@@ -1,11 +1,11 @@
-;;; packages.el --- phoenix layer packages file for Spacemacs.
+;;; packages.el --- phoenix layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Lyuben Petrov <lyuben.y.petrov@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -13,9 +13,9 @@
 
 (defun phoenix/post-init-alchemist ()
   (progn
-    (spacemacs/declare-prefix-for-mode 'elixir-mode "mf" "phoenix")
-    (spacemacs/declare-prefix-for-mode 'elixir-mode "mff" "find")
-    (spacemacs/set-leader-keys-for-major-mode 'elixir-mode
+    (space-macs/declare-prefix-for-mode 'elixir-mode "mf" "phoenix")
+    (space-macs/declare-prefix-for-mode 'elixir-mode "mff" "find")
+    (space-macs/set-leader-keys-for-major-mode 'elixir-mode
       "ffw" 'alchemist-phoenix-find-web
       "ffv" 'alchemist-phoenix-find-views
       "ffc" 'alchemist-phoenix-find-controllers
@@ -25,3 +25,5 @@
       "ffs" 'alchemist-phoenix-find-static
       "ffr" 'alchemist-phoenix-router
       "fr" 'alchemist-phoenix-routes)))
+
+

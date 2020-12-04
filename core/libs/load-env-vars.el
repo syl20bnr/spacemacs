@@ -3,10 +3,10 @@
 ;; Copyright (C) 2018  Jorge Dias
 
 ;; Author: Jorge Dias <jorge@mrdias.com>
-;; URL: https://github.com/diasjorge/emacs-load-env-vars
+;; URL: https://github.com/diasjorge/e-macs-load-env-vars
 ;; Keywords: lisp
 ;; Version: 0.0.2
-;; Package-Requires: ((emacs "24"))
+;; Package-Requires: ((e-macs "24"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@
 ;; KEY=VALUE # Inline comments are ignored
 ;; KEY: VALUE
 ;;
-;; Updates for Spacemacs:
+;; Updates for Space-macs:
 ;; - set `exec-path' from PATH
 
 ;;; Code:
@@ -104,3 +104,5 @@
 
 (provide 'load-env-vars)
 ;;; load-env-vars.el ends here
+
+

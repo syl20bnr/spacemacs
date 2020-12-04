@@ -1,24 +1,24 @@
-;;; config.el --- mu4e Layer configuration File for Spacemacs
+;;; config.el --- mu4e Layer configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 (defvar mu4e-installation-path nil
   "Installation path for mu4e.")
 
-(defvar mu4e-spacemacs-layout-name "@Mu4e"
-  "Name used in the setup for `spacemacs-layouts' micro-state")
+(defvar mu4e-space-macs-layout-name "@Mu4e"
+  "Name used in the setup for `space-macs-layouts' micro-state")
 
-(defvar mu4e-spacemacs-layout-binding "m"
-  "Binding used in the setup for `spacemacs-layouts' micro-state")
+(defvar mu4e-space-macs-layout-binding "m"
+  "Binding used in the setup for `space-macs-layouts' micro-state")
 
-(defvar mu4e-spacemacs-kill-layout-on-exit t
+(defvar mu4e-space-macs-kill-layout-on-exit t
   "When `t` exiting mu4e app will automatically kill its layout")
 
 (defvar mu4e-enable-async-operations nil
@@ -47,3 +47,5 @@
 
 (when mu4e-installation-path
   (add-to-list 'load-path mu4e-installation-path))
+
+

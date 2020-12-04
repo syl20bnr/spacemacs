@@ -12,7 +12,7 @@
   - [[#credits][Credits]]
 
 * Description
-Nyan Mode - Turn your Emacs into Nyanmacs! :)
+Nyan Mode - Turn your e-macs into Nyanmacs! :)
 The mode is an analog indicator of your position in the buffer. The
 Cat should go from left to right in your mode-line, as you move your
 point from 0% to 100%.
@@ -32,33 +32,33 @@ point from 0% to 100%.
 * Introduction
 *WARNING, MIND DUMBING CONTENT INSIDE.*
 
-"Nyan-mode. It's things like this that make me proud to be an emacs user." - [[http://twitter.com/#!/mitchellh/status/104931263479156736][mitchellh]]
+"Nyan-mode. It's things like this that make me proud to be an e-macs user." - [[http://twitter.com/#!/mitchellh/status/104931263479156736][mitchellh]]
 
-Nyanmacs is expanding!! [[https://web.archive.org/web/20190506122454/http://jacek.zlydach.pl/blog/2011-08-25-introducing-nyan-mode-el-turn-your-emacs-into-nyanmacs.html][Read the story so far]]! :).
+Nyanmacs is expanding!! [[https://web.archive.org/web/20190506122454/http://jacek.zlydach.pl/blog/2011-08-25-introducing-nyan-mode-el-turn-your-e-macs-into-nyanmacs.html][Read the story so far]]! :).
 
 ** Using Nyan Mode with custom modeline
-For those who were asking, or are planning to, [[http://amitp.blogspot.com/2011/08/emacs-custom-mode-line.html][Amit Patel shared]]
+For those who were asking, or are planning to, [[http://amitp.blogspot.com/2011/08/e-macs-custom-mode-line.html][Amit Patel shared]]
 some tips on how to make nyan-mode work with custom modeline.
 
 He basically changed the mode-line-format to include:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (:eval (list (nyan-create)))
 #+END_SRC
 
 ** Known issues
-It's my second attempt to write a minor mode in Emacs, so there will
+It's my second attempt to write a minor mode in e-macs, so there will
 definiely be some bugs.
 
 This version uses XPM images, which should be supported by default by
-most Emacs 23 installations, Windows included. In case it doesn't
+most e-macs 23 installations, Windows included. In case it doesn't
 work, try switching to master-png branch. This branch, however, may
 have it's own issues:
 
 There was a problem with displaying PNG images, which require libpng
-to be available for Emacs. The lib is sometimes missing (e.g. some
+to be available for e-macs. The lib is sometimes missing (e.g. some
 Windows installation). To make it work on Windows, one needs to
-download a proper DLL and put it into emacs bin/ folder. To see which
+download a proper DLL and put it into e-macs bin/ folder. To see which
 DLL is needed, do: M-x describe-variable <ret> image-library-alist
 <ret>.
 
@@ -66,8 +66,10 @@ Customizing nyan-animate-nyancat is broken; don't do it.
 
 ** Credits
 Code and idea inspired by sml-modeline.el, written by Lennart Borgman.
-See: [[https://www.emacswiki.org/emacs/sml-modeline.el]]
+See: [[https://www.e-macswiki.org/e-macs/sml-modeline.el]]
 
 For animated Nyan Cat, I used frames [[http://media.photobucket.com/image/nyan%20cat%20sprites/DryBowser455/th_NyanCatSprite.png?t=1304659408][by DryBowser455]].
 
 Nyanyanyanyanyanyanya!
+
+

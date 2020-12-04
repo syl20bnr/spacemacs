@@ -1,11 +1,11 @@
-;;; funcs.el --- TidalCycles Layer functions File for Spacemacs
+;;; funcs.el --- TidalCycles Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Riccardo Binetti <rbino@gmx.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -24,3 +24,5 @@
   (tidal-send-string " mapM_ (unsolo) [1,2,3,4,5,6,7,8,9,10,11,12]")
   (tidal-send-string ":}")
   )
+
+

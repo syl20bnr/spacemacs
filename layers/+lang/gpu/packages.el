@@ -1,11 +1,11 @@
-;;; packages.el --- GPU layer packages File for Spacemacs
+;;; packages.el --- GPU layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Evan Klitzke <evan@eklitzke.org>
 ;; URL: https://github.com/eklitzke
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 (setq gpu-packages
@@ -24,7 +24,7 @@
 (defun gpu/init-company-glsl ()
   (use-package company-glsl
     :defer t
-    :init (spacemacs|add-company-backends
+    :init (space-macs|add-company-backends
             :backends company-glsl
             :modes glsl-mode)))
 
@@ -42,3 +42,5 @@
   (use-package opencl-mode
     :defer t
     :mode (("\\.cl\\'" . opencl-mode))))
+
+

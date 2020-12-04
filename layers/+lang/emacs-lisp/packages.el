@@ -1,15 +1,15 @@
-;;; packages.el --- Emacs Lisp Layer packages File for Spacemacs
+;;; packages.el --- e-macs Lisp Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(setq emacs-lisp-packages
+(setq e-macs-lisp-packages
       '(
         auto-compile
         company
@@ -17,7 +17,7 @@
         (edebug :location built-in)
         eldoc
         elisp-slime-nav
-        (emacs-lisp :location built-in)
+        (e-macs-lisp :location built-in)
         evil
         evil-cleverparens
         eval-sexp-fu
@@ -39,15 +39,15 @@
         emr
         ))
 
-(defun emacs-lisp/init-ielm ()
+(defun e-macs-lisp/init-ielm ()
   (use-package ielm
     :defer t
     :init
     (progn
-      (spacemacs/register-repl 'ielm 'ielm)
-      (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
-        (spacemacs/declare-prefix-for-mode mode "ms" "ielm")
-        (spacemacs/set-leader-keys-for-major-mode mode
+      (space-macs/register-repl 'ielm 'ielm)
+      (dolist (mode '(e-macs-lisp-mode lisp-interaction-mode))
+        (space-macs/declare-prefix-for-mode mode "ms" "ielm")
+        (space-macs/set-leader-keys-for-major-mode mode
           "'" 'ielm
           "si" 'ielm)))
     :config
@@ -58,32 +58,32 @@
           (narrow-to-region (search-backward-regexp "^ELISP>") (goto-char current-point))
           (lisp-indent-line))))))
 
-(defun emacs-lisp/post-init-company ()
-  (spacemacs|add-company-backends :backends company-capf
-                                  :modes emacs-lisp-mode)
-  (spacemacs|add-company-backends :backends (company-files company-capf)
+(defun e-macs-lisp/post-init-company ()
+  (space-macs|add-company-backends :backends company-capf
+                                  :modes e-macs-lisp-mode)
+  (space-macs|add-company-backends :backends (company-files company-capf)
                                   :modes ielm-mode))
 
-(defun emacs-lisp/init-debug ()
+(defun e-macs-lisp/init-debug ()
   (use-package debug
     :defer t
-    :init (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
-            (spacemacs/declare-prefix-for-mode mode "md" "debug")
-            (spacemacs/set-leader-keys-for-major-mode mode
-              "dt" 'spacemacs/elisp-toggle-debug-expr-and-eval-func))
+    :init (dolist (mode '(e-macs-lisp-mode lisp-interaction-mode))
+            (space-macs/declare-prefix-for-mode mode "md" "debug")
+            (space-macs/set-leader-keys-for-major-mode mode
+              "dt" 'space-macs/elisp-toggle-debug-expr-and-eval-func))
     :config (evilified-state-evilify-map debugger-mode-map
               :mode debugger-mode)))
 
-(defun emacs-lisp/init-edebug ()
+(defun e-macs-lisp/init-edebug ()
   (use-package edebug
     :defer t
     :init
     (progn
       ;; key bindings
-      (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "df" 'spacemacs/edebug-instrument-defun-on
-          "dF" 'spacemacs/edebug-instrument-defun-off))
+      (dolist (mode '(e-macs-lisp-mode lisp-interaction-mode))
+        (space-macs/set-leader-keys-for-major-mode mode
+          "df" 'space-macs/edebug-instrument-defun-on
+          "dF" 'space-macs/edebug-instrument-defun-off))
       ;; since we evilify `edebug-mode-map' we don't need to intercept it to
       ;; make it work with evil
       (evil-set-custom-state-maps
@@ -107,80 +107,80 @@
         "c" 'edebug-go-mode
         "s" 'edebug-step-mode
         "S" 'edebug-next-mode)
-      (advice-add 'edebug-mode :after 'spacemacs//edebug-mode))))
+      (advice-add 'edebug-mode :after 'space-macs//edebug-mode))))
 
-(defun emacs-lisp/post-init-eldoc ()
-  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode))
+(defun e-macs-lisp/post-init-eldoc ()
+  (add-hook 'e-macs-lisp-mode-hook 'eldoc-mode))
 
-(defun emacs-lisp/init-auto-compile ()
+(defun e-macs-lisp/init-auto-compile ()
   (use-package auto-compile
-    :defer (spacemacs/defer)
+    :defer (space-macs/defer)
     :init
     (progn
-      (spacemacs|require-when-dumping 'auto-compile)
+      (space-macs|require-when-dumping 'auto-compile)
       (setq auto-compile-display-buffer nil
             ;; lets spaceline manage the mode-line
             auto-compile-use-mode-line nil
             auto-compile-mode-line-counter t)
-      (add-hook 'emacs-lisp-mode-hook 'auto-compile-mode))
+      (add-hook 'e-macs-lisp-mode-hook 'auto-compile-mode))
     :config
     (progn
-      (spacemacs|hide-lighter auto-compile-mode)
-      (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
+      (space-macs|hide-lighter auto-compile-mode)
+      (space-macs/set-leader-keys-for-major-mode 'e-macs-lisp-mode
         "cl" 'auto-compile-display-log))))
 
-(defun emacs-lisp/init-elisp-slime-nav ()
+(defun e-macs-lisp/init-elisp-slime-nav ()
   ;; Elisp go-to-definition with M-. and back again with M-,
   (use-package elisp-slime-nav
-    :defer (spacemacs/defer)
+    :defer (space-macs/defer)
     :init
     (progn
-      (spacemacs|require-when-dumping 'elisp-slime-nav)
-      (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
-      (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
-        (spacemacs/declare-prefix-for-mode mode "mg" "find-symbol")
-        (spacemacs/set-leader-keys-for-major-mode mode
+      (space-macs|require-when-dumping 'elisp-slime-nav)
+      (add-hook 'e-macs-lisp-mode-hook 'elisp-slime-nav-mode)
+      (dolist (mode '(e-macs-lisp-mode lisp-interaction-mode))
+        (space-macs/declare-prefix-for-mode mode "mg" "find-symbol")
+        (space-macs/set-leader-keys-for-major-mode mode
           "gb" 'xref-pop-marker-stack)
-        (spacemacs/declare-prefix-for-mode mode "mh" "help")
+        (space-macs/declare-prefix-for-mode mode "mh" "help")
 
         ;; Load better help mode if helpful is installed
         (if (configuration-layer/layer-used-p 'helpful)
-            (spacemacs/set-leader-keys-for-major-mode mode
+            (space-macs/set-leader-keys-for-major-mode mode
               "hh" 'helpful-at-point)
-          (spacemacs/set-leader-keys-for-major-mode mode
+          (space-macs/set-leader-keys-for-major-mode mode
             "hh" 'elisp-slime-nav-describe-elisp-thing-at-point))
-        (let ((jumpl (intern (format "spacemacs-jump-handlers-%S" mode))))
+        (let ((jumpl (intern (format "space-macs-jump-handlers-%S" mode))))
           (add-to-list jumpl 'elisp-slime-nav-find-elisp-thing-at-point))))
-    :config (spacemacs|hide-lighter elisp-slime-nav-mode)))
+    :config (space-macs|hide-lighter elisp-slime-nav-mode)))
 
-(defun emacs-lisp/init-emacs-lisp ()
-  (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
-    (spacemacs/declare-prefix-for-mode mode "mc" "compile")
-    (spacemacs/declare-prefix-for-mode mode "me" "eval")
-    (spacemacs/declare-prefix-for-mode mode "mt" "tests")
-    (spacemacs/set-leader-keys-for-major-mode mode
-      "cc" 'emacs-lisp-byte-compile
+(defun e-macs-lisp/init-e-macs-lisp ()
+  (dolist (mode '(e-macs-lisp-mode lisp-interaction-mode))
+    (space-macs/declare-prefix-for-mode mode "mc" "compile")
+    (space-macs/declare-prefix-for-mode mode "me" "eval")
+    (space-macs/declare-prefix-for-mode mode "mt" "tests")
+    (space-macs/set-leader-keys-for-major-mode mode
+      "cc" 'e-macs-lisp-byte-compile
       "e$" 'lisp-state-eval-sexp-end-of-line
       "eb" 'eval-buffer
-      "eC" 'spacemacs/eval-current-form
+      "eC" 'space-macs/eval-current-form
       "ee" 'eval-last-sexp
       "er" 'eval-region
       "ef" 'eval-defun
       "el" 'lisp-state-eval-sexp-end-of-line
-      "gG" 'spacemacs/nav-find-elisp-thing-at-point-other-window
+      "gG" 'space-macs/nav-find-elisp-thing-at-point-other-window
       ","  'lisp-state-toggle-lisp-state
-      "tb" 'spacemacs/ert-run-tests-buffer
+      "tb" 'space-macs/ert-run-tests-buffer
       "tq" 'ert)))
 
-(defun emacs-lisp/init-macrostep ()
+(defun e-macs-lisp/init-macrostep ()
   (use-package macrostep
     :defer t
-    :mode (("\\*.el\\'" . emacs-lisp-mode)
-           ("Cask\\'" . emacs-lisp-mode))
+    :mode (("\\*.el\\'" . e-macs-lisp-mode)
+           ("Cask\\'" . e-macs-lisp-mode))
     :init
     (progn
       (evil-define-key 'normal macrostep-keymap "q" 'macrostep-collapse-all)
-      (spacemacs|define-transient-state macrostep
+      (space-macs|define-transient-state macrostep
         :title "MacroStep Transient State"
         :doc "\n[_e_] expand [_c_] collapse [_n_/_N_] next/previous [_q_] quit"
         :foreign-keys run
@@ -190,49 +190,49 @@
         ("n" macrostep-next-macro)
         ("N" macrostep-prev-macro)
         ("q" macrostep-collapse-all :exit t))
-      (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
-        "dm" 'spacemacs/macrostep-transient-state/body))))
+      (space-macs/set-leader-keys-for-major-mode 'e-macs-lisp-mode
+        "dm" 'space-macs/macrostep-transient-state/body))))
 
-(defun emacs-lisp/init-nameless ()
+(defun e-macs-lisp/init-nameless ()
     (use-package nameless
-      :defer (spacemacs/defer)
+      :defer (space-macs/defer)
       :init
       (progn
-        (spacemacs|require-when-dumping 'nameless)
+        (space-macs|require-when-dumping 'nameless)
         (setq
          ;; always show the separator since it can have a semantic purpose
-         ;; like in Spacemacs where - is variable and / is a function.
+         ;; like in Space-macs where - is variable and / is a function.
          ;; moreover it makes nameless work for all kind of separators.
          nameless-separator nil
          ;; Use > as the defautl prefix : is already used for
          ;; keywords
          nameless-prefix ">")
-        ;; some default aliases for Spacemacs source code
-        (setq nameless-global-aliases '(("SB" . "spacemacs-buffer")
-                                        ("S"  . "spacemacs")
-                                        (".S"  . "dotspacemacs")
+        ;; some default aliases for Space-macs source code
+        (setq nameless-global-aliases '(("SB" . "space-macs-buffer")
+                                        ("S"  . "space-macs")
+                                        (".S"  . "dotspace-macs")
                                         ("CL" . "configuration-layer")))
         ;; make `nameless-current-name' safe as a local variable for string
         ;; values
         (put 'nameless-current-name 'safe-local-variable #'stringp)
-        (spacemacs|diminish nameless-mode " 🅽" " [n]")
-        (spacemacs|add-toggle nameless
+        (space-macs|diminish nameless-mode " ðŸ…½" " [n]")
+        (space-macs|add-toggle nameless
           :status nameless-mode
           :on (nameless-mode)
           :off (nameless-mode -1)
-          :documentation "Hide package namespaces in your emacs-lisp code."
-          :evil-leader-for-mode (emacs-lisp-mode . "Tn"))
+          :documentation "Hide package namespaces in your e-macs-lisp code."
+          :evil-leader-for-mode (e-macs-lisp-mode . "Tn"))
         ;; activate nameless only when in a GUI
         ;; in a terminal nameless triggers all sorts of graphical glitches.
-        (spacemacs|unless-dumping-and-eval-after-loaded-dump nameless
-          (spacemacs|do-after-display-system-init
-           (when emacs-lisp-hide-namespace-prefix
-             (spacemacs/toggle-nameless-on-register-hook-emacs-lisp-mode)))))))
+        (space-macs|unless-dumping-and-eval-after-loaded-dump nameless
+          (space-macs|do-after-display-system-init
+           (when e-macs-lisp-hide-namespace-prefix
+             (space-macs/toggle-nameless-on-register-hook-e-macs-lisp-mode)))))))
 
-(defun emacs-lisp/init-overseer ()
+(defun e-macs-lisp/init-overseer ()
   (use-package overseer
     :defer t
-    :init (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
+    :init (space-macs/set-leader-keys-for-major-mode 'e-macs-lisp-mode
             "ta" 'overseer-test
             "tt" 'overseer-test-run-test
             "tb" 'overseer-test-this-buffer
@@ -244,77 +244,77 @@
             "tv" 'overseer-test-verbose
             "th" 'overseer-help)))
 
-(defun emacs-lisp/post-init-evil ()
-  (add-hook 'emacs-lisp-mode-hook #'spacemacs//define-elisp-comment-text-object))
+(defun e-macs-lisp/post-init-evil ()
+  (add-hook 'e-macs-lisp-mode-hook #'space-macs//define-elisp-comment-text-object))
 
-(defun emacs-lisp/pre-init-evil-cleverparens ()
-  (spacemacs|use-package-add-hook evil-cleverparens
+(defun e-macs-lisp/pre-init-evil-cleverparens ()
+  (space-macs|use-package-add-hook evil-cleverparens
     :pre-init
-    (add-to-list 'evil-lisp-safe-structural-editing-modes 'emacs-lisp-mode)))
+    (add-to-list 'evil-lisp-safe-structural-editing-modes 'e-macs-lisp-mode)))
 
-(defun emacs-lisp/post-init-eval-sexp-fu ()
-  (add-hook 'emacs-lisp-mode-hook 'eval-sexp-fu-flash-mode))
+(defun e-macs-lisp/post-init-eval-sexp-fu ()
+  (add-hook 'e-macs-lisp-mode-hook 'eval-sexp-fu-flash-mode))
 
-(defun emacs-lisp/post-init-flycheck ()
+(defun e-macs-lisp/post-init-flycheck ()
   ;; Don't activate flycheck by default in elisp
   ;; because of too much false warnings
-  ;; (spacemacs/enable-flycheck 'emacs-lisp-mode)
+  ;; (space-macs/enable-flycheck 'e-macs-lisp-mode)
 
   ;; Make flycheck recognize packages in loadpath
   ;; i.e (require 'company) will not give an error now
-  (setq flycheck-emacs-lisp-load-path 'inherit))
+  (setq flycheck-e-macs-lisp-load-path 'inherit))
 
-(defun emacs-lisp/init-flycheck-package ()
+(defun e-macs-lisp/init-flycheck-package ()
   (use-package flycheck-package
-    :hook (emacs-lisp-mode . flycheck-package-setup)))
+    :hook (e-macs-lisp-mode . flycheck-package-setup)))
 
-(defun emacs-lisp/init-flycheck-elsa ()
+(defun e-macs-lisp/init-flycheck-elsa ()
   (use-package flycheck-elsa
-    :hook (emacs-lisp-mode . flycheck-elsa-setup)))
+    :hook (e-macs-lisp-mode . flycheck-elsa-setup)))
 
-(defun emacs-lisp/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'emacs-lisp-mode))
+(defun e-macs-lisp/post-init-counsel-gtags ()
+  (space-macs/counsel-gtags-define-keys-for-mode 'e-macs-lisp-mode))
 
-(defun emacs-lisp/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'emacs-lisp-mode))
+(defun e-macs-lisp/post-init-helm-gtags ()
+  (space-macs/helm-gtags-define-keys-for-mode 'e-macs-lisp-mode))
 
-(defun emacs-lisp/post-init-ggtags ()
-  (add-hook 'emacs-lisp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+(defun e-macs-lisp/post-init-ggtags ()
+  (add-hook 'e-macs-lisp-mode-local-vars-hook #'space-macs/ggtags-mode-enable))
 
-(defun emacs-lisp/post-init-parinfer ()
-  (add-hook 'emacs-lisp-mode-hook 'parinfer-mode))
+(defun e-macs-lisp/post-init-parinfer ()
+  (add-hook 'e-macs-lisp-mode-hook 'parinfer-mode))
 
-(defun emacs-lisp/post-init-rainbow-identifiers ()
-  (add-hook 'emacs-lisp-mode-hook #'colors//rainbow-identifiers-ignore-keywords))
+(defun e-macs-lisp/post-init-rainbow-identifiers ()
+  (add-hook 'e-macs-lisp-mode-hook #'colors//rainbow-identifiers-ignore-keywords))
 
-(defun emacs-lisp/post-init-semantic ()
-  (add-hook 'emacs-lisp-mode-hook 'semantic-mode)
+(defun e-macs-lisp/post-init-semantic ()
+  (add-hook 'e-macs-lisp-mode-hook 'semantic-mode)
   (with-eval-after-load 'semantic
     (semantic-default-elisp-setup)))
 
-(defun emacs-lisp/post-init-srefactor ()
-  (add-hook 'emacs-lisp-mode-hook 'spacemacs/load-srefactor)
+(defun e-macs-lisp/post-init-srefactor ()
+  (add-hook 'e-macs-lisp-mode-hook 'space-macs/load-srefactor)
   (use-package srefactor-lisp
     :commands (srefactor-lisp-format-buffer
                srefactor-lisp-format-defun
                srefactor-lisp-format-sexp
                srefactor-lisp-one-line)
     :init
-    (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
-      (spacemacs/declare-prefix-for-mode mode "m=" "srefactor")
-      (spacemacs/set-leader-keys-for-major-mode mode
+    (dolist (mode '(e-macs-lisp-mode lisp-interaction-mode))
+      (space-macs/declare-prefix-for-mode mode "m=" "srefactor")
+      (space-macs/set-leader-keys-for-major-mode mode
         "=b" 'srefactor-lisp-format-buffer
         "=d" 'srefactor-lisp-format-defun
         "=o" 'srefactor-lisp-one-line
         "=s" 'srefactor-lisp-format-sexp))))
 
-(defun emacs-lisp/post-init-smartparens ()
-  (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
-    (spacemacs/set-leader-keys-for-major-mode mode
-      "ec" 'spacemacs/eval-current-form-sp
-      "es" 'spacemacs/eval-current-symbol-sp)))
+(defun e-macs-lisp/post-init-smartparens ()
+  (dolist (mode '(e-macs-lisp-mode lisp-interaction-mode))
+    (space-macs/set-leader-keys-for-major-mode mode
+      "ec" 'space-macs/eval-current-form-sp
+      "es" 'space-macs/eval-current-symbol-sp)))
 
-(defun emacs-lisp/init-emr ()
+(defun e-macs-lisp/init-emr ()
   (use-package emr
     :config
     (let ((key-binding-prefixes
@@ -323,10 +323,10 @@
              ("mre" . "extract/expand")
              ("mrf" . "find/function")
              ("mri" . "insert/inline"))))
-      (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
-                          'emacs-lisp-mode (car x) (cdr x)))
+      (mapc (lambda (x) (space-macs/declare-prefix-for-mode
+                          'e-macs-lisp-mode (car x) (cdr x)))
             key-binding-prefixes))
-    (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
+    (space-macs/set-leader-keys-for-major-mode 'e-macs-lisp-mode
       "rfe" #'emr-el-implement-function
       "rfd" #'emr-el-find-unused-definitions
 
@@ -345,3 +345,5 @@
       "rdd" #'emr-el-delete-unused-definition
 
       "ew"  #'emr-el-eval-and-replace)))
+
+

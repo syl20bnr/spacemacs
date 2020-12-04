@@ -1,32 +1,32 @@
-;;; funcs.el --- Markdown Layer Functions File for Spacemacs
+;;; funcs.el --- Markdown Layer Functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs/activate-mmm-mode ()
+(defun space-macs/activate-mmm-mode ()
   ;; Enable `mmm-mode'.
   (mmm-mode 1))
 
 ;; stolen from http://stackoverflow.com/a/26297700
 ;; makes markdown tables saner via orgtbl-mode
-(defun spacemacs//cleanup-org-tables ()
+(defun space-macs//cleanup-org-tables ()
   (require 'org-table)
   (save-excursion
     (goto-char (point-min))
     (while (search-forward "-+-" nil t) (replace-match "-|-"))))
 
-(defun spacemacs//cleanup-org-tables-on-save ()
-  (add-hook 'before-save-hook 'spacemacs//cleanup-org-tables nil 'local))
+(defun space-macs//cleanup-org-tables-on-save ()
+  (add-hook 'before-save-hook 'space-macs//cleanup-org-tables nil 'local))
 
 ;; Insert key for org-mode and markdown a la C-h k
-;; from SE endless http://emacs.stackexchange.com/questions/2206/i-want-to-have-the-kbd-tags-for-my-blog-written-in-org-mode/2208#2208
-(defun spacemacs/insert-keybinding-markdown (key)
+;; from SE endless http://e-macs.stackexchange.com/questions/2206/i-want-to-have-the-kbd-tags-for-my-blog-written-in-org-mode/2208#2208
+(defun space-macs/insert-keybinding-markdown (key)
   "Ask for a key then insert its description.
 Will work on both org-mode and any mode that accepts plain html."
   (interactive "kType key sequence: ")
@@ -52,7 +52,7 @@ Will work on both org-mode and any mode that accepts plain html."
     (dolist (mode markdown--key-bindings-modes)
       (mmm-add-mode-ext-class mode nil class))))
 
-(defun spacemacs//markdown-hjkl-promotion-demotion (style)
+(defun space-macs//markdown-hjkl-promotion-demotion (style)
   "Set promotion/demotiion on 'hjkl' for the given editing STYLE."
   (when (or (eq 'vim style)
             (and (eq 'hybrid style)
@@ -63,3 +63,5 @@ Will work on both org-mode and any mode that accepts plain html."
         (kbd "M-j") 'markdown-move-down
         (kbd "M-k") 'markdown-move-up
         (kbd "M-l") 'markdown-demote))))
+
+

@@ -31,12 +31,12 @@ This layer adds auto-completion to all supported language layers.
 - Support for code completion with [[http://company-mode.github.io/][company]] or [[https://github.com/auto-complete/auto-complete][auto-complete]] for various language layers
 - Frequency-based suggestions via [[https://github.com/company-mode/company-statistics][company-statistics]] for =company=
 - Integration with [[https://github.com/capitaomorte/yasnippet][yasnippet]] and [[https://github.com/abo-abo/auto-yasnippet][auto-yasnippet]]
-- Automatic configuration of [[https://www.emacswiki.org/emacs/HippieExpand][hippie-expand]]
+- Automatic configuration of [[https://www.e-macswiki.org/e-macs/HippieExpand][hippie-expand]]
 - Automatic docstring tooltips are provided by [[https://github.com/expez/company-quickhelp][company-quickhelp]]
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =auto-completion= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =auto-completion= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 As this is a support layer you will also have to install at least one supported language
@@ -72,8 +72,8 @@ layer variables:
 
 The default configuration of the layer is:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (auto-completion :variables
                      auto-completion-return-key-behavior 'complete
                      auto-completion-tab-key-behavior 'cycle
@@ -93,22 +93,22 @@ you don't use it already.
 
 ** Snippets directories
 The following directories are added by default:
-- =~/.emacs.d/elpa/yasnippet-xxxxx/snippets=
-- =~/.emacs.d/layers/auto-completion/snippets=
-- =~/.emacs.d/private/snippets= (conditional to the value of =auto-completion-private-snippets-directory=)
-- =~/.spacemacs.d/snippets= (conditional to the existence of =~/.spacemacs.d= directory)
+- =~/.e-macs.d/elpa/yasnippet-xxxxx/snippets=
+- =~/.e-macs.d/layers/auto-completion/snippets=
+- =~/.e-macs.d/private/snippets= (conditional to the value of =auto-completion-private-snippets-directory=)
+- =~/.space-macs.d/snippets= (conditional to the existence of =~/.space-macs.d= directory)
 
 You can provide additional directories by setting the variable =auto-completion-private-snippets-directory=
 which can either take a single path as string or a list of paths.
 
-If its value is =nil= then the path =~/.emacs.d/private/snippets= is used.
+If its value is =nil= then the path =~/.e-macs.d/private/snippets= is used.
 
 ** Show snippets in auto-completion popup
 By default, snippets are not shown in the auto-completion popup. To show them in
 the popup, set the variable =auto-completion-enable-snippets-in-popup= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((auto-completion :variables
                                    auto-completion-enable-snippets-in-popup t)))
 #+END_SRC
@@ -117,8 +117,8 @@ the popup, set the variable =auto-completion-enable-snippets-in-popup= to =t=.
 To enable automatic docstring tooltips set =auto-completion-enable-help-tooltip=
 to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((auto-completion :variables
                       auto-completion-enable-help-tooltip t)))
 #+END_SRC
@@ -126,14 +126,14 @@ to =t=.
 To enable manual non-automatic invocation of docstring tooltips, set it to
 =manual=. The tooltip can be invoked manually by pressing ~M-h~.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((auto-completion :variables
                       auto-completion-enable-help-tooltip 'manual)))
 #+END_SRC
 
 However the tooltip may overlap on text on macOS, you can use =company-box= on
-Emacs 26+ by setting =auto-completion-use-company-box= to =t=.
+e-macs 26+ by setting =auto-completion-use-company-box= to =t=.
 
 ** Sort results by usage
 To enable sorting auto-completion results by their usage frequency set
@@ -141,26 +141,26 @@ To enable sorting auto-completion results by their usage frequency set
 This feature is provided by the [[https://github.com/company-mode/company-statistics][company-statistics]] package when =company=
 is used. The variable has no effect when =auto-complete= is used.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((auto-completion :variables
                       auto-completion-enable-sort-by-usage t)))
 #+END_SRC
 
 ** Disable auto-completion in specific layers
-See general documentation on how to [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#disabling-layer-services-in-other-layers][disable a layer for specific layers]].
+See general documentation on how to [[https://github.com/syl20bnr/space-macs/blob/develop/doc/DOCUMENTATION.org#disabling-layer-services-in-other-layers][disable a layer for specific layers]].
 
 ** Enable company globally
 It can be done by adding =(global-company-mode)= in the
-=dotspacemacs/user-config= function of your dotfile. But it is not recommended
+=dotspace-macs/user-config= function of your dotfile. But it is not recommended
 to do so, you should instead open an issue to ask for auto-completion support
 for the major-modes where it is missing.
 
 If you choose to use =(global-company-mode)= then you loose some advantages
-provided by the layer system like [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#disabling-layer-services-in-other-layers][disabling auto-completion for specific layers]].
+provided by the layer system like [[https://github.com/syl20bnr/space-macs/blob/develop/doc/DOCUMENTATION.org#disabling-layer-services-in-other-layers][disabling auto-completion for specific layers]].
 
 ** Replacing company by auto-complete
-You can disable =company= by adding it to the =dotspacemacs-excluded-packages=
+You can disable =company= by adding it to the =dotspace-macs-excluded-packages=
 variable, then you are free to enable =auto-complete= globally.
 
 ** Add auto-completion in a layer
@@ -169,7 +169,7 @@ package =company-anaconda=.
 
 In the file =packages.el= of the python layer:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;; Add the relevant packages to the layer
   ;; here it is `company-anaconda'
   (setq python-packages
@@ -181,29 +181,29 @@ In the file =packages.el= of the python layer:
     (use-package company-anaconda
       :defer t
       :init
-      (spacemacs|add-company-backends
+      (space-macs|add-company-backends
          :backends company-anaconda
          :modes python-mode)))
 #+END_SRC
 
 ** Completion back ends
-Many spacemacs layers (e.g., python, html, haskell) configure company mode
+Many space-macs layers (e.g., python, html, haskell) configure company mode
 backends to provide mode-specific completion. These modes will include
-completion backends specified in the =spacemacs-default-company-backends=
+completion backends specified in the =space-macs-default-company-backends=
 variable. The defaults should work well, but you can configure this variable in
-your =.spacemacs= file with (e.g.)
+your =.space-macs= file with (e.g.)
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq-default
-   dotspacemacs-configuration-layers
+   dotspace-macs-configuration-layers
    '((auto-completion :variables
-                      spacemacs-default-company-backends '(company-files company-capf))))
+                      space-macs-default-company-backends '(company-files company-capf))))
 #+END_SRC
 
 ** Improved faces
-For nicer-looking faces, try adding the following to `custom-set-faces` in your dotspacemacs file.
+For nicer-looking faces, try adding the following to `custom-set-faces` in your dotspace-macs file.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (custom-set-faces
    '(company-tooltip-common
      ((t (:inherit company-tooltip :weight bold :underline nil))))
@@ -229,12 +229,12 @@ Vim Style:
 | ~C-k~       | (vim style) go up in company dropdown menu   |
 | ~C-l~       | (vim style) complete selection               |
 
-Emacs style:
+e-macs style:
 
 | Key binding | Description                                    |
 |-------------+------------------------------------------------|
-| ~C-n~       | (emacs style) go down in company dropdown menu |
-| ~C-p~       | (emacs style) go up in company dropdown menu   |
+| ~C-n~       | (e-macs style) go down in company dropdown menu |
+| ~C-p~       | (e-macs style) go up in company dropdown menu   |
 
 ** Auto-complete
 
@@ -260,3 +260,5 @@ Emacs style:
 | ~SPC i S c~ | create a snippet from an active region                                    |
 | ~SPC i S e~ | Expand the snippet just created with ~SPC i y~                            |
 | ~SPC i S w~ | Write the snippet inside =private/snippets= directory for future sessions |
+
+

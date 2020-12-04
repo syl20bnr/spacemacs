@@ -1,7 +1,7 @@
 ;;; evil-unimpaired.el --- Pairs of handy bracket mappings.
 
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; Keywords: evil, vim-unimpaired, spacemacs
+;; Keywords: evil, vim-unimpaired, space-macs
 ;; Version: 0.1
 ;; Package-Requires: ((dash "2.12.0") (f "0.18.0"))
 
@@ -16,7 +16,7 @@
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to
+;; along with GNU e-macs; see the file COPYING.  If not, write to
 ;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
@@ -96,10 +96,10 @@
 (define-key evil-motion-state-map (kbd "] b") 'next-buffer)
 (define-key evil-motion-state-map (kbd "[ f") 'evil-unimpaired/previous-file)
 (define-key evil-motion-state-map (kbd "] f") 'evil-unimpaired/next-file)
-(define-key evil-motion-state-map (kbd "] l") 'spacemacs/next-error)
-(define-key evil-motion-state-map (kbd "[ l") 'spacemacs/previous-error)
-(define-key evil-motion-state-map (kbd "] q") 'spacemacs/next-error)
-(define-key evil-motion-state-map (kbd "[ q") 'spacemacs/previous-error)
+(define-key evil-motion-state-map (kbd "] l") 'space-macs/next-error)
+(define-key evil-motion-state-map (kbd "[ l") 'space-macs/previous-error)
+(define-key evil-motion-state-map (kbd "] q") 'space-macs/next-error)
+(define-key evil-motion-state-map (kbd "[ q") 'space-macs/previous-error)
 (define-key evil-motion-state-map (kbd "[ t") 'evil-unimpaired/previous-frame)
 (define-key evil-motion-state-map (kbd "] t") 'evil-unimpaired/next-frame)
 (define-key evil-motion-state-map (kbd "[ w") 'previous-multiframe-window)
@@ -112,3 +112,5 @@
 
 (provide 'evil-unimpaired)
 ;;; evil-unimpaired.el ends here.
+
+

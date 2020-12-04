@@ -1,11 +1,11 @@
-;;; packages.el --- typescript Layer packages File for Spacemacs
+;;; packages.el --- typescript Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Chris Bowdon <c.bowdon@bath.edu>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -24,21 +24,21 @@
         ))
 
 (defun typescript/post-init-add-node-modules-path ()
-  (spacemacs/add-to-hooks #'add-node-modules-path '(typescript-mode-hook
+  (space-macs/add-to-hooks #'add-node-modules-path '(typescript-mode-hook
                                                     typescript-tsx-mode-hook)))
 
 (defun typescript/post-init-company ()
-  (spacemacs/add-to-hooks #'spacemacs//typescript-setup-company
+  (space-macs/add-to-hooks #'space-macs//typescript-setup-company
                           '(typescript-mode-local-vars-hook
                             typescript-tsx-mode-local-vars-hook)))
 
 (defun typescript/post-init-eldoc ()
-  (spacemacs/add-to-hooks #'spacemacs//typescript-setup-eldoc
+  (space-macs/add-to-hooks #'space-macs//typescript-setup-eldoc
                           '(typescript-mode-local-vars-hook
                             typescript-tsx-mode-local-vars-hook) t))
 
 (defun typescript/post-init-emmet-mode ()
-  (add-hook 'typescript-tsx-mode-hook #'spacemacs/typescript-emmet-mode))
+  (add-hook 'typescript-tsx-mode-hook #'space-macs/typescript-emmet-mode))
 
 (defun typescript/set-tide-linter ()
   (with-eval-after-load 'tide
@@ -74,22 +74,22 @@
                 "Invalid typescript-layer configuration, no such linter: %s" typescript-linter)))))))
 
 (defun typescript/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'typescript-mode)
-  (spacemacs/enable-flycheck 'typescript-tsx-mode)
-  (cond ((eq (spacemacs//typescript-backend) 'tide)
+  (space-macs/enable-flycheck 'typescript-mode)
+  (space-macs/enable-flycheck 'typescript-tsx-mode)
+  (cond ((eq (space-macs//typescript-backend) 'tide)
          (typescript/set-tide-linter))
-        ((eq (spacemacs//typescript-backend) 'lsp)
+        ((eq (space-macs//typescript-backend) 'lsp)
          (typescript/set-lsp-linter)))
 
-  (spacemacs/add-to-hooks #'spacemacs//typescript-setup-checkers
+  (space-macs/add-to-hooks #'space-macs//typescript-setup-checkers
                           '(typescript-mode-hook typescript-tsx-mode-hook)
                           t))
 
 (defun typescript/post-init-smartparens ()
-  (if dotspacemacs-smartparens-strict-mode
-      (spacemacs/add-to-hooks #'smartparens-strict-mode '(typescript-mode-hook
+  (if dotspace-macs-smartparens-strict-mode
+      (space-macs/add-to-hooks #'smartparens-strict-mode '(typescript-mode-hook
                                                           typescript-tsx-mode-hook))
-    (spacemacs/add-to-hooks #'smartparens-mode '(typescript-mode-hook
+    (space-macs/add-to-hooks #'smartparens-mode '(typescript-mode-hook
                                                  typescript-tsx-mode-hook))))
 
 (defun typescript/post-init-web-mode ()
@@ -97,20 +97,20 @@
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
 
   ;; setup typescript backend
-  (add-hook 'typescript-tsx-mode-local-vars-hook 'spacemacs//typescript-setup-backend)
-  (spacemacs/typescript-safe-local-variables '(lsp tide))
+  (add-hook 'typescript-tsx-mode-local-vars-hook 'space-macs//typescript-setup-backend)
+  (space-macs/typescript-safe-local-variables '(lsp tide))
   (when typescript-fmt-on-save
-    (add-hook 'typescript-tsx-mode-hook 'spacemacs/typescript-fmt-before-save-hook))
-  (spacemacs/set-leader-keys-for-major-mode 'typescript-tsx-mode
-    "p" 'spacemacs/typescript-open-region-in-playground)
-  (pcase (spacemacs//typescript-backend)
-    ('lsp (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
-            "==" 'spacemacs/typescript-format))
-    (_ (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
-         "=" 'spacemacs/typescript-format))))
+    (add-hook 'typescript-tsx-mode-hook 'space-macs/typescript-fmt-before-save-hook))
+  (space-macs/set-leader-keys-for-major-mode 'typescript-tsx-mode
+    "p" 'space-macs/typescript-open-region-in-playground)
+  (pcase (space-macs//typescript-backend)
+    ('lsp (space-macs/set-leader-keys-for-major-mode 'typescript-mode
+            "==" 'space-macs/typescript-format))
+    (_ (space-macs/set-leader-keys-for-major-mode 'typescript-mode
+         "=" 'space-macs/typescript-format))))
 
 (defun typescript/post-init-yasnippet ()
-  (spacemacs/add-to-hooks #'spacemacs/typescript-yasnippet-setup '(typescript-mode-hook
+  (space-macs/add-to-hooks #'space-macs/typescript-yasnippet-setup '(typescript-mode-hook
                                                                    typescript-tsx-mode-hook)))
 
 (defun typescript/init-typescript-mode ()
@@ -119,22 +119,24 @@
     :init
     (progn
       ;; setup typescript backend
-      (add-hook 'typescript-mode-local-vars-hook 'spacemacs//typescript-setup-backend)
-      (spacemacs/typescript-safe-local-variables '(lsp tide))
+      (add-hook 'typescript-mode-local-vars-hook 'space-macs//typescript-setup-backend)
+      (space-macs/typescript-safe-local-variables '(lsp tide))
       :config
       (progn
         (when typescript-fmt-on-save
-          (add-hook 'typescript-mode-hook 'spacemacs/typescript-fmt-before-save-hook))
-        (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
-          "p" 'spacemacs/typescript-open-region-in-playground)
-        (pcase (spacemacs//typescript-backend)
-          ('lsp (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
-                  "==" 'spacemacs/typescript-format))
-          (_ (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
-               "=" 'spacemacs/typescript-format)))))))
+          (add-hook 'typescript-mode-hook 'space-macs/typescript-fmt-before-save-hook))
+        (space-macs/set-leader-keys-for-major-mode 'typescript-mode
+          "p" 'space-macs/typescript-open-region-in-playground)
+        (pcase (space-macs//typescript-backend)
+          ('lsp (space-macs/set-leader-keys-for-major-mode 'typescript-mode
+                  "==" 'space-macs/typescript-format))
+          (_ (space-macs/set-leader-keys-for-major-mode 'typescript-mode
+               "=" 'space-macs/typescript-format)))))))
 
 (defun typescript/pre-init-import-js ()
   (if (eq javascript-import-tool 'import-js)
       (progn
-        (add-to-list 'spacemacs--import-js-modes (cons 'typescript-mode 'typescript-mode-hook))
-        (add-to-list 'spacemacs--import-js-modes (cons 'typescript-tsx-mode 'typescript-tsx-mode-hook)))))
+        (add-to-list 'space-macs--import-js-modes (cons 'typescript-mode 'typescript-mode-hook))
+        (add-to-list 'space-macs--import-js-modes (cons 'typescript-tsx-mode 'typescript-tsx-mode-hook)))))
+
+

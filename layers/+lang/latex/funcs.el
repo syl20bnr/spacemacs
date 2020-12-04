@@ -1,15 +1,15 @@
-;;; funcs.el --- Auctex Layer Functions File for Spacemacs
+;;; funcs.el --- Auctex Layer Functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//latex-backend ()
+(defun space-macs//latex-backend ()
   "Returns selected backend."
   (if latex-backend
       latex-backend
@@ -17,31 +17,31 @@
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
      (t 'company-auctex))))
 
-(defun spacemacs//latex-setup-company ()
+(defun space-macs//latex-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//latex-backend)
+  (pcase (space-macs//latex-backend)
     ;; Activate lsp company explicitly to activate
     ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
+    (`lsp (space-macs|add-company-backends
             :backends company-capf
             :modes LaTeX-mode))
     (_    (when (configuration-layer/package-used-p 'company-auctex)
-            (spacemacs|add-company-backends
+            (space-macs|add-company-backends
               :backends
               (company-auctex-macros)
               company-auctex-symbols
               company-auctex-environments
               :modes LaTeX-mode))
           (when (configuration-layer/package-used-p 'company-reftex)
-            (spacemacs|add-company-backends
+            (space-macs|add-company-backends
               :backends
               company-reftex-labels
               company-reftex-citations
               :modes LaTeX-mode)))))
 
-(defun spacemacs//latex-setup-backend ()
+(defun space-macs//latex-setup-backend ()
   "Conditionally setup latex backend."
-  (pcase (spacemacs//latex-backend)
+  (pcase (space-macs//latex-backend)
     (`lsp (require 'lsp-latex)
           (lsp))))
 
@@ -95,3 +95,5 @@ the automatic filling of the current paragraph."
 (defun latex/font-serif () (interactive) (TeX-font nil ?\C-r))
 (defun latex/font-oblique () (interactive) (TeX-font nil ?\C-s))
 (defun latex/font-upright () (interactive) (TeX-font nil ?\C-u))
+
+

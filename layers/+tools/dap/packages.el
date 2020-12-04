@@ -1,17 +1,17 @@
-;;; packages.el --- DAP mode functions File for Spacemacs
+;;; packages.el --- DAP mode functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Ivan Yonchovski (yyoncho@gmail.com)
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 (defconst dap-packages
   '(dap-mode
-    (posframe (not (version< emacs-version "26.1")))))
+    (posframe (not (version< e-macs-version "26.1")))))
 
 (defun dap/init-dap-mode ()
   (use-package dap-mode
@@ -25,7 +25,7 @@
       (dap-mode 1)
       (dap-ui-mode 1)
       ;; mouse support
-      (spacemacs|add-toggle dap-mouse
+      (space-macs|add-toggle dap-mouse
         :status dap-tooltip-mode
         :on (progn (dap-tooltip-mode)
                    (tooltip-mode))
@@ -33,17 +33,17 @@
                     (tooltip-mode -1))
         :documentation "Enable mouse support in DAP mode.")
       (when dap-enable-mouse-support
-        (spacemacs/toggle-dap-mouse-on))
+        (space-macs/toggle-dap-mouse-on))
 
-      (unless (version< emacs-version "26.1")
-        (spacemacs|add-toggle dap-ui-controls
+      (unless (version< e-macs-version "26.1")
+        (space-macs|add-toggle dap-ui-controls
           :status dap-ui-controls-mode
           :on (dap-ui-controls-mode)
           :off (dap-ui-controls-mode -1)
           :documentation "Enable dap-ui-controls-mode"))
 
       (when dap-enable-ui-controls
-        (spacemacs/toggle-dap-ui-controls-on))
+        (space-macs/toggle-dap-ui-controls-on))
 
       ;; key bindings
       (let ((bindings (list
@@ -88,7 +88,7 @@
                        "dSt" #'dap-switch-thread
                        "dSf" #'dap-switch-frame
                        ;; toggles
-                       "dTm" 'spacemacs/toggle-dap-mouse
+                       "dTm" 'space-macs/toggle-dap-mouse
                        ;; windows
                        "dwo" #'dap-go-to-output-buffer
                        "dwl" #'dap-ui-locals
@@ -103,24 +103,26 @@
                         ("dT" . "toggles")
                         ("dw" . "debug windows"))))
 
-        (apply #'spacemacs/set-leader-keys bindings)
+        (apply #'space-macs/set-leader-keys bindings)
 
         (mapc (lambda (cons)
-                (spacemacs/declare-prefix (car cons) (cdr cons)))
+                (space-macs/declare-prefix (car cons) (cdr cons)))
               prefixes)
 
-        (dolist (mode spacemacs--dap-supported-modes)
+        (dolist (mode space-macs--dap-supported-modes)
 
           ;; avoid clash with other debug key bindings
-          (spacemacs/set-leader-keys-for-major-mode mode "db" nil)
-          (spacemacs/set-leader-keys-for-major-mode mode "dd" nil)
+          (space-macs/set-leader-keys-for-major-mode mode "db" nil)
+          (space-macs/set-leader-keys-for-major-mode mode "dd" nil)
 
-          (apply #'spacemacs/set-leader-keys-for-major-mode mode bindings)
+          (apply #'space-macs/set-leader-keys-for-major-mode mode bindings)
 
           (mapc (lambda (cons)
-                  (spacemacs/declare-prefix-for-mode mode (concat "m" (car cons)) (cdr cons)))
+                  (space-macs/declare-prefix-for-mode mode (concat "m" (car cons)) (cdr cons)))
                 prefixes))))))
 
 (defun dap/init-posframe ()
-  (unless (version< emacs-version "26.1")
+  (unless (version< e-macs-version "26.1")
     (use-package posframe)))
+
+

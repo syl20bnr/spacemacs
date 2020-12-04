@@ -1,29 +1,29 @@
-;;; funcs.el --- Julia Layer functions File for Spacemacs
+;;; funcs.el --- Julia Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Adam Beckmeyer <adam_git@thebeckmeyers.xyz>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 
-(defun spacemacs//julia-setup-backend ()
+(defun space-macs//julia-setup-backend ()
   "Conditionally setup julia backend."
   (pcase julia-backend
-    ('lsp (spacemacs//julia-setup-lsp))))
+    ('lsp (space-macs//julia-setup-lsp))))
 
-(defun spacemacs//julia-setup-buffer ()
+(defun space-macs//julia-setup-buffer ()
   "Configure julia-mode"
   (when (not julia-mode-enable-ess)
-    (spacemacs//julia-setup-repl)))
+    (space-macs//julia-setup-repl)))
 
 
 ;; lsp
 
-(defun spacemacs//julia-setup-lsp ()
+(defun space-macs//julia-setup-lsp ()
   "Start lsp-mode and configure for buffer."
   (if (configuration-layer/layer-used-p 'lsp)
       (lsp)
@@ -32,14 +32,14 @@
 
 ;; repl
 
-(defun spacemacs//julia-setup-repl ()
+(defun space-macs//julia-setup-repl ()
   "Start julia-repl minor mode and configure for buffer."
   (julia-repl-mode))
 
 
 ;; misc
 
-(defun spacemacs//julia-hash-to-alist (hash)
+(defun space-macs//julia-hash-to-alist (hash)
   "Convert a `hash-table' to an `alist' for the use in a helm buffer."
   (let (res)
     (maphash (lambda (key value)
@@ -48,11 +48,13 @@
     res))
 
 (when (configuration-layer/layer-used-p 'helm)
-  (defun spacemacs//julia-helm-math-insert()
+  (defun space-macs//julia-helm-math-insert()
     "Insert a utf8 symbol from `julia-latexsubs'"
     (interactive)
     (helm :sources (helm-build-sync-source "test"
-                     :candidates (spacemacs//julia-hash-to-alist julia-latexsubs)
+                     :candidates (space-macs//julia-hash-to-alist julia-latexsubs)
                      :fuzzy-match t
                      :action (lambda (candidate) (insert candidate)))
           :buffer "*helm julia latex insert*")))
+
+

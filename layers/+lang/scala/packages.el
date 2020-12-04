@@ -1,18 +1,18 @@
-;;; packages.el --- Scala Layer packages File for Spacemacs
+;;; packages.el --- Scala Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 (defconst scala-packages
   '(
     lsp-mode
-    (lsp-metals :toggle (spacemacs//scala-backend-metals-p))
+    (lsp-metals :toggle (space-macs//scala-backend-metals-p))
     dap-mode
     eldoc
     flycheck
@@ -20,25 +20,25 @@
     counsel-gtags
     ggtags
     helm-gtags
-    (ensime :toggle (spacemacs//scala-backend-ensime-p))
+    (ensime :toggle (space-macs//scala-backend-ensime-p))
     sbt-mode
     scala-mode))
 
 (defun scala/post-init-eldoc ()
-  (when (and scala-enable-eldoc (spacemacs//scala-backend-ensime-p))
-    (add-hook 'scala-mode-hook #'spacemacs//scala-setup-ensime-eldoc)))
+  (when (and scala-enable-eldoc (space-macs//scala-backend-ensime-p))
+    (add-hook 'scala-mode-hook #'space-macs//scala-setup-ensime-eldoc)))
 
 (defun scala/init-ensime ()
   (use-package ensime
     :defer t
-    :if (spacemacs//scala-backend-ensime-p)
+    :if (space-macs//scala-backend-ensime-p)
     :init
     (progn
-      (setq ensime-startup-dirname (concat spacemacs-cache-directory "ensime/"))
-      (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime")
-      (add-hook 'scala-mode-hook #'spacemacs//scala-setup-ensime)
+      (setq ensime-startup-dirname (concat space-macs-cache-directory "ensime/"))
+      (space-macs/register-repl 'ensime 'ensime-inf-switch "ensime")
+      (add-hook 'scala-mode-hook #'space-macs//scala-setup-ensime)
       (when scala-auto-start-backend
-        (add-hook 'scala-mode-hook 'spacemacs//ensime-maybe-start)))
+        (add-hook 'scala-mode-hook 'space-macs//ensime-maybe-start)))
     :config
     (progn
       ;; This function was renamed in ensime. Usually we don't need to do this,
@@ -61,8 +61,8 @@
                           ("mt" . "test")
                           ("ms" . "repl")
                           ("my" . "yank")))
-          (spacemacs/declare-prefix-for-mode mode (car prefix) (cdr prefix)))
-        (spacemacs/set-leader-keys-for-major-mode mode
+          (space-macs/declare-prefix-for-mode mode (car prefix) (cdr prefix)))
+        (space-macs/set-leader-keys-for-major-mode mode
           "/"      'ensime-search
           "'"      'ensime-inf-switch
 
@@ -88,7 +88,7 @@
           "dt"     'ensime-db-backtrace
 
           "Df"     'ensime-reload-open-files
-          "Dr"     'spacemacs/ensime-gen-and-restart
+          "Dr"     'space-macs/ensime-gen-and-restart
           "Ds"     'ensime
 
           "Ee"     'ensime-print-errors-at-point
@@ -116,17 +116,17 @@
 
           "sa"     'ensime-inf-load-file
           "sb"     'ensime-inf-eval-buffer
-          "sB"     'spacemacs/ensime-inf-eval-buffer-switch
+          "sB"     'space-macs/ensime-inf-eval-buffer-switch
           "si"     'ensime-inf-switch
           "sr"     'ensime-inf-eval-region
-          "sR"     'spacemacs/ensime-inf-eval-region-switch
+          "sR"     'space-macs/ensime-inf-eval-region-switch
 
-          "yT"     'spacemacs/ensime-yank-type-at-point-full-name
-          "yt"     'spacemacs/ensime-yank-type-at-point
+          "yT"     'space-macs/ensime-yank-type-at-point-full-name
+          "yt"     'space-macs/ensime-yank-type-at-point
 
           "z"      'ensime-expand-selection-command))
       (evil-define-key 'insert ensime-mode-map
-        (kbd ".") 'spacemacs/ensime-completing-dot
+        (kbd ".") 'space-macs/ensime-completing-dot
         (kbd "M-.") 'ensime-edit-definition
         (kbd "M-,") 'ensime-pop-find-definition-stack)
       (evil-define-key 'normal ensime-mode-map
@@ -137,9 +137,9 @@
       (evil-define-key 'normal ensime-inspector-mode-map
         (kbd "q") 'ensime-popup-buffer-quit-function)
       (evil-define-key 'normal ensime-refactor-info-map
-        (kbd "q") 'spacemacs/ensime-refactor-cancel
-        (kbd "c") 'spacemacs/ensime-refactor-accept
-        (kbd "RET") 'spacemacs/ensime-refactor-accept)
+        (kbd "q") 'space-macs/ensime-refactor-cancel
+        (kbd "c") 'space-macs/ensime-refactor-accept
+        (kbd "RET") 'space-macs/ensime-refactor-accept)
       (evil-define-key 'normal ensime-compile-result-map
         (kbd "g") 'ensime-show-all-errors-and-warnings
         (kbd "TAB") 'forward-button
@@ -161,35 +161,35 @@
         (require 'ensime-expand-region nil 'noerror)))))
 
 (defun scala/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'scala-mode)
+  (space-macs/enable-flycheck 'scala-mode)
   ;; Don't use scala checker if ensime mode is active, since it provides
   ;; better error checking.
-  (when (spacemacs//scala-backend-ensime-p)
+  (when (space-macs//scala-backend-ensime-p)
     (with-eval-after-load 'flycheck
-      (add-hook 'ensime-mode-hook 'spacemacs//scala-disable-flycheck-scala))))
+      (add-hook 'ensime-mode-hook 'space-macs//scala-disable-flycheck-scala))))
 
 (defun scala/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'scala-mode)
-  (when (spacemacs//scala-backend-ensime-p)
-    (add-hook 'scala-mode-hook #'spacemacs//scala-setup-ensime-flyspell)))
+  (when (space-macs//scala-backend-ensime-p)
+    (add-hook 'scala-mode-hook #'space-macs//scala-setup-ensime-flyspell)))
 
 (defun scala/init-sbt-mode ()
   (use-package sbt-mode
     :defer t
     :config
-    ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+    ;; WORKAROUND: https://github.com/ensime/e-macs-sbt-mode/issues/31
     ;; allows for using SPACE in the minibuffer
     (substitute-key-definition
      'minibuffer-complete-word
      'self-insert-command
      minibuffer-local-completion-map)
-    ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
+    ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/e-macs-sbt-mode/issues/152
     (setq sbt:program-options '("-Dsbt.supershell=false"))
     :init
     (progn
-      (spacemacs/declare-prefix-for-mode 'scala-mode "mb" "sbt")
-      (spacemacs/declare-prefix-for-mode 'scala-mode "mg" "goto")
-      (spacemacs/set-leader-keys-for-major-mode 'scala-mode
+      (space-macs/declare-prefix-for-mode 'scala-mode "mb" "sbt")
+      (space-macs/declare-prefix-for-mode 'scala-mode "mg" "goto")
+      (space-macs/set-leader-keys-for-major-mode 'scala-mode
         "b." 'sbt-hydra
         "bb" 'sbt-command))))
 
@@ -203,7 +203,7 @@
     :config
     (progn
       ;; Ensure only one of metals and ensime is loaded
-      (unless (spacemacs//scala-backend-ensime-p)
+      (unless (space-macs//scala-backend-ensime-p)
         (progn
           (fmakunbound 'ensime)
           (remove-hook 'after-change-functions 'ensime-after-change-function)
@@ -220,7 +220,7 @@
       (evil-define-key 'insert scala-mode-map
         (kbd "RET") 'scala/newline-and-indent-with-asterisk)
 
-      (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
+      (evil-define-key 'normal scala-mode-map "J" 'space-macs/scala-join-line)
 
       ;; Compatibility with `aggressive-indent'
       (setq scala-indent:align-forms t
@@ -229,28 +229,30 @@
             scala-indent:operator-strategy))))
 
 (defun scala/pre-init-dap-mode ()
-  (when (spacemacs//scala-backend-metals-p)
-    (add-to-list 'spacemacs--dap-supported-modes 'scala-mode))
-  (spacemacs//scala-setup-dap))
+  (when (space-macs//scala-backend-metals-p)
+    (add-to-list 'space-macs--dap-supported-modes 'scala-mode))
+  (space-macs//scala-setup-dap))
 
 (defun scala/post-init-lsp-mode ()
-  (when (spacemacs//scala-backend-metals-p)
-    (spacemacs//scala-setup-metals)))
+  (when (space-macs//scala-backend-metals-p)
+    (space-macs//scala-setup-metals)))
 
 (defun scala/init-lsp-metals ()
   (use-package lsp-metals
     :defer t
     :init
-    (spacemacs//scala-setup-treeview)))
+    (space-macs//scala-setup-treeview)))
 
 (defun scala/post-init-ggtags ()
   (when scala-enable-gtags
-    (add-hook 'scala-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)))
+    (add-hook 'scala-mode-local-vars-hook #'space-macs/ggtags-mode-enable)))
 
 (defun scala/post-init-counsel-gtags ()
   (when scala-enable-gtags
-    (spacemacs/counsel-gtags-define-keys-for-mode 'scala-mode)))
+    (space-macs/counsel-gtags-define-keys-for-mode 'scala-mode)))
 
 (defun scala/post-init-helm-gtags ()
   (when scala-enable-gtags
-    (spacemacs/helm-gtags-define-keys-for-mode 'scala-mode)))
+    (space-macs/helm-gtags-define-keys-for-mode 'scala-mode)))
+
+

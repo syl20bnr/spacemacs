@@ -1,11 +1,11 @@
-;;; config.el --- Ansible Layer functions File for Spacemacs
+;;; config.el --- Ansible Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Brian Hicks <brian@brianthicks.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -18,5 +18,7 @@ If non-nil then encrypted files are automatically decrypted when opened and
 
 ;; detect filenames compatible with Ansible's recommended layout.
 ;; http://docs.ansible.com/playbooks_best_practices.html#directory-layout
-(setq spacemacs--ansible-filename-re
+(setq space-macs--ansible-filename-re
       "/\\(main\\|site\\|encrypted\\|\\(\\(roles\\|tasks\\|handlers\\|vars\\|defaults\\|meta\\|group_vars\\|host_vars\\)/.+\\)\\)\\.ya?ml$")
+
+

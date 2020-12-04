@@ -1,11 +1,11 @@
-;;; packages.el --- Colors Layer packages File for Spacemacs
+;;; packages.el --- Colors Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -22,7 +22,7 @@
 ;; (defun colors/init-rainbow-blocks ()
 ;;   (use-package rainbow-blocks
 ;;     :disabled t
-;;     :init (add-hook 'emacs-lisp-mode-hook 'rainbow-blocks-mode)))
+;;     :init (add-hook 'e-macs-lisp-mode-hook 'rainbow-blocks-mode)))
 
 (defun colors/init-nyan-mode ()
   (use-package nyan-mode
@@ -33,11 +33,11 @@
       (setq nyan-animate-nyancat t)
       (nyan-mode)
       ;; explicitly re-enable the cat for the first GUI client
-      (spacemacs|do-after-display-system-init
+      (space-macs|do-after-display-system-init
        (nyan-mode -1)
        (nyan-mode))
 
-      (spacemacs|add-toggle nyan-cat-progress-bar
+      (space-macs|add-toggle nyan-cat-progress-bar
         :mode nyan-mode
         :documentation "Show a nyan cat progress bar in the mode-line."
         :evil-leader "tmn"))))
@@ -49,8 +49,8 @@
     (progn
       (when (eq 'variables colors-colorize-identifiers)
         (add-hook 'prog-mode-hook 'color-identifiers-mode))
-      (spacemacs/declare-prefix "Ci" "colors-identifiers")
-      (spacemacs|add-toggle color-identifiers-mode
+      (space-macs/declare-prefix "Ci" "colors-identifiers")
+      (space-macs|add-toggle color-identifiers-mode
         :status color-identifiers-mode
         :on (progn
               (when (bound-and-true-p rainbow-identifiers-mode)
@@ -59,7 +59,7 @@
         :off (color-identifiers-mode -1)
         :documentation "Colorize variables."
         :evil-leader "tCv")
-      (spacemacs|add-toggle global-color-identifiers-mode
+      (space-macs|add-toggle global-color-identifiers-mode
         :status global-color-identifiers-mode
         :on (progn
               (when (bound-and-true-p global-rainbow-identifiers-mode)
@@ -68,7 +68,7 @@
         :off (global-color-identifiers-mode -1)
         :documentation "Colorize variables globally."
         :evil-leader "tC C-v"))
-    :config (spacemacs|hide-lighter color-identifiers-mode)))
+    :config (space-macs|hide-lighter color-identifiers-mode)))
 
 (defun colors/init-rainbow-identifiers ()
   (use-package rainbow-identifiers
@@ -85,12 +85,12 @@
                                                     font-lock-keyword-face
                                                     font-lock-function-name-face
                                                     font-lock-variable-name-face))
-      (defadvice spacemacs/post-theme-init (after colors/post-theme-init activate)
+      (defadvice space-macs/post-theme-init (after colors/post-theme-init activate)
         "Adjust lightness and brightness of rainbow-identifiers on post theme init."
-        (colors//tweak-theme-colors spacemacs--cur-theme))
+        (colors//tweak-theme-colors space-macs--cur-theme))
       ;; key bindings
-      (spacemacs/declare-prefix "Ci" "colors-identifiers")
-      (spacemacs|add-toggle rainbow-identifier
+      (space-macs/declare-prefix "Ci" "colors-identifiers")
+      (space-macs|add-toggle rainbow-identifier
         :status rainbow-identifiers-mode
         :on (progn
               (when (bound-and-true-p color-identifiers-mode)
@@ -102,7 +102,7 @@
       (with-eval-after-load 'rainbow-identifiers
         (define-global-minor-mode global-rainbow-identifiers-mode
           rainbow-identifiers-mode colors//rainbow-identifiers-mode-maybe))
-      (spacemacs|add-toggle global-rainbow-identifiers-mode
+      (space-macs|add-toggle global-rainbow-identifiers-mode
         :status global-rainbow-identifiers-mode
         :on (progn
               (when (bound-and-true-p global-color-identifiers-mode)
@@ -111,15 +111,17 @@
         :off (global-rainbow-identifiers-mode -1)
         :documentation "Colorize identifiers globally."
         :evil-leader "tC C-a")
-      (spacemacs/set-leader-keys "Cis" 'colors/start-change-color-saturation)
-      (spacemacs/set-leader-keys "Cil" 'colors/start-change-color-lightness)
+      (space-macs/set-leader-keys "Cis" 'colors/start-change-color-saturation)
+      (space-macs/set-leader-keys "Cil" 'colors/start-change-color-lightness)
       ;; tweak colors of current theme
-      (colors//tweak-theme-colors spacemacs--cur-theme)
+      (colors//tweak-theme-colors space-macs--cur-theme)
       (when (eq 'all colors-colorize-identifiers)
         (global-rainbow-identifiers-mode)))))
 
 (defun colors/init-rainbow-mode ()
   (use-package rainbow-mode
     :defer t
-    :init (spacemacs/set-leader-keys "tCc" 'rainbow-mode)
-    :config (spacemacs|hide-lighter rainbow-mode)))
+    :init (space-macs/set-leader-keys "tCc" 'rainbow-mode)
+    :config (space-macs|hide-lighter rainbow-mode)))
+
+

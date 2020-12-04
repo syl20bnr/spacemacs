@@ -1,11 +1,11 @@
-;;; packages.el --- csharp Layer packages File for Spacemacs
+;;; packages.el --- csharp Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: William Casarin <bill@casarin.me>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -16,9 +16,9 @@
     :defer t
     :init
     (progn
-      (spacemacs/declare-prefix-for-mode 'csv-mode "ms" "sort")
-      (spacemacs/declare-prefix-for-mode 'csv-mode "mv" "yank")
-      (spacemacs/set-leader-keys-for-major-mode 'csv-mode
+      (space-macs/declare-prefix-for-mode 'csv-mode "ms" "sort")
+      (space-macs/declare-prefix-for-mode 'csv-mode "mv" "yank")
+      (space-macs/set-leader-keys-for-major-mode 'csv-mode
         "a"  'csv-align-fields
         "d"  'csv-kill-fields
         "h"  'csv-header-line
@@ -33,3 +33,5 @@
         "u"  'csv-unalign-fields
         "vf" 'csv-yank-fields
         "vt" 'csv-yank-as-new-table))))
+
+

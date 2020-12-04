@@ -1,45 +1,45 @@
-;;; funcs.el --- PDF Layer functions File for Spacemacs
+;;; funcs.el --- PDF Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
-;; Author: André Peric Tavares <andre.peric.tavares@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; Author: AndrÃ© Peric Tavares <andre.peric.tavares@gmail.com>
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//pdf-tools-setup-transient-state ()
+(defun space-macs//pdf-tools-setup-transient-state ()
   "Setup pdf-tools transient state with toggleable help hint.
 
 Beware: due to transient state's implementation details this
 function must be called in the :init section of `use-package' or
 full hint text will not show up!"
-  (defvar spacemacs--pdf-tools-ts-full-hint-toggle t
+  (defvar space-macs--pdf-tools-ts-full-hint-toggle t
     "Toggle the state of the pdf-tools transient state documentation.")
 
-  (defvar spacemacs--pdf-tools-ts-full-hint nil
+  (defvar space-macs--pdf-tools-ts-full-hint nil
     "Display full pdf transient state documentation.")
 
-  (defvar spacemacs--pdf-tools-ts-minified-hint nil
+  (defvar space-macs--pdf-tools-ts-minified-hint nil
     "Display minified pdf transient state documentation.")
 
-  (defun spacemacs//pdf-tools-ts-toggle-hint ()
+  (defun space-macs//pdf-tools-ts-toggle-hint ()
     "Toggle the full hint docstring for the pdf-tools transient state."
     (interactive)
-    (setq spacemacs--pdf-tools-ts-full-hint-toggle
-          (not spacemacs--pdf-tools-ts-full-hint-toggle)))
+    (setq space-macs--pdf-tools-ts-full-hint-toggle
+          (not space-macs--pdf-tools-ts-full-hint-toggle)))
 
-  (defun spacemacs//pdf-tools-ts-hint ()
+  (defun space-macs//pdf-tools-ts-hint ()
     "Return a condensed/full hint for the pdf-tools transient state"
     (concat
      " "
-     (if spacemacs--pdf-tools-ts-full-hint-toggle
-         spacemacs--pdf-tools-ts-full-hint
+     (if space-macs--pdf-tools-ts-full-hint-toggle
+         space-macs--pdf-tools-ts-full-hint
        (concat "[" (propertize "?" 'face 'hydra-face-red) "] help"))))
 
-  (spacemacs|transient-state-format-hint pdf-tools
-    spacemacs--pdf-tools-ts-full-hint
+  (space-macs|transient-state-format-hint pdf-tools
+    space-macs--pdf-tools-ts-full-hint
     (format "\n[_?_] toggle help
  Navigation^^^^                Scale/Fit^^                    Annotations^^       Actions^^           Other^^
  ----------^^^^--------------- ---------^^------------------  -----------^^------ -------^^---------- -----^^---
@@ -51,15 +51,15 @@ full hint text will not show up!"
  [_[_/_]_] history back/for    [_R_] reset slice              ^^                  [_t_] attachments
  ^^^^                          [_zr_] reset zoom              ^^                  [_n_] night mode"))
 
-  (spacemacs|define-transient-state pdf-tools
+  (space-macs|define-transient-state pdf-tools
     :title "PDF-tools Transient State"
     :hint-is-doc t
-    :dynamic-hint (spacemacs//pdf-tools-ts-hint)
+    :dynamic-hint (space-macs//pdf-tools-ts-hint)
     :on-enter (setq which-key-inhibit t)
     :on-exit (setq which-key-inhibit nil)
     :evil-leader-for-mode (pdf-view-mode . ".")
     :bindings
-    ("?" spacemacs//pdf-tools-ts-toggle-hint)
+    ("?" space-macs//pdf-tools-ts-toggle-hint)
     ;; Navigation
     ("j"  pdf-view-next-line-or-next-page)
     ("k"  pdf-view-previous-line-or-previous-page)
@@ -96,3 +96,5 @@ full hint text will not show up!"
     ("n" pdf-view-midnight-minor-mode)
     ;; Other
     ("q" nil :exit t)))
+
+

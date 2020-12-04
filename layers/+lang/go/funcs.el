@@ -1,15 +1,15 @@
-;;; funcs.el --- Go Layer functions File for Spacemacs
+;;; funcs.el --- Go Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//go-backend ()
+(defun space-macs//go-backend ()
   "Returns selected backend."
   (if go-backend
       go-backend
@@ -17,40 +17,40 @@
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
      (t 'go-mode))))
 
-(defun spacemacs//go-setup-backend ()
+(defun space-macs//go-setup-backend ()
   "Conditionally setup go backend"
-  (pcase (spacemacs//go-backend)
-    ('lsp (spacemacs//go-setup-backend-lsp))))
+  (pcase (space-macs//go-backend)
+    ('lsp (space-macs//go-setup-backend-lsp))))
 
-(defun spacemacs//go-setup-company ()
+(defun space-macs//go-setup-company ()
   "Conditionally setup go company based on backend"
-  (pcase (spacemacs//go-backend)
-    ('go-mode (spacemacs|add-company-backends
+  (pcase (space-macs//go-backend)
+    ('go-mode (space-macs|add-company-backends
                 :backends company-go
                 :modes go-mode
                 :variables company-go-show-annotation t
                 :append-hooks nil
                 :call-hooks t))
-    (`lsp (spacemacs|add-company-backends
+    (`lsp (space-macs|add-company-backends
             :backends company-capf
             :modes go-mode))))
 
-(defun spacemacs//go-setup-eldoc ()
+(defun space-macs//go-setup-eldoc ()
   "Conditionally setup go eldoc based on backend"
-  (pcase (spacemacs//go-backend)
+  (pcase (space-macs//go-backend)
     ('go-mode (go-eldoc-setup))))
 
-(defun spacemacs//go-setup-dap ()
+(defun space-macs//go-setup-dap ()
   "Conditionally setup go DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase (spacemacs//go-backend)
+  (pcase (space-macs//go-backend)
     (`lsp (require 'dap-go)
           (dap-go-setup))))
 
 
 ;; lsp
 
-(defun spacemacs//go-setup-backend-lsp ()
+(defun space-macs//go-setup-backend-lsp ()
   "Setup lsp backend"
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
@@ -65,7 +65,7 @@
 
 ;; flycheck
 
-(defun spacemacs//go-enable-flycheck-golangci-lint ()
+(defun space-macs//go-enable-flycheck-golangci-lint ()
   "Enable `flycheck-golangci-linter' and disable overlapping `flycheck' linters."
   (setq flycheck-disabled-checkers '(go-gofmt
                                      go-golint
@@ -93,32 +93,32 @@
 
 ;; run
 
-(defun spacemacs/go-run-tests (args)
+(defun space-macs/go-run-tests (args)
   (interactive)
   (compilation-start (concat go-test-command " " (when go-test-verbose "-v ") args " " go-use-test-args)
                      nil (lambda (n) go-test-buffer-name) nil))
 
-(defun spacemacs/go-run-package-tests ()
+(defun space-macs/go-run-package-tests ()
   (interactive)
-  (spacemacs/go-run-tests ""))
+  (space-macs/go-run-tests ""))
 
-(defun spacemacs/go-run-package-tests-nested ()
+(defun space-macs/go-run-package-tests-nested ()
   (interactive)
-  (spacemacs/go-run-tests "./..."))
+  (space-macs/go-run-tests "./..."))
 
-(defun spacemacs/go-run-test-current-function ()
+(defun space-macs/go-run-test-current-function ()
   (interactive)
   (if (string-match "_test\\.go" buffer-file-name)
       (save-excursion
         (move-end-of-line nil)
         (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?\\([[:alnum:]]+\\))[ ]+\\)?\\(Test[[:alnum:]_]+\\)(.*)")
-        (spacemacs/go-run-tests
+        (space-macs/go-run-tests
          (cond (go-use-testify-for-testing (concat "-run='Test" (match-string-no-properties 2) "' -testify.m='" (match-string-no-properties 3) "'"))
                (go-use-gocheck-for-testing (concat "-check.f='" (match-string-no-properties 3) "$'"))
                (t (concat "-run='" (match-string-no-properties 3) "$'")))))
     (message "Must be in a _test.go file to run go-run-test-current-function")))
 
-(defun spacemacs/go-run-test-current-suite ()
+(defun space-macs/go-run-test-current-suite ()
   (interactive)
   (if (string-match "_test\.go" buffer-file-name)
       (if (or go-use-testify-for-testing go-use-gocheck-for-testing)
@@ -127,11 +127,11 @@
                                "-run='Test")))
             (save-excursion
               (re-search-backward "^func[ ]+\\(([[:alnum:]]*?[ ]?[*]?\\([[:alnum:]]+\\))[ ]+\\)?\\(Test[[:alnum:]_]+\\)(.*)")
-              (spacemacs/go-run-tests (concat test-method (match-string-no-properties 2) "'"))))
+              (space-macs/go-run-tests (concat test-method (match-string-no-properties 2) "'"))))
         (message "Testify or Gocheck is needed to test the current suite"))
     (message "Must be in a _test.go file to run go-test-current-suite")))
 
-(defun spacemacs/go-run-main ()
+(defun space-macs/go-run-main ()
   (interactive)
   (shell-command
    (format (concat go-run-command " %s %s")
@@ -142,11 +142,13 @@
 
 ;; misc
 
-(defun spacemacs/go-packages-gopkgs ()
+(defun space-macs/go-packages-gopkgs ()
   "Return a list of all Go packages, using `gopkgs'."
   (sort (process-lines "gopkgs") #'string<))
 
-(defun spacemacs//go-set-tab-width ()
+(defun space-macs//go-set-tab-width ()
   "Set the tab width."
   (when go-tab-width
     (setq-local tab-width go-tab-width)))
+
+

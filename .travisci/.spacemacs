@@ -1,7 +1,7 @@
-(defun dotspacemacs/layers ()
+(defun dotspace-macs/layers ()
   (setq-default
-   dotspacemacs-distribution 'spacemacs
-   dotspacemacs-configuration-layers '(
+   dotspace-macs-distribution 'space-macs
+   dotspace-macs-configuration-layers '(
                                        (org :variables
                                             org-enable-github-support t
                                             org-enable-bootstrap-support t
@@ -14,7 +14,9 @@
                                               )
                                        html
                                        )))
-(defun dotspacemacs/init ())
-(defun dotspacemacs/user-init ())
-(defun dotspacemacs/config ())
-(defun dotspacemacs/user-config ())
+(defun dotspace-macs/init ())
+(defun dotspace-macs/user-init ())
+(defun dotspace-macs/config ())
+(defun dotspace-macs/user-config ())
+
+

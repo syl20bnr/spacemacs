@@ -24,8 +24,8 @@ a completion buffer.
 [[file:img/imenu-list-example.png]]
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =imenu-list= to the existing =dotspacemacs-configuration-layers= list in
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =imenu-list= to the existing =dotspace-macs-configuration-layers= list in
 this file.
 
 * Key bindings
@@ -45,3 +45,5 @@ this file.
 | ~d~         | display current entry, keep focus on imenu-list window |
 | ~f~         | fold/unfold current section                            |
 | ~r~         | refresh imenu-list window                              |
+
+

@@ -24,18 +24,18 @@
   - [[#debugger][debugger]]
 
 * Description
-This layer supports [[https://www.rust-lang.org][Rust]] development in Spacemacs.
+This layer supports [[https://www.rust-lang.org][Rust]] development in Space-macs.
 
 ** Features:
-- Auto-completion and navigation support through [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] or [[https://github.com/phildawes/racer][Racer]]
-- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
+- Auto-completion and navigation support through [[https://github.com/e-macs-lsp/lsp-mode][lsp-mode]] or [[https://github.com/phildawes/racer][Racer]]
+- Interactive debugger using [[https://github.com/e-macs-lsp/dap-mode][dap-mode]]
 - Support for the Rust package manager [[http://doc.crates.io/index.html][Cargo]]
 - Support for [[https://github.com/nabero/ron-mode][Rusty Object Notation (RON)]]
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =rust= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =rust= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Choosing a backend
@@ -54,7 +54,7 @@ Backend can be chosen on a per project basis using directory local variables
 
 #+BEGIN_SRC elisp
   ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
+  ;;; For more information see (info "(e-macs) Directory Variables")
 
   ((rust-mode (rust-backend . lsp)))
 #+END_SRC
@@ -69,9 +69,9 @@ the [[https://github.com/phildawes/racer#installation][installation instructions
 To enable auto-completion, ensure that the =auto-completion= layer is enabled.
 
 *** LSP
-You must add =lsp= to the existing =dotspacemacs-configuration-layers= in your =~/.spacemacs=.
+You must add =lsp= to the existing =dotspace-macs-configuration-layers= in your =~/.space-macs=.
 
-Consult the installation command for the desired language server found at [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] for instructions.
+Consult the installation command for the desired language server found at [[https://github.com/e-macs-lsp/lsp-mode][lsp-mode]] for instructions.
 
 The default LSP server for Rust is [[https://github.com/rust-lang/rls][rls]], i.e. rust language server.
 To choose the experimental [[https://github.com/rust-analyzer/rust-analyzer][rust-analyzer]], you need to set the layer variable =lsp-rust-server= of =lsp= layer:
@@ -160,4 +160,6 @@ To enable automatic buffer formatting on save, set the variable =rust-format-on-
 
 ** debugger
 Using the =dap= layer you'll get access to all the DAP key bindings, see the
-complete list of key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
+complete list of key bindings on the [[https://github.com/syl20bnr/space-macs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
+
+

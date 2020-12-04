@@ -1,11 +1,11 @@
-;;; packages.el --- ipython Layer packages File for Spacemacs
+;;; packages.el --- ipython Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -14,10 +14,10 @@
 (defun ipython-notebook/init-ein ()
   (use-package ein
     :init
-    (spacemacs/set-leader-keys "atil" 'ein:login
+    (space-macs/set-leader-keys "atil" 'ein:login
       "atir" 'ein:run
       "atis" 'ein:stop)
-    (spacemacs/declare-prefix "ati" "ipython notebook")
+    (space-macs/declare-prefix "ati" "ipython notebook")
     :config
     (with-eval-after-load 'ein-notebook
       (add-hook 'ein:notebook-mode-hook
@@ -53,7 +53,7 @@
                         ("C-r" ein:notebook-rename-command-km)
                         ("x" ein:notebook-close-km)
                         ("z" ein:notebook-kernel-interrupt-command-km))))
-        (apply #'spacemacs/set-leader-keys-for-minor-mode 'ein:notebook-mode
+        (apply #'space-macs/set-leader-keys-for-minor-mode 'ein:notebook-mode
                (cl-mapcan
                 (lambda (bind)
                   (if (fboundp (cl-second bind))
@@ -63,7 +63,7 @@
                        'warn (format "ipython-notebook/init-ein: undefined %s"
                                      (cl-second bind))))))
                 (copy-tree bindings)))
-        (eval (append '(spacemacs|define-transient-state
+        (eval (append '(space-macs|define-transient-state
                            ipython-notebook
                          :title "EIN Transient State"
                          :evil-leader-for-mode (ein:notebook-mode . ".")
@@ -176,3 +176,5 @@ For example, return 2 if COMMANDS are '(ein:notebook-foo ein:notebook-foo-bar)."
          end
          until (and (null other-commands) (null main-commands))
          finally return result)))))
+
+

@@ -1,16 +1,16 @@
-;;; config.el --- DAP mode functions File for Spacemacs
+;;; config.el --- DAP mode functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Ivan Yonchovski (yyoncho@gmail.com)
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 
-(defvar spacemacs--dap-supported-modes nil
+(defvar space-macs--dap-supported-modes nil
   "List of modes supported by DAP.")
 
 (defvar dap-enable-mouse-support t
@@ -18,3 +18,5 @@
 
 (defvar dap-enable-ui-controls t
   "If non-nil, enable `dap-mode''s UI controls.")
+
+

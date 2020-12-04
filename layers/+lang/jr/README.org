@@ -17,5 +17,7 @@ JR is the implementation of the [[https://www2.cs.arizona.edu/sr/][SR]] language
 - Syntax highlighting
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =jr= to the existing =dotspacemacs-configuration-layers= list in this file.
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =jr= to the existing =dotspace-macs-configuration-layers= list in this file.
+
+

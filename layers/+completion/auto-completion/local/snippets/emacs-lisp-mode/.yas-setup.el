@@ -1,6 +1,8 @@
-(defun spacemacs/get-parent-dir ()
+(defun space-macs/get-parent-dir ()
   (car (cdr ; Last item
         (reverse
          (split-string
           (file-name-sans-extension (buffer-file-name))
           "/")))))
+
+

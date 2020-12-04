@@ -16,7 +16,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-A layer to support Solidity development in Spacemacs.
+A layer to support Solidity development in Space-macs.
 
 ** Features:
 - Syntax highlighting
@@ -25,15 +25,15 @@ A layer to support Solidity development in Spacemacs.
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =solidity= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =solidity= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Linter
 *** solc
-To use the solc flycheck checker, install [[https://solidity.readthedocs.io][solc]], and enable it in your =~/.spacemacs=.
+To use the solc flycheck checker, install [[https://solidity.readthedocs.io][solc]], and enable it in your =~/.space-macs=.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (solidity :variables
             solidity-flycheck-solc-checker-active t)
 #+END_SRC
@@ -47,9 +47,9 @@ To use solium flycheck checker, install [[https://github.com/duaraghav8/Ethlint]
   npm i -g ethlint
 #+END_SRC
 
-Then enable it in your =~/.spacemacs=:
+Then enable it in your =~/.space-macs=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (solidity :variables
             solidity-flycheck-solium-checker-active t)
 #+END_SRC
@@ -72,3 +72,5 @@ And make sure that =.soliumrc.json= exists in the root directory of your DApp:
 | Key binding | Description           |
 |-------------+-----------------------|
 | ~SPC m g~   | Estimate gas at point |
+
+

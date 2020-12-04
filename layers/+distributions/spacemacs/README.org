@@ -1,28 +1,30 @@
-#+TITLE: spacemacs distribution
+#+TITLE: space-macs distribution
 
-#+TAGS: distribution|layer|spacemacs
+#+TAGS: distribution|layer|space-macs
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 
 * Description
-This is the default distribution for Spacemacs.
+This is the default distribution for Space-macs.
 
 ** Features:
-- Easy access to the Spacemacs experience by adding below auxiliary layers
+- Easy access to the Space-macs experience by adding below auxiliary layers
   to the base distribution.
   - helm
-  - treemacs
-  - spacemacs-completion
-  - spacemacs-layouts
-  - spacemacs-editing
-  - spacemacs-editing-visual
-  - spacemacs-evil
-  - spacemacs-language
-  - spacemacs-misc
-  - spacemacs-modeline
-  - spacemacs-navigation
-  - spacemacs-org
-  - spacemacs-purpose
-  - spacemacs-visual
+  - tree-macs
+  - space-macs-completion
+  - space-macs-layouts
+  - space-macs-editing
+  - space-macs-editing-visual
+  - space-macs-evil
+  - space-macs-language
+  - space-macs-misc
+  - space-macs-modeline
+  - space-macs-navigation
+  - space-macs-org
+  - space-macs-purpose
+  - space-macs-visual
+
+

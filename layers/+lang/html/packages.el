@@ -1,11 +1,11 @@
-;;; packages.el --- HTML Layer packages File for Spacemacs
+;;; packages.el --- HTML Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -46,7 +46,7 @@
 
 (defun html/post-init-company ()
   (unless css-enable-lsp
-    (spacemacs|add-company-backends
+    (space-macs|add-company-backends
       :backends company-css
       :modes css-mode)))
 
@@ -55,13 +55,13 @@
     :defer t
     :init
     (progn
-      (spacemacs|add-company-backends
+      (space-macs|add-company-backends
         :backends (company-web-html company-css)
         :modes web-mode)
-      (spacemacs|add-company-backends
+      (space-macs|add-company-backends
         :backends company-web-jade
         :modes pug-mode)
-      (spacemacs|add-company-backends
+      (space-macs|add-company-backends
         :backends company-web-slim
         :modes slim-mode))))
 
@@ -75,33 +75,33 @@
 
       (when css-enable-lsp
         (add-hook 'css-mode-hook
-                  #'spacemacs//setup-lsp-for-web-mode-buffers t))
+                  #'space-macs//setup-lsp-for-web-mode-buffers t))
 
       ;; Explicitly run prog-mode hooks since css-mode does not derive from
-      ;; prog-mode major-mode in Emacs 24 and below.
-      (when (version< emacs-version "25")
-        (add-hook 'css-mode-hook 'spacemacs/run-prog-mode-hooks))
+      ;; prog-mode major-mode in e-macs 24 and below.
+      (when (version< e-macs-version "25")
+        (add-hook 'css-mode-hook 'space-macs/run-prog-mode-hooks))
 
-      (spacemacs/declare-prefix-for-mode 'css-mode "m=" "format")
-      (spacemacs/declare-prefix-for-mode 'css-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'css-mode "mz" "foldz")
+      (space-macs/declare-prefix-for-mode 'css-mode "m=" "format")
+      (space-macs/declare-prefix-for-mode 'css-mode "mg" "goto")
+      (space-macs/declare-prefix-for-mode 'css-mode "mz" "foldz")
 
-      (spacemacs/set-leader-keys-for-major-mode 'css-mode
-        "zc" 'spacemacs/css-contract-statement
-        "zo" 'spacemacs/css-expand-statement))))
+      (space-macs/set-leader-keys-for-major-mode 'css-mode
+        "zc" 'space-macs/css-contract-statement
+        "zo" 'space-macs/css-expand-statement))))
 
 (defun html/init-emmet-mode ()
   (use-package emmet-mode
     :defer t
-    :init (spacemacs/add-to-hooks 'emmet-mode '(css-mode-hook
+    :init (space-macs/add-to-hooks 'emmet-mode '(css-mode-hook
                                                 html-mode-hook
                                                 sass-mode-hook
                                                 scss-mode-hook
                                                 web-mode-hook))
     :config
     (progn
-      (define-key emmet-mode-keymap (kbd "<C-return>") 'spacemacs/emmet-expand)
-      (spacemacs|hide-lighter emmet-mode))))
+      (define-key emmet-mode-keymap (kbd "<C-return>") 'space-macs/emmet-expand)
+      (space-macs|hide-lighter emmet-mode))))
 
 (defun html/post-init-evil-matchit ()
   (add-hook 'web-mode-hook 'turn-on-evil-matchit-mode))
@@ -114,7 +114,7 @@
                   scss-mode
                   slim-mode
                   web-mode))
-    (spacemacs/enable-flycheck mode)))
+    (space-macs/enable-flycheck mode)))
 
 (defun html/init-haml-mode ()
   (use-package haml-mode
@@ -126,14 +126,14 @@
     :init (cl-loop for (mode . mode-hook) in '((css-mode . css-mode-hook)
                                                (scss-mode . scss-mode-hook))
                    do (add-hook mode-hook 'counsel-css-imenu-setup)
-                   (spacemacs/set-leader-keys-for-major-mode mode "gh" 'counsel-css))))
+                   (space-macs/set-leader-keys-for-major-mode mode "gh" 'counsel-css))))
 
 (defun html/init-helm-css-scss ()
   (use-package helm-css-scss
     :defer t
     :init
     (dolist (mode '(css-mode scss-mode))
-      (spacemacs/set-leader-keys-for-major-mode mode "gh" 'helm-css-scss))))
+      (space-macs/set-leader-keys-for-major-mode mode "gh" 'helm-css-scss))))
 
 (defun html/init-impatient-mode ()
   (use-package impatient-mode
@@ -141,7 +141,7 @@
     :init
     (progn
       (dolist (mode '(web-mode css-mode))
-        (spacemacs/set-leader-keys-for-major-mode 'web-mode "I" 'spacemacs/impatient-mode)))))
+        (space-macs/set-leader-keys-for-major-mode 'web-mode "I" 'space-macs/impatient-mode)))))
 
 (defun html/init-less-css-mode ()
   (use-package less-css-mode
@@ -149,13 +149,13 @@
     :init
     (when less-enable-lsp
       (add-hook 'less-css-mode-hook
-                #'spacemacs//setup-lsp-for-web-mode-buffers t))
+                #'space-macs//setup-lsp-for-web-mode-buffers t))
     :mode ("\\.less\\'" . less-css-mode)))
 
 (defun html/pre-init-prettier-js ()
   (when (eq web-fmt-tool 'prettier)
     (dolist (mode '(css-mode less-css-mode scss-mode web-mode))
-      (add-to-list 'spacemacs--prettier-modes mode))))
+      (add-to-list 'space-macs--prettier-modes mode))))
 
 (defun html/init-pug-mode ()
   (use-package pug-mode
@@ -172,7 +172,7 @@
     :defer t
     :init
     (when scss-enable-lsp
-      (add-hook 'scss-mode-hook #'spacemacs//setup-lsp-for-web-mode-buffers t))
+      (add-hook 'scss-mode-hook #'space-macs//setup-lsp-for-web-mode-buffers t))
     :mode ("\\.scss\\'" . scss-mode)))
 
 (defun html/init-slim-mode ()
@@ -180,13 +180,13 @@
     :defer t))
 
 (defun html/post-init-smartparens ()
-  (spacemacs/add-to-hooks
-   (if dotspacemacs-smartparens-strict-mode
+  (space-macs/add-to-hooks
+   (if dotspace-macs-smartparens-strict-mode
        'smartparens-strict-mode
      'smartparens-mode)
    '(css-mode-hook scss-mode-hook sass-mode-hook less-css-mode-hook))
 
-  (add-hook 'web-mode-hook 'spacemacs/toggle-smartparens-off))
+  (add-hook 'web-mode-hook 'space-macs/toggle-smartparens-off))
 
 (defun html/init-tagedit ()
   (use-package tagedit
@@ -195,24 +195,24 @@
     (progn
       (tagedit-add-experimental-features)
       (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))
-      (spacemacs|diminish tagedit-mode " Ⓣ" " T"))))
+      (space-macs|diminish tagedit-mode " â“‰" " T"))))
 
 (defun html/init-web-mode ()
   (use-package web-mode
     :defer t
     :init
     (progn
-      (spacemacs//web-setup-transient-state)
+      (space-macs//web-setup-transient-state)
       (when html-enable-lsp
-        (add-hook 'web-mode-hook #'spacemacs//setup-lsp-for-html-buffer t)))
+        (add-hook 'web-mode-hook #'space-macs//setup-lsp-for-html-buffer t)))
     :config
     (progn
-      (spacemacs/declare-prefix-for-mode 'web-mode "m=" "format")
-      (spacemacs/declare-prefix-for-mode 'web-mode "mE" "errors")
-      (spacemacs/declare-prefix-for-mode 'web-mode "mg" "goto")
-      (spacemacs/declare-prefix-for-mode 'web-mode "mh" "dom")
-      (spacemacs/declare-prefix-for-mode 'web-mode "mr" "refactor")
-      (spacemacs/set-leader-keys-for-major-mode 'web-mode
+      (space-macs/declare-prefix-for-mode 'web-mode "m=" "format")
+      (space-macs/declare-prefix-for-mode 'web-mode "mE" "errors")
+      (space-macs/declare-prefix-for-mode 'web-mode "mg" "goto")
+      (space-macs/declare-prefix-for-mode 'web-mode "mh" "dom")
+      (space-macs/declare-prefix-for-mode 'web-mode "mr" "refactor")
+      (space-macs/set-leader-keys-for-major-mode 'web-mode
         "El" 'web-mode-dom-errors-show
         "gb" 'web-mode-element-beginning
         "gc" 'web-mode-element-child
@@ -248,10 +248,12 @@
      ("\\.djhtml\\'"     . web-mode))))
 
 (defun html/post-init-yasnippet ()
-  (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(css-mode-hook
+  (space-macs/add-to-hooks 'space-macs/load-yasnippet '(css-mode-hook
                                                       jade-mode
                                                       slim-mode)))
 (defun html/pre-init-web-beautify ()
   (when (eq web-fmt-tool 'web-beautify)
-    (add-to-list 'spacemacs--web-beautify-modes (cons 'css-mode 'web-beautify-css))
-    (add-to-list 'spacemacs--web-beautify-modes (cons 'web-mode 'web-beautify-html))))
+    (add-to-list 'space-macs--web-beautify-modes (cons 'css-mode 'web-beautify-css))
+    (add-to-list 'space-macs--web-beautify-modes (cons 'web-mode 'web-beautify-html))))
+
+

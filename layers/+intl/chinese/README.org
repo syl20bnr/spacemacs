@@ -10,66 +10,66 @@
 - [[#install][Install]]
   - [[#layer][Layer]]
   - [[#configuration][Configuration]]
-    - [[#configure-the-default-input-method-配置默认中文输入法][Configure the Default Input Method (配置默认中文输入法)]]
-    - [[#configure-the-chinese-pyim-input-method-配置中文拼音输入法][Configure the =Chinese-pyim= Input Method (配置中文拼音输入法)]]
-    - [[#configure-chinese-conv-配置简繁转换][Configure =chinese-conv= (配置简繁转换)]]
+    - [[#configure-the-default-input-method-é…ç½®é»˜è®¤ä¸­æ–‡è¾“å…¥æ³•][Configure the Default Input Method (é…ç½®é»˜è®¤ä¸­æ–‡è¾“å…¥æ³•)]]
+    - [[#configure-the-chinese-pyim-input-method-é…ç½®ä¸­æ–‡æ‹¼éŸ³è¾“å…¥æ³•][Configure the =Chinese-pyim= Input Method (é…ç½®ä¸­æ–‡æ‹¼éŸ³è¾“å…¥æ³•)]]
+    - [[#configure-chinese-conv-é…ç½®ç®€ç¹è½¬æ¢][Configure =chinese-conv= (é…ç½®ç®€ç¹è½¬æ¢)]]
     - [[#enable-fcitx][Enable fcitx]]
       - [[#enable-fcitx5][Enable Fcitx5]]
       - [[#requirement][Requirement]]
         - [[#linux][Linux]]
         - [[#macos][macOS]]
         - [[#windows][Windows]]
-    - [[#enable-youdao-有道-dictionary-激活有道字典][Enable YouDao (有道) Dictionary (激活有道字典)]]
-    - [[#set-monospaced-font-size-设置等宽字体][Set monospaced font size (设置等宽字体)]]
+    - [[#enable-youdao-æœ‰é“-dictionary-æ¿€æ´»æœ‰é“å­—å…¸][Enable YouDao (æœ‰é“) Dictionary (æ¿€æ´»æœ‰é“å­—å…¸)]]
+    - [[#set-monospaced-font-size-è®¾ç½®ç­‰å®½å­—ä½“][Set monospaced font size (è®¾ç½®ç­‰å®½å­—ä½“)]]
     - [[#enabledisable-ace-pinyin-in-avy-goto-char][Enable/Disable ace-pinyin in =avy-goto-char=]]
 - [[#key-bindings][Key bindings]]
   - [[#youdao-dictionary][Youdao Dictionary]]
   - [[#find-by-pinyin-dired][Find-by-pinyin-dired]]
 
 * Description
-This layer adds support for traditional Chinese script to Spacemacs.
+This layer adds support for traditional Chinese script to Space-macs.
 
 ** Features:
-- Support for the [[https://en.wikipedia.org/wiki/Pinyin][Pinyin (拼音)]] input method via [[https://github.com/tumashu/chinese-pyim][chinese-pyim]].
-- Support for the [[https://en.wikipedia.org/wiki/Wubi_method][Wubi (五笔)]] input method via [[https://github.com/andyque/chinese-wbim][chinese-wbim]].
+- Support for the [[https://en.wikipedia.org/wiki/Pinyin][Pinyin (æ‹¼éŸ³)]] input method via [[https://github.com/tumashu/chinese-pyim][chinese-pyim]].
+- Support for the [[https://en.wikipedia.org/wiki/Wubi_method][Wubi (äº”ç¬”)]] input method via [[https://github.com/andyque/chinese-wbim][chinese-wbim]].
 - Integration of the native input method framework [[https://en.wikipedia.org/wiki/Fcitx][fcitx]] via [[https://github.com/cute-jumper/fcitx.el][cute-jumper/fcitx.el]].
-- Integration of the [[https://en.wikipedia.org/wiki/Youdao][Youdao (有道) Dictionary]] via [[https://github.com/xuchunyang/youdao-dictionary.el][youdao-dictionary]].
+- Integration of the [[https://en.wikipedia.org/wiki/Youdao][Youdao (æœ‰é“) Dictionary]] via [[https://github.com/xuchunyang/youdao-dictionary.el][youdao-dictionary]].
 - Support for file searches in =dired= using Chinese Pinyin characters via [[https://github.com/redguardtoo/find-by-pinyin-dired][find-by-pinyin-dired]].
 - Support for jumping to Chinese Pinyin characters with =ace-jump-mode= via [[https://github.com/cute-jumper/ace-pinyin][ace-pinyin]].
-- Support for conversion between simplified and traditional Chinese texts via [[https://github.com/gucong/emacs-chinese-conv/][chinese-conv]].
+- Support for conversion between simplified and traditional Chinese texts via [[https://github.com/gucong/e-macs-chinese-conv/][chinese-conv]].
 - Automatic visual separation of Chinese and Latin characters via [[https://github.com/coldnew/pangu-spacing][coldnew/pangu-spacing]].
 - Automatic joining of consecutive Chinese lines into a single long line without unwanted space when exporting org-mode to html.
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =chinese= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =chinese= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Configuration
-*** Configure the Default Input Method (配置默认中文输入法)
-The default Chinese input method is =Chinese-pyim=, if you are a Wubi (五笔) user,
+*** Configure the Default Input Method (é…ç½®é»˜è®¤ä¸­æ–‡è¾“å…¥æ³•)
+The default Chinese input method is =Chinese-pyim=, if you are a Wubi (äº”ç¬”) user,
 you could set the variable =chinese-default-input-method= to =wubi=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (chinese :variables chinese-default-input-method 'wubi)))
 #+END_SRC
 
-*** Configure the =Chinese-pyim= Input Method (配置中文拼音输入法)
-The first time you use =Chinese-pyim=, you need to install the lexicon (词库)
+*** Configure the =Chinese-pyim= Input Method (é…ç½®ä¸­æ–‡æ‹¼éŸ³è¾“å…¥æ³•)
+The first time you use =Chinese-pyim=, you need to install the lexicon (è¯åº“)
 file. Call =pyim-dicts-manager= to open up the settings buffer and
 press =i e= to install the default lexicon. The lexicon is about 20MB, so you
 should be patient when downloading starts. After the lexicon file is downloaded,
 just press =s= to save and =R= to restart configuration.
 
-*** Configure =chinese-conv= (配置简繁转换)
+*** Configure =chinese-conv= (é…ç½®ç®€ç¹è½¬æ¢)
 The =chinese-conv= package requires either [[https://github.com/BYVoid/OpenCC][opencc]] or [[https://github.com/xiaoyjy/cconv][cconv]] installed.
 
 By default, =opencc= will be used as the backend, set
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '((chinese :variables
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '((chinese :variables
                                                              chinese-conv-backend "cconv")))
 #+END_SRC
 
@@ -86,8 +86,8 @@ to replace arbitrary input, or
 to replace the current selection in-place.
 
 *** Enable fcitx
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '((chinese :variables
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '((chinese :variables
                                                              chinese-enable-fcitx t)))
 #+END_SRC
 
@@ -98,14 +98,14 @@ with the following configuration.
 If you want to use fcitx5 instead of fcitx4, enable the variable
 =chinese-use-fcitx5=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((chinese :variables
                            chinese-use-fcitx5 t
                            chinese-enable-fcitx t)))
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (fcitx-aggressive-setup)
 #+END_SRC
 
@@ -115,8 +115,8 @@ You need to install =fcitx= on your machine.
 
 It's recommended to use the dbus interface to speed up =fcitx= a little:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '((chinese :variables
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '((chinese :variables
                                                              chinese-enable-fcitx t
                                                              chinese-fcitx-use-dbus t)))
 #+END_SRC
@@ -146,35 +146,35 @@ method support.
 ***** Windows
 In order to use =fcitx.el= in Windows, you should install [[https://github.com/cute-jumper/fcitx-remote-for-windows][fcitx-remote-for-windows]].
 
-*** Enable YouDao (有道) Dictionary (激活有道字典)
+*** Enable YouDao (æœ‰é“) Dictionary (æ¿€æ´»æœ‰é“å­—å…¸)
 The YouDao Dictionary is disabled by default, if you want enable it.
 You should set =chinese-enable-youdao-dict= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '((chinese :variables
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '((chinese :variables
                                                              chinese-enable-youdao-dict t)))
 #+END_SRC
 
-*** Set monospaced font size (设置等宽字体)
+*** Set monospaced font size (è®¾ç½®ç­‰å®½å­—ä½“)
 If you are mixing Chinese script with Latin script, the text is not perfectly
 aligned in org table. That's because normally the Chinese font size is not equal
-to the Latin font size. You could call =spacemacs//set-monospaced-font= with
-your own Chinese font name in =dotspacemacs/user-config= function.
+to the Latin font size. You could call =space-macs//set-monospaced-font= with
+your own Chinese font name in =dotspace-macs/user-config= function.
 
 Example configuration:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;; Note: The Hiragino Sans GB is bundled with macOS.
   ;; If you are not using macOS, you should change it to another Chinese font name.
-  (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16)
+  (space-macs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16)
 #+END_SRC
 
 *** Enable/Disable ace-pinyin in =avy-goto-char=
 You can use =avy-goto-char= with pinyin supported by default, if you want to
 disable it. You can set =chinese-enable-avy-pinyin= to =nil=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '((chinese :variables
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '((chinese :variables
                                                              chinese-enable-avy-pinyin nil)))
 #+END_SRC
 
@@ -183,10 +183,12 @@ Currently, there are no built-in key bindings for this layer. You could define
 your own preference.
 
 Here are a few suggested key bindings (remember that ~SPC o~ is reserved for
-personal usage, spacemacs won´t put any binding under this prefix):
+personal usage, space-macs wonÂ´t put any binding under this prefix):
 
 ** Youdao Dictionary
 Bind ~SPC o y~ to =youdao-dictionary-search-at-point+=.
 
 ** Find-by-pinyin-dired
 Bind ~SPC o d~ to =find-by-pinyin-dired=
+
+

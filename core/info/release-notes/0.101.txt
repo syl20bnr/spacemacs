@@ -7,4 +7,6 @@ Be sure to update your dotfile to add these layers.
 Init functions:
 The init function <layer>/init-<package> is now mandatory. Any package
 without an explicit init function will be ignored and uninstalled by
-Spacemacs.
+Space-macs.
+
+

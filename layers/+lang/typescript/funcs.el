@@ -1,18 +1,18 @@
-;;; funcs.el --- TypeScript  Layer functions File for Spacemacs
+;;; funcs.el --- TypeScript  Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 
 ;; backend
 
-(defun spacemacs//typescript-backend ()
+(defun space-macs//typescript-backend ()
   "Returns selected backend."
   (if typescript-backend
       typescript-backend
@@ -20,27 +20,27 @@
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
      (t 'tide))))
 
-(defun spacemacs//typescript-setup-backend ()
+(defun space-macs//typescript-setup-backend ()
   "Conditionally setup typescript backend."
-  (pcase (spacemacs//typescript-backend)
-    (`tide (spacemacs//tide-setup))
-    (`lsp (spacemacs//typescript-setup-lsp))))
+  (pcase (space-macs//typescript-backend)
+    (`tide (space-macs//tide-setup))
+    (`lsp (space-macs//typescript-setup-lsp))))
 
-(defun spacemacs//typescript-setup-company ()
+(defun space-macs//typescript-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//typescript-backend)
-    (`tide (spacemacs//tide-setup-company 'typescript-mode 'typescript-tsx-mode))))
+  (pcase (space-macs//typescript-backend)
+    (`tide (space-macs//tide-setup-company 'typescript-mode 'typescript-tsx-mode))))
 
-(defun spacemacs//typescript-setup-eldoc ()
+(defun space-macs//typescript-setup-eldoc ()
   "Conditionally setup eldoc based on backend."
-  (pcase (spacemacs//typescript-backend)
-    (`tide (spacemacs//tide-setup-eldoc))
-    (`lsp (spacemacs//typescript-setup-lsp-eldoc))))
+  (pcase (space-macs//typescript-backend)
+    (`tide (space-macs//tide-setup-eldoc))
+    (`lsp (space-macs//typescript-setup-lsp-eldoc))))
 
 
 ;; lsp
 
-(defun spacemacs//typescript-setup-lsp ()
+(defun space-macs//typescript-setup-lsp ()
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
@@ -50,21 +50,21 @@
     (message (concat "`lsp' layer is not installed, "
                      "please add `lsp' layer to your dotfile."))))
 
-(defun spacemacs//typescript-setup-lsp-eldoc ()
+(defun space-macs//typescript-setup-lsp-eldoc ()
   "Setup eldoc for LSP."
   (eldoc-mode))
 
 
 ;; Emmet
 
-(defun spacemacs/typescript-emmet-mode ()
+(defun space-macs/typescript-emmet-mode ()
   "Configure `emmet-mode' for local buffer."
   (setq-local emmet-expand-jsx-className? t))
 
 
 ;; Others
 
-(defun spacemacs/typescript-tsfmt-format-buffer ()
+(defun space-macs/typescript-tsfmt-format-buffer ()
   "Format buffer with tsfmt."
   (interactive)
   (if (executable-find "tsfmt")
@@ -97,12 +97,12 @@
                 (delete-file tmpfile)))))
     (error "tsfmt not found. Run \"npm install -g typescript-formatter\"")))
 
-(defun spacemacs/typescript-format ()
+(defun space-macs/typescript-format ()
   "Call formatting tool specified in `typescript-fmt-tool'."
   (interactive)
   (cond
    ((eq typescript-fmt-tool 'typescript-formatter)
-    (call-interactively 'spacemacs/typescript-tsfmt-format-buffer))
+    (call-interactively 'space-macs/typescript-tsfmt-format-buffer))
    ((eq typescript-fmt-tool 'tide)
     (call-interactively 'tide-format))
    ((eq typescript-fmt-tool 'prettier)
@@ -111,10 +111,10 @@
                      " It should be 'tide, 'typescript-formatter or 'prettier.")
                      (symbol-name typescript-fmt-tool)))))
 
-(defun spacemacs/typescript-fmt-before-save-hook ()
-  (add-hook 'before-save-hook 'spacemacs/typescript-format t t))
+(defun space-macs/typescript-fmt-before-save-hook ()
+  (add-hook 'before-save-hook 'space-macs/typescript-format t t))
 
-(defun spacemacs/typescript-open-region-in-playground (start end)
+(defun space-macs/typescript-open-region-in-playground (start end)
   "Open selected region in http://www.typescriptlang.org/Playground
                  If nothing is selected - open the whole current buffer."
   (interactive (if (use-region-p)
@@ -123,19 +123,21 @@
   (browse-url (concat "http://www.typescriptlang.org/Playground#src="
                       (url-hexify-string (buffer-substring-no-properties start end)))))
 
-(defun spacemacs/typescript-yasnippet-setup ()
+(defun space-macs/typescript-yasnippet-setup ()
   (yas-activate-extra-mode 'js-mode))
 
-(defun spacemacs/typescript-jump-to-type-def ()
+(defun space-macs/typescript-jump-to-type-def ()
   (interactive)
   (tide-jump-to-definition))
 
-(defun spacemacs/typescript-safe-local-variables (values)
+(defun space-macs/typescript-safe-local-variables (values)
   ;; safe values for backend to be used in directory file variables
   (dolist (value values)
     (add-to-list 'safe-local-variable-values
                  (cons 'typescript-backend value))))
 
-(defun spacemacs//typescript-setup-checkers ()
+(defun space-macs//typescript-setup-checkers ()
   (when-let* ((found (executable-find "eslint_d")))
     (set (make-local-variable 'flycheck-javascript-eslint-executable) found)))
+
+

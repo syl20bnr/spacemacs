@@ -1,8 +1,8 @@
-       ╭───────────────────────────────────────────────────────────╮
+       â•­â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â•®
 
                        VERSION 0.300 IS ALMOST OUT!
 
-       ╰───────────────────────────────────────────────────────────╯
+       â•°â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â•¯
 
 The long awaited feature to have stable ELPA packages is now available in the
 develop branch and we need to test it out before we release the 0.300 version.
@@ -16,20 +16,20 @@ In the end only the master branch will use the stable ELPA repository and the
 develop branch will continue to use bleeding edge packages from MELPA
 essentially.
 
-Unfortunately this new feature requires at least Emacs 25.1 to work correctly as
+Unfortunately this new feature requires at least e-macs 25.1 to work correctly as
 we need the archive priority feature of package.el that shipped with this
-version of Emacs.
+version of e-macs.
 
 The ELPA repository configuration is set in a new immutable file called .lock
-that sits at the root of the Spacemacs git repository.
+that sits at the root of the Space-macs git repository.
 
-Spacemacs downloads the whole ELPA stable repository locally so it means that
+Space-macs downloads the whole ELPA stable repository locally so it means that
 once it is installed you don't need an Internet connection anymore to install
-any packages covered by Spacemacs layers!
+any packages covered by Space-macs layers!
 
 Default installation location of the ELPA stable repository is in:
 
-    ~/.emacs.d/.cache/stable-elpa
+    ~/.e-macs.d/.cache/stable-elpa
 
 If you want to disable the ELPA stable repository put this in your dotfile in
 the user-init function:
@@ -38,3 +38,5 @@ the user-init function:
           '(("melpa"    . "melpa.org/packages/")
             ("org"      . "orgmode.org/elpa/")
             ("gnu"      . "elpa.gnu.org/packages/")))
+
+

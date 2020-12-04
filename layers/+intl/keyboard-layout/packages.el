@@ -1,11 +1,11 @@
-;;; packages.el --- keyboard-layout Layer Packages File for Spacemacs
+;;; packages.el --- keyboard-layout Layer Packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Fabien Dubosson <fabien.dubosson@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -44,7 +44,7 @@
     :description
     "Change `ace-window' keys to the central row."
     :loader
-    (spacemacs|use-package-add-hook ace-window :post-init BODY)
+    (space-macs|use-package-add-hook ace-window :post-init BODY)
     :bepo
     (setq aw-keys '(?a ?u ?i ?e ?t ?s ?r ?n))
     :dvorak
@@ -65,7 +65,7 @@
     :description
     "Change `avy' keys to the central row."
     :loader
-    (spacemacs|use-package-add-hook avy :post-init BODY)
+    (space-macs|use-package-add-hook avy :post-init BODY)
     :bepo
     (setq-default avy-keys '(?a ?u ?i ?e ?t ?s ?r ?n))
     :dvorak
@@ -98,7 +98,7 @@
     :description
     "Remap `company' bindings."
     :loader
-    (spacemacs|use-package-add-hook company :post-config BODY)
+    (space-macs|use-package-add-hook company :post-config BODY)
     :common
     (kl/correct-keys company-active-map
       "C-h"
@@ -125,7 +125,7 @@
     :description
     "Remap `elfeed' bindings."
     :loader
-    (spacemacs|use-package-add-hook elfeed :post-config BODY)
+    (space-macs|use-package-add-hook elfeed :post-config BODY)
     :common
     (progn
       (kl/evil-correct-keys 'evilified elfeed-search-mode-map
@@ -162,17 +162,17 @@
     :bepo
     (progn
       (kl/set-in-all-evil-states-but-insert
-        "é" 'evil-forward-word-begin
-        "É" 'evil-forward-WORD-begin)
+        "Ã©" 'evil-forward-word-begin
+        "Ã‰" 'evil-forward-WORD-begin)
       (kl/set-in-state evil-inner-text-objects-map
-        "é" 'evil-inner-word
-        "É" 'evil-inner-WORD)
+        "Ã©" 'evil-inner-word
+        "Ã‰" 'evil-inner-WORD)
       (kl/set-in-state evil-outer-text-objects-map
-        "é" 'evil-a-word
-        "É" 'evil-a-WORD)
+        "Ã©" 'evil-a-word
+        "Ã‰" 'evil-a-WORD)
       (kl/set-in-all-evil-states-but-insert
-        "«" 'evil-shift-left
-        "»" 'evil-shift-right))
+        "Â«" 'evil-shift-left
+        "Â»" 'evil-shift-right))
     :dvorak
     ;; Invert it twice to reset `k' and `K' for searching
     (dolist (map kl--all-evil-states-but-insert)
@@ -204,12 +204,12 @@
     ;;   "wL")
     :bepo
     (progn
-      (spacemacs/set-leader-keys
-        "wé" 'other-window
+      (space-macs/set-leader-keys
+        "wÃ©" 'other-window
         "wq" 'delete-window)
-      (kl/leader-alias-of "é" "w"))))
+      (kl/leader-alias-of "Ã©" "w"))))
 
-;; HACK: These are defined by the spacemacs-bootstrap layer, and this is the
+;; HACK: These are defined by the space-macs-bootstrap layer, and this is the
 ;; only I've found to make them stick.  An unfortunate consequence of using
 ;; `kl|config evil' twice is that user hooks for this configuration will be run
 ;; twice as well.
@@ -220,14 +220,14 @@
     :colemak-jkhl
     (progn
       (define-key evil-normal-state-map "K" nil)
-      (define-key evil-normal-state-map "L" 'spacemacs/evil-smart-doc-lookup))))
+      (define-key evil-normal-state-map "L" 'space-macs/evil-smart-doc-lookup))))
 
 (defun keyboard-layout/pre-init-evil-cleverparens ()
   (kl|config evil-cleverparens
     :description
     "Remap `evil-cleverparens' bindings."
     :loader
-    ;; (spacemacs|use-package-add-hook evil-cleverparens :post-init BODY)
+    ;; (space-macs|use-package-add-hook evil-cleverparens :post-init BODY)
     (with-eval-after-load 'evil-cleverparens BODY)
     :common
     (kl/evil-correct-keys 'normal evil-cleverparens-mode-map
@@ -241,7 +241,7 @@
     :description
     "Change `evil-escape' default escape combination for a better one than `fd'."
     :loader
-    (spacemacs|use-package-add-hook evil-escape :post-init BODY)
+    (space-macs|use-package-add-hook evil-escape :post-init BODY)
     :bepo
     (setq-default evil-escape-key-sequence "gq")
     :colemak-neio
@@ -301,7 +301,7 @@
     :description
     "Remap `evil-surround' bindings."
     :loader
-    (spacemacs|use-package-add-hook evil-surround :post-config BODY)
+    (space-macs|use-package-add-hook evil-surround :post-config BODY)
     :common
     (kl/evil-correct-keys 'visual evil-surround-mode-map "s")))
 
@@ -310,7 +310,7 @@
     :description
     "Remap `eyebrowse' keybindings conflicting with evil."
     :loader
-    (spacemacs|use-package-add-hook eyebrowse :post-init BODY)
+    (space-macs|use-package-add-hook eyebrowse :post-init BODY)
     :common
     (kl/correct-keys evil-motion-state-map "gj"))
 
@@ -327,7 +327,7 @@
     :description
     "Remap `flycheck-error-list' bindings."
     :loader
-    (spacemacs|use-package-add-hook flycheck :post-config BODY)
+    (space-macs|use-package-add-hook flycheck :post-config BODY)
     :common
     (kl/evil-correct-keys 'evilified flycheck-error-list-mode-map
       "j"
@@ -338,7 +338,7 @@
     :description
     "Remap `helm' bindings."
     :loader
-    (spacemacs|use-package-add-hook helm :post-config BODY)
+    (space-macs|use-package-add-hook helm :post-config BODY)
     :common
     (kl/correct-keys helm-map
       "C-h"
@@ -399,7 +399,7 @@
     :description
     "Remap `imenu-list' bindings."
     :loader
-    (spacemacs|use-package-add-hook imenu-list :post-config BODY)
+    (space-macs|use-package-add-hook imenu-list :post-config BODY)
     :common
     (kl/evil-correct-keys 'evilified imenu-list-major-mode-map
       "j"
@@ -410,7 +410,7 @@
     :description
     "Remap `ivy' bindings."
     :loader
-    (spacemacs|use-package-add-hook ivy :post-config BODY)
+    (space-macs|use-package-add-hook ivy :post-config BODY)
     :common
     (progn
       (kl/correct-keys ivy-minibuffer-map
@@ -424,7 +424,7 @@
     :description
     "Remap `magit' bindings."
     :loader
-    (spacemacs|use-package-add-hook magit :post-config BODY)
+    (space-macs|use-package-add-hook magit :post-config BODY)
     :common
     (dolist (map (list magit-branch-section-map
                        magit-commit-section-map
@@ -460,7 +460,7 @@
     :description
     "Remap navigation keys in `mu4e' headers and view mode."
     :loader
-    (spacemacs|use-package-add-hook mu4e :post-config BODY)
+    (space-macs|use-package-add-hook mu4e :post-config BODY)
     :common
     (dolist (map (list mu4e-headers-mode-map
                        mu4e-view-mode-map))
@@ -475,7 +475,7 @@
     (dolist (map (list mu4e-headers-mode-map
                        mu4e-view-mode-map))
       (evil-define-key 'evilified map
-        "è" 'mu4e-headers-mark-subthread
+        "Ã¨" 'mu4e-headers-mark-subthread
         "/" 'mu4e-headers-search))))
 
 (defun keyboard-layout/pre-init-neotree ()
@@ -483,7 +483,7 @@
     :descripition
     "Remap `neotree' bindings."
     :loader
-    (spacemacs|use-package-add-hook neotree :post-config BODY)
+    (space-macs|use-package-add-hook neotree :post-config BODY)
     :common
     (kl/evil-correct-keys 'evilified neotree-mode-map
       "h"
@@ -531,7 +531,7 @@
                  (kbd "M-J") 'transpose-chars
                  (kbd "M-K") 'kill-sentence
                  (kbd "M-L") 'move-to-window-line-top-bottom)))
-      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+      (space-macs/set-leader-keys-for-major-mode 'org-mode
         ;; ctsr
         "C-S-c" 'org-shiftcontrolleft
         "C-S-t" 'org-shiftcontroldown
@@ -550,11 +550,11 @@
         "gj" nil
         "gk" nil
         ;; additional
-        (kbd "«") 'org-metaleft
-        (kbd "»") 'org-metaright))
+        (kbd "Â«") 'org-metaleft
+        (kbd "Â»") 'org-metaright))
     :colemak-neio
     (progn
-      (spacemacs|use-package-add-hook evil-org
+      (space-macs|use-package-add-hook evil-org
         :post-config
         (progn
           (evil-define-key 'normal evil-org-mode-map
@@ -565,7 +565,7 @@
             "N" 'org-backward-heading-same-level))))
     :neo
     (progn
-      (spacemacs|use-package-add-hook evil-org
+      (space-macs|use-package-add-hook evil-org
         :post-config
         (progn
           (evil-define-key 'normal evil-org-mode-map
@@ -595,7 +595,7 @@
                      (kbd "M-J") 'transpose-chars
                      (kbd "M-K") 'kill-sentence
                      (kbd "M-L") 'move-to-window-line-top-bottom)))
-          (spacemacs/set-leader-keys-for-major-mode 'org-mode
+          (space-macs/set-leader-keys-for-major-mode 'org-mode
             ;; snrt
             "C-S-s" 'org-shiftcontrolleft
             "C-S-n" 'org-shiftcontroldown
@@ -612,7 +612,7 @@
     :description
     "Remap `org-agenda' bindings."
     :loader
-    (spacemacs|use-package-add-hook org-agenda :post-config BODY)
+    (space-macs|use-package-add-hook org-agenda :post-config BODY)
     :common
     (kl/evil-correct-keys 'evilified org-agenda-mode-map
       "j"
@@ -627,7 +627,7 @@
     :description
     "Remap navigation keys in `ranger'."
     :loader
-    (spacemacs|use-package-add-hook ranger :post-config BODY)
+    (space-macs|use-package-add-hook ranger :post-config BODY)
     :common
     (kl/correct-keys ranger-mode-map
       "h"
@@ -640,7 +640,7 @@
     :description
     "Remap navigation keys in `twittering-mode'."
     :loader
-    (spacemacs|use-package-add-hook twittering-mode :post-config BODY)
+    (space-macs|use-package-add-hook twittering-mode :post-config BODY)
     :common
     (kl/correct-keys twittering-mode-map
       "h"
@@ -658,10 +658,12 @@
     :description
     "Remap navigation keys in `undo-tree-visualizer-mode'."
     :loader
-    (spacemacs|use-package-add-hook undo-tree :post-config BODY)
+    (space-macs|use-package-add-hook undo-tree :post-config BODY)
     :common
     (kl/evil-correct-keys 'evilified undo-tree-visualizer-mode-map
       "h"
       "j"
       "k"
       "l")))
+
+

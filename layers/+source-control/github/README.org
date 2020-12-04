@@ -28,8 +28,8 @@ This layers adds support for [[http://github.com][GitHub]].
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =github= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =github= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Git configuration
@@ -96,3 +96,5 @@ In the gist list buffer:
 | Key binding | Description                                                 |
 |-------------+-------------------------------------------------------------|
 | ~SPC g p~   | toggle github flavored mb/org buffer preview in web-browser |
+
+

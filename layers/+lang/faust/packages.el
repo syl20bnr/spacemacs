@@ -1,11 +1,11 @@
-;;; packages.el --- faust layer packages file for Spacemacs.
+;;; packages.el --- faust layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author:  Bart Brouns <bart@magnetophon.nl>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -19,7 +19,7 @@
     ))
 
 (defun faust/post-init-company ()
-  (spacemacs|add-company-backends :modes faust-mode))
+  (space-macs|add-company-backends :modes faust-mode))
 
 (defun faust/init-faust-mode ()
   (use-package faust-mode
@@ -27,10 +27,12 @@
     :mode "\\.\\(dsp\\|lib\\)\\'"
     :init
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'faust-mode
-        "cf" 'spacemacs/faust-to-firefox
-        "cg" 'spacemacs/faust-to-jack-gtk
-        "cq" 'spacemacs/faust-to-jack-qt))))
+      (space-macs/set-leader-keys-for-major-mode 'faust-mode
+        "cf" 'space-macs/faust-to-firefox
+        "cg" 'space-macs/faust-to-jack-gtk
+        "cq" 'space-macs/faust-to-jack-qt))))
 
 (defun faust/post-init-yasnippet ()
-  (add-hook 'faust-mode-hook 'spacemacs/load-yasnippet))
+  (add-hook 'faust-mode-hook 'space-macs/load-yasnippet))
+
+

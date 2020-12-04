@@ -1,11 +1,11 @@
-;;; packages.el --- kotlin layer packages file for Spacemacs.
+;;; packages.el --- kotlin layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Shanavas M <shanavas@disroot.org>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -20,10 +20,10 @@
     kotlin-mode))
 
 (defun kotlin/post-init-company ()
-  (spacemacs//kotlin-setup-company))
+  (space-macs//kotlin-setup-company))
 
 (defun kotlin/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'kotlin-mode))
+  (space-macs/enable-flycheck 'kotlin-mode))
 
 (defun kotlin/init-flycheck-kotlin ()
   (use-package flycheck-kotlin
@@ -36,13 +36,15 @@
     :init
     (progn
       (setq lsp-clients-kotlin-server-executable kotlin-lsp-jar-path)
-      (add-hook 'kotlin-mode-hook #'spacemacs//kotlin-setup-backend))))
+      (add-hook 'kotlin-mode-hook #'space-macs//kotlin-setup-backend))))
 
 (defun kotlin/post-init-ggtags ()
-  (add-hook 'kotlin-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'kotlin-mode-local-vars-hook #'space-macs/ggtags-mode-enable))
 
 (defun kotlin/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'kotlin-mode))
+  (space-macs/helm-gtags-define-keys-for-mode 'kotlin-mode))
 
 (defun kotlin/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'kotlin-mode))
+  (space-macs/counsel-gtags-define-keys-for-mode 'kotlin-mode))
+
+

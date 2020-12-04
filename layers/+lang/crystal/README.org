@@ -33,8 +33,8 @@ This layer provides support for the Crystal language.
 - Static code analysis using [[https://github.com/veelenga/ameba.el][ameba]]
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =crystal= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =crystal= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
@@ -51,20 +51,20 @@ limited IDE capabilities. Used best if only small files
 are edited. To set explicitly set the following in your
 dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (crystal :variables crystal-backend 'company-crystal)
 #+END_SRC
 
 *** LSP
 For proper IDE support this backend should be used. It is
 based on an external server which will be started automatically
-by emacs, once a crystal file is opened. The key bindings are
+by e-macs, once a crystal file is opened. The key bindings are
 the same for all lsp modes so if you are already familiar with
 one you should be able to work the same in all modes.
 
 To set explicitly do the following in your dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (crystal :variables
            crystal-backend 'lsp)
 #+END_SRC
@@ -116,12 +116,12 @@ Installation instructions can be found on the main page of [[https://github.com/
 | ~SPC m a x~ | run =crystal run= for the current file                    |
 
 ** REPL
-Start a inferior crystal REPL process with ~SPC m '​~ or ~SPC m s i~.
+Start a inferior crystal REPL process with ~SPC m 'â€‹~ or ~SPC m s i~.
 Then you can send code to it with the bindings below:
 
 | Key binding | Description                                 |
 |-------------+---------------------------------------------|
-| ~SPC m '​~   | start inferior REPL process                 |
+| ~SPC m 'â€‹~   | start inferior REPL process                 |
 | ~SPC m s B~ | send buffer and switch to REPL              |
 | ~SPC m s F~ | send function definition and switch to REPL |
 | ~SPC m s R~ | send region and switch to REPL              |
@@ -138,3 +138,5 @@ Then you can send code to it with the bindings below:
 | ~SPC m u a d~ | Prompts from a directory on which to run Ameba |
 | ~SPC m u a f~ | Runs Ameba on the current visited file         |
 | ~SPC m u a p~ | Runs Ameba on the entire project               |
+
+

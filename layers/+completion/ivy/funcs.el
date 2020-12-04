@@ -1,11 +1,11 @@
-;;; funcs.el --- Ivy Layer functions File for Spacemacs -*- lexical-binding: t; -*-
+;;; funcs.el --- Ivy Layer functions File for Space-macs -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -14,9 +14,9 @@
 
 ;;; async
 
-(defvar spacemacs--counsel-initial-cands-shown nil)
+(defvar space-macs--counsel-initial-cands-shown nil)
 
-(defun spacemacs//counsel-async-command (cmd)
+(defun space-macs//counsel-async-command (cmd)
   (let* ((counsel--process " *counsel*")
          (proc (get-process counsel--process))
          (buff (get-buffer counsel--process)))
@@ -28,15 +28,15 @@
                 counsel--process
                 counsel--process
                 cmd))
-    (setq spacemacs--counsel-initial-cands-shown nil)
+    (setq space-macs--counsel-initial-cands-shown nil)
     (setq counsel--async-time (current-time))
     (set-process-sentinel proc #'counsel--async-sentinel)
-    (set-process-filter proc #'spacemacs//counsel-async-filter)))
+    (set-process-filter proc #'space-macs//counsel-async-filter)))
 
-(defun spacemacs//counsel-async-filter (process str)
+(defun space-macs//counsel-async-filter (process str)
   (with-current-buffer (process-buffer process)
     (insert str))
-  (when (or (null spacemacs--counsel-initial-cands-shown)
+  (when (or (null space-macs--counsel-initial-cands-shown)
             (time-less-p
              ;; 0.5s
              '(0 0 500000 0)
@@ -45,12 +45,12 @@
       (with-current-buffer (process-buffer process)
         (goto-char (point-min))
         (setq size (- (buffer-size) (forward-line (buffer-size))))
-        (when (and (null spacemacs--counsel-initial-cands-shown)
-                   (> size spacemacs--counsel-initial-number-cand))
+        (when (and (null space-macs--counsel-initial-cands-shown)
+                   (> size space-macs--counsel-initial-number-cand))
           (setq ivy--all-candidates
                 (split-string (buffer-string) "\n" t))
           (setq display-now t)
-          (setq spacemacs--counsel-initial-cands-shown t)))
+          (setq space-macs--counsel-initial-cands-shown t)))
       (let ((ivy--prompt
              (ivy-add-prompt-count
               (format (ivy-state-prompt ivy-last)
@@ -61,9 +61,9 @@
           (ivy--insert-prompt))))
     (setq counsel--async-time (current-time))))
 
-;;; find-file functions, leaving large file check to `spacemacs/check-large-file'
+;;; find-file functions, leaving large file check to `space-macs/check-large-file'
 
-(defun spacemacs//counsel-find-file-action (x)
+(defun space-macs//counsel-find-file-action (x)
   "Find file X."
   (with-ivy-window
     (cond ((and counsel-find-file-speedup-remote
@@ -75,16 +75,16 @@
           (t
            (switch-to-buffer (find-file-noselect (expand-file-name x ivy--directory) t nil t))))))
 
-(defun spacemacs/counsel-find-file (&optional initial-input)
+(defun space-macs/counsel-find-file (&optional initial-input)
   "Forward to `find-file'.
 When INITIAL-INPUT is non-nil, use it in the minibuffer during completion."
   (interactive)
   (counsel--find-file-1
    "Find file: " initial-input
-   #'spacemacs//counsel-find-file-action
+   #'space-macs//counsel-find-file-action
    'counsel-find-file))
 
-(defun spacemacs/counsel-recentf ()
+(defun space-macs/counsel-recentf ()
   "Find a file on `recentf-list'."
   (interactive)
   (require 'recentf)
@@ -98,11 +98,11 @@ When INITIAL-INPUT is non-nil, use it in the minibuffer during completion."
 
 ;;; search
 
-(defvar spacemacs--counsel-search-cmd)
+(defvar space-macs--counsel-search-cmd)
 
 ;; see `counsel-ag-function'
-(defun spacemacs//make-counsel-search-function (tool)
-  (let ((base-cmd (cdr (assoc-string tool spacemacs--counsel-commands))))
+(defun space-macs//make-counsel-search-function (tool)
+  (let ((base-cmd (cdr (assoc-string tool space-macs--counsel-commands))))
     (lambda (string &optional _pred &rest _unused)
       "Grep in the current directory for STRING."
       ;; `ivy-more-chars' returns non-nil when more chars are needed,
@@ -117,11 +117,11 @@ When INITIAL-INPUT is non-nil, use it in the minibuffer during completion."
                  (regex (counsel--elisp-to-pcre
                          (setq ivy--old-re
                                (ivy--regex string)))))
-            (setq spacemacs--counsel-search-cmd (format base-cmd args regex))
-            (spacemacs//counsel-async-command spacemacs--counsel-search-cmd)
+            (setq space-macs--counsel-search-cmd (format base-cmd args regex))
+            (space-macs//counsel-async-command space-macs--counsel-search-cmd)
             nil)))))
 
-(defun spacemacs//counsel-save-in-buffer ()
+(defun space-macs//counsel-save-in-buffer ()
   (interactive)
   (ivy-quit-and-run
     (let ((buf "*ivy results*"))
@@ -129,53 +129,53 @@ When INITIAL-INPUT is non-nil, use it in the minibuffer during completion."
         (erase-buffer)
         (dolist (c ivy--all-candidates)
           (insert c "\n"))
-        (spacemacs//gne-init-counsel))
+        (space-macs//gne-init-counsel))
       (pop-to-buffer buf))))
 
-(defun spacemacs//counsel-edit ()
+(defun space-macs//counsel-edit ()
   "Edit the current search results in a buffer using wgrep."
   (interactive)
-  (run-with-idle-timer 0 nil 'spacemacs/ivy-wgrep-change-to-wgrep-mode)
+  (run-with-idle-timer 0 nil 'space-macs/ivy-wgrep-change-to-wgrep-mode)
   (ivy-occur))
 
-(defun spacemacs//gne-init-counsel ()
+(defun space-macs//gne-init-counsel ()
   (with-current-buffer "*ivy results*"
-    (setq spacemacs--gne-min-line 1
-          spacemacs--gne-max-line
+    (setq space-macs--gne-min-line 1
+          space-macs--gne-max-line
           (save-excursion
             (goto-char (point-max))
             (previous-line)
             (line-number-at-pos))
-          spacemacs--gne-line-func
+          space-macs--gne-line-func
           (lambda (c)
             (counsel-git-grep-action c))
-          next-error-function 'spacemacs/gne-next)))
+          next-error-function 'space-macs/gne-next)))
 
-(defun spacemacs//counsel-search-add-extra-bindings (map)
+(defun space-macs//counsel-search-add-extra-bindings (map)
   "Add extra counsel-search related keybindings to MAP, then return MAP.
-See `spacemacs/counsel-search' and `counsel-ag'."
-  (define-key map (kbd "<f3>") 'spacemacs//counsel-save-in-buffer)
-  (define-key map (kbd "C-c C-e") 'spacemacs//counsel-edit)
+See `space-macs/counsel-search' and `counsel-ag'."
+  (define-key map (kbd "<f3>") 'space-macs//counsel-save-in-buffer)
+  (define-key map (kbd "C-c C-e") 'space-macs//counsel-edit)
   map)
 
-(defvar spacemacs--counsel-map (spacemacs//counsel-search-add-extra-bindings
+(defvar space-macs--counsel-map (space-macs//counsel-search-add-extra-bindings
                                 (make-sparse-keymap)))
 
-(defun spacemacs/ivy--regex-plus (str)
+(defun space-macs/ivy--regex-plus (str)
   "Build a regex sequence from STR.
 Same as `ivy--regex-plus', but with special consideration for
-`spacemacs/counsel-search', thus providing correct highlighting
+`space-macs/counsel-search', thus providing correct highlighting
 in the search results. Can be used in `ivy-re-builders-alist',
 for example by setting the variable's value to:
-  ((t . spacemacs/ivy--regex-plus))
+  ((t . space-macs/ivy--regex-plus))
 "
-  (if (and (eq (ivy-state-caller ivy-last) 'spacemacs/counsel-search)
+  (if (and (eq (ivy-state-caller ivy-last) 'space-macs/counsel-search)
            (string-match-p " -- " str))
       (ivy--regex-plus (car (last (split-string str " -- "))))
     (ivy--regex-plus str)))
 
 ;; see `counsel-ag'
-(defun spacemacs/counsel-search
+(defun space-macs/counsel-search
     (&optional tools use-initial-input initial-directory)
   "Search using the first available tool in TOOLS. Default tool
 to try is grep. If INPUT is non nil, use the region or the symbol
@@ -191,7 +191,7 @@ that directory."
                               ""))
              (tool (catch 'tool
                      (dolist (tool tools)
-                       (when (and (assoc-string tool spacemacs--counsel-commands)
+                       (when (and (assoc-string tool space-macs--counsel-commands)
                                   (executable-find tool))
                          (throw 'tool tool)))
                      (throw 'tool "grep")))
@@ -199,12 +199,12 @@ that directory."
                (or initial-directory (read-directory-name "Start from directory: ")))
              (display-directory
               (if (< (length default-directory)
-                     spacemacs--counsel-search-max-path-length)
+                     space-macs--counsel-search-max-path-length)
                   default-directory
                 (concat
                  "..." (substring default-directory
                                   (- (length default-directory)
-                                     spacemacs--counsel-search-max-path-length)
+                                     space-macs--counsel-search-max-path-length)
                                   (length default-directory))))))
     (cond ((string= tool "ag")
            (counsel-ag initial-input default-directory nil
@@ -217,20 +217,20 @@ that directory."
             (format "%s from [%s]: "
                     tool
                     display-directory)
-            (spacemacs//make-counsel-search-function tool)
+            (space-macs//make-counsel-search-function tool)
             :initial-input (when initial-input (rxt-quote-pcre initial-input))
             :dynamic-collection t
             :history 'counsel-git-grep-history
             :action #'counsel-git-grep-action
-            :caller 'spacemacs/counsel-search
-            :keymap spacemacs--counsel-map
+            :caller 'space-macs/counsel-search
+            :keymap space-macs--counsel-map
             :unwind (lambda ()
                       (counsel-delete-process)
                       (swiper--cleanup)))))))
 
 ;;; Define search functions for each tool
 (cl-loop
- for (tools tool-name) in '((dotspacemacs-search-tools "auto")
+ for (tools tool-name) in '((dotspace-macs-search-tools "auto")
                             ((list "rg") "rg")
                             ((list "ag") "ag")
                             ((list "pt") "pt")
@@ -239,61 +239,61 @@ that directory."
  do
  (eval
   `(progn
-     (defun ,(intern (format "spacemacs/search-%s" tool-name)) ()
+     (defun ,(intern (format "space-macs/search-%s" tool-name)) ()
        ,(format
-         "Use `spacemacs/counsel-search' to search in the current
+         "Use `space-macs/counsel-search' to search in the current
  directory with %s." (if (string= tool-name "auto")
-                         "a tool selected from `dotspacemacs-search-tools'."
+                         "a tool selected from `dotspace-macs-search-tools'."
                        tool-name))
        (interactive)
-       (spacemacs/counsel-search ,tools))
-     (defun ,(intern (format "spacemacs/search-%s-region-or-symbol"
+       (space-macs/counsel-search ,tools))
+     (defun ,(intern (format "space-macs/search-%s-region-or-symbol"
                              tool-name)) ()
        ,(format
-         "Use `spacemacs/counsel-search' to search for
+         "Use `space-macs/counsel-search' to search for
  the selected region or the symbol around point in the current
  directory with %s." (if (string= tool-name "auto")
-                         "a tool selected from `dotspacemacs-search-tools'."
+                         "a tool selected from `dotspace-macs-search-tools'."
                        tool-name))
        (interactive)
-       (spacemacs/counsel-search ,tools t))
-     (defun ,(intern (format "spacemacs/search-project-%s" tool-name)) ()
+       (space-macs/counsel-search ,tools t))
+     (defun ,(intern (format "space-macs/search-project-%s" tool-name)) ()
        ,(format
-         "Use `spacemacs/counsel-search' to search in the current
+         "Use `space-macs/counsel-search' to search in the current
  project with %s." (if (string= tool-name "auto")
-                       "a tool selected from `dotspacemacs-search-tools'."
+                       "a tool selected from `dotspace-macs-search-tools'."
                      tool-name))
        (interactive)
-       (spacemacs/counsel-search ,tools nil (projectile-project-root)))
-     (defun ,(intern (format "spacemacs/search-project-%s-region-or-symbol"
+       (space-macs/counsel-search ,tools nil (projectile-project-root)))
+     (defun ,(intern (format "space-macs/search-project-%s-region-or-symbol"
                              tool-name)) ()
        ,(format
-         "Use `spacemacs/counsel-search' to search for
+         "Use `space-macs/counsel-search' to search for
  the selected region or the symbol around point in the current
  project with %s." (if (string= tool-name "auto")
-                       "a tool selected from `dotspacemacs-search-tools'."
+                       "a tool selected from `dotspace-macs-search-tools'."
                      tool-name))
        (interactive)
-       (spacemacs/counsel-search ,tools t (projectile-project-root)))
-     (defun ,(intern (format "spacemacs/search-dir-%s" tool-name)) ()
+       (space-macs/counsel-search ,tools t (projectile-project-root)))
+     (defun ,(intern (format "space-macs/search-dir-%s" tool-name)) ()
        ,(format
-         "Use `spacemacs/counsel-search' to search in the current
+         "Use `space-macs/counsel-search' to search in the current
  directory with %s." (if (string= tool-name "auto")
-                         "a tool selected from `dotspacemacs-search-tools'."
+                         "a tool selected from `dotspace-macs-search-tools'."
                        tool-name))
        (interactive)
-       (spacemacs/counsel-search ,tools nil default-directory))
-     (defun ,(intern (format "spacemacs/search-dir-%s-region-or-symbol" tool-name)) ()
+       (space-macs/counsel-search ,tools nil default-directory))
+     (defun ,(intern (format "space-macs/search-dir-%s-region-or-symbol" tool-name)) ()
        ,(format
-         "Use `spacemacs/counsel-search' to search for
+         "Use `space-macs/counsel-search' to search for
  the selected region or the symbol around point in the current
  directory with %s." (if (string= tool-name "auto")
-                         "a tool selected from `dotspacemacs-search-tools'."
+                         "a tool selected from `dotspace-macs-search-tools'."
                        tool-name))
        (interactive)
-       (spacemacs/counsel-search ,tools t default-directory)))))
+       (space-macs/counsel-search ,tools t default-directory)))))
 
-(defun spacemacs/counsel-git-grep-region-or-symbol ()
+(defun space-macs/counsel-git-grep-region-or-symbol ()
   "Use `counsel-git-grep' to search for the selected region or
  the symbol around point in the current project with git grep."
   (interactive)
@@ -303,13 +303,13 @@ that directory."
                  (thing-at-point 'symbol t))))
     (counsel-git-grep input)))
 
-(defun spacemacs/counsel-search-docs ()
-  "Search spacemacs docs using `spacemacs/counsel-search'"
+(defun space-macs/counsel-search-docs ()
+  "Search space-macs docs using `space-macs/counsel-search'"
   (interactive)
-  (spacemacs/counsel-search dotspacemacs-search-tools
-                            nil spacemacs-docs-directory))
+  (space-macs/counsel-search dotspace-macs-search-tools
+                            nil space-macs-docs-directory))
 
-(defun spacemacs//counsel-occur (&optional candidates)
+(defun space-macs//counsel-occur (&optional candidates)
   "Generate a custom occur buffer for `counsel-git-grep'."
   (ivy-occur-grep-mode)
   (setq default-directory (ivy-state-directory ivy-last))
@@ -324,7 +324,7 @@ that directory."
       (lambda (cand) (concat "./" cand))
       cands))))
 
-(defun spacemacs/counsel-up-directory-no-error ()
+(defun space-macs/counsel-up-directory-no-error ()
   "`counsel-up-directory' ignoring errors."
   (interactive)
   (ignore-errors
@@ -332,10 +332,10 @@ that directory."
 
 (when (configuration-layer/package-used-p 'counsel)
   (with-eval-after-load 'counsel
-    (defun spacemacs/describe-mode ()
+    (defun space-macs/describe-mode ()
       "Dummy wrapper to prevent an key binding error from helm.
 
-By default the emacs leader is M-m, turns out that Helm does this:
+By default the e-macs leader is M-m, turns out that Helm does this:
    (cl-dolist (k (where-is-internal 'describe-mode global-map))
         (define-key map k 'helm-help))
 after doing this:
@@ -348,7 +348,7 @@ To prevent this error we just wrap `describe-mode' to defeat the
       (interactive)
       (call-interactively 'describe-mode))))
 
-(defun spacemacs//counsel-with-git-grep (func x)
+(defun space-macs//counsel-with-git-grep (func x)
   (when (string-match "\\`\\(.*?\\):\\([0-9]+\\):\\(.*\\)\\'" x)
     (with-ivy-window
       (let ((file-name (match-string-no-properties 1 x))
@@ -365,7 +365,7 @@ To prevent this error we just wrap `describe-mode' to defeat the
 ;;; org
 
 ;; see https://github.com/abo-abo/swiper/issues/177
-(defun spacemacs//counsel-org-ctrl-c-ctrl-c-org-tag ()
+(defun space-macs//counsel-org-ctrl-c-ctrl-c-org-tag ()
   "Hook for `org-ctrl-c-ctrl-c-hook' to use `counsel-org-tag'."
   (if (save-excursion (beginning-of-line) (looking-at "[ \t]*$"))
       (or (run-hook-with-args-until-success 'org-ctrl-c-ctrl-c-final-hook)
@@ -399,7 +399,7 @@ To prevent this error we just wrap `describe-mode' to defeat the
          (save-excursion (goto-char (org-element-property :begin context))
                          (call-interactively 'counsel-org-tag)) t)))))
 
-(defun spacemacs/counsel-jump-in-buffer ()
+(defun space-macs/counsel-jump-in-buffer ()
   "Jump in buffer with `counsel-imenu' or `counsel-org-goto' if in org-mode"
   (interactive)
   (call-interactively
@@ -410,33 +410,33 @@ To prevent this error we just wrap `describe-mode' to defeat the
 
 ;;; Ivy
 
-(defun spacemacs//ivy-command-not-implemented-yet (key)
+(defun space-macs//ivy-command-not-implemented-yet (key)
   (let ((-key key))
-    (spacemacs/set-leader-keys
+    (space-macs/set-leader-keys
       -key (lambda ()
              (interactive)
              (message (concat "The command usually bound to %s %s has "
                               "not been implemented for the `ivy' layer yet.")
-                      dotspacemacs-leader-key -key)))))
+                      dotspace-macs-leader-key -key)))))
 
-(defun spacemacs/ivy-available-repls ()
+(defun space-macs/ivy-available-repls ()
   "Show available repls."
   (interactive)
   (ivy-read "Repls: "
-            (mapcar #'car spacemacs-repl-list)
+            (mapcar #'car space-macs-repl-list)
             :action (lambda (candidate)
-                      (let ((repl (cdr (assoc candidate spacemacs-repl-list))))
+                      (let ((repl (cdr (assoc candidate space-macs-repl-list))))
                         (require (car repl))
                         (call-interactively (cdr repl))))))
 
-(defun spacemacs/ivy-wgrep-change-to-wgrep-mode ()
+(defun space-macs/ivy-wgrep-change-to-wgrep-mode ()
   (interactive)
   (ivy-wgrep-change-to-wgrep-mode)
   (evil-normal-state))
 
 ;;; Evil
 
-(defun spacemacs/ivy-evil-registers ()
+(defun space-macs/ivy-evil-registers ()
   "Show evil registers"
   (interactive)
   (let ((ivy-height 24))
@@ -447,16 +447,16 @@ To prevent this error we just wrap `describe-mode' to defeat the
                                                         (stringp val)
                                                         (replace-regexp-in-string "\n" "^J" val))
                                                    ""))))
-              :action #'spacemacs/ivy-insert-evil-register)))
+              :action #'space-macs/ivy-insert-evil-register)))
 
-(defun spacemacs/ivy-insert-evil-register (candidate)
+(defun space-macs/ivy-insert-evil-register (candidate)
   (insert (replace-regexp-in-string "\\^J" "\n"
                                     (substring-no-properties candidate 4))))
 
 ;;; Layouts
 
-(defun spacemacs/ivy-spacemacs-layouts ()
-  "Control Panel for Spacemacs layouts. Has many actions.
+(defun space-macs/ivy-space-macs-layouts ()
+  "Control Panel for Space-macs layouts. Has many actions.
 If match is found
 \(default) Select layout
 c: Close Layout(s) <- mark with C-SPC to close more than one-window
@@ -471,28 +471,30 @@ Closing doesn't kill buffers inside the layout while killing layouts does."
   (interactive)
   (ivy-read "Layouts: "
             (persp-names)
-            :caller 'spacemacs/ivy-spacemacs-layouts
-            :action 'spacemacs//create-persp-with-home-buffer))
+            :caller 'space-macs/ivy-space-macs-layouts
+            :action 'space-macs//create-persp-with-home-buffer))
 
-(defun spacemacs/ivy-spacemacs-layout-buffer ()
+(defun space-macs/ivy-space-macs-layout-buffer ()
   "Switch to layout buffer using ivy."
   (interactive)
   (let (ivy-use-virtual-buffers)
     (with-persp-buffer-list ()
                             (call-interactively 'ivy-switch-buffer))))
 
-(defun spacemacs/ivy-spacemacs-layout-close-other ()
+(defun space-macs/ivy-space-macs-layout-close-other ()
   "Kills layouts without killing the buffers"
   (interactive)
   (ivy-read (format "Close layout [current %s]: "
-                    (spacemacs//current-layout-name))
+                    (space-macs//current-layout-name))
             (persp-names)
             :action 'persp-kill-without-buffers))
 
-(defun spacemacs/ivy-spacemacs-layout-kill-other ()
+(defun space-macs/ivy-space-macs-layout-kill-other ()
   "Kills layouts with all their buffers"
   (interactive)
   (ivy-read (format "Kill layout [current %s]: "
-                    (spacemacs//current-layout-name))
+                    (space-macs//current-layout-name))
             (persp-names)
             :action 'persp-kill))
+
+

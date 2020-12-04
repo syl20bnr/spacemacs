@@ -1,11 +1,11 @@
-# global_conf.py --- ycmd global configuration file for Spacemacs
+# global_conf.py --- ycmd global configuration file for Space-macs
 #
 # Copyright (c) 2012-2020 Sylvain Benner & Contributors
 #
 # Author: Thomas de Beauchene <thomas.de.beauchene@gmail.com>
-# URL: https://github.com/syl20bnr/spacemacs
+# URL: https://github.com/syl20bnr/space-macs
 #
-# This file is not part of GNU Emacs.
+# This file is not part of GNU e-macs.
 #
 # License: GPLv3
 #
@@ -291,3 +291,5 @@ def MakeRelativePathsInFlagsAbsolute(flags, working_directory):
         if new_flag:
             new_flags.append(new_flag)
     return new_flags
+
+

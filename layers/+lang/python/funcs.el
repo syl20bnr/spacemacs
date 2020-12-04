@@ -1,15 +1,15 @@
-;;; funcs.el --- Python Layer functions File for Spacemacs
+;;; funcs.el --- Python Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//python-backend ()
+(defun space-macs//python-backend ()
   "Returns selected backend."
   (if python-backend
       python-backend
@@ -17,7 +17,7 @@
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
      (t 'anaconda))))
 
-(defun spacemacs//python-formatter ()
+(defun space-macs//python-formatter ()
   "Returns selected backend."
   (if python-formatter
       python-formatter
@@ -25,52 +25,52 @@
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
      (t 'yapf))))
 
-(defun spacemacs//python-setup-backend ()
+(defun space-macs//python-setup-backend ()
   "Conditionally setup python backend."
   (when python-pipenv-activate (pipenv-activate))
-  (pcase (spacemacs//python-backend)
-    (`anaconda (spacemacs//python-setup-anaconda))
-    (`lsp (spacemacs//python-setup-lsp))))
+  (pcase (space-macs//python-backend)
+    (`anaconda (space-macs//python-setup-anaconda))
+    (`lsp (space-macs//python-setup-lsp))))
 
-(defun spacemacs//python-setup-company ()
+(defun space-macs//python-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//python-backend)
-    (`anaconda (spacemacs//python-setup-anaconda-company))))
+  (pcase (space-macs//python-backend)
+    (`anaconda (space-macs//python-setup-anaconda-company))))
 
-(defun spacemacs//python-setup-dap ()
+(defun space-macs//python-setup-dap ()
   "Conditionally setup elixir DAP integration."
   ;; currently DAP is only available using LSP
-  (pcase (spacemacs//python-backend)
-    (`lsp (spacemacs//python-setup-lsp-dap))))
+  (pcase (space-macs//python-backend)
+    (`lsp (space-macs//python-setup-lsp-dap))))
 
-(defun spacemacs//python-setup-eldoc ()
+(defun space-macs//python-setup-eldoc ()
   "Conditionally setup eldoc based on backend."
-  (pcase (spacemacs//python-backend)
+  (pcase (space-macs//python-backend)
     ;; lsp setup eldoc on its own
-    (`anaconda (spacemacs//python-setup-anaconda-eldoc))))
+    (`anaconda (space-macs//python-setup-anaconda-eldoc))))
 
 ;; anaconda
 
-(defun spacemacs//python-setup-anaconda ()
+(defun space-macs//python-setup-anaconda ()
   "Setup anaconda backend."
   (anaconda-mode))
 
-(defun spacemacs//python-setup-anaconda-company ()
+(defun space-macs//python-setup-anaconda-company ()
   "Setup anaconda auto-completion."
-  (spacemacs|add-company-backends
+  (space-macs|add-company-backends
     :backends company-anaconda
     :modes python-mode
     :append-hooks nil
     :call-hooks t)
   (company-mode))
 
-(defun spacemacs//python-setup-anaconda-eldoc ()
+(defun space-macs//python-setup-anaconda-eldoc ()
   "Setup anaconda eldoc."
   (eldoc-mode)
   (when (configuration-layer/package-used-p 'anaconda-mode)
     (anaconda-eldoc-mode)))
 
-(defun spacemacs/anaconda-view-forward-and-push ()
+(defun space-macs/anaconda-view-forward-and-push ()
   "Find next button and hit RET"
   (interactive)
   (forward-button 1)
@@ -79,7 +79,7 @@
 
 ;; lsp
 
-(defun spacemacs//python-setup-lsp ()
+(defun space-macs//python-setup-lsp ()
   "Setup lsp backend."
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
@@ -88,34 +88,34 @@
         (lsp))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
-(defun spacemacs//python-setup-lsp-dap ()
+(defun space-macs//python-setup-lsp-dap ()
   "Setup DAP integration."
   (require 'dap-python))
 
 
 ;; others
 
-(defun spacemacs//python-default ()
+(defun space-macs//python-default ()
   "Defaut settings for python buffers"
   (setq mode-name "Python"
         tab-width python-tab-width
         fill-column python-fill-column)
 
   ;; since we changed the tab-width we need to manually call python-indent-guess-indent-offset here
-  (when python-spacemacs-indent-guess
+  (when python-space-macs-indent-guess
     (python-indent-guess-indent-offset))
 
-  (when (version< emacs-version "24.5")
+  (when (version< e-macs-version "24.5")
     ;; auto-indent on colon doesn't work well with if statement
     ;; should be fixed in 24.5 and above
     (setq electric-indent-chars (delq ?: electric-indent-chars)))
   (setq-local comment-inline-offset 2)
-  (spacemacs/python-annotate-pdb)
+  (space-macs/python-annotate-pdb)
   ;; make C-j work the same way as RET
   (local-set-key (kbd "C-j") 'newline-and-indent))
 
-;; from http://pedrokroger.net/2010/07/configuring-emacs-as-a-python-ide-2/
-(defun spacemacs/python-annotate-pdb ()
+;; from http://pedrokroger.net/2010/07/configuring-e-macs-as-a-python-ide-2/
+(defun space-macs/python-annotate-pdb ()
   "Highlight break point lines."
   (interactive)
   (highlight-lines-matching-regexp "breakpoint()")
@@ -123,7 +123,7 @@
   (highlight-lines-matching-regexp "\\(pdb\\|ipdb\\|pudb\\|wdb\\).set_trace()")
   (highlight-lines-matching-regexp "trepan.api.debug()"))
 
-(defun spacemacs/pyenv-executable-find (command)
+(defun space-macs/pyenv-executable-find (command)
   "Find executable taking pyenv shims into account.
 If the executable is a system executable and not in the same path
 as the pyenv version then also return nil. This works around https://github.com/pyenv/pyenv-which-ext
@@ -145,10 +145,10 @@ as the pyenv version then also return nil. This works around https://github.com/
           executable))
     (executable-find command)))
 
-(defun spacemacs//python-setup-shell (&rest args)
-  (if (spacemacs/pyenv-executable-find "ipython")
+(defun space-macs//python-setup-shell (&rest args)
+  (if (space-macs/pyenv-executable-find "ipython")
       (progn (setq python-shell-interpreter "ipython")
-             (if (version< (replace-regexp-in-string "[\r\n|\n]$" "" (shell-command-to-string (format "\"%s\" --version" (string-trim (spacemacs/pyenv-executable-find "ipython"))))) "5")
+             (if (version< (replace-regexp-in-string "[\r\n|\n]$" "" (shell-command-to-string (format "\"%s\" --version" (string-trim (space-macs/pyenv-executable-find "ipython"))))) "5")
                  (setq python-shell-interpreter-args "-i")
                (setq python-shell-interpreter-args "--simple-prompt -i")))
     (progn
@@ -156,30 +156,30 @@ as the pyenv version then also return nil. This works around https://github.com/
       (setq python-shell-interpreter "python"))))
 
 
-(defun spacemacs//python-setup-checkers (&rest args)
+(defun space-macs//python-setup-checkers (&rest args)
   (when (fboundp 'flycheck-set-checker-executable)
-    (let ((pylint (spacemacs/pyenv-executable-find "pylint"))
-          (flake8 (spacemacs/pyenv-executable-find "flake8")))
+    (let ((pylint (space-macs/pyenv-executable-find "pylint"))
+          (flake8 (space-macs/pyenv-executable-find "flake8")))
       (when pylint
         (flycheck-set-checker-executable "python-pylint" pylint))
       (when flake8
         (flycheck-set-checker-executable "python-flake8" flake8)))))
 
-(defun spacemacs/python-setup-everything (&rest args)
-  (apply 'spacemacs//python-setup-shell args)
-  (apply 'spacemacs//python-setup-checkers args))
+(defun space-macs/python-setup-everything (&rest args)
+  (apply 'space-macs//python-setup-shell args)
+  (apply 'space-macs//python-setup-checkers args))
 
-(defun spacemacs/python-toggle-breakpoint ()
+(defun space-macs/python-toggle-breakpoint ()
   "Add a break point, highlight it."
   (interactive)
-  (let ((trace (cond ((spacemacs/pyenv-executable-find "trepan3k") "import trepan.api; trepan.api.debug()")
-                     ((spacemacs/pyenv-executable-find "wdb") "import wdb; wdb.set_trace()")
-                     ((spacemacs/pyenv-executable-find "ipdb") "import ipdb; ipdb.set_trace()")
-                     ((spacemacs/pyenv-executable-find "pudb") "import pudb; pudb.set_trace()")
-                     ((spacemacs/pyenv-executable-find "ipdb3") "import ipdb; ipdb.set_trace()")
-                     ((spacemacs/pyenv-executable-find "pudb3") "import pudb; pudb.set_trace()")
-                     ((spacemacs/pyenv-executable-find "python3.7") "breakpoint()")
-                     ((spacemacs/pyenv-executable-find "python3.8") "breakpoint()")
+  (let ((trace (cond ((space-macs/pyenv-executable-find "trepan3k") "import trepan.api; trepan.api.debug()")
+                     ((space-macs/pyenv-executable-find "wdb") "import wdb; wdb.set_trace()")
+                     ((space-macs/pyenv-executable-find "ipdb") "import ipdb; ipdb.set_trace()")
+                     ((space-macs/pyenv-executable-find "pudb") "import pudb; pudb.set_trace()")
+                     ((space-macs/pyenv-executable-find "ipdb3") "import ipdb; ipdb.set_trace()")
+                     ((space-macs/pyenv-executable-find "pudb3") "import pudb; pudb.set_trace()")
+                     ((space-macs/pyenv-executable-find "python3.7") "breakpoint()")
+                     ((space-macs/pyenv-executable-find "python3.8") "breakpoint()")
                      (t "import pdb; pdb.set_trace()")))
         (line (thing-at-point 'line)))
     (if (and line (string-match trace line))
@@ -190,8 +190,8 @@ as the pyenv version then also return nil. This works around https://github.com/
         (insert "\n")
         (python-indent-line)))))
 
-;; from https://www.snip2code.com/Snippet/127022/Emacs-auto-remove-unused-import-statemen
-(defun spacemacs/python-remove-unused-imports()
+;; from https://www.snip2code.com/Snippet/127022/e-macs-auto-remove-unused-import-statemen
+(defun space-macs/python-remove-unused-imports()
   "Use Autoflake to remove unused function"
   "autoflake --remove-all-unused-imports -i unused_imports.py"
   (interactive)
@@ -202,7 +202,7 @@ as the pyenv version then also return nil. This works around https://github.com/
         (revert-buffer t t t))
     (message "Error: Cannot find autoflake executable.")))
 
-(defun spacemacs//pyenv-mode-set-local-version ()
+(defun space-macs//pyenv-mode-set-local-version ()
   "Set pyenv version from \".python-version\" by looking in parent directories."
   (interactive)
   (let ((root-path (locate-dominating-file default-directory
@@ -222,7 +222,7 @@ as the pyenv version then also return nil. This works around https://github.com/
           (message "pyenv: version `%s' is not installed (set by %s)"
                    version file-path))))))
 
-(defun spacemacs//pyvenv-mode-set-local-virtualenv ()
+(defun space-macs//pyvenv-mode-set-local-virtualenv ()
   "Set pyvenv virtualenv from \".venv\" by looking in parent directories.
 Handle \".venv\" being a virtualenv directory or a file specifying either
 absolute or relative virtualenv path. Relative path is checked relative to
@@ -250,28 +250,28 @@ location of \".venv\" file, then relative to pyvenv-workon-home()."
 
 ;; Tests
 
-(defun spacemacs//python-imenu-create-index-use-semantic-maybe ()
+(defun space-macs//python-imenu-create-index-use-semantic-maybe ()
   "Use semantic if the layer is enabled."
-  (setq imenu-create-index-function 'spacemacs/python-imenu-create-index))
+  (setq imenu-create-index-function 'space-macs/python-imenu-create-index))
 
-;; fix for issue #2569 (https://github.com/syl20bnr/spacemacs/issues/2569) and
-;; Emacs 24.5 and older. use `semantic-create-imenu-index' only when
+;; fix for issue #2569 (https://github.com/syl20bnr/space-macs/issues/2569) and
+;; e-macs 24.5 and older. use `semantic-create-imenu-index' only when
 ;; `semantic-mode' is enabled, otherwise use `python-imenu-create-index'
-(defun spacemacs/python-imenu-create-index ()
+(defun space-macs/python-imenu-create-index ()
   (if (bound-and-true-p semantic-mode)
       (semantic-create-imenu-index)
     (python-imenu-create-index)))
 
-(defun spacemacs//python-get-main-testrunner ()
+(defun space-macs//python-get-main-testrunner ()
   "Get the main test runner."
   (if (listp python-test-runner) (car python-test-runner) python-test-runner))
 
-(defun spacemacs//python-get-secondary-testrunner ()
+(defun space-macs//python-get-secondary-testrunner ()
   "Get the secondary test runner"
-  (cdr (assoc (spacemacs//python-get-main-testrunner) '((pytest . nose)
+  (cdr (assoc (space-macs//python-get-main-testrunner) '((pytest . nose)
                                                         (nose . pytest)))))
 
-(defun spacemacs//python-call-correct-test-function (arg funcalist)
+(defun space-macs//python-call-correct-test-function (arg funcalist)
   "Call a test function based on the chosen test framework.
 ARG is the universal-argument which chooses between the main and
 the secondary test runner. FUNCALIST is an alist of the function
@@ -279,97 +279,97 @@ to be called for each testrunner. "
   (when python-save-before-test
     (save-buffer))
   (let* ((test-runner (if arg
-                          (spacemacs//python-get-secondary-testrunner)
-                        (spacemacs//python-get-main-testrunner)))
+                          (space-macs//python-get-secondary-testrunner)
+                        (space-macs//python-get-main-testrunner)))
          (test-function (assq test-runner funcalist)))
     (if test-function
         (funcall (cdr (assoc test-runner funcalist)))
       (user-error "This test function is not available with the `%S' runner."
                   test-runner))))
 
-(defun spacemacs/python-test-last (arg)
+(defun space-macs/python-test-last (arg)
   "Re-run the last test command"
   (interactive "P")
-  (spacemacs//python-call-correct-test-function arg '((pytest . pytest-again)
+  (space-macs//python-call-correct-test-function arg '((pytest . pytest-again)
                                                       (nose . nosetests-again))))
 
-(defun spacemacs/python-test-last-failed (arg)
+(defun space-macs/python-test-last-failed (arg)
   "Re-run the tests that last failed."
   (interactive "P")
-  (spacemacs//python-call-correct-test-function arg '((pytest . pytest-last-failed))))
+  (space-macs//python-call-correct-test-function arg '((pytest . pytest-last-failed))))
 
-(defun spacemacs/python-test-pdb-last-failed (arg)
+(defun space-macs/python-test-pdb-last-failed (arg)
   "Re-run the tests that last failed in debug mode."
   (interactive "P")
-  (spacemacs//python-call-correct-test-function arg '((pytest . pytest-pdb-last-failed))))
+  (space-macs//python-call-correct-test-function arg '((pytest . pytest-pdb-last-failed))))
 
-(defun spacemacs/python-test-all (arg)
+(defun space-macs/python-test-all (arg)
   "Run all tests."
   (interactive "P")
-  (spacemacs//python-call-correct-test-function arg '((pytest . pytest-all)
+  (space-macs//python-call-correct-test-function arg '((pytest . pytest-all)
                                                       (nose . nosetests-all))))
 
-(defun spacemacs/python-test-pdb-all (arg)
+(defun space-macs/python-test-pdb-all (arg)
   "Run all tests in debug mode."
   (interactive "P")
-  (spacemacs//python-call-correct-test-function arg '((pytest . pytest-pdb-all)
+  (space-macs//python-call-correct-test-function arg '((pytest . pytest-pdb-all)
                                                       (nose . nosetests-pdb-all))))
 
-(defun spacemacs/python-test-module (arg)
+(defun space-macs/python-test-module (arg)
   "Run all tests in the current module."
   (interactive "P")
-  (spacemacs//python-call-correct-test-function arg '((pytest . pytest-module)
+  (space-macs//python-call-correct-test-function arg '((pytest . pytest-module)
                                                       (nose . nosetests-module))))
 
-(defun spacemacs/python-test-pdb-module (arg)
+(defun space-macs/python-test-pdb-module (arg)
   "Run all tests in the current module in debug mode."
   (interactive "P")
-  (spacemacs//python-call-correct-test-function
+  (space-macs//python-call-correct-test-function
    arg
    '((pytest . pytest-pdb-module)
      (nose . nosetests-pdb-module))))
 
-(defun spacemacs/python-test-suite (arg)
+(defun space-macs/python-test-suite (arg)
   "Run all tests in the current suite."
   (interactive "P")
-  (spacemacs//python-call-correct-test-function arg '((nose . nosetests-suite))))
+  (space-macs//python-call-correct-test-function arg '((nose . nosetests-suite))))
 
-(defun spacemacs/python-test-pdb-suite (arg)
+(defun space-macs/python-test-pdb-suite (arg)
   "Run all tests in the current suite in debug mode."
   (interactive "P")
-  (spacemacs//python-call-correct-test-function arg '((nose . nosetests-pdb-suite))))
+  (space-macs//python-call-correct-test-function arg '((nose . nosetests-pdb-suite))))
 
-(defun spacemacs/python-test-one (arg)
+(defun space-macs/python-test-one (arg)
   "Run current test."
   (interactive "P")
-  (spacemacs//python-call-correct-test-function arg '((pytest . pytest-one)
+  (space-macs//python-call-correct-test-function arg '((pytest . pytest-one)
                                                       (nose . nosetests-one))))
 
-(defun spacemacs/python-test-pdb-one (arg)
+(defun space-macs/python-test-pdb-one (arg)
   "Run current test in debug mode."
   (interactive "P")
-  (spacemacs//python-call-correct-test-function arg '((pytest . pytest-pdb-one)
+  (space-macs//python-call-correct-test-function arg '((pytest . pytest-pdb-one)
                                                       (nose . nosetests-pdb-one))))
 
-(defun spacemacs//bind-python-testing-keys ()
+(defun space-macs//bind-python-testing-keys ()
   "Bind the keys for testing in Python."
-  (spacemacs/declare-prefix-for-mode 'python-mode "mt" "test")
-  (spacemacs/set-leader-keys-for-major-mode 'python-mode
-    "tA" 'spacemacs/python-test-pdb-all
-    "ta" 'spacemacs/python-test-all
-    "tB" 'spacemacs/python-test-pdb-module
-    "tb" 'spacemacs/python-test-module
-    "tl" 'spacemacs/python-test-last
-    "tf" 'spacemacs/python-test-last-failed
-    "tF" 'spacemacs/python-test-pdb-last-failed
-    "tT" 'spacemacs/python-test-pdb-one
-    "tt" 'spacemacs/python-test-one
-    "tM" 'spacemacs/python-test-pdb-module
-    "tm" 'spacemacs/python-test-module
-    "tS" 'spacemacs/python-test-pdb-suite
-    "ts" 'spacemacs/python-test-suite))
+  (space-macs/declare-prefix-for-mode 'python-mode "mt" "test")
+  (space-macs/set-leader-keys-for-major-mode 'python-mode
+    "tA" 'space-macs/python-test-pdb-all
+    "ta" 'space-macs/python-test-all
+    "tB" 'space-macs/python-test-pdb-module
+    "tb" 'space-macs/python-test-module
+    "tl" 'space-macs/python-test-last
+    "tf" 'space-macs/python-test-last-failed
+    "tF" 'space-macs/python-test-pdb-last-failed
+    "tT" 'space-macs/python-test-pdb-one
+    "tt" 'space-macs/python-test-one
+    "tM" 'space-macs/python-test-pdb-module
+    "tm" 'space-macs/python-test-module
+    "tS" 'space-macs/python-test-pdb-suite
+    "ts" 'space-macs/python-test-suite))
 
-(defun spacemacs//python-sort-imports ()
+(defun space-macs//python-sort-imports ()
   ;; py-isort-before-save checks the major mode as well, however we can prevent
   ;; it from loading the package unnecessarily by doing our own check
   (when (and python-sort-imports-on-save
@@ -379,18 +379,18 @@ to be called for each testrunner. "
 
 ;; Formatters
 
-(defun spacemacs//bind-python-formatter-keys ()
+(defun space-macs//bind-python-formatter-keys ()
   "Bind the python formatter keys.
 Bind formatter to '==' for LSP and '='for all other backends."
-  (spacemacs/set-leader-keys-for-major-mode 'python-mode
-    (if (eq (spacemacs//python-backend) 'lsp)
+  (space-macs/set-leader-keys-for-major-mode 'python-mode
+    (if (eq (space-macs//python-backend) 'lsp)
         "=="
-      "=") 'spacemacs/python-format-buffer))
+      "=") 'space-macs/python-format-buffer))
 
-(defun spacemacs/python-format-buffer ()
+(defun space-macs/python-format-buffer ()
   "Bind possible python formatters."
   (interactive)
-  (pcase (spacemacs//python-formatter)
+  (pcase (space-macs//python-formatter)
     (`yapf (yapfify-buffer))
     (`black (blacken-buffer))
     (`lsp (lsp-format-buffer))
@@ -399,7 +399,7 @@ Bind formatter to '==' for LSP and '='for all other backends."
 
 ;; REPL
 
-(defun spacemacs/python-shell-send-buffer-switch ()
+(defun space-macs/python-shell-send-buffer-switch ()
   "Send buffer content to shell and switch to it in insert mode."
   (interactive)
   (let ((python-mode-hook nil))
@@ -407,13 +407,13 @@ Bind formatter to '==' for LSP and '='for all other backends."
     (python-shell-switch-to-shell)
     (evil-insert-state)))
 
-(defun spacemacs/python-shell-send-buffer ()
+(defun space-macs/python-shell-send-buffer ()
   "Send buffer content to shell and switch to it in insert mode."
   (interactive)
   (let ((python-mode-hook nil))
     (python-shell-send-buffer)))
 
-(defun spacemacs/python-shell-send-defun-switch ()
+(defun space-macs/python-shell-send-defun-switch ()
   "Send function content to shell and switch to it in insert mode."
   (interactive)
   (let ((python-mode-hook nil))
@@ -421,13 +421,13 @@ Bind formatter to '==' for LSP and '='for all other backends."
     (python-shell-switch-to-shell)
     (evil-insert-state)))
 
-(defun spacemacs/python-shell-send-defun ()
+(defun space-macs/python-shell-send-defun ()
   "Send function content to shell and switch to it in insert mode."
   (interactive)
   (let ((python-mode-hook nil))
     (python-shell-send-defun nil)))
 
-(defun spacemacs/python-shell-send-region-switch (start end)
+(defun space-macs/python-shell-send-region-switch (start end)
   "Send region content to shell and switch to it in insert mode."
   (interactive "r")
   (let ((python-mode-hook nil))
@@ -435,13 +435,13 @@ Bind formatter to '==' for LSP and '='for all other backends."
     (python-shell-switch-to-shell)
     (evil-insert-state)))
 
-(defun spacemacs/python-shell-send-region (start end)
+(defun space-macs/python-shell-send-region (start end)
   "Send region content to shell and switch to it in insert mode."
   (interactive "r")
   (let ((python-mode-hook nil))
     (python-shell-send-region start end)))
 
-(defun spacemacs/python-shell-send-line ()
+(defun space-macs/python-shell-send-line ()
 	"Send the current line to shell"
 	(interactive)
 	(let ((python-mode-hook nil)
@@ -449,8 +449,8 @@ Bind formatter to '==' for LSP and '='for all other backends."
 	       (end (point-at-eol)))
 	      (python-shell-send-region start end)))
 
-(defun spacemacs/python-shell-send-statement ()
-	"Send the current statement to shell, same as `python-shell-send-statement' in Emacs27."
+(defun space-macs/python-shell-send-statement ()
+	"Send the current statement to shell, same as `python-shell-send-statement' in e-macs27."
 	(interactive)
   (if (fboundp 'python-shell-send-statement)
       (call-interactively #'python-shell-send-statement)
@@ -461,25 +461,25 @@ Bind formatter to '==' for LSP and '='for all other backends."
          (save-excursion (python-nav-beginning-of-statement))
          (save-excursion (python-nav-end-of-statement)))))))
 
-(defun spacemacs/python-shell-send-statement-switch ()
+(defun space-macs/python-shell-send-statement-switch ()
   "Send statement to shell and switch to it in insert mode."
   (interactive)
-  (call-interactively #'spacemacs/python-shell-send-statement)
+  (call-interactively #'space-macs/python-shell-send-statement)
   (python-shell-switch-to-shell)
   (evil-insert-state))
 
-(defun spacemacs/python-start-or-switch-repl ()
+(defun space-macs/python-start-or-switch-repl ()
   "Start and/or switch to the REPL."
   (interactive)
   (let ((shell-process
          (or (python-shell-get-process)
              ;; `run-python' has different return values and different
-             ;; errors in different emacs versions. In 24.4, it throws an
+             ;; errors in different e-macs versions. In 24.4, it throws an
              ;; error when the process didn't start, but in 25.1 it
              ;; doesn't throw an error, so we demote errors here and
              ;; check the process later
              (with-demoted-errors "Error: %S"
-               ;; in Emacs 24.5 and 24.4, `run-python' doesn't return the
+               ;; in e-macs 24.5 and 24.4, `run-python' doesn't return the
                ;; shell process
                (call-interactively #'run-python)
                (python-shell-get-process)))))
@@ -488,14 +488,14 @@ Bind formatter to '==' for LSP and '='for all other backends."
     (pop-to-buffer (process-buffer shell-process))
     (evil-insert-state)))
 
-(defun spacemacs/python-execute-file (arg)
+(defun space-macs/python-execute-file (arg)
   "Execute a python script in a shell."
   (interactive "P")
   ;; set compile command to buffer-file-name
   ;; universal argument put compile buffer in comint mode
   (let ((universal-argument t)
         (compile-command (format "%s %s"
-                                 (spacemacs/pyenv-executable-find python-shell-interpreter)
+                                 (space-macs/pyenv-executable-find python-shell-interpreter)
                                  (shell-quote-argument (file-name-nondirectory buffer-file-name)))))
     (if arg
         (call-interactively 'compile)
@@ -503,24 +503,26 @@ Bind formatter to '==' for LSP and '='for all other backends."
       (with-current-buffer (get-buffer "*compilation*")
         (inferior-python-mode)))))
 
-(defun spacemacs/python-execute-file-focus (arg)
+(defun space-macs/python-execute-file-focus (arg)
   "Execute a python script in a shell and switch to the shell buffer in
  `insert state'."
   (interactive "P")
-  (spacemacs/python-execute-file arg)
+  (space-macs/python-execute-file arg)
   (switch-to-buffer-other-window "*compilation*")
   (end-of-buffer)
   (evil-insert-state))
 
-;; fix for issue #2569 (https://github.com/syl20bnr/spacemacs/issues/2569)
-(when (version< emacs-version "25")
+;; fix for issue #2569 (https://github.com/syl20bnr/space-macs/issues/2569)
+(when (version< e-macs-version "25")
   (advice-add 'wisent-python-default-setup :after
-              #'spacemacs//python-imenu-create-index-use-semantic-maybe))
+              #'space-macs//python-imenu-create-index-use-semantic-maybe))
 
-(defun spacemacs//bind-python-repl-keys ()
+(defun space-macs//bind-python-repl-keys ()
   "Bind the keys for testing in Python."
-  (spacemacs/declare-prefix-for-mode 'inferior-python-mode "mv" "virtualenv")
-  (spacemacs/set-leader-keys-for-major-mode 'inferior-python-mode
+  (space-macs/declare-prefix-for-mode 'inferior-python-mode "mv" "virtualenv")
+  (space-macs/set-leader-keys-for-major-mode 'inferior-python-mode
     "c" 'comint-clear-buffer
     "r" 'pyvenv-restart-python
     "vw" 'pyvenv-workon))
+
+

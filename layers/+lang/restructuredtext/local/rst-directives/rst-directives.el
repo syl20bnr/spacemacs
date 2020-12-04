@@ -11,7 +11,7 @@
 ;;
 ;;; Commentary:
 
-;; This file provides functionalities for Emacs rst-mode.
+;; This file provides functionalities for e-macs rst-mode.
 
 
 (defgroup rst-directive nil
@@ -674,3 +674,5 @@ Elements of directives should arranged as
 
 
 (provide 'rst-directives)
+
+

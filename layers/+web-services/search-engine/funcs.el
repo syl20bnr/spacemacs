@@ -1,15 +1,15 @@
-;;; funcs.el --- search-engine Layer functions File for Spacemacs
+;;; funcs.el --- search-engine Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//search-engine-source (engines)
+(defun space-macs//search-engine-source (engines)
   "return a source for helm selection"
   `((name . "Search Engines")
     (candidates . ,(mapcar (lambda (engine)
@@ -19,13 +19,13 @@
                            engines))
     (action . (lambda (candidate) (call-interactively candidate)))))
 
-(defun spacemacs/helm-search-engine-select ()
+(defun space-macs/helm-search-engine-select ()
   "Set search engine to use with helm."
   (interactive)
-  (helm :sources (list (spacemacs//search-engine-source
+  (helm :sources (list (space-macs//search-engine-source
                         search-engine-alist))))
 
-(defun spacemacs/ivy-search-engine-select ()
+(defun space-macs/ivy-search-engine-select ()
   "Set search engine to use with ivy."
   (interactive)
   (ivy-read "Search Engines: "
@@ -36,9 +36,11 @@
                     search-engine-alist)
             :action (lambda (candidate) (call-interactively (cdr candidate)))))
 
-(defun spacemacs/search-engine-select ()
+(defun space-macs/search-engine-select ()
   "Set search engine to use."
   (interactive)
   (if (configuration-layer/layer-used-p 'ivy)
-      (call-interactively 'spacemacs/ivy-search-engine-select)
-    (call-interactively 'spacemacs/helm-search-engine-select)))
+      (call-interactively 'space-macs/ivy-search-engine-select)
+    (call-interactively 'space-macs/helm-search-engine-select)))
+
+

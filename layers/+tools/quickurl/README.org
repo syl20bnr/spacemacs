@@ -1,6 +1,6 @@
 #+TITLE: quickurl layer
 
-#+TAGS: emacs|layer
+#+TAGS: e-macs|layer
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -9,16 +9,16 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-Quickurl is a package in vanilla emacs for saving and inserting URLs. These
+Quickurl is a package in vanilla e-macs for saving and inserting URLs. These
 are key bindings for the various methods of insertion, which are not bound by
 default.
 
 ** Features:
-- Key bindings to dispatch Quickurl (which is in vanilla Emacs).
+- Key bindings to dispatch Quickurl (which is in vanilla e-macs).
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =quickurl= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =quickurl= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -31,3 +31,5 @@ file.
 | ~SPC a t q e~ | Edit quickurl at point                   |
 | ~SPC a t q a~ | Add quickurl at point                    |
 | ~SPC a t q b~ | Ask to browse some url from those stored |
+
+

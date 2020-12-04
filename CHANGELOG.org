@@ -8,7 +8,7 @@
     - [[#fixes-1][Fixes]]
   - [[#02008-20170401][0.200.8 (2017/04/01)]]
     - [[#convention-changes][Convention changes]]
-    - [[#dotspacemacs-changes][Dotspacemacs changes]]
+    - [[#dotspace-macs-changes][Dotspace-macs changes]]
     - [[#core-changes][Core changes]]
     - [[#distribution-layer-changes][Distribution layer changes]]
     - [[#layer-changes][Layer changes]]
@@ -21,7 +21,7 @@
       - [[#common-lisp][Common Lisp]]
       - [[#csharp][CSharp]]
       - [[#elixir][Elixir]]
-      - [[#emacs-lisp][Emacs Lisp]]
+      - [[#e-macs-lisp][e-macs Lisp]]
       - [[#extra-langs][Extra-langs]]
       - [[#finance][Finance]]
       - [[#games][Games]]
@@ -62,7 +62,7 @@
     - [[#fixes-6][Fixes]]
     - [[#improvements-1][Improvements]]
     - [[#layer-changes-1][Layer changes]]
-      - [[#spacemacs-distribution][Spacemacs distribution]]
+      - [[#space-macs-distribution][Space-macs distribution]]
       - [[#cc][C/C++]]
       - [[#common-lisp-1][Common-lisp]]
       - [[#d][D]]
@@ -131,7 +131,7 @@
       - [[#elixir-2][Elixir]]
       - [[#elfeed][Elfeed]]
       - [[#elm][Elm]]
-      - [[#emacs-lisp-1][Emacs Lisp]]
+      - [[#e-macs-lisp-1][e-macs Lisp]]
       - [[#erc-1][ERC]]
       - [[#ess][ESS]]
       - [[#extra-languages][Extra languages]]
@@ -273,7 +273,7 @@
     - [[#layer-changes-10][Layer changes]]
       - [[#markdown-4][Markdown]]
       - [[#org-5][Org]]
-      - [[#spacemacs][Spacemacs]]
+      - [[#space-macs][Space-macs]]
   - [[#01058-20160112][0.105.8 (2016/01/12)]]
     - [[#fixes-17][Fixes]]
     - [[#improvements-10][Improvements]]
@@ -293,31 +293,31 @@
     - [[#fixes-20][Fixes]]
       - [[#core][Core]]
     - [[#layer-changes-12][Layer changes]]
-      - [[#spacemacs-1][Spacemacs]]
+      - [[#space-macs-1][Space-macs]]
       - [[#auto-completion-3][Auto-completion]]
   - [[#01054-20160107][0.105.4 (2016/01/07)]]
     - [[#fixes-21][Fixes]]
       - [[#core-1][Core]]
       - [[#ruby-layer][Ruby layer]]
-      - [[#spacemacs-layouts][Spacemacs layouts]]
+      - [[#space-macs-layouts][Space-macs layouts]]
       - [[#yasnippet][Yasnippet]]
   - [[#01053-20160106][0.105.3 (2016/01/06)]]
     - [[#fixes-22][Fixes]]
-      - [[#emacs-lisp-layer][Emacs lisp layer]]
+      - [[#e-macs-lisp-layer][e-macs lisp layer]]
       - [[#ledger][Ledger]]
       - [[#ocaml-2][Ocaml]]
     - [[#layer-changes-13][Layer changes]]
-      - [[#spacemacs-2][Spacemacs]]
+      - [[#space-macs-2][Space-macs]]
     - [[#other-improvements][Other improvements]]
   - [[#01052-20160105][0.105.2 (2016/01/05)]]
   - [[#01051-20160105][0.105.1 (2016/01/05)]]
     - [[#fixes-23][Fixes]]
-      - [[#spacemacs-layer][Spacemacs layer]]
-      - [[#bépo-layer][Bépo layer]]
+      - [[#space-macs-layer][Space-macs layer]]
+      - [[#bÃ©po-layer][BÃ©po layer]]
       - [[#magit-layer][Magit layer]]
       - [[#scala-layer][Scala layer]]
     - [[#layer-changes-14][Layer changes]]
-      - [[#spacemacs-3][Spacemacs]]
+      - [[#space-macs-3][Space-macs]]
       - [[#themes-megapack-3][Themes megapack]]
     - [[#other-improvements-1][Other improvements]]
   - [[#01050-20160104][0.105.0 (2016/01/04)]]
@@ -328,7 +328,7 @@
     - [[#new-layers-1][New Layers]]
     - [[#dotfile-changes-3][Dotfile changes]]
     - [[#distribution-layer-changes-2][Distribution layer changes]]
-      - [[#helm-spacemacs][Helm-spacemacs]]
+      - [[#helm-space-macs][Helm-space-macs]]
       - [[#evilified-map][Evilified map]]
     - [[#layer-changes-15][Layer changes]]
       - [[#auto-completion-4][Auto-completion]]
@@ -339,7 +339,7 @@
       - [[#dash-1][Dash]]
       - [[#elixir-3][Elixir]]
       - [[#elm-3][Elm]]
-      - [[#emacs-lisp-2][Emacs lisp]]
+      - [[#e-macs-lisp-2][e-macs lisp]]
       - [[#erc-3][Erc]]
       - [[#ess-1][Ess]]
       - [[#evil-snipe-1][Evil-snipe]]
@@ -387,7 +387,7 @@
     - [[#hotfix][Hotfix]]
   - [[#01047-20151215][0.104.7 (2015/12/15)]]
     - [[#distribution-layer-changes-3][Distribution layer changes]]
-      - [[#spacemacs-4][Spacemacs]]
+      - [[#space-macs-4][Space-macs]]
     - [[#layers-changes][Layers changes]]
       - [[#eyebrowse-1][Eyebrowse]]
       - [[#haskell-6][Haskell]]
@@ -396,7 +396,7 @@
     - [[#hotfix-1][Hotfix]]
   - [[#01045-20151122][0.104.5 (2015/11/22)]]
     - [[#distribution-layer-changes-4][Distribution layer changes]]
-      - [[#spacemacs-5][Spacemacs]]
+      - [[#space-macs-5][Space-macs]]
   - [[#01044-20151104][0.104.4 (2015/11/04)]]
     - [[#layer-changes-16][Layer changes]]
       - [[#scala-7][Scala]]
@@ -415,7 +415,7 @@
   - [[#01041-20150928][0.104.1 (2015/09/28)]]
     - [[#dotfile-changes-4][Dotfile changes]]
     - [[#distribution-layer-changes-5][Distribution layer changes]]
-      - [[#spacemacs-6][Spacemacs]]
+      - [[#space-macs-6][Space-macs]]
     - [[#layer-changes-19][Layer changes]]
       - [[#react-6][React]]
     - [[#other-fixes-and-improvements-3][Other fixes and improvements]]
@@ -427,8 +427,8 @@
     - [[#new-layers-2][New Layers]]
     - [[#dotfile-changes-5][Dotfile changes]]
     - [[#distribution-layer-changes-6][Distribution layer changes]]
-      - [[#spacemacs-base][Spacemacs-base]]
-      - [[#spacemacs-7][Spacemacs]]
+      - [[#space-macs-base][Space-macs-base]]
+      - [[#space-macs-7][Space-macs]]
     - [[#layer-changes-20][Layer changes]]
       - [[#agda-2][Agda]]
       - [[#auto-completion-5][Auto-completion]]
@@ -440,7 +440,7 @@
       - [[#dash-2][Dash]]
       - [[#deft-1][Deft]]
       - [[#elixir-4][Elixir]]
-      - [[#emacs-lisp-3][Emacs lisp]]
+      - [[#e-macs-lisp-3][e-macs lisp]]
       - [[#erc-4][ERC]]
       - [[#ess-2][ESS]]
       - [[#evil-commentary][Evil-commentary]]
@@ -506,13 +506,13 @@
     - [[#new-layers-3][New Layers]]
     - [[#dotfile-changes-6][Dotfile changes]]
     - [[#layer-changes-26][Layer changes]]
-      - [[#spacemacs-8][Spacemacs]]
+      - [[#space-macs-8][Space-macs]]
       - [[#auto-completion-6][Auto-completion]]
       - [[#autohotkey-1][Autohotkey]]
       - [[#cc-4][C/C++]]
       - [[#clojure-9][Clojure]]
       - [[#elixir-5][Elixir]]
-      - [[#emacs-lisp-4][Emacs Lisp]]
+      - [[#e-macs-lisp-4][e-macs Lisp]]
       - [[#emoji][Emoji]]
       - [[#erc-5][ERC]]
       - [[#evil-snipe-3][Evil-snipe]]
@@ -556,7 +556,7 @@
     - [[#dotfile-changes-7][Dotfile changes]]
     - [[#new-conventions-3][New conventions]]
     - [[#layer-changes-29][Layer changes]]
-      - [[#spacemacs-9][Spacemacs]]
+      - [[#space-macs-9][Space-macs]]
         - [[#helm-2][Helm]]
         - [[#evil][Evil]]
       - [[#auctex][Auctex]]
@@ -566,7 +566,7 @@
       - [[#chrome-1][Chrome]]
       - [[#clojure-10][Clojure]]
       - [[#colors-1][Colors]]
-      - [[#emacs-lisp-5][Emacs-lisp]]
+      - [[#e-macs-lisp-5][e-macs-lisp]]
       - [[#erc-6][Erc]]
       - [[#ess-3][ESS]]
       - [[#extra-langs-2][Extra-langs]]
@@ -615,7 +615,7 @@
     - [[#cc-6][C/C++]]
     - [[#clojure-11][Clojure]]
     - [[#company][Company]]
-    - [[#emacs-lisp-6][Emacs Lisp]]
+    - [[#e-macs-lisp-6][e-macs Lisp]]
     - [[#ess-4][Ess]]
     - [[#extra-lang-layer][Extra-Lang layer]]
     - [[#flycheck][Flycheck]]
@@ -658,7 +658,7 @@
 
 ** 0.200.9 (2017/04/06)
 *** Fixes
-- Fix theme loading with terminal Emacs (thanks to wang0z)
+- Fix theme loading with terminal e-macs (thanks to wang0z)
 
 ** 0.200.8 (2017/04/01)
 *** Convention changes
@@ -667,26 +667,26 @@
   - Inspect a value is now ~v~
   - Next step is now ~s~
 
-*** Dotspacemacs changes
-- Improve variable =dotspacemacs-line-numbers=. The variable can now take a
+*** Dotspace-macs changes
+- Improve variable =dotspace-macs-line-numbers=. The variable can now take a
   property list with the following keywords supported: =:relative t= to turn on
   relative lines, =:disabled-for-modes mode1 mode2 ...= to disable line numbers
   in specific major modes and =:size-limit-kb n= to disable line numbers when
   the size of the buffer is greater than n (thanks to deb0ch)
 
 *** Core changes
-- Import =quela=, =package-build=, =ido-vertical-mode= and =spacemacs-theme= in
+- Import =quela=, =package-build=, =ido-vertical-mode= and =space-macs-theme= in
   =core/libs=
 - Speedup ~SPC h SPC~ loading.
 - Force installation of =org-contrib-plus= instead of =org= effectively avoiding
   to install Org twice.
 - Display some additional information message in mode-line at startup.
-- Throw an error instead of a warning if emacs version is too old
+- Throw an error instead of a warning if e-macs version is too old
   (thanks to deb0ch)
 - Refactor =rotate-windows= (thanks to bmag)
 - Don't toggle maximized window at startup if already maximized
   (thanks to TheBB)
-- Set default value of =dotspacemacs-enable-paste-transient-state= to nil to
+- Set default value of =dotspace-macs-enable-paste-transient-state= to nil to
   reflect its value in the doftile template (tanks to toupeira)
 - which-key: Update usage of replacement alists (thanks to justbur)
 - which-key: Fix transient state descriptions (thanks to justbur)
@@ -695,8 +695,8 @@
 - Fix unbound holy-mode error (thanks to TheBB)
 - Fix error on footer insertion when window is narrow (thanks to deb0ch)
 - Fix encoding of =;= in issue report body (thanks to d12frosted)
-- Fix variable is void: system-info in spacemacs/report-issue
-- Fix delayed warning display in emacs 25.5
+- Fix variable is void: system-info in space-macs/report-issue
+- Fix delayed warning display in e-macs 25.5
 - Fix computation of package installation lazyness
 - Fix false warning about duplicate layers at startup. (thanks to puzl)
 - Fix indentation rules for declare-prefix functions
@@ -705,7 +705,7 @@
 - Always return `t` from use-package pre/post hooks. (thanks to Stebalien)
 - Jump-handers =:async= keyword can now take a predicate function
 - home buffer: update quickhelp.txt in [?] (thanks to kccai)
-- Filter out private vars in dotspacemacs/get-variable-string-list
+- Filter out private vars in dotspace-macs/get-variable-string-list
 - Add support for go to definition in other window with ~SPC m g G~
 - Scope minor-mode specific key bindings under major-mode leader
 
@@ -724,7 +724,7 @@
 - New key binding ~'~ in =neotree= to take a quick look at the currently
   selected file (thanks to sdwolf)
 - Overhaul the buffer transient state on ~SPC b .~ (thanks to quicknir)
-- Improve =spacemacs/count-word-analysis= by including information from
+- Improve =space-macs/count-word-analysis= by including information from
   =count-words= function
 - Use =winum.el= instead of =window-numbering.el= for window numbers
   (thanks to deb0ch)
@@ -737,7 +737,7 @@
 - Use =helm= or =ivy= as completion framework for =dumb-jump= (thanks to deuill)
 - Hide PROPERTIES drawers in space-doc-mode (thanks to nikolaiam)
 - Disable auto-revert of =buffer-menu-mode= (thanks to bgamari)
-- Fix spacemacs/rename-current-buffer-file on non-file buffers
+- Fix space-macs/rename-current-buffer-file on non-file buffers
   (thanks to lislon)
 
 *** Layer changes
@@ -773,7 +773,7 @@
 - Add support for =credo= (denin)
 - Prevent from inserting too many "end"s in Elixir (thanks to michalmuskala)
 
-**** Emacs Lisp
+**** e-macs Lisp
 - Fix cursor position for =eval-last-sexp=.
 - Add ~SPC m e c~ to evaluate current sexp. Evaluation of current =setq= or
   =defun= form is under ~SPC m e C~.
@@ -861,7 +861,7 @@
 
 **** Scala
 - Update debugger key bindings to meet new conventions
-- Update deprecated =ensime= variable name =user-emacs-ensime-directory=
+- Update deprecated =ensime= variable name =user-e-macs-ensime-directory=
   (thanks to brakhane)
 - Remove sbt-hydra rename wrapper (thanks to jdnavarro)
 
@@ -933,13 +933,13 @@
 
 *** Improvements
 - Add =system-configuration-features= to system description (~SPC h d s~)
-  for Emacs 25 and later (thanks to JAremko)
+  for e-macs 25 and later (thanks to JAremko)
 - Add support for =doom= themes (thanks to TheBB)
-- Revert back default value for =dotspacemacs-startup-lists= (was previously
+- Revert back default value for =dotspace-macs-startup-lists= (was previously
   changed to be nil)
-- Warn if layers changed outside =dotspacemacs/layers= function
+- Warn if layers changed outside =dotspace-macs/layers= function
   (thanks to TheBB)
-- Show a list of Spacemacs warnings in home buffer (thanks to TheBB)
+- Show a list of Space-macs warnings in home buffer (thanks to TheBB)
 - Prevent =:toggle= expression from being evaluated for excluded packages
   (thanks to TheBB)
 - Various documentation improvements (thanks to arronmabrey, carbohydratesn,
@@ -948,7 +948,7 @@
   xificurC)
 
 *** Layer changes
-**** Spacemacs distribution
+**** Space-macs distribution
 - Add =golden-ratio= toggle key in window transient-state only when
   =golden-ratio= package is used (thanks to bmag)
 - Enable line numbers for =conf-mode= (by deriving =conf-mode= from
@@ -960,7 +960,7 @@
 
 **** C/C++
 - Match entire path after -I when reading cc-file (function
-  =spacemacs/company-load-clang-complete-file=) (thanks to jlewallen)
+  =space-macs/company-load-clang-complete-file=) (thanks to jlewallen)
 
 **** Common-lisp
 - Enable fuzzy matching for auto-completion (thanks to tuhdo)
@@ -978,9 +978,9 @@
 - Fix deprecated =axes.color_cycle= in =matplotlibrc= (thanks to Retorz)
 
 **** Ivy
-- Fix spacemacs layout transient-state to correctly exit when selecting a layout
+- Fix space-macs layout transient-state to correctly exit when selecting a layout
   (thanks to gilbertw1)
-- Make =ivy= restrict buffers to current spacemacs layout (thanks to bmag)
+- Make =ivy= restrict buffers to current space-macs layout (thanks to bmag)
 
 **** Elixir
 - Add support for =org-babel= (thanks to usharf)
@@ -1004,10 +1004,10 @@
 
 **** Helm
 - Add key binding ~M-RET~ (meta-return) to open the file =packages.el=
-  of a layer in =helm-spacemacs-help= under ~SPC h SPC~ (thanks to CestDiego)
+  of a layer in =helm-space-macs-help= under ~SPC h SPC~ (thanks to CestDiego)
 
 **** Html
-- Fix hooks for CSS-mode since it now derives from =prog-mode= in Emacs 25
+- Fix hooks for CSS-mode since it now derives from =prog-mode= in e-macs 25
   (thanks to TheBB)
 
 **** Javascript
@@ -1039,13 +1039,13 @@
 - Replace deprecated =puml-mode= by =plantuml-mode= (thanks to skuro)
 
 **** Python
-- Fix start of REPL for Emacs 25.1 (thanks to bmag)
+- Fix start of REPL for e-macs 25.1 (thanks to bmag)
 - Make =python-tab-width= configurable (thanks to TheBB)
 - Add support for =wdb= debugger when inserting breakpoints using ~SPC m d b~
   (thanks to koterpillar)
 - Use =semantic= for =imenu= only when =semantic-mode= is enabled
   (thanks to bmag)
-- Improve =spacemacs/python-execute-file= on ~SPC m c c~ to pre-fill
+- Improve =space-macs/python-execute-file= on ~SPC m c c~ to pre-fill
   "python <filename>" as the compile command when using the universal prefix
   argument ~SPC u SPC m c c~ (thanks to bmag)
 
@@ -1083,18 +1083,18 @@
 ** 0.200.1 (2016/10/09)
 *** Fixes
 - Restore missing support for custom Evil ex command key via the new
-  =dotspacemacs-ex-command-key= variable (thanks to Dietr1ch)
+  =dotspace-macs-ex-command-key= variable (thanks to Dietr1ch)
 - core: Fix lazy installation of layers
 - core: Fix Quelpa recipes construction (thanks to ynilu)
 - core: Fix unwanted exclusion of packages when setting
-  =dotspacemacs-install-packages= to =all=
-- core: Fix =spacemacs/ert-run-tests-buffer= to run only the tests in current
+  =dotspace-macs-install-packages= to =all=
+- core: Fix =space-macs/ert-run-tests-buffer= to run only the tests in current
   buffer (thanks to bmag)
 
 *** Dotfile changes
-- New variable =dotspacemacs-ex-command-key= to define the key to press
+- New variable =dotspace-macs-ex-command-key= to define the key to press
   to enter an Evil ex command, default is ~:~ (thanks to Dietr1ch)
-- Change default value of =dotspacemacs-startup-lists= to =nil=
+- Change default value of =dotspace-macs-startup-lists= to =nil=
 
 *** Layer changes
 **** Agda
@@ -1133,7 +1133,7 @@
 
 ** 0.200.0 (2016/10/02)
 *** IMPORTANT: Breaking changes
-- The support for Emacs 24.3 has been dropped, Spacemacs needs at least Emacs
+- The support for e-macs 24.3 has been dropped, Space-macs needs at least e-macs
   24.4 to work correctly.
 - =extensions= are deprecated as announced in previous release, if you still
   have =extensions= directories you must rename them to =local= and move
@@ -1145,7 +1145,7 @@
   list, see the =vim-empty-lines= layer for example.
 - Key binding ~SPC :~ acting as =M-x= as been replaced by ~SPC SPC~.
   If you want to revert to the old ~SPC :~ key binding set the new
-  variable =dotspacemacs-emacs-command-key= to ":".
+  variable =dotspace-macs-e-macs-command-key= to ":".
 - Key binding ~SPC f e h~ is now ~SPC h SPC~
 - Key bindings to delete things are now more consistent and use the ~d~ key.
   We moved ~SPC w c~ and ~SPC w C~ to ~SPC w d~ and ~SPC w D~.
@@ -1167,37 +1167,37 @@
   - ~SPC h b~ for =helm-filtered-bookmarks~is now ~SPC f b~
   - ~SPC h l~ for =helm-resume= is now ~SPC r l~
   - ~SPC h L~ for =helm-locate-library= is now ~SPC f e l~
-- Change default value of =dotspacemacs-remap-Y-to-y$= to =nil=
+- Change default value of =dotspace-macs-remap-Y-to-y$= to =nil=
 - Git key bindings under ~SPC g~ have been reorganised to free up some keys
   and capitalize on =Magit= dispatch menu to keep things consistent (see
   =git= section in change log for more information)
-- Spacemacs layouts scope has been changed, now ~SPC b b~ lists the buffers of
+- Space-macs layouts scope has been changed, now ~SPC b b~ lists the buffers of
   the current layout, use ~SPC B b~ to list all the opened buffers.
 - =org-indent= is now turned off by default
 - Micro states are now called transient states, the macro
-  =spacemacs|define-micro-state= is deprecated, it is replaced by the new
-  =hydra= powered macro =spacemacs|define-transient-state=.
-- Spacemacs layouts and workspaces transient states now exit when a layout or
+  =space-macs|define-micro-state= is deprecated, it is replaced by the new
+  =hydra= powered macro =space-macs|define-transient-state=.
+- Space-macs layouts and workspaces transient states now exit when a layout or
   workspace is selected, use ~C-0~ =...= ~C-9~ to switch to a layout and keep
   the transient state open.
-- Remove support for the value =all= for =dotspacemacs-configuration-layers=
-  variable. To install all the packages supported by Spacemacs there is a new
-  variable =dotspacemacs-install-packages=.
+- Remove support for the value =all= for =dotspace-macs-configuration-layers=
+  variable. To install all the packages supported by Space-macs there is a new
+  variable =dotspace-macs-install-packages=.
 - Remove layer variable =colors-enable-rainbow-identifiers= in =colors= layer,
   You have to replace it by =colors-colorize-identifiers 'all=.
-- The =bépo= layer has been replaced by the new layer =keyboard-layout=, see the
+- The =bÃ©po= layer has been replaced by the new layer =keyboard-layout=, see the
   =README.org= of the layer for more info.
 
 *** Hot new features
 - Refactor of the layer system which should reduce startup time by 20~25%.
 - New option to lazy install layers based on =auto-mode-alist= (similar to
   =Prelude= lazy install of packages but for layers) via the variable
-  =dotspacemacs-enable-lazy-installation=.
+  =dotspace-macs-enable-lazy-installation=.
 - Add support for Ivy via the new layer =ivy=, when used it replaces =helm=
   (thanks to justbur, d12frosted, goofansu, lszekeres, nixmaniack, ralesi,
   TheBB, zilongshanren)
 - Add support for different keyboard layouts via the new layer
-  =keyboard-layout=, currently supported layouts are =bépo= and =dvorak=
+  =keyboard-layout=, currently supported layouts are =bÃ©po= and =dvorak=
   (thanks to StreakyCobra)
 - New transient states powered by =Hydra=, they replace the deprecated
   micro states (thanks to justbur)
@@ -1206,28 +1206,28 @@
 - Global access to all available REPLs with ~SPC a '~ and `SPC m '~ (thanks to
   AlejandroCatalina and TheBB)
 - New debugging tools:
-  - press ~SPC q d~ to restart Emacs in debug mode with command line parameter
+  - press ~SPC q d~ to restart e-macs in debug mode with command line parameter
     =--debug-init=
-  - press ~SPC q D~ to restart Emacs without Spacemacs but with a list of
+  - press ~SPC q D~ to restart e-macs without Space-macs but with a list of
     selected packages to load.
 
   (thanks to StreakyCobra)
-- New way to install all the supported packages by Spacemacs via the variable
-  =dotspacemacs-install-packages=
-- Improved =emacs= and =hybrid= editing styles to fix configuration
+- New way to install all the supported packages by Space-macs via the variable
+  =dotspace-macs-install-packages=
+- Improved =e-macs= and =hybrid= editing styles to fix configuration
   inconsistencies
-- the =spacemacs= layer has been split into multiple layers to allow better
-  modularity (these layers are in =+spacemacs= sub-directory):
-  - spacemacs-completion
-  - spacemacs-editing
-  - spacemacs-editing-visual
-  - spacemacs-evil
-  - spacemacs-language
-  - spacemacs-layouts
-  - spacemacs-misc
-  - spacemacs-org
-  - spacemacs-ui
-  - spacemacs-ui-visual
+- the =space-macs= layer has been split into multiple layers to allow better
+  modularity (these layers are in =+space-macs= sub-directory):
+  - space-macs-completion
+  - space-macs-editing
+  - space-macs-editing-visual
+  - space-macs-evil
+  - space-macs-language
+  - space-macs-layouts
+  - space-macs-misc
+  - space-macs-org
+  - space-macs-ui
+  - space-macs-ui-visual
 
   (thanks to justbur)
 
@@ -1236,10 +1236,10 @@
 - bibtex in =+lang= (thanks to JP-Ellis)
 - csv in =+lang= (thanks to jb55)
 - cfengine in =+tools= (thanks to nickanderson)
-- helm in =completion= (moved from spacemacs-base) (thanks to justbur)
+- helm in =completion= (moved from space-macs-base) (thanks to justbur)
 - imenu-list in =+tools= (thanks to bmag)
 - ivy in =completion= (thanks to justbur)
-- keyboard-layout (replaces the bépo layer) (thanks to StreakyCobra)
+- keyboard-layout (replaces the bÃ©po layer) (thanks to StreakyCobra)
 - nlinum in =+misc= (thanks to CodeFalling)
 - pdf-tools in =+tools= (thanks to Andre0991)
 - plantuml in =+lang= (thanks to robbyoconnor)
@@ -1251,17 +1251,17 @@
 *** Dotfile changes
 **** Changes for variable values and keywords
 - Add new keyword =:packages= for the list of layers in variable
-  =dotspacemacs-configuration-layer=, =:packages= allow to select or exclude
+  =dotspace-macs-configuration-layer=, =:packages= allow to select or exclude
   packages from a layer.
 - Add new keyword =:enabled-for= for the list of layers in variable
-  =dotspacemacs-configuration-layer=, this keyword controls the effect of a
+  =dotspace-macs-configuration-layer=, this keyword controls the effect of a
   layer on the other layers. For instance one can enable the =auto-completion=
   only for the =python= layer with the value
   =(auto-completion :enabled-for python)=
   Note that this keyword is the opposite of the existing keyword
   =:disabled-for=. (thanks to TheBB)
-- The value of =dotspacemacs-editing-style= can now be a list containing the
-  keyword =:variables= (similar to =dotspacemacs-configuration-layers=) to
+- The value of =dotspace-macs-editing-style= can now be a list containing the
+  keyword =:variables= (similar to =dotspace-macs-configuration-layers=) to
   define additional variables to modify the behavior of the editing style. This
   new keyword is useful for =hybrid= style which supports these variables:
   - =hybrid-mode-enable-evilified-state=, if non nil then buffer are evilified,
@@ -1269,22 +1269,22 @@
     enabled (for instance in =helm= buffers),
   - =hybrid-mode-default-state=, the default state when opening a new buffer,
     by default it is =normal=.
-- The value of =dotspacemacs-default-font= can now be a list (thanks to TheBB)
-- New supported values for =dotspacemacs-startup-lists=:
+- The value of =dotspace-macs-default-font= can now be a list (thanks to TheBB)
+- New supported values for =dotspace-macs-startup-lists=:
   - agenda
   - todos
 
   (thanks to tonyday567)
-- Change default value of =dotspacemacs-remap-Y-to-y$= to =nil=
-- Change default value of =dotspacemacs-startup-lists= to =nil=
-- Change default value of =dotspacemacs-check-for-update= to =nil=
-- Remove support for value =all= in variable =dotspacemacs-configuration-layers=
-- Remove variable =dotspacemacs-startup-recent-list-size= which has been replaced
-  by adding support for cons cells in variable =dotspacemacs-startup-list=
+- Change default value of =dotspace-macs-remap-Y-to-y$= to =nil=
+- Change default value of =dotspace-macs-startup-lists= to =nil=
+- Change default value of =dotspace-macs-check-for-update= to =nil=
+- Remove support for value =all= in variable =dotspace-macs-configuration-layers=
+- Remove variable =dotspace-macs-startup-recent-list-size= which has been replaced
+  by adding support for cons cells in variable =dotspace-macs-startup-list=
   (thanks to ralesi)
 
 **** New variables
-- New variable =dotspacemacs-enable-lazy-installation= to install a layer only
+- New variable =dotspace-macs-enable-lazy-installation= to install a layer only
   when a file with a supported type is opened. Possible values are =all=,
   =unused= and =nil=:
   - =unused= will lazy install only unused layers
@@ -1292,59 +1292,59 @@
     used layers
   - =nil= disable the lazy installation feature
     Default value is =unused=
-- New variable =dotspacemacs-frozen-packages=. It is a list of packages, these
+- New variable =dotspace-macs-frozen-packages=. It is a list of packages, these
   packages cannot be updated or rollbacked.
-- New variable =dotspacemacs-install-packages= which replaces the variable
-  =dotspacemacs-delete-orphan-packages=. This new variable defines the behavior
-  of Spacemacs for installed packages.
+- New variable =dotspace-macs-install-packages= which replaces the variable
+  =dotspace-macs-delete-orphan-packages=. This new variable defines the behavior
+  of Space-macs for installed packages.
   Possible values are =used-only=, =used-but-keep-unused= and =all=.
   - =used-only= installs only explicitly used packages and uninstall any
     unused packages as well as their unused dependencies.
   - =used-but-keep-unused= installs only the used packages but won't uninstall
     them if they become unused.
-  - =all= installs *all* packages supported by Spacemacs and never uninstall
+  - =all= installs *all* packages supported by Space-macs and never uninstall
     them.
 
   Default value is =used-only=.
-- New variable =dotspacemacs-emacs-command-key= which replaces the variable
-  =dotspacemacs-command-key=. This variable represents the key to press after
+- New variable =dotspace-macs-e-macs-command-key= which replaces the variable
+  =dotspace-macs-command-key=. This variable represents the key to press after
   the leader key to execute =M-x=. Default value is ~SPC~.
-- New variable =dotspacemacs-folding-method= to allow choosing between
+- New variable =dotspace-macs-folding-method= to allow choosing between
   different code folding methods. Currently supported are =evil=, =origami= and =vimish=.
   Default value is =evil=. (thanks to ralesi)
-- New variable =dotspacemacs-ex-substitute-global=, if non-nil then
+- New variable =dotspace-macs-ex-substitute-global=, if non-nil then
   the behavior of the =g= flag in =:substitute= ex-command is inverted.
   Default value is nil (thanks to fbergroth)
-- New variable =dotspacemacs-smart-closing-parenthesis=. If non-nil pressing
+- New variable =dotspace-macs-smart-closing-parenthesis=. If non-nil pressing
   the closing parenthesis ~)~ key in insert mode passes over any automatically
   added closing parenthesis, bracket, quote, etc...
   This can be temporary disabled by pressing ~C-q~ before ~)~. Default is nil.
   (thanks to StreakyCobra)
-- New variable =dotspacemacs-retain-visual-mode-on-shift=, If non nil ~>~ is
+- New variable =dotspace-macs-retain-visual-mode-on-shift=, If non nil ~>~ is
   remapped to ~>gv~ and ~<~ is remapped to ~<gv~ in visual mode, default
   value is nil (thanks to Stebalien)
-- New variable =dotspacemacs-visual-line-move-text=, if non-nil, ~J~ and ~K~
+- New variable =dotspace-macs-visual-line-move-text=, if non-nil, ~J~ and ~K~
   move lines up and down when in visual mode. Default value is nil.
   (thanks to Stebalien)
-- New variable =dotspacemacs-helm-use-fuzzy=. It controls fuzzy matching in
+- New variable =dotspace-macs-helm-use-fuzzy=. It controls fuzzy matching in
   helm. If set to =always=, force fuzzy matching in all non-asynchronous
   sources. If set to =source=, preserve individual source settings. Else,
   disable fuzzy matching in all sources. Default value is =always=
   (thanks to quicknir)
-- New variable =dotspacemacs-elpa-subdirectory=. Can be =nil= or a form that
+- New variable =dotspace-macs-elpa-subdirectory=. Can be =nil= or a form that
   evaluates to a package directory. For example, to use different package
-  directories for different Emacs versions, set this to =emacs-version=
-  (thanks to bmag, TheBB and emacs18)
-- New variable =dotspacemacs-startup-buffer-responsive= to enable the
+  directories for different e-macs versions, set this to =e-macs-version=
+  (thanks to bmag, TheBB and e-macs18)
+- New variable =dotspace-macs-startup-buffer-responsive= to enable the
   recenter of the home buffer contents when the window is resized.
   (thanks to TheBB)
 
 *** Distribution layer changes
 - Add package =evil-ediff= (thanks to justbur)
 - Add package =evil-visual-mark-mode= (thanks to nixmaniack)
-- Add packages =vimish-fold= and =evil-vimish-fold= (used only if new variable =dotspacemacs-folding-method=
+- Add packages =vimish-fold= and =evil-vimish-fold= (used only if new variable =dotspace-macs-folding-method=
   is set to =origami=) (thanks to Keith Pinson)
-- Add package =origami= (used only if new variable =dotspacemacs-folding-method=
+- Add package =origami= (used only if new variable =dotspace-macs-folding-method=
   is set to =origami=) (thanks to ralesi)
 - Add package =link-hint=:
   - ~SPC x o~ to use avy to select a link in the frame and open it
@@ -1358,18 +1358,18 @@
 - Add local package =centered-buffer-mode= on ~SPC w c~ (thanks to JAremko)
 - Remove =evil-jumper= package, it is now integrated in =evil=
   (thanks to justbur)
-- Remove =smooth-scrolling= package and replace it by an Emacs built-in
+- Remove =smooth-scrolling= package and replace it by an e-macs built-in
   alternative.
-- Move =unimpaired= layer to =spacemacs= layer
+- Move =unimpaired= layer to =space-macs= layer
 - ~C-i~ in GUI now execute =evil-jump-forward= (thanks to justbur)
-- New variable =spacemacs-large-file-modes-list= to disable large file check
+- New variable =space-macs-large-file-modes-list= to disable large file check
   for some major modes (thanks to myrjola)
-- New variable =spacemacs-spaceline-additional-segments= to set additional
+- New variable =space-macs-spaceline-additional-segments= to set additional
   segments for the Spaceline mode-line. They are inserted between =global= and
   =buffer-position= segments (thanks to riccardomurri)
-- New key bindings to restart Emacs and restore Spacemacs layouts:
-  - ~SPC q r~ to restart Emacs and restore layouts
-  - ~SPC q R~ to restart Emacs without restoring layouts
+- New key bindings to restart e-macs and restore Space-macs layouts:
+  - ~SPC q r~ to restart e-macs and restore layouts
+  - ~SPC q R~ to restart e-macs without restoring layouts
 
   (thanks to StreakyCobra)
 - New key binding ~SPC b N~ and evil ex-command =:enew= to open a new empty
@@ -1381,7 +1381,7 @@
 - New key binding ~SPC p %~ to replace in project using a regular expression
   (thanks to d12frosted)
 - New key binding ~SPC p o~ to open the TODOs buffer for the current project
-- New Spacemacs layouts key bindings:
+- New Space-macs layouts key bindings:
   - ~SPC b a~ to add a buffer to the current layout
   - ~SPC b r~ to remove a buffer from the current layout
   - ~SPC B b~ to list all the buffers in all layouts
@@ -1486,32 +1486,32 @@
 - Enable volatile highlights for evil and =undo-tree= (thanks to ohspite)
 - Remove ~ESC~ re binding in visual state (thanks to sooheon)
 - Remove =leuven= theme
-- Fix bug where running =dotspacemacs/sync-configuration-layers= ~SPC-f-e-R~
+- Fix bug where running =dotspace-macs/sync-configuration-layers= ~SPC-f-e-R~
   resets all the layouts (thanks to bmag)
 - Fix bug where hooks are run too late when setting
-  =dotspacemacs-auto-resume-layouts= to t (thanks to cpaulik)
+  =dotspace-macs-auto-resume-layouts= to t (thanks to cpaulik)
 - Fix duplication of custom layouts sharing the same key binding
   (thanks to d12frosted)
 - Fix ~SPC b b~ potentially not restricted to layout-local buffers
   (thanks to aroig)
-- Fix display on Emacs fringe symbols (thanks to cpaulik)
+- Fix display on e-macs fringe symbols (thanks to cpaulik)
 - Fix =rainbow-delimiter-mode= in various modes (thanks to StreakyCobra)
 - Fix =neotree= window number assignment (thanks to bmag)
 - Fix =neotree= losing track of its window when changing workspaces or
   layouts (thanks to bmag)
-- Fix ~SPC s e~ for emacs style users, the binding now call =iedit= instead of
+- Fix ~SPC s e~ for e-macs style users, the binding now call =iedit= instead of
   =evil-iedit-state= (thanks to AlejandroCatalina)
 - Fix ~SPC s c~ to work with =evil-search-module= (thanks to StreakyCobra)
 - Fix ~SPC i j~ (insert new line below) and ~SPC i k~ (insert new line above)
   (thanks to TheBB)
 - Fix move up and down selected text in Vim style.
-- Fix =dotspacemacs-remap-Y-to-y$= which had no effect (thanks to TheBB)
+- Fix =dotspace-macs-remap-Y-to-y$= which had no effect (thanks to TheBB)
 - Fix usage of deprecated function =avy--with-avy-keys= (thanks to NJBS)
 - Fix key bindings bug with =visual-line= toggle (thanks to TheBB)
 - Fix tramp history file path (thanks to kallelindqvist)
 - Fix hs-minor-mode activation in prog modes.
 - Fix startup crash if powerline is excluded (thanks to ksjogo)
-- Fix jumping backwards after calling =spacemacs/evil-smart-goto-definition=
+- Fix jumping backwards after calling =space-macs/evil-smart-goto-definition=
   (thanks to Stebalien)
 - Fix =Symbol's value as variable is void: osx-use-dictionary-app= when
   the =osx= layer is not used (thanks to nixmaniack)
@@ -1528,10 +1528,10 @@
 - Disable tilde fringe in shell/comint modes (thanks to russell)
 - Disable tilde fringe in =messages= and =which-key= buffers (thanks to sooheon)
 - Disable smartparens highlighting (thanks to TheBB)
-- Diminish =visual-mode= to " Ⓛ" or " L" to match key binding
+- Diminish =visual-mode= to " â“" or " L" to match key binding
   (thanks to xiaohanyu)
 - Diminish =evil-mc= when there is no cursor.
-- Move =org= base configuration from the =org= layer to the =spacemacs=
+- Move =org= base configuration from the =org= layer to the =space-macs=
   distribution (thanks to d12frosted)
 - Move =pcre2el= key bindings to ~SPC x r~ prefix
 - Move =projectile-find-tag= from ~SPC p y~ to ~SPC p g~
@@ -1541,9 +1541,9 @@
 - Prevent =auto-highlight-symbol= from setting up its own default map
   (thanks to bling)
 - Delay =vi-tilde-fringe= loading after display init, fixes missing tildes
-  when using Emacs daemon (thanks to StreakyCobra)
-- Start to partition =spacemacs= layers into sub-layers (thanks to justbur)
-- Use two different sets of workspaces for each Spacemacs layout: one set for
+  when using e-macs daemon (thanks to StreakyCobra)
+- Start to partition =space-macs= layers into sub-layers (thanks to justbur)
+- Use two different sets of workspaces for each Space-macs layout: one set for
   graphical frames, and one set for terminal frames (thanks to bmag)
 
 *** Layer changes
@@ -1572,7 +1572,7 @@
 
   (thanks to krakapwa)
 - Enable ~C-p~ (hippie-expand) only in vim style (thanks to nixmaniack)
-- Add support for emacs style for navigation in =company=
+- Add support for e-macs style for navigation in =company=
 - Fix =smartparens= integration with =yasnipet= and =hippie-expand=
   (thanks to TheBB)
 - Fix =company-quickhelp= in daemon mode (thanks to TheBB)
@@ -1692,7 +1692,7 @@
   useful and shadows ~n~ to repeat last search (thanks to tko)
 - Fix auto-complete (thanks to benansell)
 
-**** Emacs Lisp
+**** e-macs Lisp
 - New key binding ~SPC m g G~ to go to definition in other window
 - Fix key binding ~SPC m =~ (thanks to NJBS)
 
@@ -1724,7 +1724,7 @@
     - ~SPC g c~ magit-commit-popup
     - ~SPC g C~ magit-checkout
     - ~SPC g d~ magit-diff-popup
-    - ~SPC g D~ spacemacs/magit-diff-head
+    - ~SPC g D~ space-macs/magit-diff-head
     - ~SPC g e~ magit-ediff-compare
     - ~SPC g E~ magit-ediff-show-working-tree
     - ~SPC g f~ magit-fetch-popup
@@ -1798,7 +1798,7 @@
 - Remove =ghci-ng= support (thanks to d12frosted)
 
 **** Helm
-- Rename action =Add layer= to =Install layer= in =helm-spacemacs-help=
+- Rename action =Add layer= to =Install layer= in =helm-space-macs-help=
   (thanks to CestDiego)
 - Fix =helm-source-header= face not updating when changing themes
   (thanks to ghoot)
@@ -1864,7 +1864,7 @@
 - New layer variable =markdown-live-preview-engine=, Possibe values are =eww=
   (built-in browser) or =vmd= (installed with =npm=)
 - Add package =vmd-mode= (thanks to bixuanzju)
-- New key binding ~SPC m c P~ to live preview in Emacs's built-in browser
+- New key binding ~SPC m c P~ to live preview in e-macs's built-in browser
   (thanks to lunaryorn)
 
 **** mu4e
@@ -1938,7 +1938,7 @@
 - Support pasting text with ~s-v~ in terminals (thanks to lyallcooper)
 
 **** NixOS
-- Add =nix-mode= to variable =spacemacs-indent-sensitive-modes= to disable
+- Add =nix-mode= to variable =space-macs-indent-sensitive-modes= to disable
   automatic indentation on pasting text (thanks to Profpatsch)
 
 **** Pdf-tools
@@ -2136,8 +2136,8 @@
 - Keep the point at the same location when calling
   =evil-unimpaired/insert-space-above= and =evil-unimpaired/insert-space-below=
   (thanks to jschaf)
-- New key bindings ~] q~ and ~[ q~ for =spacemacs/next-error= and
-  =spacemacs/previous-error= (thanks to bling)
+- New key bindings ~] q~ and ~[ q~ for =space-macs/next-error= and
+  =space-macs/previous-error= (thanks to bling)
 
 **** Windows-scripts
 - Add support for =.cmd= and =.psm1= files (thanks to ralesi)
@@ -2147,38 +2147,38 @@
 
 *** Core Changes
 - Refactor layer system to allow a 20~25% performance boost on startup.
-- Move bootstrap packages from =core-spacemacs.el= to a new layer called
-  =spacemacs-bootstrap=.
+- Move bootstrap packages from =core-space-macs.el= to a new layer called
+  =space-macs-bootstrap=.
 - Checking for new version on startup behavior has been tweaked to lower the
   frequency on the checks and reduce the number of operations made:
   - reduce number of required git commands per check from 3 to 1
   - remove recurrent version check every 6 hours, i.e. the check happens only
     at startup
   - rate limit the checks to once per day
-  - change default value of variable =dotspacemacs-check-for-update= to =nil=
-  - make function =spacemacs/check-for-new-version= interactive so checking
+  - change default value of variable =dotspace-macs-check-for-update= to =nil=
+  - make function =space-macs/check-for-new-version= interactive so checking
     for a new version can be done on demand.
-- New macro =spacemacs|define-jump-handlers= to define jump backends for a given
+- New macro =space-macs|define-jump-handlers= to define jump backends for a given
   mode (thanks to TheBB)
 - Implement an API for =local-vars-hook= which allows to read some directory
   local variables before executing an hooked function (thanks to d12frosted)
-- Make function =spacemacs/get-last-version= interactive
+- Make function =space-macs/get-last-version= interactive
 - New file in layers called =layers.el=, this file is responsible to declare
   layer dependencies.
-- New variable =spacemacs-start-directory=. With this new variable, user can
-  easily load spacemacs anywhere (thanks to exaos)
-- New variable =spacemacs-default-company-backends= which allow the user to
+- New variable =space-macs-start-directory=. With this new variable, user can
+  easily load space-macs anywhere (thanks to exaos)
+- New variable =space-macs-default-company-backends= which allow the user to
   fine tune the default company backends inherited by all the modes
   (thanks to izahn)
 - New command line parameters =--no-layer= and =--distribution=
   - =--no-layer= deactivates all the layers except the distribution layer
   - =--distribution= allows to change temporarily the distribution
-- New funtion =spacemacs/report-issue= to create GitHub issues from within
-  Emacs based on a template (thanks to dwang20151005)
+- New funtion =space-macs/report-issue= to create GitHub issues from within
+  e-macs based on a template (thanks to dwang20151005)
 - New functions =configuration-layer/remove-layer= and
   =configuration-layer/remove-layers=.
-- New function =spacemacs/describe-package= giving useful information on a
-  package in the Spacemacs layers context (key binding ~SPC h d P~)
+- New function =space-macs/describe-package= giving useful information on a
+  package in the Space-macs layers context (key binding ~SPC h d P~)
 - New keyword =:toggle= for package lists =<layer>-packages=. Its value can be a
   symbol or a list. A package is considered to be used if the toggle evaluates
   to non nil. By default =:toggle= is =t=.
@@ -2189,7 +2189,7 @@
 - New value =site= for package =:location= keyword, a site package is a package
   installed on the host by a third party (ie. =mu4e= which is installed by =mu=)
 - New documentation formatting tool =doc-fmt= (thanks to JAremko)
-- New keywords for =spacemacs|add-toggle= macro:
+- New keywords for =space-macs|add-toggle= macro:
   - =:prefix= a symbol that is bound to the raw prefix argument
     (as in =(interactive "P")= forms).
   - =:on-message= an expression overriding the default "on" toggle
@@ -2203,13 +2203,13 @@
 - Add =Quelpa= support for local packages which means that local packages can be
   installed like any other ELPA package (thanks to d12frosted)
 - Add footer in home buffer
-- Add support for functions for =:status= in =spacemacs|add-toggle=
+- Add support for functions for =:status= in =space-macs|add-toggle=
   (thanks to TheBB)
 - Add support for themes =omtose-darker= and =omtose-softer= (thanks to Cifer-Y)
 - Update base16 themes to match new list (thanks to belak)
 - Add emojis to issue template (thanks to CestDiego)
 - Remove variable =user-dropbox-directory=
-- Center spacemacs banner in window at startup (thanks to ralesi and deb0ch)
+- Center space-macs banner in window at startup (thanks to ralesi and deb0ch)
 - Center ascii banners in window at startup (thanks to deb0ch)
 - Display warning buffer at the bottom of the screen when installing packages.
 - Display more information about the number of loaded packages in the home
@@ -2223,9 +2223,9 @@
 - Display a warning message when a non-excluded package has no pre-init, init
   or post-init function in a layer.
 - Merge version strings into one string displayed in the left-hand side:
-  =spacemacs-version@emacs-version (distribution)=
-- Improve =spacemacs|diminish= function (thanks to TheBB)
-- Use =$SPACEMACDIR/init.el= instead of =~/.spacemacs= when both exist
+  =space-macs-version@e-macs-version (distribution)=
+- Improve =space-macs|diminish= function (thanks to TheBB)
+- Use =$SPACEMACDIR/init.el= instead of =~/.space-macs= when both exist
   (thanks to bmag)
 - Fix font definition for first frame in daemon mode (thanks to StreakyCobra)
 - Fix message format in =init.el= (thanks to YasuharuIida)
@@ -2233,13 +2233,13 @@
   (thanks to TheBB)
 - Fix home buffer random banner choice (thanks to deb0ch)
 - Fix =.gitignore= file to enable submodule update (thanks to jgmize)
-- Optimize function =spacemacs//get-package-directory= (thanks to ivanbrennan)
+- Optimize function =space-macs//get-package-directory= (thanks to ivanbrennan)
 - Improving performance by avoiding to visit dump files in function
-  =spacemacs/dump-vars-to-file= (thanks to bmag)
+  =space-macs/dump-vars-to-file= (thanks to bmag)
 
 *** Other fixes and improvements
 - Fix all documentation links on GitHub (thanks to JAremko)
-- Improve Spacemacs themes readability of highlight-persist and smartparens
+- Improve Space-macs themes readability of highlight-persist and smartparens
   overlays when there is an active region (thanks to nashamri)
 - Typos and documentation improvements (thanks to adrsta, Andre099, 1andreas-h,
   axyz, balajisivaraman, benansell, bmag, brettcannon, cpaulik, ChuntaoLu,
@@ -2268,7 +2268,7 @@
 * Release 0.105.x
 ** 0.105.22 (2016/08/19)
 *** Fixes
-- Rename the =emacs-eclim= package to =eclim= (thanks to CestDiego)
+- Rename the =e-macs-eclim= package to =eclim= (thanks to CestDiego)
 
 ** 0.105.21 (2016/06/08)
 *** Fixes
@@ -2289,16 +2289,16 @@
 - Fix =dired-x= autoload (thanks to darkfeline)
 - Fix ~SPC f y~ in =dired= buffers (thanks to dcluna)
 - Fix ~C-i~ key binding for =evil-jump-forward=.
-- Fix ~SPC q r~ to restart Emacs and restore Spacemacs layouts.
+- Fix ~SPC q r~ to restart e-macs and restore Space-macs layouts.
 - Fix go to next/previous error when a compilation buffer is opened
   (thanks to dennishamester)
-- Fix error when opening =spacemacs-helm= with unknown org documentation
+- Fix error when opening =space-macs-helm= with unknown org documentation
   files (thanks to kuangdash)
 - Fix wrong states when exiting =evil-lisp-state= and =evil-iedit-state=
-  while using the =emacs= editing style.
+  while using the =e-macs= editing style.
 - Fix ASCII banners first line being overwritten by the version numbers
 - Use MELPA version of =persp-mode=, the package may need to be deleted
-  manually from the =elpa= directory and a restart of Emacs may be
+  manually from the =elpa= directory and a restart of e-macs may be
   required.
 - Discover layers before running dotfile tests when reloading the
   configuration, prevents false negatives (thanks to TheBB)
@@ -2359,11 +2359,11 @@
 
 ** 0.105.16 (2016/04/01)
 - Add FAQ entry about HTTPS issues (thanks to TheBB)
-- Add startup list to Zemacs home buffer.
+- Add startup list to Ze-macs home buffer.
 
 ** 0.105.15 (2016/04/01)
 *** Improvements
-- Emacs to THE MAX! Release of Zemacs!
+- e-macs to THE MAX! Release of Ze-macs!
 
 *** Layer changes
 **** Javascript
@@ -2376,7 +2376,7 @@
 ** 0.105.14 (2016/03/09)
 *** Fixes
 - Fix bad window index for =neotree= buffer (thanks to bmag)
-- Fix error when using ~SPC p l~ right after Emacs started (thanks to bixuanzju)
+- Fix error when using ~SPC p l~ right after e-macs started (thanks to bixuanzju)
 
 *** Layer changes
 **** Go
@@ -2435,12 +2435,12 @@
 - Add support for =rust= code blocks (thanks to panicbit)
 
 **** Org
-- Fix custom Spacemacs layout when =org-agenda-files= isn't a list.
+- Fix custom Space-macs layout when =org-agenda-files= isn't a list.
   The org-agenda-files variable can be the name of a directory or a file.
   (thanks to jmiven)
 
 **** Osx
-- Fix =osx-use-options-as-meta= for Emacs 25 (thanks to d12frosted)
+- Fix =osx-use-options-as-meta= for e-macs 25 (thanks to d12frosted)
 
 **** React
 - make =evil-matchit= jump between html/jsx tags (thanks to tko)
@@ -2469,8 +2469,8 @@
 
 ** 0.105.11 (2016/02/18)
 Improve loading robustness:
-- When an ELPA repository is down Spacemacs will now be able to finish loading
-- Spacemacs will use the default theme (i.e. no theme) if there is any error
+- When an ELPA repository is down Space-macs will now be able to finish loading
+- Space-macs will use the default theme (i.e. no theme) if there is any error
   during the download of the starting theme.
 
 ** 0.105.10 (2016/02/18)
@@ -2483,14 +2483,14 @@ Improve loading robustness:
 - Don't change scratch major mode if buffer exists (thanks to TheBB)
 - Restore windows layout when quitting =ediff= (thanks to fbergroth)
 - Ensure that =pcache-directory= ends in a slash (thanks to rpglover64)
-- Ensure new Spacemacs layouts only shows home buffer (thanks to bmag)
+- Ensure new Space-macs layouts only shows home buffer (thanks to bmag)
 
 *** Improvements
 - Add a bug report template for GitHub issues on ~SPC h I~
   (thanks to StreakyCobra)
 - Add files used by =eww= to =.gitignore= (thanks to ahyatt)
 - Various enhancements for themes handling (thanks to TheBB)
-- Allow =default= theme (no theme) to be defined in =dotspacemacs-themes=
+- Allow =default= theme (no theme) to be defined in =dotspace-macs-themes=
   (thanks to izahn)
 - Add support for missing =base16= themes (thanks to curtmack)
 - Update recent files list when a file is renamed (thanks to lislon)
@@ -2600,7 +2600,7 @@ Improve loading robustness:
 - Add default key binding ~C-c c~ for =org-capture=
   (thanks to AlejandroCatalina)
 
-**** Spacemacs
+**** Space-macs
 - Add =bracketed-paste= package to improve pasted text in terminals
   (thanks to AlejandroCatalina)
 
@@ -2645,7 +2645,7 @@ Improve loading robustness:
 - Fix errors when reading =.python-version= files (thanks to fbergroth)
 
 *** Dotfile changes
-- New variable =dotspacemacs-scratch-mode= to configure the default major-mode
+- New variable =dotspace-macs-scratch-mode= to configure the default major-mode
   for the scratch buffer, default value is =text-mode= (thanks to TheBB)
 
 *** Improvements
@@ -2666,12 +2666,12 @@ Improve loading robustness:
 - Fix ~b~ key binding on home buffer (thanks to justbur)
 
 *** Layer changes
-**** Spacemacs
+**** Space-macs
 - Bind =evil-jumper/forward= to =<C-i>= to make it work when
-  =dotspacemacs-distinguish-gui-tab= is non nil (thanks to TheBB)
+  =dotspace-macs-distinguish-gui-tab= is non nil (thanks to TheBB)
 
 **** Auto-completion
-- Add =~/.spacemacs.d/snippets= directory to the snippet sources of
+- Add =~/.space-macs.d/snippets= directory to the snippet sources of
   yasnippet.
 - Don't enter =evil-insert-state= after =aya-expand= when =holy-mode= if active
   (thanks to abaw)
@@ -2679,12 +2679,12 @@ Improve loading robustness:
 ** 0.105.4 (2016/01/07)
 *** Fixes
 **** Core
-- Fix home buffer obfuscating opened file when Emacs starts (thanks to justbur)
+- Fix home buffer obfuscating opened file when e-macs starts (thanks to justbur)
 
 **** Ruby layer
 - Fix =rbenv= loading (thanks to TheBB)
 
-**** Spacemacs layouts
+**** Space-macs layouts
 - Fix jumping to last layout when the last layout is the default layout
   (thanks to TheBB)
 
@@ -2693,7 +2693,7 @@ Improve loading robustness:
 
 ** 0.105.3 (2016/01/06)
 *** Fixes
-**** Emacs lisp layer
+**** e-macs lisp layer
 - Fix wrong hook for adding evil text objects (thanks to justbur)
 
 **** Ledger
@@ -2703,8 +2703,8 @@ Improve loading robustness:
 - Fix smartparens configuration (thanks to edwintorok)
 
 *** Layer changes
-**** Spacemacs
-- Improve robustness of =spacemacs/toggle-transparency= function
+**** Space-macs
+- Improve robustness of =space-macs/toggle-transparency= function
   (thanks to justbur)
 
 *** Other improvements
@@ -2713,23 +2713,23 @@ Improve loading robustness:
 - Typos and documentation improvements (thanks to d12frosted)
 
 ** 0.105.2 (2016/01/05)
-- Fix empty mode-line when a new Spacemacs version is available
+- Fix empty mode-line when a new Space-macs version is available
   (thanks to TheBB)
 
 ** 0.105.1 (2016/01/05)
 *** Fixes
 - Fix and improve support for GUI clients using a server started with
-  =emacs --daemon=:
+  =e-macs --daemon=:
   - Fix font
   - Fix graphical Spaceline separator
   - Fix theme colors (most of them)
-  - Fix Spacemacs logo in home buffer
+  - Fix Space-macs logo in home buffer
   - Add support for graphical Nyan Cat
 
-**** Spacemacs layer
-- Fix broken =evil-escape-mode= when toggling =holy-mode= (emacs style)
+**** Space-macs layer
+- Fix broken =evil-escape-mode= when toggling =holy-mode= (e-macs style)
 
-**** Bépo layer
+**** BÃ©po layer
 - Fix support for Magit (thanks to StreakyCobra)
 
 **** Magit layer
@@ -2740,8 +2740,8 @@ Improve loading robustness:
   (thanks to lunaryorn)
 
 *** Layer changes
-**** Spacemacs
-- New key binding ~SPC h n~ to browse the Emacs news (thanks to lunaryorn)
+**** Space-macs
+- New key binding ~SPC h n~ to browse the e-macs news (thanks to lunaryorn)
 
 **** Themes megapack
 - Add =monokai= theme (thanks to jonboiser)
@@ -2753,7 +2753,7 @@ Improve loading robustness:
 ** 0.105.0 (2016/01/04)
 *** IMPORTANT - Breaking changes
 - ~SPC l~ for =avy-goto-line= is now under ~SPC y~. ~SPC l~ is for
-  spacemacs layouts.
+  space-macs layouts.
 - ~SPC a p~ is now for =list-processes= and ~SPC a P~ for =proced=,
   =paradox= is now on ~SPC a k~.
 - ~SPC s l~ is now used to bring back last search buffer and ~SPC s j~
@@ -2765,24 +2765,24 @@ Improve loading robustness:
   =(setq projectile-enable-caching t)=.
 - Git: new key bindings scheme using =evil-magit= package. If you want
   to continue to use the old evilified bindings add =evil-magit= package
-  to the =dotspacemacs-excluded-packages= variable of your dotfile.
-- Ruby: the default major mode is now the Emacs built-in =ruby-mode=.
+  to the =dotspace-macs-excluded-packages= variable of your dotfile.
+- Ruby: the default major mode is now the e-macs built-in =ruby-mode=.
   If you want to continue to use =enh-ruby-mode= set the layer variable
   =ruby-enable-enh-ruby-mode= to =t=.
 
 *** Hot new features
-- Spacemacs layouts under ~SPC l~ with =eyebrowse= integration
+- Space-macs layouts under ~SPC l~ with =eyebrowse= integration
   (thanks to CestDiego, bmag and TheBB)
 - Revamped Magit key bindings thanks to =evil-magit= which provides
   a faithful port of Magit UX using Vim key bindings (thanks to justbur)
-- Brand new website on =spacemacs.org= with =readthedocs= documentation pages
+- Brand new website on =space-macs.org= with =readthedocs= documentation pages
   (thanks to bobbyangelov, nashamri and TheBB)
-- New command line parameters for =emacs=:
+- New command line parameters for =e-macs=:
   - =--timed-requires=, =--profile= and =--adv-timers [n]= to profile and
-    benchmark Emacs initialization (thanks to justbur)
+    benchmark e-macs initialization (thanks to justbur)
   - =--insecure= to disable https when fetching ELPA packages.
-  - =--debug-init= (built-in Emacs parameter) now enable Spacemacs verbose
-    messages when Emacs is loading.
+  - =--debug-init= (built-in e-macs parameter) now enable Space-macs verbose
+    messages when e-macs is loading.
 
 *** Other important notes
 - All =extensions= directories have been renamed to =local=. =extensions=
@@ -2793,12 +2793,12 @@ Improve loading robustness:
 
 *** New conventions
 - Commit and abort commands conventions:
-  - ~SPC m ​,​~ and ~SPC m c~ to Valid/Confirm
+  - ~SPC m â€‹,â€‹~ and ~SPC m c~ to Valid/Confirm
   - ~SPC m a~ and ~SPC m k~ to Abort/Discard
 
   (thanks to StreakyCobra)
 - Update evilified state rebinding conventions:
-  ~SPC~ to ~​'​~, ~/~ to ~\~ and ~:~ to ~|~
+  ~SPC~ to ~â€‹'â€‹~, ~/~ to ~\~ and ~:~ to ~|~
 
 *** New Layers
 - bepo in =keyboard-layouts= (thanks to StreakyCobra)
@@ -2809,7 +2809,7 @@ Improve loading robustness:
 - mu4e in =email= (thanks to darkfeline)
 - octave in =lang= (thanks to izahn)
 - selectric in =fun= (thanks to algernon)
-- spacemacs-layouts (thanks to CestDiego)
+- space-macs-layouts (thanks to CestDiego)
 - speed-reading (thanks to AdrieanKhisbe)
 - swift in =lang= (thanks
 - theming (thanks to TheBB)
@@ -2817,30 +2817,30 @@ Improve loading robustness:
 - vimscript in =lang= (thanks to ralesi)
 
 *** Dotfile changes
-- New variable =dotspacemacs-elpa-https= if non nil use HTTPS otherwise
+- New variable =dotspace-macs-elpa-https= if non nil use HTTPS otherwise
   use HTTP. Default is t.
-- New variable =dotspacemacs-elpa-timeout=, default is 5 seconds
-- New variable =dotspacemacs-check-for-update= to toggle check for Spacemacs
+- New variable =dotspace-macs-elpa-timeout=, default is 5 seconds
+- New variable =dotspace-macs-check-for-update= to toggle check for Space-macs
   updates at startup, default is =t= (thanks to tenthousandfailures)
-- New variable =dotspacemacs-default-layout-name= to set the name of the
-  default Spacemacs layout.
-- New variable =dotspacemacs-display-default-layout= to toggle display
+- New variable =dotspace-macs-default-layout-name= to set the name of the
+  default Space-macs layout.
+- New variable =dotspace-macs-display-default-layout= to toggle display
   of the name of the default layout in the mode-line, default is =nil=.
-- New variable =dotspacemacs-auto-resume-layouts= to resume automatically
-  the last layout when Emacs starts.
-- New variable =dotspacemacs-max-rollback-slots= to set the maximum number
+- New variable =dotspace-macs-auto-resume-layouts= to resume automatically
+  the last layout when e-macs starts.
+- New variable =dotspace-macs-max-rollback-slots= to set the maximum number
   of rollback slots to keep in the cache.
-- New variable =dotspacemacs-line-numbers= to enable line numbers
+- New variable =dotspace-macs-line-numbers= to enable line numbers
   globally, possible values are =relative=, =t= or =nil=.
   Default is =nil= (thanks to StreakyCobra)
-- New variable =dotspacemacs-distinguish-gui-tab=, if non nil then ~TAB~
-  and ~C-i~ are distinct using GUI Emacs, default is =nil= (thanks to justbur)
-- New variable =dotspacemacs-startup-recent-list-size= to configure the
+- New variable =dotspace-macs-distinguish-gui-tab=, if non nil then ~TAB~
+  and ~C-i~ are distinct using GUI e-macs, default is =nil= (thanks to justbur)
+- New variable =dotspace-macs-startup-recent-list-size= to configure the
   number of recent files to display in the home buffer (thanks to bmag)
-- New variable =dotspacemacs-whitespace-cleanup= to enable automatic
+- New variable =dotspace-macs-whitespace-cleanup= to enable automatic
   cleanup of whitespace on save. Possible values are =all=, =trailing=,
   =changed= or =nil=. Default is =changed= (thanks to nixmaniack)
-- Remove =dotspacemacs-verbose-loading=, it is now enabled automatically
+- Remove =dotspace-macs-verbose-loading=, it is now enabled automatically
   with the command line parameter =--debug-init=
 
 *** Distribution layer changes
@@ -2853,10 +2853,10 @@ Improve loading robustness:
 - New key binding ~SPC h k~ to display the top level of key bindings
   (thanks to justbur)
 - New key binding ~SPC h d K~ to describe a keymap (thanks to justbur)
-- New key binding ~SPC h SPC~ for =helm-spacemacs= (~SPC f e h~ is still
+- New key binding ~SPC h SPC~ for =helm-space-macs= (~SPC f e h~ is still
   available) (thanks to StreakyCobra)
 - New key binding ~SPC f E~ to edit a file with =sudo= (thanks to cpaulik)
-- New key binding ~SPC q r~ to restart Emacs (thanks to nixmaniack)
+- New key binding ~SPC q r~ to restart e-macs (thanks to nixmaniack)
 - New key binding ~SPC c q~ to close compilation window (thanks to joehillen)
 - New key binding ~SPC c k~ to kill current compilation (thanks to jb55)
 - New key binding ~SPC x o~ to open URLs with =avy= (thanks to StreakyCobra)
@@ -2913,18 +2913,18 @@ Improve loading robustness:
 - Fix =linum-relative-mode= toggle being called twice the first time it is used
   (thanks to justbur)
 - Fix ~SPC j k~ unwanted auto-comment (thanks to driftcrow)
-- Fix =spacemacs/write-file= being repeatable with ~.~ (thanks to StreakyCobra)
+- Fix =space-macs/write-file= being repeatable with ~.~ (thanks to StreakyCobra)
 - Fix =debug-on-error= toggle (thanks to lunaryorn)
 - Fix =recentf-exclude= to be customizable (thanks to duerrp)
-- Fix =spacemacs/kill-other-buffers= (thanks to TheBB)
+- Fix =space-macs/kill-other-buffers= (thanks to TheBB)
 - Fix reversed mode-line toggle (thanks to TheBB)
 - Fix =ahs-edit-mode= function which requires an argument (thanks to hanmoi-choi)
-- Fix =spacemacs/sudo-edit= to make it work on remote ssh buffers with
+- Fix =space-macs/sudo-edit= to make it work on remote ssh buffers with
   multi-hops (thanks to dcluna)
 - Fix transparency toggle (thanks to justbur)
 - Fix toggle for =truncate-lines= (thanks to driftcrow)
 - Fix visible cursor in =helm= buffers
-- Enable built-in Emacs lock files by setting =create-lockfiles= to =t=
+- Enable built-in e-macs lock files by setting =create-lockfiles= to =t=
   (thanks to xfq)
 - Greatly simplify =holy-mode= by disabling =evil-mode= (thanks to justbur)
 - Standardise zoom key bindings: ~+~ and ~=~ zoom in, ~-~ zoom out and ~0~
@@ -2941,7 +2941,7 @@ Improve loading robustness:
 - Improve =count-words-analysis= output (thanks to StreakyCobra)
 - Switch between columns layout now correctly toggle golden-ratio
   (thanks to geksilla)
-- Do not kill the Emacs server when killing frame (thanks to drewkett)
+- Do not kill the e-macs server when killing frame (thanks to drewkett)
 - Do not change =custom-file= value if already set (thanks to lunaryorn)
 - Use =evil-indent-plus= package to replace =evil-indent-textobject=
   (thanks to TheBB)
@@ -2960,7 +2960,7 @@ Improve loading robustness:
   =neo-vc-integration= to =nil= (thanks to synic)
 - Make google translate language code case-insensitive (thanks to lislon)
 
-**** Helm-spacemacs
+**** Helm-space-macs
 - Add =add to dotfile= action on a layer (thanks to CestDiego)
 - Add action to open =.org= files for editing (thanks to TheBB)
 - Add FAQ source (thanks to StreakyCobra)
@@ -2982,7 +2982,7 @@ Improve loading robustness:
   (thanks to taiansu)
 
 **** Better defaults
-- Fix =spacemacs/backward-kill-word-or-region= with rectangular selection
+- Fix =space-macs/backward-kill-word-or-region= with rectangular selection
   (thanks to bmag)
 
 **** C/C++
@@ -3018,7 +3018,7 @@ Improve loading robustness:
 - Fix incorrect command for =elm-repl-load= (thanks to holguinj)
 - Fix key bindings for REPL commands updated upstream (thanks to tcallan)
 
-**** Emacs lisp
+**** e-macs lisp
 - Add =auto-compile= package (thanks to justbur)
 - New key bindings for compilation:
   ~SPC m c c~ to byte compile the current file,
@@ -3052,7 +3052,7 @@ Improve loading robustness:
 - New key binding scheme using =evil-magit= package (thanks to justbur)
 - New key binding ~SPC g i~ for =magit-init= (thanks to CestDiego)
 - New key binding ~SPC g c~ for =magit-checkout= (thanks to PierreR)
-- New key bindings ~SPC m ​,​~ and ~SPC m c~ to Valid/Confirm =with-editor=
+- New key bindings ~SPC m â€‹,â€‹~ and ~SPC m c~ to Valid/Confirm =with-editor=
   buffers (thanks to justbur)
 - New key bindings ~SPC m a~ and ~SPC m k~ to Abort/Discard =with-editor=
   buffers (thanks to justbur)
@@ -3138,7 +3138,7 @@ Improve loading robustness:
 **** LaTeX
 - New layer variable =latex-enable-folding= to enable text folding, default
   value is =nil= (thanks to justbur)
-- New key bindings ~SPC m ​,​~ and ~SPC m k~ for ~C-c C-c~ and ~C-c C-k~
+- New key bindings ~SPC m â€‹,â€‹~ and ~SPC m k~ for ~C-c C-c~ and ~C-c C-k~
   respectively (thanks to justbur)
 - New key bindings:
   - ~SPC m .~ to mark LaTeX environment
@@ -3194,7 +3194,7 @@ Improve loading robustness:
 
 **** Org
 - New key bindings:
-  - ~SPC m <dotspacemacs-major-mode-leader-key>~ for =org-ctrl-c-ctrl-c=
+  - ~SPC m <dotspace-macs-major-mode-leader-key>~ for =org-ctrl-c-ctrl-c=
   - ~SPC m *~ for =org-ctrl-c-star=
   - ~SPC m RET~ for =org-ctrl-c-ret=
   - ~SPC m -~ for =org-ctrl-c-minus=
@@ -3317,7 +3317,7 @@ Improve loading robustness:
 **** Spell-checking
 - New layer variable =spell-checking-enable-by-default= to enable/disable
   =flyspell= by default globally (thanks to TheBB)
-- Move =auto-dictionary= from spacemacs layer to =spell-checking=
+- Move =auto-dictionary= from space-macs layer to =spell-checking=
   and activate it (thanks to StreakyCobra)
 - Disable line numbers in shell buffers (thanks to CestDiego)
 - Fix =flyspell-prog-mode= activation (thanks to lunaryorn)
@@ -3359,20 +3359,20 @@ Improve loading robustness:
 
 *** Core changes
 - New command line parameters =--timed-requires= and =--profile= to debug
-  and benchmark Emacs initialization (thanks to justbur)
+  and benchmark e-macs initialization (thanks to justbur)
 - New command line parameter =--insecure= to disable https
-- Add path variable =spacemacs-assets-directory= (thanks to aminb)
-- Add a check to make sure that the Spacemacs git repository is not dirty before
-  switching the Spacemacs versions (thanks to justbur)
-- Add an error message when the minimal Emacs version is not met
+- Add path variable =space-macs-assets-directory= (thanks to aminb)
+- Add a check to make sure that the Space-macs git repository is not dirty before
+  switching the Space-macs versions (thanks to justbur)
+- Add an error message when the minimal e-macs version is not met
   (thanks Immortalin)
-- Add =spacemacs/recompile-elpa= interactive function (thanks to justbur)
-- Add =user-emacs-directory= in =async-start= (thanks to brabalan)
+- Add =space-macs/recompile-elpa= interactive function (thanks to justbur)
+- Add =user-e-macs-directory= in =async-start= (thanks to brabalan)
 - Set =ad-redefinition-action= to =accept=
 - Enable distinction between ~C-i~ and ~TAB~ (thanks to justbur)
-- Move =evilified-state= library to local package of =spacemacs= layer
+- Move =evilified-state= library to local package of =space-macs= layer
 - Replace =evil-leader= package by =bind-map= package (thanks to justbur)
-- Remove special handling of =spacemacs-theme= and =solarized-theme=
+- Remove special handling of =space-macs-theme= and =solarized-theme=
   (thanks to TheBB)
 - Remove bootstrap packages =dash= and =f=
 - Improved travis Build relying on container and EVM (thanks AdrieanKhisbe)
@@ -3380,33 +3380,33 @@ Improve loading robustness:
 - Keep focus while navigating =*help*= buffers (thanks to sooheon)
 - Catch errors in executed dotfile functions and signal them to the user
   (thanks to justbur)
-- Show errors in =*Messages*= buffer when loading .spacemacs instead of
+- Show errors in =*Messages*= buffer when loading .space-macs instead of
   ignoring them (thanks to dcluna)
 - Fix overwrite of clipboard at startup (thanks to StreakyCobra)
-- Fix error when setting =dotspacemacs-major-mode-leader-key= to nil
+- Fix error when setting =dotspace-macs-major-mode-leader-key= to nil
   (thanks to justbur)
 - Fix some loading warnings (thanks to syohex)
 - Fix theme cycling after ~SPC T h~ is used (thanks to nixmaniack)
 - Fix various usage of obsolete functions (thanks to justbur)
 - Fix various free variable references (thanks to justbur)
 - Hide mode-line at startup
-- Generate necessary HTML for the Spacemacs docs (used for the website)
+- Generate necessary HTML for the Space-macs docs (used for the website)
   (thanks to travisbhartwell)
 
 **** Home buffer
 - ~b~ now jumps to the bookmark list (thanks to kccai)
-- Set Spacemacs home buffer as initial buffer for Emacs clients
+- Set Space-macs home buffer as initial buffer for e-macs clients
   (thanks to TheBB)
-- Inject Emacs version along with Spacemacs version in home buffer
+- Inject e-macs version along with Space-macs version in home buffer
   (thanks to ralesi)
-- Add a =Spacemacs Update= button to the spacemacs buffer, and relabel the
+- Add a =Space-macs Update= button to the space-macs buffer, and relabel the
   package update button to read =Update Packages= (thanks to justbur)
-- Show quick help menu when no =.spacemacs= file is found (thanks to person808)
-- Do not start spacemacs buffer in motion state when editing style is =emacs=
+- Show quick help menu when no =.space-macs= file is found (thanks to person808)
+- Do not start space-macs buffer in motion state when editing style is =e-macs=
   (thanks to justbur)
-- Factor out =spacemacs-buffer= creation (thanks to justbur)
-- Move =spacemacs-mode= to =core-spacemacs-buffer.el= (thanks to justbur)
-- Simplify =spacemacs-buffer/goto-link-line= (thanks to justbur)
+- Factor out =space-macs-buffer= creation (thanks to justbur)
+- Move =space-macs-mode= to =core-space-macs-buffer.el= (thanks to justbur)
+- Simplify =space-macs-buffer/goto-link-line= (thanks to justbur)
 
 **** Configuration layer
 - Limit the number of rollback slots (thanks to elemakil)
@@ -3425,15 +3425,15 @@ Improve loading robustness:
 
 *** Other fixes and improvements
 - =README.md= introduction rewrite (thanks to purcell)
-- New badge =Built with Spacemacs= (thanks to nashamri)
+- New badge =Built with Space-macs= (thanks to nashamri)
 - Merge files =HOWTOs.org= in =FAQ.org= (thanks to StreakyCobra)
 - Merge the =CONTRIBUTING.md= and =doc/CONTRIBUTE.org= files into a new
   =CONTRIBUTING.org= file (thanks to StreakyCobra)
 - Delete unneeded =.gitmodules= file (thanks to robbyoconnor)
 - Add =cl-= prefix to =cl-lib= functions (thanks to coldnew, robbyoconnor)
 - Replace =eval-after-load= with =with-eval-after-load= (thanks to person808)
-- New Spacemacs screenshot in =README.md= (thanks to nashamri)
-- New text banners of the Spacemacs logo (thanks to sshbio)
+- New Space-macs screenshot in =README.md= (thanks to nashamri)
+- New text banners of the Space-macs logo (thanks to sshbio)
 - Add prefix command names (thanks to grammati, jenanwise, davoclavo, tekerson,
   d12frosted, CestDiego, lunaryorn, nixmaniack, AlexCharlton)
 - Typos and documentation improvements (thanks to AdrieanKhisbe, bardec,
@@ -3457,7 +3457,7 @@ Improve loading robustness:
 
 ** 0.104.7 (2015/12/15)
 *** Distribution layer changes
-**** Spacemacs
+**** Space-macs
 - Remove fancy battery custom mode-line (moved to spaceline) (thanks to TheBB)
 
 *** Layers changes
@@ -3479,9 +3479,9 @@ Improve loading robustness:
 
 ** 0.104.5 (2015/11/22)
 *** Distribution layer changes
-**** Spacemacs
+**** Space-macs
 - Use version 7.1 of =evil-lisp-state=, the version 8 is supported
-  in version 105 of Spacemacs only.
+  in version 105 of Space-macs only.
 
 ** 0.104.4 (2015/11/04)
 *** Layer changes
@@ -3509,7 +3509,7 @@ Improve loading robustness:
 
 ** 0.104.2 (2015/09/29)
 *** Hotfixes
-- Fix error =void-variable warning-minimum-level= on Emacs 24.3
+- Fix error =void-variable warning-minimum-level= on e-macs 24.3
   (thanks to syohex)
 
 *** Layer changes
@@ -3519,7 +3519,7 @@ Improve loading robustness:
 *** Core
 - Silence =ad-handle-definition= about advised functions getting redefined
 - Improve evilification rules, now ~:~ is rebound to ~|~, ~/~ is rebound to ~\~
-  and ~SPC~ is rebound to ~​'​~
+  and ~SPC~ is rebound to ~â€‹'â€‹~
 
 *** Other fixes and improvements
 - Add FAQ entry on the difference between available distributions (thanks to
@@ -3530,11 +3530,11 @@ Improve loading robustness:
 
 ** 0.104.1 (2015/09/28)
 *** Dotfile changes
-- New variable =dotspacemacs-remap-Y-to-y$=, when non nil ~Y~ is remapped to
+- New variable =dotspace-macs-remap-Y-to-y$=, when non nil ~Y~ is remapped to
   ~y$~. Default value is =t=.
 
 *** Distribution layer changes
-**** Spacemacs
+**** Space-macs
 - Add ~SPC t h a~ to toggle automatic highlighting of symbol under point.
 
 *** Layer changes
@@ -3548,7 +3548,7 @@ Improve loading robustness:
 *** IMPORTANT - Breaking changes
 - =org-plus-contrib= is now installed from org ELPA repository, you may
   encounter strange behaviours from Org. In this case delete the =org= directory
-  in the =elpa= directory and restart Emacs.
+  in the =elpa= directory and restart e-macs.
 - =Helm= key bindings have been slightly adjusted:
   - in =helm-find-files= (~SPC f f~): now ~C-h~ move up a directory and ~C-l~
     enter the selected directory. =describe-key= command is available on ~C-S-h~
@@ -3556,8 +3556,8 @@ Improve loading robustness:
     is the same as ~RET~. =describe-key= command is also available on ~C-S-h~.
 - ~Y~ has been remapped to ~y$~
 - The =bookmark= saved file has been moved to the =.cache= directory, if
-  you have a bookmark file =~/.emacs.d/bookmarks= then you'll have to move it
-  to =~/.emacs.d/.cache/bookmarks=
+  you have a bookmark file =~/.e-macs.d/bookmarks= then you'll have to move it
+  to =~/.e-macs.d/.cache/bookmarks=
 - =Ruby on Rails= framework has now its own layer called =ruby-on-rails=,
   be sure to add this layer to your dotfile if you use RoR.
 - =Django= framework has now its own layer called =django=,
@@ -3569,7 +3569,7 @@ Improve loading robustness:
 *** Other important notes
 - All layers have been moved to =layers= directory
 - Category folder prefix has been changed to =+= (was =!=)
-- =spacemacs= layer has been moved to the =layers= directory in the
+- =space-macs= layer has been moved to the =layers= directory in the
   category =+distribution=
 - All =extensions= directories have been renamed to =local=. =extensions=
   directories will be deprecated in 0.105.0.
@@ -3582,24 +3582,24 @@ Improve loading robustness:
   =extensions.el= files and =<layer>-excluded-packages= variables are now
   optional and will be deprecated in the next version 0.105.0.
 - New =distribution= concept: you can now choose between two distributions:
-  =spacemacs= or =spacemacs-base=. =spacemacs-base= contains only
-  a minimal set of packages whereas =spacemacs= is the full Spacemacs
-  experience. Set the distribution with =dotspacemacs-distribution= variable.
+  =space-macs= or =space-macs-base=. =space-macs-base= contains only
+  a minimal set of packages whereas =space-macs= is the full Space-macs
+  experience. Set the distribution with =dotspace-macs-distribution= variable.
 - Add support for =Quelpa= which allows to use =Melpa= recipes to install
   packages directly from source (i.e. one can now install a package directly
   from a GitHub repository).
 - New editing style: =hybrid=. This style is similar to Vim style except that
-  all Emacs key bindings are available in hybrid (insert) state instead of Vim
+  all e-macs key bindings are available in hybrid (insert) state instead of Vim
   key bindings. Also in this state, the buffers are evilified like in Vim style.
-- The default theme of Spacemacs is now =spacemacs-dark=. The Spacemacs themes
-  (=spacemacs-dark= and =spacemacs-light=) become the official themes of
-  Spacemacs (thanks to nashamri)
+- The default theme of Space-macs is now =space-macs-dark=. The Space-macs themes
+  (=space-macs-dark= and =space-macs-light=) become the official themes of
+  Space-macs (thanks to nashamri)
 - Recovery mode when there is an error in the user dotfile. Now even when your
-  dotfile cannot be loaded, Spacemacs will be operational with a minimal set
+  dotfile cannot be loaded, Space-macs will be operational with a minimal set
   of packages available (thanks to cmccloud)
-- Add support for dotdirectory =~/.spacemacs.d= which behaves like the Emacs
-  dotdirectory (i.e. =~/.spacemacs.d/init.el= is evaluated instead of
-  =~/.spacemacs= if the former exists and the latter does not) (thanks to
+- Add support for dotdirectory =~/.space-macs.d= which behaves like the e-macs
+  dotdirectory (i.e. =~/.space-macs.d/init.el= is evaluated instead of
+  =~/.space-macs= if the former exists and the latter does not) (thanks to
   justbur)
 - Guide-key is replaced by =which-key= which provides an enhanced and better
   live key bindings browsing experience. (thanks to justbur)
@@ -3608,9 +3608,9 @@ Improve loading robustness:
 - New web gallery to browse themes in =themes-megapack=, URL: [[http://themegallery.robdor.com][theme gallery]]
   (thanks to robmerrell)
 - New test framework supporting layer specific tests (thanks to TheBB)
-- New interactive function =dotspacemacs/test-dotfile= testing the integrity
-  of the =.spacemacs= file. This function will detect any unknown layers and
-  bad dotspacemacs variable values (thanks to justbur)
+- New interactive function =dotspace-macs/test-dotfile= testing the integrity
+  of the =.space-macs= file. This function will detect any unknown layers and
+  bad dotspace-macs variable values (thanks to justbur)
 
 *** New conventions
 - Add spacing conventions for org files (thanks to person808)
@@ -3645,28 +3645,28 @@ Improve loading robustness:
 - yaml (split from ruby)
 
 *** Dotfile changes
-- New variable =dospacemacs-distribution= allowing to choose the default
-  packages installed by Spacemacs.
-- New function =dotspacemacs/user-init=. Now =dotspacemacs/init= function
-  is reserved for dotspacemacs variable exclusively.
-- New value =any= for =dotspacemacs-highlight-delimiters=, when set to
+- New variable =dospace-macs-distribution= allowing to choose the default
+  packages installed by Space-macs.
+- New function =dotspace-macs/user-init=. Now =dotspace-macs/init= function
+  is reserved for dotspace-macs variable exclusively.
+- New value =any= for =dotspace-macs-highlight-delimiters=, when set to
   =any=, all the delimiters are highlighted via =rainbow-mode=.
-- New variable =dotspacemacs-helm-resize=. If non nil then =helm= windows
+- New variable =dotspace-macs-helm-resize=. If non nil then =helm= windows
   will be automatically resized depending on the number of candidates (thanks
   to ralesi)
-- New variable =dotspacemacs-helm-no-header=. If non nil then the helm header
+- New variable =dotspace-macs-helm-no-header=. If non nil then the helm header
   is hidden when there is only one source in the helm buffer (thanks to ralesi)
-- New variable =dotspacemacs-helm-position= which can be =bottom=, =top=,
+- New variable =dotspace-macs-helm-position= which can be =bottom=, =top=,
   =left= or =right= (thanks to ralesi)
-- Add new =:disabled-for= keyword for =dotspacemacs-configuration-layer= which
+- Add new =:disabled-for= keyword for =dotspace-macs-configuration-layer= which
   allow to deactivate a layer for a set of layers. For instance
   =(auto-completion :disabled-for org git)= will disable auto completion for
   both org and git layers.
-- Rename function =dotspacemacs/config= to =dotspacemacs/user-config=. The
-  old function =dotspacemacs/config= will be deprecated in 0.105.0.
+- Rename function =dotspace-macs/config= to =dotspace-macs/user-config=. The
+  old function =dotspace-macs/config= will be deprecated in 0.105.0.
 
 *** Distribution layer changes
-**** Spacemacs-base
+**** Space-macs-base
 - New navigation key bindings for =helm-find-files= (~SPC f f~), now
   ~C-h~ move up a directory and ~C-l~ enter the selected directory.
   =describe-key= command is available on ~C-S-h~.
@@ -3686,7 +3686,7 @@ Improve loading robustness:
   ralesi)
 - Add ~SPC f C d~ and ~SPC f C u~ to quickly convert Unix encoding to DOS
   encoding and vice versa (thanks to ralesi)
-- New key bindings to toggle editing styles: ~SPC t E e~ to toggle =emacs=
+- New key bindings to toggle editing styles: ~SPC t E e~ to toggle =e-macs=
   style and ~SPC t E h~ to toggle =hybrid= style
 - Add support for arrow keys in windows micro-state (thanks to mbertheau)
 - Fix paste micro-state undo
@@ -3711,10 +3711,10 @@ Improve loading robustness:
   =helm-filtered-bookmarks= (thanks to sgepigon)
 - Add ~SPC f L~ for =helm-locate= (thanks to ralesi)
 - Add text object ~g~ for entire buffer (thanks to ralesi)
-- helm-spacemacs: load layers only once.
-- helm-spacemacs: show description of toggle functions (thanks to person808)
+- helm-space-macs: load layers only once.
+- helm-space-macs: show description of toggle functions (thanks to person808)
 
-**** Spacemacs
+**** Space-macs
 - New API for the powerline (thanks to TheBB)
 - Add package =define-word= on ~SPC x w d~ (thanks to swaroopch)
 - Set =projectile-indexing-method= to =alien=. This settings will use available
@@ -3729,7 +3729,7 @@ Improve loading robustness:
   (thanks to StreakyCobra)
 - Set =sp-show-pair-delay= to 0.2 instead of 0. Should fix some slowness in
 - Set =highlight-parentheses= delay to 0.2
-- Enable =highlight-parentheses= when =dotspacemacs-highlight-delimiters= is
+- Enable =highlight-parentheses= when =dotspace-macs-highlight-delimiters= is
   set to =all= (thanks to tuhdo)
 - Hide lighter for =highlight-parentheses=
 - Better diminished lighters for =highlight-indentation-mode= (thanks to
@@ -3788,7 +3788,7 @@ Improve loading robustness:
 - Add ~C-j~ and ~C-k~ for browsing history in the REPL (thanks to luxbock)
 - Add more =clj-refactor= key bindings (thanks to luxbock)
 - Add more key bindings to =cider-stacktrace-mode= (thanks to luxbock)
-- Add interactive function =spacemacs/cider-toggle-repl-font-locking= to
+- Add interactive function =space-macs/cider-toggle-repl-font-locking= to
   toggle font-locking in the REPL (thanks to luxbock)
 - Activate clojure-mode for *.boot files (thanks to usharf)
 - Enable =fancify-symbols= for =clojurescript-mode=, =clojurec-mode= and
@@ -3797,7 +3797,7 @@ Improve loading robustness:
 - Evilify =cider-test-report-mode= buffers (thanks to luxbock)
 - Enable =clj-refactor= key bindings in the REPL (thanks to luxbock)
 - Enable clojure key bindings in the REPL (thanks to luxbock)
-- Fix bug in =spacemacs//cider-eval-in-repl-no-focus=:
+- Fix bug in =space-macs//cider-eval-in-repl-no-focus=:
   - Move to point-max before inserting text
   - Only indent the newly inserted form instead of the whole buffer.
 
@@ -3829,9 +3829,9 @@ Improve loading robustness:
 - Re-enable =magit-gitflow= since it is now compatible with Magit 2.1
   (thanks to gilbertkennen)
 
-**** Emacs lisp
+**** e-macs lisp
 - Make =flycheck= aware of =loadpath= (thanks to CestDiego)
-- Define =emacs-lisp-mode= key bindings for =lisp-interaction-mode=
+- Define =e-macs-lisp-mode= key bindings for =lisp-interaction-mode=
   (thanks to justbur)
 - Fix ~SPC m e c~ to evaluate current form (thanks to justbur)
 - Add ~SPC m e s~ to evaluate symbol under point (thanks to justbur)
@@ -3860,7 +3860,7 @@ Improve loading robustness:
 - Allow fsharp-mode to determine build path (thanks to bsermons)
 
 **** Git
-- Make sure that git-commit is initialized so that Emacs can be used as
+- Make sure that git-commit is initialized so that e-macs can be used as
   $GITEDITOR (thanks to thrnio)
 - Remove some deprecated code (thanks to tko)
 - Add documentation about =magit-push-always-verify= variable (thanks to
@@ -4015,7 +4015,7 @@ Improve loading robustness:
 
 **** Search-engine
 - Add Bing (thanks to Devagamster)
-- Add Spacemacs Pull Requests
+- Add Space-macs Pull Requests
 
 **** Shell
 - Add =eldoc= support in eshell (thanks to ppold)
@@ -4051,50 +4051,50 @@ Improve loading robustness:
 - Add =with-eval-after-load= backport (thanks to justbur)
 - Add new key bindings to evilified buffers: ~g~, ~GG~, ~C-b~, ~C-f~, ~C-d~
   and ~C-u~ (thanks to sooheon)
-- Add ~C-z~ in =evilified-state= to switch to =emacs-state= for the next
+- Add ~C-z~ in =evilified-state= to switch to =e-macs-state= for the next
   command (thanks to justbur)
-- Add =:eval-after-load= keyword to =spacemacs|evilify-map= macro
+- Add =:eval-after-load= keyword to =space-macs|evilify-map= macro
 - Remove ~y~ from evilified state keymap, use a visual selection instead.
 - Fix visual state key bindings in evilified buffers
 - Prevent auto-evilification of buffers from overwriting ~C-g~
 - Rewrite on =evilify-map= macro which is now simpler and more robust
 - Add on and off functions to toggles (thanks to TheBB)
-- Add new function =spacemacs/describe-system-info= which put useful
+- Add new function =space-macs/describe-system-info= which put useful
   information in the clipboard, ready to be pasted in an IRC channel for
   instance (thanks to swaroopch)
 - Add new functions =configuration-layer/declare-layer= and
   =configuration-layer/declare-layers= which can be used in =config.el= files
   of a layer to add required layers.
-- Add macro =dotspacemacs|symbol-value= with new special variable value
+- Add macro =dotspace-macs|symbol-value= with new special variable value
   =display-graphic-p=. This variable will evaluate =(display-graphic-p)=
-  when called with =dotspacemacs|symbol-value=. Use this special value
+  when called with =dotspace-macs|symbol-value=. Use this special value
   to be able to have unicode symbol in GUI client but not in terminal
   clients.
-- Add missing =spacemacs/= function prefix (thanks to person808)
+- Add missing =space-macs/= function prefix (thanks to person808)
 - Add choice of distribution on install (thanks to justbur)
 - Add distribution name in home buffer
-- Add distribution to =spacemacs/describe-system= (thanks to TheBB)
+- Add distribution to =space-macs/describe-system= (thanks to TheBB)
 - Rewrite evil-leader keys handling to make ~M-m~ work correctly
   (thanks to justbur)
-- Replace =after-init-hook= with better hook =emacs-startup-hook=
+- Replace =after-init-hook= with better hook =e-macs-startup-hook=
   (thanks to vkz)
 - Fix some crashes when a package cannot be updated and warn about such
   packages when updating (thanks to bmag)
 - Fix ~SPC u~ not repeating universal-argument (thanks to luxbock)
-- Fix Spacemacs Home Buffer to jump to bookmarks (thanks to travisbhartwell)
-- Fix =ace-link= in spacemacs buffer (thanks to avoine)
-- Fix an issue with Emacs 25 in =init.el= (not yet officially supported)
+- Fix Space-macs Home Buffer to jump to bookmarks (thanks to travisbhartwell)
+- Fix =ace-link= in space-macs buffer (thanks to avoine)
+- Fix an issue with e-macs 25 in =init.el= (not yet officially supported)
   (thanks to justbur)
 - Fix ~return~ binding in terminal in home buffer(thanks to d12frosted)
 - Fix custom banner path (thanks to d12frosted)
 - Fix inconsistent detection of orphaned packages to delete
 - Set =gc-cons-threshold= to 100MB and define it in =init.el=
 - Use =package-alist= to resolve orphans
-- Better indentation for =spacemacs|add-toggle= macro (thanks to TheBB)
+- Better indentation for =space-macs|add-toggle= macro (thanks to TheBB)
 - Remove some dead code for =use-package= (thanks to TheBB)
-- Remove =tooltip-use-echo-area= usage which is obsolete since Emacs 24.1
+- Remove =tooltip-use-echo-area= usage which is obsolete since e-macs 24.1
   (thanks to xfq)
-- Remove duplicate call to =dotspacemacs/init= (thanks to sooheon)
+- Remove duplicate call to =dotspace-macs/init= (thanks to sooheon)
 - Display home buffer links even when no banner are displayed
   (thanks to sooheon)
 - Better centering of text in the home buffer
@@ -4106,7 +4106,7 @@ Improve loading robustness:
 - Reactivate prefix command names since they are working correctly with
   =which-key= (were also working with =guide-key=) (thanks to martinmr)
 - Delete deprecated =!user= contrib directory.
-- Removed lasts git submodules, Spacemacs is now submodule free!
+- Removed lasts git submodules, Space-macs is now submodule free!
 - Typos and documentation improvements (thanks to agzam, alexanderkjeldaas,
   andyque, benwooth, BrianHicks, catern, cgrinds, d12frosted, Devagamster,
   gleber, Immortalin, jgertm, JinweiClarkChao, jmiven, JorisE, JoshTGreenwood,
@@ -4164,7 +4164,7 @@ Improve loading robustness:
 
 ** 0.103.0 (2015/07/01)
 *** IMPORTANT: Breaking changes
-- Spacemacs is now compatible only with =Magit 2.1= and later, be
+- Space-macs is now compatible only with =Magit 2.1= and later, be
   sure to update your packages.
 - =auctex= layer has been renamed =latex=, be sure to update your
   dotfile if you use this layer.
@@ -4186,10 +4186,10 @@ Improve loading robustness:
 - Helm now uses its header to display the input pattern.
 - Use Flycheck default configuration to check the current buffer in
   "real time" (yes this is a hot new features :-))
-- New interactive function =spacemacs/switch-to-version=, it will ask
+- New interactive function =space-macs/switch-to-version=, it will ask
   for a version number and warn if the current branch is not =master=.
   Users on =develop= branch cannot use this function (it has no effect).
-- Clicking on the up arrow in the mode-line will now update Spacemacs.
+- Clicking on the up arrow in the mode-line will now update Space-macs.
   A prompt asks for confirmation before updating.
 - New "tool assisted" search and replace interface supporting =ag=, =pt=,
   and =ack= with a new key binding scheme. Check the documentation for
@@ -4204,23 +4204,23 @@ Improve loading robustness:
 - version-control
 
 *** Dotfile changes
-- New variable =dotspacemacs-auto-save-file-location= which enable or
+- New variable =dotspace-macs-auto-save-file-location= which enable or
   disable auto-saving of modified files. Possible values are =original= to
   auto-save the file in-place, =cache= to auto-save the file to another
   file stored in the cache directory and =nil= to disable auto-saving.
   Default value is =cache=.
 
 *** Layer changes
-**** Spacemacs
+**** Space-macs
 - Add text alignment key bindings on ~SPC x a~ prefix (thanks to justbur and
   TheBB)
 - Remove the kill ring from =savehist-additional-variables= to avoid an issue
   with abnormal high size of =savehist= file (thanks to tuhdo)
-- Add documentation files to =helm-spacemacs= (thanks to person808)
-- Add support for =.org= files in =helm-spacemacs= (thanks to tuhdo)
-- Add explicit titles for documentation files in =helm-spacemacs=
+- Add documentation files to =helm-space-macs= (thanks to person808)
+- Add support for =.org= files in =helm-space-macs= (thanks to tuhdo)
+- Add explicit titles for documentation files in =helm-space-macs=
   (thanks to tuhdo)
-- Remove the dependency on =f= library in =helm-spacemacs=
+- Remove the dependency on =f= library in =helm-space-macs=
   (thanks to person808)
 - Revert ~C-o~ in =holy-mode= since it shadows too many packages key bindings
   (thanks to tuhdo)
@@ -4267,7 +4267,7 @@ Improve loading robustness:
 
 **** C/C++
 - Add package =gdb-mi= (gdb-many-windows) which enables an IDE like debugger
-  frontend for Emacs (thanks to tuhdo)
+  frontend for e-macs (thanks to tuhdo)
 
 **** Clojure
 - Add ~SPC e w~ to eval last sexp and replace it with the result (thanks to
@@ -4279,8 +4279,8 @@ Improve loading robustness:
 - Update configuration to support new =alchemist= 1.0 feature (thanks to tonini)
 - Enable auto-completion support
 
-**** Emacs Lisp
-- Add new Spacemacs snippets =micro-state= and =new-package= (thanks to
+**** e-macs Lisp
+- Add new Space-macs snippets =micro-state= and =new-package= (thanks to
   CestDiego)
 - Add (f)ielm-indent-line for =ielm= mode (thanks to BlinkD)
 
@@ -4325,7 +4325,7 @@ Improve loading robustness:
 **** Haskell
 - Add =company-cabal= support for auto-completion in =.cabal= files (thanks
   to bjarkevad)
-- Fix error with =electric-indent-local-mode= in some versions of Emacs
+- Fix error with =electric-indent-local-mode= in some versions of e-macs
   (thanks to jeremyjh)
 
 **** iPython-notebook (ein)
@@ -4344,7 +4344,7 @@ Improve loading robustness:
   with the variable =latex-nofill-env= (thanks to JP-Ellis)
 - Remove =build-view= in favour of just =build= as it seemed to be
   broken and introduce ~SPC m v~ to view (thanks to JP-Ellis)
-- General settings should now be easier to override in =dotspacemacs/config=
+- General settings should now be easier to override in =dotspace-macs/config=
 - Fix errors due to layer renaming (thanks to JP-Ellis and autosquid)
 
 **** Markdown
@@ -4365,14 +4365,14 @@ Improve loading robustness:
 - New variable =osx-use-option-as-meta= allowing to enable or disable the
   mapping of =option= key to =meta= key. This is especially useful for some
   European keyboard layouts like Finish or Swedish (thanks to tko)
-- Add ~⌘ +~ and ~⌘ -~ key bindings to scale text (thanks to JoshTGreenwood
+- Add ~âŒ˜ +~ and ~âŒ˜ -~ key bindings to scale text (thanks to JoshTGreenwood
   and zimbatm)
 - Only update =dired-use-ls-dired= if =gls= was found on path (thanks to
   usharf)
-- Add reveal in finder on ~C-⌘ f~ (thanks to usharf)
-- Add key bindings ~⌘ a~ (select all) ~⌘ W~ (close frame) and ~⌘ n~ (new frame)
+- Add reveal in finder on ~C-âŒ˜ f~ (thanks to usharf)
+- Add key bindings ~âŒ˜ a~ (select all) ~âŒ˜ W~ (close frame) and ~âŒ˜ n~ (new frame)
   (thanks to mveytsman)
-- Fix ~⌘ v~ paste behavior (thanks sooheon)
+- Fix ~âŒ˜ v~ paste behavior (thanks sooheon)
 
 **** Powershell
 - Add ~SPC a s p~ to start a =powershell= buffer (thanks to ralesi)
@@ -4399,7 +4399,7 @@ Improve loading robustness:
 **** Rust
 - Add support for =flycheck= (thanks to swaroopch)
 - Add support for auto-completion via =racer= (thanks to JP-Ellis)
-- Use =compile= instead of the shell for =cargo=. This allow Emacs to parse the
+- Use =compile= instead of the shell for =cargo=. This allow e-macs to parse the
   output, including all the errors (thanks to JP-Ellis)
 
 **** Scala
@@ -4413,28 +4413,28 @@ Improve loading robustness:
   are now performed live (thanks to tuhdo and thrnio)
 
 **** Theme
-- Add spacemacs-theme! (WIP) (thanks to nashamri)
+- Add space-macs-theme! (WIP) (thanks to nashamri)
 - Add tao theme (thanks to elais)
 
 *** Core
-- New interactive function =spacemacs/switch-to-version=
-- Clicking on the up arrow will now update Spacemacs
+- New interactive function =space-macs/switch-to-version=
+- Clicking on the up arrow will now update Space-macs
 - Add a link to Vimmers guide in quick help of startup buffer (thanks to
   person808)
-- Enable =use-package-verbose= when =dotspacemacs-verbose-loading=
+- Enable =use-package-verbose= when =dotspace-macs-verbose-loading=
   is set to =t=
 - Better name for placeholders in layer templates (thanks to kini)
 - Beautify change log (thanks to tuhdo)
 - Layers are now auto-discovered recursively which allow arbitrary
   directory hierarchy. Directory names starting with =!= are categories.
   (thanks to TheBB)
-- Fix regression when =dotspacemacs-startup-banner= is set to =nil=
+- Fix regression when =dotspace-macs-startup-banner= is set to =nil=
   (thanks to ptb)
 - Fix home buffer keys in terminal (thanks to tuhdo)
 - Fix bookmark list in home buffer (thanks to fandag)
 - Add support for =material-light= theme (thanks to cpaulik)
 - Use SSL to contact elpa repositories when possible (thanks to zimbatm)
-- Emacs 25 required the line =(package-initialize)= in the =init.el=
+- e-macs 25 required the line =(package-initialize)= in the =init.el=
   file (thanks to justbur)
 - Add the possibility to call =configuration-layer/update-packages= in
   batch mode (thanks to travisbhartwell)
@@ -4467,17 +4467,17 @@ Improve loading robustness:
 
 ** 0.102.0 (2015/05/31)
 *** IMPORTANT: Breaking changes
-- All Emacs Lisp related configuration has been moved to its own layer
-  called =emacs-lisp=, be sure to add this layer to your dotfile.
+- All e-macs Lisp related configuration has been moved to its own layer
+  called =e-macs-lisp=, be sure to add this layer to your dotfile.
 - All shell related configuration has been move to its own layer called
   =shell=, be sure to add this layer to your dotfile if you use a shell
-  inside Emacs.
+  inside e-macs.
 - Key binding to reload the dotfile is now ~SPC f e R~ instead of
   =C-c C-c= or ~SPC m c c~. Note that ~SPC f e R~ can be triggered
   anywhere (it is not restricted to the dotfile anymore).
 - Key binding to switch buffer is now ~SPC b b~ instead of ~SPC b s~.
 - ~SPC f f~ now uses =helm-find-files= instead of =ido=, use the new
-  dotfile variable =dotspacemacs-use-ido= to get the old behavior back.
+  dotfile variable =dotspace-macs-use-ido= to get the old behavior back.
 - Helm ~TAB~ and ~C-z~ key bindings have been *swapped*.
 - By default *single space* sentence delimiter is defined.
 - Layer variable values set with =:variables= keyword need to be quoted
@@ -4488,7 +4488,7 @@ Improve loading robustness:
 - Chrome (thanks to beardedprojamz)
 - D (thanks to trishume)
 - Deft (thanks to trishume)
-- Emacs-lisp
+- e-macs-lisp
 - Emoji
 - Eyebrowse
 - Games (thanks to nashamri)
@@ -4509,30 +4509,30 @@ Improve loading robustness:
 - Vim-powerline
 
 *** Dotfile changes
-- New variable =dotspacemacs-search-tools= which is a list of search tool
-  executable names. Spacemacs uses the first installed tool of the list
+- New variable =dotspace-macs-search-tools= which is a list of search tool
+  executable names. Space-macs uses the first installed tool of the list
   with search related key bindings (~SPC /~, ~SPC s ...~).
   Supported tools are =ag=, =pt=, =ack= and =grep=.
-- New variable =dotspacemacs-highlight-delimiters= which selects a scope
+- New variable =dotspace-macs-highlight-delimiters= which selects a scope
   to highlight delimiters. Possible value is =all=, =current= or =nil=.
   Default is =all=. (thanks to tuhdo)
-- New variable =dotspacemacs-additional-packages=. Adding packages to
+- New variable =dotspace-macs-additional-packages=. Adding packages to
   this list will install them without needing them to be wrapped in a
   layer. Ideal for quickly add a package. The package configuration
   can be put in =dotspacemas/config=.
-- New variable =dotspacemacs-use-ido=. If non nil then =ido= replaces =helm=
+- New variable =dotspace-macs-use-ido=. If non nil then =ido= replaces =helm=
   for some commands. For now only =find-files= (SPC f f) is replaced.
 - New key binding ~SPC f e D~ to open an =ediff= buffer between the user
   dotfile and the current template.
 - Disable paste micro-state by default, i.e. set the variable
-  =dotspacemacs-enable-paste-micro-state= to =nil= in the dotfile template.
+  =dotspace-macs-enable-paste-micro-state= to =nil= in the dotfile template.
 
 *** New conventions
 - Add conventions for markup languages like =markdown= or =org=
   (thanks to cpaulik)
 
 *** Layer changes
-**** Spacemacs
+**** Space-macs
 - Auto-indent when pasting use the universal argument to not auto-indent
   (thanks to tuhdo)
 - Fix =global-mode-string= for mode-line (thanks to 3marcusw)
@@ -4552,7 +4552,7 @@ Improve loading robustness:
 - Add toggle to hide/show the mode line on ~SPC t m t~ (thanks to jupl)
 - Add =move-text= micro-state
 - Add =highlight-parentheses= package which can activated by setting
-  =dotspacemacs-highlight-delimiters= to =current= (thanks to tuhdo)
+  =dotspace-macs-highlight-delimiters= to =current= (thanks to tuhdo)
 - Add =clean-aindent-mode= package to cleanly delete virtual indentation
   (thanks to tuhdo)
 - Move =yasnippet= and =hippie-exp= to =auto-completion= layer.
@@ -4584,7 +4584,7 @@ Improve loading robustness:
 - Tweak =fci-mode= face color, should be better in most themes
   (thanks to tuhdo)
 - Improve =smooth-scroll= configuration (thanks to sooheon)
-- Refactor =spacemacs/init-evil-lisp-state= to use =use-package=
+- Refactor =space-macs/init-evil-lisp-state= to use =use-package=
   (thanks to mveytsman)
 
 ***** Helm
@@ -4595,10 +4595,10 @@ Improve loading robustness:
 - Enable fuzzy matching in Helm (thanks to ralesi)
 - Turn on colors in =helm-swoop= (thanks to danielwuz)
 - Render README.md file of layers with =Open README= action of
-  =helm-spacemacs=, use the universal argument ~C-u~ to open
+  =helm-space-macs=, use the universal argument ~C-u~ to open
   the file without rendering it (thanks to tuhdo)
-- Add dotfile variables helm source to =helm-spacemacs=
-- Add support for extensions in =helm-spacemacs=
+- Add dotfile variables helm source to =helm-space-macs=
+- Add support for extensions in =helm-space-macs=
 - Use =helm-pp-bookmarks= instead of =helm-bookmarks= (thanks to darkfeline)
 - Move ~C-SPC~ on ~M-SPC~ and ~S-M-SPC~ for =helm= and =ido= micro-states.
 - Make =helm-find-files= =backspace= key behave like =ido= (thanks to tuhdo)
@@ -4616,7 +4616,7 @@ Improve loading robustness:
   (thanks to tuhdo)
 - Add visual state mapping for =<= and =>= to =<gv= and =>gv= respectively
   (allow to indent a region several times).
-- Add =spacemacs/smart-goto-definition= which attempts to call
+- Add =space-macs/smart-goto-definition= which attempts to call
   ~SPC m g g~ and falls back to =evil-goto-definition= if that fails
   (thanks to luxbock)
 - Replace ~C-o~ with ~M-o~ in =dired= buffer since ~C-o~ is replaced with
@@ -4690,7 +4690,7 @@ Improve loading robustness:
 - New variable =colors-theme-identifiers-sat&light= to set default
   lightness and saturation for a given theme.
 
-**** Emacs-lisp
+**** e-macs-lisp
 - Move ~SPC m f~ bindings for code formatting to ~SPC m =~
 - Add =macrostep= package with a micro-state on ~SPC m d m~
   (thanks to person808)
@@ -4701,7 +4701,7 @@ Improve loading robustness:
   to swaroopch)
 - Highlight nicks using =erc-hl-nicks= (thanks to CestDiego)
 - Image inline support using =erc-image= (thanks to CestDiego)
-- Logging to ~/.emacs.d/.cache/erc-logs (thanks to CestDiego)
+- Logging to ~/.e-macs.d/.cache/erc-logs (thanks to CestDiego)
 - =ViewLogMode= for viewing logs (thanks to CestDiego)
 - YouTube videos Thumbnails inline using =erc-yt= (thanks to CestDiego)
 - Social Graph for ERC messages using =erc-social-graph= (thanks to CestDiego)
@@ -4760,7 +4760,7 @@ Improve loading robustness:
 
 **** Markdown
 - Add a bunch of new key bindings to improve consistency of key bindings
-  for markup languages, see [[https://github.com/syl20bnr/spacemacs/commit/7b6678efd6cece5bbb3419579590b843943f9e13][commit]] (thanks to cpaulik)
+  for markup languages, see [[https://github.com/syl20bnr/space-macs/commit/7b6678efd6cece5bbb3419579590b843943f9e13][commit]] (thanks to cpaulik)
 - Add markdown render buffer command on ~SPC m c r~ (thanks to CarlQLange)
 - Add ~SPC m i k~ to insert =<kbd>...</kbd>= pairs (thanks to CestDiego)
 
@@ -4773,7 +4773,7 @@ Improve loading robustness:
 
 **** Org
 - Add a bunch of new key bindings to improve consistency of key bindings
-  for markup languages, see [[https://github.com/syl20bnr/spacemacs/commit/7b6678efd6cece5bbb3419579590b843943f9e13][commit]] (thanks to cpaulik)
+  for markup languages, see [[https://github.com/syl20bnr/space-macs/commit/7b6678efd6cece5bbb3419579590b843943f9e13][commit]] (thanks to cpaulik)
 - Use =org-startup-indented= instead of a hook so users can easily
   remove =org-indent-mode= (thanks to darkfeline)
 - Add support for =org-pomodoro-clock= to mode-line (thanks to swaroopch)
@@ -4791,7 +4791,7 @@ Improve loading robustness:
 - Make =dired= use =coreutils gls= if installed (thanks to usharf)
 
 **** Perforce
-- Add a bunch of key bindings see [[https://github.com/syl20bnr/spacemacs/commit/6793eda4a90ee3a6c19c433b8676d5d9d8c3de76][commit]] (thanks to snandan)
+- Add a bunch of key bindings see [[https://github.com/syl20bnr/space-macs/commit/6793eda4a90ee3a6c19c433b8676d5d9d8c3de76][commit]] (thanks to snandan)
 
 **** Puppet
 - Add =auto-completion= support (thanks to PierreR)
@@ -4874,16 +4874,16 @@ Improve loading robustness:
 - Add org elpa repository
 - Use =archive= instead of =package-alist= to detect orphans
   (fix false orphan positives when the dependencies of a package change)
-- Improve support for images in Spacemacs banner, it is now possible to use
-  any image format supported by Emacs (thanks to jupl)
+- Improve support for images in Space-macs banner, it is now possible to use
+  any image format supported by e-macs (thanks to jupl)
 - Prefix all category folders in =contrib= with =!= (thanks to trishume)
 - Smarter buffer switching which tries to avoid special buffers, you can
-  customize =spacemacs-useless-buffers-regexp= to define other buffers to
+  customize =space-macs-useless-buffers-regexp= to define other buffers to
   avoid (thanks to person808)
 - Warn about duplicated layers
 - Improvements to home buffer: Quick Help, Content toggles,
   link faces, better key bindings (thanks to tuhdo)
-- =dotspacemacs/location= now respect =dotspacemacs-filepath= value
+- =dotspace-macs/location= now respect =dotspace-macs-filepath= value
   (thanks to coldnew)
 - Avoid conflict with hydra's =lv.el= (thanks to edwintorok)
 - Update layer templates to use =setq= instead of =defvar= (thanks to
@@ -4892,8 +4892,8 @@ Improve loading robustness:
 *** Other fixes
 - Replace =defvar= with =setq= for variable definition =<layer>-packages=,
   =<layer>-pre-extensions= and =<layer>-pre-extensions=.
-- Themes in =dotspacemacs-themes= are not considered orphans anymore
-- Fix "Unable to check for new version." if =.emacs.d= is a symlink
+- Themes in =dotspace-macs-themes= are not considered orphans anymore
+- Fix "Unable to check for new version." if =.e-macs.d= is a symlink
   (thanks to louy2)
 - Fix non unicode number spacing in mode-line
 - Typos (thanks to Andrea, atamis, CarlQLange, charl, ctjhoa, Devagamster,
@@ -4903,9 +4903,9 @@ Improve loading robustness:
 * Release 0.101.x
 ** Hot new features
 *** Choose your own editing style
-Thanks to the new =holy-mode= Spacemacs can now be used by Vim users
-or Emacs users by setting the =dotspacemacs-editing-style= variable to
-='vim= or ='emacs= in the dotfile. In =Emacs= style the leader is
+Thanks to the new =holy-mode= Space-macs can now be used by Vim users
+or e-macs users by setting the =dotspace-macs-editing-style= variable to
+='vim= or ='e-macs= in the dotfile. In =e-macs= style the leader is
 available on =M-m=. It is possible to dynamically switch between the
 two style with ~SPC P tab~.
 
@@ -4919,33 +4919,33 @@ There is now two new functions to initialize a given package:
   function is still required to consider the package to be used.
 
 *** Auto-completion
-Spacemacs now officially support auto-completion. The old layer
+Space-macs now officially support auto-completion. The old layer
 =company-mode= has been removed and =auto-complete= has been removed
-from the spacemacs layer.
+from the space-macs layer.
 They are now part of a new layer called =auto-completion=.
 You'll have to this add layer to your dotfile to enable auto-completion.
 
 *** Syntax checking
-Flycheck has been removed from the Spacemacs layer and moved to a new
+Flycheck has been removed from the Space-macs layer and moved to a new
 layer called =syntax-checking=.
 You'll have to add this layer to your dotfile to enable the fly syntax
 checking.
 
 *** Org
-Org packages have been removed from Spacemacs layer and moved to a new
+Org packages have been removed from Space-macs layer and moved to a new
 =org= layer.
 You'll have to add this layer to your dotfile to enable the Org
-configuration of Spacemacs.
+configuration of Space-macs.
 
 *** New shortcuts in startup buffer
 Recent files, project and bookmarks can be displayed on the startup
-buffer. Check for the new dotfile variable =dotspacemacs-startup-lists=.
+buffer. Check for the new dotfile variable =dotspace-macs-startup-lists=.
 (thanks to CarlQLange)
 
 *** New lighter in the mode line
 Lighter letters have been updated, now the letter corresponds to the
 key binding to toggle the associated mode. For instance auto-completion
-is on ⓐ and thus can be toggled with ~SPC t a~.
+is on â“ and thus can be toggled with ~SPC t a~.
 
 *** Better package update
 The package update should now prevent even more errors when upgrading
@@ -4955,19 +4955,19 @@ a batch of packages.
 *** New layers
 - evil-commentary: Alternative to =evil-nerd-commenter=
   (thanks to person808)
-- better-defaults: layer providing better defaults for Emacs commands,
+- better-defaults: layer providing better defaults for e-macs commands,
   rather empty for now. (thanks to tuhdo)
 - ERC: an IRC client (thanks to swaroopch)
 - Racket: a lisp dialect (thanks to trishume)
-- xkcd: browse for XKCD in Emacs (thanks to CestDiego)
+- xkcd: browse for XKCD in e-macs (thanks to CestDiego)
 - shell-scripts: layer containing shell specific modes like =fish-mode=
 - editorconfig: add support for EditorConfig (thanks to jupl)
 
 *** New dotfile variables:
-- =dotspacemacs-editing-style= can be either =vim= or =emacs=.
-- =dotspacemacs-verbose-loading= if non nil the loading prints logs in
+- =dotspace-macs-editing-style= can be either =vim= or =e-macs=.
+- =dotspace-macs-verbose-loading= if non nil the loading prints logs in
   the =*Messages*= buffer. Default value is =nil=.
-- =dotspacemacs-startup-lists= is a list of symbols to display recent
+- =dotspace-macs-startup-lists= is a list of symbols to display recent
   items in the startup buffer, possible values are: =recents=,
   =bookmarks= and =projects= (thanks to CarlQLange)
 
@@ -4983,7 +4983,7 @@ a batch of packages.
 - Add =cider-eval-sexp-fu=
 - Fix for =cider-send-function-to-repl= (thanks to nashamri)
 - Replace =auto-complete= by =company= for auto-completion
-- Move ~SPC d~ commands on ~SPC h~ to meet Spacemacs conventions (thanks to
+- Move ~SPC d~ commands on ~SPC h~ to meet Space-macs conventions (thanks to
   cpaulik)
 - Open =cider-doc= without asking for symbol, close it with =q= (thanks to
   cpaulik)
@@ -4994,10 +4994,10 @@ a batch of packages.
   =company-backends= list is now a buffer local variable. =company= is
   not enabled globally anymore.
 - Set =company-delay= to 0.2 instead of 0
-- Ignore =company-quickhelp= for Emacs version < 24.4
+- Ignore =company-quickhelp= for e-macs version < 24.4
 - Add support for =company= in various languages (thanks to trishume)
 
-*** Emacs Lisp
+*** e-macs Lisp
 - Add =eval-sexp-fu= (thanks to tuhdo)
 - Enable eldoc in eval-expression and IELM (thanks to tuhdo)
 - New key bindings ~SPC m e b~, ~SPC m e c~ and ~SPC m e r~ to evaluate
@@ -5034,7 +5034,7 @@ a batch of packages.
 - Disable =eletric-indent-mode=
 - Fix =flycheck-haskell= autoload (thanks to jcpetkovich)
 - Fix =flycheck= loading
-- Move ~SPC m t~ to ~SPC m h t~ according to Spacemacs conventions (thanks
+- Move ~SPC m t~ to ~SPC m h t~ according to Space-macs conventions (thanks
   to jeremyjh)
 - Add C-- =cmm-mode= (thanks to bgamari)
 
@@ -5045,7 +5045,7 @@ a batch of packages.
 - Fix lazy-loading of helm for describe commands
 - Add support for =pt= the platinum searcher (thanks to ralesi)
 - Add support for =helm-ag-edit=
-- Add function =spacemacs/helm-projectile-search-dwim= which select the
+- Add function =space-macs/helm-projectile-search-dwim= which select the
   first available external search tool (pt, ag, ack or grep) (thanks to
   ralesi)
 - Enable =helm-descbinds= globally (thanks to tuhdo)
@@ -5056,7 +5056,7 @@ a batch of packages.
   cpaulik)
 
 *** Holy-mode
-- New package providing Emacs edition style to Spacemacs
+- New package providing e-macs edition style to Space-macs
 
 *** IRC
 - rcirc: Create rcirc logging directory during init
@@ -5077,7 +5077,7 @@ a batch of packages.
 - Fix diminish of =org-indent=
 
 *** Perspective
-- Rebind =spacemacs/persp-switch-project= to ~SPC p p~
+- Rebind =space-macs/persp-switch-project= to ~SPC p p~
   (thanks to CestDiego)
 
 *** Projectile
@@ -5103,7 +5103,7 @@ a batch of packages.
 - Allow to create a common lisp scratch buffer with slime-scratch
   (thanks to tuhdo)
 - Enable fuzzy completion with score (thanks to tuhdo)
-- Don't enable SLIME in Emacs Lisp (thanks to tuhdo)
+- Don't enable SLIME in e-macs Lisp (thanks to tuhdo)
 
 *** Smartparens
 - Enable smartparens in eval-expression (thanks to tuhdo)
@@ -5124,7 +5124,7 @@ a batch of packages.
 *** Various Improvements and Changes
 - New =evil= state called =evilified= which is used in _evilified_
   buffers.
-- Remove the following packages from Spacemacs layer: =dired+=,
+- Remove the following packages from Space-macs layer: =dired+=,
   =fancy-narrow=, =string-edit=, =visual-regexp-steroids= and =wdired=
 - Rename =*-declarep= functions to =*-usedp= functions
 - Display block selection info in the mode line
@@ -5145,9 +5145,9 @@ a batch of packages.
 - Add =highlight-numbers= (thanks to tuhdo)
 - Add =highlight-indentation= on ~SPC t h i~ and ~SPC t h c~ (thanks to
   cpaulik)
-- Add ace-link package to spacemacs layer (thanks to danielwuz)
+- Add ace-link package to space-macs layer (thanks to danielwuz)
 - Add =indent-guide= on ~SPC t i~ (thanks to ralesi)
-- Add link to cpaulik tutorial to use the Spacemacs icons in Ubuntu Unity
+- Add link to cpaulik tutorial to use the Space-macs icons in Ubuntu Unity
 - Add C-w and brackets [] to guide-key-sequence (thanks to ralesi)
 - Add =info+= to improve Info reading experience (thanks to tuhdo)
 - Add default layers to dotfile template: =auto-completion=,
@@ -5161,9 +5161,9 @@ a batch of packages.
   (thanks to tuhdo)
 - Disable aggressive indent for ediff buffers (thanks chrisbarrett)
 - Prevent cursor from moving into minibuffer prompt (thanks to tuhdo)
-- Remove tildes in Spacemacs buffer and read-only buffers like Info and
+- Remove tildes in Space-macs buffer and read-only buffers like Info and
   help (thanks to tuhdo)
-- Ask user editing style when creating .spacemacs file (thanks to tuhdo)
+- Ask user editing style when creating .space-macs file (thanks to tuhdo)
 - Fix for persistent-server if server never got started (thanks to ralesi)
 - Fix nyan cat starting rainbow on a light background
 - Fix some double loading of some packages
@@ -5172,12 +5172,12 @@ a batch of packages.
 - Properly enable saveplace (thanks to tuhdo)
 - Don't bind ~C-d~ in =ido-completion-map= to =ido-delete-file-at-head=
   (thanks to segv)
-- Don't refer to ~/.emacs.d/ directly at various places
+- Don't refer to ~/.e-macs.d/ directly at various places
   (thanks to jcpetkovich)
 - Don't want paste-micro-state to pop up when pasting in ex command
   prompt (thanks to ralesi)
 - Don't cycle when press TAB in eshell (thanks to tuhdo)
-- Don't insert extra quote in dotspacemacs-mode (thanks to tuhdo)
+- Don't insert extra quote in dotspace-macs-mode (thanks to tuhdo)
 - Adapt some micro-states to the micro-state macro (thanks to ralesi)
 - Improve smooth scrolling configuration (reduce some point jump)
   (thanks to tuhdo)
@@ -5189,7 +5189,7 @@ a batch of packages.
 
 ** Hot Fixes
 *** Startup Buffer
-- Don't display the release notes in the startup buffer when Emacs is restarted
+- Don't display the release notes in the startup buffer when e-macs is restarted
   after a fresh install
 - Startup buffer: fix widget activation in =holy-mode= (thanks to tuhdo)
 - Startup buffer: Don't fontify the startup buffer when =rainbow-identifiers=
@@ -5209,7 +5209,7 @@ a batch of packages.
 - Fix auto-completion activation.
 
 *** Themes
-- Fix conflict between official Spacemacs solarized theme and
+- Fix conflict between official Space-macs solarized theme and
   =color-theme-solarized= declared in =themes-megapack= layer.
 - Add rules for all base16 themes (thanks to mkaito)
 
@@ -5219,3 +5219,5 @@ a batch of packages.
 
 * Previous Releases
 - See GitHub release page
+
+

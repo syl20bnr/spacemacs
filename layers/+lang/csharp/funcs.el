@@ -1,66 +1,66 @@
-;;; funcs.el --- C# Layer functions File for Spacemacs
+;;; funcs.el --- C# Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Muneeb Shaikh <muneeb@reversehack.in>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 
 ;; backend
 
-(defun spacemacs//csharp-setup-backend ()
+(defun space-macs//csharp-setup-backend ()
   "Conditionally setup layer csharp based on backend."
   (pcase csharp-backend
-    (`omnisharp (spacemacs//csharp-setup-omnisharp))
-    (`lsp (spacemacs//csharp-setup-lsp))))
+    (`omnisharp (space-macs//csharp-setup-omnisharp))
+    (`lsp (space-macs//csharp-setup-lsp))))
 
-(defun spacemacs//csharp-setup-company ()
+(defun space-macs//csharp-setup-company ()
   "Conditionally setup company based on backend."
   (pcase csharp-backend
-    (`omnisharp (spacemacs//csharp-setup-omnisharp-company))))
+    (`omnisharp (space-macs//csharp-setup-omnisharp-company))))
 
-(defun spacemacs//csharp-configure ()
+(defun space-macs//csharp-configure ()
   "Conditionally configure csharp layer based on backend."
   (pcase csharp-backend
-    (`omnisharp (spacemacs//csharp-configure-omnisharp))))
+    (`omnisharp (space-macs//csharp-configure-omnisharp))))
 
 
 ;; omnisharp
 
-(defun spacemacs//csharp-setup-omnisharp ()
+(defun space-macs//csharp-setup-omnisharp ()
   (when (configuration-layer/package-used-p 'omnisharp)
     ;; Load omnisharp-mode with csharp-mode,
     ;; this should start the omnisharp server automatically
     (add-hook 'csharp-mode-hook 'omnisharp-mode)
 
-    (add-to-list 'spacemacs-jump-handlers-csharp-mode
+    (add-to-list 'space-macs-jump-handlers-csharp-mode
                  '(omnisharp-go-to-definition :async t))))
 
-(defun spacemacs//csharp-setup-omnisharp-company ()
+(defun space-macs//csharp-setup-omnisharp-company ()
   "Setup omnisharp auto-completion."
   (when (configuration-layer/package-used-p 'omnisharp)
-    (spacemacs|add-company-backends
+    (space-macs|add-company-backends
       :backends company-omnisharp
       :modes csharp-mode)))
 
-(defun spacemacs//csharp-configure-omnisharp ()
+(defun space-macs//csharp-configure-omnisharp ()
   (progn
-    ;; [missing in roslyn] (spacemacs/declare-prefix-for-mode 'csharp-mode "mc" "csharp/compile")
-    ;; [missing in roslyn] (spacemacs/declare-prefix-for-mode 'csharp-mode "mf" "csharp/file")
-    (spacemacs/declare-prefix-for-mode 'csharp-mode "mg" "csharp/navigation")
-    (spacemacs/declare-prefix-for-mode 'csharp-mode "mh" "csharp/documentation")
-    (spacemacs/declare-prefix-for-mode 'csharp-mode "mr" "csharp/refactoring")
-    (spacemacs/declare-prefix-for-mode 'csharp-mode "ms" "csharp/server")
-    (spacemacs/declare-prefix-for-mode 'csharp-mode "mt" "csharp/tests")
+    ;; [missing in roslyn] (space-macs/declare-prefix-for-mode 'csharp-mode "mc" "csharp/compile")
+    ;; [missing in roslyn] (space-macs/declare-prefix-for-mode 'csharp-mode "mf" "csharp/file")
+    (space-macs/declare-prefix-for-mode 'csharp-mode "mg" "csharp/navigation")
+    (space-macs/declare-prefix-for-mode 'csharp-mode "mh" "csharp/documentation")
+    (space-macs/declare-prefix-for-mode 'csharp-mode "mr" "csharp/refactoring")
+    (space-macs/declare-prefix-for-mode 'csharp-mode "ms" "csharp/server")
+    (space-macs/declare-prefix-for-mode 'csharp-mode "mt" "csharp/tests")
 
-    (spacemacs/set-leader-keys-for-major-mode 'csharp-mode
+    (space-macs/set-leader-keys-for-major-mode 'csharp-mode
       ;; Compile
       ;; Only one compile command so use top-level
-      ;; [missing in roslyn] "cc" 'omnisharp-build-in-emacs
+      ;; [missing in roslyn] "cc" 'omnisharp-build-in-e-macs
 
       ;; Solution/project manipulation
       ;; [missing in roslyn] "fa" 'omnisharp-add-to-solution-current-file
@@ -94,7 +94,7 @@
       ;; [Broken in roslyn] "rM" 'omnisharp-rename-interactively
       "rr" 'omnisharp-run-code-action-refactoring
 
-      ;; Server manipulation, inspired spacemacs REPL bindings since C# does
+      ;; Server manipulation, inspired space-macs REPL bindings since C# does
       ;; not provice a REPL
       "ss" 'omnisharp-start-omnisharp-server
       "sS" 'omnisharp-stop-server
@@ -112,11 +112,13 @@
       "i" 'omnisharp-fix-usings
       ;; [missing in roslyn] "=" 'omnisharp-code-format
       )
-    (spacemacs|hide-lighter omnisharp-mode)))
+    (space-macs|hide-lighter omnisharp-mode)))
 
 
 ;; lsp
 
-(defun spacemacs//csharp-setup-lsp ()
+(defun space-macs//csharp-setup-lsp ()
   "Setup lsp backend."
   (add-hook 'csharp-mode-hook #'lsp))
+
+

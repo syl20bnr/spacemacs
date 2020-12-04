@@ -19,7 +19,7 @@
   - [[#build-system][Build system]]
 
 * Description
-This layer adds support for the [[https://www.idris-lang.org/][Idris]] language to Spacemacs.
+This layer adds support for the [[https://www.idris-lang.org/][Idris]] language to Space-macs.
 
 ** Features:
 - Syntax highlighting
@@ -29,8 +29,8 @@ This layer adds support for the [[https://www.idris-lang.org/][Idris]] language 
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =idris= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =idris= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Idris
@@ -112,3 +112,5 @@ are reproduced under the local leader.
 | ~SPC m b p~ | Open package file.                                                         |
 
 When inside a package file, you can insert a field with ~SPC m f~.
+
+

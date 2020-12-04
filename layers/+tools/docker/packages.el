@@ -1,12 +1,12 @@
-;;; packages.el --- docker Layer packages File for Spacemacs
+;;; packages.el --- docker Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;; Copyright (c) 2015 Alan Zimmerman & Contributors
 ;;
 ;; Author: Alan Zimmerman <alan.zimm@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -23,7 +23,7 @@
     :defer t
     :init
     (progn
-      (spacemacs/declare-prefix "atd" "Docker")
+      (space-macs/declare-prefix "atd" "Docker")
       (evil-leader/set-key
         "atdc" 'docker-containers
         "atdC" 'docker-compose
@@ -54,12 +54,14 @@
 (defun docker/init-dockerfile-mode ()
   (use-package dockerfile-mode
     :defer t
-    :init (add-hook 'dockerfile-mode-local-vars-hook #'spacemacs//docker-dockerfile-setup-backend)
+    :init (add-hook 'dockerfile-mode-local-vars-hook #'space-macs//docker-dockerfile-setup-backend)
     :config
-    (spacemacs/declare-prefix-for-mode 'dockerfile-mode "mc" "compile")
-    (spacemacs/set-leader-keys-for-major-mode 'dockerfile-mode
+    (space-macs/declare-prefix-for-mode 'dockerfile-mode "mc" "compile")
+    (space-macs/set-leader-keys-for-major-mode 'dockerfile-mode
       "cb" 'dockerfile-build-buffer
       "cB" 'dockerfile-build-no-cache-buffer)))
 
 (defun docker/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'dockerfile-mode))
+  (space-macs/enable-flycheck 'dockerfile-mode))
+
+

@@ -12,7 +12,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds tools for better integration of CSV files in Spacemacs.
+This layer adds tools for better integration of CSV files in Space-macs.
 
 ** Features:
 - Detecting of fields for various separators
@@ -25,10 +25,10 @@ This layer adds tools for better integration of CSV files in Spacemacs.
 
 * Install
 ** Layer
-To use this contribution add it to your =~/.spacemacs=
+To use this contribution add it to your =~/.space-macs=
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(csv))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(csv))
 #+END_SRC
 
 * Key bindings
@@ -49,3 +49,5 @@ To use this contribution add it to your =~/.spacemacs=
 | ~SPC m v f~ | Paste killed fields              |
 | ~SPC m v t~ | Paste killed fields as new table |
 | ~SPC m u~   | Unalign fields                   |
+
+

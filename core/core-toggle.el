@@ -1,35 +1,35 @@
-;;; core-toggle.el --- Spacemacs Core File
+;;; core-toggle.el --- Space-macs Core File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 (require 'core-funcs)
 
-(defvar spacemacs-toggles '()
+(defvar space-macs-toggles '()
   "List of all declared toggles. The structure of an element is a
 property list (name :func FUNCTION :doc STRING :key STRING).")
 
-(defmacro spacemacs|add-toggle (name &rest props)
+(defmacro space-macs|add-toggle (name &rest props)
   "Add a toggle with NAME symbol.
 
 This macro creates the following functions:
-- spacemacs/toggle-NAME switches on or off depending on the current state
-- spacemacs/toggle-NAME-on only switches on if currently disabled
-- spacemacs/toggle-NAME-off only switches off if currently enabled
-- spacemacs/toggle-NAME-status returns non-nil if the toggle is on
+- space-macs/toggle-NAME switches on or off depending on the current state
+- space-macs/toggle-NAME-on only switches on if currently disabled
+- space-macs/toggle-NAME-off only switches off if currently enabled
+- space-macs/toggle-NAME-status returns non-nil if the toggle is on
 
 Additional sets of functions are created when the toggle is major mode
 specific (i.e. it uses the keyword `:evil-leader-for-mode'):
-- spacemacs/toggle-NAME-register-on-hook-MODE to add a hook to call the toggle on
+- space-macs/toggle-NAME-register-on-hook-MODE to add a hook to call the toggle on
   function
-- spacemacs/toggle-NAME-on-unregister-hook-MODE to remove the hook
-- spacemacs/toggle-NAME-on-register-hooks to add hooks for all supported major modes
-- spacemacs/toggle-NAME-on-unregister-hooks to remove all the hooks
+- space-macs/toggle-NAME-on-unregister-hook-MODE to remove the hook
+- space-macs/toggle-NAME-on-register-hooks to add hooks for all supported major modes
+- space-macs/toggle-NAME-on-unregister-hooks to remove all the hooks
 
 Available PROPS:
 
@@ -62,10 +62,10 @@ Available PROPS:
 `:mode SYMBOL'
     If given, must be a minor mode. This overrides `:on', `:off' and `:status'.
 
-All properties supported by `spacemacs//create-key-binding-form' can be
+All properties supported by `space-macs//create-key-binding-form' can be
 used."
   (declare (indent 1))
-  (let* ((wrapper-func (intern (format "spacemacs/toggle-%s"
+  (let* ((wrapper-func (intern (format "space-macs/toggle-%s"
                                        (symbol-name name))))
          (wrapper-func-status (intern (format "%s-status" wrapper-func)))
          (wrapper-func-on (intern (format "%s-on" wrapper-func)))
@@ -74,15 +74,15 @@ used."
          (status (or mode (plist-get props :status)))
          (condition (plist-get props :if))
          (doc (plist-get props :documentation))
-         (on-body (if mode `((,mode)) (spacemacs/mplist-get-values props :on)))
-         (off-body (if mode `((,mode -1)) (spacemacs/mplist-get-values props :off)))
+         (on-body (if mode `((,mode)) (space-macs/mplist-get-values props :on)))
+         (off-body (if mode `((,mode -1)) (space-macs/mplist-get-values props :off)))
          (prefix-arg-var (plist-get props :prefix))
          (on-message (plist-get props :on-message))
          (off-message (plist-get props :off-message))
-         (evil-leader-for-mode (spacemacs/mplist-get-values props :evil-leader-for-mode))
+         (evil-leader-for-mode (space-macs/mplist-get-values props :evil-leader-for-mode))
          (supported-modes-string (mapconcat (lambda (x) (symbol-name (car x)))
                                             evil-leader-for-mode ", "))
-         (bindkeys (spacemacs//create-key-binding-form props wrapper-func))
+         (bindkeys (space-macs//create-key-binding-form props wrapper-func))
          ;; we evaluate condition and status only if they are a list or
          ;; a bound symbol
          (status-eval `(and (or (and (symbolp ',status) (boundp ',status))
@@ -97,10 +97,10 @@ used."
     `(progn
        (let ((properties (append '(:function ,wrapper-func :predicate ,wrapper-func-status)
                                  ',props))
-             (cell (assq ',name spacemacs-toggles)))
+             (cell (assq ',name space-macs-toggles)))
          (if cell
              (setcdr cell properties)
-           (push (cons ',name properties) spacemacs-toggles)))
+           (push (cons ',name properties) space-macs-toggles)))
        ;; toggle function
        (defun ,wrapper-func ,(if prefix-arg-var (list prefix-arg-var) ())
          ,(format "Toggle %s on and off.%s"
@@ -210,3 +210,5 @@ used."
        ,@bindkeys)))
 
 (provide 'core-toggle)
+
+

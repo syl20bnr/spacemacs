@@ -1,11 +1,11 @@
-;;; core-load-paths.el --- Spacemacs Core File
+;;; core-load-paths.el --- Space-macs Core File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 (defun add-to-load-path (dir) (add-to-list 'load-path dir))
@@ -16,71 +16,73 @@
       (add-to-load-path dir)))
 
 ;; paths
-(defvar spacemacs-start-directory
-  user-emacs-directory
-  "Spacemacs start directory.")
-(defconst spacemacs-core-directory
-  (expand-file-name (concat spacemacs-start-directory "core/"))
-  "Spacemacs core directory.")
-(defconst spacemacs-private-directory
-  (expand-file-name (concat spacemacs-start-directory "private/"))
-  "Spacemacs private directory.")
-(defconst spacemacs-info-directory
-  (expand-file-name (concat spacemacs-core-directory "info/"))
-  "Spacemacs info files directory")
-(defconst spacemacs-release-notes-directory
-  (expand-file-name (concat spacemacs-info-directory "release-notes/"))
-  "Spacemacs release notes directory")
-(defconst spacemacs-banner-directory
-  (expand-file-name (concat spacemacs-core-directory "banners/"))
-  "Spacemacs banners directory.")
-(defconst spacemacs-banner-official-png
-  (expand-file-name (concat spacemacs-banner-directory "img/spacemacs.png"))
-  "Spacemacs official banner image.")
-(defconst spacemacs-badge-official-png
-  (expand-file-name (concat spacemacs-banner-directory
-                            "img/spacemacs-badge.png"))
-  "Spacemacs official badge image.")
-(defconst spacemacs-purple-heart-png
-  (expand-file-name (concat spacemacs-banner-directory "img/heart.png"))
+(defvar space-macs-start-directory
+  user-e-macs-directory
+  "Space-macs start directory.")
+(defconst space-macs-core-directory
+  (expand-file-name (concat space-macs-start-directory "core/"))
+  "Space-macs core directory.")
+(defconst space-macs-private-directory
+  (expand-file-name (concat space-macs-start-directory "private/"))
+  "Space-macs private directory.")
+(defconst space-macs-info-directory
+  (expand-file-name (concat space-macs-core-directory "info/"))
+  "Space-macs info files directory")
+(defconst space-macs-release-notes-directory
+  (expand-file-name (concat space-macs-info-directory "release-notes/"))
+  "Space-macs release notes directory")
+(defconst space-macs-banner-directory
+  (expand-file-name (concat space-macs-core-directory "banners/"))
+  "Space-macs banners directory.")
+(defconst space-macs-banner-official-png
+  (expand-file-name (concat space-macs-banner-directory "img/space-macs.png"))
+  "Space-macs official banner image.")
+(defconst space-macs-badge-official-png
+  (expand-file-name (concat space-macs-banner-directory
+                            "img/space-macs-badge.png"))
+  "Space-macs official badge image.")
+(defconst space-macs-purple-heart-png
+  (expand-file-name (concat space-macs-banner-directory "img/heart.png"))
   "Purple heart emoji.")
-(defconst spacemacs-cache-directory
-  (expand-file-name (concat user-emacs-directory ".cache/"))
-  "Spacemacs storage area for persistent files")
-(defconst spacemacs-auto-save-directory
-  (expand-file-name (concat spacemacs-cache-directory "auto-save/"))
-  "Spacemacs auto-save directory")
-(defconst spacemacs-docs-directory
-  (expand-file-name (concat spacemacs-start-directory "doc/"))
-  "Spacemacs documentation directory.")
-(defconst spacemacs-news-directory
-  (expand-file-name (concat spacemacs-start-directory "news/"))
-  "Spacemacs News directory.")
-(defconst spacemacs-assets-directory
-  (expand-file-name (concat spacemacs-start-directory "assets/"))
-  "Spacemacs assets directory.")
-(defconst spacemacs-test-directory
-  (expand-file-name (concat spacemacs-start-directory "tests/"))
-  "Spacemacs tests directory.")
+(defconst space-macs-cache-directory
+  (expand-file-name (concat user-e-macs-directory ".cache/"))
+  "Space-macs storage area for persistent files")
+(defconst space-macs-auto-save-directory
+  (expand-file-name (concat space-macs-cache-directory "auto-save/"))
+  "Space-macs auto-save directory")
+(defconst space-macs-docs-directory
+  (expand-file-name (concat space-macs-start-directory "doc/"))
+  "Space-macs documentation directory.")
+(defconst space-macs-news-directory
+  (expand-file-name (concat space-macs-start-directory "news/"))
+  "Space-macs News directory.")
+(defconst space-macs-assets-directory
+  (expand-file-name (concat space-macs-start-directory "assets/"))
+  "Space-macs assets directory.")
+(defconst space-macs-test-directory
+  (expand-file-name (concat space-macs-start-directory "tests/"))
+  "Space-macs tests directory.")
 
 (defconst user-home-directory
   (expand-file-name "~/")
   "User home directory (~/).")
 (defconst pcache-directory
-  (concat spacemacs-cache-directory "pcache/"))
-(unless (file-exists-p spacemacs-cache-directory)
-    (make-directory spacemacs-cache-directory))
+  (concat space-macs-cache-directory "pcache/"))
+(unless (file-exists-p space-macs-cache-directory)
+    (make-directory space-macs-cache-directory))
 
 ;; load paths
 (mapc 'add-to-load-path
       `(
-        ,spacemacs-core-directory
-        ,(concat spacemacs-core-directory "libs/")
-        ,(concat spacemacs-core-directory "libs/spacemacs-theme/")
-        ;; ,(concat spacemacs-core-directory "aprilfool/")
+        ,space-macs-core-directory
+        ,(concat space-macs-core-directory "libs/")
+        ,(concat space-macs-core-directory "libs/space-macs-theme/")
+        ;; ,(concat space-macs-core-directory "aprilfool/")
         ))
 
 ;; themes
-(add-to-list 'custom-theme-load-path (concat spacemacs-core-directory
-                                             "libs/spacemacs-theme/"))
+(add-to-list 'custom-theme-load-path (concat space-macs-core-directory
+                                             "libs/space-macs-theme/"))
+
+
 

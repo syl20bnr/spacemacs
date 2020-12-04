@@ -36,19 +36,19 @@ This layer adds support for TypeScript and TSX editing.
 - TypeScript playground integration
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =typescript= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =typescript= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(typescript))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(typescript))
 #+END_SRC
 
 ** Formatting
 If you need formatting on save:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (typescript :variables
                 typescript-fmt-on-save t)))
 #+END_SRC
@@ -58,16 +58,16 @@ You can choose formatting tool:
 - ='prettier=
 - ='typescript-formatter=
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (typescript :variables
                 typescript-fmt-tool 'typescript-formatter)))
 #+END_SRC
 
 You can choose either tslint (default) or eslint for linting:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (typescript :variables
                 typescript-linter 'tslint)))
 #+END_SRC
@@ -107,7 +107,7 @@ layers are enabled.
 To choose a default backend set the layer variable =typescript-backend=:
 
 #+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers '(
+  (setq-default dotspace-macs-configuration-layers '(
     (typescript :variables typescript-backend 'tide)))
 #+END_SRC
 
@@ -120,7 +120,7 @@ Backend can be chosen on a per project basis using directory local variables
 
 #+BEGIN_SRC elisp
   ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
+  ;;; For more information see (info "(e-macs) Directory Variables")
   ((typescript-mode (typescript-backend . lsp)))
 #+END_SRC
 
@@ -134,8 +134,8 @@ server intalled by =npm= instead. To do so set the variable
 
 For example:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (typescript :variables
                 tide-tsserver-executable "/usr/local/bin/tsserver")))
 #+END_SRC
@@ -153,13 +153,13 @@ restart server after editing it.
 
 ** Language Server Protocol
 You also need to install the Typescript Language Server.
-Consult the installation command for the desired language server found at [[https://www.github.com/emacs-lsp/lsp-mode/][lsp-mode]] for instructions.
+Consult the installation command for the desired language server found at [[https://www.github.com/e-macs-lsp/lsp-mode/][lsp-mode]] for instructions.
 
 By default lsp will explicitly set itself as the linter, if you don't want that,
 then set the variable =typescript-lsp-linter= to =nil=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (typescript :variables
                 typescript-backend 'lsp
                 typescript-lsp-linter nil)))
@@ -192,3 +192,5 @@ then set the variable =typescript-lsp-linter= to =nil=.
 | ~C-j~       | find previous reference |
 | ~C-k~       | find next reference     |
 | ~C-l~       | goto reference          |
+
+

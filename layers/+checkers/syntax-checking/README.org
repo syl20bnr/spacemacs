@@ -26,8 +26,8 @@ This layer adds on the fly syntax checking to all supported language layers.
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =syntax-checking= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =syntax-checking= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 As this is a support layer you will also have to install at least one supported language
@@ -38,33 +38,33 @@ By default tooltips are enabled and used whenever it is possible.
 You can disable them by setting the variable =syntax-checking-enable-tooltips=
 to =nil=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((syntax-checking :variables syntax-checking-enable-tooltips nil)))
 #+END_SRC
 
 ** Disabling by default
 By default, syntax-checking is enabled in all available major modes (except for
-=emacs-lisp-mode=) and may be toggled off with ~SPC t s~. You can default this to off
+=e-macs-lisp-mode=) and may be toggled off with ~SPC t s~. You can default this to off
 by setting the variable =syntax-checking-enable-by-default= to =nil=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((syntax-checking :variables syntax-checking-enable-by-default nil)))
 #+END_SRC
 
 If you want more fine-grained control, you can configure the variable
 =flycheck-global-modes= instead. Note that this variable should be manipulated
-in =dotspacemacs/user-config=.
+in =dotspace-macs/user-config=.
 
 ** Enable flycheck globally
-Normally Spacemacs goes a long mile to enable syntax checking only where it
+Normally Space-macs goes a long mile to enable syntax checking only where it
 makes sense. If syntax checking support is missing it is normally only a
 matter of declaring it in the layer. The best approach in this case is
 to open an issue and ask for syntax checking support.
 
 Some guides on the web suggest to enable flycheck globally by setting
-=(global-flycheck-mode)= in your =dotspacemacs/user-config=.
+=(global-flycheck-mode)= in your =dotspace-macs/user-config=.
 This is neither necessary nor is it good for the layer system.
 In the contrary by doing so the layer system cannot longer decide for
 which modes activating flycheck would bring any useful outcome.
@@ -73,15 +73,15 @@ as well as break some of the more advanced configuration settings
 of the layer system.
 
 ** Enable support for traditional error navigation
-By default spacemacs takes care to call the right function to jump
+By default space-macs takes care to call the right function to jump
 to the next or previous error. However if wished flycheck can also
 override =next-error= and =previous-error= respectively allowing
-to use alternative general emacs bindings instead of the spacemacs
+to use alternative general e-macs bindings instead of the space-macs
 specific ones. To do so set =syntax-checking-use-standard-error-navigation=
 to non-nil.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((syntax-checking :variables syntax-checking-use-standard-error-navigation t)))
 #+END_SRC
 
@@ -89,8 +89,8 @@ to non-nil.
 If the original flycheck fringe bitmaps are more to your liking, you can set the
 variable =syntax-checking-use-original-bitmaps= to =t=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((syntax-checking :variables syntax-checking-use-original-bitmaps t)))
 #+END_SRC
 
@@ -101,8 +101,8 @@ the variable =syntax-checking-auto-hide-tooltips= to a positive number of second
 Default value of =syntax-checking-auto-hide-tooltips= is =nil=, and in that case tooltips
 are kept open until the cursor is moved.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((syntax-checking :variables syntax-checking-auto-hide-tooltips 10)))
 #+END_SRC
 
@@ -120,3 +120,5 @@ are kept open until the cursor is moved.
 | ~SPC e v~   | verify flycheck setup                                        |
 | ~SPC t s~   | toggle flycheck                                              |
 | ~SPC e x~   | explain the error at point                                   |
+
+

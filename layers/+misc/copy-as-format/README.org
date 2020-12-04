@@ -16,8 +16,8 @@ This layer adds support for [[https://github.com/sshaw/copy-as-format][copy-as-f
 - Function to copy buffer locations as GitHub/Slack/JIRA/HipChat/... formatted code
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =copy-as-format= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =copy-as-format= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
@@ -59,3 +59,5 @@ And you can add alist of file name patterns to language names used for asciidoc 
 | ~SPC x f p~ | copy-as-format-pod       |
 | ~SPC x f r~ | copy-as-format-rst       |
 | ~SPC x f s~ | copy-as-format-slack     |
+
+

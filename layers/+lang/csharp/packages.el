@@ -1,11 +1,11 @@
-;;; packages.el --- C# Layer packages File for Spacemacs
+;;; packages.el --- C# Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -25,13 +25,13 @@
   (use-package omnisharp
     :defer t
     :init
-    (spacemacs//csharp-setup-backend)
+    (space-macs//csharp-setup-backend)
     :config
-    (spacemacs//csharp-configure)
+    (space-macs//csharp-configure)
     ))
 
 (defun csharp/post-init-company ()
-  (spacemacs//csharp-setup-company))
+  (space-macs//csharp-setup-company))
 
 (defun csharp/init-csharp-mode ()
   (use-package csharp-mode
@@ -45,13 +45,15 @@
   (add-hook 'csharp-mode-hook 'turn-on-evil-matchit-mode))
 
 (defun csharp/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'csharp-mode))
+  (space-macs/enable-flycheck 'csharp-mode))
 
 (defun csharp/post-init-ggtags ()
-  (add-hook 'csharp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'csharp-mode-local-vars-hook #'space-macs/ggtags-mode-enable))
 
 (defun csharp/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'csharp-mode))
+  (space-macs/counsel-gtags-define-keys-for-mode 'csharp-mode))
 
 (defun csharp/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'csharp-mode))
+  (space-macs/helm-gtags-define-keys-for-mode 'csharp-mode))
+
+

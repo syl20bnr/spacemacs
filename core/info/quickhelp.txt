@@ -20,11 +20,11 @@ Press [r] to jump to recent file list if it is enabled.
 
 Press [w] to jump to warning list.
 
-Press [SPC] (in Vim editing style) or [Alt-m] (in Emacs editing style) to access
-Spacemacs commands (will list only the Vim style ones for the rest of this
+Press [SPC] (in Vim editing style) or [Alt-m] (in e-macs editing style) to access
+Space-macs commands (will list only the Vim style ones for the rest of this
 help).
 
-Press [SPC f e d] (or [Alt-m f e d] in Emacs style) to access .spacemacs file.
+Press [SPC f e d] (or [Alt-m f e d] in e-macs style) to access .space-macs file.
 
 Press [SPC h SPC] to access a list of documentation and supported layers. You
 can type anything to narrow to a specific feature i.e. "python" for Python
@@ -33,4 +33,6 @@ them.
 
 When reading a document, you can use [SPC s j] to jump to a heading.
 
-Please consult Spacemacs documentation from [SPC h SPC] for more details.
+Please consult Space-macs documentation from [SPC h SPC] for more details.
+
+

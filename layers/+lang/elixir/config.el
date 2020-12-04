@@ -1,11 +1,11 @@
-;;; config.el --- Elixir Layer configuration File for Spacemacs
+;;; config.el --- Elixir Layer configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -19,4 +19,6 @@ If `nil' then `alchemist' is the default backend unless `lsp' layer is used.")
 (defvar elixir-ls-path "~/elixir-ls/release"
   "The path to the folder that contains the elixir-ls release, start scripts (language_server.sh/language_server.bat).")
 
-(spacemacs|define-jump-handlers elixir-mode)
+(space-macs|define-jump-handlers elixir-mode)
+
+

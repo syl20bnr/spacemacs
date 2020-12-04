@@ -1,11 +1,11 @@
-;;; packages.el --- dart layer packages file for Spacemacs.
+;;; packages.el --- dart layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
-;; Author: Bruno Tavares <connect+spacemacs@bltavares.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; Author: Bruno Tavares <connect+space-macs@bltavares.com>
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -29,16 +29,16 @@
     :mode "\\.dart\\'"
     :init
     (add-hook 'dart-mode-local-vars-hook
-              #'spacemacs//dart-setup-backend)))
+              #'space-macs//dart-setup-backend)))
 
 (defun dart/init-dart-server ()
   (use-package dart-server
     :defer t
     :config
     (progn
-      (spacemacs/declare-prefix-for-mode 'dart-mode "mf" "find")
-      (spacemacs/declare-prefix-for-mode 'dart-mode "mh" "help")
-      (spacemacs/set-leader-keys-for-major-mode 'dart-mode
+      (space-macs/declare-prefix-for-mode 'dart-mode "mf" "find")
+      (space-macs/declare-prefix-for-mode 'dart-mode "mh" "help")
+      (space-macs/set-leader-keys-for-major-mode 'dart-mode
         "=" 'dart-server-format
         "?" 'dart-server-show-hover
         "g" 'dart-server-goto
@@ -55,7 +55,7 @@
         "fr" 'dart-server-find-member-refs
         "fd" 'dart-server-find-top-level-decls)
 
-      (add-to-list 'spacemacs-jump-handlers-dart-mode
+      (add-to-list 'space-macs-jump-handlers-dart-mode
                    '(dart-server-goto :async t))
 
       (evil-define-key 'insert dart-server-map
@@ -72,8 +72,8 @@
     :after dart-mode
     :config
     (progn
-      (spacemacs/declare-prefix-for-mode 'dart-mode "mx" "flutter")
-      (spacemacs/set-leader-keys-for-major-mode 'dart-mode
+      (space-macs/declare-prefix-for-mode 'dart-mode "mx" "flutter")
+      (space-macs/set-leader-keys-for-major-mode 'dart-mode
         "xx" 'flutter-run-or-hot-reload))))
 
 (defun dart/init-lsp-dart ()
@@ -81,4 +81,6 @@
     :defer t))
 
 (defun dart/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'dart-mode))
+  (space-macs/enable-flycheck 'dart-mode))
+
+

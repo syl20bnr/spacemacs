@@ -1,11 +1,11 @@
-;;; packages.el --- BibTeX Layer packages file for Spacemacs.
+;;; packages.el --- BibTeX Layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Joshua Ellis <josh@jpellis.me>
 ;; URL: https://github.com/JP-Ellis
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -19,29 +19,29 @@
     org-ref))
 
 (defun bibtex/post-init-auctex ()
-  (spacemacs/set-leader-keys-for-major-mode 'latex-mode
+  (space-macs/set-leader-keys-for-major-mode 'latex-mode
     "ic" 'org-ref-insert-link))
 
 (defun bibtex/init-helm-bibtex ()
   (use-package helm-bibtex
     :defer t
     :init
-    (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
+    (space-macs/set-leader-keys-for-major-mode 'bibtex-mode
       "m" 'helm-bibtex)))
 
 (defun bibtex/init-ivy-bibtex ()
   (use-package ivy-bibtex
     :defer t
     :init
-    (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
+    (space-macs/set-leader-keys-for-major-mode 'bibtex-mode
       "m" 'ivy-bibtex)))
 
 (defun bibtex/post-init-markdown-mode ()
-  (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
+  (space-macs/set-leader-keys-for-major-mode 'markdown-mode
     "ic" 'org-ref-insert-link))
 
 (defun bibtex/post-init-org ()
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode
+  (space-macs/set-leader-keys-for-major-mode 'org-mode
     "ic" 'org-ref-insert-link))
 
 (defun bibtex/init-org-ref ()
@@ -76,8 +76,8 @@
         "gj" 'org-ref-bibtex-next-entry
         "gk" 'org-ref-bibtex-previous-entry)
 
-      (spacemacs/declare-prefix-for-mode 'bibtex-mode "ml" "lookup")
-      (spacemacs/set-leader-keys-for-major-mode 'bibtex-mode
+      (space-macs/declare-prefix-for-mode 'bibtex-mode "ml" "lookup")
+      (space-macs/set-leader-keys-for-major-mode 'bibtex-mode
         ;; Navigation
         "j" 'org-ref-bibtex-next-entry
         "k" 'org-ref-bibtex-previous-entry
@@ -98,3 +98,5 @@
         "ld" 'doi-utils-add-bibtex-entry-from-doi
         "li" 'isbn-to-bibtex
         "lp" 'pubmed-insert-bibtex-from-pmid))))
+
+

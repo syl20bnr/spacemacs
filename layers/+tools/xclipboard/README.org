@@ -34,16 +34,16 @@ and [[https://github.com/TermiT/Flycut][Flycut]] installed on macOS.
 ** Clipboard Manager Integration
 Clipboard manager integration can be enabled by setting =xclipboard-enable-cliphist= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  dotspace-macs-configuration-layers '(
     (xclipboard :variables xclipboard-enable-cliphist t))
 #+END_SRC
 
 ** Custom Copy Paste Command
 Setting =xclipboard-copy-command= for copy, =xclipboard-paste-command= for paste.
 
-#+BEGIN_SRC emacs-lisp
-  dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  dotspace-macs-configuration-layers '(
     (xclipboard :variables xclipboard-copy-command "utf8clip.exe"))
 #+END_SRC
 
@@ -56,3 +56,5 @@ Setting =xclipboard-copy-command= for copy, =xclipboard-paste-command= for paste
 | ~SPC x P~   | paste item from history (cliphist must be enabled)           |
 | ~SPC x R~   | rectangle paste item from history (cliphist must be enabled) |
 | ~SPC x s~   | select item from history (cliphist must be enabled)          |
+
+

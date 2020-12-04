@@ -1,18 +1,18 @@
-;;; funcs.el --- Emacs Lisp functions File
+;;; funcs.el --- e-macs Lisp functions File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 
 
-;; Idea from http://www.reddit.com/r/emacs/comments/312ge1/i_created_this_function_because_i_was_tired_of/
-(defun spacemacs/eval-current-form ()
+;; Idea from http://www.reddit.com/r/e-macs/comments/312ge1/i_created_this_function_because_i_was_tired_of/
+(defun space-macs/eval-current-form ()
   "Find and evaluate the current def* or set* command.
 Unlike `eval-defun', this does not go to topmost function."
   (interactive)
@@ -21,7 +21,7 @@ Unlike `eval-defun', this does not go to topmost function."
     (forward-list)
     (call-interactively 'eval-last-sexp)))
 
-(defun spacemacs/nav-find-elisp-thing-at-point-other-window ()
+(defun space-macs/nav-find-elisp-thing-at-point-other-window ()
   "Find thing under point and go to it another window."
   (interactive)
   (let ((symb (variable-at-point)))
@@ -34,17 +34,17 @@ Unlike `eval-defun', this does not go to topmost function."
 
 ;; edebug
 
-(defun spacemacs/edebug-instrument-defun-on ()
+(defun space-macs/edebug-instrument-defun-on ()
   "Toggle on instrumentalisation for the function under `defun'."
   (interactive)
   (eval-defun 'edebugit))
 
-(defun spacemacs/edebug-instrument-defun-off ()
+(defun space-macs/edebug-instrument-defun-off ()
   "Toggle off instrumentalisation for the function under `defun'."
   (interactive)
   (eval-defun nil))
 
-(defun spacemacs/elisp-toggle-debug-expr-and-eval-func ()
+(defun space-macs/elisp-toggle-debug-expr-and-eval-func ()
   "Insert or remove debug expression, evaluate function and save buffer."
   (interactive)
   (let ((trace "(debug)")
@@ -58,10 +58,10 @@ Unlike `eval-defun', this does not go to topmost function."
   (eval-defun nil)
   (save-buffer))
 
-(defun spacemacs//edebug-mode (&rest args)
+(defun space-macs//edebug-mode (&rest args)
   "Additional processing when `edebug-mode' is activated or deactivated."
-  (let ((evilified (or (eq 'vim dotspacemacs-editing-style)
-                       (and (eq 'hybrid dotspacemacs-editing-style)
+  (let ((evilified (or (eq 'vim dotspace-macs-editing-style)
+                       (and (eq 'hybrid dotspace-macs-editing-style)
                             hybrid-style-enable-evilified-state))))
     (if (not edebug-mode)
         ;; disable edebug-mode
@@ -76,7 +76,7 @@ Unlike `eval-defun', this does not go to topmost function."
 
 ;; smartparens integration
 
-(defun spacemacs/eval-current-form-sp (&optional arg)
+(defun space-macs/eval-current-form-sp (&optional arg)
   "Call `eval-last-sexp' after moving out of one level of
 parentheses. Will exit any strings and/or comments first.
 An optional ARG can be used which is passed to `sp-up-sexp' to move out of more
@@ -95,7 +95,7 @@ Requires smartparens because all movement is done using `sp-up-sexp'."
       (sp-up-sexp arg)
       (call-interactively 'eval-last-sexp))))
 
-(defun spacemacs/eval-current-symbol-sp ()
+(defun space-macs/eval-current-symbol-sp ()
   "Call `eval-last-sexp' on the symbol around point.
 Requires smartparens because all movement is done using `sp-forward-symbol'."
   (interactive)
@@ -109,7 +109,9 @@ Requires smartparens because all movement is done using `sp-forward-symbol'."
 
 ;; elisp comment text-object definition
 
-(defun spacemacs//define-elisp-comment-text-object ()
+(defun space-macs//define-elisp-comment-text-object ()
   "Define a text object and a surround pair for elisp comments.
 Intended for use in mode hooks."
-  (spacemacs|define-text-object ";" "elisp-comment" ";; " ""))
+  (space-macs|define-text-object ";" "elisp-comment" ";; " ""))
+
+

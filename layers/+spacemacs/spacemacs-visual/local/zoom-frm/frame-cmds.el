@@ -11,12 +11,12 @@
 ;; Last-Updated: Thu Jan  1 10:44:52 2015 (-0800)
 ;;           By: dradams
 ;;     Update #: 3036
-;; URL: http://www.emacswiki.org/frame-cmds.el
-;; Doc URL: http://emacswiki.org/FrameModes
-;; Doc URL: http://www.emacswiki.org/OneOnOneEmacs
-;; Doc URL: http://www.emacswiki.org/Frame_Tiling_Commands
+;; URL: http://www.e-macswiki.org/frame-cmds.el
+;; Doc URL: http://e-macswiki.org/FrameModes
+;; Doc URL: http://www.e-macswiki.org/OneOnOnee-macs
+;; Doc URL: http://www.e-macswiki.org/Frame_Tiling_Commands
 ;; Keywords: internal, extensions, mouse, frames, windows, convenience
-;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
+;; Compatibility: GNU e-macs: 20.x, 21.x, 22.x, 23.x, 24.x, 25.x
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -32,7 +32,7 @@
 ;;
 ;;  Summary:
 ;;
-;;    Load this library from your init file (~/.emacs or _emacs).
+;;    Load this library from your init file (~/.e-macs or _e-macs).
 ;;    Add the suggested key bindings (below) to  your init file.
 ;;    Use `M-up|down|left|right' to move frames around incrementally.
 ;;    Use `C-S-v', `M-S-v', `C-S-next', `C-S-prior' to move frames to screen edges.
@@ -132,7 +132,7 @@
 ;;
 ;;  Non-interactive functions defined here:
 ;;
-;;    `assq-delete-all' (Emacs 20), `butlast' (Emacs 20),
+;;    `assq-delete-all' (e-macs 20), `butlast' (e-macs 20),
 ;;    `frcmds-available-screen-pixel-bounds',
 ;;    `frcmds-available-screen-pixel-height',
 ;;    `frcmds-available-screen-pixel-width',
@@ -144,7 +144,7 @@
 ;;    `frcmds-read-args-for-tiling',
 ;;    `frcmds-read-buffer-for-delete-windows',
 ;;    `frcmds-set-difference', `frcmds-smart-tool-bar-pixel-height',
-;;    `frcmds-split-frame-1', `frcmds-tile-frames', `nbutlast' (Emacs
+;;    `frcmds-split-frame-1', `frcmds-tile-frames', `nbutlast' (e-macs
 ;;    20).
 ;;
 ;;  Error symbols defined here:
@@ -152,18 +152,18 @@
 ;;    `font-too-small', `font-size'.
 ;;
 ;;
-;;  ***** NOTE: The following EMACS PRIMITIVE has been ADVISED HERE:
+;;  ***** NOTE: The following e-macs PRIMITIVE has been ADVISED HERE:
 ;;
 ;;  `delete-window' - If only one window in frame, `delete-frame'.
 ;;
 ;;
-;;  ***** NOTE: The following EMACS PRIMITIVE has been REDEFINED HERE:
+;;  ***** NOTE: The following e-macs PRIMITIVE has been REDEFINED HERE:
 ;;
 ;;  `delete-windows-on' -
 ;;     1) Reads buffer differently.  Only buffers showing windows are candidates.
 ;;     2) Calls `delete-window', so this also deletes frames where
 ;;        window showing the BUFFER is the only window.
-;;        (That's true also for vanilla Emacs 23+, but not before.)
+;;        (That's true also for vanilla e-macs 23+, but not before.)
 ;;
 ;;
 ;;  Suggested key bindings:
@@ -282,7 +282,7 @@
 ;;     frcmds-split-frame-1: Use frame-pixel-width and frcmds-frame-pixel-height, instead of working
 ;;                           with width and height frame parameters (char-based).
 ;;     frcmds-tile-frames:
-;;       If Emacs 24.4+, use PIXELWISE arg with set-frame-size.
+;;       If e-macs 24.4+, use PIXELWISE arg with set-frame-size.
 ;;       Otherwise: * Always subtract frcmds-extra-pixels-width.
 ;;                  * Do not subtract borders.
 ;;                  * Increment origin by one border-width.
@@ -326,7 +326,7 @@
 ;;     Added Package-Requires to header, at least temporarily, but should not need to specify version.
 ;; 2013/07/12 dadams
 ;;     set-frame-alist-parameter-from-frame: Use lax completion, so do not limit to known parameters.
-;;     frame-parameter-names: Updated for Emacs 24.
+;;     frame-parameter-names: Updated for e-macs 24.
 ;; 2013/07/05 dadams
 ;;     Added: move-frame-to-screen-top-left.
 ;;     move-frame-to-screen-*: Read FRAME name in interactive spec.
@@ -351,7 +351,7 @@
 ;;     Added: move-frame-to-screen-(top|bottom|left|right).
 ;;     move-frame-(up|down|left|right): Redefined so prefix arg moves increments of char size.
 ;; 2012/02/29 dadams
-;;     Added, for Emacs 20 only: nbutlast, butlast.  To avoid runtime load of cl.el.
+;;     Added, for e-macs 20 only: nbutlast, butlast.  To avoid runtime load of cl.el.
 ;;     Added frame-cmds-set-difference, to avoid runtime load of cl.el.
 ;;     set-all-frame-alist-parameters-from-frame: Use frame-cmds-set-difference.
 ;; 2011/07/25 dadams
@@ -359,7 +359,7 @@
 ;; 2011/01/04 dadams
 ;;     Removed autoload cookie from non-interactive function.
 ;; 2010/10/19 dadams
-;;     enlarge-font: Only do frame-update-faces if Emacs 20 (obsolete in 21).
+;;     enlarge-font: Only do frame-update-faces if e-macs 20 (obsolete in 21).
 ;; 2010/06/04 dadams
 ;;     Added: (toggle-max|restore)-frame(-horizontally|-vertically).  Thx to Uday Reddy for suggestion.
 ;;     Renamed max-frame to maximize-frame.
@@ -374,14 +374,14 @@
 ;;     Updated to reflect thumb-frm.el name changes.
 ;; 2009/01/30 dadams
 ;;     enlarge-font, enlarged-font-name, enlarge-font-tries:
-;;       Removed temporary workaround - Emacs 23 bug #119 was finally fixed.
+;;       Removed temporary workaround - e-macs 23 bug #119 was finally fixed.
 ;; 2009/01/01 dadams
 ;;     Removed compile-time require of doremi-frm.el to avoid infinite recursion.
 ;; 2008/12/13 dadams
-;;     enlarge-font: Redefined for Emacs 23 - just use :height face attribute.
-;;     enlarge-font-tries, enlarged-font-name: Not used for Emacs 23.
+;;     enlarge-font: Redefined for e-macs 23 - just use :height face attribute.
+;;     enlarge-font-tries, enlarged-font-name: Not used for e-macs 23.
 ;; 2008/10/31 dadams
-;;     Updated frame-parameter-names for Emacs 23.
+;;     Updated frame-parameter-names for e-macs 23.
 ;; 2008/07/29 dadams
 ;;     Option available-screen-pixel-bounds: Use nil as default value.
 ;;     available-screen-pixel-bounds: Redefined as the code that defined the option's default value.
@@ -408,14 +408,14 @@
 ;;      Added: frame-extra-pixels(width|height).  Use in tile-frames.  Thx to David Reitter.
 ;;      frame-horizontal-extra-pixels: Changed default value from 30 to 32.
 ;; 2007/10/11 dadams
-;;      Added: assq-delete-all (for Emacs 20).
+;;      Added: assq-delete-all (for e-macs 20).
 ;; 2007/09/02 dadams
 ;;      Added: available-screen-pixel-(width|height).  Use in tile-frames, new-frame-position.
 ;; 2007/06/12 dadams
 ;;      tile-frames: Corrected use of fboundp for thumbnail-frame-p.
 ;; 2007/05/27 dadams
 ;;      enlarged-font-name:
-;;        Do nothing if null assq of ascii.  Not sure what this means, but gets around Emacs 23 bug.
+;;        Do nothing if null assq of ascii.  Not sure what this means, but gets around e-macs 23 bug.
 ;; 2006/08/22 dadams
 ;;      Added: delete-windows-for, read-buffer-for-delete-windows.
 ;;      delete-windows-on: Use read-buffer-for-delete-windows.
@@ -549,7 +549,7 @@
 ;;
 ;;; Code:
 
-(eval-when-compile (require 'cl-lib)) ;; case, incf (plus, for Emacs 20: dolist, dotimes)
+(eval-when-compile (require 'cl-lib)) ;; case, incf (plus, for e-macs 20: dolist, dotimes)
 (require 'frame-fns) ;; frame-geom-value-cons, frame-geom-value-numeric, frames-on, get-frame-name,
                      ;; get-a-frame, read-frame
 (require 'strings nil t) ;; (no error if not found) read-buffer
@@ -581,25 +581,25 @@
   :link `(url-link :tag "Send Bug Report"
           ,(concat "mailto:" "drew.adams" "@" "oracle" ".com?subject=\
 frame-cmds.el bug: \
-&body=Describe bug here, starting with `emacs -q'.  \
-Don't forget to mention your Emacs and library versions."))
+&body=Describe bug here, starting with `e-macs -q'.  \
+Don't forget to mention your e-macs and library versions."))
   :link '(url-link :tag "Other Libraries by Drew"
-          "http://www.emacswiki.org/cgi-bin/wiki/DrewsElispLibraries")
+          "http://www.e-macswiki.org/cgi-bin/wiki/DrewsElispLibraries")
   :link '(url-link :tag "Download"
-          "http://www.emacswiki.org/cgi-bin/wiki/frame-cmds.el")
+          "http://www.e-macswiki.org/cgi-bin/wiki/frame-cmds.el")
   :link '(url-link :tag "Description - `delete-window'"
-          "http://www.emacswiki.org/cgi-bin/wiki/FrameModes")
+          "http://www.e-macswiki.org/cgi-bin/wiki/FrameModes")
   :link '(url-link :tag "Description - Frame Renaming"
-          "http://www.emacswiki.org/cgi-bin/wiki/FrameTitle")
+          "http://www.e-macswiki.org/cgi-bin/wiki/FrameTitle")
   :link '(url-link :tag "Description - Frame Resizing"
-          "http://www.emacswiki.org/cgi-bin/wiki/Shrink-Wrapping_Frames")
+          "http://www.e-macswiki.org/cgi-bin/wiki/Shrink-Wrapping_Frames")
   :link '(url-link :tag "Description - Frame Customization"
-          "http://www.emacswiki.org/cgi-bin/wiki/CustomizingAndSaving")
+          "http://www.e-macswiki.org/cgi-bin/wiki/CustomizingAndSaving")
   :link '(url-link :tag "Description - Frame Tiling"
-          "http://www.emacswiki.org/cgi-bin/wiki/Frame_Tiling_Commands")
+          "http://www.e-macswiki.org/cgi-bin/wiki/Frame_Tiling_Commands")
   :link '(url-link :tag "Description - General"
-          "http://www.emacswiki.org/cgi-bin/wiki/FrameModes")
-  :link '(emacs-commentary-link :tag "Commentary" "frame-cmds"))
+          "http://www.e-macswiki.org/cgi-bin/wiki/FrameModes")
+  :link '(e-macs-commentary-link :tag "Commentary" "frame-cmds"))
 
 (defcustom rename-frame-when-iconify-flag t
   "*Non-nil means frames are renamed when iconified.
@@ -617,14 +617,14 @@ Candidates include `jump-to-frame-config-register' and `show-buffer-menu'."
                  (function :tag "Another function"))
   :group 'Frame-Commands)
 
-;; Use `cond', not `case', for Emacs 20 byte-compiler.
+;; Use `cond', not `case', for e-macs 20 byte-compiler.
 (defcustom window-mgr-title-bar-pixel-height (cond ((eq window-system 'mac) 22)
                                                    ;; For older versions of macOS, 40 might be better.
 						   ((eq window-system 'ns)  50)
 						   (t  27))
   "*Height of frame title bar provided by the window manager, in pixels.
 You might alternatively call this constant the title-bar \"width\" or
-\"thickness\".  There is no way for Emacs to determine this, so you
+\"thickness\".  There is no way for e-macs to determine this, so you
 must set it."
   :type 'integer :group 'Frame-Commands)
 
@@ -835,16 +835,16 @@ Interactively, FRAME depends on the prefix arg, as follows:
    (list (frcmds-read-buffer-for-delete-windows)
          (and current-prefix-arg
               (or (natnump (prefix-numeric-value current-prefix-arg))  'visible))))
-  (unless buffer (setq buffer  (current-buffer))) ; Like Emacs 23+ - unlike Emacs 21-22.
+  (unless buffer (setq buffer  (current-buffer))) ; Like e-macs 23+ - unlike e-macs 21-22.
 
   ;; `get-buffer-window' interprets FRAME oppositely for t and nil, so switch.
   (setq frame  (if (eq t frame) nil (if (eq nil frame) t frame)))
   (let (win)
-    ;; Vanilla Emacs version raises an error if BUFFER is a string that does not name a buffer.
+    ;; Vanilla e-macs version raises an error if BUFFER is a string that does not name a buffer.
     ;; We do not raise an error - we do nothing.
     (and (get-buffer buffer)
          (while (setq win  (get-buffer-window buffer frame)) (delete-window win))
-         nil)))                         ; Return nil always, like vanilla Emacs.
+         nil)))                         ; Return nil always, like vanilla e-macs.
 
 (defun frcmds-read-buffer-for-delete-windows ()
   "Read buffer name for delete-windows commands.
@@ -873,7 +873,7 @@ Only displayed buffers are completion candidates."
 ;;   (if (and (window-dedicated-p (selected-window))
 ;;            (one-window-p t))
 ;;       (let ((fr  (selected-frame)))
-;;         ;; HACK because of Emacs bug: `raise-frame' won't raise a frame
+;;         ;; HACK because of e-macs bug: `raise-frame' won't raise a frame
 ;;         ;; that was first iconified and then made invisible.
 ;;         ;; So, here we don't make an iconified frame invisible.
 ;;         (unless (frcmds-frame-iconified-p fr)
@@ -1190,7 +1190,7 @@ In Lisp code:
                                      window-mgr-title-bar-pixel-height
                                      (frcmds-smart-tool-bar-pixel-height))
                                   (frame-char-height frame))
-                               ;; Subtract menu bar unless on Carbon Emacs (menu bar not in the frame).
+                               ;; Subtract menu bar unless on Carbon e-macs (menu bar not in the frame).
                                (if (eq window-system 'mac)
                                    0
                                  (cdr (assq 'menu-bar-lines (frame-parameters frame)))))
@@ -1248,8 +1248,8 @@ FRAME defaults to the selected frame."
 ;;;###autoload
 (defun toggle-max-frame (&optional direction frame)
   "Toggle maximization of FRAME horizontally, vertically, or both.
-Reverses or (if restored) repeats the effect of the Emacs maximize
-commands.  Does not restore from maximization effected outside Emacs.
+Reverses or (if restored) repeats the effect of the e-macs maximize
+commands.  Does not restore from maximization effected outside e-macs.
 
 With no prefix arg, toggle both directions.
 With a non-negative prefix arg, toggle only vertically.
@@ -1425,8 +1425,8 @@ the pixel width and height of the rectangle."
       (vertical    (setq fr-pixel-height  (/ fr-pixel-height (length visible-frames))))
       (otherwise   (error "`frcmds-tile-frames': DIRECTION must be `horizontal' or `vertical'")))
     (dolist (fr  visible-frames)
-      (if (or (> emacs-major-version 24)
-              (and (= emacs-major-version 24)  (> emacs-minor-version 3)))
+      (if (or (> e-macs-major-version 24)
+              (and (= e-macs-major-version 24)  (> e-macs-minor-version 3)))
           (let ((frame-resize-pixelwise  t))
             (set-frame-size
              fr
@@ -1516,7 +1516,7 @@ This represents the currently available screen area."
           (mac-display-available-pixel-bounds)
         (list 0 0 (x-display-pixel-width) (x-display-pixel-height)))))
 
-; Emacs 20 doesn't have `butlast'.  Define it to avoid requiring `cl.el' at runtime.  From `subr.el'.
+; e-macs 20 doesn't have `butlast'.  Define it to avoid requiring `cl.el' at runtime.  From `subr.el'.
 (unless (fboundp 'butlast)
   (defun nbutlast (list &optional n)
     "Modifies LIST to remove the last N elements."
@@ -1667,7 +1667,7 @@ With a prefix arg, offset it that many char heights from the bottom."
                                  window-mgr-title-bar-pixel-height
                                  (frcmds-smart-tool-bar-pixel-height))
                               (frame-char-height frame))
-                           ;; Subtract menu bar unless on Carbon Emacs (menu bar not in the frame).
+                           ;; Subtract menu bar unless on Carbon e-macs (menu bar not in the frame).
                            (if (eq window-system 'mac)
                                0
                              (cdr (assq 'menu-bar-lines (frame-parameters frame)))))))
@@ -1732,13 +1732,13 @@ Optional FRAME parameter defaults to current frame."
     (unless (x-list-fonts fontname) (error "Cannot change font size"))
     (modify-frame-parameters frame (list (cons 'font fontname)))
     ;; Update faces that want a bold or italic version of the default font.
-    (when (< emacs-major-version 21) (frame-update-faces frame))))
+    (when (< e-macs-major-version 21) (frame-update-faces frame))))
 
-;;; This was a workaround hack for an Emacs 23 bug (#119, aka #1562).
+;;; This was a workaround hack for an e-macs 23 bug (#119, aka #1562).
 ;;; This works OK, but it is not as refined as the version I use, and it does not work for
-;;; older Emacs versions.
+;;; older e-macs versions.
 ;;;
-;;; (when (> emacs-major-version 22)
+;;; (when (> e-macs-major-version 22)
 ;;;   (defun enlarge-font (&optional increment frame)
 ;;;     "Increase size of font in FRAME by INCREMENT.
 ;;; Interactively, INCREMENT is given by the prefix argument.
@@ -1798,12 +1798,12 @@ whose value is an alist of frame parameters."
                                     (frcmds-frame-parameter-names) nil nil nil nil 'left t))
            (get-a-frame (read-frame "Frame to copy parameter value from: " nil t)))))
   (unless (boundp alist)
-    (error "Not a defined Emacs variable: `%s'" alist))
+    (error "Not a defined e-macs variable: `%s'" alist))
   (set alist (assq-delete-all parameter (copy-alist (eval alist))))
   (set alist (cons (assq parameter (frame-parameters frame)) (eval alist)))
   (tell-customize-var-has-changed alist))
 
-;;; Standard Emacs 21+ function, defined here for Emacs 20.
+;;; Standard e-macs 21+ function, defined here for e-macs 20.
 (unless (fboundp 'assq-delete-all)
   (defun assq-delete-all (key alist)
     "Delete from ALIST all elements whose car is `eq' to KEY.
@@ -1858,7 +1858,7 @@ FRAME defaults to the selected frame."
            (get-a-frame (read-frame "Frame to copy parameter values from: " nil t))
            current-prefix-arg)))
   (unless (boundp alist)
-    (error "Not a defined Emacs variable: `%s'" alist))
+    (error "Not a defined e-macs variable: `%s'" alist))
   (set alist (frcmds-set-difference (frame-parameters frame)
                                     (and (not really-all-p)  frame-parameters-to-exclude)
                                     #'car))
@@ -1915,7 +1915,7 @@ The CDR is nil."
                    ("visibility")
                    ("width")
                    ("window-id"))))
-    (when (> emacs-major-version 20)
+    (when (> e-macs-major-version 20)
       (setq params  (nconc params '(("fullscreen")
                                     ("left-fringe")
                                     ("line-spacing")
@@ -1927,15 +1927,15 @@ The CDR is nil."
                                     ("tool-bar-lines")
                                     ("tty-color-mode")
                                     ("wait-for-wm")))))
-    (when (> emacs-major-version 21)
+    (when (> e-macs-major-version 21)
       (setq params  (nconc params '(("user-size")))))
-    (when (> emacs-major-version 22)
+    (when (> e-macs-major-version 22)
       (setq params  (nconc params '(("alpha")
                                     ("display-environment-variable")
                                     ("font-backend")
                                     ("sticky")
                                     ("term-environment-variable")))))
-    (when (> emacs-major-version 23)
+    (when (> e-macs-major-version 23)
       (setq params  (nconc params '(("explicit-name")
                                     ("tool-bar-position")))))
     params))
@@ -1959,3 +1959,5 @@ VARIABLE is a symbol that names a user option."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; frame-cmds.el ends here
+
+

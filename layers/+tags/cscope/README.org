@@ -15,7 +15,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer provides bindings for using [[http://cscope.sourceforge.net][Cscope]] and [[https://github.com/portante/pycscope][PyCscope]] in Spacemacs.
+This layer provides bindings for using [[http://cscope.sourceforge.net][Cscope]] and [[https://github.com/portante/pycscope][PyCscope]] in Space-macs.
 
 See [[https://github.com/OpenGrok/OpenGrok/wiki/Comparison-with-Similar-Tools][here]] for a comparison between =Cscope= and other similar tools (such as gtags).
 
@@ -25,12 +25,12 @@ See [[https://github.com/OpenGrok/OpenGrok/wiki/Comparison-with-Similar-Tools][h
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =cscope= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =cscope= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Cscope
-Enable =c-c++= layer in your =~/.spacemacs= file. Install =Cscope= through your
+Enable =c-c++= layer in your =~/.space-macs= file. Install =Cscope= through your
 package manager, or download it from the [[http://cscope.sourceforge.net/#downloads][website]] and build it from source.
 
 From package manager (for example, Ubuntu):
@@ -50,7 +50,7 @@ From source:
 #+END_SRC
 
 ** PyCscope
-Enable =python= layer in your =~/.spacemacs= file. Install PyCscope through pip:
+Enable =python= layer in your =~/.space-macs= file. Install PyCscope through pip:
 
 #+BEGIN_SRC sh
   pip install pycscope
@@ -75,3 +75,5 @@ command =cscope/run-pycscope= for Python projects, bound to ~SPC m g i~.
 | ~SPC m g i~ | create Cscope index                           |
 | ~SPC m g r~ | find references of a symbol                   |
 | ~SPC m g x~ | search text                                   |
+
+

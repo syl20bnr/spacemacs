@@ -1,14 +1,16 @@
-#+TITLE: spacemacs-misc layer
+#+TITLE: space-macs-misc layer
 
-#+TAGS: layer|misc|spacemacs
+#+TAGS: layer|misc|space-macs
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 
 * Description
-This layer adds some general packages into Spacemacs.
+This layer adds some general packages into Space-macs.
 
 ** Features:
 - Support for jumping to definitions via =dumb-jump= or =evil-goto-definition=.
 - Support for an easy http request client via =request=.
+
+

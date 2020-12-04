@@ -1,11 +1,11 @@
-;;; packages.el --- Notmuch Layer packages File for Spacemacs
+;;; packages.el --- Notmuch Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -22,12 +22,12 @@
 (defun notmuch/init-counsel-notmuch ()
   (use-package counsel-notmuch
     :defer t
-    :init (spacemacs/set-leader-keys "aenn" 'counsel-notmuch)))
+    :init (space-macs/set-leader-keys "aenn" 'counsel-notmuch)))
 
 (defun notmuch/init-helm-notmuch ()
   (use-package helm-notmuch
     :defer t
-    :init (spacemacs/set-leader-keys "aenn" 'helm-notmuch)))
+    :init (space-macs/set-leader-keys "aenn" 'helm-notmuch)))
 
 (defun notmuch/init-notmuch ()
   (use-package notmuch
@@ -35,10 +35,10 @@
     :commands notmuch
     :init
     (progn
-      (spacemacs/declare-prefix "aen" "notmuch")
-      (spacemacs/set-leader-keys
+      (space-macs/declare-prefix "aen" "notmuch")
+      (space-macs/set-leader-keys
         "aenN" 'notmuch
-        "aeni" 'spacemacs/notmuch-inbox
+        "aeni" 'space-macs/notmuch-inbox
         "aenj" 'notmuch-jump-search
         "aens" 'notmuch-search))
     :config
@@ -46,7 +46,7 @@
       (dolist (prefix '(("ms" . "stash")
                         ("mp" . "part")
                         ("mP" . "patch")))
-        (spacemacs/declare-prefix-for-mode 'notmuch-show-mode
+        (space-macs/declare-prefix-for-mode 'notmuch-show-mode
           (car prefix) (cdr prefix)))
       ;; key bindings
       (evil-define-key 'visual notmuch-search-mode-map
@@ -54,11 +54,11 @@
         "a" 'notmuch-search-archive-thread
         "-" 'notmuch-search-remove-tag
         "+" 'notmuch-search-add-tag)
-      (spacemacs/set-leader-keys-for-major-mode 'notmuch-show-mode
+      (space-macs/set-leader-keys-for-major-mode 'notmuch-show-mode
         "a" 'notmuch-show-save-attachments
         ;; part
         "pm" 'notmuch-show-choose-mime-of-part
-        "pp" 'spacemacs/notmuch-show-as-patch
+        "pp" 'space-macs/notmuch-show-as-patch
         "p|" 'notmuch-show-pipe-part
         "po" 'notmuch-show-interactively-view-part
         "pv" 'notmuch-show-view-part
@@ -77,9 +77,9 @@
         "sd" 'notmuch-show-stash-date
         "sc" 'notmuch-show-stash-cc
         ;; patch
-        "Po" 'spacemacs/notmuch-show-open-github-patch
-        "Pa" 'spacemacs/notmuch-git-apply-patch
-        "PA" 'spacemacs/notmuch-git-apply-patch-part)
+        "Po" 'space-macs/notmuch-show-open-github-patch
+        "Pa" 'space-macs/notmuch-git-apply-patch
+        "PA" 'space-macs/notmuch-git-apply-patch-part)
       ;; Evilify notmuch modes
       ;; Use normal mode map to allow proper editing capabilities
       ;; for the embedded search field in `notmuch-hello-mode`
@@ -109,24 +109,24 @@
         (kbd "p")   'notmuch-show-previous-open-message
         (kbd "n")   'notmuch-show-next-open-message
         (kbd "o")   'notmuch-show-open-or-close-all
-        (kbd "O")   'spacemacs/notmuch-show-close-all)
+        (kbd "O")   'space-macs/notmuch-show-close-all)
       (evilified-state-evilify-map notmuch-tree-mode-map
         :mode notmuch-tree-mode
         :bindings
         (kbd "N") 'notmuch-tree-next-message
         (kbd "P") 'notmuch-tree-prev-message
-        (kbd "d") 'spacemacs/notmuch-message-delete-down
-        (kbd "D") 'spacemacs/notmuch-message-delete-up
+        (kbd "d") 'space-macs/notmuch-message-delete-down
+        (kbd "D") 'space-macs/notmuch-message-delete-up
         (kbd "n") 'notmuch-tree-next-matching-message
         (kbd "p") 'notmuch-tree-prev-matching-message
         (kbd "M") 'compose-mail-other-frame)
       (evilified-state-evilify-map notmuch-search-mode-map
         :mode notmuch-search-mode
         :bindings
-        (kbd "a") 'spacemacs/notmuch-search-archive-thread-down
-        (kbd "A") 'spacemacs/notmuch-search-archive-thread-up
-        (kbd "d") 'spacemacs/notmuch-message-delete-down
-        (kbd "D") 'spacemacs/notmuch-message-delete-up
+        (kbd "a") 'space-macs/notmuch-search-archive-thread-down
+        (kbd "A") 'space-macs/notmuch-search-archive-thread-up
+        (kbd "d") 'space-macs/notmuch-message-delete-down
+        (kbd "D") 'space-macs/notmuch-message-delete-up
         (kbd "J") 'notmuch-jump-search
         (kbd "L") 'notmuch-search-filter
         (kbd "gg") 'notmuch-search-first-thread
@@ -136,22 +136,22 @@
         (kbd "M") 'compose-mail-other-frame))))
 
 (defun notmuch/pre-init-org ()
-  (spacemacs|use-package-add-hook org
+  (space-macs|use-package-add-hook org
     :post-config (require 'ol-notmuch)))
 
 (defun notmuch/pre-init-persp-mode ()
-  (spacemacs|use-package-add-hook persp-mode
+  (space-macs|use-package-add-hook persp-mode
     :post-config
     (progn
       (add-to-list 'persp-filter-save-buffers-functions
-                   'spacemacs//notmuch-persp-filter-save-buffers-function)
-      (spacemacs|define-custom-layout notmuch-spacemacs-layout-name
-        :binding notmuch-spacemacs-layout-binding
+                   'space-macs//notmuch-persp-filter-save-buffers-function)
+      (space-macs|define-custom-layout notmuch-space-macs-layout-name
+        :binding notmuch-space-macs-layout-binding
         :body
         (progn
           (dolist (mode notmuch-modes)
             (let ((hook (intern (concat (symbol-name mode) "-hook"))))
-              (add-hook hook #'spacemacs//notmuch-buffer-to-persp)))
+              (add-hook hook #'space-macs//notmuch-buffer-to-persp)))
           (call-interactively 'notmuch))))))
 
 (defun notmuch/post-init-window-purpose ()
@@ -161,3 +161,5 @@
     (purpose-set-extension-configuration
      :notmuch-layer
      (purpose-conf :mode-purposes modes))))
+
+

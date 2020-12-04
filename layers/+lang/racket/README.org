@@ -27,8 +27,8 @@ Adds support for the [[http://racket-lang.org/][Racket]] programming language.
 - Structurally safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =racket= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =racket= to the existing =dotspace-macs-configuration-layers= list in this
 file. You will also need DrRacket installed. Alternatively, one can use the
 "Minimal Racket" installation, and then run the following command.
 
@@ -44,19 +44,19 @@ By default this mode is not activated. You can turn it on locally on the
 active buffer with ~SPC m T s~ (=s= for safe).
 
 To turn it on automatically for all =racket= buffers call the following
-function in your =dotspacemacs/user-config= function:
+function in your =dotspace-macs/user-config= function:
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-racket-mode)
+#+BEGIN_SRC e-macs-lisp
+  (space-macs/toggle-evil-safe-lisp-structural-editing-on-register-hook-racket-mode)
 #+END_SRC
 
 or to enable it for all supported modes:
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+#+BEGIN_SRC e-macs-lisp
+  (space-macs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 #+END_SRC
 
-When enabled the symbol =🆂= should be displayed in the mode-line.
+When enabled the symbol =ðŸ†‚= should be displayed in the mode-line.
 
 * Key bindings
 ** Navigation
@@ -103,3 +103,5 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 |-------------+-----------------------------------------------------------------------------------|
 | ~SPC m i l~ | Insert lambda character                                                           |
 | ~H-r~       | Run current file and open REPL (=H= is hyper, *may* be bound to command on macOS) |
+
+

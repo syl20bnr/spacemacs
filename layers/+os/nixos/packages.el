@@ -1,11 +1,11 @@
-;;; packages.el --- NixOS Layer packages File for Spacemacs
+;;; packages.el --- NixOS Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2015-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -20,7 +20,7 @@
   (let ((backends '(company-capf)))
     (when (configuration-layer/package-used-p 'company-nixos-options)
       (add-to-list 'backends 'company-nixos-options t))
-    (eval `(spacemacs|add-company-backends
+    (eval `(space-macs|add-company-backends
               :backends ,backends
               :modes nix-mode))))
 
@@ -33,7 +33,7 @@
     :defer t
     :init
     (progn
-      (spacemacs/set-leader-keys
+      (space-macs/set-leader-keys
         "h>" 'helm-nixos-options))))
 
 (defun nixos/init-nix-mode ()
@@ -41,7 +41,7 @@
     :defer t
     :mode "\\.nix\\'"
     :init
-    (add-to-list 'spacemacs-indent-sensitive-modes 'nix-mode)
+    (add-to-list 'space-macs-indent-sensitive-modes 'nix-mode)
     :config
     (electric-indent-mode -1)))
 
@@ -49,4 +49,6 @@
   (use-package nixos-options :defer t))
 
 (defun nixos/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'nix-mode))
+  (space-macs/enable-flycheck 'nix-mode))
+
+

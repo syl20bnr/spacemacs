@@ -14,7 +14,7 @@
 
 * Description
 This layer adds support for Assembly code. The built-in major mode for
-editing assembly code in Emacs is =asm-mode=.
+editing assembly code in e-macs is =asm-mode=.
 
 The layer also adds =nasm-mode= for NASM-specific syntax. Although =nasm-mode=
 is intended for NASM, it actually works well with other variants of Assembly
@@ -29,8 +29,8 @@ in general, and provides Imenu integration so you can jump around with ~SPC s j~
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =asm= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =asm= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** PDFs
@@ -41,7 +41,7 @@ To look up the x86 instructions, two things are required:
     sudo apt-get install poppler-utils
   #+END_SRC
 
-- [[https://software.intel.com/en-us/articles/intel-sdm][Intel® 64 and IA-32 Architectures Software Developer Manuals]]. Any PDF that
+- [[https://software.intel.com/en-us/articles/intel-sdm][IntelÂ® 64 and IA-32 Architectures Software Developer Manuals]]. Any PDF that
   contains the full instruction set reference will work, though volume 2 is the
   best choice for x86-lookup.
 
@@ -49,7 +49,7 @@ Then, set =x86-lookup-pdf= to the location of your PDF document (Tip: If you use
 Helm as your completion of choice, you can use ~SPC f f~ to navigate to the
 file, and press ~C-c i~ to insert the path). For example, something like this:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq x86-lookup-pdf "~/64-ia-32-architectures-software-developer-instruction-set-reference-manual-325383.pdf")
 #+END_SRC
 
@@ -76,3 +76,5 @@ _Note_: Quoted from the docstring of =asm-comment=, the command bound to ~;~:
   Suggested usage:  while writing your code, trigger asm-comment
   repeatedly until you are satisfied with the kind of comment.
 #+END_SRC
+
+

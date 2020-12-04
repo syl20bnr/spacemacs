@@ -12,14 +12,14 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer integrates an online music service into Spacemacs.
+This layer integrates an online music service into Space-macs.
 
 ** Features:
-- Support for listening to music from within Emacs via [[https://www.spotify.com][Spotify]].
+- Support for listening to music from within e-macs via [[https://www.spotify.com][Spotify]].
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =spotify= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =spotify= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Spotify Web API authentication when using search with Ivy
@@ -37,7 +37,7 @@ your credentials to start using the search feature.
 | ~SPC a m s N~ | Go to the previous track |
 | ~SPC a m s Q~ | Quit Spotify             |
 
-If [[https://github.com/emacs-helm/helm][Helm]] layer is enabled, you can also use the following binding(s):
+If [[https://github.com/e-macs-helm/helm][Helm]] layer is enabled, you can also use the following binding(s):
 
 | Key binding   | Description            |
 |---------------+------------------------|
@@ -51,3 +51,5 @@ If [[https://github.com/abo-abo/swiper][Ivy]] layer is enabled, you can also use
 | ~SPC a m s s t~   | Search for a new track         |
 | ~SPC a m s s T a~ | Spotify search track by artist |
 | ~SPC a m s s T A~ | Spotify search track by album  |
+
+

@@ -1,18 +1,18 @@
-;;; funcs.el --- Spacemacs UI Layer functions File
+;;; funcs.el --- Space-macs UI Layer functions File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 
 ;; ansi-colors
 
-(defun spacemacs-visual//compilation-buffer-apply-ansi-colors ()
+(defun space-macs-visual//compilation-buffer-apply-ansi-colors ()
   (when (eq major-mode 'compilation-mode)
     (let ((inhibit-read-only t))
       (goto-char compilation-filter-start)
@@ -21,7 +21,7 @@
 
 ;; popwin
 
-(defun spacemacs/remove-popwin-display-config (str)
+(defun space-macs/remove-popwin-display-config (str)
   "Removes the popwin display configurations that matches the passed STR"
   (setq popwin:special-display-config
         (-remove (lambda (x) (if (and (listp x) (stringp (car x)))
@@ -31,12 +31,12 @@
 
 ;; zoom
 
-(defun spacemacs//zoom-frm-powerline-reset ()
+(defun space-macs//zoom-frm-powerline-reset ()
   (when (fboundp 'powerline-reset)
-    (setq-default powerline-height (spacemacs/compute-mode-line-height))
+    (setq-default powerline-height (space-macs/compute-mode-line-height))
     (powerline-reset)))
 
-(defun spacemacs//zoom-frm-do (arg)
+(defun space-macs//zoom-frm-do (arg)
   "Perform a zoom action depending on ARG value."
   (let ((zoom-action (cond ((eq arg 0) 'zoom-frm-unzoom)
                            ((< arg 0) 'zoom-frm-out)
@@ -51,20 +51,22 @@
     (when (equal fm 'maximized)
       (toggle-frame-maximized))))
 
-(defun spacemacs/zoom-frm-in ()
+(defun space-macs/zoom-frm-in ()
   "zoom in frame, but keep the same pixel size"
   (interactive)
-  (spacemacs//zoom-frm-do 1)
-  (spacemacs//zoom-frm-powerline-reset))
+  (space-macs//zoom-frm-do 1)
+  (space-macs//zoom-frm-powerline-reset))
 
-(defun spacemacs/zoom-frm-out ()
+(defun space-macs/zoom-frm-out ()
   "zoom out frame, but keep the same pixel size"
   (interactive)
-  (spacemacs//zoom-frm-do -1)
-  (spacemacs//zoom-frm-powerline-reset))
+  (space-macs//zoom-frm-do -1)
+  (space-macs//zoom-frm-powerline-reset))
 
-(defun spacemacs/zoom-frm-unzoom ()
+(defun space-macs/zoom-frm-unzoom ()
   "Unzoom current frame, keeping the same pixel size"
   (interactive)
-  (spacemacs//zoom-frm-do 0)
-  (spacemacs//zoom-frm-powerline-reset))
+  (space-macs//zoom-frm-do 0)
+  (space-macs//zoom-frm-powerline-reset))
+
+

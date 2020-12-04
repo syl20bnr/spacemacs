@@ -1,11 +1,11 @@
-;;; config.el --- Git Layer configuration File for Spacemacs
+;;; config.el --- Git Layer configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -20,6 +20,8 @@
 (defvar git-enable-magit-delta-plugin nil
   "If non nil `magit-delta-mode' plugin is enabled.")
 
-(defvar spacemacs--git-blame-ts-full-hint-toggle nil
+(defvar space-macs--git-blame-ts-full-hint-toggle nil
   "Display git blame transient state documentation.")
+
+
 

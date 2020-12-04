@@ -15,7 +15,7 @@
   - [[#evaluating][Evaluating]]
 
 * Description
-This layer adds support for Prolog using the bundled Prolog mode for Emacs. In addition it also adds ediprolog support for better interaction with SWI-Prolog.
+This layer adds support for Prolog using the bundled Prolog mode for e-macs. In addition it also adds ediprolog support for better interaction with SWI-Prolog.
 
 ** Features:
 - Designed for SWI-Prolog as a default, but can be used with other Prologs that Prolog mode supports.
@@ -24,8 +24,8 @@ This layer adds support for Prolog using the bundled Prolog mode for Emacs. In a
 - Apropos and help lookup.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =prolog= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =prolog= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -74,3 +74,5 @@ file.
 | Key binding | Description                               |
 |-------------+-------------------------------------------|
 | ~SPC m e e~ | Context Sensitive SWI-Prolog Interaction. |
+
+

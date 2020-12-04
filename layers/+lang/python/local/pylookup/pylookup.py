@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Pylookup is to lookup entries from python documentation, especially within
-emacs. Pylookup adopts most of ideas from haddoc, lovely toolkit by Martin
+e-macs. Pylookup adopts most of ideas from haddoc, lovely toolkit by Martin
 Blais.
 
 (usage)
@@ -35,7 +35,7 @@ else:
 
 VERBOSE = False
 FORMATS = {
-    "Emacs": "{entry}\t({desc})\t[{book}];{url}",
+    "e-macs": "{entry}\t({desc})\t[{book}];{url}",
     "Terminal": "{entry}\t({desc})\t[{book}]\n{url}"
 }
 
@@ -332,8 +332,8 @@ if __name__ == "__main__":
     parser.add_option(
         "-f",
         "--format",
-        help="type of output formatting, valid: Emacs, Terminal",
-        choices=["Emacs", "Terminal"],
+        help="type of output formatting, valid: e-macs, Terminal",
+        choices=["e-macs", "Terminal"],
         default="Terminal",
         dest="format")
     parser.add_option(
@@ -371,3 +371,5 @@ if __name__ == "__main__":
             FORMATS[opts.format],
             insensitive=int(opts.insensitive),
             desc=int(opts.desc))
+
+

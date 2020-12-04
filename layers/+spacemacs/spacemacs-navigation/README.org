@@ -1,6 +1,6 @@
-#+TITLE: spacemacs-navigation layer
+#+TITLE: space-macs-navigation layer
 
-#+TAGS: layer|misc|spacemacs
+#+TAGS: layer|misc|space-macs
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -11,13 +11,15 @@ This layer adds general navigation functions to all supported layers.
 
 ** Features:
 - Support for ace-links in
-  - =spacemacs= buffer
+  - =space-macs= buffer
   - =info-mode=
   - =help-mode=
   - =eww-mode=
 - Support for keeping the cursor centered on the screen
 - Evilified version of =doc-view-mode=
 - Tweaks for =golden-ratio-mode=
-- Support for =paradox= a modern emacs package manager
-- Shortcuts for restarting =emacs=
+- Support for =paradox= a modern e-macs package manager
+- Shortcuts for restarting =e-macs=
 - Shortcuts for easily switching between windows
+
+

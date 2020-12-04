@@ -5,9 +5,9 @@
 ## Copyright (c) 2014-2018 Sylvain Benner & Contributors
 ##
 ## Author: Eugene Yaremenko
-## URL: https://github.com/syl20bnr/spacemacs
+## URL: https://github.com/syl20bnr/space-macs
 ##
-## This file is not part of GNU Emacs.
+## This file is not part of GNU e-macs.
 ##
 ## License: GPLv3
 
@@ -22,3 +22,5 @@ done
 
 echo_headline "CHANGED FILES:"
 cat /tmp/changed_files
+
+

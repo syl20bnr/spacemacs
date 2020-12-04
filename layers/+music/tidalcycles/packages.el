@@ -1,11 +1,11 @@
-;;; packages.el --- TidalCycles Layer packages file for Spacemacs.
+;;; packages.el --- TidalCycles Layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Riccardo Binetti <rbino@gmx.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -18,12 +18,12 @@
     :mode ("\\.tidal\\'" . tidal-mode)
     :init
     (progn
-      (spacemacs/declare-prefix-for-mode 'tidal-mode "mt" "tidal")
-      (spacemacs/declare-prefix-for-mode 'tidal-mode "mr" "run")
-      (spacemacs/declare-prefix-for-mode 'tidal-mode "ms" "silence")
-      (spacemacs/declare-prefix-for-mode 'tidal-mode "mm" "mute")
-      (spacemacs/declare-prefix-for-mode 'tidal-mode "mo" "solo")
-      (spacemacs/set-leader-keys-for-major-mode 'tidal-mode
+      (space-macs/declare-prefix-for-mode 'tidal-mode "mt" "tidal")
+      (space-macs/declare-prefix-for-mode 'tidal-mode "mr" "run")
+      (space-macs/declare-prefix-for-mode 'tidal-mode "ms" "silence")
+      (space-macs/declare-prefix-for-mode 'tidal-mode "mm" "mute")
+      (space-macs/declare-prefix-for-mode 'tidal-mode "mo" "solo")
+      (space-macs/set-leader-keys-for-major-mode 'tidal-mode
         "RET" 'tidal-run-multiple-lines
         "ts" 'tidal-start-haskell
         "tq" 'tidal-quit-haskell
@@ -47,3 +47,5 @@
         "s9" 'tidal-stop-d9
         "mu" 'tidal-unmute-all
         "ou" 'tidal-unsolo-all))))
+
+

@@ -1,15 +1,15 @@
-;;; config.el --- sql Layer packages File for Spacemacs
+;;; config.el --- sql Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Kepi <kepi@igloonet.cz>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(spacemacs|define-jump-handlers sql-mode)
+(space-macs|define-jump-handlers sql-mode)
 
 (defvar sql-capitalize-keywords nil
   "Capitalize keywords in SQL mode.")
@@ -32,3 +32,5 @@ If `nil' then 'company-sql` is the default backend unless `lsp' layer is used")
   "Setup workspace configuration with json file. Possible values are:
 `workspace': {workspace directory}/.sqls/config.json
 `root': {root directory of workspace}/.sqls/config.json")
+
+

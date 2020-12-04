@@ -1,11 +1,11 @@
-## Makefile --- Spacemacs org tests
+## Makefile --- Space-macs org tests
 ##
 ## Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ##
 ## Author: smile13241324 <smile13241324@gmail.com>
-## URL: https://github.com/syl20bnr/spacemacs
+## URL: https://github.com/syl20bnr/space-macs
 ##
-## This file is not part of GNU Emacs.
+## This file is not part of GNU e-macs.
 ##
 ## License: GPLv3
 
@@ -16,4 +16,6 @@ UNIT_TEST_FILES =
 FUNC_TEST_FILES = \
 org-export-ftest.el
 
-include ../../spacemacs.mk
+include ../../space-macs.mk
+
+

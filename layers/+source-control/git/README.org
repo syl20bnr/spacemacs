@@ -32,15 +32,15 @@
   - [[#forge-1][Forge]]
 
 * Description
-This layers adds extensive support for [[http://git-scm.com/][git]] to Spacemacs.
+This layers adds extensive support for [[http://git-scm.com/][git]] to Space-macs.
 
 ** Features:
 - git repository management the indispensable [[http://magit.vc/][magit]] package
 - [[https://github.com/magit/forge/][forge]] add-on for magit.
 - [[https://github.com/jtatarik/magit-gitflow][git-flow]] add-on for magit.
 - quick in buffer history browsing with [[https://melpa.org/#/git-timemachine][git-timemachine]].
-- quick in buffer last commit message per line with [[https://github.com/syohex/emacs-git-messenger][git-messenger]]
-- colorize buffer line by age of commit with [[https://github.com/syohex/emacs-smeargle][smeargle]]
+- quick in buffer last commit message per line with [[https://github.com/syohex/e-macs-git-messenger][git-messenger]]
+- colorize buffer line by age of commit with [[https://github.com/syohex/e-macs-smeargle][smeargle]]
 - git grep with [[https://github.com/yasuyk/helm-git-grep][helm-git-grep]]
 - gitignore generator with [[https://github.com/jupl/helm-gitignore][helm-gitignore]]
 - org integration with magit via [[https://github.com/magit/orgit][orgit]]
@@ -49,16 +49,16 @@ New to Magit? Checkout the [[https://magit.vc/about/][official intro]].
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =git= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =git= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Magit status fullscreen
 To display the =magit status= buffer in fullscreen set the variable
-=git-magit-status-fullscreen= to =t= in your =dotspacemacs/user-init= function.
+=git-magit-status-fullscreen= to =t= in your =dotspace-macs/user-init= function.
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/user-init ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs/user-init ()
     (setq-default git-magit-status-fullscreen t))
 #+END_SRC
 
@@ -74,8 +74,8 @@ There you can push to or rebase from svn.
 For convenience the magit SVN plugin can be activated directly in the Git
 layer by setting the variable =git-enable-magit-svn-plugin= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/user-init ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs/user-init ()
     (setq-default git-enable-magit-svn-plugin t))
 #+END_SRC
 
@@ -84,11 +84,11 @@ layer by setting the variable =git-enable-magit-svn-plugin= to =t=.
 | ~~~         | open magit-svn-popup |
 
 ** Global git commit mode
-Spacemacs can be used as the =$EDITOR= (or =$GIT_EDITOR=) for editing git
+Space-macs can be used as the =$EDITOR= (or =$GIT_EDITOR=) for editing git
 commits messages. To enable this you have to add the following line to your
-=dotspacemacs/user-config=:
+=dotspace-macs/user-config=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (global-git-commit-mode t)
 #+END_SRC
 
@@ -105,16 +105,16 @@ Support requires installation of the git-flow extensions. Please reference their
 [[https://github.com/petervanderdoes/gitflow/wiki][installation page]] for assistance.
 
 ** Forge
-The =forge= package uses =emacsql= which requires a C compiler to be available
-on MS Windows, see issue [[https://github.com/skeeto/emacsql/issues/46]].
+The =forge= package uses =e-macsql= which requires a C compiler to be available
+on MS Windows, see issue [[https://github.com/skeeto/e-macsql/issues/46]].
 
 For this reason the =forge= package is not installed on MS Windows by default.
 If you still want to install it (which means you do have a C compiler available
-in your PATH) then use the =dotspacemacs-additional-packages= variable in your
+in your PATH) then use the =dotspace-macs-additional-packages= variable in your
 dotfile:
 
-#+BEGIN_SRC emacs-lisp
-  (dotspacemacs-additional-packages '((forge :toggle t)))
+#+BEGIN_SRC e-macs-lisp
+  (dotspace-macs-additional-packages '((forge :toggle t)))
 #+END_SRC
 
 ** Org integration
@@ -146,22 +146,22 @@ Git commands (start with ~g~):
 
 Notes:
 - Highlight by age of commit or last update time is provided by
-  [[https://github.com/syohex/emacs-smeargle][smeargle]].
+  [[https://github.com/syohex/e-macs-smeargle][smeargle]].
 - Git time machine is provided by [[https://melpa.org/#/git-timemachine][git-timemachine]].
-- Git last commit message per line is provided by [[https://github.com/syohex/emacs-git-messenger][git-messenger]].
+- Git last commit message per line is provided by [[https://github.com/syohex/e-macs-git-messenger][git-messenger]].
 
 ** Magit
-Spacemacs uses [[http://magit.vc/][magit]] to manage Git repositories.
+Space-macs uses [[http://magit.vc/][magit]] to manage Git repositories.
 
 To open a =status buffer=, type in a buffer of a Git repository: ~SPC g s~.
 The central key binding hub of Magit is available on ~SPC g m~.
 
-Spacemacs uses [[https://github.com/magit/forge/][forge]] for integration with remote forges, it is available from
+Space-macs uses [[https://github.com/magit/forge/][forge]] for integration with remote forges, it is available from
 the =status buffer= with the ~@~ key binding. For information on setting up
 remotes check the manual's [[https://magit.vc/manual/forge/Getting-Started.html][Getting Started page]].
 
-Spacemacs uses [[https://github.com/justbur/evil-magit][evil-magit]] for key bindings in magit buffers (unless your editing
-style is set to emacs, in which case you get the default magit bindings), which
+Space-macs uses [[https://github.com/justbur/evil-magit][evil-magit]] for key bindings in magit buffers (unless your editing
+style is set to e-macs, in which case you get the default magit bindings), which
 are the standard magit key bindings with some minimal changes to make them
 comfortable for evil users.
 
@@ -201,7 +201,7 @@ Here are the often used bindings inside a =status buffer=:
 
 ** Staging lines
 Magit allows you to stage specific lines by selecting them in a diff and hitting
-=s= to stage. Due to inconsistencies between Vim and Emacs editing styles, if
+=s= to stage. Due to inconsistencies between Vim and e-macs editing styles, if
 you enter visual line state with =V=, you will stage one more line than
 intended. To work around this, you can use =v= instead (since Magit only stages
 whole lines, in any case).
@@ -248,14 +248,14 @@ A log selection buffer is presented as an interactive way of selecting a recent 
 - Amend a commit:
   - ~l l~ to open =log buffer=
   - ~c a~ on the commit you want to amend
-  - ~​,​c~ or ~C-c C-c~ to submit the changes
+  - ~â€‹,â€‹c~ or ~C-c C-c~ to submit the changes
 - Squash last commit:
   - ~l l~ to open =log buffer=
   - ~r e~ on the second to last commit, it opens the =rebase buffer=
   - ~j~ to put point on last commit
   - ~s~ to squash it
-  - ~​,​c~ or ~C-c C-c~ to continue to the =commit message buffer=
-  - ~​,​c~ or ~C-c C-c~ again when you have finished to edit the commit message
+  - ~â€‹,â€‹c~ or ~C-c C-c~ to continue to the =commit message buffer=
+  - ~â€‹,â€‹c~ or ~C-c C-c~ again when you have finished to edit the commit message
 - Force push a squashed commit:
   - in the =status buffer= you should see the new commit unpushed and the old
     commit unpulled
@@ -331,18 +331,18 @@ or lines in a file hosted on Git web services like GitHub, GitLab, Bitbucket...
 
 ** Repository list
 Feature displays a status-list of git repositories.
-Within your =.spacemacs= config, in the =dotspacemacs/user-config()= stanza
-configure =magit-repository-directories= to target Emacs to directories to look
+Within your =.space-macs= config, in the =dotspace-macs/user-config()= stanza
+configure =magit-repository-directories= to target e-macs to directories to look
 into.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq magit-repository-directories
         '(("~/Development/" . 2) ("~/src/" . 2)))
 #+END_SRC
 
 Where each element has the form =(DIRECTORY . DEPTH)=, when DEPTH is ~0~ - then
 only add DIRECTORY itself.
-The DIRECTORY should end up with a ~/~ to respect Emacs conventions.
+The DIRECTORY should end up with a ~/~ to respect e-macs conventions.
 
 | Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
@@ -382,3 +382,5 @@ In a =forge-post= buffer (assuming the major mode leader key is ~,~)
 |------------------------+-------------|
 | ~SPC m c~ or ~SPC m ,~ | submit post |
 | ~SPC m k~ or ~SPC m k~ | cancel post |
+
+

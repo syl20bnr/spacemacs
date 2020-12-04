@@ -1,6 +1,6 @@
 #+TITLE: outshine layer
 
-#+TAGS: emacs|layer
+#+TAGS: e-macs|layer
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -17,8 +17,8 @@ programming modes.
 - Edit comments under outline headings in separate org-mode buffers
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =outshine= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =outshine= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -39,3 +39,5 @@ file.
 | ~SPC a O K~   | Move the current outline subtree up                        |
 | ~SPC a O >~   | Demote the current outline subtree                         |
 | ~SPC a O <~   | Promote the current outline subtree                        |
+
+

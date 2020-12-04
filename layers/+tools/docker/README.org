@@ -16,7 +16,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer integrates basic container management into Spacemacs.
+This layer integrates basic container management into Space-macs.
 
 ** Features:
 - Syntax highlighting for =Docker= files
@@ -29,8 +29,8 @@ This layer integrates basic container management into Spacemacs.
 
 * Install
 ** Docker
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =docker= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =docker= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 You will also need the native package [[https://www.docker.com/][Docker]] for the actual container management.
@@ -45,12 +45,12 @@ build locally with stack as shown below:
 #+END_SRC
 
 ** LSP
-This layer can be enhanced with [[https://github.com/rcjsuen/dockerfile-language-server-nodejs][=dockerfile-language-server-nodejs=]] and emacs
-[[https://github.com/emacs-lsp/lsp-mode][=lsp-mode=]] to provide richer, IDE-like capabilities.
+This layer can be enhanced with [[https://github.com/rcjsuen/dockerfile-language-server-nodejs][=dockerfile-language-server-nodejs=]] and e-macs
+[[https://github.com/e-macs-lsp/lsp-mode][=lsp-mode=]] to provide richer, IDE-like capabilities.
 To do so set the layer variable =docker-dockerfile-backend= to =lsp= like shown below:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((docker :variables docker-dockerfile-backend 'lsp)))
 #+END_SRC
 
@@ -63,7 +63,7 @@ This can be done via npm:
 
 * Usage
 ** TRAMP access to docker containers
-This relies on the [[https://github.com/emacs-pe/docker-tramp.el][docker-tramp]] package which uses =docker exec= available in
+This relies on the [[https://github.com/e-macs-pe/docker-tramp.el][docker-tramp]] package which uses =docker exec= available in
 docker versions > 1.3.
 
 =docker-tramp= adds a new prefix =/docker:= that you can use with ~SPC f f~,
@@ -88,3 +88,5 @@ auto-completion of the running containers.
 | ~SPC a t d P~ | push image                                  |
 | ~SPC a t d r~ | restart container                           |
 | ~SPC a t d s~ | start container                             |
+
+

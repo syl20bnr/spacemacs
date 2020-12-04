@@ -1,12 +1,14 @@
-;;; layers.el --- react Layer layers File for Spacemacs
+;;; layers.el --- react Layer layers File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Andrea Moretti <axyzxp@gmail.com>
 ;; URL: https://github.com/axyz
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 (configuration-layer/declare-layer-dependencies '(javascript node prettier web-beautify))
+
+

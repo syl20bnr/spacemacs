@@ -19,8 +19,8 @@ This layer adds support for the dotnet cli package.
 - [[https://github.com/julienXX/dotnet.el][dotnet]]
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =dotnet= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =dotnet= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -40,3 +40,5 @@ file.
 | ~SPC m d s n~ | Create a new dotnet solution                  |
 | ~SPC m d s r~ | Remove from the current dotnet solution       |
 | ~SPC m d t~   | Run tests for the current dotnet project      |
+
+

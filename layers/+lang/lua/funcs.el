@@ -1,22 +1,22 @@
-;;; funcs.el --- Lua Layer functions File for Spacemacs
+;;; funcs.el --- Lua Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Lin Sun <sunlin7@yahoo.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//lua-setup-backend ()
+(defun space-macs//lua-setup-backend ()
   "Conditionally setup lua backend."
   (setq lua-indent-level 2
         lua-indent-string-contents t)
-  (spacemacs/declare-prefix-for-mode 'lua-mode "mh" "help")
-  (spacemacs/declare-prefix-for-mode 'lua-mode "ms" "REPL")
-  (spacemacs/declare-prefix-for-mode 'lua-mode "mg" "goto")
-  (spacemacs/set-leader-keys-for-major-mode 'lua-mode
+  (space-macs/declare-prefix-for-mode 'lua-mode "mh" "help")
+  (space-macs/declare-prefix-for-mode 'lua-mode "ms" "REPL")
+  (space-macs/declare-prefix-for-mode 'lua-mode "mg" "goto")
+  (space-macs/set-leader-keys-for-major-mode 'lua-mode
     "hd" 'lua-search-documentation
     "sb" 'lua-send-buffer
     "sf" 'lua-send-defun
@@ -24,16 +24,16 @@
     "sr" 'lua-send-region
     "'" 'lua-show-process-buffer)
   (pcase lua-backend
-    (`lsp-emmy (spacemacs//lua-setup-lsp-emmy))))
+    (`lsp-emmy (space-macs//lua-setup-lsp-emmy))))
 
-(defun spacemacs//lua-setup-company ()
+(defun space-macs//lua-setup-company ()
   "Conditionally setup company based on backend."
   (pcase lua-backend
-    (_ (spacemacs//lua-setup-company-lua))))
+    (_ (space-macs//lua-setup-company-lua))))
 
 
 ;; LSP Lua
-(defun spacemacs//lua-setup-lsp-emmy ()
+(defun space-macs//lua-setup-lsp-emmy ()
   "Setup LSP Lua."
   (when lua-lsp-emmy-java-path
     (setq lsp-clients-emmy-lua-java-path lua-lsp-emmy-java-path))
@@ -44,8 +44,10 @@
 
 
 ;; Lua mode
-(defun spacemacs//lua-setup-company-lua ()
-  (spacemacs|add-company-backends
+(defun space-macs//lua-setup-company-lua ()
+  (space-macs|add-company-backends
     :backends company-lua
     :modes lua-mode)
   (company-mode))
+
+

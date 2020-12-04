@@ -1,11 +1,11 @@
-;;; funcs.el --- Spell Checking Layer functions File for Spacemacs
+;;; funcs.el --- Spell Checking Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -23,22 +23,22 @@ auto-dictionary is not used, use the adict version otherwise."
       (adict-change-dictionary)
     (call-interactively 'ispell-change-dictionary)))
 
-(defun spacemacs/add-word-to-dict-buffer ()
+(defun space-macs/add-word-to-dict-buffer ()
   "Save word at point as correct in current buffer."
   (interactive)
-  (spacemacs//add-word-to-dict 'buffer))
+  (space-macs//add-word-to-dict 'buffer))
 
-(defun spacemacs/add-word-to-dict-global ()
+(defun space-macs/add-word-to-dict-global ()
   "Save word at point as a correct word globally."
   (interactive)
-  (spacemacs//add-word-to-dict 'save))
+  (space-macs//add-word-to-dict 'save))
 
-(defun spacemacs/add-word-to-dict-session ()
+(defun space-macs/add-word-to-dict-session ()
   "Save word at point as correct in current session."
   (interactive)
-  (spacemacs//add-word-to-dict 'session))
+  (space-macs//add-word-to-dict 'session))
 
-(defun spacemacs//add-word-to-dict (scope)
+(defun space-macs//add-word-to-dict (scope)
   "Save word at point as a correct word.
 SCOPE can be:
 `save' to save globally,
@@ -47,14 +47,14 @@ SCOPE can be:
   (let ((current-location (point))
         (word (flyspell-get-word)))
     (when (consp word)
-      (if (spacemacs//word-in-dict-p (car word))
+      (if (space-macs//word-in-dict-p (car word))
           (error "%s is already in dictionary" (car word))
         (progn
           (flyspell-do-correct scope nil (car word) current-location
                                (cadr word) (caddr word) current-location)
           (ispell-pdict-save t))))))
 
-(defun spacemacs//word-in-dict-p (word)
+(defun space-macs//word-in-dict-p (word)
   "Check if WORD is defined in any of the active dictionaries."
   ;; use the correct dictionary
   (flyspell-accept-buffer-local-defs)
@@ -75,3 +75,5 @@ SCOPE can be:
     (if (consp ispell-filter)
         (setq poss (ispell-parse-output (car ispell-filter))))
     (or (eq poss t) (stringp poss))))
+
+

@@ -9,14 +9,14 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-A speed reading mode for Emacs.
+A speed reading mode for e-macs.
 
 ** Features:
 - Support for =speed-reading= of arbitrary texts
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =speed-reading= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =speed-reading= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -30,3 +30,5 @@ file.
 | ~f~         | Faster speed  |
 | ~s~         | Slower speed  |
 | ~q~         | Quit Spray    |
+
+

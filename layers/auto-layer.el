@@ -3,9 +3,9 @@
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -84,3 +84,5 @@
 (configuration-layer/lazy-install 'windows-scripts :extensions '("\\(\\.bat$\\)" dos-mode))
 (configuration-layer/lazy-install 'windows-scripts :extensions '("\\(\\.ps[dm]?1\\'\\|\\.ps1$\\)" powershell-mode))
 (configuration-layer/lazy-install 'yaml :extensions '("\\(\\.e?ya?ml$\\|\\.\\(yml\\|yaml\\)\\'\\|Procfile\\'\\)" yaml-mode))
+
+

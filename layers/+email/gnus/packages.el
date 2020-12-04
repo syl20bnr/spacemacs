@@ -1,11 +1,11 @@
-;;; packages.el --- gnus Layer packages File for Spacemacs
+;;; packages.el --- gnus Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -16,11 +16,11 @@
     persp-mode))
 
 (defun gnus/pre-init-persp-mode ()
-  (spacemacs|use-package-add-hook persp-mode
+  (space-macs|use-package-add-hook persp-mode
     :post-config
     (progn
-      (spacemacs|define-custom-layout gnus-spacemacs-layout-name
-        :binding gnus-spacemacs-layout-binding
+      (space-macs|define-custom-layout gnus-space-macs-layout-name
+        :binding gnus-space-macs-layout-binding
         :body
         (call-interactively 'gnus)))))
 
@@ -31,14 +31,14 @@
     :commands gnus
     :init
     (progn
-      (spacemacs/declare-prefix "aeg" "gnus" "Gnus newsreader")
-      (spacemacs/set-leader-keys
+      (space-macs/declare-prefix "aeg" "gnus" "Gnus newsreader")
+      (space-macs/set-leader-keys
         "aegg" 'gnus
         "aegs" 'gnus-slave
         "aegu" 'gnus-unplugged
         "aego" 'gnus-slave-unplugged)
-      (spacemacs/declare-prefix-for-mode 'message-mode "mi" "insert")
-      (spacemacs/set-leader-keys-for-major-mode 'message-mode
+      (space-macs/declare-prefix-for-mode 'message-mode "mi" "insert")
+      (space-macs/set-leader-keys-for-major-mode 'message-mode
         ;; RFC 1855
         "miF" 'flame-on)
       ;; NOTE: If any of the following variables are modified,
@@ -49,13 +49,13 @@
        gnus-group-line-format "%M%S%p%P%5y:%B %G\n";;"%B%(%g%)"
        gnus-summary-thread-gathering-function 'gnus-gather-threads-by-references
        gnus-thread-sort-functions '(gnus-thread-sort-by-most-recent-date)
-       gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\”]\”[#’()]"
+       gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\â€]\â€[#â€™()]"
        gnus-sum-thread-tree-false-root ""
        gnus-sum-thread-tree-indent " "
-       gnus-sum-thread-tree-leaf-with-other "├► "
+       gnus-sum-thread-tree-leaf-with-other "â”œâ–º "
        gnus-sum-thread-tree-root ""
-       gnus-sum-thread-tree-single-leaf "╰► "
-       gnus-sum-thread-tree-vertical "│"
+       gnus-sum-thread-tree-single-leaf "â•°â–º "
+       gnus-sum-thread-tree-vertical "â”‚"
        gnus-article-browse-delete-temp t
        gnus-treat-strip-trailing-blank-lines 'last
        gnus-keep-backlog 'nil
@@ -82,7 +82,7 @@
 
       (require 'browse-url)
       (require 'nnrss)
-      (defun spacemacs/gnus-flame-on ()
+      (defun space-macs/gnus-flame-on ()
         "Most important email function, for RFC1855 compliance."
         ;; https://tools.ietf.org/html/rfc1855
         (interactive)
@@ -90,7 +90,7 @@
         (insert "FLAME OFF\n")
         (forward-line -2)
         (end-of-line))
-      (defun spacemacs/browse-nnrss-url (arg)
+      (defun space-macs/browse-nnrss-url (arg)
         "Open RSS Article directy in the browser"
         (interactive "p")
         (let ((url (assq nnrss-url-field
@@ -114,7 +114,7 @@
       (evilified-state-evilify gnus-summary-mode gnus-summary-mode-map
         (kbd "J") 'gnus-summary-next-article
         (kbd "K") 'gnus-summary-prev-article
-        (kbd "<RET>") 'spacemacs/browse-nnrss-url))))
+        (kbd "<RET>") 'space-macs/browse-nnrss-url))))
 
 (defun gnus/post-init-window-purpose ()
   (purpose-set-extension-configuration
@@ -124,3 +124,5 @@
                                   (gnus-browse-mode . mail)
                                   (gnus-article-mode . mail)
                                   (gnus-summary-mode . mail)))))
+
+

@@ -1,16 +1,16 @@
-;;; funcs.el --- geolocation functions File for Spacemacs
+;;; funcs.el --- geolocation functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Eivind Fonn <evfonn@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 
-(defun spacemacs//osx-location-changed ()
+(defun space-macs//osx-location-changed ()
   (let ((location-changed-p nil)
         (_longitude (/ (truncate (* osx-location-longitude 10)) 10.0)) ; one decimal point, no rounding
         (_latitdue (/ (truncate (* osx-location-latitude 10)) 10.0)))
@@ -24,7 +24,7 @@
       (message "Location changed %s %s (restarting rase-timer)" calendar-latitude calendar-longitude)
       (rase-start t))))
 
-(defun spacemacs//osx-location-changed-rase ()
+(defun space-macs//osx-location-changed-rase ()
   (setq calendar-latitude osx-location-latitude
         calendar-longitude osx-location-longitude)
   (unless (bound-and-true-p calendar-location-name)
@@ -38,6 +38,8 @@
     (user-error "calendar-longitude is not set"))
   (unless (bound-and-true-p calendar-latitude)
     (user-error "calendar-latitude is not set"))
-  (when (> (length dotspacemacs-themes) 1)
-    (change-theme (nth 0 dotspacemacs-themes)
-                  (nth 1 dotspacemacs-themes))))
+  (when (> (length dotspace-macs-themes) 1)
+    (change-theme (nth 0 dotspace-macs-themes)
+                  (nth 1 dotspace-macs-themes))))
+
+

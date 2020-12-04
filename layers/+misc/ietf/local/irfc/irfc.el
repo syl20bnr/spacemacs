@@ -12,16 +12,16 @@
 ;; Version: 0.5.6
 ;; Last-Updated: Fri Aug 17 19:42:29 2012 (-0400)
 ;;           By: Samuel Bronson
-;; URL: https://www.emacswiki.org/emacs/download/irfc.el
+;; URL: https://www.e-macswiki.org/e-macs/download/irfc.el
 ;; Keywords: RFC, IETF
-;; Compatibility: GNU Emacs 22 ~ 23
+;; Compatibility: GNU e-macs 22 ~ 23
 ;;
 ;; Features that might be required by this library:
 ;;
 ;; `cl' `url-vars' `thingatpt'
 ;;
 
-;;; This file is NOT part of GNU Emacs
+;;; This file is NOT part of GNU e-macs
 
 ;;; License
 ;;
@@ -47,10 +47,10 @@
 ;; US-letter-size printer.  This makes them suboptimal for viewing on-screen,
 ;; as you will be doing for countless hours if you're ever doing network
 ;; programming to one of them.  Fortunately, the ASCII format is usually
-;; close to what you, the Emacs zealot, *truly* want -- which is a format
-;; suited to more pleasurably viewing the RFC in Emacs.
+;; close to what you, the e-macs zealot, *truly* want -- which is a format
+;; suited to more pleasurably viewing the RFC in e-macs.
 ;;
-;; The `irfc' package uses Emacs overlays to add some fortification and
+;; The `irfc' package uses e-macs overlays to add some fortification and
 ;; hide the page headers and footers (which it replaces with one-line page
 ;; number references that look like "(p.1)", right-justified).  The file is
 ;; never modified, and you can see the raw ASCII text by pressing `T'.
@@ -111,14 +111,14 @@
 ;; this file in directory, will download from `https://www.ietf.org/rfc/'
 ;; and open it when download complete.
 ;;
-;; And command ‘irfc-follow’ can also use at title of RFC document.
-;; Example rfc3986.txt contain “Obsoletes: 2732, 2396, 1808” at title,
-;; you can move cursor to “2732” and type “o” will visit RFC 2732 document.
-;; ‘irfc-follow’ support below keywords in title:
+;; And command â€˜irfc-followâ€™ can also use at title of RFC document.
+;; Example rfc3986.txt contain â€œObsoletes: 2732, 2396, 1808â€ at title,
+;; you can move cursor to â€œ2732â€ and type â€œoâ€ will visit RFC 2732 document.
+;; â€˜irfc-followâ€™ support below keywords in title:
 ;;
-;;        “Request for Comments:”
-;;        “Updates:”
-;;        “Obsoletes:”
+;;        â€œRequest for Comments:â€
+;;        â€œUpdates:â€
+;;        â€œObsoletes:â€
 ;;
 ;; You can use command `irfc-rfc-link-next' or `irfc-rfc-link-prev'
 ;; to jump next or previous RFC link in document.
@@ -149,10 +149,10 @@
 ;;
 ;; Put irfc.el to your load-path.
 ;; The load-path is usually ~/elisp/.
-;; It's set in your ~/.emacs like this:
+;; It's set in your ~/.e-macs like this:
 ;; (add-to-list 'load-path (expand-file-name "~/elisp"))
 ;;
-;; And the following to your ~/.emacs startup file.
+;; And the following to your ~/.e-macs startup file.
 ;;
 ;; (require 'irfc)
 ;;
@@ -204,7 +204,7 @@
 ;;      * Remove unused local variable in `irfc-rfc-link-prev'.
 ;;      * Add leading underscore to unused parameters in `irfc-fill-tables'
 ;;        (that removes bytecompiler warnings if compiled under lexical
-;;        binding in Emacs 24+).
+;;        binding in e-macs 24+).
 ;;      * Remove `function' from lambda expressions in
 ;;        `irfc-overlay-put-alist' and `irfc-overlay-remove-all', and use
 ;;        `mapc' instead of `mapcar'.
@@ -360,7 +360,7 @@ Default is nil."
                         '("/rfc[0-9]+\\.txt\\'" . irfc-mode))))
   :group 'irfc)
 
-(defcustom irfc-directory "~/.emacs.d/RFC/"
+(defcustom irfc-directory "~/.e-macs.d/RFC/"
   "The storage directory for RFC document download and search."
   :type 'string
   :group 'irfc)
@@ -1539,3 +1539,5 @@ Otherwise return nil."
 ;;; LocalWords:  LawnGreen iesg nPage filepath headerfooter iIvVxX num str SPC
 ;;; LocalWords:  lst eol Juanma Barranquero ARGth RFCnnn backtab rfcnnn regex
 ;;; LocalWords:  Juanma's
+
+

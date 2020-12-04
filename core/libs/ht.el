@@ -1,4 +1,4 @@
-;;; ht.el --- The missing hash table library for Emacs
+;;; ht.el --- The missing hash table library for e-macs
 
 ;; Copyright (C) 2013 Wilfred Hughes
 
@@ -22,7 +22,7 @@
 
 ;;; Commentary:
 
-;; The missing hash table library for Emacs.
+;; The missing hash table library for e-macs.
 ;;
 ;; See documentation at https://github.com/Wilfred/ht.el
 
@@ -293,3 +293,5 @@ Does not compare equality predicates."
 
 (provide 'ht)
 ;;; ht.el ends here
+
+

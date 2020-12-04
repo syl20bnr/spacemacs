@@ -1,11 +1,11 @@
-;;; packages.el --- spacemacs-org layer packages file for Spacemacs.
+;;; packages.el --- space-macs-org layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Boris Buliga <d12frosted@d12frosted.local>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -13,7 +13,7 @@
 
 ;;; Code:
 
-(defconst spacemacs-org-packages
+(defconst space-macs-org-packages
   '(
     flyspell
     ;; default-org package does not exist, we invent this package name
@@ -27,23 +27,23 @@
     toc-org
     ))
 
-(defun spacemacs-org/post-init-flyspell ()
+(defun space-macs-org/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'org-mode-hook))
 
 ;; dummy init function to force installation of `org-plus-contrib'
-(defun spacemacs-org/init-org-plus-contrib ())
+(defun space-macs-org/init-org-plus-contrib ())
 
-(defun spacemacs-org/init-default-org-config ()
+(defun space-macs-org/init-default-org-config ()
   (use-package org
     :commands (org-clock-out org-occur-in-agenda-files org-agenda-files)
     :defer t
     :init
     (progn
       ;; FIXME: This check has been disabled pending a resolution of
-      ;; https://github.com/syl20bnr/spacemacs/issues/3933
+      ;; https://github.com/syl20bnr/space-macs/issues/3933
       ;; (when (featurep 'org)
       ;;   (configuration-layer//set-error)
-      ;;   (spacemacs-buffer/append
+      ;;   (space-macs-buffer/append
       ;;    (concat
       ;;     "Org features were loaded before the `org' layer initialized.\n"
       ;;     "Try removing org code from user initialization and private layers.") t))
@@ -62,12 +62,12 @@
       ;; Open links and files with RET in normal state
       (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)))))
 
-(defun spacemacs-org/init-org-superstar ()
+(defun space-macs-org/init-org-superstar ()
   (use-package org-super-star
     :defer t
     :init (add-hook 'org-mode-hook 'org-superstar-mode)))
 
-(defun spacemacs-org/init-toc-org ()
+(defun space-macs-org/init-toc-org ()
   (use-package toc-org
     :defer t
     :init
@@ -75,7 +75,9 @@
       (setq toc-org-max-depth 10)
       (add-hook 'org-mode-hook 'toc-org-enable))))
 
-(defun spacemacs-org/init-space-doc ()
-  (add-hook 'org-mode-hook 'dotspacemacs//prettify-spacemacs-docs))
+(defun space-macs-org/init-space-doc ()
+  (add-hook 'org-mode-hook 'dotspace-macs//prettify-space-macs-docs))
 
 ;;; packages.el ends here
+
+

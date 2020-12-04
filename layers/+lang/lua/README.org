@@ -28,8 +28,8 @@ This layer adds support for editing Lua.
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =lua= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =lua= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 In order to enable code linting, install [[https://github.com/mpeterv/luacheck][Luacheck]].
@@ -37,12 +37,12 @@ In order to enable code linting, install [[https://github.com/mpeterv/luacheck][
 ** Backends
 Supported backends are:
 - =lsp-emmy= using clangd LSP server
-- =lua-mode= using emacs package
+- =lua-mode= using e-macs package
 
 *** LSP
 LSP support is provided via the [[file:../../+tools/lsp/README.org][LSP layer]], currently only [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua]] is supported.
 
-To use the =lsp-emmy= backend, please download the [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua-LS-all.jar]] and put it into =~/.emacs.d/=,
+To use the =lsp-emmy= backend, please download the [[https://github.com/EmmyLua/EmmyLua-LanguageServer][EmmyLua-LS-all.jar]] and put it into =~/.e-macs.d/=,
 then set the layer variable lua-backend to =lsp-emmy=.
 
 =Lsp-emmy= requires a working java installation in the path as well as the path to the LSP server jar.
@@ -51,13 +51,13 @@ The java path and the path to the server executable can be configured as is show
 #+BEGIN_SRC elisp
   (lua :variables
        lua-backend 'lsp-emmy
-       lua-lsp-emmy-jar-path "~/.emacs.d/EmmyLua-LS-all.jar" ; default path
+       lua-lsp-emmy-jar-path "~/.e-macs.d/EmmyLua-LS-all.jar" ; default path
        lua-lsp-emmy-java-path "java"                         ; default path
        lua-lsp-emmy-enable-file-watchers t)                  ; enabled default
 #+END_SRC
 
 *** Lua mode
-This backend provides support via pure emacs packages. It requires less setup than a full blown LSP setup
+This backend provides support via pure e-macs packages. It requires less setup than a full blown LSP setup
 but also provides less features. To enable it just set the =lua-backend= to =nil=.
 
 * Key bindings
@@ -75,3 +75,5 @@ the [[file:../../+tools/lsp/README.org][LSP layer]].
 | ~SPC m s l~ | send current line to REPL                  |
 | ~SPC m s r~ | send current region to REPL                |
 | ~SPC m '~   | open repl buffer                           |
+
+

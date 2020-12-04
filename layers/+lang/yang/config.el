@@ -1,11 +1,11 @@
-;;; config.el --- yang layer config file for Spacemacs.
+;;; config.el --- yang layer config file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Christian Hopps <chopps@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -32,3 +32,5 @@
 
 (defvar yang-pyang-extra-args nil
   "Any extra arguments to pass to pyang.")
+
+

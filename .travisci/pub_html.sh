@@ -5,9 +5,9 @@
 ## Copyright (c) 2014-2018 Sylvain Benner & Contributors
 ##
 ## Author: Eugene Yaremenko
-## URL: https://github.com/syl20bnr/spacemacs
+## URL: https://github.com/syl20bnr/space-macs
 ##
-## This file is not part of GNU Emacs.
+## This file is not part of GNU e-macs.
 ##
 ## License: GPLv3
 
@@ -19,12 +19,12 @@ fold_end() {
     echo -e "\ntravis_fold:end:$1\r"
 }
 
-cd  ~/.emacs.d
+cd  ~/.e-macs.d
 
 if  [ "$TRAVIS_BRANCH" = "master" ]; then
-    PUBLISH="spacemacs.org"
+    PUBLISH="space-macs.org"
 elif [ "$TRAVIS_BRANCH" = "develop" ]; then
-    PUBLISH="develop.spacemacs.org"
+    PUBLISH="develop.space-macs.org"
 else
     echo "branch is \"${TRAVIS_BRANCH}\". Won't publish."
     exit 0
@@ -42,7 +42,7 @@ fi
 fold_end "CLONING_TARGET_REPOSITORY"
 
 fold_start "SELECTING_CHANGED_FILES"
-rsync -avh ~/.emacs.d/export/ "/tmp/${PUBLISH}"
+rsync -avh ~/.e-macs.d/export/ "/tmp/${PUBLISH}"
 cd "/tmp/${PUBLISH}"
 /tmp/hub add --all
 /tmp/hub commit -m "doc update:$(date -u)"
@@ -52,19 +52,19 @@ if [ $? -ne 0 ]; then
 fi
 fold_end "SELECTING_CHANGED_FILES"
 
-fold_start "CHECKING_IF_SPACEMACS_HEAD_IS_THE_SAME"
-cd ~/.emacs.d
+fold_start "CHECKING_IF_SPACe-macs_HEAD_IS_THE_SAME"
+cd ~/.e-macs.d
 git remote update
 base_revision=$(cat /tmp/base_revision)
 rem_rev=$(git rev-parse '@{u}')
 echo "Base revision: $base_revision"
 echo "Remote revision: $rem_rev"
 if [ "$base_revision" != "$rem_rev" ]; then
-    echo "Looks like Spacemacs head has changed while we generated files."
+    echo "Looks like Space-macs head has changed while we generated files."
     echo "Aborting."
     exit 0
 fi
-fold_end "CHECKING_IF_SPACEMACS_HEAD_IS_THE_SAME"
+fold_end "CHECKING_IF_SPACe-macs_HEAD_IS_THE_SAME"
 
 fold_start "PUSHING_CHANGES_TO_${BOT_NAME}/${PUBLISH}"
 cd "/tmp/${PUBLISH}"
@@ -94,3 +94,5 @@ if [ $? -ne 0 ]; then
     echo "Seems like PR already exists (not a problem)"
 fi
 fold_end "OPENING_PR_TO_syl20bnr/${PUBLISH}"
+
+

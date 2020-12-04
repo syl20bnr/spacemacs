@@ -1,15 +1,15 @@
-;;; config.el --- Scala Layer configuration File for Spacemacs
+;;; config.el --- Scala Layer configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(spacemacs|define-jump-handlers scala-mode)
+(space-macs|define-jump-handlers scala-mode)
 
 (defvar scala-enable-eldoc nil
   "If non nil then eldoc-mode is enabled in the scala layer.")
@@ -32,3 +32,5 @@
 
 (defvar scala-auto-treeview t
   "If non-nil automatically show treeview when views are recieved by metals.")
+
+

@@ -1,44 +1,44 @@
-;;; core-spacemacs.el --- Spacemacs Core File
+;;; core-space-macs.el --- Space-macs Core File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
-(defconst spacemacs-repository "spacemacs"
-  "Name of the Spacemacs remote repository.")
-(defconst spacemacs-repository-owner "syl20bnr"
-  "Name of the Spacemacs remote repository owner.")
-(defconst spacemacs-checkversion-remote "checkversion"
+(defconst space-macs-repository "space-macs"
+  "Name of the Space-macs remote repository.")
+(defconst space-macs-repository-owner "syl20bnr"
+  "Name of the Space-macs remote repository owner.")
+(defconst space-macs-checkversion-remote "checkversion"
   "Name of the remote repository used to check for new version.")
-(defconst spacemacs-checkversion-branch "master"
+(defconst space-macs-checkversion-branch "master"
   "Name of the branch used to check for new version.")
 
-(defvar dotspacemacs-check-for-update)
-(defvar spacemacs-version)
+(defvar dotspace-macs-check-for-update)
+(defvar space-macs-version)
 ;; new version variables
-(defvar spacemacs-new-version nil
-  "If non-nil a new Spacemacs version is available.")
+(defvar space-macs-new-version nil
+  "If non-nil a new Space-macs version is available.")
 ;; used to be "6 hours" but we now check for new versions only at startup
-(defvar spacemacs-version-check-interval nil
+(defvar space-macs-version-check-interval nil
   "Time between two version checks.")
-(defvar spacemacs-version-check-lighter "[+]"
+(defvar space-macs-version-check-lighter "[+]"
   "Text displayed in the mode-line when a new version is available.")
-(defvar spacemacs-version--check-timer nil
+(defvar space-macs-version--check-timer nil
   "The current timer for new version check.")
-(defvar spacemacs-version--last-startup-check-file
-  (expand-file-name (concat spacemacs-cache-directory "last-version-check"))
+(defvar space-macs-version--last-startup-check-file
+  (expand-file-name (concat space-macs-cache-directory "last-version-check"))
   "File where the last startup version check time is stored.")
-(defvar spacemacs-version--last-startup-check-time nil
+(defvar space-macs-version--last-startup-check-time nil
   "Time of last version check.")
-(defvar spacemacs-version--startup-check-interval (* 3600 24)
+(defvar space-macs-version--startup-check-interval (* 3600 24)
   "Minimum number of seconds between two version checks at startup.")
 
-(defun spacemacs/switch-to-version (&optional version)
-  "Switch spacemacs to VERSION.
+(defun space-macs/switch-to-version (&optional version)
+  "Switch space-macs to VERSION.
 
 VERSION is a string with the format `x.x.x'.
 IMPORTANT: The switch is performed by hard resetting the current branch.
@@ -49,11 +49,11 @@ specified version.
 It is not possible to switch version when you are on `develop' branch,
 users on `develop' branch must manually pull last commits instead."
   (interactive)
-  (let ((branch (spacemacs//git-get-current-branch))
-        (dirty (spacemacs//git-working-directory-dirty)))
+  (let ((branch (space-macs//git-get-current-branch))
+        (dirty (space-macs//git-working-directory-dirty)))
     (unless version
       (message "Getting version information...")
-      (let ((last-version (spacemacs/get-last-version)))
+      (let ((last-version (space-macs/get-last-version)))
         (setq version (read-string
                        (format "Version (default %s [latest]): " last-version)
                        nil nil last-version))))
@@ -63,9 +63,9 @@ users on `develop' branch must manually pull last commits instead."
                             "You have to manually `pull --rebase' the latest "
                             "commits.")))
           (dirty
-           (message (concat "Your Emacs directory is not clean.\n"
+           (message (concat "Your e-macs directory is not clean.\n"
                             "git status:\n%s") dirty))
-          ((string-equal version spacemacs-version)
+          ((string-equal version space-macs-version)
            (message "You are already on the latest version."))
           ((or (string-equal "master" branch)
                (yes-or-no-p
@@ -75,60 +75,60 @@ users on `develop' branch must manually pull last commits instead."
                                 "to version %s ? ")
                         version)))
            (let ((tag (concat "v" version)))
-             (if (spacemacs//git-hard-reset-to-tag tag)
+             (if (space-macs//git-hard-reset-to-tag tag)
                  (progn
-                   (setq spacemacs-version version)
+                   (setq space-macs-version version)
                    (message "Successfully switched to version %s" version))
                (message "An error occurred while switching to version %s"
                         version))))
           (t (message "Update aborted.")))))
 
-(defun spacemacs/check-for-new-version (force &optional interval)
-  "Periodically check for new for new Spacemacs version.
-Update `spacemacs-new-version' variable if any new version has been
+(defun space-macs/check-for-new-version (force &optional interval)
+  "Periodically check for new for new Space-macs version.
+Update `space-macs-new-version' variable if any new version has been
 found."
   (interactive "P")
   (cond
    ((and (not force)
-         (not dotspacemacs-check-for-update))
+         (not dotspace-macs-check-for-update))
     (message "Skipping check for new version (reason: dotfile)"))
    ((and (not force)
-         (string-equal "develop" (spacemacs//git-get-current-branch)))
+         (string-equal "develop" (space-macs//git-get-current-branch)))
     (message "Skipping check for new version (reason: develop branch)"))
    ((and (not force)
-         (not (spacemacs//can-check-for-new-version-at-startup)))
+         (not (space-macs//can-check-for-new-version-at-startup)))
     (message (concat "Skipping check for new version "
                      "(reason: last check is too recent)")))
    ((require 'async nil t)
     (message "Start checking for new version...")
     (async-start
      `(lambda ()
-        ,(async-inject-variables "\\`spacemacs-start-directory\\'")
-        (load-file (concat spacemacs-start-directory
+        ,(async-inject-variables "\\`space-macs-start-directory\\'")
+        (load-file (concat space-macs-start-directory
                            "core/core-load-paths.el"))
-        (require 'core-spacemacs)
-        (spacemacs/get-last-version))
+        (require 'core-space-macs)
+        (space-macs/get-last-version))
      (lambda (result)
        (if result
-           (if (or (version< result spacemacs-version)
-                   (string= result spacemacs-version)
-                   (if spacemacs-new-version
-                       (string= result spacemacs-new-version)))
-               (message "Spacemacs is up to date.")
-             (message "New version of Spacemacs available: %s" result)
-             (setq spacemacs-new-version result))
+           (if (or (version< result space-macs-version)
+                   (string= result space-macs-version)
+                   (if space-macs-new-version
+                       (string= result space-macs-new-version)))
+               (message "Space-macs is up to date.")
+             (message "New version of Space-macs available: %s" result)
+             (setq space-macs-new-version result))
          (message "Unable to check for new version."))))
     (when interval
-      (setq spacemacs-version--check-timer
+      (setq space-macs-version--check-timer
             (run-at-time t (timer-duration interval)
-                         'spacemacs/check-for-new-version))))
+                         'space-macs/check-for-new-version))))
    (t (message "Skipping check for new version (reason: async not loaded)"))))
 
-(defun spacemacs/git-get-current-branch-rev ()
+(defun space-macs/git-get-current-branch-rev ()
   "Returns the hash of the head commit on the current branch.
 Returns nil if an error occurred."
   (let ((proc-buffer "git-get-current-branch-head-hash")
-        (default-directory (file-truename spacemacs-start-directory)))
+        (default-directory (file-truename space-macs-start-directory)))
     (when (eq 0 (process-file "git" nil proc-buffer nil
                               "rev-parse" "--short" "HEAD"))
       (with-current-buffer proc-buffer
@@ -141,60 +141,60 @@ Returns nil if an error occurred."
                                  (line-end-position))))
           (kill-buffer proc-buffer))))))
 
-(defun spacemacs/get-new-version-lighter-face (current new)
+(defun space-macs/get-new-version-lighter-face (current new)
   "Return the new version lighter face given the difference between the CURRENT
 version and the NEW version."
   (let* ((lcur (version-to-list current))
          (lnew (version-to-list new))
-         (scur (spacemacs//compute-version-score lcur))
-         (snew (spacemacs//compute-version-score lnew))
+         (scur (space-macs//compute-version-score lcur))
+         (snew (space-macs//compute-version-score lnew))
          (diff (- snew scur)))
     (cond
-     ((< diff 3000) 'spacemacs-mode-line-new-version-lighter-success-face)
-     ((< diff 5000) 'spacemacs-mode-line-new-version-lighter-warning-face)
-     (t 'spacemacs-mode-line-new-version-lighter-error-face))))
+     ((< diff 3000) 'space-macs-mode-line-new-version-lighter-success-face)
+     ((< diff 5000) 'space-macs-mode-line-new-version-lighter-warning-face)
+     (t 'space-macs-mode-line-new-version-lighter-error-face))))
 
-(defun spacemacs/get-last-version ()
+(defun space-macs/get-last-version ()
   "Return the last tagged version."
   (interactive)
-  (spacemacs//get-last-version spacemacs-repository
-                               spacemacs-repository-owner
-                               spacemacs-checkversion-remote
-                               spacemacs-checkversion-branch))
+  (space-macs//get-last-version space-macs-repository
+                               space-macs-repository-owner
+                               space-macs-checkversion-remote
+                               space-macs-checkversion-branch))
 
-(defun spacemacs//can-check-for-new-version-at-startup ()
+(defun space-macs//can-check-for-new-version-at-startup ()
   "Return non-nil if the version check at startup can be performed."
-  (when (file-exists-p spacemacs-version--last-startup-check-file)
-    (load spacemacs-version--last-startup-check-file))
+  (when (file-exists-p space-macs-version--last-startup-check-file)
+    (load space-macs-version--last-startup-check-file))
   (let ((result
-         (or (null spacemacs-version--last-startup-check-time)
-             (> (- (float-time) spacemacs-version--last-startup-check-time)
-                spacemacs-version--startup-check-interval))))
+         (or (null space-macs-version--last-startup-check-time)
+             (> (- (float-time) space-macs-version--last-startup-check-time)
+                space-macs-version--startup-check-interval))))
     (when result
-      (setq spacemacs-version--last-startup-check-time (float-time))
-      (spacemacs/dump-vars-to-file '(spacemacs-version--last-startup-check-time)
-                                   spacemacs-version--last-startup-check-file))
+      (setq space-macs-version--last-startup-check-time (float-time))
+      (space-macs/dump-vars-to-file '(space-macs-version--last-startup-check-time)
+                                   space-macs-version--last-startup-check-file))
     result))
 
-(defun spacemacs//get-last-version (repo owner remote branch)
+(defun space-macs//get-last-version (repo owner remote branch)
   "Return the last tagged version of BRANCH on REMOTE repository from
 OWNER REPO."
   (let ((url (format "https://github.com/%s/%s" owner repo)))
-    (spacemacs//git-remove-remote remote)
-    (spacemacs//git-add-remote remote url)
+    (space-macs//git-remove-remote remote)
+    (space-macs//git-add-remote remote url)
     ;; removing this call according to issue #6692 proposal
-    ;; (spacemacs//git-fetch-remote remote)
-    (spacemacs//git-fetch-tags remote branch))
-  (let ((version (spacemacs//git-latest-tag remote branch)))
+    ;; (space-macs//git-fetch-remote remote)
+    (space-macs//git-fetch-tags remote branch))
+  (let ((version (space-macs//git-latest-tag remote branch)))
     (when version
       (save-match-data
         (string-match "^.*\\([0-9]+\\.[0-9]+\\.[0-9]+\\)$" version)
         (match-string 1 version)))))
 
-(defun spacemacs//git-has-remote (remote)
+(defun space-macs//git-has-remote (remote)
   "Return non nil if REMOTE is declared."
   (let ((proc-buffer "git-has-remote")
-       (default-directory (file-truename spacemacs-start-directory)))
+       (default-directory (file-truename space-macs-start-directory)))
     (when (eq 0 (process-file "git" nil proc-buffer nil "remote"))
         (with-current-buffer proc-buffer
           (prog2
@@ -202,37 +202,37 @@ OWNER REPO."
               (re-search-forward (format "^%s$" remote) nil 'noerror)
             (kill-buffer proc-buffer))))))
 
-(defun spacemacs//git-add-remote (remote url)
+(defun space-macs//git-add-remote (remote url)
   "Add a REMOTE with URL, return t if no error."
   (let ((proc-buffer "git-add-remote")
-       (default-directory (file-truename spacemacs-start-directory)))
+       (default-directory (file-truename space-macs-start-directory)))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
                             "remote" "add" remote url))
       (kill-buffer proc-buffer))))
 
-(defun spacemacs//git-remove-remote (remote)
+(defun space-macs//git-remove-remote (remote)
   "Remove a REMOTE, return t if no error."
   (let ((proc-buffer "git-remove-remote")
-       (default-directory (file-truename spacemacs-start-directory)))
+       (default-directory (file-truename space-macs-start-directory)))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
                             "remote" "remove" remote))
       (kill-buffer proc-buffer))))
 
-(defun spacemacs//git-fetch-remote (remote)
+(defun space-macs//git-fetch-remote (remote)
   "Fetch last commits from REMOTE, return t if no error."
   (let ((proc-buffer "git-fetch-remote")
-       (default-directory (file-truename spacemacs-start-directory)))
+       (default-directory (file-truename space-macs-start-directory)))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
                             "fetch" remote))
       (kill-buffer proc-buffer))))
 
-(defun spacemacs//git-fetch-tags (remote branch)
+(defun space-macs//git-fetch-tags (remote branch)
   "Fetch the tags for BRANCH in REMOTE repository."
   (let ((proc-buffer "git-fetch-tags")
-       (default-directory (file-truename spacemacs-start-directory)))
+       (default-directory (file-truename space-macs-start-directory)))
     (prog1
         ;;;; original comment: seems necessary to fetch first
         ;; but we remove this according to issue #6692 proposal
@@ -243,19 +243,19 @@ OWNER REPO."
                             "fetch" "--tags" remote branch))
       (kill-buffer proc-buffer))))
 
-(defun spacemacs//git-hard-reset-to-tag (tag)
+(defun space-macs//git-hard-reset-to-tag (tag)
   "Hard reset the current branch to specified TAG."
   (let ((proc-buffer "git-hard-reset")
-       (default-directory (file-truename spacemacs-start-directory)))
+       (default-directory (file-truename space-macs-start-directory)))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
                             "reset" "--hard" tag))
       (kill-buffer proc-buffer))))
 
-(defun spacemacs//git-latest-tag (remote branch)
+(defun space-macs//git-latest-tag (remote branch)
   "Returns the latest tag on REMOTE/BRANCH."
   (let ((proc-buffer "git-latest-tag")
-       (default-directory (file-truename spacemacs-start-directory))
+       (default-directory (file-truename space-macs-start-directory))
        (where (format "%s/%s" remote branch)))
     (when (eq 0 (process-file "git" nil proc-buffer nil
                               "describe" "--tags" "--abbrev=0"
@@ -271,19 +271,19 @@ OWNER REPO."
                                    (line-end-position))))
           (kill-buffer proc-buffer))))))
 
-(defun spacemacs//git-checkout (branch)
+(defun space-macs//git-checkout (branch)
   "Checkout the given BRANCH. Return t if there is no error."
   (let ((proc-buffer "git-checkout")
-       (default-directory (file-truename spacemacs-start-directory)))
+       (default-directory (file-truename space-macs-start-directory)))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
                             "checkout" branch))
       (kill-buffer proc-buffer))))
 
-(defun spacemacs//git-get-current-branch ()
+(defun space-macs//git-get-current-branch ()
    "Return the current branch. Return nil if an error occurred."
    (let ((proc-buffer "git-get-current-branch")
-        (default-directory (file-truename spacemacs-start-directory)))
+        (default-directory (file-truename space-macs-start-directory)))
      (when (eq 0 (process-file "git" nil proc-buffer nil
                                "symbolic-ref" "--short" "-q" "HEAD"))
        (with-current-buffer proc-buffer
@@ -296,11 +296,11 @@ OWNER REPO."
                                   (line-end-position))))
            (kill-buffer proc-buffer))))))
 
-(defun spacemacs//git-working-directory-dirty ()
-  "Non-nil if the user's emacs directory is not clean.
+(defun space-macs//git-working-directory-dirty ()
+  "Non-nil if the user's e-macs directory is not clean.
 Returns the output of git status --porcelain."
   (let ((proc-buffer "git-working-directory-dirty")
-       (default-directory (file-truename spacemacs-start-directory)))
+       (default-directory (file-truename space-macs-start-directory)))
     (when (eq 0 (process-file "git" nil proc-buffer nil
                               "status" "--porcelain"))
       (with-current-buffer proc-buffer
@@ -311,33 +311,35 @@ Returns the output of git status --porcelain."
               (replace-regexp-in-string "\n\\'" "" (buffer-string)))
           (kill-buffer proc-buffer))))))
 
-(defun spacemacs//deffaces-new-version-lighter (state)
+(defun space-macs//deffaces-new-version-lighter (state)
   "Define a new version lighter face for the given STATE."
   (let* ((fname (intern
-                 (format "spacemacs-mode-line-new-version-lighter-%s-face"
+                 (format "space-macs-mode-line-new-version-lighter-%s-face"
                          (symbol-name state))))
          (foreground (face-foreground state)))
     (eval `(defface ,fname '((t ()))
              ,(format "Color for new version lighter in mode line (%s)."
                       (symbol-name state))
-             :group 'spacemacs))
+             :group 'space-macs))
     (set-face-attribute fname nil
                         :foreground foreground
                         :box (face-attribute 'mode-line :box))))
 
-(defun spacemacs//compute-version-score (version)
+(defun space-macs//compute-version-score (version)
   "Returns an integer from the version list.
 Example: (1 42 3) = 1 042 003"
   (let ((i -1))
     (cl-reduce '+ (mapcar (lambda (n) (setq i (1+ i)) (* n (expt 10 (* i 3))))
                        (reverse version)))))
 
-(defun spacemacs/set-new-version-lighter-mode-line-faces ()
+(defun space-macs/set-new-version-lighter-mode-line-faces ()
   "Define or set the new version lighter mode-line faces."
-  (mapcar 'spacemacs//deffaces-new-version-lighter
+  (mapcar 'space-macs//deffaces-new-version-lighter
           '(error warning success)))
-(spacemacs/set-new-version-lighter-mode-line-faces)
-(add-hook 'spacemacs-post-theme-change-hook
-          'spacemacs/set-new-version-lighter-mode-line-faces)
+(space-macs/set-new-version-lighter-mode-line-faces)
+(add-hook 'space-macs-post-theme-change-hook
+          'space-macs/set-new-version-lighter-mode-line-faces)
 
 (provide 'core-release-management)
+
+

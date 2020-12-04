@@ -1,8 +1,8 @@
-#+TITLE: Emacs Lisp layer
+#+TITLE: e-macs Lisp layer
 
 #+TAGS: dsl|layer|lisp|programming
 
-[[file:img/emacs.png]]
+[[file:img/e-macs.png]]
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -22,7 +22,7 @@
   - [[#refactoring-with-emr][Refactoring with emr]]
 
 * Description
-This layer gathers all the configuration related to emacs-lisp. This should
+This layer gathers all the configuration related to e-macs-lisp. This should
 always be in your dotfile, it is not recommended to uninstall it.
 
 ** Features:
@@ -30,51 +30,51 @@ always be in your dotfile, it is not recommended to uninstall it.
 - Linting using flycheck integration
 - Linting package file metadata using [[https://github.com/purcell/flycheck-package][flycheck-package]]
 - Repl support via =IELM=
-- Support for specific lisp navigation styles via =emacs-lisp-mode=
+- Support for specific lisp navigation styles via =e-macs-lisp-mode=
 - Auto-compile via [[https://github.com/tarsius/auto-compile][auto-compile]] package
-- Debugging via [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Edebug.html#Edebug][edebug]]
+- Debugging via [[https://www.gnu.org/software/e-macs/manual/html_node/elisp/Edebug.html#Edebug][edebug]]
 - Ert test runner with [[https://github.com/tonini/overseer.el][overseer]]
 - Nameless package prefix with optional [[https://github.com/Malabarba/Nameless][nameless]]
 - Structurally safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 - Visual feedback when evaluation using [[https://github.com/hchbaw/eval-sexp-fu.el][eval-sexp-fu]]
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =emacs-lisp= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =e-macs-lisp= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Auto-compile
 This layer adds the [[https://github.com/tarsius/auto-compile][auto-compile]] package to automatically keep the byte-compiled
-version of your Emacs lisp files synced with the uncompiled version on every
+version of your e-macs lisp files synced with the uncompiled version on every
 save. If there are any compiler errors in the file, you will see a counter show
 up in the mode line. You can hover over these numbers to get a description or
 view the compiler output with the ~SPC m c l~ key binding. To disable the
-feature use this line in your =dotspacemacs/user-config= function.
+feature use this line in your =dotspace-macs/user-config= function.
 
-#+BEGIN_SRC emacs-lisp
-  (remove-hook 'emacs-lisp-mode-hook 'auto-compile-mode)
+#+BEGIN_SRC e-macs-lisp
+  (remove-hook 'e-macs-lisp-mode-hook 'auto-compile-mode)
 #+END_SRC
 
 You can also exclude the =auto-compile= package.
 
 * Working with lisp files (barfage, slurpage & more)
-Spacemacs comes with a special =lisp-state= for working with lisp code that
+Space-macs comes with a special =lisp-state= for working with lisp code that
 supports slurpage, barfage and more tools you'll likely want when working with
 lisp.
 
 As this state works the same for all files, the documentation is in global
-[[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
+[[https://github.com/syl20bnr/space-macs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
 
 * Debugging Elisp
-Here is an interactive quick start to debug Emacs Lisp from an =emacs-lisp-mode= buffer.
+Here is an interactive quick start to debug e-macs Lisp from an =e-macs-lisp-mode= buffer.
 
 To follow this tutorial open the code of the following source block in an
-=emacs-lisp-mode= buffer. One way to do this is to first find this emacs-lisp
-layer documentation file in Spacemacs using ~SPC h l emacs-lisp RET~. This will
+=e-macs-lisp-mode= buffer. One way to do this is to first find this e-macs-lisp
+layer documentation file in Space-macs using ~SPC h l e-macs-lisp RET~. This will
 open the current file in =space-doc-mode=. Toggle off =space-doc-mode= using =,
-T V= so that Spacemacs will switch to =org-mode=. Now you can place the cursor
+T V= so that Space-macs will switch to =org-mode=. Now you can place the cursor
 somewhere inside the code block and press ~, '~ to open the code in an
-interactive =emacs-lisp-buffer=. 
+interactive =e-macs-lisp-buffer=. 
 
 #+BEGIN_SRC elisp
   (defun helloworld (name)
@@ -84,11 +84,11 @@ interactive =emacs-lisp-buffer=.
   (defun subroutine (s)
     (concat "my dear " s))
 
-  (helloworld "Spacemacs")
+  (helloworld "Space-macs")
 #+END_SRC
 
 Steps:
-Now from within the =emacs-lisp-buffer=
+Now from within the =e-macs-lisp-buffer=
 1) Evaluate each sexp by putting your point in each of them and press ~, e f~ or
    press ~, e b~ to evaluate all code in the buffer at once.
 2) To debug the =helloworld= function, put your cursor on the =defun= keyword and
@@ -96,10 +96,10 @@ Now from within the =emacs-lisp-buffer=
 press ~SPC m d f~ (or ~, d f~), it will put a breakpoint on the function (we say
 that we instrumentalise this function) so whenever the Lisp interpreter
 encounters this function it will start the debugger.
-3) Then go to the closing parenthesis of =(helloworld "Spacemacs")= and press
+3) Then go to the closing parenthesis of =(helloworld "Space-macs")= and press
 
 ~, e e~ to evaluate it, if you are using =vim= editing style you end up in
-evilified state otherwise you end up in emacs state and =*Debugging*= is
+evilified state otherwise you end up in e-macs state and =*Debugging*= is
 displayed in the mode line.
 4) Press ~s~ to go to next step up to the opening parenthesis of
    =(subroutine name)=,
@@ -109,34 +109,34 @@ function or press ~o~ to go out of it.
 6) Press ~a~ to stop debugging.
 
 * Nameless
-Nameless hides package namespaces in your emacs-lisp code, and replaces it by
+Nameless hides package namespaces in your e-macs-lisp code, and replaces it by
 leading ~>~ It can be toggled with ~SPC m T n~.
 
 By default =nameless= is deactivated, to enable it set the layer variable
-=emacs-lisp-hide-namespace-prefix= to =t=.
+=e-macs-lisp-hide-namespace-prefix= to =t=.
 
-NOTE: =nameless= is known to cause problems when spacemacs is used inside a
+NOTE: =nameless= is known to cause problems when space-macs is used inside a
 terminal window, use with caution.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (emacs-lisp :variables emacs-lisp-hide-namespace-prefix t)))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
+    (e-macs-lisp :variables e-macs-lisp-hide-namespace-prefix t)))
 #+END_SRC
 
 ** Aliases
-This layer defines some global aliases for Spacemacs:
+This layer defines some global aliases for Space-macs:
 
 | alias | namespace           |
 |-------+---------------------|
-| .S    | dotspacemacs        |
+| .S    | dotspace-macs        |
 | CL    | configuration-layer |
-| S     | spacemacs           |
-| SB    | spacemacs-buffer    |
+| S     | space-macs           |
+| SB    | space-macs-buffer    |
 
-You can define additional alias in function =dotspacemacs/user-config= of your
+You can define additional alias in function =dotspace-macs/user-config= of your
 dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (add-to-list 'nameless-global-aliases '("N" . "nameless"))
 #+END_SRC
 
@@ -147,20 +147,20 @@ lisp code by keeping the s-expressions balanced.
 By default this mode is not activated. You can turn it on locally on the active
 buffer with ~SPC m T s~ (=s= for safe).
 
-To turn it on automatically for all =emacs-lisp= buffers call the following
-function in your =dotspacemacs/user-config= function:
+To turn it on automatically for all =e-macs-lisp= buffers call the following
+function in your =dotspace-macs/user-config= function:
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-emacs-lisp-mode)
+#+BEGIN_SRC e-macs-lisp
+  (space-macs/toggle-evil-safe-lisp-structural-editing-on-register-hook-e-macs-lisp-mode)
 #+END_SRC
 
 or to enable it for all supported modes:
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+#+BEGIN_SRC e-macs-lisp
+  (space-macs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 #+END_SRC
 
-When enabled the symbol =🆂= should be displayed in the mode-line.
+When enabled the symbol =ðŸ†‚= should be displayed in the mode-line.
 
 * Key bindings
 
@@ -177,7 +177,7 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 | ~SPC m e e~                | evaluate sexp before point                             |
 | ~SPC m e f~                | evaluation current function                            |
 | ~SPC m e r~                | evaluate current region                                |
-| ~SPC m ​,​~                  | toggle =lisp state=                                    |
+| ~SPC m â€‹,â€‹~                  | toggle =lisp state=                                    |
 | ~SPC m t b~                | run tests of current buffer                            |
 | ~SPC m t q~                | run =ert=                                              |
 | ~SPC m d m~                | open [[https://github.com/joddie/macrostep][macrostep]] transient-state                         |
@@ -207,7 +207,7 @@ If =smartparens= is used the following additional key bindings are available:
 | ~SPC m e s~ | evaluate symbol around point |
 
 ** Format code
-The [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bemacs/semantic/README.org][semantic]] layer should be installed for these key bindings to become active.
+The [[https://github.com/syl20bnr/space-macs/blob/develop/layers/%2Be-macs/semantic/README.org][semantic]] layer should be installed for these key bindings to become active.
 
 | Key binding | Description             |
 |-------------+-------------------------|
@@ -294,3 +294,5 @@ line)
 | ~SPC m r d l~ | delete let binding form   |
 | ~SPC m r d d~ | delete unused definition  |
 | ~SPC m e w~   | eval and replace          |
+
+

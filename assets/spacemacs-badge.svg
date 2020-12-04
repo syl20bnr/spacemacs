@@ -13,7 +13,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="built with-Spacemacs-532c67.svg"
+   sodipodi:docname="built with-Space-macs-532c67.svg"
    inkscape:export-filename="/home/nasser/bp.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96">
@@ -137,11 +137,11 @@
        x="114.5"
        y="-5"
        id="text28"
-       style="fill:#010101;fill-opacity:0.3">Spacemacs</text>
+       style="fill:#010101;fill-opacity:0.3">Space-macs</text>
     <text
        x="114.5"
        y="-6"
-       id="text30">Spacemacs</text>
+       id="text30">Space-macs</text>
     <g
        style="font-size:11px;font-family:'DejaVu Sans', Verdana, Geneva, sans-serif;text-anchor:middle;display:inline;fill:#010101;fill-opacity:0.30196078"
        id="g4277-7"
@@ -164,3 +164,5 @@
     </g>
   </g>
 </svg>
+
+

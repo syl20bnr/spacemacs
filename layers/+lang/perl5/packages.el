@@ -1,11 +1,11 @@
-;;; packages.el --- Perl5 Layer packages File for Spacemacs
+;;; packages.el --- Perl5 Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Troy Hinckley <troyhinckley@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -20,12 +20,12 @@
     smartparens))
 
 (defun perl5/pre-init-dap-mode ()
-  (pcase (spacemacs//perl5-backend)
-    (`lsp (add-to-list 'spacemacs--dap-supported-modes 'cperl-mode)
+  (pcase (space-macs//perl5-backend)
+    (`lsp (add-to-list 'space-macs--dap-supported-modes 'cperl-mode)
           (add-hook 'cperl-mode-hook #'dap-mode))))
 
 (defun perl5/post-init-company ()
-  (spacemacs//perl5-setup-company))
+  (space-macs//perl5-setup-company))
 
 (defun perl5/init-company-plsense ()
   (use-package company-plsense
@@ -46,7 +46,7 @@
        cperl-close-paren-offset -4 ; indent the closing paren back four spaces
        cperl-continued-statement-offset 4 ; if a statement continues indent it to four spaces
        cperl-indent-parens-as-block t) ; parentheses are indented with the block and not with scope
-      (add-hook 'cperl-mode-hook #'spacemacs//perl5-setup-backend))
+      (add-hook 'cperl-mode-hook #'space-macs//perl5-setup-backend))
     :config
     (progn
       ;; Don't highlight arrays and hashes in comments
@@ -109,15 +109,15 @@
       (add-hook 'cperl-mode-hook
                 (lambda () (local-set-key (kbd "<tab>") 'indent-for-tab-command)))
 
-      (unless (eq (spacemacs//perl5-backend) 'lsp)
-        (spacemacs/declare-prefix-for-mode 'cperl-mode "m=" "format")
-        (spacemacs/declare-prefix-for-mode 'cperl-mode "mg" "find-symbol")
-        (spacemacs/declare-prefix-for-mode 'cperl-mode "mh" "perldoc"))
-      (spacemacs/set-leader-keys-for-major-mode 'cperl-mode
+      (unless (eq (space-macs//perl5-backend) 'lsp)
+        (space-macs/declare-prefix-for-mode 'cperl-mode "m=" "format")
+        (space-macs/declare-prefix-for-mode 'cperl-mode "mg" "find-symbol")
+        (space-macs/declare-prefix-for-mode 'cperl-mode "mh" "perldoc"))
+      (space-macs/set-leader-keys-for-major-mode 'cperl-mode
         "hh" 'cperl-perldoc-at-point
-        "==" 'spacemacs/perltidy-format
-        "=b" 'spacemacs/perltidy-format-buffer
-        "=f" 'spacemacs/perltidy-format-function
+        "==" 'space-macs/perltidy-format
+        "=b" 'space-macs/perltidy-format-buffer
+        "=f" 'space-macs/perltidy-format-function
         "hd" 'cperl-perldoc
         "v" 'cperl-select-this-pod-or-here-doc)
 
@@ -125,17 +125,19 @@
                               '(("\\_<say\\_>" . cperl-nonoverridable-face))))))
 
 (defun perl5/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'cperl-mode))
+  (space-macs/enable-flycheck 'cperl-mode))
 
 (defun perl5/post-init-realgud()
-  (spacemacs/add-realgud-debugger 'cperl-mode "trepan.pl"))
+  (space-macs/add-realgud-debugger 'cperl-mode "trepan.pl"))
 
 (defun perl5/post-init-smartparens ()
-  ;; fixs a bug with electric mode and smartparens https://github.com/syl20bnr/spacemacs/issues/480
+  ;; fixs a bug with electric mode and smartparens https://github.com/syl20bnr/space-macs/issues/480
   (with-eval-after-load 'cperl-mode
-    (add-hook 'smartparens-enabled-hook 'spacemacs//perl5-smartparens-enable)
-    (add-hook 'smartparens-disabled-hook 'spacemacs//perl5-spartparens-disable)))
+    (add-hook 'smartparens-enabled-hook 'space-macs//perl5-smartparens-enable)
+    (add-hook 'smartparens-disabled-hook 'space-macs//perl5-spartparens-disable)))
 
 (defun perl5/pre-init-org ()
-  (spacemacs|use-package-add-hook org
+  (space-macs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(perl . t))))
+
+

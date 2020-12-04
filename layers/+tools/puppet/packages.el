@@ -1,11 +1,11 @@
-;;; packages.el --- Puppet layer packages File for Spacemacs
+;;; packages.el --- Puppet layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -21,7 +21,7 @@
     :defer t
     :init
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'puppet-mode
+      (space-macs/set-leader-keys-for-major-mode 'puppet-mode
         "{" 'beginning-of-defun
         "}" 'end-of-defun
         "$" 'puppet-interpolate
@@ -35,7 +35,9 @@
       ))))
 
 (defun puppet/post-init-company ()
-  (spacemacs|add-company-backends :modes puppet-mode))
+  (space-macs|add-company-backends :modes puppet-mode))
 
 (defun puppet/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'puppet-mode))
+  (space-macs/enable-flycheck 'puppet-mode))
+
+

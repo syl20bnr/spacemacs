@@ -1,11 +1,11 @@
-;;; packages.el --- d Layer packages File for Spacemacs
+;;; packages.el --- d Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -33,8 +33,8 @@
     :defer t
     :init
     (progn
-      (spacemacs|add-company-backends :backends company-dcd :modes d-mode)
-      (spacemacs/set-leader-keys-for-major-mode 'd-mode
+      (space-macs|add-company-backends :backends company-dcd :modes d-mode)
+      (space-macs/set-leader-keys-for-major-mode 'd-mode
         "gg" 'company-dcd-goto-definition
         "gb" 'company-dcd-goto-def-pop-marker
         "hh" 'company-dcd-show-ddoc-with-buffer
@@ -44,7 +44,7 @@
   (use-package d-mode :defer t))
 
 (defun d/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'd-mode))
+  (space-macs/enable-flycheck 'd-mode))
 
 (defun d/init-flycheck-dmd-dub ()
   (use-package flycheck-dmd-dub :defer t
@@ -54,10 +54,12 @@
       (add-hook 'd-mode-hook 'flycheck-dmd-dub-set-variables))))
 
 (defun d/post-init-ggtags ()
-  (add-hook 'd-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'd-mode-local-vars-hook #'space-macs/ggtags-mode-enable))
 
 (defun d/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'd-mode))
+  (space-macs/counsel-gtags-define-keys-for-mode 'd-mode))
 
 (defun d/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'd-mode))
+  (space-macs/helm-gtags-define-keys-for-mode 'd-mode))
+
+

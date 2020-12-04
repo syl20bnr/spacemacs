@@ -10,7 +10,7 @@
 - [[#install][Install]]
 
 * Description
-This layer adds support for GPU related languages like CUDA, OpenCL and various Shader formats to Spacemacs.
+This layer adds support for GPU related languages like CUDA, OpenCL and various Shader formats to Space-macs.
 
 ** Features:
 - Syntax highlighting for
@@ -35,8 +35,10 @@ This layer adds support for GPU related languages like CUDA, OpenCL and various 
   - =.comp= (Shaders)
 
 * Install
-To use this configuration layer, add it to your =~.spacemacs=. You will need to
-add =gpu= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~.space-macs=. You will need to
+add =gpu= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 For auto-completion you will also need to install [[https://www.khronos.org/opengles/sdk/tools/Reference-Compiler/][=glslangValidator=]].
+
+

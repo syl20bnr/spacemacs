@@ -16,8 +16,8 @@ who prefer the behaviour of [[https://github.com/tpope/vim-commentary][vim-comme
 - Provides the original vim behaviour for commenting out lines via [[https://github.com/linktohack/evil-commentary][evil-commentary]].
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =evil-commentary= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =evil-commentary= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -30,3 +30,5 @@ file.
 | ~gc~        | comment out the target of a motion |
 | ~gc SPC y~  | comment up to a line with avy      |
 | ~gy~        | comment and yank                   |
+
+

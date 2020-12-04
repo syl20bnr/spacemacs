@@ -1,4 +1,4 @@
-;;; spacemacs-purpose-popwin.el --- Purpose extension to act like Popwin -*- lexical-binding: t -*-
+;;; space-macs-purpose-popwin.el --- Purpose extension to act like Popwin -*- lexical-binding: t -*-
 
 ;;; Commentary:
 
@@ -247,6 +247,8 @@ variables are updated instead."
     (ad-update 'popwin:create-popup-window)))
 (add-hook 'pupo-mode-hook #'pupo/sync-advices)
 
-(provide 'spacemacs-purpose-popwin)
+(provide 'space-macs-purpose-popwin)
 
-;;; spacemacs-purpose-popwin.el ends here
+;;; space-macs-purpose-popwin.el ends here
+
+

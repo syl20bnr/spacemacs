@@ -16,7 +16,7 @@ BibTeX and BibLaTeX files are a common way to manage bibliographies. The format
 was original designed to work with LaTeX files and subsequently has been adopted
 by other markup formats such as MarkDown and Org mode.
 
-This layer adds support to manipulate BibTeX and BibLaTeX files in Spacemacs.
+This layer adds support to manipulate BibTeX and BibLaTeX files in Space-macs.
 
 ** Features:
 - Syntax highlighting for BibTeX and BibLaTeX files.
@@ -24,16 +24,16 @@ This layer adds support to manipulate BibTeX and BibLaTeX files in Spacemacs.
 - Support for inserting citations in various other modes.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =bibtex= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =bibtex= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
 This layer also supports having a global BibTeX file. For a basic
-configuration, add this to your =~/.spacemacs= inside
-=dotspacemacs/user-config=:
+configuration, add this to your =~/.space-macs= inside
+=dotspace-macs/user-config=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq org-ref-default-bibliography '("~/Papers/references.bib")
         org-ref-pdf-directory "~/Papers/"
         org-ref-bibliography-notes "~/Papers/notes.org")
@@ -47,7 +47,7 @@ file-local variables (through ~SPC f v f~).
 You can also customize which program is used to display the PDFs. For example,
 to use Zathura:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq org-ref-open-pdf-function
     (lambda (fpath)
       (start-process "zathura" "*helm-bibtex-zathura*" "/usr/bin/zathura" fpath)))
@@ -82,3 +82,5 @@ key binding added:
 | Key binding | Description     |
 |-------------+-----------------|
 | ~SPC m i c~ | Insert citation |
+
+

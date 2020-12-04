@@ -17,21 +17,21 @@
 This layer allows for a simple way of modifying themes.
 
 ** Features:
-- Modify themes from your =.spacemacs=.
+- Modify themes from your =.space-macs=.
 - Tweak face attributes and other aspects of themes.
 - Includes three additional layer variables for tweaking headings.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =theming= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =theming= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Usage
 To use this layer, set the value of =theming-modifications= (a good place is
-inside your =.spacemacs= in =dotspacemacs/user-init()=).
+inside your =.space-macs= in =dotspace-macs/user-init()=).
 It should be a list of the following form:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ((theme1 (face1 attributes...)
            (face2 attributes...)
            ...)
@@ -43,7 +43,7 @@ It should be a list of the following form:
 
 ** Example
 #+BEGIN_SRC lisp
-  (defun dotspacemacs/user-init ()
+  (defun dotspace-macs/user-init ()
     (setq theming-modifications
           '((monokai
              ;; Font locking
@@ -61,10 +61,10 @@ Source: [[https://gist.github.com/TheBB/f25a607b9bda4d5861f2#file-init-el-L274][
 
 This will apply the given attributes to the relevant faces whenever the
 appropriate theme is loaded. To update without changing the theme, use ~SPC SPC
-spacemacs/update-theme~.
+space-macs/update-theme~.
 
 * Attributes
-See [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Face-Attributes.html#Face-Attributes][face attributes]] in the Emacs manual for more information. Some of the more
+See [[http://www.gnu.org/software/e-macs/manual/html_node/elisp/Face-Attributes.html#Face-Attributes][face attributes]] in the e-macs manual for more information. Some of the more
 common attributes you might want to tweak are the following:
 - =:inherit= :: the name of a face to inherit attributes from
 - =:foreground= and =:background= :: Hexadecimal color strings
@@ -112,8 +112,8 @@ the symbol =all= to apply it on all themes.
 * Example
 An example of how to set the default font colour to be black in a custom theme leuven:
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/user-init ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs/user-init ()
 
     ; custom theme modification - overriding default font colour
     (setq-default
@@ -125,3 +125,5 @@ An example of how to set the default font colour to be black in a custom theme l
 
   )
 #+END_SRC
+
+

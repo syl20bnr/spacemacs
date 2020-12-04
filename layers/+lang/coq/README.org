@@ -22,20 +22,20 @@
   - [[#options][Options]]
 
 * Description
-This layer adds support for the [[https://coq.inria.fr/][Coq]] proof assistant (adapted from [[https://github.com/tchajed/spacemacs-coq][spacemacs-coq]]) to Spacemacs.
+This layer adds support for the [[https://coq.inria.fr/][Coq]] proof assistant (adapted from [[https://github.com/tchajed/space-macs-coq][space-macs-coq]]) to Space-macs.
 
 ** Features:
 - Syntax highlighting
 - Syntax-checking
 - Auto-completion
-- Debugging of mathematical proofs from within Emacs using a special proof layout
+- Debugging of mathematical proofs from within e-macs using a special proof layout
 - Replacement of certain constants with the correct mathematical signs
 - Inserting of certain preconfigured proof elements
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =coq= to the existing =dotspacemacs-configuration-layers= list in this file.
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =coq= to the existing =dotspace-macs-configuration-layers= list in this file.
 
 ** Coq
 Official installers for macOS and Windows are available from:
@@ -49,9 +49,9 @@ Math symbols present in your buffer (e.g. forall exists) will attempt to be
 prettified, if you are seeing empty square boxes this means an appropriate math
 symbol cannot be found in your *font*. You can either install a appropriate math
 font, or disable the feature by adding the following snippet to the your
-=dotspacemacs/user-config=.
+=dotspace-macs/user-config=.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (with-eval-after-load 'company-coq
     (add-to-list 'company-coq-disabled-features 'prettify-symbols))
 #+END_SRC
@@ -134,3 +134,5 @@ company-coq-tutorial=.
 | Key binding | Description                 |
 |-------------+-----------------------------|
 | ~SPC m T e~ | Toggle electric terminator. |
+
+

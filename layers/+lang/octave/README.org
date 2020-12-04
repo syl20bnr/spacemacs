@@ -13,12 +13,12 @@
   - [[#helpers][Helpers]]
 
 * Description
-This layer adds support for =GNU Octave= files to Spacemacs.
+This layer adds support for =GNU Octave= files to Space-macs.
 
 ** Features:
-- Syntax highlighting for =.m= files via [[https://www.gnu.org/software/emacs/manual/html_mono/octave-mode.html][octave-mode]].
+- Syntax highlighting for =.m= files via [[https://www.gnu.org/software/e-macs/manual/html_mono/octave-mode.html][octave-mode]].
 - REPL support
-- Support for directly running =Octave= scripts from Emacs.
+- Support for directly running =Octave= scripts from e-macs.
 - Integration with =Octaves= documentation search function.
 
 * Install
@@ -26,8 +26,8 @@ Make sure that [[https://www.gnu.org/software/octave/][GNU Octave]] is installed
 in your PATH. For information about setting up $PATH, check out the
 corresponding section in the FAQ (=SPC h SPC $PATH RET=).
 
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =octave= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =octave= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -49,3 +49,5 @@ Send code to inferior process with these commands:
 |-------------+------------------------------------------|
 | ~SPC m h h~ | view documentation for function at point |
 | ~SPC m h i~ | read octave info documentation           |
+
+

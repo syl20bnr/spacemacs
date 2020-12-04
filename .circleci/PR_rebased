@@ -5,9 +5,9 @@
 ## Copyright (c) 2014-2018 Sylvain Benner & Contributors
 ##
 ## Author: Eugene Yaremenko
-## URL: https://github.com/syl20bnr/spacemacs
+## URL: https://github.com/syl20bnr/space-macs
 ##
-## This file is not part of GNU Emacs.
+## This file is not part of GNU e-macs.
 ##
 ## License: GPLv3
 
@@ -22,9 +22,9 @@ if [[ "${upstream_head_sha}" == "${pr_base_sha}" ]]; then
     exit 0
 else
     printf '=%.0s' {1..80}
-    printf "\n       し(*･∀･)／   Thanks for the contribution!  ＼(･∀･*)ノ\n"
+    printf "\n       ã—(*ï½¥âˆ€ï½¥)ï¼   Thanks for the contribution!  ï¼¼(ï½¥âˆ€ï½¥*)ãƒŽ\n"
     printf '=%.0s' {1..80}
-    printf "\n( ＾◡＾)っ Please rebase your PR\n"
+    printf "\n( ï¼¾â—¡ï¼¾)ã£ Please rebase your PR\n"
 
     echo_headline  "How to rebase PR(first timer guide):"
     printf "git remote add upstream "
@@ -38,3 +38,5 @@ else
     echo
     exit 2
 fi
+
+

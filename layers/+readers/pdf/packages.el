@@ -1,12 +1,12 @@
-;;; packages.el --- PDF Layer packages File for Spacemacs
+;;; packages.el --- PDF Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner
 ;; Copyright (c) 2020-2020 Sylvain Benner & Contributors
 ;;
-;; Author: André Peric Tavares <andre.peric.tavares@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; Author: AndrÃ© Peric Tavares <andre.peric.tavares@gmail.com>
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -17,15 +17,15 @@
     :defer t
     :mode (("\\.pdf\\'" . pdf-view-mode))
     :init
-    (spacemacs//pdf-tools-setup-transient-state)
+    (space-macs//pdf-tools-setup-transient-state)
     :config
     (progn
       (pdf-tools-install)
 
-      (spacemacs/declare-prefix-for-mode 'pdf-view-mode "ma" "annotations")
-      (spacemacs/declare-prefix-for-mode 'pdf-view-mode "mf" "fit")
-      (spacemacs/declare-prefix-for-mode 'pdf-view-mode "ms" "slice/search")
-      (spacemacs/set-leader-keys-for-major-mode 'pdf-view-mode
+      (space-macs/declare-prefix-for-mode 'pdf-view-mode "ma" "annotations")
+      (space-macs/declare-prefix-for-mode 'pdf-view-mode "mf" "fit")
+      (space-macs/declare-prefix-for-mode 'pdf-view-mode "ms" "slice/search")
+      (space-macs/set-leader-keys-for-major-mode 'pdf-view-mode
         ;; Slicing image
         "sm" 'pdf-view-set-slice-using-mouse
         "sb" 'pdf-view-set-slice-from-bounding-box
@@ -114,5 +114,7 @@
         "q"              'tablist-quit
         "g"              'pdf-occur-revert-buffer-with-args
         "r"              'pdf-occur-revert-buffer-with-args
-        "*"              'spacemacs/enter-ahs-forward
+        "*"              'space-macs/enter-ahs-forward
         "?"              'evil-search-backward))))
+
+

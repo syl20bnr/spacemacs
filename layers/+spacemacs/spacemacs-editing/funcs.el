@@ -1,27 +1,27 @@
-;;; funcs.el --- Spacemacs editing Layer functions File
+;;; funcs.el --- Space-macs editing Layer functions File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 
 ;; smartparens
 
-(defun spacemacs/smartparens-pair-newline (id action context)
+(defun space-macs/smartparens-pair-newline (id action context)
   (save-excursion
     (newline)
     (indent-according-to-mode)))
 
-(defun spacemacs/smartparens-pair-newline-and-indent (id action context)
-  (spacemacs/smartparens-pair-newline id action context)
+(defun space-macs/smartparens-pair-newline-and-indent (id action context)
+  (space-macs/smartparens-pair-newline id action context)
   (indent-according-to-mode))
 
-(defun spacemacs/smart-closing-parenthesis ()
+(defun space-macs/smart-closing-parenthesis ()
   "Insert a closing pair delimiter or move point past existing delimiter.
 
 If the expression at point is already balanced and there is a
@@ -60,19 +60,19 @@ or `sp-local-pair'."
      (t
       (insert-char ?\))))))
 
-(defun spacemacs//conditionally-enable-smartparens-mode ()
+(defun space-macs//conditionally-enable-smartparens-mode ()
   "Enable `smartparens-mode' in the minibuffer, during `eval-expression'."
   (if (or (eq this-command 'eval-expression)
           (eq this-command 'eldoc-eval-expression))
       (smartparens-mode)))
 
-(defun spacemacs//adaptive-smartparent-pair-overlay-face ()
+(defun space-macs//adaptive-smartparent-pair-overlay-face ()
   (set-face-attribute 'sp-pair-overlay-face nil
                       :inherit 'lazy-highlight
                       :background nil
                       :foreground nil))
 
-(defun spacemacs//put-clean-aindent-last ()
+(defun space-macs//put-clean-aindent-last ()
   "Put `clean-aindent--check-last-point` to end of `post-command-hook`.
 This functions tries to ensure that clean-aindent checks for indent
 operations after each indent operations have been done.
@@ -84,9 +84,9 @@ See issues #6520 and #13172"
 
 
 ;; uuidgen
-;; TODO spacemacs/uuidgen-3 and spacemacs/uuidgen-5
+;; TODO space-macs/uuidgen-3 and space-macs/uuidgen-5
 
-(defun spacemacs/uuidgen-1 (arg)
+(defun space-macs/uuidgen-1 (arg)
   "Return a time based UUID (UUIDv1).
  If ARG is non nil then use CID format."
   (interactive "P")
@@ -95,7 +95,7 @@ See issues #6520 and #13172"
         (insert-uuid-cid uuid)
       (insert uuid))))
 
-(defun spacemacs/uuidgen-4 (arg)
+(defun space-macs/uuidgen-4 (arg)
   "Return an UUID from random numbers (UUIDv4).
  If ARG is non nil then use CID format."
   (interactive "P")
@@ -103,3 +103,5 @@ See issues #6520 and #13172"
     (if arg
         (insert-uuid-cid uuid)
       (insert uuid))))
+
+

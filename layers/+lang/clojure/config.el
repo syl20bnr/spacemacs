@@ -1,21 +1,21 @@
-;;; config.el --- Clojure Layer configuration File for Spacemacs
+;;; config.el --- Clojure Layer configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 ;; Variables
 
-(spacemacs|define-jump-handlers clojure-mode)
-(spacemacs|define-jump-handlers clojurec-mode)
-(spacemacs|define-jump-handlers clojurescript-mode)
-(spacemacs|define-jump-handlers clojurex-mode)
-(spacemacs|define-jump-handlers cider-repl-mode)
+(space-macs|define-jump-handlers clojure-mode)
+(space-macs|define-jump-handlers clojurec-mode)
+(space-macs|define-jump-handlers clojurescript-mode)
+(space-macs|define-jump-handlers clojurex-mode)
+(space-macs|define-jump-handlers cider-repl-mode)
 
 (defvar clojure-enable-fancify-symbols nil
   "If non-nil, the `fancify-symbols' function is enabled.")
@@ -33,3 +33,5 @@
   "The backend to use for IDE features.
 Possible values are `lsp' and `cider'.
 If `nil' then 'cider` is the default backend unless `lsp' layer is used")
+
+

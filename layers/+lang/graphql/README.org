@@ -21,8 +21,8 @@ check its site for extra info.
 - Go to definition with =ahs=
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =graphql= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =graphql= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 If you want to format graphql buffers you need to enable =prettier= layer also.
@@ -37,3 +37,5 @@ If you want to format graphql buffers you need to enable =prettier= layer also.
 | ~SPC m g g~ | jump to definition            |
 | ~SPC m h~   | graphql-edit-headers          |
 | ~SPC m s~   | graphql-send-query            |
+
+

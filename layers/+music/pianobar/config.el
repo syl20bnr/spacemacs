@@ -1,11 +1,11 @@
-;;; config.el --- Pianobar Layer config File for Spacemacs
+;;; config.el --- Pianobar Layer config File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Leo Littlebook  <texas.cyberthal@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -21,3 +21,5 @@
   "Automatically connect to this station on login. Value must be
   a string containing the number used to select the station you
   want through Pianobar. The number is many digits long.")
+
+

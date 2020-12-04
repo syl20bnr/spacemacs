@@ -20,17 +20,17 @@
   - [[#toggles][Toggles]]
 
 * Description
-This layers adds general configuration for [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html][Emacs VC]].
+This layers adds general configuration for [[http://www.gnu.org/software/e-macs/manual/html_node/e-macs/Version-Control.html][e-macs VC]].
 It should work with all VC backends such as Git, Mercurial, Bazaar, SVN, etc...
 
 ** Features:
-- highlights uncommitted changes in the fringe or margin with [[https://github.com/dgutov/diff-hl][diff-hl]], [[https://github.com/syohex/emacs-git-gutter][git-gutter]], or [[https://github.com/nonsequitur/git-gutter-plus][git-gutter+]]
+- highlights uncommitted changes in the fringe or margin with [[https://github.com/dgutov/diff-hl][diff-hl]], [[https://github.com/syohex/e-macs-git-gutter][git-gutter]], or [[https://github.com/nonsequitur/git-gutter-plus][git-gutter+]]
 - adds vcs transient-state ~SPC g.~ to allow quick navigation and modification of buffer hunks.
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =version-control= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =version-control= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
@@ -38,17 +38,17 @@ You can choose the package to facilitate the diff transient-state and show
 margins by setting the =version-control-diff-tool= variable to one of the
 supported packages:
 - [[https://github.com/dgutov/diff-hl][diff-hl]]
-- [[https://github.com/syohex/emacs-git-gutter][git-gutter]]
+- [[https://github.com/syohex/e-macs-git-gutter][git-gutter]]
 - [[https://github.com/nonsequitur/git-gutter-plus][git-gutter+]] (default)
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   '(version-control :variables
                     version-control-diff-tool 'diff-hl)
 #+END_SRC
 
 You can choose the side on which the diff appears (by default it's the right side)
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   '(version-control :variables
                     version-control-diff-side 'left)
 #+END_SRC
@@ -56,7 +56,7 @@ You can choose the side on which the diff appears (by default it's the right sid
 To automatically enable diff margins in all buffers, set
 =version-control-global-margin=
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   '(version-control :variables
                     version-control-global-margin t)
 #+END_SRC
@@ -253,3 +253,5 @@ Other:
 |-------------+------------------------------|
 | ~SPC T d~   | Toggle diff margins          |
 | ~SPC T C-d~ | Toggle diff margins globally |
+
+

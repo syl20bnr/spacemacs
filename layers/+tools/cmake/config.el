@@ -1,11 +1,11 @@
-;;; config.el --- CMake layer config file for Spacemacs.
+;;; config.el --- CMake layer config file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Alexander Dalshov <dalshov@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -21,3 +21,5 @@
   "The backend to use for IDE features.
 Possible values are `lsp' and `company-cmake'.
 If `nil' then 'company-cmake` is the default backend unless `lsp' layer is used")
+
+

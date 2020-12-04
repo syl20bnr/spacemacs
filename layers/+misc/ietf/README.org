@@ -25,7 +25,7 @@ Internet Engineering Task Force ([[https://www.ietf.org]]).
 * Fetching and Opening IETF Documents
 Support for fetching and downloading IETF documents is added through the
 =ietf-docs= package. The IETF docs package adds support for fetching and loading
-IETF documents based on the name of a document (usually under the emacs point).
+IETF documents based on the name of a document (usually under the e-macs point).
 For example if the point is anwhere on the text RFC781 and one invokes the
 =ietf-docs-open-at-point= the package will fetch the document to a local cache
 (if not present) and view it. This works for the 3 standard document names,
@@ -42,18 +42,18 @@ Support for writing IETF documents using org mode is added using the RFC Org
 Mode Exporter (=ox-rfc=) package.
 
 * Install
-To use the ietf layer add it to your =~/.spacemacs=
+To use the ietf layer add it to your =~/.space-macs=
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(ietf))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(ietf))
 #+END_SRC
 
 By default fetched IETF documents are stored in a subdirectory of the
-=spacemacs-cache-directory=. To override this location you can set the
+=space-macs-cache-directory=. To override this location you can set the
 =ietf-docs-cache= variable.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (ietf :variables
           ietf-docs-cache "~/Downloads/ietf-docs-cache")))
 #+END_SRC
@@ -63,3 +63,5 @@ By default fetched IETF documents are stored in a subdirectory of the
 | Key binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC f I~   | Opens IETF document based on the text at the point. |
+
+

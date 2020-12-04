@@ -1,11 +1,11 @@
-;;; packages.el --- Nim Layer packages File for Spacemacs
+;;; packages.el --- Nim Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Max Gonzih
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -17,11 +17,11 @@
     nim-mode))
 
 (defun nim/post-init-company ()
-  (spacemacs//nim-setup-company))
+  (space-macs//nim-setup-company))
 
 (defun nim/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'nim-mode)
-  (spacemacs/enable-flycheck 'nimscript-mode))
+  (space-macs/enable-flycheck 'nim-mode)
+  (space-macs/enable-flycheck 'nimscript-mode))
 
 (defun nim/init-flycheck-nim ()
   (use-package flycheck-nim
@@ -30,18 +30,20 @@
 (defun nim/init-nim-mode ()
   (use-package nim-mode
     :defer t
-    :init (add-hook 'nim-mode-hook #'spacemacs//nim-setup-backend)
+    :init (add-hook 'nim-mode-hook #'space-macs//nim-setup-backend)
     :config
     (progn
       ;; Set non lsp bindings
-      (when (eq (spacemacs//nim-backend) 'company-nim)
-        (spacemacs/declare-prefix-for-mode 'nim-mode "mg" "goto")
-        (spacemacs/declare-prefix-for-mode 'nim-mode "mh" "help")
-        (spacemacs/set-leader-keys-for-major-mode 'nim-mode
+      (when (eq (space-macs//nim-backend) 'company-nim)
+        (space-macs/declare-prefix-for-mode 'nim-mode "mg" "goto")
+        (space-macs/declare-prefix-for-mode 'nim-mode "mh" "help")
+        (space-macs/set-leader-keys-for-major-mode 'nim-mode
           "hh" 'nimsuggest-show-doc))
 
       ;; Set general bindings
-      (spacemacs/declare-prefix-for-mode 'nim-mode "mc" "compile")
-      (spacemacs/set-leader-keys-for-major-mode 'nim-mode
-        "cr" 'spacemacs/nim-compile-run
+      (space-macs/declare-prefix-for-mode 'nim-mode "mc" "compile")
+      (space-macs/set-leader-keys-for-major-mode 'nim-mode
+        "cr" 'space-macs/nim-compile-run
         "gb" 'pop-tag-mark))))
+
+

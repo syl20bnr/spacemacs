@@ -1,11 +1,11 @@
-;;; packages.el --- Better Emacs Defaults Layer functions File
+;;; packages.el --- Better e-macs Defaults Layer functions File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
-;; Author: Thomas de Beauchêne <thomas.de.beauchene@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; Author: Thomas de BeauchÃªne <thomas.de.beauchene@gmail.com>
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -35,3 +35,5 @@
     :commands (unfill-region unfill-paragraph unfill-toggle)
     :init
     (global-set-key [remap fill-paragraph] #'unfill-toggle)))
+
+

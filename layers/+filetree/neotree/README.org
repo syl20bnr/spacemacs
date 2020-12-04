@@ -19,7 +19,7 @@
   - [[#other-neotree-key-bindings][Other NeoTree key bindings]]
 
 * Description
-This layer setups a file tree navigator buffer using Neotree (replacing the Treemacs layer).
+This layer setups a file tree navigator buffer using Neotree (replacing the Tree-macs layer).
 
 ** Features:
 - intuitive evil key bindings integration
@@ -28,8 +28,8 @@ This layer setups a file tree navigator buffer using Neotree (replacing the Tree
 - version-control integration
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =neotree= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =neotree= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
@@ -49,7 +49,7 @@ The default is =classic=.
 
 Use =nerd= if you want it to look most like NERDTree in VIM. For example:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq neo-theme 'nerd)
 #+END_SRC
 
@@ -66,17 +66,17 @@ The default is =nil= (do not show source control information), which is recommen
 
 For example,
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq neo-vc-integration '(face))
 #+END_SRC
 
 *Note*: At this time, it is not recommended to set this to anything other
 than =nil=. Otherwise, it will become very slow with larger source trees.
-See [[https://github.com/jaypei/emacs-neotree/issues/126]] for more information.
+See [[https://github.com/jaypei/e-macs-neotree/issues/126]] for more information.
 
 * Usage
 This layer provides a quick and simple way to navigate in an unknown project
-file tree with [[https://github.com/jaypei/emacs-neotree][NeoTree]].
+file tree with [[https://github.com/jaypei/e-macs-neotree][NeoTree]].
 
 To toggle the =NeoTree= buffer, press ~SPC f t~ or ~SPC p t~ (the latter opens
 NeoTree with the root set to the projectile project root).
@@ -85,7 +85,7 @@ To select the NeoTree window, press ~SPC 0~. The NeoTree window always has the
 number =0= so it does not shift the current number of the other windows.
 
 VCS integration is supported, the file color will change depending on its
-current state. With default =spacemacs-dark= theme:
+current state. With default =space-macs-dark= theme:
 - green: new file
 - purple: modified file
 
@@ -127,7 +127,7 @@ open the file in a split window with ~|~ and ~-~:
 |------------------+-------------------------------------------|
 | ~l~ or ~RET~     | open file in last active window           |
 | ~# l~ or ~# RET~ | open file in window number =#=            |
-| ~¦~              | open file in an vertically split window   |
+| ~Â¦~              | open file in an vertically split window   |
 | ~-~              | open file in an horizontally split window |
 
 ** Other NeoTree key bindings
@@ -143,3 +143,5 @@ open the file in a split window with ~|~ and ~-~:
 | ~q~ or ~fd~ | hide =NeoTree= buffer           |
 | ~r~         | rename a node                   |
 | ~?~         | show help                       |
+
+

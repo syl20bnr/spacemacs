@@ -1,11 +1,11 @@
-;;; packages.el --- Debug Layer packages file for Spacemacs.
+;;; packages.el --- Debug Layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Troy Hinckley <troy.hinckley@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -17,11 +17,11 @@
     :defer t
     :init
     (progn
-      (dolist (debugger (mapcar 'spacemacs/debug-generate-symbol
+      (dolist (debugger (mapcar 'space-macs/debug-generate-symbol
                                 debug-additional-debuggers))
         (autoload debugger "realgud" nil t))
       (advice-add 'realgud-short-key-mode-setup
-                  :before #'spacemacs/debug-short-key-state)
+                  :before #'space-macs/debug-short-key-state)
       (evilified-state-evilify-map realgud:shortkey-mode-map
         :eval-after-load realgud
         :mode realgud-short-key-mode
@@ -40,3 +40,5 @@
         "s" 'realgud:cmd-next
         "S" 'realgud-window-cmd-undisturb-src
         "v" 'realgud:cmd-eval-dwim))))
+
+

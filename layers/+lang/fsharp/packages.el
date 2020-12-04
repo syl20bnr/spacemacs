@@ -1,11 +1,11 @@
-;;; packages.el --- F# Layer packages File for Spacemacs
+;;; packages.el --- F# Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -20,40 +20,40 @@
     ))
 
 (defun fsharp/post-init-company ()
-  (spacemacs//fsharp-setup-company))
+  (space-macs//fsharp-setup-company))
 
 (defun fsharp/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'fsharp-mode))
+  (space-macs/enable-flycheck 'fsharp-mode))
 
 (defun fsharp/init-fsharp-mode ()
   (use-package fsharp-mode
     :defer t
     :init
     (progn
-      (unless (eq (spacemacs//fsharp-backend) 'lsp)
+      (unless (eq (space-macs//fsharp-backend) 'lsp)
         (require 'eglot-fsharp))
       (setq eglot-fsharp-server-install-dir (expand-file-name
-                                             (locate-user-emacs-file (f-join ".cache" "eglot"))))
+                                             (locate-user-e-macs-file (f-join ".cache" "eglot"))))
       (setq fsharp-doc-idle-delay .2)
-      (spacemacs/register-repl 'fsharp-mode 'fsharp-show-subshell "F#")
-      (add-hook 'fsharp-mode-hook #'spacemacs//fsharp-setup-backend))
+      (space-macs/register-repl 'fsharp-mode 'fsharp-show-subshell "F#")
+      (add-hook 'fsharp-mode-hook #'space-macs//fsharp-setup-backend))
     :config
     (progn
-      (defun spacemacs/fsharp-load-buffer-file-focus ()
+      (defun space-macs/fsharp-load-buffer-file-focus ()
         "Send the current buffer to REPL and switch to the REPL in
  `insert state'."
         (interactive)
         (fsharp-load-buffer-file)
         (switch-to-buffer-other-window inferior-fsharp-buffer-name)
         (evil-insert-state))
-      (defun spacemacs/fsharp-eval-phrase-focus ()
+      (defun space-macs/fsharp-eval-phrase-focus ()
         "Send the current phrase to REPL and switch to the REPL in
  `insert state'."
         (interactive)
         (fsharp-eval-phrase)
         (switch-to-buffer-other-window inferior-fsharp-buffer-name)
         (evil-insert-state))
-      (defun spacemacs/fsharp-eval-region-focus (start end)
+      (defun space-macs/fsharp-eval-region-focus (start end)
         "Send the current phrase to REPL and switch to the REPL in
  `insert state'."
         (interactive "r")
@@ -61,28 +61,30 @@
         (switch-to-buffer-other-window inferior-fsharp-buffer-name)
         (evil-insert-state))
 
-      (spacemacs/declare-prefix-for-mode 'fsharp-mode "ms" "repl")
-      (spacemacs/declare-prefix-for-mode 'fsharp-mode "mc" "compile")
-      (unless (eq (spacemacs//fsharp-backend) 'lsp)
-        (spacemacs/declare-prefix-for-mode 'fsharp-mode "mg" "goto"))
+      (space-macs/declare-prefix-for-mode 'fsharp-mode "ms" "repl")
+      (space-macs/declare-prefix-for-mode 'fsharp-mode "mc" "compile")
+      (unless (eq (space-macs//fsharp-backend) 'lsp)
+        (space-macs/declare-prefix-for-mode 'fsharp-mode "mg" "goto"))
 
-      (spacemacs/set-leader-keys-for-major-mode 'fsharp-mode
+      (space-macs/set-leader-keys-for-major-mode 'fsharp-mode
         "cc" 'compile
         "ga" 'fsharp-find-alternate-file
         "sb" 'fsharp-load-buffer-file
-        "sB" 'spacemacs/fsharp-load-buffer-file-focus
+        "sB" 'space-macs/fsharp-load-buffer-file-focus
         "si" 'fsharp-show-subshell
         "sp" 'fsharp-eval-phrase
-        "sP" 'spacemacs/fsharp-eval-phrase-focus
+        "sP" 'space-macs/fsharp-eval-phrase-focus
         "sr" 'fsharp-eval-region
-        "sR" 'spacemacs/fsharp-eval-region-focus
+        "sR" 'space-macs/fsharp-eval-region-focus
         "'"  'fsharp-show-subshell))))
 
 (defun fsharp/post-init-ggtags ()
-  (add-hook 'fsharp-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'fsharp-mode-local-vars-hook #'space-macs/ggtags-mode-enable))
 
 (defun fsharp/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'fsharp-mode))
+  (space-macs/counsel-gtags-define-keys-for-mode 'fsharp-mode))
 
 (defun fsharp/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'fsharp-mode))
+  (space-macs/helm-gtags-define-keys-for-mode 'fsharp-mode))
+
+

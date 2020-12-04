@@ -14,19 +14,19 @@
 
 * Description
 This layer adds support for the [[https://github.com/rejeep/prodigy.el][prodigy]] package to manage external services from
-within Emacs, check the package's documentation for more details.
+within e-macs, check the package's documentation for more details.
 
-It is recommended to put your prodigy services in the =dotspacemacs/user-config=
-part of your =~/.spacemacs= file.
+It is recommended to put your prodigy services in the =dotspace-macs/user-config=
+part of your =~/.space-macs= file.
 
 ** Features:
-- Managing of pre-declared services from within Emacs
+- Managing of pre-declared services from within e-macs
 - Showing of process output in special buffers
 - Filtering of processes for tags or names
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =prodigy= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =prodigy= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -60,3 +60,5 @@ You start prodigy with this:
 | ~f t~       | Add tag filter                  |
 | ~f n~       | Add name filter                 |
 | ~F~         | Clear filters                   |
+
+

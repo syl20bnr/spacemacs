@@ -12,7 +12,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds Twitter support to Spacemacs via the package [[https://github.com/hayamiz/twittering-mode][twittering-mode]].
+This layer adds Twitter support to Space-macs via the package [[https://github.com/hayamiz/twittering-mode][twittering-mode]].
 
 ** Features:
 - Activities on Twitter
@@ -36,8 +36,8 @@ This layer adds Twitter support to Spacemacs via the package [[https://github.co
 - Secure connection via HTTPS (cURL, GNU Wget, OpenSSL or GnuTLS is required)
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =twitter= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =twitter= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
@@ -81,3 +81,5 @@ function of your dotfile.
 | ~X~         | Delete tweet                             |
 | ~y~         | Copy tweet URI                           |
 | ~Y~         | Copy tweet content                       |
+
+

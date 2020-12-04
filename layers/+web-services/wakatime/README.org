@@ -45,14 +45,14 @@ And for some linux users
 #+END_SRC
 
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =wakatime= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =wakatime= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 Example:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '(
                   ;; ...
                   (wakatime :variables
@@ -64,14 +64,14 @@ Example:
 #+END_SRC
 
 *** Note about api key and bug submission
-If you use the built-in Spacemacs bug submission tool it will include
+If you use the built-in Space-macs bug submission tool it will include
 all of your layer configs including your secret api key.
 Please remove it before submitting.
 
 Even better don't store your key directly in the layer config.
 Instead put the following code in your user-config which is set after your layer config:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq wakatime-api-key "your-api-key")
 #+END_SRC
 
@@ -81,7 +81,7 @@ Everything you set there won't appear in the bug submitting tool.
 After this go to your wakatime account and have your API key handy
 [[https://wakatime.com/settings/account?apikey=true]].
 
-Restart emacs and it will prompt you for the location of the wakatime installer
+Restart e-macs and it will prompt you for the location of the wakatime installer
 (just put in whatever =which wakatime= gives you in the terminal e.g.
 =/usr/bin/wakatime= for example) and that's it.
 
@@ -92,6 +92,8 @@ env., then wakatime, which is installed system-wide will have trouble locating
 wakatime files, so it's best to define by yourself the python path where
 wakatime can always find it's stuff, via this variable:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq wakatime-python-bin "/path/to/python")
 #+END_SRC
+
+

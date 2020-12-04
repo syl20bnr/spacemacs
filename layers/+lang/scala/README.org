@@ -40,7 +40,7 @@
     - [[#repl][REPL]]
 
 * Description
-This layer adds support for the Scala language to Spacemacs.
+This layer adds support for the Scala language to Space-macs.
 
 ** Features:
 - Syntax highlighting
@@ -55,12 +55,12 @@ This layer adds support for the Scala language to Spacemacs.
 - Style linting
 - Eldoc integration
 - Optional GGTags search
-- Test execution directly from Emacs
+- Test execution directly from e-macs
 - Automatic replacement of ASCII arrows with unicode ones
 
 * Layer Installation
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =scala= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =scala= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Backends
@@ -70,8 +70,8 @@ The currently supported language backends are:
 
 To set your choice of backend, configure the layer variable =scala-backend=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                 '((scala :variables scala-backend 'scala-metals))) ;or 'scala-ensime
 #+END_SRC
 
@@ -84,15 +84,15 @@ where =0.7.6= can be replaced with the current version of [[https://github.com/s
   ./coursier bootstrap \
     --java-opt -Xss4m \
     --java-opt -Xms100m \
-    --java-opt -Dmetals.client=emacs \
+    --java-opt -Dmetals.client=e-macs \
     org.scalameta:metals_2.12:0.7.6 \
     -r bintray:scalacenter/releases \
     -r sonatype:snapshots \
-    -o /usr/local/bin/metals-emacs -f
+    -o /usr/local/bin/metals-e-macs -f
 #+END_SRC
 
 You will then have the common LSP key bindings; see
-[[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/lsp#key-bindings][LSP#key-bindings]] for more details.
+[[https://github.com/syl20bnr/space-macs/tree/develop/layers/%2Btools/lsp#key-bindings][LSP#key-bindings]] for more details.
 
 ** Ensime (deprecated)
 This package is mainly unmaintained today and should only be used as a last resort.
@@ -100,10 +100,10 @@ This package is mainly unmaintained today and should only be used as a last reso
 [[https://ensime.github.io/][ENSIME]] provides IDE-like features, such as refactoring, incremental compilation
 and project-wide type-checking.
 
-You will also need to modify your =dotspacemacs/user-init= to pull the recommended Ensime
+You will also need to modify your =dotspace-macs/user-init= to pull the recommended Ensime
 version (Stable):
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (add-to-list 'configuration-layer-elpa-archives '("melpa-stable" . "stable.melpa.org/packages/"))
   (add-to-list 'package-pinned-packages '(ensime . "melpa-stable"))
 #+END_SRC
@@ -126,7 +126,7 @@ Refer to the [[https://web.archive.org/web/20190324005432/http://ensime.github.i
 plugin.
 
 *** Configuration
-Follow [[https://web.archive.org/web/20190417132406/http://ensime.github.io/build_tools/sbt/][the ENSIME configuration instructions]]. Spacemacs uses
+Follow [[https://web.archive.org/web/20190417132406/http://ensime.github.io/build_tools/sbt/][the ENSIME configuration instructions]]. Space-macs uses
 the development version of Ensime so follow the appropriate steps.
 
 To use the build functions under ~SPC m b~ you need to use version =0.13.5= or
@@ -138,12 +138,12 @@ For example,
 #+END_SRC
 
 *** Usage
-~SPC SPC spacemacs/ensime-gen-and-restart~ or ~SPC m D r~ generates a new config
+~SPC SPC space-macs/ensime-gen-and-restart~ or ~SPC m D r~ generates a new config
 for a project and starts the server. Afterwards ~SPC SPC ensime~ or ~SPC m D s~
 will suffice do the trick.
 
 * Scalastyle
-[[http://www.scalastyle.org/][Scalastyle]] provides style-checking and linting. The Emacs functionality is
+[[http://www.scalastyle.org/][Scalastyle]] provides style-checking and linting. The e-macs functionality is
 provided by Flycheck.
 
 To use scalastyle, it must be present as an executable in your =PATH=.
@@ -163,7 +163,7 @@ terminal, it should output something like:
 Finally, enable the =syntax-checking= layer and set the =flycheck-scalastylerc=
 variable to a valid location.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq-default flycheck-scalastylerc "/usr/local/etc/scalastyle_config.xml")
 #+END_SRC
 
@@ -174,8 +174,8 @@ configuration instructions.
 To enable =java-doc-style=, set the variable =scala-indent:use-javadoc-style= to
 =t=
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (scala :variables scala-indent:use-javadoc-style t)))
 #+END_SRC
 
@@ -186,8 +186,8 @@ The metals backend enables integration with the DAP layer for debugging support.
 To enable the feature =ensime-type-at-point= when cursor moves, set the
 variable =scala-enable-eldoc= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (scala :variables scala-enable-eldoc t)))
 #+END_SRC
 
@@ -197,35 +197,35 @@ Enabling this option can cause slow editor performance.
 To insert a leading asterisk in multiline comments automatically, set the
 variable =scala-auto-insert-asterisk-in-comments= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (scala :variables scala-auto-insert-asterisk-in-comments t)))
 #+END_SRC
 
 * Deprecated: Automatic replacement of arrows with Unicode ones
-Scala used to support Unicode arrows =⇒=, =→= as aliases for ~=>~, =->= and =<-=, and the
+Scala used to support Unicode arrows =â‡’=, =â†’= as aliases for ~=>~, =->= and =<-=, and the
 Scala layer would do the conversion to Unicode for you if you set
 =scala-use-unicode-arrows= to =t=. As the Unicode arrows are now [[https://github.com/scala/scala/pull/7540][deprecated]] in
 Scala, this variable has been dropped from the Scala layer. If it is still in
 your Scala layer variables like so:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (scala :variables scala-use-unicode-arrows t)))
 #+END_SRC
 
 Then you will need to remove it:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(scala))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(scala))
 #+END_SRC
 
 * Enable GTags as a fallback navigation utility
 To enable gtags when in scala-mode, in case metals, or, ensime are not fully
 functioning set the variable =scala-enable-gtags= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (scala :variables scala-enable-gtags t)))
 #+END_SRC
 
@@ -233,8 +233,8 @@ functioning set the variable =scala-enable-gtags= to =t=.
 If you prefer to have the backend start when you load a scala file, you can enable it
 with
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
       (scala :variables scala-auto-start-backend t)))
 #+END_SRC
 
@@ -362,3 +362,5 @@ with
 | ~SPC m s i~ | start or switch to the REPL inferior process                        |
 | ~SPC m s r~ | send region to the REPL                                             |
 | ~SPC m s R~ | send region to the REPL and focus the REPL buffer in =insert state= |
+
+

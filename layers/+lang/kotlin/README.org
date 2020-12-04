@@ -16,7 +16,7 @@
     - [[#lsp][LSP]]
 
 * Description
-This layer adds support for [[http://kotlinlang.org/][Kotlin]] to Spacemacs.
+This layer adds support for [[http://kotlinlang.org/][Kotlin]] to Space-macs.
 
 ** Features:
 - Syntax highlighting
@@ -26,12 +26,12 @@ This layer adds support for [[http://kotlinlang.org/][Kotlin]] to Spacemacs.
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =kotlin= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =kotlin= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Ktlint
-You must install [[https://github.com/shyiko/ktlint][ktlint]] and make sure that the =ktlint= binary is on Emacs
+You must install [[https://github.com/shyiko/ktlint][ktlint]] and make sure that the =ktlint= binary is on e-macs
 =exec-path=
 
 * Configuration
@@ -48,20 +48,20 @@ limited IDE capabilities. Used best if only small applications
 are edited. To set explicitly set the following in your
 dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (kotlin :variables kotlin-backend 'company-kotlin)
 #+END_SRC
 
 *** LSP
 For proper IDE support this backend should be used. It is
 based on an external server which will be started automatically
-by emacs, once a kotlin file is opened. The key bindings are
+by e-macs, once a kotlin file is opened. The key bindings are
 the same for all lsp modes so if you are already familiar with
 one you should be able to work the same in all modes.
 
 To set explicitly do the following in your dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (kotlin :variables
           kotlin-backend 'lsp
           kotlin-lsp-jar-path "path/to/kotlin/installdir/install/server/bin/kotlin-language-server")
@@ -76,3 +76,5 @@ NOTE: Key bindings for LSP are defined in the
 LSP layer. Also it is advisable to have a look
 at the autocomplete layer for an optimal
 intellisense config for LSP.
+
+

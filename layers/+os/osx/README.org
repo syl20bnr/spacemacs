@@ -17,17 +17,17 @@
 - [[#future-work][Future Work]]
 
 * Description
-Spacemacs is not just Emacs plus Vim. It can have macOS key bindings too! This
+Space-macs is not just e-macs plus Vim. It can have macOS key bindings too! This
 layer globally defines common macOS key bindings.
 
 ** Features:
-- ~⌘~ is set to ~hyper~ and ~⌥~ is set to ~meta~
+- ~âŒ˜~ is set to ~hyper~ and ~âŒ¥~ is set to ~meta~
 - In =dired= use =gls= instead of =ls=
 - Fix separator colors of Spaceline mode-line
 
 * Philosophy
 While this layer enables common macOS bindings, it does not implement macOS
-navigation key bindings. Spacemacs is meant to be used with Evil, and we
+navigation key bindings. Space-macs is meant to be used with Evil, and we
 encourage you to do so :)
 
 * Install
@@ -35,12 +35,12 @@ encourage you to do so :)
 Layer has been updated for new config variables. The variable =osx-use-option-as-meta=
 is still available for backwards compatibility and will take precedence if set.
 
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =osx= to the existing =dotspacemacs-configuration-layers= list in this file.
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =osx= to the existing =dotspace-macs-configuration-layers= list in this file.
 The different modifier keys can be set as follows:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
      (osx :variables osx-command-as       'hyper
                      osx-option-as        'meta
                      osx-control-as       'control
@@ -54,26 +54,26 @@ The different modifier keys can be set as follows:
 These are also the default values. Setting the right modifier to =left=
 will equal the left modifier. Allowed values are: =super=, =meta=, =control=,
 =alt= and =nil=.
-Setting =nil= for modifiers will leave the left modifiers as emacs default.
+Setting =nil= for modifiers will leave the left modifiers as e-macs default.
 Setting =osx-swap-option-and-command= to =t= will swap =command= and =option= key.
 
 *** Use with non-US keyboard layouts
-If you need the ~⌥~ key to type common characters such as ={[]}~= which is usual
+If you need the ~âŒ¥~ key to type common characters such as ={[]}~= which is usual
 for e.g. Finnish and Swedish keyboard layouts, you'll probably want to leave the
-~⌥~ key unchanged by setting the =osx-option-as= variable to =none=:
+~âŒ¥~ key unchanged by setting the =osx-option-as= variable to =none=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
      (osx :variables osx-option-as 'none)))
 #+END_SRC
 
-If you have problem entering symbols that are behind the ~⌥~ key you may want to
+If you have problem entering symbols that are behind the ~âŒ¥~ key you may want to
 set the variables as follows. This will allow you to use
-the right ~⌥~ key to write symbols. The left ~⌥~ key can be used as the Meta
+the right ~âŒ¥~ key to write symbols. The left ~âŒ¥~ key can be used as the Meta
 key.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
      (osx :variables osx-option-as 'meta
                      osx-right-option-as 'none)))
 #+END_SRC
@@ -83,8 +83,8 @@ This layer by default enables defining words under point ~SPC x w d~ using macOS
 Dictionary. In some cases you might want to manually setup dictionary to use.
 For example,
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
      (osx :variables osx-dictionary-dictionary-choice "English")))
 #+END_SRC
 
@@ -93,8 +93,8 @@ function.
 
 You can disable it by setting =osx-use-dictionary-app= variable to =nil=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
      (osx :variables osx-use-dictionary-app nil)))
 #+END_SRC
 
@@ -109,23 +109,25 @@ To get =gls= install coreutils homebrew:
 
 | Key binding | Description                 |
 |-------------+-----------------------------|
-| ~⌘ =~       | Scale up text               |
-| ~⌘ -~       | Scale down text             |
-| ~⌘ q~       | Quit                        |
-| ~⌘ v~       | Paste                       |
-| ~⌘ c~       | Copy                        |
-| ~⌘ x~       | Cut                         |
-| ~⌘ a~       | Select all                  |
-| ~⌘ w~       | Close window                |
-| ~⌘ W~       | Close frame                 |
-| ~⌘ n~       | New frame                   |
-| ~⌘ `~       | Other frame                 |
-| ~⌘ z~       | Undo                        |
-| ~⌘ Z~       | Redo                        |
-| ~⌃ ⌘ f~     | Toggle fullscreen           |
+| ~âŒ˜ =~       | Scale up text               |
+| ~âŒ˜ -~       | Scale down text             |
+| ~âŒ˜ q~       | Quit                        |
+| ~âŒ˜ v~       | Paste                       |
+| ~âŒ˜ c~       | Copy                        |
+| ~âŒ˜ x~       | Cut                         |
+| ~âŒ˜ a~       | Select all                  |
+| ~âŒ˜ w~       | Close window                |
+| ~âŒ˜ W~       | Close frame                 |
+| ~âŒ˜ n~       | New frame                   |
+| ~âŒ˜ `~       | Other frame                 |
+| ~âŒ˜ z~       | Undo                        |
+| ~âŒ˜ Z~       | Redo                        |
+| ~âŒƒ âŒ˜ f~     | Toggle fullscreen           |
 | ~SPC x w d~ | Define word under the point |
 
 * Future Work
-- Allow user to choose from either ~hyper~ or ~super~ as ~⌘~. This is an option
+- Allow user to choose from either ~hyper~ or ~super~ as ~âŒ˜~. This is an option
   that is supported cross-platform.
-- Configurable option to keep the macOS and Spacemacs clipboards separate.
+- Configurable option to keep the macOS and Space-macs clipboards separate.
+
+

@@ -1,11 +1,11 @@
-;;; config.el --- Spacemacs Defaults Layer configuration File
+;;; config.el --- Space-macs Defaults Layer configuration File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -25,11 +25,11 @@
 (setq dired-dwim-target t)
 
 ;; Regexp for useful and useless buffers for smarter buffer switching
-(defvar spacemacs-useless-buffers-regexp '()
+(defvar space-macs-useless-buffers-regexp '()
   "Regexp used to determine if a buffer is not useful.")
-(defvar spacemacs-useful-buffers-regexp '()
+(defvar space-macs-useful-buffers-regexp '()
   "Regexp used to define buffers that are useful despite matching
-`spacemacs-useless-buffers-regexp'.")
+`space-macs-useless-buffers-regexp'.")
 
 ;; no beep pleeeeeease ! (and no visual blinking too please)
 (setq ring-bell-function 'ignore
@@ -70,7 +70,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Edit
 ;; ---------------------------------------------------------------------------
 
-;; Start with the *scratch* buffer in text mode (speeds up Emacs load time,
+;; Start with the *scratch* buffer in text mode (speeds up e-macs load time,
 ;; because it avoids autoloads of elisp modes)
 (setq initial-major-mode 'text-mode)
 
@@ -88,10 +88,10 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 
 ;; auto fill breaks line beyond buffer's fill-column
 (setq-default fill-column 80)
-(spacemacs|diminish auto-fill-function " Ⓕ" " F")
+(space-macs|diminish auto-fill-function " â’»" " F")
 
 ;; persistent abbreviation file
-(setq abbrev-file-name (concat spacemacs-cache-directory "abbrev_defs"))
+(setq abbrev-file-name (concat space-macs-cache-directory "abbrev_defs"))
 
 ;; Save clipboard contents into kill-ring before replace them
 (setq save-interprogram-paste-before-kill t)
@@ -106,7 +106,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
   (define-key comint-mode-map (kbd "C-d") nil))
 
 ;; Prompt to open file literally if large file.
-(add-hook 'find-file-hook 'spacemacs/check-large-file)
+(add-hook 'find-file-hook 'space-macs/check-large-file)
 
 ;; ---------------------------------------------------------------------------
 ;; UI
@@ -121,56 +121,56 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 (global-hl-line-mode t)
 ;; no blink
 (blink-cursor-mode 0)
-;; When emacs asks for "yes" or "no", let "y" or "n" suffice
+;; When e-macs asks for "yes" or "no", let "y" or "n" suffice
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; draw underline lower
 (setq x-underline-at-descent-line t)
 ;; don't let the cursor go into minibuffer prompt
-;; Tip taken from Xah Lee: http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html
+;; Tip taken from Xah Lee: http://ergoe-macs.org/e-macs/e-macs_stop_cursor_enter_prompt.html
 (setq minibuffer-prompt-properties
       '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
 ;; Fullscreen/maximize frame on startup
-(if dotspacemacs-fullscreen-at-startup
-    ;; spacemacs/toggle-fullscreen-frame-on is NOT available during the startup,
+(if dotspace-macs-fullscreen-at-startup
+    ;; space-macs/toggle-fullscreen-frame-on is NOT available during the startup,
     ;; but IS available during the subsequent config reloads
-    (if (fboundp 'spacemacs/toggle-fullscreen-frame-on)
-        (spacemacs/toggle-fullscreen-frame-on)
-      (spacemacs/toggle-frame-fullscreen)))
+    (if (fboundp 'space-macs/toggle-fullscreen-frame-on)
+        (space-macs/toggle-fullscreen-frame-on)
+      (space-macs/toggle-frame-fullscreen)))
 
-(setq ns-use-native-fullscreen (not dotspacemacs-fullscreen-use-non-native))
+(setq ns-use-native-fullscreen (not dotspace-macs-fullscreen-use-non-native))
 
 ;; make `next-buffer', `other-buffer', etc. ignore useless buffers (see
-;; `spacemacs/useless-buffer-p')
+;; `space-macs/useless-buffer-p')
 (let ((buf-pred-entry (assq 'buffer-predicate default-frame-alist)))
   (if buf-pred-entry
       ;; `buffer-predicate' entry exists, modify it
-      (setcdr buf-pred-entry #'spacemacs/useful-buffer-p)
+      (setcdr buf-pred-entry #'space-macs/useful-buffer-p)
     ;; `buffer-predicate' entry doesn't exist, create it
-    (push '(buffer-predicate . spacemacs/useful-buffer-p) default-frame-alist)))
+    (push '(buffer-predicate . space-macs/useful-buffer-p) default-frame-alist)))
 
 ;; ---------------------------------------------------------------------------
 ;; Session
 ;; ---------------------------------------------------------------------------
 
 ;; scratch buffer empty
-(setq initial-scratch-message dotspacemacs-initial-scratch-message)
+(setq initial-scratch-message dotspace-macs-initial-scratch-message)
 ;; don't create backup~ files
 (setq make-backup-files nil)
 
 ;; Auto-save file
-(setq auto-save-default (not (null dotspacemacs-auto-save-file-location)))
-(setq auto-save-list-file-prefix (concat spacemacs-auto-save-directory))
+(setq auto-save-default (not (null dotspace-macs-auto-save-file-location)))
+(setq auto-save-list-file-prefix (concat space-macs-auto-save-directory))
 ;; always save TRAMP URLs to cache directory no matter what is the value
-;; of `dotspacemacs-auto-save-file-location'
-(let ((autosave-dir (concat spacemacs-auto-save-directory "dist/")))
+;; of `dotspace-macs-auto-save-file-location'
+(let ((autosave-dir (concat space-macs-auto-save-directory "dist/")))
   (setq auto-save-file-name-transforms
         `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" ,autosave-dir  t)))
   (unless (or (file-exists-p autosave-dir)
-              (null dotspacemacs-auto-save-file-location))
+              (null dotspace-macs-auto-save-file-location))
     (make-directory autosave-dir t)))
 ;; Choose auto-save location
-(cl-case dotspacemacs-auto-save-file-location
-  (cache (let ((autosave-dir (concat spacemacs-auto-save-directory "site/")))
+(cl-case dotspace-macs-auto-save-file-location
+  (cache (let ((autosave-dir (concat space-macs-auto-save-directory "site/")))
            (add-to-list 'auto-save-file-name-transforms
                         `(".*" ,autosave-dir t) 'append)
            (unless (file-exists-p autosave-dir)
@@ -184,7 +184,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
       eval-expression-print-level nil)
 
 ;; cache files
-(setq tramp-persistency-file-name (concat spacemacs-cache-directory "tramp"))
+(setq tramp-persistency-file-name (concat space-macs-cache-directory "tramp"))
 
 ;; seems pointless to warn. There's always undo.
 (put 'narrow-to-region 'disabled nil)
@@ -202,13 +202,15 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Other
 ;; ---------------------------------------------------------------------------
 
-;; hook into `hack-local-variables' in order to allow switching spacemacs
+;; hook into `hack-local-variables' in order to allow switching space-macs
 ;; configurations based on local variables
-(add-hook 'hack-local-variables-hook #'spacemacs//run-local-vars-mode-hook)
+(add-hook 'hack-local-variables-hook #'space-macs//run-local-vars-mode-hook)
 
 ;; Add buffer reference to internal list of killed buffers on `kill-buffer',
 ;; used for restoring recently killed buffers.
-(add-hook 'kill-buffer-hook #'spacemacs//add-buffer-to-killed-list)
+(add-hook 'kill-buffer-hook #'space-macs//add-buffer-to-killed-list)
 
 ;; Don't load outdated compiled files.
 (setq load-prefer-newer t)
+
+

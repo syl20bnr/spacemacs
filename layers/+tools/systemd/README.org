@@ -9,7 +9,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for editing =systemd= configuration files in Spacemacs.
+This layer adds support for editing =systemd= configuration files in Space-macs.
 
 ** Features:
 - Syntax highlighting
@@ -17,10 +17,10 @@ This layer adds support for editing =systemd= configuration files in Spacemacs.
 - Syntax checking via =systemd-analyze=
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
+To use this contribution add it to your =~/.space-macs=
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(systemd))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(systemd))
 #+END_SRC
 
 * Key bindings
@@ -29,3 +29,5 @@ To use this contribution add it to your =~/.spacemacs=
 |-------------+--------------------------------------------------------------------------|
 | ~SPC m h d~ | Systemd open the directives documentation                                |
 | ~SPC m h o~ | Systemd open documentation (if a =\=Documentation= directive is provided |
+
+

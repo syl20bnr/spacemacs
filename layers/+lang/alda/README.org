@@ -24,7 +24,7 @@ Alda server if it is not running.
   through a running Alda server.
 
 * Install
-Add =alda= to the =dotspacemacs-configuration-layers= list in =~/.spacemacs=.
+Add =alda= to the =dotspace-macs-configuration-layers= list in =~/.space-macs=.
 You will also want to ensure that you have installed [[https://github.com/alda-lang/alda/releases][Alda]] so that =alda-mode=
 can play your code.
 
@@ -40,3 +40,5 @@ When alda-mode is active in an Alda file, you can use these key bindings:
 
 Note that if the Alda server is not running, =alda-mode= will start the server,
 and you will have to run the command again.
+
+

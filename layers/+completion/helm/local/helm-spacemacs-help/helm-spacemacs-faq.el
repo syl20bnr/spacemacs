@@ -1,7 +1,7 @@
-;;; helm-spacemacs-help.el --- Spacemacs layer exploration with `helm'.
+;;; helm-space-macs-help.el --- Space-macs layer exploration with `helm'.
 
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; Keywords: helm, spacemacs
+;; Keywords: helm, space-macs
 ;; Version: 0.1
 ;; Package-Requires: ((helm "1.5"))
 
@@ -16,41 +16,41 @@
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to
+;; along with GNU e-macs; see the file COPYING.  If not, write to
 ;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
-;; This package adds a convenient way to discover Spacemacs FAQs in a
+;; This package adds a convenient way to discover Space-macs FAQs in a
 ;; a helm buffer.
-;; These sources are not part of `helm-spacemacs-help' feature because
+;; These sources are not part of `helm-space-macs-help' feature because
 ;; of its `org' dependency which triggers lots of `require'.
 
 ;;; Code:
 
-(require 'helm-spacemacs-help)
+(require 'helm-space-macs-help)
 (require 'helm-org)
 
-(defvar helm-spacemacs-help--faq-filename
-  (concat spacemacs-docs-directory "FAQ.org")
+(defvar helm-space-macs-help--faq-filename
+  (concat space-macs-docs-directory "FAQ.org")
   "Location of the FAQ file.")
 
 ;;;###autoload
-(defun helm-spacemacs-help-faq ()
+(defun helm-space-macs-help-faq ()
   "Helm session to search for the FAQ."
   (interactive)
-  (helm-spacemacs-help-mode)
-  (helm :buffer "*helm: spacemacs*"
-        :sources `(,(helm-spacemacs-help//faq-source))))
+  (helm-space-macs-help-mode)
+  (helm :buffer "*helm: space-macs*"
+        :sources `(,(helm-space-macs-help//faq-source))))
 
-(defun helm-spacemacs-help//faq-source ()
+(defun helm-space-macs-help//faq-source ()
   "Construct the helm source for the FAQ."
   `((name . "FAQ")
-    (candidates . ,(helm-spacemacs-help//faq-candidates))
+    (candidates . ,(helm-space-macs-help//faq-candidates))
     (candidate-number-limit)
-    (action . (("Go to question" . helm-spacemacs-help//faq-goto-marker)))))
+    (action . (("Go to question" . helm-space-macs-help//faq-goto-marker)))))
 
-(defun helm-spacemacs-help//faq-candidate (cand)
+(defun helm-space-macs-help//faq-candidate (cand)
   (let ((str (substring-no-properties (car cand))))
     (when (string-match "\\`.*/\\([^/]*\\)/\\(.*\\)\\'" str)
       (cons (concat (propertize
@@ -59,12 +59,12 @@
                     ": " (match-string 2 str))
             (cdr cand)))))
 
-(defun helm-spacemacs-help//get-faq-headings-list (sources)
+(defun helm-space-macs-help//get-faq-headings-list (sources)
   "Given the helm-org sources from FAQ.org.
 Return a list of all it's headings."
     (aref (aref (cdadar sources) 2) 0))
 
-(defun helm-spacemacs-help//faq-candidates ()
+(defun helm-space-macs-help//faq-candidates ()
   "Join the section headings to each of their questions.
 Remove all text properties.
 Color the section heading substring.
@@ -75,12 +75,12 @@ The questions marker makes sure that the cursor
 jumps to the selected question."
   (let* ((helm-org-format-outline-path nil)
          (cands (helm-org-build-sources
-                 (list helm-spacemacs-help--faq-filename)))
+                 (list helm-space-macs-help--faq-filename)))
          section section-no-prop
          question question-marker question-no-prop
          section-and-question-with-marker
          result)
-    (dolist (heading (helm-spacemacs-help//get-faq-headings-list cands))
+    (dolist (heading (helm-space-macs-help//get-faq-headings-list cands))
       (when (string-match "\\`\\* \\(.*\\)\\'" heading)
         (setq section (match-string 1 heading))
         (setq section-no-prop (substring-no-properties section)))
@@ -102,13 +102,15 @@ jumps to the selected question."
     ;; they appear in the FAQ.org file, with the common questions first.
     (reverse result)))
 
-(defun helm-spacemacs-help//faq-goto-marker (marker)
-  (find-file helm-spacemacs-help--faq-filename)
+(defun helm-space-macs-help//faq-goto-marker (marker)
+  (find-file helm-space-macs-help--faq-filename)
   (goto-char marker)
   (org-show-context)
   (org-show-entry)
   (recenter-top-bottom))
 
-(provide 'helm-spacemacs-faq)
+(provide 'helm-space-macs-faq)
 
-;;; helm-spacemacs-faq.el ends here
+;;; helm-space-macs-faq.el ends here
+
+

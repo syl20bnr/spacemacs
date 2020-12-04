@@ -31,8 +31,8 @@ This layer adds support for the [[https://github.com/hrs/engine-mode][Search Eng
 - Project Gutenberg
 - YouTube
 - Stack Overflow
-- Spacemacs Issues
-- Spacemacs Pull Requests
+- Space-macs Issues
+- Space-macs Pull Requests
 - Wikipedia
 - Wolfram Alpha
 - Maven Central
@@ -46,8 +46,8 @@ This layer adds support for the [[https://github.com/hrs/engine-mode][Search Eng
 - Melpa
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =search-engine= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =search-engine= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -57,11 +57,11 @@ file.
 | ~SPC a w /~ | ~C-c /~ | Summon a Helm buffer to select any engine |
 
 * Customize it!
-If you'd rather have emacs use chrome, or firefox or any other thing (=eww=) you
+If you'd rather have e-macs use chrome, or firefox or any other thing (=eww=) you
 can have that customization. For example for google chrome you can put this in
-your =dotspacemacs/user-config=:
+your =dotspace-macs/user-config=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq browse-url-browser-function 'browse-url-generic
         engine/browser-function 'browse-url-generic
         browse-url-generic-program "google-chrome")
@@ -69,7 +69,7 @@ your =dotspacemacs/user-config=:
 
 If you want more control of how various search engines are handled
 or you want to add additional ones you can do so by setting the
-following datastructure to =search-engine-config-list= in your =dotspacemacs/user-config=.
+following datastructure to =search-engine-config-list= in your =dotspace-macs/user-config=.
 
 The datastructure consists of a key and:
 - name -> the name displayed in the search prompt.
@@ -78,8 +78,8 @@ The datastructure consists of a key and:
   or a specific transformation to make. You can find a detailed
   list of all supported features [[https://github.com/hrs/engine-mode][here]].
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((search-engine :variables
                      search-engine-config-list '((custom1
                                                   :name "Custom Search Engine 1"
@@ -92,3 +92,5 @@ If you'd rather not use helm but would want a specific search engine, remember
 the function generated is always =engine/search-(the name of the search engine
 lower-case and hyphen instead-of-spaces-for-separation)= so you can bind that to
 any key binding you want.
+
+

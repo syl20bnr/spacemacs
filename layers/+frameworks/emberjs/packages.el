@@ -1,11 +1,11 @@
-;;; packages.el --- emberjs layer packages file for Spacemacs.
+;;; packages.el --- emberjs layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Robert O'Connor <robby.oconnor@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -23,12 +23,12 @@
   (use-package ember-mode
     :defer t
     :config
-    (spacemacs/declare-prefix-for-mode 'ember-mode "f"  "framework")
-    (spacemacs/declare-prefix-for-mode 'ember-mode "fd" "destroy")
-    (spacemacs/declare-prefix-for-mode 'ember-mode "ff" "find")
-    (spacemacs/declare-prefix-for-mode 'ember-mode "fg" "generate")
-    (spacemacs/declare-prefix-for-mode 'ember-mode "fr" "run")
-    (spacemacs/set-leader-keys-for-minor-mode 'ember-mode
+    (space-macs/declare-prefix-for-mode 'ember-mode "f"  "framework")
+    (space-macs/declare-prefix-for-mode 'ember-mode "fd" "destroy")
+    (space-macs/declare-prefix-for-mode 'ember-mode "ff" "find")
+    (space-macs/declare-prefix-for-mode 'ember-mode "fg" "generate")
+    (space-macs/declare-prefix-for-mode 'ember-mode "fr" "run")
+    (space-macs/set-leader-keys-for-minor-mode 'ember-mode
       ;; Destroy
       "fdc" 'ember-destroy-controller
       "fdm" 'ember-destroy-model
@@ -77,3 +77,5 @@
     :defer t))
 
 ;;; packages.el ends here
+
+

@@ -1,12 +1,12 @@
-;;; packages.el --- autohotkey Layer packages File for Spacemacs
+;;; packages.el --- autohotkey Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Author: Rich Alesi <https://github.com/ralesi>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -18,12 +18,14 @@
     :defer t
     :init
     (progn
-      (spacemacs/declare-prefix-for-mode 'ahk-mode "mc" "comment")
-      (spacemacs/declare-prefix-for-mode 'ahk-mode "me" "eval")
-      (spacemacs/declare-prefix-for-mode 'ahk-mode "mh" "help")
-      (spacemacs/set-leader-keys-for-major-mode 'ahk-mode
+      (space-macs/declare-prefix-for-mode 'ahk-mode "mc" "comment")
+      (space-macs/declare-prefix-for-mode 'ahk-mode "me" "eval")
+      (space-macs/declare-prefix-for-mode 'ahk-mode "mh" "help")
+      (space-macs/set-leader-keys-for-major-mode 'ahk-mode
         "cb" 'ahk-comment-block-dwim
         "cc" 'ahk-comment-dwim
         "eb" 'ahk-run-script
         "hh" 'ahk-lookup-web
         "hH" 'ahk-lookup-chm))))
+
+

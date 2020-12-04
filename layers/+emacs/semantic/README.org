@@ -1,6 +1,6 @@
 #+TITLE: Semantic layer
 
-#+TAGS: emacs|layer
+#+TAGS: e-macs|layer
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -10,7 +10,7 @@
 
 * Description
 CEDET is a *C*ollection of *E*macs *D*evelopment *E*nvironment *T*ools written
-with the end goal of creating an advanced development environment in Emacs.
+with the end goal of creating an advanced development environment in e-macs.
 CEDET includes common features such as intelligent completion, source code
 navigation, project management, code generation with templates. CEDET also
 provides a framework for working with programming languages; support for new
@@ -33,8 +33,8 @@ language, instead of plain text structure. Semantic is the core of CEDET.
   [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos-elisp.org][this page]] for demonstration of Lisp formatting features.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =semantic= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =semantic= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -44,3 +44,5 @@ file.
 | ~SPC m r~   | srefactor: refactor thing at point.      |
 | ~SPC T S~   | toggle =semantic-stickyfunc-mode=        |
 | ~SPC T C-S~ | toggle =global-semantic-stickyfunc-mode= |
+
+

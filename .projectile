@@ -4,7 +4,8 @@
 -/elpa
 -/.cache
 -ac-comphist.dat
--.emacs.desktop
--.emacs.desktop.lock
+-.e-macs.desktop
+-.e-macs.desktop.lock
 -.smex-items
 -*.elc
+

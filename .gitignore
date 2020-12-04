@@ -8,8 +8,8 @@
 .cache
 .dap-breakpoints
 .directory
-.emacs.desktop
-.emacs.desktop.lock
+.e-macs.desktop
+.e-macs.desktop.lock
 .extension
 .lsp-session-*
 .mc-lists.el
@@ -94,3 +94,5 @@ gtags.files
 eln-cache/
 meghanada/
 vimish-fold/
+
+

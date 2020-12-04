@@ -11,7 +11,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer provides support for reading EPUB-formatted eBooks in Spacemacs using the
+This layer provides support for reading EPUB-formatted eBooks in Space-macs using the
 excellent [[https://github.com/wasamasa/nov.el][nov.el]] package.
 
 ** Features:
@@ -26,8 +26,8 @@ excellent [[https://github.com/wasamasa/nov.el][nov.el]] package.
 - Image rescaling
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =epub= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =epub= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -47,3 +47,5 @@ file.
 | ~g V~       | View content source |
 
 Hint: use ~SPC w c~ to center the buffer.
+
+

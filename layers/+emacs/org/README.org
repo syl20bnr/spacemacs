@@ -1,6 +1,6 @@
 #+TITLE: Org layer
 
-#+TAGS: emacs|layer
+#+TAGS: e-macs|layer
 
 [[file:img/org.png]]
 
@@ -61,7 +61,7 @@
   - [[#org-roam][Org-roam]]
 
 * Description
-This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
+This layer enables [[http://orgmode.org/][org mode]] for Space-macs.
 
 ** Features:
 - Vim inspired key bindings are provided by [[https://github.com/Somelauw/evil-org-mode][evil-org-mode]]
@@ -75,20 +75,20 @@ This layer enables [[http://orgmode.org/][org mode]] for Spacemacs.
 
 * BibTeX
 For more extensive support of references through BibTeX files, have a look at
-the [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/+lang/bibtex/README.org][BibTeX layer]].
+the [[https://github.com/syl20bnr/space-macs/blob/develop/layers/+lang/bibtex/README.org][BibTeX layer]].
 
 * Important Note
-Since version 0.104, spacemacs uses the =org= version from the =org= ELPA
-repository instead of the one shipped with emacs. Then, any =org= related code
-should not be loaded before =dotspacemacs/user-config=, otherwise both versions
+Since version 0.104, space-macs uses the =org= version from the =org= ELPA
+repository instead of the one shipped with e-macs. Then, any =org= related code
+should not be loaded before =dotspace-macs/user-config=, otherwise both versions
 will be loaded and will conflict.
 
 Because of autoloading, calling to =org= functions will trigger the loading up
-of the =org= shipped with emacs which will induce conflicts.
+of the =org= shipped with e-macs which will induce conflicts.
 One way to avoid conflict is to wrap your =org= config code in a
 =with-eval-after-load= block like this:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (with-eval-after-load 'org
     ;; here goes your Org config :)
     ;; ....
@@ -96,23 +96,23 @@ One way to avoid conflict is to wrap your =org= config code in a
 #+END_SRC
 
 Please also note that everything described here only applies if you install this
-layer instead of manually loading =org= as separate emacs package.
+layer instead of manually loading =org= as separate e-macs package.
 
 If this is not done you will encounter a lot of unbind key exceptions while working with org.
-More details can be found [[https://github.com/syl20bnr/spacemacs/issues/8106][here]].
+More details can be found [[https://github.com/syl20bnr/space-macs/issues/8106][here]].
 
 * Install
 ** Layer
-To use this configuration layer: in the main Spacemacs configuration
-file (=~/.spacemacs=), to the existing =dotspacemacs-configuration-layers= list
+To use this configuration layer: in the main Space-macs configuration
+file (=~/.space-macs=), to the existing =dotspace-macs-configuration-layers= list
 add the =org= entry.
 
 ** GitHub support
 To install GitHub related extensions like [[https://github.com/larstvei/ox-gfm][ox-gfm]] to export to GitHub
 flavored markdown set the variable =org-enable-github-support= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (org :variables org-enable-github-support t)))
 #+END_SRC
 
@@ -121,8 +121,8 @@ To enable the export to Twitter Bootstrap-formatted HTML - set
 the variable =org-enable-bootstrap-support= to =t=.
 This would install the [[https://github.com/marsmining/ox-twbs][ox-twbs]] extension.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (org :variables
          org-enable-bootstrap-support t)))
 #+END_SRC
@@ -133,15 +133,15 @@ demonstrated [[http://orgmode.org/worg/org-tutorials/org-plot.html][here]].
 
 Unfortunately, this is [[https://github.com/bruceravel/gnuplot-mode/issues/15][not terribly well supported]] on Windows,
 at this stage. To disable the configuration of gnuplot support - add
-the =gnuplot= package to your =dotspacemacs-excluded-packages= variable.
+the =gnuplot= package to your =dotspace-macs-excluded-packages= variable.
 
 ** Reveal.js support
 To enable the export of org files as a [[http://lab.hakim.se/reveal-js/][reveal.js]] presentation - set the
 variable =org-enable-reveal-js-support= to =t=.
-This would install the [[https://gitlab.com/oer/org-re-reveal/][org-re-reveal]] Emacs extension.
+This would install the [[https://gitlab.com/oer/org-re-reveal/][org-re-reveal]] e-macs extension.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
    '((org :variables org-enable-reveal-js-support t)))
 #+END_SRC
 
@@ -160,28 +160,28 @@ Alternatively, add the following line to each =.org= file you want to process:
 - Keeps a separate journal file for each day inside a directory
 - New daily file would always migrate entries with chosen TODO states
 - Has journal encryption functionality
-- Easily integrates with org-agenda and Emacs calendar, iCalendar,
+- Easily integrates with org-agenda and e-macs calendar, iCalendar,
   allows scheduling
 - Easily integrates with org-capture
 
 To install org-journal - set the variable =org-enable-org-journal-support= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (org :variables
          org-enable-org-journal-support t)))
 #+END_SRC
 
 By default, journal files are stored in =~/Documents/journal/=. To override
-this - set =org-journal-dir= variable in the =dotspacemacs/user-config=:
+this - set =org-journal-dir= variable in the =dotspace-macs/user-config=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq org-journal-dir "~/org/journal/")
 #+END_SRC
 
 To change the journal file name format - alter =org-journal-file-format=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq org-journal-file-format "%Y-%m-%d")
 #+END_SRC
 
@@ -197,9 +197,9 @@ by the date in the form set by locale. To format journal files differently:
     #+TITLE: Tuesday, September 06 2016
   #+END_EXAMPLE
 
-- define the following in =dotspacemacs/user-config=:
+- define the following in =dotspace-macs/user-config=:
 
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC e-macs-lisp
     (setq org-journal-date-prefix "#+TITLE: ")
     (setq org-journal-date-format "%A, %B %d %Y")
   #+END_SRC
@@ -209,20 +209,20 @@ you start your journal files with a Title as shown above you may want to adjust
 entries to start at the first level heading and you may want to change or omit
 the timestamp.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq org-journal-time-prefix "* ")
   (setq org-journal-time-format "")
 #+END_SRC
 
-Any of the org-journal settings can be configured in =dotspacemacs/user-config=
+Any of the org-journal settings can be configured in =dotspace-macs/user-config=
 or defined alongside the layer itself.
 
 For example:
 
 #+CAPTION: Configure org-journal with the layer
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (org :variables
         org-enable-org-journal-support t
         org-journal-dir "~/org/journal/"
@@ -239,8 +239,8 @@ To install the Org exporter [[https://ox-hugo.scripter.co][ox-hugo]] that genera
 /plus/ TOML/YAML front-matter, set the variable =org-enable-hugo-support= to
 =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (org :variables
          org-enable-hugo-support t)))
 #+END_SRC
@@ -248,25 +248,25 @@ To install the Org exporter [[https://ox-hugo.scripter.co][ox-hugo]] that genera
 ** Trello support
 To install Trello support set the variable =org-enable-trello-support= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (org :variables
          org-enable-trello-support t)))
 #+END_SRC
 
 ** Different bullets
 You can tweak the bullets displayed in the org buffer in the function
-=dotspacemacs/user-config= of your dotfile by setting the variable
-=org-superstar-headline-bullets-list=. By default the list is set to =("◉" "○" "✸" "✿")=.
+=dotspace-macs/user-config= of your dotfile by setting the variable
+=org-superstar-headline-bullets-list=. By default the list is set to =("â—‰" "â—‹" "âœ¸" "âœ¿")=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq org-superstar-bullet-list '("■" "◆" "▲" "▶"))
+#+BEGIN_SRC e-macs-lisp
+  (setq org-superstar-bullet-list '("â– " "â—†" "â–²" "â–¶"))
 #+END_SRC
 
-You can disable the fancy bullets entirely by adding =org-superstar= to =dotspacemacs-excluded-packages=.
+You can disable the fancy bullets entirely by adding =org-superstar= to =dotspace-macs-excluded-packages=.
 
-#+BEGIN_SRC emacs-lisp
-  (dotspacemacs-excluded-packages '(org-superstar))
+#+BEGIN_SRC e-macs-lisp
+  (dotspace-macs-excluded-packages '(org-superstar))
 #+END_SRC
 
 ** Project support
@@ -275,15 +275,15 @@ store project-specific TODOs. If this is an absolute path, all todos will be
 stored in the same file (organized by project), whereas if it is just a single
 filename, todos will be stored in each project root.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((org :variables org-projectile-file "TODOs.org")))
 #+END_SRC
 
 The TODO files are not added to the agenda automatically. You can do this with
 the following snippet.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (with-eval-after-load 'org-agenda
     (require 'org-projectile)
     (mapcar '(lambda (file)
@@ -293,14 +293,14 @@ the following snippet.
 #+END_SRC
 
 ** Org-brain support
-For Emacs 25 or later, support for [[https://kungsgeten.github.io/org-brain.html][org-brain]] is included. See the [[https://github.com/Kungsgeten/org-brain][org-brain
+For e-macs 25 or later, support for [[https://kungsgeten.github.io/org-brain.html][org-brain]] is included. See the [[https://github.com/Kungsgeten/org-brain][org-brain
 package documentation]] for more information.
 
 ** Org-roam support
 To install org-roam support set the variable =org-enable-roam-support= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (org :variables
          org-enable-roam-support t)))
 #+END_SRC
@@ -311,7 +311,7 @@ More information about org-roam package (including manual) can be found at [[htt
 To temporarily enable mode line display of org clock, press ~SPC t m c~.
 
 To permanently enable mode line display of org clock, add this snippet to your
-=dotspacemacs/user-config= function:
+=dotspace-macs/user-config= function:
 
 #+BEGIN_SRC elisp
   (setq spaceline-org-clock-p t)
@@ -320,8 +320,8 @@ To permanently enable mode line display of org clock, add this snippet to your
 ** Sticky header support
 To install sticky header support set the variable =org-enable-sticky-header= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (org :variables
          org-enable-sticky-header t)))
 #+END_SRC
@@ -330,8 +330,8 @@ To install sticky header support set the variable =org-enable-sticky-header= to 
 To install the Org exporter [[https://github.com/ofosos/ox-epub][ox-epub]] that generates e-book file format [[https://en.wikipedia.org/wiki/EPUB][epub]], set
 the variable =org-enable-epub-support= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs--configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs--configuration-layers
                 '((org :variables
                        org-enable-epub-support t)))
 #+END_SRC
@@ -340,8 +340,8 @@ the variable =org-enable-epub-support= to =t=.
 To bring Jira and OrgMode together over [[https://github.com/ahungry/org-jira][org-jira]] set the variable
 =org-enable-jira-support= to =t=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (org :variables
          org-enable-jira-support t
          jiralib-url "https://yourcompany.atlassian.net:443")))
@@ -359,8 +359,8 @@ you connect, add your authentication credentials to =~/.authinfo.gpg= or
 To install [[https://github.com/federicotdn/verb][Verb]], an HTTP client based on Org mode, set the
 =org-enable-verb-support= variable to =t=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
    '((org :variables org-enable-verb-support t)))
 #+END_SRC
 
@@ -408,11 +408,11 @@ To install [[https://github.com/federicotdn/verb][Verb]], an HTTP client based o
 
 | Key binding                                  | Description                                   |
 |----------------------------------------------+-----------------------------------------------|
-| ~SPC m <dotspacemacs-major-mode-leader-key>~ | org-ctrl-c-ctrl-c                             |
+| ~SPC m <dotspace-macs-major-mode-leader-key>~ | org-ctrl-c-ctrl-c                             |
 | ~SPC m *~                                    | org-ctrl-c-star                               |
 | ~SPC m RET~                                  | org-ctrl-c-ret                                |
 | ~SPC m -~                                    | org-ctrl-c-minus                              |
-| ~SPC m '​~                                    | org-edit-special                              |
+| ~SPC m 'â€‹~                                    | org-edit-special                              |
 | ~SPC m a~                                    | org-agenda                                    |
 | ~SPC m A~                                    | org-attach                                    |
 | ~SPC m c~                                    | org-capture                                   |
@@ -443,7 +443,7 @@ To install [[https://github.com/federicotdn/verb][Verb]], an HTTP client based o
 | ~SPC m C-S-h~                                | org-shiftcontrolleft                          |
 | ~SPC m C-S-j~                                | org-shiftcontroldown                          |
 | ~SPC m C-S-k~                                | org-shiftcontrolup                            |
-| ~SPC s j~                                    | spacemacs/jump-in-buffer (jump to a heading)  |
+| ~SPC s j~                                    | space-macs/jump-in-buffer (jump to a heading)  |
 
 ** Org with evil-org-mode
 Please see the [[https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org][evil-org documentation]] for additional instructions on customizing
@@ -548,7 +548,7 @@ are also available.
 | ~SPC m i h~   | org-insert-heading                            |
 | ~SPC m i H~   | org-insert-heading-after-current              |
 | ~SPC m i i~   | org-insert-item                               |
-| ~SPC m i K~   | spacemacs/insert-keybinding-org               |
+| ~SPC m i K~   | space-macs/insert-keybinding-org               |
 | ~SPC m i l~   | org-insert-link                               |
 | ~SPC m i L~   | insert URL with its page title from clipboard |
 | ~SPC m i n~   | org-add-note                                  |
@@ -636,8 +636,8 @@ conventions.
 
 | Key binding                                  | Description                            |
 |----------------------------------------------+----------------------------------------|
-| ~SPC m <dotspacemacs-major-mode-leader-key>~ | confirm in =org-capture-mode=          |
-| ~SPC m '​~                                    | confirm in =org-src-mode=              |
+| ~SPC m <dotspace-macs-major-mode-leader-key>~ | confirm in =org-capture-mode=          |
+| ~SPC m 'â€‹~                                    | confirm in =org-src-mode=              |
 | ~SPC m c~                                    | confirm                                |
 | ~SPC m a~                                    | abort                                  |
 | ~SPC m k~                                    | abort                                  |
@@ -919,3 +919,5 @@ Key binding prefixes:
 | ~[prefix] r d T~ | Open tomorrow's daily note            |
 | ~[prefix] r t a~ | add org-roam tag to file              |
 | ~[prefix] r t d~ | delete org-roam tag from file         |
+
+

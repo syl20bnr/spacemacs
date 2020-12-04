@@ -23,6 +23,8 @@ For details, see the [[https://github.com/jmickelin/vim-empty-lines-mode][vim-em
 - Brings you as close to vim as one can be without using vim itself.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =vim-empty-lines= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =vim-empty-lines= to the existing =dotspace-macs-configuration-layers= list in this
 file.
+
+

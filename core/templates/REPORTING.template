@@ -2,7 +2,7 @@
 <<DESCRIPTION OF THE PROBLEM>>
 
 #### Reproduction guide :beetle:
-- Start Emacs
+- Start e-macs
 - <<REPRODUCTION STEPS>>
 
 *Observed behaviour:* :eyes: :broken_heart:
@@ -18,3 +18,5 @@
 ```
 %BACKTRACE%
 ```
+
+

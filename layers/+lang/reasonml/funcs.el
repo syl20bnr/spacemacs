@@ -1,11 +1,11 @@
-;;; funcs.el --- reasonml layer functions file for Spacemacs
+;;; funcs.el --- reasonml layer functions file for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Dave Aitken <dave.aitken@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -26,3 +26,5 @@
   (if (use-region-p)
       (apply-refmt (region-beginning) (region-end) "ml" "re")
     (apply-refmt nil nil "ml" "re")))
+
+

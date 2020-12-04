@@ -1,12 +1,12 @@
-;;; packages.el --- Asciidoc Layer packages File for Spacemacs
+;;; packages.el --- Asciidoc Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Mark Safronov <hijarian@gmail.com>
 ;; Author: Torben Hoffmann <torben.lehoff@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -26,7 +26,7 @@
       ;; functions are defined.
 
       ;; See /doc/CONVENTIONS.md#plain-text-markup-languages
-      (spacemacs/set-leader-keys-for-major-mode 'adoc-mode
+      (space-macs/set-leader-keys-for-major-mode 'adoc-mode
         "h1" 'tempo-template-adoc-title-1
         ;; Alternative method of inserting top-level heading
         "hI" 'tempo-template-adoc-title-1
@@ -44,3 +44,5 @@
       (define-key adoc-mode-map (kbd "M-h") 'adoc-demote)
       ;; see the comment about  adoc-demote above
       (define-key adoc-mode-map (kbd "M-l") 'adoc-promote))))
+
+

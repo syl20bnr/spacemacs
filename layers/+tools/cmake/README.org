@@ -27,8 +27,8 @@ This layer adds support [[https://cmake.org/][CMake]] scripts.
 - Extraction of compile parameters from =compile_commands.json= with [[https://github.com/atilaneves/cmake-ide][cmake-ide]]
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =cmake= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =cmake= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
@@ -45,20 +45,20 @@ limited IDE capabilities. Used best if only small scripts
 are edited. To set explicitly set the following in your
 dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (cmake :variables cmake-backend 'company-cmake)
 #+END_SRC
 
 *** LSP
 For proper IDE support this backend should be used. It is
 based on an external server which will be started automatically
-by emacs, once a cmake file is opened. The key bindings are
+by e-macs, once a cmake file is opened. The key bindings are
 the same for all lsp modes so if you are already familiar with
 one you should be able to work the same in all modes.
 
 To set explicitly do the following in your dotfile:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (cmake :variables
           cmake-backend 'lsp)
 #+END_SRC
@@ -81,8 +81,8 @@ intellisense config for LSP.
 To enable CMake projects support set the layer variable =cmake-enable-cmake-ide-support=
 to =t= in your dotfile:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((cmake :variables cmake-enable-cmake-ide-support t)))
 #+END_SRC
 
@@ -101,7 +101,7 @@ build your project with ~SPC c c~ key binding.
 Additionally it's possible to configure =helm-ctest= in the same way via defining ~helm-ctest-dir~.
 Trailing slash is required.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ((nil .
         ((cmake-ide-project-dir . "~/Project")
          (cmake-ide-build-dir . "~/Project/build")
@@ -114,7 +114,7 @@ Trailing slash is required.
 
 In case of projectile it's possible to configure project like:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ((nil . ((eval . (setq
                     projectile-project-test-cmd #'helm-ctest
                     projectile-project-compilation-cmd #'helm-make-projectile
@@ -136,3 +136,5 @@ In case of projectile it's possible to configure project like:
 | ~SPC m p C~ | Run CMake if compilation database JSON file is not found                |
 | ~SPC m p d~ | Remove file connected to current buffer and kill buffer, then run CMake |
 | ~SPC m p t~ | Run CTest                                                               |
+
+

@@ -15,8 +15,8 @@ This layer adds support for [[https://github.com/yasuyk/web-beautify][web-beauti
 - Format buffer to be beautiful
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =web-beautify= to the existing =dotspacemacs-configuration-layers= list in
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =web-beautify= to the existing =dotspace-macs-configuration-layers= list in
 this file.
 
 To install =js-beautify= globally:
@@ -30,3 +30,5 @@ To install =js-beautify= globally:
 | Key binding | Description                       |
 |-------------+-----------------------------------|
 | ~SPC m = =~ | beautify code in supported layers |
+
+

@@ -1,11 +1,11 @@
-;;; packages.el --- rcirc Layer packages File for Spacemacs
+;;; packages.el --- rcirc Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -31,56 +31,56 @@
     window-purpose))
 
 (defun rcirc/post-init-company ()
-  (spacemacs|add-company-backends :backends company-capf :modes rcirc-mode))
+  (space-macs|add-company-backends :backends company-capf :modes rcirc-mode))
 
 (defun rcirc/post-init-company-emoji ()
-  (spacemacs|add-company-backends :backends company-emoji :modes rcirc-mode))
+  (space-macs|add-company-backends :backends company-emoji :modes rcirc-mode))
 
 (defun rcirc/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'rcirc-mode-hook 'emoji-cheat-sheet-plus-display-mode))
 
 (defun rcirc/post-init-emojify ()
-  (spacemacs|use-package-add-hook rcirc
+  (space-macs|use-package-add-hook rcirc
     :post-config
     (use-package emojify
       :hook (rcirc-mode . emojify-mode)
       :if rcirc-enable-emojify)))
 
 (defun rcirc/init-erc-image ()
-  (spacemacs|use-package-add-hook rcirc
+  (space-macs|use-package-add-hook rcirc
     :post-config
     (use-package erc-image
       :if rcirc-enable-erc-image
       :init (with-eval-after-load 'rcirc
-              (setq erc-image-images-path (concat spacemacs-cache-directory
+              (setq erc-image-images-path (concat space-macs-cache-directory
                                                   "erc-image/"))
               (make-directory erc-image-images-path t)
               (add-hook 'rcirc-markup-text-functions
-                        #'spacemacs//rcirc-image-show-url)))))
+                        #'space-macs//rcirc-image-show-url)))))
 
 (defun rcirc/init-erc-tweet ()
-  (spacemacs|use-package-add-hook rcirc
+  (space-macs|use-package-add-hook rcirc
     :post-config
     (use-package erc-tweet
       :if rcirc-enable-erc-tweet
       :init (with-eval-after-load 'rcirc
-              (setq erc-tweet-cache-dir (concat spacemacs-cache-directory
+              (setq erc-tweet-cache-dir (concat space-macs-cache-directory
                                                 "erc-tweet/"))
               (make-directory erc-tweet-cache-dir t)
               (add-hook 'rcirc-markup-text-functions
-                        #'spacemacs//rcirc-tweet-show-tweet)))))
+                        #'space-macs//rcirc-tweet-show-tweet)))))
 
 (defun rcirc/init-erc-yt ()
-  (spacemacs|use-package-add-hook rcirc
+  (space-macs|use-package-add-hook rcirc
     :post-config
     (use-package erc-yt
       :if rcirc-enable-erc-yt
       :init
       (with-eval-after-load 'rcirc
-        (setq erc-yt-cache-dir (concat spacemacs-cache-directory "erc-yt/"))
+        (setq erc-yt-cache-dir (concat space-macs-cache-directory "erc-yt/"))
         (make-directory erc-yt-cache-dir t)
         (add-hook 'rcirc-markup-text-functions
-                  #'spacemacs//rcirc-youtube-show-info)))))
+                  #'space-macs//rcirc-youtube-show-info)))))
 
 (defun rcirc/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'rcirc-mode-hook))
@@ -89,38 +89,38 @@
   (use-package helm-rcirc
     :commands helm-rcirc-auto-join-channels
     :init
-    (spacemacs/set-leader-keys "irc" 'helm-rcirc-auto-join-channels)))
+    (space-macs/set-leader-keys "irc" 'helm-rcirc-auto-join-channels)))
 
 (defun rcirc/pre-init-persp-mode ()
-  (spacemacs|use-package-add-hook persp-mode
+  (space-macs|use-package-add-hook persp-mode
     :post-config
     (progn
       (add-to-list 'persp-filter-save-buffers-functions
-                   'spacemacs//rcirc-persp-filter-save-buffers-function)
-      (spacemacs|define-custom-layout rcirc-spacemacs-layout-name
-        :binding rcirc-spacemacs-layout-binding
+                   'space-macs//rcirc-persp-filter-save-buffers-function)
+      (space-macs|define-custom-layout rcirc-space-macs-layout-name
+        :binding rcirc-space-macs-layout-binding
         :body
         (progn
-          (add-hook 'rcirc-mode-hook #'spacemacs//rcirc-buffer-to-persp)
-          (call-interactively #'spacemacs/rcirc))))))
+          (add-hook 'rcirc-mode-hook #'space-macs//rcirc-buffer-to-persp)
+          (call-interactively #'space-macs/rcirc))))))
 
 (defun rcirc/init-rcirc ()
   (use-package rcirc
     :defer t
     :init
     (progn
-      (spacemacs/add-to-hook 'rcirc-mode-hook '(rcirc-omit-mode
+      (space-macs/add-to-hook 'rcirc-mode-hook '(rcirc-omit-mode
                                                 rcirc-track-minor-mode))
 
-      (spacemacs/set-leader-keys "acir" 'spacemacs/rcirc)
-      (spacemacs/declare-prefix "aci"  "irc")
+      (space-macs/set-leader-keys "acir" 'space-macs/rcirc)
+      (space-macs/declare-prefix "aci"  "irc")
       (evil-set-initial-state 'rcirc-mode 'insert)
       (setq rcirc-fill-column 80
             rcirc-buffer-maximum-lines 2048
             rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY" "MODE")
             rcirc-time-format "%Y-%m-%d %H:%M "
             rcirc-omit-threshold 20
-            rcirc-log-directory (concat spacemacs-cache-directory "/rcirc-logs/")
+            rcirc-log-directory (concat space-macs-cache-directory "/rcirc-logs/")
             rcirc-log-flag t))
     :config
     (progn
@@ -141,11 +141,11 @@
 
       ;; add a key for EMMS integration
       (when (boundp 'emms-track-description)
-        (define-key rcirc-mode-map (kbd "C-c C-e") 'spacemacs/rcirc-insert-current-emms-track))
+        (define-key rcirc-mode-map (kbd "C-c C-e") 'space-macs/rcirc-insert-current-emms-track))
 
-      ;; Minimal logging to `~/.emacs.d/.cache/rcirc-logs/'
+      ;; Minimal logging to `~/.e-macs.d/.cache/rcirc-logs/'
       ;; by courtesy of Trent Buck.
-      (add-hook 'rcirc-print-hooks 'spacemacs//rcirc-write-log)
+      (add-hook 'rcirc-print-hooks 'space-macs//rcirc-write-log)
 
       ;; dependencies
       ;; will autoload rcirc-notify
@@ -153,8 +153,8 @@
       (require 'rcirc-color)
       (when rcirc-enable-styles
         (require 'rcirc-styles)
-        (spacemacs/declare-prefix-for-mode 'rcirc-mode "mi" "insert")
-        (spacemacs/set-leader-keys-for-major-mode 'rcirc-mode
+        (space-macs/declare-prefix-for-mode 'rcirc-mode "mi" "insert")
+        (space-macs/set-leader-keys-for-major-mode 'rcirc-mode
           "ic" 'rcirc-styles-insert-color
           "ia" 'rcirc-styles-insert-attribute
           "ip" 'rcirc-styles-toggle-preview)))))
@@ -163,7 +163,7 @@
   (use-package rcirc-color :defer t))
 
 (defun rcirc/init-rcirc-late-fix ()
-  (spacemacs|use-package-add-hook rcirc
+  (space-macs|use-package-add-hook rcirc
     :post-config
     (when rcirc-enable-late-fix
       (use-package rcirc-late-fix))))
@@ -176,9 +176,11 @@
     :defer t
     :config
     (progn
-      (add-hook 'rcirc-notify-page-me-hooks 'spacemacs/rcirc-notify-beep))))
+      (add-hook 'rcirc-notify-page-me-hooks 'space-macs/rcirc-notify-beep))))
 
 (defun rcirc/post-init-window-purpose ()
   (purpose-set-extension-configuration
    :rcirc-layer
    (purpose-conf :mode-purposes '((rcirc-mode . chat)))))
+
+

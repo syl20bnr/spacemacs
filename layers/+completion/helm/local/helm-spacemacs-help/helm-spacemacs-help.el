@@ -1,7 +1,7 @@
-;;; helm-spacemacs-help.el --- Spacemacs layer exploration with `helm'.
+;;; helm-space-macs-help.el --- Space-macs layer exploration with `helm'.
 
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; Keywords: helm, spacemacs
+;; Keywords: helm, space-macs
 ;; Version: 0.1
 ;; Package-Requires: ((helm "1.5"))
 
@@ -16,12 +16,12 @@
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to
+;; along with GNU e-macs; see the file COPYING.  If not, write to
 ;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
-;; This package adds a convenient way to discover Spacemacs configuration
+;; This package adds a convenient way to discover Space-macs configuration
 ;; layers thanks to helm.
 
 ;;; Code:
@@ -32,86 +32,86 @@
 (require 'helm-command)
 (require 'core-configuration-layer)
 
-(defvar helm-spacemacs--initialized nil
-  "Non nil if helm-spacemacs is initialized.")
+(defvar helm-space-macs--initialized nil
+  "Non nil if helm-space-macs is initialized.")
 
 ;;;###autoload
-(define-minor-mode helm-spacemacs-help-mode
+(define-minor-mode helm-space-macs-help-mode
   "Layers discovery with helm interface."
-  :group 'spacemacs
+  :group 'space-macs
   :global t)
 
-(defun helm-spacemacs-help//init (&optional arg)
-  (when (or arg (null helm-spacemacs--initialized))
+(defun helm-space-macs-help//init (&optional arg)
+  (when (or arg (null helm-space-macs--initialized))
     (configuration-layer/make-all-packages nil t)
-    (setq helm-spacemacs--initialized t)))
+    (setq helm-space-macs--initialized t)))
 
 ;;;###autoload
-(defun helm-spacemacs-help (arg)
+(defun helm-space-macs-help (arg)
   "Layers discovery with helm interface."
   (interactive "P")
-  (helm-spacemacs-help-mode)
-  (helm-spacemacs-help//init arg)
-  (helm :buffer "*helm: spacemacs*"
-        :sources `(,(helm-spacemacs-help//documentation-source)
-                   ,(helm-spacemacs-help//layer-source)
-                   ,(helm-spacemacs-help//package-source)
-                   ,(helm-spacemacs-help//dotspacemacs-source)
-                   ,(helm-spacemacs-help//toggle-source))))
+  (helm-space-macs-help-mode)
+  (helm-space-macs-help//init arg)
+  (helm :buffer "*helm: space-macs*"
+        :sources `(,(helm-space-macs-help//documentation-source)
+                   ,(helm-space-macs-help//layer-source)
+                   ,(helm-space-macs-help//package-source)
+                   ,(helm-space-macs-help//dotspace-macs-source)
+                   ,(helm-space-macs-help//toggle-source))))
 
 ;;;###autoload
-(defun helm-spacemacs-help-dotspacemacs ()
+(defun helm-space-macs-help-dotspace-macs ()
   "Helm session to search for dotfile variables."
   (interactive)
-  (helm-spacemacs-help-mode)
-  (helm :buffer "*helm: spacemacs*"
-        :sources `(,(helm-spacemacs-help//dotspacemacs-source))))
+  (helm-space-macs-help-mode)
+  (helm :buffer "*helm: space-macs*"
+        :sources `(,(helm-space-macs-help//dotspace-macs-source))))
 
 ;;;###autoload
-(defun helm-spacemacs-help-layers ()
+(defun helm-space-macs-help-layers ()
   "Helm session to search for layers."
   (interactive)
-  (helm-spacemacs-help-mode)
-  (helm :buffer "*helm: spacemacs*"
-        :sources `(,(helm-spacemacs-help//layer-source))))
+  (helm-space-macs-help-mode)
+  (helm :buffer "*helm: space-macs*"
+        :sources `(,(helm-space-macs-help//layer-source))))
 
 ;;;###autoload
-(defun helm-spacemacs-help-packages (arg)
+(defun helm-space-macs-help-packages (arg)
   "Helm session to search for packages."
   (interactive "P")
-  (helm-spacemacs-help-mode)
-  (helm-spacemacs-help//init arg)
-  (helm :buffer "*helm: spacemacs*"
-        :sources `(,(helm-spacemacs-help//package-source))))
+  (helm-space-macs-help-mode)
+  (helm-space-macs-help//init arg)
+  (helm :buffer "*helm: space-macs*"
+        :sources `(,(helm-space-macs-help//package-source))))
 
 ;;;###autoload
-(defun helm-spacemacs-help-docs ()
+(defun helm-space-macs-help-docs ()
   "Helm session to search for documentation."
   (interactive)
-  (helm-spacemacs-help-mode)
-  (helm :buffer "*helm: spacemacs*"
-        :sources `(,(helm-spacemacs-help//documentation-source))))
+  (helm-space-macs-help-mode)
+  (helm :buffer "*helm: space-macs*"
+        :sources `(,(helm-space-macs-help//documentation-source))))
 
 ;;;###autoload
-(defun helm-spacemacs-help-toggles ()
+(defun helm-space-macs-help-toggles ()
   "Helm session to search for toggles."
   (interactive)
-  (helm-spacemacs-help-mode)
-  (helm :buffer "*helm: spacemacs*"
-        :sources `(,(helm-spacemacs-help//toggle-source))))
+  (helm-space-macs-help-mode)
+  (helm :buffer "*helm: space-macs*"
+        :sources `(,(helm-space-macs-help//toggle-source))))
 
-(defun helm-spacemacs-help//documentation-source ()
+(defun helm-space-macs-help//documentation-source ()
   "Construct the helm source for the documentation section."
-  (helm-build-sync-source "Spacemacs Documentation"
-    :candidates #'helm-spacemacs-help//documentation-candidates
-    :persistent-action #'helm-spacemacs-help//documentation-action-open-file
+  (helm-build-sync-source "Space-macs Documentation"
+    :candidates #'helm-space-macs-help//documentation-candidates
+    :persistent-action #'helm-space-macs-help//documentation-action-open-file
     :keymap helm-map
     :action (helm-make-actions
-             "Open Documentation" #'helm-spacemacs-help//documentation-action-open-file)))
+             "Open Documentation" #'helm-space-macs-help//documentation-action-open-file)))
 
-(defun helm-spacemacs-help//documentation-candidates ()
+(defun helm-space-macs-help//documentation-candidates ()
   (let (result file-extension)
-    (dolist (filename (directory-files spacemacs-docs-directory))
+    (dolist (filename (directory-files space-macs-docs-directory))
       (setq file-extension (file-name-extension filename))
       (when (or (equal file-extension "md")
                 (equal file-extension "org"))
@@ -131,66 +131,66 @@
                ((string-equal r "BEGINNERS_TUTORIAL.org")
                 `("Beginners tutorial" . ,r))
                ((string-equal r "CONTRIBUTING.org")
-                `("How to contribute to Spacemacs" . ,r))
+                `("How to contribute to Space-macs" . ,r))
                ((string-equal r "CONVENTIONS.org")
-                `("Spacemacs conventions" . ,r))
+                `("Space-macs conventions" . ,r))
                ((string-equal r "DOCUMENTATION.org")
-                `("Spacemacs documentation" . ,r))
+                `("Space-macs documentation" . ,r))
                ((string-equal r "FAQ.org")
-                `("Spacemacs FAQ" . ,r))
+                `("Space-macs FAQ" . ,r))
                ((string-equal r "LAYERS.org")
-                `("Tips on writing layers for Spacemacs" . ,r))
+                `("Tips on writing layers for Space-macs" . ,r))
                ((string-equal r "QUICK_START.org")
-                `("Quick start guide for Spacemacs" . ,r))
+                `("Quick start guide for Space-macs" . ,r))
                ((string-equal r "VIMUSERS.org")
                 `("Vim users migration guide" . ,r))
                (t
                 `(,r . ,r))))
             result)))
 
-(defun helm-spacemacs-help//documentation-action-open-file (candidate)
+(defun helm-space-macs-help//documentation-action-open-file (candidate)
   "Open documentation FILE."
   (let ((file (if (string= candidate "CONTRIBUTING.org")
                   ;; CONTRIBUTING.org is a special case as it should be at the
                   ;; root of the repository to be linked as the contributing
                   ;; guide on GitHub.
-                  (concat spacemacs-start-directory candidate)
-                (concat spacemacs-docs-directory candidate))))
+                  (concat space-macs-start-directory candidate)
+                (concat space-macs-docs-directory candidate))))
     (cond ((and (equal (file-name-extension file) "md")
                 (not helm-current-prefix-arg))
            (condition-case-unless-debug nil
                (with-current-buffer (find-file-noselect file)
                  (gh-md-render-buffer)
-                 (spacemacs/kill-this-buffer))
+                 (space-macs/kill-this-buffer))
              ;; if anything fails, fall back to simply open file
              (find-file file)))
           ((equal (file-name-extension file) "org")
-           (spacemacs/view-org-file file "^" 'all))
+           (space-macs/view-org-file file "^" 'all))
           (t
            (find-file file)))))
 
-(defun helm-spacemacs-help//layer-source ()
+(defun helm-space-macs-help//layer-source ()
   "Construct the helm source for the layer section."
   `((name . "Layers")
     (candidates . ,(sort (configuration-layer/get-layers-list) 'string<))
     (candidate-number-limit)
-    (keymap . ,helm-spacemacs-help--layer-map)
+    (keymap . ,helm-space-macs-help--layer-map)
     (action . (("Open README.org"
-                . helm-spacemacs-help//layer-action-open-readme)
+                . helm-space-macs-help//layer-action-open-readme)
                ("Open packages.el"
-                . helm-spacemacs-help//layer-action-open-packages)
+                . helm-space-macs-help//layer-action-open-packages)
                ("Open config.el"
-                . helm-spacemacs-help//layer-action-open-config)
+                . helm-space-macs-help//layer-action-open-config)
                ("Open funcs.el"
-                . helm-spacemacs-help//layer-action-open-funcs)
+                . helm-space-macs-help//layer-action-open-funcs)
                ("Open layers.el"
-                . helm-spacemacs-help//layer-action-open-layers)
+                . helm-space-macs-help//layer-action-open-layers)
                ("Install Layer"
-                . helm-spacemacs-help//layer-action-install-layer)
+                . helm-space-macs-help//layer-action-install-layer)
                ("Open README.org (for editing)"
-                . helm-spacemacs-help//layer-action-open-readme-edit)))))
+                . helm-space-macs-help//layer-action-open-readme-edit)))))
 
-(defvar helm-spacemacs-help--layer-map
+(defvar helm-space-macs-help--layer-map
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map helm-map)
     (define-key map (kbd "<S-return>") '(lambda () (interactive)
@@ -200,21 +200,21 @@
                                           ;; Open packages.el
                                           (helm-select-nth-action 1)))
     map)
-  "Keymap for Spacemacs Layers sources")
+  "Keymap for Space-macs Layers sources")
 
-(defun helm-spacemacs-help//package-source ()
+(defun helm-space-macs-help//package-source ()
   "Construct the helm source for the packages."
   `((name . "Packages")
-    (candidates . ,(helm-spacemacs-help//package-candidates))
+    (candidates . ,(helm-space-macs-help//package-candidates))
     (candidate-number-limit)
     (action . (("Go to configuration function"
-                . helm-spacemacs-help//package-action-goto-config-func)
+                . helm-space-macs-help//package-action-goto-config-func)
                ("Describe"
-                . helm-spacemacs-help//package-action-describe)
+                . helm-space-macs-help//package-action-describe)
                ("Recompile"
-                . helm-spacemacs-help//package-action-recompile)))))
+                . helm-space-macs-help//package-action-recompile)))))
 
-(defun helm-spacemacs-help//package-candidates ()
+(defun helm-space-macs-help//package-candidates ()
   "Return the sorted candidates for package source."
   (let (result)
     (dolist (pkg-name (configuration-layer/get-packages-list))
@@ -243,19 +243,19 @@
                     result))))))
     (sort result 'string<)))
 
-(defun helm-spacemacs-help//toggle-source ()
+(defun helm-space-macs-help//toggle-source ()
   "Construct the helm source for the toggles."
-  (let ((candidates (helm-spacemacs-help//toggle-candidates)))
+  (let ((candidates (helm-space-macs-help//toggle-candidates)))
     (helm-build-sync-source "Toggles"
       :candidates candidates
-      :persistent-action #'helm-spacemacs-help//toggle
+      :persistent-action #'helm-space-macs-help//toggle
       :keymap helm-map
-      :action (helm-make-actions "Toggle" #'helm-spacemacs-help//toggle))))
+      :action (helm-make-actions "Toggle" #'helm-space-macs-help//toggle))))
 
-(defun helm-spacemacs-help//toggle-candidates ()
+(defun helm-space-macs-help//toggle-candidates ()
   "Return the sorted candidates for toggle source."
   (let (result)
-    (dolist (toggle spacemacs-toggles)
+    (dolist (toggle space-macs-toggles)
       (let* ((toggle-symbol (symbol-name (car toggle)))
              (toggle-status (funcall (plist-get (cdr toggle) :predicate)))
              (toggle-name (capitalize (replace-regexp-in-string "-" " " toggle-symbol)))
@@ -267,7 +267,7 @@
                                   'face 'font-lock-doc-face))))
         (when (plist-member (cdr toggle) :evil-leader)
           (let ((key (key-description
-                      (kbd (concat dotspacemacs-leader-key " "
+                      (kbd (concat dotspace-macs-leader-key " "
                                    (plist-get (cdr toggle) :evil-leader))))))
             (setq toggle-doc
                   (format "%s (%s)"
@@ -279,17 +279,17 @@
     (setq result (cl-sort result 'string< :key 'car))
     result))
 
-(defun helm-spacemacs-help//dotspacemacs-source ()
+(defun helm-space-macs-help//dotspace-macs-source ()
   `((name . "Dotfile")
-    (candidates . ,(helm-spacemacs-help//dotspacemacs-candidates))
+    (candidates . ,(helm-space-macs-help//dotspace-macs-candidates))
     (candidate-number-limit)
-    (action . (("Go to variable" . helm-spacemacs-help//go-to-dotfile-variable)))))
+    (action . (("Go to variable" . helm-space-macs-help//go-to-dotfile-variable)))))
 
-(defun helm-spacemacs-help//dotspacemacs-candidates ()
-  "Return the sorted candidates for all the dospacemacs variables."
-  (sort (dotspacemacs/get-variable-string-list) 'string<))
+(defun helm-space-macs-help//dotspace-macs-candidates ()
+  "Return the sorted candidates for all the dospace-macs variables."
+  (sort (dotspace-macs/get-variable-string-list) 'string<))
 
-(defun helm-spacemacs-help//layer-action-open-file
+(defun helm-space-macs-help//layer-action-open-file
     (file candidate &optional edit)
   "Open FILE of the passed CANDIDATE.  If EDIT is false, open in view mode."
   (let ((path (configuration-layer/get-layer-path (intern candidate))))
@@ -297,58 +297,58 @@
              (not helm-current-prefix-arg))
         (if edit
             (find-file (concat path file))
-          (spacemacs/view-org-file (concat path file) "^" 'all))
+          (space-macs/view-org-file (concat path file) "^" 'all))
       (let ((filepath (concat path file)))
         (if (file-exists-p filepath)
             (find-file filepath)
           (message "%s does not have %s" candidate file))))))
 
-(defun helm-spacemacs-help//layer-action-open-readme (candidate)
+(defun helm-space-macs-help//layer-action-open-readme (candidate)
   "Open the `README.org' file of the passed CANDIDATE for reading."
-  (helm-spacemacs-help//layer-action-open-file "README.org" candidate))
+  (helm-space-macs-help//layer-action-open-file "README.org" candidate))
 
-(defun helm-spacemacs-help//layer-action-install-layer (candidate-layer)
-  "Add CANDIDATE-LAYER to dotspacemacs file and reloads configuration"
-  (when (dotspacemacs/add-layer (intern candidate-layer))
-    (dotspacemacs/sync-configuration-layers)))
+(defun helm-space-macs-help//layer-action-install-layer (candidate-layer)
+  "Add CANDIDATE-LAYER to dotspace-macs file and reloads configuration"
+  (when (dotspace-macs/add-layer (intern candidate-layer))
+    (dotspace-macs/sync-configuration-layers)))
 
-(defun helm-spacemacs-help//layer-action-open-readme-edit (candidate)
+(defun helm-space-macs-help//layer-action-open-readme-edit (candidate)
   "Open the `README.org' file of the passed CANDIDATE for editing."
-  (helm-spacemacs-help//layer-action-open-file "README.org" candidate t))
+  (helm-space-macs-help//layer-action-open-file "README.org" candidate t))
 
-(defun helm-spacemacs-help//layer-action-open-packages (candidate)
+(defun helm-space-macs-help//layer-action-open-packages (candidate)
   "Open the `packages.el' file of the passed CANDIDATE."
-  (helm-spacemacs-help//layer-action-open-file "packages.el" candidate))
+  (helm-space-macs-help//layer-action-open-file "packages.el" candidate))
 
-(defun helm-spacemacs-help//layer-action-open-config (candidate)
+(defun helm-space-macs-help//layer-action-open-config (candidate)
   "Open the `config.el' file of the passed CANDIDATE."
-  (helm-spacemacs-help//layer-action-open-file "config.el" candidate))
+  (helm-space-macs-help//layer-action-open-file "config.el" candidate))
 
-(defun helm-spacemacs-help//layer-action-open-funcs (candidate)
+(defun helm-space-macs-help//layer-action-open-funcs (candidate)
   "Open the `funcs.el' file of the passed CANDIDATE."
-  (helm-spacemacs-help//layer-action-open-file "funcs.el" candidate))
+  (helm-space-macs-help//layer-action-open-file "funcs.el" candidate))
 
-(defun helm-spacemacs-help//layer-action-open-layers (candidate)
+(defun helm-space-macs-help//layer-action-open-layers (candidate)
   "Open the `layers.el' file of the passed CANDIDATE."
-  (helm-spacemacs-help//layer-action-open-file "layers.el" candidate))
+  (helm-space-macs-help//layer-action-open-file "layers.el" candidate))
 
-(defun helm-spacemacs-help//package-action-describe (candidate)
-  "Describe the passed package using Spacemacs describe function."
+(defun helm-space-macs-help//package-action-describe (candidate)
+  "Describe the passed package using Space-macs describe function."
   (save-match-data
     (string-match "^\\(.+\\)\s(\\(.+\\) layer)$" candidate)
     (let* ((package (match-string 1 candidate)))
       (configuration-layer/describe-package (intern package)))))
 
-(defun helm-spacemacs-help//package-action-recompile (candidate)
-  "Recompile the selected emacs package."
+(defun helm-space-macs-help//package-action-recompile (candidate)
+  "Recompile the selected e-macs package."
   (save-match-data
     (string-match "^\\(.+\\)\s(\\(.+\\) layer)$" candidate)
     (let* ((package (match-string 1 candidate))
            (package-dir (configuration-layer//get-package-directory (intern package))))
       (if package-dir
-          (spacemacs/recompile-elpa t package-dir)))))
+          (space-macs/recompile-elpa t package-dir)))))
 
-(defun helm-spacemacs-help//package-action-goto-config-func (candidate)
+(defun helm-space-macs-help//package-action-goto-config-func (candidate)
   "Open the file `packages.el' and go to the init function."
   (save-match-data
     (string-match "^\\(.+\\)\s(\\(.*\\):\s\\(.+\\) layer.*)$" candidate)
@@ -365,20 +365,22 @@
       (re-search-forward (format "%s-%s" init-type package))
       (beginning-of-line))))
 
-(defun helm-spacemacs-help//toggle (candidate)
+(defun helm-space-macs-help//toggle (candidate)
   "Toggle candidate."
-  (let ((toggle (assq (intern candidate) spacemacs-toggles)))
+  (let ((toggle (assq (intern candidate) space-macs-toggles)))
     (when toggle
       (funcall (plist-get (cdr toggle) :function)))))
 
-(defun helm-spacemacs-help//go-to-dotfile-variable (candidate)
+(defun helm-space-macs-help//go-to-dotfile-variable (candidate)
   "Go to candidate in the dotfile."
-  (find-file dotspacemacs-filepath)
+  (find-file dotspace-macs-filepath)
   (goto-char (point-min))
   ;; try to exclude comments
   (re-search-forward (format "^[a-z\s\\(\\-]*%s" candidate))
   (beginning-of-line))
 
-(provide 'helm-spacemacs-help)
+(provide 'helm-space-macs-help)
 
-;;; helm-spacemacs-help.el ends here
+;;; helm-space-macs-help.el ends here
+
+

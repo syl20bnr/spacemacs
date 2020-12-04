@@ -1,11 +1,11 @@
-;;; packages.el --- Source Control Layer packages File for Spacemacs
+;;; packages.el --- Source Control Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -29,8 +29,8 @@
     :commands (vc-ignore)
     :init
     (progn
-      (spacemacs/declare-prefix "gv" "version-control")
-      (spacemacs/set-leader-keys
+      (space-macs/declare-prefix "gv" "version-control")
+      (space-macs/set-leader-keys
         "gvv" 'vc-next-action
         "gvg" 'vc-annotate
         "gvD" 'vc-root-diff
@@ -91,8 +91,8 @@
     :defer t
     :config
     (progn
-      (spacemacs/declare-prefix-for-mode 'diff-mode "mf" "format")
-      (spacemacs/set-leader-keys-for-major-mode 'diff-mode
+      (space-macs/declare-prefix-for-mode 'diff-mode "mf" "format")
+      (space-macs/set-leader-keys-for-major-mode 'diff-mode
         "a" 'diff-apply-hunk
         "d" 'diff-hunk-kill
         "D" 'diff-file-kill
@@ -105,11 +105,11 @@
         "J" 'diff-file-next
         "k" 'diff-hunk-prev
         "K" 'diff-file-prev
-        "r" 'spacemacs/diff-mode-revert-hunk
+        "r" 'space-macs/diff-mode-revert-hunk
         "s" 'diff-split-hunk
         "u" 'diff-undo
         "q" 'quit-window)
-      (spacemacs|define-transient-state diff-mode
+      (space-macs|define-transient-state diff-mode
         :title "Diff-mode Transient State"
         :evil-leader-for-mode (diff-mode . ".")
         :bindings
@@ -125,7 +125,7 @@
     :defer t
     :init
     (progn
-      (spacemacs/set-leader-keys "gv=" 'diff-hl-diff-goto-hunk)
+      (space-macs/set-leader-keys "gv=" 'diff-hl-diff-goto-hunk)
       (if version-control-global-margin
           (progn
             (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
@@ -133,13 +133,13 @@
         (run-with-idle-timer 1 nil 'diff-hl-margin-mode)))
     :config
     (progn
-      (spacemacs|do-after-display-system-init
+      (space-macs|do-after-display-system-init
        (setq diff-hl-side (if (eq version-control-diff-side 'left)
                               'left 'right))))))
 
 (defun version-control/post-init-evil-unimpaired ()
-  (define-key evil-normal-state-map (kbd "[ h") 'spacemacs/vcs-previous-hunk)
-  (define-key evil-normal-state-map (kbd "] h") 'spacemacs/vcs-next-hunk))
+  (define-key evil-normal-state-map (kbd "[ h") 'space-macs/vcs-previous-hunk)
+  (define-key evil-normal-state-map (kbd "] h") 'space-macs/vcs-next-hunk))
 
 (defun version-control/init-git-gutter ()
   (use-package git-gutter
@@ -160,14 +160,14 @@
             git-gutter:handled-backends '(git hg bzr svn)
             git-gutter:hide-gutter t))
     :config
-    (spacemacs|hide-lighter git-gutter-mode)))
+    (space-macs|hide-lighter git-gutter-mode)))
 
 (defun version-control/init-git-gutter-fringe ()
   (use-package git-gutter-fringe
     :defer t
     :init
     (progn
-      (spacemacs|do-after-display-system-init
+      (space-macs|do-after-display-system-init
        (with-eval-after-load 'git-gutter
          (require 'git-gutter-fringe)))
       (setq git-gutter-fr:side (if (eq version-control-diff-side 'left)
@@ -206,7 +206,7 @@
       ;; If you enable global minor mode
       (when version-control-global-margin
         (add-hook 'magit-pre-refresh-hook
-                  #'spacemacs//git-gutter+-refresh-in-all-buffers)
+                  #'space-macs//git-gutter+-refresh-in-all-buffers)
         (run-with-idle-timer 1 nil 'global-git-gutter+-mode))
       (setq
        git-gutter+-modified-sign " "
@@ -216,7 +216,7 @@
        git-gutter+-hide-gutter t))
     ;; identify magit changes
     :config
-    (spacemacs|hide-lighter git-gutter+-mode)
+    (space-macs|hide-lighter git-gutter+-mode)
     ))
 
 (defun version-control/init-git-gutter-fringe+ ()
@@ -224,7 +224,7 @@
     :defer t
     :init
     (progn
-      (spacemacs|do-after-display-system-init
+      (space-macs|do-after-display-system-init
        (with-eval-after-load 'git-gutter+
          (require 'git-gutter-fringe+)))
       (setq git-gutter-fr+-side (if (eq version-control-diff-side 'left)
@@ -259,13 +259,13 @@
   (use-package smerge-mode
     :defer t
     :diminish smerge-mode
-    :commands spacemacs/smerge-transient-state/body
+    :commands space-macs/smerge-transient-state/body
     :init
     (progn
-      (spacemacs/set-leader-keys
-        "gr" 'spacemacs/smerge-transient-state/body)
-      (spacemacs|transient-state-format-hint smerge
-        spacemacs--smerge-ts-full-hint
+      (space-macs/set-leader-keys
+        "gr" 'space-macs/smerge-transient-state/body)
+      (space-macs|transient-state-format-hint smerge
+        space-macs--smerge-ts-full-hint
         "\n
  Movement^^^^         Merge Action^^      Diff^^            Other
  ---------------^^^^  ----------------^^  --------------^^  ---------------------------^^
@@ -275,10 +275,10 @@
  [_k_]^^   prev line  [_o_] keep other    [_r_] refine
  ^^^^                 [_c_] keep current  [_e_] ediff       [_?_]^^ toggle help
  ^^^^                 [_K_] kill current")
-      (spacemacs|define-transient-state smerge
+      (space-macs|define-transient-state smerge
         :title "Smerge Transient State"
         :hint-is-doc t
-        :dynamic-hint (spacemacs//smerge-ts-hint)
+        :dynamic-hint (space-macs//smerge-ts-hint)
         :bindings
         ;; move
         ("n" smerge-next)
@@ -303,9 +303,11 @@
         ("K" smerge-kill-current)
         ("u" undo-tree-undo)
         ("q" nil :exit t)
-        ("?" spacemacs//smerge-ts-toggle-hint)))))
+        ("?" space-macs//smerge-ts-toggle-hint)))))
 
 (defun version-control/init-browse-at-remote ()
   (use-package browse-at-remote
     :defer t
-    :init (spacemacs/set-leader-keys "go" 'browse-at-remote)))
+    :init (space-macs/set-leader-keys "go" 'browse-at-remote)))
+
+

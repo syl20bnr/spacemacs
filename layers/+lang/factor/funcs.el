@@ -1,11 +1,11 @@
-;;; funcs.el --- Factor Layer functions File for Spacemacs
+;;; funcs.el --- Factor Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: timor <timor.dd@googlemail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -60,13 +60,13 @@ Will stop current fuel connection if applicable."
            (unload-feature f t)))
 
 (defun factor//load-fuel-from-path (path)
-  "Load emacs lisp fuel implementation from the specified PATH."
+  "Load e-macs lisp fuel implementation from the specified PATH."
   (let ((load-path (cons path load-path)))
     (require 'fuel-mode)
     (require 'factor-mode)))
 
 (defun factor//reload-fuel-from-path (path)
-  "Unload current emacs lisp fuel implementation and load the on from PATH.
+  "Unload current e-macs lisp fuel implementation and load the on from PATH.
 
 Since unloading switches buffers which were in factor-mode back
 to fundamental mode, this re-enables factor-mode in these buffers
@@ -121,3 +121,5 @@ unloads the current fuel implementation and reloads fuel from there.
     (unless (process-live-p factor-process)
       (error "Listener process exited with code: %d"
              (process-exit-status factor-process)))))
+
+

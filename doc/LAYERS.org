@@ -3,8 +3,8 @@
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#introduction][Introduction]]
 - [[#nomenclature][Nomenclature]]
-- [[#the-emacs-loading-process][The Emacs loading process]]
-  - [[#emacs-lisp-files][Emacs Lisp files]]
+- [[#the-e-macs-loading-process][The e-macs loading process]]
+  - [[#e-macs-lisp-files][e-macs Lisp files]]
     - [[#loading-a-file][Loading a file]]
   - [[#features][Features]]
     - [[#the-load-path][The load path]]
@@ -17,7 +17,7 @@
   - [[#funcsel][funcs.el]]
   - [[#configel][config.el]]
   - [[#keybindingsel][keybindings.el]]
-- [[#the-spacemacs-loading-process][The Spacemacs loading process]]
+- [[#the-space-macs-loading-process][The Space-macs loading process]]
 - [[#case-study-auto-completion][Case study: auto-completion]]
 - [[#layer-tips-and-tricks][Layer tips and tricks]]
   - [[#cross-dependencies][Cross-dependencies]]
@@ -35,52 +35,52 @@
 This document is intended as a tutorial for users who are interested in writing
 their first configuration layer, whether for private use or for contributing
 upstream. It should help clear up some confusion regarding how layers work and
-how Spacemacs (and Emacs) loads packages. For an overview of configuration
-layers with descriptions see [[https://develop.spacemacs.org/layers/LAYERS.html][Spacemacs layers list]].
+how Space-macs (and e-macs) loads packages. For an overview of configuration
+layers with descriptions see [[https://develop.space-macs.org/layers/LAYERS.html][Space-macs layers list]].
 
 * Nomenclature
 Layers and packages. What gives?
-- A set of Emacs Lisp files that, taken together, provide some
+- A set of e-macs Lisp files that, taken together, provide some
   feature. Packages may be available on a package repository, such as ELPA or
   MELPA or on a third-party service provider (such as github) or even
   locally on the disk.
 - A collected unit of configuration that can be enabled (or disabled)
-  in Spacemacs. A layer typically brings together one or more packages, as
+  in Space-macs. A layer typically brings together one or more packages, as
   well as the glue configuration code required to make them play well with
-  each other and Spacemacs in general.
+  each other and Space-macs in general.
 
 Before writing a layer, it is helpful to consider what you are trying to
 achieve. Is there a package that provides the functionality you are after, and
-you want to integrate it in Spacemacs? If yes, you should write a layer. Are you
-trying to implement a new feature that would be useful for the Emacs community
+you want to integrate it in Space-macs? If yes, you should write a layer. Are you
+trying to implement a new feature that would be useful for the e-macs community
 at large? In that case, consider whether it wouldn't be more appropriate to
 write a package first, and then a layer that uses your package.
 
-* The Emacs loading process
-To understand how to best implement a layer, we have to investigate how Emacs
+* The e-macs loading process
+To understand how to best implement a layer, we have to investigate how e-macs
 loads code.
 
-** Emacs Lisp files
-Emacs Lisp files contain code that can be evaluated. When evaluated, the
+** e-macs Lisp files
+e-macs Lisp files contain code that can be evaluated. When evaluated, the
 functions, macros and modes defined in that file become available to the current
-Emacs session. Henceforth, this will be termed as /loading/ a file.
+e-macs session. Henceforth, this will be termed as /loading/ a file.
 
 One major problem is to ensure that all the correct files are loaded, and in the
 proper order. Another issue is to ensure that not too many files are loaded
 immediately. This causes startup to take too long. Instead, we want to make sure
 that files are loaded only as needed, and not all at once.
 
-How is this done in Emacs, and how is it done in Spacemacs?
+How is this done in e-macs, and how is it done in Space-macs?
 
 *** Loading a file
 The simplest way to load a file is to call =load-file=.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (load-file "~/elisp/foo.el")
 #+END_SRC
 
 This is as primitive as it comes. The path must be exact, and it does not have
-to be in the Emacs load path (we'll get to that later). It will not look for a
+to be in the e-macs load path (we'll get to that later). It will not look for a
 byte-compiled =.elc= file. It will simply load exactly what you tell it to.
 
 ** Features
@@ -88,15 +88,15 @@ A better way to load what you need is to use /features/. A feature is a symbol
 that typically has the same name as the file it resides in. Let us say you have
 the following contents in a file called =my-feature.el=.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;; Your code goes here ...
 
   (provide 'my-feature)
 #+END_SRC
 
-To have Emacs load this file, call =require=, as such:
+To have e-macs load this file, call =require=, as such:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (require 'my-feature)
 #+END_SRC
 
@@ -116,12 +116,12 @@ Package authors should use this technique to make sure that dependencies are
 loaded before their code runs.
 
 *** The load path
-When loaded using =require=, Emacs looks for files in its /load path/. This is
+When loaded using =require=, e-macs looks for files in its /load path/. This is
 nothing more than a list of paths where elisp files can be found, and you can
-inspect it through ~SPC h d v load-path~ in Spacemacs. To add to the load path,
+inspect it through ~SPC h d v load-path~ in Space-macs. To add to the load path,
 simply add to this list, e.g.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (add-to-list 'load-path "/some/path/")
 #+END_SRC
 
@@ -129,10 +129,10 @@ simply add to this list, e.g.
 Calling =require= is nothing more than a glorified way of calling =load-file=.
 It solves the problem of ensuring that files are loaded in the correct order,
 and to some degree it solved the problem of where to find the files on disk but
-a long list of calls to =require= at startup would still cause Emacs to take
+a long list of calls to =require= at startup would still cause e-macs to take
 forever to load.
 
-Emacs uses auto-loading to solve this problem. When a function is registered as
+e-macs uses auto-loading to solve this problem. When a function is registered as
 auto-loading, an "empty" definition is provided. When that function is called,
 the file that provides the function is immediately loaded (along with all its
 required features). Finally, the "empty" function is substituted with the real
@@ -142,11 +142,11 @@ function loaded as part of the same procedure) will be as quick as normal.
 
 To register a function as auto-loadable, we call =autoload=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (autoload 'some-function "some-file")
 #+END_SRC
 
-This instructs Emacs that whenever =some-function= is called, load
+This instructs e-macs that whenever =some-function= is called, load
 =some-file.el= first, and then proceed.
 
 After evaluating the above code, you can try to inspect =some-function= by doing
@@ -161,14 +161,14 @@ Open your =elpa= directory, go to =helm= and look at the file
 However, this file is not written by hand. Instead, it is automatically
 generated from "magic" comments in the source code of Helm. They look like this:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;;;###autoload
   (defun my-function ()
     ;; Source code...
     )
 #+END_SRC
 
-The magic comment =;;;###autoload= instructs Emacs that the following definition
+The magic comment =;;;###autoload= instructs e-macs that the following definition
 should be auto-loaded. This automatically generates an appropriate call to
 =autoload=.
 
@@ -180,7 +180,7 @@ Magic comments also work on other things, such as variable definitions
 auto-loading file. For example, this code will load Helm on startup, long before
 your file is actually evaluated, probably not what was intended:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;;;###autoload
   (require 'helm)
 #+END_SRC
@@ -188,7 +188,7 @@ your file is actually evaluated, probably not what was intended:
 It is the responsibility of the package authors to ensure that their package can
 be appropriately auto-loaded, and most packages do this quite well.
 
-Spacemacs makes thorough use of auto-loading. Almost everything in Spacemacs is
+Space-macs makes thorough use of auto-loading. Almost everything in Space-macs is
 loaded when needed instead of right away.
 
 ** Eval after load
@@ -197,9 +197,9 @@ some variables or call some functions. This is trivial with =require=, because
 it loads immediately, but it can be tricky with autoloading, because the
 configuration code must also be deferred.
 
-Emacs offers =with-eval-after-load= for this purpose. It can be used like this:
+e-macs offers =with-eval-after-load= for this purpose. It can be used like this:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (with-eval-after-load 'helm
        ;; Code
        )
@@ -213,7 +213,7 @@ Since =with-eval-after-load= is a macro and not a function, its argument does
 not have to be quoted.
 
 ** Use-package
-For /end users/ who are trying to put together an efficient Emacs configuration,
+For /end users/ who are trying to put together an efficient e-macs configuration,
 there is a very useful /package/ called =use-package= that provides a macro
 which is /also/ called =use-package= which does a very good job of streamlining
 the whole process of loading packages.
@@ -221,13 +221,13 @@ the whole process of loading packages.
 The aspiring layer author is recommended to have a look at the =use-package=
 [[https://github.com/jwiegley/use-package][documentation]]. Some examples follow.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (use-package helm)
 #+END_SRC
 
 This simply loads Helm. It is essentially equivalent to =(require 'helm)=.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (use-package helm
     :defer t)
 #+END_SRC
@@ -235,7 +235,7 @@ This simply loads Helm. It is essentially equivalent to =(require 'helm)=.
 This defers the loading of Helm using the auto-load facility and the auto-load
 commands provided by the Helm source code. It is, in fact, a no-op.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (use-package helm
     :defer t
     :init
@@ -251,7 +251,7 @@ section is not executed until after loading, if ever. It is essentially
 equivalent to simply running the =:init= block, and then adding the =:config=
 block in an =with-eval-after-load=.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (use-package helm
     :commands (helm-find-files helm-M-x))
 #+END_SRC
@@ -259,7 +259,7 @@ block in an =with-eval-after-load=.
 This creates auto-load references for additional commands, if you find that the
 package author has been slacking.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (use-package ruby-mode
     :mode "\\.rb\\'")
 #+END_SRC
@@ -274,7 +274,7 @@ Use-package supports heaps of useful keywords. Look at the [[https://github.com/
 more.
 
 * Anatomy of a layer
-A layer is simply a folder somewhere in Spacemacs's layer search path that
+A layer is simply a folder somewhere in Space-macs's layer search path that
 usually contains these files (listed in loading order).
 - declare additional layers
 - the packages list and configuration
@@ -284,7 +284,7 @@ usually contains these files (listed in loading order).
 
 Additionally, for each local package (see the next section), there should be a
 folder =<layer>/local/<package>/= containing the source code for that package.
-Before initializing that package, Spacemacs will add this folder to the load
+Before initializing that package, Space-macs will add this folder to the load
 path for you.
 
 ** layers.el
@@ -294,12 +294,12 @@ layers can be declared.
 For instance, if layer A depends on some functionality of layer B, then in the
 file =layers.el= of layer A, we can add:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (configuration-layer/declare-layer 'B)
 #+END_SRC
 
 The effect is that B is considered a used layer and will be loaded as if it
-was added to =dotspacemacs-configuration-layers= variables.
+was added to =dotspace-macs-configuration-layers= variables.
 
 ** packages.el
 It contains this list of packages of the layer and the actual configuration for
@@ -311,7 +311,7 @@ It must define a variable called =<layer>-packages=, which should be a list of
 all the packages that this layer needs. Some valid package specifications are
 as follows:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (defconst mylayer-packages
     '(
       ;; Get the package from MELPA, ELPA, etc.
@@ -334,7 +334,7 @@ as follows:
       ))
 #+END_SRC
 
-The =:location= attribute specifies where the package may be found. Spacemacs
+The =:location= attribute specifies where the package may be found. Space-macs
 currently supports packages on ELPA compliant repositories, local packages and
 MELPA recipes (through the Quelpa package). Local packages should reside at
 =<layer>/local/<package>/=. For information about recipes see the [[https://github.com/milkypostman/melpa#user-content-recipe-format][MELPA
@@ -342,7 +342,7 @@ documentation]].
 
 As you may have noticed from examples above, there are two ways to declare a
 local package: using either =:location local= or a Quelpa recipe with the
-Spacemacs-specific pseudo-fetcher =local=. The former is for the simplest
+Space-macs-specific pseudo-fetcher =local=. The former is for the simplest
 packages that declare no external dependencies, since it just adds the package
 directory to the =load-path=. The latter is for packages that do have external
 dependencies declared and thus have to be built with Quelpa.
@@ -352,13 +352,13 @@ will prevent the package from being installed even if it is used by another
 layer.
 
 For each included package, you may define one or more of the following
-functions, which are called in order by Spacemacs to initialize the package.
+functions, which are called in order by Space-macs to initialize the package.
 1. =<layer>/pre-init-<package>=
 2. =<layer>/init-<package>=
 3. =<layer>/post-init-<package>=
 
 It is the responsibility of these functions to load and configure the package in
-question. Spacemacs will do nothing other than download the package and place it
+question. Space-macs will do nothing other than download the package and place it
 in the load path for you.
 
 *Note:* A package will not be installed unless at least one layer defines an
@@ -375,10 +375,10 @@ This file is loaded after =packages.el= and before =config.el=.
 It is good practice to guard the definition of functions to make sure a package
 is actually used. For instance:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (when (configuration-layer/package-used-p 'my-package)
-    (defun spacemacs/my-package-enable () ...)
-    (defun spacemacs/my-package-disable () ...))
+    (defun space-macs/my-package-enable () ...)
+    (defun space-macs/my-package-disable () ...))
 #+END_SRC
 
 By guarding these functions we avoid defining them when the package =my-package=
@@ -403,14 +403,14 @@ are installed.
 
 More on this in the next section.
 
-* The Spacemacs loading process
-The Spacemacs loading process can be summarized as follows:
-1. Spacemacs goes through all the enabled layers and evaluates their files.
+* The Space-macs loading process
+The Space-macs loading process can be summarized as follows:
+1. Space-macs goes through all the enabled layers and evaluates their files.
    First =layers.el= is loaded to declare layer dependencies. Then =packages.el=
    and =funcs.el= are loaded, but nothing happens from them since these files
    only define functions and variables, then the changes introduced by
    =config.el= are applied.
-2. Spacemacs checks which packages should be downloaded and installed. To be
+2. Space-macs checks which packages should be downloaded and installed. To be
    installed, a package must be
    - included by a layer that the user has enabled,
    - not be excluded by any other layer that the user has enabled,
@@ -419,9 +419,9 @@ The Spacemacs loading process can be summarized as follows:
      it.
 
    Alternatively, if a package is part of the end user's
-   =dotspacemacs-additional-packages=, it will also be installed.
+   =dotspace-macs-additional-packages=, it will also be installed.
 3. All packages which should be installed are installed in alphabetical order,
-   =package.el= built-in Emacs library is in charge of implicit dependencies.
+   =package.el= built-in e-macs library is in charge of implicit dependencies.
    Installed packages not following the rules of 2. are removed as well as
    their dependencies if possible. (This last behavior is optional but default.)
 4. The =pre-init=, =init= and =post-init= functions for each installed package
@@ -439,14 +439,14 @@ specification in the user's dotfile, it is possible for layers to "seize"
 ownership of a package that was owned by a previously enabled layer.
 
 * Case study: auto-completion
-Spacemacs provides a layer called =auto-completion= which provides
+Space-macs provides a layer called =auto-completion= which provides
 auto-completion features in many modes. It does this using the package
 =company=. This layer owns the =company= package, so it defines a function
 called =auto-completion/init-company=.
 
-When a user enables the =auto-completion= layer, Spacemacs locates it and finds
+When a user enables the =auto-completion= layer, Space-macs locates it and finds
 =company= in the list of packages. Provided that =company= is not excluded,
-either by the user or another layer, Spacemacs then locates and runs the =init=
+either by the user or another layer, Space-macs then locates and runs the =init=
 function for =company=. This function includes a call to =use-package= that sets
 up the basic configuration.
 
@@ -473,7 +473,7 @@ which is not what we want.
 
 * Layer tips and tricks
 ** Cross-dependencies
-Spacemacs provides a couple of additional useful functions you can use to check
+Space-macs provides a couple of additional useful functions you can use to check
 whether other layers or packages are included.
 - check if a layer is enabled
 - check if a package is or will be installed
@@ -492,7 +492,7 @@ instance if a used layer A can shadow a used layer B and the layer A is listed
 after the layer B in the dotfile then the layer A replaces the layer B and it is
 like only the layer A is being used.
 
-Examples of this mechanism are helm/ivy layers or neotree/treemacs layers.
+Examples of this mechanism are helm/ivy layers or neotree/tree-macs layers.
 
 A layer can shadow other layers by calling in its =layers.el= file the function
 =configuration-layer/declare-shadow-relation=. This function declares a
@@ -510,8 +510,8 @@ layer won't shadow any layer.
 
 For instance to install both ivy and helm layer:
 
-#+BEGIN_SRC emacs-lisp
-  (setq dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq dotspace-macs-configuration-layers
    '(
      ivy
      (helm :can-shadow nil)
@@ -522,8 +522,8 @@ note that due to the commutative relation =can-shadow= the above example can
 also be written like this (in this case, =:can-shadow= should be read
 =:can-be-shawdowed=):
 
-#+BEGIN_SRC emacs-lisp
-  (setq dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq dotspace-macs-configuration-layers
   '(
     (ivy :can-shadow nil)
     helm
@@ -551,13 +551,13 @@ hooks, if the package should be loaded upon some event. It is not unusual to
 have both!
 
 ** Use-package hooks
-Spacemacs includes a macro for adding more code to the =:init= or =:config=
+Space-macs includes a macro for adding more code to the =:init= or =:config=
 blocks of a call to =use-package=, after the fact. This is useful for =pre-init=
 or =post-init= functions to "inject" code into the =use-package= call of the
 =init= function.
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs|use-package-add-hook helm
+#+BEGIN_SRC e-macs-lisp
+  (space-macs|use-package-add-hook helm
     :pre-init
     ;; Code
     :post-init
@@ -572,7 +572,7 @@ or =post-init= functions to "inject" code into the =use-package= call of the
 Since a call to =use-package= may evaluate the =:init= block immediately, any
 function that wants to inject code into this block must run =before= the call to
 =use-package=. Further, since this call to =use-package= typically takes place
-in the =init-<package>= function, calls to =spacemacs|use-package-add-hook=
+in the =init-<package>= function, calls to =space-macs|use-package-add-hook=
 *always* happen in the =pre-init-<package>= functions, and not in
 =post-init-<package>=.
 
@@ -595,11 +595,11 @@ must.
 
 This can be very challenging, so please take this as a guideline and not
 something that is absolute. It is quite possible for the user to break her
-Spacemacs installation by excluding the wrong packages, and it is not our
+Space-macs installation by excluding the wrong packages, and it is not our
 intention to prevent this at all costs.
 
 *** Load ordering
-In Spacemacs, layers are loaded in order of inclusion in the dotfile, and
+In Space-macs, layers are loaded in order of inclusion in the dotfile, and
 packages are loaded in alphabetical order. In the rare cases where you make use
 of this property, you should make sure to document it well. Many will assume
 that layers can be included in arbitrary order (which is true in most cases),
@@ -611,7 +611,7 @@ Preferably, write your layer so that it is independent of load ordering. The
 
 *** No require
 Do not use require. If you find yourself using =require=, you are almost
-certainly doing something wrong. Packages in Spacemacs should be loaded through
+certainly doing something wrong. Packages in Space-macs should be loaded through
 auto-loading, and not explicitly by you. Calls to =require= in package init
 functions will cause a package to be loaded upon startup. Code in an =:init=
 block of =use-package= should not cause anything to be loaded, either. If you
@@ -621,3 +621,5 @@ missing appropriate auto-loads.
 *** Auto-load everything
 Defer everything. You should have a very good reason not to defer the loading
 of a package.
+
+

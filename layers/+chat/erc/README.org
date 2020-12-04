@@ -14,28 +14,28 @@
   - [[#default-servers][Default servers]]
     - [[#security-note][Security Note]]
 - [[#key-bindings][Key bindings]]
-- [[#spacemacs-layout-support][Spacemacs Layout Support]]
+- [[#space-macs-layout-support][Space-macs Layout Support]]
 
 * Description
-Layer for [[http://www.emacswiki.org/emacs/ERC][ERC IRC chat]].
+Layer for [[http://www.e-macswiki.org/e-macs/ERC][ERC IRC chat]].
 
 ** Features:
 - Highlight nicks (using [[https://github.com/leathekd/erc-hl-nicks][erc-hl-nicks]])
 - Image inline support (using [[https://github.com/kidd/erc-image.el][erc-image]])
-- Logging to =~/.emacs.d/.cache/erc-logs= and =ViewLogMode= for viewing logs
+- Logging to =~/.e-macs.d/.cache/erc-logs= and =ViewLogMode= for viewing logs
   (using [[https://github.com/Niluge-KiWi/erc-view-log][erc-view-log]])
 - YouTube videos Thumbnails inline (using [[https://github.com/yhvh/erc-yt][erc-yt]])
 - Social Graph for ERC messages (using [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]])
 - Optional SASL authentication via the variable =erc-enable-sasl-auth=
-  (using [[http://emacswiki.org/emacs/ErcSASL][erc-sasl]])
+  (using [[http://e-macswiki.org/e-macs/ErcSASL][erc-sasl]])
 - D-BUS notifications via the variable =erc-enable-notifications=
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
   using the =emoji= layer or having a proper font) :clap:
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =erc= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =erc= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** macOS
@@ -49,8 +49,8 @@ notifications via the macOS Notification Center.
 By default D-BUS notifications are enabled, to disable them set the layer
 variable =erc-enable-notifications= to nil.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                '((erc :variables erc-enable-notifications nil)))
 #+END_SRC
 
@@ -58,8 +58,8 @@ variable =erc-enable-notifications= to nil.
 To enable SASL authentication set the layer variable =erc-enable-sasl-auth= to
 non nil.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                '((erc :variables erc-enable-sasl-auth t)))
 #+END_SRC
 
@@ -69,8 +69,8 @@ variable =erc-server-list=. Setting =:ssl= non nil will connect with =erc-tls=.
 You can also use =<leader>aiD= to connect to your default servers outside the
 custom layout.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
                '((erc :variables
                       erc-server-list
                       '(("irc.freenode.net"
@@ -85,7 +85,7 @@ custom layout.
 #+END_SRC
 
 *** Security Note
-You should not store your passwords in the clear in your =.spacemacs=, and that
+You should not store your passwords in the clear in your =.space-macs=, and that
 goes double if you version your config file. ERC allows for a number of ways of
 protecting this information.
 
@@ -121,7 +121,9 @@ read that in =:password=.
 *Note:* If you want to connect securely to an IRC server, you must run =erc-tls=
  command on ~SPC a i E~ instead of the =erc= command.
 
-* Spacemacs Layout Support
+* Space-macs Layout Support
 ERC buffers are added automatically to the default layout for ERC controlled by
-the variable =erc-spacemacs-layout-name= (defaults to "@ERC") and the default
-binding ("E") is controlled by =erc-spacemacs-layout-binding=
+the variable =erc-space-macs-layout-name= (defaults to "@ERC") and the default
+binding ("E") is controlled by =erc-space-macs-layout-binding=
+
+

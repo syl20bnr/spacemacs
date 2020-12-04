@@ -1,17 +1,17 @@
-;;; funcs.el --- Games Layer functions File for Spacemacs
+;;; funcs.el --- Games Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 
 
-(defun spacemacs/tetris-quit-game ()
+(defun space-macs/tetris-quit-game ()
   "Correctly quit tetris by killng the game buffer."
   (interactive)
   (tetris-pause-game)
@@ -23,17 +23,17 @@
 
 
 
-(defun spacemacs/games-start-typit-beginner ()
+(defun space-macs/games-start-typit-beginner ()
   "Start `typit' game in beginner difficulty."
   (interactive)
-  (spacemacs//games-start-typit 'basic))
+  (space-macs//games-start-typit 'basic))
 
-(defun spacemacs/games-start-typit-expert ()
+(defun space-macs/games-start-typit-expert ()
   "Start `typit' game in expert difficulty."
   (interactive)
-  (spacemacs//games-start-typit 'advanced))
+  (space-macs//games-start-typit 'advanced))
 
-(defun spacemacs//games-start-typit (type)
+(defun space-macs//games-start-typit (type)
   "Start a `typit' game with TYPE difficulty."
   (with-current-buffer (get-buffer-create "*typit*")
     (let ((evil-escape-inhibit t)
@@ -42,3 +42,5 @@
       (funcall (intern (format "typit-%S-test" type))))))
 
 
+
+

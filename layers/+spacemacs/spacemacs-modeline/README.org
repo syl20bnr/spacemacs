@@ -1,6 +1,6 @@
-#+TITLE: spacemacs-modeline layer
+#+TITLE: space-macs-modeline layer
 
-#+TAGS: layer|misc|spacemacs
+#+TAGS: layer|misc|space-macs
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
@@ -8,7 +8,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds various mode-lines to Spacemacs.
+This layer adds various mode-lines to Space-macs.
 
 ** Features:
 - Display of a vim-powerline like mode-line being able to show various information like
@@ -33,3 +33,5 @@ This layer adds various mode-lines to Spacemacs.
 | ~SPC t m p~ | Display cursor position in mode-line                   |
 | ~SPC t m c~ | Display a clock in mode-line                           |
 | ~SPC t m s~ | Display a small system monitor in a separate mode-line |
+
+

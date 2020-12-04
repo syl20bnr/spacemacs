@@ -25,8 +25,8 @@ This layer adds support for Scheme via [[http://geiser.nongnu.org][Geiser]]. Not
 - Structurally safe editing using optional [[https://github.com/luxbock/evil-cleverparens][evil-cleverparens]]
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =scheme= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =scheme= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 For full Chicken support, the following commands should be run:
@@ -62,11 +62,11 @@ in some of the Linux package repos:
 You may need to modify the =csi= command accordingly. If the name of the
 REPL binary on your system is =chicken-csi=, you will also need to add
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq geiser-chicken-binary "chicken-csi")
 #+END_SRC
 
-to your =dotspacemacs/user-config= in order for the REPL to start in spacemacs.
+to your =dotspace-macs/user-config= in order for the REPL to start in space-macs.
 
 * Structurally safe editing
 This layer adds support for =evil-cleverparens= which allows to safely edit
@@ -76,19 +76,19 @@ By default this mode is not activated. You can turn it on locally on the active
 buffer with ~SPC m T s~ (=s= for safe).
 
 To turn it on automatically for all =scheme= buffers call the following
-function in your =dotspacemacs/user-config= function:
+function in your =dotspace-macs/user-config= function:
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-scheme-mode)
+#+BEGIN_SRC e-macs-lisp
+  (space-macs/toggle-evil-safe-lisp-structural-editing-on-register-hook-scheme-mode)
 #+END_SRC
 
 or to enable it for all supported modes:
 
-#+BEGIN_SRC emacs-lisp
-  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+#+BEGIN_SRC e-macs-lisp
+  (space-macs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 #+END_SRC
 
-When enabled the symbol =🆂= should be displayed in the mode-line.
+When enabled the symbol =ðŸ†‚= should be displayed in the mode-line.
 
 * Key bindings
 ** Compiling
@@ -155,3 +155,5 @@ When enabled the symbol =🆂= should be displayed in the mode-line.
 | ~SPC m e f~ | Evaluate current function |
 | ~SPC m e l~ | Evaluate line             |
 | ~SPC m e r~ | Evaluate region           |
+
+

@@ -1,11 +1,11 @@
-;;; spacebind-utest.el --- Spacemacs Unit Test File -*- lexical-binding: t -*-
+;;; spacebind-utest.el --- Space-macs Unit Test File -*- lexical-binding: t -*-
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Eugene "JAremko" Yaremenko <w3techplayground@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 (require 'core-spacebind)
@@ -34,12 +34,12 @@ NOTE: `spacebind--eager-bind' set to true. "
 
 ;;;; Tests:
 (ert-deftest test-spacebind-sanity-check ()
-  (thread-last (spacemacs|spacebind
+  (thread-last (space-macs|spacebind
                 :major
                 (python-mode
                  "with a description"
                  ("c" "compile/execute"
-                  ("c" spacemacs/python-execute-file "execute file"))))
+                  ("c" space-macs/python-execute-file "execute file"))))
     (test-spacebind|process-bind-stack-called-p)
     (eq t)
     (should)))
@@ -51,7 +51,9 @@ NOTE: `spacebind--eager-bind' set to true. "
                   (python-mode
                    "with a description"
                    ("c" "compile/execute"
-                    ("c" spacemacs/python-execute-file "execute file")))))
+                    ("c" space-macs/python-execute-file "execute file")))))
     (test-spacebind|process-bind-stack-called-p)
     (eq t)
     (should)))
+
+

@@ -1,9 +1,9 @@
-;;; packages.el --- Dotnet Layer packages File for Spacemacs
+;;; packages.el --- Dotnet Layer packages File for Space-macs
 ;;
 ;; Author: Jordan Kaye <jordan.kaye2@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -16,7 +16,7 @@
   (use-package dotnet
     :defer t
     :init
-    (spacemacs/set-leader-keys-for-major-mode 'fsharp-mode
+    (space-macs/set-leader-keys-for-major-mode 'fsharp-mode
       "dap" 'dotnet-add-package
       "dar" 'dotnet-add-reference
       "db"  'dotnet-build
@@ -31,3 +31,5 @@
       "dsn" 'dotnet-sln-new
       "dsr" 'dotnet-sln-remove
       "dt"  'dotnet-test)))
+
+

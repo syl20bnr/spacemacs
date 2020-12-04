@@ -1,15 +1,15 @@
-;;; funcs.el --- Syntax Checking Layer functions File for Spacemacs
+;;; funcs.el --- Syntax Checking Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs/enable-flycheck (mode)
+(defun space-macs/enable-flycheck (mode)
   "Use flycheck in MODE by default, if `syntax-checking-enable-by-default' is
 true."
   (when (and syntax-checking-enable-by-default
@@ -18,7 +18,7 @@ true."
     (add-to-list 'flycheck-global-modes mode)))
 
 ;; toggle flycheck window
-(defun spacemacs/toggle-flycheck-error-list ()
+(defun space-macs/toggle-flycheck-error-list ()
   "Toggle flycheck's error list window.
 If the error list is visible, hide it.  Otherwise, show it."
   (interactive)
@@ -26,7 +26,7 @@ If the error list is visible, hide it.  Otherwise, show it."
       (quit-window nil window)
     (flycheck-list-errors)))
 
-(defun spacemacs/goto-flycheck-error-list ()
+(defun space-macs/goto-flycheck-error-list ()
   "Open and go to the error list buffer."
   (interactive)
   (if (flycheck-get-error-list-window)
@@ -34,3 +34,5 @@ If the error list is visible, hide it.  Otherwise, show it."
     (progn
       (flycheck-list-errors)
       (switch-to-buffer-other-window flycheck-error-list-buffer))))
+
+

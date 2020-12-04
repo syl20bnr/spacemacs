@@ -1,43 +1,43 @@
 ;;; -*- lexical-binding: t -*-
-;;; core-transient-state.el --- Spacemacs Core File
+;;; core-transient-state.el --- Space-macs Core File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Justin Burkett <justin@burkett.cc>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//transient-state-func-name (name)
+(defun space-macs//transient-state-func-name (name)
   "Return the name of the transient state function."
-  (intern (format "spacemacs/%S-transient-state" name)))
+  (intern (format "space-macs/%S-transient-state" name)))
 
-(defun spacemacs//transient-state-props-var-name (name)
+(defun space-macs//transient-state-props-var-name (name)
   "Return the name of the variable use to store the transient state properties."
-  (intern (format "spacemacs--%S-transient-state-props" name)))
+  (intern (format "space-macs--%S-transient-state-props" name)))
 
-(defun spacemacs//transient-state-body-func-name (name)
+(defun space-macs//transient-state-body-func-name (name)
   "Return the name of the transient state function."
-  (intern (format "spacemacs/%S-transient-state/body" name)))
+  (intern (format "space-macs/%S-transient-state/body" name)))
 
-(defun spacemacs//transient-state-heads-name (name)
+(defun space-macs//transient-state-heads-name (name)
   "Return the name of the transient state heads variable which
 holds the key bindings."
-  (intern (format "spacemacs/%S-transient-state/heads" name)))
+  (intern (format "space-macs/%S-transient-state/heads" name)))
 
-(defun spacemacs//transient-state-add-bindings-name (name)
+(defun space-macs//transient-state-add-bindings-name (name)
   "Return the name of the transient state add-bindings variable which
 may hold the additional key bindings. The variable may be unbound."
-  (intern (format "spacemacs-%s-transient-state-add-bindings" name)))
+  (intern (format "space-macs-%s-transient-state-add-bindings" name)))
 
-(defun spacemacs//transient-state-remove-bindings-name (name)
+(defun space-macs//transient-state-remove-bindings-name (name)
   "Return the name of the transient state remove-bindings variable which
 may hold the keys to be removed. The variable may be unbound."
-  (intern (format "spacemacs-%s-transient-state-remove-bindings" name)))
+  (intern (format "space-macs-%s-transient-state-remove-bindings" name)))
 
-(defun spacemacs//transient-state-adjust-bindings (bindings to-remove to-add)
+(defun space-macs//transient-state-adjust-bindings (bindings to-remove to-add)
   (append
    (cl-remove-if
     (lambda (bnd)
@@ -49,55 +49,55 @@ may hold the keys to be removed. The variable may be unbound."
               (listp (symbol-value to-add)))
      (symbol-value to-add))))
 
-(defun spacemacs//transient-state-make-doc
+(defun space-macs//transient-state-make-doc
     (transient-state docstring &optional body)
   "Use `hydra' internal function to format and apply DOCSTRING."
-  (let ((heads (spacemacs//transient-state-heads-name transient-state)))
+  (let ((heads (space-macs//transient-state-heads-name transient-state)))
     (setq body (if body body '(nil nil :hint nil :foreign-keys nil)))
     (eval
      (hydra--format nil body docstring (symbol-value heads)))))
 
-(defun spacemacs/transient-state-register-add-bindings (name bindings)
+(defun space-macs/transient-state-register-add-bindings (name bindings)
   "Register additional BINDINGS for the transient state NAME.
 
 BINDINGS should be a list of Hydra head definitions. See `defhydra'.
 
 Since a transient state initializes its Hydra right after
-the `dotspacemacs/user-config', this function will have no
+the `dotspace-macs/user-config', this function will have no
 effect if called after that point."
   (declare (indent defun))
-  (let ((var-name (spacemacs//transient-state-add-bindings-name name)))
+  (let ((var-name (space-macs//transient-state-add-bindings-name name)))
     (or (boundp var-name)
         (set var-name '()))
     (set var-name (append (symbol-value var-name) bindings))))
 
-(defun spacemacs/transient-state-register-remove-bindings (name keys)
+(defun space-macs/transient-state-register-remove-bindings (name keys)
   "Register KEYS to be removed from the transient state NAME.
 
 KEYS should be a list of strings.
 
 Since a transient state initializes its Hydra right after
-the `dotspacemacs/user-config', this function will have no
+the `dotspace-macs/user-config', this function will have no
 effect if called after that point."
   (declare (indent defun))
-  (let ((var-name (spacemacs//transient-state-remove-bindings-name name)))
+  (let ((var-name (space-macs//transient-state-remove-bindings-name name)))
     (or (boundp var-name)
         (set var-name '()))
     (set var-name (append (symbol-value var-name) keys))))
 
-(defmacro spacemacs|transient-state-format-hint (name var hint)
+(defmacro space-macs|transient-state-format-hint (name var hint)
   "Format HINT and store the result in VAR for transient state NAME."
   (declare (indent 1))
-  `(add-hook 'spacemacs-post-user-config-hook
+  `(add-hook 'space-macs-post-user-config-hook
              (lambda ()
-               (let* ((props-var ,(spacemacs//transient-state-props-var-name
+               (let* ((props-var ,(space-macs//transient-state-props-var-name
                                    name))
                       (prop-hint (cadr (assq 'hint props-var)))
                       (prop-columns (cadr (assq 'columns props-var)))
                       (prop-foreign-keys (cadr (assq 'foreign-keys props-var)))
                       (prop-entry-sexp (cadr (assq 'entry-sexp props-var)))
                       (prop-exit-sexp (cadr (assq 'exit-sexp props-var))))
-                 (setq ,var (spacemacs//transient-state-make-doc
+                 (setq ,var (space-macs//transient-state-make-doc
                              ',name
                              ,hint
                              `(nil
@@ -109,11 +109,11 @@ effect if called after that point."
                                :before-exit ,prop-exit-sexp)))
                  'append))))
 
-(defface spacemacs-transient-state-title-face
+(defface space-macs-transient-state-title-face
   `((t :inherit mode-line))
   "Face for title of transient states.")
 
-(defmacro spacemacs|define-transient-state (name &rest props)
+(defmacro space-macs|define-transient-state (name &rest props)
   "Define a transient state called NAME.
 NAME is a symbol.
 Available PROPS:
@@ -155,18 +155,18 @@ Available PROPS:
     - DOCSTRING is a STRING or an SEXP that evaluates to a string
     - :exit SYMBOL or SEXP, if non nil then pressing this key will
       leave the transient state (default is nil).
-      Important note: due to inner working of transient-maps in Emacs
+      Important note: due to inner working of transient-maps in e-macs
       the `:exit' keyword is evaluate *before* the actual execution
       of the bound command.
-All properties supported by `spacemacs//create-key-binding-form' can be
+All properties supported by `space-macs//create-key-binding-form' can be
 used."
   (declare (indent 1))
-  (let* ((func (spacemacs//transient-state-func-name name))
-         (props-var (spacemacs//transient-state-props-var-name name))
-         (body-func (spacemacs//transient-state-body-func-name name))
-         (add-bindings (spacemacs//transient-state-add-bindings-name name))
-         (remove-bindings (spacemacs//transient-state-remove-bindings-name name))
-         (bindings (spacemacs/mplist-get-values props :bindings))
+  (let* ((func (space-macs//transient-state-func-name name))
+         (props-var (space-macs//transient-state-props-var-name name))
+         (body-func (space-macs//transient-state-body-func-name name))
+         (add-bindings (space-macs//transient-state-add-bindings-name name))
+         (remove-bindings (space-macs//transient-state-remove-bindings-name name))
+         (bindings (space-macs/mplist-get-values props :bindings))
          (doc (or (plist-get props :doc) "\n"))
          (title (plist-get props :title))
          (hint-var (intern (format "%s/hint" func)))
@@ -176,21 +176,21 @@ used."
          (hint (plist-get props :hint))
          (hint-doc-p (plist-get props :hint-is-doc))
          (dyn-hint (plist-get props :dynamic-hint))
-         (additional-docs (spacemacs/mplist-get-values props :additional-docs))
+         (additional-docs (space-macs/mplist-get-values props :additional-docs))
          (foreign-keys (plist-get props :foreign-keys))
-         (bindkeys (spacemacs//create-key-binding-form props body-func)))
+         (bindkeys (space-macs//create-key-binding-form props body-func)))
     `(progn
        (defvar ,props-var nil
          ,(format (concat "Association list containing a copy of some "
                           "properties of the transient state %S. Those "
                           "properties are used in macro "
-                          "`spacemacs|transient-state-format-hint'.") name))
+                          "`space-macs|transient-state-format-hint'.") name))
        (add-to-list ',props-var '(hint ,hint))
        (add-to-list ',props-var '(columns ,columns))
        (add-to-list ',props-var '(foreign-keys ,foreign-keys))
        (add-to-list ',props-var '(entry-sexp ,entry-sexp))
        (add-to-list ',props-var '(exit-sexp ,exit-sexp))
-       (spacemacs/defer-until-after-user-config
+       (space-macs/defer-until-after-user-config
         '(lambda ()
            (eval
             (append
@@ -202,7 +202,7 @@ used."
                  :body-pre ,entry-sexp
                  :before-exit ,exit-sexp)
                 ,doc)
-             (spacemacs//transient-state-adjust-bindings
+             (space-macs//transient-state-adjust-bindings
               ',bindings ',remove-bindings ',add-bindings)))
            (when ,title
              (let ((guide (concat "[" (propertize "KEY" 'face 'hydra-face-blue)
@@ -215,15 +215,17 @@ used."
                (add-face-text-property 0 (length guide) 'italic t guide)
                (setq ,hint-var
                      (list 'concat
-                           (when dotspacemacs-show-transient-state-title
+                           (when dotspace-macs-show-transient-state-title
                              (concat
                               (propertize
                                ,title
-                               'face 'spacemacs-transient-state-title-face)
+                               'face 'space-macs-transient-state-title-face)
                               (if ,hint-doc-p " " "\n"))) ,hint-var
                               ',dyn-hint
-                              (when dotspacemacs-show-transient-state-color-guide
+                              (when dotspace-macs-show-transient-state-color-guide
                                 (concat "\n" guide))))))
            ,@bindkeys)))))
 
 (provide 'core-transient-state)
+
+

@@ -5,9 +5,9 @@
 ## Copyright (c) 2014-2018 Sylvain Benner & Contributors
 ##
 ## Author: Eugene Yaremenko
-## URL: https://github.com/syl20bnr/spacemacs
+## URL: https://github.com/syl20bnr/space-macs
 ##
-## This file is not part of GNU Emacs.
+## This file is not part of GNU e-macs.
 ##
 ## License: GPLv3
 
@@ -16,8 +16,8 @@ fail_when_undefined_pr_number
 
 select_changed_orgs
 if [ ${#changed_f_as_args[@]} -ne 0 ]; then
-    emacs -batch -l /opt/spacetools/spacedoc/sdnize/sdnize.el -no-site-file \
-          -q /root/.emacs.d/ /tmp/exported/ \
+    e-macs -batch -l /opt/spacetools/spacedoc/sdnize/sdnize.el -no-site-file \
+          -q /root/.e-macs.d/ /tmp/exported/ \
           $(printf "%s " "${changed_f_as_args[@]}")
     if [ $? -ne 0 ]; then
         echo "Documentation needs some fixing ;)"
@@ -26,3 +26,5 @@ if [ ${#changed_f_as_args[@]} -ne 0 ]; then
 else
     echo "This commit doesn't change documentation files."
 fi
+
+

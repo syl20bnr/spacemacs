@@ -16,7 +16,7 @@
           evil-snipe-smart-case t)
     :config
     (progn
-      (spacemacs|hide-lighter evil-snipe-local-mode)
+      (space-macs|hide-lighter evil-snipe-local-mode)
       (evil-snipe-mode 1)
       (when  evil-snipe-enable-alternate-f-and-t-behaviors
         (setq evil-snipe-repeat-scope 'whole-buffer)
@@ -33,3 +33,5 @@
   (add-hook 'ranger-mode-hook 'turn-off-evil-snipe-mode)
   (when evil-snipe-enable-alternate-f-and-t-behaviors
     (add-hook 'ranger-mode-hook 'turn-off-evil-snipe-override-mode)))
+
+

@@ -2,19 +2,21 @@
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
-;; Author: Thomas de Beauchêne <thomas.de.beauchene@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; Author: Thomas de BeauchÃªne <thomas.de.beauchene@gmail.com>
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs/nlinum-maybe-on ()
-  (when (spacemacs/enable-line-numbers-p)
+(defun space-macs/nlinum-maybe-on ()
+  (when (space-macs/enable-line-numbers-p)
     (nlinum-mode)))
 
-(defun spacemacs/nlinum-relative-toggle ()
+(defun space-macs/nlinum-relative-toggle ()
   (interactive)
   (if (not (bound-and-true-p nlinum-relative-mode))
       (nlinum-mode))
   (nlinum-relative-toggle))
+
+

@@ -1,11 +1,11 @@
-;;; packages.el --- Django Layer packages File for Spacemacs
+;;; packages.el --- Django Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -15,15 +15,15 @@
   (use-package pony-mode
     :defer t
     :init (progn
-            (spacemacs/declare-prefix-for-mode 'python-mode "mj" "django")
-            (spacemacs/declare-prefix-for-mode 'python-mode "mja" "fabric")
-            (spacemacs/declare-prefix-for-mode 'python-mode "mjf" "files")
-            (spacemacs/declare-prefix-for-mode 'python-mode "mji" "interactive")
-            (spacemacs/declare-prefix-for-mode 'python-mode "mjr" "runserver")
-            (spacemacs/declare-prefix-for-mode 'python-mode "mjs" "south/syncdb")
-            (spacemacs/declare-prefix-for-mode 'python-mode "mjt" "test")
+            (space-macs/declare-prefix-for-mode 'python-mode "mj" "django")
+            (space-macs/declare-prefix-for-mode 'python-mode "mja" "fabric")
+            (space-macs/declare-prefix-for-mode 'python-mode "mjf" "files")
+            (space-macs/declare-prefix-for-mode 'python-mode "mji" "interactive")
+            (space-macs/declare-prefix-for-mode 'python-mode "mjr" "runserver")
+            (space-macs/declare-prefix-for-mode 'python-mode "mjs" "south/syncdb")
+            (space-macs/declare-prefix-for-mode 'python-mode "mjt" "test")
 
-            (spacemacs/set-leader-keys-for-major-mode 'python-mode
+            (space-macs/set-leader-keys-for-major-mode 'python-mode
               "jaf" 'pony-fabric
               "jad" 'pony-fabric-deploy
 
@@ -57,3 +57,5 @@
               "jto" 'pony-test-open
               "jtt" 'pony-test
               "jtu" 'pony-test-up))))
+
+

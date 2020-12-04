@@ -15,7 +15,7 @@ This layer adds support for [[https://github.com/prettier/prettier][prettier]]
 - Format buffer in a consistent style
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=.
+To use this configuration layer, add it to your =~/.space-macs=.
 
 To install =prettier= globally:
 
@@ -28,3 +28,5 @@ To install =prettier= globally:
 | Key binding | Description                       |
 |-------------+-----------------------------------|
 | ~SPC m = =~ | format buffer in supported layers |
+
+

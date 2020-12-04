@@ -13,16 +13,16 @@
   - [[#repl][REPL]]
 
 * Description
-Adds support for the [[http://www.smlnj.org][SML]] programming language to Spacemacs.
+Adds support for the [[http://www.smlnj.org][SML]] programming language to Space-macs.
 
 ** Features:
 - Syntax highlighting
-- Integration of the =SML Repl= into Emacs
+- Integration of the =SML Repl= into e-macs
 - Basic completion of SML forms via =sml-electric-space=
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =sml= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =sml= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -45,3 +45,5 @@ file.
 | ~SPC m s r~ | Send region to REPL                                               |
 | ~SPC m s R~ | Send region to REPL and switch to REPL buffer in =insert state=   |
 | ~SPC m s s~ | Run the sml REPL or switch to it if the REPL is already running   |
+
+

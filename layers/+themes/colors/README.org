@@ -29,8 +29,8 @@ process indicator.
 - Display a Nyan cat progress bar in the mode-line with [[https://github.com/syl20bnr/nyan-mode][nyan-mode]].
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =colors= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =colors= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
@@ -41,8 +41,8 @@ set the layer variable =colors-colorize-identifiers= to =variables=.
 If you want to colorize all identifiers using the more universal rainbow-identifiers
 method instead, set the layer variable =colors-colorize-identifiers= to =all=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (colors :variables colors-colorize-identifiers 'all)))
 #+END_SRC
 
@@ -52,15 +52,15 @@ used for colors can be set on a per-theme basis by adding an entry to the variab
 and the value is a pair =(saturation lightness)=.
 
 For now, saturation and lightness are not supported via a =variables= value!
-Instead, you must push themes into the alist in your =dotspacemacs/user-config= section,
+Instead, you must push themes into the alist in your =dotspace-macs/user-config= section,
 and then refresh the values to ensure your overrides are applied to your current theme.
 
 Two handy built-in functions makes both of those steps very easy.
 
 Example:
 
-#+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/user-config ()
+#+BEGIN_SRC e-macs-lisp
+  (defun dotspace-macs/user-config ()
     ;; add per-theme sat&light overrides and refresh values for your current theme
     (colors/add-theme-sat&light 'mytheme '(50 50))
     (colors/add-theme-sat&light 'anothertheme '(90 40))
@@ -72,8 +72,8 @@ For all themes that lack per-theme overrides, it uses default saturation and lig
 You can configure your own defaults via =colors-default-rainbow-identifiers-sat=
 and =colors-default-rainbow-identifiers-light=, which can be set via =variables=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (colors :variables
       colors-colorize-identifiers 'all
       colors-default-rainbow-identifiers-sat 42
@@ -85,16 +85,16 @@ and =colors-default-rainbow-identifiers-light=, which can be set via =variables=
 To enable the package =nyan-mode= just set the variable
 =colors-enable-nyan-cat-progress-bar= to =t=:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (colors :variables colors-enable-nyan-cat-progress-bar t)))
 #+END_SRC
 
-It may be handy to enable it only when Emacs is running in a GUI.
-You can do that by using a quasi-quoted list which checks the Emacs mode:
+It may be handy to enable it only when e-macs is running in a GUI.
+You can do that by using a quasi-quoted list which checks the e-macs mode:
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(
     (colors :variables
             colors-enable-nyan-cat-progress-bar (display-graphic-p))))
 #+END_SRC
@@ -129,7 +129,7 @@ It can be used together with either (or none) of the identifier colorizers.
 
 All detected color codes in the current buffer will be be highlighted as their
 actual color. However, for accurate display, this mode requires that you use
-GUI Emacs and that you haven't disabled sRGB mode (if your platform uses that).
+GUI e-macs and that you haven't disabled sRGB mode (if your platform uses that).
 
 To enable, you must manually toggle it on and off on a per-buffer basis with:
 ~SPC t C c~
@@ -139,3 +139,5 @@ To enable, you must manually toggle it on and off on a per-buffer basis with:
 ~SPC t m n~
 
 Note that the toggle is local to the current buffer.
+
+

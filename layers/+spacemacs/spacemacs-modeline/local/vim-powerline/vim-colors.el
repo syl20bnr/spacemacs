@@ -80,7 +80,7 @@
             (replace      ,white           ,brightred    t)
             (select       ,white           ,gray5        t)
             (motion       ,brightpurple    ,mediumpurple t)
-            (emacs        ,darkestcyan     ,white        t)
+            (e-macs        ,darkestcyan     ,white        t)
             (iedit        ,darkred         ,brightestred t)
             (lisp         ,brightpurple    ,mediumpurple t)
             (hybrid       ,darkestblue     ,mediumcyan   t))
@@ -187,3 +187,5 @@
 ;; indent-tabs-mode: nil
 ;; End:
 ;;; vim-colors.el ends here
+
+

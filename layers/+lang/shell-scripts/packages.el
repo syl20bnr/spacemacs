@@ -1,11 +1,11 @@
-;;; packages.el --- Shell Scripts Layer packages File for Spacemacs
+;;; packages.el --- Shell Scripts Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -28,15 +28,15 @@
     :defer t
     :init
     (progn
-      (spacemacs|add-company-backends
+      (space-macs|add-company-backends
         :backends (company-shell company-shell-env)
         :modes sh-mode)
-      (spacemacs|add-company-backends
+      (space-macs|add-company-backends
         :backends (company-shell company-shell-env company-fish-shell)
         :modes fish-mode))))
 
 (defun shell-scripts/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'sh-mode))
+  (space-macs/enable-flycheck 'sh-mode))
 
 (defun shell-scripts/init-flycheck-bashate ()
   (use-package flycheck-bashate
@@ -53,11 +53,11 @@
     :init
     (progn
       ;; Add meaningful names for prefix categories
-      (spacemacs/declare-prefix-for-mode 'sh-mode "mi" "insert")
-      (spacemacs/declare-prefix-for-mode 'sh-mode "mg" "goto")
+      (space-macs/declare-prefix-for-mode 'sh-mode "mi" "insert")
+      (space-macs/declare-prefix-for-mode 'sh-mode "mg" "goto")
 
       ;; Add standard key bindings for insert commands
-      (spacemacs/set-leader-keys-for-major-mode 'sh-mode
+      (space-macs/set-leader-keys-for-major-mode 'sh-mode
         "\\" 'sh-backslash-region
         "ic" 'sh-case
         "ii" 'sh-if
@@ -80,24 +80,24 @@
                          "zshrc\\'"))
         (add-to-list 'auto-mode-alist (cons pattern 'sh-mode)))
 
-      (defun spacemacs//setup-shell ()
+      (defun space-macs//setup-shell ()
         (when (and buffer-file-name
                    (string-match-p "\\.zsh\\'" buffer-file-name))
           (sh-set-shell "zsh")))
-      (add-hook 'sh-mode-hook 'spacemacs//setup-shell)
-      (add-hook 'sh-mode-hook 'spacemacs//shell-scripts-setup-backend))))
+      (add-hook 'sh-mode-hook 'space-macs//setup-shell)
+      (add-hook 'sh-mode-hook 'space-macs//shell-scripts-setup-backend))))
 
 (defun shell-scripts/post-init-ggtags ()
-  (add-hook 'sh-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'sh-mode-local-vars-hook #'space-macs/ggtags-mode-enable))
 
 (defun shell-scripts/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'sh-mode))
+  (space-macs/counsel-gtags-define-keys-for-mode 'sh-mode))
 
 (defun shell-scripts/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'sh-mode))
+  (space-macs/helm-gtags-define-keys-for-mode 'sh-mode))
 
 (defun shell-scripts/pre-init-org ()
-  (spacemacs|use-package-add-hook org
+  (space-macs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(shell . t))))
 
 (defun shell-scripts/init-insert-shebang ()
@@ -107,8 +107,10 @@
     (progn
       ;; Insert shebang must be available for non shell modes like python or
       ;; groovy but also in the major mode menu with shell specific inserts
-      (spacemacs/set-leader-keys-for-major-mode 'sh-mode
-        "i!" 'spacemacs/insert-shebang)
-      (spacemacs/set-leader-keys "i!" 'spacemacs/insert-shebang)
+      (space-macs/set-leader-keys-for-major-mode 'sh-mode
+        "i!" 'space-macs/insert-shebang)
+      (space-macs/set-leader-keys "i!" 'space-macs/insert-shebang)
       ;; we don't want to insert shebang lines automatically
       (remove-hook 'find-file-hook 'insert-shebang))))
+
+

@@ -1,7 +1,7 @@
 ;;; helm-games.el --- Games selection with `helm'.
 
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; Keywords: helm, spacemacs, games
+;; Keywords: helm, space-macs, games
 ;; Version: 0.1
 ;; Package-Requires: ((helm "1.5"))
 
@@ -16,12 +16,12 @@
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to
+;; along with GNU e-macs; see the file COPYING.  If not, write to
 ;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
-;; This package adds a convenient way to discover Spacemacs configuration
+;; This package adds a convenient way to discover Space-macs configuration
 ;; layers thanks to helm.
 
 ;;; Code:
@@ -80,3 +80,5 @@
 (provide 'helm-games)
 
 ;;; helm-games.el ends here
+
+

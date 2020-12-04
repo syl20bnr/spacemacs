@@ -1,11 +1,11 @@
-;;; packages.el --- Haskell Layer packages File for Spacemacs
+;;; packages.el --- Haskell Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -43,16 +43,16 @@
     :defer t))
 
 (defun haskell/post-init-company ()
-  (add-hook 'haskell-mode-local-vars-hook #'spacemacs-haskell//setup-company)
-  (add-hook 'haskell-literate-mode-local-vars-hook #'spacemacs-haskell//setup-company)
+  (add-hook 'haskell-mode-local-vars-hook #'space-macs-haskell//setup-company)
+  (add-hook 'haskell-literate-mode-local-vars-hook #'space-macs-haskell//setup-company)
   ;; renamed as of 04/2020, delete in due course
-  (add-hook 'literate-haskell-mode-local-vars-hook #'spacemacs-haskell//setup-company))
+  (add-hook 'literate-haskell-mode-local-vars-hook #'space-macs-haskell//setup-company))
 
 (defun haskell/init-company-cabal ()
   (use-package company-cabal
     :defer t
     :init
-    (spacemacs|add-company-backends
+    (space-macs|add-company-backends
       :backends company-cabal
       :modes haskell-cabal-mode)))
 
@@ -62,10 +62,10 @@
     :config
     (progn
       (dolist (mode haskell-modes)
-        (spacemacs/set-leader-keys-for-major-mode mode
+        (space-macs/set-leader-keys-for-major-mode mode
           "gb" 'xref-pop-marker-stack
           "ht" 'dante-type-at
-          "hT" 'spacemacs-haskell//dante-insert-type
+          "hT" 'space-macs-haskell//dante-insert-type
           "hi" 'dante-info
           "rs" 'dante-auto-fix
           "se" 'dante-eval-block
@@ -80,13 +80,13 @@
     :defer t
     :init
     (dolist (mode haskell-modes)
-      (spacemacs/set-leader-keys-for-major-mode mode "hf" 'helm-hoogle))))
+      (space-macs/set-leader-keys-for-major-mode mode "hf" 'helm-hoogle))))
 
 (defun haskell/post-init-flycheck ()
   (progn
     (add-hook 'dante-mode-hook
               (lambda () (flycheck-add-next-checker 'haskell-dante '(warning . haskell-hlint))))
-    (spacemacs/enable-flycheck 'haskell-mode))
+    (space-macs/enable-flycheck 'haskell-mode))
   )
 
 (defun haskell/init-flycheck-haskell ()
@@ -95,31 +95,31 @@
     :init (add-hook 'flycheck-mode-hook 'flycheck-haskell-configure)))
 
 (defun haskell/post-init-ggtags ()
-  (add-hook 'haskell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
-  (add-hook 'haskell-literate-mode-local-vars-hook #'spacemacs/ggtags-mode-enable)
+  (add-hook 'haskell-mode-local-vars-hook #'space-macs/ggtags-mode-enable)
+  (add-hook 'haskell-literate-mode-local-vars-hook #'space-macs/ggtags-mode-enable)
   ;; renamed as of 04/2020, delete in due course
-  (add-hook 'literate-haskell-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'literate-haskell-mode-local-vars-hook #'space-macs/ggtags-mode-enable))
 
 (defun haskell/init-haskell-mode ()
   (use-package haskell-mode
     :defer t
     :init
     (progn
-      (add-hook 'haskell-mode-local-vars-hook #'spacemacs-haskell//setup-backend)
-      (add-hook 'haskell-literate-mode-local-vars-hook #'spacemacs-haskell//setup-backend)
+      (add-hook 'haskell-mode-local-vars-hook #'space-macs-haskell//setup-backend)
+      (add-hook 'haskell-literate-mode-local-vars-hook #'space-macs-haskell//setup-backend)
       ;; renamed as of 04/2020, delete in due course
-      (add-hook 'literate-haskell-mode-local-vars-hook #'spacemacs-haskell//setup-backend)
+      (add-hook 'literate-haskell-mode-local-vars-hook #'space-macs-haskell//setup-backend)
 
-      (defun spacemacs//force-haskell-mode-loading ()
+      (defun space-macs//force-haskell-mode-loading ()
         "Force `haskell-mode' loading when visiting cabal file."
         (require 'haskell-mode))
       (add-hook 'haskell-cabal-mode-hook
-                'spacemacs//force-haskell-mode-loading)
+                'space-macs//force-haskell-mode-loading)
 
       ;; Haskell cabal files interact badly with electric-indent-mode
       ;; note: we cannot add this hook in :config, since haskell-mode might
       ;; only be loaded after cabal-mode hooks are already run (see add-hook above)
-      (add-hook 'haskell-cabal-mode-hook #'spacemacs-haskell//disable-electric-indent)
+      (add-hook 'haskell-cabal-mode-hook #'space-macs-haskell//disable-electric-indent)
 
       (setq
        ;; Use notify.el (if you have it installed) at the end of running
@@ -135,7 +135,7 @@
        haskell-stylish-on-save nil))
     :config
     (progn
-      (defun spacemacs/haskell-interactive-bring ()
+      (defun space-macs/haskell-interactive-bring ()
         "Bring up the interactive mode for this session without
          switching to it."
         (interactive)
@@ -144,21 +144,21 @@
           (display-buffer buffer)))
 
       ;; hooks
-      (add-hook 'haskell-mode-hook #'spacemacs-haskell//disable-electric-indent)
+      (add-hook 'haskell-mode-hook #'space-macs-haskell//disable-electric-indent)
 
       ;; prefixes
       (dolist (mode haskell-modes)
-        (spacemacs/declare-prefix-for-mode mode "mg" "haskell/navigation")
-        (spacemacs/declare-prefix-for-mode mode "ms" "haskell/repl")
-        (spacemacs/declare-prefix-for-mode mode "mc" "haskell/cabal")
-        (spacemacs/declare-prefix-for-mode mode "mh" "haskell/documentation")
-        (spacemacs/declare-prefix-for-mode mode "md" "haskell/debug")
-        (spacemacs/declare-prefix-for-mode mode "mr" "haskell/refactor"))
-      (spacemacs/declare-prefix-for-mode 'haskell-interactive-mode "ms" "haskell/repl")
-      (spacemacs/declare-prefix-for-mode 'haskell-cabal-mode "ms" "haskell/repl")
+        (space-macs/declare-prefix-for-mode mode "mg" "haskell/navigation")
+        (space-macs/declare-prefix-for-mode mode "ms" "haskell/repl")
+        (space-macs/declare-prefix-for-mode mode "mc" "haskell/cabal")
+        (space-macs/declare-prefix-for-mode mode "mh" "haskell/documentation")
+        (space-macs/declare-prefix-for-mode mode "md" "haskell/debug")
+        (space-macs/declare-prefix-for-mode mode "mr" "haskell/refactor"))
+      (space-macs/declare-prefix-for-mode 'haskell-interactive-mode "ms" "haskell/repl")
+      (space-macs/declare-prefix-for-mode 'haskell-cabal-mode "ms" "haskell/repl")
 
       ;; key bindings
-      (defun spacemacs/haskell-process-do-type-on-prev-line ()
+      (defun space-macs/haskell-process-do-type-on-prev-line ()
         (interactive)
         (haskell-process-do-type 1))
 
@@ -169,14 +169,14 @@
         (kbd "C-l") 'haskell-interactive-mode-clear)
 
       ;; Bind repl
-      (spacemacs/register-repl 'haskell
+      (space-macs/register-repl 'haskell
                                'haskell-interactive-switch "haskell")
 
       (dolist (mode haskell-modes)
-        (spacemacs/set-leader-keys-for-major-mode mode
+        (space-macs/set-leader-keys-for-major-mode mode
           "sb"  'haskell-process-load-file
           "sc"  'haskell-interactive-mode-clear
-          "sS"  'spacemacs/haskell-interactive-bring
+          "sS"  'space-macs/haskell-interactive-bring
           "ss"  'haskell-interactive-switch
           "'"   'haskell-interactive-switch
 
@@ -188,7 +188,7 @@
           "hd"  'inferior-haskell-find-haddock
           "hi"  'haskell-process-do-info
           "ht"  'haskell-process-do-type
-          "hT"  'spacemacs/haskell-process-do-type-on-prev-line
+          "hT"  'space-macs/haskell-process-do-type-on-prev-line
 
           "da"  'haskell-debug/abandon
           "db"  'haskell-debug/break-on-function
@@ -202,15 +202,15 @@
           "ds"  'haskell-debug/step
           "dt"  'haskell-debug/trace
 
-          "ri"  'spacemacs/haskell-format-imports)
-        (if (eq (spacemacs//haskell-backend) 'lsp)
-            (spacemacs/set-leader-keys-for-major-mode mode
+          "ri"  'space-macs/haskell-format-imports)
+        (if (eq (space-macs//haskell-backend) 'lsp)
+            (space-macs/set-leader-keys-for-major-mode mode
               "gl"  'haskell-navigate-imports
               "S"   'haskell-mode-stylish-buffer
 
               "hg"  'hoogle
               "hG"  'haskell-hoogle-lookup-from-local)
-          (spacemacs/set-leader-keys-for-major-mode mode
+          (space-macs/set-leader-keys-for-major-mode mode
             "gi"  'haskell-navigate-imports
             "F"   'haskell-mode-stylish-buffer
 
@@ -234,15 +234,15 @@
       (bind-key "C-c C-z" 'haskell-interactive-switch haskell-mode-map)
 
       ;; Switch back to editor from REPL
-      (spacemacs/set-leader-keys-for-major-mode 'haskell-interactive-mode
+      (space-macs/set-leader-keys-for-major-mode 'haskell-interactive-mode
         "ss"  'haskell-interactive-switch-back)
 
       ;; Compile
-      (spacemacs/set-leader-keys-for-major-mode 'haskell-cabal
+      (space-macs/set-leader-keys-for-major-mode 'haskell-cabal
         "C"  'haskell-compile)
 
       ;; Cabal-file bindings
-      (spacemacs/set-leader-keys-for-major-mode 'haskell-cabal-mode
+      (space-macs/set-leader-keys-for-major-mode 'haskell-cabal-mode
         ;; "="   'haskell-cabal-subsection-arrange-lines ;; Does a bad job, 'gg=G' works better
         "d"   'haskell-cabal-add-dependency
         "b"   'haskell-cabal-goto-benchmark-section
@@ -253,7 +253,7 @@
         "n"   'haskell-cabal-next-subsection
         "p"   'haskell-cabal-previous-subsection
         "sc"  'haskell-interactive-mode-clear
-        "sS"  'spacemacs/haskell-interactive-bring
+        "sS"  'space-macs/haskell-interactive-bring
         "ss"  'haskell-interactive-switch
         "N"   'haskell-cabal-next-section
         "P"   'haskell-cabal-previous-section
@@ -269,7 +269,7 @@
     (with-eval-after-load 'align
       (add-to-list 'align-rules-list
                    '(haskell-types
-                     (regexp . "\\(\\s-+\\)\\(::\\|∷\\)\\s-+")
+                     (regexp . "\\(\\s-+\\)\\(::\\|âˆ·\\)\\s-+")
                      (modes . haskell-modes)))
       (add-to-list 'align-rules-list
                    '(haskell-assignment
@@ -277,11 +277,11 @@
                      (modes . haskell-modes)))
       (add-to-list 'align-rules-list
                    '(haskell-arrows
-                     (regexp . "\\(\\s-+\\)\\(->\\|→\\)\\s-+")
+                     (regexp . "\\(\\s-+\\)\\(->\\|â†’\\)\\s-+")
                      (modes . haskell-modes)))
       (add-to-list 'align-rules-list
                    '(haskell-left-arrows
-                     (regexp . "\\(\\s-+\\)\\(<-\\|←\\)\\s-+")
+                     (regexp . "\\(\\s-+\\)\\(<-\\|â†\\)\\s-+")
                      (modes . haskell-modes))))))
 
 (defun haskell/init-haskell-snippets ()
@@ -299,10 +299,10 @@
   (with-eval-after-load 'yasnippet (haskell-snippets-initialize)))
 
 (defun haskell/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'haskell-mode))
+  (space-macs/counsel-gtags-define-keys-for-mode 'haskell-mode))
 
 (defun haskell/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'haskell-mode))
+  (space-macs/helm-gtags-define-keys-for-mode 'haskell-mode))
 
 
 ;; doesn't support haskell-literate-mode :(
@@ -314,7 +314,7 @@
     (add-hook 'haskell-mode-hook #'hindent-mode)
     :config
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
+      (space-macs/set-leader-keys-for-major-mode 'haskell-mode
         "f" 'hindent-reformat-decl-or-fill))))
 
 (defun haskell/init-hlint-refactor ()
@@ -322,6 +322,8 @@
     :defer t
     :init
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
+      (space-macs/set-leader-keys-for-major-mode 'haskell-mode
         "rb" 'hlint-refactor-refactor-buffer
         "rr" 'hlint-refactor-refactor-at-point))))
+
+

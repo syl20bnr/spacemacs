@@ -33,8 +33,8 @@ Supported scripting files:
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =shell-scripts= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =shell-scripts= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Linting
@@ -48,8 +48,8 @@ You have the choice between two different backends
 with different setup instructions and different capabilities.
 
 *** Shell-script-mode
-This is the recommended way for working with shell scripts in emacs. It works
-by using an emacs major mode.
+This is the recommended way for working with shell scripts in e-macs. It works
+by using an e-macs major mode.
 
 It supports =bash= and =fish= shell scripts.
 
@@ -57,7 +57,7 @@ No additional setup is necessary.
 
 *** LSP
 This backend uses an external server to provide the various IDE integrations
-and a more modern UI integration in =spacemacs=.
+and a more modern UI integration in =space-macs=.
 
 However it only supports working with =bash= scripts.
 
@@ -93,3 +93,5 @@ You can find further information about the project at its [[https://github.com/m
 | ~SPC m i s~ | insert select loop if supported by shell                  |
 | ~SPC m i u~ | insert until loop if supported by shell                   |
 | ~SPC m i g~ | insert a getopts while loop if supported by shell         |
+
+

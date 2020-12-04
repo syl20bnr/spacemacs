@@ -1,11 +1,11 @@
-;;; packages.el --- Agda2 Layer packages File for Spacemacs
+;;; packages.el --- Agda2 Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Oliver Charles <ollie@ocharles.org.uk>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -17,12 +17,12 @@
         ))
 
 (defun agda/post-init-company ()
-  (spacemacs|add-company-backends :backends company-capf :modes agda2-mode))
+  (space-macs|add-company-backends :backends company-capf :modes agda2-mode))
 
 (defun agda/init-agda ()
   (if (and (eq 'use-helper agda-mode-path)
            (not (executable-find "agda-mode")))
-      (spacemacs-buffer/warning
+      (space-macs-buffer/warning
        (concat "Couldn't find `agda-mode', make sure it is "
                "available in your PATH or check the installation "
                "instructions in the README file."))
@@ -59,20 +59,20 @@
       :config
       (progn
         ; don't lose indentation on paste
-        (add-to-list 'spacemacs-indent-sensitive-modes 'agda2-mode)
+        (add-to-list 'space-macs-indent-sensitive-modes 'agda2-mode)
 
-        (spacemacs|define-transient-state goal-navigation
+        (space-macs|define-transient-state goal-navigation
           :title "Goal Navigation Transient State"
           :doc "\n[_f_] next [_b_] previous [_q_] quit"
           :bindings
           ("f" agda2-next-goal)
           ("b" agda2-previous-goal)
           ("q" nil :exit t))
-        (spacemacs/set-leader-keys-for-major-mode 'agda2-mode
-          "f" 'spacemacs/goal-navigation-transient-state/agda2-next-goal
-          "b" 'spacemacs/goal-navigation-transient-state/agda2-previous-goal)
+        (space-macs/set-leader-keys-for-major-mode 'agda2-mode
+          "f" 'space-macs/goal-navigation-transient-state/agda2-next-goal
+          "b" 'space-macs/goal-navigation-transient-state/agda2-previous-goal)
 
-        (spacemacs/set-leader-keys-for-major-mode 'agda2-mode
+        (space-macs/set-leader-keys-for-major-mode 'agda2-mode
           "?"   'agda2-show-goals
           "."   'agda2-goal-and-context-and-inferred
           ","   'agda2-goal-and-context
@@ -98,7 +98,9 @@
           "xr"  'agda2-restart)))))
 
 (defun agda/pre-init-golden-ratio ()
-  (spacemacs|use-package-add-hook golden-ratio
+  (space-macs|use-package-add-hook golden-ratio
     :post-config
     (add-to-list 'golden-ratio-exclude-buffer-names
                  "*Agda information*")))
+
+

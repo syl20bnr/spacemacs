@@ -11,15 +11,15 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for the [[https://en.wikipedia.org/wiki/FAUST_(programming_language)][faust language]] to Spacemacs.
+This layer adds support for the [[https://en.wikipedia.org/wiki/FAUST_(programming_language)][faust language]] to Space-macs.
 
 ** Features:
 - Syntax highlighting
 - Auto-completion
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =faust= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =faust= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -31,3 +31,5 @@ file.
 | ~SPC m c q~ | Compile a jack-qt program and run it  |
 | ~SPC m g b~ | Jump back to previous location        |
 | ~SPC m g g~ | Jump to definition around point       |
+
+

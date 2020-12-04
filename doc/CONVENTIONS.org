@@ -1,8 +1,8 @@
-#+TITLE: Spacemacs Conventions
+#+TITLE: Space-macs Conventions
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#code-guidelines][Code guidelines]]
-  - [[#spacemacs-core-and-layer][Spacemacs core and layer]]
+  - [[#space-macs-core-and-layer][Space-macs core and layer]]
   - [[#all-layers][All layers]]
   - [[#use-package][Use-package]]
 - [[#key-bindings-conventions][Key bindings conventions]]
@@ -43,15 +43,15 @@
   - [[#spacing-in-documentation][Spacing in documentation]]
 
 * Code guidelines
-** Spacemacs core and layer
+** Space-macs core and layer
 Function names follow these conventions:
-- =spacemacs/xxx= is an interactive function called =xxx=
-- =spacemacs//xxx= is a private function called =xxx= (implementation details)
-- =spacemacs|xxx= is a /macro/ called =xxx=
+- =space-macs/xxx= is an interactive function called =xxx=
+- =space-macs//xxx= is a private function called =xxx= (implementation details)
+- =space-macs|xxx= is a /macro/ called =xxx=
 
 Variables follow these conventions:
-- =spacemacs-xxx= is a variable
-- =spacemacs--xxx= is a private variable (implementation details)
+- =space-macs-xxx= is a variable
+- =space-macs--xxx= is a private variable (implementation details)
 
 ** All layers
 A package is initialized in a function with name =<layer>/init-xxx= where:
@@ -74,7 +74,7 @@ user.
 
 *** Major mode prefix
 ~SPC m~ is reserved for the current major mode. Three keys bindings are not an
-issue (ie. ~SPC m h d~) since ~SPC m~ can be accessed via ~​,​~.
+issue (ie. ~SPC m h d~) since ~SPC m~ can be accessed via ~â€‹,â€‹~.
 
 *** Transient-state
 Transient states are generally put behin the dot key ~.~, for instance the
@@ -90,7 +90,7 @@ It is recommended to make sure that ~q~ allows to leave the transient-state.
 /Evilifying/ a buffer is to set the =evilified state= as the default
 state for the major mode of the buffer.
 
-The =evilified state= is derived from the =emacs state= and modify the
+The =evilified state= is derived from the =e-macs state= and modify the
 map to:
 - add ~hjkl~ navigation
 - add scrolling feature on ~C-f~, ~C-b~, ~C-d~ and ~C-u~
@@ -107,7 +107,7 @@ Setting the =evilified state= to a mode is done by calling the macro
 /Evilification/ rebinds shadowed key bindings according to the following
 rules:
 - alphabetic key bindings: ~x~ -> ~X~ -> ~C-x~ -> ~C-X~
-- ~SPC~ -> ~​'​~
+- ~SPC~ -> ~â€‹'â€‹~
 - ~/~ -> ~\~
 - ~:~ -> ~|~
 - ~C-g~ cannot be shadowed
@@ -117,13 +117,13 @@ is displayed in =*Messages*=.
 
 ** Navigation
 *** n and N
-To be consistent with the Vim way, ~n~ and ~N~ are favored over Emacs ~n~ and
+To be consistent with the Vim way, ~n~ and ~N~ are favored over e-macs ~n~ and
 ~p~.
 
 Ideally a transient-state should be provided to smooth the navigation
 experience. A transient-state allows to repeat key bindings without entering
 each time the prefix commands. More info on transient-states in the
-[[https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#transient-states][documentation]].
+[[https://github.com/syl20bnr/space-macs/blob/develop/doc/DOCUMENTATION.org#transient-states][documentation]].
 
 *** Code Navigation
 The prefix for going to something is ~SPC m g~.
@@ -149,11 +149,11 @@ should be performed with ~C-j~ and ~C-k~ bindings for vertical movements.
 
 ** Confirm and Abort
 Confirming and aborting actions which are bound to ~C-c C-c~ and ~C-c C-k~
-in raw Emacs are mirrored in Spacemacs to:
+in raw e-macs are mirrored in Space-macs to:
 
 | Key                     | Description               |
 |-------------------------+---------------------------|
-| ~SPC m ​,​~ and ~SPC m c~ | Valid/Confirm the message |
+| ~SPC m â€‹,â€‹~ and ~SPC m c~ | Valid/Confirm the message |
 | ~SPC m a~ and ~SPC m k~ | Abort/Discard the message |
 
 Some example of these modes are =magit= commit messages, =message-mode= for
@@ -241,7 +241,7 @@ The base prefix for debugging commands is ~SPC m d~.
 Notes:
 - Ideally a transient-state for breakpoint navigation should be provided.
 - If there is no toggle breakpoint function, then it should be implemented at
-  the spacemacs level and ideally the function should be proposed as a patch
+  the space-macs level and ideally the function should be proposed as a patch
   upstream (major mode repository).
 
 ** Errors
@@ -401,11 +401,11 @@ as an help command.
 | ~m h r~ | documentation of selected region   |
 
 * Writing documentation
-Spacemacs provides an example layer =README.org= file in
-=~/.emacs.d/core/templates/README.org.template=.
+Space-macs provides an example layer =README.org= file in
+=~/.e-macs.d/core/templates/README.org.template=.
 
 ** Spacing in documentation
-- Spacemacs tries to keep the documentation consistent between all layers by
+- Space-macs tries to keep the documentation consistent between all layers by
   providing some rules for spacing:
   - After each header, you should not add an empty line
     - *Exception*: If the first item under the header is a table, add an empty
@@ -415,3 +415,5 @@ Spacemacs provides an example layer =README.org= file in
     them if you can.
 - To keep things readable only mention the prefix ~SPC~ when documenting
   key bindings, you don't need to mention ~M-m~.
+
+

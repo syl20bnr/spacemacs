@@ -15,26 +15,26 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for editing Ansible configuration files in Spacemacs.
+This layer adds support for editing Ansible configuration files in Space-macs.
 
 ** Features:
 - Syntax highlighting for Ansible-flavored YAML and Jinja2 templates.
 - Auto-completion via =company-ansible=.
-- Integration of =ansible-vault= into emacs for automatic encryption/decryption of files.
+- Integration of =ansible-vault= into e-macs for automatic encryption/decryption of files.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =ansible= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =ansible= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Configuration
 ** ansible-vault
 *** Password
 To use =ansible-vault= you have to provide the path to a file containing the
-password to use somewhere in your =dotspacemacs/user-config= function.
+password to use somewhere in your =dotspace-macs/user-config= function.
 For instance:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (setq ansible-vault-password-file "path/to/pwd/file")
 #+END_SRC
 
@@ -45,9 +45,9 @@ For now Ansible does not handle multiple passwords in the vault file
 limitation directory local variables can be used to define a different
 password file for a given environment. Example:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
+  ;;; For more information see (info "(e-macs) Directory Variables")
 
   ((yaml-mode . ((ansible-vault-password-file . "path/to/vault_file"))))
 #+END_SRC
@@ -60,7 +60,7 @@ any encrypted files.
 If you want to disable this feature then set the layer variable
 =ansible-auto-encrypt-decrypt= to =nil=.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (ansible :variables ansible-auto-encrypt-decrypt t)
 #+END_SRC
 
@@ -71,3 +71,5 @@ If you want to disable this feature then set the layer variable
 | ~SPC m b e~ | encrypt the buffer using =ansible-vault= |
 | ~SPC m b d~ | decrypt the buffer using =ansible-vault= |
 | ~SPC m h a~ | looks up documentation using [[https://github.com/lunaryorn/ansible-doc.el][ansible-doc]] |
+
+

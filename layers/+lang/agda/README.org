@@ -15,14 +15,14 @@ This layer adds support for the [[http://wiki.portal.chalmers.se/agda/pmwiki.php
 
 ** Features:
 - Faces redefined to correctly play with themes.
-- Spacemacs bindings to Agda's interactive tools.
+- Space-macs bindings to Agda's interactive tools.
 
 *This layer is in construction, it needs your contributions and bug reports.*
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =agda= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =agda= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Agda
@@ -32,25 +32,25 @@ Quick instructions to install Agda assuming you have cabal installed:
   cabal install alex happy "cpphs < 1.19" agda
 #+END_SRC
 
-Then check that =agda= is available on your =$PATH= and seen by Emacs. For
+Then check that =agda= is available on your =$PATH= and seen by e-macs. For
 information about setting up =$PATH=, check out the corresponding section in the
 FAQ (~SPC h SPC $PATH RET~).
 
 By default the =agda-mode= executable bundled with most agda installations is
 used to locate the agda-mode package. If you don't have it and want to use a
 local agda-mode package, you can customize the layer variable =agda-mode-path=
-to your needs. Set it to =nil= if =agda2.el= is already discoverable in Emacs'
+to your needs. Set it to =nil= if =agda2.el= is already discoverable in e-macs'
 load path, otherwise set it to the path at which =agda2.el= can be found. For
 example,
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (agda :variables agda-mode-path "/some/path/to/agda2.el")
 #+END_SRC
 
 * Key bindings
-The key bindings of this layer don't follow the Spacemacs conventions,
+The key bindings of this layer don't follow the Space-macs conventions,
 we opted to a simple transcription of stock Agda mode key bindings to
-Spacemacs leader key.
+Space-macs leader key.
 
 All Agda specific bindings are prefixed with the major-mode leader
 ~SPC m~.
@@ -59,7 +59,7 @@ All Agda specific bindings are prefixed with the major-mode leader
 |-------------+-------------------------------------------------------------------------------------------------------------------------------------------|
 | ~SPC m =~   | Show constraints.                                                                                                                         |
 | ~SPC m ?~   | Show all goals.                                                                                                                           |
-| ~SPC m ​,​~   | Shows the type of the goal at point and the currect context.                                                                              |
+| ~SPC m â€‹,â€‹~   | Shows the type of the goal at point and the currect context.                                                                              |
 | ~SPC m .~   | Shows the context, the goal and the given expression's inferred type.                                                                     |
 | ~SPC m a~   | Simple proof search.                                                                                                                      |
 | ~SPC m b~   | Go to the previous goal, if any and activate goal-navigation transient-state.                                                             |
@@ -80,3 +80,5 @@ All Agda specific bindings are prefixed with the major-mode leader
 | ~SPC m x q~ | Quit and clean up after agda2.                                                                                                            |
 | ~SPC m x r~ | Kill and restart the *agda2* buffer and load =agda2-toplevel-module=.                                                                     |
 | ~SPC m w~   | Explains why a given name is in scope.                                                                                                    |
+
+

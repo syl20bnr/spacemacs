@@ -18,7 +18,7 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer integrates offline API browsers into Emacs. It provides one for macOS, Linux and Windows.
+This layer integrates offline API browsers into e-macs. It provides one for macOS, Linux and Windows.
 
 ** Features:
 - Searching for word at point in offline API browser's UI.
@@ -27,8 +27,8 @@ This layer integrates offline API browsers into Emacs. It provides one for macOS
 - Support for [[https://zealdocs.org/][zeal]] offline API browser for Linux.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =dash= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =dash= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Dash (macOS)
@@ -49,7 +49,7 @@ Then install the docsets you use more frequently
 By default, the dash layer will initialize all installed docsets to be active in
 all buffers. To disable this and opt-in to specific docsets for specific buffers, set:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (dash :variables
         dash-autoload-common-docsets nil)
 #+END_SRC
@@ -65,7 +65,7 @@ To change the location of the installed docsets, set:
 =dash-at-point= and =zeal-at-point= will search for the word at point in the respective offline API browser.
 The result will be displayed in the offline browser's UI.
 
-However having to leave emacs to have a look at the search results may be a bit awkward.
+However having to leave e-macs to have a look at the search results may be a bit awkward.
 To help with this it is also possible to integrate the search results directly in =helm= or =ivy=
 and show the details in a browser. To do so [[https://github.com/dash-docs-el/helm-dash][helm-dash]] can be used for =helm= and [[https://github.com/dash-docs-el/counsel-dash][counsel-dash]] for =ivy=.
 
@@ -86,3 +86,5 @@ For more details please check [[https://github.com/stanaka/dash-at-point#Usage][
 | ~SPC a r z D~ | Lookup thing at point in Dash or Zeal within a specified Docset |
 | ~SPC a r z h~ | Lookup thing at point in helm-dash or counsel-dash              |
 | ~SPC a r z H~ | Lookup in helm-dash or counsel-dash within a specified Docset   |
+
+

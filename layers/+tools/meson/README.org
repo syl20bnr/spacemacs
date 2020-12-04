@@ -18,8 +18,8 @@ This layer adds support [[https://mesonbuild.com/][Meson]] scripts.
 - Syntax highlighting.
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =meson= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =meson= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 * Key bindings
@@ -27,3 +27,5 @@ file.
 | Key binding | Description                              |
 |-------------+------------------------------------------|
 | ~SPC m h h~ | Lookup documentation for thing at point. |
+
+

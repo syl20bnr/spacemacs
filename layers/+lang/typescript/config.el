@@ -1,11 +1,11 @@
-;;; config.el --- Typescript Layer Configuration File for Spacemacs
+;;; config.el --- Typescript Layer Configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -31,5 +31,7 @@ If `nil' then `tide' is the default backend unless `lsp' layer is used.")
 use lsp as the linter, otherwise let flycheck choose the best
 linter that's available.")
 
-(spacemacs|define-jump-handlers typescript-mode)
-(spacemacs|define-jump-handlers typescript-tsx-mode)
+(space-macs|define-jump-handlers typescript-mode)
+(space-macs|define-jump-handlers typescript-tsx-mode)
+
+

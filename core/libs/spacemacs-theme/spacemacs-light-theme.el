@@ -1,7 +1,9 @@
-(require 'spacemacs-common)
+(require 'space-macs-common)
 
-(deftheme spacemacs-light "Spacemacs theme, the light version")
+(deftheme space-macs-light "Space-macs theme, the light version")
 
-(create-spacemacs-theme 'light 'spacemacs-light)
+(create-space-macs-theme 'light 'space-macs-light)
 
-(provide-theme 'spacemacs-light)
+(provide-theme 'space-macs-light)
+
+

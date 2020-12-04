@@ -1,11 +1,11 @@
-;;; packages.el --- elasticsearch layer packages file for Spacemacs.
+;;; packages.el --- elasticsearch layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Jean Rigotti <gmgotti@pm.me>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -22,8 +22,10 @@
     :mode ("\\.es\\'" . es-mode)))
 
 (defun elasticsearch/post-init-company ()
-  (spacemacs|add-company-backends :backends es-company-backend :modes es-mode))
+  (space-macs|add-company-backends :backends es-company-backend :modes es-mode))
 
 (defun elasticsearch/pre-init-org ()
-  (spacemacs|use-package-add-hook org
+  (space-macs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(elasticsearch . t))))
+
+

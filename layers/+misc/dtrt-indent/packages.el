@@ -1,11 +1,11 @@
-;;; packages.el --- dtrt-indent layer packages file for Spacemacs.
+;;; packages.el --- dtrt-indent layer packages file for Space-macs.
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Kevin Doherty <kjd@csail.mit.edu>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -20,6 +20,8 @@
                 (dtrt-indent-adapt)))
     :config
     (progn
-      (spacemacs|hide-lighter dtrt-indent-mode))))
+      (space-macs|hide-lighter dtrt-indent-mode))))
 
 ;;; packages.el ends here
+
+

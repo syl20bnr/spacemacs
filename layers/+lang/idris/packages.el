@@ -1,11 +1,11 @@
-;;; packages.el --- Idris Layer packages File for Spacemacs
+;;; packages.el --- Idris Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Timothy Jones <tim@zmthy.net>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -18,17 +18,17 @@
         ))
 
 (defun idris/post-init-company ()
-  (spacemacs|add-company-backends
+  (space-macs|add-company-backends
     :backends company-capf
     :modes idris-mode idris-repl-mode))
 
 (defun idris/init-idris-mode ()
   (use-package idris-mode
     :defer t
-    :init (spacemacs/register-repl 'idris-mode 'idris-repl "idris")
+    :init (space-macs/register-repl 'idris-mode 'idris-repl "idris")
     :config
     (progn
-      (defun spacemacs/idris-load-file-and-focus (&optional set-line)
+      (defun space-macs/idris-load-file-and-focus (&optional set-line)
         "Pass the current buffer's file to the REPL and switch to it in
 `insert state'."
         (interactive "p")
@@ -36,14 +36,14 @@
         (idris-pop-to-repl)
         (evil-insert-state))
 
-      (defun spacemacs/idris-load-forward-line-and-focus ()
+      (defun space-macs/idris-load-forward-line-and-focus ()
         "Pass the next line to REPL and switch to it in `insert state'."
         (interactive)
         (idris-load-forward-line)
         (idris-pop-to-repl)
         (evil-insert-state))
 
-      (defun spacemacs/idris-load-backward-line-and-focus ()
+      (defun space-macs/idris-load-backward-line-and-focus ()
         "Pass the previous line to REPL and switch to it in `insert state'."
         (interactive)
         (idris-load-backward-line)
@@ -51,13 +51,13 @@
         (evil-insert-state))
 
       ;; prefix
-      (spacemacs/declare-prefix-for-mode 'idris-mode "mb" "idris/build")
-      (spacemacs/declare-prefix-for-mode 'idris-mode "mi" "idris/editing")
-      (spacemacs/declare-prefix-for-mode 'idris-mode "mh" "idris/documentation")
-      (spacemacs/declare-prefix-for-mode 'idris-mode "ms" "idris/repl")
-      (spacemacs/declare-prefix-for-mode 'idris-mode "mm" "idris/term")
+      (space-macs/declare-prefix-for-mode 'idris-mode "mb" "idris/build")
+      (space-macs/declare-prefix-for-mode 'idris-mode "mi" "idris/editing")
+      (space-macs/declare-prefix-for-mode 'idris-mode "mh" "idris/documentation")
+      (space-macs/declare-prefix-for-mode 'idris-mode "ms" "idris/repl")
+      (space-macs/declare-prefix-for-mode 'idris-mode "mm" "idris/term")
 
-      (spacemacs/set-leader-keys-for-major-mode 'idris-mode
+      (space-macs/set-leader-keys-for-major-mode 'idris-mode
         ;; Shorthands: rebind the standard evil-mode combinations to the local
         ;; leader for the keys not used as a prefix below.
         "c" 'idris-case-dwim
@@ -98,17 +98,17 @@
         ;; REPL
         "'"  'idris-repl
         "sb" 'idris-load-file
-        "sB" 'spacemacs/idris-load-file-and-focus
+        "sB" 'space-macs/idris-load-file-and-focus
         "si" 'idris-repl
         "sn" 'idris-load-forward-line
-        "sN" 'spacemacs/idris-load-forward-line-and-focus
+        "sN" 'space-macs/idris-load-forward-line-and-focus
         "sp" 'idris-load-backward-line
-        "sP" 'spacemacs/idris-load-backward-line-and-focus
+        "sP" 'space-macs/idris-load-backward-line-and-focus
         "ss" 'idris-pop-to-repl
         "sq" 'idris-quit)))
 
   ;; To suppress auto-indentation
-  (add-to-list 'spacemacs-indent-sensitive-modes 'idris-mode)
+  (add-to-list 'space-macs-indent-sensitive-modes 'idris-mode)
 
   ;; To bind TAB to the indentation command for all Idris buffers
   (add-hook 'idris-mode-hook 'turn-on-idris-simple-indent)
@@ -119,13 +119,13 @@
   (evil-set-initial-state 'idris-info-mode 'motion))
 
 (defun idris/pre-init-golden-ratio ()
-  (spacemacs|use-package-add-hook golden-ratio
+  (space-macs|use-package-add-hook golden-ratio
     :post-config
     (dolist (x '("*idris-notes*" "*idris-holes*" "*idris-info*"))
       (add-to-list 'golden-ratio-exclude-buffer-names x))))
 
 (defun idris/pre-init-popwin ()
-  (spacemacs|use-package-add-hook popwin
+  (space-macs|use-package-add-hook popwin
     :post-config
     (push '("*idris-notes*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
           popwin:special-display-config)
@@ -133,3 +133,5 @@
           popwin:special-display-config)
     (push '("*idris-info*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
           popwin:special-display-config)))
+
+

@@ -1,22 +1,22 @@
-;;; packages.el --- Spacemacs Project Management Layer packages File
+;;; packages.el --- Space-macs Project Management Layer packages File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
 
-(setq spacemacs-project-packages
+(setq space-macs-project-packages
       '(
         projectile
         ))
 
 
-(defun spacemacs-project/init-projectile ()
+(defun space-macs-project/init-projectile ()
   (use-package projectile
     :commands (projectile-ack
                projectile-ag
@@ -47,22 +47,22 @@
       ;; fast indexing. Also, because windows ships with a program called
       ;; c:\windows\system32\find.exe that is very much not findutils find
       ;; we ignore that specific executable
-      (when (and (spacemacs/system-is-mswindows) (executable-find "find")
+      (when (and (space-macs/system-is-mswindows) (executable-find "find")
                  (not (file-in-directory-p
                        (executable-find "find") "C:\\Windows")))
         (setq  projectile-indexing-method 'alien
                projectile-generic-command "find . -type f"))
       (setq projectile-sort-order 'recentf
-            projectile-cache-file (concat spacemacs-cache-directory
+            projectile-cache-file (concat space-macs-cache-directory
                                           "projectile.cache")
-            projectile-known-projects-file (concat spacemacs-cache-directory
+            projectile-known-projects-file (concat space-macs-cache-directory
                                                    "projectile-bookmarks.eld"))
-      (spacemacs/set-leader-keys
+      (space-macs/set-leader-keys
         ;; File path
-        "fyC" 'spacemacs/projectile-copy-file-path-with-line-column
-        "fyD" 'spacemacs/projectile-copy-directory-path
-        "fyL" 'spacemacs/projectile-copy-file-path-with-line
-        "fyY" 'spacemacs/projectile-copy-file-path
+        "fyC" 'space-macs/projectile-copy-file-path-with-line-column
+        "fyD" 'space-macs/projectile-copy-directory-path
+        "fyL" 'space-macs/projectile-copy-file-path-with-line
+        "fyY" 'space-macs/projectile-copy-file-path
         ;; Project
         "p!" 'projectile-run-shell-command-in-root
         "p&" 'projectile-run-async-shell-command-in-root
@@ -87,4 +87,6 @@
     :config
     (progn
       (projectile-mode)
-      (spacemacs|hide-lighter projectile-mode))))
+      (space-macs|hide-lighter projectile-mode))))
+
+

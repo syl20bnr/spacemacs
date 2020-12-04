@@ -18,7 +18,7 @@ This layer adds support for Apple's Swift programming language, used as a
 general purpose scripting language.
 
 ** Features:
-- Syntax highlighting with [[https://github.com/swift-emacs/swift-mode][swift-mode]]
+- Syntax highlighting with [[https://github.com/swift-e-macs/swift-mode][swift-mode]]
 - Indentation
 - Code navigation using =imenu= (built-in)
 - Automatic syntax checking with =flycheck= (available with the
@@ -33,8 +33,8 @@ On macOS:
   xcrun swift
 #+END_SRC
 
-Then to use this configuration layer, add it to your =~/.spacemacs=. You will
-need to add =swift= to the existing =dotspacemacs-configuration-layers= list in
+Then to use this configuration layer, add it to your =~/.space-macs=. You will
+need to add =swift= to the existing =dotspace-macs-configuration-layers= list in
 this file.
 
 * Usage information
@@ -55,10 +55,12 @@ The universal prefix ~SPC u~ (~C-u~) may be used to modify command invocation.
 Notes:
 1. =swift-mode-run-repl= will run or switch to an existing REPL.
 2. To edit the command invocation, prefix with ~SPC u~ (or ~C-u~).
-3. Emacs key bindings in use are the those set by the package.
+3. e-macs key bindings in use are the those set by the package.
 
 ** swift-repl-mode
 
 | Key bindings | Description                 |
 |--------------+-----------------------------|
 | ~SPC m s s~  | swift-repl-mode-switch-back |
+
+

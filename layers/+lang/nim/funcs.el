@@ -1,15 +1,15 @@
-;;; funcs.el --- Nim Layer functions File for Spacemacs
+;;; funcs.el --- Nim Layer functions File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Maximilian Wolff <smile13241324@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs//nim-backend ()
+(defun space-macs//nim-backend ()
   "Returns selected backend."
   (if nim-backend
       nim-backend
@@ -17,28 +17,30 @@
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
      (t 'company-nim))))
 
-(defun spacemacs//nim-setup-company ()
+(defun space-macs//nim-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//nim-backend)
+  (pcase (space-macs//nim-backend)
     ;; Activate lsp company explicitly to activate
     ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
+    (`lsp (space-macs|add-company-backends
             :backends company-capf
             :modes nim-mode nimscript-mode))
-    (`company-nim (spacemacs|add-company-backends
+    (`company-nim (space-macs|add-company-backends
                     :backends company-nimsuggest
                     :modes nim-mode nimscript-mode))))
 
-(defun spacemacs//nim-setup-backend ()
+(defun space-macs//nim-setup-backend ()
   "Conditionally setup nim backend."
-  (pcase (spacemacs//nim-backend)
+  (pcase (space-macs//nim-backend)
     (`lsp (lsp))
     (`company-nim (progn
                     (nimsuggest-mode)
-                    (add-to-list 'spacemacs-jump-handlers-nim-mode 'nimsuggest-find-definition)))))
+                    (add-to-list 'space-macs-jump-handlers-nim-mode 'nimsuggest-find-definition)))))
 
 
-(defun spacemacs/nim-compile-run ()
+(defun space-macs/nim-compile-run ()
   "Compile current buffer file."
   (interactive)
   (shell-command (concat "nim compile --run " (buffer-file-name))))
+
+

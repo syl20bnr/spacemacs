@@ -50,10 +50,10 @@ If you use a Debian based system such as Ubuntu, you can skip this step, as
 automatically all dependencies using =apt-get=.
 
 ** Dotfile
-After installing the dependencies, add this to your =~/.spacemacs=.
+After installing the dependencies, add this to your =~/.space-macs=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(pdf))
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers '(pdf))
 #+END_SRC
 
 After that, syncronize your configuration with ~SPC f e R~. This will pop up a
@@ -65,7 +65,7 @@ pdf file.
 
 If the compilation run successfully but you get
 =Error (use-package): pdf-tools :config: No executable `epdfinfo' found=,
-try restarting Spacemacs ([[https://github.com/politza/pdf-tools/issues/31][issue]]).
+try restarting Space-macs ([[https://github.com/politza/pdf-tools/issues/31][issue]]).
 
 If the compilation does not run successfully, you should confirm whether all
 dependencies are properly installed and run the command =pdf-tools-install=.
@@ -87,17 +87,17 @@ Tips:
 - You'll probably want to use =pdf-view-set-slice-from-bounding-box= (bound to
   ~SPC m s b~) This command trims the blank parts of the
   lateral margins, making the useful portion larger.
-- The last visited page is not saved across Emacs sessions. If you want save it,
+- The last visited page is not saved across e-macs sessions. If you want save it,
   use the bookmarks commands on ~SPC j b~ to save and go to a bookmark.
 
 * Known Issues
-Due to =image-mode=’s behaviour, the =pdf-tools= buffer might go back to the
+Due to =image-mode=â€™s behaviour, the =pdf-tools= buffer might go back to the
 first page after switching windows. If this happens, you can quickly go back to
 the previous page in history with =pdf-history-backward= (~``~ in Evil state and
-~B~ in Emacs state.)
+~B~ in e-macs state.)
 
 * Key bindings
-If you use Emacs editing style, check the key bindings at the [[https://github.com/politza/pdf-tools#some-keybindings][pdf-tools page]].
+If you use e-macs editing style, check the key bindings at the [[https://github.com/politza/pdf-tools#some-keybindings][pdf-tools page]].
 
 ** PDF View
 
@@ -211,3 +211,5 @@ Note that you can use also typical Vim keys such as ~j~ and ~G~.
 | ~q~         | Quit           |
 | ~g~         | Refresh buffer |
 | ~r~         | Refresh buffer |
+
+

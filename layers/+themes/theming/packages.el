@@ -1,11 +1,11 @@
-;;; packages.el --- Theming Layer packages File for Spacemacs
+;;; packages.el --- Theming Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -14,6 +14,8 @@
 
 (defun theming/init-theming ()
   ;; Apply theme customizations after any call to load-theme
-  (advice-add 'load-theme :after 'spacemacs//theming)
+  (advice-add 'load-theme :after 'space-macs//theming)
   ;; Apply the initial customizations now, because load-theme has already been called
-  (spacemacs//theming spacemacs--cur-theme))
+  (space-macs//theming space-macs--cur-theme))
+
+

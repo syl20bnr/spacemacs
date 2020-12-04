@@ -14,8 +14,8 @@
       - [[#install-recommended-dependencies][Install recommended dependencies]]
       - [[#install-with-recommended-features][Install with recommended features]]
       - [[#configure-your-environment-to-use-pygments-and-ctags][Configure your environment to use pygments and ctags]]
-    - [[#conflict-between-ctags-and-emacss-etags-binary][Conflict between =ctags= and emacs's =etags= binary]]
-  - [[#emacs-configuration][Emacs Configuration]]
+    - [[#conflict-between-ctags-and-e-macss-etags-binary][Conflict between =ctags= and e-macs's =etags= binary]]
+  - [[#e-macs-configuration][e-macs Configuration]]
     - [[#disabling-by-default][Disabling by default]]
 - [[#usage][Usage]]
   - [[#language-support][Language Support]]
@@ -147,13 +147,13 @@ With fish:
   echo export set -x GTAGSLABEL pygments >> ${HOME}/.config/fish/config.fish
 #+END_SRC
 
-*** Conflict between =ctags= and emacs's =etags= binary
-If you installed =emacs= from source after =ctags=, your original =ctags= binary
-is probably replaced by emacs's =etags=. To get around this you will need to
-configure =emacs= as following before installing:
+*** Conflict between =ctags= and e-macs's =etags= binary
+If you installed =e-macs= from source after =ctags=, your original =ctags= binary
+is probably replaced by e-macs's =etags=. To get around this you will need to
+configure =e-macs= as following before installing:
 
 #+BEGIN_SRC sh
-  ./configure --program-transform-name='s/^ctags$/ctags.emacs/'
+  ./configure --program-transform-name='s/^ctags$/ctags.e-macs/'
 #+END_SRC
 
 To check if you have the correct version of =ctags= execute:
@@ -165,12 +165,12 @@ To check if you have the correct version of =ctags= execute:
 If there is no output you have the wrong =ctags= executable and you need to
 reinstall =ctags= from your package manager.
 
-** Emacs Configuration
-To use this configuration layer, add it to your =~/.spacemacs= file. You
-will need to add =gtags= to the existing =dotspacemacs-configuration-layers=.
+** e-macs Configuration
+To use this configuration layer, add it to your =~/.space-macs= file. You
+will need to add =gtags= to the existing =dotspace-macs-configuration-layers=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq dotspace-macs-configuration-layers
         '( ;; ...
           gtags
            ;; ...
@@ -181,8 +181,8 @@ will need to add =gtags= to the existing =dotspacemacs-configuration-layers=.
 If =ggtags-mode= is too intrusive you can disable it by default, by setting the
 layer variable =gtags-enable-by-default= to =nil=.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
+#+BEGIN_SRC e-macs-lisp
+  (setq-default dotspace-macs-configuration-layers
     '((gtags :variables gtags-enable-by-default t)))
 #+END_SRC
 
@@ -192,7 +192,7 @@ additional control on a per project basis.
 * Usage
 Before using =gtags=, remember to create a GTAGS database by one of the following
 methods:
-- From within Emacs, run either =counsel-gtags-create-tags= or
+- From within e-macs, run either =counsel-gtags-create-tags= or
   =helm-gtags-create-tags=, which are bound to ~SPC m g C~. If the language is
   not directly supported by GNU Global, you can choose =ctags= or =pygments= as
   a backend to generate the database.
@@ -226,7 +226,7 @@ are supported:
 - erlang
 - javascript
 - common-lisp
-- emacs-lisp
+- e-macs-lisp
 - lua
 - ocaml
 - python
@@ -270,7 +270,7 @@ only activated for languages which are not:
 - C
 - C++
 - Common Lisp
-- Emacs Lisp
+- e-macs Lisp
 - Python
 - Ruby
 
@@ -321,3 +321,5 @@ In addition =gtags= commands are also supported for symbols in the
 | ~SPC m g s~ | select any tag in a project retrieved by gtags |
 | ~SPC m g y~ | find symbols                                   |
 | ~SPC m g u~ | manually update tag database                   |
+
+

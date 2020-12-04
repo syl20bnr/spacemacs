@@ -1,11 +1,11 @@
-;;; keybindings.el --- Spacemacs Defaults Layer key-bindings File
+;;; keybindings.el --- Space-macs Defaults Layer key-bindings File
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -14,7 +14,7 @@
 ;; ---------------------------------------------------------------------------
 
 ;; We define prefix commands only for the sake of which-key
-(setq spacemacs/key-binding-prefixes `((,dotspacemacs-emacs-command-key "M-x")
+(setq space-macs/key-binding-prefixes `((,dotspace-macs-e-macs-command-key "M-x")
                                        ("!"   "shell cmd")
                                        ("*"   "search project w/input")
                                        ("/"   "search project")
@@ -65,7 +65,7 @@
                                        ("t"   "toggles")
                                        ("tC"  "colors")
                                        ("tE"  "editing-styles")
-                                       ("tEe" "emacs (holy-mode)")
+                                       ("tEe" "e-macs (holy-mode)")
                                        ("tEh" "hybrid (hybrid-mode)")
                                        ("th"  "highlight")
                                        ("tm"  "modeline")
@@ -87,8 +87,8 @@
                                        ("xt"  "transpose")
                                        ("xw"  "words")
                                        ("z"   "zoom")))
-(mapc (lambda (x) (apply #'spacemacs/declare-prefix x))
-      spacemacs/key-binding-prefixes)
+(mapc (lambda (x) (apply #'space-macs/declare-prefix x))
+      space-macs/key-binding-prefixes)
 
 ;; instantly display current keystrokes in mini buffer
 (setq echo-keystrokes 0.02)
@@ -96,7 +96,7 @@
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
 ;; improve delete-other-windows
-(define-key global-map (kbd "C-x 1") 'spacemacs/toggle-maximize-buffer)
+(define-key global-map (kbd "C-x 1") 'space-macs/toggle-maximize-buffer)
 ;; adds two spacing modes while preserving just-one-space behaviour
 (define-key global-map (kbd "M-SPC") 'cycle-spacing)
 
@@ -115,25 +115,25 @@
 (define-key minibuffer-local-isearch-map (kbd "<escape>") 'keyboard-escape-quit)
 
 ;; linum margin bindings-------------------------------------------------------
-(global-set-key (kbd "<left-margin> <down-mouse-1>") 'spacemacs/md-select-linum)
-(global-set-key (kbd "<left-margin> <mouse-1>") 'spacemacs/mu-select-linum)
-(global-set-key (kbd "<left-margin> <double-mouse-1>") 'spacemacs/select-current-block)
-(global-set-key (kbd "<left-margin> <drag-mouse-1>") 'spacemacs/mu-select-linum)
+(global-set-key (kbd "<left-margin> <down-mouse-1>") 'space-macs/md-select-linum)
+(global-set-key (kbd "<left-margin> <mouse-1>") 'space-macs/mu-select-linum)
+(global-set-key (kbd "<left-margin> <double-mouse-1>") 'space-macs/select-current-block)
+(global-set-key (kbd "<left-margin> <drag-mouse-1>") 'space-macs/mu-select-linum)
 
 ;; ---------------------------------------------------------------------------
-;; spacemacs leader key bindings
+;; space-macs leader key bindings
 ;; ---------------------------------------------------------------------------
 
 ;; Universal argument ---------------------------------------------------------
-(spacemacs/set-leader-keys "u" 'universal-argument)
-(when (memq dotspacemacs-editing-style '(vim hybrid))
+(space-macs/set-leader-keys "u" 'universal-argument)
+(when (memq dotspace-macs-editing-style '(vim hybrid))
   (define-key universal-argument-map
-    (kbd (concat dotspacemacs-leader-key " u"))
+    (kbd (concat dotspace-macs-leader-key " u"))
     'universal-argument-more))
 ;; shell command  -------------------------------------------------------------
-(spacemacs/set-leader-keys "!" 'shell-command)
+(space-macs/set-leader-keys "!" 'shell-command)
 ;; kmacros --------------------------------------------------------------------
-(spacemacs|spacebind
+(space-macs|spacebind
  "Operations on rectangular selections of text."
  :global
  (("K" "Keyboard Macros"
@@ -160,7 +160,7 @@
     ("s" kmacro-swap-ring "Swap first two"))
    ("v" kmacro-view-macro-repeat "View last macro"))))
 ;; rectangles ------------------------------------------------------------------
-(spacemacs|spacebind
+(space-macs|spacebind
  "Operations on rectangular selections of text."
  :global
  (("C-v" "Rectangles"
@@ -180,13 +180,13 @@
    ("x" clear-rectangle "Blank out rectangle")
    ("y" yank-rectangle "Paste last rectangle"))))
 ;; applications ---------------------------------------------------------------
-(spacemacs/set-leader-keys
+(space-macs/set-leader-keys
   "a*"  'calc-dispatch
   "ap"  'list-processes
   "aP"  'proced
   "au"  'undo-tree-visualize)
 ;; easy pg ----------------------------------------------------------------------
-(spacemacs|spacebind
+(space-macs|spacebind
  "Encrypt / decrypt files with Easy PG"
  :global
  (("a" "applications"
@@ -207,21 +207,21 @@
      ("r" epa-verify-region "Verify region...")
      ("c" epa-verify-cleartext-in-region "Verify cleartext region..."))))))
 ;; buffers --------------------------------------------------------------------
-(spacemacs|spacebind
+(space-macs|spacebind
  "Compare buffers, files and directories."
  :global
- (("TAB" spacemacs/alternate-buffer "Last buffer")
+ (("TAB" space-macs/alternate-buffer "Last buffer")
   ("b" "Buffers"
    ("N"  "New buffer"
     ("C-i" make-indirect-buffer "New indirect buffer...")
-    ("f" spacemacs/new-empty-buffer-new-frame "New buffer (new frame)")
-    ("h" spacemacs/new-empty-buffer-left "New buffer (left split)")
+    ("f" space-macs/new-empty-buffer-new-frame "New buffer (new frame)")
+    ("h" space-macs/new-empty-buffer-left "New buffer (left split)")
     ("i" clone-indirect-buffer "Clone buffer")
     ("I" clone-indirect-buffer-other-window-without-purpose "Clone buffer (other window)")
-    ("j" spacemacs/new-empty-buffer-below "New buffer (open below)")
-    ("k" spacemacs/new-empty-buffer-above "New buffer (open above)")
-    ("l" spacemacs/new-empty-buffer-right "New buffer (right split)")
-    ("n" spacemacs/new-empty-buffer "New buffer"))
+    ("j" space-macs/new-empty-buffer-below "New buffer (open below)")
+    ("k" space-macs/new-empty-buffer-above "New buffer (open above)")
+    ("l" space-macs/new-empty-buffer-right "New buffer (right split)")
+    ("n" space-macs/new-empty-buffer "New buffer"))
    ("1" buffer-to-window-1 "Move buffer to window 1")
    ("2" buffer-to-window-2 "Move buffer to window 2")
    ("3" buffer-to-window-3 "Move buffer to window 3")
@@ -231,75 +231,75 @@
    ("7" buffer-to-window-7 "Move buffer to window 7")
    ("8" buffer-to-window-8 "Move buffer to window 8")
    ("9" buffer-to-window-9 "Move buffer to window 9")
-   ("C-d" spacemacs/kill-other-buffers "Kill other buffers...")
-   ("C-S-d" spacemacs/kill-matching-buffers-rudely "Kill buffers...")
-   ("d" spacemacs/kill-this-buffer "Kill buffer")
-   ("e" spacemacs/safe-erase-buffer "Erase...")
-   ("h" spacemacs/home "Spacemacs home buffer")
-   ("H" spacemacs/switch-to-help-buffer "Help buffer")
+   ("C-d" space-macs/kill-other-buffers "Kill other buffers...")
+   ("C-S-d" space-macs/kill-matching-buffers-rudely "Kill buffers...")
+   ("d" space-macs/kill-this-buffer "Kill buffer")
+   ("e" space-macs/safe-erase-buffer "Erase...")
+   ("h" space-macs/home "Space-macs home buffer")
+   ("H" space-macs/switch-to-help-buffer "Help buffer")
    ("n" next-buffer "Next buffer")
-   ("m" spacemacs/switch-to-messages-buffer "Messages buffer")
-   ("P" spacemacs/copy-clipboard-to-whole-buffer "Paste and replace buffer")
+   ("m" space-macs/switch-to-messages-buffer "Messages buffer")
+   ("P" space-macs/copy-clipboard-to-whole-buffer "Paste and replace buffer")
    ("p" previous-buffer "Previous buffer")
-   ("R" spacemacs/safe-revert-buffer "Revert buffer...")
-   ("s" spacemacs/switch-to-scratch-buffer "Scratch buffer")
-   ("u" spacemacs/reopen-killed-buffer "Reopen last killed buffer")
+   ("R" space-macs/safe-revert-buffer "Revert buffer...")
+   ("s" space-macs/switch-to-scratch-buffer "Scratch buffer")
+   ("u" space-macs/reopen-killed-buffer "Reopen last killed buffer")
    ("x" kill-buffer-and-window "Kill buffer and close window")
-   ("Y" spacemacs/copy-whole-buffer-to-clipboard "Copy buffer")
+   ("Y" space-macs/copy-whole-buffer-to-clipboard "Copy buffer")
    ("w" read-only-mode "Toggle read-only"))))
 ;; Cycling settings -----------------------------------------------------------
-(spacemacs|define-transient-state theme
+(space-macs|define-transient-state theme
   :title "Themes Transient State"
   :doc "\n[_n_/_<right>_] next  [_N_/_p_/_<left>_] previous  [_t_/_<up>_] list themes"
   :bindings
-  ("n" spacemacs/cycle-spacemacs-theme)
-  ("N" spacemacs/cycle-spacemacs-theme-backward)
-  ("p" spacemacs/cycle-spacemacs-theme-backward)
-  ("t" spacemacs/theme-loader)
-  ("<up>" spacemacs/theme-loader)
-  ("<right>" spacemacs/cycle-spacemacs-theme)
-  ("<left>" spacemacs/cycle-spacemacs-theme-backward))
-(spacemacs/set-leader-keys "Tn"
-  'spacemacs/theme-transient-state/spacemacs/cycle-spacemacs-theme)
-(spacemacs/set-leader-keys "TN"
-  'spacemacs/theme-transient-state/spacemacs/cycle-spacemacs-theme-backward)
+  ("n" space-macs/cycle-space-macs-theme)
+  ("N" space-macs/cycle-space-macs-theme-backward)
+  ("p" space-macs/cycle-space-macs-theme-backward)
+  ("t" space-macs/theme-loader)
+  ("<up>" space-macs/theme-loader)
+  ("<right>" space-macs/cycle-space-macs-theme)
+  ("<left>" space-macs/cycle-space-macs-theme-backward))
+(space-macs/set-leader-keys "Tn"
+  'space-macs/theme-transient-state/space-macs/cycle-space-macs-theme)
+(space-macs/set-leader-keys "TN"
+  'space-macs/theme-transient-state/space-macs/cycle-space-macs-theme-backward)
 ;; errors ---------------------------------------------------------------------
-(spacemacs/set-leader-keys
-  "ez" 'spacemacs/last-error
-  "en" 'spacemacs/next-error
-  "eN" 'spacemacs/previous-error
-  "ep" 'spacemacs/previous-error)
-(spacemacs|define-transient-state error
+(space-macs/set-leader-keys
+  "ez" 'space-macs/last-error
+  "en" 'space-macs/next-error
+  "eN" 'space-macs/previous-error
+  "ep" 'space-macs/previous-error)
+(space-macs|define-transient-state error
   :title "Error Transient State"
   :hint-is-doc t
   :dynamic-hint
-  (let ((sys (spacemacs/error-delegate)))
+  (let ((sys (space-macs/error-delegate)))
     (cond
      ((eq 'flycheck sys)
       "\nBrowsing flycheck errors from this buffer.")
-     ((eq 'emacs sys)
+     ((eq 'e-macs sys)
       (let ((buf (next-error-find-buffer)))
         (if buf
             (concat "\nBrowsing entries from \""
                     (buffer-name buf)
                     "\""
                     (with-current-buffer buf
-                      (when spacemacs--gne-line-func
+                      (when space-macs--gne-line-func
                         (format " (%d of %d)"
-                                (max 1 (1+ (- spacemacs--gne-cur-line
-                                              spacemacs--gne-min-line)))
-                                (1+ (- spacemacs--gne-max-line
-                                       spacemacs--gne-min-line))))))
+                                (max 1 (1+ (- space-macs--gne-cur-line
+                                              space-macs--gne-min-line)))
+                                (1+ (- space-macs--gne-max-line
+                                       space-macs--gne-min-line))))))
           "\nNo next-error capable buffer found.")))))
   :bindings
-  ("n" spacemacs/next-error "next")
-  ("p" spacemacs/previous-error "prev")
-  ("N" spacemacs/previous-error "prev")
+  ("n" space-macs/next-error "next")
+  ("p" space-macs/previous-error "prev")
+  ("N" space-macs/previous-error "prev")
   ("z" recenter-top-bottom "recenter")
   ("q" nil "quit" :exit t)
   :evil-leader "e.")
 ;; ediff ----------------------------------------------------------------------
-(spacemacs|spacebind
+(space-macs|spacebind
  "Compare buffers, files and directories."
  :global
  (("D" "Diff/Compare"
@@ -313,7 +313,7 @@
     ("d" ediff-directories "Between 2 directories...")
     ("r" ediff-directory-revisions "Using SCM revisions..."))
    ("f" "Files"
-    ("." spacemacs/ediff-dotfile-and-template "With Spacemacs dotfile")
+    ("." space-macs/ediff-dotfile-and-template "With Space-macs dotfile")
     ("3" ediff-files3 "Between 3 files...")
     ("f" ediff-files "Between 2 files...")
     ("p" ediff-patch-file "With a patch...")
@@ -340,33 +340,33 @@
    ("s" ediff-show-registry "Show registry")
    ("h" ediff-documentation "Documentation"))))
 ;; file -----------------------------------------------------------------------
-(spacemacs|spacebind
+(space-macs|spacebind
  "Files manipulation."
  :global
  (("f" "Files"
-   ("A" spacemacs/find-file-and-replace-buffer "Set another file for buffer...")
-   ("c" spacemacs/copy-file "Copy file to new file...")
-   ("D" spacemacs/delete-current-buffer-file "Delete...")
-   ("i" spacemacs/insert-file "Insert file content...")
+   ("A" space-macs/find-file-and-replace-buffer "Set another file for buffer...")
+   ("c" space-macs/copy-file "Copy file to new file...")
+   ("D" space-macs/delete-current-buffer-file "Delete...")
+   ("i" space-macs/insert-file "Insert file content...")
    ("l" find-file-literally "Open file literally...")
-   ("E" spacemacs/sudo-edit "Open using sudo...")
-   ("o" spacemacs/open-file-or-directory-in-external-app "Open with external app")
-   ("R" spacemacs/rename-current-buffer-file "Rename...")
+   ("E" space-macs/sudo-edit "Open using sudo...")
+   ("o" space-macs/open-file-or-directory-in-external-app "Open with external app")
+   ("R" space-macs/rename-current-buffer-file "Rename...")
    ("S" evil-write-all "Save all")
    ("s" save-buffer "Save")
    ("C"  "Convert"
-    ("d" spacemacs/unix2dos "Convert to DOS")
-    ("u" spacemacs/dos2unix "Convert to UNIX"))
-   ("e" "Emacs/Spacemacs"
-    ("C-e" spacemacs/force-init-spacemacs-env "Recreate env. variables file")
-    ("c" spacemacs/recompile-elpa "Recompile packages")
-    ("i" spacemacs/find-user-init-file "Open Emacs \"init.el\"")
-    ("d" spacemacs/find-dotfile "Open Spacemacs dotfile")
-    ("D" spacemacs/ediff-dotfile-and-template "Diff. with dotfile template")
-    ("e" spacemacs/edit-env "Open \".spacemacs.env\"")
-    ("E" dotspacemacs/call-user-env "Refresh env. variables")
-    ("R" dotspacemacs/sync-configuration-layers "Reload configuration")
-    ("v" spacemacs/display-and-copy-version "Copy Spacemacs version")
+    ("d" space-macs/unix2dos "Convert to DOS")
+    ("u" space-macs/dos2unix "Convert to UNIX"))
+   ("e" "e-macs/Space-macs"
+    ("C-e" space-macs/force-init-space-macs-env "Recreate env. variables file")
+    ("c" space-macs/recompile-elpa "Recompile packages")
+    ("i" space-macs/find-user-init-file "Open e-macs \"init.el\"")
+    ("d" space-macs/find-dotfile "Open Space-macs dotfile")
+    ("D" space-macs/ediff-dotfile-and-template "Diff. with dotfile template")
+    ("e" space-macs/edit-env "Open \".space-macs.env\"")
+    ("E" dotspace-macs/call-user-env "Refresh env. variables")
+    ("R" dotspace-macs/sync-configuration-layers "Reload configuration")
+    ("v" space-macs/display-and-copy-version "Copy Space-macs version")
     ("U" configuration-layer/update-packages "Update packages..."))
    ("v" "Variables"
     ("d" add-dir-local-variable "Add directory-local variable...")
@@ -374,107 +374,107 @@
     ("p" add-file-local-variable-prop-line "Add top file property...")
     )
    ("y" "Yank/Copy"
-    ("c" spacemacs/copy-file-path-with-line-column "File path with line and column")
-    ("d" spacemacs/copy-directory-path "Directory path")
-    ("l" spacemacs/copy-file-path-with-line "File path with line number")
-    ("n" spacemacs/copy-file-name "File name")
-    ("N" spacemacs/copy-file-name-base "File name without extension")
-    ("y" spacemacs/copy-file-path "File path")
-    ("b" spacemacs/copy-buffer-name "Buffer name")))))
+    ("c" space-macs/copy-file-path-with-line-column "File path with line and column")
+    ("d" space-macs/copy-directory-path "Directory path")
+    ("l" space-macs/copy-file-path-with-line "File path with line number")
+    ("n" space-macs/copy-file-name "File name")
+    ("N" space-macs/copy-file-name-base "File name without extension")
+    ("y" space-macs/copy-file-path "File path")
+    ("b" space-macs/copy-buffer-name "Buffer name")))))
 ;; frame ----------------------------------------------------------------------
-(spacemacs/set-leader-keys
-  "Ff" 'spacemacs/find-file-other-frame
+(space-macs/set-leader-keys
+  "Ff" 'space-macs/find-file-other-frame
   "Fd" 'delete-frame
   "FD" 'delete-other-frames
-  "Fb" 'spacemacs/switch-to-buffer-other-frame
-  "FB" 'spacemacs/display-buffer-other-frame
+  "Fb" 'space-macs/switch-to-buffer-other-frame
+  "FB" 'space-macs/display-buffer-other-frame
   "Fo" 'other-frame
-  "FO" 'spacemacs/dired-other-frame
+  "FO" 'space-macs/dired-other-frame
   "Fn" 'make-frame)
 ;; help -----------------------------------------------------------------------
-(defalias 'emacs-tutorial 'help-with-tutorial)
-(spacemacs/set-leader-keys
+(defalias 'e-macs-tutorial 'help-with-tutorial)
+(space-macs/set-leader-keys
   "hdb" 'describe-bindings
   "hdc" 'describe-char
   "hdf" 'describe-function
   "hdk" 'describe-key
-  "hdl" 'spacemacs/describe-last-keys
+  "hdl" 'space-macs/describe-last-keys
   "hdp" 'describe-package
   "hdP" 'configuration-layer/describe-package
-  "hds" 'spacemacs/describe-system-info
+  "hds" 'space-macs/describe-system-info
   "hdt" 'describe-text-properties
   "hdT" 'describe-theme
   "hdv" 'describe-variable
-  "hI"  'spacemacs/report-issue
-  "hn"  'view-emacs-news
+  "hI"  'space-macs/report-issue
+  "hn"  'view-e-macs-news
   "hPs" 'profiler-start
   "hPk" 'profiler-stop
   "hPr" 'profiler-report
   "hPw" 'profiler-report-write-profile
-  "hTe" 'emacs-tutorial)
+  "hTe" 'e-macs-tutorial)
 ;; insert stuff ---------------------------------------------------------------
-(spacemacs/set-leader-keys
-  "iJ" 'spacemacs/insert-line-below-no-indent
-  "iK" 'spacemacs/insert-line-above-no-indent
-  "ik" 'spacemacs/evil-insert-line-above
-  "ij" 'spacemacs/evil-insert-line-below
+(space-macs/set-leader-keys
+  "iJ" 'space-macs/insert-line-below-no-indent
+  "iK" 'space-macs/insert-line-above-no-indent
+  "ik" 'space-macs/evil-insert-line-above
+  "ij" 'space-macs/evil-insert-line-below
   "ib" 'insert-buffer)
 ;; format ---------------------------------------------------------------------
-(spacemacs/set-leader-keys
+(space-macs/set-leader-keys
   "j(" 'check-parens
-  "j=" 'spacemacs/indent-region-or-buffer
-  "j+" 'spacemacs/iwb-region-or-buffer
+  "j=" 'space-macs/indent-region-or-buffer
+  "j+" 'space-macs/iwb-region-or-buffer
   "jo" 'open-line
-  "jS" 'spacemacs/split-and-new-line
-  "jk" 'spacemacs/evil-goto-next-line-and-indent)
+  "jS" 'space-macs/split-and-new-line
+  "jk" 'space-macs/evil-goto-next-line-and-indent)
 
 ;; navigation/jumping ---------------------------------------------------------
-(spacemacs/set-leader-keys
-  "j0" 'spacemacs/push-mark-and-goto-beginning-of-line
-  "j$" 'spacemacs/push-mark-and-goto-end-of-line
+(space-macs/set-leader-keys
+  "j0" 'space-macs/push-mark-and-goto-beginning-of-line
+  "j$" 'space-macs/push-mark-and-goto-end-of-line
   "jc" 'goto-last-change
   "jf" 'find-function
   "jv" 'find-variable)
 
 ;; Compilation ----------------------------------------------------------------
-(spacemacs/set-leader-keys
+(space-macs/set-leader-keys
   "cC" 'compile
   "ck" 'kill-compilation
   "cr" 'recompile
   "cn" 'next-error
   "cN" 'previous-error
-  "cd" 'spacemacs/show-hide-compilation-window
-  "cb" 'spacemacs/switch-to-compilation-buffer)
+  "cd" 'space-macs/show-hide-compilation-window
+  "cb" 'space-macs/switch-to-compilation-buffer)
 (with-eval-after-load 'compile
   (evil-define-key 'motion compilation-mode-map (kbd "gf") 'find-file-at-point)
   (define-key compilation-mode-map "r" 'recompile)
   (define-key compilation-mode-map "g" nil))
 ;; narrow & widen -------------------------------------------------------------
-(spacemacs/set-leader-keys
+(space-macs/set-leader-keys
   "nr" 'narrow-to-region
   "np" 'narrow-to-page
   "nf" 'narrow-to-defun
-  "nR" 'spacemacs/narrow-to-region-indirect-buffer
-  "nP" 'spacemacs/narrow-to-page-indirect-buffer
-  "nF" 'spacemacs/narrow-to-defun-indirect-buffer
+  "nR" 'space-macs/narrow-to-region-indirect-buffer
+  "nP" 'space-macs/narrow-to-page-indirect-buffer
+  "nF" 'space-macs/narrow-to-defun-indirect-buffer
   "nw" 'widen)
 ;; toggle ---------------------------------------------------------------------
-(spacemacs|add-toggle highlight-current-line-globally
+(space-macs|add-toggle highlight-current-line-globally
   :mode global-hl-line-mode
   :documentation "Globally highlight the current line."
   :evil-leader "thh")
-(spacemacs|add-toggle truncate-lines
+(space-macs|add-toggle truncate-lines
   :status truncate-lines
   :on (toggle-truncate-lines)
   :off (toggle-truncate-lines -1)
   :documentation "Toggle between line wrapping or truncation (no wrap)."
   :evil-leader "tl")
-(spacemacs|add-toggle visual-line-navigation
+(space-macs|add-toggle visual-line-navigation
   :status visual-line-mode
   :on
   (progn
     (visual-line-mode)
-    (spacemacs//init-visual-line-keys)
+    (space-macs//init-visual-line-keys)
     (evil-normalize-keymaps))
   :off
   (progn
@@ -482,12 +482,12 @@
     (evil-normalize-keymaps))
   :documentation "Move point according to visual lines."
   :evil-leader "tL")
-(spacemacs|add-toggle visual-line-navigation-globally
+(space-macs|add-toggle visual-line-navigation-globally
   :status global-visual-line-mode
   :on
   (progn
     (global-visual-line-mode)
-    (spacemacs//init-visual-line-keys)
+    (space-macs//init-visual-line-keys)
     (evil-normalize-keymaps))
   :off
   (progn
@@ -495,55 +495,55 @@
     (evil-normalize-keymaps))
   :documentation "Move point according to visual lines globally."
   :evil-leader "t C-S-l")
-(spacemacs|add-toggle auto-fill-mode
+(space-macs|add-toggle auto-fill-mode
   :status auto-fill-function
   :on (auto-fill-mode)
   :off (auto-fill-mode -1)
   :documentation "Break line beyond `current-fill-column` while editing."
   :evil-leader "tF")
-(spacemacs|add-toggle debug-on-error
+(space-macs|add-toggle debug-on-error
   :status debug-on-error
   :on (setq debug-on-error t)
   :off (setq debug-on-error nil)
   :documentation "Toggle display of backtrace when an error happens."
   :evil-leader "tD")
-(spacemacs|add-toggle fringe
+(space-macs|add-toggle fringe
   :if (fboundp 'fringe-mode)
   :status (not (equal fringe-mode 0))
   :on (call-interactively 'fringe-mode)
   :off (fringe-mode 0)
   :documentation "Display the fringe in GUI mode."
   :evil-leader "Tf")
-(spacemacs|add-toggle fullscreen-frame
+(space-macs|add-toggle fullscreen-frame
   :status (memq (frame-parameter nil 'fullscreen) '(fullscreen fullboth))
-  :on (spacemacs/toggle-frame-fullscreen)
-  :off (spacemacs/toggle-frame-fullscreen)
+  :on (space-macs/toggle-frame-fullscreen)
+  :off (space-macs/toggle-frame-fullscreen)
   :documentation "Display the current frame in full screen."
   :evil-leader "TF")
-(spacemacs|add-toggle maximize-frame
+(space-macs|add-toggle maximize-frame
   :status (eq (frame-parameter nil 'fullscreen) 'maximized)
   :on (toggle-frame-maximized)
   :off (toggle-frame-maximized)
   :documentation "Maximize the current frame."
   :evil-leader "TM")
-(spacemacs|add-toggle mode-line
+(space-macs|add-toggle mode-line
   :status (not hidden-mode-line-mode)
   :on (hidden-mode-line-mode -1)
   :off (hidden-mode-line-mode)
   :documentation "Toggle the visibility of modeline."
   :evil-leader "tmT")
-(spacemacs|add-toggle display-time
+(space-macs|add-toggle display-time
   :mode display-time-mode
   :documentation "Display time in modeline."
   :evil-leader "tmt")
-(spacemacs|add-toggle syntax-highlighting
+(space-macs|add-toggle syntax-highlighting
   :mode font-lock-mode
   :documentation "Toggle syntax highlighting."
   :evil-leader "ths")
-(spacemacs|add-toggle zero-based-column-indexing
+(space-macs|add-toggle zero-based-column-indexing
   :documentation "Toggle column indexing starting at 0 versus 1.
 
-This is achieved by the built in functionality available in emacs 26 by changing
+This is achieved by the built in functionality available in e-macs 26 by changing
 the value of the `column-number-indicator-zero-based' variable. Functionality
 that does not take into account `column-number-indicator-zero-based' will not
 respond to this toggle."
@@ -560,29 +560,29 @@ respond to this toggle."
                 ")")
   :evil-leader "tz")
 
-(spacemacs|add-toggle transparent-frame
+(space-macs|add-toggle transparent-frame
   :status nil
-  :on (spacemacs/toggle-transparency)
+  :on (space-macs/toggle-transparency)
   :documentation "Make the current frame non-opaque."
   :evil-leader "TT")
-(spacemacs|add-toggle tool-bar
+(space-macs|add-toggle tool-bar
   :if window-system
   :mode tool-bar-mode
   :documentation "Display the tool bar in GUI mode."
   :evil-leader "Tt")
-(spacemacs|add-toggle menu-bar
+(space-macs|add-toggle menu-bar
   :if window-system
   :mode menu-bar-mode
   :documentation "Display the menu bar."
   :evil-leader "Tm")
 ;; quit -----------------------------------------------------------------------
-(spacemacs/set-leader-keys
-  "qs" 'spacemacs/save-buffers-kill-emacs
-  "qq" 'spacemacs/prompt-kill-emacs
-  "qQ" 'spacemacs/kill-emacs
-  "qf" 'spacemacs/frame-killer)
+(space-macs/set-leader-keys
+  "qs" 'space-macs/save-buffers-kill-e-macs
+  "qq" 'space-macs/prompt-kill-e-macs
+  "qQ" 'space-macs/kill-e-macs
+  "qf" 'space-macs/frame-killer)
 ;; timeclock ------------------------------------------------------------------
-(spacemacs/set-leader-keys
+(space-macs/set-leader-keys
   "ttc" 'timeclock-change
   "tte" 'timeclock-workday-elapsed-string
   "ttg" 'timeclock-workday-remaining-string
@@ -614,15 +614,15 @@ respond to this toggle."
              (symbol-value golden-ratio-mode))
     (golden-ratio)))
 
-(spacemacs/set-leader-keys
-  "w TAB"  'spacemacs/alternate-window
-  "w1"  'spacemacs/window-split-single-column
-  "w2"  'spacemacs/window-split-double-columns
-  "w3"  'spacemacs/window-split-triple-columns
-  "w4"  'spacemacs/window-split-grid
-  "wb"  'spacemacs/switch-to-minibuffer-window
-  "wd"  'spacemacs/delete-window
-  "wt"  'spacemacs/toggle-current-window-dedication
+(space-macs/set-leader-keys
+  "w TAB"  'space-macs/alternate-window
+  "w1"  'space-macs/window-split-single-column
+  "w2"  'space-macs/window-split-double-columns
+  "w3"  'space-macs/window-split-triple-columns
+  "w4"  'space-macs/window-split-grid
+  "wb"  'space-macs/switch-to-minibuffer-window
+  "wd"  'space-macs/delete-window
+  "wt"  'space-macs/toggle-current-window-dedication
   "wf"  'follow-mode
   "wF"  'make-frame
   "wH"  'evil-window-move-far-left
@@ -641,13 +641,13 @@ respond to this toggle."
   "w <S-right>"  'evil-window-move-far-right
   "wl"  'evil-window-right
   "w <right>"  'evil-window-right
-  "wm"  'spacemacs/toggle-maximize-buffer
-  "wcc"  'spacemacs/toggle-centered-buffer
-  "wcC"  'spacemacs/toggle-distraction-free
-  "wc."  'spacemacs/centered-buffer-transient-state
+  "wm"  'space-macs/toggle-maximize-buffer
+  "wcc"  'space-macs/toggle-centered-buffer
+  "wcC"  'space-macs/toggle-distraction-free
+  "wc."  'space-macs/centered-buffer-transient-state
   "wo"  'other-frame
-  "wr"  'spacemacs/rotate-windows-forward
-  "wR"  'spacemacs/rotate-windows-backward
+  "wr"  'space-macs/rotate-windows-forward
+  "wR"  'space-macs/rotate-windows-backward
   "ws"  'split-window-below
   "wS"  'split-window-below-and-focus
   "w-"  'split-window-below
@@ -659,32 +659,32 @@ respond to this toggle."
   "wx"  'kill-buffer-and-window
   "w/"  'split-window-right
   "w="  'balance-windows-area
-  "w+"  'spacemacs/window-layout-toggle
-  "w_"  'spacemacs/maximize-horizontally
-  "w|"  'spacemacs/maximize-vertically)
+  "w+"  'space-macs/window-layout-toggle
+  "w_"  'space-macs/maximize-horizontally
+  "w|"  'space-macs/maximize-vertically)
 ;; text -----------------------------------------------------------------------
 (defalias 'count-region 'count-words-region)
 
-(spacemacs/set-leader-keys
-  "xa%" 'spacemacs/align-repeat-percent
-  "xa&" 'spacemacs/align-repeat-ampersand
-  "xa(" 'spacemacs/align-repeat-left-paren
-  "xa)" 'spacemacs/align-repeat-right-paren
-  "xa{" 'spacemacs/align-repeat-left-curly-brace
-  "xa}" 'spacemacs/align-repeat-right-curly-brace
-  "xa[" 'spacemacs/align-repeat-left-square-brace
-  "xa]" 'spacemacs/align-repeat-right-square-brace
-  "xa," 'spacemacs/align-repeat-comma
-  "xa." 'spacemacs/align-repeat-decimal
-  "xa:" 'spacemacs/align-repeat-colon
-  "xa;" 'spacemacs/align-repeat-semicolon
-  "xa=" 'spacemacs/align-repeat-equal
-  "xa\\" 'spacemacs/align-repeat-backslash
+(space-macs/set-leader-keys
+  "xa%" 'space-macs/align-repeat-percent
+  "xa&" 'space-macs/align-repeat-ampersand
+  "xa(" 'space-macs/align-repeat-left-paren
+  "xa)" 'space-macs/align-repeat-right-paren
+  "xa{" 'space-macs/align-repeat-left-curly-brace
+  "xa}" 'space-macs/align-repeat-right-curly-brace
+  "xa[" 'space-macs/align-repeat-left-square-brace
+  "xa]" 'space-macs/align-repeat-right-square-brace
+  "xa," 'space-macs/align-repeat-comma
+  "xa." 'space-macs/align-repeat-decimal
+  "xa:" 'space-macs/align-repeat-colon
+  "xa;" 'space-macs/align-repeat-semicolon
+  "xa=" 'space-macs/align-repeat-equal
+  "xa\\" 'space-macs/align-repeat-backslash
   "xaa" 'align
   "xac" 'align-current
-  "xam" 'spacemacs/align-repeat-math-oper
-  "xar" 'spacemacs/align-repeat
-  "xa|" 'spacemacs/align-repeat-bar
+  "xam" 'space-macs/align-repeat-math-oper
+  "xar" 'space-macs/align-repeat
+  "xa|" 'space-macs/align-repeat-bar
   "xc"  'count-region
   "xd SPC" 'cycle-spacing
   "xdl" 'delete-blank-lines
@@ -694,14 +694,14 @@ respond to this toggle."
   "xjl" 'set-justification-left
   "xjn" 'set-justification-none
   "xjr" 'set-justification-right
-  "xlc" 'spacemacs/sort-lines-by-column
-  "xlC" 'spacemacs/sort-lines-by-column-reverse
-  "xld" 'spacemacs/duplicate-line-or-region
-  "xlk" 'spacemacs/kill-back-to-indentation
-  "xlr" 'spacemacs/randomize-lines
-  "xls" 'spacemacs/sort-lines
-  "xlS" 'spacemacs/sort-lines-reverse
-  "xlu" 'spacemacs/uniquify-lines
+  "xlc" 'space-macs/sort-lines-by-column
+  "xlC" 'space-macs/sort-lines-by-column-reverse
+  "xld" 'space-macs/duplicate-line-or-region
+  "xlk" 'space-macs/kill-back-to-indentation
+  "xlr" 'space-macs/randomize-lines
+  "xls" 'space-macs/sort-lines
+  "xlS" 'space-macs/sort-lines-reverse
+  "xlu" 'space-macs/uniquify-lines
   "xtc" 'transpose-chars
   "xte" 'transpose-sexps
   "xtl" 'transpose-lines
@@ -710,8 +710,8 @@ respond to this toggle."
   "xtw" 'transpose-words
   "xU"  'upcase-region
   "xu"  'downcase-region
-  "xwc" 'spacemacs/count-words-analysis
-  "xwr" 'spacemacs/randomize-words
+  "xwc" 'space-macs/count-words-analysis
+  "xwr" 'space-macs/randomize-words
   "x TAB" 'indent-rigidly)
 
 (define-key indent-rigidly-map "h" 'indent-rigidly-left)
@@ -730,7 +730,7 @@ respond to this toggle."
 
 ;; Buffer transient state
 
-(spacemacs|define-transient-state buffer
+(space-macs|define-transient-state buffer
   :title "Buffer Transient State"
   :doc "
  [_C-1_.._C-9_] goto nth window            [_n_/_<right>_]^^  next buffer       [_b_]   buffer list
@@ -748,7 +748,7 @@ respond to this toggle."
               (helm-buffers-list))
              ((configuration-layer/layer-used-p 'ivy)
               (ivy-switch-buffer))))
-  ("d" spacemacs/kill-this-buffer)
+  ("d" space-macs/kill-this-buffer)
   ("C-d" bury-buffer)
   ("z" recenter-top-bottom)
   ("q" nil :exit t)
@@ -779,59 +779,59 @@ respond to this toggle."
   ("C-7" winum-select-window-7)
   ("C-8" winum-select-window-8)
   ("C-9" winum-select-window-9))
-(spacemacs/set-leader-keys "b." 'spacemacs/buffer-transient-state/body)
+(space-macs/set-leader-keys "b." 'space-macs/buffer-transient-state/body)
 
 ;; end of Buffer Transient State
 
 ;; Window Transient State
 
-(defun spacemacs/shrink-window-horizontally (delta)
-  "Wrap `spacemacs/shrink-window-horizontally'."
+(defun space-macs/shrink-window-horizontally (delta)
+  "Wrap `space-macs/shrink-window-horizontally'."
   (interactive "p")
   (shrink-window delta t))
 
-(defun spacemacs/shrink-window (delta)
-  "Wrap `spacemacs/shrink-window'."
+(defun space-macs/shrink-window (delta)
+  "Wrap `space-macs/shrink-window'."
   (interactive "p")
   (shrink-window delta))
 
-(defun spacemacs/enlarge-window (delta)
-  "Wrap `spacemacs/enlarge-window'."
+(defun space-macs/enlarge-window (delta)
+  "Wrap `space-macs/enlarge-window'."
   (interactive "p")
   (enlarge-window delta))
 
-(defun spacemacs/enlarge-window-horizontally (delta)
-  "Wrap `spacemacs/enlarge-window-horizontally'."
+(defun space-macs/enlarge-window-horizontally (delta)
+  "Wrap `space-macs/enlarge-window-horizontally'."
   (interactive "p")
   (enlarge-window delta t))
 
-(defvar spacemacs--window-ts-full-hint-toggle nil
+(defvar space-macs--window-ts-full-hint-toggle nil
   "Display window transient state documentation.")
 
-(defun spacemacs//window-ts-toggle-hint ()
+(defun space-macs//window-ts-toggle-hint ()
   "Toggle the full hint docstring for the window transient state."
   (interactive)
-  (setq spacemacs--window-ts-full-hint-toggle
-        (not spacemacs--window-ts-full-hint-toggle)))
+  (setq space-macs--window-ts-full-hint-toggle
+        (not space-macs--window-ts-full-hint-toggle)))
 
-(defun spacemacs//window-ts-hint ()
+(defun space-macs//window-ts-hint ()
   "Return a condensed/full hint for the window transient state"
   (concat
    " "
-   (if spacemacs--window-ts-full-hint-toggle
-       spacemacs--window-ts-full-hint
+   (if space-macs--window-ts-full-hint-toggle
+       space-macs--window-ts-full-hint
      (concat "[" (propertize "?" 'face 'hydra-face-red) "] help"
-             spacemacs--window-ts-minified-hint))))
+             space-macs--window-ts-minified-hint))))
 
-(spacemacs|transient-state-format-hint window
-  spacemacs--window-ts-minified-hint "\n
+(space-macs|transient-state-format-hint window
+  space-macs--window-ts-minified-hint "\n
 Select: _a_ _h_ _j_ _k_ _l_ _w_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s_ _v_ Resize: _[_ _]_ _{_ _}_ _m_ _|_ ___")
 
-(spacemacs|transient-state-format-hint window
-  spacemacs--window-ts-full-hint
+(space-macs|transient-state-format-hint window
+  space-macs--window-ts-full-hint
   (format "\n[_?_] toggle help
  Select^^^^               Move^^^^              Split^^^^^^               Resize^^             Other^^
- ──────^^^^─────────────  ────^^^^────────────  ─────^^^^^^─────────────  ──────^^───────────  ─────^^──────────────────
+ â”€â”€â”€â”€â”€â”€^^^^â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€  â”€â”€â”€â”€^^^^â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€  â”€â”€â”€â”€â”€^^^^^^â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€  â”€â”€â”€â”€â”€â”€^^â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€  â”€â”€â”€â”€â”€^^â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
  [_j_/_k_]  down/up       [_J_/_K_] down/up     [_s_]^^^^ horizontal      [_[_] shrink horiz   [_d_] close current
  [_h_/_l_]  left/right    [_H_/_L_] left/right  [_S_]^^^^ horiz & follow  [_]_] enlarge horiz  [_D_] close other
  [_0_.._9_] window 0..9   [_r_]^^   rotate fwd  [_v_]^^^^ vertical        [_{_] shrink verti   [_u_] restore prev layout
@@ -844,12 +844,12 @@ Select: _a_ _h_ _j_ _k_ _l_ _w_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s
               "[_g_] golden-ratio "
             "^^                 ")))
 
-(spacemacs|define-transient-state window
+(space-macs|define-transient-state window
   :title "Window Transient State"
   :hint-is-doc t
-  :dynamic-hint (spacemacs//window-ts-hint)
+  :dynamic-hint (space-macs//window-ts-hint)
   :bindings
-  ("?" spacemacs//window-ts-toggle-hint)
+  ("?" space-macs//window-ts-toggle-hint)
   ;; Select
   ("j" evil-window-down)
   ("<down>" evil-window-down)
@@ -881,8 +881,8 @@ Select: _a_ _h_ _j_ _k_ _l_ _w_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s
   ("<S-left>" evil-window-move-far-left)
   ("L" evil-window-move-far-right)
   ("<S-right>" evil-window-move-far-right)
-  ("r" spacemacs/rotate-windows-forward)
-  ("R" spacemacs/rotate-windows-backward)
+  ("r" space-macs/rotate-windows-forward)
+  ("R" space-macs/rotate-windows-backward)
   ;; Split
   ("s" split-window-below)
   ("S" split-window-below-and-focus)
@@ -890,32 +890,32 @@ Select: _a_ _h_ _j_ _k_ _l_ _w_ _0_.._9_ Move: _H_ _J_ _K_ _L_ _r_ _R_ Split: _s
   ("v" split-window-right)
   ("V" split-window-right-and-focus)
   ("/" split-window-right-and-focus)
-  ("m" spacemacs/toggle-maximize-buffer)
-  ("|" spacemacs/maximize-vertically)
-  ("_" spacemacs/maximize-horizontally)
+  ("m" space-macs/toggle-maximize-buffer)
+  ("|" space-macs/maximize-vertically)
+  ("_" space-macs/maximize-horizontally)
   ;; Resize
-  ("[" spacemacs/shrink-window-horizontally)
-  ("]" spacemacs/enlarge-window-horizontally)
-  ("{" spacemacs/shrink-window)
-  ("}" spacemacs/enlarge-window)
+  ("[" space-macs/shrink-window-horizontally)
+  ("]" space-macs/enlarge-window-horizontally)
+  ("{" space-macs/shrink-window)
+  ("}" space-macs/enlarge-window)
   ;; Other
   ("d" delete-window)
   ("D" delete-other-windows)
   ("u" winner-undo)
   ("U" winner-redo)
   ("q" nil :exit t))
-(spacemacs/set-leader-keys
-  "w." 'spacemacs/window-transient-state/body
-  "w[" 'spacemacs/window-transient-state/spacemacs/shrink-window-horizontally
-  "w]" 'spacemacs/window-transient-state/spacemacs/enlarge-window-horizontally
-  "w{" 'spacemacs/window-transient-state/spacemacs/shrink-window
-  "w}" 'spacemacs/window-transient-state/spacemacs/enlarge-window)
+(space-macs/set-leader-keys
+  "w." 'space-macs/window-transient-state/body
+  "w[" 'space-macs/window-transient-state/space-macs/shrink-window-horizontally
+  "w]" 'space-macs/window-transient-state/space-macs/enlarge-window-horizontally
+  "w{" 'space-macs/window-transient-state/space-macs/shrink-window
+  "w}" 'space-macs/window-transient-state/space-macs/enlarge-window)
 
 ;; end of Window Transient State
 
 ;; Text Transient State
 
-(defun spacemacs/scale-up-or-down-font-size (direction)
+(defun space-macs/scale-up-or-down-font-size (direction)
   "Scale the font. If DIRECTION is positive or zero the font is scaled up,
 otherwise it is scaled down."
   (interactive)
@@ -926,71 +926,71 @@ otherwise it is scaled down."
           (text-scale-decrease scale)
         (text-scale-increase scale)))))
 
-(defun spacemacs/scale-up-font ()
+(defun space-macs/scale-up-font ()
   "Scale up the font."
   (interactive)
-  (spacemacs/scale-up-or-down-font-size 1))
+  (space-macs/scale-up-or-down-font-size 1))
 
-(defun spacemacs/scale-down-font ()
+(defun space-macs/scale-down-font ()
   "Scale up the font."
   (interactive)
-  (spacemacs/scale-up-or-down-font-size -1))
+  (space-macs/scale-up-or-down-font-size -1))
 
-(defun spacemacs/reset-font-size ()
+(defun space-macs/reset-font-size ()
   "Reset the font size."
   (interactive)
-  (spacemacs/scale-up-or-down-font-size 0))
+  (space-macs/scale-up-or-down-font-size 0))
 
-(spacemacs|define-transient-state scale-font
+(space-macs|define-transient-state scale-font
   :title "Font Scaling Transient State"
   :doc "\n[_+_/_=_/_k_] scale up [_-_/___/_j_] scale down [_0_] reset font [_q_] quit"
   :bindings
-  ("+" spacemacs/scale-up-font)
-  ("=" spacemacs/scale-up-font)
-  ("k" spacemacs/scale-up-font)
-  ("-" spacemacs/scale-down-font)
-  ("_" spacemacs/scale-down-font)
-  ("j" spacemacs/scale-down-font)
-  ("0" spacemacs/reset-font-size)
+  ("+" space-macs/scale-up-font)
+  ("=" space-macs/scale-up-font)
+  ("k" space-macs/scale-up-font)
+  ("-" space-macs/scale-down-font)
+  ("_" space-macs/scale-down-font)
+  ("j" space-macs/scale-down-font)
+  ("0" space-macs/reset-font-size)
   ("q" nil :exit t))
 
-(spacemacs/set-leader-keys "zx" 'spacemacs/scale-font-transient-state/body)
+(space-macs/set-leader-keys "zx" 'space-macs/scale-font-transient-state/body)
 
 ;; end of Text Transient State
 
 ;; Transparency transient-state
 
-(defun spacemacs/toggle-transparency (&optional frame)
+(defun space-macs/toggle-transparency (&optional frame)
   "Toggle between transparent and opaque state for FRAME.
 If FRAME is nil, it defaults to the selected frame."
   (interactive)
   (let ((alpha (frame-parameter frame 'alpha))
-        (dotfile-setting (cons dotspacemacs-active-transparency
-                               dotspacemacs-inactive-transparency)))
+        (dotfile-setting (cons dotspace-macs-active-transparency
+                               dotspace-macs-inactive-transparency)))
     (if (equal alpha dotfile-setting)
-        (spacemacs/disable-transparency frame)
-      (spacemacs/enable-transparency frame dotfile-setting))))
+        (space-macs/disable-transparency frame)
+      (space-macs/enable-transparency frame dotfile-setting))))
 
-(defun spacemacs/enable-transparency (&optional frame alpha)
+(defun space-macs/enable-transparency (&optional frame alpha)
   "Enable transparency for FRAME.
 If FRAME is nil, it defaults to the selected frame.
 ALPHA is a pair of active and inactive transparency values. The
 default value for ALPHA is based on
-`dotspacemacs-active-transparency' and
-`dotspacemacs-inactive-transparency'."
+`dotspace-macs-active-transparency' and
+`dotspace-macs-inactive-transparency'."
   (interactive)
   (let ((alpha-setting (or alpha
-                           (cons dotspacemacs-active-transparency
-                                 dotspacemacs-inactive-transparency))))
+                           (cons dotspace-macs-active-transparency
+                                 dotspace-macs-inactive-transparency))))
     (set-frame-parameter frame 'alpha alpha-setting)))
 
-(defun spacemacs/disable-transparency (&optional frame)
+(defun space-macs/disable-transparency (&optional frame)
   "Disable transparency for FRAME.
 If FRAME is nil, it defaults to the selected frame."
   (interactive)
   (set-frame-parameter frame 'alpha '(100 . 100)))
 
-(defun spacemacs/increase-transparency (&optional frame)
+(defun space-macs/increase-transparency (&optional frame)
   "Increase transparency for FRAME.
 If FRAME is nil, it defaults to the selected frame."
   (interactive)
@@ -1000,7 +1000,7 @@ If FRAME is nil, it defaults to the selected frame."
       (set-frame-parameter frame 'alpha
                            (cons increased-alpha increased-alpha)))))
 
-(defun spacemacs/decrease-transparency (&optional frame)
+(defun space-macs/decrease-transparency (&optional frame)
   "Decrease transparency for FRAME.
 If FRAME is nil, it defaults to the selected frame."
   (interactive)
@@ -1010,19 +1010,21 @@ If FRAME is nil, it defaults to the selected frame."
       (set-frame-parameter frame 'alpha
                            (cons decreased-alpha decreased-alpha)))))
 
-(spacemacs|define-transient-state scale-transparency
+(space-macs|define-transient-state scale-transparency
   :title "Frame Transparency Transient State"
   :doc "\n[_+_/_=_/_k_] increase transparency [_-_/___/_j_] decrease [_T_] toggle [_q_] quit"
   :bindings
-  ("+" spacemacs/increase-transparency)
-  ("=" spacemacs/increase-transparency)
-  ("k" spacemacs/increase-transparency)
-  ("-" spacemacs/decrease-transparency)
-  ("_" spacemacs/decrease-transparency)
-  ("j" spacemacs/decrease-transparency)
-  ("T" spacemacs/toggle-transparency)
+  ("+" space-macs/increase-transparency)
+  ("=" space-macs/increase-transparency)
+  ("k" space-macs/increase-transparency)
+  ("-" space-macs/decrease-transparency)
+  ("_" space-macs/decrease-transparency)
+  ("j" space-macs/decrease-transparency)
+  ("T" space-macs/toggle-transparency)
   ("q" nil :exit t))
-(spacemacs/set-leader-keys "TT"
-  'spacemacs/scale-transparency-transient-state/spacemacs/toggle-transparency)
+(space-macs/set-leader-keys "TT"
+  'space-macs/scale-transparency-transient-state/space-macs/toggle-transparency)
 
 ;; end of Transparency Transient State
+
+

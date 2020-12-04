@@ -78,4 +78,6 @@ Thanks
 
 To the original authors of nose.el:  `Jason Pellerin` and `Augie Fackler`
 
-[fork]: https://bitbucket.org/durin42/nosemacs/overview
+[fork]: https://bitbucket.org/durin42/nose-macs/overview
+
+

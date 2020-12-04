@@ -1,11 +1,11 @@
-;;; packages.el --- Windows Scripts Layer packages File for Spacemacs
+;;; packages.el --- Windows Scripts Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -37,7 +37,7 @@
         (define-key evil-normal-state-local-map (kbd "SPC m z") 'dos-mode))
       (add-hook 'outline-mode-hook 'windows-scripts/dos-outline-hook))
     :config
-    (spacemacs/set-leader-keys-for-major-mode 'dos-mode
+    (space-macs/set-leader-keys-for-major-mode 'dos-mode
       "hD" 'dos-help-cmd
       "eb" 'dos-run
       "eB" 'dos-run-args
@@ -47,13 +47,13 @@
       "z"  'windows-scripts/dos-outline)))
 
 (defun windows-scripts/post-init-ggtags ()
-  (add-hook 'dos-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+  (add-hook 'dos-mode-local-vars-hook #'space-macs/ggtags-mode-enable))
 
 (defun windows-scripts/post-init-counsel-gtags ()
-  (spacemacs/counsel-gtags-define-keys-for-mode 'dos-mode))
+  (space-macs/counsel-gtags-define-keys-for-mode 'dos-mode))
 
 (defun windows-scripts/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'dos-mode))
+  (space-macs/helm-gtags-define-keys-for-mode 'dos-mode))
 
 (defun windows-scripts/init-powershell ()
   (use-package powershell
@@ -63,14 +63,16 @@
     :init
     (progn
       (defun powershell/define-text-objects ()
-        (spacemacs|define-text-object "$" "dollarparen" "$(" ")"))
+        (space-macs|define-text-object "$" "dollarparen" "$(" ")"))
       (add-hook 'powershell-mode-hook 'powershell/define-text-objects)
-      (spacemacs/set-leader-keys
+      (space-macs/set-leader-keys
         "atsp" 'powershell)
-      (spacemacs/set-leader-keys-for-major-mode 'powershell-mode
+      (space-macs/set-leader-keys-for-major-mode 'powershell-mode
         "rr" 'powershell-regexp-to-regex)
       ;; TODO
       ;; - split out powershell
       ;; - get help output with mgg (Get-Help) or Get-Help -online
       ;; -
       )))
+
+

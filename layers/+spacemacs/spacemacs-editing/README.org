@@ -1,13 +1,13 @@
-#+TITLE: spacemacs-editing layer
+#+TITLE: space-macs-editing layer
 
-#+TAGS: layer|misc|spacemacs
+#+TAGS: layer|misc|space-macs
 
 * Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 
 * Description
-This layer adds packages to improve editing with Spacemacs.
+This layer adds packages to improve editing with Space-macs.
 
 ** Features:
 - Support for automatic indentation of code via =aggressive-indent=.
@@ -23,11 +23,13 @@ This layer adds packages to improve editing with Spacemacs.
 - Support for folding of code via =origami= and =evil-vimish-fold=.
 - Support for password generation via =password-generator=.
 - Support for improving parenthesis handling via =smartparens=.
-- Automatic whitespace cleanup on save via =spacemacs-whitespace-cleanup=.
+- Automatic whitespace cleanup on save via =space-macs-whitespace-cleanup=.
 - Support for converting definitions to certain styles via =string-inflection=.
 - Support for generating UUIDs via =uuidgen=.
-- Support for conversion between Emacs regexps and PCRE regexps.
+- Support for conversion between e-macs regexps and PCRE regexps.
 - Support for persistent scratch via =persistent-scratch=.
 - Support for unkillable scratch via =unkillable-scratch=.
 - In =dired-mode=, press ~Shift S~ to select sorting.
 - Support for =evil-easymotion= if the editing style is =vim= or =hybrid=.
+
+

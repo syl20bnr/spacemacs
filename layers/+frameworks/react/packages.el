@@ -1,11 +1,11 @@
-;;; packages.el --- react layer packages file for Spacemacs. -*- lexical-binding: t -*-
+;;; packages.el --- react layer packages file for Space-macs. -*- lexical-binding: t -*-
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Andrea Moretti <axyzxp@gmail.com>
 ;; URL: https://github.com/axyz
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -30,10 +30,10 @@
   (add-hook 'rjsx-mode-hook #'add-node-modules-path))
 
 (defun react/post-init-company ()
-  (add-hook 'rjsx-mode-local-vars-hook #'spacemacs//react-setup-company))
+  (add-hook 'rjsx-mode-local-vars-hook #'space-macs//react-setup-company))
 
 (defun react/post-init-emmet-mode ()
-  (add-hook 'rjsx-mode-hook 'spacemacs/react-emmet-mode))
+  (add-hook 'rjsx-mode-hook 'space-macs/react-emmet-mode))
 
 (defun react/post-init-evil-matchit ()
   (add-hook 'rjsx-mode-hook 'turn-on-evil-matchit-mode))
@@ -42,16 +42,16 @@
   (with-eval-after-load 'flycheck
     (dolist (checker '(javascript-eslint javascript-standard))
       (flycheck-add-mode checker 'rjsx-mode)))
-  (spacemacs/enable-flycheck 'rjsx-mode)
-  (add-hook 'rjsx-mode-hook #'spacemacs//javascript-setup-checkers 'append))
+  (space-macs/enable-flycheck 'rjsx-mode)
+  (add-hook 'rjsx-mode-hook #'space-macs//javascript-setup-checkers 'append))
 
 (defun react/pre-init-import-js ()
   (when (eq javascript-import-tool 'import-js)
-    (add-to-list 'spacemacs--import-js-modes (cons 'rjsx-mode 'rjsx-mode-hook))))
+    (add-to-list 'space-macs--import-js-modes (cons 'rjsx-mode 'rjsx-mode-hook))))
 
 (defun react/post-init-js-doc ()
-  (add-hook 'rjsx-mode-hook 'spacemacs/js-doc-require)
-  (spacemacs/js-doc-set-key-bindings 'rjsx-mode))
+  (add-hook 'rjsx-mode-hook 'space-macs/js-doc-require)
+  (space-macs/js-doc-set-key-bindings 'rjsx-mode))
 
 (defun react/init-rjsx-mode ()
   (use-package rjsx-mode
@@ -65,59 +65,59 @@
            (re-search-forward "\\(^\\s-*import React\\|\\( from \\|require(\\)[\"']react\\)"
                               magic-mode-regexp-match-limit t)
            (progn (goto-char (match-beginning 1))
-                  (not (spacemacs//react-inside-string-or-comment-q)))))
+                  (not (space-macs//react-inside-string-or-comment-q)))))
 
     (add-to-list 'magic-mode-alist (cons #'+javascript-jsx-file-p 'rjsx-mode))
 
     ;; setup rjsx backend
-    (add-hook 'rjsx-mode-local-vars-hook #'spacemacs//react-setup-backend)
+    (add-hook 'rjsx-mode-local-vars-hook #'space-macs//react-setup-backend)
     ;; set next-error-function to nil because we use flycheck
-    (add-hook 'rjsx-mode-local-vars-hook #'spacemacs//react-setup-next-error-fn)
+    (add-hook 'rjsx-mode-local-vars-hook #'space-macs//react-setup-next-error-fn)
     ;; setup fmt on save
     (when javascript-fmt-on-save
-      (add-hook 'rjsx-mode-local-vars-hook #'spacemacs//react-fmt-before-save-hook))
+      (add-hook 'rjsx-mode-local-vars-hook #'space-macs//react-fmt-before-save-hook))
 
     ;; set the javascript layers keymap as parent to the react layers keymap
-    (set-keymap-parent spacemacs-rjsx-mode-map spacemacs-js2-mode-map)
+    (set-keymap-parent space-macs-rjsx-mode-map space-macs-js2-mode-map)
 
     :config
     ;; declare prefixes
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "m="  "format")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mT"  "toggle")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "me"  "eval")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mg"  "goto")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mh"  "documentation")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mr"  "refactor")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mr3" "ternary")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mra" "add/args")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mrb" "barf")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mrc" "contract")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mre" "expand/extract")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mri" "inline/inject/introduct")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mrl" "localize/log")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mrr" "rename")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mrs" "split/slurp")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mrt" "toggle")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mru" "unwrap")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mrv" "var")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mrw" "wrap")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "ms"  "skewer")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mx"  "text")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mxm" "move")
-    (spacemacs/declare-prefix-for-mode 'rjsx-mode "mz"  "folding")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "m="  "format")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mT"  "toggle")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "me"  "eval")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mg"  "goto")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mh"  "documentation")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mr"  "refactor")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mr3" "ternary")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mra" "add/args")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mrb" "barf")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mrc" "contract")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mre" "expand/extract")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mri" "inline/inject/introduct")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mrl" "localize/log")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mrr" "rename")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mrs" "split/slurp")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mrt" "toggle")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mru" "unwrap")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mrv" "var")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mrw" "wrap")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "ms"  "skewer")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mx"  "text")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mxm" "move")
+    (space-macs/declare-prefix-for-mode 'rjsx-mode "mz"  "folding")
 
-    (spacemacs/set-leader-keys-for-major-mode 'rjsx-mode "rlt" 'js2r-log-this)
-    (spacemacs/set-leader-keys-for-major-mode 'rjsx-mode "rt" 'rjsx-rename-tag-at-point)
+    (space-macs/set-leader-keys-for-major-mode 'rjsx-mode "rlt" 'js2r-log-this)
+    (space-macs/set-leader-keys-for-major-mode 'rjsx-mode "rt" 'rjsx-rename-tag-at-point)
 
     (with-eval-after-load 'rjsx-mode
       (define-key rjsx-mode-map (kbd "C-d") nil))))
 
 (defun react/pre-init-prettier-js ()
   (when (eq javascript-fmt-tool 'prettier)
-    (add-to-list 'spacemacs--prettier-modes 'rjsx-mode)))
+    (add-to-list 'space-macs--prettier-modes 'rjsx-mode)))
 
 (defun react/post-init-smartparens ()
-  (if dotspacemacs-smartparens-strict-mode
+  (if dotspace-macs-smartparens-strict-mode
       (add-hook 'rjsx-mode-hook #'smartparens-strict-mode)
     (add-hook 'rjsx-mode-hook #'smartparens-mode)))
 
@@ -126,8 +126,10 @@
 
 (defun react/pre-init-web-beautify ()
   (when (eq javascript-fmt-tool 'web-beautify)
-    (add-to-list 'spacemacs--web-beautify-modes
+    (add-to-list 'space-macs--web-beautify-modes
                  (cons 'rjsx-mode 'web-beautify-js))))
 
 (defun react/post-init-yasnippet ()
-  (add-hook 'rjsx-mode-hook #'spacemacs//react-setup-yasnippet))
+  (add-hook 'rjsx-mode-hook #'space-macs//react-setup-yasnippet))
+
+

@@ -39,8 +39,8 @@
 * Description
 This layer adds support for [[http://elixir-lang.org/][Elixir]].
 
-[[https://github.com/tonini/alchemist.el][Alchemist]] brings the Elixir tooling to Emacs and comes with a bunch of features.
-[[https://github.com/emacs-lsp/lsp-mode][Lsp-mode]] brings IDE like features following Language Server Protocol, through [[https://github.com/JakeBecker/elixir-ls][elixir-ls]]
+[[https://github.com/tonini/alchemist.el][Alchemist]] brings the Elixir tooling to e-macs and comes with a bunch of features.
+[[https://github.com/e-macs-lsp/lsp-mode][Lsp-mode]] brings IDE like features following Language Server Protocol, through [[https://github.com/JakeBecker/elixir-ls][elixir-ls]]
 
 As Alchemist is no longer maintained, elixir-ls is a preferred solution, even though it has less features at the moment.
 
@@ -56,12 +56,12 @@ As Alchemist is no longer maintained, elixir-ls is a preferred solution, even th
 - Integration with [[http://company-mode.github.io/][company-mode]]
 - Flycheck support for [[https://github.com/rrrene/credo][credo]]
 - Flycheck support for test results
-- Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
+- Interactive debugger using [[https://github.com/e-macs-lsp/dap-mode][dap-mode]]
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =elixir= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =elixir= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Choosing a backend
@@ -80,7 +80,7 @@ Backend can be chosen on a per project basis using directory local variables
 
 #+BEGIN_SRC elisp
   ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
+  ;;; For more information see (info "(e-macs) Directory Variables")
 
   ((elixir-mode (elixir-backend . lsp)))
 #+END_SRC
@@ -155,7 +155,7 @@ The =lsp= backend uses [[https://github.com/JakeBecker/elixir-ls][elixir-ls]] as
 Clone the project to your system and follow the building instructions [[https://github.com/JakeBecker/elixir-ls#building-and-running][here]]
 Or the lsp-elixir [[https://github.com/elixir-lsp/elixir-ls][fork]], which is actively maintained as well
 
-set the =elixir-ls-path= to the release folder of =elixir-ls= in .spacemacs =dotspacemacs/user-config=
+set the =elixir-ls-path= to the release folder of =elixir-ls= in .space-macs =dotspace-macs/user-config=
 
 #+BEGIN_SRC elisp
   (setq elixir-ls-path "*path to folder*/elixir-ls/release")
@@ -172,8 +172,8 @@ by default =elixir-ls-path= is equal to ="~/elixir-ls/release"=
 ** Debugger
 For =lsp= backend only
 
-=lsp= backend supports debugging of your elixir project through [[https://github.com/emacs-lsp/dap-mode][dap]]
-simply follow [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#layer-installation][dap layer]] installation and configuration instructions
+=lsp= backend supports debugging of your elixir project through [[https://github.com/e-macs-lsp/dap-mode][dap]]
+simply follow [[https://github.com/syl20bnr/space-macs/tree/develop/layers/%2Btools/dap#layer-installation][dap layer]] installation and configuration instructions
 as well as make sure to read this elixir-ls [[https://github.com/elixir-lsp/elixir-ls#debugger-support][debugger support note]]
 
 * Key bindings
@@ -312,8 +312,10 @@ Hex is the package manager for Elixir & Erlang ecosystem. See [[https://hex.pm]]
 | ~SPC m d b~ | Toggle IEx.pry breakpoint |
 
 ** LSP
-You find and overview of all the key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/lsp#key-bindings][lsp layer description]].
+You find and overview of all the key bindings on the [[https://github.com/syl20bnr/space-macs/tree/develop/layers/%2Btools/lsp#key-bindings][lsp layer description]].
 
 *** Debugging
 Using the =dap= layer you'll get access to all the DAP key bindings, see the
-complete list of key bindings on the [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
+complete list of key bindings on the [[https://github.com/syl20bnr/space-macs/tree/develop/layers/%2Btools/dap#key-bindings][dap layer description]].
+
+

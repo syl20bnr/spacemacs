@@ -1,11 +1,11 @@
-;;; config.el --- Theming Layer configuration File for Spacemacs
+;;; config.el --- Theming Layer configuration File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -27,9 +27,9 @@ same size, or the symbol `all'.")
   "A list of themes where all headings should be bold,
 or the symbol `all'.")
 
-(defvar spacemacs--theming-modified-faces '())
+(defvar space-macs--theming-modified-faces '())
 
-(defvar spacemacs--theming-header-faces
+(defvar space-macs--theming-header-faces
   '(font-latex-sectioning-0-face
     font-latex-sectioning-1-face
     font-latex-sectioning-2-face
@@ -58,3 +58,5 @@ or the symbol `all'.")
     org-level-7
     org-level-8)
   "List of header faces.")
+
+

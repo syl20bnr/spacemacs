@@ -3,9 +3,9 @@
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -18,7 +18,7 @@
     (rainbow-identifiers-mode)))
 
 (defun colors//rainbow-identifiers-ignore-keywords ()
-  "Do not colorize stuff with ‘font-lock-keyword-face’."
+  "Do not colorize stuff with â€˜font-lock-keyword-faceâ€™."
   (setq-local rainbow-identifiers-faces-to-override
               (delq 'font-lock-keyword-face
                     rainbow-identifiers-faces-to-override)))
@@ -53,7 +53,7 @@
   "Display a short documentation in the mini buffer."
   (let ((var (intern (format
                       "rainbow-identifiers-cie-l*a*b*-%s" component))))
-    (spacemacs/echo "Change color %s mini-mode (value: %s)
+    (space-macs/echo "Change color %s mini-mode (value: %s)
   + to increase %s
   - to decrease %s
   = to reset
@@ -77,8 +77,8 @@ Press any other key to exit." component (eval var) component component)))
 (defun colors/init-rainbow-mode ()
   (use-package rainbow-mode
     :commands rainbow-mode
-    :init (spacemacs/set-leader-keys "tCc" 'rainbow-mode)
-    :config (spacemacs|hide-lighter rainbow-mode)))
+    :init (space-macs/set-leader-keys "tCc" 'rainbow-mode)
+    :config (space-macs|hide-lighter rainbow-mode)))
 
 (defun colors/start-change-color-saturation ()
   "Initiate the overlay map to change the saturation."
@@ -156,4 +156,6 @@ Example usage:
   "Refresh and re-apply the look of your current theme.
 Always run this after adding new per-theme settings!"
   (interactive)
-  (colors//tweak-theme-colors spacemacs--cur-theme))
+  (colors//tweak-theme-colors space-macs--cur-theme))
+
+

@@ -1,11 +1,11 @@
-;;; packages.el --- Ruby on Rails Layer packages File for Spacemacs
+;;; packages.el --- Ruby on Rails Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -21,10 +21,10 @@
     :config
     (progn
       (projectile-rails-global-mode)
-      (spacemacs|diminish projectile-rails-mode " ⇋" " RoR")
+      (space-macs|diminish projectile-rails-mode " â‡‹" " RoR")
 
       ;; Find files
-      (spacemacs/set-leader-keys-for-minor-mode 'projectile-rails-mode
+      (space-macs/set-leader-keys-for-minor-mode 'projectile-rails-mode
         "ffa" 'projectile-rails-find-locale
         "ffb" 'projectile-rails-find-job
         "ffc" 'projectile-rails-find-controller
@@ -73,12 +73,12 @@
         "fRx" 'projectile-rails-extract-region)
 
       (dolist (mode '(ruby-mode enh-ruby-mode))
-        (spacemacs/declare-prefix-for-mode mode "mf" "rails")
-        (spacemacs/declare-prefix-for-mode mode "mfc" "generate/destroy")
-        (spacemacs/declare-prefix-for-mode mode "mfR" "extract")
-        (spacemacs/declare-prefix-for-mode mode "mfx" "server")
-        (spacemacs/declare-prefix-for-mode mode "mff" "file")
-        (spacemacs/declare-prefix-for-mode mode "mfg" "goto"))
+        (space-macs/declare-prefix-for-mode mode "mf" "rails")
+        (space-macs/declare-prefix-for-mode mode "mfc" "generate/destroy")
+        (space-macs/declare-prefix-for-mode mode "mfR" "extract")
+        (space-macs/declare-prefix-for-mode mode "mfx" "server")
+        (space-macs/declare-prefix-for-mode mode "mff" "file")
+        (space-macs/declare-prefix-for-mode mode "mfg" "goto"))
 
       ;; Ex-commands
       (evil-ex-define-cmd "A" 'projectile-toggle-between-implementation-and-test))))
@@ -91,3 +91,5 @@
 (defun ruby-on-rails/post-init-which-key ()
   (push '((nil . "projectile-rails-\\(.+\\)") . (nil . "\\1"))
         which-key-replacement-alist))
+
+

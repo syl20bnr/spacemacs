@@ -1,17 +1,17 @@
-;;; config.el --- Spacemacs Mode-line Visual Layer configuration File
+;;; config.el --- Space-macs Mode-line Visual Layer configuration File
 ;;
 ;; Copyright (c) 2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Riccardo Murri <riccardo.murri@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(defcustom spacemacs-spaceline-additional-segments
+(defcustom space-macs-spaceline-additional-segments
   '((new-version :when active))
-  "Additional segments for the Spacemacs modeline.
+  "Additional segments for the Space-macs modeline.
 
 They are inserted in the modeline between `global' and
 `buffer-position'.
@@ -19,4 +19,6 @@ They are inserted in the modeline between `global' and
 Must be a list of valid segments; see `spaceline-install' for
 more information on what constitutes a valid segment."
   :type '(repeat sexp)
-  :group 'spacemacs)
+  :group 'space-macs)
+
+

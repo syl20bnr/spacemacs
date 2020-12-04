@@ -1,11 +1,11 @@
-;;; packages.el --- Dhall Layer packages File for Spacemacs
+;;; packages.el --- Dhall Layer packages File for Space-macs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Colin Woodbury <colin@fosskers.ca>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
@@ -30,3 +30,5 @@
   (add-hook 'dhall-mode-hook #'lsp))
 
 ;;; packages.el ends here
+
+

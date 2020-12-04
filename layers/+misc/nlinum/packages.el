@@ -3,13 +3,13 @@
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; URL: https://github.com/syl20bnr/space-macs
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 ;;
 ;;; License: GPLv3
 
-(if (version< emacs-version "26")
+(if (version< e-macs-version "26")
     (progn
       (defconst nlinum-packages
         '(
@@ -23,19 +23,19 @@
       (defun nlinum/init-nlinum ()
         (use-package nlinum
           :init
-          (spacemacs|add-toggle line-numbers
+          (space-macs|add-toggle line-numbers
             :mode nlinum-mode
             :documentation "Show the line numbers."
             :evil-leader "tn")
           :config
           (progn
-            (if (or (eq dotspacemacs-line-numbers t)
-                    (eq dotspacemacs-line-numbers 'relative)
-                    (eq dotspacemacs-line-numbers 'visual))
+            (if (or (eq dotspace-macs-line-numbers t)
+                    (eq dotspace-macs-line-numbers 'relative)
+                    (eq dotspace-macs-line-numbers 'visual))
                 (progn
                   (add-hook 'prog-mode-hook 'nlinum-mode)
                   (add-hook 'text-mode-hook 'nlinum-mode))
-              (add-hook 'after-change-major-mode-hook 'spacemacs/nlinum-maybe-on))
+              (add-hook 'after-change-major-mode-hook 'space-macs/nlinum-maybe-on))
             (setq nlinum-format "%4d"))))
 
       (defun nlinum/init-nlinum-relative ()
@@ -45,10 +45,12 @@
           (progn
             (setq nlinum-relative-current-symbol ""
                   nlinum-relative-redisplay-delay 0)
-            (when (or (spacemacs/visual-line-numbers-p)
-                      (spacemacs/relative-line-numbers-p))
+            (when (or (space-macs/visual-line-numbers-p)
+                      (space-macs/relative-line-numbers-p))
               (nlinum-relative-setup-evil)
               (add-hook 'nlinum-mode-hook 'nlinum-relative-on))
-            (spacemacs/set-leader-keys "tr" 'spacemacs/nlinum-relative-toggle)))))
-  ;;  Emacs version 26 and above
+            (space-macs/set-leader-keys "tr" 'space-macs/nlinum-relative-toggle)))))
+  ;;  e-macs version 26 and above
   (defconst nlinum-packages nil))
+
+

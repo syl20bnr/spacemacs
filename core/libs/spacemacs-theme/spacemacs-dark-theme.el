@@ -1,7 +1,9 @@
-(require 'spacemacs-common)
+(require 'space-macs-common)
 
-(deftheme spacemacs-dark "Spacemacs theme, the dark version")
+(deftheme space-macs-dark "Space-macs theme, the dark version")
 
-(create-spacemacs-theme 'dark 'spacemacs-dark)
+(create-space-macs-theme 'dark 'space-macs-dark)
 
-(provide-theme 'spacemacs-dark)
+(provide-theme 'space-macs-dark)
+
+

@@ -1,4 +1,4 @@
-;;; quelpa.el --- Emacs Lisp packages built directly from source
+;;; quelpa.el --- e-macs Lisp packages built directly from source
 
 ;; Copyright 2014-2018, Steckerhalter
 ;; Copyright 2014-2015, Vasilij Schneidermann <v.schneidermann@gmail.com>
@@ -6,10 +6,10 @@
 ;; Author: steckerhalter
 ;; URL: https://framagit.org/steckerhalter/quelpa
 ;; Version: 0.0.1
-;; Package-Requires: ((emacs "24.3"))
+;; Package-Requires: ((e-macs "24.3"))
 ;; Keywords: package management build source elpa
 
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 
 ;; This file is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -22,13 +22,13 @@
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to
+;; along with GNU e-macs; see the file COPYING.  If not, write to
 ;; the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 ;; Boston, MA 02111-1307, USA.
 
 ;;; Commentary:
 
-;; Your personal local Emacs Lisp Package Archive (ELPA) with packages
+;; Your personal local e-macs Lisp Package Archive (ELPA) with packages
 ;; built on-the-fly directly from source.
 
 ;; See the README for more info:
@@ -36,7 +36,7 @@
 
 ;;; Requirements:
 
-;; Emacs 24.3.1
+;; e-macs 24.3.1
 
 ;;; Code:
 
@@ -79,7 +79,7 @@ the `:upgrade' argument."
   :group 'quelpa
   :type 'hook)
 
-(defcustom quelpa-dir (expand-file-name "quelpa" user-emacs-directory)
+(defcustom quelpa-dir (expand-file-name "quelpa" user-e-macs-directory)
   "Where quelpa builds and stores packages."
   :group 'quelpa
   :type 'string)
@@ -162,7 +162,7 @@ quelpa cache."
 (defvar quelpa-recipe '(quelpa :url "https://framagit.org/steckerhalter/quelpa.git" :fetcher git)
   "The recipe for quelpa.")
 
-;; --- compatibility for legacy `package.el' in Emacs 24.3  -------------------
+;; --- compatibility for legacy `package.el' in e-macs 24.3  -------------------
 
 (defun quelpa-setup-package-structs ()
   "Setup the struct `package-desc' when not available.
@@ -542,8 +542,8 @@ position."
                  ;; version-strings like "1_4_5".  Since "_" is
                  ;; otherwise treated as a snapshot separator by
                  ;; `version-regexp-alist', we don't have to worry
-                 ;; about the incorrect version list above—(1 -4 4 -4
-                 ;; 5)—since it will always be treated as older by
+                 ;; about the incorrect version list aboveâ€”(1 -4 4 -4
+                 ;; 5)â€”since it will always be treated as older by
                  ;; `version-list-<'.
                  (lambda (tag)
                    (let ((version-separator "_"))
@@ -623,21 +623,21 @@ Returns the package version as a string."
 ;;;; Wiki
 
 (defvar quelpa-build--last-wiki-fetch-time 0
-  "The time at which an emacswiki URL was last requested.
+  "The time at which an e-macswiki URL was last requested.
 This is used to avoid exceeding the rate limit of 1 request per 2
 seconds; the server cuts off after 10 requests in 20 seconds.")
 
 (defvar quelpa-build--wiki-min-request-interval 3
-  "The shortest permissible interval between successive requests for Emacswiki URLs.")
+  "The shortest permissible interval between successive requests for e-macswiki URLs.")
 
 (defmacro quelpa-build--with-wiki-rate-limit (&rest body)
-  "Rate-limit BODY code passed to this macro to match EmacsWiki's rate limiting."
+  "Rate-limit BODY code passed to this macro to match e-macsWiki's rate limiting."
   (let ((elapsed (cl-gensym)))
     `(let ((,elapsed (- (float-time) quelpa-build--last-wiki-fetch-time)))
        (when (< ,elapsed quelpa-build--wiki-min-request-interval)
          (let ((wait (- quelpa-build--wiki-min-request-interval ,elapsed)))
            (quelpa-build--message
-            "Waiting %.2f secs before hitting Emacswiki again" wait)
+            "Waiting %.2f secs before hitting e-macswiki again" wait)
            (sleep-for wait)))
        (unwind-protect
            (progn ,@body)
@@ -674,9 +674,9 @@ A number as third arg means request confirmation if NEWNAME already exists."
     headers))
 
 (defun quelpa-build--grab-wiki-file (filename)
-  "Download FILENAME from emacswiki, returning its last-modified time."
+  "Download FILENAME from e-macswiki, returning its last-modified time."
   (let ((download-url
-         (format "https://www.emacswiki.org/emacs/download/%s" filename))
+         (format "https://www.e-macswiki.org/e-macs/download/%s" filename))
         headers)
     (quelpa-build--with-wiki-rate-limit
      (setq headers (quelpa-build--url-copy-file download-url filename t)))
@@ -688,7 +688,7 @@ A number as third arg means request confirmation if NEWNAME already exists."
        (mail-fetch-field "last-modified")))))
 
 (defun quelpa-build--checkout-wiki (name config dir)
-  "Checkout package NAME with config CONFIG from the EmacsWiki into DIR."
+  "Checkout package NAME with config CONFIG from the e-macsWiki into DIR."
   (unless quelpa-build-stable
     (with-current-buffer (get-buffer-create "*quelpa-build-checkout*")
       (unless (file-exists-p dir)
@@ -1114,7 +1114,7 @@ Optionally PRETTY-PRINT the data."
                        (let ((value (cdr entry)))
                          (when (or (symbolp value) (listp value))
                            ;; We must quote lists and symbols,
-                           ;; because Emacs 24.3 and earlier evaluate
+                           ;; because e-macs 24.3 and earlier evaluate
                            ;; the package information, which would
                            ;; break for unquoted symbols or lists
                            (setq value (list 'quote value)))
@@ -1437,8 +1437,8 @@ FILES is a list of (SOURCE . DEST) relative filepath pairs."
 
 (defun quelpa-build--package-buffer-info-vec ()
   "Return a vector of package info.
-`package-buffer-info' returns a vector in older Emacs versions,
-and a cl struct in Emacs HEAD.  This wrapper normalises the results."
+`package-buffer-info' returns a vector in older e-macs versions,
+and a cl struct in e-macs HEAD.  This wrapper normalises the results."
   (let ((desc (package-buffer-info))
         (keywords (lm-keywords-list)))
     (if (fboundp 'package-desc-create)
@@ -1451,7 +1451,7 @@ and a cl struct in Emacs HEAD.  This wrapper normalises the results."
                   (package-desc-summary desc)
                   (package-desc-version desc)
                   extras))
-      ;; The regexp and the processing is taken from `lm-homepage' in Emacs 24.4
+      ;; The regexp and the processing is taken from `lm-homepage' in e-macs 24.4
       (let* ((page (lm-header "\\(?:x-\\)?\\(?:homepage\\|url\\)"))
              (homepage (if (and page (string-match "^<.+>$" page))
                            (substring page 1 -1)
@@ -1636,7 +1636,7 @@ number, wait so many seconds. If WAIT is t wait the default time.
 Return t in each case."
   (when quelpa-verbose
     (message "Quelpa: %s" (apply 'format format-string args))
-    (when (or (not noninteractive) wait) ; no wait if emacs is noninteractive
+    (when (or (not noninteractive) wait) ; no wait if e-macs is noninteractive
       (sit-for (or (and (numberp wait) wait) 1.5) t)))
   t)
 
@@ -1778,7 +1778,7 @@ If the package has dependencies recursively call this function to install them."
              (requires (package-desc-reqs pkg-desc)))
         (when requires
           (mapc (lambda (req)
-                  (unless (or (equal 'emacs (car req))
+                  (unless (or (equal 'e-macs (car req))
                               (package-installed-p (car req) (cadr req)))
                     (quelpa-package-install (car req))))
                 requires))
@@ -1824,7 +1824,7 @@ ARGS are additional options for the quelpa recipe."
 (defun quelpa-upgrade-all (&optional force)
   "Upgrade all packages found in `quelpa-cache'.
 This provides an easy way to upgrade all the packages for which
-the `quelpa' command has been run in the current Emacs session.
+the `quelpa' command has been run in the current e-macs session.
 With prefix FORCE, packages will all be upgraded discarding local changes."
   (interactive "P")
   (when (quelpa-setup-p)
@@ -1892,3 +1892,5 @@ nil."
 (provide 'quelpa)
 
 ;;; quelpa.el ends here
+
+

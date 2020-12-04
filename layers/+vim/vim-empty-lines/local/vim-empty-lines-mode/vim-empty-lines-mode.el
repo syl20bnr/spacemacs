@@ -7,9 +7,9 @@
 ;; Version: 0.1
 ;; Keywords: emulations
 ;; URL: https://github.com/jmickelin/vim-empty-lines-mode
-;; Package-Requires: ((emacs "23"))
+;; Package-Requires: ((e-macs "23"))
 
-;; This file is not part of GNU Emacs.
+;; This file is not part of GNU e-macs.
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@
 ;; that is by putting a "tilde" character (~) on any empty line that
 ;; follows the end of file.
 
-;; Emacs provides a similar functionality that inserts a bitmap in the
+;; e-macs provides a similar functionality that inserts a bitmap in the
 ;; fringe on the extraneous lines. By customizing
 ;; `indicate-empty-lines' and `fringe-indicator-alist' it is possible
 ;; to nearly emulate the vim behaviour.
@@ -56,7 +56,7 @@
 ;;    ~       <- empty
 ;;    ~       <- empty
 
-;; A line in emacs, on the other hand, will contain the newline
+;; A line in e-macs, on the other hand, will contain the newline
 ;; character that breaks it. Thus a line is empty even if the previous
 ;; line has a trailing linebreak.
 
@@ -72,11 +72,11 @@
 ;;    ~        <- empty
 ;;    ~        <- empty
 
-;; Note that Emacs displays the two cases identically!
+;; Note that e-macs displays the two cases identically!
 
-;; There is currently (as of Emacs 24.4) no way to implement the
+;; There is currently (as of e-macs 24.4) no way to implement the
 ;; vim-like behaviour for `indicate-empty-lines' short of modifying
-;; the Emacs core.
+;; the e-macs core.
 
 ;; This module emulates the vim-like behaviour using a different
 ;; approach, namely by inserting at the end of the buffer a read-only
@@ -215,15 +215,15 @@ with `buffer-size' if the buffer is large."
 (defvar vim-empty-lines-initialize-p nil)
 
 (defun vim-empty-lines-initialize-maybe ()
-  "Setup some advices to emacs primitives for workarounds"
+  "Setup some advices to e-macs primitives for workarounds"
   (unless vim-empty-lines-initialize-p
     (setq vim-empty-lines-initialize-p t)
 
     ;; A kludge to bug#19553
     ;; fixed in b544ab561fcb575790c963a2eda51524fa366409
-    ;; XXX: The fix is in the emacs-24 branch only at this time.
-    (unless (and (version< emacs-version "25")
-                 (version< "24.4.51" emacs-version))
+    ;; XXX: The fix is in the e-macs-24 branch only at this time.
+    (unless (and (version< e-macs-version "25")
+                 (version< "24.4.51" e-macs-version))
       (eval-when-compile
         (defmacro vim-empty-lines-advice-add-overlay-handling (&rest functions)
           `(progn
@@ -285,3 +285,5 @@ with trailing newlines."
 (provide 'vim-empty-lines-mode)
 
 ;;; vim-empty-lines-mode.el ends here
+
+

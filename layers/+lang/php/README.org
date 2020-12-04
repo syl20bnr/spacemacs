@@ -26,7 +26,7 @@
   - [[#debugging-for-lsp-backends][Debugging for LSP backends]]
 
 * Description
-This layer adds PHP language support to Spacemacs.
+This layer adds PHP language support to Space-macs.
 
 ** Features:
 - Edit PHP files using [[https://github.com/ejmr/php-mode][php-mode]]
@@ -34,8 +34,8 @@ This layer adds PHP language support to Spacemacs.
 - Complete and jump to define with [[https://github.com/xcwen/ac-php][company-php]]
 - Run tests with PHPUnit
 - Reformat code with PHP CBF
-- Debug your programs with XDebug (via [[https://github.com/ahungry/geben][geben]] or [[https://github.com/emacs-lsp/dap-mode][dap-mode]])
-- Refactor source files with help of [[https://github.com/emacs-php/phpactor.el][phpactor.el]]
+- Debug your programs with XDebug (via [[https://github.com/ahungry/geben][geben]] or [[https://github.com/e-macs-lsp/dap-mode][dap-mode]])
+- Refactor source files with help of [[https://github.com/e-macs-php/phpactor.el][phpactor.el]]
 - Support for the [[https://langserver.org/][Language Server Protocol]] (experimental)
 
 The =gtags= layer is recommended to benefit from better =eldoc= and
@@ -43,8 +43,8 @@ The =gtags= layer is recommended to benefit from better =eldoc= and
 
 * Install
 ** Layer
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =php= to the existing =dotspacemacs-configuration-layers= list in this
+To use this configuration layer, add it to your =~/.space-macs=. You will need to
+add =php= to the existing =dotspace-macs-configuration-layers= list in this
 file.
 
 ** Backends
@@ -58,7 +58,7 @@ Note that you'll need to use the =lsp= layer to enable these backends.
 This is the recommended LSP server solution. To activate it set the
 layer variable =php-backend=:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (php :variables php-backend 'lsp)
 #+END_SRC
 
@@ -85,13 +85,13 @@ You can find further information on the project's [[https://github.com/felixfbec
 **** Debugging
 In case of using any of LSP backends You can debug using [[https://microsoft.github.io/debug-adapter-protocol][dap]].
 
-First of all You have to add =dap= to layer list of Your =dotspacemacs/layers=
-function of a =.spacemacs= config file.
+First of all You have to add =dap= to layer list of Your =dotspace-macs/layers=
+function of a =.space-macs= config file.
 
-As mentioned in [[https://github.com/emacs-lsp/dap-mode#php][dap-mode doc for php]], dap-mode uses a [[https://marketplace.visualstudio.com/items?itemName=webfreak.debug][VSCode extension]] as a
+As mentioned in [[https://github.com/e-macs-lsp/dap-mode#php][dap-mode doc for php]], dap-mode uses a [[https://marketplace.visualstudio.com/items?itemName=webfreak.debug][VSCode extension]] as a
 debugging backend and includes a convenient =dap-php-setup= command to install
-it into Your emacs. To embrace it open any PHP file in any PHP project just
-after restarting emacs with =dap= layer enabled. Now You can call the extension
+it into Your e-macs. To embrace it open any PHP file in any PHP project just
+after restarting e-macs with =dap= layer enabled. Now You can call the extension
 installation command: =<M-x> dap-php-setup=.
 
 After that You can try to debug something. For example add a breakpoint to any
@@ -103,18 +103,18 @@ working. The command to run the test while debugging could look like this:
   php -d xdebug.idekey=PHPSTORM -d xdebug.remote_autostart=1 -d xdebug.remote_enable=1 -d xdebug.remote_host=127.0.0.1 -d xdebug.remote_port=9000 bin/phpunit ./path/to/Test.php
 #+END_SRC
 
-The test is now expected to be paused by emacs/dap when it catches code at the
+The test is now expected to be paused by e-macs/dap when it catches code at the
 breakpoint.
 
 You may wish to propagate some config options for the VSCode extension which is
 used as a debug server. For example if You are running Your code in a docker
 container the project source path may differ between the container (and Xdebug
-PHP extension consequently) and Emacs. The VSCode extension provides a config
+PHP extension consequently) and e-macs. The VSCode extension provides a config
 option to map the path. In VSCode it is done by adding an appropriate json
-config. For spacemacs it could be done for example by adding a next call to
-=dotspacemacs/user-config= function of Your =.spacemacs= config:
+config. For space-macs it could be done for example by adding a next call to
+=dotspace-macs/user-config= function of Your =.space-macs= config:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC e-macs-lisp
   (with-eval-after-load 'dap-php
     (dap-register-debug-template "PHP debug with custom path"
       (list :type "php"
@@ -122,14 +122,14 @@ config. For spacemacs it could be done for example by adding a next call to
             :request "launch"
             :name "Php Debug with path"
             :args '("--server=4711")
-            :pathMappings (ht ("/docker/src/path" "/emacs/src/path"))
+            :pathMappings (ht ("/docker/src/path" "/e-macs/src/path"))
             :sourceMaps t)))
 #+END_SRC
 
 *** ac-php-core
 This is a non server solution working entirely from an elisp package.
 This requires no installation of external services but also delivers
-the least amount of IDE like integrations with spacemacs.
+the least amount of IDE like integrations with space-macs.
 
 To activate it just don't set the variable =php-backend= in your dotfile.
 Remember that additional setup instructions are necessary on a per project basis
@@ -147,7 +147,7 @@ tasks:
      touch .ac-php-conf.json
    #+END_SRC
 
-2. Inside of spacemacs run:
+2. Inside of space-macs run:
    = ac-php-remake-tags =
 
 The =.ac-php-conf.json= file is required to enable auto-completion. When you run
@@ -163,7 +163,7 @@ automatically if it does not exist.
 
 **** Refactoring
 This backend provides refactoring and class auto-completion capabilities via
-[[https://github.com/emacs-php/phpactor.el][phpactor.el]]. To ensure that the phpactor package is intact, just run
+[[https://github.com/e-macs-php/phpactor.el][phpactor.el]]. To ensure that the phpactor package is intact, just run
 =M-x phpactor-install-or-update= and the package itself will make sure that
 you're good to go.
 
@@ -250,3 +250,5 @@ file of the =lsp layer=.
 
 ** Debugging for LSP backends
 See README.org file of the =dap-layer= for key bindings available in =dap-mode=
+
+
