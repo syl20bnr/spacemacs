@@ -77,7 +77,8 @@ used as the prefix command."
           (map (intern (format "%s-map" mode))))
       ;; It should be safe to add replacements into the mode map if
       ;; it exists.
-      (if (boundp map)
+      ;; FIXME: Figure out how this brakes inserting spaces.
+      (if nil ;; ((boundp map))
           (progn
             ;; NOTE: Looks like `which-key-add-keymap-based-replacements'
             ;;       doesn't support short + long name pair.
