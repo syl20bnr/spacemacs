@@ -317,6 +317,9 @@ sane way, here is the complete list of changed key bindings
   - Changed =projectile-rails= key binding prefix from ~SPC m r~ to ~SPC m f~
     to avoid conflicts with key bindings in the =web-mode= layer
     (thanks to Adam Sokolnicki)
+***** Spacemacs-navigation
+- Key bindings:
+  - Add ~J/K~ to scroll up/down (or next/previous node) in Info-mode
 ***** Shaders
 - =shaders= layer has been moved to =gpu= layer.
 ***** Syntax checking

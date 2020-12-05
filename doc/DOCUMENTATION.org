@@ -2042,6 +2042,8 @@ Navigation key bindings in =help-mode=:
 
 | Key binding  | Description                                         |
 |--------------+-----------------------------------------------------|
+| ~J~          | Scroll up (or next node)                            |
+| ~K~          | Scroll down (or next node)                          |
 | ~g b~ or ~[~ | go back (same as clicking on =[back]= button)       |
 | ~g f~ or ~]~ | go forward (same as clicking on =[forward]= button) |
 | ~g h~        | go to help for symbol under point                   |
