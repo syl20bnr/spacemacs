@@ -19,20 +19,16 @@
 
 (defun spacemacs//fsharp-setup-company ()
   "Conditionally setup company based on backend."
-  (pcase (spacemacs//fsharp-backend)
-    ;; Activate lsp company explicitly to activate
-    ;; standard backends as well
-    (`lsp (spacemacs|add-company-backends
-            :backends company-capf
-            :modes fsharp-mode))))
+  ;; Activate lsp company explicitly to activate
+  ;; standard backends as well
+  ;; Eglot and LSP-mode use the same company-backend.
+    (spacemacs|add-company-backends
+      :backends company-capf
+      :modes fsharp-mode
+      :variables company-tooltip-align-annotations t))
 
 (defun spacemacs//fsharp-setup-backend ()
   "Conditionally setup fsharp backend."
   (pcase (spacemacs//fsharp-backend)
     (`lsp (lsp))
-    (_ (spacemacs/fsharp-eglot-jack-in))))
-
-(defun spacemacs/fsharp-eglot-jack-in ()
-  "Start a new Eglot server instance or reconnect."
-  (interactive)
-  (call-interactively 'eglot))
+    (_ (eglot-ensure))))
