@@ -245,7 +245,7 @@
       (define-key magit-status-mode-map (kbd "C-S-w")
         'spacemacs/magit-toggle-whitespace)
       ;; Add missing which-key prefixes using the new keymap api
-      (when (memq dotspacemacs-editing-style '(vim hybrid))
+      (when (spacemacs//support-evilified-buffer-p dotspacemacs-editing-style)
         (which-key-add-keymap-based-replacements magit-status-mode-map
           "gf"  "jump-to-unpulled"
           "gp"  "jump-to-unpushed"))
