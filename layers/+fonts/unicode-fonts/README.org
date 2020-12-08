@@ -40,18 +40,18 @@ list of requirements. By default this is not enabled you can enable it with
   (unicode-fonts :variables unicode-fonts-enable-ligatures t)
 #+END_SRC
 
-By default when ligatures are enabled all modes will have ligatures. You can
-enable ligatures for specific modes with the =unicode-fonts-ligature-modes=
-variable.
+By default ligatures will be enabled in all programing modes.
+You can enable ligatures for specific modes with
+=unicode-fonts-ligature-modes= variable.
 
 #+BEGIN_SRC elisp
   (unicode-fonts :variables unicode-fonts-ligature-modes '(php-mode js-mode))
 #+END_SRC
 
-To enable only for programming modes you can use =prog-mode=
+To enable only for text modes you can use =text-mode=
 
 #+BEGIN_SRC elisp
-  (unicode-fonts :variables unicode-fonts-ligature-modes '(prog-mode))
+  (unicode-fonts :variables unicode-fonts-ligature-modes '(text-mode))
 #+END_SRC
 
 To configure the ligature set that gets used with your font there is a
