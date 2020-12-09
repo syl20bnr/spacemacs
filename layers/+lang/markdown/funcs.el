@@ -10,8 +10,9 @@
 ;;; License: GPLv3
 
 (defun spacemacs/activate-mmm-mode ()
+  (unless git-commit-mode
   ;; Enable `mmm-mode'.
-  (mmm-mode 1))
+    (mmm-mode 1)))
 
 ;; stolen from http://stackoverflow.com/a/26297700
 ;; makes markdown tables saner via orgtbl-mode

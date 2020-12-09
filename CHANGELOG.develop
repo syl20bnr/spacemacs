@@ -2596,6 +2596,8 @@ files (thanks to Daniel Nicolai)
 - Improvements:
   - Evilfied =dap= debug windows
 **** Markdown
+- Disable =mmm-mode= in Git commit buffers, in order to allow the use of Markdown
+  mode when committing (thanks to Keith Pinson)
 - New layer variable =markdown-mmm-auto-modes= which is a list of language names
   or lists of language and mode names that are supported in source blocks, you
   can add you own modes, see layer README.org for more info
