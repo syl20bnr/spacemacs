@@ -55,7 +55,7 @@
       (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
       (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
       (add-hook 'LaTeX-mode-hook #'spacemacs//latex-setup-backend)
-      (when latex-enable-preview
+      (when latex-refresh-preview
         (add-hook 'doc-view-mode-hook 'auto-revert-mode)))
     :config
     (progn

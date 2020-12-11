@@ -19,6 +19,11 @@
 ;; ...but AUCTeX runs LaTeX-mode-hook rather than latex-mode-hook, so:
 (add-hook 'LaTeX-mode-hook #'spacemacs//init-jump-handlers-latex-mode)
 
+(defvar latex-backend nil
+  "The backend to use for IDE features.
+Possible values are `lsp' and `company-auctex'.
+If `nil' then 'company-auctex` is the default backend unless `lsp' layer is used")
+
 (defvar latex-build-command (if (executable-find "latexmk") "LatexMk" "LaTeX")
   "The default command to use with `SPC m b'")
 
@@ -45,9 +50,6 @@ Allowed values are defined in `TeX-engine-alist'. The default allowed values are
 (defvar latex-enable-magic nil
   "Whether to enable \"magic\" symbols in the buffer.")
 
-(defvar latex-enable-preview nil
-  "Whether non-nil, refresh the preview buffer when file changes.")
-
 (defvar latex-nofill-env '("equation"
                            "equation*"
                            "align"
@@ -59,7 +61,5 @@ Allowed values are defined in `TeX-engine-alist'. The default allowed values are
                            "tikzpicture")
   "List of environment names in which `auto-fill-mode' will be inhibited.")
 
-(defvar latex-backend nil
-  "The backend to use for IDE features.
-Possible values are `lsp' and `company-auctex'.
-If `nil' then 'company-auctex` is the default backend unless `lsp' layer is used")
+(defvar latex-refresh-preview nil
+  "Whether non-nil, refresh the preview buffer when file changes.")

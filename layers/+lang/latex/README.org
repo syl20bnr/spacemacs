@@ -60,8 +60,8 @@ Sensible defaults have been provided, however they may all be overridden in your
 | ~latex-enable-auto-fill~ | ~t~                                                                | When non-nil, enable ~auto-fill-mode~                                      |
 | ~latex-enable-folding~   | ~nil~                                                              | When non-nil, enable ~TeX-fold-mode~                                       |
 | ~latex-enable-magic~     | ~nil~                                                              | When non-nil, enable magic symbols                                         |
-| ~latex-enable-preview~   | ~nil~                                                              | When non-nil, enable refresh preview buffer when file changes              |
-| ~latex-nofill-env~       | See [[Auto-fill][details below]]                                                  | A list of LaTeX environment name where ~auto-fill-mode~ is disabled        |
+| ~latex-nofill-env~       | See [[#auto-fill][details below]]                                                  | A list of LaTeX environment name where ~auto-fill-mode~ is disabled        |
+| ~latex-refresh-preview~  | ~nil~                                                              | When non-nil, enable refresh preview buffer when file changes              |
 
 ** Choosing a backend
 This layer provides two alternative backends to choose from.
@@ -101,11 +101,11 @@ To explicitly choose =company-auctex= as the backend, set the following in your
 =LaTex= layer support full-document previews and inline preview (via ~SPC m p~).
 
 To update the preview buffer whenever the compiled PDF file changes, set
-=latex-enable-preview= to =t= in your =~/.spacemacs=:
+=latex-refresh-preview= to =t= in your =~/.spacemacs=:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers
-              '((latex :variables latex-enable-preview t)))
+              '((latex :variables latex-refresh-preview t)))
 #+END_SRC
 
 =TexLab= also supports more sophisticated previewing setup, which is documented
@@ -163,6 +163,9 @@ More information on TeX engine and languages support can be found in =auctex=
 [[https://www.gnu.org/software/auctex/manual/auctex/Internationalization.html#Internationalization][manual page]].
 
 ** Auto-fill
+   :PROPERTIES:
+   :CUSTOM_ID: auto-fill
+   :END:
 To disable auto-fill (which is on by default) set the variable
 =latex-enable-auto-fill= to =nil=.
 
