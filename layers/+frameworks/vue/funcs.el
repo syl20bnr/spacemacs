@@ -50,7 +50,7 @@
 
 ;; dumb
 
-(defun spacemacs//vue-setup-dumb-imenu ()
+(defun spacemacs//vue-setup-dumb ()
   (setq imenu-generic-expression '(("html" "^<template>$" 0)
                                    ("js" "^<script>$" 0)
                                    ("js" "^\\s-*\\(data\\).*()\\s-?{" 1)
@@ -64,10 +64,6 @@
                                    ("js" "^\\s-*\\(props\\):\\s-?{" 1)
                                    ("css" "^<css>$" 0))
         imenu-create-index-function #'imenu-default-create-index-function))
-
-(defun spacemacs//vue-setup-dumb ()
-  (add-to-list 'spacemacs-jump-handlers-vue-mode 'dumb-jump-go)
-  (spacemacs//vue-setup-dumb-imenu))
 
 (defun spacemacs//vue-setup-dumb-company ()
   (spacemacs|add-company-backends :backends (company-web-html company-css company-files company-dabbrev)

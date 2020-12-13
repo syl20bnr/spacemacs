@@ -212,12 +212,12 @@ If called with a prefix argument, uses the other-window instead."
 (defun spacemacs/clj-find-var (sym-name &optional arg)
   "Attempts to jump-to-definition of the symbol-at-point.
 
-If CIDER fails, or not available, falls back to dumb-jump."
+If CIDER fails, or not available, falls back to dumb-jump's xref interface."
   (interactive (list (cider-symbol-at-point)))
   (if (and (cider-connected-p) (cider-var-info sym-name))
       (unless (eq 'symbol (type-of (cider-find-var nil sym-name)))
-        (dumb-jump-go))
-    (dumb-jump-go)))
+        (xref-find-definitions))
+    (xref-find-definitions)))
 
 (defun spacemacs/clj-describe-missing-refactorings ()
   "Inform the user to add clj-refactor to configuration"

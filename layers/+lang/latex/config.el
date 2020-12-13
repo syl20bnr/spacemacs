@@ -27,7 +27,7 @@
 ;; will still be bound to 'latex-mode (since AUCTeX uses an advice to override
 ;; latex-mode with TeX-latex-mode), so the keymap's name should use the
 ;; lowercase form, since bind-map uses the value of major-mode...
-(spacemacs|define-jump-handlers latex-mode dumb-jump-go)
+(spacemacs|define-jump-handlers latex-mode)
 ;; ...but AUCTeX runs LaTeX-mode-hook rather than latex-mode-hook, so:
 (add-hook 'LaTeX-mode-hook #'spacemacs//init-jump-handlers-latex-mode)
 
