@@ -781,6 +781,8 @@ Other:
   - Remove package =adaptive-wrap=
   - Added =symbol-overlay= to the =spacemacs-navigation= layer
     (thanks to kenkangxgwe)
+  - Added =valign= package to =spacemacs-org= layer
+    (thanks to rayw000)
 - Key bindings:
   - Evilify =Custom-mode= (thanks to Keith Pinson)
   - Fixed ~M-x~ prefix visualization for ~dotspacemacs-emacs-command-key~
