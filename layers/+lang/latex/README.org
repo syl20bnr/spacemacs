@@ -78,8 +78,8 @@ source, install it in your package manager, or get the
 To explicitly choose LSP backend for =LaTeX= layer, add the following:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-              '((latex :variables latex-backend 'lsp)))
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :variables latex-backend 'lsp)))
 #+END_SRC
 
 *** Company-auctex
@@ -93,8 +93,8 @@ To explicitly choose =company-auctex= as the backend, set the following in your
 =~/.spacemacs=:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-              '((latex :variables latex-backend 'company-auctex)))
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :variables latex-backend 'company-auctex)))
 #+END_SRC
 
 ** Previewing
@@ -104,8 +104,8 @@ To update the preview buffer whenever the compiled PDF file changes, set
 =latex-refresh-preview= to =t= in your =~/.spacemacs=:
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-              '((latex :variables latex-refresh-preview t)))
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :variables latex-refresh-preview t)))
 #+END_SRC
 
 =TexLab= also supports more sophisticated previewing setup, which is documented
@@ -123,8 +123,8 @@ To use the regular =AucTeX= command, set =latex-build-command= to =LaTeX= as
 shown below.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-              '((latex :variables latex-build-command "LaTeX")))
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :variables latex-build-command "LaTeX")))
 #+END_SRC
 
 ** TeX Engine
@@ -146,32 +146,29 @@ You can choose the engine on a per file basis, by setting file-local
 variable. For example, you can append these code to the end of a =.tex= file:
 
 #+BEGIN_SRC tex
-%%% Local Variables:
-%%% TeX-engine: 'xetex
-%%% End:
+  %%% Local Variables:
+  %%% TeX-engine: 'xetex
+  %%% End:
 #+END_SRC
 
 If you predominantly works with one specific engine, you can set it as a layer
 variable.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-              '((latex :variables latex-build-engine 'xetex)))
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :variables latex-build-engine 'xetex)))
 #+END_SRC
 
 More information on TeX engine and languages support can be found in =auctex=
 [[https://www.gnu.org/software/auctex/manual/auctex/Internationalization.html#Internationalization][manual page]].
 
 ** Auto-fill
-   :PROPERTIES:
-   :CUSTOM_ID: auto-fill
-   :END:
 To disable auto-fill (which is on by default) set the variable
 =latex-enable-auto-fill= to =nil=.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-              '((latex :variables latex-enable-auto-fill nil)))
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :variables latex-enable-auto-fill nil)))
 #+END_SRC
 
 The variable =latex-nofill-env= provides the list of environment names where
@@ -191,8 +188,8 @@ Enable folding of text by setting =latex-enable-folding= to =t=. Default value
 is nil.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-              '((latex :variables latex-enable-folding t)))
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :variables latex-enable-folding t)))
 #+END_SRC
 
 ** Magic latex buffer
@@ -200,8 +197,8 @@ To enable "magic" symbols in latex buffers, set the variable
 =latex-enable-magic= to =t=.
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers
-              '((latex :variables latex-enable-magic t)))
+  (setq-default dotspacemacs-configuration-layers
+                '((latex :variables latex-enable-magic t)))
 #+END_SRC
 
 The precise effect of this feature can be modified by adjusting the following
