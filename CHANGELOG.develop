@@ -2543,6 +2543,10 @@ files (thanks to Daniel Nicolai)
 - Added ConTeXt mode to the key bindings (thanks to ft)
 - Fixed ~SPC m ;~ binding (thanks to Tianshu Wang)
 - Fix jump handlers setup and use dumb-jump as default (thanks to Matt Kramer)
+- Added layer variable =latex-build-engine= to provide better i18n support (thanks
+  to Lucius Hu)
+- Added layer variable =latex-refresh-preview= to refresh the preview buffer when
+  compiled PDF is changed (thanks to Lucius Hu)
 **** Lua
 - Added support for auto-completion with =company= (thanks to halfcrazy)
 - Added support for =LSP= (EmmyLua-LS-all) (thanks to Lin.Sun)

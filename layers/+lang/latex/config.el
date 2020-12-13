@@ -19,8 +19,27 @@
 ;; ...but AUCTeX runs LaTeX-mode-hook rather than latex-mode-hook, so:
 (add-hook 'LaTeX-mode-hook #'spacemacs//init-jump-handlers-latex-mode)
 
+(defvar latex-backend nil
+  "The backend to use for IDE features.
+Possible values are `lsp' and `company-auctex'.
+If `nil' then 'company-auctex` is the default backend unless `lsp' layer is used")
+
 (defvar latex-build-command (if (executable-find "latexmk") "LatexMk" "LaTeX")
   "The default command to use with `SPC m b'")
+
+(defvar latex-build-engine (if (and (executable-find "xetex")
+                                    (or (configuration-layer/layer-used-p 'chinese)
+                                        (configuration-layer/layer-used-p 'japanese)))
+                               'xetex
+                             'default)
+  "The default TeX engine to use with `SPC m b'. It's set to `xetex' when `xetex' is found on PATH
+and either `chinese' layer or `japanese' layer is in use.
+
+Allowed values are defined in `TeX-engine-alist'. The default allowed values are:
+* `default'
+* `luatex'
+* `omega'
+* `xetex'")
 
 (defvar latex-enable-auto-fill t
   "Whether to use auto-fill-mode or not in tex files.")
@@ -42,7 +61,5 @@
                            "tikzpicture")
   "List of environment names in which `auto-fill-mode' will be inhibited.")
 
-(defvar latex-backend nil
-  "The backend to use for IDE features.
-Possible values are `lsp' and `company-auctex'.
-If `nil' then 'company-auctex` is the default backend unless `lsp' layer is used")
+(defvar latex-refresh-preview nil
+  "Whether non-nil, refresh the preview buffer when file changes.")
