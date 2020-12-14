@@ -12,4 +12,4 @@
 ;; Variables
 
 (defvar org-enable-valign t
-  "If non-nil, enable valign-mode in org-mode buffers by default.")
+  "If non-nil, enable valign-mode in org-mode buffers.")
