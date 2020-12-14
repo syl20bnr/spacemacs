@@ -80,7 +80,8 @@
   (use-package valign
     :init
     (progn
-      (add-hook 'org-mode-hook 'valign-mode)
+      (when org-enable-valign
+        (add-hook 'org-mode-hook 'valign-mode))
       (add-hook 'valign-mode-hook (lambda () (unless valign-mode
                                                (valign-remove-advice)))))))
 
