@@ -105,7 +105,10 @@
   (use-package dired-quick-sort
     :defer t
     :init
-    (dired-quick-sort-setup)))
+    (spacemacs|add-transient-hook dired-mode-hook
+      (lambda ()
+        (let ((dired-quick-sort-suppress-setup-warning 'message))
+          (dired-quick-sort-setup))))))
 
 (defun spacemacs-editing/init-editorconfig ()
   (use-package editorconfig
