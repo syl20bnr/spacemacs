@@ -2968,6 +2968,8 @@ files (thanks to Daniel Nicolai)
 - Fixed ~'~ =pdf-view-jump-to-register= (thanks to duianto)
 - Key bindings:
   - Added to pdf-view mode and transient state
+    - ~C-o~ history-backward (previous view)
+    - ~C-i~ history-forward (next view)
     - ~[~ history-backward (previous view)
     - ~]~ history-forward (next view)
     - ~?~ toggle transient sate documentation hint (shown by default)
