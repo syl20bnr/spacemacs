@@ -34,12 +34,14 @@
     (progn
       (define-key spacemacs-buffer-mode-map "o" 'spacemacs/ace-buffer-links)
       (with-eval-after-load 'info
-        (define-key Info-mode-map "o" 'ace-link-info))
+        (define-key Info-mode-map "o" 'ace-link))
       (with-eval-after-load 'help-mode
-        (define-key help-mode-map "o" 'ace-link-help))
+        (define-key help-mode-map "o" 'ace-link))
+      (with-eval-after-load 'woman
+        (define-key woman-mode-map "o" 'link-hint-open-link))
       (with-eval-after-load 'eww
-        (define-key eww-link-keymap "o" 'ace-link-eww)
-        (define-key eww-mode-map "o" 'ace-link-eww)))))
+        (define-key eww-link-keymap "o" 'ace-link)
+        (define-key eww-mode-map "o" 'ace-link)))))
 
 (defun spacemacs-navigation/init-ace-window ()
   (use-package ace-window
