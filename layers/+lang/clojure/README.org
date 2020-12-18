@@ -140,6 +140,14 @@ See [[https://github.com/snoe/clojure-lsp][here]] for details. The server is ins
 in your emacs directory however if this does not work
 it can also be installed manually from [[https://github.com/snoe/clojure-lsp/releases/latest/download/clojure-lsp][here]].
 
+You can also explicitly disable lsp support by setting =cider= as
+backend explicitly:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+  '((clojure :variables clojure-backend 'cider)))
+#+END_SRC
+
 ** Enabling Automatic Linting
 [[https://github.com/borkdude/clj-kondo][clj-kondo]], [[https://github.com/candid82/joker][joker]] and [[https://github.com/clojure-emacs/squiggly-clojure][squiggly-clojure]] provide automated linting via =flycheck=.
 These packages are disabled by default as they require the relevant linter binaries
