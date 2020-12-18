@@ -73,15 +73,22 @@ used as the prefix command."
           (concat dotspacemacs-major-mode-emacs-leader-key
                   " " (substring prefix 1))))
     (unless long-name (setq long-name name))
-    (let ((prefix-name (cons name long-name)))
-      (which-key-add-major-mode-key-based-replacements mode
-        full-prefix-emacs prefix-name
-        full-prefix prefix-name)
-      (when (and is-major-mode-prefix dotspacemacs-major-mode-leader-key)
-        (which-key-add-major-mode-key-based-replacements mode major-mode-prefix prefix-name))
-      (when (and is-major-mode-prefix dotspacemacs-major-mode-emacs-leader-key)
-        (which-key-add-major-mode-key-based-replacements
-          mode major-mode-prefix-emacs prefix-name)))))
+    (let ((prefix-name (cons name long-name))
+          (is-minor-mode-prefix (not is-major-mode-prefix))
+          (smap (intern (format "spacemacs-%s-map" mode))))
+      (if (spacemacs//init-leader-mode-map mode smap is-minor-mode-prefix)
+          (which-key-add-keymap-based-replacements (symbol-value smap)
+            (if is-major-mode-prefix (substring prefix 1) prefix) `(,name))
+        (which-key-add-major-mode-key-based-replacements mode
+          full-prefix-emacs prefix-name
+          full-prefix prefix-name)
+        (when is-major-mode-prefix
+          (when dotspacemacs-major-mode-leader-key
+            (which-key-add-major-mode-key-based-replacements
+              mode major-mode-prefix prefix-name))
+          (when dotspacemacs-major-mode-emacs-leader-key
+            (which-key-add-major-mode-key-based-replacements
+              mode major-mode-prefix-emacs prefix-name)))))))
 (put 'spacemacs/declare-prefix-for-mode 'lisp-indent-function 'defun)
 
 (defun spacemacs/set-leader-keys (key def &rest bindings)
