@@ -1240,6 +1240,8 @@ Other:
   - Refactor layers/+chat|email|fun|readers|web-services packages to use
     relative key binding, migrating most key bindings to lower cases and
     expanding room for further aliases (thanks to John Stevenson)
+  - Added a =org-enable-valign= variable to make =valign-mode= opt-out
+    in org-mode-hook (thanks to Claude Ray)
 - Fixed:
   - Fixed ~h~ key binding in compilation and grep buffers
     (thanks to Sylvain Benner)
