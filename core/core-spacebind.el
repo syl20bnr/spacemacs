@@ -39,7 +39,7 @@ Otherwise binding happens at the next event loop.")
   "`run-with-idle-timer' return value for `spacebind//process-bind-stack'.")
 
 (defun spacebind//process-bind-stack ()
-  "Drains bind stacks and binds keys and prefixes."
+  "Binds keys and prefixes popping the binding stacks."
   (unwind-protect
       (progn
         ;; `spacemacs/add-key-based-replacements-for-minor-mode'
@@ -205,7 +205,7 @@ delimited by \"|\" character."
                 (el)
                 (thread-last el
                   ;; Convert new lines and multiply spaces into singular.
-                  ;; This is done to enable better binding forms.
+                  ;; This is done to enable better code formatting.
                   (replace-regexp-in-string "[\n[:space:]]+" " ")
                   ;; Discard everything after | symbol in labels.
                   ;; This way we can add extra text into the README.org
