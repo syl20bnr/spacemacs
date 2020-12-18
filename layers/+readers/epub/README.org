@@ -38,8 +38,8 @@ file.
 | ~<BACKTAB>~ | Previous link       |
 | ~H~ or ~[~  | Previous chapter    |
 | ~L~ or ~]~  | Next chapter        |
-| ~u~         | Scroll up           |
-| ~d~         | Scroll down         |
+| ~K/u~      | Scroll up           |
+| ~J/d~      | Scroll down         |
 | ~g m~       | Display metadata    |
 | ~g r~       | Re-render document  |
 | ~g t~       | Table of contents   |
