@@ -29,13 +29,14 @@
   - [[#fill-column][Fill column]]
   - [[#sort-imports][Sort imports]]
   - [[#importmagic][Importmagic]]
-  - [[#pyvenv-pyenv-and-pipenv][Pyvenv, pyenv and pipenv]]
+  - [[#pyvenv-pyenv-pipenv-and-poetry][Pyvenv, pyenv, pipenv and poetry]]
 - [[#management-of-python-versions-and-virtual-environments][Management of Python versions and virtual environments]]
   - [[#manage-virtual-environments-with-pyvenv][Manage virtual environments with pyvenv]]
     - [[#automatic-activation-of-local-virtual-environment][Automatic activation of local virtual environment]]
   - [[#manage-multiple-python-versions-with-pyenv][Manage multiple Python versions with pyenv]]
     - [[#automatic-activation-of-local-pyenv-version][Automatic activation of local pyenv version]]
   - [[#manage-environments-and-packages-with-pipenv][Manage environments and packages with pipenv]]
+  - [[#manage-environments-and-packages-with-poetry][Manage environments and packages with Poetry]]
 - [[#key-bindings][Key bindings]]
   - [[#inferior-repl-process][Inferior REPL process]]
   - [[#running-python-script-in-shell][Running Python Script in shell]]
@@ -59,7 +60,7 @@ This layer adds support for the Python language.
 - Code Navigation
 - Documentation Lookup using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] and [[https://github.com/tsgates/pylookup][pylookup]]
 - Test Runners using [[https://github.com/syl20bnr/nose.el][nose.el]] or [[https://github.com/ionrock/pytest-el][pytest]]
-- Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]] as well as [[https://github.com/pypa/pipenv][pipenv]]
+- Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]] as well as [[https://github.com/pypa/pipenv][pipenv]] and [[https://github.com/galaunay/poetry.el][poetry]]
 - semantic mode is enabled
 - PEP8 compliant formatting via [[https://github.com/google/yapf][YAPF]] or [[https://github.com/ambv/black][black]]
 - PEP8 checks with [[https://pypi.python.org/pypi/flake8][flake8]] or [[https://pypi.python.org/pypi/pylint/1.6.4][pylint]]
@@ -173,7 +174,7 @@ Additionally you can install the following other packages:
 If you've installed the language server and related packages as development
 dependencies in a pipenv environment, you'll want to set the ~python-pipenv-activate~
 config variable to ~t~. This activates your pipenv before enabling the
-lsp backend.
+lsp backend. The same applies for ~python-poetry-activate~.
 
 *** Microsoft python language server
 Paraphrasing the instructions provided by the author of the =lsp-python-ms= package:
@@ -335,10 +336,10 @@ Install importmagic and epc for importmagic functionality.
   pip install importmagic epc
 #+END_SRC
 
-** Pyvenv, pyenv and pipenv
+** Pyvenv, pyenv, pipenv and poetry
 Sometimes, it is convenient to be able to use python virtual environments from
 other modes. For this reason, the python layer provides the variables
-=spacemacs--python-pyenv-modes=, =spacemacs--python-pyvenv-modes= and
+=spacemacs--python-pyenv-modes=, =spacemacs--python-pyvenv-modes, spacemacs--python-poetry-modes= and
 =spacemacs--python-pipenv-modes=. If you wish to be able to access these
 functionalities from other modes, in your user config section, do:
 
@@ -428,6 +429,20 @@ It provides the following key bindings:
 | ~SPC m v p o~ | open an installed module in a new buffer with [[https://github.com/pwalsh/pipenv.el][pipenv]]       |
 | ~SPC m v p s~ | open a shell buffer in the current environment with [[https://github.com/pwalsh/pipenv.el][pipenv]] |
 | ~SPC m v p u~ | uninstall a package from a virtual environment with [[https://github.com/pwalsh/pipenv.el][pipenv]] |
+
+** Manage environments and packages with Poetry
+Poetry is a tool for dependency management and packaging in Python.
+It allows you to declare the libraries your project depends on and it will
+manage (install/update) them for you.
+
+Spacemacs integration for Poetry is provided by the [[https://github.com/galaunay/poetry.el][poetry]] package.
+It provides the following key bindings:
+
+| Key binding | Description                                                         |
+|-------------+---------------------------------------------------------------------|
+| ~SPC m v o d~ | De-activate the virtualenv associated to the current poetry project |
+| ~SPC m v o a~ | Activate the virtualenv associated to the current poetry project    |
+| ~SPC m v o t~ | Toggle the virtualenv associated to the current poetry project      |
 
 * Key bindings
 ** Inferior REPL process
