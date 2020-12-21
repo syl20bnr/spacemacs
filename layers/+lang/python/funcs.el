@@ -25,9 +25,18 @@
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
      (t 'yapf))))
 
+(defun spacemacs//poetry-activate ()
+  "Attempt to activate Poetry only if its configuration file is found."
+  (let ((root-path (locate-dominating-file default-directory "pyproject.toml")))
+    (when root-path
+      (message "Poetry configuration file found. Activating virtual environment.")
+      (poetry-venv-workon))
+    ))
+
 (defun spacemacs//python-setup-backend ()
   "Conditionally setup python backend."
-  (when python-pipenv-activate (pipenv-activate))
+  (when python-pipenv-activate (pipenv-activate)
+        python-poetry-activate (spacemacs//poetry-activate))
   (pcase (spacemacs//python-backend)
     (`anaconda (spacemacs//python-setup-anaconda))
     (`lsp (spacemacs//python-setup-lsp))))
