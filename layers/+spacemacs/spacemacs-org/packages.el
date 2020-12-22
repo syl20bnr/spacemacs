@@ -25,7 +25,7 @@
     org-superstar
     (space-doc :location local)
     toc-org
-    valign
+    (valign :toggle org-enable-valign)
     ))
 
 (defun spacemacs-org/post-init-flyspell ()
@@ -80,8 +80,7 @@
   (use-package valign
     :init
     (progn
-      (when org-enable-valign
-        (add-hook 'org-mode-hook 'valign-mode))
+      (add-hook 'org-mode-hook 'valign-mode)
       (add-hook 'valign-mode-hook (lambda () (unless valign-mode
                                                (valign-remove-advice)))))))
 
