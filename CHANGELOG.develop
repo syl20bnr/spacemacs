@@ -715,6 +715,7 @@ Other:
     (thanks to Ag Ibragimov)
   - Fixed duplicate quick help and release notes in home buffer
     (thanks to mark30247)
+  - Fixed evil undo in =spacemacs-base= (thanks to duianto)
 - Other:
   - New function =configuration-layer/message= to display message in
     =*Messages*= buffer (thanks to Sylvain Benner)
