@@ -335,17 +335,17 @@
         "gHh" 'smeargle-commits
         "gHt" 'smeargle))))
 
+(defun git/pre-init-transient ()
+  (setq transient-history-file (expand-file-name "transient/history.el"
+                                                 spacemacs-cache-directory))
+  (setq transient-levels-file (expand-file-name "transient/levels.el"
+                                                spacemacs-cache-directory))
+  (setq transient-values-file (expand-file-name "transient/values.el"
+                                                spacemacs-cache-directory)))
+
 (defun git/init-transient ()
   (use-package transient
-    :defer t
-    :init
-    (setq
-     transient-levels-file
-     (expand-file-name "transient/levels.el" spacemacs-cache-directory)
-     transient-values-file
-     (expand-file-name "transient/values.el" spacemacs-cache-directory)
-     transient-history-file
-     (expand-file-name "transient/history.el" spacemacs-cache-directory))))
+    :defer t))
 
 (defun git/init-forge ()
   (use-package forge

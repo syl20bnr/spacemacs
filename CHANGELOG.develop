@@ -2062,6 +2062,7 @@ Other:
     Magit diff or blame buffer (thanks to duianto and Miciah Masters)
   - Allowed multichar major mode leader key for exiting magit commit edits
     (thanks to tuh8888)
+  - Restore magit transient args between sessions (thanks to duianto)
 **** Gnus
 - Key bindings:
   - Added ~g r~ for =gnus-group-get-new-news= (thanks to Matthew Leach)
