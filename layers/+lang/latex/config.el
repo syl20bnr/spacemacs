@@ -21,7 +21,7 @@
 
 (defvar latex-backend nil
   "The backend to use for IDE features.
-Possible values are `lsp' and `company-auctex'.
+Possible values are `lsp', `company-math' and `company-auctex'.
 If `nil' then 'company-auctex` is the default backend unless `lsp' layer is used")
 
 (defvar latex-build-command (if (executable-find "latexmk") "LatexMk" "LaTeX")
