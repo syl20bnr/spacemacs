@@ -65,7 +65,7 @@ Some people encountered bugs with =auto-dictionary-mode=, especially in *daemon
 mode* where new =emacsclient= open directly freezed. If so, no other workaround
 have been found yet than disabling =auto-dictionary-mode= completely.
 
-Not all languages are supported by =auto-dictionary-list=. The supported
+Not all languages are supported by =auto-dictionary-mode=. The supported
 languages are listed in the =adict-language-list= variable, that can be checked
 with =spacemacs/describe-variable=. For convenience, here is the list of
 currently supported language:
