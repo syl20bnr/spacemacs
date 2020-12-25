@@ -101,7 +101,9 @@
         "wpP" #'pupo/close-all-windows)
       (pupo-mode))))
 (defun spacemacs-purpose/init-spacemacs-purpose-popwin ()
-  (use-package spacemacs-purpose-popwin :commands pupo-mode))
+  (use-package spacemacs-purpose-popwin
+    :straight nil
+    :commands pupo-mode))
 
 (defun spacemacs-purpose/init-window-purpose ()
   (use-package window-purpose

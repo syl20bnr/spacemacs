@@ -92,6 +92,7 @@
 
 (defun org/init-ob ()
   (use-package ob
+    :straight nil
     :defer t
     :init
     (progn
@@ -451,6 +452,7 @@ Will work on both org-mode and any mode that accepts plain html."
 
 (defun org/init-org-agenda ()
   (use-package org-agenda
+    :straight nil
     :defer t
     :init
     (progn
@@ -607,6 +609,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-org-expiry ()
   (use-package org-expiry
+    :straight nil
     :commands (org-expiry-insinuate
                org-expiry-deinsinuate
                org-expiry-insert-created

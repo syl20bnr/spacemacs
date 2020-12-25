@@ -520,7 +520,8 @@
 ;; pre packages
 
 (defun spacemacs-bootstrap/init-evil-evilified-state ()
-  (use-package evil-evilified-state)
+  (use-package evil-evilified-state
+    :straight nil)
   (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
     spacemacs-default-map))
 
@@ -532,6 +533,7 @@
 (defun spacemacs-bootstrap/init-holy-mode ()
   (spacemacs|unless-dumping-and-eval-after-loaded-dump holy-mode
     (use-package holy-mode
+      :straight nil
       :commands holy-mode
       :init
       (progn
@@ -550,6 +552,7 @@
 (defun spacemacs-bootstrap/init-hybrid-mode ()
   (spacemacs|unless-dumping-and-eval-after-loaded-dump hybrid-mode
     (use-package hybrid-mode
+      :straight nil
       :config
       (progn
         (when (eq 'hybrid dotspacemacs-editing-style) (hybrid-mode))

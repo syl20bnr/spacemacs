@@ -129,6 +129,7 @@
 
 (defun spacemacs-defaults/init-dired-x ()
   (use-package dired-x
+    :straight nil
     :commands (dired-jump
                dired-jump-other-window
                dired-omit-mode)))
@@ -204,6 +205,7 @@
 
 (defun spacemacs-defaults/init-image-mode ()
   (use-package image-mode
+    :straight nil
     :defer t
     :init
     (progn

@@ -428,6 +428,7 @@
 
 (defun spacemacs-editing/init-spacemacs-whitespace-cleanup ()
   (use-package spacemacs-whitespace-cleanup
+    :straight nil
     :commands (spacemacs-whitespace-cleanup-mode
                global-spacemacs-whitespace-cleanup-mode)
     :init
