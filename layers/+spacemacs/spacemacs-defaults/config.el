@@ -130,7 +130,8 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 (setq minibuffer-prompt-properties
       '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
 ;; Fullscreen/maximize frame on startup
-(if dotspacemacs-fullscreen-at-startup
+(when (and (not spacemacs-initialized)
+           dotspacemacs-fullscreen-at-startup)
     ;; spacemacs/toggle-fullscreen-frame-on is NOT available during the startup,
     ;; but IS available during the subsequent config reloads
     (if (fboundp 'spacemacs/toggle-fullscreen-frame-on)
