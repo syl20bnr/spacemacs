@@ -851,20 +851,27 @@ Headline^^            Visit entry^^               Filter^^                    Da
 
 (defun org/init-org-roam ()
   (use-package org-roam
+    :defer t
+    :commands (org-roam-buffer-toggle-display
+               org-roam-dailies-find-yesterday
+               org-roam-dailies-find-today
+               org-roam-dailies-find-tomorrow
+               org-roam-tag-add
+               org-roam-tag-delete)
     :init
     (progn
       (spacemacs/declare-prefix "aor" "org-roam")
       (spacemacs/declare-prefix "aord" "org-roam-dailies")
       (spacemacs/declare-prefix "aort" "org-roam-tags")
       (spacemacs/set-leader-keys
-        "aordy" 'org-roam-dailies-yesterday
-        "aordt" 'org-roam-dailies-today
-        "aordT" 'org-roam-dailies-tomorrow
+        "aordy" 'org-roam-dailies-find-yesterday
+        "aordt" 'org-roam-dailies-find-today
+        "aordT" 'org-roam-dailies-find-tomorrow
         "aorf" 'org-roam-find-file
         "aorg" 'org-roam-graph
         "aori" 'org-roam-insert
         "aorI" 'org-roam-insert-immediate
-        "aorl" 'org-roam
+        "aorl" 'org-roam-buffer-toggle-display
         "aorta" 'org-roam-tag-add
         "aortd" 'org-roam-tag-delete)
 
@@ -873,14 +880,14 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (spacemacs/declare-prefix-for-mode 'org-mode "mrt" "org-roam-tags")
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "rb" 'org-roam-switch-to-buffer
-        "rdy" 'org-roam-dailies-yesterday
-        "rdt" 'org-roam-dailies-today
-        "rdT" 'org-roam-dailies-tomorrow
+        "rdy" 'org-roam-dailies-find-yesterday
+        "rdt" 'org-roam-dailies-find-today
+        "rdT" 'org-roam-dailies-find-tomorrow
         "rf" 'org-roam-find-file
         "rg" 'org-roam-graph
         "ri" 'org-roam-insert
         "rI" 'org-roam-insert-immediate
-        "rl" 'org-roam
+        "rl" 'org-roam-buffer-toggle-display
         "rta" 'org-roam-tag-add
         "rtd" 'org-roam-tag-delete))
     :config
