@@ -64,7 +64,7 @@
       (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)))))
 
 (defun spacemacs-org/init-org-superstar ()
-  (use-package org-super-star
+  (use-package org-superstar
     :defer t
     :init (add-hook 'org-mode-hook 'org-superstar-mode)))
 
