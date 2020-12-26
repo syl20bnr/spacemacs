@@ -335,7 +335,8 @@ as follows:
 #+END_SRC
 
 The =:location= attribute specifies where the package may be found. Spacemacs
-currently supports packages on ELPA compliant repositories, local packages and
+currently supports packages on ELPA compliant repositories, local packages, git
+packages (including specific helpers for GitHub, GitLab, and Bitbucket), and
 MELPA recipes (through the Quelpa package). Local packages should reside at
 =<layer>/local/<package>/=. For information about recipes see the [[https://github.com/milkypostman/melpa#user-content-recipe-format][MELPA
 documentation]].
