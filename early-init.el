@@ -78,6 +78,12 @@
 ;;   error: (error Unable to find theme file for ‘modus-operandi’)
 (use-package modus-themes :defer t)
 
+(straight-use-package '(ox-gfm :fork (:repo "syl20bnr/ox-gfm")))
+(straight-use-package '(cpp-auto-include :fork (:repo "syohex/emacs-cpp-auto-include")))
+(straight-use-package '(sql-indent :fork (:repo "alex-hhh/emacs-sql-indent" :files ("sql-indent.el"))))
+(straight-use-package '(font-lock+ :fork (:repo "emacsmirror/font-lock-plus")))
+(straight-use-package '(command-log-mode :fork (:repo "bmag/command-log-mode" :branch "color")))
+
 ;; This is to work around startup problem where org related packages fail to
 ;; load due to org-version being empty string. -rk 12/29/2020
 (defadvice org-version (around hack-org-version activate)
