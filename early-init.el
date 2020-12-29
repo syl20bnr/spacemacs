@@ -63,6 +63,16 @@
 ;; This can be fixed when org 9.5 is released where org and contrib will be separate packages.
 (straight-use-package '(org-plus-contrib :includes (org)))
 
+;; These are needed after removing copies from core/libs.
+(use-package dash :defer t)
+(use-package ht :defer t)
+(use-package ido-vertical-mode :defer t)
+(use-package load-env-vars :defer t)
+(use-package mocker :defer t)
+(use-package package-build :defer t)
+(use-package page-break-lines :defer t)
+(use-package quelpa :defer t)
+(use-package spinner :defer t)
 
 ;; Install modus-themes to avoid this error on start up:
 ;;   error: (error Unable to find theme file for ‘modus-operandi’)
