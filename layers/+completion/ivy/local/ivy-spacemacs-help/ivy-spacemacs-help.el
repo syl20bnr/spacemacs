@@ -3,7 +3,6 @@
 ;; Author: Justin Burkett <justin@burkett.cc>
 ;; Keywords: ivy, spacemacs
 ;; Version: 0.1
-;; Package-Requires: ((ivy "0.7"))
 
 ;; This file is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

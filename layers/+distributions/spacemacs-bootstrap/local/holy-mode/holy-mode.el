@@ -6,7 +6,6 @@
 ;; Keywords: convenience editing
 ;; Created: 18 Mar 2015
 ;; Version: 1.00
-;; Package-Requires: ((emacs "24") (evil "1.0.9"))
 ;; URL: https://github.com/syl20bnr/spacemacs
 
 ;; This file is not part of GNU Emacs.
