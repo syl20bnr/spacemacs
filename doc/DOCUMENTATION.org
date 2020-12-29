@@ -2172,11 +2172,11 @@ selecting an avy candidate.
 
 **** ace-link mode
 Similar to =avy=, [[https://github.com/abo-abo/ace-link][ace-link]] allows one to jump to any link in
-=help-mode= and =info-mode=.
+=help-mode=, =woman-mode= and =info-mode=.
 
-| Key binding | Description                                                 |
-|-------------+-------------------------------------------------------------|
-| ~o~         | initiate ace link mode in =help-=, =info-= and =woman-mode= |
+| Key binding | Description                                               |
+|-------------+-----------------------------------------------------------|
+| ~o~         | initiate ace link mode in =help=, =info= and =woman-mode= |
 
 *** Unimpaired bindings
 Spacemacs comes with a built-in port of [[https://github.com/tpope/vim-unimpaired][tpope's vim-unimpaired]].
