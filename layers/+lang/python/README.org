@@ -339,9 +339,10 @@ Install importmagic and epc for importmagic functionality.
 ** Pyvenv, pyenv, pipenv and poetry
 Sometimes, it is convenient to be able to use python virtual environments from
 other modes. For this reason, the python layer provides the variables
-=spacemacs--python-pyenv-modes=, =spacemacs--python-pyvenv-modes, spacemacs--python-poetry-modes= and
-=spacemacs--python-pipenv-modes=. If you wish to be able to access these
-functionalities from other modes, in your user config section, do:
+=spacemacs--python-pyenv-modes=, =spacemacs--python-pyvenv-modes=,
+=spacemacs--python-poetry-modes= and =spacemacs--python-pipenv-modes=.
+If you wish to be able to access these functionalities from other modes,
+in your user config section, do:
 
 #+BEGIN_SRC elisp
   (add-to-list 'spacemacs--python-pipenv-mode 'your-mode)
