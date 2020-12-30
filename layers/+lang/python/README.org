@@ -439,8 +439,8 @@ manage (install/update) them for you.
 Spacemacs integration for Poetry is provided by the [[https://github.com/galaunay/poetry.el][poetry]] package.
 It provides the following key bindings:
 
-| Key binding | Description                                                         |
-|-------------+---------------------------------------------------------------------|
+| Key binding   | Description                                                         |
+|---------------+---------------------------------------------------------------------|
 | ~SPC m v o d~ | De-activate the virtualenv associated to the current poetry project |
 | ~SPC m v o a~ | Activate the virtualenv associated to the current poetry project    |
 | ~SPC m v o t~ | Toggle the virtualenv associated to the current poetry project      |

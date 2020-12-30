@@ -53,9 +53,10 @@ add =ipython-notebook= to the existing =dotspacemacs-configuration-layers= list
 in this file.
 
 ** Choosing a backend
-  To choose a default backend set the layer variable =ein-backend=:
+To choose a default backend set the layer variable =ein-backend=:
+
 #+BEGIN_SRC elisp
-(ipython-notebook :variables ein-backend 'jupyter)
+  (ipython-notebook :variables ein-backend 'jupyter)
 #+END_SRC
 
 Currently only jupyter backend is available. If =ein-backend= is set to =jupyter=,
