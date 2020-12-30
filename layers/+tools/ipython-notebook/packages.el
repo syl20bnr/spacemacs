@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq ipython-notebook-packages '(ein))
+(setq ipython-notebook-packages '(ein company))
 
 (defun ipython-notebook/init-ein ()
   (use-package ein
@@ -71,6 +71,9 @@
                          ("q" nil :exit t))
                       bindings
                       `(:doc ,(ipython-notebook/transient-doc bindings))))))))
+
+(defun ipython-notebook/post-init-company ()
+  (add-hook 'ein:notebook-mode-hook #'spacemacs//ein-setup-company))
 
 (defun ipython-notebook/max-by-prefix (alist)
   (seq-reduce (lambda (lst1 lst2) (if (> (cl-second lst1)
