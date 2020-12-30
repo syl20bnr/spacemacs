@@ -31,3 +31,6 @@ Possible values are `rbenv', `rvm' or `chruby'.)")
 
 (defvar ruby-highlight-debugger-keywords t
   "If non-nil, enable highlight for debugger keywords.")
+
+(defvar ruby-prettier-on-save nil
+  "Use prettier and run on buffer save")

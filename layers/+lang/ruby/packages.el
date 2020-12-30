@@ -309,7 +309,8 @@
       ;; This might have been important 10 years ago but now it's frustrating.
       (setq ruby-insert-encoding-magic-comment nil)
 
-      (add-hook 'ruby-mode-hook 'spacemacs/ruby-fmt-before-save-hook)
+      (when ruby-prettier-on-save
+        (add-hook 'ruby-mode-hook 'spacemacs/ruby-fmt-before-save-hook))
       (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
         "if"  'spacemacs/ruby-insert-frozen-string-literal-comment
         "is"  'spacemacs/ruby-insert-shebang
