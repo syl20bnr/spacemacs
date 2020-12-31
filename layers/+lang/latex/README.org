@@ -14,7 +14,6 @@
   - [[#choosing-a-backend][Choosing a backend]]
     - [[#lsp][LSP]]
     - [[#company-auctex][Company-auctex]]
-    - [[#company-math][Company-math]]
   - [[#previewing][Previewing]]
   - [[#build-command][Build command]]
   - [[#tex-engine][TeX Engine]]
@@ -53,16 +52,16 @@ A number of configuration variables have been exposed via the layer =config.el=.
 Sensible defaults have been provided, however they may all be overridden in your
 .spacemacs.
 
-| Variable Name            | Default                                                            | Description                                                                                |
-|--------------------------+--------------------------------------------------------------------+--------------------------------------------------------------------------------------------|
-| ~latex-backend~          | ~nil~                                                              | Use LSP backend, unless it's `company-auctex`, `company-math` or =LSP= layer isn't enabled |
-| ~latex-build-command~    | ~'latexmk~ if it's found                                           | Default command to use with ~SPC m b~                                                      |
-| ~latex-build-engine~     | ~'xetex~ if it's found and =chinese= / =japanese= layer is enabled | Default TeX engine to use with ~SPC m b~                                                   |
-| ~latex-enable-auto-fill~ | ~t~                                                                | When non-nil, enable ~auto-fill-mode~                                                      |
-| ~latex-enable-folding~   | ~nil~                                                              | When non-nil, enable ~TeX-fold-mode~                                                       |
-| ~latex-enable-magic~     | ~nil~                                                              | When non-nil, enable magic symbols                                                         |
-| ~latex-nofill-env~       | See [[#auto-fill][details below]]                                                  | A list of LaTeX environment name where ~auto-fill-mode~ is disabled                        |
-| ~latex-refresh-preview~  | ~nil~                                                              | When non-nil, enable refresh preview buffer when file changes                              |
+| Variable Name            | Default                                                            | Description                                                                |
+|--------------------------+--------------------------------------------------------------------+----------------------------------------------------------------------------|
+| ~latex-backend~          | ~nil~                                                              | Use LSP backend, unless it's `company-auctex` or =LSP= layer isn't enabled |
+| ~latex-build-command~    | ~'latexmk~ if it's found                                           | Default command to use with ~SPC m b~                                      |
+| ~latex-build-engine~     | ~'xetex~ if it's found and =chinese= / =japanese= layer is enabled | Default TeX engine to use with ~SPC m b~                                   |
+| ~latex-enable-auto-fill~ | ~t~                                                                | When non-nil, enable ~auto-fill-mode~                                      |
+| ~latex-enable-folding~   | ~nil~                                                              | When non-nil, enable ~TeX-fold-mode~                                       |
+| ~latex-enable-magic~     | ~nil~                                                              | When non-nil, enable magic symbols                                         |
+| ~latex-nofill-env~       | See [[#auto-fill][details below]]                                                  | A list of LaTeX environment name where ~auto-fill-mode~ is disabled        |
+| ~latex-refresh-preview~  | ~nil~                                                              | When non-nil, enable refresh preview buffer when file changes              |
 
 ** Choosing a backend
 This layer provides two alternative backends to choose from.
@@ -97,20 +96,6 @@ To explicitly choose =company-auctex= as the backend, set the following in your
   (setq-default dotspacemacs-configuration-layers
                 '((latex :variables latex-backend 'company-auctex)))
 #+END_SRC
-
-*** Company-math 
-This mode is using =company-auctex= together the =company-math= package. The package
-=company-math= has a wider coverage of =LaTeX= mathematical symbols. Moreover, it
-displays a unicode preview of the symbols in the completion menu.
-
-To explicitly choose =company-auctex= as the backend, set the following in your
-=.spacemacs=:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-                '((latex :variables latex-backend 'company-math)))
-#+END_SRC
-
 
 ** Previewing
 =LaTex= layer support full-document previews and inline preview (via ~SPC m p~).
