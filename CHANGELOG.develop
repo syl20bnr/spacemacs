@@ -277,8 +277,6 @@ sane way, here is the complete list of changed key bindings
   - ~SPC m s r~ org-refile
   - ~SPC m s s~ org-sparse-tree
   - ~SPC m x o~ org-open-at-point
-- Removed ~C-h~ binding in =org-agenda-mode= (thanks to Ag Ibragimov)
-- Rebind =org-agenda-refile= to ~r~ in transient state (thanks to Muneeb Shaikh)
 - Moved =org-trello= keys from ~SPC m o~ to ~SPC m m t~
   (thanks to Magnus Therning)
 - New keybindings for push and pull (thanks to Magnus Therning):
@@ -288,6 +286,10 @@ sane way, here is the complete list of changed key bindings
   - ~SPC m t u c~ for =spacemacs/org-trello-push-card=
 - New keybinding for =org-table-field-info= ~SPC m t f~
   (thanks to Dominik Schrempf)
+In org-agenda-mode
+  - Add consistent keybinding ~SPC m .~ to enter transient-state (thanks to Daniel Nicolai)
+  - Removed ~C-h~ binding in =org-agenda-mode= (thanks to Ag Ibragimov)
+  - Rebind =org-agenda-refile= to ~r~ in transient state (thanks to Muneeb Shaikh)
 ***** Python
 - fix/implement pyvenv-tracking-mode (thanks to Daniel Nicolai)
 - Key bindings (thanks to Danny Freeman):
