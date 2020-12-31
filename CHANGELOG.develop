@@ -1984,6 +1984,8 @@ Other:
 - Support running graphical Factor listener instances from Spacemacs
 - Support reloading factor-mode/fuel-mode code when connecting to different
   Factor versions
+**** FASD
+- Add ~search from~ ivy action (thanks to Daniel Nicolai)
 **** Finance
 - Remove key-bindings pointing to removed commands (thanks to Alexander Baier)
 - Added =evil-ledger= package (thanks to Alexander Miller)
