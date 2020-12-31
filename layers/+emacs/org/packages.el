@@ -477,6 +477,7 @@ Will work on both org-mode and any mode that accepts plain html."
         :title "Org-agenda transient state"
         :on-enter (setq which-key-inhibit t)
         :on-exit (setq which-key-inhibit nil)
+        :evil-leader-for-mode (org-agenda-mode . ".")
         :foreign-keys run
         :doc
         "

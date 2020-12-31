@@ -673,10 +673,10 @@ The evilified org agenda supports the following bindings:
 | ~M-RET~              | org-agenda-show-and-scroll-up     |
 
 *** Org agenda transient state
-Use ~M-SPC~ or ~s-M-SPC~ in an org agenda buffer to activate its transient state.
-The transient state aims to list the most useful org agenda commands and
-visually organize them by category. The commands associated with each binding
-are listed bellow.
+Use ~SPC m .~, ~M-SPC~ or ~s-M-SPC~ in an org agenda buffer to activate its
+transient state. The transient state aims to list the most useful org agenda
+commands and visually organize them by category. The commands associated with
+each binding are listed bellow.
 
 | Key binding | Description         | Command                           |
 |-------------+---------------------+-----------------------------------|
