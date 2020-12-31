@@ -14,7 +14,7 @@
     auctex
     (auctex-latexmk :toggle (string= "LatexMk" latex-build-command))
     company
-    (math-symbol-lists :requires company-math)
+    math-symbol-lists
     (company-math :requires company)
     (company-auctex :requires company)
     (company-reftex :requires company)
