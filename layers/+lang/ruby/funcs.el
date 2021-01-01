@@ -157,7 +157,6 @@ Called interactively it prompts for a directory."
 ;; Prettier
 
 (defun spacemacs/ruby-format ()
-  "Call formatting tool specified in `javascript-fmt-tool'."
   (interactive)
   (call-interactively 'prettier-js))
 
