@@ -50,7 +50,8 @@
       (setq mu4e-completing-read-function 'completing-read
             mu4e-use-fancy-chars 't
             mu4e-view-show-images 't
-            message-kill-buffer-on-exit 't)
+            message-kill-buffer-on-exit 't
+            mu4e-org-support nil)
       (let ((dir "~/Downloads"))
         (when (file-directory-p dir)
           (setq mu4e-attachment-dir dir))))
@@ -150,10 +151,20 @@ mu4e-use-maildirs-extension-load to be evaluated after mu4e has been loaded."
     :init (with-eval-after-load 'mu4e (mu4e-maildirs-extension-load))))
 
 (defun mu4e/pre-init-org ()
-  ;; load mu4e-org when org is actually loaded
-  (with-eval-after-load 'org
-    (require 'mu4e nil 'noerror)
-    (require 'mu4e-org nil 'noerror)))
+  (if mu4e-org-link-support
+      (with-eval-after-load 'org
+        (require 'mu4e-org)
+        ;; We require mu4e due to an existing bug https://github.com/djcb/mu/issues/1829
+        ;; Note that this bug prevents lazy-loading.
+        (require 'mu4e-meta)
+        (if (version<= mu4e-mu-version "1.4.13")
+            (require 'mu4e))))
+  (if mu4e-org-compose-support
+      (progn
+        (spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode
+          "o" 'org-mu4e-compose-org-mode)
+        (autoload 'org-mu4e-compose-org-mode "org-mu4e")
+        )))
 
 (defun mu4e/post-init-window-purpose ()
   (let ((modes))
