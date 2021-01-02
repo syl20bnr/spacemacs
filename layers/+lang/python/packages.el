@@ -42,6 +42,7 @@
     smartparens
     stickyfunc-enhance
     xcscope
+    window-purpose
     yapfify
     ;; packages for anaconda backend
     anaconda-mode
@@ -101,7 +102,6 @@
     :if (eq (spacemacs//python-backend) 'anaconda)
     :defer t))
 ;; see `spacemacs//python-setup-anaconda-company'
-
 
 (defun python/init-blacken ()
   (use-package blacken
@@ -496,3 +496,14 @@ fix this issue."
     :if (eq python-lsp-server 'pyright)
     :ensure nil
     :defer t))
+
+(defun python/post-init-window-purpose ()
+  (purpose-set-extension-configuration
+   :python-layer
+   (purpose-conf
+    :mode-purposes '((inferior-python-mode . repl))
+    :name-purposes '(("*compilation*" . logs)
+                     ("*Pylookup Completions*" . help))
+    :regexp-purposes '(("^\\*Anaconda" . help)
+                       ("^\\*Pydoc" . help)
+                       ("^\\*live-py" . logs)))))
