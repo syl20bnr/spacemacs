@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: HELP:
+# key: HELP:
+# --
+HELP: $1
+{ \$description "$3" } ;
