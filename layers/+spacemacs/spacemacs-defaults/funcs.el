@@ -257,55 +257,86 @@ Dedicated (locked) windows are left untouched."
   (interactive "p")
   (spacemacs/rotate-windows-forward (* -1 count)))
 
-(defun spacemacs/move-buffer-to-window (windownum follow-focus-p)
-  "Moves a buffer to a window, using the spacemacs numbering. follow-focus-p
-controls whether focus moves to new window (with buffer), or stays on current"
-  (interactive)
-  (if (> windownum (length (window-list-1 nil nil t)))
-      (message "No window numbered %s" windownum)
-    (let ((b (current-buffer))
-          (w1 (selected-window))
-          (w2 (winum-get-window-by-number windownum)))
-      (unless (eq w1 w2)
-        (set-window-buffer w2 b)
-        (switch-to-prev-buffer)
-        (unrecord-window-buffer w1 b))
-      (when follow-focus-p
-        (select-window (winum-get-window-by-number windownum))))))
 
-(defun spacemacs/swap-buffers-to-window (windownum follow-focus-p)
-  "Swaps visible buffers between active window and selected window.
-follow-focus-p controls whether focus moves to new window (with buffer), or
-stays on current"
-  (interactive)
-  (if (> windownum (length (window-list-1 nil nil t)))
-      (message "No window numbered %s" windownum)
-    (let* ((b1 (current-buffer))
-           (w1 (selected-window))
-           (w2 (winum-get-window-by-number windownum))
-           (b2 (window-buffer w2)))
-      (unless (eq w1 w2)
-        (set-window-buffer w1 b2)
-        (set-window-buffer w2 b1)
-        (unrecord-window-buffer w1 b1)
-        (unrecord-window-buffer w2 b2)))
-    (when follow-focus-p (winum-select-window-by-number windownum))))
+(if (configuration-layer/package-used-p 'winum)
+    (progn
+      (defun spacemacs/move-buffer-to-window (windownum follow-focus-p)
+        "Moves a buffer to a window, using the spacemacs numbering. follow-focus-p
+  controls whether focus moves to new window (with buffer), or stays on current"
+        (interactive)
+        (if (> windownum (length (window-list-1 nil nil t)))
+            (message "No window numbered %s" windownum)
+          (let ((b (current-buffer))
+                (w1 (selected-window))
+                (w2 (winum-get-window-by-number windownum)))
+            (unless (eq w1 w2)
+              (set-window-buffer w2 b)
+              (switch-to-prev-buffer)
+              (unrecord-window-buffer w1 b))
+            (when follow-focus-p
+              (select-window (winum-get-window-by-number windownum))))))
 
+      (defun spacemacs/swap-buffers-to-window (windownum follow-focus-p)
+        "Swaps visible buffers between active window and selected window.
+  follow-focus-p controls whether focus moves to new window (with buffer), or
+  stays on current"
+        (interactive)
+        (if (> windownum (length (window-list-1 nil nil t)))
+            (message "No window numbered %s" windownum)
+          (let* ((b1 (current-buffer))
+                 (w1 (selected-window))
+                 (w2 (winum-get-window-by-number windownum))
+                 (b2 (window-buffer w2)))
+            (unless (eq w1 w2)
+              (set-window-buffer w1 b2)
+              (set-window-buffer w2 b1)
+              (unrecord-window-buffer w1 b1)
+              (unrecord-window-buffer w2 b2)))
+          (when follow-focus-p (winum-select-window-by-number windownum)))))
+  ;; when the winum package isn't used
+  (defun spacemacs//message-winum-package-required ()
+    (interactive)
+    (message (concat "This command requires the winum package," "\n"
+                     "winum is part of the spacemacs-navigation layer."))))
+
+;; define and evaluate numbered functions:
+;; spacemacs/winum-select-window-0 to 9
+(dotimes (i 10)
+  (eval `(defun ,(intern (format "spacemacs/winum-select-window-%s" i)) (&optional arg)
+           ,(concat (format "Select window %i\n" i)
+                    "Or if the winum package isn't used:\n"
+                    "For example in the spacemacs-base distribution."
+                    "Show a message stating that the winum package,"
+                    "is part of the spacemacs-navigation layer.\n")
+           (interactive "P")
+           (if (configuration-layer/package-used-p 'winum)
+               (funcall ',(intern (format "winum-select-window-%s" i)) arg)
+             (spacemacs//message-winum-package-required)))))
+
+;; define and evaluate three numbered functions:
+;; buffer-to-window-1 to 9
+;; move-buffer-window-no-follow-1 to 9
+;; swap-buffer-window-no-follow-1 to 9
 (dotimes (i 9)
   (let ((n (+ i 1)))
     (eval `(defun ,(intern (format "buffer-to-window-%s" n)) (&optional arg)
              ,(format "Move buffer to the window with number %i." n)
              (interactive "P")
-             (if arg
-                 (spacemacs/swap-buffers-to-window ,n t)
-               (spacemacs/move-buffer-to-window ,n t))))
+             (if (configuration-layer/package-used-p 'winum)
+                 (if arg
+                     (spacemacs/swap-buffers-to-window ,n t)
+                   (spacemacs/move-buffer-to-window ,n t))
+               (spacemacs//message-winum-package-required))))
     (eval `(defun ,(intern (format "move-buffer-window-no-follow-%s" n)) ()
              (interactive)
-             (spacemacs/move-buffer-to-window ,n nil)))
+             (if (configuration-layer/package-used-p 'winum)
+                 (spacemacs/move-buffer-to-window ,n nil)
+               (spacemacs//message-winum-package-required))))
     (eval `(defun ,(intern (format "swap-buffer-window-no-follow-%s" n)) ()
              (interactive)
-             (spacemacs/swap-buffers-to-window ,n nil)))
-    ))
+             (if (configuration-layer/package-used-p 'winum)
+                 (spacemacs/swap-buffers-to-window ,n nil)
+               (spacemacs//message-winum-package-required))))))
 
 (defun spacemacs/rename-file (filename &optional new-filename)
   "Rename FILENAME to NEW-FILENAME.

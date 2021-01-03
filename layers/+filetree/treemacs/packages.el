@@ -109,18 +109,19 @@
   (spacemacs|use-package-add-hook winum
     :post-config
     (progn
-      ;; `0', `M-0' and `C-x w 0' are bound to `winum-select-window-0-or-10'
-      (define-key winum-keymap
-        [remap winum-select-window-0-or-10] #'treemacs-select-window)
-      ;; replace the which-key name
-      (push '((nil . "winum-select-window-0-or-10") .
-              (nil . "treemacs-select-window"))
-            which-key-replacement-alist)
-      (with-eval-after-load 'treemacs
-        (dolist (n (number-sequence 1 5))
-          (add-to-list 'winum-ignored-buffers
-                       (format "%sFramebuffer-%s*"
-                               treemacs--buffer-name-prefix n)))))))
+      (when (configuration-layer/package-used-p 'winum)
+        ;; `0', `M-0' and `C-x w 0' are bound to `winum-select-window-0-or-10'
+        (define-key winum-keymap
+          [remap winum-select-window-0-or-10] #'treemacs-select-window)
+        ;; replace the which-key name
+        (push '((nil . "winum-select-window-0-or-10") .
+                (nil . "treemacs-select-window"))
+              which-key-replacement-alist)
+        (with-eval-after-load 'treemacs
+          (dolist (n (number-sequence 1 5))
+            (add-to-list 'winum-ignored-buffers
+                         (format "%sFramebuffer-%s*"
+                                 treemacs--buffer-name-prefix n))))))))
 
 (defun treemacs/init-treemacs-magit ()
   (use-package treemacs-magit
