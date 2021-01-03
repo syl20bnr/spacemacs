@@ -263,15 +263,15 @@
       ;; Workaround for #12747 - org-mode
       (evil-define-key 'normal magit-blame-read-only-mode-map (kbd "RET") 'magit-show-commit)
       ;; Make sure that M-m still switch windows in all magit buffers
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-1") 'winum-select-window-1)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-2") 'winum-select-window-2)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-3") 'winum-select-window-3)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-4") 'winum-select-window-4)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-5") 'winum-select-window-5)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-6") 'winum-select-window-6)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-7") 'winum-select-window-7)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-8") 'winum-select-window-8)
-      (evil-define-key 'normal magit-section-mode-map (kbd "M-9") 'winum-select-window-9))))
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-1") 'spacemacs/winum-select-window-1)
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-2") 'spacemacs/winum-select-window-2)
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-3") 'spacemacs/winum-select-window-3)
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-4") 'spacemacs/winum-select-window-4)
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-5") 'spacemacs/winum-select-window-5)
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-6") 'spacemacs/winum-select-window-6)
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-7") 'spacemacs/winum-select-window-7)
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-8") 'spacemacs/winum-select-window-8)
+      (evil-define-key 'normal magit-section-mode-map (kbd "M-9") 'spacemacs/winum-select-window-9))))
 
 (defun git/init-magit-delta ()
   (use-package magit-delta
