@@ -97,7 +97,7 @@ existing =dotspacemacs-configuration-layers= list in this file.
 | ~SPC m k~ or ~SPC m a~ | Kill the message buffer        |
 | ~SPC m s~              | Auto-save and bury the message |
 | ~SPC m f~              | Add file as attachment         |
-| ~SPC m o~              | Compose in Org-mode syntax    |
+| ~SPC m o~              | Compose in Org-mode syntax     |
 
 * Configuration
 Configuration varies too much to give precise instructions. What follows is one
@@ -295,9 +295,7 @@ By default the values are:
 #+END_SRC
 
 ** Org-mu4e integration
-
 *** Mu4e link support in Org mode
-
 Feature ~mu4e-org~ supports links to mu4e messages in Org mode in the form of
 ~[[mu4e:msgid::***][link text]]~. Enabled by default. You can disable it by
 setting the ~mu4e-org-link-support~ variable when including the layer.
@@ -309,7 +307,6 @@ setting the ~mu4e-org-link-support~ variable when including the layer.
 #+END_SRC
 
 *** Composing Org mode messages in mu4e
-
 Feature ~org-mu4e~ supports composing emails in Org mode format. Disabled by
 default. You can enable it by setting the ~mu4e-org-compose-support~ variable
 when including the layer.
