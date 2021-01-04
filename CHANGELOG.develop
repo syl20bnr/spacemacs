@@ -2616,6 +2616,8 @@ files (thanks to Daniel Nicolai)
 - Improvements:
   - Evilfied =dap= debug windows
 **** Markdown
+- Fontify code blocks natively by default, for parity with the Org layer (thanks
+  to Keith Pinson)
 - Disable =mmm-mode= in Git commit buffers, in order to allow the use of Markdown
   mode when committing (thanks to Keith Pinson)
 - New layer variable =markdown-mmm-auto-modes= which is a list of language names
