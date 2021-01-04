@@ -410,9 +410,12 @@ tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.")
 `(list-type . list-size)`. If nil it is disabled.
 
 Possible values for list-type are:
-`recents' `bookmarks' `projects' `agenda' `todos'.
+`recents' `recents-by-project' `bookmarks' `projects' `agenda' `todos'.
 List sizes may be nil, in which case
-`spacemacs--buffer-startup-lists-length' takes effect.")
+`spacemacs--buffer-startup-lists-length' takes effect.
+In the `recents-by-project' case, the list size should be a `cons' cell whose
+`car' is the maximum number of projects to show, and whose `cdr' is the maximum
+number of recent files to show in each project.")
 
 (defvar dotspacemacs-startup-buffer-responsive t
   "True if the home buffer should respond to resize events.")
@@ -919,16 +922,22 @@ error recovery."
     (lambda (x)
       (let ((el (or (car-safe x) x))
             (list-size (cdr-safe x)))
-        (member el '(recents bookmarks projects todos agenda))))
-    'dotspacemacs-startup-lists (concat "includes \'recents, "
+        (member el '(recents recents-by-project bookmarks projects todos agenda))))
+    'dotspacemacs-startup-lists (concat "includes \'recents, 'recents-by-project, "
                                         "\'bookmarks, \'todos, "
                                         "\'agenda or \'projects"))
    (spacemacs//test-list
     (lambda (x)
       (let ((el (or (car-safe x) x))
             (list-size (cdr-safe x)))
-        (or (null list-size)(numberp list-size))))
-    'dotspacemacs-startup-lists (concat "list size is a number"))
+        (if (eq el 'recents-by-project)
+            (and (consp list-size)
+                 (numberp (car list-size))
+                 (numberp (cdr list-size)))
+          (or (null list-size) (numberp list-size)))))
+    'dotspacemacs-startup-lists (concat "list size is a number, unless "
+                                        "list type is recents-by-project "
+                                        "when it is a pair of numbers"))
    (spacemacs//test-var 'stringp 'dotspacemacs-leader-key "is a string")
    (spacemacs//test-var 'stringp 'dotspacemacs-emacs-leader-key "is a string")
    (spacemacs//test-var

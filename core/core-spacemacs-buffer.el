@@ -737,6 +737,36 @@ LIST: a list of string pathnames made interactive in this function."
                            (abbreviate-file-name el)))
           list)))
 
+(defun spacemacs-buffer//insert-files-by-dir-list (list-display-name grouped-list)
+  "Insert an interactive grouped list of files in the home buffer.
+LIST-DISPLAY-NAME: the displayed title of the list.
+GROUPED-LIST: a list of string pathnames made interactive in this function."
+  (when (car grouped-list)
+    (insert list-display-name)
+    (mapc (lambda (group)
+            (insert "\n    ")
+            (widget-create 'push-button
+                           :action `(lambda (&rest ignore)
+                                      (find-file-existing ,(car group)))
+                           :mouse-face 'highlight
+                           :follow-link "\C-m"
+                           :button-prefix ""
+                           :button-suffix ""
+                           :format "%[%t%]"
+                           (abbreviate-file-name (car group)))
+            (mapc (lambda (el)
+                    (insert "\n        ")
+                    (widget-create 'push-button
+                                   :action `(lambda (&rest ignore)
+                                              (find-file-existing (concat ,(car group) ,el)))
+                                   :mouse-face 'highlight
+                                   :follow-link "\C-m"
+                                   :button-prefix ""
+                                   :button-suffix ""
+                                   :format "%[%t%]"
+                                   (abbreviate-file-name el)))
+                  (cdr group))) grouped-list)))
+
 (defun spacemacs-buffer//insert-bookmark-list (list-display-name list)
   "Insert an interactive list of bookmarks entries (if any) in the home buffer.
 LIST-DISPLAY-NAME: the displayed title of the list.
@@ -862,6 +892,17 @@ LIST: list of `org-agenda' entries in the todo list."
                                    (cdr (assoc "text" el)))))
           list)))
 
+(defun spacemacs-buffer//associate-to-project (recent-file by-project)
+  (dolist (x by-project)
+    (when (string-prefix-p (car x) recent-file)
+      (setcdr x (cons (string-remove-prefix (car x) recent-file) (cdr x))))))
+
+(defun spacemacs-buffer//recent-files-by-project ()
+  (let ((by-project (mapcar (lambda (p) (cons (expand-file-name p) nil))
+                            (projectile-relevant-known-projects))))
+    (dolist (recent-file recentf-list by-project)
+      (spacemacs-buffer//associate-to-project recent-file by-project))))
+
 (defun spacemacs//subseq (seq start end)
   "Adapted version of `cl-subseq'.
 Use `cl-subseq', but accounting for end points greater than the size of the
@@ -890,11 +931,26 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
                   (spacemacs-buffer||add-shortcut "w" "Warnings:")
                   (insert list-separator)))
                ((eq el 'recents)
-                (recentf-mode)
+                (unless recentf-mode (recentf-mode))
                 (when (spacemacs-buffer//insert-file-list
                        "Recent Files:"
                        (spacemacs//subseq recentf-list 0 list-size))
                   (spacemacs-buffer||add-shortcut "r" "Recent Files:")
+                  (insert list-separator)))
+               ((eq el 'recents-by-project)
+                (unless recentf-mode (recentf-mode))
+                (unless projectile-mode (projectile-mode))
+                (when (spacemacs-buffer//insert-files-by-dir-list
+                       "Recent Files by Project:"
+                       (mapcar (lambda (group)
+                                 (cons (car group)
+                                       (spacemacs//subseq (reverse (cdr group))
+                                                          0
+                                                          (cdr list-size))))
+                               (spacemacs//subseq (spacemacs-buffer//recent-files-by-project)
+                                                  0
+                                                  (car list-size))))
+                  (spacemacs-buffer||add-shortcut "R" "Recent Files:")
                   (insert list-separator)))
                ((eq el 'todos)
                 (when (spacemacs-buffer//insert-todo-list
@@ -922,7 +978,7 @@ SEQ, START and END are the same arguments as for `cl-subseq'"
                   (insert list-separator)))
                ((and (eq el 'projects)
                      (fboundp 'projectile-mode))
-                (projectile-mode)
+                (unless projectile-mode (projectile-mode))
                 (when (spacemacs-buffer//insert-file-list
                        "Projects:"
                        (spacemacs//subseq (projectile-relevant-known-projects)

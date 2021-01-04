@@ -529,6 +529,9 @@ Other:
     terminal mode, but no longer in GUI mode. (emacs18)
 *** Core changes
 - Improvements:
+  - Support =recents-by-project= in =dotspacemacs-startup-lists=, which allows
+    combining the existing =recents= and =projects= into one coherent view (thanks
+    to Keith Pinson)
   - Make =set-selective-display=, which is a kind of built-in Emacs quick-n-dirty
     whole-file folding mechanism for indentation-based syntaxes, more
     discoverable for Evil users by placing it (with a small DWIM wrapper) in the
