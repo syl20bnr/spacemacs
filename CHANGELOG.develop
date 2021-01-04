@@ -134,7 +134,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   (thanks to Cormac Cannon)
 - Removed cquery.
 ***** EPUB
-- Add ~J/K~ for scrolling down/up (thanks to Daniel Nicolai) 
+- Add ~J/K~ for scrolling down/up (thanks to Daniel Nicolai)
 ***** ESS
 - ESS key bindings were re-organised in the following list
   (thanks to Guido Kraemer, Yi Liu, and Jack Kamm):
@@ -1883,6 +1883,7 @@ Other:
 - Added =elm-test-runner= (thanks to Juan Edi)
 **** Emacs Lisp
 - Key bindings:
+  - Make ~SPC m h h~ and jump handlers work in =ielm= (thanks to Keith Pinson)
   - Added ~c~ to continue in edebug mode (thanks to hodge)
   - Added ~SPC m g b~ to jump back to previous point (thanks to Magnus Therning)
 - Identify Cask files as emacs lisp ones (thanks to Adrien Becchis)
