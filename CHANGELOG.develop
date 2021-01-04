@@ -134,7 +134,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
   (thanks to Cormac Cannon)
 - Removed cquery.
 ***** EPUB
-- Add ~J/K~ for scrolling down/up (thanks to Daniel Nicolai) 
+- Add ~J/K~ for scrolling down/up (thanks to Daniel Nicolai)
 ***** ESS
 - ESS key bindings were re-organised in the following list
   (thanks to Guido Kraemer, Yi Liu, and Jack Kamm):
@@ -2610,6 +2610,8 @@ files (thanks to Daniel Nicolai)
 - Improvements:
   - Evilfied =dap= debug windows
 **** Markdown
+- Fontify code blocks natively by default, for parity with the Org layer (thanks
+  to Keith Pinson)
 - Disable =mmm-mode= in Git commit buffers, in order to allow the use of Markdown
   mode when committing (thanks to Keith Pinson)
 - New layer variable =markdown-mmm-auto-modes= which is a list of language names
