@@ -45,6 +45,14 @@
     :init
     (progn
       (spacemacs/register-repl 'ielm 'ielm)
+      ;; Load better help mode if helpful is installed
+      (if (configuration-layer/layer-used-p 'helpful)
+          (spacemacs/set-leader-keys-for-major-mode 'inferior-emacs-lisp-mode
+            "hh" 'helpful-at-point)
+        (spacemacs/set-leader-keys-for-major-mode 'inferior-emacs-lisp-mode
+          "hh" 'elisp-slime-nav-describe-elisp-thing-at-point))
+      (add-to-list 'spacemacs-jump-handlers-inferior-emacs-lisp-mode
+                   'elisp-slime-nav-find-elisp-thing-at-point)
       (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
         (spacemacs/declare-prefix-for-mode mode "ms" "ielm")
         (spacemacs/set-leader-keys-for-major-mode mode
