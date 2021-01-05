@@ -58,3 +58,9 @@ are configured.")
 
 (defvar org-enable-roam-support nil
   "If non-nil, org-roam (https://www.orgroam.com/) is configured")
+
+(defvar org-persp-startup-org-file nil
+  "If non-nil, opens the specified file instead of the first in org-agenda-files")
+
+(defvar org-persp-startup-with-agenda nil
+  "If non-nil, opens the specified agenda custom view")
