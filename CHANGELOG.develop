@@ -2777,7 +2777,8 @@ files (thanks to Daniel Nicolai)
   (thanks to Steven Allen)
 - Packages:
   - Added package =org-journal= (thanks to Nick Anderson)
-    - Added shortcuts for handling scheduled entries (thanks to Daniel Nicolai)
+    - Added shortcuts for handling scheduled entries and find journal file
+      (thanks to Daniel Nicolai)
   - Added package for =org-sticky-header-mode= (thanks to Langston Barret)
   - Added package =org-jira= (thanks to Kirill A. Korinsky)
   - Added package =org-rich-yank= (thanks to Keith Pinson)

@@ -781,6 +781,7 @@ org-present must be activated explicitly by typing: ~SPC SPC org-present~
 
 | Key binding         | Description                                     |
 |---------------------+-------------------------------------------------|
+| ~SPC a o j f~       | Visit journal file                              |
 | ~SPC a o j j~       | New journal entry                               |
 | ~SPC u SPC a o j j~ | Open today's journal without adding a new entry |
 | ~SPC a o j s~       | Search journal entries                          |
