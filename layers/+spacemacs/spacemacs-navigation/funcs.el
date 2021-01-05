@@ -330,7 +330,7 @@ When ARG is non-nil search in junk files."
           (arg
            (require 'helm)
            (let (helm-ff-newfile-prompt-p)
-             (spacemacs/helm-files-smart-do-search)))
+             (spacemacs/helm-smart-search-files)))
           (t
            (require 'helm)
            (let (helm-ff-newfile-prompt-p)

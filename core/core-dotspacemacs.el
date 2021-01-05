@@ -401,8 +401,9 @@ Possible values are:
 `nil' to disable cleanup.")
 
 (defvar dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
-  "List of search tool executable names. Spacemacs uses the first installed
-tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.")
+  "List of search tool executable names.
+Spacemacs uses the first installed tool of the list.
+Supported tools are \"rg\", \"ag\", \"pt\", \"ack\" and \"grep\".")
 
 (defvar dotspacemacs-startup-lists '((recents  . 5)
                                      (projects . 7))

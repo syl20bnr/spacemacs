@@ -144,17 +144,17 @@
             (cl-pushnew
              '("/" (lambda ()
                      (call-interactively
-                      'spacemacs/helm-project-smart-do-search-region-or-symbol)))
+                      'spacemacs/helm-smart-search-project-with-input)))
              new-bindings)
             (cl-pushnew
              '("f" (lambda ()
                      (call-interactively
-                      'spacemacs/helm-files-smart-do-search-region-or-symbol)))
+                      'spacemacs/helm-smart-search-files-with-input)))
              new-bindings)
             (cl-pushnew
              '("b" (lambda ()
                      (call-interactively
-                      'spacemacs/helm-buffers-smart-do-search-region-or-symbol)))
+                      'spacemacs/helm-smart-search-buffers-with-input)))
              new-bindings)
             (setq ad-return-value (cons new-msg new-bindings)))))
       (setq expand-region-contract-fast-key "V"

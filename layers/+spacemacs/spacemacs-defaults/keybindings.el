@@ -54,13 +54,8 @@
                                        ("q"   "quit")
                                        ("r"   "registers/rings/resume")
                                        ("s"   "search/symbol")
-                                       ("sa"  "ag")
-                                       ("sg"  "grep")
-                                       ("sk"  "ack")
                                        ("sp"  "search project")
                                        ("sP"  "search project w/input")
-                                       ("sr"  "ripgrep")
-                                       ("st"  "pt")
                                        ("sw"  "web")
                                        ("t"   "toggles")
                                        ("tC"  "colors")
@@ -87,6 +82,16 @@
                                        ("xt"  "transpose")
                                        ("xw"  "words")
                                        ("z"   "zoom")))
+
+;; Only add selected search-tools to key-binding-prefix
+(nconc spacemacs/key-binding-prefixes
+       (seq-filter (lambda (x) (member (cadr x) dotspacemacs-search-tools))
+                   '(("sr" "rg")
+                     ("sa" "ag")
+                     ("st" "pt")
+                     ("sk" "ack")
+                     ("sg" "grep"))))
+
 (mapc (lambda (x) (apply #'spacemacs/declare-prefix x))
       spacemacs/key-binding-prefixes)
 

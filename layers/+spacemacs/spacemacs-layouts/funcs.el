@@ -544,7 +544,7 @@ Run PROJECT-ACTION on project."
                   'helm-projectile-recentf))
                ("Switch to Project Perspective and Search" .
                 ,(spacemacs//helm-persp-switch-project-action-maker
-                  'spacemacs/helm-project-smart-do-search))))
+                  'spacemacs/helm-smart-search-project))))
    :buffer "*Helm Projectile Layouts*"))
 
 (defun spacemacs//make-helm-list-reorder-fn (fn)
