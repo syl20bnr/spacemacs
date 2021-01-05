@@ -801,6 +801,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
     (progn
       (spacemacs/declare-prefix "aoj" "org-journal")
       (spacemacs/set-leader-keys
+        "aojf" 'org-journal-open-current-journal-file
         "aojj" 'org-journal-new-entry
         "aojs" 'org-journal-search-forever
         "aojt" 'org-journal-new-scheduled-entry
