@@ -794,7 +794,9 @@ Headline^^            Visit entry^^               Filter^^                    Da
     :body
     (let ((agenda-files (org-agenda-files)))
       (if agenda-files
-          (find-file (first agenda-files))
+          (progn (find-file (if org-persp-startup-org-file org-persp-startup-org-file (first agenda-files)))
+                 (if org-persp-startup-with-agenda (org-agenda nil org-persp-startup-with-agenda)
+                 ))
         (user-error "Error: No agenda files configured, nothing to display.")))))
 
 (defun org/init-org-journal ()
