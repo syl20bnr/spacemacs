@@ -651,9 +651,12 @@ The evilified org agenda supports the following bindings:
 |----------------------+-----------------------------------|
 | ~M-SPC~ or ~s-M-SPC~ | org-agenda transient state        |
 | ~SPC m a~            | org-agenda                        |
+| ~SPC m ,~            | org-agenda-ctrl-c-ctrl-c          |
+| ~SPC m c~            | org-agenda-capture                |
 | ~SPC m C c~          | org-agenda-clock-cancel           |
 | ~SPC m C i~          | org-agenda-clock-in               |
 | ~SPC m C o~          | org-agenda-clock-out              |
+| ~SPC m C j~          | org-agenda-clock-goto             |
 | ~SPC m C p~          | org-pomodoro (if package is used) |
 | ~SPC m d d~          | org-agenda-deadline               |
 | ~SPC m d s~          | org-agenda-schedule               |

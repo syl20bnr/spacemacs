@@ -462,10 +462,13 @@ Will work on both org-mode and any mode that accepts plain html."
         (spacemacs/declare-prefix-for-mode 'org-agenda-mode
           (car prefix) (cdr prefix)))
       (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
+        (or dotspacemacs-major-mode-leader-key ",") 'org-agenda-ctrl-c-ctrl-c
         "a" 'org-agenda
+        "c" 'org-agenda-capture
         "Cc" 'org-agenda-clock-cancel
         "Ci" 'org-agenda-clock-in
         "Co" 'org-agenda-clock-out
+        "Cj" 'org-agenda-clock-goto
         "dd" 'org-agenda-deadline
         "ds" 'org-agenda-schedule
         "ie" 'org-agenda-set-effort
