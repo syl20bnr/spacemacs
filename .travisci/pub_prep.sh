@@ -35,37 +35,8 @@ base_revision=$(git rev-parse '@')
 echo $base_revision > /tmp/base_revision
 echo "Base revision $base_revision"
 
-fold_start "FORMATTING_DOCUMENTATION"
-docker run \
-       --rm \
-       -v "/tmp/elpa/:/root/.emacs.d/elpa/" \
-       -v "${TRAVIS_BUILD_DIR}/.ci/spacedoc-cfg.edn":/opt/spacetools/spacedoc-cfg.edn \
-       -v "${TRAVIS_BUILD_DIR}":/tmp/docs/ \
-       jare/spacetools docfmt /tmp/docs/
-if [ $? -ne 0 ]; then
-    echo "Formatting failed."
-    exit 2
-fi
-fold_end "FORMATTING_DOCUMENTATION"
-
-fold_start "CREATING_DOCUMENTATION_PATCH_FILE"
-git add --all
-git commit -m "documentation formatting: $(date -u)"
-if [ $? -ne 0 ]; then
-    echo "Documentation doesn't need fixes."
-else
-    git format-patch -1 HEAD --stdout > /tmp/docfmt.patch
-    if [ $? -ne 0 ]; then
-        echo "Failed to create documentation patch file."
-        exit 2
-    fi
-    cat /tmp/docfmt.patch
-fi
-git reset --hard HEAD~1
-fold_end "CREATING_DOCUMENTATION_PATCH_FILE"
-
 fold_start "UPDATING_BUILT_IN_FILES"
-built_in_manifest="${TRAVIS_BUILD_DIR}/.emacs.d/.ci/built_in_manifest"
+built_in_manifest="${TRAVIS_BUILD_DIR}/.ci/built_in_manifest"
 lines=$(cat "${built_in_manifest}")
 while read line; do
     url=$(echo $line | cut -f1 -d " ")
@@ -90,10 +61,39 @@ else
         echo "Failed to create built-in patch file."
         exit 2
     fi
+    git reset --hard HEAD~1
     cat /tmp/built_in.patch
 fi
-git reset --hard HEAD~1
 fold_end "CREATING_BUILT_IN_PATCH_FILE"
+
+fold_start "FORMATTING_DOCUMENTATION"
+docker run \
+       --rm \
+       -v "/tmp/elpa/:/root/.emacs.d/elpa/" \
+       -v "${TRAVIS_BUILD_DIR}/.ci/spacedoc-cfg.edn":/opt/spacetools/spacedoc-cfg.edn \
+       -v "${TRAVIS_BUILD_DIR}":/tmp/docs/ \
+       jare/spacetools docfmt /tmp/docs/
+if [ $? -ne 0 ]; then
+    echo "Formatting failed."
+    exit 2
+fi
+fold_end "FORMATTING_DOCUMENTATION"
+
+fold_start "CREATING_DOCUMENTATION_PATCH_FILE"
+git add --all
+git commit -m "documentation formatting: $(date -u)"
+if [ $? -ne 0 ]; then
+    echo "Documentation doesn't need fixes."
+else
+    git format-patch -1 HEAD --stdout > /tmp/docfmt.patch
+    if [ $? -ne 0 ]; then
+        echo "Failed to create documentation patch file."
+        exit 2
+    fi
+    git reset --hard HEAD~1
+    cat /tmp/docfmt.patch
+fi
+fold_end "CREATING_DOCUMENTATION_PATCH_FILE"
 
 rm -rf ~/.emacs.d
 mv "${TRAVIS_BUILD_DIR}" ~/.emacs.d
