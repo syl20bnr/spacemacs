@@ -43,12 +43,12 @@ fold_start "APPLYING_DOCUMENTATION_PATCH"
 cd "/tmp/${PUBLISH}"
 if [ ! -f /tmp/docfmt.patch ]; then
     echo "Documentation doesn't need fixes. Aborting."
-    exit 0
-fi
-git am < /tmp/docfmt.patch
-if [ $? -ne 0 ]; then
-    echo "Failed to apply documentation fixes patch"
-    exit 2
+else
+    git am < /tmp/docfmt.patch
+    if [ $? -ne 0 ]; then
+        echo "Failed to apply documentation fixes patch"
+        exit 2
+    fi
 fi
 fold_end "APPLYING_DOCUMENTATION_PATCH"
 
@@ -56,12 +56,13 @@ fold_start "APPLYING_BUILT_IN_PATCH"
 cd "/tmp/${PUBLISH}"
 if [ ! -f /tmp/built_in.patch ]; then
     echo "Built-in files don't need updating. Aborting."
-    exit 0
-fi
-git am < /tmp/built_in.patch
-if [ $? -ne 0 ]; then
-    echo "Failed to apply built-in patch."
-    exit 2
+else
+    git am < /tmp/built_in.patch
+    if [ $? -ne 0 ]; then
+        echo "Failed to apply built-in patch."
+        exit 2
+    fi
+
 fi
 fold_end "APPLYING_BUILT_IN_PATCH"
 
