@@ -65,7 +65,7 @@ git reset --hard HEAD~1
 fold_end "CREATING_DOCUMENTATION_PATCH_FILE"
 
 fold_start "UPDATING_BUILT_IN_FILES"
-built_in_manifest="${TRAVIS_BUILD_DIR}/.ci/built_in_manifest"
+built_in_manifest="${TRAVIS_BUILD_DIR}/.emacs.d/.ci/built_in_manifest"
 lines=$(cat "${built_in_manifest}")
 while read line; do
     url=$(echo $line | cut -f1 -d " ")
