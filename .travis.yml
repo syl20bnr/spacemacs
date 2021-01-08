@@ -9,11 +9,12 @@ branches:
   - master
   - develop
 before_install:
-  - docker load -i docker_images/images.tar || true
+  - docker load -i /tmp/docker_images/images.tar || true
 before_cache:
-  - docker save -o docker_images/images.tar $(docker images -a -q)
+  - docker save -o /tmp/docker_images/images.tar $(docker images -a -q)
 cache:
   directories:
+  - /tmp/docker_images
   - /tmp/elpa
   - !/tmp/elpa/gnupg
 env:
