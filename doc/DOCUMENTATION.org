@@ -114,6 +114,7 @@
   - [[#discovering][Discovering]]
     - [[#key-bindings][Key bindings]]
       - [[#which-key][Which-key]]
+      - [[#which-key-persistent][Which-key persistent]]
       - [[#describe-key-bindings][Describe key bindings]]
     - [[#getting-help][Getting help]]
     - [[#available-layers][Available layers]]
@@ -1982,6 +1983,26 @@ By default the [[https://github.com/justbur/emacs-which-key][which-key]] buffer 
 pressed. You can change the delay by setting the variable
 =dotspacemacs-which-key-delay= to your liking (the value is in seconds).
 
+**** Which-key persistent
+Sometimes it can be handy to show some keymap persistently with which-key,
+especially in buffers with merely evilified keybindings or using Emacs state,
+e.g. Info buffers, gnus, eww etc. The persistent =which-key= state can be
+toggled with ~SPC t k k~. For some specific keymaps, dedicated keybindings are
+also available behind the ~SPC t k~ prefix:
+
+| Key binding | Description                                                         |
+|-------------+---------------------------------------------------------------------|
+| ~SPC t k k~ | toggle which-key persistent state                                   |
+| ~SPC t k m~ | show persistent major-mode keymap. Toggle off with ~SPC t k k~      |
+| ~SPC t k M~ | show persistent full-major-mode keymap. Toggle off with ~SPC t k k~ |
+| ~SPC t k t~ | show persistent top-level keymap. Toggle off with ~SPC t k k~       |
+
+The keybindings just set the =which-key-persistent-popup= to ~t~, hence the
+which-key buffer will keep updating. Therefore the latter 3 keybindings (~SPC t
+k m/M/t~) can be used to return focus to their respective keymaps, while only
+the first keybinding ~SPC t k k~ can be used for toggling off the persistent
+state.
+
 **** Describe key bindings
 It is possible to search for specific key bindings by pressing ~SPC ?~.
 
@@ -2042,8 +2063,8 @@ Navigation key bindings in =help-mode=:
 
 | Key binding  | Description                                         |
 |--------------+-----------------------------------------------------|
-| ~J~          | Scroll up (or next node)                            |
-| ~K~          | Scroll down (or next node)                          |
+| ~J~          | scroll up (or next node)                            |
+| ~K~          | scroll down (or next node)                          |
 | ~g b~ or ~[~ | go back (same as clicking on =[back]= button)       |
 | ~g f~ or ~]~ | go forward (same as clicking on =[forward]= button) |
 | ~g h~        | go to help for symbol under point                   |

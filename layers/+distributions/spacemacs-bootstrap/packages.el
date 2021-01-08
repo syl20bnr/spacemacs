@@ -21,7 +21,7 @@
         (hydra :step bootstrap)
         (use-package :step bootstrap)
         (which-key :step bootstrap)
-        ;; pre packages, initialized aftert the bootstrap packages
+        ;; pre packages, initialized after the bootstrap packages
         ;; these packages can use use-package
         (dotenv-mode :step pre)
         (evil-evilified-state :location local :step pre :protected t)
@@ -341,6 +341,54 @@
     :documentation
     "Display a buffer with available key bindings."
     :evil-leader "tK")
+
+  (spacemacs/declare-prefix "tk" "which-key-persistent")
+  (setq which-key-toggle-of-message
+        "To exit which-key-persistent-mode use `which-key-toggle-persistent'.")
+  
+  (spacemacs|add-toggle which-key-toggle-persistent
+    :status which-key-persistent-popup
+    :on (setq which-key-persistent-popup t)
+    :off (setq which-key-persistent-popup nil)
+    :documentation
+    "Toggle on/off which-key-persistent-popup."
+    :evil-leader "tkk")
+
+  (spacemacs|add-toggle which-key-major-mode-map
+    :status which-key-persistent-popup
+    :on (progn
+          (setq which-key-persistent-popup t)
+          (which-key-show-major-mode))
+    :off (which-key-show-major-mode)
+    :documentation
+    "Show persistent major mode keymap.
+Press \\[which-key-toggle-persistent] to hide."
+    :off-message which-key-toggle-of-message
+    :evil-leader "tkm")
+
+  (spacemacs|add-toggle which-key-full-major-mode-map
+    :status which-key-persistent-popup
+    :on (progn
+          (setq which-key-persistent-popup t)
+          (which-key-show-full-major-mode))
+    :off (which-key-show-full-major-mode)
+    :documentation
+    "Show persistent full major mode keymap.
+Press \\[which-key-toggle-persistent] to hide."
+    :off-message which-key-toggle-of-message
+    :evil-leader "tkM")
+
+  (spacemacs|add-toggle which-key-top-level
+    :status which-key-persistent-popup
+    :on (progn
+          (setq which-key-persistent-popup t)
+          (which-key-show-top-level))
+    :off (which-key-show-top-level)
+    :documentation
+    "Show persistent top level keymap.
+Press \\[which-key-toggle-persistent] to hide."
+    :off-message which-key-toggle-of-message
+    :evil-leader "tkt")
 
   (spacemacs/set-leader-keys "hk" 'which-key-show-top-level)
 
