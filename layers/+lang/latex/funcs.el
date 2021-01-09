@@ -30,7 +30,7 @@
              (spacemacs|add-company-backends
                :backends
                company-auctex-environments
-               company-auctex-macros
+               (company-auctex-macros)
                company-math-symbols-unicode
                company-math-symbols-latex
                :modes LaTeX-mode)
