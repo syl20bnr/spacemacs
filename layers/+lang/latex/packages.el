@@ -15,7 +15,7 @@
     (auctex-latexmk :toggle (string= "LatexMk" latex-build-command))
     company
     math-symbol-lists
-    (company-math :requires company)
+    (company-math :requires company math-symbol-lists)
     (company-auctex :requires company)
     (company-reftex :requires company)
     counsel-gtags
