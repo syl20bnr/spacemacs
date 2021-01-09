@@ -3231,6 +3231,8 @@ files (thanks to Daniel Nicolai)
 - Added =dap= support for =enh-ruby-mode= (thanks to Seong Yong-ju)
 - Added missing prefix =seeing-is-believing= for ~SPC m @~
   (thanks to Seong Yong-ju)
+- Added support for prettier formatting (thanks to sidraval)
+  - Added ~SPC m = =~ to format buffer via prettier (thanks to sidraval)
 **** Ruby on Rails
 - Changed leader keys to be configured for the =projectile-rails-mode= minor
   mode instead of =ruby-mode= and =enh-ruby-mode= so that the key bindings will

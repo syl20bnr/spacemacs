@@ -12,3 +12,6 @@
 (when (and (boundp 'ruby-backend)
            (eq ruby-backend 'lsp))
   (configuration-layer/declare-layer-dependencies '(dap)))
+
+(when (boundp 'ruby-prettier-on-save)
+  (configuration-layer/declare-layer-dependencies '(prettier)))
