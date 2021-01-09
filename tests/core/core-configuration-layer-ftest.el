@@ -23,7 +23,7 @@
     (configuration-layer/discover-layers 'refresh-index)
     (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
     (should (eq 'spacemacs-bootstrap
-                (first configuration-layer--used-layers)))))
+                (car configuration-layer--used-layers)))))
 
 (ert-deftest test-declare-layers--defaults-layer-is-second-for-base-distribution ()
   (let ((dotspacemacs-distribution 'spacemacs-base)
@@ -33,7 +33,7 @@
          (configuration-layer--indexed-layers (make-hash-table :size 1024)))
     (configuration-layer/discover-layers 'refresh-index)
     (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
-    (should (eq 'spacemacs-defaults (second configuration-layer--used-layers)))))
+    (should (eq 'spacemacs-defaults (cadr configuration-layer--used-layers)))))
 
 (ert-deftest test-declare-layers--base-layer-is-third-for-base-distribution ()
   (let ((dotspacemacs-distribution 'spacemacs-base)
@@ -43,7 +43,7 @@
         (configuration-layer--indexed-layers (make-hash-table :size 1024)))
     (configuration-layer/discover-layers 'refresh-index)
     (configuration-layer//declare-used-layers dotspacemacs-configuration-layers)
-    (should (eq 'spacemacs-base (third configuration-layer--used-layers)))))
+    (should (eq 'spacemacs-base (caddr configuration-layer--used-layers)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//stable-elpa-verify-archive
