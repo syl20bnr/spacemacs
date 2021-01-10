@@ -5,7 +5,6 @@
 ;; Author: Steven Degutis
 ;; Maintainer: Christopher Reichert <creichert07@gmail.com>
 ;; Version: 1.0.0
-;; Package-Version: 20180618.2101
 ;; Keywords: convenience
 ;; URL: https://github.com/creichert/ido-vertical-mode.el
 
@@ -29,6 +28,7 @@
 ;;; Code:
 
 (require 'ido)
+(require 'cl-lib)
 
 ;;; The following three variables and their comments are lifted
 ;;; directly from `ido.el'; they are defined here to avoid compile-log
