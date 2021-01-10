@@ -29,10 +29,11 @@
          (if (configuration-layer/package-used-p 'company-math)
              (spacemacs|add-company-backends
                :backends
-               company-auctex-environments
-               (company-auctex-macros)
                company-math-symbols-unicode
                company-math-symbols-latex
+               (company-auctex-macros)
+               company-auctex-symbols
+               company-auctex-environments
                :modes LaTeX-mode)
            (spacemacs|add-company-backends
              :backends
