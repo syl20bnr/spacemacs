@@ -2213,6 +2213,7 @@ Features:
 - Test runner (ruby-test and rspec)
 - Rake runner
 - Linter (rubocop)
+- Formatter (prettier)
 - Interactive REPL and code navigation (robe)
 - Interactive debugger using [[https://github.com/emacs-lsp/dap-mode][dap-mode]]
 

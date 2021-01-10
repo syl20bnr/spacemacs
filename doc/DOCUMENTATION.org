@@ -1985,9 +1985,9 @@ pressed. You can change the delay by setting the variable
 
 **** Which-key persistent
 Sometimes it can be handy to show some keymap persistently with which-key,
-especially in buffers with merely evilified keybindings or using Emacs state,
+especially in buffers with merely evilified key bindings or using Emacs state,
 e.g. Info buffers, gnus, eww etc. The persistent =which-key= state can be
-toggled with ~SPC t k k~. For some specific keymaps, dedicated keybindings are
+toggled with ~SPC t k k~. For some specific keymaps, dedicated key bindings are
 also available behind the ~SPC t k~ prefix:
 
 | Key binding | Description                                                         |
@@ -1997,10 +1997,10 @@ also available behind the ~SPC t k~ prefix:
 | ~SPC t k M~ | show persistent full-major-mode keymap. Toggle off with ~SPC t k k~ |
 | ~SPC t k t~ | show persistent top-level keymap. Toggle off with ~SPC t k k~       |
 
-The keybindings just set the =which-key-persistent-popup= to ~t~, hence the
-which-key buffer will keep updating. Therefore the latter 3 keybindings (~SPC t
+The key bindings just set the =which-key-persistent-popup= to ~t~, hence the
+which-key buffer will keep updating. Therefore the latter 3 key bindings (~SPC t
 k m/M/t~) can be used to return focus to their respective keymaps, while only
-the first keybinding ~SPC t k k~ can be used for toggling off the persistent
+the first key binding ~SPC t k k~ can be used for toggling off the persistent
 state.
 
 **** Describe key bindings
